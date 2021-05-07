@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Oyun geçmişimi veya puanımı sıfırlamak istiyorum</string>
   <string name="cantClearHistory">Oyun geçmişinizi, bulmaca geçmişinizi veya puanlarınızı sıfırlamamız maalesef mümkün değil.</string>
   <string name="wantReport">Bir oyuncuyu şikâyet etmek istiyorum</string>
-  <string name="cheating">Hile</string>
-  <string name="sandbagging">kasıtlı olarak puan düşürme</string>
-  <string name="trolling">can sıkıcı davranışlar</string>
-  <string name="insults">Hakaret</string>
-  <string name="otherReason">başka bir sebep</string>
-  <string name="toReportAPlayer">%s sebebiyle şikâyette bulunmak için şikâyet formunu kullanın</string>
+  <string name="toReportAPlayerUseForm">Bir oyuncuyu şikayet etmek için şikayet formunu kullanınız</string>
   <string name="youCanAlsoReachReportPage">Ayrıca, oyuncunun profilindeki %s butonuna tıklayarak şikâyet formuna ulaşabilirsiniz.</string>
   <string name="doNotReportInForum">Forumdaki oyuncular için şikâyette bulunmayın.</string>
   <string name="doNotSendReportEmails">Bize şikâyet e-postaları göndermeyin.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Puanlı bir oyun oynadığınızdan emin olun. Puansız oyunlar oyun puanınızı etkilemez.</string>
   <string name="errorPage">Hata sayfası</string>
   <string name="reportErrorPage">Bir hata mesajı alırsanız lütfen bize bildirin:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Yasaklamaya itiraz et</string>
+  <string name="banAppeal">Yasaklamaya itiraz et</string>
   <string name="engineAppeal">Satranç motoru ya da hile tespit edildi</string>
   <string name="sendAppealTo">Başvurunuzu bu adrese gönderebilirsiniz: %s .</string>
   <string name="falsePositives">Bazen yanlış şeyler olabilir, bunun için üzgünüz.</string>

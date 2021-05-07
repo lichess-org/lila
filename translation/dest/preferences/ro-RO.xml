@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notația mutării</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
   <string name="pgnLetter">Literă (R, D, T, N, C)</string>
-  <string name="zenMode">Modul Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modul Zen</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Când timpul rămas e mai scurt de 10 de secunde</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când timpul rămas e mai scurt de 10 de secunde</string>
   <string name="horizontalGreenProgressBars">Bare orizontale verzi cu progresul</string>
   <string name="soundWhenTimeGetsCritical">Sunet când timpul e aproape de expirare</string>
   <string name="giveMoreTime">Adaugă timp adversarului</string>
-  <string name="gameBehavior">Comportamentul din joc</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamentul din joc</string>
   <string name="howDoYouMovePieces">Cum mutați piesele?</string>
   <string name="clickTwoSquares">Apasă pe două pătrățele</string>
   <string name="dragPiece">Trage o piesă</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
   <string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
   <string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
-  <string name="snapArrowsToValidMoves">Trage săgețile la mutările valide</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Trage săgețile la mutările valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Spune \"Joc bun, bine jucat\" la înfrângere sau la remiză</string>
   <string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>

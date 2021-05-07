@@ -2,14 +2,16 @@
 <resources>
   <string name="twoFactorAuth">双重认证</string>
   <string name="twoFactorHelp">双重认证能增加您的账号的安全性。</string>
-  <string name="twoFactorApp">下载一个双重认证 app，例如谷歌身份验证器 (%1$s 或 %2$s)。</string>
+  <string name="twoFactorApp">下载一个双重认证 app，例如 %1$s 端的 andOPT 或者 %2$s 端的 Google Authenticator。</string>
   <string name="scanTheCode">用 app 扫描 QR 码。</string>
   <string name="enterPassword">请输入您的账号密码和由 app 生成的验证码而完成设置。您将在每次登录时都需要新的验证码。</string>
+  <string name="ifYouCannotScanEnterX">如果您不能扫描二维码，请把密码 %s 输入到您的 APP 中。</string>
   <string name="authenticationCode">授权码</string>
-  <string name="ifYouLoseAccess">注意：如果您无法再参考您的双重验证码，您可以通过电邮请求重置密码。</string>
+  <string name="ifYouLoseAccess">注意：如果您无法访问您的双重验证码，您可以通过电邮请求重置密码。</string>
   <string name="enableTwoFactor">启用双重认证</string>
   <string name="disableTwoFactor">禁用双重认证</string>
   <string name="twoFactorEnabled">双重验证已开启</string>
   <string name="twoFactorDisable">如果想要禁用双重认证，您需要您的账号密码和 app 生成的验证码。
-如果您无法再参考您的验证码，您可以通过电邮请求重置密码。</string>
+如果您无法访问您的验证码，您可以通过电邮请求重置密码。</string>
+  <string name="openTwoFactorApp">打开您设备上的双重认证应用以查看您的双重认证码并识别您的身份</string>
 </resources>

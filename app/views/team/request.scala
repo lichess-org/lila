@@ -1,13 +1,12 @@
 package views.html.team
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object request {
 
@@ -27,8 +26,14 @@ object request {
           h1(title),
           p(style := "margin:2em 0")(richText(t.description)),
           postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
-            form3.group(form("message"), trans.message())(form3.textarea(_)()),
-            p(willBeReviewed()),
+            !t.open ?? frag(
+              form3.group(form("message"), trans.message())(form3.textarea(_)()),
+              p(willBeReviewed())
+            ),
+            t.password.nonEmpty ?? form3.passwordModified(form("password"), teamPassword())(
+              autocomplete := "new-password"
+            ),
+            form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(joinTeam())
@@ -68,7 +73,7 @@ object request {
                 input(
                   tpe := "hidden",
                   name := "url",
-                  value := t.fold(routes.Team.requests())(te => routes.Team.show(te.id))
+                  value := t.fold(routes.Team.requests)(te => routes.Team.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
                   trans.decline()

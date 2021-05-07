@@ -1,31 +1,35 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h, VNode } from 'snabbdom';
 
 import * as xhr from 'common/xhr';
-import { Redraw, Open, bind, header } from './util'
+import { Redraw, Open, bind, header } from './util';
 
 type Piece = string;
 
 interface PieceDimData {
-  current: Piece
-  list: Piece[]
+  current: Piece;
+  list: Piece[];
 }
 
 export interface PieceData {
-  d2: PieceDimData
-  d3: PieceDimData
+  d2: PieceDimData;
+  d3: PieceDimData;
 }
 
 export interface PieceCtrl {
-  dimension: () => keyof PieceData
-  data: () => PieceDimData
-  trans: Trans
-  set(t: Piece): void
-  open: Open
+  dimension: () => keyof PieceData;
+  data: () => PieceDimData;
+  trans: Trans;
+  set(t: Piece): void;
+  open: Open;
 }
 
-export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof PieceData, redraw: Redraw, open: Open): PieceCtrl {
-
+export function ctrl(
+  data: PieceData,
+  trans: Trans,
+  dimension: () => keyof PieceData,
+  redraw: Redraw,
+  open: Open
+): PieceCtrl {
   function dimensionData() {
     return data[dimension()];
   }
@@ -38,24 +42,24 @@ export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof Piece
       const d = dimensionData();
       d.current = t;
       applyPiece(t, d.list, dimension() === 'd3');
-      xhr.text('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
-        body: xhr.form({ set: t }),
-        method: 'post'
-      })
+      xhr
+        .text('/pref/pieceSet' + (dimension() === 'd3' ? '3d' : ''), {
+          body: xhr.form({ set: t }),
+          method: 'post',
+        })
         .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
       redraw();
     },
-    open
+    open,
   };
 }
 
 export function view(ctrl: PieceCtrl): VNode {
-
   const d = ctrl.data();
 
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.open('links')),
-    h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')))
+    h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
   ]);
 }
 
@@ -68,15 +72,20 @@ function pieceImage(t: Piece, is3d: boolean) {
 }
 
 function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
-  return (t: Piece) => h('a.no-square', {
-    attrs: { title: t },
-    hook: bind('click', () => set(t)),
-    class: { active: current === t }
-  }, [
-    h('piece', {
-      attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` }
-    })
-  ]);
+  return (t: Piece) =>
+    h(
+      'a.no-square',
+      {
+        attrs: { title: t },
+        hook: bind('click', () => set(t)),
+        class: { active: current === t },
+      },
+      [
+        h('piece', {
+          attrs: { style: `background-image:url(${lichess.assetUrl(pieceImage(t, is3d))})` },
+        }),
+      ]
+    );
 }
 
 function applyPiece(t: Piece, list: Piece[], is3d: boolean) {

@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Ιδιωτικό</string>
-  <string name="myStudies">Οι σπουδές μου</string>
-  <string name="studiesIContributeTo">Σπουδές που συνεισφέρω</string>
-  <string name="myPublicStudies">Οι δημόσιες σπουδές μου</string>
-  <string name="myPrivateStudies">Οι ιδιωτικές σπουδές μου</string>
-  <string name="myFavoriteStudies">Οι αγαπημένες σπουδές μου</string>
-  <string name="whatAreStudies">Τι είναι οι σπουδές;</string>
-  <string name="allStudies">Όλες οι σπουδές</string>
-  <string name="studiesCreatedByX">Σπουδές που δημιουργήθηκαν απο %s</string>
+  <string name="myStudies">Οι μελέτες μου</string>
+  <string name="studiesIContributeTo">Μελέτες που συνεισφέρω</string>
+  <string name="myPublicStudies">Οι δημόσιες μελέτες μου</string>
+  <string name="myPrivateStudies">Οι ιδιωτικές μελέτες μου</string>
+  <string name="myFavoriteStudies">Οι αγαπημένες μελέτες μου</string>
+  <string name="whatAreStudies">Τι είναι οι μελέτες;</string>
+  <string name="allStudies">Όλες οι μελέτες</string>
+  <string name="studiesCreatedByX">Μελέτες που δημιουργήθηκαν από τον/την %s</string>
   <string name="noneYet">Τίποτα ακόμη εδώ.</string>
-  <string name="hot">Δημοφιλείς</string>
-  <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεώτερες)</string>
+  <string name="hot">Δημοφιλείς (hot)</string>
+  <string name="dateAddedNewest">Ημερομηνία προσθήκης (νεότερες)</string>
   <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
+  <string name="alphabetical">Αλφαβητικά</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Κεφάλαιο</item>
     <item quantity="other">%s Κεφάλαια</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s [Παρτίδα] [Παρτίδες]</item>
+    <item quantity="one">%s Παρτίδα</item>
     <item quantity="other">%s Παρτίδες</item>
   </plurals>
   <string name="addMembers">Προσθήκη μελών</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s [Μέλος] [Μέλη]</item>
+    <item quantity="one">%s Μέλος</item>
     <item quantity="other">%s Μέλη</item>
   </plurals>
-  <string name="inviteToTheStudy">Προσκάλεσε στην σπουδή</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την σπουδή.</string>
+  <string name="inviteToTheStudy">Προσκάλεσε στην μελέτη</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την μελέτη.</string>
   <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
   <string name="spectator">Θεατής</string>
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Διώξε</string>
-  <string name="leaveTheStudy">Αποχώρησε απο αυτήν την σπουδή</string>
-  <string name="youAreNowAContributor">Είστε πλέον συνδημιουργός</string>
+  <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
+  <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στην μελέτη</string>
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
   <string name="pgnTags">PGN ετικέτες</string>
   <string name="like">Μου αρέσει</string>
@@ -57,15 +58,21 @@
   <string name="last">Τελευταία</string>
   <string name="shareAndExport">Διαμοιρασμός &amp; εξαγωγή</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
-  <string name="studyPgn">PGN της σπουδής</string>
+  <string name="studyPgn">PGN της μελέτης</string>
+  <string name="downloadAllGames">Λήψη όλων των παιχνιδιών</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="downloadGame">Λήψη παιχνιδιού</string>
   <string name="studyUrl">URL μελέτης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
   <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
+  <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
+  <string name="readMoreAboutEmbedding">Διαβάστε περισσότερα για την ενσωμάτωση</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Μόνο δημόσιες μελέτες μπορούν να ενσωματωθούν!</string>
   <string name="open">Άνοιξε</string>
   <string name="xBroughtToYouByY">%1$s, δημιουργήθηκε από %2$s</string>
-  <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
+  <string name="studyNotFound">Η μελέτη δεν βρέθηκε</string>
   <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
   <string name="newChapter">Νέο κεφάλαιο</string>
   <string name="orientation">Προσανατολισμός</string>
@@ -91,11 +98,11 @@
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Επικόλληστε το PGN εδώ, μέχρι %s παρτίδες</item>
+    <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδα</item>
     <item quantity="other">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδες</item>
   </plurals>
-  <string name="urlOfTheGame">URL παρτίδας</string>
-  <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s ή %2$s</string>
+  <string name="urlOfTheGame">URL παρτίδων, ένα ανά γραμμή</string>
+  <string name="loadAGameFromXOrY">Φόρτωση παρτίδων από %1$s ή %2$s</string>
   <string name="createChapter">Δημιουργία κεφαλαίου</string>
   <string name="configureLiveBroadcast">Ρύθμιση αναμετάδοσης</string>
   <string name="createStudy">Δημιουργία μελέτης</string>
@@ -107,10 +114,10 @@
   <string name="allowCloning">Επέτρεψε αντιγραφή</string>
   <string name="nobody">Κανένας</string>
   <string name="onlyMe">Μόνο εγώ</string>
-  <string name="contributors">Συνδημιουργοί</string>
+  <string name="contributors">Συνεισφέροντες</string>
   <string name="members">Μέλη</string>
   <string name="everyone">Οποιοσδήποτε</string>
-  <string name="enableSync">Ενεργ. συγχρονισμού</string>
+  <string name="enableSync">Ενεργοποίηση συγχρονισμού</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ναι: όλοι βλέπουν την ίδια θέση</string>
   <string name="noLetPeopleBrowseFreely">Όχι: ελεύθερη επιλογή θέσης</string>
   <string name="pinnedStudyComment">Καρφιτσωμένο σχόλιο μελέτης</string>
@@ -120,5 +127,5 @@
   <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>
   <string name="deleteTheEntireStudy">Διαγραφή ολόκληρης μελέτης; Μη αναιρέσιμη ενέργεια!</string>
-  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσω την μελέτη;</string>
+  <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
 </resources>

@@ -80,6 +80,9 @@ final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurre
       .cursor[Simul]()
       .list()
 
+  def hostId(id: Simul.ID): Fu[Option[User.ID]] =
+    coll.primitiveOne[User.ID]($id(id), "hostId")
+
   private val featurableSelect = $doc("featurable" -> true)
 
   def allCreatedFeaturable: Fu[List[Simul]] =
@@ -118,18 +121,16 @@ final private[simul] class SimulRepo(val coll: Coll)(implicit ec: scala.concurre
   def allNotFinished =
     coll.list[Simul]($doc("status" $ne SimulStatus.Finished.id))
 
-  def create(simul: Simul, featurable: Boolean): Funit =
+  def create(simul: Simul): Funit =
     coll.insert one {
-      SimulBSONHandler.writeTry(simul).get ++ featurable.??(featurableSelect)
+      SimulBSONHandler.writeTry(simul).get
     } void
 
-  def update(simul: Simul, featurable: Option[Boolean]) =
+  def update(simul: Simul) =
     coll.update
       .one(
         $id(simul.id),
-        $set(SimulBSONHandler writeTry simul get) ++ featurable.?? { feat =>
-          if (feat) $set(featurableSelect) else $unset("featurable")
-        }
+        $set(SimulBSONHandler writeTry simul get)
       )
       .void
 

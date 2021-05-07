@@ -3,8 +3,8 @@
   <string name="activity">Toiminta</string>
   <string name="hostedALiveStream">Piti livestreamin</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">On tukenut lichess.orgia %1$s:n kuukauden ajan %2$s:ina</item>
-    <item quantity="other">On tukenut lichess.orgia %1$s:n kuukauden ajan %2$s:ina</item>
+    <item quantity="one">On tukenut lichess.orgia %1$s kuukauden ajan %2$sina</item>
+    <item quantity="other">On tukenut lichess.orgia %1$s kuukauden ajan %2$sina</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Harjoitteli %1$s %2$s -tilannetta</item>
@@ -27,8 +27,8 @@
     <item quantity="other">Pelasi %1$s siirtoa</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">%1$s: ssa kirjeshakkipelissä</item>
-    <item quantity="other">%1$s: ssa kirjeshakkipeleissä</item>
+    <item quantity="one">%1$s kirjeshakkipelissä</item>
+    <item quantity="other">%1$s kirjeshakkipelissä</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Pelasi %s kirjeshakkipelin</item>
@@ -43,12 +43,12 @@
     <item quantity="other">Sai %s uutta seuraajaa</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Isännöi %s yhtäaikaista näytösottelua</item>
-    <item quantity="other">Isännöi %s yhtäaikaista näytösottelua</item>
+    <item quantity="one">Piti %s simultaanin</item>
+    <item quantity="other">Piti %s simultaania</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Osallistui %s yhtäaikaiseen näytösotteluun</item>
-    <item quantity="other">Osallistui %s yhtäaikaiseen näytösotteluun</item>
+    <item quantity="one">Osallistui %s simultaaniin</item>
+    <item quantity="other">Osallistui %s simultaaniin</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Teki %s uuden tutkielman</item>
@@ -62,6 +62,11 @@
     <item quantity="one">Sijoittui %1$s. sijalle (parhaaseen %2$s%%) pelattuaan %3$s pelin turnauksessa %4$s</item>
     <item quantity="other">Sijoittui %1$s. sijalle (parhaaseen %2$s%%) pelattuaan %3$s peliä turnauksessa %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Osallistui %s sveitsiläiseen turnaukseen</item>
+    <item quantity="other">Osallistui %s sveitsiläiseen turnaukseen</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Tuli %1$s. sijalle turnauksessa %2$s</string>
   <string name="signedUp">Liittyi lichess.orgiin</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Liittyi %s joukkueeseen</item>

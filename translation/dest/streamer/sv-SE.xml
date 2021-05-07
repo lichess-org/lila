@@ -26,8 +26,8 @@
   <string name="approved">Din videokanal har godkänts.</string>
   <string name="pendingReview">Din videokanal granskas av moderatorer.</string>
   <string name="pleaseFillIn">Vänligen fyll i din kanalinformation och ladda upp en bild.</string>
-  <string name="whenReady">När du är redo att lista din Lichess-kanal, %s</string>
-  <string name="requestReview">begär en moderatorgranskning</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">När du är redo att lista din Lichess-kanal, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">begär en moderatorgranskning</string>
   <string name="anotherLanguage">Om din sändning är på ett annat språk än engelska, inkludera rätt språktagg (%s), innesluten i hakparenteser, i början av din kanaltitel.
 Till exempel: inkludera \"[RU]\" för ryska, \"[TR]\" för turkiska, \"[FR]\" för franska, etc.
 Sätt det i kanaltiteln på Twitch eller YouTube-sidan, inte i Lichess inställningar.

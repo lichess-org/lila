@@ -47,6 +47,10 @@
   <plurals name="rankedInTournament">
     <item quantity="other">%1$s 位（上位 %2$s %%）（%4$s %3$s 局で）</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="other">%s 回のスイス式トーナメントに参加</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">%1$s 位（%2$s）</string>
   <string name="signedUp">Lichess に登録</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s チームに参加</item>

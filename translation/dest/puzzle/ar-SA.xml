@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">الألغاز</string>
+  <string name="puzzleThemes">خصائص الألغاز</string>
+  <string name="recommended">موصى به</string>
+  <string name="motifs">الأفكار الرئيسية</string>
+  <string name="advanced">خيارات أعمق</string>
+  <string name="mates">الحلفاء</string>
+  <string name="goals">الغايات</string>
+  <string name="specialMoves">نقلات مميزة</string>
+  <string name="voteToLoadNextOne">صوت لتبدأ الغز التالي!</string>
+</resources>

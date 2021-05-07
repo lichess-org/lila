@@ -1,0 +1,165 @@
+$track-height: 25px;
+$car-width: 4rem;
+$car-ratio: 0.328;
+$c-bg-position-y: 2px;
+
+.racer__race {
+  @extend %box-neat;
+  overflow: hidden;
+
+  position: relative;
+  background: $c-bg-box;
+  font-size: 0.9em;
+
+  &::before,
+  &__tracks {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &::before {
+    content: '';
+    z-index: 0;
+    width: 130%;
+    height: 100%;
+    background-image: url(../images/racer/road1.jpg);
+    background-repeat: repeat;
+    background-position-y: 7px;
+    .racer--racing & {
+      animation: road-scroll 1s linear infinite;
+    }
+  }
+
+  @keyframes road-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-101px);
+    }
+  }
+
+  &__tracks {
+    padding: 7px 0 7px 10px;
+    width: 100%;
+  }
+
+  &__track {
+    position: relative;
+    height: $track-height;
+    z-index: 1;
+    margin-right: 140px;
+  }
+
+  &__score {
+    @extend %flex-center;
+    font-family: 'storm';
+    font-size: 20px;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: -140px;
+    color: #bbb;
+    width: 3.8ch;
+    padding-right: 0.8ch;
+    padding-top: 0.2em;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    transition: color ease-out 0.5s;
+    .racer__race__track--boost & {
+      transition: none;
+      color: #fff;
+    }
+    .racer__race__track--first & {
+      color: $c-brag;
+    }
+    .racer__race__track--boost.racer__race__track--first & {
+      color: mix(saturate($c-brag, 50%), #fff, 70%);
+    }
+  }
+
+  &__player {
+    @extend %flex-center-nowrap;
+
+    height: 100%;
+    transition: transform 4s;
+
+    &__name {
+      margin-left: 1ch;
+      white-space: nowrap;
+    }
+
+    &__car {
+      position: relative;
+      flex: 0 0 $car-width;
+      font-family: 'racer-car';
+      height: #{$car-width * $car-ratio};
+      font-size: $car-width;
+      line-height: 0;
+      text-shadow: -1px 1px 2px #000;
+      transform: translateX(0px);
+      transition: all 0.9s ease-out;
+
+      .racer__race__track--boost & {
+        transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        transition: all 0.15s ease-out;
+        &::before {
+          content: 'A';
+          position: absolute;
+          left: -0.9em;
+          bottom: 0.3em;
+          font-size: 0.4em;
+          animation: boost 0.1s ease-in infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          &::before {
+            animation: none;
+            transform: translateX(0%);
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    .user-link,
+    anonymous {
+      color: #ddd;
+      .racer__race__track--me & {
+        color: #efab3e;
+      }
+    }
+    .utitle {
+      margin-right: 0.6ch;
+    }
+  }
+}
+
+@keyframes boost {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-3px);
+    opacity: 0.6;
+  }
+}
+
+$car-colors: (
+  0: hsl(274, 100%, 59%),
+  1: hsl(240, 100%, 67%),
+  2: #008000,
+  3: #b22222,
+  4: hsl(16, 80%, 62%),
+  5: #9acd32,
+  6: #ff4500,
+  7: #2e8b57,
+  8: #daa520,
+  9: hsl(32, 75%, 47%),
+);
+@each $index, $color in $car-colors {
+  .car-#{$index} {
+    color: #{$color};
+  }
+}

@@ -5,6 +5,16 @@ import lila.common.Maths
 
 object Statistics {
 
+  case class IntAvgSd(avg: Int, sd: Int) {
+    override def toString = s"$avg ± $sd"
+    def /(div: Int)       = IntAvgSd(avg / div, sd / div)
+  }
+
+  def intAvgSd(values: List[Int]) = IntAvgSd(
+    avg = listAverage(values).toInt,
+    sd = listDeviation(values).toInt
+  )
+
   // Coefficient of Variance
   def coefVariation(a: List[Int]): Option[Float] = {
     val s = Stats(a)

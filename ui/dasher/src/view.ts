@@ -1,15 +1,14 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h, VNode } from 'snabbdom';
 
-import { DasherCtrl } from './dasher'
-import links from './links'
-import { view as langsView } from './langs'
-import { view as soundView } from './sound'
-import { view as backgroundView } from './background'
-import { view as boardView } from './board'
-import { view as themeView } from './theme'
-import { view as pieceView } from './piece'
-import { spinner } from './util'
+import { DasherCtrl } from './dasher';
+import links from './links';
+import { view as langsView } from './langs';
+import { view as soundView } from './sound';
+import { view as backgroundView } from './background';
+import { view as boardView } from './board';
+import { view as themeView } from './theme';
+import { view as pieceView } from './piece';
+import { spinner } from './util';
 
 export function loading(): VNode {
   return h('div#dasher_app.dropdown', h('div.initiating', spinner()));
@@ -17,7 +16,7 @@ export function loading(): VNode {
 
 export function loaded(ctrl: DasherCtrl): VNode {
   let content: VNode | undefined;
-  switch(ctrl.mode()) {
+  switch (ctrl.mode()) {
     case 'langs':
       content = langsView(ctrl.subs.langs);
       break;

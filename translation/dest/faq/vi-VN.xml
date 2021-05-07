@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Có trang web nào tương tự, dựa trên cấu trúc của Lichess không?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Đúng vậy, Lichess thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
   <string name="fairPlay">Chơi Đẹp</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Tại sao tôi lại bị đánh dấu vì tạo một xếp hạng giả (xâm nhập lỗ hổng và thay đổi trái phép) hoặc sử dụng sự hỗ trợ của máy tính?</string>
-  <string name="cheatDetectionMethods">Lichess có các phương pháp phát hiện mạnh mẽ và một quy trình rất kỹ lưỡng để xem xét tất cả các bằng chứng và đưa ra quyết định. Quá trình này thường liên quan đến nhiều người kiểm duyệt và có thể mất nhiều thời gian. Ngoài việc đánh dấu, chúng tôi sẽ không đi sâu vào chi tiết về bằng chứng hay quy trình ra quyết định đối với các trường hợp riêng lẻ. Vì làm vậy sẽ giúp bạn dễ dàng tránh bị phát hiện hơn trong tương lai và trở thành lời mời cho các cuộc tranh luận không hiệu quả. Thời gian và công sức đó tốt hơn nên dành cho những trường hợp quan trọng khác. Người dùng có thể kháng nghị bằng cách gửi email cho %1$s, nhưng các quyết định thường hiếm khi bị thay đổi.</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường xếp hạng tự động từ những kẻ gian lận?</string>
   <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu được xếp hạng mới nhất của họ trong vòng 3 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (vì thua hoặc hòa) và xếp hạng của bạn không phải là tạm thời, bạn sẽ được hoàn lại xếp hạng. Điểm hoàn lại được giới hạn dựa trên xếp hạng cao nhất của bạn và tiến độ xếp hạng của bạn sau ván đấu.
    (Ví dụ: nếu xếp hạng của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
@@ -52,7 +50,7 @@ Phân tích máy tính trên Lichess do Stockfish cung cấp.</string>
 Trong một số trường hợp hiếm hoi, điều này có thể khó được quyết định một cách tự động (đường bắt buộc, pháo đài). Mặc định chúng tôi luôn sát cánh với người chơi không hết thời gian.
 
 Lưu ý rằng có thể chiếu hết với một quân mã hoặc một quân tượng nếu đối phương có quân cờ có thể chặn được vua.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Sổ tay FIDE %s</string>
+  <string name="fideHandbookX">Sổ tay FIDE %s</string>
   <string name="discoveringEnPassant">Tại sao một con tốt có thể bị bắt bởi một con tốt khác khi mà nó đã đi qua? (bắt tốt qua đường)</string>
   <string name="explainingEnPassant">Đây là một nước đi hợp lệ được gọi là \"bắt tốt qua đường\". Bài viết trên Wikipedia cho một %1$s.
 
@@ -93,6 +91,8 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="whatUsernameCanIchoose">Tôi có thể đặt tên người dùng là gì?</string>
   <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
   <string name="guidelines">hướng dẫn</string>
+  <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
+  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ, và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván và giành chiến thắng 100%% tất cả các ván trong một %s.</string>

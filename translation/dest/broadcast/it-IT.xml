@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Trasmissioni</string>
-  <string name="liveBroadcasts">Trasmissione in diretta del torneo</string>
+  <string name="broadcasts">Eventi</string>
+  <string name="liveBroadcasts">Tornei in diretta</string>
   <string name="newBroadcast">Nuova diretta</string>
+  <string name="addRound">Aggiungi un turno</string>
   <string name="ongoing">In corso</string>
   <string name="upcoming">Prossimamente</string>
-  <string name="completed">Completato</string>
-  <string name="eventName">Nome dell\'evento</string>
-  <string name="eventDescription">Breve descrizione dell\'evento</string>
-  <string name="fullDescription">Descrizione completa dell\'evento</string>
-  <string name="fullDescriptionHelp">La descrizione lunga della trasmissione è facoltativa. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
-  <string name="sourceUrl">URL di origine</string>
-  <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="completed">Passate</string>
+  <string name="roundName">Nome turno</string>
   <string name="roundNumber">Turno numero</string>
+  <string name="tournamentName">Nome del torneo</string>
+  <string name="tournamentDescription">Breve descrizione dell\'evento</string>
+  <string name="fullDescription">Descrizione completa dell\'evento</string>
+  <string name="fullDescriptionHelp">(Facoltativo) Descrizione completa dell\'evento. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
+  <string name="sourceUrlOrGameIds">URL di origine o ID della partita</string>
+  <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
+  <string name="gameIdsHelp">In alternativa è possibile inserire sino a 64 ID di partite su Lichess separandoli con degli spazi.</string>
   <string name="startDate">Data di inizio nel tuo fuso orario</string>
   <string name="startDateHelp">Facoltativo, se sai quando l\'evento inizia</string>
   <string name="credits">Cita la fonte</string>
-  <string name="cloneBroadcast">Clona la trasmissione</string>
-  <string name="resetBroadcast">Resetta la trasmissione</string>
+  <string name="resetRound">Reimposta questo turno</string>
+  <string name="deleteRound">Cancella questo turno</string>
 </resources>

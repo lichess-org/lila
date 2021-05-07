@@ -11,9 +11,6 @@
   <string name="noTeamFound">آپ کسی ٹیم کے میں شامل نہیں</string>
   <string name="joinTeam">ٹیم میں شامل ہوں</string>
   <string name="quitTeam">ٹیم چھوڑ دیں</string>
-  <string name="anyoneCanJoin">غیر مشروط شرکت</string>
-  <string name="aConfirmationIsRequiredToJoin">شرکت کی تکمیل کے لیے منتظم کا متفق ہونا ضروری ہے</string>
-  <string name="joiningPolicy">شرکت کی شرائط</string>
   <string name="teamBestPlayers">بہترین کھلاڑی</string>
   <string name="teamRecentMembers">حالیہ اراکین</string>
 </resources>

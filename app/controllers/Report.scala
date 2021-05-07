@@ -7,7 +7,9 @@ import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
-import lila.user.{ User => UserModel }
+import lila.user.{ User => UserModel, Holder }
+
+import play.api.data._
 
 final class Report(
     env: Env,
@@ -17,37 +19,49 @@ final class Report(
 
   private def api = env.report.api
 
+  implicit private def asMod(holder: Holder) = AsMod(holder.user)
+
   def list =
     Secure(_.SeeReport) { implicit ctx => me =>
-      if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
+      if (env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force"))
         fuccess(Forbidden(html.site.message.streamingMod))
-      else renderList(env.report.modFilters.get(me).fold("all")(_.key))
+      else renderList(me, env.report.modFilters.get(me).fold("all")(_.key))
     }
 
   def listWithFilter(room: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       env.report.modFilters.set(me, Room(room))
-      renderList(room)
+      if (Room(room).fold(true)(Room.isGrantedFor(me))) renderList(me, room)
+      else notFound
     }
 
   protected[controllers] def getScores =
     api.maxScores zip env.streamer.api.approval.countRequests zip env.appeal.api.countUnread
 
-  private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(12, Room(room)) zip
-      getScores flatMap { case (reports, scores ~ streamers ~ appeals) =>
+  private def renderList(me: Holder, room: String)(implicit ctx: Context) =
+    api.openAndRecentWithFilter(asMod(me), 12, Room(room)) zip getScores flatMap {
+      case (reports, ((scores, streamers), appeals)) =>
         (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
-          Ok(html.report.list(reports, room, scores, streamers, appeals))
-      }
+          Ok(
+            html.report
+              .list(
+                reports.filter(r => lila.report.Reason.isGrantedFor(me)(r.report.reason)),
+                room,
+                scores,
+                streamers,
+                appeals
+              )
+          )
+    }
 
   def inquiry(id: String) =
     Secure(_.SeeReport) { _ => me =>
-      api.inquiries.toggle(AsMod(me), id) flatMap { case (prev, next) =>
-        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.unreadById) inject
+      api.inquiries.toggle(me, id) flatMap { case (prev, next) =>
+        prev.filter(_.isAppeal).map(_.user).??(env.appeal.api.setUnreadById) inject
           next.fold(
             Redirect {
-              if (prev.exists(_.isAppeal)) routes.Appeal.queue()
-              else routes.Report.list()
+              if (prev.exists(_.isAppeal)) routes.Appeal.queue
+              else routes.Report.list
             }
           )(onInquiryStart)
       }
@@ -60,7 +74,7 @@ final class Report(
 
   protected[controllers] def onInquiryClose(
       inquiry: Option[ReportModel],
-      me: UserModel,
+      me: Holder,
       goTo: Option[Suspect],
       force: Boolean = false
   )(implicit ctx: BodyContext[_]): Fu[Result] =
@@ -69,8 +83,8 @@ final class Report(
       case None =>
         inquiry match {
           case None =>
-            goTo.fold(Redirect(routes.Report.list()).fuccess) { s =>
-              userC.modZoneOrRedirect(s.user.username)
+            goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
+              userC.modZoneOrRedirect(me, s.user.username)
             }
           case Some(prev) =>
             val dataOpt = ctx.body.body match {
@@ -86,17 +100,17 @@ final class Report(
               case Some(url) => Redirect(url).fuccess
               case _ =>
                 def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-                if (prev.isAppeal) Redirect(routes.Appeal.queue()).fuccess
+                if (prev.isAppeal) Redirect(routes.Appeal.queue).fuccess
                 else if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
-                  api.inquiries.toggleNext(AsMod(me), prev.room) map {
+                  api.inquiries.toggleNext(me, prev.room) map {
                     _.fold(redirectToList)(onInquiryStart)
                   }
-                else if (force) userC.modZoneOrRedirect(prev.user)
+                else if (force) userC.modZoneOrRedirect(me, prev.user)
                 else
-                  api.inquiries.toggle(AsMod(me), prev.id) map { case (prev, next) =>
+                  api.inquiries.toggle(me, prev.id) map { case (prev, next) =>
                     next
                       .fold(
-                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue())
+                        if (prev.exists(_.isAppeal)) Redirect(routes.Appeal.queue)
                         else redirectToList
                       )(onInquiryStart)
                   }
@@ -107,15 +121,22 @@ final class Report(
   def process(id: String) =
     SecureBody(_.SeeReport) { implicit ctx => me =>
       api byId id flatMap { inquiry =>
-        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.readById) >>
-          api.process(AsMod(me), id) >>
+        inquiry.filter(_.isAppeal).map(_.user).??(env.appeal.api.setReadById) >>
+          api.process(me, id) >>
           onInquiryClose(inquiry, me, none, force = true)
       }
     }
 
   def xfiles(id: String) =
     Secure(_.SeeReport) { _ => _ =>
-      api.moveToXfiles(id) inject Redirect(routes.Report.list())
+      api.moveToXfiles(id) inject Redirect(routes.Report.list)
+    }
+
+  def snooze(id: String, dur: String) =
+    SecureBody(_.SeeReport) { implicit ctx => me =>
+      api.snooze(me, id, dur) map {
+        _.fold(Redirect(routes.Report.list))(onInquiryStart)
+      }
     }
 
   def currentCheatInquiry(username: String) =
@@ -123,7 +144,7 @@ final class Report(
       OptionFuResult(env.user.repo named username) { user =>
         api.currentCheatReport(lila.report.Suspect(user)) flatMap {
           _ ?? { report =>
-            api.inquiries.toggle(lila.report.Mod(me), report.id).void
+            api.inquiries.toggle(me, report.id).void
           } inject modC.redirect(username, mod = true)
         }
       }
@@ -132,9 +153,16 @@ final class Report(
   def form =
     Auth { implicit ctx => _ =>
       get("username") ?? env.user.repo.named flatMap { user =>
-        env.report.forms.createWithCaptcha map { case (form, captcha) =>
-          Ok(html.report.form(form, user, captcha))
-        }
+        if (user.map(_.id) has UserModel.lichessId) Redirect(routes.Main.contact).fuccess
+        else
+          env.report.forms.createWithCaptcha map { case (form, captcha) =>
+            val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match {
+              case (Some(u), Some(pid)) =>
+                form.fill(lila.report.ReportSetup(user = u.light, "", text = pid, "", ""))
+              case _ => form
+            }
+            Ok(html.report.form(filledForm, user, captcha))
+          }
       }
     }
 

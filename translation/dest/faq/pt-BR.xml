@@ -9,7 +9,7 @@
   <string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e livre pelo fato de que Lichess é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
   <string name="whyIsLilaCalledLila">Da mesma forma, o código fonte do Lichess, %1$s, significa li[chess em sca]la, visto que a maior parte do Lichess é escrita em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantém no ar com doações de clientes e pelos esforços de uma equipe de voluntários.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess se mantém no ar com doações de clientes e através dos esforços de uma equipe de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Você pode saber mais sobre %1$s (incluindo uma %2$s). Se você quiser ajudar o Lichess voluntariando seu tempo e habilidades, há muitas %3$s.</string>
   <string name="beingAPatron">ser um Patrono</string>
   <string name="breakdownOfOurCosts">lista detalhada dos nossos custos</string>
@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. Lichess de fato inspirou outros sites de código aberto que usam nossos %1$s, %2$s ou %3$s.</string>
   <string name="fairPlay">Jogo Limpo</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Por que é que fui reportado por manipulação artificial da pontuação (perder de propósito ou receber ajuda externa) ou ajuda de computador?</string>
-  <string name="cheatDetectionMethods">O Lichess tem fortes métodos de detecção e um processo muito completo para revisar todas as provas e tomar uma decisão. O processo frequentemente envolve muitos moderadores e pode levar muito tempo. Além da marcação do jogador, não iremos entrar em pormenores sobre provas e tomada de decisão para casos individuais. Fazê-lo tornaria mais fácil evitar a detecção no futuro e seria um convite a debates improdutivos. Este tempo e esforço são melhor usados em outros casos importantes. Os usuários podem pedir uma revisão enviando um e-mail para %1$s, mas as decisões tomadas raramente são revertidas.</string>
   <string name="whenAmIEligibleRatinRefund">Quando tenho direito a reembolso automático de pontuação de trapaceiros?</string>
   <string name="ratingRefundExplanation">Um minuto após um(a) jogador(a) ser reportado(a), suas últimas 40 partidas valendo pontuação nos últimos 3 dias são invalidadas. Se você foi oponente dele(a) nessas partidas, você perdeu pontuação (por derrota ou empate) e sua pontuação não era provisória, então você recebe um reembolso de pontuação. O reembolso é limitado baseado no seu pico de pontuação e no seu progresso de pontuação após o jogo.
   (Por exemplo, se sua pontuação aumentou significativamente após essas partidas, você pode não receber reembolso ou apenas reembolsar parcialmente.) Um reembolso nunca excederá 150 pontos.</string>
@@ -52,7 +50,7 @@ A análise de xadrez no Lichess é feita pelo Stockfish.</string>
 Em casos raros, isto pode ser difícil de ser detectado automaticamente (linhas forçadas, fortalezas). Por padrão, ficamos sempre do lado do jogador que não ficou sem tempo.
 
 Repare que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o oponente tiver uma peça que possa bloquear o seu rei.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manual da FIDE %s</string>
+  <string name="fideHandbookX">Manual da FIDE %s</string>
   <string name="discoveringEnPassant">Por que um peão pode capturar outro peão quando já foi passado? (en passant)</string>
   <string name="explainingEnPassant">Este é um movimento legal conhecido como \"en passant\". O artigo da Wikipédia dá uma %1$s.
 
@@ -94,6 +92,8 @@ Não peça pelo título de LM.</string>
   <string name="whatUsernameCanIchoose">Qual pode ser o meu nome de usuário?</string>
   <string name="usernamesNotOffensive">Em geral, os nomes de usuários não devem ser: ofensivos, personificar outra pessoa, ou alguma publicidade. Você pode ler mais nas %1$s.</string>
   <string name="guidelines">orientações</string>
+  <string name="canIChangeMyUsername">Posso mudar meu nome de usuário?</string>
+  <string name="usernamesCannotBeChanged">Não, nomes de usuário não podem ser alterados por razões técnicas e práticas. Nomes de usuário são gravados em muitos lugares: banco de dados, exportações, registros e na mente das pessoas. Você pode ajustar a letra maiúscula uma vez.</string>
   <string name="uniqueTrophies">Troféus únicos</string>
   <string name="ownerUniqueTrophies">Esse troféu é único na história dos Lichess, ninguém mais o terá além de %1$s.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar freneticamente 100%% dos jogos de %s.</string>

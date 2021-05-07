@@ -1,15 +1,15 @@
 package controllers
 
-import play.api.mvc._
-
-import chess.White
 import chess.format.FEN
+import chess.White
+import play.api.mvc._
+import views._
+
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
-import views._
 
 final class Analyse(
     env: Env,
@@ -51,42 +51,41 @@ final class Analyse(
               initialFen,
               analysis = none,
               PgnDump.WithFlags(clocks = false)
-            ) flatMap { case analysis ~ analysisInProgress ~ simul ~ chat ~ crosstable ~ bookmarked ~ pgn =>
-              env.api.roundApi.review(
-                pov,
-                lila.api.Mobile.Api.currentVersion,
-                tv = userTv.map { u =>
-                  lila.round.OnUserTv(u.id)
-                },
-                analysis,
-                initialFenO = initialFen.some,
-                withFlags = WithFlags(
-                  movetimes = true,
-                  clocks = true,
-                  division = true,
-                  opening = true
-                )
-              ) map { data =>
-                EnableSharedArrayBuffer(
-                  Ok(
-                    html.analyse.replay(
-                      pov,
-                      data,
-                      initialFen,
-                      env.analyse
-                        .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-                        .toString,
-                      analysis,
-                      analysisInProgress,
-                      simul,
-                      crosstable,
-                      userTv,
-                      chat,
-                      bookmarked = bookmarked
+            ) flatMap {
+              case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), pgn) =>
+                env.api.roundApi.review(
+                  pov,
+                  lila.api.Mobile.Api.currentVersion,
+                  tv = userTv.map { u =>
+                    lila.round.OnUserTv(u.id)
+                  },
+                  analysis,
+                  initialFenO = initialFen.some,
+                  withFlags = WithFlags(
+                    movetimes = true,
+                    clocks = true,
+                    division = true,
+                    opening = true
+                  )
+                ) map { data =>
+                  EnableSharedArrayBuffer(
+                    Ok(
+                      html.analyse.replay(
+                        pov,
+                        data,
+                        initialFen,
+                        env.analyse.annotator(pgn, pov.game, analysis).toString,
+                        analysis,
+                        analysisInProgress,
+                        simul,
+                        crosstable,
+                        userTv,
+                        chat,
+                        bookmarked = bookmarked
+                      )
                     )
                   )
-                )
-              }
+                }
             }
         }
       }
@@ -135,9 +134,7 @@ final class Analyse(
       html.analyse.replayBot(
         pov,
         initialFen,
-        env.analyse
-          .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-          .toString,
+        env.analyse.annotator(pgn, pov.game, analysis).toString,
         simul,
         crosstable
       )

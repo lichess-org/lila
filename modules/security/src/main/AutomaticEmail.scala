@@ -1,6 +1,5 @@
 package lila.security
 
-import cats.implicits._
 import play.api.i18n.Lang
 import scala.util.chaining._
 
@@ -9,14 +8,15 @@ import lila.common.EmailAddress
 import lila.hub.actorApi.msg.SystemMsg
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
+import lila.base.LilaException
 
 final class AutomaticEmail(
     userRepo: UserRepo,
-    mailgun: Mailgun,
+    mailer: Mailer,
     baseUrl: BaseUrl
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import Mailgun.html._
+  import Mailer.html._
 
   val regards = """Regards,
 
@@ -26,13 +26,13 @@ The Lichess team"""
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
-    mailgun send Mailgun.Message(
+    mailer send Mailer.Message(
       to = email,
       subject = trans.welcome_subject.txt(user.username),
       text = s"""
 ${trans.welcome_text.txt(profileUrl, editUrl)}
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
       htmlBody = standardEmail(
         trans.welcome_text.txt(profileUrl, editUrl)
@@ -40,7 +40,7 @@ ${Mailgun.txt.serviceNote}
     )
   }
 
-  def onTitleSet(username: String): Funit =
+  def onTitleSet(username: String): Funit = {
     for {
       user        <- userRepo named username orFail s"No such user $username"
       emailOption <- userRepo email user.id
@@ -56,18 +56,21 @@ $regards
       }
       _ <- emailOption ?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )
       }
     } yield ()
+  } recover { case e: LilaException =>
+    logger.info(e.message)
+  }
 
   def onBecomeCoach(user: User): Funit = {
     val body = alsoSendAsPrivateMessage(user) { implicit lang =>
@@ -82,13 +85,13 @@ $regards
     userRepo email user.id flatMap {
       _ ?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = "Coach profile unlocked on lichess.org",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )
@@ -116,13 +119,13 @@ $regards
       }
       _ <- emailOption.?? { email =>
         implicit val lang = userLang(user)
-        mailgun send Mailgun.Message(
+        mailer send Mailer.Message(
           to = email,
           subject = "Your private fishnet key",
           text = s"""
 $body
 
-${Mailgun.txt.serviceNote}
+${Mailer.txt.serviceNote}
 """,
           htmlBody = standardEmail(body).some
         )
@@ -133,7 +136,7 @@ ${Mailgun.txt.serviceNote}
     alsoSendAsPrivateMessage(user) { implicit lang =>
       s"""Hello,
 
-      Your appeal has received a response from the moderation team: ${baseUrl}/appeal
+      Your appeal has received a response from the moderation team, to see it click here: ${baseUrl}/appeal
 
 $regards
 """

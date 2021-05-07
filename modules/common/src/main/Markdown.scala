@@ -21,8 +21,9 @@ final class Markdown(autoLink: Boolean = false) {
 
   private val options = new MutableDataSet()
   options.set(Parser.EXTENSIONS, extensions)
-  options.set(HtmlRenderer.SOFT_BREAK, "<br>")
   options.set(TablesExtension.CLASS_NAME, "slist")
+  options.set(HtmlRenderer.ESCAPE_HTML, Boolean.box(true))
+  options.set(HtmlRenderer.SOFT_BREAK, "<br>")
   private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 

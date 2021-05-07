@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Зробіть хід, щоб розпочати</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Ви граєте білими фігурами у всіх задачах</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Ви граєте чорними фігурами у всіх задачах</string>
+  <string name="puzzlesSolved">задач вирішено</string>
+  <string name="newDailyHighscore">Новий щоденний рекорд!</string>
+  <string name="newWeeklyHighscore">Новий щотижневий рекорд!</string>
+  <string name="newMonthlyHighscore">Новий щомісячний рекорд!</string>
+  <string name="newAllTimeHighscore">Новий рекорд за весь час!</string>
+  <string name="previousHighscoreWasX">Попередній рекорд був %s</string>
+  <string name="playAgain">Грати знову</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 серія</item>
+    <item quantity="few">%s серії</item>
+    <item quantity="many">%s серій</item>
+    <item quantity="other">%s серій</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Зіграна одна серія в %2$s</item>
+    <item quantity="few">Зіграно %1$s серії в %2$s</item>
+    <item quantity="many">Зіграно %1$s серій в %2$s</item>
+    <item quantity="other">Зіграно %1$s серій в %2$s</item>
+  </plurals>
+  <string name="highscoreX">Рекорд: %s</string>
+  <string name="score">Оцінка</string>
+  <string name="moves">Ходів</string>
+  <string name="accuracy">Точність</string>
+  <string name="combo">Комбо</string>
+  <string name="time">Час</string>
+  <string name="timePerMove">Час на хід</string>
+  <string name="highestSolved">Найскладніша з розв\'язаних</string>
+  <string name="puzzlesPlayed">Зіграно задач</string>
+  <string name="newRun">Нова серія (гаряча клавіша: Пробіл)</string>
+  <string name="endRun">Завершити серію (гаряча клавіша: Enter)</string>
+  <string name="highscores">Рекорди</string>
+  <string name="viewBestRuns">Переглянути найкращі серії</string>
+  <string name="bestRunOfDay">Найкращі серії за день</string>
+  <string name="runs">Серій</string>
+  <string name="getReady">Приготуйтеся!</string>
+  <string name="waitingForMorePlayers">Очікуємо інших гравців...</string>
+  <string name="raceComplete">Гонка завершена!</string>
+  <string name="joinTheRace">Приєднатися до гонки!</string>
+  <string name="yourRankX">Ваше місце: %s</string>
+  <string name="waitForRematch">Очікування реваншу</string>
+  <string name="nextRace">Наступна гонка</string>
+  <string name="joinRematch">Приєднатися до реваншу</string>
+  <string name="waitingToStart">Очікування початку</string>
+  <string name="createNewGame">Створити нову гру</string>
+  <string name="joinPublicRace">Приєднатися до публічної гонки</string>
+  <string name="raceYourFriends">Гонка з друзями</string>
+  <string name="skip">пропустити</string>
+  <string name="skipHelp">Ви можете пропустити один хід за гонку:</string>
+  <string name="skipExplanation">Пропустіть цей хід, щоб зберегти вашу серію! Можна використати тільки один раз.</string>
+</resources>

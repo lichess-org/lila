@@ -9,6 +9,7 @@
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
   <string name="level">Nivelo</string>
+  <string name="strength">Forto</string>
   <string name="toggleTheChat">Baskuligi la babilejon</string>
   <string name="toggleSound">(Mal)ŝalti sonon</string>
   <string name="chat">Babilejo</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
   <string name="blunder">Erarego</string>
-  <string name="blunders">Eraregoj</string>
   <string name="mistake">Eraro</string>
-  <string name="mistakes">Eraroj</string>
   <string name="inaccuracy">Erareto</string>
-  <string name="inaccuracies">Eraretoj</string>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
@@ -249,7 +247,6 @@
   <string name="send">Sendi</string>
   <string name="incrementInSeconds">Pliigo en sekundoj</string>
   <string name="freeOnlineChess">Senpaga Interreta Ŝako</string>
-  <string name="spectators">Spektantoj:</string>
   <plurals name="nbRated">
     <item quantity="one">%s taksaj ludoj</item>
     <item quantity="other">%s taksaj ludoj</item>
@@ -277,7 +274,6 @@
     <item quantity="other">Doni %s sekundojn</item>
   </plurals>
   <string name="thisAccountViolatedTos">Ĉi tiu konto malobservis la Kondiĉojn de Servo de Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tiu ĉi ludanto fripone (mal)pligrandigas sian rangon</string>
   <string name="openingExplorerAndTablebase">Esplorilo de malfermoj &amp; tablobazo</string>
   <string name="takeback">Repreno</string>
   <string name="proposeATakeback">Proponi reprenon</string>
@@ -382,7 +378,6 @@
   <string name="more">Pli</string>
   <string name="memberSince">Membro ekde</string>
   <string name="lastSeenActive">Aktiva %s</string>
-  <string name="challengeToPlay">Defii al nova ludo</string>
   <string name="player">Ludanto</string>
   <string name="list">Listo</string>
   <string name="graph">Grafo</string>
@@ -505,9 +500,12 @@
   <string name="currentPassword">Nuna pasvorto</string>
   <string name="newPassword">Nova pasvorto</string>
   <string name="newPasswordAgain">Nova pasvorto (retajpu)</string>
+  <string name="newPasswordsDontMatch">La nova pasvorto ne kongruas</string>
+  <string name="newPasswordStrength">Pasvorta forto</string>
   <string name="clockInitialTime">Horloĝa komenca tempo</string>
   <string name="clockIncrement">Horloĝa pliigo</string>
   <string name="privacy">Privateco</string>
+  <string name="privacyPolicy">Privateca politiko</string>
   <string name="letOtherPlayersFollowYou">Lasi aliajn ludantojn sekvi vin</string>
   <string name="letOtherPlayersChallengeYou">Lasi aliajn ludantojn defii vin</string>
   <string name="letOtherPlayersInviteYouToStudy">Ebligi al aliaj ludantoj inviti vin al studo</string>
@@ -653,6 +651,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se vi ne vidas la retpoŝton , kontrolu aliajn lokojn kie ĝi povas esti, kiel via rubo , spam, socia , aŭ aliaj dosierujoj.</string>
   <string name="weHaveSentYouAnEmailTo">Ni sendis retmesaĝon al %s. Klaku la ligilon en la poŝto por rekomencigi vian pasvorton.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">De registranta , vi konsentas al esti ligita de nia %s.</string>
+  <string name="readAboutOur">Legu pri nia %s.</string>
   <string name="networkLagBetweenYouAndLichess">Reto lag inter vi kaj Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo por prilabori moviĝon sur Lichess servilo</string>
   <string name="downloadAnnotated">Elŝutu prinotitan</string>
@@ -731,7 +730,6 @@
   <string name="error.unknown">Eraro</string>
   <string name="custom">Propra</string>
   <string name="notifications">Sciigoj</string>
-  <string name="challenges">Defioj</string>
   <string name="perfRatingX">Rango: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekundo por ludi la unuan movon</item>
@@ -778,12 +776,6 @@
   <string name="opening">Malfermo</string>
   <string name="middlegame">Mezaĵo</string>
   <string name="endgame">Finaĵo</string>
-  <string name="registerToSendChallenges">Bonvolu registri por sendi defiojn.</string>
-  <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
-  <string name="yourXRatingIsTooFarFromY">Via %1$s rango estas tro for de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ne povas defii pro duma %s rango.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
   <string name="conditionalPremoves">Kondiĉaj antaŭmovoj</string>
   <string name="addCurrentVariation">Aldoni aktualan variaĵon</string>
   <string name="playVariationToCreateConditionalPremoves">Ludi variaĵo por krei kondiĉajn antaŭmovojn</string>

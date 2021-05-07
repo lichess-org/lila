@@ -45,7 +45,7 @@ final class ForumSearchApi(
     client match {
       case c: ESClientHttp =>
         c.putMapping >> {
-          postRepo.cursor
+          postRepo.nonGhostCursor
             .documentSource()
             .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
             .grouped(200)

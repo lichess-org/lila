@@ -6,7 +6,8 @@ import lila.db.dsl._
 import lila.notify.{ InvitedToStudy, Notification, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
-import lila.user.User
+import lila.security.Granter
+import lila.user.{ Holder, User }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -31,9 +32,11 @@ final private class StudyInvite(
       getIsPresent: User.ID => Fu[Boolean]
   ): Fu[User] =
     for {
-      _       <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
       _       <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-      inviter <- userRepo.named(byUserId) orFail "No such inviter"
+      inviter <- userRepo named byUserId orFail "No such inviter"
+      _ <- (!study.isOwner(inviter.id) && !Granter(_.StudyAdmin)(inviter)) ?? fufail[Unit](
+        "Only the study owner can invite"
+      )
       invited <-
         userRepo
           .named(invitedUsername)
@@ -72,12 +75,13 @@ final private class StudyInvite(
       }(funit)
     } yield invited
 
-  def admin(study: Study, user: User): Funit =
-    studyRepo.coll.update
-      .one(
-        $id(study.id.value),
-        $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
-          $addToSet("uids"         -> user.id)
-      )
-      .void
+  def admin(study: Study, user: Holder): Funit =
+    studyRepo.coll {
+      _.update
+        .one(
+          $id(study.id.value),
+          $set(s"members.${user.id}" -> $doc("role" -> "w", "admin" -> true)) ++
+            $addToSet("uids"         -> user.id)
+        )
+    }.void
 }

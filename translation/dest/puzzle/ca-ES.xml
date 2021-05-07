@@ -9,6 +9,7 @@
   <string name="lengths">Durada</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectius</string>
+  <string name="origin">Origen</string>
   <string name="specialMoves">Jugades especials</string>
   <string name="didYouLikeThisPuzzle">T\'ha agradat aquest problema?</string>
   <string name="voteToLoadNextOne">Vota per passar al següent!</string>
@@ -28,6 +29,10 @@
   <string name="trySomethingElse">Prova d\'una altra manera.</string>
   <string name="ratingX">Puntuació: %s</string>
   <string name="hidden">ocult</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Jugat %s vegades</item>
+    <item quantity="other">Intentat %s vegades</item>
+  </plurals>
   <string name="fromGameLink">De la partida %s</string>
   <string name="continueTraining">Continuar l\'entrenament</string>
   <string name="difficultyLevel">Nivell de dificultat</string>
@@ -39,4 +44,15 @@
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Afegir un nou tema</string>
   <string name="jumpToNextPuzzleImmediately">Passar al següent problema immediatament</string>
+  <string name="puzzleDashboard">Panell de problemes</string>
+  <string name="improvementAreas">Àrees de millora</string>
+  <string name="strengths">Fortaleses</string>
+  <string name="history">Historial de problemes</string>
+  <string name="solved">resolt</string>
+  <string name="failed">fallit</string>
+  <string name="streakDescription">Soluciona problemes cada vegada més difícils i aconsegueix una ratxa de victòries. No hi ha temps, pren-t\'ho amb calma. Si fas un moviment erroni, s\'acaba el joc! Però pots ometre un moviment per sessió.</string>
+  <string name="yourStreakX">Victòries consecutives: %s</string>
+  <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
+  <string name="continueTheStreak">Continua la sèrie</string>
+  <string name="newStreak">Nova sèrie</string>
 </resources>

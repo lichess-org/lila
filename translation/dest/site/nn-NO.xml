@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
   <string name="blunder">Bukk</string>
-  <string name="blunders">Bukkar</string>
   <string name="mistake">Mistak</string>
-  <string name="mistakes">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
-  <string name="inaccuracies">Småfeil</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s bukk</item>
+    <item quantity="other">%s bukkar</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s feil</item>
+    <item quantity="other">%s feil</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøyaktigheit</item>
+    <item quantity="other">%s unøyaktigheitar</item>
+  </plurals>
   <string name="moveTimes">Tidsbruk per trekk</string>
   <string name="flipBoard">Snu brettet</string>
   <string name="threefoldRepetition">Trefaldig trekkgjentaking</string>
@@ -130,7 +139,7 @@
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
-  <string name="currentGames">Pågåande parti</string>
+  <string name="currentGames">Parti som blir spela no</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s parti</item>
@@ -250,7 +259,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tilleggstid i sekund</string>
   <string name="freeOnlineChess">Fritt tilgjengeleg nettsjakk</string>
-  <string name="spectators">Tilskodarar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rata</item>
     <item quantity="other">%s rata</item>
@@ -278,7 +286,6 @@
     <item quantity="other">Gje %s sekund</item>
   </plurals>
   <string name="thisAccountViolatedTos">Brukaren bak denne kontoen braut med Lichess sine brukarvilkår</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spelaren manipulerar ratinga si</string>
   <string name="openingExplorerAndTablebase">Opningsutforskar &amp; tabellbase</string>
   <string name="takeback">Gjer om trekket</string>
   <string name="proposeATakeback">Framlegg om å gjera om trekket</string>
@@ -324,7 +331,7 @@
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rata ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Rata ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Du må væra medlem av lag %s</string>
+  <string name="mustBeInTeam">Du må vera medlem av lag %s</string>
   <string name="youAreNotInTeam">Du er ikkje med i lag %s</string>
   <string name="backToGame">Attende til partiet</string>
   <string name="siteDescription">Fritt tilgjengeleg nettsjakk. Spel sjakk på ei rein nettside utan registrering, reklame eller programtillegg. Spel sjakk mot datamaskin, vener eller tilfeldige motspelarar.</string>
@@ -384,7 +391,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="more">Meir</string>
   <string name="memberSince">Medlem sidan</string>
   <string name="lastSeenActive">Siste innlogging %s</string>
-  <string name="challengeToPlay">Utfordra til eit parti</string>
   <string name="player">Spelar</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
@@ -470,6 +476,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
+  <string name="descPrivate">Privat omtale</string>
+  <string name="descPrivateHelp">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hjelp:</string>
@@ -490,6 +498,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="cheat">Juks</string>
   <string name="insult">Ærekrenking</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Ratingmanipulering</string>
   <string name="other">Anna</string>
   <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
@@ -512,6 +521,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clockInitialTime">Starttid på klokka</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Privatsfære</string>
+  <string name="privacyPolicy">Personvernpolitikk</string>
   <string name="letOtherPlayersFollowYou">Lat andre spelarar fylgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
@@ -583,6 +593,7 @@ i %3$s</string>
   <string name="error.email_unique">Denne epostadressa er allereie i bruk</string>
   <string name="error.email_different">Dette er allereie mailadressen din</string>
   <string name="ifRatingIsPlusMinusX">Dersom rating er ± %s</string>
+  <string name="onlyExistingConversations">Berre eksisterande samtalar</string>
   <string name="onlyFriends">Berre vener</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
@@ -616,9 +627,9 @@ i %3$s</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
-  <string name="aboutSimulImage">Mot 50 motspelarar, vann Fischer 47 parti, spelte to remis og tapte eitt.</string>
+  <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
   <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
-  <string name="aboutSimulRules">Når simultanframsyninga startar, byrjar alle deltakarane eit parti mot verten som får spela med dei kvite brikkene. Simultanoppvisninga endar når alle partia er ferdigspelte.</string>
+  <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
   <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
@@ -659,7 +670,8 @@ i %3$s</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-post til %s. Trykk på lenka i e-posten for å attendestille passordet ditt.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrere deg godtek du å binda deg til våre %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Ved å registrera deg godtek du å binda deg til våre %s.</string>
+  <string name="readAboutOur">Les om vår %s.</string>
   <string name="networkLagBetweenYouAndLichess">Nettverksforseinking mellom deg og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tida det tar å handsama eit trekk på serveren</string>
   <string name="downloadAnnotated">Last ned kommentert</string>
@@ -738,7 +750,6 @@ i %3$s</string>
   <string name="error.unknown">Feil</string>
   <string name="custom">Tilpassa</string>
   <string name="notifications">Meldingar</string>
-  <string name="challenges">Utfordringar</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til å ta det første trekket</item>
@@ -785,12 +796,6 @@ i %3$s</string>
   <string name="opening">Opning</string>
   <string name="middlegame">Midtspel</string>
   <string name="endgame">Sluttspel</string>
-  <string name="registerToSendChallenges">Opprett ein konto om du vil utforde andre.</string>
-  <string name="youCannotChallengeX">Du kan ikkje utfordre %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tek ikkje i mot utfordringar.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt frå %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikkje utfordre på grunn av mellombels %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tek berre mot utfordringar frå vener.</string>
   <string name="conditionalPremoves">Vilkårsbundne førehandstrekk</string>
   <string name="addCurrentVariation">Legg til gjeldande variant</string>
   <string name="playVariationToCreateConditionalPremoves">Spel ein variant for å lage vilkårsbundne førehandstrekk</string>
@@ -844,4 +849,22 @@ i %3$s</string>
   <string name="youCannotPostYetPlaySomeGames">Du kan så langt ikkje skrive oppslag i foraane. Spel nokre parti fyrst!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
+  <string name="mentionedYouInX"> nemnde deg i \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s nemnde deg i \"%2$s\".</string>
+  <string name="invitedYouToX"> inviterte deg til \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s inviterte deg til \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Du er no med i laget.</string>
+  <string name="youHaveJoinedTeamX">Du har blitt med i \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Nokon du rapporterte vart stengt ute</string>
+  <string name="congratsYouWon">Gratulerer, du vann!</string>
+  <string name="gameVsX">Spel mot %1$s</string>
+  <string name="resVsX">%1$s mot %2$s</string>
+  <string name="youJustBecamePatron">Du vart nett ein lichess bidragsytar.</string>
+  <string name="patronAccountExpired">Bidragsytar-kontoen har gått ut</string>
+  <string name="pleaseReconsiderRenewIt">Ver venleg å vurdere fornying av den!</string>
+  <string name="someoneReviewedYourCoachProfile">Nokon har sett på trenarprofilen din.</string>
+  <string name="newPendingReview">Ventar på ny gjennomgang</string>
+  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
+  <string name="timeAlmostUp">Tida er nesten ute!</string>
 </resources>

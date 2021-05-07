@@ -1,38 +1,43 @@
 .learn__screen-overlay {
   @extend %fullscreen-mask;
 
-  background: rgba(79, 195, 247, 0.9);
+  background: rgba(0, 0, 0, 0.65);
   cursor: pointer;
+  display: grid;
 }
 
 .learn__screen {
   @extend %popup-shadow, %box-radius;
 
-  margin: 150px auto;
-  background-color: #fff;
+  margin: auto;
+  background-color: $c-bg-box;
   width: 350px;
   overflow: hidden;
   text-align: center;
   padding-top: 36px;
+  max-height: 100%;
+  overflow: auto;
 
-  > :nth-child(1) {
-    animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
-  }
+  @media (prefers-reduced-motion: no-preference) {
+    > :nth-child(1) {
+      animation: slideIn 1s cubic-bezier(0.37, 0.82, 0.2, 1);
+    }
 
-  > :nth-child(2) {
-    animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
-  }
+    > :nth-child(2) {
+      animation: slideIn 1.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+    }
 
-  > :nth-child(3) {
-    animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
-  }
+    > :nth-child(3) {
+      animation: slideIn 2s cubic-bezier(0.37, 0.82, 0.2, 1);
+    }
 
-  > :nth-child(4) {
-    animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
-  }
+    > :nth-child(4) {
+      animation: slideIn 2.5s cubic-bezier(0.37, 0.82, 0.2, 1);
+    }
 
-  > :nth-child(5) {
-    animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
+    > :nth-child(5) {
+      animation: slideIn 3s cubic-bezier(0.37, 0.82, 0.2, 1);
+    }
   }
 
   .stars {
@@ -93,6 +98,13 @@
     animation-fill-mode: forwards;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .stars .star {
+      opacity: 1;
+      animation: none;
+    }
+  }
+
   .stars .star-wrap:nth-child(2) .star {
     animation-delay: 0.8s;
   }
@@ -110,7 +122,7 @@
 
   h1 {
     font-weight: bold;
-    color: #181818;
+    color: $c-font-clear;
     font-size: 24px;
     margin-bottom: 22px;
   }
@@ -133,7 +145,7 @@
   .score {
     text-transform: uppercase;
     color: #0288d1;
-    font-size: .85em;
+    font-size: 0.85em;
     display: block;
     letter-spacing: 1px;
     margin-bottom: 17px;
@@ -141,11 +153,11 @@
 
   .score span {
     font-weight: bold;
-    font-family: 'Roboto Mono';
+    font-family: monospace;
+    font-size: 1rem;
   }
 
   p {
-    color: #999999;
     padding: 0 15%;
     line-height: 24px;
     margin-bottom: 17px;
@@ -174,13 +186,13 @@
     }
 
     .next {
-      font-size: .9em;
-      background: #4fc3f7;
+      font-size: 0.9em;
+      background: #3692e7;
     }
 
     .back {
-      font-size: .85em;
-      background: #f57c00;
+      font-size: 0.85em;
+      background: #e53935f0;
     }
 
     a:hover {

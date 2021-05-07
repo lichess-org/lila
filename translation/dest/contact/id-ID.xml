@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Saya ingin menghapus riwayat atau rating</string>
   <string name="cantClearHistory">Sangat mustahil dapat menghapus riwayat permainan, riwayat teka-teki, atau rating Anda.</string>
   <string name="wantReport">Saya ingin melaporkan pemain</string>
-  <string name="cheating">berbuat curang</string>
-  <string name="sandbagging">sandbagging</string>
-  <string name="trolling">memancing kemarahan</string>
-  <string name="insults">penghinaan</string>
-  <string name="otherReason">alasan lainnya</string>
-  <string name="toReportAPlayer">Untuk melaporkan pemain terkait %s, gunakan kolom lapor</string>
+  <string name="toReportAPlayerUseForm">Untuk melaporkan pemain, gunakan kolom lapor</string>
   <string name="youCanAlsoReachReportPage">Anda juga dapat mencapai halaman itu dengan mengeklik tombol laporan terkait %s pada halaman profil.</string>
   <string name="doNotReportInForum">Jangan melaporkan pemain di dalam forum.</string>
   <string name="doNotSendReportEmails">Jangan kirimkan email laporan kepada kami.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Pastikan Anda memainkan permainan ber rating. Permainan santai tidak memengaruhi rating pemain.</string>
   <string name="errorPage">Halaman bermasalah</string>
   <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Pertimbangan untuk larangan atau pembatasan IP</string>
+  <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>
   <string name="engineAppeal">Engine atau tanda curang</string>
   <string name="sendAppealTo">Anda dapat mengirim pertimbangan ke %s.</string>
   <string name="falsePositives">Kesalahan positif kadang-kadang terjadi setiap saat, dan kami menyesal tentang itu.</string>

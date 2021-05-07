@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
   <string name="blunder">Brøler</string>
-  <string name="blunders">Brølere</string>
   <string name="mistake">Fejl</string>
-  <string name="mistakes">Fejl</string>
   <string name="inaccuracy">Unøjagtighed</string>
-  <string name="inaccuracies">Unøjagtigheder</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s brøler</item>
+    <item quantity="other">%s brølere</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fejl</item>
+    <item quantity="other">%s fejl</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s unøjagtighed</item>
+    <item quantity="other">%s unøjagtigheder</item>
+  </plurals>
   <string name="moveTimes">Træktider</string>
   <string name="flipBoard">Vend bræt</string>
   <string name="threefoldRepetition">Trefoldig gentagelse</string>
@@ -250,7 +259,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Tillæg i sekunder</string>
   <string name="freeOnlineChess">Gratis Online-skak</string>
-  <string name="spectators">Tilskuere:</string>
   <plurals name="nbRated">
     <item quantity="one">%s ratet</item>
     <item quantity="other">%s ratede</item>
@@ -278,7 +286,6 @@
     <item quantity="other">Giv %s sekunder</item>
   </plurals>
   <string name="thisAccountViolatedTos">Denne konto overtrådte Lichess servicevilkår</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Denne spiller forøger eller sænker sin rating kunstigt</string>
   <string name="openingExplorerAndTablebase">Åbner åbnings- og slutspilsbog</string>
   <string name="takeback">Omtræk</string>
   <string name="proposeATakeback">Foreslå et omtræk</string>
@@ -374,7 +381,7 @@
   <string name="xStartedFollowingY">%1$s følger nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s som følger</item>
-    <item quantity="other">%s som følger</item>
+    <item quantity="other">%s følgere</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s følger</item>
@@ -383,7 +390,6 @@
   <string name="more">Mere</string>
   <string name="memberSince">Medlem siden</string>
   <string name="lastSeenActive">Sidst logget ind %s</string>
-  <string name="challengeToPlay">Send en udfordring</string>
   <string name="player">Spiller</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
@@ -469,6 +475,8 @@
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
+  <string name="descPrivate">Privat beskrivelse</string>
+  <string name="descPrivateHelp">Tekst som kun holddeltagere vil se. Hvis den er udfyldt, erstatter den for holddeltagere den offentlige beskrivelse.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
   <string name="help">Hjælp:</string>
@@ -489,6 +497,7 @@
   <string name="cheat">Snyd</string>
   <string name="insult">Fornærmelse</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulation af rating</string>
   <string name="other">Andet</string>
   <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
@@ -511,6 +520,7 @@
   <string name="clockInitialTime">Indledende tid på ur</string>
   <string name="clockIncrement">Ur-forøgelse</string>
   <string name="privacy">Privat</string>
+  <string name="privacyPolicy">Privatlivspolitik</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>
   <string name="letOtherPlayersInviteYouToStudy">Lad andre spillere invitere dig til at studere</string>
@@ -579,6 +589,7 @@
   <string name="error.email_unique">Email-adressen er allerede taget</string>
   <string name="error.email_different">Dette er allerede din e-mail-adresse</string>
   <string name="ifRatingIsPlusMinusX">Hvis ratingen er ± %s</string>
+  <string name="onlyExistingConversations">Kun eksisterende samtaler</string>
   <string name="onlyFriends">Kun venner</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
@@ -623,7 +634,7 @@
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
   <string name="simulHostExtraTime">Ekstra tid til værtsuret</string>
   <string name="lichessTournaments">Lichess-turneringer</string>
-  <string name="tournamentFAQ">Arena-turnering FAQ</string>
+  <string name="tournamentFAQ">Arenaturnering FAQ</string>
   <string name="tournamentOfficial">Officiel</string>
   <string name="timeBeforeTournamentStarts">Tid før turnering starter</string>
   <string name="averageCentipawnLoss">Gennemsnitligt centibonde-tab</string>
@@ -641,7 +652,7 @@
   <string name="returnToTournamentsHomepage">Vend tilbage til turnerings-forsiden</string>
   <string name="weeklyPerfTypeRatingDistribution">Månedlig %s rating fordeling</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">En %2$s spiller i denne uge.</item>
+    <item quantity="one">%1$s %2$s spiller denne uge.</item>
     <item quantity="other">%1$s %2$s spillere denne uge.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
@@ -656,6 +667,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se emailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
   <string name="weHaveSentYouAnEmailTo">Vi har sendt en e-mail til %s. Klik på linket i e-mailen for at nulstille din adgangskode.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ved at registrere, accepterer du at være bundet af vores %s.</string>
+  <string name="readAboutOur">Læs om vores %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netværksforsinkelse mellem dig og lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tid til at behandle et træk på Lichess-server</string>
   <string name="downloadAnnotated">Download kommenteret</string>
@@ -734,7 +746,6 @@
   <string name="error.unknown">Fejl</string>
   <string name="custom">Tilpasset</string>
   <string name="notifications">Meddelelser</string>
-  <string name="challenges">Udfordringer</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund til at lave det første træk</item>
@@ -781,12 +792,6 @@
   <string name="opening">Åbningsspil</string>
   <string name="middlegame">Midtspil</string>
   <string name="endgame">Slutspil</string>
-  <string name="registerToSendChallenges">Opret konto for at sende udfordringer.</string>
-  <string name="youCannotChallengeX">Du kan ikke udfordre %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s accepterer ikke udfordringer.</string>
-  <string name="yourXRatingIsTooFarFromY">Din %1$s rating er for langt fra %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan ikke udfordre på grund af midlertidig %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s accepterer kun udfordringer fra venner.</string>
   <string name="conditionalPremoves">Betingede forhåndstræk</string>
   <string name="addCurrentVariation">Tilføj nuværende variation</string>
   <string name="playVariationToCreateConditionalPremoves">Spil en variation for at lave betingede forhåndstræk</string>
@@ -840,4 +845,22 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
+  <string name="mentionedYouInX"> nævnte dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s nævnte dig i \"%2$s\".</string>
+  <string name="invitedYouToX"> inviterede dig til \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
+  <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Nogen du rapporterede blev udelukket</string>
+  <string name="congratsYouWon">Tillykke, du vandt!</string>
+  <string name="gameVsX">Spil mod %1$s</string>
+  <string name="resVsX">%1$s mod %2$s</string>
+  <string name="youJustBecamePatron">Du er lige blevet en Lichess Patron.</string>
+  <string name="patronAccountExpired">Patron-konto udløbet</string>
+  <string name="pleaseReconsiderRenewIt">Overvej venligst at forny den!</string>
+  <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
+  <string name="newPendingReview">Ny afventende gennemgang</string>
+  <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
+  <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
+  <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
 </resources>

@@ -30,7 +30,7 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
   <string name="howDoesItEndAnswer">Zegar turniejowy ogranicza czas trwania turnieju. Gdy cofając się osiągnie zero, ranking turniejowy ulega zamrożeniu i na jego podstawie ogłasza się zwycięzcę. Partie w toku muszą zostać zakończone, choć ich wynik nie będzie mieć wpływu na wynik turnieju.</string>
   <string name="otherRules">Inne ważne zasady</string>
-  <string name="thereIsACountdown">Masz ograniczony czas na wykonanie pierwszego posunięcia. Brak ruchu w tym czasie skutkuje oddaniem partii przeciwnikowi.</string>
+  <string name="thereIsACountdown">Na wykonanie swojego pierwszego posunięcia masz określony czas. Nie wykonanie ruchu w tym czasie spowoduje wygraną przeciwnika.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Remis w pierwszym posunięciu partii nie da punktów żadnemu z graczy.</item>
     <item quantity="few">Remis w pierwszych %s posunięciach partii nie da punktów żadnemu z graczy.</item>
@@ -41,4 +41,10 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
   <string name="drawStreak">Seria remisów: gdy gracz ciągle remisuje na arenie, tylko pierwszy remis da punkt lub remisy trwające więcej niż %s ruchów. Seria remisów może zostać przerwana tylko przez zwycięstwo, a nie przez przegraną czy remis.</string>
   <string name="history">Historyczne areny</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Zobacz zespół</item>
+    <item quantity="few">Zobacz wszystkie %s zespoły</item>
+    <item quantity="many">Zobacz wszystkie %s zespołów</item>
+    <item quantity="other">Zobacz wszystkie %s zespołów</item>
+  </plurals>
 </resources>

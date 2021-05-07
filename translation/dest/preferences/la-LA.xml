@@ -10,11 +10,11 @@
   <string name="moveListWhilePlaying">Index motuum</string>
   <string name="chessPieceSymbol">Signum scaccarii</string>
   <string name="pgnLetter">Ars (K, Q, R, B, N)</string>
-  <string name="zenMode">Modus Zenonis</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modus Zenonis</string>
   <string name="blindfoldChess">Scacci obligati (calculi cryptici)</string>
   <string name="chessClock">Horologium lantruncularium</string>
   <string name="tenthsOfSeconds">Decimas secundarum</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Dum tempus reliquum minus 10 secundis</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Dum tempus reliquum minus 10 secundis</string>
   <string name="horizontalGreenProgressBars">Regula progressus viridis</string>
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="giveMoreTime">Da tempus</string>

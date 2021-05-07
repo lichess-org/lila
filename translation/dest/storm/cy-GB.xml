@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Symud i\'w ddechrau</string>
+  <string name="playAgain">Chwarae eto</string>
+  <string name="score">Sgor</string>
+  <string name="moves">Symudiadau</string>
+  <string name="accuracy">Cywirdeb</string>
+  <string name="combo">Cyfuniad</string>
+  <string name="time">Amser</string>
+</resources>

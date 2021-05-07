@@ -1,8 +1,8 @@
 import AnalyseCtrl from '../ctrl';
-import { h } from 'snabbdom'
+import { h, VNode } from 'snabbdom';
 import { Prop, prop, defined } from 'common';
 import { spinner, bind, onInsert } from '../util';
-import { VNode } from 'snabbdom/vnode'
+import Highcharts from 'highcharts';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
@@ -10,18 +10,17 @@ export interface ServerEvalCtrl {
   chapterId(): string;
   request(): void;
   onMergeAnalysisData(): void;
-  chartEl: Prop<HTMLElement | null>;
+  chartEl: Prop<HighchartsHTMLElement | null>;
   reset(): void;
   lastPly: Prop<number | false>;
 }
 
 export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl {
-
   const requested = prop(false),
     lastPly = prop<number | false>(false),
-    chartEl = prop<HTMLElement | null>(null);
+    chartEl = prop<HighchartsHTMLElement | null>(null);
 
-  function unselect(chart) {
+  function unselect(chart: Highcharts.ChartObject) {
     chart.getSelectedPoints().forEach(p => p.select(false));
   }
 
@@ -29,7 +28,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     if (!lichess.advantageChart || lastPly() === mainlinePly) return;
     const lp = lastPly(typeof mainlinePly === 'undefined' ? lastPly() : mainlinePly),
       el = chartEl(),
-      chart = el && el['highcharts'];
+      chart = el && el.highcharts;
     if (chart) {
       if (lp === false) unselect(chart);
       else {
@@ -56,29 +55,33 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     requested,
     lastPly,
-    chartEl
+    chartEl,
   };
 }
 
 export function view(ctrl: ServerEvalCtrl): VNode {
-
   const analysis = ctrl.root.data.analysis;
 
   if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
-  return h('div.study__server-eval.ready.' + analysis.id, {
-    hook: onInsert(el => {
-      ctrl.lastPly(false);
-      lichess.requestIdleCallback(() =>
-        lichess.loadScript('javascripts/chart/acpl.js').then(() => {
-          lichess.advantageChart(ctrl.root.data, ctrl.root.trans, el);
-          ctrl.chartEl(el);
-        }),
-        800
-      );
-    })
-  }, [h('div.study__message', spinner())]);
+  return h(
+    'div.study__server-eval.ready.' + analysis.id,
+    {
+      hook: onInsert(el => {
+        ctrl.lastPly(false);
+        lichess.requestIdleCallback(
+          () =>
+            lichess.loadScript('javascripts/chart/acpl.js').then(() => {
+              lichess.advantageChart!(ctrl.root.data, ctrl.root.trans, el);
+              ctrl.chartEl(el as HighchartsHTMLElement);
+            }),
+          800
+        );
+      }),
+    },
+    [h('div.study__message', spinner())]
+  );
 }
 
 function disabled(): VNode {
@@ -91,21 +94,29 @@ function requested(): VNode {
 
 function requestButton(ctrl: ServerEvalCtrl) {
   const root = ctrl.root;
-  return h('div.study__message',
-    root.mainline.length < 5 ? h('p', root.trans.noarg('theChapterIsTooShortToBeAnalysed')) : (
-      !root.study!.members.canContribute() ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')] : [
-        h('p', [
-          root.trans.noarg('getAFullComputerAnalysis'),
-          h('br'),
-          root.trans.noarg('makeSureTheChapterIsComplete')
-        ]),
-        h('a.button.text', {
-          attrs: {
-            'data-icon': '',
-            disabled: root.mainline.length < 5
-          },
-          hook: bind('click', ctrl.request, root.redraw)
-        }, root.trans.noarg('requestAComputerAnalysis'))
-      ])
+  return h(
+    'div.study__message',
+    root.mainline.length < 5
+      ? h('p', root.trans.noarg('theChapterIsTooShortToBeAnalysed'))
+      : !root.study!.members.canContribute()
+      ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')]
+      : [
+          h('p', [
+            root.trans.noarg('getAFullComputerAnalysis'),
+            h('br'),
+            root.trans.noarg('makeSureTheChapterIsComplete'),
+          ]),
+          h(
+            'a.button.text',
+            {
+              attrs: {
+                'data-icon': '',
+                disabled: root.mainline.length < 5,
+              },
+              hook: bind('click', ctrl.request, root.redraw),
+            },
+            root.trans.noarg('requestAComputerAnalysis')
+          ),
+        ]
   );
 }

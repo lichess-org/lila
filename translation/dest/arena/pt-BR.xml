@@ -31,11 +31,15 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Existe um tempo limite para a sua primeira jogada. Não realizá-la no período determinado significará uma vitória para o seu oponente.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Empatar o jogo na %sª jogada não garantirá pontos a nenhum dos jogadores.</item>
-    <item quantity="other">Empatar o jogo nas primeiras %s jogadas não garantirá pontos a nenhum dos jogadores.</item>
+    <item quantity="one">Empatar o jogo no primeiro %s lance não dará ponto a nenhum dos jogadores.</item>
+    <item quantity="other">Empatar o jogo nos primeiros %s lances não dará ponto a nenhum dos jogadores.</item>
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
   <string name="drawStreak">Sequências de empates: Quando um jogador empata consecutivos jogos em uma arena, apenas o primeiro empate será pontuado, ou empates que durarem mais que %s movimentos. A sequência de empates pode ser quebrada somente por uma vitória, não por uma derrota ou outro empate.</string>
   <string name="history">Histórico de arenas</string>
+  <plurals name="viewAllXTeams">
+    <item quantity="one">Ver a equipe</item>
+    <item quantity="other">Ver todas as %s equipes</item>
+  </plurals>
 </resources>

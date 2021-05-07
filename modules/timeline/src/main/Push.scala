@@ -52,7 +52,6 @@ final private[timeline] class Push(
   private def modPermissions =
     List(
       Permission.ModNote,
-      Permission.Doxing,
       Permission.Admin,
       Permission.SuperAdmin
     )

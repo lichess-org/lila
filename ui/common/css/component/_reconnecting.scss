@@ -26,7 +26,7 @@ $recon-height: 2.5rem;
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;
-  z-index: z("reconnecting");
+  z-index: z('reconnecting');
   opacity: 0;
   transform: translateY($recon-height);
 
@@ -45,6 +45,6 @@ $recon-height: 2.5rem;
   }
 
   .online &::before {
-    content: "J";
+    content: 'J';
   }
 }

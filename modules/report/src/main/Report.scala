@@ -75,14 +75,6 @@ case class Report(
   def isRecentComm                 = room == Room.Comm && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
-  def boostWith: Option[User.ID] =
-    (reason == Reason.Boost) ?? {
-      atoms.toList.withFilter(_.byLichess).flatMap(_.text.linesIterator).collectFirst {
-        case Report.farmWithRegex(userId)    => userId
-        case Report.sandbagWithRegex(userId) => userId
-      }
-    }
-
   def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
 }
 
@@ -97,6 +89,7 @@ object Report {
       else if (value >= 100) "orange"
       else if (value >= 50) "yellow"
       else "green"
+    def atLeast(v: Int) = Score(value atLeast v)
   }
   implicit val scoreIso = lila.common.Iso.double[Score](Score.apply, _.value)
 
@@ -136,6 +129,7 @@ object Report {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic          = reporter.id == ReporterId.lichess
     def isAutoComm           = isAutomatic && isComm
+    def isAutoBoost          = isAutomatic && isBoost
     def isCoachReview        = isOther && text.contains("COACH REVIEW")
     def isCommFlag           = text contains Reason.Comm.flagText
   }
@@ -174,7 +168,5 @@ object Report {
         )(_ add c.atom)
     }
 
-  private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
-  private val sandbagWithRegex =
-    s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+  private[report] case class SnoozeKey(snoozerId: User.ID, reportId: Report.ID) extends lila.memo.Snooze.Key
 }

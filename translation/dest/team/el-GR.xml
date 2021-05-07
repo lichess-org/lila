@@ -12,9 +12,8 @@
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
   <string name="joinTeam">Συμμετοχή στην ομάδα</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
-  <string name="anyoneCanJoin">Ανοιχτό σε όλα τα μέλη</string>
-  <string name="aConfirmationIsRequiredToJoin">Απαιτείται επιβεβαίωση για να εγγραφείτε</string>
-  <string name="joiningPolicy">Πολιτική εγγραφής</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιήσετε αυτήν την επιλογή, οι παίκτες θα πρέπει να κάνουν ένα αίτημα για να συμμετέχουν στην ομάδα, το οποίο μπορείτε είτε να απορρίψετε είτε να δεχτείτε.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Αρχηγός ομάδας</item>
     <item quantity="other">Αρχηγοί ομάδας</item>
@@ -24,24 +23,28 @@
   <string name="kickSomeone">Απομάκρυνση κάποιου από την ομάδα</string>
   <string name="whoToKick">Ποιον επιθυμείτε να απομακρύνετε από την ομάδα;</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s αίτημα σύνδεσης</item>
-    <item quantity="other">%s αιτήματα σύνδεσης</item>
+    <item quantity="one">%s αίτημα ένταξης</item>
+    <item quantity="other">%s αιτήματα ένταξης</item>
   </plurals>
-  <string name="willBeReviewed">Το αίτημα σύνδεσης θα αξιολογηθεί από τον αρχηγό ομάδας.</string>
-  <string name="beingReviewed">Το αίτημα σύνδεσης αξιολογείται από τον αρχηγό ομάδας.</string>
+  <string name="willBeReviewed">Το αίτημα πρόσβασης θα αξιολογηθεί από κάποιον αρχηγό της ομάδας.</string>
+  <string name="beingReviewed">Το αίτημά για πρόσβαση στην ομάδα εξετάζεται από κάποιον αρχηγό.</string>
   <string name="teamBattle">Μάχη ομάδας</string>
   <string name="teamBattleOverview">Μια μάχη μεταξύ πολλών ομάδων που ο κάθε παίκτης κερδίζει πόντους για την ομάδα του</string>
   <string name="teamTournament">Τουρνουά ομάδας</string>
-  <string name="teamTournamentOverview">Ένα Αρένα τουρνουά στο οποίο μπορούν να συμμετέχουν μόνο παίκτες της ομάδας σου</string>
+  <string name="teamTournamentOverview">Ένα τουρνουά Arena στο οποίο μπορούν να συμμετέχουν μόνο παίκτες της ομάδας σου</string>
   <string name="messageAllMembers">Στείλτε μήνυμα σε όλα τα μέλη</string>
-  <string name="messageAllMembersOverview">Στείλτε προσωπικό μήνυμα σε κάθε μέλος της ομάδας</string>
-  <string name="messageAllMembersLongDescription">Στείλτε ένα προσωπικό μήνυμα σε όλα τα μέλη της ομάδας σας.
+  <string name="messageAllMembersOverview">Στείλτε ιδιωτικό μήνυμα σε κάθε μέλος της ομάδας</string>
+  <string name="messageAllMembersLongDescription">Στείλτε ένα προσωπικό μήνυμα σε ΟΛΑ τα μέλη της ομάδας σας.
 Μπορείτε να χρησιμοποιήσετε αυτή τη δυνατότητα για να καλέσετε τους παίκτες να συμμετέχουν σε ένα τουρνουά ή σε μια ομαδική μάχη.
-Οι παίκτες που πιθανόν δεν θέλουν να λαμβάνουν τα μηνύματά σας μπορεί να αποχωρήσουν από την ομάδα.</string>
+Οι παίκτες που πιθανόν δε θέλουν να λαμβάνουν τα μηνύματά σας μπορεί να αποχωρήσουν από την ομάδα.</string>
   <string name="teamsIlead">Ομάδες που είμαι αρχηγός</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Μήπως θα θέλατε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Θα θέλατε να στείλετε τον σύνδεσμο του επερχόμενου τουρνουά;</string>
   <string name="usersWhoCanManageThisTeam">Χρήστες που μπορούν να διαχειριστούν αυτή την ομάδα</string>
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="teamPassword">Κωδικός ομάδας</string>
+  <string name="teamPasswordDescriptionForLeader">(Προαιρετικό) Ένας κωδικός πρόσβασης που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
+  <string name="incorrectTeamPassword">Λάθος κωδικός ομάδας.</string>
+  <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
 </resources>

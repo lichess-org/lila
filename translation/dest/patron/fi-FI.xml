@@ -12,7 +12,7 @@
   <string name="youHaveLifetime">Sinulla on elinikäinen tukijatili. Se on aivan upeaa!</string>
   <string name="patronUntil">Sinulla on tukijatili %s asti.</string>
   <string name="ifNotRenewed">Jollet uusi sitä, tilisi alennetaan ilmaistiliksi.</string>
-  <string name="weAreNonProfit">Olemme yleishyödyllinen yhteisö, koska uskomme että jokaisella tulisi olla pääsy ilmaiselle maailmanluokan shakkialustalle.</string>
+  <string name="weAreNonProfit">Olemme yleishyödyllinen yhteisö, koska uskomme, että kaikkien pitäisi päästä pelaamaan ilmaisella maailmanluokan shakkisivustolla.</string>
   <string name="weRelyOnSupport">Sen mahdollistamiseksi turvaudumme sinun kaltaistesi ihmisten tukeen. Jos nautit Lichessin käytöstä, harkitse meidän tukemista lahjoituksella ja ryhtymällä tukijaksi!</string>
   <string name="lifetime">Elinikäinen</string>
   <string name="payLifetimeOnce">Maksa %s kerran. Ole Lichessin tukija ikuisesti!</string>
@@ -33,14 +33,14 @@
 Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustajalle.</string>
   <string name="costBreakdown">Katso yksityiskohtainen kuluerittely</string>
   <string name="officialNonProfit">Onko Lichess virallisesti yleishyödyllinen yhteisö?</string>
-  <string name="actOfCreation">Kyllä, tässä on perustamiskirja (ranskan kielellä)</string>
+  <string name="actOfCreation">On. Tässä on perustamiskirja (ranskan kielellä)</string>
   <string name="changeMonthlySupport">Voinko muuttaa/perua kuukausittaisen tukeni?</string>
-  <string name="changeOrContact">Kyllä, milloin vain tällä sivulla.
+  <string name="changeOrContact">Voit, milloin vain tällä sivulla.
 Tai voit %s.</string>
   <string name="contactSupport">ottaa yhteyttä Lichessin tukipalveluun</string>
   <string name="otherMethods">Muita lahjoitustapoja?</string>
   <string name="bankTransfers">Hyväksymme myös pankkisiirtoja</string>
-  <string name="bitcoin">Ja tässä on bitcoinosoitteemme: %s</string>
+  <string name="bitcoin">Ja tässä on bitcoin-osoitteemme: %s</string>
   <string name="patronFeatures">Onko joitakin toimintoja rajattu vain tukijoille?</string>
   <string name="noPatronFeatures">Ei, koska Lichess on täysin ilmainen, aina ja kaikille. Sen lupaamme. Tukijat pääsevät kuitenkin ylpeilemään uudella hienolla profiilikuvakkeellaan.</string>
   <string name="featuresComparison">Katso toimintojen yksityiskohtainen vertailu</string>
@@ -57,6 +57,7 @@ Tai voit %s.</string>
   <string name="update">Päivitä</string>
   <string name="changeMonthlyAmount">Muuta kuukausittaista summaa (%s)</string>
   <string name="cancelSupport">peru tukesi</string>
+  <string name="xOrY">%1$s tai %2$s</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>

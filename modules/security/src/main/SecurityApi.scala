@@ -22,6 +22,7 @@ final class SecurityApi(
     userRepo: UserRepo,
     store: Store,
     firewall: Firewall,
+    cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
@@ -92,7 +93,7 @@ final class SecurityApi(
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 22
-        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"TOR login $userId")
+        if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
@@ -103,12 +104,16 @@ final class SecurityApi(
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
-  def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
+  def restoreUser(req: RequestHeader): Fu[Option[Either[AppealUser, FingerPrintedUser]]] =
     firewall.accepts(req) ?? reqSessionId(req) ?? { sessionId =>
-      store.authInfo(sessionId) flatMap {
-        _ ?? { d =>
-          userRepo byId d.user dmap { _ map { FingerPrintedUser(_, d.hasFp) } }
-        }
+      appeal.authenticate(sessionId) match {
+        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(u)) }
+        case None =>
+          store.authInfo(sessionId) flatMap {
+            _ ?? { d =>
+              userRepo byId d.user dmap { _ map { u => Right(FingerPrintedUser(u, d.hasFp)) } }
+            }
+          }
       }
     }
 
@@ -157,20 +162,7 @@ final class SecurityApi(
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
-  def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
-      val u1s: Set[String] = ipsAndFps
-        .filter(_.user == u1)
-        .flatMap { x =>
-          List(x.ip.value, ~x.fp)
-        }
-        .toSet
-      ipsAndFps.exists { x =>
-        x.user == u2 && {
-          u1s(x.ip.value) || x.fp.??(u1s.contains)
-        }
-      }
-    }
+  def shareAnIpOrFp = store.shareAnIpOrFp _
 
   def ipUas(ip: IpAddress): Fu[List[String]] =
     store.coll.distinctEasy[String, List]("ua", $doc("ip" -> ip.value), ReadPreference.secondaryPreferred)
@@ -187,6 +179,28 @@ final class SecurityApi(
       ),
       ReadPreference.secondaryPreferred
     )
+
+  // special temporary auth for marked closed accounts so they can use appeal endpoints
+  object appeal {
+
+    private type SessionId = String
+
+    private val prefix = "appeal:"
+
+    private val store = cacheApi.notLoadingSync[SessionId, User.ID](256, "security.session.appeal")(
+      _.expireAfterAccess(2.days).build()
+    )
+
+    def authenticate(sessionId: SessionId): Option[User.ID] =
+      sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
+
+    def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
+      val sessionId = s"$prefix${Random secureString 22}"
+      store.put(sessionId, userId)
+      logger.info(s"Appeal login by $userId")
+      fuccess(sessionId)
+    }
+  }
 }
 
 object SecurityApi {

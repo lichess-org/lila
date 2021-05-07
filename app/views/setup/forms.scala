@@ -21,7 +21,7 @@ object forms {
     ) {
       frag(
         renderVariant(form, translatedVariantChoicesWithVariants),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = false),
         ctx.isAuth option frag(
           div(cls := "mode_choice buttons")(
             renderRadios(form("mode"), translatedModeChoices)
@@ -57,11 +57,11 @@ object forms {
   def ai(form: Form[_], ratings: Map[Int, Int], validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) =
-    layout("ai", trans.playWithTheMachine(), routes.Setup.ai()) {
+    layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
       frag(
         renderVariant(form, translatedAiVariantChoices),
         fenInput(form("fen"), strict = true, validFen),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = true),
         if (ctx.blind)
           frag(
             renderLabel(form("level"), trans.strength()),
@@ -78,7 +78,7 @@ object forms {
               ),
               div(cls := "ai_info")(
                 ratings.toList.map { case (level, _) =>
-                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("Stockfish 12", level))
+                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("Stockfish 13", level))
                 }
               )
             )
@@ -94,7 +94,7 @@ object forms {
   )(implicit ctx: Context) =
     layout(
       "friend",
-      (if (user.isDefined) trans.challengeToPlay else trans.playWithAFriend)(),
+      (if (user.isDefined) trans.challenge.challengeToPlay else trans.playWithAFriend)(),
       routes.Setup.friend(user map (_.id)),
       error.map(e => raw(e.replace("{{user}}", userIdLink(user.map(_.id)).toString)))
     )(
@@ -104,7 +104,7 @@ object forms {
         },
         renderVariant(form, translatedVariantChoicesWithVariantsAndFen),
         fenInput(form("fen"), strict = false, validFen),
-        renderTimeMode(form),
+        renderTimeMode(form, allowAnon = true),
         ctx.isAuth option div(cls := "mode_choice buttons")(
           renderRadios(form("mode"), translatedModeChoices)
         ),
@@ -131,7 +131,7 @@ object forms {
           frag(
             p(cls := "error")(e),
             br,
-            a(href := routes.Lobby.home(), cls := "button text", dataIcon := "L")(trans.cancel.txt())
+            a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
           )
         }
         .getOrElse {

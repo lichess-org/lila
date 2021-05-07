@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Postoje li sajtovi zasnovani na Lichessu?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Da. Lichess je zaista nadahnuo druge sajtove s otvorenim kodom koji upotrebljavaju naš %1$s, %2$s ili %3$s.</string>
   <string name="fairPlay">Fer-plej</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Zašto sam označen zbog vještačke manipulacije rejtingom (namjernim gubljenjem ili varanjem) ili korištenja pomoći računara?</string>
-  <string name="cheatDetectionMethods">Lichess ima snažne metode otkrivanja i veoma temeljit proces pregleda svih dokaza i donošenja odluka. Proces često uključuje mnoge moderatore i može dugo potrajati. Osim same oznake, nećemo ići u detalje u vezi s dokazima ili procesom odlučivanja o pojedinačnim slučajevima. To bi samo olakšalo da se izbjegne otkrivanje te bi bilo pozivnica za neproduktivne rasprave. To vrijeme i trud bolje je potrošiti na druge važne slučajeve. Korisnici se mogu žaliti slanjem e-pošte na %1$s, ali odluke rijetko budu ukinute.</string>
   <string name="whenAmIEligibleRatinRefund">Kada imam pravo na automatski povrat rejtinga od varalica?</string>
   <string name="ratingRefundExplanation">Minutu nakon što igrač bude označen uzima se njegovih posljednjih 40 rejtingovanih partija u posljednja tri dana. Ako ste Vi njegov protivnik u tim partijama, ako ste izgubili na rejtingu (zbog poraza ili remija) i ako Vaš rejting nije privremen, dobijete povrat rejtinga. Količina vraćenog rejtinga zasnovana je na Vašem najvišem rejtingu i progresu Vašeg rejtinga nakon date partije.
 (Naprimjer, ako je Vaš rejting uveliko porastao nakon tih partija, možda nećete dobiti nikakav povrat ili ćete dobiti samo djelomičan.) Povrat nikad neće prekoračiti gornju granicu od 150 bodova.</string>
@@ -46,7 +44,7 @@ Računarska analiza na Lichessu potpomognuta je Stockfishem.</string>
 U rijetkim slučajevima to može biti teško odlučiti automatski (forsirane varijante, tvrđave). Prema zadanome, uvijek se priklanjamo igraču kome vrijeme nije isteklo.
 
 Primijetite da je moguće matirati samim skakačem ili lovcem ako protivnik ima figuru koja mu može blokirati kralja.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Pravilnik FIDE %s</string>
+  <string name="fideHandbookX">Pravilnik FIDE %s</string>
   <string name="discoveringEnPassant">Zašto pješak može uzeti pješaka kad je već prošao pokraj njega? (\"en passant\")</string>
   <string name="explainingEnPassant">Ovo je legalan potez poznat kao \"en passant\". Članak na Wikipediji na engleskom jeziku daje %1$s.
 
@@ -77,6 +75,8 @@ Pogledajte %3$s koja se odnosi na ovaj potez kako biste ga malo izvježbali.</st
   <string name="whatUsernameCanIchoose">Šta može biti moje korisničko ime?</string>
   <string name="usernamesNotOffensive">Korisnička imena ne bi trebala biti uvredljiva, marketinška ili takva da označavaju drugu osobu. Možete pročitati više o %1$s.</string>
   <string name="guidelines">smjernicama</string>
+  <string name="canIChangeMyUsername">Mogu li promijeniti korisničko ime?</string>
+  <string name="usernamesCannotBeChanged">Ne, korisnička imena ne mogu se mijenjati iz tehničkih i praktičnih razloga. Prisutna su na previše mjesta: u bazama podataka, zapisnicima i ljudskim umovima. Velika i mala slova mogu biti podešena jedanput.</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
   <string name="lichessRatings">Rejtinzi na Lichessu</string>
   <string name="whichRatingSystemUsedByLichess">Koji sistem rejtingovanja upotrebljava Lichess?</string>

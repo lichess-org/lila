@@ -6,7 +6,6 @@ import lila.game.{ Game, Pov }
 import lila.user.User
 import play.api.libs.json.JsObject
 
-private case class MoretimeDuration(value: FiniteDuration)  extends AnyVal
 private case class AnimationDuration(value: FiniteDuration) extends AnyVal
 
 final class OnStart(f: Game.ID => Unit) extends (Game.ID => Unit) {

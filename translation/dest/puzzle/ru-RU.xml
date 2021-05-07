@@ -6,9 +6,10 @@
   <string name="phases">Стадии игры</string>
   <string name="motifs">Мотивы</string>
   <string name="advanced">Продвинутый</string>
-  <string name="lengths">Длина</string>
+  <string name="lengths">Количество ходов</string>
   <string name="mates">Маты</string>
   <string name="goals">Цели</string>
+  <string name="origin">Из партий</string>
   <string name="specialMoves">Особые ходы</string>
   <string name="didYouLikeThisPuzzle">Понравилась задача?</string>
   <string name="voteToLoadNextOne">Проголосуйте и перейдите к следующей!</string>
@@ -17,14 +18,14 @@
   <string name="findTheBestMoveForBlack">Найдите лучший ход за чёрных.</string>
   <string name="toGetPersonalizedPuzzles">Чтобы получить персонализированные задачи:</string>
   <string name="puzzleId">Задача № %s</string>
-  <string name="puzzleOfTheDay">Шахматная задача дня</string>
-  <string name="clickToSolve">Нажмите, чтобы решить</string>
+  <string name="puzzleOfTheDay">Задача дня</string>
+  <string name="clickToSolve">Нажмите, чтобы начать решать</string>
   <string name="goodMove">Хороший ход</string>
   <string name="bestMove">Лучший ход!</string>
-  <string name="keepGoing">Продолжайте...</string>
-  <string name="puzzleSuccess">Получилось!</string>
-  <string name="puzzleComplete">Пазл решён !</string>
-  <string name="notTheMove">Это не тот ход!</string>
+  <string name="keepGoing">Продолжайте…</string>
+  <string name="puzzleSuccess">Задача решена!</string>
+  <string name="puzzleComplete">Задача решена!</string>
+  <string name="notTheMove">Плохой ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>
   <string name="hidden">скрыт</string>
@@ -36,7 +37,7 @@
   </plurals>
   <string name="fromGameLink">Из партии %s</string>
   <string name="continueTraining">Продолжить тренировку</string>
-  <string name="difficultyLevel">Уровень</string>
+  <string name="difficultyLevel">Уровень сложности</string>
   <string name="normal">Средний</string>
   <string name="easier">Лёгкий</string>
   <string name="easiest">Легчайший</string>
@@ -44,5 +45,16 @@
   <string name="hardest">Сложнейший</string>
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавить другой мотив</string>
-  <string name="jumpToNextPuzzleImmediately">Сразу перейти к следующей задаче</string>
+  <string name="jumpToNextPuzzleImmediately">Сразу переходить к следующей задаче</string>
+  <string name="puzzleDashboard">Панель задач</string>
+  <string name="improvementAreas">Слабые стороны</string>
+  <string name="strengths">Сильные стороны</string>
+  <string name="history">История задач</string>
+  <string name="solved">решённые</string>
+  <string name="failed">неудачные</string>
+  <string name="streakDescription">Решайте постепенно усложняющиеся задачи и создайте победную серию. Здесь нет часов, так что не торопитесь. Один неправильный ход и игра закончена! Но можно пропустить один ход за сеанс.</string>
+  <string name="yourStreakX">Ваша серия: %s</string>
+  <string name="streakSkipExplanation">Пропустить этот ход, чтобы сохранить серию! Можно использовать только один раз.</string>
+  <string name="continueTheStreak">Продолжить серию</string>
+  <string name="newStreak">Новая серия</string>
 </resources>

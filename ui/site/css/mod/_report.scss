@@ -10,7 +10,7 @@ $c-report-high-over: white;
 
     .icon {
       flex: 1 1 auto;
-      margin: .4rem .8rem;
+      margin: 0.4rem 0.8rem;
       background: no-repeat url(../images/icons/octopus.svg) left center;
       opacity: 0.6;
     }
@@ -26,7 +26,7 @@ $c-report-high-over: white;
 
       color: $c-font;
       text-transform: uppercase;
-      padding: .5rem 1.4rem;
+      padding: 0.5rem 1.4rem;
       align-items: center;
       justify-content: center;
 
@@ -41,7 +41,7 @@ $c-report-high-over: white;
       }
 
       count {
-        font-size: .8em;
+        font-size: 0.8em;
         display: block;
         height: 1.2em;
       }
@@ -53,9 +53,9 @@ $c-report-high-over: white;
     white-space: nowrap;
     font-weight: bold;
     font-size: 1.2em;
-    padding: .3em .5em;
-    border-radius: .3em;
-    margin-right: .5em;
+    padding: 0.3em 0.5em;
+    border-radius: 0.3em;
+    margin-right: 0.5em;
   }
 
   .score.green {
@@ -95,12 +95,12 @@ $c-report-high-over: white;
     }
 
     .button-thin {
-      font-size: .8em;
+      font-size: 0.8em;
     }
   }
 
   .atoms .atom {
-    font-size: .9em;
+    font-size: 0.9em;
     margin-bottom: 1em;
 
     &:last-child {
@@ -112,25 +112,25 @@ $c-report-high-over: white;
     }
 
     .score {
-      font-size: .9em;
-      padding: .1em .4em;
+      font-size: 0.9em;
+      padding: 0.1em 0.4em;
     }
   }
 
   table.see {
     .perfs {
-      font-size: .9em;
+      font-size: 0.9em;
       white-space: nowrap;
     }
 
     .text {
       max-height: 100px;
       overflow: hidden;
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     .text.large {
-      font-size: .8em;
+      font-size: 0.8em;
     }
   }
 
@@ -139,16 +139,16 @@ $c-report-high-over: white;
   }
 
   .user_marks i {
-    font-size: .9em;
+    font-size: 0.9em;
     background: #dc322f70;
-    padding: .1em .4em;
-    border-radius: .3em;
-    margin: 0 .2em;
+    padding: 0.1em 0.4em;
+    border-radius: 0.3em;
+    margin: 0 0.2em;
   }
 
   .appeal-queue {
     td p {
-      margin: .5em 0 0 0;
+      margin: 0.5em 0 0 0;
     }
   }
 }

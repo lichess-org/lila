@@ -106,7 +106,9 @@ object LeaderboardApi {
 
   case class TourEntry(tour: Tournament, entry: Entry)
 
-  case class Ratio(value: Double) extends AnyVal
+  case class Ratio(value: Double) extends AnyVal {
+    def percent = (value * 100).toInt atLeast 1
+  }
 
   case class Entry(
       id: String, // same as tournament player id

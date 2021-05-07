@@ -14,7 +14,6 @@ case class Player(
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
-    lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
     userId: Player.UserId = None,
     rating: Option[Int] = None,
@@ -49,11 +48,7 @@ case class Player(
 
   def finish(winner: Boolean) = copy(isWinner = winner option true)
 
-  def offerDraw(turn: Int) =
-    copy(
-      isOfferingDraw = true,
-      lastDrawOffer = Some(turn)
-    )
+  def offerDraw = copy(isOfferingDraw = true)
 
   def removeDrawOffer = copy(isOfferingDraw = false)
 
@@ -62,8 +57,6 @@ case class Player(
   def removeTakebackProposition = copy(proposeTakebackAt = 0)
 
   def isProposingTakeback = proposeTakebackAt != 0
-
-  def withName(name: String) = copy(name = name.some)
 
   def nameSplit: Option[(String, Option[Int])] =
     name map {
@@ -135,6 +128,19 @@ object Player {
       make(color, (u.id, perfPicker(u.perfs)))
     }
 
+  def makeImported(
+      color: Color,
+      name: Option[String],
+      rating: Option[Int]
+  ): Player =
+    Player(
+      id = IdGenerator.player(color),
+      color = color,
+      aiLevel = none,
+      name = name orElse "?".some,
+      rating = rating
+    )
+
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
     def suspicious = HoldAlert.suspicious(ply)
   }
@@ -154,7 +160,6 @@ object Player {
 
     val aiLevel           = "ai"
     val isOfferingDraw    = "od"
-    val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
     val rating            = "e"
     val ratingDiff        = "d"
@@ -195,7 +200,6 @@ object Player {
                 aiLevel = r intO aiLevel,
                 isWinner = win,
                 isOfferingDraw = r boolD isOfferingDraw,
-                lastDrawOffer = r intO lastDrawOffer,
                 proposeTakebackAt = r intD proposeTakebackAt,
                 userId = userId,
                 rating = r intO rating flatMap ratingRange,
@@ -211,7 +215,6 @@ object Player {
         BSONDocument(
           aiLevel           -> p.aiLevel,
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),
-          lastDrawOffer     -> p.lastDrawOffer,
           proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating            -> p.rating,
           ratingDiff        -> p.ratingDiff,

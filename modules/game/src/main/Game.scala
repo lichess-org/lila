@@ -315,15 +315,21 @@ case class Game(
       blackPlayer = f(blackPlayer)
     )
 
+  def drawOffers = metadata.drawOffers
+
   def playerCanOfferDraw(color: Color) =
     started && playable &&
       turns >= 2 &&
       !player(color).isOfferingDraw &&
       !opponent(color).isAi &&
-      !playerHasOfferedDraw(color)
+      !playerHasOfferedDrawRecently(color)
 
-  def playerHasOfferedDraw(color: Color) =
-    player(color).lastDrawOffer ?? (_ >= turns - 20)
+  def playerHasOfferedDrawRecently(color: Color) =
+    drawOffers.lastBy(color) ?? (_ >= turns - 20)
+
+  def offerDraw(color: Color) = copy(
+    metadata = metadata.copy(drawOffers = drawOffers.add(color, turns))
+  ).updatePlayer(color, _.offerDraw)
 
   def playerCouldRematch =
     finishedOrAborted &&
@@ -427,6 +433,7 @@ case class Game(
   def fromPool   = source contains Source.Pool
   def fromLobby  = source contains Source.Lobby
   def fromFriend = source contains Source.Friend
+  def fromApi    = source contains Source.Api
 
   def winner = players find (_.wins)
 
@@ -449,7 +456,7 @@ case class Game(
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
-      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend) && {
+      started && playable && (bothPlayersHaveMoved || isSimul || isSwiss || fromFriend || fromApi) && {
         c.outOfTime(turnColor, withGrace) || {
           !c.isRunning && c.players.exists(_.elapsed.centis > 0)
         }
@@ -674,7 +681,10 @@ object Game {
 
   def allowRated(variant: Variant, clock: Option[Clock.Config]) =
     variant.standard || {
-      clock ?? { _.estimateTotalTime >= Centis(3000) }
+      clock ?? { c =>
+        c.estimateTotalTime >= Centis(3000) &&
+        c.limitSeconds > 0 || c.incrementSeconds > 1
+      }
     }
 
   val gameIdSize   = 8
@@ -697,19 +707,16 @@ object Game {
   val idRegex         = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
-  private val boardApiRatedMinClock = chess.Clock.Config(20 * 60, 0)
-
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
-      isBoardCompatible(c.config, game.mode)
+      isBoardCompatible(c.config)
     }
 
-  def isBoardCompatible(clock: Clock.Config, mode: Mode): Boolean =
-    if (mode.rated) clock.estimateTotalTime >= boardApiRatedMinClock.estimateTotalTime
-    else chess.Speed(clock) >= Speed.Rapid
+  def isBoardCompatible(clock: Clock.Config): Boolean =
+    chess.Speed(clock) >= Speed.Rapid
 
   def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.fromFriend
+    game.hasAi || game.fromFriend || game.fromApi
   } && isBotCompatible(game.speed)
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
@@ -737,14 +744,7 @@ object Game {
         status = Status.Created,
         daysPerTurn = daysPerTurn,
         mode = mode,
-        metadata = Metadata(
-          source = source.some,
-          pgnImport = pgnImport,
-          tournamentId = none,
-          swissId = none,
-          simulId = none,
-          analysed = false
-        ),
+        metadata = metadata(source).copy(pgnImport = pgnImport),
         createdAt = createdAt,
         movedAt = createdAt
       )
@@ -758,7 +758,8 @@ object Game {
       tournamentId = none,
       swissId = none,
       simulId = none,
-      analysed = false
+      analysed = false,
+      drawOffers = GameDrawOffers.empty
     )
 
   object BSONFields {
@@ -802,6 +803,7 @@ object Game {
     val initialFen        = "if"
     val checkAt           = "ck"
     val perfType          = "pt" // only set on student games for aggregation
+    val drawOffers        = "do"
   }
 }
 

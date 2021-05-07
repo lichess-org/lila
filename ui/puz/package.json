@@ -1,0 +1,26 @@
+{
+  "name": "puz",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org fast puzzle utils",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc",
+    "dev": "yarn run compile",
+    "prod": "yarn run compile"
+  },
+  "dependencies": {
+    "chessops": "^0.8.1",
+    "snabbdom": "^3.0.1",
+    "chessground": "^7.11.0",
+    "common": "2.0.0"
+  },
+  "devDependencies": {
+    "@types/cash": "8.0.0",
+    "@types/lichess": "2.0.0",
+    "typescript": "^4.1.3"
+  }
+}

@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш ход</string>
   <string name="aiNameLevelAiLevel">%1$s уровня %2$s</string>
   <string name="level">Уровень</string>
+  <string name="strength">Сложность</string>
   <string name="toggleTheChat">Показывать окно чата</string>
   <string name="toggleSound">Вкл/выкл звук</string>
   <string name="chat">Отправить сообщение</string>
@@ -67,7 +68,7 @@
   <string name="promoteVariation">Повысить приоритет варианта</string>
   <string name="makeMainLine">Сделать этот вариант главным</string>
   <string name="deleteFromHere">Удалить с этого места</string>
-  <string name="forceVariation">Сделать вариант главным</string>
+  <string name="forceVariation">Сделать вариантом</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Проигрышный ход</string>
   <string name="variantWin">Победный ход</string>
@@ -120,11 +121,26 @@
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
-  <string name="blunders">Зевки</string>
   <string name="mistake">Ошибка</string>
-  <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
-  <string name="inaccuracies">Неточности</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s зевок</item>
+    <item quantity="few">%s зевка</item>
+    <item quantity="many">%s зевков</item>
+    <item quantity="other">%s зевков</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ошибка</item>
+    <item quantity="few">%s ошибки</item>
+    <item quantity="many">%s ошибок</item>
+    <item quantity="other">%s ошибок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточность</item>
+    <item quantity="few">%s неточности</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Время на ход</string>
   <string name="flipBoard">Перевернуть доску</string>
   <string name="threefoldRepetition">Троекратное повторение позиции</string>
@@ -162,7 +178,7 @@
   <string name="latestForumPosts">Последние сообщения на форуме</string>
   <string name="players">Игроки</string>
   <string name="friends">Друзья</string>
-  <string name="discussions">Обсуждения</string>
+  <string name="discussions">Беседы</string>
   <string name="today">Сегодня</string>
   <string name="yesterday">Вчера</string>
   <string name="minutesPerSide">Минут на партию</string>
@@ -221,8 +237,8 @@
     <item quantity="other">%s партий с вами</item>
   </plurals>
   <string name="cancel">Отменить</string>
-  <string name="whiteTimeOut">Время белых истекло</string>
-  <string name="blackTimeOut">Время чёрных истекло</string>
+  <string name="whiteTimeOut">Белые просрочили время</string>
+  <string name="blackTimeOut">Чёрные просрочили время</string>
   <string name="drawOfferSent">Предложение ничьей отправлено</string>
   <string name="drawOfferDeclined">Предложение ничьей отклонено</string>
   <string name="drawOfferAccepted">Предложение ничьей принято</string>
@@ -271,7 +287,6 @@
   <string name="send">Отправить</string>
   <string name="incrementInSeconds">Добавление секунд на ход</string>
   <string name="freeOnlineChess">Бесплатные шахматы онлайн</string>
-  <string name="spectators">Зрители:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтинговая</item>
     <item quantity="few">%s рейтинговые</item>
@@ -311,7 +326,6 @@
     <item quantity="other">Дать %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Пользователь этой учётной записи нарушил Пользовательское соглашение</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Этот игрок искусственно манипулирует своим рейтингом</string>
   <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
@@ -405,7 +419,7 @@
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s друзей онлайн</item>
+    <item quantity="one">%s друг онлайн</item>
     <item quantity="few">%s друга онлайн</item>
     <item quantity="many">%s друзей онлайн</item>
     <item quantity="other">%s друзей онлайн</item>
@@ -436,7 +450,6 @@
   <string name="more">Ещё</string>
   <string name="memberSince">Дата регистрации</string>
   <string name="lastSeenActive">Был онлайн %s</string>
-  <string name="challengeToPlay">Вызвать на игру</string>
   <string name="player">Игрок</string>
   <string name="list">Список</string>
   <string name="graph">Диаграмма</string>
@@ -526,6 +539,8 @@
   <string name="tournamentWinners">Победители турниров</string>
   <string name="name">Имя</string>
   <string name="description">Описание</string>
+  <string name="descPrivate">Частное описание</string>
+  <string name="descPrivateHelp">Описание, которое будут видеть только члены клуба. Если установлено, то заменяет публичное описание для всех членов клуба.</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
   <string name="help">Помощь:</string>
@@ -546,6 +561,7 @@
   <string name="cheat">Жульничество</string>
   <string name="insult">Оскорбление</string>
   <string name="troll">Троллинг</string>
+  <string name="ratingManipulation">Махинации с рейтингом</string>
   <string name="other">Другое</string>
   <string name="reportDescriptionHelp">Поделитесь с нами ссылками на игры, где, как вам кажется, были нарушены правила, и опишите, в чём дело. Недостаточно просто написать «он мухлюет», пожалуйста, опишите, как вы пришли к такому выводу. Мы сработаем оперативнее, если вы напишете на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
@@ -568,6 +584,7 @@
   <string name="clockInitialTime">Начальное время на часах</string>
   <string name="clockIncrement">Добавка времени</string>
   <string name="privacy">Конфиденциальность</string>
+  <string name="privacyPolicy">Политика конфиденциальности</string>
   <string name="letOtherPlayersFollowYou">Разрешить другим игрокам подписываться на вас</string>
   <string name="letOtherPlayersChallengeYou">Разрешить другим игрокам вызывать вас на игру</string>
   <string name="letOtherPlayersInviteYouToStudy">Разрешить другим игрокам приглашать вас в студию</string>
@@ -640,6 +657,7 @@
   <string name="error.email_unique">Этот адрес электронной почты уже занят</string>
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
+  <string name="onlyExistingConversations">Только существующие обсуждения</string>
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
@@ -721,6 +739,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
+  <string name="readAboutOur">Почитайте подробней: %s.</string>
   <string name="networkLagBetweenYouAndLichess">Задержки передачи данных между вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
@@ -766,7 +785,7 @@
   <string name="gameAnalysis">Анализ игры</string>
   <string name="xHostsY">%1$s создал %2$s</string>
   <string name="xJoinsY">%1$s присоединился к %2$s</string>
-  <string name="xLikesY">%1$s поставил лайк студии %2$s</string>
+  <string name="xLikesY">%1$s понравилось %2$s</string>
   <string name="xCreatesStudyY">%1$s создал студию %2$s</string>
   <string name="quickPairing">Быстрый старт</string>
   <string name="lobby">Зал ожидания</string>
@@ -801,7 +820,6 @@
   <string name="error.unknown">Ошибка</string>
   <string name="custom">Своя игра</string>
   <string name="notifications">Уведомления</string>
-  <string name="challenges">Вызовы</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на первый ход</item>
@@ -852,12 +870,6 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Миттельшпиль</string>
   <string name="endgame">Эндшпиль</string>
-  <string name="registerToSendChallenges">Зарегистрируйтесь, чтобы вызывать соперников на игру.</string>
-  <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг в %1$s слишком отличается от рейтинга %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="conditionalPremoves">Условные предходы</string>
   <string name="addCurrentVariation">Добавить текущий вариант</string>
   <string name="playVariationToCreateConditionalPremoves">Выполните ходы на доске, чтобы задать условные предходы</string>
@@ -913,4 +925,22 @@
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
+  <string name="mentionedYouInX"> упомянул вас в «%1$s».</string>
+  <string name="xMentionedYouInY"> %1$s упомянул вас в «%2$s».</string>
+  <string name="invitedYouToX"> пригласил вас в «%1$s».</string>
+  <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
+  <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
+  <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
+  <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
+  <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
+  <string name="gameVsX">Партия против %1$s</string>
+  <string name="resVsX">%1$s против %2$s</string>
+  <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
+  <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
+  <string name="pleaseReconsiderRenewIt">Пожалуйста, рассмотрите возможность возобновить поддержку!</string>
+  <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
+  <string name="newPendingReview">Ожидают рассмотрения</string>
+  <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
+  <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
+  <string name="timeAlmostUp">Время почти вышло!</string>
 </resources>

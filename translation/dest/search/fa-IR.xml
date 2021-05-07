@@ -2,4 +2,6 @@
 <resources>
   <string name="search">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
+  <string name="analysis">برسی بازی</string>
+  <string name="onlyAnalysed">فقط بازی هایی که تجزیه تحلیل کامپیوتر در آنها موجود است</string>
 </resources>

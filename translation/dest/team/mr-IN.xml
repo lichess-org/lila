@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">संघ</string>
   <string name="teams">संघ</string>
   <plurals name="nbMembers">
     <item quantity="one">%s सदस्य</item>
@@ -11,8 +12,6 @@
   <string name="noTeamFound">कुठलाच संघ सापडला नाही</string>
   <string name="joinTeam">संघात सहभागी व्हा</string>
   <string name="quitTeam">संघातून बाहेर पडा</string>
-  <string name="anyoneCanJoin">सर्वांसाठी मोफत</string>
-  <string name="joiningPolicy">सहभागी होण्याचे नियम</string>
   <string name="teamBestPlayers">सर्वोत्कृष्ट खेळाडूंची यादी</string>
   <string name="teamRecentMembers">अलीकडचे सदस्य</string>
 </resources>

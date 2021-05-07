@@ -14,8 +14,7 @@ import play.api.libs.ws.StandaloneWSClient
 @Module
 final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
-    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
-    @ConfigName("public_categ_ids") val publicCategIds: List[String]
+    @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage
 )
 
 @Module
@@ -62,10 +61,10 @@ final class Env(
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms                            = wire[ForumForm]
-  lazy val recent                           = wire[Recent]
+  lazy val recent                           = wire[ForumRecent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _)        => categApi.makeTeam(id, name).unit
-    case lila.user.User.GDPRErase(user) => postApi.erase(user).unit
+    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user).unit
   }
 }

@@ -49,9 +49,4 @@ final class Db(
   }
 
   def apply(name: CollName): Coll = db(name.value)
-
-  val runCommand = new RunCommand({ (command, readPreference) =>
-    db.runCommand(command, FailoverStrategy.strict)
-      .one[dsl.Bdoc](readPreference)
-  })
 }

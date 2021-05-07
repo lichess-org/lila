@@ -1,7 +1,6 @@
 package lila.activity
 
 import lila.db.dsl._
-import lila.db.ignoreDuplicateKey
 import lila.game.Game
 import lila.study.Study
 import lila.user.User
@@ -65,6 +64,39 @@ final class ActivityWriteApi(
               rp = RatingProg(Rating(res.rating._1), Rating(res.rating._2)).some
             )
           }),
+          upsert = true
+        )
+        .void
+    }
+
+  def storm(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.storm -> { ~a.storm + score }),
+          upsert = true
+        )
+        .void
+    }
+
+  def racer(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.racer -> { ~a.racer + score }),
+          upsert = true
+        )
+        .void
+    }
+
+  def streak(userId: User.ID, score: Int): Funit =
+    getOrCreate(userId) flatMap { a =>
+      coll.update
+        .one(
+          $id(a.id),
+          $set(ActivityFields.streak -> { ~a.streak + score }),
           upsert = true
         )
         .void
@@ -139,7 +171,10 @@ final class ActivityWriteApi(
   def streamStart(userId: User.ID) =
     update(userId) { _.copy(stream = true).some }
 
-  def erase(user: User) = coll.delete.one(regexId(user.id))
+  def swiss(id: lila.swiss.Swiss.Id, ranking: lila.swiss.Ranking) =
+    ranking.map { case (userId, rank) =>
+      update(userId) { a => a.copy(swisses = Some(~a.swisses + SwissRank(id, rank))).some }
+    }.sequenceFu
 
   private def simulParticipant(simul: lila.simul.Simul, userId: String) =
     update(userId) { a =>

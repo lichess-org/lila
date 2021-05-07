@@ -9,6 +9,7 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
+  <string name="strength">강도</string>
   <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="toggleSound">음소거/음소거 해제</string>
   <string name="chat">채팅</string>
@@ -111,11 +112,17 @@
   <string name="infiniteAnalysis">무한분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다.</string>
   <string name="blunder">심각한 실수</string>
-  <string name="blunders">치명적 실수</string>
   <string name="mistake">실수</string>
-  <string name="mistakes">실수</string>
   <string name="inaccuracy">잘못된 판단</string>
-  <string name="inaccuracies">사소한 실수</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s 블런더</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s 실수</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s 사소한 실수</item>
+  </plurals>
   <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
   <string name="threefoldRepetition">3회 동형반복</string>
@@ -238,7 +245,6 @@
   <string name="send">전송</string>
   <string name="incrementInSeconds">턴 당 추가 시간(초)</string>
   <string name="freeOnlineChess">무료 온라인 체스</string>
-  <string name="spectators">관전자:</string>
   <plurals name="nbRated">
     <item quantity="other">%s번의 레이팅 대국</item>
   </plurals>
@@ -260,7 +266,6 @@
     <item quantity="other">%s초 더 주기</item>
   </plurals>
   <string name="thisAccountViolatedTos">이 계정은 Lichess 이용 약관을 위반했습니다.</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">이 플레이어는 비정상적인 방법으로 레이팅을 조작합니다</string>
   <string name="openingExplorerAndTablebase">오프닝 탐색 &amp; 테이블베이스</string>
   <string name="takeback">무르기</string>
   <string name="proposeATakeback">무르기를 요청합니다</string>
@@ -355,7 +360,6 @@
   <string name="more">더보기</string>
   <string name="memberSince">가입 시기:</string>
   <string name="lastSeenActive">최근 로그인: %s</string>
-  <string name="challengeToPlay">도전하기</string>
   <string name="player">플레이어</string>
   <string name="list">목록</string>
   <string name="graph">그래프</string>
@@ -439,6 +443,8 @@
   <string name="tournamentWinners">토너먼트 승리자</string>
   <string name="name">팀 이름</string>
   <string name="description">설명</string>
+  <string name="descPrivate">비공개 설명</string>
+  <string name="descPrivateHelp">팀 멤버만 볼 수 있는 텍스트입니다. 설정된다면, 팀 멤버에게는 공개 설명 대신 보이게 됩니다.</string>
   <string name="no">아니오</string>
   <string name="yes">예</string>
   <string name="help">힌트:</string>
@@ -459,6 +465,7 @@
   <string name="cheat">부정행위</string>
   <string name="insult">모욕</string>
   <string name="troll">분란 조장</string>
+  <string name="ratingManipulation">레이팅 조작</string>
   <string name="other">기타</string>
   <string name="reportDescriptionHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
@@ -476,9 +483,12 @@
   <string name="currentPassword">현재 비밀번호</string>
   <string name="newPassword">새 비밀번호</string>
   <string name="newPasswordAgain">새 비밀번호 확인</string>
+  <string name="newPasswordsDontMatch">새로운 비밀번호가 일치하지 않습니다</string>
+  <string name="newPasswordStrength">비밀번호 강도</string>
   <string name="clockInitialTime">기본 시간</string>
   <string name="clockIncrement">한 수당 증가하는 시간</string>
   <string name="privacy">보안</string>
+  <string name="privacyPolicy">개인정보취급방침</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
   <string name="letOtherPlayersChallengeYou">다른 사람이 나에게 도전할 수 있게 함</string>
   <string name="letOtherPlayersInviteYouToStudy">다른 플레이어들이 나를 학습에 초대할 수 있음</string>
@@ -519,7 +529,7 @@
   <string name="human">인간</string>
   <string name="computer">인공지능</string>
   <string name="side">진영</string>
-  <string name="clock">시간 제한</string>
+  <string name="clock">시계</string>
   <string name="unauthorizedError">접속이 불허되었습니다.</string>
   <string name="noInternetConnection">인터넷 연결이 없습니다. 메뉴을 통해 오프라인 게임은 할 수 있습니다.</string>
   <string name="connectedToLichess">lichess.org에 접속했습니다</string>
@@ -545,6 +555,7 @@
   <string name="error.email_unique">이미 사용 중인 이메일 주소입니다.</string>
   <string name="error.email_different">이미 등록된 이메일 주소입니다.</string>
   <string name="ifRatingIsPlusMinusX">레이팅이 ± %s 이하일 경우</string>
+  <string name="onlyExistingConversations">기존에 대화한 경우만</string>
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
@@ -620,6 +631,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailTo">%s 주소로 메일을 보냈습니다. 메일을 확인하고 비밀번호를 재설정하세요.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">이곳에 등록하면 당신은 이곳의 %s 약관에 동의하시는 것입니다.</string>
+  <string name="readAboutOur">%s를 읽어보세요.</string>
   <string name="networkLagBetweenYouAndLichess">당신과 lichess 서버 간의 네트워크 지연 시간</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 서버에서 한 수를 계산하는 데 걸리는 시간</string>
   <string name="downloadAnnotated">주석이 달린 기보 다운로드</string>
@@ -697,7 +709,6 @@
   <string name="error.unknown">오류</string>
   <string name="custom">사용자 지정</string>
   <string name="notifications">알림</string>
-  <string name="challenges">도전</string>
   <string name="perfRatingX">레이팅: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s 초 안에 첫 수를 두십시오.</item>
@@ -742,12 +753,6 @@
   <string name="opening">오프닝</string>
   <string name="middlegame">미들게임</string>
   <string name="endgame">엔드게임</string>
-  <string name="registerToSendChallenges">시합을 공유하려면 가입하십시오</string>
-  <string name="youCannotChallengeX">%s와는 대국할 수 없습니다.</string>
-  <string name="xDoesNotAcceptChallenges">%s님이 대국을 수락하지 않았습니다.</string>
-  <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s 가 아직 레이팅이 확정되지 않아서 도전하실 수 었습니다</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s님은 친구인 상대만 대국 요청을 수락합니다.</string>
   <string name="conditionalPremoves">수 예측</string>
   <string name="addCurrentVariation">현재의 변화를 추가</string>
   <string name="playVariationToCreateConditionalPremoves">기물을 움직여 조건적인 수를 만들기</string>
@@ -800,4 +805,22 @@
   <string name="youCannotPostYetPlaySomeGames">이 포럼에 글을 올리시기에는 게임 수가 부족합니다.</string>
   <string name="subscribe">구독</string>
   <string name="unsubscribe">구독 취소</string>
+  <string name="mentionedYouInX"> 당신이 %1$s에서 언급됨</string>
+  <string name="xMentionedYouInY"> %1$s가 당신을 \"%2$s\"에서 언급했습니다.</string>
+  <string name="invitedYouToX"> %1$s에 초대합니다.</string>
+  <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
+  <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>
+  <string name="someoneYouReportedWasBanned">당신이 신고한 플레이어가 차단되었습니다.</string>
+  <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
+  <string name="gameVsX">Game vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
+  <string name="patronAccountExpired">Patron 계정 만료됨</string>
+  <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
+  <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
+  <string name="newPendingReview">새 대기중 리뷰</string>
+  <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
+  <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
+  <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
 </resources>

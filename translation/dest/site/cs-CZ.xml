@@ -9,6 +9,7 @@
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s - úrovně %2$s</string>
   <string name="level">Úroveň</string>
+  <string name="strength">Síla</string>
   <string name="toggleTheChat">Zapnout/vypnout chat</string>
   <string name="toggleSound">Zapnout/vypnout zvuk</string>
   <string name="chat">Chat</string>
@@ -120,11 +121,26 @@
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
   <string name="blunder">Hrubá chyba</string>
-  <string name="blunders">Hrubky</string>
   <string name="mistake">Chyba</string>
-  <string name="mistakes">Omyly</string>
   <string name="inaccuracy">Nepřesnost</string>
-  <string name="inaccuracies">Nepřesnosti</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s hrubá chyba</item>
+    <item quantity="few">%s hrubé chyby</item>
+    <item quantity="many">%s hrubých chyb</item>
+    <item quantity="other">%s hrubých chyb</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s chyba</item>
+    <item quantity="few">%s chyby</item>
+    <item quantity="many">%s chyb</item>
+    <item quantity="other">%s chyb</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepřesnost</item>
+    <item quantity="few">%s nepřesnosti</item>
+    <item quantity="many">%s nepřesností</item>
+    <item quantity="other">%s nepřesností</item>
+  </plurals>
   <string name="moveTimes">Čas na tah</string>
   <string name="flipBoard">Otočit šachovnici</string>
   <string name="threefoldRepetition">Trojí opakování pozice</string>
@@ -271,7 +287,6 @@
   <string name="send">Odeslat</string>
   <string name="incrementInSeconds">Bonus za tah (v sekundách)</string>
   <string name="freeOnlineChess">Šachy online zdarma</string>
-  <string name="spectators">Diváci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s hodnocená</item>
     <item quantity="few">%s hodnocené</item>
@@ -311,7 +326,6 @@
     <item quantity="other">Přidat %s sekund</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tento účet porušil podmínky služeb Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč uměle ovlivnil své hodnocení</string>
   <string name="openingExplorerAndTablebase">Knihovna zahájení / tablebase koncovek</string>
   <string name="takeback">Vrátit tah</string>
   <string name="proposeATakeback">Navrhnout vrácení tahu</string>
@@ -436,7 +450,6 @@
   <string name="more">Více</string>
   <string name="memberSince">Členem od</string>
   <string name="lastSeenActive">Poslední přihlášení %s</string>
-  <string name="challengeToPlay">Vyzvat k partii</string>
   <string name="player">Hráč</string>
   <string name="list">Seznam</string>
   <string name="graph">Graf</string>
@@ -526,6 +539,8 @@
   <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
+  <string name="descPrivate">Soukromý popis</string>
+  <string name="descPrivateHelp">Text, který uvidí pouze členové týmu, kteří poté uvidí jenom tento text.</string>
   <string name="no">Ne</string>
   <string name="yes">Ano</string>
   <string name="help">Nápověda:</string>
@@ -546,6 +561,7 @@
   <string name="cheat">Podvod</string>
   <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulace s ratingem</string>
   <string name="other">Jiné</string>
   <string name="reportDescriptionHelp">Vložte link na hru(y) a popište, co je špatně na chování tohoto hráče. (Pokud možno anglicky.)</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
@@ -568,6 +584,7 @@
   <string name="clockInitialTime">Počáteční čas</string>
   <string name="clockIncrement">Přídavek</string>
   <string name="privacy">Soukromí</string>
+  <string name="privacyPolicy">Zásady ochrany osobních údajů</string>
   <string name="letOtherPlayersFollowYou">Umožnit ostatním hráčům následovat Tě</string>
   <string name="letOtherPlayersChallengeYou">Umožnit ostatním hráčům vyzvat Tě</string>
   <string name="letOtherPlayersInviteYouToStudy">Nechat ostatní hráče pozvat Vás ke studii</string>
@@ -640,6 +657,7 @@
   <string name="error.email_unique">Emailová adresa je již používaná</string>
   <string name="error.email_different">Toto je již Vaše emailová adresa</string>
   <string name="ifRatingIsPlusMinusX">Pokud je rating ± %s</string>
+  <string name="onlyExistingConversations">Pouze existující konverzace</string>
   <string name="onlyFriends">Jenom přátelé</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
@@ -721,6 +739,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
   <string name="weHaveSentYouAnEmailTo">Zaslali jsme vám email na %s. Klikněte na odkaz v emailu pro přenastavení vašeho hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registrací berete na vědomí naše %s.</string>
+  <string name="readAboutOur">Přečtěte si naše %s.</string>
   <string name="networkLagBetweenYouAndLichess">Síťové zpoždění mezi vámi a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na zpracování tahu na lichess serveru.</string>
   <string name="downloadAnnotated">Stáhnout s poznámkami</string>
@@ -801,7 +820,6 @@
   <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastní</string>
   <string name="notifications">Oznámení</string>
-  <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na první tah</item>
@@ -852,12 +870,6 @@
   <string name="opening">Zahájení</string>
   <string name="middlegame">Střední hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
-  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Vaše %1$s elo je příliš daleko od %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="conditionalPremoves">Podmíněné předtahy</string>
   <string name="addCurrentVariation">Přidat současnou variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Hrajte variantu k vytvoření podmíněných předtahů</string>
@@ -913,4 +925,22 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
+  <string name="mentionedYouInX"> vás zmínil v \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
+  <string name="invitedYouToX"> vás pozval ke studii \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
+  <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Někdo, koho jste nahlásili, byl zablokován</string>
+  <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
+  <string name="gameVsX">Partie proti %1$s</string>
+  <string name="resVsX">%1$s vs. %2$s</string>
+  <string name="youJustBecamePatron">Právě jste se stal patronem (podporovatelem) Lichess.</string>
+  <string name="patronAccountExpired">Platnost účtu Patrona vypršela</string>
+  <string name="pleaseReconsiderRenewIt">Zvažte prosím jeho obnovení!</string>
+  <string name="someoneReviewedYourCoachProfile">Někdo přidal recenzi na váš profil trenéra.</string>
+  <string name="newPendingReview">Nový, čeká na kontrolu</string>
+  <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
+  <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
+  <string name="timeAlmostUp">Čas vám běží!</string>
 </resources>

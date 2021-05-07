@@ -27,12 +27,6 @@
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
-  <string name="cheating">الغش</string>
-  <string name="sandbagging">تعمد تقديم أداء ضعيف</string>
-  <string name="trolling">التلاعب</string>
-  <string name="insults">إهانة</string>
-  <string name="otherReason">سبب آخر</string>
-  <string name="toReportAPlayer">للإبلاغ عن لاعب لـ %s، استخدم نموذج التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>
   <string name="doNotReportInForum">لا تبلغ عن اللاعبين في المنتدى.</string>
   <string name="doNotSendReportEmails">لا ترسل بالتبليغ عبر البريد الإلكتروني.</string>
@@ -58,7 +52,7 @@
   <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
   <string name="errorPage">صفحة خطأ</string>
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">طلب لرفع حظر او تقييد على IP</string>
+  <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>
   <string name="engineAppeal">علامة الغش او استخدام محرك</string>
   <string name="sendAppealTo">يمكنك ارسال طلب الى %s.</string>
   <string name="falsePositives">قد تحدث قرارات خاطئة في بعض الأحيان، ونحن نعتذر على ذلك.</string>

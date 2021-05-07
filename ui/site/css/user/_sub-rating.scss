@@ -7,41 +7,35 @@
 
     @include transition;
 
-    cursor: default;
-
     &.empty {
-      opacity: .5;
+      opacity: 0.5;
     }
 
     &::before {
       font-size: 3em;
-      opacity: .5;
-      margin-right: .2em;
+      opacity: 0.5;
+      margin-right: 0.2em;
 
       @include transition;
     }
 
-    &.game {
-      cursor: pointer;
+    &:hover {
+      background: mix($c-bg-box, $c-bg-page, 50%);
 
-      &:hover {
-        background: mix($c-bg-box, $c-bg-page, 50%);
-
-        &::before {
-          color: $c-link;
-          opacity: .7;
-        }
+      &::before {
+        color: $c-link;
+        opacity: 0.7;
       }
+    }
 
-      &.active {
-        @extend %box-shadow;
+    &.active {
+      @extend %box-shadow;
 
-        background: $c-bg-box;
+      background: $c-bg-box;
 
-        &::before {
-          color: $c-accent;
-          opacity: .7;
-        }
+      &::before {
+        color: $c-accent;
+        opacity: 0.7;
       }
     }
 
@@ -50,17 +44,17 @@
 
       @extend %flex-column;
 
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
 
     rating span,
     .rank {
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     i {
-      font-size: .75em;
-      opacity: .2;
+      font-size: 0.75em;
+      opacity: 0.2;
       color: $c-font-dim;
 
       @include transition;
@@ -68,7 +62,7 @@
 
     &:hover i {
       color: $c-link;
-      opacity: .7;
+      opacity: 0.7;
     }
 
     &.active i {
@@ -76,10 +70,15 @@
     }
 
     .shy {
-      font-size: .8em;
+      font-size: 0.8em;
       opacity: 0.6;
       line-height: 1em;
     }
+  }
+
+  hr {
+    margin: $block-gap auto;
+    width: 80%;
   }
 
   h3 {
@@ -87,7 +86,7 @@
 
     font-size: 1.1em;
     text-transform: uppercase;
-    letter-spacing: .05em;
+    letter-spacing: 0.05em;
     margin: 0;
     display: inline-block;
   }
@@ -100,23 +99,24 @@
 
   @include breakpoint($mq-not-medium) {
     a {
-      padding: .3em;
+      padding: 0.3em;
     }
 
     a > i,
     h3,
+    hr,
     rating .rp,
     rating span {
       display: none;
     }
   }
 
-
   @include breakpoint($mq-subnav-top) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
 
-    br, .rank {
+    hr,
+    .rank {
       display: none;
     }
 
@@ -125,7 +125,7 @@
       justify-content: center;
 
       &::before {
-        opacity: .8;
+        opacity: 0.8;
         font-size: 1.5em;
       }
 

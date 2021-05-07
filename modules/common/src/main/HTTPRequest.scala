@@ -28,8 +28,7 @@ object HTTPRequest {
     "capacitor://localhost", // ios
     "ionic://localhost",     // ios
     "http://localhost",      // android
-    "http://localhost:8080", // local dev
-    "file://"                // old app
+    "http://localhost:8080"  // local dev
   )
 
   def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
@@ -52,8 +51,8 @@ object HTTPRequest {
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
 
   def ipAddress(req: RequestHeader) =
-    IpAddress {
-      req.remoteAddress.split(", ").lastOption | req.remoteAddress
+    IpAddress.unchecked {
+      req.remoteAddress.split(", ").lastOption | req.remoteAddress // trusted
     }
 
   def sid(req: RequestHeader): Option[String] = req.session get LilaCookie.sessionId
@@ -96,6 +95,7 @@ object HTTPRequest {
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
+  def acceptsCsv(req: RequestHeader)    = req.headers get HeaderNames.ACCEPT contains "text/csv"
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.ActionName).getOrElse("NoHandler")
@@ -108,6 +108,12 @@ object HTTPRequest {
       case _                          => none
     }
   }
+
+  private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
+
+  private def isAppeal(req: RequestHeader) = req.path.startsWith("/appeal")
+
+  def isClosedLoginPath(req: RequestHeader) = isDataDump(req) || isAppeal(req)
 
   def clientName(req: RequestHeader) =
     // the mobile app sends XHR headers

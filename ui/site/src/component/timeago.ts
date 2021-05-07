@@ -10,16 +10,15 @@ const DIVS = [
   60 * 60 * 24,
   60 * 60 * 24 * 7,
   60 * 60 * 2 * 365, // 24/12 = 2
-  60 * 60 * 24 * 365];
+  60 * 60 * 24 * 365,
+];
 
 const LIMITS = [...DIVS];
 LIMITS[2] *= 2; // Show hours up to 2 days.
 
 // format Date / string / timestamp to Date instance.
 const toDate = (input: DateLike): Date =>
-  input instanceof Date ? input : (
-    new Date(isNaN(input as any) ? input : parseInt(input as any))
-  );
+  input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
 
 // format the diff second to *** time ago
 const formatDiff = (diff: number): string => {
@@ -39,21 +38,22 @@ const formatDiff = (diff: number): string => {
 
   if (diff > (i === 0 ? 9 : 1)) i += 1;
   return lichess.timeagoLocale(diff, i, totalSec)[agoin].replace('%s', diff);
-}
+};
 
 let formatterInst: (date: Date) => string;
 
 const formatter = () =>
-  formatterInst = formatterInst || (
-    window.Intl && Intl.DateTimeFormat ?
-      new Intl.DateTimeFormat(document.documentElement.lang, {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric'
-      }).format : d => d.toLocaleString()
-  );
+  (formatterInst =
+    formatterInst ||
+    (window.Intl && Intl.DateTimeFormat
+      ? new Intl.DateTimeFormat(document.documentElement.lang, {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        }).format
+      : d => d.toLocaleString()));
 
 export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
 
@@ -83,4 +83,4 @@ export const findAndRender = (parent?: HTMLElement) =>
 export const updateRegularly = (interval: number) => {
   findAndRender();
   setTimeout(() => updateRegularly(interval * 1.1), interval);
-}
+};

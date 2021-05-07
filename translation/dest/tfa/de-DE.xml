@@ -2,10 +2,10 @@
 <resources>
   <string name="twoFactorAuth">Zwei-Faktor Authentifizierung</string>
   <string name="twoFactorHelp">Zwei-Faktor Authentifizierung fügt deinem Konto ein zusätzliches Sicherheitsmerkmal hinzu.</string>
-  <string name="twoFactorApp">Installiere eine App für Zwei-Faktor-Authentifizierung, zum Beispiel Google Authenticator für %1$s oder %2$s.</string>
+  <string name="twoFactorApp">Installiere eine App für Zwei-Faktor-Authentifizierung, zum Beispiel andOTP für %1$s oder Google Authenticator für %2$s.</string>
   <string name="scanTheCode">Scanne den QR Code mit der App.</string>
   <string name="enterPassword">Gib dein Passwort und den Authentifizierungscode ein, der von der App generiert wurde, um die Einrichtung abzuschließen. Du benötigst für jede weitere Anmeldung einen Authentifizierungscode.</string>
-  <string name="ifYouCannotScanEnterX">Falls du den Code nicht einscannen kannst, gib den geheimen %s in deine App ein.</string>
+  <string name="ifYouCannotScanEnterX">Falls du den Code nicht einscannen kannst, gib den geheimen Code %s in deine App ein.</string>
   <string name="authenticationCode">Authentifizierungscode</string>
   <string name="ifYouLoseAccess">Hinweis: Wenn du den Zugang zu deinen Zwei-Faktor-Authentifizierungscodes verloren hast, kannst du dein Passwort per E-Mail zurücksetzen.</string>
   <string name="enableTwoFactor">Aktiviere die Zwei-Faktor-Authentifizierung</string>

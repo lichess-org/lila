@@ -114,9 +114,14 @@ object home {
         td("Forbidden")
       ),
       tr(
-        th("Late join & pause"),
+        th("Late join"),
         td("Yes"),
-        td("Yes but it reduces the number of rounds")
+        td("Yes until more than half the rounds have started")
+      ),
+      tr(
+        th("Pause"),
+        td("Yes"),
+        td("Yes but might reduce the number of rounds")
       ),
       tr(
         th("Streaks & Berserk"),
@@ -223,7 +228,7 @@ object home {
       i("?"),
       p(
         strong("Can players late-join?"),
-        "Yes, until half the rounds have been played.",
+        "Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round 7 starts.",
         br,
         "Late joiners get a single bye, even if they missed several rounds."
       )

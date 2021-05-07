@@ -51,7 +51,7 @@ final private[api] class RoundApi(
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
           forecastApi.loadForDisplay(pov) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
-            case json ~ simul ~ swiss ~ note ~ forecast ~ bookmarked =>
+            case (((((json, simul), swiss), note), forecast), bookmarked) =>
               (
                 withTournament(pov, tour) _ compose
                   withSwiss(swiss) compose
@@ -88,7 +88,7 @@ final private[api] class RoundApi(
           (pov.game.simulId ?? simulApi.find) zip
           swissApi.gameView(pov) zip
           (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
-          bookmarkApi.exists(pov.game, ctx.me) map { case json ~ simul ~ swiss ~ note ~ bookmarked =>
+          bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), swiss), note), bookmarked) =>
             (
               withTournament(pov, tour) _ compose
                 withSwiss(swiss) compose
@@ -131,7 +131,7 @@ final private[api] class RoundApi(
           } zip
           (owner.??(forecastApi loadForDisplay pov)) zip
           bookmarkApi.exists(pov.game, ctx.me) map {
-            case json ~ tour ~ simul ~ swiss ~ note ~ fco ~ bookmarked =>
+            case ((((((json, tour), simul), swiss), note), fco), bookmarked) =>
               (
                 withTournament(pov, tour) _ compose
                   withSwiss(swiss) compose
@@ -204,15 +204,7 @@ final private[api] class RoundApi(
       obj: JsObject
   ) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(
-        id = pov.gameId,
-        pgnMoves = pov.game.pgnMoves,
-        variant = pov.game.variant,
-        analysis = analysis,
-        initialFen = initialFen | pov.game.variant.initialFen,
-        withFlags = withFlags,
-        clocks = withFlags.clocks ?? pov.game.bothClockStates
-      )
+      lila.round.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))
 
   private def withSteps(pov: Pov, initialFen: Option[FEN])(obj: JsObject) =

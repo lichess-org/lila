@@ -1,13 +1,22 @@
 .pv_box {
+  position: relative;
   background: $c-bg-box;
   font-size: 13px;
 
   .pv {
-    @extend %nowrap-ellipsis;
-
-    height: 2em;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
     line-height: 2em;
     border-top: $border;
+    padding-right: 14px;
+
+    &.pv--nowrap {
+      display: block; // "flex" doesn't support ellipsis so switch back to "block"
+      flex-wrap: initial;
+      height: 2em;
+      @extend %nowrap-ellipsis;
+    }
 
     &[data-uci]:hover {
       background: mix($c-secondary, $c-bg-box, 20%);
@@ -24,6 +33,48 @@
       @extend %san;
 
       margin-left: 4px;
+    }
+
+    &[data-uci] .pv-san:hover {
+      color: $c-primary;
+    }
+
+    .pv-wrap-toggle {
+      position: absolute;
+      right: 0;
+      padding: 0 4px;
+      margin: 0;
+      cursor: pointer;
+      top: 2px;
+
+      &:hover {
+        background: $c-secondary;
+        color: $c-secondary-over;
+      }
+      &::before {
+        content: '⯅';
+      }
+    }
+
+    &.pv--nowrap .pv-wrap-toggle {
+      transform: rotate(180deg);
+    }
+  }
+
+  .pv-board {
+    @extend %popup-shadow;
+    position: absolute;
+    width: 80%;
+    left: 34px;
+    max-width: 240px;
+    z-index: 1;
+
+    .pv-board-square {
+      @extend %square;
+
+      .cg-wrap {
+        @extend %abs-100;
+      }
     }
   }
 }

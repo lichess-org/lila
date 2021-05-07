@@ -47,6 +47,7 @@ final class Env(
     socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
     cacheApi: lila.memo.CacheApi,
+    slackApi: lila.irc.SlackApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,
     val mode: Mode

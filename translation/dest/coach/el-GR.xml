@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess προπονητές</string>
-  <string name="lichessCoach">Lichess προπονητής</string>
-  <string name="areYouCoach">Είστε εξαίρετοι προπονητές σκακιού με τίτλο %s;</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM ή FIDE τίτλο</string>
+  <string name="lichessCoaches">Προπονητές του Lichess</string>
+  <string name="lichessCoach">Προπονητής του Lichess</string>
+  <string name="areYouCoach">Είστε ενας εξαιρετικός προπονητές σκακιού που κατέχει %s;</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">έναν NM ή FIDE τίτλο</string>
   <string name="confirmTitle">Επιβεβαιώστε εδώ τον τίτλο σας και θα εξετάσουμε την αίτησή σας.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Στείλτε μας ένα email στο %s και θα εξετάσουμε την αίτησή σας.</string>
   <string name="location">Τοποθεσία</string>
   <string name="languages">Γλώσσες</string>
-  <string name="rating">Αξιολόγηση</string>
+  <string name="rating">Βαθμολογία</string>
   <string name="hourlyRate">Ωριαία αμοιβή</string>
   <string name="availability">Διαθεσιμότητα</string>
   <string name="accepting">Αποδέχομαι μαθητές</string>
@@ -16,14 +16,14 @@
   <string name="xCoachesStudents">%s προπονεί μαθητές σκακιού</string>
   <string name="viewXProfile">Προβολή προφίλ του %s</string>
   <string name="sendPM">Αποστολή προσωπικού μηνύματος</string>
-  <string name="aboutMe">Σχετικά με μένα</string>
-  <string name="playingExperience">Εμπειρία παιχνιδιού</string>
-  <string name="teachingExperience">Εμπειρία διδασκαλίας</string>
+  <string name="aboutMe">Σχετικά με εμένα</string>
+  <string name="playingExperience">Εμπειρία ως παίχτης</string>
+  <string name="teachingExperience">Εμπειρία ως προπονητής</string>
   <string name="otherExperiences">Άλλες εμπειρίες</string>
-  <string name="bestSkills">Βέλτιστες ικανότητες</string>
-  <string name="teachingMethod">Μεθοδολογία διδασκαλίας</string>
-  <string name="publicStudies">Δημόσιες σπουδές</string>
-  <string name="youtubeVideos">Βίντεο Youtube</string>
+  <string name="bestSkills">Καλύτερες ικανότητες</string>
+  <string name="teachingMethod">Μέθοδοι διδασκαλίας</string>
+  <string name="publicStudies">Δημόσιες μελέτες</string>
+  <string name="youtubeVideos">Βίντεο στο YouTube</string>
   <plurals name="studentReviews">
     <item quantity="one">Κριτική μαθητή</item>
     <item quantity="other">%s κριτικές μαθητών</item>
@@ -31,5 +31,5 @@
   <string name="thankYouForReview">Σας ευχαριστώ για την κριτική!</string>
   <string name="xWillApproveIt">%s θα εγκριθεί σύντομα, ή ένας διαχειριστής θα το εξετάσει.</string>
   <string name="reviewCoach">Κριτική για προπονητή</string>
-  <string name="describeExperienceWith">Περιγράψτε την προπονητική σας εμπειρία με %s</string>
+  <string name="describeExperienceWith">Περιγράψτε την προπονητική σας εμπειρία με τον προπονητή %s</string>
 </resources>

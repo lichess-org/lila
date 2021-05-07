@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.i18n.defaultLang
-import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -83,7 +82,7 @@ final private class GameJson(
     Json
       .obj(
         "userId" -> userId,
-        "name"   -> s"${user.name} (${p.rating.??(_.toString)})",
+        "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
         "color"  -> p.color.name
       )
       .add("title" -> user.title)

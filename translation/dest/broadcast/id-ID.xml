@@ -6,16 +6,13 @@
   <string name="ongoing">Sedang berlangsung</string>
   <string name="upcoming">Akan datang</string>
   <string name="completed">Telah selesai</string>
-  <string name="eventName">Nama acara</string>
-  <string name="eventDescription">Keterangan acara secara singkat</string>
+  <string name="roundNumber">Babak ronde</string>
   <string name="fullDescription">Keterangan acara secara penuh</string>
   <string name="fullDescriptionHelp">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
-  <string name="sourceUrl">Sumber URL</string>
+  <string name="sourceUrlOrGameIds">Sumber URL, atau IDs game</string>
   <string name="sourceUrlHelp">URL yang akan di-polling oleh Lichess untuk mendapatkan pembaruan PGN. Itu harus dapat diakses publik dari Internet.</string>
-  <string name="roundNumber">Babak ronde</string>
+  <string name="gameIdsHelp">Kalau tidak, kamu bisa memasukkan lebih dari 64 Lichess IDs game, dipisahkan oleh spasi.</string>
   <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
   <string name="startDateHelp">Opsional, jika Anda tahu kapan acara dimulai</string>
   <string name="credits">Sertakan sumber</string>
-  <string name="cloneBroadcast">Gandakan siaran</string>
-  <string name="resetBroadcast">Atur ulang siaran</string>
 </resources>

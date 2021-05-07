@@ -6,6 +6,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
+import chess.Color
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
@@ -57,7 +58,7 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         none,
         parsed.variant,
-        data.realOrientation
+        resolveOrientation(data.realOrientation, parsed.root, parsed.tags)
       ),
       root = parsed.root,
       tags = parsed.tags,
@@ -67,6 +68,13 @@ final private class ChapterMaker(
       gamebook = data.isGamebook,
       conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
     )
+
+  private def resolveOrientation(orientation: Orientation, root: Node.Root, tags: Tags = Tags.empty): Color =
+    orientation match {
+      case Orientation.Fixed(color)        => color
+      case _ if tags.resultColor.isDefined => Color.white
+      case _                               => root.lastMainlineNode.color
+    }
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
@@ -97,7 +105,7 @@ final private class ChapterMaker(
           setup = Chapter.Setup(
             none,
             variant,
-            data.realOrientation,
+            resolveOrientation(data.realOrientation, root),
             fromFen = isFromFen option true
           ),
           root = root,
@@ -134,7 +142,10 @@ final private class ChapterMaker(
       setup = Chapter.Setup(
         !game.synthetic option game.id,
         game.variant,
-        data.realOrientation
+        data.realOrientation match {
+          case Orientation.Auto         => Color.white
+          case Orientation.Fixed(color) => color
+        }
       ),
       root = root,
       tags = PgnTags(tags),
@@ -152,7 +163,8 @@ final private class ChapterMaker(
         userId = userId,
         text = s"I'm studying this game on ${net.domain}/study/${study.id}",
         publicSource = none,
-        _.Study
+        _.Round,
+        persist = false
       )
     }
 
@@ -195,10 +207,16 @@ private[study] object ChapterMaker {
   trait ChapterData {
     def orientation: String
     def mode: String
-    def realOrientation = chess.Color.fromName(orientation) | chess.White
+    def realOrientation = Color.fromName(orientation).fold[Orientation](Orientation.Auto)(Orientation.Fixed)
     def isPractice      = mode == Mode.Practice.key
     def isGamebook      = mode == Mode.Gamebook.key
     def isConceal       = mode == Mode.Conceal.key
+  }
+
+  sealed trait Orientation
+  object Orientation {
+    case class Fixed(color: Color) extends Orientation
+    case object Auto               extends Orientation
   }
 
   case class Data(
@@ -207,7 +225,7 @@ private[study] object ChapterMaker {
       variant: Option[String] = None,
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
-      orientation: String = "white",
+      orientation: String = "white", // can be "auto"
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,
       isDefaultName: Boolean = true

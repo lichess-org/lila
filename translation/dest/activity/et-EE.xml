@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Aktiivsus</string>
-  <string name="hostedALiveStream">Näitas kellegi teise otseülekannet</string>
+  <string name="hostedALiveStream">Tegi otseülekannet</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Toeta Lichess.org\'i %1$s kuu %2$s</item>
     <item quantity="other">Toeta Lichess.org\'i %1$s kuud %2$s</item>
@@ -62,6 +62,11 @@
     <item quantity="one">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
     <item quantity="other">Saavutas #%1$s koha (parima %2$s%% seas) %3$s mänguga turniiril %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Võistles %s šveitsi turniiril</item>
+    <item quantity="other">Võistles %s šveitsi turniiril</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Saavutas #%1$s koha mängus %2$s</string>
   <string name="signedUp">Registreerus lehel lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Liitus %s rühmaga</item>

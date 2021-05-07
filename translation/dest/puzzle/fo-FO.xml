@@ -9,6 +9,7 @@
   <string name="lengths">Longdir</string>
   <string name="mates">Mát</string>
   <string name="goals">Mál</string>
+  <string name="origin">Uppruni</string>
   <string name="specialMoves">Serligir leikir</string>
   <string name="didYouLikeThisPuzzle">Dámdi tær hesa uppgávuna?</string>
   <string name="voteToLoadNextOne">Atkvøð at innlesa ta næstu!</string>
@@ -42,5 +43,11 @@
   <string name="hardest">Truplasta</string>
   <string name="example">Dømi</string>
   <string name="addAnotherTheme">Legg eitt nýtt tema aftrat</string>
-  <string name="jumpToNextPuzzleImmediately">Far beinanvegin til næstu uppgávu</string>
+  <string name="jumpToNextPuzzleImmediately">Far til næstu uppgávu beinanvegin</string>
+  <string name="puzzleDashboard">Uppgávuyvirlit</string>
+  <string name="improvementAreas">Øki at bøta um</string>
+  <string name="strengths">Styrkir</string>
+  <string name="history">Uppgávusøga</string>
+  <string name="solved">loyst</string>
+  <string name="failed">miseydnaðist</string>
 </resources>

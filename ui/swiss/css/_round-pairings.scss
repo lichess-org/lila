@@ -1,0 +1,10 @@
+.pagination {
+  margin-left: var(--box-padding);
+  &--top {
+    padding-bottom: 1em;
+    border-bottom: $border;
+  }
+  &--bottom {
+    padding: 1em 0;
+  }
+}

@@ -211,7 +211,10 @@ object PrefForm {
 
   val bgImg = Form(
     single(
-      "bgImg" -> nonEmptyText
+      "bgImg" -> nonEmptyText(minLength = 10, maxLength = 400)
+        .verifying { url =>
+          url.startsWith("https://") || url.startsWith("//")
+        }
     )
   )
 

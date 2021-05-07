@@ -4,19 +4,24 @@ import org.joda.time.DateTime
 import scala.util.chaining._
 
 import lila.user.User
+import org.joda.time.Days
 
 case class Team(
     _id: Team.ID, // also the url slug
     name: String,
     location: Option[String],
+    password: Option[String],
     description: String,
+    descPrivate: Option[String],
     nbMembers: Int,
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Team.ChatFor
+    chat: Team.ChatFor,
+    hideMembers: Option[Boolean],
+    hideForum: Option[Boolean]
 ) {
 
   def id = _id
@@ -27,11 +32,23 @@ case class Team(
 
   def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
     chat == f(Team.ChatFor)
+
+  def publicMembers: Boolean = !hideMembers.has(true)
+
+  def publicForum: Boolean = !hideForum.has(true)
 }
 
 object Team {
 
-  val maxJoin = 100
+  case class Mini(id: Team.ID, name: String)
+
+  val maxJoinCeiling = 50
+
+  def maxJoin(u: User) =
+    if (u.isVerified) maxJoinCeiling * 2
+    else {
+      15 + Days.daysBetween(u.createdAt, DateTime.now).getDays / 7
+    } atMost maxJoinCeiling
 
   type ID = String
 
@@ -70,22 +87,30 @@ object Team {
       id: String,
       name: String,
       location: Option[String],
+      password: Option[String],
       description: String,
+      descPrivate: Option[String],
       open: Boolean,
-      createdBy: User
+      createdBy: User,
+      hideMembers: Option[Boolean],
+      hideForum: Option[Boolean]
   ): Team =
     new Team(
       _id = id,
       name = name,
       location = location,
+      password = password,
       description = description,
+      descPrivate = descPrivate,
       nbMembers = 1,
       enabled = true,
       open = open,
       createdAt = DateTime.now,
       createdBy = createdBy.id,
       leaders = Set(createdBy.id),
-      chat = ChatFor.MEMBERS
+      chat = ChatFor.MEMBERS,
+      hideMembers = hideMembers,
+      hideForum = hideForum
     )
 
   def nameToId(name: String) =

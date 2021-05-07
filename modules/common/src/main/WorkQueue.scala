@@ -40,7 +40,7 @@ final class WorkQueue(buffer: Int, timeout: FiniteDuration, name: String, parall
   }
 
   private val queue = Source
-    .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew)
+    .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew) // #TODO use akka 2.6.11 BoundedQueueSource
     .mapAsyncUnordered(parallelism) { case (task, promise) =>
       task()
         .withTimeout(timeout, new TimeoutException)(ec, mat.system)

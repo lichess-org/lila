@@ -9,6 +9,7 @@
   <string name="yourTurn">Gezegiñiz</string>
   <string name="aiNameLevelAiLevel">%1$s derejesi %2$s</string>
   <string name="level">Dereje</string>
+  <string name="strength">Güýç</string>
   <string name="toggleTheChat">Çäti aç/ýap</string>
   <string name="toggleSound">Sesi aç/ýap</string>
   <string name="chat">Çät</string>
@@ -33,6 +34,10 @@
   <string name="joinTheGame">Oýuna goşul</string>
   <string name="whitePlays">Aklaryñ göçümi</string>
   <string name="blackPlays">Garalaryñ göçümi</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">Siziň garşydaşyňyz oýuny terk etdi. Siz ýeňişiňizi %s sekuntdan alyp bilersiňiz.</item>
+    <item quantity="other">Siziň garşydaşyňyz oýuny terk etdi. Siz ýeňişiňizi %s sekuntdan alyp bilersiňiz.</item>
+  </plurals>
   <string name="opponentLeftChoices">Garşydaş oýuny terk eden ýaly. Ýeñiş ýa-da yglan edip bilersiñiz, isleseñiz garaşyp bilersiñiz.</string>
   <string name="makeYourOpponentResign">Tehniki ýeñiş yglan et</string>
   <string name="forceResignation">Ýeñiş yglan et</string>
@@ -109,11 +114,8 @@
   <string name="infiniteAnalysis">Çäksiz derňew</string>
   <string name="removesTheDepthLimit">Derňew çägini öçürýär we kompýuteriňizi ýyly saklaýar</string>
   <string name="blunder">Säwlik</string>
-  <string name="blunders">Säwlikler</string>
   <string name="mistake">Ýalňyşlyk</string>
-  <string name="mistakes">Ýalňyşlar</string>
   <string name="inaccuracy">Bitakyklyk</string>
-  <string name="inaccuracies">Bitakyklyklar</string>
   <string name="moveTimes">Göçüm wagtlary</string>
   <string name="flipBoard">Tagtany öwür</string>
   <string name="threefoldRepetition">3 gaýtalama</string>
@@ -144,6 +146,10 @@
   <string name="xPostedInForumY">%1$s agza %2$s mowzuga ýazgy ýazdy</string>
   <string name="latestForumPosts">Forumdaky iň täze neşirler</string>
   <string name="players">Küştçiler</string>
+  <string name="friends">Dostlaryň</string>
+  <string name="discussions">Söhbetdeşlik</string>
+  <string name="today">Şu gün</string>
+  <string name="yesterday">Düýn</string>
   <string name="minutesPerSide">Her tarapyň minuty</string>
   <string name="variant">Wariant</string>
   <string name="variants">Wariantlar</string>
@@ -186,6 +192,8 @@
     <item quantity="other">Size garşy %s oýun</item>
   </plurals>
   <string name="cancel">Goýbolsun et</string>
+  <string name="whiteTimeOut">Ak wagty gutardy</string>
+  <string name="blackTimeOut">Gara wagty gutardy</string>
   <string name="drawOfferSent">Deňlik teklibi iberildi</string>
   <string name="drawOfferDeclined">Deňlik teklibi ret edildi</string>
   <string name="drawOfferAccepted">Deňlik teklibi kabul edildi</string>
@@ -200,6 +208,7 @@
   <string name="playingRightNow">Häzir oýnalýar</string>
   <string name="eventInProgress">Progressiýada</string>
   <string name="finished">Tamamlanan</string>
+  <string name="finishesX">gutarýar %s</string>
   <string name="abortGame">Oýny abort et</string>
   <string name="gameAborted">Oýun abort edildi</string>
   <string name="standard">Standart</string>
@@ -219,6 +228,7 @@
   <string name="rematchOfferDeclined">Ýene oýnamak teklibi ret edildi</string>
   <string name="cancelRematchOffer">Ýene oýnamak teklibini ýatyr</string>
   <string name="viewRematch">Ýene oýnama seret</string>
+  <string name="confirmMove">Göçümiňizi tassyklan</string>
   <string name="play">Oýna</string>
   <string name="inbox">Gelen gutusy</string>
   <string name="chatRoom">Çät otagy</string>
@@ -232,7 +242,6 @@
   <string name="send">Iber</string>
   <string name="incrementInSeconds">Sekunt gatanjy</string>
   <string name="freeOnlineChess">Tölegsiz onlaýn küşt</string>
-  <string name="spectators">Tomaşaçylar:</string>
   <plurals name="nbRated">
     <item quantity="one">%s reýtingli</item>
     <item quantity="other">%s reýtingli</item>
@@ -259,7 +268,6 @@
     <item quantity="one">%s sekunt goş</item>
     <item quantity="other">%s sekunt goş</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oýunçy emeli usul bilen reýtingini artdyrýar/kemeldýär</string>
   <string name="openingExplorerAndTablebase">Açylyşlar eksploreri &amp; tablisasy</string>
   <string name="takeback">Yzyna al</string>
   <string name="proposeATakeback">Yza alma hödürle</string>
@@ -352,7 +360,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="more">Has köp</string>
   <string name="memberSince">Agza bolan wagty:</string>
   <string name="lastSeenActive">Soňky aktiwligi: %s</string>
-  <string name="challengeToPlay">Eriş</string>
   <string name="player">Oýunçy</string>
   <string name="list">Sanaw</string>
   <string name="graph">Grafika</string>
@@ -551,6 +558,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
   <string name="videoLibrary">Wideolar ambary</string>
+  <string name="streamersMenu">Streamerler</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>
   <string name="about">Barada</string>
@@ -604,6 +612,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="yourPerfTypeRatingIsRating">%1$s reýtingiňiz %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oýunçynyň %1$s sanysyndan öňdesiňiz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Esaslandyrylan %s reýtingiňiz ýok.</string>
+  <string name="yourRating">Siziň reýtiňyňyz</string>
   <string name="checkYourEmail">Emailiňizi barlaň</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size email iberdik. Aktiwasiýa üçin emaildäki çelgä tyklaň.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Email ýok bolsa bolup biljek spam, sosial, zyňyndy ýaly bukjalara serediň.</string>
@@ -687,7 +696,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="error.unknown">Näsazlyk</string>
   <string name="custom">Şahsy</string>
   <string name="notifications">Duýduryşlar</string>
-  <string name="challenges">Erşikler</string>
   <string name="perfRatingX">Reýting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Ilkinji göçüm üçin %s sekunt</item>
@@ -734,12 +742,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="opening">Açylyş</string>
   <string name="middlegame">Oýun ortasy</string>
   <string name="endgame">Oýun ahyry</string>
-  <string name="registerToSendChallenges">Erişmek üçin registrasiýa ediň.</string>
-  <string name="youCannotChallengeX">%s agza erşip bilmersiňiz.</string>
-  <string name="xDoesNotAcceptChallenges">%s erşikleri kabul edenok.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s reýtingiňiz %2$s agzadan diýseň daş.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Wagtlaýyn %s reýting dowamynda erşip bolmaz.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s diňe dostlaryndan gelen erşikleri kabul edýär.</string>
   <string name="conditionalPremoves">Şertli öň-göçümler</string>
   <string name="addCurrentVariation">Häzirki warianty goş</string>
   <string name="playVariationToCreateConditionalPremoves">Şertli öň-göçümleri goşmak üçin bir wariant oýnaň</string>
@@ -749,4 +751,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
     <item quantity="one">we %s öň-göçüm liniýasyny huşda sakla</item>
     <item quantity="other">we %s öň-göçüm liniýasyny huşda sakla</item>
   </plurals>
+  <string name="sorry">Bagyşlaň :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Biz sizi wagtlaýyn oýnamaz ýaly etmeli bolduk.</string>
 </resources>

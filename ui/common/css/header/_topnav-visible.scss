@@ -14,7 +14,6 @@
       --nav-section-hover: 53px;
     }
 
-
     display: flex;
 
     section {
@@ -27,13 +26,9 @@
         display: block;
         height: var(--nav-section);
         line-height: $site-header-height;
-        padding: 0 .7rem;
+        padding: 0 0.7rem;
         text-transform: uppercase;
         border-left: 2px solid transparent;
-
-        @media (hover: none) {
-          pointer-events: none;
-        }
       }
 
       .home {
@@ -54,12 +49,15 @@
 
       a {
         display: block;
-        padding: .6rem .7rem;
+        padding: 0.6rem 0.7rem;
         color: $c-header-dropdown;
 
         &:hover {
           background: $c-primary;
-          color: $c-primary-over;
+          &,
+          &::after {
+            color: $c-primary-over;
+          }
         }
 
         &:first-child {

@@ -24,7 +24,6 @@
   <string name="visibleByBothStudentsAndTeachers">Visible by both teachers and students of the class</string>
   <string name="teachersOfTheClass">Teachers of the class</string>
   <string name="addLichessUsernames">Add Lichess usernames to invite them as teachers. One per line.</string>
-  <string name="theyMustFirstApply">They must first apply to be Lichess Teachers.</string>
   <string name="resetPassword">Reset password</string>
   <string name="makeSureToCopy">Make sure to copy or write down the password now. You won’t be able to see it again!</string>
   <string name="passwordX">Password: %s</string>

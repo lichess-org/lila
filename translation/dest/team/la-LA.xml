@@ -11,9 +11,6 @@
   <string name="noTeamFound">Nulla legio inventa</string>
   <string name="joinTeam">In legionem convenire</string>
   <string name="quitTeam">A legione perficere</string>
-  <string name="anyoneCanJoin">Omnibus licet convenire</string>
-  <string name="aConfirmationIsRequiredToJoin">Confirmatione data licet convenire</string>
-  <string name="joiningPolicy">Lex conveniendi</string>
   <string name="teamBestPlayers">Meliores legionis lusores</string>
   <string name="teamRecentMembers">Nuper conventi sodales</string>
 </resources>

@@ -22,7 +22,9 @@ Kurbads nav pieejams spēlēm ar nulles sākotnējo laiku (0+1, 0+2).
 
 Papildus punkts tiek piešķirts tikai tad, ja Kurbada spēlē izdarīti vismaz 7 gājieni.</string>
   <string name="howIsTheWinnerDecided">Kā tiek noteikts uzvarētājs?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Spēlētājs(i) ar visvairāk punktiem, turnīram beidzoties, tiek pasludināts(i) par uzvarētāju(iem).</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnīra laikam beidzoties, spēlētājus, kam visvairāk punktu, pasludinās par uzvarētājiem.
+
+Ja vairākiem spēlētājiem ir vienāds punktu skaits, uzvarošo nosaka pēc turnīra snieguma.</string>
   <string name="howDoesPairingWork">Kā notiek sapārošana?</string>
   <string name="howDoesPairingWorkAnswer">Turnīram sākoties, spēlētājus sapāro atbilstoši reitingam.
 Tiklīdz spēle beigusies, atgriezies turnīra vestibilā: tad tiksi sapārots ar nākamo spēlētāju vistuvāk tavam reitingam.
@@ -41,4 +43,9 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
   <string name="drawStreak">Atkārtoti neizšķirti: Kad spēlētājs vairākas reizes pēc kārtas panāk neizšķirtu arēnā, punktu ieskaitīs tikai par pirmo neizšķirtu, vai neizšķirtas spēles, kas ilga %s gājienus. Šo secību var pārtraukt tikai uzvara, nevis zaudējums vai neizšķirts.</string>
   <string name="history">Arēnu vēsture</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="zero">Skatīt %s komandas</item>
+    <item quantity="one">Skatīt %s komandu</item>
+    <item quantity="other">Skatīt visas %s komandas</item>
+  </plurals>
 </resources>

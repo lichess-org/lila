@@ -4,7 +4,9 @@
   <string name="myStudies">Fy astudiaethau</string>
   <string name="allStudies">Pob astudiaethau</string>
   <string name="hot">Poeth</string>
+  <string name="addMembers">Ychwanegu aelodau</string>
   <string name="spectator">Ymwelwr</string>
+  <string name="contributor">Cyfrannwr</string>
   <string name="kick">Cicio</string>
   <string name="like">Hoffi</string>
   <string name="newTag">Tag newydd</string>
@@ -16,7 +18,9 @@
   <string name="cloneStudy">Clonio</string>
   <string name="studyPgn">Astudio PGN</string>
   <string name="studyUrl">URL Astudiaeth</string>
+  <string name="startAtX">Dechrau at %s</string>
   <string name="open">Agor</string>
+  <string name="newChapter">Pennod newydd</string>
   <string name="noPinnedComment">Dim</string>
   <string name="empty">Gwag</string>
   <string name="editor">Golygydd</string>

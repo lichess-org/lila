@@ -4,7 +4,6 @@ case class ContentSecurityPolicy(
     defaultSrc: List[String],
     connectSrc: List[String],
     styleSrc: List[String],
-    fontSrc: List[String],
     frameSrc: List[String],
     workerSrc: List[String],
     imgSrc: List[String],
@@ -26,12 +25,11 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.stripe.com" :: frameSrc
     )
 
-  def withTwitch =
+  def finalizeWithTwitch =
     copy(
       defaultSrc = Nil,
       connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
       styleSrc = Nil,
-      fontSrc = Nil,
       frameSrc = Nil,
       workerSrc = Nil,
       scriptSrc = Nil
@@ -46,10 +44,14 @@ case class ContentSecurityPolicy(
 
   def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
 
-  def withRecaptcha =
+  private val hCaptchaDomains = List("https://hcaptcha.com", "https://*.hcaptcha.com")
+
+  def withHcaptcha =
     copy(
-      scriptSrc = "https://www.google.com" :: scriptSrc,
-      frameSrc = "https://www.google.com" :: frameSrc
+      scriptSrc = hCaptchaDomains ::: scriptSrc,
+      frameSrc = hCaptchaDomains ::: frameSrc,
+      styleSrc = hCaptchaDomains ::: styleSrc,
+      connectSrc = hCaptchaDomains ::: connectSrc
     )
 
   def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
@@ -72,7 +74,6 @@ case class ContentSecurityPolicy(
       "default-src " -> defaultSrc,
       "connect-src " -> connectSrc,
       "style-src "   -> styleSrc,
-      "font-src "    -> fontSrc,
       "frame-src "   -> frameSrc,
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,

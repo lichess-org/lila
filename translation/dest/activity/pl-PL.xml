@@ -9,7 +9,7 @@
     <item quantity="other">Wsparcie lichess.org przez %1$s miesięcy jako %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Przerobione ćwiczenie w %2$s</item>
+    <item quantity="one">Przerobione %1$s ćwiczenie w %2$s</item>
     <item quantity="few">Przerobione %1$s ćwiczenia w %2$s</item>
     <item quantity="many">Przerobione %1$s ćwiczeń w %2$s</item>
     <item quantity="other">Przerobione %1$s ćwiczeń w %2$s</item>
@@ -21,10 +21,10 @@
     <item quantity="other">Rozwiązanie %s zadań szachowych</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Rozegranie partii (%2$s)</item>
-    <item quantity="few">Rozegranie %1$s partii (%2$s)</item>
-    <item quantity="many">Rozegranie %1$s partii (%2$s)</item>
-    <item quantity="other">Rozegranie %1$s partii (%2$s)</item>
+    <item quantity="one">Rozegrana %1$s partia %2$s</item>
+    <item quantity="few">Rozegrane %1$s partie %2$s</item>
+    <item quantity="many">Rozegrane %1$s partii %2$s</item>
+    <item quantity="other">Rozegrane %1$s partii %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Opublikowanie wpisu w %2$s</item>
@@ -33,13 +33,13 @@
     <item quantity="other">Opublikowanie %1$s wpisów w %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Wykonanie ruchu</item>
-    <item quantity="few">Wykonanie %1$s ruchów</item>
-    <item quantity="many">Wykonanie %1$s ruchów</item>
-    <item quantity="other">Wykonanie %1$s ruchów</item>
+    <item quantity="one">Wykonany %1$s ruch</item>
+    <item quantity="few">Wykonane %1$s ruchy</item>
+    <item quantity="many">Wykonane %1$s ruchów</item>
+    <item quantity="other">Wykonane %1$s ruchów</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">w partii korespondencyjnej</item>
+    <item quantity="one">w %1$s partii korespondencyjnej</item>
     <item quantity="few">w %1$s partiach korespondencyjnych</item>
     <item quantity="many">w %1$s partiach korespondencyjnych</item>
     <item quantity="other">w %1$s partiach korespondencyjnych</item>
@@ -92,11 +92,18 @@
     <item quantity="many">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
     <item quantity="other">%1$s miejsce w klasyfikacji (top %2$s%%) z %3$s partiami w %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Uczestniczył(a) w %s turnieju szwajcarskim</item>
+    <item quantity="few">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+    <item quantity="many">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+    <item quantity="other">Uczestniczył(a) w %s turniejach szwajcarskich</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">%1$s miejsce w %2$s</string>
   <string name="signedUp">Rejestracja na lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Dołączenie do klubu</item>
     <item quantity="few">Dołączenie do %s klubów</item>
     <item quantity="many">Dołączenie do %s klubów</item>
-    <item quantity="other">Dołączenie do %s klubów</item>
+    <item quantity="other">Dołączono do %s zespołów</item>
   </plurals>
 </resources>

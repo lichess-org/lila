@@ -19,90 +19,156 @@ final class PersonalDataExport(
     msgEnv: lila.msg.Env,
     forumEnv: lila.forum.Env,
     gameEnv: lila.game.Env,
+    roundEnv: lila.round.Env,
     chatEnv: lila.chat.Env,
     relationEnv: lila.relation.Env,
+    userRepo: lila.user.UserRepo,
     mongoCacheApi: lila.memo.MongoCache.Api
 )(implicit ec: ExecutionContext, mat: Materializer) {
 
-  def apply(user: User) = cache get user.id
+  private val lightPerSecond = 60
+  private val heavyPerSecond = 30
 
-  private val cache = mongoCacheApi[User.ID, String](64, "personal-data-export", 1 day, identity) { loader =>
-    _.expireAfterAccess(1 minute)
-      .buildAsyncFuture {
-        loader(fetch)
+  def apply(user: User): Source[String, _] = {
+
+    val intro =
+      Source.futureSource {
+        userRepo.currentOrPrevEmail(user.id) map { email =>
+          Source(
+            List(
+              textTitle(s"Personal data export for ${user.username}"),
+              "All dates are UTC",
+              bigSep,
+              s"Signup date: ${textDate(user.createdAt)}",
+              s"Last seen: ${user.seenAt ?? textDate}",
+              s"Public profile: ${user.profile.??(_.toString)}",
+              s"Email: ${email.??(_.value)}"
+            )
+          )
+        }
       }
-  }
 
-  private def fetch(userId: User.ID) =
-    for {
-      sessions  <- securityEnv.store.allSessions(userId)
-      posts     <- forumEnv.postApi.allByUser(userId)
-      msgs      <- msgEnv.api.allMessagesOf(userId)
-      following <- relationEnv.api.fetchFollowing(userId)
-      chats <-
+    val connections =
+      Source(List(textTitle("Connections"))) concat
+        securityEnv.store.allSessions(user.id).documentSource().throttle(lightPerSecond, 1 second).map { s =>
+          s"${s.date.??(textDate)} ${s.ip} ${s.ua}"
+        }
+
+    val followedUsers =
+      Source.futureSource {
+        relationEnv.api.fetchFollowing(user.id) map { userIds =>
+          Source(List(textTitle("Followed players")) ++ userIds)
+        }
+      }
+
+    val forumPosts =
+      Source(List(textTitle("Forum posts"))) concat
+        forumEnv.postApi.allByUser(user.id).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
+          s"${textDate(p.createdAt)}\n${p.text}$bigSep"
+        }
+
+    val privateMessages =
+      Source(List(textTitle("Direct messages"))) concat
+        msgEnv.api
+          .allMessagesOf(user.id)
+          .throttle(heavyPerSecond, 1 second)
+          .map { case (text, date) =>
+            s"${textDate(date)}\n$text$bigSep"
+          }
+
+    def gameChatsLookup(lookup: Bdoc) =
+      gameEnv.gameRepo.coll
+        .aggregateWith[Bdoc](readPreference = ReadPreference.secondaryPreferred) { framework =>
+          import framework._
+          List(
+            Match($doc(Game.BSONFields.playerUids -> user.id)),
+            Project($id(true)),
+            PipelineOperator(lookup),
+            Unwind("chat"),
+            ReplaceRootField("chat"),
+            Project($doc("_id" -> false, "l" -> true)),
+            Unwind("l"),
+            Match("l".$startsWith(s"${user.id} ", "i"))
+          )
+        }
+        .documentSource()
+        .map { doc => doc.string("l").??(_.drop(user.id.size + 1)) }
+        .throttle(heavyPerSecond, 1 second)
+
+    val privateGameChats =
+      Source(List(textTitle("Private game chat messages"))) concat
+        gameChatsLookup(
+          $doc(
+            "$lookup" -> $doc(
+              "from"         -> chatEnv.coll.name,
+              "as"           -> "chat",
+              "localField"   -> "_id",
+              "foreignField" -> "_id"
+            )
+          )
+        )
+
+    val spectatorGameChats =
+      Source(List(textTitle("Spectator game chat messages"))) concat
+        gameChatsLookup(
+          $doc(
+            "$lookup" -> $doc(
+              "from"     -> chatEnv.coll.name,
+              "as"       -> "chat",
+              "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
+              "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
+            )
+          )
+        )
+
+    val gameNotes =
+      Source(List(textTitle("Game notes"))) concat
         gameEnv.gameRepo.coll
-          .find($doc(Game.BSONFields.playerUids -> userId), $id(true).some)
-          .cursor[Bdoc](ReadPreference.secondaryPreferred)
-          .documentSource(90_000)
-          .mapConcat { doc =>
-            doc string "_id" toList
+          .aggregateWith[Bdoc](
+            readPreference = ReadPreference.secondaryPreferred
+          ) { framework =>
+            import framework._
+            List(
+              Match($doc(Game.BSONFields.playerUids -> user.id)),
+              Project($id(true)),
+              PipelineOperator(
+                $doc(
+                  "$lookup" -> $doc(
+                    "from"     -> roundEnv.noteApi.collName,
+                    "as"       -> "note",
+                    "let"      -> $doc("id" -> $doc("$concat" -> $arr("$_id", user.id))),
+                    "pipeline" -> $arr($doc("$match" -> $doc("$expr" -> $doc("$eq" -> $arr("$_id", "$$id")))))
+                  )
+                )
+              ),
+              Unwind("note"),
+              ReplaceRootField("note"),
+              Project($doc("_id" -> false, "t" -> true))
+            )
           }
-          .mapAsyncUnordered(8) { id =>
-            chatEnv.api.userChat.findLinesBy(Chat.Id(id), userId)
-          }
-          .mapConcat(identity)
-          .runWith(Sink.seq)
-    } yield List(
-      render.connections(sessions),
-      render.followedUsers(following),
-      render.forumPosts(posts),
-      render.privateMessages(msgs),
-      render.gameChats(chats)
-    ).flatten mkString "\n\n"
+          .documentSource()
+          .map { doc => ~doc.string("t") }
+          .throttle(heavyPerSecond, 1 second)
 
-  private object render {
+    val outro = Source(List(textTitle("End of data export.")))
 
-    def connections(sessions: List[lila.security.UserSession]) =
-      List(
-        textTitle(s"${sessions.size} Connections"),
-        sessions.map { s =>
-          s"${s.ip} ${s.date.map(textDate)}\n${s.ua}"
-        } mkString "\n\n"
-      )
-
-    def forumPosts(posts: List[lila.forum.Post]) =
-      List(
-        textTitle(s"${posts.size} Forum posts"),
-        posts.map { p =>
-          s"${textDate(p.createdAt)}\n${p.text}"
-        } mkString bigSep
-      )
-
-    def privateMessages(msgs: Seq[(User.ID, String, DateTime)]) =
-      List(
-        textTitle(s"${msgs.size} Direct messages"),
-        msgs.map { case (to, text, date) =>
-          s"$to ${textDate(date)}\n$text"
-        } mkString bigSep
-      )
-
-    def gameChats(lines: Seq[String]) =
-      List(
-        textTitle(s"${lines.size} Game chat messages"),
-        lines mkString bigSep
-      )
-
-    def followedUsers(userIds: Iterable[User.ID]) =
-      List(
-        textTitle(s"${userIds.size} Followed players"),
-        userIds mkString "\n"
-      )
-
-    private val bigSep = "\n\n------------------------------------------\n\n"
-
-    private def textTitle(t: String) = s"\n\n${"=" * t.length}\n$t\n${"=" * t.length}\n\n\n"
-
-    private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
-    private def textDate(date: DateTime) = englishDateTimeFormatter print date
+    List(
+      intro,
+      connections,
+      followedUsers,
+      forumPosts,
+      privateMessages,
+      privateGameChats,
+      spectatorGameChats,
+      gameNotes,
+      outro
+    ).foldLeft(Source.empty[String])(_ concat _)
   }
+
+  private val bigSep = "\n------------------------------------------\n"
+
+  private def textTitle(t: String) = s"\n${"=" * t.length}\n$t\n${"=" * t.length}\n"
+
+  private val englishDateTimeFormatter = DateTimeFormat forStyle "MS"
+  private def textDate(date: DateTime) = englishDateTimeFormatter print date
 }

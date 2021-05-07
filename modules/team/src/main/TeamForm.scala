@@ -4,8 +4,8 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
+import lila.common.Form.{ cleanNonEmptyText, cleanText, numberIn }
 import lila.db.dsl._
-import lila.common.Form.{ clean, numberIn }
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
@@ -15,25 +15,40 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name        = "name"        -> clean(text(minLength = 3, maxLength = 60))
-    val location    = "location"    -> optional(clean(text(minLength = 3, maxLength = 80)))
-    val description = "description" -> clean(text(minLength = 30, maxLength = 2000))
-    val open        = "open"        -> number
+    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60)
+    val location = "location" -> optional(cleanText(minLength = 3, maxLength = 80))
+    val password = "password" -> optional(cleanText(maxLength = 60))
+    def passwordCheck(team: Team) = "password" -> optional(text).verifying(
+      "team:incorrectTeamPassword",
+      pw => team.password.fold(true)(_ == pw.??(_.trim))
+    )
+    def requestMessage(team: Team) =
+      "message" -> optional(cleanText(minLength = 30, maxLength = 2000))
+        .verifying("Request message required", msg => msg.isDefined || team.open)
+    val description = "description" -> cleanText(minLength = 30, maxLength = 4000)
+    val descPrivate = "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000))
+    val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
     val chat        = "chat"        -> numberIn(Team.ChatFor.all)
+    val hideMembers = "hideMembers" -> boolean
+    val hideForum   = "hideForum"   -> boolean
   }
 
   val create = Form(
     mapping(
       Fields.name,
       Fields.location,
+      Fields.password,
       Fields.description,
-      Fields.open,
+      Fields.descPrivate,
+      Fields.request,
       Fields.gameId,
-      Fields.move
+      Fields.move,
+      Fields.hideMembers,
+      Fields.hideForum
     )(TeamSetup.apply)(TeamSetup.unapply)
-      .verifying("This team already exists", d => !teamExists(d).await(2 seconds, "teamExists"))
+      .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
   )
 
@@ -41,26 +56,41 @@ final private[team] class TeamForm(
     Form(
       mapping(
         Fields.location,
+        Fields.password,
         Fields.description,
-        Fields.open,
-        Fields.chat
+        Fields.descPrivate,
+        Fields.request,
+        Fields.chat,
+        Fields.hideMembers,
+        Fields.hideForum
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
+      password = team.password,
       description = team.description,
-      open = if (team.open) 1 else 0,
-      chat = team.chat
+      descPrivate = team.descPrivate,
+      request = !team.open,
+      chat = team.chat,
+      hideMembers = team.hideMembers.has(true),
+      hideForum = team.hideForum.has(true)
     )
 
-  val request = Form(
+  def request(team: Team) = Form(
     mapping(
-      "message" -> clean(text(minLength = 30, maxLength = 2000))
+      Fields.requestMessage(team),
+      Fields.passwordCheck(team)
     )(RequestSetup.apply)(RequestSetup.unapply)
   ) fill RequestSetup(
-    message = "Hello, I would like to join the team!"
+    message = "Hello, I would like to join the team!".some,
+    password = None
   )
 
-  val apiRequest = Form(single("message" -> optional(clean(text(minLength = 30, maxLength = 2000)))))
+  def apiRequest(team: Team) = Form(
+    mapping(
+      Fields.requestMessage(team),
+      Fields.passwordCheck(team)
+    )(RequestSetup.apply)(RequestSetup.unapply)
+  )
 
   val processRequest = Form(
     tuple(
@@ -78,7 +108,7 @@ final private[team] class TeamForm(
   def createWithCaptcha = withCaptcha(create)
 
   val pmAll = Form(
-    single("message" -> clean(text(minLength = 3, maxLength = 9000)))
+    single("message" -> cleanText(minLength = 3, maxLength = 9000))
   )
 
   def leaders(t: Team) =
@@ -94,38 +124,49 @@ final private[team] class TeamForm(
 private[team] case class TeamSetup(
     name: String,
     location: Option[String],
+    password: Option[String],
     description: String,
-    open: Int,
+    descPrivate: Option[String],
+    request: Boolean,
     gameId: String,
-    move: String
+    move: String,
+    hideMembers: Boolean,
+    hideForum: Boolean
 ) {
 
-  def isOpen = open == 1
+  def isOpen = !request
 
   def trim =
     copy(
       name = name.trim,
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 
 private[team] case class TeamEdit(
     location: Option[String],
+    password: Option[String],
     description: String,
-    open: Int,
-    chat: Team.ChatFor
+    descPrivate: Option[String],
+    request: Boolean,
+    chat: Team.ChatFor,
+    hideMembers: Boolean,
+    hideForum: Boolean
 ) {
 
-  def isOpen = open == 1
+  def isOpen = !request
 
   def trim =
     copy(
       location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim
+      description = description.trim,
+      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
     )
 }
 
 private[team] case class RequestSetup(
-    message: String
+    message: Option[String],
+    password: Option[String]
 )

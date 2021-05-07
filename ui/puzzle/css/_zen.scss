@@ -1,0 +1,21 @@
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+body.playing.zen {
+  #top {
+    justify-content: center;
+  }
+
+  .puzzle__moves.areplay {
+    display: none;
+  }
+}
+
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}

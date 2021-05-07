@@ -9,7 +9,7 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Namer, Player, Pov }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
-import lila.user.{ Title, User }
+import lila.user.Title
 
 trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHelper with ChessgroundHelper =>
 
@@ -84,6 +84,12 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
+  def shortClockName(game: Game)(implicit lang: Lang): Frag =
+    game.correspondenceClock
+      .map(c => trans.nbDays(c.daysPerTurn)) orElse
+      game.clock.map(_.config).map(shortClockName) getOrElse
+      trans.unlimited()
+
   def modeName(mode: Mode)(implicit lang: Lang): String =
     mode match {
       case Mode.Casual => trans.casual.txt()
@@ -114,7 +120,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     Namer.gameVsTextBlocking(game, withRatings)(lightUser)
 
   val berserkIconSpan = iconTag("`")
-  val statusIconSpan  = i(cls := "status")
 
   def playerLink(
       player: Player,
@@ -123,15 +128,11 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       withRating: Boolean = true,
       withDiff: Boolean = true,
       engine: Boolean = false,
-      withStatus: Boolean = false,
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
   )(implicit lang: Lang): Frag = {
-    val statusIcon =
-      if (withStatus) statusIconSpan.some
-      else if (withBerserk && player.berserk) berserkIconSpan.some
-      else none
+    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
     player.userId.flatMap(lightUser) match {
       case None =>
         val klass = cssClass.??(" " + _)
@@ -141,6 +142,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
             case (_, Some(name))  => name
             case _                => trans.anonymous.txt()
           },
+          player.rating.ifTrue(withRating) map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
@@ -155,7 +157,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
               frag(" ", showRatingDiff(d))
             },
             engine option span(
-              cls := "engine_mark",
+              cls := "tos_violation",
               title := trans.thisAccountViolatedTos.txt()
             )
           ),
@@ -192,7 +194,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.NoStart =>
         val color = game.loser.fold(Color.white)(_.color).name.capitalize
         s"$color didn't move"
-      case S.Cheat => "Cheat detected"
+      case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
           case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
@@ -230,7 +232,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       tv: Boolean = false
   )(implicit ctx: Context): String = {
     val owner = ownerLink ?? ctx.me.flatMap(game.player)
-    if (tv) routes.Tv.index()
+    if (tv) routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color.name)) { o =>
         routes.Round.player(game fullIdOf o.color)

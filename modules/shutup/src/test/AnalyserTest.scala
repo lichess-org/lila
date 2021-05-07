@@ -44,6 +44,10 @@ class AnalyserTest extends Specification {
         "kuntings"
       )
     }
+    "find phrases" in {
+      find("I think you suck") must_== List("you suck")
+      find("you should suck my") must_== List("suck my")
+    }
     "50 shades of fuck" in {
       find("fuck fffuuk fektard feak fak phuk") must_== List("fuck", "fffuuk", "fektard", "fak", "phuk")
     }

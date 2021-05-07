@@ -48,7 +48,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
         .fold(
           err => BadRequest(html.tournament.crud.create(err)).fuccess,
           data =>
-            crud.create(data, me) map { tour =>
+            crud.create(data, me.user) map { tour =>
               Redirect {
                 if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
                 else routes.TournamentCrud.edit(tour.id)

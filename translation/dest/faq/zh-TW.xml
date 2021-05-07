@@ -17,9 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">有基於Lichess的網頁嗎？</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">有的，Lichess的確有啟發其他使用我們%1$s、%2$s或是%3$s的開源網站。</string>
   <string name="fairPlay">公平的下棋</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">為什麼我被警告有人為操控積分(例如：送分) 或是有電腦輔助？</string>
-  <string name="cheatDetectionMethods">Lichess有強大的檢測方式以及非常徹底的過程來檢閱每一個證據，並作出判決。這過程通常需要很多的仲裁者並可能花上一段時間。
-除了標記，我們將不會公布個案的細節及辦決過程。這樣可能會導致鑽漏洞的情形更容易出現，以及產生許多無意義的辯論。這些時間及精力應該花在更重要的案件上。用戶可以通過電子郵件%1$s來上訴，但裁決被推翻的情況很少出現。</string>
   <string name="whenAmIEligibleRatinRefund">我什麼時候可以有資格自動取回與作弊者對弈的積分？</string>
   <string name="ratingRefundExplanation">在一個棋手被標記的一分鐘後，他們最近的40局積分賽將在3天內無效。如過你是他們這幾局的對手並且積分不是浮動的狀態，你輸掉的積分(輸局或和局) 將會退回，退回的積分上限基於你的最高積分及在那些棋局之後的積分變化。
 (例如：你如果在那些棋局之後積分大幅提升，你可能就不會拿回那些積分或是只拿回一部分)。且退回的積分永遠不會超過150分。</string>
@@ -40,14 +37,48 @@
   <string name="whatVariantsCanIplay">有哪些變體是在Lichess上玩得到的？</string>
   <string name="lichessSupportChessAnd">Lichess上有標準國際象棋和%1$s</string>
   <string name="eightVariants">8種變體</string>
+  <string name="whatIsACPL">平均釐兵損失 (ACPL) 是什麼？</string>
+  <string name="acplExplanation">釐兵是國際象棋計算優勢所用的計量單位。1釐兵等於兵價值的1/100。也就是說，100釐兵=1兵。這些價值在游戲中不起正式作用，但對玩家有用，對電腦來評估局面也很重要。
+
+最佳的電腦著法將會損失0釐兵，但較差的著法將導致釐兵計量下局面的惡化。
+
+該值可以用作著法質量的一個指標。每次失去的釐兵越少，著法就越強。
+
+Lichess上的電腦分析是基於Stockfish的。</string>
+  <string name="insufficientMaterial">超時判負、和棋、以及子力不足</string>
+  <string name="lichessFollowFIDErules">若玩家消盡了時間，該玩家通常會被判負。另外，如果對手無法在允許的最大限著 (%1$s回合) 內將殺玩家的王，對局就是和棋。
+
+在極少數情況下，這可能很難自動決定（強制線路、堡壘）。 默認情況下，沒有耗時的玩家總會贏。
+
+註意：如果對方一隻棋子阻擋自己的王，那麼單馬或者單象也有可能實現將殺。</string>
+  <string name="fideHandbookX">國際棋聯手冊 %s</string>
+  <string name="discoveringEnPassant">假設兵已經過了對方兵控制的格子，為什麼還能夠被吃掉？(吃過路兵)</string>
+  <string name="explainingEnPassant">這是一個叫做“吃過路兵”的合法著法。維基百科文章給出了一個%1$s。
+
+在3.7 (d)節中作了在%2$s裡描述。
+
+“對方一隻兵剛剛從初始位置起步走兩格，與本方的兵處在相鄰橫線時，本方的兵可以吃掉它，就如同它只走了一格一樣。這種吃法稱為‘吃過路兵’，只能在對方兵走兩格之後立即進行。“
+
+請查看 %3$s 練習這個著法。</string>
   <string name="goodIntroduction">好的自我介紹</string>
   <string name="officialRulesPDF">官方規則 (PDF)</string>
   <string name="lichessTraining">Lichess 訓練</string>
+  <string name="threefoldRepetition">三次重複局面</string>
+  <string name="threefoldRepetitionExplanation">如果同一個局面出現了三次，玩家可以根據%1$s提和。Lichess執行FIDE官方規則，這些規則在 %2$s第9.2(d)條中已有規定。</string>
+  <string name="threefoldRepetitionLowerCase">三次重複局面</string>
+  <string name="notRepeatedMoves">我們沒有重復著法。為什麼對局仍然被判和？</string>
+  <string name="repeatedPositionsThatMatters">三次重復局面是關於局面的%1$s重復，而不是著法。重復局面不一定會連續發生。</string>
   <string name="positions">位置</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">同一個局面三次已經被重復了。為什麼對局沒有判和？</string>
+  <string name="threeFoldHasToBeClaimed">三次重復局面和棋需要由其中一個選手提出。您可以通過按下已顯示的按鈕，或者在您最後一次重復移動之前提出和棋。無論對方接不接受，根據三次重複規範，遊戲會以和棋結束。您也可以%1$sLichess為您自動提和重復局面。此外，五次重復局面總是立即結束游戲。</string>
   <string name="configure">配置</string>
   <string name="accounts">帳戶</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什麼頭銜?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess接受所有OTB (在棋盤上) 對局得到的國際象棋聯稱號，以及%1$s，以下列出：</string>
   <string name="noUpperCaseDot">不行</string>
+  <string name="whatUsernameCanIchoose">我可以取甚麼樣的使用者名稱？</string>
+  <string name="guidelines">指南</string>
+  <string name="canIChangeMyUsername">我可以更改我的使用者名稱嗎？</string>
   <string name="uniqueTrophies">獨一無二的獎盃</string>
   <string name="aHourlyBulletTournament">一場小時制Bullet模式錦標賽</string>
   <string name="lichessRatings">Lichess 評分</string>

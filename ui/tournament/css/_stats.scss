@@ -1,5 +1,5 @@
 .tour__stats {
-  @extend %box-neat;
+  @extend %flex-column, %box-neat;
 
   background: $c-bg-box;
   padding: 1.7em 0;
@@ -20,5 +20,13 @@
     padding-left: 1em;
     text-align: right;
     line-height: 2em;
+  }
+
+  &__links {
+    margin: 2em auto 0 auto;
+    a {
+      display: block;
+      margin: 0.5em 0;
+    }
   }
 }

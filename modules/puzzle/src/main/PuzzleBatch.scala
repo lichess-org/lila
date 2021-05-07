@@ -1,13 +1,9 @@
 package lila.puzzle
 
-import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-import lila.common.ThreadLocalRandom
 import lila.db.dsl._
-import lila.memo.CacheApi
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 // mobile app BC
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(implicit
@@ -22,12 +18,12 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
       case Some(user) =>
         {
           val tier =
-            if (user.perfs.puzzle.intRating < 1200 || user.perfs.puzzle.intRating > 1800) PuzzleTier.Good
+            if (user.perfs.puzzle.nb > 5000) PuzzleTier.Good
             else PuzzleTier.Top
           pathApi.nextFor(
             user,
             PuzzleTheme.mix.key,
-            PuzzleTier.Good,
+            tier,
             PuzzleDifficulty.Normal,
             Set.empty
           ) orFail

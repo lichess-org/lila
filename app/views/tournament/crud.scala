@@ -37,7 +37,7 @@ object crud {
     ) {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New tournament"),
-        postForm(cls := "form3", action := routes.TournamentCrud.create())(inForm(form, none))
+        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
       )
     }
 
@@ -134,7 +134,7 @@ object crud {
         div(cls := "box__top")(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form(), dataIcon := "O")
+            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "O")
           )
         ),
         table(cls := "slist slist-pad")(

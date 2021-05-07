@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">चाल नोटेशन</string>
   <string name="chessPieceSymbol">शतरंज टुकड़ा प्रतीक</string>
   <string name="pgnLetter">अक्षर (K, Q, R, B, N)</string>
-  <string name="zenMode">ज़ेन मोड</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ज़ेन मोड</string>
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
   <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">जब बचा हुआ समय &lt; 10 सेकेंड</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 10 सेकेंड</string>
   <string name="horizontalGreenProgressBars">क्षैतिज(horizontal) हरी प्रगति सलाखें(bars)</string>
   <string name="soundWhenTimeGetsCritical">ध्वनि जब समय महत्वपूर्ण (कम) हो जाता है</string>
   <string name="giveMoreTime">अधिक समय दें</string>
-  <string name="gameBehavior">खेल का व्यवहार</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">खेल का व्यवहार</string>
   <string name="howDoYouMovePieces">आप टुकड़ों को कैसे चलाते हैं?</string>
   <string name="clickTwoSquares">दो चौकों पर क्लिक करें</string>
   <string name="dragPiece">एक टुकड़ा खींचें</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
   <string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
   <string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
-  <string name="snapArrowsToValidMoves">मान्य चाल के लिए स्नैप तीर</string>
-  <string name="sayGgWpAfterLosingOrDrawing">हार या ड्रॉ पर \"अच्छा खेल, अच्छा खेला\" कहें</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">मान्य चाल के लिए स्नैप तीर</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">हार या ड्रॉ पर \"अच्छा खेल, अच्छा खेला\" कहें</string>
   <string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>

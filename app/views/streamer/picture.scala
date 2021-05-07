@@ -26,7 +26,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
         div(cls := "forms")(
           error.map { badTag(_) },
           postForm(
-            action := routes.Streamer.pictureApply(),
+            action := routes.Streamer.pictureApply,
             enctype := "multipart/form-data",
             cls := "upload"
           )(
@@ -35,11 +35,11 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
             submitButton(cls := "button")(uploadPicture())
           ),
           s.streamer.hasPicture option
-            postForm(action := routes.Streamer.pictureDelete(), cls := "delete")(
+            postForm(action := routes.Streamer.pictureDelete, cls := "delete")(
               submitButton(cls := "button button-red")(deletePicture())
             ),
           div(cls := "cancel")(
-            a(href := routes.Streamer.edit(), cls := "text", dataIcon := "I")(trans.cancel())
+            a(href := routes.Streamer.edit, cls := "text", dataIcon := "I")(trans.cancel())
           )
         )
       )

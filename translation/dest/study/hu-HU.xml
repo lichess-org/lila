@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Privát</string>
-  <string name="myStudies">Saját tanulmányok</string>
-  <string name="studiesIContributeTo">Tanulmányok amikben közreműködöm</string>
-  <string name="myPublicStudies">Nyilvános tanulmányaim</string>
-  <string name="myPrivateStudies">Privát tanulmányaim</string>
-  <string name="myFavoriteStudies">Kedvenc tanulmányaim</string>
-  <string name="whatAreStudies">Mik azok a tanulmányok?</string>
-  <string name="allStudies">Összes tanulmány</string>
-  <string name="studiesCreatedByX">%s által készített tanulmányok</string>
-  <string name="noneYet">Még nincs.</string>
-  <string name="hot">Felkapott</string>
+  <string name="myStudies">Saját leckék</string>
+  <string name="studiesIContributeTo">Leckék amikben közreműködöm</string>
+  <string name="myPublicStudies">Nyilvános leckéim</string>
+  <string name="myPrivateStudies">Privát leckéim</string>
+  <string name="myFavoriteStudies">Kedvenc leckéim</string>
+  <string name="whatAreStudies">Mi a lecke?</string>
+  <string name="allStudies">Összes lecke</string>
+  <string name="studiesCreatedByX">%s által készített leckék</string>
+  <string name="noneYet">Még nincs ilyen lecke.</string>
+  <string name="hot">Mostanában népszerű</string>
   <string name="dateAddedNewest">Hozzáadva (legújabb)</string>
   <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
   <string name="recentlyUpdated">Nemrégiben frissítve</string>
@@ -29,15 +29,15 @@
     <item quantity="one">%s Tag</item>
     <item quantity="other">%s Tag</item>
   </plurals>
-  <string name="inviteToTheStudy">Meghívás tanulmányba</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Csak olyasvalakit hívj meg akit ismersz és aktívan részt venne a tanulmányban.</string>
+  <string name="inviteToTheStudy">Meghívás közremüködésre</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Csak azt hívd meg akit ismersz és aki részt akar venni a lecke elkészítésében.</string>
   <string name="searchByUsername">Keresés felhasználónév alapján</string>
   <string name="spectator">Néző</string>
-  <string name="contributor">Hozzájáruló</string>
-  <string name="kick">Kirúgás</string>
-  <string name="leaveTheStudy">Tanulmány elhagyása</string>
-  <string name="youAreNowAContributor">Mostmár közreműködő vagy</string>
-  <string name="youAreNowASpectator">Mostmár megfigyelő vagy</string>
+  <string name="contributor">Lecke készítö</string>
+  <string name="kick">Eltávolítás</string>
+  <string name="leaveTheStudy">Lecke elhagyása</string>
+  <string name="youAreNowAContributor">Közreműködő vagy</string>
+  <string name="youAreNowASpectator">Megfigyelő vagy</string>
   <string name="pgnTags">PGN címkék</string>
   <string name="like">Kedvel</string>
   <string name="newTag">Új címke</string>
@@ -57,20 +57,18 @@
   <string name="last">Utolsó</string>
   <string name="shareAndExport">Megosztás &amp; exportálás</string>
   <string name="cloneStudy">Klónozás</string>
-  <string name="studyPgn">PGN a tanulmányról</string>
+  <string name="studyPgn">Lecke PGN</string>
   <string name="downloadAllGames">Összes játszma letöltése</string>
   <string name="chapterPgn">PGN a fejezetről</string>
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Közvetítés URL</string>
   <string name="currentChapterUrl">URL erre a fejezetre</string>
-  <string name="currentGameUrl">URL erre a játszmára</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Beszúrhatod a linket fórumba a beágyazáshoz</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Beszúrhatod a linket fórumba a beágyazáshoz</string>
   <string name="startAtInitialPosition">Kezdés az alapállásból</string>
   <string name="startAtX">Kezdés innen: %s</string>
   <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
   <string name="readMoreAboutEmbedding">A beágyazásról bővebben</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Csak nyilvános tanulmányok beágyazhatók!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Csak nyilvános tanulmányok beágyazhatók!</string>
   <string name="open">Megnyit</string>
   <string name="xBroughtToYouByY">%1$s, a %2$s jóvoltából</string>
   <string name="studyNotFound">Tanulmány nem található</string>

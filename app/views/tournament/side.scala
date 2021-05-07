@@ -65,7 +65,8 @@ object side {
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
-          dataIcon := "7",
+          dataIcon := (if (ctx.isAuth && verdicts.accepted) "E"
+                       else "L"),
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),
@@ -77,10 +78,11 @@ object side {
             verdicts.list map { v =>
               p(
                 cls := List(
-                  "condition text" -> true,
-                  "accepted"       -> v.verdict.accepted,
-                  "refused"        -> !v.verdict.accepted
-                )
+                  "condition" -> true,
+                  "accepted"  -> (ctx.isAuth && v.verdict.accepted),
+                  "refused"   -> (ctx.isAuth && !v.verdict.accepted)
+                ),
+                title := v.verdict.reason.map(_(ctx.lang))
               )(v.condition match {
                 case lila.tournament.Condition.TeamMember(teamId, teamName) =>
                   trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
@@ -91,7 +93,10 @@ object side {
         ),
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
-        !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
+        !tour.isScheduled && tour.description.isEmpty option frag(
+          trans.by(userIdLink(tour.createdBy.some)),
+          br
+        ),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientDateTime(
           tour.startsAt
         ),

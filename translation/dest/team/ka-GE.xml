@@ -11,9 +11,6 @@
   <string name="noTeamFound">გუნდი არ მოდიძებნა</string>
   <string name="joinTeam">შეუერთდით გუნდს</string>
   <string name="quitTeam">დატოვეთ გუნდი</string>
-  <string name="anyoneCanJoin">ყველას შეუძლია შეუერთდეს</string>
-  <string name="aConfirmationIsRequiredToJoin">დასტური სჩირდება შესაერთებლად</string>
-  <string name="joiningPolicy">დაკავშირების პირობა</string>
   <string name="teamBestPlayers">გუნდის საუკეთესო მოთამაშე</string>
   <string name="teamRecentMembers">გუნდის ბოლო წევრები</string>
   <string name="kickSomeone">გააგდე მოთამაშე ჯგუფიდან</string>

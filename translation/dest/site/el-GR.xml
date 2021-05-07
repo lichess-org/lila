@@ -9,6 +9,7 @@
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
   <string name="level">Επίπεδο</string>
+  <string name="strength">Ισχύς</string>
   <string name="toggleTheChat">Εναλλαγή προβολής της συνομιλίας</string>
   <string name="toggleSound">Εναλλαγή ήχου</string>
   <string name="chat">Συνομιλία</string>
@@ -34,10 +35,10 @@
   <string name="whitePlays">Παίζουν τα λευκά</string>
   <string name="blackPlays">Παίζουν τα μαύρα</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
+    <item quantity="one">Ο αντίπαλός σας έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτο.</item>
     <item quantity="other">Ο αντίπαλος έφυγε από το παιχνίδι. Διεκδίκηση νίκης σε %s δευτερόλεπτα.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ο αντίπαλος σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
+  <string name="opponentLeftChoices">Ο αντίπαλός σας έφυγε από το παιχνίδι. Μπορείτε να ισχυρισθείτε νίκη, ισοπαλία, ή να περιμένετε.</string>
   <string name="makeYourOpponentResign">Αναγκάστε τον αντίπαλό σας να παραιτηθεί</string>
   <string name="forceResignation">Ισχυριστείτε νίκη</string>
   <string name="forceDraw">Δηλώστε ισοπαλία</string>
@@ -62,7 +63,7 @@
   <string name="showThreat">Εμφάνιση απειλής</string>
   <string name="inLocalBrowser">σε τοπικό περιηγητή</string>
   <string name="toggleLocalEvaluation">Εναλλαγή τοπικής αξιολόγησης</string>
-  <string name="promoteVariation">Προώθηση παραλλαγής</string>
+  <string name="promoteVariation">Προώθηση βαριάντας</string>
   <string name="makeMainLine">Δημιουργήστε κύρια γραμμή</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
@@ -114,11 +115,20 @@
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
-  <string name="blunders">Σοβαρά λάθη</string>
   <string name="mistake">Λάθος</string>
-  <string name="mistakes">Λάθη</string>
   <string name="inaccuracy">Ανακρίβεια</string>
-  <string name="inaccuracies">Ανακρίβειες</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s σοβαρό σφάλμα</item>
+    <item quantity="other">%s σοβαρά σφάλματα</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s λάθος</item>
+    <item quantity="other">%s λάθη</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ανακρίβεια</item>
+    <item quantity="other">%s ανακρίβειες</item>
+  </plurals>
   <string name="moveTimes">Χρόνοι κινήσεων</string>
   <string name="flipBoard">Περιστροφή σκακιέρας</string>
   <string name="threefoldRepetition">Τριπλή επανάληψη</string>
@@ -174,8 +184,8 @@
   <string name="ratingStats">Στατιστικές βαθμολογίας</string>
   <string name="username">Όνομα χρήστη</string>
   <string name="usernameOrEmail">Όνομα χρήστη ή ηλ. ταχυδρομείο</string>
-  <string name="changeUsername">Αλλαγή ονόματος του χρήστη</string>
-  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
+  <string name="changeUsername">Αλλαγή ονόματος χρήστη</string>
+  <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων από μικρά σε κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
@@ -249,7 +259,6 @@
   <string name="send">Αποστολή</string>
   <string name="incrementInSeconds">Προσαύξηση σε δευτερόλεπτα</string>
   <string name="freeOnlineChess">Δωρεάν Διαδικτυακό Σκάκι</string>
-  <string name="spectators">Θεατές:</string>
   <plurals name="nbRated">
     <item quantity="one">%s βαθμολογημένο</item>
     <item quantity="other">%s βαθμολογημένα</item>
@@ -276,16 +285,15 @@
     <item quantity="one">Προσθέστε %s δευτερόλεπτα</item>
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους Όρους Χρήσης του Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ο παίκτης αυξάνει/μειώνει τεχνητά την βαθμολογία</string>
+  <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους όρους χρήσης του Lichess</string>
   <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
-  <string name="takebackPropositionDeclined">Προσφορά ανάκλησης κίνησης  μη αποδεκτή</string>
+  <string name="takebackPropositionDeclined">Απορρίφθηκε η προσφορά ανάκλησης κίνησης</string>
   <string name="takebackPropositionAccepted">Προσφορά ακύρωσης κίνησης αποδεκτή</string>
   <string name="takebackPropositionCanceled">Προσφορά ακύρωσης κίνησης ακυρώθηκε</string>
-  <string name="yourOpponentProposesATakeback">Ο αντίπαλος σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
+  <string name="yourOpponentProposesATakeback">Ο αντίπαλός σας πρότεινε ακύρωση της τελευταίας κίνησης</string>
   <string name="bookmarkThisGame">Προσθέστε σελιδοδείκτη για αυτό το παιχνίδι</string>
   <string name="tournament">Πρωτάθλημα</string>
   <string name="tournaments">Πρωταθλήματα</string>
@@ -295,8 +303,8 @@
     <item quantity="other">%s πόντοι πρωταθλήματος</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s σπουδή</item>
-    <item quantity="other">%s σπουδές</item>
+    <item quantity="one">%s μελέτη</item>
+    <item quantity="other">%s μελέτες</item>
   </plurals>
   <string name="viewTournament">Παρακολούθηση πρωταθλήματος</string>
   <string name="backToTournament">Επιστροφή στο πρωτάθλημα</string>
@@ -327,7 +335,7 @@
   <string name="youAreNotInTeam">Δεν είστε στην ομάδα %s</string>
   <string name="backToGame">Επιστρέψτε στο παιχνίδι</string>
   <string name="siteDescription">Δωρεάν διαδικτυακό παιχνίδι Σκακιού. Παίξτε Σκάκι τώρα σε καθαρό γραφικό περιβάλλον. Χωρίς εγγραφές, χωρίς διαφημίσεις, χωρίς πρόσθετα. Παίξτε Σκάκι με τον υπολογιστή, με φίλους ή με τυχαίους αντιπάλους.</string>
-  <string name="xJoinedTeamY">Ο %1$s έθεσε συμμετοχή στην ομάδα %2$s</string>
+  <string name="xJoinedTeamY">Ο/Η %1$s έγινε μέλος της ομάδα %2$s</string>
   <string name="xCreatedTeamY">Ο %1$s δημιούργησε την ομάδα %2$s</string>
   <string name="xStartedStreaming">%s ξεκίνησε να μεταδίδει</string>
   <string name="averageElo">Μέσος όρος βαθμολογίας</string>
@@ -383,7 +391,6 @@
   <string name="more">Περισσότερα</string>
   <string name="memberSince">Μέλος από τις</string>
   <string name="lastSeenActive">Τελευταία είσοδος %s</string>
-  <string name="challengeToPlay">Προκαλέστε σε παιχνίδι</string>
   <string name="player">Παίκτης</string>
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
@@ -469,6 +476,8 @@
   <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
+  <string name="descPrivate">Ιδιωτική περιγραφή</string>
+  <string name="descPrivateHelp">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
   <string name="help">Βοήθεια:</string>
@@ -489,6 +498,7 @@
   <string name="cheat">Απάτη</string>
   <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
+  <string name="ratingManipulation">Παραποίηση βαθμολογίας</string>
   <string name="other">Άλλο</string>
   <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
@@ -511,6 +521,7 @@
   <string name="clockInitialTime">Ρολόι αρχικός χρόνος</string>
   <string name="clockIncrement">Ρολόι προσαύξηση</string>
   <string name="privacy">Απόρρητο</string>
+  <string name="privacyPolicy">Πολιτική απορρήτου</string>
   <string name="letOtherPlayersFollowYou">Επιτρέψτε σε άλλους παίκτες να σας ακολουθούν</string>
   <string name="letOtherPlayersChallengeYou">Επιτρέψτε σε άλλους παίκτες να σας προκαλούν σε παιχνίδι</string>
   <string name="letOtherPlayersInviteYouToStudy">Επιτρέψτε σε άλλους παίκτες να σας προσκαλούν σε μελέτη</string>
@@ -579,6 +590,7 @@
   <string name="error.email_unique">Αυτή η διεύθυνση ηλ. ταχυδρομείου χρησιμοποιείται ήδη</string>
   <string name="error.email_different">Έχετε αυτήν την διεύθυνση ήδη</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
+  <string name="onlyExistingConversations">Μόνο υπάρχουσες συνομιλίες</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
@@ -656,6 +668,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>
   <string name="weHaveSentYouAnEmailTo">Έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου στο %s. Κάντε κλικ τον σύνδεσμο στο ηλ. ταχυδρομείο για να επαναφέρετε τον κωδικό πρόσβασής σας.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Με την εγγραφή σας συμφωνείτε ότι δεσμεύεστε από τους %s.</string>
+  <string name="readAboutOur">Διαβάστε για την %s μας.</string>
   <string name="networkLagBetweenYouAndLichess">Υστέρηση δικτύου ανάμεσα σε εσάς και το lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Χρόνος επεξεργασίας μίας κίνησης στον διακομιστή lichess</string>
   <string name="downloadAnnotated">Λήψη με υποσημειώσεις</string>
@@ -700,7 +713,7 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">Η %1$s αρέσει στον %2$s</string>
-  <string name="xCreatesStudyY">Ο %1$s δημιουργεί τη μελέτη %2$s</string>
+  <string name="xCreatesStudyY">Ο/Η %1$s δημιούργησε την μελέτη %2$s</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>
@@ -734,7 +747,6 @@
   <string name="error.unknown">Σφάλμα</string>
   <string name="custom">Προσαρμογή</string>
   <string name="notifications">Ειδοποιήσεις</string>
-  <string name="challenges">Προκλήσεις</string>
   <string name="perfRatingX">Βαθμολογία: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s δευτερόλεπτο για την πρώτη κίνηση</item>
@@ -781,12 +793,6 @@
   <string name="opening">Άνοιγμα</string>
   <string name="middlegame">Μέση φάση παιχνιδιού</string>
   <string name="endgame">Φινάλε</string>
-  <string name="registerToSendChallenges">Παρακαλώ εγγραφείτε για να στείλετε προκλήσεις.</string>
-  <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s δεν δέχεται προκλήσεις.</string>
-  <string name="yourXRatingIsTooFarFromY">Η %1$s βαθμολογία σας απέχει πολύ από τον %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Δεν είναι δυνατή η πρόκληση λόγω της προσωρινής %s βαθμολογίας.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s δέχεται προκλήσεις μόνο από φίλους.</string>
   <string name="conditionalPremoves">Υποθετικές προκινήσεις</string>
   <string name="addCurrentVariation">Προσθέστε τρέχουσα παραλλαγή</string>
   <string name="playVariationToCreateConditionalPremoves">Παίξτε μια παραλλαγή για να δημιουργήσετε υποθετικές προκινήσεις</string>
@@ -809,7 +815,7 @@
   <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
   <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
   <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
-  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
+  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να διαβάσετε το μήνυμα!</string>
   <string name="lifetimeScore">Συνολικό σκορ</string>
   <string name="currentMatchScore">Τρέχον σκορ</string>
   <string name="agreementAssistance">Αποδέχομαι ότι ουδέποτε θα λάβω βοήθεια κατά τις παρτίδες μου (από υπολογιστή, βιβλίο, βάση δεδομένων ή άλλο πρόσωπο).</string>
@@ -818,6 +824,7 @@
   <string name="agreementPolicy">Αποδέχομαι ότι θα συμμορφωθώ με όλες τις πολιτικές του Lichess.</string>
   <string name="searchOrStartNewDiscussion">Αναζήτηση ή έναρξη νέας συνομιλίας</string>
   <string name="edit">Επεξεργασία</string>
+  <string name="rapid">Rapid</string>
   <string name="classical">Κλασικό</string>
   <string name="ultraBulletDesc">Εξαιρετικά γρήγορες παρτίδες: λιγότερο από 30 δεύτερα</string>
   <string name="bulletDesc">Πολύ γρήγορες παρτίδες: λιγότερο από 3 λεπτά</string>
@@ -839,4 +846,22 @@
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
+  <string name="mentionedYouInX"> σας ανέφερε στο \"%1$s\".</string>
+  <string name="xMentionedYouInY"> Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
+  <string name="invitedYouToX"> σας προσκάλεσε στο «%1$s».</string>
+  <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στο «%2$s».</string>
+  <string name="youAreNowPartOfTeam">Είστε πλέον μέλος της ομάδας.</string>
+  <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας «%1$s».</string>
+  <string name="someoneYouReportedWasBanned">Κάποιος που αναφέρατε έχει αποκλειστεί</string>
+  <string name="congratsYouWon">Συγχαρητήρια, κερδίσατε!</string>
+  <string name="gameVsX">Παιχνίδι εναντίον %1$s</string>
+  <string name="resVsX">%1$s εναντίον %2$s</string>
+  <string name="youJustBecamePatron">Μόλις γίνατε ένας Υποστηρικτής του Lichess.</string>
+  <string name="patronAccountExpired">Η συνδρομή Υποστηρικτή έχει λήξει</string>
+  <string name="pleaseReconsiderRenewIt">Σκεφτείτε να την ανανεώσετε!</string>
+  <string name="someoneReviewedYourCoachProfile">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
+  <string name="newPendingReview">Νέα κριτική σε αναμονή</string>
+  <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
+  <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
+  <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
 </resources>

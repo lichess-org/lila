@@ -31,7 +31,7 @@ object index {
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
-          url = s"$netBaseUrl${routes.Plan.index().url}",
+          url = s"$netBaseUrl${routes.Plan.index.url}",
           description = freeChess.txt()
         )
         .some,
@@ -81,7 +81,7 @@ object index {
               div(cls := "content")(
                 div(
                   cls := "plan_checkout",
-                  attr("data-email") := email.map(_.value),
+                  attr("data-email") := email.??(_.value),
                   attr("data-lifetime-usd") := lila.plan.Cents.lifetime.usd.toString,
                   attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
                 )(
@@ -133,8 +133,19 @@ object index {
   <input type="hidden" name="lc" value="US">
   <input type="hidden" name="currency_code" value="USD">
 </form>"""),
-                  patron.exists(_.isLifetime) option
-                    p(style := "text-align:center;margin-bottom:1em")(makeExtraDonation()),
+                  ctx.me map { me =>
+                    p(style := "text-align:center;margin-bottom:1em")(
+                      if (patron.exists(_.isLifetime))
+                        makeExtraDonation()
+                      else
+                        frag(
+                          "Donating ",
+                          strong("publicly"),
+                          " as ",
+                          userSpan(me)
+                        )
+                    )
+                  },
                   st.group(cls := "radio buttons freq")(
                     div(
                       st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
@@ -210,7 +221,10 @@ object index {
                     if (ctx.isAuth)
                       button(cls := "stripe button")(withCreditCard())
                     else
-                      a(cls := "stripe button", href := routes.Auth.login())(withCreditCard()),
+                      a(
+                        cls := "stripe button",
+                        href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                      )(withCreditCard()),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )
@@ -240,7 +254,7 @@ object index {
         dd(
           serversAndDeveloper(userIdLink("thibault".some)),
           br,
-          a(href := routes.Main.costs(), targetBlank)(costBreakdown()),
+          a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
         ),
         dt(officialNonProfit()),
@@ -254,10 +268,12 @@ object index {
       dl(
         dt(changeMonthlySupport()),
         dd(
-          changeOrContact(a(href := routes.Main.contact(), targetBlank)(contactSupport()))
+          changeOrContact(a(href := routes.Main.contact, targetBlank)(contactSupport()))
         ),
         dt(otherMethods()),
         dd(
+          "Lichess is registered with Benevity.",
+          br,
           a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",
           br,
@@ -269,7 +285,7 @@ object index {
         dd(
           noPatronFeatures(),
           br,
-          a(href := routes.Plan.features(), targetBlank)(featuresComparison()),
+          a(href := routes.Plan.features, targetBlank)(featuresComparison()),
           "."
         )
       )

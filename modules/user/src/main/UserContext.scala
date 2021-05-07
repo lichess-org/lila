@@ -25,11 +25,11 @@ sealed trait UserContext {
 
   def usernameOrAnon = username | "Anonymous"
 
-  def troll = me.??(_.marks.troll)
+  def troll = me.exists(_.marks.troll)
 
   def ip = lila.common.HTTPRequest ipAddress req
 
-  def kid   = me.??(_.kid)
+  def kid   = me.exists(_.kid)
   def noKid = !kid
 }
 
@@ -61,6 +61,7 @@ trait UserContextWrapper extends UserContext {
   val impersonatedBy = userContext.impersonatedBy
   def isBot          = me.exists(_.isBot)
   def noBot          = !isBot
+  def isAppealUser   = me.exists(!_.enabled)
 }
 
 object UserContext {

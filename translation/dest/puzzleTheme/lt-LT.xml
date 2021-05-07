@@ -4,6 +4,10 @@
   <string name="advancedPawnDescription">Pėstininkas, kuris keičiamas kita figūra, ar tuoj tai darys, čia yra esminė taktika.</string>
   <string name="advantage">Pranašumas</string>
   <string name="advantageDescription">Pasinaudokite proga įgauti esminį pranašumą. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastasijos matas</string>
+  <string name="anastasiaMateDescription">Žirgas ir karalienė arba bokštas bendromis jėgomis įkalina priešininko karalių tarp lentos krašto ir kitos figūros.</string>
+  <string name="arabianMate">Arabiškasis matas</string>
+  <string name="arabianMateDescription">Žirgas ir bokštas suvienija jėgas įkalindami priešininko karalių lentos kampe.</string>
   <string name="attackingF2F7">F2 ar f7 puolimas</string>
   <string name="attackingF2F7Description">Puolimas, koncentruotas ties f2 ar f7 pėstininkais, panašiai kaip keptų kepenų debiute.</string>
   <string name="attraction">Trauka</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Matas karaliui, esančiam namų eilėje, kai jis užblokuotas savo paties figūrų.</string>
   <string name="bishopEndgame">Rikių endšpilis</string>
   <string name="bishopEndgameDescription">Endšpilis tik su rikiais ir pėstininkais.</string>
+  <string name="bodenMate">Bodeno matas</string>
+  <string name="bodenMateDescription">Du puolantys rikiai susikryžiojančiose įstrižainėse atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
   <string name="castling">Rokiruotės</string>
   <string name="castlingDescription">Parveskite karalių į saugią vietą ir panaudokite atakai bokštą.</string>
   <string name="capturingDefender">Nukirskite gynėją</string>
   <string name="capturingDefenderDescription">Pašalinkite figūrą, kuri yra kritiškai svarbi kitos figūros gynybai, paruošdami naujai neapsaugotą figūrą kirtimui kitu ėjimu.</string>
   <string name="crushing">Suspaudimas</string>
   <string name="crushingDescription">Pastebėkite priešininko klaidą ir įgaukite ryškią persvarą. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Dvigubų rikių matas</string>
+  <string name="doubleBishopMateDescription">Du gretimose įstrižainėse puolantys rikiai atlieka matą priešininko karaliui, įkalintam draugiškų figūrų.</string>
+  <string name="dovetailMate">Kozio matas</string>
+  <string name="dovetailMateDescription">Karalienė atlieka matą greta esančiam priešininko karaliui, kurio vieninteliai pabėgimo langeliai užimti draugiškų figūrų.</string>
   <string name="equality">Lygybė</string>
   <string name="equalityDescription">Grįžkite iš pralaiminčios pozicijos ir užsitikrinkite lygiąsias arba balansuotą poziciją. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Karaliaus pusės ataka</string>
@@ -38,9 +48,11 @@
   <string name="exposedKing">Atidengtas karalius</string>
   <string name="exposedKingDescription">Taktika, susijusi su karaliumi, kuris neturi daug gynejų aplink save. Tai dažnai priveda prie mato.</string>
   <string name="fork">Šakutė</string>
-  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi kitas priešininko figūras vienu metu.</string>
+  <string name="forkDescription">Ėjimas, kurio metu perkelta figūra puola dvi ar daugiau priešininko figūrų vienu metu.</string>
   <string name="hangingPiece">Kabanti figūra</string>
   <string name="hangingPieceDescription">Taktika, susijusi su neapginta ar nepakankamai apginta ir lengvai nukertama priešininko figūra.</string>
+  <string name="hookMate">Kablio matas</string>
+  <string name="hookMateDescription">Matas su bokštu, žirgu ir pėstininku palei vieną iš priešininko pėstininkų, apribojančių priešininko karaliaus pabėgimą.</string>
   <string name="interference">Trukdymas</string>
   <string name="interferenceDescription">Figūros perkėlimas tarp dviejų priešininko figūrų, paliekant vieną ar abi jų neapgintas. Pavyzdžiui: perkeliant žirgą į apgintą laukelį tarp dviejų bokštų.</string>
   <string name="intermezzo">Tarpinis ėjimas</string>
@@ -49,6 +61,10 @@
   <string name="knightEndgameDescription">Endšpilis tik su žirgais ir pėstininkais.</string>
   <string name="long">Ilgas galvosūkis</string>
   <string name="longDescription">Trys ėjimai laimėti.</string>
+  <string name="master">Meistrų partijos</string>
+  <string name="masterDescription">Užduotys iš tituluotų žaidėjų partijų.</string>
+  <string name="masterVsMaster">Meistrų prieš meistrus partijos</string>
+  <string name="masterVsMasterDescription">Užduotys iš partijų tarp tituluotų žaidėjų.</string>
   <string name="mate">Matas</string>
   <string name="mateDescription">Laimėkite žaidimą su klase.</string>
   <string name="mateIn1">Matas vienu ėjimu</string>
@@ -87,10 +103,12 @@
   <string name="sacrificeDescription">Taktika, susijusi su figūrų atidavimu dabar, bei gautu pranašumu vėliau po priverstų ėjimų sekos.</string>
   <string name="short">Trumpas galvosūkis</string>
   <string name="shortDescription">Du ėjimai laimėti.</string>
-  <string name="skewer">Atvirkščias surišimas</string>
-  <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčiai mažiau brangiai figūrai.</string>
+  <string name="skewer">Pradūrimas</string>
+  <string name="skewerDescription">Motyvas įtraukiantis brangią figūrą, kuri puolama. Jai pasitraukiant atveriamas kelias nukirsti už jos stovinčią mažiau brangią figūrą.</string>
   <string name="smotheredMate">Uždusintas matas</string>
   <string name="smotheredMateDescription">Matas, kurį atlieka žirgas, kai matuojamas karalius negali pajudėti nes yra apsuptas savo paties figūrų.</string>
+  <string name="superGM">Super GM partijos</string>
+  <string name="superGMDescription">Užduotys iš partijų, kurias žaidė geriausi pasaulio žaidėjai.</string>
   <string name="trappedPiece">Įkalinta figūra</string>
   <string name="trappedPieceDescription">Figūra negali pabėgti, nes turi ribotą skaičių ėjimų.</string>
   <string name="underPromotion">Žemesnis paaukštinimas</string>
@@ -101,6 +119,6 @@
   <string name="xRayAttackDescription">Figūra puola ar gina laukelį kiaurai priešininko figūros.</string>
   <string name="zugzwang">Priverstinis ėjimas</string>
   <string name="zugzwangDescription">Priešininkas apribotas ėjimais, kuriuos gali padaryti, ir visi jo ėjimai tik pabloginą jo poziciją.</string>
-  <string name="healthyMix">Sveikas mišinys</string>
-  <string name="healthyMixDescription">Visko po truputį. Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
+  <string name="healthyMix">Visko po truputį</string>
+  <string name="healthyMixDescription">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
 </resources>

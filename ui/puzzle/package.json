@@ -3,7 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org puzzle solver",
-  "main": "src/main.js",
   "keywords": [
     "chess",
     "lichess",
@@ -14,18 +13,22 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "@types/chart.js": "^2.9.29"
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chessground": "^7.9.2",
+    "chart.js": "^2.9",
+    "chessground": "^7.11.1",
     "chessops": "^0.8.1",
     "common": "2.0.0",
-    "snabbdom": "^0.7.4",
+    "snabbdom": "^3.0.1",
     "tree": "2.0.0"
   },
   "scripts": {
     "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "prod": "rollup --config --config-prod",
+    "plugin-dev": "rollup --config --config-plugin",
+    "plugin-prod": "rollup --config --config-prod --config-plugin"
   }
 }

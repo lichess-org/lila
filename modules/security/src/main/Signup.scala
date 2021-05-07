@@ -18,10 +18,10 @@ final class Signup(
     forms: SecurityForm,
     emailAddressValidator: EmailAddressValidator,
     emailConfirm: EmailConfirm,
-    recaptcha: Recaptcha,
+    hcaptcha: Hcaptcha,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
-    slack: lila.slack.SlackApi,
+    slack: lila.irc.SlackApi,
     netConfig: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -56,18 +56,19 @@ final class Signup(
     }
   }
 
-  def website(blind: Boolean)(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
-    forms.signup.website.form
-      .bindFromRequest()
-      .fold[Fu[Signup.Result]](
-        err => fuccess(Signup.Bad(err tap signupErrLog)),
-        data =>
-          recaptcha.verify(~data.recaptchaResponse, req).flatMap {
-            case false =>
-              authLog(data.username, data.email, "Signup recaptcha fail")
-              fuccess(Signup.Bad(forms.signup.website.form fill data))
-            case true =>
-              signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
+  def website(
+      blind: Boolean
+  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+    hcaptcha.verify().flatMap {
+      case Hcaptcha.Result.Fail           => fuccess(Signup.MissingCaptcha)
+      case Hcaptcha.Result.Pass if !blind => fuccess(Signup.MissingCaptcha)
+      case hcaptchaResult =>
+        forms.signup.website.form
+          .bindFromRequest()
+          .fold[Fu[Signup.Result]](
+            err => fuccess(Signup.Bad(err tap signupErrLog)),
+            data =>
+              signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 3) {
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -90,8 +91,8 @@ final class Signup(
                     }
                 }
               }
-          }
-      )
+          )
+    }
 
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
@@ -112,7 +113,7 @@ final class Signup(
 
   def mobile(
       apiVersion: ApiVersion
-  )(implicit req: Request[_], lang: Lang): Fu[Signup.Result] =
+  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
@@ -169,17 +170,13 @@ final class Signup(
       fingerPrint: Option[FingerPrint],
       apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
-  ) = {
+  ) =
     authLog(
       user.username,
       email.value,
-      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+      s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
+        .??(_.value)} ip: ${HTTPRequest ipAddress req} api: ${apiVersion.??(_.value)}"
     )
-    val ip = HTTPRequest ipAddress req
-    ipTrust.isSuspicious(ip) foreach { susp =>
-      slack.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), apiVersion, susp)
-    }
-  }
 
   private def signupErrLog(err: Form[_]) =
     for {
@@ -188,7 +185,7 @@ final class Signup(
     } {
       if (
         err.errors.exists(_.messages.contains("error.email_acceptable")) &&
-        err("email").value.exists(EmailAddress.matches)
+        err("email").value.exists(EmailAddress.isValid)
       )
         authLog(username, email, s"Signup with unacceptable email")
     }
@@ -201,6 +198,7 @@ object Signup {
 
   sealed trait Result
   case class Bad(err: Form[_])                             extends Result
+  case object MissingCaptcha                               extends Result
   case object RateLimited                                  extends Result
   case class ConfirmEmail(user: User, email: EmailAddress) extends Result
   case class AllSet(user: User, email: EmailAddress)       extends Result

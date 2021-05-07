@@ -18,7 +18,7 @@ object bits extends Context.ToLang {
       icon = Some(""),
       moreCss = cssTag("streamer.form").some
     )(
-      postForm(cls := "streamer-new", action := routes.Streamer.create())(
+      postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2(doYouHaveStream()),
         br,
         br,
@@ -60,11 +60,11 @@ object bits extends Context.ToLang {
             st.streamer.name
           ),
           (ctx.is(st.user) || isGranted(_.Streamers)) option
-            a(cls := active.active("edit"), href := s"${routes.Streamer.edit()}?u=${st.streamer.id.value}")(
+            a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
               editPage()
             )
         )
-      } getOrElse a(href := routes.Streamer.edit())(yourPage()),
+      } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
         cls := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
@@ -75,9 +75,23 @@ object bits extends Context.ToLang {
       a(href := "/about")(downloadKit())
     )
 
+  def redirectLink(username: String, isStreaming: Option[Boolean] = None) =
+    isStreaming match {
+      case Some(false) => a(href := routes.Streamer.show(username))
+      case _ =>
+        a(
+          href := routes.Streamer.redirect(username),
+          targetBlank,
+          noFollow
+        )
+    }
+
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      a(cls := "stream highlight", href := routes.Streamer.show(s.streamer.id.value), title := s.status)(
+      redirectLink(s.streamer.id.value)(
+        cls := "stream highlight",
+        title := s.status
+      )(
         strong(cls := "text", dataIcon := "")(l titleName s),
         " ",
         s.status
@@ -85,7 +99,7 @@ object bits extends Context.ToLang {
     }
 
   def contextual(userId: User.ID)(implicit lang: Lang): Frag =
-    a(cls := "context-streamer text", dataIcon := "", href := routes.Streamer.show(userId))(
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := "")(
       xIsStreaming(usernameOrId(userId))
     )
 
@@ -95,7 +109,7 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
-        li(rule3())
+        li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
       ul(

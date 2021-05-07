@@ -1,13 +1,13 @@
 package lila.puzzle
 
-sealed abstract private class PuzzleTier(val key: String) {
+sealed abstract class PuzzleTier(val key: String) {
 
   def stepDown = PuzzleTier stepDown this
 
   override def toString = key
 }
 
-private object PuzzleTier {
+object PuzzleTier {
 
   case object Top  extends PuzzleTier("top")
   case object Good extends PuzzleTier("good")

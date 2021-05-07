@@ -11,6 +11,7 @@
   display: grid;
 
   &__side {
+    @extend %zen;
     grid-area: side;
   }
 
@@ -23,10 +24,12 @@
   }
 
   &__controls {
+    @extend %zen;
     grid-area: controls;
   }
 
   &__session {
+    @extend %zen;
     grid-area: session;
     align-self: start;
   }
@@ -52,12 +55,10 @@
     }
   }
 
-
   @include breakpoint($mq-col3) {
     grid-template-areas: 'side    . board   gauge tools' 'side    . session .     controls' 'side    . .       .     .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
   }
-
 
   &__side {
     display: grid;
@@ -78,7 +79,6 @@
       }
     }
 
-
     @include breakpoint($mq-x-large) {
       grid-template-columns: 1fr;
       grid-template-areas: 'metas' 'user' 'theme' 'config';
@@ -91,7 +91,6 @@
         grid-template-areas: 'metas' 'replay' 'user' 'config';
       }
     }
-
 
     &__metas {
       grid-area: metas;

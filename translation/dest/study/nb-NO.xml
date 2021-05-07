@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dato tilføyd (eldste)</string>
   <string name="recentlyUpdated">Nylig oppdatert</string>
   <string name="mostPopular">Mest populære</string>
+  <string name="alphabetical">Alfabetisk</string>
   <string name="addNewChapter">Legg til kapittel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapittel</item>
@@ -62,15 +63,13 @@
   <string name="chapterPgn">Kapittel-PGN</string>
   <string name="downloadGame">Last ned partiet</string>
   <string name="studyUrl">Studie-URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL for overføring</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
-  <string name="currentGameUrl">URL for dette partiet</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Du kan lime inn dette i forumet for å bygge det inn der</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan lime inn dette i forumet for å bygge det inn der</string>
   <string name="startAtInitialPosition">Start ved innledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Bygg inn på nettstedet ditt eller bloggen din</string>
   <string name="readMoreAboutEmbedding">Les mer om å bygge inn</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Bare offentlige studier kan bygges inn!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Bare offentlige studier kan bygges inn!</string>
   <string name="open">Åpne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fant ikke studien</string>
@@ -94,16 +93,16 @@
   <string name="startFromInitialPosition">Start ved innledende stilling</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start fra innledende stilling</string>
-  <string name="loadAGameByUrl">Last inn et parti fra URL</string>
+  <string name="loadAGameByUrl">Last inn partier fra URL-er</string>
   <string name="loadAPositionFromFen">Last inn en stilling fra FEN</string>
-  <string name="loadAGameFromPgn">Last inn et parti fra PGN</string>
+  <string name="loadAGameFromPgn">Last inn partier fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
     <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
   </plurals>
-  <string name="urlOfTheGame">URL for partiet</string>
-  <string name="loadAGameFromXOrY">Last opp et parti fra %1$s eller %2$s</string>
+  <string name="urlOfTheGame">URL for partiene, én pr. linje</string>
+  <string name="loadAGameFromXOrY">Last inn partier fra %1$s eller %2$s</string>
   <string name="createChapter">Opprett kapittel</string>
   <string name="configureLiveBroadcast">Konfigurer direkteoverføring</string>
   <string name="createStudy">Opprett en studie</string>

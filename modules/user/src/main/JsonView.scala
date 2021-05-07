@@ -1,10 +1,10 @@
 package lila.user
 
 import play.api.libs.json._
+import User.{ LightPerf, PlayTime }
 
 import lila.common.Json.jodaWrites
 import lila.rating.{ Perf, PerfType }
-import User.{ LightPerf, PlayTime }
 
 final class JsonView(isOnline: lila.socket.IsOnline) {
 
@@ -22,8 +22,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
         "createdAt" -> u.createdAt
       )
       .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
-      .add("booster" -> u.marks.boost)
+      .add("tosViolation" -> u.lame)
       .add("profile" -> u.profile.map(p => profileWrites.writes(p).noNull))
       .add("seenAt" -> u.seenAt)
       .add("patron" -> u.isPatron)
@@ -41,8 +40,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
       )
       .add("title" -> u.title)
       .add("disabled" -> u.disabled)
-      .add("engine" -> u.marks.engine)
-      .add("booster" -> u.marks.boost)
+      .add("tosViolation" -> u.lame)
       .add("language" -> u.lang)
       .add("profile" -> u.profile.flatMap(_.country).map { country =>
         Json.obj("country" -> country)
@@ -108,7 +106,25 @@ object JsonView {
     JsObject(u.perfs.perfsMap collect {
       case (key, perf) if onlyPerf.fold(select(key, perf))(_.key == key) =>
         key -> perfWrites.writes(perf)
-    })
+    }).add(
+      "storm",
+      u.perfs.storm.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.storm.runs,
+        "score" -> u.perfs.storm.score
+      )
+    ).add(
+      "racer",
+      u.perfs.racer.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.racer.runs,
+        "score" -> u.perfs.racer.score
+      )
+    ).add(
+      "streak",
+      u.perfs.streak.nonEmpty option Json.obj(
+        "runs"  -> u.perfs.streak.runs,
+        "score" -> u.perfs.streak.score
+      )
+    )
 
   def perfs(u: User, onlyPerfs: List[PerfType]) =
     JsObject(onlyPerfs.map { perfType =>

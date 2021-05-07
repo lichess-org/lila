@@ -15,24 +15,26 @@ case class PuzzleDashboard(
 ) {
 
   import PuzzleDashboard._
-  import BsonHandlers._
 
   lazy val (weakThemes, strongThemes) = {
-    val all = byTheme.view.filter(_._2.nb > global.nb / 20).toList.sortBy { case (_, res) =>
+    val all = byTheme.view.filter(_._2.nb > global.nb / 40).toList.sortBy { case (_, res) =>
       (res.performance, -res.nb)
     }
     val weaks = all
       .filter { case (_, r) =>
-        r.failed >= 3
+        r.failed >= 3 && r.performance < global.performance
       }
       .take(topThemesNb)
     val strong = all
-      .filter { case (t, r) =>
-        r.firstWins >= 3 && !weaks.contains(t -> r)
+      .filter { case (_, r) =>
+        r.firstWins >= 3 && r.performance > global.performance
       }
       .takeRight(topThemesNb)
+      .reverse
     (weaks, strong)
   }
+
+  def mostPlayed = byTheme.toList.sortBy(-_._2.nb).take(9)
 }
 
 object PuzzleDashboard {
@@ -53,7 +55,7 @@ object PuzzleDashboard {
     def fixedPercent    = fixed * 100 / nb
     def firstWinPercent = firstWins * 100 / nb
 
-    def performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
+    lazy val performance = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
 
     def clear   = nb >= 6 && firstWins >= 2 && failed >= 2
     def unclear = !clear
@@ -73,7 +75,9 @@ object PuzzleDashboard {
     PuzzleTheme.mateIn5,
     PuzzleTheme.equality,
     PuzzleTheme.advantage,
-    PuzzleTheme.crushing
+    PuzzleTheme.crushing,
+    PuzzleTheme.master,
+    PuzzleTheme.masterVsMaster
   ).map(_.key)
 
   val relevantThemes = PuzzleTheme.all collect {
@@ -110,7 +114,12 @@ final class PuzzleDashboardApi(
         Match($doc("u" -> userId, "d" $gt DateTime.now.minusDays(days))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
-          PipelineOperator(puzzleLookup),
+          PipelineOperator(
+            PuzzleRound.puzzleLookup(
+              colls,
+              List($doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r")))
+            )
+          ),
           Unwind("puzzle"),
           Facet(
             List(
@@ -146,27 +155,6 @@ final class PuzzleDashboardApi(
     }
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))
-
-  private val puzzleLookup =
-    $doc(
-      "$lookup" -> $doc(
-        "from" -> colls.puzzle.name.value,
-        "as"   -> "puzzle",
-        "let" -> $doc(
-          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
-        ),
-        "pipeline" -> $arr(
-          $doc(
-            "$match" -> $doc(
-              "$expr" -> $doc(
-                $doc("$eq" -> $arr("$_id", "$$pid"))
-              )
-            )
-          ),
-          $doc("$project" -> $doc("themes" -> true, "rating" -> "$glicko.r"))
-        )
-      )
-    )
 
   private def readResults(doc: Bdoc) = for {
     nb     <- doc.int("nb")

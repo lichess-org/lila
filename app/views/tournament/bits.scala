@@ -20,7 +20,7 @@ object bits {
         p(trans.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
+        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
       )
     }
 
@@ -78,6 +78,7 @@ object bits {
     trans.averageOpponent,
     trans.ratedTournament,
     trans.casualTournament,
-    trans.password
+    trans.password,
+    trans.arena.viewAllXTeams
   ).map(_.key)
 }

@@ -14,7 +14,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi:
       else proxyApi(ip)
     }
 
-  def isSuspicious(ipData: UserSpy.IPData): Fu[Boolean] =
+  def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
   /* lichess blacklist of proxies that ip2proxy doesn't know about */

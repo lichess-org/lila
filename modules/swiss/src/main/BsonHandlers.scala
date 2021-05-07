@@ -1,9 +1,7 @@
 package lila.swiss
 
-import chess.Clock.{ Config => ClockConfig }
 import chess.Color
 import chess.format.FEN
-import chess.variant.Variant
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
@@ -11,28 +9,10 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.user.User
 
-private object BsonHandlers {
+object BsonHandlers {
 
-  implicit val clockHandler = tryHandler[ClockConfig](
-    { case doc: BSONDocument =>
-      for {
-        limit <- doc.getAsTry[Int]("limit")
-        inc   <- doc.getAsTry[Int]("increment")
-      } yield ClockConfig(limit, inc)
-    },
-    c =>
-      BSONDocument(
-        "limit"     -> c.limitSeconds,
-        "increment" -> c.incrementSeconds
-      )
-  )
-  implicit val variantHandler = lila.db.dsl.quickHandler[Variant](
-    {
-      case BSONString(v) => Variant orDefault v
-      case _             => Variant.default
-    },
-    v => BSONString(v.key)
-  )
+  implicit val variantHandler       = variantByKeyHandler
+  implicit val clockHandler         = clockConfigHandler
   implicit val swissPointsHandler   = intAnyValHandler[Swiss.Points](_.double, Swiss.Points.apply)
   implicit val swissTieBreakHandler = doubleAnyValHandler[Swiss.TieBreak](_.value, Swiss.TieBreak.apply)
   implicit val swissPerformanceHandler =
@@ -123,23 +103,26 @@ private object BsonHandlers {
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
         password = r.strO("p"),
-        conditions = r.getO[SwissCondition.All]("o") getOrElse SwissCondition.All.empty
+        conditions = r.getO[SwissCondition.All]("o") getOrElse SwissCondition.All.empty,
+        forbiddenPairings = r.getD[String]("fp")
       )
     def writes(w: BSON.Writer, s: Swiss.Settings) =
       $doc(
-        "n" -> s.nbRounds,
-        "r" -> (!s.rated).option(false),
-        "d" -> s.description,
-        "f" -> s.position,
-        "c" -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
-        "i" -> s.roundInterval.toSeconds.toInt,
-        "p" -> s.password,
-        "o" -> s.conditions.ifNonEmpty
+        "n"  -> s.nbRounds,
+        "r"  -> (!s.rated).option(false),
+        "d"  -> s.description,
+        "f"  -> s.position,
+        "c"  -> (s.chatFor != Swiss.ChatFor.default).option(s.chatFor),
+        "i"  -> s.roundInterval.toSeconds.toInt,
+        "p"  -> s.password,
+        "o"  -> s.conditions.ifNonEmpty,
+        "fp" -> s.forbiddenPairings.some.filter(_.nonEmpty)
       )
   }
 
   implicit val swissHandler = Macros.handler[Swiss]
 
+  // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss) =
     swissHandler.writeTry(s).get ++ {
       s.isNotFinished ?? $doc(
@@ -147,4 +130,7 @@ private object BsonHandlers {
         "garbage"    -> s.unrealisticSettings.option(true)
       )
     }
+
+  import Swiss.IdName
+  implicit val SwissIdNameBSONHandler = Macros.handler[IdName]
 }

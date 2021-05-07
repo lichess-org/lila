@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">PGN 駒表示方法</string>
   <string name="chessPieceSymbol">チェス駒シンボル</string>
   <string name="pgnLetter">文字（K, Q, R, B, N）</string>
-  <string name="zenMode">集中モード</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="blindfoldChess">目隠しチェス</string>
   <string name="chessClock">時間表示</string>
   <string name="tenthsOfSeconds">0.1秒単位で時間表示</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">持時間が残り10秒以下の場合</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">持時間が残り10秒以下の場合</string>
   <string name="horizontalGreenProgressBars">プログレスバー</string>
   <string name="soundWhenTimeGetsCritical">時間が迫ってきたら音を鳴らす</string>
   <string name="giveMoreTime">相手に時間追加</string>
-  <string name="gameBehavior">対局中の動作</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">対局中の動作</string>
   <string name="howDoYouMovePieces">駒の移動方法</string>
   <string name="clickTwoSquares">2 つのマスをクリック</string>
   <string name="dragPiece">駒をドラッグ</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">キングを 2 マス動かす</string>
   <string name="castleByMovingOntoTheRook">キングをルークの上に動かす</string>
   <string name="inputMovesWithTheKeyboard">手をキーボードで入力</string>
-  <string name="snapArrowsToValidMoves">可能な手を矢印で表示</string>
-  <string name="sayGgWpAfterLosingOrDrawing">負けかドローの際に「Good game, well played」と言う</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">可能な手を矢印で表示</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">負けかドローの際に「Good game, well played」と言う</string>
   <string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
 </resources>

@@ -23,7 +23,7 @@ object profile {
       div(cls := "account box box-pad")(
         h1(trans.editProfile()),
         standardFlash(),
-        postForm(cls := "form3", action := routes.Account.profileApply())(
+        postForm(cls := "form3", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
             form3.group(form("country"), trans.country(), half = true) { f =>
@@ -40,7 +40,7 @@ object profile {
             form3.group(form("lastName"), trans.lastName(), half = true)(form3.input(_))
           ),
           form3.split(
-            List("fide", "uscf", "ecf").map { rn =>
+            List("fide", "uscf", "ecf", "rcf", "cfc").map { rn =>
               form3.group(
                 form(s"${rn}Rating"),
                 trans.xRating(rn.toUpperCase),

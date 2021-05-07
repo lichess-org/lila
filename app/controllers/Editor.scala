@@ -45,12 +45,12 @@ final class Editor(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       fuccess {
         val situation = readFen(get("fen"))
-        Ok(
+        JsonOk(
           html.board.bits.jsData(
             sit = situation,
             fen = Forsyth >> situation
           )
-        ) as JSON
+        )
       }
     }
 

@@ -13,7 +13,7 @@
   <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>
   <string name="horizontalGreenProgressBars">პროგრესის ჰორიზონტალური მწვანე ინდიკატორი</string>
   <string name="soundWhenTimeGetsCritical">ცაიტნოტის ხმოვანი ინდიკატორი</string>
   <string name="giveMoreTime">მომეცი მეტი დრო</string>

@@ -1,2 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ปริศนา</string>
+  <string name="puzzleThemes">ธีมปริศนา</string>
+  <string name="recommended">แนะนำ</string>
+  <string name="phases">ช่วงของเกม</string>
+  <string name="advanced">ขั้นสูง</string>
+  <string name="lengths">จำนวนตาเดิน</string>
+  <string name="mates">การรุกจน</string>
+  <string name="goals">เป้าหมาย</string>
+  <string name="origin">ต้นกำเนิดเกม</string>
+  <string name="specialMoves">การเดินพิเศษ</string>
+  <string name="didYouLikeThisPuzzle">คุณชอบปริศนานี้ไหม?</string>
+  <string name="voteToLoadNextOne">ให้คะแนนเพี่อโหลดปริศนาต่อไป!</string>
+  <string name="yourPuzzleRatingX">ระดับคะแนนแก้ปริศนาของคุณ: %s</string>
+  <string name="findTheBestMoveForWhite">หาการเดินที่ดีที่สุดสำหรับฝ่ายขาว</string>
+  <string name="findTheBestMoveForBlack">หาการเดินที่ดีที่สุดสำหรับฝ่ายดำ</string>
+  <string name="puzzleId">ปริศนา %s</string>
+  <string name="puzzleOfTheDay">ปริศนาประจำวัน</string>
+  <string name="clickToSolve">คลิกเพื่อแก้ปริศนา</string>
+  <string name="goodMove">เดินได้ดี</string>
+  <string name="bestMove">เดินได้ดีที่สุด!</string>
+  <string name="keepGoing">เดินต่อไป...</string>
+  <string name="puzzleSuccess">แก้ไขปริศนาสำเร็จ!</string>
+  <string name="puzzleComplete">แก้ไขปริศนาสำเร็จ!</string>
+  <string name="notTheMove">ไม่ใช่การเดินที่ถูกต้อง!</string>
+  <string name="trySomethingElse">ลองเดินอย่างอื่น</string>
+  <string name="ratingX">ระดับคะแนน: %s</string>
+  <string name="hidden">ถูกซ่อน</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">ถูกเล่น %s ครั้ง</item>
+  </plurals>
+  <string name="fromGameLink">จากเกม %s</string>
+  <string name="continueTraining">ฝึกต่อ</string>
+  <string name="difficultyLevel">ระดับความยาก</string>
+  <string name="normal">ปานกลาง</string>
+  <string name="easier">ง่าย</string>
+  <string name="easiest">ง่ายที่สุด</string>
+  <string name="harder">ยาก</string>
+  <string name="hardest">ยากที่สุด</string>
+  <string name="example">ตัวอย่าง</string>
+  <string name="addAnotherTheme">เพิ่มธีมใหม่</string>
+  <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
+  <string name="improvementAreas">จุดอ่อน</string>
+  <string name="strengths">จุดแข็ง</string>
+  <string name="history">ประวัติการแก้ปริศนา</string>
+  <string name="solved">แก้แล้ว</string>
+  <string name="failed">ล้มเหลว</string>
+</resources>

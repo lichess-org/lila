@@ -32,7 +32,7 @@ final class GameStateStream(
   ): Source[Option[JsObject], _] = {
 
     // terminate previous one if any
-    Bus.publish(NewConnectionDetected, uniqChan(init.game pov as))
+    Bus.publish(PoisonPill, uniqChan(init.game pov as))
 
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(
@@ -57,8 +57,7 @@ final class GameStateStream(
 
       val id = init.game.id
 
-      var gameOver              = false
-      var newConnectionDetected = false
+      var gameOver = false
 
       private val classifiers = List(
         MoveGameEvent makeChan id,
@@ -89,10 +88,9 @@ final class GameStateStream(
         Bus.unsubscribe(self, classifiers)
         // hang around if game is over
         // so the opponent has a chance to rematch
-        if (!newConnectionDetected)
-          context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
-            Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
-          }
+        context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
+          Bus.publish(Tell(init.game.id, BotConnected(as, v = false)), "roundSocket")
+        }
         queue.complete()
         lila.mon.bot.gameStream("stop").increment().unit
       }
@@ -114,9 +112,6 @@ final class GameStateStream(
               Bus.publish(Tell(id, QuietFlag), "roundSocket")
             }
             .unit
-        case NewConnectionDetected =>
-          newConnectionDetected = true
-          self ! PoisonPill
       }
 
       def pushState(g: Game): Funit =
@@ -137,5 +132,4 @@ private object GameStateStream {
 
   private case object SetOnline
   private case class User(id: lila.user.User.ID, isBot: Boolean)
-  private case object NewConnectionDetected
 }

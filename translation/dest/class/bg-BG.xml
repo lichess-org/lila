@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Часове</string>
+  <string name="lichessClasses">Класове</string>
   <string name="teachClassesOfChessStudents">Води часове с ученици на шахмат с инструмента Lichess Часове.</string>
   <string name="features">Функционалности</string>
   <string name="quicklyGenerateSafeUsernames">Бързо създаване на безопасни потребителски имена и пароли за ученици</string>
@@ -11,29 +11,28 @@
   <string name="noClassesYet">Все още няма часове.</string>
   <string name="teachersX">Учители: %s</string>
   <string name="newClass">Нов клас</string>
-  <string name="closeClass">Затвори часа</string>
+  <string name="closeClass">Затвори класа</string>
   <string name="closedByX">Затворен от %s</string>
   <string name="reopen">Повторно отваряне</string>
   <string name="removeStudent">Премахни ученик</string>
   <string name="removedStudents">Премахнат</string>
-  <string name="inviteTheStudentBack">Покани ученик отново</string>
-  <string name="sendAMessage">Изпрати съобщение до всички ученици.</string>
+  <string name="inviteTheStudentBack">Покани ученика отново</string>
+  <string name="sendAMessage">Изпратете съобщение до всички ученици.</string>
   <string name="aLinkToTheClassWillBeAdded">Адресът на класа ще бъде добавен автоматично към края на съобщението и няма нужда да го добавяте ръчно.</string>
-  <string name="className">Име на час</string>
-  <string name="classDescription">Описание на часа</string>
-  <string name="visibleByBothStudentsAndTeachers">Видим от учители и ученици</string>
+  <string name="className">Име на класа</string>
+  <string name="classDescription">Описание на класа</string>
+  <string name="visibleByBothStudentsAndTeachers">Видим от учители и ученици в класа</string>
   <string name="teachersOfTheClass">Учители на класа</string>
   <string name="addLichessUsernames">Добавете Lichess потребителските имена, за да ги поканите като учители. Едно за всеки ред.</string>
-  <string name="theyMustFirstApply">Те трябва да кандидатстват за Lichess Учители.</string>
   <string name="resetPassword">Възстанови парола</string>
   <string name="makeSureToCopy">Копирайте генерираната парола. Няма да може да я видите след това!</string>
   <string name="passwordX">Парола: %s</string>
   <string name="generateANewPassword">Генерирайте нова парола за ученика</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Поканен в %1$s от %2$s</string>
+  <string name="invitedToXByY">Поканен в %1$s от %2$s</string>
   <string name="realName">Истинско име</string>
   <string name="privateWillNeverBeShown">Поверително. Това няма да бъде показано извън класа. Помага да запомните кой е ученикът.</string>
   <string name="addStudent">Добави ученик</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Lichess профил %1$s създаден за %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Lichess профил %1$s създаден за %2$s.</string>
   <string name="studentCredentials">Ученик: %1$s
 Потребителско име: %2$s
 Парола: %3$s</string>
@@ -53,4 +52,17 @@
 Ето линк за достъп към класа.</string>
   <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
   <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
+  <string name="teachers">Учители</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Учител</item>
+    <item quantity="other">%s учители</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Ученик</item>
+    <item quantity="other">%s ученици</item>
+  </plurals>
+  <string name="students">Ученици</string>
+  <string name="progress">Напредък</string>
+  <string name="noStudents">В този клас все още няма ученици.</string>
+  <string name="noRemovedStudents">Няма премахнати ученици.</string>
 </resources>

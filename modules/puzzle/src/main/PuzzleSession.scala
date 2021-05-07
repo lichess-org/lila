@@ -21,6 +21,8 @@ private case class PuzzleSession(
   )
   def next = copy(positionInPath = positionInPath + 1)
 
+  def brandNew = positionInPath == 0
+
   override def toString = s"$path:$positionInPath"
 }
 
@@ -166,7 +168,7 @@ final class PuzzleSessionApi(
       createSessionFor(user, theme, difficulty).tap { sessions.put(user.id, _) }.void
     }
 
-  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](16384, "puzzle.session")(
+  private val sessions = cacheApi.notLoading[User.ID, PuzzleSession](32768, "puzzle.session")(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
@@ -175,9 +177,14 @@ final class PuzzleSessionApi(
       theme: PuzzleTheme.Key
   ): Fu[PuzzleSession] =
     sessions.getFuture(user.id, _ => createSessionFor(user, theme)) flatMap { current =>
-      if (current.path.theme == theme) fuccess(current)
+      if (current.path.theme == theme && !shouldChangeSession(user, current)) fuccess(current)
       else createSessionFor(user, theme, current.difficulty) tap { sessions.put(user.id, _) }
     }
+
+  private def shouldChangeSession(user: User, session: PuzzleSession) = !session.brandNew && {
+    val perf = user.perfs.puzzle
+    perf.clueless || (perf.provisional && perf.nb % 5 == 0)
+  }
 
   private def createSessionFor(
       user: User,

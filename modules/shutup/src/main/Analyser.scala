@@ -9,7 +9,7 @@ object Analyser {
     TextAnalysis(
       lower,
       (
-        enBigRegex.findAllMatchIn(latinify(lower)).toList :::
+        latinBigRegex.findAllMatchIn(latinify(lower)).toList :::
           ruBigRegex.findAllMatchIn(lower).toList
       ).map(_.toString)
     )
@@ -27,20 +27,26 @@ object Analyser {
       case c   => c
     }
 
-  private def enWordsRegexes =
+  private def latinWordsRegexes =
     Dictionary.en.map { word =>
       word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
     } ++
+      Dictionary.es ++
+      Dictionary.hi ++
+      Dictionary.fr ++
+      Dictionary.de ++
+      Dictionary.tr ++
+      Dictionary.it ++
       bannedYoutubeIds
 
-  private val enBigRegex = {
+  private val latinBigRegex = {
     """(?i)\b""" +
-      enWordsRegexes.mkString("(", "|", ")") +
+      latinWordsRegexes.mkString("(", "|", ")") +
       """\b"""
   }.r
 
   private val ruBigRegex = {
-    """(?i)\b""" +
+    """(?iu)\b""" +
       Dictionary.ru.mkString("(", "|", ")") +
       """\b"""
   }.r

@@ -2,9 +2,9 @@
 <resources>
   <string name="isLichessLagging">Lichess 卡了吗？</string>
   <string name="measurementInProgressThreeDot">测量进行中...</string>
-  <string name="noAndYourNetworkIsGood">不。而且您的网络很好。</string>
-  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">不。但是您的网络不好。</string>
-  <string name="yesItWillBeFixedSoon">是的。它将很快被修好！</string>
+  <string name="noAndYourNetworkIsGood">没有，而且您的网络很好。</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">没有，但是您的网络不好。</string>
+  <string name="yesItWillBeFixedSoon">是的，但我们将尽快将其修复！</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">那么，我们来详细的解释一下吧！游戏延迟由两个互不影响的数值组成（越低越好）：</string>
   <string name="lichessServerLatency">Lichess 服务器处理延迟</string>
   <string name="lichessServerLatencyExplanation">服务器处理一步棋所需花费的时间。此时间对每个人都是一样的，并且它只取决于服务器的负载。玩家越多，此数值会越高，但是 Lichess 的开发者会尽力让它降低。它很少超过 10 毫秒。</string>

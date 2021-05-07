@@ -88,7 +88,7 @@
   <string name="combatComplete">Συγχαρητήρια! Ξέρετε πως να μάχεστε με τα πιόνια του σκακιού!</string>
   <string name="checkInOne">Σαχ σε μία κίνηση</string>
   <string name="attackTheOpponentsKing">Επίθεση στον βασιλιά του αντιπάλου</string>
-  <string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλο σας, επιτεθείτε στον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
+  <string name="checkInOneIntro">Για να κάνετε σαχ στον αντίπαλό σας, επιτεθείτε στον βασιλιά του. Πρέπει να τον υπερασπιστεί!</string>
   <string name="checkInOneGoal">Απειλήστε τον βασιλιά του αντιπάλου με μία κίνηση!</string>
   <string name="checkInOneComplete">Συγχαρητήρια! Κάνατε σαχ στον αντίπαλο, αναγκάζοντάς τον να προστατεύσει τον βασιλιά του!</string>
   <string name="outOfCheck">Ξεφεύγοντας από σαχ</string>

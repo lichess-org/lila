@@ -1,12 +1,12 @@
 .pocket {
   &-top {
     grid-area: mat-top;
-    margin-bottom: -.5em;
+    margin-bottom: -0.5em;
   }
 
   &-bottom {
     grid-area: mat-bot;
-    margin-top: -.5em;
+    margin-top: -0.5em;
   }
 
   @include breakpoint($mq-col2-uniboard) {
@@ -26,7 +26,6 @@
       display: none;
     }
   }
-
 
   @include breakpoint($mq-tall) {
     #{$moves-tag} {
@@ -61,7 +60,7 @@
 
 // These images are also referenced in crazyCtrl.ts (for preloading).
 // The other file should be kept in sync.
-@each $color, $c in ("white": w, "black": b) {
+@each $color, $c in ('white': w, 'black': b) {
   @each $role, $r in (pawn: P, knight: N, bishop: B, rook: R, queen: Q) {
     body.cursor-#{$color}-#{$role} * {
       cursor: url(../piece/cburnett/#{$c}#{$r}.svg) 22 22, auto !important;

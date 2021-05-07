@@ -9,6 +9,7 @@
   <string name="yourTurn">तुमची चाल</string>
   <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
   <string name="level">पातळी</string>
+  <string name="strength">सामर्थ्य</string>
   <string name="toggleTheChat">गप्पा उघड/बंद करा</string>
   <string name="toggleSound">आवाज</string>
   <string name="chat">गप्पा</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">अमर्यादित विश्लेषण</string>
   <string name="removesTheDepthLimit">खोली मर्यादा काढून टाकते आणि आपला संगणक उष्ण ठेवतो</string>
   <string name="blunder">घोडचूक</string>
-  <string name="blunders">घोडचूका</string>
   <string name="mistake">चुक</string>
-  <string name="mistakes">चुका</string>
   <string name="inaccuracy">अयोग्य चाल</string>
-  <string name="inaccuracies">अयोग्य चाली</string>
   <string name="moveTimes">चालीसाठी लागलेला वेळ</string>
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
@@ -249,7 +247,6 @@
   <string name="send">पाठवा</string>
   <string name="incrementInSeconds">सेकंदांमध्ये वाढ</string>
   <string name="freeOnlineChess">विनामूल्य ऑनलाइन बुद्धिबळ</string>
-  <string name="spectators">प्रेक्षक</string>
   <plurals name="nbRated">
     <item quantity="one">%s गुणांकित</item>
     <item quantity="other">%s औपचारिक</item>
@@ -277,7 +274,6 @@
     <item quantity="other">%s सेकंद द्या</item>
   </plurals>
   <string name="thisAccountViolatedTos">या खात्याने Lichess अटींचे उल्लंघन केले</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">हा खेळाडू कृत्रिमरित्या गुणांकन वाढवितो / कमी करतो</string>
   <string name="openingExplorerAndTablebase">उघडणी अन्वेषक नि साठा</string>
   <string name="takeback">चाल परत घ्या</string>
   <string name="proposeATakeback">चाल मागे घेण्यास विनंती करा</string>
@@ -302,7 +298,7 @@
   <string name="backToTournament">क्रीडासत्रात परत जा</string>
   <string name="thematic">विषयगत</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s दर्जाचा खेळ</item>
+    <item quantity="one">≥ %s औपचारिक खेळ</item>
     <item quantity="other">≥ %s औपचारिक खेळ</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
@@ -382,7 +378,6 @@
   <string name="more">आणखी</string>
   <string name="memberSince">या काळा पासून सदस्य आहेत</string>
   <string name="lastSeenActive">%s सक्रिय</string>
-  <string name="challengeToPlay">आव्हान द्या</string>
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
   <string name="graph">आलेख</string>
@@ -505,9 +500,12 @@
   <string name="currentPassword">सध्याचा गुप्त शब्द</string>
   <string name="newPassword">नवीन गुप्त शब्द</string>
   <string name="newPasswordAgain">नवीन गुप्त शब्द (पुनः)</string>
+  <string name="newPasswordsDontMatch">नवीन संकेतशब्द जुळत नाहीत</string>
+  <string name="newPasswordStrength">पासवर्ड शक्ती</string>
   <string name="clockInitialTime">प्रारंभिक वेळ</string>
   <string name="clockIncrement">वेळवाढ</string>
   <string name="privacy">गोपनीयता</string>
+  <string name="privacyPolicy">गोपनीयता धोरण</string>
   <string name="letOtherPlayersFollowYou">इतर खेळाडूंना Follow करू द्या</string>
   <string name="letOtherPlayersChallengeYou">इतर खेळाडूंना द्वंद्वाला ललकारू द्या</string>
   <string name="letOtherPlayersInviteYouToStudy">इतर खेळाडूंना अभ्यासासाठी आमंत्रित करू द्या</string>
@@ -576,6 +574,7 @@
   <string name="error.email_unique">हा ईमेल आधीपासून आहे</string>
   <string name="error.email_different">हा आधीपासून तुमचा ईमेल आहे</string>
   <string name="ifRatingIsPlusMinusX">दर्जा ±%s असल्यास</string>
+  <string name="onlyExistingConversations">केवळ विद्यमान संभाषणे</string>
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>
@@ -653,6 +652,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">जर तुम्हाला ईमेल मिळाला नसेल, तर इतर ठिकाणी तपास, जसे की junk, spam, social, किंवा इतर फोल्डर्स.</string>
   <string name="weHaveSentYouAnEmailTo">आम्ही %s वर ईमेल पाठवला आहे. पासवर्ड रेसेट करण्यासाठी ईमेल मधील लिंक क्लिक करा.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">नोंदणी करतेवेळी, तुम्ही आमच्या %s ला बांधील आहात.</string>
+  <string name="readAboutOur">आमच्या %s बद्दल वाचा.</string>
   <string name="networkLagBetweenYouAndLichess">आपण आणि लाइचेस दरम्यान नेटवर्कचा अडथळा आहे</string>
   <string name="timeToProcessAMoveOnLichessServer">लीचेस सर्व्हरवर प्रक्रिया करण्याची वेळ</string>
   <string name="downloadAnnotated">डाउनलोड annotated</string>
@@ -731,7 +731,6 @@
   <string name="error.unknown">चूक</string>
   <string name="custom">इतर</string>
   <string name="notifications">Notifications</string>
-  <string name="challenges">आव्हाने</string>
   <string name="perfRatingX">गुणांकन: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिली चाल खेळण्यासाठी %s सेकंद आहेत</item>
@@ -778,12 +777,6 @@
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मध्यखेळ</string>
   <string name="endgame">खेळाचा शेवट</string>
-  <string name="registerToSendChallenges">कृपया आव्हान देण्यासाठी नोंदणी करा.</string>
-  <string name="youCannotChallengeX">तुम्ही आव्हान देऊ शकत नाही %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s आपले आव्हान स्विकारले नाही.</string>
-  <string name="yourXRatingIsTooFarFromY">तुमची %1$s रेटिंग %2$s पेक्षा फार कमी आहे.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s च्या अस्थायी रेटिंगमुळे आव्हान देऊ शकत नाही.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s केवळ मित्रांकडील आव्हाने स्वीकारतात.</string>
   <string name="conditionalPremoves">सशर्त प्रिमुव्ह</string>
   <string name="addCurrentVariation">वर्तमान variation जोडा</string>
   <string name="playVariationToCreateConditionalPremoves">सशर्त प्रिमुव्ह तयार करण्यासाठी variation खेळा</string>

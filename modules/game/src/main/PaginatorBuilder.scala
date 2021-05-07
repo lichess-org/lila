@@ -7,10 +7,7 @@ import lila.common.config.MaxPerPage
 import lila.db.dsl._
 import lila.db.paginator._
 
-final class PaginatorBuilder(
-    gameRepo: GameRepo,
-    maxPerPage: MaxPerPage
-)(implicit ec: scala.concurrent.ExecutionContext) {
+final class PaginatorBuilder(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.gameBSONHandler
 
@@ -41,5 +38,5 @@ final class PaginatorBuilder(
     )
 
   private def paginator(adapter: AdapterLike[Game], page: Int): Fu[Paginator[Game]] =
-    Paginator(adapter, currentPage = page, maxPerPage = maxPerPage)
+    Paginator(adapter, currentPage = page, maxPerPage = MaxPerPage(12))
 }

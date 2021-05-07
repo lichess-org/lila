@@ -1,8 +1,8 @@
-@import "cmn-toggle";
-@import "../component/flash";
+@import 'cmn-toggle';
+@import '../component/flash';
 
 .form-group {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .form-split {
@@ -31,6 +31,7 @@
   font-weight: bold;
   display: inline-block;
   margin-bottom: 0.5rem;
+  cursor: text;
 }
 
 .form-control {
@@ -102,7 +103,8 @@ textarea.form-control {
 }
 
 .password-complexity {
-  margin-bottom: 2rem;
+  margin-top: -2rem;
+  margin-bottom: 3rem;
 }
 
 .password-complexity-meter {

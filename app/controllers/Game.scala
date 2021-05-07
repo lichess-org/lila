@@ -3,6 +3,7 @@ package controllers
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.mvc._
+import scala.util.chaining._
 
 import lila.api.GameApiV2
 import lila.app._
@@ -14,6 +15,11 @@ final class Game(
     env: Env,
     apiC: => Api
 ) extends LilaController(env) {
+
+  def bookmark(gameId: String) =
+    Auth { implicit ctx => me =>
+      env.bookmark.api.toggle(gameId, me.id)
+    }
 
   def delete(gameId: String) =
     Auth { implicit ctx => me =>
@@ -42,15 +48,12 @@ final class Game(
           format = if (HTTPRequest acceptsJson req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported", req),
           flags = requestPgnFlags(req, extended = true),
-          noDelay = get("key", req).exists(env.noDelaySecretSetting.get().value.contains),
           playerFile = get("players", req)
         )
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content)
-              .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
+              .pipe(asAttachment(filename))
               .withHeaders(
                 lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
               ) as gameContentType(config)
@@ -100,10 +103,7 @@ final class Game(
             .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
               source =>
                 Ok.chunked(source)
-                  .withHeaders(
-                    noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-                  )
+                  .pipe(asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}"))
                   .as(gameContentType(config))
             }
             .fuccess
@@ -117,7 +117,7 @@ final class Game(
         ids = req.body.split(',').view.take(300).toSeq,
         format = GameApiV2.Format byRequest req,
         flags = requestPgnFlags(req, extended = false),
-        perSecond = MaxPerSecond(20),
+        perSecond = MaxPerSecond(30),
         playerFile = get("players", req)
       )
       apiC
@@ -151,7 +151,8 @@ final class Game(
       evals = getBoolOpt("evals", req) | extended,
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
-      pgnInJson = getBoolOpt("pgnInJson", req) | false
+      pgnInJson = getBoolOpt("pgnInJson", req) | false,
+      delayMoves = !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
     )
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =

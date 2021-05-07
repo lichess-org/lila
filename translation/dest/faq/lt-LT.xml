@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Ar yra svetainių paremtų Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Taip. Lichess įkvėpė kitas atviro kodo svetaines, kurios naudoja mūsų %1$s, %2$s, arba %3$s.</string>
   <string name="fairPlay">Sąžiningas žaidimas</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Kodėl esu pažymėtas už reitingo manipuliaciją (tyčinį pralaimėjimą ar nesąžiningą laimėjimą) ar kompiuterinę pagalbą?</string>
-  <string name="cheatDetectionMethods">Lichess turi stiprius aptikimo metodus ir gilų procesą, skirtą peržiūrėtį įkalčiams ir padaryti sprendimui. Šis procesas dažnai įtraukia ne vieną moderatorių ir gali trukti labai ilgai. Mes neatskleisime detalių apie įkalčius ar sprendimo procesą individualiems atvejams. Tai padarius ateityje būtų lengviau išvengti aptikimo ir tai tik kviestų į neproduktyvias diskusijas. Tas laikas ir pastangos verčiau gali būti panaudoti kitiems, svarbesniems atvejams. Vartotojai gali apeliuoti parašydami laišką į %1$s, tačiau sprendimai retai pakeičiami.</string>
   <string name="whenAmIEligibleRatinRefund">Kodėl aš galiu gauti automatinį reitingo atstatymą nuo sukčių?</string>
   <string name="ratingRefundExplanation">Praėjus minutei nuo žaidėjo pažymėjimo paimami paskutiniai 40 reitinguotų žaidimų per paskutines 3 dienas. Jei jūs buvote jų oponentas tuose žaidimuose ir praradote reitingo (dėl pralaimėjimo ar lygiųjų), ir jūsų reitingas nebuvo laikinas, jūs gausite reitingo atstatymą. Reitingo atstatymas apribotas jūsų geriausiu reitingu ir reitingo progresu po žaidimo. Pavyzdžiui: jei jūsų reitingas po tų žaidimų stipriai paaugo, jūs galite negauti jokio atstatymo, arba tik dalinį atstatymą. Atstatymas niekada neviršys 150 taškų.</string>
   <string name="preventLeavingGameWithoutResigning">Kas daroma dėl žaidėjų, kurie palieka žaidimus nepasiduodami?</string>
@@ -51,7 +49,7 @@ Kompiuterinė šachmatų analizė Lichess veikia Stockfish pagalba.</string>
 Retais atvejais sunku nuspręsti automatiškai (forsuotos linijos, tvirtovės). Pagal nutylėjimą mes visada esame žaidėjo, kuriam nepasibaigė laikas, pusėje.
 
 Verta pastebėti, kad matas su vienu žirgu ar rikiu galimas, jei priešininkas turi figūrą, kuri gali blokuoti karalių.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE taisyklės %s</string>
+  <string name="fideHandbookX">FIDE taisyklės %s</string>
   <string name="discoveringEnPassant">Kodėl pėstininkas gali kirsti kitą pėstininką, nors jis jau prasilenkė? (kirtimas prasilenkiant, en passant)</string>
   <string name="explainingEnPassant">Tai yra legalus ėjimas vadinamas \"kirtimu prasilenkiant\". Šis Vikipedijos straipsnis suteikia %1$s.
 
@@ -92,6 +90,8 @@ Neprašykite LM titulo.</string>
   <string name="whatUsernameCanIchoose">Koks gali būti mano vartotojo vardas?</string>
   <string name="usernamesNotOffensive">Bendrai, vartotojo vardai negali būti: įžeidūs, mėgdžiojantys ką nors kitą, ar reklamuojantys. Daugiau apie tai galite skaityti %1$s.</string>
   <string name="guidelines">taisyklėse</string>
+  <string name="canIChangeMyUsername">Ar galiu pakeisti savo vartotojo vardą?</string>
+  <string name="usernamesCannotBeChanged">Ne, vartotojų vardai negali būti pakeisti dėl techninių ir praktinių priežasčių. Vartotojų vardai naudojami per daug skirtingų vietų - duomenų bazėse, eksportuotuose žaidimuose, išrašuose ir žmonių mintyse. Yra galimybė tik pakeisti didžiąsias/mažąsias raides.</string>
   <string name="uniqueTrophies">Unikalūs trofėjai</string>
   <string name="ownerUniqueTrophies">Šis trofėjus yra unikalus Lichess istorijoje, jo neturės niekas daugiau be %1$s.</string>
   <string name="wayOfBerserkExplanation">Norėdamas jį gauti, hiimgosu iškėlė tau iššūkį laimėti tūžiu 100%% žaidimų %s.</string>

@@ -13,7 +13,7 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     homeHtml
-      .dmap { html =>
+      .map { html =>
         env.lilaCookie.ensure(ctx.req)(status(html))
       }
 

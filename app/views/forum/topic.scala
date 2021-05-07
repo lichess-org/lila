@@ -30,18 +30,22 @@ object topic {
           h2(dataIcon := "!", cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
-              strong(a(href := routes.Main.faq())(trans.inTheFAQ()))
+              strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
             )
           ),
           p(
             trans.toReportSomeoneForCheatingOrBadBehavior(
-              strong(a(href := routes.Report.form())(trans.useTheReportForm()))
+              strong(a(href := routes.Report.form)(trans.useTheReportForm()))
             )
           ),
           p(
             trans.toRequestSupport(
-              strong(a(href := routes.Main.contact())(trans.tryTheContactPage()))
+              strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
             )
+          ),
+          p(
+            "Make sure to read ",
+            strong(a(href := routes.Page.loneBookmark("forum-etiquette"))("the forum etiquette"))
           )
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
@@ -89,7 +93,8 @@ object topic {
         .some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
-      val pager    = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
+      val pager = views.html.base.bits
+        .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
@@ -127,9 +132,9 @@ object topic {
                   a(href := routes.Team.show(teamId))(trans.teamNamedX(teamIdToName(teamId)))
                 )
               )
-            } getOrElse {
-              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.")
-              else p(trans.youCannotPostYetPlaySomeGames())
+            } orElse {
+              if (ctx.me.exists(_.isBot)) p("Bots cannot post in the forum.").some
+              else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
             },
           div(
             unsub.map { uns =>
@@ -171,7 +176,13 @@ object topic {
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
-            form3.group(form("text"), trans.message()) { f =>
+            form3.group(
+              form("text"),
+              trans.message(),
+              help = a(dataIcon := "", cls := "text", href := routes.Page.loneBookmark("forum-etiquette"))(
+                "Forum etiquette"
+              ).some
+            ) { f =>
               form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)
             },
             views.html.base.captcha(form, captcha),

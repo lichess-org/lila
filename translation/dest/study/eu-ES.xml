@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Sorrera-data (zaharrena)</string>
   <string name="recentlyUpdated">Eguneratutako azkenak</string>
   <string name="mostPopular">Arrakasta gehien duena</string>
+  <string name="alphabetical">Alfabetikoa</string>
   <string name="addNewChapter">Kapitulu berria gehitu</string>
   <plurals name="nbChapters">
     <item quantity="one">Kapitulu %s</item>
@@ -62,15 +63,13 @@
   <string name="chapterPgn">Kapituluaren PGNa</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Zuzeneko emankizunaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>
-  <string name="currentGameUrl">Uneko partidaren helbidea</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Hau foroan itsatsi dezakezu</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Hau foroan itsatsi dezakezu</string>
   <string name="startAtInitialPosition">Hasierako posizioan hasi</string>
   <string name="startAtX">Hemen asi %s</string>
   <string name="embedInYourWebsite">Zure webgunean itsatsi</string>
   <string name="readMoreAboutEmbedding">Itsasteari buruz gehiago irakurri</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Azterlan publikoak bakarrik txertatu daitezke beste webguneetan!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Azterlan publikoak bakarrik txertatu daitezke beste webguneetan!</string>
   <string name="open">Ireki</string>
   <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
   <string name="studyNotFound">Azterlana ez da aurkitu</string>

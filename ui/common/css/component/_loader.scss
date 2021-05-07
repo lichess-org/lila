@@ -6,36 +6,42 @@
 }
 
 @keyframes spinner-dash {
-  0%,10% {
-    stroke-dasharray: 1,270;
+  0%,
+  10% {
+    stroke-dasharray: 1, 270;
     stroke-dashoffset: 0;
   }
 
   40% {
-    stroke-dasharray: 89,240;
+    stroke-dasharray: 89, 240;
     stroke-dashoffset: 0;
   }
 
   100% {
-    stroke-dasharray: 1,240;
+    stroke-dasharray: 1, 240;
     stroke-dashoffset: -110;
   }
 }
 
 @keyframes spinner-color {
-  0%,20%,100% {
+  0%,
+  20%,
+  100% {
     stroke: #42a5f5;
   }
 
-  30%,45% {
+  30%,
+  45% {
     stroke: #f44336;
   }
 
-  50%,70% {
+  50%,
+  70% {
     stroke: #fdd835;
   }
 
-  75%,95% {
+  75%,
+  95% {
     stroke: #4caf50;
   }
 }
@@ -74,10 +80,9 @@
 
 .ddloader {
   @if $theme-light {
-    background: img-url("loader/blackx1.png") no-repeat;
-  }
-  @else {
-    background: img-url("loader/whitex1.png") no-repeat;
+    background: img-url('loader/blackx1.png') no-repeat;
+  } @else {
+    background: img-url('loader/whitex1.png') no-repeat;
   }
 
   animation: ddloader 0.5s steps(15) infinite;

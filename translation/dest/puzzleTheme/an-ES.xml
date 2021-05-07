@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="bishopEndgame">Final d\'alfils</string>
+  <string name="bishopEndgameDescription">Un final d\'alfils y peons.</string>
+  <string name="endgame">Final</string>
+  <string name="endgameDescription">Una tactica en a zaguera fase d\'o chuego.</string>
+  <string name="knightEndgame">Final de caballos</string>
+  <string name="knightEndgameDescription">Un final con caballos y peons nomás.</string>
+  <string name="pawnEndgame">Final de peons</string>
+  <string name="pawnEndgameDescription">Un final con peons nomás.</string>
+  <string name="queenEndgame">Final de damas</string>
+  <string name="queenEndgameDescription">Un final con damas y peons nomás.</string>
+  <string name="queenRookEndgame">Dama y Torre</string>
+  <string name="queenRookEndgameDescription">Un final con damas, torres y peons nomás.</string>
+  <string name="rookEndgame">Final de torres</string>
+  <string name="rookEndgameDescription">Un final con torres y peons nomás.</string>
+</resources>

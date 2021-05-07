@@ -11,15 +11,14 @@
     @extend %top-icon;
 
     /* we don't want a lighter dark font in the top gradient */
-    @if $theme == "transp" {
+    @if $theme == 'transp' {
       @extend %page-text;
-    }
-    @else {
+    } @else {
       color: $c-font;
     }
 
     font-size: 1.1rem;
-    padding: 0 .7rem;
+    padding: 0 0.7rem;
 
     &:hover {
       color: $c-font-clearer;
@@ -50,7 +49,7 @@
     right: 0;
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
-    z-index: z("dropdown");
+    z-index: z('dropdown');
 
     a,
     button {
@@ -72,7 +71,7 @@
   .signin {
     margin: 0 1rem;
 
-    @if $theme == "transp" {
+    @if $theme == 'transp' {
       &.button-empty {
         @extend %metal;
 

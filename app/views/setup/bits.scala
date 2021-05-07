@@ -14,12 +14,12 @@ private object bits {
   def fenInput(field: Field, strict: Boolean, validFen: Option[lila.setup.ValidFen])(implicit
       ctx: Context
   ) = {
-    val url = field.value.fold(routes.Editor.index())(routes.Editor.load).url
+    val url = field.value.fold(routes.Editor.index)(routes.Editor.load).url
     div(cls := "fen_position optional_config")(
       frag(
         div(
           cls := "fen_form",
-          dataValidateUrl := s"""${routes.Setup.validateFen()}${strict.??("?strict=1")}"""
+          dataValidateUrl := s"""${routes.Setup.validateFen}${strict.??("?strict=1")}"""
         )(
           form3.input(field)(st.placeholder := trans.pasteTheFenStringHere.txt()),
           a(cls := "button button-empty", dataIcon := "m", title := trans.boardEditor.txt(), href := url)
@@ -93,9 +93,14 @@ private object bits {
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
 
-  def renderTimeMode(form: Form[_])(implicit ctx: Context) =
+  def renderTimeMode(form: Form[_], allowAnon: Boolean)(implicit ctx: Context) =
     div(cls := "time_mode_config optional_config")(
-      div(cls := "label_select")(
+      div(
+        cls := List(
+          "label_select" -> true,
+          "none"         -> (ctx.isAnon && !allowAnon)
+        )
+      )(
         renderLabel(form("timeMode"), trans.timeControl()),
         renderSelect(form("timeMode"), translatedTimeModeChoices)
       ),

@@ -3,7 +3,7 @@ package lila.analyse
 import lila.db.dsl._
 import lila.game.Game
 
-final class AnalysisRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class AnalysisRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Analysis.analysisBSONHandler
 
@@ -19,10 +19,10 @@ final class AnalysisRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
 
-  def associateToGames(games: List[Game]): Fu[List[Analysis.Analyzed]] =
+  def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
     byIds(games.map(_.id)) map { as =>
       games zip as collect { case (game, Some(analysis)) =>
-        Analysis.Analyzed(game, analysis)
+        game -> analysis
       }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s, lichess.org hasabyňyzy tassyklaň</string>
-  <string name="emailConfirm_click">Lichess hasabyňyzy işletmek üçin şu çelgä tyklaň:</string>
+  <string name="emailConfirm_click">Lichess hasabyňyzy işletmek üçin şu linka basyň:</string>
   <string name="emailConfirm_ignore">Lichess-e registrasiýa etmedik bolsaňyz bu haty ýok hasap edip bilersiňiz.</string>
   <string name="passwordReset_subject">%s, lichess.org açarsözüňizi nollaň</string>
   <string name="passwordReset_intro">Hasabyňyzyň açarsözüni nollamak üçin talap kabul etdik.</string>
@@ -15,6 +15,7 @@
 Siziň profiliňiziň sahypasy: %1$s. Muny %2$s sahypasynda şahsylaşdyryp bilersiňiz.
 
 Hoş wagt dileýäris, çöpleriňiziň garşy şa barýan ýoly ak bolsun!</string>
+  <string name="logInToLichess">%s, siziň ulanyjy adyňyz (registrasiýadan sonňsize email barar)</string>
   <string name="common_orPaste">(Tyklamak peýda etmedimi? Brauzeriňiziň adres paneline ýelmemegi barlap görüň!)</string>
   <string name="common_note">Bu, %s saýtyndan peýdalanmagyňyz bilen bagly hyzmat emailidir.</string>
   <string name="common_contact">Biz bilen %s arkaly habarlaşyp bilersiňiz.</string>

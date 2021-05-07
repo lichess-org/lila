@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Švýcarské turnaje</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Zobrazit kolo</item>
+    <item quantity="few">Zobrazit %s kola</item>
+    <item quantity="many">Zobrazit %s kol</item>
+    <item quantity="other">Zobrazit všech %s kol</item>
+  </plurals>
 </resources>

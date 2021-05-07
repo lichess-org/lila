@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "strictNullChecks": false,
     "noImplicitAny": false,
     "noImplicitReturns": false
   }

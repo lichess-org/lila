@@ -9,6 +9,7 @@
   <string name="yourTurn">輪到您了</string>
   <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
   <string name="level">難度</string>
+  <string name="strength">強度</string>
   <string name="toggleTheChat">聊天開關</string>
   <string name="toggleSound">聲音開關</string>
   <string name="chat">聊天</string>
@@ -21,9 +22,9 @@
   <string name="createAGame">開始對局</string>
   <string name="whiteIsVictorious">白方勝</string>
   <string name="blackIsVictorious">黑方勝</string>
-  <string name="youPlayTheWhitePieces">您使用白棋</string>
-  <string name="youPlayTheBlackPieces">您使用黑棋</string>
-  <string name="itsYourTurn">您的回合!</string>
+  <string name="youPlayTheWhitePieces">您執白棋</string>
+  <string name="youPlayTheBlackPieces">您執黑棋</string>
+  <string name="itsYourTurn">輪到你了！</string>
   <string name="kingInTheCenter">王居中勝</string>
   <string name="threeChecks">三次將軍勝</string>
   <string name="raceFinished">競王結束</string>
@@ -34,7 +35,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒內獲勝。</item>
+    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒後獲勝。</item>
   </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
@@ -111,11 +112,17 @@
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
   <string name="blunder">嚴重錯誤</string>
-  <string name="blunders">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
-  <string name="mistakes">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
-  <string name="inaccuracies">輕微失誤</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s 次漏著</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s 次失誤</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s 次輕微失誤</item>
+  </plurals>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
   <string name="threefoldRepetition">三次重複局面</string>
@@ -210,11 +217,11 @@
   <string name="standard">標準</string>
   <string name="unlimited">無限</string>
   <string name="mode">模式</string>
-  <string name="casual">非定級</string>
-  <string name="rated">定級</string>
-  <string name="casualTournament">非定级</string>
-  <string name="ratedTournament">定级</string>
-  <string name="thisGameIsRated">這盤棋是定級的</string>
+  <string name="casual">休閒</string>
+  <string name="rated">排位賽</string>
+  <string name="casualTournament">休閒</string>
+  <string name="ratedTournament">排位</string>
+  <string name="thisGameIsRated">此對局是排位賽</string>
   <string name="rematch">重賽</string>
   <string name="rematchOfferSent">重賽請求已發送</string>
   <string name="rematchOfferSentWhite">白方請求重賽</string>
@@ -238,9 +245,8 @@
   <string name="send">發送</string>
   <string name="incrementInSeconds">增加秒數</string>
   <string name="freeOnlineChess">免費線上國際象棋</string>
-  <string name="spectators">旁觀者：</string>
   <plurals name="nbRated">
-    <item quantity="other">%s 評分</item>
+    <item quantity="other">%s 場排位賽</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="other">%s局勝</item>
@@ -260,7 +266,6 @@
     <item quantity="other">給對方加%s秒</item>
   </plurals>
   <string name="thisAccountViolatedTos">此帳號違反了Lichess的使用規定</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手操縱評級</string>
   <string name="openingExplorerAndTablebase">開局瀏覽器 &amp; 總局資料庫</string>
   <string name="takeback">悔棋</string>
   <string name="proposeATakeback">請求悔棋</string>
@@ -283,16 +288,16 @@
   <string name="backToTournament">返回錦標賽主頁</string>
   <string name="thematic">特殊開局</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="other">≥ %s 個已評分的棋局</item>
+    <item quantity="other">完成至少 %s 場排位賽</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s 積分賽</item>
+    <item quantity="other">≥ %1$s %2$s 排位賽</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">你需要再下%1$s局%2$s模式的積分棋局</item>
+    <item quantity="other">你需要再下 %1$s 局 %2$s 變體的排位賽</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="other">您需要再下%s盤會評分的棋局</item>
+    <item quantity="other">您需要再完成 %s 場排位賽</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">您目前的評分%s為臨時評分</string>
   <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
@@ -355,7 +360,6 @@
   <string name="more">更多</string>
   <string name="memberSince">註冊日期</string>
   <string name="lastSeenActive">最近登入 %s</string>
-  <string name="challengeToPlay">挑戰</string>
   <string name="player">棋手</string>
   <string name="list">列表</string>
   <string name="graph">圖表</string>
@@ -427,14 +431,14 @@
   <string name="onlinePlayers">在線棋手</string>
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">注意，這棋局是排位賽，但是不計時！</string>
   <string name="success">大功告成！</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s場對局正在進行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移动棋子后自动进入下一盘棋</string>
   <string name="autoSwitch">自动更换</string>
-  <string name="puzzles">題目</string>
+  <string name="puzzles">謎題</string>
   <string name="latestUpdates">最近更新</string>
   <string name="tournamentWinners">比赛赢家</string>
   <string name="name">名</string>
@@ -459,6 +463,7 @@
   <string name="cheat">作弊</string>
   <string name="insult">侮辱</string>
   <string name="troll">钓鱼</string>
+  <string name="ratingManipulation">操縱積分</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">附上游戏的网址解释该用户的行为问题</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
@@ -481,6 +486,7 @@
   <string name="clockInitialTime">棋鐘起始時間</string>
   <string name="clockIncrement">加秒</string>
   <string name="privacy">隱私</string>
+  <string name="privacyPolicy">隱私條款</string>
   <string name="letOtherPlayersFollowYou">允许其他玩家关注</string>
   <string name="letOtherPlayersChallengeYou">允许其他玩家挑战</string>
   <string name="letOtherPlayersInviteYouToStudy">允許其他棋手邀請你參加研討</string>
@@ -547,6 +553,7 @@
   <string name="error.email_unique">电邮地址已被使用</string>
   <string name="error.email_different">這已經是您的電郵地址</string>
   <string name="ifRatingIsPlusMinusX">允许评级范围±%s</string>
+  <string name="onlyExistingConversations">僅目前對話</string>
   <string name="onlyFriends">只允許好友</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
@@ -622,6 +629,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
   <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
+  <string name="readAboutOur">閱讀我們的%s</string>
   <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
@@ -699,7 +707,6 @@
   <string name="error.unknown">錯誤</string>
   <string name="custom">自訂設定</string>
   <string name="notifications">通知</string>
-  <string name="challenges">挑戰</string>
   <string name="perfRatingX">評分:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">在%s秒前須下出第一步</item>
@@ -744,12 +751,6 @@
   <string name="opening">開局</string>
   <string name="middlegame">中場</string>
   <string name="endgame">殘局</string>
-  <string name="registerToSendChallenges">請登入以挑戰您的朋友</string>
-  <string name="youCannotChallengeX">您不能挑戰%s</string>
-  <string name="xDoesNotAcceptChallenges">%s不接受挑戰</string>
-  <string name="yourXRatingIsTooFarFromY">您的%1$s評分與%2$s相差太遠</string>
-  <string name="cannotChallengeDueToProvisionalXRating">由於您的%s積分不夠穩定，無法進行挑戰。</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s只接受好友的挑戰</string>
   <string name="conditionalPremoves">預設棋譜</string>
   <string name="addCurrentVariation">加入現有變化</string>
   <string name="playVariationToCreateConditionalPremoves">著一步不同的位置以創建預估走位</string>
@@ -802,4 +803,14 @@
   <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
+  <string name="mentionedYouInX"> 在 \"%1$s\" 中提到了您。</string>
+  <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
+  <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
+  <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
+  <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
+  <string name="congratsYouWon">恭喜，您贏了！</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
+  <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
+  <string name="timeAlmostUp">時間快到了！</string>
 </resources>

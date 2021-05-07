@@ -12,9 +12,8 @@
   <string name="noTeamFound">Nessun gruppo trovato</string>
   <string name="joinTeam">Unisciti al gruppo</string>
   <string name="quitTeam">Abbandona il gruppo</string>
-  <string name="anyoneCanJoin">Aperto a tutti</string>
-  <string name="aConfirmationIsRequiredToJoin">È richiesta una conferma per unirsi</string>
-  <string name="joiningPolicy">Regole di adesione</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Rivedi manualmente le richieste di ammissione</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se selezionato, i giocatori dovranno scrivere una richiesta per unirsi alla squadra, che puoi rifiutare o accettare.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Capogruppo</item>
     <item quantity="other">Capogruppo</item>
@@ -44,4 +43,8 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="leadersChat">Chat dei leader</string>
   <string name="closeTeam">Chiudi la squadra</string>
   <string name="closeTeamDescription">Chiude la squadra per sempre.</string>
+  <string name="teamPassword">Password di squadra</string>
+  <string name="teamPasswordDescriptionForLeader">(Facoltativo) Una password che i nuovi membri devono sapere per unirsi a questo team.</string>
+  <string name="incorrectTeamPassword">Password del team errata.</string>
+  <string name="teamAlreadyExists">Questa squadra esiste già.</string>
 </resources>

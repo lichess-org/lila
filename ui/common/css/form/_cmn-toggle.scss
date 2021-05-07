@@ -10,41 +10,49 @@
   outline: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-}
-
-.cmn-toggle + label {
   padding: 1px;
   width: 40px;
   height: 24px;
-  background-color: $c-border;
+  border: 1px solid $c-border;
   border-radius: 24px;
+}
+
+.cmn-toggle:not(:checked) + label {
+  background-color: $c-bad;
+}
+
+.cmn-toggle--subtle:not(:checked) + label {
+  background-color: $c-font-dimmer;
+}
+
+.cmn-toggle:checked + label {
+  background-color: $c-good;
 }
 
 .cmn-toggle + label::before,
 .cmn-toggle + label::after {
   display: block;
   position: absolute;
-  top: 1px;
-  left: 1px;
-  bottom: 1px;
-  content: "";
+  content: '';
+  width: 22px;
+  height: 22px;
+  bottom: 0.1px;
+  left: 0;
 }
 
 .cmn-toggle + label::before {
-  right: 1px;
-  background-color: $c-bad;
-  border-radius: 24px;
+  @extend %data-icon;
+  font-size: 1em;
+  z-index: 1;
+  text-align: center;
+  line-height: 22px;
 }
 
-.cmn-toggle:focus + label::before {
+.cmn-toggle:focus + label {
   @extend %focus-shadow;
 }
 
-.cmn-toggle--subtle + label::before {
-  background-color: $c-font-dimmer;
-}
-
-.cmn-toggle:hover + label::before {
+.cmn-toggle:hover + label {
   @extend %focus-shadow;
 
   @include transition(background);
@@ -53,9 +61,12 @@
 .cmn-toggle + label::after {
   @extend %metal;
 
-  width: 22px;
   border-radius: 100%;
   box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+}
+
+.cmn-toggle:hover + label::before {
+  transition: margin $transition-duration, color $transition-duration;
 }
 
 .cmn-toggle:hover + label::after {
@@ -64,10 +75,27 @@
   @include transition(margin);
 }
 
-.cmn-toggle:checked + label::before {
-  background-color: $c-good;
+.cmn-toggle:not(:checked) + label {
+  &::before {
+    content: 'L';
+    color: $c-bad;
+  }
 }
 
-.cmn-toggle:checked + label::after {
-  margin-left: 16px;
+.cmn-toggle--subtle:not(:checked) + label {
+  &::before {
+    color: $c-font-dimmer;
+  }
+}
+
+.cmn-toggle:checked + label {
+  &::before,
+  &::after {
+    margin-left: 15.5px;
+  }
+
+  &::before {
+    content: 'E';
+    color: $c-good;
+  }
 }

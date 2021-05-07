@@ -2,7 +2,7 @@
 <resources>
   <string name="faqAbbreviation">Najczęściej zadawane pytania (FAQ)</string>
   <string name="frequentlyAskedQuestions">Najczęściej zadawane pytania</string>
-  <string name="whyIsLichessCalledLichess">Dlaczego Lichess nosi nazwę Lichess?</string>
+  <string name="whyIsLichessCalledLichess">Skąd nazwa Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess jest kombinacją słów live/light/libre i chess. Wymawiamy je %1$s.</string>
   <string name="leechess">li-czes</string>
   <string name="hearItPronouncedBySpecialist">Posłuchaj jak wymawia to ekspert.</string>
@@ -20,16 +20,14 @@
   <string name="areThereWebsitesBasedOnLichess">Czy istnieją inne strony internetowe oparte na rozwiązaniach Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Tak. Lichess zainspirował inne strony typu open source, które wykorzystują nasz %1$s, %2$s lub %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Dlaczego zostałem oznaczony jako gracz sztucznie manipulujący swoim rankingiem (obniżanie lub nieuczciwe podbijanie) lub korzystający z pomocy komputera podczas gry?</string>
-  <string name="cheatDetectionMethods">Lichess posiada silne metody wykrywania oraz bardzo dokładny proces przeglądu wszystkich dowodów i podejmowania decyzji. Proces ten często angażuje wielu moderatorów i może zająć dużo czasu. Poza samym znakiem nie będziemy szczegółowo przedstawiać dowodów ani procesu podejmowania decyzji w indywidualnych przypadkach. Ułatwiłoby to uniknięcie wykrywania w przyszłości i prowadziłoby do bezsensownych debat. Ten czas i wysiłek są lepiej wykorzystane na innych ważniejszych sprawach. Użytkownicy mogą odwoływać się e-mailując %1$s, ale decyzje są rzadko uchylane.</string>
   <string name="whenAmIEligibleRatinRefund">W jakich przypadkach mogę liczyć na automatyczny zwrot punktów rankingowych utraconych w grze z oszustami?</string>
   <string name="ratingRefundExplanation">Jedną minutę po oznaczeniu gracza, jego 40 ostatnich gier rankingowych z ostatnich 3 dni zostanie pobranych. Jeśli jesteś przeciwnikiem w tych grach, straciłeś punkty rankingowe (ze względu na porażkę lub remis), a Twój ranking nie był tymczasowy, otrzymujesz zwrot punktów. Zwrot jest ograniczony na podstawie Twojej maksymalnego rankingu i postępów w nim po grze.
   (Na przykład, jeśli Twój ranking znacznie się zwiększył po tych grach, możesz nie otrzymać zwrotu lub otrzymać tylko częściowy.) Zwrot nigdy nie przekroczy 150 punktów.</string>
-  <string name="preventLeavingGameWithoutResigning">Jak traktowani są gracze porzucający swoje partie?</string>
+  <string name="preventLeavingGameWithoutResigning">Co się dzieje z graczami opuszczającymi swoje partie?</string>
   <string name="leavingGameWithoutResigningExplanation">Jeśli przeciwnik często przerywa/opuszcza partie, otrzymuje \"bana\", co oznacza, że tymczasowo nie może grać. Nie jest to podawane do wiadomości publicznej na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania tego zakazu wydłuży się - a w przypadku takiego notorycznego zachowania może prowadzić do zamknięcia konta.</string>
   <string name="howCanIBecomeModerator">Jak mogę zostać moderatorem?</string>
   <string name="youCannotApply">Nie można zgłosić się do pełnienia funkcji moderatora. Jeśli zauważymy kogoś, kto naszym zdaniem byłby dobrym moderatorem, skontaktujemy się z nim bezpośrednio.</string>
-  <string name="isCorrespondenceDifferent">Czy szachy korespondencyjne różnią się od zwykłych szachów?</string>
+  <string name="isCorrespondenceDifferent">Czym różnią się szachy korespondencyjne od zwykłych szachów?</string>
   <string name="youCanUseOpeningBookNoEngine">Na Lichess, główną różnicą w zasadach szachów korespondencyjnych polega na tym że jest dozwolony \"opening book\". Używanie silników nadal jest niedozwolone i będzie skutkowało flagging\'iem twojego konta. Chociaż ICCF pozwala używanie silników w szachach korespondencyjnych, Lichess nie.</string>
   <string name="gameplay">Rozgrywka</string>
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
@@ -55,7 +53,7 @@ Analiza komputerowa dostępna na Lichess wspierana jest przez silnik szachowy St
 W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.
 
 Zauważ, że możliwe jest zamatowanie pojedynczym skoczkiem lub gońcem, jeżeli przeciwnik posiada bierkę, która może zablokować króla.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Przepisy gry w szachy FIDE %s</string>
+  <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
 
@@ -98,6 +96,8 @@ Nie proś nas o przyznanie tytułu LM.</string>
   <string name="whatUsernameCanIchoose">Jaka może być moja nazwa użytkownika?</string>
   <string name="usernamesNotOffensive">Ogólnie rzecz biorąc, nazwy użytkowników nie powinny być obraźliwe, podszywać się pod kogoś innego, zawierać treści reklamowych. Możesz przeczytać więcej na ten temat na stronie %1$s.</string>
   <string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
+  <string name="canIChangeMyUsername">Czy mogę zmienić nazwę użytkownika?</string>
+  <string name="usernamesCannotBeChanged">Nie, nie można zmieniać nazwy użytkowników z praktycznych i technicznych przyczyn. Nazwy użytkowników zapisywane są w zbyt wielu miejscach: bazach danych, plikach eksportu, logach, jak i w pamięci ludzi. Istnieje natomiast możliwość jednorazowej zmiany wielkości liter.</string>
   <string name="uniqueTrophies">Unikalne trofea</string>
   <string name="ownerUniqueTrophies">To unikalne trofeum w historii Lichess, nikt inny oprócz %1$s nie będzie go mieć.</string>
   <string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>

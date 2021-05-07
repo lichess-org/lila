@@ -44,7 +44,7 @@ object indexStripe {
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
-                a(href := s"${routes.Plan.list()}#onetime")(makeAdditionalDonation())
+                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
               )
             ),
             tr(
@@ -56,7 +56,7 @@ object indexStripe {
                   ),
                   a(dataForm := "cancel")(cancelSupport())
                 ),
-                postForm(cls := "switch", action := routes.Plan.switch())(
+                postForm(cls := "switch", action := routes.Plan.switch)(
                   p(decideHowMuch()),
                   "USD $ ",
                   input(
@@ -70,7 +70,7 @@ object indexStripe {
                   submitButton(cls := "button")(trans.apply()),
                   a(dataForm := "switch")(trans.cancel())
                 ),
-                postForm(cls := "cancel", action := routes.Plan.cancel())(
+                postForm(cls := "cancel", action := routes.Plan.cancel)(
                   p(stopPayments()),
                   submitButton(cls := "button button-red")(noLongerSupport()),
                   a(dataForm := "cancel")(trans.cancel())
@@ -104,7 +104,7 @@ object indexStripe {
             ),
             tr(
               th,
-              td(a(href := routes.Plan.list())(viewOthers()))
+              td(a(href := routes.Plan.list)(viewOthers()))
             )
           )
         )

@@ -65,15 +65,13 @@
   <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Difuzează URL</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
-  <string name="currentGameUrl">URL-ul partidei curente</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Poți lipi acest cod în forum pentru a îngloba</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Poți lipi acest cod în forum pentru a îngloba</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
   <string name="embedInYourWebsite">Înglobează pe site-ul sau blog-ul tău</string>
   <string name="readMoreAboutEmbedding">Citește mai multe despre înglobare</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Numai studii publice pot fi înglobate!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Numai studii publice pot fi înglobate!</string>
   <string name="open">Deschideți</string>
   <string name="xBroughtToYouByY">%1$s, oferit pentru dvs. de %2$s</string>
   <string name="studyNotFound">Studiul nu a fost găsit</string>

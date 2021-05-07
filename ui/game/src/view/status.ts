@@ -1,7 +1,8 @@
 import { Ctrl } from '../interfaces';
 
 export default function status(ctrl: Ctrl): string {
-  const noarg = ctrl.trans.noarg, d = ctrl.data;
+  const noarg = ctrl.trans.noarg,
+    d = ctrl.data;
   switch (d.game.status.name) {
     case 'started':
       return noarg('playingRightNow');
@@ -24,11 +25,13 @@ export default function status(ctrl: Ctrl): string {
     case 'draw':
       return noarg('draw');
     case 'outoftime':
-      return `${d.game.turns % 2 === 0 ? noarg('whiteTimeOut') : noarg('blackTimeOut')}${!!d.game.winner ? '' : ` • ${noarg('draw')}`}`;
+      return `${d.game.turns % 2 === 0 ? noarg('whiteTimeOut') : noarg('blackTimeOut')}${
+        d.game.winner ? '' : ` • ${noarg('draw')}`
+      }`;
     case 'noStart':
-      return (d.game.winner == 'white' ? 'Black' : 'White') + ' didn\'t move';
+      return (d.game.winner == 'white' ? 'Black' : 'White') + " didn't move";
     case 'cheat':
-      return 'Cheat detected';
+      return noarg('cheatDetected');
     case 'variantEnd':
       switch (d.game.variant.key) {
         case 'kingOfTheHill':
@@ -37,6 +40,8 @@ export default function status(ctrl: Ctrl): string {
           return noarg('threeChecks');
       }
       return noarg('variantEnding');
+    case 'unknownFinish':
+      return 'Finished';
     default:
       return d.game.status.name;
   }

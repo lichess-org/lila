@@ -21,7 +21,7 @@
   <string name="bishopIntro">כעת נלמד את מהלכי הרץ!</string>
   <string name="youNeedBothBishops">רץ אחד על המשבצות הבהירות,
 רץ אחד על המשבצות הכהות,
-אתה צריך את שניהם!</string>
+יש צורך בשניהם!</string>
   <string name="bishopComplete">יפה, אתה שולט ברצים!</string>
   <string name="theQueen">המלכה</string>
   <string name="queenCombinesRookAndBishop">צריח + רץ = מלכה</string>
@@ -32,7 +32,7 @@
   <string name="kingIntro">אתה המלך. אם אתה נופל בקרב, אתה מפסיד את המשחק.</string>
   <string name="theKingIsSlow">המלך איטי.</string>
   <string name="lastOne">אחרון!</string>
-  <string name="kingComplete">כעת אתה הבוס של הבוס!</string>
+  <string name="kingComplete">כעת הנך הבוס של הבוס!</string>
   <string name="theKnight">הפרש</string>
   <string name="itMovesInAnLShape">הוא נע בצורת האות L</string>
   <string name="knightIntro">הפרש יציג בפניך אתגר... יותר קשה.</string>
@@ -89,7 +89,7 @@
   <string name="thisKnightIsCheckingThroughYourDefenses">אי אפשר לחסום איום שח של פרש!</string>
   <string name="escapeOrBlock">בריחת המלך או חסימת האיום!</string>
   <string name="outOfCheckComplete">יפה, אתה שומר היטב על מלכך!</string>
-  <string name="mateInOne">מט בשניים</string>
+  <string name="mateInOne">מט באחד</string>
   <string name="defeatTheOpponentsKing">הבס את מלך היריב</string>
   <string name="mateInOneIntro">נצחונך מובטח אם היריב לא מצליח להגן על מלכו.</string>
   <string name="attackYourOpponentsKing">חפש התקפות שח שאין להן הגנה!</string>

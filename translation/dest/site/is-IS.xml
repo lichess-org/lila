@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Djúp greining</string>
   <string name="removesTheDepthLimit">Fjarlægir dýptartakmörk og heldur tölvunni heitri</string>
   <string name="blunder">Afleikur</string>
-  <string name="blunders">Afleikir</string>
   <string name="mistake">Mistök</string>
-  <string name="mistakes">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
-  <string name="inaccuracies">Ónákvæmni</string>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
@@ -245,7 +242,6 @@
   <string name="send">Senda</string>
   <string name="incrementInSeconds">Tímaaukning í sekúndum</string>
   <string name="freeOnlineChess">Ókeypis vefskák</string>
-  <string name="spectators">Áhorfendur</string>
   <plurals name="nbRated">
     <item quantity="one">%s með stigagjöf</item>
     <item quantity="other">%s með stigagjöf</item>
@@ -273,10 +269,9 @@
     <item quantity="other">Gefa %s sekúndur</item>
   </plurals>
   <string name="thisAccountViolatedTos">Þessi notandi braut þjónustuskilmálum Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Þessi skákmaður hækkar/lækkar stig sín með vafasömum hætti</string>
   <string name="openingExplorerAndTablebase">Opnunarvafri og endataflsútreikningar</string>
   <string name="takeback">Afturköllun</string>
-  <string name="proposeATakeback">Byðja um afturköllun</string>
+  <string name="proposeATakeback">Biðja um afturköllun</string>
   <string name="takebackPropositionSent">Boð um afturköllun sent</string>
   <string name="takebackPropositionDeclined">Boði um afturköllun hafnað</string>
   <string name="takebackPropositionAccepted">Boð um afturköllun samþykkt</string>
@@ -374,7 +369,6 @@
   <string name="more">Meira</string>
   <string name="memberSince">Meðlimur síðan</string>
   <string name="lastSeenActive">Síðast tengdur %s</string>
-  <string name="challengeToPlay">Áskorun</string>
   <string name="player">Skákmenn</string>
   <string name="list">Listi</string>
   <string name="graph">Graf</string>
@@ -549,7 +543,7 @@
   <string name="learnMenu">Læra</string>
   <string name="practice">Æfa</string>
   <string name="community">Samfélag</string>
-  <string name="tools">Tól</string>
+  <string name="tools">Gögn</string>
   <string name="increment">Aukning</string>
   <string name="sharePGN">Deila PGN</string>
   <string name="playOnline">Spila tengt</string>
@@ -702,7 +696,6 @@
   <string name="error.unknown">Villa</string>
   <string name="custom">Sérsniðinn</string>
   <string name="notifications">Tilkynningar</string>
-  <string name="challenges">Áskoranir</string>
   <string name="perfRatingX">Skákstig: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekúnda til að spila fyrsta leik</item>
@@ -747,11 +740,6 @@
   </plurals>
   <string name="opening">Byrjun</string>
   <string name="middlegame">Miðtafl</string>
-  <string name="registerToSendChallenges">Skráðu þig inn til að senda áskorarnir.</string>
-  <string name="youCannotChallengeX">Þú getur ekki skorað á %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tekur ekki við áskorunum.</string>
-  <string name="yourXRatingIsTooFarFromY">Það er of mikill munur á milli %1$sstiganna þína og skákstiganna %2$s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s samþykkir eingöngu áskoranir frá vinum.</string>
   <string name="playX">Leika %s</string>
   <string name="sorry">Afsakaðu :(</string>
   <string name="weHadToTimeYouOutForAWhile">Við þurftum að setja þig í stutt leikbann.</string>

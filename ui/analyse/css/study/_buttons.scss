@@ -32,14 +32,14 @@ $c-study-button: $c-accent;
     @extend %flex-center-nowrap, %box-radius-top, %page-text;
 
     align-self: stretch;
-    padding: 0 .4em;
-    opacity: .8;
+    padding: 0 0.4em;
+    opacity: 0.8;
 
     i::before {
       font-size: 1.4em;
       content: 'L';
       color: $c-bad;
-      margin-right: .2rem;
+      margin-right: 0.2rem;
     }
 
     &.on i::before {

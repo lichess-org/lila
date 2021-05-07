@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Datum tillagd (nyaste)</string>
   <string name="recentlyUpdated">Nyligen uppdaterade</string>
   <string name="mostPopular">Mest populära</string>
+  <string name="alphabetical">Alfabetisk</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -26,7 +27,7 @@
   </plurals>
   <string name="addMembers">Lägg till medlemmar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s medlemmar</item>
+    <item quantity="one">%s Medlem</item>
     <item quantity="other">%s Medlemmar</item>
   </plurals>
   <string name="inviteToTheStudy">Bjud in till studien</string>
@@ -62,15 +63,13 @@
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studiens URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Sändnings URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
-  <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Du kan klistra in detta i forumet för att infoga</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan klistra in detta i forumet för att infoga</string>
   <string name="startAtInitialPosition">Start vid ursprunglig position</string>
   <string name="startAtX">Börja på %s</string>
   <string name="embedInYourWebsite">Infoga på din hemsida eller blogg</string>
   <string name="readMoreAboutEmbedding">Läs mer om att infoga</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Endast offentliga studier kan läggas till!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Endast offentliga studier kan läggas till!</string>
   <string name="open">Öppna</string>
   <string name="xBroughtToYouByY">%1$s gjord av %2$s</string>
   <string name="studyNotFound">Studien kan inte hittas</string>

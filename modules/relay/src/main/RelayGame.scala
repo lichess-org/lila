@@ -17,10 +17,6 @@ case class RelayGame(
     }
   def staticTagsMatch(chapter: Chapter): Boolean = staticTagsMatch(chapter.tags)
 
-  def started = root.children.nodes.nonEmpty
-
-  def finished = end.isDefined
-
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
   lazy val looksLikeLichess = tags(_.Site) exists { site =>

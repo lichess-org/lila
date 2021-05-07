@@ -14,9 +14,8 @@
   <string name="noTeamFound">Nenašiel sa tím</string>
   <string name="joinTeam">Vstúpiť do tímu</string>
   <string name="quitTeam">Opustiť tím</string>
-  <string name="anyoneCanJoin">Zdarma pre všetkých</string>
-  <string name="aConfirmationIsRequiredToJoin">Na vstup je potrebné potvrdenie</string>
-  <string name="joiningPolicy">Pravidlá pre vstup</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Manuálne skontrolujte žiadosti o prijatie</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ak je táto možnosť začiarknutá, hráči budú musieť napísať žiadosť o pripojenie sa k tímu, ktorú môžete odmietnuť alebo prijať.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder tímu</item>
     <item quantity="few">Lídri tímu</item>
@@ -50,4 +49,8 @@ Hráči, ktorí nemajú radi prijímanie vašich správ, môžu opustiť váš t
   <string name="leadersChat">Čet lídrov</string>
   <string name="closeTeam">Rozpustiť tím</string>
   <string name="closeTeamDescription">Nevratne rozpustí tím.</string>
+  <string name="teamPassword">Tímové heslo</string>
+  <string name="teamPasswordDescriptionForLeader">(Voliteľné) Heslo, ktoré musia noví členovia vedieť, aby sa mohli pripojiť do tímu.</string>
+  <string name="incorrectTeamPassword">Nesprávne tímové heslo.</string>
+  <string name="teamAlreadyExists">Tento tím už existuje.</string>
 </resources>

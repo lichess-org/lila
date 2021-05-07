@@ -9,7 +9,8 @@
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
   <string name="level">Maila</string>
-  <string name="toggleTheChat">Txata agertu</string>
+  <string name="strength">Indarra</string>
+  <string name="toggleTheChat">Erakutsi/ezkutatu txata</string>
   <string name="toggleSound">Soinua</string>
   <string name="chat">Txata</string>
   <string name="resign">Amore eman</string>
@@ -114,11 +115,20 @@
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
   <string name="blunder">Akats larria</string>
-  <string name="blunders">Akats larriak</string>
   <string name="mistake">Akatsa</string>
-  <string name="mistakes">Akatsak</string>
   <string name="inaccuracy">Oker txikia</string>
-  <string name="inaccuracies">Ez zehatzak</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">Hanka-sartze %s</item>
+    <item quantity="other">%s hanka-sartze</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">Akats %s</item>
+    <item quantity="other">%s akats</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">Oker txiki %s</item>
+    <item quantity="other">%s oker txiki</item>
+  </plurals>
   <string name="moveTimes">Jokaldi-denborak</string>
   <string name="flipBoard">Taula biratu</string>
   <string name="threefoldRepetition">Hiru mugimenduen errepikapena</string>
@@ -249,7 +259,6 @@
   <string name="send">Bidali</string>
   <string name="incrementInSeconds">Segundo-gehiketa</string>
   <string name="freeOnlineChess">Doako xakea Interneten</string>
-  <string name="spectators">Ikusleak</string>
   <plurals name="nbRated">
     <item quantity="one">Sailkatutako %s</item>
     <item quantity="other">Sailkatutako %s</item>
@@ -277,7 +286,6 @@
     <item quantity="other">%s segundo eman</item>
   </plurals>
   <string name="thisAccountViolatedTos">Kontu honek Lichessen Erabilera Baldintzak urratu egin ditu</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Jokalariak bere sailkapena aldatzen du artifizialki</string>
   <string name="openingExplorerAndTablebase">Hasiera arakatzailea &amp; finalen datu-basea</string>
   <string name="takeback">Jokaldia atzera egin</string>
   <string name="proposeATakeback">Jokaldia atzera egiteko eskatu</string>
@@ -382,7 +390,6 @@
   <string name="more">Gehiago</string>
   <string name="memberSince">Noiztik kidea:</string>
   <string name="lastSeenActive">Azken aldiz online: %s</string>
-  <string name="challengeToPlay">Partida baterako erronka egin</string>
   <string name="player">Jokalaria</string>
   <string name="list">Zerrenda</string>
   <string name="graph">Grafikoa</string>
@@ -468,6 +475,8 @@
   <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
+  <string name="descPrivate">Deskribapen pribatua</string>
+  <string name="descPrivateHelp">Taldekideek bakarrik ikusiko duten testua. Ezarrita badago, taldekideei taldearen deskribapenaren ordez agertuko zaie testu hau.</string>
   <string name="no">Ez</string>
   <string name="yes">Bai</string>
   <string name="help">Laguntza:</string>
@@ -488,6 +497,7 @@
   <string name="cheat">Tranpak</string>
   <string name="insult">Irainak</string>
   <string name="troll">Trolla</string>
+  <string name="ratingManipulation">Puntuazioa manipulatu</string>
   <string name="other">Bestelakoak</string>
   <string name="reportDescriptionHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak. Zure mezua azkarrago begiratuko dugu ingelesez idazten baduzu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
@@ -510,6 +520,7 @@
   <string name="clockInitialTime">Erlojuaren hasierako denbora</string>
   <string name="clockIncrement">Denbora gehigarria</string>
   <string name="privacy">Pribatutasuna</string>
+  <string name="privacyPolicy">Pribatutasun politika</string>
   <string name="letOtherPlayersFollowYou">Beste jokalari batzuk zu jarraitzea baimendu</string>
   <string name="letOtherPlayersChallengeYou">Beste jokalari batzuk erronka egin dezatela baimentzea</string>
   <string name="letOtherPlayersInviteYouToStudy">Utzi beste jokalari batzuei zu ikerketetara gonbidatzen</string>
@@ -578,6 +589,7 @@
   <string name="error.email_unique">Posta hau beste inork erabili du</string>
   <string name="error.email_different">Hau jada bada zure eposta helbidea</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
+  <string name="onlyExistingConversations">Existitzen diren elkarrizketak bakarrik</string>
   <string name="onlyFriends">Lagunak soilik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
@@ -655,6 +667,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
   <string name="weHaveSentYouAnEmailTo">Mezu bat bidali dugu %s helbidera. Egizu klik mezuan zure pasahitza berrizteko.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Izena ematean, gure %s onartzen dituzu.</string>
+  <string name="readAboutOur">Irakurri gure %s.</string>
   <string name="networkLagBetweenYouAndLichess">Sarearen atzerapena Lichessen eta zure artean</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess zerbitzariak jokaldi bat egiteko denbora</string>
   <string name="downloadAnnotated">Oharrekin jaitsi</string>
@@ -733,7 +746,6 @@
   <string name="error.unknown">Errorea</string>
   <string name="custom">Pertsonalizatua</string>
   <string name="notifications">Jakinarazpenak</string>
-  <string name="challenges">Erronkak</string>
   <string name="perfRatingX">Sailkapena: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Segundo %s lehenengo jokaldia egiteko</item>
@@ -780,12 +792,6 @@
   <string name="opening">Irekiera</string>
   <string name="middlegame">Erdi-jokoa</string>
   <string name="endgame">Finala</string>
-  <string name="registerToSendChallenges">Eman izena erronkak bidaltzeko.</string>
-  <string name="youCannotChallengeX">Ezin diozu %s erabiltzaileri erronka egin.</string>
-  <string name="xDoesNotAcceptChallenges">%s erabiltzaileak ez du erronkarik onartzen.</string>
-  <string name="yourXRatingIsTooFarFromY">Zure %1$s puntuazioa urrunegi dago %2$s-tik.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
   <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
   <string name="addCurrentVariation">Uneko aldaera gehitu</string>
   <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
@@ -839,4 +845,22 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
+  <string name="mentionedYouInX"> \"%1$s\" -n aipatu zaituzte.</string>
+  <string name="xMentionedYouInY"> %1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
+  <string name="invitedYouToX"> \"%1$s\" taldera sartzeko gonbidapena.</string>
+  <string name="xInvitedYouToY">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
+  <string name="youAreNowPartOfTeam">Taldearen parte zara.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\" taldera sartu zara.</string>
+  <string name="someoneYouReportedWasBanned">Zuk salatutako jokalari bat bota egin dugu</string>
+  <string name="congratsYouWon">Zorionak, irabazi egin duzu!</string>
+  <string name="gameVsX">%1$s jokalarien aurkako partida</string>
+  <string name="resVsX">%1$s vs. %2$s</string>
+  <string name="youJustBecamePatron">Lichess babesle bihurtu zara.</string>
+  <string name="patronAccountExpired">Babesle kontua iraungi egin da</string>
+  <string name="pleaseReconsiderRenewIt">Berritzea aztertu ezazu!</string>
+  <string name="someoneReviewedYourCoachProfile">Entrenatzaile profila norbaitek errebisatu du.</string>
+  <string name="newPendingReview">Berrikusketa berri egiteke</string>
+  <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
+  <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
+  <string name="timeAlmostUp">Denbora ia agortu da!</string>
 </resources>

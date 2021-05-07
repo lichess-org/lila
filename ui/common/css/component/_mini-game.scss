@@ -3,12 +3,14 @@
 
   display: block;
 
-  &, &:hover {
+  &,
+  &:hover {
     color: $c-font;
   }
 
   &__player {
     @extend %flex-between-nowrap;
+    @extend %page-text-shadow !optional;
 
     padding: 3px 2px 0 2px;
 
@@ -24,7 +26,7 @@
   .rating {
     @extend %roboto;
 
-    font-size: .9em;
+    font-size: 0.9em;
     margin-left: 1ch;
   }
 

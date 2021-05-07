@@ -1,4 +1,16 @@
 .appeal {
+  h1 {
+    @extend %flex-between;
+
+    .actions {
+      font-size: 1.5rem;
+    }
+  }
+
+  #mz_others {
+    margin-bottom: 3em;
+  }
+
   &__help {
     margin-bottom: 2em;
   }
@@ -15,7 +27,7 @@
 
       content: '';
       font-size: 2em;
-      margin-right: .4em;
+      margin-right: 0.4em;
     }
   }
 
@@ -51,5 +63,30 @@
 
   .appeal-presets {
     margin-right: 1em;
+  }
+
+  &__rules {
+    @extend %box-radius;
+    margin-top: 3em;
+    padding: 2em 3em;
+    background: $c-bg-zebra;
+  }
+
+  @keyframes reveal {
+    0%,
+    95% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  #help-engine-deny form {
+    opacity: 0;
+  }
+  #help-engine-deny:target form {
+    animation: 20s reveal;
+    animation-fill-mode: forwards;
   }
 }

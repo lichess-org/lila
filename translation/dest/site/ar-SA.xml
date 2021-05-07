@@ -9,6 +9,7 @@
   <string name="yourTurn">دورك</string>
   <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
   <string name="level">مستوى</string>
+  <string name="strength">القوة</string>
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">دردشة</string>
@@ -126,11 +127,8 @@
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
   <string name="blunder">خطأ فادح</string>
-  <string name="blunders">أخطاء فادحة</string>
   <string name="mistake">خطأ</string>
-  <string name="mistakes">أخطاء</string>
   <string name="inaccuracy">غير دقيق</string>
-  <string name="inaccuracies">نقلات غير دقيقة</string>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
@@ -293,7 +291,6 @@
   <string name="send">إرسال</string>
   <string name="incrementInSeconds">الزيادة بالثواني</string>
   <string name="freeOnlineChess">شطرنج مجاني على الإنترنت</string>
-  <string name="spectators">المشاهدون</string>
   <plurals name="nbRated">
     <item quantity="zero">%s مقيمة</item>
     <item quantity="one">%s مقيمة</item>
@@ -345,7 +342,6 @@
     <item quantity="other">منح %s ثانية</item>
   </plurals>
   <string name="thisAccountViolatedTos">هذا الحساب انتهك شروط خدمة lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">هذا اللاعب يتلاعب بتقييمه</string>
   <string name="openingExplorerAndTablebase">مستكشف الافتتاحيات&amp; جدول النهايات</string>
   <string name="takeback">تراجع</string>
   <string name="proposeATakeback">اقتراح تراجع عن النقلة الآخيرة</string>
@@ -490,7 +486,6 @@
   <string name="more">المزيد</string>
   <string name="memberSince">مسجل منذ</string>
   <string name="lastSeenActive">آخر دخول %s</string>
-  <string name="challengeToPlay">تحدى</string>
   <string name="player">لاعب</string>
   <string name="list">قائمة</string>
   <string name="graph">رسم بياني</string>
@@ -626,6 +621,7 @@
   <string name="clockInitialTime">الوقت الأولي للساعة</string>
   <string name="clockIncrement">زيادة الساعة</string>
   <string name="privacy">الخصوصية</string>
+  <string name="privacyPolicy">سياسة الخصوصية</string>
   <string name="letOtherPlayersFollowYou">اسمح للاعبين الآخرين بمتابعتك</string>
   <string name="letOtherPlayersChallengeYou">اسمح للاعبين الآخرين بتحديك</string>
   <string name="letOtherPlayersInviteYouToStudy">السماح للاعبين الآخرين بدعوتك لدراسة</string>
@@ -702,6 +698,7 @@
   <string name="error.email_unique">هذا البريد الإلكتروني مستعمل من قبل</string>
   <string name="error.email_different">هذا بريدك الإلكتروني بالفعل</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
+  <string name="onlyExistingConversations">المحادثات الحالية فقط</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
@@ -787,6 +784,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
   <string name="weHaveSentYouAnEmailTo">ارسلنا رسالة إلى %s. اضغط على الرابط فيها لإعادة تعيين كلمة المرور.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">بتسجيلك في الموقع فانت توافق على شروطنا %s</string>
+  <string name="readAboutOur">اقرأ عن %s.</string>
   <string name="networkLagBetweenYouAndLichess">تأخر الاتصال بينك وبيننا</string>
   <string name="timeToProcessAMoveOnLichessServer">الوفت المطلوب لتنفيذ النقلة على الخادم</string>
   <string name="downloadAnnotated">تحميل مع الشرح</string>
@@ -869,7 +867,6 @@
   <string name="error.unknown">خطأ</string>
   <string name="custom">مخصص</string>
   <string name="notifications">إشعارات</string>
-  <string name="challenges">التحديات</string>
   <string name="perfRatingX">التقييم: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s ثانية متبقية لاتمام النقلة الأولى</item>
@@ -924,12 +921,6 @@
   <string name="opening">افتتاحية</string>
   <string name="middlegame">جزء منتصف اللعبة</string>
   <string name="endgame">جزء نهاية اللعبة</string>
-  <string name="registerToSendChallenges">الرجاء التسجيل لإرسال التحديات.</string>
-  <string name="youCannotChallengeX">لا يمكنك تحدي %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s لا يقبل التحديات.</string>
-  <string name="yourXRatingIsTooFarFromY">تقييمك %1$s لا يؤهلك لمنافسة %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">لا يمكن اتمام التحدي بسبب التقييم %s المؤقت.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s يقبل التحديات من الأصدقاء فقط.</string>
   <string name="conditionalPremoves">تحريكات شرطية</string>
   <string name="addCurrentVariation">إضافة تنويعة حالية</string>
   <string name="playVariationToCreateConditionalPremoves">إلعب تفريع لإنشاء نقلة مسبقة مشروطة</string>

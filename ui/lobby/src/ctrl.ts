@@ -10,7 +10,6 @@ import Filter from './filter';
 import Setup from './setup';
 
 export default class LobbyController {
-
   data: LobbyData;
   playban: any;
   isBot: boolean;
@@ -20,8 +19,8 @@ export default class LobbyController {
   mode: Mode;
   sort: Sort;
   stepHooks: Hook[] = [];
-  stepping: boolean = false;
-  redirecting: boolean = false;
+  stepping = false;
+  redirecting = false;
   poolMember?: PoolMember;
   trans: Trans;
   pools: Pool[];
@@ -46,13 +45,14 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
-    this.tab = this.isBot ? 'now_playing' : this.stores.tab.get(),
-      this.mode = this.stores.mode.get(),
-      this.sort = this.stores.sort.get(),
-      this.trans = opts.trans;
+    (this.tab = this.isBot ? 'now_playing' : this.stores.tab.get()),
+      (this.mode = this.stores.mode.get()),
+      (this.sort = this.stores.sort.get()),
+      (this.trans = opts.trans);
 
     this.poolInStorage = lichess.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(_ => { // when another tab joins a pool
+    this.poolInStorage.listen(_ => {
+      // when another tab joins a pool
       this.leavePool();
       redraw();
     });
@@ -62,8 +62,7 @@ export default class LobbyController {
 
     if (this.playban) {
       if (this.playban.remainingSecond < 86400) setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
-    }
-    else {
+    } else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
         else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
@@ -86,7 +85,7 @@ export default class LobbyController {
   private doFlushHooks() {
     this.stepHooks = this.data.hooks.slice(0);
     if (this.tab === 'real_time') this.redraw();
-  };
+  }
 
   flushHooks = (now: boolean) => {
     if (this.flushHooksTimeout) clearTimeout(this.flushHooksTimeout);
@@ -190,14 +189,12 @@ export default class LobbyController {
   };
 
   private startWatching() {
-    const newIds = this.data.nowPlaying
-      .map(p => p.gameId)
-      .filter(id => !this.alreadyWatching.includes(id));
+    const newIds = this.data.nowPlaying.map(p => p.gameId).filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
-      setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
+      setTimeout(() => this.socket.send('startWatching', newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
     }
-  };
+  }
 
   setRedirecting = () => {
     this.redirecting = true;

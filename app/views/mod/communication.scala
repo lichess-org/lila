@@ -1,32 +1,38 @@
 package views.html.mod
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.hub.actorApi.shutup.PublicSource
-
-import controllers.routes
+import lila.mod.IpRender.RenderIp
+import lila.user.{ Holder, User }
+import lila.shutup.Analyser
 
 object communication {
 
   def apply(
-      u: lila.user.User,
+      mod: Holder,
+      u: User,
       players: List[(lila.game.Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.MsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
       history: List[lila.mod.Modlog],
+      logins: lila.security.UserLogins.TableData,
+      appeals: List[lila.appeal.Appeal],
       priv: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
         cssTag("mod.communication"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsModule("mod.user")
+        isGranted(_.UserModView) option jsModule("mod.user")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(
@@ -51,7 +57,12 @@ object communication {
             }
           )
         ),
-        isGranted(_.UserSpy) option div(cls := "mod-zone none"),
+        isGranted(_.UserModView) option frag(
+          div(cls := "mod-zone none"),
+          views.html.user.mod.otherUsers(mod, u, logins, appeals)(ctx, renderIp)(
+            cls := "communication__logins"
+          )
+        ),
         history.nonEmpty option frag(
           h2("Moderation history"),
           div(cls := "history")(
@@ -74,8 +85,14 @@ object communication {
           h2("Notes from other users"),
           div(cls := "notes")(
             notes.map { note =>
-              (isGranted(_.Doxing) || !note.dox) option
-                div(userIdLink(note.from.some), " ", momentFromNowOnce(note.date), ": ", richText(note.text))
+              (isGranted(_.Admin) || !note.dox) option
+                div(
+                  userIdLink(note.from.some),
+                  " ",
+                  momentFromNowOnce(note.date),
+                  ": ",
+                  richText(note.text)
+                )
             }
           )
         ),
@@ -96,7 +113,7 @@ object communication {
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
                 " ",
-                line.text
+                highlightBad(line.text)
               )
             }
           ),
@@ -125,9 +142,9 @@ object communication {
                         "author" -> (line.author.toLowerCase == u.id)
                       )
                     )(
-                      userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                      userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      richText(line.text)
+                      highlightBad(line.text)
                     )
                   }
                 )
@@ -146,7 +163,7 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(richText(msg.text))
+                        td(highlightBad(msg.text))
                       )
                     }
                   )
@@ -157,4 +174,15 @@ object communication {
         )
       )
     }
+
+  // incompatible with richText
+  def highlightBad(text: String): Frag = {
+    val words = Analyser(text).badWords
+    if (words.isEmpty) frag(text)
+    else {
+      val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
+      def tag(word: String) = s"<bad>$word</bad>"
+      raw(regex.replaceAllIn(text, m => tag(m.toString)))
+    }
+  }
 }

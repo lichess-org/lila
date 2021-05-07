@@ -20,7 +20,7 @@
     display: flex;
     justify-content: stretch;
     background: $c-bg-zebra;
-    font-size: .9em;
+    font-size: 0.9em;
     order: 2;
 
     @include breakpoint($mq-col2) {
@@ -28,7 +28,8 @@
     }
   }
 
-  .fbt, .noop {
+  .fbt,
+  .noop {
     padding: 5px 0;
     flex: 0 0 calc(100% / 6);
     text-align: center;
@@ -39,8 +40,8 @@
     flex: 0 0 7.4rem;
   }
 
-  @import "moves-col1";
-  @import "moves-col2";
+  @import 'moves-col1';
+  @import 'moves-col2';
 }
 
 @include breakpoint($mq-col1) {

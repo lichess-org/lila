@@ -12,7 +12,6 @@ object ThreadLocalRandom {
   def nextFloat(): Float                  = current.nextFloat()
   def nextInt(): Int                      = current.nextInt()
   def nextInt(n: Int): Int                = current.nextInt(n)
-  def nextPositiveInt(): Int              = current.nextInt(Int.MaxValue)
   def nextLong(): Long                    = current.nextLong()
   def nextGaussian(): Double              = current.nextGaussian()
   def nextChar(): Char = {

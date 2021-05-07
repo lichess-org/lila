@@ -3,14 +3,13 @@ import * as promotion from '../promotion';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
-import { h } from 'snabbdom'
+import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { Position, MaterialDiff, MaterialDiffSide, CheckCount } from '../interfaces';
 import { read as fenRead } from 'chessground/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
-import { VNode } from 'snabbdom/vnode'
 
 function renderMaterial(material: MaterialDiffSide, score: number, position: Position, checks?: number) {
   const children: VNode[] = [];
@@ -38,7 +37,7 @@ function wheel(ctrl: RoundController, e: WheelEvent): void {
 
 const emptyMaterialDiff: MaterialDiff = {
   white: {},
-  black: {}
+  black: {},
 };
 
 export function main(ctrl: RoundController): VNode {
@@ -46,30 +45,40 @@ export function main(ctrl: RoundController): VNode {
     cgState = ctrl.chessground && ctrl.chessground.state,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
-  let material: MaterialDiff, score: number = 0;
+  let material: MaterialDiff,
+    score = 0;
   if (d.pref.showCaptured) {
     const pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = emptyMaterialDiff;
 
-  const checks: CheckCount = (d.player.checks || d.opponent.checks) ?
-    util.countChecks(ctrl.data.steps, ctrl.ply) :
-    util.noChecks;
+  const checks: CheckCount =
+    d.player.checks || d.opponent.checks ? util.countChecks(ctrl.data.steps, ctrl.ply) : util.noChecks;
 
-  return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
-    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) }
-  }, [
-    h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: 'ontouchstart' in window ? undefined :
-        util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false)
-    }, [
-      renderGround(ctrl),
-      promotion.view(ctrl)
-    ]),
-    crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
-    ...renderTable(ctrl),
-    crazyView(ctrl, bottomColor, 'bottom') || renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor]),
-    ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null
-  ])
-};
+  return ctrl.nvui
+    ? ctrl.nvui.render(ctrl)
+    : h(
+        'div.round__app.variant-' + d.game.variant.key,
+        {
+          class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
+        },
+        [
+          h(
+            'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
+            {
+              hook:
+                'ontouchstart' in window
+                  ? undefined
+                  : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
+            },
+            [renderGround(ctrl), promotion.view(ctrl)]
+          ),
+          crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
+          ...renderTable(ctrl),
+          crazyView(ctrl, bottomColor, 'bottom') ||
+            renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor]),
+          ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
+        ]
+      );
+}

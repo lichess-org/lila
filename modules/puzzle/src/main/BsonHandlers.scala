@@ -2,21 +2,20 @@ package lila.puzzle
 
 import chess.format.{ FEN, Uci }
 import reactivemongo.api.bson._
-import scala.util.Success
-import scala.util.Try
+import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl._
 import lila.game.Game
 import lila.rating.Glicko
 
-private[puzzle] object BsonHandlers {
+object BsonHandlers {
 
   implicit val PuzzleIdBSONHandler = stringIsoHandler(Puzzle.idIso)
 
   import Puzzle.BSONFields._
 
-  implicit val PuzzleBSONReader = new BSONDocumentReader[Puzzle] {
+  implicit private[puzzle] val PuzzleBSONReader = new BSONDocumentReader[Puzzle] {
     def readDocument(r: BSONDocument) = for {
       id      <- r.getAsTry[Puzzle.Id](id)
       gameId  <- r.getAsTry[Game.ID](gameId)
@@ -39,7 +38,7 @@ private[puzzle] object BsonHandlers {
     )
   }
 
-  implicit val RoundIdHandler = tryHandler[PuzzleRound.Id](
+  implicit private[puzzle] val RoundIdHandler = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
       v split PuzzleRound.idSep match {
         case Array(userId, puzzleId) => Success(PuzzleRound.Id(userId, Puzzle.Id(puzzleId)))
@@ -49,7 +48,7 @@ private[puzzle] object BsonHandlers {
     id => BSONString(id.toString)
   )
 
-  implicit val RoundThemeHandler = tryHandler[PuzzleRound.Theme](
+  implicit private[puzzle] val RoundThemeHandler = tryHandler[PuzzleRound.Theme](
     { case BSONString(v) =>
       PuzzleTheme
         .find(v.tail)
@@ -60,7 +59,7 @@ private[puzzle] object BsonHandlers {
     rt => BSONString(s"${if (rt.vote) "+" else "-"}${rt.theme}")
   )
 
-  implicit val RoundHandler = new BSON[PuzzleRound] {
+  implicit private[puzzle] val RoundHandler = new BSON[PuzzleRound] {
     import PuzzleRound.BSONFields._
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),
@@ -81,7 +80,11 @@ private[puzzle] object BsonHandlers {
       )
   }
 
-  implicit val PathIdBSONHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler(PuzzlePath.pathIdIso)
+  implicit private[puzzle] val PathIdBSONHandler: BSONHandler[PuzzlePath.Id] = stringIsoHandler(
+    PuzzlePath.pathIdIso
+  )
 
-  implicit val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(PuzzleTheme.keyIso)
+  implicit private[puzzle] val ThemeKeyBSONHandler: BSONHandler[PuzzleTheme.Key] = stringIsoHandler(
+    PuzzleTheme.keyIso
+  )
 }

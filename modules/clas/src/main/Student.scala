@@ -46,6 +46,8 @@ object Student {
 
   case class WithPassword(student: Student, password: User.ClearPassword)
 
+  case class ManagedInfo(createdBy: User, clas: Clas)
+
   private[clas] object password {
 
     private val random     = new java.security.SecureRandom()

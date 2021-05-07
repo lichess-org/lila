@@ -87,7 +87,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
 
   def userIdLink(
-      userIdOption: Option[String],
+      userIdOption: Option[User.ID],
       cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withTitle: Boolean = true,
@@ -116,7 +116,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -128,11 +128,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       params = params,
       modIcon = false
     )
-
-  def userIdLink(
-      userId: String,
-      cssClass: Option[String]
-  )(implicit lang: Lang): Frag = userIdLink(userId.some, cssClass)
 
   def titleTag(title: Option[Title]): Option[Frag] =
     title map { t =>
@@ -150,7 +145,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       title: Option[Title],
       params: String,
       modIcon: Boolean
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
@@ -170,7 +165,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withPerfRating: Option[PerfType] = None,
       name: Option[Frag] = None,
       params: String = ""
-  )(implicit lang: Lang): Frag =
+  )(implicit lang: Lang): Tag =
     a(
       cls := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
@@ -232,8 +227,8 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       case _ => ""
     }
 
-  private def userUrl(username: String, params: String = "") =
-    s"""${routes.User.show(username)}$params"""
+  private def userUrl(username: String, params: String = ""): Option[String] =
+    (username != "Ghost" && username != "ghost") option s"""${routes.User.show(username)}$params"""
 
   protected def userClass(
       userId: String,
@@ -241,11 +236,13 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
-      "user-link" -> true,
-      ~cssClass   -> cssClass.isDefined,
-      "ulpt"      -> withPowerTip
-    )
+    if (userId == "ghost") List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    else
+      (withOnline ?? List((if (isOnline(userId)) "online" else "offline") -> true)) ::: List(
+        "user-link" -> true,
+        ~cssClass   -> cssClass.isDefined,
+        "ulpt"      -> withPowerTip
+      )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(implicit
       lang: Lang

@@ -9,6 +9,7 @@
   <string name="yourTurn">Ваш хід</string>
   <string name="aiNameLevelAiLevel">%1$s рівень %2$s</string>
   <string name="level">Рівень</string>
+  <string name="strength">Рівень</string>
   <string name="toggleTheChat">Вимк./увімк. чат</string>
   <string name="toggleSound">Вимк./увімк. звук</string>
   <string name="chat">Чат</string>
@@ -120,11 +121,8 @@
   <string name="infiniteAnalysis">Нескінченний аналіз</string>
   <string name="removesTheDepthLimit">Знімає обмеження на глибину аналізу - ваш комп’ютер стане теплішим</string>
   <string name="blunder">Груба помилка</string>
-  <string name="blunders">Грубі помилки</string>
   <string name="mistake">Помилка</string>
-  <string name="mistakes">Помилки</string>
   <string name="inaccuracy">Неточність</string>
-  <string name="inaccuracies">Неточності</string>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
@@ -271,7 +269,6 @@
   <string name="send">Надіслати</string>
   <string name="incrementInSeconds">Приріст на хід у секундах</string>
   <string name="freeOnlineChess">Безкоштовні Інтернет-шахи</string>
-  <string name="spectators">Глядачі:</string>
   <plurals name="nbRated">
     <item quantity="one">%s рейтингова</item>
     <item quantity="few">%s рейтингові</item>
@@ -311,7 +308,6 @@
     <item quantity="other">Додати %s секунд</item>
   </plurals>
   <string name="thisAccountViolatedTos">Цей обліковий запис порушив умови використання Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Цей гравець штучно збільшує/зменшує свій рейтинг</string>
   <string name="openingExplorerAndTablebase">Провідник дебютів &amp; ендшпілів</string>
   <string name="takeback">Повернення ходу</string>
   <string name="proposeATakeback">Запропонувати повернути хід</string>
@@ -437,7 +433,6 @@
   <string name="more">Більше</string>
   <string name="memberSince">Зареєстрований</string>
   <string name="lastSeenActive">Був в мережі %s</string>
-  <string name="challengeToPlay">Виклик на гру</string>
   <string name="player">Гравець</string>
   <string name="list">Список</string>
   <string name="graph">Графік</string>
@@ -569,6 +564,7 @@
   <string name="clockInitialTime">Початковий час годинника</string>
   <string name="clockIncrement">Приріст часу</string>
   <string name="privacy">Конфіденційність</string>
+  <string name="privacyPolicy">Політика конфіденційності</string>
   <string name="letOtherPlayersFollowYou">Дозволити іншим спостерігати за вами</string>
   <string name="letOtherPlayersChallengeYou">Дозволити іншим кидати вам виклик</string>
   <string name="letOtherPlayersInviteYouToStudy">Дозволити іншим гравцям запрошувати Вас на навчання</string>
@@ -722,6 +718,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Якщо Ви не бачите листа, перевірте інші місця, де б він міг бути, наприклад, корзину, спам та інші папки.</string>
   <string name="weHaveSentYouAnEmailTo">Ми надіслали повідомлення на адресу %s. Перейдіть за посиланням у повідомленні для скидання паролю.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Реєструючись, Ви даєте згоду дотримуватись наших %s.</string>
+  <string name="readAboutOur">Читайте про наш %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мережева затримка між Вами та Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час обробки ходу на сервері Lichess</string>
   <string name="downloadAnnotated">Завантажити з коментарями</string>
@@ -802,7 +799,6 @@
   <string name="error.unknown">Помилка</string>
   <string name="custom">Своя гра</string>
   <string name="notifications">Сповіщення</string>
-  <string name="challenges">Виклики</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда на перший хід</item>
@@ -853,12 +849,6 @@
   <string name="opening">Дебют</string>
   <string name="middlegame">Міттельшпіль</string>
   <string name="endgame">Ендшпіль</string>
-  <string name="registerToSendChallenges">Зареєструйтесь, щоб викликати суперників на гру.</string>
-  <string name="youCannotChallengeX">Ви не можете викликати на гру %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не приймає викликів.</string>
-  <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s дуже далекий від %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Неможливо через недостовірність рейтингу %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s приймає виклики тільки від друзів.</string>
   <string name="conditionalPremoves">Умовні ходи на випередження</string>
   <string name="addCurrentVariation">Додати поточний варіант</string>
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, щоб встановити умовні ходи на випередження</string>

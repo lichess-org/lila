@@ -7,7 +7,6 @@ case class Categ(
     _id: String, // slug
     name: String,
     desc: String,
-    pos: Int,
     team: Option[TeamID] = None,
     nbTopics: Int,
     nbPosts: Int,
@@ -42,11 +41,7 @@ case class Categ(
 
 object Categ {
 
-  private val TeamSlugPattern = """team-([\w-]++)""".r
+  def isTeamSlug(slug: String) = slug.startsWith("team-")
 
-  def slugToTeamId(slug: String) =
-    slug match {
-      case TeamSlugPattern(teamId) => teamId.some
-      case _                       => none
-    }
+  def slugToTeamId(slug: String) = isTeamSlug(slug) option slug.drop(5)
 }

@@ -64,6 +64,11 @@ case class UserRecord(
         rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
       }
     }
+
+  def isLethal =
+    rageSit.counter <= -250 &&
+      rageSitRecidive &&
+      bans.lastOption.exists(_.remainingMinutes > 60 * 12)
 }
 
 case class TempBan(

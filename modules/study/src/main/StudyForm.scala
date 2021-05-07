@@ -4,7 +4,7 @@ import chess.format.FEN
 import play.api.data._
 import play.api.data.Forms._
 
-import lila.common.Form.clean
+import lila.common.Form.cleanNonEmptyText
 
 object StudyForm {
 
@@ -60,7 +60,7 @@ object StudyForm {
 
     lazy val form = Form(
       mapping(
-        "name"        -> clean(text),
+        "name"        -> cleanNonEmptyText,
         "orientation" -> optional(nonEmptyText),
         "variant"     -> optional(nonEmptyText),
         "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
@@ -80,20 +80,22 @@ object StudyForm {
         pgn: String
     ) {
 
-      def orientation = orientationStr.flatMap(chess.Color.fromName) | chess.White
-
-      def toChapterDatas =
-        MultiPgn.split(pgn, max = 20).value.zipWithIndex map { case (onePgn, index) =>
+      def toChapterDatas = {
+        val pgns = MultiPgn.split(pgn, max = 32).value
+        pgns.zipWithIndex map { case (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
-            orientation = orientation.name,
+            orientation =
+              if (pgns.sizeIs > 1) "auto"
+              else (orientationStr.flatMap(chess.Color.fromName) | chess.White).name,
             mode = mode,
             initial = initial && index == 0
           )
         }
+      }
     }
   }
 

@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">Irakasle eta ikasleek ikusi dezakete</string>
   <string name="teachersOfTheClass">Klasearen irakasleak</string>
   <string name="addLichessUsernames">Gehitu Lichess erabiltzaile-izenak irakasle gisa gonbidatzeko. Bat lerro bakoitzean.</string>
-  <string name="theyMustFirstApply">Lehenengo Lichess Irakasle izateko eskaera bete behar dute.</string>
   <string name="resetPassword">Pasahitza berrezarri</string>
   <string name="makeSureToCopy">Kopiatu eta gorde pasahitza. Ez duzu berriz ikusiko-eta!</string>
   <string name="passwordX">Pasahitza: %s</string>
   <string name="generateANewPassword">Ikaslearentzat pasahitz berria sortu</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">%1$s klasera %2$s erabiltzaileak gonbidatua</string>
+  <string name="invitedToXByY">%1$s klasera %2$s erabiltzaileak gonbidatua</string>
   <string name="realName">Benetako izena</string>
   <string name="privateWillNeverBeShown">Pribatua. Ez da klasetik kanpora inoiz erakutsiko. Ikaslea zein den gogorarazten laguntzen du.</string>
   <string name="addStudent">Ikaslea gehitu</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">%1$s Lichess profila %2$s erabiltzailearentzat sortu da.</string>
+  <string name="lichessProfileXCreatedForY">%1$s Lichess profila %2$s erabiltzailearentzat sortu da.</string>
   <string name="studentCredentials">Ikaslea: %1$s
 Erabiltzaile-izena: %2$s
 Pasahitza: %3$s</string>
@@ -53,7 +52,7 @@ Pasahitza: %3$s</string>
 Hemen dago bertara sartzeko lotura.</string>
   <string name="invitationToClass">\"%s\" klasera ikasle gisa sartzeko gonbidapena jaso duzu.</string>
   <string name="clickToViewInvitation">Sartu loturan gonbidapena ikusteko:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Gonbidapen bat zain</item>
     <item quantity="other">%s gonbidapen zain</item>
   </plurals>
@@ -81,9 +80,9 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="progress">Aurrerapena</string>
   <string name="noStudents">Klasean ez dago ikaslerik oraindik.</string>
   <string name="noRemovedStudents">Ez dago ezabatutako ikaslerik.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Egunetan zehar</string>
+  <string name="overDays">Egunetan zehar</string>
   <string name="timePlaying">Jokatzen emandako denbora</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s azken %2$s-n</string>
+  <string name="variantXOverLastY">%1$s azken %2$s-n</string>
   <string name="winrate">Garaipen ratioa</string>
   <string name="na">Ezezaguna</string>
   <string name="news">Klaseko berriak</string>

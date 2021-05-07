@@ -152,9 +152,9 @@
       text-align: center;
       background: $c-bg-high;
       height: 3em;
-      font-size: .9em;
+      font-size: 0.9em;
       border-left: $border;
-      opacity: .8;
+      opacity: 0.8;
 
       @include transition;
     }

@@ -15,8 +15,8 @@
     <item quantity="other">Zgjodhi %s enigma taktike</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Luajti %1$s %2$s lojë</item>
-    <item quantity="other">Luajti %1$s %2$s lojëra</item>
+    <item quantity="one">Luajti %1$s lojë %2$s</item>
+    <item quantity="other">Luajti %1$s lojëra %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Postoi %1$s mesazh në %2$s</item>
@@ -55,16 +55,21 @@
     <item quantity="other">Krijoi %s mësime të reja</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="one">Morre pjesë në %s kampjonat</item>
+    <item quantity="one">Morri pjesë në kampionatin %s</item>
     <item quantity="other">Morre pjesë në %s kampjonate</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
     <item quantity="other">U rendit i %1$s (top %2$s%%) me %3$s lojë në %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Ke marr pjesë në %s kampionat zviceran</item>
+    <item quantity="other">Ke marr pjesë në %s kampionate zvicerane</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">I rreshtuar #%1$s in %2$s</string>
   <string name="signedUp">U regjistrua në lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Iu bashkua %s ekipi</item>
+    <item quantity="one">Iu bashkua ekipit %s</item>
     <item quantity="other">Iu bashkua %s ekipeve</item>
   </plurals>
 </resources>

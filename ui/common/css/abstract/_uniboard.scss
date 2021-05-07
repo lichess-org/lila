@@ -1,4 +1,4 @@
-/* Uniboard: keep the same page layout accross pages */
+/* Uniboard: keep the same page layout across pages */
 
 $mq-board-resizable: $mq-small;
 $mq-col1-uniboard: $mq-not-small $mq-portrait;
@@ -20,7 +20,9 @@ $col3-uniboard-default-scale: 0.9;
 
 // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
-$col3-uniboard-default-max-width: calc(100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls});
+$col3-uniboard-default-max-width: calc(
+  100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
+);
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
 
 $col2-uniboard-table: $col3-uniboard-table;

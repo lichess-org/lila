@@ -34,6 +34,8 @@ object freeJs {
     "swiss"
   )
 
+  private val renames = Map("analyse" -> "analysisBoard")
+
   def apply(): Frag =
     frag(
       div(cls := "box__top")(
@@ -52,7 +54,8 @@ object freeJs {
         ),
         tbody(
           uiModules map { module =>
-            val file = s"$module.min.js"
+            val name = renames.getOrElse(module, module)
+            val file = s"$name.min.js"
             tr(
               td(a(href := assetUrl(s"compiled/$file"))(file)),
               td(agpl),

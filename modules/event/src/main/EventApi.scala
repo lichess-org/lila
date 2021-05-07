@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.memo.CacheApi._
+import lila.user.User
 
 final class EventApi(
     coll: Coll,
@@ -21,7 +22,7 @@ final class EventApi(
         lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
           _.language == event.lang.language
         }
-      }
+      }.take(3)
     }
 
   private val promotable = cacheApi.unit[List[Event]] {
@@ -39,9 +40,9 @@ final class EventApi(
       )
       .sort($sort asc "startsAt")
       .cursor[Event]()
-      .list(10)
+      .list(50)
       .dmap {
-        _.filter(_.featureNow) take 3
+        _.filter(_.featureNow) take 10
       }
 
   def list = coll.find($empty).sort($doc("startsAt" -> -1)).cursor[Event]().list(50)
@@ -55,8 +56,8 @@ final class EventApi(
       EventForm.Data make event
     }
 
-  def update(old: Event, data: EventForm.Data): Fu[Int] =
-    (coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit()).map(_.n)
+  def update(old: Event, data: EventForm.Data, by: User): Fu[Int] =
+    (coll.update.one($id(old.id), data.update(old, by)) >>- promotable.invalidateUnit()).map(_.n)
 
   def createForm = EventForm.form
 

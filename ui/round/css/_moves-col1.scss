@@ -9,7 +9,7 @@
     .fbt {
       flex: 0 0 auto;
       padding: 0 1.3em;
-      opacity: .7;
+      opacity: 0.7;
     }
 
     body.playing.zen & {
@@ -27,8 +27,7 @@
 
     @if $theme-light {
       box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
-    }
-    @else {
+    } @else {
       box-shadow: 0 4px 12px #000 inset;
     }
 
@@ -47,11 +46,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 .3rem;
+    padding: 0 0.3rem;
   }
 
   #{$index-tag} {
-    padding-right: .15em;
+    padding-right: 0.15em;
   }
 
   #{$move-tag} {
@@ -62,8 +61,7 @@
     &:hover {
       @if $theme-light {
         background: hsl($c-site-hue, 20%, 85%);
-      }
-      @else {
+      } @else {
         background: $c-bg-zebra;
       }
     }
@@ -95,11 +93,11 @@
     }
 
     strong {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
 
     &::before {
-      margin-right: .3em;
+      margin-right: 0.3em;
     }
 
     body.playing.zen & {

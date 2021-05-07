@@ -9,6 +9,7 @@
   <string name="lengths">लंबाई</string>
   <string name="mates">साथी</string>
   <string name="goals">लक्ष्य</string>
+  <string name="origin">मूल</string>
   <string name="specialMoves">विशेष चाल</string>
   <string name="didYouLikeThisPuzzle">क्या आपको यह पहेली पसंद आई?</string>
   <string name="voteToLoadNextOne">अगले एक को लोड करने के लिए वोट दें!</string>
@@ -43,4 +44,10 @@
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">एक और विषय जोड़ें</string>
   <string name="jumpToNextPuzzleImmediately">तुरंत अगली पहेली पर जाएं</string>
+  <string name="puzzleDashboard">पहेली डैशबोर्ड</string>
+  <string name="improvementAreas">सुधार क्षेत्रों</string>
+  <string name="strengths">ताकत</string>
+  <string name="history">पहेली इतिहास</string>
+  <string name="solved">हल किया</string>
+  <string name="failed">अनुत्तीर्ण होना</string>
 </resources>

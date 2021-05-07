@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Erősítsd meg a lichess.org fiókod, %s</string>
-  <string name="emailConfirm_click">Kattints a linkre a Lichess fiókod megerősítéséhez:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Kattints a linkre a Lichess fiókod megerősítéséhez:</string>
   <string name="emailConfirm_ignore">Ha nem te regisztráltál a Lichess-re, nyugodtan hagyd figyelmen kívül ezt az üzenetet.</string>
   <string name="passwordReset_subject">%s a lichess.org jelszód átállítása</string>
   <string name="passwordReset_intro">Kérelem érkezett a fiókod jelszavának megváltoztatására.</string>
@@ -14,7 +14,7 @@
 
 A profil oldalad itt van: %1$s. Itt állíthatod be tetszésed szerint: %2$s.
 
-Jó szórakozást kívánunk, és mindig találd meg az útat az ellenfél királyához!</string>
+Jó szórakozást kívánunk, és mindig találd meg az utat az ellenfél királyához!</string>
   <string name="logInToLichess">Bejelentkezés a lichess.org-ra, %s</string>
   <string name="common_orPaste">(Nem működik a kattintás? Próbáld beilleszteni a böngésződ címsorába!)</string>
   <string name="common_note">Ez egy szolgálati e-mail, ami ezzel kapcsolatos: %s.</string>

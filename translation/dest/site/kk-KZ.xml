@@ -115,16 +115,13 @@
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
   <string name="blunder">Өрескел қателік</string>
-  <string name="blunders">Өрескел қателер</string>
   <string name="mistake">Қателік</string>
-  <string name="mistakes">Қателер</string>
   <string name="inaccuracy">Жеңіл қате</string>
-  <string name="inaccuracies">Жеңіл қате</string>
   <string name="moveTimes">Жүріс ұзақтығы</string>
   <string name="flipBoard">Тақтаны аудару</string>
   <string name="threefoldRepetition">Үш реттік қайталану</string>
   <string name="claimADraw">Тепе-теңдікті сұрау</string>
-  <string name="offerDraw">Тепе-теңдікке келісу</string>
+  <string name="offerDraw">Тепе-теңдік сұрау</string>
   <string name="draw">Тепе-теңдік</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ойыншы</item>
@@ -250,7 +247,6 @@
   <string name="send">Жіберу</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
-  <string name="spectators">Көрермен:</string>
   <plurals name="nbRated">
     <item quantity="one">бағаланатын %s</item>
     <item quantity="other">бағаланатын %s</item>
@@ -278,7 +274,6 @@
     <item quantity="other">%s секунд беру</item>
   </plurals>
   <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Бұл ойыншы өз рейтингін жасанды жолмен арттырып не кемітіп жүр</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталулар қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
@@ -383,7 +378,6 @@
   <string name="more">Жаю</string>
   <string name="memberSince">Тіркелген күні</string>
   <string name="lastSeenActive">%s белсенді болды</string>
-  <string name="challengeToPlay">Ойынға шақыру</string>
   <string name="player">Ойыншы</string>
   <string name="list">Тiзiм</string>
   <string name="graph">Диаграм</string>
@@ -511,6 +505,7 @@
   <string name="clockInitialTime">Сағаттың бастапқы уақыты</string>
   <string name="clockIncrement">Уақыт қосылғышы</string>
   <string name="privacy">Даралық</string>
+  <string name="privacyPolicy">Даралық саясаты</string>
   <string name="letOtherPlayersFollowYou">Ойыншылар сізге серік бола ала ма?</string>
   <string name="letOtherPlayersChallengeYou">Ойыншылар сізді ойынға шақыра ала ма?</string>
   <string name="letOtherPlayersInviteYouToStudy">Ойыншылар сізді зерттеуге шақыра ала ма?</string>
@@ -579,6 +574,7 @@
   <string name="error.email_unique">Бұл пошта тіркелген</string>
   <string name="error.email_different">Бұл сіздің поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
+  <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
   <string name="menu">Мәзір</string>
   <string name="castling">Бекіну</string>
@@ -656,6 +652,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
   <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
+  <string name="readAboutOur">Біздің %s туралы оқыңыз.</string>
   <string name="networkLagBetweenYouAndLichess">Личес пен сіздің араңыздағы кідіріс</string>
   <string name="timeToProcessAMoveOnLichessServer">Личес сервері жүрісті өңдеуге жұмсайтын уақыт</string>
   <string name="downloadAnnotated">Жазбасы барды алу</string>
@@ -734,7 +731,6 @@
   <string name="error.unknown">Қателік</string>
   <string name="custom">Қалыпты</string>
   <string name="notifications">Хабарлама</string>
-  <string name="challenges">Шақырулар</string>
   <string name="perfRatingX">Рейтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Бірінші жүріске %s секунд бар</item>
@@ -758,8 +754,8 @@
   <string name="skipThisMove">Осы жүрісті елемеу</string>
   <string name="next">Келесі</string>
   <string name="xWasPlayed">%s ойналды</string>
-  <string name="findBetterMoveForWhite">Ақтар пайдасына ең дұрыс жүрісті табыңыз</string>
-  <string name="findBetterMoveForBlack">Қаралар пайдасына ең дұрыс жүрісті табыңыз</string>
+  <string name="findBetterMoveForWhite">Ақ пайдасына ең тиімді жүрісті табыңыз</string>
+  <string name="findBetterMoveForBlack">Қара пайдасына ең тиімді жүрісті табыңыз</string>
   <string name="resumeLearning">Үйренуді қорытындылау</string>
   <string name="youCanDoBetter">Тағы талпынып көріңіз</string>
   <string name="tryAnotherMoveForWhite">Ақтар пайдасына басқаша жүріп көріңіз</string>
@@ -781,12 +777,6 @@
   <string name="opening">Бастау</string>
   <string name="middlegame">Ойын ортасы</string>
   <string name="endgame">Ойынсоңы</string>
-  <string name="registerToSendChallenges">Ойынға шақыру үшін тіркеліңіз.</string>
-  <string name="youCannotChallengeX">Сіз %s деген ойыншыны шақыра алмайсыз.</string>
-  <string name="xDoesNotAcceptChallenges">%s шақыруды қабылдамады.</string>
-  <string name="yourXRatingIsTooFarFromY">Сіз %1$s бен %2$s-ның рейтинг айырмашылығы тым көп.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s рейтингіңіз болжамалы күйде тұрғанша, ешкімді ойынға шақыра алмайсыз.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s тек достардың шақыруын қабылдайды.</string>
   <string name="conditionalPremoves">Шартты алдын-ала жүрістер</string>
   <string name="addCurrentVariation">Осы нұсқаны қосу</string>
   <string name="playVariationToCreateConditionalPremoves">Шартты алдын-ала жүрістерді құру үшін бір нұсқаны ойнаңыз</string>

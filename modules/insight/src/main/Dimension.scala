@@ -28,7 +28,7 @@ object Dimension {
 
   import BSONHandlers._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
   import lila.rating.BSONHandlers.perfTypeIdHandler
 
   case object Period
@@ -188,6 +188,15 @@ object Dimension {
         )
       )
 
+  case object CplRange
+      extends Dimension[CplRange](
+        "cpl",
+        "Centipawn loss",
+        F.moves("c"),
+        Move,
+        raw("Centipawns lost by each move, according to Stockfish evaluation.")
+      )
+
   def requiresStableRating(d: Dimension[_]) =
     d match {
       case OpponentStrength => true
@@ -207,6 +216,7 @@ object Dimension {
       case OpponentStrength        => RelativeStrength.all
       case PieceRole               => chess.Role.all.reverse
       case MovetimeRange           => lila.insight.MovetimeRange.all
+      case CplRange                => lila.insight.CplRange.all
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
@@ -227,6 +237,7 @@ object Dimension {
       case OpponentStrength        => key.toIntOption flatMap RelativeStrength.byId.get
       case PieceRole               => chess.Role.all.find(_.name == key)
       case MovetimeRange           => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
+      case CplRange                => key.toIntOption flatMap lila.insight.CplRange.byId.get
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
@@ -254,6 +265,7 @@ object Dimension {
       case OpponentStrength        => v.id
       case PieceRole               => v.name
       case MovetimeRange           => v.id
+      case CplRange                => v.cpl
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
@@ -274,6 +286,7 @@ object Dimension {
       case OpponentStrength        => JsString(v.name)
       case PieceRole               => JsString(v.toString)
       case MovetimeRange           => JsString(v.name)
+      case CplRange                => JsString(v.name)
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
@@ -287,17 +300,47 @@ object Dimension {
       case Dimension.MovetimeRange =>
         selected match {
           case Nil => $empty
-          case xs  => $doc(d.dbKey $in xs.flatMap(_.tenths.toList))
+          case many =>
+            $doc(
+              "$or" -> many.map(lila.insight.MovetimeRange.toRange).map { range =>
+                $doc(d.dbKey $gte range._1 $lt range._2)
+              }
+            )
         }
       case Dimension.Period =>
         selected.maximumByOption(_.days).fold($empty) { period =>
           $doc(d.dbKey $gt period.min)
         }
+      case Dimension.MaterialRange =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map { range =>
+                val intRange = lila.insight.MaterialRange.toRange(range)
+                if (intRange._1 == intRange._2) $doc(d.dbKey -> intRange._1)
+                else if (range.negative)
+                  $doc(d.dbKey $gte intRange._1 $lt intRange._2)
+                else
+                  $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+              }
+            )
+        }
+      case Dimension.TimeVariance =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map(lila.insight.TimeVariance.toRange).map { range =>
+                $doc(d.dbKey $gt range._1 $lte range._2)
+              }
+            )
+        }
       case _ =>
         selected flatMap d.bson.writeOpt match {
           case Nil     => $empty
           case List(x) => $doc(d.dbKey -> x)
-          case xs      => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))
+          case xs      => d.dbKey $in xs
         }
     }
   }

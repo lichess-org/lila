@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Mueve pa empecipiar</string>
+  <string name="puzzlesSolved">exercicios resueltos</string>
+  <string name="newDailyHighscore">Nuevo record diario!</string>
+  <string name="newWeeklyHighscore">Nuevo record semanal!</string>
+  <string name="newMonthlyHighscore">Nuevo record mensual!</string>
+  <string name="newAllTimeHighscore">Nuevo record de totz es tiempos!</string>
+  <string name="previousHighscoreWasX">Lo record anterior yera %s</string>
+  <string name="playAgain">Chugar atra vegada</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 intento</item>
+    <item quantity="other">%s intentos</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Ha chugau un intento de %2$s</item>
+    <item quantity="other">Ha chugau %1$s intentos de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Record: %s</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
+  <string name="combo">Combo</string>
+  <string name="time">Tiempo</string>
+  <string name="timePerMove">Tiempo per movimiento</string>
+  <string name="highestSolved">Exercicio mas dificil resuelto</string>
+  <string name="puzzlesPlayed">Exercicios feitos</string>
+  <string name="newRun">Nuevo intento (tecla: espacio)</string>
+  <string name="endRun">Rematar intento (tecla: Enter)</string>
+  <string name="highscores">Puntuacions mas altas</string>
+  <string name="viewBestRuns">Veyer los millors intentos</string>
+  <string name="bestRunOfDay">Millor intento d\'o día</string>
+  <string name="runs">Intentos</string>
+</resources>

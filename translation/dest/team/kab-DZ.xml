@@ -11,9 +11,6 @@
   <string name="noTeamFound">Ulac taɣlamt</string>
   <string name="joinTeam">Ddukkel ed taɣlamt</string>
   <string name="quitTeam">Eǧǧ taɣlamt</string>
-  <string name="anyoneCanJoin">Yal yiwen izmer ad ikki</string>
-  <string name="aConfirmationIsRequiredToJoin">Teḥwajed aragag i wakken a-tddukkeled</string>
-  <string name="joiningPolicy">Alugen n ussekcam</string>
   <string name="teamBestPlayers">Aqaru n taɣlamt</string>
   <string name="teamRecentMembers">Imaslaḍen imaynuten</string>
 </resources>

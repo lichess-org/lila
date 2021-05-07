@@ -7,15 +7,19 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.IpAddress
 import lila.security.FingerHash
+import lila.mod.IpRender.RenderIp
 
 import controllers.routes
+import lila.user.User
+import lila.security.Granter
+import lila.user.Holder
 
 object search {
 
   private val email = tag("email")
   private val mark  = tag("marked")
 
-  def apply(form: Form[_], users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
+  def apply(mod: Holder, form: Form[_], users: List[User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc")
@@ -24,7 +28,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           h1("Search users"),
-          st.form(cls := "search box__pad", action := routes.Mod.search(), method := "GET")(
+          st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
             input(
               name := "q",
               autofocus,
@@ -33,14 +37,15 @@ object search {
             ),
             form3.select(form("as"), lila.mod.UserSearch.asChoices)
           ),
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
   def print(
+      mod: Holder,
       fh: FingerHash,
-      users: List[lila.user.User.WithEmails],
+      users: List[User.WithEmails],
       uas: List[String],
       blocked: Boolean
   )(implicit ctx: Context) =
@@ -70,17 +75,18 @@ object search {
           ),
           br,
           br,
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
   def ip(
+      mod: Holder,
       address: IpAddress,
       users: List[lila.user.User.WithEmails],
       uas: List[String],
       blocked: Boolean
-  )(implicit ctx: Context) =
+  )(implicit ctx: Context, renderIp: RenderIp) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc")
@@ -89,7 +95,7 @@ object search {
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           div(cls := "box__top")(
-            h1("IP address: ", address.value),
+            h1("IP address: ", renderIp(address)),
             postForm(cls := "box__top__actions", action := routes.Mod.singleIpBan(!blocked, address.value))(
               submitButton(
                 cls := List(
@@ -99,7 +105,7 @@ object search {
               )(if (blocked) "Banned" else "Ban this IP")
             )
           ),
-          div(cls := "box__pad")(
+          isGranted(_.Admin) option div(cls := "box__pad")(
             h2("User agents"),
             ul(uas map { ua =>
               li(ua)
@@ -107,12 +113,31 @@ object search {
           ),
           br,
           br,
-          userTable(users)
+          userTable(mod, users)
         )
       )
     }
 
-  private def userTable(users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
+  def clas(mod: Holder, c: lila.clas.Clas, users: List[User.WithEmails])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "IP address",
+      moreCss = cssTag("mod.misc")
+    ) {
+      main(cls := "page-menu")(
+        views.html.mod.menu("search"),
+        div(cls := "mod-search page-menu__content box")(
+          div(cls := "box__top")(
+            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
+            p("Teachers: ", c.teachers.toList.map(id => userIdLink(id.some)))
+          ),
+          br,
+          br,
+          userTable(mod, users)
+        )
+      )
+    }
+
+  private def userTable(mod: Holder, users: List[User.WithEmails])(implicit ctx: Context) =
     users.nonEmpty option table(cls := "slist slist-pad")(
       thead(
         tr(
@@ -127,11 +152,13 @@ object search {
       tbody(
         users.map { case lila.user.User.WithEmails(u, emails) =>
           tr(
-            td(
-              userLink(u, withBestRating = true, params = "?mod"),
-              (isGranted(_.Doxing) && isGranted(_.SetEmail)) option
-                email(emails.list.map(_.value).mkString(", "))
-            ),
+            if (Granter.canViewAltUsername(mod, u))
+              td(
+                userLink(u, withBestRating = true, params = "?mod"),
+                (isGranted(_.Admin) && isGranted(_.SetEmail)) option
+                  email(emails.list.map(_.value).mkString(", "))
+              )
+            else td,
             td(u.count.game.localize),
             td(
               u.marks.alt option mark("ALT"),

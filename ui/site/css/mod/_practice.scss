@@ -2,7 +2,8 @@
   .both {
     display: flex;
 
-    > form, & > div {
+    > form,
+    & > div {
       flex: 1 1 50%;
       width: auto;
     }
@@ -14,7 +15,7 @@
     }
 
     ol a {
-      color: #3893E8;
+      color: #3893e8;
     }
 
     > ol {
@@ -39,13 +40,13 @@
     }
 
     li li li {
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     em {
       display: block;
       font-style: italic;
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
 

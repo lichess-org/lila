@@ -12,7 +12,7 @@
   <string name="tournamentGames">Турнирске партије</string>
   <string name="timeSpentPlaying">Време проведено у игри</string>
   <string name="averageOpponent">Просечан противник</string>
-  <string name="victories">Победа</string>
+  <string name="victories">Победе</string>
   <string name="defeats">Пораза</string>
   <string name="disconnections">Прекидања веза</string>
   <string name="notEnoughGames">Није одиграно довољно партија</string>

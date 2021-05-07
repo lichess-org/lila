@@ -35,7 +35,7 @@ class PgnDumpTest extends Specification {
     }
     "one move" in {
       val tree = root.copy(children = children(node(1, "e2e4", "e4")))
-      P.toTurns(tree) must beLike { case List(Turn(1, Some(move), None)) =>
+      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(move), None)) =>
         move.san must_== "e4"
         move.variations must beEmpty
       }
@@ -47,7 +47,7 @@ class PgnDumpTest extends Specification {
           node(1, "g1f3", "Nf3")
         )
       )
-      P.toTurns(tree) must beLike { case List(Turn(1, Some(move), None)) =>
+      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(move), None)) =>
         move.san must_== "e4"
         move.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
           move.san must_== "Nf3"
@@ -69,7 +69,7 @@ class PgnDumpTest extends Specification {
           node(1, "g1f3", "Nf3")
         )
       )
-      P.toTurns(tree) must beLike { case List(Turn(1, Some(white), Some(black))) =>
+      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(white), Some(black))) =>
         white.san must_== "e4"
         white.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
           move.san must_== "Nf3"
@@ -97,7 +97,7 @@ class PgnDumpTest extends Specification {
       P.toTurns(tree).mkString(" ").toString must_==
         "1. e4 (1. Nf3) 1... d5 (1... Nf6)"
 
-      P.toTurns(tree) must beLike { case List(Turn(1, Some(white), Some(black))) =>
+      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(white), Some(black))) =>
         white.san must_== "e4"
         white.variations must beLike { case List(List(Turn(1, Some(move), None))) =>
           move.san must_== "Nf3"
@@ -158,7 +158,7 @@ class PgnDumpTest extends Specification {
       P.toTurns(tree).mkString(" ").toString must_==
         "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
 
-      P.toTurns(tree) must beLike { case List(Turn(1, Some(w1), Some(b1)), Turn(2, Some(w2), None)) =>
+      P.toTurns(tree) must beLike { case Vector(Turn(1, Some(w1), Some(b1)), Turn(2, Some(w2), None)) =>
         w1.san must_== "e4"
         w1.variations must beLike { case List(List(Turn(1, Some(w), Some(b)))) =>
           w.san must_== "Nf3"

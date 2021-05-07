@@ -25,5 +25,5 @@ final class Env(
 
   val onlineIds = new OnlineIds(() => remoteSocket.onlineUserIds.get)
 
-  val isOnline = new IsOnline(userId => onlineIds() contains userId)
+  val isOnline = new IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
 }

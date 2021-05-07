@@ -24,6 +24,7 @@ case class SwissPairing(
   def whiteWins                   = status == Right(Some(Color.White))
   def blackWins                   = status == Right(Some(Color.Black))
   def isDraw                      = status == Right(None)
+  def strResultOf(color: Color)   = status.fold(_ => "*", _.fold("1/2")(c => if (c == color) "1" else "0"))
 }
 
 object SwissPairing {

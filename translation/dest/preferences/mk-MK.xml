@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Запишување на потезите</string>
   <string name="chessPieceSymbol">Симбол на фигурата</string>
   <string name="pgnLetter">Буква (K, Q, R, B, N)</string>
-  <string name="zenMode">Зен режим</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Зен режим</string>
   <string name="displayBoardResizeHandle">Прикажи ја рачката за промена на големината на таблата</string>
   <string name="onlyOnInitialPosition">Само на почетокот на партијата</string>
   <string name="blindfoldChess">Слеп шах (невидливи фигури)</string>
   <string name="chessClock">Шаховски часовник</string>
   <string name="tenthsOfSeconds">Стотинки</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Кога останатото време е &lt; 10 секунди</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Кога останатото време е &lt; 10 секунди</string>
   <string name="horizontalGreenProgressBars">Хоризонтална зелена линија за напредок</string>
   <string name="soundWhenTimeGetsCritical">Звук кога има преостанато малку време</string>
   <string name="giveMoreTime">Додај време</string>
-  <string name="gameBehavior">Начин на играње</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Начин на играње</string>
   <string name="howDoYouMovePieces">Како да ги движите фигурите?</string>
   <string name="clickTwoSquares">Кликни на двете полиња</string>
   <string name="dragPiece">Влечи ја фигурата</string>

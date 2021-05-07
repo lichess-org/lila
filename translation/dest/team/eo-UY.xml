@@ -12,9 +12,6 @@
   <string name="noTeamFound">Ne trovis teamon</string>
   <string name="joinTeam">Aliĝi al teamo</string>
   <string name="quitTeam">Eksiĝi de teamo</string>
-  <string name="anyoneCanJoin">Ĉiu ajn povas aliĝi</string>
-  <string name="aConfirmationIsRequiredToJoin">Necesas konfirmo por aliĝi</string>
-  <string name="joiningPolicy">Aliĝa politiko</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamestro</item>
     <item quantity="other">Teamestroj</item>

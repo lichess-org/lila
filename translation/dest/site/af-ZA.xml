@@ -9,6 +9,7 @@
   <string name="yourTurn">Jou beurt</string>
   <string name="aiNameLevelAiLevel">%1$s vlak %2$s</string>
   <string name="level">Vlak</string>
+  <string name="strength">Krag</string>
   <string name="toggleTheChat">Wissel klets</string>
   <string name="toggleSound">Wissel klank</string>
   <string name="chat">Klets</string>
@@ -37,7 +38,7 @@
     <item quantity="one">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekonde eis.</item>
     <item quantity="other">Jou opponent het die spel verlaat. Jy kan die oorwinning in %s sekondes eis.</item>
   </plurals>
-  <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
+  <string name="opponentLeftChoices">Ander speler het die spel verlaat. Jy kan ’n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Eis die oorwinning</string>
   <string name="forceDraw">Eis \'n gelykop</string>
@@ -48,7 +49,7 @@
   <string name="whiteLeftTheGame">Wit het die spel verlaat</string>
   <string name="blackLeftTheGame">Swart het die spel verlaat</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Deel die URL vir toeskouers</string>
-  <string name="theComputerAnalysisHasFailed">Die rekenaar analise het misluk</string>
+  <string name="theComputerAnalysisHasFailed">Die rekenaaranalise het misluk</string>
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar analise</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
   <string name="blunder">Flater</string>
-  <string name="blunders">Flaters</string>
   <string name="mistake">Fout</string>
-  <string name="mistakes">Foute</string>
   <string name="inaccuracy">Onakkuraatheid</string>
-  <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
   <string name="threefoldRepetition">Drie-malige herhaling</string>
@@ -199,13 +197,7 @@
     <item quantity="other">%s spelle teen jou</item>
   </plurals>
   <string name="cancel">Kanseleer</string>
-  <string name="whiteTimeOut">Wit tyd verstreke
- 
-witTydVerstreke
-
-Wys wanneer Wit se tyd uitgehardloop het. Dit word gevolg deur die eindvoorwaarde, byvoorbeeld
-\'Wit tyd verstreke · Gelykop\'
-Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
+  <string name="whiteTimeOut">Wit tyd verstreke</string>
   <string name="blackTimeOut">Swart time-out</string>
   <string name="drawOfferSent">Gelykop aanbod gestuur</string>
   <string name="drawOfferDeclined">Gelykop aanbod verwerp</string>
@@ -255,7 +247,6 @@ Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Inkrement in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
-  <string name="spectators">Toeskouers:</string>
   <plurals name="nbRated">
     <item quantity="one">%s gegradeer</item>
     <item quantity="other">%s gegradeer</item>
@@ -283,7 +274,6 @@ Leêr: Webwerf &amp; toep - mees belangrikste rye</string>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
   <string name="thisAccountViolatedTos">Hierdie rekening oortree die diensvoorwaardes van Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="openingExplorerAndTablebase">Opening ontdekker &amp; tafelbasis</string>
   <string name="takeback">Terug-vat</string>
   <string name="proposeATakeback">Stel terug-vat voor</string>
@@ -389,7 +379,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="more">Meer</string>
   <string name="memberSince">Lid sedert</string>
   <string name="lastSeenActive">Laas ingeteken %s</string>
-  <string name="challengeToPlay">Daag uit vir \'n spel</string>
   <string name="player">Speler</string>
   <string name="list">Lys</string>
   <string name="graph">Grafiek</string>
@@ -518,6 +507,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="clockInitialTime">Aanvanklike kloktyd</string>
   <string name="clockIncrement">Klok inkrement</string>
   <string name="privacy">Privaatheid</string>
+  <string name="privacyPolicy">Privaatheid Beleid</string>
   <string name="letOtherPlayersFollowYou">Laat toe dat ander spelers jou te volg</string>
   <string name="letOtherPlayersChallengeYou">Laat toe dat ander spelers jou uitdaag</string>
   <string name="letOtherPlayersInviteYouToStudy">Laat ander spelers toe om jou na studies te nooi</string>
@@ -663,6 +653,7 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">As jy nie die e-pos sien nie, kyk na ander plekke waar dit kan wees, soos jou gemorspos, sosiaal en ander leêrs.</string>
   <string name="weHaveSentYouAnEmailTo">Ons het \'n e-pos na %s gestuur. Klik die skakel in die e-pos om die wagwoord te herstel.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Deur te regisreer, stem jy in om aan ons %s gebonde te wees.</string>
+  <string name="readAboutOur">Lees oor ons %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerk lag tussen jou en Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tyd om ’n skuif op Lichess se bediener te verwerk</string>
   <string name="downloadAnnotated">Laai geannoteerde af</string>
@@ -741,7 +732,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.unknown">Oepsie</string>
   <string name="custom">Pasmaak</string>
   <string name="notifications">Kennisgewings</string>
-  <string name="challenges">Uitdagings</string>
   <string name="perfRatingX">Gradering: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekonde om die eerste skuif te speel</item>
@@ -788,12 +778,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middelspel</string>
   <string name="endgame">Eindspel</string>
-  <string name="registerToSendChallenges">Registreer asseblief om uitdagings te stuur.</string>
-  <string name="youCannotChallengeX">Jy kan nie %s uitdaag nie.</string>
-  <string name="xDoesNotAcceptChallenges">%s aanvaar nie uitdagings nie.</string>
-  <string name="yourXRatingIsTooFarFromY">Jou %1$s gradering is te ver van %2$s af.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan nie uitdaag nie aangesien jy \'n voorlopige %s gradering het.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s aanvaar net uitdagings van vriende af.</string>
   <string name="conditionalPremoves">Voorwaardelike voorafskuiwe</string>
   <string name="addCurrentVariation">Voeg huidige variasie by</string>
   <string name="playVariationToCreateConditionalPremoves">Speel \'n variasie om voorwaardige voorafskuiwe te skep</string>

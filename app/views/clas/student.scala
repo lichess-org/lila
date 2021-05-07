@@ -43,13 +43,6 @@ object student {
         s.student.managed option div(cls := "student-show__managed")(
           p(trans.clas.thisStudentAccountIsManaged()),
           div(cls := "student-show__managed__actions")(
-            postForm(action := routes.Clas.studentSetKid(clas.id.value, s.user.username, !s.user.kid))(
-              form3.submit(if (s.user.kid) trans.disableKidMode() else trans.enableKidMode(), icon = none)(
-                s.student.isArchived option disabled,
-                cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                title := trans.kidModeExplanation.txt()
-              )
-            ),
             postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
               form3.submit(trans.clas.resetPassword(), icon = none)(
                 s.student.isArchived option disabled,
@@ -255,7 +248,7 @@ object student {
     p(dataIcon := "", cls := "text")(
       s"Note that a class can have up to ${lila.clas.Clas.maxStudents} students.",
       "To manage more students, ",
-      a(href := routes.Clas.form())("create more classes"),
+      a(href := routes.Clas.form)("create more classes"),
       "."
     )
 

@@ -26,8 +26,8 @@
   <string name="approved">لقد تمت الموافقة على البث الخاص بك.</string>
   <string name="pendingReview">تتم حاليا مراجعة البث الخاص بك من قبل المشرفين.</string>
   <string name="pleaseFillIn">الرجاء ملء معلومات البث الخاصة بك، و قم برفع صورة.</string>
-  <string name="whenReady">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
-  <string name="requestReview">أطلب مراجعة مشرف</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">عندما تكون جاهزاً لتصبح ستريمر Lichess ، %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">أطلب مراجعة مشرف</string>
   <string name="anotherLanguage">إذا كنت تقوم بالبث بلغة غير الإنجليزية، قم بإدراج الوسم المناسب (%s) بين معقّفين وهذا في بداية عنوان البث الخاص بك.
 على سبيل المثال، تستطيع إدراج \"[AR]\" من أجل اللغة العربية، و \"[FR]\" من أجل الفرنسية، و \"[TR]\" من أجل التركية، إذا كان البث باللغة الإنجليزية فلا حاجة إلى إضافة الوسم.
 لا تقم بوضع الوسم في إعدادات بث Lichess الخاصة بك، بل قم بوضعه في عنوان البث الخاص باليوتيوب أو تويتش.</string>

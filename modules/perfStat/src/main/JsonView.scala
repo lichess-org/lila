@@ -23,6 +23,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   }
 
   implicit val ratingAtWrites                      = Json.writes[RatingAt]
+  implicit val gameAtWrites                        = Json.writes[GameAt]
   implicit val resultWrites                        = Json.writes[Result]
   implicit val resultsWrites                       = Json.writes[Results]
   implicit val streakWrites                        = Json.writes[Streak]

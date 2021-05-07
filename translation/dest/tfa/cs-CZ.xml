@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Dvoufázové ověření</string>
-  <string name="twoFactorHelp">Dvoufázové ověření do vašeho účtu přidává další vrstvu zabezpečení.</string>
+  <string name="twoFactorHelp">Dvoufázové ověření vašeho účtu přidává další vrstvu zabezpečení.</string>
   <string name="twoFactorApp">Stáhněte si aplikaci pro dvoufázové ověřování, například Google Authenticator pro %1$s nebo %2$s.</string>
   <string name="scanTheCode">Naskenujte QR kód pomocí aplikace.</string>
-  <string name="enterPassword">Zadejte své heslo a ověřovací kód vygenerovaný aplikací pro dokončení nastavení. Při každém přihlášení budete potřebovat ověřovací kód.</string>
+  <string name="enterPassword">Zadejte své heslo a ověřovací kód vygenerovaný aplikací pro dokončení nastavení. Při každém přihlášení budete potřebovat nový ověřovací kód.</string>
   <string name="ifYouCannotScanEnterX">Pokud nemůžete naskenovat kód, zadejte %s do vaší aplikace.</string>
   <string name="authenticationCode">Ověřovací kód</string>
   <string name="ifYouLoseAccess">Poznámka: Pokud ztratíte přístup k vašim dvoufázovým ověřovacím kódům, můžete provést resetování hesla e-mailem.</string>
@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Dvoufázové ověřování zapnuto</string>
   <string name="twoFactorDisable">Pro vypnutí dvoufázového ověřování potřebujete své heslo a ověřovací kód z Vaší ověřovací aplikace.
 Pokud jste ztratili přístup ke svým ověřovacím kódům, můžete také provést obnovení hesla e-mailem.</string>
+  <string name="openTwoFactorApp">Otevřete aplikaci pro dvoufázové ověřování na vašem zařízení a najděte svůj ověřovací kód.</string>
 </resources>

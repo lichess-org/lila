@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Najčastejšie otázky</string>
+  <string name="faqAbbreviation">Často kladené otázky</string>
   <string name="frequentlyAskedQuestions">Často Kladené Otázky</string>
   <string name="whyIsLichessCalledLichess">Prečo sa Lichess volá Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinácia slov live/light/libre a chess. Vyslovuje sa %1$s.</string>
@@ -12,14 +12,20 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess je poháňaný darmi od patrónov a úsilím tímu dobrovoľníkov.</string>
   <string name="findMoreAndSeeHowHelp">Viac informácii o %1$s (vrátane %2$s). Ak chcete pomôcť stránke Lichess, tým že ponúknete váš čas a zručnosti, existuje veľa %3$s.</string>
   <string name="beingAPatron">byť patrónom</string>
-  <string name="otherWaysToHelp">iIné možnosti ako pomôcť</string>
+  <string name="breakdownOfOurCosts">rozpis našich nákladov</string>
+  <string name="otherWaysToHelp">iné možnosti ako pomôcť</string>
   <string name="areThereWebsitesBasedOnLichess">Sú nejaké webstránky založené na Lichessi?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Áno. Lichess vskutku inšpiroval iné open-source stránky, ktoré používajú náš %1$s, %2$s, alebo %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie hodnotenia od podvodníkov?</string>
+  <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie ratingu od podvodníkov?</string>
+  <string name="ratingRefundExplanation">Jednu minútu po označení hráča sa zoberie jeho 40 hodnotených hier počas posledných troch dní. Ak ste v týchto hrách ich oponentom, stratili ste hodnotenie (kvôli prehre alebo remíze) a vaše hodnotenie nebolo predbežné, upraví sa váš rating. Úprava ratingu je obmedzená na základe vášho maximálneho hodnotenia a pokroku v hodnotení po skončení hry.
+(Napríklad, ak sa vaš rating po týchto hrách výrazne zvýšil, nemusí vám byť vrátený žiadnz alebo len časť.) Vrátenie nikdy nepresiahne 150 bodov.</string>
+  <string name="preventLeavingGameWithoutResigning">Čo sa robí s hráčmi, ktorí odchádzajú z hry bez rezignácie?</string>
+  <string name="leavingGameWithoutResigningExplanation">Ak váš súper často prerušuje / opúšťa hry, dostane \"herný ban\", čo znamená, že má dočasne zakázané hrať hry. Toto nie je verejne uvedené v ich profile. Ak toto správanie bude pokračovať, dĺžka herného banu sa zvýši - a dlhšie správanie tohto druhu môže viesť k uzavretiu účtu.</string>
   <string name="howCanIBecomeModerator">Ako sa môžem stať moderátorom?</string>
   <string name="youCannotApply">Není možné podať prihlášku pre pozíciu moderátora. Ak si všimneme niekoho o kom si myslíme, že by bol dobrým moderátorom, sami ho kontaktujeme.</string>
-  <string name="isCorrespondenceDifferent">Je korešpondenčný šach odlyšný od normálneho šachu?</string>
+  <string name="isCorrespondenceDifferent">Je korešpondenčný šach odlišný od normálneho šachu?</string>
+  <string name="youCanUseOpeningBookNoEngine">Pokiaľ ide o Lichess, hlavný rozdiel v pravidlách pre korešpondenčný šach spočíva v tom, že je povolená opening book. Používanie enginov je stále zakázané a bude mať za následok označenie pomoc s enginom. Aj keď ICCF umožňuje použitie enginu v korešpondencii, Lichess nie.</string>
   <string name="gameplay">Hrateľnosť</string>
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
   <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 
@@ -31,8 +37,29 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="lichessSupportChessAnd">Lichess podporuje štandardný šach a %1$s.</string>
   <string name="eightVariants">8 šachových variant</string>
   <string name="whatIsACPL">Čo je priemerná strata stotiny pešiaka (ACPL)?</string>
+  <string name="acplExplanation">Centipawn je merná jednotka použitá v šachu na vyjadrenie výhody. Centipawn sa rovná 1/100 pešiaka. Preto 100 centipawnov = 1 pešiak. Tieto hodnoty v hre nehrajú žiadnu formálnu úlohu, sú však užitočné pre hráčov a sú nevyhnutné v počítačových šachoch na hodnotenie pozícií.
+
+Hlavný ťah počítača stratí nula centipawnov, ale menšie pohyby povedú k zhoršeniu polohy, meranej na centipawnoch.
+
+Táto hodnota môže byť použitá ako indikátor kvality hry. Čím menej centipawnov človek stratí na ťah, tým je hra silnejšia.
+
+Počítačovú analýzu na serveri Lichess poskytuje server Stockfish.</string>
   <string name="insufficientMaterial">Prehra na čas, remíza a nedostatočný materiál</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Príručka FIDE %s</string>
+  <string name="lichessFollowFIDErules">V prípade, že jednému hráčovi dôjde čas, tento hráč obvykle prehrá. Hra je však remízovaná, ak je pozícia taká, že súper nemôže dať mat hráčovmu kráľovi žiadnou možnou sériou legálnych ťahov (%1$s).
+
+V zriedkavých prípadoch môže byť ťažké automaticky rozhodnúť (vynútené čiary, pevnosti). Štandardne vždy stojíme na strane hráča, ktorému nevypršal čas.
+
+Upozorňujeme, že je možné matovať s jedným jazdcom alebo strelcom, ak má protivník figúrku, ktorá by mohla kráľa zablokovať.</string>
+  <string name="fideHandbookX">Príručka FIDE %s</string>
+  <string name="discoveringEnPassant">Prečo môže pešiak vziať iného pešiaka, keď sa pohol? (en passant)</string>
+  <string name="explainingEnPassant">Toto je legálny ťah známy ako „en passant“. Článok na Wikipédii poskytuje %1$s
+
+Je to opísané v časti 3.7(d) z %2$s:
+
+„Pešiak, ktorý kontroluje pole s rovnakou pozíciou a na susednom poli súperovho pešiaka, ktorý práve postúpil o dve políčka v jednom ťahu z pôvodného štvorca, môže brať tohto súperovho pešiaka, akoby bol druhý presunutý iba o jedno políčko. Toto branie je legálne iba v ťahu nasledujúcom po tomto ťahu a nazýva sa ‘en passant’ branie mimochodom. “
+
+Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
+  <string name="goodIntroduction">dobrý úvod</string>
   <string name="officialRulesPDF">oficiálne pravidlá (PDF)</string>
   <string name="lichessTraining">Lichess tréning</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
@@ -42,24 +69,52 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="repeatedPositionsThatMatters">Trojnásobné opakovanie ťahov sa týka opakovania %1$s, nie ťahov. Opakovanie sa nemusí vyskytnúť hneď po sebe.</string>
   <string name="positions">pozície</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Zopakovali sme pozíciu trikrát. Prečo nebola partia vyhlásená za remízu?</string>
+  <string name="threeFoldHasToBeClaimed">Opakovanie musí požadovať jeden z hráčov. Môžete tak urobiť stlačením zobrazeného tlačidla, alebo ponúknutím remízy pred posledným opakujúcim sa ťahom. Nezáleží na tom, či váš súper odmietne ponuku remízy, trojnásobná opakovaná remíza bude rovnako uplatnená. Môžete tiež %1$s Lichess požiadať o automatické opakovania. Päťnásobné opakovanie navyše vždy okamžite ukončí hru.</string>
   <string name="configure">konfigurovať</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Aké tituly sú na Lichessi?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess rozpoznáva všetky tituly FIDE získané z hrania OTB (za šachovnicou), ako aj %1$s.. Tu je zoznam titulov FIDE:</string>
+  <string name="showYourTitle">337 / 5000
+Výsledky prekladov
+Ak máte titul OTB, môžete požiadať o jeho zobrazenie vo svojom účte vyplnením %1$ss vrátane jasného obrázka identifikačného dokumentu / karty a selfie, v ktorej držíte dokument / kartu.
+
+Overenie ako hráč s titulom na Lichess dáva prístup k hre na udalostiach s názvom Arena.
+
+Konečne je tu čestný %2$s titul.</string>
+  <string name="asWellAsManyNMtitles">veľa národných majstrovských titulov</string>
   <string name="verificationForm">overovací formulár</string>
   <string name="canIbecomeLM">Môžem získať Lichess majster (LM) titul?</string>
   <string name="noUpperCaseDot">Nie.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Tento čestný titul je neoficiálny a existuje iba pre Lichess.
+
+Zriedka ju podľa nášho uváženia udelíme vysoko pozoruhodným hráčom, ktorí sú dobrými členmi Lichess. Nezískate titul LM, titul LM sa dostane k vám. Ak sa kvalifikujete, dostanete od nás správu týkajúcu sa tejto informácie a možnosti prijať alebo odmietnuť.
+
+Nepýtajte si titul LM.</string>
   <string name="whatUsernameCanIchoose">Aké môže vyť moje používateľské meno?</string>
   <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
   <string name="guidelines">pokyny</string>
+  <string name="canIChangeMyUsername">Môžem si zmeniť svoje užívateľské meno?</string>
+  <string name="usernamesCannotBeChanged">Nie, užívateľské mená sa nemôžu meniť kvôli technickým a praktickým dôvodom. Užívateľské mená sú zhmotnené na príliš mnohých miestach: databázy, exporty, logy, a ľudské mysle. Môžete nastaviť veľkosť písmen jeden raz.</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
   <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
+  <string name="aHourlyBulletTournament">hodinový Bullet turnaj</string>
+  <string name="goldenZeeExplanation">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
   <string name="lichessRatings">Lichess ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
+  <string name="ratingSystemUsedByLichess">Ratingy sa počítajú pomocou hodnotiacej metódy Glicko-2 vyvinutej Markom Glickmanom. Toto je veľmi populárna metóda hodnotenia a používa ju veľké množstvo šachových organizácií (FIDE je pozoruhodný protiklad, pretože stále používa datovaný systém hodnotenia Elo).
+
+Hodnotenia Glicko zásadne používajú pri výpočte a reprezentácii vášho hodnotenia „intervaly spoľahlivosti“. Pri prvom použití stránky sa vaše hodnotenie začína na 1 500 ± 700. 1 500 predstavuje vaše hodnotenie a 700 predstavuje interval spoľahlivosti.
+
+Systém je v zásade 90% istý, že vaše hodnotenie je niekde medzi 800 a 2200. Je to neuveriteľne neisté. Z tohto dôvodu, keď hráč práve začína, jeho hodnotenie sa zmení veľmi dramaticky, potenciálne niekoľko stoviek bodov naraz. Ale po niektorých hrách proti zavedeným hráčom sa interval spoľahlivosti zúži a počet získaných / stratených bodov po každej hre sa zníži.
+
+Je potrebné poznamenať, že s pribúdajúcim časom sa bude interval spoľahlivosti zvyšovať. To vám umožní rýchlejšie získavať / strácať body, aby ste zodpovedali akýmkoľvek zmenám vo svojej úrovni schopností za ten čas.</string>
   <string name="whatIsProvisionalRating">Prečo má niekto otáznik (?) vedľa ratingu?</string>
   <string name="provisionalRatingExplanation">Otáznik znamená, že rating je provizórny. Je to spôsobené:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Hráč ešte nedokončil dostatočný počet hodnotených hier proti %1$s v kategórii ratingu.</string>
   <string name="similarOpponents">súperi podobnej sily</string>
+  <string name="notPlayedRecently">Hráč nehral dosť súčasných hier. V závislosti od počtu hier, ktoré ste hrali, môže trvať asi rok nečinnosti, kým sa vaše hodnotenie stane predbežným.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrétne to znamená, že odchýlka Glicko-2 je väčšia ako 110. Odchýlka je úroveň dôveryhodnosti systému v rating. Čím je odchýlka nižšia, tým je rating stabilnejší.</string>
   <string name="howDoLeaderoardsWork">Ako fungujú umiestnenia a rebríčky?</string>
   <string name="inOrderToAppearsYouMust">Aby ste sa dostali do %1$s, musíte:</string>
   <string name="ratingLeaderboards">ratingový rebríček</string>
@@ -69,8 +124,20 @@ Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</
   <string name="beInTopTen">byť v top 10 v tomto ratingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druhá požiadavka slúži aby hráči s neaktívnymi účtami nezaberali rebríčky.</string>
   <string name="whyAreRatingHigher">Prečo sú ratingy vyššie v porovnaním s inými stránkami a organizáciami ako FIDE, USCF a ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najlepšie je nepovažovať rating za absolútne čísla alebo ich porovnávať s inými organizáciami. Rôzne organizácie majú rozdielne úrovne hráčov, rôzne ratingove systémy (Elo, Glicko, Glicko-2 alebo upravená verzia vyššie uvedeného). Tieto faktory môžu drasticky ovplyvniť absolútne čísla (rating).
+
+Najlepšie je považovať rating za „relatívne“ čísla (na rozdiel od „absolútnych“): V skupine hráčov vám ich relatívne rozdiely v ratingu pomôžu odhadnúť, kto vyhrá / remizuje / prehrá a ako často. Povedať „Mám rating X“ nič neznamená, pokiaľ neexistujú ďalší hráči, s ktorými by bolo možné toto rating porovnať.</string>
   <string name="howToHideRatingWhilePlaying">Ako skryť ratingy počas partie?</string>
   <string name="enableZenMode">Povoľte Zen-mód v %1$s, alebo stlačením %2$s počas hry.</string>
+  <string name="displayPreferences">predvoľby zobrazenia</string>
   <string name="connexionLostCanIGetMyRatingBack">Prehral som hru kvôli lagu/odpojeniu. Môžem dostať ratingové body naspäť?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bohužiaľ nemôžeme vrátiť späť hodnotiace body za hry stratené v dôsledku oneskorenia alebo odpojenia bez ohľadu na to, či bol problém u vás, alebo u nás. To posledné je však veľmi zriedkavé. Upozorňujeme tiež, že keď sa Lichess reštartuje a vy kvôli tomu stratíte včas, hru prerušíme, aby sme zabránili nespravodlivej strate.</string>
   <string name="howToThreeDots">Ako...</string>
+  <string name="enableDisableNotificationPopUps">Povoliť alebo zakázať vyskakovacie okná s upozorneniami?</string>
+  <string name="viewSiteInformationPopUp">Zobraziť vyskakovacie okno s informáciami o webe</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess môže voliteľne posielať vyskakovacie oznámenia, napríklad keď ste na rade, alebo keď ste dostali súkromnú správu.
+
+Kliknite na ikonu zámku vedľa adresy lichess.org v paneli URL vášho prehliadača.
+
+Potom vyberte, či chcete povoliť alebo blokovať upozornenia od Lichess.</string>
 </resources>

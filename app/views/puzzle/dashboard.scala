@@ -3,10 +3,12 @@ package html.puzzle
 
 import controllers.routes
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
 import lila.puzzle.PuzzleDashboard
 import lila.puzzle.PuzzleTheme
 import lila.user.User
@@ -22,47 +24,58 @@ object dashboard {
     dashboardLayout(
       user = user,
       days = days,
-      path = "home",
+      path = "dashboard",
       title =
         if (ctx is user) "Puzzle dashboard"
         else s"${user.username} puzzle dashboard",
-      subtitle = "Let's see how good you've been doing",
-      dashOpt = dashOpt
-    ) { dash =>
-      frag(
-        div(cls := s"${baseClass}__global")(
-          metricsOf(days, PuzzleTheme.mix.key, dash.global)
-        ),
-        div(cls := s"${baseClass}__themes")(
-          div(cls := s"${baseClass}__themes__title")(
-          ),
-          themeSelection(days, dash.weakThemes)
-        ),
-        div(cls := s"${baseClass}__themes")(
-          div(cls := s"${baseClass}__themes__title")(
-            h2("Your strengths"),
-            if (dash.strongThemes.size >= PuzzleDashboard.topThemesNb)
-              p("Congratulations, you did really well in these puzzles!")
-            else
-              p("Play more puzzles to get a better analysis.")
-          ),
-          themeSelection(days, dash.strongThemes)
+      subtitle = "Train, analyse, improve",
+      dashOpt = dashOpt,
+      moreJs = dashOpt ?? { dash =>
+        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
+          PuzzleTheme(key).name.txt()
+        }
+        frag(
+          jsModule("puzzle.dashboard"),
+          embedJsUnsafeLoadThen(s"""LichessPuzzleDashboard.renderRadar(${safeJsonValue(
+            Json
+              .obj(
+                "radar" -> Json.obj(
+                  "labels" -> mostPlayed.map { case (key, _) =>
+                    PuzzleTheme(key).name.txt()
+                  },
+                  "datasets" -> Json.arr(
+                    Json.obj(
+                      "label" -> "Performance",
+                      "data" -> mostPlayed.map { case (_, results) =>
+                        results.performance
+                      }
+                    )
+                  )
+                )
+              )
+          )})""")
         )
-      )
+      }
+    ) { dash =>
+      dash.mostPlayed.size > 2 option
+        div(cls := s"${baseClass}__global")(
+          metricsOf(days, PuzzleTheme.mix.key, dash.global),
+          canvas(cls := s"${baseClass}__radar")
+        )
     }
 
-  def personalTraining(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
-      "personalTraining",
+      "improvementAreas",
       title =
-        if (ctx is user) "My personal training"
-        else s"${user.username} personal training",
+        if (ctx is user) trans.puzzle.improvementAreas.txt()
+        else s"${user.username} improvement areas",
       subtitle = "Train these to optimize your progress!",
       dashOpt = dashOpt
     ) { dash =>
-      themeSelection(days, dash.weakThemes)
+      dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
     }
 
   def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(implicit ctx: Context) =
@@ -71,12 +84,12 @@ object dashboard {
       days = days,
       "strengths",
       title =
-        if (ctx is user) "My puzzle strengths"
+        if (ctx is user) trans.puzzle.strengths.txt()
         else s"${user.username} puzzle strengths",
-      subtitle = "You perform the best in these themes:",
+      subtitle = "You perform the best in these themes",
       dashOpt = dashOpt
     ) { dash =>
-      themeSelection(days, dash.strongThemes)
+      dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)
     }
 
   private def dashboardLayout(
@@ -85,19 +98,21 @@ object dashboard {
       path: String,
       title: String,
       subtitle: String,
-      dashOpt: Option[PuzzleDashboard]
+      dashOpt: Option[PuzzleDashboard],
+      moreJs: Frag = emptyFrag
   )(
-      body: PuzzleDashboard => Frag
+      body: PuzzleDashboard => Option[Frag]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("puzzle.dashboard")
+      moreCss = cssTag("puzzle.dashboard"),
+      moreJs = moreJs
     )(
       main(cls := "page-menu")(
-        bits.pageMenu("dashboard"),
+        bits.pageMenu(path),
         div(cls := s"page-menu__content box box-pad $baseClass")(
           div(cls := "box__top")(
-            iconTag('-'),
+            // iconTag('-'),
             h1(
               title,
               strong(subtitle)
@@ -113,13 +128,10 @@ object dashboard {
               }
             )
           ),
-          dashOpt match {
-            case None =>
-              div(cls := s"${baseClass}__empty")(
-                a(href := routes.Puzzle.home())("Nothing to show, go play some puzzles first!")
-              )
-            case Some(dash) => body(dash)
-          }
+          dashOpt.flatMap(body) |
+            div(cls := s"${baseClass}__empty")(
+              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!")
+            )
         )
       )
     )

@@ -28,7 +28,11 @@ final class Cached(
   private val teamIdsCache = cacheApi.sync[User.ID, Team.IdsStr](
     name = "team.ids",
     initialCapacity = 65536,
-    compute = u => memberRepo.teamIdsByUser(u).dmap(ids => Team.IdsStr(ids take 100)),
+    compute = u =>
+      for {
+        teamIds <- memberRepo.teamIdsByUser(u)
+        enabled <- teamRepo.filterEnabled(teamIds take 100)
+      } yield Team.IdsStr(enabled),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterWrite(1 hour)

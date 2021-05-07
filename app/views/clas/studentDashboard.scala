@@ -10,8 +10,6 @@ import lila.user.User
 
 object studentDashboard {
 
-  import bits.{ dataSort, sortNumberTh }
-
   def apply(
       c: Clas,
       wall: Frag,
@@ -68,10 +66,10 @@ object studentDashboard {
     table(cls := "slist slist-pad sortable")(
       thead(
         tr(
-          th(attr("data-sort-default") := "1")(trans.clas.nbStudents(students.size)),
-          sortNumberTh(trans.rating()),
-          sortNumberTh(trans.games()),
-          sortNumberTh(trans.puzzles()),
+          th(dataSortDefault)(trans.clas.nbStudents(students.size)),
+          dataSortNumberTh(trans.rating()),
+          dataSortNumberTh(trans.games()),
+          dataSortNumberTh(trans.puzzles()),
           th
         )
       ),
@@ -107,8 +105,8 @@ object studentDashboard {
         a(
           dataIcon := "U",
           cls := List("button button-empty text" -> true, "disabled" -> !online),
-          title := trans.challengeToPlay.txt(),
-          href := online option s"${routes.Lobby.home()}?user=${user.username}#friend"
+          title := trans.challenge.challengeToPlay.txt(),
+          href := online option s"${routes.Lobby.home}?user=${user.username}#friend"
         )(trans.play())
       )
     }

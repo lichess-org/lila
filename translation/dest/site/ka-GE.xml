@@ -9,6 +9,7 @@
   <string name="yourTurn">თქვენი სვლაა</string>
   <string name="aiNameLevelAiLevel">%1$s, სირთულის დონე: %2$s</string>
   <string name="level">სირთულის დონე</string>
+  <string name="strength">თამაშის დონე</string>
   <string name="toggleTheChat">სასაუბროს გამოჩენა</string>
   <string name="toggleSound">ხმის ჩართვა</string>
   <string name="chat">სასაუბრო</string>
@@ -101,11 +102,8 @@
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="blunder">უხეში შეცდომა</string>
-  <string name="blunders">უხეში შეცდომები</string>
   <string name="mistake">შეცდომა</string>
-  <string name="mistakes">შეცდომები</string>
   <string name="inaccuracy">უზუსტობა</string>
-  <string name="inaccuracies">უზუსტობები</string>
   <string name="moveTimes">სვლის დრო</string>
   <string name="flipBoard">დაფის შემობრუნება</string>
   <string name="threefoldRepetition">სამჯერადი გამეორება</string>
@@ -224,7 +222,6 @@
   <string name="send">გაგზავნა</string>
   <string name="incrementInSeconds">ზრდა წამებში</string>
   <string name="freeOnlineChess">უფასო ონლაინ ჭადრაკი</string>
-  <string name="spectators">მაყურებლები</string>
   <plurals name="nbRated">
     <item quantity="one">%sრეიტინგული</item>
     <item quantity="other">%sრეიტინგული</item>
@@ -247,7 +244,6 @@
     <item quantity="one">მიეცით %s წამი</item>
     <item quantity="other">მიეცით %s წამი</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">აღნიშნული მოთამაშე ხელოვნურად ზრდის/ამცირებს საკუთარ რეიტინგს</string>
   <string name="openingExplorerAndTablebase">დებიუტის გზამკვლევი &amp; ცხრილ-ბაზა</string>
   <string name="takeback">სვლის დაბრუნება</string>
   <string name="proposeATakeback">სვლის დაბრუნების შეთავაზება</string>
@@ -335,7 +331,6 @@
   <string name="more">მეტი</string>
   <string name="memberSince">წევრია დან</string>
   <string name="lastSeenActive">ბოლო ვიზიტი %s</string>
-  <string name="challengeToPlay">გამოიწვიეთ სათამაშოდ</string>
   <string name="player">მოთამაშე</string>
   <string name="list">სია</string>
   <string name="graph">გრაფა</string>
@@ -623,7 +618,6 @@
   <string name="error.max">უნდა იყოს ნაკლები ან ტოლი %s_ზე</string>
   <string name="error.unknown">შეცდომა</string>
   <string name="notifications">შეტყობინებები</string>
-  <string name="challenges">გამოწვევები</string>
   <string name="perfRatingX">რეიტინგი: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s წამი პირველი სვლის სათამაშოდ</item>
@@ -652,6 +646,5 @@
     <item quantity="one">%s წამი</item>
     <item quantity="other">%s წამი</item>
   </plurals>
-  <string name="xDoesNotAcceptChallenges">%s არ იღებს გამოწვევებს.</string>
   <string name="conditionalPremoves">პირობითი წინასწარი სვლები</string>
 </resources>

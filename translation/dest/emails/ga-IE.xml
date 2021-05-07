@@ -2,22 +2,21 @@
 <resources>
   <string name="emailConfirm_subject">Deimhnigh do chuntas Lichess.org, %s</string>
   <string name="emailConfirm_click">Cliceáil an nasc chun do chuntas Lichess a chumasú:</string>
-  <string name="emailConfirm_ignore">Munar chláraigh tú le Lichess, is féidir neamhaird a thabhairt ar an teachtaireacht seo.</string>
-  <string name="passwordReset_subject">Athshocraigh do phasfhocal Lichess.org, %s</string>
+  <string name="emailConfirm_ignore">Murar chláraigh tú le Lichess, is féidir neamhaird a dhéanamh den teachtaireacht seo.</string>
+  <string name="passwordReset_subject">Athshocraigh do phasfhocal do Lichess.org, %s</string>
   <string name="passwordReset_intro">Fuair muid iarratas chun do phasfhocal a athshocrú.</string>
-  <string name="passwordReset_clickOrIgnore">Más rud é go ndearna tú an iarratas seo, Déan an nasc faoi bhun a chliceáil. Muna ndearna, tabhair neamhaird ar an ríomhphost seo.</string>
-  <string name="emailChange_subject">Deimhnigh an seoladh ríomhphost nua, %s</string>
-  <string name="emailChange_intro">D\'iarr tú do sheoladh ríomhphoist a athrú.</string>
-  <string name="emailChange_click">Chun a dheimhniú go bhfuil rochtain agat ar an seoladh ríomhphoist seo, cliceáil ar an nasc thíos:</string>
+  <string name="passwordReset_clickOrIgnore">Más rud é go ndearna tú an t-iarratas seo, déan an nasc thíos a chliceáil. Muna ndearna, tabhair neamhaird ar an ríomhphost seo.</string>
+  <string name="emailChange_subject">Deimhnigh seoladh ríomhphoist nua, %s</string>
+  <string name="emailChange_intro">Rinne tú iarratas le do sheoladh ríomhphoist a athrú.</string>
+  <string name="emailChange_click">Le deimhniú go bhfuil rochtain agat ar an seoladh ríomhphoist seo, cliceáil ar an nasc thíos:</string>
   <string name="welcome_subject">Fáilte go Lichess.org %s</string>
-  <string name="welcome_text">Chruthaigh tú do chuntas go rathúil ar Https://Lichess.org.
+  <string name="welcome_text">Chruthaigh tú do chuntas go rathúil ar https://lichess.org.
 
-Seo do leathanach próifíle:
-%1$s. Féadtar é a chur in eagar ar %2$s
+Seo do leathanach próifíle: %1$s. Is féidir leat é a phearsanú ar %2$s
 
-Bíodh spraoi agat, agus beidh do phíosaí teacht i gcónaí ar a mbealach chuig do opponents rí!</string>
+Bain sult as, agus go ndéanfaidh do phíosaí a mbealach chuig rí do chéile comhraic i gcónaí!</string>
   <string name="logInToLichess">Logáil isteach go lichess.org %s</string>
-  <string name="common_orPaste">(Cliceáil gan obair? Bain triail as é a chur isteach i do bhrabhsálaí!)</string>
-  <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid %s.</string>
+  <string name="common_orPaste">(Nach n-oibríonn cliceáil? Bain triail as é a chur i do bhrabhsálaí!)</string>
+  <string name="common_note">Is ríomhphost seirbhíse é seo a bhaineann le d\'úsáid de %s.</string>
   <string name="common_contact">Chun teagmháil a dhéanamh linn, bain úsáid as %s.</string>
 </resources>

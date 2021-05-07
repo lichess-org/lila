@@ -40,4 +40,9 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
   <string name="drawStreak">Serie de remize consecutive: Când un jucător are remize consecutive într-un turneu de tip arenă, numai prima remiză este punctată, sau remize în partide care au mai mult de %s mutări. Seria de remize poate fi întreruptă doar de o victorie, nu de o înfrângere sau remiză.</string>
   <string name="history">Istoricul turneelor de tip arenă</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Vezi echipa</item>
+    <item quantity="few">Vezi toate cele %s echipe</item>
+    <item quantity="other">Vezi toate cele %s de echipe</item>
+  </plurals>
 </resources>

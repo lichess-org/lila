@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Legkaarte</string>
+  <string name="puzzleThemes">Kopkrapper temas</string>
   <string name="recommended">Aanbeveel</string>
   <string name="phases">Fases</string>
   <string name="motifs">Redes</string>
   <string name="advanced">Gevorderd</string>
   <string name="lengths">Lengtes</string>
-  <string name="mates">Maats</string>
+  <string name="mates">Matte</string>
   <string name="goals">Doelwitte</string>
+  <string name="origin">Oorsprong</string>
   <string name="specialMoves">Spesiale bewegings</string>
   <string name="didYouLikeThisPuzzle">Hou jy van hierdie legkaart?</string>
   <string name="voteToLoadNextOne">Stem om die volgende een te laai!</string>
@@ -37,8 +39,15 @@
   <string name="normal">Normaal</string>
   <string name="easier">Makliker</string>
   <string name="easiest">Maklikste</string>
-  <string name="harder">Harder</string>
+  <string name="harder">Moeiliker</string>
   <string name="hardest">Moeilikste</string>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog \'n tema by</string>
+  <string name="jumpToNextPuzzleImmediately">Spring onmiddellik na die volgende kopkrapper</string>
+  <string name="puzzleDashboard">Kopkrapper paneelbord</string>
+  <string name="improvementAreas">Areas van verbetering</string>
+  <string name="strengths">Sterkpunte</string>
+  <string name="history">Kopkrapper geskiedenis</string>
+  <string name="solved">opgelos</string>
+  <string name="failed">gefaal</string>
 </resources>

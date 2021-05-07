@@ -22,7 +22,7 @@ sealed trait RootOrNode {
   val score: Option[Score]
   def addChild(node: Node): RootOrNode
   def fullMoveNumber = 1 + ply / 2
-  def mainline: List[Node]
+  def mainline: Vector[Node]
   def color = chess.Color.fromPly(ply)
   def moveOption: Option[Uci.WithSan]
 }
@@ -70,7 +70,7 @@ case class Node(
 
   def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
 
-  def mainline: List[Node] = this :: children.first.??(_.mainline)
+  def mainline: Vector[Node] = this +: children.first.??(_.mainline)
 
   def updateMainlineLast(f: Node => Node): Node =
     children.first.fold(f(this)) { main =>
@@ -120,10 +120,11 @@ object Node {
         case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
       }
 
-    def nodesOn(path: Path): List[(Node, Path)] =
+    // select all nodes on that path
+    def nodesOn(path: Path): Vector[(Node, Path)] =
       path.split ?? { case (head, tail) =>
         get(head) ?? { first =>
-          (first, Path(List(head))) :: first.children.nodesOn(tail).map { case (n, p) =>
+          (first, Path(Vector(head))) +: first.children.nodesOn(tail).map { case (n, p) =>
             (n, p prepend head)
           }
         }
@@ -216,14 +217,6 @@ object Node {
         case x => x
       })
 
-    // List(0, 0, 1, 0, 2)
-    def pathToIndexes(path: Path): Option[List[Int]] =
-      path.split.fold(List.empty[Int].some) { case (head, tail) =>
-        getNodeAndIndex(head) flatMap { case (node, index) =>
-          node.children.pathToIndexes(tail).map(rest => index :: rest)
-        }
-      }
-
     def countRecursive: Int =
       nodes.foldLeft(nodes.size) { case (count, n) =>
         count + n.children.countRecursive
@@ -302,7 +295,7 @@ object Node {
         copy(children = children.update(main updateMainlineLast f))
       }
 
-    lazy val mainline: List[Node] = children.first.??(_.mainline)
+    lazy val mainline: Vector[Node] = children.first.??(_.mainline)
 
     def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
 
@@ -363,4 +356,21 @@ object Node {
       children = Children(b.children.view.map(fromBranch).toVector),
       forceVariation = false
     )
+
+  object BsonFields {
+    val ply            = "p"
+    val uci            = "u"
+    val san            = "s"
+    val fen            = "f"
+    val check          = "c"
+    val shapes         = "h"
+    val comments       = "co"
+    val gamebook       = "ga"
+    val glyphs         = "g"
+    val score          = "e"
+    val clock          = "l"
+    val crazy          = "z"
+    val forceVariation = "fv"
+    val order          = "o"
+  }
 }

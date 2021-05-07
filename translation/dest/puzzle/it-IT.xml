@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Rompicapi</string>
-  <string name="puzzleThemes">Giochi Puzzle</string>
+  <string name="puzzles">Tattiche</string>
+  <string name="puzzleThemes">Temi tattici</string>
   <string name="recommended">Consigliati</string>
   <string name="phases">Fasi</string>
   <string name="motifs">Temi</string>
-  <string name="advanced">Avanzate</string>
-  <string name="lengths">Lunghezze</string>
-  <string name="mates">Compagni</string>
-  <string name="goals">Scopi</string>
+  <string name="advanced">Avanzati</string>
+  <string name="lengths">Per lunghezza</string>
+  <string name="mates">Matti</string>
+  <string name="goals">Per obiettivo</string>
+  <string name="origin">Per fonte</string>
   <string name="specialMoves">Mosse speciali</string>
-  <string name="didYouLikeThisPuzzle">Ti è piaciuto questo rompicapo?</string>
-  <string name="voteToLoadNextOne">Vota per caricare il prossimo!</string>
+  <string name="didYouLikeThisPuzzle">Ti è piaciuta questa tattica?</string>
+  <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>
   <string name="yourPuzzleRatingX">Il tuo punteggio nelle tattiche: %s</string>
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
-  <string name="toGetPersonalizedPuzzles">Per ottenere rompicapi personalizzati:</string>
-  <string name="puzzleId">Rompicapo %s</string>
-  <string name="puzzleOfTheDay">Rompicapo del giorno</string>
-  <string name="clickToSolve">Clicca per risolvere</string>
-  <string name="goodMove">Bella mossa</string>
-  <string name="bestMove">Migliore mossa!</string>
+  <string name="toGetPersonalizedPuzzles">Per ottenere tattiche personalizzate:</string>
+  <string name="puzzleId">Problema %s</string>
+  <string name="puzzleOfTheDay">Tattica del giorno</string>
+  <string name="clickToSolve">Clicca per vedere la soluzione</string>
+  <string name="goodMove">Buona mossa</string>
+  <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua così…</string>
   <string name="puzzleSuccess">Risolto!</string>
-  <string name="puzzleComplete">Rompicapo completato!</string>
+  <string name="puzzleComplete">Tattica risolta!</string>
   <string name="notTheMove">La mossa non è questa!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
   <string name="ratingX">Punteggio: %s</string>
@@ -33,14 +34,33 @@
     <item quantity="other">Giocato %s volte</item>
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>
-  <string name="continueTraining">Continua l\'allenamento</string>
+  <string name="continueTraining">Continua ad allenarti</string>
   <string name="difficultyLevel">Livello di difficoltà</string>
   <string name="normal">Normale</string>
   <string name="easier">Facile</string>
   <string name="easiest">Facilissimo</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">On punto sotto al tuo rating puzzle</item>
+    <item quantity="other">%s punti al di sotto del tuo rating puzzle</item>
+  </plurals>
   <string name="harder">Difficile</string>
   <string name="hardest">Difficilissimo</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto al di sopra del tuo rating puzzle</item>
+    <item quantity="other">%s punti al di sopra del tuo rating puzzle</item>
+  </plurals>
   <string name="example">Esempio</string>
   <string name="addAnotherTheme">Aggiungi un altro tema</string>
-  <string name="jumpToNextPuzzleImmediately">Salta immediatamente al prossimo rompicapo</string>
+  <string name="jumpToNextPuzzleImmediately">Passa subito alla tattica successiva</string>
+  <string name="puzzleDashboard">Pagina dei puzzle</string>
+  <string name="improvementAreas">Aree di miglioramento</string>
+  <string name="strengths">Punti di forza</string>
+  <string name="history">Cronologia dei puzzle</string>
+  <string name="solved">risolta</string>
+  <string name="failed">sbagliato</string>
+  <string name="streakDescription">Risolvi tattiche progressivamente più difficili e accumula una serie di soluzioni corrette. Non c\'è orologio, quindi fai con calma. Appena fai una mossa sbagliata è finita! Però puoi saltare una mossa per sessione.</string>
+  <string name="yourStreakX">Punteggio: %s</string>
+  <string name="streakSkipExplanation">Salta questa mossa per mantenere il punteggio! È possibile farlo solo una volta per sessione.</string>
+  <string name="continueTheStreak">Continua</string>
+  <string name="newStreak">Nuova sessione</string>
 </resources>

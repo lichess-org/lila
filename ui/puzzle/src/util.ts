@@ -1,16 +1,20 @@
-import { Hooks } from 'snabbdom/hooks';
+import { Hooks } from 'snabbdom';
 
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void): void {
+export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
   for (const mousedownEvent of ['touchstart', 'mousedown']) {
-    el.addEventListener(mousedownEvent, e => {
-      f(e);
-      e.preventDefault();
-      if (redraw) redraw();
-    }, { passive: false });
+    el.addEventListener(
+      mousedownEvent,
+      e => {
+        f(e);
+        e.preventDefault();
+        if (redraw) redraw();
+      },
+      { passive: false }
+    );
   }
 }
 
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+export function bind(eventName: string, f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return onInsert(el =>
     el.addEventListener(eventName, e => {
       const res = f(e);
@@ -22,12 +26,10 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
 
 export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
   return {
-    insert: vnode => f(vnode.elm as A)
+    insert: vnode => f(vnode.elm as A),
   };
 }
 
-export function dataIcon(icon: string) {
-  return {
-    'data-icon': icon
-  };
-}
+export const dataIcon = (icon: string) => ({
+  'data-icon': icon,
+});

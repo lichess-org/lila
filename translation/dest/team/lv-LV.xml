@@ -13,16 +13,15 @@
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
   <string name="quitTeam">Pamest komandu</string>
-  <string name="anyoneCanJoin">Jebkurš var pievienoties</string>
-  <string name="aConfirmationIsRequiredToJoin">Lai pievienotos, nepieciešams apstiprinājums</string>
-  <string name="joiningPolicy">Pievienošanās noteikumi</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Izskatīt katru pievienošanās pieprasījumu</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Ja iespējosiet, spēlētājiem būs jāiesniedz pieprasījums pievienoties komandai, kuru jūs varat noraidīt vai pieņemt.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">Komandas vadītāji</item>
     <item quantity="one">Komandas vadītājs</item>
     <item quantity="other">Komandas vadītāji</item>
   </plurals>
   <string name="teamBestPlayers">Labākie spēlētāji</string>
-  <string name="teamRecentMembers">Komandas bijušie dalībnieki</string>
+  <string name="teamRecentMembers">Jaunākie dalībnieki</string>
   <string name="kickSomeone">Izmest kādu no komandas</string>
   <string name="whoToKick">Kuru vēlaties izmest no komandas?</string>
   <plurals name="xJoinRequests">
@@ -47,4 +46,8 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="leadersChat">Vadītāju sarakste</string>
   <string name="closeTeam">Slēgt komandu</string>
   <string name="closeTeamDescription">Uz visiem laikiem slēdz komandu.</string>
+  <string name="teamPassword">Komandas parole</string>
+  <string name="teamPasswordDescriptionForLeader">(Neobligāta) Parole, kas jauniem dalībniekiem jāzina, lai pievienotos komandai.</string>
+  <string name="incorrectTeamPassword">Nepareiza komandas parole.</string>
+  <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
 </resources>

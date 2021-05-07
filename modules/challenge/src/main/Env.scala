@@ -15,12 +15,14 @@ final class Env(
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     isOnline: lila.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
+    msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -30,10 +32,12 @@ final class Env(
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 
+  private val colls = wire[ChallengeColls]
+
   def version(challengeId: Challenge.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](challengeId)(GetVersion)
 
-  private lazy val joiner = wire[Joiner]
+  private lazy val joiner = wire[ChallengeJoiner]
 
   lazy val maker = wire[ChallengeMaker]
 
@@ -43,14 +47,26 @@ final class Env(
 
   lazy val granter = wire[ChallengeGranter]
 
-  private lazy val repo = new ChallengeRepo(
-    coll = db(CollName("challenge")),
-    maxPerUser = maxPlaying
-  )
+  private lazy val repo = wire[ChallengeRepo]
 
   lazy val jsonView = wire[JsonView]
 
-  system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) { () =>
+  lazy val bulk = wire[ChallengeBulkApi]
+
+  lazy val msg = wire[ChallengeMsg]
+
+  val forms = new ChallengeForm
+
+  system.scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis) { () =>
     api.sweep.unit
   }
+
+  system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis) { () =>
+    bulk.tick.unit
+  }
+}
+
+private class ChallengeColls(db: lila.db.Db) {
+  val challenge = db(CollName("challenge"))
+  val bulk      = db(CollName("challenge_bulk"))
 }

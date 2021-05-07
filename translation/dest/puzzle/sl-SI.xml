@@ -9,10 +9,45 @@
   <string name="lengths">Dolžine</string>
   <string name="mates">Mati</string>
   <string name="goals">Cilji</string>
+  <string name="origin">Izvor</string>
   <string name="didYouLikeThisPuzzle">Ali ti je všeč šahovski problem?</string>
   <string name="voteToLoadNextOne">Glasujte za nalaganje naslednjega!</string>
   <string name="yourPuzzleRatingX">Tvoj rating pri reševanju šahovskih problemov: %s</string>
   <string name="findTheBestMoveForWhite">Poišči najboljšo potezo za belega.</string>
   <string name="findTheBestMoveForBlack">Poišči najboljšo potezo za črnega.</string>
+  <string name="puzzleOfTheDay">Uganka dneva</string>
+  <string name="goodMove">Dobra poteza</string>
+  <string name="bestMove">Najboljša poteza!</string>
+  <string name="keepGoing">Nadaljuj…</string>
+  <string name="puzzleSuccess">Prenos uspešen!</string>
+  <string name="puzzleComplete">Uganka rešena!</string>
+  <string name="notTheMove">To ni pravilna poteza!</string>
+  <string name="trySomethingElse">Poskusite kakšno drugo potezo.</string>
+  <string name="ratingX">Uvrstitev: %s</string>
+  <string name="hidden">skrit</string>
+  <string name="continueTraining">Nadaljuj z reševanjem</string>
+  <string name="difficultyLevel">Stopnja težavnosti</string>
+  <string name="normal">Običajno</string>
+  <string name="easier">Lažje</string>
+  <string name="easiest">Najlažje</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ena točka pod ratingom uganke</item>
+    <item quantity="two">%s točki pod ratingom uganke</item>
+    <item quantity="few">%s točke pod ratingom uganke</item>
+    <item quantity="other">%s točk pod ratingom uganke</item>
+  </plurals>
+  <string name="harder">Težje</string>
+  <string name="hardest">Najtežje</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ena točka nad ratingom uganke</item>
+    <item quantity="two">%s točki nad ratingom uganke</item>
+    <item quantity="few">%s točke nad ratingom uganke</item>
+    <item quantity="other">%s točk nad ratingom uganke</item>
+  </plurals>
   <string name="jumpToNextPuzzleImmediately">Takoj skočite k naslednji uganki</string>
+  <string name="puzzleDashboard">Nadzorna plošča za uganke</string>
+  <string name="strengths">Prednosti</string>
+  <string name="history">Zgodovina ugank</string>
+  <string name="solved">rešeno</string>
+  <string name="failed">neuspešno</string>
 </resources>

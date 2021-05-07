@@ -21,20 +21,22 @@ final class SwissForm(implicit mode: Mode) {
         "name" -> optional(eventName(2, 30)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
-          "increment" -> number(min = 0, max = 600)
+          "increment" -> number(min = 0, max = 120)
         )(ClockConfig.apply)(ClockConfig.unapply)
           .verifying("Invalid clock", _.estimateTotalSeconds > 0),
-        "startsAt"      -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "variant"       -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
-        "rated"         -> optional(boolean),
-        "nbRounds"      -> number(min = minRounds, max = 100),
-        "description"   -> optional(clean(nonEmptyText)),
-        "position"      -> optional(lila.common.Form.fen.playableStrict),
-        "chatFor"       -> optional(numberIn(chatForChoices.map(_._1))),
-        "roundInterval" -> optional(numberIn(roundIntervals)),
-        "password"      -> optional(clean(nonEmptyText)),
-        "conditions"    -> SwissCondition.DataForm.all
+        "startsAt"          -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
+        "variant"           -> optional(nonEmptyText.verifying(v => Variant(v).isDefined)),
+        "rated"             -> optional(boolean),
+        "nbRounds"          -> number(min = minRounds, max = 100),
+        "description"       -> optional(cleanNonEmptyText),
+        "position"          -> optional(lila.common.Form.fen.playableStrict),
+        "chatFor"           -> optional(numberIn(chatForChoices.map(_._1))),
+        "roundInterval"     -> optional(numberIn(roundIntervals)),
+        "password"          -> optional(cleanNonEmptyText),
+        "conditions"        -> SwissCondition.DataForm.all,
+        "forbiddenPairings" -> optional(cleanNonEmptyText)
       )(SwissData.apply)(SwissData.unapply)
+        .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 
   def create =
@@ -52,7 +54,8 @@ final class SwissForm(implicit mode: Mode) {
       chatFor = Swiss.ChatFor.default.some,
       roundInterval = Swiss.RoundInterval.auto.some,
       password = None,
-      conditions = SwissCondition.DataForm.AllSetup.default
+      conditions = SwissCondition.DataForm.AllSetup.default,
+      forbiddenPairings = none
     )
 
   def edit(s: Swiss) =
@@ -68,7 +71,8 @@ final class SwissForm(implicit mode: Mode) {
       chatFor = s.settings.chatFor.some,
       roundInterval = s.settings.roundInterval.toSeconds.toInt.some,
       password = s.settings.password,
-      conditions = SwissCondition.DataForm.AllSetup(s.settings.conditions)
+      conditions = SwissCondition.DataForm.AllSetup(s.settings.conditions),
+      forbiddenPairings = s.settings.forbiddenPairings.some.filter(_.nonEmpty)
     )
 
   def nextRound =
@@ -144,7 +148,8 @@ object SwissForm {
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],
-      conditions: SwissCondition.DataForm.AllSetup
+      conditions: SwissCondition.DataForm.AllSetup,
+      forbiddenPairings: Option[String]
   ) {
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
@@ -165,5 +170,10 @@ object SwissForm {
       }
     }.seconds
     def realPosition = position ifTrue realVariant.standard
+
+    def isRated = rated | true
+    def validRatedVariant =
+      !isRated ||
+        lila.game.Game.allowRated(realVariant, clock.some)
   }
 }

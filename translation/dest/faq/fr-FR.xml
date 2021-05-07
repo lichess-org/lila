@@ -9,16 +9,14 @@
   <string name="whyLiveLightLibre">Live, parce que les jeux sont joués et regardés en temps réel 24 heures sur 24 et 7 jours sur 7 ; light et libre, parce que Lichess est un logiciel libre et non encombré par des logiciels malveillants qui affligent d\'autres sites web.</string>
   <string name="whyIsLilaCalledLila">De même, le code source de Lichess, %1$s, signifie li[chess in sca]la, étant donné que la majeure partie de Lichess est écrite en %2$s, un langage de programmation intuitif.</string>
   <string name="howCanIContributeToLichess">Comment puis-je contribuer à Lichess ?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est alimenté par les dons de mécènes et les efforts d\'une équipe de bénévoles.</string>
-  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur les %1$s (dont un %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreux %3$s.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess est financée par des dons de mécènes et maintenue par une équipe de bénévoles.</string>
+  <string name="findMoreAndSeeHowHelp">Vous pouvez en savoir plus sur comment %1$s (dont une %2$s). Si vous souhaitez aider Lichess en offrant votre temps et vos compétences, il existe de nombreuses %3$s.</string>
   <string name="beingAPatron">devenir un mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres façons d\'aider</string>
   <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3$s.</string>
   <string name="fairPlay">Le fair-play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Pourquoi suis-je signalé pour une manipulation artificielle du classement (défaites intentionnelles ou augmentation artificielle) ou pour assistance informatique ?</string>
-  <string name="cheatDetectionMethods">Lichess dispose de solides méthodes de détection et d\'un processus très complet pour examiner toutes les preuves et prendre une décision. Le processus implique souvent de nombreux modérateurs et peut prendre beaucoup de temps. À part la marque elle-même, nous n\'entrerons pas dans les détails des preuves ou du processus de décision pour les cas individuels. Cela permettrait d\'éviter plus facilement la détection à l\'avenir, et serait une invitation à des débats improductifs. Ce temps et ces efforts seraient mieux utilisés pour d\'autres affaires importantes. Les utilisateurs peuvent faire appel en envoyant un courriel à %1$s, mais les décisions sont rarement annulées.</string>
   <string name="whenAmIEligibleRatinRefund">Quand puis-je bénéficier du remboursement automatique de points de classement perdus contre des tricheurs ?</string>
   <string name="ratingRefundExplanation">Une minute après qu\'un joueur a été reconnu comme tricheur, ses 40 derniers jeux classés au cours des 3 derniers jours sont pris. Si vous êtes son adversaire dans ces parties, que vous avez perdu votre classement (en raison d\'une perte ou d\'un match nul) et que votre classement n\'était pas provisoire, vous obtenez un remboursement de votre classement. Le remboursement est plafonné en fonction de votre meilleur classement et de la progression de votre classement après le match.
   (Par exemple, si votre classement a fortement augmenté après ces matchs, vous pourriez ne pas être remboursé ou ne l\'être que partiellement). Un remboursement n\'excédera jamais 150 points.</string>
@@ -38,7 +36,7 @@ Par exemple, la durée estimée d\'un jeu 5+3 est de 5 × 60 + 40 × 3 = 420 sec
   <string name="whatVariantsCanIplay">Quelles variantes puis-je jouer sur Lichess ?</string>
   <string name="lichessSupportChessAnd">Lichess propose des échecs standards et des %1$s.</string>
   <string name="eightVariants">8 variantes d\'échecs</string>
-  <string name="whatIsACPL">Quelle est la perte moyenne de centipions (ACPL) ?</string>
+  <string name="whatIsACPL">Qu\'est-ce que la perte moyenne de centipion (ACPL) ?</string>
   <string name="acplExplanation">Le centipion est l\'unité de mesure utilisée aux échecs comme représentation de l\'avantage. Un centipion est égal à 1/100ème d\'un pion. Donc 100 centipions = 1 pion. Ces valeurs ne jouent aucun rôle formel dans le jeu mais sont utiles aux joueurs, et essentielles aux échecs informatiques, pour évaluer les positions.
 
 Le coup le plus élevé de l\'ordinateur perdra zéro centipion, mais des coups moins importants entraîneront une détérioration de la position, mesurée en centipions.
@@ -52,9 +50,9 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">manuel de la FIDE %s</string>
-  <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (en passant)</string>
-  <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"en passant\". L\'article de Wikipedia donne un %1$s.
+  <string name="fideHandbookX">manuel de la FIDE %s</string>
+  <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
+  <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
 
 Il est décrit dans la section 3.7 (d) des %2$s :
 
@@ -93,6 +91,8 @@ Ne demandez pas le titre de LM.</string>
   <string name="whatUsernameCanIchoose">Que peut être mon nom d\'utilisateur ?</string>
   <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurpant l\'identité de quelqu\'un d\'autre, ou publicitaires. Vous pouvez en savoir plus sur les %1$s.</string>
   <string name="guidelines">lignes directrices</string>
+  <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur?</string>
+  <string name="usernamesCannotBeChanged">Non, les noms d\'utilisateur ne peuvent pas être modifiés pour des raisons techniques et pratiques, entre autres parce qu\'ils sont à beaucoup d\'endroits : bases de données, exportations, logs et esprit des gens. Vous pouvez modifier les majuscules une fois.</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
   <string name="wayOfBerserkExplanation">Pour l\'obtenir, hiimgosu s\'est mis au défi de gagner en berserk 100%% des parties d\'%s.</string>
@@ -100,16 +100,16 @@ Ne demandez pas le titre de LM.</string>
   <string name="goldenZeeExplanation">ZugAddict était en train de streamer et cela depuis deux heures il essayait de vaincre l\'Ia de niveau 8 en partie 1+0, sans succès. Thibault lui dit qu\'en cas de victoire, il lui attribuerait un trophée unique. Une heure plus tard, il démolissait Stockfish, et la promesse fut tenue.</string>
   <string name="lichessRatings">Classements de Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Quel système de classement utilise Lichess ?</string>
-  <string name="ratingSystemUsedByLichess">Les notations sont calculées selon la méthode de notation Glicko-2 développée par Mark Glickman. Il s\'agit d\'une méthode de notation très populaire, utilisée par un nombre important d\'organisations d\'échecs (la FIDE en est un contre-exemple notable, car elles utilisent toujours le système de notation Elo, qui est dépassé).
+  <string name="ratingSystemUsedByLichess">Les classements sont calculés selon la méthode de classement Glicko-2 développée par Mark Glickman. Il s\'agit d\'une méthode de classement très populaire, utilisée par un nombre important d\'organisations d\'échecs (la FIDE en est un contre-exemple notable, car elles utilisent toujours le système de classement Elo, qui est dépassé).
 
-Fondamentalement, les notations Glicko utilisent des \"intervalles de confiance\" pour calculer et représenter votre notation. Lorsque vous commencez à utiliser le site, votre cote commence à 1500 ± 700. Le 1500 représente votre note, et le 700 représente l\'intervalle de confiance.
+Fondamentalement, les classements Glicko utilisent des \"intervalles de confiance\" pour calculer et représenter votre classement. Lorsque vous commencez à utiliser le site, votre cote commence à 1500 ± 700. Le 1500 représente votre classement, et le 700 représente l\'intervalle de confiance.
 
-Fondamentalement, le système est sûr à 90 % que votre note se situe entre 800 et 2200. Il est incroyablement incertain. C\'est pourquoi, lorsqu\'un joueur débute, sa cote change de façon très importante, potentiellement de plusieurs centaines de points à la fois. Mais après quelques matchs contre des joueurs établis, l\'intervalle de confiance se réduit et le nombre de points gagnés/perdus après chaque match diminue.
+Fondamentalement, le système est sûr à 90 % que votre cote se situe entre 800 et 2200. Il est incroyablement incertain. C\'est pourquoi, lorsqu\'un joueur débute, sa cote change de façon très importante, potentiellement de plusieurs centaines de points à la fois. Mais après quelques parties contre des joueurs établis, l\'intervalle de confiance se réduit et le nombre de points gagnés/perdus après chaque match diminue.
 
 Il faut également noter que l\'intervalle de confiance augmente avec le temps. Cela vous permet de gagner/perdre des points plus rapidement pour correspondre à tout changement de votre niveau de compétence au cours de cette période.</string>
   <string name="whatIsProvisionalRating">Pourquoi y a-t-il un point d\'interrogation (?) à côté d\'un de mes classements ?</string>
   <string name="provisionalRatingExplanation">Le point d\'interrogation indique que le classement est provisoire. Les raisons comprennent :</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore terminé suffisamment de parties notées contre des %1$s dans la catégorie de notation.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Le joueur n\'a pas encore terminé suffisamment de parties classées contre des %1$s dans la catégorie de classement.</string>
   <string name="similarOpponents">adversaires de niveau proche</string>
   <string name="notPlayedRecently">Le joueur n\'a pas joué assez de parties récentes. Selon le nombre de parties que vous avez jouées, il peut s\'écouler environ un an d\'inactivité avant que votre classement ne redevienne provisoire.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Concrètement, cela signifie que l\'écart Glicko-2 est supérieur à 110. L\'écart est le niveau de confiance que le système accorde à la note. Plus l\'écart est faible, plus la notation est stable.</string>
@@ -118,17 +118,17 @@ Il faut également noter que l\'intervalle de confiance augmente avec le temps. 
   <string name="ratingLeaderboards">classement des leaders</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">avoir joué au moins 30 parties classées dans une catégorie donnée,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">avoir joué une partie classée de cette catégorie durant la semaine précédente</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de notation inférieur à %1$s, aux échecs standards, et inférieur à %2$s dans les variantes,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">avoir un écart de classement inférieur à %1$s, aux échecs standards, et inférieur à %2$s dans les variantes,</string>
   <string name="beInTopTen">être dans le top 10 de ce classement.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2ème condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent de d\'apparaître dans les classements.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La 2e condition est là pour que les joueurs qui n\'utilisent plus leurs comptes cessent d\'apparaître dans les classements.</string>
   <string name="whyAreRatingHigher">Pourquoi les classements sont-ils plus élevés que ceux d’autres sites et organisations tels que la FIDE, l\'USCF et l’ICC ?</string>
-  <string name="whyAreRatingHigherExplanation">Il est préférable de ne pas considérer les notations comme des chiffres absolus, ni de les comparer à d\'autres organisations. Les différentes organisations ont différents niveaux d\'acteurs, différents systèmes de notation (Elo, Glicko, Glicko-2, ou une version modifiée de ce qui précède). Ces facteurs peuvent avoir une incidence considérable sur les chiffres absolus (notations).
+  <string name="whyAreRatingHigherExplanation">Il ne faut pas voir la cote comme un nombre absolu ou la comparer à la cote fournie par une autre organisation. Des organisations différentes ont des joueurs de niveau différent et utilisent des systèmes de cotation différents (Elo, Glicko, Glicko-2 ou une variante de ces systèmes). Ces facteurs ont une forte influence sur la valeur de la cote.
 
-Il est préférable de considérer les notations comme des chiffres \"relatifs\" (par opposition aux chiffres \"absolus\") : Au sein d\'un groupe de joueurs, les différences relatives de classement vous aideront à estimer qui gagnera, tirera ou perdra, et à quelle fréquence. Dire \"j\'ai une cote X\" ne signifie rien, sauf s\'il y a d\'autres joueurs avec lesquels comparer cette cote.</string>
-  <string name="howToHideRatingWhilePlaying">Comment cacher la côte tout en jouant ?</string>
+Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absolu). Dans un groupe de joueurs, la différence relative entre les cotes vous aide à estimer qui gagnera ou perdra la partie ou fera une nulle, et à quelle fréquence. Dire que votre cote vaut « X » ne signifie rien, à moins de la comparer à la cote d\'autres joueurs.</string>
+  <string name="howToHideRatingWhilePlaying">Comment cacher le classement Elo tout en jouant ?</string>
   <string name="enableZenMode">Activez le mode Zen dans les %1$s, ou en appuyant sur %2$s pendant une partie.</string>
   <string name="displayPreferences">préférences d\'affichage</string>
-  <string name="connexionLostCanIGetMyRatingBack">J\'ai perdu une partie à cause d\'un décalage ou d\'une déconnexion. Puis-je récupérer mes points de classement ?</string>
+  <string name="connexionLostCanIGetMyRatingBack">J\'ai perdu une partie en raison de lags ou d\'une déconnexion. Puis-je récupérer mes points de classement ?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Malheureusement, nous ne pouvons pas rendre les points de classement pour les jeux perdus en raison d\'un retard ou d\'une déconnexion, que le problème soit de votre côté ou du nôtre. Ce dernier cas est cependant très rare. Notez également que lorsque Lichess redémarre et que vous perdez du temps à cause de cela, nous interrompons le jeu pour éviter une perte injuste.</string>
   <string name="howToThreeDots">Comment...</string>
   <string name="enableDisableNotificationPopUps">Activer ou désactiver les popups de notification ?</string>

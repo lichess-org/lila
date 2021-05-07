@@ -52,7 +52,7 @@ object shields {
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box")(
           h1(
-            a(href := routes.Tournament.shields(), dataIcon := "I", cls := "text"),
+            a(href := routes.Tournament.shields, dataIcon := "I", cls := "text"),
             categ.name,
             " shields"
           ),

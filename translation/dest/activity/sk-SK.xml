@@ -92,7 +92,14 @@
     <item quantity="many">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
     <item quantity="other">Umiestnil sa na %1$s mieste (top %2$s%%) s %3$s partiami v %4$s</item>
   </plurals>
-  <string name="signedUp">Registroval sa na Lichess</string>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Zúčastnil sa v %s turnaji</item>
+    <item quantity="few">Zúčastnil/a sa v %s turnajoch</item>
+    <item quantity="many">Zúčastnil/a sa v %s turnajoch</item>
+    <item quantity="other">Účast v %s turnajoch</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Umiestnený ako #%1$s v %2$s</string>
+  <string name="signedUp">Registrácia na lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pripojenie sa k %s tímu</item>
     <item quantity="few">Pripojenie sa k %s tímom</item>

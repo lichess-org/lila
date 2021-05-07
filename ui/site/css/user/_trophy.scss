@@ -34,7 +34,8 @@
   }
 }
 
-.trophy, .shield-trophy {
+.trophy,
+.shield-trophy {
   transition: transform 0.2s;
 
   &:not(.patron):hover {
@@ -55,7 +56,8 @@
 }
 
 .fire-trophy {
-  &, &:hover {
+  &,
+  &:hover {
     color: if($theme-light, $c-font-dim, $c-font-clear);
   }
 
@@ -98,10 +100,6 @@
   &.marathonTopHundred {
     text-shadow: none;
     color: #cd4606 !important;
-  }
-
-  &.bongcloudWarrior {
-    filter: hue-rotate(70deg);
   }
 }
 

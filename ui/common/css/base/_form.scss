@@ -1,4 +1,8 @@
-button, input, optgroup, select, textarea {
+button,
+input,
+optgroup,
+select,
+textarea {
   font: inherit;
   color: $c-font;
   outline-color: $c-primary;
@@ -10,21 +14,24 @@ optgroup {
   color: $c-font-clear;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   @extend %box-radius;
 
   background: $c-bg-input;
   border: $border;
-  padding: .6em 1em;
+  padding: 0.6em 1em;
 }
 
 textarea {
   overflow: auto;
   resize: vertical;
-  padding: .8em 1em;
+  padding: 0.8em 1em;
 }
 
-button, a {
+button,
+a {
   cursor: pointer;
 }
 
@@ -35,4 +42,12 @@ button, a {
 .copyable {
   background: $c-page-input;
   color: $c-font-clear;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  border: $border;
+  -webkit-text-fill-color: $c-font;
+  -webkit-box-shadow: 0 0 0px 1000px mix($c-good, $c-bg-input, 10%) inset;
 }

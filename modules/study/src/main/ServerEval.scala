@@ -7,15 +7,17 @@ import scala.concurrent.duration._
 
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
+import lila.security.Granter
 import lila.tree.Node.Comment
-import lila.user.User
+import lila.user.{ User, UserRepo }
 import lila.{ tree => T }
 
 object ServerEval {
 
   final class Requester(
       fishnet: lila.hub.actors.Fishnet,
-      chapterRepo: ChapterRepo
+      chapterRepo: ChapterRepo,
+      userRepo: UserRepo
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     private val onceEvery = lila.memo.OnceEvery(5 minutes)
@@ -24,22 +26,29 @@ object ServerEval {
       chapter.serverEval.fold(true) { eval =>
         !eval.done && onceEvery(chapter.id.value)
       } ?? {
-        chapterRepo.startServerEval(chapter) >>- {
-          fishnet ! StudyChapterRequest(
-            studyId = study.id.value,
-            chapterId = chapter.id.value,
-            initialFen = chapter.root.fen.some,
-            variant = chapter.setup.variant,
-            moves = chess.format
-              .UciDump(
-                moves = chapter.root.mainline.map(_.move.san),
-                initialFen = chapter.root.fen.some,
-                variant = chapter.setup.variant
-              )
-              .toOption
-              .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-            userId = userId
-          )
+        val unlimitedFu =
+          fuccess(userId == User.lichessId) >>| userRepo
+            .byId(userId)
+            .map(_.exists(Granter(_.Relay)))
+        unlimitedFu flatMap { unlimited =>
+          chapterRepo.startServerEval(chapter) >>- {
+            fishnet ! StudyChapterRequest(
+              studyId = study.id.value,
+              chapterId = chapter.id.value,
+              initialFen = chapter.root.fen.some,
+              variant = chapter.setup.variant,
+              moves = chess.format
+                .UciDump(
+                  moves = chapter.root.mainline.map(_.move.san),
+                  initialFen = chapter.root.fen.some,
+                  variant = chapter.setup.variant
+                )
+                .toOption
+                .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+              userId = userId,
+              unlimited = unlimited
+            )
+          }
         }
       }
   }
@@ -57,34 +66,46 @@ object ServerEval {
           case Study.WithChapter(_, chapter) =>
             (complete ?? chapterRepo.completeServerEval(chapter)) >> {
               lila.common.Future
-                .fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
+                .fold(chapter.root.mainline.zip(analysis.infoAdvices).toList)(Path.root) {
                   case (path, (node, (info, advOpt))) =>
-                    info.eval.score
-                      .ifTrue {
-                        node.score.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                    chapter.root.nodeAt(path).flatMap { parent =>
+                      analysisLine(parent, chapter.setup.variant, info) map { subTree =>
+                        parent.addChild(subTree) -> subTree
                       }
-                      .?? { score =>
-                        chapterRepo.setScore(score.some)(chapter, path + node) >>
-                          advOpt.?? { adv =>
-                            chapterRepo.setComments(
-                              node.comments + Comment(
-                                Comment.Id.make,
-                                Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
-                                Comment.Author.Lichess
-                              )
-                            )(chapter, path + node) >>
-                              chapterRepo.setGlyphs(
-                                node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                              )(chapter, path + node) >> {
-                                chapter.root.nodeAt(path).flatMap { parent =>
-                                  analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                                    parent.addChild(child).children.get(child.id)
-                                  }
-                                } ?? { chapterRepo.setChild(chapter, path, _) }
-                              }
-                          }
-                      } inject path + node
+                    } ?? { case (newParent, subTree) =>
+                      chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+                    } >> {
+                      import BSONHandlers._
+                      import Node.{ BsonFields => F }
+                      ((info.eval.score.isDefined && node.score.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) ??
+                        chapterRepo
+                          .setNodeValues(
+                            chapter,
+                            path + node,
+                            List(
+                              F.score -> info.eval.score
+                                .ifTrue {
+                                  node.score.isEmpty ||
+                                  advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                                }
+                                .flatMap(EvalScoreBSONHandler.writeOpt),
+                              F.comments -> advOpt
+                                .map { adv =>
+                                  node.comments + Comment(
+                                    Comment.Id.make,
+                                    Comment.Text(adv.makeComment(withEval = false, withBestMove = true)),
+                                    Comment.Author.Lichess
+                                  )
+                                }
+                                .flatMap(CommentsBSONHandler.writeOpt),
+                              F.glyphs -> advOpt
+                                .map { adv =>
+                                  node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                                }
+                                .flatMap(GlyphsBSONHandler.writeOpt)
+                            )
+                          )
+                    } inject path + node
                 } void
             } >>- {
               chapterRepo.byId(Chapter.Id(analysis.id)).foreach {

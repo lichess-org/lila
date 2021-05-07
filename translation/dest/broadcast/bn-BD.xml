@@ -6,11 +6,8 @@
   <string name="ongoing">চলমান</string>
   <string name="upcoming">আসন্ন</string>
   <string name="completed">সমাপ্ত</string>
-  <string name="eventName">অনুষ্ঠানের নাম</string>
-  <string name="eventDescription">সংক্ষিপ্ত ইভেন্টের বিবরণ</string>
-  <string name="fullDescription">ইভেন্টের সম্পূর্ণ বিবরণ</string>
-  <string name="sourceUrl">উত্স ইউআরএল</string>
-  <string name="sourceUrlHelp">ইউআরএল যা লাইসেন্সেস পিজিএন আপডেট পেতে চেক করবে। এটি অবশ্যই ইন্টারনেট থেকে সর্বজনীনভাবে অ্যাক্সেসযোগ্য।.</string>
   <string name="roundNumber">গোল নম্বর</string>
+  <string name="fullDescription">ইভেন্টের সম্পূর্ণ বিবরণ</string>
+  <string name="sourceUrlHelp">ইউআরএল যা লাইসেন্সেস পিজিএন আপডেট পেতে চেক করবে। এটি অবশ্যই ইন্টারনেট থেকে সর্বজনীনভাবে অ্যাক্সেসযোগ্য।.</string>
   <string name="startDate">আপনার নিজস্ব সময় অঞ্চল শুরু করার তারিখ</string>
 </resources>

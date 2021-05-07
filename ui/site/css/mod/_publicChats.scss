@@ -1,0 +1,33 @@
+@import 'communication';
+
+#communication.public-chat {
+  position: relative;
+
+  .auto-refresh {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+
+    @include transition;
+
+    &.active.hold {
+      opacity: 0.4;
+    }
+  }
+
+  .player_chats .line,
+  .threads .post {
+    opacity: 1;
+  }
+
+  .chat {
+    overflow-y: auto !important;
+  }
+
+  .line:not(.lichess) {
+    cursor: pointer;
+    &:hover {
+      background: fade-out($c-accent, 0.8);
+    }
+  }
+}

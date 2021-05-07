@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Các giải đấu đấu trường</string>
   <string name="isItRated">Có tính Elo?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
   <string name="isRated">Giải đấu này có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
@@ -36,4 +37,6 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham dự: %s</string>
+  <string name="drawStreak">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ ván hòa đầu tiên mang lại điểm, hoặc các ván hòa kéo dài hơn %s nước đi. Chuỗi hòa chỉ có thể được phá bỏ bởi một ván thắng, chứ không thể bằng ván thua hoặc hòa.</string>
+  <string name="history">Lịch sử đấu trường</string>
 </resources>

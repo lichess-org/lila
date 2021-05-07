@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Finnes det nettsteder som er basert på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har så visst inspirert andre nettsteder med åpen kildekode som bruker vår %1$s, vårt %2$s eller vår %3$s.</string>
   <string name="fairPlay">Sportslig opptreden</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Hvorfor har jeg fått anmerkning for kunstig ratingmanipulering (sandbagging og boosting) eller maskinhjelp?</string>
-  <string name="cheatDetectionMethods">Lichess rår over sterke deteksjonsmetoder og vi går grundig gjennom alle bevisene før avgjørelsen tas. Ofte er det mange moderatorer involvert i prosessen, som derfor kan ta lang tid. Sett bort fra selve anmerkningen går vi ikke inn på nærmere detaljer omkring beviser eller beslutningsprosessen i enkeltsaker. Hvis vi gjorde det, ville det bli lettere å unngå avsløringer i framtiden, og det ville være å invitere til uproduktive debatter. Vår tid og innsats kan brukes bedre på andre viktige saker. Brukere kan anke på e-post til %1$s, men avgjørelser blir sjelden omstøtt.</string>
   <string name="whenAmIEligibleRatinRefund">Når er jeg kvalifisert til automatisk ratingrefusjon fra juksemakere?</string>
   <string name="ratingRefundExplanation">Ett minutt etter at en spiller er markert, blir de 40 siste ratede partiene de siste 3 dagene betraktet. Hvis du var motstander i disse partiene, du mistet rating (på grunn av tap eller remis) og ratingen din ikke var provisorisk, får du refusjon. Refusjonen er begrenset oppad basert på toppratingen din og ratingprogresjonen din etter partiet.
   (Hvis for eksempel ratingen din økte sterkt etter disse partiene, kan det hende du ikke får refusjon eller bare delvis refusjon.) En refusjon vil aldri overstige 150 poeng.</string>
@@ -52,7 +50,7 @@ Lichess bruker Stockfish til maskinanalyse.</string>
 Dette kan i sjeldne tilfeller være vanskelig å avgjøre automatisk (tvungne linjer, festninger). Da holder vi med spilleren der tiden ikke løp ut.
 
 Legg merke til at den kan være mulig å matte med en enkelt springer eller løper hvis motstanderen har en brikke som kan blokkere kongen.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDEs håndbok %s</string>
+  <string name="fideHandbookX">FIDEs håndbok %s</string>
   <string name="discoveringEnPassant">Hvorfor kan en bonde slå en annen bonde når den allerede er passert? (en passant)</string>
   <string name="explainingEnPassant">Dette er et lovlig trekk kjent som «en passant». Wikipedia-artikkelen gir en %1$s.
 
@@ -71,7 +69,7 @@ Se mer om dette trekket i %3$s for å få litt øvelse med det.</string>
   <string name="repeatedPositionsThatMatters">Trekkgjentakelse dreier seg om gjentatte %1$s, ikke trekk. Gjentakelsene trenger ikke skje rett etter hverandre.</string>
   <string name="positions">stillinger</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Vi gjentok en stilling tre ganger. Hvorfor ble det ikke remis?</string>
-  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Du kan også %1$s Lichess til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
+  <string name="threeFoldHasToBeClaimed">Trekkgjentakelse må kreves av en av spillerne. Du kan gjøre det ved å trykke på knappen som dukker opp, eller ved å tilby remis før du gjør det endelige gjentakende trekket. Det betyr ingenting om motstanderen avslår remistilbudet, trekkgjentakelsen blir krevd uansett. Du kan også %1$s Lichess til å automatisk kreve trekkgjentakelse for deg. I tillegg vil spillet avsluttes øyeblikkelig hvis samme stilling oppstår fem ganger.</string>
   <string name="configure">konfigurere</string>
   <string name="accounts">Kontoer</string>
   <string name="titlesAvailableOnLichess">Hvilke titler finnes hos Lichess?</string>
@@ -93,6 +91,8 @@ Ikke be om LM-tittelen.</string>
   <string name="whatUsernameCanIchoose">Hva kan brukernavnet mitt være?</string>
   <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
   <string name="guidelines">retningslinjene</string>
+  <string name="canIChangeMyUsername">Kan jeg endre brukernavnet mitt?</string>
+  <string name="usernamesCannotBeChanged">Nei, det er tekniske og praktiske årsaker til at brukernavn ikke kan endres. Brukernavn opptrer for mange steder: databaser, eksporter, logger og folks hoder. Du kan endre mellom store og små bokstaver én gang.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
   <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne 100%% av partiene i %s.</string>
@@ -100,13 +100,13 @@ Ikke be om LM-tittelen.</string>
   <string name="goldenZeeExplanation">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
   <string name="lichessRatings">Lichess-ratinger</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et framstående moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).
+  <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et prominent moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).
 
-Glicko-ratingene bygger på \"konfidensintervaller\" når ratingen din skal beregnes og presenteres. Når du begynner å bruke nettstedet, starter ratingen din på 1500 ± 700. Tallet 1500 representerer ratingen din, og tallet 700 representerer konfidensintervallet.
+Glicko-ratingene bygger på «konfidensintervaller» når ratingen din skal beregnes og presenteres. Når du begynner å bruke nettstedet, starter ratingen din på 1500 ± 1000. Tallet 1500 representerer ratingen din, og tallet 1000 representerer konfidensintervallet.
 
-I bunn og grunn er systemet 90 % sikkert på at ratingen din ligger mellom 800 og 2200. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
+I bunn og grunn er systemet 95 % sikkert på at ratingen din ligger mellom 500 og 2500. Dette er utrolig usikkert. Det betyr at ratingen vil endre seg dramatisk for spillere i oppstarten, potensielt med flere hundre poeng om gangen. Etter noen partier mot etablerte spillere vil konfidensintervallet innsnevres, og antall poeng som oppnås/tapes etter hvert parti, vil avta.
 
-Et annet poeng å være oppmerksom på er at ettersom tiden går uten spille, så øker konfidensintervallet. Slik kan du oppnå/tape poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i tiden uten å spille.</string>
+Vær oppmerksom på at konfidensintervallet øker når du ikke spiller. Slik oppnår/taper du poeng hurtigere for å tilpasse ratingen til eventuelle endringer i ferdighetsnivået ditt i perioden du ikke spilte.</string>
   <string name="whatIsProvisionalRating">Hvorfor er det spørsmålstegn (?) ved siden av ratingen?</string>
   <string name="provisionalRatingExplanation">Spørsmålstegnet betyr at ratingen er provisorisk. Grunnen til dette kan være:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har så langt ikke fullført mange nok ratede partier mot %1$s i ratingkategorien.</string>

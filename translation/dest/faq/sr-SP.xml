@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Често постављана питања</string>
-  <string name="frequentlyAskedQuestions">Често постављена питања</string>
-  <string name="whyIsLichessCalledLichess">Зашто се Lichess зове Lichess?</string>
+  <string name="frequentlyAskedQuestions">Често Постављана Питања</string>
+  <string name="whyIsLichessCalledLichess">Зашто се Личес зове Личес?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес је комбинација речи live/light/libre и chess. Изговара се %1$s.</string>
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Послушај како то стручњак изговара.</string>
@@ -14,8 +14,6 @@
   <string name="otherWaysToHelp">други начини да помогнеш</string>
   <string name="areThereWebsitesBasedOnLichess">Постоје ли други сајтови засновани на Личесу?</string>
   <string name="fairPlay">Фер плеј</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Зашто сам обележен за манипулацију рејтинга (намерно губљење партија или бустовање) или асистенцију рачунара?</string>
-  <string name="cheatDetectionMethods">Личес има успешне методе детекције и врло опширан процес за прегледање свих доказа и доношење коначне одлуке. За процес је често потребан већи број модератора и много времена. Осим тога, нећемо ићи у пуно детаља о доказима и процесу доношења одлука за појединачне случајеве. Тиме би се у будућности лакше избегавала детекција, и започеле би многе непродутивне дебате. То време и труд су боље потрошени на неке битније случајеве. Корисници се могу жалити слањем мејла на %1$s, али донешене одлуке су ретко поништене.</string>
   <string name="ratingRefundExplanation">Један минут након што је играч означен, узима се њихових последњих 40 партија у последња 3 дана. Ако си ти био један од њихових противника у тим партијама, и изгубио си рејтинг (због пораза или ремија), то добијаш свој рејтинг назад. Повраћај рејтинга је ограничен твојим максималним рејтингом и прогресом рејтинга након те партије.
   (На пример, ако ти се рејтинг драстично повећао након тих партија, ти ћеш можда добити смањен повраћај или га нећеш уопште добити). Повраћај никада неће прећи 150 поена.</string>
   <string name="preventLeavingGameWithoutResigning">Шта је урађено поводом играча који напусте партију пре него што се предају?</string>
@@ -38,7 +36,7 @@
 У ретким случајевима, ово може бити тешко за одлучити аутоматски (форсиране линије, тврђаве). Ми смо аутоматски на страни играча којем није истекло време.
 
 Битно је знати да је могуће матирати и са једним коњем или ловцем ако противник има фигуру која може блокирати краља.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE приручник %s</string>
+  <string name="fideHandbookX">FIDE приручник %s</string>
   <string name="discoveringEnPassant">Зашто пешак може узети другог пешака када је он већ прошао? (ан пасан)</string>
   <string name="explainingEnPassant">Ово је легалан потез познак као \"ан пасан\". Википедија чланак даје %1$s.
 
@@ -71,10 +69,11 @@
   <string name="whatUsernameCanIchoose">Шта моје корисничко име може бити?</string>
   <string name="usernamesNotOffensive">Генерално, корисничко име не сме: бити увредљиво, представљати неког другог или бити реклама. Можеш више прочитати о %1$s.</string>
   <string name="guidelines">смерницама</string>
+  <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
   <string name="lichessRatings">Личес рејтинзи</string>
-  <string name="whichRatingSystemUsedByLichess">Који систем рејтинга користи Личес?</string>
+  <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
 
 У суштини, Глико рејтинг користи \"интервале поузданости\" када рачуна и преставља твој рејтинг. Када тек почнеш користити сајт, твој рејтинг започиње на 1500 ± 700. Тбој рејтинг је 1500, а 700 представља твој интервал поузданости.

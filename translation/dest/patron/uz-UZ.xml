@@ -11,4 +11,14 @@
   <string name="thankYou">Хайриянгиз учун раҳмат!</string>
   <string name="youHaveLifetime">Siz xomiy hisobiga ega boʻldingiz. Bu juda ajoyib!</string>
   <string name="patronUntil">%s gacha siz xomiy hisobiga ega boʻlasiz.</string>
+  <string name="lifetime">Umrbod</string>
+  <string name="payLifetimeOnce">%s ni bir marta toʻlang va doimiy Lichess Xomiysiga aylaning!</string>
+  <string name="lifetimePatron">Umrbodlik Lichess Xomiysi</string>
+  <string name="makeExtraDonation">Qoʻshimcha hadya qilmoqchimisiz?</string>
+  <string name="monthly">Har oy</string>
+  <string name="onetime">Bir-marta</string>
+  <string name="otherAmount">Boshqa</string>
+  <string name="pleaseEnterAmount">Iltimos AQSH USD dollari hajmida kiriting</string>
+  <string name="withCreditCard">Kredit karta</string>
+  <string name="withPaypal">Paypal</string>
 </resources>

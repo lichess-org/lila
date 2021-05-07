@@ -68,7 +68,8 @@ final class StreamerApi(
       cache.listedIds.invalidateUnit() inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier
+          tier = prev.approval.tier != streamer.approval.tier option streamer.approval.tier,
+          decline = !streamer.approval.granted && !streamer.approval.requested && prev.approval.requested
         )
         import lila.notify.Notification.Notifies
         import lila.notify.Notification
@@ -77,7 +78,7 @@ final class StreamerApi(
             Notification.make(
               Notifies(streamer.userId),
               lila.notify.GenericLink(
-                url = s"/streamer/edit",
+                url = "/streamer/edit",
                 title = "Listed on /streamer".some,
                 text = "Your streamer page is public".some,
                 icon = ""
@@ -112,8 +113,8 @@ final class StreamerApi(
   def isActualStreamer(user: User): Fu[Boolean] =
     isPotentialStreamer(user) >>& !isCandidateStreamer(user)
 
-  def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
-    photographer(s.id.value, picture).flatMap { pic =>
+  def uploadPicture(s: Streamer, picture: Photographer.Uploaded, by: User): Funit =
+    photographer(s.id.value, picture, createdBy = by.id).flatMap { pic =>
       coll.update.one($id(s.id), $set("picturePath" -> pic.path)).void
     }
 

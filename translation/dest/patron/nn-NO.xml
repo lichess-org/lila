@@ -46,8 +46,8 @@ Eller du kan %s.</string>
 Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Sjå ein detaljert samanlikning av funksjonar</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess-mesén for ein månad</item>
-    <item quantity="other">Lichess-mesén for %s månader</item>
+    <item quantity="one">Lichess-mesén i ein månad</item>
+    <item quantity="other">Lichess-mesén i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du støttar lichess.org med %s i månaden.</string>
   <string name="tyvm">Mange takk for støtta di. Du er sjef!</string>

@@ -26,8 +26,8 @@
   <string name="approved">Vaš kanal za emitiranje je odobren.</string>
   <string name="pendingReview">Moderatori pregledavaju Vaš kanal za emitiranje.</string>
   <string name="pleaseFillIn">Molimo Vas da popunite Vaše informacije o emiteru i da stavite Vašu sliku.</string>
-  <string name="whenReady">Kada budete spremni da budete izlistani kao Lichess emiter, %s</string>
-  <string name="requestReview">zatražite pregled moderatora</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kada budete spremni da budete izlistani kao Lichess emiter, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">zatražite pregled moderatora</string>
   <string name="anotherLanguage">Ako Vaše emitiranje nije na engleskom nego na nekom drugom jeziku, na početku naslova Vašeg emitiranja uključite ispravnu oznaku jezika (%s), zatvorenu u kvadratne zagrade.
 Na primjer, navedite \"[RU]\" za ruski, \"[TR]\" za turski, \"[FR]\" za francuski, itd.
 Stavite ovu oznaku jezika na Twitch ili YouTube stranicu, a ne u postavkama za Lichess emiterski kanal.

@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.format.FEN
 import chess.Speed
 import org.joda.time.DateTime
 import scala.concurrent.duration._
@@ -8,7 +9,6 @@ import scala.concurrent.duration._
 import lila.hub.LightTeam.TeamID
 import lila.rating.PerfType
 import lila.user.User
-import chess.format.FEN
 
 case class Swiss(
     _id: Swiss.Id,
@@ -41,7 +41,7 @@ case class Swiss(
   def allRounds: List[SwissRound.Number]      = (1 to round.value).toList.map(SwissRound.Number.apply)
   def finishedRounds: List[SwissRound.Number] = (1 until round.value).toList.map(SwissRound.Number.apply)
 
-  def guessNbRounds  = (nbPlayers - 1) atMost settings.nbRounds atLeast 2
+  def guessNbRounds  = settings.nbRounds atMost nbPlayers atLeast 2
   def actualNbRounds = if (isFinished) round.value else guessNbRounds
 
   def startRound =
@@ -93,6 +93,10 @@ object Swiss {
   case class Performance(value: Float) extends AnyVal
   case class Score(value: Int)         extends AnyVal
 
+  case class IdName(_id: Id, name: String) {
+    def id = _id
+  }
+
   case class Settings(
       nbRounds: Int,
       rated: Boolean,
@@ -101,7 +105,8 @@ object Swiss {
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,
-      roundInterval: FiniteDuration
+      roundInterval: FiniteDuration,
+      forbiddenPairings: String
   ) {
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual

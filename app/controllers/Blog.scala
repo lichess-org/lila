@@ -43,7 +43,7 @@ final class Blog(
 
   def preview(token: String) =
     WithPrismic { _ => implicit prismic =>
-      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home().url) map { redirectUrl =>
+      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
         Redirect(redirectUrl)
           .withCookies(
             Cookie(

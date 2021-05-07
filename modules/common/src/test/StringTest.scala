@@ -34,6 +34,14 @@ class StringTest extends Specification {
         """a <a rel="nofollow noopener noreferrer" href="https://example.com/foo--" target="_blank">example.com/foo--</a>. b"""
       }
     }
+
+    "prize regex" should {
+      "not find btc in url" in {
+        String.looksLikePrize(s"HqVrbTcy") must beFalse
+        String.looksLikePrize(s"10btc") must beTrue
+        String.looksLikePrize(s"ten btc") must beTrue
+      }
+    }
   }
 
 }

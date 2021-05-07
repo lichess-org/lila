@@ -41,7 +41,7 @@ object TeamInfo {
 
 final class TeamInfoApi(
     api: TeamApi,
-    forumRecent: lila.forum.Recent,
+    forumRecent: lila.forum.ForumRecent,
     tourApi: TournamentApi,
     swissApi: SwissApi,
     simulApi: SimulApi,

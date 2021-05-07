@@ -7,7 +7,6 @@ export interface SimulSocket {
 }
 
 export function makeSocket(send: SocketSend, ctrl: SimulCtrl) {
-
   const handlers: any = {
     reload(data: SimulData) {
       ctrl.reload(data);
@@ -17,7 +16,7 @@ export function makeSocket(send: SocketSend, ctrl: SimulCtrl) {
     hostGame(gameId: string) {
       ctrl.data.host.gameId = gameId;
       ctrl.redraw();
-    }
+    },
   };
 
   return {
@@ -25,6 +24,6 @@ export function makeSocket(send: SocketSend, ctrl: SimulCtrl) {
     receive(tpe: string, data: any) {
       if (handlers[tpe]) return handlers[tpe](data);
       return false;
-    }
+    },
   };
-};
+}

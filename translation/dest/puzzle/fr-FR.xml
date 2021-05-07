@@ -9,6 +9,7 @@
   <string name="lengths">Longueurs</string>
   <string name="mates">Mats</string>
   <string name="goals">Objectifs</string>
+  <string name="origin">Origine</string>
   <string name="specialMoves">Coups spéciaux</string>
   <string name="didYouLikeThisPuzzle">Avez-vous aimé ce problème ?</string>
   <string name="voteToLoadNextOne">Votez pour afficher le suivant !</string>
@@ -38,9 +39,28 @@
   <string name="normal">Normal</string>
   <string name="easier">Plus facile</string>
   <string name="easiest">Le plus facile</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Un point en dessous de votre classement de problème</item>
+    <item quantity="other">%s points en dessous de votre classement de problème</item>
+  </plurals>
   <string name="harder">Plus difficile</string>
   <string name="hardest">Le plus difficile</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un point au dessus de votre classement de problème</item>
+    <item quantity="other">%s points au dessus de votre classement de problème</item>
+  </plurals>
   <string name="example">Exemple</string>
   <string name="addAnotherTheme">Ajouter un autre thème</string>
   <string name="jumpToNextPuzzleImmediately">Passer immédiatement au problème suivant</string>
+  <string name="puzzleDashboard">Tableau de bord des problèmes</string>
+  <string name="improvementAreas">Aspects à améliorer</string>
+  <string name="strengths">Points forts</string>
+  <string name="history">Historique des problèmes</string>
+  <string name="solved">résolu</string>
+  <string name="failed">non réussis</string>
+  <string name="streakDescription">Résolvez des problèmes de plus en plus difficiles et obtenez une série de victoires. Prenez votre temps, il n\'y a pas de pendule. Un mauvais coup et c\'est terminé ! Mais vous pouvez passer un coup par session.</string>
+  <string name="yourStreakX">Votre série gagnante : %s</string>
+  <string name="streakSkipExplanation">Sautez ce coup pour préserver votre série gagnante! Possible une seule fois par session.</string>
+  <string name="continueTheStreak">Continuer la série</string>
+  <string name="newStreak">Nouvelle série</string>
 </resources>

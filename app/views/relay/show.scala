@@ -13,16 +13,15 @@ import controllers.routes
 object show {
 
   def apply(
-      r: lila.relay.Relay,
-      s: lila.study.Study,
+      rt: lila.relay.RelayRound.WithTourAndStudy,
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: lila.socket.Socket.SocketVersion,
-      streams: List[lila.streamer.Stream]
+      streamers: List[lila.user.User.ID]
   )(implicit ctx: Context) =
     views.html.base.layout(
-      title = r.name,
-      moreCss = cssTag("analyse.study"),
+      title = rt.fullName,
+      moreCss = cssTag("analyse.relay"),
       moreJs = frag(
         analyseTag,
         analyseNvuiTag,
@@ -31,7 +30,7 @@ object show {
             "relay"    -> data.relay,
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
             "data"     -> data.analysis,
-            "i18n"     -> views.html.study.jsI18n(),
+            "i18n"     -> bits.jsI18n,
             "tagTypes" -> lila.study.PgnTags.typesToString,
             "userId"   -> ctx.userId,
             "chat" -> chatOption.map(c =>
@@ -39,44 +38,35 @@ object show {
                 c.chat,
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
-                writeable = ctx.userId.??(s.canChat),
+                writeable = ctx.userId.??(rt.study.canChat),
                 public = false,
                 resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                localMod = ctx.userId.??(s.canContribute)
+                localMod = ctx.userId.??(rt.study.canContribute)
               )
             ),
             "explorer" -> Json.obj(
               "endpoint"          -> explorerEndpoint,
               "tablebaseEndpoint" -> tablebaseEndpoint
             ),
-            "socketUrl"     -> views.html.study.show.socketUrl(s.id.value),
+            "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id.value),
             "socketVersion" -> socketVersion.value
           )
         )}""")
       ),
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withWebAssembly.withTwitch.some,
+      csp = defaultCsp.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(
-          title = r.name,
-          url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
-          description = shorten(r.description, 152)
+          title = rt.fullName,
+          url = s"$netBaseUrl${rt.path}",
+          description = shorten(rt.tour.description, 152)
         )
         .some
     )(
       frag(
         main(cls := "analyse"),
-        views.html.study.bits.streamers(streams)
-      )
-    )
-
-  def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "") =
-    div(cls := s"relay-widget $extraCls", dataIcon := "")(
-      a(cls := "overlay", href := routes.Relay.show(r.relay.slug, r.relay.id.value)),
-      div(
-        h3(r.relay.name),
-        p(r.relay.description)
+        views.html.study.bits.streamers(streamers)
       )
     )
 }

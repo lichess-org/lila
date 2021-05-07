@@ -62,14 +62,19 @@ private object BSONHandlers {
     v => (v.id * TimeVariance.intFactor).toInt
   )
 
+  implicit val CplRangeBSONHandler = tryHandler[CplRange](
+    { case BSONInteger(v) => CplRange.byId get v toTry s"Invalid CPL range $v" },
+    e => BSONInteger(e.cpl)
+  )
+
   implicit val DateRangeBSONHandler = Macros.handler[lila.insight.DateRange]
 
   implicit val PeriodBSONHandler = intIsoHandler(lila.common.Iso.int[Period](Period.apply, _.days))
 
   implicit def MoveBSONHandler =
-    new BSON[Move] {
+    new BSON[InsightMove] {
       def reads(r: BSON.Reader) =
-        Move(
+        InsightMove(
           phase = r.get[Phase]("p"),
           tenths = r.get[Int]("t"),
           role = r.get[Role]("r"),
@@ -82,7 +87,7 @@ private object BSONHandlers {
           blur = r.boolD("b"),
           timeCv = r.intO("v").map(v => v.toFloat / TimeVariance.intFactor)
         )
-      def writes(w: BSON.Writer, b: Move) =
+      def writes(w: BSON.Writer, b: InsightMove) =
         BSONDocument(
           "p" -> b.phase,
           "t" -> b.tenths,
@@ -99,10 +104,10 @@ private object BSONHandlers {
     }
 
   implicit def EntryBSONHandler =
-    new BSON[Entry] {
-      import Entry.BSONFields._
+    new BSON[InsightEntry] {
+      import InsightEntry.BSONFields._
       def reads(r: BSON.Reader) =
-        Entry(
+        InsightEntry(
           id = r.str(id),
           number = r.int(number),
           userId = r.str(userId),
@@ -113,7 +118,7 @@ private object BSONHandlers {
           opponentRating = r.int(opponentRating),
           opponentStrength = r.get[RelativeStrength](opponentStrength),
           opponentCastling = r.get[Castling](opponentCastling),
-          moves = r.get[List[Move]](moves),
+          moves = r.get[List[InsightMove]](moves),
           queenTrade = r.get[QueenTrade](queenTrade),
           result = r.get[Result](result),
           termination = r.get[Termination](termination),
@@ -122,7 +127,7 @@ private object BSONHandlers {
           provisional = r.boolD(provisional),
           date = r.date(date)
         )
-      def writes(w: BSON.Writer, e: Entry) =
+      def writes(w: BSON.Writer, e: InsightEntry) =
         BSONDocument(
           id               -> e.id,
           number           -> e.number,

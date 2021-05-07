@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Liosta na gluasachdan fhad \'s a tha thu a\' cluich</string>
   <string name="chessClock">Uaireadair tàileisg</string>
   <string name="tenthsOfSeconds">Deicheamhan de dhiogan</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Nuair a bhios &lt; 10 diogan a thìde air fhàgail</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Nuair a bhios &lt; 10 diogan a thìde air fhàgail</string>
   <string name="horizontalGreenProgressBars">Bàraichean adhartais air a\' chòmhnard</string>
   <string name="soundWhenTimeGetsCritical">Seirm nuair a tha an ùine gu bhith falbh orm</string>
   <string name="promoteToQueenAutomatically">Àrdaich gu bànrigh gu fèin-obrachail</string>

@@ -2,17 +2,19 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.bson.{ BSONHandler, Macros }
 import reactivemongo.api.CursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.blocking
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.user.User
 
-final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddress)(implicit
+final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -63,17 +65,12 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
         $doc(
           "_id"  -> sessionId,
           "user" -> userId,
-          "ip" -> (HTTPRequest.ipAddress(req) match {
-            // randomize stresser IPs to relieve mod tools
-            case ip if ip == localIp =>
-              IpAddress(s"127.0.${ThreadLocalRandom nextInt 256}.${ThreadLocalRandom nextInt 256}")
-            case ip => ip
-          }),
+          "ip"   -> HTTPRequest.ipAddress(req),
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
           "api"  -> apiVersion.map(_.value),
-          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
+          "fp"   -> fp.flatMap(FingerHash.apply).flatMap(FingerHash.fingerHashHandler.writeOpt)
         )
       )
       .void
@@ -120,12 +117,11 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       .cursor[UserSession]()
       .gather[List](nb)
 
-  def allSessions(userId: User.ID): Fu[List[UserSession]] =
+  def allSessions(userId: User.ID): AkkaStreamCursor[UserSession] =
     coll
       .find($doc("user" -> userId))
       .sort($doc("date" -> -1))
       .cursor[UserSession](ReadPreference.secondaryPreferred)
-      .gather[List](200)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
     FingerHash(fp) match {
@@ -186,8 +182,29 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
   implicit private val IpAndFpReader = Macros.reader[IpAndFp]
 
-  def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.secondary.list[IpAndFp]($doc("user" $in userIds), max)
+  def shareAnIpOrFp(u1: User.ID, u2: User.ID): Fu[Boolean] =
+    coll.aggregateExists(ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($doc("user" $in List(u1, u2))) -> List(
+        Limit(500),
+        Project(
+          $doc(
+            "_id"  -> false,
+            "user" -> true,
+            "x"    -> $arr("$ip", "$fp")
+          )
+        ),
+        UnwindField("x"),
+        GroupField("x")("users" -> AddFieldToSet("user")),
+        Match(
+          $doc(
+            "_id" $ne BSONNull,
+            "users.1" $exists true
+          )
+        ),
+        Limit(1)
+      )
+    }
 
   def ips(user: User): Fu[Set[IpAddress]] =
     coll.distinctEasy[IpAddress, Set]("ip", $doc("user" -> user.id))
@@ -207,12 +224,13 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
 
 object Store {
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+  case class Info(ip: IpAddress, ua: UserAgent, fp: Option[FingerHash], date: DateTime) {
     def datedIp = Dated(ip, date)
     def datedFp = fp.map { Dated(_, date) }
     def datedUa = Dated(ua, date)
   }
 
-  implicit val fingerHashBSONHandler: BSONHandler[FingerHash] = stringIsoHandler[FingerHash]
-  implicit val InfoReader                                     = Macros.reader[Info]
+  import FingerHash.fingerHashHandler
+  import UserAgent.userAgentHandler
+  implicit val InfoReader = Macros.reader[Info]
 }

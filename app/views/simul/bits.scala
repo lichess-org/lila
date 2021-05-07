@@ -22,7 +22,7 @@ object bits {
       main(cls := "page-small box box-pad")(
         h1(trans.noSimulFound()),
         p(trans.noSimulExplanation()),
-        p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
+        p(a(href := routes.Simul.home)(trans.returnToSimulHomepage()))
       )
     }
 

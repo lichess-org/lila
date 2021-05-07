@@ -26,8 +26,8 @@
   <string name="approved">Váš stream je schválen.</string>
   <string name="pendingReview">Váš stream je přezkoumáván moderátory.</string>
   <string name="pleaseFillIn">Vyplňte prosím informace o vysílání a nahrajte obrázek.</string>
-  <string name="whenReady">Když jste připraveni být uvedeni jako Lichess streamer, %s</string>
-  <string name="requestReview">požádal moderátora o schválení</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Když jste připraveni být uvedeni jako Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požádal moderátora o schválení</string>
   <string name="anotherLanguage">Pokud je váš stream v jiném než angličtině, uveďte správnou jazykovnou značku (%s) uzavřenou v hranatých závorkách na začátku názvu svého streamu.
 Jako příklad můžete uvést \"[RU]\" pro ruštinu, \"[TR]\" pro turečtinu, \"[FR]\" pro francouzštinu atd.
 Vložte to do názvu streamu na Twitch nebo YouTube stránce, ne v nastavení Lichess streamu.

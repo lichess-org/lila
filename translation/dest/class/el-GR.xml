@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Lichess τάξεις</string>
-  <string name="teachClassesOfChessStudents">Διδασκαλία τάξεων για μαθητές σκακιού με την σουίτα εργαλείων Lichess Τάξεις.</string>
+  <string name="lichessClasses">Τάξεις Lichess</string>
+  <string name="teachClassesOfChessStudents">Διδασκαλία μαθητών με την σουίτα εργαλείων των τάξεων που προσφέρει το Lichess.</string>
   <string name="features">Δυνατότητες</string>
   <string name="quicklyGenerateSafeUsernames">Γρήγορη δημιουργία χρηστών και κωδικών για μαθητές</string>
   <string name="trackStudentProgress">Παρακολούθηση προόδου μαθητών σε παρτίδες και γρίφους</string>
   <string name="messageAllStudents">Αποστολή μηνύματος σε όλους τους μαθητές σχετικά με νέο υλικό τάξης</string>
-  <string name="freeForAllForever">100% χωρίς χρέωση για όλους, εφ όρου ζωής, χωρίς διαφημίσεις και παρακολούθηση</string>
-  <string name="applyToBeLichessTeacher">Αίτηση για δάσκαλος του Lichess</string>
+  <string name="freeForAllForever">100% χωρίς χρέωση για όλους, για πάντα, χωρίς διαφημίσεις ή ιχνηλάτηση</string>
+  <string name="applyToBeLichessTeacher">Ζητήστε να γίνετε δάσκαλος στο Lichess</string>
   <string name="noClassesYet">Δεν υπάρχουν τάξεις ακόμη.</string>
   <string name="teachersX">Δάσκαλοι: %s</string>
   <string name="newClass">Νέα τάξη</string>
@@ -16,51 +16,57 @@
   <string name="reopen">Ξανανοίξτε</string>
   <string name="removeStudent">Απομάκρυνση μαθητή</string>
   <string name="removedStudents">Απομακρύνθηκε</string>
-  <string name="inviteTheStudentBack">Πρόσκληση μαθητή για επιστροφή</string>
-  <string name="sendAMessage">Αποστολή μηνύματος σε όλους τους μαθητές.</string>
-  <string name="aLinkToTheClassWillBeAdded">Δεν χρειάζεται να συμπεριλάβετε τον σύνδεσμο της τάξης, θα προστεθεί αυτόματα στο τέλος του μηνύματος.</string>
+  <string name="inviteTheStudentBack">Προσκαλέστε πάλι τον μαθητή</string>
+  <string name="sendAMessage">Στείλτε ένα μήνυμα σε όλους τους μαθητές.</string>
+  <string name="aLinkToTheClassWillBeAdded">Ο σύνδεσμος της τάξης θα προστεθεί αυτόματα στο τέλος του μηνύματος.</string>
   <string name="className">Όνομα τάξης</string>
   <string name="classDescription">Περιγραφή τάξης</string>
-  <string name="visibleByBothStudentsAndTeachers">Ορατό τόσο από δασκάλους όσο και από μαθητές της τάξης</string>
+  <string name="visibleByBothStudentsAndTeachers">Ορατό από δασκάλους και μαθητές της τάξης</string>
   <string name="teachersOfTheClass">Δάσκαλοι τάξης</string>
   <string name="addLichessUsernames">Προσθήκη χρηστών Lichess για πρόσκλησή τους ως δάσκαλοι. Ένας σε κάθε γραμμή.</string>
-  <string name="theyMustFirstApply">Πρώτα πρέπει να είναι αναγνωρισμένοι Δάσκαλοι του Lichess.</string>
   <string name="resetPassword">Επαναφορά κωδικού πρόσβασης</string>
   <string name="makeSureToCopy">Βεβαιωθείτε ότι αντιγράψατε ή σημειώσατε τον κωδικό. Δεν θα μπορέσετε να τον δείτε ξανά!</string>
   <string name="passwordX">Κωδικός: %s</string>
-  <string name="generateANewPassword">Δημιουργία νέου κωδικού για σπουδαστή</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Πρόσκληση στο %1$s από %2$s</string>
+  <string name="generateANewPassword">Δημιουργία νέου κωδικού για τον μαθητή</string>
+  <string name="invitedToXByY">Προσκλήθηκε στην τάξη %1$s από τον χρήστη %2$s</string>
   <string name="realName">Αληθινό όνομα</string>
-  <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Βοηθάει να γνωρίζετε ποιος είναι ο σπουδαστής.</string>
+  <string name="privateWillNeverBeShown">Ιδιωτικό. Δεν εμφανίζεται εκτός τάξης. Έτσι αναγνωρίζετε ευκολότερα τον μαθητή.</string>
   <string name="addStudent">Προσθήκη μαθητή</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Δημιουργήθηκε το Lichess προφίλ %1$s για %2$s.</string>
   <string name="studentCredentials">Μαθητής: %1$s
 Χρήστης: %2$s
 Κωδικός: %3$s</string>
   <string name="inviteALichessAccount">Πρόσκληση λογαριασμού Lichess</string>
-  <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στη τάξη.</string>
+  <string name="inviteDesc1">Εάν ο μαθητής έχει ήδη λογαριασμό στο Lichess, μπορείτε να τον προσκαλέσετε στην τάξη.</string>
   <string name="inviteDesc2">Θα λάβουν μήνυμα στο Lichess με σύνδεσμο για συμμετοχή στη τάξη.</string>
-  <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν ενεργά να συμμετέχουν στη τάξη.</string>
+  <string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν να συμμετέχουν ενεργά στη τάξη.</string>
   <string name="inviteDesc4">Μην στέλνετε ανεπιθύμητες προσκλήσεις σε τυχαίους παίκτες.</string>
   <string name="createANewLichessAccount">Δημιουργία νέου λογαριασμού Lichess</string>
   <string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lichess, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
   <string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
-  <string name="createDesc3">Σημαντικό: ο μαθητής δεν μπορεί να έχει πολλαπλούς λογαριασμούς.</string>
-  <string name="createDesc4">Εάν έχουν ήδη ένα, αντί για αυτή χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
+  <string name="createDesc3">Σημαντικό: ο μαθητής δεν πρέπει να έχει πολλαπλούς λογαριασμούς.</string>
+  <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
   <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
-Για πρόσβαση πατήστε στον σύνδεσμο.</string>
+Πατήστε στον σύνδεσμο για να αποκτήσετε πρόσβαση.</string>
   <string name="invitationToClass">Προσκληθήκατε να συμμετάσχετε στην τάξη \"%s\" ως μαθητής.</string>
-  <string name="clickToViewInvitation">Κάντε κλικ στο link για να δείτε την πρόσκληση:</string>
+  <string name="clickToViewInvitation">Κάντε κλικ στον σύνδεσμο για να δείτε την πρόσκληση:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Μία πρόσκληση εκκρεμεί</item>
+    <item quantity="other">%s προσκλήσεις εκκρεμούν</item>
+  </plurals>
+  <string name="noPendingInvitations">Καμία πρόσκληση δεν εκκρεμεί</string>
   <string name="onlyVisibleToTeachers">Ορατό μόνο στους δάσκαλους της τάξης</string>
   <string name="lastActiveDate">Ενεργό</string>
-  <string name="managed">Διαχειρίζεται</string>
-  <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή επεξεργάζεται</string>
-  <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενη σε αυτόνομη</string>
+  <string name="managed">Διαχειριζόμενος</string>
+  <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή είναι διαχειριζόμενος</string>
+  <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενο σε αυτόνομο</string>
   <string name="release">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
+  <string name="releaseDesc1">Ένας αυτόνομος λογαριασμός δεν μπορεί να ξαναγίνει διαχειριζόμενος. Ο μαθητής θα μπορεί να ενεργοποιήσει ή να απενεργοποιήσει την παιδική λειτουργία και να επαναφέρει το κωδικό πρόσβασης.</string>
   <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
+  <string name="realUniqueEmail">Πραγματική, μοναδική διεύθυνση ηλεκτρονικού ταχυδρομείου του μαθητή. Θα στείλουμε ένα email επιβεβαίωσης σε αυτήν με ένα σύνδεσμο για ενεργοποίηση του λογαριασμού.</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>
@@ -72,18 +78,20 @@
   </plurals>
   <string name="students">Μαθητές</string>
   <string name="progress">Πρόοδος</string>
-  <string name="noStudents">Χωρίς μαθητές στη τάξη, ακόμη.</string>
-  <string name="noRemovedStudents">Χωρίς διαγραμμένους μαθητές.</string>
-  <string name="timePlaying">Χρόνος παίζοντας</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s για την τελευταία %2$s</string>
+  <string name="noStudents">Κανένας μαθητής δεν υπάρχει στην τάξη ακόμα.</string>
+  <string name="noRemovedStudents">Δεν έχουν διαγραφεί μαθητές.</string>
+  <string name="overDays">Ανά ημέρες</string>
+  <string name="timePlaying">Χρόνος που διατέθηκε παίζοντας</string>
+  <string name="variantXOverLastY">%1$s για τις τελευταίες %2$s</string>
   <string name="winrate">Ποσοστό νικών</string>
   <string name="na">Μη διαθέσιμο</string>
   <string name="news">Νέα τάξης</string>
   <string name="editNews">Διαχείριση νέων</string>
-  <string name="notifyAllStudents">Ειδοποίησε τους μαθητές</string>
-  <string name="nothingHere">Τίποτα εδώ, ακόμη.</string>
+  <string name="notifyAllStudents">Ειδοποιήστε όλους τους μαθητές</string>
+  <string name="nothingHere">Δεν υπάρχει τίποτα εδώ ακόμα.</string>
   <string name="newsEdit1">Όλα τα νέα της τάξης σε ένα πεδίο.</string>
-  <string name="newsEdit2">Προσθήκη πρόσφατων νέων στη κορυφή. Χωρίς διαγραφή των προηγούμενων νέων.</string>
-  <string name="newsEdit3">Διαχώρισε τα νέα με --- θα εμφανιστεί μια οριζόντια γραμμή.</string>
-  <string name="markdownAvailable">%s είναι διαθέσιμο για πιο προχωρημένη σύνταξη.</string>
+  <string name="newsEdit2">Προσθήκη πρόσφατων νέων στη κορυφή. Να μη διαγραφούν τα προηγούμενα νέα.</string>
+  <string name="newsEdit3">Να διαχωρίζονται τα νέα με ---
+Θα εμφανιστεί μια οριζόντια γραμμή.</string>
+  <string name="markdownAvailable">Η μορφή %s είναι διαθέσιμη για μια πιο προχωρημένη σύνταξη.</string>
 </resources>

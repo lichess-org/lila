@@ -1,9 +1,9 @@
-th[role=columnheader]:not(.no-sort) {
+th[role='columnheader']:not(.no-sort) {
   cursor: pointer;
   user-select: none;
 }
 
-th[role=columnheader]:not(.no-sort):after {
+th[role='columnheader']:not(.no-sort):after {
   content: '';
   float: right;
   margin-top: 7px;
@@ -15,17 +15,21 @@ th[role=columnheader]:not(.no-sort):after {
   user-select: none;
 }
 
-th[aria-sort=descending]:not(.no-sort):after {
+th[aria-sort='descending']:not(.no-sort):after {
   border-bottom: none;
   border-width: 5px 5px 0;
 }
 
-th[aria-sort]:not(.no-sort):after {
-  visibility: visible;
-  opacity: 0.7;
+th[aria-sort]:not(.no-sort) {
+  background: fade-out($c-accent, 0.85);
+  color: $c-font-clear;
+  &:after {
+    visibility: visible;
+    opacity: 0.7;
+  }
 }
 
-th[role=columnheader]:not(.no-sort):hover {
+th[role='columnheader']:not(.no-sort):hover {
   color: $c-font-clear;
 
   &:after {

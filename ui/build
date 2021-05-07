@@ -4,8 +4,11 @@ target=${1-dev}
 mode=${2-build} # build | upgrade | css | js
 echo "building ui modules with target=$target and mode=$mode"
 
-echo "node: $(node --version)"
+nodever="$(node --version)"
+echo "node: $nodever"
 echo "yarn: $(yarn --version)"
+
+[[ "$nodever" =~ ^v1[0-5]\.[0-9]+\.[0-9]+$ ]] || { echo "Node version >=10 and <16 required. Found: $nodever"; exit 1; }
 
 cd "$(git rev-parse --show-toplevel)"
 
@@ -14,11 +17,12 @@ ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yar
 mkdir -p public/compiled
 
 apps1="common"
-apps2="chess ceval game tree chat nvui"
-apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt"
-site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin"
+apps2="chess ceval game tree chat nvui puz"
+apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt storm racer"
+site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
+puzzle_plugins="dashboard"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive
@@ -66,11 +70,13 @@ else
     parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
+    parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
     for app in $apps1 $apps2 $apps3; do (build $app); done
     for plugin in $site_plugins; do (build_plugin site $plugin); done
     for plugin in $round_plugins; do (build_plugin round $plugin); done
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done
+    for plugin in $puzzle_plugins; do (build_plugin puzzle $plugin); done
   fi
 fi

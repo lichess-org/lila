@@ -3,7 +3,6 @@ import * as gridHacks from 'common/gridHacks';
 let booted = false;
 
 export function start(container: HTMLElement) {
-
   // Chrome, Chromium, Brave, Opera, Safari 12+ are OK
   if (window.chrome) return;
 

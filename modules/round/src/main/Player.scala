@@ -11,7 +11,7 @@ import lila.game.Game.PlayerId
 import cats.data.Validated
 
 final private class Player(
-    fishnetPlayer: lila.fishnet.Player,
+    fishnetPlayer: lila.fishnet.FishnetPlayer,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
@@ -96,6 +96,7 @@ final private class Player(
           case MoveApplied(progress, moveOrDrop) =>
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
+              lila.mon.fishnet.move(~game.aiLevel).increment().unit >>-
               notifyMove(moveOrDrop, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else

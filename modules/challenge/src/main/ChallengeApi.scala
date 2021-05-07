@@ -9,12 +9,13 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
+import lila.i18n.I18nLangPicker
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
     userRepo: UserRepo,
-    joiner: Joiner,
+    joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Max,
@@ -73,10 +74,10 @@ final class ChallengeApi(
       case _                    => fuccess(socketReload(id))
     }
 
-  def decline(c: Challenge) =
-    repo.decline(c) >>- {
+  def decline(c: Challenge, reason: Challenge.DeclineReason) =
+    repo.decline(c, reason) >>- {
       uncacheAndNotify(c)
-      Bus.publish(Event.Decline(c), "challenge")
+      Bus.publish(Event.Decline(c declineWith reason), "challenge")
     }
 
   private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
@@ -88,7 +89,9 @@ final class ChallengeApi(
       color: Option[chess.Color] = None
   ): Fu[Option[Pov]] =
     acceptQueue {
-      if (c.challengerIsOpen)
+      if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
+        fuccess(none)
+      else if (c.challengerIsOpen)
         repo.setChallenger(c.setChallenger(user, sid), color) inject none
       else
         joiner(c, user, color).flatMap {
@@ -131,7 +134,7 @@ final class ChallengeApi(
         .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
-    repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
+    repo.realTimeUnseenSince(DateTime.now minusSeconds 20, max = 50).flatMap { cs =>
       lila.common.Future.applySequentially(cs)(offline).void
     } >>
       repo.expired(50).flatMap { cs =>
@@ -149,14 +152,12 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socket foreach (_ reload id)
+    socket.foreach(_ reload id)
 
   private def notify(userId: User.ID): Funit =
     for {
-      all <- allFor(userId)
-      lang <- userRepo langOf userId map {
-        _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
-      }
+      all  <- allFor(userId)
+      lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
     } yield Bus.publish(
       SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(lang))),
       "socketUsers"

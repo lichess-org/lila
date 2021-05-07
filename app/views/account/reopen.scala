@@ -9,14 +9,14 @@ import controllers.routes
 
 object reopen {
 
-  def form(form: lila.security.RecaptchaForm[_], error: Option[String] = None)(implicit
+  def form(form: lila.security.HcaptchaForm[_], error: Option[String] = None)(implicit
       ctx: Context
   ) =
     views.html.base.layout(
       title = "Reopen your account",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.recaptcha.script(form),
-      csp = defaultCsp.withRecaptcha.some
+      moreJs = views.html.base.hcaptcha.script(form),
+      csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "page-small box box-pad")(
         h1("Reopen your account"),
@@ -26,7 +26,7 @@ object reopen {
         p(strong("This will only work once.")),
         p("If you close your account a second time, there will be no way of recovering it."),
         hr,
-        postForm(id := form.formId, cls := "form3", action := routes.Account.reopenApply())(
+        postForm(cls := "form3", action := routes.Account.reopenApply)(
           error.map { err =>
             p(cls := "error")(strong(err))
           },
@@ -35,7 +35,8 @@ object reopen {
             .group(form("email"), trans.email(), help = frag("Email address associated to the account").some)(
               form3.input(_, typ = "email")
             ),
-          form3.action(views.html.base.recaptcha.button(form)(form3.submit(trans.emailMeALink())))
+          views.html.base.hcaptcha.tag(form),
+          form3.action(form3.submit(trans.emailMeALink()))
         )
       )
     }

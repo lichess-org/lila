@@ -5,25 +5,26 @@ object Dependencies {
 
   val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
 
-  val scalalib    = "com.github.ornicar"   %% "scalalib"                        % "7.0.2"
-  val hasher      = "com.roundeights"      %% "hasher"                          % "1.2.1"
-  val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.9"
-  val chess       = "org.lichess"          %% "scalachess"                      % "10.1.6"
-  val compression = "org.lichess"          %% "compression"                     % "1.6"
-  val maxmind     = "com.sanoma.cda"       %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
-  val prismic     = "io.prismic"           %% "scala-kit"                       % "1.2.19-THIB213"
-  val scrimage    = "com.sksamuel.scrimage" % "scrimage-core"                   % "4.0.12"
-  val scaffeine   = "com.github.blemale"   %% "scaffeine"                       % "4.0.2"  % "compile"
-  val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.22.2"
-  val scalaUri    = "io.lemonlabs"         %% "scala-uri"                       % "2.3.1"
-  val scalatags   = "com.lihaoyi"          %% "scalatags"                       % "0.9.2"
-  val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.3.5.RELEASE"
-  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.54.Final" classifier "linux-x86_64"
-  val autoconfig  = "io.methvin.play"      %% "autoconfig-macros"               % "0.3.2"  % "provided"
-  val scalatest   = "org.scalatest"        %% "scalatest"                       % "3.1.0"  % Test
-  val uaparser    = "org.uaparser"         %% "uap-scala"                       % "0.11.0"
-  val specs2      = "org.specs2"           %% "specs2-core"                     % "4.10.5" % Test
-  val apacheText  = "org.apache.commons"    % "commons-text"                    % "1.9"
+  val scalalib    = "com.github.ornicar"         %% "scalalib"                        % "7.0.2"
+  val hasher      = "com.roundeights"            %% "hasher"                          % "1.2.1"
+  val jodaTime    = "joda-time"                   % "joda-time"                       % "2.10.10"
+  val chess       = "org.lichess"                %% "scalachess"                      % "10.2.1"
+  val compression = "org.lichess"                %% "compression"                     % "1.6"
+  val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
+  val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
+  val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.18"
+  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.0.2"  % "compile"
+  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "0.25.5"
+  val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.2.0"
+  val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
+  val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "5.3.7.RELEASE"
+  val epoll       = "io.netty"                    % "netty-transport-native-epoll"    % "4.1.58.Final" classifier "linux-x86_64"
+  val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
+  val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.1.0"  % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
+  val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.11.0" % Test
+  val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
+  val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"                    % "0.13.1"
 
   object flexmark {
     val version = "0.50.50"
@@ -42,18 +43,20 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.2"
+    val version = "1.0.3"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val epoll  = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % version
     def bundle = Seq(driver, stream)
   }
 
   object play {
-    val version = "2.8.5-lila_1.5"
-    val api     = "com.typesafe.play" %% "play"      % version
-    val json    = "com.typesafe.play" %% "play-json" % "2.9.2"
+    val version = "2.8.7-lila_1.6"
+    val api     = "com.typesafe.play" %% "play"        % version
+    val json    = "com.typesafe.play" %% "play-json"   % "2.9.2"
+    val mailer  = "com.typesafe.play" %% "play-mailer" % "8.0.1"
   }
 
   object playWs {
@@ -64,7 +67,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.1.6"
+    val version    = "2.1.12"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

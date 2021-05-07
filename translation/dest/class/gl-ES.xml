@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">As clases de Lichess permiten a un adestrador crear clases virtuais e supervisar o progreso dos seus alumnos</string>
+  <string name="lichessClasses">Clases</string>
+  <string name="teachClassesOfChessStudents">Dea clases de xadrez co paquete de ferramentas de Lichess para clases.</string>
   <string name="features">Funcións</string>
   <string name="quicklyGenerateSafeUsernames">Xenera rapidamente nomes de usuarios e contrasinais seguros para os usuarios</string>
   <string name="trackStudentProgress">Segue o progreso dos alumnos en partidas e problemas</string>
@@ -23,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">Visible para adestradores e alumnos</string>
   <string name="teachersOfTheClass">Adestradores desta clase</string>
   <string name="addLichessUsernames">Invita usuarios de Lichess para seren adestradores (un por liña)</string>
-  <string name="theyMustFirstApply">Antes deben postularse como adestradores de Lichess.</string>
   <string name="resetPassword">Reiniciar o contrasinal</string>
   <string name="makeSureToCopy">Asegúrate de copiar agora o contrasinal. Non o volverás ver!</string>
   <string name="passwordX">Contrasinal: %s</string>
   <string name="generateANewPassword">Xenera un contrasinal novo para o alumno</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Invitado a %1$s por %2$s</string>
+  <string name="invitedToXByY">Invitado a %1$s por %2$s</string>
   <string name="realName">Nome real</string>
   <string name="privateWillNeverBeShown">Privado: non se amosará fóra desta clase. Está para axudarche a lembrar quen é cada alumno.</string>
   <string name="addStudent">Engadir alumno</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Perfil de Lichess %1$s creado por %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Perfil de Lichess %1$s creado por %2$s.</string>
   <string name="studentCredentials">Alumno: %1$s
 Nome de usuario: %2$s
 Contrasinal %3$s</string>
@@ -52,9 +52,46 @@ Contrasinal %3$s</string>
 Aquí está a ligazón para acceder.</string>
   <string name="invitationToClass">Invitáronte a entrar como alumno na clase %s.</string>
   <string name="clickToViewInvitation">Preme na ligazón para ver a invitación:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Unha invitación pendente</item>
+    <item quantity="other">%s invitacións pendentes</item>
+  </plurals>
+  <string name="noPendingInvitations">Non ten invitacións pendentes</string>
+  <string name="onlyVisibleToTeachers">Só visíbel para os profesores da clase</string>
   <string name="lastActiveDate">Última visita</string>
+  <string name="managed">Supervisada</string>
+  <string name="thisStudentAccountIsManaged">A conta deste estudante está supervisada</string>
+  <string name="upgradeFromManaged">Actualizar de supervisada a autónoma</string>
+  <string name="release">Liberar</string>
+  <string name="releaseTheAccount">Libera a conta para que o estudante poda xestionala de forma autónoma.</string>
+  <string name="releaseDesc1">Unha conta liberada non pode volver ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
+  <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
+  <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
+  <string name="teachers">Profesores</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="other">%s profesores</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Estudante</item>
+    <item quantity="other">%s estudantes</item>
+  </plurals>
+  <string name="students">Estudantes</string>
+  <string name="progress">Progreso</string>
+  <string name="noStudents">Non hai aínda estudantes na aula.</string>
+  <string name="noRemovedStudents">Non hai estudantes eliminados.</string>
+  <string name="overDays">Durante días</string>
+  <string name="timePlaying">Tempo xogado</string>
+  <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Porcentaxe de victorias</string>
   <string name="na">Non dispoñible</string>
   <string name="news">Novidades da clase</string>
   <string name="editNews">Editar as novidades</string>
+  <string name="notifyAllStudents">Notificar todos os estudantes</string>
+  <string name="nothingHere">Nada aquí polo de agora.</string>
+  <string name="newsEdit1">Todas as novidades sobre a clase nun único campo.</string>
+  <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
+  <string name="newsEdit3">Separa as novas con ---
+Amosará unha liña separadora horizontal.</string>
+  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
 </resources>

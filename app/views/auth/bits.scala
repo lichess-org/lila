@@ -1,15 +1,14 @@
 package views.html
 package auth
 
+import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.security.RecaptchaForm
+import lila.security.HcaptchaForm
 import lila.user.User
-
-import controllers.routes
 
 object bits {
 
@@ -34,25 +33,24 @@ object bits {
       }
     )
 
-  def passwordReset(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def passwordReset(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.recaptcha.script(form),
-      csp = defaultCsp.withRecaptcha.some
+      moreJs = views.html.base.hcaptcha.script(form),
+      csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
           fail option span(cls := "is-red", dataIcon := "L"),
           trans.passwordReset()
         ),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.passwordResetApply())(
-          form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
-          form3.action(
-            views.html.base.recaptcha.button(form) {
-              form3.submit(trans.emailMeALink())
-            }
-          )
+        postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
+          form3.group(form("email"), trans.email())(
+            form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
+          ),
+          views.html.base.hcaptcha.tag(form),
+          form3.action(form3.submit(trans.emailMeALink()))
         )
       )
     }
@@ -107,12 +105,12 @@ object bits {
       )
     }
 
-  def magicLink(form: RecaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
+  def magicLink(form: HcaptchaForm[_], fail: Boolean)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.recaptcha.script(form),
-      csp = defaultCsp.withRecaptcha.some
+      moreJs = views.html.base.hcaptcha.script(form),
+      csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
@@ -120,13 +118,12 @@ object bits {
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
-        postForm(id := form.formId, cls := "form3", action := routes.Auth.magicLinkApply())(
+        postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
           form3.group(form("email"), trans.email())(
-            form3.input(_, typ = "email")(autofocus, autocomplete := "email")
+            form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          form3.action(views.html.base.recaptcha.button(form) {
-            form3.submit(trans.emailMeALink())
-          })
+          views.html.base.hcaptcha.tag(form),
+          form3.action(form3.submit(trans.emailMeALink()))
         )
       )
     }
@@ -139,6 +136,22 @@ object bits {
         h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+      )
+    }
+
+  def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = s"Log in as ${user.username}",
+      moreCss = cssTag("form3")
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1("Log in as ", userLink(user)),
+        postForm(action := routes.Auth.loginWithTokenPost(token, referrer))(
+          form3.actions(
+            a(href := routes.Lobby.home)(trans.cancel()),
+            submitButton(cls := "button")(s"${user.username} is my Lichess username, log me in")
+          )
+        )
       )
     }
 
@@ -171,7 +184,7 @@ body { margin-top: 45px; }
 """),
       div(id := "email-confirm")(
         s"Almost there, ${userEmail.username}! Now check your email (${userEmail.email.conceal}) for signup confirmation.",
-        a(href := routes.Auth.checkYourEmail())("Click here for help")
+        a(href := routes.Auth.checkYourEmail)("Click here for help")
       )
     )
 
@@ -183,6 +196,18 @@ body { margin-top: 45px; }
         h1(cls := "text", dataIcon := "2")("Ooops"),
         p("Sorry, you can't signup to Lichess through Tor!"),
         p("You can play, train and use almost all Lichess features as an anonymous user.")
+      )
+    }
+
+  def logout()(implicit ctx: Context) =
+    views.html.base.layout(
+      title = trans.logOut.txt()
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1(trans.logOut()),
+        form(action := routes.Auth.logout, method := "post")(
+          button(cls := "button button-red", tpe := "submit")(trans.logOut.txt())
+        )
       )
     }
 }

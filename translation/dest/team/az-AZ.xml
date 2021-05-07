@@ -4,22 +4,21 @@
   <string name="teams">Komandalar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s üzvləri</item>
-    <item quantity="other">%s üzvləri</item>
+    <item quantity="other">%s üzv</item>
   </plurals>
   <string name="allTeams">Bütün komandalar</string>
   <string name="newTeam">Yeni komanda</string>
-  <string name="myTeams">Mənim komandalarım</string>
+  <string name="myTeams">Komandalarım</string>
   <string name="noTeamFound">Komanda tapılmadı</string>
-  <string name="joinTeam">komandaya daxil ol</string>
-  <string name="quitTeam">komandadan ayrıl</string>
-  <string name="anyoneCanJoin">İstənilən şəxs qoşula bilər</string>
-  <string name="aConfirmationIsRequiredToJoin">Qoşulmaq üçün təsdiq olunmalıdır</string>
-  <string name="joiningPolicy">Qoşulma siyasəti</string>
+  <string name="joinTeam">Komandaya qoşul</string>
+  <string name="quitTeam">Komandanı tərk et</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">İşarəlidirsə, oyunçuların komandaya qoşulmaq üçün bir tələb yazması lazımdır, bu təklifi rədd edə və ya qəbul edə bilərsiniz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
   </plurals>
-  <string name="teamBestPlayers">Ən yaxşı oyunçular komandası</string>
+  <string name="teamBestPlayers">Ən yaxşı oyunçular</string>
   <string name="teamRecentMembers">Son qoşulan üzvlər</string>
   <string name="kickSomeone">Kimisə komandadan qov</string>
   <string name="whoToKick">Kimi komandadan qovmaq istəyirsiniz?</string>
@@ -39,7 +38,13 @@
 Bunu istifadə edərək oyunçuları turnirə və ya komanda döyüşünə qoşulmaq üçün çağıra bilərsiniz.
 Mesajlarınızı almaq istəməyən oyunçular komandanı tərk edə bilər.</string>
   <string name="teamsIlead">Liderlik etdiyim komandalar</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Gələn turnirlərdən birinə bağlamaq istəyirsiniz?</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Yaxınlaşan turnirlərdən birinə qoşulmaq istəyirsiniz?</string>
   <string name="usersWhoCanManageThisTeam">Bu komandanı idarə edə bilən istifadəçilər</string>
   <string name="leadersChat">Liderlərin söhbəti</string>
+  <string name="closeTeam">Komandanı bağla</string>
+  <string name="closeTeamDescription">Komandanı həmişəlik bağla.</string>
+  <string name="teamPassword">Komanda şifrəsi</string>
+  <string name="teamPasswordDescriptionForLeader">(İstəyə bağlı) Bu komandaya qoşulmaq üçün yeni üzvlərin bilməli olduğu şifrə.</string>
+  <string name="incorrectTeamPassword">Yanlış komanda şifrəsi.</string>
+  <string name="teamAlreadyExists">Bu komanda artıq mövcuddur.</string>
 </resources>

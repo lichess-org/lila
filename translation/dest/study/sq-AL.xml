@@ -62,15 +62,13 @@
   <string name="chapterPgn">SHENIMET e kapitullit</string>
   <string name="downloadGame">Shkarko lojen</string>
   <string name="studyUrl">Studio adresen e internetit te lojes</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Transmeto adresen e internetit</string>
   <string name="currentChapterUrl">Adresa e internetit e kapitullit aktual</string>
-  <string name="currentGameUrl">Adresa e lojes aktuale</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Mund ta kopjoni kete ne forum per ta ngjitur ne faqe</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Mund ta kopjoni kete ne forum per ta ngjitur ne faqe</string>
   <string name="startAtInitialPosition">Fillo nje pozicion fillestar</string>
   <string name="startAtX">Fillo tek %s</string>
   <string name="embedInYourWebsite">Fiksojeni ne uebsit ose blog</string>
   <string name="readMoreAboutEmbedding">Lexoni me shume rreth fiksimit</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Vetem studimet publike mund te fiksohen!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Vetem studimet publike mund te fiksohen!</string>
   <string name="open">Hap</string>
   <string name="xBroughtToYouByY">%1$s, e sjelle per ju nga %2$s</string>
   <string name="studyNotFound">Studimi nuk u gjet</string>

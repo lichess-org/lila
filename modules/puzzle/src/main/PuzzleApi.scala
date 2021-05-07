@@ -4,10 +4,11 @@ import cats.implicits._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.db.AsyncColl
+import lila.common.paginator.Paginator
+import lila.common.config.MaxPerPage
 import lila.db.dsl._
-import lila.memo.CacheApi
-import lila.user.{ User, UserRepo }
+import lila.db.paginator.Adapter
+import lila.user.User
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -25,12 +26,29 @@ final class PuzzleApi(
 
     def delete(id: Puzzle.Id): Funit =
       colls.puzzle(_.delete.one($id(id.value))).void
+
+    def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
+      colls.puzzle { coll =>
+        Paginator(
+          adapter = new Adapter[Puzzle](
+            collection = coll,
+            selector = $doc("users" -> user.id),
+            projection = none,
+            sort = $sort desc "glicko.r"
+          ),
+          page,
+          MaxPerPage(30)
+        )
+      }
   }
 
-  object round {
+  private[puzzle] object round {
 
     def find(user: User, puzzleId: Puzzle.Id): Fu[Option[PuzzleRound]] =
       colls.round(_.byId[PuzzleRound](PuzzleRound.Id(user.id, puzzleId).toString))
+
+    private[PuzzleApi] def exists(user: User, puzzleId: Puzzle.Id): Fu[Boolean] =
+      colls.round(_.exists($id(PuzzleRound.Id(user.id, puzzleId).toString)))
 
     def upsert(r: PuzzleRound, theme: PuzzleTheme.Key): Funit = {
       val roundDoc = RoundHandler.write(r) ++
@@ -77,7 +95,7 @@ final class PuzzleApi(
         import Puzzle.{ BSONFields => F }
         coll.one[Bdoc](
           $id(puzzleId.value),
-          $doc(F.voteUp -> true, F.voteDown -> true, F.id -> false)
+          $doc(F.voteUp -> true, F.voteDown -> true, F.day -> true, F.id -> false)
         ) flatMap {
           _ ?? { doc =>
             val prevUp   = ~doc.int(F.voteUp)
@@ -91,7 +109,12 @@ final class PuzzleApi(
                   F.voteUp   -> up,
                   F.voteDown -> down,
                   F.vote     -> ((up - down).toFloat / (up + down))
-                )
+                ) ++ {
+                  (newVote <= -100 && doc
+                    .getAsOpt[DateTime](F.day)
+                    .exists(_ isAfter DateTime.now.minusDays(1))) ??
+                    $unset(F.day)
+                }
               )
               .void
           }
@@ -145,5 +168,19 @@ final class PuzzleApi(
           }
         }
       }
+  }
+
+  object casual {
+
+    private val store = new lila.memo.ExpireSetMemo(30 minutes)
+
+    private def key(user: User, id: Puzzle.Id) = s"${user.id}:${id}"
+
+    def setCasualIfNotYetPlayed(user: User, puzzle: Puzzle): Funit =
+      !round.exists(user, puzzle.id) map {
+        _ ?? store.put(key(user, puzzle.id))
+      }
+
+    def apply(user: User, id: Puzzle.Id) = store.get(key(user, id))
   }
 }

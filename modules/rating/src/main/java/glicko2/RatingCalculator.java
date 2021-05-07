@@ -25,7 +25,7 @@ public class RatingCalculator {
   private final static double DEFAULT_TAU =  0.75;
   private final static double MULTIPLIER =  173.7178;
   private final static double CONVERGENCE_TOLERANCE =  0.000001;
-  private final static int ITERATION_MAX =  3000;
+  private final static int ITERATION_MAX =  1000;
   private final static double DAYS_PER_MILLI =  1.0 / (1000 * 60 * 60 * 24);
 
   private final double tau; // constrains volatility over time

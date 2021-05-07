@@ -1,13 +1,14 @@
 package views.html
 
+import controllers.routes
+
 import lila.activity.activities._
 import lila.activity.model._
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
-
-import controllers.routes
+import lila.swiss.Swiss
 
 object activity {
 
@@ -19,7 +20,10 @@ object activity {
           div(cls := "entries")(
             a.patron map renderPatron,
             a.practice map renderPractice,
-            a.puzzles map renderPuzzles,
+            a.puzzles map renderPuzzles(u),
+            a.storm map renderStorm,
+            a.racer map renderRacer,
+            a.streak map renderStreak,
             a.games map renderGames,
             a.posts map renderPosts,
             a.corresMoves map { case (nb, povs) =>
@@ -32,6 +36,7 @@ object activity {
             a.simuls map renderSimuls(u),
             a.studies map renderStudies,
             a.tours map renderTours,
+            a.swisses map renderSwisses,
             a.teams map renderTeams,
             a.stream option renderStream(u),
             a.signup option renderSignup
@@ -46,7 +51,7 @@ object activity {
     div(cls := "entry plan")(
       iconTag(""),
       div(
-        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
+        trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
       )
     )
 
@@ -74,13 +79,43 @@ object activity {
         )
     }
 
-  private def renderPuzzles(p: Puzzles)(implicit ctx: Context) =
+  private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
       iconTag("-"),
       scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),
-        p.score.rp.filterNot(_.isEmpty).map(ratingProgFrag)
+        p.score.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
+      )
+    )
+
+  private def renderStorm(s: Storm)(implicit ctx: Context) =
+    entryTag(
+      iconTag("~"),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
+      )
+    )
+
+  private def renderRacer(s: Racer)(implicit ctx: Context) =
+    entryTag(
+      iconTag(","),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Racer.home)("Puzzle Racer"))
+      )
+    )
+
+  private def renderStreak(s: Streak)(implicit ctx: Context) =
+    entryTag(
+      iconTag("}"),
+      scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
+      div(
+        trans.storm.playedNbRunsOfPuzzleStorm
+          .plural(s.runs, s.runs.localize, a(href := routes.Puzzle.streak)("Puzzle Streak"))
       )
     )
 
@@ -234,7 +269,6 @@ object activity {
         trans.activity.competedInNbTournaments.pluralSame(tours.nb),
         subTag(
           tours.best.map { t =>
-            val link = a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
             div(
               cls := List(
                 "is-gold" -> (t.rank == 1),
@@ -245,9 +279,34 @@ object activity {
               trans.activity.rankedInTournament.plural(
                 t.nbGames,
                 strong(t.rank),
-                (t.rankRatio.value * 100).toInt atLeast 1,
+                t.rankRatio.percent,
                 t.nbGames,
-                link
+                a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
+              ),
+              br
+            )
+          }
+        )
+      )
+    )
+
+  private def renderSwisses(swisses: List[(Swiss.IdName, Int)])(implicit ctx: Context) =
+    entryTag(
+      iconTag("g"),
+      div(
+        trans.activity.competedInNbSwissTournaments.pluralSame(swisses.size),
+        subTag(
+          swisses.map { case (swiss, rank) =>
+            div(
+              cls := List(
+                "is-gold" -> (rank == 1),
+                "text"    -> (rank <= 3)
+              ),
+              dataIcon := (rank <= 3).option("g")
+            )(
+              trans.activity.rankedInSwissTournament(
+                strong(rank),
+                a(href := routes.Swiss.show(swiss.id.value))(swiss.name)
               ),
               br
             )
@@ -259,7 +318,7 @@ object activity {
   private def renderStream(u: User)(implicit ctx: Context) =
     ctx.noKid option entryTag(
       iconTag(""),
-      a(href := routes.Streamer.show(u.username))(trans.activity.hostedALiveStream())
+      a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
     )
 
   private def renderSignup(implicit ctx: Context) =
@@ -270,6 +329,8 @@ object activity {
 
   private val entryTag = div(cls := "entry")
   private val subTag   = div(cls := "sub")
+  private val scoreTag = tag("score")
+  private val winTag   = tag("win")
 
   private def scoreFrag(s: Score)(implicit ctx: Context) =
     raw {
@@ -281,10 +342,7 @@ object activity {
     }
 
   private def ratingProgFrag(r: RatingProg) =
-    ratingTag(
-      r.after.value,
-      ratingProgress(r.diff)
-    )
+    ratingTag(r.after.value, ratingProgress(r.diff))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(implicit ctx: Context) =
     if (p == 0) ""

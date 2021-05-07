@@ -6,7 +6,8 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.event.EventForm
+import lila.event.{ Event, EventForm }
+import lila.i18n.LangList
 
 object event {
 
@@ -16,17 +17,20 @@ object event {
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New event"),
-        postForm(cls := "content_box_content form3", action := routes.Event.create())(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
 
-  def edit(event: lila.event.Event, form: Form[_])(implicit ctx: Context) =
+  def edit(event: Event, form: Form[_])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
         div(cls := "box__top")(
           h1(
             a(href := routes.Event.show(event.id))(event.title),
-            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt)),
+            event.updatedBy map { updatedBy =>
+              span("Updated by ", usernameOrId(updatedBy.value), " ", event.updatedAt.map(momentFromNow(_)))
+            }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
             form3.submit("Clone", "".some, klass = "button-green button-empty")
@@ -37,7 +41,14 @@ object event {
       )
     }
 
-  def show(e: lila.event.Event)(implicit ctx: Context) =
+  def iconOf(e: Event) =
+    e.icon match {
+      case None                                     => i(cls := "img", dataIcon := "")
+      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := "")
+      case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
+    }
+
+  def show(e: Event)(implicit ctx: Context) =
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
@@ -45,9 +56,7 @@ object event {
     ) {
       main(cls := "page-small event box box-pad")(
         div(cls := "box__top")(
-          e.icon map { i =>
-            img(cls := "img", src := assetUrl(s"images/$i"))
-          } getOrElse i(cls := "img", dataIcon := ""),
+          iconOf(e),
           div(
             h1(e.title),
             strong(cls := "headline")(e.headline)
@@ -67,14 +76,14 @@ object event {
       )
     }
 
-  def manager(events: List[lila.event.Event])(implicit ctx: Context) = {
+  def manager(events: List[Event])(implicit ctx: Context) = {
     val title = "Event manager"
     layout(title = title) {
       div(cls := "crud page-menu__content box")(
         div(cls := "box__top")(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form(), dataIcon := "O")
+            a(cls := "button button-green", href := routes.Event.form, dataIcon := "O")
           )
         ),
         table(cls := "slist slist-pad")(
@@ -134,7 +143,7 @@ object event {
           frag("Icon"),
           half = true,
           help = frag("Displayed on the homepage button").some
-        )(form3.select(_, EventForm.iconChoices))
+        )(form3.select(_, EventForm.icon.choices))
       ),
       form3.group(
         form("headline"),
@@ -162,7 +171,14 @@ object event {
         )
       ),
       form3.split(
-        form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
+        form3.group(form("lang"), raw("Language"), half = true)(
+          form3.select(
+            _,
+            lila.i18n.LangList.popularNoRegion.map { l =>
+              l.code -> s"${l.language.toUpperCase} ${LangList name l}"
+            }
+          )
+        ),
         form3.group(
           form("hostedBy"),
           raw("Hosted by Lichess user"),
@@ -187,7 +203,7 @@ object event {
           raw("Hours on homepage before the start (0 to 24)"),
           half = true,
           help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
-        )(form3.input(_, typ = "number"))
+        )(form3.input(_, typ = "number")(step := ".01"))
       ),
       form3.action(form3.submit(trans.apply()))
     )

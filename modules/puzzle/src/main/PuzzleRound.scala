@@ -2,7 +2,6 @@ package lila.puzzle
 
 import org.joda.time.DateTime
 
-import lila.common.Day
 import lila.user.User
 
 case class PuzzleRound(
@@ -40,6 +39,8 @@ case class PuzzleRound(
     win = win,
     fixedAt = fixedAt orElse win.option(DateTime.now)
   )
+
+  def firstWin = win && fixedAt.isEmpty
 }
 
 object PuzzleRound {
@@ -69,4 +70,25 @@ object PuzzleRound {
     val date    = "d" // date of first playing the puzzle
     val theme   = "h"
   }
+
+  import lila.db.dsl._
+  def puzzleLookup(colls: PuzzleColls, pipeline: List[Bdoc] = Nil) =
+    $doc(
+      "$lookup" -> $doc(
+        "from" -> colls.puzzle.name.value,
+        "as"   -> "puzzle",
+        "let" -> $doc(
+          "pid" -> $doc("$arrayElemAt" -> $arr($doc("$split" -> $arr("$_id", ":")), 1))
+        ),
+        "pipeline" -> {
+          $doc(
+            "$match" -> $doc(
+              "$expr" -> $doc(
+                $doc("$eq" -> $arr("$_id", "$$pid"))
+              )
+            )
+          ) :: pipeline
+        }
+      )
+    )
 }

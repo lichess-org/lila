@@ -5,7 +5,7 @@
 
       color: $c-font-dim;
       font-size: 2em;
-      letter-spacing: .3em;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       text-align: center;
     }
@@ -18,11 +18,10 @@
       --min-width: 400px;
     }
 
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em;
-    margin: .8em 0 3em 0;
+    margin: 0.8em 0 3em 0;
   }
 
   .study {
@@ -45,11 +44,10 @@
       /* ribbon */
     }
 
-
     i {
       flex: 0 0 80px;
       height: 80px;
-      margin: 0 .9em;
+      margin: 0 0.9em;
       opacity: 0.9;
     }
 
@@ -120,7 +118,7 @@
 
     &:before,
     &:after {
-      content: "";
+      content: '';
       border-left: 3px solid transparent;
       border-right: 3px solid transparent;
       position: absolute;
@@ -135,16 +133,16 @@
       right: 0;
     }
 
-    background-color: #B3E5FC;
+    background-color: #b3e5fc;
 
     &:before,
     &:after {
-      border-top: 3px solid #536DFE;
+      border-top: 3px solid #536dfe;
     }
   }
 
   .done .ribbon {
-    background-color: #BFDC7A;
+    background-color: #bfdc7a;
 
     &:before,
     &:after {

@@ -2,19 +2,20 @@ package lila.msg
 
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
-import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.common.config.MaxPerPage
+import lila.common.LilaStream
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl._
+import lila.user.Holder
 import lila.user.{ User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
     userRepo: UserRepo,
-    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
     json: MsgJson,
@@ -85,6 +86,7 @@ final class MsgApi(
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
         verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
+        _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
         res <- verdict match {
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)
           case _: MsgSecurity.Reject => fuccess(PostResult.Bounced)
@@ -147,26 +149,25 @@ final class MsgApi(
       }
   }
 
-  def postPreset(dest: User, preset: MsgPreset): Fu[PostResult] =
-    systemPost(dest.id, preset.text)
+  def postPreset(destId: User.ID, preset: MsgPreset): Fu[PostResult] =
+    systemPost(destId, preset.text)
 
   def systemPost(destId: User.ID, text: String) =
     post(User.lichessId, destId, text, multi = true)
 
-  def multiPost(orig: User, destSource: Source[User.ID, _], text: String): Funit =
+  def multiPost(orig: Holder, destSource: Source[User.ID, _], text: String): Fu[Int] =
     destSource
       .filter(orig.id !=)
       .mapAsync(4) {
         post(orig.id, _, text, multi = true).logFailure(logger).nevermind(PostResult.Invalid)
       }
-      .toMat(Sink.ignore)(Keep.right)
+      .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
-      .void
 
   def cliMultiPost(orig: String, dests: Seq[User.ID], text: String): Fu[String] =
     userRepo named orig flatMap {
       case None         => fuccess(s"Unknown sender $orig")
-      case Some(sender) => multiPost(sender, Source(dests), text) inject "done"
+      case Some(sender) => multiPost(Holder(sender), Source(dests), text) inject "done"
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[MsgConvo]] =
@@ -202,15 +203,6 @@ final class MsgApi(
         notifier.deleteAllBy(threads, user)
     }
 
-  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
-
-  private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
-    _.expireAfterWrite(10 seconds)
-      .buildAsyncFuture[User.ID, Int] { userId =>
-        colls.thread.countSel($doc("users" -> userId, "lastMsg.read" -> false, "lastMsg.user" $ne userId))
-      }
-  }
-
   private val msgProjection = $doc("_id" -> false, "tid" -> false).some
 
   private def threadMsgsFor(threadId: MsgThread.Id, me: User, before: Option[DateTime]): Fu[List[Msg]] =
@@ -237,7 +229,7 @@ final class MsgApi(
       (res.nModified > 0) ?? notifier.onRead(threadId, me.id, contactId)
     }
 
-  def allMessagesOf(userId: User.ID): Fu[Vector[(User.ID, String, DateTime)]] =
+  def allMessagesOf(userId: User.ID): Source[(String, DateTime), _] =
     colls.thread
       .aggregateWith[Bdoc](
         readPreference = ReadPreference.secondaryPreferred
@@ -257,7 +249,15 @@ final class MsgApi(
                       "$expr" -> $doc(
                         "$and" -> $arr(
                           $doc("$eq" -> $arr("$user", userId)),
-                          $doc("$eq" -> $arr("$tid", "$$t"))
+                          $doc("$eq" -> $arr("$tid", "$$t")),
+                          $doc(
+                            "$not" -> $doc(
+                              "$regexMatch" -> $doc(
+                                "input" -> "$text",
+                                "regex" -> "You received this because you are subscribed to messages of the team"
+                              )
+                            )
+                          )
                         )
                       )
                     )
@@ -268,19 +268,16 @@ final class MsgApi(
             )
           ),
           Unwind("msg"),
-          Project($doc("msg.text" -> true, "msg.date" -> true))
+          Project($doc("_id" -> false, "msg.text" -> true, "msg.date" -> true))
         )
       }
-      .collect[Vector](maxDocs = 9000)
-      .map { docs =>
-        for {
-          doc  <- docs
-          id   <- doc string "_id"
-          dest <- id.split(MsgThread.idSep).find(userId !=)
+      .documentSource()
+      .mapConcat { doc =>
+        (for {
           msg  <- doc child "msg"
           text <- msg string "text"
           date <- msg.getAsOpt[DateTime]("date")
-        } yield (dest, text, date)
+        } yield (text, date)).toList
       }
 }
 

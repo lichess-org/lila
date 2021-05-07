@@ -4,18 +4,18 @@
   <string name="byPlaying">като играете!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Напредък: %s</string>
-  <string name="resetMyProgress">Нулирай моя напредък</string>
+  <string name="resetMyProgress">Анулирай напредъка ми</string>
   <string name="youWillLoseAllYourProgress">Ще загубите напредъка си!</string>
   <string name="play">играй!</string>
   <string name="chessPieces">Шахматни фигури</string>
   <string name="theRook">Топът</string>
   <string name="itMovesInStraightLines">Движи се в прави линии</string>
   <string name="rookIntro">Топът е силна фигура. Готови ли сте да го командвате?</string>
-  <string name="rookGoal">Натиснете върху топа, за да го преместите върху звездата!</string>
+  <string name="rookGoal">Натиснете топа, за да го преместите върху звездата!</string>
   <string name="grabAllTheStars">Вземете всички звезди!</string>
-  <string name="theFewerMoves">Колкото по-малко ходове правите, толкова повече точки ще спечелите!</string>
-  <string name="useTwoRooks">Използвайте двата топа да ускорите нещата!</string>
-  <string name="rookComplete">Поздравления! Вие успешно изучихте топа.</string>
+  <string name="theFewerMoves">Колкото по-малко ходове направите, толкова повече точки ще спечелите!</string>
+  <string name="useTwoRooks">Използвайте двата топа за да ускорите нещата!</string>
+  <string name="rookComplete">Поздравления! Успешно изучихте топа.</string>
   <string name="theBishop">Офицерът</string>
   <string name="itMovesDiagonally">Движи се по диагонал</string>
   <string name="bishopIntro">Сега ще се научите как да местите офицера!</string>
@@ -24,7 +24,7 @@
 Трябват ви и двата!</string>
   <string name="bishopComplete">Поздравления! Можете да контролирате офицера.</string>
   <string name="theQueen">Дамата</string>
-  <string name="queenCombinesRookAndBishop">Дама=топ+офицер</string>
+  <string name="queenCombinesRookAndBishop">Дама = топ + офицер</string>
   <string name="queenIntro">Това е най-силната фигура. Нейно Величество - Дамата!</string>
   <string name="queenComplete">Поздравления! Дамата няма тайни от вас.</string>
   <string name="theKing">Царят</string>
@@ -49,7 +49,7 @@
   <string name="pawnsMoveForward">Пешките се движат напред, но взимат по диагонал!</string>
   <string name="captureThenPromote">Вземете, след това произведете пешката!</string>
   <string name="useAllThePawns">Използвайте всички пешки! Няма нужда да произвеждате.</string>
-  <string name="aPawnOnTheSecondRank">Пешка на втория ред може да се придвижи с 2 полета напред!</string>
+  <string name="aPawnOnTheSecondRank">Пешка на втория ред може да се придвижи с 2 полета наведнъж!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Вземете всички звезди!
 Няма нужда да произвеждате.</string>
   <string name="pawnComplete">Поздравления! Пешките нямат тайни от вас.</string>
@@ -60,48 +60,48 @@
   <string name="fundamentals">Основи</string>
   <string name="capture">Взимане</string>
   <string name="takeTheEnemyPieces">Вземете противниковите фигури</string>
-  <string name="captureIntro">Разберете кои противникови фигури не се пазят и ги вземете!</string>
+  <string name="captureIntro">Разберете кои противникови фигури не са защитени и ги вземете!</string>
   <string name="takeTheBlackPieces">Вземете черните фигури!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Вземете черните фигури!
-И не губете вашите.</string>
+И не губете Вашите.</string>
   <string name="captureComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
   <string name="protection">Защита</string>
   <string name="keepYourPiecesSafe">Пазете си фигурите</string>
-  <string name="protectionIntro">Разберете кои фигури са атакуван от вашия противник и ги защитете!</string>
+  <string name="protectionIntro">Разберете кои фигури са атакувани от противника и ги защитете!</string>
   <string name="protectionComplete">Поздравления! Всяка неизгубена фигура е спечелена фигура!</string>
-  <string name="escape">Под атака си! Спаси се от заплахата!</string>
-  <string name="noEscape">Изход няма, но може да се защитаваш!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">Не им позволявай да ти се отнема незащитена фигура!</string>
+  <string name="escape">Под атака сте! Спасете се от заплахата!</string>
+  <string name="noEscape">Изход няма, но можете да се защитите!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Не позволявайте да Ви отнемат незащитени фигури!</string>
   <string name="combat">Битка</string>
   <string name="captureAndDefendPieces">Отнемай и защитавай фигури</string>
   <string name="combatIntro">Добрият войн знае както да атакува, така и да се защитава!</string>
-  <string name="combatComplete">Поздравления! Вие знаете как да се биете с шахматните фигури!</string>
+  <string name="combatComplete">Поздравления! Знаете как да се сражавате с шахматните фигури!</string>
   <string name="checkInOne">Шах в един ход</string>
   <string name="attackTheOpponentsKing">Атакувай противниковия цар</string>
-  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Те са длъжни да го защитят!</string>
-  <string name="checkInOneGoal">Прицели се в краля за един ход!</string>
-  <string name="checkInOneComplete">Поздравления! Вие поставихте противника си в шах, принуждавайки го да защитят царя си!</string>
+  <string name="checkInOneIntro">За да дадете шах на опонента си, атакувайте царя му. Той е длъжен да го защити!</string>
+  <string name="checkInOneGoal">Поставете царя в шах с един ход!</string>
+  <string name="checkInOneComplete">Поздравления! Поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="outOfCheck">Извън шах</string>
   <string name="defendYourKing">Защитете царя си</string>
   <string name="outOfCheckIntro">В шах сте! Трябва да избягате или да блокирате атаката.</string>
   <string name="escapeWithTheKing">Избягайте с царя!</string>
   <string name="theKingCannotEscapeButBlock">Царят не може да избяга,
-но вие може да блокирате атаката!</string>
-  <string name="youCanGetOutOfCheckByTaking">Може да се измъкнете от шаха,
-атакувайки противниковата фигура.</string>
+но можете да блокирате атаката!</string>
+  <string name="youCanGetOutOfCheckByTaking">Можете да се измъкнете от шах
+като вземете атакуващата фигура.</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">Този кон се движи между вашите редици!</string>
   <string name="escapeOrBlock">Избягай с царя или блокирай атаката!</string>
   <string name="outOfCheckComplete">Поздравления! Царят ви никога няма да бъде взет, уверете се, че може да се защитавате от атаки!</string>
-  <string name="mateInOne">Мат след 1 ход</string>
+  <string name="mateInOne">Мат в 1 ход</string>
   <string name="defeatTheOpponentsKing">Надвийте противниковия цар</string>
-  <string name="mateInOneIntro">Печелите, когато противникът ви не може да се защити от шах.</string>
+  <string name="mateInOneIntro">Печелите, когато противникът Ви не може да се защити от шах.</string>
   <string name="attackYourOpponentsKing">Атакувайте противниковия цар
-по начин, който не може да бъде избегнат!</string>
+така, че да не може да се защити!</string>
   <string name="mateInOneComplete">Поздравления! Така се печелят игри на шах!</string>
   <string name="intermediate">Средно ниво</string>
   <string name="boardSetup">Подредба на дъската</string>
   <string name="howTheGameStarts">Как започва играта</string>
-  <string name="boardSetupIntro">Двете армии са изправени една пред друга, готови за битка.</string>
+  <string name="boardSetupIntro">Двете армии са изправени една срещу друга, готови за битка.</string>
   <string name="thisIsTheInitialPosition">Това е първоначалната позиция на всяка игра на шах! Направете което и движение, за да продължите.</string>
   <string name="firstPlaceTheRooks">Първо топовете! Те се поставят в ъглите.</string>
   <string name="thenPlaceTheKnights">След това конете!
@@ -116,22 +116,22 @@
   <string name="boardSetupComplete">Поздравления! Вие знаете как се нарежда шахматната дъска.</string>
   <string name="castling">Рокада</string>
   <string name="theSpecialKingMove">Специалните ходове на царя</string>
-  <string name="castlingIntro">Защити царя си, и приготви топа си за атака!</string>
-  <string name="castleKingSide">Премести царя си с две полета за царска рокада!</string>
-  <string name="castleQueenSide">Премести царя си с две полета за дамска рокада!</string>
-  <string name="theKnightIsInTheWay">Конят пречи! Премести го, след което направете царска рокада.</string>
+  <string name="castlingIntro">Защитете царя си, и пригответе топа си за атака!</string>
+  <string name="castleKingSide">Преместете царя си с две полета за царска рокада!</string>
+  <string name="castleQueenSide">Преместете царя си с две полета за дамска рокада!</string>
+  <string name="theKnightIsInTheWay">Конят пречи! Преместете го, след което направете царска рокада.</string>
   <string name="castleKingSideMovePiecesFirst">Направете царска рокада!
-Първо трябва да раздвижите фигурите между тях.</string>
+Първо трябва да разместите някои от фигурите.</string>
   <string name="castleQueenSideMovePiecesFirst">Направете дамска рокада!
-Първо трябва да раздвижите фигурите между тях.</string>
+Първо трябва да разместите някои от фигурите.</string>
   <string name="youCannotCastleIfMoved">Не може да направите рокада, ако царят или топът вече са били премествани.</string>
-  <string name="youCannotCastleIfAttacked">Не можеш да направиш рокада, ако царят е под шах. Първо блокада, после рокада!</string>
-  <string name="findAWayToCastleKingSide">Намери начин да
-направиш царска рокада!</string>
-  <string name="findAWayToCastleQueenSide">Намери начин да
-направиш дамска рокада!</string>
+  <string name="youCannotCastleIfAttacked">Не можете да направите рокада, ако царят Ви е под шах. Първо блокада, после рокада!</string>
+  <string name="findAWayToCastleKingSide">Намерете начин да
+направите царска рокада!</string>
+  <string name="findAWayToCastleQueenSide">Намерете начин да
+направите дамска рокада!</string>
   <string name="castlingComplete">Поздравления! Добре е да правите рокада в почти всяка игра.</string>
-  <string name="enPassant">Ан-пасан</string>
+  <string name="enPassant">Ан пасан</string>
   <string name="theSpecialPawnMove">Специалният ход на пешката</string>
   <string name="enPassantIntro">Когато противниковата пионка бъде преместена с две полета напред, тя може да се вземе, все едно е преместена само веднъж.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Черните току-що преместиха
@@ -140,7 +140,7 @@
   <string name="enPassantOnlyWorksImmediately">Ан-пасан работи само когато
 пешката е била току-що преместена.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Ан-пасан работи само когато
-пешката ти е на петия ред.</string>
+пешката Ви е на петия ред.</string>
   <string name="takeAllThePawnsEnPassant">Вземете всички пешки с ан-пасан!</string>
   <string name="enPassantComplete">Поздравления! Сега вече знаете какво е ан-пасан.</string>
   <string name="stalemate">Пат</string>
@@ -171,22 +171,22 @@
 Пешка = 1</string>
   <string name="checkInTwo">Шах в два хода</string>
   <string name="twoMovesToGiveCheck">Два хода до шах</string>
-  <string name="checkInTwoIntro">Намери правилната комбинация от два хода, която дава шах на противниковия цар!</string>
-  <string name="checkInTwoGoal">Заплаши противниковия цар в два хода!</string>
-  <string name="checkInTwoComplete">Поздравления! Вие поставихте противника си в шах, принуждавайки го да защити царя си!</string>
+  <string name="checkInTwoIntro">Намерете правилната комбинация от два хода, която дава шах на противниковия цар!</string>
+  <string name="checkInTwoGoal">Заплашете противниковия цар в два хода!</string>
+  <string name="checkInTwoComplete">Поздравления! Поставихте противника си в шах, принуждавайки го да защити царя си!</string>
   <string name="whatNext">А сега какво?</string>
-  <string name="youKnowHowToPlayChess">Вие знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
-  <string name="register">Регистрирай се</string>
-  <string name="getAFreeLichessAccount">Създай безплатен Lichess акаунт</string>
-  <string name="practice">Упражнявай се</string>
-  <string name="learnCommonChessPositions">Научи основните позиции в шахмата</string>
-  <string name="puzzles">Пъзели</string>
-  <string name="exerciseYourTacticalSkills">Практикувайте своите тактически умения</string>
-  <string name="videos">Видеота</string>
+  <string name="youKnowHowToPlayChess">Знаете как се играе шах, поздравления! Искате ли да станете по-силен играч?</string>
+  <string name="register">Регистрирайте се</string>
+  <string name="getAFreeLichessAccount">Създайте безплатна регистрация в Lichess</string>
+  <string name="practice">Упражнявайте се</string>
+  <string name="learnCommonChessPositions">Научете основните позиции в шахмата</string>
+  <string name="puzzles">Задачи</string>
+  <string name="exerciseYourTacticalSkills">Упражнявайте тактическите си умения</string>
+  <string name="videos">Видеа</string>
   <string name="watchInstructiveChessVideos">Гледайте поучителни шахматни видеа</string>
-  <string name="playPeople">Играй срещу хора</string>
+  <string name="playPeople">Играйте срещу хора</string>
   <string name="opponentsFromAroundTheWorld">Противници от целия свят</string>
-  <string name="playMachine">Играй срещу машина</string>
+  <string name="playMachine">Играйте срещу машина</string>
   <string name="testYourSkillsWithTheComputer">Тествайте уменията си срещу компютър</string>
   <string name="letsGo">Да започваме!</string>
   <string name="stageX">Етап %s</string>
@@ -201,7 +201,7 @@
   <string name="nailedIt">Невероятно.</string>
   <string name="rightOn">Чудесно!</string>
   <string name="stageXComplete">Етап %s завършен</string>
-  <string name="yourScore">Резултатът ви</string>
+  <string name="yourScore">Резултатът Ви е</string>
   <string name="next">Следващ</string>
   <string name="backToMenu">Обратно към менюто</string>
   <string name="puzzleFailed">Неуспешно!</string>

@@ -42,8 +42,7 @@ object TotpSecret {
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
-    if (s.lengthIs == 6) s
-    else "0" * (6 - s.length) + s
+    "0" * (6 - s.length) + s
   }
 
   private[this] val secureRandom = new SecureRandom()
@@ -51,7 +50,7 @@ object TotpSecret {
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
   def random: TotpSecret = {
-    val secret = new Array[Byte](10)
+    val secret = new Array[Byte](20)
     secureRandom.nextBytes(secret)
     TotpSecret(secret)
   }

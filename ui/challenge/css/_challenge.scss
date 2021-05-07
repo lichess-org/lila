@@ -64,11 +64,15 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 50%;
+      width: 40%;
     }
 
-    .buttons > *:last-child {
-      left: 50%;
+    .buttons .decline {
+      left: 40%;
+    }
+    .buttons .decline-reason {
+      left: 80%;
+      width: 20%;
     }
 
     button {

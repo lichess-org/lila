@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Izvirzīts bandinieks</string>
-  <string name="advancedPawnDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
+  <string name="advancedPawnDescription">Kāds no jūsu bandiniekiem nonācis dziļi pretinieka pozīcijā, iespējams draudot ar paaugstināšanu.</string>
   <string name="advantage">Pārsvars</string>
   <string name="advantageDescription">Izmantojiet iespēju iegūt noteicošu pārsvaru. (200cp ≤ vērtējums ≤ 600cp)</string>
+  <string name="anastasiaMate">Anastāsijas mats</string>
+  <string name="anastasiaMateDescription">Zirdziņš ar torni vai dāmu iesprosto pretinieka karali starp galdiņa malu un viņa paša figūru.</string>
+  <string name="arabianMate">Arābu mats</string>
+  <string name="arabianMateDescription">Zirdziņš ar torni kopīgi iesprosto pretinieka karali galdiņa stūrī.</string>
   <string name="attackingF2F7">Uzbrukums f2 vai f7</string>
   <string name="attackingF2F7Description">Uzbrukums, kas koncentrējas uz f2 vai f7 bandinieku, līdzīgi \"fried liver\" (angļ. val. \"cepto aknu\") atklātnei.</string>
   <string name="attraction">Ievilkšana</string>
@@ -12,12 +16,18 @@
   <string name="backRankMateDescription">Piesakiet matu karalim, kuru savā rindā iesprostojušas paša figūras.</string>
   <string name="bishopEndgame">Laidņa beigu spēle</string>
   <string name="bishopEndgameDescription">Beigu spēle, kurā iesaistīti tikai laidņi un bandinieki.</string>
+  <string name="bodenMate">Bodena mats</string>
+  <string name="bodenMateDescription">Divi laidņi uz pretēju krāsu krusteniskām diagonālēm piesaka matu karalim, kura izbēgšanu traucē paša figūras.</string>
   <string name="castling">Rokāde</string>
   <string name="castlingDescription">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā.</string>
   <string name="capturingDefender">Sargājošas figūras nosišana</string>
   <string name="capturingDefenderDescription">Nosist figūru, kas nepieciešama citas figūras aizsardzībai, padarot iespējamu neaizsargātās figūras nosišanu nākamajā gājienā.</string>
   <string name="crushing">Graušana</string>
   <string name="crushingDescription">Ieraugiet pretinieka rupjo kļūdu, lai iegūtu graujošu pārsvaru. (vērtējums &gt; 600cp)</string>
+  <string name="doubleBishopMate">Dubultlaidņa mats</string>
+  <string name="doubleBishopMateDescription">Divi laidņi uz blakus diagonālēm piesaka matu karalim, ko ierobežo paša figūras.</string>
+  <string name="dovetailMate">Kozio mats</string>
+  <string name="dovetailMateDescription">Dāma piesaka matu nostājoties pie pretinieka karaļa tā, ka tā abi neapdraudētie lauciņi ir aizņemti ar paša figūrām.</string>
   <string name="equality">Vienlīdzība</string>
   <string name="equalityDescription">Atgriezieties no zaudējošas pozīcijas, un iegūstiet neizšķirtu vai vienlīdzīgu pozīciju. (vērtējums ≤ 200cp)</string>
   <string name="kingsideAttack">Karaļa puses uzbrukums</string>
@@ -41,6 +51,8 @@
   <string name="forkDescription">Gājiens, pēc kura kustinātā figūra uzbrūk diviem pretiniekiem reizē.</string>
   <string name="hangingPiece">Neapsargāta figūra</string>
   <string name="hangingPieceDescription">Taktika, ar kuru var par brīvu nosist pretinieka figūru, kas ir neapsargāta vai nepietiekami apsargāta.</string>
+  <string name="hookMate">Āķa mats</string>
+  <string name="hookMateDescription">Mats ar torni, zirdziņu un bandinieku, kurā iesaistīts viens pretinieka bandinieks, kas ierobežo karaļa izbēgšanu.</string>
   <string name="interference">Iejaukšanās</string>
   <string name="interferenceDescription">Figūras novietošana starp divām pretinieka figūrām tā, lai vismaz viena no tām būtu neapsargāta — piemēram zirdziņa novietošana uz apsargāta lauciņa starp torņiem.</string>
   <string name="intermezzo">Intermezzo</string>
@@ -49,6 +61,10 @@
   <string name="knightEndgameDescription">Beigu spēle, kurā iesaistīti tikai zirdziņi un bandinieki.</string>
   <string name="long">Gara puzle</string>
   <string name="longDescription">Trīs gājieni līdz uzvarai.</string>
+  <string name="master">Meistaru spēles</string>
+  <string name="masterDescription">Puzles no spēlēm, ko spēlējuši spēlētāji ar tituliem.</string>
+  <string name="masterVsMaster">Meistaru spēles pret meistariem</string>
+  <string name="masterVsMasterDescription">Puzles no spēlēm, kurās abiem spēlētājiem ir tituli.</string>
   <string name="mate">Mats</string>
   <string name="mateDescription">Uzvariet spēli ar stilu.</string>
   <string name="mateIn1">Mats vienā gājienā</string>
@@ -72,7 +88,7 @@
   <string name="pin">Piespraušana</string>
   <string name="pinDescription">Taktika, kas iesaista piespraušanu – pozīciju, kurā figūra nevar izkustēties bez uzbrukuma atklāšanas augstākas vērtības figūrai.</string>
   <string name="promotion">Paaugstināšana</string>
-  <string name="promotionDescription">Taktika balstās uz bandinieka paaugstināšanu vai paaugstināšanas draudu.</string>
+  <string name="promotionDescription">Paaugstiniet bandinieku par dāmu vai citu figūru.</string>
   <string name="queenEndgame">Dāmu beigu spēle</string>
   <string name="queenEndgameDescription">Beigu spēle, kurā iesaistīti tikai bandinieki un dāmas.</string>
   <string name="queenRookEndgame">Dāmu un torņu beigu spēle</string>
@@ -91,6 +107,8 @@
   <string name="skewerDescription">Šis motīvs iesaista augstas vērtības figūru, kurai jāizkustās, lai izvairītos no uzbrukuma, atļaujot vai nu uzbrukumu mazākas vērtības figūrai, kas atrodas aiz tās, vai arī šīs figūras nosišanu – pretējais piespraušanai.</string>
   <string name="smotheredMate">Smacējošais mats</string>
   <string name="smotheredMateDescription">Zirdziņa pieteikts mats karalim, kas nevar kustēties dēļ paša figūrām, kas to ielenkušas (nosmacējušas).</string>
+  <string name="superGM">Super-Lielmeistaru spēles</string>
+  <string name="superGMDescription">Puzles no labāko pasaules spēlētāju spēlēm.</string>
   <string name="trappedPiece">Iesprostota figūra</string>
   <string name="trappedPieceDescription">Figūra nevar izbēgt nosišanu, jo ierobežoti tās gājieni.</string>
   <string name="underPromotion">Pieticīga paaugstināšana</string>

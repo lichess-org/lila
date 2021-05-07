@@ -1,4 +1,4 @@
-import { storage } from "./storage";
+import { storage } from './storage';
 
 export default function once(key: string, mod?: 'always' | undefined) {
   if (mod === 'always') return true;

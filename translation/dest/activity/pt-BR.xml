@@ -19,8 +19,8 @@
     <item quantity="other">Jogou %1$s partidas de %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Postou %1$s mensagem em %2$s</item>
-    <item quantity="other">Postou %1$s mensagens em %2$s</item>
+    <item quantity="one">Publicou %1$s mensagem em %2$s</item>
+    <item quantity="other">Publicou %1$s mensagens em %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Jogou %1$s movimento</item>
@@ -62,9 +62,14 @@
     <item quantity="one">Classificado #%1$s (top %2$s%%) com %3$s jogo em %4$s</item>
     <item quantity="other">Classificado #%1$s (top %2$s%%) com %3$s jogos em %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Competiu em %s torneio suíço</item>
+    <item quantity="other">Competiu em %s torneios suíços</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Classificado #%1$s entre %2$s</string>
   <string name="signedUp">Registrou-se no lichess</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Uniu-se a %s time</item>
-    <item quantity="other">Uniu-se a %s times</item>
+    <item quantity="one">Juntou-se a %s equipe</item>
+    <item quantity="other">Juntou-se a %s equipes</item>
   </plurals>
 </resources>

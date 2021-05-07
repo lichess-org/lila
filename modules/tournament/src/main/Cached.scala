@@ -59,6 +59,19 @@ final private[tournament] class Cached(
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
+  object battle {
+
+    val teamStanding =
+      cacheApi[Tournament.ID, List[TeamBattle.RankedTeam]](8, "tournament.teamStanding") {
+        _.expireAfterWrite(1 second)
+          .buildAsyncFuture { id =>
+            tournamentRepo teamBattleOf id flatMap {
+              _ ?? { playerRepo.bestTeamIdsByTour(id, _) }
+            }
+          }
+      }
+  }
+
   private[tournament] object sheet {
 
     import arena.Sheet

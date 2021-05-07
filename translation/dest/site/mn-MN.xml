@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Хязгааргүй шинжилгээ</string>
   <string name="removesTheDepthLimit">Гүний хязгаарыг арилгавал компьютер илүү ачаална</string>
   <string name="blunder">Ноцтой алдаа</string>
-  <string name="blunders">Ноцтой алдаанууд</string>
   <string name="mistake">Алдаа</string>
-  <string name="mistakes">Алдаанууд</string>
   <string name="inaccuracy">Оновчгүй нүүдэл</string>
-  <string name="inaccuracies">Оновчгүй нүүдлүүд</string>
   <string name="moveTimes">Нүүдлийн хугацаа</string>
   <string name="flipBoard">Талуудын байрлалыг солих</string>
   <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
@@ -238,7 +235,6 @@
   <string name="send">Илгээх</string>
   <string name="incrementInSeconds">Секундын нэмэгдэл</string>
   <string name="freeOnlineChess">Нээлттэй эхийн, үнэ төлбөргүй шатрын хуудас</string>
-  <string name="spectators">Үзэгчид:</string>
   <plurals name="nbWins">
     <item quantity="one">%s ялалт</item>
     <item quantity="other">%s ялалт</item>
@@ -261,7 +257,6 @@
     <item quantity="one">%s секунд нэмж өгөх</item>
     <item quantity="other">%s секунд нэмж өгөх</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Энэ тоглогч өөрийн чансааг хиймлээр өсгөж/бууруулж байна</string>
   <string name="openingExplorerAndTablebase">Шатрын гараа болон төгсгөлүүдийг судлах</string>
   <string name="takeback">Нүүдэл буцаалт</string>
   <string name="proposeATakeback">Нүүдэл буцаах хүсэлт илгээх</string>
@@ -354,7 +349,6 @@
   <string name="more">Дэлгэрэнгүй үзэх</string>
   <string name="memberSince">Гишүүнчлэлийн огноо:</string>
   <string name="lastSeenActive">Сүүлд холбогдсон огноо: %s</string>
-  <string name="challengeToPlay">Тоглолтод урих</string>
   <string name="player">Гишүүн</string>
   <string name="list">Жагсаалт</string>
   <string name="graph">Үзүүлэлтийн хүснэгт, диаграмм, график</string>
@@ -699,7 +693,6 @@
   <string name="error.unknown">Алдаа</string>
   <string name="custom">Өөрийнхөөр</string>
   <string name="notifications">Мэдэгдэлүүд</string>
-  <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">Эхний нүүдэл хийхэд %s секунд байна</item>
@@ -746,10 +739,6 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
-  <string name="registerToSendChallenges">Тулаанд дуудахаар бүртгүүлнэ үү.</string>
-  <string name="youCannotChallengeX">%s-г тулаанд дуудаж болохгүй.</string>
-  <string name="xDoesNotAcceptChallenges">%s дуудлагыг хүлээн авсангүй.</string>
-  <string name="yourXRatingIsTooFarFromY">Таны %1$s үнэлгээ %2$s-с хэт зөрүүтэй байна.</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>

@@ -15,7 +15,7 @@ object bits {
 
   def orderSelect(order: Order, active: String, url: String => Call)(implicit ctx: Context) = {
     val orders =
-      if (active == "all") Order.allButOldest
+      if (active == "all") Order.withoutSelector
       else if (active startsWith "topic") Order.allWithMine
       else Order.all
     views.html.base.bits.mselect(
@@ -28,7 +28,7 @@ object bits {
   }
 
   def newForm()(implicit ctx: Context) =
-    postForm(cls := "new-study", action := routes.Study.create())(
+    postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(cls := "button button-green", dataIcon := "O", title := trans.study.createStudy.txt())
     )
 
@@ -85,10 +85,8 @@ object bits {
       )
     )
 
-  def streamers(streams: List[lila.streamer.Stream])(implicit lang: Lang) =
-    streams.nonEmpty option div(cls := "streamers none")(
-      streams.map { s =>
-        views.html.streamer.bits.contextual(s.streamer.userId)
-      }
+  def streamers(streamers: List[lila.user.User.ID])(implicit lang: Lang) =
+    streamers.nonEmpty option div(cls := "context-streamers none")(
+      streamers map views.html.streamer.bits.contextual
     )
 }

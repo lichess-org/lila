@@ -46,24 +46,24 @@
     position: absolute;
     top: 0;
     padding: 4px 0;
-    background-color: #303E43;
+    background-color: #303e43;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     transition: filter 0.13s;
     color: #fff;
     white-space: nowrap;
-    font-size: .9em;
+    font-size: 0.9em;
 
     &:hover {
       filter: brightness(1.08);
     }
 
     &.hourly {
-      background-color: #3D9333;
+      background-color: #3d9333;
     }
 
     &.daily,
     &.eastern {
-      background-color: #0072B2;
+      background-color: #0072b2;
     }
 
     @keyframes animatedBackground {
@@ -88,11 +88,11 @@
     }
 
     &.weekly {
-      background-color: #D55E00;
+      background-color: #d55e00;
     }
 
     &.monthly {
-      background-color: #C93D3D;
+      background-color: #c93d3d;
     }
 
     &.yearly,
@@ -101,7 +101,7 @@
     }
 
     &.marathon {
-      background-color: #66558C;
+      background-color: #66558c;
     }
 
     &.unique {

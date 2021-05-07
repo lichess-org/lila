@@ -1,5 +1,6 @@
 package views.html.lobby
 
+import controllers.routes
 import play.api.libs.json.Json
 
 import lila.api.Context
@@ -8,8 +9,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-
-import controllers.routes
 
 object home {
 
@@ -56,10 +55,14 @@ object home {
         )
       )(
         div(cls := "lobby__table")(
+          div(cls := "bg-switch", title := "Dark mode")(
+            div(cls := "bg-switch__track"),
+            div(cls := "bg-switch__thumb")
+          ),
           div(cls := "lobby__start")(
             ctx.blind option h2("Play"),
             a(
-              href := routes.Setup.hookForm(),
+              href := routes.Setup.hookForm,
               cls := List(
                 "button button-metal config_hook" -> true,
                 "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
@@ -75,7 +78,7 @@ object home {
               trans.playWithAFriend()
             ),
             a(
-              href := routes.Setup.aiForm(),
+              href := routes.Setup.aiForm,
               cls := List(
                 "button button-metal config_ai" -> true,
                 "disabled"                      -> currentGame.isDefined
@@ -87,7 +90,7 @@ object home {
             ctx.blind option h2("Counters"),
             a(
               id := "nb_connected_players",
-              href := ctx.noBlind.option(routes.User.list().url)
+              href := ctx.noBlind.option(routes.User.list.url)
             )(
               trans.nbPlayers(
                 strong(dataCount := homepage.counters.members)(homepage.counters.members.localize)
@@ -95,7 +98,7 @@ object home {
             ),
             a(
               id := "nb_games_in_play",
-              href := ctx.noBlind.option(routes.Tv.games().url)
+              href := ctx.noBlind.option(routes.Tv.games.url)
             )(
               trans.nbGamesInPlay(
                 strong(dataCount := homepage.counters.rounds)(homepage.counters.rounds.localize)
@@ -130,7 +133,7 @@ object home {
             div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
-              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home())(
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
                 trans.more(),
                 " »"
               )
@@ -140,7 +143,7 @@ object home {
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer(
                 "Lichess",
-                a(cls := "blue", href := routes.Plan.features())(trans.really.txt())
+                a(cls := "blue", href := routes.Plan.features)(trans.really.txt())
               ),
               " ",
               a(href := "/about")(trans.aboutX("Lichess"), "...")
@@ -156,7 +159,7 @@ object home {
         },
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         ctx.noKid option div(cls := "lobby__forum lobby__box")(
-          a(cls := "lobby__box__top", href := routes.ForumCateg.index())(
+          a(cls := "lobby__box__top", href := routes.ForumCateg.index)(
             h2(cls := "title text", dataIcon := "d")(trans.latestForumPosts()),
             span(cls := "more")(trans.more(), " »")
           ),
@@ -166,7 +169,7 @@ object home {
         ),
         bits.lastPosts(lastPost),
         div(cls := "lobby__support")(
-          a(href := routes.Plan.index())(
+          a(href := routes.Plan.index)(
             iconTag(patronIconChar),
             span(cls := "lobby__support__text")(
               strong(trans.patron.donate()),
@@ -187,7 +190,7 @@ object home {
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.Page.tos())(trans.termsOfService()),
+          a(href := routes.Page.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
           a(href := "/ads")("Ads"),

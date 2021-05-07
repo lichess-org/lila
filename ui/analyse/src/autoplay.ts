@@ -5,11 +5,10 @@ import * as control from './control';
 export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
-
   private timeout: number | undefined;
   private delay: AutoplayDelay | undefined;
 
-  constructor(private ctrl: AnalyseCtrl) { }
+  constructor(private ctrl: AnalyseCtrl) {}
 
   private move(): boolean {
     if (control.canGoForward(this.ctrl)) {
@@ -24,7 +23,7 @@ export class Autoplay {
 
   private evalToCp(node: Tree.Node): number {
     if (!node.eval) return node.ply % 2 ? 990 : -990; // game over
-    if (node.eval.mate) return (node.eval.mate > 0) ? 990 : -990;
+    if (node.eval.mate) return node.eval.mate > 0 ? 990 : -990;
     return node.eval.cp!;
   }
 
@@ -37,17 +36,13 @@ export class Autoplay {
       const time = centis[this.ctrl.node.ply - this.ctrl.tree.root.ply];
       // estimate 130ms of lag to improve playback.
       return time * 10 + 130 || 2000;
-    }
-    else if (this.delay === 'cpl') {
+    } else if (this.delay === 'cpl') {
       const slowDown = 30;
       if (this.ctrl.node.ply >= this.ctrl.mainline.length - 1) return 0;
       const currPlyCp = this.evalToCp(this.ctrl.node);
       const nextPlyCp = this.evalToCp(this.ctrl.node.children[0]);
-      return Math.max(500,
-        Math.min(10000,
-          Math.abs(currPlyCp - nextPlyCp) * slowDown));
-    }
-    else return this.delay!;
+      return Math.max(500, Math.min(10000, Math.abs(currPlyCp - nextPlyCp) * slowDown));
+    } else return this.delay!;
   }
 
   private schedule(): void {

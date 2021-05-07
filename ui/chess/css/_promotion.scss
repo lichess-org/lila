@@ -2,7 +2,7 @@
   @extend %abs-100;
 
   background: fade-out($c-bg-page, 0.3);
-  z-index: z("cg__promotion");
+  z-index: z('cg__promotion');
 
   square {
     cursor: pointer;

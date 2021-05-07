@@ -30,10 +30,10 @@ object RageSit {
       {
         import chess.variant._
         (game.chess.board.materialImbalance, game.variant) match {
-          case (_, Crazyhouse | Horde) => 0
-          case (a, _) if a >= 4        => 1
-          case (a, _) if a <= -4       => -1
-          case _                       => 0
+          case (_, Crazyhouse | Horde | Antichess) => 0
+          case (a, _) if a >= 4                    => 1
+          case (a, _) if a <= -4                   => -1
+          case _                                   => 0
         }
       } * {
         if (loser.white) 1 else -1

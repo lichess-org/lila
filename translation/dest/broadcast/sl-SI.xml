@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Oddaje</string>
+  <string name="broadcasts">Prenosi</string>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
   <string name="newBroadcast">Nov prenos v živo</string>
+  <string name="addRound">Dodajte krog</string>
   <string name="ongoing">V teku</string>
   <string name="upcoming">Prihajajoči</string>
   <string name="completed">Zaključeno</string>
-  <string name="eventName">Ime dogodka</string>
-  <string name="eventDescription">Kratek opis dogodka</string>
-  <string name="fullDescription">Polni opis dogodka</string>
-  <string name="fullDescriptionHelp">Neobvezen dolg opis oddaje. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
-  <string name="sourceUrl">URL vira</string>
-  <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
+  <string name="roundName">Ime kroga</string>
   <string name="roundNumber">Številka kroga</string>
+  <string name="tournamentName">Turnirsko ime</string>
+  <string name="tournamentDescription">Kratek opis turnirja</string>
+  <string name="fullDescription">Polni opis dogodka</string>
+  <string name="fullDescriptionHelp">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
+  <string name="sourceUrlOrGameIds">Izvorni URL ali ID igre</string>
+  <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
+  <string name="gameIdsHelp">Lahko pa vnesete do 64 ID-jev lichess iger, ločene s presledki.</string>
   <string name="startDate">Datum začetka v vaše časovnem pasu</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
-  <string name="cloneBroadcast">Klonirajte oddajo</string>
-  <string name="resetBroadcast">Ponastavite oddajo</string>
+  <string name="resetRound">Ponastavi ta krog</string>
+  <string name="deleteRound">Izbriši ta krog</string>
+  <string name="broadcastUrl">URL oddaje</string>
+  <string name="currentRoundUrl">URL trenutnega kroga</string>
+  <string name="currentGameUrl">URL trenutno igrane igre</string>
 </resources>

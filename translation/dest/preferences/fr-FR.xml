@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notation des coups</string>
   <string name="chessPieceSymbol">Figurine de la pièce</string>
   <string name="pgnLetter">Lettre de la pièce (K, Q, R, B, N)</string>
-  <string name="zenMode">Mode Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quand il reste moins de 10 secondes</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>
   <string name="horizontalGreenProgressBars">Barres de progression horizontales vertes</string>
   <string name="soundWhenTimeGetsCritical">Alerte quand le temps restant devient critique</string>
   <string name="giveMoreTime">Donner plus de temps</string>
-  <string name="gameBehavior">Conduite de la partie</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Conduite de la partie</string>
   <string name="howDoYouMovePieces">Comment voulez-vous déplacer les pièces ?</string>
   <string name="clickTwoSquares">Clic et clic</string>
   <string name="dragPiece">Faire glisser la pièce</string>

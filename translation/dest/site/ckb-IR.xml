@@ -8,6 +8,7 @@
   <string name="waiting">چاوەڕوانی ڕازیبوونی لایەنی بەرامبەر</string>
   <string name="yourTurn">سەرەی تۆیە</string>
   <string name="level">پلە</string>
+  <string name="strength">هێز</string>
   <string name="toggleTheChat">چەسپاندنی چاتەکە</string>
   <string name="toggleSound">چەسپاندنی دەنگەکە</string>
   <string name="chat">دەمەتەقێ</string>
@@ -20,6 +21,9 @@
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
   <string name="whiteIsVictorious">سپی براوەیە</string>
   <string name="blackIsVictorious">رەش براوەیە</string>
+  <string name="youPlayTheWhitePieces">یاری بە پارچە سپیەکان دەکەیت</string>
+  <string name="youPlayTheBlackPieces">یاری بە پارچە ڕەشەکان دەکەیت</string>
+  <string name="itsYourTurn">سەرەی تۆیە!</string>
   <string name="kingInTheCenter">پاشا لە ناوەڕاست</string>
   <string name="threeChecks">سێ چێککردن (هێرش کردنە سەر پاشای بەرامبەر)</string>
   <string name="raceFinished">کۆتایی هات</string>
@@ -57,14 +61,18 @@
   <string name="move">جوڵان</string>
   <string name="variantLoss">دۆرانی ناچاری</string>
   <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
+  <string name="pawnMove">جوڵەی سەرباز</string>
   <string name="capture">گرتن</string>
   <string name="close">داخستن</string>
   <string name="winning">جوڵەی بردنەوە</string>
   <string name="losing">جولەی دۆڕان</string>
   <string name="drawn">جولەی یەکسانبوون</string>
   <string name="unknown">نەزانراو</string>
+  <string name="database">داتابەیس</string>
+  <string name="whiteDrawBlack">سپی / یەکسان / ڕەش</string>
   <string name="averageRatingX">پۆلێنکردنی تێکرا: %s</string>
   <string name="recentGames">دوایین یاریەکانت</string>
+  <string name="topGames">بەرزترین یاریەکان</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
   <string name="allSet">ئامادەیە!</string>
@@ -73,4 +81,8 @@
   <string name="deleteThisImportedGame">دڵنیای کە دەتەوێت بیسڕیەوە?</string>
   <string name="replayMode">سەیرکردنەوەی یاریەکە</string>
   <string name="realtimeReplay">وەک خۆی</string>
+  <string name="offerDraw">پێشکەشکردنی یەکسانبوون</string>
+  <string name="draw">یەکسان</string>
+  <string name="logOut">دەرچوون</string>
+  <string name="signIn">چوونە ناوە</string>
 </resources>

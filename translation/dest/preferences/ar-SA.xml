@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
-  <string name="zenMode">وضع التأمل</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">وضع التأمل</string>
   <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
   <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="blindfoldChess">(معصوب العينين (إخفاء القطع</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">عندما يقل الوقت عن 10 ثوانٍ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10 ثوانٍ</string>
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
   <string name="soundWhenTimeGetsCritical">الصوت عندما يقارب الوقت على الإنتهاء</string>
   <string name="giveMoreTime">إعطاء مزيد من الوقت</string>
-  <string name="gameBehavior">سلوكيات المباراة</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">سلوكيات المباراة</string>
   <string name="howDoYouMovePieces">كيف يمكنك تحريك القطع؟</string>
   <string name="clickTwoSquares">النقر فوق مربعين</string>
   <string name="dragPiece">سحب القطعة</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">حرك الملك مربعين</string>
   <string name="castleByMovingOntoTheRook">حرك الملك بإتجاه الرخ</string>
   <string name="inputMovesWithTheKeyboard">إدخال النقلات بلوحة المفاتيح</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">سحب الاسهم في اتجاهات صالحة</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">قُل \"مباراة جيدة ، لعبت بشكل جيد\" عند الهزيمة أو التعادل</string>
   <string name="yourPreferencesHaveBeenSaved">تم حفظ تفضيلاتك.</string>
 </resources>

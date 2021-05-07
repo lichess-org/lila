@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Chci vymazat svou historii nebo rating</string>
   <string name="cantClearHistory">Není možné vymazat Vaši historii her, historii taktických úloh nebo ratingy.</string>
   <string name="wantReport">Chci nahlásit hráče</string>
-  <string name="cheating">podvádění</string>
-  <string name="sandbagging">spřádání</string>
-  <string name="trolling">trollení</string>
-  <string name="insults">urážky</string>
-  <string name="otherReason">jiný důvod</string>
-  <string name="toReportAPlayer">Pro nahlášení hráče za %s použijte formulář pro nahlášení</string>
+  <string name="toReportAPlayerUseForm">Pro nahlášení hráče využijte daný formulář</string>
   <string name="youCanAlsoReachReportPage">Na tuto stránku se můžete také dostat kliknutím na nahlašovací tlačítko %s na profilové stránce.</string>
   <string name="doNotReportInForum">Nenahlašujte hráče ve fóru.</string>
   <string name="doNotSendReportEmails">Neposílejte nám e-maily s nahlášením.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Ujistěte se, že jste hráli hodnocenou hru. Neformální hry neovlivňují hodnocení hráčů.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="reportErrorPage">Pokud jste narazili na chybovou stránku, můžete ji nahlásit:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Žádost o zákaz nebo IP omezení</string>
+  <string name="banAppeal">Žádost o zákaz nebo IP omezení</string>
   <string name="engineAppeal">Ozčnačení za engine nebo podvádění</string>
   <string name="sendAppealTo">Můžete poslat odvolání na %s.</string>
   <string name="falsePositives">Někdy dochází k falešným označením, a to je nám líto.</string>

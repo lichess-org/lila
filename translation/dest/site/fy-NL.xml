@@ -110,11 +110,8 @@
   <string name="infiniteAnalysis">Ûneinige analyse</string>
   <string name="removesTheDepthLimit">Ferwideret de djipte limyt en hâldt dyn kompjûter waarm</string>
   <string name="blunder">Flater</string>
-  <string name="blunders">Flaters</string>
   <string name="mistake">Flater</string>
-  <string name="mistakes">Flaters</string>
   <string name="inaccuracy">Ûnkrekt</string>
-  <string name="inaccuracies">Ûnkrektheden</string>
   <string name="moveTimes">Set tiden</string>
   <string name="flipBoard">Draai boerd</string>
   <string name="threefoldRepetition">Trijefâldich deselde posysje</string>
@@ -233,7 +230,6 @@
   <string name="send">Stjoer</string>
   <string name="incrementInSeconds">Bytelling yn sekonden</string>
   <string name="freeOnlineChess">Fergees Online Skake</string>
-  <string name="spectators">Taskôgers:</string>
   <plurals name="nbPlaying">
     <item quantity="one">%s Spyljende</item>
     <item quantity="other">%s spyljende</item>
@@ -241,7 +237,6 @@
   <string name="exportGames">Eksportear partijen</string>
   <string name="ratingRange">Ratingberik</string>
   <string name="thisAccountViolatedTos">Dit akkount hat de regels fan de Lichess Tsjinstbetingsten oertrêden</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Dizze spiler fergruttet / fermindert har rating keunstmjittich</string>
   <string name="openingExplorerAndTablebase">Openingsblêder &amp; tablebase</string>
   <string name="takeback">Set werom</string>
   <string name="proposeATakeback">Stel in weromset foar</string>
@@ -315,7 +310,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="more">Mear</string>
   <string name="memberSince">Lid sûnt</string>
   <string name="lastSeenActive">%s Foar it lêst sjoen</string>
-  <string name="challengeToPlay">Utdaagje foar in potsje</string>
   <string name="player">Spiler</string>
   <string name="list">List</string>
   <string name="graph">Grafyk</string>
@@ -521,7 +515,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="error.unknown">Fout</string>
   <string name="custom">Oanpast</string>
   <string name="notifications">Meldingen</string>
-  <string name="challenges">Utdagingen</string>
   <string name="doItAgain">Noch in kear dwaan</string>
   <string name="why">Wêrom?</string>
 </resources>

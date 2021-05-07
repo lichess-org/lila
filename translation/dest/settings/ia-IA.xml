@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">Configuration</string>
   <string name="closeAccount">Terminar conto</string>
+  <string name="closingIsDefinitive">Terminar le conto es definitive. Iste action es irreversibile. Es tu secur?</string>
+  <string name="cantOpenSimilarAccount">Tu non potera crear un nove conto con le mesme nomine, mesmo si le cassa del literas es differente.</string>
   <string name="changedMindDoNotCloseAccount">Io cambiava de idea, non termina mi conto</string>
+  <string name="closeAccountExplanation">Es tu secur que tu vole terminar tu conto? Terminar le conto es un decision permanente. Tu non potera jammais aperir iste session de nove.</string>
   <string name="thisAccountIsClosed">Iste conto ha essite claudite.</string>
 </resources>

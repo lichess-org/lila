@@ -1,6 +1,5 @@
 .arena-list {
   .slist {
-
     .date {
       @include breakpoint($mq-not-x-small) {
         display: none;
@@ -15,9 +14,10 @@
     td {
       padding: 1em inherit;
 
-      > span, > a > span {
+      > span,
+      > a > span {
         display: block;
-        margin: .5em 0;
+        margin: 0.5em 0;
       }
 
       &.players {

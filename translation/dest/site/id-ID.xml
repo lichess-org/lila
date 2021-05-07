@@ -9,6 +9,7 @@
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Kekuatan</string>
   <string name="toggleTheChat">Ganti tampilan obrolan</string>
   <string name="toggleSound">Aktifkan/nonaktifkan suara</string>
   <string name="chat">Obrolan</string>
@@ -111,11 +112,8 @@
   <string name="infiniteAnalysis">Menganalisa tanpa ada batasan</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunder</string>
   <string name="mistake">Kesalahan</string>
-  <string name="mistakes">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
-  <string name="inaccuracies">Ketidaktepatan</string>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
   <string name="threefoldRepetition">Pengulangan 3x posisi yang sama</string>
@@ -238,7 +236,6 @@
   <string name="send">Kirim</string>
   <string name="incrementInSeconds">Kenaikan dalam detik</string>
   <string name="freeOnlineChess">Catur online gratis!</string>
-  <string name="spectators">Penonton:</string>
   <plurals name="nbRated">
     <item quantity="other">%s dengan rating</item>
   </plurals>
@@ -260,7 +257,6 @@
     <item quantity="other">Berikan %s detik</item>
   </plurals>
   <string name="thisAccountViolatedTos">Akun ini melanggar Ketentuan Layanan Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Pemain ini bertambah/berkurang ratingnya</string>
   <string name="openingExplorerAndTablebase">Penjelajah pembukaan &amp; tablebase</string>
   <string name="takeback">Langkah Batal</string>
   <string name="proposeATakeback">Ajukan langkah batal</string>
@@ -355,7 +351,6 @@
   <string name="more">Lainnya</string>
   <string name="memberSince">Anggota sejak</string>
   <string name="lastSeenActive">Login terakhir %s</string>
-  <string name="challengeToPlay">Menantang bermain</string>
   <string name="player">Pemain</string>
   <string name="list">Daftar</string>
   <string name="graph">Grafik</string>
@@ -428,7 +423,7 @@
   <string name="activeToday">Aktif hari ini</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Awas, permainan ini pake rating namun tanpa pake waktu!</string>
-  <string name="success">Sukses</string>
+  <string name="success">Berhasil</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s pertandingan sedang berlangsung</item>
   </plurals>
@@ -439,6 +434,8 @@
   <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>
   <string name="description">Keterangan</string>
+  <string name="descPrivate">Deskripsi pribadi</string>
+  <string name="descPrivateHelp">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
   <string name="help">Bantuan:</string>
@@ -459,6 +456,7 @@
   <string name="cheat">Cheat</string>
   <string name="insult">Penghinaan</string>
   <string name="troll">Jebakan</string>
+  <string name="ratingManipulation">Manipulasi rating</string>
   <string name="other">Lainnya</string>
   <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
@@ -476,10 +474,12 @@
   <string name="currentPassword">Password saat ini</string>
   <string name="newPassword">Password baru</string>
   <string name="newPasswordAgain">Password baru (lagi)</string>
+  <string name="newPasswordsDontMatch">Kata sandi baru tidak cocok</string>
   <string name="newPasswordStrength">Kekuatan Kata Sandi</string>
   <string name="clockInitialTime">Waktu awal</string>
   <string name="clockIncrement">Kenaikan waktu</string>
   <string name="privacy">Privasi</string>
+  <string name="privacyPolicy">Kebijakan privasi</string>
   <string name="letOtherPlayersFollowYou">Biarkan pengguna lain mengikuti anda</string>
   <string name="letOtherPlayersChallengeYou">Biarkan pengguna lain menantang anda</string>
   <string name="letOtherPlayersInviteYouToStudy">Ijinkan pemain lain mengajak Anda untuk studi</string>
@@ -546,6 +546,7 @@
   <string name="error.email_unique">Alamat email ini telah digunakan</string>
   <string name="error.email_different">Ini sudah menjadi alamat email Anda</string>
   <string name="ifRatingIsPlusMinusX">Jika ratingnya ± %s</string>
+  <string name="onlyExistingConversations">Khusus percakapan yang ada</string>
   <string name="onlyFriends">Hanya teman</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
@@ -621,6 +622,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
   <string name="weHaveSentYouAnEmailTo">Kami telah mengirim surel kepada %s. Klik tautan di dalam surel untuk mengubah kata sandi anda.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Dengan mendaftar, anda setuju untuk terikat dengan %s kita.</string>
+  <string name="readAboutOur">Baca tentang %s kami.</string>
   <string name="networkLagBetweenYouAndLichess">Hambatan jaringan antara anda dan lichess.</string>
   <string name="timeToProcessAMoveOnLichessServer">Waktu untuk memproses suatu langkah dalam server lichess</string>
   <string name="downloadAnnotated">Unduh versi anotasi</string>
@@ -698,7 +700,6 @@
   <string name="error.unknown">Kesalahan</string>
   <string name="custom">Atur</string>
   <string name="notifications">Notifikasi</string>
-  <string name="challenges">Tantangan</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s detik untuk memainkan langkah pertama</item>
@@ -743,12 +744,6 @@
   <string name="opening">Pembuka</string>
   <string name="middlegame">Setengah permainan</string>
   <string name="endgame">Akhir permainan</string>
-  <string name="registerToSendChallenges">Silahkan daftar untuk mengirim tantangan.</string>
-  <string name="youCannotChallengeX">Anda tidak bisa menantang %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s tidak menerima tantangan.</string>
-  <string name="yourXRatingIsTooFarFromY">Rating %1$s terlalu jauh dari %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Tidak bisa menantang karena sementara%s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s hanya menerima tantangan dari teman.</string>
   <string name="conditionalPremoves">Syarat pra-langkah</string>
   <string name="addCurrentVariation">Tambahkan variasi</string>
   <string name="playVariationToCreateConditionalPremoves">Memainkan sebuah variasi untuk membuat syarat pra-langkah</string>
@@ -801,4 +796,22 @@
   <string name="youCannotPostYetPlaySomeGames">Anda belum bisa mengirim pos di forum ini. Mainkan beberapa permainan!</string>
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
+  <string name="mentionedYouInX"> membahas anda di \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s membahas anda di \"%2$s\".</string>
+  <string name="invitedYouToX"> mengundang anda ke \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
+  <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Seseorang yang Anda laporkan telah di-ban</string>
+  <string name="congratsYouWon">Selamat, kamu menang!</string>
+  <string name="gameVsX">Game vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Anda baru saja menjadi Patron lichess.</string>
+  <string name="patronAccountExpired">Akun Patron kadaluarsa</string>
+  <string name="pleaseReconsiderRenewIt">Silakan pertimbangkan untuk memperbaharuinya!</string>
+  <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
+  <string name="newPendingReview">Tinjauan baru tertunda</string>
+  <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
+  <string name="refundXpointsTimeControlY">Pengembalian dana: %1$s %2$s poin rating.</string>
+  <string name="timeAlmostUp">Waktu hampir habis!</string>
 </resources>

@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">방송</string>
+  <string name="liveBroadcasts">실시간 대회 방송</string>
+  <string name="newBroadcast">새 실시간 방송</string>
+  <string name="ongoing">진행중</string>
+  <string name="upcoming">방영 예정</string>
+  <string name="completed">종료됨</string>
+  <string name="roundNumber">라운드 수</string>
+  <string name="fullDescription">전체 이벤트 설명</string>
+  <string name="fullDescriptionHelp">(선택) 방송에 대한 긴 설명입니다. %1$s 사용이 가능합니다. 길이는 %2$s 글자보다 짧아야 합니다.</string>
+  <string name="sourceUrlOrGameIds">출처 URL 또는 게임 ID</string>
+  <string name="sourceUrlHelp">Lichess가 PGN 업데이트를 받기 위해 확인할 URL입니다. 인터넷에서 공개적으로 액세스 할 수 있어야 합니다.</string>
+  <string name="gameIdsHelp">또는, 공백으로 구분하여 최대 64 개의 Lichess 게임 ID를 입력 할 수 있습니다.</string>
+  <string name="startDate">본인 시간대 기준 시작일</string>
+  <string name="startDateHelp">선택사항. 언제 이벤트가 시작되는지 알고 있는 경우</string>
+  <string name="credits">출처</string>
+</resources>

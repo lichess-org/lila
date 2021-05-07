@@ -27,7 +27,8 @@ case class Simul(
     hostSeenAt: Option[DateTime],
     color: Option[String],
     text: String,
-    team: Option[String]
+    team: Option[String],
+    featurable: Option[Boolean]
 ) {
   def id = _id
 
@@ -152,7 +153,8 @@ object Simul {
       position: Option[FEN],
       color: String,
       text: String,
-      team: Option[String]
+      team: Option[String],
+      featurable: Option[Boolean]
   ): Simul =
     Simul(
       _id = lila.common.ThreadLocalRandom nextString 8,
@@ -180,6 +182,7 @@ object Simul {
       hostSeenAt = DateTime.now.some,
       color = color.some,
       text = text,
-      team = team
+      team = team,
+      featurable = featurable
     )
 }

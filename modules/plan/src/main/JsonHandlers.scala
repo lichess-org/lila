@@ -14,6 +14,8 @@ private[plan] object JsonHandlers {
   implicit val StripeSubscriptionReads     = Json.reads[StripeSubscription]
   implicit val StripeSubscriptionsReads    = Json.reads[StripeSubscriptions]
   implicit val StripeCustomerReads         = Json.reads[StripeCustomer]
+  implicit val StripeAddressReads          = Json.reads[StripeCharge.Address]
+  implicit val StripeBillingReads          = Json.reads[StripeCharge.BillingDetails]
   implicit val StripeChargeReads           = Json.reads[StripeCharge]
   implicit val StripeInvoiceReads          = Json.reads[StripeInvoice]
   implicit val StripeSessionReads          = Json.reads[StripeSession]

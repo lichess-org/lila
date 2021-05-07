@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzles</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Pužļu tēmati</string>
+  <string name="puzzleThemes">Pužļu temati</string>
   <string name="recommended">Ieteikumi</string>
   <string name="phases">Posmi</string>
   <string name="motifs">Motīvi</string>
@@ -9,6 +9,7 @@
   <string name="lengths">Garumi</string>
   <string name="mates">Mati</string>
   <string name="goals">Mērķi</string>
+  <string name="origin">Izcelsme</string>
   <string name="specialMoves">Īpaši gājieni</string>
   <string name="didYouLikeThisPuzzle">Vai patika šī puzle?</string>
   <string name="voteToLoadNextOne">Balsojiet, lai ielādētu nākamo!</string>
@@ -39,9 +40,30 @@
   <string name="normal">Parasta</string>
   <string name="easier">Vieglāka</string>
   <string name="easiest">Visvieglākā</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="zero">%s punktu zem jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts zem jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti zem jūsu pužļu reitinga</item>
+  </plurals>
   <string name="harder">Grūtāka</string>
   <string name="hardest">Visgrūtākā</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="zero">%s punktu virs jūsu pužļu reitinga</item>
+    <item quantity="one">%s punkts virs jūsu pužļu reitinga</item>
+    <item quantity="other">%s punkti virs jūsu pužļu reitinga</item>
+  </plurals>
   <string name="example">Piemērs</string>
   <string name="addAnotherTheme">Pievienot jaunu tēmu</string>
   <string name="jumpToNextPuzzleImmediately">Uzreiz pārslēgties uz nākamo puzli</string>
+  <string name="puzzleDashboard">Pužļu panelis</string>
+  <string name="improvementAreas">Uzlabojamās jomas</string>
+  <string name="strengths">Puzles, kas padodas</string>
+  <string name="history">Pužļu vēsture</string>
+  <string name="solved">atrisināts</string>
+  <string name="failed">neizdevās</string>
+  <string name="streakDescription">Atrisiniet aizvien grūtākas puzles un veidojiet uzvaru sēriju. Varat domāt, cik ilgi vēlaties, jo laiks nav ierobežots. Viens nepareizs gājiens, un spēle galā! Taču varat izlaist vienu gājienu katrā sesijā.</string>
+  <string name="yourStreakX">Jūsu uzvaru posms: %s</string>
+  <string name="streakSkipExplanation">Izlaist gājienu, lai paturētu uzvaru sēriju. Darbojas tikai vienreiz katrā spēlē.</string>
+  <string name="continueTheStreak">Turpināt uzvaru sēriju</string>
+  <string name="newStreak">Jauna uzvaru sērija</string>
 </resources>

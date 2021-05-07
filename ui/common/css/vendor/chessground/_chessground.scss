@@ -1,5 +1,5 @@
-@import "board-2d";
-@import "dark-board";
+@import 'board-2d';
+@import 'dark-board';
 
 cg-board {
   @extend %box-shadow, %abs-100;
@@ -48,22 +48,48 @@ square {
   &.last-move {
     will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
+
+    body.horsey &:not(.move-dest) {
+      background: url(../images/board/horsey.last-move.png);
+      background-size: cover;
+    }
   }
 
   &.check {
-    background: radial-gradient(ellipse at center, rgba(255, 0, 0, 1) 0%, rgba(231, 0, 0, 1) 25%, rgba(169, 0, 0, 0) 89%, rgba(158, 0, 0, 0) 100%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(231, 0, 0, 1) 25%,
+      rgba(169, 0, 0, 0) 89%,
+      rgba(158, 0, 0, 0) 100%
+    );
   }
 
   &.selected {
     background-color: rgba(20, 85, 30, 0.5);
+
+    body.horsey & {
+      background: url(../images/board/horsey.selected.png);
+      background-size: cover;
+    }
   }
 
   &.current-premove {
     background-color: rgba(20, 30, 85, 0.5) !important;
+
+    body.horsey & {
+      background: url(../images/board/horsey.current-premove.png);
+      background-size: cover;
+    }
   }
 
   &.move-dest:hover {
     background: rgba(20, 85, 30, 0.3);
+
+    body.horsey & {
+      background: url(../images/board/horsey.move-dest.png);
+      background-size: cover;
+    }
   }
 
   &.premove-dest:hover {
@@ -82,21 +108,21 @@ piece {
   width: 12.5%;
   height: 12.5%;
   background-size: cover;
-  z-index: z("cg__piece");
+  z-index: z('cg__piece');
   will-change: transform;
   pointer-events: none;
 
   &.dragging {
     cursor: move;
-    z-index: z("cg__piece.dragging");
+    z-index: z('cg__piece.dragging');
   }
 
   &.anim {
-    z-index: z("cg__piece.anim");
+    z-index: z('cg__piece.anim');
   }
 
   &.fading {
-    z-index: z("cg__piece.fading");
+    z-index: z('cg__piece.fading');
     opacity: 0.5;
   }
 
@@ -121,7 +147,8 @@ cg-container {
   bottom: 0;
 }
 
-.cg-wrap svg {
+cg-container .cg-shapes,
+cg-container .cg-custom-svgs {
   overflow: hidden;
   position: absolute;
   top: 0px;
@@ -129,10 +156,22 @@ cg-container {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: z("cg__svg");
+}
+
+cg-container .cg-shapes {
   opacity: 0.6;
+  z-index: z('cg__svg.cg-shapes');
 
   image {
     opacity: 0.5;
   }
+}
+
+cg-container .cg-custom-svgs {
+  z-index: z('cg__svg.cg-custom-svgs');
+  overflow: visible;
+}
+
+cg-container .cg-custom-svgs svg {
+  overflow: visible;
 }

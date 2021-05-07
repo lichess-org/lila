@@ -8,7 +8,7 @@ import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.security.{ Granter => MasterGranter }
-import lila.user.User
+import lila.user.{ Holder, User }
 
 final private[forum] class TopicApi(
     env: Env,
@@ -159,23 +159,23 @@ final private[forum] class TopicApi(
         env.recent.invalidate()
     }
 
-  def toggleClose(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleClose(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.close(topic.id, topic.open) >> {
-      MasterGranter(_.ModerateForum)(mod) ??
+      MasterGranter.is(_.ModerateForum)(mod) ??
         modLog.toggleCloseTopic(mod.id, categ.name, topic.name, topic.open)
     }
 
-  def toggleHide(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleHide(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.hide(topic.id, topic.visibleOnHome) >> {
-      MasterGranter(_.ModerateForum)(mod) ?? {
+      MasterGranter.is(_.ModerateForum)(mod) ?? {
         env.postRepo.hideByTopic(topic.id, topic.visibleOnHome) >>
           modLog.toggleHideTopic(mod.id, categ.name, topic.name, topic.visibleOnHome)
       } >>- env.recent.invalidate()
     }
 
-  def toggleSticky(categ: Categ, topic: Topic, mod: User): Funit =
+  def toggleSticky(categ: Categ, topic: Topic, mod: Holder): Funit =
     env.topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter(_.ModerateForum)(mod) ??
+      MasterGranter.is(_.ModerateForum)(mod) ??
         modLog.toggleStickyTopic(mod.id, categ.name, topic.name, !topic.isSticky)
     }
 

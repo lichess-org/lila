@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Izazovi</string>
+  <string name="challengeToPlay">Izazov na partiju</string>
+  <string name="challengeDeclined">Izazov odbijen</string>
+  <string name="challengeAccepted">Izazov prihvaćen!</string>
+  <string name="challengeCanceled">Izazov otkazan.</string>
+  <string name="registerToSendChallenges">Molimo, registrirajte se da biste mogli slati izazove.</string>
+  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne prihvata izazove.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaš %1$s rejting predaleko je od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvata samo izazove od prijatelja.</string>
+  <string name="declineGeneric">Trenutno ne prihvatam izazove.</string>
+  <string name="declineLater">Ne odgovara mi ovaj trenutak; molim, izazovite me ponovo kasnije.</string>
+  <string name="declineNoBot">Ne prihvatam izazove od botova.</string>
+  <string name="declineOnlyBot">Prihvatam izazove samo od botova.</string>
+</resources>

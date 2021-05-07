@@ -1,5 +1,3 @@
-$c-challenge: $c-secondary;
-
 .challenge-page {
   .challenge-id-form {
     white-space: nowrap;
@@ -41,20 +39,24 @@ $c-challenge: $c-secondary;
   .details {
     @extend %flex-between;
 
+    $c-bg: mix($c-good, $c-bg-box, 10%);
+    --c-font: #{$c-good};
+    --c-bg: #{$c-bg};
+
     border-radius: 99px;
-    background: mix($c-challenge, $c-bg-box, 10%);
-    border: 1px solid $c-challenge;
-    padding: .5em 1.1em;
+    padding: 0.5em 1.1em;
     margin-bottom: 3rem;
     font-size: 2em;
+    background: var(--c-bg);
+    border: 1px solid var(--c-font);
 
     > div {
       @extend %flex-center, %roboto;
 
       &::before {
-        color: $c-challenge;
+        color: var(--c-font);
         font-size: 6rem;
-        margin-right: .2em;
+        margin-right: 0.2em;
       }
 
       div {
@@ -68,9 +70,20 @@ $c-challenge: $c-secondary;
 
     .mode {
       font-weight: bold;
-      color: $c-challenge;
+      color: var(--c-font);
       text-transform: uppercase;
     }
+  }
+
+  &.challenge--declined .details {
+    $c-bg: mix($c-bad, $c-bg-box, 10%);
+    --c-font: #{$c-bad};
+    --c-bg: #{$c-bg};
+  }
+
+  .challenge-reason {
+    margin: 2em auto 5em auto;
+    max-width: 70ch;
   }
 
   .follow-up .button {

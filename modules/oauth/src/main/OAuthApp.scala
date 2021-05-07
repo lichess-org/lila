@@ -3,13 +3,14 @@ package lila.oauth
 import org.joda.time.DateTime
 
 import lila.user.User
+import io.lemonlabs.uri.AbsoluteUrl
 
 case class OAuthApp(
     name: String,
     clientId: OAuthApp.Id,
     clientSecret: OAuthApp.Secret,
-    homepageUri: String,
-    redirectUri: String,
+    homepageUri: AbsoluteUrl,
+    redirectUri: AbsoluteUrl,
     author: User.ID,
     createdAt: DateTime,
     description: Option[String] = None
@@ -51,8 +52,9 @@ object OAuthApp {
         clientId = r.get[Id](clientId),
         clientSecret = r.get[Secret](clientSecret),
         name = r str name,
-        homepageUri = r str homepageUri,
-        redirectUri = r.get[List[String]](redirectUri).headOption err "Missing OAuthApp.redirectUri array",
+        homepageUri = r.get[AbsoluteUrl](homepageUri),
+        redirectUri =
+          r.get[List[AbsoluteUrl]](redirectUri).headOption err "Missing OAuthApp.redirectUri array",
         author = r str author,
         createdAt = r.get[DateTime](createdAt),
         description = r strO description

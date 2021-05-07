@@ -1,9 +1,6 @@
 .puzzle__tools {
   @extend %box-neat-force, %flex-column;
 
-  max-height: 90vh;
-
-  /* hack to mitigate safari 10 disaster */
   background: $c-bg-box;
 
   .ceval-wrap {
@@ -59,7 +56,7 @@
 
   @include breakpoint($mq-col2) {
     @include breakpoint($mq-tall) {
-      flex: 1 0 13rem;
+      flex: 1 0 17rem;
     }
   }
 
@@ -128,6 +125,7 @@
   .view_solution.show {
     visibility: visible;
     opacity: 0.8;
+
     @include transition(opacity, 1.5s);
   }
 }

@@ -1,5 +1,4 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
@@ -8,7 +7,7 @@ import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
-export default function(ctrl: TournamentController) {
+export default function (ctrl: TournamentController) {
   let handler: {
     name: string;
     main(ctrl: TournamentController): MaybeVNodes;
@@ -23,22 +22,29 @@ export default function(ctrl: TournamentController) {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
         ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
-      })
+      }),
     }),
     h('div.tour__underchat', {
       hook: onInsert(el => {
         $(el).replaceWith($('.tour__underchat.none').removeClass('none'));
-      })
+      }),
     }),
     handler.table(ctrl),
-    h('div.tour__main',
-      h('div.box.' + handler.name, {
-        class: { 'tour__main-finished': ctrl.data.isFinished }
-      }, handler.main(ctrl))
+    h(
+      'div.tour__main',
+      h(
+        'div.box.' + handler.name,
+        {
+          class: { 'tour__main-finished': ctrl.data.isFinished },
+        },
+        handler.main(ctrl)
+      )
     ),
-    ctrl.opts.chat ? h('div.chat__members.none', [
-      h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')
-    ]) : null,
-    ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null
+    ctrl.opts.chat
+      ? h('div.chat__members.none', {
+          hook: onInsert(lichess.watchers),
+        })
+      : null,
+    ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);
 }

@@ -11,6 +11,7 @@
   <string name="emailChange_click">તમારી પાસે આ ઇમેઇલની ઍક્સેસ છે તેની પુષ્ટિ કરવા માટે, કૃપા કરીને નીચે આપેલી લિંકને ક્લિક કરો:</string>
   <string name="welcome_subject">Lichess.org,%s પર સ્વાગત છે</string>
   <string name="welcome_text">તમે તમારું એકાઉન્ટ https://lichess.org પર સફળતાપૂર્વક બનાવ્યું છે. તમારું પ્રોફાઇલ પૃષ્ઠ અહીં છે:%1$s. તમે તેને %2$s પર વ્યક્તિગત કરી શકો છો. આનંદ લો, અને તમારા પ્યાદા હંમેશાં તમારા પ્રતિસ્પર્ધીના રાજા તરફનો માર્ગ શોધશે!</string>
+  <string name="logInToLichess">લિચેસ.ઓર્ગ માં પ્રવેશ કરો, %s</string>
   <string name="common_orPaste">(કામ નથી કરતું? તમારા બ્રાઉઝરમાં પેસ્ટ કરવાનો પ્રયાસ કરો!)</string>
   <string name="common_note">આ એક સેવા ઇમેઇલ છે જે તમારા %s ના ઉપયોગથી સંબંધિત છે.</string>
   <string name="common_contact">અમારો સંપર્ક કરવા માટે, કૃપા કરીને %s નો ઉપયોગ કરો.</string>

@@ -17,6 +17,7 @@ object UserMark {
   val indexed: Map[String, UserMark] = all.view.map { m =>
     m.key -> m
   }.toMap
+  val bannable: Set[UserMark]  = Set(Boost, Engine, Troll, Alt)
   implicit val markBsonHandler = stringAnyValHandler[UserMark](_.key, indexed.apply)
 }
 
@@ -30,7 +31,8 @@ case class UserMarks(value: List[UserMark]) extends AnyVal {
   def alt                   = apply(UserMark.Alt)
 
   def nonEmpty = value.nonEmpty option this
-  def clean    = value.isEmpty
+  def dirty    = value.exists(UserMark.bannable.contains)
+  def clean    = !dirty
 
   def set(sel: UserMark.type => UserMark, v: Boolean) =
     UserMarks {

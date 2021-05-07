@@ -1,2 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Дарете</string>
+  <string name="lichessPatron">Lichess Дарител</string>
+  <string name="freeAccount">Безплатна регистрация</string>
+  <string name="becomePatron">Станете дарител на Lichess</string>
+  <string name="xBecamePatron">%s стана дарител на Lichess</string>
+  <string name="newPatrons">Нови дарители</string>
+  <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
+  <string name="thankYou">Благодарим Ви за дарението!</string>
+  <string name="monthly">Ежемесечно</string>
+  <string name="onetime">Еднократно</string>
+  <string name="otherAmount">Друго</string>
+  <string name="pleaseEnterAmount">Моля въведете сума в щатски долари (USD)</string>
+  <string name="withCreditCard">Кредитна карта</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
+  <string name="whereMoneyGoes">Къде отиват парите от даренията?</string>
+  <string name="officialNonProfit">Lichess официална организация с нестопанска цел ли е?</string>
+  <string name="actOfCreation">Да, ето тук е документът (на френски)</string>
+  <string name="otherMethods">Други начини за дарение?</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Lichess Дарител за един месец</item>
+    <item quantity="other">Lichess Дарител за %s месеца</item>
+  </plurals>
+  <string name="tyvm">Много Ви благодарим за подкрепата. Супер сте!</string>
+  <string name="currentStatus">Сегашен статус</string>
+  <string name="nextPayment">Следващо плащане</string>
+  <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
+  <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
+  <string name="update">Актуализиране</string>
+  <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
+  <string name="cancelSupport">преустановете поддръжката си</string>
+  <string name="xOrY">%1$s или %2$s</string>
+  <string name="paymentHistory">История на плащанията</string>
+  <string name="paid">Платено</string>
+  <string name="viewOthers">Вижте другите Lichess Дарители</string>
+  <string name="date">Дата</string>
+  <string name="amount">Сума</string>
+  <string name="transactionCompleted">Трансакцията е завършена и квитанция за Вашето дарение бе изпратена на електронната Ви поща.</string>
+  <string name="permanentPatron">Сега имате постоянна регистрация като Дарител.</string>
+  <string name="checkOutProfile">Проверете страницата на профила си!</string>
+</resources>

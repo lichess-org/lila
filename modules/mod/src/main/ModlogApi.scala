@@ -5,9 +5,10 @@ import org.joda.time.DateTime
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.{ Holder, User, UserRepo }
+import lila.irc.SlackApi
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack.SlackApi)(implicit
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -16,6 +17,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
+  def streamerDecline(mod: Mod, streamerId: User.ID) =
+    add {
+      Modlog(mod.user.id, streamerId.some, Modlog.streamerDecline)
+    }
   def streamerList(mod: Mod, streamerId: User.ID, v: Boolean) =
     add {
       Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
@@ -23,11 +28,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   def streamerTier(mod: Mod, streamerId: User.ID, v: Int) =
     add {
       Modlog(mod.user.id, streamerId.some, Modlog.streamerTier, v.toString.some)
-    }
-  // BC
-  def streamerFeature(mod: Mod, streamerId: User.ID, v: Boolean) =
-    add {
-      Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerFeature else Modlog.streamerUnfeature)
     }
 
   def practiceConfig(mod: User.ID) =
@@ -80,8 +80,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       )
     }
 
-  def hasModClose(user: User.ID): Fu[Boolean] =
-    coll.exists($doc("user" -> user, "action" -> Modlog.closeAccount))
+  def closedByMod(user: User): Fu[Boolean] =
+    fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def reopenAccount(mod: User.ID, user: User.ID) =
     add {
@@ -170,10 +170,23 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, user.some, Modlog.chatTimeout, details = s"$reason: $text".some)
     }
 
-  def setPermissions(mod: Mod, user: User.ID, permissions: List[Permission]) =
+  def setPermissions(mod: Holder, user: User.ID, permissions: Map[Permission, Boolean]) =
     add {
-      Modlog(mod.id.value, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
+      Modlog(
+        mod.id,
+        user.some,
+        Modlog.permissions,
+        details = permissions
+          .map { case (p, dir) =>
+            s"${if (dir) "+" else "-"}${p}"
+          }
+          .mkString(", ")
+          .some
+      )
     }
+
+  def wasUnteachered(user: User.ID): Fu[Boolean] =
+    coll.exists($doc("user" -> user, "details" $regex s"-${Permission.Teacher.toString}"))
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) =
     add {
@@ -222,18 +235,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
 
   def appealPost(mod: User.ID, user: User.ID) =
     add { Modlog(mod, user.some, Modlog.appealPost, details = none) }
-
-  def recent =
-    coll
-      .find(
-        $or(
-          $doc("mod"    -> $ne("lichess")),
-          $doc("action" -> $nin("selfCloseAccount", "modMessage"))
-        )
-      )
-      .sort($sort naturalDesc)
-      .cursor[Modlog]()
-      .gather[List](100)
 
   def wasUnengined(sus: Suspect) =
     coll.exists(
@@ -285,7 +286,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
     }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? slackApi.monitorMod(m.mod, icon = icon, text = text)
+      _ ?? {
+        val monitorType = m.action match {
+          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt |
+              M.unalt =>
+            SlackApi.MonitorType.Hunt
+          case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
+              M.enableTeam | M.setKidMode | M.deletePost =>
+            SlackApi.MonitorType.Comm
+          case _ => SlackApi.MonitorType.Other
+        }
+        slackApi.monitorMod(m.mod, icon = icon, text = text, monitorType)
+      }
     }
     slackApi.logMod(m.mod, icon = icon, text = text)
   }

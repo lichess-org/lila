@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">私人</string>
-  <string name="myStudies">我的研究</string>
-  <string name="studiesIContributeTo">我贡献的研究</string>
-  <string name="myPublicStudies">我的公开研究</string>
-  <string name="myPrivateStudies">我的私有研究</string>
-  <string name="myFavoriteStudies">我收藏的研究</string>
-  <string name="whatAreStudies">什么是研究？</string>
-  <string name="allStudies">所有研究</string>
-  <string name="studiesCreatedByX">由 %s 创建的研究</string>
+  <string name="myStudies">我的研讨</string>
+  <string name="studiesIContributeTo">我贡献的研讨</string>
+  <string name="myPublicStudies">我的公开研讨</string>
+  <string name="myPrivateStudies">我的私有研讨</string>
+  <string name="myFavoriteStudies">我收藏的研讨</string>
+  <string name="whatAreStudies">什么是研讨？</string>
+  <string name="allStudies">所有研讨</string>
+  <string name="studiesCreatedByX">由 %s 创建的研讨</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">添加时间 (最新)</string>
@@ -26,48 +26,46 @@
   <plurals name="nbMembers">
     <item quantity="other">%s 位成员</item>
   </plurals>
-  <string name="inviteToTheStudy">邀请参加研究</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研究的成员</string>
+  <string name="inviteToTheStudy">邀请参加研讨</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研讨的成员</string>
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢除</string>
-  <string name="leaveTheStudy">离开研究</string>
+  <string name="leaveTheStudy">离开研讨</string>
   <string name="youAreNowAContributor">您现在是一位贡献者</string>
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
-  <string name="pgnTags">PGN标签</string>
+  <string name="pgnTags">PGN 标签</string>
   <string name="like">赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
-  <string name="commentThisMove">评论当前走子</string>
-  <string name="annotateWithGlyphs">用图形标注</string>
+  <string name="commentThisMove">评论这步走法</string>
+  <string name="annotateWithGlyphs">用符号标注</string>
   <string name="theChapterIsTooShortToBeAnalysed">本章节太短，无法进行分析。</string>
-  <string name="onlyContributorsCanRequestAnalysis">只有研究贡献者可以请求进行计算机分析。</string>
+  <string name="onlyContributorsCanRequestAnalysis">只有贡献者可以请求服务器分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
   <string name="shareChanges">与旁观者共享更改并云端保存</string>
-  <string name="playing">下棋中</string>
+  <string name="playing">正在对局</string>
   <string name="first">首页</string>
-  <string name="previous">前一页</string>
+  <string name="previous">上一页</string>
   <string name="next">下一页</string>
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
-  <string name="studyPgn">研究PGN</string>
+  <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">直播链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
-  <string name="currentGameUrl">当前棋局链接</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">您可以将此粘贴到论坛以嵌入章节</string>
+  <string name="youCanPasteThisInTheForumToEmbed">您可以将此粘贴到论坛以嵌入章节</string>
   <string name="startAtInitialPosition">从初始局面开始</string>
   <string name="startAtX">从 %s 开始</string>
   <string name="embedInYourWebsite">嵌入到您的网站上</string>
   <string name="readMoreAboutEmbedding">阅读更多关于嵌入的信息</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">只能嵌入隐私设置为公开的研究！</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">只能嵌入隐私设置为公开的研究！</string>
   <string name="open">打开</string>
   <string name="xBroughtToYouByY">%1$s 由 %2$s 提供</string>
   <string name="studyNotFound">找不到研究</string>
@@ -77,7 +75,7 @@
   <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
-  <string name="clearAnnotations">清除注释</string>
+  <string name="clearAnnotations">清除注解</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>

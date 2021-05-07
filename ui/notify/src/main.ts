@@ -1,26 +1,17 @@
-import { init } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode'
-
+import { init, classModule, attributesModule } from 'snabbdom';
 import makeCtrl from './ctrl';
 import view from './view';
-import { NotifyOpts, Ctrl } from './interfaces'
+import { NotifyOpts } from './interfaces';
 
-import klass from 'snabbdom/modules/class';
-import attributes from 'snabbdom/modules/attributes';
-
-const patch = init([klass, attributes]);
+const patch = init([classModule, attributesModule]);
 
 export default function LichessNotify(element: Element, opts: NotifyOpts) {
-
-  let vnode: VNode, ctrl: Ctrl
+  const ctrl = makeCtrl(opts, redraw);
+  let vnode = patch(element, view(ctrl));
 
   function redraw() {
     vnode = patch(vnode, view(ctrl));
   }
-
-  ctrl = makeCtrl(opts, redraw);
-
-  vnode = patch(element, view(ctrl));
 
   if (opts.data) ctrl.update(opts.data, opts.incoming);
   else ctrl.loadPage(1);
@@ -29,6 +20,6 @@ export default function LichessNotify(element: Element, opts: NotifyOpts) {
     update: ctrl.update,
     setVisible: ctrl.setVisible,
     setMsgRead: ctrl.setMsgRead,
-    redraw
+    redraw,
   };
 }

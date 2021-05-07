@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Notazione mossa</string>
   <string name="chessPieceSymbol">Simbolo del pezzo</string>
   <string name="pgnLetter">Lettera (K, Q, R, B, N)</string>
-  <string name="zenMode">Modalità Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modalità Zen</string>
   <string name="displayBoardResizeHandle">Mostra l\'icona di ridimensionamento della scacchiera</string>
   <string name="onlyOnInitialPosition">Solo sulla posizione iniziale</string>
   <string name="blindfoldChess">Scacchi alla cieca</string>
   <string name="chessClock">Orologio</string>
   <string name="tenthsOfSeconds">Decimi di secondo</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quando il tempo rimanente è &lt; 10 secondi</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando il tempo rimanente è &lt; 10 secondi</string>
   <string name="horizontalGreenProgressBars">Barra verde orizzontale del tempo</string>
   <string name="soundWhenTimeGetsCritical">Suono quando sei a corto di tempo</string>
   <string name="giveMoreTime">Dai più tempo</string>
-  <string name="gameBehavior">Comportamento di gioco</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamento di gioco</string>
   <string name="howDoYouMovePieces">Come vuoi muovere i pezzi?</string>
   <string name="clickTwoSquares">Clicca su due caselle</string>
   <string name="dragPiece">Trascina il pezzo</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Muovi il re di due caselle</string>
   <string name="castleByMovingOntoTheRook">Muovi il re sopra la Torre</string>
   <string name="inputMovesWithTheKeyboard">Muovi utilizzando la tastiera</string>
-  <string name="snapArrowsToValidMoves">Collega le frecce a mosse valide</string>
-  <string name="sayGgWpAfterLosingOrDrawing">Di \"Bella giocata\" alla sconfitta o al pareggio</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Collega le frecce a mosse valide</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Di \"Bella giocata\" alla sconfitta o al pareggio</string>
   <string name="yourPreferencesHaveBeenSaved">Le tue preferenze sono state salvate.</string>
 </resources>

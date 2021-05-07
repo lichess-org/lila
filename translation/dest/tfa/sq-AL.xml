@@ -2,4 +2,17 @@
 <resources>
   <string name="twoFactorAuth">Vërtetim me dy faktorë</string>
   <string name="twoFactorHelp">Vërtetimi me dy faktorë i shton llogarisë tuaj edhe një shtresë sigurie.</string>
+  <string name="twoFactorApp">Merrni nje app per identifikimin me dy faktore, per shembull Otp per %1$s ose identifikimin Google per %2$s.</string>
+  <string name="scanTheCode">Skano kodin QR me app.</string>
+  <string name="enterPassword">Fusni fjalkalimin dhe kodin e identifikimit te gjeneruar nga app per te kompletuar procesin.
+Ju duhet kodi identifikimit cdo here qe logoheni.</string>
+  <string name="ifYouCannotScanEnterX">Ne qofte se kodi nuk skanohet, vendosni kodin sekret %s ne app tuaj.</string>
+  <string name="authenticationCode">Kodi i identifikimit</string>
+  <string name="ifYouLoseAccess">Kujdes: Nese humbisni aksesin tek kodi i dyfishte i identifikimit, ju mund ti ndryshoni nepermjet email.</string>
+  <string name="enableTwoFactor">Aktivizo identifikimin e dyfishtë</string>
+  <string name="disableTwoFactor">Deaktivizo identifikimin e dyfishtë</string>
+  <string name="twoFactorEnabled">Identifikimi i dyfishtë u aktivizua</string>
+  <string name="twoFactorDisable">Ju duhet fjalekalimi dhe kodi identifikues nga aplikacioni ne menyre qe te hiqni identifikimin me dy etapa.
+Nese keni humbur fjalekalimin atehere mund ta ndryshoni perseri nepermjet emailt.</string>
+  <string name="openTwoFactorApp">Hapni identifikimin me dy etapa ne aplikacion ne paisjen tuaj per te shikuar kodin dhe te verifikoni identitetin tuaj.</string>
 </resources>

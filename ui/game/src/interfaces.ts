@@ -22,6 +22,7 @@ export interface Game {
   speed: Speed;
   variant: Variant;
   winner?: Color;
+  drawOffers?: number[];
   moveCentis?: number[];
   initialFen?: string;
   importedBy?: string;
@@ -37,9 +38,19 @@ export interface Status {
   name: StatusName;
 }
 
-export type StatusName = 'started' | 'aborted' | 'mate' | 'resign' |
-                         'stalemate' | 'timeout' | 'draw' | 'outoftime' |
-                         'noStart' | 'cheat' | 'variantEnd';
+export type StatusName =
+  | 'started'
+  | 'aborted'
+  | 'mate'
+  | 'resign'
+  | 'stalemate'
+  | 'timeout'
+  | 'draw'
+  | 'outoftime'
+  | 'noStart'
+  | 'cheat'
+  | 'variantEnd'
+  | 'unknownFinish';
 
 export type StatusId = number;
 
@@ -128,7 +139,7 @@ export interface PlayerUser {
   title?: string;
   perfs: {
     [key: string]: Perf;
-  }
+  };
 }
 
 export interface Perf {

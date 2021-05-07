@@ -2,7 +2,6 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
 
 import lila.common.ThreadLocalRandom
 import lila.db.dsl._

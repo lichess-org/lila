@@ -103,13 +103,14 @@ object timeline {
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
-          a(href := routes.Plan.index())(
+          a(href := routes.Plan.index)(
             trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
           )
         case BlogPost(id, slug, title) =>
           a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
         case StreamStart(id, name) =>
-          a(cls := "text", dataIcon := "", href := routes.Streamer.show(id))(trans.xStartedStreaming(name))
+          views.html.streamer.bits
+            .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
       },
       " ",
       momentFromNowWithPreload(e.date)

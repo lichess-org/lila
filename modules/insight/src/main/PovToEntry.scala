@@ -27,7 +27,7 @@ final private class PovToEntry(
       advices: Map[Ply, Advice]
   )
 
-  def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, Entry]] =
+  def apply(game: Game, userId: String, provisional: Boolean): Fu[Either[Game, InsightEntry]] =
     enrich(game, userId, provisional) map
       (_ flatMap convert toRight game)
 
@@ -84,7 +84,7 @@ final private class PovToEntry(
       case _         => chess.Pawn
     }
 
-  private def makeMoves(from: RichPov): List[Move] = {
+  private def makeMoves(from: RichPov): List[InsightMove] = {
     val cpDiffs = ~from.moveAccuracy toVector
     val prevInfos = from.analysis.?? { an =>
       Accuracy.prevColorInfos(from.pov, an) pipe { is =>
@@ -105,7 +105,7 @@ final private class PovToEntry(
     }
     val timeCvs = slidingMoveTimesCvs(movetimes)
     movetimes.zip(roles).zip(boards).zip(blurs).zip(timeCvs).zipWithIndex.map {
-      case movetime ~ role ~ board ~ blur ~ timeCv ~ i =>
+      case (((((movetime, role), board), blur), timeCv), i) =>
         val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
@@ -124,7 +124,7 @@ final private class PovToEntry(
             }
           case _ => none
         }
-        Move(
+        InsightMove(
           phase = Phase.of(from.division, ply),
           tenths = movetime.roundTenths,
           role = role,
@@ -174,7 +174,7 @@ final private class PovToEntry(
       }
     }
 
-  private def convert(from: RichPov): Option[Entry] = {
+  private def convert(from: RichPov): Option[InsightEntry] = {
     import from._
     import pov.game
     for {
@@ -182,8 +182,8 @@ final private class PovToEntry(
       myRating <- pov.player.rating
       opRating <- pov.opponent.rating
       perfType <- game.perfType
-    } yield Entry(
-      id = Entry povToId pov,
+    } yield InsightEntry(
+      id = InsightEntry povToId pov,
       number = 0, // temporary :-/ the Indexer will set it
       userId = myId,
       color = pov.color,

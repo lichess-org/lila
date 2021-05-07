@@ -33,7 +33,7 @@
   <string name="students">विद्यार्थी</string>
   <string name="progress">प्रगती</string>
   <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s मागील %2$s</string>
+  <string name="variantXOverLastY">%1$s मागील %2$s</string>
   <string name="winrate">जिंकण्याचे प्रमाण</string>
   <string name="na">लागू नाही</string>
   <string name="news">शिकवणीच्या बातम्या</string>

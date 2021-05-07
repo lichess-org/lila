@@ -1,5 +1,4 @@
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
+import { h, VNode } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
 import { MouchEvent } from 'chessground/types';
@@ -7,7 +6,7 @@ import * as util from 'chessground/util';
 import changeColorHandle from 'common/coordsColor';
 import EditorCtrl from './ctrl';
 
-export default function(ctrl: EditorCtrl): VNode {
+export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
@@ -15,15 +14,15 @@ export default function(ctrl: EditorCtrl): VNode {
         ctrl.chessground = Chessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
-      destroy: _ => ctrl.chessground!.destroy()
-    }
+      destroy: _ => ctrl.chessground!.destroy(),
+    },
   });
 }
 
 function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   const handler = onMouseEvent(ctrl);
-  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
-    el.addEventListener(ev, handler)
+  ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
+    el.addEventListener(ev, handler);
   });
 }
 
@@ -44,15 +43,22 @@ let lastKey: Key | undefined;
 let placeDelete: boolean | undefined;
 
 function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
-  return function(e: MouchEvent): void {
+  return function (e: MouchEvent): void {
     const sel = ctrl.selected();
 
     // do not generate corresponding mouse event
     // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
-    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove')) e.preventDefault();
+    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove'))
+      e.preventDefault();
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
-      if (sel === 'pointer' || (ctrl.chessground && ctrl.chessground.state.draggable.current && ctrl.chessground.state.draggable.current.newPiece)) return;
+      if (
+        sel === 'pointer' ||
+        (ctrl.chessground &&
+          ctrl.chessground.state.draggable.current &&
+          ctrl.chessground.state.draggable.current.newPiece)
+      )
+        return;
       const pos = util.eventPosition(e);
       if (!pos) return;
       const key = ctrl.chessground!.getKeyAtDomPos(pos);
@@ -63,7 +69,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         const existingPiece = ctrl.chessground!.state.pieces.get(key);
         const piece = {
           color: sel[0],
-          role: sel[1]
+          role: sel[1],
         };
         const samePiece = existingPiece && piece.color == existingPiece.color && piece.role == existingPiece.role;
 
@@ -71,7 +77,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           deleteOrHidePiece(ctrl, key, e);
           placeDelete = true;
           const endEvents = { mousedown: 'mouseup', touchstart: 'touchend' };
-          document.addEventListener(endEvents[e.type], () => placeDelete = false, { once: true });
+          document.addEventListener(endEvents[e.type], () => (placeDelete = false), { once: true });
         } else if (!placeDelete && (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)) {
           ctrl.chessground!.setPieces(new Map([[key, piece]]));
           ctrl.onChange();
@@ -120,31 +126,31 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,
-      color: 'both'
+      color: 'both',
     },
     animation: {
-      duration: ctrl.cfg.animation.duration
+      duration: ctrl.cfg.animation.duration,
     },
     premovable: {
-      enabled: false
+      enabled: false,
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0'
+      defaultSnapToValidMove: (lichess.storage.get('arrow.snap') || 1) != '0',
     },
     draggable: {
       showGhost: true,
-      deleteOnDropOff: true
+      deleteOnDropOff: true,
     },
     selectable: {
-      enabled: false
+      enabled: false,
     },
     highlight: {
-      lastMove: false
+      lastMove: false,
     },
     events: {
       change: ctrl.onChange.bind(ctrl),
-      insert: changeColorHandle
-    }
+      insert: changeColorHandle,
+    },
   };
 }

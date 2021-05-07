@@ -3,7 +3,6 @@ package lila.puzzle
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
 import lila.db.AsyncColl
@@ -14,12 +13,6 @@ private class PuzzleConfig(
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
     @ConfigName("collection.path") val pathColl: CollName
-)
-
-case class PuzzleColls(
-    puzzle: AsyncColl,
-    round: AsyncColl,
-    path: AsyncColl
 )
 
 @Module
@@ -42,7 +35,7 @@ final class Env(
 
   private lazy val db = mongo.asyncDb("puzzle", config.mongoUri)
 
-  lazy val colls = PuzzleColls(
+  lazy val colls = new PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
     path = db(config.pathColl)
@@ -78,6 +71,10 @@ final class Env(
 
   lazy val replay = wire[PuzzleReplayApi]
 
+  lazy val history = wire[PuzzleHistoryApi]
+
+  lazy val streak = wire[PuzzleStreakApi]
+
   def cli =
     new lila.common.Cli {
       def process = { case "puzzle" :: "delete" :: id :: Nil =>
@@ -85,3 +82,9 @@ final class Env(
       }
     }
 }
+
+final class PuzzleColls(
+    val puzzle: AsyncColl,
+    val round: AsyncColl,
+    val path: AsyncColl
+)

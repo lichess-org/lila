@@ -2,9 +2,6 @@
   &__tools {
     @extend %box-neat-force, %flex-column;
 
-    max-height: 100vh;
-
-    /* magically fixes fit-content on safari 10 */
     background: $c-bg-box;
 
     .ceval {
@@ -17,7 +14,7 @@
       user-select: none;
 
       .title {
-        font-size: .9rem;
+        font-size: 0.9rem;
         line-height: 1.9em;
         background: mix($c-secondary, $c-bg-box, 40%);
         padding: 0 7px;

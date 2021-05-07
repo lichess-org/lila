@@ -3,18 +3,17 @@
   <string name="team">Takım</string>
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s üyeler</item>
-    <item quantity="other">%s üye</item>
+    <item quantity="one">%s üye</item>
+    <item quantity="other">%s üyeler</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>
-  <string name="newTeam">Yeni Takım</string>
+  <string name="newTeam">Yeni takım</string>
   <string name="myTeams">Takımlarım</string>
   <string name="noTeamFound">Takım bulunamadı</string>
   <string name="joinTeam">Takıma katıl</string>
   <string name="quitTeam">Takımdan ayrıl</string>
-  <string name="anyoneCanJoin">Herkes katılabilir</string>
-  <string name="aConfirmationIsRequiredToJoin">Katılmak için onay gerekli</string>
-  <string name="joiningPolicy">Katılım koşulları</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Katılım başvuruları onayınızdan geçsin</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Şık işaretliyse, oyuncuların mesaj yazarak yapabileceği takıma katılım başvurusu onayınıza sunulacak.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Takım lideri</item>
     <item quantity="other">Takım liderleri</item>
@@ -44,4 +43,8 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="leadersChat">Liderler arası sohbet</string>
   <string name="closeTeam">Takımı kapat</string>
   <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
+  <string name="teamPassword">Takım şifresi</string>
+  <string name="teamPasswordDescriptionForLeader">(İsteğe bağlı) Yeni üyelerin takıma katılabilmesi için bilmesi gereken şifredir.</string>
+  <string name="incorrectTeamPassword">Yanlış takım şifresi.</string>
+  <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
 </resources>

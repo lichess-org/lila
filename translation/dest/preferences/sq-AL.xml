@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">Shenimet e levizjeve</string>
   <string name="chessPieceSymbol">Simboli i figures se shahut</string>
   <string name="pgnLetter">Shkronja (K, Q, R, B, N)</string>
-  <string name="zenMode">Modaliteti zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modaliteti zen</string>
   <string name="displayBoardResizeHandle">Shfaq opsionin për zmadhim të tabelës</string>
   <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
   <string name="blindfoldChess">Shah i verber (gurë të padukshëm)</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjetat e sekondës</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Kur koha e mbetur &lt;10 sekonda</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kur koha e mbetur &lt;10 sekonda</string>
   <string name="horizontalGreenProgressBars">Shufra e gjelbërt e progresit</string>
   <string name="soundWhenTimeGetsCritical">Tingull gjatë kohës kritike</string>
   <string name="giveMoreTime">Jep më shumë kohë</string>
-  <string name="gameBehavior">Sjellja e lojës</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Sjellja e lojës</string>
   <string name="howDoYouMovePieces">Si i leviz figurat?</string>
   <string name="clickTwoSquares">Kliko dy kuadrate</string>
   <string name="dragPiece">Terhiqe figuren</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">Leviz mbretin dy kuadrate</string>
   <string name="castleByMovingOntoTheRook">Levize mbretin tek torra</string>
   <string name="inputMovesWithTheKeyboard">Vendos levizjet me tastiere</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Shkruaj \"Lojë e mirë\" pas barazimit ose humbjes</string>
   <string name="yourPreferencesHaveBeenSaved">Parapëlqimet tuaja janë ruajtur.</string>
 </resources>

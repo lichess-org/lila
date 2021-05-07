@@ -54,7 +54,7 @@ final class PerfStatIndexer(
     pov.game.perfType ?? { perfType =>
       storage.find(userId, perfType) flatMap {
         _ ?? { perfStat =>
-          storage.update(perfStat agg pov)
+          storage.update(perfStat, perfStat agg pov)
         }
       }
     }

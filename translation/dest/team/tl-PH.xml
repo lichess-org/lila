@@ -12,9 +12,6 @@
   <string name="noTeamFound">Walang koponan na nakita</string>
   <string name="joinTeam">Sumali sa koponan</string>
   <string name="quitTeam">Umalis sa koponan</string>
-  <string name="anyoneCanJoin">Libre para sa lahat</string>
-  <string name="aConfirmationIsRequiredToJoin">Isang kompirmasyon ang kailangan para makasali</string>
-  <string name="joiningPolicy">Patakaran ng Pagsali</string>
   <plurals name="teamLeaders">
     <item quantity="one">Pinuno ng koponan</item>
     <item quantity="other">Mga pinuno ng koponan</item>

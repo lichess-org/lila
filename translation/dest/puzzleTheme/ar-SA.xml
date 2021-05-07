@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">الأخذ بالتجاوز</string>
+  <string name="advancedPawnDescription">و يُعتبر ترقية البيدق أو التهديد بترقيته هو مفتاح التكتيك.</string>
+  <string name="advantage">أفضلية</string>
+  <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
+  <string name="anastasiaMate">أنماط كش مات</string>
+  <string name="arabianMate">كش مات عربي</string>
+  <string name="attraction">الجذب(التضحية)</string>
+  <string name="attractionDescription">تضحية خادعة تغري الخصم لأخذها لتنفيذ فكرة تكتيكية، أو تبادل قطع بهدف إرغام الخضم على نقل قطعة إلى مربع حيث يمكن استغلال موقعها الجديد من خلال تكتيك معين.</string>
+</resources>

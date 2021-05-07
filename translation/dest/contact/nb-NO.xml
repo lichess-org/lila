@@ -9,8 +9,8 @@
   <string name="forgotPassword">Jeg har glemt passordet mitt</string>
   <string name="forgotUsername">Jeg har glemt brukernavnet mitt</string>
   <string name="youCanLoginWithEmail">Du kan logge inn med den e-postadressen du registrerte deg med</string>
-  <string name="lost2FA">Jeg har mistet tilgangen til mine totrinns bekreftelseskoder</string>
-  <string name="doPasswordReset">Nullstill passordet for å fjerne din andre faktor</string>
+  <string name="lost2FA">Jeg har mistet tilgangen til tofaktorautentiseringskodene mine</string>
+  <string name="doPasswordReset">Nullstill passordet for å fjerne tofaktorautentisering</string>
   <string name="accountSupport">Jeg har behov for kontosupport</string>
   <string name="wantTitle">Jeg vil gjerne at tittelen min vises på Lichess</string>
   <string name="visitTitleConfirmation">For at din tittel skal vises på Lichess-profilen, og for å delta i \"Titled Arenas\", må du gå inn på bekreftelsessida</string>
@@ -26,13 +26,8 @@
   <string name="orCloseAccount">Du kan likevel lukke kontoen din og opprette en ny.</string>
   <string name="wantClearHistory">Jeg vil slette historikken eller ratingen min</string>
   <string name="cantClearHistory">Det er ikke mulig å slette historikken din for partier, sjakknøtter eller ratinger.</string>
-  <string name="wantReport">Jeg vil melde en spiller</string>
-  <string name="cheating">fusk</string>
-  <string name="sandbagging">tape med vilje</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">fornærmelser</string>
-  <string name="otherReason">en annen årsak</string>
-  <string name="toReportAPlayer">Bruk rapportskjemaet om du vil melde en spiller for %s</string>
+  <string name="wantReport">Jeg vil rapportere en spiller</string>
+  <string name="toReportAPlayerUseForm">Bruk rapportskjemaet for å rapportere en spiller</string>
   <string name="youCanAlsoReachReportPage">Du kan også komme til den sida ved å klikke på %s meldingsknappen på ei brukerside.</string>
   <string name="doNotReportInForum">Ikke meld spillere i forumet.</string>
   <string name="doNotSendReportEmails">Ikke send oss epost med anmelding av spillere.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Forsikre deg om at du spilte et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Hvis du støtte på en feilside, kan du rapportere det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Klage ved utestenging eller IP-restriksjon</string>
+  <string name="banAppeal">Klage ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Anmerkning om juks eller maskinbruk</string>
   <string name="sendAppealTo">Du kan klage til %s.</string>
   <string name="falsePositives">Beklageligvis kan falske positiver forekomme.</string>

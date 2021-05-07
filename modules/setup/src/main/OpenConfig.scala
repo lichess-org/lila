@@ -8,12 +8,12 @@ import lila.game.PerfPicker
 import lila.rating.PerfType
 
 final case class OpenConfig(
+    name: Option[String],
     variant: chess.variant.Variant,
     clock: Option[Clock.Config],
+    rated: Boolean,
     position: Option[FEN] = None
 ) {
-
-  def >> = (variant.key.some, clock, position.map(_.value)).some
 
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, none)
 
@@ -26,10 +26,18 @@ final case class OpenConfig(
 
 object OpenConfig {
 
-  def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
+  def from(
+      n: Option[String],
+      v: Option[String],
+      cl: Option[Clock.Config],
+      rated: Boolean,
+      pos: Option[String]
+  ) =
     new OpenConfig(
+      name = n.map(_.trim).filter(_.nonEmpty),
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,
+      rated = rated,
       position = pos map FEN.apply
     ).autoVariant
 }

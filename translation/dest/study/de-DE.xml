@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
   <string name="recentlyUpdated">Kürzlich aktualisiert</string>
   <string name="mostPopular">Beliebteste</string>
+  <string name="alphabetical">Alphabetisch</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -62,15 +63,13 @@
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Lade die Partie herunter</string>
   <string name="studyUrl">Studien URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Veröffentlichungs-URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
-  <string name="currentGameUrl">URL der aktuellen Partie</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Zum Einbinden füge dies im Forum ein</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Zum Einbinden füge dies im Forum ein</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
   <string name="startAtX">Beginne mit %s</string>
-  <string name="embedInYourWebsite">In deine Webseite oder deinen Blog einbinden</string>
+  <string name="embedInYourWebsite">In deine Webseite oder deinen Blog einbetten</string>
   <string name="readMoreAboutEmbedding">Lies mehr über das Einbinden</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Nur öffentliche Studien können eingebunden werden!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Nur öffentliche Studien können eingebunden werden!</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>

@@ -1,15 +1,13 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
+import { h, VNode } from 'snabbdom';
 import { StudyCtrl } from './interfaces';
 import { bind, richHTML, onInsert } from '../util';
 
-export type Save = (string) => void;
+export type Save = (t: string) => void;
 
 export class DescriptionCtrl {
+  edit = false;
 
-  edit: boolean = false;
-
-  constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) { }
+  constructor(public text: string | undefined, readonly doSave: Save, readonly redraw: () => void) {}
 
   save(t: string) {
     this.text = t;
@@ -33,28 +31,50 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
   return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
-    contrib && !isEmpty ? h('div.contrib', [
-      h('span', descTitle(chapter)),
-      isEmpty ? null : h('a', {
-        attrs: {
-          'data-icon': 'm',
-          title: 'Edit'
-        },
-        hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
-      }),
-      h('a', {
-        attrs: {
-          'data-icon': 'q',
-          title: 'Delete'
-        },
-        hook: bind('click', () => {
-          if (confirm('Delete permanent description?')) desc.save('');
-        })
-      })
-    ]) : null,
-    isEmpty ? h('a.text.button', {
-      hook: bind('click', _ => { desc.edit = true; }, desc.redraw)
-    }, descTitle(chapter)) : h('div.text', { hook: richHTML(desc.text) })
+    contrib && !isEmpty
+      ? h('div.contrib', [
+          h('span', descTitle(chapter)),
+          isEmpty
+            ? null
+            : h('a', {
+                attrs: {
+                  'data-icon': 'm',
+                  title: 'Edit',
+                },
+                hook: bind(
+                  'click',
+                  _ => {
+                    desc.edit = true;
+                  },
+                  desc.redraw
+                ),
+              }),
+          h('a', {
+            attrs: {
+              'data-icon': 'q',
+              title: 'Delete',
+            },
+            hook: bind('click', () => {
+              if (confirm('Delete permanent description?')) desc.save('');
+            }),
+          }),
+        ])
+      : null,
+    isEmpty
+      ? h(
+          'a.text.button',
+          {
+            hook: bind(
+              'click',
+              _ => {
+                desc.edit = true;
+              },
+              desc.redraw
+            ),
+          },
+          descTitle(chapter)
+        )
+      : h('div.text', { hook: richHTML(desc.text) }),
   ]);
 }
 
@@ -65,23 +85,23 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
       h('button.button.button-empty.button-red', {
         attrs: {
           'data-icon': 'L',
-          title: 'Close'
+          title: 'Close',
         },
-        hook: bind('click', () => ctrl.edit = false, ctrl.redraw)
-      })
+        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
+      }),
     ]),
     h('form.form3', [
       h('div.form-group', [
         h('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
-            el.value = ctrl.text === '-' ? '' : (ctrl.text || '');
+            el.value = ctrl.text === '-' ? '' : ctrl.text || '';
             el.onkeyup = el.onpaste = () => {
               ctrl.save(el.value.trim());
             };
             el.focus();
-          })
-        })
-      ])
-    ])
+          }),
+        }),
+      ]),
+    ]),
   ]);
 }

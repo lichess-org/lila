@@ -8,7 +8,6 @@
     height: 300px;
   }
 
-
   .overlay {
     @extend %link-overlay;
   }
@@ -31,22 +30,22 @@
     font-size: 2em;
     text-transform: uppercase;
     letter-spacing: 3px;
-    margin: 0 0 .6rem 0;
+    margin: 0 0 0.6rem 0;
   }
 
   .headline {
     font-style: italic;
     font-size: 1.2em;
-    margin: 0 0 1em  0;
+    margin: 0 0 1em 0;
 
     &.medium {
       font-size: 1em;
-      margin-bottom: .8em;
+      margin-bottom: 0.8em;
     }
 
     &.large {
-      font-size: .9em;
-      margin-bottom: .7em;
+      font-size: 0.9em;
+      margin-bottom: 0.7em;
     }
   }
 
@@ -76,13 +75,13 @@
         color: $c-font;
 
         span {
-          margin-left: .5em;
+          margin-left: 0.5em;
         }
       }
     }
 
     .flag {
-      margin-left: .5em;
+      margin-left: 0.5em;
       vertical-align: text-bottom;
     }
 

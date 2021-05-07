@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Ara</string>
-  <string name="advancedSearch">Detaylı Arama</string>
+  <string name="advancedSearch">Gelişmiş Arama</string>
   <plurals name="searchInXGames">
     <item quantity="one">%s satranç maçı içinde ara</item>
     <item quantity="other">%s satranç maçı içinde ara</item>
@@ -23,5 +23,5 @@
   <string name="date">Tarih</string>
   <string name="sortBy">Sıralama ölçütü</string>
   <string name="analysis">Analiz</string>
-  <string name="onlyAnalysed">Sadece bilgisayar analizi müsait olan oyunlar</string>
+  <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
 </resources>

@@ -11,8 +11,8 @@ export interface FormStore {
 
 export const toFormLines = (form: HTMLFormElement): FormLines =>
   Array.from(new FormData(form).entries())
-  .filter(([k, _]) => !k.includes('_range'))
-  .reduce((o,[k,v]) => ({...o, [k]: v}), {});
+    .filter(([k, _]) => !k.includes('_range'))
+    .reduce((o, [k, v]) => ({ ...o, [k]: v }), {});
 
 export const toFormObject = (lines: FormLines): FormObject =>
   Object.keys(lines).reduce((o, k) => {
@@ -23,5 +23,5 @@ export const toFormObject = (lines: FormLines): FormObject =>
 
 export const makeStore = (storage: LichessStorage): FormStore => ({
   get: () => JSON.parse(storage.get() || 'null') as FormLines,
-  set: lines => storage.set(JSON.stringify(lines))
+  set: lines => storage.set(JSON.stringify(lines)),
 });

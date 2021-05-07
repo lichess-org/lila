@@ -1,5 +1,7 @@
 package lila.report
 
+import lila.user.Holder
+
 sealed trait Reason {
 
   def key = toString.toLowerCase
@@ -10,7 +12,10 @@ sealed trait Reason {
 object Reason {
 
   case object Cheat extends Reason
-  case object CheatPrint extends Reason {
+  case object CheatPrint extends Reason { // BC, replaced with AltPrint
+    override def name = "Print"
+  }
+  case object AltPrint extends Reason {
     override def name = "Print"
   }
   case object Comm extends Reason {
@@ -20,9 +25,7 @@ object Reason {
   case object Other    extends Reason
   case object Playbans extends Reason
 
-  // val communication: Set[Reason] = Set(Insult, Troll, CommFlag, Other)
-
-  val all  = List(Cheat, CheatPrint, Comm, Boost, Other)
+  val all  = List(Cheat, AltPrint, Comm, Boost, Other, CheatPrint)
   val keys = all map (_.key)
   val byKey = all map { v =>
     (v.key, v)
@@ -37,8 +40,19 @@ object Reason {
 
     def isCheat    = reason == Cheat
     def isOther    = reason == Other
-    def isPrint    = reason == CheatPrint
+    def isPrint    = reason == AltPrint || reason == CheatPrint
     def isComm     = reason == Comm
+    def isBoost    = reason == Boost
     def isPlaybans = reason == Playbans
+  }
+
+  def isGrantedFor(mod: Holder)(reason: Reason) = {
+    import lila.security.Granter
+    reason match {
+      case Cheat                    => Granter.is(_.MarkEngine)(mod)
+      case AltPrint | CheatPrint    => Granter.is(_.Admin)(mod)
+      case Comm                     => Granter.is(_.Shadowban)(mod)
+      case Boost | Playbans | Other => Granter.is(_.MarkBooster)(mod)
+    }
   }
 }

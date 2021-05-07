@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunders</string>
   <string name="mistake">Fout</string>
-  <string name="mistakes">Fouten</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
-  <string name="inaccuracies">Imperfecties</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunder</item>
+    <item quantity="other">%s blunders</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s fouten</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imperfectie</item>
+    <item quantity="other">%s imperfecties</item>
+  </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
   <string name="threefoldRepetition">Driemaal dezelfde stelling</string>
@@ -250,7 +259,6 @@
   <string name="send">Verstuur</string>
   <string name="incrementInSeconds">Seconden extra per zet</string>
   <string name="freeOnlineChess">Gratis online schaken</string>
-  <string name="spectators">Toeschouwers:</string>
   <plurals name="nbRated">
     <item quantity="one">%s met rating</item>
     <item quantity="other">%s met rating</item>
@@ -278,7 +286,6 @@
     <item quantity="other">Geef %s seconden</item>
   </plurals>
   <string name="thisAccountViolatedTos">Deze account heeft de Lichess Servicevoorwaarden geschonden</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Deze speler verhoogt/verlaagt zijn rating kunstmatig</string>
   <string name="openingExplorerAndTablebase">Openingsverkenner &amp; tablebase</string>
   <string name="takeback">Neem zet terug</string>
   <string name="proposeATakeback">Stel zet terugnemen voor</string>
@@ -383,7 +390,6 @@
   <string name="more">Meer</string>
   <string name="memberSince">Lid sinds</string>
   <string name="lastSeenActive">%s voor het laatst gezien</string>
-  <string name="challengeToPlay">Uitdagen voor een partij</string>
   <string name="player">Speler</string>
   <string name="list">Lijst</string>
   <string name="graph">Grafiek</string>
@@ -469,6 +475,8 @@
   <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
+  <string name="descPrivate">Interne beschrijving</string>
+  <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
   <string name="help">Help:</string>
@@ -489,6 +497,7 @@
   <string name="cheat">Valsspelen</string>
   <string name="insult">Beledigen</string>
   <string name="troll">Provoceren</string>
+  <string name="ratingManipulation">Rating manipulatie</string>
   <string name="other">Anders</string>
   <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
@@ -511,6 +520,7 @@
   <string name="clockInitialTime">Oorspronkelijke kloktijd</string>
   <string name="clockIncrement">Bijtelling</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">privacybeleid</string>
   <string name="letOtherPlayersFollowYou">Andere spelers mogen je volgen</string>
   <string name="letOtherPlayersChallengeYou">Andere spelers mogen je uitdagen</string>
   <string name="letOtherPlayersInviteYouToStudy">Laat andere spelers je uitnodigen voor een Study</string>
@@ -579,6 +589,7 @@
   <string name="error.email_unique">Dit emailadres is al in gebruik</string>
   <string name="error.email_different">Dit is uw huidige e-mailadres</string>
   <string name="ifRatingIsPlusMinusX">Indien de rating ± %s is</string>
+  <string name="onlyExistingConversations">Alleen bestaande gesprekken</string>
   <string name="onlyFriends">Alleen vrienden</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokeren</string>
@@ -656,6 +667,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
   <string name="weHaveSentYouAnEmailTo">We hebben een email verstuurd naar %s. Klik op de link in de email om je wachtwoord te resetten.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Door je registratie ben je gebonden aan onze %s.</string>
+  <string name="readAboutOur">Lees meer over ons %s.</string>
   <string name="networkLagBetweenYouAndLichess">Netwerkvertraging tussen u en Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tijd om een zet te verwerken op de lichess server</string>
   <string name="downloadAnnotated">Download de geannoteerde partij</string>
@@ -734,7 +746,6 @@
   <string name="error.unknown">Fout</string>
   <string name="custom">Aangepast</string>
   <string name="notifications">Meldingen</string>
-  <string name="challenges">Uitdagingen</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s seconde om de eerste zet te spelen</item>
@@ -781,12 +792,6 @@
   <string name="opening">Opening</string>
   <string name="middlegame">Middenspel</string>
   <string name="endgame">Eindspel</string>
-  <string name="registerToSendChallenges">Gelieve te registreren om uitdagingen te versturen.</string>
-  <string name="youCannotChallengeX">Je kunt %s niet uitdagen.</string>
-  <string name="xDoesNotAcceptChallenges">%s accepteert geen uitdagingen.</string>
-  <string name="yourXRatingIsTooFarFromY">Je %1$s-rating wijkt te veel af van %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Kan niet worden uitgedaagd vanwege de tijdelijke %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s accepteert alleen uitdagingen van vrienden.</string>
   <string name="conditionalPremoves">Voorwaardelijke zetten vooruit</string>
   <string name="addCurrentVariation">Voeg huidige variant toe</string>
   <string name="playVariationToCreateConditionalPremoves">Speel een variant om voorwaardelijke zetten vooruit te maken</string>
@@ -840,4 +845,22 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
+  <string name="mentionedYouInX"> heeft je genoemd in \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s heeft je genoemd in \"%2$s\".</string>
+  <string name="invitedYouToX"> heeft je uitgenodigd voor \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Je maakt nu deel uit van het team.</string>
+  <string name="youHaveJoinedTeamX">Je bent nu lid van \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Iemand die je hebt gerapporteerd is geband</string>
+  <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
+  <string name="gameVsX">Partij tegen %1$s</string>
+  <string name="resVsX">%1$s tegen %2$s</string>
+  <string name="youJustBecamePatron">Je bent net een Lichess Patroon geworden.</string>
+  <string name="patronAccountExpired">Patroon status is verlopen</string>
+  <string name="pleaseReconsiderRenewIt">Overweeg alsjeblieft het te vernieuwen!</string>
+  <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
+  <string name="newPendingReview">In afwachting van beoordeling</string>
+  <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
+  <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
+  <string name="timeAlmostUp">De tijd is bijna om!</string>
 </resources>

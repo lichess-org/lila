@@ -7,7 +7,6 @@ final private[api] class Cli(
     security: lila.security.Env,
     teamSearch: lila.teamSearch.Env,
     forumSearch: lila.forumSearch.Env,
-    team: lila.team.Env,
     puzzle: lila.puzzle.Env,
     tournament: lila.tournament.Env,
     explorer: lila.explorer.Env,
@@ -17,7 +16,8 @@ final private[api] class Cli(
     coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
-    msg: lila.msg.Env
+    msg: lila.msg.Env,
+    slackApi: lila.irc.SlackApi
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
 
@@ -41,8 +41,10 @@ final private[api] class Cli(
         case None                       => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
+          slackApi.gdprErase(user)
+          userRepo setEraseAt user
           Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
-          s"Erasing all data about ${user.username} now"
+          s"Erasing all search data about ${user.username} now"
       }
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none
@@ -73,7 +75,6 @@ final private[api] class Cli(
     security.cli.process orElse
       teamSearch.cli.process orElse
       forumSearch.cli.process orElse
-      team.cli.process orElse
       puzzle.cli.process orElse
       tournament.cli.process orElse
       explorer.cli.process orElse

@@ -88,7 +88,7 @@ export function init(ctrl: RoundController) {
   // If the piece becomes available, we call into chessground again.
   lichess.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
-  })
+  });
 
   for (let i = 1; i <= 5; i++) {
     const iStr = i.toString();
@@ -97,16 +97,19 @@ export function init(ctrl: RoundController) {
         crazyKeys.push(i);
         setDrop();
       }
-    })
-    .bind(iStr, () => {
-      const idx = crazyKeys.indexOf(i);
-      if (idx >= 0) {
-        crazyKeys.splice(idx, 1);
-        if (idx === crazyKeys.length) {
-          setDrop();
+    }).bind(
+      iStr,
+      () => {
+        const idx = crazyKeys.indexOf(i);
+        if (idx >= 0) {
+          crazyKeys.splice(idx, 1);
+          if (idx === crazyKeys.length) {
+            setDrop();
+          }
         }
-      }
-    }, 'keyup');
+      },
+      'keyup'
+    );
   }
 
   const resetKeys = () => {
@@ -119,13 +122,15 @@ export function init(ctrl: RoundController) {
   window.addEventListener('blur', resetKeys);
 
   // Handle focus on input bars – these will hide keyup events
-  window.addEventListener('focus', e => {
-    if (e.target && (e.target as HTMLElement).localName === 'input')
-      resetKeys();
-  }, { capture: true });
+  window.addEventListener(
+    'focus',
+    e => {
+      if (e.target && (e.target as HTMLElement).localName === 'input') resetKeys();
+    },
+    { capture: true }
+  );
 
-  if (lichess.storage.get('crazyKeyHist') !== '0')
-    preloadMouseIcons(ctrl.data);
+  if (lichess.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,
@@ -133,7 +138,6 @@ export function init(ctrl: RoundController) {
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
-  for (const pKey of 'PNBRQ') 
-    fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
+  for (const pKey of 'PNBRQ') fetch(lichess.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

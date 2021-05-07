@@ -7,24 +7,26 @@ function assetUrl(path: string): string {
 
 self.addEventListener('push', event => {
   const data = event.data!.json();
-  return event.waitUntil(self.registration.showNotification(data.title, {
-    badge: assetUrl('logo/lichess-mono-128.png'),
-    icon: assetUrl('logo/lichess-favicon-192.png'),
-    body: data.body,
-    tag: data.tag,
-    data: data.payload,
-    requireInteraction: true,
-  }));
+  return event.waitUntil(
+    self.registration.showNotification(data.title, {
+      badge: assetUrl('logo/lichess-mono-128.png'),
+      icon: assetUrl('logo/lichess-favicon-192.png'),
+      body: data.body,
+      tag: data.tag,
+      data: data.payload,
+      requireInteraction: true,
+    })
+  );
 });
 
 async function handleNotificationClick(event: NotificationEvent) {
   const notifications = await self.registration.getNotifications();
   notifications.forEach(notification => notification.close());
 
-  const windowClients = await self.clients.matchAll({
+  const windowClients = (await self.clients.matchAll({
     type: 'window',
     includeUncontrolled: true,
-  }) as ReadonlyArray<WindowClient>;
+  })) as ReadonlyArray<WindowClient>;
 
   // determine url
   const data = event.notification.data.userData;

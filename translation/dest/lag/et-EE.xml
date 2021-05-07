@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="noAndYourNetworkIsGood">Ei. Ja su võrk töötab ka.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Ei. Ja su võrk on halb.</string>
+  <string name="yesItWillBeFixedSoon">Jah! See parandatakse kohe-kohe!</string>
+</resources>

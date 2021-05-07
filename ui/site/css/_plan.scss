@@ -6,7 +6,8 @@
     font-size: 1.2em;
     width: 100%;
 
-    td, th {
+    td,
+    th {
       border-top: $border;
     }
 
@@ -22,7 +23,7 @@
     }
 
     .switch.up {
-      color: #639B24;
+      color: #639b24;
     }
 
     .switch.down {
@@ -62,7 +63,7 @@
   }
 
   .payments {
-    font-size: .9em;
+    font-size: 0.9em;
 
     th {
       text-align: left;
@@ -88,9 +89,9 @@
     justify-content: space-between;
 
     > i {
-      @include fluid-size("font-size", 40px, 120px);
+      @include fluid-size('font-size', 40px, 120px);
 
-      margin: 0 .4em;
+      margin: 0 0.4em;
     }
 
     > i:last-child {
@@ -99,7 +100,7 @@
 
     h1 {
       font-size: 2em;
-      margin: 0 0 .5em 0;
+      margin: 0 0 0.5em 0;
       padding: 0;
     }
   }
@@ -158,7 +159,7 @@
 
     group.freq input:checked + label::before,
     group .lifetime-check input + label::before {
-      content: "✓";
+      content: '✓';
       padding-right: 5px;
     }
 
@@ -203,7 +204,7 @@
 
     dl {
       flex: 1 0 200px;
-      margin: 0 .2em 1em .2em;
+      margin: 0 0.2em 1em 0.2em;
     }
 
     dt {
@@ -220,7 +221,7 @@
     }
 
     code {
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
 
@@ -241,7 +242,7 @@
     .list div {
       flex: 1 1 25%;
       min-width: 17ch;
-      padding: .5em 0;
+      padding: 0.5em 0;
     }
   }
 
@@ -252,15 +253,14 @@
       display: block;
     }
 
-
     h2 {
       font-size: 1.5em;
-      margin: 300px 0 .4em 0;
+      margin: 300px 0 0.4em 0;
       border-bottom: $border;
     }
 
     .list div {
-      padding: .5em 0;
+      padding: 0.5em 0;
     }
 
     a {

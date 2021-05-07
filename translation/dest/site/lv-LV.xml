@@ -118,11 +118,23 @@
   <string name="infiniteAnalysis">Bezgalīga analīze</string>
   <string name="removesTheDepthLimit">Noņem dziļuma ierobežojumu un uztur tavu datoru siltu</string>
   <string name="blunder">Rupja kļūda</string>
-  <string name="blunders">Rupjas kļūdas</string>
   <string name="mistake">Kļūda</string>
-  <string name="mistakes">Kļūdas</string>
   <string name="inaccuracy">Neprecizitāte</string>
-  <string name="inaccuracies">Neprecizitātes</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s rupju kļūdu</item>
+    <item quantity="one">%s rupja kļūda</item>
+    <item quantity="other">%s rupjas kļūdas</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s kļūdu</item>
+    <item quantity="one">%s kļūda</item>
+    <item quantity="other">%s kļūdas</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s neprecizitāšu</item>
+    <item quantity="one">%s neprecizitāte</item>
+    <item quantity="other">%s neprecizitātes</item>
+  </plurals>
   <string name="moveTimes">Gājienu ilgumi</string>
   <string name="flipBoard">Apgriezt galdiņu</string>
   <string name="threefoldRepetition">Trīskārša atkārtošanās</string>
@@ -261,7 +273,6 @@
   <string name="send">Sūtīt</string>
   <string name="incrementInSeconds">Pieaugums sekundēs</string>
   <string name="freeOnlineChess">Bezmaksas šahs tiešsaistē</string>
-  <string name="spectators">Skatītāji:</string>
   <plurals name="nbRated">
     <item quantity="zero">%s vērtētas</item>
     <item quantity="one">%s vērtēta</item>
@@ -295,7 +306,6 @@
     <item quantity="other">Piešķirt %s sekundes</item>
   </plurals>
   <string name="thisAccountViolatedTos">Šis konts pārkāpa Lichess Pakalpojuma Noteikumus</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Šis spēlētājs mākslīgi paaugstina/pazemina savu reitingu</string>
   <string name="openingExplorerAndTablebase">Atklātņu pārlūks &amp; datubāze</string>
   <string name="takeback">Gājiena atsaukšana</string>
   <string name="proposeATakeback">Piedāvāt gājiena atsaukšanu</string>
@@ -307,7 +317,7 @@
   <string name="bookmarkThisGame">Atzīmēt šo spēli</string>
   <string name="tournament">Turnīrs</string>
   <string name="tournaments">Turnīri</string>
-  <string name="tournamentPoints">Turnīru punkti</string>
+  <string name="tournamentPoints">Turnīra punkti</string>
   <plurals name="nbTournamentPoints">
     <item quantity="zero">%s turnīra punkti</item>
     <item quantity="one">%s turnīra punkts</item>
@@ -319,7 +329,7 @@
     <item quantity="other">%s izpētes</item>
   </plurals>
   <string name="viewTournament">Skatīt turnīru</string>
-  <string name="backToTournament">Atgriesties turnīrā</string>
+  <string name="backToTournament">Atgriezties turnīrā</string>
   <string name="thematic">Tematisks</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="zero">≥ %s vērtētas spēles</item>
@@ -410,7 +420,6 @@
   <string name="more">Vairāk</string>
   <string name="memberSince">Dalībnieks kopš</string>
   <string name="lastSeenActive">Aktīvs %s</string>
-  <string name="challengeToPlay">Izaicināt uz spēli</string>
   <string name="player">Spēlētājs</string>
   <string name="list">Saraksts</string>
   <string name="graph">Grafiks</string>
@@ -498,6 +507,8 @@
   <string name="tournamentWinners">Turnīra uzvarētāji</string>
   <string name="name">Nosaukums</string>
   <string name="description">Apraksts</string>
+  <string name="descPrivate">Privātais apraksts</string>
+  <string name="descPrivateHelp">Teksts, ko, ja norādīsiet, komandas dalībnieki redzēs publiskā apraksta vietā.</string>
   <string name="no">Nē</string>
   <string name="yes">Jā</string>
   <string name="help">Palīdzība:</string>
@@ -518,6 +529,7 @@
   <string name="cheat">Krāpšanās</string>
   <string name="insult">Apvainošana</string>
   <string name="troll">Troļļošana</string>
+  <string name="ratingManipulation">Reitinga manipulācija</string>
   <string name="other">Cits</string>
   <string name="reportDescriptionHelp">Ielīmējiet spēles saiti un paskaidrojiet, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsiet, ka \"lietotājs krāpjas\" — lūdzu, pastāstiet, kā nonācāt pie šī secinājuma. Ja jūsu ziņojums būs rakstīts angliski, par to varēsim parūpēties ātrāk.</string>
   <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
@@ -540,6 +552,7 @@
   <string name="clockInitialTime">Sākotnējais pulksteņa laiks</string>
   <string name="clockIncrement">Laika pieaugums</string>
   <string name="privacy">Privātums</string>
+  <string name="privacyPolicy">Privātuma politiku</string>
   <string name="letOtherPlayersFollowYou">Ļaut citiem jums sekot</string>
   <string name="letOtherPlayersChallengeYou">Ļaut citiem jūs izaicināt</string>
   <string name="letOtherPlayersInviteYouToStudy">Ļaut citiem jūs uzaicināt uz izpēti</string>
@@ -610,6 +623,7 @@
   <string name="error.email_unique">Šī e-pasta adrese jau tiek lietota</string>
   <string name="error.email_different">Šī jau ir jūsu e-pasta adrese</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
+  <string name="onlyExistingConversations">Tikai iesāktajās sarunās</string>
   <string name="onlyFriends">Tikai draugi</string>
   <string name="menu">Izvēlne</string>
   <string name="castling">Rokāde</string>
@@ -647,9 +661,9 @@
   <string name="aboutSimulImage">Fišers 50 spēlēs uzvarēja 47, zaudēja 1 un 2 beidzās neizšķirti.</string>
   <string name="aboutSimulRealLife">Princips ir aizgūts no reāliem pasākumiem. Reālajā dzīvē simultānseansa vadītājs staigā no galdiņa pie galdiņa un veic pa vienam gājienam.</string>
   <string name="aboutSimulRules">Simultānseansam sākoties, katrs spēlētājs sāk spēli ar vadītāju, kurš spēlē ar baltajām figūrām. Seanss beidzas, kad visas spēles ir beigušās.</string>
-  <string name="aboutSimulSettings">Simultānseansi vienmēr ir gadījuma rakstura. Revanši, gājiena atcelšana un \"vairāklaika\" iespējas ir atspējotas.</string>
+  <string name="aboutSimulSettings">Simultānseansi nekad nav vērtēti. Revanšu, gājienu atsaukšanas un laika pievienošanas iespējas ir atspējotas.</string>
   <string name="create">Izveidot</string>
-  <string name="whenCreateSimul">Izveidojot Simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
+  <string name="whenCreateSimul">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
   <string name="simulVariantsHint">Ja atlasīsiet vairākus variantus, katrs spēlētājs varēs izvēlēties kuru spēlēt.</string>
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
@@ -689,6 +703,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
   <string name="weHaveSentYouAnEmailTo">Esam aizsūtījuši e-pastu uz %s. Klikšķiniet uz saites e-pastā, lai atjaunotu savu paroli.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Reģistrējoties, jums jāpiekrīt saistībām atbilstoši mūsu %s.</string>
+  <string name="readAboutOur">Lasiet par mūsu %s.</string>
   <string name="networkLagBetweenYouAndLichess">Tīkla aizture starp jums un Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Gājiena apstrādei nepieciešamais laiks Lichess serverī</string>
   <string name="downloadAnnotated">Lejupielādēt anotētu</string>
@@ -703,7 +718,7 @@
   <string name="withNobody">Ar nevienu</string>
   <string name="withFriends">Ar draugiem</string>
   <string name="withEverybody">Ar visiem</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Tu jau esi reģistrējis e-pastu: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Jau esat reģistrējis e-pastu: %s</string>
   <string name="kidMode">Bērnu režīms</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
@@ -768,7 +783,6 @@
   <string name="error.unknown">Kļūda</string>
   <string name="custom">Pielāgota</string>
   <string name="notifications">Paziņojumi</string>
-  <string name="challenges">Izaicinājumi</string>
   <string name="perfRatingX">Reitings: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="zero">%s sekundes, lai izdarītu pirmo gājienu</item>
@@ -817,12 +831,6 @@
   <string name="opening">Atklātne</string>
   <string name="middlegame">Vidusspēle</string>
   <string name="endgame">Galotne</string>
-  <string name="registerToSendChallenges">Lūdzu reģistrējaties, lai sūtītu izaicinājumus.</string>
-  <string name="youCannotChallengeX">Jūs nevarat izaicināt %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nepieņem izaicinājumus.</string>
-  <string name="yourXRatingIsTooFarFromY">Jūsu %1$s reitings ir pārāk tālu no %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nevar izaicināt pagaidu %s reitinga dēļ.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s pieņem izaicinājumus tikai no draugiem.</string>
   <string name="conditionalPremoves">Nosacījumu priekšgājieni</string>
   <string name="addCurrentVariation">Pievienot pašreizējo variantu</string>
   <string name="playVariationToCreateConditionalPremoves">Izspēlējiet variantu, lai izveidotu nosacījumu priekšgājienus</string>
@@ -859,15 +867,15 @@
   <string name="classical">Klasiskais</string>
   <string name="ultraBulletDesc">Neprātīgi ātras spēles—mazāk kā 30 sekundes</string>
   <string name="bulletDesc">Ļoti ātras spēles — mazāk kā 3 minūtes</string>
-  <string name="blitzDesc">Blica spēles — 3 līdz 8 minūtes</string>
+  <string name="blitzDesc">Ātras spēles — 3 līdz 8 minūtes</string>
   <string name="rapidDesc">Ātras spēles — 8 līdz 25 minūtes</string>
   <string name="classicalDesc">Klasiskas spēles — ne mazāk par 25 minūtēm</string>
   <string name="correspondenceDesc">Korespondencšaha spēles — viena vai vairākas dienas katram gājienam</string>
   <string name="puzzleDesc">Šaha taktikas treneris</string>
   <string name="important">Svarīgi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Jūsu jautājums, iespējams, jau ir atbildēts %1$s</string>
-  <string name="inTheFAQ">bieži uzdoto jautājumu sadāļā.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior">Lai ziņotu par negodīgu vai sliktu uzvesšanos, %1$s</string>
+  <string name="inTheFAQ">bieži uzdoto jautājumu sadaļā.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Lai ziņotu par negodīgu vai sliktu uzvešanos, %1$s</string>
   <string name="useTheReportForm">izmantojiet ziņošanas veidni</string>
   <string name="toRequestSupport">Lai lūgtu atbalstu, %1$s</string>
   <string name="tryTheContactPage">izmēģiniet kontaktu sadaļu</string>
@@ -877,4 +885,22 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
+  <string name="mentionedYouInX"> jūs minēja ziņojumā \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s jūs minēja ziņojumā \"%2$s\".</string>
+  <string name="invitedYouToX"> jūs uzaicināja uz \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s jūs uzaicināja uz \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Tagad esat komandas dalībnieks.</string>
+  <string name="youHaveJoinedTeamX">Pievienojāties \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Lietotājam, ko nosūdzējāt, tika slēgts konts</string>
+  <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
+  <string name="gameVsX">Spēle pret %1$s</string>
+  <string name="resVsX">%1$s pret %2$s</string>
+  <string name="youJustBecamePatron">Tikko kļuvāt par Lichess Sponsoru.</string>
+  <string name="patronAccountExpired">Sponsora statuss beidzās</string>
+  <string name="pleaseReconsiderRenewIt">Lūdzu apsveriet to atjaunot!</string>
+  <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
+  <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
+  <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
+  <string name="refundXpointsTimeControlY">Atlīdzība: %1$s %2$s reitinga punkti.</string>
+  <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
 </resources>

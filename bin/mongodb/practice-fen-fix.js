@@ -13,34 +13,41 @@ function makePly(fen) {
   return fen.split(' ')[1] === 'w' ? 0 : 1;
 }
 
-var chapters = db.study_chapter.find({
-  studyId: {
-    $in: studyIds
-  }
-}).forEach(function(chapter) {
+var chapters = db.study_chapter
+  .find({
+    studyId: {
+      $in: studyIds,
+    },
+  })
+  .forEach(function (chapter) {
+    var fen = chapter.root.f;
+    var fixed = fixFen(fen);
+    if (fixed != fen) {
+      print('Fix chapter FEN ' + chapter._id + ': ' + fixed);
+      db.study_chapter.update(
+        {
+          _id: chapter._id,
+        },
+        {
+          $set: {
+            'root.f': fixed,
+          },
+        }
+      );
+    }
 
-  var fen = chapter.root.f;
-  var fixed = fixFen(fen);
-  if (fixed != fen) {
-    print('Fix chapter FEN ' + chapter._id + ': ' + fixed);
-    db.study_chapter.update({
-      _id: chapter._id
-    }, {
-      $set: {
-        'root.f': fixed
-      }
-    });
-  }
-
-  var ply = makePly(fixed);
-  if (chapter.root.p != ply) {
-    print('Fix chapter root ply ' + chapter._id);
-    db.study_chapter.update({
-      _id: chapter._id
-    }, {
-      $set: {
-        'root.p': NumberInt(ply)
-      }
-    });
-  }
-});
+    var ply = makePly(fixed);
+    if (chapter.root.p != ply) {
+      print('Fix chapter root ply ' + chapter._id);
+      db.study_chapter.update(
+        {
+          _id: chapter._id,
+        },
+        {
+          $set: {
+            'root.p': NumberInt(ply),
+          },
+        }
+      );
+    }
+  });

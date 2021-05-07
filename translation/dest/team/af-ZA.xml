@@ -12,9 +12,8 @@
   <string name="noTeamFound">Geen span gevind nie</string>
   <string name="joinTeam">Sluit aan by die span</string>
   <string name="quitTeam">Verlaat die span</string>
-  <string name="anyoneCanJoin">Enige persoon mag aansluit</string>
-  <string name="aConfirmationIsRequiredToJoin">\'n Bevestiging is nodig om aan te sluit</string>
-  <string name="joiningPolicy">Voorwaardes vir aansluiting</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gaan aansluit versoeke met die hand na</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Indien gemerk gaan spelers nodig hê om \'n versoek te skryf om by die span aan te sluit, wat jy kan afkeer of aanvaar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Spanleier</item>
     <item quantity="other">Spanleiers</item>
@@ -44,4 +43,8 @@ Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat
   <string name="leadersChat">Leiers gesels</string>
   <string name="closeTeam">Naby span</string>
   <string name="closeTeamDescription">Sluit die span vir altyd.</string>
+  <string name="teamPassword">Span wagwoord</string>
+  <string name="teamPasswordDescriptionForLeader">(Optioneel) \'n Wagwoord wat nuwe lede moet ken om by die span aan te sluit.</string>
+  <string name="incorrectTeamPassword">Verkeerde span wagwoord.</string>
+  <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
 </resources>

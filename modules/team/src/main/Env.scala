@@ -35,11 +35,7 @@ final class Env(
 
   lazy val memberStream = wire[TeamMemberStream]
 
-  lazy val api = wire[TeamApi]
-
   lazy val paginator = wire[PaginatorBuilder]
-
-  lazy val cli = wire[Cli]
 
   lazy val cached: Cached = wire[Cached]
 
@@ -54,13 +50,20 @@ final class Env(
 
   lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
-  lila.common.Bus.subscribeFun("shadowban", "teamIsLeader", "teamJoinedBy", "teamIsLeaderOf") {
-    case lila.hub.actorApi.mod.Shadowban(userId, true) => api.deleteRequestsByUserId(userId).unit
-    case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+  lazy val api = wire[TeamApi]
+
+  lila.common.Bus.subscribeFuns(
+    "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
+      api.deleteRequestsByUserId(userId).unit
+    },
+    "teamIsLeader" -> { case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
       promise completeWith cached.isLeader(teamId, userId)
-    case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
-      promise completeWith api.isLeaderOf(leaderId, memberId)
-    case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
+    },
+    "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
       promise completeWith cached.teamIdsList(userId)
-  }
+    },
+    "teamIsLeaderOf" -> { case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
+      promise completeWith api.isLeaderOf(leaderId, memberId)
+    }
+  )
 }

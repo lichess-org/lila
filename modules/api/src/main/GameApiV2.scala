@@ -18,6 +18,7 @@ import lila.game.{ Game, PerfPicker, Query }
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.User
+import lila.round.GameProxyRepo
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -28,7 +29,8 @@ final class GameApiV2(
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter,
-    realPlayerApi: RealPlayerApi
+    realPlayerApi: RealPlayerApi,
+    gameProxy: GameProxyRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem
@@ -38,13 +40,7 @@ final class GameApiV2(
 
   private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
 
-  def exportOne(game: Game, configInput: OneConfig): Fu[String] = {
-    val config = configInput.copy(
-      flags = configInput.flags.copy(
-        delayMoves = (game.playable && !configInput.noDelay) ?? 3,
-        evals = configInput.flags.evals && !game.playable
-      )
-    )
+  def exportOne(game: Game, config: OneConfig): Fu[String] =
     game.pgnImport ifTrue config.imported match {
       case Some(imported) => fuccess(imported.pgn)
       case None =>
@@ -65,9 +61,9 @@ final class GameApiV2(
           }
         } yield export
     }
-  }
 
   private val fileR = """[\s,]""".r
+
   def filename(game: Game, format: Format): Fu[String] =
     gameLightUsers(game) map { case (wu, bu) =>
       fileR.replaceAllIn(
@@ -81,23 +77,31 @@ final class GameApiV2(
         "_"
       )
     }
+
   def filename(tour: Tournament, format: Format): String =
+    filename(tour, format.toString.toLowerCase)
+
+  def filename(tour: Tournament, format: String): String =
     fileR.replaceAllIn(
       "lichess_tournament_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
         lila.common.String.slugify(tour.name),
-        format.toString.toLowerCase
+        format
       ),
       "_"
     )
+
   def filename(swiss: lila.swiss.Swiss, format: Format): String =
+    filename(swiss, format.toString.toLowerCase)
+
+  def filename(swiss: lila.swiss.Swiss, format: String): String =
     fileR.replaceAllIn(
       "lichess_swiss_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(swiss.startsAt),
         swiss.id,
         lila.common.String.slugify(swiss.name),
-        format.toString.toLowerCase
+        format
       ),
       "_"
     )
@@ -118,6 +122,7 @@ final class GameApiV2(
           .throttle(config.perSecond.value * 10, 1 second, e => if (e.isDefined) 10 else 2)
           .mapConcat(_.toList)
           .take(config.max | Int.MaxValue)
+          .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
           .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
       }
@@ -128,12 +133,13 @@ final class GameApiV2(
       config.playerFile.??(realPlayerApi.apply) map { realPlayers =>
         gameRepo
           .sortedCursor(
-            $inIds(config.ids) ++ Query.finished,
+            $inIds(config.ids),
             Query.sortCreated,
             batchSize = config.perSecond.value
           )
           .documentSource()
           .throttle(config.perSecond.value, 1 second)
+          .via(upgradeOngoingGame)
           .via(preparationFlow(config, realPlayers))
       }
     }
@@ -215,6 +221,9 @@ final class GameApiV2(
         }
       }
 
+  private val upgradeOngoingGame =
+    Flow[Game].mapAsync(4)(gameProxy.upgradeIfPresent)
+
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
       .mapAsync(4)(enrich(config.flags))
@@ -295,7 +304,9 @@ final class GameApiV2(
       .add("initialFen" -> initialFen)
       .add("winner" -> g.winnerColor.map(_.name))
       .add("opening" -> g.opening.ifTrue(withFlags.opening))
-      .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
+      .add("moves" -> withFlags.moves.option {
+        withFlags keepDelayIf g.playable applyDelay g.pgnMoves mkString " "
+      })
       .add("pgn" -> pgn)
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
@@ -330,7 +341,6 @@ object GameApiV2 {
       format: Format,
       imported: Boolean,
       flags: WithFlags,
-      noDelay: Boolean,
       playerFile: Option[String]
   ) extends Config
 

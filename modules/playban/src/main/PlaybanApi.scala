@@ -11,12 +11,14 @@ import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
+import reactivemongo.api.ReadPreference
+import lila.user.NoteApi
 
 final class PlaybanApi(
     coll: Coll,
-    sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
+    noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -61,7 +63,7 @@ final class PlaybanApi(
     }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
-    sandbag(game, quitterColor) >> IfBlameable(game) {
+    IfBlameable(game) {
       game.player(quitterColor).userId ?? { userId =>
         save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor)) >>-
           feedback.rageQuit(Pov(game, quitterColor))
@@ -101,12 +103,10 @@ final class PlaybanApi(
           propagateSitting(game, userId)
       }
 
-    sandbag(game, flaggerColor) flatMap { isSandbag =>
-      IfBlameable(game) {
-        sitting orElse
-          sitMoving getOrElse
-          goodOrSandbag(game, flaggerColor, isSandbag)
-      }
+    IfBlameable(game) {
+      sitting orElse
+        sitMoving getOrElse
+        good(game, flaggerColor)
     }
   }
 
@@ -116,47 +116,39 @@ final class PlaybanApi(
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
-    winner.?? { w =>
-      sandbag(game, !w)
-    } flatMap { isSandbag =>
-      IfBlameable(game) {
-        ~(for {
-          w <- winner
-          loser = game.player(!w)
-          loserId <- loser.userId
-        } yield {
-          if (Status.NoStart is status)
-            save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
-          else
-            game.clock
-              .filter {
-                _.remainingTime(loser.color) < Centis(1000) &&
-                game.turnOf(loser) &&
-                Status.Resign.is(status)
-              }
-              .map { c =>
-                (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
-              }
-              .exists(_ < nowSeconds - game.movedAt.getSeconds)
-              .option {
-                save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
-                  feedback.sitting(Pov(game, loser.color)) >>
-                  propagateSitting(game, loserId)
-              }
-              .getOrElse {
-                goodOrSandbag(game, !w, isSandbag)
-              }
-        })
-      }
+    IfBlameable(game) {
+      ~(for {
+        w <- winner
+        loser = game.player(!w)
+        loserId <- loser.userId
+      } yield {
+        if (Status.NoStart is status)
+          save(Outcome.NoPlay, loserId, RageSit.Reset) >>- feedback.noStart(Pov(game, !w))
+        else
+          game.clock
+            .filter {
+              _.remainingTime(loser.color) < Centis(1000) &&
+              game.turnOf(loser) &&
+              Status.Resign.is(status)
+            }
+            .map { c =>
+              (c.estimateTotalSeconds / 10) atLeast 15 atMost (3 * 60)
+            }
+            .exists(_ < nowSeconds - game.movedAt.getSeconds)
+            .option {
+              save(Outcome.SitResign, loserId, RageSit.imbalanceInc(game, loser.color)) >>-
+                feedback.sitting(Pov(game, loser.color)) >>
+                propagateSitting(game, loserId)
+            }
+            .getOrElse {
+              good(game, !w)
+            }
+      })
     }
 
-  private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
-    game.player(loserColor).userId ?? { userId =>
-      if (isSandbag) feedback.sandbag(Pov(game, loserColor))
-      val rageSitDelta =
-        if (isSandbag) RageSit.Reset
-        else RageSit.redeem(game)
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
+  private def good(game: Game, loserColor: Color): Funit =
+    game.player(loserColor).userId ?? {
+      save(Outcome.Good, _, RageSit.redeem(game))
     }
 
   // memorize users without any ban to save DB reads
@@ -191,20 +183,18 @@ final class PlaybanApi(
     }
 
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] =
-    coll
-      .find(
-        $inIds(userIds),
-        $doc("b" -> true).some
+    coll.aggregateList(Int.MaxValue, ReadPreference.secondaryPreferred) { framework =>
+      import framework._
+      Match($inIds(userIds) ++ $doc("b" $exists true)) -> List(
+        Project($doc("bans" -> $doc("$size" -> "$b")))
       )
-      .cursor[Bdoc]()
-      .list()
-      .map {
-        _.flatMap { obj =>
-          obj.getAsOpt[User.ID]("_id") flatMap { id =>
-            obj.getAsOpt[Barr]("b") map { id -> _.size }
-          }
-        }.toMap
-      }
+    } map {
+      _.flatMap { obj =>
+        obj.getAsOpt[User.ID]("_id") flatMap { id =>
+          obj.getAsOpt[Int]("bans") map { id -> _ }
+        }
+      }.toMap
+    }
 
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
@@ -243,20 +233,23 @@ final class PlaybanApi(
     update match {
       case RageSit.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
-        (delta < 0) ?? {
-          if (record.rageSit.isTerrible) funit
-          else if (record.rageSit.isVeryBad)
-            userRepo byId record.userId flatMap {
-              _ ?? { u =>
-                lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-                Bus.publish(
-                  lila.hub.actorApi.mod.AutoWarning(u.id, MsgPreset.sittingAuto.name),
-                  "autoWarning"
-                )
-                messenger.postPreset(u, MsgPreset.sittingAuto).void
-              }
-            }
-          else funit
+        (delta < 0 && record.rageSit.isVeryBad) ?? {
+          messenger.postPreset(record.userId, MsgPreset.sittingAuto).void >>- {
+            Bus.publish(
+              lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
+              "autoWarning"
+            )
+            if (record.isLethal)
+              userRepo
+                .byId(record.userId)
+                .flatMap {
+                  _ ?? { user =>
+                    noteApi.lichessWrite(user, "Closed for ragesit recidive") >>-
+                      Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose")
+                  }
+                }
+                .unit
+          }
         }
       case _ => funit
     }

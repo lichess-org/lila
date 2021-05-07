@@ -111,11 +111,11 @@
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
   <string name="blunder">พลาดมหันต์</string>
-  <string name="blunders">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
-  <string name="mistakes">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
-  <string name="inaccuracies">ไม่แม่นยำ</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s พลาดมหันต์</item>
+  </plurals>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
   <string name="flipBoard">หมุนกระดาน</string>
   <string name="threefoldRepetition">เดินซ้ำสามรอบ</string>
@@ -188,6 +188,8 @@
     <item quantity="other">%s เกมเล่นกับคุณ</item>
   </plurals>
   <string name="cancel">ยกเลิก</string>
+  <string name="whiteTimeOut">ขาวหมดเวลา</string>
+  <string name="blackTimeOut">ดำหมดเวลา</string>
   <string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
   <string name="drawOfferDeclined">การขอเสมอถูกปฏิเสธ</string>
   <string name="drawOfferAccepted">ยอมรับการขอเสมอแล้ว</string>
@@ -222,6 +224,7 @@
   <string name="rematchOfferDeclined">การท้าดวลถูกปฏิเสธ</string>
   <string name="cancelRematchOffer">ยกเลิกการขอท้าดวล</string>
   <string name="viewRematch">ชมการขอท้าดวลซ้ำ</string>
+  <string name="confirmMove">ยืนยันการเดิน</string>
   <string name="play">เล่น</string>
   <string name="inbox">กล่องเข้า</string>
   <string name="chatRoom">กรอบแชท</string>
@@ -235,7 +238,6 @@
   <string name="send">ส่ง</string>
   <string name="incrementInSeconds">วินาทีที่บวกเพิ่ม</string>
   <string name="freeOnlineChess">หมากรุกสากลออนไลน์ฟรี</string>
-  <string name="spectators">ผู้สังเกตการณ์:</string>
   <plurals name="nbRated">
     <item quantity="other">%s เกมที่คิดคะแนน</item>
   </plurals>
@@ -257,7 +259,6 @@
     <item quantity="other">ให้ %s วินาที</item>
   </plurals>
   <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">ผู้เล่นรายนี้เพิ่ม/ลดระดับคะแนนตัวเองโดยทุจริต</string>
   <string name="openingExplorerAndTablebase">ตัวสำรวจการเปิด &amp; ฐานตาราง</string>
   <string name="takeback">เดินใหม่</string>
   <string name="proposeATakeback">ขอเดินใหม่</string>
@@ -352,7 +353,6 @@
   <string name="more">เพิ่มเติม</string>
   <string name="memberSince">สมาชิกตั้งแต่</string>
   <string name="lastSeenActive">ลงชื่อเข้าครั้งล่าสุด %s</string>
-  <string name="challengeToPlay">ท้าดวลเกม</string>
   <string name="player">ผู้เล่น</string>
   <string name="list">รายการ</string>
   <string name="graph">กราฟ</string>
@@ -473,7 +473,7 @@
   <string name="currentPassword">รหัสผ่านปัจจุบัน</string>
   <string name="newPassword">รหัสผ่านใหม่</string>
   <string name="newPasswordAgain">รหัสผ่านใหม่ (อีกครั้ง)</string>
-  <string name="newPasswordsDontMatch">รหัสผ่านที่ระบุไม่ตรงกัน</string>
+  <string name="newPasswordsDontMatch">รหัสผ่านใหม่ที่ระบุไม่ตรงกัน</string>
   <string name="clockInitialTime">เวลาเริ่มต้นนาฬิกา</string>
   <string name="clockIncrement">การเพิ่มเวลานาฬิกา</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
@@ -694,7 +694,6 @@
   <string name="error.unknown">ผิดพลาด</string>
   <string name="custom">กำหนด​เอง</string>
   <string name="notifications">การแจ้งเตือน</string>
-  <string name="challenges">การท้าดวล</string>
   <string name="perfRatingX">ระดับคะแนน: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s วินาทีต้องเริ่มเดินตาแรก</item>
@@ -739,12 +738,6 @@
   <string name="opening">การเปิดเกม</string>
   <string name="middlegame">กลางเกม</string>
   <string name="endgame">ท้ายเกม</string>
-  <string name="registerToSendChallenges">กรุณาลงทะเบียนเพื่อส่งคำท้าดวล</string>
-  <string name="youCannotChallengeX">คุณไม่สามารถท้า %s</string>
-  <string name="xDoesNotAcceptChallenges">%s ไม่รับคำท้า</string>
-  <string name="yourXRatingIsTooFarFromY">ระดับคะแนน %1$s ของคุณห่างจาก %2$s เกินไป</string>
-  <string name="cannotChallengeDueToProvisionalXRating">ไม่สามารถท้าได้เนื่องจากระดับคะแนน %s ชั่วคราว</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s รับคำท้าจากเพื่อนเท่านั้น</string>
   <string name="conditionalPremoves">การเดินล่วงหน้าแบบมีเงื่อนไข</string>
   <string name="addCurrentVariation">เพิ่มการแปรผันปัจจุบัน</string>
   <string name="playVariationToCreateConditionalPremoves">เล่นหนึ่งการแปรผัน เพื่อสร้างการเดินล่วงหน้าแบบมีเงื่อนไข</string>
@@ -777,4 +770,8 @@
   <string name="edit">แก้ไข</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>
+  <string name="important">สำคัญ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
+  <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
+  <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
 </resources>

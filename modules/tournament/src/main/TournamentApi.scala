@@ -99,36 +99,27 @@ final class TournamentApi(
     } inject tour
   }
 
-  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Funit = {
-    import data._
-    val variant = if (old.isCreated) realVariant else old.variant
-    val tour = old
-      .copy(
-        name = name | old.name,
-        clock = if (old.isCreated) clockConfig else old.clock,
-        minutes = minutes,
-        mode = realMode,
-        variant = variant,
-        startsAt = startDate | old.startsAt,
-        password = data.password,
-        position = variant.standard ?? {
-          if (old.isCreated || old.position.isDefined) data.realPosition
-          else old.position
-        },
-        noBerserk = !(~berserkable),
-        noStreak = !(~streakable),
-        teamBattle = old.teamBattle,
-        description = description,
-        hasChat = data.hasChat | true
-      ) pipe { tour =>
-      tour.copy(conditions =
-        conditions
-          .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
-          .copy(teamMember = old.conditions.teamMember) // can't change that
-      )
-    }
-    tournamentRepo update tour void
+  def update(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
+    val tour = postUpdate(old, data, data updateAll old, leaderTeams)
+    tournamentRepo update tour inject tour
   }
+
+  def apiUpdate(old: Tournament, data: TournamentSetup, leaderTeams: List[LeaderTeam]): Fu[Tournament] = {
+    val tour = postUpdate(old, data, data updatePresent old, leaderTeams)
+    tournamentRepo update tour inject tour
+  }
+
+  private def postUpdate(
+      old: Tournament,
+      data: TournamentSetup,
+      tour: Tournament,
+      leaderTeams: List[LeaderTeam]
+  ) =
+    tour.copy(conditions =
+      data.conditions
+        .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
+        .copy(teamMember = old.conditions.teamMember) // can't change that
+    )
 
   def teamBattleUpdate(
       tour: Tournament,
@@ -138,6 +129,9 @@ final class TournamentApi(
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
+
+  def teamBattleTeamInfo(tour: Tournament, teamId: TeamID): Fu[Option[TeamBattle.TeamInfo]] =
+    tour.teamBattle.exists(_ teams teamId) ?? cached.teamInfo.get(tour.id -> teamId)
 
   private val hadPairings = new lila.memo.ExpireSetMemo(1 hour)
 
@@ -266,7 +260,7 @@ final class TournamentApi(
     }
   }
 
-  def verdicts(
+  def getVerdicts(
       tour: Tournament,
       me: Option[User],
       getUserTeamIds: User => Fu[List[TeamID]]
@@ -289,46 +283,47 @@ final class TournamentApi(
       withTeamId: Option[String],
       getUserTeamIds: User => Fu[List[TeamID]],
       asLeader: Boolean,
-      promise: Option[Promise[Boolean]]
+      promise: Option[Promise[Tournament.JoinResult]]
   ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
       playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
-        val fuJoined =
-          if (tour.password == password || playerExists) {
-            verdicts(tour, me.some, getUserTeamIds) flatMap {
-              _.accepted ?? {
-                pause.canJoin(me.id, tour) ?? {
-                  def proceedWithTeam(team: Option[String]) =
-                    playerRepo.join(tour.id, me, tour.perfType, team) >>
-                      updateNbPlayers(tour.id) >>- {
-                        socket.reload(tour.id)
-                        publish()
-                      } inject true
-                  withTeamId match {
-                    case None if tour.isTeamBattle => playerExists ?? proceedWithTeam(none)
-                    case None                      => proceedWithTeam(none)
-                    case Some(team) =>
-                      tour.teamBattle match {
-                        case Some(battle) if battle.teams contains team =>
-                          getUserTeamIds(me) flatMap { myTeams =>
-                            if (myTeams has team) proceedWithTeam(team.some)
-                            else fuccess(false)
-                          }
-                        case _ => fuccess(false)
-                      }
-                  }
+        import Tournament.JoinResult
+        val fuResult: Fu[JoinResult] =
+          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongPassword)
+          else
+            getVerdicts(tour, me.some, getUserTeamIds) flatMap { verdicts =>
+              if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
+              else if (!pause.canJoin(me.id, tour)) fuccess(JoinResult.Paused)
+              else {
+                def proceedWithTeam(team: Option[String]): Fu[JoinResult] =
+                  playerRepo.join(tour.id, me, tour.perfType, team) >>
+                    updateNbPlayers(tour.id) >>- {
+                      socket.reload(tour.id)
+                      publish()
+                    } inject JoinResult.Ok
+                withTeamId match {
+                  case None if tour.isTeamBattle && playerExists => proceedWithTeam(none)
+                  case None if tour.isTeamBattle                 => fuccess(JoinResult.MissingTeam)
+                  case None                                      => proceedWithTeam(none)
+                  case Some(team) =>
+                    tour.teamBattle match {
+                      case Some(battle) if battle.teams contains team =>
+                        getUserTeamIds(me) flatMap { myTeams =>
+                          if (myTeams has team) proceedWithTeam(team.some)
+                          else fuccess(JoinResult.MissingTeam)
+                        }
+                      case _ => fuccess(JoinResult.Nope)
+                    }
                 }
               }
             }
-          } else {
-            socket.reload(tour.id)
-            fuccess(false)
-          }
-        fuJoined map { joined =>
-          withTeamId.ifTrue(joined && asLeader && tour.isTeamBattle) foreach {
-            tournamentRepo.setForTeam(tour.id, _)
-          }
-          promise.foreach(_ success joined)
+        fuResult map { result =>
+          if (result.ok)
+            withTeamId.ifTrue(asLeader && tour.isTeamBattle) foreach {
+              tournamentRepo.setForTeam(tour.id, _)
+            }
+          else socket.reload(tour.id)
+          promise.foreach(_ success result)
         }
       }
     }
@@ -340,10 +335,10 @@ final class TournamentApi(
       teamId: Option[String],
       getUserTeamIds: User => Fu[List[TeamID]],
       isLeader: Boolean
-  ): Fu[Boolean] = {
-    val promise = Promise[Boolean]()
+  ): Fu[Tournament.JoinResult] = {
+    val promise = Promise[Tournament.JoinResult]()
     join(tourId, me, password, teamId, getUserTeamIds, isLeader, promise.some)
-    promise.future.withTimeoutDefault(5.seconds, false)
+    promise.future.withTimeoutDefault(5.seconds, Tournament.JoinResult.Nope)
   }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =

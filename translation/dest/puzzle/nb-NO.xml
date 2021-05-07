@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Temaer for sjakknøtter</string>
+  <string name="puzzleThemes">Temaer for sjakknøtter</string>
   <string name="recommended">Anbefalt</string>
   <string name="phases">Faser</string>
   <string name="motifs">Motiver</string>
@@ -9,6 +9,7 @@
   <string name="lengths">Varighet</string>
   <string name="mates">Mattstillinger</string>
   <string name="goals">Mål</string>
+  <string name="origin">Opphav</string>
   <string name="specialMoves">Spesialtrekk</string>
   <string name="didYouLikeThisPuzzle">Likte du denne sjakknøtten?</string>
   <string name="voteToLoadNextOne">Stem for å laste den neste!</string>
@@ -38,9 +39,28 @@
   <string name="normal">Vanlig</string>
   <string name="easier">Lettere</string>
   <string name="easiest">Lettest</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Ett poeng under sjakknøttratingen din</item>
+    <item quantity="other">%s poeng under sjakknøttratingen din</item>
+  </plurals>
   <string name="harder">Verre</string>
   <string name="hardest">Verst</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Ett poeng over sjakknøttratingen din</item>
+    <item quantity="other">%s poeng over sjakknøttratingen din</item>
+  </plurals>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Legg til tema</string>
   <string name="jumpToNextPuzzleImmediately">Gå til neste sjakknøtt med én gang</string>
+  <string name="puzzleDashboard">Panel for sjakknøtter</string>
+  <string name="improvementAreas">Forbedringsområder</string>
+  <string name="strengths">Styrker</string>
+  <string name="history">Historikk for sjakknøtter</string>
+  <string name="solved">løst</string>
+  <string name="failed">mislykket</string>
+  <string name="streakDescription">Løs verre og verre sjakknøtter og bygg en seiersrekke. Det er ingen klokke, så ta den tiden du trenger. Ett galt trekk og det er slutt! Du kan imidlertid hoppe over ett trekk for hver runde.</string>
+  <string name="yourStreakX">Din rekke: %s</string>
+  <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>
+  <string name="continueTheStreak">Fortsett rekken</string>
+  <string name="newStreak">Ny rekke</string>
 </resources>

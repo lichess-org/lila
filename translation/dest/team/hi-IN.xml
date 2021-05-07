@@ -12,9 +12,8 @@
   <string name="noTeamFound">कोई समूह नही मिला</string>
   <string name="joinTeam">समूह से जुड़े</string>
   <string name="quitTeam">समूह से हटे</string>
-  <string name="anyoneCanJoin">कोई भी जुड़ सकता है</string>
-  <string name="aConfirmationIsRequiredToJoin">जुड़ने के लिए पुष्टिकरण जरुरी है</string>
-  <string name="joiningPolicy">जुड़ने की नीति</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">प्रवेश अनुरोधों की मैन्युअल समीक्षा करें</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">यदि जाँच की जाती है, तो खिलाड़ियों को टीम में शामिल होने के लिए एक अनुरोध लिखना होगा, जिसे आप अस्वीकार या स्वीकार कर सकते हैं।</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">टीम के नेता</item>
@@ -44,4 +43,8 @@
   <string name="leadersChat">नेताओं के चैट</string>
   <string name="closeTeam">टीम को बंद करें</string>
   <string name="closeTeamDescription">टीम को हमेशा के लिए बंद कर देता है।</string>
+  <string name="teamPassword">टीम का कुंजिका</string>
+  <string name="teamPasswordDescriptionForLeader">(वैकल्पिक) एक कुंजिका जिसे नए सदस्यों को इस टीम में शामिल होने के लिए पता होना चाहिए।</string>
+  <string name="incorrectTeamPassword">गलत टीम कुंजिका ।</string>
+  <string name="teamAlreadyExists">यह टीम पहले से मौजूद है।</string>
 </resources>

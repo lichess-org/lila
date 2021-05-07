@@ -30,7 +30,7 @@ final class InquiryApi(
           reportApi.moreLike(report, 10) zip
             userRepo.named(report.user) zip
             noteApi.forMod(report.user) zip
-            logApi.userHistory(report.user) map { case moreReports ~ userOption ~ notes ~ history =>
+            logApi.userHistory(report.user) map { case (((moreReports, userOption), notes), history) =>
               userOption ?? { user =>
                 Inquiry(mod.light, report, moreReports, notes, history, user).some
               }

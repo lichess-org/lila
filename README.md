@@ -1,5 +1,4 @@
-[lichess.org](https://lichess.org)
-==================================
+# [lichess.org](https://lichess.org)
 
 [![Build server](https://github.com/ornicar/lila/workflows/Build%20server/badge.svg)](https://github.com/ornicar/lila/actions?query=workflow%3A%22Build+server%22)
 [![Build assets](https://github.com/ornicar/lila/workflows/Build%20assets/badge.svg)](https://github.com/ornicar/lila/actions?query=workflow%3A%22Build+assets%22)
@@ -7,7 +6,6 @@
 [![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lichess)
 
 <img src="https://raw.githubusercontent.com/ornicar/lila/master/public/images/home-bicolor.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
-
 
 Lila (li[chess in sca]la) is a free online chess game server focused on [realtime](https://lichess.org/games) gameplay and ease of use.
 
@@ -34,7 +32,7 @@ HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
-Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
+Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
@@ -43,8 +41,7 @@ See [lichess.org/source](https://lichess.org/source) for a list of repositories.
 [Join us on discord](https://discord.gg/hy5jqSs) or in the `#lichess` freenode IRC channel for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
-Installation
-------------
+## Installation
 
 ```
 ./lila # thin wrapper around sbt
@@ -53,33 +50,31 @@ run
 
 The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
-HTTP API
---------
+## HTTP API
 
 Feel free to use the [Lichess API](https://lichess.org/api) in your applications and websites.
 
-Credits
--------
+## Supported browsers
 
-See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository and [lichess.org/thanks](https://lichess.org/thanks).
-
-Supported browsers
-------------------
-
-| Name              | Version | Notes |
-| ----------------- | ------- | ----- |
-| Chromium / Chrome | last 10 | Full support |
+| Name              | Version | Notes                                             |
+| ----------------- | ------- | ------------------------------------------------- |
+| Chromium / Chrome | last 10 | Full support                                      |
 | Firefox           | 61+     | Full support (fastest local analysis since FF 79) |
-| Opera             | 55+     | Reasonable support |
-| Safari            | 11.1+   | Reasonable support |
-| Edge              | 17+     | Reasonable support |
+| Opera             | 55+     | Reasonable support                                |
+| Safari            | 11.1+   | Reasonable support                                |
+| Edge              | 17+     | Reasonable support                                |
 
 Older browsers (including any version of Internet Explorer) will not work.
 For your own sake, please upgrade. Security and performance, think about it!
 
-License
--------
+## License
 
 Lila is licensed under the GNU Affero General Public License 3 or any later
-version at your choice with an exception for Highcharts. See COPYING for
+version at your choice with an exception for Highcharts. See [copying](https://github.com/ornicar/lila/blob/master/COPYING.md) for
 details.
+
+## Credits
+
+See [lichess.org/thanks](https://lichess.org/thanks) and the contributors here:
+
+[![GitHub contributors](https://contrib.rocks/image?repo=ornicar/lila)](https://github.com/ornicar/lila/graphs/contributors)

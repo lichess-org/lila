@@ -21,12 +21,6 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =
     Granter isGrantedWrite categSlug
 
-  def authorName(post: Post)(implicit lang: Lang) =
-    post.userId match {
-      case Some(userId) => userIdSpanMini(userId, withOnline = true)
-      case None         => frag(lila.user.User.anonymous)
-    }
-
   def authorLink(
       post: Post,
       cssClass: Option[String] = None,
@@ -34,8 +28,5 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       modIcon: Boolean = false
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
-    else
-      post.userId.fold(frag(lila.user.User.anonymous)) { userId =>
-        userIdLink(userId.some, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
-      }
+    else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
 }

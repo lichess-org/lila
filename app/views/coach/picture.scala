@@ -27,16 +27,16 @@ object picture {
           error.map { e =>
             p(cls := "error")(e)
           },
-          postForm(action := routes.Coach.pictureApply(), enctype := "multipart/form-data", cls := "upload")(
+          postForm(action := routes.Coach.pictureApply, enctype := "multipart/form-data", cls := "upload")(
             p("Max size: ", lila.db.Photographer.uploadMaxMb, "MB."),
             form3.file.image("picture"),
             form3.actions(
-              a(href := routes.Coach.edit())(trans.cancel()),
+              a(href := routes.Coach.edit)(trans.cancel()),
               form3.submit("Upload profile picture")
             )
           ),
           c.coach.hasPicture option
-            st.form(action := routes.Coach.pictureDelete(), cls := "delete")(
+            st.form(action := routes.Coach.pictureDelete, cls := "delete")(
               submitButton(cls := "confirm button button-empty button-red")("Delete profile picture")
             )
         )

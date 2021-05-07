@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Voglio cancellare la mia cronologia o il mio punteggio</string>
   <string name="cantClearHistory">Non è possibile cancellare la cronologia delle partite, la cronologia delle tattiche né i punteggi.</string>
   <string name="wantReport">Voglio segnalare un giocatore</string>
-  <string name="cheating">imbrogliare</string>
-  <string name="sandbagging">Offendere intenzionalmente</string>
-  <string name="trolling">Prendere in giro</string>
-  <string name="insults">insulti</string>
-  <string name="otherReason">altri motivi</string>
-  <string name="toReportAPlayer">Per segnalare un giocatore per %s, utilizza il modulo di segnalazione</string>
+  <string name="toReportAPlayerUseForm">Per segnalare un giocatore, usa il modulo di segnalazione</string>
   <string name="youCanAlsoReachReportPage">Puoi raggiungere quella pagina anche cliccando sul pulsante %s segnala in una pagina di profilo.</string>
   <string name="doNotReportInForum">Non segnalare i giocatori tramite il forum.</string>
   <string name="doNotSendReportEmails">Non inviarci email di segnalazione.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Assicurati di aver giocato a un gioco classificato. Le partite occasionali non influenzano il rating dei giocatori.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Reclamo per un ban o una restrizione IP</string>
+  <string name="banAppeal">Reclamo per un ban o una restrizione IP</string>
   <string name="engineAppeal">Motore o cheat mark</string>
   <string name="sendAppealTo">Puoi inviare una segnalazione a %s.</string>
   <string name="falsePositives">Talvolta si verificano falsi positivi, e ce ne dispiace.</string>

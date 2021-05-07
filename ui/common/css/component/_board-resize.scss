@@ -16,7 +16,8 @@ cg-resize {
     height: $resize-width;
     cursor: nwse-resize;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       background: #000;
       content: '';
       position: absolute;

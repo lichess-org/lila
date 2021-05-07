@@ -42,9 +42,9 @@ case class Post(
   def canStillBeEdited =
     updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfterNow
 
-  def canBeEditedBy(editingId: String): Boolean = userId.fold(false)(editingId == _)
+  def canBeEditedBy(editingId: User.ID): Boolean = userId has editingId
 
-  def shouldShowEditForm(editingId: String) =
+  def shouldShowEditForm(editingId: User.ID) =
     canBeEditedBy(editingId) &&
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
@@ -62,11 +62,13 @@ case class Post(
     )
   }
 
+  def erase = editPost(DateTime.now, "").copy(erasedAt = DateTime.now.some)
+
   def hasEdits = editHistory.isDefined
 
   def displayModIcon = ~modIcon
 
-  def visibleBy(u: Option[User]): Boolean = !troll || u.fold(false)(visibleBy)
+  def visibleBy(u: Option[User]): Boolean = !troll || u.exists(visibleBy)
   def visibleBy(u: User): Boolean         = !troll || userId.exists(_ == u.id && u.marks.troll)
 
   def erased = erasedAt.isDefined

@@ -11,9 +11,6 @@
   <string name="noTeamFound">您不在任何團隊中</string>
   <string name="joinTeam">加入團隊</string>
   <string name="quitTeam">退出團隊</string>
-  <string name="anyoneCanJoin">對所有人開放</string>
-  <string name="aConfirmationIsRequiredToJoin">申請批准後方可加入</string>
-  <string name="joiningPolicy">加入政策</string>
   <plurals name="teamLeaders">
     <item quantity="other">隊長</item>
   </plurals>
@@ -41,4 +38,6 @@
   <string name="leadersChat">隊長聊天</string>
   <string name="closeTeam">關閉團隊</string>
   <string name="closeTeamDescription">永遠關閉此團隊</string>
+  <string name="incorrectTeamPassword">團隊密碼錯誤。</string>
+  <string name="teamAlreadyExists">此隊伍已存在。</string>
 </resources>

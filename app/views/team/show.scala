@@ -75,25 +75,26 @@ object show {
                 fragList(t.leaders.toList.map { l =>
                   userIdLink(l.some)
                 })
-              )
+              ),
+              info.ledByMe option a(
+                dataIcon := "",
+                href := routes.Page.loneBookmark("team-etiquette"),
+                cls := "text team-show__meta__etiquette"
+              )("Team Etiquette")
             ),
             (t.enabled && chatOption.isDefined) option frag(
               views.html.chat.frag,
-              div(
-                cls := "chat__members",
-                aria.live := "off",
-                aria.relevant := "additions removals text"
-              )(
-                span(cls := "number")(nbsp),
-                " ",
-                trans.spectators.txt().replace(":", ""),
-                " ",
-                span(cls := "list")
-              )
+              views.html.chat.spectatorsFrag
             ),
             div(cls := "team-show__actions")(
               (t.enabled && !info.mine) option frag(
-                if (info.requestedByMe) strong(beingReviewed())
+                if (info.requestedByMe)
+                  frag(
+                    strong(beingReviewed()),
+                    postForm(action := routes.Team.quit(t.id))(
+                      submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                    )
+                  )
                 else ctx.isAuth option joinButton(t)
               ),
               ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
@@ -123,7 +124,7 @@ object show {
                   )
                 ),
                 a(
-                  href := s"${routes.Tournament.form()}?team=${t.id}",
+                  href := s"${routes.Tournament.form}?team=${t.id}",
                   cls := "button button-empty text",
                   dataIcon := "g"
                 )(
@@ -158,7 +159,9 @@ object show {
                   trans.settings.settings()
                 )
             ),
-            t.enabled option div(cls := "team-show__members")(
+            t.enabled && (t.publicMembers || info.mine || isGranted(_.ManageTeam)) option div(
+              cls := "team-show__members"
+            )(
               st.section(cls := "recent-members")(
                 h2(teamRecentMembers()),
                 div(cls := "userlist infinite-scroll")(
@@ -173,7 +176,9 @@ object show {
           div(cls := "team-show__content__col2")(
             standardFlash(),
             st.section(cls := "team-show__desc")(
-              markdownLinksOrRichText(t.description),
+              markdownLinksOrRichText {
+                t.descPrivate.ifTrue(info.mine) | t.description
+              },
               t.location.map { loc =>
                 frag(br, trans.location(), ": ", richText(loc))
               }
@@ -199,7 +204,7 @@ object show {
                   )
                 )
               ),
-              t.enabled && ctx.noKid option
+              t.enabled && (t.publicForum || info.mine || isGranted(_.ManageTeam)) && ctx.noKid option
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   info.forumPosts.take(10).map { post =>

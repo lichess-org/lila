@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org non-visual user interface",
-  "main": "dist/main.js",
-  "types": "dist/main",
   "keywords": [
     "chess",
     "lichess",
@@ -24,6 +22,6 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   }
 }

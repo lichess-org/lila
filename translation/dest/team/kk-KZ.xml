@@ -12,9 +12,8 @@
   <string name="noTeamFound">Ешбір топ табылмады</string>
   <string name="joinTeam">Топқа қосылу</string>
   <string name="quitTeam">Топтан шығу</string>
-  <string name="anyoneCanJoin">Барлыққа ашық</string>
-  <string name="aConfirmationIsRequiredToJoin">Қосылу растауды қажет етеді</string>
-  <string name="joiningPolicy">Қосылудың қағидасы</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Қабылдау туралы сұраныстарды жеке қарау</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Егер қосулы болса, ойыншылар топқа қосылу үшін сұраныс жазулары міндет. Ол сұранысты қабылдау не қабылдамауды сіз шешесіз.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Топ жетекшісі</item>
     <item quantity="other">Топ жетекшілері</item>
@@ -44,4 +43,8 @@
   <string name="leadersChat">Жетекшілер чаты</string>
   <string name="closeTeam">Топты жабу</string>
   <string name="closeTeamDescription">Топты түпкілікті жабады.</string>
+  <string name="teamPassword">Топтық құпиясөз</string>
+  <string name="teamPasswordDescriptionForLeader">(Міндетті емес) Топқа қосылу үшін әр топ мүшесі білуге міндетті құпиясөз.</string>
+  <string name="incorrectTeamPassword">Топтық құпиясөз қате.</string>
+  <string name="teamAlreadyExists">Осындай топ бұрыннан бар.</string>
 </resources>

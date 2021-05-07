@@ -1,17 +1,14 @@
 import RoundController from './ctrl';
 
-export const prev = (ctrl: RoundController) =>
-  ctrl.userJump(ctrl.ply - 1);
+export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 
-export const next = (ctrl: RoundController) =>
-  ctrl.userJump(ctrl.ply + 1);
+export const next = (ctrl: RoundController) => ctrl.userJump(ctrl.ply + 1);
 
 export const init = (ctrl: RoundController) =>
-  window.Mousetrap
-    .bind(['left', 'h'], () => {
-      prev(ctrl);
-      ctrl.redraw();
-    })
+  window.Mousetrap.bind(['left', 'h'], () => {
+    prev(ctrl);
+    ctrl.redraw();
+  })
     .bind(['right', 'l'], () => {
       next(ctrl);
       ctrl.redraw();

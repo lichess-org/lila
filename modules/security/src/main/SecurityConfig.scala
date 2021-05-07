@@ -21,8 +21,8 @@ final private class SecurityConfig(
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
     @ConfigName("check_mail_api") val checkMail: CheckMail,
-    val recaptcha: Recaptcha.Config,
-    val mailgun: Mailgun.Config,
+    val hcaptcha: Hcaptcha.Config,
+    val mailer: Mailer.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )

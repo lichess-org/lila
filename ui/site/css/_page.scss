@@ -4,6 +4,8 @@
 
     h2 {
       margin-top: 1.3em;
+      border-bottom: 1px solid $c-brag;
+      line-height: 2.5em;
     }
 
     p,
@@ -14,12 +16,12 @@
 
     ul li {
       list-style: disc outside;
-      margin: .5em 0 0 1.5em;
+      margin: 0.5em 0 0 1.5em;
     }
 
     ol li {
       list-style: decimal inside;
-      margin: .5em 0;
+      margin: 0.5em 0;
     }
 
     li {
@@ -29,7 +31,8 @@
     h3 {
       @extend %roboto;
 
-      font-size: 1.3em;
+      font-size: 1.5em;
+      line-height: 2.5em;
     }
 
     h4 {
@@ -44,9 +47,19 @@
       width: 100%;
     }
 
+    img,
+    .block-img {
+      max-width: 100%;
+    }
+
     .block-img {
       margin: 1em auto;
       text-align: center;
+
+      img {
+        width: auto;
+        height: auto;
+      }
     }
 
     .center {

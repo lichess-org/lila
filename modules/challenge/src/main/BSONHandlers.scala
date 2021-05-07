@@ -2,11 +2,11 @@ package lila.challenge
 
 import reactivemongo.api.bson._
 
-import chess.Mode
 import chess.variant.Variant
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import scala.util.Success
 
 private object BSONHandlers {
 
@@ -47,7 +47,6 @@ private object BSONHandlers {
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
-  implicit val ModeBSONHandler = BSONBooleanHandler.as[Mode](Mode.apply, _.rated)
   implicit val RatingBSONHandler = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) =
@@ -71,6 +70,10 @@ private object BSONHandlers {
         "s" -> a.secret
       )
   }
+  implicit val DeclineReasonBSONHandler = tryHandler[DeclineReason](
+    { case BSONString(k) => Success(Challenge.DeclineReason(k)) },
+    r => BSONString(r.key)
+  )
   implicit val ChallengerBSONHandler = new BSON[Challenger] {
     def reads(r: Reader) =
       if (r contains "id") RegisteredBSONHandler reads r

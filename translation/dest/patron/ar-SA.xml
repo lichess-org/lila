@@ -58,4 +58,10 @@
   <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
   <string name="noLongerSupport">التوقف عن دعم Lichess</string>
   <string name="paymentHistory">سجل الدفع</string>
+  <string name="paid">تم الدفع</string>
+  <string name="viewOthers">مشاهدة رعاة آخرين</string>
+  <string name="checkOutProfile">تحقق من الصفحة الشخصية الخاصة بك!</string>
+  <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
+  <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
+  <string name="downgradeNextMonth">في شهر واحد، لن يتم تحميل رسوم مرة أخرى، وحساب Lichess الخاص بك سيصبح حساب عادي.</string>
 </resources>

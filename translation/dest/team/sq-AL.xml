@@ -12,9 +12,6 @@
   <string name="noTeamFound">Nuk u gjet ekip</string>
   <string name="joinTeam">Hyr në ekip</string>
   <string name="quitTeam">Largohu nga ekipi</string>
-  <string name="anyoneCanJoin">I lirë për të gjithë</string>
-  <string name="aConfirmationIsRequiredToJoin">Nevojitet  konfirmim për të hyrë</string>
-  <string name="joiningPolicy">Rregullat e  hyrjes</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lideri i ekipit</item>
     <item quantity="other">Liderët e ekipit</item>
@@ -42,4 +39,10 @@ Lojtarët të cilëve nuk u pëlqen të marrin mesazhe nga ju mund të dalin nga
   <string name="youWayWantToLinkOneOfTheseTournaments">A dëshironi të shpërndani linkun e ndonjërit prej turnireve në vijim?</string>
   <string name="usersWhoCanManageThisTeam">Përdoruesit të cilët mund të menagjojnë këtë ekip</string>
   <string name="leadersChat">Biseda e udhëheqësve</string>
+  <string name="closeTeam">Mbylle ekipin</string>
+  <string name="closeTeamDescription">E mbyll ekipin përgjithmonë.</string>
+  <string name="teamPassword">Fjalëkalimi i ekipit</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) Një Fjalëkalim që anëtaret e ri duhet ta dinë për të u pranuar ne ekip.</string>
+  <string name="incorrectTeamPassword">Fjalëkalimi i ekipit i gabuar.</string>
+  <string name="teamAlreadyExists">Ky ekip ekziston tashmë.</string>
 </resources>

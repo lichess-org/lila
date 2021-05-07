@@ -4,7 +4,7 @@ import { StoredBooleanProp } from 'common/storage';
 export interface Goal {
   result: string;
   moves?: number;
-  cp?: number
+  cp?: number;
 }
 
 export interface StudyPracticeData {
@@ -12,11 +12,11 @@ export interface StudyPracticeData {
     id: string;
     name: string;
     desc: string;
-  }
+  };
   url: string;
   completion: {
     [key: string]: number;
-  }
+  };
   structure: PracticeSection[];
 }
 

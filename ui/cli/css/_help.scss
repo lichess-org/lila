@@ -3,7 +3,7 @@
 
   h3 {
     font-size: 2em;
-    margin: .5em 0;
+    margin: 0.5em 0;
     color: $c-accent;
 
     &:first-child {
@@ -15,7 +15,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: flex-start;
-    padding: .7em 0;
+    padding: 0.7em 0;
     border-top: $border;
 
     p {

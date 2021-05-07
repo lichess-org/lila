@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Lähetykset</string>
-  <string name="liveBroadcasts">Livelähetykset turnauksista</string>
+  <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
+  <string name="addRound">Lisää kierros</string>
   <string name="ongoing">Käynnissä</string>
   <string name="upcoming">Tulossa</string>
   <string name="completed">Päättyneet</string>
-  <string name="eventName">Tapahtuman nimi</string>
-  <string name="eventDescription">Lyhyt kuvaus tapahtumasta</string>
+  <string name="roundName">Kierroksen nimi</string>
+  <string name="roundNumber">Kierroksen numero</string>
+  <string name="tournamentName">Turnauksen nimi</string>
+  <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
   <string name="fullDescriptionHelp">Ei-pakollinen pitkä kuvaus lähetyksestä. %1$s-muotoiluja voi käyttää. Pituus voi olla enintään %2$s merkkiä.</string>
-  <string name="sourceUrl">Lähteen URL</string>
+  <string name="sourceUrlOrGameIds">Lähteen URL-osoite tai peli ID:t</string>
   <string name="sourceUrlHelp">URL, josta Lichess hakee PGN-päivitykset. Sen täytyy olla julkisesti saatavilla internetissä.</string>
-  <string name="roundNumber">Kierroksen numero</string>
+  <string name="gameIdsHelp">Vaihtoehtoisesti, voit syöttää jopa 64 Lichess peli ID:tä, erotettuna välilyönneillä.</string>
   <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
-  <string name="cloneBroadcast">Kloonaa lähetys</string>
-  <string name="resetBroadcast">Nollaa lähetys</string>
+  <string name="deleteRound">Poista tämä kierros</string>
+  <string name="broadcastUrl">Lähetyksen URL</string>
+  <string name="currentRoundUrl">Tämän kierroksen URL</string>
+  <string name="currentGameUrl">Tämän pelin URL</string>
 </resources>

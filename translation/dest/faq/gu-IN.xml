@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">વારંવાર પૂછાતા પ્રશ્નો</string>
+  <string name="frequentlyAskedQuestions">વારંવાર પૂછાતા પ્રશ્નો</string>
+  <string name="whyIsLichessCalledLichess">Lichess ને Lichess શા માટે કેહવામાં આવે છે?</string>
+  <string name="leechess">લિચેસ</string>
+  <string name="howCanIContributeToLichess">હું Lichess ને કેવી રીતે ફાળો આપી શકું?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess સમર્થકો તરફથી દાન અને સ્વયંસેવકોની ટીમના પ્રયત્નો દ્વારા સંચાલિત છે.</string>
+  <string name="beingAPatron">પ્રોત્સાહક બનીને</string>
+  <string name="breakdownOfOurCosts">અમારા ખર્ચની યાદી</string>
+  <string name="otherWaysToHelp">મદદ કરવાની અન્ય રીતો</string>
+</resources>

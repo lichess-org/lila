@@ -40,7 +40,7 @@ object dgt {
       p(
         "If LiveChess is running on a different machine or different port, ",
         "you will need to set the IP address and port here in the ",
-        a(href := routes.DgtCtrl.config())("Configuration Section"),
+        a(href := routes.DgtCtrl.config)("Configuration Section"),
         "."
       ),
       st.section(
@@ -63,7 +63,7 @@ object dgt {
       ),
       p(
         "When ready, setup your board and then click ",
-        a(href := routes.DgtCtrl.play())("Play"),
+        a(href := routes.DgtCtrl.play)("Play"),
         "."
       )
     )
@@ -79,7 +79,7 @@ object dgt {
         ),
         p(
           "As a last resort, setup the board identically as Lichess, then ",
-          a(href := routes.DgtCtrl.play())("Reload this page")
+          a(href := routes.DgtCtrl.play)("Reload this page")
         )
       )
     )
@@ -88,7 +88,7 @@ object dgt {
     layout("config", embedJsUnsafeLoadThen("LichessDgt.configPage()"))(
       div(cls := "account")(
         h1("DGT - configure"),
-        form(action := routes.DgtCtrl.generateToken(), method := "post")(
+        form(action := routes.DgtCtrl.generateToken, method := "post")(
           st.section(
             h2("Lichess connectivity"),
             if (token.isDefined)
@@ -149,7 +149,7 @@ object dgt {
                 List((false, trans.no.txt()), (true, trans.yes.txt()))
               ),
               st.small(cls := "form-help")(
-                """Select YES to annouce both your moves and your opponent's moves. Select NO to annouce only your opponent's moves."""
+                """Select YES to announce both your moves and your opponent's moves. Select NO to announce only your opponent's moves."""
               )
             ),
             div(cls := "form-group")(
@@ -221,13 +221,13 @@ object dgt {
     )(
       main(cls := "page-menu dgt")(
         st.nav(cls := "page-menu__menu subnav")(
-          a(cls := path.active("index"), href := routes.DgtCtrl.index())(
+          a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             "DGT board"
           ),
-          a(cls := path.active("play"), href := routes.DgtCtrl.play())(
+          a(cls := path.active("play"), href := routes.DgtCtrl.play)(
             "Play"
           ),
-          a(cls := path.active("config"), href := routes.DgtCtrl.config())(
+          a(cls := path.active("config"), href := routes.DgtCtrl.config)(
             "Configure"
           )
         ),

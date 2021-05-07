@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Pievienošanas datums (vecākās)</string>
   <string name="recentlyUpdated">Nesen atjaunotās</string>
   <string name="mostPopular">Populārākās</string>
+  <string name="alphabetical">Alfabētiskā secībā</string>
   <string name="addNewChapter">Pievienot nodaļu</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s Nodaļas</item>
@@ -65,15 +66,13 @@
   <string name="chapterPgn">Nodaļas PGN</string>
   <string name="downloadGame">Lejupielādēt spēli</string>
   <string name="studyUrl">Izpētes URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Tiešraides URL</string>
   <string name="currentChapterUrl">Pašreizējās nodaļas URL</string>
-  <string name="currentGameUrl">Pašreizējās spēles URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Šo varat ielīmēt forumā, lai iegultu</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Šo varat ielīmēt forumā, lai iegultu</string>
   <string name="startAtInitialPosition">Sākt no sākotnējās pozīcijas</string>
   <string name="startAtX">Sākt ar %s</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā vai blogā</string>
   <string name="readMoreAboutEmbedding">Lasīt vairāk par iegulšanu</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Iegult var tikai publiskas izpētes!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Iegult var tikai publiskas izpētes!</string>
   <string name="open">Atvērt</string>
   <string name="xBroughtToYouByY">%2$s piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>

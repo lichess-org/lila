@@ -30,6 +30,9 @@ final class GameProxyRepo(
   def upgradeIfPresent(pov: Pov): Fu[Pov] =
     upgradeIfPresent(pov.game).dmap(_ pov pov.color)
 
+  def upgradeIfPresent(games: List[Game]): Fu[List[Game]] =
+    games.map(upgradeIfPresent).sequenceFu
+
   // update the proxied game
   def updateIfPresent = roundSocket.updateIfPresent _
 
@@ -48,7 +51,7 @@ final class GameProxyRepo(
       }.sequenceFu map { povs =>
         try {
           povs sortWith Pov.priority
-        } catch { case _: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+        } catch { case _: IllegalArgumentException => povs.sortBy(-_.game.movedAt.getSeconds) }
       }
     }
 }

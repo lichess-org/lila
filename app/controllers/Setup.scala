@@ -29,7 +29,8 @@ final class Setup(
     5,
     1.minute,
     key = "setup.post",
-    enforce = env.net.rateLimit.value
+    enforce = env.net.rateLimit.value,
+    log = false
   )
 
   def aiForm =
@@ -42,7 +43,7 @@ final class Setup(
             form("fen").value map FEN.clean flatMap ValidFen(getBool("strict"))
           )
         }
-      } else Redirect(s"${routes.Lobby.home()}#ai").fuccess
+      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
     }
 
   def ai =
@@ -66,7 +67,7 @@ final class Setup(
         }
       else
         fuccess {
-          Redirect(s"${routes.Lobby.home()}#friend")
+          Redirect(s"${routes.Lobby.home}#friend")
         }
     }
 
@@ -121,7 +122,7 @@ final class Setup(
                         )
                       case false =>
                         negotiate(
-                          html = fuccess(Redirect(routes.Lobby.home())),
+                          html = fuccess(Redirect(routes.Lobby.home)),
                           api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
@@ -139,7 +140,7 @@ final class Setup(
         }
         else
           fuccess {
-            Redirect(s"${routes.Lobby.home()}#hook")
+            Redirect(s"${routes.Lobby.home}#hook")
           }
       }
     }
@@ -147,12 +148,12 @@ final class Setup(
   private def hookResponse(res: HookResult) =
     res match {
       case HookResult.Created(id) =>
-        Ok(
+        JsonOk(
           Json.obj(
             "ok"   -> true,
             "hook" -> Json.obj("id" -> id)
           )
-        ) as JSON
+        )
       case HookResult.Refused => BadRequest(jsonError("Game was not created"))
     }
 
@@ -191,7 +192,9 @@ final class Setup(
               _ ?? { game =>
                 for {
                   blocking <- ctx.userId ?? env.relation.api.fetchBlocking
-                  hookConfig    = lila.setup.HookConfig.default withRatingRange get("rr") updateFrom game
+                  hookConfig = lila.setup.HookConfig.default(ctx.isAuth) withRatingRange get(
+                    "rr"
+                  ) updateFrom game
                   sameOpponents = game.userIds
                   hookResult <-
                     processor

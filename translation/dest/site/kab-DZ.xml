@@ -55,9 +55,6 @@
   <string name="capture">Tuṭfa</string>
   <string name="close">Mdel</string>
   <string name="delete">Kkes</string>
-  <string name="blunders">Tuccd\'iwin</string>
-  <string name="mistakes">Tiguliwin</string>
-  <string name="inaccuracies">War tiseddi</string>
   <string name="moveTimes">Akud ger tiyita</string>
   <string name="flipBoard">Dwer talweḥt n yicahen</string>
   <string name="threefoldRepetition">Kraḍt n tikkal</string>
@@ -154,7 +151,6 @@
   <string name="send">Ceyyeε</string>
   <string name="incrementInSeconds">Tifest s tisinin</string>
   <string name="freeOnlineChess">Icahen baṭel askar uqqin</string>
-  <string name="spectators">Imeshanayen:</string>
   <plurals name="nbWins">
     <item quantity="one">%s tarennawt</item>
     <item quantity="other">%s tarennawt</item>
@@ -230,7 +226,6 @@
   <string name="more">Ugar</string>
   <string name="memberSince">Amaslaḍ seg</string>
   <string name="lastSeenActive">Tuqqna taneggarut %s</string>
-  <string name="challengeToPlay">Cqer amyurar agi</string>
   <string name="player">Amarir</string>
   <string name="list">Umuɣ</string>
   <string name="graph">Udlif</string>

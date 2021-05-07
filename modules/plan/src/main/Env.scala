@@ -92,6 +92,8 @@ final class Env(
         // instead, give them a free month.
         case "patron" :: "month" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
+        case "patron" :: "remove" :: user :: Nil =>
+          userRepo named user flatMap { _ ?? api.remove } inject "ok"
       }
     }
 }

@@ -17,10 +17,10 @@
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^7.9.2",
+    "chessground": "^7.11.1",
     "common": "2.0.0",
     "game": "2.0.0",
-    "snabbdom": "^0.7.4"
+    "snabbdom": "^3.0.1"
   },
   "scripts": {
     "dev": "rollup --config",

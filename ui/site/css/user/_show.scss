@@ -1,11 +1,11 @@
-@import "sub-rating";
-@import "header";
-@import "trophy";
-@import "profile";
-@import "number-menu";
-@import "note-zone";
-@import "activity";
-@import "games";
+@import 'sub-rating';
+@import 'header';
+@import 'trophy';
+@import 'profile';
+@import 'number-menu';
+@import 'note-zone';
+@import 'activity';
+@import 'games';
 
 .page-menu {
   /* for the trophies. This glorious hack bypasses the .user-show overflow: hidden */
@@ -27,7 +27,7 @@
     background: $c-bg-zebra;
 
     .number-menu {
-      margin: 0 0 .2em 1em;
+      margin: 0 0 0.2em 1em;
     }
 
     .user-actions {
@@ -104,7 +104,7 @@
     }
 
     .unread {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
   }
 

@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">Visível para ambos professores e alunos</string>
   <string name="teachersOfTheClass">Professores da turma</string>
   <string name="addLichessUsernames">Adicione nomes de usuário do Lichess para convidá-los como professores. Um por linha.</string>
-  <string name="theyMustFirstApply">Primeiro, devem candidatar-se a professores Lichess.</string>
   <string name="resetPassword">Alterar senha</string>
   <string name="makeSureToCopy">Copie ou escreva a sua senha em algum lugar. Você não poderá vê-la novamente!</string>
   <string name="passwordX">Senha: %s</string>
   <string name="generateANewPassword">Gerar uma nova senha para o aluno</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Convidado para %1$s por %2$s</string>
+  <string name="invitedToXByY">Convidado para %1$s por %2$s</string>
   <string name="realName">Nome real</string>
   <string name="privateWillNeverBeShown">Privado. Jamais será exibido fora da turma. Ajuda a memorizar quem o aluno é.</string>
   <string name="addStudent">Adicionar aluno</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Perfil Lichess %1$s criado para %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Perfil Lichess %1$s criado para %2$s.</string>
   <string name="studentCredentials">Aluno:  %1$s
 Nome de usuário: %2$s
 Senha: %3$s</string>
@@ -53,7 +52,7 @@ Senha: %3$s</string>
 Aqui está o link para acessar a turma.</string>
   <string name="invitationToClass">Você está convidado a participar da turma \"%s\" como um estudante.</string>
   <string name="clickToViewInvitation">Clique no link para ver o convite:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
@@ -81,9 +80,9 @@ Aqui está o link para acessar a turma.</string>
   <string name="progress">Progresso</string>
   <string name="noStudents">Nenhum estudante na aula ainda.</string>
   <string name="noRemovedStudents">Nenhum aluno removido.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Durante dias</string>
+  <string name="overDays">Durante dias</string>
   <string name="timePlaying">Tempo jogado</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s sobre os últimos %2$s</string>
+  <string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
   <string name="winrate">Índice de vitórias</string>
   <string name="na">N/A</string>
   <string name="news">Notícias sobre a aula</string>

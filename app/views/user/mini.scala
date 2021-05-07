@@ -36,7 +36,7 @@ object mini {
           ),
           ping map bits.signalBars
         ),
-        if (u.marks.engine && !ctx.me.has(u) && !isGranted(_.UserSpy))
+        if (u.lame && !ctx.me.has(u) && !isGranted(_.UserModView))
           div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
         else
           div(cls := "upt__info__ratings")(u.best8Perfs map { showPerfRating(u, _) })
@@ -60,8 +60,8 @@ object mini {
               a(
                 dataIcon := "U",
                 cls := "btn-rack__btn",
-                title := trans.challengeToPlay.txt(),
-                href := s"${routes.Lobby.home()}?user=${u.username}#friend"
+                title := trans.challenge.challengeToPlay.txt(),
+                href := s"${routes.Lobby.home}?user=${u.username}#friend"
               )
             ),
             views.html.relation.mini(u.id, blocked, followable, rel)
@@ -76,7 +76,7 @@ object mini {
           }
         )
       },
-      isGranted(_.UserSpy) option div(cls := "upt__mod")(
+      isGranted(_.UserModView) option div(cls := "upt__mod")(
         span(
           trans.nbGames.plural(u.count.game, u.count.game.localize),
           " ",

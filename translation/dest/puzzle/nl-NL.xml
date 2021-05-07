@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Puzzels</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Puzzelthema\'s</string>
+  <string name="puzzleThemes">Puzzelthema\'s</string>
   <string name="recommended">Aanbevolen</string>
   <string name="phases">Fasen</string>
   <string name="motifs">Motieven</string>
@@ -9,6 +9,7 @@
   <string name="lengths">Duur</string>
   <string name="mates">Schaakmat</string>
   <string name="goals">Doelen</string>
+  <string name="origin">Herkomst</string>
   <string name="specialMoves">Speciale zetten</string>
   <string name="didYouLikeThisPuzzle">Vond je deze puzzel leuk?</string>
   <string name="voteToLoadNextOne">Stem om de volgende te laden!</string>
@@ -36,11 +37,30 @@
   <string name="continueTraining">Ga verder met de training</string>
   <string name="difficultyLevel">Moeilijkheidsgraad</string>
   <string name="normal">Standaard</string>
-  <string name="easier">Gemakkelijker</string>
-  <string name="easiest">Gemakkelijkst</string>
-  <string name="harder">Moeilijker</string>
-  <string name="hardest">Moeilijkst</string>
+  <string name="easier">Makkelijk</string>
+  <string name="easiest">Makkelijker</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Eén punt onder je puzzelrating</item>
+    <item quantity="other">%s punten onder je puzzelrating</item>
+  </plurals>
+  <string name="harder">Moeilijk</string>
+  <string name="hardest">Moeilijker</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Eén punt boven je puzzelrating</item>
+    <item quantity="other">%s punten boven je puzzelrating</item>
+  </plurals>
   <string name="example">Voorbeeld</string>
   <string name="addAnotherTheme">Voeg nog een thema toe</string>
   <string name="jumpToNextPuzzleImmediately">Direct door naar volgende puzzel</string>
+  <string name="puzzleDashboard">Puzzeldashboard</string>
+  <string name="improvementAreas">Verbeterpunten</string>
+  <string name="strengths">Sterke punten</string>
+  <string name="history">Puzzelscore</string>
+  <string name="solved">opgelost</string>
+  <string name="failed">niet opgelost</string>
+  <string name="streakDescription">Los steeds moeilijker wordende puzzels op en bouw aan een succesreeks. Er is geen klok, dus neem de tijd. Eén foute zet en het spel is uit! Per sessie kun je één zet overslaan.</string>
+  <string name="yourStreakX">Uw reeks: %s</string>
+  <string name="streakSkipExplanation">Sla deze zet over om je reeks te behouden! Werkt maar eenmaal per sessie.</string>
+  <string name="continueTheStreak">Doorgaan met de reeks</string>
+  <string name="newStreak">Nieuwe reeks</string>
 </resources>

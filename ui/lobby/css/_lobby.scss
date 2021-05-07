@@ -1,14 +1,14 @@
-@import "layout";
-@import "app/app";
-@import "table";
-@import "stream";
-@import "spotlight";
-@import "timeline";
-@import "box";
-@import "forum";
-@import "blog";
-@import "support";
-@import "about";
+@import 'layout';
+@import 'app/app';
+@import 'table';
+@import 'stream';
+@import 'spotlight';
+@import 'timeline';
+@import 'box';
+@import 'forum';
+@import 'blog';
+@import 'support';
+@import 'about';
 
 body {
   /* improves preload */
@@ -22,8 +22,8 @@ body {
 %lobby__side__more {
   @extend %roboto;
 
-  font-size: .9em;
-  margin: .5em 1em .5em 0;
+  font-size: 0.9em;
+  margin: 0.5em 1em 0.5em 0;
   display: block;
   text-align: right;
   color: $c-font-dim;
@@ -53,7 +53,7 @@ body {
   }
 
   ul {
-    margin: .6em auto;
+    margin: 0.6em auto;
     display: inline-block;
     text-align: left;
   }
@@ -69,21 +69,26 @@ body {
 }
 
 .about-side {
+  @extend %page-text-shadow !optional;
+
   margin-top: $block-gap;
 }
 
 @include breakpoint($mq-not-col3) {
-  .about-side, .lobby__streams, .lobby__about {
+  .about-side,
+  .lobby__streams,
+  .lobby__about {
     margin-left: $block-gap;
   }
 }
-
 
 .lobby__tv .mini-game {
   overflow: visible;
 }
 
 .lobby__puzzle .text {
+  @extend %page-text-shadow !optional;
+
   color: $c-font-dim;
   display: block;
   text-align: right;
@@ -95,5 +100,61 @@ body {
     @extend %flex-column;
 
     align-items: center;
+  }
+}
+
+.bg-switch {
+  display: none;
+  visibility: hidden;
+
+  @include breakpoint($mq-col4) {
+    display: block;
+    &.active {
+      visibility: visible;
+    }
+  }
+
+  position: relative;
+  width: 42px;
+
+  @include transition;
+
+  opacity: 0.5;
+  $c-switch: hsl(264, 70%, 50%);
+
+  &:hover {
+    opacity: 1;
+  }
+
+  margin-top: 2em;
+
+  // $c-switch: hsl(264, 70%, 50%);
+  $c-switch: $c-primary;
+
+  &__track {
+    width: 42px;
+    height: 24px;
+    border-radius: 24px;
+    border: 3px solid $c-switch;
+    background-color: mix($c-switch, $c-bg-page, 25%);
+    cursor: pointer;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: $c-switch
+      url("data:image/svg+xml;utf8,%3Csvg style='fill: %23ffffff;' width='14' height='13' viewBox='0 0 14 13' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z'%3E%3C/path%3E%3C/svg%3E")
+      center no-repeat;
+    transition: transform 0.3s cubic-bezier(0.4, 0.03, 0, 1);
+    cursor: pointer;
+
+    body.dark & {
+      transform: translateX(18px);
+    }
   }
 }

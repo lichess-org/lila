@@ -9,7 +9,10 @@ case class Appeal(
     msgs: Vector[AppealMsg],
     status: Appeal.Status, // from the moderators POV
     createdAt: DateTime,
-    updatedAt: DateTime
+    updatedAt: DateTime,
+    // date of first player message without a mod reply
+    // https://github.com/ornicar/lila/issues/7564
+    firstUnrepliedAt: DateTime
 ) {
   def id       = _id
   def isMuted  = status == Appeal.Status.Muted
@@ -29,8 +32,21 @@ case class Appeal(
       status =
         if (isByMod(msg) && status == Appeal.Status.Unread) Appeal.Status.Read
         else if (!isByMod(msg) && status == Appeal.Status.Read) Appeal.Status.Unread
-        else status
+        else status,
+      firstUnrepliedAt =
+        if (isByMod(msg) || msgs.lastOption.exists(isByMod)) DateTime.now
+        else firstUnrepliedAt
     )
+  }
+
+  def canAddMsg: Boolean = {
+    val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]) {
+      case (_, msg) if isByMod(msg)                                => Vector.empty
+      case (acc, msg) if msg.at isAfter DateTime.now.minusWeeks(1) => acc :+ msg
+      case (acc, _)                                                => acc
+    }
+    val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
+    recentSize < Appeal.maxLength
   }
 
   def unread     = copy(status = Appeal.Status.Unread)
@@ -53,6 +69,22 @@ object Appeal {
     def apply(key: String) = all.find(_.key == key)
   }
 
+  val maxLength = 1000
+
+  import play.api.data._
+  import play.api.data.Forms._
+
+  val form =
+    Form[String](
+      single("text" -> lila.common.Form.cleanNonEmptyText(minLength = 2, maxLength = maxLength))
+    )
+
+  val modForm =
+    Form[String](
+      single("text" -> lila.common.Form.cleanNonEmptyText)
+    )
+
+  private[appeal] case class SnoozeKey(snoozerId: User.ID, appealId: User.ID) extends lila.memo.Snooze.Key
 }
 
 case class AppealMsg(

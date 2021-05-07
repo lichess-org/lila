@@ -64,7 +64,7 @@ final class PlanApi(
         stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
         cents = stripeCharge.amount
       )
-      addCharge(charge) >> {
+      addCharge(charge, stripeCharge.country) >> {
         patronOption match {
           case None =>
             logger.info(s"Charged anon customer $charge")
@@ -94,6 +94,7 @@ final class PlanApi(
       cents: Cents,
       name: Option[String],
       txnId: Option[String],
+      country: Option[Country],
       ip: String,
       key: String
   ): Funit =
@@ -117,7 +118,7 @@ final class PlanApi(
           .some,
         cents = cents
       )
-      addCharge(charge) >>
+      addCharge(charge, country) >>
         (userId ?? userRepo.named) flatMap { userOption =>
           userOption ?? { user =>
             val payPal = Patron.PayPal(email, subId, DateTime.now)
@@ -292,6 +293,9 @@ final class PlanApi(
       )
       .void >>- lightUserApi.invalidate(user.id)
 
+  def remove(user: User): Funit =
+    userRepo.unsetPlan(user) >>- lightUserApi.invalidate(user.id)
+
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {
     _.refreshAfterWrite(30 minutes)
@@ -346,26 +350,39 @@ final class PlanApi(
     }
   }
 
-  private def addCharge(charge: Charge): Funit =
-    chargeColl.insert.one(charge).void >>- {
-      recentChargeUserIdsCache.invalidateUnit()
-      monthlyGoalApi.get foreach { m =>
-        Bus.publish(
-          lila.hub.actorApi.plan.ChargeEvent(
-            username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
-            amount = charge.cents.value,
-            percent = m.percent,
-            DateTime.now
-          ),
-          "plan"
-        )
-        lila.mon.plan.goal.update(m.goal.value)
-        lila.mon.plan.current.update(m.current.value)
-        lila.mon.plan.percent.update(m.percent)
-        if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
-        else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
+  private def addCharge(charge: Charge, country: Option[Country]): Funit =
+    monitorCharge(charge, country) >>
+      chargeColl.insert.one(charge).void >>- {
+        recentChargeUserIdsCache.invalidateUnit()
+        monthlyGoalApi.get foreach { m =>
+          Bus.publish(
+            lila.hub.actorApi.plan.ChargeEvent(
+              username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
+              amount = charge.cents.value,
+              percent = m.percent,
+              DateTime.now
+            ),
+            "plan"
+          )
+          lila.mon.plan.goal.update(m.goal.value)
+          lila.mon.plan.current.update(m.current.value)
+          lila.mon.plan.percent.update(m.percent)
+          if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
+          else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
+        }
+      }
+
+  private def monitorCharge(charge: Charge, country: Option[Country]): Funit = {
+    lila.mon.plan.charge
+      .countryCents(country = country.fold("unknown")(_.code), service = charge.serviceName)
+      .record(charge.cents.value)
+    charge.userId ?? { userId =>
+      chargeColl.exists($doc("userId" -> userId)) map {
+        case false => lila.mon.plan.charge.first(charge.serviceName).increment().unit
+        case _     =>
       }
     }
+  }
 
   private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)

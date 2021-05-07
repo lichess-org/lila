@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="challenges">Výzvy</string>
+  <string name="challengeToPlay">Vyzvat k partii</string>
+  <string name="challengeDeclined">Výzva odmítnuta</string>
+  <string name="challengeAccepted">Výzva přijata!</string>
+  <string name="challengeCanceled">Výzva byla zrušena.</string>
+  <string name="registerToSendChallenges">Pro poslání výzvy se musíte zaregistrovat.</string>
+  <string name="youCannotChallengeX">Nemůžete vyzvat %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s nepřijímá výzvy.</string>
+  <string name="yourXRatingIsTooFarFromY">Vaše %1$s hodnocení je příliš daleko od %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
+  <string name="declineGeneric">V tuto chvíli nepřijímám výzvy.</string>
+  <string name="declineLater">Teď nemohu, požádejte prosím později.</string>
+  <string name="declineTooFast">Tato časová kontrola je na mně příliš rychlá, vyzvi mně prosím s pomalejší.</string>
+  <string name="declineTooSlow">Vyzvi mne prosím k delší partii, tato časová kontrola je na mne moc rychlá.</string>
+  <string name="declineTimeControl">V tuto chvíli nepřijímám výzvy s touto časovou kontrolou.</string>
+  <string name="declineRated">Vyzvěte mě raději k hodnocené partii.</string>
+  <string name="declineCasual">Vyzvěte mě raději k nehodnocené partii.</string>
+  <string name="declineStandard">Nyní nepřijímám výzvy variant.</string>
+  <string name="declineVariant">Tuto variantu momentálně nechci hrát.</string>
+  <string name="declineNoBot">Nepřijímám výzvy od botů.</string>
+  <string name="declineOnlyBot">Přijímám výzvy pouze od botů.</string>
+</resources>

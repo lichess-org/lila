@@ -94,7 +94,6 @@ $section-margin-more: 5vh;
       display: none;
     }
 
-
     margin-bottom: $section-margin;
 
     h2 {
@@ -115,12 +114,16 @@ $section-margin-more: 5vh;
     }
 
     td {
-      padding: .5rem .7rem;
+      padding: 0.5rem 0.7rem;
     }
   }
 
   h2 {
     margin-bottom: 1rem;
+  }
+
+  img {
+    max-width: 100%;
   }
 
   .userlist > li,
@@ -159,7 +162,7 @@ $section-margin-more: 5vh;
     .meta {
       @extend %flex-between;
 
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
     }
 
     p {

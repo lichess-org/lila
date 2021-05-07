@@ -26,8 +26,8 @@
   <string name="approved">您已通過直播審核</string>
   <string name="pendingReview">您的直播正在被版主審核</string>
   <string name="pleaseFillIn">請填入您的直播資訊並上傳一張圖片</string>
-  <string name="whenReady">當您準備好要成為Lichess實況主時, %s</string>
-  <string name="requestReview">請由版主複審</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">當您準備好要成為Lichess實況主時, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">請由版主複審</string>
   <string name="anotherLanguage">如果您的直播是英語以外的語言,請在您的直播標題的開頭括號內包含正確的語言標籤 (%s) 
 例如 : 您可以用\"[RU]\"表示俄語、\"[TR]\"表示土耳其語、\"[FR]\"表示法語等等
 將此放入Twitch或YouTube頁面的直播標題，而不是Lichess直播設置

@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Riêng tư</string>
+  <string name="myStudies">Khóa học của tôi</string>
+  <string name="studiesIContributeTo">Các nghiên cứu tôi đóng góp</string>
+  <string name="myPublicStudies">Nghiên cứu công khai của tôi</string>
+  <string name="myPrivateStudies">Nghiên cứu cá nhân của tôi</string>
+  <string name="myFavoriteStudies">Nghiên cứu yêu thích của tôi</string>
+  <string name="whatAreStudies">Nghiên cứu là gì?</string>
+  <string name="allStudies">Tất cả các nghiên cứu</string>
+  <string name="studiesCreatedByX">Các nghiên cứu được tạo ra bởi %s</string>
+  <string name="noneYet">Chưa có gì cả.</string>
+  <string name="hot">Nóng</string>
+  <string name="dateAddedNewest">Ngày thêm (mới nhất)</string>
+  <string name="dateAddedOldest">Ngày thêm (cũ nhất)</string>
+  <string name="recentlyUpdated">Cập nhật gần đây</string>
+  <string name="mostPopular">Phổ biến nhất</string>
+  <string name="addNewChapter">Thêm một chương mới</string>
+  <plurals name="nbChapters">
+    <item quantity="other">%s Chương</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="other">%s ván cờ</item>
+  </plurals>
+  <string name="addMembers">Thêm thành viên</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s thành viên</item>
+  </plurals>
+  <string name="inviteToTheStudy">Mời vào nghiên cứu</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
   <string name="searchByUsername">Tìm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
-  <string name="kick">Đá</string>
+  <string name="kick">Đuổi</string>
+  <string name="leaveTheStudy">Rời bài nghiên cứu</string>
   <string name="youAreNowAContributor">Bây giờ bạn là một người đóng góp</string>
   <string name="youAreNowASpectator">Bây giờ bạn là người xem</string>
   <string name="pgnTags">Nhãn PGN</string>
@@ -26,6 +54,29 @@
   <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Tạo bản sao</string>
+  <string name="studyPgn">PGN nghiên cứu</string>
+  <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
+  <string name="chapterPgn">PGN chương</string>
+  <string name="downloadGame">Tải xuống ván cờ</string>
+  <string name="studyUrl">URL nghiên cứu</string>
+  <string name="currentChapterUrl">URL chương hiện tại</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này vào diễn đàn để nhúng</string>
+  <string name="startAtInitialPosition">Bắt đầu từ thế trận ban đầu</string>
+  <string name="startAtX">Bắt đầu tại nước %s</string>
+  <string name="embedInYourWebsite">Nhúng vào website hoặc blog của bạn</string>
+  <string name="readMoreAboutEmbedding">Đọc thêm về việc nhúng</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Chỉ có nghiên cứu công khai mới được nhúng!</string>
+  <string name="open">Mở</string>
+  <string name="xBroughtToYouByY">%1$s, được lấy từ %2$s</string>
+  <string name="studyNotFound">Không tìm thấy nghiên cứu nào</string>
+  <string name="editChapter">Sửa chương</string>
+  <string name="newChapter">Chương mới</string>
+  <string name="orientation">Bài học cho</string>
+  <string name="analysisMode">Chế độ phân tích</string>
+  <string name="pinnedChapterComment">Ghim bình luận chương</string>
+  <string name="saveChapter">Lưu chương</string>
+  <string name="clearAnnotations">Xóa chú thích</string>
+  <string name="deleteChapter">Xóa chương</string>
   <string name="deleteThisChapter">Bạn muốn xóa chương này? Không thể làm lại được đâu!</string>
   <string name="clearAllCommentsInThisChapter">Xóa tất cả bình luận, dấu chú thích và hình vẽ trong chương này?</string>
   <string name="rightUnderTheBoard">Ngay dưới bàn cờ</string>
@@ -69,4 +120,7 @@
   <string name="save">Lưu</string>
   <string name="clearChat">Xóa chat</string>
   <string name="deleteTheStudyChatHistory">Xóa lịch sử chat? Không thể làm lại được đâu!</string>
+  <string name="deleteStudy">Xóa bài học</string>
+  <string name="deleteTheEntireStudy">Xóa toàn bộ bài học? Không thể khôi phục!</string>
+  <string name="whereDoYouWantToStudyThat">Bạn muốn học ở đâu?</string>
 </resources>

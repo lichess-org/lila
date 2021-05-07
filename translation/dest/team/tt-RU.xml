@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Төркем</string>
+  <string name="team">Җәмәга</string>
   <string name="teams">Төркемнәр</string>
   <plurals name="nbMembers">
-    <item quantity="other">%s уенчы</item>
+    <item quantity="other">%s әгъза</item>
   </plurals>
   <string name="allTeams">Барлык төркемнәр</string>
   <string name="newTeam">Яңа төркем</string>
-  <string name="myTeams">Төркемнәрем</string>
-  <string name="noTeamFound">Бер төркем дә табылмады</string>
-  <string name="joinTeam">Төркемгә кушылу</string>
+  <string name="myTeams">Җәмәгаләрем</string>
+  <string name="noTeamFound">Бер җәмәга дә табылмады</string>
+  <string name="joinTeam">Җәмәгагә кушылу</string>
   <string name="quitTeam">Төркемнән чыгу</string>
-  <string name="anyoneCanJoin">Һәркем керә ала</string>
-  <string name="aConfirmationIsRequiredToJoin">Керү өчен раслау кирәк</string>
-  <string name="joiningPolicy">Кушылу кагыйдәләре</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Кабул итү гаризаларын кул белән карагыз</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Тикшерелсә, уенчыларга командага кушылу турында гариза язарга кирәк, сез аны кире кагарга яки кабул итә аласыз.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Төркем җитәкчеләре</item>
   </plurals>
   <string name="teamBestPlayers">Иң яхшы уенчылар</string>
   <string name="teamRecentMembers">Яңа кушылган уенчылар</string>
-  <string name="kickSomeone">Төркемнән куып чыгарырга</string>
-  <string name="whoToKick">Кемне куып чыгарырга телисез?</string>
+  <string name="kickSomeone">Җәмәгадән куып чыгарырга</string>
+  <string name="whoToKick">Кемне куып чыгарырга телисез җәмәгадән?</string>
   <plurals name="xJoinRequests">
     <item quantity="other">%s кушылу соравы</item>
   </plurals>
@@ -30,10 +29,19 @@
   <string name="teamBattleOverview">Төрле төркемнәр ярышы, һәр уенче үзенең төркеме өчен баллар җыя</string>
   <string name="teamTournament">Төркем турниры</string>
   <string name="teamTournamentOverview">Сезнең төркем уенчылары гына кушыла алган Арена турниры</string>
-  <string name="messageAllMembers">Төркемнең бөтен уенчыларына хәбәр җибәрү</string>
-  <string name="messageAllMembersOverview">Төркемнең һәр уенчына шәхси хәбәр җибәрү</string>
+  <string name="messageAllMembers">Бөтен уенчыларына хәбәр</string>
+  <string name="messageAllMembersOverview">Җәмәганең һәр уенчына шәхси хәбәр җибәрү</string>
   <string name="messageAllMembersLongDescription">Төркемнең һәр уенчына шәхси хәбәр җибәрү.
 Сез моны уенчыларны турнирга я төркемнәр ярышына чакыру өчен итә аласыз.
 Сездән хәбәр алырга теләмәгән уенчылар төркемнән чыга ала.</string>
-  <string name="teamsIlead">Минем җитәкчелегемдә төркемнәр</string>
+  <string name="teamsIlead">Җәмәга рәһбәсе</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Сез киләсе бәйгеләрнең берсен бәйләргә телисездер?</string>
+  <string name="usersWhoCanManageThisTeam">Бу төркем белән идарә итә алган кулланучылар</string>
+  <string name="leadersChat">Рәһбәләр сөхбәтләшмәктә</string>
+  <string name="closeTeam">Җәмәгане ябу</string>
+  <string name="closeTeamDescription">Җәмәгәне ябырга мәңгегә.</string>
+  <string name="teamPassword">Җәмәга серсүзе</string>
+  <string name="teamPasswordDescriptionForLeader">(Ихтимал) Бу җәмәгагә кушылу өчен яңа әгъзалар белергә тиеш серсүз.</string>
+  <string name="incorrectTeamPassword">Сахих булмаган җәмәга серсүзе.</string>
+  <string name="teamAlreadyExists">Бу җәмәга инде бар.</string>
 </resources>

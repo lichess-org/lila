@@ -26,8 +26,8 @@
   <string name="approved">Вашу трансляцію затверджено.</string>
   <string name="pendingReview">Вашу трансляцію перевіряють модератори.</string>
   <string name="pleaseFillIn">Будь ласка, заповніть інформацію про трансляцію та завантажте фотографію.</string>
-  <string name="whenReady">Коли Ви будете готові бути переліченим як стрімер Lichess, %s</string>
-  <string name="requestReview">запросити відгук модератора</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Коли Ви будете готові бути переліченим як стрімер Lichess, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запросити відгук модератора</string>
   <string name="anotherLanguage">Якщо Ви транслюєте не англійською мовою, вкажіть правильний тег мови (%s), оточений квадратними дужками, на початку назви Вашої трансляції.
 Як приклад, ви можете вказати \"[UA]\" для української, \"[TR]\" для турецької, \"[FR]\" для французької мови тощо.
 Поставте це в заголовок трансляції Twitch або YouTube, а не в налаштуваннях трансляції Lichess.

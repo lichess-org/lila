@@ -17,7 +17,7 @@ object categ {
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Lichess community forum",
-          url = s"$netBaseUrl${routes.ForumCateg.index().url}",
+          url = s"$netBaseUrl${routes.ForumCateg.index.url}",
           description = "Chess discussions and feedback about Lichess development"
         )
         .some
@@ -64,13 +64,13 @@ object categ {
                 momentFromNow(post.createdAt)
               ),
               br,
-              authorLink(post)
+              trans.by(authorLink(post))
             )
           }
         )
       )
     val bar = div(cls := "bar")(
-      bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
+      views.html.base.bits.paginationByQuery(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
       newTopicButton
     )
 
@@ -88,7 +88,7 @@ object categ {
       main(cls := "forum forum-categ box")(
         h1(
           a(
-            href := categ.team.fold(routes.ForumCateg.index())(routes.Team.show(_)),
+            href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
             dataIcon := "I",
             cls := "text"
           ),
@@ -139,7 +139,7 @@ object categ {
                     momentFromNow(post.createdAt)
                   ),
                   br,
-                  trans.by(authorName(post))
+                  trans.by(authorLink(post))
                 )
               }
             )

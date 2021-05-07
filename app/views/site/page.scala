@@ -101,17 +101,26 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls = "page"
     )(
       frag(
+        div(cls := "box box-pad developers body")(
+          h1("HTTP API"),
+          p(
+            raw(
+              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
+            )
+          )
+        ),
+        br,
         div(cls := "box box-pad developers body") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
             h1(id := "embed-tv")("Embed Lichess TV in your site"),
-            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=wood&bg=dark" $args></iframe>""")),
+            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
                 id := "tv-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=wood&bg=dark" $args></iframe>"""
+                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
             ),
@@ -124,14 +133,14 @@ $('#asset-version-message').text(lichess.info.message);"""
           frag(
             h1(id := "embed-puzzle")("Embed the daily puzzle in your site"),
             div(cls := "center")(
-              raw(s"""<iframe src="/training/frame?theme=wood&bg=dark" $args></iframe>""")
+              raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
             ),
             p("Add the following HTML to your site:"),
             p(cls := "copy-zone")(
               input(
                 id := "puzzle-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/training/frame?theme=wood&bg=dark" $args></iframe>"""
+                value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
                 title := "Copy code",
@@ -141,7 +150,12 @@ $('#asset-version-message').text(lichess.info.message);"""
               )
             ),
             parameters,
-            p("The text is automatically translated to your visitor's language.")
+            p("The text is automatically translated to your visitor's language."),
+            p(
+              "Alternatively, you can ",
+              a(href := routes.Main.dailyPuzzleSlackApp)("post the puzzle in your slack workspace"),
+              "."
+            )
           )
         },
         br,
@@ -173,26 +187,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             parameters,
             p("The text is automatically translated to your visitor's language.")
           )
-        },
-        br,
-        div(cls := "box box-pad developers body")(
-          h1("HTTP API"),
-          p(
-            raw(
-              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
-            )
-          )
-        ),
-        br,
-        div(cls := "box box-pad developers body")(
-          h1(id := "widgets")("Lichess Widgets"),
-          p("Let your website/blog visitors know that you're playing on lichess!"),
-          p(
-            raw(
-              """See <a href="https://rubenwardy.com/lichess_widgets/" class="blue">https://rubenwardy.com/lichess_widgets/</a> for widgets with your username and rating."""
-            )
-          )
-        )
+        }
       )
     )
   }
@@ -215,21 +210,22 @@ $('#asset-version-message').text(lichess.info.message);"""
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
           a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
-          a(activeCls("faq"), href := routes.Main.faq())(trans.faq.faqAbbreviation()),
-          a(activeCls("contact"), href := routes.Main.contact())(trans.contact.contact()),
-          a(activeCls("tos"), href := routes.Page.tos())(trans.termsOfService()),
+          a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
+          a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
+          a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
           a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
-          a(activeCls("master"), href := routes.Page.master())("Title verification"),
+          a(activeCls("master"), href := routes.Page.master)("Title verification"),
           sep,
-          a(activeCls("source"), href := routes.Page.source())(trans.sourceCode()),
-          a(activeCls("help"), href := routes.Page.help())(trans.contribute()),
+          a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
+          a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
+          a(activeCls("changelog"), href := routes.Page.menuBookmark("changelog"))("Changelog"),
           a(activeCls("thanks"), href := "/thanks")(trans.thankYou()),
           sep,
-          a(activeCls("webmasters"), href := routes.Main.webmasters())(trans.webmasters()),
+          a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
           a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
-          a(activeCls("api"), href := routes.Api.index())("API", external),
+          a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
-          a(activeCls("lag"), href := routes.Main.lag())(trans.lag.isLichessLagging()),
+          a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),
           a(activeCls("ads"), href := "/ads")("Block ads")
         ),
         div(cls := s"page-menu__content $contentCls")(body)

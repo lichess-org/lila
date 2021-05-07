@@ -64,12 +64,12 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def delete(id: String) =
     Auth { _ => me =>
       appApi.deleteBy(App.Id(id), me) inject
-        Redirect(s"${routes.OAuthApp.index()}#made").flashSuccess
+        Redirect(s"${routes.OAuthApp.index}#made").flashSuccess
     }
 
   def revoke(id: String) =
     Auth { _ => me =>
       appApi.revoke(AccessToken.Id(id), me) inject
-        Redirect(routes.OAuthApp.index()).flashSuccess
+        Redirect(routes.OAuthApp.index).flashSuccess
     }
 }

@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">ধাঁধা</string>
+  <string name="puzzleThemes">ধাঁধার বিশয়বস্তু</string>
+  <string name="recommended">প্রস্তাবিত</string>
+  <string name="phases">পর্যায়</string>
+  <string name="motifs">বিষয়বস্তু</string>
+  <string name="advanced">বিস্তারিত</string>
+  <string name="lengths">দৈর্ঘ্য</string>
+  <string name="mates">চেকমেট নিদর্শন</string>
+  <string name="goals">উদ্দেশ</string>
+  <string name="origin">উত্স</string>
+  <string name="specialMoves">বিশেশ চাল</string>
+  <string name="didYouLikeThisPuzzle">আপনি এই ধাঁধা তি কি পছন্দ করেছেন?</string>
+  <string name="voteToLoadNextOne">পরের ধাঁধা তি তে জেতে ভতে দিন!</string>
+  <string name="yourPuzzleRatingX">আপনার পাজল রেটিংস %s</string>
+  <string name="findTheBestMoveForWhite">সাদার জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
+  <string name="findTheBestMoveForBlack">কালোর জন্নে সব থেকে উপযোগী চাল তি খুজে বার করুন।.</string>
+  <string name="toGetPersonalizedPuzzles">আপনার ব্যাক্তিগত পাজল পেতে:</string>
+  <string name="puzzleId">পাজল %s</string>
+  <string name="puzzleOfTheDay">আজকের দিনের সেরা ধাঁধা</string>
+  <string name="clickToSolve">সমাধানের জন্য ক্লিক করুন</string>
+  <string name="goodMove">ভালো মানের মুভ</string>
+  <string name="bestMove">সেরা মানের মুভ!</string>
+  <string name="keepGoing">চালিয়ে যান…</string>
+  <string name="puzzleSuccess">সফল হয়েছে!</string>
+  <string name="puzzleComplete">পাজল সম্পন্ন!</string>
+  <string name="notTheMove">এটা সঠিক চাল না!</string>
+  <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>
+  <string name="ratingX">রেটিংস: %s</string>
+  <string name="hidden">লুকায়িত</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s বার খেলা হয়েছে</item>
+    <item quantity="other">%s বার খেলা হয়েছে</item>
+  </plurals>
+  <string name="fromGameLink">%s খেলা থেকে</string>
+  <string name="continueTraining">প্রশিক্ষন চালিয়ে যান</string>
+  <string name="difficultyLevel">কঠিনের মাত্রা</string>
+  <string name="normal">সাধারন</string>
+  <string name="easier">সহজ</string>
+  <string name="easiest">খুবই সহজ</string>
+  <string name="harder">কঠিন</string>
+  <string name="hardest">খুবই কঠিন</string>
+  <string name="example">উদাহরণ</string>
+  <string name="addAnotherTheme">অন্য থিম যুক্ত করুন</string>
+  <string name="jumpToNextPuzzleImmediately">তাৎক্ষনিক নতুন পাজলে চলে যাই</string>
+  <string name="puzzleDashboard">পাজল ড্যাশবোর্ড</string>
+  <string name="improvementAreas">উন্নতি করার জায়গা</string>
+  <string name="strengths">শক্তিমত্তা</string>
+  <string name="history">পূর্বে চেষ্টা করা ধাঁধা</string>
+  <string name="solved">মীমাংসিত</string>
+  <string name="failed">ভুল করা ধাঁদা</string>
+</resources>

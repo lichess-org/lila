@@ -1,4 +1,4 @@
-import { loadCssPath } from "./assets";
+import { loadCssPath } from './assets';
 
 const chat = data =>
   new Promise(resolve =>

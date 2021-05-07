@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Zwitserse toernooien</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Bekijk de ronde</item>
+    <item quantity="other">Bekijk alle %s rondes</item>
+  </plurals>
 </resources>

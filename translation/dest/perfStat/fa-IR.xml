@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">وضعیت %s</string>
+  <string name="viewTheGames">بازی ها را تماشا کنید</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">موقت</string>
+  <string name="notEnoughRatedGames">بازی های دارای امتیاز کافی برای ایجاد رتبه بندی قابل اعتماد انجام نشده است.</string>
+  <string name="progressOverLastXGames">پیشرفت در آخرین %s بازی ها:</string>
+</resources>

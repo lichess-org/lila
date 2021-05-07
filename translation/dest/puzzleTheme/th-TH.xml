@@ -1,2 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advantageDescription">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
+  <string name="castling">การเข้าป้อม</string>
+  <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
+  <string name="endgame">ท้ายเกม</string>
+  <string name="fork">การโจมตีสองทาง</string>
+  <string name="hangingPiece">หมากลอย</string>
+  <string name="mate">รุกจน</string>
+  <string name="mateDescription">ชนะเกมอย่างมีสไตล์!</string>
+  <string name="mateIn1">รุกจนใน 1 ตา</string>
+  <string name="mateIn1Description">รุกจนให้ได้โดยการเดินครั้งเดียว</string>
+  <string name="mateIn2">รุกจนใน 2 ตา</string>
+  <string name="mateIn2Description">รุกจนให้ได้โดยการเดินสองครั้ง</string>
+  <string name="mateIn3">รุกจนใน 3 ตา</string>
+  <string name="mateIn3Description">รุกจนให้ได้โดยการเดินสามครั้ง</string>
+  <string name="mateIn4">รุกจนใน 4 ตา</string>
+  <string name="mateIn4Description">รุกจนให้ได้โดยการเดินสี่ครั้ง</string>
+  <string name="mateIn5">รุกจนใน 5 ตาหรือมากกว่านั้น</string>
+  <string name="middlegame">กลางเกม</string>
+  <string name="oneMove">1 ตาเดิน</string>
+  <string name="oneMoveDescription">ปริศนาที่มีแค่ 1 ตาเดิน</string>
+  <string name="opening">การเปิดเกม</string>
+  <string name="pin">การกด</string>
+  <string name="sacrifice">การเสียเพื่อแลก</string>
+  <string name="short">สองตาเดิน</string>
+  <string name="shortDescription">ปริศนาที่มี 2 ตาเดิน</string>
+  <string name="trappedPiece">หมากที่ถูกดักไว้</string>
+  <string name="veryLong">4 ตาเดินหรือมากกว่านั้น</string>
+  <string name="veryLongDescription">ปริศนาที่มี 4 ตาเดินขึ้นไป</string>
+  <string name="zugzwang">บังคับให้เดินเสียเปรียบ</string>
+</resources>

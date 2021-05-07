@@ -9,6 +9,8 @@ case class Pov(game: Game, color: Color) {
 
   def playerId = player.id
 
+  def typedPlayerId = Game.PlayerId(player.id)
+
   def fullId = game fullIdOf color
 
   def gameId = game.id
@@ -32,6 +34,8 @@ case class Pov(game: Game, color: Color) {
     }
 
   def hasMoved = game playerHasMoved color
+
+  def moves = game playerMoves color
 
   def win = game wonBy color
 

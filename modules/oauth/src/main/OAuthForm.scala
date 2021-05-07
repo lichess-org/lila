@@ -1,9 +1,12 @@
 package lila.oauth
 
+import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import reactivemongo.api.bson.BSONObjectID
+
+import lila.common.Form.absoluteUrl
 
 object OAuthForm {
 
@@ -43,8 +46,8 @@ object OAuthForm {
       mapping(
         "name"        -> text(minLength = 3, maxLength = 90),
         "description" -> optional(nonEmptyText(maxLength = 400)),
-        "homepageUri" -> nonEmptyText,
-        "redirectUri" -> nonEmptyText
+        "homepageUri" -> absoluteUrl,
+        "redirectUri" -> absoluteUrl
       )(Data.apply)(Data.unapply)
     )
 
@@ -55,8 +58,8 @@ object OAuthForm {
     case class Data(
         name: String,
         description: Option[String],
-        homepageUri: String,
-        redirectUri: String
+        homepageUri: AbsoluteUrl,
+        redirectUri: AbsoluteUrl
     ) {
       def make(user: lila.user.User) =
         OAuthApp(

@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="search">Axtar</string>
-  <string name="advancedSearch">Mütərəqqi axtarış</string>
+  <string name="advancedSearch">Ətraflı Axtarış</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">%s şahmat oyunu içində axtar</item>
+    <item quantity="other">%s şahmat oyunu içində axtar</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">Bir oyun tapıldı</item>
+    <item quantity="other">%s oyun tapıldı</item>
+  </plurals>
   <string name="opponentName">Rəqibin adı</string>
-  <string name="loser">Məğlub olan</string>
-  <string name="from">Bu dəyərdən:</string>
-  <string name="to">Bu dəyərə qədər:</string>
-  <string name="humanOrComputer">Oyunçunun rəqibi insan mı yoxsa kompüterdimi</string>
-  <string name="aiLevel">Zorluq səviyyəsi</string>
-  <string name="source">Qaynaq</string>
-  <string name="nbTurns">Gediş sayısı</string>
+  <string name="loser">Məğlub</string>
+  <string name="from">Bu tarixdən</string>
+  <string name="to">Bu tarixə</string>
+  <string name="humanOrComputer">Oyunçunun rəqibi insan yoxsa kompüterdirmi</string>
+  <string name="aiLevel">Süni zəka səviyyəsi</string>
+  <string name="source">Mənbə</string>
+  <string name="nbTurns">Gediş sayı</string>
   <string name="result">Nəticə</string>
   <string name="winnerColor">Qalibin rəngi</string>
   <string name="date">Tarix</string>
   <string name="sortBy">Sıralama şəkli</string>
   <string name="analysis">Analiz</string>
-  <string name="onlyAnalysed">Sadəcə kompüter analizi edilmiş oyunları göstər</string>
+  <string name="onlyAnalysed">Sadəcə kompüter analizi mövcud oyunları göstər</string>
 </resources>

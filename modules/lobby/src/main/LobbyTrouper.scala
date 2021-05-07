@@ -26,6 +26,8 @@ final private class LobbyTrouper(
 
   import LobbyTrouper._
 
+  private val hookRepo = new HookRepo
+
   private var remoteDisconnectAllAt = DateTime.now
 
   private var socket: Trouper = Trouper.stub
@@ -37,14 +39,14 @@ final private class LobbyTrouper(
 
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
-      HookRepo bySri hook.sri foreach remove
+      hookRepo bySri hook.sri foreach remove
       hook.sid ?? { sid =>
-        HookRepo bySid sid foreach remove
+        hookRepo bySid sid foreach remove
       }
       !hook.compatibleWithPools ?? findCompatible(hook) match {
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
-          HookRepo save msg.hook
+          hookRepo save msg.hook
           socket ! msg
       }
 
@@ -60,7 +62,7 @@ final private class LobbyTrouper(
       socket ! msg
 
     case CancelHook(sri) =>
-      HookRepo bySri sri foreach remove
+      hookRepo bySri sri foreach remove
 
     case CancelSeek(seekId, user) =>
       seekApi.removeBy(seekId, user.id)
@@ -99,7 +101,7 @@ final private class LobbyTrouper(
     case LeaveAll => remoteDisconnectAllAt = DateTime.now
 
     case Tick(promise) =>
-      HookRepo.truncateIfNeeded()
+      hookRepo.truncateIfNeeded()
       socket
         .ask[Sris](GetSrisP)
         .chronometer
@@ -114,28 +116,31 @@ final private class LobbyTrouper(
     case WithPromise(Sris(sris), promise) =>
       poolApi socketIds Sris(sris)
       val fewSecondsAgo = DateTime.now minusSeconds 5
-      if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks({
-        (HookRepo notInSris sris).filter { h =>
-          !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
-        } ++ HookRepo.cleanupOld
-      }.toSet)
+      if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks {
+        hookRepo
+          .notInSris(sris)
+          .filter { h =>
+            !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
+          }
+          .toSet ++ hookRepo.cleanupOld
+      }
       lila.mon.lobby.socket.member.update(sris.size)
-      lila.mon.lobby.hook.size.record(HookRepo.size)
+      lila.mon.lobby.hook.size.record(hookRepo.size)
       lila.mon.trouper.queueSize("lobby").update(queueSize)
       promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove
 
-    case Resync => socket ! HookIds(HookRepo.vector.map(_.id))
+    case Resync => socket ! HookIds(hookRepo.ids)
 
     case HookSub(member, true) =>
-      socket ! AllHooksFor(member, HookRepo.vector.filter { biter.showHookTo(_, member) })
+      socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
 
     case lila.pool.HookThieve.GetCandidates(clock, promise) =>
-      promise success lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
+      promise success lila.pool.HookThieve.PoolHooks(hookRepo poolCandidates clock)
 
     case lila.pool.HookThieve.StolenHookIds(ids) =>
-      HookRepo byIds ids.toSet foreach remove
+      hookRepo byIds ids.toSet foreach remove
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {
@@ -148,14 +153,14 @@ final private class LobbyTrouper(
   }
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
-    HookRepo byId hookId foreach { hook =>
+    hookRepo byId hookId foreach { hook =>
       remove(hook)
-      HookRepo bySri sri foreach remove
+      hookRepo bySri sri foreach remove
       biter(hook, sri, user) foreach this.!
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =
-    HookRepo findCompatible hook find { existing =>
+    hookRepo.filter(_ compatibleWith hook).find { existing =>
       biter.canJoin(existing, hook.user) && !(
         (existing.user, hook.user).mapN((_, _)) ?? { case (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
@@ -183,7 +188,7 @@ final private class LobbyTrouper(
     }
 
   private def remove(hook: Hook) = {
-    HookRepo remove hook
+    hookRepo remove hook
     socket ! RemoveHook(hook.id)
     Bus.publish(RemoveHook(hook.id), s"hookRemove:${hook.id}")
   }

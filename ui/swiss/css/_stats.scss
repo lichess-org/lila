@@ -1,5 +1,5 @@
 .swiss__stats {
-  @extend %box-neat;
+  @extend %flex-column, %box-neat;
 
   background: $c-bg-box;
   padding: 1.7em 0;
@@ -7,7 +7,7 @@
 
   h2 {
     font-size: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: 2rem;
     text-align: center;
   }
 
@@ -20,5 +20,13 @@
     padding-left: 1em;
     text-align: right;
     line-height: 2em;
+  }
+
+  &__links {
+    margin: 2em auto 0 auto;
+    a {
+      display: block;
+      margin: 0.5em 0;
+    }
   }
 }

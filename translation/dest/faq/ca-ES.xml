@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Hi ha pàgines web basades en Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sí. Lichess ha inspirat altres pàgines de codi obert que utilitzen el nostre %1$s, %2$s, o %3$s.</string>
   <string name="fairPlay">Joc net</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Per què estic marcat per manipulació artificial de la puntuació (perdre a propòsit o no guanyar netament) o per assistència informàtica?</string>
-  <string name="cheatDetectionMethods">Lichess té mètodes de detecció forts i un procés molt exhaustiu per a revisar totes les proves abans de prendre una decisió. Normalment, el procés implica a molts moderadors i porta força temps. A part de la marca en sí, no facilitarem detalls sobre les proves o el procés de la presa de decisions per a casos individuals. Això faria més fàcil evitar la detecció en el futur i obrir debats improductius. És millor invertir aquest temps i esforç en altres casos importants. Els usuaris poden apel·lar enviant un correu electrònic a %1$s, però les decisions rarament es reverteixen.</string>
   <string name="whenAmIEligibleRatinRefund">En quins casos se\'m retornen automàticament els punts perduts contra un trampós?</string>
   <string name="ratingRefundExplanation">Un minut després de marcar a un jugador com a trampós, s\'agafen les seves últimes 40 partides puntuables dels tres últims dies. Si tu vas ser el seu oponent en aquestes partides, vas perdre punts en elles (bé perquè vas perdre, bé perquè vas empatar), y la teva puntuació no era provisional, llavors se\'t retornaran els punts. Aquest reemborsament està limitat per la teva màxima puntuació i per com hagi progressat la teva puntuació després d\'aquella partida.
 (Per exemple, si la teva puntuació ha pujat molt després d\'aquelles partides, pot ser que no se\'t retornin els punts o només se\'t retorni una part). La devolució en cap cas serà de més de 150 punts.</string>
@@ -52,7 +50,7 @@ El motor d\'anàlisi a Lichess el proporciona Stockfish.</string>
 En comptades ocasions pot ser difícil de decidir automàticament (línies forçades, fortaleses). Per defecte sempre estem del costat del jugador que encara disposava de temps.
 
 Cal tenir present que és possible fer escac i mat amb només un cavall o un alfil, sempre que l\'oponent tingui una peça que pugui bloquejar el rei.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">%s del manual de la FIDE</string>
+  <string name="fideHandbookX">%s del manual de la FIDE</string>
   <string name="discoveringEnPassant">Per què un peó pot capturar un altre peó quan ja està passat? (al pas)</string>
   <string name="explainingEnPassant">Aquest moviment és legal, i es diu \"captura al pas\". L\'article de Wikipedia dóna una %1$s.
 
@@ -94,6 +92,8 @@ No sol·licitis el títol de LM.</string>
   <string name="whatUsernameCanIchoose">Quin pot ser el meu nom d\'usuari?</string>
   <string name="usernamesNotOffensive">En general, els noms d\'usuari no han de: ser ofensius, suplantar a algú o fer publicitat. Pots llegir més sobre les %1$s.</string>
   <string name="guidelines">pautes</string>
+  <string name="canIChangeMyUsername">Puc canviar el meu nom d\'usuari?</string>
+  <string name="usernamesCannotBeChanged">No, el noms d’usuari no es poden canviar per motius tècnics i pràctics. El nom d’usuari s’usa en masses llocs: bases de dades, exportacions, registres, y a la ment de la gent. Pots ajustar les majúscules una vegada.</string>
   <string name="uniqueTrophies">Trofeus únics</string>
   <string name="ownerUniqueTrophies">Aquest trofeu és únic en la historia de Lichess, ningú altre excepte %1$s el podrà obtenir.</string>
   <string name="wayOfBerserkExplanation">Per obtenir-lo, hiimgosu es va reptar a fer berserk i guanyar el 100 %% partides de %s.</string>

@@ -1,24 +1,24 @@
 .puzzle__session {
   display: flex;
   flex-flow: row wrap-reverse;
-  margin-top: -.4em;
+  margin-top: -0.4em;
 
   a {
     @extend %box-radius, %flex-center;
 
     flex: 0 0 2.3em;
     height: 1.6em;
-    margin: .4em .5em 0 0;
+    margin: 0.4em 0.5em 0 0;
     color: #fff;
-    opacity: .85;
-    font-size: .85em;
+    opacity: 0.85;
+    font-size: 0.85em;
     font-weight: bold;
     justify-content: center;
 
     &.result-empty::before {
       @extend %data-icon;
       content: 'E';
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     &.result-true {

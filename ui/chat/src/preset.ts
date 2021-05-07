@@ -1,13 +1,12 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode'
-import { bind } from './util'
-import { Redraw } from './interfaces'
+import { h, VNode } from 'snabbdom';
+import { bind } from './util';
+import { Redraw } from './interfaces';
 
 export interface PresetCtrl {
-  group(): string | undefined
-  said(): string[]
-  setGroup(group: string | undefined): void
-  post(preset: Preset): void
+  group(): string | undefined;
+  said(): string[];
+  setGroup(group: string | undefined): void;
+  post(preset: Preset): void;
 }
 
 export type PresetKey = string;
@@ -31,16 +30,11 @@ export interface PresetOpts {
 }
 
 const groups: PresetGroups = {
-  start: [
-    'hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'
-  ].map(splitIt),
-  end: [
-    'gg/Good game', 'wp/Well played', 'ty/Thank you', 'gtg/I\'ve got to go', 'bye/Bye!'
-  ].map(splitIt)
-}
+  start: ['hi/Hello', 'gl/Good luck', 'hf/Have fun!', 'u2/You too!'].map(splitIt),
+  end: ['gg/Good game', 'wp/Well played', 'ty/Thank you', "gtg/I've got to go", 'bye/Bye!'].map(splitIt),
+};
 
 export function presetCtrl(opts: PresetOpts): PresetCtrl {
-
   let group: string | undefined = opts.initialGroup;
 
   let said: string[] = [];
@@ -61,8 +55,8 @@ export function presetCtrl(opts: PresetOpts): PresetCtrl {
       if (!sets) return;
       if (said.includes(preset.key)) return;
       if (opts.post(preset.text)) said.push(preset.key);
-    }
-  }
+    },
+  };
 }
 
 export function presetView(ctrl: PresetCtrl): VNode | undefined {
@@ -70,25 +64,36 @@ export function presetView(ctrl: PresetCtrl): VNode | undefined {
   if (!group) return;
   const sets = groups[group];
   const said = ctrl.said();
-  return (sets && said.length < 2) ? h('div.mchat__presets', sets.map((p: Preset) => {
-    const disabled = said.includes(p.key);
-    return h('span', {
-      class: {
-        disabled
-      },
-      attrs: {
-        title: p.text,
-        disabled
-      },
-      hook: bind('click', () => { !disabled && ctrl.post(p) })
-    }, p.key);
-  })) : undefined;
+  return sets && said.length < 2
+    ? h(
+        'div.mchat__presets',
+        sets.map((p: Preset) => {
+          const disabled = said.includes(p.key);
+          return h(
+            'span',
+            {
+              class: {
+                disabled,
+              },
+              attrs: {
+                title: p.text,
+                disabled,
+              },
+              hook: bind('click', () => {
+                !disabled && ctrl.post(p);
+              }),
+            },
+            p.key
+          );
+        })
+      )
+    : undefined;
 }
 
 function splitIt(s: string): Preset {
   const parts = s.split('/');
   return {
     key: parts[0],
-    text: parts[1]
-  }
+    text: parts[1],
+  };
 }

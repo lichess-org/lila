@@ -9,6 +9,7 @@
   <string name="lengths">Distância</string>
   <string name="mates">Xeque-mates</string>
   <string name="goals">Objetivos</string>
+  <string name="origin">Origem</string>
   <string name="specialMoves">Movimentos especiais</string>
   <string name="didYouLikeThisPuzzle">Você gostou deste quebra-cabeças?</string>
   <string name="voteToLoadNextOne">Vote para carregar o próximo!</string>
@@ -38,9 +39,28 @@
   <string name="normal">Normal</string>
   <string name="easier">Fácil</string>
   <string name="easiest">Muito fácil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Um ponto abaixo da sua classificação de quebra-cabeças</item>
+    <item quantity="other">%s pontos abaixo da sua classificação de quebra-cabeças</item>
+  </plurals>
   <string name="harder">Difícil</string>
   <string name="hardest">Muito difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Um ponto acima da sua classificação de quebra-cabeças</item>
+    <item quantity="other">%s pontos acima da sua classificação de quebra-cabeças</item>
+  </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar um outro tema</string>
-  <string name="jumpToNextPuzzleImmediately">Ir para o próximo quebra-cabeça imediatamente</string>
+  <string name="jumpToNextPuzzleImmediately">Ir para o próximo problema automaticamente</string>
+  <string name="puzzleDashboard">Painel do quebra-cabeça</string>
+  <string name="improvementAreas">Áreas de aprimoramento</string>
+  <string name="strengths">Pontos fortes</string>
+  <string name="history">Histórico de quebra-cabeças</string>
+  <string name="solved">resolvido</string>
+  <string name="failed">falhou</string>
+  <string name="streakDescription">Resolva quebra-cabeças progressivamente mais difíceis e construa uma sequência de vitórias. Não há relógio, então tome seu tempo. Um movimento errado e o jogo acaba! Porém, você pode pular um movimento por sessão.</string>
+  <string name="yourStreakX">Sua sequência: %s</string>
+  <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por corrida.</string>
+  <string name="continueTheStreak">Continuar a sequência</string>
+  <string name="newStreak">Nova sequência</string>
 </resources>

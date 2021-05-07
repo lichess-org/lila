@@ -26,20 +26,21 @@ export default rollupProject({
           },
           // highcharts
           {
-            src: [
-              'highcharts/highcharts.js',
-              'highcharts/highcharts-more.js',
-              'highcharts/highstock.js',
-            ].map(require.resolve),
+            src: ['highcharts/highcharts.js', 'highcharts/highcharts-more.js', 'highcharts/highstock.js'].map(
+              require.resolve
+            ),
             dest: '../../public/vendor/highcharts-4.2.5',
+          },
+          // tagify
+          {
+            src: require.resolve('@yaireo/tagify/dist/tagify.min.js'),
+            dest: '../../public/vendor/tagify',
           },
           // stockfish.js
           {
-            src: [
-              'stockfish.js/stockfish.js',
-              'stockfish.js/stockfish.wasm',
-              'stockfish.js/stockfish.wasm.js',
-            ].map(require.resolve),
+            src: ['stockfish.js/stockfish.js', 'stockfish.js/stockfish.wasm', 'stockfish.js/stockfish.wasm.js'].map(
+              require.resolve
+            ),
             dest: '../../public/vendor/stockfish.js',
           },
           // stockfish.wasm
@@ -60,13 +61,22 @@ export default rollupProject({
             ].map(require.resolve),
             dest: '../../public/vendor/stockfish-mv.wasm',
           },
+          // stockfish-nnue.wasm
+          {
+            src: [
+              'stockfish-nnue.wasm/stockfish.js',
+              'stockfish-nnue.wasm/stockfish.wasm',
+              'stockfish-nnue.wasm/stockfish.worker.js',
+            ].map(require.resolve),
+            dest: '../../public/vendor/stockfish-nnue.wasm',
+          },
         ],
       }),
       replace({
         __info__: JSON.stringify({
           date: new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00',
-          commit: execSync('git rev-parse -q --short HEAD', {encoding: 'utf-8'}).trim(),
-          message: execSync('git log -1 --pretty=%s', {encoding: 'utf-8'}).trim(),
+          commit: execSync('git rev-parse -q --short HEAD', { encoding: 'utf-8' }).trim(),
+          message: execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim(),
         }),
       }),
     ],
@@ -82,7 +92,7 @@ export default rollupProject({
   analyseEmbed: {
     input: 'src/analyseEmbed.ts',
     output: 'analysisBoard.embed',
-    name: 'analyseEmbed'
+    name: 'analyseEmbed',
   },
   user: {
     input: 'src/user.ts',
@@ -91,6 +101,10 @@ export default rollupProject({
   modUser: {
     input: 'src/modUser.ts',
     output: 'mod.user',
+  },
+  modGames: {
+    input: 'src/modGames.ts',
+    output: 'mod.games',
   },
   clas: {
     input: 'src/clas.ts',
@@ -111,7 +125,7 @@ export default rollupProject({
   team: {
     input: 'src/team.ts',
     output: 'team',
-    name: 'teamStart'
+    name: 'teamStart',
   },
   forum: {
     input: 'src/forum.ts',
@@ -124,7 +138,7 @@ export default rollupProject({
   passwordComplexity: {
     input: 'src/passwordComplexity.ts',
     output: 'passwordComplexity',
-    name: 'passwordComplexity'
+    name: 'passwordComplexity',
   },
   coachForm: {
     input: 'src/coachForm.ts',
@@ -137,47 +151,55 @@ export default rollupProject({
   challengePage: {
     input: 'src/challengePage.ts',
     output: 'challengePage',
-    name: 'challengePageStart'
+    name: 'challengePageStart',
   },
   checkout: {
     input: 'src/checkout.ts',
     output: 'checkout',
-    name: 'checkoutStart'
+    name: 'checkoutStart',
   },
   login: {
     input: 'src/login.ts',
     output: 'login',
-    name: 'loginSignup'
+    name: 'loginSignup',
   },
   teamBattleForm: {
     input: 'src/teamBattleForm.ts',
-    output: 'teamBattleForm'
+    output: 'teamBattleForm',
   },
   tourForm: {
     input: 'src/tourForm.ts',
-    output: 'tourForm'
+    output: 'tourForm',
   },
   gameSearch: {
     input: 'src/gameSearch.ts',
-    output: 'gameSearch'
+    output: 'gameSearch',
   },
   userComplete: {
     input: 'src/userComplete.ts',
     output: 'userComplete',
-    name: 'UserComplete'
+    name: 'UserComplete',
   },
   infiniteScroll: {
     input: 'src/infiniteScroll.ts',
     output: 'infiniteScroll',
-    name: 'InfiniteScroll'
+    name: 'InfiniteScroll',
   },
   flatpickr: {
     input: 'src/flatpickr.ts',
     output: 'flatpickr',
-    name: 'LichessFlatpickr'
+    name: 'LichessFlatpickr',
   },
   teamAdmin: {
     input: 'src/teamAdmin.ts',
     output: 'team.admin',
-  }
+  },
+  appeal: {
+    input: 'src/appeal.ts',
+    output: 'appeal',
+  },
+  publicChats: {
+    input: 'src/publicChats.ts',
+    output: 'publicChats',
+  },
 });

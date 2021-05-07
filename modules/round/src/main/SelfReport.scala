@@ -10,7 +10,7 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    slackApi: lila.slack.SlackApi,
+    slackApi: lila.irc.SlackApi,
     proxyRepo: GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -48,7 +48,7 @@ final class SelfReport(
               )
             }
           }
-        if (name == "kb" || fullId.value == "________") fuccess(doLog())
+        if (name == "kb" || fullId.value == "____________") fuccess(doLog())
         else
           proxyRepo.pov(fullId.value) flatMap {
             _ ?? { pov =>
@@ -60,10 +60,10 @@ final class SelfReport(
                     name.contains("__puppeteer_evaluation_script__")
                 ))
               ) fuccess {
-                tellRound(
-                  pov.gameId,
-                  lila.round.actorApi.round.Cheat(pov.color)
-                )
+                if (userId.isDefined) tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+                user.ifTrue(name == "cma") foreach { u =>
+                  lila.common.Bus.publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                }
               }
               else gameRepo.setBorderAlert(pov).void
             }

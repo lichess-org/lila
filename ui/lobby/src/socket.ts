@@ -8,11 +8,9 @@ interface Handlers {
 }
 
 export default class LobbySocket {
-
   handlers: Handlers;
 
   constructor(readonly send: SocketSend, ctrl: LobbyController) {
-
     this.send = send;
 
     this.handlers = {
@@ -22,7 +20,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       hrm(ids: string) {
-        ids.match(/.{8}/g)!.forEach(function(id) {
+        ids.match(/.{8}/g)!.forEach(function (id) {
           hookRepo.remove(ctrl, id);
         });
         ctrl.redraw();
@@ -38,7 +36,7 @@ export default class LobbySocket {
       },
       reload_seeks() {
         if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
-      }
+      },
     };
 
     lichess.idleTimer(
@@ -47,15 +45,16 @@ export default class LobbySocket {
       () => {
         send('idle', false);
         ctrl.awake();
-      });
+      }
+    );
   }
 
   realTimeIn() {
     this.send('hookIn');
-  };
+  }
   realTimeOut() {
     this.send('hookOut');
-  };
+  }
 
   poolIn(member: PoolMember) {
     // last arg=true: must not retry
@@ -64,11 +63,11 @@ export default class LobbySocket {
     // then poolIn shouldn't be sent again after socket opens.
     // poolIn is sent anyway on socket open event.
     this.send('poolIn', member, {}, true);
-  };
+  }
 
   poolOut(member: PoolMember) {
     this.send('poolOut', member.id);
-  };
+  }
 
   receive = (tpe: string, data: any): boolean => {
     if (this.handlers[tpe]) {
@@ -76,5 +75,5 @@ export default class LobbySocket {
       return true;
     }
     return false;
-  }
-};
+  };
+}

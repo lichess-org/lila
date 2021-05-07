@@ -8,7 +8,7 @@
   @extend %flex-center-nowrap, %nowrap-hidden, %page-metal;
 
   flex: 0 0 auto;
-  padding: .3em;
+  padding: 0.3em;
   opacity: 0.8;
 
   @include transition;
@@ -29,25 +29,23 @@
   }
 
   .img {
-    flex: 0 0 50px;
-    margin: 0 .5em 0 .3em;
-  }
-
-  img.img {
-    width: 40px;
-  }
-
-  i.img,
-  .img.icon {
-    margin: 0 5px 0 0;
+    flex: 0 0 42px;
+    width: 44px;
+    margin: 0 0.5em 0 0.3em;
   }
 
   i.img::before {
     color: #fff;
-    font-size: 50px;
+    font-size: 42px;
 
     @if $theme-light {
       text-shadow: 1px 1px 2px $c-link;
+    }
+  }
+
+  img.img.icon {
+    @if $theme-light {
+      filter: drop-shadow(1px 1px 1px $c-link);
     }
   }
 
@@ -59,12 +57,12 @@
 
   .headline {
     display: block;
-    font-size: .85em;
+    font-size: 0.85em;
     margin-bottom: -3px;
   }
 
   .more {
-    font-size: .85em;
+    font-size: 0.85em;
 
     time {
       margin-left: 3px;
@@ -74,7 +72,7 @@
   &.little {
     .img {
       flex: 0 0 40px;
-      margin: 0 .5em 0 .3em;
+      margin: 0 0.5em 0 0.3em;
 
       &::before {
         font-size: 40px;

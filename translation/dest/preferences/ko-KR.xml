@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">PGN 기물표기방식</string>
   <string name="chessPieceSymbol">체스 말 기호</string>
   <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
-  <string name="zenMode">젠 모드</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">젠 모드</string>
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">남은 시간이 10초 미만일 때</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
   <string name="giveMoreTime">시간 더 주기</string>
-  <string name="gameBehavior">게임 동작</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">게임 동작</string>
   <string name="howDoYouMovePieces">기물을 어떻게 움직이나요?</string>
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
   <string name="dragPiece">드래그</string>
@@ -41,5 +41,7 @@
   <string name="castleByMovingTwoSquares">왕을 2칸 옮기기</string>
   <string name="castleByMovingOntoTheRook">킹을 룩한테 이동</string>
   <string name="inputMovesWithTheKeyboard">키보드 입력</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">적법한 움직임에만 화살표를 그림</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">패배하거나 무승부 시 \"Good game, well played\"라고 말합니다.</string>
   <string name="yourPreferencesHaveBeenSaved">설정이 저장되었습니다.</string>
 </resources>

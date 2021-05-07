@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">常见问题</string>
-  <string name="frequentlyAskedQuestions">常见问题解答</string>
+  <string name="frequentlyAskedQuestions">常见问题</string>
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess ？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
@@ -14,20 +14,18 @@
   <string name="beingAPatron">成为赞助者</string>
   <string name="breakdownOfOurCosts">我们的费用明细表</string>
   <string name="otherWaysToHelp">其它的帮助方式</string>
-  <string name="areThereWebsitesBasedOnLichess">是否有基于Lichess的网站？</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess确实激励了其他使用我们的 %1$s %2$s或 %3$s 的开源站点。</string>
+  <string name="areThereWebsitesBasedOnLichess">是否有基于 Lichess 的网站？</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">是的。Lichess 确实激励了其他使用我们的 %1$s、%2$s 或 %3$s 的开源站点。</string>
   <string name="fairPlay">公平竞争</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
-  <string name="cheatDetectionMethods">Lichess具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
-  <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还积分？</string>
-  <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的评分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
+  <string name="whenAmIEligibleRatinRefund">我何时有资格从作弊者自动退还等级分？</string>
+  <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的等级分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
   (例如，如果你的评分在这些游戏后大幅增加，你可能得不到所有或部分返还分数) 。返回分数不会超过150分。</string>
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
-  <string name="isCorrespondenceDifferent">通信赛是否不同于常规赛？</string>
-  <string name="youCanUseOpeningBookNoEngine">在Lichess平台，通讯赛的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管ICCF允许在通信中使用引擎，但Lichess不允许。</string>
+  <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
+  <string name="youCanUseOpeningBookNoEngine">在 Lichess 平台，通讯棋的主要区别是允许使用开局库，但仍然禁止使用引擎，否则结果将被标记为引擎援助。 尽管 ICCF 允许在通讯棋中使用引擎，但 Lichess 不允许。</string>
   <string name="gameplay">对弈</string>
   <string name="howBulletBlitzEtcDecided">超快棋、快棋以及其他时限的时间是如何决定的？</string>
   <string name="basedOnGameDuration">Lichess时限基于预计的游戏持续时间 = %1$s
@@ -38,12 +36,12 @@
   <string name="whatVariantsCanIplay">我可以在 Lichess上玩哪些变体？</string>
   <string name="lichessSupportChessAnd">Lichess支持标准国际象棋和 %1$s。</string>
   <string name="eightVariants">8 种国际象棋变体</string>
-  <string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+  <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
+  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的1/100。也就是说，100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
-最佳的电脑着法将会损失0兵厘，但较少的着法将导致兵厘计量下局面的恶化。
+最佳的电脑着法将会损失0厘兵，但较差的着法将导致厘兵计量下局面的恶化。
 
-该值可以用作着法质量的一个指标。每次失去的兵厘越少，着法就越强。
+该值可以用作着法质量的一个指标。每次失去的厘兵越少，着法就越强。
 
 Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
@@ -52,7 +50,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">国际棋联手册 %s</string>
+  <string name="fideHandbookX">国际棋联手册 %s</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？(吃过路兵)</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
@@ -71,7 +69,7 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lichess</string>
+  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下已显示的按钮，或者在您最后一次重复移动之前提出和棋。无论对方接不接受，根据三次重复规范，游戏会以和棋结束。您也可以%1$sLichess为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。</string>
   <string name="configure">配置</string>
   <string name="accounts">帐号</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
@@ -93,6 +91,8 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="whatUsernameCanIchoose">我的用户名可以是什么？</string>
   <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于%1$s 的信息。</string>
   <string name="guidelines">指南</string>
+  <string name="canIChangeMyUsername">我能变更我的用户名吗?</string>
+  <string name="usernamesCannotBeChanged">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 您可以一次调整大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在Lichess历史上是独一无二的，除了%1$s，任何人都不会有。</string>
   <string name="wayOfBerserkExplanation">为了获得它，hiimgosu疯狂挑战他自己并赢得100%%的%s。</string>
@@ -100,6 +100,13 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么排名系统？</string>
+  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统）所采用。
+
+总的来说，Glicko 算法使用”置信区间“来计算和表示你的等级分。当首次来到本站时，你的初始等级分为 1500 ± 700。其中 1500 表示你的等级分，700 表示置信区间。
+
+大体上，系统拥有 90% 的确信度认定你的等级分在 800-2200 之间的某个值，这是相当模糊的。因为这个原因，玩家的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
+
+此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
   <string name="whatIsProvisionalRating">为什么在分数旁边有一个问号 (?) ？</string>
   <string name="provisionalRatingExplanation">问号标记表示等级分是暂时的。原因包括：</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">该用户还没有在评分对局中与%1$s完成足够多的评分棋局。</string>
@@ -115,11 +122,14 @@ Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="beInTopTen">在此排名中获得前十。</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了让不再使用它们的帐号的棋手停止占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
+  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
+
+相反地，你应该将等级分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
-  <string name="enableZenMode">在 %1$s或在游戏中按 %2$s 开启贤者模式。</string>
+  <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
-  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的排名积分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的排名积分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的等级分，不管是您的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且您因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
   <string name="howToThreeDots">说明</string>
   <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>

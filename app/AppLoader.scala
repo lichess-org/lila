@@ -96,7 +96,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val appeal: Appeal                 = wire[Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
-  lazy val bookmark: Bookmark             = wire[Bookmark]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
@@ -121,6 +120,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val main: Main                     = wire[Main]
   lazy val msg: Msg                       = wire[Msg]
   lazy val mod: Mod                       = wire[Mod]
+  lazy val gameMod: GameMod               = wire[GameMod]
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuthApp: OAuthApp             = wire[OAuthApp]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]
@@ -133,7 +133,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val push: Push                     = wire[Push]
   lazy val puzzle: Puzzle                 = wire[Puzzle]
   lazy val relation: Relation             = wire[Relation]
-  lazy val relay: Relay                   = wire[Relay]
+  lazy val relay: RelayRound              = wire[RelayRound]
+  lazy val relayTour: RelayTour           = wire[RelayTour]
   lazy val report: Report                 = wire[Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]
@@ -153,6 +154,9 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val video: Video                   = wire[Video]
   lazy val swiss: Swiss                   = wire[Swiss]
   lazy val dgt: DgtCtrl                   = wire[DgtCtrl]
+  lazy val storm: Storm                   = wire[Storm]
+  lazy val racer: Racer                   = wire[Racer]
+  lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
 
   // eagerly wire up all controllers
   val router: Router = {

@@ -62,9 +62,7 @@
   <string name="chapterPgn">PGN പാഠം</string>
   <string name="downloadGame">ഗെയിം ഡൌണ്‍ലോഡ് ചെയ്യുക</string>
   <string name="studyUrl">URL പഠിക്കുക</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">ബ്രോഡ്‌കാസ്റ്റ് ചെയ്യുനതിനുള്ള URL</string>
   <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
-  <string name="currentGameUrl">നിലവിലെ കളിയുടെ URL</string>
   <string name="startAtInitialPosition">ആദ്യ പൊസിഷനില്‍ തുടങ്ങുക</string>
   <string name="startAtX">%s-ൽ തുടങ്ങുക</string>
   <string name="open">തുറക്കുക</string>

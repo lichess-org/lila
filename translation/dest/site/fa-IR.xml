@@ -9,6 +9,7 @@
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
   <string name="level">سطح</string>
+  <string name="strength">قدرت</string>
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
@@ -110,11 +111,8 @@
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
   <string name="removesTheDepthLimit">محدودیت عمق بررسی را بر می دارد که به گرم شدن کامپیوتر شما منجر می شود</string>
   <string name="blunder">اشتباه فاحش</string>
-  <string name="blunders">اشتباهات فاحش</string>
   <string name="mistake">اشتباه</string>
-  <string name="mistakes">اشتباهات</string>
   <string name="inaccuracy">بی دقتی</string>
-  <string name="inaccuracies">بی‌ دقتی‌ ها</string>
   <string name="moveTimes">مدت زمان حركت</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
@@ -245,7 +243,6 @@
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
   <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
-  <string name="spectators">تماشاگران :</string>
   <plurals name="nbRated">
     <item quantity="one">%s بازی رسمی</item>
     <item quantity="other">%s بازی رسمی</item>
@@ -273,7 +270,6 @@
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">این بازیکن امتیازش را به شکل مجازی تغییر می دهد.</string>
   <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
@@ -378,7 +374,6 @@
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
-  <string name="challengeToPlay">دعوت به بازی</string>
   <string name="player">بازیکن</string>
   <string name="list">لیست</string>
   <string name="graph">نمودار</string>
@@ -506,6 +501,7 @@
   <string name="clockInitialTime">مقدار زمان اولیه</string>
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
+  <string name="privacyPolicy">سیاست حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
   <string name="letOtherPlayersChallengeYou">بقیه بازیکنان با شما بازی کنند</string>
   <string name="letOtherPlayersInviteYouToStudy">اجازه دهید دیگر بازیکن شما را به مطالعه دعوت کنند</string>
@@ -645,6 +641,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
   <string name="yourRating">ریتینگ شما</string>
   <string name="cumulative">تجمعی</string>
+  <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
@@ -728,7 +725,6 @@
   <string name="error.unknown">خطا</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
-  <string name="challenges">دعوت به مبارزه</string>
   <string name="perfRatingX">ریتینگ. %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -775,12 +771,6 @@
   <string name="opening">گشایش</string>
   <string name="middlegame">وسط بازی</string>
   <string name="endgame">آخر بازی</string>
-  <string name="registerToSendChallenges">برای ارسال درخواست بازی باید وارد حساب کاربری شوید.</string>
-  <string name="youCannotChallengeX">شما نمی توانید به %s درخواست بازی بدهید.</string>
-  <string name="xDoesNotAcceptChallenges">%s درخواست بازی را نمی پذیرد.</string>
-  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما فاصله زیادی با %2$s دارد؛بنابراین نمی توانید در خواست بازی بدهید.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط درخواست بازی دوستان را می پذیرد.</string>
   <string name="conditionalPremoves">پیش حرکت های شرطی</string>
   <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
   <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
@@ -817,15 +807,12 @@
   <string name="bulletDesc">بازی های فوق سریع : کمتر از 3 دقیقه</string>
   <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
   <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
-  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر </string>
+  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
-  <string name="yourQuestionMayHaveBeenAnswered">ممکن است پاسخ سوال شما در سوالات متداول باشد</string>
   <string name="inTheFAQ">در سوالات متداول باشد.</string>
-  <string name="toReportSomeoneForCheatingOrBadBehavior"> برای گزارش دادن یک کاربر برای تقلب یا رفتار بد</string>
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
-  <string name="toRequestSupport">برای پشتیبانی</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>

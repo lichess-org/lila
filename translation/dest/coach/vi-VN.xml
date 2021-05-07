@@ -22,8 +22,13 @@
   <string name="otherExperiences">Kinh nghiệm khác</string>
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
+  <string name="publicStudies">Khóa học công khai</string>
   <string name="youtubeVideos">Các video trên YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="other">%s đánh giá của học sinh</item>
+  </plurals>
   <string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
+  <string name="xWillApproveIt">%s sẽ xác nhận nó sớm, hoặc một quản trị viên sẽ kiểm tra nó.</string>
   <string name="reviewCoach">Đánh giá huấn luyện viên này</string>
   <string name="describeExperienceWith">Mô tả kinh nghiệm huấn luyện của %s</string>
 </resources>

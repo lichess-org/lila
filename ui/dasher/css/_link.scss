@@ -10,13 +10,13 @@
     @extend %nowrap-hidden;
 
     display: block;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
   }
 
   .links a::before,
   .links button::before {
     position: relative;
-    bottom: .05em;
+    bottom: 0.05em;
   }
 
   .links a:hover,
@@ -47,7 +47,7 @@
     &::before {
       float: right;
       font-size: 80%;
-      margin-top: .25rem;
+      margin-top: 0.25rem;
       color: $c-dasher;
     }
 

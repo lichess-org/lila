@@ -6,16 +6,11 @@
   <string name="ongoing">Deurlopend</string>
   <string name="upcoming">Opkomend</string>
   <string name="completed">Voltooi</string>
-  <string name="eventName">Naam van geleentheid</string>
-  <string name="eventDescription">Kort geleentheid beskrywing</string>
+  <string name="roundNumber">Ronde getal</string>
   <string name="fullDescription">Volle geleentheid beskrywing</string>
   <string name="fullDescriptionHelp">Opsionele lang beskrywing van die uitsending. %1$s is beskikbaar. Lengte moet minder as %2$s karakters.</string>
-  <string name="sourceUrl">Bron URL</string>
   <string name="sourceUrlHelp">URL wat Lichess sal nagaan vir PGN opdaterings. Dit moet openbaar beskikbaar wees vanaf die Internet.</string>
-  <string name="roundNumber">Ronde getal</string>
   <string name="startDate">Begin datum in jou eie tydsone</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
   <string name="credits">Gee krediet aan die bron</string>
-  <string name="cloneBroadcast">Dupliseer die uitsending</string>
-  <string name="resetBroadcast">Herstel die uitsending</string>
 </resources>

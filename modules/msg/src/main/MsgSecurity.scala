@@ -5,9 +5,10 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.db.dsl._
-import lila.hub.actorApi.clas.IsTeacherOf
+import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
 import lila.hub.actorApi.team.IsLeaderOf
+import lila.hub.actorApi.user.{ KidId, NonKidId }
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
@@ -143,23 +144,26 @@ final private class MsgSecurity(
     // unless they deleted the thread.
     private def reply(contacts: User.Contacts): Fu[Boolean] =
       colls.thread.exists(
-        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++ $or(
-          "del" $ne contacts.dest.id,
-          $doc(
-            "lastMsg.user" -> contacts.dest.id,
-            "lastMsg.date" $gt DateTime.now.minusDays(3)
-          )
-        )
+        $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
+          $doc("del" $ne contacts.dest.id)
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
-      if (contacts.orig.isKid && isNew) isTeacherOf(contacts)
-      else if (!contacts.dest.isKid) fuTrue
-      else isTeacherOf(contacts)
+      if (!isNew || !contacts.hasKid) fuTrue
+      else
+        (contacts.orig.kidId, contacts.dest.kidId) match {
+          case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
+          case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
+          case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
+          case _                       => fuFalse
+        }
   }
 
   private def isTeacherOf(contacts: User.Contacts) =
     Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+
+  private def isTeacherOf(teacher: User.ID, student: User.ID) =
+    Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }

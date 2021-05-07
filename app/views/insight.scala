@@ -14,7 +14,7 @@ object insight {
 
   def index(
       u: User,
-      cache: lila.insight.UserCache,
+      cache: lila.insight.InsightUser,
       prefId: Int,
       ui: play.api.libs.json.JsObject,
       question: play.api.libs.json.JsObject,

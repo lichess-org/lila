@@ -1,6 +1,7 @@
 package lila.bot
 
 import com.softwaremill.macwire._
+import lila.socket.IsOnline
 
 @Module
 final class Env(
@@ -9,7 +10,8 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     rematches: lila.game.Rematches,
     isOfferingRematch: lila.round.IsOfferingRematch,
-    spam: lila.security.Spam
+    spam: lila.security.Spam,
+    isOnline: IsOnline
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,

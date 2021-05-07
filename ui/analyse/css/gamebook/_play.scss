@@ -75,17 +75,17 @@
     }
 
     div.hint {
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       background: $c-primary;
       color: $c-primary-over;
       border-radius: 0 0 1rem 1rem;
       cursor: pointer;
-      font-size: .9em;
+      font-size: 0.9em;
       z-index: 2;
     }
 
     a.hint {
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       color: $c-primary;
       font-size: 1rem;
     }
@@ -138,7 +138,7 @@
     }
 
     &.play {
-      font-size: .8em;
+      font-size: 0.8em;
       text-align: left;
     }
 
@@ -178,13 +178,13 @@
     }
 
     &.good {
-      background: #639B24 !important;
+      background: #639b24 !important;
       color: #fff;
     }
 
     &.end {
       flex-flow: row;
-      font-size: .8em;
+      font-size: 0.8em;
 
       a {
         @extend %flex-column;
@@ -196,7 +196,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: .5em;
+        padding: 0.5em;
         border-left: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
 
@@ -204,7 +204,7 @@
 
         &::before {
           font-size: 2.2em;
-          margin: .5em 0;
+          margin: 0.5em 0;
         }
 
         &:first-child {
@@ -231,7 +231,7 @@
   .fbt {
     @extend %box-radius-top;
 
-    padding: .2em .5em;
-    margin-left: .7em;
+    padding: 0.2em 0.5em;
+    margin-left: 0.7em;
   }
 }

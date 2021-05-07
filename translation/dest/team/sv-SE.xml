@@ -12,9 +12,8 @@
   <string name="noTeamFound">Inget lag hittat</string>
   <string name="joinTeam">Gå med i lag</string>
   <string name="quitTeam">Lämna lag</string>
-  <string name="anyoneCanJoin">Vem som helst kan gå med</string>
-  <string name="aConfirmationIsRequiredToJoin">Bekräftelse nödvändig för att gå med</string>
-  <string name="joiningPolicy">Deltagningspolicy</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Granska antagningsförfrågningar manuellt</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Om markerad behöver spelare skriva en förfrågning för att gå med i laget, som du kan avslå eller godkänna.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagledare</item>
     <item quantity="other">Lagledare</item>
@@ -44,4 +43,8 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="leadersChat">Lagledarchatt</string>
   <string name="closeTeam">Avsluta lag</string>
   <string name="closeTeamDescription">Stänger laget för evigt.</string>
+  <string name="teamPassword">Lag-lösenord</string>
+  <string name="teamPasswordDescriptionForLeader">(Valfritt) Ett lösenord som nya medlemmar måste veta för att gå med i detta lag.</string>
+  <string name="incorrectTeamPassword">Felaktigt lag-lösenord.</string>
+  <string name="teamAlreadyExists">Det här lagnamnet finns redan.</string>
 </resources>

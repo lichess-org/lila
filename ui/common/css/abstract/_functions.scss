@@ -3,5 +3,5 @@
 }
 
 @function img-url($path) {
-  @return url("#{$img-path}/#{$path}");
+  @return url('#{$img-path}/#{$path}');
 }

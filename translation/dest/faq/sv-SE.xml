@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Finns det webbplatser baserade på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har minsann inspirerat andra öppen källkod webbplatser som använder vår %1$s, %2$s, eller %3$s.</string>
   <string name="fairPlay">Rent spel</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Varför är jag flaggad för artificiell rating manipulation (sandbagging och boosting) eller datorstöd?</string>
-  <string name="cheatDetectionMethods">Lichess har starka detektionsmetoder och en mycket ingående process för att granska alla bevis och fatta ett beslut. Processen involverar ofta många moderatorer och kan ta lång tid. Utöver markeringen kommer vi inte att gå in på detaljer om bevis eller beslutsprocessen för enskilda fall. Att göra det skulle göra det lättare att undvika upptäckt i framtiden och vara en inbjudan till improduktiva debatter. Den tiden och ansträngningen är bättre att spendera på andra viktiga ärenden. Användare kan överklaga genom att maila %1$s, men beslut upphävs sällan.</string>
   <string name="whenAmIEligibleRatinRefund">När är jag berättigad till automatisk ratingåterbetalning från fuskare?</string>
   <string name="ratingRefundExplanation">En minut efter att en spelare markeras, så plockas deras 40 senaste rankade vinster under de senaste 3 dagarna fram. Om du är deras motståndare i något av dessa partier och din rating inte var provisorisk, så får du en rating-återbetalning. Återbetalningen är maximerad baserat på din topp-rating och dina framgångar efter partiet.
   (Till exempel, om din rating ökat kraftigt efter dessa partier, kanske du inte får någon återbetalning eller bara en partiell återbetalning.) En återbetalning kommer aldrig att överstiga 150 poäng.</string>
@@ -52,7 +50,7 @@
   I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
 
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">FIDE-handbok %s</string>
+  <string name="fideHandbookX">FIDE-handbok %s</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
   <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
 
@@ -94,6 +92,8 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="usernamesNotOffensive">I allmänhet bör användarnamn inte vara: kränkande, utge sig för att vara
 någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   <string name="guidelines">riktlinjerna</string>
+  <string name="canIChangeMyUsername">Kan jag ändra mitt användarnamn?</string>
+  <string name="usernamesCannotBeChanged">Nej, användarnamn kan inte ändras av tekniska och praktiska skäl. Användarnamn förekommer i för många platser: databaser, exporter, loggar, och människors minne. Du kan justera versalerna en gång.</string>
   <string name="uniqueTrophies">Unika troféer</string>
   <string name="ownerUniqueTrophies">Denna trofé är unik i Lichess historia, ingen annan än %1$s kommer någonsin att ha den.</string>
   <string name="wayOfBerserkExplanation">För att få den, utmanade hiimgosu sig själv att gå bärsärk i och vinna 100%% av partierna i %s.</string>

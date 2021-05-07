@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">Walang katapusang pagsusuri</string>
   <string name="removesTheDepthLimit">Tanggalin ang lalim, at panatilihin na mainit ang iyong kompyuter</string>
   <string name="blunder">Pagkakamali</string>
-  <string name="blunders">Mga pagkakamali</string>
   <string name="mistake">Pagkakamali</string>
-  <string name="mistakes">Mga Pagkakamali</string>
   <string name="inaccuracy">Hindi tama</string>
-  <string name="inaccuracies">Mga hindi tama</string>
   <string name="moveTimes">Mga bilang ng galaw</string>
   <string name="flipBoard">Baligtarin ang board</string>
   <string name="threefoldRepetition">Tatlong pag-uulit</string>
@@ -249,7 +246,6 @@
   <string name="send">Ipadala</string>
   <string name="incrementInSeconds">Nadadagdagn ng segundos</string>
   <string name="freeOnlineChess">Libreng Online Chess</string>
-  <string name="spectators">Manonood</string>
   <plurals name="nbRated">
     <item quantity="one">%s namarkahan</item>
     <item quantity="other">%s namarkahan</item>
@@ -277,7 +273,6 @@
     <item quantity="other">Magbigay ng %s mga segundo</item>
   </plurals>
   <string name="thisAccountViolatedTos">Ang account na ito ay lumabag sa Mga Palatuntunan ng Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ang manlalarong ito artipisyal na dagdagan/nababawasan ang marka</string>
   <string name="openingExplorerAndTablebase">Bubukas tagalakbay &amp; base ng talahanayan</string>
   <string name="takeback">Kunin muli</string>
   <string name="proposeATakeback">Magmungkahi ng pagkuha muli</string>
@@ -382,7 +377,6 @@
   <string name="more">Higit pa</string>
   <string name="memberSince">Miyembro mula pa noong</string>
   <string name="lastSeenActive">Aktibo %s</string>
-  <string name="challengeToPlay">Hamunin sa isang laro</string>
   <string name="player">Manlalaro</string>
   <string name="list">Listahan</string>
   <string name="graph">Graph</string>
@@ -732,7 +726,6 @@
   <string name="error.unknown">Mali</string>
   <string name="custom">Pinasadya</string>
   <string name="notifications">Mga Notipikasyon</string>
-  <string name="challenges">Mga Hamon</string>
   <string name="perfRatingX">Marka: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo na gawin ang unang galaw</item>
@@ -779,12 +772,6 @@
   <string name="opening">Bukasan</string>
   <string name="middlegame">Sa gitna ng laro</string>
   <string name="endgame">Taposin ang laro</string>
-  <string name="registerToSendChallenges">Magrehistro upang magpadala ng mga hamon.</string>
-  <string name="youCannotChallengeX">Hindi mo pwedeng hamonin %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ay hindi tumatanggap ng mga hamon.</string>
-  <string name="yourXRatingIsTooFarFromY">Ang iyong %1$s marka ay masyadong malayo sa %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Hindi makatanggap ng hamon dahil sa probisyonal na %s marka.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s tumatanggap lamang ng hamon galing sa mga kaibigan.</string>
   <string name="conditionalPremoves">Kondisyonal na mga bago gumalaw</string>
   <string name="addCurrentVariation">Magdagdag ng kasalukuyang pagkakaiba</string>
   <string name="playVariationToCreateConditionalPremoves">Maglaro ng pagkakaiba upang makagawa ng kondisyonal na mga paggalaw</string>

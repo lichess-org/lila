@@ -27,7 +27,7 @@ object theirs {
           case Status.Created | Status.Offline =>
             frag(
               h1(
-                if (c.isOpen) "Open Challenge"
+                if (c.isOpen) c.name | "Open Challenge"
                 else
                   user.fold[Frag]("Anonymous")(u =>
                     frag(
@@ -59,27 +59,23 @@ object theirs {
                 frag(
                   hr,
                   badTag(
-                    p("This game is rated"),
-                    p(
-                      "You must ",
-                      a(
-                        cls := "button",
-                        href := s"${routes.Auth.login()}?referrer=${routes.Round.watcher(c.id, "white")}"
-                      )(trans.signIn()),
-                      " to join it."
-                    )
+                    p(trans.thisGameIsRated()),
+                    a(
+                      cls := "button",
+                      href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
+                    )(trans.signIn())
                   )
                 )
             )
           case Status.Declined =>
             div(cls := "follow-up")(
-              h1("Challenge declined"),
+              h1(trans.challenge.challengeDeclined()),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
-              h1("Challenge accepted!"),
+              h1(trans.challenge.challengeAccepted()),
               bits.details(c),
               a(
                 id := "challenge-redirect",
@@ -91,9 +87,9 @@ object theirs {
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
-              h1("Challenge canceled."),
+              h1(trans.challenge.challengeCanceled()),
               bits.details(c),
-              a(cls := "button button-fat", href := routes.Lobby.home())(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
             )
         }
       )

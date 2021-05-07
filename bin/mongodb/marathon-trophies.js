@@ -1,9 +1,4 @@
-var users = [
-  'blitzstream-twitch',
-  'legend',
-  'admirala',
-  'hellball'
-];
+var users = ['blitzstream-twitch', 'legend', 'admirala', 'hellball'];
 
 for (var i in users) {
   var kind = i == 0 ? 'marathonWinner' : 'marathonTopTen';
@@ -12,6 +7,6 @@ for (var i in users) {
     _id: kind + '/' + user,
     user: user,
     kind: kind,
-    date: new Date()
+    date: new Date(),
   });
 }

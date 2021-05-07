@@ -9,6 +9,7 @@
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
+  <string name="strength">Nivel</string>
   <string name="toggleTheChat">(Des)activar o chat</string>
   <string name="toggleSound">(Des)activar son</string>
   <string name="chat">Chat</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
   <string name="blunder">Pifia</string>
-  <string name="blunders">Erros grandes</string>
   <string name="mistake">Erro</string>
-  <string name="mistakes">Erros</string>
   <string name="inaccuracy">Imprecisión</string>
-  <string name="inaccuracies">Imprecisións</string>
   <string name="moveTimes">Tempos por movemento</string>
   <string name="flipBoard">Xirar o taboleiro</string>
   <string name="threefoldRepetition">Repetición tripla de posición</string>
@@ -249,7 +247,6 @@
   <string name="send">Enviar</string>
   <string name="incrementInSeconds">Incremento en segundos</string>
   <string name="freeOnlineChess">Xadrez libre en liña</string>
-  <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
     <item quantity="one">%s puntuadas</item>
     <item quantity="other">%s puntuadas</item>
@@ -277,7 +274,6 @@
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="thisAccountViolatedTos">Esta conta violou os Termos de Servizo de Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Este xogador varía artificialmente a súa puntuación</string>
   <string name="openingExplorerAndTablebase">Explorador de aperturas e base de datos de finais</string>
   <string name="takeback">Rectificar xogada</string>
   <string name="proposeATakeback">Propoñer cambio de xogada</string>
@@ -383,7 +379,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="more">Máis</string>
   <string name="memberSince">Membro dende</string>
   <string name="lastSeenActive">Última conexión %s</string>
-  <string name="challengeToPlay">Retar a unha partida</string>
   <string name="player">Xogador</string>
   <string name="list">Lista</string>
   <string name="graph">Gráfica</string>
@@ -469,6 +464,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="tournamentWinners">Gañadores do torneo</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
+  <string name="descPrivate">Descrición privada</string>
+  <string name="descPrivateHelp">Este texto só poden velo os membros do equipo. O texto que escribas aquí reemplazará a descrición pública para os membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
@@ -489,6 +486,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="cheat">Trampa</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Manipulación da puntuación</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Pega a ligazón á(s) partida(s) e explica o que é incorrecto no comportamento dese usuario. Non digas só \"fan trampas\", cóntanos como chegaches a esa conclusión. A túa denuncia será procesada máis rapidamente se está escrita en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos un enlace a un xogo con trampas.</string>
@@ -511,6 +509,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clockInitialTime">Tempo inicial do reloxo</string>
   <string name="clockIncrement">Incremento do reloxo</string>
   <string name="privacy">Privacidade</string>
+  <string name="privacyPolicy">Política de privacidade</string>
   <string name="letOtherPlayersFollowYou">Permitir a outros xogadores seguirte</string>
   <string name="letOtherPlayersChallengeYou">Permitir a outros xogadores retarte</string>
   <string name="letOtherPlayersInviteYouToStudy">Deixa que outros xogadores che conviden a estudos</string>
@@ -579,6 +578,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.email_unique">Este enderezo de correo xa está en uso</string>
   <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
+  <string name="onlyExistingConversations">Só conversas existentes</string>
   <string name="onlyFriends">Só amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
@@ -656,6 +656,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa outras carpetas onde poda estar, coma a de spam ou correo basura.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
+  <string name="readAboutOur">Le acerca a nosa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo da rede entre ti e máis lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movimiento no servidor de lichess</string>
   <string name="downloadAnnotated">Descarga con notación</string>
@@ -734,7 +735,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="error.unknown">Erro</string>
   <string name="custom">Á medida</string>
   <string name="notifications">Notificacións</string>
-  <string name="challenges">Desafíos</string>
   <string name="perfRatingX">Puntuación: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para facer o primeiro movemento</item>
@@ -781,12 +781,6 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="opening">Abertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="registerToSendChallenges">Por favor, rexístrese para enviar desafíos.</string>
-  <string name="youCannotChallengeX">Non podes desafiar a %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s non acepta desafíos.</string>
-  <string name="yourXRatingIsTooFarFromY">A túa puntuación de %1$s está demasiado lonxe da de %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Non pode desafiar debido ao rating provisorio de %s.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s só acepta desafíos de amigos.</string>
   <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir variante actual</string>
   <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>

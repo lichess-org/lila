@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Je veux effacer mon historique ou mon classement</string>
   <string name="cantClearHistory">Il n\'est pas possible d\'effacer votre historique de jeu, votre historique de problèmes ou vos classements.</string>
   <string name="wantReport">Je veux signaler un joueur</string>
-  <string name="cheating">triche</string>
-  <string name="sandbagging">manipulation du classement</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">insultes</string>
-  <string name="otherReason">une autre raison</string>
-  <string name="toReportAPlayer">Pour signaler un joueur pour %s, utilisez le formulaire de signalement</string>
+  <string name="toReportAPlayerUseForm">Pour signaler un joueur, utilisez le formulaire de signalement.</string>
   <string name="youCanAlsoReachReportPage">Vous pouvez également atteindre cette page en cliquant sur le bouton de signalement %s sur une page de profil.</string>
   <string name="doNotReportInForum">Ne signalez pas les joueurs dans le forum.</string>
   <string name="doNotSendReportEmails">Ne nous envoyez pas de courriels de signalement.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>
   <string name="errorPage">Page d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Demande d\'appel pour un bannissement ou une restriction IP</string>
+  <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>
   <string name="falsePositives">De faux positifs se produisent parfois et nous en sommes désolés.</string>

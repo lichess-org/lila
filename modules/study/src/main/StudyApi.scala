@@ -11,7 +11,7 @@ import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
+import lila.user.{ Holder, User }
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -104,13 +104,7 @@ final class StudyApi(
 
   def importGame(data: StudyMaker.ImportGame, user: User): Fu[Option[Study.WithChapter]] =
     (data.form.as match {
-      case StudyForm.importGame.AsNewStudy =>
-        studyMaker(data, user) flatMap { res =>
-          studyRepo.insert(res.study) >>
-            chapterRepo.insert(res.chapter) >>-
-            indexStudy(res.study) >>-
-            scheduleTimeline(res.study.id) inject res.some
-        }
+      case StudyForm.importGame.AsNewStudy => create(data, user)
       case StudyForm.importGame.AsChapterOf(studyId) =>
         byId(studyId) flatMap {
           case Some(study) if study.canContribute(user.id) =>
@@ -125,6 +119,20 @@ final class StudyApi(
       _ ?? { sc =>
         Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
       }
+    }
+
+  def create(
+      data: StudyMaker.ImportGame,
+      user: User,
+      transform: Study => Study = identity
+  ): Fu[Option[Study.WithChapter]] =
+    studyMaker(data, user) map { sc =>
+      sc.copy(study = transform(sc.study))
+    } flatMap { sc =>
+      studyRepo.insert(sc.study) >>
+        chapterRepo.insert(sc.chapter) >>-
+        indexStudy(sc.study) >>-
+        scheduleTimeline(sc.study.id) inject sc.some
     }
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =
@@ -211,12 +219,12 @@ final class StudyApi(
       node: Node,
       opts: MoveOpts,
       relay: Option[Chapter.Relay] = None
-  )(who: Who) =
+  )(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
-        doAddNode(study, Position(chapter, position.path), node, opts, relay)(who).void
+        doAddNode(study, Position(chapter, position.path), node, opts, relay)(who)
       }
-    }
+    } flatMap { _ ?? { _() } } // this one is for you, Lakin <3
 
   private def doAddNode(
       study: Study,
@@ -224,24 +232,26 @@ final class StudyApi(
       rawNode: Node,
       opts: MoveOpts,
       relay: Option[Chapter.Relay]
-  )(who: Who): Funit = {
-    val node         = rawNode.withoutChildren
+  )(who: Who): Fu[Option[() => Funit]] = {
+    val singleNode   = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
-      fuccess(failReload())
+      failReload()
+      fuccess(none)
     } else
-      position.chapter.addNode(node, position.path, relay) match {
+      position.chapter.addNode(singleNode, position.path, relay) match {
         case None =>
           failReload()
-          fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
+          fufail(s"Invalid addNode ${study.id} ${position.ref} $singleNode")
         case Some(chapter) =>
           chapter.root.nodeAt(position.path) ?? { parent =>
-            val newPosition = position.ref + node
-            chapterRepo.setChildren(parent.children)(chapter, position.path) >>
-              (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
-              (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
-              updateConceal(study, chapter, newPosition) >> {
+            parent.children.get(singleNode.id) ?? { node =>
+              val newPosition = position.ref + node
+              chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
+                (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
+                (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
+                updateConceal(study, chapter, newPosition) >>-
                 sendTo(study.id)(
                   _.addNode(
                     position.ref,
@@ -251,10 +261,12 @@ final class StudyApi(
                     relay = relay,
                     who
                   )
-                )
-                (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) ??
-                  promote(study.id, position.ref + node, toMainline = true)(who)
-              }
+                ) inject {
+                  (opts.promoteToMainline && !Path.isMainline(chapter.root, newPosition.path)) option { () =>
+                    promote(study.id, position.ref + node, toMainline = true)(who)
+                  }
+                }
+            }
           }
       }
   }
@@ -296,7 +308,8 @@ final class StudyApi(
       }
     }
 
-  def promote(studyId: Study.Id, position: Position.Ref, toMainline: Boolean)(who: Who) =
+  // rewrites the whole chapter because of `forceVariation`. Very inefficient.
+  def promote(studyId: Study.Id, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
         chapter.updateRoot { root =>
@@ -436,7 +449,6 @@ final class StudyApi(
 
   def setTag(studyId: Study.Id, setTag: actorApi.SetTag)(who: Who) =
     sequenceStudyWithChapter(studyId, setTag.chapterId) { case Study.WithChapter(study, chapter) =>
-      logger.info(s"setTag $studyId $setTag")
       Contribute(who.u, study) {
         doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
       }
@@ -613,7 +625,7 @@ final class StudyApi(
       val newStudy = study withChapter chapter
       (sticky ?? studyRepo.updateSomeFields(newStudy)) >>-
         sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
-    } >>-
+    } >>
       studyRepo.updateNow(study) >>-
       indexStudy(study)
 
@@ -648,7 +660,12 @@ final class StudyApi(
                 case (Some(_), false) => None
                 case _                => chapter.conceal
               },
-              setup = chapter.setup.copy(orientation = data.realOrientation),
+              setup = chapter.setup.copy(
+                orientation = data.realOrientation match {
+                  case ChapterMaker.Orientation.Fixed(color) => color
+                  case _                                     => chapter.setup.orientation
+                }
+              ),
               description = data.hasDescription option {
                 chapter.description | "-"
               }
@@ -792,7 +809,6 @@ final class StudyApi(
   def like(studyId: Study.Id, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
-      Bus.publish(actorApi.StudyLikes(studyId, likes), "studyLikes")
       if (v) studyRepo byId studyId foreach {
         _ foreach { study =>
           if (who.u != study.ownerId && study.isPublic)
@@ -831,15 +847,8 @@ final class StudyApi(
       }
     }
 
-  def adminInvite(studyId: Study.Id, me: User): Funit =
+  def adminInvite(studyId: Study.Id, me: Holder): Funit =
     sequenceStudy(studyId) { inviter.admin(_, me) }
-
-  def erase(user: User) =
-    studyRepo.allIdsByOwner(user.id) flatMap { ids =>
-      chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
-      studyRepo.deleteByIds(ids) >>
-        chapterRepo.deleteByStudyIds(ids)
-    }
 
   private def indexStudy(study: Study) =
     Bus.publish(actorApi.SaveStudy(study), "study")
@@ -847,7 +856,7 @@ final class StudyApi(
   private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: Chapter.Id) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
-  private def reloadChapters(study: Study) =
+  def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
       sendTo(study.id)(_ reloadChapters chapters)
     }

@@ -1,12 +1,12 @@
-$c-tour: #303E43;
+$c-tour: #303e43;
 $c-tour-user: #888;
-$c-tour-hourly: #3D9333;
-$c-tour-daily: #0072B2;
-$c-tour-weekly: #D55E00;
-$c-tour-monthly: #C93D3D;
+$c-tour-hourly: #3d9333;
+$c-tour-daily: #0072b2;
+$c-tour-weekly: #d55e00;
+$c-tour-monthly: #c93d3d;
 $c-tour-yearly: $c-brag;
 $c-tour-weekend: $c-brag;
-$c-tour-marathon: #66558C;
+$c-tour-marathon: #66558c;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
 
@@ -82,7 +82,8 @@ $c-tour-max-rating: #8572ff;
   white-space: nowrap;
   color: #fff;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: #fff;
   }
 
@@ -167,14 +168,15 @@ $c-tour-max-rating: #8572ff;
   .icon {
     font-size: 2.4em;
     line-height: 1;
-    margin: 0 .2em 0 .2em;
+    margin: 0 0.2em 0 0.2em;
 
     &::before {
       vertical-align: middle;
     }
   }
 
-  .name, .body {
+  .name,
+  .body {
     @extend %nowrap-ellipsis;
   }
 

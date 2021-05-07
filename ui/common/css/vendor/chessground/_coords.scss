@@ -9,7 +9,7 @@ coords {
   display: flex;
   pointer-events: none;
 
-  @include fluid-size("font-size", 8px, 12px);
+  @include fluid-size('font-size', 8px, 12px);
 
   user-select: none;
   color: #fff;
@@ -23,7 +23,7 @@ coords {
 
     // a negative value creates empty space on the right side in mobile browsers
     height: 100%;
-    width: .8em;
+    width: 0.8em;
 
     &.black {
       flex-flow: column;
@@ -66,7 +66,7 @@ coords {
   }
 }
 
-@import "coords-colors";
+@import 'coords-colors';
 
 /* handle outer coords */
 @include breakpoint($mq-col2-uniboard) {

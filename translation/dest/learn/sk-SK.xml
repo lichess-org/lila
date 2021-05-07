@@ -52,7 +52,7 @@ ale berú diagonálne!</string>
   <string name="useAllThePawns">Použite všetkých pešiakov!
 Premieňať nepotrebujete.</string>
   <string name="aPawnOnTheSecondRank">Keď je pešiak v základnej pozícii, môže sa pohnúť o 2 políčka naraz!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Zhrabnite všetky hviezdy!
+  <string name="grabAllTheStarsNoNeedToPromote">Vyzbierajte všetky hviezdy!
 Premieňať nepotrebujete.</string>
   <string name="pawnComplete">Gratulujeme! Pešiakov zvládate ľavou zadnou.</string>
   <string name="pawnPromotion">Premena pešiaka</string>
@@ -66,8 +66,8 @@ Premieňať nepotrebujete.</string>
   <string name="takeTheBlackPieces">Vyhoďte čierne figúrky!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Vezmite súperove figúrky!
 A nepríďte o vlastné!</string>
-  <string name="captureComplete">Gratulujeme! Teraz viete ako so šachovými figúrkami bojovať!</string>
-  <string name="protection">Chránenie</string>
+  <string name="captureComplete">Gratulujeme! Teraz viete ako bojovať so šachovými figúrkami!</string>
+  <string name="protection">Ochrana</string>
   <string name="keepYourPiecesSafe">Držte svoje figúrky v bezpečí</string>
   <string name="protectionIntro">Rozpoznajte figúrky, ktoré Vám súper napadá a ochráňte ich!</string>
   <string name="protectionComplete">Gratulujeme! Figúrka, ktorú nestratíte je figúrka, ktorú získate!</string>

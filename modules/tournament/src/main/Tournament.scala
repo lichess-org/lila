@@ -221,4 +221,16 @@ object Tournament {
   def makeId = ThreadLocalRandom nextString 8
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
+
+  sealed abstract class JoinResult(val error: Option[String]) {
+    def ok = error.isEmpty
+  }
+  object JoinResult {
+    case object Ok            extends JoinResult(none)
+    case object WrongPassword extends JoinResult("Wrong password".some)
+    case object Paused        extends JoinResult("Your pause is not over yet".some)
+    case object Verdicts      extends JoinResult("Tournament restrictions".some)
+    case object MissingTeam   extends JoinResult("Missing team".some)
+    case object Nope          extends JoinResult("Couldn't join for some reason?".some)
+  }
 }

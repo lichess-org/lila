@@ -12,9 +12,8 @@
   <string name="noTeamFound">Ingen lag funnet</string>
   <string name="joinTeam">Bli med i klanen</string>
   <string name="quitTeam">Forlat klanen</string>
-  <string name="anyoneCanJoin">Alle kan bli med i denne klanen</string>
-  <string name="aConfirmationIsRequiredToJoin">En bekreftelse kreves for å bli med</string>
-  <string name="joiningPolicy">Regler for å bli med</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gå gjennom forespørsler om å få bli med manuelt</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Kryss av for å kreve at spillere må skrive en forespørsel om å få bli med på laget, som du avslår eller godtar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagleder</item>
     <item quantity="other">Lagledere</item>
@@ -44,4 +43,8 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="leadersChat">Ledersamtale</string>
   <string name="closeTeam">Legg ned laget</string>
   <string name="closeTeamDescription">Legger ned laget for alltid.</string>
+  <string name="teamPassword">Lagpassord</string>
+  <string name="teamPasswordDescriptionForLeader">(Valgfritt) Et passord som nye medlemmer må kjenne for å bli med på dette laget.</string>
+  <string name="incorrectTeamPassword">Feil lagpassord.</string>
+  <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
 </resources>

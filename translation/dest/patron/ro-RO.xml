@@ -26,11 +26,11 @@
   <string name="pleaseEnterAmount">Te rugăm să introduci suma în dolari americani</string>
   <string name="withCreditCard">Card de credit</string>
   <string name="withPaypal">PayPal</string>
-  <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta aduce o diferență uriașă!</string>
+  <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta face o diferență uriașă!</string>
   <string name="celebratedPatrons">Patronii renumiți care fac Lichess posibil</string>
   <string name="whereMoneyGoes">Unde se duc banii?</string>
   <string name="serversAndDeveloper">În primul rând, la servere puternice.
-Apoi plătim un dezvoltator de normă întreagă: %s, fondatorul Lichess.</string>
+Apoi plătim un dezvoltator cu normă întreagă: %s, fondatorul Lichess.</string>
   <string name="costBreakdown">Vezi analiza detaliată a costurilor</string>
   <string name="officialNonProfit">Este Lichess un non-profit în mod oficial?</string>
   <string name="actOfCreation">Da, iată actul de creare (în franceză)</string>
@@ -45,6 +45,11 @@ Sau poți %s.</string>
   <string name="noPatronFeatures">Nu, deoarece Lichess e complet gratuit, pentru totdeauna, și pentru toată lumea. Asta e o promisiune.
 Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lângă profil.</string>
   <string name="featuresComparison">Vezi compararea detaliată a caracteristicilor</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Patron Lichess timp de o lună</item>
+    <item quantity="few">Patron Lichess timp de %s luni</item>
+    <item quantity="other">Patron Lichess timp de %s luni</item>
+  </plurals>
   <string name="youSupportWith">Susțineți lichess.org cu %s pe lună.</string>
   <string name="tyvm">Mulțumim foarte mult pentru ajutor. Ești tare!</string>
   <string name="currentStatus">Status actual</string>
@@ -53,4 +58,20 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
   <string name="update">Actualizare</string>
   <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
+  <string name="cancelSupport">anuleaza-ți susținerea</string>
+  <string name="xOrY">%1$s sau %2$s</string>
+  <string name="decideHowMuch">Decide cât valorează Lichess pentru tine:</string>
+  <string name="stopPayments">Retrage-ți cardul de credit și oprește plățile:</string>
+  <string name="noLongerSupport">Nu mai susține Lichess</string>
+  <string name="paymentHistory">Istoric tranzacții</string>
+  <string name="paid">Plătit</string>
+  <string name="viewOthers">Vezi alți Patroni Lichess</string>
+  <string name="date">Dată</string>
+  <string name="amount">Suma</string>
+  <string name="transactionCompleted">Tranzacția a fost completată, și o chitanță pentru donația ta ți-a fost trimisă pe email.</string>
+  <string name="permanentPatron">Acum ai un cont permanent de Patron.</string>
+  <string name="checkOutProfile">Verifică-ți pagina de profil!</string>
+  <string name="nowLifetime">Acum ești Patron Lichess pe viață!</string>
+  <string name="nowOneMonth">Acum ești Patron Lichess pentru o lună!</string>
+  <string name="downgradeNextMonth">Într-o lună, NU vei fi taxat din nou, iar contul tău de Lichess va fi înapoi un cont normal.</string>
 </resources>

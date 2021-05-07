@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Ci sono siti web basati su Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sì. Lichess ha ispirato altri siti open-source che usano il nostro %1$s, le nostre %2$s e il nostro %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Perché sono stato contrassegnato per manipolazioni del punteggio (manipolazioni in ribasso e in rialzo del punteggio) o per l\'utilizzo del computer?</string>
-  <string name="cheatDetectionMethods">Lichess ha metodi di rilevazione efficaci e un processo molto approfondito per la revisione di tutte le prove e per prendere una decisione. Il processo coinvolge spesso molti moderatori e può richiedere molto tempo. Oltre al marchio stesso, non entreremo nei dettagli sulle prove o sul processo decisionale per singoli casi. In questo modo sarebbe più facile evitare il rilevamento in futuro ed essere un invito a dibattiti improduttivi. Quel tempo e gli sforzi vengono spesi meglio in altri casi importanti. Gli utenti possono presentare ricorso tramite e-mail %1$s, ma le decisioni vengono raramente annullate.</string>
   <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del punteggio perso contro chi imbroglia?</string>
   <string name="ratingRefundExplanation">Un minuto dopo aver individuato un giocatore che imbroglia, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
    (Ad esempio, se la tua valutazione aumenta notevolmente dopo tali partite, potresti non ottenere alcun rimborso o un rimborso parziale.) Un rimborso non supererà mai i 150 punti.</string>
@@ -52,7 +50,7 @@ L\'analisi del computer su Lichess è fornita da Stockfish.</string>
 In rari casi può essere difficile decidere automaticamente (linee forzate, fortezze). Di default ci schieriamo sempre con il giocatore che non è rimasto senza tempo.
 
 Nota che può essere possibile dare scacco matto con un solo cavallo o alfiere se l\'avversario ha un pezzo che potrebbe bloccare il re.</string>
-  <string name="fideHandbookX" comment="fideHandbookX&#10;&#10;%s is the section. This string appears as 'FIDE handbook §6.9' under the section 'Losing on time, drawing and insufficient material' of the FAQ.&#10;&#10;A link to https://handbook.fide.com/chapter/E012018. ">Manuale FIDE %s</string>
+  <string name="fideHandbookX">Manuale FIDE %s</string>
   <string name="discoveringEnPassant">Perché una pedone può catturare un altro pedone quando è già passato? (en passant)</string>
   <string name="explainingEnPassant">Questa è una mossa legale conosciuta come \"en passant\" (\"al varco\"). L\'articolo di Wikipedia fornisce una %1$s.
 
@@ -93,6 +91,8 @@ Non chiedere il titolo di LM.</string>
   <string name="whatUsernameCanIchoose">Quale può essere il mio nome utente?</string>
   <string name="usernamesNotOffensive">In generale, i nomi utente non dovrebbero essere: offensivi, volti ad impersonare qualcun altro, o costituire un messaggio pubblicitario. Puoi leggere di più su %1$s.</string>
   <string name="guidelines">linee guida</string>
+  <string name="canIChangeMyUsername">Posso cambiare il mio nome utente?</string>
+  <string name="usernamesCannotBeChanged">No, i nomi utenti non possono essere modificati per ragioni tecniche e pratiche. I nomi utente compaiono in troppi posti: database, esportazioni, log, e nella testa delle persone. Puoi solo cambiare le maiuscole una volta sola.</string>
   <string name="uniqueTrophies">Trofei unici</string>
   <string name="ownerUniqueTrophies">Questo trofeo è unico nella storia di Lichess, nessun altro tranne %1$s lo potrà mai avere.</string>
   <string name="wayOfBerserkExplanation">Per ottenerlo hiimgosu si è superato nel vincere il 100%% delle partite di un %s in berserk.</string>

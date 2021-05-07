@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Yfirhönd</string>
+  <string name="anastasiaMate">Anastastíumát</string>
+  <string name="arabianMate">Arabíumát</string>
+  <string name="backRankMate">Endaraðarmát</string>
   <string name="mate">Mát</string>
 </resources>

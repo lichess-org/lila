@@ -52,7 +52,8 @@ final class JsonView {
           Json.toJson(D.PieceRole: Dimension[_]),
           Json.toJson(D.MovetimeRange: Dimension[_]),
           Json.toJson(D.MaterialRange: Dimension[_]),
-          Json.toJson(D.Phase: Dimension[_])
+          Json.toJson(D.Phase: Dimension[_]),
+          Json.toJson(D.CplRange: Dimension[_])
         ) ::: {
           asMod ?? List(Json.toJson(D.Blur: Dimension[_]), Json.toJson(D.TimeVariance: Dimension[_]))
         }
@@ -91,6 +92,7 @@ final class JsonView {
         "Evaluation",
         List(
           Json.toJson(M.MeanCpl: Metric),
+          Json.toJson(M.CplBucket: Metric),
           Json.toJson(M.Opportunism: Metric),
           Json.toJson(M.Luck: Metric)
         )

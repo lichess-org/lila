@@ -14,9 +14,8 @@
   <string name="noTeamFound">Ni najdenih ekip</string>
   <string name="joinTeam">Pridruži se ekipi</string>
   <string name="quitTeam">Zapusti ekipo</string>
-  <string name="anyoneCanJoin">Kdorkoli se lahko pridruži</string>
-  <string name="aConfirmationIsRequiredToJoin">Za sodelovanje je potrebna potrditev</string>
-  <string name="joiningPolicy">Pravila za včlanjevanje</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ročno preglejte zahteve za sprejem</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Če je polje potrjeno, bodo morali igralci napisati zahtevo za pridružitev ekipi, ki jo lahko zavrnete ali sprejmete.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vodja ekipe</item>
     <item quantity="two">Vodji ekipe</item>
@@ -48,4 +47,8 @@
   <string name="leadersChat">Klepet voditeljev</string>
   <string name="closeTeam">Zapri ekipo</string>
   <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
+  <string name="teamPassword">Geslo ekipe</string>
+  <string name="teamPasswordDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
+  <string name="incorrectTeamPassword">Nepravilno geslo ekipe.</string>
+  <string name="teamAlreadyExists">Ta ekipa že obstaja.</string>
 </resources>

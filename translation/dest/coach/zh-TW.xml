@@ -8,6 +8,7 @@
   <string name="rating">評分</string>
   <string name="hourlyRate">每小時費用：</string>
   <string name="accepting">接受學生</string>
+  <string name="notAccepting">目前不接受新學生</string>
   <string name="viewXProfile">查看%s的Lichess 帳戶</string>
   <string name="sendPM">發送私人訊息</string>
   <string name="aboutMe">關於我</string>

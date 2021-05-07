@@ -18,6 +18,7 @@ object OAuthScope {
   object Challenge {
     case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
     case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
+    case object Bulk  extends OAuthScope("challenge:bulk", "Create many games at once for other players")
   }
 
   object Study {
@@ -26,7 +27,7 @@ object OAuthScope {
   }
 
   object Tournament {
-    case object Write extends OAuthScope("tournament:write", "Create tournaments")
+    case object Write extends OAuthScope("tournament:write", "Create and update tournaments")
   }
 
   object Puzzle {
@@ -49,6 +50,11 @@ object OAuthScope {
     case object Play extends OAuthScope("bot:play", "Play games with the bot API")
   }
 
+  object Web {
+    case object Login
+        extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
+  }
+
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
 
   type Selector = OAuthScope.type => OAuthScope
@@ -59,6 +65,7 @@ object OAuthScope {
     Email.Read,
     Challenge.Read,
     Challenge.Write,
+    Challenge.Bulk,
     Study.Read,
     Study.Write,
     Tournament.Write,
@@ -66,7 +73,8 @@ object OAuthScope {
     Team.Write,
     Msg.Write,
     Board.Play,
-    Bot.Play
+    Bot.Play,
+    Web.Login
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>

@@ -46,16 +46,27 @@ object replay {
       )
     }
     val pgnLinks = div(
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(
+      a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?literate=1",
+        downloadAttr
+      )(
         trans.downloadAnnotated()
       ),
-      a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0")(
+      a(
+        dataIcon := "x",
+        cls := "text",
+        href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
+        downloadAttr
+      )(
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
         dataIcon := "x",
         cls := "text",
-        href := s"${routes.Game.exportOne(game.id)}?imported=1"
+        href := s"${routes.Game.exportOne(game.id)}?imported=1",
+        downloadAttr
       )(trans.downloadImported()),
       ctx.noBlind option frag(
         a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
@@ -157,10 +168,7 @@ object replay {
                 game.analysable option
                   span(
                     cls := "computer-analysis",
-                    dataPanel := "computer-analysis",
-                    title := analysis.map { a =>
-                      s"Provided by ${usernameOrId(a.providedBy)}"
-                    }
+                    dataPanel := "computer-analysis"
                   )(trans.computerAnalysis()),
                 !game.isPgnImport option frag(
                   game.turns > 1 option span(dataPanel := "move-times")(trans.moveTimes()),

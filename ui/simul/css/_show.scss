@@ -4,18 +4,18 @@ $mq-col3: $mq-col3-uniboard;
 
 $box-padding: var(--box-padding);
 
-@import "layout";
-@import "side";
-@import "created";
-@import "started";
+@import 'layout';
+@import 'side';
+@import 'created';
+@import 'started';
 
 .simul {
   h1 {
     font-size: 2.1em;
 
     .author {
-      margin-left: .7em;
-      font-size: .7em;
+      margin-left: 0.7em;
+      font-size: 0.7em;
     }
   }
 

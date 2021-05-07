@@ -1,9 +1,9 @@
-package views
-package html.site
-
-import scala.util.chaining._
+package views.html
+package site
 
 import controllers.routes
+import scala.util.chaining._
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,20 +11,14 @@ import lila.app.ui.ScalatagsTemplate._
 object contact {
 
   import trans.contact._
-
-  sealed private trait Node {
-    val id: String
-    val name: Frag
-  }
-  private case class Branch(id: String, name: Frag, children: List[Node]) extends Node
-  private case class Leaf(id: String, name: Frag, content: Frag)          extends Node
+  import views.html.base.navTree._
 
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
       frag(
-        p(a(href := routes.Account.reopen())(reopenOnThisPage())),
+        p(a(href := routes.Account.reopen)(reopenOnThisPage())),
         p(doNotAskByEmailToReopen())
       )
     )
@@ -61,7 +55,7 @@ object contact {
               "email-confirm",
               noConfirmationEmail(),
               p(
-                a(href := routes.Account.emailConfirmHelp())(visitThisPage()),
+                a(href := routes.Account.emailConfirmHelp)(visitThisPage()),
                 "."
               )
             ),
@@ -69,7 +63,7 @@ object contact {
               "forgot-password",
               forgotPassword(),
               p(
-                a(href := routes.Auth.passwordReset())(visitThisPage()),
+                a(href := routes.Auth.passwordReset)(visitThisPage()),
                 "."
               )
             ),
@@ -77,14 +71,14 @@ object contact {
               "forgot-username",
               forgotUsername(),
               p(
-                a(href := routes.Auth.login())(youCanLoginWithEmail()),
+                a(href := routes.Auth.login)(youCanLoginWithEmail()),
                 "."
               )
             ),
             Leaf(
               "lost-2fa",
               lost2FA(),
-              p(a(href := routes.Auth.passwordReset())(doPasswordReset()), ".")
+              p(a(href := routes.Auth.passwordReset)(doPasswordReset()), ".")
             ),
             reopenLeaf("login"),
             Leaf(
@@ -117,7 +111,7 @@ object contact {
               "title",
               wantTitle(),
               p(
-                a(href := routes.Page.master())(visitTitleConfirmation()),
+                a(href := routes.Page.master)(visitTitleConfirmation()),
                 "."
               )
             ),
@@ -125,7 +119,7 @@ object contact {
               "close",
               wantCloseAccount(),
               frag(
-                p(a(href := routes.Account.close())(closeYourAccount()), "."),
+                p(a(href := routes.Account.close)(closeYourAccount()), "."),
                 p(doNotAskByEmail())
               )
             ),
@@ -134,7 +128,7 @@ object contact {
               "change-username",
               wantChangeUsername(),
               frag(
-                p(a(href := routes.Account.username())(changeUsernameCase()), "."),
+                p(a(href := routes.Account.username)(changeUsernameCase()), "."),
                 p(cantChangeMore()),
                 p(orCloseAccount())
               )
@@ -149,39 +143,27 @@ object contact {
             )
           )
         ),
-        Branch(
+        Leaf(
           "report",
           wantReport(),
-          List(
-            "cheating"          -> cheating(),
-            "sandbagging"       -> sandbagging(),
-            "trolling"          -> trolling(),
-            "insults"           -> insults(),
-            "some other reason" -> otherReason()
-          ).map { case (reason, name) =>
-            Leaf(
-              reason,
-              frag("Report a player for ", name),
-              frag(
-                p(
-                  a(href := routes.Report.form())(toReportAPlayer(name)),
-                  "."
-                ),
-                p(
-                  youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
-                ),
-                p(
-                  doNotMessageModerators(),
-                  br,
-                  doNotReportInForum(),
-                  br,
-                  doNotSendReportEmails(),
-                  br,
-                  onlyReports()
-                )
-              )
+          frag(
+            p(
+              a(href := routes.Report.form)(toReportAPlayerUseForm()),
+              "."
+            ),
+            p(
+              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
+            ),
+            p(
+              doNotMessageModerators(),
+              br,
+              doNotReportInForum(),
+              br,
+              doNotSendReportEmails(),
+              br,
+              onlyReports()
             )
-          }
+          )
         ),
         Branch(
           "bug",
@@ -201,7 +183,7 @@ object contact {
               frag(
                 p(castlingPrevented()),
                 p(a(href := "https://en.wikipedia.org/wiki/Castling#Requirements")(castlingRules()), "."),
-                p(a(href := "/learn#/15")(tryCastling()), "."),
+                p(a(href := "/learn#/14")(tryCastling()), "."),
                 p(castlingImported())
               )
             ),
@@ -265,7 +247,7 @@ object contact {
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home())(netConfig.domain, routes.Appeal.home().url))),
+          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
           p(
             falsePositives(),
             br,
@@ -337,13 +319,12 @@ object contact {
                 p("If you are a European citizen, you may request the deletion of your Lichess account."),
                 p(
                   "First, ",
-                  a(href := routes.Account.close())("close your account"),
+                  a(href := routes.Account.close)("close your account"),
                   "."
                 ),
                 p(
                   s"Then send us an email at $contactEmail to request the definitive erasure of all data linked to the account."
-                ),
-                p("Note that games are facts, not personal information. And as such they are never deleted.")
+                )
               )
             ),
             Leaf(
@@ -359,37 +340,6 @@ object contact {
       )
     )
 
-  private def renderNode(node: Node, parent: Option[Node])(implicit ctx: Context): Frag =
-    node match {
-      case Leaf(_, _, content) =>
-        List(
-          div(makeId(node.id), cls := "node leaf")(
-            h2(parent map goBack, node.name),
-            div(cls := "content")(content)
-          )
-        )
-      case b @ Branch(id, _, children) =>
-        frag(
-          div(makeId(node.id), cls := s"node branch $id")(
-            h2(parent map goBack, node.name),
-            div(cls := "links")(
-              children map { child =>
-                a(makeLink(child.id))(child.name)
-              }
-            )
-          ),
-          children map { renderNode(_, b.some) }
-        )
-    }
-
-  private def renderedMenu(implicit ctx: Context) = renderNode(menu, none)
-
-  private def makeId(id: String)   = st.id := s"help-$id"
-  private def makeLink(id: String) = href := s"#help-$id"
-
-  private def goBack(parent: Node): Frag =
-    a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")
-
   def apply()(implicit ctx: Context) =
     page.layout(
       title = trans.contact.contact.txt(),
@@ -400,9 +350,7 @@ object contact {
     )(
       frag(
         h1(contactLichess()),
-        div(cls := "contact")(
-          renderedMenu
-        )
+        div(cls := "nav-tree")(renderNode(menu, none))
       )
     )
 }

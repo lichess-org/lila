@@ -121,11 +121,26 @@
   <string name="infiniteAnalysis">Nieograniczona analiza</string>
   <string name="removesTheDepthLimit">Usuwa limit głębokości analizy i rozgrzewa Twój komputer do czerwoności ;)</string>
   <string name="blunder">Błąd</string>
-  <string name="blunders">Błędy</string>
   <string name="mistake">Pomyłka</string>
-  <string name="mistakes">Pomyłki</string>
   <string name="inaccuracy">Niedokładność</string>
-  <string name="inaccuracies">Niedokładności</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s błąd</item>
+    <item quantity="few">%s błędy</item>
+    <item quantity="many">%s błędów</item>
+    <item quantity="other">%s błędów</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s pomyłka</item>
+    <item quantity="few">%s pomyłki</item>
+    <item quantity="many">%s pomyłek</item>
+    <item quantity="other">%s pomyłek</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s niedokładność</item>
+    <item quantity="few">%s niedokładności</item>
+    <item quantity="many">%s niedokładności</item>
+    <item quantity="other">%s niedokładności</item>
+  </plurals>
   <string name="moveTimes">Tempo gry</string>
   <string name="flipBoard">Obróć szachownicę</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
@@ -272,7 +287,6 @@
   <string name="send">Wyślij</string>
   <string name="incrementInSeconds">Dodawany czas w sekundach</string>
   <string name="freeOnlineChess">Darmowe szachy online</string>
-  <string name="spectators">Widzowie:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rankingowa</item>
     <item quantity="few">%s rankingowe</item>
@@ -312,7 +326,6 @@
     <item quantity="other">Dodaj %s sekund</item>
   </plurals>
   <string name="thisAccountViolatedTos">Użytkownik tego konta naruszył warunki korzystania z Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ten gracz sztucznie zwiększa/obniża swój ranking</string>
   <string name="openingExplorerAndTablebase">Biblioteka otwarć i końcówek</string>
   <string name="takeback">Cofnij ruch</string>
   <string name="proposeATakeback">Poproś o cofnięcie ruchu</string>
@@ -437,7 +450,6 @@
   <string name="more">Więcej</string>
   <string name="memberSince">Zarejestrowany od</string>
   <string name="lastSeenActive">Widziano %s</string>
-  <string name="challengeToPlay">Zaproś do gry</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
   <string name="graph">Wykres</string>
@@ -527,6 +539,8 @@
   <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
+  <string name="descPrivate">Prywatny opis</string>
+  <string name="descPrivateHelp">Tekst widoczny tylko dla członków klubu. Jeśli jest ustawiony, zastępuje publiczny opis dla członków klubu.</string>
   <string name="no">Nie</string>
   <string name="yes">Tak</string>
   <string name="help">Porada:</string>
@@ -547,6 +561,7 @@
   <string name="cheat">Oszust</string>
   <string name="insult">Znieważenie</string>
   <string name="troll">Natręt (troll)</string>
+  <string name="ratingManipulation">Manipulacja rankingiem</string>
   <string name="other">Inne</string>
   <string name="reportDescriptionHelp">Wklej odnośnik do gry (gier) i wyjaśnij, co złego jest w zachowaniu tego użytkownika. Nie pisz tylko, że „oszukuje”, ale wytłumacz nam, na jakiej podstawie doszedłeś do takiego wniosku. Odniesiemy się do twojego zgłoszenia szybciej, jeżeli napiszesz je w języku angielskim.</string>
   <string name="error.provideOneCheatedGameLink">Podaj przynajmniej jeden odnośnik do gry, w której oszukiwano.</string>
@@ -569,6 +584,7 @@
   <string name="clockInitialTime">Początkowy czas zegara</string>
   <string name="clockIncrement">Przyrost czasu</string>
   <string name="privacy">Prywatność</string>
+  <string name="privacyPolicy">Polityka prywatności</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
   <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do opracowania</string>
@@ -641,6 +657,7 @@
   <string name="error.email_unique">Podany adres e-mail jest już używany</string>
   <string name="error.email_different">To już jest Twój adres e-mail</string>
   <string name="ifRatingIsPlusMinusX">O rankingu ±%s</string>
+  <string name="onlyExistingConversations">Tylko istniejące rozmowy</string>
   <string name="onlyFriends">Tylko znajomi</string>
   <string name="menu">Menu</string>
   <string name="castling">Roszada</string>
@@ -720,8 +737,9 @@
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
-  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail do %s.Kliknij w link znajdujący się w wiadomości aby zresetować swoje hasło.</string>
+  <string name="weHaveSentYouAnEmailTo">Wysłaliśmy wiadomość e-mail na adres %s. Skorzystaj z odnośnika znajdującego się w wiadomości aby zresetować swoje hasło.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Rejestrując się wyrażasz zgodę na przestrzeganie %s.</string>
+  <string name="readAboutOur">Przeczytaj o %s w naszym serwisie.</string>
   <string name="networkLagBetweenYouAndLichess">Opóźnienie sieci między Tobą a lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Czas przetwarzania ruchu na serwerze lichess</string>
   <string name="downloadAnnotated">Pobierz z komentarzem</string>
@@ -802,7 +820,6 @@
   <string name="error.unknown">Błąd</string>
   <string name="custom">Niestandardowa</string>
   <string name="notifications">Powiadomienia</string>
-  <string name="challenges">Zaproszenia</string>
   <string name="perfRatingX">Ranking: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na wykonanie pierwszego ruchu</item>
@@ -853,12 +870,6 @@
   <string name="opening">Otwarcie</string>
   <string name="middlegame">Gra środkowa</string>
   <string name="endgame">Końcówka</string>
-  <string name="registerToSendChallenges">Zarejestruj, by zapraszać do gry.</string>
-  <string name="youCannotChallengeX">Nie możesz zaprosić %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s nie przyjmuje zaproszeń.</string>
-  <string name="yourXRatingIsTooFarFromY">Zbyt duża różnica rankingów (%1$s) między tobą a %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nie możesz zapraszać ze względu na swój tymczasowy ranking (%s).</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
   <string name="addCurrentVariation">Dodaj bieżący wariant</string>
   <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by utworzyć ruchy warunkowe</string>
@@ -914,4 +925,22 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
+  <string name="mentionedYouInX"> wspomniał o tobie w \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s wspomniał o tobie w \"%2$s\".</string>
+  <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
+  <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
+  <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
+  <string name="gameVsX">Gra przeciwko %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">Właśnie zostałeś Patronem lichess.</string>
+  <string name="patronAccountExpired">Konto Patron wygasło</string>
+  <string name="pleaseReconsiderRenewIt">Proszę rozważ odnowienie!</string>
+  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
+  <string name="newPendingReview">Nowa oczekująca recenzja</string>
+  <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
+  <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
+  <string name="timeAlmostUp">Czas prawie minął!</string>
 </resources>

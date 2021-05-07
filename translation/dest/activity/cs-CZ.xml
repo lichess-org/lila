@@ -92,6 +92,13 @@
     <item quantity="many">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
     <item quantity="other">Skončil #%1$s (top %2$s%%) s %3$s hrami v %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Účast v %s švýcarském turnaji</item>
+    <item quantity="few">Účast ve %s švýcarských turnajích</item>
+    <item quantity="many">Účast v %s švýcarských turnajích</item>
+    <item quantity="other">Účast v %s švýcarských turnajích</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">%1$s. místo v turnaji %2$s</string>
   <string name="signedUp">Vytvořen účet na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Přidal se k %s týmu</item>

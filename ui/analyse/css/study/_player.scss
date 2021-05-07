@@ -11,7 +11,6 @@ $player-height: 1.6rem;
     }
   }
 
-
   @include breakpoint($mq-col1) {
     .analyse__controls {
       margin-top: $player-height;
@@ -48,8 +47,8 @@ $player-height: 1.6rem;
 
   .result {
     flex: 0 0 auto;
-    margin-left: .8em;
-    padding-right: .8em;
+    margin-left: 0.8em;
+    padding-right: 0.8em;
     border-right: $border;
   }
 
@@ -58,7 +57,7 @@ $player-height: 1.6rem;
 
     align-self: stretch;
     font-size: 1.2em;
-    padding: 0 .8em;
+    padding: 0 0.8em;
     border-radius: 0 4px 0 0;
   }
 
@@ -77,7 +76,7 @@ $player-height: 1.6rem;
   }
 
   .elo {
-    margin-left: .5em;
+    margin-left: 0.5em;
     font-weight: normal;
   }
 }

@@ -27,12 +27,7 @@
   <string name="wantClearHistory">Hočem počistiti svojo zgodovino ali rating</string>
   <string name="cantClearHistory">Ni možno pobrisati vaše zgodovine igranih iger, zgodovine ugank ali ratinga.</string>
   <string name="wantReport">Hočem prijaviti igralca</string>
-  <string name="cheating">goljufanje</string>
-  <string name="sandbagging">peskanje</string>
-  <string name="trolling">trolanje</string>
-  <string name="insults">žalitev</string>
-  <string name="otherReason">nek drug razlog</string>
-  <string name="toReportAPlayer">Za prijavo igralca zaradi %s, uporabi obrazec za prijavo</string>
+  <string name="toReportAPlayerUseForm">Za prijavo igralca, uporabite obrazec za prijavo</string>
   <string name="youCanAlsoReachReportPage">Do te strani lahko pride tudi s klikom na gumb %s na strani profila uporabnika.</string>
   <string name="doNotReportInForum">Ne prijavite igralcev na forumu.</string>
   <string name="doNotSendReportEmails">Ne pošiljajte nam elektronskih pisem s prijavo.</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Prepričajte se, da ste igrali rangirano igro. Običajne igre ne vplivajo na igralčeve ratinge.</string>
   <string name="errorPage">Stran z napako</string>
   <string name="reportErrorPage">Če ste soočeni s stranjo z napako, jo lahko prijavite:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Pritožba na prepoved ali omejitev IP</string>
+  <string name="banAppeal">Pritožba na prepoved ali omejitev IP</string>
   <string name="engineAppeal">Oznaka za goljufa oziroma uporabnika računalniške pomoči</string>
   <string name="sendAppealTo">Pritožbo lahko pošljete na %s.</string>
   <string name="falsePositives">Včasih se zgodijo lažni pozitivni rezultati in žal nam je zaradi tega.</string>

@@ -9,6 +9,7 @@
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
   <string name="level">तह</string>
+  <string name="strength">तागत</string>
   <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने</string>
   <string name="toggleSound">ध्वनी खोल्ने/बन्द गर्ने</string>
   <string name="chat">बार्तालाप</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">अनन्त विश्लेषण</string>
   <string name="removesTheDepthLimit">गहिराइको हद हटाएर कम्प्युटर तातो राख्छ</string>
   <string name="blunder">ठुलो भुल</string>
-  <string name="blunders">ठुला भुलहरु</string>
   <string name="mistake">सानो भुल</string>
-  <string name="mistakes">साना भुलहरु</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
-  <string name="inaccuracies">धेरै साना भुलहरु</string>
   <string name="moveTimes">हरेक चालको समय</string>
   <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
   <string name="threefoldRepetition">तेस्रो दोहोर्याई</string>
@@ -247,7 +245,6 @@
   <string name="send">पठाउनु</string>
   <string name="incrementInSeconds">हरेक चालमा थप सेकेण्ड</string>
   <string name="freeOnlineChess">निःशुल्क अनलाईन बुद्धिचाल</string>
-  <string name="spectators">दर्शकहरु:</string>
   <plurals name="nbRated">
     <item quantity="one">%s रेटेड</item>
     <item quantity="other">%s रेटेड</item>
@@ -274,7 +271,6 @@
     <item quantity="one">%s सेकेण्ड दिनु</item>
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">यो खेलाडी कृतिम रुपमा रेटिङ घटबढ गराउने गर्दछ</string>
   <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
@@ -379,7 +375,6 @@
   <string name="more">थप</string>
   <string name="memberSince">सदस्यता मिति</string>
   <string name="lastSeenActive">%s सकृय</string>
-  <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
   <string name="player">खेलाडी</string>
   <string name="list">सुचि</string>
   <string name="graph">रेखाचित्र</string>
@@ -728,7 +723,6 @@
   <string name="error.unknown">त्रुटि</string>
   <string name="custom">कष्टम</string>
   <string name="notifications">सुचनाहरु</string>
-  <string name="challenges">चुनौतिहरु</string>
   <string name="perfRatingX">रेटिङ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>
@@ -775,12 +769,6 @@
   <string name="opening">शुरुका चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
   <string name="endgame">खेलको समाप्ति</string>
-  <string name="registerToSendChallenges">चुनौति पठाउन दर्ता गरौं।</string>
-  <string name="youCannotChallengeX">तपाइ %sलाइ चुनौति दिन सक्नुहुन्न।</string>
-  <string name="xDoesNotAcceptChallenges">%s चुनौति स्वीकार गर्नुहुन्न।</string>
-  <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
-  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
   <string name="conditionalPremoves">ससर्त प्रिमुभहरु</string>
   <string name="addCurrentVariation">वर्तमान लाइन खेलमा जोडौं</string>
   <string name="playVariationToCreateConditionalPremoves">चाल चालेर ससर्त प्रिमुभहरु श्रीजना गरौं</string>
@@ -826,4 +814,5 @@
   <string name="inTheFAQ">प्रायः सोधिने प्रश्नहरूमा</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">चोरी वा खराब ब्यहोराको उजुरी गर्नुपरेमा %1$s</string>
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
+  <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
 </resources>

@@ -26,8 +26,8 @@
   <string name="approved">Streamul tău este aprobat.</string>
   <string name="pendingReview">Streamul tău este revizuit de moderatori.</string>
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>
-  <string name="whenReady">Când ești gata să fii listat ca și Lichess streamer, %s</string>
-  <string name="requestReview">solicită revizuirea unui moderator</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Când ești gata să fii listat ca și Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicită revizuirea unui moderator</string>
   <string name="anotherLanguage">Dacă faci stream într-o altă limbă și nu în Engleză, include eticheta corespunzătoare limbii tale (%s), între paranteze, la începutul titlului streamului tău.
 Ca și exemple, include „[RU]” pentru Rusă, „[TR]” pentru Turcă, „[FR]” pentru Franceză, „[RO]” pentru Română etc.
 Dacă streamul tău este în Engleză, nu este nevoie să incluzi o etichetă.</string>

@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
   <string name="blunder">Глупа грешка</string>
-  <string name="blunders">Глупи грешки</string>
   <string name="mistake">Грешка</string>
-  <string name="mistakes">Грешки</string>
   <string name="inaccuracy">Непрецизност</string>
-  <string name="inaccuracies">Непрецизности</string>
   <string name="moveTimes">Време по потег</string>
   <string name="flipBoard">Сврти ја таблата</string>
   <string name="threefoldRepetition">Тројно повторување</string>
@@ -247,7 +244,6 @@
   <string name="send">Испрати</string>
   <string name="incrementInSeconds">Зголемување во секунди</string>
   <string name="freeOnlineChess">Бесплатен Онлајн Шах</string>
-  <string name="spectators">Набљудувачи</string>
   <plurals name="nbRated">
     <item quantity="one">%s рангирани игри</item>
     <item quantity="other">%s рангирани игри</item>
@@ -275,7 +271,6 @@
     <item quantity="other">Додај %s секунди</item>
   </plurals>
   <string name="thisAccountViolatedTos">Оваа корисничка сметка ги прекрши корисничките услови на Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Овој играч вештачки го зголемува/намалува рејтинго</string>
   <string name="openingExplorerAndTablebase">Отворање на пребарувач и табела</string>
   <string name="takeback">Повлечете го потегот</string>
   <string name="proposeATakeback">Предложете повлекување на потегот</string>
@@ -381,7 +376,6 @@
   <string name="more">Повеќе</string>
   <string name="memberSince">Член од</string>
   <string name="lastSeenActive">Последен пат вклучен %s</string>
-  <string name="challengeToPlay">Предизикај</string>
   <string name="player">Играч</string>
   <string name="list">Листа</string>
   <string name="graph">Графикон</string>
@@ -730,7 +724,6 @@
   <string name="error.unknown">Грешка</string>
   <string name="custom">Персонализирано</string>
   <string name="notifications">Известувања</string>
-  <string name="challenges">Предизвици</string>
   <string name="perfRatingX">Рејтинг: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s секунда за првиот потег</item>
@@ -777,12 +770,6 @@
   <string name="opening">Отворање</string>
   <string name="middlegame">Средишница</string>
   <string name="endgame">Завршница</string>
-  <string name="registerToSendChallenges">Ве молиме регистрирајте се за испраќање предизвици.</string>
-  <string name="youCannotChallengeX">Не можеш да го предизвикаш %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s не прифаќа предизвици.</string>
-  <string name="yourXRatingIsTooFarFromY">Преголема е разликата помеѓу твојот „%1$s“ рејтинг и тој на %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Не можеш да предизвикаш поради привремениот „%s“ рејтинг.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s прифаќа само предизвици од пријатели.</string>
   <string name="conditionalPremoves">Условни пред-потези</string>
   <string name="addCurrentVariation">Додади ја сегашната варијанта</string>
   <string name="playVariationToCreateConditionalPremoves">Одиграј варијанта за да создадеш условен пред-потег</string>

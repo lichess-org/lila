@@ -51,9 +51,6 @@
   <string name="loadingEngine">A\' luchdachadh an einnsean ...</string>
   <string name="goDeeper">Rach nas doimhne</string>
   <string name="showThreat">Seall an cunnart</string>
-  <string name="blunders">Tuislidhean</string>
-  <string name="mistakes">Mearachdan</string>
-  <string name="inaccuracies">Neo-eagnaidhean</string>
   <string name="moveTimes">Ùine nan gluasadan</string>
   <string name="flipBoard">Dèan flip air a’ bhòrd</string>
   <string name="threefoldRepetition">Treas ath-nochdadh</string>
@@ -132,10 +129,8 @@
   <string name="send">Cuir</string>
   <string name="incrementInSeconds">Ioncramaid ann an diogan</string>
   <string name="freeOnlineChess">Tàileasg air loidhne an-asgaidh</string>
-  <string name="spectators">Luchd-amhairc:</string>
   <string name="exportGames">Às-phortaich geamannan</string>
   <string name="ratingRange">Rainse an rangachaidh</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Dh\'ìslich/Mheudaich an cluicheadair seo an rangachadh aca le breug</string>
   <string name="takeback">Tarraing air ais</string>
   <string name="proposeATakeback">Tairg tarraing air ais</string>
   <string name="takebackPropositionSent">Tairgse tarraing air ais air a cur</string>
@@ -182,7 +177,6 @@
   <string name="more">Barrachd</string>
   <string name="memberSince">Ball o chionn</string>
   <string name="lastSeenActive">An logadh a-steach mu dheireadh %s</string>
-  <string name="challengeToPlay">Thoir dùbhlan cluiche dha</string>
   <string name="player">Cluicheadair</string>
   <string name="list">Liosta</string>
   <string name="graph">Graf</string>

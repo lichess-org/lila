@@ -9,6 +9,7 @@
   <string name="yourTurn">தங்கள் முறை</string>
   <string name="aiNameLevelAiLevel">%1$s நிலைமட்டம் %2$s</string>
   <string name="level">நிலைமட்டம்</string>
+  <string name="strength">வலிமை</string>
   <string name="toggleTheChat">உரையாடலை மாற்று</string>
   <string name="toggleSound">ஒலியை மாற்று</string>
   <string name="chat">உரையாடு</string>
@@ -92,7 +93,7 @@
     <item quantity="other">%s ஆட்டங்களில் காயவெட்டு (ஐம்பது ஆட்டம் அவகாசம்)</item>
   </plurals>
   <string name="noGameFound">எந்த அணியும் கிட்டவில்லை</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை  காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள் </string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">இன்னும் விளையாடின சதுரங்க ஆட்டத்தை காட்டுவதற்காக \"ப்ரிஃபரன்சச்\"சை மாற்றுங்கள்?</string>
   <string name="openingExplorer">திறப்புகளைஆய்வு &amp; தரவுத் தளம்</string>
   <string name="xOpeningExplorer">%s விளையாட்டு திறப்பு ஆராய்ச்சி</string>
   <string name="winPreventedBy50MoveRule">ஐமபத்து ஆட்டம் அவகாசித்ததால் வெற்றி தடுப்புதல்</string>
@@ -114,11 +115,12 @@
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
   <string name="blunder">பெரிய தவறு</string>
-  <string name="blunders">பெரும்பிழைகள்</string>
   <string name="mistake">தவறு</string>
-  <string name="mistakes">பிழைகள்</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
-  <string name="inaccuracies">கச்சிதப்பிழைகள்</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s பெரிய தவறு</item>
+    <item quantity="other">%s பெரிய தவறுகள்</item>
+  </plurals>
   <string name="moveTimes">நகர்த்தல் நேரங்கள்</string>
   <string name="flipBoard">பலகையை மாற்று</string>
   <string name="threefoldRepetition">மும்மடி மடக்கு</string>
@@ -199,6 +201,8 @@
     <item quantity="other">%s ஆட்டங்கள் நும்மோடு</item>
   </plurals>
   <string name="cancel">கழி</string>
+  <string name="whiteTimeOut">வெள்ளை நேரம் முடிந்தது</string>
+  <string name="blackTimeOut">கருப்பு நேரம் முடிந்தது</string>
   <string name="drawOfferSent">இழுபறி முன்வரவு தெரிவிப்பு</string>
   <string name="drawOfferDeclined">இழுபறி முன்வரவு மறுப்பு</string>
   <string name="drawOfferAccepted">இழுபறி முன்வரவு எற்பு</string>
@@ -247,7 +251,6 @@
   <string name="send">அனுப்பு</string>
   <string name="incrementInSeconds">கூட்டளவு நொடிகள்</string>
   <string name="freeOnlineChess">இலவச இணையச் சதுரங்கம்</string>
-  <string name="spectators">பார்வையாளர்கள்</string>
   <plurals name="nbRated">
     <item quantity="one">%s முக்கியமான விளையாட்டுகள்</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள்</item>
@@ -275,7 +278,6 @@
     <item quantity="other">%s நொடிகள் அளி</item>
   </plurals>
   <string name="thisAccountViolatedTos">இந்த கணக்கு Lichess சேவை விதிமுறைகள் மீறியது</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">இந்த ஆட்டக்காரர் தன் மதிப்பீட்டை செயற்கை முறையில் மாற்றியமைத்துள்ளார்</string>
   <string name="openingExplorerAndTablebase">உலாவியில் &amp; அட்டவணையை திறக்கிறது</string>
   <string name="takeback">மீட்சி</string>
   <string name="proposeATakeback">மீட்சி கோருக</string>
@@ -308,6 +310,9 @@
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">உங்கள் %s மதிப்பீடு தற்காலிகமானது</string>
+  <string name="yourPerfRatingIsTooHigh">உங்களின் %1$s வீத அறுதிப்பாடு (%2$s) அதிகமாக உள்ளது</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">உங்கள் சிறந்த வாராந்திர %1$s மதிப்பீடு (%2$s) மிக அதிகமாக உள்ளது</string>
+  <string name="yourPerfRatingIsTooLow">உங்களின்%1$s வீத அறுதிப்பாடு(%2$s) குறைவாக உள்ளது</string>
   <string name="backToGame">ஆட்டத்துக்கு திரும்பிச்செல்</string>
   <string name="siteDescription">இலவச இணையச் சதுரங்க ஆட்டம். தெளிவான முகப்பைக்கொண்டு சதுரங்கமாடுக. பதிவில்லை, விளம்பரமில்லை, எந்தச் செருகலும் தேவையல்ல. கணினியோடோ, ஒரு தோழரோடோ அல்லது நேர்ந்தபடி ஓர் எதிராளியோடுமோ விளையாடுக.</string>
   <string name="xJoinedTeamY">%1$s என்கிற அணியிலே %2$s சேர்ந்தார்</string>
@@ -355,7 +360,6 @@
   <string name="more">மேலும்</string>
   <string name="memberSince">உறுப்பினரான காலம்</string>
   <string name="lastSeenActive">கடைசி உள்நுழைவு %s</string>
-  <string name="challengeToPlay">ஆட அழை</string>
   <string name="player">ஆடி</string>
   <string name="list">வரிசை</string>
   <string name="graph">வரைவு</string>
@@ -371,6 +375,8 @@
   <string name="createANewTournament">புதுப்போட்டி ஒன்றைப் படை</string>
   <string name="conditionOfEntry">நுழைவதற்கு தேவை:</string>
   <string name="advancedSettings">மேம்பட்ட அமைப்புகள்</string>
+  <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
+  <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
   <string name="points">புள்ளிகள்</string>

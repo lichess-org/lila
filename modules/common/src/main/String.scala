@@ -52,14 +52,6 @@ object String {
 
   def hasLinks = RawHtml.hasLinks _
 
-  def hasZeroWidthChars(s: String) =
-    s.contains('\u200b') ||
-      s.contains('\u200c') ||
-      s.contains('\u200d') ||
-      s.contains('\u200e') ||
-      s.contains('\u200f') ||
-      s.contains('\u202e') // https://www.fileformat.info/info/unicode/char/202e/index.htm
-
   object base64 {
     import java.util.Base64
     import java.nio.charset.StandardCharsets
@@ -77,9 +69,9 @@ object String {
 
   object html {
 
-    def richText(rawText: String, nl2br: Boolean = true): Frag =
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true): Frag =
       raw {
-        val withLinks = RawHtml.addLinks(rawText)
+        val withLinks = RawHtml.addLinks(rawText, expandImg)
         if (nl2br) RawHtml.nl2br(withLinks) else withLinks
       }
 
@@ -125,7 +117,7 @@ object String {
   }
 
   private val prizeRegex =
-    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|usd|dollar|paypal|cash|award|\bfees?\b)""".r.unanchored
+    """(?i)(prize|\$|€|£|¥|₽|元|₹|₱|₿|rupee|rupiah|ringgit|(\b|\d)usd|dollar|paypal|cash|award|\bfees?\b|\beuros?\b|price|(\b|\d)btc|bitcoin)""".r.unanchored
 
   def looksLikePrize(txt: String) = prizeRegex matches txt
 }

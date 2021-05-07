@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawnDescription">אחד מהחיילים שלך עמוק בפוזצית היריב, הוא מאיים להשתדרג.</string>
+  <string name="advantage">יתרון</string>
+  <string name="castling">הצרחה</string>
+  <string name="fork">מזלג</string>
+  <string name="mate">מט</string>
+  <string name="mateDescription">נצח את המשחק בסטייל.</string>
+  <string name="mateIn1">מט ב1</string>
+  <string name="mateIn2">מט ב2</string>
+  <string name="mateIn3">מט ב3</string>
+  <string name="mateIn4">מט ב4</string>
+  <string name="mateIn5">מט ב5 או יותר</string>
+</resources>

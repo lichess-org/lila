@@ -1,8 +1,8 @@
 {
   "extends": "../tsconfig_module.base.json",
-  "include": ["src/*.ts"],
+  "include": ["src"],
   "exclude": [],
   "compilerOptions": {
-    "outDir": "./",
+    "outDir": "."
   }
 }

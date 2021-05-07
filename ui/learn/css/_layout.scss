@@ -52,7 +52,6 @@ $mq-col3: $mq-col3-uniboard;
     }
   }
 
-
   @include breakpoint($mq-col3) {
     &--run {
       grid-template-columns: $col3-uniboard-side $col3-uniboard-width $col3-uniboard-table;

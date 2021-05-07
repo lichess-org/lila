@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Feladványok</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">Feladvány témák</string>
+  <string name="puzzleThemes">Feladvány témák</string>
   <string name="recommended">Ajánlott</string>
   <string name="phases">Szakaszok</string>
   <string name="motifs">Motívumok</string>
@@ -9,6 +9,7 @@
   <string name="lengths">Hossz</string>
   <string name="mates">Matt</string>
   <string name="goals">Célok</string>
+  <string name="origin">Forrás</string>
   <string name="specialMoves">Különleges lépések</string>
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
@@ -43,4 +44,15 @@
   <string name="example">Példa</string>
   <string name="addAnotherTheme">Új téma hozzáadása</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>
+  <string name="puzzleDashboard">Feladvány statisztika</string>
+  <string name="improvementAreas">Fejleszthető témák</string>
+  <string name="strengths">Erősségek</string>
+  <string name="history">Korábbi feladványok</string>
+  <string name="solved">megoldva</string>
+  <string name="failed">sikertelen</string>
+  <string name="streakDescription">Oldj meg egyre nehezedő feladványokat nyerő széria építéséhez. Nincs időkorlát, szánd rá az időt. Egyetlen hibás lépés és a játéknak vége. Viszont mindig egyet átugorhatsz.</string>
+  <string name="yourStreakX">Nyerő szériád: %s</string>
+  <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
+  <string name="continueTheStreak">Széria folytatása</string>
+  <string name="newStreak">Új széria</string>
 </resources>

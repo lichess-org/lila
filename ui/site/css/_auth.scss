@@ -10,7 +10,6 @@
     width: 40em;
   }
 
-
   .button {
     width: 100%;
     padding: 1rem;
@@ -18,7 +17,7 @@
 
   .alternative {
     margin-top: 2rem;
-    font-size: .9em;
+    font-size: 0.9em;
 
     @extend %flex-between;
   }

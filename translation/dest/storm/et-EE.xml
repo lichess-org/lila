@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Alusta käiguga</string>
+  <string name="puzzlesSolved">lahendatud ülesannet</string>
+  <string name="newDailyHighscore">Päeva parim tulemus!</string>
+  <string name="newWeeklyHighscore">Nädala parim tulemus!</string>
+  <string name="newMonthlyHighscore">Kuu parim tulemus!</string>
+  <string name="newAllTimeHighscore">Uus kõikide aegade rekord!</string>
+  <string name="previousHighscoreWasX">Eelmine rekord oli %s</string>
+  <string name="playAgain">Mängi uuesti</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 mäng</item>
+    <item quantity="other">%s mängu</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Mängis ühe mängu %2$si</item>
+    <item quantity="other">Mängis %1$s mängu %2$si</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
+  <string name="score">Punktid</string>
+  <string name="moves">Käike</string>
+  <string name="accuracy">Täpsus</string>
+  <string name="combo">Kombo</string>
+  <string name="time">Aeg</string>
+  <string name="timePerMove">Aeg käigu kohta</string>
+  <string name="highestSolved">Kõrgeim lahendatud</string>
+  <string name="puzzlesPlayed">Mängitud pusled</string>
+  <string name="newRun">Uus mäng (kiirklahv: tühikuklahv)</string>
+  <string name="endRun">Lõpeta mäng (kiirklahv: Enter)</string>
+  <string name="highscores">Rekordid</string>
+  <string name="viewBestRuns">Vaata parimad mängud</string>
+  <string name="bestRunOfDay">Päeva parim mäng</string>
+  <string name="runs">Mänge</string>
+</resources>

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Ελβετικά Πρωταθλήματα</string>
+  <string name="swissTournaments">Ελβετικά πρωταθλήματα</string>
+  <plurals name="viewAllXRounds">
+    <item quantity="one">Δείτε τον γύρο</item>
+    <item quantity="other">Δείτε όλους τους %s γύρους</item>
+  </plurals>
 </resources>

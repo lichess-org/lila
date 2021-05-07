@@ -12,22 +12,26 @@ import lila.user.User
 
 object EventForm {
 
-  val iconChoices = List(
-    ""                    -> "Microphone",
-    "lichess.event.png"   -> "Lichess",
-    "trophy.event.png"    -> "Trophy",
-    "offerspill.logo.png" -> "Offerspill"
-  )
-  val imageDefault = ""
+  object icon {
+    val default   = ""
+    val broadcast = "broadcast.icon"
+    val choices = List(
+      default               -> "Microphone",
+      "lichess.event.png"   -> "Lichess",
+      "trophy.event.png"    -> "Trophy",
+      broadcast             -> "Broadcast",
+      "offerspill.logo.png" -> "Offerspill"
+    )
+  }
 
   val form = Form(
     mapping(
       "title"         -> text(minLength = 3, maxLength = 40),
       "headline"      -> text(minLength = 5, maxLength = 30),
       "description"   -> optional(text(minLength = 5, maxLength = 4000)),
-      "homepageHours" -> number(min = 0, max = 24),
+      "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
       "url"           -> nonEmptyText,
-      "lang"          -> text.verifying(l => LangList.choices.exists(_._1 == l)),
+      "lang"          -> text.verifying(l => LangList.allChoices.exists(_._1 == l)),
       "enabled"       -> boolean,
       "startsAt"      -> utcDate,
       "finishesAt"    -> utcDate,
@@ -35,7 +39,7 @@ object EventForm {
         lila.user.UserForm.historicalUsernameField
           .transform[User.ID](_.toLowerCase, identity)
       },
-      "icon"      -> stringIn(iconChoices),
+      "icon"      -> stringIn(icon.choices),
       "countdown" -> boolean
     )(Data.apply)(Data.unapply)
   ) fill Data(
@@ -55,7 +59,7 @@ object EventForm {
       title: String,
       headline: String,
       description: Option[String],
-      homepageHours: Int,
+      homepageHours: BigDecimal,
       url: String,
       lang: String,
       enabled: Boolean,
@@ -66,12 +70,12 @@ object EventForm {
       countdown: Boolean
   ) {
 
-    def update(event: Event) =
+    def update(event: Event, by: User) =
       event.copy(
         title = title,
         headline = headline,
         description = description,
-        homepageHours = homepageHours,
+        homepageHours = homepageHours.toDouble,
         url = url,
         lang = Lang(lang),
         enabled = enabled,
@@ -79,7 +83,9 @@ object EventForm {
         finishesAt = finishesAt,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
-        countdown = countdown
+        countdown = countdown,
+        updatedAt = DateTime.now.some,
+        updatedBy = Event.UserId(by.id).some
       )
 
     def make(userId: String) =
@@ -88,7 +94,7 @@ object EventForm {
         title = title,
         headline = headline,
         description = description,
-        homepageHours = homepageHours,
+        homepageHours = homepageHours.toDouble,
         url = url,
         lang = Lang(lang),
         enabled = enabled,
@@ -96,6 +102,8 @@ object EventForm {
         finishesAt = finishesAt,
         createdBy = Event.UserId(userId),
         createdAt = DateTime.now,
+        updatedAt = none,
+        updatedBy = none,
         hostedBy = hostedBy,
         icon = icon.some.filter(_.nonEmpty),
         countdown = countdown

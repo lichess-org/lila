@@ -46,11 +46,11 @@
   right: 0;
   width: 20px;
   height: 25px;
-  background: url("../images/icons/multiple-select.png") left top no-repeat;
+  background: url('../images/icons/multiple-select.png') left top no-repeat;
 }
 
 .ms-choice > div.open {
-  background: url("../images/icons/multiple-select.png") right top no-repeat;
+  background: url('../images/icons/multiple-select.png') right top no-repeat;
 }
 
 .ms-drop {
@@ -98,7 +98,7 @@
   border: $border;
   border-radius: 0;
   box-shadow: none;
-  background: img-url("../images/icons/multiple-select.png") no-repeat 100% -22px;
+  background: img-url('../images/icons/multiple-select.png') no-repeat 100% -22px;
 }
 
 .ms-drop ul {
@@ -115,7 +115,7 @@
 }
 
 .ms-drop ul > li .disabled {
-  opacity: .35;
+  opacity: 0.35;
 }
 
 .ms-drop ul > li.multiple {
@@ -145,7 +145,7 @@
   font-weight: bold;
 }
 
-.ms-drop input[type="checkbox"] {
+.ms-drop input[type='checkbox'] {
   vertical-align: middle;
 }
 

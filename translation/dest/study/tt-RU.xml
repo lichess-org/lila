@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Яшерен</string>
+  <string name="hot">Кайнар</string>
+  <plurals name="nbGames">
+    <item quantity="other">%s Уен</item>
+  </plurals>
+  <string name="like">Ошый</string>
+  <string name="first">Беренче</string>
+  <string name="previous">Алдагы</string>
+  <string name="next">Киләсе</string>
+  <string name="cloneStudy">Клонлау</string>
+  <string name="open">Ачу</string>
+  <string name="orientation">Урнашу</string>
+  <string name="noPinnedComment">Бернинди дә</string>
+  <string name="empty">Буш</string>
+  <string name="editor">Редактор</string>
+  <string name="automatic">Автоматик</string>
+  <string name="visibility">Küreneş</string>
+  <string name="public">Барысы өчен дә ачык</string>
+  <string name="start">Башла</string>
+  <string name="save">Сакла</string>
+</resources>

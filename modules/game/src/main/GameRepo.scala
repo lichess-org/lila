@@ -1,15 +1,13 @@
 package lila.game
 
-import lila.common.ThreadLocalRandom
-
 import chess.format.{ FEN, Forsyth }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.ReadPreference
-import reactivemongo.api.WriteConcern
+import reactivemongo.api.{ ReadPreference, WriteConcern }
 
+import lila.common.ThreadLocalRandom
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.isDuplicateKey
@@ -22,8 +20,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   import Player.holdAlertBSONHandler
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
-
-  def gamesFromPrimary(gameIds: Seq[ID]): Fu[List[Game]] = coll.byOrderedIds[Game, ID](gameIds)(_.id)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
     coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
@@ -93,13 +89,16 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       _.flatMap(g => Pov(g, user))
     }
 
-  def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
+  def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
+    recentGamesByUserFromSecondaryCursor(user, select)
+      .list(nb)
+      .map { _.flatMap(Pov(_, user)) }
+
+  def recentGamesByUserFromSecondaryCursor(user: User, select: Bdoc = $empty) =
     coll
-      .find(Query user user)
+      .find(Query.user(user) ++ select)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPreference.secondaryPreferred)
-      .gather[List](nb)
-      .map { _.flatMap(g => Pov(g, user)) }
 
   def gamesForAssessment(userId: String, nb: Int): Fu[List[Game]] =
     coll
@@ -128,6 +127,12 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .sort($sort asc F.createdAt)
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
+
+  def unanalysedGames(gameIds: Seq[ID]): Fu[List[Game]] =
+    coll
+      .find($inIds(gameIds) ++ Query.analysed(false))
+      .cursor[Game](ReadPreference.secondaryPreferred)
+      .list(100)
 
   def cursor(
       selector: Bdoc,
@@ -191,6 +196,22 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
       _ flatMap { Pov(_, user) }
     }
+
+  def countWhereUserTurn(userId: User.ID): Fu[Int] =
+    coll
+      .countSel(
+        // important, hits the index!
+        Query.nowPlaying(userId) ++ $doc(
+          "$or" ->
+            List(0, 1).map { rem =>
+              $doc(
+                s"${Game.BSONFields.playingUids}.$rem" -> userId,
+                Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
+              )
+            }
+        )
+      )
+      .dmap(_.toInt)
 
   def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
     coll.distinctEasy[Game.ID, List](
@@ -266,30 +287,48 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
-  def holdAlerts(game: Game): Fu[Player.HoldAlert.Map] =
-    coll.one[Bdoc](
-      $doc(
-        F.id -> game.id,
-        $or(
-          holdAlertField(chess.White) $exists true,
-          holdAlertField(chess.Black) $exists true
-        )
-      ),
-      $doc(
-        F.id                        -> false,
-        holdAlertField(chess.White) -> true,
-        holdAlertField(chess.Black) -> true
-      )
-    ) map {
-      _.fold(Player.HoldAlert.emptyMap) { doc =>
-        def holdAlertOf(playerField: String) =
-          doc.child(playerField).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
-        Color.Map(
-          white = holdAlertOf("p0"),
-          black = holdAlertOf("p1")
-        )
+  object holdAlert {
+    private val holdAlertSelector = $or(
+      holdAlertField(chess.White) $exists true,
+      holdAlertField(chess.Black) $exists true
+    )
+    private val holdAlertProjection = $doc(
+      holdAlertField(chess.White) -> true,
+      holdAlertField(chess.Black) -> true
+    )
+    private def holdAlertOf(doc: Bdoc, color: Color): Option[Player.HoldAlert] =
+      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
+
+    def game(game: Game): Fu[Player.HoldAlert.Map] =
+      coll.one[Bdoc](
+        $doc(F.id -> game.id, holdAlertSelector),
+        holdAlertProjection
+      ) map {
+        _.fold(Player.HoldAlert.emptyMap) { doc =>
+          Color.Map(white = holdAlertOf(doc, chess.White), black = holdAlertOf(doc, chess.Black))
+        }
       }
-    }
+
+    def povs(povs: Seq[Pov]): Fu[Map[Game.ID, Player.HoldAlert]] =
+      coll
+        .find(
+          $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
+          holdAlertProjection.some
+        )
+        .cursor[Bdoc](ReadPreference.secondaryPreferred)
+        .list() map { docs =>
+        val idColors = povs.view.map { p =>
+          p.gameId -> p.color
+        }.toMap
+        val holds = for {
+          doc   <- docs
+          id    <- doc string "_id"
+          color <- idColors get id
+          holds <- holdAlertOf(doc, color)
+        } yield id -> holds
+        holds.toMap
+      }
+  }
 
   def hasHoldAlert(pov: Pov): Fu[Boolean] =
     coll.exists(
@@ -305,8 +344,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     F.positionHashes                              -> true,
     F.playingUids                                 -> true,
     F.unmovedRooks                                -> true,
-    ("p0." + Player.BSONFields.lastDrawOffer)     -> true,
-    ("p1." + Player.BSONFields.lastDrawOffer)     -> true,
     ("p0." + Player.BSONFields.isOfferingDraw)    -> true,
     ("p1." + Player.BSONFields.isOfferingDraw)    -> true,
     ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
@@ -507,8 +544,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .list(nb)
 
   // only for student games, for aggregation
-  def denormalizePerfType(game: Game): Funit =
+  def denormalizePerfType(game: Game): Unit =
     game.perfType ?? { pt =>
-      coll.updateField($id(game.id), F.perfType, pt.id).void
+      coll.updateFieldUnchecked($id(game.id), F.perfType, pt.id)
     }
 }

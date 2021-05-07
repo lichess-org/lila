@@ -1,7 +1,7 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0 .5rem 0;
+  padding: 2rem 0 0.5rem 0;
 
   &__metas {
     @extend %flex-between;
@@ -25,6 +25,14 @@
       color: $c-link-dim;
       font-weight: bold;
     }
+
+    .delete {
+      color: $c-font;
+      margin-left: 1em;
+      &:hover {
+        color: $c-bad;
+      }
+    }
   }
 
   .mod {
@@ -32,7 +40,11 @@
       visibility: hidden;
     }
 
-    font-size: .9em;
+    font-size: 0.9em;
+    color: $c-font;
+    &:hover {
+      color: $c-bad;
+    }
 
     &.postip {
       margin-left: 1rem;
@@ -56,20 +68,22 @@
   }
 
   &.erased {
-    background: $c-shade;
-    opacity: 0.6;
-  }
+    color: $c-font-dimmer;
 
-  &.erased .forum-post__message {
-    font-style: italic;
-    text-align: center;
-    margin: 0;
+    .forum-post__message {
+      font-style: italic;
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    .forum-post__metas {
+      justify-content: flex-end;
+    }
   }
 
   &__message {
-    @extend %break-word;
+    @extend %break-word, %zalgoverflow;
 
-    margin-bottom: .5em;
+    margin-bottom: 0.5em;
 
     .embed:not(img) {
       @extend %video;
@@ -84,7 +98,7 @@
 
   .edit-buttons {
     text-align: right;
-    margin-top: .5em;
+    margin-top: 0.5em;
   }
 
   .edit-buttons a {

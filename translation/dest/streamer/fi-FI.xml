@@ -26,8 +26,8 @@
   <string name="approved">Striimisi hyväksyttiin.</string>
   <string name="pendingReview">Striimisi on moderaattorien arvioitavana.</string>
   <string name="pleaseFillIn">Syötä striimaajatiedot ja lataa kuva.</string>
-  <string name="whenReady">Kun haluat Lichess-striimaajien listalle, %s</string>
-  <string name="requestReview">pyydä moderaattorin arviointia</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kun haluat Lichess-striimaajien listalle, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pyydä moderaattorin arviointia</string>
   <string name="anotherLanguage">Jos striimisi ei ole englanninkielinen, laita striimisi otsikon alkuun oikea kielitunniste (%s) hakasulkujen sisään.
 Esimerkiksi \"[FI]\" on suomen kielen, \"[SV]\" ruotsin kielen ja \"[DE]\" saksan kielen tunniste jne. Laita tämä striimin otsikkoon Twitch- tai Youtube-sivulla, älä Lichessin striimiasetuksissa. Jos striimaat englanniksi, ei ole tarpeen sisällyttää kielitunnistetta.</string>
   <string name="twitchUsername">Twitch-käyttäjänimesi tai URL</string>

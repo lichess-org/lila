@@ -2,8 +2,8 @@
 <resources>
   <string name="lichessClasses">Clase</string>
   <string name="teachClassesOfChessStudents">Predă clase celor care învață șahul cu suita de aplicații Clase Lichess.</string>
-  <string name="features">Funcționalitate</string>
-  <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru elevi</string>
+  <string name="features">Caracteristici</string>
+  <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru studenți</string>
   <string name="trackStudentProgress">Urmărește progresul elevilor în jocuri și puzzle-uri</string>
   <string name="messageAllStudents">Trimite un mesaj tuturor elevilor despre materiale noi pentru clasă</string>
   <string name="freeForAllForever">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
@@ -14,32 +14,87 @@
   <string name="closeClass">Închide clasa</string>
   <string name="closedByX">Închisă de %s</string>
   <string name="reopen">Redeschide</string>
-  <string name="removeStudent">Elimină elev</string>
+  <string name="removeStudent">Elimină student</string>
   <string name="removedStudents">Eliminat</string>
-  <string name="inviteTheStudentBack">Invită elevul înapoi</string>
+  <string name="inviteTheStudentBack">Invită studentul înapoi</string>
   <string name="sendAMessage">Trimite un mesaj tuturor elevilor.</string>
   <string name="aLinkToTheClassWillBeAdded">Un link la clasă va fi adăugat automat la finalul mesajului, așa că nu trebuie să îl incluzi tu manual.</string>
   <string name="className">Numele clasei</string>
   <string name="classDescription">Descrierea clasei</string>
-  <string name="visibleByBothStudentsAndTeachers">Vizibil atât pentru profesori, cât și pentru elevii din clasă</string>
+  <string name="visibleByBothStudentsAndTeachers">Vizibil atât pentru profesori, cât și pentru studenții din clasă</string>
   <string name="teachersOfTheClass">Profesorii clasei</string>
   <string name="addLichessUsernames">Adaugă nume de utilizator Lichess, câte unul pe fiecare linie, pentru a-i invita ca profesori.</string>
-  <string name="theyMustFirstApply">Mai întâi, ei trebuie să se înscrie pentru a fi profesori Lichess.</string>
   <string name="resetPassword">Resetează parola</string>
   <string name="makeSureToCopy">Asigurăți-vă că ați copiat sau notat parola acum. Nu veți mai putea să o revedeți!</string>
   <string name="passwordX">Parola: %s</string>
-  <string name="generateANewPassword">Generează o parolă nouă pentru elev</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Invitat la %1$s de către %2$s</string>
+  <string name="generateANewPassword">Generează o parolă nouă pentru student</string>
+  <string name="invitedToXByY">Invitat la %1$s de către %2$s</string>
   <string name="realName">Nume real</string>
-  <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea elevului.</string>
-  <string name="addStudent">Adaugă elev</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Profilul Lichess %1$s creat pentru %2$s.</string>
-  <string name="studentCredentials">Elev:  %1$s
+  <string name="privateWillNeverBeShown">Privat. Nu va fi afișat niciodată în afara clasei. Ajută la identificarea studentului.</string>
+  <string name="addStudent">Adaugă student</string>
+  <string name="lichessProfileXCreatedForY">Profilul Lichess %1$s creat pentru %2$s.</string>
+  <string name="studentCredentials">Student:  %1$s
 Nume de utilizator: %2$s
-Parolă: %3$s</string>
+Parola: %3$s</string>
   <string name="inviteALichessAccount">Invită un cont Lichess</string>
-  <string name="inviteDesc1">Dacă elevul sau eleva au deja un cont Lichess, îi poți invita la clasă.</string>
+  <string name="inviteDesc1">Dacă studentul are deja un cont Lichess, îl poți invita la clasă.</string>
   <string name="inviteDesc2">Ei vor primi un mesaj pe Lichess cu un link pentru a alătura clasei.</string>
   <string name="inviteDesc3">Important: invitați doar elevi pe care îi cunoașteți și care doresc în mod activ să se alăture clasei.</string>
   <string name="inviteDesc4">Nu trimiteți niciodată invitații nesolicitate la întâmplare.</string>
+  <string name="createANewLichessAccount">Creează un cont nou Lichess aici</string>
+  <string name="createDesc1">Dacă studentul nu are încă un cont de Lichess, poți crea unul pentru ei aici.</string>
+  <string name="createDesc2">Nu este necesară o adresă de e-mail. O parolă va fi generată și va trebui să o transmiți studentului să se poată conecta.</string>
+  <string name="createDesc3">Important: un student nu trebuie să aibă mai multe conturi.</string>
+  <string name="createDesc4">Dacă au deja unul, folosește în schimb formularul de invitație.</string>
+  <string name="lichessUsername">Nume de utilizator Lichess</string>
+  <string name="generateANewUsername">Generează un nou nume de utilizator</string>
+  <string name="welcomeToClass">Bine ai venit la clasa ta: %s.
+Aici este link-ul pentru a accesa clasa.</string>
+  <string name="invitationToClass">Ești invitat să te alături clasei \"%s\" ca și student.</string>
+  <string name="clickToViewInvitation">Dați click pe link pentru a vedea invitaţia:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">O invitație în așteptare</item>
+    <item quantity="few">%s invitații în așteptare</item>
+    <item quantity="other">%s invitații în așteptare</item>
+  </plurals>
+  <string name="noPendingInvitations">Nu ai nici o invitație</string>
+  <string name="onlyVisibleToTeachers">Vizibil doar profesorilor de clasă</string>
+  <string name="lastActiveDate">Acrtiv</string>
+  <string name="managed">Manageriat</string>
+  <string name="thisStudentAccountIsManaged">Contul studentului este manageriat</string>
+  <string name="upgradeFromManaged">Actualizare de la manageriat la autonom</string>
+  <string name="release">Eliberează</string>
+  <string name="releaseTheAccount">Eliberează contul pentru ca studentul să poata manageria singur contul.</string>
+  <string name="releaseDesc1">Un cont eliberat nu poate fi facut din nou manageriat. Studentul poate să activeze modul copil și să reseteze parola singur.</string>
+  <string name="releaseDesc2">Studentul va rămâne în clasă dupa e contul lui este eliberat.</string>
+  <string name="realUniqueEmail">Adresa de e-mail unică și reală a studentului. Vom trimite un e-mail de confirmare la acea adresă, cu un link-ul pentru a elibera contul.</string>
+  <string name="teachers">Profesori</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Profesor</item>
+    <item quantity="few">%s profesori</item>
+    <item quantity="other">%s profesori</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Student</item>
+    <item quantity="few">%s studenți</item>
+    <item quantity="other">%s studenți</item>
+  </plurals>
+  <string name="students">Studenți</string>
+  <string name="progress">Progres</string>
+  <string name="noStudents">Nici un student în clasă, încă.</string>
+  <string name="noRemovedStudents">Nici un student eliminat.</string>
+  <string name="overDays">Peste zile</string>
+  <string name="timePlaying">Timp jucat</string>
+  <string name="variantXOverLastY">%1$s peste ultimele %2$s</string>
+  <string name="winrate">Rată de câștig</string>
+  <string name="na">N/A</string>
+  <string name="news">Noutăți în clasă</string>
+  <string name="editNews">Editare noutăți</string>
+  <string name="notifyAllStudents">Anunță toți studenții</string>
+  <string name="nothingHere">Nimic aici, momentan.</string>
+  <string name="newsEdit1">Toate noutățile claselor într-un singur câmp.</string>
+  <string name="newsEdit2">Adaugă noutățile recente în partea de sus. Nu șterge noutățile anterioare.</string>
+  <string name="newsEdit3">Separă noutățile cu ---
+Va aparea o linie orizontală.</string>
+  <string name="markdownAvailable">%s este disponibil pentru o sintaxă mai avansată.</string>
 </resources>

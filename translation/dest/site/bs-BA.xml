@@ -9,6 +9,7 @@
   <string name="yourTurn">Vi ste na potezu</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
   <string name="level">Nivo</string>
+  <string name="strength">Jačina</string>
   <string name="toggleTheChat">Uključite/isključite dopisivanje</string>
   <string name="toggleSound">Uključite/isključite zvuk</string>
   <string name="chat">Dopisivanje</string>
@@ -117,11 +118,23 @@
   <string name="infiniteAnalysis">Neprekidna analiza</string>
   <string name="removesTheDepthLimit">Uklanja granicu do koje računar može analizirati, i održava toplinu računara</string>
   <string name="blunder">Velika greška</string>
-  <string name="blunders">Velike greške</string>
   <string name="mistake">Greška</string>
-  <string name="mistakes">Greške</string>
   <string name="inaccuracy">Nepreciznost</string>
-  <string name="inaccuracies">Nepreciznosti</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s velika greška</item>
+    <item quantity="few">%s velike greške</item>
+    <item quantity="other">%s velike greške</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s greška</item>
+    <item quantity="few">%s greške</item>
+    <item quantity="other">%s greške</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepreciznost</item>
+    <item quantity="few">%s nepreciznosti</item>
+    <item quantity="other">%s nepreciznosti</item>
+  </plurals>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okrenite ploču</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
@@ -260,7 +273,6 @@
   <string name="send">Pošaljite</string>
   <string name="incrementInSeconds">Dodatak u sekundama</string>
   <string name="freeOnlineChess">Besplatni Internetski Šah</string>
-  <string name="spectators">Gledatelji:</string>
   <plurals name="nbRated">
     <item quantity="one">%s za bodove</item>
     <item quantity="few">%s za bodove</item>
@@ -294,7 +306,6 @@
     <item quantity="other">Dodajte protivniku %s sekundi</item>
   </plurals>
   <string name="thisAccountViolatedTos">Korisnik ovog računa prekršio je Lichessove uvjete korištenja</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ovaj igrač umjetno podiže/spušta svoj rejting</string>
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vratite potez</string>
   <string name="proposeATakeback">Predložite vraćanje poteza</string>
@@ -410,7 +421,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="more">Više</string>
   <string name="memberSince">Član od</string>
   <string name="lastSeenActive">Zadnja aktivnost %s</string>
-  <string name="challengeToPlay">Poziv na partiju</string>
   <string name="player">Igrač</string>
   <string name="list">Lista</string>
   <string name="graph">Graf</string>
@@ -498,6 +508,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
+  <string name="descPrivate">Privatni opis</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
   <string name="help">Pomoć:</string>
@@ -518,6 +529,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="cheat">Varanje</string>
   <string name="insult">Vrijeđanje</string>
   <string name="troll">Provokacija</string>
+  <string name="ratingManipulation">Manipuliranje rejtingom</string>
   <string name="other">Ostalo</string>
   <string name="reportDescriptionHelp">Zalijepite link na partiju ili partije u pitanju i objasnite što nije bilo u redu sa ponašanjem korisnika. Nemojte samo reći \"varao je\", nego objasnite kako ste došli do tog zaključka. Vaša prijava će biti brže obrađena ukoliko je napišete na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Molimo navedite barem jedan link na partiju u kojoj je igrač varao.</string>
@@ -540,6 +552,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="clockInitialTime">Početno vrijeme sata</string>
   <string name="clockIncrement">Dodatak satu</string>
   <string name="privacy">Privatnost</string>
+  <string name="privacyPolicy">Politici privatnosti</string>
   <string name="letOtherPlayersFollowYou">Dopustite da vas drugi igrači prate</string>
   <string name="letOtherPlayersChallengeYou">Dopustite da vas drugi igrači izazovu</string>
   <string name="letOtherPlayersInviteYouToStudy">Dopustite da vas drugi igrači pozovu u studiju</string>
@@ -610,6 +623,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="error.email_unique">Ova e-mail adresa je već iskorištena</string>
   <string name="error.email_different">Već koristite ovu e-mail adresu</string>
   <string name="ifRatingIsPlusMinusX">Ukoliko je rejting ± %s</string>
+  <string name="onlyExistingConversations">Samo već postojeći razgovori</string>
   <string name="onlyFriends">Samo prijatelji</string>
   <string name="menu">Meni</string>
   <string name="castling">Rokada</string>
@@ -689,6 +703,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidite našu e-mail poruku u Vašem odijelu za dolaznu e-mail poštu, provjerite na drugim mjestima, kao što su junk i spam.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali smo e-mail na %s. Kliknite na link u e-mail poruci kako biste resetovali vašu lozinku.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate naše %s.</string>
+  <string name="readAboutOur">Pročitajte o našoj %s.</string>
   <string name="networkLagBetweenYouAndLichess">Mrežno kašnjenje između Vas i lichess-a</string>
   <string name="timeToProcessAMoveOnLichessServer">Vrijeme potrebno da se odigra potez na lichess serveru</string>
   <string name="downloadAnnotated">Preuzmite sa bilješkama</string>
@@ -768,7 +783,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="error.unknown">Greška</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
-  <string name="challenges">Izazovi</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -817,12 +831,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="opening">Otvaranje</string>
   <string name="middlegame">Središnjica</string>
   <string name="endgame">Završnica</string>
-  <string name="registerToSendChallenges">Za slanje izazova morate se registrovati.</string>
-  <string name="youCannotChallengeX">Ne možete izazvati %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s ne prihvata izazove.</string>
-  <string name="yourXRatingIsTooFarFromY">Prevelika je razlika između Vašeg %1$s rejtinga i rejtinga %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemoguće izazvati zbog privremenog %s rejtinga.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prihvata samo izazove od prijatelja.</string>
   <string name="conditionalPremoves">Uslovni potezi unaprijed</string>
   <string name="addCurrentVariation">Dodajte trenutnu varijaciju</string>
   <string name="playVariationToCreateConditionalPremoves">Odigrajte varijaciju da stvorite uslovni potez unaprijed</string>
@@ -877,4 +885,22 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
+  <string name="mentionedYouInX"> spomenuo Vas je u \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s Vas je spomenuo u \"%2$s\".</string>
+  <string name="invitedYouToX"> Vas je pozvao u \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
+  <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>
+  <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
+  <string name="gameVsX">Partija protiv %1$s</string>
+  <string name="resVsX">%1$s protiv %2$s</string>
+  <string name="youJustBecamePatron">Upravo ste postali sponzor.</string>
+  <string name="patronAccountExpired">Račun sponzora istekao</string>
+  <string name="pleaseReconsiderRenewIt">Molimo, razmotrite da ga obnovite!</string>
+  <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
+  <string name="newPendingReview">Novi pregled na čekanju</string>
+  <string name="lostAgainstTOSViolator">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
+  <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting-bodova.</string>
+  <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
 </resources>

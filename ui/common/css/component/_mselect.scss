@@ -12,7 +12,7 @@ $c-mselect: $c-primary;
     @extend %box-neat, %metal, %flex-between;
 
     flex-flow: row nowrap;
-    padding: .3rem .3rem .3rem 1rem;
+    padding: 0.3rem 0.3rem 0.3rem 1rem;
     cursor: pointer;
 
     &:hover {
@@ -43,7 +43,7 @@ $c-mselect: $c-primary;
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;
-    z-index: z("mselect");
+    z-index: z('mselect');
     background: $c-bg-popup;
     transform: scale(1, 0);
     transform-origin: top;
@@ -67,7 +67,7 @@ $c-mselect: $c-primary;
     > * {
       white-space: nowrap;
       display: block;
-      padding: .3em 1em;
+      padding: 0.3em 1em;
 
       @include transition;
 
@@ -79,7 +79,7 @@ $c-mselect: $c-primary;
       }
 
       &::before {
-        margin-right: .4em;
+        margin-right: 0.4em;
       }
 
       opacity: 0;
@@ -93,7 +93,6 @@ $c-mselect: $c-primary;
         top: 50%;
         transform: translateY(-50%) scale(1, 1);
       }
-
 
       > * {
         opacity: 1;

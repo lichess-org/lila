@@ -35,7 +35,7 @@ final class PgnDump(
       else fuccess(pgn)
     } map { pgn =>
       val evaled = analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))
-      if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
+      if (flags.literate) annotator(evaled, game, analysis)
       else evaled
     } map { pgn =>
       realPlayers.fold(pgn)(_.update(game, pgn))

@@ -114,11 +114,8 @@
   <string name="infiniteAnalysis">لامحدود تجزیہ</string>
   <string name="removesTheDepthLimit">گہرائی کی حد ختم کریں، یہ آپ کے کمپیوٹر کو گرم رکھے گا</string>
   <string name="blunder">احمقانہ غلطی</string>
-  <string name="blunders">بڑی غلطیاں</string>
   <string name="mistake">غلطی</string>
-  <string name="mistakes">غلطیاں</string>
   <string name="inaccuracy">کمزور چال</string>
-  <string name="inaccuracies">کمزور چالیں</string>
   <string name="moveTimes">چالوں کا دورانیہ</string>
   <string name="flipBoard">بساط کا رخ تبدیل کریں</string>
   <string name="threefoldRepetition">چالوں کی سہ بار تکرار</string>
@@ -199,6 +196,8 @@
     <item quantity="other">آپکے ساتھ %s مقابلے</item>
   </plurals>
   <string name="cancel">مسترد</string>
+  <string name="whiteTimeOut">سفید کا وقت ختم</string>
+  <string name="blackTimeOut">سیاہ کا وقت ختم</string>
   <string name="drawOfferSent">مقابلہ برابری پر ختم کرنے کی پیشکش بھیج دی گئی</string>
   <string name="drawOfferDeclined">مقابلہ برابری پر ختم کرنے کی پیشکش مسترد کردی گئی</string>
   <string name="drawOfferAccepted">مقابلہ برابری پر ختم کرنے کی پیشکش قبول کرلی گئي</string>
@@ -247,7 +246,6 @@
   <string name="send">ارسال کریں</string>
   <string name="incrementInSeconds">اضافہ سیکنڈوں میں</string>
   <string name="freeOnlineChess">مفت آن لائن شطرنج</string>
-  <string name="spectators">ناظرین:</string>
   <plurals name="nbRated">
     <item quantity="one">%s سنجیدہ</item>
     <item quantity="other">%s سنجیدہ</item>
@@ -275,7 +273,6 @@
     <item quantity="other">%s سیکنڈ دیں</item>
   </plurals>
   <string name="thisAccountViolatedTos">اس اکاؤنٹ نے لی چیس کے ضابطہ کار کی خلاف ورزی کی ہے</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">یہ کھلاڑی اپنے میعار کو مصنوعی طور پر متاثر کرتا ہے</string>
   <string name="openingExplorerAndTablebase">ابتدائیوں کی کلید &amp; ٹیبل بیس</string>
   <string name="takeback">چال واپس لیں</string>
   <string name="proposeATakeback">چال واپس لینے کی درخواست کریں</string>
@@ -380,7 +377,6 @@
   <string name="more">مزید</string>
   <string name="memberSince">رکنیت</string>
   <string name="lastSeenActive">گذشتہ سائن ان %s</string>
-  <string name="challengeToPlay">مقابلے کی دعوت دیں</string>
   <string name="player">کھلاڑی</string>
   <string name="list">فہرست</string>
   <string name="graph">گراف</string>
@@ -503,6 +499,7 @@
   <string name="currentPassword">موجودہ خفیہ کلمہ</string>
   <string name="newPassword">نیا خفیہ کلمہ</string>
   <string name="newPasswordAgain">نیا خفیہ کلمہ - دوبارہ</string>
+  <string name="newPasswordStrength">پاس ورڈ کی طاقت</string>
   <string name="clockInitialTime">ابتدائی وقت</string>
   <string name="clockIncrement">وقت میں اضافہ</string>
   <string name="privacy">آپ سے متعلقہ</string>
@@ -729,7 +726,6 @@
   <string name="error.unknown">نقص</string>
   <string name="custom">من پسند</string>
   <string name="notifications">اطلاعات</string>
-  <string name="challenges">مقابلے</string>
   <string name="perfRatingX">درجہ: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">پہلی چال چلنے کے لیے %s سیکنڈ</item>
@@ -776,11 +772,6 @@
   <string name="opening">ابتدا</string>
   <string name="middlegame">درمیان کی بازی</string>
   <string name="endgame">اختتامی بازی</string>
-  <string name="registerToSendChallenges">رجسٹر کریں اور چیلنجز بھیجیں.</string>
-  <string name="youCannotChallengeX">آپ %s کو چیلینج نہیں کر سکتے.</string>
-  <string name="xDoesNotAcceptChallenges">%s چیلنج قبول نہیں کرتے.</string>
-  <string name="yourXRatingIsTooFarFromY">آپ کا درجہ %1$s %2$s سے بہت دور ہے.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s صرف اپنے دوستوں کے چیلنجز قبول کرتا ہے.</string>
   <string name="conditionalPremoves">مشروط پری مووز</string>
   <string name="addCurrentVariation">موجودہ لائن کو شامل کریں</string>
   <string name="playVariationToCreateConditionalPremoves">ایک لائن کھیلیں تا کہ مشروط پری مووز بنا سکیں</string>
@@ -834,4 +825,6 @@
   <string name="youCannotPostYetPlaySomeGames">آپ فل حال فارم پر پوسٹ نہیں کر سکتے۔ پہلے کچھ بازیاں کھیلیں!</string>
   <string name="subscribe">سبسکرائب</string>
   <string name="unsubscribe">ان سبسکرائب</string>
+  <string name="congratsYouWon">مبارک ہو، آپ جیت گۓ ہیں!</string>
+  <string name="timeAlmostUp">وقت تقریبا ختم ہے!</string>
 </resources>

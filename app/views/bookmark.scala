@@ -15,7 +15,7 @@ object bookmark {
           "bookmark"   -> true,
           "bookmarked" -> bookmarked
         ),
-        href := routes.Bookmark.toggle(g.id),
+        href := routes.Game.bookmark(g.id),
         title := trans.bookmarkThisGame.txt()
       )(
         iconTag("t")(cls := "on is3"),

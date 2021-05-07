@@ -24,7 +24,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def topNbGame(nb: Int): Fu[List[User]] =
     coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
 
-  def byId(id: ID): Fu[Option[User]] = coll.byId[User](id)
+  def byId(id: ID): Fu[Option[User]] = User.noGhost(id) ?? coll.byId[User](id)
 
   def byIds(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids)
 
@@ -72,6 +72,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       } yield xx -> yy
     }
 
+  def lichessAnd(id: ID) = pair(User.lichessId, id) map2 { case (lichess, user) =>
+    Holder(lichess) -> user
+  }
+
   def namePair(x: ID, y: ID): Fu[Option[(User, User)]] =
     pair(normalize(x), normalize(y))
 
@@ -85,14 +89,23 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
   def enabledById(id: ID): Fu[Option[User]] =
-    coll.one[User](enabledSelect ++ $id(id))
+    User.noGhost(id) ?? coll.one[User](enabledSelect ++ $id(id))
 
   def disabledById(id: ID): Fu[Option[User]] =
-    coll.one[User](disabledSelect ++ $id(id))
+    User.noGhost(id) ?? coll.one[User](disabledSelect ++ $id(id))
 
-  def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
+  def named(username: String): Fu[Option[User]] =
+    User.noGhost(username) ?? coll.byId[User](normalize(username)).recover {
+      case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
+    }
 
-  def nameds(usernames: List[String]): Fu[List[User]] = coll.byIds[User](usernames.map(normalize))
+  def enabledNameds(usernames: List[String]): Fu[List[User]] =
+    coll
+      .find($inIds(usernames map normalize) ++ enabledSelect)
+      .cursor[User](ReadPreference.secondaryPreferred)
+      .list()
+
+  def enabledNamed(username: String): Fu[Option[User]] = enabledById(normalize(username))
 
   // expensive, send to secondary
   def byIdsSortRatingNoBot(ids: Iterable[ID], nb: Int): Fu[List[User]] =
@@ -205,6 +218,21 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
+  def addStormRun  = addStormLikeRun("storm") _
+  def addRacerRun  = addStormLikeRun("racer") _
+  def addStreakRun = addStormLikeRun("streak") _
+
+  private def addStormLikeRun(field: String)(userId: User.ID, score: Int): Funit = {
+    val inc = $inc(s"perfs.$field.runs" -> 1)
+    coll.update
+      .one(
+        $id(userId),
+        $inc(s"perfs.$field.runs" -> 1) ++
+          $doc("$max"             -> $doc(s"perfs.$field.score" -> score))
+      )
+      .void
+  }
+
   def setProfile(id: ID, profile: Profile): Funit =
     coll.update
       .one(
@@ -231,9 +259,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def removeTitle(id: ID): Funit =
     coll.unsetField($id(id), F.title).void
 
-  def setPlayTime(id: ID, playTime: User.PlayTime): Funit =
-    coll.update.one($id(id), $set(F.playTime -> User.playTimeHandler.writeTry(playTime).get)).void
-
   def getPlayTime(id: ID): Fu[Option[User.PlayTime]] =
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
@@ -241,9 +266,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
-    else F.marks $ne (mark.key)
+    else F.marks $ne mark.key
   def engineSelect = markSelect(UserMark.Engine) _
   def trollSelect  = markSelect(UserMark.Troll) _
+  val lameOrTroll = $or(
+    $doc(F.marks -> UserMark.Engine.key),
+    $doc(F.marks -> UserMark.Boost.key),
+    $doc(F.marks -> UserMark.Troll.key)
+  )
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
@@ -450,6 +480,16 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def prevEmail(id: ID): Fu[Option[EmailAddress]] =
     coll.primitiveOne[EmailAddress]($id(id), F.prevEmail)
 
+  def currentOrPrevEmail(id: ID): Fu[Option[EmailAddress]] =
+    coll
+      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
+      .one[Bdoc]
+      .map {
+        _ ?? { doc =>
+          anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
+        }
+      }
+
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
     coll.find($id(normalize(name))).one[Bdoc].map {
       _ ?? { doc =>
@@ -522,8 +562,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setPlan(user: User, plan: Plan): Funit = {
     implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler
-    coll.updateField($id(user.id), "plan", plan).void
+    coll.updateField($id(user.id), User.BSONFields.plan, plan).void
   }
+  def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
 
   private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
     doc.child(F.perfs).flatMap(_.getAsOpt[Perf](perfType.key))
@@ -570,18 +611,17 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       ReadPreference.secondaryPreferred
     )
 
-  def filterByRole(userIds: Seq[User.ID], role: String): Fu[Set[User.ID]] =
-    coll.distinctEasy[String, Set](
-      F.id,
-      $inIds(userIds) ++ enabledSelect ++ $doc(F.roles -> role),
-      ReadPreference.secondaryPreferred
-    )
+  def filterEnabled(userIds: Seq[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctEasy[String, Set](F.id, $inIds(userIds) ++ enabledSelect, ReadPreference.secondaryPreferred)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[User.ID]] =
     coll.distinctEasy[String, Set]("_id", $doc("roles" $in roles))
 
   def countEngines(userIds: List[User.ID]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
+
+  def countLameOrTroll(userIds: List[User.ID]): Fu[Int] =
+    coll.secondaryPreferred.countSel($inIds(userIds) ++ lameOrTroll)
 
   def containsEngine(userIds: List[User.ID]): Fu[Boolean] =
     coll.exists($inIds(userIds) ++ engineSelect(true))
@@ -611,23 +651,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
   }
 
-  def erase(user: User): Funit =
-    coll.update
-      .one(
-        $id(user.id),
-        $unset(F.profile) ++ $set(
-          "enabled"  -> false,
-          "erasedAt" -> DateTime.now
-        )
-      )
-      .void
-
   def isErased(user: User): Fu[User.Erased] =
     user.disabled ?? {
-      coll.exists($id(user.id) ++ $doc("erasedAt" $exists true))
+      coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
     } map User.Erased.apply
 
-  def byIdNotErased(id: ID): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc("erasedAt" $exists false))
+  def byIdNotErased(id: ID): Fu[Option[User]] = coll.one[User]($id(id) ++ $doc(F.erasedAt $exists false))
 
   def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[ID]): Fu[List[ID]] =
     coll.distinctEasy[ID, List](
@@ -635,6 +664,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
       ReadPreference.secondaryPreferred
     )
+
+  def setEraseAt(user: User) =
+    coll.updateField($id(user.id), F.eraseAt, DateTime.now plusDays 1).void
 
   private def newUser(
       username: String,
@@ -667,7 +699,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {
-      if (blind) $doc("blind" -> true) else $empty
+      if (blind) $doc(F.blind -> true) else $empty
     }
   }
 }

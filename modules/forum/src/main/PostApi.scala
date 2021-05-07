@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.ReadPreference
 import scala.util.chaining._
 
@@ -76,7 +77,7 @@ final class PostApi(
       }
     }
 
-  def editPost(postId: String, newText: String, user: User): Fu[Post] =
+  def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
       post.fold[Fu[Post]](fufail("Post no longer exists.")) {
         case (_, post) if !post.canBeEditedBy(user.id) =>
@@ -97,7 +98,7 @@ final class PostApi(
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
         topic.nbPosts == maxPerPage.value ||
-        topic.createdAt.isBefore(DateTime.now minusDays 5)
+        (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
 
@@ -113,11 +114,14 @@ final class PostApi(
     }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] =
-    env.postRepo.coll.byId[Post](postId) flatMap {
+    getPost(postId) flatMap {
       _ ?? { post =>
         env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
       }
     }
+
+  def getPost(postId: String): Fu[Option[Post]] =
+    env.postRepo.coll.byId[Post](postId)
 
   def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
@@ -227,12 +231,11 @@ final class PostApi(
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 
-  def allByUser(userId: String) =
+  def allByUser(userId: User.ID): AkkaStreamCursor[Post] =
     env.postRepo.coll
       .find($doc("userId" -> userId))
       .sort($doc("createdAt" -> -1))
       .cursor[Post](ReadPreference.secondaryPreferred)
-      .list(2000)
 
   private def recentUserIds(topic: Topic, newPostNumber: Int) =
     env.postRepo.coll
@@ -246,15 +249,16 @@ final class PostApi(
         ReadPreference.secondaryPreferred
       )
 
-  def erase(user: User): Funit =
-    env.postRepo.coll.update
-      .one(
-        $doc("userId" -> user.id),
-        $unset("userId", "editHistory", "lang", "ip") ++
-          $set("text" -> "", "erasedAt" -> DateTime.now),
-        multi = true
-      )
-      .void
+  def erasePost(post: Post) =
+    env.postRepo.coll.update.one($id(post.id), post.erase).void >>-
+      (indexer ! RemovePost(post.id))
+
+  def eraseFromSearchIndex(user: User): Funit =
+    env.postRepo.coll
+      .distinctEasy[Post.ID, List]("_id", $doc("userId" -> user.id), ReadPreference.secondaryPreferred)
+      .map { ids =>
+        indexer ! RemovePosts(ids)
+      }
 
   def teamIdOfPostId(postId: Post.ID): Fu[Option[TeamID]] =
     env.postRepo.coll.byId[Post](postId) flatMap {

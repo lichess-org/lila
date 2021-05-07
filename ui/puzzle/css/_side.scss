@@ -32,7 +32,7 @@
       }
 
       .players {
-        margin-top: .3rem;
+        margin-top: 0.3rem;
         font-size: 90%;
       }
     }
@@ -46,9 +46,9 @@
 
     &__rating {
       strong {
-        @extend %flex-center;
-
-        font-size: 3em;
+        display: block;
+        text-align: center;
+        font-size: 3.5em;
       }
     }
 
@@ -62,6 +62,31 @@
 
       &.down {
         color: $c-bad;
+      }
+    }
+  }
+
+  &__streak {
+    &__info {
+      h1 {
+        color: $c-brag;
+        @extend %flex-center-nowrap;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        &::before {
+          font-size: 1.5em;
+        }
+      }
+    }
+
+    &__score {
+      color: $c-brag;
+      @extend %flex-center-nowrap;
+      justify-content: center;
+      font-size: 4em;
+
+      &::before {
+        font-size: 0.9em;
       }
     }
   }
@@ -96,6 +121,11 @@
         border: none;
       }
     }
+
+    &__zen {
+      display: inline-block;
+      margin-top: 2vmin;
+    }
   }
 
   &__replay {
@@ -124,6 +154,7 @@
 
       &::before {
         @extend %box-radius;
+
         z-index: 0;
         content: '';
         position: absolute;
@@ -131,10 +162,13 @@
         bottom: 0;
         left: 0;
         width: var(--p);
-        background: mix($c-bg-page, $c-primary, 40%) linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
+        background: mix($c-bg-page, $c-primary, 40%)
+          linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
+
         @include transition(width, 1s);
       }
+
       &::after {
         z-index: 1;
         content: attr(data-text);
@@ -147,11 +181,11 @@
 
     background: $c-bg-box;
     padding: 2vmin;
-    font-size: .9em;
+    font-size: 0.9em;
 
     h2 {
       font-size: 1.5em;
-      margin-bottom: .6rem;
+      margin-bottom: 0.6rem;
       text-transform: uppercase;
     }
   }
@@ -167,10 +201,10 @@
       @extend %flex-between;
 
       align-items: stretch;
-      margin-left: -.5rem;
+      margin-left: -0.5rem;
 
       a {
-        margin-left: .5rem;
+        margin-left: 0.5rem;
         line-height: 2em;
       }
 
@@ -237,7 +271,7 @@
     justify-content: center;
     flex: 0 0 100%;
     color: $c-font-dimmer;
-    opacity: .5;
+    opacity: 0.5;
   }
 
   &__selector {

@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Активност</string>
-  <string name="hostedALiveStream">Приказује се уживо</string>
+  <string name="hostedALiveStream">Одржали пренос уживо</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Подржали lichess.org на %1$s месец као %2$s</item>
     <item quantity="few">Подржали lichess.org на %1$s месеца као %2$s</item>
     <item quantity="other">Подржали lichess.org на %1$s месеци као %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Вежбао/ла %1$s позицију на %2$s</item>
-    <item quantity="few">Вежбао/ла %1$s позиције на %2$s</item>
-    <item quantity="other">Вежбао/ла %1$s позиције на %2$s</item>
+    <item quantity="one">Вежбали %1$s позицију на %2$s</item>
+    <item quantity="few">Вежбали %1$s позиције на %2$s</item>
+    <item quantity="other">Вежбали %1$s позиција на %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Решио/ла %s тактички проблем</item>
-    <item quantity="few">Решио/ла %s тактичка проблема</item>
-    <item quantity="other">Решио/ла %s тактичких проблема</item>
+    <item quantity="one">Решили %s тактички проблем</item>
+    <item quantity="few">Решили %s тактичка проблема</item>
+    <item quantity="other">Решили %s тактичких проблема</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Одиграо/ла %1$s %2$s игру</item>
-    <item quantity="few">Одиграо/ла %1$s %2$s игре</item>
-    <item quantity="other">Одиграо/ла %1$s %2$s игара</item>
+    <item quantity="one">Одиграли %1$s %2$s партију</item>
+    <item quantity="few">Одиграли %1$s %2$s партије</item>
+    <item quantity="other">Одиграли %1$s %2$s партија</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Поставили %1$s поруку у %2$s</item>
@@ -28,9 +28,9 @@
     <item quantity="other">Поставили %1$s порука у %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Одиграо\ла %1$s потез</item>
-    <item quantity="few">Одиграо\ла %1$s потеза</item>
-    <item quantity="other">Одиграо\ла %1$s потеза</item>
+    <item quantity="one">Одиграли %1$s потез</item>
+    <item quantity="few">Одиграли %1$s потеза</item>
+    <item quantity="other">Одиграли %1$s потеза</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">у %1$s дописној партији</item>
@@ -38,9 +38,9 @@
     <item quantity="other">у %1$s дописних партија</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Завршили %s кореспондску партију</item>
-    <item quantity="few">Завршили %s кореспондске партије</item>
-    <item quantity="other">Завршили %s кореспондске партије</item>
+    <item quantity="one">Завршили %s дописну партију</item>
+    <item quantity="few">Завршили %s дописне партије</item>
+    <item quantity="other">Завршили %s дописних партија</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Почели пратити %s играча</item>
@@ -49,23 +49,23 @@
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Стекли %s новог пратиоца</item>
-    <item quantity="few">Стекли %s нова пратиоца</item>
-    <item quantity="other">Стекли %s нова пратиоца</item>
+    <item quantity="few">Стекли %s нова пратилаца</item>
+    <item quantity="other">Стекли %s нових пратилаца</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Направили %s симултанку</item>
-    <item quantity="few">Направили %s симултанке</item>
-    <item quantity="other">Направили %s симултанке</item>
+    <item quantity="one">Одржали %s симултанку</item>
+    <item quantity="few">Одржали %s симултанке</item>
+    <item quantity="other">Одржали %s симултанки</item>
   </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">Учествовали у %s симултанки</item>
     <item quantity="few">Учествовали у %s симултанке</item>
-    <item quantity="other">Учествовали у %s симултанке</item>
+    <item quantity="other">Учествовали у %s симултанки</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Направили %s ново учење</item>
-    <item quantity="few">Направили %s нова учења</item>
-    <item quantity="other">Направили %s нова учења</item>
+    <item quantity="one">Направили %s нову студију</item>
+    <item quantity="few">Направили %s нове студије</item>
+    <item quantity="other">Направили %s нових студија</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Учествовали у %s турниру</item>
@@ -73,14 +73,15 @@
     <item quantity="other">Учествовали у %s турнира</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">Рангиран #%1$s (првих %2$s%%) са %3$s игром у %4$s</item>
-    <item quantity="few">Рангиран #%1$s (првих %2$s%%) са %3$s игре у %4$s</item>
-    <item quantity="other">Рангиран #%1$s (првих %2$s%%) са %3$s игре у %4$s</item>
+    <item quantity="one">Рангиран #%1$s (првих %2$s%%) са %3$s партијом у %4$s</item>
+    <item quantity="few">Рангиран #%1$s (првих %2$s%%) са %3$s партије у %4$s</item>
+    <item quantity="other">Рангиран #%1$s (првих %2$s%%) са %3$s партија у %4$s</item>
   </plurals>
-  <string name="signedUp">Пријављени на Личесу</string>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Рангиран #%1$s у %2$s</string>
+  <string name="signedUp">Пријавили се на lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Ушли у %s тим</item>
     <item quantity="few">Ушли у %s тима</item>
-    <item quantity="other">Ушли у %s тима</item>
+    <item quantity="other">Ушли у %s тимова</item>
   </plurals>
 </resources>

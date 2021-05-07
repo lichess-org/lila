@@ -3,5 +3,5 @@ import playPage from './play';
 
 export default {
   configPage,
-  playPage
-}
+  playPage,
+};

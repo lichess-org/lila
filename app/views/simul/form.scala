@@ -21,14 +21,14 @@ object form {
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(trans.hostANewSimul()),
-        postForm(cls := "form3", action := routes.Simul.create())(
+        postForm(cls := "form3", action := routes.Simul.create)(
           br,
           p(trans.whenCreateSimul()),
           br,
           br,
           formContent(form, teams, none),
           form3.actions(
-            a(href := routes.Simul.home())(trans.cancel()),
+            a(href := routes.Simul.home)(trans.cancel()),
             form3.submit(trans.hostANewSimul(), icon = "g".some)
           )
         )
@@ -114,11 +114,10 @@ object form {
         )
       ),
       form3.split(
-        teams.nonEmpty ?? {
+        teams.nonEmpty option
           form3.group(form("team"), raw("Only members of team"), half = true)(
             form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
-          )
-        },
+          ),
         form3.group(
           form("position"),
           trans.startPosition(),
@@ -132,7 +131,7 @@ object form {
         raw("Simul description"),
         help = frag("Anything you want to tell the participants?").some
       )(form3.textarea(_)(rows := 10)),
-      ctx.me.exists(_.hasTitle) option form3.checkbox(
+      ctx.me.exists(_.canBeFeatured) option form3.checkbox(
         form("featured"),
         frag("Feature on lichess.org/simul"),
         help = frag("Show your simul to everyone on lichess.org/simul. Disable for private simuls.").some

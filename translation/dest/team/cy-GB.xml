@@ -16,9 +16,10 @@
   <string name="noTeamFound">Dim tîm</string>
   <string name="joinTeam">Ymuno at dîm</string>
   <string name="quitTeam">Gadael tîm</string>
-  <string name="anyoneCanJoin">Pawb i ymuno</string>
-  <string name="aConfirmationIsRequiredToJoin">Angen cadarnhad i ymuno</string>
-  <string name="joiningPolicy">Sut i ymuno</string>
   <string name="teamBestPlayers">Chwaraewyr gorau</string>
   <string name="teamRecentMembers">Aelodau a ymunodd yn ddiweddarach</string>
+  <string name="teamsIlead">Timau rwy\'n arwain</string>
+  <string name="teamPassword">Cyfrinair tîm</string>
+  <string name="incorrectTeamPassword">Cyfrinair tîm anghywir.</string>
+  <string name="teamAlreadyExists">Mae\'r tîm hwn yn bodoli yn barod.</string>
 </resources>

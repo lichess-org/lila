@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">Estatísticas de %s</string>
+  <string name="viewTheGames">Ver as partidas</string>
+  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provisional</string>
+  <string name="notEnoughRatedGames">Non foron xogadas un número suficiente de partidas para establecer unha puntuación fiábel.</string>
+  <string name="progressOverLastXGames">Progresión nas últimas %s partidas:</string>
+  <string name="ratingDeviation">Desviación da puntuación: %s.</string>
+  <string name="ratingDeviationHelp">Un valor inferior significa que a puntuación é máis estábel. Por enriba de %s, a puntuación é considerada provisional.</string>
+  <string name="totalGames">Partidas totais</string>
+  <string name="ratedGames">Partidas por puntos</string>
+  <string name="tournamentGames">Partidas de torneo</string>
+  <string name="berserkedGames">Partidas Berserked</string>
+  <string name="timeSpentPlaying">Tempo xogado</string>
+  <string name="averageOpponent">Puntuación media dos opoñentes</string>
+  <string name="victories">Vitorias</string>
+  <string name="defeats">Derrotas</string>
+  <string name="disconnections">Desconexións</string>
+  <string name="notEnoughGames">Non hai suficientes partidas xogadas</string>
+  <string name="highestRating">Puntuación máis alta: %s</string>
+  <string name="lowestRating">Puntuación máis baixa: %s</string>
+  <string name="fromXToY">de %1$s a %2$s</string>
+  <string name="winningStreak">Vitorias consecutivas</string>
+  <string name="losingStreak">Derrotas consecutivas</string>
+  <string name="longestStreak">Mellor secuencia: %s</string>
+  <string name="currentStreak">Secuencia actual: %s</string>
+  <string name="bestRated">Mellores vitorias por puntos</string>
+  <string name="worstRated">Peores derrotas por puntos</string>
+  <string name="gamesInARow">Partidas xogadas seguidas</string>
+  <string name="lessThanOneHour">Menos dunha hora entre partidas</string>
+  <string name="maxTimePlaying">Tempo máximo xogando</string>
+  <string name="now">agora</string>
+</resources>

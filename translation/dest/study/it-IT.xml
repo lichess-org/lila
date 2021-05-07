@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN del capitolo</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">URL di diffusione</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
-  <string name="currentGameUrl">URL partita attuale</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Puoi incollare questo URL nel forum per creare un rimando</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puoi incollare questo URL nel forum per creare un rimando</string>
   <string name="startAtInitialPosition">Inizia dalla prima mossa</string>
   <string name="startAtX">Inizia a: %s</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web o Blog</string>
   <string name="readMoreAboutEmbedding">Per saperne di più su come incorporare</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Solo gli studi pubblici possono essere incorporati!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Solo gli studi pubblici possono essere incorporati!</string>
   <string name="open">Apri</string>
   <string name="xBroughtToYouByY">%1$s fornito da %2$s</string>
   <string name="studyNotFound">Studio non trovato</string>
@@ -105,7 +103,7 @@
   <string name="urlOfTheGame">URL della partita</string>
   <string name="loadAGameFromXOrY">Carica una partita da %1$s o %2$s</string>
   <string name="createChapter">Crea capitolo</string>
-  <string name="configureLiveBroadcast">Configura diretta live</string>
+  <string name="configureLiveBroadcast">Configura diretta</string>
   <string name="createStudy">Crea studio</string>
   <string name="editStudy">Modifica studio</string>
   <string name="visibility">Visibilità</string>

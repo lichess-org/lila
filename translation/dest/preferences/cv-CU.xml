@@ -9,11 +9,11 @@
   <string name="boardCoordinates">Хӑма координачӗсем (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Куҫӑмсене ҫырса хурасси</string>
   <string name="pgnLetter">Саспалли (K, Q, R, B, N)</string>
-  <string name="zenMode">Дсӑн решимӗ</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Дсӑн решимӗ</string>
   <string name="blindfoldChess">Суккӑр шахмат (курӑнман кӗлетке)</string>
   <string name="chessClock">Шахмат сехечӗ</string>
   <string name="tenthsOfSeconds">Ҫеккунтӑн вуннӑмӗшӗсем</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Вӑхӑт &lt; 10 ҫеккунтран йулсан</string>
   <string name="horizontalGreenProgressBars">Горисонталлӑ симӗс йӗрсем</string>
   <string name="soundWhenTimeGetsCritical">Вӑхӑт пӗтсех пырсан сасӑпа пӗлтересси</string>
   <string name="giveMoreTime">Вӑхӑт партар</string>

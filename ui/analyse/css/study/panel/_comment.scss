@@ -14,13 +14,13 @@
   @extend %box-neat;
 
   background: $c-bg-box;
-  padding: .8em 1em;
-  margin-bottom: .8em;
+  padding: 0.8em 1em;
+  margin-bottom: 0.8em;
 
   .text {
     @extend %break-word;
 
-    margin-top: .3em;
+    margin-top: 0.3em;
     width: 100%;
     overflow: hidden;
     display: inline-block;

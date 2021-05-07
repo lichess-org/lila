@@ -3,13 +3,13 @@ package lila.mod
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Title, User, UserRepo }
+import lila.user.{ Holder, LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
     reportApi: lila.report.ReportApi,
-    reporter: lila.hub.actors.Report,
+    noteApi: lila.user.NoteApi,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
@@ -41,15 +41,16 @@ final class ModApi(
       }
     }
 
-  def autoMark(suspectId: SuspectId, modId: ModId): Funit =
+  def autoMark(suspectId: SuspectId, modId: ModId, note: String): Funit =
     for {
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)
-      _ <- (!sus.user.isBot && !unengined) ?? {
+      _ <- (!sus.user.isBot && !sus.user.marks.engine && !unengined) ?? {
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, v = true)
+            setEngine(mod, sus, v = true) >>
+              noteApi.lichessWrite(sus.user, note)
           }
         }
       }
@@ -71,12 +72,6 @@ final class ModApi(
         sus
       }
 
-  def autoBoost(winnerId: User.ID, loserId: User.ID): Funit =
-    logApi.wasUnbooster(loserId) map {
-      case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
-      case true  => ()
-    }
-
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
     val changed = value != prev.user.marks.troll
     val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
@@ -90,6 +85,12 @@ final class ModApi(
         if (value) notifier.reporters(mod, sus).unit
       } inject sus
   }
+
+  def autoTroll(sus: Suspect, note: String): Funit =
+    reportApi.getLichessMod flatMap { mod =>
+      setTroll(mod, sus, true) >>
+        noteApi.lichessWrite(sus.user, note)
+    }
 
   def garbageCollect(sus: Suspect): Funit =
     reportApi.getLichessMod flatMap { mod =>
@@ -140,20 +141,20 @@ final class ModApi(
         logApi.setEmail(mod, user.id)
     }
 
-  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit =
+  def setPermissions(mod: Holder, username: String, permissions: Set[Permission]): Funit =
     withUser(username) { user =>
       val finalPermissions = Permission(user.roles).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !Granter.canGrant(mod.user, p)
+        permissions.contains(p) || !Granter.canGrant(mod, p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(Granter.canGrant(mod.user, _))
+        permissions.filter(Granter.canGrant(mod, _))
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >> {
         Bus.publish(
           lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),
           "setPermissions"
         )
-        logApi.setPermissions(mod, user.id, permissions.toList)
+        logApi.setPermissions(mod, user.id, Permission.diff(Permission(user.roles), permissions))
       }
     }
 

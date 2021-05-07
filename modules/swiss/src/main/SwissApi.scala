@@ -71,13 +71,14 @@ final class SwissApi(
       winnerId = none,
       settings = Swiss.Settings(
         nbRounds = data.nbRounds,
-        rated = data.realPosition.isEmpty && (data.rated | true),
+        rated = data.realPosition.isEmpty && data.isRated,
         description = data.description,
         position = data.realPosition,
         chatFor = data.realChatFor,
         roundInterval = data.realRoundInterval,
         password = data.password,
-        conditions = data.conditions.all
+        conditions = data.conditions.all,
+        forbiddenPairings = ~data.forbiddenPairings
       )
     )
     colls.swiss.insert.one(addFeaturable(swiss)) >>-
@@ -92,8 +93,8 @@ final class SwissApi(
       val swiss =
         old.copy(
           name = data.name | old.name,
-          clock = data.clock,
-          variant = data.realVariant,
+          clock = if (old.isCreated) data.clock else old.clock,
+          variant = if (old.isCreated && data.variant.isDefined) data.realVariant else old.variant,
           startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
           nextRoundAt =
             if (old.isCreated) Some(data.startsAt | old.startsAt)
@@ -108,7 +109,8 @@ final class SwissApi(
               if (data.roundInterval.isDefined) data.realRoundInterval
               else old.settings.roundInterval,
             password = data.password,
-            conditions = data.conditions.all
+            conditions = data.conditions.all,
+            forbiddenPairings = ~data.forbiddenPairings
           )
         ) pipe { s =>
           if (
@@ -257,16 +259,18 @@ final class SwissApi(
     }
 
   def searchPlayers(id: Swiss.Id, term: String, nb: Int): Fu[List[User.ID]] =
-    User.couldBeUsername(term) ?? SwissPlayer.fields { f =>
-      colls.player.primitive[User.ID](
-        selector = $doc(
-          f.swissId -> id,
-          f.userId $startsWith term.toLowerCase
-        ),
-        sort = $sort desc f.score,
-        nb = nb,
-        field = f.userId
-      )
+    User.validateId(term) ?? { valid =>
+      SwissPlayer.fields { f =>
+        colls.player.primitive[User.ID](
+          selector = $doc(
+            f.swissId -> id,
+            f.userId $startsWith valid
+          ),
+          sort = $sort desc f.score,
+          nb = nb,
+          field = f.userId
+        )
+      }
     }
 
   def pageOf(swiss: Swiss, userId: User.ID): Fu[Option[Int]] =
@@ -428,9 +432,9 @@ final class SwissApi(
 
   private[swiss] def finish(oldSwiss: Swiss): Funit =
     Sequencing(oldSwiss.id)(startedById) { swiss =>
-      colls.pairing.countSel($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
-        case 0 => destroy(swiss)
-        case _ => doFinish(swiss)
+      colls.pairing.exists($doc(SwissPairing.Fields.swissId -> swiss.id)) flatMap {
+        if (_) doFinish(swiss)
+        else destroy(swiss)
       }
     }
   private def doFinish(swiss: Swiss): Funit =
@@ -457,11 +461,20 @@ final class SwissApi(
       } >>- {
       systemChat(swiss.id, s"Tournament completed!")
       socket.reload(swiss.id)
+      system.scheduler
+        .scheduleOnce(10 seconds) {
+          // we're delaying this to make sure the ranking has been recomputed
+          // since doFinish is called by finishGame before that
+          rankingApi(swiss) foreach { ranking =>
+            Bus.publish(SwissFinish(swiss.id, ranking), "swissFinish")
+          }
+        }
+        .unit
     }
 
   def kill(swiss: Swiss): Funit = {
     if (swiss.isStarted)
-      finish(swiss) >>- systemChat(swiss.id, s"Tournament forcefully terminated by the director.")
+      finish(swiss) >>- systemChat(swiss.id, s"Tournament cancelled by its creator.")
     else if (swiss.isCreated) destroy(swiss)
     else funit
   } >>- cache.featuredInTeam.invalidate(swiss.teamId)
@@ -497,7 +510,7 @@ final class SwissApi(
         lila.common.Future.applySequentially(ids) { id =>
           Sequencing(id)(notFinishedById) { swiss =>
             if (swiss.round.value >= swiss.settings.nbRounds) doFinish(swiss)
-            else if (swiss.nbPlayers >= 4)
+            else if (swiss.nbPlayers >= 2)
               director.startRound(swiss).flatMap {
                 _.fold {
                   systemChat(swiss.id, "All possible pairings were played.")
@@ -608,7 +621,24 @@ final class SwissApi(
         _.map { withdraw(_, user.id) }.sequenceFu.void
       }
 
-  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[(SwissPlayer, Long), _] =
+  def isUnfinished(id: Swiss.Id): Fu[Boolean] =
+    colls.swiss.exists($id(id) ++ $doc("finishedAt" $exists false))
+
+  def filterPlaying(id: Swiss.Id, userIds: Seq[User.ID]): Fu[List[User.ID]] =
+    userIds.nonEmpty ??
+      colls.swiss.exists($id(id) ++ $doc("finishedAt" $exists false)) flatMap {
+        _ ?? SwissPlayer.fields { f =>
+          colls.player.distinctEasy[User.ID, List](
+            f.userId,
+            $doc(
+              f.id $in userIds.map(SwissPlayer.makeId(id, _)),
+              f.absent $ne true
+            )
+          )
+        }
+      }
+
+  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, _] =
     SwissPlayer.fields { f =>
       colls.player
         .find($doc(f.swissId -> swiss.id))
@@ -618,7 +648,15 @@ final class SwissApi(
         .documentSource(nb)
         .throttle(perSecond.value, 1 second)
         .zipWithIndex
+        .map { case (player, index) =>
+          SwissPlayer.WithRank(player, index.toInt + 1)
+        }
     }
+
+  private val idNameProjection = $doc("name" -> true)
+
+  def idNames(ids: List[Swiss.Id]): Fu[List[Swiss.IdName]] =
+    colls.swiss.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().list()
 
   private def Sequencing[A: Zero](
       id: Swiss.Id

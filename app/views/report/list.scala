@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.report.Report.WithSuspect
+import lila.user.Holder
 
 object list {
 
@@ -110,20 +111,22 @@ object list {
                 "All",
                 scoreTag(scores.highest)
               ),
-              lila.report.Room.all.map { room =>
-                a(
-                  href := routes.Report.listWithFilter(room.key),
-                  cls := List(
-                    "active"            -> (filter == room.key),
-                    s"room-${room.key}" -> true
+              ctx.me ?? { me =>
+                lila.report.Room.all.filter(lila.report.Room.isGrantedFor(Holder(me))).map { room =>
+                  a(
+                    href := routes.Report.listWithFilter(room.key),
+                    cls := List(
+                      "active"            -> (filter == room.key),
+                      s"room-${room.key}" -> true
+                    )
+                  )(
+                    room.name,
+                    scoreTag(scores get room)
                   )
-                )(
-                  room.name,
-                  scoreTag(scores get room)
-                )
+                }
               },
               (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := routes.Appeal.queue(),
+                href := routes.Appeal.queue,
                 cls := List(
                   "new"    -> true,
                   "active" -> (filter == "appeal")
@@ -132,7 +135,7 @@ object list {
                 countTag(appeals),
                 "Appeals"
               ),
-              streamers > 0 option
+              (isGranted(_.Streamers) && streamers > 0) option
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
                   "Streamers"

@@ -15,9 +15,6 @@
   <string name="noTeamFound">Skipailh ebet</string>
   <string name="joinTeam">Kejañ ouzh ar skipailh</string>
   <string name="quitTeam">Kuitaat ar skipailh</string>
-  <string name="anyoneCanJoin">Digor d\'an holl</string>
-  <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
-  <string name="joiningPolicy">Reolennoù emezelañ</string>
   <plurals name="teamLeaders">
     <item quantity="one">Mestr ar skipailh</item>
     <item quantity="two">Mistri ar skipailh</item>

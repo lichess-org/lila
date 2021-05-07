@@ -8,15 +8,14 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  padding: .7rem 1rem;
-  z-index: z("tour-reminder");
+  padding: 0.7rem 1rem;
+  z-index: z('tour-reminder');
   width: 100%;
 
   @include breakpoint($mq-xx-small) {
     width: auto;
     border-top-right-radius: 3px;
   }
-
 
   a {
     color: $c-primary-over;

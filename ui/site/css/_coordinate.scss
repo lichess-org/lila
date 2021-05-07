@@ -2,6 +2,20 @@ $mq-col1: $mq-not-medium;
 $mq-col2: $mq-medium;
 $mq-col3: $mq-x-large;
 
+@import '../../puz/css/font';
+
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}
+
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
@@ -18,6 +32,7 @@ $mq-col3: $mq-x-large;
   // coords cause mobile to have horiz scrolling
 
   &__side {
+    @extend %zen;
     grid-area: side;
   }
 
@@ -30,11 +45,20 @@ $mq-col3: $mq-x-large;
   }
 
   &__progress {
+    @extend %zen;
     grid-area: progress;
   }
 
-  &__score {
-    grid-area: score;
+  &__score,
+  &__timer {
+    @extend %zen;
+    font-family: 'storm';
+    font-size: 5em;
+    margin: $block-gap;
+  }
+
+  .hurry {
+    color: $c-bad !important;
   }
 
   grid-template-areas: 'board' 'progress' 'score' 'table' 'side';
@@ -46,15 +70,14 @@ $mq-col3: $mq-x-large;
     grid-template-areas: 'board    . table' 'board    . side' 'progress . .' 'score    . .';
   }
 
-
   @include breakpoint($mq-col3) {
     grid-template-areas: 'side . board    . table' '.    . progress . .' '.    . score    . .';
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width $block-gap $col3-uniboard-table;
   }
 
-
   .box {
     padding: $block-gap;
+    margin-top: $block-gap;
 
     h1 {
       font-size: 1.5em;
@@ -64,6 +87,13 @@ $mq-col3: $mq-x-large;
 
     p {
       margin-top: 1em;
+    }
+
+    &.current-status {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
   }
 
@@ -111,10 +141,6 @@ $mq-col3: $mq-x-large;
     opacity: 0.8;
 
     @include transition;
-
-    &.nope {
-      color: $c-bad !important;
-    }
   }
 
   #next_coord0 {
@@ -128,16 +154,7 @@ $mq-col3: $mq-x-large;
     opacity: 0.7;
   }
 
-  #next_coord2 {
-    transition: none;
-    left: 38%;
-    top: 13%;
-    font-size: 38px;
-    opacity: 0.4;
-  }
-
   #next_coord1,
-  #next_coord2,
   #next_coord0 {
     user-select: none;
   }
@@ -157,29 +174,17 @@ $mq-col3: $mq-x-large;
 
     .explanation li {
       list-style: outside disc;
-      margin: .5em 0 .5em 1em;
+      margin: 0.5em 0 0.5em 1em;
     }
   }
 
-  &__score {
-    @extend %roboto, %flex-center, %box-radius;
-
-    justify-content: center;
-    font-weight: bold;
-    font-size: 70px;
-    margin: auto;
-    width: 110px;
-    height: 110px;
-    line-height: 110px;
-    background-color: $c-secondary;
-    color: $c-secondary-over;
-
-    @include transition;
+  &.wrong .progress_bar {
+    background-color: $c-bad;
   }
 
-  &.wrong .progress_bar,
-  &.wrong .coord-trainer__score {
-    background-color: $c-bad;
+  &.wrong .coord-trainer__score,
+  &.wrong #next_coord0 {
+    color: $c-bad !important;
   }
 
   &.play .start,
@@ -194,7 +199,8 @@ $mq-col3: $mq-x-large;
 
   &.init {
     @include breakpoint($mq-col1) {
-      .coord-trainer__score {
+      .coord-trainer__score,
+      .coord-trainer__progress {
         display: none;
       }
 
@@ -204,8 +210,13 @@ $mq-col3: $mq-x-large;
       }
     }
 
+    .explanation {
+      @extend %page-text-shadow !optional;
+    }
 
-    .coord-trainer__score {
+    .coord-trainer__score,
+    .coord-trainer__progress,
+    .current-status {
       opacity: 0;
     }
 

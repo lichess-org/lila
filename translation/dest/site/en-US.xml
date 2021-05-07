@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Infinite analysis</string>
   <string name="removesTheDepthLimit">Removes the depth limit, and keeps your computer warm</string>
   <string name="blunder">Blunder</string>
-  <string name="blunders">Blunders</string>
   <string name="mistake">Mistake</string>
-  <string name="mistakes">Mistakes</string>
   <string name="inaccuracy">Inaccuracy</string>
-  <string name="inaccuracies">Inaccuracies</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunder</item>
+    <item quantity="other">%s blunders</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s mistake</item>
+    <item quantity="other">%s mistakes</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s inaccuracy</item>
+    <item quantity="other">%s inaccuracies</item>
+  </plurals>
   <string name="moveTimes">Move times</string>
   <string name="flipBoard">Flip board</string>
   <string name="threefoldRepetition">Threefold repetition</string>
@@ -250,7 +259,6 @@
   <string name="send">Send</string>
   <string name="incrementInSeconds">Increment in seconds</string>
   <string name="freeOnlineChess">Free Online Chess</string>
-  <string name="spectators">Spectators:</string>
   <plurals name="nbRated">
     <item quantity="one">%s rated</item>
     <item quantity="other">%s rated</item>
@@ -278,7 +286,6 @@
     <item quantity="other">Give %s seconds</item>
   </plurals>
   <string name="thisAccountViolatedTos">This account violated the Lichess Terms of Service</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">This player artificially increases/decreases their rating</string>
   <string name="openingExplorerAndTablebase">Opening explorer &amp; tablebase</string>
   <string name="takeback">Takeback</string>
   <string name="proposeATakeback">Propose a takeback</string>
@@ -384,7 +391,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="more">More</string>
   <string name="memberSince">Member since</string>
   <string name="lastSeenActive">Active %s</string>
-  <string name="challengeToPlay">Challenge to a game</string>
   <string name="player">Player</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
@@ -470,6 +476,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
+  <string name="descPrivate">Private description</string>
+  <string name="descPrivateHelp">Text that only the team members will see. If set, replaces the public description for team members.</string>
   <string name="no">No</string>
   <string name="yes">Yes</string>
   <string name="help">Help:</string>
@@ -490,6 +498,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="cheat">Cheat</string>
   <string name="insult">Insult</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Rating manipulation</string>
   <string name="other">Other</string>
   <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user behavior. Don\'t just say \"they cheat\", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
@@ -512,6 +521,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="clockInitialTime">Clock initial time</string>
   <string name="clockIncrement">Clock increment</string>
   <string name="privacy">Privacy</string>
+  <string name="privacyPolicy">Privacy policy</string>
   <string name="letOtherPlayersFollowYou">Let other players follow you</string>
   <string name="letOtherPlayersChallengeYou">Let other players challenge you</string>
   <string name="letOtherPlayersInviteYouToStudy">Let other players invite you to study</string>
@@ -580,6 +590,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.email_unique">This email address is already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
+  <string name="onlyExistingConversations">Only existing conversations</string>
   <string name="onlyFriends">Only friends</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
@@ -657,6 +668,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
+  <string name="readAboutOur">Read about our %s.</string>
   <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Time to process a move on lichess server</string>
   <string name="downloadAnnotated">Download annotated</string>
@@ -735,7 +747,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.unknown">Error</string>
   <string name="custom">Custom</string>
   <string name="notifications">Notifications</string>
-  <string name="challenges">Challenges</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s second to play the first move</item>
@@ -782,12 +793,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="opening">Opening</string>
   <string name="middlegame">Middlegame</string>
   <string name="endgame">Endgame</string>
-  <string name="registerToSendChallenges">Please register to send challenges.</string>
-  <string name="youCannotChallengeX">You cannot challenge %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
-  <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Cannot challenge due to provisional %s rating.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s only accepts challenges from friends.</string>
   <string name="conditionalPremoves">Conditional premoves</string>
   <string name="addCurrentVariation">Add current variation</string>
   <string name="playVariationToCreateConditionalPremoves">Play a variation to create conditional premoves</string>
@@ -841,4 +846,22 @@ computer analysis, game chat and shareable URL.</string>
   <string name="youCannotPostYetPlaySomeGames">You can\'t post in the forums yet. Play some games!</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
+  <string name="mentionedYouInX"> mentioned you in \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s mentioned you in \"%2$s\".</string>
+  <string name="invitedYouToX"> invited you to \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invited you to \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">You are now part of the team.</string>
+  <string name="youHaveJoinedTeamX">You have joined \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Someone you reported was banned</string>
+  <string name="congratsYouWon">Congratulations, you won!</string>
+  <string name="gameVsX">Game vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="youJustBecamePatron">You just became a Lichess Patron.</string>
+  <string name="patronAccountExpired">Patron account expired</string>
+  <string name="pleaseReconsiderRenewIt">Please consider renewing it!</string>
+  <string name="someoneReviewedYourCoachProfile">Someone reviewed your coach profile.</string>
+  <string name="newPendingReview">New pending review</string>
+  <string name="lostAgainstTOSViolator">You lost to someone who violated the Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
+  <string name="timeAlmostUp">Time is almost up!</string>
 </resources>

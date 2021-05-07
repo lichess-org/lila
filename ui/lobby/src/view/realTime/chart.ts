@@ -1,8 +1,7 @@
 import LobbyController from '../../ctrl';
 import { bind, perfIcons } from '../util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { Hook } from '../../interfaces';
-import { VNode } from 'snabbdom/vnode';
 
 const percents = (v: number) => v + '%';
 
@@ -11,7 +10,7 @@ const ratingLog = (a: number) => Math.log(a / 150 + 1);
 function ratingY(e: number) {
   const rating = Math.max(1000, Math.min(2200, e || 1500));
   let ratio: number;
-  let mid = 2 / 5;
+  const mid = 2 / 5;
   if (rating == 1500) {
     ratio = mid;
   } else if (rating > 1500) {
@@ -26,23 +25,18 @@ const clockMax = 2000;
 
 const clockX = (dur: number) => {
   const durLog = (a: number) => Math.log((a - 30) / 200 + 1);
-  return Math.round(durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax) * 100);
-}
+  return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
+};
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
   const bottom = Math.max(0, ratingY(hook.rating) - 2),
     left = Math.max(0, clockX(hook.t) - 2),
-    klass = [
-      hook.id,
-      'plot.new',
-      hook.ra ? 'rated' : 'casual',
-      hook.action === 'cancel' ? 'cancel' : ''
-    ].join('.');
+    klass = [hook.id, 'plot.new', hook.ra ? 'rated' : 'casual', hook.action === 'cancel' ? 'cancel' : ''].join('.');
   return h('span#' + klass, {
     key: hook.id,
     attrs: {
       'data-icon': perfIcons[hook.perf],
-      style: `bottom:${percents(bottom)};left:${percents(left)}`
+      style: `bottom:${percents(bottom)};left:${percents(left)}`,
     },
     hook: {
       insert(vnode) {
@@ -51,18 +45,20 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
           closeDelay: 200,
           popupId: 'hook',
           preRender() {
-            $('#hook').html(renderHook(ctrl, hook))
-              .find('.inner-clickable').on('click', () => ctrl.clickHook(hook.id));
-          }
+            $('#hook')
+              .html(renderHook(ctrl, hook))
+              .find('.inner-clickable')
+              .on('click', () => ctrl.clickHook(hook.id));
+          },
         });
-        setTimeout(function() {
+        setTimeout(function () {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },
       destroy(vnode) {
         $.powerTip.destroy(vnode.elm as HTMLElement);
-      }
-    }
+      },
+    },
   });
 }
 
@@ -89,12 +85,20 @@ function renderXAxis() {
   const tags: VNode[] = [];
   xMarks.forEach(v => {
     const l = clockX(v * 60);
-    tags.push(h('span.x.label', {
-      attrs: { style: 'left:' + percents(l - 1.5) }
-    }, '' + v));
-    tags.push(h('div.grid.vert', {
-      attrs: { style: 'width:' + percents(l) }
-    }));
+    tags.push(
+      h(
+        'span.x.label',
+        {
+          attrs: { style: 'left:' + percents(l - 1.5) },
+        },
+        '' + v
+      )
+    );
+    tags.push(
+      h('div.grid.vert', {
+        attrs: { style: 'width:' + percents(l) },
+      })
+    );
   });
   return tags;
 }
@@ -103,14 +107,22 @@ const yMarks = [1000, 1200, 1400, 1500, 1600, 1800, 2000];
 
 function renderYAxis() {
   const tags: VNode[] = [];
-  yMarks.forEach(function(v) {
+  yMarks.forEach(function (v) {
     const b = ratingY(v);
-    tags.push(h('span.y.label', {
-      attrs: { style: 'bottom:' + percents(b + 1) }
-    }, '' + v));
-    tags.push(h('div.grid.horiz', {
-      attrs: { style: 'height:' + percents(b + 0.8) }
-    }));
+    tags.push(
+      h(
+        'span.y.label',
+        {
+          attrs: { style: 'bottom:' + percents(b + 1) },
+        },
+        '' + v
+      )
+    );
+    tags.push(
+      h('div.grid.horiz', {
+        attrs: { style: 'height:' + percents(b + 0.8) },
+      })
+    );
   });
   return tags;
 }
@@ -119,18 +131,26 @@ export function toggle(ctrl: LobbyController) {
   return h('i.toggle', {
     key: 'set-mode-list',
     attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '?' },
-    hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw)
+    hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }
 
 export function render(ctrl: LobbyController, hooks: Hook[]) {
   return h('div.hooks__chart', [
-    h('div.canvas', {
-      hook: bind('click', e => {
-        if ((e.target as HTMLElement).classList.contains('plot')) ctrl.clickHook((e.target as HTMLElement).id);
-      }, ctrl.redraw)
-    }, hooks.map(hook => renderPlot(ctrl, hook))),
+    h(
+      'div.canvas',
+      {
+        hook: bind(
+          'click',
+          e => {
+            if ((e.target as HTMLElement).classList.contains('plot')) ctrl.clickHook((e.target as HTMLElement).id);
+          },
+          ctrl.redraw
+        ),
+      },
+      hooks.map(hook => renderPlot(ctrl, hook))
+    ),
     ...renderYAxis(),
-    ...renderXAxis()
+    ...renderXAxis(),
   ]);
 }

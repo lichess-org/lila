@@ -10,37 +10,37 @@
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
-  <string name="zenMode">Zen režīms</string>
+  <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen režīms</string>
   <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="blindfoldChess">Aklais šahs (ar neredzamām figūrām)</string>
   <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Ja atlicis &lt; 10 sekundēm</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ja atlicis &lt; 10 sekundēm</string>
   <string name="horizontalGreenProgressBars">Zaļā horizontālā izpildes josla</string>
   <string name="soundWhenTimeGetsCritical">Signalizēt, kad laika pavisam maz</string>
   <string name="giveMoreTime">Dot vairāk laika</string>
-  <string name="gameBehavior">Spēles uzvedība</string>
-  <string name="howDoYouMovePieces">Kā pārvietosi figūras?</string>
-  <string name="clickTwoSquares">Klikšķini uz diviem lauciņiem</string>
-  <string name="dragPiece">Velc figūru</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Spēles uzvedība</string>
+  <string name="howDoYouMovePieces">Kā pārvietot figūras?</string>
+  <string name="clickTwoSquares">Klikšķinot uz diviem lauciņiem</string>
+  <string name="dragPiece">Velkot figūru</string>
   <string name="bothClicksAndDrag">Jebkurā veidā</string>
-  <string name="premovesPlayingDuringOpponentTurn">Priekšgājieni (izdarīt gājienu kamēr pretinieks domā)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Priekšgājieni (izdarīti pretinieka gājienā)</string>
   <string name="takebacksWithOpponentApproval">Gājienu atsaukšana (ar pretinieka piekrišanu)</string>
   <string name="inCasualGamesOnly">Tikai nevērtētajās spēlēs</string>
   <string name="promoteToQueenAutomatically">Automātiski pārvērst par Dāmu</string>
-  <string name="whenPremoving">Ja priekšgājiens</string>
+  <string name="whenPremoving">Tikai priekšgājienos</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Automātiski pieprasīt trīskāršās atkārtošanās neizšķirtu</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Ja atlicis &lt; 30 sekundēm</string>
   <string name="moveConfirmation">Gājiena apstiprināšana</string>
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
-  <string name="correspondenceAndUnlimited">Korespondencšahs un bezgalīgs</string>
+  <string name="correspondenceAndUnlimited">Korespondencšaha un bezgalīgajās spēlēs</string>
   <string name="confirmResignationAndDrawOffers">Apstiprināt padošanos un neizšķirta piedāvājumus</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokādes metode</string>
   <string name="castleByMovingTwoSquares">Pārvietot karali par diviem lauciņiem</string>
   <string name="castleByMovingOntoTheRook">Pārvietot karali virsū tornim</string>
-  <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar klaviatūru</string>
+  <string name="inputMovesWithTheKeyboard">Ievadīt gājienus ar tastatūru</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Pievilkt bultas pie iespējamiem gājieniem</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sūtīt \"Good game, well played\" (angļ. val. \"Laba partija, labi nospēlēta\") pēc uzvaras vai neizšķirta</string>
   <string name="yourPreferencesHaveBeenSaved">Jūsu uzstādījumi ir saglabāti.</string>

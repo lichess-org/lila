@@ -15,6 +15,7 @@
 Ecce tu pagina de profilo: %1$s. Tu pote personalisar lo in %2$s.
 
 Diverte se, e que tu pecias sempre trova le camino al rege adversario!</string>
+  <string name="logInToLichess">Aperi un session in lichess.org, %s</string>
   <string name="common_orPaste">(Cliccar non functiona? Tenta collar le ligamine a in tu navigator!)</string>
   <string name="common_note">Isto es un e-posta automatic referente al uso de %s.</string>
   <string name="common_contact">Pro contactar nos, per favor usa %s.</string>

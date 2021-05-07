@@ -5,16 +5,6 @@
     flex-flow: column;
   }
 
-
-  .complete {
-    @extend %flex-center;
-
-    justify-content: center;
-    flex: 1 1 50%;
-    font-size: 1.3em;
-    white-space: nowrap;
-  }
-
   .continue {
     @extend %flex-center-nowrap;
 
@@ -34,6 +24,46 @@
       margin-right: 10px;
     }
   }
+
+  .complete {
+    @extend %flex-center;
+
+    justify-content: center;
+    flex: 1 1 50%;
+    font-size: 1.3em;
+    white-space: nowrap;
+
+    .game-over {
+      letter-spacing: 0.5ch;
+      border-bottom: $border;
+      padding-bottom: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    .puzzle--streak & {
+      @extend %flex-column;
+    }
+  }
+
+  .puzzle__more {
+    @extend %flex-between;
+
+    display: none;
+    border-top: $border;
+    padding: 1em 2em;
+
+    a {
+      color: $c-font;
+
+      &:hover {
+        color: $c-link;
+      }
+    }
+
+    @include breakpoint($mq-col2) {
+      display: flex;
+    }
+  }
 }
 
 .puzzle__vote {
@@ -42,7 +72,7 @@
   flex: 1 1 70%;
 
   &__help {
-    margin: .5em 1em 0 0;
+    margin: 0.5em 1em 0 0;
 
     p {
       display: inline;
@@ -61,11 +91,12 @@
   &__buttons {
     @extend %flex-center-nowrap;
 
-    opacity: .1;
+    opacity: 0.1;
 
     &.enabled {
       opacity: 1;
-      @include transition(opacity, .5s);
+
+      @include transition(opacity, 0.5s);
     }
 
     flex: 1 1 100%;

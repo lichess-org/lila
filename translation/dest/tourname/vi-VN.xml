@@ -34,5 +34,16 @@
   <string name="yearlyClassical">Cờ chậm hàng năm</string>
   <string name="yearlyXArena">Đấu trường %s hàng năm</string>
   <string name="yearlyX">%s hàng năm</string>
+  <string name="rapidShieldArena">Giải đấu Lá chắn Cờ nhanh</string>
+  <string name="rapidShield">Lá chắn Cờ nhanh</string>
+  <string name="classicalShieldArena">Đấu trường Khiên Cổ điển</string>
+  <string name="classicalShield">Khiên Cổ điển</string>
+  <string name="xShieldArena">%s Giải đấu Khiên</string>
+  <string name="xShield">%s Khiên</string>
+  <string name="openingRapidArena">%s Giải đấu cờ nhanh</string>
+  <string name="openingRapid">%s Cờ nhanh</string>
+  <string name="xTeamBattle">%s Giải đấu đội</string>
+  <string name="eliteXArena">Giải đấu %s chuyên nghiệp</string>
+  <string name="eliteX">Chuyên nghiệp %s</string>
   <string name="xArena">Đấu trường %s</string>
 </resources>

@@ -2,13 +2,14 @@
 <resources>
   <string name="playWithAFriend">Hrať s priateľom</string>
   <string name="playWithTheMachine">Hrať proti počítaču</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Zverejnením tejto adresy môžete niekoho pozvať k partii</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
   <string name="waiting">Čaká sa</string>
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
   <string name="level">Úroveň</string>
+  <string name="strength">Sila</string>
   <string name="toggleTheChat">Prepínač okna rozhovoru</string>
   <string name="toggleSound">Prepínač zvuku</string>
   <string name="chat">Rozhovor</string>
@@ -120,11 +121,20 @@
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Odstráni obmedzenie hĺbky analýzy a spôsobí zahrievanie Vášho počítača</string>
   <string name="blunder">Hrubá chyba</string>
-  <string name="blunders">Hrubé chyby</string>
   <string name="mistake">Chyba</string>
-  <string name="mistakes">Chyby</string>
   <string name="inaccuracy">Nepresnosť</string>
-  <string name="inaccuracies">Nepresnosti</string>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s chyba</item>
+    <item quantity="few">%s chyby</item>
+    <item quantity="many">%s chýb</item>
+    <item quantity="other">%s chýb</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nepresnosť</item>
+    <item quantity="few">%s nepresnosti</item>
+    <item quantity="many">%s nepresností</item>
+    <item quantity="other">%s nepresností</item>
+  </plurals>
   <string name="moveTimes">Trvanie ťahov</string>
   <string name="flipBoard">Otočiť šachovnicu</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
@@ -271,7 +281,6 @@
   <string name="send">Poslať</string>
   <string name="incrementInSeconds">Prírastok v sekundách</string>
   <string name="freeOnlineChess">Online šach zdarma</string>
-  <string name="spectators">Diváci:</string>
   <plurals name="nbRated">
     <item quantity="one">%s hodnotená</item>
     <item quantity="few">%s hodnotené</item>
@@ -311,7 +320,6 @@
     <item quantity="other">Pridať %s sekúnd</item>
   </plurals>
   <string name="thisAccountViolatedTos">Tento účet porušil Podmienky poskytovania služby Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Tento hráč si umelo zvyšuje/znižuje svoje hodnotenie</string>
   <string name="openingExplorerAndTablebase">Knižnica otvorení &amp; koncoviek</string>
   <string name="takeback">Vrátiť ťah</string>
   <string name="proposeATakeback">Ponúknuť vrátenie ťahu</string>
@@ -436,7 +444,6 @@
   <string name="more">Viac</string>
   <string name="memberSince">Členom od</string>
   <string name="lastSeenActive">Posledné prihlásenie %s</string>
-  <string name="challengeToPlay">Vyzvať k hre</string>
   <string name="player">Hráč</string>
   <string name="list">Zoznam</string>
   <string name="graph">Graf</string>
@@ -450,7 +457,7 @@
   <string name="openTournaments">Otvorené turnaje</string>
   <string name="duration">Dĺžka</string>
   <string name="winner">Víťaz</string>
-  <string name="standing">Pozícia</string>
+  <string name="standing">Poradie</string>
   <string name="createANewTournament">Vytvoriť nový turnaj</string>
   <string name="tournamentCalendar">Kalendár turnajov</string>
   <string name="conditionOfEntry">Podmienka vstupu:</string>
@@ -526,6 +533,8 @@
   <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
+  <string name="descPrivate">Opis pre členov tímu</string>
+  <string name="descPrivateHelp">Text, ktorý uvidia len členovia daného tímu. Ak je zadaný, tak nahrádza verejný opis členov tímu.</string>
   <string name="no">Nie</string>
   <string name="yes">Áno</string>
   <string name="help">Pomoc:</string>
@@ -546,6 +555,7 @@
   <string name="cheat">Podvod</string>
   <string name="insult">Urážka</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Ovplyvňovanie ratingu</string>
   <string name="other">Iné</string>
   <string name="reportDescriptionHelp">Vložte odkaz na hru/y, a vysvetlite, čo je zlé na tomto správaní používateľa.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte aspoň jeden odkaz na partiu, v ktorej sa podvádzalo.</string>
@@ -568,6 +578,7 @@
   <string name="clockInitialTime">Počiatočný čas na hodinách</string>
   <string name="clockIncrement">Časový prírastok</string>
   <string name="privacy">Súkromie</string>
+  <string name="privacyPolicy">Ochrana osobných údajov</string>
   <string name="letOtherPlayersFollowYou">Povoliť ostatným hráčom aby Vás sledovali</string>
   <string name="letOtherPlayersChallengeYou">Povoliť ostatným hráčom aby Vás vyzvali k partii</string>
   <string name="letOtherPlayersInviteYouToStudy">Povoliť ostatným hráčom aby Vás pozvali k šachovej štúdii</string>
@@ -640,6 +651,7 @@
   <string name="error.email_unique">tento email sa už používa</string>
   <string name="error.email_different">Táto emailová adresa je už Vaša</string>
   <string name="ifRatingIsPlusMinusX">Keď je hodnotenie ± %s</string>
+  <string name="onlyExistingConversations">Iba existujúce konverzácie</string>
   <string name="onlyFriends">Iba priatelia</string>
   <string name="menu">Menu</string>
   <string name="castling">Rošáda</string>
@@ -681,7 +693,7 @@
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
   <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
-  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať ktorý bude hrať.</string>
+  <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
   <string name="simulHostExtraTime">Dotatočný čas pre hostiteľa.</string>
@@ -710,9 +722,9 @@
     <item quantity="other">Tento týždeň hralo %2$s %1$s hráčov.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnotenie je %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Ste lepší než %1$s z %2$s hráčov.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s je lepší ako %2$s z %3$s hráčov.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte určené %s hodnotenie.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte ustálené %s hodnotenie.</string>
   <string name="yourRating">Váš rating</string>
   <string name="cumulative">Kumulatívne</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
@@ -721,7 +733,8 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ak nevidíte email, pozrite iné miesta kde by mohol byť, ako napríklad kôš, spam, sociálne, alebo iné priečinky.</string>
   <string name="weHaveSentYouAnEmailTo">Poslali sme email na %s. Kliknite na link v emaili na obnovenie hesla.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registráciou súhlasíte aby ste boli viazaný s našimi %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichess</string>
+  <string name="readAboutOur">Prečítajte si o našej %s.</string>
+  <string name="networkLagBetweenYouAndLichess">Internetové oneskorenie medzi Vami a lichessom</string>
   <string name="timeToProcessAMoveOnLichessServer">Čas na spracovanie ťahu na lichess serveri</string>
   <string name="downloadAnnotated">Stiahnuť s poznámkami</string>
   <string name="downloadRaw">Stiahnuť čisté PGN</string>
@@ -784,7 +797,7 @@
   <string name="pieceSet">Vzhľad figúr</string>
   <string name="embedInYourWebsite">Vložiť na web</string>
   <string name="usernameAlreadyUsed">Toto užívateľské meno už existuje. Zvoľte si, prosím, iné.</string>
-  <string name="usernamePrefixInvalid">Užívateľské meno musí začínať písmenom.</string>
+  <string name="usernamePrefixInvalid">Užívateľské meno sa musí začínať písmenom.</string>
   <string name="usernameSuffixInvalid">Užívateľské meno musí končiť písmenom alebo číslom.</string>
   <string name="usernameCharsInvalid">Užívateľské meno musí obsahovať iba písmená, čísla, podčiarkovník a pomlčku.</string>
   <string name="usernameUnacceptable">Toto užívateľské meno nie je prijateľné.</string>
@@ -801,7 +814,6 @@
   <string name="error.unknown">Chyba</string>
   <string name="custom">Vlastná</string>
   <string name="notifications">Upozornenia</string>
-  <string name="challenges">Výzvy</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda na vykonanie prvého ťahu</item>
@@ -852,12 +864,6 @@
   <string name="opening">Otvorenie</string>
   <string name="middlegame">Stredná hra</string>
   <string name="endgame">Koncovka</string>
-  <string name="registerToSendChallenges">Pre odoslanie výzvy sa zaregistrujte!</string>
-  <string name="youCannotChallengeX">Nemôžete vyzvať %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s neprijíma výzvy.</string>
-  <string name="yourXRatingIsTooFarFromY">Medzi Vaším %1$s hodnotením a hodnotením hráča %2$s je príliš veľký rozdiel.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Nemôžete odoslať výzvu kvôli provizórnemu %s hodnoteniu.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s prijíma výzvy iba od priateľov.</string>
   <string name="conditionalPremoves">Podmienené predťahy</string>
   <string name="addCurrentVariation">Pridaj aktuálny variant</string>
   <string name="playVariationToCreateConditionalPremoves">Hrať variant a vytvoriť podmienené predťahy</string>

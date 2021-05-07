@@ -4,7 +4,6 @@ import { bind } from '../util';
 import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
-
   const f = ctrl.filter.data?.form,
     $div = $(el),
     $ratingRange = $div.find('.rating-range'),
@@ -12,12 +11,13 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     $minInput = $ratingRange.find('.rating-range__min'),
     $maxInput = $ratingRange.find('.rating-range__max');
 
-  if (f) Object.keys(f).forEach(k => {
-    const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
-    if (input.type == 'checkbox') input.checked = true;
-    else input.value = f[k];
-  });
-  else $div.find('input').prop('checked', true)
+  if (f)
+    Object.keys(f).forEach(k => {
+      const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
+      if (input.type == 'checkbox') input.checked = true;
+      else input.value = f[k];
+    });
+  else $div.find('input').prop('checked', true);
 
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
@@ -35,22 +35,26 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   function changeRatingRange(e?: Event) {
     $minInput.attr('max', $maxInput.val() as string);
     $maxInput.attr('min', $minInput.val() as string);
-    const txt = $minInput.val() + "-" + $maxInput.val();
+    const txt = $minInput.val() + '-' + $maxInput.val();
     $rangeInput.val(txt);
     $ratingRange.siblings('.range').text(txt);
     if (e) save();
   }
-  const rangeValues = $rangeInput.val() ? ($rangeInput.val() as string).split("-") : [];
+  const rangeValues = $rangeInput.val() ? ($rangeInput.val() as string).split('-') : [];
 
-  $minInput.attr({
-    step: '50',
-    value: rangeValues[0] || $minInput.attr('min')!
-  }).on('input', changeRatingRange);
+  $minInput
+    .attr({
+      step: '50',
+      value: rangeValues[0] || $minInput.attr('min')!,
+    })
+    .on('input', changeRatingRange);
 
-  $maxInput.attr({
-    step: '50',
-    value: rangeValues[1] || $maxInput.attr('max')!
-  }).on('input', changeRatingRange);
+  $maxInput
+    .attr({
+      step: '50',
+      value: rangeValues[1] || $maxInput.attr('max')!,
+    })
+    .on('input', changeRatingRange);
 
   changeRatingRange();
 }
@@ -62,8 +66,8 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
     hook: bind('mousedown', filter.toggle, ctrl.redraw),
     attrs: {
       'data-icon': filter.open ? 'L' : '%',
-      title: ctrl.trans.noarg('filterGames')
-    }
+      title: ctrl.trans.noarg('filterGames'),
+    },
   });
 }
 
@@ -77,12 +81,11 @@ export const render = (ctrl: LobbyController) =>
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
-        xhr.text('/setup/filter')
-          .then(html => {
-            el.innerHTML = html;
-            el.filterLoaded = true;
-            initialize(ctrl, el);
-          });
-      }
-    }
+        xhr.text('/setup/filter').then(html => {
+          el.innerHTML = html;
+          el.filterLoaded = true;
+          initialize(ctrl, el);
+        });
+      },
+    },
   });

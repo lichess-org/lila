@@ -1,6 +1,6 @@
 export interface Deferred<A> {
-  promise: Promise<A>,
-  resolve(a: A | PromiseLike<A>): void,
+  promise: Promise<A>;
+  resolve(a: A | PromiseLike<A>): void;
   reject(err: unknown): void;
 }
 

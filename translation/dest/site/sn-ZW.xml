@@ -58,11 +58,8 @@
   <string name="infiniteAnalysis">Analysis isingapere</string>
   <string name="removesTheDepthLimit">Bvisa maLimit anodziisa mushini wako</string>
   <string name="blunder">Kukanganisa</string>
-  <string name="blunders">Zvitadzo</string>
   <string name="mistake">Chitadzo</string>
-  <string name="mistakes">Zvitadzo</string>
   <string name="inaccuracy">Inaccuracy</string>
-  <string name="inaccuracies">Inaccuracies</string>
   <string name="moveTimes">Kwafambwa kangani</string>
   <string name="flipBoard">Tenderedza pekutambira</string>
   <string name="threefoldRepetition">Kudzokorodza katatu</string>

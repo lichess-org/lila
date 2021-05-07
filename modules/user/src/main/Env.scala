@@ -82,11 +82,6 @@ final class Env(
     },
     "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
       rankingApi.remove(userId).unit
-    },
-    "gdprErase" -> { case User.GDPRErase(user) =>
-      repo erase user
-      noteApi erase user
-      ()
     }
   )
 }

@@ -24,16 +24,15 @@
   <string name="visibleByBothStudentsAndTeachers">Vidljivo instruktorima i učenicima ovog časa</string>
   <string name="teachersOfTheClass">Instruktori ovog časa</string>
   <string name="addLichessUsernames">Dodajte Lichess korisnička imena da ih pozovete kao instruktore. Dodajte svako ime u zaseban red.</string>
-  <string name="theyMustFirstApply">Prvo se moraju prijaviti da postanu Lichess instruktori.</string>
   <string name="resetPassword">Resetujte lozinku</string>
   <string name="makeSureToCopy">Iskopirajte ili zapišite lozinku sada. Nećete je moći opet vidjeti!</string>
   <string name="passwordX">Lozinka: %s</string>
   <string name="generateANewPassword">Generišite novu lozinku za učenika/cu</string>
-  <string name="invitedToXByY" comment="invitedToXByY&#10;&#10;%1$s is the Class name and %$2s is the person who invited">Pozvan/a u %1$s od strane %2$s</string>
+  <string name="invitedToXByY">Pozvan/a u %1$s od strane %2$s</string>
   <string name="realName">Stvarno ime</string>
   <string name="privateWillNeverBeShown">Privatno. Nikada se neće moći vidjeti izvan časa. Pomaže kako bi se upamtilo ko je učenik.</string>
   <string name="addStudent">Dodajte učenika</string>
-  <string name="lichessProfileXCreatedForY" comment="lichessProfileXCreatedForY&#10;&#10;%1$s is the created account (nickname) &#10;%$2s is the real name of the student (only visible for the teacher)">Lichess profil %1$s kreiran za %2$s.</string>
+  <string name="lichessProfileXCreatedForY">Lichess profil %1$s kreiran za %2$s.</string>
   <string name="studentCredentials">Učenik/ca: %1$s
 Korisničko ime: %2$s
 Lozinka: %3$s</string>
@@ -53,7 +52,7 @@ Lozinka: %3$s</string>
 Evo linka za pristup času.</string>
   <string name="invitationToClass">Pozvani ste da se pridružite času %s kao student.</string>
   <string name="clickToViewInvitation">Kliknite na link da vidite pozivnicu:</string>
-  <plurals name="nbPendingInvitations" comment="nbPendingInvitations [one] [other]&#10;&#10;Shown to the teacher, in teacher dashboard.">
+  <plurals name="nbPendingInvitations">
     <item quantity="one">Jedna pozivnica na čekanju</item>
     <item quantity="few">%s pozivnice / pozivnica na čekanju</item>
     <item quantity="other">%s pozivnice / pozivnica na čekanju</item>
@@ -84,9 +83,9 @@ Evo linka za pristup času.</string>
   <string name="progress">Napredak</string>
   <string name="noStudents">Nema još učenika u času.</string>
   <string name="noRemovedStudents">Nema ukloljenih učenika.</string>
-  <string name="overDays" comment="overDays&#10;&#10;In the &quot;Progress&quot; tab of a Lichess Class dashboard, &quot;Over days&quot; is the title of a selector. This selector offers a choice between various durations, in days, over which the user can view the progress of the class.">Tokom više dana</string>
+  <string name="overDays">Tokom više dana</string>
   <string name="timePlaying">Vrijeme igranja</string>
-  <string name="variantXOverLastY" comment="variantXOverLastY&#10;&#10;The first variable is a game type (Blitz/Bullet, etc).&#10;The second variable is a duration length (in days).&#10;&#10;This is the heading of a column for a table that appears in the &quot;Progress&quot; tab of the Lichess Class dashboard.">%1$s tokom poslednjih %2$s</string>
+  <string name="variantXOverLastY">%1$s tokom poslednjih %2$s</string>
   <string name="winrate">Postotak pobjeda</string>
   <string name="na">NIje dostupno</string>
   <string name="news">Vijesti časa</string>

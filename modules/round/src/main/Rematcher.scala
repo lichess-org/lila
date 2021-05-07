@@ -2,7 +2,7 @@ package lila.round
 
 import chess.format.Forsyth
 import chess.variant._
-import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
+import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation, History }
 import ChessColor.{ Black, White }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
@@ -30,7 +30,8 @@ final private class Rematcher(
   private val rateLimit = new lila.memo.RateLimit[String](
     credits = 2,
     duration = 1 minute,
-    key = "round.rematch"
+    key = "round.rematch",
+    log = false
   )
 
   import Rematcher.Offers
@@ -107,12 +108,16 @@ final private class Rematcher(
         case variant      => variant.pieces
       }
       users <- userRepo byIds pov.game.userIds
+      board = Board(pieces, variant = pov.game.variant).withHistory(
+        History(
+          lastMove = situation.flatMap(_.situation.board.history.lastMove),
+          castles = situation.fold(Castles.init)(_.situation.board.history.castles)
+        )
+      )
       game <- Game.make(
         chess = ChessGame(
           situation = Situation(
-            board = Board(pieces, variant = pov.game.variant).withCastles {
-              situation.fold(Castles.init)(_.situation.board.history.castles)
-            },
+            board = board,
             color = situation.fold[chess.Color](White)(_.situation.color)
           ),
           clock = pov.game.clock map { c =>

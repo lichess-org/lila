@@ -2,15 +2,15 @@ import { ExplorerDb, ExplorerSpeed, OpeningData, TablebaseData } from './interfa
 import * as xhr from 'common/xhr';
 
 interface OpeningXhrOpts {
-  endpoint: string,
-  db: ExplorerDb,
-  rootFen: Fen,
-  play: string[],
-  fen: Fen,
-  variant?: VariantKey, // only lichess
-  speeds?: ExplorerSpeed[], // only lichess
-  ratings?: number[], // only lichess
-  withGames?: boolean,
+  endpoint: string;
+  db: ExplorerDb;
+  rootFen: Fen;
+  play: string[];
+  fen: Fen;
+  variant?: VariantKey; // only lichess
+  speeds?: ExplorerSpeed[]; // only lichess
+  ratings?: number[]; // only lichess
+  withGames?: boolean;
 }
 
 export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
@@ -27,32 +27,30 @@ export function opening(opts: OpeningXhrOpts): Promise<OpeningData> {
     params.set('topGames', '0');
     params.set('recentGames', '0');
   }
-  return xhr.json(
-    url.href,
-    {
+  return xhr
+    .json(url.href, {
       cache: 'default',
       headers: {}, // avoid default headers for cors
       credentials: 'omit',
-    }
-  ).then((data: Partial<OpeningData>) => {
-    data.isOpening = true;
-    data.fen = opts.fen;
-    return data as OpeningData;
-  });
+    })
+    .then((data: Partial<OpeningData>) => {
+      data.isOpening = true;
+      data.fen = opts.fen;
+      return data as OpeningData;
+    });
 }
 
 export function tablebase(endpoint: string, variant: VariantKey, fen: Fen): Promise<TablebaseData> {
-  const effectiveVariant = (variant === 'fromPosition' || variant === 'chess960') ? 'standard' : variant;
-  return xhr.json(
-    xhr.url(`${endpoint}/${effectiveVariant}`, { fen }),
-    {
+  const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;
+  return xhr
+    .json(xhr.url(`${endpoint}/${effectiveVariant}`, { fen }), {
       cache: 'default',
       headers: {}, // avoid default headers for cors
       credentials: 'omit',
-    }
-  ).then((data: Partial<TablebaseData>) => {
-    data.tablebase = true;
-    data.fen = fen;
-    return data as TablebaseData;
-  });
+    })
+    .then((data: Partial<TablebaseData>) => {
+      data.tablebase = true;
+      data.fen = fen;
+      return data as TablebaseData;
+    });
 }

@@ -1,0 +1,38 @@
+.storm {
+  &--play {
+    display: grid;
+
+    grid-row-gap: $block-gap;
+    grid-column-gap: $block-gap;
+    grid-template-areas: 'board' 'side';
+
+    @include breakpoint($mq-col2) {
+      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
+      grid-template-rows: fit-content(0);
+      grid-template-areas: 'board   side';
+    }
+  }
+}
+
+.puz-clock {
+  &__time {
+    .puz-mod-bonus-slow & {
+      color: $c-good;
+    }
+
+    .puz-mod-malus-slow & {
+      color: $c-bad;
+    }
+  }
+
+  &__pov {
+    color: $c-brag;
+    margin-left: 5vw;
+
+    @include breakpoint($mq-col2) {
+      position: absolute;
+      bottom: -3em;
+      margin-left: 0;
+    }
+  }
+}

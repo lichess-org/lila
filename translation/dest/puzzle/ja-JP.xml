@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">タクティクス問題</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">問題のテーマ</string>
+  <string name="puzzleThemes">問題のテーマ</string>
   <string name="recommended">おすすめ</string>
   <string name="phases">序盤・中盤・終盤</string>
   <string name="motifs">モチーフ</string>
@@ -9,6 +9,7 @@
   <string name="lengths">手数</string>
   <string name="mates">メイト</string>
   <string name="goals">目標</string>
+  <string name="origin">出所</string>
   <string name="specialMoves">特殊な手</string>
   <string name="didYouLikeThisPuzzle">この問題は気に入りましたか？</string>
   <string name="voteToLoadNextOne">投票すると次を読み込みます！</string>
@@ -37,9 +38,26 @@
   <string name="normal">通常</string>
   <string name="easier">易しい</string>
   <string name="easiest">非常に易しい</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">あなたのレーティングより %s 点下</item>
+  </plurals>
   <string name="harder">難しい</string>
   <string name="hardest">非常に難しい</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">あなたのレーティングより %s 点上</item>
+  </plurals>
   <string name="example">例</string>
   <string name="addAnotherTheme">別のテーマを追加</string>
   <string name="jumpToNextPuzzleImmediately">解いたらすぐ次の問題を読み込む</string>
+  <string name="puzzleDashboard">問題成績データ</string>
+  <string name="improvementAreas">改善ポイント</string>
+  <string name="strengths">得意テーマ</string>
+  <string name="history">解答履歴</string>
+  <string name="solved">正解</string>
+  <string name="failed">失敗</string>
+  <string name="streakDescription">だんだん難しくなる問題に連続正解してください。時間制限はないのでじっくりとどうぞ。1 手間違えると終了です！　ただし途中 1 手だけ飛ばすことができます。</string>
+  <string name="yourStreakX">連続正解：%s</string>
+  <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
+  <string name="continueTheStreak">連続正解を続ける</string>
+  <string name="newStreak">新たなストリーク</string>
 </resources>

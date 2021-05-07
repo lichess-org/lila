@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">مدربوا الموقع</string>
+  <string name="lichessCoach">مدرب</string>
+  <string name="areYouCoach">هل أنت مدرب شطرنج رائع و %s؟</string>
+  <string name="location">الموقع</string>
+  <string name="languages">اللغات</string>
+  <string name="rating">التقييم (التصنيف)</string>
+  <string name="sendPM">أرسل رسالة خاصة</string>
+  <string name="playingExperience">تجربة اللعب</string>
+  <string name="otherExperiences">تجارب أخرى</string>
+  <string name="bestSkills">أفضل المهارات</string>
+  <string name="teachingMethod">منهجية التدريس</string>
+  <string name="youtubeVideos">فيديوهات اليوتيوب</string>
+  <string name="xWillApproveIt">%s سيوافق عليها قريبا جداً، أو سيلقي مشرف نظرة عليها.</string>
   <string name="reviewCoach">قيم المدرب</string>
 </resources>

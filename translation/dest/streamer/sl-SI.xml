@@ -19,15 +19,15 @@
   <string name="rule2">Odstranite ključno besedo, ko prenašate dogodke, ki niso povezani z Lichess-om.</string>
   <string name="rule3">Lichess bo samodejno zaznal vaš prenos in omogočil naslednje prednosti:</string>
   <string name="perks">Prednosti prenosa s klučno besedo</string>
-  <string name="perk1">Pridobite gorečo ikono voditelja oddaj v svojem profilu Lichess.</string>
+  <string name="perk1">Pridobite gorečo ikono voditelja prenosa v svojem profilu Lichess.</string>
   <string name="perk2">Skočite na vrh seznama voditeljev oddaj.</string>
   <string name="perk3">Obvestite vaše Lichess sledilce.</string>
   <string name="perk4">Predvajajte vaš prenos v svojih igrah, turnirjih in študijah.</string>
   <string name="approved">Vaš prenos je odobren.</string>
   <string name="pendingReview">Vaš prenos so pregledali moderatorji.</string>
   <string name="pleaseFillIn">Prosim, izpolnite informacije o voditelju oddaj in naložite sliko.</string>
-  <string name="whenReady">Ko ste pripravljeni, da se uvrstite na seznam voditeljev oddaj, %s</string>
-  <string name="requestReview">zahtevati pregled moderatorja</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Ko ste pripravljeni, da se uvrstite na seznam voditeljev prenosov, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">zahtevati pregled moderatorja</string>
   <string name="anotherLanguage">Če je vaš prenos v jeziku, ki ni angleški, na začetku naslova svojega prenosa vključite pravilno jezikovno oznako (%s), priloženo v oglatih oklepajih. 
 Kot naprimer, lahko vključite \"[RU]\" za ruščino, \"[TR]\" za turščino, \"[FR]\" za francoščino itd.
 To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve prenosa Lichess. 
@@ -35,19 +35,19 @@ To postavite v naslov oddaje na strani Twitch ali YouTube, ne pa v nastavitve pr
   <string name="twitchUsername">Vaše Twitch uporabniško ime ali URL</string>
   <string name="optionalOrEmpty">Neobvezno. Pustite prazno, če ga ni</string>
   <string name="youtubeChannel">Vaš Youtube kanal ali URL</string>
-  <string name="streamerName">Vaše ime voditelja oddaj na Lichess</string>
+  <string name="streamerName">Vaše ime kot voditelj prenosa na Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Naj bo kratko: največ %s znak</item>
     <item quantity="two">Naj bo kratko: največ %s znaka</item>
     <item quantity="few">Naj bo kratko: največ %s znaki</item>
     <item quantity="other">Naj bo kratko: največ %s znakov</item>
   </plurals>
-  <string name="visibility">Viden na strani voditeljev oddaj</string>
+  <string name="visibility">Viden na strani voditeljev prenosov</string>
   <string name="whenApproved">Ko odobrijo moderatorji</string>
   <string name="headline">Naslov</string>
-  <string name="tellUsAboutTheStream">Povejte nam o svoji oddaji v enem stavku</string>
+  <string name="tellUsAboutTheStream">Povejte nam o svojem prenosu v enem stavku</string>
   <string name="longDescription">Daljši opis</string>
-  <string name="xStreamerPicture">Slika voditelja oddaje %s</string>
+  <string name="xStreamerPicture">Slika voditelja prenosa %s</string>
   <string name="changePicture">Zamenjajte/izbrišite vašo sliko</string>
   <string name="uploadPicture">Naloži fotografijo</string>
   <string name="deletePicture">Izbriši sliko</string>

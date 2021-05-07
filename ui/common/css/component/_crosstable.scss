@@ -68,7 +68,7 @@
     }
 
     a.loss {
-      opacity: .2;
+      opacity: 0.2;
     }
 
     &.current a {
@@ -82,13 +82,13 @@
     }
 
     a.loss {
-      opacity: .2;
+      opacity: 0.2;
     }
 
     @include breakpoint($mq-not-x-small) {
       display: none;
 
-      &:nth-last-child(-n+12) {
+      &:nth-last-child(-n + 12) {
         display: flex;
       }
     }
@@ -98,7 +98,7 @@
     @extend %box-radius-left;
 
     border-left: $border;
-    margin-left: .3em;
+    margin-left: 0.3em;
   }
 
   .win {

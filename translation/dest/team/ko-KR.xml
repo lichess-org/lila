@@ -11,9 +11,8 @@
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
   <string name="joinTeam">팀 가입</string>
   <string name="quitTeam">팀 탈퇴</string>
-  <string name="anyoneCanJoin">승인 없이 아무나 가입할 수 있습니다</string>
-  <string name="aConfirmationIsRequiredToJoin">가입하기 위해선 승인이 필요합니다</string>
-  <string name="joiningPolicy">가입 정책</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">수동으로 가입 요청을 검토합니다.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
   </plurals>
@@ -34,6 +33,13 @@
   <string name="messageAllMembersOverview">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>
   <string name="teamsIlead">내가 이끄는 팀</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">곧 있을 다음 토너먼트들의 링크가 필요하신가요?</string>
   <string name="usersWhoCanManageThisTeam">팀 관리자</string>
   <string name="leadersChat">지도자 \'대화</string>
+  <string name="closeTeam">팀 폐쇄</string>
+  <string name="closeTeamDescription">영구히 팀 폐쇄</string>
+  <string name="teamPassword">팀 비밀번호</string>
+  <string name="teamPasswordDescriptionForLeader">(선택) 새 멤버가 가입하기 위해서는 비밀번호를 반드시 알아야 합니다.</string>
+  <string name="incorrectTeamPassword">팀 비밀번호가 잘못되었습니다.</string>
+  <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
 </resources>

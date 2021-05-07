@@ -26,7 +26,7 @@ class Report:
 
 
 def short_lang(lang):
-    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW"]:
+    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW", "tlh-AA"]:
         return lang.replace("-", "").lower()
     elif lang == "kab-DZ":
         return "kaby"
@@ -135,11 +135,18 @@ def lint_string(ctx, dest, source, allow_missing=0):
         if source.count(placeholder) < 1:
             ctx.error(f"unexpected {placeholder}")
 
+    if "%s" in dest:
+        for placeholder in re.findall(r"%\d+\$s", dest):
+            ctx.error(f"mixing placeholder styles: {placeholder} and %s")
+
     for pattern in ["O-O", "SAN", "FEN", "PGN", "K, Q, R, B, N"]:
         m_source = source if pattern.isupper() else source.lower()
         m_dest = dest if pattern.isupper() else dest.lower()
         if pattern in m_source and pattern not in m_dest:
             ctx.notice(f"missing {pattern}")
+
+    if "%$" in dest:
+        ctx.error("invalid %$")
 
     if "%%" in source and "%%" not in dest:
         ctx.warning("missing %%")

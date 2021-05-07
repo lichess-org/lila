@@ -2,12 +2,12 @@ package lila.studySearch
 
 import akka.actor._
 import akka.stream.scaladsl._
+import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.pgn.Tag
 import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
@@ -122,12 +122,15 @@ final class StudySearchApi(
           logger.info(s"Index to ${c.index.name} since $since")
           val retryLogger = logger.branch("index")
           import lila.db.dsl._
-          studyRepo
-            .sortedCursor(
-              $doc("createdAt" $gte since),
-              sort = $sort asc "createdAt"
-            )
-            .documentSource()
+          Source
+            .futureSource {
+              studyRepo
+                .sortedCursor(
+                  $doc("createdAt" $gte since),
+                  sort = $sort asc "createdAt"
+                )
+                .map(_.documentSource())
+            }
             .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
             .mapAsyncUnordered(8) { study =>
               lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)

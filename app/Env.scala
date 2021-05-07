@@ -12,6 +12,7 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
+import lila.user.{ Holder, User }
 
 final class Env(
     val config: Configuration,
@@ -57,7 +58,7 @@ final class Env(
     val insight: lila.insight.Env,
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
-    val slack: lila.slack.Env,
+    val irc: lila.irc.Env,
     val challenge: lila.challenge.Env,
     val explorer: lila.explorer.Env,
     val fishnet: lila.fishnet.Env,
@@ -79,6 +80,8 @@ final class Env(
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env,
     val swiss: lila.swiss.Env,
+    val storm: lila.storm.Env,
+    val racer: lila.racer.Env,
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
@@ -137,39 +140,50 @@ final class Env(
 
   def scheduler = system.scheduler
 
-  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
+  def closeAccount(u: User, by: Holder): Funit =
     for {
-      u <- user.repo byId userId orFail s"No such user $userId"
-      badApple = u.lameOrTrollOrAlt
       playbanned <- playban.api.hasCurrentBan(u.id)
-      _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
-      _          <- relation.api.unfollowAll(u.id)
-      _          <- user.rankingApi.remove(u.id)
-      teamIds    <- team.api.quitAll(u.id)
-      _          <- challenge.api.removeByUserId(u.id)
-      _          <- tournament.api.withdrawAll(u)
-      _          <- swiss.api.withdrawAll(u, teamIds)
-      _          <- plan.api.cancel(u).nevermind
-      _          <- lobby.seekApi.removeByUser(u)
-      _          <- security.store.closeAllSessionsOf(u.id)
-      _          <- push.webSubscriptionApi.unsubscribeByUser(u)
-      _          <- streamer.api.demote(u.id)
-      _          <- coach.api.remove(u.id)
-      reports    <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
-      _          <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
+      selfClose = u.id == by.id
+      badApple  = u.lameOrTrollOrAlt || !selfClose
+      _       <- user.repo.disable(u, keepEmail = badApple || playbanned)
+      _       <- relation.api.unfollowAll(u.id)
+      _       <- user.rankingApi.remove(u.id)
+      teamIds <- team.api.quitAll(u.id)
+      _       <- challenge.api.removeByUserId(u.id)
+      _       <- tournament.api.withdrawAll(u)
+      _       <- swiss.api.withdrawAll(u, teamIds)
+      _       <- plan.api.cancel(u).nevermind
+      _       <- lobby.seekApi.removeByUser(u)
+      _       <- security.store.closeAllSessionsOf(u.id)
+      _       <- push.webSubscriptionApi.unsubscribeByUser(u)
+      _       <- streamer.api.demote(u.id)
+      _       <- coach.api.remove(u.id)
+      reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
+      _       <- selfClose ?? mod.logApi.selfCloseAccount(u.id, reports)
+      _       <- appeal.api.onAccountClose(u)
       _ <- u.marks.troll ?? relation.api.fetchFollowing(u.id).flatMap {
         activity.write.unfollowAll(u, _)
       }
+      _ <- !selfClose ?? mod.logApi.closeAccount(by.id, u.id)
     } yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   Bus.subscribeFun("garbageCollect") { case lila.hub.actorApi.security.GarbageCollect(userId) =>
     // GC can be aborted by reverting the initial SB mark
     user.repo.isTroll(userId) foreach { troll =>
       if (troll) scheduler.scheduleOnce(1.second) {
-        closeAccount(userId, self = false).unit
+        lichessClose(userId).unit
       }
     }
   }
+  Bus.subscribeFun("rageSitClose") { case lila.hub.actorApi.playban.RageSitClose(userId) =>
+    lichessClose(userId).unit
+  }
+  private def lichessClose(userId: User.ID) =
+    user.repo.lichessAnd(userId) flatMap {
+      _ ?? { case (lichess, user) =>
+        closeAccount(user, lichess)
+      }
+    }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 }
@@ -239,7 +253,7 @@ final class EnvBoot(
   lazy val insight: lila.insight.Env         = wire[lila.insight.Env]
   lazy val push: lila.push.Env               = wire[lila.push.Env]
   lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
-  lazy val slack: lila.slack.Env             = wire[lila.slack.Env]
+  lazy val irc: lila.irc.Env                 = wire[lila.irc.Env]
   lazy val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
   lazy val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
   lazy val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
@@ -261,6 +275,8 @@ final class EnvBoot(
   lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
   lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
   lazy val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
+  lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
+  lazy val racer: lila.racer.Env             = wire[lila.racer.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 

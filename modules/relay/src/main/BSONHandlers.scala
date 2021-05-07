@@ -1,17 +1,29 @@
 package lila.relay
 
-import lila.db.dsl._
 import reactivemongo.api.bson._
+
+import lila.db.dsl._
 
 object BSONHandlers {
 
-  import lila.study.BSONHandlers.LikesBSONHandler
+  implicit val relayIdHandler     = stringAnyValHandler[RelayRound.Id](_.value, RelayRound.Id.apply)
+  implicit val relayTourIdHandler = stringAnyValHandler[RelayTour.Id](_.value, RelayTour.Id.apply)
 
-  implicit val relayIdHandler = stringAnyValHandler[Relay.Id](_.value, Relay.Id.apply)
+  import RelayRound.Sync
+  import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
+  implicit val upstreamUrlHandler = Macros.handler[UpstreamUrl]
+  implicit val upstreamIdsHandler = Macros.handler[UpstreamIds]
 
-  import Relay.Sync
-  import Sync.Upstream
-  implicit val upstreamHandler = Macros.handler[Upstream]
+  implicit val upstreamHandler = tryHandler[Upstream](
+    {
+      case d: BSONDocument if d.contains("url") => upstreamUrlHandler readTry d
+      case d: BSONDocument if d.contains("ids") => upstreamIdsHandler readTry d
+    },
+    {
+      case url: UpstreamUrl => upstreamUrlHandler.writeTry(url).get
+      case ids: UpstreamIds => upstreamIdsHandler.writeTry(ids).get
+    }
+  )
 
   import SyncLog.Event
   implicit val syncLogEventHandler = Macros.handler[Event]
@@ -20,5 +32,12 @@ object BSONHandlers {
 
   implicit val syncHandler = Macros.handler[Sync]
 
-  implicit val relayHandler = Macros.handler[Relay]
+  implicit val relayHandler = Macros.handler[RelayRound]
+
+  implicit val relayTourHandler = Macros.handler[RelayTour]
+
+  def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for {
+    round <- doc.asOpt[RelayRound]
+    tour  <- doc.getAsOpt[RelayTour]("tour")
+  } yield RelayRound.WithTour(round, tour)
 }

@@ -1,13 +1,13 @@
 package views.html.team
 
+import controllers.routes
 import play.api.data.Form
+import play.api.i18n.Lang
 
-import lila.team.Team
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-
-import controllers.routes
+import lila.team.Team
 
 object form {
 
@@ -23,17 +23,13 @@ object form {
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
           h1(newTeam()),
-          postForm(cls := "form3", action := routes.Team.create())(
+          postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
-            form3.group(form("open"), joiningPolicy()) { _ =>
-              form3.select(
-                form("open"),
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
-              )
-            },
-            form3.group(form("location"), trans.location())(form3.input(_)),
-            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            requestField(form),
+            hideFields(form),
+            passwordField(form),
+            textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.Team.home(1))(trans.cancel()),
@@ -56,14 +52,10 @@ object form {
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
             ),
-            form3.group(form("open"), joiningPolicy()) { f =>
-              form3.select(
-                f,
-                Seq(0 -> aConfirmationIsRequiredToJoin.txt(), 1 -> anyoneCanJoin.txt())
-              )
-            },
-            form3.group(form("location"), trans.location())(form3.input(_)),
-            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            requestField(form),
+            hideFields(form),
+            passwordField(form),
+            textFields(form),
             form3.group(form("chat"), frag("Team chat")) { f =>
               form3.select(
                 f,
@@ -84,7 +76,7 @@ object form {
             t.enabled option postForm(cls := "inline", action := routes.Team.disable(t.id))(
               submitButton(
                 dataIcon := "j",
-                cls := "submit button text confirm button-red",
+                cls := "submit button text confirm button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
             ),
@@ -95,10 +87,55 @@ object form {
                   cls := "text button button-empty button-red confirm",
                   st.title := "Deletes the team and its memberships. Cannot be reverted!"
                 )(trans.delete())
+              ),
+            (t.disabled && isGranted(_.ManageTeam)) option
+              postForm(cls := "inline", action := routes.Team.disable(t.id))(
+                submitButton(
+                  cls := "button button-empty confirm",
+                  st.title := "Re-enables the team and restores memberships"
+                )("Re-enable")
               )
           )
         )
       )
     }
   }
+
+  private def textFields(form: Form[_])(implicit ctx: Context) = frag(
+    form3.group(form("location"), trans.location())(form3.input(_)),
+    form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+    form3.group(form("descPrivate"), trans.descPrivate(), help = trans.descPrivateHelp().some)(
+      form3.textarea(_)(rows := 10)
+    )
+  )
+
+  private def requestField(form: Form[_])(implicit lang: Lang) =
+    form3.checkbox(
+      form("request"),
+      trans.team.manuallyReviewAdmissionRequests(),
+      help = trans.team.manuallyReviewAdmissionRequestsHelp().some
+    )
+
+  private def hideFields(form: Form[_])(implicit lang: Lang) =
+    form3.split(
+      form3.checkbox(
+        form("hideMembers"),
+        "Hide team member list from non-members.",
+        half = true
+      ),
+      form3.checkbox(
+        form("hideForum"),
+        "Hide team forum from team homepage for non-members.",
+        half = true
+      )
+    )
+
+  private def passwordField(form: Form[_])(implicit ctx: Context) =
+    form3.group(
+      form("password"),
+      trans.team.teamPassword(),
+      help = trans.team.teamPasswordDescriptionForLeader().some
+    )(
+      form3.input(_)
+    )
 }

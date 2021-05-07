@@ -144,7 +144,6 @@ object Quote {
       "Half the variations which are calculated in a tournament game turn out to be completely superfluous. Unfortunately, no one knows in advance which half.",
       "Jan Timman"
     ),
-    new Quote("Chess is as much a mystery as women.", "Purdy"),
     new Quote("Good positions don’t win games, good moves do.", "Gerald Abrahams"),
     new Quote(
       "If I win a tournament, I win it by myself.  I do the playing. Nobody helps me.",
@@ -409,7 +408,10 @@ object Quote {
       "What is the object of playing a gambit opening?... To acquire a reputation of being a dashing player at the cost of losing a game.",
       "Siegbert Tarrasch"
     ),
-    new Quote("Pawns; they are the soul of this game, they alone form the attack and defense.", "Philidor"),
+    new Quote(
+      "Pawns; they are the soul of this game, they alone form the attack and defense.",
+      "Francois-Andre Danican Philidor"
+    ),
     new Quote("In chess, at least, the brave inherit the earth.", "Edmar Mednis"),
     new Quote(
       "There are two classes of men; those who are content to yield to circumstances and who play whist; those who aim to control circumstances, and who play chess.",
@@ -1580,6 +1582,7 @@ object Quote {
       "John Bartholomew"
     ),
     new Quote("Chess as a game is too serious; as a serious pursuit too frivolous.", "Moses Mendelssohn"),
+    new Quote("Chess makes me a better person", "Albert Badosa"),
     // lichess facts
     new Quote("All features for free; for everyone; forever.", "lichess.org"),
     new Quote("We will never display ads.", "lichess.org"),

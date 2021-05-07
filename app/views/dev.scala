@@ -63,7 +63,7 @@ object dev {
             "Only use if you know exactly what you're doing."
           ),
           res map { pre(_) },
-          postForm(action := routes.Dev.cliPost())(
+          postForm(action := routes.Dev.cliPost)(
             form3.input(form("command"))(autofocus)
           ),
           h2("Command examples:"),

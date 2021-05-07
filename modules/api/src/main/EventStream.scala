@@ -81,7 +81,7 @@ final class EventStream(
         case SetOnline =>
           onlineApiUsers.setOnline(me.id)
 
-          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(2)) {
+          if (lastSetSeenAt isBefore DateTime.now.minusMinutes(10)) {
             userRepo setSeenAt me.id
             lastSetSeenAt = DateTime.now
           }
@@ -125,7 +125,9 @@ final class EventStream(
   private def gameJson(tpe: String)(game: Game) =
     Json.obj(
       "type" -> tpe,
-      "game" -> Json.obj("id" -> game.id)
+      "game" -> Json
+        .obj("id" -> game.id)
+        .add("source" -> game.source.map(_.name))
     )
 
   private def challengeJson(tpe: String)(c: Challenge) =

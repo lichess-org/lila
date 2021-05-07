@@ -34,7 +34,9 @@ object Query {
 
   val notFinished: Bdoc = F.status $lte Status.Started.id
 
-  def analysed(an: Boolean): Bdoc = F.analysed $eq an
+  def analysed(an: Boolean): Bdoc =
+    if (an) F.analysed $eq true
+    else F.analysed $ne true
 
   val frozen: Bdoc = F.status $gte Status.Mate.id
 
@@ -129,6 +131,8 @@ object Query {
       case (Some(since), Some(until)) => F.createdAt $gt since $lt until
       case _                          => $empty
     }
+
+  val notSimul = F.simulId $exists false
 
   val sortCreated: Bdoc           = $sort desc F.createdAt
   val sortChronological: Bdoc     = $sort asc F.createdAt

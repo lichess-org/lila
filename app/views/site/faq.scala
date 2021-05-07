@@ -54,9 +54,9 @@ object faq {
           p(lichessPoweredByDonationsAndVolunteers()),
           p(
             findMoreAndSeeHowHelp(
-              a(href := routes.Plan.index())(beingAPatron()),
-              a(href := routes.Main.costs())(breakdownOfOurCosts()),
-              a(href := routes.Page.help())(otherWaysToHelp())
+              a(href := routes.Plan.index)(beingAPatron()),
+              a(href := routes.Main.costs)(breakdownOfOurCosts()),
+              a(href := routes.Page.help)(otherWaysToHelp())
             )
           )
         ),
@@ -77,13 +77,6 @@ object faq {
           )
         ),
         h2(fairPlay()),
-        question(
-          "marks",
-          whyFlaggedRatingManipulationOrCheater.txt(),
-          p(
-            cheatDetectionMethods(contactEmail)
-          )
-        ),
         question(
           "rating-refund",
           whenAmIEligibleRatinRefund.txt(),
@@ -132,7 +125,7 @@ object faq {
           whatVariantsCanIplay.txt(),
           p(
             lichessSupportChessAnd(
-              a(href := routes.Page.variantHome())(eightVariants())
+              a(href := routes.Page.variantHome)(eightVariants())
             )
           )
         ),
@@ -157,7 +150,7 @@ object faq {
             explainingEnPassant(
               a(href := "https://en.wikipedia.org/wiki/En_passant")(goodIntroduction()),
               a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
-              a(href := s"${routes.Learn.index()}#/15")(lichessTraining())
+              a(href := s"${routes.Learn.index}#/15")(lichessTraining())
             )
           )
         ),
@@ -206,7 +199,7 @@ object faq {
           ),
           p(
             showYourTitle(
-              a(href := routes.Main.verifyTitle())(verificationForm()),
+              a(href := routes.Main.verifyTitle)(verificationForm()),
               a(href := "#lm")("Lichess master (LM)")
             )
           )
@@ -261,6 +254,9 @@ object faq {
           whichRatingSystemUsedByLichess.txt(),
           p(
             ratingSystemUsedByLichess()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(
@@ -286,7 +282,7 @@ object faq {
           howDoLeaderoardsWork.txt(),
           p(
             inOrderToAppearsYouMust(
-              a(href := routes.User.list())(ratingLeaderboards())
+              a(href := routes.User.list)(ratingLeaderboards())
             )
           ),
           ol(
@@ -309,6 +305,9 @@ object faq {
           whyAreRatingHigher.txt(),
           p(
             whyAreRatingHigherExplanation()
+          ),
+          p(
+            a(href := routes.Page.loneBookmark("rating-systems"))("More about rating systems")
           )
         ),
         question(

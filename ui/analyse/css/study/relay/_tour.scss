@@ -1,0 +1,75 @@
+.relay-tour {
+  &__round {
+    @extend %box-radius, %flex-between-nowrap;
+    background: mix($c-primary, $c-bg-box, 10%);
+    margin-bottom: 3em;
+    padding: 1em 2em;
+    strong {
+      @extend %roboto;
+      font-size: 1.2em;
+    }
+  }
+  &__text {
+    @extend %box-neat;
+
+    background: $c-bg-box;
+    padding: 3vmin;
+    max-height: 50vh;
+    overflow-y: auto;
+
+    .slist {
+      margin-bottom: 1em;
+    }
+
+    h1 {
+      @include fluid-size('font-size', 15px, 27px);
+
+      margin-bottom: 3vh;
+    }
+
+    h2,
+    h3,
+    h4 {
+      line-height: 2em;
+    }
+
+    h2 {
+      font-size: 1.8em;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      line-height: 2em;
+    }
+
+    h4 {
+      font-size: 1.3em;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    ul li {
+      list-style: disc outside;
+      margin: 0.5em 0 0 1.5em;
+    }
+
+    ol li {
+      list-style: decimal inside;
+      margin: 0.5em 0;
+    }
+
+    li {
+      margin-left: 2em;
+
+      p {
+        display: inline;
+      }
+    }
+  }
+}
+
+main.has-relay-tour .mchat {
+  max-height: 48vh;
+}

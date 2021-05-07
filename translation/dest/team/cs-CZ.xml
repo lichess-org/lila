@@ -14,9 +14,8 @@
   <string name="noTeamFound">Nenalezen žádný tým</string>
   <string name="joinTeam">Připojte se k týmu</string>
   <string name="quitTeam">Odejít z týmu</string>
-  <string name="anyoneCanJoin">Kdokoliv se může přidat</string>
-  <string name="aConfirmationIsRequiredToJoin">Pro připojení je požadováno potvrzení</string>
-  <string name="joiningPolicy">Pravidla vstupu</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ruční přezkoumání žádostí o přijetí</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Je-li zaškrtnuto, hráči budou muset napsat žádost o připojení k týmu, kterou můžete odmítnout nebo přijmout.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vedoucí týmu</item>
     <item quantity="few">Vedoucí týmu</item>
@@ -28,17 +27,17 @@
   <string name="kickSomeone">Vyřadit někoho z týmu</string>
   <string name="whoToKick">Koho chcete vyřadit z týmu?</string>
   <plurals name="xJoinRequests">
-    <item quantity="one">%s se připojil k žádosti</item>
-    <item quantity="few">%s se připojili k žádosti</item>
-    <item quantity="many">%s se připojilo k žádosti</item>
-    <item quantity="other">%s se připojilo k žádosti</item>
+    <item quantity="one">%s Žádost o připojení</item>
+    <item quantity="few">%s Žádosti o připojení</item>
+    <item quantity="many">%s Žádostí o připojení</item>
+    <item quantity="other">%s Žádostí o připojení</item>
   </plurals>
   <string name="willBeReviewed">Váš požadavek na připojení bude přezkoumán vedoucím týmu.</string>
   <string name="beingReviewed">Vaše žádost o připojení je přezkoumávána vedoucím týmu.</string>
-  <string name="teamBattle">Týmová bitva</string>
-  <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body za svůj tým</string>
+  <string name="teamBattle">Bitva týmů</string>
+  <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body pro svůj tým</string>
   <string name="teamTournament">Týmový turnaj</string>
-  <string name="teamTournamentOverview">Turnaj v aréně, ke kterému se mohou připojit pouze členové vašeho týmu</string>
+  <string name="teamTournamentOverview">Arena turnaj, ke kterému se mohou přidat pouze členová vašeho týmu</string>
   <string name="messageAllMembers">Zpráva všem členům</string>
   <string name="messageAllMembersOverview">Poslat soukromou zprávu každému členovi týmu</string>
   <string name="messageAllMembersLongDescription">Poslat soukromou zprávu VŠEM členům týmu.
@@ -50,4 +49,8 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="leadersChat">Chat vedoucích</string>
   <string name="closeTeam">Zavřít tým</string>
   <string name="closeTeamDescription">Zavřít tým navždy.</string>
+  <string name="teamPassword">Heslo týmu</string>
+  <string name="teamPasswordDescriptionForLeader">(Volitelné) Heslo, které musí noví členové znát pro připojení k tomuto týmu.</string>
+  <string name="incorrectTeamPassword">Nesprávné heslo.</string>
+  <string name="teamAlreadyExists">Tento tým již existuje.</string>
 </resources>

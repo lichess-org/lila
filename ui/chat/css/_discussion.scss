@@ -9,15 +9,14 @@
       max-height: none;
     }
 
-
     overflow-y: auto;
     overflow-x: hidden;
     cursor: initial;
-    font-size: .9em;
+    font-size: 0.9em;
 
     li {
       position: relative;
-      padding: .5em 0 .5em 10px;
+      padding: 0.5em 0 0.5em 10px;
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
@@ -31,7 +30,7 @@
       display: block;
       opacity: 0.8;
       font-style: italic;
-      font-size: .9em;
+      font-size: 0.9em;
       margin-left: 0;
       text-align: center;
     }
@@ -42,7 +41,7 @@
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
-      margin-right: .4em;
+      margin-right: 0.4em;
     }
 
     .utitle {

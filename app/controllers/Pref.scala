@@ -65,21 +65,6 @@ final class Pref(env: Env) extends LilaController(env) {
       }
     }
 
-  def verifyTitle =
-    AuthBody { implicit ctx => me =>
-      import play.api.data._, Forms._
-      implicit val req = ctx.body
-      Form(single("v" -> boolean))
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(Redirect(routes.User.show(me.username))),
-          v =>
-            api.saveTag(me, _.verifyTitle, v) inject Redirect {
-              if (v) routes.Page.master() else routes.User.show(me.username)
-            }
-        )
-    }
-
   private lazy val setters = Map(
     "theme"      -> (forms.theme      -> save("theme") _),
     "pieceSet"   -> (forms.pieceSet   -> save("pieceSet") _),

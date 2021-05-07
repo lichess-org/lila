@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Kaksivaiheinen tunnistautuminen käytössä</string>
   <string name="twoFactorDisable">Poistaaksesi kaksivaiheisen tunnistautumisen käytöstä tarvitset salasanasi sekä tunnistautumiskoodin tunnistautumissovelluksestasi.
 Jos olet menettänyt pääsyn tunnistautumiskoodeihin, voit myös nollata salasanasi sähköpostitse.</string>
+  <string name="openTwoFactorApp">Avaa laitteessasi sovellus kaksivaiheiseen tunnistautumiseen, katso siitä tunnistautumiskoodisi ja vahvista henkilöllisyytesi.</string>
 </resources>

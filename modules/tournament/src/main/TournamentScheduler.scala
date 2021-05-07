@@ -371,11 +371,7 @@ Thank you all, you rock!"""
             case 2 => Blitz
             case _ => Rapid
           }
-          List(
-            1500 -> 0,
-            1700 -> 1,
-            2000 -> 2
-          ).flatMap { case (rating, hourDelay) =>
+          List(1300, 1500, 1700, 2000).zipWithIndex.flatMap { case (rating, hourDelay) =>
             val perf = Schedule.Speed toPerfType speed
             val conditions = Condition.All(
               nbRatedGame = Condition.NbRatedGame(perf.some, 20).some,
@@ -404,35 +400,40 @@ Thank you all, you rock!"""
           // Because berserking lowers the player rating
           _ map { _.copy(noBerserk = true) }
         },
-      // hourly crazyhouse tournaments!
+      // hourly crazyhouse/chess960/KingOfTheHill tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        val speed = hour % 6 match {
-          case 0 | 3 => Bullet
-          case 1 | 4 => SuperBlitz
-          case 5     => HippoBullet
-          case _     => Blitz
+        val speed = hour % 7 match {
+          case 0     => HippoBullet
+          case 1 | 4 => Bullet
+          case 2 | 5 => SuperBlitz
+          case 3 | 6 => Blitz
+        }
+        val variant = hour % 3 match {
+          case 0 => Chess960
+          case 1 => KingOfTheHill
+          case _ => Crazyhouse
         }
         List(
           at(date, hour) map { date =>
-            Schedule(Hourly, speed, Crazyhouse, none, date).plan
+            Schedule(Hourly, speed, variant, none, date).plan
           },
           at(date, hour, 30) collect {
             case date if speed == Bullet =>
-              Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, Crazyhouse, none, date).plan
+              Schedule(Hourly, if (hour == 17) HyperBullet else Bullet, variant, none, date).plan
           }
         ).flatten
       },
-      // hourly variant tournaments!
+      // hourly atomic/antichess variant tournaments!
       (0 to 6).toList.flatMap { hourDelta =>
         val date = rightNow plusHours hourDelta
         val hour = date.getHourOfDay
-        val speed = hour % 6 match {
-          case 1 | 4 => Bullet
-          case 2 | 5 => SuperBlitz
-          case 3     => HippoBullet
-          case _     => Blitz
+        val speed = hour % 7 match {
+          case 0 | 4 => Blitz
+          case 1     => HippoBullet
+          case 2 | 5 => Bullet
+          case 3 | 6 => SuperBlitz
         }
         val variant = if (hour % 2 == 0) Atomic else Antichess
         List(
@@ -444,17 +445,42 @@ Thank you all, you rock!"""
               Schedule(Hourly, if (hour == 18) HyperBullet else Bullet, variant, none, date).plan
           }
         ).flatten
+      },
+      // hourly threecheck/horde/racing variant tournaments!
+      (0 to 6).toList.flatMap { hourDelta =>
+        val date = rightNow plusHours hourDelta
+        val hour = date.getHourOfDay
+        val speed = hour % 7 match {
+          case 0 | 4 => SuperBlitz
+          case 1 | 5 => Blitz
+          case 2     => HippoBullet
+          case 3 | 6 => Bullet
+        }
+        val variant = hour % 3 match {
+          case 0 => ThreeCheck
+          case 1 => Horde
+          case _ => RacingKings
+        }
+        List(
+          at(date, hour) map { date =>
+            Schedule(Hourly, speed, variant, none, date).plan
+          },
+          at(date, hour, 30) collect {
+            case date if speed == Bullet =>
+              Schedule(Hourly, if (hour == 19) HyperBullet else Bullet, variant, none, date).plan
+          }
+        ).flatten
       }
-    ).flatten filter { _.schedule.at.isAfter(rightNow minusHours 1) }
+    ).flatten filter { _.schedule.at isAfter rightNow }
   }
 
-  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) = {
+  private[tournament] def pruneConflicts(scheds: List[Tournament], newTourns: List[Tournament]) =
     newTourns
       .foldLeft(List[Tournament]()) { case (tourns, t) =>
         if (overlaps(t, tourns) || overlaps(t, scheds)) tourns
         else t :: tourns
-      } reverse
-  }
+      }
+      .reverse
 
   private case class ScheduleNowWith(dbScheds: List[Tournament])
 
@@ -493,8 +519,9 @@ Thank you all, you rock!"""
     case ScheduleNowWith(dbScheds) =>
       try {
         val newTourns = allWithConflicts(DateTime.now).map(_.build)
+        val pruned    = pruneConflicts(dbScheds, newTourns)
         tournamentRepo
-          .insert(pruneConflicts(dbScheds, newTourns))
+          .insert(pruned)
           .logFailure(logger)
           .unit
       } catch {

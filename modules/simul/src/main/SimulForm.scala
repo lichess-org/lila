@@ -80,7 +80,7 @@ object SimulForm {
       color = simul.color | "random",
       text = simul.text,
       team = simul.team,
-      featured = host.hasTitle.some
+      featured = simul.featurable
     )
 
   private def baseForm(host: User, teams: List[LeaderTeam]) =
@@ -107,7 +107,7 @@ object SimulForm {
         }.verifying("At least one variant", _.nonEmpty),
         "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
-        "text"     -> clean(text),
+        "text"     -> cleanText,
         "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
         "featured" -> optional(boolean)
       )(Setup.apply)(Setup.unapply)

@@ -2,7 +2,7 @@ let redirectInProgress: false | string = false;
 
 export const redirect = obj => {
   let url;
-  if (typeof obj == "string") url = obj;
+  if (typeof obj == 'string') url = obj;
   else {
     url = obj.url;
     if (obj.cookie) {
@@ -11,7 +11,7 @@ export const redirect = obj => {
         encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
         '; max-age=' + obj.cookie.maxAge,
         '; path=/',
-        '; domain=' + domain
+        '; domain=' + domain,
       ].join('');
       document.cookie = cookie;
     }
@@ -22,13 +22,13 @@ export const redirect = obj => {
 };
 
 export const unload = {
-  expected: false
-}
+  expected: false,
+};
 
 export const reload = () => {
   if (redirectInProgress) return;
   unload.expected = true;
   lichess.socket.disconnect();
   if (location.hash) location.reload();
-  else location.href = location.href;
+  else location.assign(location.href);
 };

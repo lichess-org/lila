@@ -29,7 +29,8 @@
     }
   }
 
-  .or-play, .game {
+  .or-play,
+  .game {
     display: none;
 
     @media (hover: hover) {
@@ -40,6 +41,6 @@
   }
 
   .credits {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

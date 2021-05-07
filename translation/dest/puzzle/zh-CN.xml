@@ -1,20 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">训练题</string>
+  <string name="puzzles">谜题</string>
+  <string name="puzzleThemes">主题</string>
   <string name="recommended">我们推荐：</string>
   <string name="phases">阶段</string>
   <string name="motifs">主题</string>
   <string name="advanced">高等</string>
-  <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
-  <string name="keepGoing">继续……</string>
-  <string name="fromGameLink">来自 %s 号赛</string>
+  <string name="lengths">长度</string>
+  <string name="mates">杀王</string>
+  <string name="goals">目标</string>
+  <string name="origin">来源</string>
+  <string name="specialMoves">特殊着法</string>
+  <string name="didYouLikeThisPuzzle">你喜欢这道迷题吗？</string>
+  <string name="voteToLoadNextOne">投票以加载下一题</string>
+  <string name="yourPuzzleRatingX">你的解题积分：%s</string>
+  <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
+  <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
+  <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
+  <string name="puzzleId">谜题编号：%s</string>
+  <string name="puzzleOfTheDay">每日一题</string>
+  <string name="clickToSolve">点击解题</string>
+  <string name="goodMove">好棋</string>
+  <string name="bestMove">最佳走法！</string>
+  <string name="keepGoing">请继续…</string>
+  <string name="puzzleSuccess">解题成功!</string>
+  <string name="puzzleComplete">解题完成</string>
+  <string name="notTheMove">不是最佳着法</string>
+  <string name="trySomethingElse">尝试其他着法</string>
+  <string name="ratingX">积分：%s</string>
+  <string name="hidden">隐藏</string>
+  <plurals name="playedXTimes">
+    <item quantity="other">已被尝试 %s 次</item>
+  </plurals>
+  <string name="fromGameLink">来自对局： %s</string>
   <string name="continueTraining">继续训练</string>
   <string name="difficultyLevel">难度</string>
   <string name="normal">正常</string>
   <string name="easier">容易</string>
   <string name="easiest">最容易</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">谜题得分比你低%s分</item>
+  </plurals>
   <string name="harder">更难</string>
   <string name="hardest">最难</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">谜题得分比你高%s分</item>
+  </plurals>
   <string name="example">例子</string>
-  <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
+  <string name="addAnotherTheme">添加新的主题</string>
+  <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
+  <string name="puzzleDashboard">数据统计</string>
+  <string name="improvementAreas">待提升</string>
+  <string name="strengths">我的强项</string>
+  <string name="history">解题历史</string>
+  <string name="solved">已解决</string>
+  <string name="failed">失败</string>
+  <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时的情况下，慢慢来。当您走错了一次，游戏将会结束！不过，每场游戏里可跳过一步。</string>
+  <string name="yourStreakX">您的连胜纪录: %s</string>
+  <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
+  <string name="continueTheStreak">继续连胜纪录</string>
+  <string name="newStreak">新连胜纪录</string>
 </resources>

@@ -28,7 +28,7 @@ object Metric {
 
   import DataType._
   import Position._
-  import Entry.{ BSONFields => F }
+  import InsightEntry.{ BSONFields => F }
 
   case object MeanCpl
       extends Metric(
@@ -39,6 +39,17 @@ object Metric {
         Move,
         Average,
         raw("""Precision of your moves. Lower is better.""")
+      )
+
+  case object CplBucket
+      extends Metric(
+        "cplBucket",
+        "Centipawn loss bucket",
+        F moves "c",
+        Move,
+        Move,
+        Percent,
+        Dimension.CplRange.description
       )
 
   case object Movetime
@@ -171,6 +182,7 @@ object Metric {
 
   val all = List(
     MeanCpl,
+    CplBucket,
     Movetime,
     Result,
     Termination,
@@ -190,8 +202,9 @@ object Metric {
 
   def requiresAnalysis(m: Metric) =
     m match {
-      case MeanCpl => true
-      case _       => false
+      case MeanCpl   => true
+      case CplBucket => true
+      case _         => false
     }
 
   def requiresStableRating(m: Metric) =
@@ -206,6 +219,7 @@ object Metric {
       case Result      => true
       case Termination => true
       case PieceRole   => true
+      case CplBucket   => true
       case _           => false
     }
 
@@ -222,6 +236,10 @@ object Metric {
       case PieceRole =>
         chess.Role.all.reverse.map { r =>
           MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))
+        }
+      case CplBucket =>
+        lila.insight.CplRange.all.map { cpl =>
+          MetricValue(BSONInteger(cpl.cpl), MetricValueName(cpl.name))
         }
       case _ => Nil
     }

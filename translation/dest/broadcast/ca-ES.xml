@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Emissions</string>
-  <string name="liveBroadcasts">Emissions de tornejos en directe</string>
-  <string name="newBroadcast">Noves emissions en directe</string>
+  <string name="broadcasts">Retransmissions</string>
+  <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
+  <string name="newBroadcast">Noves retransmissions en directe</string>
+  <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
   <string name="completed">Acabada</string>
-  <string name="eventName">Nom de l\'esdeveniment</string>
-  <string name="eventDescription">Breu descripció de l\'esdeveniment</string>
+  <string name="roundNumber">Ronda número</string>
+  <string name="tournamentName">Nom del torneig</string>
   <string name="fullDescription">Descripció total de l\'esdeveniment</string>
   <string name="fullDescriptionHelp">Opció de llarga descripció de l\'esdeveniment. %1$s és disponible. Ha de tenir menys de %2$s lletres.</string>
-  <string name="sourceUrl">Adreça URL d\'origen</string>
+  <string name="sourceUrlOrGameIds">Enllaç d\'origen, o identificador de la partida</string>
   <string name="sourceUrlHelp">URL que Lichess comprovarà per a obtenir actualitzacions PGN. Ha de ser públicament accessible des d\'Internet.</string>
-  <string name="roundNumber">Ronda número</string>
+  <string name="gameIdsHelp">Alternativament, pots introduir fins a 64 identificadors de partida, separats per espais.</string>
   <string name="startDate">Data d\'inici en la teva zona horària</string>
   <string name="startDateHelp">Opcional, si saps quan comença l\'esdeveniment</string>
   <string name="credits">Cita la font</string>
-  <string name="cloneBroadcast">Clona l\'emissió</string>
-  <string name="resetBroadcast">Restableix l\'emissió</string>
 </resources>

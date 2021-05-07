@@ -18,14 +18,12 @@
   <string name="doNotAskByEmailToReopen">이메일을 보내 계정 복구를 요청하지 마십시오.</string>
   <string name="wantChangeUsername">사용자명을 변경하고 싶습니다</string>
   <string name="wantReport">이용자 신고하기</string>
-  <string name="cheating">부정 행위</string>
-  <string name="trolling">트롤링</string>
-  <string name="insults">부적절한 발언</string>
-  <string name="otherReason">기타</string>
   <string name="doNotReportInForum">포럼에서 이용자를 신고하지 마십시오.</string>
   <string name="doNotSendReportEmails">이메일을 보내 신고하지 마십시오.</string>
   <string name="doNotMessageModerators">관리자에게 디렉트 메시지를 보내지 마십시오.</string>
+  <string name="wantReportBug">버그를 신고하고 싶습니다</string>
   <string name="howToReportBug">버그가 무엇인지, 어떻게 고쳐져야 하는지 설명하십시오.</string>
+  <string name="illegalPawnCapture">폰을 이상하게 잡았습니다</string>
   <string name="calledEnPassant">\'앙 파상\' 이라고 불리는 체스의 규칙입니다.</string>
   <string name="tryEnPassant">이 미니 게임으로 앙 파상에 대해 배우십시오.</string>
   <string name="illegalCastling">불가능한 캐슬링</string>
@@ -35,4 +33,8 @@
   <string name="noRatingPoints">레이팅 포인트 미지급</string>
   <string name="ratedGame">레이팅 게임을 했는지 다시 한번 확인하십시오. 캐주얼 게임은 레이팅에 영향을 미치지 않습니다.</string>
   <string name="errorPage">에러 페이지</string>
+  <string name="banAppeal">차단 또는 IP 제한에 대한 이의를 제기하고 싶습니다</string>
+  <string name="collaboration">협찬, 법률, 광고</string>
+  <string name="noneOfTheAbove">해당 사항 없음</string>
+  <string name="sendEmailAt">%s로 이메일을 보내주세요.</string>
 </resources>

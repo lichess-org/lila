@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess μεταδότες</string>
-  <string name="lichessStreamer">Lichess μεταδότης</string>
+  <string name="lichessStreamers">Lichess streamers</string>
+  <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">ΖΩΝΤΑΝΑ!</string>
   <string name="offline">ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
   <string name="currentlyStreaming">Αυτή τη στιγμή μεταδίδουν: %s</string>
   <string name="lastStream">Τελευταία μετάδοση %s</string>
-  <string name="becomeStreamer">Γίνετε Lichess μεταδότης</string>
-  <string name="doYouHaveStream">Έχετε μια μετάδοση Twitch ή YouTube;</string>
+  <string name="becomeStreamer">Γίνετε ένας Lichess streamer</string>
+  <string name="doYouHaveStream">Έχετε κανάλι στο Twitch ή στο YouTube;</string>
   <string name="hereWeGo">Ξεκινάμε!</string>
-  <string name="allStreamers">Όλοι οι μεταδότες</string>
-  <string name="editPage">Διόρθωση σελίδας μεταδότη</string>
-  <string name="yourPage">Η σελίδα σας ως μεταδότης</string>
+  <string name="allStreamers">Όλοι οι streamers</string>
+  <string name="editPage">Επεξεργασία σελίδας streamer</string>
+  <string name="yourPage">Η σελίδα σας ως streamer</string>
   <string name="downloadKit">Κατέβασμα πακέτου μετάδοσης</string>
   <string name="xIsStreaming">%s μεταδίδει</string>
   <string name="rules">Κανόνες μετάδοσης</string>
-  <string name="rule1">Συμπεριλάβετε την λέξη \"lichess.org\" στο τίτλο μετάδοσης όταν μεταδίδετε στο Lichess.</string>
-  <string name="rule2">Διαγράψτε την λέξη όταν μεταδίδετε μη-Lichess θέματα.</string>
-  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα ενεργοποιήσει τα ακόλουθα σημάδια:</string>
-  <string name="perks">Πλεονεκτήματα μετάδοσης με λέξη</string>
-  <string name="perk1">Λήψη φλεγόμενου εικονιδίου στο προφίλ σας στο Lichess.</string>
-  <string name="perk2">Ανεβείτε στη κορυφή της λίστας μεταδοτών.</string>
-  <string name="perk3">Ενημέρωση των ακολούθων σας στο Lichess.</string>
-  <string name="perk4">Εμφάνιση της μετάδοσής σας στα παιχνίδια, τουρνουά και μελέτες.</string>
+  <string name="rule1">Συμπεριλάβετε την λέξη-κλειδί \"lichess.org\" στο τίτλο μετάδοσης και χρησιμοποιήστε την κατηγορία \"Chess\" όταν μεταδίδετε στο Lichess.</string>
+  <string name="rule2">Διαγράψτε τη λέξη-κλειδί αυτή όταν σταματήσετε να μεταδίδετε θέματα σχετικά με το Lichess.</string>
+  <string name="rule3">Το Lichess θα ανιχνεύσει την μετάδοσή σας αυτόματα και θα έχετε τα ακόλουθα πλεονεκτήματα:</string>
+  <string name="perks">Πλεονεκτήματα μετάδοσης με τη λέξη-κλειδί</string>
+  <string name="perk1">Αποκτήστε το εικονίδιο του flaming streamer στο προφίλ σας στο Lichess.</string>
+  <string name="perk2">Ανεβείτε στη κορυφή της λίστας των streamers.</string>
+  <string name="perk3">Ενημερώστε τους ακολούθους σας στο Lichess.</string>
+  <string name="perk4">Δείξτε τη μετάδοσή σας στα παιχνίδια, τα τουρνουά και τις μελέτες σας.</string>
   <string name="approved">Η μετάδοσή σας εγκρίθηκε.</string>
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
-  <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες μεταδότη, και ανεβάστε μια εικόνα.</string>
-  <string name="whenReady">Όταν είστε έτοιμος να εμφανίζεστε ως Lichess μεταδότης, %s</string>
-  <string name="requestReview">αιτηθείτε μια αξιολόγηση από διαχειριστή</string>
-  <string name="anotherLanguage">Αν η μετάδοσή σας είναι σε γλώσσα διαφορετικά από τα Αγγλικά, συμπεριλάβετε την σωστή ετικέτα γλώσσας (%s), σε ορθογώνιες αγκύλες, στην αρχή του τίτλου μετάδοσης.
-Παράδειγμα, συμπεριλάβετε \"[RU]\" για Ρώσικα, \"[GR]\" για Ελληνικά, \"[FR]\" για Γαλλικά, κ. ο. κ.
-Τοποθετήστε το στο τίτλο μετάδοσης στη σελίδα του Twitch ή YouTube, και όχι στις ρυθμίσεις μετάδοσης του Lichess.
+  <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες σας και μεταφορτώστε μια εικόνα.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είσαστε έτοιμος να εμφανιστείτε ως Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">ζητήστε αξιολόγηση από κάποιον διαχειριστή</string>
+  <string name="anotherLanguage">Αν η μετάδοσή σας είναι σε γλώσσα διαφορετική από τα Αγγλικά, συμπεριλάβετε την σωστή ετικέτα γλώσσας (%s), σε ορθογώνιες αγκύλες, στην αρχή του τίτλου μετάδοσης.
+Για παράδειγμα, μπορείτε να συμπεριλάβετε \"[RU]\" για τα Ρώσικα, \"[GR]\" για τα Ελληνικά, \"[FR]\" για τα Γαλλικά, κτλ.
+Η ετικέτα γλώσσας πρέπει να τοποθετηθεί στον τίτλο μετάδοσης στη σελίδα του Twitch ή του YouTube και όχι στις ρυθμίσεις μετάδοσης του Lichess.
 Αν η μετάδοσή σας είναι στα Αγγλικά, δεν χρειάζεται να συμπεριλάβετε μια ετικέτα γλώσσας.</string>
-  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή URL</string>
+  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
   <string name="optionalOrEmpty">Προαιρετικό. Αφήστε το κενό αν δεν υπάρχει</string>
-  <string name="youtubeChannel">Το ID καναλιού σας στο YouTube ή URL</string>
-  <string name="streamerName">Το όνομα μεταδότη στο Lichess</string>
+  <string name="youtubeChannel">Το ID ή η διεύθυνση του καναλιού σας στο YouTube</string>
+  <string name="streamerName">Το όνομα σας ως streamer στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>
     <item quantity="other">Σύντομη περιγραφή: %s χαρακτήρες το πολύ</item>
   </plurals>
-  <string name="visibility">Ορατή στη σελίδα μεταδοτών</string>
+  <string name="visibility">Ορατή στη σελίδα των streamers</string>
   <string name="whenApproved">Όταν εγκριθεί από τους διαχειριστές</string>
   <string name="headline">Κεφαλίδα</string>
-  <string name="tellUsAboutTheStream">Σε μια πρόταση, περιγράψτε μας την μετάδοσή σας</string>
+  <string name="tellUsAboutTheStream">Περιγράψτε μας τη μετάδοσή σας σε μία πρόταση</string>
   <string name="longDescription">Πλήρης περιγραφή</string>
-  <string name="xStreamerPicture">%s εικόνα μεταδότη</string>
-  <string name="changePicture">Αλλαγή/διαγραφή εικόνας</string>
-  <string name="uploadPicture">Ανέβασμα εικόνας</string>
+  <string name="xStreamerPicture">%s εικόνα streamer</string>
+  <string name="changePicture">Αλλαγή/διαγραφή της εικόνας σας</string>
+  <string name="uploadPicture">Μεταφόρτωση εικόνας</string>
   <string name="deletePicture">Διαγραφή εικόνας</string>
   <string name="maxSize">Μέγιστο μέγεθος: %s</string>
-  <string name="installBlocker">Εγκαταστήστε έναν malware blocker!</string>
+  <string name="installBlocker">Εγκαταστήστε ένα πρόγραμμα αποκλεισμού κακόβουλου λογισμικού!</string>
   <string name="beSafe">Για να είστε ασφαλείς από διαφημίσεις και
-παρακολούθηση από το Twitch και το YouTube.
+ιχνηλάτες από το Twitch και το YouTube.
 To Lichess προτείνει το uBlock Origin που είναι
 δωρεάν και ανοικτού κώδικα λογισμικό.</string>
 </resources>

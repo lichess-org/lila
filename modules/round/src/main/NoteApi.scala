@@ -6,6 +6,8 @@ import reactivemongo.api.bson._
 
 final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
+  def collName = coll.name
+
   def get(gameId: String, userId: String): Fu[String] =
     coll.primitiveOne[String]($id(makeId(gameId, userId)), "t") dmap (~_)
 

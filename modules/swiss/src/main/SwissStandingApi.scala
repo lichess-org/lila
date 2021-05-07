@@ -89,7 +89,7 @@ final class SwissStandingApi(
       "players" -> rankedPlayers
         .zip(users)
         .zip(sheets)
-        .map { case SwissPlayer.Ranked(rank, player) ~ user ~ sheet =>
+        .map { case ((SwissPlayer.WithRank(player, rank), user), sheet) =>
           SwissJson.playerJson(
             swiss,
             SwissPlayer.View(
@@ -103,16 +103,16 @@ final class SwissStandingApi(
         }
     )
 
-  private def bestWithRank(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer.Ranked]] =
+  private def bestWithRank(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer.WithRank]] =
     best(id, nb, skip).map { res =>
       res
-        .foldRight(List.empty[SwissPlayer.Ranked] -> (res.size + skip)) { case (p, (res, rank)) =>
-          (SwissPlayer.Ranked(rank, p) :: res, rank - 1)
+        .foldRight(List.empty[SwissPlayer.WithRank] -> (res.size + skip)) { case (p, (res, rank)) =>
+          (SwissPlayer.WithRank(p, rank) :: res, rank - 1)
         }
         ._1
     }
 
-  private def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.Ranked]] =
+  private def bestWithRankByPage(id: Swiss.Id, nb: Int, page: Int): Fu[List[SwissPlayer.WithRank]] =
     bestWithRank(id, nb, (page - 1) * nb)
 
   private def best(id: Swiss.Id, nb: Int, skip: Int): Fu[List[SwissPlayer]] =

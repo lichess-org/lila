@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Bele figure igrate v vseh ugankah</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Črne figure igrate v vseh ugankah</string>
+  <string name="score">Rezultat</string>
+  <string name="moves">Poteze</string>
+  <string name="accuracy">Točnost</string>
+  <string name="combo">Zaporedje pravilnih potez</string>
+  <string name="time">Čas</string>
+  <string name="timePerMove">Čas na potezo</string>
+  <string name="highestSolved">Rejting najtežje pravilno rešene uganke</string>
+  <string name="puzzlesPlayed">Igrane uganke</string>
+  <string name="newRun">Nova igra (bližnjična tipka: preslednica)</string>
+  <string name="endRun">Konec igre (bližnjična tipka: vnašalka)</string>
+  <string name="highscores">Nojboljši rezultati</string>
+  <string name="viewBestRuns">Ogled najboljših iger</string>
+  <string name="bestRunOfDay">Najboljša igra dneva</string>
+  <string name="runs">Igre</string>
+  <string name="getReady">Pripravite se!</string>
+  <string name="waitingForMorePlayers">Čakanje, da se pridruži več igralcev...</string>
+  <string name="raceComplete">Dirka končana!</string>
+  <string name="spectating">Gledanje</string>
+  <string name="joinTheRace">Pridruži se dirki!</string>
+  <string name="yourRankX">Tvoj rang: %s</string>
+  <string name="waitForRematch">Počakajte na revanšo</string>
+  <string name="nextRace">Naslednja dirka</string>
+  <string name="joinRematch">Pridružite se revanši</string>
+  <string name="waitingToStart">Čakanje na začetek</string>
+  <string name="createNewGame">Ustvari novo igro</string>
+  <string name="joinPublicRace">Pridružite se javni tekmi</string>
+  <string name="raceYourFriends">Dirka s prijatelji</string>
+  <string name="skip">preskoči</string>
+  <string name="skipHelp">NOVO! Lahko preskočite eno potezo na dirko:</string>
+  <string name="skipExplanation">Preskočite to potezo, da ohranite svojo kombinacijo! Deluje samo enkrat na dirko.</string>
+</resources>

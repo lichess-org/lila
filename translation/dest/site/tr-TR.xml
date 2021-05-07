@@ -115,11 +115,20 @@
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik limitini kaldırır fakat bilgisayarınız ısınabilir.</string>
   <string name="blunder">Vahim hata</string>
-  <string name="blunders">Vahim hatalar</string>
   <string name="mistake">Hata</string>
-  <string name="mistakes">Hatalar</string>
   <string name="inaccuracy">Kusurlu hamle</string>
-  <string name="inaccuracies">Kusurlu hamleler</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s vahim hata</item>
+    <item quantity="other">%s vahim hata</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s hata</item>
+    <item quantity="other">%s hata</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s kusurlu hamle</item>
+    <item quantity="other">%s kusurlu hamle</item>
+  </plurals>
   <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
@@ -250,7 +259,6 @@
   <string name="send">Gönder</string>
   <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
-  <string name="spectators">İzleyiciler</string>
   <plurals name="nbRated">
     <item quantity="one">%s puanlı</item>
     <item quantity="other">%s puanlı</item>
@@ -278,7 +286,6 @@
     <item quantity="other">%s saniye ver</item>
   </plurals>
   <string name="thisAccountViolatedTos">Bu hesap Lichess Kullanım Şartları\'nı ihlâl etti</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bu oyuncu puanını sahte bir şekilde artırıyor/azaltıyor</string>
   <string name="openingExplorerAndTablebase">Açılış kâşifi &amp; oyunsonu analizi</string>
   <string name="takeback">Hamleni geri al</string>
   <string name="proposeATakeback">Hamleyi geri almayı teklif et</string>
@@ -383,7 +390,6 @@
   <string name="more">Daha fazla</string>
   <string name="memberSince">Üyelik tarihi</string>
   <string name="lastSeenActive">Aktif %s</string>
-  <string name="challengeToPlay">Oyun teklif et</string>
   <string name="player">Oyuncu</string>
   <string name="list">Liste</string>
   <string name="graph">Grafik</string>
@@ -469,6 +475,8 @@
   <string name="tournamentWinners">Turnuvanın Kazananları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
+  <string name="descPrivate">Üyelere özel açıklama</string>
+  <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
   <string name="help">Yardım:</string>
@@ -482,13 +490,14 @@
   <string name="reply">Cevap yaz</string>
   <string name="message">Mesaj</string>
   <string name="createTheTopic">Bildiri oluştur</string>
-  <string name="reportAUser">Bu kullanıcıyı raporla</string>
+  <string name="reportAUser">Kullanıcı ihbar et</string>
   <string name="user">Kullanıcı</string>
   <string name="reason">Sebep</string>
   <string name="whatIsIheMatter">Problem nedir?</string>
   <string name="cheat">Hile</string>
   <string name="insult">Hakaret</string>
   <string name="troll">Trol</string>
+  <string name="ratingManipulation">Derecelendirme manipülasyonu</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
@@ -511,8 +520,9 @@
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
+  <string name="privacyPolicy">Gizlilik politikası</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
-  <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
+  <string name="letOtherPlayersChallengeYou">Diğer oyuncular oyun teklif edebilsin</string>
   <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="none">Hiçbiri</string>
@@ -579,6 +589,7 @@
   <string name="error.email_unique">Bu e-posta adresi zaten alınmış</string>
   <string name="error.email_different">Şu anda zaten bu e-posta adresini kullanıyorsun</string>
   <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
+  <string name="onlyExistingConversations">Sadece mevcut yazışmalar</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="menu">Menü</string>
   <string name="castling">Rok Atma</string>
@@ -656,6 +667,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
   <string name="weHaveSentYouAnEmailTo">%s adresine e-posta yolladık. Şifrenizi tekrar ayarlamak için e-postadaki linke tıklayın.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Kaydolarak, %s \'ı kabul etmiş sayılırsınız.</string>
+  <string name="readAboutOur">%s hakkında bilgi edinin.</string>
   <string name="networkLagBetweenYouAndLichess">Siz ve lichess.org arasındaki gecikme (ping)</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess.org üzerindeki hamle süreniz (ms)</string>
   <string name="downloadAnnotated">Açıklamalarıyla beraber indirin</string>
@@ -734,7 +746,6 @@
   <string name="error.unknown">Hata</string>
   <string name="custom">Özel</string>
   <string name="notifications">Bildirimler</string>
-  <string name="challenges">Meydan okumalar</string>
   <string name="perfRatingX">Puan: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">İlk hamle için son %s saniye</item>
@@ -781,12 +792,6 @@
   <string name="opening">Açılış</string>
   <string name="middlegame">Oyunortası</string>
   <string name="endgame">Oyunsonu</string>
-  <string name="registerToSendChallenges">Oyun daveti göndermek için üye olun.</string>
-  <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
-  <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s puanınız %2$s adlı oyuncudan çok uzak.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">%s puanınız geçici olduğu için başka oyunculara meydan okuyamazsınız.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen meydan okumaları kabul ediyor.</string>
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Mevcut varyantı ekle</string>
   <string name="playVariationToCreateConditionalPremoves">Koşullu ön hamleler yapmak için bir varyasyon oynayın</string>
@@ -840,4 +845,22 @@
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
+  <string name="mentionedYouInX"> \"%1$s\"de sizden bahsetti.</string>
+  <string name="xMentionedYouInY"> %1$s sizden \"%2$s\"de bahsetti.</string>
+  <string name="invitedYouToX"> sizi \"%1$s\" için davet etti.</string>
+  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" için davet ediyor.</string>
+  <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\" için katılım başarılı.</string>
+  <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
+  <string name="congratsYouWon">Tebrikler, kazandınız!</string>
+  <string name="gameVsX">%1$s ile oyun</string>
+  <string name="resVsX">%1$s ile %2$s kapışması</string>
+  <string name="youJustBecamePatron">Artık bir Lichess Destekçisisiniz.</string>
+  <string name="patronAccountExpired">Kullanıcı hesabının süresi doldu</string>
+  <string name="pleaseReconsiderRenewIt">Lütfen yenilemeyi düşünün!</string>
+  <string name="someoneReviewedYourCoachProfile">Birisi antrenör profilinizi inceledi.</string>
+  <string name="newPendingReview">Yeni bekleyen inceleme</string>
+  <string name="lostAgainstTOSViolator">Lichess Hizmet Şartları\'nı ihlal eden birine kaybettin</string>
+  <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
+  <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
 </resources>

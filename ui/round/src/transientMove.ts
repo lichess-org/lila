@@ -12,21 +12,20 @@ import * as xhr from 'common/xhr';
  * It will also help with lila-ws restarts.
  */
 export default class TransientMove {
-
-  constructor(readonly socket: RoundSocket) { }
+  constructor(readonly socket: RoundSocket) {}
 
   current: number | undefined = undefined;
 
   register = () => {
     this.current = setTimeout(this.expire, 10000);
-  }
+  };
 
   clear = () => {
     if (this.current) clearTimeout(this.current);
-  }
+  };
 
   expire = () => {
-    xhr.text('/statlog?e=roundTransientExpire', {method:'post'});
+    xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
     this.socket.reload({});
-  }
+  };
 }

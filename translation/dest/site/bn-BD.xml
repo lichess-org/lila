@@ -9,6 +9,7 @@
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <string name="level">লেভেল</string>
+  <string name="strength">শক্তি</string>
   <string name="toggleTheChat">আড্ডা চালু/বন্ধ</string>
   <string name="toggleSound">শব্দ চালু/বন্ধ</string>
   <string name="chat">আড্ডা</string>
@@ -114,11 +115,8 @@
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
   <string name="removesTheDepthLimit">গভীরতার সীমা অপসারণ করুন এবং আপনার কম্পিউটারকে গরম রাখুন</string>
   <string name="blunder">গুরুতর ভুল</string>
-  <string name="blunders">সাঙ্ঘাতিক ভুল</string>
   <string name="mistake">ভুল</string>
-  <string name="mistakes">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
-  <string name="inaccuracies">যথার্থতার অভাব</string>
   <string name="moveTimes">চালের সময়</string>
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
@@ -249,7 +247,6 @@
   <string name="send">পাঠান</string>
   <string name="incrementInSeconds">প্রতি সেকেন্ডে পর্যায়ক্রমিক বৃদ্ধি</string>
   <string name="freeOnlineChess">ফ্রি অনলাইন দাবা</string>
-  <string name="spectators">দর্শক</string>
   <plurals name="nbRated">
     <item quantity="one">%s অনুপাত</item>
     <item quantity="other">%s অনুপাত</item>
@@ -277,7 +274,6 @@
     <item quantity="other">%s সেকেন্ড দিন</item>
   </plurals>
   <string name="thisAccountViolatedTos">এই অ্যাকাউন্টটি লিচেস্‌-এর পরিষেবার শর্তসমূহ লঙ্ঘন করেছে</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">এই খেলোয়াড় প্রযুক্তি ব্যবহার করে কৃত্তিম ভাবে নিজের rating বাড়ায়/কমায়</string>
   <string name="openingExplorerAndTablebase">বিস্লেষন খুলতেছে &amp; টেবিলবেস</string>
   <string name="takeback">চাল ফিরিয়ে নিন</string>
   <string name="proposeATakeback">চাল ফিরিয়ে নেবার সুযোগ দিন</string>
@@ -393,7 +389,6 @@
   <string name="more">আরও</string>
   <string name="memberSince">সদস্য রয়েছেন</string>
   <string name="lastSeenActive">শেষ আগমন %s</string>
-  <string name="challengeToPlay">খেলার জন্য চ্যালেঞ্জ ছুঁড়ে দিন</string>
   <string name="player">খেলোয়াড়</string>
   <string name="list">তালিকা</string>
   <string name="graph">গ্রাফ</string>
@@ -479,6 +474,8 @@
   <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>
   <string name="description">বিবরণ</string>
+  <string name="descPrivate">ব্যাক্তিগত বর্ননা</string>
+  <string name="descPrivateHelp">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
   <string name="no">না</string>
   <string name="yes">হ্যা</string>
   <string name="help">সাহায্য</string>
@@ -516,9 +513,12 @@
   <string name="currentPassword">বর্তমান পাসওয়ার্ড</string>
   <string name="newPassword">নতুন পাসওয়ার্ড</string>
   <string name="newPasswordAgain">নতুন পাসওয়ার্ড (পুনরায়)</string>
+  <string name="newPasswordsDontMatch">নতুন পাসওয়ার্ড আগের সঙ্গে মিলে নি</string>
+  <string name="newPasswordStrength">পাসওয়ার্ডের শক্তি</string>
   <string name="clockInitialTime">ঘড়ি অনুযায়ী প্রাথমিক সময়</string>
   <string name="clockIncrement">ঘড়ির সময়বৃদ্ধির হার</string>
   <string name="privacy">গোপনীয়তা</string>
+  <string name="privacyPolicy">গোপনীয়তা নীতি</string>
   <string name="letOtherPlayersFollowYou">অন্যান্য খেলোয়ারদের আপানকে অনুসরন করতে দিন</string>
   <string name="letOtherPlayersChallengeYou">অন্যান্য খেলোয়ারদের আপানকে চ্যালেঞ্জ করতে দিন</string>
   <string name="letOtherPlayersInviteYouToStudy">অন্যান্য খেলোয়ারদের আপানকে আমন্ত্রন করতে দিন</string>
@@ -587,6 +587,7 @@
   <string name="error.email_unique">এই ইমেইলটি ইতিমধ্যে ব্যবহার করা হয়েছে</string>
   <string name="error.email_different">এই ইমেইল ঠিকানাটি ইতিমধ্যে আপনার</string>
   <string name="ifRatingIsPlusMinusX">যদি অনুপাত হয় ± %s</string>
+  <string name="onlyExistingConversations">বিদ্যমান কথোপকথন</string>
   <string name="onlyFriends">শুধু বন্ধুরা</string>
   <string name="menu">মেনু</string>
   <string name="castling">কাস্টেলিং</string>
@@ -664,6 +665,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">যদি আপনি ই-মেইলটি না দেখতে পান, অন্যজাগায় থাকতে পারে, যেমন আপনার জুনক, স্প্যাম, সোসিয়াল, অথবা অন্য ফোল্ডার.</string>
   <string name="weHaveSentYouAnEmailTo">আমরা একটি ই-মেইল পাঠিয়েছি %s. ই-মেইলে দেওয়া লিংকে ক্লিক করুন পাসওয়ার্ড পরিবর্তন করতে.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">নিবন্ধন করে, আপনি সম্মত হন আমাদের দ্বারা আবদ্ধ হতে %s.</string>
+  <string name="readAboutOur">আমাদের %s সম্পর্কে পড়ুন.</string>
   <string name="networkLagBetweenYouAndLichess">আপনার এবং লিচেস এর মধ্যে নেটওয়ার্ক ব্যবধান</string>
   <string name="timeToProcessAMoveOnLichessServer">লিচেস সার্ভারে স্থানান্তর প্রক্রিয়া করার সময়</string>
   <string name="downloadAnnotated">টীকাযুক্ত ডাউনলোড করুন</string>
@@ -709,6 +711,7 @@
   <string name="xHostsY">%1$s নির্মানকর্তা %2$s</string>
   <string name="xJoinsY">%1$s যোগদেয় %2$s</string>
   <string name="xLikesY">%1$s পচ্ছন্দ %2$s</string>
+  <string name="xCreatesStudyY">%1$s অধ্যায়ন তৈরি করেছেন %2$s</string>
   <string name="quickPairing">দ্রুত জোর-বাঁধানো</string>
   <string name="lobby">উপশালা</string>
   <string name="anonymous">অজ্ঞাত</string>
@@ -742,7 +745,6 @@
   <string name="error.unknown">ক্রুটি</string>
   <string name="custom">স্বনির্ধারিত</string>
   <string name="notifications">বিজ্ঞাপন</string>
-  <string name="challenges">চ্যালেঞ্জ</string>
   <string name="perfRatingX">অনুপাত: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s সেকেন্ডে খেলার প্রথম চাল</item>
@@ -789,12 +791,6 @@
   <string name="opening">উদ্বোধন</string>
   <string name="middlegame">মাধ্যমখেলা</string>
   <string name="endgame">খেলাশেষ</string>
-  <string name="registerToSendChallenges">চ্যালেঞ্জ করার জন্য দয়া করে নিবন্ধন করুন.</string>
-  <string name="youCannotChallengeX">আপনি চ্যালেঞ্জ করতে পারবেন না%s.</string>
-  <string name="xDoesNotAcceptChallenges">%s চ্যালেঞ্জ গ্রহন করবে না.</string>
-  <string name="yourXRatingIsTooFarFromY">আপনার %1$s অনুপাত হয় অনেক বেশি দূরে থেকে %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">কিছু সময় চ্যালেঞ্জ করতে পারবেন না %s অনুপাত.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s শুধু বন্ধুদের থেকে চ্যালেঞ্জ গ্রহন.</string>
   <string name="conditionalPremoves">শর্তাধীন পুনারয়চাল</string>
   <string name="addCurrentVariation">বর্তমান ভিন্ন করুন</string>
   <string name="playVariationToCreateConditionalPremoves">শর্তাধীন পুনারয় চাল তৈরির জন্য একটি ভিন্ন খেলুন</string>
@@ -809,15 +805,41 @@
 দুঃখিত
 খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
+  <string name="timeoutExpires">সময় লাগবে %s.</string>
   <string name="why">কেন</string>
   <string name="pleasantChessExperience">আমাদের লক্ষ্য প্রত্যেকের জন্য একটি আনন্দদায়ক দাবা খেলার অভিজ্ঞতা দেয়া।</string>
   <string name="goodPractice">সেই লক্ষ্যে আমাদের অবশ্যই নিশ্চিত করতে হবে যে সমস্ত খেলোয়াড় ভাল অভ্যাস চর্চা করে।</string>
+  <string name="potentialProblem">যখন এধরনের সমস্যা ধরা পড়ে তখনই আমরা এই মেসেজ দিই.</string>
+  <string name="howToAvoidThis">কিভাবে এসব এড়িয়ে চলবো?</string>
+  <string name="playEveryGame">যে গেম খেলা শুরু করবেন তা অবশ্যই শেষ করবেন.</string>
+  <string name="tryToWin">জেতার চেষ্টা করুন (অথবা ড্র) যেসব গেম খেলছেন.</string>
+  <string name="resignLostGames">হেরে জাওা খেলা তি রেসিগ্ন করুন।( সময় সেশ হওার অপ্পেখা করবেন না)।.</string>
+  <string name="temporaryInconvenience">অস্থায়ীভাবে এই অসুবিধার জন্য আমরা ক্ষমা প্রার্থনা করছি,</string>
+  <string name="wishYouGreatGames">এবং lichess.org এ আপনার দুর্দান্ত গেমের শুভেচ্ছা.</string>
+  <string name="thankYouForReading">পড়ার জন্য ধন্যবাদ!</string>
+  <string name="lifetimeScore">সারাজীবনের স্কোর</string>
+  <string name="currentMatchScore">বর্তমান ম্যাচের স্কোর</string>
   <string name="agreementAssistance">আমি সম্মতি এবং প্রতিশ্রুতি দিচ্ছি যে দাবা খেলার সময় কম্পিউটারের সহায়তা নিয়ে, কোনো প্রোগ্রাম বই, ডেটাবেজ বা অন্যকোনো ব্যাক্তির সহায়তা নিয়ে চিটিং করে খেলবো না).</string>
   <string name="agreementNice">আমি সম্মতি জানাচ্ছি সকল দাবাড়ু খেলোয়াড়দের সঙ্গে শ্রদ্ধাশীল আচরন করবো.</string>
   <string name="agreementAccount">আমি সম্মতি জানাচ্ছি যে নিজের জন্য একটিই একাউন্ট খুলে রাখবো পাশাপাশি অনেকগুলো একাউন্ট খুলে রাখবো না.</string>
   <string name="agreementPolicy">আমি সম্মতি জানাচ্ছি যে আমি লাইচেজের সকল নিয়মকানুন মেনে চলবো.</string>
   <string name="searchOrStartNewDiscussion">খুজুন অথবা নতুন মেসেজ কনভার্সনে যান</string>
   <string name="edit">এডিট বা সম্পাদন করুন</string>
+  <string name="rapid">র‍্যাপিড</string>
+  <string name="classical">ক্লাসিক্যাল</string>
+  <string name="ultraBulletDesc">অত্যন্ত দ্রুত গেমস: 30 সেকেন্ডেরও কম</string>
+  <string name="bulletDesc">খুবই দ্রুত গেমস: 3 মিনিটেরও কম</string>
+  <string name="blitzDesc">দ্রুত গেমস: 3 থেকে 8 মিনিট</string>
+  <string name="rapidDesc">র‍্যাপিড গেমস: 3 থেকে 8 মিনিট</string>
+  <string name="classicalDesc">ক্লাসিক্যাল গেমস: ২৫ মিনিট বা তার বেশি</string>
+  <string name="correspondenceDesc">কোরেস্পডেন্স গেমস: এক বা একাধিক দিনের চাল</string>
+  <string name="puzzleDesc">দাবা কৌশলের প্রশিক্ষক</string>
+  <string name="important">গুরুত্বপূর্ণ</string>
+  <string name="yourQuestionMayHaveBeenAnswered">হয়তো আপনার প্রশ্নের উত্তর রয়েছেই %1$s</string>
+  <string name="inTheFAQ">F.A.Q এর মধ্যে.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">প্রতারনারমুলক কাজ বা খারাপ আচরনের জন্য রিপোর্ট, %1$s</string>
+  <string name="useTheReportForm">এই রিপোর্ট ফোরাম ব্যাবহার করুন</string>
+  <string name="toRequestSupport">সমর্থনের জন্য অনুরোধ করতে, %1$s</string>
   <string name="tryTheContactPage">যোগাযোগ পেজে যেয়ে দেখতে পারেন</string>
   <string name="thisTopicIsArchived">এই টপিক বা বিষয়টি সংরক্ষণাগারভুক্ত করা হয়েছে সুতরাং এর জবাব আর দেওয়া যাবে না.</string>
   <string name="joinTheTeamXToPost">যুক্ত হোন %1$s, এই ফোরামে পোষ্ট করার জন্য</string>
@@ -825,4 +847,7 @@
   <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
   <string name="subscribe">সাবস্ক্রাইব</string>
   <string name="unsubscribe">আনসাবস্ক্রাইব</string>
+  <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
+  <string name="youJustBecamePatron">আপনি এইমাত্র লিচেসের পৃষ্ঠপোষক হলেন।</string>
+  <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
 </resources>

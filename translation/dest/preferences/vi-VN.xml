@@ -3,21 +3,21 @@
   <string name="preferences">Sửa giao diện</string>
   <string name="gameDisplay">Hiển thị ván cờ</string>
   <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
-  <string name="materialDifference">Khác chất</string>
+  <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
   <string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi trước)</string>
-  <string name="boardCoordinates">Tạo độ bàn cờ (A-H, 1-8)</string>
+  <string name="boardCoordinates">Tọa độ bàn cờ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Biên bản ván đấu</string>
   <string name="pgnPieceNotation">Kí hiệu di chuyển</string>
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
-  <string name="zenMode">Chế độ Zen</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ Zen</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ</string>
   <string name="onlyOnInitialPosition">Chỉ ở vị trí khởi tạo</string>
   <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">đồng hồ chuyên dụng</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Khi thời gian còn lại &lt; 10 giây</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
   <string name="horizontalGreenProgressBars">Thanh tiến trình ngang màu xanh</string>
   <string name="soundWhenTimeGetsCritical">Âm thanh khi khủng hoảng thời gian</string>
   <string name="giveMoreTime">Cho thêm thời gian</string>
@@ -41,7 +41,7 @@
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
   <string name="castleByMovingOntoTheRook">Di chuyển vua vào xe</string>
   <string name="inputMovesWithTheKeyboard">Nhập các nước đi với bàn phím</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào chỗ của nước đi hợp lệ</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Tự kéo mũi tên vào ô của nước đi hợp lệ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (một ván cờ tốt, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
 </resources>

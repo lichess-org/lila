@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="emailConfirm_subject">Konfirmo accountin tënde në lichess.org, %s</string>
+  <string name="emailConfirm_subject">Konfirmo llogarinë tuaj në lichess.org, %s</string>
   <string name="emailConfirm_click">Klikoni link për të aktivizuar accountin tuaj në Lichess:</string>
   <string name="emailConfirm_ignore">Nëse nuk jeni regjistruar me Lichess ju mund të injoroni këtë mesazh.</string>
   <string name="passwordReset_subject">Rivendosni password-in tuaj në lichess.org. %s</string>

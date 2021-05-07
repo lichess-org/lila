@@ -50,9 +50,10 @@ final private[round] class RoundDuct(
 
     private var offlineSince: Option[Long] = nowMillis.some
     // wether the player closed the window intentionally
-    private var bye: Boolean = false
-    // connected as a bot
-    private var botConnected: Boolean = false
+    private var bye: Boolean        = false
+    private var botConnections: Int = 0
+
+    def botConnected = botConnections > 0
 
     var userId     = none[User.ID]
     var goneWeight = 1f
@@ -99,9 +100,7 @@ final private[round] class RoundDuct(
       }
 
     def setBotConnected(v: Boolean) =
-      botConnected = v
-
-    def isBotConnected = botConnected
+      botConnections = Math.max(0, botConnections + (if (v) 1 else -1))
   }
 
   private val whitePlayer = new Player(White)
@@ -204,13 +203,10 @@ final private[round] class RoundDuct(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
                   TreeBuilder(
-                    id = a.analysis.id,
-                    pgnMoves = a.game.pgnMoves,
-                    variant = a.variant,
-                    analysis = a.analysis.some,
-                    initialFen = a.initialFen,
-                    withFlags = JsonView.WithFlags(),
-                    clocks = none
+                    a.game,
+                    a.analysis.some,
+                    a.initialFen,
+                    JsonView.WithFlags()
                   )
                 }
               )
@@ -366,9 +362,9 @@ final private[round] class RoundDuct(
         }
       }
 
-    case Moretime(playerId) =>
+    case Moretime(playerId, duration) =>
       handle(playerId) { pov =>
-        moretimer(pov) flatMap {
+        moretimer(pov, duration) flatMap {
           _ ?? { progress =>
             proxy save progress inject progress.events
           }
@@ -404,7 +400,7 @@ final private[round] class RoundDuct(
       handle { game =>
         game.playable ?? {
           messenger.system(game, "Lichess has been updated! Sorry for the inconvenience.")
-          val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
+          val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
         }
       }

@@ -1,5 +1,7 @@
 .simul-list {
   &__help {
+    @extend %page-text-shadow !optional;
+
     color: $c-font-page;
     max-width: 350px;
     margin: 9em $block-gap 0 0;
@@ -29,7 +31,8 @@
       padding-bottom: 1em;
     }
 
-    .host, .players {
+    .host,
+    .players {
       display: none;
     }
 
@@ -39,13 +42,11 @@
       }
     }
 
-
     @include breakpoint($mq-small) {
       .players {
         display: table-cell;
       }
     }
-
 
     .header {
       cursor: pointer;

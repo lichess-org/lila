@@ -17,8 +17,6 @@
   <string name="areThereWebsitesBasedOnLichess">Apakah ada situs lain yang berbasis Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ya. Lichess terinspirasi oleh website proyek open-source lainnya yang mana menggunakan kami %1$s, %2$s, or %3$s.</string>
   <string name="fairPlay">Fair Play</string>
-  <string name="whyFlaggedRatingManipulationOrCheater">Mengapa saya ditandai telah memanipulasi rating (menambah atau mengurangi) atau mendapat bantuan dari komputer?</string>
-  <string name="cheatDetectionMethods">Lichess menggunakan metode deteksi yang kuat serta proses yang sangat mendalam untuk mengecek bukti dan membuat keputusan. Proses pengecekan ini melibatkan banyak moderator dan dapat memakan waktu yang panjang. Selain perihal tanda, kami tidak akan memberi penjelasan mengenai bukti atau proses pengambilan keputusan untuk kasus-kasus tertentu. Hal ini dilakukan agar metode pengecekan tidak dapat dihindari. Selain itu, kami juga tidak ingin terlibat dalam perdebatan yang tidak produktif. Waktu dan tenaga itu lebih baik digunakan untuk urusan lain yang lebih penting. Pengguna dapat mengirimkan penyangkalan melalui surel ke %1$s, tetapi sangat jarang kami mengubah keputusan yang telah ditetapkan.</string>
   <string name="whenAmIEligibleRatinRefund">Kapan saya dapat menerima pengembalian rating otomatis dari pemain curang?</string>
   <string name="ratingRefundExplanation">Satu menit setelah seorang pemain diberikan tanda, 40 permainan terakhir pemain itu selama 3 hari ke belakang akan ditandai. Apabila Anda sempat menjadi lawan pemain itu dalam permainan-permainan tersebut, rating Anda turun (akibat kalah atau seri), dan rating Anda tidak provisional, maka rating Anda akan dikembalikan. Pengembalian rating ini memiliki batas maksimal, yaitu pada puncak rating serta pergerakan rating Anda setelah permainan tersebut. (Sebagai contoh, apabila rating Anda meningkat tajam setelah permainan-permainan tersebut, Anda mungkin tidak akan mendapatkan pengembalian rating atau hanya sebagian.) Pengembalian rating tidak akan melebihi 150 poin.</string>
   <string name="preventLeavingGameWithoutResigning">Apa tindakan terhadap pemain yang meninggalkan permainan tanpa menyerah?</string>
@@ -29,10 +27,70 @@
   <string name="youCanUseOpeningBookNoEngine">Di Lichess, perbedaan utama dalam aturan catur korespondensi adalah bahwa buku pembukaan diperbolehkan. Penggunaan mesin masih dilarang dan akan mengakibatkan plat merah untuk bantuan mesin. Meskipun ICCF mengizinkan penggunaan mesin dalam catur korespondensi, Lichess tidak</string>
   <string name="gameplay">Aspek permainan</string>
   <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>
+  <string name="basedOnGameDuration">Kontrol waktu Lichess berdasarkan pada perkiraan durasi permainan = %1$s
+Misalnya, perkiraan durasi permainan 5+3 adalah 5 × 60 + 40 × 3 = 420 detik.</string>
+  <string name="durationFormula">(waktu awal jam) + 40 x (kenaikan jam)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess mendukung permainan catur standar dan %1$s.</string>
   <string name="eightVariants">8 varian catur</string>
+  <string name="whatIsACPL">Apa itu average centiawn loss (ACPL)?</string>
+  <string name="acplExplanation">Centipawn adalah satuan ukuran yang digunakan dalam catur sebagai representasi keunggulan. Centipawn sama dengan 1/100 pion. Oleh karena itu 100 centipawn = 1 pion. Nilai-nilai ini tidak memainkan peran formal dalam permainan tetapi berguna bagi pemain, dan penting dalam catur komputer, untuk mengevaluasi posisi.
+
+Gerakan komputer teratas akan kehilangan centipawn kosong, tetapi gerakan yang lebih sedikit akan menghasilkan penururan posisi akan diukur dalam centipawn.
+
+Nilai ini dapat digunakan sebagai indikator kualitas bermain. Semakin sedikit centipawn yang kalah per gerakan, semakin kuat permainannya.
+
+Analisis komputer pada Lichess didukung oleh Stockfish.</string>
+  <string name="insufficientMaterial">Kehabisan waktu, seri dan kurang materi</string>
+  <string name="lichessFollowFIDErules">Jika salah satu pemainan kehabisan waktu, pemain tersebut biasanya akan kalah dalam permainan. Namun, permainan tersebut akan seri jika posisinya sedemikan rupa jika lawan tidak dapat menskakmat raja pemain dengan gerakan sah yang memungkinkan (%1$s).
+
+Dalam kasus yang jarang terjadi, ini akan menjadi sulit untuk diputuskan secara otomatis (garis paksa, benteng). Secara default kami berpihak pada pemain yang tidak kehabisan waktu.
+
+Perhatikan bahwa itu bisa memungkinkan skakmat dengan satu kuda atau gajah jika lawan memiliki bidak yang bisa menghalangi raja.</string>
+  <string name="fideHandbookX">pedoman FIDE %s</string>
+  <string name="discoveringEnPassant">Mengapa sebuah bidak dapat memakan bidak lain meski bidak tersebut sudah lewat? (en passant)</string>
+  <string name="explainingEnPassant">Ini merupakan gerakan legal yang dinamakan \"en passant\". Artikel Wikipedia memberikan sebuah %1$s.
+
+Gerakan ini dijelaskan dalam bagian 3.7 (d) dari %2$s:
+
+\"Sebuah bidak yang menempati petak pada baris yang sama dan pada lajur yang bersebelahan dengan bidan lawan yang baru saja maju dua petak dalam satu gerakan dari petak asalnya boleh menangkap bidak lawan tersebut seakan-akan yang terakhir baru saja melangkah satu petak. Tangkapan ini hanya diperbolehkan dalam langkah yang diambil setelah langkah maju ini dan disebut tangkapan \'en passant\'.\"
+
+Lihat bagian %3$s mengenai gerakan ini untuk melatihnya.</string>
+  <string name="goodIntroduction">pengenalan yang baik</string>
+  <string name="officialRulesPDF">peraturan resmi (PDF)</string>
+  <string name="lichessTraining">latihan Lichess</string>
+  <string name="threefoldRepetition">Pengulangan tiga kali</string>
+  <string name="threefoldRepetitionExplanation">Jika sebuah posisi terjadi tiga kali, pemain dapat mengajukan remis dengan %1$s. Lichess menggunakan aturan resmi FIDE, seperti yang tercantum dalam Pasal 9.2 (d) dari %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">pengulangan tiga kali</string>
+  <string name="notRepeatedMoves">Kami tidak mengulangi gerakan. Kenapa permainan masih remis dengan pengulangan?</string>
+  <string name="repeatedPositionsThatMatters">Pengulanan tiga kali lipat adalah tentang pengulangan %1$s, bukan gerakan. Pengulangan tidak harus terjadi secara berurutan.</string>
+  <string name="positions">posisi</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Kami mengulangi posisi tiga kali. Kenapa permainan tidak remis?</string>
+  <string name="threeFoldHasToBeClaimed">Pengulangan harus diklaim oleh satu pemain. Anda dapat melakukan menekan tombol yang ditampilkan, atau menawarkan hasil seri sebelum gerakan berulang terakhir Anda, tidak masalah jika lawan Anda menolak tawaran seri, pengulangan tiga kali seri akan tetap diklaim. Anda juga dapat %1$s Lichess untuk mengklaim secara otomatis. Selain itu, pengulangan lima kali lipas selalu segera mengakhiri permainan.</string>
+  <string name="configure">pengaturan</string>
+  <string name="accounts">Akun</string>
+  <string name="titlesAvailableOnLichess">Gelar apa saja yang terdapat pada Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess mengakui semua gelar FIDE yang diperoleh dari permainan di atas papan (over the board/OTB), serta %1$s. Berikut adalah daftar gelar FIDE:</string>
+  <string name="showYourTitle">Jika Anda memiliki gelar di atas papan (OTB), Anda dapat mendaftar untuk menampilkannya pada akun Anda dengan melengkapi %1$s, termasuk dengan foto dokumen/kartu identifikasi yang jelas serta swafoto (selfie) Anda memegang dokumen/kartu tersebut.
+
+Verifikasi sebagai pemain bergelar di Lichess memberikan akses untuk bermain dalam event Titled Arena.
+
+Terakhir, terdapat gelar kehormatan %2$s.</string>
+  <string name="asWellAsManyNMtitles">berbagai gelar master nasional</string>
+  <string name="verificationForm">form verifikasi</string>
+  <string name="canIbecomeLM">Bisakah saya mendapatkan gelar Lichess Master (LM)?</string>
   <string name="noUpperCaseDot">Tidak.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Gelar kehormatan ini tidak resmi dan hanya terdapat di Lichess.
+
+Kami memberikan gelar tersebut pada pemain terkemuka yang merupakan warga Lichess yang baik, sesuai kebijakan kami. Anda tidak mencari gelar LM, gelar LM yang mencari Anda. Jika Anda memenuhi syarat, Anda akan mendapat pesan dari kami dan pilihan untuk menerima atau menolaknya.</string>
+  <string name="whatUsernameCanIchoose">Apa yang dapat digunakan sebagai username saya?</string>
+  <string name="usernamesNotOffensive">Secara umum, nama pengguna (username) tidak boleh: ofensif, berpura-pura menjadi orang lain, maupun bersifat iklan. Anda dapat membaca %1$s lebih lanjut.</string>
+  <string name="guidelines">pedoman</string>
+  <string name="canIChangeMyUsername">Apakah saya dapat mengubah nama pengguna saya?</string>
+  <string name="usernamesCannotBeChanged">Tidak, nama pengguna tidak dapat diubah untuk alasan praktis dan teknis. Nama pengguna digunakan di banyak tempat: database, export, catatan, dan pikiran orang-orang. Anda dapat mengatur kapitalisasi huruf sebanyak satu kali.</string>
+  <string name="uniqueTrophies">Trofi unik</string>
   <string name="ownerUniqueTrophies">Trofi itu unik dalam sejarah Lichess, tidak ada orang lain selain %1$s yang pernah memilikinya.</string>
   <string name="wayOfBerserkExplanation">Untuk mendapatkannya, hiimgosu menantang dirinya untuk berserk dan memenangkan game 100%% dari %s.</string>
   <string name="aHourlyBulletTournament">1 jam turnamen bulet</string>

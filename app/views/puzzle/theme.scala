@@ -2,7 +2,6 @@ package views
 package html.puzzle
 
 import controllers.routes
-import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -32,7 +31,7 @@ object theme {
                 )(
                   themes.map { pt =>
                     val url =
-                      if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home()
+                      if (pt.theme == PuzzleTheme.mix) routes.Puzzle.home
                       else routes.Puzzle.show(pt.theme.key.value)
                     a(cls := "puzzle-themes__link", href := (pt.count > 0).option(url.url))(
                       span(
@@ -43,7 +42,14 @@ object theme {
                         span(pt.theme.description())
                       )
                     )
-                  }
+                  },
+                  cat.key == "puzzle:origin" option
+                    a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
+                      span(
+                        h3("Player games"),
+                        span("Lookup puzzles generated from your games, or from another player's games.")
+                      )
+                    )
                 )
               )
             },

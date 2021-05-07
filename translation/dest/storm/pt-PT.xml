@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="moveToStart">Faça um lance para começar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Joga com as peças brancas em todos os problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Joga com as peças pretas em todos os problemas</string>
+  <string name="puzzlesSolved">Problema Resolvido!</string>
+  <string name="newDailyHighscore">Novo recorde diário!</string>
+  <string name="newWeeklyHighscore">Novo recorde semanal!</string>
+  <string name="newMonthlyHighscore">Novo recorde mensal!</string>
+  <string name="newAllTimeHighscore">Novo recorde!</string>
+  <string name="previousHighscoreWasX">A pontuação anterior foi %s</string>
+  <string name="playAgain">Jogar novamente</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 partida</item>
+    <item quantity="other">%s partidas</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Jogou uma partida de %2$s</item>
+    <item quantity="other">Jogou %1$s partidas de %2$s</item>
+  </plurals>
+  <string name="highscoreX">Recorde: %s</string>
+  <string name="score">Pontuação</string>
+  <string name="moves">Total de lances</string>
+  <string name="accuracy">Precisão</string>
+  <string name="combo">Combo</string>
+  <string name="time">Tempo</string>
+  <string name="timePerMove">Tempo por lance</string>
+  <string name="highestSolved">Problema mais difícil resolvido</string>
+  <string name="puzzlesPlayed">Problemas jogados</string>
+  <string name="newRun">Nova partida (tecla: espaço)</string>
+  <string name="endRun">Terminar partida (tecla: Enter)</string>
+  <string name="highscores">Recorde</string>
+  <string name="viewBestRuns">Ver as melhores partidas</string>
+  <string name="bestRunOfDay">Melhor partida do dia</string>
+  <string name="runs">Partidas</string>
+  <string name="getReady">Preparar!</string>
+  <string name="waitingForMorePlayers">À espera de mais jogadores...</string>
+  <string name="spectating">A assistir</string>
+  <string name="yourRankX">A tua posição: %s</string>
+  <string name="waitForRematch">Espera pela desforra</string>
+  <string name="nextRace">Próxima corrida</string>
+  <string name="joinPublicRace">Junta-te a uma corrida pública</string>
+  <string name="skip">ignorar</string>
+</resources>

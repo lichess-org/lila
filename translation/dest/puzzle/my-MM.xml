@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">ဉာဏ်စမ်းများ</string>
-  <string name="puzzleThemes" comment="puzzleThemes&#10;&#10;https://lichess.org/training/themes">ဉာဏ်စမ်း အမျိုးအစားများ</string>
+  <string name="puzzleThemes">ဉာဏ်စမ်း အမျိုးအစားများ</string>
   <string name="recommended">ထောက်ခံသော</string>
   <string name="phases">အဆင့်များ</string>
   <string name="motifs">ပုံစံများ</string>
@@ -35,4 +35,8 @@
   <string name="example">ဥပမာ</string>
   <string name="addAnotherTheme">မြင်ကွင်းပုံစံ နောက်တစ်မျိုး ထည့်ပါ</string>
   <string name="jumpToNextPuzzleImmediately">လာမည့် ဉာဏ်စမ်းသို့ ချက်ချင်း သွားပါ</string>
+  <string name="puzzleDashboard">ဉဏ်စမ်း ဒက်ရှ်ဘုတ်</string>
+  <string name="improvementAreas">တိုးတက်စေနိုင်မည့် အပိုင်းများ</string>
+  <string name="strengths">အားသာချက်များ</string>
+  <string name="solved">ဖြေပြီး</string>
 </resources>

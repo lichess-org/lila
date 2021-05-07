@@ -6,4 +6,9 @@ export default rollupProject({
     input: 'src/main.ts',
     output: 'puzzle',
   },
+  dashboard: {
+    name: 'LichessPuzzleDashboard',
+    input: 'src/dashboard.ts',
+    output: 'puzzle.dashboard',
+  },
 });

@@ -5,13 +5,13 @@ import play.api.data.validation.Constraints
 import play.api.data.Forms._
 
 import User.ClearPassword
-import lila.common.Form.clean
+import lila.common.Form.{ cleanNonEmptyText, cleanText }
 
 final class UserForm(authenticator: Authenticator) {
 
   val note = Form(
     mapping(
-      "text" -> clean(text(minLength = 3, maxLength = 2000)),
+      "text" -> cleanText(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> optional(boolean)
     )(NoteData.apply)(NoteData.unapply)
@@ -22,7 +22,7 @@ final class UserForm(authenticator: Authenticator) {
   def username(user: User): Form[String] =
     Form(
       single(
-        "username" -> clean(text).verifying(
+        "username" -> cleanNonEmptyText.verifying(
           "changeUsernameNotSame",
           name => name.toLowerCase == user.username.toLowerCase && name != user.username
         )
@@ -34,20 +34,22 @@ final class UserForm(authenticator: Authenticator) {
   val profile = Form(
     mapping(
       "country"    -> optional(text.verifying(Countries.codeSet contains _)),
-      "location"   -> optional(clean(nonEmptyText(maxLength = 80))),
-      "bio"        -> optional(clean(nonEmptyText(maxLength = 600))),
+      "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
+      "bio"        -> optional(cleanNonEmptyText(maxLength = 600)),
       "firstName"  -> nameField,
       "lastName"   -> nameField,
       "fideRating" -> optional(number(min = 600, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
-      "links"      -> optional(clean(nonEmptyText(maxLength = 3000)))
+      "rcfRating"  -> optional(number(min = 0, max = 3000)),
+      "cfcRating"  -> optional(number(min = 0, max = 3000)),
+      "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(Profile.unapply)
   )
 
   def profileOf(user: User) = profile fill user.profileOrDefault
 
-  private def nameField = optional(clean(text(minLength = 2, maxLength = 20)))
+  private def nameField = optional(cleanText(minLength = 2, maxLength = 20))
 
   case class Passwd(
       oldPasswd: String,

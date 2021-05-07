@@ -62,15 +62,13 @@
   <string name="chapterPgn">PGN d\'o capitol</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL d\'o estudio</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Enlace d\'a emisión</string>
   <string name="currentChapterUrl">URL d\'o capitol actual</string>
-  <string name="currentGameUrl">Enlace d\'a partida actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Puetz apegar esto en o foro pa ficar-ie la partida</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puetz apegar esto en o foro pa ficar-ie la partida</string>
   <string name="startAtInitialPosition">Prencipiar dende la posición inicial</string>
   <string name="startAtX">Prencipiar en %s</string>
   <string name="embedInYourWebsite">Fica-lo en a tuya pachina u blog</string>
   <string name="readMoreAboutEmbedding">Leyer mas sobre incrustar conteniu</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Nomás los estudios publicos se pueden incrustar!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Nomás los estudios publicos se pueden incrustar!</string>
   <string name="open">Ubrir</string>
   <string name="xBroughtToYouByY">%1$s, proporcionau per %2$s</string>
   <string name="studyNotFound">No se trobó lo estudio</string>

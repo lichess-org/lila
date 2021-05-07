@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Est-ce que Lichess lag ?</string>
+  <string name="isLichessLagging">Lichess lague-t-il ?</string>
   <string name="measurementInProgressThreeDot">Mesures en cours...</string>
   <string name="noAndYourNetworkIsGood">Non. Et votre connexion est bonne.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Non. Et votre connexion est mauvaise.</string>
@@ -12,5 +12,5 @@
   <string name="networkBetweenLichessAndYouExplanation">Le temps nécessaire pour envoyer un coup de ordinateur vers le serveur Lichess et recevoir la réponse. Il est spécifique à votre distance avec Lichess (France) et à la qualité de votre connexion Internet. Les développeurs de Lichess ne peuvent pas améliorer votre wifi ou augmenter la vitesse de la lumière.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Vous pouvez trouver ces deux valeurs à tout moment, en cliquant sur votre nom d\'utilisateur dans la barre en haut de page.</string>
   <string name="lagCompensation">Compensation du lag</string>
-  <string name="lagCompensationExplanation">Lichess compense le lag réseau. Cela inclut le lag continu et les pics de lag occasionnels. Il y a des limites et des stratégies basées sur la cadence et sur le lag déjà compensé, de sorte que le résultat doive être raisonnable pour les deux joueurs. En conséquence, avoir un lag de réseau plus important que votre adversaire n\'est pas un handicap !</string>
+  <string name="lagCompensationExplanation">Lichess compense la latence du réseau. Cela inclut la latence continue et les pics de latence occasionnels. Il y a des limites et des analyses basées sur la cadence et sur la latence compensée à un moment donné, afin que le résultat semble raisonnable pour les deux joueurs. Autrement dit, avoir une latence plus importante que votre adversaire n\'est pas un handicap !</string>
 </resources>

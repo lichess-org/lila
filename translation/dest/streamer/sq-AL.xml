@@ -45,4 +45,8 @@ Nëse transmetimi juaj është në anglisht, nuk ka nevojë të përfshini një 
   <string name="headline">Titulli</string>
   <string name="tellUsAboutTheStream">Na trego për rrjedhën tënde me një fjali</string>
   <string name="longDescription">Përshkrimi i gjatë</string>
+  <string name="changePicture">Ndrysho/fshij pikturën</string>
+  <string name="uploadPicture">Ngarko një pikturë</string>
+  <string name="deletePicture">Fshije pikturën</string>
+  <string name="installBlocker">Instalo një AntiVirus!</string>
 </resources>

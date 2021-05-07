@@ -34,9 +34,7 @@ trait dsl {
 
   def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
 
-  def $arr(elements: Producer[BSONValue]*): Barr = {
-    BSONArray(elements: _*)
-  }
+  def $arr(elements: Producer[BSONValue]*): Barr = BSONArray(elements: _*)
 
   def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
 
@@ -343,6 +341,36 @@ trait dsl {
     val createdAsc  = asc("createdAt")
     val createdDesc = desc("createdAt")
     val updatedDesc = desc("updatedAt")
+  }
+
+  object $lookup {
+    def simple(from: String, as: String, local: String, foreign: String): Bdoc = $doc(
+      "$lookup" -> $doc(
+        "from"         -> from,
+        "as"           -> as,
+        "localField"   -> local,
+        "foreignField" -> foreign
+      )
+    )
+    def simple(from: Coll, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name, as, local, foreign)
+    def simple(from: AsyncColl, as: String, local: String, foreign: String): Bdoc =
+      simple(from.name.value, as, local, foreign)
+    def pipeline(from: Coll, as: String, local: String, foreign: String, pipeline: List[Bdoc]): Bdoc =
+      $doc(
+        "$lookup" -> $doc(
+          "from" -> from.name,
+          "as"   -> as,
+          "let"  -> $doc("local" -> s"$$$local"),
+          "pipeline" -> {
+            $doc(
+              "$match" -> $doc(
+                "$expr" -> $doc($doc("$eq" -> $arr(s"$$$foreign", "$$local")))
+              )
+            ) :: pipeline
+          }
+        )
+      )
   }
 
   implicit class ElementBuilderLike(val field: String)

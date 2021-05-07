@@ -10,7 +10,7 @@
   <string name="forgotUsername">Jag har glömt mitt användarnamn</string>
   <string name="youCanLoginWithEmail">Du kan logga in med den e-postadress du registrerade dig med</string>
   <string name="lost2FA">Jag har förlorat åtkomst till mina tvåfaktorsautentiseringskoder</string>
-  <string name="doPasswordReset">Gör en lösenordsåterställning för att ta bort din andra faktor</string>
+  <string name="doPasswordReset">Återställ ditt lösenord för att ta bort din andra faktor</string>
   <string name="accountSupport">Jag behöver kontosupport</string>
   <string name="wantTitle">Jag vill att min titel visas på Lichess</string>
   <string name="visitTitleConfirmation">För att visa din titel på din Lichess-profil, och delta i Titled Arenas, besök titelns bekräftelsesida</string>
@@ -24,20 +24,15 @@
   <string name="changeUsernameCase">Besök denna sida för att ändra gemener till versaler eller versaler till gemener i ditt användarnamn</string>
   <string name="cantChangeMore">Vi kan inte ändra mer än shiftläget. Av tekniska skäl är det rent ut sagt omöjligt.</string>
   <string name="orCloseAccount">Du kan dock stänga ditt nuvarande konto och skapa ett nytt.</string>
-  <string name="wantClearHistory">Jag vill rensa min historia eller rating</string>
-  <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, pusselhistorik eller rating.</string>
+  <string name="wantClearHistory">Jag vill rensa min historik eller rating</string>
+  <string name="cantClearHistory">Det är inte möjligt att rensa din partihistorik, historik för schackproblem eller rating.</string>
   <string name="wantReport">Jag vill rapportera en spelare</string>
-  <string name="cheating">fusk</string>
-  <string name="sandbagging">manipulerar rating</string>
-  <string name="trolling">trolling</string>
-  <string name="insults">förolämpningar</string>
-  <string name="otherReason">någon annan anledning</string>
-  <string name="toReportAPlayer">För att rapportera en spelare för %s, använder du rapportformuläret</string>
+  <string name="toReportAPlayerUseForm">Använd rapportformuläret för att rapportera en spelare</string>
   <string name="youCanAlsoReachReportPage">Du kan också nå den sidan genom att klicka på knappen %s rapportera på en profilsida.</string>
   <string name="doNotReportInForum">Rapportera inte spelare i forumet.</string>
   <string name="doNotSendReportEmails">Skicka oss inte rapporter via e-post.</string>
   <string name="doNotMessageModerators">Skicka inte direkta meddelanden till moderatorer.</string>
-  <string name="onlyReports">Att bara rapportera spelare via rapportformuläret är effektiv.</string>
+  <string name="onlyReports">Att bara rapportera spelare via rapportformuläret är effektivt.</string>
   <string name="wantReportBug">Jag vill rapportera ett programfel</string>
   <string name="reportBugInForum">I Forumet: Lichess Feedback</string>
   <string name="reportWebsiteIssue">Som ett Lichess-webbplatsärende på GitHub</string>
@@ -59,7 +54,7 @@
   <string name="ratedGame">Försäkra dig om att du spelade ett rankat parti. Orankade partier påverkar inte spelarnas rating.</string>
   <string name="errorPage">Felsida</string>
   <string name="reportErrorPage">Om du stöter på en felsida, kan du rapportera det:</string>
-  <string name="banAppeal" comment="banAppeal&#10;&#10;It's worth noting that IP restrictions aren't always due to malicious activity by the person sending the appeal.">Överklaga en avstängning eller IP-begränsning</string>
+  <string name="banAppeal">Överklaga en avstängning eller IP-begränsning</string>
   <string name="engineAppeal">Schackmotor eller fuskstämpel</string>
   <string name="sendAppealTo">Du kan skicka ett överklagande till %s.</string>
   <string name="falsePositives">Falska positiva saker händer ibland, och vi beklagar det.</string>

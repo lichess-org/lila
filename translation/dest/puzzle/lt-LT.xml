@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Galvosūkiai</string>
-  <string name="puzzleThemes">Galvosūkių temos</string>
+  <string name="puzzles">Užduotys</string>
+  <string name="puzzleThemes">Užduočių temos</string>
   <string name="recommended">Rekomenduojama</string>
   <string name="phases">Fazės</string>
   <string name="motifs">Motyvai</string>
@@ -9,21 +9,22 @@
   <string name="lengths">Ilgiai</string>
   <string name="mates">Matai</string>
   <string name="goals">Tikslai</string>
+  <string name="origin">Kilmė</string>
   <string name="specialMoves">Ypatingi ėjimai</string>
-  <string name="didYouLikeThisPuzzle">Ar jums patiko šis galvosūkis?</string>
+  <string name="didYouLikeThisPuzzle">Ar jums patiko ši užduotis?</string>
   <string name="voteToLoadNextOne">Nubalsuokite norėdami pakrauti kitą!</string>
-  <string name="yourPuzzleRatingX">Jūsų galvosūkių reitingas: %s</string>
+  <string name="yourPuzzleRatingX">Jūsų užduočių reitingas: %s</string>
   <string name="findTheBestMoveForWhite">Raskite geriausią ėjimą baltiems.</string>
   <string name="findTheBestMoveForBlack">Raskite geriausią ėjimą juodiems.</string>
-  <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintus galvosūkius:</string>
-  <string name="puzzleId">Galvosūkis %s</string>
-  <string name="puzzleOfTheDay">Dienos galvosūkis</string>
+  <string name="toGetPersonalizedPuzzles">Norėdami gauti suasmenintas užduotis:</string>
+  <string name="puzzleId">Užduotis %s</string>
+  <string name="puzzleOfTheDay">Dienos užduotis</string>
   <string name="clickToSolve">Norėdami spręsti spustelkite</string>
   <string name="goodMove">Geras ėjimas</string>
   <string name="bestMove">Geriausias ėjimas!</string>
   <string name="keepGoing">Toliau…</string>
   <string name="puzzleSuccess">Pavyko!</string>
-  <string name="puzzleComplete">Galvosūkis išspręstas!</string>
+  <string name="puzzleComplete">Užduotis išspręsta!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>
@@ -40,9 +41,32 @@
   <string name="normal">Įprastas</string>
   <string name="easier">Lengvesnis</string>
   <string name="easiest">Lengviausias</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
+    <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
+    <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
+    <item quantity="other">%s taškų aukščiau jūsų užduočių reitingo</item>
+  </plurals>
   <string name="harder">Sunkesnis</string>
   <string name="hardest">Sunkiausias</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Vienu tašku aukščiau jūsų užduočių reitingo</item>
+    <item quantity="few">%s taškais aukščiau jūsų užduočių reitingo</item>
+    <item quantity="many">%s taško aukščiau jūsų užduočių reitingo</item>
+    <item quantity="other">%s taškų aukščiau jūsų užduočių reitingo</item>
+  </plurals>
   <string name="example">Pavyzdys</string>
   <string name="addAnotherTheme">Pridėti dar vieną temą</string>
-  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą galvosūkį</string>
+  <string name="jumpToNextPuzzleImmediately">Iš karto pereiti į kitą užduotį</string>
+  <string name="puzzleDashboard">Užduočių centras</string>
+  <string name="improvementAreas">Vietos tobulėjimui</string>
+  <string name="strengths">Striprybės</string>
+  <string name="history">Užduočių istorija</string>
+  <string name="solved">išspręsta</string>
+  <string name="failed">nepavyko</string>
+  <string name="streakDescription">Spręskite vis sunkėjančias užduotis ir kaupkite pergalių seriją. Galite neskubėti, kadangi nėra laikrodžio. Vienas neteisingas ėjimas ir žaidimas baigtas! Per sesiją galite praleisti vieną ėjimą.</string>
+  <string name="yourStreakX">Jūsų serija: %s</string>
+  <string name="streakSkipExplanation">Praleiskite ėjimą norėdami išsaugoti savo seriją! Veikia tik vieną kartą per bandymą.</string>
+  <string name="continueTheStreak">Tęsti seriją</string>
+  <string name="newStreak">Nauja serija</string>
 </resources>

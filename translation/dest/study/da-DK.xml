@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Dato tilføjet (ældste)</string>
   <string name="recentlyUpdated">Nyligt opdateret</string>
   <string name="mostPopular">Mest populære</string>
+  <string name="alphabetical">Alfabetisk</string>
   <string name="addNewChapter">Tilføj et nyt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitel</item>
@@ -62,15 +63,13 @@
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">Transmission URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
-  <string name="currentGameUrl">Nuværende parti URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.">Du kan indsætte dette i forummet for at indlejre</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet for at indlejre</string>
   <string name="startAtInitialPosition">Start ved indledende position</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside eller blog</string>
   <string name="readMoreAboutEmbedding">Læs mere om indlejring</string>
-  <string name="onlyPublicStudiesCanBeEmbedded" comment="onlyPublicStudiesCanBeEmbedded&#10;&#10;Embedding is when you put the study in another website.">Kun offentlige studier kan indlejres!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Kun offentlige studier kan indlejres!</string>
   <string name="open">Åbn</string>
   <string name="xBroughtToYouByY">%1$s bragt til dig af %2$s</string>
   <string name="studyNotFound">Studie ikke fundet</string>
@@ -105,7 +104,7 @@
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s eller %2$s</string>
   <string name="createChapter">Opret kapitel</string>
-  <string name="configureLiveBroadcast">Konfigurer live-transmission</string>
+  <string name="configureLiveBroadcast">Konfigurer live-udsendelse</string>
   <string name="createStudy">Opret studie</string>
   <string name="editStudy">Rediger studie</string>
   <string name="visibility">Synlighed</string>

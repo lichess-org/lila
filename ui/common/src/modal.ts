@@ -9,10 +9,10 @@ export default function modal(content: Cash, cls?: string, onClose?: () => void)
   $wrap.on('click', (e: Event) => e.stopPropagation());
   $('body').addClass('overlayed').prepend($overlay);
   return $wrap;
-};
+}
 modal.close = () => {
   $('body').removeClass('overlayed');
-  $('#modal-overlay').each(function(this: HTMLElement) {
+  $('#modal-overlay').each(function (this: HTMLElement) {
     if (modal.onClose) modal.onClose();
     $(this).remove();
   });

@@ -12,14 +12,14 @@ final private class ReportScore(
         impl.autoScore(candidate)
     } map
       impl.fixedAutoCommPrintScore(candidate) map
+      impl.fixedBoostScore(candidate) map
       impl.commFlagScore(candidate) map { score =>
         candidate scored Report.Score(score atLeast 5 atMost 100)
       }
 
   private object impl {
 
-    val baseScore               = 20
-    val baseScoreAboveThreshold = 50
+    val baseScore = 20
 
     def accuracyScore(a: Option[Accuracy]): Double =
       a ?? { accuracy =>
@@ -34,7 +34,11 @@ final private class ReportScore(
     // https://github.com/ornicar/lila/issues/4587
     def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoComm) baseScore
-      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
+      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScore * 2
+      else score
+
+    def fixedBoostScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoBoost) baseScore
       else score
 
     def commFlagScore(c: Report.Candidate)(score: Double): Double =

@@ -2,6 +2,7 @@ package lila.common
 
 import chess.format.FEN
 import chess.format.Forsyth
+import io.lemonlabs.uri._
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.{ Formatter, JodaFormats }
@@ -10,6 +11,8 @@ import play.api.data.JodaForms._
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
+
+import lila.common.base.StringUtils
 
 object Form {
 
@@ -45,38 +48,60 @@ object Form {
       d -> format(d)
     }
 
+  private def mustBeOneOf(choices: Iterable[Any]) = s"Must be one of: ${choices mkString ", "}"
+
   def numberIn(choices: Options[Int]) =
-    number.verifying(hasKey(choices, _))
+    number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def numberIn(choices: Set[Int]) =
-    number.verifying(choices.contains _)
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberIn(choices: Seq[Int]) =
-    number.verifying(choices.contains _)
+    number.verifying(mustBeOneOf(choices), choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
-    of[Double].verifying(hasKey(choices, _))
+    of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
-  def clean(m: Mapping[String]) =
-    trim(m)
-      .verifying("This text contains invalid chars", s => !String.hasZeroWidthChars(s))
+
+  // trims and removes garbage chars before validation
+  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+    def bind(key: String, data: Map[String, String]) =
+      data
+        .get(key)
+        .map(_.trim)
+        .map(StringUtils.removeGarbageChars)
+        .toRight(Seq(FormError(key, "error.required", Nil)))
+    def unbind(key: String, value: String) = Map(key -> StringUtils.removeGarbageChars(value.trim))
+  }
+
+  val cleanText: Mapping[String] = of(cleanTextFormatter)
+  def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    (minLength, maxLength) match {
+      case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
+      case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
+      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+    }
+
+  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
+  def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
 
   def eventName(minLength: Int, maxLength: Int) =
-    clean(text).verifying(
+    cleanText.verifying(
       Constraints minLength minLength,
       Constraints maxLength maxLength,
       Constraints.pattern(
         regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
-        error = "Invalid characters"
+        error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
       )
     )
 
   def stringIn(choices: Options[String]) =
-    text.verifying(hasKey(choices, _))
+    text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
   def stringIn(choices: Set[String]) =
-    text.verifying(choices.contains _)
+    text.verifying(mustBeOneOf(choices), choices.contains _)
 
   def tolerantBoolean = of[Boolean](formatter.tolerantBooleanFormatter)
 
@@ -87,6 +112,8 @@ object Form {
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")
+
+  def absoluteUrl = of[AbsoluteUrl](formatter.absoluteUrlFormatter)
 
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] =
@@ -106,6 +133,18 @@ object Form {
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
+    }
+    val absoluteUrlFormatter: Formatter[AbsoluteUrl] = new Formatter[AbsoluteUrl] {
+      override val format = Some(("format.url", Nil))
+      def bind(key: String, data: Map[String, String]) =
+        data
+          .get(key)
+          .map(_.trim)
+          .toRight("error.required")
+          .flatMap(str => AbsoluteUrl.parseTry(str).toEither.left.map(_.getMessage))
+          .left
+          .map(err => (Seq(FormError(key, err.toString, Nil))))
+      def unbind(key: String, value: AbsoluteUrl) = Map(key -> value.toString)
     }
   }
 

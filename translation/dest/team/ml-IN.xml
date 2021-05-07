@@ -11,9 +11,6 @@
   <string name="noTeamFound">ഒരു ടീമും കണ്ടെത്തിയില്ല</string>
   <string name="joinTeam">ടീമില്‍ അംഗമാവുക</string>
   <string name="quitTeam">ടീം ഉപേക്ഷിക്കുക</string>
-  <string name="anyoneCanJoin">എല്ലാവര്‍ക്കും ലഭ്യമായത്</string>
-  <string name="aConfirmationIsRequiredToJoin">അംഗമാവുന്നതിനു സ്ഥിരീകരണം വേണം</string>
-  <string name="joiningPolicy">അംഗത്വ നയങ്ങള്‍</string>
   <plurals name="teamLeaders">
     <item quantity="one">ടീം ലീഡര്‍</item>
     <item quantity="other">ടീം ലീഡര്‍മാര്‍</item>

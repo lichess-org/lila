@@ -9,6 +9,7 @@
   <string name="yourTurn">Deoc\'h-c\'hwi</string>
   <string name="aiNameLevelAiLevel">%1$s live %2$s</string>
   <string name="level">Live</string>
+  <string name="strength">Live</string>
   <string name="toggleTheChat">Enaouiñ/lazhañ ar flapañ</string>
   <string name="toggleSound">Enaouiñ/lazhañ ar son</string>
   <string name="chat">Kaozeadenn</string>
@@ -115,11 +116,8 @@
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
   <string name="blunder">Bourd</string>
-  <string name="blunders">Bourdoù</string>
   <string name="mistake">Fazi</string>
-  <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
-  <string name="inaccuracies">Diresistedoù</string>
   <string name="moveTimes">Amzer dre fiñvadenn</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
@@ -274,7 +272,6 @@
   <string name="send">Kas</string>
   <string name="incrementInSeconds">Inkremant e eilennoù</string>
   <string name="freeOnlineChess">C\'hoari echedoù enlinenn digoust</string>
-  <string name="spectators">Arvester:</string>
   <plurals name="nbRated">
     <item quantity="one">%s c\'hoari renket</item>
     <item quantity="two">%s c\'hoari renket</item>
@@ -320,7 +317,6 @@
     <item quantity="other">Reiñ %s eilennoù</item>
   </plurals>
   <string name="thisAccountViolatedTos">Perc\'henner ar gont-mañ n\'en deus ket doujet da Reolennoù Lichess</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="openingExplorerAndTablebase">Furcher an digoradurioù &amp; tablebase</string>
   <string name="takeback">Nullañ ar fiñvadenn ziwezhañ</string>
   <string name="proposeATakeback">Kinnig nullañ ar fiñvadenn ziwezhañ</string>
@@ -455,7 +451,6 @@
   <string name="more">Muioc\'h</string>
   <string name="memberSince">Ezel abaoe an/ar</string>
   <string name="lastSeenActive">Oberiant %s</string>
-  <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="player">C\'hoarier</string>
   <string name="list">Roll</string>
   <string name="graph">Krommenn</string>
@@ -827,7 +822,6 @@
   <string name="error.unknown">Fazi</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
-  <string name="challenges">Daeoù</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -880,12 +874,6 @@
   <string name="opening">Digoradur</string>
   <string name="middlegame">Kreiz ar bartienn</string>
   <string name="endgame">Fin ar c\'hrogad</string>
-  <string name="registerToSendChallenges">Kevreit evit daeañ unan bennak mar plij.</string>
-  <string name="youCannotChallengeX">Ne c\'hallit ket daeañ %s.</string>
-  <string name="xDoesNotAcceptChallenges">%s n\'he/en deus ket c\'hant da vezañ daeet.</string>
-  <string name="yourXRatingIsTooFarFromY">Re vras an diforc\'h etre ho renkadur %1$s hag hini %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ho renkadur %s a zo da c\'hortoz.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="conditionalPremoves">Raktaolioù rekiz</string>
   <string name="addCurrentVariation">Ouzhpennañ an eilstumm o ren</string>
   <string name="playVariationToCreateConditionalPremoves">C\'hoariit ur variant evit krouiñ raktaolioù rekiz</string>

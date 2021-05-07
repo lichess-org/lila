@@ -12,31 +12,30 @@
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
   <string name="joinTeam">Juntar-se à equipe</string>
   <string name="quitTeam">Abandonar equipa</string>
-  <string name="anyoneCanJoin">Aberto a todos</string>
-  <string name="aConfirmationIsRequiredToJoin">É necessária confirmação para entrar</string>
-  <string name="joiningPolicy">Política de entrada</string>
+  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Rever pedidos de adesão manualmente</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se marcado, os jogadores precisarão escrever um pedido para participar da equipe, que você pode recusar ou aceitar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder da equipe</item>
     <item quantity="other">Líderes da equipe</item>
   </plurals>
   <string name="teamBestPlayers">Melhores jogadores</string>
-  <string name="teamRecentMembers">Membros recentes</string>
+  <string name="teamRecentMembers">Últimos membros</string>
   <string name="kickSomeone">Expulsar alguém da equipe</string>
   <string name="whoToKick">Quem você quer expulsar da equipe?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s pedido de adesão</item>
     <item quantity="other">%s pedidos de adesão</item>
   </plurals>
-  <string name="willBeReviewed">Sua solicitação de adesão será revisada pelo líder da equipe.</string>
-  <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelo líder da equipe.</string>
-  <string name="teamBattle">Batalha de equipe</string>
+  <string name="willBeReviewed">Seu pedido de adesão será analisado pelos líderes da equipe.</string>
+  <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelos líderes da equipe.</string>
+  <string name="teamBattle">Batalha de equipes</string>
   <string name="teamBattleOverview">Uma batalha de várias equipes, cada jogador marca pontos para sua equipe</string>
-  <string name="teamTournament">Torneio da equipe</string>
+  <string name="teamTournament">Torneio de equipes</string>
   <string name="teamTournamentOverview">Um torneio de Arena em que apenas membros da sua equipe podem participar</string>
   <string name="messageAllMembers">Mensagem para todos os membros</string>
   <string name="messageAllMembersOverview">Enviar uma mensagem privada para todos os membros da equipe</string>
   <string name="messageAllMembersLongDescription">Enviar uma mensagem privada para TODOS os membros da equipe.
-Você pode usar isso para chamar jogadores para participar de um torneio ou de uma batalha de equipe.
+Você pode usar isso para chamar jogadores para participar de um torneio ou de uma batalha de equipes.
 Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</string>
   <string name="teamsIlead">Equipes que eu lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Talvez você queira enviar o link de algum destes torneios futuros?</string>
@@ -44,4 +43,8 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar equipe</string>
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>
+  <string name="teamPassword">Senha da equipe</string>
+  <string name="teamPasswordDescriptionForLeader">(Opcional) Uma senha que novos membros devem saber para poderem entrar nesta equipe.</string>
+  <string name="incorrectTeamPassword">Senha da equipe incorreta.</string>
+  <string name="teamAlreadyExists">Esta equipe já existe.</string>
 </resources>

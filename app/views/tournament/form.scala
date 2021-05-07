@@ -25,7 +25,7 @@ object form {
             if (fields.isTeamBattle) "New Team Battle"
             else trans.createANewTournament()
           ),
-          postForm(cls := "form3", action := routes.Tournament.create())(
+          postForm(cls := "form3", action := routes.Tournament.create)(
             fields.name,
             form3.split(fields.rated, fields.variant),
             fields.clock,
@@ -41,7 +41,7 @@ object form {
             ),
             fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
             form3.actions(
-              a(href := routes.Tournament.home())(trans.cancel()),
+              a(href := routes.Tournament.home)(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = "g".some)
             )
           )
@@ -193,7 +193,7 @@ object form {
     "It only works for standard games, not with variants.",
     br,
     "You can use the ",
-    a(href := routes.Editor.index(), target := "_blank")("board editor"),
+    a(href := routes.Editor.index, target := "_blank")("board editor"),
     " to generate a FEN position, then paste it here.",
     br,
     "Leave empty to start games from the normal initial position."
@@ -204,7 +204,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form("teamBattleByTeam").value.nonEmpty
 
-  def disabledAfterStart = tour.exists(!_.isCreated)
+  private def disabledAfterStart = tour.exists(!_.isCreated)
 
   def name =
     form3.group(form("name"), trans.name()) { f =>
@@ -277,13 +277,12 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       half = half
     )(form3.textarea(_)(rows := 4))
   def password =
-    !isTeamBattle option
-      form3.group(
-        form("password"),
-        trans.password(),
-        help = trans.makePrivateTournament().some,
-        half = true
-      )(form3.input(_)(autocomplete := "off"))
+    form3.group(
+      form("password"),
+      trans.password(),
+      help = trans.makePrivateTournament().some,
+      half = true
+    )(form3.input(_)(autocomplete := "off"))
   def startDate =
     form3.group(
       form("startDate"),

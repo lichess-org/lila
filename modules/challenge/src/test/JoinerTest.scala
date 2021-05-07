@@ -19,7 +19,7 @@ final class JoinerTest extends Specification {
         destUser = None,
         rematchOf = None
       )
-      Joiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
+      ChallengeJoiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
         g.chess.startedAtTurn must_== 0
       }
     }
@@ -35,7 +35,7 @@ final class JoinerTest extends Specification {
         destUser = None,
         rematchOf = None
       )
-      Joiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
+      ChallengeJoiner.createGame(challenge, None, None, None) must beLike { case g: Game =>
         g.chess.startedAtTurn must_== 6
       }
     }

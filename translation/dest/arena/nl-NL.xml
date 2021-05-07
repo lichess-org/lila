@@ -28,8 +28,7 @@ Berserk geeft je enkel een extra punt als je minstens 7 zetten speelt in de part
 Wanneer je een partij eindigt, keer terug naar de toernooilobby: je zult dan gekoppeld worden met een speler dicht bij uw rang in het toernooi. Dit zorgt voor zo min mogelijk wachttijd, maar het is mogelijk dat je niet tegen iedereen in het toernooi speelt.
 Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer punten te winnen.</string>
   <string name="howDoesItEnd">Hoe eindigt het?</string>
-  <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd.
-Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
+  <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd. Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels</string>
   <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet doet. Als je binnen deze tijd geen zet doet, verlies je de partij.</string>
   <plurals name="drawingWithinNbMoves">
@@ -40,4 +39,8 @@ Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet me
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
   <string name="drawStreak">Remise-serie: als een speler in een arena of een teamcompetitie achtereenvolgende partijen remise speelt, resulteert alleen de eerste remise in een punt, of remise-partijen die meer dan %s zetten duren. De remise-serie kan alleen onderbroken worden door een overwinning, niet door verlies of remise.</string>
   <string name="history">Arena geschiedenis</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Bekijk het team</item>
+    <item quantity="other">Bekijk alle %s teams</item>
+  </plurals>
 </resources>

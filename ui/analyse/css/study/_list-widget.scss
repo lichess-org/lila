@@ -8,12 +8,11 @@ $c-study: $c-primary;
     grid-template-columns: repeat(auto-fill, minmax(45ch, 1fr));
   }
 
-
   .study {
     position: relative;
     border: $border;
     border-width: 0 1px 1px 0;
-    padding: 1em .6em 1em 1.3em;
+    padding: 1em 0.6em 1em 1.3em;
     overflow: hidden;
 
     @include transition;
@@ -24,7 +23,7 @@ $c-study: $c-primary;
 
     .body {
       display: flex;
-      font-size: .9em;
+      font-size: 0.9em;
     }
 
     .chapters {
@@ -66,7 +65,7 @@ $c-study: $c-primary;
       }
 
       span {
-        font-size: .9rem;
+        font-size: 0.9rem;
         display: block;
         color: $c-font-dim;
       }
@@ -74,7 +73,7 @@ $c-study: $c-primary;
       &::before {
         color: mix($c-link, $c-bg-box, 80%);
         font-size: 4em;
-        margin-right: .2em;
+        margin-right: 0.2em;
 
         @include transition;
         @include breakpoint($mq-not-xx-small) {

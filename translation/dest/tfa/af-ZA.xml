@@ -13,4 +13,5 @@
   <string name="twoFactorEnabled">Twee-ledige verifikasie aangeskakel</string>
   <string name="twoFactorDisable">Jy benodig jou wagwoord en \'n verifikasie kode van jou verifikasie toep om tweeledige verifikasie af te skakel.
 As jy jou toegang tot die verifikasie kodes verloor het, kan jy ook jou wagwoord herstel via e-pos.</string>
+  <string name="openTwoFactorApp">Maak die twee-faktor verifikasie toep of jou toestel oop om die verifikasie kode te sien en jou identiteit te bevestig.</string>
 </resources>

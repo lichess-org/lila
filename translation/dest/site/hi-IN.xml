@@ -115,11 +115,8 @@
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
   <string name="blunder">भयंकर गलती</string>
-  <string name="blunders">गंभीर गल्तियां</string>
   <string name="mistake">गलती</string>
-  <string name="mistakes">गलतियाँ</string>
   <string name="inaccuracy">गलती</string>
-  <string name="inaccuracies">त्रुटियाँ</string>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
@@ -250,7 +247,6 @@
   <string name="send">भेजें</string>
   <string name="incrementInSeconds">हर चाल पर सेकंड्स की वृद्धि</string>
   <string name="freeOnlineChess">मुफ्त ऑनलाइन शतरंज</string>
-  <string name="spectators">दर्शक</string>
   <plurals name="nbRated">
     <item quantity="one">%s रेटेड खेल</item>
     <item quantity="other">%s रेटेड खेल</item>
@@ -278,7 +274,6 @@
     <item quantity="other">%s सेकंड्स दें</item>
   </plurals>
   <string name="thisAccountViolatedTos">इस खाते ने सेवा की शर्तों का उल्लंघन किया</string>
-  <string name="thisPlayerArtificiallyIncreasesTheirRating">यह खिलाड़ी धोखे से अपने अंक बदलता है</string>
   <string name="openingExplorerAndTablebase">ओपनिंग एक्सप्लोरर &amp; टेबलबेस</string>
   <string name="takeback">चाल को वापस लें</string>
   <string name="proposeATakeback">चाल को वापस लेने की प्रस्ताव को भेजें</string>
@@ -383,7 +378,6 @@
   <string name="more">अधिक</string>
   <string name="memberSince">सदस्य बनने की तारीख</string>
   <string name="lastSeenActive">%s पहले सक्रिय</string>
-  <string name="challengeToPlay">चुनौती दें</string>
   <string name="player">खिलाड़ी</string>
   <string name="list">सूची</string>
   <string name="graph">लेखाचित्र</string>
@@ -469,6 +463,8 @@
   <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
+  <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
+  <string name="descPrivateHelp">\"निजी विवरण\" शीर्षक के लिए मदद पाठ/</string>
   <string name="no">नहीं</string>
   <string name="yes">हाँ</string>
   <string name="help">सहायता</string>
@@ -489,6 +485,7 @@
   <string name="cheat">धोखेबाज़ी</string>
   <string name="insult">बेइज़्ज़ती</string>
   <string name="troll">ट्रोल</string>
+  <string name="ratingManipulation">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
@@ -511,6 +508,7 @@
   <string name="clockInitialTime">घड़ी का शुरुआती समय</string>
   <string name="clockIncrement">समय वृद्धि</string>
   <string name="privacy">एकांतता (प्राइवेसी)</string>
+  <string name="privacyPolicy">गोपनीयता नीति</string>
   <string name="letOtherPlayersFollowYou">दूसरे खिलाड़ियों को अपना अनुसरण (फॉलो) करने दें</string>
   <string name="letOtherPlayersChallengeYou">दूसरे खिलाड़ियों को आपको चुनौती देने दें</string>
   <string name="letOtherPlayersInviteYouToStudy">अन्य खिलाड़ियों को अध्ययन करने के लिए आमंत्रित करें</string>
@@ -582,6 +580,9 @@
   <string name="error.email_unique">यह ईमेल पहले ही ली जा चुकी है</string>
   <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
+  <string name="onlyExistingConversations">मैसेजिंग गोपनीयता सेटिंग्स के विकल्पों में से एक (अन्य खिलाड़ियों को आपको संदेश दें: केवल मौजूदा वार्तालाप / केवल मित्र / हमेशा)
+
+केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
   <string name="menu">मेनू</string>
   <string name="castling">केस्लिंग</string>
@@ -659,6 +660,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">आप ईमेल नहीं देखते हैं, तो अन्य स्थानों पर यह हो सकता है, आपकी कबाड़, स्पैम, सामाजिक, या अन्य फ़ोल्डर की तरह की जाँच करें।</string>
   <string name="weHaveSentYouAnEmailTo">हम%s के लिए एक ईमेल भेज दिया है। अपना पासवर्ड रीसेट करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ज करके, आप हमारे %s द्वारा बाध्य होने के लिए सहमत हैं।</string>
+  <string name="readAboutOur">हमारे%s के बारे में पढ़ें।</string>
   <string name="networkLagBetweenYouAndLichess">आप और lichess के बीच नेटवर्क के अंतराल</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess सर्वर पर एक कदम प्रक्रिया के लिए समय</string>
   <string name="downloadAnnotated">एनोटेट डाउनलोड करें</string>
@@ -737,7 +739,6 @@
   <string name="error.unknown">त्रुटि</string>
   <string name="custom">कस्टम</string>
   <string name="notifications">सूचनाएँ</string>
-  <string name="challenges">चुनौतियाँ</string>
   <string name="perfRatingX">रेटिंग: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s सेकंड का समय पहला चाल के लिए</item>
@@ -784,12 +785,6 @@
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>
   <string name="endgame">एंडगेम</string>
-  <string name="registerToSendChallenges">इनको चुनौती देने के लिए पंजीकरण करना चाहिए ।</string>
-  <string name="youCannotChallengeX">%s ने खेलने का चुनौती बंद किया है ।</string>
-  <string name="xDoesNotAcceptChallenges">%s खेलने का चुनौती को स्वीकार नहीं करते हैं ।</string>
-  <string name="yourXRatingIsTooFarFromY">आपके %1$s रेटिंग %2$s से बहुत दूर हैं ।</string>
-  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिंग के कारण इनसे खेलना बंद है ।</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s सिर्फ अपने साथियों के साथ खेलते हैं ।</string>
   <string name="conditionalPremoves">सक्रिय कदम</string>
   <string name="addCurrentVariation">इन कदमों को शामिल करें</string>
   <string name="playVariationToCreateConditionalPremoves">आपके सक्रिय कदमों का अनुक्रम करो, जैसे आप खेल में प्रयोग करेंगे</string>
@@ -843,4 +838,22 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
+  <string name="mentionedYouInX"> आपने \"%1$s\" में उल्लेख किया है।</string>
+  <string name="xMentionedYouInY"> %1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
+  <string name="invitedYouToX"> आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
+  <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
+  <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
+  <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>
+  <string name="someoneYouReportedWasBanned">आपके द्वारा सूचित किसी पर प्रतिबंध लगा दिया गया था</string>
+  <string name="congratsYouWon">बधाई हो, आप जीत गए!</string>
+  <string name="gameVsX">खेल बनाम %1$s</string>
+  <string name="resVsX">%1$s बनाम %2$s</string>
+  <string name="youJustBecamePatron">आप बस एक लिशेस पैट्रन बन गए।</string>
+  <string name="patronAccountExpired">Patron खाता समाप्त हो गया</string>
+  <string name="pleaseReconsiderRenewIt">कृपया इसे नवीनीकृत करने पर विचार करें!</string>
+  <string name="someoneReviewedYourCoachProfile">किसी ने आपके कोच प्रोफ़ाइल की समीक्षा की।</string>
+  <string name="newPendingReview">नई लंबित समीक्षा</string>
+  <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
+  <string name="refundXpointsTimeControlY">%1$s %2$s वापसी की</string>
+  <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
 </resources>

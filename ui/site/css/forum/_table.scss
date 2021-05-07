@@ -4,7 +4,8 @@
     padding-bottom: 1.5rem;
   }
 
-  td.right, & th.right {
+  td.right,
+  & th.right {
     display: none;
 
     @include breakpoint($mq-small) {
@@ -47,6 +48,6 @@
   }
 
   &.categs .subject p {
-    margin-top: .3em;
+    margin-top: 0.3em;
   }
 }

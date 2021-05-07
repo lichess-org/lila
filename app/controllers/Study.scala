@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.util.chaining._
 
 import lila.api.Context
 import lila.app._
@@ -18,7 +19,8 @@ import views._
 
 final class Study(
     env: Env,
-    userAnalysisC: => UserAnalysis
+    userAnalysisC: => UserAnalysis,
+    apiC: => Api
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) =
@@ -47,7 +49,8 @@ final class Study(
     Open { implicit ctx =>
       Reasonable(page) {
         Order(o) match {
-          case Order.Oldest => Redirect(routes.Study.allDefault(page)).fuccess
+          case order if !Order.withoutSelector.contains(order) =>
+            Redirect(routes.Study.allDefault(page)).fuccess
           case order =>
             env.study.pager.all(ctx.me, order, page) flatMap { pag =>
               negotiate(
@@ -155,13 +158,9 @@ final class Study(
   private def orRelay(id: String, chapterId: Option[String] = None)(
       f: => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
-      _.fold(f) { relay =>
-        fuccess(Redirect {
-          chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
-            routes.Relay.chapter(relay.slug, relay.id.value, c)
-          }
-        })
+    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.RelayRound.Id(id)) flatMap {
+      _.fold(f) { rt =>
+        Redirect(chapterId.map(Chapter.Id).fold(rt.path)(rt.path)).fuccess
       }
     }
     else f
@@ -173,10 +172,10 @@ final class Study(
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html = for {
-              chat     <- chatOf(sc.study)
-              sVersion <- env.study.version(sc.study.id)
-              streams  <- streamsOf(sc.study)
-            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streams))),
+              chat      <- chatOf(sc.study)
+              sVersion  <- env.study.version(sc.study.id)
+              streamers <- streamersOf(sc.study)
+            } yield EnableSharedArrayBuffer(Ok(html.study.show(sc.study, data, chat, sVersion, streamers))),
             api = _ =>
               chatOf(sc.study).map { chatOpt =>
                 Ok(
@@ -202,7 +201,6 @@ final class Study(
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-      _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
       division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
@@ -301,8 +299,13 @@ final class Study(
   def delete(id: String) =
     Auth { _ => me =>
       env.study.api.byIdAndOwner(id, me) flatMap {
-        _ ?? env.study.api.delete
-      } inject Redirect(routes.Study.mine("hot"))
+        _ ?? { study =>
+          env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
+            case None       => Redirect(routes.Study.mine("hot"))
+            case Some(tour) => Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
+          }
+        }
+      }
     }
 
   def clearChat(id: String) =
@@ -428,10 +431,7 @@ final class Study(
           CanViewResult(study) {
             lila.mon.export.pgn.study.increment()
             Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
-              )
+              .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
               .as(pgnContentType)
               .fuccess
           }
@@ -446,15 +446,44 @@ final class Study(
           CanViewResult(study) {
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-              .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
-              )
+              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
               .as(pgnContentType)
               .fuccess
           }
         }
       }
     }
+
+  def export(username: String) =
+    OpenOrScoped()(
+      open = ctx => handleExport(username, ctx.me, ctx.req),
+      scoped = req => me => handleExport(username, me.some, req)
+    )
+
+  private def handleExport(
+      username: String,
+      me: Option[lila.user.User],
+      req: RequestHeader
+  ) = {
+    val userId = lila.user.User normalize username
+    val flags  = requestPgnFlags(req)
+    val isMe   = me.exists(_.id == userId)
+    apiC
+      .GlobalConcurrencyLimitPerIpAndUserOption(req, me) {
+        env.study.studyRepo
+          .sourceByOwner(userId, isMe)
+          .flatMapConcat(env.study.pgnDump(_, flags))
+          .withAttributes(
+            akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
+          )
+          .throttle(30, 1 second)
+      } { source =>
+        Ok.chunked(source)
+          .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))
+          .as(pgnContentType)
+      }
+      .fuccess
+  }
 
   private def requestPgnFlags(req: RequestHeader) =
     lila.study.PgnDump.WithFlags(
@@ -470,10 +499,8 @@ final class Study(
           CanViewResult(study) {
             env.study.gifExport.ofChapter(chapter) map { stream =>
               Ok.chunked(stream)
-                .withHeaders(
-                  noProxyBufferHeader,
-                  CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.gif"
-                ) as "image/gif"
+                .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
+                .as("image/gif")
             }
           }
         }
@@ -484,9 +511,7 @@ final class Study(
     Open { implicit ctx =>
       OptionFuResult(env.study.api byId id) { study =>
         CanViewResult(study) {
-          env.study.multiBoard.json(study.id, page, getBool("playing")) map { json =>
-            Ok(json) as JSON
-          }
+          env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
         }
       }
     }
@@ -497,9 +522,7 @@ final class Study(
         case None => BadRequest("No search term provided").fuccess
         case Some(term) =>
           import lila.study.JsonView._
-          env.study.topicApi.findLike(term, get("user", req)) map { topics =>
-            Ok(Json.toJson(topics)) as JSON
-          }
+          env.study.topicApi.findLike(term, get("user", req)) map { JsonOk(_) }
       }
     }
 
@@ -518,10 +541,10 @@ final class Study(
       lila.study.StudyForm.topicsForm
         .bindFromRequest()
         .fold(
-          _ => Redirect(routes.Study.topics()).fuccess,
+          _ => Redirect(routes.Study.topics).fuccess,
           topics =>
             env.study.topicApi.userTopics(me, topics) inject
-              Redirect(routes.Study.topics())
+              Redirect(routes.Study.topics)
         )
     }
 
@@ -541,19 +564,30 @@ final class Study(
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
 
-  private[controllers] def streamsOf(
-      study: StudyModel
-  )(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
-    env.streamer.liveStreamApi.all.flatMap {
-      _.streams
-        .filter { s =>
-          study.members.members.exists(m => s is m._2.id)
+  private[controllers] def streamersOf(study: StudyModel) = streamerCache get study.id
+
+  private val streamerCache =
+    env.memo.cacheApi[StudyModel.Id, List[lila.user.User.ID]](64, "study.streamers") {
+      _.refreshAfterWrite(15.seconds)
+        .maximumSize(512)
+        .buildAsyncFuture { studyId =>
+          env.study.studyRepo.membersById(studyId) flatMap {
+            _.map(_.members).filter(_.nonEmpty) ?? { members =>
+              env.streamer.liveStreamApi.all.flatMap {
+                _.streams
+                  .filter { s =>
+                    members.exists(m => s is m._2.id)
+                  }
+                  .map { stream =>
+                    env.study.isConnected(studyId, stream.streamer.userId) map {
+                      _ option stream.streamer.userId
+                    }
+                  }
+                  .sequenceFu
+                  .dmap(_.flatten)
+              }
+            }
+          }
         }
-        .map { stream =>
-          (fuccess(ctx.me ?? stream.streamer.is) >>|
-            env.study.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
-        }
-        .sequenceFu
-        .map(_.flatten)
     }
 }

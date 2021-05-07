@@ -1,6 +1,32 @@
-$board-image-path: "../images/board";
+$board-image-path: '../images/board';
 
-$board-files: ("blue": "svg/blue.svg", "blue2": "blue2.jpg", "blue-marble": "blue-marble.jpg", "wood2": "wood2.jpg", "wood3": "wood3.jpg", "wood4": "wood4-1024.jpg", "blue3": "blue3.jpg", "marble": "marble.jpg", "brown": "svg/brown.svg", "green": "svg/green.svg", "green-plastic": "green-plastic.png", "olive": "olive.jpg", "purple": "svg/purple.svg", "purple-diag": "purple-diag.png", "grey": "grey.jpg", "wood": "wood-1024.jpg", "canvas": "canvas2-1024.jpg", "leather": "leather-1024.jpg", "metal": "metal-1024.jpg", "maple": "maple.jpg", "maple2": "maple2.jpg", "newspaper": "newspaper.png", "pink": "pink-pyramid.png", "ic": "svg/ic.svg");
+$board-files: (
+  'blue': 'svg/blue.svg',
+  'blue2': 'blue2.jpg',
+  'blue-marble': 'blue-marble.jpg',
+  'wood2': 'wood2.jpg',
+  'wood3': 'wood3.jpg',
+  'wood4': 'wood4-1024.jpg',
+  'blue3': 'blue3.jpg',
+  'marble': 'marble.jpg',
+  'brown': 'svg/brown.svg',
+  'green': 'svg/green.svg',
+  'green-plastic': 'green-plastic.png',
+  'olive': 'olive.jpg',
+  'purple': 'svg/purple.svg',
+  'purple-diag': 'purple-diag.png',
+  'grey': 'grey.jpg',
+  'wood': 'wood-1024.jpg',
+  'canvas': 'canvas2-1024.jpg',
+  'leather': 'leather-1024.jpg',
+  'metal': 'metal-1024.jpg',
+  'maple': 'maple.jpg',
+  'maple2': 'maple2.jpg',
+  'newspaper': 'newspaper.png',
+  'pink': 'pink-pyramid.png',
+  'ic': 'svg/ic.svg',
+  'horsey': 'horsey.jpg',
+);
 
 @each $color, $file in $board-files {
   .#{$color} .is2d cg-board {

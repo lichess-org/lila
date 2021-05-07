@@ -22,7 +22,6 @@
   <string name="last">o tawa monsi</string>
   <string name="cloneStudy">o kama jo</string>
   <string name="downloadGame">o kama jo e musi</string>
-  <string name="broadcastUrl" comment="broadcastUrl&#10;&#10;This is to do with the Broadcasts feature. These are tournaments in the chess world, hosted elsewhere, for example the FIDE Championship. This specific text lets you share the URL. https://lichess.org/broadcast">nimi tawa nasin tawa lon tenpo ni</string>
   <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
   <string name="orientation">poka pi sinpin ona</string>

@@ -11,9 +11,6 @@
   <string name="noTeamFound">Не са намерени отбори</string>
   <string name="joinTeam">Присъедини се към отбора</string>
   <string name="quitTeam">Напусни отбора</string>
-  <string name="anyoneCanJoin">Отворен за всички</string>
-  <string name="aConfirmationIsRequiredToJoin">Изисква се потвърждаване, за да се присъедините</string>
-  <string name="joiningPolicy">Условия за присъединяване</string>
   <string name="teamBestPlayers">Най-добри играчи</string>
   <string name="teamRecentMembers">Скорошни членове</string>
 </resources>

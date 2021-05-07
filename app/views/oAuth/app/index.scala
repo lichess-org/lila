@@ -27,7 +27,7 @@ object index {
                   em(t.token.scopes.map(_.name).mkString(", "))
                 ),
                 td(cls := "date")(
-                  a(href := t.app.homepageUri)(t.app.homepageUri),
+                  a(href := t.app.homepageUri.toString)(t.app.homepageUri.toString),
                   br,
                   t.token.usedAt map { at =>
                     frag("Last used ", momentFromNow(at))
@@ -50,7 +50,7 @@ object index {
           h1(id := "made")("My OAuth Apps"),
           p(cls := "box__pad")(
             "Want to build something that integrates with and extends Lichess? ",
-            a(href := routes.OAuthApp.create())("Register a new OAuth App"),
+            a(href := routes.OAuthApp.create)("Register a new OAuth App"),
             " to get started developing with the Lichess API.",
             br,
             br,
@@ -59,7 +59,7 @@ object index {
               "Lichess OAuth app example"
             ),
             ", and the ",
-            a(href := routes.Api.index())("API documentation"),
+            a(href := routes.Api.index)("API documentation"),
             "."
           ),
           table(cls := "slist slist-pad")(
@@ -71,7 +71,7 @@ object index {
                   t.description.map { em(_) }
                 ),
                 td(cls := "date")(
-                  a(href := t.homepageUri)(t.homepageUri),
+                  a(href := t.homepageUri.toString)(t.homepageUri.toString),
                   br,
                   "Created ",
                   momentFromNow(t.createdAt)

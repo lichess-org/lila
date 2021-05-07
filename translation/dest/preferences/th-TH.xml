@@ -11,17 +11,17 @@
   <string name="pgnPieceNotation">สัญกรณ์การเดิน</string>
   <string name="chessPieceSymbol">สัญลักษณ์ตัวหมากรุก</string>
   <string name="pgnLetter">ตัวอักษร (K, Q, R, B, N)</string>
-  <string name="zenMode">โหมดซ่อนเร้น</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">โหมดซ่อนเร้น</string>
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">เมื่อเหลือเวลา &lt; 10 วินาที</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 10 วินาที</string>
   <string name="horizontalGreenProgressBars">แถบแนวนอนสีเขียวแสดงความคืบหน้า</string>
   <string name="soundWhenTimeGetsCritical">เสียงเมื่อเวลาถึงจุดวิกฤต</string>
   <string name="giveMoreTime">ให้เวลาเพิ่ม</string>
-  <string name="gameBehavior">พฤติกรรมของเกม</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">พฤติกรรมของเกม</string>
   <string name="howDoYouMovePieces">คุณเดินหมากอย่างไร?</string>
   <string name="clickTwoSquares">คลิกช่องสองช่อง</string>
   <string name="dragPiece">ลากหมาก</string>
@@ -41,5 +41,6 @@
   <string name="castleByMovingTwoSquares">เดินคิงสองช่อง</string>
   <string name="castleByMovingOntoTheRook">เดินคิงไปยังเรือ</string>
   <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
+  <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">ส่งคำว่า \"Good game, well played\" เมี่อแพ้หรือเสมอ</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
 </resources>

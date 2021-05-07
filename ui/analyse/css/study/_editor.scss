@@ -1,5 +1,5 @@
-@import "../../../editor/css/spare";
-@import "../../../editor/css/tools";
+@import '../../../editor/css/spare';
+@import '../../../editor/css/tools';
 
 .board-editor-wrap {
   min-height: 280px;
@@ -42,6 +42,6 @@
 
   .metadata {
     background: $c-bg-zebra;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }

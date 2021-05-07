@@ -17,7 +17,7 @@
     background: mix($c-error, $c-bg-box, 10%);
     border: 1px solid $c-error;
     margin-bottom: 1em;
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 
@@ -56,12 +56,25 @@
         opacity: 0.7;
       }
 
-      &.accepted, .accepted {
+      &.accepted,
+      .accepted {
         color: $c-good;
       }
 
-      &.refused, .refused {
+      &.refused,
+      .refused {
         color: $c-bad;
+      }
+
+      .condition:first-child,
+      .condition + .condition {
+        &.accepted::after {
+          content: '\a0\2713';
+        }
+
+        &.refused::after {
+          content: '\a0\2718';
+        }
       }
     }
   }

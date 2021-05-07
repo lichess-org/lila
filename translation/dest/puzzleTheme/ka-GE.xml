@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">დაწინაურებული პაიკი</string>
+  <string name="advancedPawnDescription">ერთერთი თქვენი პაიკი მოწინააღმდეგის პოზიციაშია შეჭრილი, მეტი შანსით პრომოციას აპირებს.</string>
+  <string name="advantage">უპირატესობა</string>
+  <string name="advantageDescription">გამოიყენე შანსი სერიოზულად დაწინაურდე. (200ცპ ≤ გამოთვლა ≤ 600ცპ)</string>
+  <string name="anastasiaMate">ანასტასიას მატი</string>
+  <string name="anastasiaMateDescription">მხედარი და ეტლი/დედოფალი ერთად ცდილობენ დაამწყვდიონ მოწინააღმდეგე მეფე დაფის კიდესა და მეგობრულ ფიგურას შორის.</string>
+  <string name="arabianMate">არაბული მატი</string>
+</resources>
