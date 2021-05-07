@@ -19,6 +19,8 @@
   <string name="startDate">Datum a čas zahájení ve vašem časovém pásmu</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
   <string name="credits">Uveďte zdroj</string>
+  <string name="resetRound">Resetovat toto kolo</string>
+  <string name="deleteRound">Smazat toto kolo</string>
   <string name="broadcastUrl">URL adresa přenosu</string>
   <string name="currentRoundUrl">URL aktuálního kola</string>
   <string name="currentGameUrl">URL adresa právě probíhající partie</string>
