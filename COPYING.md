@@ -102,7 +102,6 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 - [Amazon SES](https://aws.amazon.com/ses/) for transactional email
 - [check.torproject.org](https://check.torproject.org/torbulkexitlist) for a list or Tor exit nodes
 - [detectlanguage.com](https://detectlanguage.com/)
-- Fallback to [Google Fonts](https://fonts.google.com/)
 - [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) for mobile notifications
 - [hCaptcha](https://hcaptcha.com)
 - [PeerJS](https://peerjs.com/) for voice chat
