@@ -43,6 +43,8 @@ object PuzzleDashboard {
 
   val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
 
+  def getclosestDay(d: Int): Option[Days] = lila.common.Maths.closestIn(d, dayChoices)
+
   val topThemesNb = 8
 
   case class Results(nb: Int, wins: Int, fixed: Int, puzzleRatingAvg: Int) {

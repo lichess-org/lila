@@ -38,4 +38,7 @@ object Maths {
     if (normal > mean - deviation && normal < mean + deviation) normal.toInt
     else boxedNormalDistribution(mean, deviation, factor)
   }
+
+  def closestIn(n: Int, iter: Iterable[Int]): Option[Int] =
+    iter.nonEmpty option iter.minBy(v => math.abs(v - n))
 }
