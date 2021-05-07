@@ -42,8 +42,7 @@ object TotpSecret {
 
   private def otpString(otp: Int) = {
     val s = (otp % 1000000).toString
-    if (s.lengthIs == 6) s
-    else "0" * (6 - s.length) + s
+    "0" * (6 - s.length) + s
   }
 
   private[this] val secureRandom = new SecureRandom()
