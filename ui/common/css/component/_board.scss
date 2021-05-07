@@ -1,5 +1,5 @@
 .main-board {
-  @extend %square, %double-tap;
+  @extend %square;
 
   &__preload {
     position: absolute;
