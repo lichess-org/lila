@@ -85,8 +85,12 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
+  <string name="uniqueTrophies">Unikátní trofeje</string>
   <string name="ownerUniqueTrophies">Tato trofej je jedinečná, a nikdo jiný než %1$s ji nikdy mít nebude.</string>
+  <string name="wayOfBerserkExplanation">Aby trofej získal, musel hiimgosu berserkovat a vyhrát všechny partie %s.</string>
   <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
+  <string name="goldenZeeExplanation">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
+  <string name="lichessRatings">Ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkrétně to znamená, že odchylka Glicko-2 je větší než 110. Tuto odchylka ukazuje, jak moc si je systém jistý ratingem daného hráčů. Čím menší odchylka, tím stabilnější daný rating je.</string>
   <string name="howDoLeaderoardsWork">Jak fungují žebříčky?</string>
