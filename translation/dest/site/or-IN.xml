@@ -83,6 +83,10 @@
     <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
     <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ଭୁଲ</item>
+    <item quantity="other">%s ଭୁଲଗୁଡିକ</item>
+  </plurals>
   <string name="threefoldRepetition">ତିନିଥର ପୁନରାବୃତ୍ତି</string>
   <string name="claimADraw">ଡ୍ର ଦାବି କରନ୍ତୁ</string>
   <string name="offerDraw">ଡ୍ର ଅଫର୍ କରନ୍ତୁ</string>
