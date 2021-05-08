@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">ସାଙ୍ଗଙ୍କ ସହ ଖେଳନ୍ତୁ</string>
   <string name="playWithTheMachine">କମ୍ପ୍ୟୁଟର ସହ ଖେଳନ୍ତୁ</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅ |</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅନ୍ତୁ |</string>
   <string name="gameOver">ଖେଳ ସମାପ୍ତ</string>
   <string name="waitingForOpponent">ପ୍ରତିପକ୍ଷକୁ ଅପେକ୍ଷା</string>
   <string name="waiting">ଅପେକ୍ଷା</string>
@@ -22,8 +22,8 @@
   <string name="createAGame">ଏକ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="whiteIsVictorious">ଧଳା ବିଜୟୀ ଅଟେ</string>
   <string name="blackIsVictorious">କଳା ବିଜୟୀ ଅଟେ</string>
-  <string name="youPlayTheWhitePieces">ତୁମେ ଧଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
-  <string name="youPlayTheBlackPieces">ତୁମେ କଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
+  <string name="youPlayTheWhitePieces">ଆପଣ ଧଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛନ୍ତି</string>
+  <string name="youPlayTheBlackPieces">ଆପଣ କଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛନ୍ତି</string>
   <string name="itsYourTurn">ଏହା ଆପଣଙ୍କର ପାଳି!</string>
   <string name="kingInTheCenter">କେନ୍ଦ୍ରରେ ରାଜା |</string>
   <string name="threeChecks">ତିନି ଚେକ୍</string>
