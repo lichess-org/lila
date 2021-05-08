@@ -262,15 +262,16 @@ function getElUci(e: MouseEvent): string | undefined {
   );
 }
 
-function getElPvMoves(e: MouseEvent): (string | null)[]{
+function getElPvMoves(e: MouseEvent): (string | null)[] {
   var pvMoves: (string | null)[] = [];
 
   $(e.target as HTMLElement)
     .closest('div.pv')
     .children()
-    .filter('span.pv-san').each(function() {
-      pvMoves.push($(this).attr("data-board"))
-    })
+    .filter('span.pv-san')
+    .each(function () {
+      pvMoves.push($(this).attr('data-board'));
+    });
 
   return pvMoves;
 }
@@ -282,7 +283,7 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   );
 }
 
-let pvMoves: string | any[] = [];
+let pvMoves: (string | null)[] = [];
 let pvIndex = -1;
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
@@ -321,12 +322,12 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           });
           el.addEventListener('wheel', (e: WheelEvent) => {
             e.preventDefault();
-            if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1; 
+            if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
             else if (e.deltaY > 0 && pvIndex < pvMoves.length) pvIndex += 1;
 
-            const pvBoard = pvMoves[pvIndex]!;
-            if (pvBoard){
-              const [fen, uci] = pvBoard.split('|');   
+            const pvBoard = pvMoves[pvIndex];
+            if (pvBoard) {
+              const [fen, uci] = pvBoard.split('|');
               instance.setPvBoard({ fen, uci });
             }
           });
