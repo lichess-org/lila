@@ -108,10 +108,10 @@
       padding: 0 0 0 1em;
       height: 1.6em;
       width: 100%;
-    }
 
-    input[id='analyse-multipv'] {
-      padding: 0 0 0 0em;
+      &[min='0'] {
+        padding: 0;
+      }
     }
 
     .range_value {
