@@ -262,6 +262,19 @@ function getElUci(e: MouseEvent): string | undefined {
   );
 }
 
+function getElPvMoves(e: MouseEvent): (string | null)[]{
+  var pvMoves: (string | null)[] = [];
+
+  $(e.target as HTMLElement)
+    .closest('div.pv')
+    .children()
+    .filter('span.pv-san').each(function() {
+      pvMoves.push($(this).attr("data-board"))
+    })
+
+  return pvMoves;
+}
+
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   lichess.requestIdleCallback(
     () => instance.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
@@ -269,6 +282,8 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   );
 }
 
+let pvMoves: string | any[] = [];
+let pvIndex = -1;
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
@@ -298,7 +313,20 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             instance.setHovering(getElFen(el), getElUci(e));
             const pvBoard = (e.target as HTMLElement).getAttribute('data-board');
             if (pvBoard) {
+              pvMoves = getElPvMoves(e);
+              pvIndex = pvMoves.indexOf(pvBoard);
               const [fen, uci] = pvBoard.split('|');
+              instance.setPvBoard({ fen, uci });
+            }
+          });
+          el.addEventListener('wheel', (e: WheelEvent) => {
+            e.preventDefault();
+            if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1; 
+            else if (e.deltaY > 0 && pvIndex < pvMoves.length) pvIndex += 1;
+
+            const pvBoard = pvMoves[pvIndex]!;
+            if (pvBoard){
+              const [fen, uci] = pvBoard.split('|');   
               instance.setPvBoard({ fen, uci });
             }
           });
