@@ -12,9 +12,9 @@ object Title {
   val BOT = Title("BOT")
 
   val all = Seq(
-    Title("PRO")  -> "Professional",
-    Title("BgM")  -> "Bougyoku Master",
-    Title("プロ")   -> "Professional",
+    Title("PRO")  -> "プロ棋士 - Professional",
+    Title("BgM")  -> "棒玉マスター - Bougyoku Master",
+    Title("プロ")   -> "プロ棋士 - Professional",
     Title("九段")   -> "9th dan",
     Title("八段")   -> "8th dan",
     Title("七段")   -> "7th dan",
@@ -27,8 +27,8 @@ object Title {
     Title("１級")   -> "1st kyu",
     Title("２級")   -> "2nd kyu",
     Title("３級")   -> "3rd kyu",
-    Title("LP")   -> "Ladies Pro",
-    Title("女流")   -> "Ladies Pro",
+    Title("LP")   -> "女流棋士 - Ladies Pro",
+    Title("女流")   -> "女流棋士 - Ladies Pro",
     Title("女流五段") -> "Ladies 5th dan",
     Title("女流四段") -> "Ladies 4th dan",
     Title("女流三段") -> "Ladies 3rd dan",
