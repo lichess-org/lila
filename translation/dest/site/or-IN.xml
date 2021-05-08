@@ -9,6 +9,7 @@
   <string name="yourTurn">ତୁମର ପାଳି</string>
   <string name="aiNameLevelAiLevel">%1$s ସ୍ତର %2$s</string>
   <string name="level">ସ୍ତର</string>
+  <string name="strength">ଶକ୍ତି</string>
   <string name="toggleTheChat">ଚାଟ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="toggleSound">ଶବ୍ଦ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="chat">ଚାଟ୍</string>
@@ -50,6 +51,10 @@
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
   <string name="analysis">ବୋର୍ଡର ବିଶ୍ଳେଷଣ</string>
+  <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
+  <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
+  <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
+  <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
   <string name="deleteFromHere">ଏଠାରୁ ବିଲୋପ କରନ୍ତୁ</string>
   <string name="move">ସ୍ଥାନାନ୍ତରିତ କରନ୍ତୁ</string>
   <string name="close">ବନ୍ଦ</string>
