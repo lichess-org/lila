@@ -51,6 +51,7 @@
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
   <string name="analysis">ବୋର୍ଡର ବିଶ୍ଳେଷଣ</string>
+  <string name="usingServerAnalysis">ସର୍ଭର ବିଶ୍ଳେଷଣ ବ୍ୟବହାର ହେଉଛି</string>
   <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
   <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
   <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
@@ -65,6 +66,7 @@
   <string name="database">ଡାଟାବେସ୍</string>
   <string name="recentGames">ସାମ୍ପ୍ରତିକ ଖେଳଗୁଡିକ</string>
   <string name="topGames">ଶୀର୍ଷ ଖେଳଗୁଡିକ</string>
+  <string name="noGameFound">କୌଣସି ଖେଳ ମିଳିଲା ନାହି</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
