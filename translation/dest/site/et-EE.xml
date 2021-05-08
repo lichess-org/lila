@@ -835,6 +835,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Tühista tellimus</string>
-  <string name="mentionedYouInX">mainis sind \"%1$s\".</string>
+  <string name="mentionedYouInX">mainis sind sõnumis \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s mainis sind sõnumis \"%2$s\".</string>
+  <string name="invitedYouToX">kutsub sind \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
 </resources>
