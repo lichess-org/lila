@@ -24,7 +24,7 @@
   <string name="blackIsVictorious">କଳା ବିଜୟୀ ଅଟେ</string>
   <string name="youPlayTheWhitePieces">ତୁମେ ଧଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
   <string name="youPlayTheBlackPieces">ତୁମେ କଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
-  <string name="itsYourTurn">ଏହା ତୁମର ପାଳି!</string>
+  <string name="itsYourTurn">ଏହା ଆପଣଙ୍କର ପାଳି!</string>
   <string name="kingInTheCenter">କେନ୍ଦ୍ରରେ ରାଜା |</string>
   <string name="threeChecks">ତିନି ଚେକ୍</string>
   <string name="raceFinished">ରେସ୍ ସମାପ୍ତ</string>
@@ -124,6 +124,7 @@
   <string name="variants">ପ୍ରକାର ଗୁଡିକ</string>
   <string name="timeControl">ସମୟ ନିୟନ୍ତ୍ରଣ</string>
   <string name="realTime">ପ୍ରକୃତ ସମୟ</string>
+  <string name="correspondence">ବହୁତ ଲମ୍ବା ସମୟ ର ଖେଳ</string>
   <string name="oneDay">ଦିନେ</string>
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>
