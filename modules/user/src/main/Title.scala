@@ -13,7 +13,7 @@ object Title {
 
   val all = Seq(
     Title("PRO")  -> "プロ棋士 - Professional",
-    Title("BgM")  -> "棒玉マスター - Bougyoku Master",
+    Title("BgM")  -> "棒玉名人 - Bougyoku Master",
     Title("プロ")   -> "プロ棋士 - Professional",
     Title("九段")   -> "9th dan",
     Title("八段")   -> "8th dan",
