@@ -68,6 +68,7 @@
   <string name="topGames">ଶୀର୍ଷ ଖେଳଗୁଡିକ</string>
   <string name="noGameFound">କୌଣସି ଖେଳ ମିଳିଲା ନାହି</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
+  <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
   <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
@@ -78,6 +79,10 @@
   <string name="removesTheDepthLimit">ଗଭୀରତା ସୀମା ଅପସାରଣ କରେ, ଏବଂ ଆପଣଙ୍କ କମ୍ପ୍ୟୁଟରକୁ ଗରମ ରଖେ</string>
   <string name="blunder">ଗମ୍ଭୀର ଭୁଲ</string>
   <string name="mistake">ଭୁଲ</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
+    <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
+  </plurals>
   <string name="threefoldRepetition">ତିନିଥର ପୁନରାବୃତ୍ତି</string>
   <string name="claimADraw">ଡ୍ର ଦାବି କରନ୍ତୁ</string>
   <string name="offerDraw">ଡ୍ର ଅଫର୍ କରନ୍ତୁ</string>
