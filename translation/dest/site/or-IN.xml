@@ -55,13 +55,16 @@
   <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
   <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
   <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
+  <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
   <string name="deleteFromHere">ଏଠାରୁ ବିଲୋପ କରନ୍ତୁ</string>
   <string name="move">ସ୍ଥାନାନ୍ତରିତ କରନ୍ତୁ</string>
   <string name="close">ବନ୍ଦ</string>
   <string name="winning">ଜିତିବା</string>
   <string name="losing">ହାରିବା</string>
+  <string name="unknown">ଅଜ୍ଞାତ</string>
   <string name="database">ଡାଟାବେସ୍</string>
   <string name="recentGames">ସାମ୍ପ୍ରତିକ ଖେଳଗୁଡିକ</string>
+  <string name="topGames">ଶୀର୍ଷ ଖେଳଗୁଡିକ</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
