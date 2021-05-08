@@ -68,7 +68,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (hovering && hovering.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
-    if (!hovering) {
+    if (!hovering && parseInt(instance.multiPv())) {
       let nextBest = ctrl.nextNodeBest();
       if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
