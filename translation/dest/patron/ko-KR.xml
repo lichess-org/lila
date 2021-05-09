@@ -33,7 +33,7 @@
 그리고 풀타임 개발자이자 Lichess의 설립자 %s의 월급을 줍니다.</string>
   <string name="costBreakdown">세부 지불 내역 보기</string>
   <string name="officialNonProfit">Lichess는 공식적인 비영리 단체인가요?</string>
-  <string name="actOfCreation">예. 여기에 설립증이 있습니다.(프랑스어)</string>
+  <string name="actOfCreation">예. 여기에 설립증이 있습니다(프랑스어)</string>
   <string name="changeMonthlySupport">월간 후원을 변경/취소할 수 있나요?</string>
   <string name="changeOrContact">예. 언제든지 이 페이지에서 할 수 있습니다.
 또는 %s를 할 수 있습니다.</string>
@@ -42,8 +42,8 @@
   <string name="bankTransfers">계좌 이체도 가능합니다</string>
   <string name="bitcoin">그리고 여기 비트코인 주소입니다: %s</string>
   <string name="patronFeatures">후원자 전용 기능도 있나요?</string>
-  <string name="noPatronFeatures">아니오. Lichess는 완전히, 영원히, 모두에게 무료입니다. 이것은 약속입니다.
-하지만 후원자들은 새로운 멋진 프로필 아이콘을 자랑할 수 있습니다.</string>
+  <string name="noPatronFeatures">아니오. 약속드립니다. Lichess는 완전히, 영원히, 모두에게 무료입니다.
+하지만 후원자들은 새롭고 멋진 프로필 아이콘을 자랑할 수 있습니다.</string>
   <string name="featuresComparison">자세한 기능 비교 보기</string>
   <plurals name="patronForMonths">
     <item quantity="other">%s달 동안 리체스의 후원자가 되었습니다</item>
