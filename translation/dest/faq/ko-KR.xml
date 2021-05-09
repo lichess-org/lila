@@ -122,4 +122,11 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="beInTopTen">상위 10위 안에 들어야 합니다.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">계정을 더 이상 사용하지 않는 경우 순위표에서 더 이상 뜨지 않게 할 수 있습니다.</string>
   <string name="whyAreRatingHigher">레이팅이 다른 사이트나 단체(FIDE, USCF, ICC 등)과 비교했을 때 더 높은 이유가 있나요?</string>
+  <string name="whyAreRatingHigherExplanation">레이팅을 절대적인 숫자로 생각하지 마시고 이를 다른 단체와 비교하지 않는 것이 가장 좋습니다. 플레이어의 레벨, 사용하는 레이팅 시스템(Elo, Glicko, Glicko-2 등)은 단체마다 서로 다릅니다. 이러한 원인들이 레이팅의 절대값에 영향을 줄 수 있습니다.
+
+레이팅을 상대적인 수치로 생각하세요. 레이팅은 플레이어 집단 내에서 대략 얼마 정도의 승/무/패를 기록할지 예측할 수 있는 값일 뿐입니다. \"내 레이팅은 X야\"라는 말은 비교할 다른 플레이어가 없는 한 아무 의미가 없습니다.</string>
+  <string name="howToHideRatingWhilePlaying">플레이하는 동안 레이팅을 안 볼 수 있나요?</string>
+  <string name="enableZenMode">%1$s에서 젠모드를 켜세요. 게임 중에 %2$s를 누르셔도 됩니다.</string>
+  <string name="displayPreferences">게임 화면 설정</string>
+  <string name="connexionLostCanIGetMyRatingBack">랙/끊김으로 게임에서 졌어요. 레이팅을 돌려받을 수 있나요?</string>
 </resources>
