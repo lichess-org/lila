@@ -104,7 +104,7 @@ object show {
                 )(
                   div(
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
-                    label(`for` := "team-subscribe")("Subscribe to team messages")
+                    label(`for` := "team-subscribe")(messageAllSub.txt())
                   )
                 )
               },
@@ -140,7 +140,7 @@ object show {
                 )(
                   span(
                     strong(trans.swiss.swissTournaments()),
-                    em("A Swiss tournament that only members of your team can join")
+                    em(swissTournamentOverview())
                   )
                 ),
                 a(

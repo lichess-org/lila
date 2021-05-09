@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Your join request will be reviewed by a team leader.</string>
   <string name="beingReviewed">Your join request is being reviewed by a team leader.</string>
+  <string name="messageAllSub">Subscribe to team messages</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
   <string name="teamTournament">Team tournament</string>
   <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
+  <string name="swissTournamentOverview">A Swiss tournament that only members of your team can join</string>
   <string name="messageAllMembers">Message all members</string>
   <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
   <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
