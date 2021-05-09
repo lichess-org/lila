@@ -94,6 +94,13 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="goldenZeeExplanation">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
   <string name="lichessRatings">Ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="ratingSystemUsedByLichess">Ratingy se počítají pomocí metody Glicko-2 vyvinuté Markem Glickmanem. Jedná se o velmi populární metodu, a je využívána značným množstvím šachových organizací (není mezi nimi FIDE, jež stále využívá již zastaralou metodu Elo). 
+
+Systém Glicko používá při výpočtu vašeho ratingu tzv. „intervaly spolehlivosti“. Když se zaregistrujete, vaše hodnocení je rovno 1500 bodů s intervalem spolehlivosti 1000 bodů.
+
+To znamená, že systém si je na 95 % jistý, že váš rating je někde mezi 500 a 2500. To je opravdu obrovské rozpětí, a tak je normální, že při prvních pár partií rating hráče poskočí o mnoho bodů najednou, často i několik stovek. Po pár partiích proti hráčům s neprovizorním (bez otazníku) ratingem se interval spolehlivosti vašeho ratingu zúží, a počet bodů získaných/ztracený po každé partii se sníží.
+
+Dále je také nutné poznamenat, že postupem času se interval spolehlivosti zvýší, což umožňuje získat/ztratit ratingové body rychleji tak, aby odpovídaly změnám Vašich šachových schopností.</string>
   <string name="whatIsProvisionalRating">Proč mám otazník (?) vedle svého hodnocení (ratingu)?</string>
   <string name="provisionalRatingExplanation">Otazník znamená, že váš rating je provizorní. Důvody mohou být:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Neodehráli jste dostatečné množství hodnocených partií proti %1$s v dané kategorii ratingu (blitz, rapid apod.)</string>
