@@ -113,4 +113,13 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="similarOpponents">비슷한 실력의 상대</string>
   <string name="notPlayedRecently">플레이어가 최근에 게임을 하지 않았습니다. 플레이한 게임 수에 따라 다르지만 대략 1년간 비활성화 되어 있으면 다시 임시 레이팅으로 변경 됩니다.</string>
   <string name="ratingDeviationMorethanOneHundredTen">구체적으로 말하자면, Glicko-2 분산값이 110보다 크다는 것을 의미합니다. 분산은 레이팅의 신뢰 수준입니다. 분산값이 작다면 레이팅은 더 안정적입니다.</string>
+  <string name="howDoLeaderoardsWork">랭킹과 순위표는 어떻게 운영되나요?</string>
+  <string name="inOrderToAppearsYouMust">%1$s에 오르기 위해선 다음 조건을 만족해야 합니다.</string>
+  <string name="ratingLeaderboards">레이팅 순위표</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">주어진 레이팅에서 최소 30 게임을 플레이해야 합니다.</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">최근 1주일동안 이 레이팅에서 레이팅 게임을 한 적이 있어야 합니다.</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">일반 체스에서는 레이팅 편차가 %1$s 보다 낮아야 합니다. 변형 체스에서는 %2$s 미만이어야 합니다.</string>
+  <string name="beInTopTen">상위 10위 안에 들어야 합니다.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">계정을 더 이상 사용하지 않는 경우 순위표에서 더 이상 뜨지 않게 할 수 있습니다.</string>
+  <string name="whyAreRatingHigher">레이팅이 다른 사이트나 단체(FIDE, USCF, ICC 등)과 비교했을 때 더 높은 이유가 있나요?</string>
 </resources>
