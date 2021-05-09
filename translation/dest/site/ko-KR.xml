@@ -560,8 +560,8 @@
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
-  <string name="whiteCastlingKingside">흰색 킹 사이드</string>
-  <string name="blackCastlingKingside">검은색 킹 사이드</string>
+  <string name="whiteCastlingKingside">백색 O-O</string>
+  <string name="blackCastlingKingside">흑색 O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s 포럼 글</item>
   </plurals>
