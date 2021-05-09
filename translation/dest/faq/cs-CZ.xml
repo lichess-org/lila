@@ -67,6 +67,8 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
+  <string name="threeFoldHasToBeClaimed">Trojí opakování pozice musí potvrdit jeden z hráčů, a to stisknutím tlačítka, které se v případě trojího opakování pozice objeví, či nabídnutím remízy před posledním ze tří opakování, přičemž i v případě, že soupeř remízu odmítne, partie skončí remízou. Lze také %1$s Lichess tak, aby za vás automaticky potvrzoval trojí opakování pozice. Pokud se poté jakákoliv pozice zopakuje pětkrát během partie, hra také ihned skončí remízou.</string>
+  <string name="configure">nakonfigurovat</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Jaké tituly jsou na Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro živou hru (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
