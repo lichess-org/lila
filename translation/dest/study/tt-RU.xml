@@ -45,6 +45,8 @@
   <string name="theChapterIsTooShortToBeAnalysed">Бу баб бик кыска таһлил колынды.</string>
   <string name="onlyContributorsCanRequestAnalysis">Өйрәнеш һиссадәрләр компьютер чишелешен тәлап итмәк.</string>
   <string name="getAFullComputerAnalysis">Барча сервер-яктагы компьютер чишлешен асасий юнәлеш алыгыз.</string>
+  <string name="makeSureTheChapterIsComplete">Бабның тәгликъ икәнлегендә очаныч һасил колмак. Сез таһлилне фәкать бир мәртә колышыңыз мөмкин.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Барлык SYNC әгъзалары һаман хәләттә кылмак</string>
   <string name="playing">Уйнамак</string>
   <string name="first">Беренче</string>
   <string name="previous">Алдагы</string>
