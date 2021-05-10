@@ -6,6 +6,8 @@
   <string name="endgame">ท้ายเกม</string>
   <string name="fork">การโจมตีสองทาง</string>
   <string name="hangingPiece">หมากลอย</string>
+  <string name="long">สามตาเดิน</string>
+  <string name="longDescription">ปริศนาที่มี 3 ตาเดิน</string>
   <string name="mate">รุกจน</string>
   <string name="mateDescription">ชนะเกมอย่างมีสไตล์!</string>
   <string name="mateIn1">รุกจนใน 1 ตา</string>
