@@ -778,6 +778,9 @@
   <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
   <string name="subscribe">ติดตาม</string>
   <string name="unsubscribe">เลิกติดตาม</string>
+  <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
+  <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
+  <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
 </resources>
