@@ -225,6 +225,15 @@ object faq {
           p(usernamesCannotBeChanged.txt())
         ),
         question(
+          "forgot-email",
+          canYouTellMeMyEmailIfIForgetIt.txt(),
+          p(
+            supportCanNotTellYouYourEmail(
+              a(href := "https://lichess.org/password/reset")("the password reset page")
+            )
+          )
+        ),
+        question(
           "trophies",
           uniqueTrophies.txt(),
           h4("The way of Berserk"),
