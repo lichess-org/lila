@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Еш сораулар</string>
+  <string name="faqAbbreviation">ЕБС</string>
   <string name="frequentlyAskedQuestions">Еш бирелә торган сораулар</string>
   <string name="whyIsLichessCalledLichess">Ни өчен Lichess, Lichess дип атала?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess - яши/яктылык/китапханә һәм шаһматның берләшүе. Бу %1$s дип әйтелә.</string>
@@ -70,4 +70,5 @@
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2-нче таләп - хисапларын кулланмаган уенчылар рәһбәрләр такталарын популярлаштыруны туктатсын өчен.</string>
   <string name="howToHideRatingWhilePlaying">Уйнаганда бәяләнүләрне ничек яшерергә?</string>
   <string name="displayPreferences">өстенлекләрне күрсәтү</string>
+  <string name="howToThreeDots">Кандай...</string>
 </resources>
