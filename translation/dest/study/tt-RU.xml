@@ -68,7 +68,10 @@
   <string name="pinnedChapterComment">Дәбүс баб шәрһе</string>
   <string name="saveChapter">Сакламак бабны</string>
   <string name="clearAnnotations">Чистартырга шүрүхне</string>
+  <string name="deleteChapter">Бетерергә бабны</string>
+  <string name="deleteThisChapter">Бетерергә бабны? Монда чигенү юк!</string>
   <string name="noPinnedComment">Бернинди дә</string>
+  <string name="normalAnalysis">Гәдати тәһлил</string>
   <string name="empty">Буш</string>
   <string name="editor">Редактор</string>
   <string name="automatic">Автоматик</string>
