@@ -28,6 +28,10 @@
     <item quantity="other">%s әгъзалары</item>
   </plurals>
   <string name="inviteToTheStudy">Өйрәнеш чакырырга</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Илтимәс, фәкать вә ошбу өйрәнеш колынышка өстәгән әдәмләрне таклиф колу.</string>
+  <string name="searchByUsername">Кулланучынәмә белән табырга</string>
+  <string name="spectator">Тамашачы</string>
+  <string name="contributor">Хиссадәрче</string>
   <string name="like">Ошый</string>
   <string name="first">Беренче</string>
   <string name="previous">Алдагы</string>
