@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Яшерен</string>
+  <string name="myStudies">Минем өйрәнеш</string>
+  <string name="studiesIContributeTo">Өйрәнеш Мин үз хиссамны кушамын</string>
+  <string name="myPublicStudies">Минем җәмгыяти өйрәнеш</string>
+  <string name="myPrivateStudies">Минем шәхси өйрәнеш</string>
+  <string name="myFavoriteStudies">Минем сөемле өйрәнеш</string>
+  <string name="whatAreStudies">Бу ни өйрәнеш?</string>
   <string name="hot">Кайнар</string>
   <plurals name="nbGames">
     <item quantity="other">%s Уен</item>
