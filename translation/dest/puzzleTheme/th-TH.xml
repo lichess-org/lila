@@ -3,6 +3,7 @@
   <string name="advantageDescription">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
   <string name="castling">การเข้าป้อม</string>
   <string name="castlingDescription">นำคิงของคุณไปที่ปลอดภัย และเคลื่อนเรือของคุณเพื่อการโจมตี</string>
+  <string name="kingsideAttack">การบุกฝั่งคิง</string>
   <string name="endgame">ท้ายเกม</string>
   <string name="fork">การโจมตีสองทาง</string>
   <string name="hangingPiece">หมากลอย</string>
@@ -24,6 +25,7 @@
   <string name="oneMoveDescription">ปริศนาที่มีแค่ 1 ตาเดิน</string>
   <string name="opening">การเปิดเกม</string>
   <string name="pin">การกด</string>
+  <string name="queensideAttack">การบุกฝั่งควีน</string>
   <string name="sacrifice">การเสียเพื่อแลก</string>
   <string name="short">สองตาเดิน</string>
   <string name="shortDescription">ปริศนาที่มี 2 ตาเดิน</string>
