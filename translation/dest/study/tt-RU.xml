@@ -47,12 +47,17 @@
   <string name="getAFullComputerAnalysis">Барча сервер-яктагы компьютер чишлешен асасий юнәлеш алыгыз.</string>
   <string name="makeSureTheChapterIsComplete">Бабның тәгликъ икәнлегендә очаныч һасил колмак. Сез таһлилне фәкать бир мәртә колышыңыз мөмкин.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Барлык SYNC әгъзалары һаман хәләттә кылмак</string>
+  <string name="shareChanges">Үзгәрешләрне тамашачылар белән юшәрик колыш вә аларны серверда саклау</string>
   <string name="playing">Уйнамак</string>
   <string name="first">Беренче</string>
   <string name="previous">Алдагы</string>
   <string name="next">Киләсе</string>
   <string name="last">Сонгы</string>
+  <string name="shareAndExport">Юшәрик &amp; яшдүр</string>
   <string name="cloneStudy">Клонлау</string>
+  <string name="studyPgn">Өйрәнеш PGN</string>
+  <string name="downloadAllGames">Йөкләргә барча уеннарны</string>
+  <string name="chapterPgn">Баб PGN</string>
   <string name="open">Ачу</string>
   <string name="orientation">Урнашу</string>
   <string name="noPinnedComment">Бернинди дә</string>
