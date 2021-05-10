@@ -44,6 +44,7 @@
   <string name="annotateWithGlyphs">Глифлар белән өзек бирү</string>
   <string name="theChapterIsTooShortToBeAnalysed">Бу баб бик кыска таһлил колынды.</string>
   <string name="onlyContributorsCanRequestAnalysis">Өйрәнеш һиссадәрләр компьютер чишелешен тәлап итмәк.</string>
+  <string name="getAFullComputerAnalysis">Барча сервер-яктагы компьютер чишлешен асасий юнәлеш алыгыз.</string>
   <string name="playing">Уйнамак</string>
   <string name="first">Беренче</string>
   <string name="previous">Алдагы</string>
