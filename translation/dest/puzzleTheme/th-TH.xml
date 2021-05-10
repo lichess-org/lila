@@ -33,4 +33,5 @@
   <string name="veryLong">4 ตาเดินหรือมากกว่านั้น</string>
   <string name="veryLongDescription">ปริศนาที่มี 4 ตาเดินขึ้นไป</string>
   <string name="zugzwang">บังคับให้เดินเสียเปรียบ</string>
+  <string name="healthyMixDescription">มีทุกอย่างอยู่ในนี้ คุณไม่รู้ว่าจะเจออะไรบ้าง ดังนั้นคุณจะต้องเตรียมตัวให้ดี</string>
 </resources>
