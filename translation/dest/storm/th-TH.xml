@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">เดินหมากเพี่อเริ่มเกม</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">คุณเล่นเป็นหมากสีขาวในทุกปริศนา</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">คุณเล่นเป็นหมากสีดำในทุกปริศนา</string>
   <string name="puzzlesSolved">ปริศนาที่ถูกแก้แล้ว</string>
   <string name="playAgain">เล่นอีกครั้ง</string>
   <string name="highscoreX">คะแนนสูงสุด: %s</string>
