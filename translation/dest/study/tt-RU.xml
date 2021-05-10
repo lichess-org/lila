@@ -7,10 +7,27 @@
   <string name="myPrivateStudies">Минем шәхси өйрәнеш</string>
   <string name="myFavoriteStudies">Минем сөемле өйрәнеш</string>
   <string name="whatAreStudies">Бу ни өйрәнеш?</string>
+  <string name="allStudies">Барча өйрәнешләр</string>
+  <string name="studiesCreatedByX">Өйрәнеш %s белән ясалган</string>
+  <string name="noneYet">Хәле юк.</string>
   <string name="hot">Кайнар</string>
+  <string name="dateAddedNewest">Кушылган сәна(иң яңа)</string>
+  <string name="dateAddedOldest">Кушылган сәнә(иң олуг)</string>
+  <string name="recentlyUpdated">Якында яңартылган</string>
+  <string name="mostPopular">Иң мәшһүр</string>
+  <string name="alphabetical">Әлифбаи</string>
+  <string name="addNewChapter">Яңа баб өстәлеш</string>
+  <plurals name="nbChapters">
+    <item quantity="other">%s Баблар</item>
+  </plurals>
   <plurals name="nbGames">
     <item quantity="other">%s Уен</item>
   </plurals>
+  <string name="addMembers">Әгъза өстәргә</string>
+  <plurals name="nbMembers">
+    <item quantity="other">%s әгъзалары</item>
+  </plurals>
+  <string name="inviteToTheStudy">Өйрәнеш чакырырга</string>
   <string name="like">Ошый</string>
   <string name="first">Беренче</string>
   <string name="previous">Алдагы</string>
