@@ -6,11 +6,11 @@
   <string name="challengeAccepted">چالش از طرف حریف قبول شد!</string>
   <string name="challengeCanceled">چالش از طرف خودتان بسته شد.</string>
   <string name="registerToSendChallenges">لطفا یک حساب بسازید تا بتوانید به بازیکننان چالش بازی دهید.</string>
-  <string name="youCannotChallengeX">شما نمی توانید به s% چالش دهید.</string>
-  <string name="xDoesNotAcceptChallenges">بازیکن s% چالش شما را قبول نکرد.</string>
-  <string name="yourXRatingIsTooFarFromY">امتیاز %$s شما از امتیاز حریف خیلی فاصله دارد.</string>
+  <string name="youCannotChallengeX">شما نمی توانید به %s چالش دهید.</string>
+  <string name="xDoesNotAcceptChallenges">بازیکن %s چالش شما را قبول نکرد.</string>
+  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما از امتیاز حریف خیلی فاصله دارد %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">s% فقط از دوستان خود پالش قبول می کند.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط از دوستان خود پالش قبول می کند.</string>
   <string name="declineGeneric">من الان چالش قبول نمی کنم.</string>
   <string name="declineLater">الان زمان خوبی برای من نیست، لطفا بعدا درخواست دهید.</string>
   <string name="declineTooFast">این زمان برای من خیلی کم است، لطفا با زمان بیشتر به من چالش دهید.</string>
