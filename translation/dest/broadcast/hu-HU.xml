@@ -3,14 +3,14 @@
   <string name="broadcasts">Adások</string>
   <string name="liveBroadcasts">Versenyek élő adásai</string>
   <string name="newBroadcast">Új élő adás</string>
-  <string name="addRound">Adj egy játszmát hozzá</string>
+  <string name="addRound">Forduló hozzáadása</string>
   <string name="ongoing">Folyamatban</string>
   <string name="upcoming">Közelgő</string>
   <string name="completed">Befejeződött</string>
   <string name="roundName">Forduló neve</string>
   <string name="roundNumber">Forduló száma</string>
   <string name="tournamentName">Verseny neve</string>
-  <string name="tournamentDescription">Rövid verseny leírás</string>
+  <string name="tournamentDescription">Verseny rövid leírása</string>
   <string name="fullDescription">Esemény teljes leírása</string>
   <string name="fullDescriptionHelp">Opcionális a közvetítés még bővebb leírása. %1$s használható. A hossz nem lehet több, mint %2$s karakter.</string>
   <string name="sourceUrlOrGameIds">Forráslink, vagy játszmaazonosítók</string>
@@ -19,9 +19,9 @@
   <string name="startDate">Kezdés időpontja a saját időzónádban</string>
   <string name="startDateHelp">Opcionális, csak ha tudod mikor kezdődik az esemény</string>
   <string name="credits">Forrásmegjelölés</string>
-  <string name="resetRound">Ennek a fordulónak az újrakezdése</string>
-  <string name="deleteRound">Ennek a fordulónak a törlése</string>
+  <string name="resetRound">A forduló újrakezdése</string>
+  <string name="deleteRound">A forduló törlése</string>
   <string name="broadcastUrl">Közvetítés URL</string>
-  <string name="currentRoundUrl">Jelenlegi játszma URL</string>
+  <string name="currentRoundUrl">Jelenlegi forduló URL</string>
   <string name="currentGameUrl">Jelenlegi játszma URL</string>
 </resources>
