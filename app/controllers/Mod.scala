@@ -323,14 +323,14 @@ final class Mod(
     }
 
   def gamify =
-    Secure(_.SeeReport) { implicit ctx => _ =>
+    Secure(_.ChatTimeout) { implicit ctx => _ =>
       env.mod.gamify.leaderboards zip
         env.mod.gamify.history(orCompute = true) map { case (leaderboards, history) =>
           Ok(html.mod.gamify.index(leaderboards, history))
         }
     }
   def gamifyPeriod(periodStr: String) =
-    Secure(_.SeeReport) { implicit ctx => _ =>
+    Secure(_.ChatTimeout) { implicit ctx => _ =>
       lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
         env.mod.gamify.leaderboards map { leaderboards =>
           Ok(html.mod.gamify.period(leaderboards, period))
