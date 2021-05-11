@@ -23,10 +23,3 @@ export function capture(ctrl: RoundController, key: cg.Key) {
   ctrl.chessground.setPieces(diff);
   ctrl.chessground.explode(exploding);
 }
-
-// needs to explicitly destroy the capturing pawn
-export function enpassant(ctrl: RoundController, key: cg.Key, color: cg.Color) {
-  const pos = util.key2pos(key),
-    pawnPos: cg.Pos = [pos[0], pos[1] + (color === 'white' ? -1 : 1)];
-  capture(ctrl, util.pos2key(pawnPos));
-}

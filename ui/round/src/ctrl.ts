@@ -170,8 +170,8 @@ export default class RoundController {
     } else this.jump(this.ply);
   };
 
-  private onMove = (_: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
-    if (captured) {
+  private onMove = (orig: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
+    if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
         sound.explode();
         atomic.capture(this, dest);
@@ -194,6 +194,13 @@ export default class RoundController {
 
   private isSimulHost = () => {
     return this.data.simul && this.data.simul.hostId === this.opts.userId;
+  };
+
+  private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
+    if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
+    const pos = (dest[0] + orig[1]) as cg.Key;
+    this.chessground.setPieces(new Map([[pos, undefined]]));
+    return true;
   };
 
   lastPly = () => round.lastPly(this.data);
@@ -394,14 +401,6 @@ export default class RoundController {
         ) {
           this.chessground.move(keys[0], keys[1]);
         }
-      }
-      if (o.enpassant) {
-        const p = o.enpassant;
-        this.chessground.setPieces(new Map([[p.key, undefined]]));
-        if (d.game.variant.key === 'atomic') {
-          atomic.enpassant(this, p.key, p.color);
-          sound.explode();
-        } else sound.capture();
       }
       if (o.promotion) ground.promote(this.chessground, o.promotion.key, o.promotion.pieceClass);
       this.chessground.set({
