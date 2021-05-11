@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
   <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
+  <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
 </resources>
