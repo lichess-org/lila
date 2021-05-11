@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
   <string name="refundXpointsTimeControlY">Visszatérítve: %1$s %2$s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
+  <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
 </resources>
