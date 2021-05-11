@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
   <string name="recentlyUpdated">Nemrégiben frissítve</string>
   <string name="mostPopular">Legnépszerűbb</string>
-  <string name="alphabetical">ABC sorrendben</string>
+  <string name="alphabetical">Betűrendben</string>
   <string name="addNewChapter">Új fejezet hozzáadása</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fejezet</item>
