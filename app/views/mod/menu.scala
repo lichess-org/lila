@@ -12,9 +12,9 @@ object menu {
     st.nav(cls := "page-menu__menu subnav")(
       isGranted(_.SeeReport) option
         a(cls := active.active("report"), href := routes.Report.list)("Reports"),
-      isGranted(_.ChatTimeout) option
+      isGranted(_.PublicChatView) option
         a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats"),
-      isGranted(_.SeeReport) option
+      isGranted(_.GamifyView) option
         a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),
