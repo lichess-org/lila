@@ -16,7 +16,7 @@ object roundForm {
 
   def create(form: Form[Data], tour: RelayTour)(implicit ctx: Context) =
     layout(newBroadcast.txt())(
-      h1(a(href := routes.RelayTour.redirect(tour.slug, tour.id.value))(tour.name), " • ", addRound()),
+      h1(a(href := routes.RelayTour.edit(tour.id.value))(tour.name), " • ", addRound()),
       standardFlash(),
       inner(form, routes.RelayRound.create(tour.id.value), tour)
     )
@@ -25,7 +25,7 @@ object roundForm {
     layout(rt.fullName)(
       h1(
         "Edit ",
-        a(href := routes.RelayTour.redirect(rt.tour.slug, rt.tour.id.value))(rt.tour.name),
+        a(href := routes.RelayTour.edit(rt.tour.id.value))(rt.tour.name),
         " > ",
         a(href := rt.path)(rt.round.name)
       ),
