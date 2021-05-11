@@ -944,4 +944,5 @@
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
+  <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
 </resources>
