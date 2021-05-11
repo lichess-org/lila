@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Lichess Hizmet Şartları\'nı ihlal eden birine kaybettin</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
   <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
+  <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
 </resources>
