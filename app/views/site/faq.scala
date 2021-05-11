@@ -229,7 +229,7 @@ object faq {
           canYouTellMeMyEmailIfIForgetIt.txt(),
           p(
             supportCanNotTellYouYourEmail(
-              a(href := "https://lichess.org/password/reset")("the password reset page")
+              a(href := "https://lichess.org/password/reset")(thePasswordResetPage())
             )
           )
         ),

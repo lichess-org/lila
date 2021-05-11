@@ -95,6 +95,7 @@ Do not ask for the LM title.</string>
   <string name="usernamesCannotBeChanged">No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once.</string>
   <string name="canYouTellMeMyEmailIfIForgetIt">Can you tell me my email if I forget it?</string>
   <string name="supportCanNotTellYouYourEmail">For security and compliance reasons, we cannot tell you which email is associated with any account unless you are able to confirm you are the owner. Please try your email addresses on %1$s to determine which email address has an associated lichess account.</string>
+  <string name="thePasswordResetPage">the password reset page</string>
   <string name="uniqueTrophies">Unique trophies</string>
   <string name="ownerUniqueTrophies">That trophy is unique in the history of Lichess, nobody other than %1$s will ever have it.</string>
   <string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win all games of %s.</string>
