@@ -61,7 +61,12 @@ object emailConfirmHelp {
                   hr,
                   p(i(s"Hello, please confirm my account: $name")),
                   hr,
-                  p("Copy and paste the above text and send it to ", contactEmail),
+                  p(
+                    "Copy and paste the above text and send it to ",
+                    a(href := s"mailto:$contactEmailInClear?subject=Confirm account $name")(
+                      contactEmailInClear
+                    )
+                  ),
                   p("We will come back to you shortly to help you complete your signup.")
                 )
               case Confirmed(name) =>

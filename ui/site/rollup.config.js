@@ -202,4 +202,8 @@ export default rollupProject({
     input: 'src/publicChats.ts',
     output: 'publicChats',
   },
+  contact: {
+    input: 'src/contact.ts',
+    output: 'contact',
+  },
 });
