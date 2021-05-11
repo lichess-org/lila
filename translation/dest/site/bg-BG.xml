@@ -865,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
   <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
+  <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
 </resources>
