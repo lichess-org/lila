@@ -104,7 +104,7 @@ object show {
                 )(
                   div(
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
-                    label(`for` := "team-subscribe")(messageAllSub.txt())
+                    label(`for` := "team-subscribe")(subToTeamMessages.txt())
                   )
                 )
               },
