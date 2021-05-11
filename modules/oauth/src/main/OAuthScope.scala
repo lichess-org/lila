@@ -54,7 +54,7 @@ object OAuthScope {
     case object Login
         extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
     case object Mod
-        extends OAuthScope("web:mod", "Use moderator tools (within the bounds of the user permissions)")
+        extends OAuthScope("web:mod", "Use moderator tools (within the bounds of your permissions)")
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
@@ -76,7 +76,8 @@ object OAuthScope {
     Msg.Write,
     Board.Play,
     Bot.Play,
-    Web.Login
+    Web.Login,
+    Web.Mod
   )
 
   val byKey: Map[String, OAuthScope] = all.map { s =>

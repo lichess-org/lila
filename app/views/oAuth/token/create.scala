@@ -36,8 +36,12 @@ object create {
               } || {
                 me.isBot && scope == lila.oauth.OAuthScope.Board.Play
               }
+              val hidden =
+                scope == lila.oauth.OAuthScope.Web.Mod && !(
+                  isGranted(_.Shusher) || isGranted(_.Hunter)
+                )
               val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-              div(
+              !hidden option div(
                 span(
                   form3.cmnToggle(
                     id,

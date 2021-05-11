@@ -14,7 +14,7 @@ import scala.concurrent.duration._
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.oauth.{ AccessToken, OAuthServer }
+import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
@@ -128,8 +128,14 @@ final class SecurityApi(
           oauthScoped(req, scopes, retries - 1)
         }
       case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(req, scopes)
+      case Some(server) => server.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
     }
+
+  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
+    if (scoped.scopes has OAuthScope.Web.Mod) scoped
+    else scoped.copy(user = scoped.user.copy(roles = scoped.user.roles.filter(nonModRoles.contains)))
 
   def oauthScoped(
       tokenId: AccessToken.Id,
