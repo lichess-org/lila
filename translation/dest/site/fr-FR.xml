@@ -4,7 +4,7 @@
   <string name="playWithTheMachine">Jouer contre l\'ordinateur</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
-  <string name="waitingForOpponent">En attente d\'un adversaire</string>
+  <string name="waitingForOpponent">En attente de votre adversaire</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Vous jouez les Blancs</string>
   <string name="youPlayTheBlackPieces">Vous jouez les Noirs</string>
   <string name="itsYourTurn">C\'est votre tour !</string>
+  <string name="cheatDetected">Tricherie détectée</string>
   <string name="kingInTheCenter">Roi au centre</string>
   <string name="threeChecks">Trois échecs</string>
   <string name="raceFinished">Course terminée</string>
@@ -524,7 +525,7 @@
   <string name="letOtherPlayersFollowYou">Autoriser les autres joueurs à vous suivre</string>
   <string name="letOtherPlayersChallengeYou">Autoriser les autres joueurs à vous défier</string>
   <string name="letOtherPlayersInviteYouToStudy">Autoriser les autres joueurs à vous inviter à une analyse partagée</string>
-  <string name="sound">Volume</string>
+  <string name="sound">Son</string>
   <string name="none">Aucune</string>
   <string name="fast">Rapide</string>
   <string name="normal">Normale</string>

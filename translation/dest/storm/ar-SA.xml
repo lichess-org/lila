@@ -10,6 +10,22 @@
   <string name="newAllTimeHighscore">أعلى مستوى جديد على الإطلاق!</string>
   <string name="previousHighscoreWasX">النتيجة العالية السابقة كانت %s</string>
   <string name="playAgain">إلعب مرة أخرى</string>
+  <plurals name="xRuns">
+    <item quantity="zero">لا جولات</item>
+    <item quantity="one">جولة واحدة</item>
+    <item quantity="two">جولتان</item>
+    <item quantity="few">%s جولات</item>
+    <item quantity="many">%s جولة</item>
+    <item quantity="other">%s جولة</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="zero">لم تلعب أي جولة %2$s</item>
+    <item quantity="one">لعبت جولة واحدة من %2$s</item>
+    <item quantity="two">لعبت جولتين من %2$s</item>
+    <item quantity="few">لعبت %1$s جولات من %2$s</item>
+    <item quantity="many">لعبت %1$s جولة من %2$s</item>
+    <item quantity="other">لعبت %1$s جولة من %2$s</item>
+  </plurals>
   <string name="highscoreX">أعلى نتيجة: %s</string>
   <string name="score">النتيجة</string>
   <string name="moves">نقلة</string>
@@ -18,6 +34,21 @@
   <string name="timePerMove">الوقت لكل نقلة</string>
   <string name="highestSolved">تقييم أصعب لغز تم حله</string>
   <string name="puzzlesPlayed">الألغاز الملعوبة</string>
+  <string name="highscores">أعلى النتائج</string>
+  <string name="viewBestRuns">اعرض أفضل الجولات</string>
   <string name="bestRunOfDay">أفضل جولة في اليوم</string>
   <string name="runs">جولات</string>
+  <string name="getReady">استعد!</string>
+  <string name="waitingForMorePlayers">ينتظر انضمام مزيد من الاعبين...</string>
+  <string name="raceComplete">انتهى السباق!</string>
+  <string name="spectating">تفرج</string>
+  <string name="joinTheRace">انضم للسباق!</string>
+  <string name="yourRankX">رتبتك %s</string>
+  <string name="nextRace">السباق التالي</string>
+  <string name="waitingToStart">ينتظر البدء</string>
+  <string name="createNewGame">أنشئ لعبة جديدة</string>
+  <string name="joinPublicRace">انضم للسباقٍ علني</string>
+  <string name="raceYourFriends">واجه أصدقائك</string>
+  <string name="skip">تخطى</string>
+  <string name="skipHelp">يمكنك تخطي حركة واحدة في كل سباق:</string>
 </resources>

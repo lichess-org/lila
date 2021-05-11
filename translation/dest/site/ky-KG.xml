@@ -9,6 +9,7 @@
   <string name="yourTurn">Сиздин кезегиңиз</string>
   <string name="aiNameLevelAiLevel">%1$s басамак %2$s</string>
   <string name="level">Басамак</string>
+  <string name="strength">Татаалдык</string>
   <string name="toggleTheChat">Чатты алмаштыруу</string>
   <string name="toggleSound">хъйцукенеъяч.юбьтиимъхзъйцукУке\нду алмаштыруу</string>
   <string name="chat">Чат</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Сиз ак фигуралар менен ойнойсуз</string>
   <string name="youPlayTheBlackPieces">Сиз кара фигуралар менен ойнойсуз</string>
   <string name="itsYourTurn">Сиздин жүрүшүңүз!</string>
+  <string name="cheatDetected">Чит байкалды</string>
   <string name="kingInTheCenter">Хан ортодо</string>
   <string name="threeChecks">Үч шах</string>
   <string name="raceFinished">Гонка бүдтүү</string>

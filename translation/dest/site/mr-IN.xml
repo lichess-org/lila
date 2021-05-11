@@ -578,7 +578,7 @@
   <string name="onlyFriends">फक्त मित्र</string>
   <string name="menu">मेनू</string>
   <string name="castling">किल्ल्यात</string>
-  <string name="whiteCastlingKingside">पांढरा 0-0</string>
+  <string name="whiteCastlingKingside">पांढरा O-O</string>
   <string name="blackCastlingKingside">काळा O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s मंचातील प्रतिक्रिया</item>

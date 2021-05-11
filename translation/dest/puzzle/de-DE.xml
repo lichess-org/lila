@@ -60,7 +60,7 @@
   <string name="failed">fehlgeschlagen</string>
   <string name="streakDescription">Löse schwieriger werdende Aufgaben und baue eine Erfolgsserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Zug und es ist vorbei! Du kannst jedoch einen Zug pro Sitzung überspringen.</string>
   <string name="yourStreakX">Deine Siegesserie: %s</string>
-  <string name="streakSkipExplanation">Überspringe diesen Zug um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>
+  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
 </resources>

@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
   <string name="youPlayTheBlackPieces">Sei il Nero</string>
   <string name="itsYourTurn">Tocca a te!</string>
+  <string name="cheatDetected">Trucco Rilevato</string>
   <string name="kingInTheCenter">Re al centro</string>
   <string name="threeChecks">Tre scacchi</string>
   <string name="raceFinished">Corsa terminata</string>

@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">당신은 백으로 둡니다</string>
   <string name="youPlayTheBlackPieces">당신은 흑으로 둡니다</string>
   <string name="itsYourTurn">당신이 둘 차례입니다!</string>
+  <string name="cheatDetected">부정행위 감지됨</string>
   <string name="kingInTheCenter">킹이 중앙에 도달함</string>
   <string name="threeChecks">세 번의 체크</string>
   <string name="raceFinished">킹이 보드 끝에 도달함</string>
@@ -54,7 +55,7 @@
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
   <string name="analysis">분석</string>
-  <string name="depthX">%s수 앞 계산 완료</string>
+  <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
   <string name="loadingEngine">엔진 로드 중 ...</string>
   <string name="cloudAnalysis">클라우드 분석</string>
@@ -69,7 +70,7 @@
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
-  <string name="insufficientMaterial">말이 부족하여 무승부입니다.</string>
+  <string name="insufficientMaterial">기물 부족으로 무승부입니다.</string>
   <string name="pawnMove">폰 이동</string>
   <string name="capture">Capture</string>
   <string name="close">닫기</string>
@@ -559,8 +560,8 @@
   <string name="onlyFriends">친구만</string>
   <string name="menu">메뉴</string>
   <string name="castling">캐슬링</string>
-  <string name="whiteCastlingKingside">흰색 킹 사이드</string>
-  <string name="blackCastlingKingside">검은색 킹 사이드</string>
+  <string name="whiteCastlingKingside">백색 O-O</string>
+  <string name="blackCastlingKingside">흑색 O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s 포럼 글</item>
   </plurals>

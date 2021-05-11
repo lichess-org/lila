@@ -3,10 +3,14 @@
   <string name="broadcasts">比賽直播</string>
   <string name="liveBroadcasts">錦標賽直播</string>
   <string name="newBroadcast">新的現場直播</string>
+  <string name="addRound">新增回合</string>
   <string name="ongoing">進行中</string>
   <string name="upcoming">即將舉行</string>
   <string name="completed">已結束</string>
+  <string name="roundName">回合名稱</string>
   <string name="roundNumber">回合數</string>
+  <string name="tournamentName">錦標賽名稱</string>
+  <string name="tournamentDescription">簡短比賽說明</string>
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
   <string name="sourceUrlOrGameIds">對局URL連接，或遊戲ID</string>
@@ -15,4 +19,9 @@
   <string name="startDate">開始日期 (當地時間)</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
   <string name="credits">將來源歸因</string>
+  <string name="resetRound">重設此回合</string>
+  <string name="deleteRound">刪除此回合</string>
+  <string name="broadcastUrl">直播連結</string>
+  <string name="currentRoundUrl">目前回合連結</string>
+  <string name="currentGameUrl">目前棋局連結</string>
 </resources>

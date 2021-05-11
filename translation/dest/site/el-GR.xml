@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Παίζετε τα λευκά</string>
   <string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
   <string name="itsYourTurn">Είναι η σειρά σας!</string>
+  <string name="cheatDetected">Βρέθηκε απάτη</string>
   <string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
   <string name="threeChecks">Τρία σαχ</string>
   <string name="raceFinished">Τέλος αγώνα</string>

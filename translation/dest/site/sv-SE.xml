@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
   <string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
   <string name="itsYourTurn">Det är din tur!</string>
+  <string name="cheatDetected">Fusk upptäckt</string>
   <string name="kingInTheCenter">Kungen är i centrum</string>
   <string name="threeChecks">Tre schackar</string>
   <string name="raceFinished">Lopp slut</string>
@@ -117,6 +118,18 @@
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
   <string name="inaccuracy">Felaktighet</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s blunder</item>
+    <item quantity="other">%s blundrar</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s misstag</item>
+    <item quantity="other">%s misstag</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s felaktighet</item>
+    <item quantity="other">%s felaktigheter</item>
+  </plurals>
   <string name="moveTimes">Dragtider</string>
   <string name="flipBoard">Vänd brädet</string>
   <string name="threefoldRepetition">Trefaldig upprepning</string>
@@ -144,7 +157,7 @@
   <string name="computersAreNotAllowedToPlay">Datorer och datorassisterade spelare tillåts inte spela. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och skapande av överdrivet många konton leder till avstängning.</string>
   <string name="games">Partier</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s postade i forumet %2$s</string>
+  <string name="xPostedInForumY">%1$s skrev i forumtråden %2$s</string>
   <string name="latestForumPosts">Senaste foruminläggen</string>
   <string name="players">Spelare</string>
   <string name="friends">Vänner</string>
@@ -176,11 +189,11 @@
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
-  <string name="changePassword">Ändra lösenord</string>
+  <string name="changePassword">Byt lösenord</string>
   <string name="changeEmail">Ändra e-postadress</string>
   <string name="email">E-post</string>
   <string name="passwordReset">Återställ lösenord</string>
-  <string name="forgotPassword">Glömt lösenord?</string>
+  <string name="forgotPassword">Glömt lösenordet?</string>
   <string name="rank">Rankning</string>
   <string name="rankX">Placering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -193,14 +206,14 @@
   </plurals>
   <string name="gamesPlayed">Partier spelade</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s partier med dig</item>
+    <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Vits tid är slut</string>
   <string name="blackTimeOut">Svarts tid är slut</string>
   <string name="drawOfferSent">Remierbjudande skickat</string>
-  <string name="drawOfferDeclined">Remierbjudande avbrutet</string>
+  <string name="drawOfferDeclined">Remierbjudande avböjt</string>
   <string name="drawOfferAccepted">Remierbjudande accepterat</string>
   <string name="drawOfferCanceled">Remierbjudande avbrutet</string>
   <string name="whiteOffersDraw">Vit erbjuder remi</string>
@@ -218,7 +231,7 @@
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
   <string name="unlimited">Obegränsad</string>
-  <string name="mode">Typ</string>
+  <string name="mode">Läge</string>
   <string name="casual">Ej rankat</string>
   <string name="rated">Rankat</string>
   <string name="casualTournament">Ej rankad</string>
@@ -229,9 +242,9 @@
   <string name="rematchOfferSentWhite">Vit erbjuder returmatch</string>
   <string name="rematchOfferSentBlack">Svart erbjuder returmatch</string>
   <string name="rematchOfferAccepted">Erbjudande om returmatch accepterat</string>
-  <string name="rematchOfferCanceled">Erbjudande om returmatch avbrutet</string>
+  <string name="rematchOfferCanceled">Erbjudande om returmatch tillbakadraget</string>
   <string name="rematchOfferDeclined">Erbjudande om returmatch avböjt</string>
-  <string name="cancelRematchOffer">Avbryt erbjudande om returmatch</string>
+  <string name="cancelRematchOffer">Dra tillbaka erbjudande om returmatch</string>
   <string name="viewRematch">Visa returmatch</string>
   <string name="confirmMove">Bekräfta drag</string>
   <string name="play">Spela</string>
@@ -834,11 +847,17 @@
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
   <string name="mentionedYouInX"> nämnde dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY"> %1$s nämnde dig i \"%2$s\".</string>
   <string name="invitedYouToX"> bjöd in dig till \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du är nu en del av laget.</string>
   <string name="youHaveJoinedTeamX">Du har gått med i \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Någon du rapporterade blev avstängd</string>
   <string name="congratsYouWon">Grattis, du vann!</string>
+  <string name="gameVsX">Parti mot %1$s</string>
+  <string name="resVsX">%1$s mot %2$s</string>
+  <string name="youJustBecamePatron">Du blev precis en Lichess-sponsor.</string>
+  <string name="patronAccountExpired">Sponsorkonto utlöpt</string>
+  <string name="pleaseReconsiderRenewIt">Överväg gärna att förnya det!</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
 </resources>

@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Je speelt met wit</string>
   <string name="youPlayTheBlackPieces">Je speelt met zwart</string>
   <string name="itsYourTurn">Je bent aan zet!</string>
+  <string name="cheatDetected">Valsspelen gedetecteerd</string>
   <string name="kingInTheCenter">Koning in het centrum</string>
   <string name="threeChecks">Drie keer schaak</string>
   <string name="raceFinished">De race is voorbij</string>

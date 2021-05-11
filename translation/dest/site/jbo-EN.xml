@@ -297,13 +297,13 @@
   <string name="apply">.aktygau</string>
   <string name="save">rejgau</string>
   <string name="leaderboard">raiste</string>
-  <string name="pasteTheFenStringHere">vi ciska lo me la .fen. datni</string>
-  <string name="pasteThePgnStringHere">vi ciska lo me pygyny datni</string>
+  <string name="pasteTheFenStringHere">vi ciska lo me la FEN datni</string>
+  <string name="pasteThePgnStringHere">vi ciska lo me PGN datni</string>
   <string name="fromPosition">nalcfa kelci</string>
   <string name="continueFromHere">di\'a ti kelci</string>
   <string name="toStudy">tadni</string>
   <string name="importGame">jmina lo selkei</string>
-  <string name="importGameExplanation">lonu fukpu\'i lo me pygyny cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
+  <string name="importGameExplanation">lonu fukpu\'i lo me PGN cu jalgre lonu cpacu lo fakli\'u nu rapli .e lo skami lanli .e lo nu samta\'a .e lo judrysni</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s da seljmina selkei</item>
   </plurals>
@@ -634,8 +634,8 @@
   <string name="playChessInStyle">selja\'i kelci lo caxmati</string>
   <string name="chessBasics">lo jicmu be lo caxmati</string>
   <string name="coaches">lo te\'ictu</string>
-  <string name="invalidPgn">lo me la .pygyn. cu toldra</string>
-  <string name="invalidFen">lo me la fen. cu toldra</string>
+  <string name="invalidPgn">lo me la PGN. cu toldra</string>
+  <string name="invalidFen">lo me la FEN. cu toldra</string>
   <string name="error.min">.e\'anai dubme\'a li %s</string>
   <string name="error.max">.e\'anai dubmau li %s</string>
   <string name="error.unknown">srera da</string>

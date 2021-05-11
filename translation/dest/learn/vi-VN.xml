@@ -53,8 +53,7 @@ Không cần phong cấp đâu.</string>
   <string name="aPawnOnTheSecondRank">Một con Tốt mà nằm ở hàng hai có thể đi 2 ô trong một nước đi đấy!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Hãy lấy tất cả các ngôi sao!
 Nhưng không cần phải phong cấp đâu.</string>
-  <string name="pawnComplete">Xin chúc mừng!
-Bạn đã nắm mọi bí mật của quân Tốt.</string>
+  <string name="pawnComplete">Xin chúc mừng! Bạn đã nắm mọi bí mật của quân Tốt.</string>
   <string name="pawnPromotion">Phong cấp cho Tốt</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Con Tốt của bạn đã đến bên kia của bàn cờ rồi đấy!</string>
   <string name="itNowPromotesToAStrongerPiece">Bây giờ nó cần phải phong cấp lên một con quân mạnh hơn.</string>

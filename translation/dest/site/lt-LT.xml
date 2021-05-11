@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
   <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
   <string name="itsYourTurn">Jūsų ėjimas!</string>
+  <string name="cheatDetected">Aptiktas sukčiavimas</string>
   <string name="kingInTheCenter">Karalius centre</string>
   <string name="threeChecks">Trys šachai</string>
   <string name="raceFinished">Lenktynės baigėsi</string>

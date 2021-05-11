@@ -185,7 +185,7 @@
   <string name="username">nimi pi jan kepeken</string>
   <string name="usernameOrEmail">nimi pi jan kepeken anu nimi pi lipu toki linluwi</string>
   <string name="changeUsername">o ante e nimi sina</string>
-  <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\". </string>
+  <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\".</string>
   <string name="changeUsernameDescription">o ante e nimi sina. sina ken pali e ni lon tenpo wan taso. sina ken ante e suli taso pi sitelen lili pi nimi sina.</string>
   <string name="password">nimi open len</string>
   <string name="changePassword">o ante e nimi open len</string>

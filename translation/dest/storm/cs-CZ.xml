@@ -12,9 +12,9 @@
   <string name="playAgain">Hrát znovu</string>
   <plurals name="xRuns">
     <item quantity="one">1 pokus</item>
-    <item quantity="few">%s běhy</item>
-    <item quantity="many">%s běhů</item>
-    <item quantity="other">%s běhů</item>
+    <item quantity="few">%s pokusy</item>
+    <item quantity="many">%s pokusů</item>
+    <item quantity="other">%s pokusů</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Odehrán jeden %2$s</item>

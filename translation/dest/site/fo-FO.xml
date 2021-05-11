@@ -580,8 +580,8 @@
   <string name="onlyFriends">Bert vinir</string>
   <string name="menu">Valmynd</string>
   <string name="castling">Loypur í borg</string>
-  <string name="whiteCastlingKingside">Hvítur 0-0</string>
-  <string name="blackCastlingKingside">Svartur 0-0</string>
+  <string name="whiteCastlingKingside">Hvítur O-O</string>
+  <string name="blackCastlingKingside">Svartur O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s uppslag á torgi</item>
     <item quantity="other">%s uppsløg á torgi</item>

@@ -25,7 +25,7 @@
   <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
-  <string name="highestSolved">Ejercicio más difícil resuelto</string>
+  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
@@ -34,7 +34,7 @@
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>
   <string name="getReady">¡Prepárate!</string>
-  <string name="waitingForMorePlayers">Esperando a que se unan más jugadores…</string>
+  <string name="waitingForMorePlayers">Esperando a que se unan más jugadores...</string>
   <string name="raceComplete">¡Carrera completada!</string>
   <string name="spectating">Observando</string>
   <string name="joinTheRace">¡Únete a la carrera!</string>

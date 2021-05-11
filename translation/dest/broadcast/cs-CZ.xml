@@ -3,10 +3,14 @@
   <string name="broadcasts">Přenosy</string>
   <string name="liveBroadcasts">Živé přenosy turnajů</string>
   <string name="newBroadcast">Nový živý přenos</string>
+  <string name="addRound">Přidat kolo</string>
   <string name="ongoing">Probíhající</string>
   <string name="upcoming">Chystané</string>
   <string name="completed">Dokončené</string>
+  <string name="roundName">Číslo kola</string>
   <string name="roundNumber">Číslo kola</string>
+  <string name="tournamentName">Název turnaje</string>
+  <string name="tournamentDescription">Stručný popis turnaje</string>
   <string name="fullDescription">Úplný popis události</string>
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
   <string name="sourceUrlOrGameIds">Adresa URL či ID hry</string>
@@ -15,4 +19,9 @@
   <string name="startDate">Datum a čas zahájení ve vašem časovém pásmu</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
   <string name="credits">Uveďte zdroj</string>
+  <string name="resetRound">Resetovat toto kolo</string>
+  <string name="deleteRound">Smazat toto kolo</string>
+  <string name="broadcastUrl">URL adresa přenosu</string>
+  <string name="currentRoundUrl">URL aktuálního kola</string>
+  <string name="currentGameUrl">URL adresa právě probíhající partie</string>
 </resources>

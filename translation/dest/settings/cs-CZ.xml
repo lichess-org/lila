@@ -2,8 +2,8 @@
 <resources>
   <string name="settings">Nastavení</string>
   <string name="closeAccount">Zrušit účet</string>
-  <string name="closingIsDefinitive">Zrušení účtu je trvalé. Tato akce je nevratná. Jste si jisti, že chcete účet uzavřít?</string>
-  <string name="cantOpenSimilarAccount">Nebudete moci založit nový účet se stejným jménem a to ani když se bude lišit velikost písmen.</string>
+  <string name="closingIsDefinitive">Zrušení účtu je trvalé. Tato akce je nevratná. Jste si jisti, že svůj účet uzavřít?</string>
+  <string name="cantOpenSimilarAccount">Nebudete moci založit nový účet se stejným jménem, a to ani když se bude lišit velikost písmen.</string>
   <string name="changedMindDoNotCloseAccount">Změnil jsem názor, nechci zrušit svůj účet</string>
   <string name="closeAccountExplanation">Jste si jisti, že chcete uzavřít svůj účet? Uzavření účtu je trvalé rozhodnutí. Již NIKDY SE ZNOVU nebudete moci přihlásit.</string>
   <string name="thisAccountIsClosed">Tento účet je zrušen.</string>

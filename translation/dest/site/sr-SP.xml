@@ -612,8 +612,8 @@
   <string name="onlyFriends">Само пријатељи</string>
   <string name="menu">Опције</string>
   <string name="castling">Рокада</string>
-  <string name="whiteCastlingKingside">Бели О-О</string>
-  <string name="blackCastlingKingside">Црни О-О</string>
+  <string name="whiteCastlingKingside">Бели O-O</string>
+  <string name="blackCastlingKingside">Црни O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s коментар на форуму</item>
     <item quantity="few">%s коментара на форуму</item>
@@ -759,8 +759,8 @@
   <string name="playChessInStyle">Играјте шах у стилу</string>
   <string name="chessBasics">Основе шаха</string>
   <string name="coaches">Тренери</string>
-  <string name="invalidPgn">Неважећи ПГН</string>
-  <string name="invalidFen">Неважећи ФЕН</string>
+  <string name="invalidPgn">Неважећи PGN</string>
+  <string name="invalidFen">Неважећи FEN</string>
   <string name="error.minLength">Минимална дужина је %s</string>
   <string name="error.maxLength">Максимална дужина је %s</string>
   <string name="error.min">Мора бити већи или једнак %s</string>

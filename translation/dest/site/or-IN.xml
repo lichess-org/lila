@@ -2,13 +2,14 @@
 <resources>
   <string name="playWithAFriend">ସାଙ୍ଗଙ୍କ ସହ ଖେଳନ୍ତୁ</string>
   <string name="playWithTheMachine">କମ୍ପ୍ୟୁଟର ସହ ଖେଳନ୍ତୁ</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅ |</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">କାହାକୁ ଖେଳିବାକୁ ଆମନ୍ତ୍ରଣ କରିବାକୁ, ଏହି URL ଦିଅନ୍ତୁ |</string>
   <string name="gameOver">ଖେଳ ସମାପ୍ତ</string>
   <string name="waitingForOpponent">ପ୍ରତିପକ୍ଷକୁ ଅପେକ୍ଷା</string>
   <string name="waiting">ଅପେକ୍ଷା</string>
   <string name="yourTurn">ତୁମର ପାଳି</string>
   <string name="aiNameLevelAiLevel">%1$s ସ୍ତର %2$s</string>
   <string name="level">ସ୍ତର</string>
+  <string name="strength">ଶକ୍ତି</string>
   <string name="toggleTheChat">ଚାଟ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="toggleSound">ଶବ୍ଦ ପରିବର୍ତ୍ତନ କରନ୍ତୁ</string>
   <string name="chat">ଚାଟ୍</string>
@@ -21,9 +22,9 @@
   <string name="createAGame">ଏକ ଖେଳ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="whiteIsVictorious">ଧଳା ବିଜୟୀ ଅଟେ</string>
   <string name="blackIsVictorious">କଳା ବିଜୟୀ ଅଟେ</string>
-  <string name="youPlayTheWhitePieces">ତୁମେ ଧଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
-  <string name="youPlayTheBlackPieces">ତୁମେ କଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛ</string>
-  <string name="itsYourTurn">ଏହା ତୁମର ପାଳି!</string>
+  <string name="youPlayTheWhitePieces">ଆପଣ ଧଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛନ୍ତି</string>
+  <string name="youPlayTheBlackPieces">ଆପଣ କଳା ଖଣ୍ଡଗୁଡ଼ିକ ଖେଳୁଛନ୍ତି</string>
+  <string name="itsYourTurn">ଏହା ଆପଣଙ୍କର ପାଳି!</string>
   <string name="kingInTheCenter">କେନ୍ଦ୍ରରେ ରାଜା |</string>
   <string name="threeChecks">ତିନି ଚେକ୍</string>
   <string name="raceFinished">ରେସ୍ ସମାପ୍ତ</string>
@@ -50,14 +51,24 @@
   <string name="computerAnalysis">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ</string>
   <string name="computerAnalysisAvailable">କମ୍ପ୍ୟୁଟର ବିଶ୍ଳେଷଣ ଉପଲବ୍ଧ</string>
   <string name="analysis">ବୋର୍ଡର ବିଶ୍ଳେଷଣ</string>
+  <string name="usingServerAnalysis">ସର୍ଭର ବିଶ୍ଳେଷଣ ବ୍ୟବହାର ହେଉଛି</string>
+  <string name="loadingEngine">ଇଞ୍ଜିନ୍ ଲୋଡ୍ ହେଉଛି ...</string>
+  <string name="cloudAnalysis">କ୍ଲାଉଡ୍ ବିଶ୍ଳେଷଣ</string>
+  <string name="inLocalBrowser">ସ୍ଥାନୀୟ ବ୍ରାଉଜରରେ |</string>
+  <string name="toggleLocalEvaluation">ସ୍ଥାନୀୟ ମୂଲ୍ୟାଙ୍କନ ଟୋଗଲ୍ କରନ୍ତୁ</string>
+  <string name="makeMainLine">ମୁଖ୍ୟ ରେଖା ବୋନାନ୍ତୁ</string>
   <string name="deleteFromHere">ଏଠାରୁ ବିଲୋପ କରନ୍ତୁ</string>
   <string name="move">ସ୍ଥାନାନ୍ତରିତ କରନ୍ତୁ</string>
   <string name="close">ବନ୍ଦ</string>
   <string name="winning">ଜିତିବା</string>
   <string name="losing">ହାରିବା</string>
+  <string name="unknown">ଅଜ୍ଞାତ</string>
   <string name="database">ଡାଟାବେସ୍</string>
   <string name="recentGames">ସାମ୍ପ୍ରତିକ ଖେଳଗୁଡିକ</string>
+  <string name="topGames">ଶୀର୍ଷ ଖେଳଗୁଡିକ</string>
+  <string name="noGameFound">କୌଣସି ଖେଳ ମିଳିଲା ନାହି</string>
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
+  <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
   <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
@@ -68,6 +79,14 @@
   <string name="removesTheDepthLimit">ଗଭୀରତା ସୀମା ଅପସାରଣ କରେ, ଏବଂ ଆପଣଙ୍କ କମ୍ପ୍ୟୁଟରକୁ ଗରମ ରଖେ</string>
   <string name="blunder">ଗମ୍ଭୀର ଭୁଲ</string>
   <string name="mistake">ଭୁଲ</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s ଗମ୍ଭୀର ତ୍ରୁଟି</item>
+    <item quantity="other">%s ଗମ୍ଭୀର ତ୍ରୁଟିଗୁଡିକ</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s ଭୁଲ</item>
+    <item quantity="other">%s ଭୁଲଗୁଡିକ</item>
+  </plurals>
   <string name="threefoldRepetition">ତିନିଥର ପୁନରାବୃତ୍ତି</string>
   <string name="claimADraw">ଡ୍ର ଦାବି କରନ୍ତୁ</string>
   <string name="offerDraw">ଡ୍ର ଅଫର୍ କରନ୍ତୁ</string>
@@ -105,6 +124,7 @@
   <string name="variants">ପ୍ରକାର ଗୁଡିକ</string>
   <string name="timeControl">ସମୟ ନିୟନ୍ତ୍ରଣ</string>
   <string name="realTime">ପ୍ରକୃତ ସମୟ</string>
+  <string name="correspondence">ବହୁତ ଲମ୍ବା ସମୟ ର ଖେଳ</string>
   <string name="oneDay">ଦିନେ</string>
   <string name="time">ସମୟ</string>
   <string name="rating">ମୂଲ୍ୟାୟନ</string>

@@ -36,11 +36,18 @@
   <string name="normal">ปานกลาง</string>
   <string name="easier">ง่าย</string>
   <string name="easiest">ง่ายที่สุด</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">%s คะแนนน้อยกว่าระดับคะแนนแก้ปริศนาของคุณ</item>
+  </plurals>
   <string name="harder">ยาก</string>
   <string name="hardest">ยากที่สุด</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">%s คะแนนมากกว่าระดับคะแนนแก้ปริศนาของคุณ</item>
+  </plurals>
   <string name="example">ตัวอย่าง</string>
   <string name="addAnotherTheme">เพิ่มธีมใหม่</string>
   <string name="jumpToNextPuzzleImmediately">ข้ามสู่ปริศนาต่อไปทันทีเมื่อแก้ปริศนาปัจจุบันสำเร็จ</string>
+  <string name="puzzleDashboard">กระดานการแก้ปริศนา</string>
   <string name="improvementAreas">จุดอ่อน</string>
   <string name="strengths">จุดแข็ง</string>
   <string name="history">ประวัติการแก้ปริศนา</string>

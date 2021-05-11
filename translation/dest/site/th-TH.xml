@@ -24,6 +24,7 @@
   <string name="youPlayTheWhitePieces">คุณเล่นหมากสีขาว</string>
   <string name="youPlayTheBlackPieces">คุณเล่นหมากสีดำ</string>
   <string name="itsYourTurn">ตาคุณ!</string>
+  <string name="cheatDetected">ตรวจพบการโกง</string>
   <string name="kingInTheCenter">คิงเข้าศูนย์กลาง</string>
   <string name="threeChecks">รุกสามครั้ง</string>
   <string name="raceFinished">แข่งจบแล้ว</string>
@@ -115,6 +116,9 @@
   <string name="inaccuracy">ไม่แม่นยำ</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
   <string name="moveTimes">เวลาที่ใช้ในการเดิน</string>
   <string name="flipBoard">หมุนกระดาน</string>
@@ -772,6 +776,11 @@
   <string name="classical">คลาสสิก</string>
   <string name="important">สำคัญ</string>
   <string name="yourQuestionMayHaveBeenAnswered">คำถามของคุณอาจจะมีคำตอบแล้ว%1$s</string>
+  <string name="subscribe">ติดตาม</string>
+  <string name="unsubscribe">เลิกติดตาม</string>
+  <string name="mentionedYouInX">กล่าวถึงคุณใน \"%1$s\"</string>
+  <string name="xMentionedYouInY">%1$s ได้กล่าวถึงคุณใน \"%2$s\"</string>
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
+  <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
 </resources>

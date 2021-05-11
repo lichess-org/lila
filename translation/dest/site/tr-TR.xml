@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
   <string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
   <string name="itsYourTurn">Sıra sizde!</string>
+  <string name="cheatDetected">Hile Tespit Edildi</string>
   <string name="kingInTheCenter">Şah merkezde</string>
   <string name="threeChecks">Üç şah</string>
   <string name="raceFinished">Yarış bitti</string>

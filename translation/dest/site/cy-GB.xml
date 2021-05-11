@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Chi yw gwyn</string>
   <string name="youPlayTheBlackPieces">Chi yw du</string>
   <string name="itsYourTurn">Dy dro di!</string>
+  <string name="cheatDetected">Twyll wedi ei canfod</string>
   <string name="kingInTheCenter">Teyrn yn y canol</string>
   <string name="threeChecks">Tri siach</string>
   <string name="raceFinished">Rasys drosodd</string>
@@ -105,6 +106,30 @@
   <string name="blunder">Camgymeriad difrifol</string>
   <string name="mistake">Camgymeriad</string>
   <string name="inaccuracy">Wallusrwydd</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s camgymeriad difrifol</item>
+    <item quantity="one">%s camgymeriad difrifol</item>
+    <item quantity="two">%s gamgymeriad difrifol</item>
+    <item quantity="few">%s camgymeriad difrifol</item>
+    <item quantity="many">%s camgymeriad difrifol</item>
+    <item quantity="other">%s camgymeriad difrifol</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s camgymeriad</item>
+    <item quantity="one">%s camgymeriad</item>
+    <item quantity="two">%s gamgymeriad</item>
+    <item quantity="few">%s camgymeriad</item>
+    <item quantity="many">%s camgymeriad</item>
+    <item quantity="other">%s camgymeriad</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s anghywirdeb</item>
+    <item quantity="one">%s anghywirdeb</item>
+    <item quantity="two">%s anghywirdeb</item>
+    <item quantity="few">%s anghywirdeb</item>
+    <item quantity="many">%s anghywirdeb</item>
+    <item quantity="other">%s anghywirdeb</item>
+  </plurals>
   <string name="moveTimes">Amser symudiadau</string>
   <string name="flipBoard">Troi\'r bwrdd</string>
   <string name="threefoldRepetition">Ailadrodd triphlyg</string>

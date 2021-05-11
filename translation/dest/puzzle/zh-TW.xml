@@ -47,4 +47,8 @@
   <string name="history">解題紀錄</string>
   <string name="solved">解決</string>
   <string name="failed">失敗</string>
+  <string name="yourStreakX">您的連勝場數：%s</string>
+  <string name="streakSkipExplanation">跳過這一步來維持您的連勝紀錄！每次遊玩只能使用一次。</string>
+  <string name="continueTheStreak">繼續遊玩</string>
+  <string name="newStreak">新的連勝紀錄</string>
 </resources>

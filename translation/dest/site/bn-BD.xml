@@ -337,13 +337,7 @@
   <string name="pasteThePgnStringHere">এখানে PGN স্ট্রিংটি জোড়া লাগান</string>
   <string name="fromPosition">অবস্থা থেকে</string>
   <string name="continueFromHere">এখান থেকে আবার শুরু করুন</string>
-  <string name="toStudy">অধ্যয়ন
-
-এমনটি নেভিগেশন বারে ব্যবহৃত হয় না - স্টাডিমেনু থেকে আপনি অনুসন্ধান করে স্ট্রিংটি খুঁজে পেতে পারেন।
-
-এই স্ট্রিংটি সেই সময়টার জন্যই যখন আপনি কোনও গেম বিশ্লেষণ করেন এবং সেই বিশ্লেষণকে লাইচেসের স্টাডিতে রেখে দিতে চান। \'স্টাডি\' লেবেলযুক্ত একটি বাটন রয়েছে যেই বাটনটির কাজই এটি । বোতামটি ব্যাবহার করে লাইচেস স্টাডিতে যুক্ত করতে পারবেন। এই সম্পর্কে যদি আপনি না জেনে থাকেন তবে https://lichess. org/study দেখুন।
-
-সাধারণত আমরা অনুবাদ ক্রিয়াপদে করার পরামর্শ দিই, তবে এই ধরনের পরিস্থিতিতে ভাষায় নামপদ ব্যাবহারও গ্রহনযোগ্য।</string>
+  <string name="toStudy">অধ্যায়ন</string>
   <string name="importGame">খেলা আমদানী</string>
   <string name="importGameExplanation">যখন একটি খেলার PGN যোগ করবেন আপনি পাবেন একটি ব্রাউজাবেল উত্তর,
 একটি কম্পিউটার বিশ্লেষণ, একটি খেলা আলাপ এবং একটি ভাগাভাগি করার URL.</string>
@@ -355,12 +349,8 @@
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
   <string name="captcha.fail">দয়া করে দাবার ক্যাপচা সমাধান করুন.</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
-  <string name="whiteCheckmatesInOneMove">সাদা দলের একটি মুভে চেকমেট
-
-আপনি সাদা হয়ে খেলছেন এবং খুজে বের করতে হবে পরের মুভে কিভাবে চেকমেট যায়</string>
-  <string name="blackCheckmatesInOneMove">কালো দলের একটি মুভে চেকমেট
-
-আপনি কালো হয়ে খেলছেন এবং খুজে বের করতে হবে পরের মুভে কিভাবে চেকমেট যায়</string>
+  <string name="whiteCheckmatesInOneMove">সাদা দলের একটি মুভে চেকমেট</string>
+  <string name="blackCheckmatesInOneMove">কালো দলের একটি মুভে চেকমেট</string>
   <string name="retry">আবার চেষ্টা করুন</string>
   <string name="reconnecting">পুনঃসংযোগের চেষ্টা চলছে</string>
   <plurals name="nbFriendsOnline">
@@ -800,10 +790,7 @@
     <item quantity="one">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
     <item quantity="other">এবং সংরক্ষন %s পুনারয়চাল রেখা</item>
   </plurals>
-  <string name="sorry">দুঃখিত :(
-
-দুঃখিত
-খেলা হতে বহিস্কৃত (এইধরনের সতর্কবার্তা প্রদানের কারন অতিরিক্ত গেম পরিত্যাগ করা, খেলার সময় শেষ না হওয়ার আগেই গেম পরিত্যাগ করা..... )</string>
+  <string name="sorry">দুঃখিত :(</string>
   <string name="weHadToTimeYouOutForAWhile">আমাদের কিছুক্ষণের জন্য আপনাকে বিরতি হল।</string>
   <string name="timeoutExpires">সময় লাগবে %s.</string>
   <string name="why">কেন</string>

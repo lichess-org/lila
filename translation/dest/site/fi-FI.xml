@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Sinä pelaat valkeilla</string>
   <string name="youPlayTheBlackPieces">Sinä pelaat mustilla</string>
   <string name="itsYourTurn">Sinun vuorosi!</string>
+  <string name="cheatDetected">Huijaus havaittu</string>
   <string name="kingInTheCenter">Kuningas keskustassa</string>
   <string name="threeChecks">Kolme shakkia</string>
   <string name="raceFinished">Kilpa loppunut</string>

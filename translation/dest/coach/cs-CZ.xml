@@ -3,7 +3,7 @@
   <string name="lichessCoaches">Lichess trenéři</string>
   <string name="lichessCoach">Lichess trenér</string>
   <string name="areYouCoach">Jste skvělý šachový trenér s %s?</string>
-  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM nebo FIDE titul</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM nebo FIDE titulem</string>
   <string name="confirmTitle">Zde potvrďte svůj titul a my zkontrolujeme Vaši žádost.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Pošlete nám e-mail na %s a my Vaši žádost zkontrolujeme.</string>
   <string name="location">Poloha</string>
@@ -30,8 +30,8 @@
     <item quantity="many">%s hodnocení studentů</item>
     <item quantity="other">%s hodnocení studentů</item>
   </plurals>
-  <string name="thankYouForReview">Děkujeme za hodnocení!</string>
-  <string name="xWillApproveIt">%s to schválí velmi brzy, nebo se na to podívá moderátor.</string>
-  <string name="reviewCoach">Poslat recenzi</string>
-  <string name="describeExperienceWith">Popište svůj zážitek z trénováním s %s</string>
+  <string name="thankYouForReview">Děkujeme za recenzi!</string>
+  <string name="xWillApproveIt">%s ji schválí velmi brzy, nebo se na to podívá moderátor.</string>
+  <string name="reviewCoach">Napsat recenzi</string>
+  <string name="describeExperienceWith">Popište svůj zážitek z trénování s %s</string>
 </resources>

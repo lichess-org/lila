@@ -67,6 +67,8 @@ Pro procvičení můžete použít %3$s.</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakování pozice se týká %1$s, nikoliv tahů. Pozice se nemusí opakovat ihned po sobě.</string>
   <string name="positions">pozice</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
+  <string name="threeFoldHasToBeClaimed">Trojí opakování pozice musí potvrdit jeden z hráčů, a to stisknutím tlačítka, které se v případě trojího opakování pozice objeví, či nabídnutím remízy před posledním ze tří opakování, přičemž i v případě, že soupeř remízu odmítne, partie skončí remízou. Lze také %1$s Lichess tak, aby za vás automaticky potvrzoval trojí opakování pozice. Pokud se poté jakákoliv pozice zopakuje pětkrát během partie, hra také ihned skončí remízou.</string>
+  <string name="configure">nakonfigurovat</string>
   <string name="accounts">Účty</string>
   <string name="titlesAvailableOnLichess">Jaké tituly jsou na Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess uznává všechny tituly FIDE pro živou hru (nikoliv online), a také %1$s. Zde je seznam všech titulů FIDE:</string>
@@ -85,9 +87,25 @@ Udělujeme jej pouze zřídka, a to hráčům, kteří se významně zasloužili
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Mohu si změnit své uživatelské jméno?</string>
   <string name="usernamesCannotBeChanged">Ne, uživatelská jména nelze měnit, a to z technických a praktických důvodů. Uživatelská jména jsou uložena na příliš mnoha místech: databázích, lozích a pamětech lidí. Velikost písmen lze upravit, ale pouze jednou.</string>
+  <string name="uniqueTrophies">Unikátní trofeje</string>
   <string name="ownerUniqueTrophies">Tato trofej je jedinečná, a nikdo jiný než %1$s ji nikdy mít nebude.</string>
+  <string name="wayOfBerserkExplanation">Aby trofej získal, musel hiimgosu berserkovat a vyhrát všechny partie %s.</string>
   <string name="aHourlyBulletTournament">hodinový bullet turnaj</string>
+  <string name="goldenZeeExplanation">ZugAddict vysílal živý přenos poslední 2 hodiny, přičemž se snažil porazit AI level 8 v partii 1+0, ale neúspěšně. Thibault ho vyzval, že pokud AI porazí v průběhu jeho živého přenosu, dostane unikátní trofej. O hodinu později Stockfishe porazil, a trofej obdržel.</string>
+  <string name="lichessRatings">Ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Jaký systém hodnocení Lichess využívá?</string>
+  <string name="ratingSystemUsedByLichess">Ratingy se počítají pomocí metody Glicko-2 vyvinuté Markem Glickmanem. Jedná se o velmi populární metodu, a je využívána značným množstvím šachových organizací (není mezi nimi FIDE, jež stále využívá již zastaralou metodu Elo). 
+
+Systém Glicko používá při výpočtu vašeho ratingu tzv. „intervaly spolehlivosti“. Když se zaregistrujete, vaše hodnocení je rovno 1500 bodů s intervalem spolehlivosti 1000 bodů.
+
+To znamená, že systém si je na 95 % jistý, že váš rating je někde mezi 500 a 2500. To je opravdu obrovské rozpětí, a tak je normální, že při prvních pár partií rating hráče poskočí o mnoho bodů najednou, často i několik stovek. Po pár partiích proti hráčům s neprovizorním (bez otazníku) ratingem se interval spolehlivosti vašeho ratingu zúží, a počet bodů získaných/ztracený po každé partii se sníží.
+
+Dále je také nutné poznamenat, že postupem času se interval spolehlivosti zvýší, což umožňuje získat/ztratit ratingové body rychleji tak, aby odpovídaly změnám Vašich šachových schopností.</string>
+  <string name="whatIsProvisionalRating">Proč mám otazník (?) vedle svého hodnocení (ratingu)?</string>
+  <string name="provisionalRatingExplanation">Otazník znamená, že váš rating je provizorní. Důvody mohou být:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Neodehráli jste dostatečné množství hodnocených partií proti %1$s v dané kategorii ratingu (blitz, rapid apod.)</string>
+  <string name="similarOpponents">soupeřům podobné síly</string>
+  <string name="notPlayedRecently">Neodehráli jste dostatečné množství partií v nedávné minulosti. V závislosti na počtu partií, které jste dříve odehráli, může trvat přibližně rok, než se Vaše hodnocení opět stane provizorním.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkrétně to znamená, že odchylka Glicko-2 je větší než 110. Tuto odchylka ukazuje, jak moc si je systém jistý ratingem daného hráčů. Čím menší odchylka, tím stabilnější daný rating je.</string>
   <string name="howDoLeaderoardsWork">Jak fungují žebříčky?</string>
   <string name="inOrderToAppearsYouMust">Chcete-li se dostat na %1$s , musíte:</string>
@@ -105,8 +123,10 @@ Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"a
   <string name="enableZenMode">V %1$s si zapněte zen-mód, či stiskněte %2$s během partie.</string>
   <string name="displayPreferences">předvolbách</string>
   <string name="connexionLostCanIGetMyRatingBack">Kvůli pomalému připojení/ztrátě připojení jsem prohrál partii, mohu získat své ratingové body zpátky?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Bohužel nemůžeme vracet ratingové body za hry, které jste prohráli kvůli ztrátě připojení, bez ohledu na tom, zda byl problém na Vaší či naší straně. Tato druhá možnost je však velmi vzácná. Také si všimněte, že pokud se Lichess restartuje (plánovaně), automaticky přerušujeme všechny partie, aby nedošlo k nespravedlivé prohře na čas.</string>
   <string name="howToThreeDots">Jak...</string>
   <string name="enableDisableNotificationPopUps">Povolit nebo zakázat oznámení?</string>
+  <string name="viewSiteInformationPopUp">Zobrazit vyskakovací okno s informacemi o webu</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess vám také může posílat oznámení, například když jste na tahu či po obdržení soukromé zprávy. 
 Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vyberte zda zablokovat či povolit oznámení.</string>
 </resources>

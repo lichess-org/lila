@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">מאמנים ב-lichess</string>
+  <string name="lichessCoach">מאמן ב-lichess</string>
+  <string name="areYouCoach">האם אתה מאמן שחמט מעולה בדרגת %s?</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">אמן או אמן בכיר</string>
+  <string name="confirmTitle">אשר את דרגתך כאן ואנו נסקור את בקשתך.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">שלח לנו אימייל בכתובת %s ואנו נסקור את בקשתך.</string>
+  <string name="location">מיקום</string>
   <string name="languages">שפות</string>
+  <string name="rating">דירוג</string>
+  <string name="hourlyRate">מחיר לשעה</string>
+  <string name="availability">זמינות</string>
+  <string name="accepting">מקבל תלמידים</string>
+  <string name="notAccepting">לא מקבל תלמידים בזמן זה</string>
+  <string name="xCoachesStudents">%s מאמן תלמידי שחמט</string>
+  <string name="viewXProfile">הצגת הפרופיל של %s</string>
+  <string name="sendPM">שליחת הודעה פרטית</string>
+  <string name="aboutMe">אודות</string>
+  <string name="playingExperience">ניסיון משחק</string>
+  <string name="teachingExperience">ניסיון לימוד</string>
+  <string name="otherExperiences">ניסיון אחר</string>
+  <string name="bestSkills">כישורים</string>
+  <string name="teachingMethod">שיטת לימוד</string>
+  <string name="publicStudies">הלימודים הפומביים שלי</string>
+  <string name="youtubeVideos">סרטוני YouTube</string>
+  <plurals name="studentReviews">
+    <item quantity="one">ביקורות %s תלמידים</item>
+    <item quantity="two">ביקורות %s תלמידים</item>
+    <item quantity="many">ביקורות %s תלמידים</item>
+    <item quantity="other">ביקורות %s תלמידים</item>
+  </plurals>
+  <string name="thankYouForReview">תודה לך על הביקורת!</string>
+  <string name="xWillApproveIt">%s יאשר זאת בהקדם, או מנהל יסתכל על זה.</string>
+  <string name="reviewCoach">דרג את מאמן זה</string>
+  <string name="describeExperienceWith">תאר את חוויית הלמידה שלך עם %s</string>
 </resources>

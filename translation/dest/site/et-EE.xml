@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Sa mängid valgete nuppudega</string>
   <string name="youPlayTheBlackPieces">Sa mängid mustade nuppudega</string>
   <string name="itsYourTurn">Sinu käik!</string>
+  <string name="cheatDetected">Sohk Tuvastatud</string>
   <string name="kingInTheCenter">Kuningas jõudis keskele</string>
   <string name="threeChecks">Kolm tuld</string>
   <string name="raceFinished">Võiduajamine lõpetatud</string>
@@ -464,6 +465,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="tournamentWinners">Turniiri võitjad</string>
   <string name="name">Nimi</string>
   <string name="description">Kirjeldus</string>
+  <string name="descPrivate">Privaatne kirjeldus</string>
+  <string name="descPrivateHelp">Tekst mida näevad ainult võistkonna liikmed. Kui on valitud siis asendatakse avalik kirjeldus võistkonna liikmetele.</string>
   <string name="no">Ei</string>
   <string name="yes">Jah</string>
   <string name="help">Abi:</string>
@@ -484,6 +487,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cheat">Sohk</string>
   <string name="insult">Solvang</string>
   <string name="troll">Troll</string>
+  <string name="ratingManipulation">Reitingu manipulatsioon</string>
   <string name="other">Muu</string>
   <string name="reportDescriptionHelp">Kleebi link mängu(de)st ja selgita, mis on valesti selle kasutaja käitumises. Sõnum käsitletakse kiiremini kui see on kirjutatud inglise keeles.</string>
   <string name="error.provideOneCheatedGameLink">Palun andke vähemalt üks link pettust sisaldavale mängule.</string>
@@ -831,4 +835,9 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="youCannotPostYetPlaySomeGames">Sa ei saa veel foorumisse postitada. Mängi enne paar mängu!</string>
   <string name="subscribe">Telli</string>
   <string name="unsubscribe">Tühista tellimus</string>
+  <string name="mentionedYouInX">mainis sind sõnumis \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mainis sind sõnumis \"%2$s\".</string>
+  <string name="invitedYouToX">kutsub sind \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
 </resources>

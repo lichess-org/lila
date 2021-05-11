@@ -95,7 +95,7 @@ Ikke be om LM-tittelen.</string>
   <string name="usernamesCannotBeChanged">Nei, det er tekniske og praktiske årsaker til at brukernavn ikke kan endres. Brukernavn opptrer for mange steder: databaser, eksporter, logger og folks hoder. Du kan endre mellom store og små bokstaver én gang.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
-  <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne 100%% av partiene i %s.</string>
+  <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne alle partiene i %s.</string>
   <string name="aHourlyBulletTournament">timens Bullet-arena</string>
   <string name="goldenZeeExplanation">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
   <string name="lichessRatings">Lichess-ratinger</string>

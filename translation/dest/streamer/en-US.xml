@@ -15,7 +15,7 @@
   <string name="downloadKit">Download streamer kit</string>
   <string name="xIsStreaming">%s is streaming</string>
   <string name="rules">Streaming rules</string>
-  <string name="rule1">Include the keyword \"lichess.org\" in your stream title when you stream on Lichess.</string>
+  <string name="rule1">Include the keyword \"lichess.org\" in your stream title and use the category \"Chess\" when you stream on Lichess.</string>
   <string name="rule2">Remove the keyword when you stream non-Lichess stuff.</string>
   <string name="rule3">Lichess will detect your stream automatically and enable the following perks:</string>
   <string name="perks">Benefits of streaming with the keyword</string>

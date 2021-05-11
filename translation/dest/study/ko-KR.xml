@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">추가된 날짜(오래된 순)</string>
   <string name="recentlyUpdated">최근에 업데이트된 순</string>
   <string name="mostPopular">인기 많은 순</string>
+  <string name="alphabetical">알파벳 순</string>
   <string name="addNewChapter">새 챕터 추가하기</string>
   <plurals name="nbChapters">
     <item quantity="other">%s 챕터</item>

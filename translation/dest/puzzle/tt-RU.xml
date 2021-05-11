@@ -38,8 +38,14 @@
   <string name="normal">Нормаль</string>
   <string name="easier">Җиңелрәк</string>
   <string name="easiest">Иң җиңелрәге</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">%s сезнең башваткыч рейтингтан бер максад</item>
+  </plurals>
   <string name="harder">Авыррак</string>
   <string name="hardest">Иң авыры</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">%s Сезнең башваткыч рейтингтан бер максад</item>
+  </plurals>
   <string name="example">Мәсәлән</string>
   <string name="addAnotherTheme">Икенче тһеманы өстәргә</string>
   <string name="jumpToNextPuzzleImmediately">Киләсе Башваткычка шунда ук сикерегез</string>
