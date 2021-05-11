@@ -53,6 +53,8 @@ object OAuthScope {
   object Web {
     case object Login
         extends OAuthScope("web:login", "Create authenticated website sessions (grants full access!)")
+    case object Mod
+        extends OAuthScope("web:mod", "Use moderator tools (within the bounds of the user permissions)")
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])

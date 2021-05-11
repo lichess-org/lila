@@ -12,7 +12,7 @@ import lila.insight.{ Dimension, Metric }
 final class Insight(env: Env) extends LilaController(env) {
 
   def refresh(username: String) =
-    OpenOrScoped()(
+    OpenOrScoped(_.Web.Mod)(
       open = implicit ctx =>
         Accessible(username) { user =>
           env.insight.api indexAll user.id inject Ok
