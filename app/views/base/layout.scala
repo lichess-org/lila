@@ -326,14 +326,14 @@ object layout {
             )
         }
       }.some
-      else (isGranted(_.PublicChatView)) option
-        a(
-              cls := "link",
-              title := "Moderation",
-              href := routes.Mod.publicChat,
-              dataIcon := ""
-            )
-
+      else
+        (isGranted(_.PublicChatView)) option
+          a(
+            cls := "link",
+            title := "Moderation",
+            href := routes.Mod.publicChat,
+            dataIcon := ""
+          )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
