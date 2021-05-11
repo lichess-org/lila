@@ -137,20 +137,24 @@ final class RelationApi(
 
   def follow(u1: ID, u2: ID): Funit =
     (u1 != u2) ?? prefApi.followable(u2).flatMap {
-      case false => funit
-      case true =>
-        fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
-          case (Some(Follow), _) => funit
-          case (_, Some(Block))  => funit
-          case _ =>
-            repo.follow(u1, u2) >> limitFollow(u1) >>- {
-              countFollowersCache.update(u2, 1 +)
-              countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
-              timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
-              Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
-              lila.mon.relation.follow.increment().unit
+      _ ?? {
+        userRepo.isEnabled(u2) flatMap {
+          _ ?? {
+            fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
+              case (Some(Follow), _) => funit
+              case (_, Some(Block))  => funit
+              case _ =>
+                repo.follow(u1, u2) >> limitFollow(u1) >>- {
+                  countFollowersCache.update(u2, 1 +)
+                  countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
+                  timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
+                  Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
+                  lila.mon.relation.follow.increment().unit
+                }
             }
+          }
         }
+      }
     }
 
   private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
