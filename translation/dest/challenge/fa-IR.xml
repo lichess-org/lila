@@ -14,4 +14,12 @@
   <string name="declineGeneric">من الان چالش قبول نمی کنم.</string>
   <string name="declineLater">الان زمان خوبی برای من نیست، لطفا بعدا درخواست دهید.</string>
   <string name="declineTooFast">این زمان برای من خیلی کم است، لطفا با زمان بیشتر به من چالش دهید.</string>
+  <string name="declineTooSlow">این زمان برای من خیلی کم است، لطفا با زمان بیشتر به من چالش دهید.</string>
+  <string name="declineTimeControl">من با این زمان چالش قبول نمی کنم.</string>
+  <string name="declineRated">لطفا به من چالش امتیازی بدهید.</string>
+  <string name="declineCasual">لطفا به من چالش غیر امتیازی بدهید.</string>
+  <string name="declineStandard">من الان با این نوع بازی چالش قبول نمی کنم.</string>
+  <string name="declineVariant">من الان دوست ندارم این نوع بازی را بازی کنم.</string>
+  <string name="declineNoBot">من از ربات ها چالش قبول نمی کنم.</string>
+  <string name="declineOnlyBot">من فقط از ربات ها چالش قبول می کنم.</string>
 </resources>
