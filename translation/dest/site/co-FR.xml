@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ghjucate cù i pezzi bianchi</string>
   <string name="youPlayTheBlackPieces">Ghjucate cù i pezzi neri</string>
   <string name="itsYourTurn">Tocca à vò!</string>
+  <string name="cheatDetected">Arrubera Scuperta</string>
   <string name="kingInTheCenter">Rè in u centru</string>
   <string name="threeChecks">Trè scacchi</string>
   <string name="raceFinished">Cora compia</string>
@@ -232,6 +233,8 @@
   <string name="unlimited">Senza limita</string>
   <string name="mode">Modu</string>
   <string name="casual">Senza classifica</string>
+  <string name="rated">Classificatu</string>
+  <string name="casualTournament">Senza classifica</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
@@ -257,6 +260,27 @@
   <string name="send">Mandà</string>
   <string name="incrementInSeconds">Raghjunta in seconde</string>
   <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s partita classificata</item>
+    <item quantity="other">%s partite classificate</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s vittoria</item>
+    <item quantity="other">%s vittorie</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s persa</item>
+    <item quantity="other">%s perse</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s patta</item>
+    <item quantity="other">%s patte</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ghjucata</item>
+    <item quantity="other">%s ghucate</item>
+  </plurals>
+  <string name="exportGames">Spurtà e partite</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
