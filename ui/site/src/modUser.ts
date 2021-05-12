@@ -185,6 +185,6 @@ lichess.load.then(() => {
     $zone.find('button.inquiry').trigger('click')
   );
 
-  const $comms = $('#communication');
-  if ($comms.length) userMod($comms);
+  const $other = $('#communication,main.appeal');
+  if ($other.length) userMod($other);
 });
