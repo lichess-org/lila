@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Zure eskaera taldearen arduradunak gainbegiratuko du.</string>
   <string name="beingReviewed">Taldearen arduraduna zure eskaera gainbegiratzen ari da.</string>
+  <string name="subToTeamMessages">Harpidetu taldearen mezuetara</string>
   <string name="teamBattle">Taldeen arteko txapelketa</string>
   <string name="teamBattleOverview">Hainbat talderen arteko txapelketa, jokalari bakoitzak bere taldearentzat irabazten ditu puntuak</string>
   <string name="teamTournament">Talde barruko txapelketa</string>
   <string name="teamTournamentOverview">Taldeko kideak diren erabiltzaileek bakarrik parte hartu dezaketen txapelketa</string>
+  <string name="swissTournamentOverview">Zure taldeko kideek bakarrik parte hartu dezaketen txapelketa suitzarra</string>
   <string name="messageAllMembers">Kide guztiei mezua bidali</string>
   <string name="messageAllMembersOverview">Taldeko kide guztiei mezu pribatu bat bidali</string>
   <string name="messageAllMembersLongDescription">Taldearen kide guztiei mezua bidali-
