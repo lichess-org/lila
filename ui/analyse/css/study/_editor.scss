@@ -9,15 +9,17 @@
     padding-top: 90px;
   }
 }
-
+$board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
 .board-editor {
   display: grid;
-  grid-template-columns: 280px 2vmin 210px;
-  grid-template-rows: min-content auto min-content;
+  grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
-    'spare-top    . e-pocket-top'
-    'e-board      . e-tools'
-    'spare-bottom . e-pocket-bot';
+  'spare-top'
+  'e-pocket-top'
+  'e-board'
+  'e-pocket-bot'
+  'spare-bottom'
+  'e-tools';
   user-select: none;
   .main-board {
     grid-area: e-board;
@@ -48,5 +50,16 @@
   .metadata {
     background: $c-bg-zebra;
     font-size: 0.9em;
+  }
+}
+
+@include breakpoint($mq-x-small) {
+  .board-editor {
+    grid-template-columns: 320px 2vmin 240px;
+    grid-template-rows: min-content auto min-content;
+    grid-template-areas:
+      'spare-top    . e-pocket-top'
+      'e-board      . e-tools'
+      'spare-bottom . e-pocket-bot';
   }
 }
