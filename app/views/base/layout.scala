@@ -310,7 +310,7 @@ object layout {
     )
 
     private def reports(implicit ctx: Context) =
-      isGranted(_.SeeReport) option {
+      if (isGranted(_.SeeReport)) {
         blockingReportScores match {
           case (score, mid, high) =>
             a(
@@ -325,7 +325,15 @@ object layout {
               dataIcon := ""
             )
         }
-      }
+      }.some
+      else
+        (isGranted(_.PublicChatView)) option
+          a(
+            cls := "link",
+            title := "Moderation",
+            href := routes.Mod.publicChat,
+            dataIcon := ""
+          )
 
     private def teamRequests(implicit ctx: Context) =
       ctx.teamNbRequests > 0 option
