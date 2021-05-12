@@ -126,7 +126,7 @@ object discussion {
     )
 
   private def renderUser(appeal: Appeal, userId: User.ID, asMod: Boolean)(implicit ctx: Context) =
-    if (appeal isAbout userId) userIdLink(userId.some)
+    if (appeal isAbout userId) userIdLink(userId.some, params = asMod ?? "?mod")
     else
       span(
         userIdLink(User.lichessId.some),
