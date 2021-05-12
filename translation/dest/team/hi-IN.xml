@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">आपके सम्मिलित अनुरोध की समीक्षा टीम लीडर द्वारा की जाएगी।</string>
   <string name="beingReviewed">टीम लीडर द्वारा आपके सम्मिलित अनुरोध की समीक्षा की जा रही है।</string>
+  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">टीम संदेश स्वीकार करें</string>
   <string name="teamBattle">टीम युद्ध</string>
   <string name="teamBattleOverview">कई टीमों की लड़ाई, प्रत्येक खिलाड़ी अपनी टीम के लिए स्कोर करता है</string>
   <string name="teamTournament">टीम टूर्नामेंट</string>
   <string name="teamTournamentOverview">एक अखाड़ा टूर्नामेंट जिसमें आपकी टीम के सदस्य ही शामिल हो सकते हैं</string>
+  <string name="swissTournamentOverview">स्विस् प्रतियोगिता जिसमें आपकी टीम के सदस्य ही शामिल हो सकते हैं</string>
   <string name="messageAllMembers">सभी सदस्यों को संदेश दें</string>
   <string name="messageAllMembersOverview">टीम के प्रत्येक सदस्य को एक निजी संदेश भेजें</string>
   <string name="messageAllMembersLongDescription">टीम के सभी सदस्यों को एक निजी संदेश भेजें।
