@@ -12,7 +12,7 @@
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
   <string name="joinTeam">Συμμετοχή στην ομάδα</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
+  <string name="manuallyReviewAdmissionRequests">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Αν ενεργοποιήσετε αυτήν την επιλογή, οι παίκτες θα πρέπει να κάνουν ένα αίτημα για να συμμετέχουν στην ομάδα, το οποίο μπορείτε είτε να απορρίψετε είτε να δεχτείτε.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Αρχηγός ομάδας</item>
