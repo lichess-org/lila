@@ -292,6 +292,7 @@ declare type Key =
   | 'h9'
   | 'i9';
 declare type Uci = string;
+declare type Usi = string;
 declare type San = string;
 declare type Fen = string;
 declare type Ply = number;

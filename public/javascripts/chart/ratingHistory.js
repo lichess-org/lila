@@ -45,14 +45,6 @@ lishogi.ratingHistoryChart = function (data, singlePerfName) {
           'Solid', // Rapid
           'Solid', // Classical
           'ShortDash', // Correspondence
-          'ShortDash', // Chess960
-          'ShortDash', // KotH
-          'ShortDot', // 3+
-          'ShortDot', // Anti
-          'ShortDot', // Atomic
-          'Dash', // Horde
-          'ShortDot', // Racing Kings
-          'Dash', // Crazyhouse
           'Dash', // Puzzle
           'Dash', // Ultrabullet
         ].filter(indexFilter);

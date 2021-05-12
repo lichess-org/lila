@@ -57,19 +57,13 @@ lishogi.studyTourChapter = function (study) {
         when: onTab('game'),
       },
       {
-        title: 'From a FEN string',
+        title: 'From a SFEN string',
         text:
-          'Paste a position in FEN format<br>' +
-          '<i>4k3/4rb2/8/7p/8/5Q2/1PP5/1K6 w</i><br>' +
+          'Paste a position in SFEN format<br>' +
+          '<i>9/3k5/9/9/9/9/9/5K3/9 b</i><br>' +
           'to start the chapter from a position.',
         attachTo: '.study__modal .tabs-horiz .fen top',
         when: onTab('fen'),
-      },
-      {
-        title: 'From a PGN game',
-        text: 'Paste a game in PGN format.<br>' + 'to load moves, comments and variations in the chapter.',
-        attachTo: '.study__modal .tabs-horiz .pgn top',
-        when: onTab('pgn'),
       },
       {
         title: 'Studies support variants',
@@ -79,7 +73,7 @@ lishogi.studyTourChapter = function (study) {
       },
       {
         title: 'Thanks for your time',
-        text: 'Chapters are saved forever.<br>' + 'Have fun organizing your chess content!',
+        text: 'Chapters are saved forever.<br>' + 'Have fun organizing your shogi content!',
         buttons: [
           {
             text: 'Done',

@@ -22,7 +22,6 @@ lishogi.advantageChart = function (data, trans, el, notation) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
             } else if (node.san.includes('#')) {
               cp = color === 1 ? Infinity : -Infinity;
-              if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
               cp = node.eval.cp;
             } else
