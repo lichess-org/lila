@@ -12,7 +12,7 @@
   <string name="noTeamFound">Ешбір топ табылмады</string>
   <string name="joinTeam">Топқа қосылу</string>
   <string name="quitTeam">Топтан шығу</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Қабылдау туралы сұраныстарды жеке қарау</string>
+  <string name="manuallyReviewAdmissionRequests">Қабылдау туралы сұраныстарды жеке қарау</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Егер қосулы болса, ойыншылар топқа қосылу үшін сұраныс жазулары міндет. Ол сұранысты қабылдау не қабылдамауды сіз шешесіз.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Топ жетекшісі</item>
