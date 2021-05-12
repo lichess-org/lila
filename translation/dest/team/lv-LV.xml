@@ -31,10 +31,12 @@
   </plurals>
   <string name="willBeReviewed">Jūsu pieprasījumu pievienoties izskatīs komandas vadītājs.</string>
   <string name="beingReviewed">Jūsu pieprasījumu pievienoties izskata komandas vadītājs.</string>
+  <string name="subToTeamMessages">Abonēt komandas ziņas</string>
   <string name="teamBattle">Komandu cīņa</string>
   <string name="teamBattleOverview">Cīņa starp vairākām komandām — katrs spēlētājs pelna punktus savai komandai</string>
   <string name="teamTournament">Komandas turnīrs</string>
   <string name="teamTournamentOverview">Arēnas turnīrs, kurā var piedalīties vienīgi komandas dalībnieki</string>
+  <string name="swissTournamentOverview">Šveices turnīrs, kam var pievienoties tikai jūsu komandas dalībnieki</string>
   <string name="messageAllMembers">Rakstīt ziņu visiem dalībniekiem</string>
   <string name="messageAllMembersOverview">Sūtīt privātu ziņu katram komandas dalībniekam</string>
   <string name="messageAllMembersLongDescription">Sūtīt ziņu visiem komandas dalībniekiem.
