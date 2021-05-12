@@ -63,8 +63,8 @@
     <item quantity="other">#%1$s място (горен %2$s%%) с %3$s игра в %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Участва в %s шведски турнир</item>
-    <item quantity="other">Участва в %s шведски турнира</item>
+    <item quantity="one">Участва в %s швейцарски турнир</item>
+    <item quantity="other">Участва в %s швейцарски турнира</item>
   </plurals>
   <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Рейтинг #%1$s от %2$s</string>
   <string name="signedUp">Регистрира се в lichess.org</string>
