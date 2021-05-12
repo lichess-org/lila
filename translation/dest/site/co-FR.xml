@@ -340,6 +340,9 @@
   <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
   <string name="xStartedStreaming">%s hà principiatu un streaming</string>
   <string name="averageElo">Mezana di e classificate</string>
+  <string name="location">Cità o paese</string>
+  <string name="filterGames">Filtrà e partite</string>
+  <string name="reset">Rimette à zeru</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
@@ -349,4 +352,14 @@
   <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
   <string name="toStudy">Studià</string>
   <string name="importGame">Impurtà a partita</string>
+  <string name="importGameExplanation">Incollà una partita in PGN pè ottene una scacchera per rivede a partita, una analisa infurmatica, apre una discursata è un URL chì pò esse spartuta.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partita impurtata</item>
+    <item quantity="other">%s partite impurtate</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Hè un CAPTCHA di scacchi.</string>
+  <string name="createdBy">Criatu da</string>
+  <string name="tournamentIsStarting">Principia a ghjustra</string>
+  <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
+  <string name="youArePlaying">Ghjucate avà!</string>
 </resources>
