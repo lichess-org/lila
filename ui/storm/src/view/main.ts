@@ -89,7 +89,7 @@ const renderStart = (ctrl: StormCtrl) =>
 
 const renderReload = (msg: string) =>
   h('div.storm.storm--reload.box.box-pad', [
-    h('i', { attrs: { 'data-icon': '~' } }),
+    h('i', { attrs: { 'data-icon': '.' } }),
     h('p', msg),
     h(
       'a.storm--dup__reload.button',

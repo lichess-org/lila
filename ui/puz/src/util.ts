@@ -28,12 +28,11 @@ export const uciToLastMove = (uci: string): [Key, Key] | [Key] => {
 
 export const puzzlePov = (puzzle: Puzzle) => parseFen(puzzle.fen).unwrap().turn;
 
+const throttleSound = (delay: number, name: string) => throttle(delay, () => window.lishogi.sound[name]());
 
-const throttleSound = (name: string) => throttle(100, () => window.lishogi.sound[name]());
 export const sound = {
-  move: (take: boolean) => throttleSound(take ? 'capture' : 'move'),
-  error: throttleSound('error'),
-  wrong: throttleSound('capture'),
-  good: throttleSound('check'),
-  end: throttleSound('check'),
+  move: (take: boolean = false) => window.lishogi.sound[take ? 'capture' : 'move'](),
+  wrong: throttleSound(1000, 'stormWrong'),
+  good: throttleSound(1000, 'stormGood'),
+  end: throttleSound(5000, 'stormEnd'),
 };

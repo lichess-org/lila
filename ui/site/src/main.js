@@ -654,6 +654,9 @@
       error: 'Error',
       tick: 'Tick',
       period: 'Period',
+      stormGood: 'StormGood',
+      stormWrong: 'StormWrong',
+      stormEnd: 'StormEnd',
     };
     for (var i = 0; i <= 10; i++) names['countDown' + i] = 'CountDown' + i;
 

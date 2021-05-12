@@ -111,13 +111,21 @@ export default class StormCtrl {
     const pos = puzzle.position();
     const uci = makeLishogiUci(move);
 
-    let captureSound = pos.board.occupied.has(move.to);
+    if(isDrop(move) && !pos.isLegal(move)){
+      this.withGround(g =>{
+        this.dropRedraw();
+        cancelDropMode(g.state);
+        g.set(makeCgOpts(this.run, !this.run.endAt));
+      });
+      return;
+    }
 
+    let captureSound = pos.board.occupied.has(move.to);
 
     pos.play(move);
     if (pos.isCheckmate() ||
         uci == puzzle.expectedMove() ||
-        (isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, move.role))
+        (!isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
       ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
@@ -136,7 +144,7 @@ export default class StormCtrl {
       }
       sound.move(captureSound);
     } else {
-      sound.error();
+      sound.wrong();
       this.pushToHistory(false);
       this.run.errors++;
       this.run.combo.reset();
@@ -155,7 +163,7 @@ export default class StormCtrl {
     this.withGround(g =>{
       cancelDropMode(g.state);
       this.vm.dropRedraw = false;
-      g.set(makeCgOpts(this.run, !this.run.endAt))
+      g.set(makeCgOpts(this.run, !this.run.endAt));
     });
     window.lishogi.pubsub.emit('ply', this.run.moves);
   }
@@ -172,8 +180,10 @@ export default class StormCtrl {
   }
 
   dropRedraw = () => {
-    if(this.vm.dropRedraw)
+    if(this.vm.dropRedraw){
+      this.vm.dropRedraw = false;
       this.redrawQuick();
+    }
   }
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
