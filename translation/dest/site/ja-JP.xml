@@ -825,4 +825,5 @@
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>
+  <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
 </resources>
