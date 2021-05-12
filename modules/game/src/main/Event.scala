@@ -78,6 +78,7 @@ object Event {
       check: Boolean,
       threefold: Boolean,
       promotion: Option[Promotion],
+      enpassant: Option[Enpassant],
       castle: Option[Castling],
       state: State,
       clock: Option[ClockEvent],
@@ -94,6 +95,7 @@ object Event {
             "san" -> san
           )
           .add("promotion" -> promotion.map(_.data))
+          .add("enpassant" -> enpassant.map(_.data))
           .add("castle" -> castle.map(_.data))
       }
     override def moveBy = Some(!state.color)
@@ -114,6 +116,9 @@ object Event {
         check = situation.check,
         threefold = situation.threefoldRepetition,
         promotion = move.promotion.map { Promotion(_, move.dest) },
+        enpassant = (move.capture ifTrue move.enpassant).map {
+          Event.Enpassant(_, !move.color)
+        },
         castle = move.castle.map { case (king, rook) =>
           Castling(king, rook, move.color)
         },
@@ -198,6 +203,15 @@ object Event {
         moves.foldLeft(JsObject(Nil)) { case (res, (o, d)) =>
           res + (o.key -> JsString(d map (_.key) mkString))
         }
+  }
+
+  case class Enpassant(pos: Pos, color: Color) extends Event {
+    def typ = "enpassant"
+    def data =
+      Json.obj(
+        "key"   -> pos.key,
+        "color" -> color
+      )
   }
 
   case class Castling(king: (Pos, Pos), rook: (Pos, Pos), color: Color) extends Event {
