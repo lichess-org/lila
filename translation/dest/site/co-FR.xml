@@ -361,5 +361,9 @@
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
+  <string name="standByX">%s, avete da esse appariatu, siate prontu à ghjucà!</string>
   <string name="youArePlaying">Ghjucate avà!</string>
+  <string name="winRate">Percentuale di vittoria</string>
+  <string name="berserkRate">Percentuale di Bersek</string>
+  <string name="performance">Performanza</string>
 </resources>
