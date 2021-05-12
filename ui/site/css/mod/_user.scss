@@ -12,6 +12,10 @@
   }
 }
 
+.mod-zone-full:not(.none) ~ .mod-zone {
+  display: none;
+}
+
 #mz_actions {
   order: 1;
 }
@@ -57,7 +61,7 @@
   order: 10;
 }
 
-#mz_others {
+.mz_others {
   order: 11;
 }
 
@@ -131,10 +135,6 @@
 .mod-zone > * {
   padding: 20px 0 0 0;
   flex: 1 1 100%;
-}
-
-.mod-zone .neural strong {
-  display: inline;
 }
 
 .mod-zone .slist {
@@ -276,7 +276,7 @@
   overflow: auto;
 }
 
-#mz_others {
+.mz_others {
   max-height: 60vh;
   padding-top: 0;
   overflow-y: auto;
@@ -304,7 +304,7 @@
   }
 }
 
-#mz_others thead th {
+.mz_others thead th {
   cursor: pointer;
 
   &:hover {

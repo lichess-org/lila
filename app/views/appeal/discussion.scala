@@ -95,9 +95,9 @@ object discussion {
       ),
       modData map { m =>
         frag(
-          div(cls := "mod-zone none"),
+          div(cls := "mod-zone mod-zone-full none"),
           views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(ctx, m.renderIp)(
-            cls := "communication__logins"
+            cls := "mod-zone communication__logins"
           )
         )
       },
