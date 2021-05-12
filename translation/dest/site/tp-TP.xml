@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">sina kepeken kiwen walo</string>
   <string name="youPlayTheBlackPieces">sina kepeken kiwen pimeja</string>
   <string name="itsYourTurn">sina o musi!</string>
+  <string name="cheatDetected">kepeken ilo li lon</string>
   <string name="kingInTheCenter">mije lawa li lon insa</string>
   <string name="threeChecks">tenpo tu wan la kiwen li utala e mije lawa</string>
   <string name="raceFinished">tawa wawa li pini</string>
