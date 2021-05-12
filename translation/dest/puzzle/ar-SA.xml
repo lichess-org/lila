@@ -16,4 +16,7 @@
   <string name="continueTraining">استمر في التدريب</string>
   <string name="normal">عادي</string>
   <string name="easier">سهل</string>
+  <string name="easiest">سهل جدًا</string>
+  <string name="harder">أصعب</string>
+  <string name="hardest">صعب جدًا</string>
 </resources>
