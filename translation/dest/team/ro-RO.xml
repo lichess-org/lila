@@ -13,7 +13,7 @@
   <string name="noTeamFound">Nu s-a găsit nicio echipă</string>
   <string name="joinTeam">Intră în echipă</string>
   <string name="quitTeam">Ieşi din echipă</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Verificați manual cererile de admitere</string>
+  <string name="manuallyReviewAdmissionRequests">Verificați manual cererile de admitere</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Dacă este bifat, jucătorii vor trebui să scrie o cerere pentru a se alătura echipei, pe care o puteți refuza sau accepta.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lider de echipă</item>
