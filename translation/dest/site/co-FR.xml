@@ -332,6 +332,14 @@
   <string name="yourPerfRatingIsTooLow">A vostra classifica %1$s (%2$s) hè troppu bassa</string>
   <string name="ratedMoreThanInPerf">Ci vole à avè una classifica ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
+  <string name="mustBeInTeam">Ci vole à esse membru di a squadra %s</string>
+  <string name="youAreNotInTeam">Ùn site membru di a squadra %s</string>
+  <string name="backToGame">Turnà in a partita</string>
+  <string name="siteDescription">Hè un situ di scacchi in a reta di rigalu. Ghjucate à i scacchi in un interfaccia chjara. Ùn ci hè nè arregistramentu nè publicità, nè plugin dumandati. Ghjucate à i scacchi contru à l\' urdinatore, amichi, o aversariu di u mondu sanu.</string>
+  <string name="xJoinedTeamY">%1$s hà ghjuntu a squadra %2$s</string>
+  <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
+  <string name="xStartedStreaming">%s hà principiatu un streaming</string>
+  <string name="averageElo">Mezana di e classificate</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
