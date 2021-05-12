@@ -7,7 +7,6 @@
 }
 
 $pocket-col1-height: auto;
-$pocket-height: 60px;
 
 .pocket {
   &-top {
@@ -17,7 +16,7 @@ $pocket-height: 60px;
     grid-area: pocket-bot;
   }
   &-c1 {
-    max-width: $pocket-height;
+    max-width: $square-max;
   }
 }
 
@@ -68,7 +67,7 @@ $pocket-height: 60px;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
-    grid-template-rows: $pocket-height auto $pocket-height;
+    grid-template-rows: $pocket-col2-height auto $pocket-col2-height;
     grid-template-areas:
       'board   gauge pocket-top'
       'board   gauge tools'

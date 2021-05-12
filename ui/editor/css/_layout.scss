@@ -3,7 +3,7 @@
 }
 
 .board-editor {
-  $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+  $board-width: calc((100vh - 5vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
 
   display: grid;
 
@@ -18,8 +18,8 @@
     'copyables';
 
   @include breakpoint($mq-x-small) {
-    grid-template-columns: minmax(30vmin, $board-width) 2vmin minmax(200px, 300px);
-    grid-template-rows: min-content auto min-content;
+    grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, calc(#{$square-min} * 7));
+    grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
       'spare-top    . pocket-top'
       'spare-top    . tools'

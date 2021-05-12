@@ -1,7 +1,6 @@
 @import 'variables';
 
 $pocket-col1-height: auto;
-$pocket-height: 60px;
 
 .pocket {
   &-top {
@@ -9,9 +8,6 @@ $pocket-height: 60px;
   }
   &-bottom {
     grid-area: pocket-bot;
-  }
-  &-c1 {
-    max-width: $pocket-height;
   }
 }
 
@@ -30,7 +26,7 @@ $pocket-height: 60px;
     'chat'
     'uchat';
   @include breakpoint($mq-col2) {
-    grid-template-rows: $pocket-height auto $pocket-height;
+    grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
       'board      gauge pocket-top'
       'board      gauge tools'
@@ -42,7 +38,7 @@ $pocket-height: 60px;
       'uchat      .     side';
   }
   @include breakpoint($mq-col3) {
-    grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
+    grid-template-rows: min-content $chat-height 1fr min-content;
     grid-template-areas:
       'side    . board gauge pocket-top'
       'side    . board gauge tools'
