@@ -12,7 +12,7 @@
   <string name="noTeamFound">Jamoa topilmadi</string>
   <string name="joinTeam">Jamoaga qo\'shilish</string>
   <string name="quitTeam">Jamoani tark etish</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qabul qilish soʻrovlarini koʻrib chiqish</string>
+  <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Agar belgilangan boʻlsa, oʻyinchilar jamoaga qoʻshilish uchun soʻrov yozishlari kerak. Siz ularni inkor yoki qabul qilishingiz mumkin.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Jamoa sardori</item>
