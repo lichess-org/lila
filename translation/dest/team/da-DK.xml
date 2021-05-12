@@ -12,7 +12,7 @@
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gennemgå anmodninger om optagelse manuelt</string>
+  <string name="manuallyReviewAdmissionRequests">Gennemgå anmodninger om optagelse manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Hvis markeret, skal spillere skriftligt anmode om optagelse på holdet, hvilket du kan afvise eller acceptere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
