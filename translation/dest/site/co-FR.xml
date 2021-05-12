@@ -290,6 +290,34 @@
   <string name="openingExplorerAndTablebase">Spluratore d\' apertura &amp; basa d\' apertura</string>
   <string name="takeback">Ripiglià u colpu</string>
   <string name="proposeATakeback">Prupone di ripiglià u colpu</string>
+  <string name="takebackPropositionSent">Pruposta mandata di ripiglià u colpu</string>
+  <string name="takebackPropositionDeclined">Ripigliata di u colpu scartata</string>
+  <string name="takebackPropositionAccepted">Ripigliata di u colpu accettata</string>
+  <string name="takebackPropositionCanceled">Ripigliata di u colpu annullata</string>
+  <string name="yourOpponentProposesATakeback">U vostru avversariu vi prupone di ripiglià u colpu</string>
+  <string name="bookmarkThisGame">Ramintà si di a partita</string>
+  <string name="tournament">Ghjustra</string>
+  <string name="tournaments">Ghjustre</string>
+  <string name="tournamentPoints">Punti in u turneu</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s puntu in u turneu</item>
+    <item quantity="other">%s punti in u turneu</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studiu</item>
+    <item quantity="other">%s studii</item>
+  </plurals>
+  <string name="viewTournament">Vede a ghjustra</string>
+  <string name="backToTournament">Turnà in a ghjustra</string>
+  <string name="thematic">Tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partita classificata</item>
+    <item quantity="other">≥ %s partite classificate</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partita classificata</item>
+    <item quantity="other">≥ %1$s %2$s partite classificate</item>
+  </plurals>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
