@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Je verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
   <string name="beingReviewed">Je verzoek tot deelname wordt beoordeeld door de teamleider.</string>
+  <string name="subToTeamMessages">Abonneren op teamberichten</string>
   <string name="teamBattle">Teamcompetitie</string>
   <string name="teamBattleOverview">Een wedstrijd met meerdere teams, iedere speler scoort punten voor zijn/haar team</string>
   <string name="teamTournament">Teamtoernooi</string>
   <string name="teamTournamentOverview">Een Arenatoernooi waaraan alleen leden van je team mee kunnen doen</string>
+  <string name="swissTournamentOverview">Een Zwitsers toernooi waar enkel leden van je team aan kunnen deelnemen</string>
   <string name="messageAllMembers">Stuur bericht aan alle leden</string>
   <string name="messageAllMembersOverview">Stuur een privébericht aan alle leden van het team</string>
   <string name="messageAllMembersLongDescription">Stuur een privébericht naar alle leden van het team.
