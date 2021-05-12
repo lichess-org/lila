@@ -12,7 +12,7 @@
   <string name="noTeamFound">Inget lag hittat</string>
   <string name="joinTeam">Gå med i lag</string>
   <string name="quitTeam">Lämna lag</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Granska antagningsförfrågningar manuellt</string>
+  <string name="manuallyReviewAdmissionRequests">Granska antagningsförfrågningar manuellt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Om markerad behöver spelare skriva en förfrågning för att gå med i laget, som du kan avslå eller godkänna.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagledare</item>
