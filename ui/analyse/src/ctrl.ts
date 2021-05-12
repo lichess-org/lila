@@ -198,10 +198,8 @@ export default class AnalyseCtrl {
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
-    // Preload sounds to ensure that they'll be unlocked on mobile deviced
-    lichess.sound.loadStandard("move");
-    lichess.sound.loadStandard("capture");
-    lichess.sound.loadStandard("check");
+    // Preload sounds to ensure that they'll be unlocked on mobile devices
+    ['move', 'capture', 'check'].forEach(lichess.sound.loadStandard);
   }
 
   private setPath = (path: Tree.Path): void => {
