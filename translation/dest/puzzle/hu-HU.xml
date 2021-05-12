@@ -39,8 +39,16 @@
   <string name="normal">Közepes</string>
   <string name="easier">Könnyű</string>
   <string name="easiest">Nagyon könnyű</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Egy ponttal az értékszámod alatt</item>
+    <item quantity="other">%s ponttal az értékszámod alatt</item>
+  </plurals>
   <string name="harder">Nehéz</string>
   <string name="hardest">Nagyon nehéz</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Egy ponttal az értékszámod felett</item>
+    <item quantity="other">%s ponttal az értékszámod felett</item>
+  </plurals>
   <string name="example">Példa</string>
   <string name="addAnotherTheme">Új téma hozzáadása</string>
   <string name="jumpToNextPuzzleImmediately">Rögtön a következő feladányhoz ugrás</string>

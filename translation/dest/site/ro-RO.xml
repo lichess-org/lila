@@ -903,4 +903,5 @@
   <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
   <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
+  <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
 </resources>

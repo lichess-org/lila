@@ -925,4 +925,5 @@
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
   <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
+  <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
 </resources>

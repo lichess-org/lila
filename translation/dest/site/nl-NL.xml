@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
+  <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
 </resources>

@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
   <string name="refundXpointsTimeControlY">Remboursement : %1$s point(s) de cote – %2$s.</string>
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
+  <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse e-mail]</string>
 </resources>

@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">چالش بازی</string>
+  <string name="challengeToPlay">دعوت به بازی</string>
+  <string name="challengeDeclined">چالش از طرف حریف قبول نشد</string>
+  <string name="challengeAccepted">چالش از طرف حریف قبول شد!</string>
+  <string name="challengeCanceled">چالش از طرف خودتان بسته شد.</string>
+  <string name="registerToSendChallenges">لطفا یک حساب بسازید تا بتوانید به بازیکننان چالش بازی دهید.</string>
+  <string name="youCannotChallengeX">شما نمی توانید به %s چالش دهید.</string>
+  <string name="xDoesNotAcceptChallenges">بازیکن %s چالش شما را قبول نکرد.</string>
+  <string name="yourXRatingIsTooFarFromY">امتیاز %1$s شما از امتیاز حریف خیلی فاصله دارد %2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">به علت امتیاز %s غیر قطعی،امکان ارسال درخواست بازی وجود ندارد.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s فقط از دوستان خود پالش قبول می کند.</string>
+  <string name="declineGeneric">من الان چالش قبول نمی کنم.</string>
+  <string name="declineLater">الان زمان خوبی برای من نیست، لطفا بعدا درخواست دهید.</string>
+  <string name="declineTooFast">این زمان برای من خیلی کم است، لطفا با زمان بیشتر به من چالش دهید.</string>
+  <string name="declineTooSlow">این زمان برای من خیلی کم است، لطفا با زمان بیشتر به من چالش دهید.</string>
+  <string name="declineTimeControl">من با این زمان چالش قبول نمی کنم.</string>
+  <string name="declineRated">لطفا به من چالش امتیازی بدهید.</string>
+  <string name="declineCasual">لطفا به من چالش غیر امتیازی بدهید.</string>
+  <string name="declineStandard">من الان با این نوع بازی چالش قبول نمی کنم.</string>
+  <string name="declineVariant">من الان دوست ندارم این نوع بازی را بازی کنم.</string>
+  <string name="declineNoBot">من از ربات ها چالش قبول نمی کنم.</string>
+  <string name="declineOnlyBot">من فقط از ربات ها چالش قبول می کنم.</string>
+</resources>

@@ -864,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
+  <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
 </resources>
