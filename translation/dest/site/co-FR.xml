@@ -318,6 +318,20 @@
     <item quantity="one">≥ %1$s %2$s partita classificata</item>
     <item quantity="other">≥ %1$s %2$s partite classificate</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Ci vole à ghjucà %1$s partita classificata di %2$s in più</item>
+    <item quantity="other">Ci vole à ghjucà %1$s partite classificate di %2$s in più</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ci vole à ghjucà %s partita classificata in più</item>
+    <item quantity="other">Ci vole à ghjucà %s partite classificate in più</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Avete una classifica pruvisoria di %s</string>
+  <string name="yourPerfRatingIsTooHigh">A vostra classifica %1$s (%2$s) hè troppu alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">A vostra classifica à più alta di a settimana %1$s (%2$s) hè troppu alta</string>
+  <string name="yourPerfRatingIsTooLow">A vostra classifica %1$s (%2$s) hè troppu bassa</string>
+  <string name="ratedMoreThanInPerf">Ci vole à avè una classifica ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
