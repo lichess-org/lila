@@ -37,10 +37,12 @@
   </plurals>
   <string name="willBeReviewed">Déanfaidh do ceannaire foirne athbhreithniú ar d’iarratas isteach.</string>
   <string name="beingReviewed">Tá ceannaire foirne ag athbhreithniú d’iarratas ar bheith páirteach.</string>
+  <string name="subToTeamMessages">Liostáil le teachtaireachtaí foirne</string>
   <string name="teamBattle">Cath Foirne</string>
   <string name="teamBattleOverview">Cath ilfhoirne, scórálann gach ficheallaí pointí dá bhfoireann</string>
   <string name="teamTournament">Comórtas foirne</string>
   <string name="teamTournamentOverview">Comórtas Láthair nach féidir ach baill d’fhoireann ficheallaithe a bheith páirteach ann</string>
+  <string name="swissTournamentOverview">Comórtas Swiss nach féidir ach le baill d’fhoireann a bheith páirteach ann</string>
   <string name="messageAllMembers">Cuir teachtaireacht chuig gach ball</string>
   <string name="messageAllMembersOverview">Seol teachtaireacht phríobháideach chuig gach ball den fhoireann</string>
   <string name="messageAllMembersLongDescription">Seol teachtaireacht phríobháideach chuig GACH ball den fhoireann.
