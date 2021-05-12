@@ -33,7 +33,7 @@
   <string name="teamBattleOverview">Une bataille de plusieurs équipes, chaque joueur marque des points pour son équipe</string>
   <string name="teamTournament">Tournoi arène pour l\'équipe</string>
   <string name="teamTournamentOverview">Un tournoi d\'arène auquel seuls les membres de votre équipe peuvent participer</string>
-  <string name="swissTournamentOverview">Un tournoi suisse auquel seuls les membres de votre équipe peuvent participer</string>
+  <string name="swissTournamentOverview">Tournoi suisse auquel seuls les membres de votre équipe peuvent participer</string>
   <string name="messageAllMembers">Contacter tous les membres</string>
   <string name="messageAllMembersOverview">Envoyer un message privé à tous les membres de l\'équipe</string>
   <string name="messageAllMembersLongDescription">Envoyez un message privé à TOUS les membres de l\'équipe.
