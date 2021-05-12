@@ -11,7 +11,7 @@
   <string name="noTeamFound">không tìm thấy đội</string>
   <string name="joinTeam">Tham gia đội</string>
   <string name="quitTeam">Rời đội</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Yêu cầu xét duyệt</string>
+  <string name="manuallyReviewAdmissionRequests">Yêu cầu xét duyệt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Nếu chọn, người chơi sẽ cần viết yêu cầu gia nhập đội, bạn có thể từ chối hoặc chấp nhận.</string>
   <plurals name="teamLeaders">
     <item quantity="other">Đội trưởng</item>
