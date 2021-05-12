@@ -5,6 +5,9 @@ import { Config as CgConfig } from 'shogiground/config';
 import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Redraw, Promotion } from './interfaces';
+import {defined} from 'common';
+import {canPiecePromote, promote as sPromote} from 'shogiops/util';
+import {parseChessSquare} from 'shogiops/compat';
 
 export default function (
   withGround: <A>(f: (cg: CgApi) => A) => A | false,
@@ -13,17 +16,15 @@ export default function (
 ): Promotion {
   let promoting: any = false;
 
-  function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: Role) => void) {
+  function start(orig: Key, dest: Key, callback: (orig: Key, key: Key, prom: boolean) => void) {
     return !!withGround(g => {
       const piece = g.state.pieces.get(dest);
-      if (
-        piece &&
-        piece.role == 'pawn' &&
-        ((dest[1] == '8' && g.state.turnColor == 'gote') || (dest[1] == '1' && g.state.turnColor == 'sente'))
-      ) {
+      if (!defined(piece)) return false;
+      if (canPiecePromote(piece, parseChessSquare(orig)!, parseChessSquare(dest)!)) {
         promoting = {
           orig: orig,
           dest: dest,
+          role: piece.role,
           callback: callback,
         };
         redraw();
@@ -35,7 +36,7 @@ export default function (
 
   function promote(g: CgApi, key: Key, role: Role): void {
     const piece = g.state.pieces.get(key);
-    if (piece && piece.role == 'pawn') {
+    if (piece && ['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(piece.role)) {
       g.setPieces(
         new Map([
           [
@@ -52,8 +53,9 @@ export default function (
   }
 
   function finish(role: Role): void {
-    if (promoting) withGround(g => promote(g, promoting.dest, role));
-    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
+    const promoted = !['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role);
+    if (promoting && promoted) withGround(g => promote(g, promoting.dest, role));
+    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoted);
     promoting = false;
   }
 
@@ -68,9 +70,9 @@ export default function (
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
-    let left = (7 - cgUtil.key2pos(dest)[0]) * 12.5;
-    if (orientation === 'sente') left = 87.5 - left;
+    let left = (8 - cgUtil.key2pos(dest)[0]) * 11.11;
 
+    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * 11.11;
     const vertical = color === orientation ? 'top' : 'bottom';
 
     return h(
@@ -82,7 +84,9 @@ export default function (
         }),
       },
       pieces.map(function (serverRole, i) {
-        const top = (color === orientation ? i : 7 - i) * 12.5;
+        let top = (color === orientation ? i : 8 - i) * 11.11;
+        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * 11.11 + 0.35;
+
         return h(
           'square',
           {
@@ -105,7 +109,12 @@ export default function (
     cancel,
     view() {
       if (!promoting) return;
-      const pieces: Role[] = ['knight', 'rook', 'bishop'];
+      let pieces: Role[] = [];
+      withGround(g => {
+        pieces = g.state.turnColor === 'sente'
+          ? [sPromote(promoting.role), promoting.role]
+          : [promoting.role, sPromote(promoting.role)];
+      });
       return (
         withGround(g =>
           renderPromotion(promoting.dest, pieces, cgUtil.opposite(g.state.turnColor), g.state.orientation)

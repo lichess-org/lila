@@ -1,15 +1,30 @@
+.pocket {
+  &-top {
+    grid-area: pocket-top;
+  }
+  &-bottom {
+    grid-area: pocket-bot;
+  }
+  &-c1 {
+    max-width: $square-max;
+  }
+}
+
 .storm {
   &--play {
     display: grid;
 
     grid-row-gap: $block-gap;
     grid-column-gap: $block-gap;
-    grid-template-areas: 'board' 'side';
+    grid-template-areas: 'pocket-top' 'board' 'pocket-bot' 'side';
 
     @include breakpoint($mq-col2) {
-      grid-template-columns: $col2-uniboard-width $col2-uniboard-table;
-      grid-template-rows: fit-content(0);
-      grid-template-areas: 'board   side';
+      grid-template-columns: $col2-uniboard-width $col3-uniboard-table;
+      grid-template-rows: min-content 1fr min-content;
+      grid-template-areas:
+      'board   pocket-top'
+      'board   side'
+      'board   pocket-bot';
     }
   }
 }

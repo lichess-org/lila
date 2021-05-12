@@ -19,7 +19,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
+  private val theme        = lila.puzzle.PuzzleTheme.tsume.key.value
   private val tier         = lila.puzzle.PuzzleTier.Good.key
   private val maxDeviation = 85
 
@@ -48,12 +48,6 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
           .path {
             _.aggregateList(poolSize) { framework =>
               import framework._
-              val fenColorRegex = $doc(
-                "$regexMatch" -> $doc(
-                  "input" -> "$fen",
-                  "regex" -> { if (scala.util.Random.nextBoolean()) " w " else " b " }
-                )
-              )
               Facet(
                 ratingBuckets.map { case (rating, nbPuzzles) =>
                   rating.toString -> List(
@@ -66,8 +60,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                     Sample(1),
                     Project($doc("_id" -> false, "ids" -> true)),
                     UnwindField("ids"),
-                    // ensure we have enough after filtering deviation & color
-                    Sample(nbPuzzles * 7),
+                    // ensure we have enough after filtering deviation
+                    Sample(nbPuzzles * 5),
                     PipelineOperator(
                       $doc(
                         "$lookup" -> $doc(
@@ -77,11 +71,11 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
                           "pipeline" -> $arr(
                             $doc(
                               "$match" -> $doc(
+                                "gameId" -> $exists(false),
                                 "$expr" -> $doc(
                                   "$and" -> $arr(
                                     $doc("$eq"  -> $arr("$_id", "$$id")),
-                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation)),
-                                    fenColorRegex
+                                    $doc("$lte" -> $arr("$glicko.d", maxDeviation))
                                   )
                                 )
                               )

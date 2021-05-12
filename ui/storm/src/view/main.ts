@@ -9,6 +9,7 @@ import { makeConfig as makeCgConfig } from 'puz/view/shogiground';
 import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { VNode } from 'snabbdom/vnode';
+import  HandView from '../hands/handView';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -31,7 +32,16 @@ const shogiground = (ctrl: StormCtrl): VNode =>
         ctrl.ground(
           Shogiground(
             vnode.elm as HTMLElement,
-            makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt), ctrl.pref, ctrl.userMove)
+            makeCgConfig(
+              makeCgOpts(
+                ctrl.run,
+                !ctrl.run.endAt
+              ),
+              ctrl.pref,
+              ctrl.userMove,
+              ctrl.userDrop,
+              ctrl.dropRedraw
+            )
           )
         ),
     },
@@ -41,11 +51,13 @@ const renderBonus = (bonus: number) => `${bonus}s`;
 
 const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.puz-board.main-board', [shogiground(ctrl), ctrl.promotion.view()]),
+  HandView(ctrl, 'top'),
   h('div.puz-side', [
     ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
     renderClock(ctrl.run, ctrl.endNow, true),
     h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
   ]),
+  HandView(ctrl, 'bottom'),
 ];
 
 const renderSolved = (ctrl: StormCtrl): VNode =>
@@ -72,7 +84,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
 const renderStart = (ctrl: StormCtrl) =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', ctrl.trans('moveToStart'))])
+    h('div.puz-side__start__text', [h('strong', 'Tsume Storm'), h('span', ctrl.trans('moveToStart'))])
   );
 
 const renderReload = (msg: string) =>

@@ -1,11 +1,8 @@
 import * as miniBoard from 'common/mini-board';
 import StormCtrl from '../ctrl';
-import { Shogi } from 'shogiops/shogi';
 import { getNow, onInsert } from 'puz/util';
 import { h } from 'snabbdom';
 import { numberSpread } from 'common/number';
-import { parseFen, makeFen } from 'shogiops/fen';
-import { parseLishogiUci } from 'shogiops/compat';
 import { VNode } from 'snabbdom/vnode';
 
 const renderEnd = (ctrl: StormCtrl): VNode[] => [...renderSummary(ctrl), renderHistory(ctrl)];
@@ -119,10 +116,8 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                   target: '_blank',
                 },
                 hook: onInsert(e => {
-                  const pos = Shogi.fromSetup(parseFen(round.puzzle.fen).unwrap(), false).unwrap();
-                  const uci = round.puzzle.line.split(' ')[0];
-                  pos.play(parseLishogiUci(uci)!);
-                  miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+                  // tsume starts always from sente side
+                  miniBoard.initWith(e, round.puzzle.fen, 'sente');
                 }),
               }),
               h('span.storm--end__history__round__meta', [

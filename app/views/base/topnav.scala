@@ -38,8 +38,8 @@ object topnav {
         div(role := "group")(
           a(href := routes.Puzzle.home)(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
-          a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume())
-          //a(href := routes.Storm.home)("Puzzle Storm"),
+          a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume()),
+          a(href := routes.Storm.home)("Tsume Storm"),
         )
       ),
       st.section(
@@ -48,7 +48,6 @@ object topnav {
           ctx.noBot option frag(
             a(href := routes.Learn.index())(trans.chessBasics()),
             ctx.noKid option a(href := routes.Page.resources())(trans.shogiResources()),
-            //a(href := routes.Page.notSupported())(trans.puzzles()), // puzzle
             //a(href := routes.Practice.index())(trans.practice()),
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
           ),

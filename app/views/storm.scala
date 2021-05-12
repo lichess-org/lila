@@ -28,7 +28,7 @@ object storm {
           )
         )})})""")
       ),
-      title = "Puzzle Storm",
+      title = "Tsume Storm",
       zoomable = true,
       shogiground = false
     ) {
@@ -49,7 +49,7 @@ object storm {
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Page.loneBookmark("storm"))("About Puzzle Storm")
+          a(href := routes.Page.loneBookmark("storm"))("About Tsume Storm")
         )
       )
     }
@@ -73,7 +73,7 @@ object storm {
 
   def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(implicit ctx: Context) =
     views.html.base.layout(
-      title = s"${user.username} Puzzle Storm",
+      title = s"${user.username} Tsume Storm",
       moreCss = frag(cssTag("storm.dashboard")),
       moreJs = infiniteScrollTag
     )(
@@ -84,7 +84,7 @@ object storm {
               userLink(user),
               " • "
             ),
-            "Puzzle Storm • ",
+            "Tsume Storm • ",
             trans.storm.highscores()
           ),
           div(cls := "storm-dashboard__high__periods highlight-alltime")(

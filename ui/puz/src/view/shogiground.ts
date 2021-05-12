@@ -1,9 +1,9 @@
 import changeColorHandle from 'common/coordsColor';
 import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'shogiground/config';
-import { PuzPrefs, UserMove } from '../interfaces';
+import { PuzPrefs, UserDrop, UserMove } from '../interfaces';
 
-export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): CgConfig {
+export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove, userDrop: UserDrop, redraw: () => void): CgConfig {
   return {
     fen: opts.fen,
     orientation: opts.orientation,
@@ -27,13 +27,26 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     },
     events: {
       move: userMove,
+      dropNewPiece: userDrop,
       insert(elements) {
         resizeHandle(elements, 1, 0, p => p == 0);
         if (pref.coords == 1) changeColorHandle();
       },
+      select: () => {
+        if (!opts.dropmode?.active) {
+          redraw();
+        }
+      },
     },
     premovable: {
       enabled: false,
+    },
+    predroppable: {
+      enabled: false,
+    },
+    dropmode: {
+      dropDests: opts.dropmode!.dropDests,
+      showDropDests: pref.destination && pref.dropDestination,
     },
     drawable: {
       enabled: true,

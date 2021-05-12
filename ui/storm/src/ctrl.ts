@@ -5,18 +5,21 @@ import sign from 'puz/sign';
 import { Api as CgApi } from 'shogiground/api';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
-import { parseLishogiUci } from 'shogiops/compat';
+import { makeLishogiUci, parseChessSquare, parseLishogiUci } from 'shogiops/compat';
 import { prop, Prop } from 'common';
-import { Role } from 'shogiground/types';
+import { Piece, Role } from 'shogiground/types';
 import { StormOpts, StormData, StormVm, StormRecap, StormPrefs } from './interfaces';
 import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
+import {isDrop, Move, PocketRole} from 'shogiops/types';
+import {SquareSet} from 'shogiops/squareSet';
+import {cancelDropMode} from 'shogiground/drop';
 
 export default class StormCtrl {
   private data: StormData;
-  private redraw: () => void;
+  redraw: () => void;
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
@@ -46,6 +49,7 @@ export default class StormCtrl {
       lateStart: false,
       filterFailed: false,
       filterSlow: false,
+      dropRedraw: false,
     };
     this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, !this.run.endAt), this.redraw);
     this.checkDupTab();
@@ -81,17 +85,40 @@ export default class StormCtrl {
     if (!this.promotion.start(orig, dest, this.playUserMove)) this.playUserMove(orig, dest);
   };
 
-  playUserMove = (orig: Key, dest: Key, promotion?: Role): void => {
+  userDrop = (piece: Piece, dest: Key): void => {
+    const move = {
+      role: piece.role as PocketRole,
+      to: parseChessSquare(dest)!
+    }
+    this.finishMoveOrDrop(move);
+  }
+
+  playUserMove = (orig: Key, dest: Key, promotion?: boolean): void => {
+    const move = {
+      from: parseChessSquare(orig)!,
+      to: parseChessSquare(dest)!,
+      promotion: !!promotion
+    };
+    this.finishMoveOrDrop(move)
+  };
+
+  private finishMoveOrDrop(move: Move){
     this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
+
     const puzzle = this.run.current;
-    const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
     const pos = puzzle.position();
-    const move = parseLishogiUci(uci)!;
+    const uci = makeLishogiUci(move);
+
     let captureSound = pos.board.occupied.has(move.to);
+
+
     pos.play(move);
-    if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+    if (pos.isCheckmate() ||
+        uci == puzzle.expectedMove() ||
+        (isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, move.role))
+      ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
       this.run.modifier.moveAt = getNow();
@@ -109,7 +136,7 @@ export default class StormCtrl {
       }
       sound.move(captureSound);
     } else {
-      window.lishogi.sound.play('error');
+      sound.error();
       this.pushToHistory(false);
       this.run.errors++;
       this.run.combo.reset();
@@ -125,10 +152,29 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt)));
+    this.withGround(g =>{
+      cancelDropMode(g.state);
+      this.vm.dropRedraw = false;
+      g.set(makeCgOpts(this.run, !this.run.endAt))
+    });
     window.lishogi.pubsub.emit('ply', this.run.moves);
-  };
+  }
 
+  // When not promotion isn't an option uci in solution might not contain '+'
+  private isForcedPromotion(u1: string, u2: string, turn: Color, role?: Role): boolean {
+    const m1 = parseLishogiUci(u1);
+    const m2 = parseLishogiUci(u2);
+    if (!role || !m1 || !m2 || isDrop(m1) || isDrop(m2) || m1.from != m2.from || m1.to != m2.to) return false;
+    return (
+      (role === 'knight' && SquareSet.backrank2(turn).has(m1.to)) ||
+      ((role === 'pawn' || role === 'lance') && SquareSet.backrank(turn).has(m1.to))
+    );
+  }
+
+  dropRedraw = () => {
+    if(this.vm.dropRedraw)
+      this.redrawQuick();
+  }
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
 

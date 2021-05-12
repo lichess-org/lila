@@ -5,24 +5,22 @@ import shogi.format.{ FEN, Forsyth, Uci }
 
 import lila.puzzle.Puzzle
 
+// Only tsume puzzles that are NOT from games
 case class StormPuzzle(
     id: Puzzle.Id,
     fen: String,
-    line: NonEmptyList[Uci.Move],
+    line: NonEmptyList[Uci],
     rating: Int
 ) {
   // ply after "initial move" when we start solving
-  def initialPly: Int =
+  def initialPly: Int = {
     fen.split(' ').lift(3).flatMap(_.toIntOption) ?? { move =>
-      move
+      move - 1
     }
+  }
 
-  lazy val fenAfterInitialMove: FEN = {
-    for {
-      sit1 <- Forsyth << fen
-      sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
-    } yield FEN(Forsyth >> sit2)
-  } err s"Can't apply puzzle $id first move"
+  lazy val fenAfterInitialMove: FEN = FEN(fen)
 
-  def color = Forsyth.getColor(fen).fold[shogi.Color](shogi.Sente)(!_)
+  def color: shogi.Color =
+    Forsyth.getColor(fen).getOrElse(shogi.Sente)
 }

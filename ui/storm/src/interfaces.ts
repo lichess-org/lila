@@ -23,6 +23,7 @@ export interface StormVm {
   lateStart: boolean;
   filterFailed: boolean;
   filterSlow: boolean;
+  dropRedraw: boolean;
 }
 
 export interface DailyBest {

@@ -17,7 +17,7 @@ private object StormBsonHandlers {
       id      <- r.getAsTry[Puzzle.Id]("_id")
       fen     <- r.getAsTry[String]("fen")
       lineStr <- r.getAsTry[String]("line")
-      line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
+      line    <- lineStr.split(' ').toList.flatMap(Uci.apply).toNel.toTry("Empty move list?!")
       rating  <- r.getAsTry[Int]("rating")
     } yield StormPuzzle(id, fen, line, rating)
   }

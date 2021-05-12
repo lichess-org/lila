@@ -69,8 +69,8 @@ object side {
         showPerf(u.perfs.correspondence, PerfType.Correspondence),
         br,
         // br, todo variant
-        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle)
-        // u.noBot option showStorm(u.perfs.storm, u)
+        u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
+        u.noBot option showStorm(u.perfs.storm, u)
       )
     )
   }
@@ -83,7 +83,7 @@ object side {
       ),
       href := routes.Storm.dashboardOf(user.username),
       span(
-        h3("Puzzle Storm"),
+        h3("Tsume Storm"),
         st.rating(
           strong(storm.score),
           storm.nonEmpty option frag(

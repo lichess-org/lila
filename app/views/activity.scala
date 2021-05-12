@@ -20,7 +20,7 @@ object activity {
             a.patron map renderPatron,
             a.practice map renderPractice,
             a.puzzles map renderPuzzles,
-//            a.storm map renderStorm,
+            a.storm map renderStorm,
             a.games map renderGames,
             a.posts map renderPosts,
             a.corresMoves map { case (nb, povs) =>
@@ -92,7 +92,7 @@ object activity {
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm
-          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Puzzle Storm"))
+          .plural(s.runs, s.runs.localize, a(href := routes.Storm.home)("Tsume Storm"))
       )
     )
 

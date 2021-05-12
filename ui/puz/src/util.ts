@@ -1,7 +1,7 @@
 import { Hooks } from 'snabbdom/hooks';
 import { Puzzle } from './interfaces';
-import { opposite } from 'shogiops';
 import { parseFen } from 'shogiops/fen';
+import throttle from 'common/throttle';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -21,18 +21,19 @@ export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks 
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const uciToLastMove = (uci: string): [Key, Key] => [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+export const uciToLastMove = (uci: string): [Key, Key] | [Key] => {
+  if(uci[1] === '*') return [uci.substr(2, 2) as Key];
+  return [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
+}
 
-export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
+export const puzzlePov = (puzzle: Puzzle) => parseFen(puzzle.fen).unwrap().turn;
 
-export const loadSound = (file: string, volume?: number, delay?: number) => {
-  setTimeout(() => window.lishogi.sound.loadOggOrMp3(file, `${window.lishogi.sound.baseUrl}/${file}`), delay || 1000);
-  return () => window.lishogi.sound.play(file, volume);
-};
 
+const throttleSound = (name: string) => throttle(100, () => window.lishogi.sound[name]());
 export const sound = {
-  move: (take: boolean) => window.lishogi.sound.play(take ? 'capture' : 'move'),
-  good: loadSound('lisp/PuzzleStormGood', 0.9, 1000),
-  wrong: loadSound('lisp/Error', 0.5, 1000),
-  end: loadSound('lisp/PuzzleStormEnd', 1, 5000),
+  move: (take: boolean) => throttleSound(take ? 'capture' : 'move'),
+  error: throttleSound('error'),
+  wrong: throttleSound('capture'),
+  good: throttleSound('check'),
+  end: throttleSound('check'),
 };
