@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">lon pi poki pi jan utala</string>
+  <string name="averageScoreAsWhiteX">nanpa insa kepeken kule walo li %s</string>
+  <string name="averageScoreAsBlackX">nanpa insa kepeken kule neko li %s</string>
   <string name="startTraining">o open kama sona</string>
 </resources>
