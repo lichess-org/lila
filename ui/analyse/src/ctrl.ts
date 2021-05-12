@@ -199,7 +199,7 @@ export default class AnalyseCtrl {
     this.fork = makeFork(this);
 
     // Preload sounds to ensure that they'll be unlocked on mobile devices
-    ['move', 'capture', 'check'].forEach(lichess.sound.loadStandard);
+    ['move', 'capture', 'check'].forEach(s => lichess.sound.loadStandard(s));
   }
 
   private setPath = (path: Tree.Path): void => {
