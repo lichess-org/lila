@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">A csatlakozási kérelmet a csapatvezető fogja elbírálni.</string>
   <string name="beingReviewed">A csatlakozási kérelem elbírálás alatt van a csapatvezetőnél.</string>
+  <string name="subToTeamMessages">Feliratkozás a csapat üzeneteire</string>
   <string name="teamBattle">Csapatverseny</string>
   <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
   <string name="teamTournament">Csapaton belüli verseny</string>
   <string name="teamTournamentOverview">Olyan verseny, amiben csak a csapattagok vehetnek részt</string>
+  <string name="swissTournamentOverview">Svájci rendszerű verseny kizárólag csapattársak részére</string>
   <string name="messageAllMembers">Üzenet minden tagnak</string>
   <string name="messageAllMembersOverview">Privát üzenet küldése minden csapattag részére</string>
   <string name="messageAllMembersLongDescription">Privát üzenet küldése MINDEN csapattag részére.
