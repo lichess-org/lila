@@ -14,7 +14,7 @@
   <string name="noTeamFound">Ni najdenih ekip</string>
   <string name="joinTeam">Pridruži se ekipi</string>
   <string name="quitTeam">Zapusti ekipo</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ročno preglejte zahteve za sprejem</string>
+  <string name="manuallyReviewAdmissionRequests">Ročno preglejte zahteve za sprejem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Če je polje potrjeno, bodo morali igralci napisati zahtevo za pridružitev ekipi, ki jo lahko zavrnete ali sprejmete.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vodja ekipe</item>
