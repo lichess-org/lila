@@ -13,7 +13,7 @@
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
   <string name="quitTeam">Pamest komandu</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Izskatīt katru pievienošanās pieprasījumu</string>
+  <string name="manuallyReviewAdmissionRequests">Izskatīt katru pievienošanās pieprasījumu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ja iespējosiet, spēlētājiem būs jāiesniedz pieprasījums pievienoties komandai, kuru jūs varat noraidīt vai pieņemt.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">Komandas vadītāji</item>
