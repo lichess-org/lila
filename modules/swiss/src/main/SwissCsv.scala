@@ -12,7 +12,7 @@ object SwissCsv {
           "Title",
           "Username",
           "Rating",
-          "Score",
+          "Points",
           "Tie Break",
           "Performance"
         )
@@ -25,7 +25,7 @@ object SwissCsv {
     ~p.user.title,
     p.user.name,
     p.player.rating.toString,
-    p.player.score.value.toString,
+    p.player.points.value.toString,
     p.player.tieBreak.value.toString,
     p.player.performance.??(_.value.toString)
   )

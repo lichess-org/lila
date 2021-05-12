@@ -146,7 +146,7 @@ final class SwissJson(
       Json
         .obj(
           "rank"     -> rank,
-          "score"    -> player.score.value,
+          "points"   -> player.points.value,
           "tieBreak" -> player.tieBreak.value,
           "rating"   -> player.rating,
           "username" -> user.name
