@@ -51,7 +51,7 @@
   <string name="blackLeftTheGame">I neri lascianu a partita</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Carigate stu URL pè permette à i spettatori di vede a partita</string>
   <string name="theComputerAnalysisHasFailed">L\' analisa di l\' urdinatore ùn funziona micca</string>
-  <string name="viewTheComputerAnalysis">Feghjate l\' analisa di l\' urdinatore</string>
+  <string name="viewTheComputerAnalysis">Feghjà l\' analisa di l\' urdinatore</string>
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
   <string name="computerAnalysis">Analisa di l\' urdinatore</string>
   <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
@@ -281,6 +281,15 @@
     <item quantity="other">%s ghucate</item>
   </plurals>
   <string name="exportGames">Spurtà e partite</string>
+  <string name="ratingRange">Ampiezza di a classifica</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dà %s seconda</item>
+    <item quantity="other">Give %s seconde</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Stu contu hà offesu i Termi di u Serviziu Lichess</string>
+  <string name="openingExplorerAndTablebase">Spluratore d\' apertura &amp; basa d\' apertura</string>
+  <string name="takeback">Ripiglià u colpu</string>
+  <string name="proposeATakeback">Prupone di ripiglià u colpu</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
