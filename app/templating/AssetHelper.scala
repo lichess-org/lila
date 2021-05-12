@@ -56,7 +56,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")
-  def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")
   def cashTag             = jsAt("javascripts/vendor/cash.min.js")
   def fingerprintTag      = jsAt("javascripts/fipr.js")
   def tagifyTag           = jsAt("vendor/tagify/tagify.min.js")

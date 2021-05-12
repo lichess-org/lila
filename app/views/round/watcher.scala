@@ -49,7 +49,6 @@ object watcher {
         )})""")
       ),
       openGraph = povOpenGraph(pov).some,
-      chessground = false
     )(
       main(cls := "round")(
         st.aside(cls := "round__side")(
@@ -70,7 +69,6 @@ object watcher {
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
-      chessground = false
     )(
       frag(
         main(cls := "round")(

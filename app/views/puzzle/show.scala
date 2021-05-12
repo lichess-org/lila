@@ -34,7 +34,6 @@ object show {
         )})""")
       ),
       csp = defaultCsp.withWebAssembly.some,
-      chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(
           image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,

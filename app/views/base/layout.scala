@@ -154,9 +154,8 @@ object layout {
       nonce
     )
 
-  private def loadScripts(moreJs: Frag, chessground: Boolean)(implicit ctx: Context) =
+  private def loadScripts(moreJs: Frag)(implicit ctx: Context) =
     frag(
-      chessground option chessgroundTag,
       ctx.requiresFingerprint option fingerprintTag,
       ctx.nonce map lichessJsObject,
       if (netConfig.minifiedAssets)
@@ -193,7 +192,6 @@ object layout {
       moreJs: Frag = emptyFrag,
       playing: Boolean = false,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
-      chessground: Boolean = true,
       zoomable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = ""
@@ -295,7 +293,7 @@ object layout {
             )
           ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-          loadScripts(moreJs, chessground)
+          loadScripts(moreJs)
         )
       )
     )

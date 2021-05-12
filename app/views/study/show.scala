@@ -53,7 +53,6 @@ object show {
         )}""")
       ),
       robots = s.isPublic,
-      chessground = false,
       zoomable = true,
       csp = defaultCsp.withWebAssembly.withPeer.some,
       openGraph = lila.app.ui

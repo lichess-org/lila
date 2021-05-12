@@ -53,7 +53,6 @@ object show {
           )
         )}""")
       ),
-      chessground = false,
       zoomable = true,
       csp = defaultCsp.withWebAssembly.some,
       openGraph = lila.app.ui

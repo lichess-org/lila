@@ -18,7 +18,6 @@ object bits {
       moreJs: Frag = emptyFrag,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreCss: Frag = emptyFrag,
-      chessground: Boolean = true,
       playing: Boolean = false,
       robots: Boolean = false
   )(body: Frag)(implicit ctx: Context) =
@@ -31,7 +30,6 @@ object bits {
         ctx.blind option cssTag("round.nvui"),
         moreCss
       ),
-      chessground = chessground,
       playing = playing,
       robots = robots,
       zoomable = true,
