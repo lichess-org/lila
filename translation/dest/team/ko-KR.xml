@@ -11,7 +11,7 @@
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
   <string name="joinTeam">팀 가입</string>
   <string name="quitTeam">팀 탈퇴</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">수동으로 가입 요청을 검토합니다.</string>
+  <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청을 검토합니다.</string>
   <string name="manuallyReviewAdmissionRequestsHelp">체크한다면, 플레이어는 팀에 가입하기 위해 요청서를 작성해야 합니다. 당신은 이를 받아들이거나 거절할 수 있습니다.</string>
   <plurals name="teamLeaders">
     <item quantity="other">팀 운영자</item>
