@@ -226,6 +226,7 @@ putt?ana
 stronzo
 troia
 vaffanculo
+sparati
 """)
 
   def hi = dict("""
