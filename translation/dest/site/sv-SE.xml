@@ -860,5 +860,6 @@
   <string name="patronAccountExpired">Sponsorkonto utlöpt</string>
   <string name="pleaseReconsiderRenewIt">Överväg gärna att förnya det!</string>
   <string name="someoneReviewedYourCoachProfile">Någon har recenserat din coachprofil.</string>
+  <string name="lostAgainstTOSViolator">Du förlorade mot någon som bröt mot Lichess TOS</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
 </resources>
