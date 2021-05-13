@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">దానం</string>
+  <string name="lichessPatron">Lichess కు విరాళం ఇచ్చిన వ్యక్తులు</string>
+  <string name="freeAccount">ఉచిత ఖాతా</string>
+  <string name="becomePatron">Lichess దాతగా అవ్వండి</string>
+  <string name="xBecamePatron">%sLichess దాతగా అవ్వండి</string>
+  <string name="newPatrons">క్రొత్త దాతలు</string>
+  <string name="freeChess">ప్రతిఒక్కరికీ ఉచిత చెస్, ఎప్పటికీ!</string>
 </resources>
