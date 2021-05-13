@@ -313,9 +313,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
             instance.setHovering(getElFen(el), getElUci(e));
-            const pvBoard = (e.target as HTMLElement).getAttribute('data-board');
+            const pvBoard = (e.target as HTMLElement).dataset["board"];
             if (pvBoard) {
-              pvIndex = Number((e.target as HTMLElement).getAttribute('move-index'));
+              pvIndex = Number((e.target as HTMLElement).dataset["moveIndex"]);
               pvMoves = getElPvMoves(e);
               const [fen, uci] = pvBoard.split('|');
               instance.setPvBoard({ fen, uci });
@@ -414,7 +414,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
         {
           key,
           attrs: {
-            'move-index': i,
+            'data-move-index': i,
             'data-board': `${fen}|${uci}`,
           },
         },
