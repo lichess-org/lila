@@ -79,9 +79,6 @@ final class SimulApi(
       team = setup.team,
       featurable = some(~setup.featured && me.canBeFeatured)
     )
-    if (prev.estimatedStartAt.isDefined && !simul.estimatedStartAt.isDefined) {
-      repo.removeEstimatedStartAt(simul)
-    }
     repo.update(simul) >>- publish() inject simul
   }
 
