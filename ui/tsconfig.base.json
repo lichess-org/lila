@@ -9,7 +9,7 @@
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "target": "ES2017",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["DOM", "ES2017", "DOM.iterable"],
     "types": ["lichess", "cash"]
   }
