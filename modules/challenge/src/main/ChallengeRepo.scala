@@ -79,13 +79,14 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
 
   private[challenge] def realTimeUnseenSince(date: DateTime, max: Int): Fu[List[Challenge]] = {
-    val selector = $doc(
-      "seenAt" $lt date,
-      "status" -> Status.Created.id,
-      "timeControl" $exists true
-    )
     coll
-      .find(selector)
+      .find(
+        $doc(
+          "seenAt" $lt date,
+          "status" -> Status.Created.id,
+          "timeControl" $exists true
+        )
+      )
       .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)

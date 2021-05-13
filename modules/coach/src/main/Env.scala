@@ -40,7 +40,13 @@ final class Env(
 
   lazy val pager = wire[CoachPager]
 
-  lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "finishGame", "shadowban", "setPermissions") {
+  lila.common.Bus.subscribeFun(
+    "adjustCheater",
+    "adjustBooster",
+    "finishGame",
+    "shadowban",
+    "setPermissions"
+  ) {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.toggleApproved(userId, value = false)
       api.reviews.deleteAllBy(userId).unit
