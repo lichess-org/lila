@@ -335,7 +335,7 @@
 
 "ab@https://github.com/lichess-org/ab-stub":
   version "1.0.0"
-  resolved "https://github.com/lichess-org/ab-stub#cd8818ee3905ed167539f78dc0e46de3889eb862"
+  resolved "https://github.com/lichess-org/ab-stub#94236bf34dbc9c05daf50f4c9842d859b9142be0"
 
 abbrev@1:
   version "1.1.1"
