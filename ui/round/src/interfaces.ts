@@ -133,10 +133,6 @@ export interface ApiMove extends Step {
     key: cg.Key;
     pieceClass: cg.Role;
   };
-  enpassant?: {
-    key: cg.Key;
-    color: Color;
-  };
   castle?: {
     king: [cg.Key, cg.Key];
     rook: [cg.Key, cg.Key];
