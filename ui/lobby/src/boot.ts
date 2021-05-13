@@ -87,8 +87,13 @@ export default function boot(cfg, element) {
       $(this).addClass('active').siblings().removeClass('active');
       window.lishogi.loadCssPath('lobby.setup');
       lobby.leavePool();
+      let url = this.href;
+      if (this.dataset.hrefAddon) {
+        url += this.dataset.hrefAddon;
+        delete this.dataset.hrefAddon;
+      }
       $.ajax({
-        url: $(this).attr('href'),
+        url: url,
         success: function (html) {
           lobby.setup.prepareForm(
             $.modal(html, 'game-setup', () => {
@@ -112,7 +117,7 @@ export default function boot(cfg, element) {
     $startButtons
       .find('.config_' + location.hash.replace('#', ''))
       .each(function () {
-        $(this).attr('href', $(this).attr('href') + location.search);
+        this.dataset.hrefAddon = location.search;
       })
       .trigger(clickEvent);
 

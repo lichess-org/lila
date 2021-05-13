@@ -140,7 +140,7 @@ export default class Setup {
       $fenPosition = $form.find('.fen_position'),
       $fenInput = $fenPosition.find('input'),
       $handicapSelect = $fenPosition.find('.handicap select'),
-      forceFormPosition = !!$fenInput.val(),
+      forceFromPosition = !!$fenInput.val(),
       $timeInput = $form.find('.time_choice [name=time]'),
       $incrementInput = $form.find('.increment_choice [name=increment]'),
       $byoyomiInput = $form.find('.byoyomi_choice [name=byoyomi]'),
@@ -162,11 +162,12 @@ export default class Setup {
           per = $periodsInput.filter(':checked').val(),
           // no rated variants with less than 30s on the clock
           cantBeRated =
-            (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
+            (typ === 'hook' && timeMode === '0') ||
+            ((timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
             (variantId != '1' && timeMode != '1') ||
             (timeMode == '1' && variantId != '1' && limit < 0.5 && byo == 0) ||
             (timeMode == '1' && inc > 0 && byo > 0) ||
-            (timeMode == '1' && byo > 0 && per > 1);
+            (timeMode == '1' && byo > 0 && per > 1));
         if (cantBeRated && rated) {
           $casual.click();
           return toggleButtons();
@@ -214,6 +215,7 @@ export default class Setup {
     if (c) {
       Object.keys(c).forEach(k => {
         $form[0].querySelectorAll(`[name="${k}"]`).forEach((input: HTMLInputElement) => {
+          if (k === 'timeMode' && input.value !== '1') return;
           if (input.type == 'checkbox') input.checked = true;
           else if (input.type == 'radio') input.checked = input.value == c[k];
           else if (k != 'fen' || !input.value) input.value = c[k];
@@ -259,7 +261,6 @@ export default class Setup {
         $.modal.close();
         if (poolMember) {
           this.root.enterPool(poolMember);
-          this.root.redraw();
         } else {
           this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
           $.ajax({
@@ -268,6 +269,7 @@ export default class Setup {
             type: 'post',
           });
         }
+        this.root.redraw();
         return false;
       };
       $submits
@@ -440,7 +442,7 @@ export default class Setup {
     };
     $handicapSelect.on('change', setHandicap);
 
-    if (forceFormPosition) $variantSelect.val(3);
+    if (forceFromPosition) $variantSelect.val(3);
     $variantSelect
       .on('change', function (this: HTMLElement) {
         var isFen = $(this).val() == '3';
