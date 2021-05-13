@@ -140,6 +140,7 @@ object SetupForm {
         "message"       -> message
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
+        .verifying("can't be rated", _.validRated)
 
     lazy val ai = Form(
       mapping(

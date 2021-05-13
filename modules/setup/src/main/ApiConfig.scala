@@ -31,6 +31,8 @@ final case class ApiConfig(
       Speed(c) >= Speed.Bullet
     }
 
+  def validRated = mode.casual || clock.isDefined || variant.standard
+
   def mode = chess.Mode(rated)
 
   def autoVariant =
