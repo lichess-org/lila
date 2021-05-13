@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Играш са белим фигурама</string>
 	<string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
 	<string name="itsYourTurn">Ти си на потезу!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Краљ је у центру</string>
 	<string name="threeChecks">Три шаха</string>
 	<string name="raceFinished">Трка је завршена</string>

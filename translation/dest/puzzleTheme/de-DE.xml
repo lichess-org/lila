@@ -60,18 +60,18 @@
   <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
   <string name="tsume">Tsume</string>
   <string name="tsumeDescription">Dein Ziel ist es, deinen Gegner zu mattsetzen. Jeder Zug, den du machst, muss ein Schach sein.</string>
-  <string name="strikingPawn">Striking pawn</string>
-  <string name="strikingPawnDescription">A tactitc involving dropping a pawn in front of opponent\'s piece and attacking it.</string>
-  <string name="joiningPawn">Joining pawn</string>
-  <string name="joiningPawnDescription">A tactic in which a pawn is sacrificially dropped in front of opponent\'s piece.</string>
-  <string name="dancingPawns">Dancing pawns</string>
-  <string name="dancingPawnsDescription">A tactic to capture opponent\'s gold with sacrificing a pawn.</string>
+  <string name="strikingPawn">Auffälliger Bauer</string>
+  <string name="strikingPawnDescription">Ein Taktitel, bei dem ein Bauer vor dem Gegenstück geworfen und angegriffen wird.</string>
+  <string name="joiningPawn">Schreibe Bauer</string>
+  <string name="joiningPawnDescription">Eine Taktik, in der ein Bauer geopfert wird vor dem Stück des Gegners.</string>
+  <string name="dancingPawns">Tanzende Bauern</string>
+  <string name="dancingPawnsDescription">Eine Taktik, um das Gold des Gegners einzunehmen, indem er einen Pfund opfert.</string>
   <string name="edgeAttack">Randangriff</string>
-  <string name="edgeAttackDescription">A tactic involving attacking opponent\'s first or ninth file.</string>
+  <string name="edgeAttackDescription">Eine Taktik, bei der die erste oder neunte Datei des Gegners angegriffen wird.</string>
   <string name="veryLong">Sehr lange Aufgabe</string>
   <string name="veryLongDescription">Sieben oder mehr Züge zum Gewinn.</string>
   <string name="lishogiGames">Von lishogi-Spielen</string>
   <string name="lishogiGamesDescription">Aufgaben generiert aus Spielen auf lishogi.</string>
   <string name="otherSources">Von anderen Quellen</string>
-  <string name="otherSourcesDescription">Many thanks to everyone who submitted or allowed lishogi to use these puzzles!</string>
+  <string name="otherSourcesDescription">Vielen Dank an alle, die lishogi eingereicht oder erlaubt haben, diese Rätsel zu benutzen!</string>
 </resources>

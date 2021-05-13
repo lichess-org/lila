@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">Di chuyển quân để bắt đầu</string>
+  <string name="puzzlesSolved">câu đố đã giải</string>
+  <string name="newDailyHighscore">Thành thích hàng ngày mới!</string>
+  <string name="newWeeklyHighscore">Thành tích hàng tuần mới!</string>
+  <string name="newMonthlyHighscore">Thành tích hàng tháng mới!</string>
+  <string name="newAllTimeHighscore">Thành tích mới!</string>
+  <string name="previousHighscoreWasX">Thành tích trước đây là %s</string>
+  <string name="playAgain">Chơi lại</string>
   <plurals name="xRuns">
-    <item quantity="other">%s runs</item>
+    <item quantity="other">Một lần chơi 
+
+%s lần chơi</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="other">Đã chơi một lần trong %2$s 
+
+Đã chơi %1$s lần trong %2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="highscoreX">Thành tích: %s</string>
+  <string name="score">Điểm</string>
+  <string name="moves">Nước đi</string>
+  <string name="accuracy">Độ chính xác</string>
+  <string name="combo">Chuỗi</string>
+  <string name="time">Thời gian</string>
+  <string name="timePerMove">Thời gian trên mỗi nước đi</string>
+  <string name="highestSolved">Câu đố khó nhất đã giải</string>
+  <string name="puzzlesPlayed">Câu đố đã chơi</string>
+  <string name="newRun">Chơi lại ( Nhấn nút Space )</string>
+  <string name="endRun">Kết thúc ( nhấn phím Enter )</string>
+  <string name="highscores">Thành tích</string>
+  <string name="viewBestRuns">Xem lại lần chơi tốt nhất</string>
+  <string name="bestRunOfDay">Lần chơi tốt nhất trong ngày</string>
+  <string name="runs">Lần chơi</string>
 </resources>

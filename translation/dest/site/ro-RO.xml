@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Joci cu albele</string>
 	<string name="youPlayTheBlackPieces">Joci cu negrele</string>
 	<string name="itsYourTurn">E rândul tău!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Regele în centru</string>
 	<string name="threeChecks">Trei șahuri</string>
 	<string name="raceFinished">Competiție terminată</string>

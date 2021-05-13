@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Jugues les peces blanques</string>
 	<string name="youPlayTheBlackPieces">Jugues les peces negres</string>
 	<string name="itsYourTurn">És el teu torn!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Rei al centre</string>
 	<string name="threeChecks">Tres escacs</string>
 	<string name="raceFinished">Cursa finalitzada</string>

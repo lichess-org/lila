@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
 	<string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
 	<string name="itsYourTurn">זה התור שלך!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">המלך במרכז</string>
 	<string name="threeChecks">שח משולש</string>
 	<string name="raceFinished">המירוץ נגמר</string>

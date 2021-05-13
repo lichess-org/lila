@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Hrajete bílými figurami</string>
 	<string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
 	<string name="itsYourTurn">Jste na tahu!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
 	<string name="threeChecks">Třikrát šach</string>
 	<string name="raceFinished">Závod skončil</string>

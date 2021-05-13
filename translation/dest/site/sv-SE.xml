@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Du spelar med de vita pjäserna</string>
 	<string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
 	<string name="itsYourTurn">Det är din tur!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Kungen är i centrum</string>
 	<string name="threeChecks">Tre schackar</string>
 	<string name="raceFinished">Lopp slut</string>

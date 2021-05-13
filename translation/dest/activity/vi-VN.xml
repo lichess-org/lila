@@ -3,13 +3,13 @@
   <string name="activity">Hoạt động</string>
   <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
-    <item quantity="other">Đã hỗ trợ lishogi.org %1$s tháng như một %2$s</item>
+    <item quantity="other">Đã hỗ trợ lishogi.org %1$s tháng với tư cách một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Đã luyện tập %1$s vị trí ở %2$s</item>
+    <item quantity="other">Đã luyện tập %1$s thế cờ ở %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s bài chiến thuật</item>
+    <item quantity="other">Đã giải %s bài tập chiến thuật</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
@@ -18,7 +18,7 @@
     <item quantity="other">Đã gửi %1$s tin nhắn tại %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="other">Đã chơi %1$s nước</item>
+    <item quantity="other">Đã đi %1$s nước</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="other">trong %1$s ván qua thư tín</item>
@@ -33,10 +33,10 @@
     <item quantity="other">Có %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Làm chủ %s đồng đa ván đa kỳ thủ</item>
+    <item quantity="other">Chủ trì %s ván cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Tham gia %s đồng đa ván đa kỳ thủ</item>
+    <item quantity="other">Tham gia %s ván cờ đồng loạt</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">Đã tạo %s bài học mới</item>

@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">Граєш білими постатями</string>
 	<string name="youPlayTheBlackPieces">Граєш чорними постатями</string>
 	<string name="itsYourTurn">Твій хід!</string>
+	<string name="cheatDetected">Cheat Detected</string>
 	<string name="kingInTheCenter">Король в осередку</string>
 	<string name="threeChecks">Три шахи</string>
 	<string name="raceFinished">Перегони завершені</string>

@@ -8,35 +8,35 @@
   <string name="allTeams">Tất cả đội</string>
   <string name="newTeam">Đội mới</string>
   <string name="myTeams">Đội của tôi</string>
-  <string name="noTeamFound">không tìm thấy đội</string>
+  <string name="noTeamFound">Không tìm thấy đội</string>
   <string name="joinTeam">Tham gia đội</string>
   <string name="quitTeam">Rời đội</string>
-  <string name="anyoneCanJoin">Miễn phí hoàn toàn</string>
+  <string name="anyoneCanJoin">Mở cho tất cả</string>
   <string name="aConfirmationIsRequiredToJoin">Xác nhận để tham gia</string>
   <string name="joiningPolicy">Luật tham gia</string>
   <plurals name="teamLeaders">
-    <item quantity="other">Team leaders</item>
+    <item quantity="other">Đội trưởng</item>
   </plurals>
-  <string name="teamBestPlayers">Người giỏi nhất đội</string>
+  <string name="teamBestPlayers">Người chơi giỏi nhất</string>
   <string name="teamRecentMembers">Thành viên Đội gần đây</string>
   <string name="kickSomeone">Loại ai đó ra khỏi đội</string>
   <string name="whoToKick">Ai là người bạn muốn loại khỏi đội?</string>
   <plurals name="xJoinRequests">
-    <item quantity="other">%s tham gia đề nghị</item>
+    <item quantity="other">%s đề nghị tham gia</item>
   </plurals>
   <string name="willBeReviewed">Yêu cầu tham gia đề nghị sẽ được xem xét bởi trưởng nhóm.</string>
   <string name="beingReviewed">Yêu cầu tham gia đề nghị đang được xem xét bởi trưởng nhóm.</string>
   <string name="teamBattle">Thi đấu theo đội</string>
-  <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
-  <string name="teamTournament">Team tournament</string>
-  <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
-  <string name="messageAllMembers">Message all members</string>
-  <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
-  <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.
-You can use this to call players to join a tournament or a team battle.
-Players who don\'t like receiving your messages might leave the team.</string>
-  <string name="teamsIlead">Teams I lead</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">You may want to link one of these upcoming tournaments?</string>
-  <string name="usersWhoCanManageThisTeam">Users who can manage this team</string>
-  <string name="leadersChat">Leaders chat</string>
+  <string name="teamBattleOverview">Một trận đấu giữa nhiều điểm, người chơi ghi điểm cho đội của họ</string>
+  <string name="teamTournament">Giải đấu theo đội</string>
+  <string name="teamTournamentOverview">Một giải đấu mà chỉ thành viên của đội bạn có thể tham gia</string>
+  <string name="messageAllMembers">Nhắn tin cho tất cả thành viên</string>
+  <string name="messageAllMembersOverview">Nhắn một tin nhắn riêng cho mỗi thành viên của đội</string>
+  <string name="messageAllMembersLongDescription">Gửi một tin nhắn riêng tới TẤT CẢ các thành viên của đội.
+Bạn có thể dùng chức năng này để kêu gọi người chơi tham gia một giải đấu hoặc một trận đấu theo đội.
+Những người chơi không thích nhận tin nhắn chủa bạn có thể rời khỏi đội.</string>
+  <string name="teamsIlead">Những đội mà tôi làm đội trưởng</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Có thể bạn muốn dẫn tới những giải đấu sắp tới?</string>
+  <string name="usersWhoCanManageThisTeam">Người dùng có thể quản lý đội này</string>
+  <string name="leadersChat">Trò chuyện của đội trưởng</string>
 </resources>

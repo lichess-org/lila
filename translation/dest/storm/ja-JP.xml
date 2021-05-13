@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="moveToStart">一手指すとスタート</string>
+  <string name="puzzlesSolved">正解数</string>
+  <string name="newDailyHighscore">今日のハイスコア更新！</string>
+  <string name="newWeeklyHighscore">今週のハイスコア更新！</string>
+  <string name="newMonthlyHighscore">今月のハイスコア更新！</string>
+  <string name="newAllTimeHighscore">歴代のハイスコア更新！</string>
+  <string name="previousHighscoreWasX">以前のハイスコアは %s</string>
+  <string name="playAgain">もう一度プレイ</string>
   <plurals name="xRuns">
-    <item quantity="other">%s runs</item>
+    <item quantity="other">%s 回</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="other">%2$s を %1$s 回プレイ</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="highscoreX">ハイスコア：%s</string>
+  <string name="score">スコア</string>
+  <string name="moves">指し手</string>
+  <string name="accuracy">精度</string>
+  <string name="combo">コンボ</string>
+  <string name="time">時間</string>
+  <string name="timePerMove">１手あたり時間</string>
+  <string name="highestSolved">正解最高レート</string>
+  <string name="puzzlesPlayed">プレイした問題</string>
+  <string name="newRun">新たなストーム（スペースキー）</string>
+  <string name="endRun">ストーム終了（Enter キー）</string>
+  <string name="highscores">ハイスコア</string>
+  <string name="viewBestRuns">最高記録を表示</string>
+  <string name="bestRunOfDay">日別最高</string>
+  <string name="runs">実行済み</string>
 </resources>

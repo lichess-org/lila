@@ -13,7 +13,7 @@
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi 由赞助者的捐赠和志愿者团队的努力驱动。</string>
 	<string name="findMoreAndSeeHowHelp">您可以找到更多关于 %1$s 的信息。如果您想通过您的贡献和时间来帮助 Lishig ，这里有许多%2$s。</string>
 	<string name="beingAPatron">成为赞助者</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="otherWaysToContribute">这里还有许多你可以为利什戈贡献的其他方式。</string>
 	<string name="breakdownOfOurCosts">我们的费用明细表</string>
 	<string name="otherWaysToHelp">其它的帮助方式</string>
 	<string name="areThereWebsitesBasedOnLishogi">是否有基于 Lishogi 的网站？</string>
@@ -73,7 +73,7 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="configure">配置</string>
 	<string name="accounts">帐号</string>
 	<string name="titlesAvailableOnLishogi">Lishogi 上有什么称号？</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
+	<string name="lishogiRecognizeAllOTBtitles">Lichess承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
 	<string name="showYourTitle">如果您有称号，可以完成%1$s将账户下表贴。
 
 最后，有一个%2$s荣誉称号。</string>
@@ -93,7 +93,7 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="ownerUniqueTrophies">这个奖杯在 Lishogi 上是独一无二的，除了%1$s，任何人都不会得到。</string>
 	<string name="wayOfBerserkExplanation">为了获得它，hiimgosu 挑战自己 berserk 并赢得100%%的%s。</string>
 	<string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
+	<string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
 	<string name="lishogiRatings">Lishogi 评分</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么评分系统？</string>
 	<string name="ratingSystemUsedByLishogi">评分是使用 Mark Glickman 的 Glicko-2 评分方法计算得。 这是一种非常普及的评分算法，许多国际象棋组织都使用了这算法。 

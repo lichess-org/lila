@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">あなたは後手です</string>
 	<string name="youPlayTheBlackPieces">あなたは先手です</string>
 	<string name="itsYourTurn">あなたの手番です！</string>
+	<string name="cheatDetected">不正行為検出</string>
 	<string name="kingInTheCenter">王将/玉将が中央に入りました</string>
 	<string name="threeChecks">3回王手成功</string>
 	<string name="raceFinished">大会は終了しました</string>

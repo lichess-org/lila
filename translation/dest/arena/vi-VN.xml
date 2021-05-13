@@ -9,18 +9,18 @@
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
 Nếu bạn thắng hai ván liên tiếp bạn bắt đầu có chuỗi gấp đôi điểm, thể hiện bằng hình ngọn lửa.
-Các ván đấu sau đó sẽ tiếp tục gấp đôi điểm đến khi bạn thua một ván.
+Các ván đấu sau đó sẽ tiếp tục gấp đôi điểm đến khi bạn không thắng một ván.
 Nghĩa là, một ván thắng được 4 điểm, hòa: 2 điểm, thua: 0 điểm.
 
 Ví dụ, thắng 2 ván rồi hòa 1 ván sẽ được 6 điểm: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Đấu trường Berserk</string>
   <string name="berserkAnswer">Khi người chơi nhấn nút Berserk lúc bắt đầu ván cờ, họ sẽ mất nửa thời gian của họ, nhưng nếu thắng sẽ được thêm một điểm giải đấu.
 
-Dùng Berserk trong ván tính giờ với gia số sẽ hủy bỏ gia số. (1+2 là ngoại lệ, nó sẽ là 1+0)
+Dùng Berserk trong ván tính giờ với thời gian cộng thêm hoặc byoyomi sẽ hủy bỏ phần thời gian này. (1+2 là ngoại lệ, nó sẽ là 1+0)
 
 Berserk không áp dụng cho ván đấu không có thời gian bắt đầu (0+1, 0+2).
 
-Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước đi trong một ván.</string>
+Berserk chỉ cho thêm điểm nếu bạn chơi ít nhất 7 nước đi trong một ván.</string>
   <string name="howIsTheWinnerDecided">Cách xác định người thắng cuộc?</string>
   <string name="howIsTheWinnerDecidedAnswer">(Các) kỳ thủ có điểm cao nhất khi kết thúc giải đấu sẽ là (những) người thắng cuộc.
 
@@ -37,5 +37,5 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham dự: %s</string>
-  <string name="drawStreak">Chuỗi hòa: Khi một người chơi có một chuỗi các trận hòa trong một đấu trường, chỉ có trận hòa đầu tiên được tính điểm, hoặc trận hòa đó được kéo dài hơn %s nước đi. Chuỗi hòa này chỉ có thể bị chấm dứt bằng một chiến thắng, không thể bị chấm dứt bởi một trận thua hay một trận hòa.</string>
+  <string name="drawStreak">Chuỗi hòa: Khi một người chơi có một chuỗi các trận hòa trong một đấu trường, chỉ có trận hòa đầu tiên hoặc những trận hòa kéo dài hơn %s nước đi mới được tính điểm. Chuỗi hòa này chỉ có thể bị chấm dứt bằng một chiến thắng, không thể bị chấm dứt bởi một trận thua hay một trận hòa.</string>
 </resources>

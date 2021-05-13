@@ -26,6 +26,7 @@
 	<string name="youPlayTheWhitePieces">你执白棋</string>
 	<string name="youPlayTheBlackPieces">你执黑棋</string>
 	<string name="itsYourTurn">轮到你了！</string>
+	<string name="cheatDetected">检测到作弊</string>
 	<string name="kingInTheCenter">国王在中间</string>
 	<string name="threeChecks">三次将军</string>
 	<string name="raceFinished">比赛结束</string>
@@ -230,7 +231,7 @@
 	<string name="confirmMove">确认步着</string>
 	<string name="play">下棋</string>
 	<string name="inbox">收件箱</string>
-	<string name="streamerManager">Streamer manager</string>
+	<string name="streamerManager">Streamer 管理器</string>
 	<string name="chatRoom">聊天室</string>
 	<string name="loginToChat">聊天请登录</string>
 	<string name="youHaveBeenTimedOut">您暂时被禁言。</string>
@@ -328,8 +329,7 @@
 	<string name="toStudy">研究</string>
 	<string name="importGame">导入棋局</string>
 	<string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
-	<string name="importGameKifuExplanation">Paste a game kifu to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+	<string name="importGameKifuExplanation">粘贴kifu棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s盘导入的棋局</item>
 	</plurals>
@@ -629,7 +629,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="hostColorForEachGame">主持所执方</string>
 	<string name="onlyMembersOfTeam">仅限团队队员</string>
 	<string name="simulDescription">车轮战描述</string>
-	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
+	<string name="anythingTellParticipants">您想要告诉参与者的任何东西？</string>
 	<string name="lishogiTournaments">Lishogi 锦标赛</string>
 	<string name="tournamentFAQ">锦标赛常见问题</string>
 	<string name="tournamentOfficial">官方比赛</string>

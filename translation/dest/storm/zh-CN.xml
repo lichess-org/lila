@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">走一步棋以开始</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
-  <string name="newAllTimeHighscore">New all-time highscore!</string>
-  <string name="previousHighscoreWasX">Previous highscore was %s</string>
-  <string name="playAgain">Play again</string>
+  <string name="puzzlesSolved">谜题已解决 ！</string>
+  <string name="newDailyHighscore">新的每日高分！</string>
+  <string name="newWeeklyHighscore">新的每日高分！</string>
+  <string name="newMonthlyHighscore">新月度高分！</string>
+  <string name="newAllTimeHighscore">新的历史最高分！</string>
+  <string name="previousHighscoreWasX">上一次最高得分是 %s</string>
+  <string name="playAgain">再来一局</string>
   <plurals name="xRuns">
-    <item quantity="other">%s runs</item>
+    <item quantity="other">%s组</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="other">Played %1$s runs of %2$s</item>
+    <item quantity="other">玩了%1$s组的%2$s</item>
   </plurals>
-  <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
+  <string name="highscoreX">最高分： %s</string>
+  <string name="score">乐谱</string>
   <string name="moves">步数</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
-  <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
-  <string name="newRun">New run (hotkey: Space)</string>
-  <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
-  <string name="viewBestRuns">View best runs</string>
-  <string name="bestRunOfDay">Best run of day</string>
-  <string name="runs">Runs</string>
+  <string name="accuracy">精确度</string>
+  <string name="combo">组合</string>
+  <string name="time">时间限制</string>
+  <string name="timePerMove">平均着法时间</string>
+  <string name="highestSolved">最难解决的谜题</string>
+  <string name="puzzlesPlayed">玩过的谜题</string>
+  <string name="newRun">开始新的一组(快捷键：空格)</string>
+  <string name="endRun">结束本组(快捷键：回车)</string>
+  <string name="highscores">高分</string>
+  <string name="viewBestRuns">查看最佳战绩</string>
+  <string name="bestRunOfDay">每日最佳战绩</string>
+  <string name="runs">运行</string>
 </resources>
