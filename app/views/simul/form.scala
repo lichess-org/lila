@@ -131,7 +131,6 @@ object form {
       form3.group(
         form("estimatedStartAt"),
         frag("Estimated start time"),
-        help = frag("Optional estimated start time").some,
         half = true
         )(form3.flatpickr(_)),
       form3.group(
