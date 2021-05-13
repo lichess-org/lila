@@ -91,21 +91,13 @@ export const bind = (ctrl: AnalyseCtrl) => {
     kbd
       .bind('n', () => {
         const chapters = study.chapters.list();
-        for (const i in chapters) {
-          if (chapters[i].id === study.currentChapter().id) {
-            study.setChapter(chapters[parseInt(i) + 1].id);
-            return;
-          }
-        }
+        const i = chapters.findIndex(ch => ch.id === study.vm.chapterId);
+        if (i >= 0 && i + 1 < chapters.length) study.setChapter(chapters[i + 1].id);
       })
       .bind('p', () => {
         const chapters = study.chapters.list();
-        for (const i in chapters) {
-          if (chapters[i].id === study.currentChapter().id) {
-            study.setChapter(chapters[parseInt(i) - 1].id);
-            return;
-          }
-        }
+        const i = chapters.findIndex(ch => ch.id === study.vm.chapterId);
+        if (i > 0) study.setChapter(chapters[i - 1].id);
       });
   }
 };
