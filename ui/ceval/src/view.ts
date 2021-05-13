@@ -283,8 +283,6 @@ function checkHover(el: HTMLElement, instance: CevalCtrl): void {
   );
 }
 
-let pvMoves: (string | null)[] = [];
-let pvIndex = -1;
 export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
@@ -292,7 +290,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
-    threat = false;
+    threat = false,
+    pvMoves: (string | null)[],
+    pvIndex: number | null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
@@ -303,6 +303,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
   const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+
   return h(
     'div.pv_box',
     {
@@ -322,13 +323,15 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           });
           el.addEventListener('wheel', (e: WheelEvent) => {
             e.preventDefault();
-            if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
-            else if (e.deltaY > 0 && pvIndex < pvMoves.length) pvIndex += 1;
+            if (pvIndex != null && pvMoves != null) {
+              if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
 
-            const pvBoard = pvMoves[pvIndex];
-            if (pvBoard) {
-              const [fen, uci] = pvBoard.split('|');
-              instance.setPvBoard({ fen, uci });
+              const pvBoard = pvMoves[pvIndex];
+              if (pvBoard) {
+                const [fen, uci] = pvBoard.split('|');
+                instance.setPvBoard({ fen, uci });
+              }
             }
           });
           el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
@@ -336,7 +339,10 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             const uci = getElUci(e);
             if (uci) ctrl.playUci(uci);
           });
-          el.addEventListener('mouseleave', () => instance.setPvBoard(null));
+          el.addEventListener('mouseleave', () => {
+            instance.setPvBoard(null);
+            pvIndex = null;
+          });
           checkHover(el, instance);
         },
         postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance),
