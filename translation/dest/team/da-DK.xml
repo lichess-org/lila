@@ -12,7 +12,7 @@
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gennemgå anmodninger om optagelse manuelt</string>
+  <string name="manuallyReviewAdmissionRequests">Gennemgå anmodninger om optagelse manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Hvis markeret, skal spillere skriftligt anmode om optagelse på holdet, hvilket du kan afvise eller acceptere.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Holdleder</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Din tilmeldingsanmodning vil blive gennemgået af holdlederen.</string>
   <string name="beingReviewed">Din tilmeldingsanmodning bliver gennemgået af holdlederen.</string>
+  <string name="subToTeamMessages">Abonner på holdbeskeder</string>
   <string name="teamBattle">Holdkamp</string>
   <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
   <string name="teamTournament">Holdturnering</string>
   <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
+  <string name="swissTournamentOverview">En monradturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="messageAllMembers">Send besked til alle medlemmer</string>
   <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
   <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.

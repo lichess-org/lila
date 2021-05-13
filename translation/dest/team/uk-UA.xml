@@ -14,7 +14,7 @@
   <string name="noTeamFound">Не знайдено команди</string>
   <string name="joinTeam">Приєднатися до команди</string>
   <string name="quitTeam">Залишити команду</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Огляд запитів на вступ вручну</string>
+  <string name="manuallyReviewAdmissionRequests">Огляд запитів на вступ вручну</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Якщо позначено, гравцям необхідно написати запит на вступ в команду, який ви можете відхилити або прийняти.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Лідер команди</item>

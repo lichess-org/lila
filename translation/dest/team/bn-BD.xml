@@ -12,7 +12,7 @@
   <string name="noTeamFound">কোন দল পাওয়া যায় নি</string>
   <string name="joinTeam">দলে যোগ দিন</string>
   <string name="quitTeam">দল ত্যাগ করুন</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
+  <string name="manuallyReviewAdmissionRequests">ভর্তির জন্য হাতেনাতে যাচাই করার আবেদনগুলি</string>
   <string name="manuallyReviewAdmissionRequestsHelp">যদি টিক দেওয়া থাকে, তাহলে খেলোয়াড়দের আপনার দলে প্রবেশের জন্য মেসেজ লিখতে হবে, যার মধ্য থেকে আপনি বাদ দেবেন বা বাছাই করবেন.</string>
   <plurals name="teamLeaders">
     <item quantity="one">দলনেতা</item>

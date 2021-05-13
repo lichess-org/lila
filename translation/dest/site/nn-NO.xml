@@ -865,4 +865,5 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
+  <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
 </resources>

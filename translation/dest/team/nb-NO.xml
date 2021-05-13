@@ -12,7 +12,7 @@
   <string name="noTeamFound">Ingen lag funnet</string>
   <string name="joinTeam">Bli med i klanen</string>
   <string name="quitTeam">Forlat klanen</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gå gjennom forespørsler om å få bli med manuelt</string>
+  <string name="manuallyReviewAdmissionRequests">Gå gjennom forespørsler om å få bli med manuelt</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Kryss av for å kreve at spillere må skrive en forespørsel om å få bli med på laget, som du avslår eller godtar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Lagleder</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Ønsket ditt om å bli med vil bli vurdert av en lagleder.</string>
   <string name="beingReviewed">Ønsket ditt om å bli med blir vurdert av en lagleder.</string>
+  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Abonner på lagmeldinger</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
   <string name="teamTournament">Lagturnering</string>
   <string name="teamTournamentOverview">En arenaturnering der bare medlemmer av laget ditt kan delta</string>
+  <string name="swissTournamentOverview">En sveitserturnering der bare medlemmer av laget ditt kan delta</string>
   <string name="messageAllMembers">Send melding til alle medlemmer</string>
   <string name="messageAllMembersOverview">Send en privat melding til alle medlemmene i laget</string>
   <string name="messageAllMembersLongDescription">Send en melding til alle lagmedlemmene.

@@ -12,7 +12,7 @@
   <string name="noTeamFound">Kein Team gefunden</string>
   <string name="joinTeam">Tritt dem Team bei</string>
   <string name="quitTeam">Team verlassen</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Beitrittsanfragen manuell überprüfen</string>
+  <string name="manuallyReviewAdmissionRequests">Beitrittsanfragen manuell überprüfen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Wenn diese Option aktiviert ist, müssen Spieler eine Anfrage schreiben, um dem Team beizutreten, welche du ablehnen oder akzeptieren kannst.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft werden.</string>
   <string name="beingReviewed">Deine Beitrittsanfrage wird von einem Teamleiter überprüft.</string>
+  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Team-Nachrichten abonnieren</string>
   <string name="teamBattle">Teamkampf</string>
   <string name="teamBattleOverview">Ein Kampf mehrerer Teams, jeder Spieler erzielt Punkte für sein Team</string>
   <string name="teamTournament">Team-Turnier</string>
   <string name="teamTournamentOverview">Ein Arenaturnier, dem nur Mitglieder deines Teams beitreten können</string>
+  <string name="swissTournamentOverview">Ein Turnier nach Schweizer System, dem nur Mitglieder deines Teams beitreten können</string>
   <string name="messageAllMembers">Benachrichtige alle Mitglieder</string>
   <string name="messageAllMembersOverview">Sende eine private Nachricht an alle Mitglieder des Teams</string>
   <string name="messageAllMembersLongDescription">Sende eine private Nachricht an ALLE Mitglieder dieses Teams. Du kannst die Funktion benutzen, um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen, könnten dein Team verlassen.</string>

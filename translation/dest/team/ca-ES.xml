@@ -12,7 +12,7 @@
   <string name="noTeamFound">No s\'ha trobat cap equip</string>
   <string name="joinTeam">Uneix-te a l\'equip</string>
   <string name="quitTeam">Abandona l\'equip</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Comprovar manualment peticions d\'admissió</string>
+  <string name="manuallyReviewAdmissionRequests">Comprovar manualment peticions d\'admissió</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si està marcat, els jugadors necessitaran fer una petició per unirse a l\'equip, la qual pots acceptar o rebutjar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder de l\'equip</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
   <string name="beingReviewed">La teva petició serà revisada pel capità de l\'equip.</string>
+  <string name="subToTeamMessages">Subscriu-te als missatges de l\'equip</string>
   <string name="teamBattle">Batalla d\'equips</string>
   <string name="teamBattleOverview">Batalla de diversos equips, cada jugador puntua pel seu equip</string>
   <string name="teamTournament">Torneig d\'equip</string>
   <string name="teamTournamentOverview">Torneig Arena on només membres del teu equip poden inscriure\'s</string>
+  <string name="swissTournamentOverview">Torneig Suís on només membres del teu equip es poden inscriure</string>
   <string name="messageAllMembers">Missatge a tots els membres</string>
   <string name="messageAllMembersOverview">Enviar missatge privat a tots els membres de l\'equip</string>
   <string name="messageAllMembersLongDescription">Envia un missatge privat a TOTS els membres de l\'equip.

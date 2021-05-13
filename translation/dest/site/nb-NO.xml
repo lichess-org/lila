@@ -856,7 +856,10 @@
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
+  <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>
   <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>
+  <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
 </resources>

@@ -2,8 +2,17 @@
 <resources>
   <string name="private">sina wile e nimi pi sona ala</string>
   <string name="myStudies">pali sona mi</string>
+  <string name="myPublicStudies">lipu sona kulupu mi</string>
+  <string name="myPrivateStudies">lipu sona kulupu ala mi</string>
+  <string name="myFavoriteStudies">lipu sona pona a</string>
+  <string name="whatAreStudies">lipu sona li seme?</string>
+  <string name="allStudies">lipu sona ale</string>
+  <string name="studiesCreatedByX">lipu sona pi jan %s</string>
   <string name="noneYet">tenpo ni la ala.</string>
   <string name="hot">suli</string>
+  <string name="dateAddedNewest">tenpo kama (sin)</string>
+  <string name="dateAddedOldest">tenpo kama (sin ala)</string>
+  <string name="recentlyUpdated">tenpo lili la ni li sin</string>
   <plurals name="nbGames">
     <item quantity="one">musi %s</item>
     <item quantity="other">musi %s</item>
@@ -21,7 +30,9 @@
   <string name="next">tawa</string>
   <string name="last">o tawa monsi</string>
   <string name="cloneStudy">o kama jo</string>
+  <string name="studyPgn">kama sona e PGN</string>
   <string name="downloadGame">o kama jo e musi</string>
+  <string name="studyUrl">kama sona e URL</string>
   <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
   <string name="orientation">poka pi sinpin ona</string>
@@ -30,7 +41,8 @@
   <string name="hideNextMoves">o lukin ala e tawa lon tenpo tawa</string>
   <string name="empty">ala</string>
   <string name="editor">ilo pi kama ante</string>
-  <string name="editStudy">ante e nasin pali</string>
+  <string name="createStudy">pali e lipu sona</string>
+  <string name="editStudy">ante e lipu sona</string>
   <string name="visibility">lukin ala lukin</string>
   <string name="public">ken lukin tawa jan ante</string>
   <string name="unlisted">pi lukin ala tawa jan ale</string>
@@ -42,4 +54,7 @@
   <string name="start">o open</string>
   <string name="save">awen</string>
   <string name="clearChat">weka e toki lon tomo toki</string>
+  <string name="deleteStudy">o weka e lipu sona</string>
+  <string name="deleteTheEntireStudy">sina wile ala wile weka e lipu sona ale? ni li tawa tenpo ale!</string>
+  <string name="whereDoYouWantToStudyThat">sina wile kama sona e ni lon ma seme?</string>
 </resources>

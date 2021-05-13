@@ -12,7 +12,7 @@
   <string name="noTeamFound">Komanda tapılmadı</string>
   <string name="joinTeam">Komandaya qoşul</string>
   <string name="quitTeam">Komandanı tərk et</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
+  <string name="manuallyReviewAdmissionRequests">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">İşarəlidirsə, oyunçuların komandaya qoşulmaq üçün bir tələb yazması lazımdır, bu təklifi rədd edə və ya qəbul edə bilərsiniz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komanda lideri</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçiriləcək.</string>
   <string name="beingReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçirilir.</string>
+  <string name="subToTeamMessages">Komanda mesajlarına abunə olun</string>
   <string name="teamBattle">Komanda Döyüşü</string>
   <string name="teamBattleOverview">Çoxlu komandaların döyüşü, hər oyunçu öz komandası üçün xal qazanır</string>
   <string name="teamTournament">Komanda turniri</string>
   <string name="teamTournamentOverview">Yalnız sizin komandanızın üzvlərinin qoşula biləcəyi Arena turniri</string>
+  <string name="swissTournamentOverview">Yalnız sizin komandanın üzvlərinin qoşula biləcəyi İsveçrə turniri</string>
   <string name="messageAllMembers">Bütün üzvlərə mesaj göndər</string>
   <string name="messageAllMembersOverview">Komandadakı hər bir üzvünə özəl mesaj göndər</string>
   <string name="messageAllMembersLongDescription">Komandanın BÜTÜN üzvlərinə özəl mesaj göndərər.

@@ -16,7 +16,7 @@
   <string name="noTeamFound">لايوجد فريق</string>
   <string name="joinTeam">انضم للفريق</string>
   <string name="quitTeam">انسحب من الفريق</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">مراجعة طلبات القبول يدويًا</string>
+  <string name="manuallyReviewAdmissionRequests">مراجعة طلبات القبول يدويًا</string>
   <string name="manuallyReviewAdmissionRequestsHelp">إذا تم تحديده، سيحتاج اللاعبون إلى كتابة طلب للانضمام إلى الفريق، والذي يمكنك رفضه أو قبوله.</string>
   <string name="teamBestPlayers">أفضل اللاعبين</string>
   <string name="teamRecentMembers">آخر الأعضاء</string>

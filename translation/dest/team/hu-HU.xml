@@ -12,7 +12,7 @@
   <string name="noTeamFound">Nem található ilyen csapat</string>
   <string name="joinTeam">Csapathoz csatlakozás</string>
   <string name="quitTeam">Kilépés a csapatból</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Egyénenkénti csatlakozási kérelmek</string>
+  <string name="manuallyReviewAdmissionRequests">Egyénenkénti csatlakozási kérelmek</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ha engedélyezett, a játékosoknak írniuk kell egy csatlakozási kérelmet, amit elfogadhatsz vagy elutasíthatsz.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Csapatvezető</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">A csatlakozási kérelmet a csapatvezető fogja elbírálni.</string>
   <string name="beingReviewed">A csatlakozási kérelem elbírálás alatt van a csapatvezetőnél.</string>
+  <string name="subToTeamMessages">Feliratkozás a csapat üzeneteire</string>
   <string name="teamBattle">Csapatverseny</string>
   <string name="teamBattleOverview">Csapatok közötti verseny, minden játékos a saját csapatának szerez pontokat</string>
   <string name="teamTournament">Csapaton belüli verseny</string>
   <string name="teamTournamentOverview">Olyan verseny, amiben csak a csapattagok vehetnek részt</string>
+  <string name="swissTournamentOverview">Svájci rendszerű verseny kizárólag csapattársak részére</string>
   <string name="messageAllMembers">Üzenet minden tagnak</string>
   <string name="messageAllMembersOverview">Privát üzenet küldése minden csapattag részére</string>
   <string name="messageAllMembersLongDescription">Privát üzenet küldése MINDEN csapattag részére.

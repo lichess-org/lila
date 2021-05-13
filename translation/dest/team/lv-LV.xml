@@ -13,7 +13,7 @@
   <string name="noTeamFound">Neatrada nevienu komandu</string>
   <string name="joinTeam">Pievienoties komandai</string>
   <string name="quitTeam">Pamest komandu</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Izskatīt katru pievienošanās pieprasījumu</string>
+  <string name="manuallyReviewAdmissionRequests">Izskatīt katru pievienošanās pieprasījumu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ja iespējosiet, spēlētājiem būs jāiesniedz pieprasījums pievienoties komandai, kuru jūs varat noraidīt vai pieņemt.</string>
   <plurals name="teamLeaders">
     <item quantity="zero">Komandas vadītāji</item>
@@ -31,10 +31,12 @@
   </plurals>
   <string name="willBeReviewed">Jūsu pieprasījumu pievienoties izskatīs komandas vadītājs.</string>
   <string name="beingReviewed">Jūsu pieprasījumu pievienoties izskata komandas vadītājs.</string>
+  <string name="subToTeamMessages">Abonēt komandas ziņas</string>
   <string name="teamBattle">Komandu cīņa</string>
   <string name="teamBattleOverview">Cīņa starp vairākām komandām — katrs spēlētājs pelna punktus savai komandai</string>
   <string name="teamTournament">Komandas turnīrs</string>
   <string name="teamTournamentOverview">Arēnas turnīrs, kurā var piedalīties vienīgi komandas dalībnieki</string>
+  <string name="swissTournamentOverview">Šveices turnīrs, kam var pievienoties tikai jūsu komandas dalībnieki</string>
   <string name="messageAllMembers">Rakstīt ziņu visiem dalībniekiem</string>
   <string name="messageAllMembersOverview">Sūtīt privātu ziņu katram komandas dalībniekam</string>
   <string name="messageAllMembersLongDescription">Sūtīt ziņu visiem komandas dalībniekiem.

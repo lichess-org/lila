@@ -14,7 +14,7 @@
   <string name="noTeamFound">Nerasta jokia komanda</string>
   <string name="joinTeam">Stoti į komandą</string>
   <string name="quitTeam">Palikti komandą</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Priėmimo prašymus peržvelgti rankiniu būdu</string>
+  <string name="manuallyReviewAdmissionRequests">Priėmimo prašymus peržvelgti rankiniu būdu</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jei pažymėta, norėdami patekti į komandą žaidėjai turės užpildyti prašymą. Šį prašymą galite priimti arba atmesti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komandos vadovas</item>
@@ -34,10 +34,12 @@
   </plurals>
   <string name="willBeReviewed">Komandos vadovas peržiūrės jūsų stojimo prašymą.</string>
   <string name="beingReviewed">Komandos vadovas peržiūri jūsų stojimo prašymą.</string>
+  <string name="subToTeamMessages">Prenumeruoti komandos žinutes</string>
   <string name="teamBattle">Komandų turnyras</string>
   <string name="teamBattleOverview">Kelių komandų kova, kiekvienas žaidėjas renka taškus savo komandai</string>
   <string name="teamTournament">Komandinis turnyras</string>
   <string name="teamTournamentOverview">Arenos turnyras į kurį gali prisijungti tik jūsų komandos nariai</string>
+  <string name="swissTournamentOverview">Šveicariškas turnyras į kurį gali jungtis tik jūsų komandos nariai</string>
   <string name="messageAllMembers">Siųsti žinutę visiems nariams</string>
   <string name="messageAllMembersOverview">Siųsti asmeninę žinutę kiekvienam komandos nariui</string>
   <string name="messageAllMembersLongDescription">Siųsti asmenines žinutes visiems komandos nariams.

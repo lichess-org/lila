@@ -14,7 +14,7 @@
   <string name="noTeamFound">Ni najdenih ekip</string>
   <string name="joinTeam">Pridruži se ekipi</string>
   <string name="quitTeam">Zapusti ekipo</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ročno preglejte zahteve za sprejem</string>
+  <string name="manuallyReviewAdmissionRequests">Ročno preglejte zahteve za sprejem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Če je polje potrjeno, bodo morali igralci napisati zahtevo za pridružitev ekipi, ki jo lahko zavrnete ali sprejmete.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vodja ekipe</item>
@@ -34,10 +34,12 @@
   </plurals>
   <string name="willBeReviewed">Vašo prošnjo bo pregledal voditelj ekipe.</string>
   <string name="beingReviewed">Vašo prošnjo je pregledal vodja ekipe.</string>
+  <string name="subToTeamMessages">Naročite se na sporočila ekipe</string>
   <string name="teamBattle">Bitka ekip</string>
   <string name="teamBattleOverview">Bitka več ekip, vsak igralec osvoji točke za svojo ekipo</string>
   <string name="teamTournament">Turnir ekipe</string>
   <string name="teamTournamentOverview">Turnir v Areni, ki se mu lahko pridružijo samo člani vaše ekipe</string>
+  <string name="swissTournamentOverview">Švicarski turnir, ki se mu lahko pridružijo samo člani vaše ekipe</string>
   <string name="messageAllMembers">Sporočilo vsem članom</string>
   <string name="messageAllMembersOverview">Pošljite zasebno sporočilo vsakemu članu ekipe</string>
   <string name="messageAllMembersLongDescription">Pošlji zasebno sporočilo vsem članom ekipe. Lahko uporabiš to, da pokličeš igralce, da se udeležijo turnirja ali ekipnega boja. Igralci, ki ne marajo prejemanja vaših sporočil lahko zapustijo ekipo.</string>
