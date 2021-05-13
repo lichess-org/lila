@@ -89,9 +89,6 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
       .hint(coll hint $doc("seenAt" -> 1)) // partial index
       .cursor[Challenge]()
       .list(max)
-      .recoverWith { case _: reactivemongo.core.errors.DatabaseException =>
-        coll.list[Challenge](selector, max)
-      }
   }
 
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
