@@ -20,6 +20,7 @@ exports.rollupProject = targets => {
                   output: {
                     comments: false,
                   },
+                  numWorkers: 1,
                 }),
               ],
             }
