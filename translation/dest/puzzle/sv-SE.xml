@@ -39,8 +39,16 @@
   <string name="normal">Normal</string>
   <string name="easier">Lättare</string>
   <string name="easiest">Lättaste</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">En poäng under ditt pusselbetyg</item>
+    <item quantity="other">%s poäng under ditt pusselbetyg</item>
+  </plurals>
   <string name="harder">Svårare</string>
   <string name="hardest">Svåraste</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">En poäng över ditt pusselbetyg</item>
+    <item quantity="other">%s poäng över ditt pusselbetyg</item>
+  </plurals>
   <string name="example">Exempel</string>
   <string name="addAnotherTheme">Lägg till ett annat tema</string>
   <string name="jumpToNextPuzzleImmediately">Hoppa till nästa schackproblem direkt</string>
