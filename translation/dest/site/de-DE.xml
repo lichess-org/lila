@@ -192,7 +192,7 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
-  <string name="passwordReset">Passwort zurücksetzen</string>
+  <string name="passwordReset">Passwort vergessen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
