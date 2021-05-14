@@ -28,6 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Seu pedido de adesão será analisado pelos líderes da equipe.</string>
   <string name="beingReviewed">Seu pedido de adesão está sendo analisado pelos líderes da equipe.</string>
+  <string name="subToTeamMessages">Inscrever-se às mensagens da equipe</string>
   <string name="teamBattle">Batalha de equipes</string>
   <string name="teamBattleOverview">Uma batalha de várias equipes, cada jogador marca pontos para sua equipe</string>
   <string name="teamTournament">Torneio de equipes</string>
