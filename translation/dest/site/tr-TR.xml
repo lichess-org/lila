@@ -861,7 +861,7 @@
   <string name="pleaseReconsiderRenewIt">Lütfen yenilemeyi düşünün!</string>
   <string name="someoneReviewedYourCoachProfile">Birisi antrenör profilinizi inceledi.</string>
   <string name="newPendingReview">Yeni bekleyen inceleme</string>
-  <string name="lostAgainstTOSViolator">Lichess Hizmet Şartları\'nı ihlal eden birine kaybettin</string>
+  <string name="lostAgainstTOSViolator">Lichess Kulanım Şartları\'nı ihlal eden birine kaybettiniz</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
   <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
   <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
