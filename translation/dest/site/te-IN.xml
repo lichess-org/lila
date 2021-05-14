@@ -215,7 +215,27 @@
   <string name="gameAborted">గేమ్ ఆగిపోయినది</string>
   <string name="standard">ప్రామాణికం</string>
   <string name="unlimited">అపరిమితం</string>
+  <string name="mode">రీతి</string>
   <string name="casual">సాధారణం</string>
+  <string name="rated">రేటెడ్</string>
   <string name="casualTournament">సాధారణం</string>
+  <string name="ratedTournament">రేటెడ్</string>
+  <string name="thisGameIsRated">ఈ ఆట రేట్ చేయబడింది</string>
   <string name="rematch">తిరిగి పోటీ</string>
+  <string name="rematchOfferSent">రీమ్యాచ్ ఆఫర్ పంపబడింది</string>
+  <string name="rematchOfferSentWhite">తెలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <string name="rematchOfferSentBlack">నలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s రేటెడ్</item>
+    <item quantity="other">%s రేటెడ్</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s విజయం</item>
+    <item quantity="other">%s విజయాలు</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ఓటమి</item>
+    <item quantity="other">%s ఓటములు</item>
+  </plurals>
+  <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
 </resources>
