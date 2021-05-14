@@ -28,7 +28,7 @@
   </plurals>
   <string name="willBeReviewed">आपके सम्मिलित अनुरोध की समीक्षा टीम लीडर द्वारा की जाएगी।</string>
   <string name="beingReviewed">टीम लीडर द्वारा आपके सम्मिलित अनुरोध की समीक्षा की जा रही है।</string>
-  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">टीम संदेश स्वीकार करें</string>
+  <string name="subToTeamMessages">टीम संदेश स्वीकार करें</string>
   <string name="teamBattle">टीम युद्ध</string>
   <string name="teamBattleOverview">कई टीमों की लड़ाई, प्रत्येक खिलाड़ी अपनी टीम के लिए स्कोर करता है</string>
   <string name="teamTournament">टीम टूर्नामेंट</string>
