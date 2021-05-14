@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ağlarla oynayırsınız</string>
   <string name="youPlayTheBlackPieces">Qaralarla oynayırsınız</string>
   <string name="itsYourTurn">Sizin növbənizdir!</string>
+  <string name="cheatDetected">\"Cheat\" aşkarlandı</string>
   <string name="kingInTheCenter">Şah mərkəzdə</string>
   <string name="threeChecks">Üç şah</string>
   <string name="raceFinished">Yarış bitdi</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">\"Liches\" xidmət şərtlərini pozana qarşı uduzdun</string>
   <string name="refundXpointsTimeControlY">Geri qaytarma: \"%2$s\"-də %1$s reytinq xalı.</string>
   <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>
+  <string name="clickToRevealEmailAddress">[E-poçt ünvanını görmək üçün klikləyin]</string>
 </resources>

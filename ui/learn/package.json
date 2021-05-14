@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess performance statistics",
-  "main": "src/main.js",
+  "type": "module",
+  "module": "src/main.js",
   "keywords": [
     "chess",
     "lichess",

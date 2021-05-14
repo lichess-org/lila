@@ -42,8 +42,22 @@
   <string name="normal">Gnáth</string>
   <string name="easier">Níos éasca</string>
   <string name="easiest">Is éasca</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Pointe amháin faoi bhun do rátáil faidhbe</item>
+    <item quantity="two">%s phointe faoi bhun do rátáil faidhbe</item>
+    <item quantity="few">%s bpointe faoi bhun do rátáil faidhbe</item>
+    <item quantity="many">%s pointe faoi bhun do rátáil faidhbe</item>
+    <item quantity="other">%s pointe faoi bhun do rátáil faidhbe</item>
+  </plurals>
   <string name="harder">Níos deacra</string>
   <string name="hardest">Is deacra</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Pointe amháin os comhair do rátáil faidhbe</item>
+    <item quantity="two">%s phointe os comhair do rátáil faidhbe</item>
+    <item quantity="few">%s bpointe os comhair do rátáil faidhbe</item>
+    <item quantity="many">%s pointe os comhair do rátáil faidhbe</item>
+    <item quantity="other">%s pointe os comhair do rátáil faidhbe</item>
+  </plurals>
   <string name="example">Sampla</string>
   <string name="addAnotherTheme">Cuir téama eile leis</string>
   <string name="jumpToNextPuzzleImmediately">Léim chuig an chéad fadhbh eile láithreach</string>

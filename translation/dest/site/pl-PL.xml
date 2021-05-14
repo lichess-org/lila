@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Grasz białymi</string>
   <string name="youPlayTheBlackPieces">Grasz czarnymi</string>
   <string name="itsYourTurn">Twój ruch!</string>
+  <string name="cheatDetected">Wykryto oszustwo</string>
   <string name="kingInTheCenter">Król w centrum</string>
   <string name="threeChecks">Trzy szachy</string>
   <string name="raceFinished">Wyścig zakończony</string>
@@ -403,7 +404,7 @@
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
-  <string name="importGameExplanation">Wklejenie zapisu partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
+  <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -943,4 +944,5 @@
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
+  <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
 </resources>

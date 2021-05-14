@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">תאריך שבו הוסף (הישן ביותר)</string>
   <string name="recentlyUpdated">עודכן לאחרונה</string>
   <string name="mostPopular">הכי פופולרי</string>
+  <string name="alphabetical">בסדר האלפבית</string>
   <string name="addNewChapter">הוסף פרק חדש</string>
   <plurals name="nbChapters">
     <item quantity="one">%s פרק</item>
@@ -64,9 +65,12 @@
   <string name="shareAndExport">שתף &amp; ייצא</string>
   <string name="cloneStudy">שכפול</string>
   <string name="studyPgn">הPGN של המחקר</string>
+  <string name="downloadAllGames">הורד את כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
+  <string name="downloadGame">הורד את המשחק</string>
   <string name="studyUrl">כתובת האינטרנט של המחקר</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
+  <string name="youCanPasteThisInTheForumToEmbed">אתה יכול לפרסם את זה בפורום כדי להטמיע</string>
   <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
   <string name="startAtX">מתחיל ב%s</string>
   <string name="open">פתח</string>

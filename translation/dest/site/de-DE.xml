@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
   <string name="youPlayTheBlackPieces">Du spielst mit den schwarzen Figuren</string>
   <string name="itsYourTurn">Du bist am Zug!</string>
+  <string name="cheatDetected">Betrug erkannt</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
@@ -330,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Wertung ≤ %1$s im %2$s diese Woche</string>
   <string name="mustBeInTeam">Du musst in Team %s sein</string>
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
@@ -845,9 +846,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
-  <string name="mentionedYouInX"> erwähnte dich in \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s erwähnte dich in \"%2$s\".</string>
-  <string name="invitedYouToX"> hat dich zu \"%1$s\" eingeladen.</string>
+  <string name="mentionedYouInX">erwähnte dich in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s erwähnte dich in \"%2$s\".</string>
+  <string name="invitedYouToX">hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">%1$s hat dich zu \"%2$s\" eingeladen.</string>
   <string name="youAreNowPartOfTeam">Du bist nun Teammitglied.</string>
   <string name="youHaveJoinedTeamX">Du bist jetzt \"%1$s\" beigetreten.</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
+  <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
 </resources>

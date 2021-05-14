@@ -11,7 +11,6 @@ project/metals.sbt
 project/project
 project/target
 public/compiled
-public/vendor/bar-rating
 public/vendor/highcharts-4.2.5
 public/vendor/hopscotch
 public/vendor/tagify

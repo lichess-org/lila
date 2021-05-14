@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Вие играете с белите фигури</string>
   <string name="youPlayTheBlackPieces">Вие играете с черните фигури</string>
   <string name="itsYourTurn">Ваш ред е!</string>
+  <string name="cheatDetected">Открита е измама</string>
   <string name="kingInTheCenter">Царят е в центъра</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Надпреварата завърши</string>
@@ -358,7 +359,7 @@
     <item quantity="other">%s Добавени игри</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Това е шахматна CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
+  <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек.</string>
   <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
   <string name="whiteCheckmatesInOneMove">Белите на ход, мат в един ход</string>
@@ -864,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
   <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
+  <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
 </resources>

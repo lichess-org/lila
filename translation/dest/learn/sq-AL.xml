@@ -169,8 +169,7 @@ ushtari juaj eshte ne rangun e peste.</string>
   <string name="enPassantComplete">Urime! Tani dini te beni prerje ushtaresh.</string>
   <string name="stalemate">Pati</string>
   <string name="theGameIsADraw">Loja eshte barazim</string>
-  <string name="stalemateIntro">Kur lojtari nuk eshte ne shah dhe nuk ka levizje, loja del pat. 
-Loja eshte barazim: asnje nuk fiton ose humb.</string>
+  <string name="stalemateIntro">Kur lojtari nuk eshte ne shah dhe nuk ka levizje, loja del pat. Loja eshte barazim: asnje nuk fiton ose humb.</string>
   <string name="stalemateGoal">Per ta nxjerre lojen pat:
 -I ziu nuk mund te levizi ne asnje vend
 -Nuk ka shah.</string>

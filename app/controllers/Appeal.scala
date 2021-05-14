@@ -109,7 +109,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
       logins = logins,
       appeals = appeals,
       renderIp = env.mod.ipRender(me),
-      inquiry = inquiry.filter(_.mod == me.user)
+      inquiry = inquiry.filter(_.mod == me.user.id)
     )
 
   def mute(username: String) =

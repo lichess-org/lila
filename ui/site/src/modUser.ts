@@ -6,7 +6,7 @@ import tablesort from 'tablesort';
 
 lichess.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
-    $zone = $('.mod-zone');
+    $zone = $('.mod-zone-full');
   let nbOthers = 100;
 
   function streamLoad() {
@@ -31,7 +31,7 @@ lichess.load.then(() => {
     $zone.html('');
     streamLoad();
     window.addEventListener('scroll', onScroll);
-    scrollTo('.mod-zone');
+    scrollTo('.mod-zone-full');
   }
   function unloadZone() {
     $zone.addClass('none');
@@ -110,7 +110,7 @@ lichess.load.then(() => {
       })
     );
 
-    makeReady('#mz_others', el => {
+    makeReady('.mz_others', el => {
       $(el).height($(el).height());
       $(el)
         .find('.mark-alt')
@@ -121,7 +121,7 @@ lichess.load.then(() => {
           }
         });
     });
-    makeReady('#mz_others table', el => {
+    makeReady('.mz_others table', el => {
       tablesort(el, { descending: true });
     });
     makeReady('#mz_identification .spy_filter', el => {
@@ -136,10 +136,10 @@ lichess.load.then(() => {
       const valueOf = (el: HTMLTableRowElement) => $(el).find('td:first-child').text();
       const applyFilter = (v?: string) =>
         v
-          ? $('#mz_others tbody tr').each(function (this: HTMLElement) {
+          ? $inZone.find('.mz_others tbody tr').each(function (this: HTMLElement) {
               $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
             })
-          : $('#mz_others tbody tr.none').removeClass('none');
+          : $inZone.find('.mz_others tbody tr.none').removeClass('none');
       $(el)
         .find('tr')
         .on('click', function (this: HTMLTableRowElement) {
@@ -161,7 +161,7 @@ lichess.load.then(() => {
       },
       'ready-sort'
     );
-    makeReady('#mz_others .more-others', el => {
+    makeReady('.mz_others .more-others', el => {
       $(el)
         .addClass('.ready')
         .on('click', () => {
@@ -185,6 +185,6 @@ lichess.load.then(() => {
     $zone.find('button.inquiry').trigger('click')
   );
 
-  const $comms = $('#communication');
-  if ($comms.length) userMod($comms);
+  const $other = $('#communication,main.appeal');
+  if ($other.length) userMod($other);
 });

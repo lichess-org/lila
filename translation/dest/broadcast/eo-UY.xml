@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Elsendoj</string>
+  <string name="newBroadcast">Nova viva elsendo</string>
   <string name="ongoing">Nun funkcianta</string>
   <string name="upcoming">Baldaŭ</string>
   <string name="completed">Kompletigita</string>
   <string name="roundNumber">Rondnumero</string>
+  <string name="tournamentName">Nomo de la turniro</string>
   <string name="fullDescription">Plena eventa priskribo</string>
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>

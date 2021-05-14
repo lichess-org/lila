@@ -49,9 +49,7 @@ final class PrefApi(
     getPref(user) dmap RequestPref.queryParamOverride(req)
 
   def followable(userId: User.ID): Fu[Boolean] =
-    coll.find($id(userId), $doc("follow" -> true).some).one[Bdoc] dmap {
-      _ flatMap (_.getAsOpt[Boolean]("follow")) getOrElse Pref.default.follow
-    }
+    coll.primitiveOne[Boolean]($id(userId), "follow") map (_ | Pref.default.follow)
 
   def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.secondaryPreferred.distinctEasy[User.ID, Set](

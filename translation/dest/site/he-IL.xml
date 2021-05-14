@@ -123,6 +123,24 @@
   <string name="blunder">בלאנדר</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">החמצה</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">טעות גסה %s</item>
+    <item quantity="two">%s טעויות גסות</item>
+    <item quantity="many">%s טעויות גסות</item>
+    <item quantity="other">%s טעויות גסות</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">שגיאה %s</item>
+    <item quantity="two">%s שגיאות</item>
+    <item quantity="many">%s שגיאות</item>
+    <item quantity="other">%s שגיאות</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s אי-דיוק</item>
+    <item quantity="two">%s אי-דיוקים</item>
+    <item quantity="many">%s אי-דיוקים</item>
+    <item quantity="other">%s אי-דיוקים</item>
+  </plurals>
   <string name="moveTimes">זמני המהלך</string>
   <string name="flipBoard">הפוך את הלוח</string>
   <string name="threefoldRepetition">חזרה משולשת</string>
@@ -521,6 +539,8 @@
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>
   <string name="description">תיאור</string>
+  <string name="descPrivate">תיאור פרטי</string>
+  <string name="descPrivateHelp">טקסט שרק חברי הקבוצה יראו. אם נכתב, יחליף את התיאור הפומבי עבור חברי הקבוצה.</string>
   <string name="no">לא</string>
   <string name="yes">כן</string>
   <string name="help">:עזרה</string>
@@ -541,6 +561,7 @@
   <string name="cheat">רמאות</string>
   <string name="insult">העלבה</string>
   <string name="troll">טרול</string>
+  <string name="ratingManipulation">מניפולציה בדירוג</string>
   <string name="other">אחר</string>
   <string name="reportDescriptionHelp">הדבק את הקישור למשחק(ים) והסבר מה לא בסדר בהתנהגות המשתמש</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
@@ -908,8 +929,21 @@
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
   <string name="mentionedYouInX"> ציינו אותכם ב- %1$s.</string>
+  <string name="xMentionedYouInY"> %1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
+  <string name="invitedYouToX"> הזמין אותך ל-\"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">אתה כעת חבר בקבוצה.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">מישהו שדיווחת עליו נחסם</string>
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">משחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
+  <string name="youJustBecamePatron">כעת הפכת לתומך של ליצ\'ס.</string>
+  <string name="patronAccountExpired">חשבון תומך פג תוקף</string>
+  <string name="pleaseReconsiderRenewIt">אנא שקול לחדש אותו!</string>
+  <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
+  <string name="newPendingReview">דירוג ממתין חדש</string>
+  <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
+  <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
+  <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
 </resources>

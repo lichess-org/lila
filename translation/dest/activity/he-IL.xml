@@ -92,6 +92,13 @@
     <item quantity="many">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="other">מדורג במקום #%1$s (מעל %%%2$s) עם %3$s משחקים ב%4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">התחרה בטורניר שוויצרי %s</item>
+    <item quantity="two">התחרה ב-%s טורנירים שוויצריים</item>
+    <item quantity="many">התחרה ב-%s טורנירים שוויצריים</item>
+    <item quantity="other">התחרה ב-%s טורנירים שוויצריים</item>
+  </plurals>
+  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">מדורג מקום %1$s ב-%2$s</string>
   <string name="signedUp">נרשם לlichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">הצטרף לקבוצה אחת</item>

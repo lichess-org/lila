@@ -12,7 +12,7 @@
   <string name="noTeamFound">Ningún equipo encontrado</string>
   <string name="joinTeam">Unirse al equipo</string>
   <string name="quitTeam">Abandonar el equipo</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Revisar manualmente las solicitudes de admisión</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente las solicitudes de admisión</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Si está marcado, los jugadores tendrán que escribir una solicitud para unirse al equipo, que tú puedes rechazar o aceptar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Líder del equipo</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
+  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Suscribirse a los mensajes del equipo</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
   <string name="teamTournament">Torneo de equipo</string>
   <string name="teamTournamentOverview">Un torneo al que sólo pueden unirse los miembros de tu equipo</string>
+  <string name="swissTournamentOverview">Un torneo por sistema suizo en el que solo los miembros de tu equipo pueden unirse</string>
   <string name="messageAllMembers">Enviar mensaje a todos los miembros</string>
   <string name="messageAllMembersOverview">Enviar un mensaje privado a cada miembro del equipo</string>
   <string name="messageAllMembersLongDescription">Enviar un mensaje privado a TODOS los miembros del equipo.

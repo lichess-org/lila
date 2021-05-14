@@ -532,7 +532,7 @@
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
   <string name="increment">Gia tăng</string>
-  <string name="sharePGN">Chia sẻ tập tin pgn</string>
+  <string name="sharePGN">Chia sẻ tập tin PGN</string>
   <string name="playOnline">Chơi trực tuyến</string>
   <string name="playOffline">Chơi ngoại tuyến</string>
   <string name="allowAnalytics">Cho phép thống kê nặc danh</string>
@@ -689,7 +689,7 @@
   <string name="chessBasics">Cờ cơ bản</string>
   <string name="coaches">Huấn luyện viên</string>
   <string name="invalidPgn">PGN không hợp lệ</string>
-  <string name="invalidFen">PEN không hợp lệ</string>
+  <string name="invalidFen">FEN không hợp lệ</string>
   <string name="error.minLength">Độ dài tối thiểu là %s</string>
   <string name="error.maxLength">Độ dài tối đa là %s</string>
   <string name="error.min">Phải lớn hơn hoặc bằng %s</string>

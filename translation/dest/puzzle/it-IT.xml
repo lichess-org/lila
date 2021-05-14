@@ -19,7 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Per ottenere tattiche personalizzate:</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Tattica del giorno</string>
-  <string name="clickToSolve">Clicca per vedere la soluzione</string>
+  <string name="clickToSolve">Clicca per provare a risolverla</string>
   <string name="goodMove">Buona mossa</string>
   <string name="bestMove">La mossa migliore!</string>
   <string name="keepGoing">Continua così…</string>

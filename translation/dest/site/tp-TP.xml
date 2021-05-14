@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">sina kepeken kiwen walo</string>
   <string name="youPlayTheBlackPieces">sina kepeken kiwen pimeja</string>
   <string name="itsYourTurn">sina o musi!</string>
+  <string name="cheatDetected">kepeken ilo li lon</string>
   <string name="kingInTheCenter">mije lawa li lon insa</string>
   <string name="threeChecks">tenpo tu wan la kiwen li utala e mije lawa</string>
   <string name="raceFinished">tawa wawa li pini</string>
@@ -185,7 +186,7 @@
   <string name="username">nimi pi jan kepeken</string>
   <string name="usernameOrEmail">nimi pi jan kepeken anu nimi pi lipu toki linluwi</string>
   <string name="changeUsername">o ante e nimi sina</string>
-  <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\". </string>
+  <string name="changeUsernameNotSame">sina ken ante e suli taso pi sitelen lili. pana lukin la nimi \"sonjalang\" li ken kama \"SonjaLang\".</string>
   <string name="changeUsernameDescription">o ante e nimi sina. sina ken pali e ni lon tenpo wan taso. sina ken ante e suli taso pi sitelen lili pi nimi sina.</string>
   <string name="password">nimi open len</string>
   <string name="changePassword">o ante e nimi open len</string>
@@ -865,4 +866,5 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>
   <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>
+  <string name="clickToRevealEmailAddress">[pilin la sina ken lukin e ma pi lipu kon]</string>
 </resources>

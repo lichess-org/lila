@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spelar med dei kvite brikkene</string>
   <string name="youPlayTheBlackPieces">Du spelar med dei svarte brikkene</string>
   <string name="itsYourTurn">Det er ditt trekk!</string>
+  <string name="cheatDetected">Juks oppdaga</string>
   <string name="kingInTheCenter">Kongen i sentrum</string>
   <string name="threeChecks">Sjakk tre gonger</string>
   <string name="raceFinished">Målgang</string>
@@ -544,12 +545,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
   <string name="victory">Siger</string>
   <string name="defeat">Tap</string>
-  <string name="victoryVsYInZ">%1$s mot %2$s 
-i %3$s</string>
-  <string name="defeatVsYInZ">%1$s mot %2$s 
-i %3$s</string>
-  <string name="drawVsYInZ">%1$s mot %2$s 
-i %3$s</string>
+  <string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
+  <string name="defeatVsYInZ">%1$s mot %2$s i %3$s</string>
+  <string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All informasjon er offentleg og valfri.</string>
@@ -867,4 +865,5 @@ i %3$s</string>
   <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
+  <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
 </resources>

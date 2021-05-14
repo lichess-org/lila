@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
   <string name="youPlayTheBlackPieces">Du spiller med de sorte brikker</string>
   <string name="itsYourTurn">Det er din tur!</string>
+  <string name="cheatDetected">Snyd detekteret</string>
   <string name="kingInTheCenter">Konge i centrum</string>
   <string name="threeChecks">Tre skakker</string>
   <string name="raceFinished">Race færdigt</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
+  <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
 </resources>

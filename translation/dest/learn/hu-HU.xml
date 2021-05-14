@@ -38,8 +38,7 @@ Mindkettőre szükséged van!</string>
   <string name="kingComplete">Most már parancsolhatsz a parancsnoknak!</string>
   <string name="theKnight">A huszár</string>
   <string name="itMovesInAnLShape">L alakban mozog</string>
-  <string name="knightIntro">Itt van a kihívásod.
-A huszár egy trükkös figura.</string>
+  <string name="knightIntro">Itt van a kihívásod. A huszár egy trükkös figura.</string>
   <string name="knightsHaveAFancyWay">A huszárok specialitása hogy ugrálnak!</string>
   <string name="knightsCanJumpOverObstacles">A huszárok átugorhatják az akadályokat!
 Menekülj és szerezd meg a csillagokat!</string>
@@ -167,8 +166,7 @@ amikor a gyalogod az 5. sorban van.</string>
   <string name="enPassantComplete">Gratulálunk! Mos már tudsz en passant ütni.</string>
   <string name="stalemate">Patt</string>
   <string name="theGameIsADraw">A döntetlen játszma</string>
-  <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt.
-A játszma döntetlen: senki sem győzött vagy vesztett.</string>
+  <string name="stalemateIntro">Amikor a játékos nincs sakkban és nem tud szabályosan lépni, az patt. A játszma döntetlen: senki sem győzött vagy vesztett.</string>
   <string name="stalemateGoal">Ha pattot adunk a sötétnek:
 - Sötétnek nem tud lépni
 - Nincs sakkban</string>

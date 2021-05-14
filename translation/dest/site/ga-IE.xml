@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Imir leis na píosaí bána</string>
   <string name="youPlayTheBlackPieces">Imir leis na píosaí dubha</string>
   <string name="itsYourTurn">Is é do sheal!</string>
+  <string name="cheatDetected">Caimiléireacht Aimsithe</string>
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Rás críochnaithe</string>
@@ -984,4 +985,5 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="lostAgainstTOSViolator">Chaill tú i gcoinne duine a sháraigh téarmaí seirbhíse Lichess</string>
   <string name="refundXpointsTimeControlY">Athchistiú: %1$s %2$s pointí rátála.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
+  <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
 </resources>

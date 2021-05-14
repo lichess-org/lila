@@ -3,8 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org fast puzzle utils",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
@@ -13,9 +14,9 @@
     "prod": "yarn run compile"
   },
   "dependencies": {
-    "chessops": "^0.8.1",
+    "chessops": "^0.9.0",
     "snabbdom": "^3.0.1",
-    "chessground": "^7.11.0",
+    "chessground": "^7.12.0",
     "common": "2.0.0"
   },
   "devDependencies": {

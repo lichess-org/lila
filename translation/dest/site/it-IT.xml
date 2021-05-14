@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
   <string name="youPlayTheBlackPieces">Sei il Nero</string>
   <string name="itsYourTurn">Tocca a te!</string>
+  <string name="cheatDetected">Trucco Rilevato</string>
   <string name="kingInTheCenter">Re al centro</string>
   <string name="threeChecks">Tre scacchi</string>
   <string name="raceFinished">Corsa terminata</string>
@@ -864,4 +865,5 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="lostAgainstTOSViolator">Hai perso con qualcuno che ha violato i termini di servizio lichess</string>
   <string name="refundXpointsTimeControlY">Rimborso: %1$s %2$s punti di valutazione.</string>
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
+  <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
 </resources>

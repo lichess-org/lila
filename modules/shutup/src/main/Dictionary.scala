@@ -9,7 +9,6 @@ private object Dictionary {
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
 (f|ph)agg?([oi]t|)
-cock(suc?k(er|ing)|)
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -39,7 +38,7 @@ chicken
 chink
 clit(oris|)
 clown
-cock(suc?ker|)
+cock(suc?k(er|ing)|)
 condom
 coon
 coward?
@@ -136,7 +135,7 @@ stupid
 suicide
 suck m[ey]
 terrorist
-tit(t?ies|ty|)(fuc?k)
+tit(t?ies|ty|)(fuc?k|)
 tosser
 trann(y|ie)
 trash
@@ -227,6 +226,7 @@ putt?ana
 stronzo
 troia
 vaffanculo
+sparati
 """)
 
   def hi = dict("""

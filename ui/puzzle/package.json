@@ -19,8 +19,8 @@
   "dependencies": {
     "ceval": "2.0.0",
     "chart.js": "^2.9",
-    "chessground": "^7.11.1",
-    "chessops": "^0.8.1",
+    "chessground": "^7.12.0",
+    "chessops": "^0.9.0",
     "common": "2.0.0",
     "snabbdom": "^3.0.1",
     "tree": "2.0.0"

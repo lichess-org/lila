@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Донирај</string>
-  <string name="lichessPatron">Lichess подржувач
-
-Луѓе кои донират на Lichess - https://lichess.org/patron</string>
+  <string name="lichessPatron">Lichess подржувач</string>
   <string name="freeAccount">Бесплатен акаунт</string>
   <string name="becomePatron">Стани подржувач</string>
   <string name="xBecamePatron">%s стани Lichess подржувач</string>

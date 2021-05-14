@@ -136,7 +136,7 @@ Veiciet jebkādu gājienu lai turpinātu.</string>
   <string name="takeAllThePawnsEnPassant">Nosit visus bandiniekus garāmejot!</string>
   <string name="enPassantComplete">Apsveicam. Tagad vari sist garāmejot.</string>
   <string name="stalemate">Pats</string>
-  <string name="theGameIsADraw">Spēle ir neizšķirts</string>
+  <string name="theGameIsADraw">Spēle ir neizšķirta</string>
   <string name="stalemateIntro">Kad spēlētājam nav pieteikts šahs un viņš nevar izdarīt legālu gājienu, tad ir pats. Spēle beidzas neizšķirti: neviens neuzvar, neviens nezaudē.</string>
   <string name="stalemateGoal">Lai melniem būtu pats:
 - Melnie nevar izdarīt gājienu

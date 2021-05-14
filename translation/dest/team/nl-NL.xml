@@ -12,7 +12,7 @@
   <string name="noTeamFound">Geen team gevonden</string>
   <string name="joinTeam">Word lid van het team</string>
   <string name="quitTeam">Verlaat het team</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Handmatig toelatingsverzoeken beoordelen</string>
+  <string name="manuallyReviewAdmissionRequests">Handmatig toelatingsverzoeken beoordelen</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Indien aangevinkt, moeten spelers schriftelijk verzoeken om lid te worden van het team. Dat verzoek kun je weigeren of accepteren.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleider</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Je verzoek tot deelname zal worden beoordeeld door de teamleider.</string>
   <string name="beingReviewed">Je verzoek tot deelname wordt beoordeeld door de teamleider.</string>
+  <string name="subToTeamMessages">Abonneren op teamberichten</string>
   <string name="teamBattle">Teamcompetitie</string>
   <string name="teamBattleOverview">Een wedstrijd met meerdere teams, iedere speler scoort punten voor zijn/haar team</string>
   <string name="teamTournament">Teamtoernooi</string>
   <string name="teamTournamentOverview">Een Arenatoernooi waaraan alleen leden van je team mee kunnen doen</string>
+  <string name="swissTournamentOverview">Een Zwitsers toernooi waar enkel leden van je team aan kunnen deelnemen</string>
   <string name="messageAllMembers">Stuur bericht aan alle leden</string>
   <string name="messageAllMembersOverview">Stuur een privébericht aan alle leden van het team</string>
   <string name="messageAllMembersLongDescription">Stuur een privébericht naar alle leden van het team.

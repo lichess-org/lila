@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import { dirname } from 'path';
-import { rollupProject } from '@build/rollupProject';
+import rollupProject from '@build/rollupProject';
 import copy from 'rollup-plugin-copy';
 import replace from '@rollup/plugin-replace';
 
@@ -201,5 +201,9 @@ export default rollupProject({
   publicChats: {
     input: 'src/publicChats.ts',
     output: 'publicChats',
+  },
+  contact: {
+    input: 'src/contact.ts',
+    output: 'contact',
   },
 });

@@ -3,8 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org game",
-  "main": "game.js",
-  "typings": "game",
+  "type": "module",
+  "module": "game.js",
+  "typings": "game.d.ts",
   "keywords": [
     "chess",
     "lichess",

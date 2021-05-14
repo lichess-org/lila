@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
   <string name="youPlayTheBlackPieces">Juegas con negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
+  <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
   <string name="raceFinished">Carrera terminada</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Has perdido contra un usuario que no cumplió las condiciones de servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
+  <string name="clickToRevealEmailAddress">[Haz clic para mostrar la dirección de correo electrónico]</string>
 </resources>

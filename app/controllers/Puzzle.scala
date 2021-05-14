@@ -12,7 +12,7 @@ import lila.common.ApiVersion
 import lila.common.config.MaxPerSecond
 import lila.puzzle.PuzzleForm.RoundData
 import lila.puzzle.PuzzleTheme
-import lila.puzzle.{ Result, PuzzleDifficulty, PuzzleReplay, PuzzleStreak, Puzzle => Puz }
+import lila.puzzle.{ Result, PuzzleDashboard, PuzzleDifficulty, PuzzleReplay, PuzzleStreak, Puzzle => Puz }
 
 final class Puzzle(
     env: Env,
@@ -172,7 +172,7 @@ final class Puzzle(
                                 case Some(replayDays) =>
                                   for {
                                     _    <- env.puzzle.replay.onComplete(round, replayDays, theme.key)
-                                    next <- env.puzzle.replay(me, replayDays, theme.key)
+                                    next <- env.puzzle.replay(me, replayDays.some, theme.key)
                                     json <- next match {
                                       case None => fuccess(Json.obj("replayComplete" -> true))
                                       case Some((puzzle, replay)) =>
@@ -360,8 +360,9 @@ final class Puzzle(
 
   def replay(days: Int, themeKey: String) =
     Auth { implicit ctx => me =>
-      val theme = PuzzleTheme.findOrAny(themeKey)
-      env.puzzle.replay(me, days, theme.key) flatMap {
+      val theme         = PuzzleTheme.findOrAny(themeKey)
+      val checkedDayOpt = PuzzleDashboard.getclosestDay(days)
+      env.puzzle.replay(me, checkedDayOpt, theme.key) flatMap {
         case None                   => Redirect(routes.Puzzle.dashboard(days, "home")).fuccess
         case Some((puzzle, replay)) => renderShow(puzzle, theme, replay.some)
       }

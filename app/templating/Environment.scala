@@ -33,16 +33,14 @@ object Environment
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
-  def netConfig    = env.net
-  def netBaseUrl   = env.net.baseUrl.value
-  def contactEmail = env.net.email.value
+  def netConfig           = env.net
+  def netBaseUrl          = env.net.baseUrl.value
+  def contactEmailInClear = env.net.email.value
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
   def explorerEndpoint  = env.explorerEndpoint
   def tablebaseEndpoint = env.tablebaseEndpoint
-
-  def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 
   def isChatPanicEnabled = env.chat.panic.enabled
 

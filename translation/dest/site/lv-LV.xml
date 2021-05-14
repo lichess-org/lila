@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Jūs spēlējat ar baltajiem</string>
   <string name="youPlayTheBlackPieces">Jūs spēlējat ar melnajiem</string>
   <string name="itsYourTurn">Jūsu gājiens!</string>
+  <string name="cheatDetected">Konstatēta šmaukšanās</string>
   <string name="kingInTheCenter">Karalis vidū</string>
   <string name="threeChecks">Trīs šahi</string>
   <string name="raceFinished">Sacīkstes beigušās</string>
@@ -903,4 +904,5 @@
   <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
   <string name="refundXpointsTimeControlY">Atlīdzība: %1$s %2$s reitinga punkti.</string>
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
+  <string name="clickToRevealEmailAddress">[Noklikšķiniet, lai atklātu e-pasta adresi]</string>
 </resources>

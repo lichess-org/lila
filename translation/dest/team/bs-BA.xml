@@ -13,7 +13,7 @@
   <string name="noTeamFound">Nije pronađen nijednan tim</string>
   <string name="joinTeam">Pridružite se timu</string>
   <string name="quitTeam">Napustite tim</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ručno pregledajte zahtjeve za prijem</string>
+  <string name="manuallyReviewAdmissionRequests">Ručno pregledajte zahtjeve za prijem</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Ako je ovo označeno, igrači će trebati napisati zahtjev da se pridruže timu, koji možete odbiti ili prihvatiti.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vođa tima</item>
@@ -31,10 +31,12 @@
   </plurals>
   <string name="willBeReviewed">Vođa tima će pregledati Vaš zahtjev za pridruživanje.</string>
   <string name="beingReviewed">Vođa tima pregleda Vaš zahtjev za pridruživanje.</string>
+  <string name="subToTeamMessages">Pretplatite se na timske poruke</string>
   <string name="teamBattle">Bitka timova</string>
   <string name="teamBattleOverview">Borba više timova; svaki igrač osvaja bodove za svoj</string>
   <string name="teamTournament">Timski turnir</string>
   <string name="teamTournamentOverview">Turnir u Areni kojem se mogu pridružiti samo članovi Vašeg tima</string>
+  <string name="swissTournamentOverview">Turnir po švicarskom sistemu kojem se mogu priključiti samo članovi Vašeg tima</string>
   <string name="messageAllMembers">Pošalji poruku svim članovima</string>
   <string name="messageAllMembersOverview">Pošalji privatnu poruku svakom članu tima</string>
   <string name="messageAllMembersLongDescription">Pošalji privatnu poruku SVIM članovima tima.

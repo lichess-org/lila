@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Əlavə edilmə tarixi (köhnədən yeniyə)</string>
   <string name="recentlyUpdated">Ən son yenilənən</string>
   <string name="mostPopular">Ən məşhur</string>
+  <string name="alphabetical">Əlifbaya görə</string>
   <string name="addNewChapter">Yeni bir fəsil əlavə et</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fəsil</item>

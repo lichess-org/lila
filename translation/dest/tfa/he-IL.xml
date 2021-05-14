@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="twoFactorAuth">אימות דו-גורמי</string>
-  <string name="twoFactorHelp">אימות דו-גורמי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
+  <string name="twoFactorAuth">אימות דו-שלבי</string>
+  <string name="twoFactorHelp">אימות דו-שלבי מוסיף עוד שכבה של אבטחה לחשבון שלך.</string>
+  <string name="twoFactorApp">הורד אפליקציה לאימות דו-שלבי, למשל andOTP עבור %1$s או המאמת של גוגל עבור %2$s.</string>
+  <string name="scanTheCode">סרוק את הברקוד עם האפליקציה.</string>
+  <string name="enterPassword">הכנס את הסיסמא ואת קוד האימות שנוצר על ידי האפליקציה כדי להשלים את הרישום. תזדקק לקוד אימות בכל חיבור מחדש.</string>
+  <string name="ifYouCannotScanEnterX">אם אין ביכולתך לסרוק את הקוד, הקש את הרצף הסודי %s לאפליקציה שלך.</string>
   <string name="authenticationCode">קוד אימות</string>
+  <string name="ifYouLoseAccess">הערה: אם תאבד גישה לאימות הדו-שלבי שלך, ביכולתך לשחזר סיסמא בעזרת דואר אלקטרוני.</string>
+  <string name="enableTwoFactor">הפעלת אימות דו־שלבי</string>
+  <string name="disableTwoFactor">השבתת אימות דו־שלבי</string>
+  <string name="twoFactorEnabled">אימות דו-שלבי הופעל</string>
+  <string name="twoFactorDisable">תזדקק לסיסמתך ולקוד אימות מאפליקציית האימות שברשותך כדי להשבית אימות דו-שלבי. אם איבדת גישה לקודי האימות שלך, ביכולתך לאפס סיסמא בעזרת דואר אלקטרוני.</string>
+  <string name="openTwoFactorApp">פתח את אפליקציית האימות הדו-שלבי שברשותך להצגת קוד האימות וודא את זהותך.</string>
 </resources>

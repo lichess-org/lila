@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Fehérrel fogsz játszani</string>
   <string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
   <string name="itsYourTurn">Te következel</string>
+  <string name="cheatDetected">Csalás észlelve</string>
   <string name="kingInTheCenter">Király a centrumban</string>
   <string name="threeChecks">Három sakk</string>
   <string name="raceFinished">A verseny befejeződött</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Vesztettél valaki ellen, aki megszegte a Lichess szabályait</string>
   <string name="refundXpointsTimeControlY">Visszatérítve: %1$s %2$s értékpont.</string>
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
+  <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
 </resources>

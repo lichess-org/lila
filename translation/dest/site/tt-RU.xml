@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Сез ак фигуралар белән уйныйсыз</string>
   <string name="youPlayTheBlackPieces">Сез кара фигуралар белән уйныйсыз</string>
   <string name="itsYourTurn">Сезнең йөрүегез!</string>
+  <string name="cheatDetected">Хәйлә аныкланган</string>
   <string name="kingInTheCenter">Патша такта уртасында</string>
   <string name="threeChecks">Өч шах</string>
   <string name="raceFinished">Ярыш бетте</string>

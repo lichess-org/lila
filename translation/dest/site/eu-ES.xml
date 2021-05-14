@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
   <string name="youPlayTheBlackPieces">Zuk pieza beltzekin jokatzen duzu</string>
   <string name="itsYourTurn">Zure txanda da!</string>
+  <string name="cheatDetected">Tranpak detektatu ditugu</string>
   <string name="kingInTheCenter">Erregea erdian</string>
   <string name="threeChecks">Hiru xake</string>
   <string name="raceFinished">Lasterketa bukatuta</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
   <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
+  <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
 </resources>

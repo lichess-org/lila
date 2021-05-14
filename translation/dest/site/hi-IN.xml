@@ -580,9 +580,7 @@
   <string name="error.email_unique">यह ईमेल पहले ही ली जा चुकी है</string>
   <string name="error.email_different">यह पहले से ही आपका ईमेल पता है</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
-  <string name="onlyExistingConversations">मैसेजिंग गोपनीयता सेटिंग्स के विकल्पों में से एक (अन्य खिलाड़ियों को आपको संदेश दें: केवल मौजूदा वार्तालाप / केवल मित्र / हमेशा)
-
-केवल मौजूदा वार्तालाप</string>
+  <string name="onlyExistingConversations">केवल मौजूदा वार्तालाप</string>
   <string name="onlyFriends">केवल दोस्त</string>
   <string name="menu">मेनू</string>
   <string name="castling">केस्लिंग</string>

@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Beyaz taşlar sizin</string>
   <string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
   <string name="itsYourTurn">Sıra sizde!</string>
+  <string name="cheatDetected">Hile Tespit Edildi</string>
   <string name="kingInTheCenter">Şah merkezde</string>
   <string name="threeChecks">Üç şah</string>
   <string name="raceFinished">Yarış bitti</string>
@@ -863,4 +864,5 @@
   <string name="lostAgainstTOSViolator">Lichess Hizmet Şartları\'nı ihlal eden birine kaybettin</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
   <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
+  <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
 </resources>

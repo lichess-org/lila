@@ -38,7 +38,7 @@ object index {
             areYouCoach(a(href := "https://lichess.org/help/master")(nmOrFideTitle())),
             br,
             if (!ctx.me.exists(_.hasTitle)) a(href := routes.Main.verifyTitle)(confirmTitle())
-            else sendApplication(contactEmailLink)
+            else sendApplication(a(href := s"mailto:$contactEmailInClear")(contactEmailInClear))
           )
         ),
         div(cls := "coach-list__main coach-main box")(

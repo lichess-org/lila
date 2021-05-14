@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
   <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
   <string name="itsYourTurn">Ваш ход!</string>
+  <string name="cheatDetected">Обнаружено жульничество</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
@@ -661,8 +662,8 @@
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
-  <string name="whiteCastlingKingside">Белые О-О</string>
-  <string name="blackCastlingKingside">Чёрные О-О</string>
+  <string name="whiteCastlingKingside">Белые O-O</string>
+  <string name="blackCastlingKingside">Чёрные O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщение на форуме</item>
     <item quantity="few">%s сообщения на форуме</item>
@@ -943,4 +944,5 @@
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
+  <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
 </resources>
