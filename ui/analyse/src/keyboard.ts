@@ -88,17 +88,14 @@ export const bind = (ctrl: AnalyseCtrl) => {
 
     // navigation for next and prev chapters
     const study = ctrl.study;
-    kbd
-      .bind('n', () => {
+    ['n', 'p'].forEach(key =>
+      kbd.bind(key, () => {
         const chapters = study.chapters.list();
         const i = chapters.findIndex(ch => ch.id === study.vm.chapterId);
-        if (i >= 0 && i + 1 < chapters.length) study.setChapter(chapters[i + 1].id);
+        const chapter = chapters[i + (key === 'n' ? 1 : -1)];
+        if (chapter) study.setChapter(chapter.id);
       })
-      .bind('p', () => {
-        const chapters = study.chapters.list();
-        const i = chapters.findIndex(ch => ch.id === study.vm.chapterId);
-        if (i > 0) study.setChapter(chapters[i - 1].id);
-      });
+    );
   }
 };
 
