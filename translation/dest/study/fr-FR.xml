@@ -128,4 +128,6 @@
   <string name="deleteStudy">Supprimer l\'étude</string>
   <string name="deleteTheEntireStudy">Supprimer la totalité de l\'étude ? Cette action est irréversible !</string>
   <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
+  <string name="nextChapter">Chapitre suivant</string>
+  <string name="prevChapter">Chapitre précédent</string>
 </resources>
