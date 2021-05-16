@@ -56,6 +56,7 @@ object help {
             td(cls := "mouse", colspan := 2)(
               ul(
                 li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
+                li(trans.scrollOverComputerVariationsToPreviewThem()),
                 li(trans.analysisShapesHowTo())
               )
             )
