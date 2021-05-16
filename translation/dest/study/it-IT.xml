@@ -128,4 +128,11 @@
   <string name="deleteStudy">Elimina studio</string>
   <string name="deleteTheEntireStudy">Vuoi davvero eliminare tutto lo studio? Sarà perso per sempre!</string>
   <string name="whereDoYouWantToStudyThat">Dove vuoi creare lo studio?</string>
+  <string name="goodMove">Bella mossa</string>
+  <string name="mistake">Errore</string>
+  <string name="brilliantMove">Mossa geniale</string>
+  <string name="blunder">Errore grave</string>
+  <string name="interestingMove">Mossa interessante</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Mossa dubbia</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Unica mossa</string>
 </resources>
