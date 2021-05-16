@@ -128,6 +128,14 @@
   <string name="deleteStudy">Διαγραφή μελέτης</string>
   <string name="deleteTheEntireStudy">Διαγραφή ολόκληρης μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
+  <string name="goodMove">Καλή κίνηση</string>
+  <string name="mistake">Λάθος</string>
+  <string name="brilliantMove">Εξαιρετική κίνηση</string>
+  <string name="blunder">Σοβαρό λάθος</string>
+  <string name="interestingMove">Ενδιαφέρουσα κίνηση</string>
+  <string name="dubiousMove">Κίνηση αμφίβολης αξίας</string>
+  <string name="onlyMove">Μοναδική κίνηση</string>
+  <string name="zugzwang">Τσούγκσβανγκ</string>
   <string name="nextChapter">Επόμενο κεφάλαιο</string>
   <string name="prevChapter">Προηγούμενο κεφάλαιο</string>
 </resources>
