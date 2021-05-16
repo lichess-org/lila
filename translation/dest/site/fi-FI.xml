@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Tulostusystävällinen PDF</string>
   <string name="crosstable">Pistetaulukko</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Voit kelata siirtoja myös hiiren vieritysrullalla.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Esikatsele tietokoneen muunnelmia viemällä hiiren osoitin niiden päälle.</string>
   <string name="analysisShapesHowTo">Käytä hiiren kakkospainiketta (tai shiftiä ja ykköspainiketta) piirtääksesi ympyröitä ja nuolia laudalle.</string>
   <string name="letOtherPlayersMessageYou">Anna muiden käyttäjien lähettää sinulle viestejä</string>
   <string name="shareYourInsightsData">Jaa Insights-tietosi</string>
