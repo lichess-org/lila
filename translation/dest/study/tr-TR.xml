@@ -137,8 +137,9 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Tek hamle</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Eşit pozisyon</string>
-  <string name="whiteIsWinning">Beyaz önde</string>
-  <string name="blackIsWinning">Siyah önde</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Eşit pozisyon</string>
+  <string name="whiteIsWinning">Beyaz kazanıyor</string>
+  <string name="blackIsWinning">Siyah kazanıyor</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Saldırı</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Karşı saldırı</string>
   <string name="nextChapter">Sonraki bölüm</string>
