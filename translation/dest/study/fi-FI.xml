@@ -128,4 +128,18 @@
   <string name="deleteStudy">Poista tutkielma</string>
   <string name="deleteTheEntireStudy">Poista koko tutkielma? Paluuta ei ole!</string>
   <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
+  <string name="goodMove">Hyvä siirto</string>
+  <string name="mistake">Virhe</string>
+  <string name="brilliantMove">Loistava siirto</string>
+  <string name="blunder">Vakava virhe</string>
+  <string name="interestingMove">Mielenkiintoinen siirto</string>
+  <string name="dubiousMove">Kyseenalainen siirto</string>
+  <string name="onlyMove">Ainoa siirto</string>
+  <string name="zugzwang">Siirtopakko</string>
+  <string name="equalPosition">Tasainen asema</string>
+  <string name="unclearPosition">Epäselvä asema</string>
+  <string name="whiteIsSlightlyBetter">Valkealla on pieni etu</string>
+  <string name="blackIsSlightlyBetter">Mustalla on pieni etu</string>
+  <string name="nextChapter">Seuraava luku</string>
+  <string name="prevChapter">Edellinen luku</string>
 </resources>
