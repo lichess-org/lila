@@ -128,4 +128,10 @@
   <string name="deleteStudy">Slet studie</string>
   <string name="deleteTheEntireStudy">Slet hele studiet? Du kan ikke fortryde!</string>
   <string name="whereDoYouWantToStudyThat">Hvor vil du studere det?</string>
+  <string name="goodMove">Godt træk</string>
+  <string name="mistake">Fejl</string>
+  <string name="brilliantMove">Fremragende træk</string>
+  <string name="blunder">Brøler</string>
+  <string name="interestingMove">Interessant træk</string>
+  <string name="dubiousMove">Tvivlsomt træk</string>
 </resources>
