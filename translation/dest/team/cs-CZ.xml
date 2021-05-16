@@ -34,6 +34,7 @@
   </plurals>
   <string name="willBeReviewed">Váš požadavek na připojení bude přezkoumán vedoucím týmu.</string>
   <string name="beingReviewed">Vaše žádost o připojení je přezkoumávána vedoucím týmu.</string>
+  <string name="subToTeamMessages">Přihlásit se k odběru týmových zpráv</string>
   <string name="teamBattle">Bitva týmů</string>
   <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body pro svůj tým</string>
   <string name="teamTournament">Týmový turnaj</string>

@@ -824,4 +824,5 @@
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
+  <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
 </resources>

@@ -31,6 +31,7 @@
   </plurals>
   <string name="willBeReviewed">Voditelj tima razmotrit će tvoj zahtjev za pridruživanje.</string>
   <string name="beingReviewed">Voditelj tima pregledava tvoj zahtjev za pridruživanje.</string>
+  <string name="subToTeamMessages">Pretplati se na timske poruke</string>
   <string name="teamBattle">Timska bitka</string>
   <string name="teamBattleOverview">Bitka više timova, svaki igrač postiže bodove za svoj tim</string>
   <string name="teamTournament">Timski turnir</string>

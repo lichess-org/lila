@@ -944,4 +944,5 @@
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
   <string name="timeAlmostUp">Čas vám běží!</string>
+  <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
 </resources>

@@ -13,6 +13,6 @@
   <string name="quitTeam">Напусни отбора</string>
   <string name="teamBestPlayers">Най-добри играчи</string>
   <string name="teamRecentMembers">Скорошни членове</string>
-  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Абонирайте се за съобщения от клуба</string>
+  <string name="subToTeamMessages">Абонирайте се за съобщения от клуба</string>
   <string name="swissTournamentOverview">Швейцарски турнир в който могат да участват само членове на клуба</string>
 </resources>

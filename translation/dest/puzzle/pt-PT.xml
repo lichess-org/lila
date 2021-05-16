@@ -58,4 +58,9 @@
   <string name="history">Histórico de problemas</string>
   <string name="solved">resolvido</string>
   <string name="failed">falhado</string>
+  <string name="streakDescription">Resolve puzzles progressivamente mais difíceis e estabelece uma sequência de vitórias. Não há relógio, demora o teu tempo. Um movimento errado e o jogo acaba! No entanto, podes saltar um movimento por sessão.</string>
+  <string name="yourStreakX">Vitórias consecutivas: %s</string>
+  <string name="streakSkipExplanation">Salta este movimento para preservar a tua sequência! Apenas funciona uma vez por sessão.</string>
+  <string name="continueTheStreak">Continua a sequência</string>
+  <string name="newStreak">Nova sequência de vitórias</string>
 </resources>
