@@ -28,7 +28,7 @@
   </plurals>
   <string name="willBeReviewed">El líder del equipo revisará tu solicitud de ingreso.</string>
   <string name="beingReviewed">El líder del equipo está revisando tu solicitud de ingreso.</string>
-  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Suscribirse a los mensajes del equipo</string>
+  <string name="subToTeamMessages">Suscribirse a los mensajes del equipo</string>
   <string name="teamBattle">Batalla por Equipos</string>
   <string name="teamBattleOverview">Una batalla de varios equipos, cada jugador anota puntos para su equipo</string>
   <string name="teamTournament">Torneo de equipo</string>

@@ -28,7 +28,7 @@
   </plurals>
   <string name="willBeReviewed">Ønsket ditt om å bli med vil bli vurdert av en lagleder.</string>
   <string name="beingReviewed">Ønsket ditt om å bli med blir vurdert av en lagleder.</string>
-  <string name="subToTeamMessages" comment="subToTeamMessages&#10;&#10;Lets you see messages from a team in your feed on the home page">Abonner på lagmeldinger</string>
+  <string name="subToTeamMessages">Abonner på lagmeldinger</string>
   <string name="teamBattle">Lagkamp</string>
   <string name="teamBattleOverview">En kamp mellom flere lag, hver spiller skårer poeng for sitt lag</string>
   <string name="teamTournament">Lagturnering</string>

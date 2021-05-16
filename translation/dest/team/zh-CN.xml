@@ -25,10 +25,12 @@
   </plurals>
   <string name="willBeReviewed">您的加入请求将由队长审查。</string>
   <string name="beingReviewed">队长正在审查您的加入请求。</string>
+  <string name="subToTeamMessages">订阅团队消息</string>
   <string name="teamBattle">团队战斗</string>
   <string name="teamBattleOverview">一场由多个团队组成的战斗，每个玩家都可以为其团队得分</string>
   <string name="teamTournament">团队比赛</string>
   <string name="teamTournamentOverview">只有您的团队成员可以加入的竞技场比赛</string>
+  <string name="swissTournamentOverview">只有您的团队成员可以参加的瑞士制锦标赛</string>
   <string name="messageAllMembers">向所有成员发送消息</string>
   <string name="messageAllMembersOverview">发送一条私密消息给团队中的每个玩家</string>
   <string name="messageAllMembersLongDescription">向团队的所有成员发送私信。

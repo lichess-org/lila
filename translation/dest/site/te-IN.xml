@@ -9,6 +9,7 @@
   <string name="yourTurn">మీ వంతు</string>
   <string name="aiNameLevelAiLevel">%1$s స్థాయి %2$s</string>
   <string name="level">స్థాయి</string>
+  <string name="strength">బలము</string>
   <string name="toggleTheChat">బాతాఖానీ చెయ్యండి లేదా ఆపండి</string>
   <string name="toggleSound">శ్రవణం (వినడం) ఆరంభించండి లేదా ఆపండి</string>
   <string name="chat">మాట్లాడండి</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">మీరు తెలుపు రంగు లాగా ఆడాలి</string>
   <string name="youPlayTheBlackPieces">మీరు నలుపు రంగు లాగా ఆడాలి</string>
   <string name="itsYourTurn">ఇప్పుడు మీ వంతు!</string>
+  <string name="cheatDetected">మోసం కనుగొనబడింది</string>
   <string name="kingInTheCenter">రాజు రంగమధ్యం చేరారు</string>
   <string name="threeChecks">మూడువైపుల నుంచి కత్తులు దూస్తున్నాయి</string>
   <string name="raceFinished">పరుగు ముగిసింది</string>
@@ -108,6 +110,18 @@
   <string name="blunder">మహా తప్పు</string>
   <string name="mistake">తప్పు</string>
   <string name="inaccuracy">సరికాదు</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s పెద్ద తప్పు</item>
+    <item quantity="other">%s పెద్ద తప్పులు</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s తప్పు</item>
+    <item quantity="other">%s తప్పులు</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s సరికాదు</item>
+    <item quantity="other">%s సరికావు</item>
+  </plurals>
   <string name="moveTimes">ఎత్తుగడకు పట్టిన సమయం</string>
   <string name="flipBoard">పటమును బోర్లించు</string>
   <string name="threefoldRepetition">మూడు రెట్లు పునరావృతం</string>
@@ -181,6 +195,7 @@
   </plurals>
   <string name="cancel">రద్దు చేయండి</string>
   <string name="whiteTimeOut">thella samayam aipoyindi</string>
+  <string name="blackTimeOut">నలుపు సమయం సమాప్తి</string>
   <string name="drawOfferSent">సంధి ప్రతిపాదన పంపబడింది</string>
   <string name="drawOfferDeclined">సంధి ప్రతిపాదన తిరస్కరించబడింది</string>
   <string name="drawOfferAccepted">సంధి ప్రతిపాదన ఆమోదించబడింది</string>
@@ -200,7 +215,27 @@
   <string name="gameAborted">గేమ్ ఆగిపోయినది</string>
   <string name="standard">ప్రామాణికం</string>
   <string name="unlimited">అపరిమితం</string>
+  <string name="mode">రీతి</string>
   <string name="casual">సాధారణం</string>
+  <string name="rated">రేటెడ్</string>
   <string name="casualTournament">సాధారణం</string>
+  <string name="ratedTournament">రేటెడ్</string>
+  <string name="thisGameIsRated">ఈ ఆట రేట్ చేయబడింది</string>
   <string name="rematch">తిరిగి పోటీ</string>
+  <string name="rematchOfferSent">రీమ్యాచ్ ఆఫర్ పంపబడింది</string>
+  <string name="rematchOfferSentWhite">తెలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <string name="rematchOfferSentBlack">నలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s రేటెడ్</item>
+    <item quantity="other">%s రేటెడ్</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s విజయం</item>
+    <item quantity="other">%s విజయాలు</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s ఓటమి</item>
+    <item quantity="other">%s ఓటములు</item>
+  </plurals>
+  <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
 </resources>

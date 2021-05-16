@@ -34,7 +34,9 @@ final class BotPlayer(
           if (pov.player.isOfferingDraw && offeringDraw.has(false)) declineDraw(pov)
           else if (!pov.player.isOfferingDraw && ~offeringDraw) offerDraw(pov)
           tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
-          promise.future
+          promise.future recover {
+            case _: lila.round.GameIsFinishedError if ~offeringDraw && pov.game.drawn => ()
+          }
         }
       }
     }

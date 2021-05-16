@@ -25,10 +25,12 @@
   </plurals>
   <string name="willBeReviewed">팀 운영자가 가입 요청을 검토할 것입니다.</string>
   <string name="beingReviewed">팀 운영자가 가입 요청을 검토하고 있습니다.</string>
+  <string name="subToTeamMessages">팀 메시지 구독하기</string>
   <string name="teamBattle">팀 배틀</string>
   <string name="teamBattleOverview">각각의 플레이어가 팀의 점수를 올리는 여러 팀간의 대결</string>
   <string name="teamTournament">팀내 대결</string>
-  <string name="teamTournamentOverview">팀원만 참가할 수 있는 아레나 대회</string>
+  <string name="teamTournamentOverview">팀원만 참가할 수 있는 아레나 토너먼트</string>
+  <string name="swissTournamentOverview">팀원만 참가할 수 있는 스위스 토너먼트</string>
   <string name="messageAllMembers">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersOverview">팀원 전원에게 메시지 보내기</string>
   <string name="messageAllMembersLongDescription">팀원 전원에게 메시지 보내기. 팀 내 대회나 팀 배틀에 참가를 독려하기 위해 사용할 수 있습니다. 메시지를 받기 싫어하는 팀원이 팀을 탈퇴할 수 있습니다.</string>

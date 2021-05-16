@@ -677,7 +677,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="downloadImported">Download imported</string>
   <string name="printFriendlyPDF">Print-friendly PDF</string>
   <string name="crosstable">Crosstable</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Scroll over the board to move in the game.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>

@@ -132,4 +132,6 @@
   <string name="deleteStudy">Dzēst izpēti</string>
   <string name="deleteTheEntireStudy">Vai dzēst visu izpēti? Atpakaļceļa nav!</string>
   <string name="whereDoYouWantToStudyThat">Kur vēlaties to izpētīt?</string>
+  <string name="nextChapter">Nākamā nodaļa</string>
+  <string name="prevChapter">Iepriekšējā nodaļa</string>
 </resources>

@@ -254,12 +254,26 @@ function getElFen(el: HTMLElement): string {
   return el.getAttribute('data-fen')!;
 }
 
-function getElUci(e: MouseEvent): string | undefined {
+function getElUci(e: TouchEvent | MouseEvent): string | undefined {
   return (
     $(e.target as HTMLElement)
       .closest('div.pv')
       .attr('data-uci') || undefined
   );
+}
+
+function getElPvMoves(e: MouseEvent): (string | null)[] {
+  var pvMoves: (string | null)[] = [];
+
+  $(e.target as HTMLElement)
+    .closest('div.pv')
+    .children()
+    .filter('span.pv-san')
+    .each(function () {
+      pvMoves.push($(this).attr('data-board'));
+    });
+
+  return pvMoves;
 }
 
 function checkHover(el: HTMLElement, instance: CevalCtrl): void {
@@ -276,7 +290,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     node = ctrl.getNode(),
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[],
-    threat = false;
+    threat = false,
+    pvMoves: (string | null)[],
+    pvIndex: number | null;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
     threat = true;
@@ -287,6 +303,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
   const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+
   return h(
     'div.pv_box',
     {
@@ -296,18 +313,41 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
             instance.setHovering(getElFen(el), getElUci(e));
-            const pvBoard = (e.target as HTMLElement).getAttribute('data-board');
+            const pvBoard = (e.target as HTMLElement).dataset['board'];
             if (pvBoard) {
+              pvIndex = Number((e.target as HTMLElement).dataset['moveIndex']);
+              pvMoves = getElPvMoves(e);
               const [fen, uci] = pvBoard.split('|');
               instance.setPvBoard({ fen, uci });
             }
           });
-          el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
-          el.addEventListener('mousedown', (e: MouseEvent) => {
-            const uci = getElUci(e);
-            if (uci) ctrl.playUci(uci);
+          el.addEventListener('wheel', (e: WheelEvent) => {
+            e.preventDefault();
+            if (pvIndex != null && pvMoves != null) {
+              if (e.deltaY < 0 && pvIndex > 0) pvIndex -= 1;
+              else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1) pvIndex += 1;
+
+              const pvBoard = pvMoves[pvIndex];
+              if (pvBoard) {
+                const [fen, uci] = pvBoard.split('|');
+                instance.setPvBoard({ fen, uci });
+              }
+            }
           });
-          el.addEventListener('mouseleave', () => instance.setPvBoard(null));
+          el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
+          for (const event of ['touchstart', 'mousedown']) {
+            el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
+              const uci = getElUci(e);
+              if (uci) {
+                ctrl.playUci(uci);
+                e.preventDefault();
+              }
+            });
+          }
+          el.addEventListener('mouseleave', () => {
+            instance.setPvBoard(null);
+            pvIndex = null;
+          });
           checkHover(el, instance);
         },
         postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance),
@@ -344,10 +384,13 @@ function renderPvWrapToggle(): VNode {
     hook: {
       insert: (vnode: VNode) => {
         const el = vnode.elm as HTMLElement;
-        el.addEventListener('mousedown', (e: MouseEvent) => {
-          e.stopPropagation();
-          $(el).closest('.pv').toggleClass('pv--nowrap');
-        });
+        for (const event of ['touchstart', 'mousedown']) {
+          el.addEventListener(event, (e: Event) => {
+            e.stopPropagation();
+            e.preventDefault();
+            $(el).closest('.pv').toggleClass('pv--nowrap');
+          });
+        }
       },
     },
   });
@@ -379,6 +422,7 @@ function renderPvMoves(pos: Position, pv: Uci[]): VNode[] {
         {
           key,
           attrs: {
+            'data-move-index': i,
             'data-board': `${fen}|${uci}`,
           },
         },

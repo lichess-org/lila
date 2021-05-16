@@ -824,4 +824,5 @@
   <string name="lostAgainstTOSViolator">您输给了违反 Lichess 服务条款的用户</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
   <string name="timeAlmostUp">时间快到了！</string>
+  <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
 </resources>

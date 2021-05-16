@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mueve para empezar</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Juegas con las piezas blancas en todos los ejercicios</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Juegas con blancas en todos los ejercicios</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Juegas con negras en todos los ejercicios</string>
   <string name="puzzlesSolved">ejercicios resueltos</string>
   <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>

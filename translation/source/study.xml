@@ -152,4 +152,6 @@
   <string name="timeTrouble">Time trouble</string>
   <string name="withCompensation">With compensation</string>
   <string name="withTheIdea">With the idea</string>
+  <string name="nextChapter">Next chapter</string>
+  <string name="prevChapter">Previous chapter</string>
 </resources>

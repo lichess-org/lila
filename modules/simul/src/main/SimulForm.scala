@@ -3,6 +3,7 @@ package lila.simul
 import cats.implicits._
 import chess.format.FEN
 import chess.StartingPosition
+import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraint
@@ -65,6 +66,7 @@ object SimulForm {
       position = none,
       color = colorDefault,
       text = "",
+      estimatedStartAt = none,
       team = none,
       featured = host.hasTitle.some
     )
@@ -79,6 +81,7 @@ object SimulForm {
       position = simul.position,
       color = simul.color | "random",
       text = simul.text,
+      estimatedStartAt = simul.estimatedStartAt,
       team = simul.team,
       featured = simul.featurable
     )
@@ -108,6 +111,7 @@ object SimulForm {
         "position" -> optional(lila.common.Form.fen.playableStrict),
         "color"    -> stringIn(colorChoices),
         "text"     -> cleanText,
+        "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
         "featured" -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
@@ -130,6 +134,7 @@ object SimulForm {
       position: Option[FEN],
       color: String,
       text: String,
+      estimatedStartAt: Option[DateTime] = None,
       team: Option[String],
       featured: Option[Boolean]
   ) {

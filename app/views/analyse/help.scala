@@ -47,13 +47,16 @@ object help {
           isStudy option frag(
             header("Study actions"),
             row(frag(k("d")), trans.study.commentThisPosition()),
-            row(frag(k("g")), trans.study.annotateWithGlyphs())
+            row(frag(k("g")), trans.study.annotateWithGlyphs()),
+            row(frag(k("n")), trans.study.nextChapter()),
+            row(frag(k("p")), trans.study.prevChapter())
           ),
           header("Mouse tricks"),
           tr(
             td(cls := "mouse", colspan := 2)(
               ul(
                 li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
+                li(trans.scrollOverComputerVariationsToPreviewThem()),
                 li(trans.analysisShapesHowTo())
               )
             )

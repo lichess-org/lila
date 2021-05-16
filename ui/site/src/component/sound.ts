@@ -27,6 +27,7 @@ const sound = new (class {
     );
 
   loadStandard = (name: Name, soundSet?: string) => {
+    if (!this.enabled()) return;
     const path = name[0].toUpperCase() + name.slice(1);
     this.loadOggOrMp3(name, `${this.baseUrl}/${soundSet || this.soundSet}/${path}`);
   };

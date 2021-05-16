@@ -3,7 +3,7 @@ const commonjs = require('@rollup/plugin-commonjs');
 const typescript = require('@rollup/plugin-typescript');
 const terser = require('rollup-plugin-terser').terser;
 
-exports.rollupProject = targets => {
+module.exports = targets => {
   return args => {
     const prod = args['config-prod'];
     const target = targets[args['config-plugin'] || 'main'];

@@ -96,7 +96,7 @@
   <string name="queensideAttack">后翼进攻</string>
   <string name="queensideAttackDescription">在对方长易位后进攻对方的王。</string>
   <string name="quietMove">安静的一着</string>
-  <string name="quietMoveDescription">一步没有将军或捉子棋，但确实为后续准备了一个不可避免的威胁。</string>
+  <string name="quietMoveDescription">一步没有将军或捉子的棋，但确实为后续准备了一个不可避免的威胁。</string>
   <string name="rookEndgame">车残局</string>
   <string name="rookEndgameDescription">只有车和兵的残局。</string>
   <string name="sacrifice">弃子</string>
@@ -104,7 +104,7 @@
   <string name="short">短谜题</string>
   <string name="shortDescription">两步胜。</string>
   <string name="skewer">串击</string>
-  <string name="skewerDescription">攻击对方高价值的棋子，使其走开并允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
+  <string name="skewerDescription">攻击对方高价值的棋子，使其走开，并且允许其后方的较低价值的棋子被吃或被攻击（牵制的反面）。</string>
   <string name="smotheredMate">闷杀</string>
   <string name="smotheredMateDescription">由马完成的将杀，王被自己的棋子包围(或困住)，因此无法移动。</string>
   <string name="superGM">超级大师对局</string>
@@ -118,7 +118,7 @@
   <string name="xRayAttack">穿透攻击</string>
   <string name="xRayAttackDescription">一个棋子穿过对方的棋子攻击或防守一个格子。</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
-  <string name="zugzwangDescription">对手可选的着法是有限的，所有着法都会使其局面更加恶化。</string>
+  <string name="zugzwangDescription">对手可选的着法是有限的，并且所有着法都会使其局面更加恶化。</string>
   <string name="healthyMix">健康搭配</string>
   <string name="healthyMixDescription">每个主题中选取一些。您不知道会出现什么，因此得时刻打起精神！ 就像在真实游戏中一样。</string>
 </resources>
