@@ -459,7 +459,7 @@ final class Mod(
           email.?? { em =>
             tryWith(em.acceptable, em.acceptable.value) orElse {
               username ?? { tryWith(em.acceptable, _) }
-            }
+            } recover lila.db.recoverDuplicateKey(_ => none)
           } getOrElse BadRequest(html.mod.emailConfirm(rawQuery, none, none)).fuccess
       }
     }

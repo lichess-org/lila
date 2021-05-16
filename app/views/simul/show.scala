@@ -92,6 +92,12 @@ object show {
                 br,
                 trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
               )
+            },
+            sim.estimatedStartAt map { d =>
+              frag(
+                br,
+                absClientDateTime(d)
+              )
             }
           ),
           stream.map { s =>

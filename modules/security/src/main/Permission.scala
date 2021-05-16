@@ -98,6 +98,7 @@ object Permission {
           MarkBooster,
           CloseAccount,
           UserModView,
+          GamifyView,
           UserEvaluate,
           SeeReport,
           ModLog,

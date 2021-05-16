@@ -48,6 +48,10 @@
     &--suspect {
       border-right: 10px solid $c-bg-zebra;
     }
+
+    img {
+      max-width: 100%;
+    }
   }
 
   &__actions {

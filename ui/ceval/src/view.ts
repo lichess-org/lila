@@ -254,7 +254,7 @@ function getElFen(el: HTMLElement): string {
   return el.getAttribute('data-fen')!;
 }
 
-function getElUci(e: MouseEvent): string | undefined {
+function getElUci(e: TouchEvent | MouseEvent): string | undefined {
   return (
     $(e.target as HTMLElement)
       .closest('div.pv')
@@ -335,10 +335,15 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             }
           });
           el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
-          el.addEventListener('mousedown', (e: MouseEvent) => {
-            const uci = getElUci(e);
-            if (uci) ctrl.playUci(uci);
-          });
+          for (const event of ['touchstart', 'mousedown']) {
+            el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
+              const uci = getElUci(e);
+              if (uci) {
+                ctrl.playUci(uci);
+                e.preventDefault();
+              }
+            });
+          }
           el.addEventListener('mouseleave', () => {
             instance.setPvBoard(null);
             pvIndex = null;
@@ -379,10 +384,13 @@ function renderPvWrapToggle(): VNode {
     hook: {
       insert: (vnode: VNode) => {
         const el = vnode.elm as HTMLElement;
-        el.addEventListener('mousedown', (e: MouseEvent) => {
-          e.stopPropagation();
-          $(el).closest('.pv').toggleClass('pv--nowrap');
-        });
+        for (const event of ['touchstart', 'mousedown']) {
+          el.addEventListener(event, (e: Event) => {
+            e.stopPropagation();
+            e.preventDefault();
+            $(el).closest('.pv').toggleClass('pv--nowrap');
+          });
+        }
       },
     },
   });
