@@ -136,4 +136,6 @@
   <string name="deleteStudy">Ištrinti studiją</string>
   <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
+  <string name="nextChapter">Kitas skyrius</string>
+  <string name="prevChapter">Ankstenis skyrius</string>
 </resources>
