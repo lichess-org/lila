@@ -144,4 +144,14 @@
   <string name="blackIsBetter">Sort står bedre</string>
   <string name="whiteIsWinning">Hvid vinder</string>
   <string name="blackIsWinning">Sort vinder</string>
+  <string name="novelty">Nyfunden</string>
+  <string name="development">Udvikling</string>
+  <string name="initiative">Initiativ</string>
+  <string name="attack">Angreb</string>
+  <string name="counterplay">Modspil</string>
+  <string name="timeTrouble">Tidsproblemer</string>
+  <string name="withCompensation">Med kompensation</string>
+  <string name="withTheIdea">Med ideen</string>
+  <string name="nextChapter">Næste kapitel</string>
+  <string name="prevChapter">Forrige kapitel</string>
 </resources>
