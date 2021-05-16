@@ -133,7 +133,24 @@
   <string name="brilliantMove">Kiváló lépés</string>
   <string name="blunder">Durva hiba</string>
   <string name="interestingMove">Jónak ígérkező lépés</string>
+  <string name="dubiousMove">Szokatlan lépés</string>
+  <string name="onlyMove">Egyetlen lépés</string>
   <string name="zugzwang">Lépéskényszer</string>
+  <string name="equalPosition">Egyenlő állás</string>
+  <string name="unclearPosition">Zavaros állás</string>
+  <string name="whiteIsSlightlyBetter">Világos kicsit jobban áll</string>
+  <string name="blackIsSlightlyBetter">Sötét kicsit jobban áll</string>
+  <string name="whiteIsBetter">Világos jobban áll</string>
+  <string name="blackIsBetter">Sötét jobban áll</string>
+  <string name="whiteIsWinning">Világos nyerésre áll</string>
+  <string name="blackIsWinning">Sötét nyerésre áll</string>
+  <string name="novelty">Újítás</string>
+  <string name="development">Fejlődés</string>
+  <string name="initiative">Kezdeményezés</string>
+  <string name="attack">Támadás</string>
+  <string name="counterplay">Ellenjáték</string>
+  <string name="timeTrouble">Időzavar</string>
+  <string name="withTheIdea">Elképzelés</string>
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
 </resources>
