@@ -136,6 +136,12 @@
   <string name="deleteStudy">Удалить студию</string>
   <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
+  <string name="goodMove">Хороший ход</string>
+  <string name="mistake">Ошибка</string>
+  <string name="brilliantMove">Отличный ход</string>
+  <string name="blunder">Зевок</string>
+  <string name="interestingMove">Интересный ход</string>
+  <string name="dubiousMove">Сомнительный ход</string>
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
 </resources>
