@@ -164,6 +164,7 @@ GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
 GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic: String, order: String, page: Int ?= 1)
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
+GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1)
@@ -785,7 +786,6 @@ POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 GET   /yt                              controllers.Main.movedPermanently(to: String = "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA")
 
-GET   /assets/_$v<\w{6}>/glyphs/:lang.json controllers.Main.glyphs(v, lang)
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)
 
