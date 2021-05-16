@@ -128,4 +128,6 @@
   <string name="deleteStudy">Διαγραφή μελέτης</string>
   <string name="deleteTheEntireStudy">Διαγραφή ολόκληρης μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
+  <string name="nextChapter">Επόμενο κεφάλαιο</string>
+  <string name="prevChapter">Προηγούμενο κεφάλαιο</string>
 </resources>
