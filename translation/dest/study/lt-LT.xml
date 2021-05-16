@@ -136,6 +136,18 @@
   <string name="deleteStudy">Ištrinti studiją</string>
   <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
+  <string name="goodMove">Geras ėjimas</string>
+  <string name="mistake">Klaida</string>
+  <string name="brilliantMove">Puikus ėjimas</string>
+  <string name="blunder">Šiurkšti klaida</string>
+  <string name="interestingMove">Įdomus ėjimas</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Abejotinas ėjimas</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Vienintelis ėjimas</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Cugcvangas</string>
+  <string name="equalPosition">Lygi pozicija</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Neaiški pozicija</string>
+  <string name="whiteIsSlightlyBetter">Šiek tiek geriau baltiesiems</string>
+  <string name="blackIsSlightlyBetter">Šiek tiek geriau juodiesiems</string>
   <string name="whiteIsBetter">Geriau baltiesiems</string>
   <string name="blackIsBetter">Geriau juodiesiems</string>
   <string name="whiteIsWinning">Laimi baltieji</string>
