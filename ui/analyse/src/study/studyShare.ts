@@ -131,7 +131,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
           ]
         : [
             ['studyUrl', `/study/${studyId}`],
-            ['currentChapter', addPly(`/study/${studyId}/${chapter.id}`), true],
+            ['currentChapterUrl', addPly(`/study/${studyId}/${chapter.id}`), true],
           ]
       ).map(([i18n, path, isFull]: [string, string, boolean]) =>
         h('div.form-group', [
