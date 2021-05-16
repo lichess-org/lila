@@ -140,6 +140,11 @@
   <string name="unclearPosition">Epäselvä asema</string>
   <string name="whiteIsSlightlyBetter">Valkealla on pieni etu</string>
   <string name="blackIsSlightlyBetter">Mustalla on pieni etu</string>
+  <string name="whiteIsBetter">Valkealla on etu</string>
+  <string name="blackIsBetter">Mustalla on etu</string>
+  <string name="whiteIsWinning">Valkea on voitolla</string>
+  <string name="blackIsWinning">Musta on voitolla</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Uutuus</string>
   <string name="nextChapter">Seuraava luku</string>
   <string name="prevChapter">Edellinen luku</string>
 </resources>
