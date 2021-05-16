@@ -128,4 +128,6 @@
   <string name="deleteStudy">Studie löschen</string>
   <string name="deleteTheEntireStudy">Komplette Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
   <string name="whereDoYouWantToStudyThat">Welche Studie möchtest du nutzen?</string>
+  <string name="nextChapter">Nächstes Kapitel</string>
+  <string name="prevChapter">Vorheriges Kapitel</string>
 </resources>
