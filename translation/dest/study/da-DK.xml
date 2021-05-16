@@ -134,4 +134,14 @@
   <string name="blunder">Brøler</string>
   <string name="interestingMove">Interessant træk</string>
   <string name="dubiousMove">Tvivlsomt træk</string>
+  <string name="onlyMove">Eneste mulige træk</string>
+  <string name="zugzwang">Zugzwang</string>
+  <string name="equalPosition">Lige position</string>
+  <string name="unclearPosition">Uafklaret position</string>
+  <string name="whiteIsSlightlyBetter">Hvid står lidt bedre</string>
+  <string name="blackIsSlightlyBetter">Sort står lidt bedre</string>
+  <string name="whiteIsBetter">Hvid står bedre</string>
+  <string name="blackIsBetter">Sort står bedre</string>
+  <string name="whiteIsWinning">Hvid vinder</string>
+  <string name="blackIsWinning">Sort vinder</string>
 </resources>
