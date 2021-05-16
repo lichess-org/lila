@@ -128,6 +128,7 @@
   <string name="deleteStudy">Excluir estudo</string>
   <string name="deleteTheEntireStudy">Excluir todo o estudo? Não há volta!</string>
   <string name="whereDoYouWantToStudyThat">Onde você quer estudar?</string>
+  <string name="goodMove">Boa jogada</string>
   <string name="mistake">Erro</string>
   <string name="brilliantMove">Jogada excelente</string>
   <string name="blunder">Erro grave</string>
@@ -143,6 +144,8 @@
   <string name="blackIsBetter">Pretas estão melhor</string>
   <string name="whiteIsWinning">Brancas estão ganhando</string>
   <string name="blackIsWinning">Pretas estão ganhando</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novidade</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Desenvolvimento</string>
   <string name="initiative">Iniciativa</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ataque</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contra-ataque</string>
