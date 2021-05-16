@@ -128,4 +128,8 @@
   <string name="deleteStudy">Çalışmayı sil</string>
   <string name="deleteTheEntireStudy">Tüm çalışma silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
+  <string name="blunder">Vahim hata</string>
+  <string name="interestingMove">İlginç hamle</string>
+  <string name="nextChapter">Sonraki bölüm</string>
+  <string name="prevChapter">Önceki bölüm</string>
 </resources>
