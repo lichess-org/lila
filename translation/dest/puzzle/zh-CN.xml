@@ -5,7 +5,7 @@
   <string name="recommended">我们推荐：</string>
   <string name="phases">阶段</string>
   <string name="motifs">主题</string>
-  <string name="advanced">高等</string>
+  <string name="advanced">进阶</string>
   <string name="lengths">长度</string>
   <string name="mates">杀王</string>
   <string name="goals">目标</string>
@@ -28,7 +28,7 @@
   <string name="notTheMove">不是最佳着法</string>
   <string name="trySomethingElse">尝试其他着法</string>
   <string name="ratingX">积分：%s</string>
-  <string name="hidden">隐藏</string>
+  <string name="hidden">已隐藏</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被尝试 %s 次</item>
   </plurals>
@@ -53,7 +53,7 @@
   <string name="improvementAreas">待提升</string>
   <string name="strengths">强项</string>
   <string name="history">解题历史</string>
-  <string name="solved">已解决</string>
+  <string name="solved">已解答</string>
   <string name="failed">失败</string>
   <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时的情况下，慢慢来。一次错的动作，游戏将会结束！不过，每场游戏里可跳过一步。</string>
   <string name="yourStreakX">您的连胜纪录: %s</string>
