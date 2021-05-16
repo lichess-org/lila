@@ -144,12 +144,13 @@
   <string name="blackIsBetter">Sötét jobban áll</string>
   <string name="whiteIsWinning">Világos nyerésre áll</string>
   <string name="blackIsWinning">Sötét nyerésre áll</string>
-  <string name="novelty">Újítás</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Újítás</string>
   <string name="development">Fejlődés</string>
   <string name="initiative">Kezdeményezés</string>
   <string name="attack">Támadás</string>
   <string name="counterplay">Ellenjáték</string>
   <string name="timeTrouble">Időzavar</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompenzáció</string>
   <string name="withTheIdea">Elképzelés</string>
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
