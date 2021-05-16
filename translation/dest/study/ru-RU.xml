@@ -136,4 +136,6 @@
   <string name="deleteStudy">Удалить студию</string>
   <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
+  <string name="nextChapter">Следующая глава</string>
+  <string name="prevChapter">Предыдущая глава</string>
 </resources>
