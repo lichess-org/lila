@@ -137,7 +137,7 @@
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Seul coup</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Position égale</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Position non claire</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Position incertaine</string>
   <string name="whiteIsSlightlyBetter">Les Blancs sont un peu mieux</string>
   <string name="blackIsSlightlyBetter">Les Noirs sont un peu mieux</string>
   <string name="whiteIsBetter">Les Blancs sont mieux</string>
