@@ -17,7 +17,8 @@ object form {
   ) =
     views.html.base.layout(
       title = trans.hostANewSimul.txt(),
-      moreCss = cssTag("simul.form")
+      moreCss = cssTag("simul.form"),
+      moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(trans.hostANewSimul()),
@@ -40,7 +41,8 @@ object form {
   ) =
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
-      moreCss = cssTag("simul.form")
+      moreCss = cssTag("simul.form"),
+      moreJs = jsModule("flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(s"Edit ${simul.fullName}"),
@@ -126,6 +128,11 @@ object form {
           help = views.html.tournament.form.positionInputHelp.some
         )(form3.input(_))
       ),
+      form3.group(
+        form("estimatedStartAt"),
+        frag("Estimated start time"),
+        half = true
+        )(form3.flatpickr(_)),
       form3.group(
         form("text"),
         raw("Simul description"),
