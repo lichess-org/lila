@@ -128,6 +128,12 @@
   <string name="deleteStudy">Tanulmány törlése</string>
   <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
   <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
+  <string name="goodMove">Jó lépés</string>
+  <string name="mistake">Hiba</string>
+  <string name="brilliantMove">Kiváló lépés</string>
+  <string name="blunder">Durva hiba</string>
+  <string name="interestingMove">Jónak ígérkező lépés</string>
+  <string name="zugzwang">Lépéskényszer</string>
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
 </resources>
