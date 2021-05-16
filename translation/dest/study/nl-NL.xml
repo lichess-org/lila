@@ -128,4 +128,6 @@
   <string name="deleteStudy">Studie verwijderen</string>
   <string name="deleteTheEntireStudy">Verwijder de hele studie? Er is geen weg terug!</string>
   <string name="whereDoYouWantToStudyThat">Waar wil je dat bestuderen?</string>
+  <string name="nextChapter">Volgende hoofdstuk</string>
+  <string name="prevChapter">Vorige hoofdstuk</string>
 </resources>
