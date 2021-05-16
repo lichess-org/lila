@@ -18,8 +18,10 @@ final class SwissFeature(
 
   import BsonHandlers._
 
+  private val lichessTeamId = "lichess-swiss"
+
   def get(teams: Seq[TeamID]) =
-    cache.getUnit zip getForTeams(teams) map { case (cached, teamed) =>
+    cache.getUnit zip getForTeams(teams :+ lichessTeamId distinct) map { case (cached, teamed) =>
       FeaturedSwisses(
         created = (teamed.created ::: cached.created).distinct,
         started = (teamed.started ::: cached.started).distinct
