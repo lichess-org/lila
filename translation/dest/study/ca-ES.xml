@@ -128,4 +128,6 @@
   <string name="deleteStudy">Eliminar estudi</string>
   <string name="deleteTheEntireStudy">Eliminar l’estudi complert? No hi ha volta enrera!</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
+  <string name="nextChapter">Capítol següent</string>
+  <string name="prevChapter">Capítol Anterior</string>
 </resources>
