@@ -786,6 +786,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="printFriendlyPDF">PDF atá furasta le priontáil</string>
   <string name="crosstable">Trastábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrolláil thar an gclár freisin chun bogadh sa chluiche.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scrollaigh thar athrúcháin ríomhaire chun réamhamharc a dhéanamh orthu.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
   <string name="letOtherPlayersMessageYou">Lig d\'imreoirí eile teachtaireacht a chur chugat</string>
   <string name="shareYourInsightsData">Roinn do thuiscint ar an fhicheall</string>
