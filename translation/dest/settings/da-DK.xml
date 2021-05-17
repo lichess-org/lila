@@ -5,6 +5,6 @@
   <string name="closingIsDefinitive">Lukning er uigenkaldelig. Der er ingen fortrydelsesret. Er du sikker?</string>
   <string name="cantOpenSimilarAccount">Du vil ikke få lov til at åbne en ny konto med det samme navn, selv hvis skriftstørrelsen er anderledes.</string>
   <string name="changedMindDoNotCloseAccount">Jeg har skiftet mening, lad være med at lukke min konto</string>
-  <string name="closeAccountExplanation">Er du sikker på, at du vil lukke din konto? Lukning af din konto er en permanent beslutning. Du vil ALDRIG NOGENSINDE kunne logge ind i igen.</string>
+  <string name="closeAccountExplanation">Er du sikker på, at du vil lukke din konto? Lukning af din konto er en permanent beslutning. Du vil ALDRIG NOGENSINDE kunne logge ind igen.</string>
   <string name="thisAccountIsClosed">Denne konto er lukket.</string>
 </resources>
