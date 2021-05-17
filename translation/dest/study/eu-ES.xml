@@ -128,4 +128,7 @@
   <string name="deleteStudy">Azterlana ezabatu</string>
   <string name="deleteTheEntireStudy">Azterlana ezabatu? Ez dago atzera egiterik!</string>
   <string name="whereDoYouWantToStudyThat">Non nahi duzu hori aztertu?</string>
+  <string name="goodMove">Jokaldi ona</string>
+  <string name="nextChapter">Hurrengo kapitulua</string>
+  <string name="prevChapter">Aurreko kapitulua</string>
 </resources>
