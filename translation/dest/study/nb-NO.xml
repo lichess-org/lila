@@ -128,4 +128,8 @@
   <string name="deleteStudy">Slett studie</string>
   <string name="deleteTheEntireStudy">Slette hele studien? Avgjørelsen er endelig og kan ikke angres!</string>
   <string name="whereDoYouWantToStudyThat">Hvilken studie vil du bruke?</string>
+  <string name="blunder">Bukk</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Trekktvang</string>
+  <string name="nextChapter">Neste kapittel</string>
+  <string name="prevChapter">Forrige kapittel</string>
 </resources>
