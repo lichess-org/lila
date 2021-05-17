@@ -18,6 +18,8 @@ ui/game/**/*.js
 ui/game/**/*.d.ts
 ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
+ui/puz/**/*.js
+ui/puz/**/*.d.ts
 
 *.min.js
 
