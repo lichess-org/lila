@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
   <string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
   <string name="itsYourTurn">זה התור שלך!</string>
+  <string name="cheatDetected">רמות התגלתה</string>
   <string name="kingInTheCenter">המלך במרכז</string>
   <string name="threeChecks">שח משולש</string>
   <string name="raceFinished">המירוץ נגמר</string>
@@ -946,4 +947,5 @@
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
+  <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
 </resources>
