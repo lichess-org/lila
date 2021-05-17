@@ -131,4 +131,6 @@
   <string name="deleteStudy">Izbrišite studiju</string>
   <string name="deleteTheEntireStudy">Da li želite izbrisati ovu studiju? Nakon ove akcije, studija se ne može vratiti!</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
+  <string name="nextChapter">Sljedeće poglavlje</string>
+  <string name="prevChapter">Prethodno poglavlje</string>
 </resources>

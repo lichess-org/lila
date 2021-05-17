@@ -12,8 +12,8 @@
   <string name="noTeamFound">Komanda tapılmadı</string>
   <string name="joinTeam">Komandaya qoşul</string>
   <string name="quitTeam">Komandanı tərk et</string>
-  <string name="manuallyReviewAdmissionRequests">Qəbul istəklərini əl ilə nəzərdən keçirin</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">İşarəlidirsə, oyunçuların komandaya qoşulmaq üçün bir tələb yazması lazımdır, bu təklifi rədd edə və ya qəbul edə bilərsiniz.</string>
+  <string name="manuallyReviewAdmissionRequests">Qəbul tələblərini əllə nəzərdən keçirin</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">İşarələnibsə, oyunçuların komandaya qoşulmaq üçün qəbul və ya rədd edə biləcəyiniz bir tələb yazmalı olacaqlar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Komanda lideri</item>
     <item quantity="other">Komanda liderləri</item>
@@ -24,7 +24,7 @@
   <string name="whoToKick">Kimi komandadan qovmaq istəyirsiniz?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s qoşulma istəyi</item>
-    <item quantity="other">%s qoşulma istəyi</item>
+    <item quantity="other">%s qoşulma tələbi</item>
   </plurals>
   <string name="willBeReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçiriləcək.</string>
   <string name="beingReviewed">Qoşulma istəyiniz komanda lideri tərəfindən nəzərdən keçirilir.</string>

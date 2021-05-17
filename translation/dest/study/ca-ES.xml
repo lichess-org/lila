@@ -128,4 +128,30 @@
   <string name="deleteStudy">Eliminar estudi</string>
   <string name="deleteTheEntireStudy">Eliminar l’estudi complert? No hi ha volta enrera!</string>
   <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
+  <string name="goodMove">Bona jugada</string>
+  <string name="mistake">Errada</string>
+  <string name="brilliantMove">Jugada brillant</string>
+  <string name="blunder">Error greu</string>
+  <string name="interestingMove">Jugada interessant</string>
+  <string name="dubiousMove">Jugada dubtosa</string>
+  <string name="onlyMove">Única jugada</string>
+  <string name="zugzwang">Zugzwang (atzucac)</string>
+  <string name="equalPosition">Posició igualada</string>
+  <string name="unclearPosition">Posició poc clara</string>
+  <string name="whiteIsSlightlyBetter">El blanc està lleugerament millor</string>
+  <string name="blackIsSlightlyBetter">El negre està lleugerament millor</string>
+  <string name="whiteIsBetter">El blanc està millor</string>
+  <string name="blackIsBetter">El negre està millor</string>
+  <string name="whiteIsWinning">El blanc està guanyant</string>
+  <string name="blackIsWinning">El negre està guanyant</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novetat</string>
+  <string name="development">Desenvolupament</string>
+  <string name="initiative">Iniciativa</string>
+  <string name="attack">Atac</string>
+  <string name="counterplay">Contra atac</string>
+  <string name="timeTrouble">Problema de temps</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Amb compensació</string>
+  <string name="withTheIdea">Amb la idea</string>
+  <string name="nextChapter">Capítol següent</string>
+  <string name="prevChapter">Capítol Anterior</string>
 </resources>

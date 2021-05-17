@@ -750,6 +750,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="printFriendlyPDF">PDF failas spausdinimui</string>
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Užveskite ant kompiuterio variacijų norėdami jas peržiūrėti.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>

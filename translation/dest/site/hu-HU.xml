@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">PDF formátum</string>
   <string name="crosstable">Eredménytábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Görgess az egérgörgővel a tábla felett, hogy láthasd lépéseket.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Vidd a kurzort a számítógép variációk fölé az előnézethez.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
   <string name="letOtherPlayersMessageYou">Mások küldhetnek neked üzenetet</string>
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>

@@ -128,4 +128,28 @@
   <string name="deleteStudy">Çalışmayı sil</string>
   <string name="deleteTheEntireStudy">Tüm çalışma silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="whereDoYouWantToStudyThat">Bu çalışmayı nerede sürdürmek istersiniz?</string>
+  <string name="goodMove">İyi hamle</string>
+  <string name="mistake">Hata</string>
+  <string name="brilliantMove">Muhteşem hamle</string>
+  <string name="blunder">Vahim hata</string>
+  <string name="interestingMove">İlginç hamle</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Şüpheli hamle</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Tek hamle</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Eşit pozisyon</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Eşit pozisyon</string>
+  <string name="whiteIsSlightlyBetter">Beyaz biraz önde</string>
+  <string name="blackIsSlightlyBetter">Siyah biraz önde</string>
+  <string name="whiteIsBetter">Beyaz daha önde</string>
+  <string name="blackIsBetter">Siyah daha önde</string>
+  <string name="whiteIsWinning">Beyaz kazanıyor</string>
+  <string name="blackIsWinning">Siyah kazanıyor</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Farklı bir açılış</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Gelişim hamlesi</string>
+  <string name="initiative">Girişim</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Saldırı</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Karşı saldırı</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vakit sıkıntısı</string>
+  <string name="nextChapter">Sonraki bölüm</string>
+  <string name="prevChapter">Önceki bölüm</string>
 </resources>

@@ -731,6 +731,7 @@
   <string name="printFriendlyPDF">Natisni v PDF</string>
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Pomaknite se preko računalniških različicah, da jih ogledate.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>

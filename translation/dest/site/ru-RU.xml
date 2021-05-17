@@ -749,6 +749,7 @@
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Листайте варианты для их предпросмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="shareYourInsightsData">Делиться вашей шахматной аналитикой</string>

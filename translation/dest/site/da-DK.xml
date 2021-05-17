@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Korstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>

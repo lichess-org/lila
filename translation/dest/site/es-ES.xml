@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Imprimir en formato PDF</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>

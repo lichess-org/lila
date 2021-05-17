@@ -713,6 +713,7 @@
   <string name="printFriendlyPDF">Drukājams PDF</string>
   <string name="crosstable">Šķērstabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Varat arī ritināt virs galdiņa, lai pārvietotos spēlē.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Virziet kursoru uz datoranalīzes variācijām, lai tās skatītu.</string>
   <string name="analysisShapesHowTo">Klikšķiniet, turot pārslēgšanas taustiņu, vai klikšķiniet ar labo taustiņu uz galdiņa, lai zīmētu riņķus un bultas.</string>
   <string name="letOtherPlayersMessageYou">Ļaut citiem spēlētājiem jums sūtīt ziņas</string>
   <string name="shareYourInsightsData">Dalīties ar saviem šaha ieskatu datiem</string>

@@ -131,4 +131,23 @@
   <string name="deleteStudy">Ștergeți studiul</string>
   <string name="deleteTheEntireStudy">Ștergeți întregul studiu? Nu există cale de întoarcere!</string>
   <string name="whereDoYouWantToStudyThat">Unde vreți s-o studiați?</string>
+  <string name="goodMove">Mutare bună</string>
+  <string name="mistake">Greșeală</string>
+  <string name="brilliantMove">Mișcare genială</string>
+  <string name="blunder">Gafă</string>
+  <string name="interestingMove">Mișcare interesantă</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Mutare dubioasă</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Singura mișcare posibilă</string>
+  <string name="equalPosition">Poziție egală</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Poziție neclară</string>
+  <string name="whiteIsSlightlyBetter">Albul este puțin mai bun</string>
+  <string name="blackIsSlightlyBetter">Negrul este puțin mai bun</string>
+  <string name="whiteIsBetter">Albul este mai bun</string>
+  <string name="blackIsBetter">Negrul este mai bun</string>
+  <string name="whiteIsWinning">Albul câștigă</string>
+  <string name="blackIsWinning">Negrul câștigă</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Noutate</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atac</string>
+  <string name="nextChapter">Capitolul următor</string>
+  <string name="prevChapter">Capitolul precedent</string>
 </resources>

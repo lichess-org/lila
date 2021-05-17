@@ -749,6 +749,7 @@
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="shareYourInsightsData">Udostępniaj szczegółowe statystyki</string>

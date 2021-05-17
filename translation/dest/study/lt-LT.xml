@@ -136,4 +136,30 @@
   <string name="deleteStudy">Ištrinti studiją</string>
   <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
+  <string name="goodMove">Geras ėjimas</string>
+  <string name="mistake">Klaida</string>
+  <string name="brilliantMove">Puikus ėjimas</string>
+  <string name="blunder">Šiurkšti klaida</string>
+  <string name="interestingMove">Įdomus ėjimas</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Abejotinas ėjimas</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Vienintelis ėjimas</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Cugcvangas</string>
+  <string name="equalPosition">Lygi pozicija</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Neaiški pozicija</string>
+  <string name="whiteIsSlightlyBetter">Šiek tiek geriau baltiesiems</string>
+  <string name="blackIsSlightlyBetter">Šiek tiek geriau juodiesiems</string>
+  <string name="whiteIsBetter">Geriau baltiesiems</string>
+  <string name="blackIsBetter">Geriau juodiesiems</string>
+  <string name="whiteIsWinning">Laimi baltieji</string>
+  <string name="blackIsWinning">Laimi juodieji</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Naujovė</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Plėtojimas</string>
+  <string name="initiative">Iniciatyva</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Ataka</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Kontraėjimas</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Laiko problemos</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Su kompensacija</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Su mintimi</string>
+  <string name="nextChapter">Kitas skyrius</string>
+  <string name="prevChapter">Ankstenis skyrius</string>
 </resources>

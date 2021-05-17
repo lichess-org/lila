@@ -128,4 +128,30 @@
   <string name="deleteStudy">Tanulmány törlése</string>
   <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
   <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
+  <string name="goodMove">Jó lépés</string>
+  <string name="mistake">Hiba</string>
+  <string name="brilliantMove">Kiváló lépés</string>
+  <string name="blunder">Durva hiba</string>
+  <string name="interestingMove">Jónak ígérkező lépés</string>
+  <string name="dubiousMove">Szokatlan lépés</string>
+  <string name="onlyMove">Egyetlen lépés</string>
+  <string name="zugzwang">Lépéskényszer</string>
+  <string name="equalPosition">Egyenlő állás</string>
+  <string name="unclearPosition">Zavaros állás</string>
+  <string name="whiteIsSlightlyBetter">Világos kicsit jobban áll</string>
+  <string name="blackIsSlightlyBetter">Sötét kicsit jobban áll</string>
+  <string name="whiteIsBetter">Világos jobban áll</string>
+  <string name="blackIsBetter">Sötét jobban áll</string>
+  <string name="whiteIsWinning">Világos nyerésre áll</string>
+  <string name="blackIsWinning">Sötét nyerésre áll</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Újítás</string>
+  <string name="development">Fejlődés</string>
+  <string name="initiative">Kezdeményezés</string>
+  <string name="attack">Támadás</string>
+  <string name="counterplay">Ellenjáték</string>
+  <string name="timeTrouble">Időzavar</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompenzáció</string>
+  <string name="withTheIdea">Elképzelés</string>
+  <string name="nextChapter">Következő fejezet</string>
+  <string name="prevChapter">Előző fejezet</string>
 </resources>

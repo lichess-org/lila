@@ -132,6 +132,30 @@
   <string name="deleteStudy">Dzēst izpēti</string>
   <string name="deleteTheEntireStudy">Vai dzēst visu izpēti? Atpakaļceļa nav!</string>
   <string name="whereDoYouWantToStudyThat">Kur vēlaties to izpētīt?</string>
+  <string name="goodMove">Labs gājiens</string>
+  <string name="mistake">Kļūda</string>
+  <string name="brilliantMove">Izcils gājiens</string>
+  <string name="blunder">Rupja kļūda</string>
+  <string name="interestingMove">Interesants gājiens</string>
+  <string name="dubiousMove">Apšaubāms gājiens</string>
+  <string name="onlyMove">Vienīgais gājiens</string>
+  <string name="zugzwang">Gājiena spaids</string>
+  <string name="equalPosition">Vienlīdzīga pozīcija</string>
+  <string name="unclearPosition">Neskaidra pozīcija</string>
+  <string name="whiteIsSlightlyBetter">Baltajiem nedaudz labāka pozīcija</string>
+  <string name="blackIsSlightlyBetter">Melnajiem nedaudz labāka pozīcija</string>
+  <string name="whiteIsBetter">Baltajiem labāka pozīcija</string>
+  <string name="blackIsBetter">Melnajiem labāka pozīcija</string>
+  <string name="whiteIsWinning">Baltie tuvojas uzvarai</string>
+  <string name="blackIsWinning">Melnie tuvojas uzvarai</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Oriģināls gājiens</string>
+  <string name="development">Attīstība</string>
+  <string name="initiative">Iniciatīva</string>
+  <string name="attack">Uzbrukums</string>
+  <string name="counterplay">Pretspēle</string>
+  <string name="timeTrouble">Laika trūkuma grūtības</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Ar atlīdzinājumu</string>
+  <string name="withTheIdea">Ar domu</string>
   <string name="nextChapter">Nākamā nodaļa</string>
   <string name="prevChapter">Iepriekšējā nodaļa</string>
 </resources>

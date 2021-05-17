@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">druckfreundliches PDF</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Fahre über Computervarianten, um eine Vorschau auf sie zu erhalten.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="shareYourInsightsData">Deine persönlichen Spielerstatistiken teilen</string>

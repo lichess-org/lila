@@ -678,6 +678,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="printFriendlyPDF">Utskriftsvenleg PDF</string>
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle over brettet for å flytte.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over datamaskin-variasjonane for å førehandsvisa dei.</string>
   <string name="analysisShapesHowTo">Trykk shift-klikk eller høyreklikk for å tegne sirklar og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
   <string name="shareYourInsightsData">Del den personlege spelarstatistikken din</string>

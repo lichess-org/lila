@@ -136,6 +136,30 @@
   <string name="deleteStudy">Удалить студию</string>
   <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
+  <string name="goodMove">Хороший ход</string>
+  <string name="mistake">Ошибка</string>
+  <string name="brilliantMove">Отличный ход</string>
+  <string name="blunder">Зевок</string>
+  <string name="interestingMove">Интересный ход</string>
+  <string name="dubiousMove">Сомнительный ход</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единственный ход</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
+  <string name="equalPosition">Равная позиция</string>
+  <string name="unclearPosition">Неясная позиция</string>
+  <string name="whiteIsSlightlyBetter">У белых немного лучше</string>
+  <string name="blackIsSlightlyBetter">У чёрных немного лучше</string>
+  <string name="whiteIsBetter">У белых лучше</string>
+  <string name="blackIsBetter">У чёрных лучше</string>
+  <string name="whiteIsWinning">Белые побеждают</string>
+  <string name="blackIsWinning">Чёрные побеждают</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Новинка</string>
+  <string name="development">Развитие</string>
+  <string name="initiative">Инициатива</string>
+  <string name="attack">Атака</string>
+  <string name="counterplay">Контригра</string>
+  <string name="timeTrouble">Цейтнот</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсацией</string>
+  <string name="withTheIdea">С идеей</string>
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
 </resources>
