@@ -595,5 +595,9 @@
     &:first-child {
       margin-right: 1em;
     }
+
+    li {
+      @extend %zalgoverflow;
+    }
   }
 }
