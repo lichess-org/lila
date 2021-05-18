@@ -317,7 +317,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
                   }),
                 },
-                (activeTab === 'pgn' ? ['automatic', 'white', 'black'] : ['white', 'black']).map(c =>
+                [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>
                   option(c, currentChapter.setup.orientation, noarg(c))
                 )
               ),
