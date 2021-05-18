@@ -181,6 +181,12 @@ Regele este de neprețuit! Pierzându-l, pierzi jocul.</string>
   <string name="queenOverBishop">Capturează piesa
 cu cea mai mare valoare!
 Regina &gt; Nebunul</string>
+  <string name="pieceValueExchange">Capturează piesa cu cea mai mare valoare!
+ Nu schimba
+ o piesă cu o valoare mai mare pentru una mai puțin valoroasă.</string>
+  <string name="pieceValueLegal">Capturează piesa
+cu cea mai mare valoare!
+Asigură-te că mutarea ta este permisă!</string>
   <string name="takeThePieceWithTheHighestValue">Capturează piesa
 cu cea mai mare valoare!</string>
   <string name="pieceValueComplete">Felicitări! Acum știi valoarea pieselor!
