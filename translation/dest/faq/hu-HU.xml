@@ -12,8 +12,8 @@
   <string name="lichessPoweredByDonationsAndVolunteers">A Lichess működését patronok adományai és önkéntesek munkája teszik lehetővé.</string>
   <string name="findMoreAndSeeHowHelp">Többet is megtudhatsz arról hogyan %1$s (beleértve a %2$s). Ha önkéntes munkával vagy időd és tudásod ráfordításával segítenél arról %3$s.</string>
   <string name="beingAPatron">legyél patron</string>
-  <string name="breakdownOfOurCosts">költségeink lebontását</string>
-  <string name="otherWaysToHelp">itt olvashatsz</string>
+  <string name="breakdownOfOurCosts">költségeink lebontása</string>
+  <string name="otherWaysToHelp">még így segíthetsz</string>
   <string name="areThereWebsitesBasedOnLichess">Vannak Lichess-en alapuló weboldalak?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Igen. Lichess valóban inspirált más nyílt forrású oldalakat amik használják a %1$s, %2$s vagy %3$s-t.</string>
   <string name="fairPlay">Sportszerűség</string>
