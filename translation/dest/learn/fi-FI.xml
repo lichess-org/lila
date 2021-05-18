@@ -187,6 +187,9 @@ Kuningas on mittaamattoman arvokas! Sen menettäminen tietää sitä, että häv
   <string name="queenOverBishop">Lyö nappula
 joka on arvokkain!
 Daami &gt; Lähetti</string>
+  <string name="pieceValueExchange">Lyö arvokkain nappula!
+ Älä vaihda
+ arvokkaampaa nappulaa vähemmän arvokkaaseen.</string>
   <string name="takeThePieceWithTheHighestValue">Lyö nappula
 joka on arvokkain!</string>
   <string name="pieceValueComplete">Onnittelut! Tunnet nyt materiaalin arvon!
