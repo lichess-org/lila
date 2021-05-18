@@ -33,11 +33,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
-  if (streak)
+  const streakFailStorage = lichess.storage.make('puzzle.streak.fail');
+  if (streak){
     opts.data = {
       ...opts.data,
       ...streak.data.current,
     };
+    streakFailStorage.listen(_ => failStreak(streak));
+  }
   const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
 
   // required by ceval
@@ -231,10 +234,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       revertUserMove();
       if (vm.mode === 'play') {
         if (streak) {
-          vm.mode = 'view';
-          streak.onComplete(false);
-          setTimeout(viewSolution, 500);
-          sound.end();
+          failStreak(streak);
+          streakFailStorage.fire();
         } else {
           vm.canViewSolution = true;
           vm.mode = 'try';
@@ -257,6 +258,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
+  }
+
+  function failStreak(streak: PuzzleStreak): void {
+    vm.mode = 'view';
+    streak.onComplete(false);
+    setTimeout(viewSolution, 500);
+    sound.end();
   }
 
   function sendResult(win: boolean): Promise<void> {
