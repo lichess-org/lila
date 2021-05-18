@@ -149,6 +149,11 @@ Kongen er uvurderleg! Misser du han har du tapt spelet.</string>
   <string name="queenOverBishop">Slå ut brikken 
 med det høgste verdet!
 Dronning &gt; løpar</string>
+  <string name="pieceValueExchange">Slå brikka med den høgste verdien!
+ Bytt ikkje
+ ei brikke med høg verdi mot ei med lågare verdi.</string>
+  <string name="pieceValueLegal">Slå brikka med den høgste verdien!
+Forsikre deg om at det er eit lovleg trekk!</string>
   <string name="takeThePieceWithTheHighestValue">Slå ut brikka
 med høgast verde!</string>
   <string name="pieceValueComplete">Gratulerar! Du kjenner verdet til brikkene! 
