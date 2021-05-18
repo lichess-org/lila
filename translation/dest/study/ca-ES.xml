@@ -133,11 +133,11 @@
   <string name="brilliantMove">Jugada brillant</string>
   <string name="blunder">Error greu</string>
   <string name="interestingMove">Jugada interessant</string>
-  <string name="dubiousMove">Jugada dubtosa</string>
-  <string name="onlyMove">Única jugada</string>
-  <string name="zugzwang">Zugzwang (atzucac)</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Jugada dubtosa</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Única jugada</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang (atzucac)</string>
   <string name="equalPosition">Posició igualada</string>
-  <string name="unclearPosition">Posició poc clara</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Posició poc clara</string>
   <string name="whiteIsSlightlyBetter">El blanc està lleugerament millor</string>
   <string name="blackIsSlightlyBetter">El negre està lleugerament millor</string>
   <string name="whiteIsBetter">El blanc està millor</string>
@@ -145,13 +145,13 @@
   <string name="whiteIsWinning">El blanc està guanyant</string>
   <string name="blackIsWinning">El negre està guanyant</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novetat</string>
-  <string name="development">Desenvolupament</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Desenvolupament</string>
   <string name="initiative">Iniciativa</string>
-  <string name="attack">Atac</string>
-  <string name="counterplay">Contra atac</string>
-  <string name="timeTrouble">Problema de temps</string>
-  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Amb compensació</string>
-  <string name="withTheIdea">Amb la idea</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atac</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Contra atac</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Problema de temps</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Amb compensació</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Amb la idea</string>
   <string name="nextChapter">Capítol següent</string>
   <string name="prevChapter">Capítol Anterior</string>
 </resources>
