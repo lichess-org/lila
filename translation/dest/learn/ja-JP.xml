@@ -188,6 +188,12 @@
   <string name="queenOverBishop">いちばん価値の大きい
 駒を取ってください。
 クイーン ＞ ビショップ</string>
+  <string name="pieceValueExchange">いちばん価値の高い駒を取って！
+ 価値の高い駒を
+ 価値の低い駒と交換しないように。</string>
+  <string name="pieceValueLegal">いちばん価値の高い
+駒を取って！
+ルールに従った手で！</string>
   <string name="takeThePieceWithTheHighestValue">いちばん価値の大きい
 駒を取ってください。</string>
   <string name="pieceValueComplete">おめでとう！　駒の価値を覚えました！
