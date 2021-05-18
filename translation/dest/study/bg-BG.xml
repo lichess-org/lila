@@ -128,5 +128,17 @@
   <string name="deleteStudy">Изтрий казуса</string>
   <string name="deleteTheEntireStudy">Изтриване на целия казус? Това е необратимо!</string>
   <string name="whereDoYouWantToStudyThat">Къде да бъде проучено това?</string>
+  <string name="goodMove">Добър ход</string>
+  <string name="mistake">Грешка</string>
+  <string name="brilliantMove">Отличен ход</string>
+  <string name="blunder">Груба грешка</string>
+  <string name="interestingMove">Интересен ход</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Съмнителен ход</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единствен ход</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
+  <string name="equalPosition">Равна позиция</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Неясна позиция</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсация</string>
+  <string name="nextChapter">Следваща глава</string>
+  <string name="prevChapter">Предишна глава</string>
 </resources>
