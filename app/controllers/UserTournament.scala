@@ -8,7 +8,12 @@ final class UserTournament(env: Env) extends LilaController(env) {
   def path(username: String, path: String, page: Int) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuResult(env.user.repo enabledNamed username) { user =>
+        val userOption = env.user.repo enabledNamed username map {
+          _ filter {
+            _.enabled || isGranted(_.Hunter)
+          }
+        }
+        OptionFuResult(userOption) { user =>
           path match {
             case "recent" =>
               env.tournament.leaderboardApi.recentByUser(user, page).map { entries =>
