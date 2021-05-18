@@ -469,6 +469,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .one[Bdoc]
       .map { _ ?? anyEmail }
 
+  def emailOrPrevious(id: ID): Fu[Option[EmailAddress]] =
+    coll
+      .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
+      .one[Bdoc]
+      .map { _ ?? anyEmailOrPrevious }
+
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll
       .find($doc(F.email -> email, F.enabled -> true))

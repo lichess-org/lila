@@ -144,6 +144,31 @@ $regards
     funit
   }
 
+  def gdprErase(user: User): Funit = {
+    val body =
+      s"""Hello,
+
+Following your request, the Lichess account "${user.username} will be fully erased in 24h from now.
+
+$regards
+"""
+    userRepo emailOrPrevious user.id flatMap {
+      _ ?? { email =>
+        implicit val lang = userLang(user)
+        mailer send Mailer.Message(
+          to = email,
+          subject = "lichess.org account erasure",
+          text = s"""
+$body
+
+${Mailer.txt.serviceNote}
+""",
+          htmlBody = standardEmail(body).some
+        )
+      }
+    }
+  }
+
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
     implicit val lang = userLang(user)
     body(userLang(user)) tap { txt =>
