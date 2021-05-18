@@ -31,6 +31,10 @@ const sound = new (class {
     this.loadOggOrMp3(name, `${this.baseUrl}/${soundSet || this.soundSet}/${path}`);
   };
 
+  preloadBoardSounds() {
+    if (this.soundSet !== 'music') ['move', 'capture', 'check'].forEach(s => this.loadStandard(s));
+  }
+
   play(name: string, volume?: number) {
     if (!this.enabled()) return;
     let set = this.soundSet;
