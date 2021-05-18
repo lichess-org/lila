@@ -190,6 +190,8 @@ Daami &gt; Lähetti</string>
   <string name="pieceValueExchange">Lyö arvokkain nappula!
  Älä vaihda
  arvokkaampaa nappulaa vähemmän arvokkaaseen.</string>
+  <string name="pieceValueLegal">Lyö arvokkain nappula!
+Varmista, että siirtosi on laillinen!</string>
   <string name="takeThePieceWithTheHighestValue">Lyö nappula
 joka on arvokkain!</string>
   <string name="pieceValueComplete">Onnittelut! Tunnet nyt materiaalin arvon!
