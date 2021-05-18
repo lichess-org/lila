@@ -132,7 +132,7 @@
   <string name="mistake">Hiba</string>
   <string name="brilliantMove">Kiváló lépés</string>
   <string name="blunder">Durva hiba</string>
-  <string name="interestingMove">Jónak ígérkező lépés</string>
+  <string name="interestingMove">Èrdekes lépés</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Szokatlan lépés</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Egyetlen lépés</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Lépéskényszer</string>
