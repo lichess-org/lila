@@ -148,7 +148,10 @@
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Развитие</string>
   <string name="initiative">Инициатива</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Атака</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Контра атака</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Проблем с времето</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсация</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">С идеята</string>
   <string name="nextChapter">Следваща глава</string>
   <string name="prevChapter">Предишна глава</string>
 </resources>
