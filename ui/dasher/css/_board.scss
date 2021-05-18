@@ -148,8 +148,8 @@
 
   &.d3 {
     $board-files: 'Black-White-Aluminium', 'Brushed-Aluminium', 'China-Blue', 'China-Green', 'China-Grey',
-      'China-Scarlet', 'China-Yellow', 'Classic-Blue', 'Transparent-Glass', 'Gold-Silver', 'Green-Glass', 'Light-Wood',
-      'Power-Coated', 'Purple-Black', 'Rosewood', 'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
+      'China-Scarlet', 'China-Yellow', 'Classic-Blue', 'Gold-Silver', 'Green-Glass', 'Light-Wood', 'Power-Coated',
+      'Purple-Black', 'Rosewood', 'Wood-Glass', 'Wax', 'Jade', 'Marble', 'Woodi';
 
     @each $name in $board-files {
       .#{$name} {
