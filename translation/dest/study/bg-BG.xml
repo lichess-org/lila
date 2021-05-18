@@ -138,6 +138,16 @@
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
   <string name="equalPosition">Равна позиция</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Неясна позиция</string>
+  <string name="whiteIsSlightlyBetter">Белите са малко по-добре</string>
+  <string name="blackIsSlightlyBetter">Черните са малко по-добре</string>
+  <string name="whiteIsBetter">Белите са по-добре</string>
+  <string name="blackIsBetter">Черните са по-добре</string>
+  <string name="whiteIsWinning">Белите печелят</string>
+  <string name="blackIsWinning">Черните печелят</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Нововъведeние</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Развитие</string>
+  <string name="initiative">Инициатива</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Атака</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсация</string>
   <string name="nextChapter">Следваща глава</string>
   <string name="prevChapter">Предишна глава</string>
