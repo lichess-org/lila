@@ -1,59 +1,69 @@
 .material {
   align-self: center;
-  display: none;
+  display: flex;
+  align-items: center;
   height: 40px;
+  line-height: 0;
+  white-space: nowrap;
 
-  @include breakpoint($mq-col2) {
-    display: flex;
-    align-items: center;
-    line-height: 0;
-    white-space: nowrap;
+  div {
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  mpiece {
+    margin-left: -10px;
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    display: inline-block;
+
+    &.pawn {
+      background-image: url(../piece/mono/P.svg);
+    }
+
+    &.bishop {
+      background-image: url(../piece/mono/B.svg);
+    }
+
+    &.knight {
+      background-image: url(../piece/mono/N.svg);
+    }
+
+    &.rook {
+      background-image: url(../piece/mono/R.svg);
+    }
+
+    &.queen {
+      background-image: url(../piece/mono/Q.svg);
+    }
+
+    &.king {
+      background-image: url(../piece/mono/K.svg);
+    }
+
+    @if $theme == 'transp' {
+      filter: brightness(1.3) drop-shadow(0 1px 1px #000);
+    }
+  }
+
+  score {
+    font-family: 'Roboto';
+    line-height: 32px;
+    vertical-align: top;
+  }
+
+  @include breakpoint($mq-col1) {
+    height: $col1-mat-height;
 
     div {
-      display: inline-block;
-      margin-left: 10px;
+      margin-left: 8px;
     }
 
     mpiece {
-      margin-left: -10px;
-      width: 32px;
-      height: 32px;
-      background-size: cover;
-      display: inline-block;
-
-      &.pawn {
-        background-image: url(../piece/mono/P.svg);
-      }
-
-      &.bishop {
-        background-image: url(../piece/mono/B.svg);
-      }
-
-      &.knight {
-        background-image: url(../piece/mono/N.svg);
-      }
-
-      &.rook {
-        background-image: url(../piece/mono/R.svg);
-      }
-
-      &.queen {
-        background-image: url(../piece/mono/Q.svg);
-      }
-
-      &.king {
-        background-image: url(../piece/mono/K.svg);
-      }
-
-      @if $theme == 'transp' {
-        filter: brightness(1.3) drop-shadow(0 1px 1px #000);
-      }
-    }
-
-    score {
-      font-family: 'Roboto';
-      line-height: 32px;
-      vertical-align: top;
+      width: $col1-mat-height * 3/4;
+      height: $col1-mat-height * 3/4;
+      margin-left: -8px;
     }
   }
 }

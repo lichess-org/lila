@@ -9,6 +9,16 @@
     margin-top: -0.5em;
   }
 
+  @include breakpoint($mq-col1) {
+    &-top {
+      grid-area: pocket-top;
+    }
+
+    &-bottom {
+      grid-area: pocket-bot;
+    }
+  }
+
   @include breakpoint($mq-col2-uniboard) {
     &-top {
       margin-bottom: $block-gap;
