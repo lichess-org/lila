@@ -392,7 +392,6 @@
   <string name="firstName">სახელი</string>
   <string name="lastName">გვარი</string>
   <string name="biography">ბიოგრაფია</string>
-  <string name="country">ქვეყანა</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="watchLichessTV">უყურეთ ტელევიზიას</string>
   <string name="previouslyOnLichessTV">წინა Lichess TV-ზე</string>
