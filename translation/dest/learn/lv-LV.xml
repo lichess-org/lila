@@ -155,6 +155,10 @@ Karalis ir nenovērtējams! To zaudējot tiek zaudēta spēle.</string>
   <string name="queenOverBishop">Sit figūru
 ar lielāko vērtību!
 Dāma &gt; Laidnis</string>
+  <string name="pieceValueExchange">Nositiet figūru ar augstāko vērtību!
+ Neapmainiet augstāk vērtētu figūru pret ko mazāk vērtīgu.</string>
+  <string name="pieceValueLegal">Nositiet figūru ar augstāko vērtību!
+Pārliecinieties, ka gājiens ir atļauts!</string>
   <string name="takeThePieceWithTheHighestValue">Sit figūru ar lielāko vērtību!</string>
   <string name="pieceValueComplete">Apsveicam. Tu tagad zini resursu vērtību!
 Dāma = 9
