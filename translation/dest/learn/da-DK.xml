@@ -140,6 +140,12 @@ Springer = 3
 Bonde = 1
 Kongen er uvurderlig! Mistes den, er spillet tabt.</string>
   <string name="queenOverBishop">Snup brikken med den højeste værdi! Dronning &gt; løber</string>
+  <string name="pieceValueExchange">Tag brikken med den højeste værdi!
+ Byt ikke
+ en brik af højere værdi for en mindre værdifuld.</string>
+  <string name="pieceValueLegal">Tag brikken
+med den højeste værdi!
+Sørg for at dit træk er lovligt!</string>
   <string name="takeThePieceWithTheHighestValue">Tag brikken med den højeste værdi!</string>
   <string name="pieceValueComplete">Tillykke! Du kender brikkernes værdi!
 Dronning = 9
