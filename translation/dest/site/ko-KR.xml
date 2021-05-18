@@ -423,7 +423,6 @@
   <string name="firstName">이름</string>
   <string name="lastName">성</string>
   <string name="biography">소개</string>
-  <string name="country">국가</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
