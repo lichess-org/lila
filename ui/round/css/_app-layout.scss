@@ -47,8 +47,8 @@
   display: grid;
 
   @include breakpoint($mq-col1) {
-    grid-template-rows: auto $col1-pocket-height $col1-mat-height $col1-user-height auto $expiration-height $col1-user-height $col1-mat-height $col1-pocket-height;
-    grid-template-areas: 'moves' 'pocket-top' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'pocket-bot' 'kb-move' 'controls';
+    grid-template-rows: auto $col1-pocket-height $col1-user-height $col1-mat-height auto $expiration-height $col1-mat-height $col1-user-height $col1-pocket-height;
+    grid-template-areas: 'moves' 'pocket-top' 'user-top' 'mat-top' 'board' 'expi-bot' 'mat-bot' 'user-bot' 'pocket-bot' 'kb-move' 'controls';
 
     // Put clocks and players in the same grid cell.
     // This allows having a single cell column, instead of

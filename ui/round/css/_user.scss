@@ -5,7 +5,6 @@
   justify-content: left;
   font-size: 1.2em;
   padding: 0 0.3em;
-  line-height: $col1-user-height;
 
   &:hover {
     color: $c-font;
@@ -62,6 +61,14 @@
 
     a {
       flex: 1 1 auto;
+    }
+  }
+  @include breakpoint($mq-col1) {
+    &-top {
+      align-self: flex-end;
+    }
+    &-bottom {
+      align-self: flex-start;
     }
   }
 }
