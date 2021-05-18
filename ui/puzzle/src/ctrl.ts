@@ -34,7 +34,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
   const streakFailStorage = lichess.storage.make('puzzle.streak.fail');
-  if (streak){
+  if (streak) {
     opts.data = {
       ...opts.data,
       ...streak.data.current,
