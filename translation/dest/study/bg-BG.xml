@@ -128,4 +128,5 @@
   <string name="deleteStudy">Изтрий казуса</string>
   <string name="deleteTheEntireStudy">Изтриване на целия казус? Това е необратимо!</string>
   <string name="whereDoYouWantToStudyThat">Къде да бъде проучено това?</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсация</string>
 </resources>
