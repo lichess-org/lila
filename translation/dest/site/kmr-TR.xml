@@ -85,7 +85,7 @@
   <string name="topGames">Lîstikên sereke</string>
   <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
+    <item quantity="one">Mat dibe di %s vîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
@@ -139,7 +139,7 @@
     <item quantity="one">%s lîzer</item>
     <item quantity="other">%s lîzer</item>
   </plurals>
-  <string name="currentGames">Lîstikên niha</string>
+  <string name="currentGames">Lîstikên vê gavê</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
@@ -167,7 +167,7 @@
   <string name="variant">Varyant</string>
   <string name="variants">Varyant</string>
   <string name="timeControl">Kontrola demê</string>
-  <string name="realTime">Zemanê heqîqî</string>
+  <string name="realTime">Dema heqîqî</string>
   <string name="correspondence">Lîstika bi nivîs</string>
   <string name="daysPerTurn">Rojên ji bo her dorekê</string>
   <string name="oneDay">Yek roj</string>
@@ -452,7 +452,6 @@
   <string name="firstName">Nav</string>
   <string name="lastName">Paşnav</string>
   <string name="biography">Biyografî</string>
-  <string name="country">Welat</string>
   <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
