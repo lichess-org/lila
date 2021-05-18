@@ -455,7 +455,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="firstName">Given name</string>
   <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
-  <string name="country">Country</string>
+  <string name="countryOrFlag">Country or flag</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>
