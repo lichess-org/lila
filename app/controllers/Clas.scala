@@ -413,7 +413,7 @@ final class Clas(
                 )
               },
             data =>
-              env.user.repo named data.username flatMap {
+              env.user.repo enabledNamed data.username flatMap {
                 _ ?? { user =>
                   import lila.clas.ClasInvite.{ Feedback => F }
                   env.clas.api.invite.create(clas, user, data.realName, me) map { feedback =>
