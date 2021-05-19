@@ -6,6 +6,6 @@
   <string name="challengeAccepted">Mwito wa kuja kushindana umekubaliwa!</string>
   <string name="challengeCanceled">Mwito wa kuja kushindana umeghairiwa.</string>
   <string name="registerToSendChallenges">Tafadhali jiandikishi ili utume miito ya mashindano.</string>
-  <string name="youCannotChallengeX">Hukubaliwi kutuma mwito wa kuja kushindana.</string>
-  <string name="xDoesNotAcceptChallenges">Hakubali miito ya mashindano.</string>
+  <string name="youCannotChallengeX">Hukubaliwi kutuma mwito wa kuja kushindana %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s hakubali miito ya mashindano.</string>
 </resources>
