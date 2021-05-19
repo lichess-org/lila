@@ -454,7 +454,7 @@
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
   <string name="biography">Kuvaus</string>
-  <string name="countryOrFlag">Maa tai lippu</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai lippu</string>
   <string name="thankYou">Kiitos!</string>
   <string name="socialMediaLinks">Sosiaalisen median linkit</string>
   <string name="inlineNotation">Rivinsisäinen kommentointi</string>
