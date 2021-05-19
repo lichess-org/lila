@@ -18,9 +18,11 @@
   <string name="sendPM">أرسل رسالة خاصة</string>
   <string name="aboutMe">معلومات عني</string>
   <string name="playingExperience">تجربة اللعب</string>
+  <string name="teachingExperience">خبرة التدريس</string>
   <string name="otherExperiences">تجارب أخرى</string>
   <string name="bestSkills">أفضل المهارات</string>
   <string name="teachingMethod">منهجية التدريس</string>
+  <string name="publicStudies">دراسات عامة</string>
   <string name="youtubeVideos">فيديوهات اليوتيوب</string>
   <string name="xWillApproveIt">%s سيوافق عليها قريبا جداً، أو سيلقي مشرف نظرة عليها.</string>
   <string name="reviewCoach">قيم المدرب</string>
