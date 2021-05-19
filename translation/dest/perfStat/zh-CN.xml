@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s 战绩</string>
   <string name="viewTheGames">查看棋局</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">暂定</string>
+  <string name="provisional">暂定</string>
   <string name="notEnoughRatedGames">因排位赛数量不足而无法测定可靠的等级分</string>
   <string name="progressOverLastXGames">最新 %s 局后的变化:</string>
   <string name="ratingDeviation">等级分偏差: %s</string>
