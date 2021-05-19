@@ -66,7 +66,9 @@
   <string name="provisionalRatingExplanation">علامة الاستفهام تعني أن التقييم مؤقت. الأسباب تشمل:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">اللاعب لم يكمل بعد مباريات مصنفة كافية مقابل %1$s في فئة التصنيف.</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">لعبت مباراة مصنفة خلال الأسبوع الماضي لهذا التصنيف،</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">لديك فرق تصنيف أقل من %1$s، في الشطرنج القياسي، وأقل من %2$s في المتغيرات،</string>
   <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">الشرط الثاني هو أن يتوقف اللاعبون الذين لم يعودوا يستخدمون حساباتهم عن الظهور في قائمة المتصدرين.</string>
   <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
   <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
   <string name="howToThreeDots">كيف يمكنني أن...</string>
