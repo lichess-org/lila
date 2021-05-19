@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">sona ala</string>
+  <string name="provisional">sona ala</string>
   <string name="totalGames">nanpa pi musi ale</string>
   <string name="victories">pini pona</string>
   <string name="defeats">pini ike</string>
