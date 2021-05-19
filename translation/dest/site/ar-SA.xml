@@ -130,6 +130,30 @@
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s غلطة</item>
+    <item quantity="one">%s غلطة</item>
+    <item quantity="two">%s غلطة</item>
+    <item quantity="few">%s غلطات</item>
+    <item quantity="many">%s غلطات</item>
+    <item quantity="other">%s غلطات</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s خطأ</item>
+    <item quantity="one">%s خطأ</item>
+    <item quantity="two">%s أخطاء</item>
+    <item quantity="few">%s أخطاء</item>
+    <item quantity="many">%s أخطاء</item>
+    <item quantity="other">%s أخطاء</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s غموض</item>
+    <item quantity="one">%s غموض</item>
+    <item quantity="two">%s غموض</item>
+    <item quantity="few">%s غموض</item>
+    <item quantity="many">%s غموض</item>
+    <item quantity="other">%s غموض</item>
+  </plurals>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
@@ -554,6 +578,7 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="inlineNotation">تنسيق التدوين</string>
@@ -579,6 +604,7 @@
   <string name="tournamentWinners">الفائزون بالبطولات</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
+  <string name="descPrivate">وصف خاص</string>
   <string name="no">لا</string>
   <string name="yes">نعم</string>
   <string name="help">مساعدة:</string>
