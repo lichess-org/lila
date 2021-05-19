@@ -605,6 +605,7 @@
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
+  <string name="descPrivateHelp">هذا النص سيراه فقط أعضاء الفريق. في حالة ضبطه، سيحل محل الوصف العام لأعضاء الفريق.</string>
   <string name="no">لا</string>
   <string name="yes">نعم</string>
   <string name="help">مساعدة:</string>
