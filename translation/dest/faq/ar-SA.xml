@@ -42,6 +42,7 @@
 يمكن استخدام هذه القيمة كمؤشر على جودة اللعب. كلما قل عدد centipawn التي يخسرها الشخص في كل نقلة، زادت قوة اللعب.
 
 يستخدم  التحليل الحاسوبي لـ Lichess محرك Stockfish.</string>
+  <string name="insufficientMaterial">خسارة الوقت ،تعادل ومواد غير كافية</string>
   <string name="officialRulesPDF">القواعد الرسمية (PDF)</string>
   <string name="lichessTraining">التدريب في Lichess</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
