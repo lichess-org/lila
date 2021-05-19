@@ -32,6 +32,9 @@
 على سبيل المثال، المدة المقدرة للعبة 5+3 هي 5 × 60 + 40 × 3 = 420 ثانية.</string>
   <string name="durationFormula">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
   <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
+  <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
+  <string name="eightVariants">8 متغيرات من شطرنج</string>
+  <string name="whatIsACPL">ما المقصود بمتوسط خسارة وسطبيدق (ACPL)؟</string>
   <string name="officialRulesPDF">القواعد الرسمية (PDF)</string>
   <string name="lichessTraining">التدريب في Lichess</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
