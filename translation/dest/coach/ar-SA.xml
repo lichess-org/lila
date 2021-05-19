@@ -14,7 +14,9 @@
   <string name="accepting">قبول الطلاب</string>
   <string name="notAccepting">عدم قبول الطلاب في الوقت الراهن</string>
   <string name="xCoachesStudents">%s يدرب الطلاب الشطرنج</string>
+  <string name="viewXProfile">عرض ملف Lichess الخاص بـ %s</string>
   <string name="sendPM">أرسل رسالة خاصة</string>
+  <string name="aboutMe">معلومات عني</string>
   <string name="playingExperience">تجربة اللعب</string>
   <string name="otherExperiences">تجارب أخرى</string>
   <string name="bestSkills">أفضل المهارات</string>
