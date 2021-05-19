@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">Statystyki dla %s</string>
   <string name="viewTheGames">Zobacz partie</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">prowizoryczny</string>
+  <string name="provisional">prowizoryczny</string>
   <string name="notEnoughRatedGames">Nie zagrano wystarczająco dużo rankingowych gier, aby ustalić wiarygodną ranking.</string>
   <string name="progressOverLastXGames">Postęp w ostatnich %s partiach:</string>
   <string name="ratingDeviation">Odchylenie rankingu: %s.</string>
