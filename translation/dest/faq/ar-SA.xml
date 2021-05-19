@@ -34,7 +34,14 @@
   <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
   <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
   <string name="eightVariants">8 متغيرات من شطرنج</string>
-  <string name="whatIsACPL">ما المقصود بمتوسط خسارة وسطبيدق (ACPL)؟</string>
+  <string name="whatIsACPL">ما المقصود بمتوسط خسارة centipawn أو (ACPL)؟</string>
+  <string name="acplExplanation">الـ centipawn هي وحدة القياس المستخدمة في الشطرنج كتمثيل للأفضلية. ويساوي centipawn 1/100 من البيدق. لذلك فإن: 100 centipawn = بيدق واحد. ولا تلعب هذه القيم أي دور رسمي في اللعبة ولكنها مفيدة للاعبين وضرورية في لعبة الشطرنج الحاسوبي لتقييم المواقف.
+
+النقلة الأعلى للحاسوب لن تخسر أي centipawn، ولكن أي حركة أدنى ستؤدي إلى تدهور الوضع، والذي يتم قياسه بالـ centipawn.
+
+يمكن استخدام هذه القيمة كمؤشر على جودة اللعب. كلما قل عدد centipawn التي يخسرها الشخص في كل نقلة، زادت قوة اللعب.
+
+يستخدم  التحليل الحاسوبي لـ Lichess محرك Stockfish.</string>
   <string name="officialRulesPDF">القواعد الرسمية (PDF)</string>
   <string name="lichessTraining">التدريب في Lichess</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
