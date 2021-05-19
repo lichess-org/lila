@@ -454,7 +454,7 @@
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
-  <string name="countryOrFlag">Land eller flagga</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
