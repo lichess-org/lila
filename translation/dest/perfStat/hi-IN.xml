@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s आँकड़े</string>
   <string name="viewTheGames">खेल देखें</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">अनंतिम</string>
+  <string name="provisional">अनंतिम</string>
   <string name="notEnoughRatedGames">विश्वसनीय रेटिंग स्थापित करने के लिए पर्याप्त रेटेड गेम नहीं खेले गए हैं।</string>
   <string name="progressOverLastXGames">अंतिम %s खेलों पर प्रगति:</string>
   <string name="ratingDeviation">रेटिंग विचलन: %s</string>
