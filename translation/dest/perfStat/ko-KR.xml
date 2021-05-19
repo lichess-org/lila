@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s 통계</string>
   <string name="viewTheGames">게임 보기</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">임시</string>
+  <string name="provisional">임시</string>
   <string name="notEnoughRatedGames">신뢰할만한 레이팅을 설정하기에 충분한 만큼의 레이팅 게임을 플레이하지 않았습니다.</string>
   <string name="progressOverLastXGames">최근 %s 게임 동안:</string>
   <string name="ratingDeviation">레이팅 편차: %s.</string>
