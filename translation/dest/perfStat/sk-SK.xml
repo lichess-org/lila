@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s štatistiky</string>
   <string name="viewTheGames">Zobraziť hry</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">dočasný</string>
+  <string name="provisional">dočasný</string>
   <string name="notEnoughRatedGames">Na zaistenie spoľahlivého ratingu sa neodohralo dosť hodnotených hier.</string>
   <string name="progressOverLastXGames">Postup počas posledných %s hier:</string>
   <string name="ratingDeviation">Odchýlka ratingu: %s.</string>
