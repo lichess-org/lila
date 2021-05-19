@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
   <string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
+  <string name="cheatDetected">ثم تحديد حالة غش</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
