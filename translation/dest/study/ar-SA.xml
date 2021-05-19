@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">تاريخ الإضافة (الأقدم)</string>
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
   <string name="mostPopular">الاكثر شعبية</string>
+  <string name="alphabetical">أبجدي</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s فصل</item>
@@ -127,4 +128,10 @@
   <string name="deleteStudy">حذف الدراسة</string>
   <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
+  <string name="goodMove">نقلة جيدة</string>
+  <string name="mistake">خطأ</string>
+  <string name="brilliantMove">نقلة رائعة</string>
+  <string name="blunder">غلطة</string>
+  <string name="interestingMove">نقلة مثيرة للاهتمام</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">نقلة مشبوهة</string>
 </resources>
