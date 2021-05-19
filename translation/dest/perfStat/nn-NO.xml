@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s-statistikk</string>
   <string name="viewTheGames">Syn partia</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">mellombels</string>
+  <string name="provisional">mellombels</string>
   <string name="notEnoughRatedGames">For få rata parti til at ei stabil rating kan bereknas.</string>
   <string name="progressOverLastXGames">Endring over de siste %s partia:</string>
   <string name="ratingDeviation">Ratingavvik: %s.</string>
