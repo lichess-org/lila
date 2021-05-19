@@ -1011,4 +1011,10 @@
   <string name="xInvitedYouToY">%1$s قد دعاك إلى \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">أنت الآن عضو في الفريق.</string>
   <string name="youHaveJoinedTeamX">لقد انضممت إلى \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">شخص قد أبلغت عنه تم حظره</string>
+  <string name="congratsYouWon">تهانينا، لقد فزت!</string>
+  <string name="gameVsX">مباراة ضد %1$s</string>
+  <string name="resVsX">%1$s ضد %2$s</string>
+  <string name="youJustBecamePatron">لقد اصبحت للتو راعياً لـ Lichess.</string>
+  <string name="patronAccountExpired">انتهت صلاحية حساب رعايتك</string>
 </resources>
