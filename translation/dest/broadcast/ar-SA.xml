@@ -3,12 +3,17 @@
   <string name="broadcasts">البثوث</string>
   <string name="liveBroadcasts">بث البطولة المباشرة</string>
   <string name="newBroadcast">بث مباشر جديد</string>
+  <string name="addRound">إضافة جولة</string>
   <string name="ongoing">الجارية</string>
   <string name="upcoming">القادمة</string>
   <string name="completed">المكتملة</string>
+  <string name="roundName">اسم الجولة</string>
   <string name="roundNumber">رقم الجولة (الشوط)</string>
+  <string name="tournamentName">اسم البطولة</string>
+  <string name="tournamentDescription">وصف موجز للبطولة</string>
   <string name="fullDescription">الوصف الكامل</string>
   <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
+  <string name="sourceUrlOrGameIds">URL المصدر، أو ID المباراة</string>
   <string name="startDate">تاريخ البدء في المنطقة الزمنية الخاصة بك</string>
   <string name="startDateHelp">اختياري، إذا كنت تعرف متى يبدأ الحدث</string>
   <string name="credits">ائتمن المصدر</string>
