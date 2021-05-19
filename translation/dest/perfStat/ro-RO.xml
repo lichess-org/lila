@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nu au fost jucate destule meciuri oficiale pentru a stabili un rating solid.</string>
   <string name="progressOverLastXGames">Progres în ultimele %s meciuri:</string>
   <string name="ratingDeviation">Devierea ratingului: %s.</string>
-  <string name="ratingDeviationHelp">O valoare mai mică indică un rating mai stabil. Peste %s, ratingul este considerat provizoriu.</string>
   <string name="totalGames">Meciuri totale</string>
   <string name="ratedGames">Meciuri oficiale</string>
   <string name="tournamentGames">Meciuri de turnee</string>

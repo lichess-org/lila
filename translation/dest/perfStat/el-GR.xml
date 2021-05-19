@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Δεν έχουν παιχτεί αρκετές βαθμολογημένες παρτίδες ώστε να υπάρξει έμπιστη βαθμολογία.</string>
   <string name="progressOverLastXGames">Εξέλιξη βάσει των τελευταίων %s παρτίδων:</string>
   <string name="ratingDeviation">Απόκλιση βαθμολογίας: %s.</string>
-  <string name="ratingDeviationHelp">Μικρή τιμή σημαίνει ότι η βαθμολογία είναι πιο σταθερή. Η βαθμολογία πάνω από %s θεωρείται προσωρινή.</string>
   <string name="totalGames">Σύνολο παρτίδων</string>
   <string name="ratedGames">Βαθμολογημένες παρτίδες</string>
   <string name="tournamentGames">Παρτίδες σε τουρνουά</string>

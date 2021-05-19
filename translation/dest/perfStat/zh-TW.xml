@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">積分賽場次太少，無法計算準確積分。</string>
   <string name="progressOverLastXGames">最近%s場棋局之積分變化：</string>
   <string name="ratingDeviation">積分誤差: %s</string>
-  <string name="ratingDeviationHelp">此數目越低，代表積分越不容易變動。若此數目高於%s，此積分即為暫時性積分。</string>
   <string name="totalGames">總計棋局</string>
   <string name="ratedGames">積分棋局</string>
   <string name="tournamentGames">聯賽棋局</string>

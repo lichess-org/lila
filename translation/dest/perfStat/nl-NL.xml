@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Er zijn niet genoeg partijen met rating gespeeld om een betrouwbare rating vast te stellen.</string>
   <string name="progressOverLastXGames">Voortgang in de laatste %s partijen:</string>
   <string name="ratingDeviation">Rating deviatie: %s.</string>
-  <string name="ratingDeviationHelp">Een lagere waarde betekent dat de rating stabieler is. Boven %s, wordt de rating als voorlopig beschouwd.</string>
   <string name="totalGames">Totaal aantal partijen</string>
   <string name="ratedGames">Partijen met rating</string>
   <string name="tournamentGames">Toernooipartijen</string>

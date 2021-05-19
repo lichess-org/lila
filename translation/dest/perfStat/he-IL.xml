@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">לא ניתן לקבוע דירוג אמין, מפני שלא שוחקו מספיק משחקים מדורגים.</string>
   <string name="progressOverLastXGames">התקדמות לאורך %s המשחקים האחרונים:</string>
   <string name="ratingDeviation">סטיית תקן בדירוג: %s.</string>
-  <string name="ratingDeviationHelp">ערך נמוך משמעו שהדירוג יציב יותר. מעל %s, הדירוג נחשב זמני.</string>
   <string name="totalGames">סך כל המשחקים</string>
   <string name="ratedGames">משחקים מדורגים</string>
   <string name="tournamentGames">משחקי טורניר</string>

@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nie genoeg gegradeerde spelle is gespeel om \'n betroubare gradering te vestig nie.</string>
   <string name="progressOverLastXGames">Vordering oor die laaste %s spelle:</string>
   <string name="ratingDeviation">Gradering afwyking: %s.</string>
-  <string name="ratingDeviationHelp">Laer waarde beteken die gradering is meer stabiel. Hoër as %s beteken dat die gradering steeds voorlopig geag word.</string>
   <string name="totalGames">Totale spelle</string>
   <string name="ratedGames">Gegradeerde spelle</string>
   <string name="tournamentGames">Toernooi spelle</string>

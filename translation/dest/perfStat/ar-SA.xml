@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">لم تلعب مباريات مقيّمة بما يكفي للحصول ع تقييم موثق.</string>
   <string name="progressOverLastXGames">التقدم خلال آخر المباريات ال%s الاخيرة:</string>
   <string name="ratingDeviation">انحراف التقييم: %s.</string>
-  <string name="ratingDeviationHelp">القيمة المنخفضة تعني تقييم أكثر استقراراً. اعلى من %s، يعتبر التقييم مؤقتاً.</string>
   <string name="totalGames">إجمالي المباريات</string>
   <string name="ratedGames">مباريات مقيّمة</string>
   <string name="tournamentGames">مباريات بطولة</string>

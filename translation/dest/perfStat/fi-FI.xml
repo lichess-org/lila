@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Ei ole pelattu riittävän montaa pisteytettyä peliä, jotta voitaisiin muodostaa luotettava vahvuusluku.</string>
   <string name="progressOverLastXGames">Kehitys viimeisten %s pelin aikana:</string>
   <string name="ratingDeviation">Vahvuuslukupoikkeama: %s.</string>
-  <string name="ratingDeviationHelp">Alempi arvo tarkoittaa että vahvuusluku on vakaampi. Arvon %s yläpuolella vahvuusluku tulkitaan tilapäiseksi.</string>
   <string name="totalGames">Pelejä yhteensä</string>
   <string name="ratedGames">Pisteytettyjä pelejä</string>
   <string name="tournamentGames">Turnauspelejä</string>

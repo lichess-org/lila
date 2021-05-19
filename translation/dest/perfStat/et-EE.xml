@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Pole mängitud piisavalt reitinguga mänge, et luua usaldusväärset reitingut.</string>
   <string name="progressOverLastXGames">Areng viimase %s mängu jooksul:</string>
   <string name="ratingDeviation">Reitingunihe: %s.</string>
-  <string name="ratingDeviationHelp">Väiksem arv tähendab stabiilsemat reitingut. Üle %s tähendab, et reiting on ajutine.</string>
   <string name="totalGames">Mänge kokku</string>
   <string name="ratedGames">Reitinguga mängu</string>
   <string name="tournamentGames">Turniirimänge</string>

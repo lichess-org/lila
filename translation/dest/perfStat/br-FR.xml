@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket evit kaout ur renkadur a glot gant ho live.</string>
   <string name="progressOverLastXGames">Araokadennoù e-pad an/ar %s krogad diwezhañ:</string>
   <string name="ratingDeviation">Forc\'had standard: %s.</string>
-  <string name="ratingDeviationHelp">Seul izeloc\'h an dalvoudegezh seul stabiloc\'h ar renkadur. Da c\'hortoz eo ar renkadur en tu all da %s.</string>
   <string name="totalGames">Niver a grogadoù</string>
   <string name="ratedGames">Krogadoù renket</string>
   <string name="tournamentGames">Krogadoù tournamant</string>

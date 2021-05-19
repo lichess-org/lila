@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">因排位赛数量不足而无法测定可靠的等级分</string>
   <string name="progressOverLastXGames">最新 %s 局后的变化:</string>
   <string name="ratingDeviation">等级分偏差: %s</string>
-  <string name="ratingDeviationHelp">偏差越低，表示等级分越稳定。偏差高于 %s，等级分将会被评为暂定。</string>
   <string name="totalGames">棋局总数</string>
   <string name="ratedGames">排位赛局数</string>
   <string name="tournamentGames">锦标赛局数</string>

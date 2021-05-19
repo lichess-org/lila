@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nuk jan luajtur mjaftueshëm lojëra per një vlerësim korrekt.</string>
   <string name="progressOverLastXGames">Përmirësimi nga %s lojërat e fundit:</string>
   <string name="ratingDeviation">Devijimi i vlerësimit: %s.</string>
-  <string name="ratingDeviationHelp">Sa me i vogël numëri, aq me i saktë vlerësimi. Mbi %s, vlerësimi quhet i përkohshëm.</string>
   <string name="totalGames">Lojërat gjithsej</string>
   <string name="ratedGames">Lojë të vlerësuara</string>
   <string name="tournamentGames">Lojëra turneu</string>

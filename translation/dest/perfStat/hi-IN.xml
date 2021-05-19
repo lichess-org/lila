@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">विश्वसनीय रेटिंग स्थापित करने के लिए पर्याप्त रेटेड गेम नहीं खेले गए हैं।</string>
   <string name="progressOverLastXGames">अंतिम %s खेलों पर प्रगति:</string>
   <string name="ratingDeviation">रेटिंग विचलन: %s</string>
-  <string name="ratingDeviationHelp">कम मूल्य का मतलब है कि रेटिंग अधिक स्थिर है। %s से ऊपर, रेटिंग को अनंतिम माना जाता है।</string>
   <string name="totalGames">कुल खेल</string>
   <string name="ratedGames">रेटेड खेल</string>
   <string name="tournamentGames">टूर्नामेंट खेल</string>

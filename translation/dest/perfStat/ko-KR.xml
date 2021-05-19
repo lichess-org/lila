@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">신뢰할만한 레이팅을 설정하기에 충분한 만큼의 레이팅 게임을 플레이하지 않았습니다.</string>
   <string name="progressOverLastXGames">최근 %s 게임 동안:</string>
   <string name="ratingDeviation">레이팅 편차: %s.</string>
-  <string name="ratingDeviationHelp">낮은 값일수록 레이팅이 안정적입니다. 값이 %s 이상이면 임시 레이팅으로 간주합니다.</string>
   <string name="totalGames">총 게임</string>
   <string name="ratedGames">레이팅 게임</string>
   <string name="tournamentGames">토너먼트 게임</string>

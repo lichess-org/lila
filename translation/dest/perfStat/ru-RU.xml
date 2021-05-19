@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Недостаточно рейтинговых игр, чтобы узнать точный рейтинг.</string>
   <string name="progressOverLastXGames">Прогресс за последние игры (%s):</string>
   <string name="ratingDeviation">Отклонение рейтинга: %s.</string>
-  <string name="ratingDeviationHelp">Меньшее значение соответствует более точному рейтингу. Выше %s рейтинг считается предварительным.</string>
   <string name="totalGames">Всего партий</string>
   <string name="ratedGames">Рейтинговые игры</string>
   <string name="tournamentGames">Турнирных партий</string>

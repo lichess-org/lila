@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">No se han jugado suficientes partidas para establecer una puntuación fiable.</string>
   <string name="progressOverLastXGames">Progresión en las últimas %s partidas:</string>
   <string name="ratingDeviation">Desviación de la puntuación: %s.</string>
-  <string name="ratingDeviationHelp">Un valor más bajo significa que la puntuación es más estable. Por encima de %s, la puntuación se considera provisional.</string>
   <string name="totalGames">Partidas totales</string>
   <string name="ratedGames">Partidas por puntos</string>
   <string name="tournamentGames">Partidas de torneo</string>

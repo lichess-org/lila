@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Il n\'y a pas assez de parties classées pour établir un classement fiable.</string>
   <string name="progressOverLastXGames">Changement après les %s dernières parties :</string>
   <string name="ratingDeviation">Écart-type du classement : %s.</string>
-  <string name="ratingDeviationHelp">Une valeur plus faible indique un classement plus fiable. Au-delà de %s, le classement est provisoire.</string>
   <string name="totalGames">Nombre total de parties</string>
   <string name="ratedGames">Parties classées</string>
   <string name="tournamentGames">Parties de tournoi</string>

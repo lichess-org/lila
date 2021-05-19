@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Za zanesljiv rejting je bilo odigranih premalo rangiranih iger.</string>
   <string name="progressOverLastXGames">Napredek v zadnjih %s igrah:</string>
   <string name="ratingDeviation">Odstopanje od rejtinga: %s.</string>
-  <string name="ratingDeviationHelp">Nižja vrednost pomeni, da je rejting bolj stabilen. Nad %s se rejting šteje za začasen.</string>
   <string name="totalGames">Vse igre</string>
   <string name="ratedGames">Rangirane partije</string>
   <string name="tournamentGames">Turnirske partije</string>

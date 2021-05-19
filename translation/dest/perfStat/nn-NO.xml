@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">For få rata parti til at ei stabil rating kan bereknas.</string>
   <string name="progressOverLastXGames">Endring over de siste %s partia:</string>
   <string name="ratingDeviation">Ratingavvik: %s.</string>
-  <string name="ratingDeviationHelp">Eit lågare verde tyder at ratinga er meir stabil. Over %s blir ratinga rekna som mellombels.</string>
   <string name="totalGames">Totalt antal parti</string>
   <string name="ratedGames">Rata parti</string>
   <string name="tournamentGames">Turneringsparti</string>

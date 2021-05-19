@@ -119,7 +119,7 @@ object perfStat {
         ". ",
         ratingDeviation(
           strong(
-            title := ratingDeviationHelp.txt(lila.rating.Glicko.provisionalDeviation)
+            title := ratingDeviationTooltip.txt(lila.rating.Glicko.provisionalDeviation, lila.rating.Glicko.standardRankableDeviation, lila.rating.Glicko.variantRankableDeviation)
           )(decimal(perf.glicko.deviation).toString)
         )
       )

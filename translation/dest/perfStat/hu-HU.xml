@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Nincs elegendő értékelt játszmád megbízható értékszám meghatározásához.</string>
   <string name="progressOverLastXGames">Az utolsó %s játszma szerinti alakulás:</string>
   <string name="ratingDeviation">Pontszám eltérés: %s.</string>
-  <string name="ratingDeviationHelp">A kisebb eltérés megbízhatóbb értékszámot jelent. %s fölött az értékszám becsültnek számít.</string>
   <string name="totalGames">Összes játszma</string>
   <string name="ratedGames">Rangsorolt játszma</string>
   <string name="tournamentGames">Verseny játszma</string>

@@ -6,7 +6,6 @@
   <string name="notEnoughRatedGames">Níor imríodh go leor cluichí rátáilte chun rátáil iontaofa a bhunú.</string>
   <string name="progressOverLastXGames">Dul chun cinn le %s cluiche anuas:</string>
   <string name="ratingDeviation">Diall rátála. %s.</string>
-  <string name="ratingDeviationHelp">Ciallaíonn luach níos ísle go bhfuil an rátáil níos cobhsaí. Os cionn %s, meastar go bhfuil an rátáil sealadach.</string>
   <string name="totalGames">Cluichí iomlána</string>
   <string name="ratedGames">Cluichí rátáilte</string>
   <string name="tournamentGames">Cluichí comórtais</string>
