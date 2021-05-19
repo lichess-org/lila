@@ -484,7 +484,7 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
-  <string name="countryOrFlag">Țară sau steag</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țară sau steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="inlineNotation">Notație integrată</string>
