@@ -27,12 +27,14 @@
   <string name="wantClearHistory">أريد مسح تاريخي أو تقييمي</string>
   <string name="cantClearHistory">لا يمكن مسح تاريخ المباريات أو تاريخ الألغاز أو التقييم.</string>
   <string name="wantReport">أريد أن أبلغ عن لاعب</string>
+  <string name="toReportAPlayerUseForm">للإبلاغ عن لاعب، استعمل(ي) استمارة التبليغ</string>
   <string name="youCanAlsoReachReportPage">يمكنك أيضا الوصول إلى هذه الصفحة بالنقر على زر التبليغ %s في صفحة الملف الشخصي.</string>
   <string name="doNotReportInForum">لا تبلغ عن اللاعبين في المنتدى.</string>
   <string name="doNotSendReportEmails">لا ترسل بالتبليغ عبر البريد الإلكتروني.</string>
   <string name="doNotMessageModerators">لا ترسل رسائل مباشرة للمشرفين.</string>
   <string name="onlyReports">الإبلاغ عن اللاعبين عن طريق الاستمارة هو الطريقة الوحيدة الفعّالة.</string>
   <string name="wantReportBug">أريد أن أبلغ عن خطأ برمجي</string>
+  <string name="reportBugInForum">في قسم التعليقات من منتدى Lichess</string>
   <string name="reportWebsiteIssue">كمشكلة في موقع Lichess على Github</string>
   <string name="reportMobileIssue">كمشكلة في تطبيق Lichess المحمول على GitHub</string>
   <string name="reportBugInDiscord">في خادم ديسكورد Lichess</string>
