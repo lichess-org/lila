@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">Statistici %s</string>
   <string name="viewTheGames">Vezi jocurile</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provizoriu</string>
+  <string name="provisional">provizoriu</string>
   <string name="notEnoughRatedGames">Nu au fost jucate destule meciuri oficiale pentru a stabili un rating solid.</string>
   <string name="progressOverLastXGames">Progres în ultimele %s meciuri:</string>
   <string name="ratingDeviation">Devierea ratingului: %s.</string>
