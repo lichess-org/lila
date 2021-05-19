@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s statisztika</string>
   <string name="viewTheGames">Mutasd a játszmákat</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">becsült</string>
+  <string name="provisional">becsült</string>
   <string name="notEnoughRatedGames">Nincs elegendő értékelt játszmád megbízható értékszám meghatározásához.</string>
   <string name="progressOverLastXGames">Az utolsó %s játszma szerinti alakulás:</string>
   <string name="ratingDeviation">Pontszám eltérés: %s.</string>
