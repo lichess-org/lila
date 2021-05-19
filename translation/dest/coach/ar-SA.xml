@@ -24,6 +24,16 @@
   <string name="teachingMethod">منهجية التدريس</string>
   <string name="publicStudies">دراسات عامة</string>
   <string name="youtubeVideos">فيديوهات اليوتيوب</string>
+  <plurals name="studentReviews">
+    <item quantity="zero">لا تعليقات من الطلاب</item>
+    <item quantity="one">تعليق واحد من الطلاب</item>
+    <item quantity="two">تعليقان من الطلاب</item>
+    <item quantity="few">%s تعليقات من الطلاب</item>
+    <item quantity="many">%s تعليقات من الطلاب</item>
+    <item quantity="other">%s تعليقات من الطلاب</item>
+  </plurals>
+  <string name="thankYouForReview">شكرا على تعليقك!</string>
   <string name="xWillApproveIt">%s سيوافق عليها قريبا جداً، أو سيلقي مشرف نظرة عليها.</string>
   <string name="reviewCoach">قيم المدرب</string>
+  <string name="describeExperienceWith">صِف تجربتك في التدرب مع %s</string>
 </resources>
