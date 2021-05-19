@@ -14,22 +14,29 @@ interface Coords {
   y: number;
 }
 
+interface PageOrClientPos {
+  pageX?: number;
+  pageY?: number;
+  clientX?: number;
+  clientY?: number;
+}
+
 const elementId = 'analyse-cm';
 
-function getPosition(e: MouseEvent): Coords {
-  let posx = 0,
-    posy = 0;
-  if (e.pageX || e.pageY) {
-    posx = e.pageX;
-    posy = e.pageY;
-  } else if (e.clientX || e.clientY) {
-    posx = e.clientX + document.body.scrollLeft + document.documentElement!.scrollLeft;
-    posy = e.clientY + document.body.scrollTop + document.documentElement!.scrollTop;
-  }
-  return {
-    x: posx,
-    y: posy,
-  };
+function getPosition(e: MouseEvent | TouchEvent): Coords | null {
+  let pos = e as PageOrClientPos;
+  if (e instanceof TouchEvent && e.touches.length > 0) pos = e.touches[0];
+  if (pos.pageX || pos.pageY)
+    return {
+      x: pos.pageX!,
+      y: pos.pageY!,
+    };
+  else if (pos.clientX || pos.clientY)
+    return {
+      x: pos.clientX! + document.body.scrollLeft + document.documentElement!.scrollLeft,
+      y: pos.clientY! + document.body.scrollTop + document.documentElement!.scrollTop,
+    };
+  else return null;
 }
 
 function positionMenu(menu: HTMLElement, coords: Coords): void {
@@ -65,7 +72,10 @@ function view(opts: Opts, coords: Coords): VNode {
     'div#' + elementId + '.visible',
     {
       hook: {
-        insert: vnode => positionMenu(vnode.elm as HTMLElement, coords),
+        insert: vnode => {
+          vnode.elm!.addEventListener('contextmenu', e => (e.preventDefault(), false));
+          positionMenu(vnode.elm as HTMLElement, coords);
+        },
         postpatch: (_, vnode) => positionMenu(vnode.elm as HTMLElement, coords),
       },
     },
@@ -81,6 +91,12 @@ function view(opts: Opts, coords: Coords): VNode {
 }
 
 export default function (e: MouseEvent, opts: Opts): void {
+  let pos = getPosition(e);
+  if (pos === null) {
+    if (opts.root.contextMenuPath) return;
+    pos = { x: 0, y: 0 };
+  }
+
   const el = ($('#' + elementId)[0] || $('<div id="' + elementId + '">').appendTo($('body'))[0]) as HTMLElement;
   opts.root.contextMenuPath = opts.path;
   function close(e: MouseEvent) {
@@ -92,5 +108,5 @@ export default function (e: MouseEvent, opts: Opts): void {
   }
   document.addEventListener('click', close, false);
   el.innerHTML = '';
-  patch(el, view(opts, getPosition(e)));
+  patch(el, view(opts, pos));
 }
