@@ -144,6 +144,8 @@ Piyon = 1
   <string name="pieceValueExchange">En değerli taşı yiyin!
 Değerli bir taşınızı
 daha değersiz bir taş ile takas etmeyin.</string>
+  <string name="pieceValueLegal">En değerli taşı al!
+Ama hamlenin yapılabilir olduğundan emin ol!</string>
   <string name="takeThePieceWithTheHighestValue">En değerli taşı ye ve kendi taşlarına da dikkat et!</string>
   <string name="pieceValueComplete">İşte bu kadar! Artık taşların puanlarını biliyorsun!
 Vezir = 9
