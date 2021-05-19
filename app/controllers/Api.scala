@@ -409,14 +409,12 @@ final class Api(
       else fuccess(NotFound)
     }
 
-  lazy val tooManyRequests =
-    Results.TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult    = Data(JsArray(json))
 
   def toHttp(result: ApiResult): Result =
     result match {
-      case Limited        => tooManyRequests
+      case Limited        => rateLimitedJson
       case NoData         => NotFound
       case Custom(result) => result
       case Data(json)     => JsonOk(json)

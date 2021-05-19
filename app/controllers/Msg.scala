@@ -109,7 +109,7 @@ final class Msg(
                 text =>
                   env.msg.api.post(me.id, userId, text) map {
                     case lila.msg.MsgApi.PostResult.Success => jsonOkResult
-                    case lila.msg.MsgApi.PostResult.Limited => apiC.tooManyRequests
+                    case lila.msg.MsgApi.PostResult.Limited => rateLimitedJson
                     case _                                  => BadRequest(jsonError("The message was rejected"))
                   }
               )
