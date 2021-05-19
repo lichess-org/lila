@@ -63,10 +63,17 @@ const renderSolved = (ctrl: StormCtrl): VNode =>
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__control', [
+    h('a.puz-side__control__end.button.button-empty', {
+      attrs: {
+        'data-icon': 'B',
+        title: ctrl.trans.noarg('flipBoard'),
+      },
+      hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
+    }),
     h('a.puz-side__control__reload.button.button-empty', {
       attrs: {
         href: '/storm',
-        'data-icon': 'B',
+        'data-icon': 'P',
         title: ctrl.trans('newRun'),
       },
     }),
