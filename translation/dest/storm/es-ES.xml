@@ -7,9 +7,9 @@
   <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>
   <string name="newWeeklyHighscore">¡Nueva puntuación más alta semanal!</string>
   <string name="newMonthlyHighscore">¡Nueva puntuación más alta mensual!</string>
-  <string name="newAllTimeHighscore">¡Nueva puntuación más alta absoluta!</string>
+  <string name="newAllTimeHighscore">¡Nueva puntuación máxima de todo tiempo!</string>
   <string name="previousHighscoreWasX">La puntuación más alta anterior era %s</string>
-  <string name="playAgain">Jugar de nuevo</string>
+  <string name="playAgain">Volver a jugar</string>
   <plurals name="xRuns">
     <item quantity="one">1 ronda</item>
     <item quantity="other">%s rondas</item>
