@@ -60,9 +60,6 @@ export function main(ctrl: RoundController): VNode {
     ? ctrl.nvui.render(ctrl)
     : h(
         'div.round__app.variant-' + d.game.variant.key,
-        {
-          class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
-        },
         [
           h(
             'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
