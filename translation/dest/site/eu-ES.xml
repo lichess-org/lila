@@ -454,7 +454,7 @@
   <string name="firstName">Izena</string>
   <string name="lastName">Abizena</string>
   <string name="biography">Biografia</string>
-  <string name="countryOrFlag">Herrialdea edo bandera</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Herrialdea edo bandera</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
