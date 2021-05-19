@@ -65,6 +65,7 @@
   <string name="whichRatingSystemUsedByLichess">ما هو نظام التقييم الذي يستخدمه ليشيس؟</string>
   <string name="provisionalRatingExplanation">علامة الاستفهام تعني أن التقييم مؤقت. الأسباب تشمل:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">اللاعب لم يكمل بعد مباريات مصنفة كافية مقابل %1$s في فئة التصنيف.</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">لعبت مباراة مصنفة خلال الأسبوع الماضي لهذا التصنيف،</string>
   <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
   <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
   <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
