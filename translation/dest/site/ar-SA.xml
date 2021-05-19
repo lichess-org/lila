@@ -625,6 +625,7 @@
   <string name="cheat">غش</string>
   <string name="insult">إهانة</string>
   <string name="troll">إزعاج</string>
+  <string name="ratingManipulation">تلاعب بالتقييم</string>
   <string name="other">أخرى</string>
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
@@ -1004,4 +1005,10 @@
   <string name="youCannotPostYetPlaySomeGames">لا يمكنك النشر في المنتديات حتى الآن. إلعب بعض المباريات!</string>
   <string name="subscribe">اشترك</string>
   <string name="unsubscribe">إلغاء الإشتراك</string>
+  <string name="mentionedYouInX">ذكرك في \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s قد ذكرك في \"%2$s\".</string>
+  <string name="invitedYouToX">دعاك إلى \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s قد دعاك إلى \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">أنت الآن عضو في الفريق.</string>
+  <string name="youHaveJoinedTeamX">لقد انضممت إلى \"%1$s\".</string>
 </resources>
