@@ -197,6 +197,8 @@ export default class AnalyseCtrl {
     this.gamePath =
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
+
+    lichess.sound.preloadBoardSounds();
   }
 
   private setPath = (path: Tree.Path): void => {

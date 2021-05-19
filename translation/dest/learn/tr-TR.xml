@@ -141,6 +141,9 @@ At = 3
 Piyon = 1
 Şah sonsuz puandır! Şah düşerse oyun biter.</string>
   <string name="queenOverBishop">En değerli taşı ye! Vezir &gt; Fil</string>
+  <string name="pieceValueExchange">En değerli taşı yiyin!
+Değerli bir taşınızı
+daha değersiz bir taş ile takas etmeyin.</string>
   <string name="takeThePieceWithTheHighestValue">En değerli taşı ye ve kendi taşlarına da dikkat et!</string>
   <string name="pieceValueComplete">İşte bu kadar! Artık taşların puanlarını biliyorsun!
 Vezir = 9

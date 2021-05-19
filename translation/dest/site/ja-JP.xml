@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">あなたは白です</string>
   <string name="youPlayTheBlackPieces">あなたは黒です</string>
   <string name="itsYourTurn">あなたの手番です！</string>
+  <string name="cheatDetected">不正行為検出</string>
   <string name="kingInTheCenter">キングが中央マスに入りました</string>
   <string name="threeChecks">3 回チェック成功</string>
   <string name="raceFinished">レースが終了しました</string>
@@ -423,7 +424,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
-  <string name="country">国</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
@@ -560,8 +561,8 @@
   <string name="onlyFriends">友達のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
-  <string name="whiteCastlingKingside">白　o-o</string>
-  <string name="blackCastlingKingside">黒　o-o</string>
+  <string name="whiteCastlingKingside">白　O-O</string>
+  <string name="blackCastlingKingside">黒　O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s フォーラム投稿</item>
   </plurals>
@@ -641,6 +642,7 @@
   <string name="printFriendlyPDF">印刷用PDF</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
@@ -824,4 +826,5 @@
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>
+  <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
 </resources>

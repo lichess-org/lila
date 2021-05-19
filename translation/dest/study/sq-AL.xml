@@ -57,9 +57,9 @@
   <string name="last">E fundit</string>
   <string name="shareAndExport">Ndaje me te tjere &amp; eksporto</string>
   <string name="cloneStudy">Klono</string>
-  <string name="studyPgn">Studio SHENIMET</string>
+  <string name="studyPgn">Studio PGN</string>
   <string name="downloadAllGames">Shkarko gjithe lojrat</string>
-  <string name="chapterPgn">SHENIMET e kapitullit</string>
+  <string name="chapterPgn">PGN e kapitullit</string>
   <string name="downloadGame">Shkarko lojen</string>
   <string name="studyUrl">Studio adresen e internetit te lojes</string>
   <string name="currentChapterUrl">Adresa e internetit e kapitullit aktual</string>
@@ -94,11 +94,11 @@
   <string name="startFromCustomPosition">Fillo nga pozicion i posacem</string>
   <string name="loadAGameByUrl">Ngarko lojrat nga adresa e internetit</string>
   <string name="loadAPositionFromFen">Ngarko pozicionin nga FEN</string>
-  <string name="loadAGameFromPgn">Ngarko lojrat nga SHENIMET</string>
+  <string name="loadAGameFromPgn">Ngarko lojrat nga PGN</string>
   <string name="automatic">Automatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Kopjoni SHENIMET ketu, deri ne %s loje</item>
-    <item quantity="other">Kopjoni SHENIMET ketu, deri ne %s lojera</item>
+    <item quantity="one">Kopjoni PGN ketu, deri ne %s loje</item>
+    <item quantity="other">Kopjoni PGN ketu, deri ne %s lojera</item>
   </plurals>
   <string name="urlOfTheGame">ADRESA E INTERNETIT e lojrave, nje per rrjesht</string>
   <string name="loadAGameFromXOrY">Hap lojë nga %1$s ose %2$s</string>

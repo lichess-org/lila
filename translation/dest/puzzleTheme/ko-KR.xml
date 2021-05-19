@@ -8,13 +8,13 @@
   <string name="anastasiaMateDescription">나이트와 룩 또는 퀸이 힘을 합쳐 상대 킹을 보드 가장자리와 자신의 기물 사이의 함정에 빠트립니다.</string>
   <string name="arabianMate">아라비안 메이트</string>
   <string name="arabianMateDescription">나이트와 룩이 힘을 합쳐 상대 킹을 보드 구석에서 함정에 빠트립니다.</string>
-  <string name="attackingF2F7">F2나 f7를 공격합니다</string>
-  <string name="attackingF2F7Description">F2나 f7 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
+  <string name="attackingF2F7">f2나 f7칸을 공격</string>
+  <string name="attackingF2F7Description">f2나 f7 칸의 폰을 노리고 공격합니다. 예시: 프라이드 리버 오프닝.</string>
   <string name="attraction">유인</string>
   <string name="attractionDescription">희생이나 교환을 통해 상대 기물을 후속 전술이 있는 칸으로 끌어냅니다.</string>
   <string name="backRankMate">백 랭크 메이트</string>
   <string name="backRankMateDescription">킹이 자신의 기물들에게 막혀 마지막 랭크에서 체크메이트 당합니다.</string>
-  <string name="bishopEndgame">비숍 엔드게임</string>
+  <string name="bishopEndgame">비숍 엔딩</string>
   <string name="bishopEndgameDescription">비숍과 폰만 있는 엔드게임</string>
   <string name="bodenMate">보든 메이트</string>
   <string name="bodenMateDescription">자신의 기물에 막힌 킹에게 두 비숍이 X자로 대각선을 막아 메이트를 합니다.</string>

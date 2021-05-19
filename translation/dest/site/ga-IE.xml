@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Imir leis na píosaí bána</string>
   <string name="youPlayTheBlackPieces">Imir leis na píosaí dubha</string>
   <string name="itsYourTurn">Is é do sheal!</string>
+  <string name="cheatDetected">Caimiléireacht Aimsithe</string>
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Rás críochnaithe</string>
@@ -547,7 +548,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="firstName">Ainm</string>
   <string name="lastName">Sloinne</string>
   <string name="biography">Beathaisnéis</string>
-  <string name="country">Tír</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Tír nó brat</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>
@@ -785,6 +786,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="printFriendlyPDF">PDF atá furasta le priontáil</string>
   <string name="crosstable">Trastábla</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Is féidir scrolláil thar an gclár freisin chun bogadh sa chluiche.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scrollaigh thar athrúcháin ríomhaire chun réamhamharc a dhéanamh orthu.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
   <string name="letOtherPlayersMessageYou">Lig d\'imreoirí eile teachtaireacht a chur chugat</string>
   <string name="shareYourInsightsData">Roinn do thuiscint ar an fhicheall</string>
@@ -984,4 +986,5 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="lostAgainstTOSViolator">Chaill tú i gcoinne duine a sháraigh téarmaí seirbhíse Lichess</string>
   <string name="refundXpointsTimeControlY">Athchistiú: %1$s %2$s pointí rátála.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
+  <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
 </resources>

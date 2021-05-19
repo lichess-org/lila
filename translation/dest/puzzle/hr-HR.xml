@@ -51,4 +51,7 @@
   <string name="history">Povijest zadataka</string>
   <string name="solved">riješeno</string>
   <string name="failed">neuspješno</string>
+  <string name="yourStreakX">Tvoj niz: %s</string>
+  <string name="continueTheStreak">Nastavite niz</string>
+  <string name="newStreak">Novi niz</string>
 </resources>

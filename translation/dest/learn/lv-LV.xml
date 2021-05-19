@@ -136,7 +136,7 @@ Veiciet jebkādu gājienu lai turpinātu.</string>
   <string name="takeAllThePawnsEnPassant">Nosit visus bandiniekus garāmejot!</string>
   <string name="enPassantComplete">Apsveicam. Tagad vari sist garāmejot.</string>
   <string name="stalemate">Pats</string>
-  <string name="theGameIsADraw">Spēle ir neizšķirts</string>
+  <string name="theGameIsADraw">Spēle ir neizšķirta</string>
   <string name="stalemateIntro">Kad spēlētājam nav pieteikts šahs un viņš nevar izdarīt legālu gājienu, tad ir pats. Spēle beidzas neizšķirti: neviens neuzvar, neviens nezaudē.</string>
   <string name="stalemateGoal">Lai melniem būtu pats:
 - Melnie nevar izdarīt gājienu
@@ -155,6 +155,10 @@ Karalis ir nenovērtējams! To zaudējot tiek zaudēta spēle.</string>
   <string name="queenOverBishop">Sit figūru
 ar lielāko vērtību!
 Dāma &gt; Laidnis</string>
+  <string name="pieceValueExchange">Nositiet figūru ar augstāko vērtību!
+ Neapmainiet augstāk vērtētu figūru pret ko mazāk vērtīgu.</string>
+  <string name="pieceValueLegal">Nositiet figūru ar augstāko vērtību!
+Pārliecinieties, ka gājiens ir atļauts!</string>
   <string name="takeThePieceWithTheHighestValue">Sit figūru ar lielāko vērtību!</string>
   <string name="pieceValueComplete">Apsveicam. Tu tagad zini resursu vērtību!
 Dāma = 9

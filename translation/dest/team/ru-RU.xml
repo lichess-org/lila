@@ -14,7 +14,7 @@
   <string name="noTeamFound">Нет таких клубов</string>
   <string name="joinTeam">Вступить в клуб</string>
   <string name="quitTeam">Покинуть клуб</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ручная проверка запросов на вступление</string>
+  <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Если отмечено, то кандидаты на вступление в клуб должны написать запрос, который вы можете принять или отклонить.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Руководитель клуба</item>
@@ -34,10 +34,12 @@
   </plurals>
   <string name="willBeReviewed">Ваш запрос на вступление будет рассмотрен руководителем клуба.</string>
   <string name="beingReviewed">Ваш запрос на рассмотрении у руководителя клуба.</string>
+  <string name="subToTeamMessages">Подписаться на сообщения от клуба</string>
   <string name="teamBattle">Межклубный турнир</string>
   <string name="teamBattleOverview">Сражение нескольких клубов, каждый игрок набирает очки за свой клуб</string>
   <string name="teamTournament">Клубный турнир</string>
   <string name="teamTournamentOverview">Арена, в которой могут участвовать только члены вашего клуба</string>
+  <string name="swissTournamentOverview">Швейцарские турниры, в которых могут участвовать только члены клуба</string>
   <string name="messageAllMembers">Сообщение всем участникам</string>
   <string name="messageAllMembersOverview">Отправить личное сообщение всем членам клуба</string>
   <string name="messageAllMembersLongDescription">Отправить личное сообщение всем членам клуба.

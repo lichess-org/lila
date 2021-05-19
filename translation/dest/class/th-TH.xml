@@ -3,4 +3,6 @@
   <string name="lichessClasses">ชั้นเรียน</string>
   <string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
   <string name="createANewLichessAccount">สร้างบัญชี Lichess ใหม่</string>
+  <string name="winrate">อัตราชนะ</string>
+  <string name="nothingHere">ยังไม่มีอะไรที่นี่</string>
 </resources>

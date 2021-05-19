@@ -105,19 +105,6 @@ final class Main(
       NoContent
     }
 
-  private lazy val glyphsResult: Result = {
-    import chess.format.pgn.Glyph
-    import lila.tree.Node.glyphWriter
-    JsonOk(
-      Json.obj(
-        "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
-        "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
-        "observation" -> (Glyph.Observation.display: List[Glyph])
-      )
-    )
-  }
-  val glyphs = Action(glyphsResult)
-
   def image(id: String, @nowarn("cat=unused") hash: String, @nowarn("cat=unused") name: String) =
     Action.async {
       env.imageRepo
@@ -127,7 +114,7 @@ final class Main(
           case Some(image) =>
             lila.mon.http.imageBytes.record(image.size.toLong)
             Ok(image.data).withHeaders(
-              CONTENT_DISPOSITION -> image.name
+              CACHE_CONTROL -> "max-age=1209600"
             ) as image.contentType.getOrElse("image/jpeg")
         }
     }

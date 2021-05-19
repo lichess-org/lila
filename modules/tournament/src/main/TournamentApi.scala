@@ -115,10 +115,11 @@ final class TournamentApi(
       tour: Tournament,
       leaderTeams: List[LeaderTeam]
   ) =
-    tour.copy(conditions =
-      data.conditions
+    tour.copy(
+      conditions = data.conditions
         .convert(tour.perfType, leaderTeams.view.map(_.pair).toMap)
-        .copy(teamMember = old.conditions.teamMember) // can't change that
+        .copy(teamMember = old.conditions.teamMember), // can't change that
+      mode = if (tour.position.isDefined) chess.Mode.Casual else tour.mode
     )
 
   def teamBattleUpdate(

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Đi quân để bắt đầu</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Bạn chơi quân trắng ở tất cả các câu đố</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Bạn chơi quân đen ở tất cả các câu đố</string>
   <string name="puzzlesSolved">thế cờ đã giải</string>
   <string name="newDailyHighscore">Điểm cao hàng ngày mới!</string>
   <string name="newWeeklyHighscore">Điểm cao hàng tuần mới!</string>
@@ -29,4 +31,8 @@
   <string name="viewBestRuns">Xem các lần chơi tốt nhất</string>
   <string name="bestRunOfDay">Hoạt động tốt nhất trong ngày</string>
   <string name="runs">Lần chơi</string>
+  <string name="getReady">Hãy sẵn sàng!</string>
+  <string name="waitingForMorePlayers">Đang đợi thêm người chơi tham gia...</string>
+  <string name="raceComplete">Cuộc đua kết thúc!</string>
+  <string name="spectating">Đang xem</string>
 </resources>

@@ -638,7 +638,7 @@ final class SwissApi(
         }
       }
 
-  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[(SwissPlayer, Long), _] =
+  def resultStream(swiss: Swiss, perSecond: MaxPerSecond, nb: Int): Source[SwissPlayer.WithRank, _] =
     SwissPlayer.fields { f =>
       colls.player
         .find($doc(f.swissId -> swiss.id))
@@ -648,6 +648,9 @@ final class SwissApi(
         .documentSource(nb)
         .throttle(perSecond.value, 1 second)
         .zipWithIndex
+        .map { case (player, index) =>
+          SwissPlayer.WithRank(player, index.toInt + 1)
+        }
     }
 
   private val idNameProjection = $doc("name" -> true)

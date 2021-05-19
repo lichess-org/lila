@@ -217,9 +217,10 @@ object Schedule {
     def byId(id: Int)            = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
-        case (a, b) if a == b                              => true
-        case (Bullet, HippoBullet) | (HippoBullet, Bullet) => true
-        case _                                             => false
+        case (a, b) if a == b                                        => true
+        case (Bullet, HippoBullet) | (HippoBullet, Bullet)           => true
+        case (HyperBullet, UltraBullet) | (UltraBullet, HyperBullet) => true
+        case _                                                       => false
       }
     def fromClock(clock: chess.Clock.Config) = {
       val time = clock.estimateTotalSeconds

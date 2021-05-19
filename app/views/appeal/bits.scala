@@ -12,8 +12,12 @@ object bits {
       title = title,
       moreCss = frag(
         cssTag("form3"),
-        cssTag("appeal")
+        cssTag("appeal"),
+        isGranted(_.UserModView) option cssTag("mod.user")
       ),
-      moreJs = jsModule("appeal")
+      moreJs = frag(
+        jsModule("appeal"),
+        isGranted(_.UserModView) option jsModule("mod.user")
+      )
     )(body)
 }

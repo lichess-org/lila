@@ -35,15 +35,11 @@
   <string name="spectating">दर्शकों</string>
   <string name="joinTheRace">दौड़ में शामिल हों!</string>
   <string name="yourRankX">आपकी रैंक: %s</string>
-  <string name="waitForRematch">रीमैच के लिए प्रतीक्षा करें
-
-जब कोई उपयोगकर्ता किसी पहेली रेस को देख रहा होता है, तो वे इसमें शामिल नहीं हो पाते हैं। यह एक अक्षम बटन का शीर्षक है जो उपयोगकर्ता को गेम में शामिल होने से पहले रीमैच की प्रतीक्षा करने का निर्देश देता है।</string>
+  <string name="waitForRematch">रीमैच के लिए प्रतीक्षा करें</string>
   <string name="nextRace">अगली दौड़</string>
   <string name="joinRematch">रीमैच में शामिल हों</string>
   <string name="waitingToStart">प्रारंभ होने की प्रतीक्षा में</string>
-  <string name="createNewGame">नया गेम बनाएं
-
-जब एक पहेली दौड़ (https://lichess. org/racer) पूरी हो जाती है, तो यह एक नया रेसिंग गेम बनाने के लिए एक बटन का शीर्षक है।</string>
+  <string name="createNewGame">नया गेम बनाएं</string>
   <string name="joinPublicRace">एक सार्वजनिक दौड़ में शामिल हों</string>
   <string name="raceYourFriends">अपने दोस्तों को रेस</string>
   <string name="skip">छोड़ें</string>

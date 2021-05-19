@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org common utils",
-  "main": "common.js",
+  "module": "common.js",
+  "type": "module",
   "typings": "common",
   "keywords": [
     "chess",

@@ -19,9 +19,9 @@ object ApiConfig {
 
   final class Accessibility(
       val blindCookieName: String,
-      val blindCookieMaxAge: FiniteDuration,
       blindCookieSalt: Secret
   ) {
+    val blindCookieMaxAge = 365 days
     def hash(implicit ctx: lila.user.UserContext) = {
       import com.roundeights.hasher.Implicits._
       (ctx.userId | "anon").salt(blindCookieSalt.value).md5.hex
@@ -39,7 +39,6 @@ object ApiConfig {
       c.get[String]("explorer.tablebase.endpoint"),
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
-        c.get[FiniteDuration]("accessibility.blind.cookie.max_age"),
         c.get[Secret]("accessibility.blind.cookie.salt")
       )
     )

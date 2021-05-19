@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Igrate z belimi figurami</string>
   <string name="youPlayTheBlackPieces">Igrate s črnimi figurami</string>
   <string name="itsYourTurn">Na potezi ste!</string>
+  <string name="cheatDetected">Zaznana goljufija</string>
   <string name="kingInTheCenter">Kralj v sredini</string>
   <string name="threeChecks">Trojni šah</string>
   <string name="raceFinished">Dirka končana</string>
@@ -497,7 +498,7 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
-  <string name="country">Država</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>
@@ -589,12 +590,9 @@
   <string name="xCommentedY">%1$s je komentiral v %2$s</string>
   <string name="victory">Zmaga</string>
   <string name="defeat">Poraz</string>
-  <string name="victoryVsYInZ">%1$s proti %2$s 
-v %3$s</string>
-  <string name="defeatVsYInZ">%1$s proti %2$s 
-v %3$s</string>
-  <string name="drawVsYInZ">%1$s proti %2$s 
-v %3$s</string>
+  <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Časovni trak</string>
   <string name="starting">Začetek:</string>
   <string name="allInformationIsPublicAndOptional">Vsi podatki so vidni in niso obvezni.</string>
@@ -733,6 +731,7 @@ v %3$s</string>
   <string name="printFriendlyPDF">Natisni v PDF</string>
   <string name="crosstable">Medsebojni dvoboji</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Lahko se skozi partijo pomikaš tudi z miško</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Pomaknite se preko računalniških različicah, da jih ogledate.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
@@ -927,4 +926,5 @@ v %3$s</string>
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
   <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
+  <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
 </resources>

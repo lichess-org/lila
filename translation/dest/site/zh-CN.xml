@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">你执白棋</string>
   <string name="youPlayTheBlackPieces">你执黑棋</string>
   <string name="itsYourTurn">轮到你了！</string>
+  <string name="cheatDetected">检测到作弊</string>
   <string name="kingInTheCenter">王占中</string>
   <string name="threeChecks">三次将军</string>
   <string name="raceFinished">比赛结束</string>
@@ -422,7 +423,6 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
-  <string name="country">国家与地区</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
@@ -823,4 +823,5 @@
   <string name="lostAgainstTOSViolator">您输给了违反 Lichess 服务条款的用户</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
   <string name="timeAlmostUp">时间快到了！</string>
+  <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
 </resources>

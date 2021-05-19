@@ -4,7 +4,6 @@ case class ContentSecurityPolicy(
     defaultSrc: List[String],
     connectSrc: List[String],
     styleSrc: List[String],
-    fontSrc: List[String],
     frameSrc: List[String],
     workerSrc: List[String],
     imgSrc: List[String],
@@ -31,7 +30,6 @@ case class ContentSecurityPolicy(
       defaultSrc = Nil,
       connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
       styleSrc = Nil,
-      fontSrc = Nil,
       frameSrc = Nil,
       workerSrc = Nil,
       scriptSrc = Nil
@@ -76,7 +74,6 @@ case class ContentSecurityPolicy(
       "default-src " -> defaultSrc,
       "connect-src " -> connectSrc,
       "style-src "   -> styleSrc,
-      "font-src "    -> fontSrc,
       "frame-src "   -> frameSrc,
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,

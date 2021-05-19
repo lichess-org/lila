@@ -63,7 +63,7 @@ final class Export(env: Env) extends LilaController(env) {
             lastMove = puzzle.line.head.uci.some,
             orientation = puzzle.color
           ) map stream("image/gif") map { res =>
-            res.withHeaders(CACHE_CONTROL -> "max-age=86400")
+            res.withHeaders(CACHE_CONTROL -> "max-age=1209600")
           }
         }
       }(rateLimitedFu)

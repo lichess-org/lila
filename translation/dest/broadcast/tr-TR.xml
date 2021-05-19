@@ -21,4 +21,7 @@
   <string name="credits">Kaynağı görüntüle</string>
   <string name="resetRound">Bu turu sıfırla</string>
   <string name="deleteRound">Bu turu sil</string>
+  <string name="broadcastUrl">Yayın linki</string>
+  <string name="currentRoundUrl">Şu anki turun linki</string>
+  <string name="currentGameUrl">Şu anki oyunun linki</string>
 </resources>

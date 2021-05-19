@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ghjucate cù i pezzi bianchi</string>
   <string name="youPlayTheBlackPieces">Ghjucate cù i pezzi neri</string>
   <string name="itsYourTurn">Tocca à vò!</string>
+  <string name="cheatDetected">Arrubera Scuperta</string>
   <string name="kingInTheCenter">Rè in u centru</string>
   <string name="threeChecks">Trè scacchi</string>
   <string name="raceFinished">Cora compia</string>
@@ -50,7 +51,7 @@
   <string name="blackLeftTheGame">I neri lascianu a partita</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Carigate stu URL pè permette à i spettatori di vede a partita</string>
   <string name="theComputerAnalysisHasFailed">L\' analisa di l\' urdinatore ùn funziona micca</string>
-  <string name="viewTheComputerAnalysis">Feghjate l\' analisa di l\' urdinatore</string>
+  <string name="viewTheComputerAnalysis">Feghjà l\' analisa di l\' urdinatore</string>
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
   <string name="computerAnalysis">Analisa di l\' urdinatore</string>
   <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
@@ -232,6 +233,8 @@
   <string name="unlimited">Senza limita</string>
   <string name="mode">Modu</string>
   <string name="casual">Senza classifica</string>
+  <string name="rated">Classificatu</string>
+  <string name="casualTournament">Senza classifica</string>
   <string name="ratedTournament">Classificatu</string>
   <string name="thisGameIsRated">Issa partita hè classificata</string>
   <string name="rematch">Ghjucà da torna</string>
@@ -257,6 +260,89 @@
   <string name="send">Mandà</string>
   <string name="incrementInSeconds">Raghjunta in seconde</string>
   <string name="freeOnlineChess">Scacchi in Direttu di Rigalu</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s partita classificata</item>
+    <item quantity="other">%s partite classificate</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s vittoria</item>
+    <item quantity="other">%s vittorie</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s persa</item>
+    <item quantity="other">%s perse</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s patta</item>
+    <item quantity="other">%s patte</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ghjucata</item>
+    <item quantity="other">%s ghucate</item>
+  </plurals>
+  <string name="exportGames">Spurtà e partite</string>
+  <string name="ratingRange">Ampiezza di a classifica</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dà %s seconda</item>
+    <item quantity="other">Give %s seconde</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Stu contu hà offesu i Termi di u Serviziu Lichess</string>
+  <string name="openingExplorerAndTablebase">Spluratore d\' apertura &amp; basa d\' apertura</string>
+  <string name="takeback">Ripiglià u colpu</string>
+  <string name="proposeATakeback">Prupone di ripiglià u colpu</string>
+  <string name="takebackPropositionSent">Pruposta mandata di ripiglià u colpu</string>
+  <string name="takebackPropositionDeclined">Ripigliata di u colpu scartata</string>
+  <string name="takebackPropositionAccepted">Ripigliata di u colpu accettata</string>
+  <string name="takebackPropositionCanceled">Ripigliata di u colpu annullata</string>
+  <string name="yourOpponentProposesATakeback">U vostru avversariu vi prupone di ripiglià u colpu</string>
+  <string name="bookmarkThisGame">Ramintà si di a partita</string>
+  <string name="tournament">Ghjustra</string>
+  <string name="tournaments">Ghjustre</string>
+  <string name="tournamentPoints">Punti in u turneu</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s puntu in u turneu</item>
+    <item quantity="other">%s punti in u turneu</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s studiu</item>
+    <item quantity="other">%s studii</item>
+  </plurals>
+  <string name="viewTournament">Vede a ghjustra</string>
+  <string name="backToTournament">Turnà in a ghjustra</string>
+  <string name="thematic">Tema</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s partita classificata</item>
+    <item quantity="other">≥ %s partite classificate</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s partita classificata</item>
+    <item quantity="other">≥ %1$s %2$s partite classificate</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Ci vole à ghjucà %1$s partita classificata di %2$s in più</item>
+    <item quantity="other">Ci vole à ghjucà %1$s partite classificate di %2$s in più</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Ci vole à ghjucà %s partita classificata in più</item>
+    <item quantity="other">Ci vole à ghjucà %s partite classificate in più</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Avete una classifica pruvisoria di %s</string>
+  <string name="yourPerfRatingIsTooHigh">A vostra classifica %1$s (%2$s) hè troppu alta</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">A vostra classifica à più alta di a settimana %1$s (%2$s) hè troppu alta</string>
+  <string name="yourPerfRatingIsTooLow">A vostra classifica %1$s (%2$s) hè troppu bassa</string>
+  <string name="ratedMoreThanInPerf">Ci vole à avè una classifica ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Ci vole à avè una classifica ≤ %1$s in %2$s sta settimana</string>
+  <string name="mustBeInTeam">Ci vole à esse membru di a squadra %s</string>
+  <string name="youAreNotInTeam">Ùn site membru di a squadra %s</string>
+  <string name="backToGame">Turnà in a partita</string>
+  <string name="siteDescription">Hè un situ di scacchi in a reta di rigalu. Ghjucate à i scacchi in un interfaccia chjara. Ùn ci hè nè arregistramentu nè publicità, nè plugin dumandati. Ghjucate à i scacchi contru à l\' urdinatore, amichi, o aversariu di u mondu sanu.</string>
+  <string name="xJoinedTeamY">%1$s hà ghjuntu a squadra %2$s</string>
+  <string name="xCreatedTeamY">%1$s hà criatu a squadra %2$s</string>
+  <string name="xStartedStreaming">%s hà principiatu un streaming</string>
+  <string name="averageElo">Mezana di e classificate</string>
+  <string name="location">Cità o paese</string>
+  <string name="filterGames">Filtrà e partite</string>
+  <string name="reset">Rimette à zeru</string>
   <string name="apply">Sottumette</string>
   <string name="save">Salvà</string>
   <string name="leaderboard">Scacchera di i più forti ghjucatori</string>
@@ -266,4 +352,18 @@
   <string name="continueFromHere">Cuntinuà à partendu di a pusizione</string>
   <string name="toStudy">Studià</string>
   <string name="importGame">Impurtà a partita</string>
+  <string name="importGameExplanation">Incollà una partita in PGN pè ottene una scacchera per rivede a partita, una analisa infurmatica, apre una discursata è un URL chì pò esse spartuta.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partita impurtata</item>
+    <item quantity="other">%s partite impurtate</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Hè un CAPTCHA di scacchi.</string>
+  <string name="createdBy">Criatu da</string>
+  <string name="tournamentIsStarting">Principia a ghjustra</string>
+  <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
+  <string name="standByX">%s, avete da esse appariatu, siate prontu à ghjucà!</string>
+  <string name="youArePlaying">Ghjucate avà!</string>
+  <string name="winRate">Percentuale di vittoria</string>
+  <string name="berserkRate">Percentuale di Bersek</string>
+  <string name="performance">Performanza</string>
 </resources>

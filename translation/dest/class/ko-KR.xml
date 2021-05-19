@@ -1,7 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">클래스</string>
+  <string name="teachClassesOfChessStudents">Lichess 클래스 툴 모음을 사용해서 학생들을 가르치세요.</string>
+  <string name="features">기능</string>
+  <string name="quicklyGenerateSafeUsernames">학생을 위한 안전한 사용자 이름과 비밀번호를 빠르게 생성합니다</string>
+  <string name="trackStudentProgress">게임과 퍼즐에서 학생의 진도를 추적합니다</string>
+  <string name="messageAllStudents">새로운 수업 자료에 대해 모든 학생들에게 메시지를 보냅니다</string>
+  <string name="freeForAllForever">광고나 추적기 없이 모두에게, 영원히, 100% 무료</string>
+  <string name="applyToBeLichessTeacher">Lichess 교사 지원하기</string>
+  <string name="noClassesYet">수업이 없습니다.</string>
+  <string name="teachersX">교사: %s</string>
+  <string name="newClass">새 클래스</string>
+  <string name="closeClass">클래스 닫기</string>
+  <string name="closedByX">%s에 의해 닫힘</string>
+  <string name="reopen">다시 열기</string>
+  <string name="removeStudent">학생 삭제</string>
+  <string name="removedStudents">삭제됨</string>
+  <string name="inviteTheStudentBack">학생을 다시 초대</string>
+  <string name="sendAMessage">모든 학생에게 메시지 보내기</string>
+  <string name="aLinkToTheClassWillBeAdded">수업 링크는 메시지 끝에 자동으로 추가되므로 직접 포함 할 필요가 없습니다.</string>
+  <string name="className">클래스 이름</string>
+  <string name="classDescription">수업 설명</string>
+  <string name="visibleByBothStudentsAndTeachers">수업의 교사와 학생 모두에게 표시됩니다</string>
+  <string name="teachersOfTheClass">선생님</string>
+  <string name="addLichessUsernames">Lichess 사용자 이름을 추가하여 선생님으로 초대하세요. 한 줄에 하나씩.</string>
+  <string name="resetPassword">비밀번호 재설정</string>
+  <string name="makeSureToCopy">지금 암호를 복사하거나 적어두세요. 다시 볼 수 없습니다!</string>
   <string name="passwordX">비밀번호: %s</string>
+  <string name="generateANewPassword">학생을 위해 새 비밀번호 생성</string>
+  <string name="invitedToXByY">%2$s가 %1$s에 초대함</string>
   <string name="realName">실명</string>
+  <string name="privateWillNeverBeShown">비공개. 클래스 외부에 보여지지 않습니다. 학생이 누구인지 기억하는데 도움이 됩니다.</string>
   <string name="addStudent">학생 추가</string>
+  <string name="lichessProfileXCreatedForY">%2$s를 위해 생성된 Lichess 프로필 %1$s</string>
+  <string name="studentCredentials">학생:  %1$s
+유저이름: %2$s
+비밀번호: %3$s</string>
+  <string name="inviteALichessAccount">Lichess 계정을 초대</string>
+  <string name="inviteDesc1">학생이 이미 Lichess 계정이 있는 경우 수업에 초대 할 수 있습니다.</string>
+  <string name="inviteDesc2">수업에 참여할 수 있는 링크가 있는 메시지를 받게 됩니다.</string>
+  <string name="inviteDesc3">중요: 당신이 아는 사람, 클래스에 적극적으로 참여하고 싶은 사람만 초대해주세요.</string>
+  <string name="inviteDesc4">임의의 플레이어에게 요청하지 않은 초대를 보내지 마세요.</string>
+  <string name="createANewLichessAccount">새 Lichess 계정 만들기</string>
+  <string name="createDesc1">학생에게 아직 Lichess 계정이 없는 경우 여기에서 만들 수 있습니다.</string>
+  <string name="createDesc2">이메일 주소가 필요하지 않습니다. 생성된 비밀번호를 학생에게 보내면 로그인할 수 있습니다.</string>
+  <string name="createDesc3">중요: 학생은 다중 계정을 가질 수 없습니다.</string>
+  <string name="createDesc4">이미 계정이 있다면 초대 양식을 사용해주세요.</string>
+  <string name="lichessUsername">Lichess 유저이름</string>
+  <string name="generateANewUsername">새 유저이름 생성</string>
+  <string name="welcomeToClass">%s, 수업에 오신 것을 환영합니다.
+수업에 참여할 수 있는 링크입니다.</string>
+  <string name="invitationToClass">클래스 \"%s\"에 학생으로 초대받았습니다.</string>
+  <string name="clickToViewInvitation">초대를 보려면 링크를 클릭하세요:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="other">%s개의 대기중인 초대</item>
+  </plurals>
+  <string name="noPendingInvitations">대기 중인 초대 없음</string>
+  <string name="onlyVisibleToTeachers">클래스 선생님에게만 보입니다</string>
   <string name="lastActiveDate">활성화</string>
+  <string name="managed">관리</string>
+  <string name="thisStudentAccountIsManaged">이 학생 계정은 관리 중입니다</string>
+  <string name="upgradeFromManaged">관리 계정에서 자유 계정으로 업그레이드하기</string>
+  <string name="release">관리 해제</string>
+  <string name="releaseTheAccount">학생이 자율적으로 관리할 수 있도록 계정을 해제합니다.</string>
+  <string name="releaseDesc1">해제된 계정은 다시 관리할 수 없습니다. 학생은 어린이 모드를 전환하고 직접 비밀번호를 재설정 할 수 있습니다.</string>
+  <string name="releaseDesc2">학생은 계정이 해제된 후에도 수업에 남아있습니다.</string>
+  <string name="realUniqueEmail">학생의 실제 고유 이메일 주소입니다. 계정을 해제 할 수 있는 링크가 포함된 확인 이메일을 보내드립니다.</string>
+  <string name="teachers">선생님</string>
+  <plurals name="nbTeachers">
+    <item quantity="other">선생님 %s명</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="other">학생 %s명</item>
+  </plurals>
+  <string name="students">학생</string>
+  <string name="progress">진도</string>
+  <string name="noStudents">클래스에 아직 학생이 없습니다.</string>
+  <string name="noRemovedStudents">삭제된 학생이 없습니다.</string>
+  <string name="overDays">기간</string>
+  <string name="timePlaying">플레이 시간</string>
+  <string name="variantXOverLastY">최근 %2$s 동안 %1$s 기록</string>
+  <string name="winrate">승률</string>
+  <string name="na">해당없음</string>
+  <string name="news">클래스 뉴스</string>
+  <string name="editNews">뉴스 편집</string>
+  <string name="notifyAllStudents">모든 학생에게 알림</string>
+  <string name="nothingHere">비어있음</string>
+  <string name="newsEdit1">모든 뉴스를 단일 필드로 보기</string>
+  <string name="newsEdit2">상단에 최근 뉴스를 추가하세요. 이전 뉴스를 삭제하지 마세요.</string>
+  <string name="newsEdit3">각 뉴스를 ---로 구분하세요.
+가로선으로 보이게 됩니다.</string>
+  <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
 </resources>

@@ -14,7 +14,7 @@
   <string name="noTeamFound">Nenalezen žádný tým</string>
   <string name="joinTeam">Připojte se k týmu</string>
   <string name="quitTeam">Odejít z týmu</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Ruční přezkoumání žádostí o přijetí</string>
+  <string name="manuallyReviewAdmissionRequests">Ruční přezkoumání žádostí o přijetí</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Je-li zaškrtnuto, hráči budou muset napsat žádost o připojení k týmu, kterou můžete odmítnout nebo přijmout.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Vedoucí týmu</item>
@@ -34,6 +34,7 @@
   </plurals>
   <string name="willBeReviewed">Váš požadavek na připojení bude přezkoumán vedoucím týmu.</string>
   <string name="beingReviewed">Vaše žádost o připojení je přezkoumávána vedoucím týmu.</string>
+  <string name="subToTeamMessages">Přihlásit se k odběru týmových zpráv</string>
   <string name="teamBattle">Bitva týmů</string>
   <string name="teamBattleOverview">Souboj více týmů, každý hráč získává body pro svůj tým</string>
   <string name="teamTournament">Týmový turnaj</string>

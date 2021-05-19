@@ -142,6 +142,12 @@ Peón = 1
 ¡El rey es precioso! Perderlo significa perder la partida.</string>
   <string name="queenOverBishop">¡Captura la pieza más valiosa!
 Dama &gt; Alfil</string>
+  <string name="pieceValueExchange">¡Captura la pieza de más valor!
+ No cambies
+ una pieza valiosa por una de menor valor.</string>
+  <string name="pieceValueLegal">¡Captura la pieza
+de más valor!
+Pero asegúrate de que el movimiento sea válido.</string>
   <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
   <string name="pieceValueComplete">¡Felicidades! ¡Conoces el valor de las piezas!
 Dama = 9

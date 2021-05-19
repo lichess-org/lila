@@ -41,8 +41,20 @@
   <string name="normal">Средний</string>
   <string name="easier">Лёгкий</string>
   <string name="easiest">Легчайший</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Один балл ниже вашего рейтинга в пазлах</item>
+    <item quantity="few">%s баллов ниже вашего рейтинга в пазлах</item>
+    <item quantity="many">%s баллов ниже вашего рейтинга в пазлах</item>
+    <item quantity="other">%s баллов ниже вашего рейтинга в пазлах</item>
+  </plurals>
   <string name="harder">Сложный</string>
   <string name="hardest">Сложнейший</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Один балл выше вашего рейтинга в пазлах</item>
+    <item quantity="few">%s баллов выше вашего рейтинга в задачах</item>
+    <item quantity="many">%s баллов выше вашего рейтинга в задачах</item>
+    <item quantity="other">%s баллов выше вашего рейтинга в пазлах</item>
+  </plurals>
   <string name="example">Пример</string>
   <string name="addAnotherTheme">Добавить другой мотив</string>
   <string name="jumpToNextPuzzleImmediately">Сразу переходить к следующей задаче</string>

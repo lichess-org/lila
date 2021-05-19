@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Hrajete bílými figurami</string>
   <string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
   <string name="itsYourTurn">Jste na tahu!</string>
+  <string name="cheatDetected">Podvádění detekováno</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
@@ -515,7 +516,6 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
-  <string name="country">Země</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
@@ -943,4 +943,5 @@
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
   <string name="timeAlmostUp">Čas vám běží!</string>
+  <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
 </resources>

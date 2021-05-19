@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Liosta birt agus tú ag imirt</string>
   <string name="pgnPieceNotation">Nodaireacht</string>
   <string name="chessPieceSymbol">Siombail píosa fichille</string>
-  <string name="pgnLetter">Litie (R, B, C, E, D)</string>
+  <string name="pgnLetter">Litie (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modh Zen</string>
   <string name="displayBoardResizeHandle">Taispeáin láimhseáil athrú méide an bhoird</string>
   <string name="onlyOnInitialPosition">Suíomh tosaigh amháin</string>

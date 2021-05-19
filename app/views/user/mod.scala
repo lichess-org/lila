@@ -531,7 +531,7 @@ object mod {
       renderIp: RenderIp
   ): Tag = {
     import data._
-    mzSection("others")(
+    div(cls := "mz-section mz_others")(
       table(cls := "slist")(
         thead(
           tr(

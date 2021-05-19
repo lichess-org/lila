@@ -70,12 +70,12 @@ final class AppealApi(
       })
       .sort($doc("firstUnrepliedAt" -> 1))
       .cursor[Appeal]()
-      .list(12) flatMap { unreads =>
+      .list(30) flatMap { unreads =>
       coll
         .find($doc("status" $ne Appeal.Status.Unread.key))
         .sort($doc("firstUnrepliedAt" -> -1))
         .cursor[Appeal]()
-        .list(20 - unreads.size) map {
+        .list(40 - unreads.size) map {
         unreads ::: _
       }
     }

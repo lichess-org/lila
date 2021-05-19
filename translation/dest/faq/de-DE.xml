@@ -36,7 +36,7 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
   <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
-  <string name="whatIsACPL">Was bedeutet der durchschnittliche Hundertstelbauer-Verlust (ACPL)?</string>
+  <string name="whatIsACPL">Was ist durchschnittlicher Hundertstelbauer-Verlust (ACPL)?</string>
   <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Also gilt: 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
 
 Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
@@ -59,7 +59,7 @@ Dies wird in Abschnitt 3.7 der %2$s beschrieben.
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guter ersten Eindruck</string>
+  <string name="goodIntroduction">guten ersten Eindruck</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
   <string name="lichessTraining">Lichess-Training</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
@@ -73,7 +73,7 @@ Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
   <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (über dem Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (am Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
   <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir, in dem du diese/n Ausweis/Karte im Bild hochhältst.
 
 Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme in den Titel-Arena-Events.

@@ -143,11 +143,14 @@ $c-blunder: #df5353;
   }
 
   shapes {
-    @extend %data-icon;
     font-size: 0.7em;
     margin-left: 0.4em;
     text-align: right;
     color: $c-good;
+    &::before {
+      @extend %data-icon;
+      content: 'K';
+    }
   }
 
   &-column > move glyph {

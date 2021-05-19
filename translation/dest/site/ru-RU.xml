@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Вы играете белыми фигурами</string>
   <string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
   <string name="itsYourTurn">Ваш ход!</string>
+  <string name="cheatDetected">Обнаружено жульничество</string>
   <string name="kingInTheCenter">Король в центре</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Гонка окончена</string>
@@ -515,7 +516,7 @@
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">О себе</string>
-  <string name="country">Страна</string>
+  <string name="countryOrFlag">Страна или флаг</string>
   <string name="thankYou">Спасибо!</string>
   <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="inlineNotation">Строчная нотация</string>
@@ -661,8 +662,8 @@
   <string name="onlyFriends">Только друзьям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокировка</string>
-  <string name="whiteCastlingKingside">Белые О-О</string>
-  <string name="blackCastlingKingside">Чёрные О-О</string>
+  <string name="whiteCastlingKingside">Белые O-O</string>
+  <string name="blackCastlingKingside">Чёрные O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s сообщение на форуме</item>
     <item quantity="few">%s сообщения на форуме</item>
@@ -748,6 +749,7 @@
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Листайте варианты для их предпросмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="shareYourInsightsData">Делиться вашей шахматной аналитикой</string>
@@ -943,4 +945,5 @@
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
+  <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
 </resources>

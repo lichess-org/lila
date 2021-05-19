@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">เดินหมากเพี่อเริ่มเกม</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">คุณเล่นเป็นหมากสีขาวในทุกปริศนา</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">คุณเล่นเป็นหมากสีดำในทุกปริศนา</string>
   <string name="puzzlesSolved">ปริศนาที่ถูกแก้แล้ว</string>
   <string name="playAgain">เล่นอีกครั้ง</string>
   <string name="highscoreX">คะแนนสูงสุด: %s</string>
+  <string name="score">คะแนน</string>
   <string name="accuracy">ความแม่นยำ</string>
+  <string name="combo">คอมโบ</string>
   <string name="highscores">คะแนนสูงสุด</string>
+  <string name="getReady">เตรียมพร้อม!</string>
+  <string name="joinPublicRace">เข้าร่วมการแข่งขันสาธารณะ</string>
+  <string name="raceYourFriends">แข่งกับเพื่อนๆของคุณ</string>
   <string name="skip">ข้าม</string>
 </resources>

@@ -13,6 +13,13 @@ object contact {
   import trans.contact._
   import views.html.base.navTree._
 
+  private lazy val contactEmailBase64 = lila.common.String.base64.encode(contactEmailInClear)
+
+  def contactEmailLink(implicit ctx: Context) =
+    a(cls := "contact-email-obfuscated", attr("data-email") := contactEmailBase64)(
+      trans.clickToRevealEmailAddress()
+    )
+
   private def reopenLeaf(prefix: String)(implicit ctx: Context) =
     Leaf(
       s"$prefix-reopen",
@@ -212,7 +219,7 @@ object contact {
               "security",
               "Security vulnerability",
               frag(
-                p(s"Please report security issues to $contactEmail."),
+                p("Please report security issues to ", contactEmailLink),
                 p(
                   "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
                   "Note that Lichess is built by volunteers and we currently do not have a bug bounty program."
@@ -323,7 +330,9 @@ object contact {
                   "."
                 ),
                 p(
-                  s"Then send us an email at $contactEmail to request the definitive erasure of all data linked to the account."
+                  "Then send us an email at ",
+                  contactEmailLink,
+                  " to request the definitive erasure of all data linked to the account."
                 )
               )
             ),
@@ -331,7 +340,7 @@ object contact {
               "contact-other",
               noneOfTheAbove(),
               frag(
-                p(sendEmailAt(contactEmail)),
+                p(sendEmailAt(contactEmailLink)),
                 p(explainYourRequest())
               )
             )
@@ -345,7 +354,7 @@ object contact {
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),
-      moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
+      moreJs = jsModule("contact"),
       contentCls = "page box box-pad"
     )(
       frag(

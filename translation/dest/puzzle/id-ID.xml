@@ -28,7 +28,7 @@
   <string name="notTheMove">Itu bukan langkahnya!</string>
   <string name="trySomethingElse">Coba lagi lainnya.</string>
   <string name="ratingX">Rating: %s</string>
-  <string name="hidden">sembunyi</string>
+  <string name="hidden">tersembunyi</string>
   <plurals name="playedXTimes">
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>
@@ -38,8 +38,14 @@
   <string name="normal">Normal</string>
   <string name="easier">Lebih mudah</string>
   <string name="easiest">Paling mudah</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="other">%s poin dibawah rating teka-teki Anda</item>
+  </plurals>
   <string name="harder">Lebih sulit</string>
   <string name="hardest">Paling sulit</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="other">%s poin diatas rating teka-teki Anda</item>
+  </plurals>
   <string name="example">Contoh</string>
   <string name="addAnotherTheme">Tambah tema lainnya</string>
   <string name="jumpToNextPuzzleImmediately">Lompat ke teka-teki berikutnya segera</string>

@@ -5,6 +5,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "main": "index.js",
+  "type": "commonjs",
   "dependencies": {
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",

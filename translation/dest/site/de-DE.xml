@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spielst mit den weißen Figuren</string>
   <string name="youPlayTheBlackPieces">Du spielst mit den schwarzen Figuren</string>
   <string name="itsYourTurn">Du bist am Zug!</string>
+  <string name="cheatDetected">Betrug erkannt</string>
   <string name="kingInTheCenter">König im Zentrum</string>
   <string name="threeChecks">Dreimal Schach gegeben</string>
   <string name="raceFinished">Rennen beendet</string>
@@ -191,7 +192,7 @@
   <string name="changePassword">Passwort ändern</string>
   <string name="changeEmail">E-Mail-Adresse ändern</string>
   <string name="email">E-Mail</string>
-  <string name="passwordReset">Passwort zurücksetzen</string>
+  <string name="passwordReset">Passwort vergessen</string>
   <string name="forgotPassword">Passwort vergessen?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
@@ -330,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Wertung ≤ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Wertung ≤ %1$s im %2$s diese Woche</string>
   <string name="mustBeInTeam">Du musst in Team %s sein</string>
   <string name="youAreNotInTeam">Du bist nicht in Team %s</string>
   <string name="backToGame">Zurück zur Partie</string>
@@ -453,7 +454,7 @@
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Profiltext</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag">Land oder Flagge</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="inlineNotation">Inline-Notation</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">druckfreundliches PDF</string>
   <string name="crosstable">Matchverlauf</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kannst auch auf dem Brett scrollen, um die Partie durchzugehen.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Fahre über Computervarianten, um eine Vorschau auf sie zu erhalten.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
   <string name="shareYourInsightsData">Deine persönlichen Spielerstatistiken teilen</string>
@@ -845,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kannst noch nichts in den Foren schreiben. Spiel ein paar Partien!</string>
   <string name="subscribe">Abonnieren</string>
   <string name="unsubscribe">Abonnement beenden</string>
-  <string name="mentionedYouInX"> erwähnte dich in \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s erwähnte dich in \"%2$s\".</string>
-  <string name="invitedYouToX"> hat dich zu \"%1$s\" eingeladen.</string>
+  <string name="mentionedYouInX">erwähnte dich in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s erwähnte dich in \"%2$s\".</string>
+  <string name="invitedYouToX">hat dich zu \"%1$s\" eingeladen.</string>
   <string name="xInvitedYouToY">%1$s hat dich zu \"%2$s\" eingeladen.</string>
   <string name="youAreNowPartOfTeam">Du bist nun Teammitglied.</string>
   <string name="youHaveJoinedTeamX">Du bist jetzt \"%1$s\" beigetreten.</string>
@@ -863,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
+  <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
 </resources>

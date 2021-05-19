@@ -128,4 +128,30 @@
   <string name="deleteStudy">Изтрий казуса</string>
   <string name="deleteTheEntireStudy">Изтриване на целия казус? Това е необратимо!</string>
   <string name="whereDoYouWantToStudyThat">Къде да бъде проучено това?</string>
+  <string name="goodMove">Добър ход</string>
+  <string name="mistake">Грешка</string>
+  <string name="brilliantMove">Отличен ход</string>
+  <string name="blunder">Груба грешка</string>
+  <string name="interestingMove">Интересен ход</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Съмнителен ход</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Единствен ход</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
+  <string name="equalPosition">Равна позиция</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Неясна позиция</string>
+  <string name="whiteIsSlightlyBetter">Белите са малко по-добре</string>
+  <string name="blackIsSlightlyBetter">Черните са малко по-добре</string>
+  <string name="whiteIsBetter">Белите са по-добре</string>
+  <string name="blackIsBetter">Черните са по-добре</string>
+  <string name="whiteIsWinning">Белите печелят</string>
+  <string name="blackIsWinning">Черните печелят</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Нововъведeние</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Развитие</string>
+  <string name="initiative">Инициатива</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Атака</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Контра атака</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Проблем с времето</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">С компенсация</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">С идеята</string>
+  <string name="nextChapter">Следваща глава</string>
+  <string name="prevChapter">Предишна глава</string>
 </resources>

@@ -170,7 +170,7 @@
       <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
         <fileNamePattern>/var/log/lichess/plan-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>365</maxHistory>
+        <maxHistory>30</maxHistory>
       </rollingPolicy>
     </appender>
   </logger>

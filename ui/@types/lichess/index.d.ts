@@ -81,6 +81,7 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
+  analysis?: any; // expose the analysis ctrl
 }
 
 type I18nDict = { [key: string]: string };

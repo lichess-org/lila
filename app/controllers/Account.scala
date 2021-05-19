@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json._
 import play.api.mvc._
 import scala.annotation.nowarn
+import scala.util.chaining._
 import views.html
 
 import lila.api.AnnounceStore
@@ -450,10 +451,7 @@ final class Account(
               env.api.personalDataExport(user)
             ) { source =>
               Ok.chunked(source.map(_ + "\n"))
-                .withHeaders(
-                  noProxyBufferHeader,
-                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}.txt"
-                )
+                .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
             }
           else Ok(html.account.bits.data(user))
         }

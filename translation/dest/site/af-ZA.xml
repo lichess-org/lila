@@ -442,7 +442,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="firstName">Noem naam</string>
   <string name="lastName">Van</string>
   <string name="biography">Biografie</string>
-  <string name="country">Land</string>
   <string name="thankYou">Dankie!</string>
   <string name="socialMediaLinks">Sosiale media skakels</string>
   <string name="inlineNotation">Binnelyn notasie</string>
@@ -485,8 +484,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="insult">Beledig</string>
   <string name="troll">Boelie</string>
   <string name="other">Ander</string>
-  <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is.
-Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
+  <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is. Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou gesluit.</string>

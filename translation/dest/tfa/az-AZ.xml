@@ -5,13 +5,13 @@
   <string name="twoFactorApp">2 mərhələli təsdiqləmə üçün bir tətbiq endirin. Məsələn %1$s üçün andOTP və ya %2$s üçün Google Authenticator.</string>
   <string name="scanTheCode">Tətbiq ilə QR kodu skan edin.</string>
   <string name="enterPassword">Quraşdırmanı tamamlamaq üçün şifrəni və tətbiq tərəfindən yaradılmış kimlik təsdiqləmə kodunu daxil edin. Hər giriş edəndə təsdiqləmə kodunu daxil etməli olacaqsınız.</string>
-  <string name="ifYouCannotScanEnterX">Kodu skan edə bilmirsinizsə, tətbiqinizə %s kodunu daxil edin.</string>
+  <string name="ifYouCannotScanEnterX">Kodu skan edə bilmirsinizsə, tətbiqinizə gizli %s kodunu daxil edin.</string>
   <string name="authenticationCode">Kimlik təsdiqləmə kodu</string>
-  <string name="ifYouLoseAccess">Qeyd: 2 mərhələli təsdiqləmə kodunu itirsəniz, e-poçt vasitəsilə şifrənizi sıfırlaya bilərsiniz.</string>
-  <string name="enableTwoFactor">2 mərhələli təsdiqləməni aktivləşdir</string>
+  <string name="ifYouLoseAccess">Qeyd: 2 mərhələli təsdiqləmə koduna müraciəti itirsəniz, e-poçt vasitəsilə şifrənizi sıfırlaya bilərsiniz.</string>
+  <string name="enableTwoFactor">2 mərhələli təsdiqləməni fəallaşdır</string>
   <string name="disableTwoFactor">2 mərhələli təsdiqləməni deaktiv et</string>
   <string name="twoFactorEnabled">2 mərhələli təsdiqləmə aktivdir</string>
   <string name="twoFactorDisable">2 mərhələli təsdiqləməni deaktiv etmək üçün şifrəniz və kimlik təsdiqləyən tətbiqinizdəki təsdiqləmə kodu lazım olacaq.
 Təsdiqləmə kodlarınızı itirsəniz, e-poçt vasitəsilə şifrənizi sıfırlaya bilərsiniz.</string>
-  <string name="openTwoFactorApp">Təsdiqləmə kodunuza baxmaq və şəxsiyyətinizi təsdiqləmək üçün cihazınızdakı iki mərhələli təsdiqləmə tətbiqini açın.</string>
+  <string name="openTwoFactorApp">Kimlik təsdiqləmə koduna baxmaq və kimliyinizi təsdiqləmək üçün cihazınızdakı iki mərhələli kimlik təsdiqləmə tətbiqini açın.</string>
 </resources>

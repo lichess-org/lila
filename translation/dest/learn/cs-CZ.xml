@@ -129,8 +129,7 @@ když je váš pěšec na páté řadě.</string>
   <string name="enPassantComplete">Gratulace! Nyní již ovládáte pravidlo braní mimochodem.</string>
   <string name="stalemate">Pat</string>
   <string name="theGameIsADraw">Hra končí remízou</string>
-  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál,
-nikdo neprohrál.</string>
+  <string name="stalemateIntro">Pokud hráč není v šachu a nemá jediný přípustný tah, je to pat. Hra končí remízou; nikdo nevyhrál, nikdo neprohrál.</string>
   <string name="stalemateGoal">Pro zapatování černého:
 - Černý se nikam nemůže pohnout
 - Černý král není v šachu.</string>

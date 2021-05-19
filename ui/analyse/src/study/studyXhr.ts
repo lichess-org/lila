@@ -9,11 +9,7 @@ export const reload = (baseUrl: string, id: string, chapterId?: string): Promise
 
 export const variants = () => xhr.json('/variant', { cache: 'default' });
 
-export const glyphs = () =>
-  xhr.json(lichess.assetUrl('glyphs.json', { noVersion: true }), {
-    cache: 'default',
-    headers: {},
-  });
+export const glyphs = () => xhr.json(`/study/glyphs/${document.documentElement!.lang}.json`, { cache: 'default' });
 
 export const chapterConfig = (studyId: string, chapterId: string): Promise<StudyChapterConfig> =>
   xhr.json(`/study/${studyId}/${chapterId}/meta`);

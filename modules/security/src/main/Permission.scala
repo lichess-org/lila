@@ -17,6 +17,8 @@ object Permission {
   case object ModerateForum extends Permission("MODERATE_FORUM", "Moderate forum")
 
   case object ChatTimeout           extends Permission("CHAT_TIMEOUT", "Chat timeout")
+  case object PublicChatView        extends Permission("VIEW_PUBLIC_CHAT", "See public chat page")
+  case object GamifyView            extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView           extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
   case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserModView), "Notify #tavern")
@@ -75,6 +77,17 @@ object Permission {
         "Lichess team"
       )
 
+  case object TimeoutMod
+      extends Permission(
+        "TIMEOUT_MOD",
+        List(
+          ChatTimeout,
+          PublicChatView,
+          GamifyView
+        ),
+        "Timeout mod"
+      )
+
   case object Hunter
       extends Permission(
         "HUNTER",
@@ -85,6 +98,7 @@ object Permission {
           MarkBooster,
           CloseAccount,
           UserModView,
+          GamifyView,
           UserEvaluate,
           SeeReport,
           ModLog,
@@ -102,10 +116,11 @@ object Permission {
       extends Permission(
         "SHUSHER",
         List(
+          LichessTeam,
+          TimeoutMod,
           ViewPrivateComms,
           Shadowban,
           SetKidMode,
-          ChatTimeout,
           ModerateForum,
           ReportBan,
           ModMessage,
@@ -167,6 +182,7 @@ object Permission {
       Shadowban,
       SetKidMode,
       ChatTimeout,
+      PublicChatView,
       ModerateForum,
       ReportBan,
       ModMessage,
@@ -191,6 +207,7 @@ object Permission {
     ),
     "Misc mod" -> List(
       SeeReport,
+      GamifyView,
       Appeals,
       UserSearch,
       MonitoredMod,
@@ -231,6 +248,7 @@ object Permission {
     ),
     "Package" -> List(
       LichessTeam,
+      TimeoutMod,
       Hunter,
       Shusher,
       Admin,

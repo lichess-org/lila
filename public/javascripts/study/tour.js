@@ -2,7 +2,6 @@ function loadShepherd(f) {
   if (typeof Shepherd === 'undefined' || Shepherd.activeTour === null) {
     var theme = 'shepherd-theme-' + ($('body').hasClass('dark') ? 'default' : 'dark');
     lichess.loadCss('vendor/shepherd/dist/css/' + theme + '.css');
-    lichess.loadCss('stylesheets/shepherd.css');
     lichess.loadScript('vendor/shepherd/dist/js/tether.js', { noVersion: true }).then(function () {
       lichess.loadScript('vendor/shepherd/dist/js/shepherd.min.js', { noVersion: true }).then(function () {
         f(theme);
@@ -28,7 +27,7 @@ lichess.studyTour = function (study) {
     });
     [
       {
-        title: 'Welcome to lichess study!',
+        title: 'Welcome to Lichess Study!',
         text:
           'This is a shared analysis board.<br><br>' +
           'Use it to analyse and annotate games,<br>' +

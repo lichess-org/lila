@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Grasz białymi</string>
   <string name="youPlayTheBlackPieces">Grasz czarnymi</string>
   <string name="itsYourTurn">Twój ruch!</string>
+  <string name="cheatDetected">Wykryto oszustwo</string>
   <string name="kingInTheCenter">Król w centrum</string>
   <string name="threeChecks">Trzy szachy</string>
   <string name="raceFinished">Wyścig zakończony</string>
@@ -403,7 +404,7 @@
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
   <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
-  <string name="importGameExplanation">Wklejenie zapisu partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
+  <string name="importGameExplanation">Wklejenie PGN partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s zaimportowana partia</item>
     <item quantity="few">%s zaimportowana partie</item>
@@ -515,7 +516,7 @@
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
-  <string name="country">Kraj</string>
+  <string name="countryOrFlag">Kraj lub flaga</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="inlineNotation">Notacja ciągła</string>
@@ -748,6 +749,7 @@
   <string name="printFriendlyPDF">PDF do druku</string>
   <string name="crosstable">Wyniki spotkań</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Możesz także przewijać nad szachownicą, by zmieniać postęp partii.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Przewiń po wariantach komputera, aby je podglądać.</string>
   <string name="analysisShapesHowTo">Naciśnij shift i kliknij lub kliknij prawym przyciskiem myszy aby rysować okręgi i strzałki na szachownicy.</string>
   <string name="letOtherPlayersMessageYou">Zezwól na wiadomości od innych graczy</string>
   <string name="shareYourInsightsData">Udostępniaj szczegółowe statystyki</string>
@@ -943,4 +945,5 @@
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
+  <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
 </resources>

@@ -28,8 +28,8 @@
   <string name="youCanUseOpeningBookNoEngine">Lichess では通信戦のルール上の主な違いは序盤の定跡調査が認められていることです。エンジン（ソフト）の使用は禁止されており、使うとエンジン使用者の表示が付くことがあります。[通信戦の国際団体] ICCF はエンジンの使用を認めていますが、Lichess は認めません。</string>
   <string name="gameplay">対局について</string>
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
-  <string name="basedOnGameDuration">Lichess の持時間は推定所要時間（%1$s）で分類されています。
-  たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
+  <string name="basedOnGameDuration">Lichess の持時間は推定所要時間 = %1$s で分類されています。
+ たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
   <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>

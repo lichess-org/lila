@@ -3,6 +3,7 @@ package controllers
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.mvc._
+import scala.util.chaining._
 
 import lila.api.GameApiV2
 import lila.app._
@@ -52,9 +53,7 @@ final class Game(
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content)
-              .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
+              .pipe(asAttachment(filename))
               .withHeaders(
                 lila.app.http.ResponseHeaders.headersForApiOrApp(req): _*
               ) as gameContentType(config)
@@ -104,10 +103,7 @@ final class Game(
             .GlobalConcurrencyLimitPerIpAndUserOption(req, me)(env.api.gameApiV2.exportByUser(config)) {
               source =>
                 Ok.chunked(source)
-                  .withHeaders(
-                    noProxyBufferHeader,
-                    CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-                  )
+                  .pipe(asAttachmentStream(s"lichess_${user.username}_$date.${format.toString.toLowerCase}"))
                   .as(gameContentType(config))
             }
             .fuccess

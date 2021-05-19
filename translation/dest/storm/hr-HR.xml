@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Povucite potez da biste počeli</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Igrate s bijelim figurama u svim zagonetkama</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Igrate s crnim figurama u svim zagonetkama</string>
   <string name="puzzlesSolved">riješeni problemi</string>
   <string name="newDailyHighscore">Novi najbolji dnevni rezultat!</string>
   <string name="newWeeklyHighscore">Novi tjedni najbolji rezultat!</string>
@@ -33,4 +35,20 @@
   <string name="viewBestRuns">Pogledajte najbolje ture</string>
   <string name="bestRunOfDay">Najbolja tura dana</string>
   <string name="runs">Ture</string>
+  <string name="getReady">Pripremite se!</string>
+  <string name="waitingForMorePlayers">Čekamo da se pridruži još igrača...</string>
+  <string name="raceComplete">Utrka završena!</string>
+  <string name="spectating">Promatrate</string>
+  <string name="joinTheRace">Pridruži se utrci!</string>
+  <string name="yourRankX">Vaš rang: %s</string>
+  <string name="waitForRematch">Pričekajte revanš</string>
+  <string name="nextRace">Sljedeća utrka</string>
+  <string name="joinRematch">Pridruži se revanšu</string>
+  <string name="waitingToStart">Čekanje na početak</string>
+  <string name="createNewGame">Kreiraj novu igru</string>
+  <string name="joinPublicRace">Pridruži se javnoj utrrci</string>
+  <string name="raceYourFriends">Utrkuj se s prijateljima</string>
+  <string name="skip">preskoči</string>
+  <string name="skipHelp">Možete preskočiti jedan potez po utrci:</string>
+  <string name="skipExplanation">Preskočite ovaj potez da biste zadržali niz! Jedan preskok po utrci.</string>
 </resources>

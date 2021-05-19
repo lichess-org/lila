@@ -12,7 +12,7 @@
   <string name="noTeamFound">No team found</string>
   <string name="joinTeam">Join team</string>
   <string name="quitTeam">Leave team</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Manually review admission requests</string>
+  <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
   <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to write a request to join the team, which you can decline or accept.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Your join request will be reviewed by a team leader.</string>
   <string name="beingReviewed">Your join request is being reviewed by a team leader.</string>
+  <string name="subToTeamMessages">Subscribe to team messages</string>
   <string name="teamBattle">Team Battle</string>
   <string name="teamBattleOverview">A battle of multiple teams, each player scores points for their team</string>
   <string name="teamTournament">Team tournament</string>
   <string name="teamTournamentOverview">An Arena tournament that only members of your team can join</string>
+  <string name="swissTournamentOverview">A Swiss tournament that only members of your team can join</string>
   <string name="messageAllMembers">Message all members</string>
   <string name="messageAllMembersOverview">Send a private message to every member of the team</string>
   <string name="messageAllMembersLongDescription">Send a private message to ALL members of the team.

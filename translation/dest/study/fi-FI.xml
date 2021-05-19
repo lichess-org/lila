@@ -128,4 +128,30 @@
   <string name="deleteStudy">Poista tutkielma</string>
   <string name="deleteTheEntireStudy">Poista koko tutkielma? Paluuta ei ole!</string>
   <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
+  <string name="goodMove">Hyvä siirto</string>
+  <string name="mistake">Virhe</string>
+  <string name="brilliantMove">Loistava siirto</string>
+  <string name="blunder">Vakava virhe</string>
+  <string name="interestingMove">Mielenkiintoinen siirto</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Kyseenalainen siirto</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Ainoa siirto</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Siirtopakko</string>
+  <string name="equalPosition">Tasainen asema</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Epäselvä asema</string>
+  <string name="whiteIsSlightlyBetter">Valkealla on pieni etu</string>
+  <string name="blackIsSlightlyBetter">Mustalla on pieni etu</string>
+  <string name="whiteIsBetter">Valkealla on etu</string>
+  <string name="blackIsBetter">Mustalla on etu</string>
+  <string name="whiteIsWinning">Valkea on voitolla</string>
+  <string name="blackIsWinning">Musta on voitolla</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Uutuus</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Kehitys</string>
+  <string name="initiative">Aloite</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Hyökkäys</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Vastapeli</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Aikapula</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompensaatio</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Ideana</string>
+  <string name="nextChapter">Seuraava luku</string>
+  <string name="prevChapter">Edellinen luku</string>
 </resources>

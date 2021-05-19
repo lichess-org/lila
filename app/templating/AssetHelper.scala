@@ -81,7 +81,6 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       defaultSrc = List("'self'", assets),
       connectSrc = "'self'" :: assets :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: Nil,
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),

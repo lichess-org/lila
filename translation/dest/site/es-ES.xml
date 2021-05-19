@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Juegas con blancas</string>
   <string name="youPlayTheBlackPieces">Juegas con negras</string>
   <string name="itsYourTurn">¡Es tu turno!</string>
+  <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rey en el centro</string>
   <string name="threeChecks">Tres jaques</string>
   <string name="raceFinished">Carrera terminada</string>
@@ -453,7 +454,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
-  <string name="country">País</string>
+  <string name="countryOrFlag">País o bandera</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="inlineNotation">Notación compacta</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">Imprimir en formato PDF</string>
   <string name="crosstable">Tabla cruzada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">También puedes usar la rueda del ratón para desplazarte por la partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
@@ -863,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Has perdido contra un usuario que no cumplió las condiciones de servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
+  <string name="clickToRevealEmailAddress">[Haz clic para mostrar la dirección de correo electrónico]</string>
 </resources>

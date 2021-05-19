@@ -179,6 +179,8 @@ El rei no té preu! Perdre\'l vol dir perdre el joc.</string>
   <string name="queenOverBishop">Captura la peça 
 amb el valor més alt!
 Dama &gt; Àlfil</string>
+  <string name="pieceValueExchange">Captura la peça de més valor! No canviïs una peça de més valor per una de menys valor.</string>
+  <string name="pieceValueLegal">Captura la peça de més valor! Assegura´t que el moviment és legal!</string>
   <string name="takeThePieceWithTheHighestValue">Captura la peça amb el valor més alt!</string>
   <string name="pieceValueComplete">Felicitats! Saps el valor del material! 
 Dama = 9 

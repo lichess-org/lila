@@ -10,7 +10,12 @@ import lila.db.dsl._
 import lila.memo.CacheApi
 import lila.user.User
 
-case class PuzzleReplay(days: Int, theme: PuzzleTheme.Key, nb: Int, remaining: Vector[Puzzle.Id]) {
+case class PuzzleReplay(
+    days: PuzzleDashboard.Days,
+    theme: PuzzleTheme.Key,
+    nb: Int,
+    remaining: Vector[Puzzle.Id]
+) {
 
   def i = nb - remaining.size
 
@@ -30,17 +35,23 @@ final class PuzzleReplayApi(
     _.expireAfterWrite(1 hour).buildAsync()
   )
 
-  def apply(user: User, days: Int, theme: PuzzleTheme.Key): Fu[Option[(Puzzle, PuzzleReplay)]] =
-    replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
-      if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
-      else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
-    } flatMap { replay =>
-      replay.remaining.headOption ?? { id =>
-        colls.puzzle(_.byId[Puzzle](id.value)) map2 (_ -> replay)
+  def apply(
+      user: User,
+      maybeDays: Option[PuzzleDashboard.Days],
+      theme: PuzzleTheme.Key
+  ): Fu[Option[(Puzzle, PuzzleReplay)]] =
+    maybeDays map { days =>
+      replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
+        if (current.days == days && current.theme == theme && current.remaining.nonEmpty) fuccess(current)
+        else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
+      } flatMap { replay =>
+        replay.remaining.headOption ?? { id =>
+          colls.puzzle(_.byId[Puzzle](id.value)) map2 (_ -> replay)
+        }
       }
-    }
+    } getOrElse fuccess(None)
 
-  def onComplete(round: PuzzleRound, days: Int, theme: PuzzleTheme.Key): Funit =
+  def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, theme: PuzzleTheme.Key): Funit =
     replays.getIfPresent(round.userId) ?? {
       _ map { replay =>
         if (replay.days == days && replay.theme == theme)
@@ -48,7 +59,11 @@ final class PuzzleReplayApi(
       }
     }
 
-  private def createReplayFor(user: User, days: Int, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
+  private def createReplayFor(
+      user: User,
+      days: PuzzleDashboard.Days,
+      theme: PuzzleTheme.Key
+  ): Fu[PuzzleReplay] =
     colls
       .round {
         _.aggregateOne() { framework =>

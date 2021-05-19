@@ -16,8 +16,8 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "chessops": "^0.8.1",
-    "chessground": "^7.11.1",
+    "chessops": "^0.9.0",
+    "chessground": "^7.12.0",
     "snabbdom": "^3.0.1",
     "common": "2.0.0",
     "puz": "2.0.0"

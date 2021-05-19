@@ -453,7 +453,6 @@
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
-  <string name="country">País</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
@@ -543,12 +542,9 @@
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
   <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
-  <string name="victoryVsYInZ">%1$s contra %2$s
-en %3$s</string>
-  <string name="defeatVsYInZ">%1$s contra %2$s
-en %3$s</string>
-  <string name="drawVsYInZ">%1$s contra %2$s
-en %3$s</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Cronologia</string>
   <string name="starting">Començant:</string>
   <string name="allInformationIsPublicAndOptional">Tota la informació és pública i opcional.</string>

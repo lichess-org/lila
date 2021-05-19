@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Du spiller med de hvide brikker</string>
   <string name="youPlayTheBlackPieces">Du spiller med de sorte brikker</string>
   <string name="itsYourTurn">Det er din tur!</string>
+  <string name="cheatDetected">Snyd detekteret</string>
   <string name="kingInTheCenter">Konge i centrum</string>
   <string name="threeChecks">Tre skakker</string>
   <string name="raceFinished">Race færdigt</string>
@@ -453,7 +454,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag">Land eller flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Korstabel</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
   <string name="shareYourInsightsData">Del din \"insigts\" data</string>
@@ -863,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
+  <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
 </resources>

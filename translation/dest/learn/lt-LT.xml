@@ -172,6 +172,12 @@ Karalius neįkainojamas! Prarasti jį reiškia pralaimėti.</string>
   <string name="queenOverBishop">Nukirsk didžiausios
 vertės figūrą!
 Valdovė &gt; Rikis</string>
+  <string name="pieceValueExchange">Nukirskite didžiausios vertės figūrą!
+ Neiškeiskite savo vertingesnės
+ figūros į mažiau vertingą priešininko figūrą.</string>
+  <string name="pieceValueLegal">Nukirskite didžiausios
+vertės figūrą!
+Ėjimas turi būti galimas!</string>
   <string name="takeThePieceWithTheHighestValue">Nukirsk didžiausios
 vertės figūrą!</string>
   <string name="pieceValueComplete">Sveikiname! Žinai figūrų vertę ir pajėgumą!

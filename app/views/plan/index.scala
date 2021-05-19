@@ -277,7 +277,10 @@ object index {
           a(href := assetUrl("doc/iban_LICHESS_ORG_00022031601.pdf"), targetBlank)(bankTransfers()),
           ".",
           br,
-          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8"))
+          bitcoin(code("15ZA4bBki3uu3yR2ENC2WYa9baVGUZ8Cf8")),
+          ".",
+          br,
+          "Please note that only the donation form above will grant the Patron status."
         )
       ),
       dl(

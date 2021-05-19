@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
   <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
   <string name="itsYourTurn">Jūsų ėjimas!</string>
+  <string name="cheatDetected">Aptiktas sukčiavimas</string>
   <string name="kingInTheCenter">Karalius centre</string>
   <string name="threeChecks">Trys šachai</string>
   <string name="raceFinished">Lenktynės baigėsi</string>
@@ -516,7 +517,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="firstName">Vardas</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
-  <string name="country">Šalis</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis arba vėliava</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>
@@ -749,6 +750,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="printFriendlyPDF">PDF failas spausdinimui</string>
   <string name="crosstable">Susitikimai</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Judėti partijoje taip pat galite naudodamiesi pelės ratuku virš lentos.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Užveskite ant kompiuterio variacijų norėdami jas peržiūrėti.</string>
   <string name="analysisShapesHowTo">Spustelėkite Shift + kairįjį pelės klavišą arba dešinįjį pelės klavišą norėdami piešti ant lentos.</string>
   <string name="letOtherPlayersMessageYou">Leisti kitiems žaidėjams jums parašyti</string>
   <string name="shareYourInsightsData">Bendrinti jūsų statistiką</string>
@@ -944,4 +946,5 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
   <string name="refundXpointsTimeControlY">Grąžinimas: %1$s %2$s reitingo taškų.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
+  <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
 </resources>

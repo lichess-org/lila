@@ -183,6 +183,11 @@ De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
   <string name="queenOverBishop">Sla het stuk
 met de hoogste waarde!
 Koningin &gt; Loper</string>
+  <string name="pieceValueExchange">Neem het stuk met de hoogste waarde!
+ Ruil niet een hoger gewaardeerd stuk in voor een minder waardevol.</string>
+  <string name="pieceValueLegal">Neem het stuk
+met de hoogste waarde!
+Zorg ervoor dat je zet geldig is!</string>
   <string name="takeThePieceWithTheHighestValue">Sla het stuk
 met de hoogste waarde!</string>
   <string name="pieceValueComplete">Gefeliciteerd! Je kent nu de waarde van materiaal! 

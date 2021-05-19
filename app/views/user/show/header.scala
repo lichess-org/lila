@@ -175,7 +175,7 @@ object header {
             )
           }
       ),
-      isGranted(_.UserModView) option div(cls := "mod-zone none"),
+      isGranted(_.UserModView) option div(cls := "mod-zone mod-zone-full none"),
       standardFlash(),
       angle match {
         case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)

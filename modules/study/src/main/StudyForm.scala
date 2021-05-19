@@ -88,9 +88,7 @@ object StudyForm {
             name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
-            orientation =
-              if (pgns.sizeIs > 1) "auto"
-              else (orientationStr.flatMap(chess.Color.fromName) | chess.White).name,
+            orientation = orientationStr | "white",
             mode = mode,
             initial = initial && index == 0
           )

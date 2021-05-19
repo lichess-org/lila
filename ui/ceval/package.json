@@ -3,8 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org local computer analysis",
-  "main": "dist/main.js",
-  "types": "dist/main",
+  "type": "module",
+  "module": "dist/main.js",
+  "types": "dist/main.d.ts",
   "keywords": [
     "chess",
     "lichess",
@@ -23,7 +24,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "chessops": "^0.8.1",
+    "chessops": "^0.9.0",
     "common": "2.0.0",
     "idb-keyval": "^5.0.4",
     "snabbdom": "^3.0.1"

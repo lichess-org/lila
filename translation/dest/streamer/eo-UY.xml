@@ -3,6 +3,7 @@
   <string name="lichessStreamers">Lichess filmprezentistoj</string>
   <string name="lichessStreamer">Lichess filmprezentisto</string>
   <string name="live">VIVE!</string>
+  <string name="offline">SENRETA</string>
   <string name="currentlyStreaming">Nun filmelsendas: %s</string>
   <string name="lastStream">Lasta filmelsendo %s</string>
   <string name="becomeStreamer">Fariĝu Lichess filmprezentisto</string>

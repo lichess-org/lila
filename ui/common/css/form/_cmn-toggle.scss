@@ -15,6 +15,32 @@
   height: 24px;
   border: 1px solid $c-border;
   border-radius: 24px;
+
+  &::before,
+  &::after {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 22px;
+    height: 22px;
+    bottom: 0.1px;
+    left: 0;
+  }
+
+  &::before {
+    @extend %data-icon;
+    font-size: 1em;
+    z-index: 1;
+    text-align: center;
+    line-height: 22px;
+  }
+
+  &::after {
+    @extend %metal;
+
+    border-radius: 100%;
+    box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .cmn-toggle:not(:checked) + label {
@@ -29,50 +55,29 @@
   background-color: $c-good;
 }
 
-.cmn-toggle + label::before,
-.cmn-toggle + label::after {
-  display: block;
-  position: absolute;
-  content: '';
-  width: 22px;
-  height: 22px;
-  bottom: 0.1px;
-  left: 0;
+.cmn-toggle:disabled + label {
+  opacity: 60%;
+  cursor: not-allowed !important;
 }
 
-.cmn-toggle + label::before {
-  @extend %data-icon;
-  font-size: 1em;
-  z-index: 1;
-  text-align: center;
-  line-height: 22px;
-}
-
-.cmn-toggle:focus + label {
+.cmn-toggle:focus:not(:disabled) + label {
   @extend %focus-shadow;
 }
 
-.cmn-toggle:hover + label {
-  @extend %focus-shadow;
+.cmn-toggle:hover:not(:disabled) {
+  + label {
+    @extend %focus-shadow;
+    @include transition(background);
 
-  @include transition(background);
-}
+    &::before {
+      transition: margin $transition-duration, color $transition-duration;
+    }
 
-.cmn-toggle + label::after {
-  @extend %metal;
-
-  border-radius: 100%;
-  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
-}
-
-.cmn-toggle:hover + label::before {
-  transition: margin $transition-duration, color $transition-duration;
-}
-
-.cmn-toggle:hover + label::after {
-  @extend %metal-hover;
-
-  @include transition(margin);
+    &::after {
+      @extend %metal-hover;
+      @include transition(margin);
+    }
+  }
 }
 
 .cmn-toggle:not(:checked) + label {
@@ -91,7 +96,7 @@
 .cmn-toggle:checked + label {
   &::before,
   &::after {
-    margin-left: 15.5px;
+    margin-left: 16px;
   }
 
   &::before {

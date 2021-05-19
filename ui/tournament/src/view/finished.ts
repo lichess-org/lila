@@ -72,7 +72,18 @@ function stats(data: TournamentData, trans: Trans): VNode {
             download: true,
           },
         },
-        'Download results'
+        'Download results as NDJSON'
+      ),
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': 'x',
+            href: `/api/tournament/${data.id}/results?as=csv`,
+            download: true,
+          },
+        },
+        'Download results as CSV'
       ),
       h('br'),
       h(

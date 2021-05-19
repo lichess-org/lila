@@ -15,7 +15,7 @@
   <string name="noTeamFound">Níor aimsíodh aon fhoireann</string>
   <string name="joinTeam">Bí ar foireann</string>
   <string name="quitTeam">Fág foireann</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Déan athbhreithniú de láimh ar iarratais iontrála</string>
+  <string name="manuallyReviewAdmissionRequests">Déan athbhreithniú de láimh ar iarratais iontrála</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Má dhéantar seiceáil uirthi, beidh ar ficheallaithe iarratas a scríobh chun dul isteach ar foireann, ar féidir leat a dhiúltú nó glacadh.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Ceannaire foirne</item>
@@ -37,10 +37,12 @@
   </plurals>
   <string name="willBeReviewed">Déanfaidh do ceannaire foirne athbhreithniú ar d’iarratas isteach.</string>
   <string name="beingReviewed">Tá ceannaire foirne ag athbhreithniú d’iarratas ar bheith páirteach.</string>
+  <string name="subToTeamMessages">Liostáil le teachtaireachtaí foirne</string>
   <string name="teamBattle">Cath Foirne</string>
   <string name="teamBattleOverview">Cath ilfhoirne, scórálann gach ficheallaí pointí dá bhfoireann</string>
   <string name="teamTournament">Comórtas foirne</string>
   <string name="teamTournamentOverview">Comórtas Láthair nach féidir ach baill d’fhoireann ficheallaithe a bheith páirteach ann</string>
+  <string name="swissTournamentOverview">Comórtas Swiss nach féidir ach le baill d’fhoireann a bheith páirteach ann</string>
   <string name="messageAllMembers">Cuir teachtaireacht chuig gach ball</string>
   <string name="messageAllMembersOverview">Seol teachtaireacht phríobháideach chuig gach ball den fhoireann</string>
   <string name="messageAllMembersLongDescription">Seol teachtaireacht phríobháideach chuig GACH ball den fhoireann.

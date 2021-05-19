@@ -148,6 +148,10 @@ Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren.</s
   <string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
+  <string name="pieceValueExchange">Schlage die Figur mit dem höchsten Wert!
+ Tausche keine höherwertige Figur gegen eine weniger wertvolle ab.</string>
+  <string name="pieceValueLegal">Schlage die Figur mit dem höchsten Wert!
+Stelle sicher, dass dein Zug regelgerecht ist!</string>
   <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
   <string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!

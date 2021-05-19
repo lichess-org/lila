@@ -455,7 +455,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="firstName">Given name</string>
   <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
-  <string name="country">Country</string>
+  <string name="countryOrFlag">Country or flag</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>
@@ -677,7 +677,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="downloadImported">Download imported</string>
   <string name="printFriendlyPDF">Print-friendly PDF</string>
   <string name="crosstable">Crosstable</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Scroll over the board to move in the game.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
@@ -865,4 +866,5 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lostAgainstTOSViolator">You lost to someone who violated the Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
+  <string name="clickToRevealEmailAddress">[Click to reveal email address]</string>
 </resources>

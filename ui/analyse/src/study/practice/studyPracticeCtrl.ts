@@ -60,7 +60,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
   function onVictory(): void {
     saveNbMoves();
     lichess.sound.play('practiceSuccess');
-    if (autoNext()) setTimeout(goToNext, 1000);
+    if (studyData.chapter.practice && autoNext()) setTimeout(goToNext, 1000);
   }
 
   function saveNbMoves(): void {

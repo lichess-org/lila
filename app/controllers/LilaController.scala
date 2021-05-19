@@ -45,10 +45,12 @@ abstract private[controllers] class LilaController(val env: Env)
 
   implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
-  protected val keyPages       = new KeyPages(env)
-  protected val renderNotFound = keyPages.notFound _
-  protected val rateLimited    = Results.TooManyRequests("Too many requests. Please retry in a moment.")
-  protected val rateLimitedFu  = rateLimited.fuccess
+  protected val keyPages        = new KeyPages(env)
+  protected val renderNotFound  = keyPages.notFound _
+  protected val rateLimitedMsg  = "Too many requests. Try again later."
+  protected val rateLimited     = Results.TooManyRequests(rateLimitedMsg)
+  protected val rateLimitedJson = Results.TooManyRequests(jsonError(rateLimitedMsg))
+  protected val rateLimitedFu   = rateLimited.fuccess
 
   implicit protected def LilaFunitToResult(
       @nowarn("cat=unused") funit: Funit
@@ -676,7 +678,11 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)
+  protected def asAttachment(name: String) = (res: Result) =>
+    res.withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=$name")
+  protected def asAttachmentStream(name: String) = (res: Result) => noProxyBuffer(asAttachment(name)(res))
 
   protected val pgnContentType    = "application/x-chess-pgn"
   protected val ndJsonContentType = "application/x-ndjson"
+  protected val csvContentType    = "text/csv"
 }

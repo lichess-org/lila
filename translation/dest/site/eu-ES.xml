@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Zuk pieza zuriekin jokatzen duzu</string>
   <string name="youPlayTheBlackPieces">Zuk pieza beltzekin jokatzen duzu</string>
   <string name="itsYourTurn">Zure txanda da!</string>
+  <string name="cheatDetected">Tranpak detektatu ditugu</string>
   <string name="kingInTheCenter">Erregea erdian</string>
   <string name="threeChecks">Hiru xake</string>
   <string name="raceFinished">Lasterketa bukatuta</string>
@@ -453,7 +454,7 @@
   <string name="firstName">Izena</string>
   <string name="lastName">Abizena</string>
   <string name="biography">Biografia</string>
-  <string name="country">Herrialdea</string>
+  <string name="countryOrFlag">Herrialdea edo bandera</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="socialMediaLinks">Sare sozialen loturak</string>
   <string name="inlineNotation">Lerroarteko oharrak</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">PDF moduan jaitsi</string>
   <string name="crosstable">Aurreko emaitzak</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Partidan aurrera-atzera egiteko, korritze-barra ere erabili ahal duzu.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Jarri sagua ordenagailuaren aukeren gainean berauek ikusteko.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
   <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
@@ -863,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
   <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
+  <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
 </resources>

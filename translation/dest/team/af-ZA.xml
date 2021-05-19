@@ -12,7 +12,7 @@
   <string name="noTeamFound">Geen span gevind nie</string>
   <string name="joinTeam">Sluit aan by die span</string>
   <string name="quitTeam">Verlaat die span</string>
-  <string name="manuallyReviewAdmissionRequests" comment="manuallyReviewAdmissionRequests&#10;&#10;A checkbox. If checked, players will need to write a request to join the team, which the user can decline or accept.">Gaan aansluit versoeke met die hand na</string>
+  <string name="manuallyReviewAdmissionRequests">Gaan aansluit versoeke met die hand na</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Indien gemerk gaan spelers nodig hê om \'n versoek te skryf om by die span aan te sluit, wat jy kan afkeer of aanvaar.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Spanleier</item>

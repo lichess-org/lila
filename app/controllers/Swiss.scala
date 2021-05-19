@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json.Json
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.util.chaining._
 import views._
 
 import lila.api.Context
@@ -259,7 +260,7 @@ final class Swiss(
         case None => NotFound("Tournament not found")
         case Some(swiss) =>
           Ok.chunked(env.swiss.trf(swiss, sorted = true) intersperse "\n")
-            .withHeaders(CONTENT_DISPOSITION -> s"attachment; filename=lichess_swiss_$id.trf")
+            .pipe(asAttachmentStream(env.api.gameApiV2.filename(swiss, "trf")))
       }
     }
 

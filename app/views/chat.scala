@@ -96,6 +96,6 @@ object chat {
     div(
       cls := "chat__members none",
       aria.live := "off",
-      aria.relevant := "additions removals text",
+      aria.relevant := "additions removals text"
     )
 }
