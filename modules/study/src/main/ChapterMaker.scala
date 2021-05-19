@@ -225,7 +225,7 @@ private[study] object ChapterMaker {
       variant: Option[String] = None,
       fen: Option[FEN] = None,
       pgn: Option[String] = None,
-      orientation: String = "white", // can be "auto"
+      orientation: String = "white", // can be "automatic"
       mode: String = ChapterMaker.Mode.Normal.key,
       initial: Boolean = false,
       isDefaultName: Boolean = true
