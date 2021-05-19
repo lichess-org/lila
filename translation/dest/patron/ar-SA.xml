@@ -64,6 +64,8 @@
   <string name="viewOthers">مشاهدة رعاة آخرين</string>
   <string name="date">تاريخ</string>
   <string name="amount">المجموع</string>
+  <string name="transactionCompleted">لقد اكتملت معاملتك، وإيصال للتبرع قد أرسل إليك عبر البريد الإلكتروني.</string>
+  <string name="permanentPatron">لديك الآن حساب راعي دائم.</string>
   <string name="checkOutProfile">تحقق من الصفحة الشخصية الخاصة بك!</string>
   <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
