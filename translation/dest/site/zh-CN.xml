@@ -423,7 +423,6 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
-  <string name="country">国家与地区</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="inlineNotation">紧凑显示棋谱</string>

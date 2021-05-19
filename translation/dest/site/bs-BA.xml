@@ -486,7 +486,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
-  <string name="country">Država</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
@@ -713,6 +713,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="printFriendlyPDF">Preuzmite PDF partije</string>
   <string name="crosstable">Tabela rezultata</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Možete koristiti točak od Vašeg miša da brže pređete preko poteza za vrijeme analize partije.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Skrolajte preko računarskih varijanti da ih pregledate.</string>
   <string name="analysisShapesHowTo">Pritisnite shift + lijevi ili desni klik miša kako bi ste nacrtali krugove i strelice na ploči.</string>
   <string name="letOtherPlayersMessageYou">Dopustite drugim igračima da Vam mogu poslati poruku</string>
   <string name="shareYourInsightsData">Podijelite Vašu šahovsku analitiku</string>

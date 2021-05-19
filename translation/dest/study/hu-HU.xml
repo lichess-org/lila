@@ -132,12 +132,12 @@
   <string name="mistake">Hiba</string>
   <string name="brilliantMove">Kiváló lépés</string>
   <string name="blunder">Durva hiba</string>
-  <string name="interestingMove">Jónak ígérkező lépés</string>
-  <string name="dubiousMove">Szokatlan lépés</string>
-  <string name="onlyMove">Egyetlen lépés</string>
-  <string name="zugzwang">Lépéskényszer</string>
+  <string name="interestingMove">Èrdekes lépés</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Szokatlan lépés</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Egyetlen lépés</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Lépéskényszer</string>
   <string name="equalPosition">Egyenlő állás</string>
-  <string name="unclearPosition">Zavaros állás</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Zavaros állás</string>
   <string name="whiteIsSlightlyBetter">Világos kicsit jobban áll</string>
   <string name="blackIsSlightlyBetter">Sötét kicsit jobban áll</string>
   <string name="whiteIsBetter">Világos jobban áll</string>
@@ -145,13 +145,13 @@
   <string name="whiteIsWinning">Világos nyerésre áll</string>
   <string name="blackIsWinning">Sötét nyerésre áll</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Újítás</string>
-  <string name="development">Fejlődés</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Fejlődés</string>
   <string name="initiative">Kezdeményezés</string>
-  <string name="attack">Támadás</string>
-  <string name="counterplay">Ellenjáték</string>
-  <string name="timeTrouble">Időzavar</string>
-  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantages a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompenzáció</string>
-  <string name="withTheIdea">Elképzelés</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Támadás</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Ellenjáték</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Időzavar</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kompenzáció</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Elképzelés</string>
   <string name="nextChapter">Következő fejezet</string>
   <string name="prevChapter">Előző fejezet</string>
 </resources>

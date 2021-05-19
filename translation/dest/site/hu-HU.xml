@@ -454,7 +454,7 @@
   <string name="firstName">Keresztnév</string>
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
-  <string name="country">Ország</string>
+  <string name="countryOrFlag">Ország vagy zászló</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>

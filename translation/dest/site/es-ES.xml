@@ -454,7 +454,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
-  <string name="country">País</string>
+  <string name="countryOrFlag">País o bandera</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="socialMediaLinks">Enlaces a redes sociales</string>
   <string name="inlineNotation">Notación compacta</string>

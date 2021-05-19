@@ -516,7 +516,7 @@
   <string name="firstName">Имя</string>
   <string name="lastName">Фамилия</string>
   <string name="biography">О себе</string>
-  <string name="country">Страна</string>
+  <string name="countryOrFlag">Страна или флаг</string>
   <string name="thankYou">Спасибо!</string>
   <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="inlineNotation">Строчная нотация</string>

@@ -517,7 +517,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="firstName">Vardas</string>
   <string name="lastName">Pavardė</string>
   <string name="biography">Aprašymas</string>
-  <string name="country">Šalis</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Šalis arba vėliava</string>
   <string name="thankYou">Ačiū!</string>
   <string name="socialMediaLinks">Socialinių tinklų nuorodos</string>
   <string name="inlineNotation">Įterptas žymėjimas</string>

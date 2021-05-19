@@ -178,6 +178,12 @@
   <string name="queenOverBishop">Πάρτε το κομμάτι
 με την υψηλότερη αξία!
 Βασίλισσα &gt; Αξιωματικός</string>
+  <string name="pieceValueExchange">Αιχμαλωτίστε το κομμάτι με τη μεγαλύτερη αξία!
+Μην ανταλλάσσετε
+ένα κομμάτι υψηλής με ένα κομμάτι χαμηλής αξίας.</string>
+  <string name="pieceValueLegal">Αιχμαλωτίστε το κομμάτι
+με τη μεγαλύτερη αξία!
+Η κίνησή σας πρέπει να μην είναι αντικανονική!</string>
   <string name="takeThePieceWithTheHighestValue">Πάρτε το κομμάτι
 με την υψηλότερη αξία!</string>
   <string name="pieceValueComplete">Συγχαρητήρια! Γνωρίζετε την αξία του υλικού! 

@@ -188,6 +188,12 @@ Erregeak ez du baliorik! Berau galtzeak partida galtzea baitakar.</string>
   <string name="queenOverBishop">Harrapatu balio handiena
 duen pieza!
 Dama &gt; Alfila</string>
+  <string name="pieceValueExchange">Harrapatu gehien balio duen pieza!
+ Ez aldatu
+ gehiago balio duen pieza bat gutxiago balio duen bategatik.</string>
+  <string name="pieceValueLegal">Harrapatu gehien
+balio duen pieza!
+Ziurtatu zure jokaldia legezkoa dela!</string>
   <string name="takeThePieceWithTheHighestValue">Harrapatu balio handiena
 duen pieza!</string>
   <string name="pieceValueComplete">Zorionak! Badakizu jada piezen balioa!

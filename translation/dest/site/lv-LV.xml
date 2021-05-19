@@ -485,7 +485,7 @@
   <string name="firstName">Vārds</string>
   <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
-  <string name="country">Valsts</string>
+  <string name="countryOrFlag">Valsts vai karogs</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="inlineNotation">Iekļautā notācija</string>

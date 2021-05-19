@@ -454,7 +454,7 @@
   <string name="firstName">Vorname</string>
   <string name="lastName">Nachname</string>
   <string name="biography">Profiltext</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag">Land oder Flagge</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="inlineNotation">Inline-Notation</string>

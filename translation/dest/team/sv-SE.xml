@@ -28,10 +28,12 @@
   </plurals>
   <string name="willBeReviewed">Din förfrågan om medlemskap kommer att granskas av lagledaren.</string>
   <string name="beingReviewed">Din förfrågan om medlemskap granskas av lagledaren.</string>
+  <string name="subToTeamMessages">Prenumerera på lagmeddelanden</string>
   <string name="teamBattle">Lagmatch</string>
   <string name="teamBattleOverview">En kamp mellan flera lag, varje spelare plockar poäng för sitt lag</string>
   <string name="teamTournament">Turnering inom laget</string>
   <string name="teamTournamentOverview">En arena-turnering som endast medlemmar i ditt lag kan delta i</string>
+  <string name="swissTournamentOverview">En schweizerturnering som endast medlemmar i ditt lag kan gå med</string>
   <string name="messageAllMembers">Meddela alla medlemmar</string>
   <string name="messageAllMembersOverview">Skicka ett privat meddelande till varje medlem i laget</string>
   <string name="messageAllMembersLongDescription">Skicka ett privat meddelande till ALLA medlemmar i laget.

@@ -454,7 +454,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag">Land eller flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="inlineNotation">Notation uden linjeskift</string>

@@ -64,10 +64,10 @@
   <string name="showThreat">Покажи заплаха</string>
   <string name="inLocalBrowser">в локалния браузър</string>
   <string name="toggleLocalEvaluation">Превключване на локална оценка</string>
-  <string name="promoteVariation">Промотиране на вариация</string>
+  <string name="promoteVariation">Повиши вариацията</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
-  <string name="forceVariation">Покажи като вариант</string>
+  <string name="forceVariation">Покажи като вариация</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -455,7 +455,7 @@
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
   <string name="biography">Животопис</string>
-  <string name="country">Страна</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или знаме</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="inlineNotation">Вградена нотация</string>
@@ -678,6 +678,7 @@
   <string name="printFriendlyPDF">PDF за принтиране</string>
   <string name="crosstable">Таблица</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Може още да скролираш върху дъската, за да местиш ходовете.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
@@ -795,7 +796,7 @@
   <string name="middlegame">Мителшпил</string>
   <string name="endgame">Ендшпил</string>
   <string name="conditionalPremoves">Предварителен ход под условие</string>
-  <string name="addCurrentVariation">Добавяне на настоящата линия</string>
+  <string name="addCurrentVariation">Добавяне на настоящата вариация</string>
   <string name="playVariationToCreateConditionalPremoves">Изиграйте вариация за да създадете предварителни ходове под условие</string>
   <string name="noConditionalPremoves">Без предварителни ходове под условие</string>
   <string name="playX">Играй %s</string>

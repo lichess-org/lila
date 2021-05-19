@@ -498,7 +498,7 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
-  <string name="country">Država</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>

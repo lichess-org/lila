@@ -454,7 +454,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Etternavn</string>
   <string name="biography">Biografi</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flagg</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Linker til sosiale media</string>
   <string name="inlineNotation">Innebygd notasjon</string>
@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Printervennlig PDF</string>
   <string name="crosstable">Krysstabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også skrolle over brettet for å flytte i partiet.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Hold muspekeren over maskinvarianter for å forhåndsvise dem.</string>
   <string name="analysisShapesHowTo">Trykk shift+klikk eller høyreklikk for å tegne sirkler og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">La andre spillere kontakte deg.</string>
   <string name="shareYourInsightsData">Del den personlige spillerstatistikken din</string>
@@ -856,6 +857,7 @@
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
+  <string name="pleaseReconsiderRenewIt">Overvei gjerne fornyelse!</string>
   <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
   <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>

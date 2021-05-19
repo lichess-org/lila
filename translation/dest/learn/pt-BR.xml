@@ -163,6 +163,12 @@ Peão = 1
 O rei é inestimável! Perdê-lo significa ser derrotado.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
 Rainha &gt; Bispo</string>
+  <string name="pieceValueExchange">Tome a peça com o valor mais alto!
+ Não troque
+ uma peça de maior valor por outra de menor valor.</string>
+  <string name="pieceValueLegal">Tome a peça
+com o valor mais alto!
+Tenha certeza de que seu movimento é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Capture a peça de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Você conhece o valor material! 
 Rainha = 9 

@@ -133,4 +133,17 @@
   <string name="deleteStudy">מחק מחקר</string>
   <string name="deleteTheEntireStudy">למחוק את כל המחקר? אין דרך חזרה!</string>
   <string name="whereDoYouWantToStudyThat">איפה אתה מעוניין לחקור זאת?</string>
+  <string name="goodMove">מסע טוב</string>
+  <string name="mistake">טעות</string>
+  <string name="brilliantMove">מסע מבריק</string>
+  <string name="blunder">טעות חמורה</string>
+  <string name="interestingMove">מסע מעניין</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">מסע מפוקפק</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">המסע היחיד</string>
+  <string name="whiteIsBetter">לבן יותר טוב</string>
+  <string name="blackIsBetter">שחור יותר טוב</string>
+  <string name="whiteIsWinning">לבן מנצח</string>
+  <string name="blackIsWinning">שחור מנצח</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">פיתוח</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">התקפה</string>
 </resources>

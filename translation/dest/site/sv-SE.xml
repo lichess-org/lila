@@ -454,7 +454,7 @@
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
   <string name="biography">Biografi</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag">Land eller flagga</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="inlineNotation">Visa notation</string>
@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Utskriftsvänlig PDF</string>
   <string name="crosstable">Tabell</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan också skrolla över brädet för att gå framåt/bakåt i partiet.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Rulla över datorvarianter för att förhandsgranska dem.</string>
   <string name="analysisShapesHowTo">Håll nere Skift när du klickar eller högerklickar för att rita cirklar och pilar på brädet.</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
   <string name="shareYourInsightsData">Dela din information från Chess Insights</string>
@@ -860,6 +861,7 @@
   <string name="patronAccountExpired">Sponsorkonto utlöpt</string>
   <string name="pleaseReconsiderRenewIt">Överväg gärna att förnya det!</string>
   <string name="someoneReviewedYourCoachProfile">Någon har recenserat din coachprofil.</string>
+  <string name="newPendingReview">Ny i väntan på översyn</string>
   <string name="lostAgainstTOSViolator">Du förlorade mot någon som bröt mot Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Ersättning: %1$s %2$s rankingpoäng.</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>

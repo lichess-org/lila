@@ -424,7 +424,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
-  <string name="country">国</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
@@ -642,6 +642,7 @@
   <string name="printFriendlyPDF">印刷用PDF</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>

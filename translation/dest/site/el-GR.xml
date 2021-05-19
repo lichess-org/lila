@@ -455,7 +455,7 @@
   <string name="firstName">Όνομα</string>
   <string name="lastName">Επώνυμο</string>
   <string name="biography">Βιογραφικό</string>
-  <string name="country">Χώρα</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Χώρα ή σημαία</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="socialMediaLinks">Σύνδεσμοι κοινωνικών μέσων</string>
   <string name="inlineNotation">Ενσωματωμένη σημειογραφία</string>
@@ -678,6 +678,7 @@
   <string name="printFriendlyPDF">PDF φιλικό για εκτύπωση</string>
   <string name="crosstable">Αποτελέσματα</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινηθείτε πάνω στην σκακιέρα για να πάτε στο παιχνίδι.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>

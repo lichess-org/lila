@@ -146,6 +146,10 @@ Pion – 1
 Król jest bezcenny! Tracąc go przegrywasz partię.</string>
   <string name="queenOverBishop">Zbij figurę o największej wartości!
 hetman &gt; goniec</string>
+  <string name="pieceValueExchange">Zbij figurę o najwyższej wartości!
+Nie wymieniaj bardziej wartościowej figury na mniej wartościową.</string>
+  <string name="pieceValueLegal">Zbij figurę o najwyższej wartości!
+Upewnij się, że Twój ruch jest legalny!</string>
   <string name="takeThePieceWithTheHighestValue">Zbij figurę o najwyższej wartości!</string>
   <string name="pieceValueComplete">Gratulacje! Znasz wartość materiału!
 Hetman – 9

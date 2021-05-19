@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Sei il Bianco</string>
   <string name="youPlayTheBlackPieces">Sei il Nero</string>
   <string name="itsYourTurn">Tocca a te!</string>
-  <string name="cheatDetected">Trucco Rilevato</string>
+  <string name="cheatDetected">Cheat Rilevato</string>
   <string name="kingInTheCenter">Re al centro</string>
   <string name="threeChecks">Tre scacchi</string>
   <string name="raceFinished">Corsa terminata</string>
@@ -197,7 +197,7 @@
   <string name="rank">Posizione</string>
   <string name="rankX">Posizione: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">La classifica è aggiornata ogni minuto</item>
+    <item quantity="one">Il ranking viene aggiornato ogni minuto</item>
     <item quantity="other">La posizione è aggiornata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -210,8 +210,8 @@
     <item quantity="other">%s giocate con te</item>
   </plurals>
   <string name="cancel">Annulla</string>
-  <string name="whiteTimeOut">Timeout bianco</string>
-  <string name="blackTimeOut">Timeout nero</string>
+  <string name="whiteTimeOut">Il bianco ha esaurito il tempo</string>
+  <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
   <string name="drawOfferSent">Offerta di patta inviata</string>
   <string name="drawOfferDeclined">Offerta di patta rifiutata</string>
   <string name="drawOfferAccepted">Offerta di patta accettata</string>
@@ -455,7 +455,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
   <string name="biography">Biografia</string>
-  <string name="country">Paese</string>
+  <string name="countryOrFlag">Paese o bandiera</string>
   <string name="thankYou">Grazie!</string>
   <string name="socialMediaLinks">Collegamenti ai social media</string>
   <string name="inlineNotation">Notazione in linea</string>

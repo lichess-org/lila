@@ -548,7 +548,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="firstName">Ainm</string>
   <string name="lastName">Sloinne</string>
   <string name="biography">Beathaisnéis</string>
-  <string name="country">Tír</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Tír nó brat</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
   <string name="inlineNotation">Nodaireacht inlíne</string>

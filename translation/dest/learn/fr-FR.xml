@@ -170,6 +170,12 @@ Le Roi est irremplaçable ! Le perdre signifie perdre la partie.</string>
   <string name="queenOverBishop">Prenez la pièce avec
 la valeur la plus élevée !
 Dame &gt; Fou</string>
+  <string name="pieceValueExchange">Prenez la pièce de plus grande valeur !
+ N\'échangez pas
+ une pièce de valeur supérieure contre une pièce de moindre valeur.</string>
+  <string name="pieceValueLegal">Prenez la pièce
+de plus grande valeur !
+Assurez-vous que votre déplacement est légal !</string>
   <string name="takeThePieceWithTheHighestValue">Prenez la pièce avec
 la valeur la plus élevée !</string>
   <string name="pieceValueComplete">Félicitations ! Vous connaissez la valeur des pièces !

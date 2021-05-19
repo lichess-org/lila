@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Xác nhận tài khoản lichess.org của bạn, %s</string>
-  <string name="emailConfirm_click">Nhấn vào liên kết để kích hoạt tài khoản Lichess của bạn:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Nhấn vào liên kết để kích hoạt tài khoản Lichess của bạn:</string>
   <string name="emailConfirm_ignore">Nếu bạn chưa đăng ký tài khoản Lichess, bạn có thể bỏ qua thông báo này.</string>
   <string name="passwordReset_subject">Đặt lại mật khẩu lichess.org, %s</string>
   <string name="passwordReset_intro">Chúng tôi nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.</string>

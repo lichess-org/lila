@@ -484,7 +484,7 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
-  <string name="country">Țară</string>
+  <string name="countryOrFlag">Țară sau steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="inlineNotation">Notație integrată</string>
