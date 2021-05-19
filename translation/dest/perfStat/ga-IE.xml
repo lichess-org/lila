@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s staitisticí</string>
   <string name="viewTheGames">Féach ar na cluichí</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">sealadach</string>
+  <string name="provisional">sealadach</string>
   <string name="notEnoughRatedGames">Níor imríodh go leor cluichí rátáilte chun rátáil iontaofa a bhunú.</string>
   <string name="progressOverLastXGames">Dul chun cinn le %s cluiche anuas:</string>
   <string name="ratingDeviation">Diall rátála. %s.</string>
