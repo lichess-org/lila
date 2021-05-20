@@ -909,8 +909,8 @@
   <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
   <string name="subscribe">Naroči se</string>
   <string name="unsubscribe">Odjava</string>
-  <string name="mentionedYouInX"> vas je omenil v \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s vas je omenil v \"%2$s\".</string>
+  <string name="mentionedYouInX">vas je omenil v \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s vas je omenil v \"%2$s\".</string>
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
