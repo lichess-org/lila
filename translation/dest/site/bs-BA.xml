@@ -887,9 +887,9 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="youCannotPostYetPlaySomeGames">Još ne možete objavljivati na forumima. Odigrajte nekoliko partija!</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
-  <string name="mentionedYouInX"> spomenuo Vas je u \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s Vas je spomenuo u \"%2$s\".</string>
-  <string name="invitedYouToX"> Vas je pozvao u \"%1$s\".</string>
+  <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s Vas je spomenuo u \"%2$s\".</string>
+  <string name="invitedYouToX">Vas je pozvao u \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
