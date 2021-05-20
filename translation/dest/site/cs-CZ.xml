@@ -925,9 +925,9 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
-  <string name="mentionedYouInX"> vás zmínil v \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
-  <string name="invitedYouToX"> vás pozval ke studii \"%1$s\".</string>
+  <string name="mentionedYouInX">vás zmínil v \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
+  <string name="invitedYouToX">vás pozval ke studii \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
   <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
