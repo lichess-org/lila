@@ -73,7 +73,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
     h('a.puz-side__control__reload.button.button-empty', {
       attrs: {
         href: '/storm',
-        'data-icon': 'P',
+        'data-icon': 'q',
         title: ctrl.trans('newRun'),
       },
     }),

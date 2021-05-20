@@ -203,5 +203,8 @@ export default class StormCtrl {
     });
   };
 
-  private hotkeys = () => window.Mousetrap.bind('space', () => location.reload()).bind('return', this.end);
+  private hotkeys = () =>
+    window.Mousetrap.bind('space', () => location.reload())
+      .bind('return', this.end)
+      .bind('f', this.flip);
 }
