@@ -918,9 +918,9 @@
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
   <string name="unsubscribe">Адпісацца</string>
-  <string name="mentionedYouInX"> вас згадалі ў «%1$s».</string>
-  <string name="xMentionedYouInY"> %1$s вас згадаў у «%2$s».</string>
-  <string name="invitedYouToX"> вас запрасілі ў «%1$s».</string>
+  <string name="mentionedYouInX">вас згадалі ў «%1$s».</string>
+  <string name="xMentionedYouInY">%1$s вас згадаў у «%2$s».</string>
+  <string name="invitedYouToX">вас запрасілі ў «%1$s».</string>
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>
   <string name="youAreNowPartOfTeam">Цяпер вы з\'яўляецеся часткай каманды.</string>
   <string name="youHaveJoinedTeamX">Вы далучыліся да %1$s.</string>
