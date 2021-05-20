@@ -927,9 +927,9 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
-  <string name="mentionedYouInX"> wspomniał o tobie w \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s wspomniał o tobie w \"%2$s\".</string>
-  <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
+  <string name="mentionedYouInX">wspomniał o tobie w \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s wspomniał o tobie w \"%2$s\".</string>
+  <string name="invitedYouToX">zaprosił Cię do \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
   <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>
