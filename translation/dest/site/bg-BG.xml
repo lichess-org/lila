@@ -848,9 +848,9 @@
   <string name="youCannotPostYetPlaySomeGames">Все още не можете да публикувате във форумите. Изиграйте няколко игри!</string>
   <string name="subscribe">Абонирай се</string>
   <string name="unsubscribe">Отпиши ме</string>
-  <string name="mentionedYouInX"> Ви спомена в \"%1$s\".</string>
+  <string name="mentionedYouInX">Ви спомена в \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s Ви спомена в \"%2$s\".</string>
-  <string name="invitedYouToX"> Ви покани на \"%1$s\".</string>
+  <string name="invitedYouToX">Ви покани на \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s Ви покани на \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Сега сте в отбора.</string>
   <string name="youHaveJoinedTeamX">Присъединихте се към \"%1$s\".</string>
