@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Még nem írhatsz a fórumokba. Játssz néhány partit!</string>
   <string name="subscribe">Feliratkozás</string>
   <string name="unsubscribe">Leiratkozás</string>
-  <string name="mentionedYouInX"> megemlített itt: \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s megemlített itt: \"%2$s\".</string>
-  <string name="invitedYouToX"> meghívott ide: \"%1$s\".</string>
+  <string name="mentionedYouInX">megemlített itt: \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s megemlített itt: \"%2$s\".</string>
+  <string name="invitedYouToX">meghívott ide: \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s meghívott ide: \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Most már a csapat tagja vagy.</string>
   <string name="youHaveJoinedTeamX">Csatlakoztál ide: \"%1$s\".</string>
