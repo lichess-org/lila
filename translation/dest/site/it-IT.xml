@@ -848,9 +848,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="youCannotPostYetPlaySomeGames">Non puoi ancora postare nei forum. Gioca qualche partita!</string>
   <string name="subscribe">Iscriviti</string>
   <string name="unsubscribe">Annullare l\'iscrizione</string>
-  <string name="mentionedYouInX"> ti ha menzionato in \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s ti ha citato in \"%2$s\".</string>
-  <string name="invitedYouToX"> ti ha invitato a \"%1$s\".</string>
+  <string name="mentionedYouInX">ti ha menzionato in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s ti ha citato in \"%2$s\".</string>
+  <string name="invitedYouToX">ti ha invitato a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s ti ha invitato a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ora fai parte del team.</string>
   <string name="youHaveJoinedTeamX">Ti sei unito a \"%1$s\".</string>
