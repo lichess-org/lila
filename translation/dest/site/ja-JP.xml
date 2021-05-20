@@ -808,9 +808,9 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="mentionedYouInX"> 「%1$s」であなたの名前が出ました。</string>
-  <string name="xMentionedYouInY"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
-  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
+  <string name="mentionedYouInX">「%1$s」であなたの名前が出ました。</string>
+  <string name="xMentionedYouInY">%1$sさんが「%2$s」であなたの名前を出しました。</string>
+  <string name="invitedYouToX">「%1$s」 への招待が来ました。</string>
   <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
