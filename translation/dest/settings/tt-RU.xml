@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">Көйләүләр</string>
+  <string name="closeAccount">Һисапны ябыш</string>
+  <string name="closingIsDefinitive">Ябыш анык. Артка кайтыш юк. Ошануыгыз камилме?</string>
 </resources>
