@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">%s statestiek</string>
   <string name="viewTheGames">Bekyk die spelle</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">voorlopig</string>
+  <string name="provisional">voorlopig</string>
   <string name="notEnoughRatedGames">Nie genoeg gegradeerde spelle is gespeel om \'n betroubare gradering te vestig nie.</string>
   <string name="progressOverLastXGames">Vordering oor die laaste %s spelle:</string>
   <string name="ratingDeviation">Gradering afwyking: %s.</string>

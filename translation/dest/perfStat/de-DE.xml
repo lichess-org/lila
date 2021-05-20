@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s-Statistiken</string>
   <string name="viewTheGames">Spiele anzeigen</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provisorisch</string>
+  <string name="provisional">provisorisch</string>
   <string name="notEnoughRatedGames">Nicht genügend gewertete Partien gespielt, um eine verlässliche Wertung zu erzielen.</string>
   <string name="progressOverLastXGames">Fortschritt über die letzten %s Spiele:</string>
   <string name="ratingDeviation">Wertungsabweichung: %s.</string>
+  <string name="ratingDeviationTooltip">Ein niedriger Wert bedeutet, dass die Wertungszahl stabiler ist. Über %1$s wird die Wertung als vorläufig betrachtet. Um in die Rangliste aufgenommen zu werden, sollte dieser Wert unter %2$s (Standardschach) oder %3$s (Varianten) liegen.</string>
   <string name="totalGames">Insgesamte Spiele</string>
   <string name="ratedGames">Gewertete Spiele</string>
   <string name="tournamentGames">Turnierspiele</string>

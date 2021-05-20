@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s-statistikk</string>
   <string name="viewTheGames">Syn partia</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">mellombels</string>
+  <string name="provisional">mellombels</string>
   <string name="notEnoughRatedGames">For få rata parti til at ei stabil rating kan bereknas.</string>
   <string name="progressOverLastXGames">Endring over de siste %s partia:</string>
   <string name="ratingDeviation">Ratingavvik: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Lågare verdi tyder at ratinga er meir stabil. Over %1$s vert ratinga rekna som mellombels. For å koma på ratinglista må verdien vera under %2$s for standardsjakk og under %3$s for variantar.</string>
   <string name="totalGames">Totalt antal parti</string>
   <string name="ratedGames">Rata parti</string>
   <string name="tournamentGames">Turneringsparti</string>

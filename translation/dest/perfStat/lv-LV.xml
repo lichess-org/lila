@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s statistika</string>
   <string name="viewTheGames">Skatīt spēles</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">pagaidu</string>
+  <string name="provisional">pagaidu</string>
   <string name="notEnoughRatedGames">Nav spēlēts pietiekami vērtētu spēļu, lai izveidotu uzticamu reitingu.</string>
   <string name="progressOverLastXGames">Attīstība pēdējo %s spēļu laikā:</string>
   <string name="ratingDeviation">Reitinga novirze: %s.</string>
+  <string name="ratingDeviationTooltip">Zemākas vērtības nozīmē, ka reitings ir stabilāks. Vērtības virs %1$s piemīt tikai pagaidu reitingiem. Tabulās iekļauj tikai spēlētājus, kam šī vērtība ir zem %2$s parastajā šahā vai %3$s variantos.</string>
   <string name="totalGames">Spēles kopumā</string>
   <string name="ratedGames">Vērtētās spēles</string>
   <string name="tournamentGames">Turnīru spēles</string>

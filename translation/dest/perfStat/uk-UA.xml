@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">Статистика %s</string>
   <string name="viewTheGames">Переглянути партії</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">умовний</string>
+  <string name="provisional">умовний</string>
   <string name="notEnoughRatedGames">Зіграно недостатньо рейтингових ігор для встановлення точного рейтингу.</string>
   <string name="progressOverLastXGames">Прогрес за останні %s ігор:</string>
   <string name="ratingDeviation">Відхилення рейтингу: %s.</string>

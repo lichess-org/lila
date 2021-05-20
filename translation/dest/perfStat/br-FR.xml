@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">Stadegoù %s</string>
   <string name="viewTheGames">Gwelet ar c\'hrogadoù</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">da c\'hortoz</string>
+  <string name="provisional">da c\'hortoz</string>
   <string name="notEnoughRatedGames">N\'eo ket bet c\'hoariet trawalc\'h a grogadoù renket evit kaout ur renkadur a glot gant ho live.</string>
   <string name="progressOverLastXGames">Araokadennoù e-pad an/ar %s krogad diwezhañ:</string>
   <string name="ratingDeviation">Forc\'had standard: %s.</string>

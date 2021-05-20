@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s statistika</string>
   <string name="viewTheGames">Pregledajte partije</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">privremen</string>
+  <string name="provisional">privremen</string>
   <string name="notEnoughRatedGames">Nije odigrano dovoljno partija za retjing bodove da bi se uspostavio pouzdani rejting.</string>
   <string name="progressOverLastXGames">Napredak u poslednjih %s partija:</string>
   <string name="ratingDeviation">Rejting devijacija: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Niža vrijednost znači da je rejting stabilniji. Pri vrijednostima višim od %1$s za rejting se smatra da je privremen. Za uvrštavanje na rang-liste ova vrijednost trebala bi biti niža od %2$s (u običnom šahu) ili od %3$s (u drugim varijantama šaha).</string>
   <string name="totalGames">Ukupno partija</string>
   <string name="ratedGames">Partije za rejting bodove</string>
   <string name="tournamentGames">Turnirske partije</string>

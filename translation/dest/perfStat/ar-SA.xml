@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">احصائيات %s</string>
   <string name="viewTheGames">عرض المباريات</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">مؤقت</string>
+  <string name="provisional">مؤقت</string>
   <string name="notEnoughRatedGames">لم تلعب مباريات مقيّمة بما يكفي للحصول ع تقييم موثق.</string>
   <string name="progressOverLastXGames">التقدم خلال آخر المباريات ال%s الاخيرة:</string>
   <string name="ratingDeviation">انحراف التقييم: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">القيمة المنخفضة تعني أن التصنيف أكثر استقرارا. أعلى من %1$s، يعتبر التقييم مؤقتا. لكي يتم تضمينه في الترتيبات، يجب أن تكون هذه القيمة أقل من %2$s (الشطرنج القياسي) أو %3$s (المتغيرات).</string>
   <string name="totalGames">إجمالي المباريات</string>
   <string name="ratedGames">مباريات مقيّمة</string>
   <string name="tournamentGames">مباريات بطولة</string>

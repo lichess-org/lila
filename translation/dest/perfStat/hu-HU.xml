@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s statisztika</string>
   <string name="viewTheGames">Mutasd a játszmákat</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">becsült</string>
+  <string name="provisional">becsült</string>
   <string name="notEnoughRatedGames">Nincs elegendő értékelt játszmád megbízható értékszám meghatározásához.</string>
   <string name="progressOverLastXGames">Az utolsó %s játszma szerinti alakulás:</string>
   <string name="ratingDeviation">Pontszám eltérés: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Az alacsonyabb érték azt jelenti, hogy a minősítés stabilabb. %1$s feletti pontszám ideiglenesnek tekintendő. A ranglistán való szerepléshez ennek az értéknek %2$s (szokásos sakk) vagy %3$s (sakk változatok) alatt kell lennie.</string>
   <string name="totalGames">Összes játszma</string>
   <string name="ratedGames">Rangsorolt játszma</string>
   <string name="tournamentGames">Verseny játszma</string>

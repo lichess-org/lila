@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">أنت تلعب القطع البيضاء</string>
   <string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
   <string name="itsYourTurn">إنه دورك!</string>
+  <string name="cheatDetected">ثم تحديد حالة غش</string>
   <string name="kingInTheCenter">الملك في الوسط</string>
   <string name="threeChecks">كش ملك ثلاثا</string>
   <string name="raceFinished">نهاية السباق</string>
@@ -129,6 +130,30 @@
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
+  <plurals name="nbBlunders">
+    <item quantity="zero">%s غلطة</item>
+    <item quantity="one">%s غلطة</item>
+    <item quantity="two">%s غلطة</item>
+    <item quantity="few">%s غلطات</item>
+    <item quantity="many">%s غلطات</item>
+    <item quantity="other">%s غلطات</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="zero">%s خطأ</item>
+    <item quantity="one">%s خطأ</item>
+    <item quantity="two">%s أخطاء</item>
+    <item quantity="few">%s أخطاء</item>
+    <item quantity="many">%s أخطاء</item>
+    <item quantity="other">%s أخطاء</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="zero">%s غموض</item>
+    <item quantity="one">%s غموض</item>
+    <item quantity="two">%s غموض</item>
+    <item quantity="few">%s غموض</item>
+    <item quantity="many">%s غموض</item>
+    <item quantity="other">%s غموض</item>
+  </plurals>
   <string name="moveTimes">توقيت النقلات</string>
   <string name="flipBoard">تدوير الرقعة</string>
   <string name="threefoldRepetition">تكرار ثلاثي</string>
@@ -553,6 +578,7 @@
   <string name="firstName">الاسم الأول</string>
   <string name="lastName">اسم العائلة</string>
   <string name="biography">نبذة عنك</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">البلد أو المنطقة</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="socialMediaLinks">روابط وسائل التواصل الاجتماعي</string>
   <string name="inlineNotation">تنسيق التدوين</string>
@@ -578,6 +604,8 @@
   <string name="tournamentWinners">الفائزون بالبطولات</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
+  <string name="descPrivate">وصف خاص</string>
+  <string name="descPrivateHelp">هذا النص سيراه فقط أعضاء الفريق. في حالة ضبطه، سيحل محل الوصف العام لأعضاء الفريق.</string>
   <string name="no">لا</string>
   <string name="yes">نعم</string>
   <string name="help">مساعدة:</string>
@@ -598,6 +626,7 @@
   <string name="cheat">غش</string>
   <string name="insult">إهانة</string>
   <string name="troll">إزعاج</string>
+  <string name="ratingManipulation">تلاعب بالتقييم</string>
   <string name="other">أخرى</string>
   <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
@@ -977,4 +1006,23 @@
   <string name="youCannotPostYetPlaySomeGames">لا يمكنك النشر في المنتديات حتى الآن. إلعب بعض المباريات!</string>
   <string name="subscribe">اشترك</string>
   <string name="unsubscribe">إلغاء الإشتراك</string>
+  <string name="mentionedYouInX">ذكرك في \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s قد ذكرك في \"%2$s\".</string>
+  <string name="invitedYouToX">دعاك إلى \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s قد دعاك إلى \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">أنت الآن عضو في الفريق.</string>
+  <string name="youHaveJoinedTeamX">لقد انضممت إلى \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">شخص قد أبلغت عنه تم حظره</string>
+  <string name="congratsYouWon">تهانينا، لقد فزت!</string>
+  <string name="gameVsX">مباراة ضد %1$s</string>
+  <string name="resVsX">%1$s ضد %2$s</string>
+  <string name="youJustBecamePatron">لقد أصبحت للتو راعياً لـ Lichess.</string>
+  <string name="patronAccountExpired">انتهت صلاحية حساب رعايتك</string>
+  <string name="pleaseReconsiderRenewIt">أنظر في تجديده من فضلك!</string>
+  <string name="someoneReviewedYourCoachProfile">قام شخص ما بمراجعة ملفك للتدريب.</string>
+  <string name="newPendingReview">قيد الإطلاع</string>
+  <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة Lichess</string>
+  <string name="refundXpointsTimeControlY">استعادة: %1$s نقطة تقييم، تصنيف %2$s.</string>
+  <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>
+  <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
 </resources>

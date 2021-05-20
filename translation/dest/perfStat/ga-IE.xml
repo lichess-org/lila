@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s staitisticí</string>
   <string name="viewTheGames">Féach ar na cluichí</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">sealadach</string>
+  <string name="provisional">sealadach</string>
   <string name="notEnoughRatedGames">Níor imríodh go leor cluichí rátáilte chun rátáil iontaofa a bhunú.</string>
   <string name="progressOverLastXGames">Dul chun cinn le %s cluiche anuas:</string>
   <string name="ratingDeviation">Diall rátála. %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Ciallaíonn luach níos ísle go bhfuil an rátáil níos cobhsaí. Os cionn %1$s, meastar go bhfuil an rátáil sealadach. Le bheith san áireamh sna rangú, ba cheart go mbeadh an luach seo faoi bhun %2$s (ficheall caighdeánach) nó %3$s (leaganacha).</string>
   <string name="totalGames">Cluichí iomlána</string>
   <string name="ratedGames">Cluichí rátáilte</string>
   <string name="tournamentGames">Cluichí comórtais</string>

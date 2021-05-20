@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">Στατιστικά %s</string>
   <string name="viewTheGames">Προβολή παρτίδων</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">προσωρινή</string>
+  <string name="provisional">προσωρινή</string>
   <string name="notEnoughRatedGames">Δεν έχουν παιχτεί αρκετές βαθμολογημένες παρτίδες ώστε να υπάρξει έμπιστη βαθμολογία.</string>
   <string name="progressOverLastXGames">Εξέλιξη βάσει των τελευταίων %s παρτίδων:</string>
   <string name="ratingDeviation">Απόκλιση βαθμολογίας: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Χαμηλότερη τιμή σημαίνει ότι η βαθμολογία είναι πιο σταθερή. Βαθμολογίες πάνω από %1$s θεωρούνται προσωρινές. Για να συμπεριληφθείτε στην κατάταξη, η βαθμολογία σας πρέπει να είναι κάτω από %2$s (στο κανονικό σκάκι) ή %3$s (στις παραλλαγές).</string>
   <string name="totalGames">Σύνολο παρτίδων</string>
   <string name="ratedGames">Βαθμολογημένες παρτίδες</string>
   <string name="tournamentGames">Παρτίδες σε τουρνουά</string>

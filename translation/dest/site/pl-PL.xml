@@ -516,7 +516,7 @@
   <string name="firstName">Imię</string>
   <string name="lastName">Nazwisko</string>
   <string name="biography">O mnie</string>
-  <string name="countryOrFlag">Kraj lub flaga</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Kraj lub flaga</string>
   <string name="thankYou">Dziękujemy!</string>
   <string name="socialMediaLinks">Linki do mediów społecznościowych</string>
   <string name="inlineNotation">Notacja ciągła</string>

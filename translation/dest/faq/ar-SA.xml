@@ -7,6 +7,7 @@
   <string name="leechess">لي-تشس</string>
   <string name="hearItPronouncedBySpecialist">اسمع نطقها من أخصائي.</string>
   <string name="whyLiveLightLibre">مباشر، لأنها تلعب وتشاهد بالوقت الحقيقي 24\7؛خفيف وحر لأنها مفتوحة المصدر ولا تحتوي على القمامة المملوكة التي تعاني منها المواقع الأخرى.</string>
+  <string name="whyIsLilaCalledLila">وبالمثل، فإن الكود المصدر لــ Lichess، الذي هو %1$s، يرمز إلى li[chess in sca]la، نظرًا لأن الجزء الأكبر من Lichess مكتوب بلغة %2$s، وهي لغة برمجة بديهية.</string>
   <string name="howCanIContributeToLichess">كيف يمكنني المساهمة؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">يتلقى ليتشيس الدعم من التبرعات المقدمة من المستخدمين والجهود التي يبذلها فريق من المتطوعين.</string>
   <string name="findMoreAndSeeHowHelp">يمكنك معرفة المزيد عن %1$s (اضافة الى %2$s). اذا اردت مساعدة Lichess من خلال التطوع بوقتك وقدراتك، هناك %3$s.</string>
@@ -23,15 +24,40 @@
   <string name="leavingGameWithoutResigningExplanation">اذا كان خصمك يلغي/يغادر المباريات بشكل متكرر، يتم حظرهم من اللعب بشكل مؤقت. لايكون هذا معلنا على صفحاتهم الشخصية. واذا استمر هذا السلوك، فإن مدة الحظر تزيد - والسلوك المطول من هذا النوع قد يؤدي الى اغلاق الحساب.</string>
   <string name="howCanIBecomeModerator">كيف يمكنني أن أصبح مشرفاً؟</string>
   <string name="youCannotApply">ليس من الممكن التقدّم بطلب ان تكون مشرف. اذا رأينا شخصاً نعتقد انه سيكون جيداً كمشرف، سنقوم بالتواصل معهم مباشرة.</string>
+  <string name="isCorrespondenceDifferent">هل يختلف اللعب بالمراسلة عن لعبة الشطرنج العادية؟</string>
   <string name="youCanUseOpeningBookNoEngine">في Lichess ، يتمثل الاختلاف الرئيسي في قواعد لعبة الشطرنج بالمراسلة في أن الكتاب الافتتاحي مسموح به. لا يزال استخدام المحركات محظورًا وسيؤدي إلى وضع علامة للمساعدة في المحرك. على الرغم من أن ICCF تسمح باستخدام المحرك في المراسلات ، إلا أن Lichess لا تفعل ذلك.</string>
   <string name="gameplay">أسلوب اللعب</string>
   <string name="howBulletBlitzEtcDecided">كيف يتم تحديد بولييت، بليتز وغيرها من الضوابط الزمنية؟</string>
   <string name="basedOnGameDuration">تحكم وقت اللعبة مبني على المدة المقدرة للعبة = %1$s
 على سبيل المثال، المدة المقدرة للعبة 5+3 هي 5 × 60 + 40 × 3 = 420 ثانية.</string>
   <string name="durationFormula">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
+  <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
+  <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
+  <string name="eightVariants">8 متغيرات من شطرنج</string>
+  <string name="whatIsACPL">ما المقصود بمتوسط خسارة centipawn أو (ACPL)؟</string>
+  <string name="acplExplanation">الـ centipawn هي وحدة القياس المستخدمة في الشطرنج كتمثيل للأفضلية. ويساوي centipawn 1/100 من البيدق. لذلك فإن: 100 centipawn = بيدق واحد. ولا تلعب هذه القيم أي دور رسمي في اللعبة ولكنها مفيدة للاعبين وضرورية في لعبة الشطرنج الحاسوبي لتقييم المواقف.
+
+النقلة الأعلى للحاسوب لن تخسر أي centipawn، ولكن أي حركة أدنى ستؤدي إلى تدهور الوضع، والذي يتم قياسه بالـ centipawn.
+
+يمكن استخدام هذه القيمة كمؤشر على جودة اللعب. كلما قل عدد centipawn التي يخسرها الشخص في كل نقلة، زادت قوة اللعب.
+
+يستخدم  التحليل الحاسوبي لـ Lichess محرك Stockfish.</string>
+  <string name="insufficientMaterial">خسارة الوقت ،تعادل ومواد غير كافية</string>
+  <string name="fideHandbookX">دليل \"الاتحاد الدولي للشطرنج\" %s</string>
+  <string name="discoveringEnPassant">لماذا يمكنك أن يأكل بيدق الاخر عندما يكون قد سلك بالفعل؟ (الأخذ بالتجاوز)</string>
+  <string name="explainingEnPassant">إنها نقلة قانونية تُعرف باسم \"الأخذ بالتجاوز\". وتقدم ويكيبيديا مقالة %1$s:
+
+وهي موصوفة في القسم 3.7 (د) من %2$s:
+
+\"إذا كان البيدق يحتل مربعًا في نفس الرتبة وعلى الصف المجاور لبيدق الخصم الذي تقدم مربعين في نقلة واحدة من مربعه الأصلي فيصبح أكله ممكنا كما لو أن هذا الأخير قد تم نقله مربعًا واحدًا فقط. يكون بهذا الالتقاط قانونيا فقط في النقلة الموالية لهذا التقدم ويُطلق عليعا \"الأخذ بالتجاوز\".
+
+ألقِ نظرة على %3$s المتعلقة بهذه الحركة لمزيد من التدرب.</string>
+  <string name="goodIntroduction">مقدمة جيدة</string>
   <string name="officialRulesPDF">القواعد الرسمية (PDF)</string>
   <string name="lichessTraining">التدريب في Lichess</string>
+  <string name="threefoldRepetition">تكرار ثلاثي</string>
   <string name="threefoldRepetitionExplanation">إذا تكرر موقف ثلاث مرات يمكن للاعبين إقتراح تعادل ب- %1$s. ينفذ Lichess القواعد الرسمية للاتحاد الدولي للشطرنج، كما هو مبين في المادة 9-2 (د) من القرار %2$s.</string>
+  <string name="threefoldRepetitionLowerCase">تكرار ثلاثي</string>
   <string name="notRepeatedMoves">لماذا انتهت المباراة بالتعادل على الرغم من أننا لم نقم بتكرير النقلات؟</string>
   <string name="repeatedPositionsThatMatters">تكرار الوضعية ثلاثا عبارة عن تكرار %1$s وليس النقلات. لا تتطلب هذه القاعدة ظهور الوضعية ثلاثا بإعادة النقلات بشكل متتالي.</string>
   <string name="positions">الوضعية</string>
@@ -56,6 +82,8 @@
   <string name="whatUsernameCanIchoose">ماذا يمكن أن يكون اسم المستخدم الخاص بي؟</string>
   <string name="usernamesNotOffensive">عموما، لا ينبغي أن تكون أسماء المستخدمين: مهينة، أو تنتحل صفة شخص آخر، أو تقوم بالإعلان. يمكنك قراءة المزيد عن %1$s.</string>
   <string name="guidelines">الإرشادات</string>
+  <string name="canIChangeMyUsername">هل يمكنني تغيير اسم المستخدم الخاص بي؟</string>
+  <string name="usernamesCannotBeChanged">كلا، لا يمكن تغيير أسماء المستخدمين لأسباب فنية وعملية. إذ تنتشر وتتوزع أسماء المستخدمين في أماكن كثيرة جدًا منها: قواعد البيانات، والصادرات، والسجلات وذاكرة الناس. يمكنك ضبط الأحرف الكبيرة مرة واحدة.</string>
   <string name="uniqueTrophies">كؤوس فريدة</string>
   <string name="ownerUniqueTrophies">هذه الكأس فريدة من نوعها في تاريخ ليشس، لن يحصل عليها أحد سوى %1$s.</string>
   <string name="wayOfBerserkExplanation">من أجل الحصول على هذا اللقب، تحدى hiimgosu نفسه وقام بالمخاطرة والفوز بـ 100%% من مباريات %s.</string>
@@ -63,9 +91,19 @@
   <string name="goldenZeeExplanation">حاول ZugAddict هزيمة المستوى 8 من ستوكفيش لساعتين متواصلتين بينما كان يقوم بالبث في مباراة 1+0 لكن لم يحالفه الحظ في النجاح. أخبره Thibault أنه إذا نجح في القيام بذلك أثناء البث فسوف يحصل على كأس فريد. بعد ذلك بساعة، قام بهزم المحرك هزيمة نكراء وتم الوفاء بالوعد.</string>
   <string name="lichessRatings">تقييمات Lichess</string>
   <string name="whichRatingSystemUsedByLichess">ما هو نظام التقييم الذي يستخدمه ليشيس؟</string>
+  <string name="whatIsProvisionalRating">ماذا يعني وجود علامة الاستفهام (؟) بجوار التصنيف؟</string>
   <string name="provisionalRatingExplanation">علامة الاستفهام تعني أن التقييم مؤقت. الأسباب تشمل:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">اللاعب لم يكمل بعد مباريات مصنفة كافية مقابل %1$s في فئة التصنيف.</string>
+  <string name="similarOpponents">خصوم من نفس القوة</string>
+  <string name="notPlayedRecently">لم يلعب اللاعب مباريات كافية مؤخرًا. واعتمادًا على عدد الألعاب التي لعبتها، قد يستغرق الأمر حوالي عام من عدم النشاط حتى يصبح تصنيفك مرة أخرى \"مؤقتًا\".</string>
+  <string name="ratingDeviationMorethanOneHundredTen">وعلى وجه التحديد، فإن هذا يعني أن فارق Glicko-2 يبلغ أكثر من 110. والفارق هو مستوى الثقة الذي يتمتع بها النظام في التصنيف. فكلما كان الفارق أصغر، كان التصنيف أكثر استقرارًا.</string>
+  <string name="howDoLeaderoardsWork">كيف تعمل التقييمات وقائمة المتصدرين؟</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">لعبت مباراة مصنفة خلال الأسبوع الماضي لهذا التصنيف،</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">لديك فرق تصنيف أقل من %1$s، في الشطرنج القياسي، وأقل من %2$s في المتغيرات،</string>
   <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">الشرط الثاني هو أن يتوقف اللاعبون الذين لم يعودوا يستخدمون حساباتهم عن الظهور في قائمة المتصدرين.</string>
+  <string name="whyAreRatingHigher">لماذا التقييمات أعلى مقارنة بباقي المواقع و المنظمات مثل الـ USCF ،FIDE و ICC ؟</string>
+  <string name="howToHideRatingWhilePlaying">كيف أخفي التصنيفات أثناء اللعب؟</string>
   <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
   <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
   <string name="howToThreeDots">كيف يمكنني أن...</string>

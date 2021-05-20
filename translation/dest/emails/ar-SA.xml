@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">أكد حسابك على lichess.org ، %s</string>
-  <string name="emailConfirm_click">انقر على الرابط لتفعيل الحساب الخاص بك على Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">انقر على الرابط لتفعيل الحساب الخاص بك على Lichess:</string>
   <string name="emailConfirm_ignore">إذا لم تسجل في Lichess بامكانك تجاهل هذه الرسالة.</string>
   <string name="passwordReset_subject">إعادة تعيين كلمة المرور الخاصة بك على lichess، %s</string>
   <string name="passwordReset_intro">لقد تلقينا طلبا لإعادة تعيين كلمة المرور للحساب الخاص بك.</string>
-  <string name="passwordReset_clickOrIgnore">إذا قمت بهذا الطلب، انقر على الرابط أدناه. إذا لم يتم، يمكنك تجاهل هذا البريد الإلكتروني.</string>
+  <string name="passwordReset_clickOrIgnore">إذا قمت بهذا الطلب، انقر فوق الرابط أدناه. إذا لم يكن الأمر كذلك، يمكنك تجاهل هذا البريد الإلكتروني.</string>
   <string name="emailChange_subject">أكد عنوان بريدك الإلكتروني الجديد، %s</string>
   <string name="emailChange_intro">لقد طلبت تغيير عنوان بريدك الإلكتروني.</string>
   <string name="emailChange_click">للتأكد من أن لديك حق الوصول إلى هذا البريد الإلكتروني، الرجاء انقر فوق الرابط الموجود أدناه:</string>

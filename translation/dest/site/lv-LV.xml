@@ -485,7 +485,7 @@
   <string name="firstName">Vārds</string>
   <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
-  <string name="countryOrFlag">Valsts vai karogs</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Valsts vai karogs</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="inlineNotation">Iekļautā notācija</string>

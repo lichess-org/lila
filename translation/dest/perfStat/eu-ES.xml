@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s estatistikak</string>
   <string name="viewTheGames">Partidak ikusi</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">behin-behinekoa</string>
+  <string name="provisional">behin-behinekoa</string>
   <string name="notEnoughRatedGames">Ez duzu puntuaziorako balio duten behar adina partida jokatu.</string>
   <string name="progressOverLastXGames">Azken %s partidetako aurrerapena:</string>
   <string name="ratingDeviation">Puntuazioaren desbideraketa: %s.</string>
+  <string name="ratingDeviationTooltip">Balio baxuagoak puntuazioa egonkorragoa dela esan nahi du. %1$stik gorako balioak puntuazioa behin-behinekoa dela esan nahi du. Sailkapenetan agertzeko, balio hori %2$s baino baxuagoa (xake estandarrean) eta %3$s baino baxuagoa (aldaeretan) izan behar da.</string>
   <string name="totalGames">Partida kopurua</string>
   <string name="ratedGames">Puntuaziorako balio duten partidak</string>
   <string name="tournamentGames">Txapelketetako partidak</string>

@@ -19,6 +19,7 @@
   <string name="lifetimePatron">راعي Lichess مدة الحياة</string>
   <string name="makeExtraDonation">تقديم تبرع اضافي؟</string>
   <string name="monthly">شهرياً</string>
+  <string name="recurringBilling">تبرعات منتظمة، تجديد أجنحة الراعية الخاص بك كل شهر.</string>
   <string name="onetime">مرة واحدة</string>
   <string name="singleDonation">تبرع واحد يمنحك اجنحة الراعي لمدة شهر واحد.</string>
   <string name="otherAmount">أخرى</string>
@@ -26,6 +27,7 @@
   <string name="withCreditCard">بطاقة ائتمان</string>
   <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
+  <string name="celebratedPatrons">الرعاة المتميزون والذين بفضلهم ما زالت Lichess قائمة</string>
   <string name="whereMoneyGoes">أين يذهب المال؟</string>
   <string name="serversAndDeveloper">أولاً وقبل كل شيء، خوادم قوية.
 ثم ندفع لمطور دائم : %s ، مؤسس Lichess
@@ -60,6 +62,10 @@
   <string name="paymentHistory">سجل الدفع</string>
   <string name="paid">تم الدفع</string>
   <string name="viewOthers">مشاهدة رعاة آخرين</string>
+  <string name="date">تاريخ</string>
+  <string name="amount">المجموع</string>
+  <string name="transactionCompleted">لقد اكتملت معاملتك، وإيصال للتبرع قد أرسل إليك عبر البريد الإلكتروني.</string>
+  <string name="permanentPatron">لديك الآن حساب راعي دائم.</string>
   <string name="checkOutProfile">تحقق من الصفحة الشخصية الخاصة بك!</string>
   <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>

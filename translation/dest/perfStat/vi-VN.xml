@@ -2,7 +2,7 @@
 <resources>
   <string name="perfStats">Thống kê %s</string>
   <string name="viewTheGames">Xem các ván cờ</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">tạm thời</string>
+  <string name="provisional">tạm thời</string>
   <string name="notEnoughRatedGames">Không có đủ trò chơi được xếp hạng đã được chơi để thiết lập một xếp hạng đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ trước đây:</string>
   <string name="ratingDeviation">Độ lệch xếp hạng:%s.</string>

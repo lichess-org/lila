@@ -238,7 +238,7 @@
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
   <string name="cancel">ביטול</string>
-  <string name="whiteTimeOut">נגמר לך הזמן, שחקן לבן</string>
+  <string name="whiteTimeOut">נגמר הזמן ללבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
   <string name="drawOfferDeclined">הצעת התיקו נדחתה</string>

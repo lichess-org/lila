@@ -454,6 +454,7 @@
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya Bayrak</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="socialMediaLinks">Sosyal medya bağlantıları</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">Yazdırılabilir PDF</string>
   <string name="crosstable">Çapraz Tablo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Bilgisayar varyantlarını görebilmek için yukarı kaydır.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>

@@ -2,10 +2,11 @@
 <resources>
   <string name="perfStats">%s statistik</string>
   <string name="viewTheGames">Se partierne</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">provisorisk</string>
+  <string name="provisional">provisorisk</string>
   <string name="notEnoughRatedGames">Der er ikke spillet nok ratede partier til at fastlægge en pålidelig rating.</string>
   <string name="progressOverLastXGames">Udvikling over de sidste %s partier:</string>
   <string name="ratingDeviation">Rating afvigelse: %s.</string>
+  <string name="ratingDeviationTooltip">Lavere værdi betyder, at ratingen er mere stabil. Over %1$s anses ratingen for foreløbig. For at blive inkluderet i rangeringen skal denne værdi være under %2$s (standard skak) eller %3$s (varianter).</string>
   <string name="totalGames">Alle partier</string>
   <string name="ratedGames">Ratede partier</string>
   <string name="tournamentGames">Turneringspartier</string>
