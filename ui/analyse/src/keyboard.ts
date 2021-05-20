@@ -87,15 +87,8 @@ export const bind = (ctrl: AnalyseCtrl) => {
     keyToMousedown('g', '.study__buttons .glyphs');
 
     // navigation for next and prev chapters
-    const study = ctrl.study;
-    ['n', 'p'].forEach(key =>
-      kbd.bind(key, () => {
-        const chapters = study.chapters.list();
-        const i = chapters.findIndex(ch => ch.id === study.vm.chapterId);
-        const chapter = chapters[i + (key === 'n' ? 1 : -1)];
-        if (chapter) study.setChapter(chapter.id);
-      })
-    );
+    kbd.bind('p', ctrl.study.goToPrevChapter);
+    kbd.bind('n', ctrl.study.goToNextChapter);
   }
 };
 
