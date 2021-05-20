@@ -3,4 +3,6 @@
   <string name="settings">Көйләүләр</string>
   <string name="closeAccount">Һисапны ябыш</string>
   <string name="closingIsDefinitive">Ябыш анык. Артка кайтыш юк. Ошануыгыз камилме?</string>
+  <string name="cantOpenSimilarAccount">Һәттә очрак башкача булса һәм сезгә бер хил исемдәге яңа һисап ачырга рөхсәт бирелмиде.</string>
+  <string name="thisAccountIsClosed">Ошбу һисап ябылган.</string>
 </resources>
