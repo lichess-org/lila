@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
-  <string name="mentionedYouInX"> nævnte dig i \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s nævnte dig i \"%2$s\".</string>
-  <string name="invitedYouToX"> inviterede dig til \"%1$s\".</string>
+  <string name="mentionedYouInX">nævnte dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s nævnte dig i \"%2$s\".</string>
+  <string name="invitedYouToX">inviterede dig til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
