@@ -33,13 +33,18 @@ export default class PuzzleStreak {
 
   onComplete = (win: boolean, current?: Current) => {
     if (win) {
-      this.data.index++;
-      if (current)
-        this.data.current = {
-          puzzle: current.puzzle,
-          game: current.game,
-        };
-      this.store(this.data);
+      if (this.nextId()) {
+        this.data.index++;
+        if (current)
+          this.data.current = {
+            puzzle: current.puzzle,
+            game: current.game,
+          };
+        this.store(this.data);
+      } else {
+        this.store(null);
+        lichess.reload();
+      }
     } else {
       this.fail = true;
       this.store(null);
