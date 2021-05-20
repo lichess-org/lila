@@ -113,6 +113,7 @@ interface SoundI {
   changeSet(s: string): void;
   say(text: any, cut?: boolean, force?: boolean): boolean;
   sayOrPlay(name: string, text: string): void;
+  preloadBoardSounds(): void;
   soundSet: string;
   baseUrl: string;
 }

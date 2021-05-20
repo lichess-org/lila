@@ -5,7 +5,7 @@ import { storage } from './storage';
 type Name = string;
 type Path = string;
 
-const sound = new (class {
+const sound: SoundI = new (class {
   sounds = new Map<Name, any>(); // The loaded sounds and their instances
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
