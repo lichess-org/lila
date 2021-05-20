@@ -25,7 +25,7 @@ const elementId = 'analyse-cm';
 
 function getPosition(e: MouseEvent | TouchEvent): Coords | null {
   let pos = e as PageOrClientPos;
-  if (e instanceof TouchEvent && e.touches.length > 0) pos = e.touches[0];
+  if ("touches" in e && e.touches.length > 0) pos = e.touches[0];
   if (pos.pageX || pos.pageY)
     return {
       x: pos.pageX!,
