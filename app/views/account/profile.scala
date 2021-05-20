@@ -10,7 +10,7 @@ import controllers.routes
 object profile {
 
   private val linksHelp = frag(
-    "Twitter, Facebook, GitHub, Chess.com, ...",
+    "Twitter, Facebook, GitHub, 81dojo.com, ...",
     br,
     "One URL per line."
   )
