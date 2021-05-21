@@ -77,7 +77,7 @@ object side {
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
-      dataIcon := '~',
+      dataIcon := '.',
       cls := List(
         "empty" -> !storm.nonEmpty
       ),

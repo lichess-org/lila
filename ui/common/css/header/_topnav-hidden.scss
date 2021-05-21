@@ -148,7 +148,8 @@
      * has no width, and that menu is mainly for mobile. */
     // padding-right: 15px;
   }
-  #topnav section.new-feature > a {
+  .new-feature {
+    position: relative;
     &:after {
       content: 'NEW';
       font-size: 0.7rem;

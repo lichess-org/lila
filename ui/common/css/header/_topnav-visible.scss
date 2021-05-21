@@ -80,7 +80,8 @@
       }
     }
   }
-  #topnav section.new-feature > a {
+  .new-feature {
+    position: relative;
     &:after {
       content: 'NEW';
       font-size: 0.7rem;
@@ -88,8 +89,8 @@
       position: absolute;
       color: #d64f00;
       font-weight: bold;
-      top: -10px;
-      right: 0;
+      top: 5px;
+      right: 5px;
     }
   }
 }

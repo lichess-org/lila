@@ -39,7 +39,7 @@ object topnav {
           a(href := routes.Puzzle.home)(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
           a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume()),
-          a(href := routes.Storm.home)("Tsume Storm"),
+          a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm"),
         )
       ),
       st.section(
@@ -52,7 +52,7 @@ object topnav {
             a(href := routes.Coordinate.home())(trans.coordinates.coordinates())
           ),
           a(href := routes.Study.allDefault(1))(trans.studyMenu()),
-          ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
+          //ctx.noKid option a(href := routes.Coach.all(1))(trans.coaches()),
           canSeeClasMenu option a(href := routes.Clas.index())(trans.clas.lishogiClasses())
         )
       ),
