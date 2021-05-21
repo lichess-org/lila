@@ -65,8 +65,8 @@ export function cancel(ctrl: AnalyseCtrl): void {
 function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: Color, orientation: Color): MaybeVNode {
   if (!promoting) return;
 
-  let left = (8 - util.key2pos(dest)[0]) * 11.11 - util.key2pos(dest)[0] * 0.04;
-  if (orientation === 'sente') left = util.key2pos(dest)[0] * 11.11 - util.key2pos(dest)[0] * 0.04;
+  let left = (8 - util.key2pos(dest)[0]) * (100/9);
+  if (orientation === 'sente') left = util.key2pos(dest)[0] * (100/9);
 
   const vertical = color === orientation ? 'top' : 'bottom';
 
@@ -79,13 +79,13 @@ function renderPromotion(ctrl: AnalyseCtrl, dest: Key, pieces: string[], color: 
       }),
     },
     pieces.map(function (serverRole: Role, i) {
-      let top = (i + util.key2pos(dest)[1]) * 11.11 + 0.3;
-      if (orientation === 'sente') top = (9 - (i + util.key2pos(dest)[1])) * 11.11 + 0.35;
+      let top = (i + util.key2pos(dest)[1]) * (100/9);
+      if (orientation === 'sente') top = (9 - (i + util.key2pos(dest)[1])) * (100/9);
       return h(
         'square',
         {
           attrs: {
-            style: `top:${top}%;left:${left}%;display:table;`,
+            style: `top:${top}%;left:${left}%;`,
           },
           hook: bind('click', e => {
             e.stopPropagation();

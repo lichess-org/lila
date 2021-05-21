@@ -126,8 +126,8 @@ function renderPromotion(
   color: Color,
   orientation: Color
 ): MaybeVNode {
-  var left = (8 - key2pos(dest)[0]) * 11.11 - key2pos(dest)[0] * 0.04;
-  if (orientation === 'sente') left = key2pos(dest)[0] * 11.11 - key2pos(dest)[0] * 0.04;
+  var left = (8 - key2pos(dest)[0]) * (100/9);
+  if (orientation === 'sente') left = key2pos(dest)[0] * (100/9);
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return h(
@@ -142,8 +142,8 @@ function renderPromotion(
       }),
     },
     roles.map((serverRole, i) => {
-      var top = (i + key2pos(dest)[1]) * 11.11 + 0.3;
-      if (orientation === 'sente') top = (9 - (i + key2pos(dest)[1])) * 11.11 + 0.35;
+      var top = (i + key2pos(dest)[1]) * (100/9);
+      if (orientation === 'sente') top = (9 - (i + key2pos(dest)[1])) * (100/9);
       return h(
         'square',
         {

@@ -35,15 +35,15 @@ function finish(role) {
 function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   if (!promoting) return;
 
-  var left = (9 - key2pos(dest)[0]) * 11.11 + 0.29;
-  if (orientation === 'sente') left = (key2pos(dest)[0] - 1) * 11.11 - 0.29;
+  var left = (9 - key2pos(dest)[0]) * (100/9);
+  if (orientation === 'sente') left = (key2pos(dest)[0] - 1) * (100/9);
 
   var vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion-choice.' + vertical, [
     pieces.map(function (serverRole, i) {
-      var top = (i + key2pos(dest)[1]) * 11.11 - 0.29;
-      if (orientation === 'sente') top = (i + 9 - key2pos(dest)[1]) * 11.11 + 0.29;
+      var top = (i + key2pos(dest)[1]) * (100/9);
+      if (orientation === 'sente') top = (i + 9 - key2pos(dest)[1]) * (100/9);
       return m(
         'square',
         {
