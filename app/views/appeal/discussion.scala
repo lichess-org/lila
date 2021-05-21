@@ -84,7 +84,7 @@ object discussion {
           "Appeal",
           modData.isDefined option frag(" by ", userIdLink(appeal.id.some))
         ),
-        div(cls := "actions")(
+        modData.isDefined option div(cls := "actions")(
           a(
             cls := "button button-empty mod-zone-toggle",
             href := routes.User.mod(appeal.id),
