@@ -70,6 +70,7 @@
   .player {
     display: flex;
     align-items: center;
+    justify-content: center;
   }
 
   .no-square {
@@ -144,9 +145,7 @@
 
   height: $col3-uniboard-controls;
   margin: $block-gap 0;
-  //margin-top: #{-$block-gap};
 
-  // height: calc(#{$puzzle-history-height} + #{$block-gap});
   .jumps {
     flex: 1 1 auto;
   }

@@ -22,27 +22,12 @@ function viewSolution(ctrl: Controller): VNode {
   );
 }
 
-function tsumeHint(ctrl: Controller, prefix: string = ' - '): string {
-  const tl = ctrl.tsumeLength() > 0 ? (ctrl.tsumeLength() - 1) | 1 : 0;
-  switch (tl) {
-    case 0:
-      return '';
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-      return prefix + ctrl.trans.noarg('mateIn' + tl);
-    default:
-      return prefix + ctrl.trans.noarg('mateIn9');
-  }
-}
-
 function initial(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.no-square', h('div.color-piece.' + ctrl.vm.pov)),
       h('div.instruction', [
-        h('strong', [ctrl.trans.noarg('yourTurn'), tsumeHint(ctrl)]),
+        h('strong', ctrl.trans.noarg('yourTurn')),
         h('em', ctrl.trans.noarg(ctrl.vm.pov === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),
       ]),
     ]),
@@ -56,7 +41,7 @@ function good(ctrl: Controller): VNode {
       h('div.icon', '✓'),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('bestMove')),
-        h('em', [ctrl.trans.noarg('keepGoing'), tsumeHint(ctrl, ' ')]),
+        h('em', ctrl.trans.noarg('keepGoing')),
       ]),
     ]),
     viewSolution(ctrl),
@@ -69,7 +54,7 @@ function fail(ctrl: Controller): VNode {
       h('div.icon', '✗'),
       h('div.instruction', [
         h('strong', ctrl.trans.noarg('notTheMove')),
-        h('em', [ctrl.trans.noarg('trySomethingElse'), tsumeHint(ctrl, ' ')]),
+        h('em', ctrl.trans.noarg('trySomethingElse')),
       ]),
     ]),
     viewSolution(ctrl),
