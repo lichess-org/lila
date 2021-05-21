@@ -109,6 +109,7 @@ $c-slider: $c-setup;
     justify-content: center;
     margin: 1em auto;
     text-align: center;
+    position: relative;
     &__button {
       margin: 0 0.5em;
       width: 64px;
@@ -150,5 +151,11 @@ $c-slider: $c-setup;
       height: 85px;
       margin: 10px auto 20px auto;
     }
+  }
+  .submit-error-message {
+    position: absolute;
+    top: 25%;
+    font-size: 1.5rem;
+    z-index: 2;
   }
 }

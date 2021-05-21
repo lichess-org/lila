@@ -147,7 +147,8 @@ object forms {
                       value := key
                     )(i)
                   }
-                }
+                },
+                div(cls := "submit-error-message")
               )
           )
         },

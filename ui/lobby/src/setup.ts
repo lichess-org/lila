@@ -152,6 +152,7 @@ export default class Setup {
       $ratings = $modal.find('.ratings > div'),
       randomColorVariants = $form.data('random-color-variants').split(','),
       $submits = $form.find('.color-submits__button'),
+      $submitsError = $form.find('.submit-error-message'),
       toggleButtons = function () {
         const variantId = $variantSelect.val(),
           timeMode = $timeModeSelect.val(),
@@ -163,11 +164,11 @@ export default class Setup {
           // no rated variants with less than 30s on the clock
           cantBeRated =
             (typ === 'hook' && timeMode === '0') ||
-            ((timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
+            (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
             (variantId != '1' && timeMode != '1') ||
-            (timeMode == '1' && variantId != '1' && limit < 0.5 && byo == 0) ||
+            (timeMode == '1' && variantId != '1' && limit < 0.5 && byo < 3) ||
             (timeMode == '1' && inc > 0 && byo > 0) ||
-            (timeMode == '1' && byo > 0 && per > 1));
+            (timeMode == '1' && byo > 0 && per > 1);
         if (cantBeRated && rated) {
           $casual.click();
           return toggleButtons();
@@ -175,11 +176,15 @@ export default class Setup {
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
         const timeOk = timeMode != '1' || ((limit > 0 || inc > 0 || byo > 0) && (byo || per == 1)),
           ratedOk = typ != 'hook' || !rated || timeMode != '0',
-          aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
+          aiOk = typ != 'ai' || variantId != '3' || (limit >= 1 || byo >= 10 || inc >= 5);
         if (timeOk && ratedOk && aiOk) {
           $submits.toggleClass('nope', false);
+          $submitsError.html('');
           $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
-        } else $submits.toggleClass('nope', true);
+        } else {
+          $submits.toggleClass('nope', true);
+          $submitsError.html('Invalid time control!');
+        }
 
         if (byo > 0) $('.periods').show();
         else $('.periods').hide();
@@ -414,12 +419,14 @@ export default class Setup {
               );
             });
             $submits.removeClass('nope');
+            $submitsError.html('');
             li.pubsub.emit('content_loaded');
           },
           error: function () {
             $fenInput.addClass('failure');
             $fenPosition.find('.preview').html('');
             $submits.addClass('nope');
+            $submitsError.html('Invalid sfen!');
           },
         });
       }
