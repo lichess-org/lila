@@ -33,7 +33,7 @@ const sound: SoundI = new (class {
   };
 
   preloadBoardSounds() {
-    if (this.soundSet !== 'music') ['move', 'capture', 'check'].forEach(s => this.loadStandard(s));
+    if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
   }
 
   play(name: string, volume?: number) {
