@@ -15,9 +15,6 @@ $pocket-col1-height: auto;
   &-bottom {
     grid-area: pocket-bot;
   }
-  &-c1 {
-    max-width: $square-max;
-  }
 }
 
 .puzzle {
@@ -67,7 +64,7 @@ $pocket-col1-height: auto;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
-    grid-template-rows: $pocket-col2-height auto $pocket-col2-height;
+    grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
       'board   gauge pocket-top'
       'board   gauge tools'
@@ -90,6 +87,8 @@ $pocket-col1-height: auto;
     grid-template-columns:
       $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap)
       $col3-uniboard-table;
+      grid-template-rows: min-content 1fr min-content;
+    
   }
 
   &__side {

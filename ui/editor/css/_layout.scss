@@ -19,11 +19,12 @@
 
   @include breakpoint($mq-x-small) {
     grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, calc(#{$square-min} * 7));
-    grid-template-rows: min-content 1fr min-content;
     grid-template-areas:
       'spare-top    . pocket-top'
       'spare-top    . tools'
+      '.            . tools'
       'board        . tools'
+      '.            . tools'
       'spare-bottom . tools'
       'spare-bottom . pocket-bot'
       '.            . .    '
