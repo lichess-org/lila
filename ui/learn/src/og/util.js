@@ -77,7 +77,7 @@ function isTrident() {
 }
 
 function translate(pos) {
-  return 'translate(' + pos[0] + 'px,' + pos[1] + 'px)';
+  return 'translate(' + pos[0] + 'px,' + pos[1] + 'px) scale(0.5)';
 }
 
 function eventPosition(e) {

@@ -28,8 +28,9 @@
   }
   piece {
     display: block;
-    width: 100% !important;
-    height: 100% !important;
+    width: 200% !important;
+    height: 200% !important;
+    margin: -50%;
     @include transition();
     &::after {
       @extend %active, %box-radius;
@@ -40,7 +41,7 @@
       line-height: 0.9em;
       padding: 3px 0.3em;
       font-weight: bold;
-      font-size: 1.1em;
+      font-size: 2.1em;
     }
     &[data-nb='0'] {
       cursor: auto;

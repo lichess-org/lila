@@ -58,6 +58,7 @@
     cursor: pointer;
     width: 100%;
     height: 100%;
+    transform: scale(1);
     .is3d & {
       /* original size: width: 140.625%; height: 179.6875%; size on 3D board, with height/width = 90.78571% */
       width: 100%;

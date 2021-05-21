@@ -219,8 +219,9 @@ function renderPiece(pos: cg.Pos, piece: DrawShapePiece, bounds: ClientRect): SV
     height: size,
   });
   let pieceEl = createEl('piece', `${piece.color} ${piece.role}`);
-  pieceEl.style.width = '100%';
-  pieceEl.style.height = '100%';
+  pieceEl.style.width = '200%';
+  pieceEl.style.height = '200%';
+  pieceEl.style.margin = '-50%';
   el.append(pieceEl);
   return el;
 }

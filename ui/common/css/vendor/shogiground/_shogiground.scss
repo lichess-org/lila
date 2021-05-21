@@ -13,8 +13,10 @@ cg-board {
 }
 square {
   position: absolute;
-  width: calc(100% / 9);
-  height: calc(100% / 9);
+  width: calc(200% / 9);
+  height: calc(200% / 9);
+  margin: calc(-50% / 9);
+  transform: scale(0.5);
   pointer-events: none;
   &.move-dest {
     background: radial-gradient(rgba(20, 85, 30, 0.5) 19%, rgba(0, 0, 0, 0) 20%);
@@ -68,11 +70,12 @@ piece {
   position: absolute;
   top: 0;
   left: 0;
-  width: calc(100% / 9);
-  height: calc(100% / 9);
+  width: calc(200% / 9);
+  height: calc(200% / 9);
+  margin: calc(-50% / 9);
+  transform: scale(0.5);
   background-size: cover;
   z-index: z('cg__piece');
-  will-change: transform;
   pointer-events: none;
   &.dragging {
     cursor: move;
@@ -94,7 +97,6 @@ cg-helper {
   position: absolute;
   width: calc(100% / 9);
   padding-bottom: calc(100% / 9);
-  display: table; /* hack: round to full pixel size in chrome */
   bottom: 0;
 }
 
