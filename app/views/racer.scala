@@ -80,7 +80,8 @@ object racer {
       trans.toInviteSomeoneToPlayGiveThisUrl,
       s.skip,
       s.skipHelp,
-      s.skipExplanation
+      s.skipExplanation,
+      trans.flipBoard
     ).map(_.key)
   }
 }

@@ -243,7 +243,7 @@ export function config(ctrl: Controller): MaybeVNode {
         )
       : null,
     h(
-      'a.puzzle__side__config__zen',
+      'a.puzzle__side__config__zen.button.button-empty',
       {
         hook: bind('click', () => lichess.pubsub.emit('zen')),
         attrs: {
@@ -251,6 +251,16 @@ export function config(ctrl: Controller): MaybeVNode {
         },
       },
       ctrl.trans.noarg('zenMode')
+    ),
+    h(
+      'a.puzzle__side__config__flip.button.button-empty',
+      {
+        hook: bind('click', ctrl.flip),
+        attrs: {
+          title: 'Keyboard: f',
+        },
+      },
+      ctrl.trans.noarg('flipBoard')
     ),
   ]);
 }

@@ -126,6 +126,11 @@
       display: inline-block;
       margin-top: 2vmin;
     }
+
+    &__flip {
+      float: right;
+      margin-top: 2vmin;
+    }
   }
 
   &__replay {
