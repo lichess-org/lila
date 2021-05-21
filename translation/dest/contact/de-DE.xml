@@ -71,5 +71,5 @@
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
   <string name="noneOfTheAbove">Keines der oben genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
-  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
+  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information, die uns helfen könnte, Dir zu helfen.</string>
 </resources>
