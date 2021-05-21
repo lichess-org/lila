@@ -29,7 +29,7 @@ case class Activity(
   def interval = new Interval(date, date plusDays 1)
 
   def isEmpty =
-    !stream && List(games, posts, puzzles, learn, practice, simuls, corres, patron, follows, studies, teams)
+    !stream && List(games, posts, puzzles, storm, learn, practice, simuls, corres, patron, follows, studies, teams)
       .forall(_.isEmpty)
 }
 
