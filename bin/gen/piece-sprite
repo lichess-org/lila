@@ -109,6 +109,9 @@ themes.map { |theme|
       end
     }
   }.flatten
+  if ext == 'png'
+    classes.append("piece{ will-change: transform; }")
+  end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
