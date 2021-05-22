@@ -184,10 +184,6 @@ module.exports = function (cfg) {
           lineWidth: 15,
         },
       },
-      // drawable SVG pieces, used for crazyhouse drop
-      pieces: {
-        baseUrl: 'piece/cburnett/',
-      },
       notation: 0,
     },
   };

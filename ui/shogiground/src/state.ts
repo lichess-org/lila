@@ -181,9 +181,6 @@ export function defaults(): Partial<State> {
           lineWidth: 15,
         },
       },
-      pieces: {
-        baseUrl: 'https://lishogi1.org/assets/piece/cburnett/',
-      },
       prevSvgHash: '',
     },
     hold: timer(),
