@@ -68,12 +68,13 @@ const sound = new (class {
     return this.speechStorage.get();
   };
 
-  say = (text: any, cut = false, force = false) => {
-    if (!this.speechStorage.get() && !force) return false;
-    const msg = text.text ? (text as SpeechSynthesisUtterance) : new SpeechSynthesisUtterance(text);
-    msg.volume = this.getVolume();
-    msg.lang = 'en-US';
+  say = (text: string, cut = false, force = false, translated = false) => {
     if (cut) speechSynthesis.cancel();
+    if (!this.speechStorage.get() && !force) return false;
+
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.volume = this.getVolume();
+    msg.lang = translated ? document.documentElement!.lang : 'en-US';
     speechSynthesis.speak(msg);
     return true;
   };

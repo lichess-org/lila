@@ -13,12 +13,12 @@ const onSpeechChange = (ctrl: RoundController) => (enabled: boolean) => {
 };
 
 export const status = (ctrl: RoundController) => {
-  const s = viewStatus(ctrl);
-  if (s == 'playingRightNow') window.LichessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
+  if (ctrl.data.game.status.name === 'started') window.LichessSpeech!.step(ctrl.stepAt(ctrl.ply), false);
   else {
-    withSpeech(speech => speech.say(s, false));
+    const s = viewStatus(ctrl);
+    lichess.sound.say(s, false, false, true);
     const w = ctrl.data.game.winner;
-    if (w) withSpeech(speech => speech.say(ctrl.noarg(w + 'IsVictorious'), false));
+    if (w) lichess.sound.say(ctrl.noarg(w + 'IsVictorious'), false, false, true);
   }
 };
 
