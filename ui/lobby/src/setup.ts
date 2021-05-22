@@ -148,29 +148,30 @@ export default class Setup {
       toggleButtons = () => {
         const variantId = $variantSelect.val(),
           timeMode = $timeModeSelect.val(),
-          rated = $rated.prop('checked'),
           limit = parseFloat($timeInput.val() as string),
           inc = parseFloat($incrementInput.val() as string),
           // no rated variants with less than 30s on the clock and no rated unlimited in the lobby
           cantBeRated =
             (typ === 'hook' && timeMode === '0') ||
             (variantId != '1' && (timeMode != '1' || (limit < 0.5 && inc == 0) || (limit == 0 && inc < 2)));
+        let rated = $rated.prop('checked');
         if (cantBeRated && rated) {
-          $casual.trigger('click');
-          return toggleButtons();
+          $casual.prop('checked', true);
+          save();
+          rated = false;
         }
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
         const timeOk = timeMode != '1' || limit > 0 || inc > 0,
-          ratedOk = typ != 'hook' || !rated || timeMode != '0',
-          aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
-        if (timeOk && ratedOk && aiOk) {
-          $submits.toggleClass('nope', false);
-          $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
-        } else $submits.toggleClass('nope', true);
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || timeMode != '1';
+        const disable = ($e: Cash, d: boolean) => $e.prop('disabled', d).toggleClass('disabled', d);
+        if (timeOk && aiOk) {
+          disable($submits, false);
+          if (rated && randomColorVariants.includes(variantId)) {
+            disable($submits.filter(':not(.random)'), true);
+          }
+        } else disable($submits, true);
       },
-      save = function () {
-        self.save($form[0] as HTMLFormElement);
-      };
+      save = () => this.save($form[0] as HTMLFormElement);
 
     const c = this.stores[typ].get();
     if (c) {
