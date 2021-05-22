@@ -176,7 +176,7 @@ export default class Setup {
     if (c) {
       Object.keys(c).forEach(k => {
         $form.find(`[name="${k}"]`).each(function (this: HTMLInputElement) {
-          if (k === 'timeMode' && this.value !== '1') return;
+          if (k === 'timeMode' && $form.data('forceTimeMode')) return;
           if (this.type == 'checkbox') this.checked = true;
           else if (this.type == 'radio') this.checked = this.value == c[k];
           else if (k != 'fen' || !this.value) this.value = c[k];
