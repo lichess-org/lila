@@ -390,7 +390,7 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       else g
     val userIds = g2.userIds.distinct
     val fen: Option[FEN] = initialFen orElse {
-      (!g2.variant.standardInitialPosition)
+      g2.variant.fromPosition
         .option(Forsyth >> g2.chess)
         .filterNot(_.initial)
     }
