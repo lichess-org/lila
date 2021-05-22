@@ -26,7 +26,7 @@ export class Notify {
       {
         attrs: {
           'aria-live': 'assertive',
-          'aria-atomic': true,
+          'aria-atomic': 'true',
         },
       },
       this.currentText()
