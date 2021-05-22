@@ -111,7 +111,9 @@ final class SecurityApi(
         case None =>
           store.authInfo(sessionId) flatMap {
             _ ?? { d =>
-              userRepo byId d.user dmap { _ map { u => Right(FingerPrintedUser(u, d.hasFp)) } }
+              userRepo byId d.user dmap {
+                _ map { u => Right(FingerPrintedUser(stripRolesOfCookieUser(u), d.hasFp)) }
+              }
             }
           }
       }
@@ -135,7 +137,13 @@ final class SecurityApi(
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if (scoped.scopes has OAuthScope.Web.Mod) scoped
-    else scoped.copy(user = scoped.user.copy(roles = scoped.user.roles.filter(nonModRoles.contains)))
+    else scoped.copy(user = stripRolesOfUser(scoped.user))
+
+  private def stripRolesOfCookieUser(user: User) =
+    if (user.totpSecret.isDefined) user
+    else stripRolesOfUser(user)
+
+  private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def oauthScoped(
       tokenId: AccessToken.Id,
