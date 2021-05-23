@@ -10,4 +10,5 @@
   <string name="ifYouLoseAccess">Забележка: Ако изгубите достъп до кодовете за удостоверяване, можете да подновите паролата си по електронната поща.</string>
   <string name="enableTwoFactor">Активиране на двуфакторно удостоверяване</string>
   <string name="disableTwoFactor">Деактивиране на двуфакторно удостоверяване</string>
+  <string name="twoFactorEnabled">Двуфакторното удостоверяване е активирано</string>
 </resources>
