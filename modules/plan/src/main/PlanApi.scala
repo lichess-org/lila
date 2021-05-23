@@ -253,6 +253,7 @@ final class PlanApi(
     }
 
   def setLifetime(user: User): Funit =
+    if (user.plan.isEmpty) Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, 0), "plan")
     userRepo.setPlan(
       user,
       user.plan.enable
