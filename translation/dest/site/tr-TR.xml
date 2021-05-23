@@ -115,7 +115,7 @@
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik limitini kaldırır fakat bilgisayarınız ısınabilir.</string>
-  <string name="blunder">Vahim hata</string>
+  <string name="blunder">Büyük Hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
   <plurals name="nbBlunders">
