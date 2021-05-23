@@ -79,7 +79,7 @@ final class PlanApi(
                 )
                 .levelUpIfPossible
               patronColl.update.one($id(patron.id), p2) >>
-                setDbUserPlanOnCharge(user, p2) >> {
+                setDbUserPlanOnCharge(user, patron.canLevelUp) >> {
                   stripeCharge.lifetimeWorthy ?? setLifetime(user)
                 }
             }
@@ -142,7 +142,7 @@ final class PlanApi(
                   .levelUpIfPossible
                   .expireInOneMonth
                 patronColl.update.one($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, p2)
+                  setDbUserPlanOnCharge(user, patron.canLevelUp)
             } >> {
               charge.lifetimeWorthy ?? setLifetime(user)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
@@ -150,9 +150,9 @@ final class PlanApi(
         }
     }
 
-  private def setDbUserPlanOnCharge(user: User, patron: Patron): Funit = {
+  private def setDbUserPlanOnCharge(user: User, levelUp: Boolean): Funit = {
     val plan =
-      if (patron.canLevelUp) user.plan.incMonths
+      if (levelUp) user.plan.incMonths
       else user.plan.enable
     Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, plan.months), "plan")
     setDbUserPlan(user, plan)
