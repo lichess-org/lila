@@ -5,4 +5,9 @@
   <string name="twoFactorApp">Инсталирайте приложение за двуфакторно удостоверяване, например andOTP за %1$s или Google Authenticator за %2$s.</string>
   <string name="scanTheCode">Сканирайте QR кода с приложението.</string>
   <string name="enterPassword">За да завършите настройката, въведете паролата си и кода за удостоверяване генериран от приложението. код за удостоверяване ще ви бъде необходим всеки път когато влизате в системата.</string>
+  <string name="ifYouCannotScanEnterX">Ако не можете да сканирате кода, въведете секретния код %s във Вашето приложение.</string>
+  <string name="authenticationCode">Код за удостоверяване</string>
+  <string name="ifYouLoseAccess">Забележка: Ако изгубите достъп до кодовете за удостоверяване, можете да подновите паролата си по електронната поща.</string>
+  <string name="enableTwoFactor">Активиране на двуфакторно удостоверяване</string>
+  <string name="disableTwoFactor">Деактивиране на двуфакторно удостоверяване</string>
 </resources>
