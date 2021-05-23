@@ -224,7 +224,6 @@ object PerfType {
     Blitz,
     Rapid,
     Classical,
-    UltraBullet,
     Crazyhouse,
     Chess960,
     KingOfTheHill,

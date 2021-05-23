@@ -137,8 +137,7 @@ Thank you all, you rock!"""
             month.lastWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.lastWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.lastWeek.withDayOfWeek(FRIDAY)    -> Classical,
-            month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
-            month.lastWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
+            month.lastWeek.withDayOfWeek(SATURDAY)  -> HyperBullet
           ).flatMap { case (day, speed) =>
             at(day, 17) map { date =>
               Schedule(Monthly, speed, Standard, none, date).plan
@@ -169,8 +168,7 @@ Thank you all, you rock!"""
             month.firstWeek.withDayOfWeek(WEDNESDAY) -> Blitz,
             month.firstWeek.withDayOfWeek(THURSDAY)  -> Rapid,
             month.firstWeek.withDayOfWeek(FRIDAY)    -> Classical,
-            month.firstWeek.withDayOfWeek(SATURDAY)  -> HyperBullet,
-            month.firstWeek.withDayOfWeek(SUNDAY)    -> UltraBullet
+            month.firstWeek.withDayOfWeek(SATURDAY)  -> HyperBullet
           ).flatMap { case (day, speed) =>
             at(day, 16) map { date =>
               Schedule(Shield, speed, Standard, none, date) plan {
@@ -257,9 +255,6 @@ Thank you all, you rock!"""
         },
         at(today, 20) map { date =>
           Schedule(Daily, HyperBullet, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 21) map { date =>
-          Schedule(Daily, UltraBullet, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten,
       List( // daily variant tournaments!
@@ -341,7 +336,7 @@ Thank you all, you rock!"""
             Schedule(Hourly, HyperBullet, Standard, none, date).plan
           },
           at(date, hour, 30) map { date =>
-            Schedule(Hourly, UltraBullet, Standard, none, date).plan
+            Schedule(Hourly, HyperBullet, Standard, none, date).plan
           },
           at(date, hour) map { date =>
             Schedule(Hourly, Bullet, Standard, none, date).plan

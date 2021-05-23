@@ -127,12 +127,6 @@ object TournamentShield {
 
   object Category {
 
-    case object UltraBullet
-        extends Category(
-          of = Left(Schedule.Speed.UltraBullet),
-          iconChar = '{'
-        )
-
     case object HyperBullet
         extends Category(
           of = Left(Schedule.Speed.HyperBullet),
@@ -224,7 +218,6 @@ object TournamentShield {
       Rapid,
       Classical,
       HyperBullet,
-      UltraBullet,
       Crazyhouse,
       Chess960,
       KingOfTheHill,
