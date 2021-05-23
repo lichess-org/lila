@@ -427,8 +427,7 @@ final class Mod(
               modApi.setPermissions(me, user.username, Permission(permissions)) >> {
                 newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
               } >> {
-                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api
-                  .setLifetime(user)
+                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
               } inject Redirect(routes.Mod.permissions(username)).flashSuccess
             }
           )

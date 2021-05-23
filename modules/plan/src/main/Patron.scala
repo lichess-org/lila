@@ -20,7 +20,7 @@ case class Patron(
 
   def levelUpIfPossible =
     copy(
-      lastLevelUp = if (canLevelUp) Some(DateTime.now) else lastLevelUp orElse Some(DataTime.now)
+      lastLevelUp = if (canLevelUp) Some(DateTime.now) else lastLevelUp orElse Some(DateTime.now)
     )
 
   def expireInOneMonth: Patron =
