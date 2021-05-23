@@ -252,7 +252,7 @@ final class PlanApi(
       _.exists(_.isLifetime)
     }
 
-  def setLifetime(user: User): Funit =
+  def setLifetime(user: User): Funit = {
     if (user.plan.isEmpty) Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, 0), "plan")
     userRepo.setPlan(
       user,
@@ -268,6 +268,7 @@ final class PlanApi(
         upsert = true
       )
       .void >>- lightUserApi.invalidate(user.id)
+  }
 
   def giveMonth(user: User): Funit =
     patronColl.update
