@@ -66,7 +66,7 @@ case class UserRecord(
     }
 
   def isLethal =
-    rageSit.counter <= -250 &&
+    rageSit.counter <= -150 &&
       rageSitRecidive &&
       bans.lastOption.exists(_.remainingMinutes > 60 * 12)
 }
