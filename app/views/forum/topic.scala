@@ -156,18 +156,19 @@ object topic {
                   if (topic.hidden) "Feature" else "Un-feature"
                 )
               ),
-            canModCateg option
+            canModCateg option frag(
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if (topic.closed) "Reopen" else "Close"
                 )
               ),
-            canModCateg option
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
-              )
+              ),
+              deleteDialog
+            )
           )
         ),
         formWithCaptcha.map { case (form, captcha) =>
@@ -201,4 +202,31 @@ object topic {
         pager
       )
     }
+
+  private def deleteDialog(implicit ctx: Context) =
+    dialog(cls := "forum__delete")(
+      st.form(method := "dialog", cls := "form3")(
+        st.select(
+          name := "reason",
+          cls := "form-control"
+        )(
+          option(value := "")("No message"),
+          List(
+            "public shaming",
+            "disrespecting other players",
+            "spamming",
+            "inappropriate behavior"
+          ).map { reason =>
+            option(value := reason)(reason)
+          }
+        ),
+        form3.actions(
+          button(cls := "cancel button button-empty", value := "cancel")("Cancel"),
+          form3.submit(
+            frag("Delete the post"),
+            klass = "button-red"
+          )(value := "default")
+        )
+      )
+    )
 }
