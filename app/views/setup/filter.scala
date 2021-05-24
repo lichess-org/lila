@@ -74,12 +74,8 @@ object filter {
             )
           )
         ),
-        ctx.isAnon option frag(
-          renderInput(form("mode")),
-          renderInput(form("ratingRange"))
-        ),
         div(cls := "actions")(
-          submitButton(cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
+          button(tpe := "reset", cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
           submitButton(cls := "button button-green text apply", dataIcon := "E")(trans.apply())
         )
       )
@@ -113,6 +109,7 @@ object filter {
         name := s"${form(key).name}[$index]",
         st.value := value,
         checks(value) option checked
-      )(content)
+      ),
+      content
     )
 }
