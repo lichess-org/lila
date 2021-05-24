@@ -167,12 +167,9 @@ $c-slider: $c-setup;
         }
       }
 
-      &.nope {
-        visibility: hidden;
-      }
-
       &:disabled {
         opacity: 0.3;
+        cursor: not-allowed;
       }
     }
 
