@@ -13,7 +13,7 @@ export function node(n: Tree.Node, cut: boolean): void {
 }
 
 export function success(): void {
-  withSpeech(s => s.say('Success!', false));
+  lichess.sound.say('Success!');
 }
 
 function withSpeech(f: (speech: LichessSpeech) => void): void {
