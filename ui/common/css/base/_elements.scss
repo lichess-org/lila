@@ -26,7 +26,11 @@ body {
 a {
   color: $c-link;
   text-decoration: none;
-
+  transition: 3s cubic-bezier(0.25, 0.1, 0, 2.05);
+  -o-transition: 3s cubic-bezier(0.25, 0.1, 0, 2.05);
+  -ms-transition: 3s cubic-bezier(0.25, 0.1, 0, 2.05);
+  -moz-transition: 3s cubic-bezier(0.25, 0.1, 0, 2.05);
+  -webkit-transition: 3s cubic-bezier(0.25, 0.1, 0, 2.05);
   &:hover,
   &:active,
   &:focus {
