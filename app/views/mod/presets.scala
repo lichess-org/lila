@@ -20,7 +20,7 @@ object presets {
         views.html.mod.menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           h1(
-            s"${setting.get().value.size} $group presets",
+            s"$group presets",
             small(
               " / ",
               ModPresets.groups.filter(group !=).map { group =>
