@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s, пацвердзіце ваш уліковы запіс на lichess.org</string>
-  <string name="emailConfirm_click">Націсніце на спасылку, каб актываваць уліковы запіс Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Націсніце на спасылку, каб актываваць уліковы запіс Lichess:</string>
   <string name="emailConfirm_ignore">Калі вы не рэгістраваліся на Lichess, проста праігнаруйце гэты ліст.</string>
   <string name="passwordReset_subject">%s, вы скідваеце ваш пароль на lichess.org</string>
   <string name="passwordReset_intro">Мы атрымалі запыт на скід пароля для вашага ўліковага запісу.</string>
