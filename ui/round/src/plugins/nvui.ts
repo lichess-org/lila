@@ -59,7 +59,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
           Chessground(document.createElement('div'), {
@@ -104,7 +104,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
               attrs: {
                 role: 'status',
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]
@@ -115,7 +115,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             renderSan(step.san, step.uci, style)
@@ -168,10 +168,13 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               hook: onInsert(el => {
                 const $board = $(el as HTMLElement);
-                $board.on('keypress', boardCommandsHandler());
                 $board.on('keypress', () => console.log(ctrl));
                 // NOTE: This is the only line different from analysis board listener setup
-                $board.on(
+                const $buttons = $board.find('button');
+                $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+                $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+                $buttons.on('keypress', boardCommandsHandler());
+                $buttons.on(
                   'keypress',
                   lastCapturedCommandHandler(
                     () => ctrl.data.steps.map(step => step.fen),
@@ -179,9 +182,6 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                     prefixStyle.get()
                   )
                 );
-                const $buttons = $board.find('button');
-                $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
-                $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                 $buttons.on(
                   'keypress',
                   possibleMovesHandler(
@@ -208,7 +208,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'polite',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             ''

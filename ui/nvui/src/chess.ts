@@ -567,14 +567,14 @@ export function possibleMovesHandler(color: Color, fen: () => string, pieces: ()
     const $boardLive = $('.boardstatus');
     const $pieces = pieces();
     const myTurnFen = color === 'white' ? 'w' : 'b';
-    const opponentTurnFen = color === 'white' ? 'b' : 'w';
 
     const $btn = $(ev.target as HTMLElement);
     const $pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
 
     // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn.
+    const $fen = fen() + ' ' + myTurnFen;
     const possibleMoves = chessgroundDests(
-      Chess.fromSetup(parseFen(fen().replace(' ' + opponentTurnFen + ' ', ' ' + myTurnFen + ' ')).unwrap()).unwrap()
+      Chess.fromSetup(parseFen($fen).unwrap()).unwrap()
     )
       .get($pos)
       ?.map(i => {
