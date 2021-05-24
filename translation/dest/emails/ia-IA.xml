@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Confirma tu conto in lichess.org, %s</string>
-  <string name="emailConfirm_click">Clicca sur le ligamine pro activar tu conto in Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Clicca sur le ligamine pro activar tu conto in Lichess:</string>
   <string name="emailConfirm_ignore">Si tu non ha registrate te in Lichess, tu pote ignorar iste message in securitate.</string>
   <string name="passwordReset_subject">Reinitialisa tu contrasigno in lichess.org, %s</string>
   <string name="passwordReset_intro">Nos ha recipite un requesta pro reinitialisar le contrasigno de tu conto.</string>
