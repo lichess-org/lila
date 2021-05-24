@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Nicht genügend gewertete Partien gespielt, um eine verlässliche Wertung zu erzielen.</string>
   <string name="progressOverLastXGames">Fortschritt über die letzten %s Spiele:</string>
   <string name="ratingDeviation">Wertungsabweichung: %s.</string>
-  <string name="ratingDeviationTooltip">Ein niedriger Wert bedeutet, dass die Wertungszahl stabiler ist. Über %1$s wird die Wertung als vorläufig betrachtet. Um in die Rangliste aufgenommen zu werden, sollte dieser Wert unter %2$s (Standardschach) oder %3$s (Varianten) liegen.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Ein niedriger Wert bedeutet, dass die Wertungszahl stabiler ist. Über %1$s wird die Wertung als vorläufig betrachtet. Um in die Rangliste aufgenommen zu werden, sollte dieser Wert unter %2$s (Standardschach) oder %3$s (Varianten) liegen.</string>
   <string name="totalGames">Insgesamte Spiele</string>
   <string name="ratedGames">Gewertete Spiele</string>
   <string name="tournamentGames">Turnierspiele</string>
