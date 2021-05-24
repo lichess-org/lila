@@ -104,7 +104,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
               attrs: {
                 role: 'status',
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             [ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl)]
@@ -115,10 +115,11 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
-            renderSan(step.san, step.uci, style)
+            // make sure consecutive moves are different so that they get re-read
+            renderSan(step.san, step.uci, style) + (ctrl.ply % 2 === 0 ? '' : ' ')
           ),
           ...(ctrl.isPlaying()
             ? [
@@ -208,7 +209,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'polite',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             ''

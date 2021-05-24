@@ -88,7 +88,7 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
             {
               attrs: {
                 'aria-live': 'assertive',
-                'aria-atomic': true,
+                'aria-atomic': 'true',
               },
             },
             renderCurrentNode(ctrl.node, style)
