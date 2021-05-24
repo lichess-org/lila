@@ -617,7 +617,7 @@
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
-  <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
+  <string name="weeklyPerfTypeRatingDistribution">今週の %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
