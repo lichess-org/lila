@@ -30,11 +30,4 @@ private object Chess960 {
         case _                                                         => false
       }(Rank.Eighth)
     }
-
-  def fixVariantName(v: String) =
-    v.toLowerCase match {
-      case "chess 960"   => "chess960"
-      case "fisherandom" => "chess960" // I swear, sometimes...
-      case _             => v
-    }
 }

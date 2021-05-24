@@ -57,7 +57,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
   def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
     Parser.full(pgn) flatMap { parsed =>
       Reader.fullWithSans(
-        pgn,
+        parsed,
         sans => sans.copy(value = sans.value take maxPlies),
         Tags.empty
       ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
