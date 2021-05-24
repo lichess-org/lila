@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">حساب خود را در lichess.org تایید کنید،%s</string>
-  <string name="emailConfirm_click">بر روی لینک کلیک کنید تا حساب شما در lichess فعال شود:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بر روی لینک کلیک کنید تا حساب شما در lichess فعال شود:</string>
   <string name="emailConfirm_ignore">اگر شما در lichess ثبت نام نکرده اید میتوانید با خیال راحت این پیام را نادیده بگیرید.</string>
   <string name="passwordReset_subject">بازنشانی گذرواژه لیچس %s</string>
   <string name="passwordReset_intro">ما یک درخواست برای تغییر رمز عبور حساب کاربری شما دریافت کرده ایم.</string>
