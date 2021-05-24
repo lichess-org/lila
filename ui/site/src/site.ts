@@ -103,7 +103,6 @@ lichess.load.then(() => {
 
     if (window.InfiniteScroll) window.InfiniteScroll('.infinite-scroll');
 
-    $('a.delete, input.delete').on('click', () => confirm('Delete?'));
     $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
       return confirm(this.title || 'Confirm this action?');
     });
