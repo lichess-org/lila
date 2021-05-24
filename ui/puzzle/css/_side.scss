@@ -122,13 +122,8 @@
       }
     }
 
-    &__zen {
-      display: inline-block;
-      margin-top: 2vmin;
-    }
-
-    &__flip {
-      float: right;
+    &__toggles {
+      @extend %flex-between;
       margin-top: 2vmin;
     }
   }
