@@ -70,7 +70,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       },
       attrs: {
         'data-icon': 'B',
-        title: ctrl.trans.noarg('flipBoard'),
+        title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
     }),

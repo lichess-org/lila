@@ -117,7 +117,7 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
       },
       attrs: {
         'data-icon': 'B',
-        title: ctrl.trans.noarg('flipBoard'),
+        title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: bind('click', ctrl.flip),
     })
