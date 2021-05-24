@@ -312,10 +312,11 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
         insert: vnode => {
           const el = vnode.elm as HTMLElement;
           el.addEventListener('mouseover', (e: MouseEvent) => {
+            const instance = ctrl.getCeval();
             instance.setHovering(getElFen(el), getElUci(e));
-            const pvBoard = (e.target as HTMLElement).dataset['board'];
+            const pvBoard = (e.target as HTMLElement).dataset.board;
             if (pvBoard) {
-              pvIndex = Number((e.target as HTMLElement).dataset['moveIndex']);
+              pvIndex = Number((e.target as HTMLElement).dataset.moveIndex);
               pvMoves = getElPvMoves(e);
               const [fen, uci] = pvBoard.split('|');
               instance.setPvBoard({ fen, uci });
@@ -330,11 +331,11 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
               const pvBoard = pvMoves[pvIndex];
               if (pvBoard) {
                 const [fen, uci] = pvBoard.split('|');
-                instance.setPvBoard({ fen, uci });
+                ctrl.getCeval().setPvBoard({ fen, uci });
               }
             }
           });
-          el.addEventListener('mouseout', () => instance.setHovering(getElFen(el)));
+          el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
               const uci = getElUci(e);
@@ -345,7 +346,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             });
           }
           el.addEventListener('mouseleave', () => {
-            instance.setPvBoard(null);
+            ctrl.getCeval().setPvBoard(null);
             pvIndex = null;
           });
           checkHover(el, instance);
