@@ -3,8 +3,12 @@ import * as xhr from 'common/xhr';
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
-      xhr.text(this.href, { method: 'post' });
-      $(this).closest('.forum-post').hide();
+      console.log(this);
+      $('dialog.forum__delete').each(function (this: HTMLDialogElement) {
+        this.showModal();
+      });
+      // xhr.text(this.href, { method: 'post' });
+      // $(this).closest('.forum-post').hide();
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
@@ -32,10 +36,8 @@ lichess.load.then(() => {
 
     if (topicId)
       lichess.loadScript('vendor/textcomplete.min.js').then(function () {
-        const searchCandidates = function (term, candidateUsers) {
-          return candidateUsers.filter(function (user) {
-            return user.toLowerCase().startsWith(term.toLowerCase());
-          });
+        const searchCandidates = function (term: string, candidateUsers: string[]) {
+          return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
         };
 
         // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
@@ -49,7 +51,7 @@ lichess.load.then(() => {
           [
             {
               match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-              search: function (term, callback) {
+              search: function (term: string, callback) {
                 // Initially we only autocomplete by participants in the thread. As the user types more,
                 // we can autocomplete against all users on the site.
                 threadParticipants.then(function (participants) {
