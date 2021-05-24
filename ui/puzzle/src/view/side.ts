@@ -254,8 +254,9 @@ export function config(ctrl: Controller): MaybeVNode {
         ctrl.trans.noarg('zenMode')
       ),
       h(
-        'a.puzzle__side__config__flip.button.button-empty',
+        'a.puzzle__side__config__flip.button',
         {
+          class: { active: ctrl.flipped(), 'button-empty': !ctrl.flipped() },
           hook: bind('click', ctrl.flip),
           attrs: {
             title: 'Keyboard: f',

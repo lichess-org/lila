@@ -491,6 +491,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     redraw,
     playBestMove,
     flip,
+    flipped: () => flipped,
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -562,5 +563,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     streak,
     skip,
     flip,
+    flipped: () => flipped,
   };
 }

@@ -25,6 +25,7 @@ export interface KeyboardController {
   toggleThreatMode(): void;
   playBestMove(): void;
   flip(): void;
+  flipped(): boolean;
 }
 
 export type ThemeKey = string;
