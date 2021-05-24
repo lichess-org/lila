@@ -55,12 +55,11 @@ case class ImportData(pgn: String, analyse: Option[String]) {
     }
 
   def preprocess(user: Option[String]): Validated[String, Preprocessed] = ImporterForm.catchOverflow { () =>
-    Parser.full(pgn) flatMap { parsed =>
+    Parser.full(pgn) map { parsed =>
       Reader.fullWithSans(
         parsed,
-        sans => sans.copy(value = sans.value take maxPlies),
-        Tags.empty
-      ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
+        sans => sans.copy(value = sans.value take maxPlies)
+      ) pipe evenIncomplete pipe { case replay @ Replay(setup, _, state) =>
         val initBoard    = parsed.tags.fen flatMap Forsyth.<< map (_.board)
         val fromPosition = initBoard.nonEmpty && !parsed.tags.fen.exists(_.initial)
         val variant = {
