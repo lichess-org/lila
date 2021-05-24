@@ -63,7 +63,11 @@ const renderSolved = (ctrl: StormCtrl): VNode =>
 
 const renderControls = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__control', [
-    h('a.puz-side__control__flip.button.button-empty', {
+    h('a.puz-side__control__flip.button', {
+      class: {
+        active: ctrl.flipped,
+        'button-empty': !ctrl.flipped,
+      },
       attrs: {
         'data-icon': 'B',
         title: ctrl.trans.noarg('flipBoard'),
