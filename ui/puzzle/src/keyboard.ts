@@ -26,5 +26,6 @@ export default function (ctrl: KeyboardController): void {
         else ctrl.toggleCeval();
       }
     })
-    .bind('z', () => lichess.pubsub.emit('zen'));
+    .bind('z', () => lichess.pubsub.emit('zen'))
+    .bind('f', ctrl.flip);
 }

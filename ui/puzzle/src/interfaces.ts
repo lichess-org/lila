@@ -24,6 +24,7 @@ export interface KeyboardController {
   toggleCeval(): void;
   toggleThreatMode(): void;
   playBestMove(): void;
+  flip(): void;
 }
 
 export type ThemeKey = string;
