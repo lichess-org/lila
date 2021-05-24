@@ -59,7 +59,9 @@ lichess.RoundNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
+        variantNope =
+          !supportedVariant(d.game.variant.key) &&
+          'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
           Chessground(document.createElement('div'), {
