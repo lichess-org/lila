@@ -108,12 +108,12 @@ object SimulForm {
             ) contains _
           )
         }.verifying("At least one variant", _.nonEmpty),
-        "position" -> optional(lila.common.Form.fen.playableStrict),
-        "color"    -> stringIn(colorChoices),
-        "text"     -> cleanText,
+        "position"         -> optional(lila.common.Form.fen.playableStrict),
+        "color"            -> stringIn(colorChoices),
+        "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
-        "team"     -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
-        "featured" -> optional(boolean)
+        "team"             -> optional(nonEmptyText.verifying(id => teams.exists(_.id == id))),
+        "featured"         -> optional(boolean)
       )(Setup.apply)(Setup.unapply)
     )
 
