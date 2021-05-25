@@ -116,6 +116,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     const color = plyColor(node.ply);
     const dests = shogigroundDests(position());
     const dropDests = shogigroundDropDests(position());
+    const isCheck = position().isCheck();
     const nextNode = vm.node.children[0];
     const canMove = vm.mode === 'view' || (color === vm.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
@@ -146,7 +147,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         enabled: false,
       },
       dropmode: dropmode,
-      check: !!node.check,
+      check: isCheck,
       lastMove: uciToLastMove(node.uci),
     };
     if (node.ply >= vm.initialNode.ply) {
