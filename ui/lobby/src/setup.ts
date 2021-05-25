@@ -210,7 +210,6 @@ export default class Setup {
         $('.increment_choice input').siblings('span').text(val);
       },
       updatePeriods = function (val) {
-        $('.periods [name=periods]').val(val);
         $('.periods #sf_periods_' + val).click();
       },
       resetPeriods = function () {
@@ -289,6 +288,10 @@ export default class Setup {
       $form.one('submit', function () {
         $submits.hide().end().append(li.spinnerHtml);
       });
+      $timeInput.add($periodsInput).on('change', function () {
+        toggleButtons();
+        showRating();
+      });
     if (this.root.opts.blindMode) {
       $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function () {
@@ -296,10 +299,6 @@ export default class Setup {
         showRating();
       });
       $timeInput.add($byoyomiInput).on('change', function () {
-        toggleButtons();
-        showRating();
-      });
-      $timeInput.add($periodsInput).on('change', function () {
         toggleButtons();
         showRating();
       });
@@ -337,8 +336,8 @@ export default class Setup {
                   show(time);
                   $input.val(time);
                   showRating();
-                  toggleButtons();
                   resetPeriods();
+                  toggleButtons();
                 },
               })
             );
@@ -480,6 +479,7 @@ export default class Setup {
         $advancedToggle.attr('data-icon', 'R');
         updateSlider('0');
         updatePeriods('1');
+        toggleButtons();
       }
     });
 
