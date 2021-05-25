@@ -20,6 +20,7 @@ lichess.load.then(() => {
     const scoreUrl = $trainer.data('score-url');
     const duration = 30 * 1000;
     const tickDelay = 50;
+    const resizePref = $trainer.data('resize-pref');
     let colorPref = $trainer.data('color-pref');
     let color;
     let startAt, score;
@@ -40,7 +41,7 @@ lichess.load.then(() => {
           addPieceZIndex: $('#main-wrap').hasClass('is3d'),
           events: {
             insert(elements: cg.Elements) {
-              resizeHandle(elements, Prefs.ShowResizeHandle.Always, ply);
+              resizeHandle(elements, resizePref, ply);
             },
           },
         });
