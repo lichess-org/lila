@@ -111,7 +111,7 @@ object header {
             titleOrText(trans.exportGames.txt()),
             dataIcon := "x"
           ),
-          (ctx.isAuth && ctx.noKid && !ctx.is(u))  option a(
+          (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls := "btn-rack__btn",
             href := s"${routes.Report.form}?username=${u.username}",

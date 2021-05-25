@@ -17,7 +17,7 @@ object search {
       moreJs = infiniteScrollTag,
       moreCss = cssTag("forum")
     )(
-      main(cls := "box box search")(
+      main(cls := "box search")(
         div(cls := "box__top")(
           h1(
             a(href := routes.ForumCateg.index, dataIcon := "I", cls := "text"),
