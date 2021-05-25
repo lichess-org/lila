@@ -26,7 +26,7 @@ class Report:
 
 
 def short_lang(lang):
-    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW", "tlh-AA"]:
+    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW", "tlh-AA", "ml-IN", "pt-BR", "tt-RU"]:
         return lang.replace("-", "").lower()
     elif lang == "kab-DZ":
         return "kaby"
@@ -48,7 +48,7 @@ def ends_with_punctuation(text):
 
 
 def crowdin_q(text):
-    return urllib.parse.quote((text or "").replace("\\\"", "\""))
+    return urllib.parse.quote(text or "")
 
 
 class ReportContext:
@@ -57,7 +57,7 @@ class ReportContext:
         self.path = path
         self.el = el
         self.name = name
-        self.text = text
+        self.text = text.replace("\\\"", "\"").replace("\\'", "'")
 
     def lang(self):
         return self.path.stem
@@ -109,6 +109,9 @@ def lint(report, path):
 
 
 def lint_string(ctx, dest, source, allow_missing=0):
+    dest = dest.replace("\\\"", "\"").replace("\\'", "'")
+    source = source.replace("\\\"", "\"").replace("\\'", "'")
+
     if not dest:
         ctx.error("empty translation")
         return
