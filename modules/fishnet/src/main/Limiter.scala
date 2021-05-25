@@ -29,7 +29,8 @@ final private class Limiter(
       case Work.Sender(Some(userId), _, _, _) =>
         !analysisColl.exists(
           $doc(
-            "sender.userId" -> userId
+            "sender.userId" -> userId,
+            "game.variant" -> shogi.variant.Standard.id
           )
         )
       case Work.Sender(_, Some(ip), _, _) =>
