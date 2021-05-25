@@ -423,6 +423,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">个人简介</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或旗子</string>
   <string name="thankYou">致谢！</string>
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
@@ -805,9 +806,9 @@
   <string name="youCannotPostYetPlaySomeGames">您还不能在论坛发表意见。再下几局棋吧！</string>
   <string name="subscribe">订阅</string>
   <string name="unsubscribe">取消订阅</string>
-  <string name="mentionedYouInX"> 在 “%1$s” 中提到了你。</string>
-  <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了你。</string>
-  <string name="invitedYouToX"> 邀请你加入\"%1$s\"。</string>
+  <string name="mentionedYouInX">在 “%1$s” 中提到了你。</string>
+  <string name="xMentionedYouInY">%1$s 在 \"%2$s\" 中提到了你。</string>
+  <string name="invitedYouToX">邀请你加入\"%1$s\"。</string>
   <string name="xInvitedYouToY">%1$s 邀请你加入 \"%2$s\"。</string>
   <string name="youAreNowPartOfTeam">你现在是团队的成员。</string>
   <string name="youHaveJoinedTeamX">你已加入\"%1$s\"。</string>

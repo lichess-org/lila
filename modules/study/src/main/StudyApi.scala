@@ -76,9 +76,18 @@ final class StudyApi(
     }
 
   def byIdWithFirstChapter(id: Study.Id): Fu[Option[Study.WithChapter]] =
+    byIdWithChapterFinder(id, chapterRepo firstByStudy id)
+
+  private[study] def byIdWithLastChapter(id: Study.Id): Fu[Option[Study.WithChapter]] =
+    byIdWithChapterFinder(id, chapterRepo lastByStudy id)
+
+  private def byIdWithChapterFinder(
+      id: Study.Id,
+      chapterFinder: => Fu[Option[Chapter]]
+  ): Fu[Option[Study.WithChapter]] =
     byId(id) flatMap {
       _ ?? { study =>
-        chapterRepo.firstByStudy(study.id) map {
+        chapterFinder map {
           _ ?? { Study.WithChapter(study, _).some }
         } orElse byIdWithChapter(id)
       }
@@ -112,7 +121,7 @@ final class StudyApi(
               studyId = study.id,
               data = data.form.toChapterData,
               sticky = study.settings.sticky
-            )(Who(user.id, Sri(""))) >> byIdWithChapter(studyId)
+            )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
           case _ => fuccess(none)
         } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
     }) addEffect {

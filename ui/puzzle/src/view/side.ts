@@ -242,15 +242,28 @@ export function config(ctrl: Controller): MaybeVNode {
           ]
         )
       : null,
-    h(
-      'a.puzzle__side__config__zen',
-      {
-        hook: bind('click', () => lichess.pubsub.emit('zen')),
-        attrs: {
-          title: 'Keyboard: z',
+    h('div.puzzle__side__config__toggles', [
+      h(
+        'a.puzzle__side__config__zen.button.button-empty',
+        {
+          hook: bind('click', () => lichess.pubsub.emit('zen')),
+          attrs: {
+            title: 'Keyboard: z',
+          },
         },
-      },
-      ctrl.trans.noarg('zenMode')
-    ),
+        ctrl.trans.noarg('zenMode')
+      ),
+      h(
+        'a.puzzle__side__config__flip.button',
+        {
+          class: { active: ctrl.flipped(), 'button-empty': !ctrl.flipped() },
+          hook: bind('click', ctrl.flip),
+          attrs: {
+            title: 'Keyboard: f',
+          },
+        },
+        ctrl.trans.noarg('flipBoard')
+      ),
+    ]),
   ]);
 }

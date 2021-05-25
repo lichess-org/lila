@@ -828,9 +828,9 @@
   <string name="inTheFAQ">li P.B.P.</string>
   <string name="subscribe">Bibe abone</string>
   <string name="unsubscribe">Ji abonetîyê derkeve</string>
-  <string name="mentionedYouInX"> qala te kir li %1$s.</string>
-  <string name="xMentionedYouInY"> %1$s qala te kir li %2$s.</string>
-  <string name="invitedYouToX"> te vexwend %1$s.</string>
+  <string name="mentionedYouInX">qala te kir li %1$s.</string>
+  <string name="xMentionedYouInY">%1$s qala te kir li %2$s.</string>
+  <string name="invitedYouToX">te vexwend %1$s.</string>
   <string name="xInvitedYouToY">%1$s te vexwend %2$s.</string>
   <string name="youAreNowPartOfTeam">Tu niha endamê komekê yî.</string>
   <string name="youHaveJoinedTeamX">Tu tevlê %1$s bûyî.</string>

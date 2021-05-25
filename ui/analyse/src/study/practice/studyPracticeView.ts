@@ -70,7 +70,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           'a.feedback.win',
           ctrl.nextChapter()
             ? {
-                hook: bind('click', p.goToNext),
+                hook: bind('click', ctrl.goToNextChapter),
               }
             : {
                 attrs: { href: '/practice' },

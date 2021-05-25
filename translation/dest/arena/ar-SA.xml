@@ -38,11 +38,11 @@
   <string name="drawStreak">سلسلة تعادلات: عندما يحصل لاعب على تعادلات متتالية فى مسابقات أرينا, يحصل اللاعب على نقطة من أول تعادل فقط, او من التعادلان التى إجتازت %s نقلة. يمكن كسر سلسلة تعادلات عن طريق الربح فقط, وليس خسارة أو تعادل.</string>
   <string name="history">يُمكنك الإطلاع على جميع مسابقات أرينا السابقة حسب النمط من خلال الرتبط التالي: https://lichess. org/tournament/history</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="zero">لا عرض للفرق</item>
+    <item quantity="zero">s% عرض للفرق</item>
     <item quantity="one">عرض الفريق</item>
-    <item quantity="two">عرض الفريقين</item>
-    <item quantity="few">عرض الفرق</item>
-    <item quantity="many">عرض الفرق</item>
+    <item quantity="two">عرض %s فرق</item>
+    <item quantity="few">عرض %s الفرق</item>
+    <item quantity="many">عرض %s فرق</item>
     <item quantity="other">عرض %s فرق</item>
   </plurals>
 </resources>

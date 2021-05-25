@@ -928,9 +928,9 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX"> ציינו אותכם ב- %1$s.</string>
-  <string name="xMentionedYouInY"> %1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
-  <string name="invitedYouToX"> הזמין אותך ל-\"%1$s\".</string>
+  <string name="mentionedYouInX">ציינו אותכם ב- %1$s.</string>
+  <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
+  <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">אתה כעת חבר בקבוצה.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>

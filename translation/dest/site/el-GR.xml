@@ -848,9 +848,9 @@
   <string name="youCannotPostYetPlaySomeGames">Δεν μπορείτε να δημοσιεύσετε σε αυτό το φόρουμ ακόμα. Παίξτε μερικά παιχνίδια!</string>
   <string name="subscribe">Εγγραφείτε</string>
   <string name="unsubscribe">Απεγγραφείτε</string>
-  <string name="mentionedYouInX"> σας ανέφερε στο \"%1$s\".</string>
-  <string name="xMentionedYouInY"> Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
-  <string name="invitedYouToX"> σας προσκάλεσε στο «%1$s».</string>
+  <string name="mentionedYouInX">σας ανέφερε στο \"%1$s\".</string>
+  <string name="xMentionedYouInY">Ο χρήστης %1$s σας ανέφερε στο «%2$s».</string>
+  <string name="invitedYouToX">σας προσκάλεσε στο «%1$s».</string>
   <string name="xInvitedYouToY">Ο χρήστης %1$s σας προσκάλεσε στο «%2$s».</string>
   <string name="youAreNowPartOfTeam">Είστε πλέον μέλος της ομάδας.</string>
   <string name="youHaveJoinedTeamX">Είστε πλέον μέλος της ομάδας «%1$s».</string>

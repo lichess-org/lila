@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">هەژماری lichess.org بسەلمێنە %s</string>
-  <string name="emailConfirm_click">بۆ کارا کردنی هەژماری \"لیچێس\"ـەکەت بەستەرەکە داگرە:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">بۆ کارا کردنی هەژماری \"لیچێس\"ـەکەت بەستەرەکە داگرە:</string>
   <string name="emailConfirm_ignore">ئەگەر خۆت تۆمار نەکردووە لە Lichess ئەوا دەتوانی ئەم نامەیە بشتگوێ بخەیت.</string>
   <string name="passwordReset_subject">ووشەی نهێنی هەژماری lichess.org رێک بخەوە %s</string>
   <string name="passwordReset_intro">داواکارییەکمان پێگەیش بۆ ئەوەی ووشەی تێپەڕی هەژمارەکەت رێکبخەین.</string>

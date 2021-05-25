@@ -968,9 +968,9 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="youCannotPostYetPlaySomeGames">Níl cead postáil sna fóraim go fóill. Imir roinnt cluichí!</string>
   <string name="subscribe">Liostáil</string>
   <string name="unsubscribe">Díliostáil</string>
-  <string name="mentionedYouInX"> luadh tú i \"%1$s\".</string>
-  <string name="xMentionedYouInY"> luadh %1$s tú i \"%2$s\".</string>
-  <string name="invitedYouToX"> tugadh cuireadh duit \"%1$s\".</string>
+  <string name="mentionedYouInX">luadh tú i \"%1$s\".</string>
+  <string name="xMentionedYouInY">luadh %1$s tú i \"%2$s\".</string>
+  <string name="invitedYouToX">tugadh cuireadh duit \"%1$s\".</string>
   <string name="xInvitedYouToY">tugadh %1$s cuireadh duit \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tá tú anois mar chuid den fhoireann.</string>
   <string name="youHaveJoinedTeamX">Tá tú tar éis dul isteach \"%1$s\".</string>

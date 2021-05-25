@@ -60,7 +60,7 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
   function onVictory(): void {
     saveNbMoves();
     lichess.sound.play('practiceSuccess');
-    if (studyData.chapter.practice && autoNext()) setTimeout(goToNext, 1000);
+    if (studyData.chapter.practice && autoNext()) setTimeout(getStudy().goToNextChapter, 1000);
   }
 
   function saveNbMoves(): void {
@@ -70,11 +70,6 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
       data.completion[chapterId] = nbMoves();
       xhr.practiceComplete(chapterId, nbMoves());
     }
-  }
-
-  function goToNext() {
-    const next = getStudy().nextChapter();
-    if (next) getStudy().setChapter(next.id);
   }
 
   function onFailure(): void {
@@ -104,6 +99,5 @@ export default function (root: AnalyseCtrl, studyData: StudyData, data: StudyPra
     isWhite: root.bottomIsWhite,
     analysisUrl,
     autoNext,
-    goToNext,
   };
 }

@@ -94,7 +94,8 @@ object bits {
       trans.showThreat,
       trans.gameOver,
       trans.inLocalBrowser,
-      trans.toggleLocalEvaluation
+      trans.toggleLocalEvaluation,
+      trans.flipBoard
     ).map(_.key)
 
   private val trainingI18nKeys: List[MessageKey] =

@@ -34,6 +34,8 @@ export function app(opts: RoundOpts): RoundApi {
 
   if (ctrl.isPlaying()) menuHover();
 
+  lichess.sound.preloadBoardSounds();
+
   return {
     socketReceive: ctrl.socket.receive,
     moveOn: ctrl.moveOn,

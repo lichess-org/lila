@@ -845,9 +845,9 @@
   <string name="youCannotPostYetPlaySomeGames">Hələ forumlarda yazı göndərə bilməzsiniz. Biraz oyun oynayın!</string>
   <string name="subscribe">Abunə ol</string>
   <string name="unsubscribe">Abunəlikdən çıxın</string>
-  <string name="mentionedYouInX"> \"%1$s\"-da səni qeyd etdi.</string>
-  <string name="xMentionedYouInY"> %1$s səni \"%2$s\"-da səni qeyd etdi.</string>
-  <string name="invitedYouToX"> səni \"%1$s\"-ə dəvət etdi.</string>
+  <string name="mentionedYouInX">erwähnte dich in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s səni \"%2$s\"-da səni qeyd etdi.</string>
+  <string name="invitedYouToX">səni \"%1$s\"-ə dəvət etdi.</string>
   <string name="xInvitedYouToY">%1$s səni \"%2$s\"-ə dəvət etdi.</string>
   <string name="youAreNowPartOfTeam">Siz artıq komandanın üzvüsünüz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"-yə qatıldın.</string>

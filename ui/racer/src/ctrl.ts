@@ -32,6 +32,7 @@ export default class StormCtrl {
   skipAvailable = true;
   knowsSkip = storedProp('racer.skip', false);
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
+  flipped = false;
 
   constructor(opts: RacerOpts, redraw: (data: RacerData) => void) {
     this.data = opts.data;
@@ -68,6 +69,7 @@ export default class StormCtrl {
     });
     lichess.socket.sign(this.sign);
     setInterval(this.redraw, 1000);
+    setTimeout(this.hotkeys, 1000);
     // this.simulate();
   }
 
@@ -182,7 +184,7 @@ export default class StormCtrl {
 
   private cgOpts = () =>
     this.isPlayer()
-      ? makeCgOpts(this.run, this.isRacing())
+      ? makeCgOpts(this.run, this.isRacing(), this.flipped)
       : {
           orientation: this.run.pov,
         };
@@ -203,5 +205,13 @@ export default class StormCtrl {
     return g && f(g);
   };
 
+  flip = () => {
+    this.flipped = !this.flipped;
+    this.withGround(g => g.toggleOrientation());
+    this.redraw();
+  };
+
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
+
+  private hotkeys = () => window.Mousetrap.bind('f', this.flip);
 }

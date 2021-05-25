@@ -805,9 +805,9 @@
   <string name="youCannotPostYetPlaySomeGames">이 포럼에 글을 올리시기에는 게임 수가 부족합니다.</string>
   <string name="subscribe">구독</string>
   <string name="unsubscribe">구독 취소</string>
-  <string name="mentionedYouInX"> 당신이 %1$s에서 언급됨</string>
-  <string name="xMentionedYouInY"> %1$s가 당신을 \"%2$s\"에서 언급했습니다.</string>
-  <string name="invitedYouToX"> %1$s에 초대합니다.</string>
+  <string name="mentionedYouInX">당신이 %1$s에서 언급됨</string>
+  <string name="xMentionedYouInY">%1$s가 당신을 \"%2$s\"에서 언급했습니다.</string>
+  <string name="invitedYouToX">%1$s에 초대합니다.</string>
   <string name="xInvitedYouToY">%1$s가 당신을 \"%2$s\"에 초대합니다.</string>
   <string name="youAreNowPartOfTeam">당신은 이제 팀에 소속되었습니다.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\"에 가입되었습니다.</string>

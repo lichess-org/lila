@@ -44,5 +44,4 @@ export interface StudyPracticeCtrl {
   isWhite(): boolean;
   analysisUrl: Prop<string>;
   autoNext: StoredBooleanProp;
-  goToNext(): void;
 }

@@ -927,9 +927,9 @@
   <string name="youCannotPostYetPlaySomeGames">Вы пока не можете писать на форуме. Сыграйте несколько партий!</string>
   <string name="subscribe">Подписаться</string>
   <string name="unsubscribe">Отписаться</string>
-  <string name="mentionedYouInX"> упомянул вас в «%1$s».</string>
-  <string name="xMentionedYouInY"> %1$s упомянул вас в «%2$s».</string>
-  <string name="invitedYouToX"> пригласил вас в «%1$s».</string>
+  <string name="mentionedYouInX">упомянул вас в «%1$s».</string>
+  <string name="xMentionedYouInY">%1$s упомянул вас в «%2$s».</string>
+  <string name="invitedYouToX">пригласил вас в «%1$s».</string>
   <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
   <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>

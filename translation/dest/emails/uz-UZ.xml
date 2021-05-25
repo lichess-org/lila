@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s lichess.org hisobingizni tasdiqlang</string>
-  <string name="emailConfirm_click">Lichess hisobingizni yoqish uchun quyidagi linkni bosing:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess hisobingizni yoqish uchun quyidagi linkni bosing:</string>
   <string name="emailConfirm_ignore">Agar siz \"Lichess\" da ro\'yxatdan o\'tmagan bo\'lsangiz, ushbu xabarga beparvo bo\'lishingiz mumkin.</string>
   <string name="passwordReset_subject">%s lichess.org parolingizni qayta tiklang</string>
   <string name="passwordReset_intro">Biz sizni hisobingizni parolini tashlab yuborishga so\'rov oldik.</string>

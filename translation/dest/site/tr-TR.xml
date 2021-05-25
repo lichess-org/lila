@@ -115,7 +115,7 @@
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik limitini kaldırır fakat bilgisayarınız ısınabilir.</string>
-  <string name="blunder">Vahim hata</string>
+  <string name="blunder">Büyük Hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
   <plurals name="nbBlunders">
@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
-  <string name="mentionedYouInX"> \"%1$s\"de sizden bahsetti.</string>
-  <string name="xMentionedYouInY"> %1$s sizden \"%2$s\"de bahsetti.</string>
-  <string name="invitedYouToX"> sizi \"%1$s\" için davet etti.</string>
+  <string name="mentionedYouInX">\"%1$s\"de sizden bahsetti.</string>
+  <string name="xMentionedYouInY">%1$s sizden \"%2$s\"de bahsetti.</string>
+  <string name="invitedYouToX">sizi \"%1$s\" için davet etti.</string>
   <string name="xInvitedYouToY">%1$s sizi \"%2$s\" için davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" için katılım başarılı.</string>

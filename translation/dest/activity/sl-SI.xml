@@ -98,7 +98,7 @@
     <item quantity="few">Tekmoval na %s švicarskih turnirjih</item>
     <item quantity="other">Tekmoval na %s švicarskih turnirjih</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Uvrščen #%1$s v %2$s</string>
+  <string name="rankedInSwissTournament">Uvrščen #%1$s v %2$s</string>
   <string name="signedUp">Prijavljen na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružen %s ekipi</item>

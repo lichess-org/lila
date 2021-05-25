@@ -17,7 +17,7 @@
   <string name="declineTooSlow">Este control de tiempo es demasiado lento para mí, por favor desafíame de nuevo a una partida más rápida.</string>
   <string name="declineTimeControl">No estoy aceptando desafíos con este control de tiempo.</string>
   <string name="declineRated">En su lugar, desafíame a una partida por puntos.</string>
-  <string name="declineCasual">Por favor, mejor envíame un reto.</string>
+  <string name="declineCasual">En su lugar, desafíame a una partida amistosa.</string>
   <string name="declineStandard">No estoy aceptando desafíos de variantes en este momento.</string>
   <string name="declineVariant">No estoy dispuesto a jugar esta variante en este momento.</string>
   <string name="declineNoBot">No estoy aceptando desafíos de bots.</string>

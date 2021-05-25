@@ -136,7 +136,8 @@ final class Setup(
     Open { implicit ctx =>
       NoBot {
         if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          fuccess(forms.hookFilled(timeModeString = get("time"))) map { html.setup.forms.hook(_) }
+          val timeMode = get("time")
+          fuccess(forms.hookFilled(timeModeString = timeMode)) map { html.setup.forms.hook(_, timeMode.isDefined) }
         }
         else
           fuccess {

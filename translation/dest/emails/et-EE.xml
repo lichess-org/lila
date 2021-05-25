@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Kinnitage oma lichess.org kasutaja, %s</string>
-  <string name="emailConfirm_click">Vajutage sellele aadressile, et aktiveerida oma Lichess-i kasutaja:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Vajutage sellele aadressile, et aktiveerida oma Lichess-i kasutaja:</string>
   <string name="emailConfirm_ignore">Kui te ei registreerinud ennast Lichess-i kasutajaks, siis võite seda meili ignoreerida.</string>
   <string name="passwordReset_subject">Taastage oma lichess.org parool, %s</string>
   <string name="passwordReset_intro">Saime taotluse sinu parooli taastamiseks.</string>

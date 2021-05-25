@@ -805,9 +805,9 @@
   <string name="youCannotPostYetPlaySomeGames">Сез әле форумда бәрид урнаштыра алмыйсыз. Берничә уен уйнагыз!</string>
   <string name="subscribe">Кушылмак</string>
   <string name="unsubscribe">Аерылмак</string>
-  <string name="mentionedYouInX"> \"%1$s\" сезне искә алдылар.</string>
-  <string name="xMentionedYouInY"> %1$s сезне \"%2$s\" да искә алды.</string>
-  <string name="invitedYouToX"> \"%1$s\" сезне яште.</string>
+  <string name="mentionedYouInX">\"%1$s\" сезне искә алдылар.</string>
+  <string name="xMentionedYouInY">%1$s сезне \"%2$s\" да искә алды.</string>
+  <string name="invitedYouToX">\"%1$s\" сезне яште.</string>
   <string name="xInvitedYouToY">%1$s сезне \"%2$s\" чакырды.</string>
   <string name="youAreNowPartOfTeam">Сез хәзер җәмәга әгъзасы.</string>
   <string name="youHaveJoinedTeamX">Сез \"%1$s\" га кушылдыгыз.</string>

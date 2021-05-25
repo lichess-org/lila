@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">ยืนยันบัญชี lichess.org ของคุณ, %s</string>
-  <string name="emailConfirm_click">คลิกที่ลิงก์เพื่อเปิดใช้งานบัญชี lichess ของคุณ:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">คลิกที่ลิงก์เพื่อเปิดใช้งานบัญชี lichess ของคุณ:</string>
   <string name="emailConfirm_ignore">ถ้าคุณไม่ได้ลงทะเบียนกับ Lichess คุณสามารถเพิกเฉยต่อข้อความนี้ได้อย่างปลอดภัย</string>
   <string name="passwordReset_subject">ตั้งรหัสผ่าน lichess.org ใหม่, %s</string>
   <string name="passwordReset_intro">เราได้รับการร้องขอเพื่อตั้งรหัสผ่านใหม่สำหรับบัญชีของคุณ</string>

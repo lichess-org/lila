@@ -832,9 +832,9 @@
   <string name="youCannotPostYetPlaySomeGames">Ti nuk mundësh të postosh në forume akoma. Luaj disa lojra!</string>
   <string name="subscribe">Abonohu</string>
   <string name="unsubscribe">Ç\'abonohu</string>
-  <string name="mentionedYouInX"> ju permendi tek \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s ju permendi tek \"%2$s\".</string>
-  <string name="invitedYouToX"> ju ftoj tek \"%1$s\".</string>
+  <string name="mentionedYouInX">ju permendi tek \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s ju permendi tek \"%2$s\".</string>
+  <string name="invitedYouToX">ju ftoj tek \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s ju ftoj tek \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tani je pjese e skuadres.</string>
   <string name="youHaveJoinedTeamX">Ju u antaresuat tek \"%1$s\".</string>

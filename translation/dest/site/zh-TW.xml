@@ -423,6 +423,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">個人簡介</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">國家或旗幟</string>
   <string name="thankYou">謝謝！</string>
   <string name="socialMediaLinks">官方社群連結</string>
   <string name="inlineNotation">棋譜集中顯示</string>
@@ -803,12 +804,13 @@
   <string name="youCannotPostYetPlaySomeGames">您目前不能發表文章在論壇裡，先下幾盤棋吧!</string>
   <string name="subscribe">訂閱</string>
   <string name="unsubscribe">取消訂閱</string>
-  <string name="mentionedYouInX"> 在 \"%1$s\" 中提到了您。</string>
-  <string name="xMentionedYouInY"> %1$s 在 \"%2$s\" 中提到了您。</string>
-  <string name="invitedYouToX"> 邀請您至\"%1$s\"。</string>
+  <string name="mentionedYouInX">在 \"%1$s\" 中提到了您。</string>
+  <string name="xMentionedYouInY">%1$s 在 \"%2$s\" 中提到了您。</string>
+  <string name="invitedYouToX">邀請您至\"%1$s\"。</string>
   <string name="xInvitedYouToY">%1$s 邀請您至\"%2$s\"。</string>
   <string name="youAreNowPartOfTeam">您現在是團隊的成員了。</string>
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
+  <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>

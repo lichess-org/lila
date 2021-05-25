@@ -60,7 +60,10 @@ export interface StudyCtrl {
   currentNode(): Tree.Node;
   practice?: StudyPracticeCtrl;
   gamebookPlay(): GamebookPlayCtrl | undefined;
+  prevChapter(): StudyChapterMeta | undefined;
   nextChapter(): StudyChapterMeta | undefined;
+  goToPrevChapter(): void;
+  goToNextChapter(): void;
   mutateCgConfig(config: Required<Pick<CgConfig, 'drawable'>>): void;
   isUpdatedRecently(): boolean;
   setGamebookOverride(o: GamebookOverride): void;

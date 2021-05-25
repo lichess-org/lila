@@ -77,7 +77,7 @@
     <item quantity="few">Rangiran/rangirana #%1$s (prvih %2$s%%) s %3$s odigrane partije u turniru %4$s</item>
     <item quantity="other">Rangiran/rangirana #%1$s (prvih %2$s%%) s %3$s odigranih partija u turniru %4$s</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Rangiran #%1$s u %2$s</string>
+  <string name="rankedInSwissTournament">Rangiran #%1$s u %2$s</string>
   <string name="signedUp">Registrirao/la se na lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Pridružio/la se %s timu</item>

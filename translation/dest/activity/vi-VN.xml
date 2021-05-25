@@ -50,7 +50,7 @@
   <plurals name="competedInNbSwissTournaments">
     <item quantity="other">Hoàn thành %s giải đấu hệ Thụy Sỹ</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Xếp hạng %1$s trong %2$s</string>
+  <string name="rankedInSwissTournament">Xếp hạng %1$s trong %2$s</string>
   <string name="signedUp">Đã ghi danh ở lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã gia nhập %s đội</item>

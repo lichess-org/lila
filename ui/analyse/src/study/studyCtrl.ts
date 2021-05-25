@@ -368,6 +368,31 @@ export default function (
 
   const likeToggler = debounce(() => send('like', { liked: data.liked }), 1000);
 
+  function setChapter(id: string, force?: boolean) {
+    const alreadySet = id === vm.chapterId && !force;
+    if (relay?.tourShow.active) {
+      relay.tourShow.disable();
+      if (alreadySet) redraw();
+    }
+    if (alreadySet) return;
+    if (!vm.mode.sticky || !makeChange('setChapter', id)) {
+      vm.mode.sticky = false;
+      if (!vm.behind) vm.behind = 1;
+      vm.chapterId = id;
+      xhrReload();
+    }
+    vm.loading = true;
+    vm.nextChapterId = id;
+    vm.justSetChapterId = id;
+    redraw();
+  }
+
+  const [prevChapter, nextChapter] = [-1, +1].map(delta => (): StudyChapterMeta | undefined => {
+    const chs = chapters.list();
+    const i = chs.findIndex(ch => ch.id === vm.chapterId);
+    return i < 0 ? undefined : chs[i + delta];
+  });
+
   const socketHandlers: Handlers = {
     path(d) {
       const position = d.p,
@@ -642,24 +667,7 @@ export default function (
         })
       );
     },
-    setChapter(id, force) {
-      const alreadySet = id === vm.chapterId && !force;
-      if (relay?.tourShow.active) {
-        relay.tourShow.disable();
-        if (alreadySet) redraw();
-      }
-      if (alreadySet) return;
-      if (!vm.mode.sticky || !makeChange('setChapter', id)) {
-        vm.mode.sticky = false;
-        if (!vm.behind) vm.behind = 1;
-        vm.chapterId = id;
-        xhrReload();
-      }
-      vm.loading = true;
-      vm.nextChapterId = id;
-      vm.justSetChapterId = id;
-      redraw();
-    },
+    setChapter,
     toggleSticky() {
       vm.mode.sticky = !vm.mode.sticky && data.features.sticky;
       xhrReload();
@@ -675,11 +683,15 @@ export default function (
     currentNode,
     practice,
     gamebookPlay: () => gamebookPlay,
-    nextChapter(): StudyChapterMeta | undefined {
-      const chapters = data.chapters,
-        currentId = currentChapter().id;
-      for (const i in chapters) if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
-      return undefined;
+    prevChapter,
+    nextChapter,
+    goToPrevChapter() {
+      const chapter = prevChapter();
+      if (chapter) setChapter(chapter.id);
+    },
+    goToNextChapter() {
+      const chapter = nextChapter();
+      if (chapter) setChapter(chapter.id);
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;

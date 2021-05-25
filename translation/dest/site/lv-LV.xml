@@ -887,9 +887,9 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
-  <string name="mentionedYouInX"> jūs minēja ziņojumā \"%1$s\".</string>
+  <string name="mentionedYouInX">jūs minēja ziņojumā \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s jūs minēja ziņojumā \"%2$s\".</string>
-  <string name="invitedYouToX"> jūs uzaicināja uz \"%1$s\".</string>
+  <string name="invitedYouToX">jūs uzaicināja uz \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s jūs uzaicināja uz \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tagad esat komandas dalībnieks.</string>
   <string name="youHaveJoinedTeamX">Pievienojāties \"%1$s\".</string>

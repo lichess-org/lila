@@ -39,9 +39,9 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
   </plurals>
   <string name="thisIsPrivate">Dies ist ein privates Turnier</string>
   <string name="shareUrl">Teile diese URL, um andere einzuladen: %s</string>
-  <string name="drawStreak">Remis-Serien: Wenn ein Spieler mehrere, aufeinanderfolgende Remis in der Arena erzielt, wird nur für das erste Remis ein Punkt vergeben, oder aber für Remis, die mehr als %s Züge andauern. Eine Remis-Serie kann nur durch einen Sieg gebrochen werden, nicht durch eine verlorene Partie oder ein Unentschieden.</string>
+  <string name="drawStreak">Remis-Serien: Wenn ein Spieler mehrere aufeinanderfolgende Remis in der Arena erzielt, wird nur für das erste Remis ein Punkt vergeben, oder aber für Remis, die mehr als %s Züge andauern. Eine Remis-Serie kann nur durch einen Sieg gebrochen werden, nicht durch eine verlorene Partie oder ein Unentschieden.</string>
   <string name="history">Arena-Historie</string>
-  <plurals name="viewAllXTeams">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alle %s Teams ansehen</item>
   </plurals>

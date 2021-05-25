@@ -66,7 +66,7 @@
     <item quantity="one">Αγωνίστηκε σε %s ελβετικό πρωτάθλημα</item>
     <item quantity="other">Αγωνίστηκε σε %s ελβετικά πρωτάθληματα</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Κατατάχθηκε #%1$s στο %2$s</string>
+  <string name="rankedInSwissTournament">Κατατάχθηκε #%1$s στο %2$s</string>
   <string name="signedUp">Έκανε εγγραφή στο lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Έγινε μέλος %s ομάδας</item>

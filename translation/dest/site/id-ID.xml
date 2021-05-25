@@ -795,9 +795,9 @@
   <string name="youCannotPostYetPlaySomeGames">Anda belum bisa mengirim pos di forum ini. Mainkan beberapa permainan!</string>
   <string name="subscribe">Berlangganan</string>
   <string name="unsubscribe">Berhenti berlangganan</string>
-  <string name="mentionedYouInX"> membahas anda di \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s membahas anda di \"%2$s\".</string>
-  <string name="invitedYouToX"> mengundang anda ke \"%1$s\".</string>
+  <string name="mentionedYouInX">membahas anda di \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s membahas anda di \"%2$s\".</string>
+  <string name="invitedYouToX">mengundang anda ke \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s mengundang ke \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Anda sekarang bagian dalam tim.</string>
   <string name="youHaveJoinedTeamX">Anda sudah bergabung \"%1$s\".</string>
