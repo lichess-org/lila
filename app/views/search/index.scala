@@ -38,8 +38,8 @@ object index {
           table(
             tr(
               th(label(trans.players())),
-              td(cls := "usernames")(List("a", "b").map { p =>
-                div(cls := "half")(form3.input(form("players")(p))(tpe := "text"))
+              td(cls := "usernames two-columns")(List("a", "b").map { p =>
+                div(form3.input(form("players")(p))(tpe := "text"))
               })
             ),
             colors(hide = true),

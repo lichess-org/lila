@@ -6,14 +6,36 @@
       width: 100%;
     }
 
+    th {
+      width: 200px;
+    }
+
+    .button,
+    select,
+    input[type='text'],
+    input[type='number'] {
+      width: 100%;
+    }
+
     td {
       padding: 0.4em 0;
       text-align: right;
     }
 
-    .half {
-      float: left;
-      width: 50%;
+    .two-columns {
+      @extend %flex-wrap;
+
+      > * {
+        flex: 1 150px;
+      }
+
+      input[type='text'] {
+        width: 86%;
+      }
+
+      select {
+        width: 78%;
+      }
     }
 
     label {
@@ -21,13 +43,9 @@
     }
 
     input[type='text'],
+    input[type='number'],
     select {
-      padding: 0.3em 1em !important;
-    }
-
-    input[type='text'],
-    input[type='number'] {
-      width: 86%;
+      padding: 0.3em 1em;
     }
 
     select {
@@ -36,18 +54,6 @@
 
     .user_row select {
       text-transform: none;
-    }
-
-    .single select {
-      width: 99%;
-    }
-
-    .half select {
-      width: 78%;
-    }
-
-    input.submit {
-      width: 99%;
     }
 
     div.level {
@@ -68,12 +74,12 @@
       text-align: center;
     }
 
-    .button {
-      width: 100%;
-    }
-
     .wait {
       display: none;
+    }
+
+    .button {
+      display: inline-block;
     }
 
     &.searching {
@@ -91,6 +97,44 @@
         display: none;
       }
     }
+
+    th.top {
+      vertical-align: top;
+      padding-top: 1em;
+    }
+
+    .toggle-columns {
+      @extend %flex-wrap;
+      margin: 0.5rem 0;
+
+      > * {
+        width: 100%;
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        margin: 0.3rem 0;
+
+        @include breakpoint($mq-x-small) {
+          width: 50%;
+        }
+      }
+    }
+
+    .output {
+      th,
+      td {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+      }
+
+      input {
+        color: #fff7;
+      }
+    }
+
+    .cmn-toggle + label + label {
+      cursor: pointer;
+    }
   }
 
   &__status {
@@ -99,19 +143,5 @@
     background: $c-bg-zebra;
     border: $border;
     border-width: 1px 0;
-  }
-
-  th.top {
-    vertical-align: top;
-    padding-top: 1em;
-  }
-
-  .quarter {
-    width: 25%;
-  }
-
-  .output {
-    visibility: hidden;
-    width: 100%;
   }
 }

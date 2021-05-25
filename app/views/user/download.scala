@@ -4,6 +4,8 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
+import controllers.routes
+
 object download {
   def apply(user: lila.user.User)(implicit ctx: Context): Frag = {
     val title = s"${user.username} • ${trans.exportGames.txt()}"
@@ -14,8 +16,10 @@ object download {
     ) {
       main(cls := "box page-small search")(
         h1(title),
-        form(cls := "box__pad search__form")(
-          input(tpe := "hidden", id := "dl-username", value := user.username),
+        form(
+          id := "dl-form",
+          cls := "box__pad search__form"
+        )(
           table(
             color,
             date,
@@ -26,8 +30,29 @@ object download {
             perfToggles,
             includeToggles,
             amount,
-            btn,
-            output
+            tr(cls := "output")(
+              th(label(`for` := "dl-api-url")(trans.apiUrl())),
+              td(
+                input(
+                  id := "dl-api-url",
+                  cls := "copyable autoselect",
+                  tpe := "text",
+                  readonly,
+                  spellcheck := "false",
+                  attr("data-api-path") := routes.Game.apiExportByUser(user.username)
+                )
+              )
+            ),
+            tr(
+              td(cls := "action", colspan := "2")(
+                a(
+                  id := "dl-button",
+                  cls := "button",
+                  href := routes.Game.exportByUser(user.username),
+                  downloadAttr
+                )(trans.download())
+              )
+            )
           )
         )
       )
@@ -37,7 +62,7 @@ object download {
   private def color(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single")(
-      select(id := "dl-color")(
+      select(id := "dl-color", name := "color")(
         option(value := ""),
         option(value := "white")(trans.white()),
         option(value := "black")(trans.black())
@@ -47,31 +72,31 @@ object download {
 
   private def date(implicit ctx: Context): Frag = tr(
     th(label(trans.search.date())),
-    td(
-      div(cls := "half")(
+    td(cls := "two-columns")(
+      div(
         trans.search.from(),
         " ",
-        input(tpe := "date", id := "dl-dateMin"),
-        input(tpe := "time", id := "dl-timeMin", step := "1")
+        input(tpe := "date", id := "dl-date-since"),
+        input(tpe := "time", id := "dl-time-since", step := "1")
       ),
-      div(cls := "half")(
+      div(
         trans.search.to(),
         " ",
-        input(tpe := "date", id := "dl-dateMax"),
-        input(tpe := "time", id := "dl-timeMax", step := "1")
+        input(tpe := "date", id := "dl-date-until"),
+        input(tpe := "time", id := "dl-time-until", step := "1")
       )
     )
   )
 
   private def opponent(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-opponent")(trans.search.opponentName())),
-    td(input(tpe := "text", id := "dl-opponent"))
+    td(input(tpe := "text", id := "dl-opponent", name := "vs"))
   )
 
   private def mode(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-rated")(trans.mode())),
     td(cls := "single")(
-      select(id := "dl-rated")(
+      select(id := "dl-rated", name := "rated")(
         option(value := ""),
         option(value := "false")(trans.casual()),
         option(value := "true")(trans.rated())
@@ -82,7 +107,7 @@ object download {
   private def analysis(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-analysis")(trans.search.analysis())),
     td(cls := "single")(
-      select(id := "dl-analysis")(
+      select(id := "dl-analysis", name := "analysed")(
         option(value := ""),
         option(value := "true")(trans.yes()),
         option(value := "false")(trans.no())
@@ -92,81 +117,51 @@ object download {
 
   private def ongoing(implicit ctx: Context): Frag = tr(
     th(label(`for` := "dl-ongoing")(trans.currentGames())),
-    td(cmnToggle("dl-ongoing"))
+    td(form3.cmnToggle("dl-ongoing", "ongoing", false))
   )
 
   private def perfToggles(implicit ctx: Context): Frag = {
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
-      th(cls := "top")(label(`for` := "dl-perf-tbl")(trans.variants())),
+      th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
       td(
-        table(id := "dl-perf-tbl")(
-          for (i <- perfTypes.indices by 2)
-            yield tr(perfToggle(perfTypes(i)), (i + 1 < perfTypes.length) option perfToggle(perfTypes(i + 1)))
+        div(id := "dl-perfs", cls := "toggle-columns")(
+          perfTypes map perfToggle
         )
       )
     )
   }
 
+  private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
+    form3.cmnToggle(s"dl-perf-${perfType.key}", "", true, value = perfType.key),
+    label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
+  )
+
   private def includeToggles(implicit ctx: Context): Frag = tr(
     th(cls := "top")(
-      label(`for` := "dl-include-tbl")(trans.search.include())
+      label(`for` := "dl-includes")(trans.search.include())
     ),
     td(
-      table(id := "dl-include-tbl")(
-        tr(
-          th(cls := "quarter")(label(`for` := "dl-tags")(trans.study.pgnTags())),
-          td(cls := "quarter")(cmnToggle("dl-tags", defaultOn = true)),
-          th(cls := "quarter")(label(`for` := "dl-clocks")(trans.moveTimes())),
-          td(cls := "quarter")(cmnToggle("dl-clocks"))
+      div(id := "dl-includes", cls := "toggle-columns")(
+        div(form3.cmnToggle("dl-tags", "tags", true), label(`for` := "dl-tags")(trans.study.pgnTags())),
+        div(form3.cmnToggle("dl-clocks", "clocks", false), label(`for` := "dl-clocks")(trans.moveTimes())),
+        div(
+          form3.cmnToggle("dl-evals", "evals", false),
+          label(`for` := "dl-evals")(trans.search.evaluation())
         ),
-        tr(
-          th(cls := "quarter")(label(`for` := "dl-evals")(trans.search.evaluation())),
-          td(cls := "quarter")(cmnToggle("dl-evals")),
-          th(cls := "quarter")(label(`for` := "dl-opening")(trans.opening())),
-          td(cls := "quarter")(cmnToggle("dl-opening"))
-        )
+        div(form3.cmnToggle("dl-opening", "opening", false), label(`for` := "dl-opening")(trans.opening()))
       )
     )
   )
 
   private def amount(implicit ctx: Context): Frag = tr(
     th(
-      label(`for` := "dl-amount")(trans.search.maxNumber()),
-      " ",
-      span(cls := "help", title := trans.search.maxNumberExplanation.txt())("(?)")
+      label(`for` := "dl-amount")(
+        trans.search.maxNumber(),
+        " ",
+        span(cls := "help", title := trans.search.maxNumberExplanation.txt())("(?)")
+      )
     ),
-    td(input(tpe := "number", id := "dl-amount", min := "1", step := "1"))
-  )
-
-  private def btn(implicit ctx: Context): Frag = tr(
-    th,
-    td(cls := "action")(
-      button(cls := "button", tpe := "button", id := "dl-button")(
-        trans.search.generateURL()
-      )
-    )
-  )
-
-  private def output(implicit ctx: Context): Frag = tr(
-    th,
-    td(
-      input(
-        id := "dl-output",
-        cls := "copyable autoselect output",
-        readonly,
-        spellcheck := "false"
-      )
-    )
-  )
-
-  private def cmnToggle(id: String, v: String = "on", defaultOn: Boolean = false): Frag = frag(
-    input(attr("id") := id, tpe := "checkbox", cls := "cmn-toggle", value := v, defaultOn option checked),
-    label(`for` := id)
-  )
-
-  private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = frag(
-    th(cls := "quarter")(label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)),
-    td(cls := "quarter")(cmnToggle(id = s"dl-perf-${perfType.key}", v = perfType.key, defaultOn = true))
+    td(input(tpe := "number", id := "dl-amount", name := "max", min := "1", step := "1"))
   )
 }
