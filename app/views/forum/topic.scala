@@ -204,7 +204,8 @@ object topic {
     }
 
   private def deleteDialog(implicit ctx: Context) =
-    dialog(cls := "forum__delete")(
+    div(cls := "forum-delete-modal none")(
+      p("Delete the post"),
       st.form(method := "dialog", cls := "form3")(
         st.select(
           name := "reason",

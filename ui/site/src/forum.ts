@@ -1,12 +1,12 @@
 import * as xhr from 'common/xhr';
+import modal from 'common/modal';
 
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       console.log(this);
-      $('dialog.forum__delete').each(function (this: HTMLDialogElement) {
-        this.showModal();
-      });
+      const $wrap = modal($('.forum-delete-modal'));
+      $wrap.find('form').attr('action', this.href);
       // xhr.text(this.href, { method: 'post' });
       // $(this).closest('.forum-post').hide();
       return false;
