@@ -263,7 +263,7 @@ function getElUci(e: TouchEvent | MouseEvent): string | undefined {
 }
 
 function getElPvMoves(e: MouseEvent): (string | null)[] {
-  var pvMoves: (string | null)[] = [];
+  const pvMoves: (string | null)[] = [];
 
   $(e.target as HTMLElement)
     .closest('div.pv')
