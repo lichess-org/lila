@@ -15,25 +15,26 @@ $col3-uniboard-min-width: calc(70vmin * var(--board-scale));
 $col3-uniboard-max-width: calc(95vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
 $col3-uniboard-width: minmax($col3-uniboard-min-width, $col3-uniboard-max-width);
 
-$square-min: calc(#{$col3-uniboard-min-width} / 9);
+$square-min: 35px;
 $square-max: calc(#{$col3-uniboard-max-width} / 9);
-$pocket-col3-height: minmax($square-min, $square-max);
 
-$col3-uniboard-table: minmax(240px, calc(#{$square-max} * 7));
+$col3-uniboard-table: minmax(245px, calc(#{$square-max} * 7));
 
 $col3-uniboard-default-scale: 0.9; // zoom: 85%
 $col3-uniboard-default-min-width: 500px;
 $col3-uniboard-default-max-width: calc(
-  95vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
+  100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
 );
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
+$col3-uniboard-default-table: minmax(240px, 400px);
 
-$col2-uniboard-table: minmax(240px, calc(#{$square-max} * 7));;
+
+$col2-uniboard-table: minmax(240px, calc(#{$square-max} * 7));
+
 $col2-uniboard-controls: $col3-uniboard-controls;
 $col2-uniboard-width: $col3-uniboard-width;
 $col2-uniboard-default-width: $col3-uniboard-default-width;
-
-$pocket-col2-height: clamp(60px, $square-min, $square-max);
+$col2-uniboard-default-table: $col3-uniboard-default-table;
 
 $col2-uniboard-squeeze-table: minmax(220px, calc(#{$square-max} * 7));
 $col2-uniboard-squeeze-width: minmax(calc(50vmin), calc(100vh - #{$site-header-outer-height} - #{$block-gap}));

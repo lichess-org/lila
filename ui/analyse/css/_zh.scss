@@ -38,7 +38,7 @@ $pocket-col1-height: auto;
       'uchat      .     side';
   }
   @include breakpoint($mq-col3) {
-    grid-template-rows: min-content $chat-height 1fr min-content;
+    grid-template-rows: clamp($square-min, $square-max, $square-max) $meta-height $chat-height clamp($square-min, $square-max, $square-max);
     grid-template-areas:
       'side    . board gauge pocket-top'
       'side    . board gauge tools'
