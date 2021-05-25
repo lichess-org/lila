@@ -22,7 +22,7 @@
   <string name="createAGame">Kreiraj partiju</string>
   <string name="whiteIsVictorious">Bijeli je pobjednik</string>
   <string name="blackIsVictorious">Crni je pobjednik</string>
-  <string name="youPlayTheWhitePieces">Igrate sa bijelim figurama</string>
+  <string name="youPlayTheWhitePieces">Igrate bijelim figurama</string>
   <string name="youPlayTheBlackPieces">Igrate sa crnim figurama</string>
   <string name="itsYourTurn">Vi Ste na Potezu!</string>
   <string name="cheatDetected">Otkriveno varanje</string>
