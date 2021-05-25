@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.mvc._
+import views._
 
 import lila.api.Context
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
-import views._
 
 final class Streamer(
     env: Env,
@@ -41,14 +41,22 @@ final class Streamer(
 
   def show(username: String) =
     Open { implicit ctx =>
-      ctx.noKid ?? {
-        OptionFuResult(api find username) { s =>
-          WithVisibleStreamer(s) {
-            for {
-              sws       <- env.streamer.liveStreamApi of s
-              activity  <- env.activity.read.recent(sws.user, 10)
-              following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
-            } yield Ok(html.streamer.show(sws, activity, following))
+      OptionFuResult(api find username) { s =>
+        WithVisibleStreamer(s) {
+          for {
+            sws      <- env.streamer.liveStreamApi of s
+            activity <- env.activity.read.recent(sws.user, 10)
+          } yield Ok(html.streamer.show(sws, activity))
+        }
+      }
+    }
+
+  def redirect(username: String) =
+    Open { implicit ctx =>
+      OptionFuResult(api find username) { s =>
+        WithVisibleStreamer(s) {
+          env.streamer.liveStreamApi of s map { sws =>
+            Redirect(sws.redirectToLiveUrl | routes.Streamer.show(username).url)
           }
         }
       }
@@ -160,6 +168,8 @@ final class Streamer(
     }
 
   private def WithVisibleStreamer(s: StreamerModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f
-    else notFound
+    ctx.noKid ?? {
+      if (s.streamer.isListed || ctx.me.??(s.streamer.is) || isGranted(_.Admin)) f
+      else notFound
+    }
 }

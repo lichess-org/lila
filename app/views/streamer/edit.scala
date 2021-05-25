@@ -45,7 +45,7 @@ object edit extends Context.ToLang {
                 bits.rules
               )
             )
-          else views.html.streamer.header(s, none),
+          else views.html.streamer.header(s),
           div(cls := "box__pad") {
             val granted = s.streamer.approval.granted
             frag(

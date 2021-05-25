@@ -109,7 +109,8 @@ object timeline {
         case BlogPost(id, slug, title, _) =>
           a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
         case StreamStart(id, name) =>
-          a(cls := "text", dataIcon := "", href := routes.Streamer.show(id))(trans.xStartedStreaming(name))
+          views.html.streamer.bits
+            .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
       },
       " ",
       momentFromNow(e.date)
