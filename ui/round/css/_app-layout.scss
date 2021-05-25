@@ -74,15 +74,6 @@
     &__table {
       display: none;
     }
-
-    &.move-confirm {
-      // replace move list with move confirmation
-      grid-template-areas: 'controls' 'pocket-top' 'mat-top' 'user-top' 'board' 'expi-bot' 'user-bot' 'mat-bot' 'pocket-bot' 'kb-move';
-
-      #{$rmoves-tag} {
-        display: none;
-      }
-    }
   }
 
   @include breakpoint($mq-col2) {
