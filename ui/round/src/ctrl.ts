@@ -150,6 +150,8 @@ export default class RoundController {
       }
     });
 
+    lichess.sound.preloadBoardSounds();
+
     if (this.isPlaying()) ab.init(this);
   }
 
