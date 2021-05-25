@@ -292,7 +292,7 @@ final class Study(
   ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
       _.fold(notFound) { sc =>
-        Redirect(routes.Study.show(sc.study.id.value)).fuccess
+        Redirect(routes.Study.chapter(sc.study.id.value, sc.chapter.id.value)).fuccess
       }
     }
 
