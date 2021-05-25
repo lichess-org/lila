@@ -120,22 +120,6 @@ final class StreamerApi(
   def deletePicture(s: Streamer): Funit =
     coll.update.one($id(s.id), $unset("picturePath")).void
 
-  // unapprove after a week if you never streamed
-  def autoDemoteFakes: Funit =
-    coll.update
-      .one(
-        $doc(
-          "liveAt" $exists false,
-          "approval.granted" -> true,
-          "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
-        ),
-        $set(
-          "approval.granted" -> false,
-          "demoted"          -> true
-        ),
-        multi = true
-      )
-      .void
 
   object approval {
 

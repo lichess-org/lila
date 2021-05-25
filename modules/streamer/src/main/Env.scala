@@ -94,7 +94,4 @@ final class Env(
     api demote userId
   }
 
-  system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
-    api.autoDemoteFakes
-  }
 }
