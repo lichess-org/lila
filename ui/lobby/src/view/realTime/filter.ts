@@ -14,6 +14,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   if (f)
     Object.keys(f).forEach(k => {
       const input = $div.find(`input[name="${k}"]`)[0] as HTMLInputElement;
+      if (!input) return;
       if (input.type == 'checkbox') input.checked = true;
       else input.value = f[k];
     });
@@ -22,15 +23,19 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
   $div.find('input').on('change', save);
-  $div.find('button.reset').on('click', () => {
-    ctrl.filter.set(null);
-    ctrl.filter.open = false;
-    ctrl.redraw();
-  });
-  $div.find('button.apply').on('click', () => {
-    ctrl.filter.open = false;
-    ctrl.redraw();
-  });
+  $div
+    .find('form')
+    .on('reset', (e: Event) => {
+      e.preventDefault();
+      ctrl.filter.set(null);
+      ctrl.filter.open = false;
+      ctrl.redraw();
+    })
+    .on('submit', (e: Event) => {
+      e.preventDefault();
+      ctrl.filter.open = false;
+      ctrl.redraw();
+    });
 
   function changeRatingRange(e?: Event) {
     $minInput.attr('max', $maxInput.val() as string);
