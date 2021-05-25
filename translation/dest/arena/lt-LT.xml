@@ -41,7 +41,7 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   <string name="shareUrl">Pasidalinkite šiuo adresu su žaidėjais: %s</string>
   <string name="drawStreak">Lygiųjų sekos: kai žaidėjas turi vienas po kitos sekančias lygiąsias arenoje, tik pirmosios, arba trunkančios ilgiau negu %s ėjimų, lygiosios suteiks tašką. Lygiųjų seka gali būti nutraukta tik laimėjimu, ne pralaimėjimu ar lygiosiomis.</string>
   <string name="history">Arenų istorija</string>
-  <plurals name="viewAllXTeams">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Peržvelgti komandą</item>
     <item quantity="few">Peržvelgti visas %s komandas</item>
     <item quantity="many">Peržvelgti visas %s komandų</item>

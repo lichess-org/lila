@@ -833,9 +833,9 @@
   <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
   <string name="subscribe">Mag-subscribe</string>
   <string name="unsubscribe">Mag-unsubscribe</string>
-  <string name="mentionedYouInX"> ay nabanggit ka sa \"%1$s\".</string>
-  <string name="xMentionedYouInY"> Nabanggit ka ni %1$s sa \"%2$s\".</string>
-  <string name="invitedYouToX"> ay inanyayahan ka sa \"%1$s\".</string>
+  <string name="mentionedYouInX">ay nabanggit ka sa \"%1$s\".</string>
+  <string name="xMentionedYouInY">Nabanggit ka ni %1$s sa \"%2$s\".</string>
+  <string name="invitedYouToX">ay inanyayahan ka sa \"%1$s\".</string>
   <string name="xInvitedYouToY">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ikaw ay miyembro na ng team.</string>
   <string name="youHaveJoinedTeamX">Sumali ka sa \"%1$s\".</string>

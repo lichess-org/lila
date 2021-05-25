@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Qinisekisa i-akhawunti yakho ye- lichess.org, %s</string>
-  <string name="emailConfirm_click">Chofoza isixhumanisi ukuze unike amandla i-akhawunti yakho Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Chofoza isixhumanisi ukuze unike amandla i-akhawunti yakho Lichess:</string>
   <string name="emailConfirm_ignore">Uma ungazange ubhalise namaLayisense ungawunaka lo mlayezo ngokuphepha.</string>
   <string name="passwordReset_subject">Setha kabusha iphasiwedi yakho ye- lichess.org, %s</string>
   <string name="passwordReset_intro">Sithole isicelo sokusetha kabusha iphasiwedi ye-akhawunti yakho.</string>

@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Ezin duzu foroetan idatzi. Jokatu partida batzuk!</string>
   <string name="subscribe">Harpidetu</string>
   <string name="unsubscribe">Harpidetza kendu</string>
-  <string name="mentionedYouInX"> \"%1$s\" -n aipatu zaituzte.</string>
-  <string name="xMentionedYouInY"> %1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
-  <string name="invitedYouToX"> \"%1$s\" taldera sartzeko gonbidapena.</string>
+  <string name="mentionedYouInX">\"%1$s\" -n aipatu zaituzte.</string>
+  <string name="xMentionedYouInY">%1$s jokalariak \"%2$s\" artikuluan aipatu zaitu.</string>
+  <string name="invitedYouToX">\"%1$s\" taldera sartzeko gonbidapena.</string>
   <string name="xInvitedYouToY">%1$s jokalariak \"%2$s\" taldera gonbidatu zaitu.</string>
   <string name="youAreNowPartOfTeam">Taldearen parte zara.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" taldera sartu zara.</string>

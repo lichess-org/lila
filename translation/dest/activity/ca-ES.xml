@@ -62,7 +62,7 @@
     <item quantity="one">%1$sº en la classificació (dins del %2$s%% millor) amb %3$s partida en %4$s</item>
     <item quantity="other">%1$sº en la classificació (dins dels %2$s%% millors) amb %3$s partides en %4$s</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Classificat #%1$s en %2$s</string>
+  <string name="rankedInSwissTournament">Classificat #%1$s en %2$s</string>
   <string name="signedUp">Registrat a Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Membre de %s equip</item>

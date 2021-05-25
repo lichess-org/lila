@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Cadarnhau eich cyfrif lichess.org, %s</string>
-  <string name="emailConfirm_click">Cliciwch ar y ddolen i alluogi eich cyfrif Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Cliciwch ar y ddolen i alluogi eich cyfrif Lichess:</string>
   <string name="emailConfirm_ignore">Os nad ydych chi wedi cofrestru gyda Lichess gallech chi anwybyddu\'r neges hon.</string>
   <string name="passwordReset_subject">Ailosod eich cyfrinair lichess.org, %s</string>
   <string name="passwordReset_intro">Rydym wedi cael cais i ailosod y cyfrinair ar gyfer eich cyfrif.</string>

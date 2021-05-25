@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
   <string name="playWithTheMachine">Play with the computer</string>
@@ -455,7 +455,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="firstName">Given name</string>
   <string name="lastName">Surname</string>
   <string name="biography">Biography</string>
-  <string name="countryOrFlag">Country or flag</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Country or flag</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="inlineNotation">Inline notation</string>

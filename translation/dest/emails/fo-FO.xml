@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Vátta tína lichess.org-kontu, %s</string>
-  <string name="emailConfirm_click">Klikk á leinkið til tess at virkja tína Lichess kontu:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klikk á leinkið til tess at virkja tína Lichess kontu:</string>
   <string name="emailConfirm_ignore">Um tú ikki hevur skrásett teg hjá Lichess, kanst tú síggja burtur frá hesum boðunum.</string>
   <string name="passwordReset_subject">Set títt lichess.org-loyniorð av nýggjum, %s</string>
   <string name="passwordReset_intro">Vit fingu eina umbøn um at endurseta loyniorðið til kontu tína.</string>

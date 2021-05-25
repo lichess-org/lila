@@ -35,4 +35,15 @@
   <string name="waitingForMorePlayers">Đang đợi thêm người chơi tham gia...</string>
   <string name="raceComplete">Cuộc đua kết thúc!</string>
   <string name="spectating">Đang xem</string>
+  <string name="joinTheRace">Tham gia cuộc đua!</string>
+  <string name="yourRankX">Thứ hạng của bạn: %s</string>
+  <string name="waitForRematch">Đang đợi đấu lại</string>
+  <string name="nextRace">Cuộc đua kế tiếp</string>
+  <string name="joinRematch">Tham gia vòng đấu lại</string>
+  <string name="waitingToStart">Đang đợi bắt đầu</string>
+  <string name="createNewGame">Tạo ván đấu mới</string>
+  <string name="joinPublicRace">Tham gia một cuộc đua công khai</string>
+  <string name="raceYourFriends">Đua với bạn bè của bạn</string>
+  <string name="skip">bỏ qua</string>
+  <string name="skipHelp">Bạn có thể bỏ qua một nước đi mỗi ván chơi:</string>
 </resources>

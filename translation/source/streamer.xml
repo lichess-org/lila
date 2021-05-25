@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessStreamers">Lichess streamers</string>
   <string name="lichessStreamer">Lichess streamer</string>
@@ -26,8 +26,8 @@
   <string name="approved">Your stream is approved.</string>
   <string name="pendingReview">Your stream is being reviewed by moderators.</string>
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
-  <string name="whenReady">When you are ready to be listed as a Lichess streamer, %s</string>
-  <string name="requestReview">request a moderator review</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">When you are ready to be listed as a Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">request a moderator review</string>
   <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
 As examples, you can include "[RU]" for Russian, "[TR]" for Turkish, "[FR]" for French, etc.
 Put this in the stream title in the Twitch or YouTube page, not in the Lichess stream settings.

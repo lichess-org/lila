@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Patvirtinkite savo lichess.org paskyrą, %s</string>
-  <string name="emailConfirm_click">Spustelėkite nuorodą, norėdami aktyvuoti savo „Lichess“ paskyrą:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Spustelėkite nuorodą, norėdami aktyvuoti savo „Lichess“ paskyrą:</string>
   <string name="emailConfirm_ignore">Jeigu nesiregistravote „Lichess“, galite ignoruoti šį pranešimą.</string>
   <string name="passwordReset_subject">Pakeiskite savo lichess.org slaptažodį, %s</string>
   <string name="passwordReset_intro">Mes gavome užklausą pakeisti jūsų paskyros slaptažodį.</string>

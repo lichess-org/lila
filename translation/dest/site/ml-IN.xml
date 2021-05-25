@@ -844,9 +844,9 @@
   <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
   <string name="subscribe">സബ്സ്ക്രൈബ്</string>
   <string name="unsubscribe">അൺസബ്സ്ക്രൈബ്</string>
-  <string name="mentionedYouInX"> %1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
-  <string name="xMentionedYouInY"> %2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
-  <string name="invitedYouToX"> %1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
+  <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
+  <string name="xMentionedYouInY">%2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
+  <string name="invitedYouToX">%1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
   <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
   <string name="youAreNowPartOfTeam">നിങ്ങളിപ്പോൾ ടീമിന്റെ ഭാഗമായി.</string>
   <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>

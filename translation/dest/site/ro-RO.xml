@@ -885,9 +885,9 @@
   <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
   <string name="subscribe">Abonați-vă</string>
   <string name="unsubscribe">Dezabonați-vă</string>
-  <string name="mentionedYouInX"> te-a menționat în \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s te-a menționat în \"%2$s\".</string>
-  <string name="invitedYouToX"> te-a invitat la \"%1$s\".</string>
+  <string name="mentionedYouInX">te-a menționat în \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s te-a menționat în \"%2$s\".</string>
+  <string name="invitedYouToX">te-a invitat la \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
   <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>

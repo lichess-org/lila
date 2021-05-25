@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">%s stats</string>
   <string name="viewTheGames">View the games</string>
@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Not enough rated games have been played to establish a reliable rating.</string>
   <string name="progressOverLastXGames">Progression over the last %s games:</string>
   <string name="ratingDeviation">Rating deviation: %s.</string>
-  <string name="ratingDeviationTooltip">Lower value means the rating is more stable. Above %1$s, the rating is considered provisional. To be included in the rankings, this value should be below %2$s (standard chess) or %3$s (variants).</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Lower value means the rating is more stable. Above %1$s, the rating is considered provisional. To be included in the rankings, this value should be below %2$s (standard chess) or %3$s (variants).</string>
   <string name="totalGames">Total games</string>
   <string name="ratedGames">Rated games</string>
   <string name="tournamentGames">Tournament games</string>

@@ -146,8 +146,8 @@ Dama &gt; Alfil</string>
  No cambies
  una pieza valiosa por una de menor valor.</string>
   <string name="pieceValueLegal">¡Captura la pieza
-de más valor!
-Pero asegúrate de que el movimiento sea válido.</string>
+de mayor valor!
+Pero asegúrate de que el movimiento sea válido!</string>
   <string name="takeThePieceWithTheHighestValue">¡Captura la pieza más valiosa!</string>
   <string name="pieceValueComplete">¡Felicidades! ¡Conoces el valor de las piezas!
 Dama = 9

@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan inte posta i forumen ännu. Spela några partier!</string>
   <string name="subscribe">Prenumerera</string>
   <string name="unsubscribe">Avprenumerera</string>
-  <string name="mentionedYouInX"> nämnde dig i \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s nämnde dig i \"%2$s\".</string>
-  <string name="invitedYouToX"> bjöd in dig till \"%1$s\".</string>
+  <string name="mentionedYouInX">nämnde dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s nämnde dig i \"%2$s\".</string>
+  <string name="invitedYouToX">bjöd in dig till \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s bjöd in dig till \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du är nu en del av laget.</string>
   <string name="youHaveJoinedTeamX">Du har gått med i \"%1$s\".</string>

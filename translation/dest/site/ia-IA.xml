@@ -820,9 +820,9 @@
   <string name="youCannotPostYetPlaySomeGames">Tu non pote postar in le foros ancora. Joca qualque partitas!</string>
   <string name="subscribe">Abonar</string>
   <string name="unsubscribe">Disabonar</string>
-  <string name="mentionedYouInX"> mentionava tu in \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s mentionava tu in \"%2$s\".</string>
-  <string name="invitedYouToX"> invitava tu a \"%1$s\".</string>
+  <string name="mentionedYouInX">mentionava tu in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mentionava tu in \"%2$s\".</string>
+  <string name="invitedYouToX">invitava tu a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s invitava tu a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tu ora es parte del equipa.</string>
   <string name="youHaveJoinedTeamX">Tu ha adherite a \"%1$s\".</string>

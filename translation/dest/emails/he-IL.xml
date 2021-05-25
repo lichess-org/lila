@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">אשר את חשבון ה-lichess.org שלך, %s</string>
-  <string name="emailConfirm_click">לחץ על הקישור על מנת להפעיל את חשבון הליצ\'ס שלך:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">לחץ על הקישור על מנת להפעיל את חשבון הליצ\'ס שלך:</string>
   <string name="emailConfirm_ignore">אם לא נרשמת ב Lichess אתה יכול להתעלם מהודעה זו.</string>
   <string name="passwordReset_subject">אפס את סיסמת חשבונך, %s</string>
   <string name="passwordReset_intro">קיבלנו בקשה לאפס את סיסמת חשבונך.</string>

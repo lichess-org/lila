@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Deimhnigh do chuntas Lichess.org, %s</string>
-  <string name="emailConfirm_click">Cliceáil an nasc chun do chuntas Lichess a chumasú:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Cliceáil an nasc chun do chuntas Lichess a chumasú:</string>
   <string name="emailConfirm_ignore">Murar chláraigh tú le Lichess, is féidir neamhaird a dhéanamh den teachtaireacht seo.</string>
   <string name="passwordReset_subject">Athshocraigh do phasfhocal do Lichess.org, %s</string>
   <string name="passwordReset_intro">Fuair muid iarratas chun do phasfhocal a athshocrú.</string>

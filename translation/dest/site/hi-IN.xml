@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
   <string name="itsYourTurn">यह आपकी बारी है!</string>
+  <string name="cheatDetected">धोखा का पता चला</string>
   <string name="kingInTheCenter">राजा मध्य में</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">दौड़ समाप्त</string>
@@ -426,7 +427,7 @@
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
   <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
-  <string name="startPosition">शुरुआत की स्थिती</string>
+  <string name="startPosition">शुरू करने की स्थिति:</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>
   <string name="loadPosition">इस स्थिति से चालू करें</string>
@@ -482,7 +483,7 @@
   <string name="reason">कारण</string>
   <string name="whatIsIheMatter">बात क्या है?</string>
   <string name="cheat">धोखेबाज़ी</string>
-  <string name="insult">बेइज़्ज़ती</string>
+  <string name="insult">अपमान</string>
   <string name="troll">ट्रोल</string>
   <string name="ratingManipulation">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
@@ -595,7 +596,7 @@
   <string name="watch">देखें</string>
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
   <string name="streamersMenu">प्रसारण करता</string>
-  <string name="mobileApp">मोबाइल ऐप्प</string>
+  <string name="mobileApp">मोबाइल ऐप</string>
   <string name="webmasters">वेबमास्टर्स</string>
   <string name="about">के बारे में</string>
   <string name="aboutX">%s के बारे में</string>
@@ -835,9 +836,9 @@
   <string name="youCannotPostYetPlaySomeGames">आप अभी तक फ़ोरम में पोस्ट नहीं कर सकते। कुछ गेम्स खेलें!</string>
   <string name="subscribe">सदस्यता लें</string>
   <string name="unsubscribe">सदस्यता रद्द करें</string>
-  <string name="mentionedYouInX"> आपने \"%1$s\" में उल्लेख किया है।</string>
-  <string name="xMentionedYouInY"> %1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
-  <string name="invitedYouToX"> आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
+  <string name="mentionedYouInX">आपने \"%1$s\" में उल्लेख किया है।</string>
+  <string name="xMentionedYouInY">%1$s ने \"%2$s\" में आपका उल्लेख किया।</string>
+  <string name="invitedYouToX">आपको \"%1$s\" के लिए आमंत्रित किया गया है।</string>
   <string name="xInvitedYouToY">%1$s ने आपको \"%2$s\" के लिए आमंत्रित किया।</string>
   <string name="youAreNowPartOfTeam">अब आप टीम का हिस्सा हैं।</string>
   <string name="youHaveJoinedTeamX">आप \"%1$s\" में शामिल हो गए हैं।</string>

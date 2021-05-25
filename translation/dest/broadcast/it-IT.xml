@@ -21,4 +21,7 @@
   <string name="credits">Cita la fonte</string>
   <string name="resetRound">Reimposta questo turno</string>
   <string name="deleteRound">Cancella questo turno</string>
+  <string name="broadcastUrl">Url della trasmissione</string>
+  <string name="currentRoundUrl">URL del turno corrente</string>
+  <string name="currentGameUrl">URL della partita corrente</string>
 </resources>

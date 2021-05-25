@@ -848,9 +848,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="youCannotPostYetPlaySomeGames">Du kan så langt ikkje skrive oppslag i foraane. Spel nokre parti fyrst!</string>
   <string name="subscribe">Abonner</string>
   <string name="unsubscribe">Avslutt abonnement</string>
-  <string name="mentionedYouInX"> nemnde deg i \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s nemnde deg i \"%2$s\".</string>
-  <string name="invitedYouToX"> inviterte deg til \"%1$s\".</string>
+  <string name="mentionedYouInX">nemnde deg i \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s nemnde deg i \"%2$s\".</string>
+  <string name="invitedYouToX">inviterte deg til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterte deg til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er no med i laget.</string>
   <string name="youHaveJoinedTeamX">Du har blitt med i \"%1$s\".</string>

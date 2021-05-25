@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Konfirmu vian konton ĉe lichess.org, %s</string>
-  <string name="emailConfirm_click">Alklaku la ligilon por ebligi vian konton ĉe Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Alklaku la ligilon por ebligi vian konton ĉe Lichess:</string>
   <string name="emailConfirm_ignore">Se vi ne registris konton ĉe Lichess, vi povas ignori ĉi tiun mesaĝon.</string>
   <string name="passwordReset_subject">Restarigu vian pasvorton de lichess.org, %s</string>
   <string name="passwordReset_intro">Ni ricevis peton por restarigi la pasvorton por via konto.</string>

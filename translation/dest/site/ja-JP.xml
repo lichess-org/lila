@@ -617,7 +617,7 @@
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
-  <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
+  <string name="weeklyPerfTypeRatingDistribution">今週の %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
@@ -808,9 +808,9 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="mentionedYouInX"> 「%1$s」であなたの名前が出ました。</string>
-  <string name="xMentionedYouInY"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
-  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
+  <string name="mentionedYouInX">「%1$s」であなたの名前が出ました。</string>
+  <string name="xMentionedYouInY">%1$sさんが「%2$s」であなたの名前を出しました。</string>
+  <string name="invitedYouToX">「%1$s」 への招待が来ました。</string>
   <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>

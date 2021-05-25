@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Vous ne pouvez pas encore poster dans les forums. Jouez quelques parties !</string>
   <string name="subscribe">Suivre</string>
   <string name="unsubscribe">Ne plus suivre</string>
-  <string name="mentionedYouInX"> vous a mentionné dans « %1$s ».</string>
-  <string name="xMentionedYouInY"> %1$s vous a mentionné dans « %2$s ».</string>
-  <string name="invitedYouToX"> vous a invité à « %1$s ».</string>
+  <string name="mentionedYouInX">vous a mentionné dans « %1$s ».</string>
+  <string name="xMentionedYouInY">%1$s vous a mentionné dans « %2$s ».</string>
+  <string name="invitedYouToX">vous a invité à « %1$s ».</string>
   <string name="xInvitedYouToY">%1$s vous a invité à « %2$s ».</string>
   <string name="youAreNowPartOfTeam">Vous faites maintenant partie de l’équipe.</string>
   <string name="youHaveJoinedTeamX">Vous avez joint l\'équipe \"%1$s\".</string>

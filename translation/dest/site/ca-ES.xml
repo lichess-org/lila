@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Jugues amb les peces blanques</string>
   <string name="youPlayTheBlackPieces">Jugues amb les peces negres</string>
   <string name="itsYourTurn">És el teu torn!</string>
+  <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rei al centre</string>
   <string name="threeChecks">Tres escacs</string>
   <string name="raceFinished">Cursa finalitzada</string>
@@ -453,6 +454,7 @@
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
   <string name="biography">Biografia</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o bandera</string>
   <string name="thankYou">Gràcies!</string>
   <string name="socialMediaLinks">Enllaços a xarxes social</string>
   <string name="inlineNotation">Notació Lineal</string>
@@ -675,6 +677,7 @@
   <string name="printFriendlyPDF">PDF fàcil d\'imprimir</string>
   <string name="crosstable">Taula creuada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">També pots desplaçar-te sobre el tauler per moure en el joc.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu premudes les variants d\'anàlisi per a previsualitzar-les.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
   <string name="shareYourInsightsData">Comparteix les teves dades d\'estadístiques</string>
@@ -844,12 +847,13 @@
   <string name="youCannotPostYetPlaySomeGames">Encara no pots publicar en els fòrums. Juga algunes partides!</string>
   <string name="subscribe">Subscriure’s</string>
   <string name="unsubscribe">Anul·la subscripció</string>
-  <string name="mentionedYouInX"> t\'ha mencionat en \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s t\'ha mencionat en \"%2$s\".</string>
-  <string name="invitedYouToX"> t\'ha invitat a \"%1$s\".</string>
+  <string name="mentionedYouInX">t\'ha mencionat en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s t\'ha mencionat en \"%2$s\".</string>
+  <string name="invitedYouToX">t\'ha invitat a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s t\'ha invitat a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ara formes part de l\'equip.</string>
   <string name="youHaveJoinedTeamX">T\'has unit a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Algú que vas denunciar ha estat expulsat</string>
   <string name="congratsYouWon">Felicitats, has guanyat!</string>
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
@@ -861,4 +865,5 @@
   <string name="lostAgainstTOSViolator">Has perdut contra algú que ha violat les CDS de Lichess</string>
   <string name="refundXpointsTimeControlY">Reemborsament: %1$s %2$s punts.</string>
   <string name="timeAlmostUp">El temps quasi s\'ha exhaurit!</string>
+  <string name="clickToRevealEmailAddress">[Clica per a mostrar l\'adreça de correu electrònic]</string>
 </resources>

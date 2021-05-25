@@ -77,8 +77,8 @@
   <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
   <string name="close">Zamknij</string>
-  <string name="winning">Wygrywa</string>
-  <string name="losing">Przegrywa</string>
+  <string name="winning">Wygrywający</string>
+  <string name="losing">Przegrywający</string>
   <string name="drawn">Remisuje</string>
   <string name="unknown">Nieznany</string>
   <string name="database">Baza danych</string>
@@ -115,7 +115,7 @@
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
-  <string name="evaluationGauge">Miernik oceny</string>
+  <string name="evaluationGauge">Wskaźnik oszacowania</string>
   <string name="multipleLines">Analizowane warianty</string>
   <string name="cpus">Procesory</string>
   <string name="memory">Pamięć RAM</string>
@@ -487,7 +487,7 @@
   <string name="tournamentPairingsAreNowClosed">Zakończono kojarzenie par.</string>
   <string name="standByX">Parowanie graczy, przygotuj się do gry, %s!</string>
   <string name="youArePlaying">Grasz!</string>
-  <string name="winRate">Wygranych</string>
+  <string name="winRate">Współczynnik zwycięstw</string>
   <string name="berserkRate">Berserków</string>
   <string name="performance">Wynik</string>
   <string name="tournamentComplete">Turniej zakończony</string>
@@ -927,9 +927,9 @@
   <string name="youCannotPostYetPlaySomeGames">Nie możesz jeszcze publikować na forach. Rozegraj najpierw kilka partii!</string>
   <string name="subscribe">Subskrybuj</string>
   <string name="unsubscribe">Zakończ subskrybcję</string>
-  <string name="mentionedYouInX"> wspomniał o tobie w \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s wspomniał o tobie w \"%2$s\".</string>
-  <string name="invitedYouToX"> zaprosił Cię do \"%1$s\".</string>
+  <string name="mentionedYouInX">wspomniał o tobie w \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s wspomniał o tobie w \"%2$s\".</string>
+  <string name="invitedYouToX">zaprosił Cię do \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
   <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>

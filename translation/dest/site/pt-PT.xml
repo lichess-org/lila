@@ -845,9 +845,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
   <string name="subscribe">Subscrever-se</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
-  <string name="mentionedYouInX"> foste mencionado em \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s mencionou-te em \"%2$s\".</string>
-  <string name="invitedYouToX"> convidou-te para \"%1$s\".</string>
+  <string name="mentionedYouInX">foste mencionado em \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mencionou-te em \"%2$s\".</string>
+  <string name="invitedYouToX">convidou-te para \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s convidou-te para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Já fazes parte da equipa.</string>
   <string name="youHaveJoinedTeamX">Juntaste-te a \"%1$s\".</string>

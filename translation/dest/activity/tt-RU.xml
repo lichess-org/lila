@@ -50,7 +50,7 @@
   <plurals name="competedInNbSwissTournaments">
     <item quantity="other">Тәмам колындылар %s швецар бәйгесе</item>
   </plurals>
-  <string name="rankedInSwissTournament" comment="rankedInSwissTournament&#10;&#10;%1$s is the numerical rank, e.g. #2 if you came second.&#10;&#10;%2$s is the name of the tournament e.g. Carlsen Arena">Ранкы #%1$s %2$s өчендә</string>
+  <string name="rankedInSwissTournament">Ранкы #%1$s %2$s өчендә</string>
   <string name="signedUp">Lichess.org ка кергән</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">%s җәмәга кушылды</item>

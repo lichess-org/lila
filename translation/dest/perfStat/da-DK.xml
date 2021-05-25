@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Der er ikke spillet nok ratede partier til at fastlægge en pålidelig rating.</string>
   <string name="progressOverLastXGames">Udvikling over de sidste %s partier:</string>
   <string name="ratingDeviation">Rating afvigelse: %s.</string>
-  <string name="ratingDeviationTooltip">Lavere værdi betyder, at ratingen er mere stabil. Over %1$s anses ratingen for foreløbig. For at blive inkluderet i rangeringen skal denne værdi være under %2$s (standard skak) eller %3$s (varianter).</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Lavere værdi betyder, at ratingen er mere stabil. Over %1$s anses ratingen for foreløbig. For at blive inkluderet i rangeringen skal denne værdi være under %2$s (standard skak) eller %3$s (varianter).</string>
   <string name="totalGames">Alle partier</string>
   <string name="ratedGames">Ratede partier</string>
   <string name="tournamentGames">Turneringspartier</string>

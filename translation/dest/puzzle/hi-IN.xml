@@ -59,7 +59,7 @@
   <string name="solved">हल किया</string>
   <string name="failed">अनुत्तीर्ण होना</string>
   <string name="streakDescription">कठिन पहेलियों को हल करें एवं जीतने की श्रंखला बनाएं । समय की कोई पाबंदी नहीं है अतः अपना समय लें । एक गलत कदम और खेल खतम! परंतु आप हर अधिवेशन मे एक कदम छोड़ सकते हैं।</string>
-  <string name="streakSkipExplanation">अपने कॉम्बो को संरक्षित करने के लिए इस कदम को छोड़ दें। सम्पूर्ण पारी मे केवल एक बार काम करता है । </string>
+  <string name="streakSkipExplanation">अपने कॉम्बो को संरक्षित करने के लिए इस कदम को छोड़ दें। सम्पूर्ण पारी मे केवल एक बार काम करता है ।</string>
   <string name="continueTheStreak">श्रंखला बनाए रखें ।</string>
   <string name="newStreak">नई श्रंखला</string>
 </resources>
