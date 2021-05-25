@@ -195,10 +195,10 @@ object JsonApi {
               "id"   -> a.id,
               "nodes" -> Json.obj(
                 "nnue"      -> a.nodes,
-                "classical" -> a.nodes * 18 / 10
+                "classical" -> a.nodes * 2,
               )
             ),
-            "nodes"         -> a.nodes * 18 / 10, // bc for fishnet 1.x clients without nnue
+            "nodes"         -> a.nodes * 2, // bc for fishnet 1.x clients without nnue
             "skipPositions" -> a.skipPositions
           )
       }) ++ Json.toJson(work.game).as[JsObject]
