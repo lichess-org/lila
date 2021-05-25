@@ -85,9 +85,7 @@ export default class GamebookPlayCtrl {
         this.retry();
         break;
       case 'end': {
-        const s = this.root.study!,
-          c = s.nextChapter();
-        if (c) s.setChapter(c.id);
+        this.root.study!.goToNextChapter();
         break;
       }
       default:
