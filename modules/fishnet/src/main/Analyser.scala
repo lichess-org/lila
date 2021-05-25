@@ -103,7 +103,7 @@ final class Analyser(
           variant = game.variant,
           moves = moves take maxPlies mkString " "
         ),
-        startPly = game.shogi.startedAtTurn,
+        startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
         sender = sender
       )
     }
