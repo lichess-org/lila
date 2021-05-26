@@ -22,4 +22,10 @@
   <string name="sortBy">排序條件</string>
   <string name="analysis">分析</string>
   <string name="onlyAnalysed">僅可進行有電腦分析的遊戲</string>
+  <string name="color">顏色</string>
+  <string name="evaluation">評估</string>
+  <string name="maxNumber">最大值</string>
+  <string name="maxNumberExplanation">回傳的最大場數</string>
+  <string name="include">包含</string>
+  <string name="generateURL">產生網址</string>
 </resources>
