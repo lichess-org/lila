@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
-import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
+import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ Holder, User }
@@ -140,8 +140,7 @@ final class StudyApi(
     } flatMap { sc =>
       studyRepo.insert(sc.study) >>
         chapterRepo.insert(sc.chapter) >>-
-        indexStudy(sc.study) >>-
-        scheduleTimeline(sc.study.id) inject sc.some
+        indexStudy(sc.study) inject sc.some
     }
 
   def clone(me: User, prev: Study): Fu[Option[Study]] =
@@ -175,19 +174,6 @@ final class StudyApi(
         }
       case _ => fuccess(study -> none)
     }
-
-  private def scheduleTimeline(studyId: Study.Id): Unit =
-    scheduler
-      .scheduleOnce(1 minute) {
-        byId(studyId) foreach {
-          _.withFilter(_.isPublic) foreach { study =>
-            timeline ! (Propagate(
-              StudyCreate(study.ownerId, study.id.value, study.name.value)
-            ) toFollowersOf study.ownerId)
-          }
-        }
-      }
-      .unit
 
   def talk(userId: User.ID, studyId: Study.Id, text: String) =
     byId(studyId) foreach {

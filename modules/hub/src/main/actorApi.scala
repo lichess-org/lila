@@ -162,10 +162,6 @@ package timeline {
   case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
     def userIds = List(userId)
   }
-  case class StudyCreate(userId: String, studyId: String, studyName: String)
-      extends Atom("studyCreate", true) {
-    def userIds = List(userId)
-  }
   case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
     def userIds = List(userId)
   }

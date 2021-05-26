@@ -92,11 +92,6 @@ object timeline {
               perf.trans
             )
           }
-        case StudyCreate(userId, studyId, studyName) =>
-          trans.xCreatesStudyY(
-            userIdLink(userId.some, withOnline = false),
-            a(href := routes.Study.show(studyId))(studyName)
-          )
         case StudyLike(userId, studyId, studyName) =>
           trans.xLikesY(
             userIdLink(userId.some, withOnline = false),
