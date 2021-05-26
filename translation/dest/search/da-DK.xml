@@ -24,4 +24,10 @@
   <string name="sortBy">Sorter efter</string>
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">Kun partier med en tilgængelig computeranalyse</string>
+  <string name="color">Farve</string>
+  <string name="evaluation">Evaluering</string>
+  <string name="maxNumber">Maksimalt antal</string>
+  <string name="maxNumberExplanation">Det maksimale antal partier der skal returneres</string>
+  <string name="include">Inkluder</string>
+  <string name="generateURL">Generer URL</string>
 </resources>
