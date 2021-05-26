@@ -9,7 +9,6 @@ import lila.user.User
 
 object download {
   def apply(user: lila.user.User)(implicit ctx: Context): Frag = {
-    val title = s"${user.username} • ${trans.exportGames.txt()}"
     views.html.base.layout(
       title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
