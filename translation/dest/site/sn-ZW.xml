@@ -56,7 +56,12 @@
   <string name="computerAnalysis">Analysis yemushini</string>
   <string name="computerAnalysisAvailable">Analysis yemushini iripo</string>
   <string name="analysis">Bhodhi rekuongorora</string>
-  <string name="depthX">Udzamu%s</string>
+  <string name="depthX">Udzamu %s</string>
+  <string name="usingServerAnalysis">Ongororo yeServer</string>
+  <string name="loadingEngine">Injini irikulodha...</string>
+  <string name="cloudAnalysis">Ongororo muCloud</string>
+  <string name="goDeeper">Dzamisa</string>
+  <string name="showThreat">RatidzaChanongedzwa</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Rangariro</string>
   <string name="infiniteAnalysis">Analysis isingapere</string>
