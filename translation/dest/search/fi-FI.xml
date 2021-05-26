@@ -24,4 +24,10 @@
   <string name="sortBy">Lajittelutapa</string>
   <string name="analysis">Analyysi</string>
   <string name="onlyAnalysed">Vain pelit, joihin on saatavilla tietokoneanalyysi</string>
+  <string name="color">Väri</string>
+  <string name="evaluation">Arviointi</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maksimimäärä</string>
+  <string name="maxNumberExplanation">Haettavien pelien maksimimäärä</string>
+  <string name="include">Sisältää</string>
+  <string name="generateURL">Luo URL</string>
 </resources>
