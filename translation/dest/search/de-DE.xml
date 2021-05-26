@@ -26,8 +26,8 @@
   <string name="onlyAnalysed">Nur Partien, für die eine Computeranalyse verfügbar ist</string>
   <string name="color">Farbe</string>
   <string name="evaluation">Auswertung</string>
-  <string name="maxNumber">Maximale Anzahl</string>
-  <string name="maxNumberExplanation">Die maximale Anzahl der zurückerhaltenen Partien</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maximale Anzahl</string>
+  <string name="maxNumberExplanation">Die maximale Anzahl der anzuzeigenden Partien</string>
   <string name="include">Einschließen</string>
   <string name="generateURL">Erzeuge URL</string>
 </resources>
