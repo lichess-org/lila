@@ -11,12 +11,12 @@ object download {
   def apply(user: lila.user.User)(implicit ctx: Context): Frag = {
     val title = s"${user.username} • ${trans.exportGames.txt()}"
     views.html.base.layout(
-      title = title,
+      title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
       moreJs = jsModule("userGamesDownload")
     ) {
       main(cls := "box page-small search")(
-        h1(title),
+        h1(userLink(user), s" • ${trans.exportGames.txt()}"),
         form(
           id := "dl-form",
           cls := "box__pad search__form"
@@ -32,7 +32,7 @@ object download {
             includeToggles,
             amount,
             tr(cls := "output")(
-              th(label(`for` := "dl-api-url")(trans.apiUrl())),
+              th(label(`for` := "dl-api-url")("API URL")),
               td(
                 input(
                   id := "dl-api-url",
