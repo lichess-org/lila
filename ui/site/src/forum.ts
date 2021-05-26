@@ -4,11 +4,17 @@ import modal from 'common/modal';
 lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
-      console.log(this);
+      const link = this;
       const $wrap = modal($('.forum-delete-modal'));
-      $wrap.find('form').attr('action', this.href);
-      // xhr.text(this.href, { method: 'post' });
-      // $(this).closest('.forum-post').hide();
+      $wrap
+        .find('form')
+        .attr('action', link.href)
+        .on('submit', function (this: HTMLFormElement, e: Event) {
+          e.preventDefault();
+          xhr.formToXhr(this);
+          modal.close();
+          $(link).closest('.forum-post').hide();
+        });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {

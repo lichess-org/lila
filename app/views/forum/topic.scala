@@ -167,7 +167,7 @@ object topic {
                   if (topic.isSticky) "Unsticky" else "Sticky"
                 )
               ),
-              deleteDialog
+              deleteModal
             )
           )
         ),
@@ -203,15 +203,15 @@ object topic {
       )
     }
 
-  private def deleteDialog(implicit ctx: Context) =
+  private def deleteModal(implicit ctx: Context) =
     div(cls := "forum-delete-modal none")(
       p("Delete the post"),
-      st.form(method := "dialog", cls := "form3")(
+      st.form(method := "post", cls := "form3")(
         st.select(
           name := "reason",
           cls := "form-control"
         )(
-          option(value := "")("No message"),
+          option(value := "")("no message"),
           List(
             "public shaming",
             "disrespecting other players",
