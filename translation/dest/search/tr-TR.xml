@@ -24,4 +24,8 @@
   <string name="sortBy">Sıralama ölçütü</string>
   <string name="analysis">Analiz</string>
   <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
+  <string name="color">Renk</string>
+  <string name="evaluation">Değerlendirme</string>
+  <string name="include">Dahil et</string>
+  <string name="generateURL">URL oluştur</string>
 </resources>
