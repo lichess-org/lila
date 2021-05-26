@@ -1,6 +1,8 @@
 import * as xhr from 'common/xhr';
 import sparkline from '@fnando/sparkline';
 import throttle from 'common/throttle';
+import resizeHandle from 'common/resize';
+import * as cg from 'chessground/types';
 
 lichess.load.then(() => {
   $('#trainer').each(function (this: HTMLElement) {
@@ -18,10 +20,12 @@ lichess.load.then(() => {
     const scoreUrl = $trainer.data('score-url');
     const duration = 30 * 1000;
     const tickDelay = 50;
+    const resizePref = $trainer.data('resize-pref');
     let colorPref = $trainer.data('color-pref');
     let color;
     let startAt, score;
     let wrongTimeout;
+    let ply = 0;
 
     const showColor = function () {
       color = colorPref == 'random' ? ['white', 'black'][Math.round(Math.random())] : colorPref;
@@ -35,6 +39,11 @@ lichess.load.then(() => {
           },
           orientation: color,
           addPieceZIndex: $('#main-wrap').hasClass('is3d'),
+          events: {
+            insert(elements: cg.Elements) {
+              resizeHandle(elements, resizePref, ply);
+            },
+          },
         });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
@@ -183,6 +192,8 @@ lichess.load.then(() => {
       $explanation.remove();
       $trainer.addClass('play').removeClass('init');
       $timer.removeClass('hurry');
+      ply = 2;
+      ground.redrawAll();
       showColor();
       clearCoords();
       centerRight();
