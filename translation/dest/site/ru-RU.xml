@@ -946,4 +946,5 @@
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
+  <string name="download">Загрузить</string>
 </resources>
