@@ -24,4 +24,10 @@
   <string name="sortBy">Honen arabera ordenatu</string>
   <string name="analysis">Analisia</string>
   <string name="onlyAnalysed">Ordenagailuaren analisia duten partidak bakarrik</string>
+  <string name="color">Kolorea</string>
+  <string name="evaluation">Ebaluazioa</string>
+  <string name="maxNumber">Zenbaki maximoa</string>
+  <string name="maxNumberExplanation">Itzuli beharreko gehienezko partida kopurua</string>
+  <string name="include">Sartu</string>
+  <string name="generateURL">Sortu URL helbidea</string>
 </resources>
