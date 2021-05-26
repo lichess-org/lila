@@ -28,5 +28,6 @@
   <string name="evaluation">Évaluation</string>
   <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Nombre maximum</string>
   <string name="maxNumberExplanation">Le nombre maximum de parties à retourner</string>
+  <string name="include">Inclus</string>
   <string name="generateURL">Générer une URL</string>
 </resources>
