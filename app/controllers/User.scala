@@ -92,8 +92,8 @@ final class User(
       }
 
   def download(username: String) = OpenBody { implicit ctx =>
-    env.user.repo named username map {
-      _ ?? { html.user.download(_) }
+    OptionOk(env.user.repo named username) { user =>
+      html.user.download(user)
     }
   }
 
