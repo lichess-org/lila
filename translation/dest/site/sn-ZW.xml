@@ -61,7 +61,14 @@
   <string name="loadingEngine">Injini irikulodha...</string>
   <string name="cloudAnalysis">Ongororo muCloud</string>
   <string name="goDeeper">Dzamisa</string>
-  <string name="showThreat">RatidzaChanongedzwa</string>
+  <string name="showThreat">Ratidza Chanongedzwa</string>
+  <string name="inLocalBrowser">mubrowser remuchina uno</string>
+  <string name="toggleLocalEvaluation">Batidza/dzima ongororo yemuchina uno</string>
+  <string name="promoteVariation">Kwidza mutsara uno</string>
+  <string name="makeMainLine">Kudza mutsara uno</string>
+  <string name="deleteFromHere">Dzima muno</string>
+  <string name="forceVariation">Manikidzira mutsara</string>
+  <string name="move">Move</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Rangariro</string>
   <string name="infiniteAnalysis">Analysis isingapere</string>
