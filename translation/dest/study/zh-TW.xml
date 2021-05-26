@@ -86,6 +86,7 @@
   <string name="interactiveLesson">互動課程</string>
   <string name="chapterX">章節%s</string>
   <string name="empty">空的</string>
+  <string name="startFromInitialPosition">從起始局面開始</string>
   <string name="editor">編輯器</string>
   <string name="loadAGameByUrl">以連結導入棋局</string>
   <string name="loadAGameFromPgn">以PGN文件導入棋局</string>
