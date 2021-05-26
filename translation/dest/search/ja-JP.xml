@@ -22,4 +22,10 @@
   <string name="sortBy">並べ替え基準</string>
   <string name="analysis">解析</string>
   <string name="onlyAnalysed">コンピュータ解析のある棋譜だけが対象</string>
+  <string name="color">色</string>
+  <string name="evaluation">評価値</string>
+  <string name="maxNumber">最大局数</string>
+  <string name="maxNumberExplanation">表示するゲームの最大数</string>
+  <string name="include">含める</string>
+  <string name="generateURL">URL を生成</string>
 </resources>
