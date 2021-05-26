@@ -2,4 +2,10 @@
 <resources>
   <string name="search">Hanapin</string>
   <string name="advancedSearch">Naunang paghanap</string>
+  <string name="color">Kulay</string>
+  <string name="evaluation">Ebalwasiyon</string>
+  <string name="maxNumber">Pinakamahigit na numero</string>
+  <string name="maxNumberExplanation">Ang pinakamahigit na numero ng mga laro na balikan</string>
+  <string name="include">Isama</string>
+  <string name="generateURL">Gumawa ng URL</string>
 </resources>
