@@ -26,4 +26,10 @@
   <string name="sortBy">Sortare după</string>
   <string name="analysis">Analiză</string>
   <string name="onlyAnalysed">Doar meciuri în care analiza computerului este disponibilă</string>
+  <string name="color">Culoare</string>
+  <string name="evaluation">Evaluare</string>
+  <string name="maxNumber">Număr maxim</string>
+  <string name="maxNumberExplanation">Numărul maxim de jocuri returnate</string>
+  <string name="include">Include</string>
+  <string name="generateURL">Generare URL</string>
 </resources>
