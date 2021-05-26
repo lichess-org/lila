@@ -3,7 +3,7 @@
   <string name="lichessClasses">Lichess klases</string>
   <string name="teachClassesOfChessStudents">Apmāciet šaha skolēnu grupas ar Lichess Klašu rīkiem.</string>
   <string name="features">Iespējas</string>
-  <string name="quicklyGenerateSafeUsernames">Ātri radīt drošus lietotājvārdus un paroles skolēniem</string>
+  <string name="quicklyGenerateSafeUsernames">Ātri izveidot drošus lietotājvārdus un paroles skolēniem</string>
   <string name="trackStudentProgress">Sekojiet skolēnu progresam spēlēs un puzlēs</string>
   <string name="messageAllStudents">Sūtiet ziņas par nodarbību materiālu visiem skolēniem</string>
   <string name="freeForAllForever">100% bezmaksas visiem un vienmēr, bez reklāmām un izsekotājiem</string>
@@ -27,7 +27,7 @@
   <string name="resetPassword">Atiestatīt paroli</string>
   <string name="makeSureToCopy">Nokopējiet vai pierakstiet paroli tagad. Nevarēsiet to atkārtoti skatīt!</string>
   <string name="passwordX">Parole: %s</string>
-  <string name="generateANewPassword">Radīt skolēnam jaunu paroli</string>
+  <string name="generateANewPassword">Izveidot skolēnam jaunu paroli</string>
   <string name="invitedToXByY">Ielūgts uz %1$s, ielūdza lietotājs %2$s</string>
   <string name="realName">Īstais vārds</string>
   <string name="privateWillNeverBeShown">Privāts. Nekad netiks rādīts ārpus grupas. Palīdz atcerēties, kurš šis skolēns ir.</string>
@@ -47,7 +47,7 @@ Parole: %3$s</string>
   <string name="createDesc3">Svarīgi: skolēnam nedrīkst būt vairāki konti.</string>
   <string name="createDesc4">Ja skolēnam jau ir konts, aizpildiet ielūguma veidlapu.</string>
   <string name="lichessUsername">Lichess lietotājvārds</string>
-  <string name="generateANewUsername">Radīt jaunu lietotājvārdu</string>
+  <string name="generateANewUsername">Izveidot jaunu lietotājvārdu</string>
   <string name="welcomeToClass">Laipni lūgti savā klasē: %s.
 Lūk saite, lai piekļūtu kasei.</string>
   <string name="invitationToClass">Esat ielūgts pievienoties grupai \"%s\" kā skolēnam.</string>
