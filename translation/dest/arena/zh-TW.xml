@@ -39,4 +39,7 @@
   <string name="drawStreak">連續平手機制:當一位玩家連續在錦標賽中或的平局，只有第一場平局會獲得積分，或是在下超過%s步時才會獲得積分。
 連續平手機制只會在獲勝或輸的時候被解除。</string>
   <string name="history">先前的重要錦標賽</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="other">查看所有 %s 團隊</item>
+  </plurals>
 </resources>
