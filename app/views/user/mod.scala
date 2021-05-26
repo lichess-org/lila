@@ -608,9 +608,12 @@ object mod {
                   td(dataSort := 1)(
                     a(
                       href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
-                      cls := "text",
+                      cls := List(
+                        "text"         -> true,
+                        "appeal-muted" -> appeal.isMuted
+                      ),
                       dataIcon := "6",
-                      title := pluralize("appeal message", appeal.msgs.size)
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
               },
