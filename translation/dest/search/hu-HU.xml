@@ -24,4 +24,10 @@
   <string name="sortBy">Rendezés</string>
   <string name="analysis">Elemzés</string>
   <string name="onlyAnalysed">Csak azok a játszmák, ahol számítógépes elemzés elérhető</string>
+  <string name="color">Szín</string>
+  <string name="evaluation">Értékelés</string>
+  <string name="maxNumber">A legnagyob szám</string>
+  <string name="maxNumberExplanation">A visszakapható játékok maximális száma</string>
+  <string name="include">Tartalmaz</string>
+  <string name="generateURL">URL létrehozása</string>
 </resources>
