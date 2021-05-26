@@ -24,4 +24,6 @@
   <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análisis</string>
   <string name="onlyAnalysed">Solo partidas que tengan un análisis por ordenador disponible</string>
+  <string name="color">Color</string>
+  <string name="evaluation">Evaluación</string>
 </resources>
