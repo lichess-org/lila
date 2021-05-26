@@ -9,6 +9,7 @@
   <string name="yourTurn">Nguva yako</string>
   <string name="aiNameLevelAiLevel">%1$slevel%2$s</string>
   <string name="level">Level</string>
+  <string name="strength">Hugoni</string>
   <string name="toggleTheChat">Kuchinja pekutaura</string>
   <string name="toggleSound">Kuchinja sound</string>
   <string name="chat">Kutaura</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Tamba nezvichena</string>
   <string name="youPlayTheBlackPieces">Tamba nezvitema</string>
   <string name="itsYourTurn">Yave nguva yako!</string>
+  <string name="cheatDetected">Tabata kubirira</string>
   <string name="kingInTheCenter">Mambo pakati</string>
   <string name="threeChecks">MaChecks matatu</string>
   <string name="raceFinished">Mutambi wapera</string>
@@ -53,6 +55,8 @@
   <string name="requestAComputerAnalysis">Kumbira analysis yemushini</string>
   <string name="computerAnalysis">Analysis yemushini</string>
   <string name="computerAnalysisAvailable">Analysis yemushini iripo</string>
+  <string name="analysis">Bhodhi rekuongorora</string>
+  <string name="depthX">Udzamu%s</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Rangariro</string>
   <string name="infiniteAnalysis">Analysis isingapere</string>
