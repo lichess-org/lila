@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
 import controllers.routes
+import lila.user.User
 
 object download {
   def apply(user: lila.user.User)(implicit ctx: Context): Frag = {
@@ -27,7 +28,7 @@ object download {
             mode,
             analysis,
             ongoing,
-            perfToggles,
+            perfToggles(user),
             includeToggles,
             amount,
             tr(cls := "output")(
@@ -120,20 +121,26 @@ object download {
     td(form3.cmnToggle("dl-ongoing", "ongoing", false))
   )
 
-  private def perfToggles(implicit ctx: Context): Frag = {
+  private def perfToggles(user: User)(implicit ctx: Context): Frag = {
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
       td(
         div(id := "dl-perfs", cls := "toggle-columns")(
-          perfTypes map perfToggle
+          perfTypes map perfToggle(user)
         )
       )
     )
   }
 
-  private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
-    form3.cmnToggle(s"dl-perf-${perfType.key}", "", true, value = perfType.key),
+  private def perfToggle(user: User)(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
+    form3.cmnToggle(
+      s"dl-perf-${perfType.key}",
+      "",
+      user.perfs(perfType).nb > 0,
+      value = perfType.key,
+      disabled = user.perfs(perfType).nb == 0
+    ),
     label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
   )
 
