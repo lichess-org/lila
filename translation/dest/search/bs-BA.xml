@@ -26,4 +26,10 @@
   <string name="sortBy">Sortiraj po</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije u kojima je dostupna računarska analiza</string>
+  <string name="color">Boja</string>
+  <string name="evaluation">Evaluacija</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maksimalni broj</string>
+  <string name="maxNumberExplanation">Maksimalni broj partija za vraćanje</string>
+  <string name="include">Uključite</string>
+  <string name="generateURL">Generirajte URL</string>
 </resources>
