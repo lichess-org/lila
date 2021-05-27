@@ -125,6 +125,25 @@ $regards
     }
   }
 
+  def onPatronNew(user: User): Funit =
+    sendAsPrivateMessageAndEmail(user)(
+      subject = _ => "Thank you for supporting Lichess!",
+      body = _ =>
+        """Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
+Lichess is entirely funded by user's donations like yours, and we truly appreciate every donation.
+As a small token of our thanks, your account now has the awesome patron wings!"""
+    )
+
+  def onPatronStop(user: User): Funit =
+    sendAsPrivateMessageAndEmail(user)(
+      subject = _ => "End of Lichess Patron subscription",
+      body = _ => s"""
+Thank you for your support over the last month.
+We appreciate all donations, as a $$5 donation covers 6 minutes of our running costs.
+If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $baseUrl/help/contribute.
+To make a new donation, head to $baseUrl/patron"""
+    )
+
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
     implicit val lang = userLang(user)
     body(userLang(user)) tap { txt =>

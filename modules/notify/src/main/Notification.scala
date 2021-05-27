@@ -111,8 +111,8 @@ case class RatingRefund(perf: String, points: Int) extends NotificationContent("
 
 case object CoachReview extends NotificationContent("coachReview")
 
-case class PlanStart(userId: String)  extends NotificationContent("planStart")
-case class PlanExpire(userId: String) extends NotificationContent("planExpire")
+case class PlanStart(userId: String)  extends NotificationContent("planStart")  // BC
+case class PlanExpire(userId: String) extends NotificationContent("planExpire") // BC
 
 case class CorresAlarm(
     gameId: lila.game.Game.ID,
