@@ -6,6 +6,7 @@ import scalatags.Text.all._
 import lila.common.config._
 import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(

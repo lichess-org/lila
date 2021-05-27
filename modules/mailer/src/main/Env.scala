@@ -21,7 +21,7 @@ final class Env(
     system: ActorSystem,
     scheduler: Scheduler
 ) {
-  import net.{ baseUrl, domain }
+  import net.baseUrl
 
   private val config = appConfig.get[Mailer.Config]("mailer")(Mailer.configLoader)
 
@@ -31,7 +31,7 @@ final class Env(
     text = "Permille of mails to send using secondary SMTP configuration".some
   )
 
-  private lazy val mailer = new Mailer(
+  lazy val mailer = new Mailer(
     config,
     getSecondaryPermille = () => mailerSecondaryPermilleSetting.get()
   )

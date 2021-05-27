@@ -16,6 +16,7 @@ final class Env(
     appConfig: Configuration,
     net: NetConfig,
     securityEnv: lila.security.Env,
+    mailerEnv: lila.mailer.Env,
     teamSearchEnv: lila.teamSearch.Env,
     forumSearchEnv: lila.forumSearch.Env,
     forumEnv: lila.forum.Env,

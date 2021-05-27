@@ -52,7 +52,7 @@ final class Mailer(
       }
 }
 
-private object Mailer {
+object Mailer {
 
   private val timeout = 5 seconds
 

@@ -221,7 +221,7 @@ final class Auth(
       ctx: Context
   ): Funit = {
     garbageCollect(user, email)
-    if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
+    if (sendWelcomeEmail) env.mailer.automaticEmail.welcome(user, email)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
   }
 

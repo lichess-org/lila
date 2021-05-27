@@ -85,7 +85,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
               },
             text =>
               for {
-                _ <- env.security.automaticEmail.onAppealReply(suspect.user)
+                _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
                 preset = getPresets.findLike(text)
                 _ <- env.appeal.api.reply(text, appeal, me, preset.map(_.name))
                 _ <- env.mod.logApi.appealPost(me.id, suspect.user.id)
