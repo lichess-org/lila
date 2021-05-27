@@ -167,7 +167,7 @@
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
-  <string name="timeControl">Zeitkontrolle</string>
+  <string name="timeControl">Bedenkzeit</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
   <string name="daysPerTurn">Tage pro Zug</string>
