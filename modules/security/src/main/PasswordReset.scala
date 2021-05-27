@@ -24,17 +24,14 @@ final class PasswordReset(
       mailer send Mailer.Message(
         to = email,
         subject = trans.passwordReset_subject.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_intro.txt()}
 
 ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}
-
-${Mailer.txt.serviceNote}
-""",
+${trans.common_orPaste.txt()}"""),
         htmlBody = emailMessage(
           pDesc(trans.passwordReset_intro()),
           p(trans.passwordReset_clickOrIgnore()),

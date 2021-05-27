@@ -92,10 +92,14 @@ object Mailer {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang): String = s"""
+    private def serviceNote(implicit lang: Lang): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
+
+    def addServiceNote(body: String)(implicit lang: Lang) = s"""$body
+
+$serviceNote"""
   }
 
   object html {

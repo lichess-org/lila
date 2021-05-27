@@ -29,11 +29,7 @@ The Lichess team"""
     mailer send Mailer.Message(
       to = email,
       subject = trans.welcome_subject.txt(user.username),
-      text = s"""
-${trans.welcome_text.txt(profileUrl, editUrl)}
-
-${Mailer.txt.serviceNote}
-""",
+      text = Mailer.txt.addServiceNote(trans.welcome_text.txt(profileUrl, editUrl)),
       htmlBody = standardEmail(
         trans.welcome_text.txt(profileUrl, editUrl)
       ).some
@@ -59,11 +55,7 @@ $regards
         mailer send Mailer.Message(
           to = email,
           subject = s"$title title confirmed on lichess.org",
-          text = s"""
-$body
-
-${Mailer.txt.serviceNote}
-""",
+          text = Mailer.txt.addServiceNote(body),
           htmlBody = standardEmail(body).some
         )
       }
@@ -88,11 +80,7 @@ $regards
         mailer send Mailer.Message(
           to = email,
           subject = "Coach profile unlocked on lichess.org",
-          text = s"""
-$body
-
-${Mailer.txt.serviceNote}
-""",
+          text = Mailer.txt.addServiceNote(body),
           htmlBody = standardEmail(body).some
         )
       }
@@ -122,11 +110,7 @@ $regards
         mailer send Mailer.Message(
           to = email,
           subject = "Your private fishnet key",
-          text = s"""
-$body
-
-${Mailer.txt.serviceNote}
-""",
+          text = Mailer.txt.addServiceNote(body),
           htmlBody = standardEmail(body).some
         )
       }
@@ -158,11 +142,7 @@ $regards
         mailer send Mailer.Message(
           to = email,
           subject = "lichess.org account erasure",
-          text = s"""
-$body
-
-${Mailer.txt.serviceNote}
-""",
+          text = Mailer.txt.addServiceNote(body),
           htmlBody = standardEmail(body).some
         )
       }

@@ -24,16 +24,14 @@ final class EmailChange(
       mailer send Mailer.Message(
         to = email,
         subject = trans.emailChange_subject.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.emailChange_intro.txt()}
 ${trans.emailChange_click.txt()}
 
 $url
 
 ${trans.common_orPaste.txt()}
-
-${Mailer.txt.serviceNote}
-""",
+"""),
         htmlBody = emailMessage(
           pDesc(trans.emailChange_intro()),
           p(trans.emailChange_click()),
