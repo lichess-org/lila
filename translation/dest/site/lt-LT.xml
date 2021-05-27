@@ -938,9 +938,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="congratsYouWon">Sveikiname, jūs laimėjote!</string>
   <string name="gameVsX">Žaidimas prieš %1$s</string>
   <string name="resVsX">%1$s prieš %2$s</string>
-  <string name="youJustBecamePatron">Jūs ką tik tapote lichess rėmėju.</string>
-  <string name="patronAccountExpired">Rėmėjo paskyra pasibaigė</string>
-  <string name="pleaseReconsiderRenewIt">Pagalvokite apie jo atnaujinimą!</string>
   <string name="someoneReviewedYourCoachProfile">Kažkas peržvelgė jūsų trenerio profilį.</string>
   <string name="newPendingReview">Nauja laukianti peržvalga</string>
   <string name="lostAgainstTOSViolator">Jūs pralaimėjote prieš žmogų, kuris pažeidė Lichess taisykles</string>
