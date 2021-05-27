@@ -23,7 +23,7 @@ final private[timeline] class Push(
       unsubApi.filterUnsub(data.channel, users)
     } foreach { users =>
       if (users.nonEmpty)
-        makeEntry(users, data) >>-
+        insertEntry(users, data) >>-
           lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
       lila.mon.timeline.notification.increment(users.size)
     }
@@ -56,11 +56,6 @@ final private[timeline] class Push(
       Permission.SuperAdmin
     )
 
-  private def makeEntry(users: List[User.ID], data: Atom): Fu[Entry] = {
-    val entry = Entry.make(data)
-    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, Max(1000)) flatMap { entries =>
-      if (entries.exists(_ similarTo entry)) fufail[Entry]("[timeline] a similar entry already exists")
-      else entryApi insert Entry.ForUsers(entry, users) inject entry
-    }
-  }
+  private def insertEntry(users: List[User.ID], data: Atom): Funit =
+    entryApi insert Entry.ForUsers(Entry.make(data), users)
 }
