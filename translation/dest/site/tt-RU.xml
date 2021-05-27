@@ -815,9 +815,6 @@
   <string name="congratsYouWon">Тәбриклийбез, сез җиңдегез!</string>
   <string name="gameVsX">%1$s каршы уен</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Сез бары тик Lichess иганәче булдыгыз.</string>
-  <string name="patronAccountExpired">Иганәче хисабы бетте</string>
-  <string name="pleaseReconsiderRenewIt">Зинһар, аны яңартырга уйлагыз!</string>
   <string name="someoneReviewedYourCoachProfile">Кемдер сезнең мөдәрәс профилегезне карады.</string>
   <string name="newPendingReview">Яңа күреп чыгыш көтелмәктә</string>
   <string name="lostAgainstTOSViolator">Сез Lichess TOS кагыйдәләрене бозган кешегә оттырдыгыз</string>
