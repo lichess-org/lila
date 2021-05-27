@@ -61,13 +61,8 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
         htmlBody = emailMessage(
           pDesc(trans.emailConfirm_click()),
           potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-          publisher(
-            small(
-              trans.common_note(Mailer.html.noteLink),
-              " ",
-              trans.emailConfirm_ignore()
-            )
-          )
+          small(trans.emailConfirm_ignore()),
+          serviceNote
         ).some
       )
     }

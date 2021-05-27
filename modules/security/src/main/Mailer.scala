@@ -118,6 +118,11 @@ $serviceNote"""
       span(itemprop := "name")("lichess.org/contact")
     )
 
+    private val noteLink = a(
+      itemprop := "url",
+      href := "https://lichess.org/"
+    )(span(itemprop := "name")("lichess.org"))
+
     def serviceNote(implicit lang: Lang) =
       publisher(
         small(
@@ -133,16 +138,11 @@ $serviceNote"""
         )
       )
 
-    def standardEmail(body: String): Frag =
+    def standardEmail(body: String)(implicit lang: Lang): Frag =
       emailMessage(
         pDesc(nl2br(body)),
-        publisher
+        serviceNote
       )
-
-    val noteLink = a(
-      itemprop := "url",
-      href := "https://lichess.org/"
-    )(span(itemprop := "name")("lichess.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(
