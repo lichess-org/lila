@@ -69,6 +69,15 @@
   <string name="deleteFromHere">Dzima muno</string>
   <string name="forceVariation">Manikidzira mutsara</string>
   <string name="move">Move</string>
+  <string name="variantLoss">Kudyiwa kuVariant</string>
+  <string name="variantWin">Kukunda kuVariant</string>
+  <string name="insufficientMaterial">Vana vasingakwane</string>
+  <string name="pawnMove">Kufamba kwePawn</string>
+  <string name="capture">Kudya mwana</string>
+  <string name="close">Vhara</string>
+  <string name="winning">Inokundisa</string>
+  <string name="losing">Inodyisa</string>
+  <string name="drawn">Draw</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Rangariro</string>
   <string name="infiniteAnalysis">Analysis isingapere</string>
