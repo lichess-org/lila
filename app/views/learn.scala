@@ -173,6 +173,8 @@ object index {
       pieceValueIntro,
       queenOverBishop,
       takeThePieceWithTheHighestValue,
+      pieceValueLegal,
+      pieceValueExchange,
       pieceValueComplete,
       checkInTwo,
       twoMovesToGiveCheck,
