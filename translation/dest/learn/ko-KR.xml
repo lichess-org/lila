@@ -167,6 +167,12 @@
 
 힌트: 
 퀸 &gt; 비숍</string>
+  <string name="pieceValueExchange">가장 가치가 높은 기물을 잡으세요!
+ 가치가 높은 기물을 더 낮은 기물과
+ 교환하지 마세요.</string>
+  <string name="pieceValueLegal">가장 가치가 높은
+기물을 잡으세요!
+가능한 수인지 확인하세요!</string>
   <string name="takeThePieceWithTheHighestValue">가장 높은 가치의 기물을 잡으세요!</string>
   <string name="pieceValueComplete">축하드립니다! 이제 기물의 가치를 아시네요!
 킹 = ∞
