@@ -125,21 +125,21 @@ $regards
     }
   }
 
-  def onPatronNew(user: User): Funit =
-    sendAsPrivateMessageAndEmail(user)(
+  def onPatronNew(userId: User.ID): Funit =
+    sendAsPrivateMessageAndEmail(userId)(
       subject = _ => "Thank you for supporting Lichess!",
       body = _ =>
-        """Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
-Lichess is entirely funded by user's donations like yours, and we truly appreciate every donation.
-As a small token of our thanks, your account now has the awesome patron wings!"""
+        s"""Thank you for your donation to Lichess - your patronage directly goes to keeping the site running and new features coming.
+Lichess is entirely funded by user's donations like yours, and we truly appreciate the help we're getting.
+As a small token of our thanks, your account now has the awesome Patron wings!"""
     )
 
-  def onPatronStop(user: User): Funit =
-    sendAsPrivateMessageAndEmail(user)(
+  def onPatronStop(userId: User.ID): Funit =
+    sendAsPrivateMessageAndEmail(userId)(
       subject = _ => "End of Lichess Patron subscription",
       body = _ => s"""
 Thank you for your support over the last month.
-We appreciate all donations, as a $$5 donation covers 6 minutes of our running costs.
+We appreciate all donations, being a small team relying entirely on generous donors like you!
 If you're still interested in supporting us in other ways, you can see non-financial ways of supporting us here $baseUrl/help/contribute.
 To make a new donation, head to $baseUrl/patron"""
     )
