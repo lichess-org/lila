@@ -64,35 +64,22 @@ $regards
     logger.info(e.message)
   }
 
-  def onBecomeCoach(user: User): Funit = {
-    val body = alsoSendAsPrivateMessage(user) { implicit lang =>
-      s"""Hello,
+  def onBecomeCoach(user: User): Funit =
+    sendAsPrivateMessageAndEmail(user)(
+      subject = _ => "Coach profile unlocked on lichess.org",
+      body = _ => s"""Hello,
 
 It is our pleasure to welcome you as a Lichess coach.
 Your coach profile awaits you on $baseUrl/coach/edit.
 
 $regards
 """
-    }
-    userRepo email user.id flatMap {
-      _ ?? { email =>
-        implicit val lang = userLang(user)
-        mailer send Mailer.Message(
-          to = email,
-          subject = "Coach profile unlocked on lichess.org",
-          text = Mailer.txt.addServiceNote(body),
-          htmlBody = standardEmail(body).some
-        )
-      }
-    }
-  }
+    )
 
   def onFishnetKey(userId: User.ID, key: String): Funit =
-    for {
-      user        <- userRepo named userId orFail s"No such user $userId"
-      emailOption <- userRepo email user.id
-      body = alsoSendAsPrivateMessage(user) { implicit lang =>
-        s"""Hello,
+    sendAsPrivateMessageAndEmail(userId)(
+      subject = _ => "Your private fishnet key",
+      body = _ => s"""Hello,
 
 This message contains your private fishnet key. Please treat it like a password. You can use the same key on multiple machines (even at the same time), but you should not share it with anyone.
 
@@ -104,29 +91,18 @@ $key
 
 $regards
 """
-      }
-      _ <- emailOption.?? { email =>
-        implicit val lang = userLang(user)
-        mailer send Mailer.Message(
-          to = email,
-          subject = "Your private fishnet key",
-          text = Mailer.txt.addServiceNote(body),
-          htmlBody = standardEmail(body).some
-        )
-      }
-    } yield ()
+    )
 
-  def onAppealReply(user: User): Funit = {
-    alsoSendAsPrivateMessage(user) { implicit lang =>
-      s"""Hello,
+  def onAppealReply(user: User): Funit =
+    sendAsPrivateMessageAndEmail(user)(
+      subject = _ => "Appeal response on lichess.org",
+      body = _ => s"""Hello,
 
-      Your appeal has received a response from the moderation team, to see it click here: ${baseUrl}/appeal
+Your appeal has received a response from the moderation team, to see it click here: $baseUrl/appeal
 
 $regards
 """
-    }
-    funit
-  }
+    )
 
   def gdprErase(user: User): Funit = {
     val body =
@@ -155,6 +131,30 @@ $regards
       lila.common.Bus.publish(SystemMsg(user.id, txt), "msgSystemSend")
     }
   }
+
+  private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
+    alsoSendAsPrivateMessage(user)(body) pipe { body =>
+      userRepo email user.id flatMap {
+        _ ?? { email =>
+          implicit val lang = userLang(user)
+          mailer send Mailer.Message(
+            to = email,
+            subject = subject(lang),
+            text = Mailer.txt.addServiceNote(body),
+            htmlBody = standardEmail(body).some
+          )
+        }
+      }
+    }
+
+  private def sendAsPrivateMessageAndEmail(
+      username: String
+  )(subject: Lang => String, body: Lang => String): Funit =
+    userRepo named username flatMap {
+      _ ?? { user =>
+        sendAsPrivateMessageAndEmail(user)(subject, body)
+      }
+    }
 
   private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
 }
