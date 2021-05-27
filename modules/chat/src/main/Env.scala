@@ -7,6 +7,7 @@ import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
+import lila.common.LightUser
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
@@ -25,7 +26,8 @@ final class Env(
     flood: lila.security.Flood,
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    lightUserSync: LightUser.GetterSync
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -42,6 +44,8 @@ final class Env(
   lazy val coll = db(chatColl)
 
   lazy val api = wire[ChatApi]
+
+  lazy val json = wire[JsonView]
 
   lazy val panic = wire[ChatPanic]
 

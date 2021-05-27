@@ -2,7 +2,7 @@ package lila.chat
 
 import chess.Color
 
-import lila.user.{ Title, User }
+import lila.user.User
 
 sealed trait Line {
   def text: String
@@ -17,7 +17,6 @@ sealed trait Line {
 
 case class UserLine(
     username: String,
-    title: Option[Title],
     text: String,
     troll: Boolean,
     deleted: Boolean
@@ -48,11 +47,11 @@ case class PlayerLine(
 object Line {
 
   val textMaxSize = 140
-  val titleSep    = '~'
+  val titleSep    = '~' // BC
 
   import reactivemongo.api.bson._
 
-  private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
+  private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
 
   implicit private[chat] val userLineBSONHandler = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
@@ -71,9 +70,8 @@ object Line {
         val troll   = sep == "!"
         val deleted = sep == "?"
         username split titleSep match {
-          case Array(title, name) =>
-            UserLine(name, Title get title, text, troll = troll, deleted = deleted).some
-          case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
+          case Array(_, name) => UserLine(name, text, troll = troll, deleted = deleted).some // BC title
+          case _              => UserLine(username, text, troll = troll, deleted = deleted).some
         }
       case _ => none
     }
@@ -82,8 +80,7 @@ object Line {
       if (x.troll) "!"
       else if (x.deleted) "?"
       else " "
-    val tit = x.title.??(_.value + titleSep)
-    s"$tit${x.username}$sep${x.text}"
+    s"${x.username}$sep${x.text}"
   }
 
   def strToLine(str: String): Option[Line] =

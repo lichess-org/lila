@@ -2,10 +2,11 @@ package lila.chat
 
 import play.api.libs.json._
 
-import lila.common.LightUser
 import lila.common.Json._
+import lila.common.LightUser
+import lila.user.User
 
-object JsonView {
+final class JsonView(lightUserSync: LightUser.GetterSync) {
 
   import writers._
 
@@ -38,13 +39,11 @@ object JsonView {
       Json.obj("key" -> r.key, "name" -> r.name)
     }
 
-    implicit def timeoutEntryWriter(implicit
-        lightUser: LightUser.GetterSync
-    ): OWrites[ChatTimeout.UserEntry] =
+    implicit def timeoutEntryWriter: OWrites[ChatTimeout.UserEntry] =
       OWrites[ChatTimeout.UserEntry] { e =>
         Json.obj(
           "reason" -> e.reason.key,
-          "mod"    -> lightUser(e.mod).fold("?")(_.name),
+          "mod"    -> lightUserSync(e.mod).fold("?")(_.name),
           "date"   -> e.createdAt
         )
       }
@@ -63,6 +62,8 @@ object JsonView {
     }
 
     implicit private val userLineWriter = OWrites[UserLine] { l =>
+      val userId = User normalize l.username
+      val u      = lightUserSync(userId) | LightUser.fallback(userId)
       Json
         .obj(
           "u" -> l.username,
@@ -70,7 +71,8 @@ object JsonView {
         )
         .add("r" -> l.troll)
         .add("d" -> l.deleted)
-        .add("title" -> l.title)
+        .add("title" -> u.title)
+        .add("p" -> u.isPatron)
     }
 
     implicit private val playerLineWriter = OWrites[PlayerLine] { l =>
