@@ -897,9 +897,6 @@
   <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
   <string name="gameVsX">Spēle pret %1$s</string>
   <string name="resVsX">%1$s pret %2$s</string>
-  <string name="youJustBecamePatron">Tikko kļuvāt par Lichess Sponsoru.</string>
-  <string name="patronAccountExpired">Sponsora statuss beidzās</string>
-  <string name="pleaseReconsiderRenewIt">Lūdzu apsveriet to atjaunot!</string>
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
   <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
