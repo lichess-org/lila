@@ -40,7 +40,7 @@
   <string name="joinTheRace">Participez!</string>
   <string name="yourRankX">Votre classement : %s</string>
   <string name="waitForRematch">Attendre une offre de revanche</string>
-  <string name="nextRace">Prochaine course</string>
+  <string name="nextRace">Course suivante</string>
   <string name="joinRematch">Faire une revanche</string>
   <string name="waitingToStart">Attendre le départ de la course</string>
   <string name="createNewGame">Créer une nouvelle course</string>
