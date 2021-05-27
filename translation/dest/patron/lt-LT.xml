@@ -5,6 +5,12 @@
   <string name="freeAccount">Nemokama paskyra</string>
   <string name="becomePatron">Tapkite Lichess Rėmėju</string>
   <string name="xBecamePatron">%s tapo Lichess Rėmėju</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s Lichess Rėmėjas %2$s mėnesį</item>
+    <item quantity="few">%1$s Lichess Rėmėjas %2$s mėnesius</item>
+    <item quantity="many">%1$s Lichess Rėmėjas %2$s mėnesio</item>
+    <item quantity="other">%1$s Lichess Rėmėjas %2$s mėnesių</item>
+  </plurals>
   <string name="newPatrons">Nauji Rėmėjai</string>
   <string name="freeChess">Nemokami šachmatai visiems, visada!</string>
   <string name="noAdsNoSubs">Jokių reklamų, prenumeratų - tik atviras kodas ir aistra.</string>
