@@ -866,4 +866,5 @@
   <string name="refundXpointsTimeControlY">Ersättning: %1$s %2$s rankingpoäng.</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
+  <string name="download">Ladda ner</string>
 </resources>
