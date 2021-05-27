@@ -1016,9 +1016,6 @@
   <string name="congratsYouWon">تهانينا، لقد فزت!</string>
   <string name="gameVsX">مباراة ضد %1$s</string>
   <string name="resVsX">%1$s ضد %2$s</string>
-  <string name="youJustBecamePatron">لقد أصبحت للتو راعياً لـ Lichess.</string>
-  <string name="patronAccountExpired">انتهت صلاحية حساب رعايتك</string>
-  <string name="pleaseReconsiderRenewIt">أنظر في تجديده من فضلك!</string>
   <string name="someoneReviewedYourCoachProfile">قام شخص ما بمراجعة ملفك للتدريب.</string>
   <string name="newPendingReview">قيد الإطلاع</string>
   <string name="lostAgainstTOSViolator">لقد خسرت أمام شخص قد انتهك شروط خدمة Lichess</string>
