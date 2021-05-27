@@ -137,11 +137,11 @@ final private[puzzle] class PuzzleFinisher(
       PuzzleTheme.bishopEndgame,
       PuzzleTheme.pawnEndgame,
       PuzzleTheme.knightEndgame,
-      PuzzleTheme.rookEndgame,
       PuzzleTheme.queenEndgame,
       PuzzleTheme.queenRookEndgame,
       PuzzleTheme.master,
-      PuzzleTheme.masterVsMaster
+      PuzzleTheme.masterVsMaster,
+      PuzzleTheme.superGM
     ).map(_.key)
 
     private def isHinting(theme: PuzzleTheme.Key) = !nonHintingThemes(theme)
