@@ -5,6 +5,9 @@
   <string name="freeAccount">Akun gratis</string>
   <string name="becomePatron">Menjadi Penyokong Lichess</string>
   <string name="xBecamePatron">%s menjadi Penyokong Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s adalah sebuah Sokongan Lichess untuk %2$s bulan</item>
+  </plurals>
   <string name="newPatrons">Penyokong baru</string>
   <string name="freeChess">Catur gratis untuk semuanya, selamanya!</string>
   <string name="noAdsNoSubs">Tanpa iklan, tanpa berlangganan; tapi sumber-terbuka dan hasrat.</string>
