@@ -805,9 +805,6 @@
   <string name="congratsYouWon">Selamat, kamu menang!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Anda baru saja menjadi Patron lichess.</string>
-  <string name="patronAccountExpired">Akun Patron kadaluarsa</string>
-  <string name="pleaseReconsiderRenewIt">Silakan pertimbangkan untuk memperbaharuinya!</string>
   <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
   <string name="newPendingReview">Tinjauan baru tertunda</string>
   <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
