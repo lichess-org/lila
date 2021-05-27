@@ -838,7 +838,5 @@
   <string name="congratsYouWon">Pîroz be, tu bi ser ketî!</string>
   <string name="gameVsX">Lîstika hemberî %1$s</string>
   <string name="resVsX">%1$s hmb %2$s</string>
-  <string name="youJustBecamePatron">Tu niha bûyî bexşkerekê Lichessê.</string>
-  <string name="patronAccountExpired">Hesabê berxşê bi dawî bû</string>
   <string name="timeAlmostUp">Dem heme hema qedîya!</string>
 </resources>
