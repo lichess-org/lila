@@ -39,7 +39,6 @@ case class Entry(
     case "plan-start"   => planStartHandler.readTry(data).get
     case "blog-post"    => blogPostHandler.readTry(data).get
     case "stream-start" => streamStartHandler.readTry(data).get
-    case "note-create"  => throw Deprecated
     case _              => sys error s"Unhandled atom type: $typ"
   }) match {
     case Success(atom)       => Some(atom)
