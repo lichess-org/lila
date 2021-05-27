@@ -145,6 +145,10 @@
   <string name="games">තරඟ</string>
   <string name="forum">සාකච්ඡා මණ්ඩපය</string>
   <string name="xPostedInForumY">%1$sposted in topic%2$s</string>
+  <string name="friends">Lichess</string>
+  <string name="today">sri_bens</string>
+  <string name="username">lichess</string>
+  <string name="gamesPlayed">https://lichess. org/@/DrDrunkenstein</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
