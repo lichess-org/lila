@@ -816,9 +816,6 @@
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
-  <string name="patronAccountExpired">Patron 계정 만료됨</string>
-  <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
   <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
   <string name="newPendingReview">새 대기중 리뷰</string>
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
