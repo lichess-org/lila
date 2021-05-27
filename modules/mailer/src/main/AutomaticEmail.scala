@@ -1,4 +1,4 @@
-package lila.security
+package lila.mailer
 
 import play.api.i18n.Lang
 import scala.util.chaining._

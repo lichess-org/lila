@@ -4,8 +4,6 @@ import akka.actor._
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.timeline.Propagate
-import lila.notify.Notification.Notifies
-import lila.notify.{ Notification, NotifyApi }
 import lila.user.User
 
 final private[plan] class PlanNotifier(

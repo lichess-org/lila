@@ -22,7 +22,6 @@ final private class SecurityConfig(
     @ConfigName("dns_api") val dnsApi: DnsApi,
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val hcaptcha: Hcaptcha.Config,
-    val mailer: Mailer.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )

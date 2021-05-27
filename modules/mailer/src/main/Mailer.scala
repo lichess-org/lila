@@ -1,4 +1,4 @@
-package lila.security
+package lila.mailer
 
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
@@ -52,7 +52,7 @@ final class Mailer(
       }
 }
 
-object Mailer {
+private object Mailer {
 
   private val timeout = 5 seconds
 

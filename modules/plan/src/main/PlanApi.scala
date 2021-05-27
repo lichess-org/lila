@@ -131,7 +131,7 @@ final class PlanApi(
                     lastLevelUp = Some(DateTime.now)
                   ).expireInOneMonth
                 ) >>
-                  setDbUserPlanOnCharge(user, levelUp = false) >>
+                  setDbUserPlanOnCharge(user, levelUp = false) >>-
                   notifier.onStart(user)
               case Some(patron) =>
                 val p2 = patron
@@ -169,7 +169,7 @@ final class PlanApi(
       case Some(patron) =>
         userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
           setDbUserPlan(user, user.plan.disable) >>
-            patronColl.update.one($id(user.id), patron.removeStripe).void >>
+            patronColl.update.one($id(user.id), patron.removeStripe).void >>-
             notifier.onExpire(user) >>-
             logger.info(s"Unsubed ${user.username} $sub")
         }

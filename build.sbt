@@ -34,7 +34,7 @@ lazy val modules = Seq(
   analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
-  history, video, shutup, push, appeal,
+  history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
@@ -275,8 +275,8 @@ lazy val oauth = smallModule("oauth",
 )
 
 lazy val security = module("security",
-  Seq(common, hub, db, user, i18n, irc, oauth),
-  Seq(scalatags, maxmind, hasher, uaparser, specs2, play.mailer) ++ reactivemongo.bundle
+  Seq(common, hub, db, user, i18n, irc, oauth, mailer),
+  Seq(maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
 )
 
 lazy val shutup = module("shutup",
@@ -332,6 +332,11 @@ lazy val push = module("push",
 lazy val irc = smallModule("irc",
   Seq(common, hub, user),
   reactivemongo.bundle ++ macwire.bundle
+)
+
+lazy val mailer = module("mailer",
+  Seq(common, user),
+  reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 
 lazy val plan = module("plan",
