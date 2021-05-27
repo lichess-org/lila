@@ -15,8 +15,8 @@ function generateSearchParams(): string {
     if (date.length == 10) {
       // the 00:00:00 is necessary for the time to be interpreted in the local timezone
       const datetime = new Date(`${date} ${time.length == 8 ? time : '00:00:00'}`);
-      // If no time is specified, assume that all games on that day should be included
-      if (time.length != 8) datetime.setDate(datetime.getDate() + 1);
+      // Include all games played on date-until if no time is specified
+      if (time.length != 8 && name === 'until') datetime.setDate(datetime.getDate() + 1);
       searchParams.append(name, Math.max(datetime.getTime(), minTimestamp).toString());
     }
   });
