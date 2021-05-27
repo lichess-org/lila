@@ -142,7 +142,8 @@ final class PlanApi(
                   .levelUpIfPossible
                   .expireInOneMonth
                 patronColl.update.one($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron.canLevelUp)
+                  setDbUserPlanOnCharge(user, patron.canLevelUp) >>-
+                  notifier.onRenew(user)
             } >> {
               charge.lifetimeWorthy ?? setLifetime(user)
             } >>- logger.info(s"Charged ${user.username} with paypal: $cents")

@@ -1378,6 +1378,7 @@ val `checkOutProfile` = new I18nKey("patron:checkOutProfile")
 val `nowLifetime` = new I18nKey("patron:nowLifetime")
 val `nowOneMonth` = new I18nKey("patron:nowOneMonth")
 val `downgradeNextMonth` = new I18nKey("patron:downgradeNextMonth")
+val `xIsPatronForNbMonths` = new I18nKey("patron:xIsPatronForNbMonths")
 val `patronForMonths` = new I18nKey("patron:patronForMonths")
 }
 

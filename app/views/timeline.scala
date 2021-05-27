@@ -101,6 +101,11 @@ object timeline {
           a(href := routes.Plan.index)(
             trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
           )
+        case PlanRenew(userId, months) =>
+          a(href := routes.Plan.index)(
+            trans.patron.xIsPatronForNbMonths
+              .plural(months, userIdLink(userId.some, withOnline = true), months)
+          )
         case BlogPost(id, slug, title) =>
           a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
         case StreamStart(id, name) =>
