@@ -938,9 +938,6 @@
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">משחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
-  <string name="youJustBecamePatron">כעת הפכת לתומך של ליצ\'ס.</string>
-  <string name="patronAccountExpired">חשבון תומך פג תוקף</string>
-  <string name="pleaseReconsiderRenewIt">אנא שקול לחדש אותו!</string>
   <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
   <string name="newPendingReview">דירוג ממתין חדש</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
