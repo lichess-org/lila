@@ -1,11 +1,12 @@
 package views.html
 
+import controllers.routes
+import play.api.i18n.Lang
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.hub.actorApi.timeline._
-
-import controllers.routes
 
 object timeline {
 
@@ -37,21 +38,24 @@ object timeline {
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
+  private def userLink(userId: lila.user.User.ID)(implicit lang: Lang) =
+    userIdLink(userId.some, withOnline = true)
+
   private def entry(e: lila.timeline.Entry)(implicit ctx: Context) =
     frag(
       e.decode.map[Frag] {
         case Follow(u1, u2) =>
           trans.xStartedFollowingY(
-            userIdLink(u1.some, withOnline = false),
-            userIdLink(u2.some, withOnline = false)
+            userLink(u1),
+            userLink(u2)
           )
         case TeamJoin(userId, teamId) =>
-          trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+          trans.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case TeamCreate(userId, teamId) =>
-          trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
+          trans.xCreatedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case ForumPost(userId, _, topicName, postId) =>
           trans.xPostedInForumY(
-            userIdLink(userId.some, withOnline = false),
+            userLink(userId),
             a(
               href := routes.ForumPost.redirect(postId),
               title := topicName
@@ -59,52 +63,53 @@ object timeline {
           )
         case TourJoin(userId, tourId, tourName) =>
           trans.xCompetesInY(
-            userIdLink(userId.some, withOnline = false),
+            userLink(userId),
             a(href := routes.Tournament.show(tourId))(tourName)
           )
         case SimulCreate(userId, simulId, simulName) =>
           trans.xHostsY(
-            userIdLink(userId.some, withOnline = false),
+            userLink(userId),
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case SimulJoin(userId, simulId, simulName) =>
           trans.xJoinsY(
-            userIdLink(userId.some, withOnline = false),
+            userLink(userId),
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(perfKey) map { perf =>
-            (win match {
-              case Some(true)  => trans.victoryVsYInZ
-              case Some(false) => trans.defeatVsYInZ
-              case None        => trans.drawVsYInZ
-            })(
-              a(
-                href := routes.Round.player(playerId),
-                dataIcon := perf.iconChar,
-                cls := "text glpt"
-              )(win match {
-                case Some(true)  => trans.victory()
-                case Some(false) => trans.defeat()
-                case None        => trans.draw()
-              }),
-              userIdLink(opponent, withOnline = false),
-              perf.trans
-            )
-          }
+          for {
+            opponentId <- opponent
+            perf       <- lila.rating.PerfType(perfKey)
+          } yield (win match {
+            case Some(true)  => trans.victoryVsYInZ
+            case Some(false) => trans.defeatVsYInZ
+            case None        => trans.drawVsYInZ
+          })(
+            a(
+              href := routes.Round.player(playerId),
+              dataIcon := perf.iconChar,
+              cls := "text glpt"
+            )(win match {
+              case Some(true)  => trans.victory()
+              case Some(false) => trans.defeat()
+              case None        => trans.draw()
+            }),
+            userLink(opponentId),
+            perf.trans
+          )
         case StudyLike(userId, studyId, studyName) =>
           trans.xLikesY(
-            userIdLink(userId.some, withOnline = false),
+            userLink(userId),
             a(href := routes.Study.show(studyId))(studyName)
           )
         case PlanStart(userId) =>
           a(href := routes.Plan.index)(
-            trans.patron.xBecamePatron(userIdLink(userId.some, withOnline = true))
+            trans.patron.xBecamePatron(userLink(userId))
           )
         case PlanRenew(userId, months) =>
           a(href := routes.Plan.index)(
             trans.patron.xIsPatronForNbMonths
-              .plural(months, userIdLink(userId.some, withOnline = true), months)
+              .plural(months, userLink(userId), months)
           )
         case BlogPost(id, slug, title) =>
           a(cls := "text", dataIcon := "6", href := routes.Blog.show(id, slug))(title)
