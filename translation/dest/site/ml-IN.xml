@@ -854,9 +854,6 @@
   <string name="congratsYouWon">അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ജയിച്ചു!</string>
   <string name="gameVsX">%1$s ഇന് എതിരെയുള്ള കളി</string>
   <string name="resVsX">%1$s വസ് %2$s</string>
-  <string name="youJustBecamePatron">നിങ്ങളൊരു ലിചെസ്സ് രക്ഷധികാരി ആയിരിക്കുന്നു.</string>
-  <string name="patronAccountExpired">രക്ഷധികാരി അക്കൗണ്ട് കആലഹരണപെട്ടിരിക്കുന്നു</string>
-  <string name="pleaseReconsiderRenewIt">ദയവായി പുതുക്കുന്നത് പരിഗണിക്കുക!</string>
   <string name="someoneReviewedYourCoachProfile">ആരോ നിങ്ങളുടെ കോച്ച് പ്രൊഫൈൽ പുതുക്കിയിരിക്കുന്നു.</string>
   <string name="newPendingReview">തീർച്ചപ്പെടുത്താത്ത റിവ്യൂ</string>
   <string name="lostAgainstTOSViolator">ലിചെസ്സ് ടോസ് ലങ്കിച്ച ഒരാളുമായി നിങ്ങൾ പരാജയപ്പെട്ടിരിക്കുന്നു</string>
