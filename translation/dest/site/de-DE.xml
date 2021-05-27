@@ -857,9 +857,6 @@
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="youJustBecamePatron">Du wurdest nun ein Lichess-Patron.</string>
-  <string name="patronAccountExpired">Patron-Status abgelaufen</string>
-  <string name="pleaseReconsiderRenewIt">Bitte überlege, ob du es erneuern willst!</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
