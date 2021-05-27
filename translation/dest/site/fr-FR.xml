@@ -857,9 +857,6 @@
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
   <string name="gameVsX">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
-  <string name="youJustBecamePatron">Vous êtes devenu un mécène de Lichess.</string>
-  <string name="patronAccountExpired">Statut de mécène expiré</string>
-  <string name="pleaseReconsiderRenewIt">Songez à le renouveler !</string>
   <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
   <string name="newPendingReview">Nouvelle évaluation en attente</string>
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
