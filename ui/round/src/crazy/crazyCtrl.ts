@@ -68,10 +68,6 @@ export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkma
   const lastStep = data.steps[data.steps.length - 1];
   const move = { role: role as PocketRole, to: parseChessSquare(key)! };
 
-  // Unless reload event occurs we have only board fen, so we have to fake the rest
-  console.log('lastStep fen: ', lastStep.fen);
-  //const fen = lastStep.fen.split(' ').length > 1 ? lastStep.fen : lastStep.fen + " " + color[0] + ' rbgsnlpRBGSNLP';
-
   if (crazyKeys.length === 0) dropWithDrag = true;
   else dropWithKey = true;
 
@@ -79,7 +75,7 @@ export function valid(ctrl: RoundController, role: cg.Role, key: cg.Key, checkma
 
   const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false);
   const l = shogi.unwrap(
-    s => s.isLegal(move!),
+    s => s.isLegal(move),
     _ => true // for weird positions
   );
   if (checkmateCheck && role === 'pawn' && shogi.isOk) {
