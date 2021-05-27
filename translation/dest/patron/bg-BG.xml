@@ -5,6 +5,10 @@
   <string name="freeAccount">Безплатна регистрация</string>
   <string name="becomePatron">Станете дарител на Lichess</string>
   <string name="xBecamePatron">%s стана дарител на Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s е Lichess Дарител за %2$s месец</item>
+    <item quantity="other">%1$s е Lichess Дарител за %2$s месеца</item>
+  </plurals>
   <string name="newPatrons">Нови дарители</string>
   <string name="freeChess">Безплатен шахмат за всеки, за винаги!</string>
   <string name="thankYou">Благодарим Ви за дарението!</string>
