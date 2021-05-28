@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">По-ниска стойност означава, че рейтингът е по-стабилен. Ако е над %1$s, рейтингът се счита за условен. За да бъде включена в класиранията, тази стойност трябва да бъде под %2$s (стандартен шахмат) или %3$s (варианти).</string>
+</resources>

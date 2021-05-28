@@ -132,7 +132,7 @@ object form {
         form("estimatedStartAt"),
         frag("Estimated start time"),
         half = true
-        )(form3.flatpickr(_)),
+      )(form3.flatpickr(_)),
       form3.group(
         form("text"),
         raw("Simul description"),

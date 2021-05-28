@@ -30,6 +30,9 @@ final class ChapterRepo(val coll: AsyncColl)(implicit
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])
 
+  private[study] def lastByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
+    coll(_.find($studyId(studyId)).sort($sort desc "order").one[Chapter])
+
   def existsByStudy(studyId: Study.Id): Fu[Boolean] =
     coll(_ exists $studyId(studyId))
 

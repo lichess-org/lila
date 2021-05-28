@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Bestätige dein Benutzerkonto auf lichess.org, %s</string>
-  <string name="emailConfirm_click">Klicke auf den Link, um dein Benutzerkonto bei Lichess zu aktivieren:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klicke auf den Link, um dein Benutzerkonto bei Lichess zu aktivieren:</string>
   <string name="emailConfirm_ignore">Wenn Du dich nicht bei Lichess registriert hast, kannst Du diese Nachricht ignorieren.</string>
   <string name="passwordReset_subject">Setze dein Passwort für lichess.org zurück, %s</string>
   <string name="passwordReset_intro">Wir haben eine Anfrage zum Zurücksetzen deines Passworts erhalten.</string>

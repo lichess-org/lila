@@ -92,15 +92,14 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
 }
 
 function renderEnd(ctrl: GamebookPlayCtrl) {
-  const study = ctrl.root.study!,
-    nextChapter = study.nextChapter();
+  const study = ctrl.root.study!;
   return h('div.feedback.end', [
-    nextChapter
+    study.nextChapter()
       ? h(
           'a.next.text',
           {
             attrs: dataIcon('G'),
-            hook: bind('click', () => study.setChapter(nextChapter.id)),
+            hook: bind('click', study.goToNextChapter),
           },
           'Next chapter'
         )

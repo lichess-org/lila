@@ -24,4 +24,10 @@
   <string name="sortBy">Ordena per</string>
   <string name="analysis">Anàlisi</string>
   <string name="onlyAnalysed">Només partides on hi ha disponible l\'anàlisi computeritzat</string>
+  <string name="color">Color</string>
+  <string name="evaluation">Avaluació</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Número màxim</string>
+  <string name="maxNumberExplanation">Número màxim de partides per mostrar als resultats</string>
+  <string name="include">Incloure</string>
+  <string name="generateURL">Generar un enllaç web</string>
 </resources>

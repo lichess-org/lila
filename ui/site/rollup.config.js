@@ -206,4 +206,8 @@ export default rollupProject({
     input: 'src/contact.ts',
     output: 'contact',
   },
+  userGamesDownload: {
+    input: 'src/userGamesDownload.ts',
+    output: 'userGamesDownload',
+  },
 });

@@ -33,6 +33,7 @@ object coordinate {
         id := "trainer",
         cls := "coord-trainer training init",
         attr("data-color-pref") := ctx.pref.coordColorName,
+        attr("data-resize-pref") := ctx.pref.resizeHandle,
         attr("data-score-url") := ctx.isAuth.option(routes.Coordinate.score.url)
       )(
         div(cls := "coord-trainer__side")(

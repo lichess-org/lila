@@ -5,7 +5,7 @@ import inline from './inlineView';
 import isCol1 from 'common/isCol1';
 import throttle from 'common/throttle';
 import { authorText as commentAuthorText } from '../study/studyComments';
-import { enrichText, innerHTML, bindMobileTapHold, clearSelection } from '../util';
+import { enrichText, innerHTML, bindMobileTapHold } from '../util';
 import { h, Hooks, VNode } from 'snabbdom';
 import { isEmpty, defined } from 'common';
 import { MaybeVNodes, ConcealOf } from '../interfaces';
@@ -119,30 +119,27 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
     insert: vnode => {
       const el = vnode.elm as HTMLElement;
       if (ctrl.path !== '') autoScroll(ctrl, el);
-      const callback = (e: MouseEvent) => {
+      const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) {
           contextMenu(e, {
             path,
             root: ctrl,
           });
-          clearSelection();
         }
         ctrl.redraw();
         return false;
       };
 
-      el.oncontextmenu = callback;
-      bindMobileTapHold(el, callback, ctrl.redraw);
+      el.oncontextmenu = ctxMenuCallback;
+      bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
 
-      for (const mousedownEvent of ['touchstart', 'mousedown']) {
-        el.addEventListener(mousedownEvent, (e: MouseEvent) => {
-          if (defined(e.button) && e.button !== 0) return; // only touch or left click
-          const path = eventPath(e);
-          if (path) ctrl.userJump(path);
-          ctrl.redraw();
-        });
-      }
+      el.addEventListener('mousedown', (e: MouseEvent) => {
+        if (defined(e.button) && e.button !== 0) return; // only touch or left click
+        const path = eventPath(e);
+        if (path) ctrl.userJump(path);
+        ctrl.redraw();
+      });
     },
     postpatch: (_, vnode) => {
       if (ctrl.autoScrollRequested) {

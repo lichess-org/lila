@@ -221,7 +221,8 @@ final class Auth(
       ctx: Context
   ): Funit = {
     garbageCollect(user, email)
-    if (sendWelcomeEmail) env.security.automaticEmail.welcome(user, email)
+    if (sendWelcomeEmail) env.mailer.automaticEmail.welcomeEmail(user, email)
+    env.mailer.automaticEmail.welcomePM(user)
     env.pref.api.saveNewUserPrefs(user, ctx.req)
   }
 
@@ -520,8 +521,7 @@ final class Auth(
       case Some(user) => f(user)
     }
 
-  implicit private val limitedDefault =
-    Zero.instance[Result](TooManyRequests("Too many requests, try again later."))
+  implicit private val limitedDefault = Zero.instance[Result](rateLimited)
 
   private[controllers] def HasherRateLimit =
     PasswordHasher.rateLimit[Result](enforce = env.net.rateLimit) _

@@ -25,6 +25,10 @@
       background: linear-gradient(to left, $c-border 20%, $c-bg-page);
       margin: 0.7em 0;
     }
+
+    .line:not(.patron) {
+      display: none;
+    }
   }
 
   .more {

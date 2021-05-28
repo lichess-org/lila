@@ -24,4 +24,10 @@
   <string name="sortBy">Sort by</string>
   <string name="analysis">Analysis</string>
   <string name="onlyAnalysed">Only games where a computer analysis is available</string>
+  <string name="color">Color</string>
+  <string name="evaluation">Evaluation</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maximum number</string>
+  <string name="maxNumberExplanation">The maximum number of games to return</string>
+  <string name="include">Include</string>
+  <string name="generateURL">Generate URL</string>
 </resources>

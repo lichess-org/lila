@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">את/ה משחק/ת את הכלים הלבנים</string>
   <string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
   <string name="itsYourTurn">זה התור שלך!</string>
+  <string name="cheatDetected">רמות התגלתה</string>
   <string name="kingInTheCenter">המלך במרכז</string>
   <string name="threeChecks">שח משולש</string>
   <string name="raceFinished">המירוץ נגמר</string>
@@ -237,7 +238,7 @@
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
   <string name="cancel">ביטול</string>
-  <string name="whiteTimeOut">נגמר לך הזמן, שחקן לבן</string>
+  <string name="whiteTimeOut">נגמר הזמן ללבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
   <string name="drawOfferSent">הצעת תיקו נשלחה</string>
   <string name="drawOfferDeclined">הצעת התיקו נדחתה</string>
@@ -515,7 +516,6 @@
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
-  <string name="country">מדינה</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
@@ -928,9 +928,9 @@
   <string name="youCannotPostYetPlaySomeGames">אתה עדיין לא יכול לפרסם בפורום זה. שחק כמה משחקים!</string>
   <string name="subscribe">עקוב</string>
   <string name="unsubscribe">בטל את המעקב</string>
-  <string name="mentionedYouInX"> ציינו אותכם ב- %1$s.</string>
-  <string name="xMentionedYouInY"> %1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
-  <string name="invitedYouToX"> הזמין אותך ל-\"%1$s\".</string>
+  <string name="mentionedYouInX">ציינו אותכם ב- %1$s.</string>
+  <string name="xMentionedYouInY">%1$s הזכיר אותך בהודעה ב-\"%2$s\".</string>
+  <string name="invitedYouToX">הזמין אותך ל-\"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s הזמין אותך ללימוד \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">אתה כעת חבר בקבוצה.</string>
   <string name="youHaveJoinedTeamX">הצטרפת אל \"%1$s\".</string>
@@ -938,12 +938,10 @@
   <string name="congratsYouWon">כל הכבוד, ניצחתם!</string>
   <string name="gameVsX">משחק נגד %1$s</string>
   <string name="resVsX">%1$s נגד %2$s</string>
-  <string name="youJustBecamePatron">כעת הפכת לתומך של ליצ\'ס.</string>
-  <string name="patronAccountExpired">חשבון תומך פג תוקף</string>
-  <string name="pleaseReconsiderRenewIt">אנא שקול לחדש אותו!</string>
   <string name="someoneReviewedYourCoachProfile">מישהו דירג את פרופיל המאמן שלך.</string>
   <string name="newPendingReview">דירוג ממתין חדש</string>
   <string name="lostAgainstTOSViolator">הפסדת לאדם שהפר את תקנון השימוש בליצ\'ס</string>
   <string name="refundXpointsTimeControlY">זיכוי: %1$s נקודות דירוג ב%2$s.</string>
   <string name="timeAlmostUp">הזמן הולך ואוזל!</string>
+  <string name="clickToRevealEmailAddress">לחץ כדי לחשוף את כתובת הדוא\"ל</string>
 </resources>

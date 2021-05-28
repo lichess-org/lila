@@ -58,27 +58,21 @@ export function main(ctrl: RoundController): VNode {
 
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
-    : h(
-        'div.round__app.variant-' + d.game.variant.key,
-        {
-          class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
-        },
-        [
-          h(
-            'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
-            {
-              hook:
-                'ontouchstart' in window
-                  ? undefined
-                  : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
-            },
-            [renderGround(ctrl), promotion.view(ctrl)]
-          ),
-          crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
-          ...renderTable(ctrl),
-          crazyView(ctrl, bottomColor, 'bottom') ||
-            renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor]),
-          ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
-        ]
-      );
+    : h('div.round__app.variant-' + d.game.variant.key, [
+        h(
+          'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
+          {
+            hook:
+              'ontouchstart' in window
+                ? undefined
+                : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
+          },
+          [renderGround(ctrl), promotion.view(ctrl)]
+        ),
+        crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
+        ...renderTable(ctrl),
+        crazyView(ctrl, bottomColor, 'bottom') ||
+          renderMaterial(material[bottomColor], score, 'bottom', checks[bottomColor]),
+        ctrl.keyboardMove ? keyboardMove(ctrl.keyboardMove) : null,
+      ]);
 }

@@ -454,7 +454,7 @@
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
   <string name="biography">Biografi</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller flag</string>
   <string name="thankYou">Tak!</string>
   <string name="socialMediaLinks">Links til sociale medier</string>
   <string name="inlineNotation">Notation uden linjeskift</string>
@@ -847,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Du kan endnu ikke lave oplag i foraene. Spil nogle partier!</string>
   <string name="subscribe">Abonnér</string>
   <string name="unsubscribe">Ophæv abonnement</string>
-  <string name="mentionedYouInX"> nævnte dig i \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s nævnte dig i \"%2$s\".</string>
-  <string name="invitedYouToX"> inviterede dig til \"%1$s\".</string>
+  <string name="mentionedYouInX">nævnte dig i \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s nævnte dig i \"%2$s\".</string>
+  <string name="invitedYouToX">inviterede dig til \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s inviterede dig til \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Du er nu en del af holdet.</string>
   <string name="youHaveJoinedTeamX">Du har sluttet dig til \"%1$s\".</string>
@@ -857,13 +857,11 @@
   <string name="congratsYouWon">Tillykke, du vandt!</string>
   <string name="gameVsX">Spil mod %1$s</string>
   <string name="resVsX">%1$s mod %2$s</string>
-  <string name="youJustBecamePatron">Du er lige blevet en Lichess Patron.</string>
-  <string name="patronAccountExpired">Patron-konto udløbet</string>
-  <string name="pleaseReconsiderRenewIt">Overvej venligst at forny den!</string>
   <string name="someoneReviewedYourCoachProfile">Nogen har gennemgået din trænerprofil.</string>
   <string name="newPendingReview">Ny afventende gennemgang</string>
   <string name="lostAgainstTOSViolator">Du tabte til en person, der overtrådte Lichess brugerbetingelserne</string>
   <string name="refundXpointsTimeControlY">Refunderet: %1$s %2$s ratingpoint.</string>
   <string name="timeAlmostUp">Tiden er næsten udløbet!</string>
   <string name="clickToRevealEmailAddress">[Klik for at vise e-mailadresse]</string>
+  <string name="download">Download</string>
 </resources>

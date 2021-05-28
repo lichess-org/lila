@@ -5,6 +5,10 @@
   <string name="freeAccount">Ücretsiz Hesap</string>
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s %2$s aydır Lichess Destekçisi</item>
+    <item quantity="other">%1$s %2$s aydır Lichess Destekçisi</item>
+  </plurals>
   <string name="newPatrons">Yeni Destekçiler</string>
   <string name="freeChess">Herkes için ücretsiz satranç, sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>

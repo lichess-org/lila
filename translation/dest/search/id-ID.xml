@@ -22,4 +22,10 @@
   <string name="sortBy">Urut berdasarkan</string>
   <string name="analysis">Analisa</string>
   <string name="onlyAnalysed">Hanya permainan di mana analisa komputer tersedia</string>
+  <string name="color">Warna</string>
+  <string name="evaluation">Evaluasi</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Jumlah maksimum</string>
+  <string name="maxNumberExplanation">Jumlah maksimal permainan untuk kembali</string>
+  <string name="include">Termasuk</string>
+  <string name="generateURL">Hasilkan alamat URL</string>
 </resources>

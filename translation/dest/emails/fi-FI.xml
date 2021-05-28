@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Vahvista lichess.org -tunnuksesi %s</string>
-  <string name="emailConfirm_click">Vahvista Lichess-tunnuksesi klikkaamalla linkkiä:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Vahvista Lichess-tunnuksesi klikkaamalla linkkiä:</string>
   <string name="emailConfirm_ignore">Jos et rekisteröitynyt Lichessiin, voit jättää tämän viestin huomiotta.</string>
   <string name="passwordReset_subject">Nollaa lichess.org-salasanasi %s</string>
   <string name="passwordReset_intro">Olemme saaneet pyynnön nollata tunnuksesi salasana.</string>

@@ -8,23 +8,35 @@ interface PgnNode {
   san?: San;
 }
 
-function renderNodesTxt(nodes: PgnNode[]): string {
-  if (!nodes[0]) return '';
-  if (!nodes[0].san) nodes = nodes.slice(1);
-  if (!nodes[0]) return '';
-  let s = nodes[0].ply % 2 === 1 ? '' : Math.floor((nodes[0].ply + 1) / 2) + '... ';
-  nodes.forEach(function (node, i) {
-    if (node.ply === 0) return;
-    if (node.ply % 2 === 1) s += (node.ply + 1) / 2 + '. ';
-    else s += '';
-    s += fixCrazySan(node.san!) + ((i + 9) % 8 === 0 ? '\n' : ' ');
-  });
-  return s.trim();
+function plyPrefix(node: Tree.Node): string {
+  return `${Math.floor((node.ply + 1) / 2)}${node.ply % 2 === 1 ? '. ' : '... '}`;
+}
+
+function renderNodesTxt(node: Tree.Node, forcePly: boolean): string {
+  if (node.children.length === 0) return '';
+
+  let s = '';
+  const first = node.children[0];
+  if (forcePly || first.ply % 2 === 1) s += plyPrefix(first);
+  s += fixCrazySan(first.san!);
+
+  for (let i = 1; i < node.children.length; i++) {
+    const child = node.children[i];
+    s += ` (${plyPrefix(child)}${fixCrazySan(child.san!)}`;
+    const variation = renderNodesTxt(child, false);
+    if (variation) s += ' ' + variation;
+    s += ')';
+  }
+
+  const mainline = renderNodesTxt(first, node.children.length > 1);
+  if (mainline) s += ' ' + mainline;
+
+  return s;
 }
 
 export function renderFullTxt(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
-  let txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
+  let txt = renderNodesTxt(ctrl.tree.root, true);
   const tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
   if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);

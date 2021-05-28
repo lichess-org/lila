@@ -198,7 +198,7 @@
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="changeUsername">Mainīt lietotājvārdu</string>
   <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"jānisbērziņš\" var mainīt uz \"JānisBērziņš\".</string>
-  <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
+  <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai lielo burtu lietojumu lietotājvārdā.</string>
   <string name="password">Parole</string>
   <string name="changePassword">Mainīt paroli</string>
   <string name="changeEmail">Mainīt e-pasta adresi</string>
@@ -485,7 +485,7 @@
   <string name="firstName">Vārds</string>
   <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
-  <string name="country">Valsts</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Valsts vai karogs</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="inlineNotation">Iekļautā notācija</string>
@@ -876,7 +876,7 @@
   <string name="puzzleDesc">Šaha taktikas treneris</string>
   <string name="important">Svarīgi</string>
   <string name="yourQuestionMayHaveBeenAnswered">Jūsu jautājums, iespējams, jau ir atbildēts %1$s</string>
-  <string name="inTheFAQ">bieži uzdoto jautājumu sadaļā.</string>
+  <string name="inTheFAQ">bieži uzdoto jautājumu sadaļā</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Lai ziņotu par negodīgu vai sliktu uzvešanos, %1$s</string>
   <string name="useTheReportForm">izmantojiet ziņošanas veidni</string>
   <string name="toRequestSupport">Lai lūgtu atbalstu, %1$s</string>
@@ -887,9 +887,9 @@
   <string name="youCannotPostYetPlaySomeGames">Vēl nevarat rakstīt forumos. Uzspēlējiet dažas spēles!</string>
   <string name="subscribe">Abonēt</string>
   <string name="unsubscribe">Atcelt abonēšanu</string>
-  <string name="mentionedYouInX"> jūs minēja ziņojumā \"%1$s\".</string>
+  <string name="mentionedYouInX">jūs minēja ziņojumā \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s jūs minēja ziņojumā \"%2$s\".</string>
-  <string name="invitedYouToX"> jūs uzaicināja uz \"%1$s\".</string>
+  <string name="invitedYouToX">jūs uzaicināja uz \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s jūs uzaicināja uz \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Tagad esat komandas dalībnieks.</string>
   <string name="youHaveJoinedTeamX">Pievienojāties \"%1$s\".</string>
@@ -897,13 +897,11 @@
   <string name="congratsYouWon">Apsveicam ar uzvaru!</string>
   <string name="gameVsX">Spēle pret %1$s</string>
   <string name="resVsX">%1$s pret %2$s</string>
-  <string name="youJustBecamePatron">Tikko kļuvāt par Lichess Sponsoru.</string>
-  <string name="patronAccountExpired">Sponsora statuss beidzās</string>
-  <string name="pleaseReconsiderRenewIt">Lūdzu apsveriet to atjaunot!</string>
   <string name="someoneReviewedYourCoachProfile">Uzrakstīta atsauksme jūsu trenera profilā.</string>
   <string name="newPendingReview">Jauna neizskatīta atsauksme</string>
   <string name="lostAgainstTOSViolator">Zaudējāt pretiniekam, kas pārkāpa Lichess noteikumus</string>
   <string name="refundXpointsTimeControlY">Atlīdzība: %1$s %2$s reitinga punkti.</string>
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
   <string name="clickToRevealEmailAddress">[Noklikšķiniet, lai atklātu e-pasta adresi]</string>
+  <string name="download">Lejupielādēt</string>
 </resources>

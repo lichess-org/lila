@@ -26,4 +26,10 @@
   <string name="sortBy">Kārtot pēc</string>
   <string name="analysis">Analīze</string>
   <string name="onlyAnalysed">Tikai spēles, kurām pieejama datoranalīze</string>
+  <string name="color">Krāsa</string>
+  <string name="evaluation">Izvērtējums</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maksimālais daudzums</string>
+  <string name="maxNumberExplanation">Lielākais daudzums spēļu, ko atgriezt</string>
+  <string name="include">Iekļaut</string>
+  <string name="generateURL">Izveidot URL</string>
 </resources>

@@ -19,6 +19,7 @@ final class Env(
     val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
+    val mailer: lila.mailer.Env,
     val security: lila.security.Env,
     val hub: lila.hub.Env,
     val socket: lila.socket.Env,
@@ -215,6 +216,7 @@ final class EnvBoot(
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]
+  lazy val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
   lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]

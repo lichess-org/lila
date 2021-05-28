@@ -454,7 +454,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="firstName">Nome próprio</string>
   <string name="lastName">Apelido</string>
   <string name="biography">Biografia</string>
-  <string name="country">País</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="inlineNotation">Anotações em linha</string>
@@ -846,9 +845,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="youCannotPostYetPlaySomeGames">Ainda não podes publicar nos fóruns. Joga alguns jogos!</string>
   <string name="subscribe">Subscrever-se</string>
   <string name="unsubscribe">Cancelar a subscrição</string>
-  <string name="mentionedYouInX"> foste mencionado em \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s mencionou-te em \"%2$s\".</string>
-  <string name="invitedYouToX"> convidou-te para \"%1$s\".</string>
+  <string name="mentionedYouInX">foste mencionado em \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mencionou-te em \"%2$s\".</string>
+  <string name="invitedYouToX">convidou-te para \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s convidou-te para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Já fazes parte da equipa.</string>
   <string name="youHaveJoinedTeamX">Juntaste-te a \"%1$s\".</string>
@@ -856,9 +855,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="congratsYouWon">Parabéns! Ganhaste!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Acabaste de te tornar num patrono do Lichess.</string>
-  <string name="patronAccountExpired">A conta de Patron expirou</string>
-  <string name="pleaseReconsiderRenewIt">Por favor, considera renová-la!</string>
   <string name="someoneReviewedYourCoachProfile">Alguém avaliou o teu perfil de treinador.</string>
   <string name="newPendingReview">Nova revisão pendente</string>
   <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>

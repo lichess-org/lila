@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">Көйләүләр</string>
+  <string name="closeAccount">Һисапны ябыш</string>
+  <string name="closingIsDefinitive">Ябыш анык. Артка кайтыш юк. Ошануыгыз камилме?</string>
+  <string name="cantOpenSimilarAccount">Һәттә очрак башкача булса һәм сезгә бер хил исемдәге яңа һисап ачырга рөхсәт бирелмиде.</string>
+  <string name="changedMindDoNotCloseAccount">Мин үз фикеремне үзгәртердем, һисапны япмам</string>
+  <string name="closeAccountExplanation">Һисапны ябышны хуплайсызмы? Һисабыгызны ябыш даими карар. Сез ҺИЧ КАЙЧАН КЕРЕШЕГЕЗ МӨМКИН.</string>
+  <string name="thisAccountIsClosed">Ошбу һисап ябылган.</string>
 </resources>

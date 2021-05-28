@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">మీ lichess.org ఖాతా %s, ధ్రువపరచండి</string>
-  <string name="emailConfirm_click">మీ Lichess ఖాతాను నిద్రలేపి, వాడడం మొదలుపెట్టడానికి ఈ లంకెను నొక్కండి:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">మీ Lichess ఖాతాను నిద్రలేపి, వాడడం మొదలుపెట్టడానికి ఈ లంకెను నొక్కండి:</string>
   <string name="emailConfirm_ignore">ఒకవేళ మీరు lichess లో చేరియుండక పొతే ఈ సందేశాన్ని పట్టించుకోనవసరం లేదు.</string>
   <string name="passwordReset_subject">మీ lichess రహస్యపదాన్ని మార్చండి, %s</string>
   <string name="passwordReset_intro">మీ ఖాతాకు ప్రస్తుతమున్న రహస్యపదాన్ని తుడిచిపెట్టి, కొత్త రహస్యపదాన్ని సృష్టించమని అభ్యర్థన వచ్చింది.</string>

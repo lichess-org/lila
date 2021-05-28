@@ -63,7 +63,7 @@ ARTIFACT_DIR = "/home/lichess-artifacts"
 
 
 def curl_cli(command, *, url="https://lichess.org/cli"):
-    return f"curl -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
+    return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
 
 
 def asset_profile(ssh, *,

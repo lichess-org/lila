@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Confirmez votre compte lichess.org, %s</string>
-  <string name="emailConfirm_click">Cliquez sur le lien pour activer votre compte Lichess :</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Cliquez sur le lien pour activer votre compte Lichess :</string>
   <string name="emailConfirm_ignore">Si vous n\'êtes pas l\'auteur de cette demande, vous pouvez ignorer ce message.</string>
   <string name="passwordReset_subject">Réinitialisez votre mot de passe lichess.org, %s</string>
   <string name="passwordReset_intro">Nous avons reçu une demande de réinitialisation du mot de passe de votre compte.</string>

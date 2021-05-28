@@ -8,6 +8,7 @@ import lila.common.config._
 import lila.common.{ EmailAddress, LilaCookie }
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
+import lila.mailer.Mailer
 
 trait EmailConfirm {
 
@@ -49,26 +50,20 @@ final class EmailConfirmMailer(
       mailer send Mailer.Message(
         to = email,
         subject = trans.emailConfirm_subject.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.emailConfirm_click.txt()}
 
 $url
 
 ${trans.common_orPaste.txt()}
 
-${Mailer.txt.serviceNote}
 ${trans.emailConfirm_ignore.txt("https://lichess.org")}
-""",
+"""),
         htmlBody = emailMessage(
           pDesc(trans.emailConfirm_click()),
           potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-          publisher(
-            small(
-              trans.common_note(Mailer.html.noteLink),
-              " ",
-              trans.emailConfirm_ignore()
-            )
-          )
+          small(trans.emailConfirm_ignore()),
+          serviceNote
         ).some
       )
     }

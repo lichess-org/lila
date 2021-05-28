@@ -3,6 +3,7 @@
   <string name="activity">Activity</string>
   <string name="hostedALiveStream">Hosted a live stream</string>
   <plurals name="supportedNbMonths">
+    <item quantity="zero">Started supporting lichess.org as a %2$s</item>
     <item quantity="one">Supported lichess.org for %1$s month as a %2$s</item>
     <item quantity="other">Supported lichess.org for %1$s months as a %2$s</item>
   </plurals>

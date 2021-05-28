@@ -81,6 +81,7 @@ interface Lichess {
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;
+  analysis?: any; // expose the analysis ctrl
 }
 
 type I18nDict = { [key: string]: string };
@@ -110,14 +111,14 @@ interface SoundI {
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
-  say(text: any, cut?: boolean, force?: boolean): boolean;
+  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
   sayOrPlay(name: string, text: string): void;
+  preloadBoardSounds(): void;
   soundSet: string;
   baseUrl: string;
 }
 
 interface LichessSpeech {
-  say(t: string, cut: boolean): void;
   step(s: { san?: San }, cut: boolean): void;
 }
 

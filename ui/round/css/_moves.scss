@@ -11,7 +11,7 @@
 }
 
 #{$rmoves-tag} {
-  @extend %flex-column;
+  @extend %flex-column, %double-tap;
 
   .buttons {
     @extend %box-shadow;

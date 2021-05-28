@@ -454,7 +454,7 @@
   <string name="firstName">Voornaam</string>
   <string name="lastName">Achternaam</string>
   <string name="biography">Biografie</string>
-  <string name="country">Land</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of vlag</string>
   <string name="thankYou">Bedankt!</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
@@ -846,9 +846,9 @@
   <string name="youCannotPostYetPlaySomeGames">Je kunt nog geen post in de forums plaatsen. Speel eerst een paar partijen!</string>
   <string name="subscribe">Abonneren</string>
   <string name="unsubscribe">Abonnement opzeggen</string>
-  <string name="mentionedYouInX"> heeft je genoemd in \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s heeft je genoemd in \"%2$s\".</string>
-  <string name="invitedYouToX"> heeft je uitgenodigd voor \"%1$s\".</string>
+  <string name="mentionedYouInX">heeft je genoemd in \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s heeft je genoemd in \"%2$s\".</string>
+  <string name="invitedYouToX">heeft je uitgenodigd voor \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s heeft je uitgenodigd voor \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Je maakt nu deel uit van het team.</string>
   <string name="youHaveJoinedTeamX">Je bent nu lid van \"%1$s\".</string>
@@ -856,13 +856,11 @@
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
   <string name="gameVsX">Partij tegen %1$s</string>
   <string name="resVsX">%1$s tegen %2$s</string>
-  <string name="youJustBecamePatron">Je bent net een Lichess Patroon geworden.</string>
-  <string name="patronAccountExpired">Patroon status is verlopen</string>
-  <string name="pleaseReconsiderRenewIt">Overweeg alsjeblieft het te vernieuwen!</string>
   <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
   <string name="newPendingReview">In afwachting van beoordeling</string>
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
+  <string name="download">Downloaden</string>
 </resources>

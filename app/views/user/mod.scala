@@ -16,7 +16,8 @@ import lila.user.{ Holder, User }
 import lila.appeal.Appeal
 
 object mod {
-  private def mzSection(key: String) = div(id := s"mz_$key", cls := "mz-section")
+  private def mzSection(key: String) =
+    div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
   def menu =
     mzSection("menu")(
@@ -531,7 +532,7 @@ object mod {
       renderIp: RenderIp
   ): Tag = {
     import data._
-    div(cls := "mz-section mz_others")(
+    mzSection("others")(
       table(cls := "slist")(
         thead(
           tr(
@@ -607,9 +608,12 @@ object mod {
                   td(dataSort := 1)(
                     a(
                       href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
-                      cls := "text",
+                      cls := List(
+                        "text"         -> true,
+                        "appeal-muted" -> appeal.isMuted
+                      ),
                       dataIcon := "6",
-                      title := pluralize("appeal message", appeal.msgs.size)
+                      title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
                     )(appeal.msgs.size)
                   )
               },

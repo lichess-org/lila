@@ -1,4 +1,4 @@
-package lila.security
+package lila.mailer
 
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
@@ -92,10 +92,14 @@ object Mailer {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang): String = s"""
+    private def serviceNote(implicit lang: Lang): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
+
+    def addServiceNote(body: String)(implicit lang: Lang) = s"""$body
+
+$serviceNote"""
   }
 
   object html {
@@ -114,6 +118,11 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
       span(itemprop := "name")("lichess.org/contact")
     )
 
+    private val noteLink = a(
+      itemprop := "url",
+      href := "https://lichess.org/"
+    )(span(itemprop := "name")("lichess.org"))
+
     def serviceNote(implicit lang: Lang) =
       publisher(
         small(
@@ -129,16 +138,11 @@ ${trans.common_contact("https://lichess.org/contact").render}"""
         )
       )
 
-    def standardEmail(body: String): Frag =
+    def standardEmail(body: String)(implicit lang: Lang): Frag =
       emailMessage(
         pDesc(nl2br(body)),
-        publisher
+        serviceNote
       )
-
-    val noteLink = a(
-      itemprop := "url",
-      href := "https://lichess.org/"
-    )(span(itemprop := "name")("lichess.org"))
 
     def url(u: String)(implicit lang: Lang) =
       frag(

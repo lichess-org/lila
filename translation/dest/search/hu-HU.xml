@@ -24,4 +24,10 @@
   <string name="sortBy">Rendezés</string>
   <string name="analysis">Elemzés</string>
   <string name="onlyAnalysed">Csak azok a játszmák, ahol számítógépes elemzés elérhető</string>
+  <string name="color">Szín</string>
+  <string name="evaluation">Kiértékelés</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Legfeljebb</string>
+  <string name="maxNumberExplanation">A megjelenő találatok maximális száma</string>
+  <string name="include">Tartalmaz</string>
+  <string name="generateURL">URL létrehozása</string>
 </resources>

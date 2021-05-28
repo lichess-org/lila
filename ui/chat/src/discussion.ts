@@ -29,7 +29,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
         attrs: {
           role: 'log',
           'aria-live': 'polite',
-          'aria-atomic': false,
+          'aria-atomic': 'false',
         },
         hook: {
           insert(vnode) {
@@ -208,7 +208,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
-  const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
+  const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
 
   return h(
     'li',

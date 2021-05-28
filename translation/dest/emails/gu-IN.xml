@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">તમારું લિચેસ એકાઉન્ટ %s</string>
-  <string name="emailConfirm_click">લિંક પર ક્લીક કરો ચાલુ કરવા માટે:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">લિંક પર ક્લીક કરો ચાલુ કરવા માટે:</string>
   <string name="emailConfirm_ignore">જો તમે રજિસ્ટર ન કર્યું હોય તો તમારે ધ્યાન માં લેવાની જરૂર નથી.</string>
   <string name="passwordReset_subject">રીસેટ કરો %s</string>
   <string name="passwordReset_intro">અમને પાસવર્ડ રીસેટ માટે માહિતી મળી છે.</string>

@@ -40,7 +40,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="shareUrl">Μοιραστείτε αυτήν την διεύθυνση URL για να συμμετάσχουν άλλα άτομα: %s</string>
   <string name="drawStreak">Συνεχόμενες ισοπαλίες: Όταν ένας παίκτης έχει διαδοχικές ισοπαλίες στην αρένα, είτε μόνο η πρώτη θα δώσει ένα πόντο, είτε ισοπαλίες που διήρκησαν πάνω από %s κινήσεις. Οι συνεχιζόμενες ισοπαλίες σταματούν μόνο με μία νίκη και όχι με μία ήττα ή ισοπαλία.</string>
   <string name="history">Ιστορικό αρένας</string>
-  <plurals name="viewAllXTeams">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Δείτε την ομάδα</item>
     <item quantity="other">Δείτε όλες τις %s ομάδες</item>
   </plurals>

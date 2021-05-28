@@ -484,7 +484,7 @@
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
   <string name="biography">Biografie</string>
-  <string name="country">Țară</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țară sau steag</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="socialMediaLinks">Link-urile rețelelor de socializare</string>
   <string name="inlineNotation">Notație integrată</string>
@@ -885,9 +885,9 @@
   <string name="youCannotPostYetPlaySomeGames">Încă nu puteți posta în forumuri. Jucați câteva partide!</string>
   <string name="subscribe">Abonați-vă</string>
   <string name="unsubscribe">Dezabonați-vă</string>
-  <string name="mentionedYouInX"> te-a menționat în \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s te-a menționat în \"%2$s\".</string>
-  <string name="invitedYouToX"> te-a invitat la \"%1$s\".</string>
+  <string name="mentionedYouInX">te-a menționat în \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s te-a menționat în \"%2$s\".</string>
+  <string name="invitedYouToX">te-a invitat la \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te-a invitat la \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Acum faci parte din echipă.</string>
   <string name="youHaveJoinedTeamX">V-ați alăturat la \"%1$s\".</string>
@@ -895,13 +895,11 @@
   <string name="congratsYouWon">Felicitări, ați câștigat!</string>
   <string name="gameVsX">Joc vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Tocmai ai devenit Patron Lichess.</string>
-  <string name="patronAccountExpired">Contul Patron a expirat</string>
-  <string name="pleaseReconsiderRenewIt">Vă rugăm să luați în considerare reînnoirea acestuia!</string>
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
   <string name="newPendingReview">Revizuire nouă în așteptare</string>
   <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
   <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
+  <string name="download">Descărcare</string>
 </resources>

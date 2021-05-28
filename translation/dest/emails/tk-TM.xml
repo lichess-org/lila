@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s, lichess.org hasabyňyzy tassyklaň</string>
-  <string name="emailConfirm_click">Lichess hasabyňyzy işletmek üçin şu linka basyň:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Lichess hasabyňyzy işletmek üçin şu linka basyň:</string>
   <string name="emailConfirm_ignore">Lichess-e registrasiýa etmedik bolsaňyz bu haty ýok hasap edip bilersiňiz.</string>
   <string name="passwordReset_subject">%s, lichess.org açarsözüňizi nollaň</string>
   <string name="passwordReset_intro">Hasabyňyzyň açarsözüni nollamak üçin talap kabul etdik.</string>

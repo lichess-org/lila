@@ -24,4 +24,10 @@
   <string name="sortBy">Sıralama ölçütü</string>
   <string name="analysis">Analiz</string>
   <string name="onlyAnalysed">Sadece bilgisayar analizi yapılmış oyunları göster</string>
+  <string name="color">Renk</string>
+  <string name="evaluation">Değerlendirme</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">En çok sayı</string>
+  <string name="maxNumberExplanation">Getirilecek en çok oyun sayısı</string>
+  <string name="include">Dahil et</string>
+  <string name="generateURL">URL oluştur</string>
 </resources>

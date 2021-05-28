@@ -191,7 +191,7 @@
   <string name="password">nimi open len</string>
   <string name="changePassword">o ante e nimi open len</string>
   <string name="changeEmail">o ante e nimi pi lipu toki linluwi</string>
-  <string name="email"> nimi pi lipu toki linluwi</string>
+  <string name="email">nimi pi lipu toki linluwi</string>
   <string name="passwordReset">weka sona la o ante e nimi open len</string>
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
   <string name="rank">nanpa</string>
@@ -455,7 +455,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="firstName">nimi jan</string>
   <string name="lastName">nimi mama</string>
   <string name="biography">sona jan sina</string>
-  <string name="country">ma</string>
   <string name="thankYou">pona tawa sina!</string>
   <string name="socialMediaLinks">nimi nasin pi lipu toki jan</string>
   <string name="inlineNotation">o sitelen e tawa lon linja wan</string>
@@ -848,9 +847,9 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="youCannotPostYetPlaySomeGames">sina wile toki lon tomo toki la, o musi e musi mute a!</string>
   <string name="subscribe">o kama jo e sona</string>
   <string name="unsubscribe">o pini e sona pi kama sin</string>
-  <string name="mentionedYouInX"> li toki e sina lon toki \"%1$s\".</string>
-  <string name="xMentionedYouInY"> jan %1$s li toki e sina lon toki \"%2$s\".</string>
-  <string name="invitedYouToX"> li sin e sina tawa musi pi kama sona \"%1$s\".</string>
+  <string name="mentionedYouInX">li toki e sina lon toki \"%1$s\".</string>
+  <string name="xMentionedYouInY">jan %1$s li toki e sina lon toki \"%2$s\".</string>
+  <string name="invitedYouToX">li sin e sina tawa musi pi kama sona \"%1$s\".</string>
   <string name="xInvitedYouToY">jan %1$s li sin e sina tawa musi pi kama sona \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">sina lon kulupu.</string>
   <string name="youHaveJoinedTeamX">sina kama tawa kulupu \"%1$s\".</string>
@@ -858,9 +857,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
   <string name="resVsX">jan %1$s en jan %2$s</string>
-  <string name="youJustBecamePatron">tenpo ni la sina kama e jan Patron pi ilo Lichess.</string>
-  <string name="patronAccountExpired">sina kama e jan Patron ala</string>
-  <string name="pleaseReconsiderRenewIt">ken la o kama sin!</string>
   <string name="someoneReviewedYourCoachProfile">jan li lukin e pali sina pi kama sona.</string>
   <string name="newPendingReview">lukin sin</string>
   <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>

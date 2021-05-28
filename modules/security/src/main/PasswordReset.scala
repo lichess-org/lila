@@ -6,6 +6,7 @@ import scalatags.Text.all._
 import lila.common.config._
 import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
@@ -24,17 +25,14 @@ final class PasswordReset(
       mailer send Mailer.Message(
         to = email,
         subject = trans.passwordReset_subject.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_intro.txt()}
 
 ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}
-
-${Mailer.txt.serviceNote}
-""",
+${trans.common_orPaste.txt()}"""),
         htmlBody = emailMessage(
           pDesc(trans.passwordReset_intro()),
           p(trans.passwordReset_clickOrIgnore()),

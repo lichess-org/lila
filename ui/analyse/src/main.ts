@@ -14,7 +14,7 @@ export function start(opts: AnalyseOpts): AnalyseApi {
   opts.element = document.querySelector('main.analyse') as HTMLElement;
   opts.trans = lichess.trans(opts.i18n);
 
-  const ctrl = new makeCtrl(opts, redraw);
+  const ctrl = (lichess.analysis = new makeCtrl(opts, redraw));
 
   const blueprint = view(ctrl);
   opts.element.innerHTML = '';

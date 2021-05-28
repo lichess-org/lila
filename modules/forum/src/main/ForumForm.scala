@@ -41,6 +41,10 @@ final private[forum] class ForumForm(
       )(TopicData.apply)(TopicData.unapply)
     )
 
+  val deleteWithReason = Form(
+    single("reason" -> optional(nonEmptyText))
+  )
+
   private def userTextMapping(user: User, inOwnTeam: Boolean) =
     cleanText(minLength = 3)
       .verifying(

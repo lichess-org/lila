@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Потврдите ваш lichess.org налог, %s</string>
-  <string name="emailConfirm_click">Кликните на линк да активирате ваш Личес налог:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Кликните на линк да активирате ваш Личес налог:</string>
   <string name="emailConfirm_ignore">Уколико се нисте регистровали за Личес, можете безбедно занемарити ову поруку.</string>
   <string name="passwordReset_subject">Измените вашу lichess.org лозинку, %s</string>
   <string name="passwordReset_intro">Примили смо захтев за измену лозинке вашег налога.</string>

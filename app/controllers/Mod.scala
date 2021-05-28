@@ -186,7 +186,7 @@ final class Mod(
           _ => fuccess(redirect(username, mod = true)),
           title =>
             modApi.setTitle(me.id, username, title map Title.apply) >>
-              env.security.automaticEmail.onTitleSet(username) >>-
+              env.mailer.automaticEmail.onTitleSet(username) >>-
               env.user.lightUserApi.invalidate(UserModel normalize username) inject
               redirect(username, mod = false)
         )
@@ -425,10 +425,9 @@ final class Mod(
             permissions => {
               val newPermissions = Permission(permissions) diff Permission(user.roles)
               modApi.setPermissions(me, user.username, Permission(permissions)) >> {
-                newPermissions(Permission.Coach) ?? env.security.automaticEmail.onBecomeCoach(user)
+                newPermissions(Permission.Coach) ?? env.mailer.automaticEmail.onBecomeCoach(user)
               } >> {
-                Permission(permissions).exists(_ is Permission.SeeReport) ?? (env.plan.api
-                  .setLifetime(user) >> !user.isPatron ?? env.activity.write.plan(user.username, 1))
+                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
               } inject Redirect(routes.Mod.permissions(username)).flashSuccess
             }
           )

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s，请确认您的 lichess.org 帐户。</string>
-  <string name="emailConfirm_click">单击下列链接以激活您的 Lichess 帐户：</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">单击下列链接以激活您的 Lichess 帐户：</string>
   <string name="emailConfirm_ignore">如果您没有在 Lichess 上注册账号请忽略本邮件。</string>
   <string name="passwordReset_subject">%s，请重置您在 lichess.org 上的密码。</string>
   <string name="passwordReset_intro">我们收到了重置您帐户密码的请求。</string>

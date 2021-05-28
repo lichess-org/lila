@@ -498,7 +498,7 @@
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
   <string name="biography">Biografija</string>
-  <string name="country">Država</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="inlineNotation">Dodatna notacija</string>
@@ -909,8 +909,8 @@
   <string name="youCannotPostYetPlaySomeGames">Ne moreš še objavljati na forumu. Igraj nekaj iger!</string>
   <string name="subscribe">Naroči se</string>
   <string name="unsubscribe">Odjava</string>
-  <string name="mentionedYouInX"> vas je omenil v \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s vas je omenil v \"%2$s\".</string>
+  <string name="mentionedYouInX">vas je omenil v \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s vas je omenil v \"%2$s\".</string>
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
@@ -918,13 +918,11 @@
   <string name="congratsYouWon">Čestitke, zmagali ste!</string>
   <string name="gameVsX">Igra proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
-  <string name="youJustBecamePatron">Postali ste pokrovitelj Lichess.</string>
-  <string name="patronAccountExpired">Račun pokrovitelja je potekel</string>
-  <string name="pleaseReconsiderRenewIt">Prosimo, razmislite o podaljšanju!</string>
   <string name="someoneReviewedYourCoachProfile">Nekdo je pregledal vaš profil trenerja.</string>
   <string name="newPendingReview">Novo čakanje na pregled</string>
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
   <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
+  <string name="download">Prenos</string>
 </resources>

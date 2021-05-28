@@ -198,8 +198,7 @@ export default class AnalyseCtrl {
       this.synthetic || this.ongoing ? undefined : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
-    // Preload sounds to ensure that they'll be unlocked on mobile devices
-    ['move', 'capture', 'check'].forEach(s => lichess.sound.loadStandard(s));
+    lichess.sound.preloadBoardSounds();
   }
 
   private setPath = (path: Tree.Path): void => {
@@ -229,6 +228,7 @@ export default class AnalyseCtrl {
   }
 
   bottomColor(): Color {
+    if (this.data.game.variant.key === 'racingKings') return this.flipped ? 'black' : 'white';
     return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
   }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Сфидар кæн дæ lichess.org аккаунт, %s</string>
-  <string name="emailConfirm_click">Дæ Lichess аккаунт цæмæй скусын кæнай, æрæлхъив дæнцæгыл:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Дæ Lichess аккаунт цæмæй скусын кæнай, æрæлхъив дæнцæгыл:</string>
   <string name="emailConfirm_ignore">Дæхи Lichess-ы кæд регистраци нæ кодтай, уæд ацы фыстæг ницæмæ дар.</string>
   <string name="passwordReset_subject">Раппар дæ lichess.org пароль, %s</string>
   <string name="passwordReset_intro">Мах райстам бафæрст дæ аккаунты паролы раппæрыныл.</string>

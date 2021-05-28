@@ -24,4 +24,9 @@
   <string name="sortBy">Sorteren op</string>
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">Alleen partijen waarvan een computeranalyse beschikbaar is</string>
+  <string name="color">Kleur</string>
+  <string name="evaluation">Computerbeoordeling</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maximumaantal</string>
+  <string name="maxNumberExplanation">Het maximum aantal partijen dat getoond moet worden</string>
+  <string name="generateURL">URL genereren</string>
 </resources>

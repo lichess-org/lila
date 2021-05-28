@@ -2,11 +2,10 @@
 <resources>
   <string name="perfStats">สถิติ %s</string>
   <string name="viewTheGames">ดูเกม</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">แบบชั่วคราว</string>
+  <string name="provisional">แบบชั่วคราว</string>
   <string name="notEnoughRatedGames">จำนวนเกมที่ได้เล่นแบบคิดคะแนน ไม่เพียงพอในการสร้างระดับคะแนนที่เชื่อถือได้</string>
   <string name="progressOverLastXGames">ความคืบหน้าใน %s เกมล่าสุด:</string>
   <string name="ratingDeviation">ค่าเบี่ยงเบนระดับคะแนน: %s</string>
-  <string name="ratingDeviationHelp">ค่าต่ำกว่าหมายถึงระดับคะแนนมีความเสถียรมากกว่า ระดับคะแนนจะถูกพิจารณาเป็นแบบชั่วคราวเมื่อเกิน %s</string>
   <string name="totalGames">เกมทั้งหมด</string>
   <string name="ratedGames">เกมที่คิดคะแนน</string>
   <string name="tournamentGames">เกมทัวร์นาเมนต์</string>

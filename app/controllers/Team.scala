@@ -12,6 +12,7 @@ import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.team.{ Requesting, Team => TeamModel }
 import lila.user.{ User => UserModel, Holder }
+import lila.memo.RateLimit
 
 final class Team(
     env: Env,
@@ -451,7 +452,13 @@ final class Team(
                   .map { tours =>
                     BadRequest(html.team.admin.pmAll(team, err, tours))
                   },
-              done => done inject Redirect(routes.Team.show(team.id)).flashSuccess
+              res =>
+                Redirect(routes.Team.show(team.id))
+                  .flashing(res match {
+                    case RateLimit.Through => "success" -> ""
+                    case RateLimit.Limited => "failure" -> rateLimitedMsg
+                  })
+                  .fuccess
             )
           },
       scoped = implicit req =>
@@ -460,7 +467,10 @@ final class Team(
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
-                done => done inject jsonOkResult
+                {
+                  case RateLimit.Through => jsonOkResult.fuccess
+                  case RateLimit.Limited => rateLimitedJson.fuccess
+                }
               )
             }
           }
@@ -519,14 +529,16 @@ final class Team(
       }
     }
 
-  private def doPmAll(team: TeamModel, me: UserModel)(implicit req: Request[_]): Either[Form[_], Funit] =
+  private def doPmAll(team: TeamModel, me: UserModel)(implicit
+      req: Request[_]
+  ): Either[Form[_], RateLimit.Result] =
     forms.pmAll
       .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
-            PmAllLimitPerUser(me.id) {
+            PmAllLimitPerUser[RateLimit.Result](me.id) {
               val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -536,8 +548,8 @@ You received this because you are subscribed to messages of the team $url."""
                 .addEffect { nb =>
                   lila.mon.msg.teamBulk(team.id).record(nb).unit
                 }
-              funit // we don't wait for the stream to complete, it would make lichess time out
-            }(funit)
+              RateLimit.Through // we don't wait for the stream to complete, it would make lichess time out
+            }(RateLimit.Limited)
           }
       )
 

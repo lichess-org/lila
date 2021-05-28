@@ -5,6 +5,10 @@
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli ein bidragsytar til Lichess</string>
   <string name="xBecamePatron">%s vart bidragsytar til Lichess</string>
+  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+    <item quantity="one">%1$s har støtta Lichess økonomisk i %2$s månad</item>
+    <item quantity="other">%1$s har støtta Lichess økonomisk i %2$s månader</item>
+  </plurals>
   <string name="newPatrons">Nye bidragsytarar</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonsar, ingen abonnement; men open-kjeldekode og glødande engasjement.</string>

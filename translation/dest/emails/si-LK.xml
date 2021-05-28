@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">ඔබගේ lichess.org ගිණුම තහවුරු කරන්න, %s</string>
-  <string name="emailConfirm_click">ඔබගේ ලිචෙස් ගිණුම සක්‍රීය කිරීමට සබැඳිය ක්ලික් කරන්න:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">ඔබගේ ලිචෙස් ගිණුම සක්‍රීය කිරීමට සබැඳිය ක්ලික් කරන්න:</string>
   <string name="emailConfirm_ignore">ඔබ ලිචෙස් සමඟ ලියාපදිංචි නොවූයේ නම් ඔබට මෙම පණිවිඩය ආරක්ෂිතව නොසලකා හැරිය හැකිය.</string>
   <string name="passwordReset_subject">ඔබගේ lichess.org මුරපදය නැවත සකසන්න, %s</string>
   <string name="passwordReset_intro">ඔබගේ ගිණුමේ මුරපදය නැවත සැකසීමට අපට ඉල්ලීමක් ලැබුණි.</string>

@@ -17,7 +17,7 @@ import { defer } from 'common/defer';
 import { defined, prop, Prop } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
-import { parseSquare, parseUci, makeSquare, makeUci } from 'chessops/util';
+import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
 import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
@@ -33,11 +33,14 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   const ground = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   const threatMode = prop(false);
   const streak = opts.data.streak ? new PuzzleStreak(opts.data) : undefined;
-  if (streak)
+  const streakFailStorage = lichess.storage.make('puzzle.streak.fail');
+  if (streak) {
     opts.data = {
       ...opts.data,
       ...streak.data.current,
     };
+    streakFailStorage.listen(_ => failStreak(streak));
+  }
   const session = new PuzzleSession(opts.data.theme.key, opts.data.user?.id, hasStreak);
 
   // required by ceval
@@ -56,6 +59,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     good: loadSound('lisp/PuzzleStormGood', 0.7, 500),
     end: loadSound('lisp/PuzzleStormEnd', 1, 1000),
   };
+
+  let flipped = false;
 
   function setPath(path: Tree.Path): void {
     vm.path = path;
@@ -127,7 +132,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         };
     const config = {
       fen: node.fen,
-      orientation: vm.pov,
+      orientation: flipped ? opposite(vm.pov) : vm.pov,
       turnColor: color,
       movable: movable,
       premovable: {
@@ -231,10 +236,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       revertUserMove();
       if (vm.mode === 'play') {
         if (streak) {
-          vm.mode = 'view';
-          streak.onComplete(false);
-          setTimeout(viewSolution, 500);
-          sound.end();
+          failStreak(streak);
+          streakFailStorage.fire();
         } else {
           vm.canViewSolution = true;
           vm.mode = 'try';
@@ -257,6 +260,13 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
         sendMoveAt(progress.path, pos, progress.move);
       }, opts.pref.animation.duration * (autoNext() ? 1 : 1.5));
     }
+  }
+
+  function failStreak(streak: PuzzleStreak): void {
+    vm.mode = 'view';
+    streak.onComplete(false);
+    setTimeout(viewSolution, 500);
+    sound.end();
   }
 
   function sendResult(win: boolean): Promise<void> {
@@ -435,6 +445,12 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     playBestMove();
   };
 
+  const flip = () => {
+    flipped = !flipped;
+    withGround(g => g.toggleOrientation());
+    redraw();
+  };
+
   const vote = (v: boolean) => {
     if (!vm.voteDisabled) {
       xhr.vote(data.puzzle.id, v);
@@ -474,6 +490,8 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     toggleThreatMode,
     redraw,
     playBestMove,
+    flip,
+    flipped: () => flipped,
   });
 
   // If the page loads while being hidden (like when changing settings),
@@ -484,8 +502,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   speech.setup();
 
   lichess.pubsub.on('zen', () => {
-    const zen = !$('body').hasClass('zen');
-    $('body').toggleClass('zen', zen);
+    const zen = $('body').toggleClass('zen').hasClass('zen');
     window.dispatchEvent(new Event('resize'));
     xhr.setZen(zen);
   });
@@ -544,5 +561,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     },
     streak,
     skip,
+    flip,
+    flipped: () => flipped,
   };
 }

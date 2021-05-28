@@ -516,7 +516,6 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
-  <string name="country">Země</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
@@ -926,9 +925,9 @@
   <string name="youCannotPostYetPlaySomeGames">Zatím nemůžete přidávat příspěvky na fóra. Zahrajte si nějaké hry!</string>
   <string name="subscribe">Odebírat</string>
   <string name="unsubscribe">Zrušit odběr</string>
-  <string name="mentionedYouInX"> vás zmínil v \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
-  <string name="invitedYouToX"> vás pozval ke studii \"%1$s\".</string>
+  <string name="mentionedYouInX">vás zmínil v \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s Vás zmínil(a) v příspěvku \"%2$s\".</string>
+  <string name="invitedYouToX">vás pozval ke studii \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s vás pozval ke studii \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Nyní jste součástí týmu.</string>
   <string name="youHaveJoinedTeamX">Připojili jste se k týmu \"%1$s\".</string>
@@ -936,9 +935,6 @@
   <string name="congratsYouWon">Gratulujeme, zvítězili jste!</string>
   <string name="gameVsX">Partie proti %1$s</string>
   <string name="resVsX">%1$s vs. %2$s</string>
-  <string name="youJustBecamePatron">Právě jste se stal patronem (podporovatelem) Lichess.</string>
-  <string name="patronAccountExpired">Platnost účtu Patrona vypršela</string>
-  <string name="pleaseReconsiderRenewIt">Zvažte prosím jeho obnovení!</string>
   <string name="someoneReviewedYourCoachProfile">Někdo přidal recenzi na váš profil trenéra.</string>
   <string name="newPendingReview">Nový, čeká na kontrolu</string>
   <string name="lostAgainstTOSViolator">Prohráli jste proti hráči, jež porušil Podmínky použití Lichess</string>

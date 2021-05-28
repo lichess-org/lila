@@ -1,15 +1,16 @@
 import { Run } from './interfaces';
 import { Config as CgConfig } from 'chessground/config';
+import { opposite } from 'chessground/util';
 import { uciToLastMove } from './util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 
-export const makeCgOpts = (run: Run, canMove: boolean): CgConfig => {
+export const makeCgOpts = (run: Run, canMove: boolean, flipped?: boolean): CgConfig => {
   const cur = run.current;
   const pos = cur.position();
   return {
     fen: makeFen(pos.toSetup()),
-    orientation: run.pov,
+    orientation: flipped ? opposite(run.pov) : run.pov,
     turnColor: pos.turn,
     movable: {
       color: run.pov,

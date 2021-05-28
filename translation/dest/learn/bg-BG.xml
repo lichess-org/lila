@@ -162,6 +162,10 @@
 Царят е безценен! Загубата му означава загуба на играта.</string>
   <string name="queenOverBishop">Вземи най-ценната фигура!
 Царица &gt; Офицер</string>
+  <string name="pieceValueExchange">Вземете най-ценната фигура!
+Не разменяйте по-ценна фигура за по-малко ценна.</string>
+  <string name="pieceValueLegal">Вземете най-ценната фигура!
+Ходът трябва да е позволен!</string>
   <string name="takeThePieceWithTheHighestValue">Вземи най-ценната фигура!</string>
   <string name="pieceValueComplete">Поздравления! Вече знаете колко ценни са фигурите!
 Царица = 9

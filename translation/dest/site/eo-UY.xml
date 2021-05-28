@@ -441,7 +441,6 @@
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
-  <string name="country">Lando</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="inlineNotation">Enlineaj markoj</string>
@@ -834,6 +833,5 @@
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
-  <string name="youJustBecamePatron">Vi ĵus iĝis Lichess patrono.</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
 </resources>

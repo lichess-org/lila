@@ -182,7 +182,11 @@ object replay {
         if (ctx.blind)
           div(cls := "blind-content none")(
             h2("PGN downloads"),
-            pgnLinks
+            pgnLinks,
+            input(tpe := "hidden", value := pgn, cls := "game-pgn"),
+            button(cls := "copy-pgn", dataRel := "game-pgn")(
+              "Copy PGN to clipboard"
+            )
           )
       )
     )

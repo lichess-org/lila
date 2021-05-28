@@ -70,6 +70,7 @@ object JsonView {
         )
         .add("r" -> l.troll)
         .add("d" -> l.deleted)
+        .add("p" -> l.patron)
         .add("title" -> l.title)
     }
 

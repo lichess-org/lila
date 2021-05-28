@@ -96,7 +96,7 @@
   <string name="queensideAttack">Angriff auf den Damenflügel</string>
   <string name="queensideAttackDescription">Ein Angriff auf den gegnerischen König, nachdem dieser auf den Damenflügel rochiert hat.</string>
   <string name="quietMove">Stiller Zug</string>
-  <string name="quietMoveDescription">Ein Zug, der nicht Schach gibt oder schlägt, aber eine unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
+  <string name="quietMoveDescription">Ein Zug, der weder Schach gibt noch schlägt noch unmittelbar zu schlagen droht, aber eine versteckte unvermeidliche Bedrohung durch einen späteren Zug vorbereitet.</string>
   <string name="rookEndgame">Turmendspiel</string>
   <string name="rookEndgameDescription">Ein Endspiel nur mit Türmen und Bauern.</string>
   <string name="sacrifice">Opfer</string>

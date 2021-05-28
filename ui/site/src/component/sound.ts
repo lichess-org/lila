@@ -5,7 +5,7 @@ import { storage } from './storage';
 type Name = string;
 type Path = string;
 
-const sound = new (class {
+const sound: SoundI = new (class {
   sounds = new Map<Name, any>(); // The loaded sounds and their instances
   soundSet = $('body').data('sound-set');
   speechStorage = storage.makeBoolean('speech.enabled');
@@ -31,6 +31,10 @@ const sound = new (class {
     const path = name[0].toUpperCase() + name.slice(1);
     this.loadOggOrMp3(name, `${this.baseUrl}/${soundSet || this.soundSet}/${path}`);
   };
+
+  preloadBoardSounds() {
+    if (this.soundSet !== 'music') ['move', 'capture', 'check', 'genericNotify'].forEach(s => this.loadStandard(s));
+  }
 
   play(name: string, volume?: number) {
     if (!this.enabled()) return;
@@ -64,12 +68,13 @@ const sound = new (class {
     return this.speechStorage.get();
   };
 
-  say = (text: any, cut = false, force = false) => {
-    if (!this.speechStorage.get() && !force) return false;
-    const msg = text.text ? (text as SpeechSynthesisUtterance) : new SpeechSynthesisUtterance(text);
-    msg.volume = this.getVolume();
-    msg.lang = 'en-US';
+  say = (text: string, cut = false, force = false, translated = false) => {
     if (cut) speechSynthesis.cancel();
+    if (!this.speechStorage.get() && !force) return false;
+
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.volume = this.getVolume();
+    msg.lang = translated ? document.documentElement!.lang : 'en-US';
     speechSynthesis.speak(msg);
     return true;
   };

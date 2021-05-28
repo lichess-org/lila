@@ -52,7 +52,8 @@ object show {
                     "Discuss this blog post in the forum"
                   )
               } else p("This is a preview."),
-              views.html.base.bits.connectLinks
+              views.html.base.bits.connectLinks,
+              p(cls := "patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
             )
         )
       )

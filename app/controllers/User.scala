@@ -91,6 +91,12 @@ final class User(
         status(html.activity(u, as))
       }
 
+  def download(username: String) = OpenBody { implicit ctx =>
+    OptionOk(env.user.repo named username) { user =>
+      html.user.download(user)
+    }
+  }
+
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
 
   def games(username: String, filter: String, page: Int) =

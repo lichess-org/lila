@@ -5,6 +5,11 @@
   <string name="freeAccount">Bezmaksas konts</string>
   <string name="becomePatron">Kļūstiet par Lichess Sponsoru</string>
   <string name="xBecamePatron">%s kļuva par Lichess Sponsoru</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="zero">%1$s sponsorē Lichess %2$s mēnešus</item>
+    <item quantity="one">%1$s sponsorē Lichess %2$s mēnesi</item>
+    <item quantity="other">%1$s sponsorē Lichess %2$s mēnešus</item>
+  </plurals>
   <string name="newPatrons">Jaunākie Sponsori</string>
   <string name="freeChess">Bezmaksas šahs visiem mūžīgi!</string>
   <string name="noAdsNoSubs">Bez reklāmām, bez abonementiem, tikai atvērtais kods un mūsu aizraušanās.</string>

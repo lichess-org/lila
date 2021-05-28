@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Transmissioner</string>
-  <string name="liveBroadcasts">Live turnerings-transmissioner</string>
-  <string name="newBroadcast">Ny live-transmission</string>
+  <string name="broadcasts">Udsendelser</string>
+  <string name="liveBroadcasts">Live turnerings-udsendelser</string>
+  <string name="newBroadcast">Ny live-udsendelse</string>
   <string name="addRound">Tilføj en runde</string>
   <string name="ongoing">I gang</string>
   <string name="upcoming">Kommende</string>
@@ -21,4 +21,7 @@
   <string name="credits">Krediter kilden</string>
   <string name="resetRound">Nulstil denne runde</string>
   <string name="deleteRound">Slet denne runde</string>
+  <string name="broadcastUrl">Udsendelse-URL</string>
+  <string name="currentRoundUrl">Nuværende runde URL</string>
+  <string name="currentGameUrl">Nuværende parti URL</string>
 </resources>

@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Mwito wa kuja kushindana</string>
+  <string name="challengeToPlay">Mwito wa kuja kushindana kwa mchezo</string>
+  <string name="challengeDeclined">Mwito wa kuja kushindana umekataliwa</string>
+  <string name="challengeAccepted">Mwito wa kuja kushindana umekubaliwa!</string>
+  <string name="challengeCanceled">Mwito wa kuja kushindana umeghairiwa.</string>
+  <string name="registerToSendChallenges">Tafadhali jiandikishi ili utume miito ya mashindano.</string>
+  <string name="youCannotChallengeX">Hukubaliwi kutuma mwito wa kuja kushindana %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s hakubali miito ya mashindano.</string>
+</resources>

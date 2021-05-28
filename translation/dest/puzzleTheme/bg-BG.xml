@@ -7,6 +7,7 @@
   <string name="arabianMate">Арабски мат</string>
   <string name="arabianMateDescription">Кон и топ матират царя в ъгъла на полето.</string>
   <string name="attackingF2F7">Атака на f2 или f7</string>
+  <string name="attractionDescription">Размяна или жертване, окуражаващо или заставящо противникова фигура да се премести на поле, което дава възможност за тактическо развитие.</string>
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
   <string name="bodenMate">Мат на Боден</string>

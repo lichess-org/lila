@@ -2,11 +2,11 @@
 <resources>
   <string name="perfStats">%s statistik</string>
   <string name="viewTheGames">Lihat permainan</string>
-  <string name="provisional" comment="provisional&#10;&#10;This marker indicates a rating is provisional. This happens when the rating deviation is too high, and the player needs more games (typically) so we can be more sure on the rating.">penyisihan</string>
+  <string name="provisional">penyisihan</string>
   <string name="notEnoughRatedGames">Tidak mencukupi permainan dirating yang telah dimainkan untuk mendapatkan rating yang dapat diandalkan.</string>
   <string name="progressOverLastXGames">Kemajuan dalam permainan %s terakhir kali:</string>
   <string name="ratingDeviation">Selisih rating: %s.</string>
-  <string name="ratingDeviationHelp">Nilai lebih rendah berarti rating lebih stabil. Di atas %s, peringkat tersebut dianggap sementara.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Nilai rendah berarti ratingnya lebih stabil. Diatas %1$s, ratingnya dipertimbangkan sebagai provisonal. Untuk dimasukkan dalam rangking, nilai ini harus berada dibawah %2$s (catur standar) atau %3$s (variasi).</string>
   <string name="totalGames">Total permainan</string>
   <string name="ratedGames">Permainan di-rating</string>
   <string name="tournamentGames">Permainan turnamen</string>

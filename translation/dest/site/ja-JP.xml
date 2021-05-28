@@ -424,7 +424,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="biography">自己紹介</string>
-  <string name="country">国</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域の旗</string>
   <string name="thankYou">ありがとう！</string>
   <string name="socialMediaLinks">ソーシャルメディアへのリンク</string>
   <string name="inlineNotation">棋譜を行書き</string>
@@ -617,7 +617,7 @@
   <string name="tournamentDoesNotExist">このトーナメントは存在しません</string>
   <string name="tournamentMayHaveBeenCanceled">開始前に全員が棄権してキャンセルされた可能性があります。</string>
   <string name="returnToTournamentsHomepage">トーナメントトップに戻る</string>
-  <string name="weeklyPerfTypeRatingDistribution">月別 %s レーティング分布</string>
+  <string name="weeklyPerfTypeRatingDistribution">今週の %s レーティング分布</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">この 1 週間の参加者 %1$s 人（%2$s）。</item>
   </plurals>
@@ -642,6 +642,7 @@
   <string name="printFriendlyPDF">印刷用PDF</string>
   <string name="crosstable">成績表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">盤上で駒を動かすことでも手を入力できます。</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
@@ -807,9 +808,9 @@
   <string name="youCannotPostYetPlaySomeGames">何局か指し終えるまで投稿はできません。</string>
   <string name="subscribe">投稿をフォロー</string>
   <string name="unsubscribe">投稿のフォローをはずす</string>
-  <string name="mentionedYouInX"> 「%1$s」であなたの名前が出ました。</string>
-  <string name="xMentionedYouInY"> %1$sさんが「%2$s」であなたの名前を出しました。</string>
-  <string name="invitedYouToX"> 「%1$s」 への招待が来ました。</string>
+  <string name="mentionedYouInX">「%1$s」であなたの名前が出ました。</string>
+  <string name="xMentionedYouInY">%1$sさんが「%2$s」であなたの名前を出しました。</string>
+  <string name="invitedYouToX">「%1$s」 への招待が来ました。</string>
   <string name="xInvitedYouToY">%1$s から 「%2$s」 への招待が来ました。</string>
   <string name="youAreNowPartOfTeam">チームの一員になりました。</string>
   <string name="youHaveJoinedTeamX">「%1$s」に参加しました。</string>
@@ -817,9 +818,6 @@
   <string name="congratsYouWon">おめでとう、あなたの勝ちです！</string>
   <string name="gameVsX">%1$s との対局</string>
   <string name="resVsX">%1$s 対 %2$s</string>
-  <string name="youJustBecamePatron">あなたは Lichess パトロンになりました。</string>
-  <string name="patronAccountExpired">パトロン期間の終了です</string>
-  <string name="pleaseReconsiderRenewIt">更新をご検討ください。</string>
   <string name="someoneReviewedYourCoachProfile">誰かがあなたのコーチ・プロフィールを審査しました。</string>
   <string name="newPendingReview">現在審査中</string>
   <string name="lostAgainstTOSViolator">あなたは利用規約違反の人に負けていました</string>

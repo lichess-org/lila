@@ -61,6 +61,10 @@ object RateLimit {
     def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(default: => A): A
   }
 
+  sealed trait Result
+  case object Through extends Result
+  case object Limited extends Result
+
   def composite[K](
       key: String,
       enforce: Boolean = true,

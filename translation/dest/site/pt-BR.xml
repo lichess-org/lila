@@ -454,7 +454,7 @@
   <string name="firstName">Primeiro nome</string>
   <string name="lastName">Sobrenome</string>
   <string name="biography">Biografia</string>
-  <string name="country">País</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links de mídia social</string>
   <string name="inlineNotation">Notação em linha</string>
@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Versão para impressão em PDF</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
@@ -846,9 +847,9 @@
   <string name="youCannotPostYetPlaySomeGames">Você não pode publicar nos fóruns ainda. Jogue algumas partidas!</string>
   <string name="subscribe">Seguir publicações</string>
   <string name="unsubscribe">Deixar de seguir publicações</string>
-  <string name="mentionedYouInX"> mencionou você em \"%1$s\".</string>
-  <string name="xMentionedYouInY"> %1$s mencionou você em \"%2$s\".</string>
-  <string name="invitedYouToX"> convidou você para \"%1$s\".</string>
+  <string name="mentionedYouInX">mencionou você em \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mencionou você em \"%2$s\".</string>
+  <string name="invitedYouToX">convidou você para \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s convidou você para \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Você agora faz parte da equipe.</string>
   <string name="youHaveJoinedTeamX">Você ingressou em \"%1$s\".</string>
@@ -856,13 +857,11 @@
   <string name="congratsYouWon">Parabéns, você venceu!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Você acaba de se tornar um Patrono Lichess.</string>
-  <string name="patronAccountExpired">Conta de Patron expirada</string>
-  <string name="pleaseReconsiderRenewIt">Por favor, considere renová-la!</string>
   <string name="someoneReviewedYourCoachProfile">Alguém revisou o seu perfil de treinador.</string>
   <string name="newPendingReview">Nova revisão pendente</string>
   <string name="lostAgainstTOSViolator">Você perdeu para alguém que violou os termos de serviço do Lichess</string>
   <string name="refundXpointsTimeControlY">Reembolso: %1$s %2$s pontos de classificação.</string>
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
+  <string name="download">Baixar</string>
 </resources>

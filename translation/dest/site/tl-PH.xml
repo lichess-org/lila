@@ -442,7 +442,6 @@
   <string name="firstName">Pangalan</string>
   <string name="lastName">Apelyido</string>
   <string name="biography">Talambuhay</string>
-  <string name="country">Bansa</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="inlineNotation">Nakalinyang notasyon</string>
@@ -834,9 +833,9 @@
   <string name="youCannotPostYetPlaySomeGames">Hindi ka pa maaaring magpaskil sa mga forum. Maglaro ng ilang mga laro!</string>
   <string name="subscribe">Mag-subscribe</string>
   <string name="unsubscribe">Mag-unsubscribe</string>
-  <string name="mentionedYouInX"> ay nabanggit ka sa \"%1$s\".</string>
-  <string name="xMentionedYouInY"> Nabanggit ka ni %1$s sa \"%2$s\".</string>
-  <string name="invitedYouToX"> ay inanyayahan ka sa \"%1$s\".</string>
+  <string name="mentionedYouInX">ay nabanggit ka sa \"%1$s\".</string>
+  <string name="xMentionedYouInY">Nabanggit ka ni %1$s sa \"%2$s\".</string>
+  <string name="invitedYouToX">ay inanyayahan ka sa \"%1$s\".</string>
   <string name="xInvitedYouToY">Inanyayahan ka ni %1$s sa \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ikaw ay miyembro na ng team.</string>
   <string name="youHaveJoinedTeamX">Sumali ka sa \"%1$s\".</string>
@@ -844,12 +843,10 @@
   <string name="congratsYouWon">Tagumpay!</string>
   <string name="gameVsX">Laro laban kay %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
-  <string name="patronAccountExpired">Expired na ang Patron account</string>
-  <string name="pleaseReconsiderRenewIt">Isaalang-alang niyo pong mag-renew!</string>
   <string name="someoneReviewedYourCoachProfile">Merong tao na nag-review ng coach profile mo.</string>
   <string name="newPendingReview">Bagong pending na review</string>
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
+  <string name="download">Download</string>
 </resources>

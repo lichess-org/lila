@@ -317,9 +317,9 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value as Color);
                   }),
                 },
-                ['white', 'black'].map(function (color) {
-                  return option(color, currentChapter.setup.orientation, noarg(color));
-                })
+                [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>
+                  option(c, currentChapter.setup.orientation, noarg(c))
+                )
               ),
             ]),
           ]),

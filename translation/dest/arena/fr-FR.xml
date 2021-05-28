@@ -38,7 +38,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="shareUrl">Partagez cette URL pour permettre aux personnes de rejoindre : %s</string>
   <string name="drawStreak">Séries de parties nulles : lorsqu\'un joueur fait des nulles consécutives dans une arène ou une bataille d\'équipes, seule la première nulle donnera un point, ou des nulles durant plus de %s coups. La série de nulles ne peut être interrompue que par une victoire, pas par une défaite ou une nulle.</string>
   <string name="history">Historique des tournois d\'arène</string>
-  <plurals name="viewAllXTeams">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Voir l\'équipe</item>
     <item quantity="other">Voir toutes les équipes %s</item>
   </plurals>

@@ -47,6 +47,7 @@ export interface Line {
   d: boolean; // deleted
   c?: string; // color
   r?: boolean; // troll
+  p?: boolean; // patron
   title?: string;
 }
 

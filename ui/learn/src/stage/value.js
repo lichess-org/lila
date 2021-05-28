@@ -25,7 +25,7 @@ module.exports = {
       detectCapture: false,
     },
     {
-      goal: 'takeThePieceWithTheHighestValue',
+      goal: 'pieceValueExchange',
       fen: '8/8/4b3/1p6/6r1/8/4Q3/8 w - -',
       scenario: ['e2e6'],
       nbMoves: 1,
@@ -35,7 +35,7 @@ module.exports = {
       detectCapture: true,
     },
     {
-      goal: 'takeThePieceWithTheHighestValue',
+      goal: 'pieceValueLegal',
       fen: '5b2/8/6N1/2q5/3Kn3/2rp4/3B4/8 w - -',
       scenario: ['d4e4'],
       nbMoves: 1,

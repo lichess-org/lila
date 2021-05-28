@@ -23,6 +23,7 @@ export default class StormCtrl {
   trans: Trans;
   promotion: Promotion;
   ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
+  flipped = false;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
     this.data = opts.data;
@@ -47,7 +48,11 @@ export default class StormCtrl {
       filterFailed: false,
       filterSlow: false,
     };
-    this.promotion = makePromotion(this.withGround, () => makeCgOpts(this.run, !this.run.endAt), this.redraw);
+    this.promotion = makePromotion(
+      this.withGround,
+      () => makeCgOpts(this.run, !this.run.endAt, this.flipped),
+      this.redraw
+    );
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
@@ -130,7 +135,7 @@ export default class StormCtrl {
       this.redrawQuick();
       this.redrawSlow();
     }
-    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt)));
+    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -181,6 +186,12 @@ export default class StormCtrl {
     this.redraw();
   };
 
+  flip = () => {
+    this.flipped = !this.flipped;
+    this.withGround(g => g.toggleOrientation());
+    this.redraw();
+  };
+
   private checkDupTab = () => {
     const dupTabMsg = lichess.storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
@@ -192,5 +203,8 @@ export default class StormCtrl {
     });
   };
 
-  private hotkeys = () => window.Mousetrap.bind('space', () => location.reload()).bind('return', this.end);
+  private hotkeys = () =>
+    window.Mousetrap.bind('space', () => location.reload())
+      .bind('return', this.end)
+      .bind('f', this.flip);
 }

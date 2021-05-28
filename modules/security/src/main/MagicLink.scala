@@ -6,6 +6,7 @@ import scalatags.Text.all._
 import lila.common.config._
 import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
+import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(
@@ -25,15 +26,12 @@ final class MagicLink(
       mailer send Mailer.Message(
         to = email,
         subject = trans.logInToLichess.txt(user.username),
-        text = s"""
+        text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
-${trans.common_orPaste.txt()}
-
-${Mailer.txt.serviceNote}
-""",
+${trans.common_orPaste.txt()}"""),
         htmlBody = emailMessage(
           p(trans.passwordReset_clickOrIgnore()),
           potentialAction(metaName("Log in"), Mailer.html.url(url)),
@@ -43,7 +41,7 @@ ${Mailer.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? userRepo.byId } map {
+    tokener read token flatMap { _ ?? userRepo.enabledById } map {
       _.filter(_.canFullyLogin)
     }
 

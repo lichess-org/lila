@@ -16,7 +16,7 @@ lichess.load.then(() => {
       if (!e.data) return;
       const html = $('<output>').append($.parseHTML(e.data));
       html.find('.mz-section').each(function (this: HTMLElement) {
-        const prev = $('#' + this.id);
+        const prev = $zone.find(`.mz-section--${$(this).data('rel')}`);
         if (prev.length) prev.replaceWith($(this));
         else $zone.append($(this).clone());
       });
@@ -68,10 +68,10 @@ lichess.load.then(() => {
       });
     };
 
-    $('#mz_menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
+    $('.mz-section--menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
       $(this).toggleClass('available', !!$(getLocationHash(this)).length);
     });
-    makeReady('#mz_menu', el => {
+    makeReady('.mz-section--menu', el => {
       $(el)
         .find('a')
         .each(function (this: HTMLAnchorElement, i: number) {
@@ -91,7 +91,7 @@ lichess.load.then(() => {
       $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
         xhr.formToXhr(el).then(html => {
-          $('#mz_actions').replaceWith(html);
+          $zone.find('.mz-section--actions').replaceWith(html);
           userMod($inZone);
         });
         return false;
@@ -110,7 +110,7 @@ lichess.load.then(() => {
       })
     );
 
-    makeReady('.mz_others', el => {
+    makeReady('.mz-section--others', el => {
       $(el).height($(el).height());
       $(el)
         .find('.mark-alt')
@@ -121,10 +121,10 @@ lichess.load.then(() => {
           }
         });
     });
-    makeReady('.mz_others table', el => {
+    makeReady('.mz-section--others table', el => {
       tablesort(el, { descending: true });
     });
-    makeReady('#mz_identification .spy_filter', el => {
+    makeReady('.mz-section--identification .spy_filter', el => {
       $(el)
         .find('.button')
         .on('click', function (this: HTMLAnchorElement) {
@@ -136,10 +136,10 @@ lichess.load.then(() => {
       const valueOf = (el: HTMLTableRowElement) => $(el).find('td:first-child').text();
       const applyFilter = (v?: string) =>
         v
-          ? $inZone.find('.mz_others tbody tr').each(function (this: HTMLElement) {
+          ? $inZone.find('.mz-section--others tbody tr').each(function (this: HTMLElement) {
               $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
             })
-          : $inZone.find('.mz_others tbody tr.none').removeClass('none');
+          : $inZone.find('.mz-section--others tbody tr.none').removeClass('none');
       $(el)
         .find('tr')
         .on('click', function (this: HTMLTableRowElement) {
@@ -155,15 +155,15 @@ lichess.load.then(() => {
       $(el).on('mouseleave', () => !selected && applyFilter());
     });
     makeReady(
-      '#mz_identification .slist--sort',
+      '.mz-section--identification .slist--sort',
       el => {
         tablesort(el, { descending: true });
       },
       'ready-sort'
     );
-    makeReady('.mz_others .more-others', el => {
+    makeReady('.mz-section--others .more-others', el => {
       $(el)
-        .addClass('.ready')
+        .addClass('ready')
         .on('click', () => {
           nbOthers = 1000;
           reloadZone();

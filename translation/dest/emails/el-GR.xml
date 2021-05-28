@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">Επιβεβαιώστε τον λογαριασμό σας στο lichess.org, %s</string>
-  <string name="emailConfirm_click">Κάντε κλικ στον σύνδεσμο για να ενεργοποιήσετε τον λογαριασμό σας στο Lichess:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Κάντε κλικ στον σύνδεσμο για να ενεργοποιήσετε τον λογαριασμό σας στο Lichess:</string>
   <string name="emailConfirm_ignore">Αν δεν έχετε κάνει εγγραφή με το Lichess μπορείτε να αγνοήσετε αυτό το μήνυμα.</string>
   <string name="passwordReset_subject">Επαναφέρετε τον κωδικό πρόσβασης του lichess.org, %s</string>
   <string name="passwordReset_intro">Λάβαμε ένα αίτημα επαναφοράς κωδικού πρόσβασης για τον λογαριασμό σας.</string>

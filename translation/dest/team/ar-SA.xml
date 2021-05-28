@@ -24,10 +24,12 @@
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
   <string name="willBeReviewed">سيتم النظر في طلب انضمامك من قبل قائد الفريق.</string>
   <string name="beingReviewed">طلب انضمامك مازال يتم النظر فيه من قبل قائد الفريق.</string>
+  <string name="subToTeamMessages">الاشتراك في رسائل الفريق</string>
   <string name="teamBattle">معركة الفرق</string>
   <string name="teamBattleOverview">معركة بين مجموعة فرق، كل لاعب يحرز النقاط لفريقه</string>
   <string name="teamTournament">بطولات الفريق</string>
   <string name="teamTournamentOverview">بطولة الارينا التي يمكن فقط لأعضاء فريقك الأنضمام إليها</string>
+  <string name="swissTournamentOverview">بطولة سويسرية يمكن فقط لأعضاء فريقك الانضمام إليها</string>
   <string name="messageAllMembers">مراسلة جميع الأعضاء</string>
   <string name="messageAllMembersOverview">ارسل رسالة خاصة إلى كل عضو في الفريق</string>
   <string name="messageAllMembersLongDescription">إرسال رسالة خاصة إلى جميع أعضاء الفريق.

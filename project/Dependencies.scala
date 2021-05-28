@@ -12,9 +12,9 @@ object Dependencies {
   val compression = "org.lichess"                %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
-  val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.18"
+  val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.19"
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.0.2"  % "compile"
-  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "0.25.5"
+  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "0.26.0"
   val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.2.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.2.RELEASE"
@@ -22,7 +22,7 @@ object Dependencies {
   val autoconfig  = "io.methvin.play"            %% "autoconfig-macros"               % "0.3.2"  % "provided"
   val scalatest   = "org.scalatest"              %% "scalatest"                       % "3.1.0"  % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"                       % "0.13.0"
-  val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.11.0" % Test
+  val specs2      = "org.specs2"                 %% "specs2-core"                     % "4.12.0" % Test
   val apacheText  = "org.apache.commons"          % "commons-text"                    % "1.9"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"                    % "0.13.1"
 

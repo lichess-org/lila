@@ -453,7 +453,6 @@
   <string name="firstName">നൽകിയ പേര്</string>
   <string name="lastName">അവസാന പേര്</string>
   <string name="biography">ജീവചരിത്രം</string>
-  <string name="country">രാജ്യം</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
@@ -845,9 +844,9 @@
   <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
   <string name="subscribe">സബ്സ്ക്രൈബ്</string>
   <string name="unsubscribe">അൺസബ്സ്ക്രൈബ്</string>
-  <string name="mentionedYouInX"> %1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
-  <string name="xMentionedYouInY"> %2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
-  <string name="invitedYouToX"> %1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
+  <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
+  <string name="xMentionedYouInY">%2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
+  <string name="invitedYouToX">%1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>
   <string name="xInvitedYouToY">%1$s നിങ്ങളെ %2$s ഇലേക്കു ക്ഷണിക്കുന്നു.</string>
   <string name="youAreNowPartOfTeam">നിങ്ങളിപ്പോൾ ടീമിന്റെ ഭാഗമായി.</string>
   <string name="youHaveJoinedTeamX">നിങ്ങൾ %1$s ഇൽ ചേർന്നു.</string>
@@ -855,9 +854,6 @@
   <string name="congratsYouWon">അഭിനന്ദനങ്ങൾ, നിങ്ങൾ ജയിച്ചു!</string>
   <string name="gameVsX">%1$s ഇന് എതിരെയുള്ള കളി</string>
   <string name="resVsX">%1$s വസ് %2$s</string>
-  <string name="youJustBecamePatron">നിങ്ങളൊരു ലിചെസ്സ് രക്ഷധികാരി ആയിരിക്കുന്നു.</string>
-  <string name="patronAccountExpired">രക്ഷധികാരി അക്കൗണ്ട് കആലഹരണപെട്ടിരിക്കുന്നു</string>
-  <string name="pleaseReconsiderRenewIt">ദയവായി പുതുക്കുന്നത് പരിഗണിക്കുക!</string>
   <string name="someoneReviewedYourCoachProfile">ആരോ നിങ്ങളുടെ കോച്ച് പ്രൊഫൈൽ പുതുക്കിയിരിക്കുന്നു.</string>
   <string name="newPendingReview">തീർച്ചപ്പെടുത്താത്ത റിവ്യൂ</string>
   <string name="lostAgainstTOSViolator">ലിചെസ്സ് ടോസ് ലങ്കിച്ച ഒരാളുമായി നിങ്ങൾ പരാജയപ്പെട്ടിരിക്കുന്നു</string>

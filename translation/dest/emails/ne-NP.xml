@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="emailConfirm_subject">%s, कृपया तपाइको lichess.org खाता पुष्टी गर्नुहोस्।</string>
-  <string name="emailConfirm_click">तपाईंको Lichess खाता सुचारु गर्न यो लिंकमा क्लिक गर्नुहोस्:</string>
+  <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">तपाईंको Lichess खाता सुचारु गर्न यो लिंकमा क्लिक गर्नुहोस्:</string>
   <string name="emailConfirm_ignore">यदि तपाईले Lichessमा दर्ता गर्नुभएको छैन भने यो सन्देशलाई नडराइकन बेवास्ता गर्नुहोस्।</string>
   <string name="passwordReset_subject">%s, तपाईंको lichess.org को पासवर्ड परिवर्तन गर्नुहोस्।</string>
   <string name="passwordReset_intro">हामीले तपाईंको खाताको पासवर्ड फेर्ने अनुरोध प्राप्त गरेका छौं।</string>

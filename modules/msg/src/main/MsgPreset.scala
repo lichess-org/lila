@@ -37,4 +37,7 @@ To follow new players, you must first unfollow some on https://lichess.org/@/$us
 
 Thank you for your understanding."""
     )
+
+  def forumDeletion(reason: String) =
+    s"""A moderator deleted one of your posts for this reason: $reason. Please read our Forum-Etiquette: https://lichess.org/page/forum-etiquette"""
 }

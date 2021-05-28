@@ -9,6 +9,7 @@
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
   <string name="level">ระดับ</string>
+  <string name="strength">ความแข็งแกร่ง</string>
   <string name="toggleTheChat">เปิด/ปิดการสนทนา</string>
   <string name="toggleSound">เปิด/ปิดเสียง</string>
   <string name="chat">สนทนา</string>
@@ -419,7 +420,7 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="biography">ชีวประวัติ</string>
-  <string name="country">ประเทศ</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือธง</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="socialMediaLinks">ลิงก์สื่อโซเชียล</string>
   <string name="inlineNotation">สัญกรณ์ในบรรทัด</string>
@@ -440,6 +441,7 @@
   <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
+  <string name="descPrivate">คำบรรยายส่วนตัว</string>
   <string name="no">ไม่</string>
   <string name="yes">ใช่</string>
   <string name="help">ช่วยเหลือ:</string>
@@ -478,9 +480,11 @@
   <string name="newPassword">รหัสผ่านใหม่</string>
   <string name="newPasswordAgain">รหัสผ่านใหม่ (อีกครั้ง)</string>
   <string name="newPasswordsDontMatch">รหัสผ่านใหม่ที่ระบุไม่ตรงกัน</string>
+  <string name="newPasswordStrength">ความยากของรหัสผ่าน</string>
   <string name="clockInitialTime">เวลาเริ่มต้นนาฬิกา</string>
   <string name="clockIncrement">การเพิ่มเวลานาฬิกา</string>
   <string name="privacy">ความเป็นส่วนตัว</string>
+  <string name="privacyPolicy">นโยบายความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
   <string name="letOtherPlayersInviteYouToStudy">อนุญาตให้ผู้เล่นคนอื่นเชิญคุณเพื่อศึกษา</string>

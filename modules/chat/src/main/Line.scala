@@ -18,6 +18,7 @@ sealed trait Line {
 case class UserLine(
     username: String,
     title: Option[Title],
+    patron: Boolean,
     text: String,
     troll: Boolean,
     deleted: Boolean
@@ -52,7 +53,7 @@ object Line {
 
   import reactivemongo.api.bson._
 
-  private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
+  private val invalidLine = UserLine("", None, false, "[invalid character]", troll = false, deleted = true)
 
   implicit private[chat] val userLineBSONHandler = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
@@ -64,23 +65,30 @@ object Line {
     lineToStr
   )
 
-  private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
+  private val trollChar   = "!"
+  private val deletedChar = "?"
+  private val patronChar  = "&"
+  private val UserLineRegex = {
+    """(?s)([\w-~]{2,}+)([ """ + s"$trollChar$deletedChar$patronChar" + """])(.++)"""
+  }.r
   private def strToUserLine(str: String): Option[UserLine] =
     str match {
       case UserLineRegex(username, sep, text) =>
-        val troll   = sep == "!"
-        val deleted = sep == "?"
+        val troll   = sep == trollChar
+        val deleted = sep == deletedChar
+        val patron  = sep == patronChar
         username split titleSep match {
           case Array(title, name) =>
-            UserLine(name, Title get title, text, troll = troll, deleted = deleted).some
-          case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
+            UserLine(name, Title get title, patron, text, troll = troll, deleted = deleted).some
+          case _ => UserLine(username, None, patron, text, troll = troll, deleted = deleted).some
         }
       case _ => none
     }
   def userLineToStr(x: UserLine): String = {
     val sep =
-      if (x.troll) "!"
-      else if (x.deleted) "?"
+      if (x.troll) trollChar
+      else if (x.deleted) deletedChar
+      else if (x.patron) patronChar
       else " "
     val tit = x.title.??(_.value + titleSep)
     s"$tit${x.username}$sep${x.text}"

@@ -183,6 +183,12 @@ Gyalog = 1
 A király a legértékesebb! Ha elesik, elveszett a játszma.</string>
   <string name="queenOverBishop">Üsd ki a legértékesebb figurát!
 Vezér &gt; Futó</string>
+  <string name="pieceValueExchange">Üsd le a legértékesebb figurát!
+ Ne cserélj
+ egy értékes figurát kevésbé értékesre.</string>
+  <string name="pieceValueLegal">Üsd le a
+legértékesebb figurát!
+Ellenőrizd, hogy a lépésed szabályos!</string>
   <string name="takeThePieceWithTheHighestValue">Üsd ki a legértékesebb figurát!</string>
   <string name="pieceValueComplete">Gratulálunk! Most már ismered a figurák anyagi értékét!
 Vezér = 9
