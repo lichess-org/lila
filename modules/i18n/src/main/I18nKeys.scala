@@ -1572,6 +1572,8 @@ val `teamAlreadyExists` = new I18nKey("team:teamAlreadyExists")
 val `nbMembers` = new I18nKey("team:nbMembers")
 val `teamLeaders` = new I18nKey("team:teamLeaders")
 val `xJoinRequests` = new I18nKey("team:xJoinRequests")
+val `upcomingTourns` = new I18nKey("team:upcomingTourns")
+val `completedTourns` = new I18nKey("team:completedTourns")
 }
 
 object perfStat {
