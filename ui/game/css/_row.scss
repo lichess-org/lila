@@ -35,6 +35,13 @@
     flex-flow: column;
     justify-content: space-between;
     margin: 0.5em 0;
+    overflow: hidden;
+
+    .notes {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
   }
 
   .header {
