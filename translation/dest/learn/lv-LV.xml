@@ -113,18 +113,18 @@ Viņa iet uz savas krāsas lauciņa.</string>
 Tieši blakus dāmai.</string>
   <string name="pawnsFormTheFrontLine">Bandinieki veido priekšējo līniju.
 Veiciet jebkādu gājienu lai turpinātu.</string>
-  <string name="boardSetupComplete">Apveicam! Tagad zinat kā uzstādīt šaha galdiņu.</string>
+  <string name="boardSetupComplete">Apsveicam! Tagad zināt, kā uzstādīt šaha galdiņu.</string>
   <string name="castling">Rokāde</string>
   <string name="theSpecialKingMove">Īpašais karaļa gājiens</string>
   <string name="castlingIntro">Nogādājiet karali drošībā un novietojiet torni uzbrukuma pozīcijā!</string>
-  <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem lai roķētu karaļa spārnā!</string>
+  <string name="castleKingSide">Pārvietojiet karali par diviem lauciņiem, lai roķētu karaļa spārnā!</string>
   <string name="castleQueenSide">Pārvietojiet karali par diviem lauciņiem lai roķētu dāmas spārnā!</string>
-  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvietojiet to, tad roķējies karaļa spārnā.</string>
+  <string name="theKnightIsInTheWay">Zirdziņš ir ceļā! Pārvietojiet to, tad veiciet rokādi karaļa spārnā.</string>
   <string name="castleKingSideMovePiecesFirst">Roķējieties karaļa spārnā! Vispirms nepieciešams izlaist ārā figūras.</string>
   <string name="castleQueenSideMovePiecesFirst">Roķējieties dāmas spārnā! Vispirms vajadzēs izlaist figūras.</string>
   <string name="youCannotCastleIfMoved">Nedrīkst veikt rokādi, ja karalis vai tornis jau ir izdarījis gājienu.</string>
   <string name="youCannotCastleIfAttacked">Nedrīkst veikt rokādi, ja pa ceļam karalis tiek apdraudēts. Nobloķējiet šahu un tad - rokāde!</string>
-  <string name="findAWayToCastleKingSide">Atrodiet veidu kā roķēties karaļa spārnā!</string>
+  <string name="findAWayToCastleKingSide">Izdomājiet, kā roķēties karaļa spārnā!</string>
   <string name="findAWayToCastleQueenSide">Atrodiet veidu kā roķēties dāmas spārnā!</string>
   <string name="castlingComplete">Apsveicam! Rokāde ir ieteicama gandrīz katrā spēlē.</string>
   <string name="enPassant">Garāmejot</string>

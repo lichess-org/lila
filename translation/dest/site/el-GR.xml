@@ -858,13 +858,11 @@
   <string name="congratsYouWon">Συγχαρητήρια, κερδίσατε!</string>
   <string name="gameVsX">Παιχνίδι εναντίον %1$s</string>
   <string name="resVsX">%1$s εναντίον %2$s</string>
-  <string name="youJustBecamePatron">Μόλις γίνατε ένας Υποστηρικτής του Lichess.</string>
-  <string name="patronAccountExpired">Η συνδρομή Υποστηρικτή έχει λήξει</string>
-  <string name="pleaseReconsiderRenewIt">Σκεφτείτε να την ανανεώσετε!</string>
   <string name="someoneReviewedYourCoachProfile">Κάποιος άφησε μια κριτική για το προφίλ προπονητή σας.</string>
   <string name="newPendingReview">Νέα κριτική σε αναμονή</string>
   <string name="lostAgainstTOSViolator">Χάσατε από κάποιον που παραβίασε τους όρους χρήσης του Lichess</string>
   <string name="refundXpointsTimeControlY">Επιστροφή πόντων: %1$s %2$s πόντοι βαθμολογίας.</string>
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
   <string name="clickToRevealEmailAddress">[Κάντε κλικ για να δείτε τη διεύθυνση ηλεκτρονικού ταχυδρομείου]</string>
+  <string name="download">Λήψη</string>
 </resources>

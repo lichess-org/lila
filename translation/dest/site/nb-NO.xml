@@ -857,7 +857,6 @@
   <string name="congratsYouWon">Gratulerer, du vant!</string>
   <string name="gameVsX">Parti mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="pleaseReconsiderRenewIt">Overvei gjerne fornyelse!</string>
   <string name="someoneReviewedYourCoachProfile">Noen har skrevet en elevanmeldelse for trenerprofilen din.</string>
   <string name="newPendingReview">Ny elevanmeldelse klar for gjennomgang</string>
   <string name="lostAgainstTOSViolator">Du tapte mot noen som brøt vilkårene våre</string>

@@ -918,13 +918,11 @@
   <string name="congratsYouWon">Čestitke, zmagali ste!</string>
   <string name="gameVsX">Igra proti %1$s</string>
   <string name="resVsX">%1$s proti %2$s</string>
-  <string name="youJustBecamePatron">Postali ste pokrovitelj Lichess.</string>
-  <string name="patronAccountExpired">Račun pokrovitelja je potekel</string>
-  <string name="pleaseReconsiderRenewIt">Prosimo, razmislite o podaljšanju!</string>
   <string name="someoneReviewedYourCoachProfile">Nekdo je pregledal vaš profil trenerja.</string>
   <string name="newPendingReview">Novo čakanje na pregled</string>
   <string name="lostAgainstTOSViolator">Izgubili ste z nekom, ki je kršil Pogoje storitev Lichess</string>
   <string name="refundXpointsTimeControlY">Vračilo: %1$s %2$s ocenjevalne točke.</string>
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
+  <string name="download">Prenos</string>
 </resources>

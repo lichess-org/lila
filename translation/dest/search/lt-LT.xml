@@ -28,4 +28,10 @@
   <string name="sortBy">Rūšiuoti pagal</string>
   <string name="analysis">Analizė</string>
   <string name="onlyAnalysed">Tik partijos, kurios turi kompiuterinę analizę</string>
+  <string name="color">Spalva</string>
+  <string name="evaluation">Vertinimas</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Didžiausias skaičius</string>
+  <string name="maxNumberExplanation">Kiek daugiausia žaidimų grąžinti</string>
+  <string name="include">Įtraukti</string>
+  <string name="generateURL">Sugeneruoti adresą</string>
 </resources>

@@ -24,4 +24,10 @@
   <string name="sortBy">Ordina per</string>
   <string name="analysis">Analisi</string>
   <string name="onlyAnalysed">Solo partite in cui è disponibile l\'analisi del computer</string>
+  <string name="color">Colore</string>
+  <string name="evaluation">Valutazione</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Numero massimo</string>
+  <string name="maxNumberExplanation">Il numero massimo di partite da restituire</string>
+  <string name="include">Includi</string>
+  <string name="generateURL">Genera URL</string>
 </resources>

@@ -858,13 +858,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="congratsYouWon">Complimenti, hai vinto!</string>
   <string name="gameVsX">Partita contro %1$s</string>
   <string name="resVsX">%1$s contro %2$s</string>
-  <string name="youJustBecamePatron">Sei appena diventato un mecenate di lichess.</string>
-  <string name="patronAccountExpired">Lo stato di mecenate è scaduto</string>
-  <string name="pleaseReconsiderRenewIt">Per favore considera di rinnovarlo!</string>
   <string name="someoneReviewedYourCoachProfile">Qualcuno ha esaminato il tuo profilo di allenatore.</string>
   <string name="newPendingReview">In attesa di verifica</string>
   <string name="lostAgainstTOSViolator">Hai perso con qualcuno che ha violato i termini di servizio lichess</string>
   <string name="refundXpointsTimeControlY">Rimborso: %1$s %2$s punti di valutazione.</string>
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
   <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
+  <string name="download">Download</string>
 </resources>

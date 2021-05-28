@@ -816,13 +816,11 @@
   <string name="congratsYouWon">恭喜你获得了胜利！</string>
   <string name="gameVsX">与 %1$s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">您已成为 lichess 的赞助者</string>
-  <string name="patronAccountExpired">赞助账户已过期</string>
-  <string name="pleaseReconsiderRenewIt">请考虑续期！</string>
   <string name="someoneReviewedYourCoachProfile">有人审查了您的教练简介。</string>
   <string name="newPendingReview">新的待审核</string>
   <string name="lostAgainstTOSViolator">您输给了违反 Lichess 服务条款的用户</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
+  <string name="download">下载</string>
 </resources>

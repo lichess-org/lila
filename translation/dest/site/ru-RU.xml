@@ -937,13 +937,11 @@
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
   <string name="gameVsX">Партия против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
-  <string name="youJustBecamePatron">Вы стали спонсором lichess.</string>
-  <string name="patronAccountExpired">Спонсорский аккаунт истёк</string>
-  <string name="pleaseReconsiderRenewIt">Пожалуйста, рассмотрите возможность возобновить поддержку!</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
   <string name="newPendingReview">Ожидают рассмотрения</string>
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
   <string name="timeAlmostUp">Время почти вышло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
+  <string name="download">Загрузить</string>
 </resources>

@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Anda bermain dipihak putih</string>
   <string name="youPlayTheBlackPieces">Anda bermain dipihak hitam</string>
   <string name="itsYourTurn">Giliran Anda!</string>
+  <string name="cheatDetected">Curang Terdeteksi</string>
   <string name="kingInTheCenter">Raja berada di tengah</string>
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
@@ -114,6 +115,15 @@
   <string name="blunder">Blunder</string>
   <string name="mistake">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s blunder</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s kesalahan</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s ketidaktepatan</item>
+  </plurals>
   <string name="moveTimes">Waktu gerak</string>
   <string name="flipBoard">Putar papan catur</string>
   <string name="threefoldRepetition">Pengulangan 3x posisi yang sama</string>
@@ -413,6 +423,7 @@
   <string name="firstName">Nama depan</string>
   <string name="lastName">Nama Belakang</string>
   <string name="biography">Biografi</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau bendera</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="inlineNotation">Notasi inline</string>
@@ -630,6 +641,7 @@
   <string name="printFriendlyPDF">PDF ramah cetak</string>
   <string name="crosstable">Napak tilas</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Anda juga bisa menggunakan tombol gulung untuk bergerak dalam permainan</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Letakkan mouse diatas variasi komputer untuk meninjau hal tersebut.</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
@@ -805,12 +817,11 @@
   <string name="congratsYouWon">Selamat, kamu menang!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Anda baru saja menjadi Patron lichess.</string>
-  <string name="patronAccountExpired">Akun Patron kadaluarsa</string>
-  <string name="pleaseReconsiderRenewIt">Silakan pertimbangkan untuk memperbaharuinya!</string>
   <string name="someoneReviewedYourCoachProfile">Seseorang meninjau profil pelatih Anda.</string>
   <string name="newPendingReview">Tinjauan baru tertunda</string>
   <string name="lostAgainstTOSViolator">Anda kalah dari seseorang yang melanggar TOS Lichess</string>
   <string name="refundXpointsTimeControlY">Pengembalian dana: %1$s %2$s poin rating.</string>
   <string name="timeAlmostUp">Waktu hampir habis!</string>
+  <string name="clickToRevealEmailAddress">[Klik untuk memunculkan alamat email]</string>
+  <string name="download">Unduh</string>
 </resources>

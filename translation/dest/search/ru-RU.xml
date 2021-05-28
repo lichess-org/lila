@@ -28,4 +28,10 @@
   <string name="sortBy">Сортировать по</string>
   <string name="analysis">Анализ</string>
   <string name="onlyAnalysed">Только партии, для которых выполнен компьютерный анализ</string>
+  <string name="color">Цвет</string>
+  <string name="evaluation">Оценка</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Максимальное число</string>
+  <string name="maxNumberExplanation">Максимальное число партий для возврата</string>
+  <string name="include">Включая</string>
+  <string name="generateURL">Сгенерировать URL</string>
 </resources>

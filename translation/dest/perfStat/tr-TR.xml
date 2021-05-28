@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Güvenilir bir puan oluşturmak için yeterli sayıda puanlı oyun oynanmamış.</string>
   <string name="progressOverLastXGames">Son %s maç sonrası durum:</string>
   <string name="ratingDeviation">Puan sapma değeri: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Daha düşük değer reytingin daha istikrarlı olduğu anlamına gelir. %1$s değerinin üzerindeyse reytingin geçici olduğu kabul edilir. Sıralamaya dahil edilmek için %2$s (standart satranç) veya %3$s (varyantlarda) değerinin altında olmak gerekiyor.</string>
   <string name="totalGames">Toplam maç sayısı</string>
   <string name="ratedGames">Puanlı maçlar</string>
   <string name="tournamentGames">Turnuva maçları</string>

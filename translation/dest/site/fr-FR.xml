@@ -518,7 +518,7 @@
   <string name="newPasswordAgain">Nouveau mot de passe (encore)</string>
   <string name="newPasswordsDontMatch">Les nouveaux mots de passe ne correspondent pas</string>
   <string name="newPasswordStrength">Robustesse du mot de passe</string>
-  <string name="clockInitialTime">Capital temps initial à la pendule</string>
+  <string name="clockInitialTime">Temps initial à la pendule</string>
   <string name="clockIncrement">Incrément de la pendule</string>
   <string name="privacy">Confidentialité</string>
   <string name="privacyPolicy">Politique de confidentialité</string>
@@ -857,13 +857,11 @@
   <string name="congratsYouWon">Bravo, vous avez gagné !</string>
   <string name="gameVsX">Partie contre %1$s</string>
   <string name="resVsX">%1$s contre %2$s</string>
-  <string name="youJustBecamePatron">Vous êtes devenu un mécène de Lichess.</string>
-  <string name="patronAccountExpired">Statut de mécène expiré</string>
-  <string name="pleaseReconsiderRenewIt">Songez à le renouveler !</string>
   <string name="someoneReviewedYourCoachProfile">Quelqu\'un a examiné votre profil de coach.</string>
   <string name="newPendingReview">Nouvelle évaluation en attente</string>
   <string name="lostAgainstTOSViolator">Vous avez perdu contre quelqu\'un qui a violé les règles de Lichess.</string>
   <string name="refundXpointsTimeControlY">Remboursement : %1$s point(s) de cote – %2$s.</string>
   <string name="timeAlmostUp">Vous n\'avez presque plus de temps!</string>
   <string name="clickToRevealEmailAddress">[Cliquer pour révéler l\'adresse courriel]</string>
+  <string name="download">Télécharger</string>
 </resources>

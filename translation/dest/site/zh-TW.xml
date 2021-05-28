@@ -813,8 +813,7 @@
   <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">您成為了 Lichess 贊助者。</string>
-  <string name="patronAccountExpired">您的贊助者帳號已過期</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
+  <string name="download">下載</string>
 </resources>

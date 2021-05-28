@@ -897,13 +897,11 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="congratsYouWon">Čestitamo, pobijedili ste!</string>
   <string name="gameVsX">Partija protiv %1$s</string>
   <string name="resVsX">%1$s protiv %2$s</string>
-  <string name="youJustBecamePatron">Upravo ste postali sponzor.</string>
-  <string name="patronAccountExpired">Račun sponzora istekao</string>
-  <string name="pleaseReconsiderRenewIt">Molimo, razmotrite da ga obnovite!</string>
   <string name="someoneReviewedYourCoachProfile">Neko je pogledao Vaš trenerski profil.</string>
   <string name="newPendingReview">Novi pregled na čekanju</string>
   <string name="lostAgainstTOSViolator">Izgubili ste od nekoga ko je prekršio Lichessove uvjete upotrebe</string>
   <string name="refundXpointsTimeControlY">Povrat: %1$s %2$s rejting-bodova.</string>
   <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
   <string name="clickToRevealEmailAddress">[Kliknite da otkrijete adresu e-pošte]</string>
+  <string name="download">Preuzmite</string>
 </resources>

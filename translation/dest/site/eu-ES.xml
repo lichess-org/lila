@@ -857,13 +857,11 @@
   <string name="congratsYouWon">Zorionak, irabazi egin duzu!</string>
   <string name="gameVsX">%1$s jokalarien aurkako partida</string>
   <string name="resVsX">%1$s vs. %2$s</string>
-  <string name="youJustBecamePatron">Lichess babesle bihurtu zara.</string>
-  <string name="patronAccountExpired">Babesle kontua iraungi egin da</string>
-  <string name="pleaseReconsiderRenewIt">Berritzea aztertu ezazu!</string>
   <string name="someoneReviewedYourCoachProfile">Entrenatzaile profila norbaitek errebisatu du.</string>
   <string name="newPendingReview">Berrikusketa berri egiteke</string>
   <string name="lostAgainstTOSViolator">Lichessen Erabilpen Baldintzak urratu dituen baten aurka galdu duzu</string>
   <string name="refundXpointsTimeControlY">Itzulketa: %1$s %2$s puntu.</string>
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
   <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
+  <string name="download">Deskargatu</string>
 </resources>

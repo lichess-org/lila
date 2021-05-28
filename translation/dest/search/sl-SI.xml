@@ -28,4 +28,10 @@
   <string name="sortBy">Razvrsti po</string>
   <string name="analysis">Analiza</string>
   <string name="onlyAnalysed">Samo partije kjer je na voljo računalniška analiza</string>
+  <string name="color">Barva</string>
+  <string name="evaluation">Vrednotenje</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Največje število</string>
+  <string name="maxNumberExplanation">Največje število iger za vrnitev</string>
+  <string name="include">Vključuje</string>
+  <string name="generateURL">Ustvari URL</string>
 </resources>

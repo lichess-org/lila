@@ -857,9 +857,6 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="congratsYouWon">sina anpa e jan musi ante!</string>
   <string name="gameVsX">musi pi jan %1$s</string>
   <string name="resVsX">jan %1$s en jan %2$s</string>
-  <string name="youJustBecamePatron">tenpo ni la sina kama e jan Patron pi ilo Lichess.</string>
-  <string name="patronAccountExpired">sina kama e jan Patron ala</string>
-  <string name="pleaseReconsiderRenewIt">ken la o kama sin!</string>
   <string name="someoneReviewedYourCoachProfile">jan li lukin e pali sina pi kama sona.</string>
   <string name="newPendingReview">lukin sin</string>
   <string name="lostAgainstTOSViolator">sina kama anpa. taso, jan musi ante li pali ike tawa nasin pi ilo Lichess.</string>

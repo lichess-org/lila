@@ -856,13 +856,11 @@
   <string name="congratsYouWon">Gefeliciteerd, je hebt gewonnen!</string>
   <string name="gameVsX">Partij tegen %1$s</string>
   <string name="resVsX">%1$s tegen %2$s</string>
-  <string name="youJustBecamePatron">Je bent net een Lichess Patroon geworden.</string>
-  <string name="patronAccountExpired">Patroon status is verlopen</string>
-  <string name="pleaseReconsiderRenewIt">Overweeg alsjeblieft het te vernieuwen!</string>
   <string name="someoneReviewedYourCoachProfile">Iemand heeft je coachprofiel een beoordeling gegeven.</string>
   <string name="newPendingReview">In afwachting van beoordeling</string>
   <string name="lostAgainstTOSViolator">Je hebt verloren van iemand die de Lichess voorwaarden heeft geschonden</string>
   <string name="refundXpointsTimeControlY">Teruggekregen: %1$s %2$s ratingpunten.</string>
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
+  <string name="download">Downloaden</string>
 </resources>

@@ -843,12 +843,10 @@
   <string name="congratsYouWon">Tagumpay!</string>
   <string name="gameVsX">Laro laban kay %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Ikaw ay isang Lichess Patron na.</string>
-  <string name="patronAccountExpired">Expired na ang Patron account</string>
-  <string name="pleaseReconsiderRenewIt">Isaalang-alang niyo pong mag-renew!</string>
   <string name="someoneReviewedYourCoachProfile">Merong tao na nag-review ng coach profile mo.</string>
   <string name="newPendingReview">Bagong pending na review</string>
   <string name="lostAgainstTOSViolator">Katatalo mo lang sa isang tao na lumabag sa Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s  na rating points.</string>
   <string name="timeAlmostUp">Yung oras mo ay malapit na matapos!</string>
+  <string name="download">Download</string>
 </resources>

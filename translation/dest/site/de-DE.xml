@@ -167,7 +167,7 @@
   <string name="minutesPerSide">Minuten pro Spieler</string>
   <string name="variant">Variante</string>
   <string name="variants">Varianten</string>
-  <string name="timeControl">Zeitkontrolle</string>
+  <string name="timeControl">Bedenkzeit</string>
   <string name="realTime">Normale Bedenkzeit</string>
   <string name="correspondence">Fernschach</string>
   <string name="daysPerTurn">Tage pro Zug</string>
@@ -857,13 +857,11 @@
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="youJustBecamePatron">Du wurdest nun ein Lichess-Patron.</string>
-  <string name="patronAccountExpired">Patron-Status abgelaufen</string>
-  <string name="pleaseReconsiderRenewIt">Bitte überlege, ob du es erneuern willst!</string>
   <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
+  <string name="download">Herunterladen</string>
 </resources>

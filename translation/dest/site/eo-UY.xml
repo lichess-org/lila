@@ -833,6 +833,5 @@
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
-  <string name="youJustBecamePatron">Vi ĵus iĝis Lichess patrono.</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
 </resources>

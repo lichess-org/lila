@@ -22,4 +22,8 @@
   <string name="sortBy">다음으로 정렬:</string>
   <string name="analysis">분석</string>
   <string name="onlyAnalysed">컴퓨터 분석이 가능한 게임만</string>
+  <string name="color">색</string>
+  <string name="evaluation">평가</string>
+  <string name="include">포함</string>
+  <string name="generateURL">URL 생성</string>
 </resources>

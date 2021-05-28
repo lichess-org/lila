@@ -849,7 +849,7 @@
   <string name="unsubscribe">Cancelar la suscripción</string>
   <string name="mentionedYouInX">te mencionó en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te mencionó en \"%2$s\".</string>
-  <string name="invitedYouToX">te invitó a \"%1$s\".</string>
+  <string name="invitedYouToX"> te invitó a «%1$s».</string>
   <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ya estás en el equipo.</string>
   <string name="youHaveJoinedTeamX">Te has unido a «%1$s».</string>
@@ -857,13 +857,11 @@
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
   <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
-  <string name="youJustBecamePatron">Ya eres patrocinador de Lichess.</string>
-  <string name="patronAccountExpired">La cuenta de patrocinador ha vencido</string>
-  <string name="pleaseReconsiderRenewIt">¡Sería estupendo que la renovaras!</string>
   <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
   <string name="newPendingReview">Nueva revisión pendiente</string>
   <string name="lostAgainstTOSViolator">Has perdido contra un usuario que no cumplió las condiciones de servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
   <string name="clickToRevealEmailAddress">[Haz clic para mostrar la dirección de correo electrónico]</string>
+  <string name="download">Descargar</string>
 </resources>

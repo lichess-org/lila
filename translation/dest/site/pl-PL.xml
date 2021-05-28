@@ -937,13 +937,11 @@
   <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
   <string name="gameVsX">Gra przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Właśnie zostałeś Patronem lichess.</string>
-  <string name="patronAccountExpired">Konto Patron wygasło</string>
-  <string name="pleaseReconsiderRenewIt">Proszę rozważ odnowienie!</string>
   <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
+  <string name="download">Pobierz</string>
 </resources>

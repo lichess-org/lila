@@ -895,13 +895,11 @@
   <string name="congratsYouWon">Felicitări, ați câștigat!</string>
   <string name="gameVsX">Joc vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">Tocmai ai devenit Patron Lichess.</string>
-  <string name="patronAccountExpired">Contul Patron a expirat</string>
-  <string name="pleaseReconsiderRenewIt">Vă rugăm să luați în considerare reînnoirea acestuia!</string>
   <string name="someoneReviewedYourCoachProfile">Cineva a verificat profilul tău de antrenor.</string>
   <string name="newPendingReview">Revizuire nouă în așteptare</string>
   <string name="lostAgainstTOSViolator">Ai pierdut în fața cuiva care a încălcat Termenii și Condițiile Lichess</string>
   <string name="refundXpointsTimeControlY">Rambursare: %1$s puncte de evaluare %2$s.</string>
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
+  <string name="download">Descărcare</string>
 </resources>

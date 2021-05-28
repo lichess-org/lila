@@ -423,6 +423,7 @@
   <string name="firstName">이름</string>
   <string name="lastName">성</string>
   <string name="biography">소개</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가 또는 국기</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="inlineNotation">기보를 가로쓰기</string>
@@ -815,13 +816,11 @@
   <string name="congratsYouWon">축하합니다. 승리하셨습니다!</string>
   <string name="gameVsX">Game vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="youJustBecamePatron">당신은 lichess 후원자가 되었습니다.</string>
-  <string name="patronAccountExpired">Patron 계정 만료됨</string>
-  <string name="pleaseReconsiderRenewIt">갱신을 고려해주세요!</string>
   <string name="someoneReviewedYourCoachProfile">누군가가 당신의 코치 프로필을 리뷰했습니다.</string>
   <string name="newPendingReview">새 대기중 리뷰</string>
   <string name="lostAgainstTOSViolator">당신은 Lichess의 서비스 약관을 어긴 플레이어에게 패배했습니다.</string>
   <string name="refundXpointsTimeControlY">환불: %2$s 레이팅 포인트 %1$s점</string>
   <string name="timeAlmostUp">시간이 거의 다 되었습니다!</string>
   <string name="clickToRevealEmailAddress">[이메일 주소를 보려면 클릭]</string>
+  <string name="download">다운로드</string>
 </resources>

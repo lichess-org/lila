@@ -24,4 +24,10 @@
   <string name="sortBy">Подреди по</string>
   <string name="analysis">Анализ</string>
   <string name="onlyAnalysed">Само партии за които е направен компютърен анализ</string>
+  <string name="color">Цвят</string>
+  <string name="evaluation">Оценка</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Максимален брой</string>
+  <string name="maxNumberExplanation">Максимален брой партии</string>
+  <string name="include">Включи</string>
+  <string name="generateURL">Генерирай URL</string>
 </resources>

@@ -858,13 +858,11 @@
   <string name="congratsYouWon">Поздравления, спечелихте!</string>
   <string name="gameVsX">Партия срещу %1$s</string>
   <string name="resVsX">%1$s срещу %2$s</string>
-  <string name="youJustBecamePatron">Станахте Lichess Дарител.</string>
-  <string name="patronAccountExpired">Дарителският Ви статус изтече</string>
-  <string name="pleaseReconsiderRenewIt">Моля подновете подкрепата си!</string>
   <string name="someoneReviewedYourCoachProfile">Някой прегледа Вашия треньорски профил.</string>
   <string name="newPendingReview">В очакване на преглед</string>
   <string name="lostAgainstTOSViolator">Изгубили сте партия срещу някой който е нарушил правилата за ползване на Lichess</string>
   <string name="refundXpointsTimeControlY">Възстановяване: %1$s %2$s точки.</string>
   <string name="timeAlmostUp">Времето почти изтече!</string>
   <string name="clickToRevealEmailAddress">[Щракнете, за да видите имейл адреса]</string>
+  <string name="download">Изтегли</string>
 </resources>
