@@ -344,12 +344,12 @@ export default class RoundController {
 
   showYourMoveNotification = () => {
     const d = this.data;
+    const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
+    const joined = `${opponent}\njoined the game.`;
     if (game.isPlayerTurn(d))
       notify(() => {
         let txt = this.noarg('yourTurn');
-        const zen = $('body').hasClass('zen');
-        const opponent = zen ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
-        if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
+        if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
           let move = d.steps[d.steps.length - 1].san;
           const turn = Math.floor((this.ply - 1) / 2) + 1;
@@ -358,12 +358,7 @@ export default class RoundController {
         }
         return txt;
       });
-    else if (this.isPlaying() && this.ply < 1)
-      notify(() => {
-        const zen = $('body').hasClass('zen');
-        const opponent = zen ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
-        return opponent + '\njoined the game.';
-      });
+    else if (this.isPlaying() && this.ply < 1) notify(joined);
   };
 
   playerByColor = (c: Color) => this.data[c === this.data.player.color ? 'player' : 'opponent'];
