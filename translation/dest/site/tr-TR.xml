@@ -864,4 +864,6 @@
   <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
   <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
   <string name="download">İndir</string>
+  <string name="welcome">Hoş geldiniz!</string>
+  <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
 </resources>
