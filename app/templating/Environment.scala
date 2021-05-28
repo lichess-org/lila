@@ -1,6 +1,7 @@
 package lila.app
 package templating
 
+import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 
 import lila.app.ui.ScalatagsTemplate._
@@ -43,6 +44,8 @@ object Environment
   def tablebaseEndpoint = env.tablebaseEndpoint
 
   def isChatPanicEnabled = env.chat.panic.enabled
+
+  def chatLinesToJson(chat: lila.chat.AnyChat): JsValue = env.chat.json(chat)
 
   def blockingReportScores: (Int, Int, Int) = (
     env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0),

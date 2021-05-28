@@ -19,7 +19,8 @@ final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chatApi: lila.chat.ChatApi
+    chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
@@ -32,7 +33,7 @@ final private class StudySocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Study)
+  subscribeChat(rooms, _.Study, chatJson.lineWriter)
 
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](

@@ -11,7 +11,8 @@ import lila.socket.Socket.makeMessage
 
 final private class SwissSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi,
+    chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     teamOf: Swiss.Id => Fu[Option[TeamID]]
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -32,12 +33,12 @@ final private class SwissSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Swiss)
+  subscribeChat(rooms, _.Swiss, chatJson.lineWriter)
 
   private lazy val handler: Handler =
     roomHandler(
       rooms,
-      chat,
+      chatApi,
       logger,
       roomId => _.Swiss(roomId.value).some,
       localTimeout = Some { (roomId, modId, _) =>

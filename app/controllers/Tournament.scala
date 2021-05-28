@@ -140,7 +140,7 @@ final class Tournament(
                   )
                   chat <- loadChat(tour, json)
                 } yield Ok(json.add("chat" -> chat.map { c =>
-                  lila.chat.JsonView.mobile(chat = c.chat)
+                  env.chat.json.mobile(chat = c.chat)
                 }))
               }
               .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))

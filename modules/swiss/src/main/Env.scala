@@ -17,6 +17,7 @@ final class Env(
     onStart: lila.round.OnStart,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     historyApi: lila.history.HistoryApi,

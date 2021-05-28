@@ -25,6 +25,7 @@ final class Env(
     renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,

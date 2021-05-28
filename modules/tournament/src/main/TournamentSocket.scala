@@ -15,7 +15,8 @@ import lila.user.User
 final private class TournamentSocket(
     repo: TournamentRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi
+    chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
@@ -65,12 +66,12 @@ final private class TournamentSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Tournament)
+  subscribeChat(rooms, _.Tournament, chatJson.lineWriter)
 
   private lazy val handler: Handler =
     roomHandler(
       rooms,
-      chat,
+      chatApi,
       logger,
       roomId => _.Tournament(roomId.value).some,
       chatBusChan = _.Tournament,

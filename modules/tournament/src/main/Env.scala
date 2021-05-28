@@ -30,6 +30,7 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo,
     renderer: lila.hub.actors.Renderer,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,

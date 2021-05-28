@@ -401,7 +401,7 @@ final class Mod(
     Secure(_.ChatTimeout) { _ => _ =>
       implicit val lightUser = env.user.lightUserSync
       JsonOptionOk {
-        env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
+        env.chat.api.userChat userModInfo username map2 env.chat.json.userModInfo
       }
     }
 

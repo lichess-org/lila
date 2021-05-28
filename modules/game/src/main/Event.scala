@@ -251,14 +251,14 @@ object Event {
 
   case class PlayerMessage(line: PlayerLine) extends Event {
     def typ            = "message"
-    def data           = lila.chat.JsonView(line)
+    def data           = JsNull
     override def owner = true
     override def troll = false
   }
 
   case class UserMessage(line: UserLine, w: Boolean) extends Event {
     def typ              = "message"
-    def data             = lila.chat.JsonView(line)
+    def data             = sys error "oh no what have I done"
     override def troll   = line.troll
     override def watcher = w
     override def owner   = !w

@@ -181,7 +181,7 @@ final class Study(
                 Ok(
                   Json.obj(
                     "study" -> data.study.add("chat" -> chatOpt.map { c =>
-                      lila.chat.JsonView.mobile(
+                      env.chat.json.mobile(
                         chat = c.chat,
                         writeable = ctx.userId.??(sc.study.canChat)
                       )

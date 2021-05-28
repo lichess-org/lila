@@ -12,7 +12,8 @@ final private class SimulSocket(
     repo: SimulRepo,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi
+    chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mode: play.api.Mode
@@ -56,12 +57,12 @@ final private class SimulSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Simul)
+  subscribeChat(rooms, _.Simul, chatJson.lineWriter)
 
   private lazy val handler: Handler =
     roomHandler(
       rooms,
-      chat,
+      chatApi,
       logger,
       roomId => _.Simul(roomId.value).some,
       chatBusChan = _.Simul,

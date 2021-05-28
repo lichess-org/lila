@@ -18,6 +18,7 @@ final class Env(
     notifyApi: NotifyApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     db: lila.db.Db

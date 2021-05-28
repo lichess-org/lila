@@ -5,7 +5,8 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 
 final private class TeamSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi,
+    chatApi: lila.chat.ChatApi,
+    chatJson: lila.chat.JsonView,
     cached: Cached
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -14,12 +15,12 @@ final private class TeamSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Team)
+  subscribeChat(rooms, _.Team, chatJson.lineWriter)
 
   private lazy val handler: Handler =
     roomHandler(
       rooms,
-      chat,
+      chatApi,
       logger,
       roomId => _.Team(roomId.value).some,
       localTimeout = Some { (roomId, modId, suspectId) =>

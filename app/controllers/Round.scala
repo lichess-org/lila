@@ -69,7 +69,7 @@ final class Round(
               env.api.roundApi.player(pov, tour, apiVersion) zip
               getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
                 Ok {
-                  data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+                  data.add("chat", chat.flatMap(_.game).map(c => env.chat.json(c.chat)))
                 }
               }
           }
@@ -208,7 +208,7 @@ final class Round(
               chat     <- getWatcherChat(pov.game)
             } yield Ok {
               data
-                .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
+                .add("chat" -> chat.map(c => env.chat.json(c.chat)))
                 .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
             }
         ) map { NoCache(_) }
