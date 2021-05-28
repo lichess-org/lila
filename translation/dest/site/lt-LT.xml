@@ -945,4 +945,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="timeAlmostUp">Laikas beveik baigėsi!</string>
   <string name="clickToRevealEmailAddress">[spustelėkite norėdami pamatyti el. pašto adresą]</string>
   <string name="download">Atsisiųsti</string>
+  <string name="welcome">Sveiki atvykę!</string>
+  <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
+Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
 </resources>
