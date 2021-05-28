@@ -22,7 +22,7 @@ final class AutomaticEmail(
 
 The Lichess team"""
 
-  def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
+  def welcomeEmail(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
     lila.mon.email.send.welcome.increment()
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl    = s"$baseUrl/account/profile"
@@ -34,6 +34,12 @@ The Lichess team"""
         trans.welcome_text.txt(profileUrl, editUrl)
       ).some
     )
+  }
+
+  def welcomePM(user: User): Funit = fuccess {
+    alsoSendAsPrivateMessage(user) { implicit lang =>
+      lila.i18n.I18nKeys.signupWelcomeMessage.txt()
+    }.unit
   }
 
   def onTitleSet(username: String): Funit = {
