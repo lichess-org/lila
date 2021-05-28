@@ -865,6 +865,6 @@
   <string name="clickToRevealEmailAddress">[Clica per a mostrar l\'adreça de correu electrònic]</string>
   <string name="download">Descarregar</string>
   <string name="welcome">Benvinguts!</string>
-  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i el programari és totalment lliure i gratuït.
+  <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
 </resources>
