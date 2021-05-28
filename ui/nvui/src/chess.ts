@@ -567,7 +567,7 @@ export function possibleMovesHandler(
   yourColor: Color,
   turnColor: () => Color,
   fen: () => string,
-  pieces: () => Pieces,
+  piecesFunc: () => Pieces,
   variant: string,
   moveable: () => Map<string, Array<string>> | undefined,
   steps: () => Step[]
@@ -576,7 +576,7 @@ export function possibleMovesHandler(
     // This function does NOT belong here. This should be dealt with somewhere in the library, but alas, a full FEN is not available during a running game. I am considering making a getFullFen() function in the Controller(?)/Chessground(?) or wherever else it should be.
     // in addition, if it is not the user's turn, and they requrest moves in chess960... castling is broken. It may report false positives because this only checks for rooks/kings moving from their original squares.
     const castlingFen = (gameSteps: Step[]): string => {
-      let castlingString: string = 'KQkq';
+      let castlingString = 'KQkq';
 
       for (const step of gameSteps) {
         if (!step?.uci) {
@@ -602,10 +602,10 @@ export function possibleMovesHandler(
 
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
-    const $pieces = pieces();
+    const pieces: Pieces = piecesFunc();
 
     const $btn = $(ev.target as HTMLElement);
-    const $pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
     const ruleTranslation: { [vari: string]: number } = {
       standard: 0,
       antichess: 1,
@@ -635,9 +635,9 @@ export function possibleMovesHandler(
     }
 
     const possibleMoves = rawMoves
-      ?.get($pos)
+      ?.get(pos)
       ?.map(i => {
-        const p = $pieces.get(i as Key);
+        const p = pieces.get(i as Key);
         // logic to prevent 'capture rook' on own piece in chess960
         if (p) {
           if (p.color !== yourColor) {
