@@ -38,7 +38,8 @@ The Lichess team"""
 
   def welcomePM(user: User): Funit = fuccess {
     alsoSendAsPrivateMessage(user) { implicit lang =>
-      lila.i18n.I18nKeys.signupWelcomeMessage.txt()
+      import lila.i18n.I18nKeys._
+      s"""${welcome.txt()}\n${lichessPatronInfo.txt()}"""
     }.unit
   }
 
