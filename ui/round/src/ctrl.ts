@@ -348,7 +348,8 @@ export default class RoundController {
     if (game.isPlayerTurn(d))
       notify(() => {
         let txt = this.noarg('yourTurn');
-        const opponent = renderUser.userTxt(this, d.opponent);
+        const zen = $('body').hasClass('zen');
+        const opponent = zen ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
         if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
         else {
           let move = d.steps[d.steps.length - 1].san;
@@ -359,7 +360,11 @@ export default class RoundController {
         return txt;
       });
     else if (this.isPlaying() && this.ply < 1)
-      notify(() => renderUser.userTxt(this, d.opponent) + '\njoined the game.');
+      notify(() => {
+        const zen = $('body').hasClass('zen');
+        const opponent = zen ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
+        return opponent + '\njoined the game.';
+      });
   };
 
   playerByColor = (c: Color) => this.data[c === this.data.player.color ? 'player' : 'opponent'];
