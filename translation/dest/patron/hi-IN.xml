@@ -7,7 +7,7 @@
   <string name="xBecamePatron">%s Lichess Patron बन गया</string>
   <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
     <item quantity="one">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
-    <item quantity="other">लिचेस संरक्षक %1$s महीनों के लिए</item>
+    <item quantity="other">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
   </plurals>
   <string name="newPatrons">नए संरक्षक</string>
   <string name="freeChess">मुफ्त शतरंज सभी के लिए, हमेशा के लिए!</string>
