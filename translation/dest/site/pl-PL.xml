@@ -944,4 +944,5 @@
   <string name="timeAlmostUp">Czas prawie minął!</string>
   <string name="clickToRevealEmailAddress">[Kliknij, aby ujawnić adres e-mail]</string>
   <string name="download">Pobierz</string>
+  <string name="welcome">Witaj!</string>
 </resources>
