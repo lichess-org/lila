@@ -1,11 +1,13 @@
 import { h, VNode } from 'snabbdom';
 import { Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
+//import { Api } from 'chessground/api';
+import { Step } from 'ui/round/src/interfaces';
 import { Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
-import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
-import { SquareName } from 'chessops/types';
+import { SquareName, RULES, Rules } from 'chessops/types';
+import { setupPosition } from 'chessops/variant';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
@@ -108,7 +110,7 @@ export function symbolToFile(char: string) {
 }
 
 export function supportedVariant(key: string) {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'].includes(key);
+  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic'].includes(key);
 }
 
 export function boardSetting(): Setting<BoardStyle> {
@@ -561,25 +563,93 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
   };
 }
 
-export function possibleMovesHandler(color: Color, fen: () => string, pieces: () => Pieces) {
+export function possibleMovesHandler(
+  yourColor: Color,
+  turnColor: () => Color,
+  fen: () => string,
+  pieces: () => Pieces,
+  variant: string,
+  moveable: () => Map<string, Array<string>> | undefined,
+  steps: () => Step[]
+) {
   return (ev: KeyboardEvent) => {
+    // This function does NOT belong here. This should be dealt with somewhere in the library, but alas, a full FEN is not available during a running game. I am considering making a getFullFen() function in the Controller(?)/Chessground(?) or wherever else it should be.
+    // in addition, if it is not the user's turn, and they requrest moves in chess960... castling is broken. It may report false positives because this only checks for rooks/kings moving from their original squares.
+    const castlingFen = (gameSteps: Step[]): string => {
+      let castlingString: string = 'KQkq';
+
+      for (const step of gameSteps) {
+        if (!step?.uci) {
+          continue;
+        }
+        const from = step?.uci?.substr(0, 2);
+        if (from === 'e1') {
+          castlingString = castlingString.replace('K', '').replace('Q', '');
+        } else if (from === 'e8') {
+          castlingString = castlingString.replace('k', '').replace('q', '');
+        } else if (from === 'a1') {
+          castlingString = castlingString.replace('Q', '');
+        } else if (from === 'h1') {
+          castlingString = castlingString.replace('K', '');
+        } else if (from === 'a8') {
+          castlingString = castlingString.replace('k', '');
+        } else if (from === 'h8') {
+          castlingString = castlingString.replace('q', '');
+        }
+      }
+      return castlingString;
+    };
+
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
     const $pieces = pieces();
-    const myTurnFen = color === 'white' ? 'w' : 'b';
 
     const $btn = $(ev.target as HTMLElement);
     const $pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const ruleTranslation: { [vari: string]: number } = {
+      standard: 0,
+      antichess: 1,
+      kingOfTheHill: 2,
+      threeCheck: 3,
+      atomic: 4,
+      horde: 5,
+      racingKings: 6,
+      crazyhouse: 7,
+    };
+    const rules: Rules = RULES[ruleTranslation[variant]];
 
-    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn.
-    const $fen = fen() + ' ' + myTurnFen;
-    const possibleMoves = chessgroundDests(Chess.fromSetup(parseFen($fen).unwrap()).unwrap())
-      .get($pos)
+    let rawMoves;
+
+    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
+    // if it is your turn
+    if (turnColor() === yourColor) {
+      rawMoves = moveable();
+    } else {
+      let fenStr: string = fen() ?? '';
+      fenStr += yourColor === 'white' ? ' w ' : ' b ';
+      fenStr += castlingFen(steps());
+      const setup = parseFen(fenStr).unwrap();
+      setup.turn = yourColor;
+      const fromSetup = setupPosition(rules, setup).unwrap();
+      rawMoves = chessgroundDests(fromSetup);
+    }
+
+    const possibleMoves = rawMoves
+      ?.get($pos)
       ?.map(i => {
-        const p = $pieces.get(i);
-        return p ? i + ' captures ' + p.role : i;
+        const p = $pieces.get(i as Key);
+        // logic to prevent 'capture rook' on own piece in chess960
+        if (p) {
+          if (p.color !== yourColor) {
+            return i + ' captures ' + p.role;
+          } else {
+            return i;
+          }
+        } else {
+          return i;
+        }
       })
-      .filter(i => ev.key === 'm' || i.includes('captures'));
+      ?.filter(i => ev.key === 'm' || i.includes('captures'));
     if (!possibleMoves) {
       $boardLive.text('None');
       // if filters out non-capturing moves

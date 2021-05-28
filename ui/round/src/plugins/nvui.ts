@@ -188,8 +188,12 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                   'keypress',
                   possibleMovesHandler(
                     ctrl.data.player.color,
+                    () => ctrl.chessground.state.turnColor,
                     ctrl.chessground.getFen,
-                    () => ctrl.chessground.state.pieces
+                    () => ctrl.chessground.state.pieces,
+                    ctrl.data.game.variant.key,
+                    () => ctrl.chessground.state.movable.dests,
+                    () => ctrl.data.steps
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());
