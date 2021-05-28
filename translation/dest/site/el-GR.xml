@@ -865,4 +865,7 @@
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
   <string name="clickToRevealEmailAddress">[Κάντε κλικ για να δείτε τη διεύθυνση ηλεκτρονικού ταχυδρομείου]</string>
   <string name="download">Λήψη</string>
+  <string name="welcome">Καλώς ήρθατε!</string>
+  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
+Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
 </resources>
