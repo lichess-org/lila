@@ -502,8 +502,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   speech.setup();
 
   lichess.pubsub.on('zen', () => {
-    const zen = !$('body').hasClass('zen');
-    $('body').toggleClass('zen', zen);
+    const zen = $('body').toggleClass('zen').hasClass('zen');
     window.dispatchEvent(new Event('resize'));
     xhr.setZen(zen);
   });

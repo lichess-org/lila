@@ -75,8 +75,7 @@ lichess.load.then(() => {
     );
 
     lichess.pubsub.on('zen', () => {
-      const zen = !$('body').hasClass('zen');
-      $('body').toggleClass('zen', zen);
+      const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
       requestAnimationFrame(showCharts);
