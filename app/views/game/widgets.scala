@@ -96,9 +96,8 @@ object widgets {
               )
             )
           } else frag(br, br),
-          notes get g.id match {
-            case Some(note) => div(cls := "notes")(strong("Notes: "), note)
-            case _ =>
+          notes get g.id map { note =>
+            div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
