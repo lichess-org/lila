@@ -904,4 +904,7 @@
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
   <string name="clickToRevealEmailAddress">[Noklikšķiniet, lai atklātu e-pasta adresi]</string>
   <string name="download">Lejupielādēt</string>
+  <string name="welcome">Laipni lūdzam!</string>
+  <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
+Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
 </resources>
