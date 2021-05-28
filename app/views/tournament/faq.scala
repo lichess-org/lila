@@ -13,13 +13,13 @@ object faq {
 
   def page(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Tournament FAQ",
+      title = trans.tournamentFAQ.txt(),
       moreCss = cssTag("page")
     ) {
       main(cls := "page-small box box-pad page")(
         h1(
           a(href := routes.Tournament.home, dataIcon := "I", cls := "text"),
-          "Arena Tournament FAQ"
+          trans.tournamentFAQ()
         ),
         div(cls := "body")(apply())
       )
