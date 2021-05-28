@@ -1,7 +1,14 @@
 import { h, VNode } from 'snabbdom';
 
-export function userLink(u: string, title?: string): VNode {
+export function userLink(u: string, title?: string, patron?: boolean): VNode {
   const trunc = u.substring(0, 14);
+  const line = patron
+    ? h('line.line.patron', {
+        attrs: {
+          title: 'Lichess Patron',
+        },
+      })
+    : undefined;
   return h(
     'a',
     {
@@ -14,7 +21,7 @@ export function userLink(u: string, title?: string): VNode {
         href: '/@/' + u,
       },
     },
-    title && title != 'BOT' ? [h('span.utitle', title), trunc] : [trunc]
+    title && title != 'BOT' ? [line, h('span.utitle', title), trunc] : [line, trunc]
   );
 }
 

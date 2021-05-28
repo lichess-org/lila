@@ -208,7 +208,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
-  const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
+  const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
 
   return h(
     'li',

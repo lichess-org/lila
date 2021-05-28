@@ -644,9 +644,17 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         (res.nModified == 1) ?? email(id)
     }
 
+  private val speakerProjection = $doc(
+    F.username -> true,
+    F.title    -> true,
+    F.plan     -> true,
+    F.enabled  -> true,
+    F.marks    -> true
+  )
+
   def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
     import User.speakerHandler
-    coll.one[User.Speaker]($id(id))
+    coll.one[User.Speaker]($id(id), speakerProjection)
   }
 
   def contacts(orig: User.ID, dest: User.ID): Fu[Option[User.Contacts]] = {

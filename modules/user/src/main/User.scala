@@ -110,7 +110,7 @@ case class User(
 
   def isPatron = plan.active
 
-  def activePlan: Option[Plan] = if (plan.active) Some(plan) else None
+  def activePlan: Option[Plan] = plan.active option plan
 
   def planMonths: Option[Int] = activePlan.map(_.months)
 
@@ -188,9 +188,16 @@ object User {
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-  case class Speaker(username: String, title: Option[Title], enabled: Boolean, marks: Option[UserMarks]) {
-    def isBot   = title has Title.BOT
-    def isTroll = marks.exists(_.troll)
+  case class Speaker(
+      username: String,
+      title: Option[Title],
+      enabled: Boolean,
+      plan: Option[Plan],
+      marks: Option[UserMarks]
+  ) {
+    def isBot    = title has Title.BOT
+    def isTroll  = marks.exists(_.troll)
+    def isPatron = plan.exists(_.active)
   }
 
   case class Contact(
@@ -279,6 +286,8 @@ object User {
   import lila.db.BSON
   import lila.db.dsl._
 
+  implicit private def planHandler = Plan.planBSONHandler
+
   implicit val userBSONHandler = new BSON[User] {
 
     import BSONFields._
@@ -288,7 +297,6 @@ object User {
     implicit private def countHandler      = Count.countBSONHandler
     implicit private def profileHandler    = Profile.profileBSONHandler
     implicit private def perfsHandler      = Perfs.perfsBSONHandler
-    implicit private def planHandler       = Plan.planBSONHandler
     implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = {
