@@ -864,4 +864,5 @@
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
+  <string name="welcome">Välkommen!</string>
 </resources>
