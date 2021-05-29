@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">শ্রেণি</string>
+  <string name="createDesc3">গুরুত্বপূর্ণ: একজন ছাত্রের একাধিক অ্যাকাউন্ট থাকা যাবে না।</string>
+  <string name="createDesc4">যদি তাদের ইতিমধ্যেই একটি থেকে থাকে, তাহলে বরং আমন্ত্রণ ফর্ম ব্যবহার করুন।</string>
+  <string name="lichessUsername">Lichess ইউজারনেম</string>
+  <string name="generateANewUsername">একটি ইউজারনেম জেনারেট করুন</string>
+  <string name="welcomeToClass">আপনার ক্লাসে স্বাগতম: %s.
+এখানে আপনার ক্লাসের লিংক।</string>
+  <string name="invitationToClass">ক্লাস \"%s\" এ আপনাকে ছাত্র হিসেবে যোগদানের জন্য আমন্ত্রণ জানানো হয়েছে।</string>
+  <string name="clickToViewInvitation">আমন্ত্রণ দেখতে লিংকে ক্লিক করুন:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">একটি অনিষ্পন্ন আমন্ত্রণ</item>
+    <item quantity="other">%sটি অনিষ্পন্ন আমন্ত্রণ</item>
+  </plurals>
+  <string name="noPendingInvitations">কোন অনিষ্পন্ন আমন্ত্রণ নেই</string>
+  <string name="onlyVisibleToTeachers">শুধু ক্লাসের শিক্ষকদের কাছেই দৃশ্যমান</string>
+  <string name="lastActiveDate">সক্রিয়</string>
+  <string name="managed">ম্যানেজ কৃত</string>
 </resources>
