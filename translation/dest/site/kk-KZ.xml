@@ -395,7 +395,7 @@
   <string name="conditionOfEntry">Кіру талаптары:</string>
   <string name="advancedSettings">Қосымша баптаулар</string>
   <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
-  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
+  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет себебінен тіркелгіңіз жабылуы мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
   <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
@@ -647,7 +647,7 @@
   <string name="cumulative">Жинақылық</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="checkYourEmail">Поштаңызды қараңыз</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге хат жібердік. Хаттағы сілтемеге бассаңыз, аккаунтыңыз расталады.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге электронды хат жібердік. Хаттағы сілтемеге бассаңыз, тіркелгіңіз расталады.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
   <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
