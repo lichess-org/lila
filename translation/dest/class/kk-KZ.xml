@@ -63,9 +63,9 @@
   <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – басқарулы</string>
   <string name="upgradeFromManaged">Басқарулы күйден тәуелсіз күйге ауысу</string>
   <string name="release">Босату</string>
-  <string name="releaseTheAccount">Тіркелгіні шәкіртке тапсыру, ол дара өзі басқаратын болады.</string>
-  <string name="releaseDesc2">Шәкірт аккаунты босатылған соң ол үйірмеде қалады.</string>
-  <string name="realUniqueEmail">Шәкірттің шын поштасы. Оған аккаунтты босатуды растайтын хат жіберетін боламыз.</string>
+  <string name="releaseTheAccount">Тіркелгіні шәкіртке тапсырыңыз, сонда ол дара өзі басқаратын болады.</string>
+  <string name="releaseDesc1">Тапсырылған тіркелгіні қайттан басқару мүмкін болмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қауқарлы болады.</string>
+  <string name="releaseDesc2">Тіркелгі тапсырылған соң шәкірт үйірмеде қала береді.</string>
   <string name="teachers">Ұстаздар</string>
   <plurals name="nbTeachers">
     <item quantity="one">Ұстаз</item>
