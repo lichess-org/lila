@@ -24,4 +24,12 @@
   <string name="capturingDefenderDescription">একটা গুটিকে খাওয়া যা আরেকটার প্রতিরক্ষা করে, যা পরের একটি চালে যেই গুটিকে রক্ষা করা হচ্ছিল তাকে খাওয়ার সুযোগ করে দেয়।</string>
   <string name="crushing">গুড়িয়ে দেয়া</string>
   <string name="crushingDescription">অপনেন্টের ব্লানডারকে ধরে ফেলুন এবং প্রতিপক্ষকে গুড়িয়ে দিয়ে লাভ অর্জন করুন। (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">দুটি হাতির মাত</string>
+  <string name="dovetailMate">ডাভটেইল মাত</string>
+  <string name="dovetailMateDescription">একটা মন্ত্রী রাজাকে বাজিমাত দেয়, যার কেবল দুটি মুক্তির ঘর নিজের গুটি দ্বারা দখলকৃত থাকে।</string>
+  <string name="equality">সমতা</string>
+  <string name="equalityDescription">একটা হেরে যাওয়া অবস্থান থেকে ফিরে আসা, এবং ড্র অথবা একটা ভারসাম্যযুক্ত অবস্থানে নিয়ে আসা। (eval ≤ 200cp)</string>
+  <string name="kingsideAttack">রাজার দিকে আক্রমণ</string>
+  <string name="kingsideAttackDescription">প্রতিপক্ষের রাজার নিজের পাশে ক্যাসলিং করার পর, তাকে আক্রমণ করা।</string>
+  <string name="clearance">পরিষ্কারকরণ</string>
 </resources>
