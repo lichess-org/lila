@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 import { Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 //import { Api } from 'chessground/api';
-import { Step } from 'ui/round/src/interfaces';
 import { Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
@@ -15,6 +14,10 @@ export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white u
 export type PrefixStyle = 'letter' | 'name' | 'none';
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
+
+interface RoundStep {
+  uci: Uci;
+}
 
 const nato: { [letter: string]: string } = {
   a: 'alpha',
@@ -571,7 +574,7 @@ export function possibleMovesHandler(
   piecesFunc: () => Pieces,
   variant: string,
   moveable: () => Map<string, Array<string>> | undefined,
-  steps: () => Step[]
+  steps: () => RoundStep[]
 ) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
