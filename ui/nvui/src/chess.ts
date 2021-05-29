@@ -604,14 +604,10 @@ export function possibleMovesHandler(
     } else {
       const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
       steps().forEach(s => {
-        if (!s.uci) {
-          return;
+        if (s.uci) {
+          const move = parseUci(s.uci);
+          if (move) fromSetup.play(move);
         }
-        const move = parseUci(s.uci);
-        if (!move) {
-          return;
-        }
-        fromSetup.play(move);
       });
       // important to override whoes turn it is so only the users' own turns will show up
       fromSetup.turn = yourColor;
@@ -623,15 +619,7 @@ export function possibleMovesHandler(
       ?.map(i => {
         const p = pieces.get(i as Key);
         // logic to prevent 'capture rook' on own piece in chess960
-        if (p) {
-          if (p.color !== yourColor) {
-            return i + ' captures ' + p.role;
-          } else {
-            return i;
-          }
-        } else {
-          return i;
-        }
+        return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
       ?.filter(i => ev.key === 'm' || i.includes('captures'));
     if (!possibleMoves) {
