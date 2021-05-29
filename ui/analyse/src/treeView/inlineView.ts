@@ -100,6 +100,8 @@ function renderMoveAndChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVN
 }
 
 function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
+  const retro = retroLine(ctx, node);
+  if (retro) return h('interrupt', h('lines', retro));
   return h(
     'inline',
     renderMoveAndChildrenOf(ctx, node, {
