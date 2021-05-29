@@ -139,7 +139,7 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
+  <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
   <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
