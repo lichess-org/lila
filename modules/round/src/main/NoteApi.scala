@@ -28,7 +28,7 @@ final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) 
         doc <- docs
         noteId <- doc.getAsOpt[String]("_id")
         note <- doc.getAsOpt[String](noteField)
-      } yield (noteId.replace(userId, ""), note)).toMap
+      } yield (noteId take Game.gameIdSize, note)).toMap
     }
 
   private def makeId(gameId: String, userId: String) = s"$gameId$userId"
