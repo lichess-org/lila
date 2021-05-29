@@ -55,4 +55,6 @@
   <string name="teamPasswordDescriptionForLeader">(Необязательно) Пароль для вступления в этот клуб новых членов.</string>
   <string name="incorrectTeamPassword">Неправильный клубный пароль.</string>
   <string name="teamAlreadyExists">Такой клуб уже существует.</string>
+  <string name="upcomingTourns">Предстоящие турниры</string>
+  <string name="completedTourns">Завершённые турниры</string>
 </resources>
