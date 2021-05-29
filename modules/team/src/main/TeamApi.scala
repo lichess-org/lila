@@ -193,13 +193,9 @@ final class TeamApi(
     }
 
   private def doQuit(team: Team, userId: User.ID): Funit =
-    belongsTo(team.id, userId) flatMap {
-      _ ?? {
-        memberRepo.remove(team.id, userId) map { res =>
-          if (res.n == 1) teamRepo.incMembers(team.id, -1)
-          cached.invalidateTeamIds(userId)
-        }
-      }
+    memberRepo.remove(team.id, userId) map { res =>
+      if (res.n == 1) teamRepo.incMembers(team.id, -1)
+      cached.invalidateTeamIds(userId)
     }
 
   def quitAll(userId: User.ID): Funit =
@@ -218,7 +214,7 @@ final class TeamApi(
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
-  def setLeaders(team: Team, json: String): Funit = {
+  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
     val leaders: Set[User.ID] = Try {
       json.trim.nonEmpty ?? {
         Json.parse(json).validate[List[TagifyUser]] match {
@@ -233,8 +229,14 @@ final class TeamApi(
     } getOrElse Set.empty
     memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
       ids.nonEmpty ?? {
-        cached.leaders.put(team.id, fuccess(ids))
-        teamRepo.setLeaders(team.id, ids).void
+        if (ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod) {
+          cached.leaders.put(team.id, fuccess(ids))
+          logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
+          teamRepo.setLeaders(team.id, ids).void
+        } else {
+          logger.info(s"invalid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
+          funit
+        }
       }
     }
   }
