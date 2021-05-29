@@ -903,4 +903,5 @@
   <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
   <string name="subscribe">Підписатись</string>
   <string name="unsubscribe">Відписатись</string>
+  <string name="resVsX">%1$s vs %2$s</string>
 </resources>
