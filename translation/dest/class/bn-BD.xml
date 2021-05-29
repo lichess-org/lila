@@ -23,4 +23,21 @@
   <string name="releaseTheAccount">অ্যাকাউন্টটিকে মুক্তি দিন যাতে ছাত্র তা স্বাধীনভাবে ব্যবহার করতে পারে।</string>
   <string name="releaseDesc1">একটা মুক্তি দেয়া অ্যাকাউন্ট পুনরায় বানানো যাবে না। ছাত্ররা নিজেরাই কিড মোড টগল করতে এবং পাসওয়ার্ড রিসেট করতে পারবে।</string>
   <string name="releaseDesc2">এই ছা্ত্র অ্যাকাউন্ট মুক্তি দেয়ার পর ক্লাসে থেকে যাবে।</string>
+  <string name="realUniqueEmail">ছাত্রের আসল, অনন্য ইমেইল অ্যাড্রেস। আমরা একটি কনফার্মেশন ইমেইল পাঠাবো, যেটায় অ্যাকাউন্ট মুক্তি দেয়ার জন্য লিংক থাকবে।</string>
+  <string name="teachers">শিক্ষকবৃন্দ</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">শিক্ষক</item>
+    <item quantity="other">%s জন শিক্ষক</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">ছাত্র</item>
+    <item quantity="other">%s জন ছাত্র</item>
+  </plurals>
+  <string name="students">ছাত্রবৃন্দ</string>
+  <string name="progress">অগ্রগতি</string>
+  <string name="noStudents">ক্লাসে এখনো কোন ছাত্র নেই।</string>
+  <string name="noRemovedStudents">কোন বাদ দেয়া ছাত্র নেই।</string>
+  <string name="overDays">কয়েকদিনব্যাপী</string>
+  <string name="timePlaying">কতক্ষণ খেলা চলছে</string>
+  <string name="variantXOverLastY">শেষ %2$s এর %1$s</string>
 </resources>
