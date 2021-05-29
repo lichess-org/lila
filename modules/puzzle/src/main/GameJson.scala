@@ -83,10 +83,11 @@ final private class GameJson(
     Json
       .obj(
         "userId" -> userId,
-        "name"   -> s"${user.name} (${p.rating.??(_.toString)})",
+        "name"   -> s"${user.name}${p.rating.??(r => s" ($r)")}",
         "color"  -> p.color.name
       )
       .add("title" -> user.title)
+      .add("ai" -> p.aiLevel)
   })
 
   private def generateBc(game: Game, plies: Int): JsObject =

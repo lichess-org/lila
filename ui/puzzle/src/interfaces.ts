@@ -167,6 +167,7 @@ export interface PuzzlePlayer {
   userId: string;
   name: string;
   title?: string;
+  ai?: number;
   color: Color;
 }
 
