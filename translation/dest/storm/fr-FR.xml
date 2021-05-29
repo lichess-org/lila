@@ -9,12 +9,12 @@
   <string name="previousHighscoreWasX">Le record précédent était %s</string>
   <string name="playAgain">Recommencer</string>
   <plurals name="xRuns">
-    <item quantity="one">1 essai</item>
-    <item quantity="other">%s essais</item>
+    <item quantity="one">1 course</item>
+    <item quantity="other">%s courses</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">A fait un essai de %2$s</item>
-    <item quantity="other">A fait %1$s essais de %2$s</item>
+    <item quantity="one">A fait une course de %2$s</item>
+    <item quantity="other">A fait %1$s courses de %2$s</item>
   </plurals>
   <string name="highscoreX">Record : %s</string>
   <string name="score">Score</string>
@@ -23,12 +23,12 @@
   <string name="combo">Enchaînement</string>
   <string name="time">Temps</string>
   <string name="timePerMove">Temps par coup</string>
-  <string name="highestSolved">Prob. résolu le plus difficile</string>
+  <string name="highestSolved">Problème résolu le plus difficile</string>
   <string name="puzzlesPlayed">Problèmes joués</string>
-  <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
-  <string name="endRun">Terminer l\'essai (raccourci clavier: Entrée)</string>
+  <string name="newRun">Nouvelle course (raccourci clavier: Espace)</string>
+  <string name="endRun">Terminer la course (raccourci clavier: Entrée)</string>
   <string name="highscores">Meilleurs scores</string>
-  <string name="viewBestRuns">Voir les meilleurs essais</string>
-  <string name="bestRunOfDay">Meilleur essai du jour</string>
-  <string name="runs">Essai</string>
+  <string name="viewBestRuns">Voir les meilleures courses</string>
+  <string name="bestRunOfDay">Meilleure course du jour</string>
+  <string name="runs">Courses</string>
 </resources>

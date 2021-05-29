@@ -2,14 +2,14 @@
 <resources>
 	<string name="faqAbbreviation">Perguntas Frequentes</string>
 	<string name="frequentlyAskedQuestions">Perguntas Frequentes</string>
-	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
+	<string name="whyIsLishogiCalledLishogi">Por que o Lishogi se chama Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
-	<string name="leechess">lee-shogi</string>
+	<string name="leechess">lishôgui</string>
 	<string name="hearItPronouncedBySpecialist"> Escute a sua pronúncia por um especialista.</string>
 	<string name="whyLiveLightLibre">Live, porque partidas são jogadas e assistidas em tempo real 24/7; light e libre pelo fato de que Lishogi é de código-aberto e livre de lixo eletrônico que atormenta em outros sites.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="howCanIContributeToLishogi">Como posso contribuir para o Lishogi?</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
 	<string name="beingAPatron">Become a Patron.</string>

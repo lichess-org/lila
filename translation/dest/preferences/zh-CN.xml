@@ -6,7 +6,7 @@
 	<string name="materialDifference">子力差距</string>
 	<string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
 	<string name="pieceDestinations">棋子走到位置（有效着与预先走棋）</string>
-	<string name="dropDestinations">棋子走到位置（有效着与预先走棋）</string>
+	<string name="dropDestinations">棋子打入位置（有效着与预先走棋）</string>
 	<string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
 	<string name="moveListWhilePlaying">对局进行时显示可走着</string>
 	<string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>

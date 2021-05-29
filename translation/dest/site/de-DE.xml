@@ -242,7 +242,7 @@
 	<string name="confirmMove">Zug bestätigen</string>
 	<string name="play">Spielen</string>
 	<string name="inbox">Posteingang</string>
-	<string name="streamerManager">Streamer Verwaltung</string>
+	<string name="streamerManager">Streamer manager</string>
 	<string name="chatRoom">Chatraum</string>
 	<string name="loginToChat">Logge dich ein, um zu chatten</string>
 	<string name="youHaveBeenTimedOut">Dir wurde eine Auszeit verordnet.</string>
@@ -344,7 +344,7 @@
 	<string name="apply">Anwenden</string>
 	<string name="save">Speichern</string>
 	<string name="leaderboard">Rangliste</string>
-	<string name="selectHandicap">Satz Handicap</string>
+	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Füge den FEN-Text hier ein</string>
 	<string name="pasteThePgnStringHere">Füge den PGN-Text hier ein</string>
 	<string name="fromPosition">Von Stellung</string>
@@ -440,11 +440,11 @@
 	<string name="boardEditor">Stellung aufbauen</string>
 	<string name="setTheBoard">Brett aufbauen</string>
 	<string name="popularOpenings">Beliebte Eröffnungen</string>
-	<string name="handicaps">Handicap (inkl. Verlängerung)</string>
-	<string name="handicap">Handicap (inkl. Verlängerung)</string>
+	<string name="handicaps">Handicaps</string>
+	<string name="handicap">Handicap</string>
 	<string name="startPosition">Anfangsposition</string>
 	<string name="clearBoard">Brett räumen</string>
-	<string name="fillGotesHand">Gib Gotes Hand aus</string>
+	<string name="fillGotesHand">Fill Gote\'s hand</string>
 	<string name="savePosition">Stellung speichern</string>
 	<string name="loadPosition">Stellung laden</string>
 	<string name="isPrivate">Privat</string>
@@ -545,7 +545,7 @@
 	<string name="newPasswordAgain">Neues Passwort (wiederholen)</string>
 	<string name="clockInitialTime">Grundbedenkzeit</string>
 	<string name="clockIncrement">Zeit-Inkrement</string>
-	<string name="clockByoyomi">Byoyom der Uhr</string>
+	<string name="clockByoyomi">Clock byoyomi</string>
 	<string name="privacy">Privatsphäre</string>
 	<string name="letOtherPlayersFollowYou">Anderen erlauben, mir zu folgen</string>
 	<string name="letOtherPlayersChallengeYou">Anderen erlauben, mich herauszufordern</string>
@@ -576,7 +576,7 @@
 	<string name="starting">Beginnt:</string>
 	<string name="allInformationIsPublicAndOptional">Alle Informationen sind öffentlich und freiwillig.</string>
 	<string name="yourCityRegionOrDepartment">Deine Stadt, Region oder Bundesland.</string>
-	<string name="biographyDescription">Erzähl über dich, was du an Schach magst, deine Lieblingseröffnungen, Partien, Spieler, …</string>
+	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
 	<plurals name="maximumNbCharacters">
 		<item quantity="one">Höchstens %s Zeichen.</item>
 		<item quantity="other">Höchstens %s Zeichen.</item>
@@ -630,7 +630,7 @@
 	<string name="watch">Zuschauen</string>
 	<string name="videoLibrary">Video-Bibliothek</string>
 	<string name="streamersMenu">Streamer</string>
-	<string name="mobileApp">Besorgen Sie sich die mobile App</string>
+	<string name="mobileApp">Mobile App</string>
 	<string name="webmasters">Webmaster</string>
 	<string name="about">Über</string>
 	<string name="aboutX">Über %s</string>
@@ -658,11 +658,11 @@
 	<string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
 	<string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
 	<string name="simulHostExtraTime">Extra Bedenkzeit des Ausrichters</string>
-	<string name="numberOfByoyomiPeriods">Anzahl der vorherigen Perioden</string>
-	<string name="hostColorForEachGame">Wählen Sie die Farbe für jeden Wert</string>
-	<string name="onlyMembersOfTeam">Lediglich Nutzer von %s</string>
-	<string name="simulDescription">Sim-Beschreibung</string>
-	<string name="anythingTellParticipants">Möchtest du den Teilnehmern etwas mitteilen?</string>
+	<string name="numberOfByoyomiPeriods">Number of byoyomi periods</string>
+	<string name="hostColorForEachGame">Host color for each game</string>
+	<string name="onlyMembersOfTeam">Nur Teammitglieder</string>
+	<string name="simulDescription">Simul description</string>
+	<string name="anythingTellParticipants">Anything you want to tell the participants?</string>
 	<string name="lishogiTournaments">Lishogi-Turniere</string>
 	<string name="tournamentFAQ">Arena FAQ</string>
 	<string name="tournamentOfficial">Offiziell</string>
@@ -714,7 +714,7 @@
 	<string name="youHaveAlreadyRegisteredTheEmail">Du hast die folgende Emailadresse schon registriert: %s</string>
 	<string name="kidMode">Kindermodus</string>
 	<string name="kidModeExplanation">Dies ist eine Sicherheitseinstellung. Im Kindermodus sind alle Kommunikationsmöglichkeiten deaktiviert. Aktiviere diese Option, um Kinder und Schüler vor anderen Internetbenutzern zu schützen.</string>
-	<string name="inKidModeTheLishogiLogoGetsIconX">Im Kindermodus erhält das Lichess-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
+	<string name="inKidModeTheLishogiLogoGetsIconX">Im Kindermodus erhält das Lishogi-Logo ein %s-Icon, an dem erkennen kannst, dass deine Kinder geschützt sind.</string>
 	<string name="enableKidMode">Kindermodus aktivieren</string>
 	<string name="disableKidMode">Kindermodus deaktivieren</string>
 	<string name="security">Sicherheit</string>
@@ -765,7 +765,7 @@
 	<string name="directlySupportLishogi">Lishogi direkt unterstützen</string>
 	<string name="playChessInStyle">Shogispielen mit Style</string>
 	<string name="chessBasics">Shogi-Grundlagen</string>
-	<string name="shogiResources">Gelagerte Ressourcen:</string>
+	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trainer</string>
 	<string name="invalidPgn">Fehlerhaftes PGN</string>
 	<string name="invalidFen">FEN ungültig</string>
@@ -889,8 +889,8 @@
 	<string name="whiteOffersImpasse">Gote bietet Impasse an</string>
 	<string name="notationSystem">Notation</string>
 	<string name="officialBlog">Offizieller Lishogi-Blog</string>
-	<string name="blogPostsFromYear">Blog-Beiträge von %1$s</string>
+	<string name="blogPostsFromYear">Blog posts from %1$s</string>
 	<string name="previousBlogPosts">Vorherige Blogeinträge</string>
-	<string name="continueReadingThis"> Diese Geschichte weiterlesen</string>
+	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Diesen Blog-Beitrag im Forum diskutieren</string>
 </resources>

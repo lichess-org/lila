@@ -8,9 +8,9 @@
   <string name="advanced">高级</string>
   <string name="lengths">长度</string>
   <string name="mates">杀王</string>
-  <string name="goals">进球</string>
+  <string name="goals">目标</string>
   <string name="origin">来源</string>
-  <string name="specialMoves">特殊着法</string>
+  <string name="specialMoves">特殊战术</string>
   <string name="didYouLikeThisPuzzle">你喜欢了这个训练题吗？</string>
   <string name="voteToLoadNextOne">投票以加载下一题</string>
   <string name="yourPuzzleRatingX">你的解题积分：%s</string>
@@ -23,7 +23,7 @@
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳着！</string>
   <string name="keepGoing">请继续……</string>
-  <string name="puzzleSuccess">解题成功!</string>
+  <string name="puzzleSuccess">成功!</string>
   <string name="puzzleComplete">解题完成</string>
   <string name="notTheMove">不是最佳着法</string>
   <string name="trySomethingElse">尝试其他着法</string>
@@ -46,11 +46,11 @@
   <string name="hardest">最难</string>
   <string name="example">示例</string>
   <string name="addAnotherTheme">添加新的主题</string>
-  <string name="jumpToNextPuzzleImmediately">一解决训练题就马上转到下一个</string>
+  <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">训练题仪表板</string>
-  <string name="improvementAreas">待提升</string>
-  <string name="strengths">优点</string>
+  <string name="improvementAreas">进步范围</string>
+  <string name="strengths">长处</string>
   <string name="history">解题历史</string>
-  <string name="solved">已解决</string>
+  <string name="solved">成功</string>
   <string name="failed">失败</string>
 </resources>

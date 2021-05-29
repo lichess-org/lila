@@ -2,7 +2,7 @@
 <resources>
   <string name="activity">Aktivitás</string>
   <string name="hostedALiveStream">Élő közvetítést adott</string>
-  <plurals name="supportedNbMonths">
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="one">A lishogi.org támogatója %1$s hónapja %2$s-ként</item>
     <item quantity="other">A lishogi.org támogatója %1$s hónapja %2$s-ként</item>
   </plurals>

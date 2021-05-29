@@ -2,7 +2,7 @@
 <resources>
   <string name="activity">动态</string>
   <string name="hostedALiveStream">主持了直播</string>
-  <plurals name="supportedNbMonths">
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="other">该用户作为%2$s已赞助lishogi.org%1$s个月</item>
   </plurals>
   <plurals name="practicedNbPositions">

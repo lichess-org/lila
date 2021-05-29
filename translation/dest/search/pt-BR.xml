@@ -3,8 +3,8 @@
 	<string name="search">Buscar</string>
 	<string name="advancedSearch">Busca avançada</string>
 	<plurals name="searchInXGames">
-		<item quantity="one">Search in %s shogi game</item>
-		<item quantity="other">Search in %s shogi games</item>
+		<item quantity="one">Buscar em %s jogo de shogi</item>
+		<item quantity="other">Buscar em %s jogos de shogi</item>
 	</plurals>
 	<plurals name="xGamesFound">
 		<item quantity="one">Um jogo encontrado</item>

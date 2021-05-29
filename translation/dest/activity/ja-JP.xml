@@ -2,7 +2,7 @@
 <resources>
   <string name="activity">活動</string>
   <string name="hostedALiveStream">主催したライブ配信</string>
-  <plurals name="supportedNbMonths">
+  <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
     <item quantity="other">%2$s として lishogi.org を %1$s か月間支援</item>
   </plurals>
   <plurals name="practicedNbPositions">
@@ -18,7 +18,7 @@
     <item quantity="other">%1$s 件のメッセージを %2$s に投稿</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="other">%1$s 手を指した</item>
+    <item quantity="other">%1$s 手をプレイ</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="other">（通信戦 %1$s 局で）</item>

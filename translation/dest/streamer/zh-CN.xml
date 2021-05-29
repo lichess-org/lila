@@ -24,9 +24,9 @@
   <string name="perk2">快速到达主播列表顶部。</string>
   <string name="perk3">通知您的Lishogi粉丝。</string>
   <string name="perk4">在您的游戏，比赛与研究中引入直播。</string>
-  <string name="youHaveBeenSelectedFrontpage">您已被选择为首页功能！</string>
-  <string name="noteThatOnlyLimited">注意我们只能在主页上显示数量有限的数据流， </string>
-  <string name="soYoursMayNotAlwaysAppear">因此，你可能并非总是出现。</string>
+  <string name="youHaveBeenSelectedFrontpage">您的直播将会在首页表示!</string>
+  <string name="noteThatOnlyLimited">由于我们在首页所能展示的直播有数值限制， </string>
+  <string name="soYoursMayNotAlwaysAppear">因此您的直播不一定会出现。</string>
   <string name="approved">您的直播已被批准。</string>
   <string name="pendingReview">您的直播正在由版主审核。</string>
   <string name="pleaseFillIn">请填写您的主播信息并上传一张图片。</string>

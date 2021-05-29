@@ -3,7 +3,7 @@
   <string name="advantage">Avantage</string>
   <string name="advantageDescription">Saisissez votre chance de gagner un avantage décisif.</string>
   <string name="castling">Roque</string>
-  <string name="castlingDescription">Emmener les blessés en lieu sûr</string>
+  <string name="castlingDescription">Amener le roi en sécurité.</string>
   <string name="crushing">Ecrasant</string>
   <string name="crushingDescription">Repérez la gaffe de l\'adversaire pour obtenir un avantage écrasant.</string>
   <string name="equality">Égalité</string>
@@ -16,7 +16,7 @@
   <string name="discoveredAttackDescription">Déplacer une pièce qui a auparavant bloqué la ligne d\'attaque d\'une pièce à longue portée (comme une tour) afin de réaliser cette menace.</string>
   <string name="doubleCheck">Échec double</string>
   <string name="doubleCheckDescription">Faire échec avec deux pièces à la fois, à la suite d\'une attaque à la découverte où la pièce mobile et la pièce dévoilée attaquent le roi adverse.</string>
-  <string name="endgame">Fin de partie</string>
+  <string name="endgame">Yosé</string>
   <string name="endgameDescription">Une tactique lors de la dernière phase du jeu.</string>
   <string name="fork">Fourchette</string>
   <string name="forkDescription">Un coup où la pièce déplacée attaque deux pièces de l\'adversaire à la fois.</string>
@@ -60,12 +60,12 @@
   <string name="healthyMixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
   <string name="tsume">Tsume</string>
   <string name="tsumeDescription">Mater l\'adversaire, pourvu que chaque coup donne un échec.</string>
-  <string name="strikingPawn">Pion frappant</string>
-  <string name="strikingPawnDescription">Une tactique qui consiste à lâcher un pion devant la pièce de l\'adversaire et à l\'attaquer.</string>
-  <string name="joiningPawn">Rejoindre le pion</string>
-  <string name="joiningPawnDescription">Une tactique dans laquelle un pion est sacrificiellement jeté devant la pièce de l\'adversaire.</string>
-  <string name="dancingPawns">Les pions dansants</string>
-  <string name="dancingPawnsDescription">Une tactique pour capturer l\'or de l\'adversaire en sacrifiant un pion.</string>
+  <string name="strikingPawn">Striking pawn</string>
+  <string name="strikingPawnDescription">Une tactique qui consiste à parachuter un pion devant une pièce de l\'adversaire pour l\'attaquer.</string>
+  <string name="joiningPawn">Joining pawn</string>
+  <string name="joiningPawnDescription">Une tactique où un pion est sacrificiellement parachuté devant une pièce adverse.</string>
+  <string name="dancingPawns">Dancing pawns</string>
+  <string name="dancingPawnsDescription">Une tactique pour capturer un général d\'or adverse par un sacrifice de pion.</string>
   <string name="edgeAttack">Attaque sur le flanc</string>
   <string name="edgeAttackDescription">Une tactique qui consiste à attaquer l\'adversaire par la première ou la neuvième colonne.</string>
   <string name="veryLong">Très long problème</string>

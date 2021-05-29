@@ -32,13 +32,12 @@
   <string name="pleaseFillIn">配信者としての情報を入力し、写真をアップロードしてください。</string>
   <string name="whenReady">Lishogi 配信者登録の用意ができたら、%s</string>
   <string name="requestReview">モデレーターによる審査を求めます</string>
-  <string name="anotherLanguage">If your stream is in a language other than English, include the correct language tag (%s), enclosed in square brackets, at the start of your stream title.
-As examples, you can include \"[RU]\" for Russian, \"[TR]\" for Turkish, \"[FR]\" for French, etc.
-Put this in the stream title in the Twitch or YouTube page, not in the Lishogi stream settings.
-If your stream is in English, there is no need to include a language tag.
+  <string name="anotherLanguage">配信が英語以外の言語で行われる場合は、配信のタイトルの最初に正しい言語タグ(%s)を角括弧で囲んで入れてください。
+例としては、ロシア語なら「[RU]」、トルコ語なら「[TR]」、フランス語なら「[FR]」などを入れることができます。
+これはLishogiの配信設定ではなく、TwitchやYouTubeのページの配信タイトルに入れてください。
+配信が英語で行われる場合は、言語タグを含める必要はありません。
 
-Streamer pages eventually expire if they are not used for a long time, also, you must stream once within a week of your approval or the page de-activates. The streaming trophy will also not appear on your account until you’ve streamed. If your streamer page has expired you must apply again and wait to be approved.
- </string>
+配信者ページは長期間使用されないと最終的に失効します。また、承認後1週間以内に一度でもストリーミングを行わないと、ページが非アクティブになります。配信者トロフィーも配信を行うまでアカウントに表示されません。配信者ページの有効期限が切れた場合は、再度申請して承認されるのを待つ必要があります。 </string>
   <string name="twitchUsername">あなたの Twitch ユーザー名または URL</string>
   <string name="optionalOrEmpty">任意。なければ空白</string>
   <string name="youtubeChannel">あなたの YouTube チャンネル ID または URL</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="lishogiClasses">Classes</string>
-	<string name="teachClassesOfChessStudents">Teach classes of shogi students with the Lishogi Classes tool suite.</string>
+	<string name="lishogiClasses">Turmas</string>
+	<string name="teachClassesOfChessStudents">Ensine turmas de estudantes de shogi com o pacote Turmas do Lishogi.</string>
 	<string name="features">Recursos</string>
 	<string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de usuário e senhas seguras para estudantes</string>
 	<string name="trackStudentProgress">Observe o progresso dos estudantes em partidas e quebra-cabeças</string>
 	<string name="messageAllStudents">Notifique todos os estudantes sobre novos materiais</string>
 	<string name="freeForAllForever">100% grátis, pra sempre, sem anúncios ou trackers</string>
-	<string name="applyToBeLishogiTeacher">Apply to be a Lishogi Teacher</string>
+	<string name="applyToBeLishogiTeacher">Candidate-se a se tornar um Professor Lishogi</string>
 	<string name="noClassesYet">Nenhuma turma por enquanto.</string>
 	<string name="teachersX">Professores: %s</string>
 	<string name="newClass">Nova turma</string>
@@ -23,7 +23,7 @@
 	<string name="classDescription">Descrição da turma</string>
 	<string name="visibleByBothStudentsAndTeachers">Visível para ambos professores e alunos</string>
 	<string name="teachersOfTheClass">Professores da turma</string>
-	<string name="addLishogiUsernames">Add Lishogi usernames to invite them as teachers. One per line.</string>
+	<string name="addLishogiUsernames">Adicione nomes de usuário do Lishogi para convidá-los como professores. Um por linha.</string>
 	<string name="theyMustFirstApply">Primeiro, devem candidatar-se a professores Lishogi.</string>
 	<string name="resetPassword">Alterar senha</string>
 	<string name="makeSureToCopy">Copie ou escreva a sua senha em algum lugar. Você não poderá vê-la novamente!</string>
@@ -33,22 +33,22 @@
 	<string name="realName">Nome real</string>
 	<string name="privateWillNeverBeShown">Privado. Jamais será exibido fora da turma. Ajuda a memorizar quem o aluno é.</string>
 	<string name="addStudent">Adicionar aluno</string>
-	<string name="lishogiProfileXCreatedForY">Lishogi profile %1$s created for %2$s.</string>
+	<string name="lishogiProfileXCreatedForY">Perfil Lishogi %1$s criado para %2$s.</string>
 	<string name="studentCredentials">Aluno:  %1$s
 Nome de usuário: %2$s
 Senha: %3$s</string>
-	<string name="inviteALishogiAccount">Invite a Lishogi account</string>
+	<string name="inviteALishogiAccount">Convidar uma conta Lishogi</string>
 	<string name="inviteDesc1">Se o estudante já tiver uma conta Lishogi, você pode convidá-lo para a turma.</string>
 	<string name="inviteDesc2">Eles receberão uma mensagem no Lishogi com um link para se juntar à turma.</string>
 	<string name="inviteDesc3">Importante: convide apenas alunos que você conheça e que queiram ativamente participar da turma.</string>
 	<string name="inviteDesc4">Nunca envie convites a jogadores aleatórios que não os pediram.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
-	<string name="createDesc1">Se o aluno ainda não tem uma conta Lishogi, pode criar uma para ele aqui.</string>
-	<string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma palavra-passe será gerada e terá que transmiti-la ao aluno, para que ele possa ter acesso.</string>
+	<string name="createANewLishogiAccount">Criar uma nova conta Lishogi</string>
+	<string name="createDesc1">Se o aluno ainda não tem uma conta Lishogi, você pode criar uma para ele aqui.</string>
+	<string name="createDesc2">Nenhum endereço de e-mail é necessário. Uma senha será gerada e você terá que transmiti-la ao aluno, para que ele possa ter acesso.</string>
 	<string name="createDesc3">Importante: um aluno não deve ter várias contas.</string>
 	<string name="createDesc4">Se já tiver um, utilize o formulário de convite.</string>
-	<string name="lishogiUsername">Lishogi username</string>
-	<string name="generateANewUsername">Gerar um novo nome de utilizador</string>
+	<string name="lishogiUsername">Nome de usuário do Lishogi</string>
+	<string name="generateANewUsername">Gerar um novo nome de usuário</string>
 	<string name="welcomeToClass">Bem-vindo à sua turma: %s.
 Aqui está o link para acessar a turma.</string>
 	<string name="invitationToClass">Você está convidado a participar da turma \"%s\" como um estudante.</string>
@@ -75,7 +75,7 @@ Aqui está o link para acessar a turma.</string>
 	</plurals>
 	<plurals name="nbStudents">
 		<item quantity="one">Aluno</item>
-		<item quantity="other">%s alunos</item>
+		<item quantity="other">%s estudantes</item>
 	</plurals>
 	<string name="students">Estudantes</string>
 	<string name="progress">Progresso</string>
@@ -85,8 +85,8 @@ Aqui está o link para acessar a turma.</string>
 	<string name="timePlaying">Tempo jogado</string>
 	<string name="variantXOverLastY">%1$s sobre os últimos %2$s</string>
 	<string name="winrate">Índice de vitórias</string>
-	<string name="na">N/A</string>
-	<string name="news">Notícias sobre a aula</string>
+	<string name="na">Não disponível</string>
+	<string name="news">Notícias da turma</string>
 	<string name="editNews">Editar notícias</string>
 	<string name="notifyAllStudents">Notificar todos os alunos</string>
 	<string name="nothingHere">Nada aqui, ainda.</string>

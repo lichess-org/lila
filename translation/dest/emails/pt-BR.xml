@@ -15,7 +15,7 @@
 Aqui está a página do seu perfil: %1$s. Você pode personalizá-lo em %2$s.
 
 Divirta-se, e que as suas peças sempre encontrem o caminho até o rei inimigo!</string>
-  <string name="logInToLishogi">Log in to lishogi.org, %s</string>
+  <string name="logInToLishogi">Entre no lishogi.org, %s</string>
   <string name="common_orPaste">(Clicar não funciona? Tente colocar o link no seu navegador!)</string>
   <string name="common_note">Isto é um e-mail de serviço relacionado com a sua atividade em %s.</string>
   <string name="common_contact">Para nos contactar, por favor utilize %s.</string>
