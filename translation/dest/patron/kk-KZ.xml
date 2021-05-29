@@ -72,5 +72,5 @@
   <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
   <string name="nowLifetime">Енді сіз өмір бойы Личес Қамқоршысысыз!</string>
   <string name="nowOneMonth">Енді сіз бір айлық Личес Қамқоршысысыз!</string>
-  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес аккаунтыңыз қайттан қарапайым аккаунтқа ауысады.</string>
+  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес тіркелгіңіз қайттан жай тіркелгіге ауысады.</string>
 </resources>
