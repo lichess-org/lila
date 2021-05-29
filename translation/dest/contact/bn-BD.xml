@@ -19,4 +19,6 @@
   <string name="doNotAskByEmail">ইমেইলে আমাদেরকে অ্যাকাউন্ট বন্ধ করতে বলবেন না, আমরা তা করব না।</string>
   <string name="wantReopen">আমি আমার অ্যাকাউন্ট পুনরায় চালু করতে চাই</string>
   <string name="reopenOnThisPage">আপনি এখানে আপনার অ্যাকাউন্ট পুনরায় চালু করতে পারেন। এটা শুধু একবারই কাজ করে</string>
+  <string name="doNotAskByEmailToReopen">আমাদের ইমেইলে অ্যাকাউন্ট পুনরায় চালু করতে বলবেন না, আমরা তা করব না।</string>
+  <string name="sendEmailAt">আমাদেরকে %s এ ইমেইল পাঠান</string>
 </resources>
