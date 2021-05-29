@@ -24,8 +24,10 @@ module.exports = function (opts, trans) {
 
   var level = makeLevel(stage.levels[levelId - 1], {
     stage: stage,
-    onComplete: function () {
+    onCompleteImmediate() {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
+    },
+    onComplete() {
       if (level.blueprint.id < stage.levels.length) m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
       else {
         vm.stageCompleted(true);

@@ -25,6 +25,7 @@ module.exports = function (blueprint, opts) {
 
   var complete = function () {
     vm.willComplete = true;
+    if (!blueprint.nextButton) opts.onCompleteImmediate();
     timeouts.setTimeout(
       function () {
         vm.lastStep = false;
