@@ -845,5 +845,16 @@
   <string name="youHaveJoinedTeamX">আপনি \"%1$s\" এ যোগদান করেছেন।</string>
   <string name="someoneYouReportedWasBanned">আপনি অভিযুক্ত একজনকে ব্যান করা হয়েছে</string>
   <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
+  <string name="gameVsX">খেলা বনাম %1$s</string>
+  <string name="resVsX">%1$s বনাম %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">কেউ আপনার কোচ প্রোফাইল রিভিউ করেছেন।</string>
+  <string name="newPendingReview">নতুন অনিষ্পন্ন রিভিউ</string>
+  <string name="lostAgainstTOSViolator">আপনি এমন কারোর সাথে হেরেছেন যে Liches TOS ভঙ্গ করেছে</string>
+  <string name="refundXpointsTimeControlY">ফেরত: %1$s %2$s রেটিং পয়েন্ট।</string>
   <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
+  <string name="clickToRevealEmailAddress">[ইমেইল অ্যাড্রেস দেখতে ক্লিক করুন]</string>
+  <string name="download">ডাউনলোড করুন</string>
+  <string name="welcome">স্বাগতম!</string>
+  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
+সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
 </resources>
