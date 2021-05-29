@@ -177,7 +177,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (crazyValid(vm.node.fen, piece, dest)) {
       vm.justDropped = piece;
       playUserDrop(piece, dest);
-    } else jump(vm.path);
+    } else {
+      jump(vm.path);
+      redraw();
+    }
     cancelDropMode(ground()!.state);
     vm.dropmodeActive = false;
   }
