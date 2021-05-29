@@ -60,10 +60,10 @@
   <string name="onlyVisibleToTeachers">Тек үйірме ұстаздарына көрінеді</string>
   <string name="lastActiveDate">Белсенді</string>
   <string name="managed">Басқарулы</string>
-  <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – басқарулы</string>
+  <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – байлаулы</string>
   <string name="upgradeFromManaged">Басқарулы күйден тәуелсіз күйге ауысу</string>
   <string name="release">Босату</string>
-  <string name="releaseTheAccount">Тіркелгіні шәкіртке тапсырыңыз, сонда ол дара өзі басқаратын болады.</string>
+  <string name="releaseTheAccount">Тіркелгіні босатыңыз, сонда шәкірт дара өзі басқаратын болады.</string>
   <string name="releaseDesc1">Тапсырылған тіркелгіні қайттан басқару мүмкін болмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қауқарлы болады.</string>
   <string name="releaseDesc2">Тіркелгі тапсырылған соң шәкірт үйірмеде қала береді.</string>
   <string name="realUniqueEmail">Шәкірттің шын поштасы. Сонда тіркелгі тапсыруын растайтын хат жіберетін боламыз.</string>
