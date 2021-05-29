@@ -4,11 +4,11 @@
   <string name="contactLichess">Личеспен байланыс</string>
   <string name="whatCanWeHelpYouWith">Сізге қандай көмек көрсете аламыз?</string>
   <string name="visitThisPage">Бұл мәселені шешу үшін осы парақшаны ашыңыз</string>
-  <string name="iCantLogIn">Мен аккаунтыма кіре алмай отырмын</string>
+  <string name="iCantLogIn">Мен кіре алмай отырмын</string>
   <string name="noConfirmationEmail">Маған растау хаты келген жоқ</string>
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
-  <string name="forgotUsername">Мен аккаунт атын ұмыттым</string>
-  <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, аккаунтқа кіре аласыз</string>
+  <string name="forgotUsername">Мен тіркелгі атын ұмыттым</string>
+  <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
   <string name="lost2FA">Мен екі сатылы анықтау кодтарын ала алмай отырмын</string>
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
@@ -20,7 +20,7 @@
   <string name="wantReopen">Мен тіркелгімді қайта ашқым келеді</string>
   <string name="reopenOnThisPage">Сіз тіркелгіңізді осы парақшада қайта аша аласыз. Бұны бір рет қана істеуге болады.</string>
   <string name="doNotAskByEmailToReopen">Поштамен тіркелгіні қайта ашуды сұрамаңыз, біз оны орындамаймыз.</string>
-  <string name="wantChangeUsername">Мен аккаунт атымды өзгерткім келеді</string>
+  <string name="wantChangeUsername">Мен тіркелгі атымды өзгерткім келеді</string>
   <string name="changeUsernameCase">Атыңыздың әріп үлкендігін өзгерту үшін осы парақшаны ашыңыз</string>
   <string name="cantChangeMore">Біз әріп үлкендігінен басқа ешбір өзгерту жасай алмаймыз. Техникалық себеппен бұл мүмкін емес.</string>
   <string name="orCloseAccount">Дегенмен, сіз бұл тіркелгіні жауып, жаңадан жасай аласыз.</string>
