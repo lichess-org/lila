@@ -494,7 +494,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Анықтау коды қате</string>
+  <string name="invalidAuthenticationCode">Түпнұсқалық растама коды қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -669,7 +669,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">%s деген поштаны сіз өткенде тіркегенсіз</string>
   <string name="kidMode">Балалық нұсқа</string>
   <string name="kidModeExplanation">Бұл қауіпсіздік үшін жасалынды. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Балалар мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау мақсатында осы нұсқаны іске қосыңыз.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаларыңыз қауіптен алшақ екенін біліп отырасыз.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
