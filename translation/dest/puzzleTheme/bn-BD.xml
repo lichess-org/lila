@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">অগ্রসর সৈন্য</string>
+  <string name="advancedPawnDescription">আপনার একটি সৈন্য প্রতিপক্ষের অবস্থানের গভীরে গিয়েছে, সম্ভবত তা প্রমোশনের জন্য হুশিয়ারি দিচ্ছে।</string>
+  <string name="advantage">লাভ</string>
+  <string name="advantageDescription">মারাত্বক লাভের জন্য আপনার সুযোগকে কাজে লাগান (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">অ্যানেস্তেসিয়ার মাত</string>
+  <string name="anastasiaMateDescription">একটা ঘোড়া এবং একটা নৌকা অথবা মন্ত্রীকে নিয়ে দল বাঁধান প্রতিপক্ষের রাজাকে বোর্ডের সাইড এবং তারই গুটির মাঝে ফাঁদে ফেলার জন্য।</string>
+  <string name="arabianMate">আরবীয় মাত</string>
+  <string name="arabianMateDescription">প্রতিপক্ষের রাজাকে বোর্ডের এক কোণায় ফাঁদে ফেলার জন্য একটা ঘোড়া এবং একটা নৌকার দলগঠন।</string>
+</resources>
