@@ -53,5 +53,5 @@ export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
   let nbSimilarPositions = 0,
     i;
   for (i in nodeList) if (threefoldFen(nodeList[i].fen) === currentFen) nbSimilarPositions++;
-  node.threefold = nbSimilarPositions > 2;
+  node.threefold = nbSimilarPositions > 3;
 }
