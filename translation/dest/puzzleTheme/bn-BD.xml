@@ -38,4 +38,15 @@
   <string name="deflection">বিচ্যুতি</string>
   <string name="deflectionDescription">একটা চাল যা প্রতিপক্ষের গুটিকে নিজের কাজ (যেমন একটা চাবি ঘর পাহাড়া দেয়া) থেকে সরায়। কখনো কখনো এটাকে ওভারলোডিং ও বলা হয়।</string>
   <string name="discoveredAttack">আবিষ্কৃত আক্রমণ</string>
+  <string name="discoveredAttackDescription">একটা গুটি (যেমন ঘোড়া), যা পূর্বে কোন গুটির আক্রমণকে প্রতিরোধ করছিল, তাকে সেই গুটির রাস্তা থেকে সরিয়ে আক্রমণ করা। এতে যেগুটি সরানো হলো এবং যেগুটির পথ থেকে সরানো হলো উভয়ই আক্রমণ করবে।</string>
+  <string name="doubleCheck">দ্বৈত চেক</string>
+  <string name="doubleCheckDescription">দুটি গুটি দিয়ে একসাথে চেক করা, আবিষ্কৃত আক্রমণের ফলস্বরূপ যেখানে যে গুটি সরে এবং যে গুটির রাস্তা পরিষ্কার হয় উভয়ই প্রতিপক্ষের রাজাকে আক্রমণ করে।</string>
+  <string name="endgame">এন্ডগেম</string>
+  <string name="endgameDescription">গেমের শেষ পর্যায়ের একটি ট্যাকটিক।</string>
+  <string name="enPassantDescription">এন প্যাসান্ট রুলকে কেন্দ্র করে একটি ট্যাকটিক, যেখানে একটা সৈন্য একটা প্রতিপক্ষের সৈন্যকে খেতে পারে যা তাকে পাশ কাটিয়েছে নিজের দুই ঘর অতিক্রমের ক্ষমতা ব্যবহার করে।</string>
+  <string name="exposedKing">বহি:প্রকাশিত রাজা</string>
+  <string name="exposedKingDescription">রাজার আশেপাশে অল্প রক্ষককে কেন্দ্র করে একটি ট্যাকটিক, প্রায়ই যা বাজিমাতে পরিণত হয়।</string>
+  <string name="fork">কাঁটাচামচ</string>
+  <string name="forkDescription">একটা চাল যেখানে একটা গুটি প্রতিপক্ষের দুটি গুটিকে আক্রমণ করে একইসাথে (যেভাবে একজন দুইহাতে দুটো কাঁটাচামচ দিয়ে দুটো জিনিসে আক্রমণ করে).</string>
+  <string name="hangingPiece">ঝুলন্ত গুটি</string>
 </resources>
