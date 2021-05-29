@@ -124,8 +124,8 @@ final class User(
                 _ <- env.tournament.cached.nameCache preloadMany {
                   pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctxLang)
                 }
-                notes <- ctx.me ?? { user =>
-                  env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), user.id)
+                notes <- ctx.me ?? { me =>
+                  env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me.id)
                 }
                 res <-
                   if (HTTPRequest isSynchronousHttp ctx.req) for {
