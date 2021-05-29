@@ -32,7 +32,7 @@
   <string name="realName">Шын аты</string>
   <string name="privateWillNeverBeShown">Жеке дара. Үйірмеден тыс көрсетілмейді. Шәкірттің кім екенін есте сақтауға көмектеседі.</string>
   <string name="addStudent">Шәкірт қосу</string>
-  <string name="lichessProfileXCreatedForY">%1$s аккаунты %2$s үшін құрылды.</string>
+  <string name="lichessProfileXCreatedForY">%1$s тіркелгісі %2$s үшін құрылды.</string>
   <string name="studentCredentials">Шәкірт: %1$s
 Аккаунт аты: %2$s
 Құпиясөз: %3$s</string>
@@ -66,6 +66,7 @@
   <string name="releaseTheAccount">Тіркелгіні шәкіртке тапсырыңыз, сонда ол дара өзі басқаратын болады.</string>
   <string name="releaseDesc1">Тапсырылған тіркелгіні қайттан басқару мүмкін болмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қауқарлы болады.</string>
   <string name="releaseDesc2">Тіркелгі тапсырылған соң шәкірт үйірмеде қала береді.</string>
+  <string name="realUniqueEmail">Шәкірттің шын поштасы. Сонда тіркелгі тапсыруын растайтын хат жіберетін боламыз.</string>
   <string name="teachers">Ұстаздар</string>
   <plurals name="nbTeachers">
     <item quantity="one">Ұстаз</item>
