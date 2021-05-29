@@ -111,7 +111,7 @@
     <item quantity="other">Вставте ваш PGN текст тут, до %s ігор</item>
   </plurals>
   <string name="urlOfTheGame">URL-адреса гри</string>
-  <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
+  <string name="loadAGameFromXOrY">Завантажити гру з %1$s</string>
   <string name="createChapter">Створити розділ</string>
   <string name="configureLiveBroadcast">Налаштувати живу трансляцію</string>
   <string name="createStudy">Створити дослідження</string>
