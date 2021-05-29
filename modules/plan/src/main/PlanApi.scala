@@ -286,7 +286,9 @@ final class PlanApi(
       .void >> setDbUserPlanOnCharge(user, levelUp = false)
 
   def remove(user: User): Funit =
-    userRepo.unsetPlan(user) >>- lightUserApi.invalidate(user.id)
+    userRepo.unsetPlan(user) >>
+      patronColl.unsetField($id(user.id), "lifetime").void >>-
+      lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 100
   private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {
