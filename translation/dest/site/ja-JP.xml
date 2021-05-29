@@ -824,4 +824,8 @@
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>
   <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
+  <string name="download">ダウンロード</string>
+  <string name="welcome">ようこそ！</string>
+  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
+運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
 </resources>
