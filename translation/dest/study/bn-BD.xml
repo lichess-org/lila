@@ -26,10 +26,36 @@
     <item quantity="other">%sটি খেলা</item>
   </plurals>
   <string name="addMembers">সদস্য যোগ করুন</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s জন সদস্য</item>
+    <item quantity="other">%s জন সদস্য</item>
+  </plurals>
+  <string name="inviteToTheStudy">স্টাডিতে আমন্ত্রণ জানান</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">দয়া করে যাদের আপনি জানেন তাদের এবং যারা সক্রিয়ভাবে যোগদান করতে চায়, কেবল তাদেরকেই আমন্ত্রন জানান।</string>
+  <string name="searchByUsername">ইউজারনেম দ্বারা খুঁজুন</string>
+  <string name="spectator">দর্শক</string>
+  <string name="contributor">অবদানকারী</string>
+  <string name="kick">লাথি দিয়ে বের করুন</string>
   <string name="first">সর্ব প্রথম</string>
   <string name="previous">আগের ধাপ</string>
   <string name="next">পরের ধাপ</string>
   <string name="last">সর্বশেষ</string>
   <string name="studyPgn">অধ্যায়ন PGN আকারে</string>
   <string name="downloadAllGames">ডাউনলোড করুন সকল গেম</string>
+  <string name="startFromCustomPosition">নির্দিষ্ট অবস্থান থেকে শুরু করুন</string>
+  <string name="loadAGameByUrl">URL থেকে খেলা লোড করুন</string>
+  <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>
+  <string name="loadAGameFromPgn">PGN থেকে খেলা লোড করুন</string>
+  <string name="automatic">স্বয়ংক্রিয়</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
+    <item quantity="other">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>
+  </plurals>
+  <string name="urlOfTheGame">খেলাগুলোর URL, লাইনপ্রতি একটি</string>
+  <string name="loadAGameFromXOrY">%1$s অথবা %2$s থেকে খেলাসমূহ লোড করুন</string>
+  <string name="createChapter">অধ্যায় তৈরি করুন</string>
+  <string name="configureLiveBroadcast">লাইভ সম্প্রচার কনফিগার করুন</string>
+  <string name="createStudy">স্টাডি তৈরি করুন</string>
+  <string name="editStudy">স্টাডি সম্পাদনা করুন</string>
+  <string name="visibility">দৃশ্যমানতা</string>
 </resources>
