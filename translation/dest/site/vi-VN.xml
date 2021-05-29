@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
   <string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
   <string name="itsYourTurn">Đến lượt bạn!</string>
+  <string name="cheatDetected">Phát hiện gian lận</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
   <string name="raceFinished">Cuộc thi kết thúc.</string>
@@ -114,6 +115,15 @@
   <string name="blunder">Sai lầm</string>
   <string name="mistake">Lỗi</string>
   <string name="inaccuracy">Thiếu chính xác</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s sai lầm nghiêm trọng</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s nước đi sai</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s nước đi không chính xác</item>
+  </plurals>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ</string>
