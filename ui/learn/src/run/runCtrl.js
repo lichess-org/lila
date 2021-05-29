@@ -27,6 +27,7 @@ module.exports = function (opts, trans) {
     onComplete: function () {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
       if (level.blueprint.id < stage.levels.length) m.route('/' + stage.id + '/' + (level.blueprint.id + 1));
+      else if (vm.stageCompleted()) return;
       else {
         vm.stageCompleted(true);
         sound.stageEnd();
