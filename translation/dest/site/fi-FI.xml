@@ -862,4 +862,7 @@
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
   <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
   <string name="download">Lataa</string>
+  <string name="welcome">Tervetuloa!</string>
+  <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
+Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
 </resources>
