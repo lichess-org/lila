@@ -58,4 +58,41 @@
   <string name="createStudy">স্টাডি তৈরি করুন</string>
   <string name="editStudy">স্টাডি সম্পাদনা করুন</string>
   <string name="visibility">দৃশ্যমানতা</string>
+  <string name="public">পাবলিক</string>
+  <string name="unlisted">প্রাইভেট</string>
+  <string name="inviteOnly">কেবল আমন্ত্রনভিত্তিক</string>
+  <string name="allowCloning">ক্লোন করার অনুমতি দিন</string>
+  <string name="nobody">কেউ না</string>
+  <string name="onlyMe">শুধু আমি</string>
+  <string name="contributors">অবদানকারীরা</string>
+  <string name="members">সদস্যবৃন্দ</string>
+  <string name="everyone">সবাই</string>
+  <string name="enableSync">সাইনক চালু করুন</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">সবাইকে একই অবস্থানে রাখুন</string>
+  <string name="noLetPeopleBrowseFreely">না: মানুষকে মুক্তভাবে ব্রাউজ করতে দিন</string>
+  <string name="pinnedStudyComment">পিন করা স্টাডি মন্তব্য</string>
+  <string name="start">শুরু করুন</string>
+  <string name="save">সংরক্ষন করুন</string>
+  <string name="clearChat">চ্যাট পরিষ্কার করুন</string>
+  <string name="deleteTheStudyChatHistory">স্টাডি চ্যাটের ইতিহাস মুছে ফেলবেন? এটা কিন্তু ফিরে আসবে না!</string>
+  <string name="deleteStudy">স্টাডি মুছে ফেলুন</string>
+  <string name="deleteTheEntireStudy">পুরো স্টাডি মুছে ফেলবেন? এটা কিন্তু ফিরে আসবে না!</string>
+  <string name="whereDoYouWantToStudyThat">আপনি কোথায় এটা চর্চা করবেন?</string>
+  <string name="goodMove">ভালো চাল</string>
+  <string name="mistake">ভূল চাল</string>
+  <string name="brilliantMove">অসাধারণ চাল</string>
+  <string name="blunder">ব্লান্ডার</string>
+  <string name="interestingMove">আগ্রহোদ্দীপক চাল</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">অনিশ্চিত চাল</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">একমাত্র সম্ভাব্য চাল</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">যুগযোয়াং</string>
+  <string name="equalPosition">সমান অবস্থান</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">অনিশ্চিত অবস্থান</string>
+  <string name="whiteIsSlightlyBetter">সাদা একটু বেশি ভালো</string>
+  <string name="blackIsSlightlyBetter">কালো একটু বেশি ভালো</string>
+  <string name="whiteIsBetter">সাদা ভালো</string>
+  <string name="blackIsBetter">কালো ভালো</string>
+  <string name="whiteIsWinning">সাদা জিতছে</string>
+  <string name="blackIsWinning">কালো জিতছে</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">নোভেল্টি</string>
 </resources>
