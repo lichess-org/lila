@@ -37,14 +37,14 @@
 Аккаунт аты: %2$s
 Құпиясөз: %3$s</string>
   <string name="inviteALichessAccount">Личес тіркелгісін шақыру</string>
-  <string name="inviteDesc1">Егер шәкірттің Личес аккаунты бар болса, сіз оны үйірмеге шақыра аласыз.</string>
+  <string name="inviteDesc1">Егер шәкірттің Личес тіркелгісі бар болса, сіз оны үйірмеге шақыра аласыз.</string>
   <string name="inviteDesc2">Ол Личестен үйірмеге жаздыратын сілтемесі бар хабар алатын болады.</string>
   <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, үйірмеге қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
   <string name="createANewLichessAccount">Жаңа Личес тіркелгісін құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
   <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол аккаунтқа осылай кіретін болды.</string>
-  <string name="createDesc3">Ескерту: шәкірттің тек бір аккаунты болуы керек.</string>
+  <string name="createDesc3">Ескерту: шәкірттің тек бір тіркелгісі болуы керек.</string>
   <string name="createDesc4">Егер аккаунты бар болса, оның орнына шақыру формасын қолданыңыз.</string>
   <string name="lichessUsername">Личес аккаунт аты</string>
   <string name="generateANewUsername">Жаңа аккаунт атын құру</string>
@@ -63,8 +63,7 @@
   <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – басқарулы</string>
   <string name="upgradeFromManaged">Басқарулы күйден тәуелсіз күйге ауысу</string>
   <string name="release">Босату</string>
-  <string name="releaseTheAccount">Аккаунтты босатыңыз, шәкірт оны дара өзі басқаратын болады.</string>
-  <string name="releaseDesc1">Босатылған аккаунт қайттан басқарулы күйге ауыса алмайды. Шәкірт Личестің балалық нұсқасын қосуға, құпиясөзді қайта орнатуға қабілетті болады.</string>
+  <string name="releaseTheAccount">Тіркелгіні шәкіртке тапсыру, ол дара өзі басқаратын болады.</string>
   <string name="releaseDesc2">Шәкірт аккаунты босатылған соң ол үйірмеде қалады.</string>
   <string name="realUniqueEmail">Шәкірттің шын поштасы. Оған аккаунтты босатуды растайтын хат жіберетін боламыз.</string>
   <string name="teachers">Ұстаздар</string>
