@@ -8,6 +8,12 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
+
+    .find,
+    .fail {
+      padding-top: 5px;
+      padding-bottom: 8px;
+    }
   }
 
   .progress {
