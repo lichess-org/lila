@@ -6,7 +6,7 @@
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
   <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
   <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
-    <item quantity="one">Is Pátrún Lichess %1$s ar feadh mí amháin</item>
+    <item quantity="one">Is Pátrún Lichess %1$s ar feadh mí %2$s</item>
     <item quantity="two">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
     <item quantity="few">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
     <item quantity="many">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
