@@ -8,4 +8,20 @@
   <string name="anastasiaMateDescription">একটা ঘোড়া এবং একটা নৌকা অথবা মন্ত্রীকে নিয়ে দল বাঁধান প্রতিপক্ষের রাজাকে বোর্ডের সাইড এবং তারই গুটির মাঝে ফাঁদে ফেলার জন্য।</string>
   <string name="arabianMate">আরবীয় মাত</string>
   <string name="arabianMateDescription">প্রতিপক্ষের রাজাকে বোর্ডের এক কোণায় ফাঁদে ফেলার জন্য একটা ঘোড়া এবং একটা নৌকার দলগঠন।</string>
+  <string name="attackingF2F7">f2 অথবা f7 কে আক্রমণ করা</string>
+  <string name="attackingF2F7Description">f2 অথবা f7 সৈন্যকে লক্ষ্য করে আক্রমণ, ফ্রায়েড লিভার ওপেনিং এ যেমন।</string>
+  <string name="attraction">আকর্ষণ</string>
+  <string name="attractionDescription">শত্রুর গুটিকে জোর করে একটা ঘরে আনার জন্য একটা বিনিময় অথবা ত্যাগ যার মাধ্যমে পরে ট্যাকটিক করা যায়।</string>
+  <string name="backRankMate">পিছনের র‍্যাংক মাত</string>
+  <string name="backRankMateDescription">রাজাকে নিজের বাড়ির র‍্যাংকে বাজিমাত করা, যখন তা নিজের গুটি দ্বারাই ফাঁদে আটকে থাকে।</string>
+  <string name="bishopEndgame">হাতি এন্ডগেম</string>
+  <string name="bishopEndgameDescription">শুধু হাতি এবং সৈন্যদের নিয়ে একটা এন্ডগেম।</string>
+  <string name="bodenMate">বডেনের মাত</string>
+  <string name="bodenMateDescription">দুইটা ক্রস করা আড়া-আড়ি রেখার উপর দুইটা হাতি যা নিজের গুটিতে আটে থাকা রাজাকে বাজিমাত করে।</string>
+  <string name="castling">ক্যাসলিং</string>
+  <string name="castlingDescription">রাজাকে নিরাপদে নিয়ে আসুন, এবং আপনার নৌকাকে স্থাপন করুন হামলার জন্য.</string>
+  <string name="capturingDefender">রক্ষককে খান</string>
+  <string name="capturingDefenderDescription">একটা গুটিকে খাওয়া যা আরেকটার প্রতিরক্ষা করে, যা পরের একটি চালে যেই গুটিকে রক্ষা করা হচ্ছিল তাকে খাওয়ার সুযোগ করে দেয়।</string>
+  <string name="crushing">গুড়িয়ে দেয়া</string>
+  <string name="crushingDescription">অপনেন্টের ব্লানডারকে ধরে ফেলুন এবং প্রতিপক্ষকে গুড়িয়ে দিয়ে লাভ অর্জন করুন। (eval ≥ 600cp)</string>
 </resources>
