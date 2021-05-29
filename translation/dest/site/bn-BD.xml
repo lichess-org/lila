@@ -118,6 +118,18 @@
   <string name="blunder">গুরুতর ভুল</string>
   <string name="mistake">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s টি ব্লান্ডার</item>
+    <item quantity="other">%s টি ব্লান্ডার</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%sটি ভূল</item>
+    <item quantity="other">%sটি ভূল</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%sটি অনিপুণতা</item>
+    <item quantity="other">%sটি অনিপুণতা</item>
+  </plurals>
   <string name="moveTimes">চালের সময়</string>
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
