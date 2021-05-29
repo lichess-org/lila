@@ -38,6 +38,17 @@
   <string name="noStudents">ক্লাসে এখনো কোন ছাত্র নেই।</string>
   <string name="noRemovedStudents">কোন বাদ দেয়া ছাত্র নেই।</string>
   <string name="overDays">কয়েকদিনব্যাপী</string>
-  <string name="timePlaying">কতক্ষণ খেলা চলছে</string>
+  <string name="timePlaying">কত সময় খেলছে</string>
   <string name="variantXOverLastY">শেষ %2$s এর %1$s</string>
+  <string name="winrate">জেতার হার</string>
+  <string name="na">প্র/ন</string>
+  <string name="news">ক্লাসের সংবাদ</string>
+  <string name="editNews">সংবাদ সম্পাদনা করুন</string>
+  <string name="notifyAllStudents">সকল ছাত্রকে অবগত করুন</string>
+  <string name="nothingHere">এখানে কিছুই নেই, আপাতত...</string>
+  <string name="newsEdit1">একটিমাত্র ফিল্ডে সকল ক্লাস সংবাদ।</string>
+  <string name="newsEdit2">সামপ্রতিক সংবাদ উপরে যোগ করুন। পুরনো সংবাদ মুছবেন না।</string>
+  <string name="newsEdit3">--- দিয়ে সংবাদ পৃথক করুন
+এটা একটা আনুভূমিক রেখা প্রদর্শন করবে।</string>
+  <string name="markdownAvailable">%s আরো অ্যাডভান্সড সিনট্যাক্সের জন্য উপলব্ধ।</string>
 </resources>
