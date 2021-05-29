@@ -145,6 +145,9 @@ Kungen är ovärderlig, om du förlorar den har du förlorat partiet.</string>
   <string name="pieceValueExchange">Slå pjäsen med det högsta värdet!
  Byt inte
  en högre värderad pjäs mot en mindre värderad.</string>
+  <string name="pieceValueLegal">Slå pjäsen
+med det högsta värdet!
+Se till att ditt drag är tillåtet!</string>
   <string name="takeThePieceWithTheHighestValue">Slå pjäsen med högst värde!</string>
   <string name="pieceValueComplete">Grattis! Nu vet du hur schackpjäserna värderas!
 Dam = 9
