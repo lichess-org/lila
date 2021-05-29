@@ -9,4 +9,5 @@
   <string name="enableTwoFactor">Luba kaheastmeline autentimine</string>
   <string name="disableTwoFactor">Keela kaheastmeline autentimine</string>
   <string name="twoFactorEnabled">Kaheastmeline autentimine on sisse lülitatud</string>
+  <string name="openTwoFactorApp">Ava 2-astmelise autentimise äpp oma seadmes, et näha autentimiskoodi ja kinnitada oma identiteet.</string>
 </resources>
