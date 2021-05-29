@@ -1,11 +1,14 @@
 import { h, VNode } from 'snabbdom';
 import { Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
+//import { Api } from 'chessground/api';
+import { Step } from 'ui/round/src/interfaces';
 import { Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
-import { Chess } from 'chessops/chess';
 import { chessgroundDests } from 'chessops/compat';
-import { SquareName } from 'chessops/types';
+import { SquareName, RULES, Rules } from 'chessops/types';
+import { setupPosition } from 'chessops/variant';
+import { parseUci } from 'chessops/util';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
@@ -108,7 +111,7 @@ export function symbolToFile(char: string) {
 }
 
 export function supportedVariant(key: string) {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition'].includes(key);
+  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic'].includes(key);
 }
 
 export function boardSetting(): Setting<BoardStyle> {
@@ -561,27 +564,73 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
   };
 }
 
-export function possibleMovesHandler(color: Color, fen: () => string, pieces: () => Pieces) {
+export function possibleMovesHandler(
+  yourColor: Color,
+  turnColor: () => Color,
+  startingFen: () => string,
+  piecesFunc: () => Pieces,
+  variant: string,
+  moveable: () => Map<string, Array<string>> | undefined,
+  steps: () => Step[]
+) {
   return (ev: KeyboardEvent) => {
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
-    const $pieces = pieces();
-    const myTurnFen = color === 'white' ? 'w' : 'b';
-    const opponentTurnFen = color === 'white' ? 'b' : 'w';
+    const pieces: Pieces = piecesFunc();
 
     const $btn = $(ev.target as HTMLElement);
-    const $pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const ruleTranslation: { [vari: string]: number } = {
+      standard: 0,
+      antichess: 1,
+      kingOfTheHill: 2,
+      threeCheck: 3,
+      atomic: 4,
+      horde: 5,
+      racingKings: 6,
+      crazyhouse: 7,
+    };
+    const rules: Rules = RULES[ruleTranslation[variant]];
 
-    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn.
-    const possibleMoves = chessgroundDests(
-      Chess.fromSetup(parseFen(fen().replace(' ' + opponentTurnFen + ' ', ' ' + myTurnFen + ' ')).unwrap()).unwrap()
-    )
-      .get($pos)
+    let rawMoves;
+
+    // possible ineffecient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
+    // if it is your turn
+    if (turnColor() === yourColor) {
+      rawMoves = moveable();
+    } else {
+      const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
+      steps().forEach(s => {
+        if (!s.uci) {
+          return;
+        }
+        const move = parseUci(s.uci);
+        if (!move) {
+          return;
+        }
+        fromSetup.play(move);
+      });
+      // important to override whoes turn it is so only the users' own turns will show up
+      fromSetup.turn = yourColor;
+      rawMoves = chessgroundDests(fromSetup);
+    }
+
+    const possibleMoves = rawMoves
+      ?.get(pos)
       ?.map(i => {
-        const p = $pieces.get(i);
-        return p ? i + ' captures ' + p.role : i;
+        const p = pieces.get(i as Key);
+        // logic to prevent 'capture rook' on own piece in chess960
+        if (p) {
+          if (p.color !== yourColor) {
+            return i + ' captures ' + p.role;
+          } else {
+            return i;
+          }
+        } else {
+          return i;
+        }
       })
-      .filter(i => ev.key === 'm' || i.includes('captures'));
+      ?.filter(i => ev.key === 'm' || i.includes('captures'));
     if (!possibleMoves) {
       $boardLive.text('None');
       // if filters out non-capturing moves
