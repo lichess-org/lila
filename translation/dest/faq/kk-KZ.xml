@@ -73,7 +73,7 @@
   <string name="accounts">Тіркелгі</string>
   <string name="titlesAvailableOnLichess">Личесте қандай атақтар бар?</string>
   <string name="lichessRecognizeAllOTBtitles">Личес ойыншының шынайы шахмат ойындар нәтижесінде алған бүкіл FIDE атақтарын, онымен қатар, %1$s мойындайды. FIDE атақтардың тізімі:</string>
-  <string name="showYourTitle">Егер де ресми атағыңыз болса, растайтын құжаттың суреті мен осы құжатты ұстап тұрған өзіңіздің фотоңызды қосып, %1$s толтырыңыз, сонда бұл атағыңыз аккаунтта көрсетілетін болады.
+  <string name="showYourTitle">Егер де ресми атағыңыз болса, растайтын құжаттың суреті мен осы құжатты сіз ұстап тұрған күйде түскен фотоңызды қосып, %1$s толтырыңыз, сонда бұл атағыңыз тіркелгіде көрсетілетін болады.
 
 Атағын растаған ойыншылардың Атақтылар Алаңына жолы ашылады.
 
@@ -118,7 +118,7 @@
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">кейінгі аптада белгіленген рейтингте бағаланатын ойынға қатысу,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">рейтинг ауытқуы стандарт шахматта %1$s-тен кем, басқа түрлерінде %2$s-тен кем болу керек,</string>
   <string name="beInTopTen">белгіленген рейтингтің үздік 10 қатарында болу.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Екінші талап – өз аккаунттарын пайдаланбайтын ойыншылар Мықтылар қатарынан шығады.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Екінші талап – өз тіркелгілерін пайдаланбайтын ойыншылар Мықтылар қатарынан шығады.</string>
   <string name="whyAreRatingHigher">Рейтинг басқа FIDE, USCF пен ICC сияқты ұйымдармен салыстырғанда неге жоғарылау болып тұр?</string>
   <string name="whyAreRatingHigherExplanation">Рейтингті тұрақты абсолют шама деп ойламаңыз, әрі басқа ұйымдармен салыстырмағаныңыз жөн. Басқа ұйымдарда ойыншылар саны мен рейтинг есептеу жүйелері басқа (Elo, Glicko, Glicko-2 не осылардың өзгертілген нұсқалары). Бұл жайттар көрсеткіштің шамасына (рейтингке) зор ықпал етеді.
 
