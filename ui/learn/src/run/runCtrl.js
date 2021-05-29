@@ -47,7 +47,7 @@ module.exports = function (opts, trans) {
   opts.route = 'run';
   opts.stageId = stage.id;
 
-  const isRestarting = lichess.tempStorage.makeBoolean("learn.restarting");
+  const isRestarting = lichess.tempStorage.makeBoolean('learn.restarting');
 
   var vm = {
     stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0 && !isRestarting.get()),
