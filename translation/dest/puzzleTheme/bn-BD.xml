@@ -32,4 +32,10 @@
   <string name="kingsideAttack">রাজার দিকে আক্রমণ</string>
   <string name="kingsideAttackDescription">প্রতিপক্ষের রাজার নিজের পাশে ক্যাসলিং করার পর, তাকে আক্রমণ করা।</string>
   <string name="clearance">পরিষ্কারকরণ</string>
+  <string name="clearanceDescription">প্রায়শই একটি টেম্পোসহ, একটা চাল যা একটা ঘর, ফাইল অথবা আড়া-আড়ি লাইন পরিষ্কার করে পরে যার দ্বারা ট্যাকটিক প্রয়োগ করা যায়।</string>
+  <string name="defensiveMove">প্রতিরক্ষার চাল</string>
+  <string name="defensiveMoveDescription">একটা নিখুঁত চাল অথবা চালের ধারা যার দ্বারা ম্যাটেরিয়াল হারানো অথবা অন্য ধরণের ক্ষতির হাত থেকে বাঁচা যায়।</string>
+  <string name="deflection">বিচ্যুতি</string>
+  <string name="deflectionDescription">একটা চাল যা প্রতিপক্ষের গুটিকে নিজের কাজ (যেমন একটা চাবি ঘর পাহাড়া দেয়া) থেকে সরায়। কখনো কখনো এটাকে ওভারলোডিং ও বলা হয়।</string>
+  <string name="discoveredAttack">আবিষ্কৃত আক্রমণ</string>
 </resources>
