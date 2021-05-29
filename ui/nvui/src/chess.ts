@@ -8,6 +8,7 @@ import { parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 import { SquareName, RULES, Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
+import { parseUci } from 'chessops/util';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
@@ -566,40 +567,13 @@ export function lastCapturedCommandHandler(steps: () => string[], pieceStyle: Pi
 export function possibleMovesHandler(
   yourColor: Color,
   turnColor: () => Color,
-  fen: () => string,
+  startingFen: () => string,
   piecesFunc: () => Pieces,
   variant: string,
   moveable: () => Map<string, Array<string>> | undefined,
   steps: () => Step[]
 ) {
   return (ev: KeyboardEvent) => {
-    // This function does NOT belong here. This should be dealt with somewhere in the library, but alas, a full FEN is not available during a running game. I am considering making a getFullFen() function in the Controller(?)/Chessground(?) or wherever else it should be.
-    // in addition, if it is not the user's turn, and they requrest moves in chess960... castling is broken. It may report false positives because this only checks for rooks/kings moving from their original squares.
-    const castlingFen = (gameSteps: Step[]): string => {
-      let castlingString = 'KQkq';
-
-      for (const step of gameSteps) {
-        if (!step?.uci) {
-          continue;
-        }
-        const from = step?.uci?.substr(0, 2);
-        if (from === 'e1') {
-          castlingString = castlingString.replace('K', '').replace('Q', '');
-        } else if (from === 'e8') {
-          castlingString = castlingString.replace('k', '').replace('q', '');
-        } else if (from === 'a1') {
-          castlingString = castlingString.replace('Q', '');
-        } else if (from === 'h1') {
-          castlingString = castlingString.replace('K', '');
-        } else if (from === 'a8') {
-          castlingString = castlingString.replace('k', '');
-        } else if (from === 'h8') {
-          castlingString = castlingString.replace('q', '');
-        }
-      }
-      return castlingString;
-    };
-
     if (ev.key !== 'm' && ev.key !== 'M') return true;
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
@@ -625,12 +599,19 @@ export function possibleMovesHandler(
     if (turnColor() === yourColor) {
       rawMoves = moveable();
     } else {
-      let fenStr: string = fen() ?? '';
-      fenStr += yourColor === 'white' ? ' w ' : ' b ';
-      fenStr += castlingFen(steps());
-      const setup = parseFen(fenStr).unwrap();
-      setup.turn = yourColor;
-      const fromSetup = setupPosition(rules, setup).unwrap();
+      const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
+      steps().forEach(s => {
+        if (!s.uci) {
+          return;
+        }
+        const move = parseUci(s.uci);
+        if (!move) {
+          return;
+        }
+        fromSetup.play(move);
+      });
+      // important to override whoes turn it is so only the users' own turns will show up
+      fromSetup.turn = yourColor;
       rawMoves = chessgroundDests(fromSetup);
     }
 
