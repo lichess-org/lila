@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
   <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
   <string name="itsYourTurn">এবার আপনার দান!</string>
+  <string name="cheatDetected">চিট শনাক্ত হয়েছে</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
