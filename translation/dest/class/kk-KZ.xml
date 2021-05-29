@@ -36,12 +36,12 @@
   <string name="studentCredentials">Шәкірт: %1$s
 Аккаунт аты: %2$s
 Құпиясөз: %3$s</string>
-  <string name="inviteALichessAccount">Аккаунт иесін шақыру</string>
+  <string name="inviteALichessAccount">Личес тіркелгісін шақыру</string>
   <string name="inviteDesc1">Егер шәкірттің Личес аккаунты бар болса, сіз оны үйірмеге шақыра аласыз.</string>
   <string name="inviteDesc2">Ол Личестен үйірмеге жаздыратын сілтемесі бар хабар алатын болады.</string>
   <string name="inviteDesc3">Ескерту: тек өзіңізге таныс, үйірмеге қосылуды шын ниет еткен шәкірттерді ғана шақырыңыз.</string>
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
-  <string name="createANewLichessAccount">Жаңа Личес аккаунт құру</string>
+  <string name="createANewLichessAccount">Жаңа Личес тіркелгісін құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
   <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол аккаунтқа осылай кіретін болды.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір аккаунты болуы керек.</string>
@@ -60,7 +60,7 @@
   <string name="onlyVisibleToTeachers">Тек үйірме ұстаздарына көрінеді</string>
   <string name="lastActiveDate">Белсенді</string>
   <string name="managed">Басқарулы</string>
-  <string name="thisStudentAccountIsManaged">Бұл шәкірт аккаунты – басқарулы</string>
+  <string name="thisStudentAccountIsManaged">Бұл шәкірт тіркелгісі – басқарулы</string>
   <string name="upgradeFromManaged">Басқарулы күйден тәуелсіз күйге ауысу</string>
   <string name="release">Босату</string>
   <string name="releaseTheAccount">Аккаунтты босатыңыз, шәкірт оны дара өзі басқаратын болады.</string>
