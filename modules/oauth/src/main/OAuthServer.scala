@@ -54,9 +54,10 @@ final class OAuthServer(
     auth1 <- auth(token1, scopes)
     auth2 <- auth(token2, scopes)
   } yield for {
-    user1 <- auth1
-    user2 <- auth2
-  } yield (user1.user, user2.user)
+    user1  <- auth1
+    user2  <- auth2
+    result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
+  } yield result
 
   def deleteCached(id: AccessToken.Id): Unit =
     accessTokenCache.put(id, fuccess(none))
@@ -93,6 +94,7 @@ object OAuthServer {
   case object NoSuchToken                              extends AuthError("No such token")
   case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
+  case object OneUserWithTwoTokens                     extends AuthError("Both tokens belong to the same user")
 
   def responseHeaders(acceptedScopes: Seq[OAuthScope], availableScopes: Seq[OAuthScope])(
       res: Result
