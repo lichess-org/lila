@@ -23,7 +23,7 @@
   <string name="wantChangeUsername">Мен аккаунт атымды өзгерткім келеді</string>
   <string name="changeUsernameCase">Атыңыздың әріп үлкендігін өзгерту үшін осы парақшаны ашыңыз</string>
   <string name="cantChangeMore">Біз әріп үлкендігінен басқа ешбір өзгерту жасай алмаймыз. Техникалық себеппен бұл мүмкін емес.</string>
-  <string name="orCloseAccount">Дегенмен, сіз бұл аккаунтты жауып, жаңадан жасай аласыз.</string>
+  <string name="orCloseAccount">Дегенмен, сіз бұл тіркелгіні жауып, жаңадан жасай аласыз.</string>
   <string name="wantClearHistory">Мен өзімнің ойын тарихымды не рейтингімді өшіргім келеді</string>
   <string name="cantClearHistory">Ойын тарихын, жұмбақ шешу тарихын немесе рейтингті өшіру мүмкін емес.</string>
   <string name="wantReport">Мен бір ойыншыға шағым білдіргім келеді</string>
