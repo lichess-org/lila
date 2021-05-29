@@ -49,4 +49,6 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="teamPasswordDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at slutte sig til dette hold.</string>
   <string name="incorrectTeamPassword">Forkert hold-adgangskode.</string>
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
+  <string name="upcomingTourns">Kommende turneringer</string>
+  <string name="completedTourns">Afsluttede turneringer</string>
 </resources>
