@@ -49,4 +49,6 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="teamPasswordDescriptionForLeader">(Opcional) Una contraseña que los nuevos miembros deben saber para unirse a este equipo.</string>
   <string name="incorrectTeamPassword">Contraseña del equipo incorrecta.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
+  <string name="upcomingTourns">Próximos torneos</string>
+  <string name="completedTourns">Torneos finalizados</string>
 </resources>
