@@ -3,7 +3,7 @@
   <string name="lichessClasses">Үйірме</string>
   <string name="teachClassesOfChessStudents">Личес Үйірме құралын пайдаланып, шәкірттерге шахматты үйретіңіз.</string>
   <string name="features">Ерекшеліктері</string>
-  <string name="quicklyGenerateSafeUsernames">Шәкірттердің қауіпсіз аккаунт аттары мен құпиясөздерін тез құру</string>
+  <string name="quicklyGenerateSafeUsernames">Шәкірттердің қауіпсіз тіркелгі аттары мен құпиясөздерін тез құру</string>
   <string name="trackStudentProgress">Шәкірттердің ойындарда, жұмбақ шешуде жетістіктерін қадағалау</string>
   <string name="messageAllStudents">Барлық шәкірттерге жаңа оқу материал туралы хабар жіберу</string>
   <string name="freeForAllForever">Барлығы үшін 100% тегін, мәңгі, жарнамасыз, трекерсіз</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Үйірме сипаттамасы</string>
   <string name="visibleByBothStudentsAndTeachers">Үйірменің ұстаздары мен шәкірттеріне бірдей көрінеді</string>
   <string name="teachersOfTheClass">Үйірме ұстаздары</string>
-  <string name="addLichessUsernames">Ұстаздарды шақыру үшін олардың аккаунт аттарын жазыңыз. Әр жолға бір-бірден.</string>
+  <string name="addLichessUsernames">Ұстаздарды шақыру үшін олардың тіркелгі аттарын жазыңыз. Әр жолға бір-бірден.</string>
   <string name="resetPassword">Құпиясөзді қайта орнату</string>
   <string name="makeSureToCopy">Құпиясөзді көшіріп жазып алыңыз. Оны осыдан кейін қарай алмайсыз!</string>
   <string name="passwordX">Құпиясөз: %s</string>
@@ -34,7 +34,7 @@
   <string name="addStudent">Шәкірт қосу</string>
   <string name="lichessProfileXCreatedForY">%1$s тіркелгісі %2$s үшін құрылды.</string>
   <string name="studentCredentials">Шәкірт: %1$s
-Аккаунт аты: %2$s
+Тіркелгі аты: %2$s
 Құпиясөз: %3$s</string>
   <string name="inviteALichessAccount">Личес тіркелгісін шақыру</string>
   <string name="inviteDesc1">Егер шәкірттің Личес тіркелгісі бар болса, сіз оны үйірмеге шақыра аласыз.</string>
@@ -43,11 +43,11 @@
   <string name="inviteDesc4">Барша ойыншыларға сұраусыз шақыру жібере бермеңіз.</string>
   <string name="createANewLichessAccount">Жаңа Личес тіркелгісін құру</string>
   <string name="createDesc1">Егер шәкірттің Личес аккаунты болмаса, оған осы жерде аккаунт құра аласыз.</string>
-  <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол аккаунтқа осылай кіретін болды.</string>
+  <string name="createDesc2">Поштаның қажеті жоқ. Құпиясөз құрылған соң, оны шәкіртке жіберіңіз, ол тіркелгіге осылай кіретін болды.</string>
   <string name="createDesc3">Ескерту: шәкірттің тек бір тіркелгісі болуы керек.</string>
-  <string name="createDesc4">Егер аккаунты бар болса, оның орнына шақыру формасын қолданыңыз.</string>
-  <string name="lichessUsername">Личес аккаунт аты</string>
-  <string name="generateANewUsername">Жаңа аккаунт атын құру</string>
+  <string name="createDesc4">Егер тіркелгісі бар болса, оның орнына шақыру формасын қолданыңыз.</string>
+  <string name="lichessUsername">Личес тіркелгі аты</string>
+  <string name="generateANewUsername">Жаңа тіркелгі атын құру</string>
   <string name="welcomeToClass">%s үйірмесіне қош келдіңіз.
 Бұл – үйірмеге апаратын сілтеме.</string>
   <string name="invitationToClass">Сіз %s үйірмесіне шәкірт ретінде шақырылғансыз.</string>
