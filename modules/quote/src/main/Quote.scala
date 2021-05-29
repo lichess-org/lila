@@ -71,7 +71,7 @@ object Quote {
     new Quote("Keep the foothold for the attack.", "Traditional"),
     new Quote("Mend the wall Silver", "Traditional"),
     new Quote("Move King and Rook to opposite side", "Traditional"),
-    new Quote("Oppose Bishop wth Bishop", "Traditional"),
+    new Quote("Oppose Bishop with Bishop", "Traditional"),
     new Quote("Recapture the Vanguard Pawn with the opposing Pawn", "Traditional"),
     new Quote("Rook and King are weak at the ears", "Traditional"),
     new Quote("Save the Gold till the end", "Traditional"),
