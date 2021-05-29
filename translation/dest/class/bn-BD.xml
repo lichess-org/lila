@@ -17,4 +17,10 @@
   <string name="onlyVisibleToTeachers">শুধু ক্লাসের শিক্ষকদের কাছেই দৃশ্যমান</string>
   <string name="lastActiveDate">সক্রিয়</string>
   <string name="managed">ম্যানেজ কৃত</string>
+  <string name="thisStudentAccountIsManaged">এই ছাত্র অ্যাকাউন্ট ম্যানেজ কৃত</string>
+  <string name="upgradeFromManaged">ম্যানেজকৃত অ্যাকাউন্ট থেকে স্বাধীন অ্যাকাউন্টে পরিণত করুন</string>
+  <string name="release">মুক্তি দিন</string>
+  <string name="releaseTheAccount">অ্যাকাউন্টটিকে মুক্তি দিন যাতে ছাত্র তা স্বাধীনভাবে ব্যবহার করতে পারে।</string>
+  <string name="releaseDesc1">একটা মুক্তি দেয়া অ্যাকাউন্ট পুনরায় বানানো যাবে না। ছাত্ররা নিজেরাই কিড মোড টগল করতে এবং পাসওয়ার্ড রিসেট করতে পারবে।</string>
+  <string name="releaseDesc2">এই ছা্ত্র অ্যাকাউন্ট মুক্তি দেয়ার পর ক্লাসে থেকে যাবে।</string>
 </resources>
