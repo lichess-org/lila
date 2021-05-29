@@ -9,6 +9,23 @@
   <string name="whatAreStudies">অধ্যায়ন কি?</string>
   <string name="allStudies">সকল অধ্যায়নগুলি</string>
   <string name="studiesCreatedByX">অধ্যায়ন তৈরি করেছেন %s</string>
+  <string name="noneYet">আপাতত নেই।</string>
+  <string name="hot">গরমাগরম</string>
+  <string name="dateAddedNewest">তৈরির তারিখ (সবচেয়ে নতুন)</string>
+  <string name="dateAddedOldest">তৈরির তারিখ (সবচেয়ে পুরনো)</string>
+  <string name="recentlyUpdated">সাম্প্রতিক হালনাগাদকৃত</string>
+  <string name="mostPopular">সবচেয়ে জনপ্রিয়</string>
+  <string name="alphabetical">বর্ণানুক্রমিক</string>
+  <string name="addNewChapter">নতুন অধ্যায় যোগ করুন</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%sটি অধ্যায়</item>
+    <item quantity="other">%sটি অধ্যায়</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%sটি খেলা</item>
+    <item quantity="other">%sটি খেলা</item>
+  </plurals>
+  <string name="addMembers">সদস্য যোগ করুন</string>
   <string name="first">সর্ব প্রথম</string>
   <string name="previous">আগের ধাপ</string>
   <string name="next">পরের ধাপ</string>
