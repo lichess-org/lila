@@ -55,4 +55,5 @@
   <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
   <string name="continueTheStreak">Continua la sèrie</string>
   <string name="newStreak">Nova sèrie</string>
+  <string name="fromMyGames">De les meves partides</string>
 </resources>
