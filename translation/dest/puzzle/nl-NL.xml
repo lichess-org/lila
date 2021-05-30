@@ -63,4 +63,6 @@
   <string name="streakSkipExplanation">Sla deze zet over om je reeks te behouden! Werkt maar eenmaal per sessie.</string>
   <string name="continueTheStreak">Doorgaan met de reeks</string>
   <string name="newStreak">Nieuwe reeks</string>
+  <string name="fromMyGames" comment="fromMyGames&#10;&#10;Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).">Van mijn partijen</string>
+  <string name="searchPuzzles" comment="searchPuzzles&#10;&#10;'Search' is a verb in this string.">Puzzels zoeken</string>
 </resources>
