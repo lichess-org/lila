@@ -63,4 +63,8 @@
   <string name="streakSkipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin sarjan aikana vain kerran.</string>
   <string name="continueTheStreak">Jatka putkea</string>
   <string name="newStreak">Uusi putki</string>
+  <string name="fromMyGames">Omista peleistäni</string>
+  <string name="lookupOfPlayer">Etsi tehtäviä tietyn pelaajan peleistä</string>
+  <string name="fromXGames">Tehtäviä pelaajan %s peleistä</string>
+  <string name="searchPuzzles">Hae tehtäviä</string>
 </resources>
