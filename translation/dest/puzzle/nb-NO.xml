@@ -64,4 +64,6 @@
   <string name="continueTheStreak">Fortsett rekken</string>
   <string name="newStreak">Ny rekke</string>
   <string name="fromMyGames">Fra mine partier</string>
+  <string name="fromXGames">Sjakknøtter fra partier med %s</string>
+  <string name="fromXGamesFound">%1$s sjakknøtter funnet i partier med %2$s</string>
 </resources>
