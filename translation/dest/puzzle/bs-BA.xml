@@ -47,4 +47,8 @@
   <string name="streakSkipExplanation">Preskočite ovaj potez da sačuvate niz! To možete samo jednom po rundi.</string>
   <string name="continueTheStreak">Nastavite niz</string>
   <string name="newStreak">Novi niz</string>
+  <string name="fromMyGames">Iz mojih partija</string>
+  <string name="lookupOfPlayer">Potražite probleme u igračevim partijama</string>
+  <string name="fromXGames">Problemi iz partija %s</string>
+  <string name="searchPuzzles">Pretražite probleme</string>
 </resources>
