@@ -14,7 +14,7 @@ object ofPlayer {
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
     views.html.base.layout(
-      title = user.fold("Lookup puzzles from a player's games")(u => s"Puzzles from ${u.username}' games"),
+      title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
       moreJs = infiniteScrollTag
     )(
@@ -30,25 +30,23 @@ object ofPlayer {
               name := "name",
               value := query,
               cls := "form-control user-autocomplete",
-              placeholder := "Lichess username",
+              placeholder := trans.clas.lichessUsername.txt(),
               autocomplete := "off",
               dataTag := "span",
               autofocus
             ),
-            submitButton(cls := "button")("Search puzzles")
+            submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
           ),
           div(cls := "puzzle-of-player__results")(
             (user, puzzles) match {
               case (Some(u), Some(pager)) =>
                 if (pager.nbResults == 0 && ctx.is(u))
-                  p(
-                    "You have no puzzles in the database, but Lichess still loves you very much.",
-                    br,
-                    "Play rapid and classical games to increase your chances of having a puzzle of yours added!"
-                  )
+                  p(trans.puzzle.fromMyGamesNone())
                 else
                   frag(
-                    p(strong(pager.nbResults), " puzzles found in ", userLink(u), " games."),
+                    p(strong 
+                    (trans.puzzle.fromXGamesFound((pager.nbResults), userLink(u)))
+                    ),
                     div(cls := "puzzle-of-player__pager infinite-scroll")(
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
