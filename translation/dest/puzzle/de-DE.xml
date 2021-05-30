@@ -66,7 +66,7 @@
   <string name="fromMyGames">Aus meinen Partien</string>
   <string name="lookupOfPlayer">Suche Aufgaben aus den Partien eines Spielers</string>
   <string name="fromXGames">Aufgaben aus Partien von %s</string>
-  <string name="searchPuzzles">Aufgaben durchsuchen</string>
+  <string name="searchPuzzles">Aufgaben suchen</string>
   <string name="fromMyGamesNone">Du hast keine Aufgaben in der Datenbank, aber Lichess schätzt dich immer noch sehr.
 Spiele schnelle und klassische Partien, um deine Chance auf eine neue Aufgabe zu erhöhen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
