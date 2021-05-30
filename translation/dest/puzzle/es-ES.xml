@@ -63,4 +63,5 @@
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
   <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>
+  <string name="fromMyGames">De mis partidas</string>
 </resources>
