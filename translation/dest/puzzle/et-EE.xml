@@ -50,4 +50,8 @@
   <string name="history">Puslede ajalugu</string>
   <string name="solved">lahendatud</string>
   <string name="failed">ebaõnnestus</string>
+  <string name="fromMyGames">Minu mängudest</string>
+  <string name="fromXGames">Pusled %s mängudest</string>
+  <string name="searchPuzzles">Otsi puslesid</string>
+  <string name="fromXGamesFound">%1$s puslet leitud %2$s mängudes</string>
 </resources>
