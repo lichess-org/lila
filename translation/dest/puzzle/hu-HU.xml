@@ -63,4 +63,8 @@
   <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
   <string name="continueTheStreak">Széria folytatása</string>
   <string name="newStreak">Új széria</string>
+  <string name="fromMyGames">Saját játszmáimból</string>
+  <string name="lookupOfPlayer">Feladványok keresése más játszmáiból</string>
+  <string name="fromXGames">Feladványok %s játszmáiból</string>
+  <string name="searchPuzzles">Feladványok keresése</string>
 </resources>
