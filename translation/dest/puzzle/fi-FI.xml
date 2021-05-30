@@ -69,4 +69,5 @@
   <string name="searchPuzzles">Hae tehtäviä</string>
   <string name="fromMyGamesNone">Tietokannassa ei ole tehtäviä sinulta, mutta olet silti Lichessille erittäin tärkeä.
 Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että sinunkin peleistäsi luodaan tehtävä!</string>
+  <string name="fromXGamesFound">Löytyi %1$s tehtävää %2$s pelistä</string>
 </resources>
