@@ -50,10 +50,14 @@ module.exports = function (opts, trans) {
   opts.route = 'run';
   opts.stageId = stage.id;
 
+  const isRestarting = lichess.tempStorage.makeBoolean('learn.restarting');
+
   var vm = {
-    stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0),
+    stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0 && !isRestarting.get()),
     stageCompleted: m.prop(false),
   };
+
+  isRestarting.set(false);
 
   var getNext = function () {
     return stages.byId[stage.id + 1];
@@ -83,6 +87,7 @@ module.exports = function (opts, trans) {
       level.start();
     },
     restart: function () {
+      isRestarting.set(true);
       m.route('/' + stage.id + '/' + level.blueprint.id);
     },
     trans: trans,

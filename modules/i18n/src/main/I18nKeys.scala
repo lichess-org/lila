@@ -1896,6 +1896,12 @@ val `newStreak` = new I18nKey("puzzle:newStreak")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 val `nbPointsBelowYourPuzzleRating` = new I18nKey("puzzle:nbPointsBelowYourPuzzleRating")
 val `nbPointsAboveYourPuzzleRating` = new I18nKey("puzzle:nbPointsAboveYourPuzzleRating")
+val `fromMyGames` = new I18nKey("puzzle:fromMyGames")
+val `lookupOfPlayer` = new I18nKey("puzzle:lookupOfPlayer")
+val `fromXGames` = new I18nKey("puzzle:fromXGames")
+val `searchPuzzles` = new I18nKey("puzzle:searchPuzzles")
+val `fromMyGamesNone` = new I18nKey("puzzle:fromMyGamesNone")
+val `fromXGamesFound` = new I18nKey("puzzle:fromXGamesFound")
 }
 
 object puzzleTheme {
