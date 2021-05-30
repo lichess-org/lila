@@ -64,4 +64,7 @@
   <string name="continueTheStreak">Продължете поредицата</string>
   <string name="newStreak">Нова поредица</string>
   <string name="fromMyGames">От моите партии</string>
+  <string name="lookupOfPlayer">Търсене на задачи от партиите на играч</string>
+  <string name="fromXGames">Задачи от партиите на %s\'</string>
+  <string name="searchPuzzles">Търсене на задачи</string>
 </resources>
