@@ -50,4 +50,8 @@
   <string name="history">Zgodovina ugank</string>
   <string name="solved">rešeno</string>
   <string name="failed">neuspešno</string>
+  <string name="fromMyGames">Iz mojih iger</string>
+  <string name="lookupOfPlayer">Iskanje ugank iz igralčevih iger</string>
+  <string name="fromXGames">Uganke iz %sevih iger</string>
+  <string name="searchPuzzles">Išči uganke</string>
 </resources>
