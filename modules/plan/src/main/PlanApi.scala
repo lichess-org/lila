@@ -32,9 +32,9 @@ final class PlanApi(
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
-          case None                                  => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) if sub.price.cents == cents => fuccess(sub)
-          case Some(sub)                             => stripeClient.updateSubscription(sub, cents)
+          case None                                       => fufail(s"Can't switch non-existent subscription of ${user.id}")
+          case Some(sub) if sub.item.price.cents == cents => fuccess(sub)
+          case Some(sub)                                  => stripeClient.updateSubscription(sub, cents)
         }
     }
 

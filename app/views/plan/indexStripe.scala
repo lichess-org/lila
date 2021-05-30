@@ -32,7 +32,7 @@ object indexStripe {
             tr(
               th(currentStatus()),
               td(
-                youSupportWith(strong(info.subscription.price.usd.toString)),
+                youSupportWith(strong(info.subscription.item.price.usd.toString)),
                 span(cls := "thanks")(tyvm())
               )
             ),
@@ -52,7 +52,7 @@ object indexStripe {
               td(cls := "change")(
                 xOrY(
                   a(dataForm := "switch")(
-                    changeMonthlyAmount(info.subscription.price.usd.toString)
+                    changeMonthlyAmount(info.subscription.item.price.usd.toString)
                   ),
                   a(dataForm := "cancel")(cancelSupport())
                 ),
@@ -65,7 +65,7 @@ object indexStripe {
                     max := 100000,
                     step := "0.01",
                     name := "usd",
-                    value := info.subscription.price.usd.toString
+                    value := info.subscription.item.price.usd.toString
                   ),
                   submitButton(cls := "button")(trans.apply()),
                   a(dataForm := "switch")(trans.cancel())

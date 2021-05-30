@@ -12,10 +12,11 @@ private[plan] object JsonHandlers {
   implicit val StripeChargeId       = Reads.of[String].map(ChargeId.apply)
   implicit val StripeCents          = Reads.of[Int].map(Cents.apply)
   implicit val StripePriceReads     = Json.reads[StripePrice]
+  implicit val StripeItemReads      = Json.reads[StripeItem]
   // require that the items array is not empty.
   implicit val StripeSubscriptionReads: Reads[StripeSubscription] = (
     (__ \ "id").read[String] and
-      (__ \ "items" \ "data" \ 0 \ "price").read[StripePrice] and
+      (__ \ "items" \ "data" \ 0).read[StripeItem] and
       (__ \ "customer").read[CustomerId] and
       (__ \ "cancel_at_period_end").read[Boolean] and
       (__ \ "status").read[String]

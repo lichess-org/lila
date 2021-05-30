@@ -47,6 +47,8 @@ object StripeProduct {
   val onetimeId = dev.onetimeId
 }
 
+case class StripeItem(id: String, price: StripePrice)
+
 case class StripePrice(product: String, unit_amount: Cents) {
   def cents = unit_amount
   def usd   = cents.usd
@@ -79,7 +81,7 @@ case class CreateStripeSession(
 
 case class StripeSubscription(
     id: String,
-    price: StripePrice,
+    item: StripeItem,
     customer: CustomerId,
     cancel_at_period_end: Boolean,
     status: String

@@ -71,7 +71,10 @@ final private class StripeClient(
     getOne[StripeCustomer](s"customers/${id.value}", "expand[]" -> "subscriptions")
 
   def updateSubscription(sub: StripeSubscription, amount: Cents): Fu[StripeSubscription] = {
-    val args = recurringPriceArgs("items", amount) ++ List("prorate" -> false)
+    val args = recurringPriceArgs("items", amount) ++ List(
+      "items[0][id]"       -> sub.item.id,
+      "proration_behavior" -> "none"
+    )
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
       args: _*
