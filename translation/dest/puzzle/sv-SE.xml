@@ -65,4 +65,5 @@
   <string name="newStreak">Ny vinstserie</string>
   <string name="fromMyGames">Från mina partier</string>
   <string name="lookupOfPlayer">Leta upp schackproblem från en spelares partier</string>
+  <string name="searchPuzzles">Sök schackproblem</string>
 </resources>
