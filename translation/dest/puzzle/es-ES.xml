@@ -64,4 +64,10 @@
   <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>
   <string name="fromMyGames">De mis partidas</string>
+  <string name="lookupOfPlayer">Buscar rompecabezas de las partidas de un jugador</string>
+  <string name="fromXGames">Rompecabezas de las partidas de %s</string>
+  <string name="searchPuzzles">Buscar rompecabezas</string>
+  <string name="fromMyGamesNone">No tienes rompecabezas en la base de datos, pero Lichess aún te quiere un montón.
+¡Juega partidas rápidas y clásicas para incrementar las posibilidades de que un rompecabezas tuyo sea añadido!</string>
+  <string name="fromXGamesFound">%1$s rompecabezas encontrados en %2$s juegos</string>
 </resources>
