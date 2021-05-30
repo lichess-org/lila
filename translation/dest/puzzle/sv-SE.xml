@@ -63,4 +63,6 @@
   <string name="streakSkipExplanation">Skippa detta drag för att bevara din vinstserie! Fungerar bara en gång per spel.</string>
   <string name="continueTheStreak">Fortsätt vinstserien</string>
   <string name="newStreak">Ny vinstserie</string>
+  <string name="fromMyGames">Från mina partier</string>
+  <string name="lookupOfPlayer">Leta upp schackproblem från en spelares partier</string>
 </resources>
