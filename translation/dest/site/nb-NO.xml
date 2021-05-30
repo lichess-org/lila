@@ -865,4 +865,6 @@
   <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
   <string name="download">Last ned</string>
   <string name="welcome">Velkommen!</string>
+  <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
+Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
 </resources>
