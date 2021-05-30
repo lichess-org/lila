@@ -70,7 +70,7 @@ const whiteUpperLetterPiece: { [letter: string]: string } = {
   Q: 'Q',
   K: 'K',
 };
-const namePiece: { [letter: string]: string } = {
+export const namePiece: { [letter: string]: string } = {
   p: 'pawn',
   r: 'rook',
   n: 'knight',
@@ -114,7 +114,7 @@ export function symbolToFile(char: string) {
 }
 
 export function supportedVariant(key: string) {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic'].includes(key);
+  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'crazyhouse'].includes(key);
 }
 
 export function boardSetting(): Setting<BoardStyle> {
