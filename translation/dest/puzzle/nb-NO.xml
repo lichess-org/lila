@@ -63,4 +63,5 @@
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>
   <string name="continueTheStreak">Fortsett rekken</string>
   <string name="newStreak">Ny rekke</string>
+  <string name="fromMyGames">Fra mine partier</string>
 </resources>
