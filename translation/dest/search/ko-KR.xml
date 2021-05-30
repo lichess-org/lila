@@ -24,6 +24,8 @@
   <string name="onlyAnalysed">컴퓨터 분석이 가능한 게임만</string>
   <string name="color">색</string>
   <string name="evaluation">평가</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">최대 개수</string>
+  <string name="maxNumberExplanation">반환할 최대 게임 수</string>
   <string name="include">포함</string>
   <string name="generateURL">URL 생성</string>
 </resources>
