@@ -129,7 +129,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   def webhook =
     Action.async(parse.json) { req =>
-      env.plan.webhook(req.body) map { _ =>
+      env.plan.webhookHandler(req.body) map { _ =>
         Ok("kthxbye")
       }
     }

@@ -32,12 +32,9 @@ final class PlanApi(
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
-          case None                                 => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) if sub.plan.cents == cents => fuccess(sub)
-          case Some(sub) =>
-            getOrMakePlan(cents, Freq.Monthly) flatMap { plan =>
-              stripeClient.updateSubscription(sub, plan)
-            }
+          case None                                  => fufail(s"Can't switch non-existent subscription of ${user.id}")
+          case Some(sub) if sub.price.cents == cents => fuccess(sub)
+          case Some(sub)                             => stripeClient.updateSubscription(sub, cents)
         }
     }
 
@@ -378,9 +375,6 @@ final class PlanApi(
     }
   }
 
-  private def getOrMakePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
-    stripeClient.getPlan(cents, freq) getOrElse stripeClient.makePlan(cents, freq)
-
   private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
     userRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
 
@@ -439,9 +433,7 @@ final class PlanApi(
       case Freq.Onetime =>
         stripeClient.createOneTimeSession(data)
       case Freq.Monthly =>
-        getOrMakePlan(data.checkout.cents, data.checkout.freq) flatMap { plan =>
-          stripeClient.createMonthlySession(data, plan)
-        }
+        stripeClient.createMonthlySession(data, data.checkout.cents)
     }
 
 }

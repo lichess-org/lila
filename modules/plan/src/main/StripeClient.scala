@@ -16,6 +16,9 @@ final private class StripeClient(
   import StripeClient._
   import JsonHandlers._
 
+  private val STRIPE_VERSION = "2020-08-27"
+  // private val STRIPE_VERSION = "2016-07-06"
+
   def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
     List(
       "payment_method_types[]" -> "card",
@@ -40,8 +43,19 @@ final private class StripeClient(
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  def createMonthlySession(data: CreateStripeSession, plan: StripePlan): Fu[StripeSession] = {
-    val args = sessionArgs(data) ++ List("subscription_data[items][][plan]" -> plan.id)
+  private def recurringPriceArgs(name: String, amount: Cents) = List(
+    s"$name[0][price_data][product]"                   -> StripeProduct.monthlyId,
+    s"$name[0][price_data][currency]"                  -> "USD",
+    s"$name[0][price_data][unit_amount]"               -> amount.value,
+    s"$name[0][price_data][recurring][interval]"       -> "month",
+    s"$name[0][price_data][recurring][interval_count]" -> 1,
+    s"$name[0][quantity]"                              -> 1
+  )
+
+  def createMonthlySession(data: CreateStripeSession, amount: Cents): Fu[StripeSession] = {
+    val args = sessionArgs(data) ++
+      List("mode" -> "subscription") ++
+      recurringPriceArgs("line_items", amount)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
@@ -49,29 +63,20 @@ final private class StripeClient(
     postOne[StripeCustomer](
       "customers",
       "email"       -> data.email,
-      "description" -> user.username
-    )
-
-  def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
-    postOne[StripeCustomer](
-      "customers",
-      "plan"        -> plan.id,
-      "email"       -> data.email,
-      "description" -> "Anonymous"
+      "description" -> user.username,
+      "expand[]"    -> "subscriptions"
     )
 
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
-    getOne[StripeCustomer](s"customers/${id.value}")
+    getOne[StripeCustomer](s"customers/${id.value}", "expand[]" -> "subscriptions")
 
-  def updateSubscription(
-      sub: StripeSubscription,
-      plan: StripePlan
-  ): Fu[StripeSubscription] =
+  def updateSubscription(sub: StripeSubscription, amount: Cents): Fu[StripeSubscription] = {
+    val args = recurringPriceArgs("items", amount) ++ List("prorate" -> false)
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      "plan"    -> plan.id,
-      "prorate" -> false
+      args: _*
     )
+  }
 
   def cancelSubscription(sub: StripeSubscription): Fu[StripeSubscription] =
     deleteOne[StripeSubscription](
@@ -87,39 +92,6 @@ final private class StripeClient(
 
   def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
     getList[StripeInvoice]("invoices", "customer" -> customerId.value)
-
-  def getPlan(cents: Cents, freq: Freq): Fu[Option[StripePlan]] =
-    getOne[StripePlan](s"plans/${StripePlan.make(cents, freq).id}")
-
-  def makePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
-    postOne[StripePlan](
-      "plans",
-      "id"       -> StripePlan.make(cents, freq).id,
-      "amount"   -> cents.value,
-      "currency" -> "usd",
-      "interval" -> "month",
-      "name"     -> StripePlan.make(cents, freq).name
-    )
-
-  //   def chargeAnonCard(data: Checkout): Funit =
-  //     postOne[StripePlan]("charges",
-  //       "amount" -> data.cents.value,
-  //       "currency" -> "usd",
-  //       "source" -> data.source.value,
-  //       "description" -> "Anon one-time",
-  //       "metadata" -> Map("email" -> data.email),
-  //       "receipt_email" -> data.email).void
-
-  // charge without changing the customer plan
-  def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
-    postOne[StripeCharge](
-      "charges",
-      "customer"      -> customer.id.value,
-      "amount"        -> amount.value,
-      "currency"      -> "usd",
-      "description"   -> "Monthly customer adds a one-time",
-      "receipt_email" -> customer.email
-    ).void
 
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap Some.apply recover {
@@ -153,7 +125,11 @@ final private class StripeClient(
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
+    ws.url(s"${config.endpoint}/$url")
+      .withHttpHeaders(
+        "Authorization"  -> s"Bearer ${config.secretKey.value}",
+        "Stripe-Version" -> STRIPE_VERSION
+      )
 
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match {
@@ -167,13 +143,13 @@ final private class StripeClient(
             },
           fuccess
         )
-      case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
-      case x if x >= 400 && x < 500 =>
+      case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
+      case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match {
-          case None        => fufail { new InvalidRequestException(res.body) }
-          case Some(error) => fufail { new InvalidRequestException(error) }
+          case None        => fufail { new InvalidRequestException(status, res.body) }
+          case Some(error) => fufail { new InvalidRequestException(status, error) }
         }
-      case status => fufail { new StatusException(s"[stripe] Response status: $status") }
+      case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
     }
 
   private def isDeleted(js: JsValue): Boolean =
@@ -196,11 +172,11 @@ final private class StripeClient(
 
 object StripeClient {
 
-  class StripeException(msg: String)         extends Exception(msg)
-  class DeletedException(msg: String)        extends StripeException(msg)
-  class StatusException(msg: String)         extends StripeException(msg)
-  class NotFoundException(msg: String)       extends StatusException(msg)
-  class InvalidRequestException(msg: String) extends StatusException(msg)
+  class StripeException(msg: String)                      extends Exception(msg)
+  class DeletedException(msg: String)                     extends StripeException(msg)
+  class StatusException(status: Int, msg: String)         extends StripeException(s"$status $msg")
+  class NotFoundException(status: Int, msg: String)       extends StatusException(status, msg)
+  class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
 
   import io.methvin.play.autoconfig._
   private[plan] case class Config(

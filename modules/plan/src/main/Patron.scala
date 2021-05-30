@@ -25,7 +25,7 @@ case class Patron(
 
   def expireInOneMonth: Patron =
     copy(
-      expiresAt = DateTime.now.plusMonths(1).plusDays(7).some
+      expiresAt = DateTime.now.plusMonths(1).plusDays(1).some
     )
 
   def expireInOneMonth(cond: Boolean): Patron =

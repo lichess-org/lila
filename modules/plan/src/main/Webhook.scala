@@ -2,12 +2,14 @@ package lila.plan
 
 import play.api.libs.json._
 
-final private class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.ExecutionContext) {
+final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonHandlers._
 
-  def apply(js: JsValue): Funit = {
-    logger.debug(s"Webhook ${js.toString.take(80)}")
+  // Never trust an incoming webhook call.
+  // Only read the Event ID from it,
+  // then fetch the event from the stripe API.
+  def apply(js: JsValue): Funit =
     (js \ "id").asOpt[String] ?? api.getEvent flatMap {
       case None =>
         logger.warn(s"Forged webhook $js")
@@ -29,5 +31,5 @@ final private class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.E
           case _ => funit
         }))
     }
-  }
+
 }
