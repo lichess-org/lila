@@ -63,4 +63,6 @@
   <string name="streakSkipExplanation">Serini korumak için bu hamleyi atla! Her turda sadece bir atlama hakkın var.</string>
   <string name="continueTheStreak">Seriye devam et</string>
   <string name="newStreak">Yeni seri</string>
+  <string name="fromMyGames" comment="fromMyGames&#10;&#10;Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).">Benim oyunlarımdan</string>
+  <string name="lookupOfPlayer" comment="lookupOfPlayer&#10;&#10;Puzzles generated from a specific player's games (all Lichess puzzles are made from games in the Lichess game database).">Bir oyuncunun oyunlarından bulmacalar ara</string>
 </resources>
