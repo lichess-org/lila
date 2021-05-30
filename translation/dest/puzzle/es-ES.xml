@@ -65,9 +65,9 @@
   <string name="newStreak">Nueva racha</string>
   <string name="fromMyGames">De mis partidas</string>
   <string name="lookupOfPlayer">Buscar ejercicios de las partidas de un jugador</string>
-  <string name="fromXGames">Ejercicios de las partidas de %s</string>
+  <string name="fromXGames" comment="fromXGames&#10;&#10;%s is a username.&#10;These puzzles were taken from that user's played games.">Ejercicios de las partidas de %s</string>
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
-¡Juega partidas rápidas y clásicas para incrementar las posibilidades de que un ejercicio tuyo sea añadido!</string>
+¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
   <string name="fromXGamesFound">%1$s ejercicios encontrados en %2$s partidas</string>
 </resources>
