@@ -68,6 +68,6 @@
   <string name="fromXGames">Aufgaben aus Partien von %s</string>
   <string name="searchPuzzles">Aufgaben suchen</string>
   <string name="fromMyGamesNone">Du hast keine Aufgaben in der Datenbank, aber Lichess schätzt dich immer noch sehr.
-Spiele schnelle und klassische Partien, um deine Chance auf eine neue Aufgabe zu erhöhen!</string>
+Spiele schnelle und klassische Partien, um die Chance zu erhöhen, eine deiner Aufgaben hinzuzufügen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
 </resources>
