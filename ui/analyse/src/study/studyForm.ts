@@ -176,15 +176,15 @@ export function view(ctrl: StudyFormCtrl): VNode {
                 selected: data.settings.computer,
               })
             ),
-            //h(
-            //  'div.form-group.form-half',
-            //  select({
-            //    key: 'explorer',
-            //    name: ctrl.trans.noarg('openingExplorer'),
-            //    choices: userSelectionChoices,
-            //    selected: data.settings.explorer,
-            //  })
-            //),
+            h(
+              'div.form-group.form-half',
+              select({
+                key: 'explorer',
+                name: ctrl.trans.noarg('openingExplorer'),
+                choices: userSelectionChoices,
+                selected: data.settings.explorer,
+              })
+            ),
           ]),
           h('div.form-split', [
             h(
