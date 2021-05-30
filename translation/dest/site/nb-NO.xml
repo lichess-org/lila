@@ -863,4 +863,5 @@
   <string name="refundXpointsTimeControlY">Refusjon: %1$s ratingpoeng i %2$s.</string>
   <string name="timeAlmostUp">Tiden er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å vise e-postadresse]</string>
+  <string name="welcome">Velkommen!</string>
 </resources>
