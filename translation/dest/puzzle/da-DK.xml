@@ -63,4 +63,8 @@
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>
   <string name="newStreak">Ny stime</string>
+  <string name="fromMyGames">Fra mine partier</string>
+  <string name="lookupOfPlayer">Søg opgaver fra en spillers partier</string>
+  <string name="fromXGames">Opgaver fra %s\' partier</string>
+  <string name="searchPuzzles">Søg opgaver</string>
 </resources>
