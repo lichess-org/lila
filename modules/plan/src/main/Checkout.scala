@@ -50,7 +50,7 @@ object Switch {
     mapping(
       "usd" -> bigDecimal(precision = 10, scale = 2)
         .verifying(_ >= 1)
-        .verifying(_ <= 100000)
+        .verifying(_ <= 10000)
     )(Switch.apply)(Switch.unapply)
   )
 }

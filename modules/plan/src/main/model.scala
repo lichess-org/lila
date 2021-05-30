@@ -128,6 +128,5 @@ case class StripeInvoice(
 
 case class StripeCompletedSession(
     customer: CustomerId,
-    mode: String,
-    subscription: Option[SubscriptionId]
+    mode: String
 )

@@ -430,12 +430,9 @@ final class PlanApi(
 
   def createSession(data: CreateStripeSession): Fu[StripeSession] =
     data.checkout.freq match {
-      case Freq.Onetime =>
-        stripeClient.createOneTimeSession(data)
-      case Freq.Monthly =>
-        stripeClient.createMonthlySession(data, data.checkout.cents)
+      case Freq.Onetime => stripeClient.createOneTimeSession(data)
+      case Freq.Monthly => stripeClient.createMonthlySession(data)
     }
-
 }
 
 object PlanApi {

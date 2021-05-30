@@ -21,6 +21,7 @@ final private class StripeClient(
 
   def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
     List(
+      "mode"                   -> (if (data.checkout.freq.renew) "subscription" else "payment"),
       "payment_method_types[]" -> "card",
       "success_url"            -> data.success_url,
       "cancel_url"             -> data.cancel_url,
@@ -29,16 +30,10 @@ final private class StripeClient(
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++ List(
-      "line_items[][name]"     -> "One-time payment",
-      "line_items[][quantity]" -> 1,
-      "line_items[][amount]"   -> data.checkout.amount.value,
-      "line_items[][currency]" -> "usd",
-      "line_items[][description]" -> {
-        if (data.checkout.amount.value >= 25000)
-          s"Lifetime Patron status on lichess.org. <3 Your support makes a huge difference!"
-        else
-          s"One month of Patron status on lichess.org. <3 Your support makes a huge difference!"
-      }
+      "line_items[0][price_data][product]"     -> StripeProduct.onetimeId,
+      "line_items[0][price_data][currency]"    -> "USD",
+      "line_items[0][price_data][unit_amount]" -> data.checkout.amount.value,
+      "line_items[0][quantity]"                -> 1
     )
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
@@ -52,10 +47,9 @@ final private class StripeClient(
     s"$name[0][quantity]"                              -> 1
   )
 
-  def createMonthlySession(data: CreateStripeSession, amount: Cents): Fu[StripeSession] = {
+  def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++
-      List("mode" -> "subscription") ++
-      recurringPriceArgs("line_items", amount)
+      recurringPriceArgs("line_items", data.checkout.amount)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 

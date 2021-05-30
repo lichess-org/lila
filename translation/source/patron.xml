@@ -67,7 +67,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
-  <string name="paymentHistory">Payment history</string>
+  <string name="paymentHistory">Recurring payment history</string>
   <string name="paid">Paid</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>
