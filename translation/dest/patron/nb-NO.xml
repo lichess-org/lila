@@ -6,8 +6,8 @@
   <string name="becomePatron">Bli Lichess-patron</string>
   <string name="xBecamePatron">%s ble Lichess-patron</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s er Lichess-patron for %2$s måned</item>
-    <item quantity="other">%1$s er Lichess-patron for %2$s måneder</item>
+    <item quantity="one">%1$s er Lichess-patron i %2$s måned</item>
+    <item quantity="other">%1$s er Lichess-patron i %2$s måneder</item>
   </plurals>
   <string name="newPatrons">Nye patroner</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
@@ -66,7 +66,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
   <string name="noLongerSupport">Avbryt støtten til Lichess</string>
-  <string name="paymentHistory">Betalingshistorikk</string>
+  <string name="paymentHistory">Historikk for periodisk betaling</string>
   <string name="paid">Betalt</string>
   <string name="viewOthers">Vis andre Lichess-patroner</string>
   <string name="date">Dato</string>
