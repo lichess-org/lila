@@ -74,7 +74,7 @@
   <string name="newStreak">Stríoc nua</string>
   <string name="fromMyGames">Ó mo chluichí</string>
   <string name="lookupOfPlayer">Cuardaigh fadhbanna ó chluichí imreoir</string>
-  <string name="fromXGames" comment="fromXGames&#10;&#10;%s is a username.&#10;These puzzles were taken from that user's played games.">Fadhbanna ó chluichí %s\'</string>
+  <string name="fromXGames">Fadhbanna ó chluichí %s\'</string>
   <string name="searchPuzzles">Cuardaigh fadhbanna</string>
   <string name="fromXGamesFound">%1$s fadhb le fáil i %2$s cluiche</string>
 </resources>
