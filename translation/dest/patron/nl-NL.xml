@@ -5,6 +5,10 @@
   <string name="freeAccount">Gratis account</string>
   <string name="becomePatron">Word een Lichess Patroon</string>
   <string name="xBecamePatron">%s is een Lichess Patroon geworden</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s is %2$s maand een Lichess Patroon</item>
+    <item quantity="other">%1$s is %2$s maanden een Lichess Patroon</item>
+  </plurals>
   <string name="newPatrons">Nieuwe Patronen</string>
   <string name="freeChess">Gratis schaken voor iedereen, voor altijd!</string>
   <string name="noAdsNoSubs">Geen advertenties, geen abonnementen; maar open-source en passie.</string>
