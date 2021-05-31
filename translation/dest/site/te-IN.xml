@@ -283,4 +283,19 @@
   <string name="tournament">టోర్నమెంట్</string>
   <string name="tournaments">టోర్నమెంట్లు</string>
   <string name="tournamentPoints">టోర్నమెంట్ పాయింట్లు</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s టోర్నమెంట్ పాయింట్</item>
+    <item quantity="other">%s టోర్నమెంట్ పాయింట్లు</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s అధ్యయనం</item>
+    <item quantity="other">%s అధ్యయనాలు</item>
+  </plurals>
+  <string name="viewTournament">టోర్నమెంట్ చూడండి</string>
+  <string name="backToTournament">తిరిగి టోర్నమెంట్‌కు</string>
+  <string name="thematic">నేపథ్య</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s రేట్ చేసిన గేమ్</item>
+    <item quantity="other">≥ %s రేట్ చేసిన ఆటలు</item>
+  </plurals>
 </resources>
