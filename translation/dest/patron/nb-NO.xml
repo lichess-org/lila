@@ -23,15 +23,15 @@
   <string name="lifetimePatron">Lichess-patron på livstid</string>
   <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
-  <string name="recurringBilling">Tilbakevendende fakturering, forny mesenvingene dine hver måned.</string>
+  <string name="recurringBilling">Periodisk fakturering. Patronvingene dine fornyes hver måned.</string>
   <string name="onetime">En gang</string>
-  <string name="singleDonation">Et enkelt bidrag vil gi deg mesenvinger i en måned.</string>
+  <string name="singleDonation">Et enkeltbidrag som gir deg patronvinger i en måned.</string>
   <string name="otherAmount">Annet</string>
   <string name="pleaseEnterAmount">Skriv inn et antall i USD (dollar)</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
-  <string name="celebratedPatrons">De velaktede mesenene som gjør Lichess mulig</string>
+  <string name="celebratedPatrons">De velaktede patronene som gjør Lichess mulig</string>
   <string name="whereMoneyGoes">Hva går pengene til?</string>
   <string name="serversAndDeveloper">Først og fremst til kraftige servere.
 Dernest betaler vi en fulltidsutvikler: %s, grunnleggeren av Lichess.</string>
@@ -45,7 +45,7 @@ Eller du kan %s.</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
   <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
-  <string name="patronFeatures">Er noen funksjoner reservert mesener?</string>
+  <string name="patronFeatures">Er noen funksjoner reservert patroner?</string>
   <string name="noPatronFeatures">Nei, for Lichess er helt gratis, for alltid og for alle. Det er et løfte.
 Men mesener kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
