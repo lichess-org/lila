@@ -67,5 +67,10 @@
   <string name="continueTheStreak">Continuă secvența</string>
   <string name="newStreak">Începe o nouă secvență</string>
   <string name="fromMyGames" comment="fromMyGames&#10;&#10;Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).">Din jocurile mele</string>
+  <string name="lookupOfPlayer" comment="lookupOfPlayer&#10;&#10;Puzzles generated from a specific player's games (all Lichess puzzles are made from games in the Lichess game database).">Caută puzzle-uri din jocurile unui jucător</string>
   <string name="fromXGames" comment="fromXGames&#10;&#10;%s is a username.&#10;These puzzles were taken from that user's played games.">Puzzle-uri din jocurile %s</string>
+  <string name="searchPuzzles" comment="searchPuzzles&#10;&#10;'Search' is a verb in this string.">Caută puzzle-uri</string>
+  <string name="fromMyGamesNone" comment="fromMyGamesNone&#10;&#10;All games on Lichess are generated from players' games. This feature lets you see if any puzzles have been generated from your games (and in this case, they haven't).">Nu ai nici o problemă în baza de date, dar Lichess încă te iubește foarte mult.
+Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle al tău adăugat!</string>
+  <string name="fromXGamesFound" comment="fromXGamesFound&#10;&#10;Both variables are numbers (e.g. 2 puzzles found in 5000 games)&#10;&#10;All games on Lichess are generated from players' games. In the example above, 2 puzzles were created from 5000 games a person played.">%1$s puzzle-uri găsite în %2$s jocuri</string>
 </resources>
