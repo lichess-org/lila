@@ -348,4 +348,23 @@
   <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
   <string name="youArePlaying">మీరు ఆడుతున్నారు!</string>
   <string name="winRate">విన్ రేట్</string>
+  <string name="berserkRate">బెర్సర్క్ రేటు</string>
+  <string name="performance">ప్రదర్శన</string>
+  <string name="tournamentComplete">టోర్నమెంట్ పూర్తయింది</string>
+  <string name="movesPlayed">కదలికలు ఆడారు</string>
+  <string name="whiteWins">తెలుపు విజయాలు</string>
+  <string name="blackWins">బ్లాక్ విజయాలు</string>
+  <string name="draws">డ్రాలు</string>
+  <string name="nextXTournament">తదుపరి %s టోర్నమెంట్:</string>
+  <string name="averageOpponent">సగటు ప్రత్యర్థి</string>
+  <string name="membersOnly">సభ్యులు మాత్రమే</string>
+  <string name="boardEditor">బోర్డు ఎడిటర్</string>
+  <string name="setTheBoard">బోర్డు సెట్ చేయండి</string>
+  <string name="popularOpenings">జనాదరణ పొందిన ఓపెనింగ్స్</string>
+  <string name="startPosition">ప్రారంభ స్థానం</string>
+  <string name="clearBoard">క్లియర్ బోర్డు</string>
+  <string name="savePosition">స్థానం సేవ్</string>
+  <string name="loadPosition">స్థానం లోడ్</string>
+  <string name="isPrivate">ప్రైవేట్</string>
+  <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
 </resources>
