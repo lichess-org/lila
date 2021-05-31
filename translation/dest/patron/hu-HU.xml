@@ -5,7 +5,7 @@
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
   <string name="xBecamePatron">%s már Lichess támogató</string>
-  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+  <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s Lichess Patron %2$s hónapja</item>
     <item quantity="other">%1$s Lichess Patron %2$s hónapja</item>
   </plurals>
