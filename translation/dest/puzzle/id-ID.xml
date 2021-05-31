@@ -60,4 +60,6 @@
   <string name="streakSkipExplanation">Lewati gerakan ini untuk mempertahankan garis Anda! Hanya bekerja sekali per pertandingan.</string>
   <string name="continueTheStreak">Lanjutkan garisnya</string>
   <string name="newStreak">Garis baru</string>
+  <string name="fromMyGames">Dari permainan saya</string>
+  <string name="lookupOfPlayer">Cari teka-teki dari sebuah permainan pemain</string>
 </resources>
