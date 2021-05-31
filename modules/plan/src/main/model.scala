@@ -105,7 +105,6 @@ case class StripeInvoice(
   def dateTime = new DateTime(created * 1000)
 }
 
-case class StripeCompletedSession(
-    customer: CustomerId,
-    mode: String
-)
+case class StripeCompletedSession(customer: CustomerId, mode: String) {
+  def freq = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+}
