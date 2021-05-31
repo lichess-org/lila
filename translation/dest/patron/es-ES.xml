@@ -6,8 +6,8 @@
   <string name="becomePatron">Hazte patrón de Lichess</string>
   <string name="xBecamePatron">%s se hizo Patrón de Lichess</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s es un patrocinador de Lichess por %2$s mes</item>
-    <item quantity="other">%1$s es un patrocinador de Lichess por %2$s meses</item>
+    <item quantity="one">%1$s es un patrón de Lichess por %2$s mes</item>
+    <item quantity="other">%1$s es un patrón de Lichess por %2$s meses</item>
   </plurals>
   <string name="newPatrons">Nuevos Patrones</string>
   <string name="freeChess">¡Ajedrez gratis para todos, para siempre!</string>
