@@ -5,7 +5,7 @@
   <string name="freeAccount">Gratis konto</string>
   <string name="becomePatron">Bli Lichess-patron</string>
   <string name="xBecamePatron">%s ble Lichess-patron</string>
-  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+  <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s er Lichess-patron for %2$s måned</item>
     <item quantity="other">%1$s er Lichess-patron for %2$s måneder</item>
   </plurals>
