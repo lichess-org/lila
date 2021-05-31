@@ -256,11 +256,31 @@
     <item quantity="one">%s ఓటమి</item>
     <item quantity="other">%s ఓటములు</item>
   </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s డ్రా</item>
+    <item quantity="other">%s డ్రాలు</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ఆడుతున్నారు</item>
+    <item quantity="other">%s ఆడుతున్నారు</item>
+  </plurals>
   <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
   <string name="ratingRange">రేటింగ్ పరిధి</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s సెకను ఇవ్వండి</item>
+    <item quantity="other">%s సెకన్లు ఇవ్వండి</item>
+  </plurals>
   <string name="thisAccountViolatedTos">ఈ ఖాతా లైసెన్స్ సేవా నిబంధనలను ఉల్లంఘించింది</string>
   <string name="openingExplorerAndTablebase">ఓపెనింగ్ ఎక్స్‌ప్లోరర్ &amp; టేబుల్‌బేస్</string>
   <string name="takeback">వెనక్కి తీసుకో</string>
   <string name="proposeATakeback">టేక్‌బ్యాక్‌ను ప్రతిపాదించండి</string>
+  <string name="takebackPropositionSent">టేక్‌బ్యాక్ పంపబడింది</string>
+  <string name="takebackPropositionDeclined">టేక్‌బ్యాక్ క్షీణించింది</string>
+  <string name="takebackPropositionAccepted">టేక్‌బ్యాక్ అంగీకరించబడింది</string>
+  <string name="takebackPropositionCanceled">టేక్‌బ్యాక్ రద్దు చేయబడింది</string>
+  <string name="yourOpponentProposesATakeback">మీ ప్రత్యర్థి టేక్‌బ్యాక్‌ను ప్రతిపాదించాడు</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
+  <string name="tournament">టోర్నమెంట్</string>
+  <string name="tournaments">టోర్నమెంట్లు</string>
+  <string name="tournamentPoints">టోర్నమెంట్ పాయింట్లు</string>
 </resources>
