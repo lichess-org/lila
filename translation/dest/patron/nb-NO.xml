@@ -45,7 +45,7 @@ Eller du kan %s.</string>
   <string name="otherMethods">Andre måter å bidra på?</string>
   <string name="bankTransfers">Vi tar også imot bankoverføringer</string>
   <string name="bitcoin">Og her er bitcoin-adressen vår: %s</string>
-  <string name="patronFeatures">Er noen funksjoner reservert patroner?</string>
+  <string name="patronFeatures">Er noen funksjoner forbeholdt patroner?</string>
   <string name="noPatronFeatures">Nei, Lichess er helt gratis, for alltid og for alle. Det er et løfte.
 Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="featuresComparison">Se en detaljert sammenligning av funksjoner</string>
