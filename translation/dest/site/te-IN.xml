@@ -258,5 +258,9 @@
   </plurals>
   <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
   <string name="ratingRange">రేటింగ్ పరిధి</string>
+  <string name="thisAccountViolatedTos">ఈ ఖాతా లైసెన్స్ సేవా నిబంధనలను ఉల్లంఘించింది</string>
+  <string name="openingExplorerAndTablebase">ఓపెనింగ్ ఎక్స్‌ప్లోరర్ &amp; టేబుల్‌బేస్</string>
+  <string name="takeback">వెనక్కి తీసుకో</string>
+  <string name="proposeATakeback">టేక్‌బ్యాక్‌ను ప్రతిపాదించండి</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
 </resources>
