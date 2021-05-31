@@ -367,4 +367,5 @@
   <string name="loadPosition">స్థానం లోడ్</string>
   <string name="isPrivate">ప్రైవేట్</string>
   <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
+  <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
 </resources>
