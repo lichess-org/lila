@@ -327,9 +327,9 @@
     <item quantity="other">Du må spille enda %s ratede partier</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">%s-ratingen din er provisorisk</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s-ratingen din (%2$s) er for høy</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Din ukentlige %1$s topprating (%2$s) er for høy</string>
-  <string name="yourPerfRatingIsTooLow">%1$s-ratingen din (%2$s) er for lav</string>
+  <string name="yourPerfRatingIsTooHigh">Ratingen din i %1$s (%2$s) er for høy</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste ukeratingen din i %1$s (%2$s) er for høy</string>
+  <string name="yourPerfRatingIsTooLow">Ratingen din i %1$s (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s denne uken</string>
   <string name="mustBeInTeam">Du må være med i laget %s</string>
