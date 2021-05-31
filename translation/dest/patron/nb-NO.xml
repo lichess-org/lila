@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doner</string>
-  <string name="lichessPatron">Lichess-beskytter</string>
+  <string name="lichessPatron">Lichess-patron</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli Lichess-beskytter</string>
-  <string name="xBecamePatron">%s ble Lichess-beskytter</string>
-  <string name="newPatrons">Nye lichess-beskyttere</string>
+  <string name="becomePatron">Bli Lichess-patron</string>
+  <string name="xBecamePatron">%s ble Lichess-patron</string>
+  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+    <item quantity="one">%1$s er Lichess-patron for %2$s måned</item>
+    <item quantity="other">%1$s er Lichess-patron for %2$s måneder</item>
+  </plurals>
+  <string name="newPatrons">Nye patroner</string>
   <string name="freeChess">Gratis sjakk for alle, for alltid!</string>
   <string name="noAdsNoSubs">Ingen annonser, ingen abonnementer; men åpen kildekode og glødende engasjement.</string>
   <string name="thankYou">Takk for din donasjon!</string>
-  <string name="youHaveLifetime">Du har mesenkonto på livstid. Det er rett og slett storartet!</string>
-  <string name="patronUntil">Du har mesenkonto fram til %s.</string>
+  <string name="youHaveLifetime">Du har patronkonto på livstid. Det er rett og slett storartet!</string>
+  <string name="patronUntil">Du har patronkonto fram til %s.</string>
   <string name="ifNotRenewed">Dersom den ikke blir fornyet vil kontoen din bli nedgradert til gratis.</string>
   <string name="weAreNonProfit">Vi er en ideell forening fordi vi mener at alle bør ha tilgang til en gratis sjakkplattform i verdensklasse.</string>
-  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli mesen!</string>
+  <string name="weRelyOnSupport">Vi er avhengige av støtte fra folk som deg for å gjøre det mulig. Dersom du setter pris på å bruke Lichess, så vurder gjerne å støtte oss med et bidrag og bli patron!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betal %s én gang og vær Lichess-mesen for alltid!</string>
-  <string name="lifetimePatron">Lichess-beskytter på livstid</string>
+  <string name="payLifetimeOnce">Betal %s én gang. Vær Lichess-patron for alltid!</string>
+  <string name="lifetimePatron">Lichess-patron på livstid</string>
   <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Tilbakevendende fakturering, forny mesenvingene dine hver måned.</string>
