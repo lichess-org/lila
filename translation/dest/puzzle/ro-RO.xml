@@ -66,4 +66,6 @@
   <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de puzzle-uri consecutive! Funcționează o singură dată pe rulare.</string>
   <string name="continueTheStreak">Continuă secvența</string>
   <string name="newStreak">Începe o nouă secvență</string>
+  <string name="fromMyGames" comment="fromMyGames&#10;&#10;Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).">Din jocurile mele</string>
+  <string name="fromXGames" comment="fromXGames&#10;&#10;%s is a username.&#10;These puzzles were taken from that user's played games.">Puzzle-uri din jocurile %s</string>
 </resources>
