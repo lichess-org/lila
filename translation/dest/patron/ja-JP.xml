@@ -5,7 +5,7 @@
   <string name="freeAccount">無料アカウント</string>
   <string name="becomePatron">Lichess のパトロンになる</string>
   <string name="xBecamePatron">%s は Lichess パトロンになりました</string>
-  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+  <plurals name="xIsPatronForNbMonths">
     <item quantity="other">%1$s は %2$s か月前から Lichess のパトロンです</item>
   </plurals>
   <string name="newPatrons">新しいパトロン</string>
