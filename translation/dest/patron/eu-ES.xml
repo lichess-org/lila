@@ -5,7 +5,7 @@
   <string name="freeAccount">Doako kontua</string>
   <string name="becomePatron">Lichess Babesle bihurtu</string>
   <string name="xBecamePatron">%s Lichess Babesle bihurtu da</string>
-  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+  <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s Lichess Babeslea da orain dela hilabete %2$setik</item>
     <item quantity="other">%1$s Lichess Babeslea da orain dela %2$s hilabetetik</item>
   </plurals>
