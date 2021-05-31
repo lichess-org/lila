@@ -225,6 +225,7 @@
   <string name="rematchOfferSent">రీమ్యాచ్ ఆఫర్ పంపబడింది</string>
   <string name="rematchOfferSentWhite">తెలుపు రీమ్యాచ్ కోరుచున్నారు</string>
   <string name="rematchOfferSentBlack">నలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <string name="rematchOfferAccepted">రీమ్యాచ్ ఆఫర్ అంగీకరించబడింది</string>
   <plurals name="nbRated">
     <item quantity="one">%s రేటెడ్</item>
     <item quantity="other">%s రేటెడ్</item>
