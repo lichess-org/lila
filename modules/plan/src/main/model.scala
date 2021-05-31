@@ -38,14 +38,7 @@ case class Country(code: String) extends AnyVal
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
-object StripeProduct {
-  object dev {
-    val monthlyId = "prod_JZswNwe0eLPJIU"
-    val onetimeId = "prod_JZuNrVAZSUieAd"
-  }
-  val monthlyId = dev.monthlyId
-  val onetimeId = dev.onetimeId
-}
+case class StripeProducts(monthly: String, onetime: String)
 
 case class StripeItem(id: String, price: StripePrice)
 
@@ -54,20 +47,6 @@ case class StripePrice(product: String, unit_amount: Cents) {
   def usd   = cents.usd
 }
 object StripePrice {
-  def make(cents: Cents, freq: Freq): StripePrice =
-    freq match {
-      case Freq.Monthly =>
-        StripePrice(
-          product = StripeProduct.monthlyId,
-          unit_amount = cents
-        )
-      case Freq.Onetime =>
-        StripePrice(
-          product = StripeProduct.onetimeId,
-          unit_amount = cents
-        )
-    }
-
   val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }
 

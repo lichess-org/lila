@@ -30,7 +30,7 @@ final private class StripeClient(
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data) ++ List(
-      "line_items[0][price_data][product]"     -> StripeProduct.onetimeId,
+      "line_items[0][price_data][product]"     -> config.products.onetime,
       "line_items[0][price_data][currency]"    -> "USD",
       "line_items[0][price_data][unit_amount]" -> data.checkout.amount.value,
       "line_items[0][quantity]"                -> 1
@@ -39,7 +39,7 @@ final private class StripeClient(
   }
 
   private def recurringPriceArgs(name: String, amount: Cents) = List(
-    s"$name[0][price_data][product]"                   -> StripeProduct.monthlyId,
+    s"$name[0][price_data][product]"                   -> config.products.monthly,
     s"$name[0][price_data][currency]"                  -> "USD",
     s"$name[0][price_data][unit_amount]"               -> amount.value,
     s"$name[0][price_data][recurring][interval]"       -> "month",
@@ -179,7 +179,9 @@ object StripeClient {
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: Secret
+      @ConfigName("keys.secret") secretKey: Secret,
+      products: StripeProducts
   )
-  implicit private[plan] val configLoader = AutoConfig.loader[Config]
+  implicit private[plan] val productsLoader = AutoConfig.loader[StripeProducts]
+  implicit private[plan] val configLoader   = AutoConfig.loader[Config]
 }
