@@ -298,4 +298,32 @@
     <item quantity="one">≥ %s రేట్ చేసిన గేమ్</item>
     <item quantity="other">≥ %s రేట్ చేసిన ఆటలు</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s రేట్ చేసిన గేమ్</item>
+    <item quantity="other">≥ %1$s %2$s రేట్ చేసిన ఆటలు</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">మీరు%1$s ఎక్కువ %2$s రేటెడ్ గేమ్ ఆడాలి</item>
+    <item quantity="other">మీరు%1$s ఎక్కువ %2$s రేట్ చేసిన ఆటలను ఆడాలి</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">మీరు%s ఎక్కువ రేటెడ్ గేమ్ ఆడాలి</item>
+    <item quantity="other">మీరు%s ఎక్కువ రేటెడ్ ఆటలను ఆడాలి</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">మీ%s రేటింగ్ తాత్కాలికం</string>
+  <string name="yourPerfRatingIsTooHigh">మీ%1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
+  <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
+  <string name="ratedMoreThanInPerf">%2$s లో ≥ %1$s గా రేట్ చేయబడింది</string>
+  <string name="graph">గ్రాఫ్</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
+    <item quantity="other">%s నిమిషాల కన్నా తక్కువ</item>
+  </plurals>
+  <string name="required">అవసరం.</string>
+  <string name="openTournaments">ఓపెన్ టోర్నమెంట్లు</string>
+  <string name="duration">వ్యవధి</string>
+  <string name="winner">విజేత</string>
+  <string name="standing">నిలబడి</string>
+  <string name="createANewTournament">క్రొత్త టోర్నమెంట్‌ను సృష్టించండి</string>
 </resources>
