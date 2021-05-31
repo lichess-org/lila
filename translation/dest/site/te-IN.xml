@@ -326,4 +326,26 @@
   <string name="winner">విజేత</string>
   <string name="standing">నిలబడి</string>
   <string name="createANewTournament">క్రొత్త టోర్నమెంట్‌ను సృష్టించండి</string>
+  <string name="tournamentCalendar">టోర్నమెంట్ క్యాలెండర్</string>
+  <string name="conditionOfEntry">ప్రవేశ అవసరాలు:</string>
+  <string name="advancedSettings">ఆధునిక సెట్టింగులు</string>
+  <string name="safeTournamentName">టోర్నమెంట్ కోసం చాలా సురక్షితమైన పేరును ఎంచుకోండి.</string>
+  <string name="inappropriateNameWarning">కొంచెం అనుచితమైన ఏదైనా మీ ఖాతా మూసివేయబడుతుంది.</string>
+  <string name="emptyTournamentName">చెస్ ఆటగాడి పేరు మీద టోర్నమెంట్ పేరు పెట్టడానికి ఖాళీగా ఉండండి.</string>
+  <string name="recommendNotTouching">వీటిని తాకవద్దని మేము సిఫార్సు చేస్తున్నాము.</string>
+  <string name="fewerPlayers">మీరు ప్రవేశ అవసరాలను సెట్ చేస్తే, మీ టోర్నమెంట్‌లో తక్కువ మంది ఆటగాళ్ళు ఉంటారు.</string>
+  <string name="showAdvancedSettings">అధునాతన సెట్టింగ్‌లను చూపించు</string>
+  <string name="makePrivateTournament">టోర్నమెంట్‌ను ప్రైవేట్‌గా చేయండి మరియు పాస్‌వర్డ్‌తో ప్రాప్యతను పరిమితం చేయండి</string>
+  <string name="join">చేరండి</string>
+  <string name="withdraw">ఉపసంహరించుకోండి</string>
+  <string name="points">పాయింట్లు</string>
+  <string name="wins">విజయాలు</string>
+  <string name="losses">నష్టాలు</string>
+  <string name="winStreak">విన్ స్ట్రీక్</string>
+  <string name="createdBy">సృష్టికర్త</string>
+  <string name="tournamentIsStarting">టోర్నమెంట్ ప్రారంభమవుతుంది</string>
+  <string name="tournamentPairingsAreNowClosed">టోర్నమెంట్ జతలు ఇప్పుడు మూసివేయబడ్డాయి.</string>
+  <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
+  <string name="youArePlaying">మీరు ఆడుతున్నారు!</string>
+  <string name="winRate">విన్ రేట్</string>
 </resources>
