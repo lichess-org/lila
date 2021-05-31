@@ -5,7 +5,7 @@
   <string name="freeAccount">Бесплатный аккаунт</string>
   <string name="becomePatron">Стать спонсором Lichess</string>
   <string name="xBecamePatron">%s стал спонсором Lichess</string>
-  <plurals name="xIsPatronForNbMonths" comment="xIsPatronForNbMonths [one] [other]&#10;&#10;%1$s is a username&#10;%2$s is a number ">
+  <plurals name="xIsPatronForNbMonths">
     <item quantity="one">%1$s продлил спонсорство Lichess на %2$s месяц</item>
     <item quantity="few">%1$s продлил спонсорство Lichess на %2$s месяца</item>
     <item quantity="many">%1$s продлил спонсорство Lichess на %2$s месяцев</item>
