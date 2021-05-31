@@ -226,6 +226,24 @@
   <string name="rematchOfferSentWhite">తెలుపు రీమ్యాచ్ కోరుచున్నారు</string>
   <string name="rematchOfferSentBlack">నలుపు రీమ్యాచ్ కోరుచున్నారు</string>
   <string name="rematchOfferAccepted">రీమ్యాచ్ ఆఫర్ అంగీకరించబడింది</string>
+  <string name="rematchOfferCanceled">రీమ్యాచ్ ఆఫర్ రద్దు చేయబడింది</string>
+  <string name="rematchOfferDeclined">రీమ్యాచ్ ఆఫర్ తిరస్కరించబడింది</string>
+  <string name="cancelRematchOffer">రీమ్యాచ్ ఆఫర్‌ను రద్దు చేయండి</string>
+  <string name="viewRematch">రీమ్యాచ్ చూడండి</string>
+  <string name="confirmMove">తరలించడాన్ని నిర్ధారించండి</string>
+  <string name="play">ఆడండి</string>
+  <string name="inbox">ఇన్బాక్స్</string>
+  <string name="chatRoom">చాట్ రూమ్</string>
+  <string name="loginToChat">చాట్ చేయడానికి సైన్ ఇన్ చేయండి</string>
+  <string name="youHaveBeenTimedOut">మీకు సమయం ముగిసింది.</string>
+  <string name="spectatorRoom">స్పెక్టేటర్ గది</string>
+  <string name="composeMessage">సందేశాన్ని కంపోజ్ చేయండి</string>
+  <string name="noNewMessages">క్రొత్త సందేశాలు లేవు</string>
+  <string name="subject">విషయం</string>
+  <string name="recipient">గ్రహీత</string>
+  <string name="send">పంపండి</string>
+  <string name="incrementInSeconds">సెకన్లలో పెరుగుదల</string>
+  <string name="freeOnlineChess">ఉచిత ఆన్‌లైన్ చెస్</string>
   <plurals name="nbRated">
     <item quantity="one">%s రేటెడ్</item>
     <item quantity="other">%s రేటెడ్</item>
@@ -238,5 +256,7 @@
     <item quantity="one">%s ఓటమి</item>
     <item quantity="other">%s ఓటములు</item>
   </plurals>
+  <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
+  <string name="ratingRange">రేటింగ్ పరిధి</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
 </resources>
