@@ -100,13 +100,16 @@ final class Swiss(
 
   def form(teamId: String) =
     Auth { implicit ctx => me =>
+     NoLameOrBot{
       CheckTeamLeader(teamId) {
         Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).fuccess
       }
+     }
     }
 
   def create(teamId: String) =
     AuthBody { implicit ctx => me =>
+     NoLameOrBot{
       CheckTeamLeader(teamId) {
         env.swiss.forms.create(me)
           .bindFromRequest()(ctx.body, formBinding)
@@ -119,6 +122,7 @@ final class Swiss(
                 }
               }
           )
+        }
       }
     }
 
