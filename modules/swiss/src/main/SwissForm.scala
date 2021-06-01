@@ -6,19 +6,22 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation
+import play.api.data.validation.Constraint
 import play.api.Mode
 import scala.concurrent.duration._
 
 import lila.common.Form._
+import lila.user.User
 
 final class SwissForm(implicit mode: Mode) {
 
   import SwissForm._
 
-  def form(minRounds: Int = 3) =
+  def form(user: User, minRounds: Int = 3) =
     Form(
       mapping(
-        "name" -> optional(eventName(2, 30)),
+        "name" -> optional(nameType(user)),
         "clock" -> mapping(
           "limit"     -> number.verifying(clockLimits.contains _),
           "increment" -> number(min = 0, max = 120)
@@ -39,8 +42,8 @@ final class SwissForm(implicit mode: Mode) {
         .verifying("15s and 0+1 variant games cannot be rated", _.validRatedVariant)
     )
 
-  def create =
-    form() fill SwissData(
+  def create(user: User) =
+    form(user) fill SwissData(
       name = none,
       clock = ClockConfig(180, 0),
       startsAt = Some(DateTime.now plusSeconds {
@@ -58,8 +61,8 @@ final class SwissForm(implicit mode: Mode) {
       forbiddenPairings = none
     )
 
-  def edit(s: Swiss) =
-    form(s.round.value) fill SwissData(
+  def edit(user: User, s: Swiss) =
+    form(user, s.round.value) fill SwissData(
       name = s.name.some,
       clock = s.clock,
       startsAt = s.startsAt.some,
@@ -81,6 +84,17 @@ final class SwissForm(implicit mode: Mode) {
         "date" -> inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)
       )
     )
+    
+    private val blockList = List("lichess", "liсhess")
+
+  private def nameType(user: User) = eventName(2, 30).verifying(
+    Constraint[String] { (t: String) =>
+      if (blockList.exists(t.toLowerCase.contains) && !user.isVerified && !user.isAdmin)
+        validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+      else validation.Valid
+    }
+  )
+
 }
 
 object SwissForm {
