@@ -351,6 +351,7 @@
   <string name="tournamentComplete">Pertandingan selesai</string>
   <string name="movesPlayed">Gerakan dimain</string>
   <string name="whiteWins">Buah putih menang</string>
+  <string name="startPosition">Posisi permulaan</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s permainan sedang berlangsung</item>
   </plurals>
