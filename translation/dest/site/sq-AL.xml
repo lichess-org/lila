@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Printo PDF</string>
   <string name="crosstable">Kryqtryeza</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ju mund edhe të rrotulloni rrotën mbi fushë për të lëvizur gjatë lojës.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
   <string name="analysisShapesHowTo">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
@@ -861,4 +862,9 @@
   <string name="lostAgainstTOSViolator">Ti ke humbur nga dikush që shkeli rregullat e Lichess</string>
   <string name="refundXpointsTimeControlY">Kompensim: %1$s pikë %2$s.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>
+  <string name="clickToRevealEmailAddress">[Kliko të zbulosh email adresen]</string>
+  <string name="download">Shkarko</string>
+  <string name="welcome">Mirësevini!</string>
+  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas / pa burim të hapur.
+Të gjitha kostot operative, zhvillimi dhe përmbajtja financohen vetëm nga donacionet e përdoruesve.</string>
 </resources>
