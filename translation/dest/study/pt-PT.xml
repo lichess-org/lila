@@ -127,6 +127,7 @@
   <string name="deleteStudy">Eliminar estudo</string>
   <string name="deleteTheEntireStudy">Eliminar todo o estudo? Não há volta atrás!</string>
   <string name="whereDoYouWantToStudyThat">Onde queres estudar isso?</string>
+  <string name="blunder">Erro grave</string>
   <string name="interestingMove">Lance interessante</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Lance duvidoso</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Lance único</string>
