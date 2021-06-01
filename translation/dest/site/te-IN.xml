@@ -225,6 +225,25 @@
   <string name="rematchOfferSent">రీమ్యాచ్ ఆఫర్ పంపబడింది</string>
   <string name="rematchOfferSentWhite">తెలుపు రీమ్యాచ్ కోరుచున్నారు</string>
   <string name="rematchOfferSentBlack">నలుపు రీమ్యాచ్ కోరుచున్నారు</string>
+  <string name="rematchOfferAccepted">రీమ్యాచ్ ఆఫర్ అంగీకరించబడింది</string>
+  <string name="rematchOfferCanceled">రీమ్యాచ్ ఆఫర్ రద్దు చేయబడింది</string>
+  <string name="rematchOfferDeclined">రీమ్యాచ్ ఆఫర్ తిరస్కరించబడింది</string>
+  <string name="cancelRematchOffer">రీమ్యాచ్ ఆఫర్‌ను రద్దు చేయండి</string>
+  <string name="viewRematch">రీమ్యాచ్ చూడండి</string>
+  <string name="confirmMove">తరలించడాన్ని నిర్ధారించండి</string>
+  <string name="play">ఆడండి</string>
+  <string name="inbox">ఇన్బాక్స్</string>
+  <string name="chatRoom">చాట్ రూమ్</string>
+  <string name="loginToChat">చాట్ చేయడానికి సైన్ ఇన్ చేయండి</string>
+  <string name="youHaveBeenTimedOut">మీకు సమయం ముగిసింది.</string>
+  <string name="spectatorRoom">స్పెక్టేటర్ గది</string>
+  <string name="composeMessage">సందేశాన్ని కంపోజ్ చేయండి</string>
+  <string name="noNewMessages">క్రొత్త సందేశాలు లేవు</string>
+  <string name="subject">విషయం</string>
+  <string name="recipient">గ్రహీత</string>
+  <string name="send">పంపండి</string>
+  <string name="incrementInSeconds">సెకన్లలో పెరుగుదల</string>
+  <string name="freeOnlineChess">ఉచిత ఆన్‌లైన్ చెస్</string>
   <plurals name="nbRated">
     <item quantity="one">%s రేటెడ్</item>
     <item quantity="other">%s రేటెడ్</item>
@@ -237,5 +256,116 @@
     <item quantity="one">%s ఓటమి</item>
     <item quantity="other">%s ఓటములు</item>
   </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s డ్రా</item>
+    <item quantity="other">%s డ్రాలు</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s ఆడుతున్నారు</item>
+    <item quantity="other">%s ఆడుతున్నారు</item>
+  </plurals>
+  <string name="exportGames">ఆటలను ఎగుమతి చేయండి</string>
+  <string name="ratingRange">రేటింగ్ పరిధి</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s సెకను ఇవ్వండి</item>
+    <item quantity="other">%s సెకన్లు ఇవ్వండి</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">ఈ ఖాతా లైసెన్స్ సేవా నిబంధనలను ఉల్లంఘించింది</string>
+  <string name="openingExplorerAndTablebase">ఓపెనింగ్ ఎక్స్‌ప్లోరర్ &amp; టేబుల్‌బేస్</string>
+  <string name="takeback">వెనక్కి తీసుకో</string>
+  <string name="proposeATakeback">టేక్‌బ్యాక్‌ను ప్రతిపాదించండి</string>
+  <string name="takebackPropositionSent">టేక్‌బ్యాక్ పంపబడింది</string>
+  <string name="takebackPropositionDeclined">టేక్‌బ్యాక్ క్షీణించింది</string>
+  <string name="takebackPropositionAccepted">టేక్‌బ్యాక్ అంగీకరించబడింది</string>
+  <string name="takebackPropositionCanceled">టేక్‌బ్యాక్ రద్దు చేయబడింది</string>
+  <string name="yourOpponentProposesATakeback">మీ ప్రత్యర్థి టేక్‌బ్యాక్‌ను ప్రతిపాదించాడు</string>
   <string name="bookmarkThisGame">ఈ ఆటను బుక్‌మార్క్ చేయండి</string>
+  <string name="tournament">టోర్నమెంట్</string>
+  <string name="tournaments">టోర్నమెంట్లు</string>
+  <string name="tournamentPoints">టోర్నమెంట్ పాయింట్లు</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s టోర్నమెంట్ పాయింట్</item>
+    <item quantity="other">%s టోర్నమెంట్ పాయింట్లు</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s అధ్యయనం</item>
+    <item quantity="other">%s అధ్యయనాలు</item>
+  </plurals>
+  <string name="viewTournament">టోర్నమెంట్ చూడండి</string>
+  <string name="backToTournament">తిరిగి టోర్నమెంట్‌కు</string>
+  <string name="thematic">నేపథ్య</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s రేట్ చేసిన గేమ్</item>
+    <item quantity="other">≥ %s రేట్ చేసిన ఆటలు</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s రేట్ చేసిన గేమ్</item>
+    <item quantity="other">≥ %1$s %2$s రేట్ చేసిన ఆటలు</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">మీరు%1$s ఎక్కువ %2$s రేటెడ్ గేమ్ ఆడాలి</item>
+    <item quantity="other">మీరు%1$s ఎక్కువ %2$s రేట్ చేసిన ఆటలను ఆడాలి</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">మీరు%s ఎక్కువ రేటెడ్ గేమ్ ఆడాలి</item>
+    <item quantity="other">మీరు%s ఎక్కువ రేటెడ్ ఆటలను ఆడాలి</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">మీ%s రేటింగ్ తాత్కాలికం</string>
+  <string name="yourPerfRatingIsTooHigh">మీ%1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">మీ అగ్ర వారపు %1$s రేటింగ్ (%2$s) చాలా ఎక్కువ</string>
+  <string name="yourPerfRatingIsTooLow">మీ %1$s రేటింగ్ (%2$s) చాలా తక్కువ</string>
+  <string name="ratedMoreThanInPerf">%2$s లో ≥ %1$s గా రేట్ చేయబడింది</string>
+  <string name="graph">గ్రాఫ్</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s నిమిషం కన్నా తక్కువ</item>
+    <item quantity="other">%s నిమిషాల కన్నా తక్కువ</item>
+  </plurals>
+  <string name="required">అవసరం.</string>
+  <string name="openTournaments">ఓపెన్ టోర్నమెంట్లు</string>
+  <string name="duration">వ్యవధి</string>
+  <string name="winner">విజేత</string>
+  <string name="standing">నిలబడి</string>
+  <string name="createANewTournament">క్రొత్త టోర్నమెంట్‌ను సృష్టించండి</string>
+  <string name="tournamentCalendar">టోర్నమెంట్ క్యాలెండర్</string>
+  <string name="conditionOfEntry">ప్రవేశ అవసరాలు:</string>
+  <string name="advancedSettings">ఆధునిక సెట్టింగులు</string>
+  <string name="safeTournamentName">టోర్నమెంట్ కోసం చాలా సురక్షితమైన పేరును ఎంచుకోండి.</string>
+  <string name="inappropriateNameWarning">కొంచెం అనుచితమైన ఏదైనా మీ ఖాతా మూసివేయబడుతుంది.</string>
+  <string name="emptyTournamentName">చెస్ ఆటగాడి పేరు మీద టోర్నమెంట్ పేరు పెట్టడానికి ఖాళీగా ఉండండి.</string>
+  <string name="recommendNotTouching">వీటిని తాకవద్దని మేము సిఫార్సు చేస్తున్నాము.</string>
+  <string name="fewerPlayers">మీరు ప్రవేశ అవసరాలను సెట్ చేస్తే, మీ టోర్నమెంట్‌లో తక్కువ మంది ఆటగాళ్ళు ఉంటారు.</string>
+  <string name="showAdvancedSettings">అధునాతన సెట్టింగ్‌లను చూపించు</string>
+  <string name="makePrivateTournament">టోర్నమెంట్‌ను ప్రైవేట్‌గా చేయండి మరియు పాస్‌వర్డ్‌తో ప్రాప్యతను పరిమితం చేయండి</string>
+  <string name="join">చేరండి</string>
+  <string name="withdraw">ఉపసంహరించుకోండి</string>
+  <string name="points">పాయింట్లు</string>
+  <string name="wins">విజయాలు</string>
+  <string name="losses">నష్టాలు</string>
+  <string name="winStreak">విన్ స్ట్రీక్</string>
+  <string name="createdBy">సృష్టికర్త</string>
+  <string name="tournamentIsStarting">టోర్నమెంట్ ప్రారంభమవుతుంది</string>
+  <string name="tournamentPairingsAreNowClosed">టోర్నమెంట్ జతలు ఇప్పుడు మూసివేయబడ్డాయి.</string>
+  <string name="standByX">%s తో నిలబడండి, ఆటగాళ్లను జత చేయండి, సిద్ధంగా ఉండండి!</string>
+  <string name="youArePlaying">మీరు ఆడుతున్నారు!</string>
+  <string name="winRate">విన్ రేట్</string>
+  <string name="berserkRate">బెర్సర్క్ రేటు</string>
+  <string name="performance">ప్రదర్శన</string>
+  <string name="tournamentComplete">టోర్నమెంట్ పూర్తయింది</string>
+  <string name="movesPlayed">కదలికలు ఆడారు</string>
+  <string name="whiteWins">తెలుపు విజయాలు</string>
+  <string name="blackWins">బ్లాక్ విజయాలు</string>
+  <string name="draws">డ్రాలు</string>
+  <string name="nextXTournament">తదుపరి %s టోర్నమెంట్:</string>
+  <string name="averageOpponent">సగటు ప్రత్యర్థి</string>
+  <string name="membersOnly">సభ్యులు మాత్రమే</string>
+  <string name="boardEditor">బోర్డు ఎడిటర్</string>
+  <string name="setTheBoard">బోర్డు సెట్ చేయండి</string>
+  <string name="popularOpenings">జనాదరణ పొందిన ఓపెనింగ్స్</string>
+  <string name="startPosition">ప్రారంభ స్థానం</string>
+  <string name="clearBoard">క్లియర్ బోర్డు</string>
+  <string name="savePosition">స్థానం సేవ్</string>
+  <string name="loadPosition">స్థానం లోడ్</string>
+  <string name="isPrivate">ప్రైవేట్</string>
+  <string name="reportXToModerators">మోడరేటర్లకు %s ని నివేదించండి</string>
+  <string name="profileCompletion">ప్రొఫైల్ పూర్తయింది:%s</string>
 </resources>

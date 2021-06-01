@@ -865,4 +865,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
   <string name="download">Last ned</string>
+  <string name="welcome">Velkomen!</string>
+  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
+Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
 </resources>

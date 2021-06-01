@@ -944,4 +944,7 @@
   <string name="timeAlmostUp">Время почти вышло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
   <string name="download">Загрузить</string>
+  <string name="welcome">Добро пожаловать!</string>
+  <string name="lichessPatronInfo">Lichess — это благотворительная организация, предоставляющая свободное и бесплатное программное обеспечение с открытым исходным кодом.
+Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
 </resources>

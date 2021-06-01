@@ -5,6 +5,10 @@
   <string name="freeAccount">Ingyenes fiók</string>
   <string name="becomePatron">Támogasd a Lichesst</string>
   <string name="xBecamePatron">%s már Lichess támogató</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s Lichess Patron %2$s hónapja</item>
+    <item quantity="other">%1$s Lichess Patron %2$s hónapja</item>
+  </plurals>
   <string name="newPatrons">Új támogatók</string>
   <string name="freeChess">Ingyen sakk mindig, mindenkinek!</string>
   <string name="noAdsNoSubs">Se reklám, se fizetős részek; csak nyílt forrás és elhivatottság.</string>

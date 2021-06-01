@@ -5,6 +5,9 @@
   <string name="freeAccount">無料アカウント</string>
   <string name="becomePatron">Lichess のパトロンになる</string>
   <string name="xBecamePatron">%s は Lichess パトロンになりました</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s は %2$s か月前から Lichess のパトロンです</item>
+  </plurals>
   <string name="newPatrons">新しいパトロン</string>
   <string name="freeChess">無料のチェスをあらゆる人に、いつまでも！</string>
   <string name="noAdsNoSubs">広告なし、課金なし。オープンソースと情熱あり。</string>

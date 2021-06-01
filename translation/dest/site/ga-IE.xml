@@ -984,4 +984,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="refundXpointsTimeControlY">Athchistiú: %1$s %2$s pointí rátála.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
   <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
+  <string name="download">Íoslódáil</string>
+  <string name="welcome">Fáilte!</string>
+  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
+Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
 </resources>

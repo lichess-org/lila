@@ -49,4 +49,6 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="teamPasswordDescriptionForLeader">(Nem kötelező) Olyan jelszó, amit az új tagoknak ismerniük kell a csatlakozáshoz.</string>
   <string name="incorrectTeamPassword">Helytelen csapatjelszó.</string>
   <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
+  <string name="upcomingTourns">Közelgő versenyek</string>
+  <string name="completedTourns">Véget ért versenyek</string>
 </resources>

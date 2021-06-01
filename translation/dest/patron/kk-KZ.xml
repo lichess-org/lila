@@ -2,16 +2,16 @@
 <resources>
   <string name="donate">Ақшалай жәрдем</string>
   <string name="lichessPatron">Личес Қамқоршысы</string>
-  <string name="freeAccount">Тегін аккаунт</string>
+  <string name="freeAccount">Тегін тіркелгі</string>
   <string name="becomePatron">Лическе Қамқоршы болу</string>
   <string name="xBecamePatron">%s Лическе Қамқоршы болды</string>
   <string name="newPatrons">Жаңа Қамқоршылар</string>
   <string name="freeChess">Баршаға арналған тегін шахмат! Мәңгіге!</string>
   <string name="noAdsNoSubs">Жарнамасыз, жазылымсыз, коды ашық, еркін.</string>
   <string name="thankYou">Ақшалай жәрдем үшін сізге рахмет!</string>
-  <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы аккаунтына иесіз. Бұл керемет!</string>
-  <string name="patronUntil">Сіз Қамқоршы аккаунтқа %s дейін иесіз.</string>
-  <string name="ifNotRenewed">Егер жаңартпасаңыз, аккаунт тегін деңгейіне түседі.</string>
+  <string name="youHaveLifetime">Сіз Өмір бойына Қамқоршы тіркелгісіне иесіз. Бәрекелді!</string>
+  <string name="patronUntil">Сіз Қамқоршы тіркелгісіне %s дейін иесіз.</string>
+  <string name="ifNotRenewed">Егер жаңартпасаңыз, тіркелгі тегін деңгейіне түседі.</string>
   <string name="weAreNonProfit">Біз коммерциялық емес ұйымбыз, өйткені біз әрбір адам әлемдік деңгейдегі шахматты тегін ойнауға құқылы деп сенеміз.</string>
   <string name="weRelyOnSupport">Еңбегімізді қуаттап, қолдап жүрген жұртқа үміт артамыз. Егер сізге Личес пайдасын тигізсе, Қамқоршы болып, бізге ақшалай жәрдем көрсетуді сұраймыз!</string>
   <string name="lifetime">Өмір бойы</string>
@@ -68,9 +68,9 @@
   <string name="date">Күні</string>
   <string name="amount">Мөлшері</string>
   <string name="transactionCompleted">Сіздің аударымыңыз аяқталды, ақшалай жәрдем түбіртегі поштаңызға жіберілді.</string>
-  <string name="permanentPatron">Енді сіз тұрақты Қамқоршы аккаунтына иесіз.</string>
+  <string name="permanentPatron">Енді сіз тұрақты Қамқоршы тіркелгісіне иесіз.</string>
   <string name="checkOutProfile">Куәлік парақшасын қарап көріңіз!</string>
   <string name="nowLifetime">Енді сіз өмір бойы Личес Қамқоршысысыз!</string>
   <string name="nowOneMonth">Енді сіз бір айлық Личес Қамқоршысысыз!</string>
-  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес аккаунтыңыз қайттан қарапайым аккаунтқа ауысады.</string>
+  <string name="downgradeNextMonth">Айлардың бірінде төлем болмай қалса, Личес тіркелгіңіз қайттан жай тіркелгіге ауысады.</string>
 </resources>

@@ -44,4 +44,6 @@ Pemain yang tidak suka menerima pesan anda dapat meninggalkan tim.</string>
   <string name="teamPasswordDescriptionForLeader">(Opsi) Kata sandi yang harus diketahui anggota baru untuk bergabung tim ini.</string>
   <string name="incorrectTeamPassword">Kata sandi tim salah.</string>
   <string name="teamAlreadyExists">Tim ini sudah ada.</string>
+  <string name="upcomingTourns">Turnamen selanjutnya</string>
+  <string name="completedTourns">Turnamen yang telah selesai</string>
 </resources>

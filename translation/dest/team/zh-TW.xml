@@ -40,4 +40,6 @@
   <string name="closeTeamDescription">永遠關閉此團隊</string>
   <string name="incorrectTeamPassword">團隊密碼錯誤。</string>
   <string name="teamAlreadyExists">此隊伍已存在。</string>
+  <string name="upcomingTourns">即將開始的錦標賽</string>
+  <string name="completedTourns">已結束的錦標賽</string>
 </resources>

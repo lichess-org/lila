@@ -5,6 +5,9 @@
   <string name="freeAccount">무료 계정</string>
   <string name="becomePatron">Lichess 후원자가 되세요</string>
   <string name="xBecamePatron">%s가 Lichess 후원자가 되었습니다</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s는 %2$s달 동안 리체스의 후원자가 되었습니다</item>
+  </plurals>
   <string name="newPatrons">새 후원자</string>
   <string name="freeChess">무료 체스를 모두에게, 영원히!</string>
   <string name="noAdsNoSubs">광고와 구독이 없습니다. 하지만 오픈소스이고 열정이 있죠.</string>

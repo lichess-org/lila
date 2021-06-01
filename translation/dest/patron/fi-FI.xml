@@ -5,6 +5,10 @@
   <string name="freeAccount">Ilmainen tunnus</string>
   <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
   <string name="xBecamePatron">%s ryhtyi Lichessin tukijaksi</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
+    <item quantity="other">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
+  </plurals>
   <string name="newPatrons">Uusia tukijoita</string>
   <string name="freeChess">Ilmaista shakkia kaikille, ikuisesti!</string>
   <string name="noAdsNoSubs">Ei mainoksia, ei maksullisia tilauksia; vain avointa lähdekoodia ja intohimoa.</string>

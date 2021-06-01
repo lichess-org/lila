@@ -5,6 +5,13 @@
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
   <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">Is Pátrún Lichess %1$s ar feadh mí %2$s</item>
+    <item quantity="two">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="few">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="many">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="other">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+  </plurals>
   <string name="newPatrons">Pátrúin Nua</string>
   <string name="freeChess">Ficheall saor in aisce do gach duine, go deo!</string>
   <string name="noAdsNoSubs">Gan fógraí, gan aon síntiúis; ach foinse oscailte agus paisean.</string>

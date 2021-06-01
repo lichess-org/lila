@@ -57,4 +57,11 @@
   <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>
   <string name="continueTheStreak">Kontynuuj serię</string>
   <string name="newStreak">Nowa seria</string>
+  <string name="fromMyGames">Z moich gier</string>
+  <string name="lookupOfPlayer">Wyszukaj zadań z gier gracza</string>
+  <string name="fromXGames">Zadania z %s gier</string>
+  <string name="searchPuzzles">Szukaj zadań</string>
+  <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale Lichess nadal bardzo Cię kocha.
+Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>
+  <string name="fromXGamesFound">%1$s zadań znalezionych w %2$s grach</string>
 </resources>

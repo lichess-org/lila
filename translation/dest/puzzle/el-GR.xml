@@ -63,4 +63,10 @@
   <string name="streakSkipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το σερί νικών σας! Λειτουργεί μόνο μία φορά ανά γύρο.</string>
   <string name="continueTheStreak">Συνεχίστε το σερί νικών</string>
   <string name="newStreak">Νέο σερί νικών</string>
+  <string name="fromMyGames">Από τα παιχνίδια μου</string>
+  <string name="lookupOfPlayer">Αναζητήστε γρίφους από τα παιχνίδια ενός παίκτη</string>
+  <string name="fromXGames">Γρίφοι από τα παιχνίδια του χρήστη %s</string>
+  <string name="searchPuzzles">Αναζήτηση γρίφων</string>
+  <string name="fromMyGamesNone">Δεν υπάρχουν γρίφοι από τα παιχνίδια σας στη βάση δεδομένων.
+Παίξτε κλασικά ή rapid παιχνίδια για να αυξηθούν οι πιθανότητες προσθήκης γρίφων από τα παιχνίδια σας στη βάση δεδομένων!</string>
 </resources>

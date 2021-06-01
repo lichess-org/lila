@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Alusta käiguga</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Sa mängid kõigis pusledes valgete nuppudega</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Sa mängid kõigis pusledes mustade nuppudega</string>
   <string name="puzzlesSolved">lahendatud ülesannet</string>
   <string name="newDailyHighscore">Päeva parim tulemus!</string>
   <string name="newWeeklyHighscore">Nädala parim tulemus!</string>
@@ -31,4 +33,6 @@
   <string name="viewBestRuns">Vaata parimad mängud</string>
   <string name="bestRunOfDay">Päeva parim mäng</string>
   <string name="runs">Mänge</string>
+  <string name="getReady">Ole valmis!</string>
+  <string name="skip">jäta vahele</string>
 </resources>

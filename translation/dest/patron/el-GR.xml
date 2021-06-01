@@ -5,6 +5,10 @@
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
   <string name="becomePatron">Υποστηρίξτε το Lichess</string>
   <string name="xBecamePatron">%s έγινε Υποστηρικτής του Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνα</item>
+    <item quantity="other">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνες</item>
+  </plurals>
   <string name="newPatrons">Νέοι Υποστηρικτές</string>
   <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
   <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές, αλλά με ανοιχτό κώδικα και πάθος.</string>

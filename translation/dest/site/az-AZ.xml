@@ -454,6 +454,7 @@
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
   <string name="biography">Özü haqqında</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ölkə və ya bayraq</string>
   <string name="thankYou">Təşəkkürlər!</string>
   <string name="socialMediaLinks">Sosial media linkləri</string>
   <string name="inlineNotation">Sətirarası notasiya</string>
@@ -676,6 +677,7 @@
   <string name="printFriendlyPDF">Printerə uyğun PDF</string>
   <string name="crosstable">Çarpaz cədvəl</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bundan başqa mouse təkəri vasitəsilə də gediş etmək olar.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Kompüter variantlarına baxmaq üçün yuxarı sürüşdür.</string>
   <string name="analysisShapesHowTo">Lövhədə çevrə və ya oxlar çəkmək üçün shift+sol klik və ya sağ klikə toxunun.</string>
   <string name="letOtherPlayersMessageYou">Digər oyunçuların sizə mesaj göndərməsinə icazə ver</string>
   <string name="shareYourInsightsData">Şahmat oyun məlumatlarınızı paylaşın</string>
@@ -861,4 +863,6 @@
   <string name="refundXpointsTimeControlY">Geri qaytarma: \"%2$s\"-də %1$s reytinq xalı.</string>
   <string name="timeAlmostUp">Vaxt bitmək üzrədir!</string>
   <string name="clickToRevealEmailAddress">[E-poçt ünvanını görmək üçün klikləyin]</string>
+  <string name="download">Endir</string>
+  <string name="welcome">Xoş Gəldiniz!</string>
 </resources>

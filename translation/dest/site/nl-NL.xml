@@ -863,4 +863,5 @@
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
   <string name="download">Downloaden</string>
+  <string name="welcome">Welkom!</string>
 </resources>

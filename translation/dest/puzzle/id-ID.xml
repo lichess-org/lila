@@ -60,4 +60,11 @@
   <string name="streakSkipExplanation">Lewati gerakan ini untuk mempertahankan garis Anda! Hanya bekerja sekali per pertandingan.</string>
   <string name="continueTheStreak">Lanjutkan garisnya</string>
   <string name="newStreak">Garis baru</string>
+  <string name="fromMyGames">Dari permainan saya</string>
+  <string name="lookupOfPlayer">Cari teka-teki dari sebuah permainan pemain</string>
+  <string name="fromXGames">Teka-teki dari permainan %s</string>
+  <string name="searchPuzzles">Cari teka-teki</string>
+  <string name="fromMyGamesNone">Anda tidak memiliki teka-teki dalam database, tetapi Lichess masih sangat mencintai Anda.
+Mainkan permainan cepat dan klasik untuk meningkatkan kesempatan Anda agar sebuah teka-teki dari Anda dapat ditambahkan!</string>
+  <string name="fromXGamesFound">Teka-teki %1$s ditemukan di permainan %2$s</string>
 </resources>

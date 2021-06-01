@@ -31,7 +31,7 @@
   </plurals>
   <string name="inviteToTheStudy">Зерттеуге шақыру</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Тек таныстарды әрі зерттеуге қосылуға шын ниетті адамдарды ғана шықырыңыз.</string>
-  <string name="searchByUsername">Аккаунт аты бойынша іздеу</string>
+  <string name="searchByUsername">Тіркелгі аты бойынша іздеу</string>
   <string name="spectator">Көрермен</string>
   <string name="contributor">Қолдаушы</string>
   <string name="kick">Шығару</string>

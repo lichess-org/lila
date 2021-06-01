@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
+  <string name="fromMyGames">Aus meinen Partien</string>
+  <string name="lookupOfPlayer">Suche Aufgaben aus den Partien eines Spielers</string>
+  <string name="fromXGames">Aufgaben aus Partien von %s</string>
+  <string name="searchPuzzles">Aufgaben suchen</string>
+  <string name="fromMyGamesNone">Es befinden sich keine Aufgaben von dir in der Datenbank, aber Lichess schätzt dich immer noch sehr.
+Spiele schnelle und klassische Partien, um die Chance zu erhöhen, eine Aufgabe von deinen Partien hinzuzufügen!</string>
+  <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
 </resources>

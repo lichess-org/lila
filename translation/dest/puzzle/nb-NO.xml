@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>
   <string name="continueTheStreak">Fortsett rekken</string>
   <string name="newStreak">Ny rekke</string>
+  <string name="fromMyGames">Fra mine partier</string>
+  <string name="lookupOfPlayer">Søk etter sjakknøtter fra en spillers partier</string>
+  <string name="fromXGames">Sjakknøtter fra partier med %s</string>
+  <string name="searchPuzzles">Søk etter sjakknøtter</string>
+  <string name="fromMyGamesNone">Du har ingen sjakknøtter i databasen, men Lichess setter like fullt umåtelig stor pris på deg.
+Spill partier i hurtigsjakk og klassisk sjakk for å øke sjansen for å få med en sjakknøtt!</string>
+  <string name="fromXGamesFound">%1$s sjakknøtter funnet i partier med %2$s</string>
 </resources>

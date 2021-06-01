@@ -187,6 +187,12 @@ Tá an rí gan phraghas! Má chailltear, sin deireadh an cluiche.</string>
   <string name="queenOverBishop">Tóg an píosa
 leis an luach is airde!
 Banríon &gt; Easpag</string>
+  <string name="pieceValueExchange">Tóg an píosa leis an luach is airde!
+ Ná malartaigh
+ píosa ar luach níos airde do cheann nach bhfuil chomh luachmhar.</string>
+  <string name="pieceValueLegal">Tóg an píosa
+leis an luach is airde!
+Déan cinnte go bhfuil do bheart dlíthiúil!</string>
   <string name="takeThePieceWithTheHighestValue">Tóg an píosa
 leis an luach is airde!</string>
   <string name="pieceValueComplete">Comhghairdeas! Tá luach na píosaí ar eolas agat!

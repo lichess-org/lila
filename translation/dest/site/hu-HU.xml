@@ -864,4 +864,7 @@
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>
+  <string name="welcome">Üdvözlünk!</string>
+  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
+Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
 </resources>

@@ -864,4 +864,7 @@
   <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
   <string name="download">Herunterladen</string>
+  <string name="welcome">Herzlich Willkommen!</string>
+  <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
+Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
 </resources>

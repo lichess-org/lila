@@ -190,7 +190,7 @@
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
   <string name="changePassword">Αλλάξτε κωδικό</string>
-  <string name="changeEmail">Αλλαγή ηλ. ταχυδρομείου</string>
+  <string name="changeEmail">Αλλαγή διεύθυνσης email</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
@@ -865,4 +865,7 @@
   <string name="timeAlmostUp">Ο χρόνος σας έχει σχεδόν τελειώσει!</string>
   <string name="clickToRevealEmailAddress">[Κάντε κλικ για να δείτε τη διεύθυνση ηλεκτρονικού ταχυδρομείου]</string>
   <string name="download">Λήψη</string>
+  <string name="welcome">Καλώς ήρθατε!</string>
+  <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
+Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
 </resources>

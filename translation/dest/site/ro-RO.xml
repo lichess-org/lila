@@ -902,4 +902,7 @@
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
   <string name="download">Descărcare</string>
+  <string name="welcome">Bine ați venit!</string>
+  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
+Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
 </resources>

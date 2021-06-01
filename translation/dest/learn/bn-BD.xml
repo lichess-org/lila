@@ -182,6 +182,11 @@
 রাজা হয় অমূল্য! রাজাকে হারিয়ে ফেলা মানে খেলা হেরে যাওয়া.</string>
   <string name="queenOverBishop">উচ্চ মূল্যের টুকরা নিন!
 রানী &gt; বিশপ</string>
+  <string name="pieceValueExchange">সবচেয়ে বেশি মূল্যের গুটি খান!
+একটা বেশি মূল্যের গুটির জন্য একটি কম মূল্যের গুটি
+বিনিময় করবেন না।</string>
+  <string name="pieceValueLegal">সবচেয়ে বেশি মূল্যের গুটিটি খান!
+নিশ্চিত করুন যে আপনার চাল বৈধ!</string>
   <string name="takeThePieceWithTheHighestValue">উচ্চ মানের গুটি নিন!</string>
   <string name="pieceValueComplete">অভিনন্দন! আপনি উপাদানের মূল্য জানেন!
 রানী = ৯
