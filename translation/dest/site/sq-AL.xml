@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ti luan me të bardhat</string>
   <string name="youPlayTheBlackPieces">Ti luan me të zezat</string>
   <string name="itsYourTurn">Është radha juaj!</string>
+  <string name="cheatDetected">Ky është një kusht i përfundimit të lojës, nëse një lojtar mashtron përderisa loja është duke u luajtur. Loja përfundon menjëherë</string>
   <string name="kingInTheCenter">Mbreti në qendër</string>
   <string name="threeChecks">Tre herë shah</string>
   <string name="raceFinished">Gara mbaroi</string>
@@ -117,6 +118,18 @@
   <string name="blunder">Gabim trashanik</string>
   <string name="mistake">Gabim</string>
   <string name="inaccuracy">Mungesë saktësie</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s gabim i madh</item>
+    <item quantity="other">%s gabime të mëdha</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s gabim</item>
+    <item quantity="other">%s gabime</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s pasaktësi</item>
+    <item quantity="other">%s pasaktësitë</item>
+  </plurals>
   <string name="moveTimes">Koha e lëvizjeve</string>
   <string name="flipBoard">Kthe fushën</string>
   <string name="threefoldRepetition">Levizje e përsëritur 3 (herë)</string>
@@ -441,6 +454,7 @@
   <string name="firstName">Emri</string>
   <string name="lastName">Mbiemri</string>
   <string name="biography">Biografia</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Shteti apo flamuri</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhjet me llogaritë e mediat sociale</string>
   <string name="inlineNotation">Shenimet ne rresht</string>
