@@ -860,4 +860,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
   <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
+  <string name="download">Transferir</string>
+  <string name="welcome">Bem-vindo(a)!</string>
 </resources>
