@@ -63,4 +63,6 @@
   <string name="streakSkipExplanation">Salta este movimento para preservar a tua sequência! Apenas funciona uma vez por sessão.</string>
   <string name="continueTheStreak">Continua a sequência</string>
   <string name="newStreak">Nova sequência de vitórias</string>
+  <string name="fromMyGames">Dos meus jogos</string>
+  <string name="lookupOfPlayer">Pesquise puzzles de jogos de um jogador</string>
 </resources>
