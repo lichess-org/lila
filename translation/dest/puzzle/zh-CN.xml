@@ -60,4 +60,5 @@
   <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
   <string name="continueTheStreak">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>
+  <string name="searchPuzzles">搜索谜题</string>
 </resources>
