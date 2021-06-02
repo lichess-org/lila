@@ -19,17 +19,17 @@ final private class StripeClient(
   private val STRIPE_VERSION = "2020-08-27"
   // private val STRIPE_VERSION = "2016-07-06"
 
-  def sessionArgs(data: CreateStripeSession): List[(String, Any)] =
+  def sessionArgs(customerId: CustomerId, urls: NextUrls): List[(String, Any)] =
     List(
-      "mode"                   -> (if (data.checkout.freq.renew) "subscription" else "payment"),
       "payment_method_types[]" -> "card",
-      "success_url"            -> data.success_url,
-      "cancel_url"             -> data.cancel_url,
-      "customer"               -> data.customer_id.value
+      "success_url"            -> urls.success,
+      "cancel_url"             -> urls.cancel,
+      "customer"               -> customerId.value
     )
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
-    val args = sessionArgs(data) ++ List(
+    val args = sessionArgs(data.customerId, data.urls) ++ List(
+      "mode"                                   -> "payment",
       "line_items[0][price_data][product]"     -> config.products.onetime,
       "line_items[0][price_data][currency]"    -> "USD",
       "line_items[0][price_data][unit_amount]" -> data.checkout.amount.value,
@@ -48,7 +48,8 @@ final private class StripeClient(
   )
 
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] = {
-    val args = sessionArgs(data) ++
+    val args = sessionArgs(data.customerId, data.urls) ++
+      List("mode" -> "subscription") ++
       recurringPriceArgs("line_items", data.checkout.amount)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
@@ -85,13 +86,38 @@ final private class StripeClient(
     getOne[JsObject](s"events/$id")
 
   def getNextInvoice(customerId: CustomerId): Fu[Option[StripeInvoice]] =
-    getOne[StripeInvoice](s"invoices/upcoming", "customer" -> customerId.value)
+    getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
   def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
     getList[StripeInvoice]("invoices", "customer" -> customerId.value)
 
+  def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
+    sub.default_payment_method ?? { id =>
+      getOne[StripePaymentMethod](s"payment_methods/$id")
+    }
+
+  def createPaymentUpdateSession(sub: StripeSubscription, urls: NextUrls): Fu[StripeSession] = {
+    val args = sessionArgs(sub.customer, urls) ++ List(
+      "mode"                                         -> "setup",
+      "setup_intent_data[metadata][subscription_id]" -> sub.id
+    )
+    postOne[StripeSession]("checkout/sessions", args: _*)
+  }
+
+  def getSession(id: String): Fu[Option[StripeSessionWithIntent]] =
+    getOne[StripeSessionWithIntent](s"checkout/sessions/$id", "expand[]" -> "setup_intent")
+
+  def setCustomerPaymentMethod(customerId: CustomerId, paymentMethod: String): Funit =
+    postOne[JsObject](
+      s"customers/${customerId.value}",
+      "invoice_settings[default_payment_method]" -> paymentMethod
+    ).void
+
+  def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
+    postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
+
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
-    get[A](url, queryString) dmap Some.apply recover {
+    get[A](url, queryString) dmap some recover {
       case _: NotFoundException => None
       case e: DeletedException =>
         play.api.Logger("stripe").warn(e.getMessage)

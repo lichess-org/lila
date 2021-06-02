@@ -12,6 +12,8 @@ object index {
 
   import trans.patron._
 
+  private[plan] val stripeScript = script(src := "https://js.stripe.com/v3/")
+
   def apply(
       email: Option[lila.common.EmailAddress],
       stripePublicKey: String,
@@ -24,7 +26,7 @@ object index {
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = frag(
-        script(src := "https://js.stripe.com/v3/"),
+        stripeScript,
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey")""")
       ),

@@ -189,16 +189,16 @@ final class PlanApi(
 
   def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
     stripeClient.getNextInvoice(customer.id) zip
-      stripeClient.getPastInvoices(customer.id) map {
-        case (Some(nextInvoice), pastInvoices) =>
+      stripeClient.getPastInvoices(customer.id) zip
+      customer.firstSubscription.??(stripeClient.getPaymentMethod) map {
+        case ((Some(nextInvoice), pastInvoices), paymentMethod) =>
           customer.firstSubscription match {
-            case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices).some
+            case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices, paymentMethod).some
             case None =>
               logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
               none
           }
-        case (None, _) =>
-          OneTimeCustomerInfo(customer).some
+        case ((None, _), _) => OneTimeCustomerInfo(customer).some
       }
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }
@@ -273,7 +273,7 @@ final class PlanApi(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> false,
           "free"        -> Patron.Free(DateTime.now),
-          "expiresAt"   -> DateTime.now.plusMonths(1).plusDays(1)
+          "expiresAt"   -> DateTime.now.plusMonths(1)
         ),
         upsert = true
       )
@@ -416,6 +416,17 @@ final class PlanApi(
     data.checkout.freq match {
       case Freq.Onetime => stripeClient.createOneTimeSession(data)
       case Freq.Monthly => stripeClient.createMonthlySession(data)
+    }
+
+  def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
+    stripeClient.createPaymentUpdateSession(sub, nextUrls)
+
+  def updatePayment(sub: StripeSubscription, sessionId: String) =
+    stripeClient.getSession(sessionId) flatMap {
+      _ ?? { session =>
+        stripeClient.setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method) zip
+          stripeClient.setSubscriptionPaymentMethod(sub, session.setup_intent.payment_method) void
+      }
     }
 }
 

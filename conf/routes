@@ -195,8 +195,10 @@ GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch
 POST  /patron/cancel                   controllers.Plan.cancel
 POST  /patron/webhook                  controllers.Plan.webhook
-POST  /patron/stripe-checkout          controllers.Plan.stripeCheckout
+POST  /patron/stripe/checkout          controllers.Plan.stripeCheckout
 POST  /patron/ipn                      controllers.Plan.payPalIpn
+POST  /patron/stripe/update-payment    controllers.Plan.updatePayment
+GET   /patron/stripe/update-payment    controllers.Plan.updatePaymentCallback
 GET   /features                        controllers.Plan.features
 GET   /donate                          controllers.Main.movedPermanently(to: String = "/patron")
 

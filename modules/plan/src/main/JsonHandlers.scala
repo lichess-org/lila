@@ -19,14 +19,19 @@ private[plan] object JsonHandlers {
       (__ \ "items" \ "data" \ 0).read[StripeItem] and
       (__ \ "customer").read[CustomerId] and
       (__ \ "cancel_at_period_end").read[Boolean] and
-      (__ \ "status").read[String]
+      (__ \ "status").read[String] and
+      (__ \ "default_payment_method").readNullable[String]
   )(StripeSubscription.apply _)
-  implicit val StripeSubscriptionsReads    = Json.reads[StripeSubscriptions]
-  implicit val StripeCustomerReads         = Json.reads[StripeCustomer]
-  implicit val StripeAddressReads          = Json.reads[StripeCharge.Address]
-  implicit val StripeBillingReads          = Json.reads[StripeCharge.BillingDetails]
-  implicit val StripeChargeReads           = Json.reads[StripeCharge]
-  implicit val StripeInvoiceReads          = Json.reads[StripeInvoice]
-  implicit val StripeSessionReads          = Json.reads[StripeSession]
-  implicit val StripeSessionCompletedReads = Json.reads[StripeCompletedSession]
+  implicit val StripeSubscriptionsReads     = Json.reads[StripeSubscriptions]
+  implicit val StripeCustomerReads          = Json.reads[StripeCustomer]
+  implicit val StripeAddressReads           = Json.reads[StripeCharge.Address]
+  implicit val StripeBillingReads           = Json.reads[StripeCharge.BillingDetails]
+  implicit val StripeChargeReads            = Json.reads[StripeCharge]
+  implicit val StripeInvoiceReads           = Json.reads[StripeInvoice]
+  implicit val StripeSessionReads           = Json.reads[StripeSession]
+  implicit val StripeSessionCompletedReads  = Json.reads[StripeCompletedSession]
+  implicit val StripeCardReads              = Json.reads[StripeCard]
+  implicit val StripePaymentMethodReads     = Json.reads[StripePaymentMethod]
+  implicit val StripeSetupIntentReads       = Json.reads[StripeSetupIntent]
+  implicit val StripeSessionWithIntentReads = Json.reads[StripeSessionWithIntent]
 }

@@ -12,13 +12,23 @@ object indexStripe {
 
   private val dataForm = attr("data-form")
 
-  def apply(me: lila.user.User, patron: lila.plan.Patron, info: lila.plan.MonthlyCustomerInfo)(implicit
+  def apply(
+      me: lila.user.User,
+      patron: lila.plan.Patron,
+      info: lila.plan.MonthlyCustomerInfo,
+      stripePublicKey: String
+  )(implicit
       ctx: Context
   ) =
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
-      moreJs = jsTag("plan.js")
+      moreJs = frag(
+        index.stripeScript,
+        jsModule("plan"),
+        embedJsUnsafeLoadThen(s"""planStart("$stripePublicKey")""")
+      ),
+      csp = defaultCsp.withStripe.some
     ) {
       main(cls := "box box-pad plan")(
         h1(
@@ -75,6 +85,25 @@ object indexStripe {
                   submitButton(cls := "button button-red")(noLongerSupport()),
                   a(dataForm := "cancel")(trans.cancel())
                 )
+              )
+            ),
+            tr(
+              th("Payment details"),
+              td(
+                info.paymentMethod.flatMap(_.card) map { m =>
+                  frag(
+                    m.brand.toUpperCase,
+                    " - ",
+                    "*" * 12,
+                    m.last4,
+                    " - ",
+                    m.exp_month,
+                    "/",
+                    m.exp_year,
+                    br
+                  )
+                },
+                a(cls := "update-payment-method")("Update payment method")
               )
             ),
             tr(

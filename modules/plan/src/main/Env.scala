@@ -84,9 +84,6 @@ final class Env(
       def process = {
         case "patron" :: "lifetime" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
-        // someone donated while logged off.
-        // we cannot bind the charge to the user so they get their precious wings.
-        // instead, give them a free month.
         case "patron" :: "month" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>

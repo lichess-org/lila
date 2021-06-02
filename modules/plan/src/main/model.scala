@@ -50,20 +50,18 @@ object StripePrice {
   val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }
 
+case class NextUrls(cancel: String, success: String)
+
 case class StripeSession(id: SessionId)
-case class CreateStripeSession(
-    success_url: String,
-    cancel_url: String,
-    customer_id: CustomerId,
-    checkout: Checkout
-)
+case class CreateStripeSession(customerId: CustomerId, checkout: Checkout, urls: NextUrls)
 
 case class StripeSubscription(
     id: String,
     item: StripeItem,
     customer: CustomerId,
     cancel_at_period_end: Boolean,
-    status: String
+    status: String,
+    default_payment_method: Option[String]
 ) {
   def renew    = !cancel_at_period_end
   def isActive = status == "active"
@@ -105,6 +103,14 @@ case class StripeInvoice(
   def dateTime = new DateTime(created * 1000)
 }
 
+case class StripePaymentMethod(card: Option[StripeCard])
+
+case class StripeCard(brand: String, last4: String, exp_year: Int, exp_month: Int)
+
 case class StripeCompletedSession(customer: CustomerId, mode: String) {
   def freq = if (mode == "subscription") Freq.Monthly else Freq.Onetime
 }
+
+case class StripeSetupIntent(payment_method: String)
+
+case class StripeSessionWithIntent(setup_intent: StripeSetupIntent)

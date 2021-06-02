@@ -64,11 +64,7 @@ export default function (publicKey: string) {
   });
 
   const stripe = window.Stripe(publicKey);
-  const showError = (error: string) => {
-    // TODO: consider a more sophisticated error handling mechanism,
-    //       for now, this should work just fine.
-    alert(error);
-  };
+  const showError = (error: string) => alert(error);
   $checkout.find('button.stripe').on('click', function () {
     const freq = getFreq(),
       amount =
@@ -77,7 +73,7 @@ export default function (publicKey: string) {
     $checkout.find('.service').html(lichess.spinnerHtml);
 
     xhr
-      .json('/patron/stripe-checkout', {
+      .json('/patron/stripe/checkout', {
         method: 'post',
         body: xhr.form({
           email: $checkout.data('email'),
@@ -86,7 +82,7 @@ export default function (publicKey: string) {
         }),
       })
       .then(data => {
-        if (data.session && data.session.id) {
+        if (data.session?.id) {
           stripe
             .redirectToCheckout({
               sessionId: data.session.id,

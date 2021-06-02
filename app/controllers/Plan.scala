@@ -15,6 +15,7 @@ import lila.plan.{
   CustomerId,
   Freq,
   MonthlyCustomerInfo,
+  NextUrls,
   OneTimeCustomerInfo,
   StripeCustomer
 }
@@ -82,7 +83,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       ctx: Context
   ) =
     env.plan.api.customerInfo(me, customer) flatMap {
-      case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
+      case Some(info: MonthlyCustomerInfo) =>
+        Ok(html.plan.indexStripe(me, patron, info, stripePublicKey = env.plan.stripePublicKey)).fuccess
       case Some(info: OneTimeCustomerInfo) =>
         renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None =>
@@ -144,10 +146,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     env.plan.api
       .createSession(
         CreateStripeSession(
-          s"${env.net.baseUrl}${routes.Plan.thanks}",
-          s"${env.net.baseUrl}${routes.Plan.index}",
           customerId,
-          checkout
+          checkout,
+          NextUrls(
+            cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+            success = s"${env.net.baseUrl}${routes.Plan.thanks}"
+          )
         )
       )
       .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
@@ -164,8 +168,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     key = "stripe.checkout.ip",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 6, 10.minute),
-    ("slow", 30, 1.day)
+    ("fast", 8, 10.minute),
+    ("slow", 40, 1.day)
   )
 
   def stripeCheckout =
@@ -192,6 +196,39 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               }
           )
       }(rateLimitedFu)
+    }
+
+  def updatePayment =
+    AuthBody { implicit ctx => me =>
+      implicit val req = ctx.body
+      StripeRateLimit(HTTPRequest ipAddress req) {
+        env.plan.api.userCustomer(me) flatMap {
+          _.flatMap(_.firstSubscription) ?? { sub =>
+            env.plan.api
+              .createPaymentUpdateSession(
+                sub,
+                NextUrls(
+                  cancel = s"${env.net.baseUrl}${routes.Plan.index}",
+                  success =
+                    s"${env.net.baseUrl}${routes.Plan.updatePaymentCallback}?session={CHECKOUT_SESSION_ID}"
+                )
+              )
+              .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
+              .recover(badStripeApiCall)
+          }
+        }
+      }(rateLimitedFu)
+    }
+
+  def updatePaymentCallback =
+    AuthBody { implicit ctx => me =>
+      get("session") ?? { session =>
+        env.plan.api.userCustomer(me) flatMap {
+          _.flatMap(_.firstSubscription) ?? { sub =>
+            env.plan.api.updatePayment(sub, session) inject Redirect(routes.Plan.index)
+          }
+        }
+      }
     }
 
   def payPalIpn =
