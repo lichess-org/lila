@@ -25,13 +25,13 @@ module.exports = function (blueprint, opts) {
 
   var complete = function () {
     vm.willComplete = true;
+    vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
     if (!blueprint.nextButton) opts.onCompleteImmediate();
     timeouts.setTimeout(
       function () {
         vm.lastStep = false;
         vm.completed = true;
         sound.levelEnd();
-        vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
         ground.stop();
         m.redraw();
         if (!blueprint.nextButton) timeouts.setTimeout(opts.onComplete, 1200);
