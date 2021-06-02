@@ -159,7 +159,7 @@ object contact {
               "."
             ),
             p(
-              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := "!"))
+              youCanAlsoReachReportPage(button(cls := "thin button button-empty", dataIcon := ""))
             ),
             p(
               doNotMessageModerators(),

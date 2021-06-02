@@ -56,7 +56,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'report',
         attrs: {
-          'data-icon': '!',
+          'data-icon': '',
           title: ctrl.trans('reportXToModerators', convo.user.name),
         },
         hook: bind('click', withConfirm(ctrl.report)),

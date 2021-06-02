@@ -296,7 +296,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       legend(trans.advancedSettings()),
       errMsg(form("conditions")),
       p(
-        strong(dataIcon := "!", cls := "text")(trans.recommendNotTouching()),
+        strong(dataIcon := "", cls := "text")(trans.recommendNotTouching()),
         " ",
         trans.fewerPlayers(),
         " ",

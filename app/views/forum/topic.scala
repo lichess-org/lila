@@ -27,7 +27,7 @@ object topic {
           categ.name
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "!", cls := "text")(trans.important()),
+          h2(dataIcon := "", cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))

@@ -115,7 +115,7 @@ object header {
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls := "btn-rack__btn",
             href := s"${routes.Report.form}?username=${u.username}",
-            dataIcon := "!"
+            dataIcon := ""
           )
         )
       ),

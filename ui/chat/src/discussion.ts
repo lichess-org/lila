@@ -218,7 +218,7 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
           ctrl.data.userId && line.u && ctrl.data.userId != line.u
             ? h('i.flag', {
                 attrs: {
-                  'data-icon': '!',
+                  'data-icon': '',
                   title: 'Report',
                 },
               })

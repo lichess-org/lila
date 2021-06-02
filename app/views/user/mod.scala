@@ -285,7 +285,7 @@ object mod {
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(implicit lang: Lang) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
-        strong(cls := "text", dataIcon := "!")(
+        strong(cls := "text", dataIcon := "")(
           "Moderation history",
           history.isEmpty option ": nothing to show"
         ),
@@ -312,7 +312,7 @@ object mod {
         frag(
           div(cls := "mod_log mod_log--appeal")(
             st.a(href := routes.Appeal.show(a.id))(
-              strong(cls := "text", dataIcon := "!")(
+              strong(cls := "text", dataIcon := "")(
                 "Appeal status: ",
                 a.status.toString
               )
@@ -330,7 +330,7 @@ object mod {
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(implicit lang: Lang): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := "!")(
+        strong(cls := "text", dataIcon := "")(
           s"Reports sent by ${u.username}",
           reports.by.isEmpty option ": nothing to show."
         ),
@@ -349,7 +349,7 @@ object mod {
         }
       ),
       div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := "!")(
+        strong(cls := "text", dataIcon := "")(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty option ": nothing to show."
         ),
@@ -521,7 +521,7 @@ object mod {
   private val engine: Frag    = iconTag("n")
   private val closed: Frag    = iconTag("k")
   private val clean: Frag     = iconTag("r")
-  private val reportban       = iconTag("!")
+  private val reportban       = iconTag("")
   private val notesText       = iconTag("m")
   private def markTd(nb: Int, content: => Frag) =
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
