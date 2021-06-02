@@ -15,6 +15,13 @@ export default function (publicKey: string) {
       }
     }, showError);
   });
+
+  const $change = $('.plan table.all .change');
+  $change.find('a').on('click', function (this: HTMLLinkElement) {
+    const f = $(this).data('form');
+    $change.find('form:not(.' + f + ')').hide();
+    $change.find('form.' + f).toggle();
+  });
 }
 
 const showError = (error: string) => alert(error);
