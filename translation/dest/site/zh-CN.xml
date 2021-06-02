@@ -823,4 +823,7 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
+  <string name="welcome">欢迎！</string>
+  <string name="lichessPatronInfo">Lichess是一个慈善机构，完全免费/图书馆的开放源码软件。
+所有操作成本、开发和内容完全由用户捐款供资。</string>
 </resources>
