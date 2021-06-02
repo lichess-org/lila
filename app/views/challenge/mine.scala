@@ -61,7 +61,7 @@ object mine {
                           title := "Copy URL",
                           cls := "copy button",
                           dataRel := "challenge-id",
-                          dataIcon := "\""
+                          dataIcon := ""
                         )
                       ),
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())

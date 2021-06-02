@@ -144,7 +144,7 @@ const renderLink = (ctrl: RacerCtrl) =>
         attrs: {
           title: 'Copy URL',
           'data-rel': `racer-url-${ctrl.race.id}`,
-          'data-icon': '"',
+          'data-icon': '',
         },
       }),
     ]),
