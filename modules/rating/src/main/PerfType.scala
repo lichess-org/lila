@@ -65,7 +65,7 @@ object PerfType {
         key = "classical",
         name = Speed.Classical.name,
         title = Speed.Classical.title,
-        iconChar = '+'
+        iconChar = ''
       )
 
   case object Correspondence

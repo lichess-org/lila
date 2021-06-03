@@ -4,7 +4,7 @@ export const perf = {
     bullet: 'T',
     blitz: '',
     rapid: 'C',
-    classical: '+',
+    classical: '',
     correspondence: ';',
     chess960: '',
     kingOfTheHill: '',

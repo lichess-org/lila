@@ -34,7 +34,7 @@ export const perfIcons = {
   'Racing Kings': '',
   UltraBullet: '{',
   Bullet: 'T',
-  Classical: '+',
+  Classical: '',
   Rapid: '',
   'Three-check': '.',
   Antichess: '@',
