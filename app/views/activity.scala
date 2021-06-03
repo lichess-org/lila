@@ -81,7 +81,7 @@ object activity {
 
   private def renderPuzzles(u: User)(p: Puzzles)(implicit ctx: Context) =
     entryTag(
-      iconTag("-"),
+      iconTag(""),
       scoreFrag(p.score),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.score.size),

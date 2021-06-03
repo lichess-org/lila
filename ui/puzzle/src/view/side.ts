@@ -13,7 +13,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
   return h(
     'div.infos.puzzle',
     {
-      attrs: dataIcon('-'),
+      attrs: dataIcon(''),
     },
     [
       h('div', [

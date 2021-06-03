@@ -28,7 +28,7 @@
     &::before {
       @extend %data-icon;
 
-      content: '-';
+      content: '';
       color: $c-font-dimmer;
       flex: 0 0 1.6em;
       text-align: center;

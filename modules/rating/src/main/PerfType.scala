@@ -164,7 +164,7 @@ object PerfType {
         key = "puzzle",
         name = "Training",
         title = "Chess tactics trainer",
-        iconChar = '-'
+        iconChar = ''
       )
 
   val all: List[PerfType] = List(
