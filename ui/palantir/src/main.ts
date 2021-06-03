@@ -198,7 +198,7 @@ export function palantir(opts: PalantirOpts) {
             'div.mchat__tab.palantir.data-count.palantir-' + state,
             {
               attrs: {
-                'data-icon': '',
+                'data-icon': '',
                 title: `Voice chat: ${state}`,
                 'data-count': state == 'on' ? connections.length + 1 : 0,
               },
