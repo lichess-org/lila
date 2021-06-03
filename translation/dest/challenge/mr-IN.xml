@@ -18,5 +18,8 @@
   <string name="declineTimeControl">या वेळेच्या नियंत्रणासह मी आव्हाने स्वीकारत नाही.</string>
   <string name="declineRated">कृपया त्याऐवजी मला एक रेटिंग असलेले आव्हान पाठवा.</string>
   <string name="declineCasual">कृपया त्याऐवजी मला एक प्रासंगिक आव्हान पाठवा.</string>
-  <string name="declineStandard">मी आत्ता Variant आव्हान स्वीकारत नाही.</string>
+  <string name="declineStandard">मी आत्ता या प्रकारातील आव्हान स्वीकारत नाही.</string>
+  <string name="declineVariant">मी आत्ता हा प्रकार खेळण्यास तयार नाही.</string>
+  <string name="declineNoBot">मी बॉट्सकडून आव्हाने स्वीकारत नाही.</string>
+  <string name="declineOnlyBot">मी फक्त बॉट्सकडून आव्हाने स्वीकारतो.</string>
 </resources>
