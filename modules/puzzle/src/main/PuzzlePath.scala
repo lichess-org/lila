@@ -4,6 +4,7 @@ import scala.concurrent.ExecutionContext
 
 import lila.db.dsl._
 import lila.user.User
+import org.joda.time.DateTime
 
 private object PuzzlePath {
 
@@ -67,4 +68,9 @@ final private class PuzzlePathApi(
     "min" $lte f"${theme}_${tier}_${rating.max}%04d",
     "max" $gte f"${theme}_${tier}_${rating.min}%04d"
   )
+
+  def isStale = colls.path(_.primitiveOne[Long]($empty, "gen")).map {
+    _.fold(true)(_ < DateTime.now.minusDays(1).getMillis)
+  }
+
 }
