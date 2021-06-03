@@ -81,8 +81,12 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       if (cache) {
         const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
         if (cache) {
-          const [found, data] = await cache.get(wasmPath, version!);
-          if (found) wasmBinary = data;
+          try {
+            const [found, data] = await cache.get(wasmPath, version);
+            if (found) wasmBinary = data;
+          } catch (e) {
+            console.log('ceval: idb cache load failed:', e);
+          }
         }
 
         if (!wasmBinary) {
@@ -100,7 +104,11 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
           });
         }
 
-        await cache.set(wasmPath, version!, wasmBinary);
+        try {
+          await cache.set(wasmPath, version, wasmBinary);
+        } catch (e) {
+          console.log('ceval: idb cache store failed:', e);
+        }
       }
 
       // Load Emscripten module.
