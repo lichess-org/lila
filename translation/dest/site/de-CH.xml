@@ -189,24 +189,24 @@
   <string name="changeUsernameNotSame">Nur d Groos- und Chliischriibig cha gänderet werdä. Zum Bischbiil: \"FritzliMüller\" zu \"FRiTzLiMüLlEr\".</string>
   <string name="changeUsernameDescription">Änderä din Beutzernamä. Das chasch nur einisch machä und du chasch nur Groos- und Chliischriibig änderä.</string>
   <string name="password">Passwort</string>
-  <string name="changePassword">Passwort ändern</string>
-  <string name="changeEmail">E-Mail-Adresse ändern</string>
+  <string name="changePassword">Passwort änderä</string>
+  <string name="changeEmail">E-Mail-Adrässe änderä</string>
   <string name="email">E-Mail</string>
-  <string name="passwordReset">Passwort vergessen</string>
-  <string name="forgotPassword">Passwort vergessen?</string>
+  <string name="passwordReset">Passwort zrugsetzä</string>
+  <string name="forgotPassword">Passwort vergässe?</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Platzierung wird minütlich aktualisiert</item>
-    <item quantity="other">Platzierung wird alle %s Minuten aktualisiert</item>
+    <item quantity="one">Platzierig wird jedi Minutä aktualisiärt</item>
+    <item quantity="other">Platzierig wird alli %s Minutä aktualisiärt</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s Aufgabe</item>
-    <item quantity="other">%s Aufgaben</item>
+    <item quantity="one">%s Ufgab</item>
+    <item quantity="other">%s Ufgabä</item>
   </plurals>
-  <string name="gamesPlayed">Gespielte Partien</string>
+  <string name="gamesPlayed">Gschpillti partiiä</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s Partie mit dir</item>
+    <item quantity="one">%s Partii mit dir</item>
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
   <string name="cancel">Abbrechen</string>
