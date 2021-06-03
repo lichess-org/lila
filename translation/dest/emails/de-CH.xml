@@ -9,14 +9,14 @@
   <string name="emailChange_subject">Dun dini neui E-Mail Adrässe bestätigä, %s</string>
   <string name="emailChange_intro">Du häsch en Änderig vo dinere E-Mail Adrässe aagforderät.</string>
   <string name="emailChange_click">Zum bestätigä, dass Du Zuegriff auf diä E-Mail häsch, klick bitte auf dä Link da une:</string>
-  <string name="welcome_subject">Sali uf lichess.org, %s</string>
-  <string name="welcome_text">Du hast erfolgreich dein Benutzerkonto auf https://lichess.org erstellt.
+  <string name="welcome_subject">Wilkomä uf lichess.org, %s</string>
+  <string name="welcome_text">Du häsch erfolgrich dis Benutzerkkontoauf https://lichess.org erschtellt. 
 
-Hier geht es zu deiner Profil-Seite: %1$s. Du kannst sie auf %2$s personalisieren.
+Da gahts zu dinerä Account-Siite: %1$s. Du chasch si uf %2$s personalisierä.
 
-Viel Spaß und mögen deine Figuren immer den Weg zum gegnerischen König finden!</string>
-  <string name="logInToLichess">Bei lichess.org anmelden, %s</string>
-  <string name="common_orPaste">(Klicken funktioniert nicht? Versuche den Link in deinen Browser einzufügen!)</string>
-  <string name="common_note">Dies ist eine Service-E-Mail im Zusammenhang mit deiner Nutzung von %s.</string>
-  <string name="common_contact">Um uns zu kontaktieren, benutze bitte %s.</string>
+Viel Spass und möged dinni Figure immer dä Wäg zum gägnerischä König finde!</string>
+  <string name="logInToLichess">Mäld dich ah uf lichess.org, %s</string>
+  <string name="common_orPaste">(Klickä funktioniert nöd? Versuch dä Link i din Browser iizfüegä!)</string>
+  <string name="common_note">Das isch e särvis E-Mail im zämmehang mit dim gebruch vo %s.</string>
+  <string name="common_contact">Zum eus z\'kontaktierä, bruuch bitte %s.</string>
 </resources>
