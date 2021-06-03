@@ -104,7 +104,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
           h(
             'h1.text',
             {
-              attrs: dataIcon('}'),
+              attrs: dataIcon(''),
             },
             'Puzzle Streak'
           ),
@@ -113,7 +113,7 @@ const renderStreak = (streak: PuzzleStreak, noarg: TransNoArg) =>
       : h(
           'div.puzzle__side__streak__score.text',
           {
-            attrs: dataIcon('}'),
+            attrs: dataIcon(''),
           },
           streak.data.index
         )

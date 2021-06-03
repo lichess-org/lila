@@ -132,7 +132,7 @@ object side {
 
   private def showStreak(streak: lila.rating.Perf.Streak, user: User)(implicit lang: Lang) =
     a(
-      dataIcon := '}',
+      dataIcon := '',
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
