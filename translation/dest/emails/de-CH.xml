@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Bestätig dis Account uf lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klick uf dä link zum din Lichess-Account z aktivierä:</string>
-  <string name="emailConfirm_ignore">Wänn dich scho bi Lichess regrischtriert häsch, chasch du diä Nachricht ignorierä.</string>
+  <string name="emailConfirm_ignore">Wänn dich nöd bi Lichess regrischtriert häsch, chasch du diä Nachricht getroscht ignorierä.</string>
   <string name="passwordReset_subject">Setz dis Passwort uf Lichess.org zrug, %s</string>
   <string name="passwordReset_intro">Mir händ e Afrag zum zrugsetzte vo dim Passwort übercho.</string>
   <string name="passwordReset_clickOrIgnore">Wänn du die Afrag gmacht häsch, klick da undä uf dä link. Falls nöd, ignorier das E-Mail.</string>
