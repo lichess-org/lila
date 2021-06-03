@@ -32,7 +32,7 @@ final private class StripeClient(
       "mode"                                   -> "payment",
       "line_items[0][price_data][product]"     -> config.products.onetime,
       "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
-      "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.value,
+      "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.smallestCurrencyUnit,
       "line_items[0][quantity]"                -> 1
     )
     postOne[StripeSession]("checkout/sessions", args: _*)
@@ -41,7 +41,7 @@ final private class StripeClient(
   private def recurringPriceArgs(name: String, money: Money) = List(
     s"$name[0][price_data][product]"                   -> config.products.monthly,
     s"$name[0][price_data][currency]"                  -> money.currencyCode,
-    s"$name[0][price_data][unit_amount]"               -> money.toStripeAmount.value,
+    s"$name[0][price_data][unit_amount]"               -> money.toStripeAmount.smallestCurrencyUnit,
     s"$name[0][price_data][recurring][interval]"       -> "month",
     s"$name[0][price_data][recurring][interval_count]" -> 1,
     s"$name[0][quantity]"                              -> 1

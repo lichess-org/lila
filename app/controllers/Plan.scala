@@ -22,6 +22,7 @@ import lila.plan.{
 import lila.user.{ User => UserModel }
 import views._
 import java.util.Currency
+import lila.mon
 
 final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
 
@@ -69,7 +70,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     for {
       recentIds <- env.plan.api.recentChargeUserIds
       bestIds   <- env.plan.api.topPatronUserIds
-      _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
+      _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
       pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
     } yield Ok(
       html.plan.index(
@@ -84,10 +85,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
 
   private def indexPatron(me: UserModel, patron: lila.plan.Patron, customer: StripeCustomer)(implicit
       ctx: Context
-  ) =
-    env.plan.api.customerInfo(me, customer) flatMap {
+  ) = for {
+    pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
+    info    <- env.plan.api.customerInfo(me, customer)
+    res <- info match {
       case Some(info: MonthlyCustomerInfo) =>
-        Ok(html.plan.indexStripe(me, patron, info, stripePublicKey = env.plan.stripePublicKey)).fuccess
+        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing)).fuccess
       case Some(info: OneTimeCustomerInfo) =>
         renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None =>
@@ -95,15 +98,13 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           renderIndex(email, patron.some)
         }
     }
+  } yield res
 
   private def myCurrency(implicit ctx: Context): Currency =
-    // Currency getInstance "VND" // 23k
-    // Currency getInstance "KWD" // 0.3
-    Currency getInstance "EUR"
-  // env.plan.currencyApi.currencyByCountryCodeOrLang(
-  //   env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
-  //   ctx.lang
-  // )
+    env.plan.currencyApi.currencyByCountryCodeOrLang(
+      env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
+      ctx.lang
+    )
 
   def features =
     Open { implicit ctx =>
@@ -264,17 +265,23 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             }
           },
           ipn =>
-            env.plan.api.onPaypalCharge(
-              userId = ipn.userId,
-              email = ipn.email map PayPal.Email.apply,
-              subId = ipn.subId map PayPal.SubId.apply,
-              money = ipn.money,
-              name = ipn.name,
-              txnId = ipn.txnId,
-              country = ipn.country,
-              ip = lila.common.HTTPRequest.ipAddress(req).value,
-              key = get("key", req) | "N/A"
-            ) inject Ok
+            ipn.money match {
+              case None =>
+                logger.error(s"Plan.payPalIpn invalid money $ipn")
+                fuccess(BadRequest)
+              case Some(money) =>
+                env.plan.api.onPaypalCharge(
+                  userId = ipn.userId,
+                  email = ipn.email map PayPal.Email.apply,
+                  subId = ipn.subId map PayPal.SubId.apply,
+                  money = money,
+                  name = ipn.name,
+                  txnId = ipn.txnId,
+                  country = ipn.country,
+                  ip = lila.common.HTTPRequest.ipAddress(req).value,
+                  key = get("key", req) | "N/A"
+                ) inject Ok
+            }
         )
     }
 }

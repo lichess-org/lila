@@ -26,7 +26,7 @@ final class CurrencyApi(
 
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
-    60 minutes // i.e. 744/month, under the 1000/month limit of free OER plan
+    2 hours // i.e. 377/month, under the 1000/month limit of free OER plan
   ) { loader =>
     _.refreshAfterWrite(61 minutes)
       .buildAsyncFuture {
@@ -64,19 +64,20 @@ final class CurrencyApi(
     countryCode
       .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
       .flatMap(currencyOption)
-      .filter(stripeCurrencies.contains)
       .orElse(currencyOption(lang.locale))
-      .filter(stripeCurrencies.contains)
       .getOrElse(USD)
 }
 
-private object CurrencyApi {
+object CurrencyApi {
 
   case class Config(appId: config.Secret)
   implicit val currencyConfigLoader = AutoConfig.loader[Config]
 
-  private def currencyOption(locale: Locale) = Try(Currency getInstance locale).toOption
-  private def currencyOption(code: String)   = Try(Currency getInstance code).toOption
+  val acceptableCurrencies: Set[Currency] = payPalCurrencies intersect stripeCurrencies
+
+  def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
+  def currencyOption(locale: Locale) =
+    Try(Currency getInstance locale).toOption.filter(acceptableCurrencies.contains)
 
   val zeroDecimalCurrencies: Set[Currency] = Set(
     "BIF",
@@ -95,9 +96,38 @@ private object CurrencyApi {
     "XAF",
     "XOF",
     "XPF"
-  ).flatMap(currencyOption)
+  ).flatMap(anyCurrencyOption)
 
-  val stripeCurrencies: Set[Currency] = Set(
+  // https://developer.paypal.com/docs/reports/reference/paypal-supported-currencies/
+  private def payPalCurrencies: Set[Currency] = Set(
+    "AUD",
+    "BRL",
+    "CAD",
+    "CNY",
+    "CZK",
+    "DKK",
+    "EUR",
+    "HKD",
+    "HUF",
+    "ILS",
+    "JPY",
+    "MYR",
+    "MXN",
+    "TWD",
+    "NZD",
+    "NOK",
+    "PHP",
+    "PLN",
+    "GBP",
+    "RUB",
+    "SGD",
+    "SEK",
+    "CHF",
+    "THB",
+    "USD"
+  ).flatMap(anyCurrencyOption)
+
+  private def stripeCurrencies: Set[Currency] = Set(
     "USD",
     "AED",
     "AFN",
@@ -233,5 +263,7 @@ private object CurrencyApi {
     "YER",
     "ZAR",
     "ZMW"
-  ).flatMap(currencyOption)
+  ).flatMap(anyCurrencyOption)
+
+  private def anyCurrencyOption(code: String) = Try(Currency getInstance code).toOption
 }

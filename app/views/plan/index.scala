@@ -103,7 +103,7 @@ object index {
   <input type="hidden" name="rm" value="1">
   <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
   <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${pricing.locale}">
+  <input type="hidden" name="lc" value="${ctx.lang.locale}">
   <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -120,7 +120,7 @@ object index {
   <input type="hidden" name="src" value="1">
   <input type="hidden" name="p3" value="1">
   <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="lc" value="${pricing.locale}">
+  <input type="hidden" name="lc" value="${ctx.lang.locale}">
   <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -135,8 +135,8 @@ object index {
   <input type="hidden" name="rm" value="1">
   <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
   <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="US">
-  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="lc" value="${ctx.lang.locale}">
+  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 </form>"""),
                   ctx.me map { me =>
                     p(style := "text-align:center;margin-bottom:1em")(
@@ -153,7 +153,7 @@ object index {
                   },
                   st.group(cls := "radio buttons freq")(
                     div(
-                      st.title := payLifetimeOnce.txt(lila.plan.Cents.lifetime.usd),
+                      st.title := payLifetimeOnce.txt(pricing.lifetime.display),
                       cls := List("lifetime-check" -> patron.exists(_.isLifetime)),
                       input(
                         tpe := "radio",

@@ -14,7 +14,7 @@ private[plan] object JsonHandlers {
   implicit val StripeChargeId       = Reads.of[String].map(ChargeId.apply)
   implicit val StripeAmountReads    = Reads.of[Int].map(StripeAmount.apply)
   implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
-    Try(Currency getInstance code).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
+    Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
   }
   implicit val StripePriceReads = Json.reads[StripePrice]
   implicit val StripeItemReads  = Json.reads[StripeItem]

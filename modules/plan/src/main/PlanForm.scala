@@ -43,6 +43,8 @@ object PlanForm {
 
     def country = countryCode map Country
 
-    def money = for
+    def money = CurrencyApi currencyOption currencyCode map {
+      Money(gross, _)
+    }
   }
 }

@@ -3,6 +3,7 @@ package views.html.plan
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
 import controllers.routes
 
@@ -16,7 +17,8 @@ object indexStripe {
       me: lila.user.User,
       patron: lila.plan.Patron,
       info: lila.plan.MonthlyCustomerInfo,
-      stripePublicKey: String
+      stripePublicKey: String,
+      pricing: lila.plan.PlanPricing
   )(implicit
       ctx: Context
   ) =
@@ -42,7 +44,7 @@ object indexStripe {
             tr(
               th(currentStatus()),
               td(
-                youSupportWith(strong(info.subscription.item.price.usd.toString)),
+                youSupportWith(strong(info.subscription.item.price.money.display)),
                 span(cls := "thanks")(tyvm())
               )
             ),
@@ -50,7 +52,7 @@ object indexStripe {
               th(nextPayment()),
               td(
                 youWillBeChargedXOnY(
-                  strong(info.nextInvoice.usd.toString),
+                  strong(info.nextInvoice.money.display),
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
@@ -59,33 +61,44 @@ object indexStripe {
             ),
             tr(
               th(update()),
-              td(cls := "change")(
-                xOrY(
-                  a(dataForm := "switch")(
-                    changeMonthlyAmount(info.subscription.item.price.usd.toString)
+              td(cls := "change") {
+                val cancelButton = a(dataForm := "cancel")(cancelSupport())
+                frag(
+                  if (pricing.currency != info.subscription.item.price.currency) cancelButton
+                  else
+                    xOrY(
+                      a(dataForm := "switch")(
+                        changeMonthlyAmount(info.subscription.item.price.money.display)
+                      ),
+                      cancelButton
+                    ),
+                  postForm(cls := "switch", action := routes.Plan.switch)(
+                    p(decideHowMuch()),
+                    strong(pricing.currency.getSymbol(ctx.lang.locale), nbsp),
+                    input(
+                      tpe := "number",
+                      min := pricing.min.amount,
+                      max := pricing.max.amount,
+                      step := {
+                        if (zeroDecimalCurrencies contains pricing.currency) "1"
+                        else "0.01"
+                      },
+                      name := "amount",
+                      value := {
+                        (info.subscription.item.price.currency == pricing.currency) ??
+                          info.subscription.item.price.money.amount.toString
+                      }
+                    ),
+                    submitButton(cls := "button")(trans.apply()),
+                    a(dataForm := "switch")(trans.cancel())
                   ),
-                  a(dataForm := "cancel")(cancelSupport())
-                ),
-                postForm(cls := "switch", action := routes.Plan.switch)(
-                  p(decideHowMuch()),
-                  "USD $ ",
-                  input(
-                    tpe := "number",
-                    min := 1,
-                    max := 100000,
-                    step := "0.01",
-                    name := "usd",
-                    value := info.subscription.item.price.usd.toString
-                  ),
-                  submitButton(cls := "button")(trans.apply()),
-                  a(dataForm := "switch")(trans.cancel())
-                ),
-                postForm(cls := "cancel", action := routes.Plan.cancel)(
-                  p(stopPayments()),
-                  submitButton(cls := "button button-red")(noLongerSupport()),
-                  a(dataForm := "cancel")(trans.cancel())
+                  postForm(cls := "cancel", action := routes.Plan.cancel)(
+                    p(stopPayments()),
+                    submitButton(cls := "button button-red")(noLongerSupport()),
+                    a(dataForm := "cancel")(trans.cancel())
+                  )
                 )
-              )
+              }
             ),
             tr(
               th("Payment details"),
@@ -124,7 +137,7 @@ object indexStripe {
                         td(in.paid option span(dataIcon := "E", cls := "is-green text")(paid())),
                         td(cls := "id")(in.id),
                         td(showDate(in.dateTime)),
-                        td(in.usd.toString)
+                        td(in.money.display)
                       )
                     }
                   )

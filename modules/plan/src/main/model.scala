@@ -1,9 +1,9 @@
 package lila.plan
 
 import java.text.NumberFormat
-import java.util.Currency
-import java.util.Locale
+import java.util.{ Currency, Locale }
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 
 case class ChargeId(value: String)       extends AnyVal
 case class ClientId(value: String)       extends AnyVal
@@ -19,21 +19,26 @@ object Freq {
   case object Onetime extends Freq(renew = false)
 }
 
-// In smallest currency unit
+// /!\ In smallest currency unit /!\
 // https://stripe.com/docs/currencies#zero-decimal
-case class StripeAmount(value: Int) extends AnyVal {
+case class StripeAmount(smallestCurrencyUnit: Int) extends AnyVal {
   def toMoney(currency: Currency) =
-    Money(if (CurrencyApi.zeroDecimalCurrencies(currency)) value else value * 100, currency)
+    Money(
+      if (CurrencyApi zeroDecimalCurrencies currency) smallestCurrencyUnit
+      else BigDecimal(smallestCurrencyUnit) / 100,
+      currency
+    )
 }
 
 case class Money(amount: BigDecimal, currency: Currency) {
-  def display(locale: Locale) = {
+  def display(locale: Locale): String = {
     val format = NumberFormat.getCurrencyInstance(locale)
     format setCurrency currency
     format format amount
   }
-  def currencyCode = currency.getCurrencyCode
-  def code         = s"${currencyCode}_$amount"
+  def display(implicit lang: Lang): String = display(lang.locale)
+  def currencyCode                         = currency.getCurrencyCode
+  def code                                 = s"${currencyCode}_$amount"
   def toStripeAmount = StripeAmount {
     if (CurrencyApi.zeroDecimalCurrencies(currency)) amount.toInt else (amount * 100).toInt
   }
@@ -53,7 +58,8 @@ case class StripeProducts(monthly: String, onetime: String)
 case class StripeItem(id: String, price: StripePrice)
 
 case class StripePrice(product: String, unit_amount: StripeAmount, currency: Currency) {
-  def money = unit_amount toMoney currency
+  def amount = unit_amount
+  def money  = unit_amount toMoney currency
 }
 
 case class NextUrls(cancel: String, success: String)
@@ -100,11 +106,12 @@ object StripeCharge {
 
 case class StripeInvoice(
     id: Option[String],
-    amount_due: Int,
+    amount_due: StripeAmount,
+    currency: Currency,
     created: Long,
     paid: Boolean
 ) {
-  def amount   = StripeAmount(amount_due)
+  def money    = amount_due toMoney currency
   def dateTime = new DateTime(created * 1000)
 }
 

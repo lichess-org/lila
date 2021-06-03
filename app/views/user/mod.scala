@@ -267,7 +267,7 @@ object mod {
         ),
         ul(
           charges.map { c =>
-            li(c.cents.usd.toString, " with ", c.serviceName, " on ", showDateTimeUTC(c.date), " UTC")
+            li(c.money.display, " with ", c.serviceName, " on ", showDateTimeUTC(c.date), " UTC")
           }
         ),
         br
