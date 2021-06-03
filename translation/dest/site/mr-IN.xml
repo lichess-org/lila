@@ -118,6 +118,18 @@
   <string name="blunder">घोडचूक</string>
   <string name="mistake">चुक</string>
   <string name="inaccuracy">अयोग्य चाल</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s घोडचूक</item>
+    <item quantity="other">%s घोडचूका</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s चुक</item>
+    <item quantity="other">%s चुका</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s अयोग्य चाल</item>
+    <item quantity="other">%s अयोग्य चाली</item>
+  </plurals>
   <string name="moveTimes">चालीसाठी लागलेला वेळ</string>
   <string name="flipBoard">पटाला पलटा</string>
   <string name="threefoldRepetition">तीनदा पुनरावृत्ती</string>
@@ -465,6 +477,7 @@
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
   <string name="descPrivate">खाजगी वर्णन</string>
+  <string name="descPrivateHelp">मजकूर जो केवळ कार्यसंघ सदस्य पाहू शकतील. सेट केल्यास, कार्यसंघ सदस्यांसाठी सार्वजनिक वर्णन पुनर्स्थित करते.</string>
   <string name="no">नाही</string>
   <string name="yes">हो</string>
   <string name="help">मदत</string>
@@ -485,6 +498,7 @@
   <string name="cheat">फसवणूक</string>
   <string name="insult">अपमान</string>
   <string name="troll">थट्टा</string>
+  <string name="ratingManipulation">रेटिंग मॅनिपुलेशन</string>
   <string name="other">इतर</string>
   <string name="reportDescriptionHelp">खेळाचा दुवा पेस्ट करा आणि या वापरकर्त्याच्या वर्तनाबद्दल काय चुकीचे आहे ते सांगा. फक्त \"ते फसवतात\" असे म्हणू नका, परंतु आपण या निष्कर्षावर कसे आलात ते सांगा. इंग्रजीमध्ये लिहिले असल्यास आपल्या अहवालावर वेगवान प्रक्रिया केली जाईल.</string>
   <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
@@ -663,6 +677,7 @@
   <string name="printFriendlyPDF">प्रिंट-friendly PDF</string>
   <string name="crosstable">अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">गेममध्ये जाण्यासाठी आपण बोर्डवर स्क्रोल देखील करू शकता.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">संगणक बदलांचे पूर्वावलोकन करण्यासाठी त्यांचेवर स्क्रोल करा.</string>
   <string name="analysisShapesHowTo">पटावर वर्तुळे आणि बाण काढण्यासाठी शिफ्ट + क्लिक दाबा किंवा उजवे-क्लिक दाबा.</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
   <string name="shareYourInsightsData">आपला बुद्धिबळ अंतर्गत डेटा सामायिक करा</string>
@@ -838,10 +853,15 @@
   <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
   <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
+  <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>
   <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">कोणीतरी आपल्या कोच प्रोफाइलचे पुनरावलोकन केले.</string>
+  <string name="newPendingReview">नवीन प्रलंबित पुनरावलोकन</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
   <string name="welcome">सुस्वागतम!</string>
+  <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
+सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
 </resources>
