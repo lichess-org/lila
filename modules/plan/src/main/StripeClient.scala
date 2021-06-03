@@ -208,6 +208,6 @@ object StripeClient {
       @ConfigName("keys.secret") secretKey: Secret,
       products: StripeProducts
   )
-  implicit private[plan] val productsLoader = AutoConfig.loader[StripeProducts]
-  implicit private[plan] val configLoader   = AutoConfig.loader[Config]
+  implicit private[plan] val productsLoader     = AutoConfig.loader[StripeProducts]
+  implicit private[plan] val stripeConfigLoader = AutoConfig.loader[Config]
 }

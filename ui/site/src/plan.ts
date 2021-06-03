@@ -1,8 +1,8 @@
 import * as xhr from 'common/xhr';
 
 export default function (publicKey: string) {
-  const stripe = window.Stripe(publicKey);
   $('.update-payment-method').on('click', () => {
+    const stripe = window.Stripe(publicKey);
     xhr.json('/patron/stripe/update-payment', { method: 'post' }).then(data => {
       if (data.session?.id) {
         stripe

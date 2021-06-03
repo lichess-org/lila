@@ -19,7 +19,8 @@ object index {
       stripePublicKey: String,
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
-      bestIds: List[String]
+      bestIds: List[String],
+      prices: lila.plan.PlanPrices
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
@@ -186,8 +187,9 @@ object index {
                   ),
                   div(cls := "amount_choice")(
                     st.group(cls := "radio buttons amount")(
-                      lila.plan.StripePrice.defaultAmounts.map { cents =>
-                        val id = s"plan_${cents.value}"
+                      prices.defaults.map { money =>
+                        val cents = lila.plan.Cents((money.amount * 100).toInt)
+                        val id    = s"plan_${cents.value}"
                         div(
                           input(
                             tpe := "radio",

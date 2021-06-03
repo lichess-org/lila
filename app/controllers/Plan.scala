@@ -69,13 +69,15 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       recentIds <- env.plan.api.recentChargeUserIds
       bestIds   <- env.plan.api.topPatronUserIds
       _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
+      prices    <- env.plan.priceApi.pricesFor(myGeoLocale)
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
         email = email,
         patron = patron,
         recentIds = recentIds,
-        bestIds = bestIds
+        bestIds = bestIds,
+        prices = prices
       )
     )
 
@@ -92,6 +94,17 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           renderIndex(email, patron.some)
         }
     }
+
+  private def myGeoLocale(implicit ctx: Context) =
+    // "FR".some
+    env.security
+      .geoIP(HTTPRequest.ipAddress(ctx.req))
+      .flatMap(_.countryCode)
+      .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
+      .filter(env.plan.currencyApi.hasCurrency)
+      .orElse(ctx.lang.locale.some)
+      .filter(env.plan.currencyApi.hasCurrency)
+      .getOrElse(env.plan.currencyApi.US)
 
   def features =
     Open { implicit ctx =>

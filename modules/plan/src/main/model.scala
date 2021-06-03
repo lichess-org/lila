@@ -1,5 +1,8 @@
 package lila.plan
 
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 import org.joda.time.DateTime
 
 case class ChargeId(value: String)       extends AnyVal
@@ -34,6 +37,11 @@ object Cents {
   val lifetime = Cents(25000)
 }
 
+case class Money(amount: BigDecimal, locale: Locale) {
+  val currency = Currency getInstance locale
+  def display  = NumberFormat.getCurrencyInstance(locale).format(amount)
+}
+
 case class Country(code: String) extends AnyVal
 
 case class StripeSubscriptions(data: List[StripeSubscription])
@@ -45,9 +53,6 @@ case class StripeItem(id: String, price: StripePrice)
 case class StripePrice(product: String, unit_amount: Cents) {
   def cents = unit_amount
   def usd   = cents.usd
-}
-object StripePrice {
-  val defaultAmounts = List(5, 10, 20, 50).map(Usd.apply).map(_.cents)
 }
 
 case class NextUrls(cancel: String, success: String)

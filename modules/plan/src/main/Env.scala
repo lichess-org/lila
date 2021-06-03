@@ -13,6 +13,7 @@ private class PlanConfig(
     @ConfigName("collection.patron") val patronColl: CollName,
     @ConfigName("collection.charge") val chargeColl: CollName,
     val stripe: StripeClient.Config,
+    val oer: CurrencyApi.Config,
     @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
 )
 
@@ -31,7 +32,8 @@ final class Env(
     system: akka.actor.ActorSystem
 ) {
 
-  import StripeClient.configLoader
+  import StripeClient.stripeConfigLoader
+  import CurrencyApi.currencyConfigLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
   val stripePublicKey = config.stripe.publicKey
@@ -40,6 +42,10 @@ final class Env(
   private lazy val chargeColl = db(config.chargeColl)
 
   private lazy val stripeClient: StripeClient = wire[StripeClient]
+
+  lazy val currencyApi: CurrencyApi = wire[CurrencyApi]
+
+  lazy val priceApi: PlanPriceApi = wire[PlanPriceApi]
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
