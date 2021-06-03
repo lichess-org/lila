@@ -855,9 +855,12 @@
   <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
   <string name="someoneYouReportedWasBanned">आपण नोंदविलेल्या एखाद्यावर बंदी घातली आहे</string>
   <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
+  <string name="gameVsX">खेळ विरुद्ध %1$s</string>
   <string name="resVsX">%1$s विरुद्ध %2$s</string>
   <string name="someoneReviewedYourCoachProfile">कोणीतरी आपल्या कोच प्रोफाइलचे पुनरावलोकन केले.</string>
   <string name="newPendingReview">नवीन प्रलंबित पुनरावलोकन</string>
+  <string name="lostAgainstTOSViolator">आपला Lichess TOS चे नियम भंग करणार्‍या खेळाडुकडून पराभव झाला</string>
+  <string name="refundXpointsTimeControlY">परतावा: %2$s चे %1$s रेटिंग गुण.</string>
   <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
   <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
   <string name="download">डाउनलोड करा</string>
