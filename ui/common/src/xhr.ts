@@ -13,6 +13,12 @@ export const xhrHeader = {
   'X-Requested-With': 'XMLHttpRequest', // so lila knows it's XHR
 };
 
+function ensureOk(res: Response): Response {
+  if (res.ok) return res;
+  if (res.status == 429) throw new Error('Too many requests');
+  throw new Error(`Error ${res.status}`);
+}
+
 /* fetch a JSON value */
 export const json = (url: string, init: RequestInit = {}): Promise<any> =>
   fetch(url, {
@@ -22,17 +28,11 @@ export const json = (url: string, init: RequestInit = {}): Promise<any> =>
       ...xhrHeader,
     },
     ...init,
-  }).then(res => {
-    if (res.ok) return res.json();
-    throw res.statusText;
-  });
+  }).then(res => ensureOk(res).json());
 
 /* fetch a string */
 export const text = (url: string, init: RequestInit = {}): Promise<string> =>
-  textRaw(url, init).then(res => {
-    if (res.ok) return res.text();
-    throw res.statusText;
-  });
+  textRaw(url, init).then(res => ensureOk(res).text());
 
 export const textRaw = (url: string, init: RequestInit = {}): Promise<Response> =>
   fetch(url, {
