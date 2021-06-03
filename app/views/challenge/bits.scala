@@ -29,7 +29,7 @@ object bits {
 
   def details(c: Challenge)(implicit ctx: Context) =
     div(cls := "details")(
-      div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '*' else c.perfType.iconChar))(
+      div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '' else c.perfType.iconChar))(
         div(
           if (c.variant.exotic)
             views.html.game.bits.variantLink(c.variant, variantName(c.variant))
