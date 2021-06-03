@@ -32,6 +32,7 @@ case class Pref(
     coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
+    mention: Boolean,
     insightShare: Int,
     keyboardMove: Int,
     zen: Int,
@@ -210,6 +211,8 @@ object Pref {
       EVERYBODY -> "With everybody"
     )
   }
+
+  object Mention extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -433,6 +436,7 @@ object Pref {
     coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
+    mention = true,
     insightShare = InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
