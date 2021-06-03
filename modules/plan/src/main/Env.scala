@@ -45,7 +45,7 @@ final class Env(
 
   lazy val currencyApi: CurrencyApi = wire[CurrencyApi]
 
-  lazy val priceApi: PlanPriceApi = wire[PlanPriceApi]
+  lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 

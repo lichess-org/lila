@@ -31,7 +31,7 @@ object index {
         stripeScript,
         jsModule("checkout"),
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
-          lila.plan.PlanPriceApi.pricingWrites.writes(pricing)
+          lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
         )})""")
       ),
       openGraph = lila.app.ui

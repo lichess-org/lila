@@ -59,6 +59,7 @@ final class CurrencyApi(
     }
 
   val USD = Currency getInstance "USD"
+  val EUR = Currency getInstance "EUR"
 
   def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
     countryCode

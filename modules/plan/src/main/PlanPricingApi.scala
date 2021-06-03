@@ -15,9 +15,9 @@ case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetim
   def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 }
 
-final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext) {
+final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext) {
 
-  import currencyApi.USD
+  import currencyApi.{ EUR, USD }
 
   val usdPricing = PlanPricing(
     suggestions = List(5, 10, 20, 50).map(usd => Money(usd, USD)),
@@ -26,9 +26,17 @@ final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext
     lifetime = Money(250, USD)
   )
 
+  val eurPricing = PlanPricing(
+    suggestions = List(5, 10, 20, 50).map(eur => Money(eur, EUR)),
+    min = Money(1, EUR),
+    max = Money(10000, EUR),
+    lifetime = Money(200, EUR)
+  )
+
   def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
     if (currency == USD) fuccess(usdPricing.some)
-    else {
+    else if (currency == EUR) fuccess(eurPricing.some)
+    else
       for {
         allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).sequenceFu.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
@@ -36,7 +44,6 @@ final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext
         max      <- convertAndRound(usdPricing.max, currency)
         lifetime <- convertAndRound(usdPricing.lifetime, currency)
       } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
-    }
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
@@ -47,25 +54,18 @@ final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext
 
   private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
     currencyApi.convert(money, to) map2 { case Money(amount, locale) =>
-      Money(PlanPriceApi.nicelyRound(amount), locale)
+      Money(PlanPricingApi.nicelyRound(amount), locale)
     }
 }
 
-object PlanPriceApi {
+object PlanPricingApi {
 
-  // round to closest number in 1-2-5 series
-  private def nicelyRound(amount: BigDecimal): BigDecimal =
-    if (amount <= 0) amount // ?
-    else {
-      val scale     = math.floor(math.log10(amount.toDouble))
-      val leadDigit = math.round((amount / math.pow(10, scale)).toDouble)
-      val multiplier =
-        if (leadDigit == 1) 1
-        else if (leadDigit <= 3) 2
-        else if (leadDigit <= 7) 5
-        else 10
-      math.pow(10, scale) * multiplier
-    }
+  def nicelyRound(amount: BigDecimal): BigDecimal = {
+    val double   = amount.toDouble
+    val scale    = math.floor(math.log10(double));
+    val fraction = if (scale > 1) 2d else 1d
+    math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
+  }
 
   import play.api.libs.json._
   val pricingWrites = OWrites[PlanPricing] { p =>

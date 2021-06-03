@@ -22,7 +22,7 @@ final class PlanApi(
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
-    pricingApi: PlanPriceApi
+    pricingApi: PlanPricingApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
