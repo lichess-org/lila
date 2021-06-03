@@ -187,7 +187,7 @@ object index {
                   ),
                   div(cls := "amount_choice")(
                     st.group(cls := "radio buttons amount")(
-                      prices.defaults.map { money =>
+                      prices.suggestions.map { money =>
                         val cents = lila.plan.Cents((money.amount * 100).toInt)
                         val id    = s"plan_${cents.value}"
                         div(

@@ -49,14 +49,6 @@ final class CurrencyApi(
       } yield Money(money.amount * fromRate / toRate, to)
     }
 
-  def convertFromUsd(amounts: List[BigDecimal], to: Locale): Fu[Option[List[Money]]] =
-    ratesCache.get {} map { rates =>
-      for {
-        currency <- Try(Currency getInstance to).toOption
-        rate     <- rates get currency.getCurrencyCode
-      } yield amounts map { a => Money(a / rate, to) }
-    }
-
   val US  = Locale.US
   val USD = Currency getInstance US
 
