@@ -101,7 +101,7 @@ object PerfType {
         key = "kingOfTheHill",
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
-        iconChar = '('
+        iconChar = ''
       )
 
   case object Antichess

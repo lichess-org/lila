@@ -178,7 +178,7 @@ object TournamentShield {
     case object KingOfTheHill
         extends Category(
           of = Right(chess.variant.KingOfTheHill),
-          iconChar = '('
+          iconChar = ''
         )
 
     case object Antichess

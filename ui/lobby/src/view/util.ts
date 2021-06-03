@@ -43,5 +43,5 @@ export const perfIcons = {
   Crazyhouse: '',
   Chess960: '',
   Correspondence: ';',
-  'King of the Hill': '(',
+  'King of the Hill': '',
 };
