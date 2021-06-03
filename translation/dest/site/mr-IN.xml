@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">तुम्ही पांढऱ्या सोंगट्यानी खेळा</string>
   <string name="youPlayTheBlackPieces">तुम्ही काळ्या सोंगट्यानी खेळा</string>
   <string name="itsYourTurn">तुमची चाल!</string>
+  <string name="cheatDetected">फसवणूक आढळली</string>
   <string name="kingInTheCenter">मध्यस्थानी राजा</string>
   <string name="threeChecks">तीन शह</string>
   <string name="raceFinished">शर्यंत समाप्त</string>
@@ -463,6 +464,7 @@
   <string name="tournamentWinners">क्रीडासत्रातील विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
+  <string name="descPrivate">खाजगी वर्णन</string>
   <string name="no">नाही</string>
   <string name="yes">हो</string>
   <string name="help">मदत</string>
@@ -830,4 +832,16 @@
   <string name="youCannotPostYetPlaySomeGames">तुम्ही मंचावर लिहू शकत नाही. काही डाव खेळा!</string>
   <string name="subscribe">सदस्यता घ्या</string>
   <string name="unsubscribe">सदस्यता रद्द करा</string>
+  <string name="mentionedYouInX">%1$s मध्ये तुमचा उल्लेख केला.</string>
+  <string name="xMentionedYouInY">%1$s ने तुमचा उल्लेख %2$s मध्ये केला आहे.</string>
+  <string name="invitedYouToX">%1$s मध्ये तुम्ही आमंत्रित आहात.</string>
+  <string name="xInvitedYouToY">%1$s ने तुम्हाला %2$s मध्ये आमंत्रित केले आहे.</string>
+  <string name="youAreNowPartOfTeam">तुम्ही संघात नाही.</string>
+  <string name="youHaveJoinedTeamX">तुम्ही %1$s मध्ये सामील झालात.</string>
+  <string name="congratsYouWon">अभिनंदन, तुम्ही जिंकलात!</string>
+  <string name="resVsX">%1$s विरुद्ध %2$s</string>
+  <string name="timeAlmostUp">वेळ संपत आलेली आहे!</string>
+  <string name="clickToRevealEmailAddress">[ईमेल पाहण्यासाठी क्लिक करा]</string>
+  <string name="download">डाउनलोड करा</string>
+  <string name="welcome">सुस्वागतम!</string>
 </resources>
