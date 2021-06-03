@@ -49,7 +49,7 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
   const allowed = prop(allow),
     enabled = root.embed ? prop(false) : storedProp('explorer.enabled', false),
     loading = prop(true),
-    failing = prop(false),
+    failing = prop<Error | null>(null),
     hovering = prop<Hovering | null>(null),
     movesAway = prop(0),
     gameMenu = prop<string | null>(null);
@@ -90,12 +90,12 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
           cache[fen] = res;
           movesAway(res.moves.length ? 0 : movesAway() + 1);
           loading(false);
-          failing(false);
+          failing(null);
           root.redraw();
         },
-        () => {
+        err => {
           loading(false);
-          failing(true);
+          failing(err);
           root.redraw();
         }
       );
@@ -121,7 +121,7 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     if (cached) {
       movesAway(cached.moves.length ? 0 : movesAway() + 1);
       loading(false);
-      failing(false);
+      failing(null);
     } else {
       loading(true);
       fetch();
