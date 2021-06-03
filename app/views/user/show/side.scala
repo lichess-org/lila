@@ -112,7 +112,7 @@ object side {
 
   private def showRacer(racer: lila.rating.Perf.Racer, user: User)(implicit lang: Lang) =
     a(
-      dataIcon := ',',
+      dataIcon := '',
       cls := List(
         "empty" -> !racer.nonEmpty
       ),

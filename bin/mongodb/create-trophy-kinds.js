@@ -9,7 +9,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'wayOfBerserk',
   name: 'The way of Berserk',
-  icon: '`',
+  icon: '\ue053',
   url: '//lichess.org/faq#trophies',
   klass: 'fire-trophy',
   order: NumberInt(2),
@@ -50,7 +50,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
-  icon: ',',
+  icon: '\ue020',
   url: '//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1',
   klass: 'fire-trophy',
   order: NumberInt(7),
