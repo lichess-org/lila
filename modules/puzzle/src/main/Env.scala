@@ -3,6 +3,7 @@ package lila.puzzle
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.db.AsyncColl
@@ -75,12 +76,11 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
-  def cli =
-    new lila.common.Cli {
-      def process = { case "puzzle" :: "delete" :: id :: Nil =>
-        api.puzzle delete Puzzle.Id(id) inject "Done"
-      }
+  system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
+    pathApi.isStale foreach { stale =>
+      if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
     }
+  }
 }
 
 final class PuzzleColls(

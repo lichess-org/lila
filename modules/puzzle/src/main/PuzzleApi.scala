@@ -24,9 +24,6 @@ final class PuzzleApi(
     def find(id: Puzzle.Id): Fu[Option[Puzzle]] =
       colls.puzzle(_.byId[Puzzle](id.value))
 
-    def delete(id: Puzzle.Id): Funit =
-      colls.puzzle(_.delete.one($id(id.value))).void
-
     def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
       colls.puzzle { coll =>
         Paginator(
