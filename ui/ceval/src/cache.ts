@@ -21,7 +21,8 @@ export class Cache {
     if (cachedVersion === version) {
       return;
     }
-    await idb.set(`${key}--version`, version, this.store);
+    await idb.del(`${key}--version`, this.store);
     await idb.set(`${key}--data`, data, this.store);
+    await idb.set(`${key}--version`, version, this.store);
   }
 }
