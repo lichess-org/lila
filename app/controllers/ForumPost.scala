@@ -84,13 +84,16 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             postApi.erasePost(post) inject Redirect(routes.ForumPost.redirect(id))
           else
             isGrantedMod(categSlug) flatMap { granted =>
-              (granted | isGranted(_.ModerateForum)) ?? postApi.delete(categSlug, id, me) inject {
+              postApi.delete(categSlug, id, me) inject {
                 implicit val req = ctx.body
                 for {
                   userId    <- post.userId
                   reasonOpt <- forms.deleteWithReason.bindFromRequest().value
                   reason    <- reasonOpt
-                } env.msg.api.systemPost(userId, lila.msg.MsgPreset forumDeletion reason)
+                  preset =
+                    if (isGranted(_.ModerateForum)) lila.msg.MsgPreset.forumDeletionByModerator
+                    else lila.msg.MsgPreset.forumDeletionByTeamLeader
+                } env.msg.api.systemPost(userId, preset(reason))
                 NoContent
               }
             }
