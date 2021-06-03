@@ -60,65 +60,66 @@ export class WebWorker extends AbstractWorker<WebWorkerOpts> {
 export interface ThreadedWasmWorkerOpts {
   baseUrl: string;
   module: 'Stockfish' | 'StockfishMv';
-  version?: string;
+  version: string;
   downloadProgress?: (mb: number) => void;
   wasmMemory: WebAssembly.Memory;
   cache?: Cache;
 }
 
 export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
-  private static protocols: { Stockfish?: Promise<Protocol>; StockfishMv?: Promise<Protocol> } = {};
+  private static protocols: { Stockfish?: Protocol; StockfishMv?: Protocol } = {};
   private static sf: { Stockfish?: any; StockfishMv?: any } = {};
 
-  boot(): Promise<Protocol> {
-    const version = this.opts.version;
-    const progress = this.opts.downloadProgress;
-    const cache = this.opts.cache;
-    const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
-    ThreadedWasmWorker.protocols[this.opts.module] ||= lichess
-      .loadScript(this.opts.baseUrl + 'stockfish.js', { version })
-      .then(
-        _ =>
-          progress &&
-          new Promise(async (resolve, reject) => {
-            if (cache) {
-              const [found, data] = await cache.get(wasmPath, version!);
-              if (found) {
-                resolve(data);
-                return;
-              }
-            }
+  async boot(): Promise<Protocol> {
+    let protocol = ThreadedWasmWorker.protocols[this.opts.module];
+    if (!protocol) {
+      const version = this.opts.version;
+      const cache = this.opts.cache;
+
+      // Fetch WASM file ourselves, for caching and progress indication.
+      let wasmBinary;
+      if (cache) {
+        const wasmPath = this.opts.baseUrl + 'stockfish.wasm';
+        if (cache) {
+          const [found, data] = await cache.get(wasmPath, version!);
+          if (found) wasmBinary = data;
+        }
+
+        if (!wasmBinary) {
+          wasmBinary = await new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
             req.open('GET', lichess.assetUrl(wasmPath, { version }), true);
             req.responseType = 'arraybuffer';
             req.onerror = event => reject(event);
-            req.onprogress = event => progress(event.loaded);
+            req.onprogress = event => this.opts.downloadProgress?.(event.loaded);
             req.onload = _ => {
-              progress(0);
+              this.opts.downloadProgress?.(0);
               resolve(req.response);
             };
             req.send();
-          })
-      )
-      .then(async wasmBinary => {
-        if (cache && wasmBinary) {
-          await cache.set(wasmPath, version!, wasmBinary);
+          });
         }
-        return window[this.opts.module]({
-          wasmBinary,
-          locateFile: (path: string) =>
-            lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
-          wasmMemory: this.opts.wasmMemory,
-        });
-      })
-      .then((sf: any) => {
-        ThreadedWasmWorker.sf[this.opts.module] = sf;
-        const protocol = new Protocol(this.send.bind(this), this.protocolOpts);
-        sf.addMessageListener(protocol.received.bind(protocol));
-        protocol.init();
-        return protocol;
+
+        await cache.set(wasmPath, version!, wasmBinary);
+      }
+
+      // Load Emscripten module.
+      await lichess.loadScript(this.opts.baseUrl + 'stockfish.js', { version });
+      const sf = await window[this.opts.module]({
+        wasmBinary,
+        locateFile: (path: string) =>
+          lichess.assetUrl(this.opts.baseUrl + path, { version, sameDomain: path.endsWith('.worker.js') }),
+        wasmMemory: this.opts.wasmMemory,
       });
-    return ThreadedWasmWorker.protocols[this.opts.module]!;
+      ThreadedWasmWorker.sf[this.opts.module] = sf;
+
+      // Initialize protocol.
+      protocol = new Protocol(this.send.bind(this), this.protocolOpts);
+      sf.addMessageListener(protocol.received.bind(protocol));
+      protocol.init();
+      ThreadedWasmWorker.protocols[this.opts.module] = protocol;
+    }
+    return protocol;
   }
 
   destroy() {
