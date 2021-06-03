@@ -122,7 +122,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'share',
         hint: noarg('shareAndExport'),
-        icon: iconTag('$'),
+        icon: iconTag(''),
       }),
       !ctrl.relay
         ? h('span.help', {

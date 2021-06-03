@@ -71,7 +71,7 @@ object replay {
       ctx.noBlind option frag(
         a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
-          dataIcon := "$",
+          dataIcon := "",
           cls := "text",
           targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)
