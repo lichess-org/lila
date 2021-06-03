@@ -104,10 +104,11 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     true
   );
 
-  const empty: ExplorerData = {
+  const empty: OpeningData = {
     isOpening: true,
     moves: [],
     fen: '',
+    opening: root.data.game.opening,
   };
 
   function setNode() {
