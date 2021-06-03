@@ -47,7 +47,7 @@ object PerfType {
         key = "blitz",
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
-        iconChar = ')'
+        iconChar = ''
       )
 
   case object Rapid

@@ -2,7 +2,7 @@ export const perf = {
   icons: {
     ultraBullet: '{',
     bullet: 'T',
-    blitz: ')',
+    blitz: '',
     rapid: 'C',
     classical: '+',
     correspondence: ';',

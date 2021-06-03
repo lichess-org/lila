@@ -148,13 +148,13 @@ object TournamentShield {
     case object SuperBlitz
         extends Category(
           of = Left(Schedule.Speed.SuperBlitz),
-          iconChar = ')'
+          iconChar = ''
         )
 
     case object Blitz
         extends Category(
           of = Left(Schedule.Speed.Blitz),
-          iconChar = ')'
+          iconChar = ''
         )
 
     case object Rapid
