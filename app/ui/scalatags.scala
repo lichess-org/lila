@@ -122,7 +122,8 @@ trait ScalatagsExtensions {
       t.setAttr(a.name, scalatags.text.Builder.GenericAttrValueSource(v.value))
   }
 
-  implicit val charAttr = genericAttr[Char]
+  implicit val charAttr       = genericAttr[Char]
+  implicit val bigDecimalAttr = genericAttr[BigDecimal]
 
   implicit val optionStringAttr = new AttrValue[Option[String]] {
     def apply(t: scalatags.text.Builder, a: Attr, v: Option[String]): Unit = {

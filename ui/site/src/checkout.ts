@@ -1,13 +1,15 @@
 import * as xhr from 'common/xhr';
 
-export default function (publicKey: string) {
+export interface Pricing {
+  currency: string;
+  default: number;
+  min: number;
+  max: number;
+  lifetime: number;
+}
+
+export default function (publicKey: string, pricing: Pricing) {
   const $checkout = $('div.plan_checkout');
-  const lifetime = {
-    cents: parseInt($checkout.data('lifetime-cents')),
-    usd: $checkout.data('lifetime-usd'),
-  };
-  const min = 100,
-    max = 100 * 100000;
 
   if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
   if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
@@ -19,7 +21,7 @@ export default function (publicKey: string) {
   // Other is selected but no amount specified
   // happens with backward button
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
-    $checkout.find('#plan_monthly_1000').trigger('click');
+    $checkout.find('input.default').trigger('click');
 
   const selectAmountGroup = function () {
     const freq = getFreq();
@@ -38,25 +40,21 @@ export default function (publicKey: string) {
     } catch (e) {
       return false;
     }
-    let cents = Math.round(amount * 100);
-    if (!cents) {
+    if (!amount) {
       $(this).text($(this).data('trans-other'));
-      $checkout.find('#plan_monthly_1000').trigger('click');
+      $checkout.find('input.default').trigger('click');
       return false;
     }
-    if (cents < min) cents = min;
-    else if (cents > max) cents = max;
-    const usd = '$' + cents / 100;
-    $(this).text(usd);
-    $(this).siblings('input').data('amount', cents).data('usd', usd);
+    amount = Math.max(pricing.min, Math.min(pricing.max, amount));
+    $(this).text(`${pricing.currency} ${amount}`);
+    $(this).siblings('input').data('amount', amount);
   });
 
   $checkout.find('button.paypal').on('click', function () {
     const freq = getFreq(),
-      cents =
-        freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
-    if (!cents || cents < min || cents > max) return;
-    const amount = cents / 100;
+      amount =
+        freq == 'lifetime' ? pricing.lifetime : parseInt($checkout.find('group.amount input:checked').data('amount'));
+    if (!amount || amount < pricing.min || amount > pricing.max) return;
     const $form = $checkout.find('form.paypal_checkout.' + freq);
     $form.find('input.amount').val('' + amount);
     ($form[0] as HTMLFormElement).submit();
@@ -68,8 +66,8 @@ export default function (publicKey: string) {
   $checkout.find('button.stripe').on('click', function () {
     const freq = getFreq(),
       amount =
-        freq == 'lifetime' ? lifetime.cents : parseInt($checkout.find('group.amount input:checked').data('amount'));
-    if (amount < min || amount > max) return;
+        freq == 'lifetime' ? pricing.lifetime : parseInt($checkout.find('group.amount input:checked').data('amount'));
+    if (amount < pricing.min || amount > pricing.max) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
     xhr

@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 import lila.common.config
+import play.api.i18n.Lang
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -43,33 +44,24 @@ final class CurrencyApi(
   def convert(money: Money, to: Locale): Fu[Option[Money]] =
     ratesCache.get {} map { rates =>
       for {
-        currency <- Try(Currency getInstance to).toOption
+        currency <- Try(Currency getInstance to).toOption.pp(to.toString)
         fromRate <- rates get money.currency.getCurrencyCode
         toRate   <- rates get currency.getCurrencyCode
-      } yield Money(money.amount * fromRate / toRate, to)
+      } yield Money(money.amount / fromRate * toRate, to)
     }
 
   val US  = Locale.US
   val USD = Currency getInstance US
 
-  def hasCurrency(locale: Locale) = Try(Currency getInstance locale).isSuccess
-
-  def byCountryCode(countryCode: Option[String]): Fu[CurrencyWithRate] =
+  def localeByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Locale =
     countryCode
-      .flatMap { country =>
-        Try(new Locale("", country)).toOption
-      }
-      .?? { locale =>
-        Try(Currency getInstance locale).toOption ?? { currency =>
-          ratesCache.get(()) map {
-            _ get currency.getCurrencyCode map {
-              CurrencyWithRate(currency, _)
-            }
-          }
-        }
-      } dmap {
-      _ | CurrencyWithRate(USD, 1d)
-    }
+      .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
+      .filter(hasCurrency)
+      .orElse(lang.locale.some)
+      .filter(hasCurrency)
+      .getOrElse(US)
+
+  private def hasCurrency(locale: Locale) = Try(Currency getInstance locale).isSuccess
 }
 
 private object CurrencyApi {

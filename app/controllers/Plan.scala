@@ -69,7 +69,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       recentIds <- env.plan.api.recentChargeUserIds
       bestIds   <- env.plan.api.topPatronUserIds
       _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
-      prices    <- env.plan.priceApi.pricesFor(myGeoLocale)
+      pricing   <- env.plan.priceApi.pricingFor(myGeoLocale)
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
@@ -77,7 +77,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         patron = patron,
         recentIds = recentIds,
         bestIds = bestIds,
-        prices = prices
+        pricing = pricing
       )
     )
 

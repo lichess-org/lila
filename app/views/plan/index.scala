@@ -5,6 +5,7 @@ import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -20,7 +21,7 @@ object index {
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String],
-      prices: lila.plan.PlanPrices
+      pricing: lila.plan.PlanPricing
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
@@ -29,7 +30,9 @@ object index {
       moreJs = frag(
         stripeScript,
         jsModule("checkout"),
-        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey")""")
+        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
+          lila.plan.PlanPriceApi.pricingWrites.writes(pricing)
+        )})""")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -85,8 +88,7 @@ object index {
                 div(
                   cls := "plan_checkout",
                   attr("data-email") := email.??(_.value),
-                  attr("data-lifetime-usd") := lila.plan.Cents.lifetime.usd.toString,
-                  attr("data-lifetime-cents") := lila.plan.Cents.lifetime.value
+                  attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
                   raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -101,8 +103,8 @@ object index {
   <input type="hidden" name="rm" value="1">
   <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
   <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="US">
-  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="lc" value="${pricing.locale}">
+  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
   <input type="hidden" name="custom" value="${~ctx.userId}">
@@ -118,8 +120,8 @@ object index {
   <input type="hidden" name="src" value="1">
   <input type="hidden" name="p3" value="1">
   <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="lc" value="US">
-  <input type="hidden" name="currency_code" value="USD">
+  <input type="hidden" name="lc" value="${pricing.locale}">
+  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
   <input type="hidden" name="custom" value="${~ctx.userId}">
@@ -187,27 +189,26 @@ object index {
                   ),
                   div(cls := "amount_choice")(
                     st.group(cls := "radio buttons amount")(
-                      prices.suggestions.map { money =>
-                        val cents = lila.plan.Cents((money.amount * 100).toInt)
-                        val id    = s"plan_${cents.value}"
+                      pricing.suggestions.map { money =>
+                        val id = s"plan_${money.code}"
                         div(
                           input(
+                            cls := money == pricing.default option "default",
                             tpe := "radio",
                             name := "plan",
                             st.id := id,
-                            cents.usd.value == 10 option checked,
-                            value := cents.value,
-                            attr("data-usd") := cents.usd.toString,
-                            attr("data-amount") := cents.value
+                            money == pricing.default option checked,
+                            value := money.amount,
+                            attr("data-amount") := money.amount
                           ),
-                          label(`for` := id)(cents.usd.toString)
+                          label(`for` := id)(money.display)
                         )
                       },
                       div(cls := "other")(
                         input(tpe := "radio", name := "plan", id := "plan_other", value := "other"),
                         label(
                           `for` := "plan_other",
-                          title := pleaseEnterAmount.txt(),
+                          title := pleaseEnterAmountInX.txt(pricing.currencyCode),
                           attr("data-trans-other") := otherAmount.txt()
                         )(otherAmount())
                       )
@@ -215,10 +216,7 @@ object index {
                   ),
                   div(cls := "amount_fixed none")(
                     st.group(cls := "radio buttons amount")(
-                      div {
-                        val cents = lila.plan.Cents.lifetime
-                        label(`for` := s"plan_${cents.value}")(cents.usd.toString)
-                      }
+                      div(label(`for` := s"plan_${pricing.lifetime.code}")(pricing.lifetime.display))
                     )
                   ),
                   div(cls := "service")(

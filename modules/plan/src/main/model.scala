@@ -40,6 +40,7 @@ object Cents {
 case class Money(amount: BigDecimal, locale: Locale) {
   val currency = Currency getInstance locale
   def display  = NumberFormat.getCurrencyInstance(locale).format(amount)
+  def code     = s"${currency.getCurrencyCode}_$amount"
 }
 
 case class Country(code: String) extends AnyVal
