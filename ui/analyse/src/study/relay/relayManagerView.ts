@@ -16,7 +16,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
             h('a', {
               attrs: {
                 href: `/broadcast/round/${ctrl.id}/edit`,
-                'data-icon': '%',
+                'data-icon': '',
               },
             }),
           ]),

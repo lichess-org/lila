@@ -152,7 +152,7 @@ export function view(ctrl: StudyCtrl): VNode {
             h('h3', chapter.name),
             chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon('J'), title: 'Ongoing' } }) : null,
             !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('i.act', { attrs: dataIcon('%') }) : null,
+            canContribute ? h('i.act', { attrs: dataIcon('') }) : null,
           ]
         );
       })

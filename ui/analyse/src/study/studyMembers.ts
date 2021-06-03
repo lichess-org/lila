@@ -208,7 +208,7 @@ export function view(ctrl: StudyCtrl): VNode {
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('i.act', {
-        attrs: dataIcon('%'),
+        attrs: dataIcon(''),
         hook: bind(
           'click',
           _ => {

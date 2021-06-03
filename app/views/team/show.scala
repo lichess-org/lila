@@ -155,7 +155,7 @@ object show {
                 )
               ),
               ((t.enabled && info.ledByMe) || isGranted(_.Admin)) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
+                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 )
             ),

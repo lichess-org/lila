@@ -226,7 +226,7 @@ object mod {
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+        strong(cls := "text inline", dataIcon := "")("Notable preferences:"),
         ul(
           (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
           pref.botCompatible option li(

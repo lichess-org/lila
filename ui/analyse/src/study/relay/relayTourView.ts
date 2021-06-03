@@ -72,7 +72,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
             canContribute
               ? h('a.act', {
                   attrs: {
-                    ...dataIcon('%'),
+                    ...dataIcon(''),
                     href: `/broadcast/round/${round.id}/edit`,
                   },
                 })

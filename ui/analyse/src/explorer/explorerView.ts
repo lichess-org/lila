@@ -467,7 +467,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       !content || explorer.failing()
         ? null
         : h('span.toconf', {
-            attrs: dataIcon(configOpened ? 'L' : '%'),
+            attrs: dataIcon(configOpened ? 'L' : ''),
             hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
           }),
     ]

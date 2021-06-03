@@ -24,7 +24,7 @@ export default function (ctrl: DasherCtrl): VNode {
             'a.text',
             linkCfg(
               '/account/preferences/game-display',
-              '%',
+              '',
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
             ),
             noarg('preferences')

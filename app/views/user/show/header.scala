@@ -76,7 +76,7 @@ object header {
               cls := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
-              dataIcon := "%"
+              dataIcon := ""
             ),
             a(
               cls := "btn-rack__btn",
