@@ -36,7 +36,7 @@
   <string name="whitePlays">Wiis am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Dein Gegner hat die Partie verlassen. Du kannst in %s Sekunde den Sieg beanspruchen.</item>
+    <item quantity="one">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
     <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'schpil verlah. Du chasch de Siig beaschpruchä, es unendschidä machä oder wartä.</string>
@@ -44,7 +44,7 @@
   <string name="forceResignation">De Siig beaschpruchä</string>
   <string name="forceDraw">Remis erchläre</string>
   <string name="talkInChat">Bis bitte fründli im Chät!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo dä URL ahklicked, isch din Gägner.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo die URL ahklickt, wird din Gägner.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiis hät d\'Partii verlaa</string>
@@ -109,12 +109,12 @@
   <string name="openStudy">Studiä eröffnä</string>
   <string name="enable">Iischaltä</string>
   <string name="bestMoveArrow">Pfiil für dä beschti Zuug</string>
-  <string name="evaluationGauge">Berwärtigsaazeig</string>
+  <string name="evaluationGauge">Bewärtigsaazeig</string>
   <string name="multipleLines">Mehreri Variantä</string>
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Ändlosi Analüsä</string>
-  <string name="removesTheDepthLimit">Entfärnt d Düüfebegränzig und halted din Kompiuter warm</string>
+  <string name="removesTheDepthLimit">Entfärnt d Düüfebegränzig und bhaltet din Kompiuter warm</string>
   <string name="blunder">Grobä Fähler</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
