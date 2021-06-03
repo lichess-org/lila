@@ -41,7 +41,7 @@ export const perfIcons = {
   Horde: '_',
   Atomic: '>',
   Crazyhouse: '',
-  Chess960: "'",
+  Chess960: '',
   Correspondence: ';',
   'King of the Hill': '(',
 };

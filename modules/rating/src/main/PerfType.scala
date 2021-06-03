@@ -92,7 +92,7 @@ object PerfType {
         key = "chess960",
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
-        iconChar = '\''
+        iconChar = ''
       )
 
   case object KingOfTheHill

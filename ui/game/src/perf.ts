@@ -6,7 +6,7 @@ export const perf = {
     rapid: 'C',
     classical: '+',
     correspondence: ';',
-    chess960: "'",
+    chess960: '',
     kingOfTheHill: '(',
     threeCheck: '.',
     antichess: '@',
