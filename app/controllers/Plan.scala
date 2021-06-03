@@ -9,11 +9,11 @@ import lila.app._
 import lila.common.{ EmailAddress, HTTPRequest }
 import lila.plan.StripeClient.StripeException
 import lila.plan.{
-  Cents,
   Checkout,
   CreateStripeSession,
   CustomerId,
   Freq,
+  Money,
   MonthlyCustomerInfo,
   NextUrls,
   OneTimeCustomerInfo,
@@ -21,6 +21,7 @@ import lila.plan.{
 }
 import lila.user.{ User => UserModel }
 import views._
+import java.util.Currency
 
 final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends LilaController(env) {
 
@@ -69,7 +70,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       recentIds <- env.plan.api.recentChargeUserIds
       bestIds   <- env.plan.api.topPatronUserIds
       _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
-      pricing   <- env.plan.priceApi.pricingFor(myGeoLocale)
+      pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,
@@ -95,16 +96,14 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         }
     }
 
-  private def myGeoLocale(implicit ctx: Context) =
-    // "FR".some
-    env.security
-      .geoIP(HTTPRequest.ipAddress(ctx.req))
-      .flatMap(_.countryCode)
-      .flatMap { code => scala.util.Try(new java.util.Locale("", code)).toOption }
-      .filter(env.plan.currencyApi.hasCurrency)
-      .orElse(ctx.lang.locale.some)
-      .filter(env.plan.currencyApi.hasCurrency)
-      .getOrElse(env.plan.currencyApi.US)
+  private def myCurrency(implicit ctx: Context): Currency =
+    // Currency getInstance "VND" // 23k
+    // Currency getInstance "KWD" // 0.3
+    Currency getInstance "EUR"
+  // env.plan.currencyApi.currencyByCountryCodeOrLang(
+  //   env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
+  //   ctx.lang
+  // )
 
   def features =
     Open { implicit ctx =>
@@ -117,12 +116,15 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   def switch =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      lila.plan.Switch.form
-        .bindFromRequest()
-        .fold(
-          _ => funit,
-          data => env.plan.api.switch(me, data.cents)
-        ) inject Redirect(routes.Plan.index)
+      env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+        lila.plan.Switch
+          .form(pricing)
+          .bindFromRequest()
+          .fold(
+            _ => funit,
+            data => env.plan.api.switch(me, data.money)
+          ) inject Redirect(routes.Plan.index)
+      }
     }
 
   def cancel =
@@ -170,12 +172,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
       .recover(badStripeApiCall)
 
-  def switchStripePlan(user: UserModel, cents: Cents) = {
+  def switchStripePlan(user: UserModel, money: Money) =
     env.plan.api
-      .switch(user, cents)
-      .inject(JsonOk(Json.obj("switch" -> Json.obj("cents" -> cents.value))))
+      .switch(user, money)
+      .inject(jsonOkResult)
       .recover(badStripeApiCall)
-  }
 
   private val StripeRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "stripe.checkout.ip",
@@ -189,25 +190,28 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       StripeRateLimit(HTTPRequest ipAddress req) {
-        lila.plan.Checkout.form
-          .bindFromRequest()
-          .fold(
-            err => {
-              logger.info(s"Plan.stripeCheckout 400: $err")
-              badStripeSession(err.toString).fuccess
-            },
-            checkout =>
-              env.plan.api.userCustomer(me) flatMap {
-                case Some(customer) if checkout.freq == Freq.Onetime =>
-                  createStripeSession(checkout, customer.id)
-                case Some(customer) if customer.firstSubscription.isDefined =>
-                  switchStripePlan(me, checkout.amount)
-                case _ =>
-                  env.plan.api
-                    .makeCustomer(me, checkout)
-                    .flatMap(customer => createStripeSession(checkout, customer.id))
-              }
-          )
+        env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
+          lila.plan.Checkout
+            .form(pricing)
+            .bindFromRequest()
+            .fold(
+              err => {
+                logger.info(s"Plan.stripeCheckout 400: $err")
+                badStripeSession(err.toString).fuccess
+              },
+              checkout =>
+                env.plan.api.userCustomer(me) flatMap {
+                  case Some(customer) if checkout.freq == Freq.Onetime =>
+                    createStripeSession(checkout, customer.id)
+                  case Some(customer) if customer.firstSubscription.isDefined =>
+                    switchStripePlan(me, checkout.money)
+                  case _ =>
+                    env.plan.api
+                      .makeCustomer(me, checkout)
+                      .flatMap(customer => createStripeSession(checkout, customer.id))
+                }
+            )
+        }
       }(rateLimitedFu)
     }
 
@@ -264,7 +268,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
               userId = ipn.userId,
               email = ipn.email map PayPal.Email.apply,
               subId = ipn.subId map PayPal.SubId.apply,
-              cents = lila.plan.Cents(ipn.grossCents),
+              money = ipn.money,
               name = ipn.name,
               txnId = ipn.txnId,
               country = ipn.country,

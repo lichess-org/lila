@@ -1,13 +1,17 @@
 package lila.plan
 
-import lila.db.dsl._
+import java.util.Currency
 import reactivemongo.api.bson._
+
+import lila.db.dsl._
 
 private[plan] object BsonHandlers {
 
-  implicit val CentsBSONHandler      = intAnyValHandler[Cents](_.value, Cents.apply)
   implicit val ChargeIdBSONHandler   = stringAnyValHandler[ChargeId](_.value, ChargeId.apply)
   implicit val CustomerIdBSONHandler = stringAnyValHandler[CustomerId](_.value, CustomerId.apply)
+  implicit val CurrencyBSONHandler   = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
+  implicit val MoneyBSONHandler      = Macros.handler[Money]
+  implicit val UsdBSONHandler        = bigDecimalAnyValHandler[Usd](_.value, Usd.apply)
 
   object PatronHandlers {
     import Patron._

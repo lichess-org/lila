@@ -19,28 +19,29 @@ object Freq {
   case object Onetime extends Freq(renew = false)
 }
 
-case class Usd(value: BigDecimal) extends AnyVal with Ordered[Usd] {
-  def compare(other: Usd) = value compare other.value
-  def cents               = Cents((value * 100).toInt)
-  override def toString   = s"$$$value"
-}
-object Usd {
-  def apply(value: Int): Usd = Usd(BigDecimal(value))
-}
-case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
-  def compare(other: Cents) = Integer.compare(value, other.value)
-  def usd                   = Usd(BigDecimal(value, 2))
-  override def toString     = usd.toString
+// In smallest currency unit
+// https://stripe.com/docs/currencies#zero-decimal
+case class StripeAmount(value: Int) extends AnyVal {
+  def toMoney(currency: Currency) =
+    Money(if (CurrencyApi.zeroDecimalCurrencies(currency)) value else value * 100, currency)
 }
 
-object Cents {
-  val lifetime = Cents(25000)
+case class Money(amount: BigDecimal, currency: Currency) {
+  def display(locale: Locale) = {
+    val format = NumberFormat.getCurrencyInstance(locale)
+    format setCurrency currency
+    format format amount
+  }
+  def currencyCode = currency.getCurrencyCode
+  def code         = s"${currencyCode}_$amount"
+  def toStripeAmount = StripeAmount {
+    if (CurrencyApi.zeroDecimalCurrencies(currency)) amount.toInt else (amount * 100).toInt
+  }
+  override def toString = code
 }
 
-case class Money(amount: BigDecimal, locale: Locale) {
-  val currency = Currency getInstance locale
-  def display  = NumberFormat.getCurrencyInstance(locale).format(amount)
-  def code     = s"${currency.getCurrencyCode}_$amount"
+case class Usd(value: BigDecimal) extends AnyVal {
+  def cents = (value * 100).toInt
 }
 
 case class Country(code: String) extends AnyVal
@@ -51,9 +52,8 @@ case class StripeProducts(monthly: String, onetime: String)
 
 case class StripeItem(id: String, price: StripePrice)
 
-case class StripePrice(product: String, unit_amount: Cents) {
-  def cents = unit_amount
-  def usd   = cents.usd
+case class StripePrice(product: String, unit_amount: StripeAmount, currency: Currency) {
+  def money = unit_amount toMoney currency
 }
 
 case class NextUrls(cancel: String, success: String)
@@ -85,12 +85,12 @@ case class StripeCustomer(
 
 case class StripeCharge(
     id: ChargeId,
-    amount: Cents,
+    amount: StripeAmount,
+    currency: Currency,
     customer: CustomerId,
     billing_details: Option[StripeCharge.BillingDetails]
 ) {
-  def lifetimeWorthy = amount >= Cents.lifetime
-  def country        = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def country = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
 }
 
 object StripeCharge {
@@ -104,8 +104,7 @@ case class StripeInvoice(
     created: Long,
     paid: Boolean
 ) {
-  def cents    = Cents(amount_due)
-  def usd      = cents.usd
+  def amount   = StripeAmount(amount_due)
   def dateTime = new DateTime(created * 1000)
 }
 

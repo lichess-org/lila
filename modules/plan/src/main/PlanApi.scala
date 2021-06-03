@@ -20,21 +20,23 @@ final class PlanApi(
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     payPalIpnKey: Secret,
-    monthlyGoalApi: MonthlyGoalApi
+    monthlyGoalApi: MonthlyGoalApi,
+    currencyApi: CurrencyApi,
+    pricingApi: PlanPriceApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
   import PatronHandlers._
   import ChargeHandlers._
 
-  def switch(user: User, cents: Cents): Fu[StripeSubscription] =
+  def switch(user: User, money: Money): Fu[StripeSubscription] =
     userCustomer(user) flatMap {
       case None => fufail(s"Can't switch non-existent customer ${user.id}")
       case Some(customer) =>
         customer.firstSubscription match {
           case None                                       => fufail(s"Can't switch non-existent subscription of ${user.id}")
-          case Some(sub) if sub.item.price.cents == cents => fuccess(sub)
-          case Some(sub)                                  => stripeClient.updateSubscription(sub, cents)
+          case Some(sub) if sub.item.price.money == money => fuccess(sub)
+          case Some(sub)                                  => stripeClient.updateSubscription(sub, money)
         }
     }
 
@@ -54,97 +56,107 @@ final class PlanApi(
         }
     }
 
-  def onStripeCharge(stripeCharge: StripeCharge): Funit =
-    customerIdPatron(stripeCharge.customer) flatMap { patronOption =>
-      val charge = Charge.make(
-        userId = patronOption.map(_.userId),
-        stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
-        cents = stripeCharge.amount
-      )
-      addCharge(charge, stripeCharge.country) >> {
-        patronOption match {
-          case None =>
-            logger.info(s"Charged anon customer $charge")
-            funit
-          case Some(patron) =>
-            logger.info(s"Charged $charge $patron")
-            userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
-              val p2 = patron
-                .copy(
-                  stripe = Patron.Stripe(stripeCharge.customer).some,
-                  free = none
-                )
-                .levelUpIfPossible
-              patronColl.update.one($id(patron.id), p2) >>
-                setDbUserPlanOnCharge(user, patron.canLevelUp) >> {
-                  stripeCharge.lifetimeWorthy ?? setLifetime(user)
-                }
-            }
-        }
+  def onStripeCharge(stripeCharge: StripeCharge): Funit = for {
+    patronOption <- customerIdPatron(stripeCharge.customer)
+    money = stripeCharge.amount toMoney stripeCharge.currency
+    usd <- currencyApi toUsd money
+    charge = Charge.make(
+      userId = patronOption.map(_.userId),
+      stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
+      money = money,
+      usd = usd | Usd(0)
+    )
+    isLifetime <- pricingApi isLifetime money
+    _          <- addCharge(charge, stripeCharge.country)
+    _ <-
+      patronOption match {
+        case None =>
+          logger.info(s"Charged anon customer $charge")
+          funit
+        case Some(patron) =>
+          logger.info(s"Charged $charge $patron")
+          userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
+            val p2 = patron
+              .copy(
+                stripe = Patron.Stripe(stripeCharge.customer).some,
+                free = none
+              )
+              .levelUpIfPossible
+            patronColl.update.one($id(patron.id), p2) >>
+              setDbUserPlanOnCharge(user, patron.canLevelUp) >> {
+                isLifetime ?? setLifetime(user)
+              }
+          }
       }
-    }
+  } yield ()
 
   def onPaypalCharge(
       userId: Option[User.ID],
       email: Option[Patron.PayPal.Email],
       subId: Option[Patron.PayPal.SubId],
-      cents: Cents,
+      money: Money,
       name: Option[String],
       txnId: Option[String],
       country: Option[Country],
       ip: String,
       key: String
-  ): Funit =
-    if (key != payPalIpnKey.value) {
-      logger.error(s"Invalid PayPal IPN key $key from $ip $userId $cents")
-      funit
-    } else if (cents.value < 100) {
-      logger.info(s"Ignoring small paypal charge from $ip $userId $cents $txnId")
-      funit
-    } else {
-      val charge = Charge.make(
-        userId = userId,
-        payPal = Charge
-          .PayPal(
-            name = name,
-            email = email.map(_.value),
-            txnId = txnId,
-            subId = subId.map(_.value),
-            ip = ip.some
-          )
-          .some,
-        cents = cents
-      )
-      addCharge(charge, country) >>
-        (userId ?? userRepo.named) flatMap { userOption =>
-          userOption ?? { user =>
-            val payPal = Patron.PayPal(email, subId, DateTime.now)
-            userPatron(user).flatMap {
-              case None =>
-                patronColl.insert.one(
-                  Patron(
-                    _id = Patron.UserId(user.id),
-                    payPal = payPal.some,
-                    lastLevelUp = Some(DateTime.now)
-                  ).expireInOneMonth
-                ) >>
-                  setDbUserPlanOnCharge(user, levelUp = false)
-              case Some(patron) =>
-                val p2 = patron
-                  .copy(
-                    payPal = payPal.some,
-                    free = none
-                  )
-                  .levelUpIfPossible
-                  .expireInOneMonth
-                patronColl.update.one($id(patron.id), p2) >>
-                  setDbUserPlanOnCharge(user, patron.canLevelUp)
-            } >> {
-              charge.lifetimeWorthy ?? setLifetime(user)
-            } >>- logger.info(s"Charged ${user.username} with paypal: $cents")
+  ): Funit = for {
+    pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
+    usd        <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
+    isLifetime <- pricingApi isLifetime money
+    _ <-
+      if (key != payPalIpnKey.value) {
+        logger.error(s"Invalid PayPal IPN key $key from $ip $userId $money")
+        funit
+      } else if (!pricing.valid(money)) {
+        logger.info(s"Ignoring invalid paypal amount from $ip $userId $money $txnId")
+        funit
+      } else {
+        val charge = Charge.make(
+          userId = userId,
+          payPal = Charge
+            .PayPal(
+              name = name,
+              email = email.map(_.value),
+              txnId = txnId,
+              subId = subId.map(_.value),
+              ip = ip.some
+            )
+            .some,
+          money = money,
+          usd = usd
+        )
+        addCharge(charge, country) >>
+          (userId ?? userRepo.named) flatMap { userOption =>
+            userOption ?? { user =>
+              val payPal = Patron.PayPal(email, subId, DateTime.now)
+              userPatron(user).flatMap {
+                case None =>
+                  patronColl.insert.one(
+                    Patron(
+                      _id = Patron.UserId(user.id),
+                      payPal = payPal.some,
+                      lastLevelUp = Some(DateTime.now)
+                    ).expireInOneMonth
+                  ) >>
+                    setDbUserPlanOnCharge(user, levelUp = false)
+                case Some(patron) =>
+                  val p2 = patron
+                    .copy(
+                      payPal = payPal.some,
+                      free = none
+                    )
+                    .levelUpIfPossible
+                    .expireInOneMonth
+                  patronColl.update.one($id(patron.id), p2) >>
+                    setDbUserPlanOnCharge(user, patron.canLevelUp)
+              } >> {
+                isLifetime ?? setLifetime(user)
+              } >>- logger.info(s"Charged ${user.username} with paypal: $money")
+            }
           }
-        }
-    }
+      }
+  } yield ()
 
   private def setDbUserPlanOnCharge(user: User, levelUp: Boolean): Funit = {
     val plan =
@@ -346,24 +358,24 @@ final class PlanApi(
           Bus.publish(
             lila.hub.actorApi.plan.ChargeEvent(
               username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
-              amount = charge.cents.value,
+              cents = charge.usd.cents,
               percent = m.percent,
               DateTime.now
             ),
             "plan"
           )
-          lila.mon.plan.goal.update(m.goal.value)
-          lila.mon.plan.current.update(m.current.value)
+          lila.mon.plan.goal.update(m.goal.cents)
+          lila.mon.plan.current.update(m.current.cents)
           lila.mon.plan.percent.update(m.percent)
-          if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
-          else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
+          if (charge.isPayPal) lila.mon.plan.paypal.record(charge.usd.cents)
+          else if (charge.isStripe) lila.mon.plan.stripe.record(charge.usd.cents)
         }
       }
 
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit = {
     lila.mon.plan.charge
       .countryCents(country = country.fold("unknown")(_.code), service = charge.serviceName)
-      .record(charge.cents.value)
+      .record(charge.usd.cents)
     charge.userId ?? { userId =>
       chargeColl.exists($doc("userId" -> userId)) map {
         case false => lila.mon.plan.charge.first(charge.serviceName).increment().unit

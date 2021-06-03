@@ -11,25 +11,25 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
 
   def get: Fu[MonthlyGoal] =
     monthAmount dmap { amount =>
-      MonthlyGoal(current = amount, goal = getGoal().cents)
+      MonthlyGoal(current = amount, goal = getGoal())
     }
 
-  def monthAmount: Fu[Cents] =
+  def monthAmount: Fu[Usd] =
     chargeColl
       .aggregateWith() { framework =>
         import framework._
         List(
           Match($doc("date" $gt DateTime.now.withDayOfMonth(1).withTimeAtStartOfDay)),
-          Group(BSONNull)("cents" -> SumField("cents"))
+          Group(BSONNull)("usd" -> SumField("usd"))
         )
       }
       .headOption
       .map {
-        ~_.flatMap { _.int("cents") }
-      } dmap Cents.apply
+        ~_.flatMap { _.double("usd") }
+      } dmap BigDecimal.apply dmap Usd.apply
 }
 
-case class MonthlyGoal(current: Cents, goal: Cents) {
+case class MonthlyGoal(current: Usd, goal: Usd) {
 
-  def percent = 100 * current.value / goal.value
+  def percent = (100 * current.value / goal.value).toInt
 }

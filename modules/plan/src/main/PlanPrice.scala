@@ -4,38 +4,48 @@ import cats.implicits._
 import java.util.{ Currency, Locale }
 import scala.concurrent.ExecutionContext
 
-case class PlanPricing(locale: Locale, suggestions: List[Money], min: Money, max: Money, lifetime: Money) {
+case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money) {
 
   val default = suggestions.lift(1) orElse suggestions.headOption getOrElse min
 
-  def currencyCode = min.currency.getCurrencyCode
+  def currency     = min.currency
+  def currencyCode = currency.getCurrencyCode
+
+  def valid(money: Money): Boolean       = money.currency == currency && valid(money.amount)
+  def valid(amount: BigDecimal): Boolean = min.amount <= amount && amount <= max.amount
 }
 
 final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext) {
 
-  import currencyApi.US
+  import currencyApi.USD
 
   val usdPricing = PlanPricing(
-    locale = US,
-    suggestions = List(5, 10, 20, 50).map(usd => Money(usd, US)),
-    min = Money(1, US),
-    max = Money(10000, US),
-    lifetime = Money(250, US)
+    suggestions = List(5, 10, 20, 50).map(usd => Money(usd, USD)),
+    min = Money(1, USD),
+    max = Money(10000, USD),
+    lifetime = Money(250, USD)
   )
 
-  def pricingFor(locale: Locale): Fu[PlanPricing] =
-    if (locale == US) fuccess(usdPricing)
+  def pricingFor(currency: Currency): Fu[Option[PlanPricing]] =
+    if (currency == USD) fuccess(usdPricing.some)
     else {
       for {
-        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, locale)).sequenceFu.map(_.sequence)
+        allSuggestions <- usdPricing.suggestions.map(convertAndRound(_, currency)).sequenceFu.map(_.sequence)
         suggestions = allSuggestions.map(_.distinct)
-        min      <- convertAndRound(usdPricing.min, locale)
-        max      <- convertAndRound(usdPricing.max, locale)
-        lifetime <- convertAndRound(usdPricing.lifetime, locale)
-      } yield (locale.some, suggestions, min, max, lifetime).mapN(PlanPricing.apply)
-    }.dmap(_ | usdPricing)
+        min      <- convertAndRound(usdPricing.min, currency)
+        max      <- convertAndRound(usdPricing.max, currency)
+        lifetime <- convertAndRound(usdPricing.lifetime, currency)
+      } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
+    }
 
-  private def convertAndRound(money: Money, to: Locale): Fu[Option[Money]] =
+  def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
+
+  def isLifetime(money: Money): Fu[Boolean] =
+    pricingFor(money.currency) map {
+      _.exists(_.lifetime.amount <= money.amount)
+    }
+
+  private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
     currencyApi.convert(money, to) map2 { case Money(amount, locale) =>
       Money(PlanPriceApi.nicelyRound(amount), locale)
     }

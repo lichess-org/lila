@@ -70,7 +70,9 @@ final class Env(
     cacheApi = cacheApi,
     mongoCache = mongoCache,
     payPalIpnKey = config.payPalIpnKey,
-    monthlyGoalApi = monthlyGoalApi
+    monthlyGoalApi = monthlyGoalApi,
+    currencyApi = currencyApi,
+    pricingApi = priceApi
   )
 
   lazy val webhookHandler = new WebhookHandler(api)

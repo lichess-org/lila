@@ -31,17 +31,17 @@ final private class StripeClient(
     val args = sessionArgs(data.customerId, data.urls) ++ List(
       "mode"                                   -> "payment",
       "line_items[0][price_data][product]"     -> config.products.onetime,
-      "line_items[0][price_data][currency]"    -> "USD",
-      "line_items[0][price_data][unit_amount]" -> data.checkout.amount.value,
+      "line_items[0][price_data][currency]"    -> data.checkout.money.currency,
+      "line_items[0][price_data][unit_amount]" -> data.checkout.money.toStripeAmount.value,
       "line_items[0][quantity]"                -> 1
     )
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
-  private def recurringPriceArgs(name: String, amount: Cents) = List(
+  private def recurringPriceArgs(name: String, money: Money) = List(
     s"$name[0][price_data][product]"                   -> config.products.monthly,
-    s"$name[0][price_data][currency]"                  -> "USD",
-    s"$name[0][price_data][unit_amount]"               -> amount.value,
+    s"$name[0][price_data][currency]"                  -> money.currencyCode,
+    s"$name[0][price_data][unit_amount]"               -> money.toStripeAmount.value,
     s"$name[0][price_data][recurring][interval]"       -> "month",
     s"$name[0][price_data][recurring][interval_count]" -> 1,
     s"$name[0][quantity]"                              -> 1
@@ -50,7 +50,7 @@ final private class StripeClient(
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] = {
     val args = sessionArgs(data.customerId, data.urls) ++
       List("mode" -> "subscription") ++
-      recurringPriceArgs("line_items", data.checkout.amount)
+      recurringPriceArgs("line_items", data.checkout.money)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
 
@@ -65,8 +65,8 @@ final private class StripeClient(
   def getCustomer(id: CustomerId): Fu[Option[StripeCustomer]] =
     getOne[StripeCustomer](s"customers/${id.value}", "expand[]" -> "subscriptions")
 
-  def updateSubscription(sub: StripeSubscription, amount: Cents): Fu[StripeSubscription] = {
-    val args = recurringPriceArgs("items", amount) ++ List(
+  def updateSubscription(sub: StripeSubscription, money: Money): Fu[StripeSubscription] = {
+    val args = recurringPriceArgs("items", money) ++ List(
       "items[0][id]"       -> sub.item.id,
       "proration_behavior" -> "none"
     )

@@ -2,6 +2,8 @@ package lila.plan
 
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import java.util.Currency
+import scala.util.Try
 
 private[plan] object JsonHandlers {
 
@@ -10,9 +12,12 @@ private[plan] object JsonHandlers {
   implicit val StripeSessionId      = Reads.of[String].map(SessionId.apply)
   implicit val StripeCustomerId     = Reads.of[String].map(CustomerId.apply)
   implicit val StripeChargeId       = Reads.of[String].map(ChargeId.apply)
-  implicit val StripeCents          = Reads.of[Int].map(Cents.apply)
-  implicit val StripePriceReads     = Json.reads[StripePrice]
-  implicit val StripeItemReads      = Json.reads[StripeItem]
+  implicit val StripeAmountReads    = Reads.of[Int].map(StripeAmount.apply)
+  implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
+    Try(Currency getInstance code).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
+  }
+  implicit val StripePriceReads = Json.reads[StripePrice]
+  implicit val StripeItemReads  = Json.reads[StripeItem]
   // require that the items array is not empty.
   implicit val StripeSubscriptionReads: Reads[StripeSubscription] = (
     (__ \ "id").read[String] and

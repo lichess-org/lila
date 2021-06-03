@@ -1,56 +1,45 @@
 package lila.plan
 
+import java.util.Currency
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
 
 case class Checkout(
     email: Option[String],
-    amount: Cents,
+    money: Money,
     freq: Freq
-) {
-
-  def cents = amount
-
-  def toFormData =
-    Some(
-      (email, amount.value, freq.toString.toLowerCase)
-    )
-}
+) {}
 
 object Checkout {
 
-  def make(
-      email: Option[String],
-      amount: Int,
-      freq: String
-  ) =
+  def make(currency: Currency)(email: Option[String], amount: BigDecimal, freq: String) =
     Checkout(
       email,
-      Cents(amount),
+      Money(amount, currency),
       if (freq == "monthly") Freq.Monthly else Freq.Onetime
     )
 
-  val form = Form[Checkout](
+  def amountField(pricing: PlanPricing) = bigDecimal(10, 3)
+    .verifying(Constraints.max(pricing.max.amount))
+    .verifying(Constraints.min(pricing.min.amount))
+
+  def form(pricing: PlanPricing) = Form[Checkout](
     mapping(
       "email"  -> optional(email),
-      "amount" -> number(min = 100, max = 100 * 100000),
+      "amount" -> amountField(pricing),
       "freq"   -> nonEmptyText
-    )(Checkout.make)(_.toFormData)
+    )(make(pricing.currency) _)(_ => none)
   )
 }
 
-case class Switch(usd: BigDecimal) {
-
-  def cents = Usd(usd).cents
-}
+case class Switch(money: Money)
 
 object Switch {
 
-  val form = Form(
+  def form(pricing: PlanPricing) = Form(
     mapping(
-      "usd" -> bigDecimal(precision = 10, scale = 2)
-        .verifying(_ >= 1)
-        .verifying(_ <= 10000)
-    )(Switch.apply)(Switch.unapply)
+      "amount" -> Checkout.amountField(pricing)
+    )(a => Switch(Money(a, pricing.currency)))(_ => none)
   )
 }

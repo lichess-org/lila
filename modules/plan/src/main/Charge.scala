@@ -7,7 +7,8 @@ case class Charge(
     userId: Option[String],
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPal] = none,
-    cents: Cents,
+    money: Money,
+    usd: Usd,
     date: DateTime
 ) {
 
@@ -20,8 +21,6 @@ case class Charge(
     if (isStripe) "stripe"
     else if (isPayPal) "paypal"
     else "???"
-
-  def lifetimeWorthy = cents >= Cents.lifetime
 }
 
 object Charge {
@@ -30,14 +29,16 @@ object Charge {
       userId: Option[String],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPal] = none,
-      cents: Cents
+      money: Money,
+      usd: Usd
   ) =
     Charge(
       _id = lila.common.ThreadLocalRandom nextString 8,
       userId = userId,
       stripe = stripe,
       payPal = payPal,
-      cents = cents,
+      money = money,
+      usd = usd,
       date = DateTime.now
     )
 
