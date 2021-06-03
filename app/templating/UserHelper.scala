@@ -279,7 +279,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     s"$name played $nbGames games since $createdAt.$currentRating"
   }
 
-  val patronIconChar = ""
+  val patronIconChar = ""
   val lineIconChar   = ""
 
   val lineIcon: Frag = i(cls := "line")

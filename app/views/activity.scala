@@ -49,7 +49,7 @@ object activity {
 
   private def renderPatron(p: Patron)(implicit ctx: Context) =
     div(cls := "entry plan")(
-      iconTag(""),
+      iconTag(""),
       div(
         trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
       )

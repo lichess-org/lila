@@ -14,7 +14,7 @@ export default function (ctrl: DasherCtrl): VNode {
       ? h('div.links', [
           h(
             'a.user-link.online.text.is-green',
-            linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
+            linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
             noarg('profile')
           ),
 

@@ -23,7 +23,7 @@
   @extend %flex-center;
   &::after {
     @extend %data-icon;
-    content: '';
+    content: '';
     font-size: 1.3em;
     color: $c-brag;
     margin: 0 0 0.08ch 0.3ch;

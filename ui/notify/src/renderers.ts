@@ -96,11 +96,11 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     planStart: {
       html: n =>
-        generic(n, '/patron', '', [h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)])]),
+        generic(n, '/patron', '', [h('span', [h('strong', 'You just became a lichess Patron.'), drawTime(n)])]),
       text: _ => 'You just became a lichess Patron.',
     },
     planExpire: {
-      html: n => generic(n, '/patron', '', [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
+      html: n => generic(n, '/patron', '', [h('span', [h('strong', 'Patron account expired'), drawTime(n)])]),
       text: _ => 'Patron account expired',
     },
     coachReview: {
