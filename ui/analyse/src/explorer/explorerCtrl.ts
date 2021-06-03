@@ -94,7 +94,6 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
           root.redraw();
         },
         err => {
-          console.log('err', err);
           loading(false);
           failing(err);
           root.redraw();
