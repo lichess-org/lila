@@ -441,6 +441,7 @@
   <string name="firstName">नाव</string>
   <string name="lastName">आडनाव</string>
   <string name="biography">चरित्र</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश किंवा झेंडा</string>
   <string name="thankYou">आभारी आहे</string>
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
   <string name="inlineNotation">इनलाइन संकेत</string>
@@ -640,8 +641,8 @@
     <item quantity="other">%1$s %2$s या आठवड्यातील खेळाडू.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">तुमची %1$s रेटिंग %2$s आहे.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s पेक्षा उत्तम आहात %2$s खेळाडूंमध्ये.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s उत्तम आहे %3$s खेळाडूंमध्ये.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">तुम्ही %1$s %2$s खेळाडूंपेक्षा उत्तम आहात.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेळाडूंपेक्षा उत्तम आहे.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपल्याकडे %s रेटिंग नाही.</string>
   <string name="yourRating">आपले गुणांकन</string>
   <string name="cumulative">एकत्रित</string>
@@ -737,7 +738,7 @@
   </plurals>
   <string name="practiceWithComputer">संगणकासोबत सराव करा</string>
   <string name="anotherWasX">इतर %s</string>
-  <string name="bestWasX">उत्तम %s</string>
+  <string name="bestWasX">उत्तम चाल %s</string>
   <string name="youBrowsedAway">आपण पुनर्वलोकण पूर्ण केले</string>
   <string name="resumePractice">अभ्यास पुन्हा सुरू करा</string>
   <string name="theGameIsADraw">खेळ बरोबरीत सुटला आहे.</string>
