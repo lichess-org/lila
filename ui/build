@@ -12,8 +12,6 @@ echo "yarn: $(yarn --version)"
 
 cd "$(git rev-parse --show-toplevel)"
 
-ls -l node_modules node_modules/@* ui/node_modules ui/*/node_modules | grep /yarn/link/ || true
-
 mkdir -p public/compiled
 
 apps1="common"
