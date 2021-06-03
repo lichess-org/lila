@@ -37,16 +37,17 @@ final class PlanPriceApi(currencyApi: CurrencyApi)(implicit ec: ExecutionContext
 
 private object PlanPriceApi {
 
+  // round to closest number in 1-2-5 series
   def nicelyRound(amount: BigDecimal): BigDecimal =
     if (amount <= 0) amount // ?
     else {
       val scale     = math.floor(math.log10(amount.toDouble))
-      val leadDigit = (amount / math.pow(10, scale)).toInt
+      val leadDigit = math.round((amount / math.pow(10, scale)).toDouble)
       val multiplier =
         if (leadDigit == 1) 1
         else if (leadDigit <= 3) 2
         else if (leadDigit <= 7) 5
         else 10
-      scale * multiplier
+      math.pow(10, scale) * multiplier
     }
 }
