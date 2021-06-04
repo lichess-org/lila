@@ -60,8 +60,6 @@
   <string name="decideHowMuch">Lichess сезнең өчен нәрсә кирәклеген хәл итегез:</string>
   <string name="stopPayments">Кредит картаны тартып алыгыз һәм түләүләрне туктатыгыз:</string>
   <string name="noLongerSupport">Инде озак Lichessка булышмый</string>
-  <string name="paymentHistory">Түләү тарихы</string>
-  <string name="paid">Түләүле</string>
   <string name="viewOthers">Башка Lichess игәнәчеләрен карау</string>
   <string name="date">Вакыт</string>
   <string name="amount">Күләм</string>
