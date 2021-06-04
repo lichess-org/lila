@@ -716,6 +716,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Virziet kursoru uz datoranalīzes variācijām, lai tās skatītu.</string>
   <string name="analysisShapesHowTo">Klikšķiniet, turot pārslēgšanas taustiņu, vai klikšķiniet ar labo taustiņu uz galdiņa, lai zīmētu riņķus un bultas.</string>
   <string name="letOtherPlayersMessageYou">Ļaut citiem spēlētājiem jums sūtīt ziņas</string>
+  <string name="receiveForumNotifications">Saņemt paziņojumus, kad esmu minēts forumā</string>
   <string name="shareYourInsightsData">Dalīties ar saviem šaha ieskatu datiem</string>
   <string name="withNobody">Ar nevienu</string>
   <string name="withFriends">Ar draugiem</string>
