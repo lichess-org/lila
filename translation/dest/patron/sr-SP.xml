@@ -56,8 +56,6 @@
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
   <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
-  <string name="paymentHistory">Историја плаћања</string>
-  <string name="paid">Плаћено</string>
   <string name="viewOthers">Погледај остале Личес Патроне</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>
