@@ -13,14 +13,6 @@ final class Flood(duration: FiniteDuration) {
 
   private val floodNumber = 4
 
-  // So buttons work when people switch games quickly
-  private val startingPresets = Set(
-    "Hello",
-    "Good luck",
-    "Have fun!",
-    "You too!",
-  )
-
   private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
     .build[User.ID, Messages]()
@@ -28,7 +20,7 @@ final class Flood(duration: FiniteDuration) {
   def allowMessage(uid: User.ID, text: String): Boolean = {
     val msg  = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
-    (!duplicateMessage(msg, msgs) || startingPresets.contains(msg.text)) && !quickPost(msg, msgs) ~ {
+    !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
       _ ?? cache.put(uid, msg :: msgs)
     }
   }

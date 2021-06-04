@@ -198,7 +198,7 @@ final class ChatApi(
       userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled =>
           Writer cut t1 flatMap { t2 =>
-            (user.isBot || flood.allowMessage(userId, t2)) option {
+            (user.isBot || flood.allowMessage(s"$chatId/$userId", t2)) option {
               UserLine(
                 user.username,
                 user.title.map(_.value),
