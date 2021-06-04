@@ -27,6 +27,7 @@
   <string name="onetime">Kertaluonteinen</string>
   <string name="singleDonation">Kertalahjoitus, joka antaa sinulle tukijasiivet kuukaudeksi.</string>
   <string name="otherAmount">Muu</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Anna summa %s:issa</string>
   <string name="withCreditCard">Luottokortti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
