@@ -26,7 +26,6 @@
   <string name="onetime">1 回限り</string>
   <string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
   <string name="otherAmount">その他</string>
-  <string name="pleaseEnterAmount">金額（米ドル）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
