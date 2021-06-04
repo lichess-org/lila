@@ -26,17 +26,20 @@ final class CurrencyApi(
 
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
-    2 hours // i.e. 377/month, under the 1000/month limit of free OER plan
+    120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
   ) { loader =>
-    _.refreshAfterWrite(61 minutes)
+    _.refreshAfterWrite(121 minutes)
       .buildAsyncFuture {
         loader { _ =>
           ws.url(s"$baseUrl/latest.json")
             .withQueryStringParameters("app_id" -> config.appId.value)
             .get()
             .dmap { res =>
-              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt.fold(Map("USD" -> 1d)) {
-                _.filterValues(0 <)
+              (res.body[JsValue] \ "rates").validate[Map[String, Double]].asOpt match {
+                case None =>
+                  logger.error(s"Currency rates unavailable! ${res.status} $baseUrl")
+                  Map("USD" -> 1d)
+                case Some(rates) => rates.filterValues(0 <)
               }
             }
         }
