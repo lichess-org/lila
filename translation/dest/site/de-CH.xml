@@ -320,15 +320,15 @@
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du muäsch na %1$s gewärteti Partii meh %2$s schpilä</item>
-    <item quantity="other">Du musst noch %1$s gewertete Partien mehr %2$s spielen</item>
+    <item quantity="other">Du muäsch na %1$s gwärteti Partiiä meh %2$s schpilä</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du musst noch %s gewertetes Spiel mehr spielen</item>
-    <item quantity="other">Du musst noch %s gewertete Spiele mehr spielen</item>
+    <item quantity="one">Du muäsch na %s gwärtets Schpiil meh Schpilä</item>
+    <item quantity="other">Du muäsch na %s gwärteti Schpiil meh Schpilä</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Deine %s Wertung ist provisorisch</string>
-  <string name="yourPerfRatingIsTooHigh">Deine %1$s Wertung (%2$s) ist zu hoch</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Deine beste wöchentliche %1$s Wertung (%2$s) ist zu hoch</string>
+  <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
+  <string name="yourPerfRatingIsTooHigh">Dini %1$s Wärtig (%2$s) isch z\'höch</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Dini höchschti %1$s Wärtig (%2$s) isch z\'höch</string>
   <string name="yourPerfRatingIsTooLow">Deine %1$s Wertung (%2$s) ist zu niedrig</string>
   <string name="ratedMoreThanInPerf">Wertung ≥ %1$s in %2$s</string>
   <string name="ratedLessThanInPerf">Wertung ≤ %1$s im %2$s diese Woche</string>
@@ -392,27 +392,27 @@
   <string name="memberSince">Mitglied siit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
   <string name="player">Schpilär</string>
-  <string name="list">Liste</string>
+  <string name="list">Lischtä</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Weniger als %s Minute</item>
     <item quantity="other">Weniger als %s Minuten</item>
   </plurals>
-  <string name="required">Pflichtfeld.</string>
-  <string name="openTournaments">Offene Turniere</string>
-  <string name="duration">Dauer</string>
-  <string name="winner">Gewinner</string>
-  <string name="standing">Tabelle</string>
-  <string name="createANewTournament">Neues Turnier erstellen</string>
-  <string name="tournamentCalendar">Turnierkalender</string>
-  <string name="conditionOfEntry">Teilnahmebedingung:</string>
-  <string name="advancedSettings">Erweiterte Einstellungen</string>
-  <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
-  <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
-  <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
-  <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
-  <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
-  <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
+  <string name="required">Pflichtfäld.</string>
+  <string name="openTournaments">Offeni Turniär</string>
+  <string name="duration">Duur</string>
+  <string name="winner">Gwünner</string>
+  <string name="standing">Tabällä</string>
+  <string name="createANewTournament">Neus Turnär erschtellä</string>
+  <string name="tournamentCalendar">Turnärkaländär</string>
+  <string name="conditionOfEntry">Teilnahmebedingig:</string>
+  <string name="advancedSettings">Erwiitäräti Iistelligä</string>
+  <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
+  <string name="inappropriateNameWarning">Alles sogar nur bitzli unagmässnigs chan zu dä Schlüssig vo dim Konto füere.</string>
+  <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
+  <string name="recommendNotTouching">Mir empfeläd, d Finger dadevo z laa.</string>
+  <string name="fewerPlayers">Wänn du Teilnamebedingige setzisch, wird dis Turniär weniger Spiler haa.</string>
+  <string name="showAdvancedSettings">Zeig erwiiteräti Iischtelligä</string>
   <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
