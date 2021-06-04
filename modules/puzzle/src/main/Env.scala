@@ -76,11 +76,12 @@ final class Env(
 
   lazy val streak = wire[PuzzleStreakApi]
 
-  system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
-    pathApi.isStale foreach { stale =>
-      if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
+  if (mode == play.api.Mode.Prod)
+    system.scheduler.scheduleAtFixedRate(1 hour, 1 hour) { () =>
+      pathApi.isStale foreach { stale =>
+        if (stale) logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
+      }
     }
-  }
 }
 
 final class PuzzleColls(
