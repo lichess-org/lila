@@ -294,32 +294,32 @@
   <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
   <string name="takebackPropositionAccepted">Zugrücknahm aagna</string>
   <string name="takebackPropositionCanceled">Zugrücknahm zrugzogä</string>
-  <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
-  <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
-  <string name="tournament">Turnier</string>
-  <string name="tournaments">Turniere</string>
-  <string name="tournamentPoints">Turnierpunkte</string>
+  <string name="yourOpponentProposesATakeback">Din Gägner möchti de letschti Zug zruggnäh</string>
+  <string name="bookmarkThisGame">Das Spiili mit emenä Läsezeichä verseh</string>
+  <string name="tournament">Turniär</string>
+  <string name="tournaments">Turniär</string>
+  <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
-    <item quantity="one">%s Turnierpunkt</item>
-    <item quantity="other">%s Turnierpunkte</item>
+    <item quantity="one">%s Turniärpunkt</item>
+    <item quantity="other">%s Turniärpünkt</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s Studie</item>
-    <item quantity="other">%s Studien</item>
+    <item quantity="one">%s Studiä</item>
+    <item quantity="other">%s Studiä</item>
   </plurals>
-  <string name="viewTournament">Turnier anschauen</string>
-  <string name="backToTournament">Zurück zum Turnier</string>
+  <string name="viewTournament">Turniär aaluegä</string>
+  <string name="backToTournament">Zrugg zum Turniär</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s gewertetes Spiel</item>
-    <item quantity="other">≥ %s gewertete Spiele</item>
+    <item quantity="one">≥ %s gwärtets Schpiil</item>
+    <item quantity="other">≥ %s gwärteti Schpiili</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s gewertetes %2$s Spiel</item>
-    <item quantity="other">≥ %1$s gewertete %2$s Spiele</item>
+    <item quantity="one">≥ %1$s gwärtets %2$s Schpiil</item>
+    <item quantity="other">≥ %1$s gwärteti %2$s Schpiili</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du musst noch %1$s gewertete Partie mehr %2$s spielen</item>
+    <item quantity="one">Du muäsch na %1$s gewärteti Partii meh %2$s schpilä</item>
     <item quantity="other">Du musst noch %1$s gewertete Partien mehr %2$s spielen</item>
   </plurals>
   <plurals name="needNbMoreGames">
@@ -375,9 +375,9 @@
   <string name="follow">Folgen</string>
   <string name="following">Folge ich</string>
   <string name="unfollow">Nicht mehr folgen</string>
-  <string name="block">Blockieren</string>
-  <string name="blocked">Blockiert</string>
-  <string name="unblock">Nicht mehr blockieren</string>
+  <string name="block">Blockiärä</string>
+  <string name="blocked">Blockiärt</string>
+  <string name="unblock">Nümä blockiärä</string>
   <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
@@ -385,13 +385,13 @@
     <item quantity="other">%s Follower</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s folgend</item>
+    <item quantity="one">%s folgänd</item>
     <item quantity="other">%s folgend</item>
   </plurals>
-  <string name="more">Mehr</string>
-  <string name="memberSince">Mitglied seit</string>
-  <string name="lastSeenActive">Zuletzt aktiv %s</string>
-  <string name="player">Spieler</string>
+  <string name="more">Meh</string>
+  <string name="memberSince">Mitglied siit</string>
+  <string name="lastSeenActive">Zletscht aktiv %s</string>
+  <string name="player">Schpilär</string>
   <string name="list">Liste</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
