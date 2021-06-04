@@ -27,7 +27,6 @@
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkeltbidrag som gir deg patronvinger i en måned.</string>
   <string name="otherAmount">Annet</string>
-  <string name="pleaseEnterAmount">Skriv inn et antall i USD (dollar)</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
