@@ -50,8 +50,7 @@ object BSONHandlers {
             sente = Pocket(sente.map(_.role)),
             gote = Pocket(gote.map(_.role))
           )
-        },
-        Set.empty
+        }
       )
 
     def writes(w: BSON.Writer, o: Data) =

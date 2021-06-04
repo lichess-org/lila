@@ -11,47 +11,46 @@ final case class Actor(
     board: Board
 ) {
 
-  //import Actor._
-
   lazy val moves: List[Move] = kingSafetyMoveFilter(trustedMoves())
 
   /** The moves without taking defending the king into account */
-  // not optimal
   def trustedMoves(): List[Move] = {
     val moves = piece.role match {
       case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
-      case Pawn if piece.color == Gote  => shortRange(Pawn.dirsOpposite)
+      case Pawn => shortRange(Pawn.dirsOpposite)
 
       case Lance if piece.color == Sente => longRange(Lance.dirs)
-      case Lance if piece.color == Gote  => longRange(Lance.dirsOpposite)
+      case Lance => longRange(Lance.dirsOpposite)
 
       case Gold if piece.color == Sente => shortRange(Gold.dirs)
-      case Gold if piece.color == Gote  => shortRange(Gold.dirsOpposite)
+      case Gold => shortRange(Gold.dirsOpposite)
 
       case Silver if piece.color == Sente => shortRange(Silver.dirs)
-      case Silver if piece.color == Gote  => shortRange(Silver.dirsOpposite)
+      case Silver => shortRange(Silver.dirsOpposite)
 
       case Bishop => longRange(Bishop.dirs)
 
       case Rook => longRange(Rook.dirs)
 
       case Knight if piece.color == Sente => shortRange(Knight.dirs)
-      case Knight if piece.color == Gote  => shortRange(Knight.dirsOpposite)
+      case Knight => shortRange(Knight.dirsOpposite)
 
       case Tokin if piece.color == Sente => shortRange(Tokin.dirs)
-      case Tokin if piece.color == Gote  => shortRange(Tokin.dirsOpposite)
+      case Tokin => shortRange(Tokin.dirsOpposite)
 
       case PromotedSilver if piece.color == Sente => shortRange(PromotedSilver.dirs)
-      case PromotedSilver if piece.color == Gote  => shortRange(PromotedSilver.dirsOpposite)
+      case PromotedSilver => shortRange(PromotedSilver.dirsOpposite)
 
       case PromotedLance if piece.color == Sente => shortRange(PromotedLance.dirs)
-      case PromotedLance if piece.color == Gote  => shortRange(PromotedLance.dirsOpposite)
+      case PromotedLance => shortRange(PromotedLance.dirsOpposite)
 
       case PromotedKnight if piece.color == Sente => shortRange(PromotedKnight.dirs)
-      case PromotedKnight if piece.color == Gote  => shortRange(PromotedKnight.dirsOpposite)
+      case PromotedKnight => shortRange(PromotedKnight.dirsOpposite)
 
       case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
+      
       case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)
+
       case King               => shortRange(King.dirs)
     }
     def maybePromote(m: Move): Option[Move] =
@@ -79,9 +78,6 @@ final case class Actor(
     val promotedMoves = moves flatMap maybePromote
 
     return (moves ++ promotedMoves).filter { m => forcePromotion(m) }
-    // We apply the current game variant's effects if there are any so that we can accurately decide if the king would
-    // be in danger after the move was made.
-    //if (board.variant.hasMoveEffects) moves map (_.applyVariantEffect) else moves
   }
 
   lazy val destinations: List[Pos] = moves map (_.dest)

@@ -170,7 +170,7 @@ abstract class Variant private[variant] (
   // checkmate or a variant end condition
   def winner(situation: Situation): Option[Color] = {
     val lastMove = situation.board.history.lastMove
-    if (situation.checkMate && lastMove.isDefined && lastMove.get.uci(0) == 'P') Some(situation.color)
+    if (situation.checkMate && lastMove.fold(false){ l => l.uci(0) == 'P' }) Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
     else if (situation.board.tryRule) situation.board.tryRuleColor
@@ -190,19 +190,23 @@ abstract class Variant private[variant] (
       Role.valueOf(role).fold(acc) { value =>
         acc + value * color.fold(1, -1)
       }
+    } + board.crazyData.fold(0) { cd =>
+      cd.pockets.valueOf
     }
 
   /** Returns true if neither player can win. The game should end immediately.
     */
-  def isInsufficientMaterial(board: Board) = false
+  def isInsufficientMaterial(board: Board) =
+    board.pieces.size == 0 ||
+    (board.pieces.size == 2 && board.pieces.forall{ p => p._2 is King })
 
   /** Returns true if the other player cannot win. This is relevant when the
     * side to move times out or disconnects. Instead of losing on time,
     * the game should be drawn.
     */
-  def opponentHasInsufficientMaterial(situation: Situation) = false
-  // Some variants have an extra effect on the board on a move. For example, in Atomic, some
-  // pieces surrounding a capture explode
+  def opponentHasInsufficientMaterial(situation: Situation) = situation.board.piecesOf(!situation.color).size < 2
+
+  // Some variants could have an extra effect on the board on a move
   def hasMoveEffects = false
 
   /** Applies a variant specific effect to the move. This helps decide whether a king is endangered by a move, for
@@ -217,7 +221,7 @@ abstract class Variant private[variant] (
       _.withCheck(color, board.check(color))
     }
     uci match {
-      case Uci.Move(orig, dest, promOption) =>
+      case Uci.Move(_, dest, _) =>
         board2.crazyData.fold(board2) { data =>
           val d1 = capture.fold(data) { data.store(_, dest) }
           board2 withCrazyData d1
@@ -262,33 +266,11 @@ abstract class Variant private[variant] (
     Tokin
   )
 
-  val promotableRoles: List[PromotableRole] = List(
-    Rook,
-    Bishop,
-    Knight,
-    Lance,
-    Silver,
-    Pawn,
-    Dragon,
-    Horse,
-    PromotedKnight,
-    PromotedLance,
-    PromotedSilver,
-    Tokin
-  )
-
   lazy val rolesByPgn: Map[Char, Role] = roles
     .map { r =>
       (r.pgn, r)
     }
     .to(Map)
-
-  lazy val rolesPromotableByPgn: Map[Char, PromotableRole] =
-    promotableRoles
-      .map { r =>
-        (r.pgn, r)
-      }
-      .to(Map)
 
   override def toString = s"Variant($name)"
 

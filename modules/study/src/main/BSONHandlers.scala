@@ -3,7 +3,7 @@ package lila.study
 import shogi.format.pgn.{ Glyph, Glyphs, Tag, Tags }
 import shogi.format.{ FEN, Uci, UciCharPair }
 import shogi.variant.Variant
-import shogi.{ Centis, Data, Piece, Pocket, Pockets, Pos, PromotableRole, Role }
+import shogi.{ Centis, Data, Piece, Pocket, Pockets, Pos, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -59,11 +59,6 @@ object BSONHandlers {
           $doc("b" -> brush, "o" -> orig.key, "k" -> piece.forsyth.toString)
       }
   }
-
-  implicit val PromotableRoleHandler = tryHandler[PromotableRole](
-    { case BSONString(v) => v.headOption flatMap Role.allPromotableByForsyth.get toTry s"No such role: $v" },
-    x => BSONString(x.forsyth.toString)
-  )
 
   implicit val RoleHandler = tryHandler[Role](
     { case BSONString(v) => v.headOption flatMap Role.allByForsyth.get toTry s"No such role: $v" },
@@ -128,7 +123,6 @@ object BSONHandlers {
       private def readPocket(p: String)  = Pocket(p.view.flatMap(shogi.Role.forsyth).toList)
       def reads(r: Reader) =
         Data(
-          promoted = r.getsD[Pos]("o").toSet,
           pockets = Pockets(
             sente = readPocket(r.strD("w")),
             gote = readPocket(r.strD("b"))
@@ -136,7 +130,6 @@ object BSONHandlers {
         )
       def writes(w: Writer, s: Data) =
         $doc(
-          "o" -> w.listO(s.promoted.toList),
           "w" -> w.strO(writePocket(s.pockets.sente)),
           "b" -> w.strO(writePocket(s.pockets.gote))
         )

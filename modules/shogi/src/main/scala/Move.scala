@@ -53,7 +53,7 @@ case class Move(
 
   def color = piece.color
 
-  def withPromotion(op: Option[PromotableRole], promoting: Boolean): Option[Move] =
+  def withPromotion(op: Option[Role], promoting: Boolean): Option[Move] =
     if (!promoting)
       this.some
     else {

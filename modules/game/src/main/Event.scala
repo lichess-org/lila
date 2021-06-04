@@ -4,7 +4,6 @@ import play.api.libs.json._
 
 import shogi.{
   Centis,
-  PromotableRole,
   Pos,
   Color,
   Situation,
@@ -112,7 +111,7 @@ object Event {
         san = shogi.format.pgn.Dumper(move),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
-        threefold = situation.threefoldRepetition,
+        threefold = situation.fourfoldRepetition,
         promotion = move.promotion,
         state = state,
         clock = clock,
@@ -160,7 +159,7 @@ object Event {
         san = shogi.format.pgn.Dumper(drop),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
-        threefold = situation.threefoldRepetition,
+        threefold = situation.fourfoldRepetition,
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,

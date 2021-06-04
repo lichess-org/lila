@@ -1,8 +1,7 @@
 package shogi
 
 case class Data(
-    pockets: Pockets,
-    promoted: Set[Pos]
+    pockets: Pockets
 ) {
 
   def drop(piece: Piece): Option[Data] =
@@ -12,19 +11,12 @@ case class Data(
 
   def store(piece: Piece, from: Pos) =
     copy(
-      pockets = pockets store Piece(piece.color, Role.demotesTo(piece.role))
-    )
-
-  def promote(pos: Pos) = copy(promoted = promoted + pos)
-
-  def move(orig: Pos, dest: Pos) =
-    copy(
-      promoted = if (promoted(orig)) promoted - orig + dest else promoted
+      pockets = pockets store Piece(piece.color, Role.demotesTo(piece.role).getOrElse(piece.role))
     )
 }
 
 object Data {
-  val init = Data(Pockets(Pocket(Nil), Pocket(Nil)), Set.empty)
+  val init = Data(Pockets(Pocket(Nil), Pocket(Nil)))
   // correct order
   val storableRoles = List(Rook, Bishop, Gold, Silver, Knight, Lance, Pawn)
 }
@@ -40,29 +32,37 @@ case class Pockets(sente: Pocket, gote: Pocket) {
         copy(gote = np)
       }
     )
+  
   def store(piece: Piece) =
     piece.color.fold(
       copy(gote = gote store piece.role),
       copy(sente = sente store piece.role)
     )
+  
   def keys: String = sente.roles.map(_.forsyth).mkString("").toUpperCase() + gote.roles
     .map(_.forsyth)
     .mkString("")
     .toLowerCase()
+  
   def exportPockets: String = {
     val pocketStr = sente.exportPocket.toUpperCase() + gote.exportPocket.toLowerCase()
     if (pocketStr == "") "-"
     else pocketStr
   }
+
+  def valueOf: Int =
+    sente.valueOf - gote.valueOf
 }
 
 case class Pocket(roles: List[Role]) {
   def take(role: Role) =
     if (roles contains role) Some(copy(roles = roles diff List(role)))
     else None
+  
   def store(role: Role) =
     if (Data.storableRoles contains role) copy(roles = role :: roles)
     else this
+  
   def exportPocket: String =
     Data.storableRoles.map { r =>
       val cnt = roles.count(_ == r)
@@ -70,4 +70,11 @@ case class Pocket(roles: List[Role]) {
       else if (cnt > 1) cnt.toString + r.forsythFull
       else ""
     } mkString ""
+
+  def valueOf: Int =
+    roles.foldLeft(0) { (acc, curRole) =>
+      Role.valueOf(curRole).fold(acc) { value =>
+        acc + value
+      }
+    }
 }

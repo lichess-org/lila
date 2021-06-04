@@ -43,8 +43,6 @@ case class History(
       }
     }
 
-  def threefoldRepetition = isRepetition(4)
-
   def fourfoldRepetition = isRepetition(4)
 
   def fivefoldRepetition = isRepetition(4)

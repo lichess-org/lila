@@ -25,12 +25,12 @@ case class Piece(color: Color, role: Role) {
 
       case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == Sente =>
         (from touches to) && (to.y >= from.y || (to ?| from))
-      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance if color == Gote =>
+      case Gold | Tokin | PromotedSilver | PromotedKnight | PromotedLance =>
         (from touches to) && (to.y <= from.y || (to ?| from))
 
       case Silver if color == Sente =>
         (from touches to) && from.y != to.y && (from.x != to.x || to.y > from.y)
-      case Silver if color == Gote =>
+      case Silver =>
         (from touches to) && from.y != to.y && (from.x != to.x || to.y < from.y)
 
       case Knight if color == Sente =>
@@ -39,7 +39,7 @@ case class Piece(color: Color, role: Role) {
           val yd = from yDist to
           (xd == 1 && yd == 2 && from.y < to.y) // march only forward
         }
-      case Knight if color == Gote =>
+      case Knight =>
         from.color != to.color && {
           val xd = from xDist to
           val yd = from yDist to
@@ -47,10 +47,10 @@ case class Piece(color: Color, role: Role) {
         }
 
       case Lance if color == Sente => (from ?| to) && (from ?+ to)
-      case Lance if color == Gote  => (from ?| to) && (from ?^ to)
+      case Lance => (from ?| to) && (from ?^ to)
 
       case Pawn if color == Sente => from.y + 1 == to.y && from ?| to
-      case Pawn if color == Gote  => from.y - 1 == to.y && from ?| to
+      case Pawn => from.y - 1 == to.y && from ?| to
 
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)
@@ -60,7 +60,7 @@ case class Piece(color: Color, role: Role) {
   def eyesMovable(from: Pos, to: Pos): Boolean =
     eyes(from, to)
 
-  override def toString = (color + "-" + role).toLowerCase
+  override def toString = s"$color-$role".toLowerCase
 }
 
 object Piece {

@@ -112,11 +112,11 @@ case class Board(
 
   def hasPiece(p: Piece) = pieces.values exists (p ==)
 
-  def promote(pos: Pos, promotedRole: PromotableRole): Option[Board] =
+  def promote(pos: Pos, promotedRole: Role): Option[Board] =
     for {
       piece <- apply(pos)
       b2    <- take(pos)
-      b3    <- b2.place(Piece(piece.color, promotedRole), pos) //todo
+      b3    <- b2.place(Piece(piece.color, promotedRole), pos)
     } yield b3
 
   def withHistory(h: History): Board = copy(history = h)

@@ -34,7 +34,7 @@ case class Situation(board: Board, color: Color) {
 
   def opponentHasInsufficientMaterial: Boolean = board.variant.opponentHasInsufficientMaterial(this)
 
-  lazy val threefoldRepetition: Boolean = false
+  lazy val fourfoldRepetition: Boolean = false
 
   def variantEnd = board.variant specialEnd this
 

@@ -52,7 +52,7 @@ final private[round] class Drawer(
     }
 
   def claim(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
-    (pov.game.playable && pov.game.history.threefoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
+    (pov.game.playable && pov.game.history.fourfoldRepetition) ?? finisher.other(pov.game, _.Draw, None)
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
