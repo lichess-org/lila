@@ -65,8 +65,6 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
   <string name="noLongerSupport">A Lichess támogatásának leállítása</string>
-  <string name="paymentHistory">Fizetési előzmények</string>
-  <string name="paid">Fizetve</string>
   <string name="viewOthers">A többi Patron böngészése</string>
   <string name="date">Dátum</string>
   <string name="amount">Összeg</string>
