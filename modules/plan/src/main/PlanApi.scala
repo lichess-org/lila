@@ -201,16 +201,15 @@ final class PlanApi(
 
   def customerInfo(user: User, customer: StripeCustomer): Fu[Option[CustomerInfo]] =
     stripeClient.getNextInvoice(customer.id) zip
-      stripeClient.getPastInvoices(customer.id) zip
       customer.firstSubscription.??(stripeClient.getPaymentMethod) map {
-        case ((Some(nextInvoice), pastInvoices), paymentMethod) =>
+        case (Some(nextInvoice), paymentMethod) =>
           customer.firstSubscription match {
-            case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, pastInvoices, paymentMethod).some
+            case Some(sub) => MonthlyCustomerInfo(sub, nextInvoice, paymentMethod).some
             case None =>
               logger.warn(s"Can't identify ${user.username} monthly subscription $customer")
               none
           }
-        case ((None, _), _) => OneTimeCustomerInfo(customer).some
+        case (None, _) => OneTimeCustomerInfo(customer).some
       }
 
   import PlanApi.SyncResult.{ ReloadUser, Synced }

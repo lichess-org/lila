@@ -120,31 +120,6 @@ object indexStripe {
               )
             ),
             tr(
-              th(paymentHistory()),
-              td(
-                table(cls := "slist payments")(
-                  thead(
-                    tr(
-                      th,
-                      th("ID"),
-                      th(date()),
-                      th(amount())
-                    )
-                  ),
-                  tbody(
-                    info.pastInvoices.map { in =>
-                      tr(
-                        td(in.paid option span(dataIcon := "E", cls := "is-green text")(paid())),
-                        td(cls := "id")(in.id),
-                        td(showDate(in.dateTime)),
-                        td(in.money.display)
-                      )
-                    }
-                  )
-                )
-              )
-            ),
-            tr(
               th,
               td(a(href := routes.Plan.list)(viewOthers()))
             )

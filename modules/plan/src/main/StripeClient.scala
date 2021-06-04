@@ -88,9 +88,6 @@ final private class StripeClient(
   def getNextInvoice(customerId: CustomerId): Fu[Option[StripeInvoice]] =
     getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
-  def getPastInvoices(customerId: CustomerId): Fu[List[StripeInvoice]] =
-    getList[StripeInvoice]("invoices", "customer" -> customerId.value)
-
   def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
     sub.default_payment_method ?? { id =>
       getOne[StripePaymentMethod](s"payment_methods/$id")
