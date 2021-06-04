@@ -27,6 +27,7 @@
   <string name="onetime">Tek sefer</string>
   <string name="singleDonation">Tek seferlik bir ödeme yaptığınız takdirde kullanıcı adınızın yanında beliren destekçi kanatlarına bir aylığına sahip olursunuz.</string>
   <string name="otherAmount">Diğer</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Lütfen %s cinsinden bir tutar girin</string>
   <string name="withCreditCard">Kredi Kartı</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Biz küçük bir ekibiz, dolayısıyla desteğiniz büyük bir fark yaratacak!</string>
