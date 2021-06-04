@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
+  <string name="receiveForumNotifications">Recibir notificaciones cuando alguien te mencione en el foro</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
   <string name="withNobody">Con nadie</string>
   <string name="withFriends">Con mis amigos</string>
