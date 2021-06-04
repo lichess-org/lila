@@ -45,11 +45,9 @@ object features {
             tr(unlimited)(
               s"Instant local $engineName analysis"
             ),
-            // tr(unlimited)(
-            //   a(href := "https://lishogi.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
-            //     "Cloud engine analysis"
-            //   )
-            // ),
+            tr(unlimited)(
+              "Cloud engine analysis"
+            ),
             // tr(unlimited)(
             //   a(href := "https://lishogi.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
             //     "Learn from your mistakes"
@@ -60,11 +58,6 @@ object features {
                 "Studies (shared and persistent analysis)"
               )
             ),
-            // tr(unlimited)(
-            //   a(href := "https://lishogi.org/blog/VmZbaigAABACtXQC/chess-insights")(
-            //     "Chess insights (detailed analysis of your play)"
-            //   )
-            // ),
             tr(check)(
               a(href := routes.Learn.index())("All shogi basics lessons")
             ),
