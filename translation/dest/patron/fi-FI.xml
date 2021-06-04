@@ -64,8 +64,6 @@ Tai voit %s.</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
-  <string name="paymentHistory">Maksuhistoria</string>
-  <string name="paid">Maksettu</string>
   <string name="viewOthers">Katso muita Lichessin tukijoita</string>
   <string name="date">Pvm</string>
   <string name="amount">Summa</string>
