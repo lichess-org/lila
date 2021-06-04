@@ -47,6 +47,8 @@ final class Env(
 
   lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
+  lazy val checkoutForm = wire[CheckoutForm]
+
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(

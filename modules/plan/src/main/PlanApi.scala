@@ -404,16 +404,10 @@ final class PlanApi(
       _ ?? stripeClient.getCustomer
     }
 
-  def getOrMakeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
-    userCustomer(user) getOrElse makeCustomer(user, data)
-
   def makeCustomer(user: User, data: Checkout): Fu[StripeCustomer] =
     stripeClient.createCustomer(user, data) flatMap { customer =>
       saveStripeCustomer(user, customer.id) inject customer
     }
-
-  def getOrMakeCustomerId(user: User, data: Checkout): Fu[CustomerId] =
-    getOrMakeCustomer(user, data).map(_.id)
 
   def patronCustomer(patron: Patron): Fu[Option[StripeCustomer]] =
     patron.stripe.map(_.customerId) ?? stripeClient.getCustomer

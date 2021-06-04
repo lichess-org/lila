@@ -21,7 +21,6 @@
   <string name="lifetime">Lifetime</string>
   <string name="payLifetimeOnce">Pay %s once. Be a Lichess Patron forever!</string>
   <string name="lifetimePatron">Lifetime Lichess Patron</string>
-  <string name="makeExtraDonation">Make an extra donation?</string>
   <string name="monthly">Monthly</string>
   <string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
   <string name="onetime">One-time</string>

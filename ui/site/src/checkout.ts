@@ -14,9 +14,11 @@ export default function (publicKey: string, pricing: Pricing) {
   if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
   if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
 
-  const getFreq = function () {
-    return $checkout.find('group.freq input:checked').val();
-  };
+  const getFreq = () => $checkout.find('group.freq input:checked').val();
+  const getDest = () => $checkout.find('group.dest input:checked').val();
+
+  const toggleInput = ($input: Cash, enable: boolean) =>
+    $input.prop('disabled', !enable).toggleClass('disabled', !enable);
 
   // Other is selected but no amount specified
   // happens with backward button
@@ -31,6 +33,18 @@ export default function (publicKey: string, pricing: Pricing) {
   selectAmountGroup();
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
+
+  $checkout.find('group.dest input').on('change', () => {
+    const dest = getDest();
+    const isGift = dest == 'gift';
+    const $monthly = $('#freq_monthly');
+    toggleInput($monthly, !isGift);
+    $checkout.find('.gift').toggleClass('none', !isGift).find('input').val('');
+    if (isGift) {
+      if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
+      $checkout.find('.gift input').trigger('focus');
+    }
+  });
 
   $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
     let amount: number;
@@ -62,7 +76,10 @@ export default function (publicKey: string, pricing: Pricing) {
   });
 
   const stripe = window.Stripe(publicKey);
-  const showError = (error: string) => alert(error);
+  const showErrorThenReload = (error: string) => {
+    alert(error);
+    location.assign('/patron');
+  };
   $checkout.find('button.stripe').on('click', function () {
     const freq = getFreq(),
       amount =
@@ -70,26 +87,31 @@ export default function (publicKey: string, pricing: Pricing) {
     if (amount < pricing.min || amount > pricing.max) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
-    xhr
-      .json('/patron/stripe/checkout', {
-        method: 'post',
-        body: xhr.form({
-          email: $checkout.data('email'),
-          amount,
-          freq,
-        }),
-      })
+    fetch('/patron/stripe/checkout', {
+      ...xhr.defaultInit,
+      headers: {
+        ...xhr.jsonHeader,
+        ...xhr.xhrHeader,
+      },
+      method: 'post',
+      body: xhr.form({
+        email: $checkout.data('email'),
+        amount,
+        freq,
+        gift: $checkout.find('.gift input').val(),
+      }),
+    })
+      .then(res => res.json())
       .then(data => {
-        if (data.session?.id) {
+        if (data.error) showErrorThenReload(data.error);
+        else if (data.session?.id) {
           stripe
             .redirectToCheckout({
               sessionId: data.session.id,
             })
-            .then(result => showError(result.error.message));
-        } else {
-          location.assign('/patron');
-        }
-      }, showError);
+            .then(result => showErrorThenReload(result.error.message));
+        } else location.assign('/patron');
+      });
   });
 
   // Close Checkout on page navigation:

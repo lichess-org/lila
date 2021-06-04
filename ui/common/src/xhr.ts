@@ -1,6 +1,6 @@
 import { defined } from './common';
 
-const jsonHeader = {
+export const jsonHeader = {
   Accept: 'application/vnd.lichess.v5+json',
 };
 
