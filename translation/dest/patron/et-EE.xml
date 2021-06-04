@@ -22,7 +22,6 @@
   <string name="onetime">Ühekordne</string>
   <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
   <string name="otherAmount">Muu</string>
-  <string name="pleaseEnterAmount">Palun sisesta summa Ühendriikide dollarites</string>
   <string name="withCreditCard">Krediitkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
