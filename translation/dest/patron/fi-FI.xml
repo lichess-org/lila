@@ -27,7 +27,6 @@
   <string name="onetime">Kertaluonteinen</string>
   <string name="singleDonation">Kertalahjoitus, joka antaa sinulle tukijasiivet kuukaudeksi.</string>
   <string name="otherAmount">Muu</string>
-  <string name="pleaseEnterAmount">Anna määrä Yhdysvaltain dollareissa</string>
   <string name="withCreditCard">Luottokortti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
