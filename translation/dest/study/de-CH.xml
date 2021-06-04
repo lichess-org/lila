@@ -91,7 +91,7 @@
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Leer</string>
   <string name="startFromInitialPosition">Von Ausgangsstellung starten</string>
-  <string name="editor">Editor</string>
+  <string name="editor">Ändärä</string>
   <string name="startFromCustomPosition">Von benutzerdefinierter Stellung starten</string>
   <string name="loadAGameByUrl">Lade eine Partie mittels URL</string>
   <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
@@ -146,7 +146,7 @@
   <string name="blackIsWinning">Schwarz steht auf Gewinn</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuerung</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklung</string>
-  <string name="initiative">Initiative</string>
+  <string name="initiative">Initiativä</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Angriff</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gegenspiel</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Zeitnot</string>
