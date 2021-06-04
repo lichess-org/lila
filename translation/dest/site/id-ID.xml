@@ -644,6 +644,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Letakkan mouse diatas variasi komputer untuk meninjau hal tersebut.</string>
   <string name="analysisShapesHowTo">Tekan shift+klik atau klik-kanan untuk menggambar lingkaran dan panah di papan.</string>
   <string name="letOtherPlayersMessageYou">Memperbolehkan pemain lain mengirim pesan untuk Anda</string>
+  <string name="receiveForumNotifications">Menerima notifikasi ketika disebut/mention dalam forum</string>
   <string name="shareYourInsightsData">Berbagi data permainan anda</string>
   <string name="withNobody">Tidak dengan siapapun</string>
   <string name="withFriends">Dengan teman</string>
