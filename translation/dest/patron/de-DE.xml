@@ -65,8 +65,6 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="decideHowMuch">Entscheide wieviel dir Lichess wert ist:</string>
   <string name="stopPayments">Deine Kreditkarte zurückziehen und Zahlungen beenden:</string>
   <string name="noLongerSupport">Lichess nicht weiter unterstützen</string>
-  <string name="paymentHistory">Zahlungsverlauf</string>
-  <string name="paid">Bezahlt</string>
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
