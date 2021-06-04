@@ -62,8 +62,6 @@ case class AiConfig(
   }
 
   def pov(user: Option[User]) = Pov(game(user), creatorColor)
-
-  def timeControlFromPosition = variant != shogi.variant.FromPosition || time >= 1
 }
 
 object AiConfig extends BaseConfig {
