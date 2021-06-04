@@ -277,23 +277,23 @@
     <item quantity="other">%s Remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s laufende Partie</item>
-    <item quantity="other">%s laufende Partien</item>
+    <item quantity="one">%s laufendi Parti</item>
+    <item quantity="other">%s laufendi Partiiä</item>
   </plurals>
-  <string name="exportGames">Partien exportieren</string>
-  <string name="ratingRange">Wertungsbereich</string>
+  <string name="exportGames">Partiiä exportierä</string>
+  <string name="ratingRange">Wärtigsberiich</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dem Gegner %s Sekunde geben</item>
-    <item quantity="other">Dem Gegner %s Sekunden geben</item>
+    <item quantity="one">Em Gägner %s Sekundä gä</item>
+    <item quantity="other">Em Gägner %s Sekundä gä</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Dieses Konto hat gegen die Lichess-Nutzungsbedingungen verstoßen</string>
-  <string name="openingExplorerAndTablebase">Eröffnungsbuch &amp; Tablebase</string>
-  <string name="takeback">Zugrücknahme</string>
-  <string name="proposeATakeback">Zugrücknahme vorschlagen</string>
-  <string name="takebackPropositionSent">Zugrücknahme vorgeschlagen</string>
-  <string name="takebackPropositionDeclined">Zugrücknahme abgelehnt</string>
-  <string name="takebackPropositionAccepted">Zugrücknahme angenommen</string>
-  <string name="takebackPropositionCanceled">Zugrücknahme zurückgezogen</string>
+  <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsrichliniä verstossä</string>
+  <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
+  <string name="takeback">Zugrücknahm</string>
+  <string name="proposeATakeback">Zugrücknahm vorschlah</string>
+  <string name="takebackPropositionSent">Zugrücknahm vorschlah</string>
+  <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
+  <string name="takebackPropositionAccepted">Zugrücknahm aagna</string>
+  <string name="takebackPropositionCanceled">Zugrücknahm zrugzogä</string>
   <string name="yourOpponentProposesATakeback">Dein Gegner möchte den letzten Zug zurücknehmen</string>
   <string name="bookmarkThisGame">Als Lesezeichen speichern</string>
   <string name="tournament">Turnier</string>
