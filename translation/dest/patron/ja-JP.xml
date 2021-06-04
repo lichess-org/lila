@@ -63,8 +63,6 @@
   <string name="decideHowMuch">Lichess の値打ちをご自分で決めてください：</string>
   <string name="stopPayments">クレジットカードでの支払いを止める：</string>
   <string name="noLongerSupport">Lichess への寄付をやめました</string>
-  <string name="paymentHistory">支払い履歴</string>
-  <string name="paid">支払い完了</string>
   <string name="viewOthers">他の Lichess パトロンを表示</string>
   <string name="date">日付</string>
   <string name="amount">金額</string>
