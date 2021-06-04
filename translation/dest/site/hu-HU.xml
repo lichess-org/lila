@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Vidd a kurzort a számítógép variációk fölé az előnézethez.</string>
   <string name="analysisShapesHowTo">Shift-kattintva vagy jobb egérgombbal rajzolhatsz karikákat és nyilakat a táblára</string>
   <string name="letOtherPlayersMessageYou">Mások küldhetnek neked üzenetet</string>
+  <string name="receiveForumNotifications">Értesítést kérek, ha megemlítenek a fórumban</string>
   <string name="shareYourInsightsData">Éleslátó adatbepillantás megosztása másokkal</string>
   <string name="withNobody">Senkivel</string>
   <string name="withFriends">Barátokkal</string>
