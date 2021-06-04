@@ -115,17 +115,15 @@ object side {
             }
           )
         },
-        initialFen
-          .ifTrue(game.variant.chess960)
-          .flatMap {
-            chess.variant.Chess960.positionNumber
-          }
-          .map { number =>
-            st.section(
-              "Chess960 start position: ",
-              strong(number)
-            )
-          },
+        game.variant.chess960 ??
+          chess.variant.Chess960
+            .positionNumber(initialFen | chess.format.Forsyth.initial)
+            .map { number =>
+              st.section(
+                "Chess960 start position: ",
+                strong(number)
+              )
+            },
         userTv.map { u =>
           st.section(cls := "game__tv")(
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := "1")(u.titleUsername)
