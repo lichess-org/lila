@@ -411,8 +411,10 @@ object mon {
     val percent = gauge("plan.percent").withoutTags()
     object charge {
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
-      def countryCents(country: String, service: String) =
-        histogram("plan.charge.country.cents").withTags(Map("country" -> country, "service" -> service))
+      def countryCents(country: String, currency: java.util.Currency, service: String) =
+        histogram("plan.charge.country.cents").withTags(
+          Map("country" -> country, "currency" -> currency.getCurrencyCode, "service" -> service)
+        )
     }
   }
   object forum {

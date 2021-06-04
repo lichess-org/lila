@@ -373,7 +373,11 @@ final class PlanApi(
 
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit = {
     lila.mon.plan.charge
-      .countryCents(country = country.fold("unknown")(_.code), service = charge.serviceName)
+      .countryCents(
+        country = country.fold("unknown")(_.code),
+        currency = charge.money.currency,
+        service = charge.serviceName
+      )
       .record(charge.usd.cents)
     charge.userId ?? { userId =>
       chargeColl.exists($doc("userId" -> userId)) map {
