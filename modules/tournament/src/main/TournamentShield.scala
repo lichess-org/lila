@@ -196,7 +196,7 @@ object TournamentShield {
     case object ThreeCheck
         extends Category(
           of = Right(chess.variant.ThreeCheck),
-          iconChar = '.'
+          iconChar = ''
         )
 
     case object Horde

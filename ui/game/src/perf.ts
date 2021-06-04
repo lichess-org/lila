@@ -8,7 +8,7 @@ export const perf = {
     correspondence: ';',
     chess960: '',
     kingOfTheHill: '',
-    threeCheck: '.',
+    threeCheck: '',
     antichess: '@',
     atomic: '>',
     horde: '_',

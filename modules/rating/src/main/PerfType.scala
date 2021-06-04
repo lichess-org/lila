@@ -128,7 +128,7 @@ object PerfType {
         key = "threeCheck",
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
-        iconChar = '.'
+        iconChar = ''
       )
 
   case object Horde
