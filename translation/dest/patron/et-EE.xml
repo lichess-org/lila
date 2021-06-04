@@ -58,8 +58,6 @@ Võimalik on ka %s.</string>
   <string name="decideHowMuch">Otsusta kui kallis Lichess on sinule:</string>
   <string name="stopPayments">Tühjenda krediitkaardiinfo ja lõpeta maksed:</string>
   <string name="noLongerSupport">Ei toeta enam Lichessi</string>
-  <string name="paymentHistory">Maksete ajalugu</string>
-  <string name="paid">Makstud</string>
   <string name="viewOthers">Vaata teisi Lichessi toetajaid</string>
   <string name="date">Kuupäev</string>
   <string name="amount">Summa</string>
