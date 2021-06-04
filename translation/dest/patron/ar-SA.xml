@@ -58,8 +58,6 @@
   <string name="decideHowMuch">قرر ماذا يعني Lichess بالنسبة لك:</string>
   <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
   <string name="noLongerSupport">التوقف عن دعم Lichess</string>
-  <string name="paymentHistory">سجل الدفع</string>
-  <string name="paid">تم الدفع</string>
   <string name="viewOthers">مشاهدة رعاة آخرين</string>
   <string name="date">تاريخ</string>
   <string name="amount">المجموع</string>
