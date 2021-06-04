@@ -540,6 +540,7 @@ val `youCanAlsoScrollOverTheBoardToMoveInTheGame` = new I18nKey("youCanAlsoScrol
 val `scrollOverComputerVariationsToPreviewThem` = new I18nKey("scrollOverComputerVariationsToPreviewThem")
 val `analysisShapesHowTo` = new I18nKey("analysisShapesHowTo")
 val `letOtherPlayersMessageYou` = new I18nKey("letOtherPlayersMessageYou")
+val `receiveForumNotifications` = new I18nKey("receiveForumNotifications")
 val `shareYourInsightsData` = new I18nKey("shareYourInsightsData")
 val `withNobody` = new I18nKey("withNobody")
 val `withFriends` = new I18nKey("withFriends")

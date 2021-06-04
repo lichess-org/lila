@@ -9,6 +9,7 @@ import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.relation.RelationApi
+import lila.pref.PrefApi
 import play.api.libs.ws.StandaloneWSClient
 
 @Module
@@ -30,6 +31,7 @@ final class Env(
     forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
+    prefApi: PrefApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
