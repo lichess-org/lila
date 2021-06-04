@@ -27,6 +27,7 @@
   <string name="onetime">Unique</string>
   <string name="singleDonation">Un don unique qui vous accorde les ailes de mécène pendant un mois.</string>
   <string name="otherAmount">Autres</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Entrez un montant en %s</string>
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Nous sommes une petite équipe, ainsi votre soutien fait une énorme différence !</string>
