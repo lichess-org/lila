@@ -12,7 +12,7 @@ Gewinnst du zwei Partien in Folge, beginnst du eine Serie mit verdoppelter Punkt
 Das bedeutet, dass du für einen Sieg vier, für ein Remis zwei und für eine Niederlage keine Punkte bekommst.
 
 Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 * 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk">Arena Bärsärk</string>
   <string name="berserkAnswer">Wenn ein Spieler den \"Berserk\"-Knopf zu Beginn der Partie drückt, verliert er die Hälfte seiner Zeit auf der Uhr, aber ein Sieg wird mit einem zusätzlichen Turnierpunkt honoriert.
 
 In einem Zeitmodus mit Inkrement entfernt \"Berserk\" das Inkrement. (1+2 ist eine Ausnahme, es wird zu 1+0.)
