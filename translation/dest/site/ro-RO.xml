@@ -714,6 +714,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poți acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeți pe tablă.</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
+  <string name="receiveForumNotifications">Primește notificări atunci când ești menționat în forum</string>
   <string name="shareYourInsightsData">Partajează-ți statisticile legate de jocuri</string>
   <string name="withNobody">Cu nimeni</string>
   <string name="withFriends">Cu prietenii</string>
