@@ -27,6 +27,7 @@
   <string name="onetime">Ein gong</string>
   <string name="singleDonation">Eit enkelt bidrag vil gje deg bidragsytar-vingar i ein månad.</string>
   <string name="otherAmount">Anna</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Ver venleg å oppgje eit beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
