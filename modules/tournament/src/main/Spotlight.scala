@@ -42,23 +42,13 @@ object Spotlight {
             l.plusWeeks(weeks).isAfterNow
           }
         sched.freq match {
-          case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
-          case Daily | Eastern                      => playedSinceWeeks(2)
-          case Weekly | Weekend                     => playedSinceWeeks(4)
-          case Unique                               => playedSinceWeeks(4)
+          case Hourly                               => playedSinceWeeks(4)
+          case Daily | Eastern                      => true
+          case Weekly | Weekend                     => true
+          case Unique                               => true
           case Monthly | Shield | Marathon | Yearly => true
-          case ExperimentalMarathon                 => false
+          case _                                    => false
         }
       }
     }
-
-  private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
-    tour.conditions.isRatingLimited &&
-      tour.conditions.nbRatedGame.fold(true) { c =>
-        c(user).accepted
-      } &&
-      tour.conditions.minRating.fold(true) { c =>
-        c(user).accepted
-      } &&
-      tour.conditions.maxRating.fold(true)(_ maybe user)
 }
