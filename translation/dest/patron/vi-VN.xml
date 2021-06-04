@@ -60,8 +60,6 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="decideHowMuch">Quyết định Lichess đáng giá như nào với bạn:</string>
   <string name="stopPayments">Rút thẻ tín dụng và dừng các thanh toán:</string>
   <string name="noLongerSupport">Không ủng hộ Lichess nữa</string>
-  <string name="paymentHistory">Lịch sử thanh toán</string>
-  <string name="paid">Đã thanh toán</string>
   <string name="viewOthers">Xem các Lichess Patron khác</string>
   <string name="date">Ngày</string>
   <string name="amount">Số lượng</string>
