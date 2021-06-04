@@ -59,7 +59,7 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
-  <string name="cloudAnalysis">Análise na \"cloud\"</string>
+  <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
@@ -190,7 +190,7 @@
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
-  <string name="changeEmail">Alterar o e-mail</string>
+  <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
