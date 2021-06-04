@@ -27,7 +27,7 @@
   <string name="onetime">Una vez</string>
   <string name="singleDonation">Una sola donación que te otorga las alas de patrón durante un mes.</string>
   <string name="otherAmount">Otro</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Escribe un importe en %s</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Especifica un importe en %s</string>
   <string name="withCreditCard">Tarjeta de crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo pequeño, ¡por eso tu apoyo marca una gran diferencia!</string>
