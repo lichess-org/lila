@@ -80,7 +80,7 @@ object Forsyth {
         val board = Board(pieces, variant)
         if (splitted.length < 3 || splitted.lift(2).get == "-") board
         else {
-          val pockets       = pocketStringList(splitted.lift(2).get.toList)
+          val pockets       = pocketStringList(splitted.lift(2).get.toList.take(100))
           val (sente, gote) = pockets.flatMap(Piece.fromChar).partition(_ is Sente)
           import shogi.{ Data, Pocket, Pockets }
           board.withCrazyData(
@@ -98,6 +98,7 @@ object Forsyth {
   private def pocketStringList(orig: List[Char], times: Int = 1, prev: Boolean = false): List[Char] = {
     orig match {
       case Nil                                       => Nil
+      case _ if times > 50                           => Nil
       case c :: rest if prev && '0' <= c && c <= '9' => pocketStringList(rest, times * 10 + c.asDigit, true)
       case c :: rest if '1' <= c && c <= '9'         => pocketStringList(rest, c.asDigit, true)
       case c :: rest                                 => (c.toString * times).toList ::: pocketStringList(rest)
@@ -145,7 +146,7 @@ object Forsyth {
 
   def exportCrazyPocket(board: Board) =
     board.crazyData match {
-      case Some(shogi.Data(pockets, _)) => pockets.exportPockets
+      case Some(shogi.Data(pockets)) => pockets.exportPockets
       case _                            => "-"
     }
 
