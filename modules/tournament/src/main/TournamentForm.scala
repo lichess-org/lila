@@ -62,18 +62,10 @@ final class TournamentForm {
 
   private val blockList = List("lichess", "liсhess")
 
-  private def nameType(user: User) = eventName(2, 30).verifying(
-    Constraint[String] { (t: String) =>
-      if (blockList.exists(t.toLowerCase.contains) && !user.isVerified && !user.isAdmin)
-        validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
-      else validation.Valid
-    }
-  )
-
   private def form(user: User, leaderTeams: List[LeaderTeam]) =
     Form(
       mapping(
-        "name"           -> optional(nameType(user)),
+        "name"           -> optional(eventName(2, 30, user.isVerifiedOrAdmin)),
         "clockTime"      -> numberInDouble(clockTimeChoices),
         "clockIncrement" -> numberIn(clockIncrementChoices),
         "minutes" -> {
