@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Mantingueu premudes les variants d\'anàlisi per a previsualitzar-les.</string>
   <string name="analysisShapesHowTo">Pitja la tecla Shift + clic o feu clic dret per dibuixar cercles i fletxes al tauler.</string>
   <string name="letOtherPlayersMessageYou">Deixa que altres jugadors t\'envïin missatges</string>
+  <string name="receiveForumNotifications">Rebre notificacions quan et mencionin al fòrum</string>
   <string name="shareYourInsightsData">Comparteix les teves dades d\'estadístiques</string>
   <string name="withNobody">Amb ningú</string>
   <string name="withFriends">Amb amics</string>
