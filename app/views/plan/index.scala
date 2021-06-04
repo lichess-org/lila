@@ -92,51 +92,13 @@ object index {
                 )(
                   raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org one-time">
-  <input type="hidden" name="button_subtype" value="services">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormSingle(pricing, "lichess.org one-time")}
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="a3" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org monthly">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="src" value="1">
-  <input type="hidden" name="p3" value="1">
-  <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormRecurring(pricing, "lichess.org monthly")}
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org lifetime">
-  <input type="hidden" name="button_subtype" value="services">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormSingle(pricing, "lichess.org lifetime")}
 </form>"""),
                   ctx.me map { me =>
                     p(style := "text-align:center;margin-bottom:1em")(
@@ -248,6 +210,36 @@ object index {
       )
     }
   }
+
+  private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
+  ${payPalForm(pricing, itemName)}
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="amount" class="amount" value="">
+  <input type="hidden" name="button_subtype" value="services">
+"""
+
+  private def payPalFormRecurring(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) =
+    s"""
+  ${payPalForm(pricing, itemName)}
+  <input type="hidden" name="cmd" value="_xclick-subscriptions">
+  <input type="hidden" name="a3" class="amount" value="">
+  <input type="hidden" name="p3" value="1">
+  <input type="hidden" name="t3" value="M">
+  <input type="hidden" name="src" value="1">
+"""
+
+  private def payPalForm(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
+  <input type="hidden" name="item_name" value="$itemName">
+  <input type="hidden" name="custom" value="${~ctx.userId}">
+  <input type="hidden" name="business" value="Q3H72BENTXL4G">
+  <input type="hidden" name="no_note" value="1">
+  <input type="hidden" name="no_shipping" value="1">
+  <input type="hidden" name="rm" value="1">
+  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="lc" value="${ctx.lang.locale}">
+  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+"""
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(
