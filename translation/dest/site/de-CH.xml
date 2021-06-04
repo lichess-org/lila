@@ -233,12 +233,12 @@
   <string name="unlimited">Unbegränzt</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungwärtet</string>
-  <string name="rated">Gewertet</string>
-  <string name="casualTournament">Ungewertet</string>
-  <string name="ratedTournament">Gewertet</string>
-  <string name="thisGameIsRated">Dieses Spiel wird gewertet</string>
+  <string name="rated">Gwärtet</string>
+  <string name="casualTournament">Ungwärtet</string>
+  <string name="ratedTournament">Gwärtet</string>
+  <string name="thisGameIsRated">Das Spiil isch gwärtet</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Angebot zur Revanche gesendet</string>
+  <string name="rematchOfferSent">Aagebot zur Revanche gsändet</string>
   <string name="rematchOfferSentWhite">Weiß bietet ein Rückspiel an</string>
   <string name="rematchOfferSentBlack">Schwarz bietet ein Rückspiel an</string>
   <string name="rematchOfferAccepted">Angebot zur Revanche angenommen</string>
