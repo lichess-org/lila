@@ -90,7 +90,7 @@ final class LiveStreamApi(
   //      List(
   //        Stream.Twitch.Stream(
   //          "test",
-  //          "[JP]【lishogi.org】 ೭੧(❛▿❛✿)੭೨ t's ⭐see  l=͟͟͞͞( ✌°∀° )☛ • aaa nos 'a as '",
+  //          "Playing shogi on lishogi.org, come and watch!",
   //          Streamer(
   //            _id = Streamer.Id("test"),
   //            listed = Streamer.Listed(true),
