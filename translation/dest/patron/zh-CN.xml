@@ -23,7 +23,6 @@
   <string name="onetime">单次</string>
   <string name="singleDonation">单次捐赠会赠予您一个月的赞助者之翼。</string>
   <string name="otherAmount">其他</string>
-  <string name="pleaseEnterAmount">请输入金额（美金）</string>
   <string name="withCreditCard">信用卡</string>
   <string name="withPaypal">贝宝（PayPal）</string>
   <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
