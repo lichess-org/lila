@@ -23,7 +23,6 @@
   <string name="onetime">חד פעמי</string>
   <string name="singleDonation">תרומה חד פעמית תעניק לך כנפי תורם לחודש אחד.</string>
   <string name="otherAmount">אחר</string>
-  <string name="pleaseEnterAmount">בבקשה הכנס סכום בUSD (דולר ארה\"ב)</string>
   <string name="withCreditCard">כרטיס אשראי</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
