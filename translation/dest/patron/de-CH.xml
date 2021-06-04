@@ -27,7 +27,6 @@
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
   <string name="otherAmount">Anderer</string>
-  <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Wir sind ein kleines Team, deswegen macht deine Unterstützung einen riesen Unterschied!</string>
