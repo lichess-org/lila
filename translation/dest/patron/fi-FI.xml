@@ -31,7 +31,7 @@
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
   <string name="celebratedPatrons">Maineikkaat tukijat, joiden ansiosta Lichess on olemassa</string>
-  <string name="whereMoneyGoes">Mihin raha kuluu?</string>
+  <string name="whereMoneyGoes">Mihin raha käytetään?</string>
   <string name="serversAndDeveloper">Ensinnäkin tehokkaisiin palvelimiin.
 Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustajalle.</string>
   <string name="costBreakdown">Katso yksityiskohtainen kuluerittely</string>
