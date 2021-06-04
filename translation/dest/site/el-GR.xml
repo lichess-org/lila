@@ -681,6 +681,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
+  <string name="receiveForumNotifications">Να λαμβάνετε ειδοποιήσεις όταν γίνεται αναφορά σας στο φόρουμ</string>
   <string name="shareYourInsightsData">Κοινή χρήση των δεδομένων σας</string>
   <string name="withNobody">Με κανέναν</string>
   <string name="withFriends">Με φίλους</string>
