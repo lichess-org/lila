@@ -35,8 +35,6 @@
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
   <string name="cancelSupport">преустановете поддръжката си</string>
   <string name="xOrY">%1$s или %2$s</string>
-  <string name="paymentHistory">История на плащанията</string>
-  <string name="paid">Платено</string>
   <string name="viewOthers">Вижте другите Lichess Дарители</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>
