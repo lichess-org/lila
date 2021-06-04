@@ -65,8 +65,6 @@
   <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
   <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
   <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
-  <string name="paymentHistory">Ιστορικό πληρωμών</string>
-  <string name="paid">Πληρώθηκε</string>
   <string name="viewOthers">Προβολή άλλων Υποστηρικτών Lichess</string>
   <string name="date">Ημερομηνία</string>
   <string name="amount">Ποσό</string>
