@@ -43,7 +43,7 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(implicit ec: ExecutionConte
         min      <- convertAndRound(usdPricing.min, currency)
         max      <- convertAndRound(usdPricing.max, currency)
         lifetime <- convertAndRound(usdPricing.lifetime, currency)
-      } yield (suggestions, min, max, lifetime).mapN(PlanPricing.apply)
+      } yield (suggestions, min, max, lifetime).mapN(PlanPricing)
 
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
@@ -65,7 +65,7 @@ object PlanPricingApi {
     val scale    = math.floor(math.log10(double));
     val fraction = if (scale > 1) 2d else 1d
     math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
-  }
+  } atLeast 1
 
   import play.api.libs.json._
   val pricingWrites = OWrites[PlanPricing] { p =>

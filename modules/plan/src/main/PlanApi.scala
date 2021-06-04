@@ -329,7 +329,7 @@ final class PlanApi(
             ) { framework =>
               import framework._
               Match($doc("userId" $exists true)) -> List(
-                GroupField("userId")("total" -> SumField("cents")),
+                GroupField("userId")("total" -> SumField("usd")),
                 Sort(Descending("total")),
                 Limit(topPatronUserIdsNb * 3 / 2)
               )
