@@ -17,13 +17,12 @@
   <string name="lifetime">לכל החיים</string>
   <string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
   <string name="lifetimePatron">פטרון לכל החיים</string>
-  <string name="makeExtraDonation">תרום תרומה נוספת?</string>
   <string name="monthly">חודשי</string>
   <string name="recurringBilling">חשבון מחזורי, יחדש את כנפי התומך שלך מדי חודש.</string>
   <string name="onetime">חד פעמי</string>
   <string name="singleDonation">תרומה חד פעמית תעניק לך כנפי תורם לחודש אחד.</string>
   <string name="otherAmount">אחר</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">בבקשה הכנס סכום ב%s</string>
+  <string name="pleaseEnterAmountInX">בבקשה הכנס סכום ב%s</string>
   <string name="withCreditCard">כרטיס אשראי</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
