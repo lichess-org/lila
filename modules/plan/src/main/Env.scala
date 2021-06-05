@@ -29,7 +29,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    mode: play.api.Mode
 ) {
 
   import StripeClient.stripeConfigLoader
