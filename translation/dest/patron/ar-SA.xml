@@ -17,7 +17,6 @@
   <string name="lifetime">مدى الحياة</string>
   <string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lichess للأبد!</string>
   <string name="lifetimePatron">راعي Lichess مدة الحياة</string>
-  <string name="makeExtraDonation">تقديم تبرع اضافي؟</string>
   <string name="monthly">شهرياً</string>
   <string name="recurringBilling">تبرعات منتظمة، تجديد أجنحة الراعية الخاص بك كل شهر.</string>
   <string name="onetime">مرة واحدة</string>
