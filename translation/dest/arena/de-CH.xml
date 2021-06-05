@@ -29,10 +29,10 @@ Wenn zwei oder meh Schpiller di gliich Punktzahl bsitzäd, entscheidät d\'Turni
 Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpilller mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller im Turnier spielsch.
 Pressier und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erzielä.</string>
   <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
-  <string name="howDoesItEndAnswer">Während des Turniers wird die Zeit heruntergezählt. Wenn sie null erreicht, wird die Rangliste eingefroren und der Gewinner bekanntgegeben.
-Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnier.</string>
-  <string name="otherRules">Andere wichtige Regeln</string>
-  <string name="thereIsACountdown">Es gibt einen Countdown für deinen ersten Zug. Ziehst du nicht innerhalb dieser Zeit, wird der Sieg deinem Gegner zugesprochen.</string>
+  <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh.
+Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
+  <string name="otherRules">Anderi wichtigi Reglä</string>
+  <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Remis innerhalb des ersten Zugs wird keinem Spieler Punkte einbringen.</item>
     <item quantity="other">Bei Remis innerhalb der ersten %s Züge werden keinem Spieler Punkte gut geschrieben.</item>
