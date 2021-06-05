@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Herausforderungen</string>
-  <string name="challengeToPlay">Zu einer Partie herausfordern</string>
-  <string name="challengeDeclined">Herausforderung abgelehnt</string>
-  <string name="challengeAccepted">Herausforderung angenommen!</string>
-  <string name="challengeCanceled">Herausforderung abgebrochen.</string>
-  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
-  <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
-  <string name="xDoesNotAcceptChallenges">%s nimmt keine Herausforderungen an.</string>
-  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertung nicht möglich.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Herausforderungen nur von Freunden an.</string>
-  <string name="declineGeneric">Ich nehme derzeit keine Herausforderungen an.</string>
+  <string name="challenges">Usäfoderigä</string>
+  <string name="challengeToPlay">Zu nere partie useforderä</string>
+  <string name="challengeDeclined">Usäfoderig abglähnt</string>
+  <string name="challengeAccepted">Usäfoderig angnoo!</string>
+  <string name="challengeCanceled">Usäfoderig abbrochää.</string>
+  <string name="registerToSendChallenges">Bitte registiärä di, um Usäfoderigä zu verschickä.</string>
+  <string name="youCannotChallengeX">Du chasch %s nöd usäfordärä.</string>
+  <string name="xDoesNotAcceptChallenges">%s nimmt kei Usäfoderigä a.</string>
+  <string name="yourXRatingIsTooFarFromY">Dinni %1$s Wertung isch z\'weit vo %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Usäfoderig wegä provisorische %s Wertig nöd mögli.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Usäfoderigä nur vo Brudis a.</string>
+  <string name="declineGeneric">I nim momentan kei Usäfoderigä me a.</string>
   <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
   <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, bitte fordere mich erneut mit einer höheren Bedenkzeit heraus.</string>
   <string name="declineTooSlow">Diese Bedenkzeit ist zu lang für mich, bitte fordere mich mit weniger Bedenkzeit heraus.</string>
