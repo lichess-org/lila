@@ -450,27 +450,27 @@
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
   <string name="gameCompletionRate">Aateil vo beändetä Schpiil: %s</string>
   <string name="profile">Profil</string>
-  <string name="editProfile">Profil bearbeiten</string>
-  <string name="firstName">Vorname</string>
-  <string name="lastName">Nachname</string>
-  <string name="biography">Profiltext</string>
-  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flagge</string>
-  <string name="thankYou">Vielen Dank!</string>
-  <string name="socialMediaLinks">Social-Media-Links</string>
+  <string name="editProfile">Profil bearbeitä</string>
+  <string name="firstName">Vornamä</string>
+  <string name="lastName">Nachnamä</string>
+  <string name="biography">Biografii</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Flaggä</string>
+  <string name="thankYou">Vilä Dank!</string>
+  <string name="socialMediaLinks">Soziali-Mediä-Links</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="watchLichessTV">Lichess-TV anschauen</string>
-  <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
-  <string name="onlinePlayers">Spieler online</string>
-  <string name="activeToday">Heute aktiv</string>
-  <string name="activePlayers">Aktive Spieler</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Achtung! Das Spiel wird gewertet, aber ohne Uhr gespielt!</string>
+  <string name="watchLichessTV">Lichess-TV aaluägä</string>
+  <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
+  <string name="onlinePlayers">Schpiller online</string>
+  <string name="activeToday">Hüt aktiv</string>
+  <string name="activePlayers">Aktivi Schpillär</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwärtet, hät aber keis Ziitlimit!</string>
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s laufende Partie</item>
-    <item quantity="other">%s laufende Partien</item>
+    <item quantity="one">%s laufändi Partii</item>
+    <item quantity="other">%s laufendi Partiiä</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
-  <string name="autoSwitch">Automatischer Wechsel</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Nach emenä Zug automatisch zur nöxschtä Partii gah</string>
+  <string name="autoSwitch">Automatischä wächsel</string>
   <string name="puzzles">Aufgaben</string>
   <string name="latestUpdates">Neueste Updates</string>
   <string name="tournamentWinners">Turniersieger</string>
