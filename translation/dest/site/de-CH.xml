@@ -471,12 +471,12 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach emenä Zug automatisch zur nöxschtä Partii gah</string>
   <string name="autoSwitch">Automatischä wächsel</string>
-  <string name="puzzles">Aufgaben</string>
-  <string name="latestUpdates">Neueste Updates</string>
-  <string name="tournamentWinners">Turniersieger</string>
+  <string name="puzzles">Uufgabä</string>
+  <string name="latestUpdates">S\'neuschtä Update</string>
+  <string name="tournamentWinners">Turniärsiiger</string>
   <string name="name">Namä</string>
-  <string name="description">Beschreibung</string>
-  <string name="descPrivate">Private Beschreibung</string>
+  <string name="description">Beschriibig</string>
+  <string name="descPrivate">Privati Beschriibig</string>
   <string name="descPrivateHelp">Text, den nur Teammitglieder lesen können. Wenn ausgefüllt, ersetzt er für Teammitglieder die öffentliche Beschreibung.</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>
