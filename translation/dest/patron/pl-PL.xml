@@ -29,6 +29,7 @@
   <string name="onetime">Jednorazowo</string>
   <string name="singleDonation">Pojedyncza darowizna, która daje Ci skrzydła patrona na jeden miesiąc.</string>
   <string name="otherAmount">Inne</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Wprowadź kwotę w %s</string>
   <string name="withCreditCard">Karta płatnicza</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc Twoje wsparcie ma ogromne znaczenie!</string>
