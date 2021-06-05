@@ -151,14 +151,17 @@ If you're still interested in supporting us in other ways, you can see non-finan
 To make a new donation, head to $baseUrl/patron"""
     )
 
-  def onPatronGift(from: User.ID, to: User.ID): Funit =
+  def onPatronGift(from: User.ID, to: User.ID, lifetime: Boolean): Funit =
     userRepo.pair(from, to) map {
       _ ?? { case (from, to) =>
+        val wings =
+          if (lifetime) "lifetime Patron wings"
+          else "Patron wings for one month"
         alsoSendAsPrivateMessage(from) { _ =>
-          s"""You gift @${to.username} the Patron wings for one month. Thank you so much!"""
+          s"""You gift @${to.username} the $wings. Thank you so much!"""
         }.unit
         alsoSendAsPrivateMessage(to) { _ =>
-          s"""@${from.username} gifts you the Patron wings for one month!"""
+          s"""@${from.username} gifts you the $wings!"""
         }.unit
       }
     }

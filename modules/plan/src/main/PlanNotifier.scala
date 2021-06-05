@@ -37,7 +37,7 @@ final private[plan] class PlanNotifier(
   def onGift(from: User, to: User, isLifetime: Boolean): Unit = {
     pushTimeline(to)(lila.hub.actorApi.timeline.PlanStart)
     Bus.publish(lila.hub.actorApi.plan.MonthInc(to.id, to.plan.months), "plan")
-    Bus.publish(lila.hub.actorApi.plan.PlanGift(from.id, to.id), "planStart")
+    Bus.publish(lila.hub.actorApi.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
   }
 
   private def pushTimeline(user: User)(f: User.ID => Atom): Unit =

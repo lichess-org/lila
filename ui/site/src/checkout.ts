@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 
+
 export interface Pricing {
   currency: string;
   default: number;
@@ -11,8 +12,7 @@ export interface Pricing {
 export default function (publicKey: string, pricing: Pricing) {
   const $checkout = $('div.plan_checkout');
 
-  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
-  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
+  const hasLifetime = $('#freq_lifetime').prop('disabled');
 
   const getFreq = () => $checkout.find('group.freq input:checked').val();
   const getDest = () => $checkout.find('group.dest input:checked').val();
@@ -40,6 +40,9 @@ export default function (publicKey: string, pricing: Pricing) {
     const $monthly = $('#freq_monthly');
     toggleInput($monthly, !isGift);
     $checkout.find('.gift').toggleClass('none', !isGift).find('input').val('');
+    const $lifetime = $('#freq_lifetime');
+    toggleInput($lifetime, isGift || !hasLifetime);
+    $lifetime.toggleClass('lifetime-check', !isGift && hasLifetime);
     if (isGift) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
@@ -123,4 +126,8 @@ export default function (publicKey: string, pricing: Pricing) {
   $(window).on('popstate', function () {
     window.stripeHandler.close();
   });
+
+  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
+  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
+  if (location.hash === '#gift') $('#dest_gift').trigger('click');
 }

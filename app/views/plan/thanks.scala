@@ -30,7 +30,10 @@ object thanks {
             case (Some(gift), _) =>
               p(
                 userIdLink(gift.userId.some),
-                " is now a Lichess Patron for one month, thanks to you!"
+                " ",
+                if (gift.isLifetime) "is now a lifetime Lichess Patron"
+                else "is now a Lichess Patron for one month",
+                ", thanks to you!"
               )
             case (_, Some(pat)) =>
               if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
@@ -71,7 +74,7 @@ object thanks {
           br,
           br,
           br,
-          a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
+          a(href := s"${routes.Plan.list}#gift")(makeAdditionalDonation())
         )
       )
     }

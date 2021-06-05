@@ -1,6 +1,5 @@
 package views.html.plan
 
-
 import play.api.i18n.Lang
 
 import lila.api.Context
@@ -164,13 +163,13 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                     ),
                     div(
                       st.title := payLifetimeOnce.txt(pricing.lifetime.display),
-                      cls := List("lifetime-check" -> patron.exists(_.isLifetime)),
                       input(
                         tpe := "radio",
                         name := "freq",
                         id := "freq_lifetime",
                         patron.exists(_.isLifetime) option disabled,
-                        value := "lifetime"
+                        value := "lifetime",
+                        cls := List("lifetime-check" -> patron.exists(_.isLifetime))
                       ),
                       label(`for` := "freq_lifetime")(lifetime())
                     )

@@ -144,7 +144,7 @@
 
     group input:checked + label,
     .amount_fixed label,
-    .lifetime-check input + label {
+    .lifetime-check + label {
       background: $c-good;
       border-color: $c-border;
       box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
