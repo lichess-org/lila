@@ -86,7 +86,7 @@ module.exports = function (ctrl) {
           'h2',
           {
             class: 'text',
-            'data-icon': '7',
+            'data-icon': '',
           },
           'Chess Insights'
         ),

@@ -138,7 +138,7 @@ lichess.load.then(() => {
         group.forEach(a => {
           a.element.title = 'Click to expand';
           a.element.classList.add('text');
-          a.element.setAttribute('data-icon', '=');
+          a.element.setAttribute('data-icon', '');
           a.element.addEventListener('click', function (e) {
             if (e.button === 0) {
               e.preventDefault();

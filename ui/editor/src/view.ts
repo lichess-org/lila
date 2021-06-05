@@ -46,7 +46,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '4',
+            'data-icon': '',
             disabled: !state.legalFen,
           },
           class: {

@@ -87,7 +87,7 @@ object bits {
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
         a(cls := "lobby__box__top", href := routes.Blog.index())(
-          h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
+          h2(cls := "title text", dataIcon := "")(trans.latestUpdates()),
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(

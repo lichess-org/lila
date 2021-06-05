@@ -517,7 +517,7 @@ object mod {
   private val playban         = iconTag("p")
   private val alt: Frag       = i("A")
   private val shadowban: Frag = iconTag("c")
-  private val boosting: Frag  = iconTag("9")
+  private val boosting: Frag  = iconTag("")
   private val engine: Frag    = iconTag("n")
   private val closed: Frag    = iconTag("k")
   private val clean: Frag     = iconTag("r")
@@ -554,7 +554,7 @@ object mod {
             sortNumberTh(closed)(cls := "i", title := "Closed"),
             sortNumberTh(reportban)(cls := "i", title := "Reportban"),
             sortNumberTh(notesText)(cls := "i", title := "Notes"),
-            sortNumberTh(iconTag("6"))(cls := "i", title := "Appeals"),
+            sortNumberTh(iconTag(""))(cls := "i", title := "Appeals"),
             sortNumberTh("Created"),
             sortNumberTh("Active"),
             isGranted(_.CloseAccount) option th
@@ -612,7 +612,7 @@ object mod {
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
-                      dataIcon := "6",
+                      dataIcon := "",
                       title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted ?? " [MUTED]"}"
                     )(appeal.msgs.size)
                   )

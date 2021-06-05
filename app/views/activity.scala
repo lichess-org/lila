@@ -152,7 +152,7 @@ object activity {
 
   private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(implicit ctx: Context) =
     entryTag(
-      iconTag(";"),
+      iconTag(""),
       div(
         trans.activity.playedNbMoves.pluralSame(nb),
         " ",
@@ -172,7 +172,7 @@ object activity {
 
   private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(implicit ctx: Context) =
     entryTag(
-      iconTag(";"),
+      iconTag(""),
       div(
         trans.activity.completedNbGames.plural(score.size, subCount(score.size)),
         score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
@@ -242,7 +242,7 @@ object activity {
 
   private def renderStudies(studies: List[lila.study.Study.IdName])(implicit ctx: Context) =
     entryTag(
-      iconTag("4"),
+      iconTag(""),
       div(
         trans.activity.createdNbStudies.pluralSame(studies.size),
         subTag(

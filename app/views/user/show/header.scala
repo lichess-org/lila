@@ -249,7 +249,7 @@ object header {
                 )
               ),
               info.insightVisible option
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "7")(
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "")(
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")

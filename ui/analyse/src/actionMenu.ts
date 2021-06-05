@@ -115,7 +115,7 @@ function studyButton(ctrl: AnalyseCtrl) {
           href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
           target: '_blank',
           rel: 'noopener',
-          'data-icon': '4',
+          'data-icon': '',
         },
       },
       ctrl.trans.noarg('openStudy')
@@ -143,7 +143,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '4',
+            'data-icon': '',
           },
         },
         ctrl.trans.noarg('toStudy')

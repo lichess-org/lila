@@ -23,7 +23,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     invitedStudy: {
       html: n =>
-        generic(n, '/study/' + n.content.studyId, '4', [
+        generic(n, '/study/' + n.content.studyId, '', [
           h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
           h('span', trans('invitedYouToX', n.content.studyName)),
         ]),
@@ -74,7 +74,7 @@ export default function makeRenderers(trans: Trans): Renderers {
           default:
             result = trans.noarg('draw');
         }
-        return generic(n, '/' + n.content.id, ';', [
+        return generic(n, '/' + n.content.id, '', [
           h('span', [h('strong', trans('gameVsX', userFullName(n.content.opponent))), drawTime(n)]),
           h('span', result),
         ]);
@@ -105,7 +105,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     coachReview: {
       html: n =>
-        generic(n, '/coach/edit', ':', [
+        generic(n, '/coach/edit', '', [
           h('span', [h('strong', 'New pending review'), drawTime(n)]),
           h('span', trans.noarg('someoneReviewedYourCoachProfile')),
         ]),
@@ -121,7 +121,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     corresAlarm: {
       html: n =>
-        generic(n, '/' + n.content.id, ';', [
+        generic(n, '/' + n.content.id, '', [
           h('span', [h('strong', trans.noarg('timeAlmostUp')), drawTime(n)]),
           // not a `LightUser`, could be a game against Stockfish
           h('span', trans('gameVsX', n.content.op)),

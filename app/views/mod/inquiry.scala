@@ -164,7 +164,7 @@ object inquiry {
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              markButton(in.user.marks.boost)(dataIcon := "9"),
+              markButton(in.user.marks.boost)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))

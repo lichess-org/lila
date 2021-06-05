@@ -205,7 +205,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       moreJs = moreJs
     ) {
       val sep                  = div(cls := "sep")
-      val external             = frag(" ", i(dataIcon := "0"))
+      val external             = frag(" ", i(dataIcon := ""))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(

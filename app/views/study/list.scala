@@ -116,7 +116,7 @@ object list {
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
-        iconTag("4"),
+        iconTag(""),
         p(trans.study.noneYet())
       )
     else

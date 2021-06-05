@@ -69,7 +69,7 @@ object replay {
         downloadAttr
       )(trans.downloadImported()),
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
+        a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
           dataIcon := "",
           cls := "text",

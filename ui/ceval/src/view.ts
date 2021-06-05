@@ -68,7 +68,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       hidden: !!ctrl.getNode().check,
     },
     attrs: {
-      'data-icon': '7',
+      'data-icon': '',
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
     hook: {

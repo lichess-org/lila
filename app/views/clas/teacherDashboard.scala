@@ -262,7 +262,7 @@ object teacherDashboard {
             dataSortNumberTh(trans.games()),
             dataSortNumberTh(trans.puzzles()),
             dataSortNumberTh(trans.clas.lastActiveDate()),
-            th(iconTag("5")(title := trans.clas.managed.txt()))
+            th(iconTag("")(title := trans.clas.managed.txt()))
           )
         ),
         tbody(
@@ -277,7 +277,7 @@ object teacherDashboard {
               td(dataSort := user.seenAt.map(_.getMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
                 dataSort := (if (student.managed) 1 else 0),
-                student.managed option iconTag("5")(title := trans.clas.managed.txt())
+                student.managed option iconTag("")(title := trans.clas.managed.txt())
               )
             )
           }

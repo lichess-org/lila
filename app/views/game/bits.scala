@@ -16,7 +16,7 @@ object bits {
       case Some(p) if game.variant.exotic => p.iconChar
       case _ if game.hasAi                => 'n'
       case Some(p)                        => p.iconChar
-      case _                              => '8'
+      case _                              => ''
     }
 
   def sides(

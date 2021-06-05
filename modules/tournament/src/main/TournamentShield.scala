@@ -184,13 +184,13 @@ object TournamentShield {
     case object Antichess
         extends Category(
           of = Right(chess.variant.Antichess),
-          iconChar = '@'
+          iconChar = ''
         )
 
     case object Atomic
         extends Category(
           of = Right(chess.variant.Atomic),
-          iconChar = '>'
+          iconChar = ''
         )
 
     case object ThreeCheck
@@ -242,7 +242,7 @@ object TournamentShield {
 
   def spotlight(name: String) =
     Spotlight(
-      iconFont = "5".some,
+      iconFont = "".some,
       headline = s"Battle for the $name Shield",
       description =
         s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.

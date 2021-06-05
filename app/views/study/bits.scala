@@ -50,7 +50,7 @@ object bits {
   def widget(s: lila.study.Study.WithChaptersAndLiked, tag: Tag = h2)(implicit ctx: Context) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id.value), title := s.study.name.value),
-      div(cls := "top", dataIcon := "4")(
+      div(cls := "top", dataIcon := "")(
         div(
           tag(cls := "study-name")(s.study.name.value),
           span(

@@ -19,7 +19,7 @@ function tournamentClass(tour: Tournament, day: Date) {
 }
 
 function iconOf(tour, perfIcon) {
-  return tour.schedule && tour.schedule.freq === 'shield' ? '5' : perfIcon;
+  return tour.schedule && tour.schedule.freq === 'shield' ? '' : perfIcon;
 }
 
 function renderTournament(tour: Tournament, day: Date) {

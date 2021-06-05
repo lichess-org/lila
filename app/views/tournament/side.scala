@@ -53,7 +53,7 @@ object side {
           st.section(
             markdownLinksOrRichText(s.description),
             shieldOwner map { owner =>
-              p(cls := "defender", dataIcon := "5")(
+              p(cls := "defender", dataIcon := "")(
                 "Defender:",
                 userIdLink(owner.value.some)
               )

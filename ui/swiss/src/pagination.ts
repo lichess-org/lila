@@ -21,7 +21,7 @@ function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
   return ctrl.data.me
     ? h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
         attrs: {
-          'data-icon': '7',
+          'data-icon': '',
           title: 'Scroll to your player',
         },
         hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),

@@ -81,7 +81,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             'a.button.text',
             {
               attrs: {
-                'data-icon': '4',
+                'data-icon': '',
                 href: `/study/${studyId}/clone`,
               },
             },

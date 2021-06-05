@@ -75,7 +75,7 @@ function expandGames(games: Expandable[]): void {
     games.forEach(game => {
       game.element.title = 'Click to expand';
       game.element.classList.add('text');
-      game.element.setAttribute('data-icon', '=');
+      game.element.setAttribute('data-icon', '');
       game.element.addEventListener('click', e => {
         if (e.button === 0) {
           e.preventDefault();

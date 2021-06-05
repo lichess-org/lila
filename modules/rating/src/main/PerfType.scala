@@ -74,7 +74,7 @@ object PerfType {
         key = "correspondence",
         name = "Correspondence",
         title = Speed.Correspondence.title,
-        iconChar = ';'
+        iconChar = ''
       )
 
   case object Standard
@@ -83,7 +83,7 @@ object PerfType {
         key = "standard",
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
-        iconChar = '8'
+        iconChar = ''
       )
 
   case object Chess960
@@ -110,7 +110,7 @@ object PerfType {
         key = "antichess",
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
-        iconChar = '@'
+        iconChar = ''
       )
 
   case object Atomic
@@ -119,7 +119,7 @@ object PerfType {
         key = "atomic",
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
-        iconChar = '>'
+        iconChar = ''
       )
 
   case object ThreeCheck
