@@ -57,7 +57,7 @@
   <string name="computerAnalysisAvailable">Kompiuter-Analüse verfüegbar</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Düüfi: %s</string>
-  <string name="usingServerAnalysis">Server-Analüse wird verwändet</string>
+  <string name="usingServerAnalysis">Server-Analüsä wird bruucht</string>
   <string name="loadingEngine">Engine wird gladä ...</string>
   <string name="cloudAnalysis">Wulchä-Analüse</string>
   <string name="goDeeper">D Düüfi erhöchä</string>
@@ -185,7 +185,7 @@
   <string name="ratingStats">Wärtigsstatistikä</string>
   <string name="username">Benutzernamä</string>
   <string name="usernameOrEmail">Benutzernamä oder E-Mail-Adrässe</string>
-  <string name="changeUsername">Benutzernamä anderä</string>
+  <string name="changeUsername">Benutzernamä änderä</string>
   <string name="changeUsernameNotSame">Nur d Groos- und Chliischriibig cha gänderet werdä. Zum Bischbiil: \"FritzliMüller\" zu \"FRiTzLiMüLlEr\".</string>
   <string name="changeUsernameDescription">Änderä din Beutzernamä. Das chasch nur einisch machä und du chasch nur Groos- und Chliischriibig änderä.</string>
   <string name="password">Passwort</string>
