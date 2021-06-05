@@ -56,39 +56,9 @@ final class PlanApi(
         }
     }
 
-  private val stripeGifts = cacheApi.notLoadingSync[PaymentIntentId, User.ID](64, "plan.stripeGift") {
-    _.expireAfterWrite(1 hour).build()
-  }
-
-  // will be followed with `onStripeCharge` shortly
-  def onCompletedSession(session: StripeCompletedSession): Funit =
-    customerIdPatron(session.customer) flatMap {
-      case None =>
-        logger.warn(s"Completed Session of unknown patron $session")
-        funit
-      case Some(prevPatron) =>
-        userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
-          session.giftTo match {
-            case Some(giftTo) =>
-              for {
-                to <- userRepo byId giftTo orFail s"Missing patron gift dest $giftTo"
-                _  <- gift(user, to, session.money)
-              } yield stripeGifts.put(session.payment_intent.pp(to.id), to.id)
-            case None =>
-              userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
-                val patron = prevPatron
-                  .copy(lastLevelUp = Some(DateTime.now))
-                  .removePayPal
-                  .expireInOneMonth(!session.freq.renew)
-                patronColl.update.one($id(user.id), patron, upsert = true).void
-              }
-          }
-        }
-    }
-
   def onStripeCharge(stripeCharge: StripeCharge): Funit = for {
     patronOption <- customerIdPatron(stripeCharge.customer)
-    giftTo       <- stripeCharge.payment_intent ?? stripeGifts.getIfPresent ?? userRepo.byId
+    giftTo       <- stripeCharge.giftTo ?? userRepo.byId
     money = stripeCharge.amount toMoney stripeCharge.currency
     usd <- currencyApi toUsd money
     charge = Charge
@@ -101,21 +71,25 @@ final class PlanApi(
       )
     isLifetime <- pricingApi isLifetime money
     _          <- addCharge(charge, stripeCharge.country)
-    _ <- giftTo.isEmpty ?? {
-      patronOption match {
-        case None =>
-          logger.info(s"Charged anon customer $charge")
-          funit
-        case Some(patron) =>
-          logger.info(s"Charged $charge $patron")
-          userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
-            val p2 = patron.levelUpIfPossible
-            patronColl.update.one($id(patron.id), p2) >>
-              setDbUserPlanOnCharge(user, patron.canLevelUp) >> {
-                isLifetime ?? setLifetime(user, none)
-              }
+    _ <- patronOption match {
+      case None =>
+        logger.info(s"Charged anon customer $charge")
+        funit
+      case Some(prevPatron) =>
+        logger.info(s"Charged $charge $prevPatron")
+        userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
+          giftTo match {
+            case Some(to) => gift(user, to, money)
+            case None =>
+              val patron = prevPatron
+                .copy(lastLevelUp = prevPatron.lastLevelUp orElse DateTime.now.some)
+                .levelUpIfPossible
+              patronColl.update.one($id(prevPatron.id), patron) >>
+                setDbUserPlanOnCharge(user, prevPatron.canLevelUp) >> {
+                  isLifetime ?? setLifetime(user, none)
+                }
           }
-      }
+        }
     }
   } yield ()
 
@@ -324,6 +298,17 @@ final class PlanApi(
       }
     }
 
+  def recentGiftFrom(from: User): Fu[Option[Patron]] =
+    patronColl
+      .find(
+        $doc(
+          "free.by" -> from.id,
+          "free.at" $gt DateTime.now.minusMinutes(2)
+        )
+      )
+      .sort($sort desc "free.at")
+      .one[Patron]
+
   def remove(user: User): Funit =
     userRepo.unsetPlan(user) >>
       patronColl.unsetField($id(user.id), "lifetime").void >>-
@@ -473,7 +458,7 @@ final class PlanApi(
   def createPaymentUpdateSession(sub: StripeSubscription, nextUrls: NextUrls): Fu[StripeSession] =
     stripeClient.createPaymentUpdateSession(sub, nextUrls)
 
-  def updatePayment(sub: StripeSubscription, sessionId: String) =
+  def updatePaymentMethod(sub: StripeSubscription, sessionId: String) =
     stripeClient.getSession(sessionId) flatMap {
       _ ?? { session =>
         stripeClient.setCustomerPaymentMethod(sub.customer, session.setup_intent.payment_method) zip

@@ -1,5 +1,6 @@
 package lila.plan
 
+
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.JsonBodyReadables._
@@ -39,8 +40,9 @@ final private class StripeClient(
       "line_items[0][quantity]"                -> 1
     ) ::: data.giftTo.?? { giftTo =>
       List(
-        "metadata[gift]"             -> giftTo.id,
-        "line_items[0][description]" -> s"Gift Patron wings to ${giftTo.username}"
+        "metadata[giftTo]"                      -> giftTo.id,
+        "payment_intent_data[metadata][giftTo]" -> giftTo.id, // so we can get it from charge.metadata.giftTo
+        "line_items[0][description]"            -> s"Gift Patron wings to ${giftTo.username}"
       )
     }
     postOne[StripeSession]("checkout/sessions", args: _*)

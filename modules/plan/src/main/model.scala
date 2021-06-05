@@ -7,12 +7,11 @@ import play.api.i18n.Lang
 
 import lila.user.User
 
-case class ChargeId(value: String)        extends AnyVal
-case class ClientId(value: String)        extends AnyVal
-case class CustomerId(value: String)      extends AnyVal
-case class SessionId(value: String)       extends AnyVal
-case class SubscriptionId(value: String)  extends AnyVal
-case class PaymentIntentId(value: String) extends AnyVal
+case class ChargeId(value: String)       extends AnyVal
+case class ClientId(value: String)       extends AnyVal
+case class CustomerId(value: String)     extends AnyVal
+case class SessionId(value: String)      extends AnyVal
+case class SubscriptionId(value: String) extends AnyVal
 
 case class Source(value: String) extends AnyVal
 
@@ -103,9 +102,10 @@ case class StripeCharge(
     currency: Currency,
     customer: CustomerId,
     billing_details: Option[StripeCharge.BillingDetails],
-    payment_intent: Option[PaymentIntentId]
+    metadata: Map[String, String]
 ) {
-  def country = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def giftTo: Option[User.ID] = metadata get "giftTo"
 }
 
 object StripeCharge {
@@ -132,13 +132,12 @@ case class StripeCompletedSession(
     customer: CustomerId,
     mode: String,
     metadata: Map[String, String],
-    payment_intent: PaymentIntentId,
     amount_total: StripeAmount,
     currency: Currency
 ) {
   def freq                    = if (mode == "subscription") Freq.Monthly else Freq.Onetime
   def money                   = amount_total toMoney currency
-  def giftTo: Option[User.ID] = metadata get "gift"
+  def giftTo: Option[User.ID] = metadata get "giftTo"
 }
 
 case class StripeSetupIntent(payment_method: String)

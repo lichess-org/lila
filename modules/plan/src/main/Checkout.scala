@@ -14,7 +14,9 @@ case class Checkout(
     freq: Freq,
     giftTo: Option[String]
 ) {
-  def oneTimeGift = giftTo ifFalse freq.renew
+  def fixFreq = copy(
+    freq = if (giftTo.isDefined) Freq.Onetime else freq
+  )
 }
 
 private object Checkout {

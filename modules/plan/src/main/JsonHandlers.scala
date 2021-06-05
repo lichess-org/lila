@@ -7,13 +7,12 @@ import scala.util.Try
 
 private[plan] object JsonHandlers {
 
-  implicit val StripeSubscriptionId  = Reads.of[String].map(SubscriptionId.apply)
-  implicit val StripeClientId        = Reads.of[String].map(ClientId.apply)
-  implicit val StripeSessionId       = Reads.of[String].map(SessionId.apply)
-  implicit val StripeCustomerId      = Reads.of[String].map(CustomerId.apply)
-  implicit val StripeChargeId        = Reads.of[String].map(ChargeId.apply)
-  implicit val StripePaymentIntentId = Reads.of[String].map(PaymentIntentId.apply)
-  implicit val StripeAmountReads     = Reads.of[Int].map(StripeAmount.apply)
+  implicit val StripeSubscriptionId = Reads.of[String].map(SubscriptionId.apply)
+  implicit val StripeClientId       = Reads.of[String].map(ClientId.apply)
+  implicit val StripeSessionId      = Reads.of[String].map(SessionId.apply)
+  implicit val StripeCustomerId     = Reads.of[String].map(CustomerId.apply)
+  implicit val StripeChargeId       = Reads.of[String].map(ChargeId.apply)
+  implicit val StripeAmountReads    = Reads.of[Int].map(StripeAmount.apply)
   implicit val CurrencyReads = Reads.of[String].flatMapResult { code =>
     Try(Currency getInstance code.toUpperCase).fold(err => JsError(err.getMessage), cur => JsSuccess(cur))
   }

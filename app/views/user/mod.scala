@@ -268,12 +268,12 @@ object mod {
         ul(
           charges.map { c =>
             li(
-              c.money.display,
               c.giftTo match {
-                case Some(giftedId) if u is giftedId => frag(" Gift from", userIdLink(c.userId))
-                case Some(giftedId)                  => frag(" Gift to", userIdLink(giftedId.some))
+                case Some(giftedId) if u is giftedId => frag("Gift from", userIdLink(c.userId), " ")
+                case Some(giftedId)                  => frag("Gift to", userIdLink(giftedId.some), " ")
                 case _                               => emptyFrag
               },
+              c.money.display,
               " with ",
               c.serviceName,
               " on ",

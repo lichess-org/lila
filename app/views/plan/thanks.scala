@@ -10,7 +10,11 @@ object thanks {
 
   import trans.patron._
 
-  def apply(patron: Option[lila.plan.Patron], customer: Option[lila.plan.StripeCustomer])(implicit
+  def apply(
+      patron: Option[lila.plan.Patron],
+      customer: Option[lila.plan.StripeCustomer],
+      gift: Option[lila.plan.Patron]
+  )(implicit
       ctx: Context
   ) =
     views.html.base.layout(
@@ -22,38 +26,52 @@ object thanks {
         div(cls := "body")(
           p(tyvm()),
           p(transactionCompleted()),
-          patron.map { pat =>
-            if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
+          (gift, patron) match {
+            case (Some(gift), _) =>
               p(
-                permanentPatron(),
-                br,
-                a(href := routes.User.show(me.username))(checkOutProfile())
+                userIdLink(gift.userId.some),
+                " is now a Lichess Patron for one month, thanks to you!"
               )
-            }
-            else {
-              frag(
-                if (pat.isLifetime)
-                  p(
-                    nowLifetime(),
-                    br,
-                    ctx.me.map { me =>
-                      a(href := routes.User.show(me.username))(checkOutProfile())
-                    }
-                  )
-                else
-                  frag(
+            case (_, Some(pat)) =>
+              if (pat.payPal.exists(_.renew) || customer.exists(_.renew)) ctx.me.fold(emptyFrag) { me =>
+                p(
+                  permanentPatron(),
+                  br,
+                  a(href := routes.User.show(me.username))(checkOutProfile())
+                )
+              }
+              else {
+                frag(
+                  if (pat.isLifetime)
                     p(
-                      nowOneMonth(),
+                      nowLifetime(),
                       br,
                       ctx.me.map { me =>
                         a(href := routes.User.show(me.username))(checkOutProfile())
                       }
-                    ),
-                    p(downgradeNextMonth())
-                  )
-              )
-            }
-          }
+                    )
+                  else
+                    frag(
+                      p(
+                        nowOneMonth(),
+                        br,
+                        ctx.me.map { me =>
+                          a(href := routes.User.show(me.username))(checkOutProfile())
+                        }
+                      ),
+                      p(downgradeNextMonth())
+                    )
+                )
+              }
+            case _ => emptyFrag
+          },
+          br,
+          br,
+          br,
+          br,
+          br,
+          br,
+          a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
         )
       )
     }

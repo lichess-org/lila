@@ -137,11 +137,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     Open { implicit ctx =>
       // wait for the payment data from stripe or paypal
       lila.common.Future.delay(2.seconds) {
-        ctx.me ?? env.plan.api.userPatron flatMap { patron =>
-          patron ?? env.plan.api.patronCustomer map { customer =>
-            Ok(html.plan.thanks(patron, customer))
-          }
-        }
+        for {
+          patron   <- ctx.me ?? env.plan.api.userPatron
+          customer <- patron ?? env.plan.api.patronCustomer
+          gift     <- ctx.me ?? env.plan.api.recentGiftFrom
+        } yield Ok(html.plan.thanks(patron, customer, gift))
       }
     }
 
@@ -204,12 +204,12 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                 logger.info(s"Plan.stripeCheckout 400: $err")
                 BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).fuccess
               },
-              checkout =>
-                checkout.oneTimeGift
-                  .map(lila.user.User.normalize)
-                  .filterNot(ctx.userId.has)
-                  .??(env.user.repo.named) flatMap { gifted =>
-                  env.plan.api.userCustomer(me) flatMap {
+              data => {
+                val checkout = data.fixFreq
+                for {
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.named)
+                  customer <- env.plan.api.userCustomer(me)
+                  session <- customer match {
                     case Some(customer) if checkout.freq == Freq.Onetime =>
                       createStripeSession(checkout, customer.id, gifted)
                     case Some(customer) if customer.firstSubscription.isDefined =>
@@ -219,7 +219,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
                         .makeCustomer(me, checkout)
                         .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
                   }
-                }
+                } yield session
+              }
             )
         }
       }(rateLimitedFu)
@@ -252,7 +253,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       get("session") ?? { session =>
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api.updatePayment(sub, session) inject Redirect(routes.Plan.index)
+            env.plan.api.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
           }
         }
       }

@@ -25,12 +25,6 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
               api onSubscriptionDeleted sub
-            /* After a successful payment, stripe sends
-             * `checkout.session.completed` and then
-             * `charge.succeeded`. */
-            case "checkout.session.completed" =>
-              val sub = data.asOpt[StripeCompletedSession] err s"Invalid session completed $data"
-              api onCompletedSession sub
             case "charge.succeeded" =>
               val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
               api onStripeCharge charge
