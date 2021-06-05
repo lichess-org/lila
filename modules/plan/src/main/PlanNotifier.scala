@@ -28,4 +28,7 @@ final private[plan] class PlanNotifier(
 
   def onExpire(user: User): Unit =
     lila.common.Bus.publish(lila.hub.actorApi.plan.PlanExpire(user.id), "planExpire")
+
+  def onGift(from: User, to: User, isLifetime: Boolean): Unit =
+    onStart(to)
 }

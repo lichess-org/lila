@@ -56,8 +56,8 @@ final class PlanApi(
         }
     }
 
-  private val stripeGifts = cacheApi.notLoadingSync[ChargeId, User.ID](64, "plan.stripeGift") {
-    _.expireAfterWrite(1 minute).build()
+  private val stripeGifts = cacheApi.notLoadingSync[PaymentIntentId, User.ID](64, "plan.stripeGift") {
+    _.expireAfterWrite(1 hour).build()
   }
 
   // will be followed with `onStripeCharge` shortly
@@ -67,41 +67,42 @@ final class PlanApi(
         logger.warn(s"Completed Session of unknown patron $session")
         funit
       case Some(prevPatron) =>
-        session.giftTo match {
-          case Some(giftTo) =>
-            stripeClient.chargeIdOf(session) map2 { stripeGifts.put(_, giftTo) }
-            stripeGifts.put(session.charge
-            userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
-              val patron = prevPatron
-                .copy(lastLevelUp = Some(DateTime.now))
-                .removePayPal
-                .expireInOneMonth(!session.freq.renew)
-              patronColl.update.one($id(user.id), patron, upsert = true).void
-          case None =>
-            userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
-              val patron = prevPatron
-                .copy(lastLevelUp = Some(DateTime.now))
-                .removePayPal
-                .expireInOneMonth(!session.freq.renew)
-              patronColl.update.one($id(user.id), patron, upsert = true).void
-            }
+        userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
+          session.giftTo match {
+            case Some(giftTo) =>
+              for {
+                to <- userRepo byId giftTo orFail s"Missing patron gift dest $giftTo"
+                _  <- gift(user, to, session.money)
+              } yield stripeGifts.put(session.payment_intent.pp(to.id), to.id)
+            case None =>
+              userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
+                val patron = prevPatron
+                  .copy(lastLevelUp = Some(DateTime.now))
+                  .removePayPal
+                  .expireInOneMonth(!session.freq.renew)
+                patronColl.update.one($id(user.id), patron, upsert = true).void
+              }
+          }
         }
     }
 
   def onStripeCharge(stripeCharge: StripeCharge): Funit = for {
     patronOption <- customerIdPatron(stripeCharge.customer)
+    giftTo       <- stripeCharge.payment_intent ?? stripeGifts.getIfPresent ?? userRepo.byId
     money = stripeCharge.amount toMoney stripeCharge.currency
     usd <- currencyApi toUsd money
-    charge = Charge.make(
-      userId = patronOption.map(_.userId),
-      giftTo = none, // TODO
-      stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
-      money = money,
-      usd = usd | Usd(0)
-    )
+    charge = Charge
+      .make(
+        userId = patronOption.map(_.userId),
+        giftTo = giftTo.map(_.id),
+        stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
+        money = money,
+        usd = usd | Usd(0)
+      )
+      .pp
     isLifetime <- pricingApi isLifetime money
     _          <- addCharge(charge, stripeCharge.country)
-    _ <-
+    _ <- giftTo.isEmpty ?? {
       patronOption match {
         case None =>
           logger.info(s"Charged anon customer $charge")
@@ -116,6 +117,7 @@ final class PlanApi(
               }
           }
       }
+    }
   } yield ()
 
   def onPaypalCharge(
@@ -304,18 +306,28 @@ final class PlanApi(
       )
       .void >> setDbUserPlanOnCharge(user, levelUp = false)
 
-  def giftMonth(from: User, to: User): Funit =
-    patronColl.update
-      .one(
-        $id(to.id),
-        $set(
-          "lastLevelUp" -> DateTime.now,
-          "free"        -> Patron.Free(DateTime.now, by = from.id.some),
-          "expiresAt"   -> DateTime.now.plusMonths(1)
-        ),
-        upsert = true
-      )
-      .void >> setDbUserPlanOnCharge(to, levelUp = false)
+  def gift(from: User, to: User, money: Money): Funit =
+    !to.isPatron ?? {
+      for {
+        isLifetime <- pricingApi isLifetime money
+        patron     <- patronColl.byId[Patron](to.id)
+        _ <- patronColl.update
+          .one(
+            $id(to.id),
+            $set(
+              "lastLevelUp" -> DateTime.now,
+              "lifetime"    -> isLifetime,
+              "free"        -> Patron.Free(DateTime.now, by = from.id.some),
+              "expiresAt"   -> DateTime.now.plusMonths(1)
+            ),
+            upsert = true
+          )
+        plan = to.plan.incMonths
+        _    = Bus.publish(lila.hub.actorApi.plan.MonthInc(to.id, plan.months), "plan")
+        _    = notifier.onGift(from, to, isLifetime)
+        _ <- setDbUserPlan(to, plan)
+      } yield ()
+    }
 
   def remove(user: User): Funit =
     userRepo.unsetPlan(user) >>
