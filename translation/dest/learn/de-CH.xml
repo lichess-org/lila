@@ -91,8 +91,8 @@
   <string name="mateInOneComplete">Härzlichä Glückwunsch! So gwüünt mä im Schach!</string>
   <string name="intermediate">Mittlers Niveau - fiir Wallischär</string>
   <string name="boardSetup">Üüfstelligu</string>
-  <string name="howTheGameStarts">Wie das Spiel beginnt</string>
-  <string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
+  <string name="howTheGameStarts">Wi das Spiili aafu tüet</string>
+  <string name="boardSetupIntro">Di beidnu Trüüch stächin enandär vis-à-vis, gräch fird Schlacht.</string>
   <string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Schachpartie. Mache einen beliebigen Zug, um fortzufahren.</string>
   <string name="firstPlaceTheRooks">Setze zuerst die Türme! Sie stehen in den Ecken.</string>
   <string name="thenPlaceTheKnights">Platziere jetzt die Springer! Sie stehen neben den Türmen.</string>
