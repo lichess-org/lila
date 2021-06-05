@@ -21,13 +21,12 @@
   <string name="lifetime">Levenslang</string>
   <string name="payLifetimeOnce">Betaal %s eenmalig. Wees voor altijd een Lichess Patroon!</string>
   <string name="lifetimePatron">Levenslange Lichess Patroon</string>
-  <string name="makeExtraDonation">Een extra donatie maken?</string>
   <string name="monthly">Maandelijks</string>
   <string name="recurringBilling">Terugkerende betaling, verlengt je Patroonvleugels elke maand.</string>
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">Een enkele donatie die u de Patroonvleugels geeft voor één maand.</string>
   <string name="otherAmount">Overige</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Voer een bedrag in %s in</string>
+  <string name="pleaseEnterAmountInX">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
