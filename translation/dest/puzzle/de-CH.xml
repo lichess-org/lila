@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Taktikaufgaben</string>
-  <string name="puzzleThemes">Aufgabenthemen</string>
-  <string name="recommended">Empfohlen</string>
-  <string name="phases">Phasen</string>
-  <string name="motifs">Motive</string>
+  <string name="puzzles">Uufgabä</string>
+  <string name="puzzleThemes">Uufgabäthemänä</string>
+  <string name="recommended">Empfohlä</string>
+  <string name="phases">Phasä</string>
+  <string name="motifs">Motiv</string>
   <string name="advanced">Fortgeschritten</string>
   <string name="lengths">Längen</string>
   <string name="mates">Matts</string>
