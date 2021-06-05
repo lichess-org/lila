@@ -62,17 +62,13 @@
     }
   }
 
-  .payments {
+  .gifts {
     font-size: 0.9em;
+    width: auto;
 
-    th {
-      text-align: left;
-      font-weight: bold;
-    }
-
-    th,
     td {
-      padding: 10px 5px;
+      padding: 0.4em 1em;
+      border: 0;
     }
   }
 

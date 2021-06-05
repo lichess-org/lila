@@ -18,7 +18,8 @@ object indexStripe {
       patron: lila.plan.Patron,
       info: lila.plan.MonthlyCustomerInfo,
       stripePublicKey: String,
-      pricing: lila.plan.PlanPricing
+      pricing: lila.plan.PlanPricing,
+      gifts: List[lila.plan.Charge.Gift]
   )(implicit
       ctx: Context
   ) =
@@ -56,9 +57,7 @@ object indexStripe {
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
-                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation()),
-                br,
-                a(href := s"${routes.Plan.list}#gift")(giftPatronWings())
+                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
               )
             ),
             tr(
@@ -119,6 +118,23 @@ object indexStripe {
                   )
                 },
                 a(cls := "update-payment-method")("Update payment method")
+              )
+            ),
+            tr(
+              th("Gifts"),
+              td(
+                a(href := s"${routes.Plan.list}#gift")(giftPatronWings()),
+                gifts.nonEmpty option
+                  table(cls := "slist gifts")(
+                    tbody(
+                      gifts.map { gift =>
+                        tr(
+                          td(userIdLink(gift.to.some)),
+                          td(momentFromNow(gift.date))
+                        )
+                      }
+                    )
+                  )
               )
             ),
             tr(

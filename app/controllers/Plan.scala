@@ -88,9 +88,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
     info    <- env.plan.api.customerInfo(me, customer)
+    gifts   <- env.plan.api.giftsFrom(me)
     res <- info match {
       case Some(info: MonthlyCustomerInfo) =>
-        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing)).fuccess
+        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).fuccess
       case Some(info: OneTimeCustomerInfo) =>
         renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None =>

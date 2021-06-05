@@ -1,6 +1,7 @@
 package lila.plan
 
 import org.joda.time.DateTime
+import cats.implicits._
 
 import lila.user.User
 
@@ -24,6 +25,8 @@ case class Charge(
     if (isStripe) "stripe"
     else if (isPayPal) "paypal"
     else "???"
+
+  def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
 }
 
 object Charge {
@@ -59,4 +62,6 @@ object Charge {
       txnId: Option[String],
       subId: Option[String]
   )
+
+  case class Gift(from: User.ID, to: User.ID, date: DateTime)
 }

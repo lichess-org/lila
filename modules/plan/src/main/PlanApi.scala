@@ -342,6 +342,14 @@ final class PlanApi(
       .cursor[Charge]()
       .list()
 
+  def giftsFrom(user: User): Fu[List[Charge.Gift]] =
+    chargeColl
+      .find($doc("userId" -> user.id, "giftTo" $exists true))
+      .sort($doc("date" -> -1))
+      .cursor[Charge]()
+      .list()
+      .map(_.flatMap(_.toGift))
+
   private val topPatronUserIdsNb = 300
   private val topPatronUserIdsCache = mongoCache.unit[List[User.ID]](
     "patron:top",
