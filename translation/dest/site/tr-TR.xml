@@ -680,7 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Bilgisayar varyantlarını görebilmek için yukarı kaydır.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
-  <string name="receiveForumNotifications">Forumda bahsedildiğinde bildirim alın</string>
+  <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
   <string name="shareYourInsightsData">Satranç oyun verilerinizi diğerleriyle paylaşın</string>
   <string name="withNobody">Hiçkimse ile</string>
   <string name="withFriends">Yalnızca arkadaşlarımla</string>
