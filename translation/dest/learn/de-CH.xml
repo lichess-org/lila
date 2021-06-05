@@ -106,30 +106,30 @@
   <string name="castlingIntro">Bring din König in Sicherheit und dä Turm in Agriffsposition!</string>
   <string name="castleKingSide">Beweg din König zwei Fälder, um churz z\'roschiärä!</string>
   <string name="castleQueenSide">Beweg din König zwei Fälder, um lang z\'roschiärä!</string>
-  <string name="theKnightIsInTheWay">Der Springer ist im Weg! Bewege ihn weg und rochiere dann kurz.</string>
-  <string name="castleKingSideMovePiecesFirst">Rochiere kurz! Du musst zuerst Figuren wegbewegen.</string>
-  <string name="castleQueenSideMovePiecesFirst">Rochiere lang! Du musst zuerst Figuren wegbewegen.</string>
-  <string name="youCannotCastleIfMoved">Du kannst nicht rochieren, wenn der König oder der Turm bereits bewegt wurden.</string>
-  <string name="youCannotCastleIfAttacked">Du kannst nicht rochieren, wenn der König auf seinem Weg bedroht wird. Blocke das Schach und rochiere dann!</string>
-  <string name="findAWayToCastleKingSide">Finde eine Möglichkeit,
-kurz zu rochieren!</string>
-  <string name="findAWayToCastleQueenSide">Finde eine Möglichkeit,
-lang zu rochieren!</string>
-  <string name="castlingComplete">Herzlichen Glückwunsch! Die Rochade ist in fast jedem Spiel empfehlenswert.</string>
-  <string name="enPassant">En passant</string>
-  <string name="theSpecialPawnMove">Der besondere Bauernzug</string>
-  <string name="enPassantIntro">Wenn der gegnerische Bauer zwei Felder gezogen ist, kannst du ihn schlagen als wenn er nur ein Feld gezogen wäre.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hat seinen Bauern um zwei Felder bewegt!
-Schlage ihn en passant.</string>
-  <string name="enPassantOnlyWorksImmediately">En passant funktioniert nur 
-unmittelbar nachdem der Gegner 
-den Bauern bewegt hat.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">En passant funktioniert nur, 
-wenn sich dein Bauer auf der 5. Reihe befindet.</string>
-  <string name="takeAllThePawnsEnPassant">Schlage alle Bauern en passant!</string>
-  <string name="enPassantComplete">Herzlichen Glückwunsch! Du kannst jetzt en passant schlagen.</string>
+  <string name="theKnightIsInTheWay">Dä Gaul isch im Wäg! Beweg\'än wägg und roschiär dänn churz.</string>
+  <string name="castleKingSideMovePiecesFirst">Roschiär churz! Du muesch zersch Figurä wäggbewegä.</string>
+  <string name="castleQueenSideMovePiecesFirst">Roschiär lang! Du muesch zersch Figurä wäggbewegä.</string>
+  <string name="youCannotCastleIfMoved">Du chasch nüm rochiärä, wänn dä König oder dä Turm bereits bewegt wordä sind.</string>
+  <string name="youCannotCastleIfAttacked">Du chasch nöd rochiärä, solang dä König uf sim Wäg bedroht wird. Block das Schach und roschiär dänn!</string>
+  <string name="findAWayToCastleKingSide">Find ä Möglichkeit,
+churz z\'rochiärä!</string>
+  <string name="findAWayToCastleQueenSide">Find ä Möglichkeit,
+lang z\'rochiärä!</string>
+  <string name="castlingComplete">Härzlichä Glückwunsch! D\'Roschaadä isch i fascht jedem Spiil empfehlenswärt.</string>
+  <string name="enPassant">Im Vorbigoh</string>
+  <string name="theSpecialPawnMove">Dä bsunderi Puuräzug</string>
+  <string name="enPassantIntro">Wänn dä gegnärische Puur zwei Fälder zogä worde isch, chasch du in schloh, als wär\'är nur eis Fäld zogä wordä.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Schwarz hät sin Puur um zwei Fälder bewegt!
+Schlohn\'än im Vorbigoh.</string>
+  <string name="enPassantOnlyWorksImmediately">Im Vorbigoh funktioniärt nur 
+unmittelbar nochdäm dä Gegnär 
+dä Puur zwei Fälder bewegt hät.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Im Vorbigoh schloh funktioniärt demfall nur, 
+wänn sich din Puur uf dä 5. Reihä befindät.</string>
+  <string name="takeAllThePawnsEnPassant">Schloh alli Puurä im Vorbigoh!</string>
+  <string name="enPassantComplete">Härzlichä Glückwunsch! Du chasch jetzt im Vorbigoh schloh.</string>
   <string name="stalemate">Patt</string>
-  <string name="theGameIsADraw">Das Spiel ist Remis</string>
+  <string name="theGameIsADraw">S\'Spiil isch Remis</string>
   <string name="stalemateIntro">Wenn ein Spieler nicht im Schach steht und über keinen zulässigen Zug verfügt, ist es ein Patt. Das Spiel endet Remis: Niemand gewinnt, niemand verliert.</string>
   <string name="stalemateGoal">Um Schwarz Patt zu setzen:
 - Schwarz kann sich nicht bewegen
