@@ -167,7 +167,7 @@
   <string name="minutesPerSide">Minutä pro Schpiller</string>
   <string name="variant">Variantä</string>
   <string name="variants">Variantä</string>
-  <string name="timeControl">Überlegigsziit</string>
+  <string name="timeControl">Bedenkzyt</string>
   <string name="realTime">Ächtziit</string>
   <string name="correspondence">Färnschach</string>
   <string name="daysPerTurn">Täg pro Zug</string>
@@ -251,7 +251,7 @@
   <string name="inbox">Poschtiigang</string>
   <string name="chatRoom">Chätruum</string>
   <string name="loginToChat">Mäld dich a zum chäte</string>
-  <string name="youHaveBeenTimedOut">Dir isch e Uusziit verordnet wordä.</string>
+  <string name="youHaveBeenTimedOut">Du machsch etz mol Pause.</string>
   <string name="spectatorRoom">Zuäschauerrum</string>
   <string name="composeMessage">Nachricht verfassä</string>
   <string name="noNewMessages">Käi neui Nachrichtä</string>
@@ -747,7 +747,7 @@
   <string name="error.min">Muss mindestens %s sein</string>
   <string name="error.max">Darf höchstens %s sein</string>
   <string name="error.unknown">Fehler</string>
-  <string name="custom">Andere Spielzeit</string>
+  <string name="custom">Anderi Spielziit</string>
   <string name="notifications">Benachrichtigungen</string>
   <string name="perfRatingX">Wertung: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
