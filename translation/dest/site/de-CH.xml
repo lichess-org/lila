@@ -137,8 +137,8 @@
   <string name="offerDraw">Remis aabütä</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Spieler</item>
-    <item quantity="other">%s Spieler</item>
+    <item quantity="one">%s Schpiller</item>
+    <item quantity="other">%s Schpiller</item>
   </plurals>
   <string name="currentGames">Laufendi Partiiä</string>
   <plurals name="nbGames">
