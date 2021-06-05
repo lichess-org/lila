@@ -48,6 +48,8 @@ final class Env(
 
   lazy val priceApi: PlanPricingApi = wire[PlanPricingApi]
 
+  lazy val checkoutForm = wire[CheckoutForm]
+
   private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
@@ -84,7 +86,7 @@ final class Env(
     notifier
   )
 
-  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
     expiration.run.unit
   }
 
@@ -94,7 +96,7 @@ final class Env(
         case "patron" :: "lifetime" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
+          userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.remove } inject "ok"
       }

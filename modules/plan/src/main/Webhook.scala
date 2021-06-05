@@ -22,15 +22,12 @@ final class WebhookHandler(api: PlanApi)(implicit ec: scala.concurrent.Execution
         } yield {
           logger.debug(s"WebHook $name $id ${Json.stringify(data).take(100)}")
           name match {
-            case "charge.succeeded" =>
-              val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
-              api onStripeCharge charge
             case "customer.subscription.deleted" =>
               val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
               api onSubscriptionDeleted sub
-            case "checkout.session.completed" =>
-              val sub = data.asOpt[StripeCompletedSession] err s"Invalid session completed $data"
-              api onCompletedSession sub
+            case "charge.succeeded" =>
+              val charge = data.asOpt[StripeCharge] err s"Invalid charge $data"
+              api onStripeCharge charge
             case _ => funit
           }
         })

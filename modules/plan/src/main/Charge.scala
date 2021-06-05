@@ -1,10 +1,14 @@
 package lila.plan
 
 import org.joda.time.DateTime
+import cats.implicits._
+
+import lila.user.User
 
 case class Charge(
     _id: String, // random
-    userId: Option[String],
+    userId: Option[User.ID],
+    giftTo: Option[User.ID] = none,
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPal] = none,
     money: Money,
@@ -21,12 +25,15 @@ case class Charge(
     if (isStripe) "stripe"
     else if (isPayPal) "paypal"
     else "???"
+
+  def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
 }
 
 object Charge {
 
   def make(
-      userId: Option[String],
+      userId: Option[User.ID],
+      giftTo: Option[User.ID],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPal] = none,
       money: Money,
@@ -35,6 +42,7 @@ object Charge {
     Charge(
       _id = lila.common.ThreadLocalRandom nextString 8,
       userId = userId,
+      giftTo = giftTo,
       stripe = stripe,
       payPal = payPal,
       money = money,
@@ -54,4 +62,6 @@ object Charge {
       txnId: Option[String],
       subId: Option[String]
   )
+
+  case class Gift(from: User.ID, to: User.ID, date: DateTime)
 }

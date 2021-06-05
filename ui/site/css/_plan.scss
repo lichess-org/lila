@@ -62,17 +62,13 @@
     }
   }
 
-  .payments {
+  .gifts {
     font-size: 0.9em;
+    width: auto;
 
-    th {
-      text-align: left;
-      font-weight: bold;
-    }
-
-    th,
     td {
-      padding: 10px 5px;
+      padding: 0.4em 1em;
+      border: 0;
     }
   }
 
@@ -144,7 +140,7 @@
 
     group input:checked + label,
     .amount_fixed label,
-    .lifetime-check input + label {
+    .lifetime-check + label {
       background: $c-good;
       border-color: $c-border;
       box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15) inset !important;
@@ -182,6 +178,12 @@
 
     .service .button:first-child {
       margin-right: 1em;
+    }
+
+    .gift {
+      @extend %flex-center;
+      justify-content: center;
+      margin: -1em 0 1em 0;
     }
   }
 

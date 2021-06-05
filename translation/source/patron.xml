@@ -21,7 +21,6 @@
   <string name="lifetime">Lifetime</string>
   <string name="payLifetimeOnce">Pay %s once. Be a Lichess Patron forever!</string>
   <string name="lifetimePatron">Lifetime Lichess Patron</string>
-  <string name="makeExtraDonation">Make an extra donation?</string>
   <string name="monthly">Monthly</string>
   <string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
   <string name="onetime">One-time</string>
@@ -59,7 +58,8 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="currentStatus">Current status</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
-  <string name="makeAdditionalDonation">Make an additional donation now</string>
+  <string name="makeAdditionalDonation">Make an additional donation</string>
+  <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>

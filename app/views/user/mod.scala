@@ -226,7 +226,7 @@ object mod {
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+        strong(cls := "text inline", dataIcon := "%")("Notable preferences"),
         ul(
           (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
           pref.botCompatible option li(
@@ -245,17 +245,17 @@ object mod {
 
   def showRageSit(rageSit: RageSit) =
     mzSection("sitdccounter")(
-      strong(cls := "text inline")("Ragesit counter: "),
-      span(cls := "text inline")(rageSit.counterView)
+      strong(cls := "text inline")("Ragesit counter"),
+      strong(cls := "fat")(rageSit.counterView)
     )
 
-  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
-    charges.headOption.map { firstCharge =>
+  def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
+    charges.nonEmpty option
       mzSection("plan")(
-        strong(cls := "text", dataIcon := patronIconChar)(
+        strong(cls := "text inline", dataIcon := patronIconChar)(
           "Patron payments",
           isGranted(_.PayPal) option {
-            firstCharge.payPal.flatMap(_.subId).map { subId =>
+            charges.find(_.giftTo.isEmpty).flatMap(_.payPal).flatMap(_.subId).map { subId =>
               frag(
                 " - ",
                 a(
@@ -267,12 +267,23 @@ object mod {
         ),
         ul(
           charges.map { c =>
-            li(c.money.display, " with ", c.serviceName, " on ", showDateTimeUTC(c.date), " UTC")
+            li(
+              c.giftTo match {
+                case Some(giftedId) if u is giftedId => frag("Gift from", userIdLink(c.userId), " ")
+                case Some(giftedId)                  => frag("Gift to", userIdLink(giftedId.some), " ")
+                case _                               => emptyFrag
+              },
+              c.money.display,
+              " with ",
+              c.serviceName,
+              " on ",
+              showDateTimeUTC(c.date),
+              " UTC"
+            )
           }
         ),
         br
       )
-    }
 
   def student(managed: lila.clas.Student.ManagedInfo)(implicit ctx: Context): Frag =
     mzSection("student")(

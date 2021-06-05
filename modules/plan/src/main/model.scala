@@ -5,6 +5,8 @@ import java.util.{ Currency, Locale }
 import org.joda.time.DateTime
 import play.api.i18n.Lang
 
+import lila.user.User
+
 case class ChargeId(value: String)       extends AnyVal
 case class ClientId(value: String)       extends AnyVal
 case class CustomerId(value: String)     extends AnyVal
@@ -53,7 +55,7 @@ case class Country(code: String) extends AnyVal
 
 case class StripeSubscriptions(data: List[StripeSubscription])
 
-case class StripeProducts(monthly: String, onetime: String)
+case class StripeProducts(monthly: String, onetime: String, gift: String)
 
 case class StripeItem(id: String, price: StripePrice)
 
@@ -65,7 +67,12 @@ case class StripePrice(product: String, unit_amount: StripeAmount, currency: Cur
 case class NextUrls(cancel: String, success: String)
 
 case class StripeSession(id: SessionId)
-case class CreateStripeSession(customerId: CustomerId, checkout: Checkout, urls: NextUrls)
+case class CreateStripeSession(
+    customerId: CustomerId,
+    checkout: Checkout,
+    urls: NextUrls,
+    giftTo: Option[User]
+)
 
 case class StripeSubscription(
     id: String,
@@ -94,9 +101,11 @@ case class StripeCharge(
     amount: StripeAmount,
     currency: Currency,
     customer: CustomerId,
-    billing_details: Option[StripeCharge.BillingDetails]
+    billing_details: Option[StripeCharge.BillingDetails],
+    metadata: Map[String, String]
 ) {
-  def country = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def country                 = billing_details.flatMap(_.address).flatMap(_.country).map(Country)
+  def giftTo: Option[User.ID] = metadata get "giftTo"
 }
 
 object StripeCharge {
@@ -119,8 +128,16 @@ case class StripePaymentMethod(card: Option[StripeCard])
 
 case class StripeCard(brand: String, last4: String, exp_year: Int, exp_month: Int)
 
-case class StripeCompletedSession(customer: CustomerId, mode: String) {
-  def freq = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+case class StripeCompletedSession(
+    customer: CustomerId,
+    mode: String,
+    metadata: Map[String, String],
+    amount_total: StripeAmount,
+    currency: Currency
+) {
+  def freq                    = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+  def money                   = amount_total toMoney currency
+  def giftTo: Option[User.ID] = metadata get "giftTo"
 }
 
 case class StripeSetupIntent(payment_method: String)

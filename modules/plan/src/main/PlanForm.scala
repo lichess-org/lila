@@ -32,7 +32,7 @@ object PlanForm {
       currencyCode: String,
       gross: BigDecimal,
       fee: BigDecimal,
-      userId: Option[String],
+      custom: Option[String],
       email: Option[String],
       firstName: Option[String],
       lastName: Option[String],
@@ -45,6 +45,12 @@ object PlanForm {
 
     def money = CurrencyApi currencyOption currencyCode map {
       Money(gross, _)
+    }
+
+    val (userId, giftTo) = custom.??(_.trim) match {
+      case s"$userId $giftTo" => (userId.some, giftTo.some)
+      case s"$userId"         => (userId.some, none)
+      case _                  => (none, none)
     }
   }
 }

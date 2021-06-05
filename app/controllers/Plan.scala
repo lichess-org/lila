@@ -88,9 +88,10 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   ) = for {
     pricing <- env.plan.priceApi.pricingOrDefault(myCurrency)
     info    <- env.plan.api.customerInfo(me, customer)
+    gifts   <- env.plan.api.giftsFrom(me)
     res <- info match {
       case Some(info: MonthlyCustomerInfo) =>
-        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing)).fuccess
+        Ok(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts)).fuccess
       case Some(info: OneTimeCustomerInfo) =>
         renderIndex(info.customer.email map EmailAddress.apply, patron.some)
       case None =>
@@ -137,11 +138,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
     Open { implicit ctx =>
       // wait for the payment data from stripe or paypal
       lila.common.Future.delay(2.seconds) {
-        ctx.me ?? env.plan.api.userPatron flatMap { patron =>
-          patron ?? env.plan.api.patronCustomer map { customer =>
-            Ok(html.plan.thanks(patron, customer))
-          }
-        }
+        for {
+          patron   <- ctx.me ?? env.plan.api.userPatron
+          customer <- patron ?? env.plan.api.patronCustomer
+          gift     <- ctx.me ?? env.plan.api.recentGiftFrom
+        } yield Ok(html.plan.thanks(patron, customer, gift))
       }
     }
 
@@ -152,13 +153,16 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       }
     }
 
-  def badStripeSession[A: Writes](err: A) = BadRequest(jsonError(err))
   def badStripeApiCall: PartialFunction[Throwable, Result] = { case e: StripeException =>
     logger.error("Plan.stripeCheckout", e)
-    badStripeSession("Stripe API call failed")
+    BadRequest(jsonError("Stripe API call failed"))
   }
 
-  private def createStripeSession(checkout: Checkout, customerId: CustomerId) =
+  private def createStripeSession(
+      checkout: Checkout,
+      customerId: CustomerId,
+      giftTo: Option[lila.user.User]
+  ) =
     env.plan.api
       .createSession(
         CreateStripeSession(
@@ -167,7 +171,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
           NextUrls(
             cancel = s"${env.net.baseUrl}${routes.Plan.index}",
             success = s"${env.net.baseUrl}${routes.Plan.thanks}"
-          )
+          ),
+          giftTo = giftTo
         )
       )
       .map(session => JsonOk(Json.obj("session" -> Json.obj("id" -> session.id.value))))
@@ -192,25 +197,31 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       implicit val req = ctx.body
       StripeRateLimit(HTTPRequest ipAddress req) {
         env.plan.priceApi.pricingOrDefault(myCurrency) flatMap { pricing =>
-          lila.plan.Checkout
+          env.plan.checkoutForm
             .form(pricing)
             .bindFromRequest()
             .fold(
               err => {
                 logger.info(s"Plan.stripeCheckout 400: $err")
-                badStripeSession(err.toString).fuccess
+                BadRequest(jsonError(err.errors.map(_.message) mkString ", ")).fuccess
               },
-              checkout =>
-                env.plan.api.userCustomer(me) flatMap {
-                  case Some(customer) if checkout.freq == Freq.Onetime =>
-                    createStripeSession(checkout, customer.id)
-                  case Some(customer) if customer.firstSubscription.isDefined =>
-                    switchStripePlan(me, checkout.money)
-                  case _ =>
-                    env.plan.api
-                      .makeCustomer(me, checkout)
-                      .flatMap(customer => createStripeSession(checkout, customer.id))
-                }
+              data => {
+                val checkout = data.fixFreq
+                for {
+                  gifted   <- checkout.giftTo.filterNot(ctx.userId.has).??(env.user.repo.named)
+                  customer <- env.plan.api.userCustomer(me)
+                  session <- customer match {
+                    case Some(customer) if checkout.freq == Freq.Onetime =>
+                      createStripeSession(checkout, customer.id, gifted)
+                    case Some(customer) if customer.firstSubscription.isDefined =>
+                      switchStripePlan(me, checkout.money)
+                    case _ =>
+                      env.plan.api
+                        .makeCustomer(me, checkout)
+                        .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
+                  }
+                } yield session
+              }
             )
         }
       }(rateLimitedFu)
@@ -243,7 +254,7 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       get("session") ?? { session =>
         env.plan.api.userCustomer(me) flatMap {
           _.flatMap(_.firstSubscription) ?? { sub =>
-            env.plan.api.updatePayment(sub, session) inject Redirect(routes.Plan.index)
+            env.plan.api.updatePaymentMethod(sub, session) inject Redirect(routes.Plan.index)
           }
         }
       }
@@ -265,23 +276,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             }
           },
           ipn =>
-            ipn.money match {
-              case None =>
-                logger.error(s"Plan.payPalIpn invalid money $ipn")
-                fuccess(BadRequest)
-              case Some(money) =>
-                env.plan.api.onPaypalCharge(
-                  userId = ipn.userId,
-                  email = ipn.email map PayPal.Email.apply,
-                  subId = ipn.subId map PayPal.SubId.apply,
-                  money = money,
-                  name = ipn.name,
-                  txnId = ipn.txnId,
-                  country = ipn.country,
-                  ip = lila.common.HTTPRequest.ipAddress(req).value,
-                  key = get("key", req) | "N/A"
-                ) inject Ok
-            }
+            env.plan.api.onPaypalCharge(
+              ipn,
+              ip = lila.common.HTTPRequest.ipAddress(req),
+              key = get("key", req) | "N/A"
+            ) inject Ok
         )
     }
 }

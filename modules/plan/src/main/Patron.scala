@@ -2,6 +2,8 @@ package lila.plan
 
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class Patron(
     _id: Patron.UserId,
     stripe: Option[Patron.Stripe] = none,
@@ -68,5 +70,5 @@ object Patron {
     case class SubId(value: String) extends AnyVal
   }
 
-  case class Free(at: DateTime)
+  case class Free(at: DateTime, by: Option[User.ID])
 }

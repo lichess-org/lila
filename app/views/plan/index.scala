@@ -92,77 +92,63 @@ object index {
                 )(
                   raw(s"""
 <form class="paypal_checkout onetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org one-time">
-  <input type="hidden" name="button_subtype" value="services">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormSingle(pricing, "lichess.org one-time")}
 </form>
 <form class="paypal_checkout monthly none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="a3" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick-subscriptions">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org monthly">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="src" value="1">
-  <input type="hidden" name="p3" value="1">
-  <input type="hidden" name="t3" value="M">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormRecurring(pricing, "lichess.org monthly")}
 </form>
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-  <input type="hidden" name="custom" value="${~ctx.userId}">
-  <input type="hidden" name="amount" class="amount" value="">
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="Q3H72BENTXL4G">
-  <input type="hidden" name="item_name" value="lichess.org lifetime">
-  <input type="hidden" name="button_subtype" value="services">
-  <input type="hidden" name="no_note" value="1">
-  <input type="hidden" name="no_shipping" value="1">
-  <input type="hidden" name="rm" value="1">
-  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
-  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
-  <input type="hidden" name="lc" value="${ctx.lang.locale}">
-  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+${payPalFormSingle(pricing, "lichess.org lifetime")}
 </form>"""),
-                  ctx.me map { me =>
-                    p(style := "text-align:center;margin-bottom:1em")(
-                      if (patron.exists(_.isLifetime))
-                        makeExtraDonation()
-                      else
-                        frag(
-                          "Donating ",
-                          strong("publicly"),
-                          " as ",
-                          userSpan(me)
-                        )
+                  st.group(cls := "radio buttons dest")(
+                    div(
+                      ctx.me match {
+                        case None =>
+                          a(href := s"${routes.Auth.login}?referrer=${routes.Plan.index}")("Login to donate")
+                        case Some(me) =>
+                          frag(
+                            input(
+                              tpe := "radio",
+                              name := "dest",
+                              id := "dest_me",
+                              checked,
+                              value := "me"
+                            ),
+                            label(`for` := "dest_me")("Donate as ", me.username)
+                          )
+                      }
+                    ),
+                    div(
+                      input(
+                        tpe := "radio",
+                        name := "dest",
+                        id := "dest_gift",
+                        value := "gift"
+                      ),
+                      label(`for` := "dest_gift")(giftPatronWings())
                     )
-                  },
+                  ),
+                  div(cls := "gift complete-parent none")(
+                    st.input(
+                      name := "giftUsername",
+                      value := "",
+                      cls := "user-autocomplete",
+                      placeholder := trans.clas.lichessUsername.txt(),
+                      autocomplete := "off",
+                      dataTag := "span",
+                      autofocus
+                    )
+                  ),
                   st.group(cls := "radio buttons freq")(
                     div(
-                      st.title := payLifetimeOnce.txt(pricing.lifetime.display),
-                      cls := List("lifetime-check" -> patron.exists(_.isLifetime)),
+                      st.title := singleDonation.txt(),
                       input(
                         tpe := "radio",
                         name := "freq",
-                        id := "freq_lifetime",
-                        patron.exists(_.isLifetime) option disabled,
-                        value := "lifetime"
+                        id := "freq_onetime",
+                        value := "onetime"
                       ),
-                      label(`for` := "freq_lifetime")(lifetime())
+                      label(`for` := "freq_onetime")(onetime())
                     ),
                     div(
                       st.title := recurringBilling.txt(),
@@ -176,15 +162,16 @@ object index {
                       label(`for` := "freq_monthly")(monthly())
                     ),
                     div(
-                      st.title := singleDonation.txt(),
+                      st.title := payLifetimeOnce.txt(pricing.lifetime.display),
                       input(
                         tpe := "radio",
                         name := "freq",
-                        id := "freq_onetime",
-                        checked,
-                        value := "onetime"
+                        id := "freq_lifetime",
+                        patron.exists(_.isLifetime) option disabled,
+                        value := "lifetime",
+                        cls := List("lifetime-check" -> patron.exists(_.isLifetime))
                       ),
-                      label(`for` := "freq_onetime")(onetime())
+                      label(`for` := "freq_lifetime")(lifetime())
                     )
                   ),
                   div(cls := "amount_choice")(
@@ -248,6 +235,36 @@ object index {
       )
     }
   }
+
+  private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
+  ${payPalForm(pricing, itemName)}
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="amount" class="amount" value="">
+  <input type="hidden" name="button_subtype" value="services">
+"""
+
+  private def payPalFormRecurring(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) =
+    s"""
+  ${payPalForm(pricing, itemName)}
+  <input type="hidden" name="cmd" value="_xclick-subscriptions">
+  <input type="hidden" name="a3" class="amount" value="">
+  <input type="hidden" name="p3" value="1">
+  <input type="hidden" name="t3" value="M">
+  <input type="hidden" name="src" value="1">
+"""
+
+  private def payPalForm(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
+  <input type="hidden" name="item_name" value="$itemName">
+  <input type="hidden" name="custom" value="${~ctx.userId}">
+  <input type="hidden" name="business" value="Q3H72BENTXL4G">
+  <input type="hidden" name="no_note" value="1">
+  <input type="hidden" name="no_shipping" value="1">
+  <input type="hidden" name="rm" value="1">
+  <input type="hidden" name="return" value="https://lichess.org/patron/thanks">
+  <input type="hidden" name="cancel_return" value="https://lichess.org/patron">
+  <input type="hidden" name="lc" value="${ctx.lang.locale}">
+  <input type="hidden" name="currency_code" value="${pricing.currencyCode}">
+"""
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(
