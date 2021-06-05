@@ -21,13 +21,12 @@
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang. Vær Lichess-patron for alltid!</string>
   <string name="lifetimePatron">Lichess-patron på livstid</string>
-  <string name="makeExtraDonation">Gi et ekstra bidrag?</string>
   <string name="monthly">Månedlig</string>
   <string name="recurringBilling">Periodisk fakturering. Patronvingene dine fornyes hver måned.</string>
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkeltbidrag som gir deg patronvinger i en måned.</string>
   <string name="otherAmount">Annet</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Angi beløp i %s</string>
+  <string name="pleaseEnterAmountInX">Angi beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
