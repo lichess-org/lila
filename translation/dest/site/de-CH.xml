@@ -479,7 +479,7 @@
   <string name="descPrivate">Privati Beschriibig</string>
   <string name="descPrivateHelp">Texscht wo nume Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt er für Teammitglider de öffentlichi Texscht.</string>
   <string name="no">Nei</string>
-  <string name="yes">Ja</string>
+  <string name="yes">Jawoll</string>
   <string name="help">Hilf:</string>
   <string name="createANewTopic">Erschtell e neus Thema</string>
   <string name="topics">Themä</string>
@@ -495,12 +495,12 @@
   <string name="user">Benutzer</string>
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was isch s\'Problem?</string>
-  <string name="cheat">Betrug</string>
+  <string name="cheat">Bschiss</string>
   <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
   <string name="ratingManipulation">Manipulation vo dä Wärtigszahl</string>
   <string name="other">Suschtigs</string>
-  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit em Benutzer sim verhaltä. Säg nöd eifach \"bschiist\", sonder säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
+  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit em Benutzer sim Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens ein Link zumnä Spiel aa, wo drin bschisse worde isch.</string>
   <string name="by">vo %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch gschlosse worde.</string>
