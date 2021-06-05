@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Stündliche Schnellschach-Arena</string>
-  <string name="hourlyRapid">Stündliches Schnellschach</string>
-  <string name="hourlyXArena">Stündliche %s-Arena</string>
-  <string name="hourlyX">Stündliches %s</string>
-  <string name="dailyRapidArena">Tägliche Schnellschach-Arena</string>
-  <string name="dailyRapid">Tägliches Schnellschach</string>
-  <string name="dailyClassicalArena">Tägliche Klassisch-Arena</string>
-  <string name="dailyClassical">Tägliches Klassisch</string>
-  <string name="dailyXArena">Tägliche %s-Arena</string>
-  <string name="dailyX">Tägliches %s</string>
-  <string name="easternRapidArena">Östliche Schnellschach-Arena</string>
-  <string name="easternRapid">Nächtliches Schnellschach</string>
-  <string name="easternClassicalArena">Nächtliche Klassik-Arena</string>
+  <string name="hourlyRapidArena">Schtündlichi Schnellschach-Arena</string>
+  <string name="hourlyRapid">Schtündlichs Schnellschach</string>
+  <string name="hourlyXArena">Schtündlichi %s-Arena</string>
+  <string name="hourlyX">Schtündlichs %s</string>
+  <string name="dailyRapidArena">Täglichi Schnellschach-Arena</string>
+  <string name="dailyRapid">Täglichs Schnellschach</string>
+  <string name="dailyClassicalArena">Täglichi Klassisch-Arena</string>
+  <string name="dailyClassical">Täglichs Klassisch</string>
+  <string name="dailyXArena">Täglichi %s-Arena</string>
+  <string name="dailyX">Täglichs %s</string>
+  <string name="easternRapidArena">Schnellschach-Arena für Lüüt usem Oschte</string>
+  <string name="easternRapid">Schnellschach für Lüüt usem Oschte</string>
+  <string name="easternClassicalArena">Klassik-Arena für Lüüt usem Oschte</string>
   <string name="easternClassical">Nächtliches Klassik</string>
   <string name="easternXArena">Nächtliche %s-Arena</string>
   <string name="easternX">Nächtliches %s</string>
