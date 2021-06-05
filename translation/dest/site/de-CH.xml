@@ -550,7 +550,7 @@
   <string name="timeline">Verlauf</string>
   <string name="starting">Startät:</string>
   <string name="allInformationIsPublicAndOptional">Alli Informationä sind öffentlich und freiwillig.</string>
-  <string name="yourCityRegionOrDepartment">Dini Stadt, Region oder Bundesland.</string>
+  <string name="yourCityRegionOrDepartment">Dini Stadt, Region oder Kanton.</string>
   <string name="biographyDescription">Verzehl über dich, was du a Schach gärn häsch, dini Lieblingseröffnigä, Partiä, Spieler, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Höchschtens %s Zeichä.</item>
@@ -611,7 +611,7 @@
   <string name="about">Über</string>
   <string name="aboutX">Über %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s isch än freiä, quelläoffnä Schachservär. Gratis (%2$s) und kä Wärbig.</string>
-  <string name="really">wükli</string>
+  <string name="really">würkli</string>
   <string name="contribute">Mitmachä</string>
   <string name="termsOfService">AGB</string>
   <string name="sourceCode">Quällcode</string>
