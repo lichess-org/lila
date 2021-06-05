@@ -23,7 +23,6 @@
   <string name="onetime">Një herë</string>
   <string name="singleDonation">Një donacion i vetëm që u mundëson krahët e Patronit për një muaj.</string>
   <string name="otherAmount">Tjetër</string>
-  <string name="pleaseEnterAmount">Ju lutemi shënoni një shumë në USD</string>
   <string name="withCreditCard">Kartë krediti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ne jemi ekip i vogël, andaj përkrahja juaj bën dallim të madh!</string>
@@ -62,8 +61,6 @@ Sidoqoftë, Patronët mund të mburren me një ikonë të re profili.</string>
   <string name="decideHowMuch">Vendosni se sa vlen Lichess për ju:</string>
   <string name="stopPayments">Tërhiqni kredit kartelën tuaj dhe ndalni pagesat:</string>
   <string name="noLongerSupport">Mos e mbështesni Lichess-in më</string>
-  <string name="paymentHistory">Historia e pagesave</string>
-  <string name="paid">E paguar</string>
   <string name="viewOthers">Shikoni Patronët tjerë të Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Shuma</string>

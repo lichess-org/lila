@@ -681,6 +681,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Задръжте курсора над компютърните вариации за да ги прегледате.</string>
   <string name="analysisShapesHowTo">Натисни shift едновременно с ляво или дясно копче за да рисуваш кръгове и стрелки върху дъската.</string>
   <string name="letOtherPlayersMessageYou">Разреши на другите да ви пишат</string>
+  <string name="receiveForumNotifications">Получаване на съобщения когато сте споменати във форума</string>
   <string name="shareYourInsightsData">Споделете измерванията върху вашата игра</string>
   <string name="withNobody">С никой</string>
   <string name="withFriends">С приятели</string>

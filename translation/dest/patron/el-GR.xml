@@ -27,7 +27,7 @@
   <string name="onetime">Μία φορά</string>
   <string name="singleDonation">Μία μόνο δωρεά που σας δίνει τα φτερά Υποστηρικτή για ένα μήνα.</string>
   <string name="otherAmount">Άλλο</string>
-  <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε δολλάρια</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Εισάγετε ένα ποσό σε %s</string>
   <string name="withCreditCard">Πιστωτική κάρτα</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
@@ -66,8 +66,6 @@
   <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
   <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
   <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
-  <string name="paymentHistory">Ιστορικό πληρωμών</string>
-  <string name="paid">Πληρώθηκε</string>
   <string name="viewOthers">Προβολή άλλων Υποστηρικτών Lichess</string>
   <string name="date">Ημερομηνία</string>
   <string name="amount">Ποσό</string>

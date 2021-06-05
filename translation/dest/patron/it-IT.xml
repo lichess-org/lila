@@ -23,7 +23,6 @@
   <string name="onetime">Una volta</string>
   <string name="singleDonation">Una singola donazione che ti garantisce le ali da Mecenate per un mese.</string>
   <string name="otherAmount">Altro</string>
-  <string name="pleaseEnterAmount">Per favore inserisci un importo in USD</string>
   <string name="withCreditCard">Carta di credito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Siamo un piccolo team, quindi il tuo sostegno fa la differenza!</string>
@@ -62,8 +61,6 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="decideHowMuch">Decidi cosa vale per te in Lichess:</string>
   <string name="stopPayments">Rimuovi la tua carta di credito e ferma i pagamenti:</string>
   <string name="noLongerSupport">Non supportare più Lichess</string>
-  <string name="paymentHistory">Storico pagamenti</string>
-  <string name="paid">Pagato</string>
   <string name="viewOthers">Vedi altri Patroni di Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Importo</string>

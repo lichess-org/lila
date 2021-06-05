@@ -27,7 +27,7 @@
   <string name="onetime">Behin</string>
   <string name="singleDonation">Behin egiteko dohaintza, Babesle egoak hilabeterako jasoko dituzu.</string>
   <string name="otherAmount">Bestelakoa</string>
-  <string name="pleaseEnterAmount">Idatzi kopurua dolarretan</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Idatzi kopurua %stan</string>
   <string name="withCreditCard">Kreditu txartela</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>
@@ -65,8 +65,6 @@ Edo %s.</string>
   <string name="decideHowMuch">Erabaki zenbat balio duen Lichessek zuretzat:</string>
   <string name="stopPayments">Kendu zure kreditu txartela eta ordainketa egiteari utzi:</string>
   <string name="noLongerSupport">Lichess gehiago ez babestu</string>
-  <string name="paymentHistory">Ordainketen historikoa</string>
-  <string name="paid">Ordainduta</string>
   <string name="viewOthers">Beste Lichess Babesle batzuk ikusi</string>
   <string name="date">Data</string>
   <string name="amount">Kopurua</string>

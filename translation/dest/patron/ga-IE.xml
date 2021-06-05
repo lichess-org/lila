@@ -30,7 +30,7 @@
   <string name="onetime">Aonuaire</string>
   <string name="singleDonation">Bronntanas amháin a thugann sciatháin an Phátrúin duit ar feadh míosa.</string>
   <string name="otherAmount">Eile</string>
-  <string name="pleaseEnterAmount">Iontráil méid in USD le do thoil</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Iontráil méid i %s</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
@@ -72,8 +72,6 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="decideHowMuch">Socraigh cad is fiú Lichess duit:</string>
   <string name="stopPayments">Tarraing do chárta creidmheasa as agus stop íocaíochtaí:</string>
   <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>
-  <string name="paymentHistory">Stair íocaíochta</string>
-  <string name="paid">Íoctha</string>
   <string name="viewOthers">Féach ar Phátrúin Lichess eile</string>
   <string name="date">Dáta</string>
   <string name="amount">Méid</string>

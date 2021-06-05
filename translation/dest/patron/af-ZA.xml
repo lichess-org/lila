@@ -23,7 +23,6 @@
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">\'n Enkele donasie wat jou die Beskermheer vlerke fir \'n maand gee.</string>
   <string name="otherAmount">Ander</string>
-  <string name="pleaseEnterAmount">Tik asseblief die bedrag in USD in</string>
   <string name="withCreditCard">Kredietkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ons is \'n klein span, so jou ondersteuning maak \'n groot verskil!</string>
@@ -62,8 +61,6 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="decideHowMuch">Besluit wat Lichess vir jou werd is:</string>
   <string name="stopPayments">Onttrek jou krediet kaart en kanseleer paaiemente:</string>
   <string name="noLongerSupport">Ondersteun nie meer Lichess nie</string>
-  <string name="paymentHistory">Betaling geskiedenis</string>
-  <string name="paid">Betaal</string>
   <string name="viewOthers">Sien ander Lichess Beskermhere</string>
   <string name="date">Datum</string>
   <string name="amount">Bedrag</string>

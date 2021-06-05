@@ -27,7 +27,7 @@
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una única donació que et dona les ales de Patró per un mes.</string>
   <string name="otherAmount">Altre</string>
-  <string name="pleaseEnterAmount">Si us plau, posa la quantitat en USD</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Si us plau, escriu la quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
@@ -66,8 +66,6 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
   <string name="noLongerSupport">Ja no dónes suport a Lichess</string>
-  <string name="paymentHistory">Historial de pagaments</string>
-  <string name="paid">Pagat</string>
   <string name="viewOthers">Veure altres Patrons de Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Quantitat</string>

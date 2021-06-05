@@ -23,7 +23,6 @@
   <string name="onetime">单次</string>
   <string name="singleDonation">单次捐赠会赠予您一个月的赞助者之翼。</string>
   <string name="otherAmount">其他</string>
-  <string name="pleaseEnterAmount">请输入金额（美金）</string>
   <string name="withCreditCard">信用卡</string>
   <string name="withPaypal">贝宝（PayPal）</string>
   <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
@@ -61,8 +60,6 @@
   <string name="decideHowMuch">决定什么 Lichess 对您来说是值得的：</string>
   <string name="stopPayments">撤销您的信用卡并停止支付：</string>
   <string name="noLongerSupport">不再赞助 Lichess</string>
-  <string name="paymentHistory">付款记录</string>
-  <string name="paid">已支付</string>
   <string name="viewOthers">查看其他Lichess赞助者</string>
   <string name="date">日期</string>
   <string name="amount">数量</string>

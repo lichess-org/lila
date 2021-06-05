@@ -27,7 +27,7 @@
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">Een enkele donatie die u de Patroonvleugels geeft voor één maand.</string>
   <string name="otherAmount">Overige</string>
-  <string name="pleaseEnterAmount">Vul een USD bedrag in</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
@@ -66,8 +66,6 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
-  <string name="paymentHistory">Betaalgeschiedenis</string>
-  <string name="paid">Betaald</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>
   <string name="amount">Bedrag</string>

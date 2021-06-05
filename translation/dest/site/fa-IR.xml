@@ -657,6 +657,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
+  <string name="receiveForumNotifications">دریافت اعلان در هنگام ذکر شدن در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="withNobody">هیچکس</string>
   <string name="withFriends">با دوستان</string>

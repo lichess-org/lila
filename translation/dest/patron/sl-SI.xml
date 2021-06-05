@@ -29,7 +29,7 @@
   <string name="onetime">Enkratno</string>
   <string name="singleDonation">Enkratna donacija, ki vam podeli pokroviteljsko ikono za en mesec.</string>
   <string name="otherAmount">Drugo</string>
-  <string name="pleaseEnterAmount">Prosimo, vnesite znesek v USD</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
@@ -69,8 +69,6 @@ Ali pa %s.</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
   <string name="noLongerSupport">Ni več podpore Lichess</string>
-  <string name="paymentHistory">Zgodovina plačil</string>
-  <string name="paid">Plačano</string>
   <string name="viewOthers">Ogled drugih Lichess pokroviteljev</string>
   <string name="date">Datum</string>
   <string name="amount">Znesek</string>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="lichessStreamers">Lichess Streamer</string>
+  <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="live">LIVE!</string>
+  <string name="offline">OFFLINE</string>
+  <string name="currentlyStreaming">Streamt gerade: %s</string>
+  <string name="lastStream">Letzter Stream %s</string>
+  <string name="becomeStreamer">Werde ein Lichess Streamer</string>
+  <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
+  <string name="hereWeGo">Los geht\'s!</string>
+  <string name="allStreamers">Alle Streamer</string>
+  <string name="editPage">Streamerseite bearbeiten</string>
+  <string name="yourPage">Deine Streamerseite</string>
+  <string name="downloadKit">Lade das Streamerpaket herunter</string>
+  <string name="xIsStreaming">%s streamt gerade</string>
+  <string name="rules">Streaming-Regeln</string>
+  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
+  <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-bezogen streamst.</string>
+  <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
+  <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
+  <string name="perk1">Erhalte ein flammendes Streamer-Symbol auf deinem Lichess-Profil.</string>
+  <string name="perk2">Werde an die Spitze der Streamerliste gesetzt.</string>
+  <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
+  <string name="perk4">Zeige deinen Stream in deinen Spielen, Turnieren und Studien.</string>
+  <string name="approved">Dein Stream wurde genehmigt.</string>
+  <string name="pendingReview">Dein Stream wird von Moderatoren überprüft.</string>
+  <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fordere eine Überprüfung durch Moderatoren an</string>
+  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
+Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
+Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
+  <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
+  <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
+  <string name="youtubeChannel">Deine YouTube-Kanal-ID oder -URL</string>
+  <string name="streamerName">Dein Streamername auf Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>
+    <item quantity="other">Kurz halten: Maximal %s Zeichen</item>
+  </plurals>
+  <string name="visibility">Sichtbar auf der Streamerseite</string>
+  <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
+  <string name="headline">Titel</string>
+  <string name="tellUsAboutTheStream">Erzähle uns in einem Satz etwas über deinen Stream</string>
+  <string name="longDescription">Ausführliche Beschreibung</string>
+  <string name="xStreamerPicture">%s Streamerbild</string>
+  <string name="changePicture">Ändere/Lösche dein Bild</string>
+  <string name="uploadPicture">Lade ein Bild hoch</string>
+  <string name="deletePicture">Lösche ein Bild</string>
+  <string name="maxSize">Maximale Größe: %s</string>
+  <string name="installBlocker">Installiere einen Malware-Blocker!</string>
+  <string name="beSafe">Schütze dich vor Werbung und Trackern,
+die Twitch und YouTube befallen.
+Lichess empfiehlt uBlock Origin,
+was kostenlos und quelloffen ist.</string>
+</resources>

@@ -22,7 +22,6 @@
   <string name="onetime">Једноктратно</string>
   <string name="singleDonation">Једнократна донација која ти даје Патрон крила један месец.</string>
   <string name="otherAmount">Остало</string>
-  <string name="pleaseEnterAmount">Молимо унесите износ у USD</string>
   <string name="withCreditCard">Кредитна Картица</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ми смо мали тим, па твоја подршка прави велику разлику!</string>
@@ -57,8 +56,6 @@
   <string name="xOrY">%1$s или %2$s</string>
   <string name="decideHowMuch">Одлучи колико Личес теби вреди:</string>
   <string name="stopPayments">Повуци своју кредитну картицу и обустави наплате:</string>
-  <string name="paymentHistory">Историја плаћања</string>
-  <string name="paid">Плаћено</string>
   <string name="viewOthers">Погледај остале Личес Патроне</string>
   <string name="date">Датум</string>
   <string name="amount">Износ</string>

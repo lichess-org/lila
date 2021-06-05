@@ -26,7 +26,7 @@
   <string name="onetime">Satu kali</string>
   <string name="singleDonation">Donasi satu kali yang memberi Anda Sayap Patron selama satu bulan.</string>
   <string name="otherAmount">Lainnya</string>
-  <string name="pleaseEnterAmount">Silakan masukkan jumlah dalam bentuk USD</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Silakan masukkan sebuah jumlah dalam bentuk %s</string>
   <string name="withCreditCard">Kartu Kredit</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Kami adalah tim kecil, jadi dukungan Anda membuat perubahan besar!</string>
@@ -63,8 +63,6 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="decideHowMuch">Putuskan apa yang layak bagi Lichess berguna bagi Anda:</string>
   <string name="stopPayments">Tarik kartu kredit Anda dan hentikan pembayaran:</string>
   <string name="noLongerSupport">Tidak lagi mendukung Lichess</string>
-  <string name="paymentHistory">Riwayat pembayaran</string>
-  <string name="paid">Dibayar</string>
   <string name="viewOthers">Lihat Penyokong Lichess lainnya</string>
   <string name="date">Tanggal</string>
   <string name="amount">Jumlah</string>

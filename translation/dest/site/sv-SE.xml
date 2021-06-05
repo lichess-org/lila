@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Rulla över datorvarianter för att förhandsgranska dem.</string>
   <string name="analysisShapesHowTo">Håll nere Skift när du klickar eller högerklickar för att rita cirklar och pilar på brädet.</string>
   <string name="letOtherPlayersMessageYou">Tillåt att andra spelare skickar meddelanden till dig</string>
+  <string name="receiveForumNotifications">Få aviseringar vid omnämningar i forumet</string>
   <string name="shareYourInsightsData">Dela din information från Chess Insights</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vänner</string>

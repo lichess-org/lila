@@ -23,7 +23,6 @@
   <string name="onetime">Bir Dəfəlik</string>
   <string name="singleDonation">Sizə bir ay müddətində Dəstəkçi qanadları verən tək səfərlik ianə.</string>
   <string name="otherAmount">Digər</string>
-  <string name="pleaseEnterAmount">Zəhmət olmasa məbləği ABŞ dollarında daxil edin</string>
   <string name="withCreditCard">Kredit Kartı</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Biz kiçik bir komandayıq, bu səbəbdən dəstəyiniz böyük bir fərq yaradır!</string>
@@ -62,8 +61,6 @@ Bununla belə, Dəstəkçilər yeni bir profil simvolu ilə öyünmə hüquqlar�
   <string name="decideHowMuch">Lichessin sizin üçün nə qədər dəyərli olduğuna qərar verin:</string>
   <string name="stopPayments">Kredit kartınızı geri çəkin və ödənişləri dayandırın:</string>
   <string name="noLongerSupport">Artıq Lichessi dəstəkləmir</string>
-  <string name="paymentHistory">Ödəmə keçmişi</string>
-  <string name="paid">Pullu</string>
   <string name="viewOthers">Digər Lichess Dəstəkçilərinə baxın</string>
   <string name="date">Tarix</string>
   <string name="amount">Miqdar</string>

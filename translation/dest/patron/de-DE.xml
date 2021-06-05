@@ -27,7 +27,7 @@
   <string name="onetime">Einmalig</string>
   <string name="singleDonation">Eine einmalige Spende, die dir Patron-Flügel für einen Monat verleiht.</string>
   <string name="otherAmount">Anderer</string>
-  <string name="pleaseEnterAmount">Bitte gib einen Betrag in US-Dollar ein</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Bitte gib einen Betrag in %s ein</string>
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Wir sind ein kleines Team, deswegen macht deine Unterstützung einen riesen Unterschied!</string>
@@ -66,8 +66,6 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="decideHowMuch">Entscheide wieviel dir Lichess wert ist:</string>
   <string name="stopPayments">Deine Kreditkarte zurückziehen und Zahlungen beenden:</string>
   <string name="noLongerSupport">Lichess nicht weiter unterstützen</string>
-  <string name="paymentHistory">Zahlungsverlauf</string>
-  <string name="paid">Bezahlt</string>
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>

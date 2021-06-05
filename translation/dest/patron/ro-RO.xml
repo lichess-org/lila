@@ -28,7 +28,7 @@
   <string name="onetime">O dată</string>
   <string name="singleDonation">O singură donație care îți oferă aripile de Patron pentru o lună.</string>
   <string name="otherAmount">Altă sumă</string>
-  <string name="pleaseEnterAmount">Te rugăm să introduci suma în dolari americani</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Te rugăm să introduci o sumă în %s</string>
   <string name="withCreditCard">Card de credit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta face o diferență uriașă!</string>
@@ -68,8 +68,6 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="decideHowMuch">Decide cât valorează Lichess pentru tine:</string>
   <string name="stopPayments">Retrage-ți cardul de credit și oprește plățile:</string>
   <string name="noLongerSupport">Nu mai susține Lichess</string>
-  <string name="paymentHistory">Istoric tranzacții</string>
-  <string name="paid">Plătit</string>
   <string name="viewOthers">Vezi alți Patroni Lichess</string>
   <string name="date">Dată</string>
   <string name="amount">Suma</string>

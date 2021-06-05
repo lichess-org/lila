@@ -23,7 +23,6 @@
   <string name="onetime">Jednorázově</string>
   <string name="singleDonation">Jediný příspěvek, který vám poskytne křídla Patrona na jeden měsíc.</string>
   <string name="otherAmount">Ostatní</string>
-  <string name="pleaseEnterAmount">Zadejte částku v USD</string>
   <string name="withCreditCard">Platební karta</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
@@ -64,8 +63,6 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="decideHowMuch">Rozhodněte se, jakou má pro Vás Lichess hodnotu:</string>
   <string name="stopPayments">Odebrat kreditní kartu a zastavit platby:</string>
   <string name="noLongerSupport">Už nepodporovat Lichess</string>
-  <string name="paymentHistory">Historie plateb</string>
-  <string name="paid">Zaplaceno</string>
   <string name="viewOthers">Zobrazit ostatní Lichess Patrony</string>
   <string name="date">Datum</string>
   <string name="amount">Částka</string>

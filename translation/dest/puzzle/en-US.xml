@@ -63,4 +63,5 @@
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
   <string name="continueTheStreak">Continue the streak</string>
   <string name="newStreak">New streak</string>
+  <string name="fromMyGames">Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).</string>
 </resources>

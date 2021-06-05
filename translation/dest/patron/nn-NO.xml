@@ -27,7 +27,7 @@
   <string name="onetime">Ein gong</string>
   <string name="singleDonation">Eit enkelt bidrag vil gje deg bidragsytar-vingar i ein månad.</string>
   <string name="otherAmount">Anna</string>
-  <string name="pleaseEnterAmount">Ver venleg og skriv inn eit beløp i USA-dollar (USD)</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Ver venleg å oppgje eit beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er ei lita gruppe, så støtta di er av stor vekt!</string>
@@ -66,8 +66,6 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="decideHowMuch">Avgjer kor stor verde Lichess har for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljar og stopp faste innbetalingar:</string>
   <string name="noLongerSupport">Avslutt å støtte Lichess</string>
-  <string name="paymentHistory">Betalingshistorikk</string>
-  <string name="paid">Betalt</string>
   <string name="viewOthers">Sjå andre Lichess-mesenar</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>

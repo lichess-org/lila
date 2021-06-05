@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre las variantes del análisis para previsualizarlas.</string>
   <string name="analysisShapesHowTo">Haga clic con el botón derecho o Máyus+clic para dibujar círculos y flechas en el tablero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que otras personas te envíen mensajes</string>
+  <string name="receiveForumNotifications">Recibir notificaciones cuando alguien te mencione en el foro</string>
   <string name="shareYourInsightsData">Comparte tus datos estadísticos</string>
   <string name="withNobody">Con nadie</string>
   <string name="withFriends">Con mis amigos</string>
@@ -849,7 +850,7 @@
   <string name="unsubscribe">Cancelar la suscripción</string>
   <string name="mentionedYouInX">te mencionó en \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s te mencionó en \"%2$s\".</string>
-  <string name="invitedYouToX"> te invitó a «%1$s».</string>
+  <string name="invitedYouToX">te invitó a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ya estás en el equipo.</string>
   <string name="youHaveJoinedTeamX">Te has unido a «%1$s».</string>

@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
+  <string name="receiveForumNotifications">Receba notificações quando você for mencionado no fórum</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>

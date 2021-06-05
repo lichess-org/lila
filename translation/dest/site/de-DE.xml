@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Fahre über Computervarianten, um eine Vorschau auf sie zu erhalten.</string>
   <string name="analysisShapesHowTo">Drücke Shift+Mausklick oder Rechtsklick, um Kreise und Pfeile auf dem Brett zu zeichnen.</string>
   <string name="letOtherPlayersMessageYou">Erlaube anderen Spielern dich zu kontaktieren</string>
+  <string name="receiveForumNotifications">Benachrichtigungen erhalten, wenn du im Forum erwähnt wirst</string>
   <string name="shareYourInsightsData">Deine persönlichen Spielerstatistiken teilen</string>
   <string name="withNobody">Mit niemandem</string>
   <string name="withFriends">Mit deinen Freunden</string>

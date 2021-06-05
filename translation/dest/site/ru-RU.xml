@@ -752,6 +752,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Листайте варианты для их предпросмотра.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
+  <string name="receiveForumNotifications">Получать уведомления при упоминании на форуме</string>
   <string name="shareYourInsightsData">Делиться вашей шахматной аналитикой</string>
   <string name="withNobody">Ни с кем</string>
   <string name="withFriends">С друзьями</string>
