@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Zwei-Faktorä Autentifizierig</string>
-  <string name="twoFactorHelp">Zwei-Faktor Authentifizierung fügt deinem Konto ein zusätzliches Sicherheitsmerkmal hinzu.</string>
-  <string name="twoFactorApp">Installiere eine App für Zwei-Faktor-Authentifizierung, zum Beispiel andOTP für %1$s oder Google Authenticator für %2$s.</string>
-  <string name="scanTheCode">Scanne den QR Code mit der App.</string>
-  <string name="enterPassword">Gib dein Passwort und den Authentifizierungscode ein, der von der App generiert wurde, um die Einrichtung abzuschließen. Du benötigst für jede weitere Anmeldung einen Authentifizierungscode.</string>
-  <string name="ifYouCannotScanEnterX">Falls du den Code nicht einscannen kannst, gib den geheimen Code %s in deine App ein.</string>
-  <string name="authenticationCode">Authentifizierungscode</string>
-  <string name="ifYouLoseAccess">Hinweis: Wenn du den Zugang zu deinen Zwei-Faktor-Authentifizierungscodes verloren hast, kannst du dein Passwort per E-Mail zurücksetzen.</string>
-  <string name="enableTwoFactor">Aktiviere die Zwei-Faktor-Authentifizierung</string>
-  <string name="disableTwoFactor">Deaktiviere die Zwei-Faktor-Authentifizierung</string>
-  <string name="twoFactorEnabled">Zwei-Faktor Authentifizierung aktiviert</string>
-  <string name="twoFactorDisable">Du benötigst dein Passwort und einen Authentifizierungscode aus deiner Authentifizierungs-App, um die Zwei-Faktor-Authentifizierung zu deaktivieren.
-Wenn du den Zugang zu deinen Authentifizierungscodes verloren hast, kannst du dein Passwort auch per E-Mail zurücksetzen.</string>
-  <string name="openTwoFactorApp">Öffne auf deinem Gerät die App zur zweistufigen Authentifizierung, um deinen Authentifizierungscode anzuzeigen und deine Identität zu bestätigen.</string>
+  <string name="twoFactorHelp">Zwei-Faktor Authentifizierig füegt dim Konto es zuesätzlichs Sicherheitsmerkmal hinzue.</string>
+  <string name="twoFactorApp">Installier en App für Zwei-Faktor-Authentifizierig, zum Byschpiel andOTP für %1$s oder Google Authenticator für %2$s.</string>
+  <string name="scanTheCode">Scann dä QR Code mit dä App.</string>
+  <string name="enterPassword">Gib dis Passwort und dä Authentifizierigscode i, wo vode App generiert worde isch, um diä Yrichtig abzschlüssä. Du benötigsch für jedi wyter Amäldig en Authentifizierigscode.</string>
+  <string name="ifYouCannotScanEnterX">Falls dä Code nicht einscannä chasch, tipp dä gheim Code %s i dini App.</string>
+  <string name="authenticationCode">Authentifizierigscode</string>
+  <string name="ifYouLoseAccess">Obacht: Wenn du dä Zuegang zu dim Zwei-Faktor-Authentifizierigscodes verlürsch, muesch dis Passwort per E-Mail zruggsetzä.</string>
+  <string name="enableTwoFactor">Aktivier d\'Zwei-Faktor-Authentifizierig</string>
+  <string name="disableTwoFactor">Deaktivier d\'Zwei-Faktor-Authentifizierig</string>
+  <string name="twoFactorEnabled">Zwei-Faktor Authentifizierig isch aktiviert</string>
+  <string name="twoFactorDisable">Du benötigsch dis Passwort und en Authentifizierigscode us diner Authentifizierigs-App, zum d\'Zwei-Faktor-Authentifizierig z\'deaktivierä.
+Wenn du de Zuegang zu dim Authentifizierigscode verlürsch, muesch dis Passwort au per E-Mail zruggsetzä.</string>
+  <string name="openTwoFactorApp">Öffne uf dim Grät d\'App zur zweistufigä Authentifizierig, zum din Authentifizierigscode azeigä und dini Identität beschtätigä.</string>
 </resources>

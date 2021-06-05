@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Verlauf</string>
-  <string name="hostedALiveStream">Hat live gestreamt</string>
+  <string name="hostedALiveStream">Hät en livestream gmacht</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Unterstützt lichess.org seit %1$s Monat als %2$s</item>
+    <item quantity="one">Unterstützt lichess.org sit %1$s Monät als %2$s</item>
     <item quantity="other">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Hat %1$s Stellung bei %2$s geübt</item>
+    <item quantity="one">Hät %1$s Stellig bei %2$s güebt</item>
     <item quantity="other">Hat %1$s Stellungen bei %2$s geübt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">

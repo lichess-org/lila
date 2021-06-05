@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">%s-Statistiken</string>
-  <string name="viewTheGames">Spiele anzeigen</string>
+  <string name="perfStats">%s-Statistikä</string>
+  <string name="viewTheGames">Schpiel azeigä</string>
   <string name="provisional">provisorisch</string>
-  <string name="notEnoughRatedGames">Nicht genügend gewertete Partien gespielt, um eine verlässliche Wertung zu erzielen.</string>
-  <string name="progressOverLastXGames">Fortschritt über die letzten %s Spiele:</string>
-  <string name="ratingDeviation">Wertungsabweichung: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Ein niedriger Wert bedeutet, dass die Wertungszahl stabiler ist. Über %1$s wird die Wertung als vorläufig betrachtet. Um in die Rangliste aufgenommen zu werden, sollte dieser Wert unter %2$s (Standardschach) oder %3$s (Varianten) liegen.</string>
-  <string name="totalGames">Insgesamte Spiele</string>
-  <string name="ratedGames">Gewertete Spiele</string>
-  <string name="tournamentGames">Turnierspiele</string>
-  <string name="berserkedGames">Berserker-Spiele</string>
-  <string name="timeSpentPlaying">Gesamtspielzeit</string>
-  <string name="averageOpponent">Durschnittliche Gegnerwertung</string>
-  <string name="victories">Siege</string>
-  <string name="defeats">Niederlagen</string>
-  <string name="disconnections">Verbindungsabbrüche</string>
-  <string name="notEnoughGames">Nicht genügend Spiele gespielt</string>
-  <string name="highestRating">Höchste Wertungszahl: %s</string>
-  <string name="lowestRating">Niedrigste Wertungszahl: %s</string>
-  <string name="fromXToY">von %1$s zu %2$s</string>
-  <string name="winningStreak">Siegesserie</string>
-  <string name="losingStreak">Niederlagenserie</string>
-  <string name="longestStreak">Längste Serie: %s</string>
-  <string name="currentStreak">Aktuelle Serie: %s</string>
-  <string name="bestRated">Beste gewertete Siege</string>
-  <string name="worstRated">Schlimmste gewertete Niederlagen</string>
-  <string name="gamesInARow">In Folge gespielte Spiele</string>
-  <string name="lessThanOneHour">Weniger als eine Stunde zwischen den Spielen</string>
-  <string name="maxTimePlaying">Maximale Spielzeit</string>
-  <string name="now">jetzt</string>
+  <string name="notEnoughRatedGames">Nög gnueg gwerteti Partie gschpillt, um ä verlässlichi Wertig z\'erzielä.</string>
+  <string name="progressOverLastXGames">Fortschritt über di letschtä %s Schpiel:</string>
+  <string name="ratingDeviation">Wertigssabwychig: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">En tüüfä Wert bedütet, dass d\'Wertigszahl stabiler isch. Über %1$s wird d\'Wertig als vorläufig betrachtet. Zum id Ranglistä ufgno z\'werdä, sött dä Wert under %2$s (Standardschach) oder %3$s (Variantä) liggä.</string>
+  <string name="totalGames">Gsamthafti Schpiel</string>
+  <string name="ratedGames">Gwärteti Schpiel</string>
+  <string name="tournamentGames">Turnierschpiel</string>
+  <string name="berserkedGames">Berserker-Schpiel</string>
+  <string name="timeSpentPlaying">Gsamtschpielzyt</string>
+  <string name="averageOpponent">Durchschnittlichi Gegnerwertig</string>
+  <string name="victories">Sieg</string>
+  <string name="defeats">Niderlagä</string>
+  <string name="disconnections">Verbindigsabbrüch</string>
+  <string name="notEnoughGames">Nöd gnueg Schpiel gspillt</string>
+  <string name="highestRating">Högschti Wärtigszahl: %s</string>
+  <string name="lowestRating">Tüüfschti Wärtigszahl: %s</string>
+  <string name="fromXToY">vo %1$s bis %2$s</string>
+  <string name="winningStreak">Siegessträhnä</string>
+  <string name="losingStreak">Pechsträhnä</string>
+  <string name="longestStreak">Längschti Strähnä: %s</string>
+  <string name="currentStreak">Aktuelli Strähnä: %s</string>
+  <string name="bestRated">Stärchschti Sieg</string>
+  <string name="worstRated">Schwächschti Niderlagä</string>
+  <string name="gamesInARow">In Folg gschpillti Schpiel</string>
+  <string name="lessThanOneHour">Weniger als ei Schtund zwüsched dä Schpiel</string>
+  <string name="maxTimePlaying">Maximali Schpillzyt</string>
+  <string name="now">jetzgrad</string>
 </resources>

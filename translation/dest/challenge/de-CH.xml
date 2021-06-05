@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="challenges">Herausforderungen</string>
-  <string name="challengeToPlay">Zu einer Partie herausfordern</string>
-  <string name="challengeDeclined">Herausforderung abgelehnt</string>
-  <string name="challengeAccepted">Herausforderung angenommen!</string>
-  <string name="challengeCanceled">Herausforderung abgebrochen.</string>
-  <string name="registerToSendChallenges">Bitte registriere dich, um Herausforderungen zu senden.</string>
-  <string name="youCannotChallengeX">Du kannst %s nicht herausfordern.</string>
-  <string name="xDoesNotAcceptChallenges">%s nimmt keine Herausforderungen an.</string>
-  <string name="yourXRatingIsTooFarFromY">Deine %1$s Wertung ist zu weit von %2$s entfernt.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Herausforderung wegen provisorischer %s Wertung nicht möglich.</string>
-  <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Herausforderungen nur von Freunden an.</string>
-  <string name="declineGeneric">Ich nehme derzeit keine Herausforderungen an.</string>
-  <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
-  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, bitte fordere mich erneut mit einer höheren Bedenkzeit heraus.</string>
-  <string name="declineTooSlow">Diese Bedenkzeit ist zu lang für mich, bitte fordere mich mit weniger Bedenkzeit heraus.</string>
-  <string name="declineTimeControl">Ich nehme keine Herausforderungen mit dieser Bedenkzeit an.</string>
-  <string name="declineRated">Bitte fordere mich stattdessen zu einer gewerteten Partie heraus.</string>
-  <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
-  <string name="declineStandard">Ich nehme derzeit keine Herausforderungen für andere Spielvarianten an.</string>
-  <string name="declineVariant">Ich bin derzeit nicht bereit, diese Variante zu spielen.</string>
-  <string name="declineNoBot">Ich nehme keine Herausforderungen von Bots an.</string>
-  <string name="declineOnlyBot">Ich nehme nur Herausforderungen von Bots an.</string>
+  <string name="challenges">Usäfoderigä</string>
+  <string name="challengeToPlay">Zu nere partie useforderä</string>
+  <string name="challengeDeclined">Usäfoderig abglähnt</string>
+  <string name="challengeAccepted">Usäfoderig angnoo!</string>
+  <string name="challengeCanceled">Usäfoderig abbrochää.</string>
+  <string name="registerToSendChallenges">Bitte registiärä di, um Usäfoderigä zu verschickä.</string>
+  <string name="youCannotChallengeX">Du chasch %s nöd usäfordärä.</string>
+  <string name="xDoesNotAcceptChallenges">%s nimmt kei Usäfoderigä a.</string>
+  <string name="yourXRatingIsTooFarFromY">Dinni %1$s Wertung isch z\'weit vo %2$s entfernt.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Usäfoderig wegä provisorische %s Wertig nöd mögli.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Usäfoderigä nur vo Brudis a.</string>
+  <string name="declineGeneric">I nim momentan kei Usäfoderigä me a.</string>
+  <string name="declineLater">I nim momentan kei Usäfoderigä me a, bitte frog spöter nonemol.</string>
+  <string name="declineTooFast">Ziet zum überlege isch z\'churz für mi, bitte forderä mich nomel mit meh Bedenkzeit ussä.</string>
+  <string name="declineTooSlow">Ziet zum überlege isch z\'lang für mi, bitte forderä mich nomel mit weniger Bedenkzeit ussä.</string>
+  <string name="declineTimeControl">I nim momentan kei Usäfoderigä me a.</string>
+  <string name="declineRated">Bitte forderä mi stattdessä zu enerä gewertetä Partie usä.</string>
+  <string name="declineCasual">Bitte fordere mich stattdessä zu einer ungewertetä Partie usä.</string>
+  <string name="declineStandard">I nim momentan keine Herausforderungä für andere Spielvarianten a.</string>
+  <string name="declineVariant">I bi im moment nöd parrat, diä Variantä zu spielä.</string>
+  <string name="declineNoBot">Ich nimm kei Usäfoderigä von Bots a.</string>
+  <string name="declineOnlyBot">Ich nimm nur Usäfoderig vo Bots a.</string>
 </resources>
