@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">Arena-Turniere</string>
-  <string name="isItRated">Sind die Partien gewertet?</string>
-  <string name="willBeNotified">Du wirst benachrichtigt, wenn das Turnier beginnt. Es ist somit möglich, während der Wartezeit in einem anderen Tab zu spielen.</string>
-  <string name="isRated">Dieses Turnier ist gewertet und wird deine Wertungszahl beeinflussen.</string>
-  <string name="isNotRated">Dieses Turnier ist *nicht* gewertet und wird deine Wertungszahl *nicht* beeinflussen.</string>
-  <string name="someRated">Manche Turniere sind gewertet und werden deine Wertungszahl beeinflussen.</string>
+  <string name="isItRated">Sind d\'Partiiä gwärtät?</string>
+  <string name="willBeNotified">Du wirsch benochrichtigät, wenn das Turnier afoht. Es isch somit möglich, während de Warteziit imänä anderä Tab z\'schpilä.</string>
+  <string name="isRated">Das Turnier isch gwärtät und wird dini Wärtigszahl beiiflussä.</string>
+  <string name="isNotRated">Das Turnier isch *nöd* gwärtät und wird dini Wärtigszahl *nöd* beiiflussä.</string>
+  <string name="someRated">Gwüssi Turniere sind gwärtät und werdäd dini Wärtigszahl beiiflussä.</string>
   <string name="howAreScoresCalculated">Wie werden die Punkte berechnet?</string>
   <string name="howAreScoresCalculatedAnswer">Grundsätzlich gibt es für einen Sieg 2 Punkte, 1 Punkt für Remis und 0 Punkte für eine Niederlage.
 Gewinnst du zwei Partien in Folge, beginnst du eine Serie mit verdoppelter Punktzahl (dargestellt durch ein Flammensymbol). Für die nachfolgenden Partien erhältst du solange die doppelte Punktzahl, bis du eine Partie nicht gewinnst.
