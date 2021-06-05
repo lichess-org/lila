@@ -32,6 +32,7 @@ private[plan] object JsonHandlers {
   implicit val StripeAddressReads           = Json.reads[StripeCharge.Address]
   implicit val StripeBillingReads           = Json.reads[StripeCharge.BillingDetails]
   implicit val StripeChargeReads            = Json.reads[StripeCharge]
+  implicit val StripePaymentIntentReads     = Json.reads[StripePaymentIntent]
   implicit val StripeInvoiceReads           = Json.reads[StripeInvoice]
   implicit val StripeSessionReads           = Json.reads[StripeSession]
   implicit val StripeSessionCompletedReads  = Json.reads[StripeCompletedSession]

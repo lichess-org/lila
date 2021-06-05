@@ -121,6 +121,11 @@ final private class StripeClient(
   def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
     postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
 
+  def chargeIdOf(session: StripeCompletedSession): Fu[Option[ChargeId]] =
+    getOne[StripePaymentIntent](s"payment_intents/${session.payment_intent}") map {
+      _.flatMap(_.charge).map(_.id)
+    }
+
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
     get[A](url, queryString) dmap some recover {
       case _: NotFoundException => None

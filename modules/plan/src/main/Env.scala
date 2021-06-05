@@ -93,9 +93,9 @@ final class Env(
     new lila.common.Cli {
       def process = {
         case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+          userRepo named user flatMap { _ ?? { api.setLifetime(_, none) } } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
+          userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.remove } inject "ok"
       }

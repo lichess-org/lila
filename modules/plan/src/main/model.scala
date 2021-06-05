@@ -111,6 +111,10 @@ object StripeCharge {
   case class BillingDetails(address: Option[Address])
 }
 
+case class StripePaymentIntent(charges: List[StripeCharge]) {
+  def charge = charges.headOption
+}
+
 case class StripeInvoice(
     id: Option[String],
     amount_due: StripeAmount,
@@ -126,9 +130,14 @@ case class StripePaymentMethod(card: Option[StripeCard])
 
 case class StripeCard(brand: String, last4: String, exp_year: Int, exp_month: Int)
 
-case class StripeCompletedSession(customer: CustomerId, mode: String, metadata: Map[String, String]) {
-  def freq   = if (mode == "subscription") Freq.Monthly else Freq.Onetime
-  def giftTo = metadata get "gift"
+case class StripeCompletedSession(
+    customer: CustomerId,
+    mode: String,
+    metadata: Map[String, String],
+    payment_intent: String
+) {
+  def freq                    = if (mode == "subscription") Freq.Monthly else Freq.Onetime
+  def giftTo: Option[User.ID] = metadata get "gift"
 }
 
 case class StripeSetupIntent(payment_method: String)

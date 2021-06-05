@@ -56,12 +56,45 @@ final class PlanApi(
         }
     }
 
+  private val stripeGifts = cacheApi.notLoadingSync[ChargeId, User.ID](64, "plan.stripeGift") {
+    _.expireAfterWrite(1 minute).build()
+  }
+
+  // will be followed with `onStripeCharge` shortly
+  def onCompletedSession(session: StripeCompletedSession): Funit =
+    customerIdPatron(session.customer) flatMap {
+      case None =>
+        logger.warn(s"Completed Session of unknown patron $session")
+        funit
+      case Some(prevPatron) =>
+        session.giftTo match {
+          case Some(giftTo) =>
+            stripeClient.chargeIdOf(session) map2 { stripeGifts.put(_, giftTo) }
+            stripeGifts.put(session.charge
+            userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
+              val patron = prevPatron
+                .copy(lastLevelUp = Some(DateTime.now))
+                .removePayPal
+                .expireInOneMonth(!session.freq.renew)
+              patronColl.update.one($id(user.id), patron, upsert = true).void
+          case None =>
+            userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
+              val patron = prevPatron
+                .copy(lastLevelUp = Some(DateTime.now))
+                .removePayPal
+                .expireInOneMonth(!session.freq.renew)
+              patronColl.update.one($id(user.id), patron, upsert = true).void
+            }
+        }
+    }
+
   def onStripeCharge(stripeCharge: StripeCharge): Funit = for {
     patronOption <- customerIdPatron(stripeCharge.customer)
     money = stripeCharge.amount toMoney stripeCharge.currency
     usd <- currencyApi toUsd money
     charge = Charge.make(
       userId = patronOption.map(_.userId),
+      giftTo = none, // TODO
       stripe = Charge.Stripe(stripeCharge.id, stripeCharge.customer).some,
       money = money,
       usd = usd | Usd(0)
@@ -76,15 +109,10 @@ final class PlanApi(
         case Some(patron) =>
           logger.info(s"Charged $charge $patron")
           userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
-            val p2 = patron
-              .copy(
-                stripe = Patron.Stripe(stripeCharge.customer).some,
-                free = none
-              )
-              .levelUpIfPossible
+            val p2 = patron.levelUpIfPossible
             patronColl.update.one($id(patron.id), p2) >>
               setDbUserPlanOnCharge(user, patron.canLevelUp) >> {
-                isLifetime ?? setLifetime(user)
+                isLifetime ?? setLifetime(user, none)
               }
           }
       }
@@ -114,6 +142,7 @@ final class PlanApi(
       } else {
         val charge = Charge.make(
           userId = userId,
+          giftTo = none, // TODO
           payPal = Charge
             .PayPal(
               name = name,
@@ -151,7 +180,7 @@ final class PlanApi(
                   patronColl.update.one($id(patron.id), p2) >>
                     setDbUserPlanOnCharge(user, patron.canLevelUp)
               } >> {
-                isLifetime ?? setLifetime(user)
+                isLifetime ?? setLifetime(user, none)
               } >>- logger.info(s"Charged ${user.username} with paypal: $money")
             }
           }
@@ -180,21 +209,6 @@ final class PlanApi(
               logger.info(s"Unsubed ${user.username} $sub")
           }
       }
-    }
-
-  def onCompletedSession(completedSession: StripeCompletedSession): Funit =
-    customerIdPatron(completedSession.customer) flatMap {
-      case None =>
-        logger.warn(s"Completed Session of unknown patron $completedSession")
-        funit
-      case Some(prevPatron) =>
-        userRepo byId prevPatron.userId orFail s"Missing user for $prevPatron" flatMap { user =>
-          val patron = prevPatron
-            .copy(lastLevelUp = Some(DateTime.now))
-            .removePayPal
-            .expireInOneMonth(!completedSession.freq.renew)
-          patronColl.update.one($id(user.id), patron, upsert = true).void
-        }
     }
 
   def getEvent = stripeClient.getEvent _
@@ -258,7 +272,7 @@ final class PlanApi(
       _.exists(_.isLifetime)
     }
 
-  def setLifetime(user: User): Funit = {
+  def setLifetime(user: User, gifter: Option[User]): Funit = {
     if (user.plan.isEmpty) Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, 0), "plan")
     userRepo.setPlan(
       user,
@@ -269,26 +283,39 @@ final class PlanApi(
         $set(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> true,
-          "free"        -> Patron.Free(DateTime.now)
+          "free"        -> Patron.Free(DateTime.now, by = gifter.map(_.id))
         ),
         upsert = true
       )
       .void >>- lightUserApi.invalidate(user.id)
   }
 
-  def giveMonth(user: User): Funit =
+  def freeMonth(user: User): Funit =
     patronColl.update
       .one(
         $id(user.id),
         $set(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> false,
-          "free"        -> Patron.Free(DateTime.now),
+          "free"        -> Patron.Free(DateTime.now, by = none),
           "expiresAt"   -> DateTime.now.plusMonths(1)
         ),
         upsert = true
       )
       .void >> setDbUserPlanOnCharge(user, levelUp = false)
+
+  def giftMonth(from: User, to: User): Funit =
+    patronColl.update
+      .one(
+        $id(to.id),
+        $set(
+          "lastLevelUp" -> DateTime.now,
+          "free"        -> Patron.Free(DateTime.now, by = from.id.some),
+          "expiresAt"   -> DateTime.now.plusMonths(1)
+        ),
+        upsert = true
+      )
+      .void >> setDbUserPlanOnCharge(to, levelUp = false)
 
   def remove(user: User): Funit =
     userRepo.unsetPlan(user) >>

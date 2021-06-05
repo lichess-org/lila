@@ -2,9 +2,12 @@ package lila.plan
 
 import org.joda.time.DateTime
 
+import lila.user.User
+
 case class Charge(
     _id: String, // random
-    userId: Option[String],
+    userId: Option[User.ID],
+    giftTo: Option[User.ID] = none,
     stripe: Option[Charge.Stripe] = none,
     payPal: Option[Charge.PayPal] = none,
     money: Money,
@@ -26,7 +29,8 @@ case class Charge(
 object Charge {
 
   def make(
-      userId: Option[String],
+      userId: Option[User.ID],
+      giftTo: Option[User.ID],
       stripe: Option[Charge.Stripe] = none,
       payPal: Option[Charge.PayPal] = none,
       money: Money,
@@ -35,6 +39,7 @@ object Charge {
     Charge(
       _id = lila.common.ThreadLocalRandom nextString 8,
       userId = userId,
+      giftTo = giftTo,
       stripe = stripe,
       payPal = payPal,
       money = money,
