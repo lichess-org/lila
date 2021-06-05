@@ -34,6 +34,8 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.profile,
     trans.inbox,
     trans.preferences.preferences,
+    trans.coachManager,
+    trans.streamerManager,
     trans.logOut
   ).map(_.key) ::: translationsBase
 
