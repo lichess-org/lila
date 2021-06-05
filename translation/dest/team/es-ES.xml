@@ -50,5 +50,5 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="incorrectTeamPassword">Contraseña del equipo incorrecta.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
   <string name="upcomingTourns">Próximos torneos</string>
-  <string name="completedTourns">Torneos finalizados</string>
+  <string name="completedTourns">Torneos terminados</string>
 </resources>
