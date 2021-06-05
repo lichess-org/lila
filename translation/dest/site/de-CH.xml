@@ -348,17 +348,17 @@
   <string name="leaderboard">Ranglischtä</string>
   <string name="pasteTheFenStringHere">Due de FEN-Texscht da iifüegä</string>
   <string name="pasteThePgnStringHere">Duen de PGN-Texscht da iifüegä</string>
-  <string name="fromPosition">Vo enäre Position us</string>
+  <string name="fromPosition">Vonäre Position us</string>
   <string name="continueFromHere">Vo da us wiiterschpillä</string>
   <string name="toStudy">Studiä</string>
   <string name="importGame">Partii importierä</string>
-  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du zuegriff uf e Schpiilwiderholig, e Kompiuteranalüse, en Schpiilchät und ein teilbarä URL.</string>
+  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuegriff uf ä Schpiilwiderholig, ä Kompiuteranalüse, en Schpiilchät und ä teilbarä URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partii</item>
     <item quantity="other">%s importierti Partiiä</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä das du en Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä, dass du en Mänsch bisch.</string>
   <string name="captcha.fail">Lös bitte d\'Schachuufgab.</string>
   <string name="notACheckmate">Käis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiis setzt imenä Zug Schachmatt</string>
