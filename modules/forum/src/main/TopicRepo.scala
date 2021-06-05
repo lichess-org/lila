@@ -1,5 +1,6 @@
 package lila.forum
 
+import org.joda.time.DateTime
 import Filter._
 import lila.db.dsl._
 import lila.user.User
@@ -59,6 +60,15 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
       else fuccess(slug)
     }
   }
+
+  def findDuplicate(topic: Topic): Fu[Option[Topic]] =
+    coll.one[Topic](
+      $doc(
+        "createdAt" $gt DateTime.now.minusHours(1),
+        "userId" -> ~topic.userId,
+        "name"   -> topic.name
+      )
+    )
 
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
