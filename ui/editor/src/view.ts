@@ -20,18 +20,74 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
       .reverse()
       .map(r => {
         const nb = ctrl.pockets[c][r as PocketRole];
+        const delta = 10;
+
+        // Distinguishing between click with small movement and drag
+        // mousedown/touchstart hasn't turned into drag
+        let isActive: boolean = false;
+        // Click starting position, leaving this by delat turns it into drag
+        let startX: number;
+        let startY: number;
+
+
         return h(
           'div.no-square',
           {
             on: {
-              mousedown: dragFromPocket(ctrl, [c, r as Role], nb, 'mouseup'),
-              touchstart: dragFromPocket(ctrl, [c, r as Role], nb, 'touchend'),
-              click: e => {
-                if (e.shiftKey) ctrl.removeFromPocket(c, r as Role, true);
-                else ctrl.addToPocket(c, r as Role, true);
+              mousedown: e => {
+                startX = e.pageX;
+                startY = e.pageY;
+                isActive = true;
+
+                e.preventDefault();
+              },
+              touchstart: e => {
+                startX = e.touches[0].pageX;
+                startY = e.touches[0].pageY;
+                isActive = true;
+
+                e.preventDefault();
+              },
+              mousemove: e => {
+                if(!isActive) return;
+                const diffX = Math.abs(e.pageX - startX);
+                const diffY = Math.abs(e.pageY - startY);
+                if (diffX >= delta || diffY >= delta) {
+                  dragFromPocket(ctrl, [c, r as Role], nb, "mouseup")(e as MouchEvent);
+                  isActive = false;
+                }
+              },
+              touchmove: e => {
+                lastTouchMovePos = eventPosition(e as any);
+                if(!isActive || !lastTouchMovePos) return;
+                const diffX = Math.abs(lastTouchMovePos[0] - startX);
+                const diffY = Math.abs(lastTouchMovePos[1] - startY);
+                if (diffX >= delta || diffY >= delta) {
+                  dragFromPocket(ctrl, [c, r as Role], nb, "touchend")(e as MouchEvent);
+                  isActive = false;
+                }
+              },
+              mouseup: e => {
+                if (isActive) {
+                  if (e.shiftKey || ctrl.selected() === 'trash') ctrl.removeFromPocket(c, r as Role, true);
+                  else ctrl.addToPocket(c, r as Role, true);
+                }
+                isActive = false;
+
+                e.preventDefault();
+              },
+              touchend: e => {
+                if(isActive){
+                  if (ctrl.selected() === 'trash') ctrl.removeFromPocket(c, r as Role, true);
+                  else ctrl.addToPocket(c, r as Role, true);
+                }
+                isActive = false;
+
                 e.preventDefault();
               },
               contextmenu: e => {
+                ctrl.removeFromPocket(c, r as Role, true);
+                
                 e.preventDefault();
               },
             },
@@ -76,20 +132,12 @@ function dragFromPocket(ctrl: EditorCtrl, s: Selected, nb: number, upEvent: stri
         upEvent,
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
-          const eventTarget = e.target as HTMLElement;
-          if (eventPos && ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
-          // todo, this is ugly
-          else if (
-            eventTarget &&
-            (eventTarget.parentElement?.classList.contains('e-pocket') ||
-              eventTarget.parentElement?.parentElement?.classList.contains('e-pocket'))
-          ) {
-            if (
-              eventTarget.parentElement?.classList.contains('sente') ||
-              eventTarget.parentElement?.parentElement?.classList.contains('sente')
-            )
-              ctrl.addToPocket('sente', s[1]);
-            else ctrl.addToPocket('gote', s[1]);
+          if(eventPos){
+            if (ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
+
+            const pocketTarget = insideWhichPocket(eventPos);
+            if(pocketTarget === 'sente')  ctrl.addToPocket("sente", s[1], true);
+            else if(pocketTarget === 'gote') ctrl.addToPocket("gote", s[1], true);
           }
           ctrl.redraw();
         },
@@ -97,6 +145,25 @@ function dragFromPocket(ctrl: EditorCtrl, s: Selected, nb: number, upEvent: stri
       );
     }
   };
+}
+
+function insideWhichPocket(eventPos: NumberPair): Color | undefined {
+  const sente = document.getElementsByClassName("e-pocket sente")[0];
+  if(sente){
+    const rectSente = sente.getBoundingClientRect();
+    if(eventPos[0] >= rectSente.left && eventPos[0] <= rectSente.right &&
+      eventPos[1] >= rectSente.top && eventPos[1] <= rectSente.bottom)
+      return "sente";
+  
+  }
+  const gote = document.getElementsByClassName("e-pocket gote")[0];
+  if(gote){
+    const rectGote = gote.getBoundingClientRect();
+    if(eventPos[0] >= rectGote.left && eventPos[0] <= rectGote.right &&
+      eventPos[1] >= rectGote.top && eventPos[1] <= rectGote.bottom)
+      return "gote";
+  }
+  return undefined;
 }
 
 function pieceCounter(ctrl: EditorCtrl): VNode {
@@ -529,21 +596,14 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
         upEvent,
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
-          const eventTarget = e.target as HTMLElement;
-          if (eventPos && ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
-          // todo, this is ugly
-          else if (
-            eventTarget &&
-            (eventTarget.parentElement?.classList.contains('e-pocket') ||
-              eventTarget.parentElement?.parentElement?.classList.contains('e-pocket'))
-          ) {
-            if (
-              eventTarget.parentElement?.classList.contains('sente') ||
-              eventTarget.parentElement?.parentElement?.classList.contains('sente')
-            )
-              ctrl.addToPocket('sente', s[1]);
-            else ctrl.addToPocket('gote', s[1]);
-          } else ctrl.selected(s);
+          if(eventPos){
+            if (ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
+
+            const pocketTarget = insideWhichPocket(eventPos);
+            if(pocketTarget === 'sente')  ctrl.addToPocket("sente", s[1], true);
+            else if(pocketTarget === 'gote') ctrl.addToPocket("gote", s[1], true);
+            else ctrl.selected(s);
+          }
           ctrl.redraw();
         },
         { once: true }

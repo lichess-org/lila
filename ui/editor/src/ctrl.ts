@@ -222,15 +222,21 @@ export default class EditorCtrl {
   }
 
   addToPocket(c: Color, r: Role, reload: boolean = false): void {
-    if (['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'].includes(r)) this.pockets[c][r as PocketRole]++;
+    const unpromotedRole = unpromote(r);
+    if (
+      'king' !== unpromotedRole &&
+      this.pockets[c][unpromotedRole] < 20
+    )
+      this.pockets[c][unpromotedRole]++;
     if (reload) this.onChange();
   }
   removeFromPocket(c: Color, r: Role, reload: boolean = false): void {
+    const unpromotedRole = unpromote(r);
     if (
-      ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook'].includes(r) &&
-      this.pockets[c][r as PocketRole] > 0
+      'king' !== unpromotedRole &&
+      this.pockets[c][unpromotedRole] > 0
     )
-      this.pockets[c][r as PocketRole]--;
+      this.pockets[c][unpromotedRole]--;
     if (reload) this.onChange();
   }
   clearPocket() {

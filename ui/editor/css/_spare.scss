@@ -26,11 +26,8 @@
     }
     &.pointer {
       @extend %box-radius-left;
-      &:hover {
+      &.selected-square, &:hover {
         background: fade-out($c-good, 0.8);
-      }
-      &.selected-square {
-        background: fade-out($c-good, 0.4);
       }
       piece {
         background-image: img-url('icons/pointer.svg');

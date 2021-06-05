@@ -11,6 +11,9 @@
     div {
       @extend %square;
     }
+    &:hover {
+      background: fade-out($c-good, 0.8);
+    }
   }
   min-height: $square-min;
   piece {
@@ -36,9 +39,6 @@
       &::after {
         content: none;
       }
-    }
-    &.premove {
-      background-color: #555;
     }
   }
 }
