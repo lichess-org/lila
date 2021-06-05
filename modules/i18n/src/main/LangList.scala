@@ -21,6 +21,7 @@ object LangList {
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
+    Lang("de", "CH")  -> "Schriftdeutsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
@@ -113,16 +114,15 @@ object LangList {
   }
 
   lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if noRegion(l) == l => l
+    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
   }
 
-  private def noRegion(lang: Lang): Lang =
-    lang.language match {
-      case "en" => Lang("en", "GB")
-      case "pt" => Lang("pt", "PT")
-      case "zh" => Lang("zh", "CN")
-      case _    => lang
-    }
+  val defaultRegions = Map[String, Lang](
+    "de" -> Lang("de", "DE"),
+    "en" -> Lang("en", "GB"),
+    "pt" -> Lang("pt", "PT"),
+    "zh" -> Lang("zh", "CN")
+  )
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
