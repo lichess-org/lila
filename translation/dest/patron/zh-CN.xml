@@ -17,7 +17,6 @@
   <string name="lifetime">终生</string>
   <string name="payLifetimeOnce">支付 %s 一次。永远成为 Lichess 赞助者！</string>
   <string name="lifetimePatron">永久 Lichess 赞助者</string>
-  <string name="makeExtraDonation">提供额外捐赠吗？</string>
   <string name="monthly">按月</string>
   <string name="recurringBilling">定期账单，每月续订您的捐助者之翼。</string>
   <string name="onetime">单次</string>
