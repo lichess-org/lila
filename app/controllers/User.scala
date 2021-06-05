@@ -382,7 +382,7 @@ final class User(
           appeal  <- isGranted(_.Appeals) ?? env.appeal.api.get(user)
         } yield view.modLog(history, appeal)
 
-        val plan = isGranted(_.Admin) ?? env.plan.api.recentChargesOf(user).map(view.plan).dmap(~_)
+        val plan = isGranted(_.Admin) ?? env.plan.api.recentChargesOf(user).map(view.plan(user)).dmap(~_)
 
         val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
 

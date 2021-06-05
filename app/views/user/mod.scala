@@ -249,7 +249,7 @@ object mod {
       span(cls := "text inline")(rageSit.counterView)
     )
 
-  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
+  def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
     charges.headOption.map { firstCharge =>
       mzSection("plan")(
         strong(cls := "text", dataIcon := patronIconChar)(
@@ -267,7 +267,19 @@ object mod {
         ),
         ul(
           charges.map { c =>
-            li(c.money.display, " with ", c.serviceName, " on ", showDateTimeUTC(c.date), " UTC")
+            li(
+              c.money.display,
+              c.giftTo match {
+                case Some(giftedId) if u is giftedId => frag(" Gift from", userIdLink(c.userId))
+                case Some(giftedId)                  => frag(" Gift to", userIdLink(giftedId.some))
+                case _                               => emptyFrag
+              },
+              " with ",
+              c.serviceName,
+              " on ",
+              showDateTimeUTC(c.date),
+              " UTC"
+            )
           }
         ),
         br

@@ -350,7 +350,16 @@ final class PlanApi(
   def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.getUnit
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
-    chargeColl.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).cursor[Charge]().list()
+    chargeColl
+      .find(
+        $or(
+          $doc("userId" -> user.id),
+          $doc("giftTo" -> user.id)
+        )
+      )
+      .sort($doc("date" -> -1))
+      .cursor[Charge]()
+      .list()
 
   private val topPatronUserIdsNb = 300
   private val topPatronUserIdsCache = mongoCache.unit[List[User.ID]](
