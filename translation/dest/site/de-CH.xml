@@ -120,15 +120,15 @@
   <string name="inaccuracy">Ungenauigkeit</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s grobä Fähler</item>
-    <item quantity="other">%s grobe Patzer</item>
+    <item quantity="other">%s Patzer</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Fähler</item>
-    <item quantity="other">%s Fehler</item>
+    <item quantity="other">%s Fählär</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s Ungenauigkeit</item>
-    <item quantity="other">%s Ungenauigkeiten</item>
+    <item quantity="other">%s Ungenauigkeitä</item>
   </plurals>
   <string name="moveTimes">Zugziitä</string>
   <string name="flipBoard">Brätt dreiä</string>
@@ -246,7 +246,7 @@
   <string name="rematchOfferDeclined">Aagebot für e Revanche isch Abglehnt wordä</string>
   <string name="cancelRematchOffer">Aagebot für e Revanche zrugzieä</string>
   <string name="viewRematch">Revanche aaluegä</string>
-  <string name="confirmMove">Zug bestätigä</string>
+  <string name="confirmMove">Zug beschtätigä</string>
   <string name="play">Schpilä</string>
   <string name="inbox">Poschtiigang</string>
   <string name="chatRoom">Chätruum</string>
@@ -286,7 +286,7 @@
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Das Konto hät gäge d\'Lichess-Nutzigsrichliniä verstossä</string>
+  <string name="thisAccountViolatedTos">Das Konto hät gäg d\'Lichess-Nutzigsrichliniä verschtossä</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahm</string>
   <string name="proposeATakeback">Zugrücknahm vorschlah</string>
@@ -464,7 +464,7 @@
   <string name="activeToday">Hüt aktiv</string>
   <string name="activePlayers">Aktivi Schpillär</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Achtung, das Schpiil isch gwärtet, hät aber keis Ziitlimit!</string>
-  <string name="success">Korrekt</string>
+  <string name="success">Jawoll</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufändi Partii</item>
     <item quantity="other">%s laufendi Partiiä</item>
@@ -477,7 +477,7 @@
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Texscht wo nume Teammitgilder gseh chönd. Wänn usgfüllt, ersetzt er für Teammitglider de öffentlichi Texscht.</string>
+  <string name="descPrivateHelp">Texscht wo nume Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt er für Teammitglider de öffentlichi Texscht.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
   <string name="help">Hilf:</string>
