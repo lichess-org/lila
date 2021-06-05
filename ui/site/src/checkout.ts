@@ -50,11 +50,17 @@ export default function (publicKey: string, pricing: Pricing) {
     $(this).siblings('input').data('amount', amount);
   });
 
-  $checkout.find('button.paypal').on('click', function () {
+  const getAmountToCharge = () => {
     const freq = getFreq(),
       amount =
-        freq == 'lifetime' ? pricing.lifetime : parseInt($checkout.find('group.amount input:checked').data('amount'));
-    if (!amount || amount < pricing.min || amount > pricing.max) return;
+        freq == 'lifetime' ? pricing.lifetime : parseFloat($checkout.find('group.amount input:checked').data('amount'));
+    if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
+  };
+
+  $checkout.find('button.paypal').on('click', function () {
+    const freq = getFreq(),
+      amount = getAmountToCharge();
+    if (!amount) return;
     const $form = $checkout.find('form.paypal_checkout.' + freq);
     $form.find('input.amount').val('' + amount);
     ($form[0] as HTMLFormElement).submit();
@@ -65,9 +71,8 @@ export default function (publicKey: string, pricing: Pricing) {
   const showError = (error: string) => alert(error);
   $checkout.find('button.stripe').on('click', function () {
     const freq = getFreq(),
-      amount =
-        freq == 'lifetime' ? pricing.lifetime : parseInt($checkout.find('group.amount input:checked').data('amount'));
-    if (amount < pricing.min || amount > pricing.max) return;
+      amount = getAmountToCharge();
+    if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
     xhr
