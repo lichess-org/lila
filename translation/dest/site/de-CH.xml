@@ -467,7 +467,7 @@
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufändi Partii</item>
-    <item quantity="other">%s laufändi Partiiä</item>
+    <item quantity="other">%s laufendi Partiiä</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach emenä Zug automatisch zur nöxschtä Partii gah</string>
   <string name="autoSwitch">Automatischä Wächsel</string>
