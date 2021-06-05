@@ -17,7 +17,6 @@
   <string name="lifetime">Doživotní</string>
   <string name="payLifetimeOnce">Zaplaťte %s jednou. Buďte navždy Lichess Patronem!</string>
   <string name="lifetimePatron">Doživotní Lichess Patron</string>
-  <string name="makeExtraDonation">Poskytnout další příspěvek?</string>
   <string name="monthly">Měsíčně</string>
   <string name="recurringBilling">Opakováné účtování, obnovování vašich patroních křídel každý měsíc.</string>
   <string name="onetime">Jednorázově</string>
