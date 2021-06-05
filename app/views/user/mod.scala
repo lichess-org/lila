@@ -226,7 +226,7 @@ object mod {
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
+        strong(cls := "text inline", dataIcon := "%")("Notable preferences"),
         ul(
           (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
           pref.botCompatible option li(
@@ -245,14 +245,14 @@ object mod {
 
   def showRageSit(rageSit: RageSit) =
     mzSection("sitdccounter")(
-      strong(cls := "text inline")("Ragesit counter: "),
-      span(cls := "text inline")(rageSit.counterView)
+      strong(cls := "text inline")("Ragesit counter"),
+      strong(cls := "fat")(rageSit.counterView)
     )
 
   def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
     charges.headOption.map { firstCharge =>
       mzSection("plan")(
-        strong(cls := "text", dataIcon := patronIconChar)(
+        strong(cls := "text inline", dataIcon := patronIconChar)(
           "Patron payments",
           isGranted(_.PayPal) option {
             firstCharge.payPal.flatMap(_.subId).map { subId =>
