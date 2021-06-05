@@ -424,7 +424,8 @@ final class PlanApi(
       .countryCents(
         country = country.fold("unknown")(_.code),
         currency = charge.money.currency,
-        service = charge.serviceName
+        service = charge.serviceName,
+        gift = charge.giftTo.isDefined
       )
       .record(charge.usd.cents)
     charge.userId ?? { userId =>
