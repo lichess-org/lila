@@ -36,9 +36,9 @@
   <string name="swissTournamentOverview">Es Schwiizer-System-Turnier, wo nur Mitglieder vo dim Team bitrettä chönd</string>
   <string name="messageAllMembers">Benochrichtigä alli Mitglieder</string>
   <string name="messageAllMembersOverview">Schick ä privati Nochricht an alli Mitglieder vom Team</string>
-  <string name="messageAllMembersLongDescription">Sende eine private Nachricht an ALLE Mitglieder dieses Teams. Du kannst die Funktion benutzen, um Spieler zu einem Turnier oder einem Team-Kampf aufzurufen. Spieler, die diese Art von Nachrichten nicht empfangen wollen, könnten dein Team verlassen.</string>
-  <string name="teamsIlead">Teams, die ich leite</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Möchtest du eines der kommenden Turniere verlinken?</string>
+  <string name="messageAllMembersLongDescription">Send ä privati Nochricht a ALLI Mitgliider us dem Team. Du chasch diä Funktion benutzä, um Spielo zu einem Turnier oder einem Team-Kampf aufzrüefä. Spielo, die diä Art von Nachrichtä nöd  empfangä wönd, könd dies Team verloo.</string>
+  <string name="teamsIlead">Teams, diä i leitä</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Möchtisch du eis vo de chömende Turniere verlinkä?</string>
   <string name="usersWhoCanManageThisTeam">Benutzer, die dieses Team verwalten können</string>
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team auflösen</string>
