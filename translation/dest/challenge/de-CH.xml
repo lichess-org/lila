@@ -12,14 +12,14 @@
   <string name="cannotChallengeDueToProvisionalXRating">Usäfoderig wegä provisorische %s Wertig nöd mögli.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Usäfoderigä nur vo Brudis a.</string>
   <string name="declineGeneric">I nim momentan kei Usäfoderigä me a.</string>
-  <string name="declineLater">Ich nehme momentan keine Herausforderungen an, bitte frage später noch einmal.</string>
-  <string name="declineTooFast">Diese Bedenkzeit ist zu gering für mich, bitte fordere mich erneut mit einer höheren Bedenkzeit heraus.</string>
-  <string name="declineTooSlow">Diese Bedenkzeit ist zu lang für mich, bitte fordere mich mit weniger Bedenkzeit heraus.</string>
-  <string name="declineTimeControl">Ich nehme keine Herausforderungen mit dieser Bedenkzeit an.</string>
-  <string name="declineRated">Bitte fordere mich stattdessen zu einer gewerteten Partie heraus.</string>
-  <string name="declineCasual">Bitte fordere mich stattdessen zu einer ungewerteten Partie heraus.</string>
-  <string name="declineStandard">Ich nehme derzeit keine Herausforderungen für andere Spielvarianten an.</string>
-  <string name="declineVariant">Ich bin derzeit nicht bereit, diese Variante zu spielen.</string>
-  <string name="declineNoBot">Ich nehme keine Herausforderungen von Bots an.</string>
-  <string name="declineOnlyBot">Ich nehme nur Herausforderungen von Bots an.</string>
+  <string name="declineLater">I nim momentan kei Usäfoderigä me a, bitte frog spöter nonemol.</string>
+  <string name="declineTooFast">Ziet zum überlege isch z\'churz für mi, bitte forderä mich nomel mit meh Bedenkzeit ussä.</string>
+  <string name="declineTooSlow">Ziet zum überlege isch z\'lang für mi, bitte forderä mich nomel mit weniger Bedenkzeit ussä.</string>
+  <string name="declineTimeControl">I nim momentan kei Usäfoderigä me a.</string>
+  <string name="declineRated">Bitte forderä mi stattdessä zu enerä gewertetä Partie usä.</string>
+  <string name="declineCasual">Bitte fordere mich stattdessä zu einer ungewertetä Partie usä.</string>
+  <string name="declineStandard">I nim momentan keine Herausforderungä für andere Spielvarianten a.</string>
+  <string name="declineVariant">I bi im moment nöd parrat, diä Variantä zu spielä.</string>
+  <string name="declineNoBot">Ich nimm kei Usäfoderigä von Bots a.</string>
+  <string name="declineOnlyBot">Ich nimm nur Usäfoderig vo Bots a.</string>
 </resources>
