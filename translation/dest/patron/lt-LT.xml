@@ -23,13 +23,12 @@
   <string name="lifetime">Gyvenimui</string>
   <string name="payLifetimeOnce">Mokėkite %s vieną kartą. Tapkite Lichess Rėmėju visam laikui!</string>
   <string name="lifetimePatron">Lichess Rėmėjas gyvenimui</string>
-  <string name="makeExtraDonation">Suteikti dar paramos?</string>
   <string name="monthly">Kas mėnesį</string>
   <string name="recurringBilling">Pasikartojantis mokėjimas, atnaujinantis jūsų Rėmėjo sparnus kiekvieną mėnesį.</string>
   <string name="onetime">Vieną kartą</string>
   <string name="singleDonation">Viena parama suteikia jums Rėmėjo sparnus vienam mėnesiui.</string>
   <string name="otherAmount">Kita</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Įveskite sumą %s</string>
+  <string name="pleaseEnterAmountInX">Įveskite sumą %s</string>
   <string name="withCreditCard">Banko kortele</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
