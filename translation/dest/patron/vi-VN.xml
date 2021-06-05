@@ -17,7 +17,6 @@
   <string name="lifetime">Vĩnh viễn</string>
   <string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lichess Patron vĩnh viễn!</string>
   <string name="lifetimePatron">Lichess Patron trọn đời</string>
-  <string name="makeExtraDonation">Quyên góp thêm nữa?</string>
   <string name="monthly">Hàng tháng</string>
   <string name="recurringBilling">Trả tiền định kỳ, làm mới đôi cánh Patron của bạn mỗi tháng.</string>
   <string name="onetime">Một lần</string>
