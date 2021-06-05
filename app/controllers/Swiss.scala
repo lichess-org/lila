@@ -100,28 +100,29 @@ final class Swiss(
 
   def form(teamId: String) =
     Auth { implicit ctx => me =>
-     NoLameOrBot{
-      CheckTeamLeader(teamId) {
-        Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).fuccess
+      NoLameOrBot {
+        CheckTeamLeader(teamId) {
+          Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).fuccess
+        }
       }
-     }
     }
 
   def create(teamId: String) =
     AuthBody { implicit ctx => me =>
-     NoLameOrBot{
-      CheckTeamLeader(teamId) {
-        env.swiss.forms.create(me)
-          .bindFromRequest()(ctx.body, formBinding)
-          .fold(
-            err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
-            data =>
-              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
-                env.swiss.api.create(data, me, teamId) map { swiss =>
-                  Redirect(routes.Swiss.show(swiss.id.value))
+      NoLameOrBot {
+        CheckTeamLeader(teamId) {
+          env.swiss.forms
+            .create(me)
+            .bindFromRequest()(ctx.body, formBinding)
+            .fold(
+              err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
+              data =>
+                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+                  env.swiss.api.create(data, me, teamId) map { swiss =>
+                    Redirect(routes.Swiss.show(swiss.id.value))
+                  }
                 }
-              }
-          )
+            )
         }
       }
     }
@@ -133,7 +134,8 @@ final class Swiss(
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create(me)
+            env.swiss.forms
+              .create(me)
               .bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
