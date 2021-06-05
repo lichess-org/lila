@@ -275,23 +275,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
             }
           },
           ipn =>
-            ipn.money match {
-              case None =>
-                logger.error(s"Plan.payPalIpn invalid money $ipn")
-                fuccess(BadRequest)
-              case Some(money) =>
-                env.plan.api.onPaypalCharge(
-                  userId = ipn.userId,
-                  email = ipn.email map PayPal.Email.apply,
-                  subId = ipn.subId map PayPal.SubId.apply,
-                  money = money,
-                  name = ipn.name,
-                  txnId = ipn.txnId,
-                  country = ipn.country,
-                  ip = lila.common.HTTPRequest.ipAddress(req).value,
-                  key = get("key", req) | "N/A"
-                ) inject Ok
-            }
+            env.plan.api.onPaypalCharge(
+              ipn,
+              ip = lila.common.HTTPRequest.ipAddress(req),
+              key = get("key", req) | "N/A"
+            ) inject Ok
         )
     }
 }

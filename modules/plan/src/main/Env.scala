@@ -86,7 +86,7 @@ final class Env(
     notifier
   )
 
-  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes) { () =>
     expiration.run.unit
   }
 
@@ -94,7 +94,7 @@ final class Env(
     new lila.common.Cli {
       def process = {
         case "patron" :: "lifetime" :: user :: Nil =>
-          userRepo named user flatMap { _ ?? { api.setLifetime(_, none) } } inject "ok"
+          userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
         case "patron" :: "month" :: user :: Nil =>
           userRepo named user flatMap { _ ?? api.freeMonth } inject "ok"
         case "patron" :: "remove" :: user :: Nil =>

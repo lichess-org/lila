@@ -250,12 +250,12 @@ object mod {
     )
 
   def plan(u: User)(charges: List[lila.plan.Charge])(implicit ctx: Context): Option[Frag] =
-    charges.headOption.map { firstCharge =>
+    charges.nonEmpty option
       mzSection("plan")(
         strong(cls := "text inline", dataIcon := patronIconChar)(
           "Patron payments",
           isGranted(_.PayPal) option {
-            firstCharge.payPal.flatMap(_.subId).map { subId =>
+            charges.find(_.giftTo.isEmpty).flatMap(_.payPal).flatMap(_.subId).map { subId =>
               frag(
                 " - ",
                 a(
@@ -284,7 +284,6 @@ object mod {
         ),
         br
       )
-    }
 
   def student(managed: lila.clas.Student.ManagedInfo)(implicit ctx: Context): Frag =
     mzSection("student")(

@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 
-
 export interface Pricing {
   currency: string;
   default: number;
@@ -35,8 +34,7 @@ export default function (publicKey: string, pricing: Pricing) {
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
   $checkout.find('group.dest input').on('change', () => {
-    const dest = getDest();
-    const isGift = dest == 'gift';
+    const isGift = getDest() == 'gift';
     const $monthly = $('#freq_monthly');
     toggleInput($monthly, !isGift);
     $checkout.find('.gift').toggleClass('none', !isGift).find('input').val('');
@@ -47,6 +45,7 @@ export default function (publicKey: string, pricing: Pricing) {
       if ($monthly.is(':checked')) $('#freq_onetime').trigger('click');
       $checkout.find('.gift input').trigger('focus');
     }
+    toggleCheckout();
   });
 
   $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
@@ -66,6 +65,25 @@ export default function (publicKey: string, pricing: Pricing) {
     $(this).text(`${pricing.currency} ${amount}`);
     $(this).siblings('input').data('amount', amount);
   });
+
+  const $userInput = $checkout.find('input.user-autocomplete');
+
+  const getGiftDest = () => {
+    const raw = ($userInput.val() as string).trim().toLowerCase();
+    return raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+  };
+
+  const toggleCheckout = () => {
+    const giftDest = getGiftDest();
+    const enabled = getDest() != 'gift' || !!giftDest;
+    toggleInput($checkout.find('.service button'), enabled);
+    let custom = $('body').data('user');
+    if (enabled && giftDest) custom += ' ' + giftDest;
+    $checkout.find('form.paypal_checkout:not(.monthly) input[name=custom]').val(custom);
+  };
+
+  toggleCheckout();
+  $userInput.on('change', toggleCheckout).on('input', toggleCheckout);
 
   const getAmountToCharge = () => {
     const freq = getFreq(),

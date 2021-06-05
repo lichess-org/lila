@@ -428,7 +428,7 @@ final class Mod(
                 newPermissions(Permission.Coach) ?? env.mailer.automaticEmail.onBecomeCoach(user)
               } >> {
                 Permission(permissions)
-                  .exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user, none)
+                  .exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
               } inject Redirect(routes.Mod.permissions(username)).flashSuccess
             }
           )

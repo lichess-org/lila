@@ -9,6 +9,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
+import lila.common.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -86,77 +87,78 @@ final class PlanApi(
                 .levelUpIfPossible
               patronColl.update.one($id(prevPatron.id), patron) >>
                 setDbUserPlanOnCharge(user, prevPatron.canLevelUp) >> {
-                  isLifetime ?? setLifetime(user, none)
+                  isLifetime ?? setLifetime(user)
                 }
           }
         }
     }
   } yield ()
 
-  def onPaypalCharge(
-      userId: Option[User.ID],
-      email: Option[Patron.PayPal.Email],
-      subId: Option[Patron.PayPal.SubId],
-      money: Money,
-      name: Option[String],
-      txnId: Option[String],
-      country: Option[Country],
-      ip: String,
-      key: String
-  ): Funit = for {
+  def onPaypalCharge(ipn: PlanForm.Ipn, ip: IpAddress, key: String): Funit = for {
+    money      <- ipn.money.fold[Fu[Money]](fufail(s"Invalid paypal charge ${ipn.txnId}"))(fuccess)
     pricing    <- pricingApi pricingFor money.currency orFail s"Invalid paypal currency $money"
     usd        <- currencyApi toUsd money orFail s"Invalid paypal currency $money"
     isLifetime <- pricingApi isLifetime money
+    giftTo     <- ipn.giftTo ?? userRepo.byId
     _ <-
       if (key != payPalIpnKey.value) {
-        logger.error(s"Invalid PayPal IPN key $key from $ip $userId $money")
+        logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
         funit
       } else if (!pricing.valid(money)) {
-        logger.info(s"Ignoring invalid paypal amount from $ip $userId $money $txnId")
+        logger.info(s"Ignoring invalid paypal amount from $ip ${ipn.userId} $money ${ipn.txnId}")
         funit
       } else {
         val charge = Charge.make(
-          userId = userId,
-          giftTo = none, // TODO
+          userId = ipn.userId,
+          giftTo = giftTo.map(_.id),
           payPal = Charge
             .PayPal(
-              name = name,
-              email = email.map(_.value),
-              txnId = txnId,
-              subId = subId.map(_.value),
-              ip = ip.some
+              name = ipn.name,
+              email = ipn.email,
+              txnId = ipn.txnId,
+              subId = ipn.subId,
+              ip = ip.value.some
             )
             .some,
           money = money,
           usd = usd
         )
-        addCharge(charge, country) >>
-          (userId ?? userRepo.named) flatMap { userOption =>
-            userOption ?? { user =>
-              val payPal = Patron.PayPal(email, subId, DateTime.now)
-              userPatron(user).flatMap {
+        addCharge(charge, ipn.country) >>
+          (ipn.userId ?? userRepo.named) flatMap {
+            _ ?? { user =>
+              giftTo match {
+                case Some(to) => gift(user, to, money)
                 case None =>
-                  patronColl.insert.one(
-                    Patron(
-                      _id = Patron.UserId(user.id),
-                      payPal = payPal.some,
-                      lastLevelUp = Some(DateTime.now)
-                    ).expireInOneMonth
-                  ) >>
-                    setDbUserPlanOnCharge(user, levelUp = false)
-                case Some(patron) =>
-                  val p2 = patron
-                    .copy(
-                      payPal = payPal.some,
-                      free = none
+                  val payPal =
+                    Patron.PayPal(
+                      ipn.email map Patron.PayPal.Email,
+                      ipn.subId map Patron.PayPal.SubId,
+                      DateTime.now
                     )
-                    .levelUpIfPossible
-                    .expireInOneMonth
-                  patronColl.update.one($id(patron.id), p2) >>
-                    setDbUserPlanOnCharge(user, patron.canLevelUp)
-              } >> {
-                isLifetime ?? setLifetime(user, none)
-              } >>- logger.info(s"Charged ${user.username} with paypal: $money")
+                  userPatron(user).flatMap {
+                    case None =>
+                      patronColl.insert.one(
+                        Patron(
+                          _id = Patron.UserId(user.id),
+                          payPal = payPal.some,
+                          lastLevelUp = Some(DateTime.now)
+                        ).expireInOneMonth
+                      ) >>
+                        setDbUserPlanOnCharge(user, levelUp = false)
+                    case Some(patron) =>
+                      val p2 = patron
+                        .copy(
+                          payPal = payPal.some,
+                          free = none
+                        )
+                        .levelUpIfPossible
+                        .expireInOneMonth
+                      patronColl.update.one($id(patron.id), p2) >>
+                        setDbUserPlanOnCharge(user, patron.canLevelUp)
+                  } >> {
+                    isLifetime ?? setLifetime(user)
+                  } >>- logger.info(s"Charged ${user.username} with paypal: $money")
+              }
             }
           }
       }
@@ -243,7 +245,7 @@ final class PlanApi(
       _.exists(_.isLifetime)
     }
 
-  def setLifetime(user: User, gifter: Option[User]): Funit = {
+  def setLifetime(user: User): Funit = {
     if (user.plan.isEmpty) Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, 0), "plan")
     userRepo.setPlan(
       user,
@@ -254,7 +256,7 @@ final class PlanApi(
         $set(
           "lastLevelUp" -> DateTime.now,
           "lifetime"    -> true,
-          "free"        -> Patron.Free(DateTime.now, by = gifter.map(_.id))
+          "free"        -> Patron.Free(DateTime.now, by = none)
         ),
         upsert = true
       )
@@ -279,7 +281,6 @@ final class PlanApi(
     !to.isPatron ?? {
       for {
         isLifetime <- pricingApi isLifetime money
-        patron     <- patronColl.byId[Patron](to.id)
         _ <- patronColl.update
           .one(
             $id(to.id),
@@ -287,7 +288,7 @@ final class PlanApi(
               "lastLevelUp" -> DateTime.now,
               "lifetime"    -> isLifetime,
               "free"        -> Patron.Free(DateTime.now, by = from.id.some),
-              "expiresAt"   -> DateTime.now.plusMonths(1)
+              "expiresAt"   -> (!isLifetime option DateTime.now.plusMonths(1))
             ),
             upsert = true
           )
