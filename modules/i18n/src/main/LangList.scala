@@ -21,7 +21,7 @@ object LangList {
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
     Lang("cy", "GB")  -> "Cymraeg",
     Lang("da", "DK")  -> "Dansk",
-    Lang("de", "CH")  -> "Schriftdeutsch",
+    Lang("de", "CH")  -> "Schwiizerdüütsch",
     Lang("de", "DE")  -> "Deutsch",
     Lang("el", "GR")  -> "Ελληνικά",
     Lang("en", "US")  -> "English (US)",
