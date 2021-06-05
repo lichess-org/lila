@@ -50,10 +50,10 @@
   <string name="pawnComplete">Härzlichä Glückwunsch! Puurä händ kei Gheimnis meh vor dir.</string>
   <string name="pawnPromotion">Puurä-n-umwandlig</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Din Puur häts Änd vom Brett erreicht!</string>
-  <string name="itNowPromotesToAStrongerPiece">Er wird jetzt in eine stärkere Figur umgewandelt.</string>
-  <string name="selectThePieceYouWant">Wähle die gewünschte Figur aus!</string>
-  <string name="fundamentals">Grundlagen</string>
-  <string name="capture">Schlagen</string>
+  <string name="itNowPromotesToAStrongerPiece">Är wird jetzt inä stärcheri Figur umgwandlät.</string>
+  <string name="selectThePieceYouWant">Wähl di gwünschte Figur us!</string>
+  <string name="fundamentals">Grundlagä</string>
+  <string name="capture">Schloh</string>
   <string name="takeTheEnemyPieces">Schlage die gegnerischen Figuren</string>
   <string name="captureIntro">Finde die ungedeckten Figuren deines Gegners und schlage sie!</string>
   <string name="takeTheBlackPieces">Schlage die schwarzen Figuren!</string>
