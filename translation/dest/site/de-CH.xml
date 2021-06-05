@@ -154,7 +154,7 @@
   <string name="signIn">Iilogä</string>
   <string name="youNeedAnAccountToDoThat">Dadezuä bruuchsch en Account</string>
   <string name="signUp">Regrischtrierä</string>
-  <string name="computersAreNotAllowedToPlay">D hilf vo Schachprogramm, Datäbankä und vo anderä Schpiller isch wärend em schpille nöd erlaubt. Bitte duen au beachtä, dass d\'erschtellig vo mehrerä Accounts ungern gseh wird und das exessives erschtellä vo mehrerä Accounts zumenä Bann füerä chan.</string>
+  <string name="computersAreNotAllowedToPlay">D hilf vo Schachprogramm, Datäbankä und vo anderä Schpiller isch wärend em schpille nöd erlaubt. Bitte duen au beachtä, dass d\'Erschtellig vo mehrerä Accounts ungern gseh wird und das exessives erschtellä vo mehrerä Accounts zumenä Bann füerä chan.</string>
   <string name="games">Partiiä</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s hät zum Thema %2$s öppis gschribä</string>
@@ -297,7 +297,7 @@
   <string name="yourOpponentProposesATakeback">Din Gägner möchti de letschti Zug zruggnäh</string>
   <string name="bookmarkThisGame">Das Spiili mit emenä Läsezeichä verseh</string>
   <string name="tournament">Turniär</string>
-  <string name="tournaments">Turniär</string>
+  <string name="tournaments">Turniere</string>
   <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turniärpunkt</item>
@@ -352,7 +352,7 @@
   <string name="continueFromHere">Vo da us wiiterschpillä</string>
   <string name="toStudy">Studiä</string>
   <string name="importGame">Partii importierä</string>
-  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuegriff uf ä Schpiilwiderholig, ä Kompiuteranalüse, en Schpiilchät und ä teilbarä URL.</string>
+  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuegriff uf e Schpiilwiderholig, e Kompiuteranalüse, en Schpiilchät und en teilbarä URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partii</item>
     <item quantity="other">%s importierti Partiiä</item>
@@ -389,7 +389,7 @@
     <item quantity="other">%s folgend</item>
   </plurals>
   <string name="more">Meh</string>
-  <string name="memberSince">Mitglied siit</string>
+  <string name="memberSince">Mitglied seit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
   <string name="player">Schpilär</string>
   <string name="list">Lischtä</string>
@@ -403,7 +403,7 @@
   <string name="duration">Duur</string>
   <string name="winner">Gwünner</string>
   <string name="standing">Tabällä</string>
-  <string name="createANewTournament">Neus Turnär erschtellä</string>
+  <string name="createANewTournament">Neus Turnier erschtellä</string>
   <string name="tournamentCalendar">Turnärkaländär</string>
   <string name="conditionOfEntry">Teilnahmebedingig:</string>
   <string name="advancedSettings">Erwiitäräti Iistelligä</string>
@@ -420,16 +420,16 @@
   <string name="wins">Gwünn</string>
   <string name="losses">Niederlaagä</string>
   <string name="winStreak">Gwünnserii</string>
-  <string name="createdBy">Erstellt vo</string>
-  <string name="tournamentIsStarting">S Turniär fangt aa</string>
+  <string name="createdBy">Erschtellt vo</string>
+  <string name="tournamentIsStarting">S\'Turniär fangt aa</string>
   <string name="tournamentPairingsAreNowClosed">Es werdäd kei neui Turniärschpiil meh gschtartät.</string>
-  <string name="standByX">D Turniär-Paarig wärdäd zueteilt. Parat mache zum Aafangä, %s!</string>
-  <string name="youArePlaying">Dis Spiil fangt aa!</string>
+  <string name="standByX">D\'Turniär-Paarig wärdäd zueteilt. Parat mache zum Aafangä, %s!</string>
+  <string name="youArePlaying">Dis Schpiil fangt aa!</string>
   <string name="winRate">Gwünnratä</string>
   <string name="berserkRate">Bärsärkratä</string>
   <string name="performance">Leischtig</string>
-  <string name="tournamentComplete">S Turniär isch fertig.</string>
-  <string name="movesPlayed">Gespiilti Züg</string>
+  <string name="tournamentComplete">S\'Turniär isch fertig</string>
+  <string name="movesPlayed">Geschpiilti Züg</string>
   <string name="whiteWins">Wiisi Gwünn</string>
   <string name="blackWins">Schwarzi Gwünn</string>
   <string name="draws">Remis</string>
