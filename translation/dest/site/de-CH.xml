@@ -91,7 +91,7 @@
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Nächschti Schlag- oder Buuräzug in %s Halbzug (Dischtanz zum Zruggsetzte vom Zähler für d 50-Züg-Reglä)</item>
-    <item quantity="other">Nächschti Schlag- oder Buuräzug in %s Halbzüg (Dischtanz zum Zruggsetzte vom Zähler für d 50-Züg-Reglä)</item>
+    <item quantity="other">Nöchschti Schlag- oder Puuräzug in %s Halbzüg (Dischtanz zum Zruggsetzte vom Zähler fürd 50-Züg-Reglä)</item>
   </plurals>
   <string name="noGameFound">Käis Schpiil gfundä</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Viellicht sötted meh Spiel vom Isteligs Menu iibezogä werdä?</string>
@@ -277,7 +277,7 @@
     <item quantity="other">%s Remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s laufendi Parti</item>
+    <item quantity="one">%s laufendi Partii</item>
     <item quantity="other">%s laufendi Partiiä</item>
   </plurals>
   <string name="exportGames">Partiiä exportierä</string>
@@ -319,7 +319,7 @@
     <item quantity="other">≥ %1$s gwärteti %2$s Spieli</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du muäsch no %1$s gewärteti Partii meh %2$s spielä</item>
+    <item quantity="one">Du muäsch no %1$s gwärteti Partii meh %2$s schpilä</item>
     <item quantity="other">Du muäsch na %1$s gwärteti Partiiä meh %2$s schpilä</item>
   </plurals>
   <plurals name="needNbMoreGames">
