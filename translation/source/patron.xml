@@ -58,7 +58,8 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="currentStatus">Current status</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
-  <string name="makeAdditionalDonation">Make an additional donation now</string>
+  <string name="makeAdditionalDonation">Make an additional donation</string>
+  <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>

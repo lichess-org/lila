@@ -125,7 +125,7 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         id := "dest_gift",
                         value := "gift"
                       ),
-                      label(`for` := "dest_gift")("Gift Patron to a player")
+                      label(`for` := "dest_gift")(giftPatronWings())
                     )
                   ),
                   div(cls := "gift complete-parent none")(

@@ -70,7 +70,7 @@ export default function (publicKey: string, pricing: Pricing) {
 
   const getGiftDest = () => {
     const raw = ($userInput.val() as string).trim().toLowerCase();
-    return raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+    return raw != $('body').data('user') && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
   };
 
   const toggleCheckout = () => {

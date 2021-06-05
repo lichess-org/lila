@@ -56,7 +56,9 @@ object indexStripe {
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
-                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
+                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation()),
+                br,
+                a(href := s"${routes.Plan.list}#gift")(giftPatronWings())
               )
             ),
             tr(
