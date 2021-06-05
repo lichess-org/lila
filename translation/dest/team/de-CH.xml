@@ -38,15 +38,15 @@
   <string name="messageAllMembersOverview">Schick ä privati Nochricht an alli Mitgliider vom Team</string>
   <string name="messageAllMembersLongDescription">Schick ä privati Nochricht a ALLI Mitgliider us dem Team. Du chasch diä Funktion benutzä, um Schpiller zumänä Turnier odermä Team-Fight ufzrüäfä. Schpiller, wo diä Art vo Nochrichtä nöd empfangä wönd, chönd dis Team verloh.</string>
   <string name="teamsIlead">Teams wonich leitä</string>
-  <string name="youWayWantToLinkOneOfTheseTournaments">Möchtisch du eis vo de chömende Turniere verlinkä?</string>
-  <string name="usersWhoCanManageThisTeam">Benutzo, wo diäTeam verwaltä chönd</string>
-  <string name="leadersChat">Teamleito-Chat</string>
-  <string name="closeTeam">Team auflösä</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Möchtisch eis vo de kommendä Turniere verlinkä?</string>
+  <string name="usersWhoCanManageThisTeam">Benutzer wo da Team verwaltä chönd</string>
+  <string name="leadersChat">Teamleiter-Chat</string>
+  <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
-  <string name="teamPassword">Team Passwort</string>
-  <string name="teamPasswordDescriptionForLeader">(Wünscheswert) Äs Passwort, das neuiTeammitglieder kennä müend, um em Team beiztreten.</string>
-  <string name="incorrectTeamPassword">Falsches Team Passwort.</string>
-  <string name="teamAlreadyExists">Das Team existiert scho.</string>
-  <string name="upcomingTourns">Anstehende Turniere</string>
-  <string name="completedTourns">BeendetsTurnier</string>
+  <string name="teamPassword">Teampasswort</string>
+  <string name="teamPasswordDescriptionForLeader">(Optional) Äs Passwort wo neui Teammitgliider kennä müend, zum em Team biizträtä.</string>
+  <string name="incorrectTeamPassword">Falsches Teampasswort.</string>
+  <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
+  <string name="upcomingTourns">Kommendi Turnier</string>
+  <string name="completedTourns">Beendeti Turnier</string>
 </resources>
