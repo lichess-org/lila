@@ -297,7 +297,7 @@
   <string name="yourOpponentProposesATakeback">Din Gägner möchti de letschti Zug zruggnäh</string>
   <string name="bookmarkThisGame">Das Spiili mit emenä Läsezeichä verseh</string>
   <string name="tournament">Turniär</string>
-  <string name="tournaments">Turniere</string>
+  <string name="tournaments">Turniär</string>
   <string name="tournamentPoints">Turniärpünkt</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s Turniärpunkt</item>
@@ -404,14 +404,14 @@
   <string name="winner">Gwünner</string>
   <string name="standing">Tabällä</string>
   <string name="createANewTournament">Neus Turnier erschtellä</string>
-  <string name="tournamentCalendar">Turnärkaländär</string>
-  <string name="conditionOfEntry">Teilnahmebedingig:</string>
+  <string name="tournamentCalendar">Turniärkaländär</string>
+  <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiitäräti Iistelligä</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alles sogar nur bitzli unagmässnigs chan zu dä Schlüssig vo dim Konto füere.</string>
   <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
   <string name="recommendNotTouching">Mir empfeläd, das nöd z ändärä.</string>
-  <string name="fewerPlayers">Wänn du Teilnamebedingige setzisch, wird dis Turniär weniger Spiler haa.</string>
+  <string name="fewerPlayers">Wänn du d\'Teilnamebedingige setzisch, wird dis Turniär weniger Spiller haa.</string>
   <string name="showAdvancedSettings">Zeig erwiiteräti Iischtelligä</string>
   <string name="makePrivateTournament">Machs Turniär privat und beschränk dä Zuegang mit ämne Passwort</string>
   <string name="join">Teilnää</string>
@@ -470,9 +470,9 @@
     <item quantity="other">%s laufendi Partiiä</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach emenä Zug automatisch zur nöxschtä Partii gah</string>
-  <string name="autoSwitch">Automatischä wächsel</string>
+  <string name="autoSwitch">Automatischä Wächsel</string>
   <string name="puzzles">Uufgabä</string>
-  <string name="latestUpdates">S\'neuschtä Update</string>
+  <string name="latestUpdates">Neuschti Updates</string>
   <string name="tournamentWinners">Turniärsiiger</string>
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
@@ -484,7 +484,7 @@
   <string name="createANewTopic">Erschtell e neus Thema</string>
   <string name="topics">Themä</string>
   <string name="posts">Biiträg</string>
-  <string name="lastPost">Letschti biitrag</string>
+  <string name="lastPost">Letschtä Biitrag</string>
   <string name="views">Bsuechä</string>
   <string name="replies">Antwortä</string>
   <string name="replyToThisTopic">Uf das Thema antwortä</string>
