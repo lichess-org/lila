@@ -15,7 +15,7 @@
   <string name="monthly">Ежемесечно</string>
   <string name="onetime">Еднократно</string>
   <string name="otherAmount">Друго</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Моля въведете сума в %s</string>
+  <string name="pleaseEnterAmountInX">Моля въведете сума в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
