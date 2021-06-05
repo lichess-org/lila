@@ -31,7 +31,8 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
-    scheduler: Scheduler
+    scheduler: Scheduler,
+    mode: play.api.Mode
 ) {
   import net.{ baseUrl, domain }
 
