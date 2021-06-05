@@ -44,7 +44,7 @@
   <string name="forceResignation">De Siig beaschpruchä</string>
   <string name="forceDraw">Remis erchläre</string>
   <string name="talkInChat">Bis bitte fründli im Chät!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo die URL ahklickt, wird din Gägner.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo dä URL ahklickt, isch din Gägner.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiis hät d\'Partii verlaa</string>
@@ -114,7 +114,7 @@
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Ändlosi Analüsä</string>
-  <string name="removesTheDepthLimit">Entfärnt d Düüfebegränzig und bhaltet din Kompiuter warm</string>
+  <string name="removesTheDepthLimit">Entfärnt d Düüfebegränzig und halted din Kompiuter warm</string>
   <string name="blunder">Grobä Fähler</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
@@ -212,7 +212,7 @@
   <string name="cancel">Abbrächä</string>
   <string name="whiteTimeOut">Ziitüberschritig vo Wiis</string>
   <string name="blackTimeOut">Ziitüberschritig vo Schwarz</string>
-  <string name="drawOfferSent">Remisaagebot abgschickt</string>
+  <string name="drawOfferSent">Remisaagebot gsändet</string>
   <string name="drawOfferDeclined">Remisaagebot abglehnt</string>
   <string name="drawOfferAccepted">Remisaagebot aagna</string>
   <string name="drawOfferCanceled">Remisaagebot zrugzogä</string>
@@ -238,7 +238,7 @@
   <string name="ratedTournament">Gwärtet</string>
   <string name="thisGameIsRated">Das Spiil isch gwärtet</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Aagebot zur Revanche abgschickt</string>
+  <string name="rematchOfferSent">Aagebot zur Revanche gsändet</string>
   <string name="rematchOfferSentWhite">Wiis bütet e Revanche a</string>
   <string name="rematchOfferSentBlack">Schwarz bütet e Revanche a</string>
   <string name="rematchOfferAccepted">Aagebot für e Revanche isch aktzeptiert wordä</string>
@@ -335,11 +335,11 @@
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrug zum Spiil</string>
-  <string name="siteDescription">Chostälosä online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins nöötig und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner.</string>
+  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner!</string>
   <string name="xJoinedTeamY">%1$s isch em Team %2$s biiträtte</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
   <string name="xStartedStreaming">%s hät en Stream gschtartet</string>
-  <string name="averageElo">Durchschnittswärtig</string>
+  <string name="averageElo">Durchschnitswärtig</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partiiä filterä</string>
   <string name="reset">Zruggsetze</string>
@@ -348,7 +348,7 @@
   <string name="leaderboard">Ranglischtä</string>
   <string name="pasteTheFenStringHere">Due de FEN-Texscht da iifüegä</string>
   <string name="pasteThePgnStringHere">Duen de PGN-Texscht da iifüegä</string>
-  <string name="fromPosition">Vonäre Position us</string>
+  <string name="fromPosition">Vo enäre Position us</string>
   <string name="continueFromHere">Vo da us wiiterschpillä</string>
   <string name="toStudy">Studiä</string>
   <string name="importGame">Partii importierä</string>
@@ -358,7 +358,7 @@
     <item quantity="other">%s importierti Partiiä</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä, dass du en Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä das du en Mänsch bisch.</string>
   <string name="captcha.fail">Lös bitte d\'Schachuufgab.</string>
   <string name="notACheckmate">Käis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiis setzt imenä Zug Schachmatt</string>
