@@ -14,7 +14,7 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
       MonthlyGoal(current = amount, goal = getGoal())
     }
 
-  def monthAmount: Fu[Usd] =
+  private def monthAmount: Fu[Usd] =
     chargeColl
       .aggregateWith() { framework =>
         import framework._
@@ -25,8 +25,8 @@ final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(implici
       }
       .headOption
       .map {
-        ~_.flatMap { _.double("usd") }
-      } dmap BigDecimal.apply dmap Usd.apply
+        _.flatMap { _.getAsOpt[BigDecimal]("usd") } | BigDecimal(0)
+      } dmap Usd.apply
 }
 
 case class MonthlyGoal(current: Usd, goal: Usd) {
