@@ -40,7 +40,7 @@ final class MentionNotifier(
           .existingUsernameIds(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users <- filterNotBlockedByUsers(mentionableUsers.toList, mentionedBy)
+      users            <- filterNotBlockedByUsers(mentionableUsers.toList, mentionedBy)
     } yield users.map(Notification.Notifies.apply)
   }
 
