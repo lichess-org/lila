@@ -2,34 +2,34 @@
 <resources>
   <string name="lichessCoaches">Lichess Trainer</string>
   <string name="lichessCoach">Lichess Trainer</string>
-  <string name="areYouCoach">Bist du ein toller Schachtrainer mit einem %s?</string>
+  <string name="areYouCoach">Bisch en guetä Schachtrainer mitämä %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE-Titel</string>
-  <string name="confirmTitle">Bestätige hier deinen Titel und wir werden deine Bewerbung überprüfen.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Sende uns eine Mail an %s und wir werden deine Bewerbung überprüfen.</string>
+  <string name="confirmTitle">Beschtätigä do din Titäl und mir überprüäfed dini Bewerbig.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick üs ä Mail a %s und mir überprüäfed dini Bewerbig.</string>
   <string name="location">Ort</string>
-  <string name="languages">Sprachen</string>
-  <string name="rating">Wertungszahl</string>
-  <string name="hourlyRate">Stundensatz</string>
-  <string name="availability">Verfügbarkeit</string>
-  <string name="accepting">Nimmt neue Schüler an</string>
-  <string name="notAccepting">Nimmt im Moment keine neuen Schüler an</string>
-  <string name="xCoachesStudents">%s trainiert Schachschüler</string>
+  <string name="languages">Sprochä</string>
+  <string name="rating">Wärtigszahl</string>
+  <string name="hourlyRate">Schtundäsatz</string>
+  <string name="availability">Verfüägbarkeit</string>
+  <string name="accepting">Nimmt neui Schüäler a</string>
+  <string name="notAccepting">Nimmt im Moment kei neui Schüäler a</string>
+  <string name="xCoachesStudents">%s trainiert Schachschüäler</string>
   <string name="viewXProfile">Lichess-Profil von %s</string>
-  <string name="sendPM">Sende eine private Nachricht</string>
-  <string name="aboutMe">Über mich</string>
-  <string name="playingExperience">Spielerfahrung</string>
-  <string name="teachingExperience">Lehrerfahrung</string>
-  <string name="otherExperiences">Andere Erfahrungen</string>
-  <string name="bestSkills">Größte Talente</string>
-  <string name="teachingMethod">Lehrmethode</string>
-  <string name="publicStudies">Öffentliche Studien</string>
+  <string name="sendPM">Schick ä privati Nochricht</string>
+  <string name="aboutMe">Über mi</string>
+  <string name="playingExperience">Schpielerfahrig</string>
+  <string name="teachingExperience">Lehrerfahrig</string>
+  <string name="otherExperiences">Anderi Erfahrigä</string>
+  <string name="bestSkills">Talent</string>
+  <string name="teachingMethod">Lehrmethodä</string>
+  <string name="publicStudies">Öffentlichi Studiä</string>
   <string name="youtubeVideos">Youtube-Videos</string>
   <plurals name="studentReviews">
-    <item quantity="one">Eine Schülerbewertung</item>
-    <item quantity="other">%s Schülerbewertungen</item>
+    <item quantity="one">Ä Schüälerbewärtig</item>
+    <item quantity="other">%s Schülerbewärtigä</item>
   </plurals>
-  <string name="thankYouForReview">Danke für deine Bewertung!</string>
-  <string name="xWillApproveIt">%s wird sie bald freischalten oder ein Moderator wird einen Blick darauf werfen.</string>
-  <string name="reviewCoach">Bewerte diesen Trainer</string>
-  <string name="describeExperienceWith">Beschreibe deine Trainingserfahrung mit %s</string>
+  <string name="thankYouForReview">Merci für dini Bewärtig!</string>
+  <string name="xWillApproveIt">%s wird\'s bald freischaltä oder en Moderator wird en Blick druf wärfä.</string>
+  <string name="reviewCoach">Bewärt dä Trainer</string>
+  <string name="describeExperienceWith">Beschryb dini Trainingserfahrig mit %s</string>
 </resources>

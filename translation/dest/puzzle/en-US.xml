@@ -63,5 +63,11 @@
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
   <string name="continueTheStreak">Continue the streak</string>
   <string name="newStreak">New streak</string>
-  <string name="fromMyGames">Puzzles generated from your games (all Lichess puzzles are made from games in the Lichess game database).</string>
+  <string name="fromMyGames">From my games</string>
+  <string name="lookupOfPlayer">Search puzzles from a player\'s games</string>
+  <string name="fromXGames">Puzzles from %s\'s games</string>
+  <string name="searchPuzzles">Search puzzles</string>
+  <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
+Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
+  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
 </resources>

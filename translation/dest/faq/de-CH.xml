@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
-  <string name="frequentlyAskedQuestions">Häufig gestellte Fragen</string>
-  <string name="whyIsLichessCalledLichess">Warum heißt Lichess Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ist eine Kombination aus live/light/libre und Schach. Es wird %1$s ausgesprochen.</string>
+  <string name="frequentlyAskedQuestions">Hüfig gestellti frage</string>
+  <string name="whyIsLichessCalledLichess">Werum heisst Lichess Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Es wird %1$s usgsproche.</string>
   <string name="leechess">li-tschess</string>
   <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
   <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>

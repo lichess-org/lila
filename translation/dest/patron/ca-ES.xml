@@ -27,7 +27,7 @@
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una única donació que et dona les ales de Patró per un mes.</string>
   <string name="otherAmount">Altre</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Si us plau, escriu la quantitat en %s</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
