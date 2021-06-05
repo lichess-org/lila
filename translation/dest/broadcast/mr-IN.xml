@@ -14,7 +14,7 @@
   <string name="fullDescription">संपूर्ण स्पर्धेचे वर्णन</string>
   <string name="fullDescriptionHelp">स्पर्धेचे पर्यायी संपूर्ण वर्णन. %1$s उपलब्ध आहे. %2$s अक्षरांपेक्षा कमी.</string>
   <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
-  <string name="sourceUrlHelp">URL जी लाइसेस PNG अद्यतने मिळविण्यासाठी तपासणी करेल. ते इंटरनेट वरून सार्वजनिकरित्या प्रवेश करण्यायोग्य असणे आवश्यक आहे.</string>
+  <string name="sourceUrlHelp">URL जी लाइसेस PGN अद्यतने मिळविण्यासाठी तपासणी करेल. ते इंटरनेट वरून सार्वजनिकरित्या प्रवेश करण्यायोग्य असणे आवश्यक आहे.</string>
   <string name="gameIdsHelp">वैकल्पिकरित्या, आपण स्पेस देऊन ६४ पर्यंत लीचेस गेम आयडी प्रविष्ट करू शकता.</string>
   <string name="startDate">आपल्या स्वत: च्या टाइमझोनमधील तारीख</string>
   <string name="startDateHelp">पर्यायी, इव्हेंट कधी सुरू होतो हे आपल्याला माहिती असल्यास</string>
