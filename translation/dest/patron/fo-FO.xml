@@ -17,7 +17,6 @@
   <string name="lifetime">Lívstíð</string>
   <string name="payLifetimeOnce">Rinda %s eina ferð. Verð Lichess-stuðul um ævir!</string>
   <string name="lifetimePatron">Lívstíðar Lichess stuðulsfólk</string>
-  <string name="makeExtraDonation">Vilt tú lata eina eyka gávu?</string>
   <string name="monthly">Mánaðarligt</string>
   <string name="recurringBilling">Afturvendandi rokning. Endurnýggja vælvildarveingir tínar hvønn mánað.</string>
   <string name="onetime">Eina ferð</string>
