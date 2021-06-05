@@ -17,7 +17,6 @@
   <string name="lifetime">Doživotno</string>
   <string name="payLifetimeOnce">Plati %s jednom. Postani Lichess pokrovitelj zauvijek!</string>
   <string name="lifetimePatron">Doživotni Lichess pokrovitelj</string>
-  <string name="makeExtraDonation">Napraviti dodatnu donaciju?</string>
   <string name="monthly">Mjesečni</string>
   <string name="recurringBilling">Mjesečna pretplata, obnavljate Vaša pokroviteljska krila svakog mjeseca.</string>
   <string name="onetime">Jednokratno</string>
