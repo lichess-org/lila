@@ -2,7 +2,7 @@
 <resources>
   <string name="emailConfirm_subject">Bestätig din Account uf lichess.org, %s</string>
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Klick uf dä link zum dis Lichess-Konto z aktivierä:</string>
-  <string name="emailConfirm_ignore">Wänn dich nöd bi Lichess regrischtriert häsch, chasch du diä Nachricht getroscht ignorierä.</string>
+  <string name="emailConfirm_ignore">Wänn dich nöd bi Lichess regristriert häsch, chasch du diä Nachricht getroscht ignorierä.</string>
   <string name="passwordReset_subject">Setz dis Passwort uf Lichess.org zrug, %s</string>
   <string name="passwordReset_intro">Mir händ e Afrag zum zrugsetzte vo dim Passwort übercho.</string>
   <string name="passwordReset_clickOrIgnore">Wänn du die Afrag gmacht häsch, klick da une uf dä link. Falls nöd, ignorier das E-Mail.</string>
@@ -17,6 +17,6 @@ Da gahts zu dinerä Konto-Siite: %1$s. Du chasch si uf %2$s personalisierä.
 Viel Spass und möged dini Figure immer dä Wäg zum gägnerischä König finde!</string>
   <string name="logInToLichess">Mäld dich ah uf lichess.org, %s</string>
   <string name="common_orPaste">(Klickä funktioniert nöd? Versuch dä Link i din Browser iizfüegä!)</string>
-  <string name="common_note">Das isch e Särvis-E-Mail im Zämmehang mit dim gebruch vo %s.</string>
+  <string name="common_note">Das isch e service E-Mail im zämmehang mit dim gebruch vo %s.</string>
   <string name="common_contact">Zum eus z\'kontaktierä, benütz bitte %s.</string>
 </resources>
