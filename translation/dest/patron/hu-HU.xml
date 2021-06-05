@@ -21,7 +21,6 @@
   <string name="lifetime">Életre szóló</string>
   <string name="payLifetimeOnce">Adakozz %s egyszer. Legyél Lichess Patron örökre!</string>
   <string name="lifetimePatron">Életre szóló Lichess Patron</string>
-  <string name="makeExtraDonation">Extra felajánlást tennél?</string>
   <string name="monthly">Havonta</string>
   <string name="recurringBilling">Rendszeres számlázás, megújítva a Patron szárnyakat minden hónapban.</string>
   <string name="onetime">Egyszeri</string>
