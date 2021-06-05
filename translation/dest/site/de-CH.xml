@@ -56,7 +56,7 @@
   <string name="computerAnalysis">Kompiuter-Analüse</string>
   <string name="computerAnalysisAvailable">Kompiuter-Analüse verfüegbar</string>
   <string name="analysis">Analüsebrätt</string>
-  <string name="depthX">Düüfi: %s</string>
+  <string name="depthX">Tüüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analüsä wird bruucht</string>
   <string name="loadingEngine">Engine wird gladä ...</string>
   <string name="cloudAnalysis">Wulchä-Analüse</string>
@@ -204,7 +204,7 @@
     <item quantity="one">%s Ufgab</item>
     <item quantity="other">%s Ufgabä</item>
   </plurals>
-  <string name="gamesPlayed">Gschpillti partiiä</string>
+  <string name="gamesPlayed">Gschpillti Partiiä</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Partii mit dir</item>
     <item quantity="other">%s Partiiä mit dir</item>
@@ -323,8 +323,8 @@
     <item quantity="other">Du muäsch na %1$s gwärteti Partiiä meh %2$s schpilä</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du muäsch na %s gwärtets Schpiil meh Schpilä</item>
-    <item quantity="other">Du muäsch na %s gwärteti spiel meh spielä</item>
+    <item quantity="one">Du muäsch na %s gwärtets Schpiil meh schpilä</item>
+    <item quantity="other">Du muäsch na %s gwärteti Schpiil meh schpilä</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wärtig (%2$s) isch z\'höch</string>
