@@ -299,5 +299,6 @@ package plan {
   case class ChargeEvent(username: String, cents: Int, percent: Int, date: DateTime)
   case class MonthInc(userId: String, months: Int)
   case class PlanStart(userId: String)
+  case class PlanGift(from: String, to: String)
   case class PlanExpire(userId: String)
 }

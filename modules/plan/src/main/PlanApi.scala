@@ -49,7 +49,7 @@ final class PlanApi(
           case Some(sub) =>
             stripeClient.cancelSubscription(sub) >>
               isLifetime(user).flatMap { lifetime =>
-                !lifetime ?? setDbUserPlan(user, user.plan.disable)
+                !lifetime ?? setDbUserPlan(user.mapPlan(_.disable))
               } >>
               patronColl.update.one($id(user.id), $unset("stripe", "payPal", "expiresAt")).void >>-
               logger.info(s"Canceled subscription $sub of ${user.username}")
@@ -99,7 +99,6 @@ final class PlanApi(
         money = money,
         usd = usd | Usd(0)
       )
-      .pp
     isLifetime <- pricingApi isLifetime money
     _          <- addCharge(charge, stripeCharge.country)
     _ <- giftTo.isEmpty ?? {
@@ -189,14 +188,10 @@ final class PlanApi(
       }
   } yield ()
 
-  private def setDbUserPlanOnCharge(user: User, levelUp: Boolean): Funit = {
-    val plan =
-      if (levelUp) user.plan.incMonths
-      else user.plan.enable
-    Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, plan.months), "plan")
-    if (plan.months > 1) notifier.onRenew(user.copy(plan = plan))
-    else notifier.onStart(user)
-    setDbUserPlan(user, plan)
+  private def setDbUserPlanOnCharge(from: User, levelUp: Boolean): Funit = {
+    val user = from.mapPlan(p => if (levelUp) p.incMonths else p.enable)
+    notifier.onCharge(user)
+    setDbUserPlan(user)
   }
 
   def onSubscriptionDeleted(sub: StripeSubscription): Funit =
@@ -205,7 +200,7 @@ final class PlanApi(
         if (patron.isLifetime) funit
         else
           userRepo byId patron.userId orFail s"Missing user for $patron" flatMap { user =>
-            setDbUserPlan(user, user.plan.disable) >>
+            setDbUserPlan(user.mapPlan(_.disable)) >>
               patronColl.update.one($id(user.id), patron.removeStripe).void >>-
               notifier.onExpire(user) >>-
               logger.info(s"Unsubed ${user.username} $sub")
@@ -235,7 +230,7 @@ final class PlanApi(
 
       case None if user.plan.active =>
         logger.warn(s"${user.username} sync: disable plan of non-patron")
-        setDbUserPlan(user, user.plan.disable) inject ReloadUser
+        setDbUserPlan(user.mapPlan(_.disable)) inject ReloadUser
 
       case None => fuccess(Synced(none, none))
 
@@ -249,21 +244,21 @@ final class PlanApi(
                 patronColl.update.one($id(patron.id), patron.removeStripe) >> sync(user)
               case Some(customer) if customer.firstSubscription.exists(_.isActive) && !user.plan.active =>
                 logger.warn(s"${user.username} sync: enable plan of customer with a subscription")
-                setDbUserPlan(user, user.plan.enable) inject ReloadUser
+                setDbUserPlan(user.mapPlan(_.enable)) inject ReloadUser
               case customer => fuccess(Synced(patron.some, customer))
             }
 
           case (_, Some(_)) =>
             if (!user.plan.active) {
               logger.warn(s"${user.username} sync: enable plan of customer with paypal")
-              setDbUserPlan(user, user.plan.enable) inject ReloadUser
+              setDbUserPlan(user.mapPlan(_.enable)) inject ReloadUser
             } else fuccess(Synced(patron.some, none))
 
           case (None, None) if patron.isLifetime => fuccess(Synced(patron.some, none))
 
           case (None, None) if user.plan.active && patron.free.isEmpty =>
             logger.warn(s"${user.username} sync: disable plan of patron with no paypal or stripe")
-            setDbUserPlan(user, user.plan.disable) inject ReloadUser
+            setDbUserPlan(user.mapPlan(_.disable)) inject ReloadUser
 
           case _ => fuccess(Synced(patron.some, none))
         }
@@ -322,11 +317,11 @@ final class PlanApi(
             ),
             upsert = true
           )
-        plan = to.plan.incMonths
-        _    = Bus.publish(lila.hub.actorApi.plan.MonthInc(to.id, plan.months), "plan")
-        _    = notifier.onGift(from, to, isLifetime)
-        _ <- setDbUserPlan(to, plan)
-      } yield ()
+        newTo = to.mapPlan(_.incMonths)
+        _ <- setDbUserPlan(newTo)
+      } yield {
+        notifier.onGift(from, newTo, isLifetime)
+      }
     }
 
   def remove(user: User): Funit =
@@ -398,26 +393,9 @@ final class PlanApi(
   }
 
   private def addCharge(charge: Charge, country: Option[Country]): Funit =
-    monitorCharge(charge, country) >>
-      chargeColl.insert.one(charge).void >>- {
-        recentChargeUserIdsCache.invalidateUnit()
-        monthlyGoalApi.get foreach { m =>
-          Bus.publish(
-            lila.hub.actorApi.plan.ChargeEvent(
-              username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
-              cents = charge.usd.cents,
-              percent = m.percent,
-              DateTime.now
-            ),
-            "plan"
-          )
-          lila.mon.plan.goal.update(m.goal.cents)
-          lila.mon.plan.current.update(m.current.cents)
-          lila.mon.plan.percent.update(m.percent)
-          if (charge.isPayPal) lila.mon.plan.paypal.record(charge.usd.cents)
-          else if (charge.isStripe) lila.mon.plan.stripe.record(charge.usd.cents)
-        }
-      }
+    chargeColl.insert.one(charge).void >>- {
+      recentChargeUserIdsCache.invalidateUnit()
+    } >> monitorCharge(charge, country)
 
   private def monitorCharge(charge: Charge, country: Option[Country]): Funit = {
     lila.mon.plan.charge
@@ -428,16 +406,32 @@ final class PlanApi(
         gift = charge.giftTo.isDefined
       )
       .record(charge.usd.cents)
-    charge.userId ?? { userId =>
-      chargeColl.exists($doc("userId" -> userId)) map {
-        case false => lila.mon.plan.charge.first(charge.serviceName).increment().unit
-        case _     =>
+    charge.userId.?? { userId =>
+      chargeColl.countSel($doc("userId" -> userId)) map {
+        case 1 => lila.mon.plan.charge.first(charge.serviceName).increment().unit
+        case _ =>
       }
-    }
+    } >>
+      monthlyGoalApi.get.map { m =>
+        Bus.publish(
+          lila.hub.actorApi.plan.ChargeEvent(
+            username = charge.userId.flatMap(lightUserApi.sync).fold("Anonymous")(_.name),
+            cents = charge.usd.cents,
+            percent = m.percent,
+            DateTime.now
+          ),
+          "plan"
+        )
+        lila.mon.plan.goal.update(m.goal.cents)
+        lila.mon.plan.current.update(m.current.cents)
+        lila.mon.plan.percent.update(m.percent)
+        if (charge.isPayPal) lila.mon.plan.paypal.record(charge.usd.cents)
+        else if (charge.isStripe) lila.mon.plan.stripe.record(charge.usd.cents)
+      }.void
   }
 
-  private def setDbUserPlan(user: User, plan: lila.user.Plan): Funit =
-    userRepo.setPlan(user, plan) >>- lightUserApi.invalidate(user.id)
+  private def setDbUserPlan(user: User): Funit =
+    userRepo.setPlan(user, user.plan) >>- lightUserApi.invalidate(user.id)
 
   private def saveStripeCustomer(user: User, customerId: CustomerId): Funit =
     userPatron(user) flatMap { patronOpt =>

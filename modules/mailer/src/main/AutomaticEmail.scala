@@ -151,6 +151,18 @@ If you're still interested in supporting us in other ways, you can see non-finan
 To make a new donation, head to $baseUrl/patron"""
     )
 
+  def onPatronGift(from: User.ID, to: User.ID): Funit =
+    userRepo.pair(from, to) map {
+      _ ?? { case (from, to) =>
+        alsoSendAsPrivateMessage(from) { _ =>
+          s"""You gift @${to.username} the Patron wings for one month. Thank you so much!"""
+        }.unit
+        alsoSendAsPrivateMessage(to) { _ =>
+          s"""@${from.username} gifts you the Patron wings for one month!"""
+        }.unit
+      }
+    }
+
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String = {
     implicit val lang = userLang(user)
     body(userLang(user)) tap { txt =>

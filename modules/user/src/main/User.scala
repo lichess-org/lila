@@ -114,6 +114,8 @@ case class User(
 
   def planMonths: Option[Int] = activePlan.map(_.months)
 
+  def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
+
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
   def is(name: String) = id == User.normalize(name)
