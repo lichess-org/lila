@@ -207,12 +207,12 @@
   <string name="gamesPlayed">Gschpillti partiiä</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Partii mit dir</item>
-    <item quantity="other">%s Partien mit dir</item>
+    <item quantity="other">%s Partiiä mit dir</item>
   </plurals>
   <string name="cancel">Abbrächä</string>
   <string name="whiteTimeOut">Ziitüberschritig vo Wiis</string>
   <string name="blackTimeOut">Ziitüberschritig vo Schwarz</string>
-  <string name="drawOfferSent">Remisaagebot gsändet</string>
+  <string name="drawOfferSent">Remisaagebot abgschickt</string>
   <string name="drawOfferDeclined">Remisaagebot abglehnt</string>
   <string name="drawOfferAccepted">Remisaagebot aagna</string>
   <string name="drawOfferCanceled">Remisaagebot zrugzogä</string>
@@ -224,7 +224,7 @@
   <string name="accept">Ahnää</string>
   <string name="decline">Ablehnä</string>
   <string name="playingRightNow">Partii isch am laufä</string>
-  <string name="eventInProgress">Laufendi Partii</string>
+  <string name="eventInProgress">Laufendi Partiiä</string>
   <string name="finished">Beändet</string>
   <string name="finishesX">ändet in %s</string>
   <string name="abortGame">Partii abbrächä</string>
@@ -238,7 +238,7 @@
   <string name="ratedTournament">Gwärtet</string>
   <string name="thisGameIsRated">Das Spiil isch gwärtet</string>
   <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Aagebot zur Revanche gsändet</string>
+  <string name="rematchOfferSent">Aagebot zur Revanche abgschickt</string>
   <string name="rematchOfferSentWhite">Wiis bütet e Revanche a</string>
   <string name="rematchOfferSentBlack">Schwarz bütet e Revanche a</string>
   <string name="rematchOfferAccepted">Aagebot für e Revanche isch aktzeptiert wordä</string>
@@ -335,11 +335,11 @@
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrug zum Spiil</string>
-  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner!</string>
+  <string name="siteDescription">Chostälosä online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins nöötig und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner.</string>
   <string name="xJoinedTeamY">%1$s isch em Team %2$s biiträtte</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
   <string name="xStartedStreaming">%s hät en Stream gschtartet</string>
-  <string name="averageElo">Durchschnitswärtig</string>
+  <string name="averageElo">Durchschnittswärtig</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partiiä filterä</string>
   <string name="reset">Zruggsetze</string>
