@@ -358,7 +358,7 @@
     <item quantity="other">%s importierti Partiiä</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä das du en Mänsch bisch.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä, das du en Mänsch bisch.</string>
   <string name="captcha.fail">Lös bitte d\'Schachuufgab.</string>
   <string name="notACheckmate">Käis Schachmatt</string>
   <string name="whiteCheckmatesInOneMove">Wiis setzt imenä Zug Schachmatt</string>
@@ -381,15 +381,15 @@
   <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">Dä %1$s folgt jetzt em %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s Folgt ihm</item>
-    <item quantity="other">%s Folgäd ihm</item>
+    <item quantity="one">%s Follower</item>
+    <item quantity="other">%s Follower</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s folgänd</item>
-    <item quantity="other">%s folgend</item>
+    <item quantity="other">%s folgänd</item>
   </plurals>
   <string name="more">Meh</string>
-  <string name="memberSince">Mitglied seit</string>
+  <string name="memberSince">Mitglied sit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
   <string name="player">Schpilär</string>
   <string name="list">Lischtä</string>
@@ -445,7 +445,7 @@
   <string name="loadPosition">Schtllig ladä</string>
   <string name="isPrivate">Privat</string>
   <string name="reportXToModerators">Melde %s den Moderatoren</string>
-  <string name="profileCompletion">Profil vollständigkeit: %s</string>
+  <string name="profileCompletion">Profil-Vollständigkeit: %s</string>
   <string name="xRating">%s Wärtigszahl</string>
   <string name="ifNoneLeaveEmpty">Nur falls vorhandä</string>
   <string name="gameCompletionRate">Aateil vo beändetä Schpiil: %s</string>
@@ -467,7 +467,7 @@
   <string name="success">Korrekt</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s laufändi Partii</item>
-    <item quantity="other">%s laufendi Partiiä</item>
+    <item quantity="other">%s laufändi Partiiä</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach emenä Zug automatisch zur nöxschtä Partii gah</string>
   <string name="autoSwitch">Automatischä Wächsel</string>
