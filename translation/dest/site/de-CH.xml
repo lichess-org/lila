@@ -369,20 +369,20 @@
     <item quantity="one">%s Fründ online</item>
     <item quantity="other">%s Fründä online</item>
   </plurals>
-  <string name="noFriendsOnline">Keine Freunde online</string>
-  <string name="findFriends">Freunde finden</string>
-  <string name="favoriteOpponents">Häufigste Gegner</string>
-  <string name="follow">Folgen</string>
-  <string name="following">Folge ich</string>
-  <string name="unfollow">Nicht mehr folgen</string>
+  <string name="noFriendsOnline">Kein Fründ online</string>
+  <string name="findFriends">Fründä findä</string>
+  <string name="favoriteOpponents">Hüfigschti Gägner</string>
+  <string name="follow">Folgä</string>
+  <string name="following">Folg ich</string>
+  <string name="unfollow">Nümmä folgä</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
   <string name="followsYou">Folgt dir</string>
-  <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
+  <string name="xStartedFollowingY">Dä %1$s folgt jetzt em %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s Follower</item>
-    <item quantity="other">%s Follower</item>
+    <item quantity="one">%s Folgt ihm</item>
+    <item quantity="other">%s Folgäd ihm</item>
   </plurals>
   <plurals name="nbFollowing">
     <item quantity="one">%s folgänd</item>
@@ -395,8 +395,8 @@
   <string name="list">Lischtä</string>
   <string name="graph">Graf</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Weniger als %s Minute</item>
-    <item quantity="other">Weniger als %s Minuten</item>
+    <item quantity="one">Wenigär als %s Minutä</item>
+    <item quantity="other">Wenigär als %s Minutä</item>
   </plurals>
   <string name="required">Pflichtfäld.</string>
   <string name="openTournaments">Offeni Turniär</string>
