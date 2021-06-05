@@ -18,7 +18,7 @@
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
   <string name="puzzleId">Aufgabe %s</string>
-  <string name="puzzleOfTheDay">Aufgabe des Tages</string>
+  <string name="puzzleOfTheDay">Uufgab vom Tag</string>
   <string name="clickToSolve">Zum Lösen klicken</string>
   <string name="goodMove">Guter Zug</string>
   <string name="bestMove">Bester Zug!</string>
