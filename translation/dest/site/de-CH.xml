@@ -352,22 +352,22 @@
   <string name="continueFromHere">Vo da us wiiterschpillä</string>
   <string name="toStudy">Studiä</string>
   <string name="importGame">Partii importierä</string>
-  <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
+  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du zuegriff uf e Schpiilwiderholig, e Kompiuteranalüse, en Schpiilchät und ein teilbarä URL.</string>
   <plurals name="nbImportedGames">
-    <item quantity="one">%s importierte Partie</item>
-    <item quantity="other">%s importierte Partien</item>
+    <item quantity="one">%s importierti Partii</item>
+    <item quantity="other">%s importierti Partiiä</item>
   </plurals>
-  <string name="thisIsAChessCaptcha">Dies ist ein Schach-CAPTCHA.</string>
-  <string name="clickOnTheBoardToMakeYourMove">Mach einen Zug, um zu beweisen, dass du ein Mensch bist.</string>
-  <string name="captcha.fail">Bitte löse die Schachaufgabe.</string>
-  <string name="notACheckmate">Kein Matt</string>
-  <string name="whiteCheckmatesInOneMove">Weiß setzt in einem Zug Matt</string>
-  <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
-  <string name="retry">Erneut versuchen</string>
-  <string name="reconnecting">Wiederverbinden</string>
+  <string name="thisIsAChessCaptcha">Das isch es Schach-CAPTCHA.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Klick ufs Brätt und mach en Zug zum bewiisä das du en Mänsch bisch.</string>
+  <string name="captcha.fail">Lös bitte d\'Schachuufgab.</string>
+  <string name="notACheckmate">Käis Schachmatt</string>
+  <string name="whiteCheckmatesInOneMove">Wiis setzt imenä Zug Schachmatt</string>
+  <string name="blackCheckmatesInOneMove">Schwarz setzt imenä Zug Schachmatt</string>
+  <string name="retry">Namal versuächä</string>
+  <string name="reconnecting">Widerverbindä</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s Freund online</item>
-    <item quantity="other">%s Freunde online</item>
+    <item quantity="one">%s Fründ online</item>
+    <item quantity="other">%s Fründä online</item>
   </plurals>
   <string name="noFriendsOnline">Keine Freunde online</string>
   <string name="findFriends">Freunde finden</string>
