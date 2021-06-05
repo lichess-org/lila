@@ -28,6 +28,7 @@
   <string name="onetime">Jednom</string>
   <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
   <string name="otherAmount">Drugo</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Molimo da unesete iznos u %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi smo mali tim, tako da nam Vaša podrška puno znači!</string>
