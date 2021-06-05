@@ -21,7 +21,6 @@
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang. Vær en Lichess Patron for evigt!</string>
   <string name="lifetimePatron">Livstids Lichess Patron</string>
-  <string name="makeExtraDonation">Giv et ekstra bidrag?</string>
   <string name="monthly">Månedligt</string>
   <string name="recurringBilling">Tilbagevendende fakturering, forny dine Patron-vinger hver måned.</string>
   <string name="onetime">En gang</string>
