@@ -17,7 +17,6 @@
   <string name="lifetime">Eluaegne</string>
   <string name="payLifetimeOnce">Maksa %s ühe korra. Ole Lichessi toetaja elu lõpuni!</string>
   <string name="lifetimePatron">Eluaegne Lichessi toetaja</string>
-  <string name="makeExtraDonation">Tee lisaannetus?</string>
   <string name="monthly">Igakuiselt</string>
   <string name="onetime">Ühekordne</string>
   <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
