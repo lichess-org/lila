@@ -27,7 +27,7 @@
   <string name="onetime">En gång</string>
   <string name="singleDonation">En enda donation som ger dig Beskyddar-vingar i en månad.</string>
   <string name="otherAmount">Annat</string>
-  <string name="pleaseEnterAmount">Vänligen, ange ett belopp i USA-dollar (USD)</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Vänligen ange ett belopp i %s</string>
   <string name="withCreditCard">Kreditkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi är ett litet team, så ditt stöd gör en enorm skillnad!</string>
@@ -66,8 +66,6 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="decideHowMuch">Bestäm hur mycket Lichess är värt för dig:</string>
   <string name="stopPayments">Dra tillbaka ditt kreditkort och stoppa betalningar:</string>
   <string name="noLongerSupport">Stöder inte längre Lichess</string>
-  <string name="paymentHistory">Betalningshistorik</string>
-  <string name="paid">Betald</string>
   <string name="viewOthers">Visa andra Lichess-beskyddare</string>
   <string name="date">Datum</string>
   <string name="amount">Belopp</string>

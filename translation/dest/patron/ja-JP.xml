@@ -26,7 +26,7 @@
   <string name="onetime">1 回限り</string>
   <string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
   <string name="otherAmount">その他</string>
-  <string name="pleaseEnterAmount">金額（米ドル）を入力してください</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
@@ -64,8 +64,6 @@
   <string name="decideHowMuch">Lichess の値打ちをご自分で決めてください：</string>
   <string name="stopPayments">クレジットカードでの支払いを止める：</string>
   <string name="noLongerSupport">Lichess への寄付をやめました</string>
-  <string name="paymentHistory">支払い履歴</string>
-  <string name="paid">支払い完了</string>
   <string name="viewOthers">他の Lichess パトロンを表示</string>
   <string name="date">日付</string>
   <string name="amount">金額</string>

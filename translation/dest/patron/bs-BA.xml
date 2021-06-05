@@ -28,7 +28,6 @@
   <string name="onetime">Jednom</string>
   <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
   <string name="otherAmount">Drugo</string>
-  <string name="pleaseEnterAmount">Molimo Vas da unesete iznos u USD</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi smo mali tim, tako da nam Vaša podrška puno znači!</string>
@@ -68,8 +67,6 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="decideHowMuch">Odlučite koliko Vam vrijedi Lichess:</string>
   <string name="stopPayments">Povucite kreditnu karticu i zaustavite plaćanja:</string>
   <string name="noLongerSupport">Više ne podržava Lichess</string>
-  <string name="paymentHistory">Istorija uplata</string>
-  <string name="paid">Plaćeno</string>
   <string name="viewOthers">Pogledajte ostale Lichess Pokrovitelje</string>
   <string name="date">Datum</string>
   <string name="amount">Iznos</string>

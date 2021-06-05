@@ -51,4 +51,10 @@
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="fromMyGames">از بازی های من</string>
+  <string name="lookupOfPlayer">جستجو پازل ها در بازی های یک بازیکن</string>
+  <string name="fromXGames">پازل ها در بازی های %s</string>
+  <string name="searchPuzzles">جستجوی پازل ها</string>
+  <string name="fromMyGamesNone">شما هیچ پازلی در پایگاه داده ندارید، اما لایچس همچنان عاشق شماست. بازیهای رپید و کلاسیک انجام بدین تا شانس داشتن پازل از بازی های شما افزایش پیدا کند!</string>
+  <string name="fromXGamesFound">تعداد %1$s پازل در تعداد %2$s بازی یافت شد</string>
 </resources>

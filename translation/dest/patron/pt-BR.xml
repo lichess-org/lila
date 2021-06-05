@@ -27,7 +27,7 @@
   <string name="onetime">Uma vez</string>
   <string name="singleDonation">Uma única doação que lhe concede as asas de Patrono por um mês.</string>
   <string name="otherAmount">Outro</string>
-  <string name="pleaseEnterAmount">Por favor, insira um valor em dólares</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Por favor, insira um valor em %s</string>
   <string name="withCreditCard">Cartão de Crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
@@ -66,8 +66,6 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="decideHowMuch">Decida quanto Lichess vale para você:</string>
   <string name="stopPayments">Retire seu cartão de crédito e interrompa os pagamentos:</string>
   <string name="noLongerSupport">Deixar de apoiar o Lichess</string>
-  <string name="paymentHistory">Histórico de pagamentos</string>
-  <string name="paid">Pago</string>
   <string name="viewOthers">Ver outros Patronos do Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Quantia</string>

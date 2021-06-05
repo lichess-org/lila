@@ -27,7 +27,7 @@
   <string name="onetime">One-time</string>
   <string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
   <string name="otherAmount">Other</string>
-  <string name="pleaseEnterAmount">Please enter an amount in USD</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>
@@ -66,8 +66,6 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>
   <string name="noLongerSupport">No longer support Lichess</string>
-  <string name="paymentHistory">Payment history</string>
-  <string name="paid">Paid</string>
   <string name="viewOthers">View other Lichess Patrons</string>
   <string name="date">Date</string>
   <string name="amount">Amount</string>

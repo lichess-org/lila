@@ -27,7 +27,6 @@
   <string name="onetime">एक बार</string>
   <string name="singleDonation">एक एकल दान जो आपको एक महीने के लिए संरक्षक पंख का अनुदान देता है।</string>
   <string name="otherAmount">अन्य</string>
-  <string name="pleaseEnterAmount">कृपया USD में राशि दर्ज करें</string>
   <string name="withCreditCard">क्रेडिट कार्ड</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">हमारी एक छोटी टीम हैं, इसलिए आपका समर्थन हमारे लिए बहुत बड़ी बात है!</string>
@@ -66,8 +65,6 @@
   <string name="decideHowMuch">तय करें कि Lichess आपके लिए कितना योग्य है:</string>
   <string name="stopPayments">अपना क्रेडिट कार्ड वापस लें और भुगतान रोकें:</string>
   <string name="noLongerSupport">अब Lichess का समर्थन नहीं करते</string>
-  <string name="paymentHistory">भुगतान इतिहास</string>
-  <string name="paid">भुगतान किया</string>
   <string name="viewOthers">अन्य लिचेस संरक्षक देखें</string>
   <string name="date">दिनांक</string>
   <string name="amount">राशि</string>

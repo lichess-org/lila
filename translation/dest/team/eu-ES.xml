@@ -49,4 +49,6 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="teamPasswordDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten pasahitza.</string>
   <string name="incorrectTeamPassword">Taldearen pasahitza ez da zuzena.</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
+  <string name="upcomingTourns">Hurrengo Txapelketak</string>
+  <string name="completedTourns">Amaitutako txapelketak</string>
 </resources>

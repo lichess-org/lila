@@ -27,7 +27,7 @@
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkeltbidrag som gir deg patronvinger i en måned.</string>
   <string name="otherAmount">Annet</string>
-  <string name="pleaseEnterAmount">Skriv inn et antall i USD (dollar)</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Angi beløp i %s</string>
   <string name="withCreditCard">Kredittkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lite team, så din støtte er av stor betydning!</string>
@@ -66,8 +66,6 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="decideHowMuch">Bestemt hvor verdifull Lichess er for deg:</string>
   <string name="stopPayments">Slett kredittkortdetaljer og stopp faste innbetalinger:</string>
   <string name="noLongerSupport">Avbryt støtten til Lichess</string>
-  <string name="paymentHistory">Historikk for periodisk betaling</string>
-  <string name="paid">Betalt</string>
   <string name="viewOthers">Vis andre Lichess-patroner</string>
   <string name="date">Dato</string>
   <string name="amount">Beløp</string>

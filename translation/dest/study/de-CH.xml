@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="private">Privat</string>
+  <string name="myStudies">Meine Studien</string>
+  <string name="studiesIContributeTo">Studien, an denen ich mitwirke</string>
+  <string name="myPublicStudies">Meine öffentlichen Studien</string>
+  <string name="myPrivateStudies">Meine privaten Studien</string>
+  <string name="myFavoriteStudies">Meine Lieblingsstudien</string>
+  <string name="whatAreStudies">Was sind Studien?</string>
+  <string name="allStudies">Alle Studien</string>
+  <string name="studiesCreatedByX">Von %s erstellte Studien</string>
+  <string name="noneYet">Bisher keine.</string>
+  <string name="hot">Angesagt</string>
+  <string name="dateAddedNewest">Veröffentlichungsdatum (neueste)</string>
+  <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
+  <string name="recentlyUpdated">Kürzlich aktualisiert</string>
+  <string name="mostPopular">Beliebteste</string>
+  <string name="alphabetical">Alphabetisch</string>
+  <string name="addNewChapter">Neues Kapitel hinzufügen</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Kapitel</item>
+    <item quantity="other">%s Kapitel</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partie</item>
+    <item quantity="other">%s Partien</item>
+  </plurals>
+  <string name="addMembers">Mitglieder hinzufügen</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Mitglied</item>
+    <item quantity="other">%s Mitglieder</item>
+  </plurals>
+  <string name="inviteToTheStudy">Zur Studie einladen</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lade nur Leute ein, die du kennst und die aktiv an dieser Studie teilnehmen möchten.</string>
+  <string name="searchByUsername">Suche nach Benutzernamen</string>
+  <string name="spectator">Zuschauer</string>
+  <string name="contributor">Mitwirkender</string>
+  <string name="kick">Rauswerfen</string>
+  <string name="leaveTheStudy">Studie verlassen</string>
+  <string name="youAreNowAContributor">Du bist jetzt ein Mitwirkender</string>
+  <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
+  <string name="pgnTags">PGN Tags</string>
+  <string name="like">Gefällt mir</string>
+  <string name="newTag">Neuer Tag</string>
+  <string name="commentThisPosition">Kommentiere diese Stellung</string>
+  <string name="commentThisMove">Kommentiere diesen Zug</string>
+  <string name="annotateWithGlyphs">Mit Symbolen kommentieren</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum Analysieren.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
+  <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
+  <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
+  <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
+  <string name="playing">Laufende Partien</string>
+  <string name="first">Erste Seite</string>
+  <string name="previous">Zurück</string>
+  <string name="next">Weiter</string>
+  <string name="last">Letzte Seite</string>
+  <string name="shareAndExport">Teilen und exportieren</string>
+  <string name="cloneStudy">Klonen</string>
+  <string name="studyPgn">Studien PGN</string>
+  <string name="downloadAllGames">Lade alle Partien herunter</string>
+  <string name="chapterPgn">Kapitel PGN</string>
+  <string name="downloadGame">Lade die Partie herunter</string>
+  <string name="studyUrl">Studien URL</string>
+  <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Zum Einbinden füge dies im Forum ein</string>
+  <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
+  <string name="startAtX">Beginne mit %s</string>
+  <string name="embedInYourWebsite">In deine Webseite oder deinen Blog einbetten</string>
+  <string name="readMoreAboutEmbedding">Lies mehr über das Einbinden</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Nur öffentliche Studien können eingebunden werden!</string>
+  <string name="open">Öffnen</string>
+  <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
+  <string name="studyNotFound">Studie nicht gefunden</string>
+  <string name="editChapter">Kapitel bearbeiten</string>
+  <string name="newChapter">Neues Kapitel</string>
+  <string name="orientation">Ausrichtung</string>
+  <string name="analysisMode">Analysemodus</string>
+  <string name="pinnedChapterComment">Angepinnte Kapitelkommentare</string>
+  <string name="saveChapter">Kapitel speichern</string>
+  <string name="clearAnnotations">Anmerkungen löschen</string>
+  <string name="deleteChapter">Kapitel löschen</string>
+  <string name="deleteThisChapter">Kapitel löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="clearAllCommentsInThisChapter">Alle Kommentare, Symbole und Zeichnungsformen in diesem Kapitel löschen?</string>
+  <string name="rightUnderTheBoard">Direkt unterhalb des Bretts</string>
+  <string name="noPinnedComment">Keine</string>
+  <string name="normalAnalysis">Normale Analyse</string>
+  <string name="hideNextMoves">Nächste Züge ausblenden</string>
+  <string name="interactiveLesson">Interaktive Übung</string>
+  <string name="chapterX">Kapitel %s</string>
+  <string name="empty">Leer</string>
+  <string name="startFromInitialPosition">Von Ausgangsstellung starten</string>
+  <string name="editor">Ändärä</string>
+  <string name="startFromCustomPosition">Von benutzerdefinierter Stellung starten</string>
+  <string name="loadAGameByUrl">Lade eine Partie mittels URL</string>
+  <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
+  <string name="loadAGameFromPgn">Lade eine Partie mittels PGN</string>
+  <string name="automatic">Automatisch</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Füge deinen PGN Text hier ein, bis zu %s Partie</item>
+    <item quantity="other">Füge dein PGN Text hier ein, bis zu %s Partien</item>
+  </plurals>
+  <string name="urlOfTheGame">URL der Partie</string>
+  <string name="loadAGameFromXOrY">Partie von %1$s oder %2$s laden</string>
+  <string name="createChapter">Kapitel erstellen</string>
+  <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
+  <string name="createStudy">Studie erstellen</string>
+  <string name="editStudy">Studie bearbeiten</string>
+  <string name="visibility">Sichtbarkeit</string>
+  <string name="public">Öffentlich</string>
+  <string name="unlisted">Ungelistet</string>
+  <string name="inviteOnly">Nur mit Einladung</string>
+  <string name="allowCloning">Klonen erlaubt</string>
+  <string name="nobody">Niemand</string>
+  <string name="onlyMe">Nur ich</string>
+  <string name="contributors">Mitwirkende</string>
+  <string name="members">Mitglieder</string>
+  <string name="everyone">Alle</string>
+  <string name="enableSync">Sync aktivieren</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: Gleiche Stellung für alle</string>
+  <string name="noLetPeopleBrowseFreely">Nein: Unabhängige Navigation für alle</string>
+  <string name="pinnedStudyComment">Angepinnter Studienkommentar</string>
+  <string name="start">Start</string>
+  <string name="save">Speichern</string>
+  <string name="clearChat">Chat löschen</string>
+  <string name="deleteTheStudyChatHistory">Chatverlauf der Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="deleteStudy">Studie löschen</string>
+  <string name="deleteTheEntireStudy">Komplette Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="whereDoYouWantToStudyThat">Welche Studie möchtest du nutzen?</string>
+  <string name="goodMove">Guter Zug</string>
+  <string name="mistake">Fehler</string>
+  <string name="brilliantMove">Brillanter Zug</string>
+  <string name="blunder">Grober Patzer</string>
+  <string name="interestingMove">Interessanter Zug</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Fragwürdiger Zug</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einziger Zug</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
+  <string name="equalPosition">Ausgeglichene Stellung</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklare Stellung</string>
+  <string name="whiteIsSlightlyBetter">Weiß steht leicht besser</string>
+  <string name="blackIsSlightlyBetter">Schwarz steht leicht besser</string>
+  <string name="whiteIsBetter">Weiß steht besser</string>
+  <string name="blackIsBetter">Schwarz steht besser</string>
+  <string name="whiteIsWinning">Weiß steht auf Gewinn</string>
+  <string name="blackIsWinning">Schwarz steht auf Gewinn</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuerung</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklung</string>
+  <string name="initiative">Initiativä</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Angriff</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gegenspiel</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Zeitnot</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mit Kompensation</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mit der Idee</string>
+  <string name="nextChapter">Nächstes Kapitel</string>
+  <string name="prevChapter">Vorheriges Kapitel</string>
+</resources>

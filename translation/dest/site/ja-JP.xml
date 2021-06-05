@@ -645,6 +645,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
+  <string name="receiveForumNotifications">フォーラムで自分の名前が出たときに通知を受け取る</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
   <string name="withNobody">誰にも見せない</string>
   <string name="withFriends">友達にだけ</string>

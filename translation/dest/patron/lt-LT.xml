@@ -29,7 +29,7 @@
   <string name="onetime">Vieną kartą</string>
   <string name="singleDonation">Viena parama suteikia jums Rėmėjo sparnus vienam mėnesiui.</string>
   <string name="otherAmount">Kita</string>
-  <string name="pleaseEnterAmount">Įveskite sumą USD</string>
+  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Įveskite sumą %s</string>
   <string name="withCreditCard">Banko kortele</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mes esame maža komanda, todėl jūsų pagalba mums labai svarbi!</string>
@@ -70,8 +70,6 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="decideHowMuch">Nuspręskite, kiek jums vertas Lichess:</string>
   <string name="stopPayments">Pašalinti savo kortelę ir sustabdyti mokėjimus:</string>
   <string name="noLongerSupport">Daugiau neberemti Lichess</string>
-  <string name="paymentHistory">Mokėjimų istorija</string>
-  <string name="paid">Mokėta</string>
   <string name="viewOthers">Peržiūrėti kitus Lichess rėmėjus</string>
   <string name="date">Data</string>
   <string name="amount">Suma</string>

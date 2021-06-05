@@ -27,7 +27,7 @@
   <string name="onetime">En gang</string>
   <string name="singleDonation">Et enkelt bidrag vil give dig Patron-vinger i en måned.</string>
   <string name="otherAmount">Andet</string>
-  <string name="pleaseEnterAmount">Angiv venligst et beløb i US dollars</string>
+  <string name="pleaseEnterAmountInX">Angiv venligst et beløb i %s</string>
   <string name="withCreditCard">Kreditkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi er et lille hold, så din støtte gør en kæmpe forskel!</string>
@@ -66,8 +66,6 @@ Men patroner kan bryste sig med et sejt, nyt profil-ikon.</string>
   <string name="decideHowMuch">Beslut hvor meget Lichess er værd for dig:</string>
   <string name="stopPayments">Træk dit kreditkort tilbage og stop betalinger:</string>
   <string name="noLongerSupport">Støt ikke længere Lichess</string>
-  <string name="paymentHistory">Betalingshistorik</string>
-  <string name="paid">Betalt</string>
   <string name="viewOthers">Se andre Lichess-patroner</string>
   <string name="date">Dato</string>
   <string name="amount">Beløb</string>

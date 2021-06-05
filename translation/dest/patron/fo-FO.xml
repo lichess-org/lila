@@ -23,7 +23,6 @@
   <string name="onetime">Eina ferð</string>
   <string name="singleDonation">Einstøk gáva, ið gevur tær vælvildarveingir í ein mánaða.</string>
   <string name="otherAmount">Annað</string>
-  <string name="pleaseEnterAmount">Skriva vinaliga eina upphædd í USD</string>
   <string name="withCreditCard">Keypskort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vit eru eitt lítið lið, so tín stuðul ger stóran mun!</string>
@@ -59,8 +58,6 @@
   <string name="decideHowMuch">Ger av, hvussu nógv Lichess er vert fyri teg:</string>
   <string name="stopPayments">Tak keypskortið aftur og steðga gjaldingum:</string>
   <string name="noLongerSupport">Stuðla ikki Lichess longur</string>
-  <string name="paymentHistory">Gjaldssøga</string>
-  <string name="paid">Goldið</string>
   <string name="viewOthers">Síggj aðrar Lichess-stuðlar</string>
   <string name="date">Dagur</string>
   <string name="amount">Upphædd</string>

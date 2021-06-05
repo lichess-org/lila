@@ -23,7 +23,6 @@
   <string name="onetime">Бір рет</string>
   <string name="singleDonation">Бір реттік жәрдем берсеңіз, бір ай бойы Қамқоршы боласыз.</string>
   <string name="otherAmount">Басқа</string>
-  <string name="pleaseEnterAmount">Мөлшерді АҚШ доллармен жазыңыз</string>
   <string name="withCreditCard">Банк картасы</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Біз шағын ғана топпыз, сондықтан сіздің жәрдеміңіз зор пайда болады!</string>
@@ -62,8 +61,6 @@
   <string name="decideHowMuch">Личес сізге қаншалықты бағалы:</string>
   <string name="stopPayments">Банк картасын ажыратып, төлемдерді тоқтату:</string>
   <string name="noLongerSupport">Личесті енді қолдамау</string>
-  <string name="paymentHistory">Төлемдер тарихы</string>
-  <string name="paid">Төленгені</string>
   <string name="viewOthers">Басқа Личес Қамқоршыларын қарау</string>
   <string name="date">Күні</string>
   <string name="amount">Мөлшері</string>

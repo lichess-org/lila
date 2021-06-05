@@ -23,7 +23,6 @@
   <string name="onetime">Unu foje</string>
   <string name="singleDonation">Ununura donaco, kiu donas al vi la Patron-flugilojn dum unu monato.</string>
   <string name="otherAmount">Alia</string>
-  <string name="pleaseEnterAmount">Bonvolu enmeti sumon en USD</string>
   <string name="withCreditCard">Kreditkarto</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ni estas malgranda teamo, tial via subteno faras grandegan diferencon!</string>
@@ -62,8 +61,6 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="decideHowMuch">Decidu, kiom valoras Lichess por vi:</string>
   <string name="stopPayments">Retiru vian kreditkarton kaj ĉesu pagojn:</string>
   <string name="noLongerSupport">Ne plu subtenas Lichess</string>
-  <string name="paymentHistory">Pago-historio</string>
-  <string name="paid">Pagita</string>
   <string name="viewOthers">Rigardi aliajn Lichess Patronojn</string>
   <string name="date">Dato</string>
   <string name="amount">Sumo</string>

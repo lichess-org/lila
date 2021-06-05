@@ -23,7 +23,6 @@
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una sola donación que t\'atorga las alas de patrón entre un mes.</string>
   <string name="otherAmount">Unatro</string>
-  <string name="pleaseEnterAmount">Per favor, introduz la cantidat en dolars de EEUU</string>
   <string name="withCreditCard">Tarcheta de credito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo chicot, per ixo lo tuyo emparo marca una gran diferencia!</string>
@@ -62,8 +61,6 @@ Manimenos, los patrones obtienen dreito a presumir d\'o suyo nuevo icono de perf
   <string name="decideHowMuch">Decide quanto vale Lichess pa tu:</string>
   <string name="stopPayments">Retira la tuya tarcheta de credito y deixa de pagar:</string>
   <string name="noLongerSupport">Ya no suporta Lichess</string>
-  <string name="paymentHistory">Historial de pagos</string>
-  <string name="paid">Pagau</string>
   <string name="viewOthers">Veyer atros Patrones de Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Cantidat</string>

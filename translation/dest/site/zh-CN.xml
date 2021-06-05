@@ -664,7 +664,7 @@
   <string name="zeroAdvertisement">没有广告</string>
   <string name="fullFeatured">功能全面</string>
   <string name="phoneAndTablet">手机和平板电脑</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="bulletBlitzClassical">快棋与慢棋</string>
   <string name="correspondenceChess">非即时比赛</string>
   <string name="onlineAndOfflinePlay">在线和离线下棋</string>
   <string name="viewTheSolution">看解答</string>
@@ -823,4 +823,7 @@
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
+  <string name="welcome">欢迎！</string>
+  <string name="lichessPatronInfo">Lichess是一个慈善机构，完全免费/图书馆的开放源码软件。
+所有操作成本、开发和内容完全由用户捐款供资。</string>
 </resources>

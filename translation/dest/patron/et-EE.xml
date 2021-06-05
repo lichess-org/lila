@@ -22,7 +22,6 @@
   <string name="onetime">Ühekordne</string>
   <string name="singleDonation">Üksik annetus, mis annab sulle toetaja tiivad üheks kuuks.</string>
   <string name="otherAmount">Muu</string>
-  <string name="pleaseEnterAmount">Palun sisesta summa Ühendriikide dollarites</string>
   <string name="withCreditCard">Krediitkaart</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Me oleme väike meeskond, sinu toetusel on suur panus!</string>
@@ -59,8 +58,6 @@ Võimalik on ka %s.</string>
   <string name="decideHowMuch">Otsusta kui kallis Lichess on sinule:</string>
   <string name="stopPayments">Tühjenda krediitkaardiinfo ja lõpeta maksed:</string>
   <string name="noLongerSupport">Ei toeta enam Lichessi</string>
-  <string name="paymentHistory">Maksete ajalugu</string>
-  <string name="paid">Makstud</string>
   <string name="viewOthers">Vaata teisi Lichessi toetajaid</string>
   <string name="date">Kuupäev</string>
   <string name="amount">Summa</string>

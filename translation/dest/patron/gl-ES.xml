@@ -23,7 +23,6 @@
   <string name="onetime">Unha vez</string>
   <string name="singleDonation">Unha única doazón que lle concede as ás de padrón durante un mes.</string>
   <string name="otherAmount">Outro</string>
-  <string name="pleaseEnterAmount">Por favor, insire unha cantidade en dólares dos EUA</string>
   <string name="withCreditCard">Tarxeta de crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos un equipo pequeno, polo que o teu apoio marca fai unha gran diferenza!</string>
@@ -62,8 +61,6 @@ Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</st
   <string name="decideHowMuch">Decide canto vale Lichess para ti:</string>
   <string name="stopPayments">Retira a túa tarxeta de crédito e detén os pagos:</string>
   <string name="noLongerSupport">Xa non apoias a Lichess</string>
-  <string name="paymentHistory">Historial de pagamentos</string>
-  <string name="paid">Pago</string>
   <string name="viewOthers">Ver outros patróns de Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Cantidade</string>

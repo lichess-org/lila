@@ -29,7 +29,6 @@
   <string name="onetime">Jednorazowo</string>
   <string name="singleDonation">Pojedyncza darowizna, która daje Ci skrzydła patrona na jeden miesiąc.</string>
   <string name="otherAmount">Inne</string>
-  <string name="pleaseEnterAmount">Wprowadź proszę kwotę w USD</string>
   <string name="withCreditCard">Karta płatnicza</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jesteśmy małym zespołem, więc Twoje wsparcie ma ogromne znaczenie!</string>
@@ -70,8 +69,6 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="decideHowMuch">Zdecyduj ile wart jest dla Ciebie Lichess:</string>
   <string name="stopPayments">Wypłać swoją kartę płatniczą i zatrzymaj płatności:</string>
   <string name="noLongerSupport">Nie wspieraj już Lichess</string>
-  <string name="paymentHistory">Historia płatności</string>
-  <string name="paid">Zapłacone</string>
   <string name="viewOthers">Zobacz innych patronów Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Kwota</string>

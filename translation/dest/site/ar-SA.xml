@@ -1022,4 +1022,6 @@
   <string name="refundXpointsTimeControlY">استعادة: %1$s نقطة تقييم، تصنيف %2$s.</string>
   <string name="timeAlmostUp">أوشك الوقت على الإنتهاء!</string>
   <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
+  <string name="download">تحميل</string>
+  <string name="welcome">مرحبا!</string>
 </resources>

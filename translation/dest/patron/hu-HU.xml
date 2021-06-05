@@ -27,7 +27,6 @@
   <string name="onetime">Egyszeri</string>
   <string name="singleDonation">Egyszeri hozzájárulás, ami Patron szárnyakat biztosít egy hónapig.</string>
   <string name="otherAmount">Egyéb</string>
-  <string name="pleaseEnterAmount">Adj meg egy összeged USD-ben</string>
   <string name="withCreditCard">Bankkártya</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi egy kis csapat vagyunk, a támogatásod nagyon sokat jelent!</string>
@@ -66,8 +65,6 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
   <string name="noLongerSupport">A Lichess támogatásának leállítása</string>
-  <string name="paymentHistory">Fizetési előzmények</string>
-  <string name="paid">Fizetve</string>
   <string name="viewOthers">A többi Patron böngészése</string>
   <string name="date">Dátum</string>
   <string name="amount">Összeg</string>

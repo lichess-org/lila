@@ -23,7 +23,6 @@
   <string name="onetime">مرة واحدة</string>
   <string name="singleDonation">تبرع واحد يمنحك اجنحة الراعي لمدة شهر واحد.</string>
   <string name="otherAmount">أخرى</string>
-  <string name="pleaseEnterAmount">يرجى كتابة المبلغ بالدولار الامريكي (USD)</string>
   <string name="withCreditCard">بطاقة ائتمان</string>
   <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
@@ -59,8 +58,6 @@
   <string name="decideHowMuch">قرر ماذا يعني Lichess بالنسبة لك:</string>
   <string name="stopPayments">سحب بطاقة الائتمان الخاصة بك وإيقاف الدفع:</string>
   <string name="noLongerSupport">التوقف عن دعم Lichess</string>
-  <string name="paymentHistory">سجل الدفع</string>
-  <string name="paid">تم الدفع</string>
   <string name="viewOthers">مشاهدة رعاة آخرين</string>
   <string name="date">تاريخ</string>
   <string name="amount">المجموع</string>
