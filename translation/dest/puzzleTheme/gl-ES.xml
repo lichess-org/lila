@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Peón avanzado</string>
+  <string name="advancedPawnDescription">Un peón a punto de coroar ou ameazando con promocionarse é clave en táctica.</string>
+  <string name="advantage">Vantaxe</string>
+  <string name="advantageDescription">Aproveita a oportunidade de obter unha vantaxe decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mate de Anastasia</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
