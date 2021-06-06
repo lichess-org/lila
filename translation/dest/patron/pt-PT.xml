@@ -17,7 +17,6 @@
   <string name="lifetime">Vitalícia</string>
   <string name="payLifetimeOnce">Paga %s uma vez. Sê um patrono do Lichess para sempre!</string>
   <string name="lifetimePatron">Patrono vitalício do Lichess</string>
-  <string name="makeExtraDonation">Fazer uma doação extra?</string>
   <string name="monthly">Mensal</string>
   <string name="recurringBilling">Faturamento periódico, a renovar as suas asas de patrono todos os meses.</string>
   <string name="onetime">Uma vez</string>

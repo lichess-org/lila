@@ -21,13 +21,12 @@
   <string name="lifetime">Per sempre</string>
   <string name="payLifetimeOnce">Paga %s una vegada. Sigues Patró de Lichess per sempre!</string>
   <string name="lifetimePatron">Patró de Lichess de per vida</string>
-  <string name="makeExtraDonation">Fer una donació extra?</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturació recurrent, renovant les teves ales de Patró cada mes.</string>
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una única donació que et dona les ales de Patró per un mes.</string>
   <string name="otherAmount">Altre</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Si us plau, escriu una quantitat en %s</string>
+  <string name="pleaseEnterAmountInX">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>

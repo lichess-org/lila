@@ -22,13 +22,12 @@
   <string name="lifetime">Pe viață</string>
   <string name="payLifetimeOnce">Plătește %s o dată. Fii un Patron Lichess pentru totdeauna!</string>
   <string name="lifetimePatron">Patron Lichess pe viață</string>
-  <string name="makeExtraDonation">Faci o donație în plus?</string>
   <string name="monthly">Lunar</string>
   <string name="recurringBilling">Plată recurentă, reînnoindu-ți aripile de Patron în fiecare lună.</string>
   <string name="onetime">O dată</string>
   <string name="singleDonation">O singură donație care îți oferă aripile de Patron pentru o lună.</string>
   <string name="otherAmount">Altă sumă</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Te rugăm să introduci o sumă în %s</string>
+  <string name="pleaseEnterAmountInX">Te rugăm să introduci o sumă în %s</string>
   <string name="withCreditCard">Card de credit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Suntem o echipă mică, deci susținerea ta face o diferență uriașă!</string>
@@ -61,6 +60,7 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="nextPayment">Următoarea plată</string>
   <string name="youWillBeChargedXOnY">Veți plăti %1$s pe %2$s.</string>
   <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
+  <string name="giftPatronWings">Dăruiește aripi de Patron unui jucător</string>
   <string name="update">Actualizare</string>
   <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
   <string name="cancelSupport">anuleaza-ți susținerea</string>

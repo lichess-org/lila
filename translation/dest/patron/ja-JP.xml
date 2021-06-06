@@ -20,13 +20,12 @@
   <string name="lifetime">永久</string>
   <string name="payLifetimeOnce">%s を一度寄付すれば永久パトロンです。</string>
   <string name="lifetimePatron">永久 Lichess パトロン</string>
-  <string name="makeExtraDonation">さらに寄付しますか？</string>
   <string name="monthly">毎月</string>
   <string name="recurringBilling">月ぎめの請求で毎月パトロンの翼マークを更新します。</string>
   <string name="onetime">1 回限り</string>
   <string name="singleDonation">1 回の寄付でパトロンの翼マークを 1 か月間表示します。</string>
   <string name="otherAmount">その他</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">金額（%s）を入力してください</string>
+  <string name="pleaseEnterAmountInX">金額（%s）を入力してください</string>
   <string name="withCreditCard">クレジットカード</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">小さな団体なのであなたのサポートはほんとうに助けになります！</string>
@@ -57,6 +56,7 @@
   <string name="nextPayment">次の支払い</string>
   <string name="youWillBeChargedXOnY">%1$s が %2$s に請求されます。</string>
   <string name="makeAdditionalDonation">今すぐ追加の寄付を</string>
+  <string name="giftPatronWings">他の人にパトロンの翼を贈る</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">月ぎめ額の変更（%s）</string>
   <string name="cancelSupport">サポートをキャンセル</string>

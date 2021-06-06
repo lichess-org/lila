@@ -21,13 +21,12 @@
   <string name="lifetime">Lifetime</string>
   <string name="payLifetimeOnce">Pay %s once. Be a Lichess Patron forever!</string>
   <string name="lifetimePatron">Lifetime Lichess Patron</string>
-  <string name="makeExtraDonation">Make an extra donation?</string>
   <string name="monthly">Monthly</string>
   <string name="recurringBilling">Recurring billing, renewing your Patron wings every month.</string>
   <string name="onetime">One-time</string>
   <string name="singleDonation">A single donation that grants you the Patron wings for one month.</string>
   <string name="otherAmount">Other</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Please enter an amount in %s</string>
+  <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Credit Card</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We are a small team, so your support makes a huge difference!</string>

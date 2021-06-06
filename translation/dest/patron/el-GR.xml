@@ -21,13 +21,12 @@
   <string name="lifetime">Για πάντα</string>
   <string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Υποστηρικτής του Lichess για πάντα!</string>
   <string name="lifetimePatron">Υποστηρικτής του Lichess για πάντα</string>
-  <string name="makeExtraDonation">Θέλετε να κάνετε μια επιπλέον δωρεά;</string>
   <string name="monthly">Μηνιαία</string>
   <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Υποστηρικτή κάθε μήνα.</string>
   <string name="onetime">Μία φορά</string>
   <string name="singleDonation">Μία μόνο δωρεά που σας δίνει τα φτερά Υποστηρικτή για ένα μήνα.</string>
   <string name="otherAmount">Άλλο</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Εισάγετε ένα ποσό σε %s</string>
+  <string name="pleaseEnterAmountInX">Εισάγετε ένα ποσό σε %s</string>
   <string name="withCreditCard">Πιστωτική κάρτα</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>

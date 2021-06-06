@@ -22,13 +22,12 @@
   <string name="lifetime">Mūžīgi</string>
   <string name="payLifetimeOnce">Samaksājiet %s vienreiz. Kļūstiet par Lichess Sponsoru mūžīgi!</string>
   <string name="lifetimePatron">Mūžīgs Lichess Sponsors</string>
-  <string name="makeExtraDonation">Veikt papildu ziedojumu?</string>
   <string name="monthly">Ik mēnesi</string>
   <string name="recurringBilling">Periodisks norēķins, kas atjauno jūsu Sponsora spārnus katru mēnesi.</string>
   <string name="onetime">Vienreiz</string>
   <string name="singleDonation">Viens ziedojums, kas jums piešķir Sponsora spārnus vienu mēnesi.</string>
   <string name="otherAmount">Cits</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Lūdzu, ievadiet summu (%s)</string>
+  <string name="pleaseEnterAmountInX">Lūdzu, ievadiet summu (%s)</string>
   <string name="withCreditCard">Kredītkarte</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Esam maza komanda, tādēļ jūsu atbalsts rada milzīgu atšķirību!</string>

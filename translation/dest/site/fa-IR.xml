@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">شما با مهری سفید بازی میکنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
+  <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
   <string name="raceFinished">مسابقه تمام شد</string>

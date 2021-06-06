@@ -21,7 +21,6 @@
   <string name="lifetime">लाइफटाइम</string>
   <string name="payLifetimeOnce">एक बार %s का भुगतान करें। हमेशा के लिए एक लिचेस संरक्षक बनें!</string>
   <string name="lifetimePatron">लाइफटाइम लिचेस पैट्रन</string>
-  <string name="makeExtraDonation">एक अतिरिक्त दान करें?</string>
   <string name="monthly">मासिक</string>
   <string name="recurringBilling">आवर्ती बिलिंग, हर महीने अपने संरक्षक पंख को नवीनीकृत करना।</string>
   <string name="onetime">एक बार</string>

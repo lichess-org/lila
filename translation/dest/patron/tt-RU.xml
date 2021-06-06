@@ -17,7 +17,6 @@
   <string name="lifetime">Хәятивакыт</string>
   <string name="payLifetimeOnce">Бер түләгез %s. Булыгыз Lichess Иганәче мәңгегә!</string>
   <string name="lifetimePatron">Хәяти вакыт Lichess Иганәчесе</string>
-  <string name="makeExtraDonation">Өстәмә хәйрия итергә?</string>
   <string name="monthly">Айлык</string>
   <string name="recurringBilling">Кабат түләү, ай саен сезнең игәнәче канатларыгызны яңарту.</string>
   <string name="onetime">Бер-вакытлы</string>

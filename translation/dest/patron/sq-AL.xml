@@ -17,7 +17,6 @@
   <string name="lifetime">Pergjithmone</string>
   <string name="payLifetimeOnce">Paguani %s një herë. Bëhuni Patron në Lichess përgjithmonë!</string>
   <string name="lifetimePatron">Patron i përjetshëm i Lichessit</string>
-  <string name="makeExtraDonation">Bëni një donacion shtesë?</string>
   <string name="monthly">Çdo muaj</string>
   <string name="recurringBilling">Faturim i përsëritur, duke ripërtërirë krahët e juaj të Patronit çdo muaj.</string>
   <string name="onetime">Një herë</string>

@@ -21,13 +21,12 @@
   <string name="lifetime">Vitalício</string>
   <string name="payLifetimeOnce">Pague %s uma vez. Seja um Patrono Lichess para sempre!</string>
   <string name="lifetimePatron">Patrono vitalício do Lichess</string>
-  <string name="makeExtraDonation">Fazer uma doação extra?</string>
   <string name="monthly">Mensalmente</string>
   <string name="recurringBilling">Faturamento recorrente, renovando suas asas de Patrono todo mês.</string>
   <string name="onetime">Uma vez</string>
   <string name="singleDonation">Uma única doação que lhe concede as asas de Patrono por um mês.</string>
   <string name="otherAmount">Outro</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Por favor, insira um valor em %s</string>
+  <string name="pleaseEnterAmountInX">Por favor, insira um valor em %s</string>
   <string name="withCreditCard">Cartão de Crédito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Somos uma equipe pequena, então o seu apoio faz uma grande diferença!</string>
@@ -59,6 +58,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Você será cobrado em %1$s no dia %2$s.</string>
   <string name="makeAdditionalDonation">Faça uma doação adicional agora</string>
+  <string name="giftPatronWings">Presenteie um jogador com asas de Patrono</string>
   <string name="update">Atualização</string>
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>
   <string name="cancelSupport">cancelar seu apoio</string>

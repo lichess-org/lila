@@ -20,13 +20,12 @@
   <string name="lifetime">Sepanjang waktu</string>
   <string name="payLifetimeOnce">Bayar %s satu kali. Jadilah Penyokong Lichess selamanya!</string>
   <string name="lifetimePatron">Penyokong Lichess Seumur Hidup</string>
-  <string name="makeExtraDonation">Beri donasi ekstra?</string>
   <string name="monthly">Bulanan</string>
   <string name="recurringBilling">Penagihan berulang, memperbarui Sayap Patron Anda setiap bulan.</string>
   <string name="onetime">Satu kali</string>
   <string name="singleDonation">Donasi satu kali yang memberi Anda Sayap Patron selama satu bulan.</string>
   <string name="otherAmount">Lainnya</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Silakan masukkan sebuah jumlah dalam bentuk %s</string>
+  <string name="pleaseEnterAmountInX">Silakan masukkan sebuah jumlah dalam bentuk %s</string>
   <string name="withCreditCard">Kartu Kredit</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Kami adalah tim kecil, jadi dukungan Anda membuat perubahan besar!</string>
@@ -56,6 +55,7 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="nextPayment">Pembayaran berikutnya</string>
   <string name="youWillBeChargedXOnY">Anda akan ditagih sebesar %1$s dalam waktu %2$s.</string>
   <string name="makeAdditionalDonation">Buat donasi tambahan sekarang</string>
+  <string name="giftPatronWings">Hadiahkan bantuan Patron kepada seorang pemain</string>
   <string name="update">Perbarui</string>
   <string name="changeMonthlyAmount">Ubah jumlah bulanan (%s)</string>
   <string name="cancelSupport">batal dukungan Anda</string>

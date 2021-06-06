@@ -23,7 +23,6 @@
   <string name="lifetime">Пожизненная</string>
   <string name="payLifetimeOnce">Заплатите %s один раз. Станьте спонсором навсегда!</string>
   <string name="lifetimePatron">Пожизненный покровитель Lichess</string>
-  <string name="makeExtraDonation">Сделать дополнительное пожертвование?</string>
   <string name="monthly">Ежемесячно</string>
   <string name="recurringBilling">Регулярные платежи продлевают ваше \"крыло спонсора\" каждый месяц.</string>
   <string name="onetime">Однократно</string>

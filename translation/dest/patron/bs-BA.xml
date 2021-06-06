@@ -22,13 +22,12 @@
   <string name="lifetime">Doživotno</string>
   <string name="payLifetimeOnce">Platite %s jednom. Budite Lichess Pokrovitelj zauvijek!</string>
   <string name="lifetimePatron">Doživotni Lichess Pokrovitelj</string>
-  <string name="makeExtraDonation">Da li želite dati dodatnu donaciju?</string>
   <string name="monthly">Mjesečno</string>
   <string name="recurringBilling">Mjesečna pretplata, obnavljate Vaša pokroviteljska krila svakog mjeseca.</string>
   <string name="onetime">Jednom</string>
   <string name="singleDonation">Jedna donacija koja Vam dodjeljuje pokroviteljska krila na jedan mjesec.</string>
   <string name="otherAmount">Drugo</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Molimo da unesete iznos u %s</string>
+  <string name="pleaseEnterAmountInX">Molimo da unesete iznos u %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Mi smo mali tim, tako da nam Vaša podrška puno znači!</string>
@@ -61,6 +60,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nextPayment">Naredna uplata</string>
   <string name="youWillBeChargedXOnY">Dana %2$s naplatit će Vam se %1$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
+  <string name="giftPatronWings">Dajte igraču krila patrona</string>
   <string name="update">Ažurirajte</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>
   <string name="cancelSupport">otkažite Vašu podršku</string>

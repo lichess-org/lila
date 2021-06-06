@@ -17,7 +17,6 @@
   <string name="lifetime">De per vida</string>
   <string name="payLifetimeOnce">Paga %s una vegada. Sé un Patrón d\'a Lichess pa cutio!</string>
   <string name="lifetimePatron">Patrón de Lichess de per vida</string>
-  <string name="makeExtraDonation">Fer una donación adicional?</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturación recurrent, renovando las suyas alas de Patrón cada mes.</string>
   <string name="onetime">Una vegada</string>

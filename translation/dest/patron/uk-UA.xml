@@ -17,7 +17,6 @@
   <string name="lifetime">Пожиттєва</string>
   <string name="payLifetimeOnce">Заплатіть %s один раз. Станьте Покровителем назавжди!</string>
   <string name="lifetimePatron">Пожиттєве покровительство Lichess</string>
-  <string name="makeExtraDonation">Зробити додатковий внесок?</string>
   <string name="monthly">Щомісячно</string>
   <string name="recurringBilling">Регулярні платежі продовжують ваші \"крила\" Покровителя щомісяця.</string>
   <string name="onetime">Одноразовий</string>

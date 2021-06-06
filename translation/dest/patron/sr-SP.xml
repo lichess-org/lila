@@ -16,7 +16,6 @@
   <string name="lifetime">Доживотно</string>
   <string name="payLifetimeOnce">Плати %s једном. Буди Личес Патрон заувек!</string>
   <string name="lifetimePatron">Доживотни Личес Патрон</string>
-  <string name="makeExtraDonation">Направи додатну донацију?</string>
   <string name="monthly">Месечно</string>
   <string name="recurringBilling">Поновно наплаћивање, обнављајући твоја Патрон крила сваког месеца.</string>
   <string name="onetime">Једноктратно</string>

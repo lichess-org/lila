@@ -17,7 +17,6 @@
   <string name="lifetime">Доживотен</string>
   <string name="payLifetimeOnce">Плати %s еднаш. Биди Lichess подржувач засекогаш!</string>
   <string name="lifetimePatron">Доживотен Lichess донатор</string>
-  <string name="makeExtraDonation">Направи дополнителна донација?</string>
   <string name="monthly">Месечно</string>
   <string name="recurringBilling">Повторувачка наплата, обновувајќи ги твоите донаторски крилја секој месец.</string>
   <string name="onetime">Еднократно</string>

@@ -21,13 +21,12 @@
   <string name="lifetime">Bizi guztirako</string>
   <string name="payLifetimeOnce">Ordaindu %s behin. Izan Lichess Babesle betiko!</string>
   <string name="lifetimePatron">Bizi guztirako Lichess Babeslea</string>
-  <string name="makeExtraDonation">Dohaintza gehigarri bat egin?</string>
   <string name="monthly">Hilero</string>
   <string name="recurringBilling">Hileroko ordainketa, hilero berritu zure Babesle hegoak.</string>
   <string name="onetime">Behin</string>
   <string name="singleDonation">Behin egiteko dohaintza, Babesle egoak hilabeterako jasoko dituzu.</string>
   <string name="otherAmount">Bestelakoa</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Idatzi kopurua %stan</string>
+  <string name="pleaseEnterAmountInX">Idatzi kopurua %stan</string>
   <string name="withCreditCard">Kreditu txartela</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Talde txikia gara, gure babesak asko lagunduko digu!</string>

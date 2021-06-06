@@ -21,13 +21,12 @@
   <string name="lifetime">À vie</string>
   <string name="payLifetimeOnce">Payez %s une fois. Devenez un mécène de Lichess pour toujours !</string>
   <string name="lifetimePatron">Mécène de Lichess à vie</string>
-  <string name="makeExtraDonation">Faire un don supplémentaire ?</string>
   <string name="monthly">Mensuel</string>
   <string name="recurringBilling">Facturation récurrente, renouvellement de vos ailes de mécène tous les mois.</string>
   <string name="onetime">Unique</string>
   <string name="singleDonation">Un don unique qui vous accorde les ailes de mécène pendant un mois.</string>
   <string name="otherAmount">Autres</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Entrez un montant en %s</string>
+  <string name="pleaseEnterAmountInX">Entrez un montant en %s</string>
   <string name="withCreditCard">Carte de crédit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Nous sommes une petite équipe, ainsi votre soutien fait une énorme différence !</string>
@@ -59,6 +58,7 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="nextPayment">Prochain paiement</string>
   <string name="youWillBeChargedXOnY">Vous serez facturé %1$s le %2$s.</string>
   <string name="makeAdditionalDonation">Faire un don supplémentaire maintenant</string>
+  <string name="giftPatronWings">Offrir des ailes (compte Mécène) à un joueur</string>
   <string name="update">Modifier</string>
   <string name="changeMonthlyAmount">Changer le montant mensuel (%s)</string>
   <string name="cancelSupport">annuler votre soutien</string>

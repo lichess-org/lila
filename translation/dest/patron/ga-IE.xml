@@ -24,13 +24,12 @@
   <string name="lifetime">Saol</string>
   <string name="payLifetimeOnce">Íoc %s uair amháin. Bí i do Phátrún Lichess go deo!</string>
   <string name="lifetimePatron">Pátrún Lichess Saoil</string>
-  <string name="makeExtraDonation">Déan tabhartas breise?</string>
   <string name="monthly">Míosúil</string>
   <string name="recurringBilling">Billeáil athfhillteach, ag athnuachan do sciatháin Pátrún gach mí.</string>
   <string name="onetime">Aonuaire</string>
   <string name="singleDonation">Bronntanas amháin a thugann sciatháin an Phátrúin duit ar feadh míosa.</string>
   <string name="otherAmount">Eile</string>
-  <string name="pleaseEnterAmountInX" comment="pleaseEnterAmountInX&#10;&#10;%s is a currency, e.g. $.&#10;&#10;The string refers to donations, and the amount is monetary.">Iontráil méid i %s</string>
+  <string name="pleaseEnterAmountInX">Iontráil méid i %s</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
