@@ -66,5 +66,10 @@
   <string name="monetizing">Monetizar Lichess</string>
   <string name="buyingLichess">Comprar Lichess</string>
   <string name="authorizationToUse">Autorización a empregar Lichess</string>
+  <string name="welcomeToUse">Está permitido empregar Lichess para a túa actividade, incluso de xeito comercial.</string>
+  <string name="videosAndBooks">Podes amosala nos teus vídeos e podes imprimir pantallazos de Lichess nos teus libros.</string>
+  <string name="creditAppreciated">A mención é apreciada pero non requerida.</string>
   <string name="noneOfTheAbove">Ningún dos anteriores</string>
+  <string name="sendEmailAt">Envíanos un correo a %s.</string>
+  <string name="explainYourRequest">Por favor explica a túa solicitude de forma clara e exhaustiva. Especifica o teu nome de usuario de Lichess e calquera información que nos poida ser útil.</string>
 </resources>
