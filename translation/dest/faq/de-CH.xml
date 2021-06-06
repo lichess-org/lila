@@ -45,11 +45,11 @@ Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je wänig
 
 D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
-  <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
+  <string name="lichessFollowFIDErules">Wänn ämänä Schpiller kei Bedenkziit meh zur Verfüägig schtoht, verlüürt är ide Regäl d\'Partii. Allerdings wird ä Partii Remis erchläärt, falls äm Gägner dur kei legali Zugfolg meh möglich isch, äs Matt z\'erzwingä (%1$s). Schtandardmässig wird immer für däsäb Schpiller entschidä, dessä Bedenkziit nöd abgloffä isch.
 
-In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
+I sältänä Fäll chas schwirig si, das automatisch z\'entscheidä. (Erzwungäni Zugfolgä, Feschtigä)
 
-Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
+Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä nöd möglich isch, sötti dä Gägner ä Figur bsitzä, wo sin König blockiärä chönt.</string>
   <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
   <string name="explainingEnPassant">Das isch än regelgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
