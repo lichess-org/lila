@@ -767,8 +767,8 @@
   <string name="evaluatingYourMove">Zug wird bewertet ...</string>
   <string name="whiteWinsGame">Weiß gewinnt</string>
   <string name="blackWinsGame">Schwarz gewinnt</string>
-  <string name="learnFromYourMistakes">Lerne aus deinen Fehlern</string>
-  <string name="learnFromThisMistake">Lerne aus diesem Fehler</string>
+  <string name="learnFromYourMistakes">Lern us dinä Fählär</string>
+  <string name="learnFromThisMistake">Lern us dem Fählär</string>
   <string name="skipThisMove">Überspringe diesen Zug</string>
   <string name="next">Nächster</string>
   <string name="xWasPlayed">%s wurde gespielt</string>
