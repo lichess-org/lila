@@ -63,6 +63,27 @@
   <string name="longDescription">Tres movementos para gañar.</string>
   <string name="master">Partidas de Mestres</string>
   <string name="masterDescription">Exercicios de partidas de xogadores titulados.</string>
+  <string name="masterVsMaster">Partidas entre Mestres</string>
+  <string name="masterVsMasterDescription">Exercicios de partidas entre xogadores titulados.</string>
+  <string name="mate">Xaque mate</string>
+  <string name="mateDescription">Gana a partida con estilo.</string>
+  <string name="mateIn1">Mate nun movemento</string>
+  <string name="mateIn1Description">Da xaque mate cun só movemento.</string>
+  <string name="mateIn2">Mate en 2</string>
+  <string name="mateIn2Description">Da xaque mate en dous movementos.</string>
+  <string name="mateIn3">Mate en 3</string>
+  <string name="mateIn3Description">Da xaque mate con tres movementos.</string>
+  <string name="mateIn4">Mate en 4</string>
+  <string name="mateIn4Description">Da xaque mate con catro movementos.</string>
+  <string name="mateIn5">Mate en 5 ou máis</string>
+  <string name="mateIn5Description">Calcula unha secuencia de mate longa.</string>
+  <string name="middlegame">Medio xogo</string>
+  <string name="middlegameDescription">Táctica durante a segunda fase do xogo.</string>
+  <string name="oneMove">Exercicio dun só movemento</string>
+  <string name="oneMoveDescription">Un só movemento para gañar.</string>
+  <string name="opening">Apertura</string>
+  <string name="openingDescription">Táctica durante a primeira fase do xogo.</string>
+  <string name="pawnEndgame">Final de peóns</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
