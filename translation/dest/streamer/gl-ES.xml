@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Streamers de Lichess</string>
+  <string name="lichessStreamer">Streamer de Lichess</string>
+  <string name="live">En directo!</string>
+  <string name="offline">Desconectado/a</string>
+  <string name="currentlyStreaming">Transmitindo agora mesmo: %s</string>
+  <string name="lastStream">Última transimisión %s</string>
+  <string name="becomeStreamer">Convírtete nun streamer de Lichess</string>
+  <string name="doYouHaveStream">Tes unha conta de Twitch ou unha canle de Youtube?</string>
+  <string name="hereWeGo">Imos!</string>
+  <string name="allStreamers">Tod@s @s streamers</string>
+  <string name="editPage">Edita a túa páxina de streamer</string>
+  <string name="yourPage">A túa páxina de streamer</string>
+  <string name="downloadKit">Descarga o kit de streamer</string>
+  <string name="xIsStreaming">%s está transmitindo</string>
+  <string name="rules">Regras de Streaming</string>
+  <string name="rule1">Incúe a palabra \"lichess.org\" no título da túa transmisión e usa a categoría \"Chess\" cando retransmitas en Lichess.</string>
+</resources>
