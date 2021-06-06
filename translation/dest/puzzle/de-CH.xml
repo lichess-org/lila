@@ -13,7 +13,7 @@
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
-  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
+  <string name="yourPuzzleRatingX">Dini Taktikwärtig: %s</string>
   <string name="findTheBestMoveForWhite">Find dä beschte Zug für Wiis.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
