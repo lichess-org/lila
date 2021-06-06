@@ -14,7 +14,7 @@
   <string name="attractionDescription">Än Abtuusch oder äs Opfer, wonä gegnerischi Figur ufäs Fäld iinladät oder zwingt, was ä Folgetaktik erlaubt.</string>
   <string name="backRankMate">Grundreihenmatt</string>
   <string name="backRankMateDescription">Setze den König auf der Grundreihe matt, wenn er dort durch seine eigenen Figuren blockiert wird.</string>
-  <string name="bishopEndgame">Läuferendspiel</string>
+  <string name="bishopEndgame">Läuferändschpiil</string>
   <string name="bishopEndgameDescription">Ein Endspiel nur mit Läufern und Bauern.</string>
   <string name="bodenMate">Boden-Matt</string>
   <string name="bodenMateDescription">Zwei angreifende Läufer auf sich kreuzenden Diagonalen setzen den König matt, der durch eigene Figuren behindert wird.</string>
@@ -26,7 +26,7 @@
   <string name="crushingDescription">Finde den gegnerischen Patzer, um einen vernichtenden Vorteil zu erhalten. (Bewertung ≥ 600 Hundertstel-Bauern)</string>
   <string name="doubleBishopMate">Läuferpaarmatt</string>
   <string name="doubleBishopMateDescription">Zwei angreifende Läufer auf nebeneinander liegenden Diagonalen setzen einen - von eigenen Figuren behinderten - König matt.</string>
-  <string name="dovetailMate">Sternmatt</string>
+  <string name="dovetailMate">Schtärnmatt</string>
   <string name="dovetailMateDescription">Eine Dame setzt den nebenstehenden König matt, dessen einzigen zwei Fluchtfelder durch eigene Figuren verstellt sind.</string>
   <string name="equality">Ausgleich</string>
   <string name="equalityDescription">Komme aus einer verlorenen Stellung zurück und sichere dir ein Remis oder eine ausgeglichene Stellung. (Bewertung ≤ 200 Hundertstel-Bauern)</string>
@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
-  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
+  <string name="enPassantDescription">Ä Taktik, wo d\'Schachreglä \"im Vorbigoh\" iibeziäht, bi därä än Puur än gegnerischä Puur schloh chann.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
@@ -59,7 +59,7 @@
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
   <string name="knightEndgame">Gauländschpiil</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>
-  <string name="long">Mehrzügigi Ufgoobä</string>
+  <string name="long">Mehrzügigi Ufgoob</string>
   <string name="longDescription">Drei Züge zum Sieg.</string>
   <string name="master">Meisterpartien</string>
   <string name="masterDescription">Aufgaben aus Partien von Spielern mit Titel.</string>
@@ -107,7 +107,7 @@
   <string name="skewerDescription">Ein Motiv mit einer angegriffenen, hochwertigen Figur, deren Wegziehen erlaubt, dass eine niederwertige Figur hinter ihr geschlagen oder angegriffen werden kann, das Gegenteil einer Fesselung.</string>
   <string name="smotheredMate">Ersticktes Matt</string>
   <string name="smotheredMateDescription">Ein Matt durch einen Springer, in dem der mattgesetzte König sich nicht bewegen kann, weil er von seinen eigenen Figuren umgeben (also erstickt) wird.</string>
-  <string name="superGM">Super-Großmeister-Partien</string>
+  <string name="superGM">Super-Grossmeischtär-Partiiä</string>
   <string name="superGMDescription">Aufgaben aus Partien, die von den besten Spielern der Welt bestritten wurden.</string>
   <string name="trappedPiece">Gefangene Figur</string>
   <string name="trappedPieceDescription">Eine Figur kann dem Schlagen nicht entgehen, weil ihre Zugmöglichkeiten begrenzt wurden.</string>
