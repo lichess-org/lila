@@ -6,7 +6,7 @@
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt gerade: %s</string>
   <string name="lastStream">Letzter Stream %s</string>
-  <string name="becomeStreamer">Werde ein Lichess Streamer</string>
+  <string name="becomeStreamer">Werd en Lichess Streamer</string>
   <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
   <string name="hereWeGo">Los geht\'s!</string>
   <string name="allStreamers">Alle Streamer</string>
