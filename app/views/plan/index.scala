@@ -101,34 +101,29 @@ ${payPalFormRecurring(pricing, "lichess.org monthly")}
 <form class="paypal_checkout lifetime none" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 ${payPalFormSingle(pricing, "lichess.org lifetime")}
 </form>"""),
-                  st.group(cls := "radio buttons dest")(
-                    div(
-                      ctx.me match {
-                        case None =>
-                          a(href := s"${routes.Auth.login}?referrer=${routes.Plan.index}")("Login to donate")
-                        case Some(me) =>
-                          frag(
-                            input(
-                              tpe := "radio",
-                              name := "dest",
-                              id := "dest_me",
-                              checked,
-                              value := "me"
-                            ),
-                            label(`for` := "dest_me")("Donate as ", me.username)
-                          )
-                      }
-                    ),
-                    div(
-                      input(
-                        tpe := "radio",
-                        name := "dest",
-                        id := "dest_gift",
-                        value := "gift"
+                  ctx.me map { me =>
+                    st.group(cls := "radio buttons dest")(
+                      div(
+                        input(
+                          tpe := "radio",
+                          name := "dest",
+                          id := "dest_me",
+                          checked,
+                          value := "me"
+                        ),
+                        label(`for` := "dest_me")("Donate as ", me.username)
                       ),
-                      label(`for` := "dest_gift")(giftPatronWings())
+                      div(
+                        input(
+                          tpe := "radio",
+                          name := "dest",
+                          id := "dest_gift",
+                          value := "gift"
+                        ),
+                        label(`for` := "dest_gift")(giftPatronWings())
+                      )
                     )
-                  ),
+                  },
                   div(cls := "gift complete-parent none")(
                     st.input(
                       name := "giftUsername",
@@ -213,16 +208,16 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                         frag(
                           (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
                             button(cls := "stripe button")(withCreditCard()),
-                          methods("alipay") option button(cls := "stripe button")("Alipay")
+                          methods("alipay") option button(cls := "stripe button")("Alipay"),
+                          button(cls := "paypal button")(withPaypal())
                         )
                       else
                         a(
-                          cls := "stripe button",
+                          cls := "button",
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                        )(withCreditCard()),
-                      button(cls := "paypal button")(withPaypal())
+                        )("Log in to donate")
                     ),
-                    div(cls := "links")(
+                    ctx.isAuth option div(cls := "links")(
                       a(cls := "stripe")("Google Pay"),
                       a(cls := "stripe")("Apple Pay")
                     )
