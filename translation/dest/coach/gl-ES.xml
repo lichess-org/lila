@@ -21,4 +21,11 @@
   <string name="teachingExperience">Experiencia como adestrador/a</string>
   <string name="otherExperiences">Outras experiencias</string>
   <string name="bestSkills">Mellores habilidades</string>
+  <string name="teachingMethod">Metodoloxía de adestramento</string>
+  <string name="publicStudies">Estudos públicos</string>
+  <string name="youtubeVideos">Vídeos do YouTube</string>
+  <string name="thankYouForReview">Grazas pola túa valoración!</string>
+  <string name="xWillApproveIt">%s aprobarao moi pronto ou un moderador o revisará.</string>
+  <string name="reviewCoach">Valorar a este adestrador/a</string>
+  <string name="describeExperienceWith">Describe a túa experiencia de adestramento con %s</string>
 </resources>
