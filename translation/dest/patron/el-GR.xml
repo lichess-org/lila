@@ -58,6 +58,7 @@
   <string name="nextPayment">Επόμενη πληρωμή</string>
   <string name="youWillBeChargedXOnY">Θα χρεωθείτε %1$s την %2$s.</string>
   <string name="makeAdditionalDonation">Κάντε μια πρόσθετη δωρεά τώρα</string>
+  <string name="giftPatronWings">Δωρίστε τα φτερά Υποστηρικτή σε έναν παίκτη</string>
   <string name="update">Ενημέρωση</string>
   <string name="changeMonthlyAmount">Αλλαγή του μηνιαίου ποσού (%s)</string>
   <string name="cancelSupport">διακοπή της υποστήριξής σας</string>
