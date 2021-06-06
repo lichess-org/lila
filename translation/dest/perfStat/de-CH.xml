@@ -6,7 +6,7 @@
   <string name="notEnoughRatedGames">Nög gnueg gwerteti Partie gschpillt, um ä verlässlichi Wertig z\'erzielä.</string>
   <string name="progressOverLastXGames">Fortschritt über di letschtä %s Schpiel:</string>
   <string name="ratingDeviation">Wertigssabwychig: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">En tüüfä Wert bedütet, dass d\'Wertigszahl stabiler isch. Über %1$s wird d\'Wertig als vorläufig betrachtet. Zum id Ranglistä ufgno z\'werdä, sött dä Wert under %2$s (Standardschach) oder %3$s (Variantä) liggä.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">En tüüfä Wärt bedüütät, dass d\'Wärtigszahl schtabiler isch. Über %1$s wird d\'Wärtig als vorläufig betrachtät. Zum id Ranglistä ufgno z\'werdä, sött dä Wärt under %2$s (Schtandardschach) oder %3$s (Variantä) liggä.</string>
   <string name="totalGames">Gsamthafti Schpiel</string>
   <string name="ratedGames">Gwärteti Schpiel</string>
   <string name="tournamentGames">Turnierschpiel</string>
