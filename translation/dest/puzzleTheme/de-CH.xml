@@ -5,7 +5,7 @@
   <string name="advantage">Vorteil</string>
   <string name="advantageDescription">Nutze deine Chance, um einen entscheidenden Vorteil zu erlangen. (200 Hundertstel-Bauern ≤ Bewertung ≤ 600 Hundertstel-Bauern)</string>
   <string name="anastasiaMate">Anastasia-Matt</string>
-  <string name="anastasiaMateDescription">En Gaul und ein Turm bzw. eine Dame arbeität zämmä, um dä gegnerisch König zwüsched dem Brättrond und sinnärä eigä Figurä einzschlüsssä.</string>
+  <string name="anastasiaMateDescription">Än Gaul und än Turm bzw. ä Damä schaffäd zämä, zum dä gegnerisch König zwüschäd äm Brättrand und sinä eigänä Figurä iizschlüssä.</string>
   <string name="arabianMate">Arabisches Matt</string>
   <string name="arabianMateDescription">Ein Springer und ein Turm arbeiten zusammen, um den gegnerischen König in einer Ecke des Bretts matt zu setzen.</string>
   <string name="attackingF2F7">Angriff auf f2 oder f7</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Ablenkung</string>
   <string name="deflectionDescription">Ein Zug, der eine gegnerische Figur von einer anderen Aufgabe ablenkt, wie zum Beispiel dem Schutz eines wichtigen Felds. Manchmal auch \"Überlastung\" genannt.</string>
   <string name="discoveredAttack">Abzugsangriff</string>
-  <string name="discoveredAttackDescription">Ziehe eine Figur, die zuvor einen Angriff durch eine andere langschrittige Figur blockierte, wie einen Springer aus dem Weg eines Turms.</string>
+  <string name="discoveredAttackDescription">Züch ä Figur, wo voranä än Agriff dur än anderi langschrittigi Figur blockiärt hät, wiänän Gaul usäm Wäg vom Turm.</string>
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
@@ -51,13 +51,13 @@
   <string name="forkDescription">Ein Zug, bei dem die gezogene Figur zwei gegnerische Figuren auf einmal angreift.</string>
   <string name="hangingPiece">Hängende Figur</string>
   <string name="hangingPieceDescription">Eine Taktik, bei der eine gegnerische Figur nicht oder nur unzureichend gedeckt ist und deshalb mit Vorteil geschlagen werden kann.</string>
-  <string name="hookMate">Hakenmatt</string>
+  <string name="hookMate">Hoogämatt</string>
   <string name="hookMateDescription">Matt mit Turm, Springer und Bauer, zusammen mit einem gegnerischen Bauern, der dessen König ein Fluchtfeld nimmt.</string>
   <string name="interference">Unterbrechung</string>
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
-  <string name="knightEndgame">Springerendspiel</string>
+  <string name="knightEndgame">Gauländschpiil</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>
   <string name="long">Mehrzügigi Ufgoobä</string>
   <string name="longDescription">Drei Züge zum Sieg.</string>
