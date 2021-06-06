@@ -118,4 +118,7 @@
   <string name="xRayAttack">Ataque por raios X</string>
   <string name="xRayAttackDescription">Unha peza ataca ou defende unha casilla, a través dunha peza do opoñente.</string>
   <string name="zugzwang">Zugzwang</string>
+  <string name="zugzwangDescription">O opoñente está limitado nos movementos que pode facer e todos os movementos empeoran a súa posición.</string>
+  <string name="healthyMix">Mezcla equilibrada</string>
+  <string name="healthyMixDescription">Un pouco de todo. Non sabes que te agarda, así que está atent@ para calquera cousa, como nas partidas reais.</string>
 </resources>
