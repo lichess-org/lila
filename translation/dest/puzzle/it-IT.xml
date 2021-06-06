@@ -64,4 +64,6 @@
   <string name="continueTheStreak">Continua</string>
   <string name="newStreak">Nuova sessione</string>
   <string name="fromMyGames">Dai miei giochi</string>
+  <string name="lookupOfPlayer">Cerca tattiche dalle partite di un giocatore</string>
+  <string name="fromXGames">Tattiche dalle partite di %s\'</string>
 </resources>
