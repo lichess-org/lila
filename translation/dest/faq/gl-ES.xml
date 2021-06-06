@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="faqAbbreviation">Preguntas frecuentes</string>
+  <string name="frequentlyAskedQuestions">Preguntas Frecuentes</string>
+  <string name="whyIsLichessCalledLichess">Porque Liches ten o nome de Lichess?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é unha combinación de live/light/libre (en directo, lixeiro e libre, en inglés) e chess (xadrez, en inglés). Pronúnciase %1$s.</string>
+  <string name="leechess">lee-chess</string>
+  <string name="hearItPronouncedBySpecialist">Así ñe como o pronuncia unha especialista.</string>
+  <string name="whyLiveLightLibre">En directo, porque as partidas xóganse e vense en tempo real 24/7; lixeiro e libre porque Lichess é de código aberto e sen a basura propietaria que abunda noutras páxinas.</string>
+  <string name="whyIsLilaCalledLila">Do mesmo xeito, o código fonte de Lichess, %1$s, significa li[chess en sca]la, dado que a maior parte de Lichess está escrito en %2$s, unha intuitiva linguaxe de programación.</string>
+  <string name="howCanIContributeToLichess">Como podo contribuir a Lichess?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess mantense con doazóns de patróns/as e co esforzo dun equipo de voluntarios/as.</string>
+  <string name="findMoreAndSeeHowHelp">Podes aprender máis sobre %1$s (incluindo un %2$s). Se queres axudar a Lichess voluntariamente co teu tempo e habilidades, hai moitas %3$s.</string>
+  <string name="beingAPatron">ser patrón</string>
+  <string name="breakdownOfOurCosts">desglose dos nosos gastos</string>
+</resources>
