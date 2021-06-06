@@ -44,6 +44,25 @@
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
+  <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o pasou por alto usando o seu movemento inicial de dúas casillas.</string>
+  <string name="exposedKing">Rei exposto</string>
+  <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa a seu arredor, a miúdo conducindo a xaque mate.</string>
+  <string name="fork">Pinza</string>
+  <string name="forkDescription">Movemento no que a peza movida ataca a dúas pezas opoñentes á vez.</string>
+  <string name="hangingPiece">Peza colgada</string>
+  <string name="hangingPieceDescription">Táctica que implica cunha peza do opoñente non sexa defendida o suficientemente defendida e quede libre para ser capturada.</string>
+  <string name="hookMate">Mate do gancho</string>
+  <string name="hookMateDescription">Xaque mate cunha torre, cabalo e peón xunto cun peón inimigo que limita o escap do rei contrario.</string>
+  <string name="interference">Interferencia</string>
+  <string name="interferenceDescription">Mover unha peza entre dúas pezas do opoñente para deixar unha ou ambas pezas do oponente sen defensa, por exemplo un caballo nunha casilla entre dúas torres.</string>
+  <string name="intermezzo">Xogada intermedia</string>
+  <string name="intermezzoDescription">En lugar de xogar o movemento agardado, realízase antes outro movemento que plantexa unha ameaza inmediata á que o oponente debe respostar. Tamén coécida como \"Zwischenzug\" o \"Intermezzo\".</string>
+  <string name="knightEndgame">Final de cabalos</string>
+  <string name="knightEndgameDescription">Final con só cabalos e peóns.</string>
+  <string name="long">Exercicio longo</string>
+  <string name="longDescription">Tres movementos para gañar.</string>
+  <string name="master">Partidas de Mestres</string>
+  <string name="masterDescription">Exercicios de partidas de xogadores titulados.</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
