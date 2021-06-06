@@ -34,16 +34,16 @@ Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
-  <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
+  <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Was ist durchschnittlicher Hundertstelbauer-Verlust (ACPL)?</string>
-  <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Also gilt: 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="acplExplanation">Dä Centipuur oder Hundertschtälppur isch ä Masseinheit im Schach für dä Vorteil vumä Schpiller. Dä Centipuur entspricht äm Wärt vo 1/100 vumä regulärä Puur. Also gilt: 100 Centipuurä = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller nützlich und schpilläd im Kompischach än essänziälli Roll bidä Bewärtig vo Schtelligä.
 
-Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
+Dä bescht Kompizug verlüürt kan Centippur, schlächtäri Züg verschlächtäräd aber d\'Schtellig, was in Centipuurä gmässä wird.
 
-Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
+Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je wäniger Centipuurä pro Zug verlorä wärdäd, deschto grösser d\'Schpiilstärchi.
 
-Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
+D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
   <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
 
@@ -118,7 +118,7 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardschach und niedriger als %2$s in Varianten besitzen,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä,</string>
   <string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
   <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
