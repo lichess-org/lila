@@ -51,15 +51,15 @@
   <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer iizladä zum zuäzluegä</string>
   <string name="theComputerAnalysisHasFailed">D Kompianalysä isch bachab</string>
-  <string name="viewTheComputerAnalysis">D\'Kompianalysä aluägä</string>
+  <string name="viewTheComputerAnalysis">D\'Kompianalysä aaluägä</string>
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Kompianalysä</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Tüüfi: %s</string>
-  <string name="usingServerAnalysis">Server-Analüsä wird bruucht</string>
+  <string name="usingServerAnalysis">Server-Analysä am Bruuchä</string>
   <string name="loadingEngine">Engine wird gladä ...</string>
-  <string name="cloudAnalysis">Wulchä-Analüse</string>
+  <string name="cloudAnalysis">Wulchä-Analysä</string>
   <string name="goDeeper">D Düüfi erhöchä</string>
   <string name="showThreat">Bedrohig aazeigä</string>
   <string name="inLocalBrowser">im lokalä Browser</string>
@@ -782,7 +782,7 @@
   <string name="waitingForAnalysis">Warte auf Analyse</string>
   <string name="noMistakesFoundForWhite">Keine Fehler bei Weiß gefunden</string>
   <string name="noMistakesFoundForBlack">Keine Fehler bei Schwarz gefunden</string>
-  <string name="doneReviewingWhiteMistakes">Überprüfen der Fehler von Weiß abgeschlossen</string>
+  <string name="doneReviewingWhiteMistakes">S\'Überprüäfä vo Fähler vo Wiis isch abgschlossä</string>
   <string name="doneReviewingBlackMistakes">Überprüfen der Fehler von Schwarz abgeschlossen</string>
   <string name="doItAgain">Wiederholen</string>
   <string name="reviewWhiteMistakes">Fehler von Weiß überprüfen</string>
