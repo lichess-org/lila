@@ -13,4 +13,11 @@
   <string name="findMoreAndSeeHowHelp">Podes aprender máis sobre %1$s (incluindo un %2$s). Se queres axudar a Lichess voluntariamente co teu tempo e habilidades, hai moitas %3$s.</string>
   <string name="beingAPatron">ser patrón</string>
   <string name="breakdownOfOurCosts">desglose dos nosos gastos</string>
+  <string name="otherWaysToHelp">outras maneiras de axudar</string>
+  <string name="areThereWebsitesBasedOnLichess">Hai sitios web baseados en Lichess?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Si. Lichess inspirou outras páxinas de código aberto que utilizan o noso %1$s, %2$s ou %3$s.</string>
+  <string name="fairPlay">Xogo limpo</string>
+  <string name="whenAmIEligibleRatinRefund">En que casos devolvenme automaticamente os puntos perdidos contra un tramposo?</string>
+  <string name="ratingRefundExplanation">Un minuto despois de marcar a un xogador como tramposo, tomanse as súas derradeiras 40 partidas por puntos dos tres últimos días. Se ti fuches opoñente nesas partidas, perdiches puntas nelas (ben porque perdiches, ben porque empataches) e a túa puntuación non era provisional, entón devolvenseche os puntos. Este reembolso está limitado pola túa puntuación máxima e por como progresara a túa puntuación despois daquela partida.
+(Por exemplo, se a túa puntuación subiu moito despois daquelas partidas, pode que non se te devolvan os puntos ou que só se te devolvan algúns). A devolución en nengún caso será de máis de 150 puntos.</string>
 </resources>
