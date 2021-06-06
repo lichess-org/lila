@@ -97,7 +97,7 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
-  <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
+  <string name="goldenZeeExplanation">Dä ZugAddict hät ämol gstreamt und über 2 Schtundä lang versuächt, dä Kompi uf Schtufä 8 imänä 1+0 Schpiil z\'besiigä, ohni Erfolg. Dä Thibault hätäm dänn versprochä, dasär än einzigartigi Trophä\'ä bechiäm, wänär das erfolgrich im Stream schaffä würd. Ä Schtund spöter hätär Stockfish butzt und s\'Versprächä isch iighaltä wordä.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wertungen (\"Wertungszahlen\", \"Ratings\") werden mit der von Mark Glickman entwickelten Glicko-2-Wertungsmethode berechnet. Dies ist eine sehr beliebte Wertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo-Wertungs-System verwenden).
