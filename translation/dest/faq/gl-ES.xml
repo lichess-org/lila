@@ -34,4 +34,22 @@ Por exemplo, a duración estimada dunha partida de 5+3 é de 5 × 60 + 40 × 3 =
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Que variantes podo xogar en Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess soporta xadrez estándar e %1$s.</string>
+  <string name="eightVariants">outras 8 variantes</string>
+  <string name="whatIsACPL">Qúe é a pérdida media de centipeóns (PMC)? (average centipawn loss, ACPL, en inglés)</string>
+  <string name="acplExplanation">O centipeón é a unidade de medida empregada no xadrez como representación da vantaxe. Un centipeón é igual a unha centésima parte dun peón. Polo tanto, 100 centipeóns = 1 peón. Estes valores non xogan nengún papel formal no xogo, pero son útiles para os xogadores/as e esenciais no xadrez por ordenador para evaluar as posicións.
+
+O mellor movemento do ordenador perderá cero centipeóns, pero os movementos inferiores conlevarán un deterioro da posición medido en centipeóns.
+
+Este valor pode ser empregado como un indicador da forza de xoego. Cantos menos centipeóns se perdan por movemento, máis forte é o xogo.
+
+A análise informática en Lichess a proporciona Stockfish.</string>
+  <string name="insufficientMaterial">Perder por tempo, táboas e material insuficiente</string>
+  <string name="lichessFollowFIDErules">No caso de que un xogador quede sen tempo, ese xogador normalmente perderá a partida. Sen embargo, o xogo considerase empate se a posición é tal que o opoñente non pode dar mate ao rei del jugador por calquera posible serie de movementos legais (%1$s).
+
+En raras ocasións isto pode ser difícil de decidir automaticamente (liñas forzadas, fortalezas). Por defecto, sempre estamos de parte do jugador que non quedou sen tiempo.
+
+Ten en conta que é posible dar mate cun só caballo o alfil, sempre que o opoñente teña unha peza que poida bloquear ao rei.</string>
+  <string name="fideHandbookX">%s do manual da FIDE</string>
+  <string name="discoveringEnPassant">Por que un peón pode capturar outro peón cando xa está pasado? (captura ao paso)</string>
 </resources>
