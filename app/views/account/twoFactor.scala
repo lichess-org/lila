@@ -67,7 +67,7 @@ object twoFactor {
     ) {
       div(cls := "account twofactor box box-pad")(
         h1(
-          i(cls := "is-green text", dataIcon := "E"),
+          i(cls := "is-green text", dataIcon := ""),
           twoFactorEnabled()
         ),
         standardFlash(),

@@ -83,7 +83,7 @@ object event {
         div(cls := "box__top")(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form, dataIcon := "O")
+            a(cls := "button button-green", href := routes.Event.form, dataIcon := "")
           )
         ),
         table(cls := "slist slist-pad")(

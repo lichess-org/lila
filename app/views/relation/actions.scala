@@ -25,7 +25,7 @@ object actions {
               titleOrText(trans.challenge.challengeToPlay.txt()),
               href := s"${routes.Lobby.home}?user=$userId#friend",
               cls := "btn-rack__btn",
-              dataIcon := "U"
+              dataIcon := ""
             ),
             a(
               titleOrText(trans.composeMessage.txt()),

@@ -38,7 +38,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
       h('a.deeper', {
         attrs: {
           title: trans.noarg('goDeeper'),
-          'data-icon': 'O',
+          'data-icon': '',
         },
         hook: {
           insert: vnode =>

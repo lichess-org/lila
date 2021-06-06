@@ -233,7 +233,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button.button-empty.text',
               {
-                attrs: { 'data-icon': 'B' },
+                attrs: { 'data-icon': '' },
                 on: {
                   click() {
                     ctrl.chessground!.toggleOrientation();
@@ -247,7 +247,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               'a',
               {
                 attrs: {
-                  'data-icon': 'A',
+                  'data-icon': '',
                   rel: 'nofollow',
                   ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {}),
                 },
@@ -274,7 +274,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [h('span.text', { attrs: { 'data-icon': 'U' } }, ctrl.trans.noarg('continueFromHere'))]
+              [h('span.text', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('continueFromHere'))]
             ),
             studyButton(ctrl, state),
           ]),

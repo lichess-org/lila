@@ -57,7 +57,7 @@ object teacherDashboard {
           a(
             href := routes.Clas.studentForm(c.id.value),
             cls := "button button-clas text",
-            dataIcon := "O"
+            dataIcon := ""
           )(trans.clas.addStudent())
         )
       ),

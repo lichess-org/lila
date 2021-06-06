@@ -54,7 +54,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
                     p.f
                       ? {
                           class: { 'is-gold': true },
-                          attrs: { 'data-icon': 'Q' },
+                          attrs: { 'data-icon': '' },
                         }
                       : {},
                     '' + p.s

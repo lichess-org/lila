@@ -53,7 +53,7 @@ export default function (ctrl: TournamentController): VNode {
     },
     [
       h('a.close', {
-        attrs: dataIcon('L'),
+        attrs: dataIcon(''),
         hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
       }),
       h('div.stats', [

@@ -70,8 +70,8 @@ object side {
         teamLink(s.teamId),
         if (verdicts.relevant)
           st.section(
-            dataIcon := (if (ctx.isAuth && verdicts.accepted) "E"
-                         else "L"),
+            dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
+                         else ""),
             cls := List(
               "conditions" -> true,
               "accepted"   -> (ctx.isAuth && verdicts.accepted),

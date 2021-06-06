@@ -1,7 +1,7 @@
 .color-icon {
   @if $theme-light {
     &.white::before {
-      content: 'K';
+      content: '';
     }
 
     &.black::before {
@@ -13,7 +13,7 @@
     }
 
     &.black::before {
-      content: 'K';
+      content: '';
     }
   }
 

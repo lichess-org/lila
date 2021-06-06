@@ -92,7 +92,7 @@ object indexStripe {
                   tbody(
                     info.pastInvoices.map { in =>
                       tr(
-                        td(in.paid option span(dataIcon := "E", cls := "is-green text")(paid())),
+                        td(in.paid option span(dataIcon := "", cls := "is-green text")(paid())),
                         td(cls := "id")(in.id),
                         td(showDate(in.dateTime)),
                         td(in.usd.toString)

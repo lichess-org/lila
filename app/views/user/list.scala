@@ -52,7 +52,7 @@ object list {
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-              userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
+              userTopActive(nbAllTime, trans.activePlayers(), icon = ''.some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),

@@ -152,7 +152,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         h(
           'button.button.button-thin.action.text',
           {
-            attrs: dataIcon('G'),
+            attrs: dataIcon(''),
             hook: bind(
               'click',
               _ => {
@@ -232,7 +232,7 @@ function controls(ctrl: AnalyseCtrl) {
                       target: '_blank',
                       rel: 'noopener',
                       href: ctrl.studyPractice.analysisUrl(),
-                      'data-icon': 'A',
+                      'data-icon': '',
                     },
                   }),
                 ]
@@ -264,10 +264,10 @@ function controls(ctrl: AnalyseCtrl) {
                 ]
           ),
       h('div.jumps', [
-        jumpButton('W', 'first', canJumpPrev),
-        jumpButton('Y', 'prev', canJumpPrev),
-        jumpButton('X', 'next', canJumpNext),
-        jumpButton('V', 'last', canJumpNext),
+        jumpButton('', 'first', canJumpPrev),
+        jumpButton('', 'prev', canJumpPrev),
+        jumpButton('', 'next', canJumpNext),
+        jumpButton('', 'last', canJumpNext),
       ]),
       ctrl.studyPractice
         ? h('div.noop')

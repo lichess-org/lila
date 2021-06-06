@@ -148,7 +148,7 @@ export function side(ctrl: StudyCtrl): VNode {
               [
                 h('span.status.' + completion, {
                   attrs: {
-                    'data-icon': (loading || active) && completion === 'ongoing' ? 'G' : 'E',
+                    'data-icon': (loading || active) && completion === 'ongoing' ? '' : '',
                   },
                 }),
                 h('h3', chapter.name),
@@ -161,7 +161,7 @@ export function side(ctrl: StudyCtrl): VNode {
     h('div.finally', [
       h('a.back', {
         attrs: {
-          'data-icon': 'I',
+          'data-icon': '',
           href: '/practice',
           title: 'More practice',
         },

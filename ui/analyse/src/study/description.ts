@@ -84,7 +84,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
       descTitle(chapter),
       h('button.button.button-empty.button-red', {
         attrs: {
-          'data-icon': 'L',
+          'data-icon': '',
           title: 'Close',
         },
         hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),

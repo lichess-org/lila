@@ -28,7 +28,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     },
     [
       h('a.close', {
-        attrs: dataIcon('L'),
+        attrs: dataIcon(''),
         hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
       }),
       h('div.stats', [
@@ -73,7 +73,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
                 h('td.total', [
                   p.fire && !ctrl.data.isFinished
-                    ? h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score)
+                    ? h('strong.is-gold', { attrs: dataIcon('') }, '' + p.score)
                     : h('strong', '' + p.score),
                 ]),
               ]

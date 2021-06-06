@@ -49,7 +49,7 @@ object clas {
           href := routes.Clas.form,
           cls := "new button button-empty",
           title := trans.clas.newClass.txt(),
-          dataIcon := "O"
+          dataIcon := ""
         )
       ),
       if (classes.isEmpty)

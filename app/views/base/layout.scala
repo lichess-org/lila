@@ -86,7 +86,7 @@ object layout {
 
   private def zenToggle(implicit ctx: Context) =
     spaceless(s"""
-  <a data-icon="E" id="zentog" class="text fbt active">
+  <a data-icon="" id="zentog" class="text fbt active">
     ${trans.preferences.zenMode.txt()}
   </a>""")
 
@@ -100,7 +100,7 @@ object layout {
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenge.challenges
-      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
+      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
@@ -289,12 +289,12 @@ object layout {
             id := "friend_box",
             dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
           )(
-            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
+            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
             div(cls := "content_wrap none")(
               div(cls := "content list")
             )
           ),
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
+          a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
           loadScripts(moreJs, chessground)
         )
       )

@@ -38,7 +38,7 @@ object PerfType {
         key = "bullet",
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
-        iconChar = 'T'
+        iconChar = ''
       )
 
   case object Blitz
@@ -292,7 +292,7 @@ object PerfType {
     .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Char =
-    byVariant(variant).fold('C')(_.iconChar)
+    byVariant(variant).fold('')(_.iconChar)
 
   def trans(pt: PerfType)(implicit lang: Lang): String =
     pt match {

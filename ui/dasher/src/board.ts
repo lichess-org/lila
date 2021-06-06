@@ -63,7 +63,7 @@ export function view(ctrl: BoardCtrl): VNode {
         'a.text',
         {
           class: { active: !ctrl.data.is3d },
-          attrs: { 'data-icon': 'E' },
+          attrs: { 'data-icon': '' },
           hook: bind('click', () => ctrl.setIs3d(false)),
         },
         '2D'
@@ -72,7 +72,7 @@ export function view(ctrl: BoardCtrl): VNode {
         'a.text',
         {
           class: { active: ctrl.data.is3d },
-          attrs: { 'data-icon': 'E' },
+          attrs: { 'data-icon': '' },
           hook: bind('click', () => ctrl.setIs3d(true)),
         },
         '3D'

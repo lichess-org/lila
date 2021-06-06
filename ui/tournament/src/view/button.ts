@@ -13,7 +13,7 @@ export function withdraw(ctrl: TournamentController): VNode {
     return h(
       'button.fbt.text',
       {
-        attrs: dataIcon(pause ? 'Z' : 'b'),
+        attrs: dataIcon(pause ? '' : 'b'),
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
       ctrl.trans.noarg(pause ? 'pause' : 'withdraw')

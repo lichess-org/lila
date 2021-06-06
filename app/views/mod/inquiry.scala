@@ -227,7 +227,7 @@ object inquiry {
           title := "Dismiss this report as processed. (Hotkey: d)",
           cls := "process"
         )(
-          submitButton(dataIcon := "E", cls := "fbt"),
+          submitButton(dataIcon := "", cls := "fbt"),
           autoNextInput
         ),
         postForm(
@@ -235,7 +235,7 @@ object inquiry {
           title := "Cancel the inquiry, re-instore the report",
           cls := "cancel"
         )(
-          submitButton(dataIcon := "L", cls := "fbt")
+          submitButton(dataIcon := "", cls := "fbt")
         )
       )
     )

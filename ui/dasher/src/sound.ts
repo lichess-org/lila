@@ -111,7 +111,7 @@ function soundView(ctrl: SoundCtrl, current: Key) {
       {
         hook: bind('click', () => ctrl.set(s[0])),
         class: { active: current === s[0] },
-        attrs: { 'data-icon': 'E' },
+        attrs: { 'data-icon': '' },
       },
       s[1]
     );

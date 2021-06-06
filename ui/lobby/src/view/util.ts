@@ -33,7 +33,7 @@ export const perfIcons = {
   Blitz: '',
   'Racing Kings': '',
   UltraBullet: '{',
-  Bullet: 'T',
+  Bullet: '',
   Classical: '',
   Rapid: '',
   'Three-check': '',

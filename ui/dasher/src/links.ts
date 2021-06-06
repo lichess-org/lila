@@ -74,7 +74,7 @@ export default function (ctrl: DasherCtrl): VNode {
           'a.text',
           {
             attrs: {
-              'data-icon': 'K',
+              'data-icon': '',
               title: 'Keyboard: z',
             },
             hook: bind('click', () => lichess.pubsub.emit('zen')),
@@ -102,6 +102,6 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': 'H' },
+    attrs: { 'data-icon': '' },
   };
 }

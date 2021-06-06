@@ -34,7 +34,7 @@ function playerTr(ctrl: TournamentController, player) {
         player.withdraw
           ? h('i', {
               attrs: {
-                'data-icon': 'Z',
+                'data-icon': '',
                 title: ctrl.trans.noarg('pause'),
               },
             })
@@ -47,7 +47,7 @@ function playerTr(ctrl: TournamentController, player) {
       h('td.sheet', player.sheet.scores.map(scoreTag)),
       h('td.total', [
         player.sheet.fire && !ctrl.data.isFinished
-          ? h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total)
+          ? h('strong.is-gold', { attrs: dataIcon('') }, player.sheet.total)
           : h('strong', player.sheet.total),
       ]),
     ]

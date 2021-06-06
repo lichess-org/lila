@@ -65,8 +65,8 @@ object side {
         },
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
         verdicts.relevant option st.section(
-          dataIcon := (if (ctx.isAuth && verdicts.accepted) "E"
-                       else "L"),
+          dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
+                       else ""),
           cls := List(
             "conditions" -> true,
             "accepted"   -> (ctx.isAuth && verdicts.accepted),
@@ -92,7 +92,7 @@ object side {
           )
         ),
         tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-        tour.noStreak option div(cls := "text", dataIcon := "Q")("No Arena streaks"),
+        tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
         !tour.isScheduled && tour.description.isEmpty option frag(
           trans.by(userIdLink(tour.createdBy.some)),
           br

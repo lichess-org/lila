@@ -69,7 +69,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         'button-empty': !ctrl.flipped,
       },
       attrs: {
-        'data-icon': 'B',
+        'data-icon': '',
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),

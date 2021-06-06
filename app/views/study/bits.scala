@@ -29,7 +29,7 @@ object bits {
 
   def newForm()(implicit ctx: Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
-      submitButton(cls := "button button-green", dataIcon := "O", title := trans.study.createStudy.txt())
+      submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
     )
 
   def authLinks(active: String, order: lila.study.Order)(implicit ctx: Context) = {
@@ -71,7 +71,7 @@ object bits {
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
-            li(cls := "text", dataIcon := "K")(name.value)
+            li(cls := "text", dataIcon := "")(name.value)
           }
         ),
         ol(cls := "members")(

@@ -49,7 +49,7 @@ object edit extends Context.ToLang {
             frag(
               (ctx.is(s.user) && s.streamer.listed.value) option div(
                 cls := s"status is${granted ?? "-green"}",
-                dataIcon := (if (granted) "E" else "")
+                dataIcon := (if (granted) "" else "")
               )(
                 if (granted)
                   frag(
@@ -187,7 +187,7 @@ object edit extends Context.ToLang {
                         name := "approval.quick",
                         value := "approve"
                       ),
-                    form3.submit("Decline and next", icon = "L".some)(
+                    form3.submit("Decline and next", icon = "".some)(
                       cls := "button-red",
                       name := "approval.quick",
                       value := "decline"

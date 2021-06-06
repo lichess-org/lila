@@ -60,8 +60,8 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),
                   td(style := "font-size:2em")(
-                    if (!u.everLoggedIn) iconTag("E")(cls := "is-green")
-                    else iconTag("L")(cls := "is-red")
+                    if (!u.everLoggedIn) iconTag("")(cls := "is-green")
+                    else iconTag("")(cls := "is-red")
                   )
                 )
               )

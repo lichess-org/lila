@@ -77,7 +77,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'verified',
   name: 'Verified account',
-  icon: 'E',
+  icon: '',
   klass: 'icon3d',
   order: NumberInt(102),
   withCustomImage: false,

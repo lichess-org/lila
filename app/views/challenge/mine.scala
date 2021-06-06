@@ -15,7 +15,7 @@ object mine {
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
-        submitButton(cls := "button button-red text", dataIcon := "L")(trans.cancel())
+        submitButton(cls := "button button-red text", dataIcon := "")(trans.cancel())
       )
 
     views.html.base.layout(

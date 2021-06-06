@@ -172,7 +172,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         'a.button.button-empty',
         {
           hook: bind('click', ctrl.flip),
-          attrs: dataIcon('B'),
+          attrs: dataIcon(''),
         },
         noarg('flipBoard')
       ),
@@ -201,7 +201,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             'a.button.button-empty',
             {
               hook: bind('click', _ => modal($('.continue-with.g_' + d.game.id))),
-              attrs: dataIcon('U'),
+              attrs: dataIcon(''),
             },
             noarg('continueFromHere')
           )

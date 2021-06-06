@@ -79,7 +79,7 @@ object Tv {
     case object Best
         extends Channel(
           name = "Top Rated",
-          icon = "C",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )

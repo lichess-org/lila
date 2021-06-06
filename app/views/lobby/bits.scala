@@ -22,7 +22,7 @@ object bits {
     frag(
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+          h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -138,7 +138,7 @@ object bits {
       p("You have a game in progress with ", strong(current.opponent), "."),
       br,
       br,
-      a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))(
+      a(cls := "text button button-fat", dataIcon := "", href := routes.Round.player(current.pov.fullId))(
         "Join the game"
       ),
       br,
@@ -147,7 +147,7 @@ object bits {
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := "L")(
+        button(cls := "text button button-red", dataIcon := "")(
           if (current.pov.game.abortable) "Abort" else "Resign",
           " the game"
         )

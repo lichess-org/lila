@@ -136,13 +136,13 @@ object TournamentShield {
     case object HyperBullet
         extends Category(
           of = Left(Schedule.Speed.HyperBullet),
-          iconChar = 'T'
+          iconChar = ''
         )
 
     case object Bullet
         extends Category(
           of = Left(Schedule.Speed.Bullet),
-          iconChar = 'T'
+          iconChar = ''
         )
 
     case object SuperBlitz

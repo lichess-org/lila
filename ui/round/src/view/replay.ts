@@ -136,7 +136,7 @@ export function analysisButton(ctrl: RoundController): VNode | undefined {
           attrs: {
             title: ctrl.noarg('analysis'),
             href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-            'data-icon': 'A',
+            'data-icon': '',
           },
         },
         forecastCount ? ['' + forecastCount] : []
@@ -176,7 +176,7 @@ function renderButtons(ctrl: RoundController) {
         attrs: {
           title: ctrl.noarg('flipBoard'),
           'data-act': 'flip',
-          'data-icon': 'B',
+          'data-icon': '',
         },
       }),
       ...[
@@ -263,9 +263,9 @@ export function render(ctrl: RoundController): VNode | undefined {
           (moves
             ? isCol1()
               ? h('div.col1-moves', [
-                  col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
+                  col1Button(ctrl, -1, '', ctrl.ply == round.firstPly(d)),
                   moves,
-                  col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d)),
+                  col1Button(ctrl, 1, '', ctrl.ply == round.lastPly(d)),
                 ])
               : moves
             : renderResult(ctrl)),

@@ -209,7 +209,7 @@ object mod {
             name := "email",
             placeholder := "Email address"
           ),
-          submitButton(cls := "button", dataIcon := "E")
+          submitButton(cls := "button", dataIcon := "")
         ),
         emails.previous.map { email =>
           s"Previously $email"
@@ -481,23 +481,23 @@ object mod {
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := "J"),
+                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := ""),
                   s" ${result.analysis}"
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := "J"),
+                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := ""),
                   s" ${result.basics.moveTimes / 10}",
                   result.basics.mtStreak ?? frag(br, "streak")
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := "J"),
+                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := ""),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=) map { s =>
                     frag(br, s"streak $s/12")
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := "J"),
+                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := ""),
                   if (result.basics.hold) "Yes" else "No"
                 ),
                 td(

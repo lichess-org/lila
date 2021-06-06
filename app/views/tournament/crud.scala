@@ -134,7 +134,7 @@ object crud {
         div(cls := "box__top")(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "O")
+            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := "")
           )
         ),
         table(cls := "slist slist-pad")(

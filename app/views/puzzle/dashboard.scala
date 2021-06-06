@@ -178,7 +178,7 @@ object dashboard {
           strong(results.unfixed),
           span("to replay")
         ),
-        iconTag(if (results.canReplay) 'G' else 'E')
+        iconTag(if (results.canReplay) '' else '')
       )
     )
 }

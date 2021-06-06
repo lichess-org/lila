@@ -88,7 +88,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ]),
     d.db.selected() === 'masters'
       ? h('div.masters.message', [
-          h('i', { attrs: dataIcon('C') }),
+          h('i', { attrs: dataIcon('') }),
           h('p', ctrl.trans('masterDbExplanation', 2200, '1952', '2019')),
         ])
       : h('div', [
@@ -130,7 +130,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h(
         'button.button.button-green.text',
         {
-          attrs: dataIcon('E'),
+          attrs: dataIcon(''),
           hook: bind('click', ctrl.toggleOpen),
         },
         ctrl.trans.noarg('allSet')

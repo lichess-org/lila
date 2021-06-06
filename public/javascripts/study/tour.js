@@ -52,7 +52,7 @@ lichess.studyTour = function (study) {
       study.isOwner
         ? {
             title: 'Invite members',
-            text: "By clicking the <i data-icon='O'></i> button.<br>" + 'Then decide who can contribute or not.',
+            text: "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
             attachTo: '.study__members .add right',
             when: onTab('members'),
           }
@@ -67,7 +67,7 @@ lichess.studyTour = function (study) {
       study.isContrib
         ? {
             title: 'Create new chapters',
-            text: "By clicking the <i data-icon='O'></i> button.",
+            text: "By clicking the <i data-icon=''></i> button.",
             attachTo: '.study__chapters .add right',
             when: onTab('chapters'),
           }

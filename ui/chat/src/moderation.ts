@@ -170,7 +170,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         [userLink(data.username)]
       ),
       h('a', {
-        attrs: { 'data-icon': 'L' },
+        attrs: { 'data-icon': '' },
         hook: bind('click', ctrl.close),
       }),
     ]),

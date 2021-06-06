@@ -92,7 +92,7 @@ object dgt {
           st.section(
             h2("Lichess connectivity"),
             if (token.isDefined)
-              p(cls := "text", dataIcon := "E")(
+              p(cls := "text", dataIcon := "")(
                 "You have an OAuth token suitable for DGT play.",
                 br,
                 br,

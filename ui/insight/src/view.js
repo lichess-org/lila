@@ -69,7 +69,7 @@ module.exports = function (ctrl) {
                 'a.clear',
                 {
                   title: 'Clear all filters',
-                  'data-icon': 'L',
+                  'data-icon': '',
                   onclick: ctrl.clearFilters,
                 },
                 'CLEAR'

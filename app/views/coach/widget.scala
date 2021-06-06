@@ -99,8 +99,8 @@ object widget {
             !link option tr(cls := "available")(
               th(availability()),
               td(
-                if (c.coach.available.value) span(cls := "text", dataIcon := "E")(accepting())
-                else span(cls := "text", dataIcon := "L")(notAccepting())
+                if (c.coach.available.value) span(cls := "text", dataIcon := "")(accepting())
+                else span(cls := "text", dataIcon := "")(notAccepting())
               )
             ),
             c.user.seenAt.map { seen =>

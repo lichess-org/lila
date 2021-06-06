@@ -66,7 +66,7 @@
       background: $c-good;
 
       &::before {
-        content: 'E';
+        content: '';
       }
     }
 
@@ -74,7 +74,7 @@
       background: $c-bad;
 
       &::before {
-        content: 'L';
+        content: '';
       }
     }
   }
