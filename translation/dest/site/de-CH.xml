@@ -37,19 +37,19 @@
   <string name="blackPlays">Schwarz am Zug</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
-    <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Sieg beaschpruchä.</item>
+    <item quantity="other">Din Gägner hät d\'Partii verlah. Du chasch i %s Sekundä din Siig beaschpruchä.</item>
   </plurals>
-  <string name="opponentLeftChoices">Din Gägner hät s Spiel verlah. Du chasch de Sieg beaschpruchä, es unendschidä machä oder wartä.</string>
-  <string name="makeYourOpponentResign">Din Gägner zum uufgää zwingä</string>
-  <string name="forceResignation">De Siig beaschpruchä</string>
+  <string name="opponentLeftChoices">Din Gägner hät s\'Schpiil verloh. Du chasch de Siig beaschpruchä, es Unentschidä machä oder wartä.</string>
+  <string name="makeYourOpponentResign">Din Gägner zum Ufgää zwingä</string>
+  <string name="forceResignation">Dä Siig beaschpruchä</string>
   <string name="forceDraw">Remis erchläre</string>
   <string name="talkInChat">Sig bitte fründlich im Tschätt!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo dä URL ahklickt, isch din Gägner.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Di erschti Pärson, wo dä URL aaklickt, isch din Gägner.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
-  <string name="whiteLeftTheGame">Wiis hät d\'Partii verlah</string>
+  <string name="whiteLeftTheGame">Wiis hät d\'Partii verloh</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
-  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer iizladä zum zuäzluegä</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer zum zuäluägä iizladä</string>
   <string name="theComputerAnalysisHasFailed">D Kompianalysä isch bachab</string>
   <string name="viewTheComputerAnalysis">D\'Kompianalysä aaluägä</string>
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
@@ -65,8 +65,8 @@
   <string name="inLocalBrowser">im lokalä Browser</string>
   <string name="toggleLocalEvaluation">Lokali Uuswärtig ii und uus schaltä</string>
   <string name="promoteVariation">Variantä uufwertä</string>
-  <string name="makeMainLine">Zu de Haubtvariantä machä</string>
-  <string name="deleteFromHere">Ab da löschä</string>
+  <string name="makeMainLine">Zur Hauptvariantä machä</string>
+  <string name="deleteFromHere">Ab do löschä</string>
   <string name="forceVariation">Variantä erzwingä</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variantä verlorä</string>
@@ -80,7 +80,7 @@
   <string name="drawn">Remis</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datäbank</string>
-  <string name="whiteDrawBlack">Wiis / Remis/ Schwarz</string>
+  <string name="whiteDrawBlack">Wiis / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittlichi Wärtigszahl: %s</string>
   <string name="recentGames">Chürzlichi Partiiä</string>
   <string name="topGames">Schpitzä-Partiiä</string>
