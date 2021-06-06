@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="twoFactorAuth">Autenticación de dous factores</string>
+  <string name="twoFactorHelp">A autenticación en dous pasos engade outra capa de seguridade á túa conta.</string>
+  <string name="twoFactorApp">Consigue unha app para autenticación en dous pasos, por exemplo andOTP para %1$s ou Google Authenticator para %2$s.</string>
+  <string name="scanTheCode">Escanea o código QR coa app.</string>
+  <string name="enterPassword">Introduce o teu contrasinal e o código de autenticación xerado pola app para completar a configuración. Necesitarás un código de autenticación cada vez que te comeces sesión.</string>
+  <string name="ifYouCannotScanEnterX">Se non podes escanear o código, introduce o secreto %s na túa aplicación.</string>
+  <string name="authenticationCode">Codigo de autenticación</string>
   <string name="openTwoFactorApp">Abre a aplicación de autenticación en dous pasos no teu dispositivo para ver o código de autenticación e verificar a túa identidade.</string>
 </resources>
