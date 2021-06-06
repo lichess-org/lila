@@ -71,7 +71,7 @@
   <string name="move">Zug</string>
   <string name="variantLoss">Variantä verlorä</string>
   <string name="variantWin">Variantä gwunnä</string>
-  <string name="insufficientMaterial">Nüme gnueg Material</string>
+  <string name="insufficientMaterial">Nümä gnueg Material</string>
   <string name="pawnMove">Buure-Zug</string>
   <string name="capture">Schlag-Zug</string>
   <string name="close">Schlüüsse</string>
@@ -720,7 +720,7 @@
   <string name="lobby">Lobbi</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Punktestand: %s</string>
-  <string name="language">Sprache</string>
+  <string name="language">Sproch</string>
   <string name="background">Hintergrund</string>
   <string name="light">Hell</string>
   <string name="dark">Dunkel</string>
@@ -729,7 +729,7 @@
   <string name="boardGeometry">Brättgrössi und 3D</string>
   <string name="boardTheme">Brättdesign</string>
   <string name="boardSize">Brättgrössi</string>
-  <string name="pieceSet">Figurästiil</string>
+  <string name="pieceSet">Figuräschtiil</string>
   <string name="embedInYourWebsite">In Webseite einbetten</string>
   <string name="usernameAlreadyUsed">Dieser Benutzername ist bereits vergeben. Bitte versuche es mit einem anderen.</string>
   <string name="usernamePrefixInvalid">Der Benutzername muss mit einem Buchstaben beginnen.</string>
