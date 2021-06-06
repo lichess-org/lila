@@ -20,7 +20,7 @@ apps3="site swiss msg chat cli challenge notify learn insight editor puzzle roun
 site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
-puzzle_plugins="dashboard"
+puzzle_plugins="nvui dashboard"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive

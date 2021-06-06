@@ -21,7 +21,8 @@ object show {
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
-        jsModule("puzzle"),
+        puzzleTag,
+        puzzleNvuiTag,
         embedJsUnsafeLoadThen(s"""LichessPuzzle(${safeJsonValue(
           Json
             .obj(

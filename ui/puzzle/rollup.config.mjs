@@ -11,4 +11,9 @@ export default rollupProject({
     input: 'src/dashboard.ts',
     output: 'puzzle.dashboard',
   },
+  nvui: {
+    name: 'NVUI',
+    input: 'src/plugins/nvui.ts',
+    output: 'puzzle.nvui',
+  },
 });

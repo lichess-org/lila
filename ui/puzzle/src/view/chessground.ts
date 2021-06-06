@@ -14,7 +14,7 @@ export default function (ctrl: Controller): VNode {
   });
 }
 
-function makeConfig(ctrl: Controller): CgConfig {
+export function makeConfig(ctrl: Controller): CgConfig {
   const opts = ctrl.makeCgOpts();
   return {
     fen: opts.fen,
