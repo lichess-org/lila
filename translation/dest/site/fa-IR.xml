@@ -661,6 +661,7 @@
   <string name="printFriendlyPDF">دانلود PDF</string>
   <string name="crosstable">تابلو امتیازات</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان در هنگام ذکر شدن در انجمن</string>
@@ -849,4 +850,5 @@
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
   <string name="download">دانلود</string>
   <string name="welcome">خوش آمدید!</string>
+  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
 </resources>
