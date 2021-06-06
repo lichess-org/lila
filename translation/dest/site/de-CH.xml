@@ -637,12 +637,12 @@
   <string name="lichessTournaments">Lichess Turniär</string>
   <string name="tournamentFAQ">Arena FAQ</string>
   <string name="tournamentOfficial">Offiziell</string>
-  <string name="timeBeforeTournamentStarts">Ziit bis s\'Turniär startet</string>
-  <string name="averageCentipawnLoss">Ø-Verluscht vo 1/100-Büürli pro Zug</string>
-  <string name="keyboardShortcuts">Tastechürzel</string>
+  <string name="timeBeforeTournamentStarts">Ziit bis s\'Turniär schtartät</string>
+  <string name="averageCentipawnLoss">Ø-Verluscht vo Centipuurä pro Zug</string>
+  <string name="keyboardShortcuts">Taschtächürzel</string>
   <string name="keyMoveBackwardOrForward">Zug zrugg/fürä</string>
   <string name="keyGoToStartOrEnd">zum Aafang/Ändi</string>
-  <string name="keyShowOrHideComments">zeig/versteck Kommentär</string>
+  <string name="keyShowOrHideComments">zeig/verschteck Kommentär</string>
   <string name="keyEnterOrExitVariation">Variantä wählä/verlaa</string>
   <string name="newTournament">Neus Turniär</string>
   <string name="tournamentHomeTitle">Schachturniär mit verschidänä Ziitkontrollä und Schachvariantä</string>
