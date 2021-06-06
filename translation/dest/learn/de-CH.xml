@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Lern Schach</string>
+  <string name="learnChess">Lärn Schach</string>
   <string name="byPlaying">indäm\'d schpillsch!</string>
   <string name="menu">Menü</string>
   <string name="progressX">Fortschritt: %s</string>
