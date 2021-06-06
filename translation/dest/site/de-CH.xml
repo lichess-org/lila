@@ -378,8 +378,8 @@
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
-  <string name="followsYou">Folgt dir</string>
-  <string name="xStartedFollowingY">Dä %1$s folgt jetzt em %2$s</string>
+  <string name="followsYou">Folgät dir</string>
+  <string name="xStartedFollowingY">Dä %1$s folgät jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
     <item quantity="other">%s Follower</item>
@@ -389,11 +389,11 @@
     <item quantity="other">%s folgänd</item>
   </plurals>
   <string name="more">Meh</string>
-  <string name="memberSince">Mitglied sit</string>
+  <string name="memberSince">Mitgliid sit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
-  <string name="player">Schpilär</string>
+  <string name="player">Schpiller</string>
   <string name="list">Lischtä</string>
-  <string name="graph">Graf</string>
+  <string name="graph">Graaf</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">Wenigär als %s Minutä</item>
     <item quantity="other">Wenigär als %s Minutä</item>
@@ -403,13 +403,13 @@
   <string name="duration">Duur</string>
   <string name="winner">Gwünner</string>
   <string name="standing">Tabällä</string>
-  <string name="createANewTournament">Neus Turnier erschtellä</string>
+  <string name="createANewTournament">Neus Turniär erschtellä</string>
   <string name="tournamentCalendar">Turniärkaländär</string>
   <string name="conditionOfEntry">Teilnahmebedingigä:</string>
   <string name="advancedSettings">Erwiitäräti Iischtelligä</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
-  <string name="inappropriateNameWarning">Alles sogar nur bitzli unagmässnigs chan zu dä Schlüssig vo dim Konto füere.</string>
-  <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
+  <string name="inappropriateNameWarning">Alläs nur äs bitzli Unagmässäs chan zur Schlüssig vo dim Konto füährä.</string>
+  <string name="emptyTournamentName">Läär loh zum s\'Turniär nochemene namhaftä Schachschpiller zbenännä.</string>
   <string name="recommendNotTouching">Mir empfeläd, das nöd z ändärä.</string>
   <string name="fewerPlayers">Wänn du d\'Teilnamebedingige setzisch, wird dis Turniär weniger Spiller haa.</string>
   <string name="showAdvancedSettings">Zeig erwiiteräti Iischtelligä</string>
