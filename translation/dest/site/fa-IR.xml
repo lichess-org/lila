@@ -837,4 +837,13 @@
   <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
   <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
+  <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>
+  <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
+  <string name="gameVsX">بازی در برابر %1$s</string>
+  <string name="resVsX">%1$s در برابر %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">شخصی در پروفایل مربیگری شما نظری گذاشت.</string>
+  <string name="newPendingReview">در انتظار بررسی</string>
+  <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
+  <string name="refundXpointsTimeControlY">جبران: %1$s ریتینگ از نوع %2$s.</string>
+  <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
 </resources>
