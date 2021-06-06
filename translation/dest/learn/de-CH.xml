@@ -136,8 +136,8 @@ wänn sich din Puur uf dä 5. Reihä befindät.</string>
 - Es wird kein Schach geboten.</string>
   <string name="stalemateComplete">Herzlichen Glückwunsch! Lieber Patt als Matt!</string>
   <string name="advanced">Fortgeschritten</string>
-  <string name="pieceValue">Figurenwerte</string>
-  <string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
+  <string name="pieceValue">Figuräwert</string>
+  <string name="evaluatePieceStrength">Bewerti d\'stärchi vo de Figuren</string>
   <string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
 Dame = 9
 Turm = 5
