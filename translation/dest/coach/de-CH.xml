@@ -13,7 +13,7 @@
   <string name="availability">Verfüägbarkeit</string>
   <string name="accepting">Nimmt neui Schüäler a</string>
   <string name="notAccepting">Nimmt im Moment kei neui Schüäler a</string>
-  <string name="xCoachesStudents">%s trainiert Schachschüäler</string>
+  <string name="xCoachesStudents">%s träniert Schachschüäler</string>
   <string name="viewXProfile">Lichess-Profil von %s</string>
   <string name="sendPM">Schick ä privati Nochricht</string>
   <string name="aboutMe">Über mi</string>
@@ -31,5 +31,5 @@
   <string name="thankYouForReview">Merci für dini Bewärtig!</string>
   <string name="xWillApproveIt">%s wird\'s bald freischaltä oder en Moderator wird en Blick druf wärfä.</string>
   <string name="reviewCoach">Bewärt dä Trääner</string>
-  <string name="describeExperienceWith">Beschryb dini Trainingserfahrig mit %s</string>
+  <string name="describeExperienceWith">Beschriib dini Träningserfahrig mit %s</string>
 </resources>
