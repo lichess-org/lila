@@ -17,6 +17,16 @@
   <string name="bishopEndgame">Final de alfís</string>
   <string name="bishopEndgameDescription">Final con só alfís e peóns.</string>
   <string name="bodenMate">Mate de Boden</string>
+  <string name="bodenMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
+  <string name="castling">Enroque</string>
+  <string name="castlingDescription">Trae o teu rei a salvo e desplega a túa torre para o ataque.</string>
+  <string name="capturingDefender">Captura ao defensor</string>
+  <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
+  <string name="crushing">Vantaxe decisiva</string>
+  <string name="crushingDescription">Detecta o erro do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Mate de dous alfís</string>
+  <string name="doubleBishopMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
+  <string name="dovetailMate">Mate de Cozio</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
