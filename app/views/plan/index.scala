@@ -208,20 +208,24 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                     )
                   ),
                   div(cls := "service")(
-                    if (ctx.isAuth)
-                      frag(
-                        (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
-                          button(cls := "stripe button")(withCreditCard()),
-                        methods("alipay") option button(cls := "stripe button")("Alipay")
-                      )
-                    else
-                      a(
-                        cls := "stripe button",
-                        href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                      )(
-                        withCreditCard()
-                      ),
-                    button(cls := "paypal button")(withPaypal())
+                    div(cls := "buttons")(
+                      if (ctx.isAuth)
+                        frag(
+                          (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
+                            button(cls := "stripe button")(withCreditCard()),
+                          methods("alipay") option button(cls := "stripe button")("Alipay")
+                        )
+                      else
+                        a(
+                          cls := "stripe button",
+                          href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
+                        )(withCreditCard()),
+                      button(cls := "paypal button")(withPaypal())
+                    ),
+                    div(cls := "links")(
+                      a(cls := "stripe")("Google Pay"),
+                      a(cls := "stripe")("Apple Pay")
+                    )
                   )
                 )
               )

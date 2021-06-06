@@ -107,7 +107,7 @@ export default function (publicKey: string, pricing: Pricing) {
     alert(error);
     location.assign('/patron');
   };
-  $checkout.find('button.stripe').on('click', function () {
+  $checkout.find('.service .stripe').on('click', function () {
     const freq = getFreq(),
       amount = getAmountToCharge();
     if (!amount) return;

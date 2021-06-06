@@ -166,19 +166,29 @@
     }
 
     .service {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1em;
-    }
+      .buttons {
+        @extend %flex-between;
+        font-size: 1.1em;
 
-    .service .button {
-      flex: 1 1 auto;
-      font-weight: normal;
-      margin-right: 1em;
-    }
+        .button {
+          flex: 1 1 auto;
+          font-weight: normal;
+          margin-right: 1em;
+        }
 
-    .service .button:last-child {
-      margin-right: 0;
+        .button:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .links {
+        justify-content: flex-start;
+        margin-top: 1em;
+        font-size: 1rem;
+        a {
+          margin-right: 1em;
+        }
+      }
     }
 
     .gift {
