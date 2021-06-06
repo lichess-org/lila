@@ -48,6 +48,23 @@
   <string name="tryCastling">Proba este pequeno exercicio interactivo para aprender máis do enroque</string>
   <string name="castlingImported">Se importas unha partida ou comezas desde unha posición, asegúrate de establecer correctamente os dereitos do enroque.</string>
   <string name="insufficientMaterial">Material insuficiente para dar mate</string>
+  <string name="fideMate">Segundo as normas de xadrez da FIDE §6.9, se un xaque mate é posible con calquera secuencia legal de movementos, entón o xogo non é táboas</string>
+  <string name="knightMate">É posible dar xaque mate con só un cabalo ou un alfil se o opoñente posúe algunha peza máis no taboleiro.</string>
+  <string name="noRatingPoints">Non se concederon puntos</string>
+  <string name="ratedGame">Asegúrate que xogaches unha partida puntuada. Partidas amistosas non afectan á puntuación dos xogadores/as.</string>
   <string name="errorPage">Páxina de erro</string>
+  <string name="reportErrorPage">Se unha páxina dá erro, podes reportala:</string>
+  <string name="banAppeal">Apelar por un bloqueo o unha restricción de IP</string>
+  <string name="engineAppeal">Módulo ou marca de trampa</string>
+  <string name="sendAppealTo">Podes mandar unha apelación a %s.</string>
+  <string name="falsePositives">Falsos positivos danse de cando en vez, sentímolo.</string>
+  <string name="ifLegit">Se a túa apelación é lexítima, eliminaremos o baneo á maior brevidade.</string>
+  <string name="accountLost">Sen embargo, si realmente utilizaches un módulo, incluso unha soa vez, a túa conta está lamentablemente perdida.</string>
+  <string name="doNotDeny">Non negues ter feito trampa. Se queres que se te permita crear unha nova cuenta, só tes que admitir o que fixeches e mostrar que comprendiches que se trataba dun erro.</string>
+  <string name="otherRestriction">Outra restricción</string>
+  <string name="collaboration">Colaboración, legal, comercial</string>
+  <string name="monetizing">Monetizar Lichess</string>
+  <string name="buyingLichess">Comprar Lichess</string>
+  <string name="authorizationToUse">Autorización a empregar Lichess</string>
   <string name="noneOfTheAbove">Ningún dos anteriores</string>
 </resources>
