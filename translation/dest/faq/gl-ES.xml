@@ -92,4 +92,12 @@ No solicites el título de LM.</string>
   <string name="usernamesNotOffensive">En xeral, os nomes de usuario non deben: ser ofensivos, suplantar a alguén ou facer publicidade. Podes ler máis sobre as %1$s.</string>
   <string name="guidelines">directrices</string>
   <string name="canIChangeMyUsername">Podo mudar o meu usuario?</string>
+  <string name="usernamesCannotBeChanged">Non, os nomes de usuario non poden ser cambiados por razóns técnicas e prácticas. Os nomes de usuarios materialízanse en moitos lugares: bases de datos, exportacións, logs e na mente das persoas. Podes axustar as minúsculas/maiúsculas unha soa vez.</string>
+  <string name="uniqueTrophies">Trofeos únicos</string>
+  <string name="ownerUniqueTrophies">Este trofeo é único na historia de Lichess, ninguén máis que %1$s poderá obtelo.</string>
+  <string name="wayOfBerserkExplanation">Para obtelo, hiimgosu desafiouse a si mesmo a berserk e gañou 100%% partidas de %s.</string>
+  <string name="aHourlyBulletTournament">un torneo Bullet por hora</string>
+  <string name="goldenZeeExplanation">ZugAddict estaba transmitingo e durante as dúas últimas horas tratara de derrotar á I.A. nivel 8 nunha partida 1+0, sen éxito. Thibault díxolle que se o lograba durante a transmisión, obtería un trofeo único. Unha hora despois, venceu a Stockfish e cumpriuse a promesa.</string>
+  <string name="lichessRatings">Ratings en Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Que sistema de puntuación emprega Lichess?</string>
 </resources>
