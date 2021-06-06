@@ -73,7 +73,7 @@
   <string name="variantWin">حرکت برنده</string>
   <string name="insufficientMaterial">مواد کافی وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">بزن</string>
+  <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
@@ -844,6 +844,9 @@
   <string name="someoneReviewedYourCoachProfile">شخصی در پروفایل مربیگری شما نظری گذاشت.</string>
   <string name="newPendingReview">در انتظار بررسی</string>
   <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
-  <string name="refundXpointsTimeControlY">جبران: %1$s ریتینگ از نوع %2$s.</string>
+  <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
+  <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
+  <string name="download">دانلود</string>
+  <string name="welcome">خوش آمدید!</string>
 </resources>
