@@ -51,7 +51,7 @@ object PrefForm {
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "mention"      -> booleanNumber,
+      "mention"      -> optional(booleanNumber),
       "insightShare" -> numberIn(Set(0, 1, 2))
     )(PrefData.apply)(PrefData.unapply)
   )
@@ -96,7 +96,7 @@ object PrefForm {
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
-      mention: Int,
+      mention: Option[Int],
       insightShare: Int
   ) {
 
@@ -121,7 +121,7 @@ object PrefForm {
         premove = behavior.premove == 1,
         animation = display.animation,
         submitMove = behavior.submitMove,
-        mention = mention == 1,
+        mention = mention.fold(Pref.default.mention)(_ == 1),
         insightShare = insightShare,
         confirmResign = behavior.confirmResign,
         captured = display.captured == 1,
@@ -170,7 +170,7 @@ object PrefForm {
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
-        mention = if (pref.mention) 1 else 0,
+        mention = (if (pref.mention) 1 else 0).some,
         insightShare = pref.insightShare
       )
   }
