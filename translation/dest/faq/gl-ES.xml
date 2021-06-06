@@ -129,4 +129,13 @@ Outro punto que cabe sinalar é que, se pasa un tempo sen xogar, o intervalo de 
   <string name="enableZenMode">Habilita o modo Zen en %1$s, ou pulsando %2$s durante o xogo.</string>
   <string name="displayPreferences">amosar preferencias</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdín un xogo por lag/desconexión. Podo recuperar os meus puntos?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadamente, non podemos devolver puntos nas partidas perdidas debido ao retraso de rede o desconexión, independentemente de si o problema estaba no teu carón o no noso. Sen embargo, este último caso é moi estrano. Tamén ten en conta que cando Lichess se reinicia e perdes por que se te remarata o tempo debido a iso, abortamos o xoego para previr unha perda inxusta.</string>
+  <string name="howToThreeDots">Como facer...?</string>
+  <string name="enableDisableNotificationPopUps">Habilitar ou deshabilitar notificacións?</string>
+  <string name="viewSiteInformationPopUp">Ver notificación de información do sitio</string>
+  <string name="lichessCanOptionnalySendPopUps">Opcionalmente, Lichess pode enviar notificacións emerxentes, por exemplo cando sexa o teu turno ou recibas unha mensaxe privada.
+
+Fai clic no icono de bloqueo xunto a dirección de lichess.org, na barra de URL do teu navegador.
+
+ Despois selecciona se permitir ou bloquear notificacións de Lichess.</string>
 </resources>
