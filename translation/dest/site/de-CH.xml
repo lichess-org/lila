@@ -573,7 +573,7 @@
   <string name="playOnTheBoardOffline">Spill offline gäg än Mänsch</string>
   <string name="playOfflineComputer">Schpill offline gäg än Kompi</string>
   <string name="opponent">Gägner</string>
-  <string name="learnMenu">Lernä</string>
+  <string name="learnMenu">Lärnä</string>
   <string name="studyMenu">Studiä</string>
   <string name="practice">Träniärä</string>
   <string name="community">Gmeinschaft</string>
@@ -626,7 +626,7 @@
   <string name="aboutSimul">Bim Simultan spillt än Spielär gleichziitig gäg mehreri Gegnär.</string>
   <string name="aboutSimulImage">Gäg 50 Gägner hät dä Fischer 47 Partiä gwunnä, zwei remisiärt und eini verlorä.</string>
   <string name="aboutSimulRealLife">S\'Konzept ähnlet dem vo ächte Simultanveraaschtaltigä, wo sich dä Veraaschtalter vo Brätt zu Brätt bewegt.</string>
-  <string name="aboutSimulRules">Bim Schtart vom Simultan fangt dä Veraaschtalter mit Wiis a und schpillt so lang mit wächselnde Gägner, bis alli Partiä fertig sind.</string>
+  <string name="aboutSimulRules">Bim Schtart vom Simultan fangt dä Veraaschtalter mit Wiis a und schpillt so lang mit wächselnde Gägner, bis alli Partiä färtig sind.</string>
   <string name="aboutSimulSettings">Simultans sind immer ungwärtet. Revanchä, Rücknahme und zuäsätzlichi Ziit sind deaktiviärt.</string>
   <string name="create">Erschtellä</string>
   <string name="whenCreateSimul">Wänn du es Simultan erschtellsch, spillsch mit mehrerä Gägner glichziitig.</string>
@@ -767,8 +767,8 @@
   <string name="evaluatingYourMove">Zug wird bewertet ...</string>
   <string name="whiteWinsGame">Weiß gewinnt</string>
   <string name="blackWinsGame">Schwarz gewinnt</string>
-  <string name="learnFromYourMistakes">Lern us dinä Fählär</string>
-  <string name="learnFromThisMistake">Lern us dem Fählär</string>
+  <string name="learnFromYourMistakes">Lärn us dinä Fählär</string>
+  <string name="learnFromThisMistake">Lärn us dem Fählär</string>
   <string name="skipThisMove">Überspringe diesen Zug</string>
   <string name="next">Nächster</string>
   <string name="xWasPlayed">%s wurde gespielt</string>
@@ -782,7 +782,7 @@
   <string name="waitingForAnalysis">Warte auf Analyse</string>
   <string name="noMistakesFoundForWhite">Keine Fehler bei Weiß gefunden</string>
   <string name="noMistakesFoundForBlack">Keine Fehler bei Schwarz gefunden</string>
-  <string name="doneReviewingWhiteMistakes">S\'Überprüäfä vo Fähler vo Wiis isch abgschlossä</string>
+  <string name="doneReviewingWhiteMistakes">S\'Überprüäfä vo Fählär vo Wiis isch abgschlossä</string>
   <string name="doneReviewingBlackMistakes">Überprüfen der Fehler von Schwarz abgeschlossen</string>
   <string name="doItAgain">Wiederholen</string>
   <string name="reviewWhiteMistakes">Fehler von Weiß überprüfen</string>
