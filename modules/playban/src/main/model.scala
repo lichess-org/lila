@@ -18,6 +18,7 @@ case class UserRecord(
   def rageSit                   = c | RageSit.empty
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
+  def banMinutes  = bans.lastOption.map(_.remainingMinutes)
 
   def nbOutcomes = outcomes.size
 
@@ -64,11 +65,6 @@ case class UserRecord(
         rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
       }
     }
-
-  def isLethal =
-    rageSit.counter <= -200 &&
-      rageSitRecidive &&
-      bans.lastOption.exists(_.remainingMinutes > 60 * 12)
 }
 
 case class TempBan(

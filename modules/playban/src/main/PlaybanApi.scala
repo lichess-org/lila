@@ -231,7 +231,7 @@ final class PlaybanApi(
             withBan   <- legiferate(withOutcome, createdAt)
           } yield withBan
       }
-      _ <- registerRageSit(withBan.pp(s"registerWithBan withOutcome=$withOutcome"), rsUpdate)
+      _ <- registerRageSit(withBan, rsUpdate)
     } yield ()
   }.void logFailure lila.log("playban")
 
@@ -267,7 +267,7 @@ final class PlaybanApi(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
-            if (record.isLethal)
+            if (record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60))
               userRepo
                 .byId(record.userId)
                 .flatMap {
