@@ -11,4 +11,6 @@
   <string name="networkBetweenLichessAndYou">Conexión entre Lichess e ti</string>
   <string name="networkBetweenLichessAndYouExplanation">O tempo que se tarda en enviar un movemento desde a túa computadora ao servidor de Lichess e obter a resposta. Depende do lonxe que esteas de Lichess (Francia) e da calidade da túa conexión a Internet. Os programadores de Lichess non poden arranxarte a wifi ou facer que a luz vaia máis rápido.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Podes consultar ambos valores en calquera momento, facendo clic no teu nome de usuario na barra superior.</string>
+  <string name="lagCompensation">Compensación por lag</string>
+  <string name="lagCompensationExplanation">Lichess compensa o lago da rede, o que inclue lag sostido ou ocasional. Hai límites e heurísticas baseadas no control do tempo e no retraso compensando até agora, de modo que o resultado debería sentirse razoable para ambos xogadores/as. Como resultado, ter un maior lag na rede que o opoñente non é unha desvantaxe!</string>
 </resources>
