@@ -138,13 +138,13 @@ wänn sich din Puur uf dä 5. Reihä befindät.</string>
   <string name="advanced">Fortgeschritten</string>
   <string name="pieceValue">Figuräwert</string>
   <string name="evaluatePieceStrength">Bewerti d\'stärchi vo de Figuren</string>
-  <string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
-Dame = 9
+  <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mer chan sich das so verbildlichä, dass diä mit höchere Zahle Ostschwiizer sind.
+Damä = 9
 Turm = 5
-Läufer = 3
-Springer = 3
-Bauer = 1
-Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren.</string>
+Läufär = 3
+Gaul = 3
+Buur = 1
+De König isch unbezahlbor! Wenn mo dä verlürt, het mo verlorä.</string>
   <string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
