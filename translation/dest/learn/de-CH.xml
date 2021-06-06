@@ -99,7 +99,7 @@
   <string name="placeTheBishops">Platziär d\'Läufer! Si stönd näbäd dä Gäul.</string>
   <string name="placeTheQueen">Platziär d\'Damä. Si stoht uf irär eigenä Farb.</string>
   <string name="placeTheKing">Platziär dä König! Worum nöd näbäd dä Damä.</string>
-  <string name="pawnsFormTheFrontLine">Puure bildäd d\'Front. Quasi Schaffhuusär. Züch än beliebigä Zug, um fürschi zmachä.</string>
+  <string name="pawnsFormTheFrontLine">Puure bildäd d\'Front. Quasi Schaffhuusär. Züch än beliebigä Zug, zum fürschi z\'machä.</string>
   <string name="boardSetupComplete">Härzlichä Glückwunsch! Du weisch jetzt, wiä mä Schachfigurä ufschtellt.</string>
   <string name="castling">Roschaadä</string>
   <string name="theSpecialKingMove">Dä bsunderi Königszug</string>
@@ -138,7 +138,7 @@ wänn sich din Puur uf dä 5. Reihä befindät.</string>
   <string name="advanced">Fortgeschritten</string>
   <string name="pieceValue">Figuräwert</string>
   <string name="evaluatePieceStrength">Bewerti d\'stärchi vo de Figuren</string>
-  <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mer chan sich das so verbildlichä, dass diä mit höchere Zahle Ostschwiizer sind.
+  <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mä chan sich das so verbildlichä, dass diä mit höcherä Zahlä Ostschwiizer sind.
 Damä = 9
 Turm = 5
 Läufär = 3
@@ -154,12 +154,12 @@ Dame &gt; Läufer</string>
 Stelle sicher, dass dein Zug regelgerecht ist!</string>
   <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
-  <string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
-Dame = 9
+  <string name="pieceValueComplete">Herzlichä Glückwunsch! Du chasch ezz dä Wärt vom Material!
+Damä = 9
 Turm = 5
-Läufer = 3
-Springer = 3
-Bauer = 1</string>
+Läufär = 3
+Gaul = 3
+Buur = 1</string>
   <string name="checkInTwo">Schach in zwei Zügen</string>
   <string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
   <string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>
