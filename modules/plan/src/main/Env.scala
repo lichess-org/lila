@@ -7,6 +7,8 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
+import lila.common.Strings
+import lila.memo.SettingStore.Strings._
 
 @Module
 private class PlanConfig(
@@ -39,8 +41,22 @@ final class Env(
 
   val stripePublicKey = config.stripe.publicKey
 
+  val donationGoalSetting = settingStore[Int](
+    "donationGoal",
+    default = 0,
+    text = "Monthly donation goal in USD from https://lichess.org/costs".some
+  )
+
+  val paymentMethodsSetting = settingStore[Strings](
+    "paymentMethods",
+    default = Strings(List("card")),
+    text = "Stripe payment methods, separated by commas".some
+  )
+
   private lazy val patronColl = db(config.patronColl)
   private lazy val chargeColl = db(config.chargeColl)
+
+  lazy val stripePaymentMethods: StripePaymentMethods = wire[StripePaymentMethods]
 
   private lazy val stripeClient: StripeClient = wire[StripeClient]
 
@@ -55,12 +71,6 @@ final class Env(
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
     chargeColl = chargeColl
-  )
-
-  val donationGoalSetting = settingStore[Int](
-    "donationGoal",
-    default = 0,
-    text = "Monthly donation goal in USD from https://lichess.org/costs".some
   )
 
   lazy val api = new PlanApi(

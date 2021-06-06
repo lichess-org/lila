@@ -174,10 +174,11 @@
     .service .button {
       flex: 1 1 auto;
       font-weight: normal;
+      margin-right: 1em;
     }
 
-    .service .button:first-child {
-      margin-right: 1em;
+    .service .button:last-child {
+      margin-right: 0;
     }
 
     .gift {

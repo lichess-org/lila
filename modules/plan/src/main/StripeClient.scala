@@ -1,6 +1,6 @@
 package lila.plan
 
-
+import java.util.Currency
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
 import play.api.libs.ws.JsonBodyReadables._
@@ -11,7 +11,8 @@ import lila.user.User
 
 final private class StripeClient(
     ws: StandaloneWSClient,
-    config: StripeClient.Config
+    config: StripeClient.Config,
+    paymentMethods: StripePaymentMethods
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import StripeClient._
@@ -20,17 +21,24 @@ final private class StripeClient(
   private val STRIPE_VERSION = "2020-08-27"
   // private val STRIPE_VERSION = "2016-07-06"
 
-  def sessionArgs(customerId: CustomerId, urls: NextUrls): List[(String, Any)] =
-    List(
-      "payment_method_types[]" -> "card",
-      "success_url"            -> urls.success,
-      "cancel_url"             -> urls.cancel,
-      "customer"               -> customerId.value
-    )
+  def sessionArgs(
+      mode: String,
+      customerId: CustomerId,
+      currency: Currency,
+      urls: NextUrls
+  ): List[(String, Any)] =
+    paymentMethods(mode, currency).toList.zipWithIndex.map { case (method, index) =>
+      s"payment_method_types[$index]" -> method
+    } :::
+      List(
+        "mode"        -> mode,
+        "success_url" -> urls.success,
+        "cancel_url"  -> urls.cancel,
+        "customer"    -> customerId.value
+      )
 
   def createOneTimeSession(data: CreateStripeSession): Fu[StripeSession] = {
-    val args = sessionArgs(data.customerId, data.urls) ::: List(
-      "mode" -> "payment",
+    val args = sessionArgs("payment", data.customerId, data.checkout.money.currency, data.urls) ::: List(
       "line_items[0][price_data][product]" -> {
         if (data.giftTo.isDefined) config.products.gift
         else config.products.onetime
@@ -58,8 +66,7 @@ final private class StripeClient(
   )
 
   def createMonthlySession(data: CreateStripeSession): Fu[StripeSession] = {
-    val args = sessionArgs(data.customerId, data.urls) ++
-      List("mode" -> "subscription") ++
+    val args = sessionArgs("subscription", data.customerId, data.checkout.money.currency, data.urls) ++
       recurringPriceArgs("line_items", data.checkout.money)
     postOne[StripeSession]("checkout/sessions", args: _*)
   }
@@ -104,8 +111,7 @@ final private class StripeClient(
     }
 
   def createPaymentUpdateSession(sub: StripeSubscription, urls: NextUrls): Fu[StripeSession] = {
-    val args = sessionArgs(sub.customer, urls) ++ List(
-      "mode"                                         -> "setup",
+    val args = sessionArgs("setup", sub.customer, sub.item.price.currency, urls) ++ List(
       "setup_intent_data[metadata][subscription_id]" -> sub.id
     )
     postOne[StripeSession]("checkout/sessions", args: _*)

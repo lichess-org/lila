@@ -21,7 +21,8 @@ object index {
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String],
-      pricing: lila.plan.PlanPricing
+      pricing: lila.plan.PlanPricing,
+      methods: Set[String]
   )(implicit ctx: Context) = {
 
     views.html.base.layout(
@@ -208,12 +209,18 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                   ),
                   div(cls := "service")(
                     if (ctx.isAuth)
-                      button(cls := "stripe button")(withCreditCard())
+                      frag(
+                        (pricing.currency.getCurrencyCode != "CNY" || !methods("alipay")) option
+                          button(cls := "stripe button")(withCreditCard()),
+                        methods("alipay") option button(cls := "stripe button")("Alipay")
+                      )
                     else
                       a(
                         cls := "stripe button",
                         href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
-                      )(withCreditCard()),
+                      )(
+                        withCreditCard()
+                      ),
                     button(cls := "paypal button")(withPaypal())
                   )
                 )

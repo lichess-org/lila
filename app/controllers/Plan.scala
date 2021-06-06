@@ -79,7 +79,8 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
         patron = patron,
         recentIds = recentIds,
         bestIds = bestIds,
-        pricing = pricing
+        pricing = pricing,
+        methods = env.plan.stripePaymentMethods("payment", pricing.currency)
       )
     )
 
