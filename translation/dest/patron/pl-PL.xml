@@ -62,6 +62,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nextPayment">Następna płatność</string>
   <string name="youWillBeChargedXOnY">Zostaniesz obciążony %1$s %2$s.</string>
   <string name="makeAdditionalDonation">Dokonaj dodatkowej darowizny teraz</string>
+  <string name="giftPatronWings">Podaruj skrzydła patrona innemu graczowi</string>
   <string name="update">Aktualizuj</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
   <string name="cancelSupport">anuluj wsparcie</string>
