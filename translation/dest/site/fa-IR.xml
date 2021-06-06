@@ -828,6 +828,13 @@
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
   <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
   <string name="teamNamedX">تیم %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">شما هنوز قادر به پست گذاشتن در انجمن نیستید. چند بازی انجام دهید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
+  <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
+  <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
+  <string name="invitedYouToX">شما به \"%1$s\" دعوت شده اید.</string>
+  <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
+  <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
+  <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
 </resources>
