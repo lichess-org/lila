@@ -120,4 +120,13 @@ Outro punto que cabe sinalar é que, se pasa un tempo sen xogar, o intervalo de 
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter xogado unha partida por puntos na última semana nesta modalidade,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">ter unha desviación de rating menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
   <string name="beInTopTen">estar no top 10 nesta modalidade.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">O segundo requerimento é que os xogadores/as que xa non usan as súas contas deixen de poblar o listado de líderes.</string>
+  <string name="whyAreRatingHigher">Por que son máis altas as puntuacións en comparación con outras páxinas e organizacións como FIDE, USCF e o CIC?</string>
+  <string name="whyAreRatingHigherExplanation">O mellor é non considerar as puntuacións como cifras absolutas nin compararas con outras organizacións. Diferentes organizacións teñen distintos níveis de xogadores/as e sistemas de puntuación (Elo, Glicko, Glicko-2 ou unha versión modificada dos primeiros). Estes factores poden afectar drasticamente os números absolutos (puntuacións).
+
+É mellor pensar nas puntuacións como figuras \"relativas\" (a diferenza das \"figuras absolutas\"): dentro dun conxunto de xogadores/as, as súas diferenzas relativas nas puntuacións axudaranche a estimar quen gana/empata/perde, e con que frecuencia. Dicir \"teño puntuación X\" significa nada a menos que haxa outros xogadores/as cos que comparar esa puntuación.</string>
+  <string name="howToHideRatingWhilePlaying">Como podo ocultar a clasificación mentres xogo?</string>
+  <string name="enableZenMode">Habilita o modo Zen en %1$s, ou pulsando %2$s durante o xogo.</string>
+  <string name="displayPreferences">amosar preferencias</string>
+  <string name="connexionLostCanIGetMyRatingBack">Perdín un xogo por lag/desconexión. Podo recuperar os meus puntos?</string>
 </resources>
