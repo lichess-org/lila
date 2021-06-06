@@ -7,8 +7,10 @@
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
   <string name="completed">Acabada</string>
+  <string name="roundName">Nom de ronda</string>
   <string name="roundNumber">Ronda número</string>
   <string name="tournamentName">Nom del torneig</string>
+  <string name="tournamentDescription">Breu descripció del torneig</string>
   <string name="fullDescription">Descripció total de l\'esdeveniment</string>
   <string name="fullDescriptionHelp">Opció de llarga descripció de l\'esdeveniment. %1$s és disponible. Ha de tenir menys de %2$s lletres.</string>
   <string name="sourceUrlOrGameIds">Enllaç d\'origen, o identificador de la partida</string>
@@ -17,4 +19,9 @@
   <string name="startDate">Data d\'inici en la teva zona horària</string>
   <string name="startDateHelp">Opcional, si saps quan comença l\'esdeveniment</string>
   <string name="credits">Cita la font</string>
+  <string name="resetRound">Restablir aquesta ronda</string>
+  <string name="deleteRound">Eliminar aquesta ronda</string>
+  <string name="broadcastUrl">URL d\'emissió</string>
+  <string name="currentRoundUrl">URL actual de ronda</string>
+  <string name="currentGameUrl">URL actual de joc</string>
 </resources>
