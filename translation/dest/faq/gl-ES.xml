@@ -88,4 +88,8 @@ Finalmente, existe o título honorífico %2$s.</string>
 Ocasionalmente otorgamos a xogadores/as moi destacados/as que son bos cidadáns de Lichess segundo o noso criterio. O título de LM non se consigue, se non que chegate. Se cumpres os requisitos, recibirás unha mensaxe nosa ao respecto e a opción de aceptar ou rexeitar o título.
 
 No solicites el título de LM.</string>
+  <string name="whatUsernameCanIchoose">Cal pode ser o meu nome de usuario?</string>
+  <string name="usernamesNotOffensive">En xeral, os nomes de usuario non deben: ser ofensivos, suplantar a alguén ou facer publicidade. Podes ler máis sobre as %1$s.</string>
+  <string name="guidelines">directrices</string>
+  <string name="canIChangeMyUsername">Podo mudar o meu usuario?</string>
 </resources>
