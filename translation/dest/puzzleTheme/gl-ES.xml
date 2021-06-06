@@ -5,6 +5,18 @@
   <string name="advantage">Vantaxe</string>
   <string name="advantageDescription">Aproveita a oportunidade de obter unha vantaxe decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
+  <string name="anastasiaMateDescription">Un cabalo e unha torre ou dama únense para atrapar ao rei contrario entre un extremo do taboleiro e unha peza do seu bando.</string>
+  <string name="arabianMate">Mate árabe</string>
+  <string name="arabianMateDescription">Un cabalo e unha torre únense para atrapar ao rei contrario nunha esquina do taboleiro.</string>
+  <string name="attackingF2F7">Atacando f2 ou f7</string>
+  <string name="attackingF2F7Description">Un ataque centrado no peón de f2 ou f7, como na apertura Fried Liver.</string>
+  <string name="attraction">Atracción</string>
+  <string name="attractionDescription">Un intercambio ou sacrificio alentando ou forzando unha peza do opoñente a unha casilla que permite unha táctica de seguimento.</string>
+  <string name="backRankMate">Mate do corredor</string>
+  <string name="backRankMateDescription">Xaque mate na última fila, onde o rei está atrapado polas súas propias pezas.</string>
+  <string name="bishopEndgame">Final de alfís</string>
+  <string name="bishopEndgameDescription">Final con só alfís e peóns.</string>
+  <string name="bodenMate">Mate de Boden</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
