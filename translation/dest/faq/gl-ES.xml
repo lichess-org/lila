@@ -100,4 +100,24 @@ No solicites el título de LM.</string>
   <string name="goldenZeeExplanation">ZugAddict estaba transmitingo e durante as dúas últimas horas tratara de derrotar á I.A. nivel 8 nunha partida 1+0, sen éxito. Thibault díxolle que se o lograba durante a transmisión, obtería un trofeo único. Unha hora despois, venceu a Stockfish e cumpriuse a promesa.</string>
   <string name="lichessRatings">Ratings en Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Que sistema de puntuación emprega Lichess?</string>
+  <string name="ratingSystemUsedByLichess">As puntuacións calculanse empregando o método de clasificación Glicko-2 desenvolto por Mark Glickman. É un método de puntuación moi popular e que utilizan moitas organizacións de xadrez (a FIDE é un contraexemplo notable, xa que todavía utiliza o sistema de puntuación Elo).
+
+En síntese, as puntuacións de Glicko usan \"intervalos de confianza\" ao calcular e representar a túa puntuación. Cando comezas a empregar por primeira vez a páxina, a túa puntuación é de 1500 ± 700. O 1500 representa a túa puntuación, e o 700 representa o intervalo de confianza, que é unha medida da incertidume que o sistema ten sobre a túa puntuación real.
+
+Basicamente, o sistema ten un 90% de seguridade de que a túa puntuación está entre 800 e 2200. É un intervalo moi amplo e pouco preciso (hai moita incertidume). Por iso, cando un xogador acaba de comezar, a súa puntuación cambiará de forma moi brusca, incluso pode que varios cientos de puntos de cada vez. Pero despois dalgunas partidas contra xogadores máis veteranos, o intervalo de confianza irá reducindo (o sistema terá cada vez máis clara cal é a súa puntuación exacta) e a cantidade de puntos ganados ou perdidos despois de cada partida disminuirá.
+
+Outro punto que cabe sinalar é que, se pasa un tempo sen xogar, o intervalo de confianza volverá aumentar. Isto permite ganar o perder puntos máis rapidamente para igualar calquera cambio na túa forza de xoego durante ese tempo que pasaches sen xogar.</string>
+  <string name="whatIsProvisionalRating">Porque hai unha marca de interrogación(?) xunto á puntuación?</string>
+  <string name="provisionalRatingExplanation">A marca de interrogación significa que a clasificación é provisional. Os motivos son:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">O xogador/a non finalizou suficientes partidas por puntos contra %1$s na categoría.</string>
+  <string name="similarOpponents">opoñentes de similar forza</string>
+  <string name="notPlayedRecently">O xogador/a non xogou suficientes partidas recentemente. Dependendo do número de partidas que xogaras, pode tardar arredor dun ano de inactividade para que a túa puntuación vollva a ser provisional.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Concretamente, significa que a desviación Glicko-2 é maior que 110. A desviación é o nivel de confianza que ten o sistema na clasificación. Canto máis baixa sexa a desviación, máis estable será unha puntuación.</string>
+  <string name="howDoLeaderoardsWork">Como funcionan os rankings e o listado de líderes?</string>
+  <string name="inOrderToAppearsYouMust">Para chegar ao %1$s deberías:</string>
+  <string name="ratingLeaderboards">listado de líderes</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">ter xogado cando menos 30 partidas por puntos nunha modalidad dada,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">ter xogado unha partida por puntos na última semana nesta modalidade,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ter unha desviación de rating menor de %1$s, en xadrez estándar, e menor de %2$s en variantes,</string>
+  <string name="beInTopTen">estar no top 10 nesta modalidade.</string>
 </resources>
