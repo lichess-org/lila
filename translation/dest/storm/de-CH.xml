@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Züch zum afoh</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch in allnä Ufgobä mit dä wyssä Figurä</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch in allnä Ufgobä mit dä schwarzä Figurä</string>
-  <string name="puzzlesSolved">Ufgobä glöst</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Du schpillsch in allnä Ufgoobä mit dä wiissä Figurä</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du schpillsch in allnä Ufgoobä mit dä schwarzä Figurä</string>
+  <string name="puzzlesSolved">Ufgoobä glöst</string>
   <string name="newDailyHighscore">Neuä Tagesrekord!</string>
   <string name="newWeeklyHighscore">Neuä Wuchärekord!</string>
   <string name="newMonthlyHighscore">Neuä Monätsrekord!</string>
@@ -25,8 +25,8 @@
   <string name="combo">Combo</string>
   <string name="time">Zyt</string>
   <string name="timePerMove">Zyt pro Zug</string>
-  <string name="highestSolved">Di schwierigschte glöste Ufgob</string>
-  <string name="puzzlesPlayed">Gschpillte Ufgobä</string>
+  <string name="highestSolved">Di schwirigschte glöste Ufgoob</string>
+  <string name="puzzlesPlayed">Gschpillti Ufgoobä</string>
   <string name="newRun">Neuä Lauf (druck: Läärtaschtä)</string>
   <string name="endRun">Beendä dä Lauf (druck: Entertaschtä)</string>
   <string name="highscores">Rekörd</string>
