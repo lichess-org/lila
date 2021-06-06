@@ -680,7 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Survolez les variantes du moteur d\'échecs avec la souris pour les visualiser.</string>
   <string name="analysisShapesHowTo">Utilisez maj+clic ou clic-droit pour dessiner des cercles et des flèches sur l\'échiquier.</string>
   <string name="letOtherPlayersMessageYou">Permettre à d\'autres joueurs de vous envoyer des messages</string>
-  <string name="receiveForumNotifications">Recevoir une notification si votre nom est mentionné dans le forum</string>
+  <string name="receiveForumNotifications">Recevoir une notification si votre nom est mentionné sur le forum</string>
   <string name="shareYourInsightsData">Partager les statistiques de vos parties générées par lichess</string>
   <string name="withNobody">Avec personne</string>
   <string name="withFriends">Avec mes amis</string>
