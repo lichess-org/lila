@@ -252,36 +252,36 @@
   <string name="chatRoom">Tschättruum</string>
   <string name="loginToChat">Mäld dich aa zum tschättä</string>
   <string name="youHaveBeenTimedOut">Du machsch etz mol Pausä.</string>
-  <string name="spectatorRoom">Zuäschauerrum</string>
-  <string name="composeMessage">Nachricht verfassä</string>
-  <string name="noNewMessages">Käi neui Nachrichtä</string>
+  <string name="spectatorRoom">Zuäschauärruum</string>
+  <string name="composeMessage">Nochricht verfassä</string>
+  <string name="noNewMessages">Kei neui Nochrichtä</string>
   <string name="subject">Beträff</string>
   <string name="recipient">Empfänger</string>
-  <string name="send">Sände</string>
+  <string name="send">Sändä</string>
   <string name="incrementInSeconds">Inkremänt in Sekundä</string>
-  <string name="freeOnlineChess">Koschtelooses Online-Schach</string>
+  <string name="freeOnlineChess">Choschtälooses Online-Schach</string>
   <plurals name="nbRated">
-    <item quantity="one">%s gwärtets</item>
-    <item quantity="other">%s gewärteti</item>
+    <item quantity="one">%s gwärtät</item>
+    <item quantity="other">%s gwärtäti</item>
   </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s Siig</item>
     <item quantity="other">%s Siig</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s Niderlaag</item>
-    <item quantity="other">%s Niderlaagä</item>
+    <item quantity="one">%s Niderlag</item>
+    <item quantity="other">%s Niderlagä</item>
   </plurals>
   <plurals name="nbDraws">
     <item quantity="one">%s Remis</item>
     <item quantity="other">%s Remis</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s laufendi Partii</item>
-    <item quantity="other">%s laufendi Partiiä</item>
+    <item quantity="one">%s laufändi Partii</item>
+    <item quantity="other">%s laufändi Partiiä</item>
   </plurals>
-  <string name="exportGames">Partiiä exportierä</string>
-  <string name="ratingRange">Wärtigsberiich</string>
+  <string name="exportGames">Partiiä exportiärä</string>
+  <string name="ratingRange">Wärtigsbereich</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Em Gägner %s Sekundä gä</item>
     <item quantity="other">Em Gägner %s Sekundä gä</item>
@@ -289,13 +289,13 @@
   <string name="thisAccountViolatedTos">Das Konto hät gäg d\'Lichess-Nutzigsrichliniä verschtossä</string>
   <string name="openingExplorerAndTablebase">Eröffnigsbuäch &amp; Tablebase</string>
   <string name="takeback">Zugrücknahm</string>
-  <string name="proposeATakeback">Zugrücknahm vorschlah</string>
-  <string name="takebackPropositionSent">Zugrücknahm vorschlah</string>
+  <string name="proposeATakeback">Zugrücknahm vorschloh</string>
+  <string name="takebackPropositionSent">Zugrücknahm vorgschlagä</string>
   <string name="takebackPropositionDeclined">Zugrücknahm abglehnt</string>
-  <string name="takebackPropositionAccepted">Zugrücknahm aagna</string>
-  <string name="takebackPropositionCanceled">Zugrücknahm zrugzogä</string>
-  <string name="yourOpponentProposesATakeback">Din Gägner möchti de letschti Zug zruggnäh</string>
-  <string name="bookmarkThisGame">Das Spiili mit emenä Läsezeichä verseh</string>
+  <string name="takebackPropositionAccepted">Zugrücknahm aagnoh</string>
+  <string name="takebackPropositionCanceled">Zugrücknahm zruggzogä</string>
+  <string name="yourOpponentProposesATakeback">Din Gägner möchti dä letschti Zug zruggnäh</string>
+  <string name="bookmarkThisGame">Das Schpiil mitämä Läsezeichä verseh</string>
   <string name="tournament">Turniär</string>
   <string name="tournaments">Turniär</string>
   <string name="tournamentPoints">Turniärpünkt</string>
@@ -307,24 +307,24 @@
     <item quantity="one">%s Studiä</item>
     <item quantity="other">%s Studiä</item>
   </plurals>
-  <string name="viewTournament">Turniär aaluegä</string>
+  <string name="viewTournament">Turniär aaluägä</string>
   <string name="backToTournament">Zrugg zum Turniär</string>
   <string name="thematic">Thematisch</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s gwärtets Schpiil</item>
-    <item quantity="other">≥ %s gwärteti Spiel</item>
+    <item quantity="one">≥ %s gwärtäts Schpiil</item>
+    <item quantity="other">≥ %s gwärtäti Schpiil</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s gwärtets %2$s Schpiil</item>
-    <item quantity="other">≥ %1$s gwärteti %2$s Spieli</item>
+    <item quantity="one">≥ %1$s gwärtäts %2$s Schpiil</item>
+    <item quantity="other">≥ %1$s gwärtäti %2$s Schpiil</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Du muäsch no %1$s gwärteti Partii meh %2$s schpilä</item>
-    <item quantity="other">Du muäsch na %1$s gwärteti Partiiä meh %2$s schpilä</item>
+    <item quantity="one">Du muäsch no %1$s gwärtäti Partii meh %2$s schpilä</item>
+    <item quantity="other">Du muäsch no %1$s gwärtäti Partiiä meh %2$s schpilä</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Du muäsch na %s gwärtets Schpiil meh schpilä</item>
-    <item quantity="other">Du muäsch na %s gwärteti Schpiil meh schpilä</item>
+    <item quantity="one">Du muäsch no %s gwärtäts Schpiil meh schpilä</item>
+    <item quantity="other">Du muäsch no %s gwärtäti Schpiil meh schpilä</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Dini %s Wärtig isch provisorisch</string>
   <string name="yourPerfRatingIsTooHigh">Dini %1$s Wärtig (%2$s) isch z\'höch</string>
