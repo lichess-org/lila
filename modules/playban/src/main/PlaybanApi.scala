@@ -1,18 +1,18 @@
 package lila.playban
 
+import chess.{ Centis, Color, Status }
+import org.joda.time.DateTime
+import play.api.Mode
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.{ Centis, Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Game, Player, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.{ User, UserRepo }
-
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import lila.user.NoteApi
+import lila.user.{ User, UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -21,7 +21,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
@@ -44,7 +44,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    Uptime.startedSinceMinutes(10) ?? {
+    (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
@@ -231,7 +231,7 @@ final class PlaybanApi(
             withBan   <- legiferate(withOutcome, createdAt)
           } yield withBan
       }
-      _ <- registerRageSit(withBan, rsUpdate)
+      _ <- registerRageSit(withBan.pp(s"registerWithBan withOutcome=$withOutcome"), rsUpdate)
     } yield ()
   }.void logFailure lila.log("playban")
 
