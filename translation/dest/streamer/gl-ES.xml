@@ -47,4 +47,8 @@ Se a túa transmisión está en inglés, non hai necesidade de incluir unha etiq
   <string name="deletePicture">Borra a foto</string>
   <string name="maxSize">Tamaño máximo: %s</string>
   <string name="installBlocker">Instala un bloqueador de malware!</string>
+  <string name="beSafe">Mantente a salvo dos anuncios e rastrexadores
+que infestan Twitch e YouTube.
+Lichess recomenda uBlock Origin
+que é gratis e de código abierto.</string>
 </resources>
