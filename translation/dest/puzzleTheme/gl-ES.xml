@@ -39,6 +39,11 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movemento que distrae unha peza rival dunha tarefa que desempeña, como a protección dunha casilla chave.</string>
   <string name="discoveredAttack">Ataque descuberto</string>
+  <string name="discoveredAttackDescription">Mover unha peza que previamente bloqueaba un ataque por otra pieza de longo alcance, por exemplo un cabalo fora do camiño dunha torre.</string>
+  <string name="doubleCheck">Xaque dobre</string>
+  <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
+  <string name="endgame">Final</string>
+  <string name="endgameDescription">Táctica durante a derradeira fase do xogo.</string>
   <string name="queenRookEndgame">Final de dama e torre</string>
   <string name="queenRookEndgameDescription">Un final solo con damas, torres e peons.</string>
 </resources>
