@@ -10,9 +10,9 @@
   <string name="aiNameLevelAiLevel">%1$s Stufä %2$s</string>
   <string name="level">Stufä</string>
   <string name="strength">Schpiilstärchi</string>
-  <string name="toggleTheChat">Chät ii und uus schaltä</string>
+  <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
   <string name="toggleSound">Ton ii/uus schalte</string>
-  <string name="chat">Chät</string>
+  <string name="chat">Tschätt</string>
   <string name="resign">Uufgä</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
@@ -43,18 +43,18 @@
   <string name="makeYourOpponentResign">Din Gägner zum uufgää zwingä</string>
   <string name="forceResignation">De Siig beaschpruchä</string>
   <string name="forceDraw">Remis erchläre</string>
-  <string name="talkInChat">Bis bitte fründli im Chät!</string>
+  <string name="talkInChat">Sig bitte fründlich im Tschätt!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erschti Pärson, wo dä URL ahklickt, isch din Gägner.</string>
   <string name="whiteResigned">Wiis hät uufgää</string>
   <string name="blackResigned">Schwarz hät uufgää</string>
   <string name="whiteLeftTheGame">Wiis hät d\'Partii verlah</string>
   <string name="blackLeftTheGame">Schwarz hät d\'Partii verlaa</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Teil dä URL, zum Zuäschauer iizladä zum zuäzluegä</string>
-  <string name="theComputerAnalysisHasFailed">D Kompiuteranalüse isch fählgschlagä</string>
-  <string name="viewTheComputerAnalysis">D Kompiuter-Analüse ahluegä</string>
-  <string name="requestAComputerAnalysis">E Kompiuter-Analüse aaforderä</string>
-  <string name="computerAnalysis">Kompiuter-Analüse</string>
-  <string name="computerAnalysisAvailable">Kompiuter-Analüse verfüegbar</string>
+  <string name="theComputerAnalysisHasFailed">D Kompianalysä isch bachab</string>
+  <string name="viewTheComputerAnalysis">D\'Kompianalysä aluägä</string>
+  <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
+  <string name="computerAnalysis">Kompianalysä</string>
+  <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Tüüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analüsä wird bruucht</string>
@@ -114,7 +114,7 @@
   <string name="cpus">Prozässore</string>
   <string name="memory">Arbetsschpeicher</string>
   <string name="infiniteAnalysis">Ändlosi Analüsä</string>
-  <string name="removesTheDepthLimit">Entfärnt d Düüfebegränzig und halted din Kompiuter warm</string>
+  <string name="removesTheDepthLimit">Entfärnt d\'Tüüfäbegränzig und haltät din Kompi warm</string>
   <string name="blunder">Grobä Fähler</string>
   <string name="mistake">Fähler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
@@ -249,9 +249,9 @@
   <string name="confirmMove">Zug beschtätigä</string>
   <string name="play">Schpilä</string>
   <string name="inbox">Poschtiigang</string>
-  <string name="chatRoom">Chätruum</string>
-  <string name="loginToChat">Mäld dich a zum chäte</string>
-  <string name="youHaveBeenTimedOut">Du machsch etz mol Pause.</string>
+  <string name="chatRoom">Tschättruum</string>
+  <string name="loginToChat">Mäld dich aa zum tschättä</string>
+  <string name="youHaveBeenTimedOut">Du machsch etz mol Pausä.</string>
   <string name="spectatorRoom">Zuäschauerrum</string>
   <string name="composeMessage">Nachricht verfassä</string>
   <string name="noNewMessages">Käi neui Nachrichtä</string>
@@ -335,7 +335,7 @@
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrug zum Spiil</string>
-  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner!</string>
+  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
   <string name="xJoinedTeamY">%1$s isch em Team %2$s biiträtte</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründet</string>
   <string name="xStartedStreaming">%s hät en Stream gschtartet</string>
@@ -352,7 +352,7 @@
   <string name="continueFromHere">Vo da us wiiterschpillä</string>
   <string name="toStudy">Studiä</string>
   <string name="importGame">Partii importierä</string>
-  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuegriff uf e Schpiilwiderholig, e Kompiuteranalüse, en Schpiilchät und en teilbarä URL.</string>
+  <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuegriff uf ä Schpiilwiderholig, ä Kompianalysä, en Schpiiltschätt und än teilbarä URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierti Partii</item>
     <item quantity="other">%s importierti Partiiä</item>
@@ -562,7 +562,7 @@
   </plurals>
   <string name="listBlockedPlayers">Lischtä vo dinä gesperrtä Spielär</string>
   <string name="human">Mänsch</string>
-  <string name="computer">Kompiuter</string>
+  <string name="computer">Kompi</string>
   <string name="side">Farb</string>
   <string name="clock">Uhr</string>
   <string name="unauthorizedError">Zuägriff verweigärät.</string>
@@ -571,7 +571,7 @@
   <string name="signedOut">Erfolgriich uusgloggt</string>
   <string name="loginSuccessful">Du bist jetzt iig loggt</string>
   <string name="playOnTheBoardOffline">Spill offline gäg än Mänsch</string>
-  <string name="playOfflineComputer">Spill offline gäg än Kompiutär</string>
+  <string name="playOfflineComputer">Schpill offline gäg än Kompi</string>
   <string name="opponent">Gägner</string>
   <string name="learnMenu">Lernä</string>
   <string name="studyMenu">Studiä</string>
@@ -645,7 +645,7 @@
   <string name="keyShowOrHideComments">zeig/versteck Kommentär</string>
   <string name="keyEnterOrExitVariation">Variantä wählä/verlaa</string>
   <string name="newTournament">Neus Turniär</string>
-  <string name="tournamentHomeTitle">Schachturniär mit verschiedenä Ziitkontrollä und Schachvariantä</string>
+  <string name="tournamentHomeTitle">Schachturniär mit verschidänä Ziitkontrollä und Schachvariantä</string>
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
   <string name="tournamentNotFound">Turniär nöd gfundä</string>
   <string name="tournamentDoesNotExist">Das Turniär giz nöd.</string>
@@ -738,7 +738,7 @@
   <string name="usernameUnacceptable">Dieser Benutzername ist nicht akzeptabel.</string>
   <string name="directlySupportLichess">Lichess direkt unterstützen</string>
   <string name="playChessInStyle">Schachschpille mit Style</string>
-  <string name="chessBasics">Grundlagen</string>
+  <string name="chessBasics">Grundlagä</string>
   <string name="coaches">Trainer</string>
   <string name="invalidPgn">Fehlerhaftes PGN</string>
   <string name="invalidFen">FEN ungültig</string>
