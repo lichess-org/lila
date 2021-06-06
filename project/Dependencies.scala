@@ -13,7 +13,7 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
   val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.19"
-  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.1.0"  % "compile"
+  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.0.2"  % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "0.26.0"
   val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.3.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
