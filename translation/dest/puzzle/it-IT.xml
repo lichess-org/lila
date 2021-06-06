@@ -66,4 +66,6 @@
   <string name="fromMyGames">Dai miei giochi</string>
   <string name="lookupOfPlayer">Cerca tattiche dalle partite di un giocatore</string>
   <string name="fromXGames">Tattiche dalle partite di %s\'</string>
+  <string name="searchPuzzles">Cerca tattiche</string>
+  <string name="fromXGamesFound">%1$s tattiche trovate in %2$s partite</string>
 </resources>
