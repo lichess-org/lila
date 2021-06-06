@@ -649,7 +649,7 @@
   <string name="tournamentHomeDescription">Spiele rasante Turniere! Trete einem geplanten Turnier bei oder erstelle ein neues. Bullet, Blitz, Klassisch, Chess960, King of the Hill, Threecheck und weitere Schachvarianten für grenzenlosen Spaß.</string>
   <string name="tournamentNotFound">Turniär nöd gfundä</string>
   <string name="tournamentDoesNotExist">Das Turniär giz nöd.</string>
-  <string name="tournamentMayHaveBeenCanceled">Womöglich wurde es abgesagt, weil zu Turnierbeginn kein Spieler (mehr) registriert war.</string>
+  <string name="tournamentMayHaveBeenCanceled">Womöglich ischäs abgsait worde, wil zu Turnierbeginn kei Schpiller (meh) registriärt gsi sind.</string>
   <string name="returnToTournamentsHomepage">Zurück zur Turnier-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wöchentliche %s-Wertungsverteilung</string>
   <plurals name="nbPerfTypePlayersThisWeek">
