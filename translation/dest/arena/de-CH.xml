@@ -7,11 +7,11 @@
   <string name="isNotRated">Das Turnier isch *nöd* gwärtät und wird dini Wärtigszahl *nöd* beiiflussä.</string>
   <string name="someRated">Gwüssi Turniere sind gwärtät und werdäd dini Wärtigszahl beiiflussä.</string>
   <string name="howAreScoresCalculated">Wiä werdäd d\'Pünkt berächnät?</string>
-  <string name="howAreScoresCalculatedAnswer">Grundsätzlich gibt es für einen Sieg 2 Punkte, 1 Punkt für Remis und 0 Punkte für eine Niederlage.
-Gewinnst du zwei Partien in Folge, beginnst du eine Serie mit verdoppelter Punktzahl (dargestellt durch ein Flammensymbol). Für die nachfolgenden Partien erhältst du solange die doppelte Punktzahl, bis du eine Partie nicht gewinnst.
-Das bedeutet, dass du für einen Sieg vier, für ein Remis zwei und für eine Niederlage keine Punkte bekommst.
+  <string name="howAreScoresCalculatedAnswer">Grundsätzlich gits fürän Siig 2 Pünkt, 1 Punkt für Remis und 0 Pünkt fürä Niderlag.
+Gwünnsch du zwei Partiiä in Folg, bechunnsch ä Strähnä mit verdopplätär Punktzahl (dargschtellt dur äs Flammäsymbol). Für di nochfolgänd Partiiä bechunnsch du solang di dopplete Punktzahl, bis du ä Partii nöd gwünnsch.
+Das bedüütät, dass du fürän Siig dänn vier, füräs Remis zwei und fürä Niderlag natürlich kei Pünkt bechunnsch.
 
-Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 * 1)</string>
+Biischpiil: Zwei Siige, gfolgt vonänä Remis sind 6 Pünkt wärt: 2 + 2 + (2 * 1)</string>
   <string name="berserk">Arena Bärsärk</string>
   <string name="berserkAnswer">Wenn du vor Partiibeginn dä \"Bärsärk\"-Chnopf drucksch, verlürsch d\'Hälfti vo diner Ziit uf de Uhr (also nünt für Berner), aber en Sieg wird mitämä zuäsätzlichä Turnierpunkt honoriärt.
 
@@ -25,9 +25,9 @@ Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens
 
 Wenn zwei oder meh Schpiller di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
   <string name="howDoesPairingWork">Wiä wärdäd d\'Turnierpaarigä ermittlät?</string>
-  <string name="howDoesPairingWorkAnswer">Am Afang vom Turniers wärdäd d\'Schpiller uf Grundlage vode Wärtigszahl zuäteilt.
-Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpilller mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller im Turnier spielsch.
-Pressier und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erzielä.</string>
+  <string name="howDoesPairingWorkAnswer">Am Afang vom Turnier wärdäd d\'Schpiller uf Grundlag vode Wärtigszahl zuäteilt.
+Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller im Turnier spillsch.
+Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erziilä.</string>
   <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
   <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh.
 Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
