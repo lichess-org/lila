@@ -104,9 +104,8 @@ final class Auth(
               ),
             usernameOrEmail =>
               HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
-                api.loadLoginForm(usernameOrEmail) flatMap { loginForm =>
-                  loginForm
-                    .bindFromRequest()
+                api.loadLoginForm(usernameOrEmail) flatMap {
+                  _.bindFromRequest()
                     .fold(
                       err => {
                         chargeIpLimiter(1)

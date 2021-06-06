@@ -319,6 +319,10 @@ object mon {
       def hit(client: String, result: String) =
         counter("hcaptcha.hit").withTags(Map("client" -> client, "result" -> result))
     }
+    object passwordHasher {
+      val encrypt = timer("security.passwordHasher.run").withTag("mode", "encrypt")
+      val decrypt = timer("security.passwordHasher.run").withTag("mode", "decrypt")
+    }
   }
   object tv {
     object streamer {
