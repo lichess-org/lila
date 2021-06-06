@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Equipo</string>
   <string name="teams">Equipos</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membros</item>
@@ -11,6 +12,20 @@
   <string name="noTeamFound">Ningún equipo atopado</string>
   <string name="joinTeam">Únirse ó equipo</string>
   <string name="quitTeam">Sair do equipo</string>
+  <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Se está marcado, os xogadores/as terán que escribir unha solicitude para unirse ao equipo, que ti poderás rechazar ou aceptar.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Líder do equipo</item>
+    <item quantity="other">Líder do equipo</item>
+  </plurals>
   <string name="teamBestPlayers">Mellores xogadores</string>
   <string name="teamRecentMembers">Membros recentes</string>
+  <string name="kickSomeone">Botar a alguén fóra do equipo</string>
+  <string name="whoToKick">A quen queres botar fóra do equipo?</string>
+  <string name="willBeReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
+  <string name="beingReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
+  <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>
+  <string name="teamBattle">Batalla por equipos</string>
+  <string name="teamBattleOverview">Unha batalla de múltiples equipos, cada xogador/a anota puntos para o seu equipo</string>
+  <string name="teamTournament">Torneo de equipo</string>
 </resources>
