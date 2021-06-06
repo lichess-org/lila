@@ -11,7 +11,7 @@
     <item quantity="other">Hat %1$s Stellungen bei %2$s geübt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Hät %s Taktikufgob glöst</item>
+    <item quantity="one">Hät %s Taktikufgoob glöst</item>
     <item quantity="other">Hät %s Taktikufgoobä glöst</item>
   </plurals>
   <plurals name="playedNbGames">
