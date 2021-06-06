@@ -41,7 +41,7 @@
   <string name="howToReportBug">Bitte beschreibe wie der Fehler aussieht, was du stattdessen erwartet hättest, sowie die Schritte um den Fehler zu reproduzieren.</string>
   <string name="illegalPawnCapture">Unerlaubtes Bauern-Schlagen</string>
   <string name="calledEnPassant">Das wird \"en passant\" genannt und gehört zu den Schachregeln.</string>
-  <string name="tryEnPassant">Probiere dieses kleine, interaktive Spiel aus und lerne mehr über \"en passant\".</string>
+  <string name="tryEnPassant">Probiär das chliine, interaktive Schpiil us und lern meh über \"im Vorbigoh\".</string>
   <string name="illegalCastling">Unerlaubtes oder unmögliches Rochieren</string>
   <string name="castlingPrevented">Die Rochade wird nur verhindert, falls der König durch ein kontrolliertes Feld zieht.</string>
   <string name="castlingRules">Stelle sicher, dass du mit den Rochaderegeln vertraut bist</string>
@@ -67,7 +67,7 @@
   <string name="buyingLichess">Lichess kaufen</string>
   <string name="authorizationToUse">Genehmigung um Lichess zu nutzen</string>
   <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
-  <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
+  <string name="videosAndBooks">Du chasch das i dinä Videos zeigä und du chasch au Screenshots vo Lichess in dini Büächer truckä.</string>
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
   <string name="noneOfTheAbove">Keines der oben genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
