@@ -14,7 +14,7 @@ case class Report(
     score: Report.Score,
     inquiry: Option[Report.Inquiry],
     open: Boolean,
-    processedBy: Option[User.ID]
+    done: Option[Report.Done]
 ) extends Reason.WithReason {
 
   import Report.{ Atom, Score }
@@ -67,7 +67,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      processedBy = by.id.some
+      done = Report.Done(by.id, DateTime.now).some
     )
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
@@ -105,6 +105,8 @@ object Report {
 
     def byLichess = by == ReporterId.lichess
   }
+
+  case class Done(by: User.ID, at: DateTime)
 
   case class Inquiry(mod: User.ID, seenAt: DateTime)
 
@@ -163,7 +165,7 @@ object Report {
             score = score,
             inquiry = none,
             open = true,
-            processedBy = none
+            done = none
           )
         )(_ add c.atom)
     }

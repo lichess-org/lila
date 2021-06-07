@@ -8,8 +8,10 @@ import scala.util.Try
 
 import lila.db.dsl._
 import lila.user.User
+import lila.report.Report
+import lila.report.Room
 
-final class ModProgress(repo: ModlogRepo)(implicit ec: ExecutionContext) {
+final class ModProgress(repo: ModlogRepo, reportApi: lila.report.ReportApi)(implicit ec: ExecutionContext) {
 
   import ModProgress._
 
@@ -23,48 +25,72 @@ final class ModProgress(repo: ModlogRepo)(implicit ec: ExecutionContext) {
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
+        val dateSince = period match {
+          case Period.Week  => DateTime.now.minusWeeks(1)
+          case Period.Month => DateTime.now.minusMonths(1)
+          case Period.Year  => DateTime.now.minusYears(1)
+        }
+        def dateToString(field: String): Bdoc =
+          $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
         Match(
           $doc(
             "human" -> true,
-            "date" $gt (period match {
-              case Period.Week  => DateTime.now.minusWeeks(1)
-              case Period.Month => DateTime.now.minusMonths(1)
-              case Period.Year  => DateTime.now.minusYears(1)
-            })
+            "date" $gt dateSince
           ) ++ (who match {
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
           })
         ) -> List(
-          Group(
-            $arr(
-              $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> "$date")),
-              "$action"
+          Group($arr(dateToString("date"), "$action"))("nb" -> SumAll),
+          PipelineOperator(
+            $doc(
+              "$unionWith" -> $doc(
+                "coll" -> reportApi.coll.name,
+                "pipeline" -> List(
+                  Match(
+                    $doc(
+                      "open" -> false,
+                      "done.by" $nin List(User.lichessId, "irwin"),
+                      "done.at" $gt dateSince
+                    )
+                  ),
+                  Group($arr(dateToString("done.at"), "$room"))("nb" -> SumAll)
+                )
+              )
             )
-          )("nb" -> SumAll)
+          ),
+          Sort(Descending("_id.0"))
         )
       }
       .map { docs =>
         for {
-          doc       <- docs
-          id        <- doc.getAsOpt[List[String]]("_id")
-          date      <- id.headOption
-          actionKey <- id lift 1
-          action    <- Action.dbMap get actionKey
-          nb        <- doc.int("nb")
-        } yield (date, action, nb)
+          doc  <- docs
+          id   <- doc.getAsOpt[List[String]]("_id")
+          date <- id.headOption
+          key  <- id lift 1
+          nb   <- doc.int("nb")
+        } yield (date, key, nb)
       }
       .map {
-        _.foldLeft(Map.empty[String, Map[Action, Int]]) { case (acc, (date, action, nb)) =>
-          acc.updated(date, acc.getOrElse(date, Map.empty).updated(action, nb))
+        _.foldLeft(Map.empty[String, Row]) { case (acc, (date, key, nb)) =>
+          acc.updated(
+            date, {
+              val row = acc.getOrElse(date, Row(Map.empty, Map.empty))
+              Room.byKey
+                .get(key)
+                .map(row.add(_, nb))
+                .orElse(Action.dbMap.get(key).map(row.add(_, nb)))
+                .getOrElse(row)
+            }
+          )
         }
       }
       .map { data =>
         Result(
           period,
           who,
-          data.toList.sortBy(_._1).reverse.flatMap { case (date, actions) =>
-            Try(dateFormat parseDateTime date).toOption map { _ -> Row(actions) }
+          data.toList.sortBy(_._1).reverse.flatMap { case (date, row) =>
+            Try(dateFormat parseDateTime date).toOption map { _ -> row }
           }
         )
       }
@@ -78,7 +104,10 @@ object ModProgress {
       data: List[(DateTime, Row)]
   )
 
-  case class Row(actions: Map[Action, Int])
+  case class Row(actions: Map[Action, Int], reports: Map[Room, Int]) {
+    def add(action: Action, nb: Int) = copy(actions = actions.updatedWith(action)(prev => Some(~prev + nb)))
+    def add(room: Room, nb: Int)     = copy(reports = reports.updatedWith(room)(prev => Some(~prev + nb)))
+  }
 
   private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
@@ -107,7 +136,6 @@ object ModProgress {
     case object MarkTroll    extends Action
     case object MarkBoost    extends Action
     case object CloseAccount extends Action
-    case object CloseTeam    extends Action
     case object ChatTimeout  extends Action
     case object Appeal       extends Action
     case object SetEmail     extends Action
@@ -125,8 +153,6 @@ object ModProgress {
       "unalt"           -> CloseAccount,
       "closeAccount"    -> CloseAccount,
       "reopenAccount"   -> CloseAccount,
-      "disableTeam"     -> CloseTeam,
-      "enableTeam"      -> CloseTeam,
       "chatTimeout"     -> ChatTimeout,
       "appealPost"      -> Appeal,
       "appealClose"     -> Appeal,

@@ -229,12 +229,12 @@ final class ReportApi(
   def reopenReports(suspect: Suspect): Funit =
     for {
       all <- recent(suspect, 10)
-      closed = all.filter(_.processedBy has ModId.lichess.value)
+      closed = all.filter(_.done.map(_.by) has ModId.lichess.value)
       _ <-
         coll.update
           .one(
             $inIds(closed.map(_.id)),
-            $set("open" -> true) ++ $unset("processedBy"),
+            $set("open" -> true) ++ $unset("done"),
             multi = true
           )
           .void
@@ -306,8 +306,8 @@ final class ReportApi(
       .one(
         selector,
         $set(
-          "open"        -> false,
-          "processedBy" -> by.value
+          "open" -> false,
+          "done" -> Report.Done(by.value, DateTime.now)
         ) ++ $unset("inquiry"),
         multi = true
       )
@@ -598,7 +598,7 @@ final class ReportApi(
         coll.update
           .one(
             $id(report.id),
-            $unset("inquiry", "processedBy") ++ $set("open" -> true)
+            $unset("inquiry", "done") ++ $set("open" -> true)
           )
           .void
 

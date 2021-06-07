@@ -6,6 +6,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.mod.ModProgress._
 
 import controllers.routes
+import lila.report.Room
 
 object progress {
 
@@ -23,8 +24,11 @@ object progress {
             thead(
               tr(
                 th("Date"),
+                Room.all.map { r =>
+                  th("Report", br, r.name)
+                },
                 Action.all.map { a =>
-                  th(a.toString)
+                  th("Action", br, a.toString)
                 }
               )
             ),
@@ -32,6 +36,9 @@ object progress {
               p.data.map { case (date, row) =>
                 tr(
                   th(showDate(date)),
+                  Room.all.map { r =>
+                    td(~row.reports.get(r))
+                  },
                   Action.all.map { a =>
                     td(~row.actions.get(a))
                   }
