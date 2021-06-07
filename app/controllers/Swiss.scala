@@ -99,26 +99,31 @@ final class Swiss(
     ctx.userId ?? { env.team.cached.isLeader(teamId, _) } flatMap { _ ?? f }
 
   def form(teamId: String) =
-    Auth { implicit ctx => _ =>
-      CheckTeamLeader(teamId) {
-        Ok(html.swiss.form.create(env.swiss.forms.create, teamId)).fuccess
+    Auth { implicit ctx => me =>
+      NoLameOrBot {
+        CheckTeamLeader(teamId) {
+          Ok(html.swiss.form.create(env.swiss.forms.create(me), teamId)).fuccess
+        }
       }
     }
 
   def create(teamId: String) =
     AuthBody { implicit ctx => me =>
-      CheckTeamLeader(teamId) {
-        env.swiss.forms.create
-          .bindFromRequest()(ctx.body, formBinding)
-          .fold(
-            err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
-            data =>
-              tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
-                env.swiss.api.create(data, me, teamId) map { swiss =>
-                  Redirect(routes.Swiss.show(swiss.id.value))
+      NoLameOrBot {
+        CheckTeamLeader(teamId) {
+          env.swiss.forms
+            .create(me)
+            .bindFromRequest()(ctx.body, formBinding)
+            .fold(
+              err => BadRequest(html.swiss.form.create(err, teamId)).fuccess,
+              data =>
+                tourC.rateLimitCreation(me, isPrivate = true, ctx.req, Redirect(routes.Team.show(teamId))) {
+                  env.swiss.api.create(data, me, teamId) map { swiss =>
+                    Redirect(routes.Swiss.show(swiss.id.value))
+                  }
                 }
-              }
-          )
+            )
+        }
       }
     }
 
@@ -129,7 +134,8 @@ final class Swiss(
         env.team.cached.isLeader(teamId, me.id) flatMap {
           case false => notFoundJson("You're not a leader of that team")
           case _ =>
-            env.swiss.forms.create
+            env.swiss.forms
+              .create(me)
               .bindFromRequest()
               .fold(
                 jsonFormErrorDefaultLang,
@@ -183,7 +189,7 @@ final class Swiss(
   def edit(id: String) =
     Auth { implicit ctx => me =>
       WithEditableSwiss(id, me) { swiss =>
-        Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(swiss))).fuccess
+        Ok(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss))).fuccess
       }
     }
 
@@ -192,7 +198,7 @@ final class Swiss(
       WithEditableSwiss(id, me) { swiss =>
         implicit val req = ctx.body
         env.swiss.forms
-          .edit(swiss)
+          .edit(me, swiss)
           .bindFromRequest()
           .fold(
             err => BadRequest(html.swiss.form.edit(swiss, err)).fuccess,

@@ -5,6 +5,13 @@
   <string name="freeAccount">Cuntas saor in aisce</string>
   <string name="becomePatron">Bí i do Phátrún Lichess</string>
   <string name="xBecamePatron">Tháinig %s mar Phátrún Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">Is Pátrún Lichess %1$s ar feadh mí %2$s</item>
+    <item quantity="two">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="few">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="many">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+    <item quantity="other">Is Pátrún Lichess %1$s ar feadh %2$s mhí</item>
+  </plurals>
   <string name="newPatrons">Pátrúin Nua</string>
   <string name="freeChess">Ficheall saor in aisce do gach duine, go deo!</string>
   <string name="noAdsNoSubs">Gan fógraí, gan aon síntiúis; ach foinse oscailte agus paisean.</string>
@@ -17,13 +24,12 @@
   <string name="lifetime">Saol</string>
   <string name="payLifetimeOnce">Íoc %s uair amháin. Bí i do Phátrún Lichess go deo!</string>
   <string name="lifetimePatron">Pátrún Lichess Saoil</string>
-  <string name="makeExtraDonation">Déan tabhartas breise?</string>
   <string name="monthly">Míosúil</string>
   <string name="recurringBilling">Billeáil athfhillteach, ag athnuachan do sciatháin Pátrún gach mí.</string>
   <string name="onetime">Aonuaire</string>
   <string name="singleDonation">Bronntanas amháin a thugann sciatháin an Phátrúin duit ar feadh míosa.</string>
   <string name="otherAmount">Eile</string>
-  <string name="pleaseEnterAmount">Iontráil méid in USD le do thoil</string>
+  <string name="pleaseEnterAmountInX">Iontráil méid i %s</string>
   <string name="withCreditCard">Cárta creidmheasa</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Is foireann bheag muid, agus déanann do thacaíocht difríocht mhór!</string>
@@ -65,8 +71,6 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="decideHowMuch">Socraigh cad is fiú Lichess duit:</string>
   <string name="stopPayments">Tarraing do chárta creidmheasa as agus stop íocaíochtaí:</string>
   <string name="noLongerSupport">Ná thacaíonn Lichess a thuilleadh</string>
-  <string name="paymentHistory">Stair íocaíochta</string>
-  <string name="paid">Íoctha</string>
   <string name="viewOthers">Féach ar Phátrúin Lichess eile</string>
   <string name="date">Dáta</string>
   <string name="amount">Méid</string>

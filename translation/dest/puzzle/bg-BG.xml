@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Пропуснете този ход за да запазите поредицата си! Може да го направите само веднъж на сесия.</string>
   <string name="continueTheStreak">Продължете поредицата</string>
   <string name="newStreak">Нова поредица</string>
+  <string name="fromMyGames">От моите партии</string>
+  <string name="lookupOfPlayer">Търсене на задачи от партиите на играч</string>
+  <string name="fromXGames">Задачи от партиите на %s\'</string>
+  <string name="searchPuzzles">Търсене на задачи</string>
+  <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но Lichess разчита на Вас.
+Играйте още бързи и класически партии за да увеличите шансовете задачи от ваши партии да бъдат добавени!</string>
+  <string name="fromXGamesFound">%1$s задачи намерени в %2$s игри</string>
 </resources>

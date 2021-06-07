@@ -319,6 +319,10 @@ object mon {
       def hit(client: String, result: String) =
         counter("hcaptcha.hit").withTags(Map("client" -> client, "result" -> result))
     }
+    object passwordHasher {
+      val encrypt = timer("security.passwordHasher.run").withTag("mode", "encrypt")
+      val decrypt = timer("security.passwordHasher.run").withTag("mode", "decrypt")
+    }
   }
   object tv {
     object streamer {
@@ -411,8 +415,15 @@ object mon {
     val percent = gauge("plan.percent").withoutTags()
     object charge {
       def first(service: String) = counter("plan.charge.first").withTag("service", service)
-      def countryCents(country: String, service: String) =
-        histogram("plan.charge.country.cents").withTags(Map("country" -> country, "service" -> service))
+      def countryCents(country: String, currency: java.util.Currency, service: String, gift: Boolean) =
+        histogram("plan.charge.country.cents").withTags(
+          Map(
+            "country"  -> country,
+            "currency" -> currency.getCurrencyCode,
+            "service"  -> service,
+            "gift"     -> gift
+          )
+        )
     }
   }
   object forum {

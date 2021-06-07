@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Екі факторлы анықтау</string>
-  <string name="twoFactorHelp">Екі факторлы анықтау аккаунт қауіпсіздігіне қосымша тетік қосады.</string>
+  <string name="twoFactorHelp">Екі факторлы анықтау тіркелгі қауіпсіздігін қосымша күшейтеді.</string>
   <string name="twoFactorApp">Екі факторлы анықтау үшін қолданба алыңыз, мысалы, %1$s не %2$s жүйелеріне арналған Google Authenticator.</string>
   <string name="scanTheCode">QR кодты қолданбамен сканерлеңіз.</string>
-  <string name="enterPassword">Орнатуды аяқтау үшін құпиясөз бен қолданба шығарған анықтау кодын енгізіңіз. Аккаунтқа әр кірген сайын анықтау кодын енгізуіңіз керек.</string>
+  <string name="enterPassword">Орнатуды аяқтау үшін құпиясөзді, әрі қолданба шығарған түпнұсқалық растама кодын енгізіңіз. Тіркелгіге әр кірген сайын түпнұсқалық растама кодын енгізуіңіз керек.</string>
   <string name="ifYouCannotScanEnterX">Егер кодты сканерлеу мүмкін болмай тұрса, қолданбаңызға құпия %s-ты енгізіңіз.</string>
   <string name="authenticationCode">Анықтау коды</string>
   <string name="ifYouLoseAccess">Ескерту: Егер сіз екі факторлы анықтау кодтарын жоғалтып алсаңыз, құпиясөзді пошта арқылы қайта орнатуыңызға болады.</string>

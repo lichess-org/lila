@@ -128,9 +128,7 @@ export interface ModerationData {
   username: string;
   text: string;
   games?: number;
-  troll?: boolean;
-  engine?: boolean;
-  booster?: boolean;
+  tos?: boolean;
   history?: ModerationHistoryEntry[];
 }
 

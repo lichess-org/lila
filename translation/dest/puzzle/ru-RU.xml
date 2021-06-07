@@ -69,4 +69,9 @@
   <string name="streakSkipExplanation">Пропустить этот ход, чтобы сохранить серию! Можно использовать только один раз.</string>
   <string name="continueTheStreak">Продолжить серию</string>
   <string name="newStreak">Новая серия</string>
+  <string name="fromMyGames">Из моих партий</string>
+  <string name="lookupOfPlayer">Искать задачи из партий игрока</string>
+  <string name="fromXGames">Задачи из партий %s</string>
+  <string name="searchPuzzles">Искать задачи</string>
+  <string name="fromMyGamesNone">В базе данных нет задач из ваших партий, но Lichess надеется на вас! Сыграйте больше партий в рапид или с классическим контролем времени, и ваши шансы попасть в список игроков с задачами увеличатся.</string>
 </resources>

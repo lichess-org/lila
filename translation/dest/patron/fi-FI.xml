@@ -5,6 +5,10 @@
   <string name="freeAccount">Ilmainen tunnus</string>
   <string name="becomePatron">Ryhdy Lichessin tukijaksi</string>
   <string name="xBecamePatron">%s ryhtyi Lichessin tukijaksi</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
+    <item quantity="other">%1$s on ollut Lichessin tukija %2$s kuukauden ajan</item>
+  </plurals>
   <string name="newPatrons">Uusia tukijoita</string>
   <string name="freeChess">Ilmaista shakkia kaikille, ikuisesti!</string>
   <string name="noAdsNoSubs">Ei mainoksia, ei maksullisia tilauksia; vain avointa lähdekoodia ja intohimoa.</string>
@@ -17,18 +21,17 @@
   <string name="lifetime">Elinikäinen</string>
   <string name="payLifetimeOnce">Maksa %s kerran. Ole Lichessin tukija ikuisesti!</string>
   <string name="lifetimePatron">Elinikäinen Lichessin tukija</string>
-  <string name="makeExtraDonation">Tee lisälahjoitus?</string>
   <string name="monthly">Kuukausittain</string>
   <string name="recurringBilling">Toistuva veloitus, uusii tukijasiipesi joka kuukausi.</string>
   <string name="onetime">Kertaluonteinen</string>
   <string name="singleDonation">Kertalahjoitus, joka antaa sinulle tukijasiivet kuukaudeksi.</string>
   <string name="otherAmount">Muu</string>
-  <string name="pleaseEnterAmount">Anna määrä Yhdysvaltain dollareissa</string>
+  <string name="pleaseEnterAmountInX">Anna summa %s:issa</string>
   <string name="withCreditCard">Luottokortti</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Olemme pieni ryhmä, joten tuellasi on suuri vaikutus!</string>
   <string name="celebratedPatrons">Maineikkaat tukijat, joiden ansiosta Lichess on olemassa</string>
-  <string name="whereMoneyGoes">Mihin raha kuluu?</string>
+  <string name="whereMoneyGoes">Mihin raha käytetään?</string>
   <string name="serversAndDeveloper">Ensinnäkin tehokkaisiin palvelimiin.
 Lisäksi maksamme täysipäiväiselle kehittäjälle: %s:lle, Lichessin perustajalle.</string>
   <string name="costBreakdown">Katso yksityiskohtainen kuluerittely</string>
@@ -61,8 +64,6 @@ Tai voit %s.</string>
   <string name="decideHowMuch">Päätä, minkä arvoinen Lichess on sinulle:</string>
   <string name="stopPayments">Vedä takaisin luottokorttitietosi ja pysäytä veloitukset:</string>
   <string name="noLongerSupport">Ei enempää tukea Lichessille</string>
-  <string name="paymentHistory">Maksuhistoria</string>
-  <string name="paid">Maksettu</string>
   <string name="viewOthers">Katso muita Lichessin tukijoita</string>
   <string name="date">Pvm</string>
   <string name="amount">Summa</string>

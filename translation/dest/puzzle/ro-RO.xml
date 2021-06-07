@@ -66,4 +66,11 @@
   <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de puzzle-uri consecutive! Funcționează o singură dată pe rulare.</string>
   <string name="continueTheStreak">Continuă secvența</string>
   <string name="newStreak">Începe o nouă secvență</string>
+  <string name="fromMyGames">Din jocurile mele</string>
+  <string name="lookupOfPlayer">Caută puzzle-uri din jocurile unui jucător</string>
+  <string name="fromXGames">Puzzle-uri din jocurile %s</string>
+  <string name="searchPuzzles">Caută puzzle-uri</string>
+  <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess încă te iubește foarte mult.
+Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle al tău adăugat!</string>
+  <string name="fromXGamesFound">%1$s puzzle-uri găsite în %2$s jocuri</string>
 </resources>

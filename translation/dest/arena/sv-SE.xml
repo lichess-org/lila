@@ -33,4 +33,8 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
   <string name="drawStreak">Remi-streaks: När en spelare har efterföljande remier i en arena, kommer bara den första remin att resultera i en poäng, eller om remin varat fler än %s drag. Remi-streaken kan bara avbrytas av en vinst, inte av förlust eller remi.</string>
   <string name="history">Arena-historik</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Visa laget</item>
+    <item quantity="other">Visa alla %s lag</item>
+  </plurals>
 </resources>

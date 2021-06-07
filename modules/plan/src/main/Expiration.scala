@@ -17,7 +17,7 @@ final private class Expiration(
   def run: Funit =
     getExpired flatMap {
       _.map { patron =>
-        patronColl.update.one($id(patron.id), patron.removeStripe.removePayPal) >>
+        patronColl.update.one($id(patron.id), patron.removePayPal) >>
           disableUserPlanOf(patron) >>-
           logger.info(s"Expired $patron")
       }.sequenceFu.void

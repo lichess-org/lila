@@ -50,6 +50,11 @@ trait Handlers {
   def floatAnyValHandler[A](to: A => Float, from: Float => A): BSONHandler[A] =
     floatIsoHandler(Iso(from, to))
 
+  def bigDecimalIsoHandler[A](implicit iso: BigDecimalIso[A]): BSONHandler[A] =
+    BSONDecimalHandler.as[A](iso.from, iso.to)
+  def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
+    bigDecimalIsoHandler(Iso(from, to))
+
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] =
     BSONJodaDateTimeHandler.as[A](iso.from, iso.to)
 

@@ -52,4 +52,6 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="teamPasswordDescriptionForLeader">(Opcionalno) Lozinka koju novi članovi moraju znati da bi se pridružili ovom timu.</string>
   <string name="incorrectTeamPassword">Netačna lozinka tima.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
+  <string name="upcomingTourns">Nadolazeći turniri</string>
+  <string name="completedTourns">Završeni turniri</string>
 </resources>

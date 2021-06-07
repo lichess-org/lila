@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Jarri sagua ordenagailuaren aukeren gainean berauek ikusteko.</string>
   <string name="analysisShapesHowTo">Zirkuluak eta geziak marrazteko, egizu shift+klik edo eskuin-klik.</string>
   <string name="letOtherPlayersMessageYou">Utzi beste jokalariei zuri mezuak bidaltzen</string>
+  <string name="receiveForumNotifications">Jaso jakinarazpenak foroan aipatzen zaituztenean</string>
   <string name="shareYourInsightsData">Zure partiden analitika partekatu</string>
   <string name="withNobody">Inorekin ere ez</string>
   <string name="withFriends">Lagunekin</string>
@@ -864,4 +865,7 @@
   <string name="timeAlmostUp">Denbora ia agortu da!</string>
   <string name="clickToRevealEmailAddress">[Egin klik eposta helbidea erakusteko]</string>
   <string name="download">Deskargatu</string>
+  <string name="welcome">Ongi etorri!</string>
+  <string name="lichessPatronInfo">Lichess software librea da.
+Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
 </resources>

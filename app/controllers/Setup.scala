@@ -137,7 +137,9 @@ final class Setup(
       NoBot {
         if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
           val timeMode = get("time")
-          fuccess(forms.hookFilled(timeModeString = timeMode)) map { html.setup.forms.hook(_, timeMode.isDefined) }
+          fuccess(forms.hookFilled(timeModeString = timeMode)) map {
+            html.setup.forms.hook(_, timeMode.isDefined)
+          }
         }
         else
           fuccess {

@@ -49,4 +49,6 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="teamPasswordDescriptionForLeader">(Valgfritt) Et passord som nye medlemmer må kjenne for å bli med på dette laget.</string>
   <string name="incorrectTeamPassword">Feil lagpassord.</string>
   <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
+  <string name="upcomingTourns">Kommende turneringer</string>
+  <string name="completedTourns">Fullførte turneringer</string>
 </resources>

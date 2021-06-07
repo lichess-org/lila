@@ -44,6 +44,7 @@ final private[puzzle] class DailyPuzzle(
   private def findCurrent =
     colls.puzzle {
       _.find($doc(F.day $gt DateTime.now.minusDays(1)))
+        .sort($sort desc F.day)
         .one[Puzzle]
     }
 

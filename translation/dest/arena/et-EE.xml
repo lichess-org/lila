@@ -39,4 +39,8 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   <string name="shareUrl">Jagage seda URL\'i, et inimesed liituda saaks: %s</string>
   <string name="drawStreak">Viigiseeria: kui mängijal on areenas mitu järjestikust viiki, ainult esimene viik annab punkti või viigid enam kui %s käiguga. Viigiseeria võib katkestada ainult võit, kuid mitte kaotus või veel üks viik.</string>
   <string name="history">Areena ajalugu</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Vaata võistkonda</item>
+    <item quantity="other">Vaata kõiki %s võistkonda</item>
+  </plurals>
 </resources>

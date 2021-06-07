@@ -238,6 +238,7 @@ export default function (opts: CevalOpts): CevalCtrl {
         worker = new ThreadedWasmWorker(protocolOpts, {
           baseUrl: officialStockfish ? 'vendor/stockfish.wasm/' : 'vendor/stockfish-mv.wasm/',
           module: officialStockfish ? 'Stockfish' : 'StockfishMv',
+          version: 'a022fa',
           wasmMemory: sharedWasmMemory(1024, growableSharedMem ? 32768 : 1088),
         });
       else

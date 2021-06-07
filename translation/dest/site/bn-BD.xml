@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
   <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
   <string name="itsYourTurn">এবার আপনার দান!</string>
+  <string name="cheatDetected">চিট শনাক্ত হয়েছে</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
@@ -117,6 +118,18 @@
   <string name="blunder">গুরুতর ভুল</string>
   <string name="mistake">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s টি ব্লান্ডার</item>
+    <item quantity="other">%s টি ব্লান্ডার</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%sটি ভূল</item>
+    <item quantity="other">%sটি ভূল</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%sটি অনিপুণতা</item>
+    <item quantity="other">%sটি অনিপুণতা</item>
+  </plurals>
   <string name="moveTimes">চালের সময়</string>
   <string name="flipBoard">বোর্ডকে ঘোরান</string>
   <string name="threefoldRepetition">তিনবার একই চাল</string>
@@ -442,6 +455,7 @@
   <string name="firstName">প্রথম নাম</string>
   <string name="lastName">শেষ নাম</string>
   <string name="biography">জীবনবৃত্তান্ত</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">দেশ বা পতাকা</string>
   <string name="thankYou">ধন্যবাদ</string>
   <string name="socialMediaLinks">সোশ্যাল মিডিয়ার লিঙ্ক</string>
   <string name="inlineNotation">রেখা চিহ্ন</string>
@@ -485,6 +499,7 @@
   <string name="cheat">চিটিং করছে</string>
   <string name="insult">অপমান করেছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
+  <string name="ratingManipulation">রেটিং ইচ্ছাকৃতভাবে পরিবর্তন</string>
   <string name="other">অন্য কোনো কারণ</string>
   <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
@@ -663,6 +678,7 @@
   <string name="printFriendlyPDF">ছাপা-বন্ধুত্বপূর্ণ পিডিএফ</string>
   <string name="crosstable">ক্রোস্ট্যাবলে</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">খেলা সরাতে আপনি বোর্ডের উপর স্ক্রল ও করতে পারবেন.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">প্রিভিউ দেখার জন্য কম্পিউটার ভ্যারিয়েশনের উপর স্ক্রল করুন।</string>
   <string name="analysisShapesHowTo">সিফ্ট+ক্লিক চাপুন অথবা ডান-ক্লিক করুন বোর্ডের উপর বৃত্ত এবং তীর আঁকার জন্য.</string>
   <string name="letOtherPlayersMessageYou">অন্যান্য খেলোয়ারদের আপনাকে বার্তা করতে দিন</string>
   <string name="shareYourInsightsData">আপনার দাবার অর্ন্তদৃষ্টি তথ্য শেয়ার করুন</string>
@@ -833,6 +849,24 @@
   <string name="youCannotPostYetPlaySomeGames">আপনি এখন ফোরামে পোষ্ট করতে পারবেন না. আগে কিছু গেম খেলুন!</string>
   <string name="subscribe">সাবস্ক্রাইব</string>
   <string name="unsubscribe">আনসাবস্ক্রাইব</string>
+  <string name="mentionedYouInX">\"%1$s\" এ আপনাকে উল্লেখ করেছেন।</string>
+  <string name="xMentionedYouInY">%1$s , \"%2$s\" এ আপনার নাম উল্লেখ করেছেন।</string>
+  <string name="invitedYouToX">\"%1$s\" এ আপনাকে আমন্ত্রণ জানিয়েছেন।</string>
+  <string name="xInvitedYouToY">%1$s, আপনাকে \"%2$s\" এ আমন্ত্রণ জানিয়েছেন।</string>
+  <string name="youAreNowPartOfTeam">আপনি এখন দলের একটি অংশ।</string>
+  <string name="youHaveJoinedTeamX">আপনি \"%1$s\" এ যোগদান করেছেন।</string>
+  <string name="someoneYouReportedWasBanned">আপনি অভিযুক্ত একজনকে ব্যান করা হয়েছে</string>
   <string name="congratsYouWon">অভিনন্দন, আপনি জিতেছেন!</string>
+  <string name="gameVsX">খেলা বনাম %1$s</string>
+  <string name="resVsX">%1$s বনাম %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">কেউ আপনার কোচ প্রোফাইল রিভিউ করেছেন।</string>
+  <string name="newPendingReview">নতুন অনিষ্পন্ন রিভিউ</string>
+  <string name="lostAgainstTOSViolator">আপনি এমন কারোর সাথে হেরেছেন যে Liches TOS ভঙ্গ করেছে</string>
+  <string name="refundXpointsTimeControlY">ফেরত: %1$s %2$s রেটিং পয়েন্ট।</string>
   <string name="timeAlmostUp">সময় প্রায় শেষ!</string>
+  <string name="clickToRevealEmailAddress">[ইমেইল অ্যাড্রেস দেখতে ক্লিক করুন]</string>
+  <string name="download">ডাউনলোড করুন</string>
+  <string name="welcome">স্বাগতম!</string>
+  <string name="lichessPatronInfo">লিচেস একটি অলাভজনক এবং সম্পূর্ণ বিনামূল্য/লিব্রা ওপেন সোর্স সফটওয়্যার।
+সকল পরিচালনা খরচ, উন্নয়ন, এবং বিষয়বস্তু ব্যবহারকারীদের দানের মাধ্যমে সংগৃহীত হয়।</string>
 </resources>

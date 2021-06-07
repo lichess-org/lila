@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">অ্যারিনা টুর্ণামনেন্টসমূহ</string>
   <string name="isItRated">মূল্যায়িত হয়েছে?</string>
   <string name="willBeNotified">আপনাকে জানানো হবে যখন প্রতিযোগিতা শুরু হবে, তো অপেক্ষার সময় অন্য টেবে খেলা এটা হয় নিরাপদ.</string>
   <string name="isRated">এই প্রতিযোগিতা মূল্যায়িত হয়েছে এবং আপনার অনুপাত প্রাভাবিত করবে.</string>
@@ -31,6 +32,17 @@
   <string name="howDoesItEndAnswer">প্রতিযোগিতার একটি কাউন্টডাউন আছে. যখন এটা শূন্যতে পৌওছায়, যখন প্রতিযোগিতার অনুপাতে জমে, এবং বিজয়ীকে ঘোষনা করা হয়.
 এই খেলায় অগ্রগতি শেষ হতে হবে, যাইহক তারা প্রতিযোগিতার জন্য গণনা করতে পারবেনা.</string>
   <string name="otherRules">অন্যান্য গুরুত্বপূর্ন নিয়ম</string>
+  <string name="thereIsACountdown">আপনার প্রথম চালের জন্য উল্টোগণনা শুরু হয়েছে। এই সময়ের মধ্যে চাল না দিলে সময় আপনার খেলাকে প্রতিপক্ষের কাছে বাজেয়াপ্ত করে দেবে।</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">প্রথম %s চালের মধ্যে ড্র করলে কোন খেলোয়াড়ই রেটিং পয়েন্ট অর্জন করবে না।</item>
+    <item quantity="other">প্রথম %sটি চালের মধ্যে ড্র করলে কোন খেলোয়াড়ই রেটিং পয়েন্ট অর্জন করবে না।</item>
+  </plurals>
   <string name="thisIsPrivate">এটা হয় একটি ব্যক্তিগত প্রতিযোগিতা</string>
   <string name="shareUrl">মানুষদের যোগ দিতে এই URL শেয়ার করুন: %s</string>
+  <string name="drawStreak">ড্র স্ট্রিক: যখন একজন খেলোয়ার অ্যারিনাতে পরপর ড্র করে তখন কেবল প্রথম ড্র তেই, অথবা %s চালের বেশি খেলে ড্র করলে পয়েন্ট পাওয়া যাবে। ড্র স্ট্রিক কেবলমাত্র জেতার মাধ্যমেই ভাঙা যায়, হারা কিংবা ড্র করার মাধ্যমে নয়।</string>
+  <string name="history">অ্যারিনার ইতিহাস</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">দলটি দেখুন</item>
+    <item quantity="other">পুরো %sটি দল দেখুন</item>
+  </plurals>
 </resources>

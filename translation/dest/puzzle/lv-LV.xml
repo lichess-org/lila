@@ -66,4 +66,11 @@
   <string name="streakSkipExplanation">Izlaist gājienu, lai paturētu uzvaru sēriju. Darbojas tikai vienreiz katrā spēlē.</string>
   <string name="continueTheStreak">Turpināt uzvaru sēriju</string>
   <string name="newStreak">Jauna uzvaru sērija</string>
+  <string name="fromMyGames">No manām spēlēm</string>
+  <string name="lookupOfPlayer">Meklēt puzles no kāda spēlētāja spēlēm</string>
+  <string name="fromXGames">Puzles no spēlētāja %s spēlēm</string>
+  <string name="searchPuzzles">Meklēt puzles</string>
+  <string name="fromMyGamesNone">Jums nav nevienas puzles datu bāzē.
+Spēlējiet ātrās vai klasiskajās spēlēs, lai paaugstinātu varbūtību, ka tiks pievienota jūsu puzle!</string>
+  <string name="fromXGamesFound">Atrastas %1$s puzles no %2$s spēlēm</string>
 </resources>

@@ -15,26 +15,29 @@ import lila.user.User
 object inquiry {
 
   // simul game study relay tournament
-  private val commFlagRegex = new Regex("""\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""", "tpe", "id", "text")
+  private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r
 
-  def renderAtomText(text: String, highlight: Boolean) = raw(
-    commFlagRegex.replaceAllIn(
-      text,
-      m => {
-        val id = m.group("id")
-        val path = m.group("tpe") match {
-          case "game"       => routes.Round.watcher(id, "white").url
-          case "relay"      => routes.RelayRound.show("-", "-", id).url
-          case "tournament" => routes.Tournament.show(id).url
-          case "swiss"      => routes.Swiss.show(id).url
-          case _            => s"/${m.group("tpe")}/$id"
-        }
-        val link     = a(href := s"$path")(path)
-        val userText = if (highlight) communication.highlightBad(m group "text") else frag(m group "text")
-        Regex.quoteReplacement(s"${link.render} ${userText.render}")
+  private def renderAtomText(text: String, highlight: Boolean) =
+    text.split("\n").map { line =>
+      val (link, text) = line match {
+        case commFlagRegex(tpe, id, text) =>
+          val path = tpe match {
+            case "game"       => routes.Round.watcher(id, "white").url
+            case "relay"      => routes.RelayRound.show("-", "-", id).url
+            case "tournament" => routes.Tournament.show(id).url
+            case "swiss"      => routes.Swiss.show(id).url
+            case _            => s"/$tpe/$id"
+          }
+          a(href := path)(path).some -> text
+        case text => None -> text
       }
-    )
-  )
+      frag(
+        link,
+        " ",
+        if (highlight) communication.highlightBad(text) else frag(text),
+        " "
+      )
+    }
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
     def renderReport(r: Report) =

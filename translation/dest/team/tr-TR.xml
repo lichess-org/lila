@@ -49,4 +49,6 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="teamPasswordDescriptionForLeader">(İsteğe bağlı) Yeni üyelerin takıma katılabilmesi için bilmesi gereken şifredir.</string>
   <string name="incorrectTeamPassword">Yanlış takım şifresi.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
+  <string name="upcomingTourns">Yaklaşan turnuvalar</string>
+  <string name="completedTourns">Tamamlanan turnuvalar</string>
 </resources>

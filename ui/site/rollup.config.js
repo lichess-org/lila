@@ -158,6 +158,11 @@ export default rollupProject({
     output: 'checkout',
     name: 'checkoutStart',
   },
+  plan: {
+    input: 'src/plan.ts',
+    output: 'plan',
+    name: 'planStart',
+  },
   login: {
     input: 'src/login.ts',
     output: 'login',

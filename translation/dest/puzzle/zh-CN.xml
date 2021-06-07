@@ -60,4 +60,8 @@
   <string name="streakSkipExplanation">跳过这一步来保持您的连胜纪录！每场比赛只能一次使用。</string>
   <string name="continueTheStreak">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>
+  <string name="searchPuzzles">搜索谜题</string>
+  <string name="fromMyGamesNone">您下过的棋局暂时没有被纳入到谜题数据库中，但Lichess将一如既往地记着你所走的每一步。
+多下快棋和慢棋可以提升您的棋局被纳入谜题数据库的概率哦！</string>
+  <string name="fromXGamesFound">在 %2$s 场游戏中发现了 %1$s 个谜题</string>
 </resources>

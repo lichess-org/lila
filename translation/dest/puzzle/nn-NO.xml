@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare sigerrekka di! Fungerer berre ein gong per omgang.</string>
   <string name="continueTheStreak">Fortsett sigerrekka</string>
   <string name="newStreak">Ny sigerrekke</string>
+  <string name="fromMyGames">Frå partia mine</string>
+  <string name="lookupOfPlayer">Søk etter sjakknøtter frå partia til ein vald spelar</string>
+  <string name="fromXGames">Sjakknøtter frå parti med %s</string>
+  <string name="searchPuzzles">Søk etter sjakknøtter</string>
+  <string name="fromMyGamesNone">Du har ingen sjakknøtter i databasen, men like fullt set Lichess umåtelig stor pris på deg.
+Spel parti i snøggsjakk og klassisk sjakk for å auke sjansen for å få med ei sjakknøtt!</string>
+  <string name="fromXGamesFound">%1$s sjakknøtter funne i parti med %2$s</string>
 </resources>

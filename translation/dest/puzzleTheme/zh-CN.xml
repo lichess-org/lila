@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">高兵</string>
+  <string name="advancedPawn">兵升变</string>
   <string name="advancedPawnDescription">兵升变或威胁升变是战术的关键。</string>
   <string name="advantage">优势</string>
   <string name="advantageDescription">抓住你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)。</string>

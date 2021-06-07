@@ -9,4 +9,16 @@
   <string name="forgotPassword">আমি আমার পাসওয়ার্ড ভুলে গেছি</string>
   <string name="forgotUsername">আমি আমার লেসেস ব্যবহারকারীর নাম ভুলে গেছি</string>
   <string name="youCanLoginWithEmail">আপনি যে ইমেল ঠিকানাটি সাইন আপ করেছেন তা দিয়ে আপনি লগইন করতে পারেন</string>
+  <string name="lost2FA">আমি আমার টু-ফ্যাক্টর অথেন্টিকেশন কোডের অ্যাক্সেস হারিয়েছি</string>
+  <string name="doPasswordReset">আপনার দ্বিতীয় ফ্যাক্টর সরানোর জন্য একটি পাসওয়ার্ড রিসেট সম্পন্ন করুন</string>
+  <string name="accountSupport">আমার অ্যাকাউন্ট সাপোর্ট প্রয়োজন</string>
+  <string name="wantTitle">আমি আমার পদবি Lichess এ দেখাতে চাই</string>
+  <string name="visitTitleConfirmation">আপনার টাইটেল Lichess প্রোফাইলে দেখাতে, এবং টাইটেলযুক্ত অ্যারিনায় অংশগ্রহণ করতে, কনফার্মেশন পেজটি ভিজিট করুন</string>
+  <string name="wantCloseAccount">আমি আমার অ্যাকাউন্ট বন্ধ করতে চাই</string>
+  <string name="closeYourAccount">আপনি এই পাতাই আপনার অ্যাকাউন্ট বন্ধ করতে পারেন</string>
+  <string name="doNotAskByEmail">ইমেইলে আমাদেরকে অ্যাকাউন্ট বন্ধ করতে বলবেন না, আমরা তা করব না।</string>
+  <string name="wantReopen">আমি আমার অ্যাকাউন্ট পুনরায় চালু করতে চাই</string>
+  <string name="reopenOnThisPage">আপনি এখানে আপনার অ্যাকাউন্ট পুনরায় চালু করতে পারেন। এটা শুধু একবারই কাজ করে</string>
+  <string name="doNotAskByEmailToReopen">আমাদের ইমেইলে অ্যাকাউন্ট পুনরায় চালু করতে বলবেন না, আমরা তা করব না।</string>
+  <string name="sendEmailAt">আমাদেরকে %s এ ইমেইল পাঠান</string>
 </resources>

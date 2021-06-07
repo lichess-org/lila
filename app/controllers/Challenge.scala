@@ -291,7 +291,7 @@ final class Challenge(
                         case Some(denied) =>
                           BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
                         case _ =>
-                          (env.challenge.api create challenge) map {
+                          env.challenge.api create challenge map {
                             case true =>
                               JsonOk(
                                 env.challenge.jsonView

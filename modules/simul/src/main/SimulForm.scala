@@ -35,19 +35,12 @@ object SimulForm {
   val colorDefault = "white"
 
   private def nameType(host: User) =
-    eventName(2, 40).verifying(
-      Constraint[String] { (t: String) =>
-        if (t.toLowerCase contains "lichess")
-          validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
-        else validation.Valid
-      },
+    eventName(2, 40, host.isVerifiedOrAdmin).verifying(
       Constraint[String] { (t: String) =>
         if (
           t.toUpperCase.split(' ').exists { word =>
             lila.user.Title.all.exists { case (title, name) =>
-              !host.title.has(title) && {
-                title.value == word || name.toUpperCase == word
-              }
+              !host.title.has(title) && (title.value == word || name.toUpperCase == word)
             }
           }
         )

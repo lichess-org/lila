@@ -5,6 +5,9 @@
   <string name="freeAccount">무료 계정</string>
   <string name="becomePatron">Lichess 후원자가 되세요</string>
   <string name="xBecamePatron">%s가 Lichess 후원자가 되었습니다</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s는 %2$s달 동안 리체스의 후원자가 되었습니다</item>
+  </plurals>
   <string name="newPatrons">새 후원자</string>
   <string name="freeChess">무료 체스를 모두에게, 영원히!</string>
   <string name="noAdsNoSubs">광고와 구독이 없습니다. 하지만 오픈소스이고 열정이 있죠.</string>
@@ -17,13 +20,11 @@
   <string name="lifetime">평생</string>
   <string name="payLifetimeOnce">%s를 한번 후원하고 영원히 Lichess 후원자가 됩니다!</string>
   <string name="lifetimePatron">평생 Lichess 후원자</string>
-  <string name="makeExtraDonation">추가 기부를 하시겠어요?</string>
   <string name="monthly">매월</string>
   <string name="recurringBilling">매월 청구되며, 당신의 후원자 날개가 갱신됩니다.</string>
   <string name="onetime">한번</string>
   <string name="singleDonation">일회성 기부는 한 달 동안 후원자 날개를 달아줍니다.</string>
   <string name="otherAmount">기타</string>
-  <string name="pleaseEnterAmount">금액을 미국 달러로 입력해주세요.</string>
   <string name="withCreditCard">신용카드</string>
   <string name="withPaypal">페이팔</string>
   <string name="weAreSmallTeam">우리는 작은 팀이기 때문에 당신의 지원이 큰 차이를 만듭니다!</string>
@@ -61,8 +62,6 @@
   <string name="decideHowMuch">Lichess의 가치를 결정해주세요:</string>
   <string name="stopPayments">신용카드를 취소하고 지불을 중지:</string>
   <string name="noLongerSupport">더 이상 Lichess를 지원하지 않습니다</string>
-  <string name="paymentHistory">결제 내역</string>
-  <string name="paid">결제됨</string>
   <string name="viewOthers">다른 Lichess 후원자 보기</string>
   <string name="date">날짜</string>
   <string name="amount">금액</string>

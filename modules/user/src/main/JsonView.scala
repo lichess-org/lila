@@ -78,11 +78,9 @@ object JsonView {
         "id"       -> u.id,
         "username" -> u.username,
         "title"    -> u.title,
-        "engine"   -> u.marks.engine,
-        "booster"  -> u.marks.boost,
-        "troll"    -> u.marks.troll,
         "games"    -> u.count.game
       )
+      .add("tos" -> u.marks.dirty)
       .add("title" -> u.title)
   }
 

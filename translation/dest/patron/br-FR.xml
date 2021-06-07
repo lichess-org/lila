@@ -11,11 +11,9 @@
   <string name="thankYou">Mersi bras evit an tamm argant!</string>
   <string name="youHaveLifetime">Ur gont Patron ho po da viken. Pegen dreist!</string>
   <string name="payLifetimeOnce">Paeañ %s ur wech. Bezañ Lichess Patron da viken!</string>
-  <string name="makeExtraDonation">Profañ un tammig muioc\'h c\'hoazh?</string>
   <string name="monthly">Bep miz</string>
   <string name="onetime">Ur wech e-giz-se</string>
   <string name="otherAmount">Sammad all</string>
-  <string name="pleaseEnterAmount">E USD e vo bizskrivet ho sammad arc\'hant mar plij</string>
   <string name="withCreditCard">Kartenn vank</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Dre ma \'z eo bihan hor skipailh eo pouezus-kenañ ho skoazell!</string>
@@ -28,8 +26,6 @@ Pe mod-all %s.</string>
   <string name="tyvm">Mersi bras evit ho tamm sikour. Kabidan eo!</string>
   <string name="currentStatus">Statud a-vremañ</string>
   <string name="xOrY">%1$s pe %2$s</string>
-  <string name="paymentHistory">Roll istor an taladurioù</string>
-  <string name="paid">Paeet</string>
   <string name="date">Deiziad</string>
   <string name="amount">Sammad</string>
 </resources>
