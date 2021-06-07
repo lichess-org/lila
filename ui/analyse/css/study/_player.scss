@@ -43,6 +43,7 @@ $player-height: 1.6rem;
   .left {
     flex: 1 1 100%;
     display: flex;
+    overflow: hidden;
   }
 
   .result {
@@ -73,6 +74,20 @@ $player-height: 1.6rem;
 
   .info {
     margin-left: 10px;
+    display: flex;
+    overflow: hidden;
+
+    > * {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: fit-content;
+      flex: 1;
+    }
+  }
+
+  .name {
+    margin-left: 0.5ch;
+    flex: 3;
   }
 
   .elo {
