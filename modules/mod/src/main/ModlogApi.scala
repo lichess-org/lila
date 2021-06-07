@@ -268,7 +268,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     m.notable ?? {
-      coll.insert.one(m) >> (m.notableSlack ?? slackMonitor(m))
+      coll.insert.one {
+        ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
+      } >> (m.notableSlack ?? slackMonitor(m))
     }
   }
 

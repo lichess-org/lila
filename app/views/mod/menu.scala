@@ -15,6 +15,8 @@ object menu {
       isGranted(_.PublicChatView) option
         a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats"),
       isGranted(_.GamifyView) option
+        a(cls := active.active("progress"), href := routes.Mod.progress)("Mod progress"),
+      isGranted(_.GamifyView) option
         a(cls := active.active("gamify"), href := routes.Mod.gamify)("Hall of fame"),
       isGranted(_.UserSearch) option
         a(cls := active.active("search"), href := routes.Mod.search)("Search users"),

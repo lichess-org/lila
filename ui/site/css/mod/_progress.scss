@@ -1,0 +1,9 @@
+.mod-progress {
+  .slist {
+    white-space: nowrap;
+    td {
+      @extend %roboto;
+      text-align: right;
+    }
+  }
+}

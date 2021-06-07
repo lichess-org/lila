@@ -338,6 +338,13 @@ final class Mod(
       }
     }
 
+  def progress =
+    Secure(_.GamifyView) { implicit ctx => _ =>
+      env.mod.progress("month", none) map { progress =>
+        Ok(html.mod.progress(progress))
+      }
+    }
+
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
       implicit def req = ctx.body
