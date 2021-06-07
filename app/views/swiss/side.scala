@@ -28,13 +28,7 @@ object side {
             p(
               s.clock.show,
               separator,
-              if (s.variant.exotic) {
-                views.html.game.bits.variantLink(
-                  s.variant,
-                  if (s.variant == chess.variant.KingOfTheHill) s.variant.shortName
-                  else s.variant.name
-                )
-              } else s.perfType.trans,
+              views.html.game.bits.variantLink(s.variant, s.perfType.some, shortName = true),
               separator,
               if (s.settings.rated) trans.ratedTournament() else trans.casualTournament()
             ),
