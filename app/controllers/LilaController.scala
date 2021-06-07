@@ -606,12 +606,8 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def NotForKids(f: => Fu[Result])(implicit ctx: Context) =
     if (ctx.kid) notFound else f
 
-  protected def NotForBots(res: => Fu[Result])(implicit ctx: Context) =
-    if (HTTPRequest isCrawler ctx.req) notFound else res
-
   protected def OnlyHumans(result: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isCrawler ctx.req) fuccess(NotFound)
-    else result
+    if (HTTPRequest isCrawler ctx.req) notFound else result
 
   protected def OnlyHumansAndFacebookOrTwitter(result: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (HTTPRequest isFacebookOrTwitterBot ctx.req) result

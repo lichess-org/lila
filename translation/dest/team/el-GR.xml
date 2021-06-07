@@ -49,4 +49,6 @@
   <string name="teamPasswordDescriptionForLeader">(Προαιρετικό) Ένας κωδικός πρόσβασης που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
   <string name="incorrectTeamPassword">Λάθος κωδικός ομάδας.</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
+  <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
+  <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
 </resources>

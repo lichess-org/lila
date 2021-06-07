@@ -63,4 +63,5 @@
   <string name="streakSkipExplanation">Salta questa mossa per mantenere il punteggio! È possibile farlo solo una volta per sessione.</string>
   <string name="continueTheStreak">Continua</string>
   <string name="newStreak">Nuova sessione</string>
+  <string name="fromMyGames">Dai miei giochi</string>
 </resources>

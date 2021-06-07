@@ -17,13 +17,12 @@
   <string name="lifetime">לכל החיים</string>
   <string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
   <string name="lifetimePatron">פטרון לכל החיים</string>
-  <string name="makeExtraDonation">תרום תרומה נוספת?</string>
   <string name="monthly">חודשי</string>
   <string name="recurringBilling">חשבון מחזורי, יחדש את כנפי התומך שלך מדי חודש.</string>
   <string name="onetime">חד פעמי</string>
   <string name="singleDonation">תרומה חד פעמית תעניק לך כנפי תורם לחודש אחד.</string>
   <string name="otherAmount">אחר</string>
-  <string name="pleaseEnterAmount">בבקשה הכנס סכום בUSD (דולר ארה\"ב)</string>
+  <string name="pleaseEnterAmountInX">בבקשה הכנס סכום ב%s</string>
   <string name="withCreditCard">כרטיס אשראי</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">אנחנו צוות קטן, לכן התמיכה שלך תהיה משמעותית מאוד!</string>
@@ -64,8 +63,6 @@
   <string name="decideHowMuch">החלט מה ליצ\'ס שווה בשבילך:</string>
   <string name="stopPayments">תיסוג מכרטיס באשראי שלך ועצור את התשלומים:</string>
   <string name="noLongerSupport">לא תומך יותר בליצ\'ס</string>
-  <string name="paymentHistory">היסטוריית תשלומים</string>
-  <string name="paid">שולם</string>
   <string name="viewOthers">צפה בפטרוני ליצ\'ס אחרים</string>
   <string name="date">תאריך</string>
   <string name="amount">סכום</string>

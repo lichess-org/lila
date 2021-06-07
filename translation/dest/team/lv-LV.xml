@@ -52,4 +52,6 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="teamPasswordDescriptionForLeader">(Neobligāta) Parole, kas jauniem dalībniekiem jāzina, lai pievienotos komandai.</string>
   <string name="incorrectTeamPassword">Nepareiza komandas parole.</string>
   <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
+  <string name="upcomingTourns">Gaidāmie turnīri</string>
+  <string name="completedTourns">Notikušie turnīri</string>
 </resources>

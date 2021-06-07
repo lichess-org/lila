@@ -58,4 +58,6 @@ D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoire
   <string name="teamPasswordDescriptionForLeader">(Roghnach) Pasfhocal gur gá a bheith ar eolas ag baill nua le bheith ar an bhfoireann seo.</string>
   <string name="incorrectTeamPassword">Pasfhocal foirne mícheart.</string>
   <string name="teamAlreadyExists">Tá an foireann seo ann cheana féin.</string>
+  <string name="upcomingTourns">Comórtais le teacht</string>
+  <string name="completedTourns">Comórtais críochnaithe</string>
 </resources>

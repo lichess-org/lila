@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por corrida.</string>
   <string name="continueTheStreak">Continuar a sequência</string>
   <string name="newStreak">Nova sequência</string>
+  <string name="fromMyGames">Dos meus jogos</string>
+  <string name="lookupOfPlayer">Pesquise quebra-cabeças de um jogador específico</string>
+  <string name="fromXGames">Problemas de %s\' jogos</string>
+  <string name="searchPuzzles">Procurar quebra-cabeças</string>
+  <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
+Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
+  <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
 </resources>

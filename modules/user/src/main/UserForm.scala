@@ -35,7 +35,7 @@ final class UserForm(authenticator: Authenticator) {
     mapping(
       "country"    -> optional(text.verifying(Countries.codeSet contains _)),
       "location"   -> optional(cleanNonEmptyText(maxLength = 80)),
-      "bio"        -> optional(cleanNonEmptyText(maxLength = 600)),
+      "bio"        -> optional(cleanNonEmptyText(maxLength = 400)),
       "firstName"  -> nameField,
       "lastName"   -> nameField,
       "fideRating" -> optional(number(min = 600, max = 3000)),

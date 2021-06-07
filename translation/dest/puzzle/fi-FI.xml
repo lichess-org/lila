@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin sarjan aikana vain kerran.</string>
   <string name="continueTheStreak">Jatka putkea</string>
   <string name="newStreak">Uusi putki</string>
+  <string name="fromMyGames">Omista peleistäni</string>
+  <string name="lookupOfPlayer">Hae tehtäviä tietyn pelaajan peleistä</string>
+  <string name="fromXGames">Tehtäviä pelaajan %s peleistä</string>
+  <string name="searchPuzzles">Hae tehtäviä</string>
+  <string name="fromMyGamesNone">Tietokannassa ei ole tehtäviä sinulta, mutta olet silti Lichessille erittäin tärkeä.
+Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että sinunkin peleistäsi luodaan tehtävä!</string>
+  <string name="fromXGamesFound">Löytyi %1$s tehtävää %2$s pelistä</string>
 </resources>

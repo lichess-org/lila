@@ -6,6 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
+import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.user.{ Holder, User }
@@ -182,7 +183,7 @@ object communication {
     else {
       val regex             = ("""(?iu)\b""" + words.mkString("(", "|", ")") + """\b""").r
       def tag(word: String) = s"<bad>$word</bad>"
-      raw(regex.replaceAllIn(text, m => tag(m.toString)))
+      raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
     }
   }
 }

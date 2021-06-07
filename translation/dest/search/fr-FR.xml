@@ -24,9 +24,9 @@
   <string name="sortBy">Trier par</string>
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">N\'afficher que les parties où l\'analyse de l\'ordinateur est disponible</string>
-  <string name="color">Couleur </string>
+  <string name="color">Couleur</string>
   <string name="evaluation">Évaluation</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Nombre maximum</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Nombre maximum</string>
   <string name="maxNumberExplanation">Nombre maximum de parties à retourner</string>
   <string name="include">Inclus</string>
   <string name="generateURL">Générer une URL</string>

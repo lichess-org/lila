@@ -714,6 +714,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">De asemenea, poți acționa rotița mouse-ului pentru a face mutări pe tablă.</string>
   <string name="analysisShapesHowTo">Apasă shift+click sau click-dreapta pentru a desena cercuri și săgeți pe tablă.</string>
   <string name="letOtherPlayersMessageYou">Permite altor jucători să îți trimită mesaje</string>
+  <string name="receiveForumNotifications">Primește notificări atunci când ești menționat în forum</string>
   <string name="shareYourInsightsData">Partajează-ți statisticile legate de jocuri</string>
   <string name="withNobody">Cu nimeni</string>
   <string name="withFriends">Cu prietenii</string>
@@ -902,4 +903,7 @@
   <string name="timeAlmostUp">Timpul se apropie de sfârșit!</string>
   <string name="clickToRevealEmailAddress">[Click pentru a dezvălui adresa de e-mail]</string>
   <string name="download">Descărcare</string>
+  <string name="welcome">Bine ați venit!</string>
+  <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
+Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
 </resources>

@@ -49,4 +49,6 @@ Spelare som inte gillar att ta emot dina meddelanden kan komma att lämna laget.
   <string name="teamPasswordDescriptionForLeader">(Valfritt) Ett lösenord som nya medlemmar måste veta för att gå med i detta lag.</string>
   <string name="incorrectTeamPassword">Felaktigt lag-lösenord.</string>
   <string name="teamAlreadyExists">Det här lagnamnet finns redan.</string>
+  <string name="upcomingTourns">Kommande turneringar</string>
+  <string name="completedTourns">Avslutade turneringar</string>
 </resources>

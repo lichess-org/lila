@@ -24,4 +24,8 @@
   <string name="sortBy">Sorteerimine</string>
   <string name="analysis">Analüüs</string>
   <string name="onlyAnalysed">Ainult partiid, mille kohta on tehtud arvutianalüüs</string>
+  <string name="color">Värv</string>
+  <string name="evaluation">Hindamine</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Suurim number</string>
+  <string name="generateURL">Loo link</string>
 </resources>

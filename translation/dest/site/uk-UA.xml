@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ви граєте білими фігурами</string>
   <string name="youPlayTheBlackPieces">Ви граєте чорними фігурами</string>
   <string name="itsYourTurn">Ваш хід!</string>
+  <string name="cheatDetected">Виявленно чіт</string>
   <string name="kingInTheCenter">Король у центрі</string>
   <string name="threeChecks">Три шахи</string>
   <string name="raceFinished">Перегони завершено</string>
@@ -903,4 +904,17 @@
   <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
   <string name="subscribe">Підписатись</string>
   <string name="unsubscribe">Відписатись</string>
+  <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
+  <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Хтось на кого ви поскаржились був забанений</string>
+  <string name="congratsYouWon">Вітання, ви виграли!</string>
+  <string name="gameVsX">Гра проти %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="lostAgainstTOSViolator">Ви програли комусь хто порушував Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Повернення: %1$s %2$s рангових очок.</string>
+  <string name="timeAlmostUp">Час майже скінчився!</string>
+  <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
+  <string name="download">Завантаження</string>
+  <string name="welcome">Вітаємо!</string>
 </resources>

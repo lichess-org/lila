@@ -60,4 +60,10 @@
   <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
   <string name="continueTheStreak">連続正解を続ける</string>
   <string name="newStreak">新たなストリーク</string>
+  <string name="fromMyGames">自分のゲームから</string>
+  <string name="lookupOfPlayer">ある人の対局から取った問題を検索</string>
+  <string name="fromXGames">%s の対局からの問題</string>
+  <string name="searchPuzzles">問題を検索</string>
+  <string name="fromMyGamesNone">あなたの対局からの問題はまだありませんが、Lichess はあなたの参加を歓迎します。自分の対局が使われる可能性を増やすには、ラピッドかクラシカルでプレイしてください！</string>
+  <string name="fromXGamesFound">%1$s 問がヒット（全 %2$s 局中）</string>
 </resources>

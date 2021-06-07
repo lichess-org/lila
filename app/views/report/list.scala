@@ -121,7 +121,7 @@ object list {
                     )
                   )(
                     room.name,
-                    scoreTag(scores get room)
+                    scores.get(room).filter(20 <).map(scoreTag(_))
                   )
                 }
               },

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Почасова бърза арена</string>
-  <string name="hourlyRapid">Почасово бързо</string>
+  <string name="hourlyRapid">Часова бърза</string>
   <string name="hourlyXArena">Ежечасова %s арена</string>
   <string name="hourlyX">Ежечасов %s</string>
   <string name="dailyRapidArena">Ежедневна бърза арена</string>

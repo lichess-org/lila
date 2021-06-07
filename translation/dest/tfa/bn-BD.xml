@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">টু-ফ্যাক্টর অথেন্টিকেশন</string>
+  <string name="twoFactorHelp">টু-ফ্যাক্টর অথেন্টিকেশন আপনার অ্যাকাউন্টে নিরাপত্তার আরো একটি স্তর যোগ করে।</string>
+  <string name="twoFactorApp">টু-ফ্যাক্টর অথেন্টিকেশনের জন্য একটি অ্যাপ নিন, যেমন %1$s এর জন্য andOTP অথবা %2$s এর জন্য Google Authenticator.</string>
+  <string name="scanTheCode">অ্যাপ দিয়ে QR কোডটি স্ক্যান করুন।</string>
+  <string name="enterPassword">সেটাপ সম্পন্ন করতে অ্যাপ থেকে জেনারেট হওয়া পাসওয়ার্ড এবং অথেন্টিকেশন কোড দিন। প্রত্যেকবার লগিন করার সময় আপনাকে অথেনটিকেশন কোড দিতে হবে।</string>
+  <string name="ifYouCannotScanEnterX">আপনি যদি কোডটি স্ক্যান করতে না পারেন, তাহলে সিক্রেট %s অ্যাপে দিন।</string>
+  <string name="authenticationCode">অথেনটিকেশন কোড</string>
+  <string name="ifYouLoseAccess">যদি আপনি আপনার টু-ফ্যাক্টর অথেন্টিকেশন কোডগুলোর অ্যাক্সেস হারিয়ে ফেলেন, তাহলে আপনি ইমেইল দিয়ে পাসওয়ার্ড রিসেট করতে পারেন।</string>
+  <string name="enableTwoFactor">টু-ফ্যাক্টর অথেন্টিকেশন চালু করুন</string>
+  <string name="disableTwoFactor">টু-ফ্যাক্টর অথেন্টিকেশন বন্ধ করুন</string>
+  <string name="twoFactorEnabled">টু-ফ্যাক্টর অথেন্টিকেশন চালু হয়েছে</string>
+  <string name="twoFactorDisable">টু-ফ্যাক্টর অথেন্টিকেশন বন্ধ করতে আপনার অথেন্টিকেটর অ্যাপ থেকে পাসওয়ার্ড এবং অথেনটিকেশন কোড লাগবে। আপনি যদি অথেনটিকেশন কোড এর অ্যাক্সেস হারিয়ে থাকেন, আপনি ইমেইলের মাধ্যমে একটি পাসওয়ার্ড রিসেটও করতে পারেন।</string>
+  <string name="openTwoFactorApp">অথেন্টিকেশন কোড দেখতে আপনার ডিভাইসে টু-ফ্যাক্টর অথেন্টিকেশন অ্যাপ চালু করুন এবং আপনার পরিচয় নিশ্চিত করুন।</string>
+</resources>

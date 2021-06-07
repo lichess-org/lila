@@ -674,7 +674,7 @@ object Game {
     chess.variant.Antichess,
     chess.variant.Atomic,
     chess.variant.RacingKings,
-    chess.variant.Crazyhouse,
+    chess.variant.Crazyhouse
   )
 
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)

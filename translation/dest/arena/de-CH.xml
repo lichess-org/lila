@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="arenaTournaments">Arena-Turniär</string>
+  <string name="isItRated">Sind d\'Partiiä gwärtät?</string>
+  <string name="willBeNotified">Du wirsch benochrichtigät, wenn das Turnier afoht. Es isch somit möglich, während de Warteziit imänä anderä Tab z\'schpilä.</string>
+  <string name="isRated">Das Turnier isch gwärtät und wird dini Wärtigszahl beiiflussä.</string>
+  <string name="isNotRated">Das Turnier isch *nöd* gwärtät und wird dini Wärtigszahl *nöd* beiiflussä.</string>
+  <string name="someRated">Gwüssi Turniere sind gwärtät und werdäd dini Wärtigszahl beiiflussä.</string>
+  <string name="howAreScoresCalculated">Wiä werdäd d\'Pünkt berächnät?</string>
+  <string name="howAreScoresCalculatedAnswer">Grundsätzlich gibt es für einen Sieg 2 Punkte, 1 Punkt für Remis und 0 Punkte für eine Niederlage.
+Gewinnst du zwei Partien in Folge, beginnst du eine Serie mit verdoppelter Punktzahl (dargestellt durch ein Flammensymbol). Für die nachfolgenden Partien erhältst du solange die doppelte Punktzahl, bis du eine Partie nicht gewinnst.
+Das bedeutet, dass du für einen Sieg vier, für ein Remis zwei und für eine Niederlage keine Punkte bekommst.
+
+Beispiel: Zwei Siege, gefolgt von einem Remis sind 6 Punkte wert: 2 + 2 + (2 * 1)</string>
+  <string name="berserk">Arena Bärsärk</string>
+  <string name="berserkAnswer">Wenn du vor Partiibeginn dä \"Bärsärk\"-Chnopf drucksch, verlürsch d\'Hälfti vo diner Ziit uf de Uhr (also nünt für Berner), aber en Sieg wird mitämä zuäsätzlichä Turnierpunkt honoriärt.
+
+Imänä Ziitmodus mit Inkrement entfärnt \"Bärsärk\" s\'Inkrement. (1+2 ist eine Ausnahme, es wird zu 1+0.)
+
+Für Partiiä ohni Grundbedenkziit (0+1, 0+2) isch \"Bärsärk\" nöd verfüegbar.
+
+Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens siebä Züg ide Partii gmacht hesch.</string>
+  <string name="howIsTheWinnerDecided">Wiä wird dä Gwünner ermittlät?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Schpiller mit dä meischtä Pünkt bi Turnierschluss wärdäd als Gwünner bekanntgeh.
+
+Wenn zwei oder meh Schpiller di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
+  <string name="howDoesPairingWork">Wiä wärdäd d\'Turnierpaarigä ermittlät?</string>
+  <string name="howDoesPairingWorkAnswer">Am Afang vom Turniers wärdäd d\'Schpiller uf Grundlage vode Wärtigszahl zuäteilt.
+Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpilller mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller im Turnier spielsch.
+Pressier und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erzielä.</string>
+  <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
+  <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh.
+Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
+  <string name="otherRules">Anderi wichtigi Reglä</string>
+  <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Remis innerhalb des ersten Zugs wird keinem Spieler Punkte einbringen.</item>
+    <item quantity="other">Äs Remis innerhalb vu %s Züg wird keim Schpiller Pünkt iibringä.</item>
+  </plurals>
+  <string name="thisIsPrivate">Das isch äs privats Turnier</string>
+  <string name="shareUrl">Teil diä URL, zum ander iizladä: %s</string>
+  <string name="drawStreak">Remis-Strähne: Wänn än Schpiller mehreri ufänanderfolgendi Remis ide Arena erziilt, wird nu fürs erschte Remis än Punkt vergeh, oder aber für Remis, wo meh als %s Züg aduuräd. Ä Remis-Strähne cha nur durän Sieg brochä wärdä, nöd durä verloräni Partii oder äs Remis.</string>
+  <string name="history">Arena-Hischtoriä</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Das Team ansehen</item>
+    <item quantity="other">Alli %s Teams aluägä</item>
+  </plurals>
+</resources>

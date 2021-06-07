@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o mouse pelas variações do computador para visualizá-las.</string>
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
+  <string name="receiveForumNotifications">Receba notificações quando você for mencionado no fórum</string>
   <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>
@@ -864,4 +865,6 @@
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
   <string name="download">Baixar</string>
+  <string name="welcome">Bem-vindo!</string>
+  <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
 </resources>

@@ -41,7 +41,8 @@ final class BlogApi(
       .forms(collection)
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(ref | api.master.ref)
-      .submit() map (_.results.headOption)
+      .submit()
+      .map(_.results.headOption)
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 

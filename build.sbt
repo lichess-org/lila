@@ -341,7 +341,7 @@ lazy val mailer = module("mailer",
 
 lazy val plan = module("plan",
   Seq(common, user),
-  reactivemongo.bundle
+  Seq(specs2) ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",

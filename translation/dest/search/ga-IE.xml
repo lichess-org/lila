@@ -30,4 +30,10 @@
   <string name="sortBy">Sórtáil de réir</string>
   <string name="analysis">Anailís</string>
   <string name="onlyAnalysed">Cluichí le anailís ríomhaire ar fáil dóibh amháin</string>
+  <string name="color">Dath</string>
+  <string name="evaluation">Measúnú</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Líon uasta</string>
+  <string name="maxNumberExplanation">An líon uasta cluichí le filleadh</string>
+  <string name="include">Iniaigh</string>
+  <string name="generateURL">Gin URL</string>
 </resources>

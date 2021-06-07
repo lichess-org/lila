@@ -5,6 +5,7 @@ import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
+import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
@@ -15,8 +16,8 @@ import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
+import lila.user.User.LoginCandidate
 import lila.user.{ User, UserRepo }
-import User.LoginCandidate
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -30,7 +31,8 @@ final class SecurityApi(
     tor: Tor
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    system: akka.actor.ActorSystem,
+    mode: Mode
 ) {
 
   val AccessUri = "access_uri"
@@ -140,8 +142,8 @@ final class SecurityApi(
     else scoped.copy(user = stripRolesOfUser(scoped.user))
 
   private def stripRolesOfCookieUser(user: User) =
-    if (user.totpSecret.isDefined) user
-    else stripRolesOfUser(user)
+    if (mode == Mode.Prod && user.totpSecret.isEmpty) stripRolesOfUser(user)
+    else user
 
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 

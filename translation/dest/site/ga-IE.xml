@@ -789,6 +789,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scrollaigh thar athrúcháin ríomhaire chun réamhamharc a dhéanamh orthu.</string>
   <string name="analysisShapesHowTo">Brúigh shift + cliceáil nó deaschliceáil chun ciorcail agus saigheada a tharraingt ar an gclár.</string>
   <string name="letOtherPlayersMessageYou">Lig d\'imreoirí eile teachtaireacht a chur chugat</string>
+  <string name="receiveForumNotifications">Faigh fógraí nuair a luaitear tú san fhóram</string>
   <string name="shareYourInsightsData">Roinn do thuiscint ar an fhicheall</string>
   <string name="withNobody">Le duine ar bith</string>
   <string name="withFriends">Le cairde</string>
@@ -984,4 +985,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="refundXpointsTimeControlY">Athchistiú: %1$s %2$s pointí rátála.</string>
   <string name="timeAlmostUp">Tá an t-am beagnach suas!</string>
   <string name="clickToRevealEmailAddress">[Cliceáil chun seoladh ríomhphoist a nochtadh]</string>
+  <string name="download">Íoslódáil</string>
+  <string name="welcome">Fáilte!</string>
+  <string name="lichessPatronInfo">Is carthanas é Lichess, agus agus bogearraí foinse oscailte go hiomlán saor in aisce.
+Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
 </resources>

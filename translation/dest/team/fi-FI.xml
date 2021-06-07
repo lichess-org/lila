@@ -49,4 +49,6 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="teamPasswordDescriptionForLeader">(Valinnainen) Salasana, joka uusien jäsenten on tunnettava voidakseen liittyä joukkueeseen.</string>
   <string name="incorrectTeamPassword">Virheellinen joukkuesalasana.</string>
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
+  <string name="upcomingTourns">Tulevat turnaukset</string>
+  <string name="completedTourns">Päättyneet turnaukset</string>
 </resources>

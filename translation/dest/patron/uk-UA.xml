@@ -17,13 +17,11 @@
   <string name="lifetime">Пожиттєва</string>
   <string name="payLifetimeOnce">Заплатіть %s один раз. Станьте Покровителем назавжди!</string>
   <string name="lifetimePatron">Пожиттєве покровительство Lichess</string>
-  <string name="makeExtraDonation">Зробити додатковий внесок?</string>
   <string name="monthly">Щомісячно</string>
   <string name="recurringBilling">Регулярні платежі продовжують ваші \"крила\" Покровителя щомісяця.</string>
   <string name="onetime">Одноразовий</string>
   <string name="singleDonation">Один внесок, який дасть Вам крила Покровителя на один місяць.</string>
   <string name="otherAmount">Інше</string>
-  <string name="pleaseEnterAmount">Будь ласка, введіть суму в долларах США</string>
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ми невелика команда, тому Ваша підтримка має велике значення!</string>
@@ -64,8 +62,6 @@
   <string name="decideHowMuch">Виріште, наскільки цінним Lichess є для Вас:</string>
   <string name="stopPayments">Відкликати вашу кредитну картку і припинити платежі:</string>
   <string name="noLongerSupport">Припинити підтримку Lichess</string>
-  <string name="paymentHistory">Історія платежів</string>
-  <string name="paid">Сплачено</string>
   <string name="viewOthers">Переглянути інших Покровителів Lichess</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>

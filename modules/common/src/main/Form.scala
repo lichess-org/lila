@@ -10,6 +10,7 @@ import play.api.data.Forms._
 import play.api.data.JodaForms._
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Field, FormError, Mapping }
+import play.api.data.{ validation => V }
 import scala.util.Try
 
 import lila.common.base.StringUtils
@@ -87,15 +88,26 @@ object Form {
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
 
-  def eventName(minLength: Int, maxLength: Int) =
-    cleanText.verifying(
-      Constraints minLength minLength,
-      Constraints maxLength maxLength,
-      Constraints.pattern(
-        regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
-        error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
+  object eventName {
+
+    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
+
+    def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
+      cleanText.verifying(
+        Constraints minLength minLength,
+        Constraints maxLength maxLength,
+        Constraints.pattern(
+          regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
+          error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
+        ),
+        Constraint[String] { (t: String) =>
+          if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+            V.Invalid(V.ValidationError("Must not contain \"lichess\""))
+          else V.Valid
+        }
       )
-    )
+
+  }
 
   def stringIn(choices: Options[String]) =
     text.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
@@ -149,7 +161,6 @@ object Form {
   }
 
   object constraint {
-    import play.api.data.{ validation => V }
     def minLength[A](from: A => String)(length: Int): Constraint[A] =
       Constraint[A]("constraint.minLength", length) { o =>
         if (from(o).lengthIs >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))

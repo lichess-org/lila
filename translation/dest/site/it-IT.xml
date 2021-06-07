@@ -865,4 +865,5 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="timeAlmostUp">Il tempo è quasi finito!</string>
   <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
   <string name="download">Download</string>
+  <string name="welcome">Benvenuto!</string>
 </resources>

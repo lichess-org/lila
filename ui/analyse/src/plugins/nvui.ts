@@ -91,7 +91,8 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
                 'aria-atomic': 'true',
               },
             },
-            renderCurrentNode(ctrl.node, style)
+            // make sure consecutive positions are different so that they get re-read
+            renderCurrentNode(ctrl.node, style) + (ctrl.node.ply % 2 === 0 ? '' : ' ')
           ),
           h('h2', 'Move form'),
           h(
@@ -327,7 +328,9 @@ function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style
 
 function renderCurrentNode(node: Tree.Node, style: Style): string {
   if (!node.san || !node.uci) return 'Initial position';
-  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)].join(' ');
+  return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)]
+    .join(' ')
+    .trim();
 }
 
 function renderComments(node: Tree.Node, style: Style): string {

@@ -55,4 +55,11 @@
   <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
   <string name="continueTheStreak">Continua la sèrie</string>
   <string name="newStreak">Nova sèrie</string>
+  <string name="fromMyGames">De les meves partides</string>
+  <string name="lookupOfPlayer">Cercar problemes de les partides d\'un jugador</string>
+  <string name="fromXGames">Problemes de les partides de %s</string>
+  <string name="searchPuzzles">Cercar problemes</string>
+  <string name="fromMyGamesNone">No hi ha problemes teus a la base de dates, però Lichess t\'estima molt igualment.
+Juga partides ràpides i clàssiques per augmentar les possibilitats que se n\'hi afegeixi algun!</string>
+  <string name="fromXGamesFound">%1$s problemes trobats en %2$s partides</string>
 </resources>

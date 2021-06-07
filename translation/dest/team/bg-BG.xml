@@ -15,4 +15,6 @@
   <string name="teamRecentMembers">Скорошни членове</string>
   <string name="subToTeamMessages">Абонирайте се за съобщения от клуба</string>
   <string name="swissTournamentOverview">Швейцарски турнир в който могат да участват само членове на клуба</string>
+  <string name="upcomingTourns">Предстоящи турнири</string>
+  <string name="completedTourns">Завършени турнири</string>
 </resources>

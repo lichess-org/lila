@@ -5,6 +5,12 @@
   <string name="freeAccount">Prost račun</string>
   <string name="becomePatron">Postani Lichess pokrovitelj</string>
   <string name="xBecamePatron">%s je postal Lichess pokrovitelj</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s je pokrovitelj lichess za %2$s mesec</item>
+    <item quantity="two">%1$s je pokrovitelj lichess za %2$s meseca</item>
+    <item quantity="few">%1$s je pokrovitelj lichess za %2$s mesece</item>
+    <item quantity="other">%1$s je pokrovitelj lichess za %2$s mesecev</item>
+  </plurals>
   <string name="newPatrons">Novi pokrovitelji</string>
   <string name="freeChess">Zastonj šah za vse, za vedno!</string>
   <string name="noAdsNoSubs">Brez oglasov, brez naročnin; toda odprtokoden in strasten.</string>
@@ -17,13 +23,12 @@
   <string name="lifetime">Doživljenjsko</string>
   <string name="payLifetimeOnce">Plačajte %s enkrat Bodite Lichess pokrovitelj za vedno!</string>
   <string name="lifetimePatron">Doživljenski Lichess pokrovitelj</string>
-  <string name="makeExtraDonation">Daj dodatno donacijo?</string>
   <string name="monthly">Mesečno</string>
   <string name="recurringBilling">Ponavljajoči se računi, vsak mesec obnavljate svojo ikono Pokrovitelja.</string>
   <string name="onetime">Enkratno</string>
   <string name="singleDonation">Enkratna donacija, ki vam podeli pokroviteljsko ikono za en mesec.</string>
   <string name="otherAmount">Drugo</string>
-  <string name="pleaseEnterAmount">Prosimo, vnesite znesek v USD</string>
+  <string name="pleaseEnterAmountInX">Prosimo, vnesite znesek v %s</string>
   <string name="withCreditCard">Kreditna kartica</string>
   <string name="withPaypal">Paypal</string>
   <string name="weAreSmallTeam">Smo majhna ekipa, tako, da vaša podpora naredi veliko razliko!</string>
@@ -56,6 +61,7 @@ Ali pa %s.</string>
   <string name="nextPayment">Naslednje plačilo</string>
   <string name="youWillBeChargedXOnY">Dne %2$s vam bomo zaračunali %1$s.</string>
   <string name="makeAdditionalDonation">Zdaj naredite dodatno donacijo</string>
+  <string name="giftPatronWings">Podari krila pokrovitelja igralcu</string>
   <string name="update">Posodobitev</string>
   <string name="changeMonthlyAmount">Spremeni mesečni znesek (%s)</string>
   <string name="cancelSupport">prekliči svojo podporo</string>
@@ -63,8 +69,6 @@ Ali pa %s.</string>
   <string name="decideHowMuch">Odločite se, koliko vam je Lichess vreden:</string>
   <string name="stopPayments">Umaknite kreditno kartico in ustavite plačila:</string>
   <string name="noLongerSupport">Ni več podpore Lichess</string>
-  <string name="paymentHistory">Zgodovina plačil</string>
-  <string name="paid">Plačano</string>
   <string name="viewOthers">Ogled drugih Lichess pokroviteljev</string>
   <string name="date">Datum</string>
   <string name="amount">Znesek</string>

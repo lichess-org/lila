@@ -5,6 +5,10 @@
   <string name="freeAccount">Δωρεάν λογαριασμός</string>
   <string name="becomePatron">Υποστηρίξτε το Lichess</string>
   <string name="xBecamePatron">%s έγινε Υποστηρικτής του Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνα</item>
+    <item quantity="other">Ο χρήστης %1$s είναι υποστηρικτής του Lichess εδώ και %2$s μήνες</item>
+  </plurals>
   <string name="newPatrons">Νέοι Υποστηρικτές</string>
   <string name="freeChess">Δωρεάν σκάκι για όλους, για πάντα!</string>
   <string name="noAdsNoSubs">Χωρίς διαφημίσεις, χωρίς συνδρομές, αλλά με ανοιχτό κώδικα και πάθος.</string>
@@ -17,13 +21,12 @@
   <string name="lifetime">Για πάντα</string>
   <string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Υποστηρικτής του Lichess για πάντα!</string>
   <string name="lifetimePatron">Υποστηρικτής του Lichess για πάντα</string>
-  <string name="makeExtraDonation">Θέλετε να κάνετε μια επιπλέον δωρεά;</string>
   <string name="monthly">Μηνιαία</string>
   <string name="recurringBilling">Επαναλαμβανόμενη χρέωση, ανανέωση των φτερών Υποστηρικτή κάθε μήνα.</string>
   <string name="onetime">Μία φορά</string>
   <string name="singleDonation">Μία μόνο δωρεά που σας δίνει τα φτερά Υποστηρικτή για ένα μήνα.</string>
   <string name="otherAmount">Άλλο</string>
-  <string name="pleaseEnterAmount">Παρακαλώ εισάγετε ένα ποσό σε δολλάρια</string>
+  <string name="pleaseEnterAmountInX">Εισάγετε ένα ποσό σε %s</string>
   <string name="withCreditCard">Πιστωτική κάρτα</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Είμαστε μια μικρή ομάδα, επομένως η υποστήριξή σας κάνει μεγάλη διαφορά!</string>
@@ -62,8 +65,6 @@
   <string name="decideHowMuch">Αποφασίστε πόσο αξίζει το Lichess για εσάς:</string>
   <string name="stopPayments">Αφαίρεση της πιστωτικής κάρτας και παύση πληρωμών:</string>
   <string name="noLongerSupport">Διακοπή υποστήριξης του Lichess</string>
-  <string name="paymentHistory">Ιστορικό πληρωμών</string>
-  <string name="paid">Πληρώθηκε</string>
   <string name="viewOthers">Προβολή άλλων Υποστηρικτών Lichess</string>
   <string name="date">Ημερομηνία</string>
   <string name="amount">Ποσό</string>

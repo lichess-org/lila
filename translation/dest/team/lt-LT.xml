@@ -55,4 +55,6 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="teamPasswordDescriptionForLeader">(nebūtina) Slaptažodis, kurį turi žinoti naujai prisijungiantys prie šios komandos žaidėjai.</string>
   <string name="incorrectTeamPassword">Neteisingas komandos slaptažodis.</string>
   <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
+  <string name="upcomingTourns">Artėjantys turnyrai</string>
+  <string name="completedTourns">Baigti turnyrai</string>
 </resources>

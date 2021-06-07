@@ -49,4 +49,6 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
   <string name="teamPasswordDescriptionForLeader">(Optionnel) Un mot de passe que les nouveaux membres doivent connaître pour rejoindre cette équipe.</string>
   <string name="incorrectTeamPassword">Mot de passe d\'équipe incorrect.</string>
   <string name="teamAlreadyExists">Cette équipe existe déjà.</string>
+  <string name="upcomingTourns">Tournois à venir</string>
+  <string name="completedTourns">Tournois terminés</string>
 </resources>

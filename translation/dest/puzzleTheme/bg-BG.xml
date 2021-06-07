@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Напреднала пешка</string>
   <string name="advancedPawnDescription">Произвеждането на пешка, или заплахата за произвеждане, е ключова стратегия.</string>
   <string name="advantage">Предимство</string>
   <string name="advantageDescription">Възползване от шанс за решаващо предимство. (200cp ≤ eval ≤ 600cp)</string>
@@ -7,6 +8,7 @@
   <string name="arabianMate">Арабски мат</string>
   <string name="arabianMateDescription">Кон и топ матират царя в ъгъла на полето.</string>
   <string name="attackingF2F7">Атака на f2 или f7</string>
+  <string name="attraction">Завличане</string>
   <string name="attractionDescription">Размяна или жертване, окуражаващо или заставящо противникова фигура да се премести на поле, което дава възможност за тактическо развитие.</string>
   <string name="bishopEndgame">Офицерски ендшпил</string>
   <string name="bishopEndgameDescription">Ендшпил само с офицери и пешки.</string>
@@ -81,6 +83,7 @@
   <string name="queenRookEndgame">Дама и топ</string>
   <string name="queenRookEndgameDescription">Ендшпил само с дами, топове и пешки.</string>
   <string name="queensideAttack">Атака на дамския фланг</string>
+  <string name="queensideAttackDescription">Атака на противниковия цар след голяма рокада.</string>
   <string name="quietMove">Тих ход</string>
   <string name="quietMoveDescription">Ход, с който не се дава шах и не се залавя фигура, но осигурява неизбежна опасност при последващ ход.</string>
   <string name="rookEndgame">Топовен ендшпил</string>

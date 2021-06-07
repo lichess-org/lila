@@ -14,8 +14,8 @@
   <string name="didYouLikeThisPuzzle">Tetszett ez a feladvány?</string>
   <string name="voteToLoadNextOne">Szavazz egy újért cserébe!</string>
   <string name="yourPuzzleRatingX">Feladvány pontszámod: %s</string>
-  <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését!</string>
-  <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését!</string>
+  <string name="findTheBestMoveForWhite">Találd meg világos legjobb lépését.</string>
+  <string name="findTheBestMoveForBlack">Találd meg sötét legjobb lépését.</string>
   <string name="toGetPersonalizedPuzzles">Személyre szóló feladványok:</string>
   <string name="puzzleId">%s. feladvány</string>
   <string name="puzzleOfTheDay">Napi feladvány</string>
@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>
   <string name="continueTheStreak">Széria folytatása</string>
   <string name="newStreak">Új széria</string>
+  <string name="fromMyGames">Saját játszmáimból</string>
+  <string name="lookupOfPlayer">Feladványok keresése más játszmáiból</string>
+  <string name="fromXGames">Feladványok %s játszmáiból</string>
+  <string name="searchPuzzles">Feladványok keresése</string>
+  <string name="fromMyGamesNone">Nincsenek feladványaid az adatbázisban, de ez semmi rosszat nem jelent.
+Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a te játszmáid feladványai is!</string>
+  <string name="fromXGamesFound">%1$s feladvány található %2$s játszmái között</string>
 </resources>

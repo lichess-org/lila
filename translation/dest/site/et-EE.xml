@@ -118,6 +118,10 @@
   <string name="blunder">Viga</string>
   <string name="mistake">Eksimus</string>
   <string name="inaccuracy">Ebatäpsus</string>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ebatäpsus</item>
+    <item quantity="other">%s ebatäpsust</item>
+  </plurals>
   <string name="moveTimes">Aeg käigu tegemisel</string>
   <string name="flipBoard">Keera lauda</string>
   <string name="threefoldRepetition">Kolmekordne kordus</string>
@@ -186,7 +190,7 @@
   <string name="rankX">Koht: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Reitingut uuendatakse iga minuti tagant</item>
-    <item quantity="other">Reitingut uuendatakse iga %s minuti tagant</item>
+    <item quantity="other">Kohta uuendatakse iga %s minuti järel</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s ülesanne</item>
@@ -443,6 +447,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="firstName">Eesnimi</string>
   <string name="lastName">Perekonnanimi</string>
   <string name="biography">Kirjeldus</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Riik või lipp</string>
   <string name="thankYou">Aitäh!</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
@@ -839,4 +844,11 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invitedYouToX">kutsub sind \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s kutsub sind \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sa oled nüüd võistkonna liige.</string>
+  <string name="congratsYouWon">Palju õnne, sa võitsid!</string>
+  <string name="lostAgainstTOSViolator">Sa kaotasid kellegile, kes rikkus Lichessi kasutustingimusi</string>
+  <string name="refundXpointsTimeControlY">Tagastus: %1$s %2$s reitingupunkti.</string>
+  <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
+  <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
+  <string name="download">Allalaadimine</string>
+  <string name="welcome">Tere tulemast!</string>
 </resources>
