@@ -379,7 +379,7 @@
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Nümä blockiärä</string>
   <string name="followsYou">Folgät dir</string>
-  <string name="xStartedFollowingY">Dä %1$s folgät jetzt %2$s</string>
+  <string name="xStartedFollowingY">%1$s folgät jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
     <item quantity="other">%s Follower</item>
