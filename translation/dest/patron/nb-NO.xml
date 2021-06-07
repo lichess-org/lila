@@ -58,6 +58,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="nextPayment">Neste betaling</string>
   <string name="youWillBeChargedXOnY">Du vil bli trukket %1$s, %2$s.</string>
   <string name="makeAdditionalDonation">Legg inn en ekstra pengegave nå</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Gi spiller patronvinger</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månedlig sum (%s)</string>
   <string name="cancelSupport">avbryt støtte</string>
