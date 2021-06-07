@@ -54,7 +54,11 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     movesAway = prop(0),
     gameMenu = prop<string | null>(null);
 
-  if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
+  const checkHash = () => {
+    if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
+  };
+  window.addEventListener('hashchange', checkHash, false);
+  checkHash();
 
   let cache: Dictionary<ExplorerData> = {};
   function onConfigClose() {
