@@ -51,8 +51,8 @@
     <item quantity="other">Hat an %s Simultanvorstellungen teilgenommen</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Hat %s neue Studie erstellt</item>
-    <item quantity="other">Hat %s neue Studien erstellt</item>
+    <item quantity="one">Hät %s neui Schtuudiä ärschtellt</item>
+    <item quantity="other">Hät %s neui Schtuudiä ärschtellt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Hat an %s Turnier teilgenommen</item>
