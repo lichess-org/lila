@@ -133,7 +133,10 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
               hook: {
                 insert: el => {
                   const $board = $(el.elm as HTMLElement);
-		  $board.on('keypress', boardCommandsHandler(() => undefined, ctrl.data.player.color));
+                  $board.on(
+                    'keypress',
+                    boardCommandsHandler(() => undefined, ctrl.data.player.color)
+                  );
                   const $buttons = $board.find('button');
                   $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
@@ -179,7 +182,7 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
             'Use these commands when focused on the board itself.',
             h('br'),
             'o: announce current position.',
-	    h('br'),
+            h('br'),
             "c: announce last move's captured piece.",
             h('br'),
             'l: display last move.',

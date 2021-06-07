@@ -177,7 +177,10 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                 const $buttons = $board.find('button');
                 $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
                 $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-		$buttons.on('keypress', boardCommandsHandler(() => ctrl.data.crazyhouse?.pockets, ctrl.data.player.color));
+                $buttons.on(
+                  'keypress',
+                  boardCommandsHandler(() => ctrl.data.crazyhouse?.pockets, ctrl.data.player.color)
+                );
                 $buttons.on(
                   'keypress',
                   lastCapturedCommandHandler(
@@ -250,11 +253,11 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             'draw: Offer or accept draw.',
             h('br'),
             'takeback: Offer or accept take back.',
-	    h('br'),
+            h('br'),
             'm: check your pocket (Crazyhouse only).',
-	    h('br'),
-	    'k: check opponent's pocket (Crazyhouse only).',
-	    h('br'),
+            h('br'),
+            "k: check opponent's pocket (Crazyhouse only).",
+            h('br'),
           ]),
           h('h2', 'Board Mode commands'),
           h('p', [
@@ -280,10 +283,10 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             h('br'),
             'Shift+1-8: move to file a-h.',
             h('br'),
-	    "e/E: announce your own/opponent's pockets (Crazyhouse only).",
-	    h('br'),
-	    "d: drop mode; drop a piece at the current location, choose with r/n/b/q/p (Crazyhouse only).",
-	    h('br'),
+            "e/E: announce your own/opponent's pockets (Crazyhouse only).",
+            h('br'),
+            'd: drop mode; drop a piece at the current location, choose with r/n/b/q/p (Crazyhouse only).',
+            h('br'),
           ]),
           h('h2', 'Promotion'),
           h('p', [
@@ -345,7 +348,22 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
   };
 }
 
-const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 's', 'o', 'opponent', 'k', 'm'];
+const shortCommands = [
+  'c',
+  'clock',
+  'l',
+  'last',
+  'abort',
+  'resign',
+  'draw',
+  'takeback',
+  'p',
+  's',
+  'o',
+  'opponent',
+  'k',
+  'm',
+];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
@@ -355,9 +373,9 @@ function getPocketAsString(ctrl: RoundController, color: Color) {
   const pocket = ctrl.data.crazyhouse?.pockets[color === 'white' ? 0 : 1] ?? {};
   const pocketArr = Object.keys(pocket).map(pieceType => {
     const numOfPieces = pocket[pieceType];
-    return numOfPieces + " " + pieceType + (numOfPieces > 1 ? "s" : "");
+    return numOfPieces + ' ' + pieceType + (numOfPieces > 1 ? 's' : '');
   });
-  return pocketArr.join(", ");
+  return pocketArr.join(', ');
 }
 
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {

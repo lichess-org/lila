@@ -422,15 +422,15 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
     if (!ev.key.match(/^[kqrbnp]$/i)) return true;
     const $currBtn = $(ev.target as HTMLElement);
 
-	  // TODO: decouple from promotion/drop attribute setting in selectionHandler & boardHandler
-      const $moveBox = $('input.move');
-      const $boardLive = $('.boardstatus');
-      const $form = $moveBox.parent().parent();
-      const sendForm = new Event('submit', {
-        cancelable: true,
-        bubbles: true,
-      });
-      const lowerKey = ev.key.toLowerCase();
+    // TODO: decouple from promotion/drop attribute setting in selectionHandler & boardHandler
+    const $moveBox = $('input.move');
+    const $boardLive = $('.boardstatus');
+    const $form = $moveBox.parent().parent();
+    const sendForm = new Event('submit', {
+      cancelable: true,
+      bubbles: true,
+    });
+    const lowerKey = ev.key.toLowerCase();
     if ($currBtn.attr('promotion') === 'true') {
       if (!lowerKey.match(/^[qnrb]$/)) {
         $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bisho');
@@ -440,16 +440,16 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
       $currBtn.removeAttr('promotion');
       $form.trigger(sendForm);
       return false;
-	  } else if ($currBtn.attr('drop') === 'true') {
-		if (!lowerKey.match(/^[qnrbp]$/)) {
-			$boardLive.text('Invalid dropable piece. q for queen, n for knight, r for rook, b for bishop, p for pawn.');
-	  return false;
-	  	}
-	  $moveBox.val(lowerKey + '@' + $currBtn.attr('file') + $currBtn.attr('rank'));
-	  $currBtn.removeAttr('drop');
-	  $form.trigger(sendForm);
-	  return false;
-	  }
+    } else if ($currBtn.attr('drop') === 'true') {
+      if (!lowerKey.match(/^[qnrbp]$/)) {
+        $boardLive.text('Invalid dropable piece. q for queen, n for knight, r for rook, b for bishop, p for pawn.');
+        return false;
+      }
+      $moveBox.val(lowerKey + '@' + $currBtn.attr('file') + $currBtn.attr('rank'));
+      $currBtn.removeAttr('drop');
+      $form.trigger(sendForm);
+      return false;
+    }
 
     const $myBtnAttrs = '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
     const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
@@ -560,26 +560,26 @@ export function boardCommandsHandler(pockets: () => [CrazyPocket, CrazyPocket] |
       $boardLive.text($lastMove);
       return false;
     } else if (ev.key === 'e' || ev.key === 'E') {
-	  const gamePockets = pockets() ?? [{}, {}];
-	  const oppositeColor = myColor === 'white' ? 'black' : 'white';
+      const gamePockets = pockets() ?? [{}, {}];
+      const oppositeColor = myColor === 'white' ? 'black' : 'white';
       const pocketColor = ev.key === 'e' ? myColor : oppositeColor;
       const pocket = gamePockets[pocketColor === 'white' ? 0 : 1];
       let pocketItems: string[] = [];
       for (var pieceName in pocket) {
-	  const pieceNum = pocket[pieceName];
-	  pocketItems.push(pieceNum + " " + pieceName + (pieceNum > 1 ? "s" : ""));
+        const pieceNum = pocket[pieceName];
+        pocketItems.push(pieceNum + ' ' + pieceName + (pieceNum > 1 ? 's' : ''));
       }
-	  $boardLive.text(pocketItems.length > 0 ? pocketItems.join(", ") : "Empty"); 
+      $boardLive.text(pocketItems.length > 0 ? pocketItems.join(', ') : 'Empty');
       return false;
     } else if (ev.key === 't') {
       $boardLive.text();
       $boardLive.text($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
       return false;
-	  } else if (ev.key === 'd') {
-	  $boardLive.text('You are going to drop a piece. Choose which piece with q/r/b/p.');
-	$currBtn.attr('drop', 'true');
-	  	return false;
-	  }
+    } else if (ev.key === 'd') {
+      $boardLive.text('You are going to drop a piece. Choose which piece with q/r/b/p.');
+      $currBtn.attr('drop', 'true');
+      return false;
+    }
     return true;
   };
 }
