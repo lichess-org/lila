@@ -396,6 +396,7 @@ object mon {
           "client"  -> client
         )
       )
+    def withdrawableIds(reason: String) = future("tournament.withdrawableIds", reason)
   }
   object swiss {
     def standingOverload      = counter("swiss.standing.overload").withoutTags()

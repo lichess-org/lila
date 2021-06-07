@@ -54,7 +54,7 @@ final private[tournament] class ApiActor(
   }
 
   private def ejectFromEnterable(userId: User.ID) =
-    tournamentRepo.withdrawableIds(userId) flatMap {
+    tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
       _.map {
         api.ejectLameFromEnterable(_, userId)
       }.sequenceFu

@@ -102,33 +102,34 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       readPreference = ReadPreference.secondaryPreferred
     )
 
+  private def lookupPlayer(userId: User.ID, project: Option[Bdoc]) =
+    $doc(
+      "$lookup" -> $doc(
+        "from" -> playerCollName.value,
+        "let"  -> $doc("tid" -> "$_id"),
+        "pipeline" -> $arr(
+          $doc(
+            "$match" -> $doc(
+              "$expr" -> $doc(
+                "$and" -> $arr(
+                  $doc("$eq" -> $arr("$uid", userId)),
+                  $doc("$eq" -> $arr("$tid", "$$tid"))
+                )
+              )
+            )
+          ),
+          project.map { p => $doc(s"$$project" -> p) }
+        ),
+        "as" -> "player"
+      )
+    )
+
   private[tournament] def upcomingAdapterExpensiveCacheMe(userId: User.ID, max: Int) =
     coll
       .aggregateList(max, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(enterableSelect ++ nonEmptySelect) -> List(
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> playerCollName.value,
-                "let"  -> $doc("tid" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$uid", userId)),
-                          $doc("$eq" -> $arr("$tid", "$$tid"))
-                        )
-                      )
-                    )
-                  ),
-                  $doc("$project" -> $doc("tid" -> true, "_id" -> false))
-                ),
-                "as" -> "player"
-              )
-            )
-          ),
+          PipelineOperator(lookupPlayer(userId, $doc("tid" -> true, "_id" -> false).some)),
           Match("player" $ne $arr()),
           Sort(Ascending("startsAt")),
           Limit(max)
@@ -184,38 +185,20 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def withdrawableIds(
       userId: User.ID,
-      teamId: Option[TeamID] = None
+      teamId: Option[TeamID] = None,
+      reason: String
   ): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
         Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect)) -> List(
-          PipelineOperator(
-            $doc(
-              "$lookup" -> $doc(
-                "from" -> playerCollName.value,
-                "let"  -> $doc("t" -> "$_id"),
-                "pipeline" -> $arr(
-                  $doc(
-                    "$match" -> $doc(
-                      "$expr" -> $doc(
-                        "$and" -> $arr(
-                          $doc("$eq" -> $arr("$uid", userId)),
-                          $doc("$eq" -> $arr("$tid", "$$t"))
-                        )
-                      )
-                    )
-                  )
-                ),
-                "as" -> "player"
-              )
-            )
-          ),
+          PipelineOperator(lookupPlayer(userId, none)),
           Match("player" $ne $arr()),
           Project($id(true))
         )
       }
       .map(_.flatMap(_.string("_id")))
+      .monSuccess(_.tournament.withdrawableIds(reason))
 
   def setStatus(tourId: Tournament.ID, status: Status) =
     coll.updateField($id(tourId), "status", status.id).void
