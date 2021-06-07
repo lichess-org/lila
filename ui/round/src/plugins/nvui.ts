@@ -31,6 +31,7 @@ import {
   supportedVariant,
   Style,
   namePiece,
+  getPocketAsString,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -369,15 +370,6 @@ function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
-function getPocketAsString(ctrl: RoundController, color: Color) {
-  const pocket = ctrl.data.crazyhouse?.pockets[color === 'white' ? 0 : 1] ?? {};
-  const pocketArr = Object.keys(pocket).map(pieceType => {
-    const numOfPieces = pocket[pieceType];
-    return numOfPieces + ' ' + pieceType + (numOfPieces > 1 ? 's' : '');
-  });
-  return pocketArr.join(', ');
-}
-
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
   const lowered = c.toLowerCase();
   if (lowered == 'c' || lowered == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
@@ -387,8 +379,8 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (lowered == 'draw') $('.nvui button.draw-yes').trigger('click');
   else if (lowered == 'takeback') $('.nvui button.takeback-yes').trigger('click');
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
-  else if (lowered == 'm') notify(getPocketAsString(ctrl, ctrl.data.player.color));
-  else if (lowered == 'k') notify(getPocketAsString(ctrl, ctrl.data.opponent.color));
+  else if (lowered == 'm') notify(getPocketAsString(ctrl.data.crazyhouse?.pockets, ctrl.data.player.color));
+  else if (lowered == 'k') notify(getPocketAsString(ctrl.data.crazyhouse?.pockets, ctrl.data.opponent.color));
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(commands.piece.apply(c, pieces, style) || commands.scan.apply(c, pieces, style) || `Invalid command: ${c}`);

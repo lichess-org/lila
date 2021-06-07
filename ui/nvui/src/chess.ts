@@ -545,6 +545,16 @@ export function selectionHandler(opponentColor: Color, selectSound: () => void) 
   };
 }
 
+export function getPocketAsString(pockets: [CrazyPocket, CrazyPocket] | undefined, color: Color) {
+  const pocket = pockets ? pockets[color === 'white' ? 0 : 1] : {};
+  const pocketArr = Object.keys(pocket).map(pieceType => {
+    const numOfPieces = pocket[pieceType];
+    return numOfPieces + ' ' + pieceType + (numOfPieces > 1 ? 's' : '');
+  });
+  const pocketStr = pocketArr.join(', ');
+  return pocketStr ? pocketStr : 'Empty';
+}
+
 export function boardCommandsHandler(pockets: () => [CrazyPocket, CrazyPocket] | undefined, myColor: Color) {
   return (ev: KeyboardEvent) => {
     const $currBtn = $(ev.target as HTMLElement);
@@ -563,13 +573,7 @@ export function boardCommandsHandler(pockets: () => [CrazyPocket, CrazyPocket] |
       const gamePockets = pockets() ?? [{}, {}];
       const oppositeColor = myColor === 'white' ? 'black' : 'white';
       const pocketColor = ev.key === 'e' ? myColor : oppositeColor;
-      const pocket = gamePockets[pocketColor === 'white' ? 0 : 1];
-      let pocketItems: string[] = [];
-      for (var pieceName in pocket) {
-        const pieceNum = pocket[pieceName];
-        pocketItems.push(pieceNum + ' ' + pieceName + (pieceNum > 1 ? 's' : ''));
-      }
-      $boardLive.text(pocketItems.length > 0 ? pocketItems.join(', ') : 'Empty');
+      $boardLive.text(getPocketAsString(gamePockets, pocketColor));
       return false;
     } else if (ev.key === 't') {
       $boardLive.text();
