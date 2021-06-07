@@ -57,7 +57,7 @@ final class Env(
 
   lazy val gamify = wire[Gamify]
 
-  lazy val progress = wire[ModProgress]
+  lazy val activity = wire[ModActivity]
 
   lazy val search = wire[UserSearch]
 

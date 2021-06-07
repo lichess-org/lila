@@ -1,0 +1,30 @@
+.mod-activity {
+  overflow: hidden;
+  h1 {
+    .mselect {
+      display: inline-block;
+
+      &__list > * {
+        font-size: 1.3rem;
+        padding: 0.3em 1em 0.3em 0.7em;
+      }
+    }
+  }
+  .slist {
+    white-space: nowrap;
+    td {
+      @extend %roboto;
+      text-align: right;
+    }
+  }
+  .chart {
+    min-height: 40vh;
+    padding: 4vh 4vw;
+    background: $c-bg-zebra;
+    max-width: 100%;
+    overflow: hidden;
+    &:last-child {
+      border-top: 1px solid white;
+    }
+  }
+}

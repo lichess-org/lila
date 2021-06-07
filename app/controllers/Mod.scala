@@ -338,10 +338,12 @@ final class Mod(
       }
     }
 
-  def progress =
-    Secure(_.GamifyView) { implicit ctx => _ =>
-      env.mod.progress("month", none) map { progress =>
-        Ok(html.mod.progress(progress))
+  def activity = activityOf("team", "month")
+
+  def activityOf(who: String, period: String) =
+    Secure(_.GamifyView) { implicit ctx => me =>
+      env.mod.activity(who, period)(me.user) map { activity =>
+        Ok(html.mod.activity(activity))
       }
     }
 

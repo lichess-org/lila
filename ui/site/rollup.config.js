@@ -215,4 +215,9 @@ export default rollupProject({
     input: 'src/userGamesDownload.ts',
     output: 'userGamesDownload',
   },
+  modActivity: {
+    input: 'src/modActivity.ts',
+    output: 'modActivity',
+    name: 'modActivity',
+  },
 });

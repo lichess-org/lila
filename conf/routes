@@ -464,7 +464,8 @@ POST  /mod/:username/email             controllers.Mod.setEmail(username: String
 POST  /mod/:username/notify-slack      controllers.Mod.notifySlack(username: String)
 GET   /mod/leaderboard                 controllers.Mod.gamify
 GET   /mod/leaderboard/:period         controllers.Mod.gamifyPeriod(period: String)
-GET   /mod/progress                    controllers.Mod.progress
+GET   /mod/activity                    controllers.Mod.activity
+GET   /mod/activity/:who/:period       controllers.Mod.activityOf(who: String, period: String)
 GET   /mod/search                      controllers.Mod.search
 GET   /mod/chat-user/:username         controllers.Mod.chatUser(username: String)
 GET   /mod/:username/permissions       controllers.Mod.permissions(username: String)
