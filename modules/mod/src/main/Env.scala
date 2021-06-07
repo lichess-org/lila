@@ -9,15 +9,6 @@ import lila.common.config._
 import lila.user.User
 
 @Module
-private class ModConfig(
-    @ConfigName("collection.player_assessment") val assessmentColl: CollName,
-    @ConfigName("collection.modlog") val modlogColl: CollName,
-    @ConfigName("collection.gaming_history") val gamingHistoryColl: CollName,
-    @ConfigName("boosting.nb_games_to_mark") val boostingNbGamesToMark: Int,
-    @ConfigName("boosting.ratio_games_to_mark") val boostingRatioToMark: Int
-)
-
-@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
@@ -43,16 +34,12 @@ final class Env(
     msgApi: lila.msg.MsgApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: ActorSystem
+    system: ActorSystem,
+    scheduler: Scheduler
 ) {
-
-  private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
-
-  private def scheduler = system.scheduler
-
-  private lazy val logRepo        = new ModlogRepo(db(config.modlogColl))
-  private lazy val assessmentRepo = new AssessmentRepo(db(config.assessmentColl))
-  private lazy val historyRepo    = new HistoryRepo(db(config.gamingHistoryColl))
+  private lazy val logRepo        = new ModlogRepo(db(CollName("modlog")))
+  private lazy val assessmentRepo = new AssessmentRepo(db(CollName("player_assessment")))
+  private lazy val historyRepo    = new HistoryRepo(db(CollName("mod_gaming_history")))
 
   lazy val logApi = wire[ModlogApi]
 
