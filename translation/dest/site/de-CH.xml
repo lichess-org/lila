@@ -350,7 +350,7 @@
   <string name="pasteThePgnStringHere">Chasch dä PGN-Texscht do iifüegä</string>
   <string name="fromPosition">Vonärä Position uus</string>
   <string name="continueFromHere">Vo do uus wiiterschpillä</string>
-  <string name="toStudy">Studiä</string>
+  <string name="toStudy">Schtudiä</string>
   <string name="importGame">Partii importiärä</string>
   <string name="importGameExplanation">Wänn du dä PGN iifüegsch, häsch du Zuägriff uf ä Schpiilwiderholig, ä Kompianalysä, en Tschätt und än teilbarä URL.</string>
   <plurals name="nbImportedGames">
@@ -524,7 +524,7 @@
   <string name="privacyPolicy">Datäschutzbeschtimmigä</string>
   <string name="letOtherPlayersFollowYou">Andärnä erlaubä, mir z\'folgä</string>
   <string name="letOtherPlayersChallengeYou">Andärnä erlaubä, mich usäzfordärä</string>
-  <string name="letOtherPlayersInviteYouToStudy">Andärnä erlaubä, mich zunärä Studiä iizladä</string>
+  <string name="letOtherPlayersInviteYouToStudy">Andärnä erlaubä, mich zunärä Schtuudiä iizladä</string>
   <string name="sound">Ton</string>
   <string name="none">Schtill</string>
   <string name="fast">Schnäll</string>
@@ -574,7 +574,7 @@
   <string name="playOfflineComputer">Schpill offline gäg än Kompi</string>
   <string name="opponent">Gägner</string>
   <string name="learnMenu">Lärnä</string>
-  <string name="studyMenu">Stuudiä</string>
+  <string name="studyMenu">Schtuudiä</string>
   <string name="practice">Träniärä</string>
   <string name="community">Gmeinschaft</string>
   <string name="tools">Wärchzüüg</string>
@@ -715,7 +715,7 @@
   <string name="xHostsY">%1$s hät %2$s ärschtellt</string>
   <string name="xJoinsY">%1$s isch %2$s biiträtä</string>
   <string name="xLikesY">%1$s gfallt %2$s</string>
-  <string name="xCreatesStudyY">%1$s hät Studie %2$s ärschtellt</string>
+  <string name="xCreatesStudyY">%1$s hät Schtuudiä %2$s ärschtellt</string>
   <string name="quickPairing">Schnälls Schpiil</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonymä Schpiller</string>
