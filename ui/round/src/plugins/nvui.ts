@@ -30,6 +30,7 @@ import {
   castlingFlavours,
   supportedVariant,
   Style,
+  namePiece,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -176,7 +177,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                 const $buttons = $board.find('button');
                 $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
                 $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
-                $buttons.on('keypress', boardCommandsHandler());
+		$buttons.on('keypress', boardCommandsHandler(() => ctrl.data.crazyhouse?.pockets, ctrl.data.player.color));
                 $buttons.on(
                   'keypress',
                   lastCapturedCommandHandler(
@@ -275,6 +276,10 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             h('br'),
             'Shift+1-8: move to file a-h.',
             h('br'),
+	    "e/E: announce your own/opponent's pockets (Crazyhouse only).",
+	    h('br'),
+	    "d: drop mode; drop a piece at the current location, choose with r/n/b/q/p (Crazyhouse only).",
+	    h('br'),
           ]),
           h('h2', 'Promotion'),
           h('p', [
@@ -290,6 +295,7 @@ lichess.RoundNVUI = function (redraw: Redraw) {
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
+const dropRegex = /^([qrnb]@[a-h][1-8])|(p@[a-h][2-7])$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
@@ -303,19 +309,19 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
       let uci = sanToUci(input, legalSans) || input,
         promotion = '';
 
+      let dropPiece = false;
       if (input.match(promotionRegex)) {
         uci = sanToUci(input.slice(0, -2), legalSans) || input;
         promotion = input.slice(-1).toLowerCase();
       } else if (input.match(uciPromotionRegex)) {
         uci = input.slice(0, -1);
         promotion = input.slice(-1).toLowerCase();
+      } else if (input.match(dropRegex)) {
+        dropPiece = true;
+        uci = input;
       }
-      console.log(uci);
-      console.log(uci.slice(0, -1));
-      console.log(promotion);
-      console.log(legalSans);
 
-      if (legalUcis.includes(uci.toLowerCase()))
+      if (legalUcis.includes(uci.toLowerCase())) {
         ctrl.socket.send(
           'move',
           {
@@ -323,7 +329,12 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
           },
           { ackable: true }
         );
-      else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
+      } else if (dropPiece) {
+        ctrl.socket.send('drop', {
+          role: namePiece[uci[0]],
+          pos: input.substr(2, 2),
+        });
+      } else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
     }
     $input.val('');
     return false;
