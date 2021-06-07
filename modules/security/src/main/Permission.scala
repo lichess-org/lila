@@ -96,7 +96,6 @@ object Permission {
           ViewBlurs,
           MarkEngine,
           MarkBooster,
-          CloseAccount,
           UserModView,
           GamifyView,
           UserEvaluate,
