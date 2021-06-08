@@ -1,4 +1,5 @@
-.mod-activity {
+.mod-activity,
+.mod-queues {
   overflow: hidden;
   h1 {
     .mselect {
@@ -17,14 +18,26 @@
       text-align: right;
     }
   }
-  .chart {
-    min-height: 40vh;
+  .chart,
+  .chart-grid {
     padding: 4vh 4vw;
     background: $c-bg-zebra;
+    min-height: 40vh;
+  }
+  .chart {
+    min-height: 40vh;
     max-width: 100%;
     overflow: hidden;
     &:last-child {
       border-top: 1px solid white;
+    }
+  }
+  .chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+    align-content: start;
+    gap: 4vh 4vw;
+    > div {
     }
   }
 }

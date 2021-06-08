@@ -1,51 +1,105 @@
 import ApexCharts from 'apexcharts';
 
-export default function (data: any) {
-  const light = $('body').hasClass('light');
+const light = $('body').hasClass('light');
+const gridC = light ? '#dddddd' : '#333333';
 
-  const conf = (title: string) => ({
-    title: {
-      text: title,
+const conf = (title: string, xaxis: Date[]) => ({
+  title: {
+    text: title,
+  },
+  theme: {
+    mode: light ? 'light' : 'dark',
+  },
+  chart: {
+    type: 'line',
+    zoom: {
+      enabled: false,
     },
-    theme: {
-      mode: light ? 'light' : 'dark',
+    animations: {
+      enabled: false,
     },
+    background: 'transparent',
+  },
+  // series: data.reports.series,
+  xaxis: {
+    type: 'datetime',
+    categories: xaxis,
+  },
+  yaxis: {
+    opposite: true,
+  },
+  legend: {
+    position: 'top',
+  },
+  stroke: {
+    width: xaxis.length > 50 ? 1 : 2,
+  },
+  grid: {
+    borderColor: gridC,
+  },
+});
+
+export function activity(data: any) {
+  const extend = {
     chart: {
-      type: 'line',
-      zoom: {
-        enabled: false,
-      },
-      animations: {
-        enabled: false,
-      },
       height: Math.round(window.innerHeight * 0.4),
-      background: 'transparent',
     },
-    // series: data.reports.series,
-    xaxis: {
-      type: 'datetime',
-      categories: data.common.xaxis,
-    },
-    yaxis: {
-      opposite: true,
-    },
-    legend: {
-      position: 'top',
-    },
-    stroke: {
-      width: data.common.xaxis.length > 50 ? 1 : 2,
-    },
-  });
+  };
+  new ApexCharts(
+    document.querySelector('.mod-activity .chart-reports'),
+    merge(
+      {
+        ...conf('Closed reports', data.common.xaxis),
+        series: data.reports.series,
+      },
+      extend
+    )
+  ).render();
 
-  const reports = new ApexCharts(document.querySelector('.mod-activity .chart-reports'), {
-    ...conf('Closed reports'),
-    series: data.reports.series,
-  });
-  reports.render();
+  new ApexCharts(
+    document.querySelector('.mod-activity .chart-actions'),
+    merge(
+      {
+        ...conf('Mod actions', data.common.xaxis),
+        series: data.actions.series,
+      },
+      extend
+    )
+  ).render();
+}
 
-  const actions = new ApexCharts(document.querySelector('.mod-activity .chart-actions'), {
-    ...conf('Mod actions'),
-    series: data.actions.series,
+export function queues(data: any) {
+  const $grid = $('.chart-grid');
+  data.rooms.forEach((room: any) => {
+    const cfg = merge(
+      {
+        ...conf(room.name, data.common.xaxis),
+        series: room.series.map(s => ({
+          ...s,
+          name: `Score: ${s.name}`,
+        })),
+      },
+      {
+        chart: {
+          type: 'bar',
+          stacked: true,
+        },
+        colors: ['#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800'],
+      }
+    );
+    console.log(cfg);
+    new ApexCharts($('<div>').appendTo($grid)[0], cfg).render();
   });
-  actions.render();
+}
+
+function merge(base: any, extend: any): void {
+  for (const key in extend) {
+    if (isObject(base[key]) && isObject(extend[key])) merge(base[key], extend[key]);
+    else base[key] = extend[key];
+  }
+  return base;
+}
+
+function isObject(o: unknown): boolean {
+  return typeof o === 'object';
 }

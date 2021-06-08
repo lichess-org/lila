@@ -21,11 +21,11 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
   import ModActivity._
 
   def apply(who: String, period: String)(me: User): Fu[Result] =
-    apply(Who(who, me), Period(period))
+    cache.get((Who(who, me), Period(period)))
 
   type CacheKey = (Who, Period)
 
-  private val cache = cacheApi.notLoading[CacheKey, Result](64, "mod.activity") {
+  private val cache = cacheApi[CacheKey, Result](64, "mod.activity") {
     _.expireAfter[CacheKey, Result](
       create = (key, _) =>
         key match {
@@ -35,11 +35,8 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         },
       update = (_, _, current) => current,
       read = (_, _, current) => current
-    ).buildAsync()
+    ).buildAsyncFuture((compute _).tupled)
   }
-
-  private def apply(who: Who, period: Period): Fu[Result] =
-    cache.getFuture((who, period), (compute _).tupled)
 
   private def compute(who: Who, period: Period): Fu[Result] =
     repo.coll
@@ -48,11 +45,6 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         readPreference = ReadPreference.secondaryPreferred
       ) { framework =>
         import framework._
-        val dateSince = period match {
-          case Period.Week  => DateTime.now.minusWeeks(1)
-          case Period.Month => DateTime.now.minusMonths(1)
-          case Period.Year  => DateTime.now.minusYears(1)
-        }
         def dateToString(field: String): Bdoc =
           $doc("$dateToString" -> $doc("format" -> "%Y-%m-%d", "date" -> s"$$$field"))
 
@@ -64,7 +56,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
                 case Who.Me(userId) => "done.by" -> userId
                 case Who.Team       => "done.by" $nin List(User.lichessId, "irwin")
               },
-              "done.at" $gt dateSince
+              "done.at" $gt Period.dateSince(period)
             )
           ),
           Group($arr(dateToString("done.at"), "$room"))("nb" -> SumAll)
@@ -73,7 +65,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         Match(
           $doc(
             "human" -> true,
-            "date" $gt dateSince
+            "date" $gt Period.dateSince(period)
           ) ++ (who match {
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
@@ -138,7 +130,7 @@ object ModActivity {
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
   }
 
-  private val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
+  val dateFormat = DateTimeFormat forPattern "yyyy-MM-dd"
 
   sealed trait Period {
     def key = toString.toLowerCase
@@ -147,10 +139,16 @@ object ModActivity {
     case object Week  extends Period
     case object Month extends Period
     case object Year  extends Period
+    val all = List(Period.Week, Period.Month, Period.Year)
     def apply(str: String): Period =
       if (str == "year") Year
       else if (str == "month") Month
       else Week
+    def dateSince(period: Period) = period match {
+      case Period.Week  => DateTime.now.minusWeeks(1)
+      case Period.Month => DateTime.now.minusMonths(1)
+      case Period.Year  => DateTime.now.minusYears(1)
+    }
   }
 
   sealed abstract class Who(val key: String)

@@ -17,7 +17,7 @@ object activity {
       moreCss = cssTag("mod.activity"),
       moreJs = frag(
         jsModule("modActivity"),
-        embedJsUnsafeLoadThen(s"""modActivity(${safeJsonValue(lila.mod.ModActivity.json(p))})""")
+        embedJsUnsafeLoadThen(s"""modActivity.activity(${safeJsonValue(lila.mod.ModActivity.json(p))})""")
       )
     ) {
       main(cls := "page-menu")(
@@ -30,7 +30,6 @@ object activity {
           ),
           div(cls := "chart chart-reports"),
           div(cls := "chart chart-actions")
-          // renderTable(p)
         )
       )
     }
@@ -58,7 +57,7 @@ object activity {
       .mselect(
         s"mod-activity__period-select box__top__actions",
         span(p.period.key),
-        List(Period.Week, Period.Month, Period.Year).map { per =>
+        Period.all.map { per =>
           a(
             cls := (p.period == per).option("current"),
             href := routes.Mod.activityOf(p.who.key, per.key)

@@ -347,6 +347,13 @@ final class Mod(
       }
     }
 
+  def queues(period: String) =
+    Secure(_.GamifyView) { implicit ctx => me =>
+      env.mod.queueStats(period) map { stats =>
+        Ok(html.mod.queueStats(stats))
+      }
+    }
+
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
       implicit def req = ctx.body
