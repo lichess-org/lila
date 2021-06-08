@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="coordinates">Koordinaten</string>
-  <string name="coordinateTraining">Koordinatentraining</string>
-  <string name="averageScoreAsWhiteX">Durchschnittliche Punktzahl als Weiß: %s</string>
-  <string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
-  <string name="knowingTheChessBoard">Die Koordinaten des Schachbretts zu kennen ist eine wichtige Fähigkeit:</string>
-  <string name="mostChessCourses">Die meisten Schach-Kurse und Übungen verwenden die algebraische Notation.</string>
+  <string name="coordinates">Koordinatä</string>
+  <string name="coordinateTraining">Koordinatäträning</string>
+  <string name="averageScoreAsWhiteX">Durchschnittlichi Punktzahl mit Wiis: %s</string>
+  <string name="averageScoreAsBlackX">Durchschnittlichi Punktzahl mit Schwarz: %s</string>
+  <string name="knowingTheChessBoard">D\'Koordinatä vom Schachbrätt z\'kennä isch ä wichtigi Fähigkeit:</string>
+  <string name="mostChessCourses">Di meischtä Schach-Kürs und Üäbigä verwändäd di algebraische Notazion.</string>
   <string name="talkToYourChessFriends">Es macht es einfacher dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
-  <string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
-  <string name="aSquareNameAppears">Der Feldname wird auf dem Brett angezeigt und du musst auf das zugehörige Feld klicken. Du hast 30 Sekunden, um möglichst viele Felder zu erkennen!</string>
+  <string name="youCanAnalyseAGameMoreEffectively">Du chasch äs Schpiil effektiver analysiärä, wänn du nöd immer noch dä Fäldbezeichnigä suächä muäsch.</string>
+  <string name="aSquareNameAppears">Dä Fäldnamä wird ufäm Brätt aazeigt und du muäsch ufs zuäghörige Fäld klickä. Du häsch 30 Sekundä, zum möglichscht vili Fälder z\'ärkännä!</string>
   <string name="startTraining">Training beginnen</string>
 </resources>

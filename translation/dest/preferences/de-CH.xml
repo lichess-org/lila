@@ -6,7 +6,7 @@
   <string name="materialDifference">Materialunterschied</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
-  <string name="boardCoordinates">Brettkoordinaten (A-H, 1-8)</string>
+  <string name="boardCoordinates">Brättkoordinatä (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Notation während des Spiels anzeigen</string>
   <string name="pgnPieceNotation">Zugnotation</string>
   <string name="chessPieceSymbol">Schachfigurensymbol</string>
@@ -39,7 +39,7 @@
   <string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade-Methode</string>
   <string name="castleByMovingTwoSquares">Ziehe den König zwei Felder weit</string>
-  <string name="castleByMovingOntoTheRook">Ziehe den König auf den Turm</string>
+  <string name="castleByMovingOntoTheRook">Züch dä König auf dä Turm</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Pfeile markieren immer mögliche Züge</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Sage \"Gute Partie, gut gespielt\" nach einer Niederlage oder einem Remis</string>

@@ -189,7 +189,7 @@
   <string name="changeUsernameNotSame">Μόνο η αλλαγή χαρακτήρων από μικρά σε κεφαλαία επιτρέπεται. Για παράδειγμα \"johndoe\" σε \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Αλλαγή ονόματος χρήστη. Μπορεί να γίνει μόνο μία φορά και μόνο η αλλαγή χαρακτήρων σε μικρά-κεφαλαία στο όνομα χρήστη επιτρέπεται.</string>
   <string name="password">Κωδικός</string>
-  <string name="changePassword">Αλλάξτε κωδικό</string>
+  <string name="changePassword">Αλλαγή κωδικού</string>
   <string name="changeEmail">Αλλαγή διεύθυνσης email</string>
   <string name="email">Ηλ. ταχυδρομείο</string>
   <string name="passwordReset">Επαναφορά κωδικού</string>

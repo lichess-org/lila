@@ -62,6 +62,7 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="nextPayment">Kitas mokėjimas</string>
   <string name="youWillBeChargedXOnY">%1$s bus nuskaityta %2$s.</string>
   <string name="makeAdditionalDonation">Atlikti papildomą paramos pervedimą</string>
+  <string name="giftPatronWings">Padovanoti rėmėjo sparnus žaidėjui</string>
   <string name="update">Atnaujinti</string>
   <string name="changeMonthlyAmount">Pakeisti mėnesinį kiekį (%s)</string>
   <string name="cancelSupport">atšaukti savo pagalbą</string>

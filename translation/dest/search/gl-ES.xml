@@ -24,4 +24,10 @@
   <string name="sortBy">Ordenar por</string>
   <string name="analysis">Análise</string>
   <string name="onlyAnalysed">Só partida onde a análise por ordenador estea dispoñible</string>
+  <string name="color">Cor</string>
+  <string name="evaluation">En avaliación</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Número máximo</string>
+  <string name="maxNumberExplanation">Número máximo de partidas a devolver</string>
+  <string name="include">Incluír</string>
+  <string name="generateURL">Xera URL</string>
 </resources>

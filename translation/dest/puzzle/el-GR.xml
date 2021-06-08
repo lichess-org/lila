@@ -69,4 +69,5 @@
   <string name="searchPuzzles">Αναζήτηση γρίφων</string>
   <string name="fromMyGamesNone">Δεν υπάρχουν γρίφοι από τα παιχνίδια σας στη βάση δεδομένων.
 Παίξτε κλασικά ή rapid παιχνίδια για να αυξηθούν οι πιθανότητες προσθήκης γρίφων από τα παιχνίδια σας στη βάση δεδομένων!</string>
+  <string name="fromXGamesFound">%1$s γρίφοι βρέθηκαν σε %2$s παιχνίδια</string>
 </resources>

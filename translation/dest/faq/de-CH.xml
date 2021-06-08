@@ -3,13 +3,13 @@
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
   <string name="frequentlyAskedQuestions">Hüfig gschtellti fragä</string>
   <string name="whyIsLichessCalledLichess">Werum heisst Lichess Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Es wird %1$s usgsproche.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Äs wird %1$s usgsprochä.</string>
   <string name="leechess">li-tschess</string>
   <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
-  <string name="whyLiveLightLibre">Live, denn Partien werden 24/7 in Echtzeit gespielt und angeschaut; leicht und frei aufgrund der Tatsache, dass Lichess quelloffen und frei von proprietärem Müll ist, welcher andere Internetseiten belastet.</string>
-  <string name="whyIsLilaCalledLila">Ähnlich verhält es sich mit dem Quellcode von Lichess, %1$s, der für li[chess in sca]la steht. Der Großteil von Lichess wurde in %2$s geschrieben, einer intuitiven Programmiersprache.</string>
+  <string name="whyLiveLightLibre">Live, will Partiiä wärdäd 24/7 in Echtziit gschpillt und aagluägät; liächt und gratis ufgrund vodä Tatsach, dass Lichess quälloffä und frei vo proprietäräm Müll isch, wo anderi Internetsiitä belaschtät.</string>
+  <string name="whyIsLilaCalledLila">Ähnlich verhaltät sichs au mitäm Quällcode vo Lichess, %1$s, was für li[chess in sca]la stoht. Dä Grossteil vo Lichess isch in %2$s gschribä worde, änärä intuitivä Programmiersproch.</string>
   <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird durch Spenden von Unterstützern und der Leistung eines Teams von Freiwilligen betrieben.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Spendä von Unterstützer und vo de Leistigä vo Teams von Freiwilligä betriebä.</string>
   <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du Lichess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
   <string name="beingAPatron">ein Patron zu sein</string>
   <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
@@ -28,40 +28,40 @@
   <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
   <string name="gameplay">Spielerlebnis</string>
   <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
-  <string name="basedOnGameDuration">Lichess Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
-Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 × 60 + 40 × 3 = 420 Sekunden.</string>
+  <string name="basedOnGameDuration">Lichess Ziitkontrollä basiäräd uf dä erwartätä Schpillduur = %1$s
+Zum Biischpiil berächnät sich di erwartätä Schpillduur vonärä 5+3 Partii zu 5 × 60 + 40 × 3 = 420 Sekundä.</string>
   <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 × (Zug-Inkrement)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
-  <string name="lichessSupportChessAnd">Lichess unterstützt Standardschach und %1$s.</string>
+  <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
   <string name="eightVariants">8 Schachvarianten</string>
   <string name="whatIsACPL">Was ist durchschnittlicher Hundertstelbauer-Verlust (ACPL)?</string>
-  <string name="acplExplanation">Der Centibauer oder Hundertstelbauer ist die Maßeinheit im Schach für den Vorteil eines Spielers. Der Centibauer entspricht dabei dem Wert von 1/100 eines regulären Bauern. Also gilt: 100 Centibauern = 1 Bauer. Diese Werte spielen während der Partie keine besondere Rolle, sind jedoch für Spieler nützlich und spielen im Computerschach eine essentielle Rolle bei der Bewertung von Stellungen.
+  <string name="acplExplanation">Dä Centipuur oder Hundertschtälppur isch ä Masseinheit im Schach für dä Vorteil vumä Schpiller. Dä Centipuur entspricht äm Wärt vo 1/100 vumä regulärä Puur. Also gilt: 100 Centipuurä = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller nützlich und schpilläd im Kompischach än essänziälli Roll bidä Bewärtig vo Schtelligä.
 
-Der beste Computerzug verliert keinen Centibauern, schlechtere Züge verschlechtern allerdings die Stellung, was in Centibauern gemessen wird.
+Dä bescht Kompizug verlüürt kan Centippur, schlächtäri Züg verschlächtäräd aber d\'Schtellig, was in Centipuurä gmässä wird.
 
-Dieser Wert kann als Indikator für die Spielqualität benutzt werden. Je weniger Centibauern pro Zug verloren werden, desto größer die Spielstärke.
+Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je wäniger Centipuurä pro Zug verlorä wärdäd, deschto grösser d\'Schpiilstärchi.
 
-Die Computeranalyse wird auf Lichess von Stockfish durchgeführt.</string>
+D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
   <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
-  <string name="lichessFollowFIDErules">Falls einem Spieler keine Bedenkzeit mehr zur Verfügung steht, so verliert er in der Regel die Partie. Jedoch wird die Partie Remis erklärt, falls es dem Gegner durch keine legale Zugfolge möglich sein sollte ein Matt zu erzwingen (%1$s). Standardmäßig wird immer für den Spieler entschieden, dessen Bedenkzeit nicht abgelaufen ist. 
+  <string name="lichessFollowFIDErules">Wänn ämänä Schpiller kei Bedenkziit meh zur Verfüägig schtoht, verlüürt är ide Regäl d\'Partii. Allerdings wird ä Partii Remis erchläärt, falls äm Gägner dur kei legali Zugfolg meh möglich isch, äs Matt z\'erzwingä (%1$s). Schtandardmässig wird immer für däsäb Schpiller entschidä, dessä Bedenkziit nöd abgloffä isch.
 
-In seltenen Fällen kann es schwierig sein, dies automatisch zu entscheiden. (Erzwungene Zugfolgen, Festungen)
+I sältänä Fäll chas schwirig si, das automatisch z\'entscheidä. (Erzwungäni Zugfolgä, Feschtigä)
 
-Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt zu erzwingen, falls der Gegner eine Figur besitzt, die dessen König blockieren könnte.</string>
+Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä nöd möglich isch, sötti dä Gägner ä Figur bsitzä, wo sin König blockiärä chönt.</string>
   <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
-  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+  <string name="explainingEnPassant">Das isch än regelgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
 
-Dies wird in Abschnitt 3.7 der %2$s beschrieben.
+Das wird in Abschnitt 3.7 vu %2$s uf Hoochtüütsch beschribä.
 
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
-Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
+Tschägg %3$s für ächli Üäbig mit därä Art vo Zug.</string>
   <string name="goodIntroduction">guten ersten Eindruck</string>
   <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
-  <string name="lichessTraining">Lichess-Training</string>
+  <string name="lichessTraining">Lichess-Träning</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
   <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
   <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
@@ -81,7 +81,7 @@ Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme 
 Daneben gibt es auch einen Ehrentitel %2$s.</string>
   <string name="asWellAsManyNMtitles">viele nationale Meistertitel</string>
   <string name="verificationForm">Verifikationsformular</string>
-  <string name="canIbecomeLM">Kann ich den Lichess Meister (LM) Titel bekommen?</string>
+  <string name="canIbecomeLM">Chan ich dä Lichess Meischter (LM) Titel bechoo?</string>
   <string name="noUpperCaseDot">Nein.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
 
@@ -97,16 +97,16 @@ Bitte nicht darum, den LM-Titel zu erhalten.</string>
   <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
   <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
   <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
-  <string name="goldenZeeExplanation">ZugAddict streamte und hatte in den letzten 2 Stunden versucht, die künstliche Intelligenz auf Stufe 8 in einem 1+0 Spiel zu besiegen, ohne Erfolg. Thibault versprach ihm, dass er eine einzigartige Trophäe bekommen würde, wenn er es erfolgreich im Stream schaffen würde. Eine Stunde später zerschmetterte er Stockfish und das Versprechen wurde eingehalten.</string>
+  <string name="goldenZeeExplanation">Dä ZugAddict hät ämol gstreamt und über 2 Schtundä lang versuächt, dä Kompi uf Schtufä 8 imänä 1+0 Schpiil z\'besiigä, ohni Erfolg. Dä Thibault hätäm dänn versprochä, dasär än einzigartigi Trophä\'ä bechiäm, wänär das erfolgrich im Stream schaffä würd. Ä Schtund spöter hätär Stockfish butzt und s\'Versprächä isch iighaltä wordä.</string>
   <string name="lichessRatings">Lichess-Wertungen</string>
   <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
-  <string name="ratingSystemUsedByLichess">Wertungen (\"Wertungszahlen\", \"Ratings\") werden mit der von Mark Glickman entwickelten Glicko-2-Wertungsmethode berechnet. Dies ist eine sehr beliebte Wertungsmethode und wird von einer bedeutenden Anzahl von Schachorganisationen verwendet (FIDE ist ein bemerkenswertes Gegenbeispiel da sie immer noch das veraltete Elo-Wertungs-System verwenden).
+  <string name="ratingSystemUsedByLichess">Wärtigä (\"Wärtigszahlä\", \"Ratings\") wärdäd mit dä vom Mark Glickman entwicklätä Glicko-2-Wärtigsmethodä berächnät. Das isch ä sehr beliebti Wärtigsmethodä und wird vonärä bedüütendä Aazahl vo Schachorganisationä verwändät (FIDE isch äs bemärkänswärts Gegäbiischpiil wo immer no s\'veraaltete Elo-Wärtigs-Syschtem verwändät).
 
-Grundsätzlich verwenden Glicko-Wertungen \"Konfidenzintervalle\" bei der Berechnung deiner Wertung. Wenn du das erste Mal auf der Website spielst, beginnt deine Wertung bei 1500 ± 700. Die 1500 stellt deine Wertung dar, und die 700 stellt das Konfidenzintervall dar.
+Grundsätzlich verwändät Glicko-Wärtigä \"Konfidänzintervall\" bidä Berächnig vo dinärä Wärtig. Wänn du s\'erscht Mol uf därä Websiitä schpillsch, foht dini Wärtig bi 1500 ± 700 aa. Diä 1500 schtelläd dini Wärtig dar, und d\'700 schtellt s\'Konfidänzintervall dar.
 
-Grundsätzlich ist sich das System zu 90% sicher, dass deine Wertung zwischen 800 und 2200 liegt. Das ist unglaublich ungewiss. Aus diesem Grund wird sich die Wertung, wenn ein Spieler gerade beginnt drastisch ändern, möglicherweise um mehrere hundert Punkte pro Stunde. Aber nach einigen Spielen gegen etablierte Spieler wird sich das Konfidenzintervall verkleinern und die Anzahl der gewonnenen/verlorenen Punkte nach jedem Spiel sinken.
+Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
 
-Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhöhen wird. Dies erlaubt es dir, Punkte schneller zu gewinnen oder zu verlieren, um alle Änderungen deiner Fertigkeiten während dieses Zeitraums zu berücksichtigen.</string>
+Än wiitärä Punkt isch, dass sich s\'Konfidänzintervall im Lauf vodä Ziit erhöht. Das erlaubts dir, Pünkt schnäller z\'gwünne oder z\'verliüüre, zum alli Änderigä vo dinä Färtigkeitä während däm Ziitruum z\'berücksichtigä.</string>
   <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
   <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
@@ -118,7 +118,7 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
   <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardschach und niedriger als %2$s in Varianten besitzen,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä,</string>
   <string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
   <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
@@ -129,7 +129,7 @@ Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz z
   <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
   <string name="displayPreferences">Anzeigeeinstellungen</string>
   <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider können wir keine Wertungspunkte für Partien zurückgeben, die aufgrund von Lag oder Internetproblemen verloren gehen, unabhängig davon, ob das Problem von deiner oder von unserer Seite verursacht wurde. Letzteres ist jedoch sehr selten. Beachte auch, dass wir die Partie abbrechen, wenn Lichess neu gestartet wird und du deshalb auf Zeit verlieren würdest.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chömmär kei Wärtigspünkt für Partiiä zrugggeh, wo ufgrund vo Läg- oder Internetproblem verlorä gangä sind, unabhängig dävo, öb das Problem vo diner oder vo üsärä Siitä verursacht wordä isch. Letztäres isch aber sehr sältä. Obacht, gäll, dassmär ä Partii abbrächäd, wänn Lichess neu gschtartät wird und du drum uf Ziit verlüürä würsch.</string>
   <string name="howToThreeDots">Wie kann ich...</string>
   <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
   <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>

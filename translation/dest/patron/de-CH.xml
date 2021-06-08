@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="donate">Spenden</string>
+  <string name="donate">Schpändä</string>
   <string name="lichessPatron">Lichess Gönnär</string>
   <string name="freeAccount">Kostenloses Konto</string>
   <string name="becomePatron">Werde Lichess Patron</string>
@@ -41,7 +41,7 @@ Dann bezahlen wir einen Vollzeit-Entwickler: %s, den Gründer von Lichess.</stri
   <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
 Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
-  <string name="otherMethods">Andere Möglichkeiten um zu spenden?</string>
+  <string name="otherMethods">Andri wäg um spändä?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
   <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
   <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
@@ -58,6 +58,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nextPayment">Nächste Zahlung</string>
   <string name="youWillBeChargedXOnY">Dir werden %1$s am %2$s berechnet.</string>
   <string name="makeAdditionalDonation">Leiste jetzt eine zusätzliche Spende</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schenke emene Schpiller Patron-Flügel</string>
   <string name="update">Aktualisierung</string>
   <string name="changeMonthlyAmount">Ändere den monatlichen Betrag (%s)</string>
   <string name="cancelSupport">beende deine Unterstützung</string>
@@ -68,7 +69,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="viewOthers">Sieh dir andere Lichess Unterstützer an</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
-  <string name="transactionCompleted">Deine Transaktion war erfolgreich und eine Spendenquittung wurde dir per E-Mail zugestellt.</string>
+  <string name="transactionCompleted">Dini Transaktion isch erfolgreich gsie und ä Spendenquittung isch der per E-Mail zugschickt wordä.</string>
   <string name="permanentPatron">Du besitzt jetzt ein dauerhaftes Unterstützerkonto.</string>
   <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
   <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>

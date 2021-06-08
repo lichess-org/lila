@@ -57,6 +57,7 @@ Tai voit %s.</string>
   <string name="nextPayment">Seuraava maksu</string>
   <string name="youWillBeChargedXOnY">Sinulta veloitetaan %1$s päivänä %2$s.</string>
   <string name="makeAdditionalDonation">Tee lisälahjoitus nyt</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Lahjoita toiselle pelaajalle tukijan siivet</string>
   <string name="update">Päivitä</string>
   <string name="changeMonthlyAmount">Muuta kuukausittaista summaa (%s)</string>
   <string name="cancelSupport">peru tukesi</string>

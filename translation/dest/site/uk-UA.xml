@@ -499,6 +499,7 @@
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
   <string name="biography">Біографія</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна або прапор</string>
   <string name="thankYou">Дякуємо!</string>
   <string name="socialMediaLinks">Посилання на соціальні мережі</string>
   <string name="inlineNotation">Вбудована нотація</string>
@@ -522,6 +523,8 @@
   <string name="tournamentWinners">Переможці турнірів</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
+  <string name="descPrivate">Приватний опис</string>
+  <string name="descPrivateHelp">Текст, який побачать лише учасники команди. Якщо встановити, замінить публічний опис для учасників команди.</string>
   <string name="no">Ні</string>
   <string name="yes">Так</string>
   <string name="help">Допомога:</string>
@@ -542,6 +545,7 @@
   <string name="cheat">Нечесна гра</string>
   <string name="insult">Образа</string>
   <string name="troll">Тролінг</string>
+  <string name="ratingManipulation">Маніпуляції з рейтингом</string>
   <string name="other">Інше</string>
   <string name="reportDescriptionHelp">Вставте посилання на гру (ігри) та поясніть, що не так із поведінкою цього користувача. Не пишіть просто \"він шахраює\", а розкажіть, як Ви дійшли до такого висновку. Вашу скаргу розглянуть швидше, якщо Ви напишете її англійською.</string>
   <string name="error.provideOneCheatedGameLink">Будь ласка, додайте посилання на хоча б одну нечесну гру.</string>
@@ -637,6 +641,7 @@
   <string name="error.email_unique">Ця адреса електронної пошти вже використовується</string>
   <string name="error.email_different">Це і так ваша адреса електронної пошти</string>
   <string name="ifRatingIsPlusMinusX">Якщо рейтинг ± %s</string>
+  <string name="onlyExistingConversations">Тільки існуючі бесіди</string>
   <string name="onlyFriends">Тільки друзям</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокіровка</string>
@@ -729,6 +734,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також Ви можете використовувати коліщатко миші над дошкою для зміни ходів у грі.</string>
   <string name="analysisShapesHowTo">Натисніть shift+лкм або пкм, щоб намалювати кола та стрілки на дошці.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
+  <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
   <string name="shareYourInsightsData">Надавати доступ до Вашої шахової аналітики</string>
   <string name="withNobody">Ні з ким</string>
   <string name="withFriends">З друзями</string>
@@ -904,6 +910,9 @@
   <string name="youCannotPostYetPlaySomeGames">Ви не можете писати нові повідомлення у форумах. Зіграйте кілька ігор!</string>
   <string name="subscribe">Підписатись</string>
   <string name="unsubscribe">Відписатись</string>
+  <string name="mentionedYouInX">згадав вас у \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s згадав вас у \"%2$s\".</string>
+  <string name="invitedYouToX">запросив вас до \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s запросив вас до \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Ви тепер частина команди.</string>
   <string name="youHaveJoinedTeamX">Ви приєдналися до \"%1$s\".</string>

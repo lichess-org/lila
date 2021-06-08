@@ -22,6 +22,7 @@
   <string name="onetime">Una volta</string>
   <string name="singleDonation">Una singola donazione che ti garantisce le ali da Mecenate per un mese.</string>
   <string name="otherAmount">Altro</string>
+  <string name="pleaseEnterAmountInX">Per favore inserisci un importo in %s\'</string>
   <string name="withCreditCard">Carta di credito</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Siamo un piccolo team, quindi il tuo sostegno fa la differenza!</string>
@@ -53,6 +54,7 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nextPayment">Prossimo pagamento</string>
   <string name="youWillBeChargedXOnY">Ti verrà addebitato %1$s il %2$s.</string>
   <string name="makeAdditionalDonation">Fai un\'altra donazione ora</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Dona le ali da Patron ad un giocatore</string>
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>

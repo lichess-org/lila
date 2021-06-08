@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Lern Schach</string>
+  <string name="learnChess">Lärn Schach</string>
   <string name="byPlaying">indäm\'d schpillsch!</string>
   <string name="menu">Menü</string>
   <string name="progressX">Fortschritt: %s</string>
@@ -99,7 +99,7 @@
   <string name="placeTheBishops">Platziär d\'Läufer! Si stönd näbäd dä Gäul.</string>
   <string name="placeTheQueen">Platziär d\'Damä. Si stoht uf irär eigenä Farb.</string>
   <string name="placeTheKing">Platziär dä König! Worum nöd näbäd dä Damä.</string>
-  <string name="pawnsFormTheFrontLine">Puure bildäd d\'Front. Quasi Schaffhuusär. Züch än beliebigä Zug, um fürschi zmachä.</string>
+  <string name="pawnsFormTheFrontLine">Puure bildäd d\'Front. Quasi Schaffhuusär. Züch än beliebigä Zug, zum fürschi z\'machä.</string>
   <string name="boardSetupComplete">Härzlichä Glückwunsch! Du weisch jetzt, wiä mä Schachfigurä ufschtellt.</string>
   <string name="castling">Roschaadä</string>
   <string name="theSpecialKingMove">Dä bsunderi Königszug</string>
@@ -136,15 +136,15 @@ wänn sich din Puur uf dä 5. Reihä befindät.</string>
 - Es wird kein Schach geboten.</string>
   <string name="stalemateComplete">Herzlichen Glückwunsch! Lieber Patt als Matt!</string>
   <string name="advanced">Fortgeschritten</string>
-  <string name="pieceValue">Figurenwerte</string>
-  <string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
-  <string name="pieceValueIntro">Figuren mit mehr Zugmöglichkeiten besitzen einen höheren Wert!
-Dame = 9
+  <string name="pieceValue">Figuräwert</string>
+  <string name="evaluatePieceStrength">Bewerti d\'stärchi vo de Figuren</string>
+  <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mä chan sich das so verbildlichä, dass diä mit höchärä Zahlä Oschtschwiizer sind.
+Damä = 9
 Turm = 5
 Läufer = 3
-Springer = 3
-Bauer = 1
-Der König ist unbezahlbar! Ihn zu verlieren bedeutet das Spiel zu verlieren.</string>
+Gaul = 3
+Puur = 1
+De König isch unbezahlbar! Wänn mä dää verlüürt, hät mä verlorä.</string>
   <string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
@@ -154,12 +154,12 @@ Dame &gt; Läufer</string>
 Stelle sicher, dass dein Zug regelgerecht ist!</string>
   <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
-  <string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
-Dame = 9
+  <string name="pieceValueComplete">Härzlichä Glückwunsch! Du kännsch etz dä Wärt vom Material!
+Damä = 9
 Turm = 5
 Läufer = 3
-Springer = 3
-Bauer = 1</string>
+Gaul = 3
+Puur = 1</string>
   <string name="checkInTwo">Schach in zwei Zügen</string>
   <string name="twoMovesToGiveCheck">Zwei Züge um Schach zu bieten</string>
   <string name="checkInTwoIntro">Finde die richtige Kombination von zwei Zügen, die den gegnerischen König Schach setzt!</string>

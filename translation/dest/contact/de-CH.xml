@@ -13,7 +13,7 @@
   <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
   <string name="accountSupport">Ich benötige Konto-Unterstützung</string>
   <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
-  <string name="visitTitleConfirmation">Um deinen Titel in deinem Lichess-Profil zu zeigen und an den Titled-Arenas teilzunehmen, besuche die Titelbestätigungsseite</string>
+  <string name="visitTitleConfirmation">Zum din Titäl in dim Lichess-Profil z\'zeigä und adä Titled-Arenas teilznäh, bsuäch d\'Titälbeschtätigungssiitä</string>
   <string name="wantCloseAccount">Ich möchte mein Konto schließen</string>
   <string name="closeYourAccount">Du kannst dein Konto auf dieser Seite schließen</string>
   <string name="doNotAskByEmail">Bitte uns nicht per E-Mail ein Konto zu schließen, wir werden es nicht schließen.</string>
@@ -41,7 +41,7 @@
   <string name="howToReportBug">Bitte beschreibe wie der Fehler aussieht, was du stattdessen erwartet hättest, sowie die Schritte um den Fehler zu reproduzieren.</string>
   <string name="illegalPawnCapture">Unerlaubtes Bauern-Schlagen</string>
   <string name="calledEnPassant">Das wird \"en passant\" genannt und gehört zu den Schachregeln.</string>
-  <string name="tryEnPassant">Probiere dieses kleine, interaktive Spiel aus und lerne mehr über \"en passant\".</string>
+  <string name="tryEnPassant">Probiär das chliine, interaktive Schpiil us und lärn meh über \"im Vorbigoh\".</string>
   <string name="illegalCastling">Unerlaubtes oder unmögliches Rochieren</string>
   <string name="castlingPrevented">Die Rochade wird nur verhindert, falls der König durch ein kontrolliertes Feld zieht.</string>
   <string name="castlingRules">Stelle sicher, dass du mit den Rochaderegeln vertraut bist</string>
@@ -62,14 +62,14 @@
   <string name="accountLost">Falls du jedoch auch nur ein einziges Mal Maschinenunterstützung benutzt hast, ist dein Konto leider verloren.</string>
   <string name="doNotDeny">Leugne nicht betrogen zu haben. Falls du die Erlaubnis willst ein neues Konto zu eröffnen, gib einfach zu was du getan hast und zeige, dass du eingesehen hast, dass das ein Fehler war.</string>
   <string name="otherRestriction">Andere Beschränkung</string>
-  <string name="collaboration">Zusammenarbeit, Rechtliches, Kommerzielles</string>
+  <string name="collaboration">Zämänarbät, Rächtlichäs, Kommerziälls</string>
   <string name="monetizing">Lichess Monetarisierung</string>
   <string name="buyingLichess">Lichess kaufen</string>
   <string name="authorizationToUse">Genehmigung um Lichess zu nutzen</string>
   <string name="welcomeToUse">Du bist eingeladen Lichess für deine Aktivitäten zu verwenden, sogar für kommerzielle Zwecke.</string>
-  <string name="videosAndBooks">Du kannst das in deinen Videos zeigen und du kannst Screenshots von Lichess in deinen Büchern drucken.</string>
+  <string name="videosAndBooks">Du chasch das i dinä Videos zeigä und du chasch au Screenshots vo Lichess in dini Büächer truckä.</string>
   <string name="creditAppreciated">Eine Erwähnung ist wünschenswert aber nicht notwendig.</string>
   <string name="noneOfTheAbove">Keines der oben genannten</string>
   <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
-  <string name="explainYourRequest">Bitte beschreibe deine Anfrage klar und deutlich. Nenne deinen Lichess Nutzernamen und jegliche Information die uns helfen könnte Dir zu helfen.</string>
+  <string name="explainYourRequest">Bitte beschriib dini Afrog klar und düütlich. Nenn din Lichess Nutzernamä und jeglichi Informationä, won üs hälfä chöntäd, Dir z\'hälfä.</string>
 </resources>

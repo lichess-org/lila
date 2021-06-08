@@ -6,7 +6,7 @@
   <string name="offline">OFFLINE</string>
   <string name="currentlyStreaming">Streamt gerade: %s</string>
   <string name="lastStream">Letzter Stream %s</string>
-  <string name="becomeStreamer">Werde ein Lichess Streamer</string>
+  <string name="becomeStreamer">Werd en Lichess Streamer</string>
   <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
   <string name="hereWeGo">Los geht\'s!</string>
   <string name="allStreamers">Alle Streamer</string>
@@ -15,7 +15,7 @@
   <string name="downloadKit">Lade das Streamerpaket herunter</string>
   <string name="xIsStreaming">%s streamt gerade</string>
   <string name="rules">Streaming-Regeln</string>
-  <string name="rule1">Füge das Stichwort \"lichess.org\" in deinen Streamtitel ein und verwende die Kategorie \"Chess\", wenn du auf Lichess streamst.</string>
+  <string name="rule1">Füäg s\'Stichwort \"lichess.org\" i dim Streamtitäl ii und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
   <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-bezogen streamst.</string>
   <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
@@ -33,7 +33,7 @@ Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamere
 Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
-  <string name="youtubeChannel">Deine YouTube-Kanal-ID oder -URL</string>
+  <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Kurz fassen: Maximal %s Zeichen</item>
@@ -49,7 +49,7 @@ Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.<
   <string name="uploadPicture">Lade ein Bild hoch</string>
   <string name="deletePicture">Lösche ein Bild</string>
   <string name="maxSize">Maximale Größe: %s</string>
-  <string name="installBlocker">Installiere einen Malware-Blocker!</string>
+  <string name="installBlocker">Inschtalliär än Malware-Blocker!</string>
   <string name="beSafe">Schütze dich vor Werbung und Trackern,
 die Twitch und YouTube befallen.
 Lichess empfiehlt uBlock Origin,

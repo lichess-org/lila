@@ -681,6 +681,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="scrollOverComputerVariationsToPreviewThem">Scorri sulle varianti del computer per vederle in anteprima.</string>
   <string name="analysisShapesHowTo">Premere MAIUSC+click o tasto destro del mouse per disegnare cerchi e frecce sulla scacchiera.</string>
   <string name="letOtherPlayersMessageYou">Lascia che gli altri giocatori ti inviino messaggi</string>
+  <string name="receiveForumNotifications">Ricevi notifiche quando vieni menzionato nel forum</string>
   <string name="shareYourInsightsData">Condividi i tuoi dati Insights</string>
   <string name="withNobody">Con nessuno</string>
   <string name="withFriends">Con gli amici</string>
@@ -866,4 +867,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="clickToRevealEmailAddress">[Clicca per mostrare l\'indirizzo email]</string>
   <string name="download">Download</string>
   <string name="welcome">Benvenuto!</string>
+  <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
+Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
 </resources>

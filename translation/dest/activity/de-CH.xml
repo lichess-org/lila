@@ -11,8 +11,8 @@
     <item quantity="other">Hat %1$s Stellungen bei %2$s geübt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Hat %s Taktikaufgabe gelöst</item>
-    <item quantity="other">Hat %s Taktikaufgaben gelöst</item>
+    <item quantity="one">Hät %s Taktikufgoob glöst</item>
+    <item quantity="other">Hät %s Taktikufgoobä glöst</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Hat %1$s Partie %2$s gespielt</item>
@@ -35,8 +35,8 @@
     <item quantity="other">Hat %s Fernschachpartien gespielt</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Folgt %s Spieler</item>
-    <item quantity="other">Folgt %s Spielern</item>
+    <item quantity="one">Folgät %s Schpiller</item>
+    <item quantity="other">Folgät %s Schpiller</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Hat %s neuen Follower</item>
@@ -51,8 +51,8 @@
     <item quantity="other">Hat an %s Simultanvorstellungen teilgenommen</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Hat %s neue Studie erstellt</item>
-    <item quantity="other">Hat %s neue Studien erstellt</item>
+    <item quantity="one">Hät %s neui Schtuudiä ärschtellt</item>
+    <item quantity="other">Hät %s neui Schtuudiä ärschtellt</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Hat an %s Turnier teilgenommen</item>

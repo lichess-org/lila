@@ -73,7 +73,7 @@
   <string name="variantWin">حرکت برنده</string>
   <string name="insufficientMaterial">مواد کافی وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
-  <string name="capture">بزن</string>
+  <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
   <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
@@ -438,6 +438,7 @@
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="biography">زندگی نامه</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا پرچم</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
@@ -459,6 +460,8 @@
   <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
+  <string name="descPrivate">توضیحات خصوصی</string>
+  <string name="descPrivateHelp">متنی که فقط اعضای تیم مشاهده خواهند کرد. در صورت تعیین، جایگزین توضیحات عمومی برای اعضای تیم خواهد شد.</string>
   <string name="no">نه</string>
   <string name="yes">بله</string>
   <string name="help">راهنما:</string>
@@ -479,6 +482,7 @@
   <string name="cheat">تقلب</string>
   <string name="insult">توهین کردن</string>
   <string name="troll">ترول</string>
+  <string name="ratingManipulation">دستکاری ریتینگ</string>
   <string name="other">موضوعات دیگر</string>
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
@@ -570,6 +574,7 @@
   <string name="error.email_unique">از این آدرس ایمیل قبلاً استفاده شده است</string>
   <string name="error.email_different">این  که در حال حاضر آدرس ایمیل شما است:</string>
   <string name="ifRatingIsPlusMinusX">اگر ریتینگ  %s± بود</string>
+  <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">فهرست</string>
   <string name="castling">قلعه رفتن</string>
@@ -656,6 +661,7 @@
   <string name="printFriendlyPDF">دانلود PDF</string>
   <string name="crosstable">تابلو امتیازات</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان در هنگام ذکر شدن در انجمن</string>
@@ -784,6 +790,7 @@
   </plurals>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
+  <string name="timeoutExpires">تعداد %s به پایان رسیدن زمان.</string>
   <string name="why">چرا؟</string>
   <string name="pleasantChessExperience">هدف ما مهیا ساختن تجربه لذت بخش شطرنج به همه افراد است.</string>
   <string name="goodPractice">به همین منظور، ما باید اطمینان حاصل کنیم که تمام بازیکنان تمرین خوب را دنبال میکنند.</string>
@@ -813,9 +820,35 @@
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
+  <string name="yourQuestionMayHaveBeenAnswered">سوال شما ممکن است که از قبل پاسخی داشته باشد %1$s</string>
   <string name="inTheFAQ">در سوالات متداول باشد.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">برای گزارش دادن یک کاربر به علت تقلب یا بدرفتاری، %1$s</string>
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
+  <string name="toRequestSupport">جهت درخواست پشتیبانی، %1$s</string>
   <string name="tryTheContactPage">با این صفحه ارتباط بگیرید.</string>
+  <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
+  <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
+  <string name="teamNamedX">تیم %1$s</string>
+  <string name="youCannotPostYetPlaySomeGames">شما هنوز قادر به پست گذاشتن در انجمن نیستید. چند بازی انجام دهید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
+  <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
+  <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
+  <string name="invitedYouToX">شما به \"%1$s\" دعوت شده اید.</string>
+  <string name="xInvitedYouToY">%1$s شما را به \"%2$s\" دعوت کرده است.</string>
+  <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
+  <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
+  <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>
+  <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
+  <string name="gameVsX">بازی در برابر %1$s</string>
+  <string name="resVsX">%1$s در برابر %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">شخصی در پروفایل مربیگری شما نظری گذاشت.</string>
+  <string name="newPendingReview">در انتظار بررسی</string>
+  <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
+  <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
+  <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
+  <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
+  <string name="download">دانلود</string>
+  <string name="welcome">خوش آمدید!</string>
+  <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
 </resources>

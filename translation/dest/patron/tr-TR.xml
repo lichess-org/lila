@@ -59,6 +59,7 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="nextPayment">Sonraki ödeme</string>
   <string name="youWillBeChargedXOnY">%2$s tarihinde %1$s ödemeniz olacak.</string>
   <string name="makeAdditionalDonation">Bir bağış daha yap</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Başka bir oyuncu adına Lichess\'i destekle</string>
   <string name="update">Güncelle</string>
   <string name="changeMonthlyAmount">Aylık ücreti değiştir (%s)</string>
   <string name="cancelSupport">desteğini iptal et</string>

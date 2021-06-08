@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessCoaches">Lichess Trainer</string>
-  <string name="lichessCoach">Lichess Trainer</string>
-  <string name="areYouCoach">Bisch en guetä Schachtrainer mitämä %s?</string>
+  <string name="lichessCoaches">Lichess Trääner</string>
+  <string name="lichessCoach">Lichess Trääner</string>
+  <string name="areYouCoach">Bisch en guetä Schachträäner mitämä %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM oder FIDE-Titel</string>
   <string name="confirmTitle">Beschtätigä do din Titäl und mir überprüäfed dini Bewerbig.</string>
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Schick üs ä Mail a %s und mir überprüäfed dini Bewerbig.</string>
@@ -13,7 +13,7 @@
   <string name="availability">Verfüägbarkeit</string>
   <string name="accepting">Nimmt neui Schüäler a</string>
   <string name="notAccepting">Nimmt im Moment kei neui Schüäler a</string>
-  <string name="xCoachesStudents">%s trainiert Schachschüäler</string>
+  <string name="xCoachesStudents">%s träniert Schachschüäler</string>
   <string name="viewXProfile">Lichess-Profil von %s</string>
   <string name="sendPM">Schick ä privati Nochricht</string>
   <string name="aboutMe">Über mi</string>
@@ -30,6 +30,6 @@
   </plurals>
   <string name="thankYouForReview">Merci für dini Bewärtig!</string>
   <string name="xWillApproveIt">%s wird\'s bald freischaltä oder en Moderator wird en Blick druf wärfä.</string>
-  <string name="reviewCoach">Bewärt dä Trainer</string>
-  <string name="describeExperienceWith">Beschryb dini Trainingserfahrig mit %s</string>
+  <string name="reviewCoach">Bewärt dä Trääner</string>
+  <string name="describeExperienceWith">Beschriib dini Träningserfahrig mit %s</string>
 </resources>

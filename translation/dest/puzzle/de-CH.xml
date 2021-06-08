@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Uufgabä</string>
-  <string name="puzzleThemes">Uufgabäthemänä</string>
+  <string name="puzzles">Ufgoobä</string>
+  <string name="puzzleThemes">Ufgoobäthemänä</string>
   <string name="recommended">Empfohlä</string>
   <string name="phases">Phasä</string>
   <string name="motifs">Motiv</string>
@@ -13,12 +13,12 @@
   <string name="specialMoves">Besondere Züge</string>
   <string name="didYouLikeThisPuzzle">Hat dir diese Aufgabe gefallen?</string>
   <string name="voteToLoadNextOne">Stimme ab, um die nächste zu laden!</string>
-  <string name="yourPuzzleRatingX">Deine Taktikwertung: %s</string>
-  <string name="findTheBestMoveForWhite">Finde den besten Zug für Weiß.</string>
+  <string name="yourPuzzleRatingX">Dini Taktikwärtig: %s</string>
+  <string name="findTheBestMoveForWhite">Find dä beschte Zug für Wiis.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
   <string name="puzzleId">Aufgabe %s</string>
-  <string name="puzzleOfTheDay">Uufgab vom Tag</string>
+  <string name="puzzleOfTheDay">Ufgoob vom Tag</string>
   <string name="clickToSolve">Zum Lösen klicken</string>
   <string name="goodMove">Guter Zug</string>
   <string name="bestMove">Bester Zug!</string>
@@ -53,7 +53,7 @@
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
   <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
   <string name="puzzleDashboard">Aufgabenübersicht</string>
-  <string name="improvementAreas">Verbesserungsbereiche</string>
+  <string name="improvementAreas">Värbessärigsbereich</string>
   <string name="strengths">Stärken</string>
   <string name="history">Aufgabenverlauf</string>
   <string name="solved">gelöst</string>
@@ -67,7 +67,7 @@
   <string name="lookupOfPlayer">Suche Aufgaben aus den Partien eines Spielers</string>
   <string name="fromXGames">Aufgaben aus Partien von %s</string>
   <string name="searchPuzzles">Aufgaben suchen</string>
-  <string name="fromMyGamesNone">Es befinden sich keine Aufgaben von dir in der Datenbank, aber Lichess schätzt dich immer noch sehr.
-Spiele schnelle und klassische Partien, um die Chance zu erhöhen, eine Aufgabe von deinen Partien hinzuzufügen!</string>
+  <string name="fromMyGamesNone">Äs befindäd sich kei Ufgoobä vo dir idä Datäbank, aber Lichess schätzt dich immer no sehr.
+Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgoob vo dinä Partiiä hinzuäzfüägä!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
 </resources>

@@ -57,6 +57,7 @@ Edo %s.</string>
   <string name="nextPayment">Hurrengo ordainketa</string>
   <string name="youWillBeChargedXOnY">%1$s kobratuko dizugu egun honetan %2$s.</string>
   <string name="makeAdditionalDonation">Dohaintza gehigarria orain egin</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Oparitu Babeslearen hegoak jokalari bati</string>
   <string name="update">Eguneratu</string>
   <string name="changeMonthlyAmount">Hileroko kopurua aldatu (%s)</string>
   <string name="cancelSupport">zure babesa ezeztatu</string>

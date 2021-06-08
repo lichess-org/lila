@@ -28,6 +28,7 @@
   <string name="onetime">Однократно</string>
   <string name="singleDonation">Одно пожертвование, которое даст вам \"крыло спонсора\"на один месяц.</string>
   <string name="otherAmount">Другое</string>
+  <string name="pleaseEnterAmountInX">Пожалуйста, укажите сумму в %s</string>
   <string name="withCreditCard">Кредитная карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы небольшая команда, поэтому ваша поддержка имеет огромное значение!</string>
@@ -61,6 +62,7 @@
   <string name="nextPayment">Следующий платёж</string>
   <string name="youWillBeChargedXOnY">%2$s с вашего счета будет списано %1$s.</string>
   <string name="makeAdditionalDonation">Сделайте дополнительное пожертвование сейчас</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Подарить «крылья» патрона игроку</string>
   <string name="update">Обновить</string>
   <string name="changeMonthlyAmount">Изменить ежемесячную сумму (%s)</string>
   <string name="cancelSupport">отменить поддержку</string>
