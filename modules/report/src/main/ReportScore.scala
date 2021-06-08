@@ -12,8 +12,7 @@ final private class ReportScore(
         impl.autoScore(candidate)
     } map
       impl.fixedAutoCommPrintScore(candidate) map
-      impl.fixedBoostScore(candidate) map
-      impl.commFlagScore(candidate) map { score =>
+      impl.fixedBoostScore(candidate) map { score =>
         candidate scored Report.Score(score atLeast 5 atMost 100)
       }
 
@@ -39,10 +38,6 @@ final private class ReportScore(
 
     def fixedBoostScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoBoost) baseScore
-      else score
-
-    def commFlagScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isCommFlag) score / 2
       else score
   }
 }

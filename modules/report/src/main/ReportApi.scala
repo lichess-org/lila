@@ -322,8 +322,7 @@ final class ReportApi(
             suspect = suspect,
             reason = Reason.Comm,
             text = text
-          ),
-          score => score atLeast 40
+          )
         )
       case _ => funit
     }

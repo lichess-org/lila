@@ -133,7 +133,6 @@ object Report {
     def isAutoComm           = isAutomatic && isComm
     def isAutoBoost          = isAutomatic && isBoost
     def isCoachReview        = isOther && text.contains("COACH REVIEW")
-    def isCommFlag           = text contains Reason.Comm.flagText
   }
 
   object Candidate {
