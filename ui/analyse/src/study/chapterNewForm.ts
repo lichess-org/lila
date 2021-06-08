@@ -10,6 +10,7 @@ import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './inter
 import { Redraw } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
+import { parseFen } from 'chessops/fen';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -253,6 +254,15 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   attrs: {
                     value: ctrl.root.node.fen,
                     placeholder: noarg('loadAPositionFromFen'),
+                  },
+                  hook: {
+                    insert: vnode => {
+                      const el = vnode.elm as HTMLInputElement;
+                      el.addEventListener('change', () => el.reportValidity());
+                      el.addEventListener('input', _ =>
+                        el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
+                      );
+                    },
                   },
                 }),
               ])
