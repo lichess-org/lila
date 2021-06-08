@@ -15,7 +15,6 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
-    width: 100%;
   }
 
   .metas {
@@ -28,8 +27,6 @@
     @extend %roboto;
 
     font-size: 2.2rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
     margin-bottom: 0.7em;
   }
 
