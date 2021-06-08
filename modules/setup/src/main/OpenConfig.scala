@@ -31,13 +31,13 @@ object OpenConfig {
       v: Option[String],
       cl: Option[Clock.Config],
       rated: Boolean,
-      pos: Option[String]
+      pos: Option[FEN]
   ) =
     new OpenConfig(
       name = n.map(_.trim).filter(_.nonEmpty),
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,
       rated = rated,
-      position = pos map FEN.apply
+      position = pos
     ).autoVariant
 }

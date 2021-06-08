@@ -172,11 +172,18 @@ object Form {
   }
 
   object fen {
-    implicit private val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
-    val playableStrict             = playable(strict = true)
-    def playable(strict: Boolean) = of[FEN](fenFormat)
+    implicit val fenFormat = formatter.stringFormatter[FEN](_.value, FEN.apply)
+    val playableStrict     = playable(strict = true)
+    def playable(strict: Boolean) = of[FEN]
       .transform[FEN](f => FEN(f.value.trim), identity)
       .verifying("Invalid position", fen => (Forsyth <<< fen).exists(_.situation playable strict))
+      .transform[FEN](if (strict) truncateMoveNumber else identity, identity)
+    def truncateMoveNumber(fen: FEN) =
+      (Forsyth <<< fen).fold(fen) { g =>
+        if (g.fullMoveNumber >= 150)
+          Forsyth >> g.copy(fullMoveNumber = g.fullMoveNumber % 100) // keep the start ply low
+        else fen
+      }
   }
 
   def inTheFuture(m: Mapping[DateTime]) =
