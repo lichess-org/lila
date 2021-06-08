@@ -45,7 +45,7 @@ object mini {
         frag(
           (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
             a(
-              dataIcon := "1",
+              dataIcon := "",
               cls := "btn-rack__btn",
               title := trans.watchGames.txt(),
               href := routes.User.tv(u.username)

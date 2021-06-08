@@ -89,7 +89,7 @@ object categ {
         h1(
           a(
             href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := "I",
+            dataIcon := "",
             cls := "text"
           ),
           categ.team.fold(frag(categ.name))(teamIdToName)

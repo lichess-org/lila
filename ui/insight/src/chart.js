@@ -236,7 +236,7 @@ function makeChart(el, data) {
 }
 
 function empty(txt) {
-  return m('div.chart.empty', [m('i[data-icon=7]'), txt]);
+  return m('div.chart.empty', [m('i[data-icon=]'), txt]);
 }
 
 module.exports = function (ctrl) {

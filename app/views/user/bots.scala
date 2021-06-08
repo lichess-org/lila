@@ -75,7 +75,7 @@ object bots {
               playTime.nonEmptyTvPeriod.map { tvPeriod =>
                 p(
                   cls := "text",
-                  dataIcon := "1",
+                  dataIcon := "",
                   st.title := trans.tpTimeSpentOnTV.txt(showPeriod(tvPeriod))
                 )(showPeriod(tvPeriod))
               }

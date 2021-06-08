@@ -173,9 +173,9 @@ lichess.load.then(() => {
       $('body')
         .append(
           '<div id="announce">' +
-            `<a data-icon="g" class="text" href="${url}">${data.name}</a>` +
+            `<a data-icon="" class="text" href="${url}">${data.name}</a>` +
             '<div class="actions">' +
-            `<a class="withdraw text" href="${url}/withdraw" data-icon="Z">Pause</a>` +
+            `<a class="withdraw text" href="${url}/withdraw" data-icon="">Pause</a>` +
             `<a class="text" href="${url}" data-icon="">Resume</a>` +
             '</div></div>'
         )

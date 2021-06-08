@@ -101,7 +101,7 @@ object activity {
 
   private def renderRacer(s: Racer)(implicit ctx: Context) =
     entryTag(
-      iconTag(","),
+      iconTag(""),
       scoreTag(winTag(trans.storm.highscoreX(strong(s.score)))),
       div(
         trans.storm.playedNbRunsOfPuzzleStorm

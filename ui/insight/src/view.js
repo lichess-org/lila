@@ -24,7 +24,7 @@ function cache(view, dataToKey) {
 var renderMain = cache(
   function (ctrl) {
     if (ctrl.vm.broken)
-      return m('div.broken', [m('i[data-icon=j]'), 'Insights are unavailable.', m('br'), 'Please try again later.']);
+      return m('div.broken', [m('i[data-icon=]'), 'Insights are unavailable.', m('br'), 'Please try again later.']);
     if (!ctrl.vm.answer) return;
     return m('div', [chart(ctrl), table.vert(ctrl), boards(ctrl)]);
   },

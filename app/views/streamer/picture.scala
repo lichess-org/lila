@@ -39,7 +39,7 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
               submitButton(cls := "button button-red")(deletePicture())
             ),
           div(cls := "cancel")(
-            a(href := routes.Streamer.edit, cls := "text", dataIcon := "I")(trans.cancel())
+            a(href := routes.Streamer.edit, cls := "text", dataIcon := "")(trans.cancel())
           )
         )
       )

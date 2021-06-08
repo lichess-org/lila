@@ -23,7 +23,7 @@ object topic {
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
-          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "I", cls := "text"),
+          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
           categ.name
         ),
         st.section(cls := "warning")(
@@ -100,7 +100,7 @@ object topic {
         h1(
           a(
             href := routes.ForumCateg.show(categ.slug),
-            dataIcon := "I",
+            dataIcon := "",
             cls := "text"
           ),
           topic.name

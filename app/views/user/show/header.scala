@@ -96,7 +96,7 @@ object header {
             cls := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
-            dataIcon := "1"
+            dataIcon := ""
           ),
           (ctx.isAuth && !ctx.is(u)) option
             views.html.relation.actions(

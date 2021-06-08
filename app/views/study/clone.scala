@@ -26,7 +26,7 @@ object clone {
           )("Clone the study")
         ),
         p(
-          a(href := routes.Study.show(s.id.value), cls := "text", dataIcon := "I")(trans.cancel())
+          a(href := routes.Study.show(s.id.value), cls := "text", dataIcon := "")(trans.cancel())
         )
       )
     }

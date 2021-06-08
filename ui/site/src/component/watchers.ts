@@ -14,7 +14,7 @@ export default function watchers(element: HTMLElement) {
 
   $element.data('watched', 1);
   const $innerElement = $('<div class="chat__members__inner">').appendTo($element);
-  const $numberEl = $('<div class="chat__members__number" data-icon="r" title="Spectators"></div>').appendTo(
+  const $numberEl = $('<div class="chat__members__number" data-icon="" title="Spectators"></div>').appendTo(
     $innerElement
   );
   const $listEl = $('<div>').appendTo($innerElement);
