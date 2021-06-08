@@ -19,7 +19,7 @@ object teacherDashboard {
     bits.layout(c.name, Left(c withStudents students.map(_.student)))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
-        h1(dataIcon := "f", cls := "text")(c.name),
+        h1(dataIcon := "", cls := "text")(c.name),
         st.nav(cls := "dashboard-nav")(
           a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))("Overview"),
           a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))("News"),

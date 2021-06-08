@@ -63,7 +63,7 @@ object student {
 
   private def top(clas: Clas, s: Student.WithUser)(implicit ctx: Context) =
     div(cls := "student-show__top")(
-      h1(dataIcon := "r")(
+      h1(dataIcon := "")(
         span(
           strong(s.user.username),
           em(s.student.realName)

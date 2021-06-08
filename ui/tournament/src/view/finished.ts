@@ -56,7 +56,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
         'a.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/api/tournament/${data.id}/games`,
             download: true,
           },
@@ -67,7 +67,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
         'a.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/api/tournament/${data.id}/results`,
             download: true,
           },
@@ -78,7 +78,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
         'a.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/api/tournament/${data.id}/results?as=csv`,
             download: true,
           },

@@ -241,7 +241,7 @@ function controls(ctrl: AnalyseCtrl) {
                     attrs: {
                       title: noarg('openingExplorerAndTablebase'),
                       'data-act': 'explorer',
-                      'data-icon': ']',
+                      'data-icon': '',
                     },
                     class: {
                       hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
@@ -276,7 +276,7 @@ function controls(ctrl: AnalyseCtrl) {
             attrs: {
               title: noarg('menu'),
               'data-act': 'menu',
-              'data-icon': '[',
+              'data-icon': '',
             },
           }),
     ]
@@ -414,7 +414,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                           {
                             attrs: {
                               href: router.game(ctrl.data, ctrl.data.player.color),
-                              'data-icon': 'i',
+                              'data-icon': '',
                             },
                           },
                           ctrl.trans.noarg('backToGame')

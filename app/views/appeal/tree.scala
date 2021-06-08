@@ -264,7 +264,7 @@ object tree {
               "Read more about the appeal process"
             )
           ),
-          p(a(cls := "text", dataIcon := "x", href := routes.Account.data)("Export personal data"))
+          p(a(cls := "text", dataIcon := "", href := routes.Account.data)("Export personal data"))
         )
       )
     }

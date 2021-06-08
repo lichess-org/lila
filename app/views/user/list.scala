@@ -70,7 +70,7 @@ object list {
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(implicit ctx: Context) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := "g")(
+      h2(cls := "text", dataIcon := "")(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
       ol(winners take 10 map { w =>

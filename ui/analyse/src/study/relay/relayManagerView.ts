@@ -57,7 +57,7 @@ function renderLog(ctrl: RelayCtrl) {
         'div' + (err ? '.err' : ''),
         {
           key: e.at,
-          attrs: dataIcon(err ? 'j' : ''),
+          attrs: dataIcon(err ? '' : ''),
         },
         [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter(new Date(e.at)))])]
       );

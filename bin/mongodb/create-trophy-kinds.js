@@ -18,7 +18,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonWinner',
   name: 'Marathon Winner',
-  icon: '\\',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(3),
   withCustomImage: false,
@@ -26,7 +26,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonTopTen',
   name: 'Marathon Top 10',
-  icon: '\\',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(4),
   withCustomImage: false,
@@ -34,7 +34,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonTopFifty',
   name: 'Marathon Top 50',
-  icon: '\\',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(5),
   withCustomImage: false,
@@ -42,7 +42,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonTopHundred',
   name: 'Marathon Top 100',
-  icon: '\\',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(6),
   withCustomImage: false,

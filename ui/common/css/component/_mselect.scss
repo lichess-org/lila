@@ -22,7 +22,7 @@ $c-mselect: $c-primary;
     &::after {
       @extend %data-icon;
 
-      content: 'u';
+      content: '';
       font-size: 70%;
       color: $c-mselect;
     }

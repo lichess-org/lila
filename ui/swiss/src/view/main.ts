@@ -135,7 +135,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       {
         attrs: {
           href: '/login?referrer=' + window.location.pathname,
-          'data-icon': 'G',
+          'data-icon': '',
         },
       },
       ctrl.trans('signIn')
@@ -147,7 +147,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       {
         attrs: {
           href: `/team/${d.joinTeam}`,
-          'data-icon': 'f',
+          'data-icon': '',
         },
       },
       'Join the team'
@@ -159,7 +159,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       : h(
           'button.fbt.text.highlight',
           {
-            attrs: dataIcon('G'),
+            attrs: dataIcon(''),
             hook: bind(
               'click',
               _ => {
@@ -181,7 +181,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
         : h(
             'button.fbt.text.highlight',
             {
-              attrs: dataIcon('G'),
+              attrs: dataIcon(''),
               hook: bind('click', _ => ctrl.join(), ctrl.redraw),
             },
             ctrl.trans.noarg('join')
@@ -191,7 +191,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
       : h(
           'button.fbt.text',
           {
-            attrs: dataIcon('b'),
+            attrs: dataIcon(''),
             hook: bind('click', ctrl.withdraw, ctrl.redraw),
           },
           ctrl.trans.noarg('withdraw')
@@ -254,7 +254,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': 'x',
+                'data-icon': '',
                 href: `/swiss/${ctrl.data.id}.trf`,
                 download: true,
               },
@@ -265,7 +265,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': 'x',
+                'data-icon': '',
                 href: `/api/swiss/${ctrl.data.id}/games`,
                 download: true,
               },
@@ -276,7 +276,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': 'x',
+                'data-icon': '',
                 href: `/api/swiss/${ctrl.data.id}/results`,
                 download: true,
               },
@@ -287,7 +287,7 @@ function stats(ctrl: SwissCtrl): VNode | undefined {
             'a.text',
             {
               attrs: {
-                'data-icon': 'x',
+                'data-icon': '',
                 href: `/api/swiss/${ctrl.data.id}/results?as=csv`,
                 download: true,
               },

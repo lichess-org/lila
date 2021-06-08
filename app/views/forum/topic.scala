@@ -142,10 +142,10 @@ object topic {
                 cls := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")(
+                button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
                   trans.subscribe()
                 ),
-                button(cls := "button button-empty text off", dataIcon := "v", bits.dataUnsub := "on")(
+                button(cls := "button button-empty text off", dataIcon := "", bits.dataUnsub := "on")(
                   trans.unsubscribe()
                 )
               )

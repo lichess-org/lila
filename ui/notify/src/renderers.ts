@@ -15,7 +15,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     mention: {
       html: n =>
-        generic(n, '/forum/redirect/post/' + n.content.postId, 'd', [
+        generic(n, '/forum/redirect/post/' + n.content.postId, '', [
           h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
           h('span', trans('mentionedYouInX', n.content.topic)),
         ]),
@@ -39,7 +39,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     teamJoined: {
       html: n =>
-        generic(n, '/team/' + n.content.id, 'f', [
+        generic(n, '/team/' + n.content.id, '', [
           h('span', [h('strong', n.content.name), drawTime(n)]),
           h('span', trans.noarg('youAreNowPartOfTeam')),
         ]),
@@ -47,7 +47,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     titledTourney: {
       html: n =>
-        generic(n, '/tournament/' + n.content.id, 'g', [
+        generic(n, '/tournament/' + n.content.id, '', [
           h('span', [h('strong', 'Lichess Titled Arena'), drawTime(n)]),
           h('span', n.content.text),
         ]),

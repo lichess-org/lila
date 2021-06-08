@@ -52,7 +52,7 @@ object mini {
             ),
             !blocked option frag(
               a(
-                dataIcon := "c",
+                dataIcon := "",
                 cls := "btn-rack__btn",
                 title := trans.chat.txt(),
                 href := routes.Msg.convo(u.username)

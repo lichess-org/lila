@@ -79,7 +79,7 @@ const editor = (ctrl: Controller): VNode => {
                         h(
                           'div.puzzle__themes__lock',
                           h('i', {
-                            attrs: dataIcon('a'),
+                            attrs: dataIcon(''),
                           })
                         ),
                       ]

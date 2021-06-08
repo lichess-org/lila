@@ -233,7 +233,7 @@ object mod {
             strong(
               a(
                 cls := "text",
-                dataIcon := "j",
+                dataIcon := "",
                 href := lila.common.String.base64
                   .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
               )("BOT-COMPATIBLE SETTINGS")
@@ -379,7 +379,7 @@ object mod {
   ): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
-        p(cls := "text", dataIcon := "j")(
+        p(cls := "text", dataIcon := "")(
           "ACPL in games with blurs is ",
           strong(blursYes._1),
           " [",
@@ -401,7 +401,7 @@ object mod {
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
-        p(cls := "text", dataIcon := "j")(
+        p(cls := "text", dataIcon := "")(
           "ACPL in games with consistent move times is ",
           strong(lowVar._1),
           " [",
@@ -423,7 +423,7 @@ object mod {
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
-        p(cls := "text", dataIcon := "j")(
+        p(cls := "text", dataIcon := "")(
           "ACPL in games with bot signature ",
           strong(holdYes._1),
           " [",
@@ -472,7 +472,7 @@ object mod {
                 td(
                   pag.pov(result).map { p =>
                     a(href := routes.Round.watcher(p.gameId, p.color.name))(
-                      p.game.isTournament option iconTag("g"),
+                      p.game.isTournament option iconTag(""),
                       p.game.perfType.map { pt =>
                         iconTag(pt.iconChar)(cls := "text")
                       },
@@ -514,15 +514,15 @@ object mod {
   private val sortNumberTh    = th(attr("data-sort-method") := "number")
   private val dataSort        = attr("data-sort")
   private val dataTags        = attr("data-tags")
-  private val playban         = iconTag("p")
+  private val playban         = iconTag("")
   private val alt: Frag       = i("A")
-  private val shadowban: Frag = iconTag("c")
+  private val shadowban: Frag = iconTag("")
   private val boosting: Frag  = iconTag("")
-  private val engine: Frag    = iconTag("n")
-  private val closed: Frag    = iconTag("k")
-  private val clean: Frag     = iconTag("r")
+  private val engine: Frag    = iconTag("")
+  private val closed: Frag    = iconTag("")
+  private val clean: Frag     = iconTag("")
   private val reportban       = iconTag("")
-  private val notesText       = iconTag("m")
+  private val notesText       = iconTag("")
   private def markTd(nb: Int, content: => Frag) =
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td

@@ -5,11 +5,11 @@
     }
 
     &.black::before {
-      content: 'J';
+      content: '';
     }
   } @else {
     &.white::before {
-      content: 'J';
+      content: '';
     }
 
     &.black::before {
@@ -18,6 +18,6 @@
   }
 
   &.random::before {
-    content: 'l';
+    content: '';
   }
 }

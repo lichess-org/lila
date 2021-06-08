@@ -611,7 +611,7 @@ export default class RoundController {
     this.goneBerserk[color] = true;
     if (color !== this.data.player.color) lichess.sound.play('berserk');
     this.redraw();
-    $('<i data-icon="`">').appendTo($(`.game__meta .player.${color} .user-link`));
+    $('<i data-icon="">').appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
   setLoading = (v: boolean, duration = 1500) => {

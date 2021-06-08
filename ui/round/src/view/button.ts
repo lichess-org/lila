@@ -143,7 +143,7 @@ const fbtCancel = (ctrl: RoundController, f: (v: boolean) => void) =>
 export const resignConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
     h('button.fbt.yes', {
-      attrs: { title: ctrl.noarg('resign'), 'data-icon': 'b' },
+      attrs: { title: ctrl.noarg('resign'), 'data-icon': '' },
       hook: util.bind('click', () => ctrl.resign(true)),
     }),
     fbtCancel(ctrl, ctrl.resign),

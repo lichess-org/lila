@@ -43,7 +43,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'a.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: dataIcon('v'),
+          attrs: dataIcon(''),
           hook: bind(
             'click',
             () => {

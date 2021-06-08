@@ -39,7 +39,7 @@ const renderContinue = (ctrl: Controller) =>
     {
       hook: bind('click', ctrl.nextPuzzle),
     },
-    [h('i', { attrs: dataIcon('G') }), ctrl.trans.noarg('continueTraining')]
+    [h('i', { attrs: dataIcon('') }), ctrl.trans.noarg('continueTraining')]
   );
 
 const renderStreak = (ctrl: Controller): MaybeVNodes => [
@@ -52,7 +52,7 @@ const renderStreak = (ctrl: Controller): MaybeVNodes => [
     {
       attrs: { href: '/streak' },
     },
-    [h('i', { attrs: dataIcon('G') }), ctrl.trans('newStreak')]
+    [h('i', { attrs: dataIcon('') }), ctrl.trans('newStreak')]
   ),
 ];
 

@@ -14,7 +14,7 @@ object bits {
       case _ if game.fromPosition         => ''
       case _ if game.imported             => ''
       case Some(p) if game.variant.exotic => p.iconChar
-      case _ if game.hasAi                => 'n'
+      case _ if game.hasAi                => ''
       case Some(p)                        => p.iconChar
       case _                              => ''
     }

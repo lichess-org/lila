@@ -61,7 +61,7 @@ object leaderboard {
 
       def marathonWinners =
         section(
-          h2(cls := "text", dataIcon := "\\")("Marathon"),
+          h2(cls := "text", dataIcon := "")("Marathon"),
           ul(
             winners.marathon.map { w =>
               li(

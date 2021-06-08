@@ -177,14 +177,14 @@ object Tv {
     case object Bot
         extends Channel(
           name = "Bot",
-          icon = "n",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case object Computer
         extends Channel(
           name = "Computer",
-          icon = "n",
+          icon = "",
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )

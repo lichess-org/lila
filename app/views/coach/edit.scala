@@ -64,7 +64,7 @@ object edit {
               a(
                 href := routes.Coach.show(c.user.username),
                 cls := "button button-empty text",
-                dataIcon := "v"
+                dataIcon := ""
               )("Preview coach page")
             )
           )

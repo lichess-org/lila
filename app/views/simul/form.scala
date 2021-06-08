@@ -30,7 +30,7 @@ object form {
           formContent(form, teams, none),
           form3.actions(
             a(href := routes.Simul.home)(trans.cancel()),
-            form3.submit(trans.hostANewSimul(), icon = "g".some)
+            form3.submit(trans.hostANewSimul(), icon = "".some)
           )
         )
       )
@@ -50,11 +50,11 @@ object form {
           formContent(form, teams, simul.some),
           form3.actions(
             a(href := routes.Simul.show(simul.id))(trans.cancel()),
-            form3.submit(trans.save(), icon = "g".some)
+            form3.submit(trans.save(), icon = "".some)
           )
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-          submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+          submitButton(dataIcon := "", cls := "text button button-red confirm")(
             "Cancel the simul"
           )
         )

@@ -92,7 +92,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
             'a.button.text',
             {
               class: { active: !!ctrl.retro },
-              attrs: dataIcon('G'),
+              attrs: dataIcon(''),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
             ctrl.trans.noarg('learnFromYourMistakes')

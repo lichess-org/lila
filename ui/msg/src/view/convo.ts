@@ -40,7 +40,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           ? h(
               'div.msg-app__convo__reply__block.text',
               {
-                attrs: { 'data-icon': 'k' },
+                attrs: { 'data-icon': '' },
               },
               'This conversation is blocked.'
             )
@@ -49,7 +49,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           : h(
               'div.msg-app__convo__reply__block.text',
               {
-                attrs: { 'data-icon': 'k' },
+                attrs: { 'data-icon': '' },
               },
               `${user.name} doesn't accept new messages.`
             ),

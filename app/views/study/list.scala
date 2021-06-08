@@ -149,7 +149,7 @@ object list {
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value),
-      submitButton(cls := "button", dataIcon := "y")
+      submitButton(cls := "button", dataIcon := "")
     )
 
   private def layout(

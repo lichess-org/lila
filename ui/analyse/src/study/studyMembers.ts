@@ -201,7 +201,7 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
       },
-      [iconTag(contrib ? 'r' : 'v')]
+      [iconTag(contrib ? '' : '')]
     );
   }
 

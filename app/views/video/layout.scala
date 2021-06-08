@@ -42,7 +42,7 @@ object layout {
             if (control.filter.tags.nonEmpty)
               a(cls := "button button-empty", href := routes.Video.index)("Clear search")
             else
-              a(dataIcon := "o", href := routes.Video.tags)("View more tags")
+              a(dataIcon := "", href := routes.Video.tags)("View more tags")
           )
         ),
         div(cls := "page-menu__content box")(body)

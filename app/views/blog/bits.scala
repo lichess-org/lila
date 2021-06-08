@@ -38,13 +38,13 @@ object bits {
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>
-          span(cls := "text", dataIcon := "p")(semanticDate(date.value.toDateTimeAtStartOfDay))
+          span(cls := "text", dataIcon := "")(semanticDate(date.value.toDateTimeAtStartOfDay))
         },
         doc.getText("blog.author").map { author =>
-          span(cls := "text", dataIcon := "r")(richText(author))
+          span(cls := "text", dataIcon := "")(richText(author))
         },
         doc.getText("blog.category").map { categ =>
-          span(cls := "text", dataIcon := "t")(categ)
+          span(cls := "text", dataIcon := "")(categ)
         }
       ),
       strong(cls := "headline")(doc.getHtml("blog.shortlede", prismic.linkResolver).map(raw))

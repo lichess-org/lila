@@ -122,7 +122,7 @@ object layout {
 <a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
       .txt()}</a>""")
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
+  private val clinputLink = a(cls := "link")(span(dataIcon := ""))
 
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
@@ -341,7 +341,7 @@ object layout {
           cls := "link data-count link-center",
           href := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon := "f",
+          dataIcon := "",
           title := trans.team.teams.txt()
         )
 

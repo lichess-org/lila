@@ -75,7 +75,7 @@ object filter {
           )
         ),
         div(cls := "actions")(
-          button(tpe := "reset", cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
+          button(tpe := "reset", cls := "button button-empty button-red text reset", dataIcon := "")(trans.reset()),
           submitButton(cls := "button button-green text apply", dataIcon := "")(trans.apply())
         )
       )

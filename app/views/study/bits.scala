@@ -55,7 +55,7 @@ object bits {
           tag(cls := "study-name")(s.study.name.value),
           span(
             !s.study.isPublic option frag(
-              iconTag("a")(cls := "private", ariaTitle(trans.study.`private`.txt())),
+              iconTag("")(cls := "private", ariaTitle(trans.study.`private`.txt())),
               " "
             ),
             iconTag(if (s.liked) "" else ""),
@@ -78,7 +78,7 @@ object bits {
           s.study.members.members.values
             .take(4)
             .map { m =>
-              li(cls := "text", dataIcon := (if (m.canContribute) "" else "v"))(usernameOrId(m.id))
+              li(cls := "text", dataIcon := (if (m.canContribute) "" else ""))(usernameOrId(m.id))
             }
             .toList
         )

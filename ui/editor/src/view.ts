@@ -221,7 +221,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button.button-empty.text',
               {
-                attrs: { 'data-icon': 'q' },
+                attrs: { 'data-icon': '' },
                 on: {
                   click() {
                     ctrl.setFen(EMPTY_FEN);

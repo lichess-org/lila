@@ -1,6 +1,6 @@
 export const perf = {
   icons: {
-    ultraBullet: '{',
+    ultraBullet: '',
     bullet: '',
     blitz: '',
     rapid: '',
@@ -11,6 +11,6 @@ export const perf = {
     threeCheck: '',
     antichess: '',
     atomic: '',
-    horde: '_',
+    horde: '',
   },
 };

@@ -140,7 +140,7 @@ object inquiry {
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
-          iconTag("e"),
+          iconTag(""),
           div(
             env.mod.presets.pmPresets.get().value.map { preset =>
               postForm(action := routes.Mod.warn(in.user.username, preset.name))(
@@ -154,7 +154,7 @@ object inquiry {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
             postForm(action := url, title := "Mark as cheat")(
-              markButton(in.user.marks.engine)(dataIcon := "n"),
+              markButton(in.user.marks.engine)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -178,7 +178,7 @@ object inquiry {
               title := (if (in.user.marks.troll) "Un-shadowban" else "Shadowban"),
               cls := "main"
             )(
-              markButton(in.user.marks.troll)(dataIcon := "c"),
+              markButton(in.user.marks.troll)(dataIcon := ""),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -195,7 +195,7 @@ object inquiry {
           )
         },
         div(cls := "dropper more buttons")(
-          iconTag("u"),
+          iconTag(""),
           isGranted(_.NotifySlack) option div(
             postForm(action := routes.Mod.notifySlack(in.user.id))(
               submitButton(cls := "fbt")("Notify Slack")

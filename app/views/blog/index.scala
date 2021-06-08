@@ -85,7 +85,7 @@ object index {
             a(
               cls := "button",
               href := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := "G"
+              dataIcon := ""
             )(
               " Continue reading this post"
             )

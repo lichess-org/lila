@@ -162,7 +162,7 @@ object crud {
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
                 td(showDateTimeUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
-                td(a(href := routes.Tournament.show(tour.id), dataIcon := "v", title := "View on site"))
+                td(a(href := routes.Tournament.show(tour.id), dataIcon := "", title := "View on site"))
               )
             },
             pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)

@@ -18,7 +18,7 @@ export default function (ctrl: DasherCtrl): VNode {
             noarg('profile')
           ),
 
-          h('a.text', linkCfg('/inbox', 'e'), noarg('inbox')),
+          h('a.text', linkCfg('/inbox', ''), noarg('inbox')),
 
           h(
             'a.text',
@@ -45,7 +45,7 @@ export default function (ctrl: DasherCtrl): VNode {
                 {
                   attrs: {
                     type: 'submit',
-                    'data-icon': 'w',
+                    'data-icon': '',
                   },
                 },
                 noarg('logOut')

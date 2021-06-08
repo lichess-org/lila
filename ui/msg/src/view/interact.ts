@@ -24,7 +24,7 @@ export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
         class: { connected },
         attrs: {
           type: 'submit',
-          'data-icon': 'G',
+          'data-icon': '',
           disabled: !connected,
         },
       }),

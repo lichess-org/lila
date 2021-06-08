@@ -58,7 +58,7 @@ object side {
             )
           }
         ),
-        iconTag("G")
+        iconTag("")
       )
     }
 
@@ -92,7 +92,7 @@ object side {
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(implicit lang: Lang) =
     a(
-      dataIcon := '~',
+      dataIcon := '',
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -107,7 +107,7 @@ object side {
           )
         )
       ),
-      iconTag("G")
+      iconTag("")
     )
 
   private def showRacer(racer: lila.rating.Perf.Racer, user: User)(implicit lang: Lang) =
@@ -127,7 +127,7 @@ object side {
           )
         )
       ),
-      iconTag("G")
+      iconTag("")
     )
 
   private def showStreak(streak: lila.rating.Perf.Streak, user: User)(implicit lang: Lang) =
@@ -147,6 +147,6 @@ object side {
           )
         )
       ),
-      iconTag("G")
+      iconTag("")
     )
 }

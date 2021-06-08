@@ -85,7 +85,7 @@ object form {
             )
           ),
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+            submitButton(dataIcon := "", cls := "text button button-red confirm")(
               "Cancel the tournament"
             )
           )

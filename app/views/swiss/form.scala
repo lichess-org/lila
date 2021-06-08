@@ -40,7 +40,7 @@ object form {
             form3.globalError(form),
             form3.actions(
               a(href := routes.Team.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "g".some)
+              form3.submit(trans.createANewTournament(), icon = "".some)
             )
           )
         )
@@ -75,11 +75,11 @@ object form {
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id.value))(trans.cancel()),
-              form3.submit(trans.save(), icon = "g".some)
+              form3.submit(trans.save(), icon = "".some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
-            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+            submitButton(dataIcon := "", cls := "text button button-red confirm")(
               "Cancel the tournament"
             )
           )

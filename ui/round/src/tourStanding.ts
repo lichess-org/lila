@@ -29,7 +29,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
             ? h(
                 'h3.text',
                 {
-                  attrs: { 'data-icon': 'f' },
+                  attrs: { 'data-icon': '' },
                 },
                 team.name
               )

@@ -53,7 +53,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
           {
             attrs: {
               type: 'submit',
-              'data-icon': 'q',
+              'data-icon': '',
             },
           },
           ctrl.trans.noarg('delete')
@@ -183,7 +183,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             {
               attrs: {
                 href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
-                'data-icon': 'm',
+                'data-icon': '',
                 ...(ctrl.embed
                   ? {
                       target: '_blank',

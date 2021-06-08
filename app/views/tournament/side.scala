@@ -91,7 +91,7 @@ object side {
             }
           )
         ),
-        tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
+        tour.noBerserk option div(cls := "text", dataIcon := "")("No Berserk allowed"),
         tour.noStreak option div(cls := "text", dataIcon := "")("No Arena streaks"),
         !tour.isScheduled && tour.description.isEmpty option frag(
           trans.by(userIdLink(tour.createdBy.some)),
@@ -122,7 +122,7 @@ object side {
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
     st.section(cls := "team-battle")(
-      p(cls := "team-battle__title text", dataIcon := "f")(
+      p(cls := "team-battle__title text", dataIcon := "")(
         s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
         (ctx.userId.has(tour.createdBy) || isGranted(_.ManageTournament)) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag(""))

@@ -110,7 +110,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
           return h(
             'a.text',
             {
-              attrs: { 'data-icon': 'p' },
+              attrs: { 'data-icon': '' },
               hook: bind('click', () => ctrl.timeout(r, data.text)),
             },
             r.name
@@ -122,7 +122,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
         h(
           'a.text',
           {
-            attrs: { 'data-icon': 'p' },
+            attrs: { 'data-icon': '' },
             hook: bind('click', () => ctrl.timeout(ctrl.reasons[0], data.text)),
           },
           'Timeout 15 minutes'

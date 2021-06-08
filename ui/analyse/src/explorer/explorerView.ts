@@ -181,7 +181,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             h(
               'a.text',
               {
-                attrs: dataIcon('v'),
+                attrs: dataIcon(''),
                 hook: bind('click', _ => openGame(ctrl, game.id)),
               },
               'View'
@@ -191,7 +191,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                   h(
                     'a.text',
                     {
-                      attrs: dataIcon('c'),
+                      attrs: dataIcon(''),
                       hook: bind('click', _ => send(false), ctrl.redraw),
                     },
                     'Cite'

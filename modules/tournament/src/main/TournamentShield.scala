@@ -130,7 +130,7 @@ object TournamentShield {
     case object UltraBullet
         extends Category(
           of = Left(Schedule.Speed.UltraBullet),
-          iconChar = '{'
+          iconChar = ''
         )
 
     case object HyperBullet
@@ -202,7 +202,7 @@ object TournamentShield {
     case object Horde
         extends Category(
           of = Right(chess.variant.Horde),
-          iconChar = '_'
+          iconChar = ''
         )
 
     case object RacingKings

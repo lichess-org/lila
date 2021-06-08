@@ -29,7 +29,7 @@ object PerfType {
         key = "ultraBullet",
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
-        iconChar = '{'
+        iconChar = ''
       )
 
   case object Bullet
@@ -137,7 +137,7 @@ object PerfType {
         key = "horde",
         name = chess.variant.Horde.name,
         title = "Horde variant",
-        iconChar = '_'
+        iconChar = ''
       )
 
   case object RacingKings

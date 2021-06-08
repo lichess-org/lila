@@ -44,8 +44,8 @@ lichess.studyTour = function (study) {
       {
         title: 'Study members',
         text:
-          "<i data-icon='v'></i> Spectators can view the study and talk in the chat.<br>" +
-          "<br><i data-icon='r'></i> Contributors can make moves and update the study.",
+          "<i data-icon=''></i> Spectators can view the study and talk in the chat.<br>" +
+          "<br><i data-icon=''></i> Contributors can make moves and update the study.",
         attachTo: '.study__members right',
         when: onTab('members'),
       },
@@ -76,7 +76,7 @@ lichess.studyTour = function (study) {
         ? {
             title: 'Comment on a position',
             text:
-              "With the <i data-icon='c'></i> button, or a right click on the move list on the right.<br>" +
+              "With the <i data-icon=''></i> button, or a right click on the move list on the right.<br>" +
               'Comments are shared and persisted.',
             attachTo: '.study__buttons .left-buttons .comments top',
           }

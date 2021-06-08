@@ -14,7 +14,7 @@ object bits {
   def link(swissId: Swiss.Id): Frag = link(swissId, idToName(swissId))
   def link(swissId: Swiss.Id, name: String): Frag =
     a(
-      dataIcon := "g",
+      dataIcon := "",
       cls := "text",
       href := routes.Swiss.show(swissId.value).url
     )(name)
@@ -64,7 +64,7 @@ object bits {
             td(cls := "infos")(
               momentFromNowOnce(s.startsAt)
             ),
-            td(cls := "text", dataIcon := "r")(s.nbPlayers.localize)
+            td(cls := "text", dataIcon := "")(s.nbPlayers.localize)
           )
         }
       )

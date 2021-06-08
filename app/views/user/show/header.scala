@@ -82,7 +82,7 @@ object header {
               cls := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
-              dataIcon := "k"
+              dataIcon := ""
             )
           ),
           isGranted(_.UserModView) option
@@ -109,7 +109,7 @@ object header {
             cls := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
-            dataIcon := "x"
+            dataIcon := ""
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
@@ -164,7 +164,7 @@ object header {
                     submitButton(
                       cls := "button-empty button-red confirm button text",
                       style := "float:right",
-                      dataIcon := "q"
+                      dataIcon := ""
                     )("Delete")
                   )
                 )
@@ -188,7 +188,7 @@ object header {
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon := "j", cls := "is4"),
+                    span(dataIcon := "", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),

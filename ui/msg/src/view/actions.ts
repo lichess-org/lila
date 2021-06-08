@@ -23,7 +23,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.text.hover-text`, {
         key: 'unblock',
         attrs: {
-          'data-icon': 'k',
+          'data-icon': '',
           title: ctrl.trans.noarg('blocked'),
           'data-hover-text': ctrl.trans.noarg('unblock'),
         },
@@ -35,7 +35,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'block',
         attrs: {
-          'data-icon': 'k',
+          'data-icon': '',
           title: ctrl.trans.noarg('block'),
         },
         hook: bind('click', withConfirm(ctrl.block)),
@@ -45,7 +45,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     h(`button.${cls}.bad`, {
       key: 'delete',
       attrs: {
-        'data-icon': 'q',
+        'data-icon': '',
         title: ctrl.trans.noarg('delete'),
       },
       hook: bind('click', withConfirm(ctrl.delete)),

@@ -112,7 +112,7 @@ object event {
                   showDateTimeUTC(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
-                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := "v"))
+                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := ""))
               )
             }
           )

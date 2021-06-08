@@ -115,7 +115,7 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
       h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
         attrs: {
-          'data-icon': 'v',
+          'data-icon': '',
           href: '/' + c.id,
           title: trans('viewInFullSize'),
         },

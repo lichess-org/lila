@@ -170,7 +170,7 @@ function renderTournament(ctrl, tour) {
             ? h(
                 'span.nb-players',
                 {
-                  attrs: { 'data-icon': 'r' },
+                  attrs: { 'data-icon': '' },
                 },
                 tour.nbPlayers
               )

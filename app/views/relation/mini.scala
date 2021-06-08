@@ -18,7 +18,7 @@ object mini {
       case None if followable && !blocked =>
         a(
           cls := "btn-rack__btn relation-button text",
-          dataIcon := "h",
+          dataIcon := "",
           href := s"${routes.Relation.follow(userId)}?mini=1"
         )(trans.follow())
       case Some(true) =>
@@ -26,14 +26,14 @@ object mini {
           cls := "btn-rack__btn relation-button text",
           title := trans.unfollow.txt(),
           href := s"${routes.Relation.unfollow(userId)}?mini=1",
-          dataIcon := "h"
+          dataIcon := ""
         )(trans.following())
       case Some(false) =>
         a(
           cls := "btn-rack__btn relation-button text",
           title := trans.unblock.txt(),
           href := s"${routes.Relation.unblock(userId)}?mini=1",
-          dataIcon := "k"
+          dataIcon := ""
         )(trans.blocked())
       case _ => emptyFrag
     }
