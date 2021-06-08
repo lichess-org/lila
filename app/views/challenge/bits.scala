@@ -31,10 +31,7 @@ object bits {
     div(cls := "details")(
       div(cls := "variant", dataIcon := (if (c.initialFen.isDefined) '*' else c.perfType.iconChar))(
         div(
-          if (c.variant.exotic)
-            views.html.game.bits.variantLink(c.variant, variantName(c.variant))
-          else
-            c.perfType.trans,
+          views.html.game.bits.variantLink(c.variant, c.perfType.some),
           br,
           span(cls := "clock")(
             c.daysPerTurn map { days =>

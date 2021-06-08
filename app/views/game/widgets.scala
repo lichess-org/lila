@@ -34,8 +34,7 @@ object widgets {
                       frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    if (g.variant.exotic) bits.variantLink(g.variant, g.variant.name.toUpperCase)
-                    else g.variant.name.toUpperCase
+                    bits.variantLink(g.variant)
                   )
                 else
                   frag(
