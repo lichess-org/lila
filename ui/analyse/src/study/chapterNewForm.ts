@@ -255,15 +255,12 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                     value: ctrl.root.node.fen,
                     placeholder: noarg('loadAPositionFromFen'),
                   },
-                  hook: {
-                    insert: vnode => {
-                      const el = vnode.elm as HTMLInputElement;
-                      el.addEventListener('change', () => el.reportValidity());
-                      el.addEventListener('input', _ =>
-                        el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
-                      );
-                    },
-                  },
+                  hook: onInsert((el: HTMLInputElement) => {
+                    el.addEventListener('change', () => el.reportValidity());
+                    el.addEventListener('input', _ =>
+                      el.setCustomValidity(parseFen(el.value.trim()).isOk ? '' : 'Invalid FEN')
+                    );
+                  }),
                 }),
               ])
             : null,
