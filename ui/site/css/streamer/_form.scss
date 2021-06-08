@@ -5,17 +5,24 @@ $mq-picture: $mq-large;
 .streamer-edit {
   .streamer-header {
     margin-bottom: 2em;
+    flex-direction: column;
+
+    @include breakpoint($mq-picture) {
+      flex-direction: row;
+    }
 
     .picture-create {
       @extend %flex-center;
 
       justify-content: center;
-      width: 300px;
-      height: 300px;
-      display: none;
+      display: flex;
+      margin-top: 40px;
+      margin-bottom: 10px;
 
       @include breakpoint($mq-picture) {
-        display: flex;
+        margin: 0;
+        width: 300px;
+        height: 300px;
       }
     }
 
@@ -24,12 +31,8 @@ $mq-picture: $mq-large;
       margin: 100px 30px 0 30px;
     }
 
-    .picture {
-      display: none;
-
-      @include breakpoint($mq-picture) {
-        display: block;
-      }
+    .picture-edit {
+      text-align: center;
     }
   }
 
