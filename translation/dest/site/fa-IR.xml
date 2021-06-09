@@ -41,7 +41,7 @@
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
   <string name="makeYourOpponentResign">ادعای پیروزی کنید</string>
-  <string name="forceResignation">ادعای پیروزی</string>
+  <string name="forceResignation">ادعای برد</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
@@ -851,4 +851,5 @@
   <string name="download">دانلود</string>
   <string name="welcome">خوش آمدید!</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">تنظیمات مربی</string>
 </resources>
