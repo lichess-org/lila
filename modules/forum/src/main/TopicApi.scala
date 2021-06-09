@@ -1,12 +1,15 @@
 package lila.forum
 
 import actorApi._
+import scala.concurrent.duration._
+
 import lila.common.Bus
 import lila.common.paginator._
 import lila.common.String.noShouting
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
+import lila.memo.CacheApi
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ Holder, User }
 
@@ -19,7 +22,8 @@ final private[forum] class TopicApi(
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
@@ -43,6 +47,19 @@ final private[forum] class TopicApi(
         env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
+
+  object findDuplicate {
+    private val cache = cacheApi.notLoadingSync[(User.ID, String), Topic.ID](64, "forum.topic.duplicate") {
+      _.expireAfterWrite(1 hour).build()
+    }
+    def apply(topic: Topic): Fu[Option[Topic]] = {
+      val key = (~topic.userId, topic.name)
+      cache.getIfPresent(key) ?? env.topicRepo.coll.byId[Topic] orElse {
+        cache.put(key, topic.id)
+        fuccess(none)
+      }
+    }
+  }
 
   def makeTopic(
       categ: Categ,
@@ -70,25 +87,28 @@ final private[forum] class TopicApi(
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
       )
-      if (!env.topicRepo.isUnique(topic)) fuccess(topic)
-      else
-        env.postRepo.coll.insert.one(post) >>
-          env.topicRepo.coll.insert.one(topic withPost post) >>
-          env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-            !categ.quiet ?? (indexer ! InsertPost(post))
-            !categ.quiet ?? env.recent.invalidate()
-            promotion.save(me, post.text)
-            shutup ! {
-              val text = s"${topic.name} ${post.text}"
-              if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
-              else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
-            }
-            if (!post.troll && !categ.quiet)
-              timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).toFollowersOf(me.id)
-            lila.mon.forum.post.create.increment()
-            env.mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(actorApi.CreatePost(post), "forumPost")
-          } inject topic
+      findDuplicate(topic) flatMap {
+        case Some(dup) => fuccess(dup)
+        case None =>
+          env.postRepo.coll.insert.one(post) >>
+            env.topicRepo.coll.insert.one(topic withPost post) >>
+            env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet ?? env.recent.invalidate()
+              promotion.save(me, post.text)
+              shutup ! {
+                val text = s"${topic.name} ${post.text}"
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, text)
+              }
+              if (!post.troll && !categ.quiet)
+                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id))
+                  .toFollowersOf(me.id)
+              lila.mon.forum.post.create.increment()
+              env.mentionNotifier.notifyMentionedUsers(post, topic)
+              Bus.publish(actorApi.CreatePost(post), "forumPost")
+            } inject topic
+      }
     }
 
   def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {

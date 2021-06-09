@@ -62,16 +62,6 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     }
   }
 
-  object isUnique {
-    private val store = new lila.memo.ExpireSetMemo(1 hour)
-    def apply(topic: Topic): Boolean = {
-      val key    = s"${~topic.userId}:${topic.name}"
-      val exists = store.get(key)
-      if (!exists) store.put(key)
-      !exists
-    }
-  }
-
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
 }
