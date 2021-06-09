@@ -653,12 +653,12 @@
   <string name="returnToTournamentsHomepage">Zrugg zur Turniär-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wüchäntlichi %s-Wärtigsverteilig</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s Schpiller diä Wuchä.</item>
-    <item quantity="other">%1$s %2$s Schpiller diä Wuchä.</item>
+    <item quantity="one">%1$s %2$s Schpiller/-in diä Wuchä.</item>
+    <item quantity="other">%1$s %2$s Schpiller/-innä diä Wuchä.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wärtigszahl isch %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vo %2$s-Schpiller.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vo %2$s-Schpiller/-innä.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller/-innä.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei feschtstehändi %s-Wärtig.</string>
   <string name="yourRating">Dini Wärtigszahl</string>
   <string name="cumulative">Summiärt</string>
@@ -679,7 +679,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du chasch au ufäm Brätt scrollä, zum diä Partii duräzgoh.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll über Kompivariantä, zum ä Vorschau uf si z\'ärhaltä.</string>
   <string name="analysisShapesHowTo">Truck Shift+Muusklick oder Rechtsklick, zum Chreis und Pfiil ufäm Brätt z\'zeichnä.</string>
-  <string name="letOtherPlayersMessageYou">Erlaub andärnä Schpiller dich z\'kontaktiärä</string>
+  <string name="letOtherPlayersMessageYou">Erlaub andärnä Schpiller/-innä dich z\'kontaktiärä</string>
   <string name="receiveForumNotifications">Benochrichtigung übercho wänn im Forum erwähnt wirsch</string>
   <string name="shareYourInsightsData">Dini persönlichä Schpillerschtatistikä teilä</string>
   <string name="withNobody">Mit niämärtäm</string>
@@ -718,7 +718,7 @@
   <string name="xCreatesStudyY">%1$s hät Schtuudiä %2$s ärschtellt</string>
   <string name="quickPairing">Schnälls Schpiil</string>
   <string name="lobby">Lobby</string>
-  <string name="anonymous">Anonymä Schpiller</string>
+  <string name="anonymous">Anonymä/-i Schpiller/-in</string>
   <string name="yourScore">Punkteschtand: %s</string>
   <string name="language">Sproch</string>
   <string name="background">Hindergrund</string>
@@ -809,7 +809,7 @@
   <string name="timeoutExpires">D\'Schperri ändät in %s.</string>
   <string name="why">Worum?</string>
   <string name="pleasantChessExperience">Mir möchtäd allnä ä möglichscht guäti Schach-Erfahrig büütä.</string>
-  <string name="goodPractice">Zum das z\'ärreichä, müänd mir sicherschtellä, dass sich alli Schpiller korrekt verhaltäd.</string>
+  <string name="goodPractice">Zum das z\'ärreichä, müänd mir sicherschtellä, dass sich alli Schpiller/-innä korrekt verhaltäd.</string>
   <string name="potentialProblem">Mir zeigäd diä Nochricht aa, wänn äs möglichs Problem erkannt wordä isch.</string>
   <string name="howToAvoidThis">Wiä chan das verhindärät wärdä?</string>
   <string name="playEveryGame">Schpill jedes Schpiil, wo du aafohsch.</string>
@@ -821,7 +821,7 @@
   <string name="lifetimeScore">Ewigä Schpillschtand</string>
   <string name="currentMatchScore">Aktuällä Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimmä zuä, dass ich zu keiner Ziit während minä Partiiä Hilf in Aaschpruch nimm (dur än Schachkompi, äs Buäch, ä Datäbank oder än andäri Person).</string>
-  <string name="agreementNice">Ich schtimmä zuä, dass ich andärnä Schpiller immer reschpäktvoll gägänüberträtä.</string>
+  <string name="agreementNice">Ich schtimmä zuä, dass ich andärnä Schpiller/-innä immer reschpäktvoll gägänüberträtä.</string>
   <string name="agreementAccount">Ich schtimmä zuä, dass ich nöd mehreri Kontänä ärschtellä.</string>
   <string name="agreementPolicy">Ich schtimmä zuä, dass ich allnä Lichess-Richtliniä folgä.</string>
   <string name="searchOrStartNewDiscussion">Suäch oder schtart ä neui Konversazion</string>
