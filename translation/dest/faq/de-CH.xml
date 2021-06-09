@@ -93,13 +93,13 @@ Bitt nöd drum, dä LM-Titäl z\'bechoh.</string>
   <string name="guidelines">Richtliniä</string>
   <string name="canIChangeMyUsername">Chan ich min Benutzernamä ändärä?</string>
   <string name="usernamesCannotBeChanged">Leider nei, Benutzernamä chönd us technischä und praktischä Gründ nöd g\'ändärät wärdä. D\'Benutzernamä tauchäd a zu vilä Schtellä uf: Datäbankä, Export, Logs und im Gedächtnis vo andärnä Lüüt. Du chasch aber eimol d\'Gross-/Chliischriibig ändärä.</string>
-  <string name="uniqueTrophies">Einzigartige Trophäen</string>
-  <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
-  <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
+  <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
+  <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
+  <string name="wayOfBerserkExplanation">Är hät si becho, wil är 100%% vodä Partiiä vönärä %s bärsärkt und gwunnä hät.</string>
+  <string name="aHourlyBulletTournament">schtündlichä Bullet-Arena</string>
   <string name="goldenZeeExplanation">Dä ZugAddict hät ämol gstreamt und über 2 Schtundä lang versuächt, dä Kompi uf Schtufä 8 imänä 1+0 Schpiil z\'besiigä, ohni Erfolg. Dä Thibault hätäm dänn versprochä, dasär än einzigartigi Trophä\'ä bechiäm, wänär das erfolgrich im Stream schaffä würd. Ä Schtund spöter hätär Stockfish butzt und s\'Versprächä isch iighaltä wordä.</string>
-  <string name="lichessRatings">Lichess-Wertungen</string>
-  <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
+  <string name="lichessRatings">Lichess-Wärtigä</string>
+  <string name="whichRatingSystemUsedByLichess">Weläs Wärtigssyschtem benutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wärtigä (\"Wärtigszahlä\", \"Ratings\") wärdäd mit dä vom Mark Glickman entwicklätä Glicko-2-Wärtigsmethodä berächnät. Das isch ä sehr beliebti Wärtigsmethodä und wird vonärä bedüütendä Aazahl vo Schachorganisationä verwändät (FIDE isch äs bemärkänswärts Gegäbiischpiil wo immer no s\'veraaltete Elo-Wärtigs-Syschtem verwändät).
 
 Grundsätzlich verwändät Glicko-Wärtigä \"Konfidänzintervall\" bidä Berächnig vo dinärä Wärtig. Wänn du s\'erscht Mol uf därä Websiitä schpillsch, foht dini Wärtig bi 1500 ± 700 aa. Diä 1500 schtelläd dini Wärtig dar, und d\'700 schtellt s\'Konfidänzintervall dar.
@@ -107,12 +107,12 @@ Grundsätzlich verwändät Glicko-Wärtigä \"Konfidänzintervall\" bidä Beräc
 Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
 
 Än wiitärä Punkt isch, dass sich s\'Konfidänzintervall im Lauf vodä Ziit erhöht. Das erlaubts dir, Pünkt schnäller z\'gwünne oder z\'verliüüre, zum alli Änderigä vo dinä Färtigkeitä während däm Ziitruum z\'berücksichtigä.</string>
-  <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
-  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
-  <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
-  <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig ist.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, das das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
+  <string name="whatIsProvisionalRating">Worum gits äs Frogezeichä (?) näbädärä Wärtig?</string>
+  <string name="provisionalRatingExplanation">Das Frogezeichä bedüütät, dass dWärtig no provisorisch isch. Zu dä Gründ ghöräd:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Dä Schpiller hät nonig gnuäg gwärtäti Partiiä gäg %1$s idä Wärtigskategorie beändät.</string>
+  <string name="similarOpponents">Gägner mit ähnlicher Schpiilschtärchi</string>
+  <string name="notPlayedRecently">Dä Schpiller hät nöd gnüägänd aktuälli Partiiä gschpillt. Abhängig vodä Aazahl vo Partiiä, wo du gschpillt häsch, benötigsch ungfähr äs Johr Inaktivität, bis dini Wärtig wieder provisorisch wird.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkreet bedüütet das, dass d\'Abwiichig in Glicko-2 grösser als 110 isch. D\'Abwiichig isch s\'Vertrauä, wo s\'Syschtem i d\'Wärtig hät. Je nidriger d\'Abwiichig, deschto schtabiler isch ä Wärtig.</string>
   <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
   <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
   <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
