@@ -5,7 +5,6 @@ import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
-import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
