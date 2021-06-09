@@ -948,4 +948,6 @@
   <string name="welcome">Добро пожаловать!</string>
   <string name="lichessPatronInfo">Lichess — это благотворительная организация, предоставляющая свободное и бесплатное программное обеспечение с открытым исходным кодом.
 Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Для тренеров</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Для стримеров</string>
 </resources>
