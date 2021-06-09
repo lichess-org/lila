@@ -30,9 +30,9 @@ export default function (ctrl: DasherCtrl): VNode {
             noarg('preferences')
           ),
 
-          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), 'Coach manager'),
+          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), noarg('coachManager')),
 
-          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), 'Streamer manager'),
+          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), noarg('streamerManager')),
 
           h(
             'form.logout',

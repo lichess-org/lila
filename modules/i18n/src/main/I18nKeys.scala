@@ -751,6 +751,8 @@ val `availableInNbLanguages` = new I18nKey("availableInNbLanguages")
 val `nbSecondsToPlayTheFirstMove` = new I18nKey("nbSecondsToPlayTheFirstMove")
 val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
+val `coachManager` = new I18nKey("coachManager")
+val `streamerManager` = new I18nKey("streamerManager")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
