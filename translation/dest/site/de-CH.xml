@@ -491,8 +491,8 @@
   <string name="reply">Antwortä</string>
   <string name="message">Nochricht</string>
   <string name="createTheTopic">Thema ärschtellä</string>
-  <string name="reportAUser">Benutzer mäldä</string>
-  <string name="user">Benutzer</string>
+  <string name="reportAUser">Benutzer-/in mäldä</string>
+  <string name="user">Benutzer/-in</string>
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was isch s\'Problem?</string>
   <string name="cheat">Bschiss</string>
