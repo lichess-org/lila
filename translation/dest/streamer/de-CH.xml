@@ -31,7 +31,7 @@
   <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
 Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
 Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
-  <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
+  <string name="twitchUsername">Din Twitch-Benutzernamä oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
