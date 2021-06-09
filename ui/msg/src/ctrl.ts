@@ -140,7 +140,7 @@ export default class MsgCtrl {
 
   searchInput = (q: string) => {
     this.search.input = q;
-    if (q[1])
+    if (q.length > 2)
       network.search(q).then((res: SearchResult) => {
         this.search.result = this.search.input[1] ? res : undefined;
         this.redraw();
