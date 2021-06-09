@@ -54,21 +54,21 @@ Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä n�
   <string name="discoveringEnPassant">Worum chan än Puur än andärä Puur schloh, wänn dä bereits vorbiizogä isch? (im Vorbigoh)</string>
   <string name="explainingEnPassant">Das isch än regelgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
 
-Das wird in Abschnitt 3.7 vu %2$s uf Hoochtüütsch beschribä.
+Das wird in Abschnitt 3.7 vum %2$s uf Hoochtüütsch beschribä.
 
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Tschägg %3$s für ächli Üäbig mit därä Art vo Zug.</string>
-  <string name="goodIntroduction">guten ersten Eindruck</string>
-  <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
+  <string name="goodIntroduction">guätä erschtä Iidruck</string>
+  <string name="officialRulesPDF">offiziälli Reglä (PDF)</string>
   <string name="lichessTraining">Lichess-Träning</string>
-  <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
-  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
-  <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
-  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie trotzdem durch Stellungswiederholung für remis erklärt?</string>
-  <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
-  <string name="positions">Stellungen</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
+  <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
+  <string name="threefoldRepetitionExplanation">Wänn ä Schtellig drümol uftritt, chönd Schpiller äs Remis dur %1$s reklamiärä. Lichess implemäntiärt di offiziällä FIDE-Reglä, wo in Artikel 9.2 vom %2$s beschribä sind.</string>
+  <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
+  <string name="notRepeatedMoves">Mir händ kei Züge widerholt, worum isch d\'Partii trotzdäm dur Schtelligswiderholig für Remis ärchlärt wordä?</string>
+  <string name="repeatedPositionsThatMatters">Bi drüfach gliicher Schtellig gohts um vollschtändig gliichi %1$s, nöd um Zugwiderholigä. Di gliichi Schtellig cha mit beliäbigä Züg ärreicht wärdä, sofärn d\'Zugmöglichkeitä i dänä Schtelligä immer gliich sind.</string>
+  <string name="positions">Schtelligä</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ ä Schtellig drümol ärreicht. Wieso isch d\'Partii nöd Remis ärchlärt wordä?</string>
   <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
   <string name="configure">konfigurieren</string>
   <string name="accounts">Konten</string>
