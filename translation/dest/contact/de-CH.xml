@@ -7,7 +7,7 @@
   <string name="iCantLogIn">Ich kann mich nicht einloggen</string>
   <string name="noConfirmationEmail">Ich erhalte meine Bestätigungs-E-Mail nicht</string>
   <string name="forgotPassword">Ich habe mein Passwort vergessen</string>
-  <string name="forgotUsername">Ich habe meinen Benutzernamen vergessen</string>
+  <string name="forgotUsername">Ich han min Benutzernamä vergässä</string>
   <string name="youCanLoginWithEmail">Du kannst dich mit der E-Mail-Adresse einloggen, mit der du dich angemeldet hast</string>
   <string name="lost2FA">Ich habe den Zugriff auf meine Zwei-Faktor-Authentifizierungscodes verloren</string>
   <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
@@ -20,8 +20,8 @@
   <string name="wantReopen">Ich möchte mein Konto wiedereröffnen</string>
   <string name="reopenOnThisPage">Du kannst dein Konto auf dieser Seite wiedereröffnen. Das funktioniert nur ein einziges Mal.</string>
   <string name="doNotAskByEmailToReopen">Bitte uns nicht per E-Mail ein Konto wiederzueröffnen, wir werden es nicht wiedereröffnen.</string>
-  <string name="wantChangeUsername">Ich möchte meinen Benutzernamen ändern</string>
-  <string name="changeUsernameCase">Besuche diese Seite, um die Groß-/Kleinschreibung deines Benutzernamens zu ändern</string>
+  <string name="wantChangeUsername">Ich wött min Benutzernamä ändärä</string>
+  <string name="changeUsernameCase">Bsuäche diä Siitä, zum d\'Gross-/Chliischriibig vo dim Benutzernamä z\'ändärä</string>
   <string name="cantChangeMore">Wir können nicht mehr als die Groß-/Kleinschreibung ändern. Aus technischen Gründen ist es schlichtweg unmöglich.</string>
   <string name="orCloseAccount">Du kannst jedoch dein Konto schließen und ein neues erstellen.</string>
   <string name="wantClearHistory">Ich möchte meinen Verlauf oder meine Wertung löschen</string>
