@@ -38,7 +38,7 @@
   <string name="correspondenceAndUnlimited">Fernschach und unbegrenzt</string>
   <string name="confirmResignationAndDrawOffers">Aufgabe und Remis-Angebote bestätigen</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rochade-Methode</string>
-  <string name="castleByMovingTwoSquares">Ziehe den König zwei Felder weit</string>
+  <string name="castleByMovingTwoSquares">Züch dä König zwei Fälder wiit</string>
   <string name="castleByMovingOntoTheRook">Züch dä König auf dä Turm</string>
   <string name="inputMovesWithTheKeyboard">Züge mit der Tastatur eingeben</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Pfeile markieren immer mögliche Züge</string>
