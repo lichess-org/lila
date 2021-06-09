@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Yschtelligä</string>
+  <string name="settings">Iischtelligä</string>
   <string name="closeAccount">Benutzerkonto gschlüssä</string>
   <string name="closingIsDefinitive">D\'Kontoschlüssig isch endgültig. Es git kas Zrugg imfall. Bisch sicher?</string>
   <string name="cantOpenSimilarAccount">Du dörfsch kas neus Benutzerkonto mitem gliichä Namä eröffnä, selbscht wänn d\'Gross-/Chliischriibig underschidlich isch.</string>
