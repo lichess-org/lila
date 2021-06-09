@@ -9,8 +9,8 @@
   <string name="forgotPassword">Ich habe mein Passwort vergessen</string>
   <string name="forgotUsername">Ich han min Benutzernamä vergässä</string>
   <string name="youCanLoginWithEmail">Du kannst dich mit der E-Mail-Adresse einloggen, mit der du dich angemeldet hast</string>
-  <string name="lost2FA">Ich habe den Zugriff auf meine Zwei-Faktor-Authentifizierungscodes verloren</string>
-  <string name="doPasswordReset">Setze dein Passwort zurück, um deinen zweiten Faktor zu entfernen</string>
+  <string name="lost2FA">Ich ha dä Zuägriff uf mini Zwei-Faktor-Authäntifiziärigscodes verlorä</string>
+  <string name="doPasswordReset">Setz dis Passwort zrugg, zum din zweitä Faktor z\'entfärnä</string>
   <string name="accountSupport">Ich benötige Konto-Unterstützung</string>
   <string name="wantTitle">Ich möchte, dass mein Titel auf Lichess angezeigt wird</string>
   <string name="visitTitleConfirmation">Zum din Titäl in dim Lichess-Profil z\'zeigä und adä Titled-Arenas teilznäh, bsuäch d\'Titälbeschtätigungssiitä</string>
