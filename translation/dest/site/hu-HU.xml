@@ -868,4 +868,6 @@
   <string name="welcome">Üdvözlünk!</string>
   <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Edzői vezérlőpult</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Közvetítői vezérlőpult</string>
 </resources>
