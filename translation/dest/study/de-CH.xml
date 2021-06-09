@@ -94,63 +94,63 @@
   <string name="editor">Ändärä</string>
   <string name="startFromCustomPosition">Vonärä benutzerdefiniärtä Schtellig aafoh</string>
   <string name="loadAGameByUrl">Lad ä Partii mittäls URL</string>
-  <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
-  <string name="loadAGameFromPgn">Lade eine Partie mittels PGN</string>
-  <string name="automatic">Automatisch</string>
+  <string name="loadAPositionFromFen">Lad ä Partii mittäls FEN</string>
+  <string name="loadAGameFromPgn">Lad ä Partii mittäls PGN</string>
+  <string name="automatic">Automaatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Füge deinen PGN Text hier ein, bis zu %s Partie</item>
-    <item quantity="other">Füge dein PGN Text hier ein, bis zu %s Partien</item>
+    <item quantity="one">Füäg din PGN Tegscht do ii, bis zu %s Partii</item>
+    <item quantity="other">Füäg din PGN Tegscht do ii, bis zu %s Partiiä</item>
   </plurals>
-  <string name="urlOfTheGame">URL der Partie</string>
-  <string name="loadAGameFromXOrY">Partie von %1$s oder %2$s laden</string>
-  <string name="createChapter">Kapitel erstellen</string>
-  <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
-  <string name="createStudy">Schtuudiä ärschtellä</string>
+  <string name="urlOfTheGame">URL vodä Partii</string>
+  <string name="loadAGameFromXOrY">Partii vo %1$s oder %2$s ladä</string>
+  <string name="createChapter">Kapitäl ärschtelä</string>
+  <string name="configureLiveBroadcast">Live-Überträgig konfiguriärä</string>
+  <string name="createStudy">Schtuudiä ärschtelä</string>
   <string name="editStudy">Schtuudiä bearbeitä</string>
   <string name="visibility">Sichtbarkeit</string>
-  <string name="public">Öffentlich</string>
-  <string name="unlisted">Ungelistet</string>
-  <string name="inviteOnly">Nur mit Einladung</string>
-  <string name="allowCloning">Klonen erlaubt</string>
-  <string name="nobody">Niemand</string>
-  <string name="onlyMe">Nur ich</string>
-  <string name="contributors">Mitwirkende</string>
-  <string name="members">Mitglieder</string>
-  <string name="everyone">Alle</string>
-  <string name="enableSync">Sync aktivieren</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">Ja: Gleiche Stellung für alle</string>
-  <string name="noLetPeopleBrowseFreely">Nein: Unabhängige Navigation für alle</string>
+  <string name="public">Öffäntlich</string>
+  <string name="unlisted">Ungliischtät</string>
+  <string name="inviteOnly">Nur mit Iiladig</string>
+  <string name="allowCloning">Kloonä erlaubt</string>
+  <string name="nobody">Niämärt</string>
+  <string name="onlyMe">Numä ich</string>
+  <string name="contributors">Mitwirkändi</string>
+  <string name="members">Mitgliider</string>
+  <string name="everyone">Alli</string>
+  <string name="enableSync">Sync aktiviärä</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Jawoll: Gliichligi Schtellig für alli</string>
+  <string name="noLetPeopleBrowseFreely">Nei: Unabhängigi Navigation für alli</string>
   <string name="pinnedStudyComment">Aapinntää Schtuudiäkommentar</string>
   <string name="start">Schtart</string>
-  <string name="save">Speichern</string>
-  <string name="clearChat">Chat löschen</string>
+  <string name="save">Schpeichärä</string>
+  <string name="clearChat">Tschätt löschä</string>
   <string name="deleteTheStudyChatHistory">Tschättverlauf vodä Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
   <string name="deleteStudy">Schtuudiä löschä</string>
   <string name="deleteTheEntireStudy">Kompletti Schtuudiä löschä? Das chan nümä rückgängig gmacht wärdä!</string>
   <string name="whereDoYouWantToStudyThat">Weli Schtuudiä wöttsch bruuchä?</string>
-  <string name="goodMove">Guter Zug</string>
-  <string name="mistake">Fehler</string>
-  <string name="brilliantMove">Brillanter Zug</string>
-  <string name="blunder">Grober Patzer</string>
+  <string name="goodMove">Guätä Zug</string>
+  <string name="mistake">Fähler</string>
+  <string name="brilliantMove">Briliantä Zug</string>
+  <string name="blunder">Grobä Patzer</string>
   <string name="interestingMove">Intressantä Zug</string>
-  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Fragwürdiger Zug</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Frogwürdigä Zug</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Einzigä Zug</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
-  <string name="equalPosition">Ausgeglichene Stellung</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklare Stellung</string>
-  <string name="whiteIsSlightlyBetter">Weiß steht leicht besser</string>
-  <string name="blackIsSlightlyBetter">Schwarz steht leicht besser</string>
-  <string name="whiteIsBetter">Weiß steht besser</string>
-  <string name="blackIsBetter">Schwarz steht besser</string>
-  <string name="whiteIsWinning">Weiß steht auf Gewinn</string>
-  <string name="blackIsWinning">Schwarz steht auf Gewinn</string>
-  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuerung</string>
+  <string name="equalPosition">Uusglichäni Schtellig</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Unklari Schtellig</string>
+  <string name="whiteIsSlightlyBetter">Wiis schtoht liächt besser</string>
+  <string name="blackIsSlightlyBetter">Schwarz schtoht liächt besser</string>
+  <string name="whiteIsBetter">Wiis schtoht besser</string>
+  <string name="blackIsBetter">Schwarz schtoht besser</string>
+  <string name="whiteIsWinning">Wiis schtoht uf Gwünn</string>
+  <string name="blackIsWinning">Schwarz schtoht uf Gwünn</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Neuärig</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Entwicklig</string>
   <string name="initiative">Initiativä</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Aagriff</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Gägäschpiil</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Ziitnot</string>
-  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mit Kompensation</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Mit Kompänsation</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Mit dä Idee</string>
   <string name="nextChapter">Nächstes Kapitel</string>
   <string name="prevChapter">Vorheriges Kapitel</string>
