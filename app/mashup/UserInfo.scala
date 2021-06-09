@@ -130,6 +130,7 @@ object UserInfo {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
       (ctx.noBlind ?? ratingChartApi(user)).mon(_.user segment "ratingChart") zip
         relationApi.countFollowers(user.id).mon(_.user segment "nbFollowers") zip
+        !(user.is(User.lichessId) || user.isBot) ??
         postApi.nbByUser(user.id).mon(_.user segment "nbPosts") zip
         studyRepo.countByOwner(user.id).nevermind.mon(_.user segment "nbStudies") zip
         trophyApi.findByUser(user).mon(_.user segment "trophy") zip
