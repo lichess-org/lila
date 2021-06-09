@@ -31,7 +31,7 @@ export default function makeRenderers(trans: Trans): Renderers {
     },
     privateMessage: {
       html: n =>
-        generic(n, '/inbox/' + n.content.user.name, 'c', [
+        generic(n, '/inbox/' + n.content.user.name, '', [
           h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
           h('span', n.content.text),
         ]),
