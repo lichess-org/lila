@@ -515,6 +515,7 @@
   <string name="firstName">Імя</string>
   <string name="lastName">Прозвішча</string>
   <string name="biography">Пра сябе</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна і сцяг</string>
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
@@ -538,6 +539,7 @@
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
+  <string name="descPrivate">Прыватнае апісанне</string>
   <string name="no">Не</string>
   <string name="yes">Так</string>
   <string name="help">Дапамога:</string>
