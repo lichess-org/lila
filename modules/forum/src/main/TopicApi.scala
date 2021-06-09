@@ -73,8 +73,8 @@ final private[forum] class TopicApi(
       if (env.topicRepo exists topic) {
         fuccess(topic);
       } else {
-        env.topicRepo put topic
-        
+        env.topicRepo putStore topic
+
         env.postRepo.coll.insert.one(post) >>
         env.topicRepo.coll.insert.one(topic withPost post) >>
         env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {

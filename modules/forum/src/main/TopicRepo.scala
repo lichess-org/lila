@@ -68,7 +68,7 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
 
   def exists(topic: Topic) = store.get(key(topic.userId, topic.name))
 
-  def put(topic: Topic) = store.put(key(topic.userId, topic.name))
+  def putStore(topic: Topic) = store.put(key(topic.userId, topic.name))
 
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
