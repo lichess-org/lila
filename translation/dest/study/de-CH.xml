@@ -32,7 +32,7 @@
   </plurals>
   <string name="inviteToTheStudy">Zunärä Schtuudiä iiladä</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Bitte lad nur Lüüt ii, wo du kennsch und wo aktiv a därä Schtuudiä teilnäh wönd.</string>
-  <string name="searchByUsername">Suche nach Benutzernamen</string>
+  <string name="searchByUsername">Suäch noch Benutzernamä</string>
   <string name="spectator">Zuschauer</string>
   <string name="contributor">Mitwirkender</string>
   <string name="kick">Rauswerfen</string>
@@ -92,7 +92,7 @@
   <string name="empty">Leer</string>
   <string name="startFromInitialPosition">Von Ausgangsstellung starten</string>
   <string name="editor">Ändärä</string>
-  <string name="startFromCustomPosition">Von benutzerdefinierter Stellung starten</string>
+  <string name="startFromCustomPosition">Vonärä benutzerdefiniärtä Schtellig aafoh</string>
   <string name="loadAGameByUrl">Lade eine Partie mittels URL</string>
   <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
   <string name="loadAGameFromPgn">Lade eine Partie mittels PGN</string>
