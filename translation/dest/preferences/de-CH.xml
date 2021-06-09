@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Einstellungen</string>
-  <string name="gameDisplay">Spieldarstellung</string>
-  <string name="pieceAnimation">Figurenanimation</string>
-  <string name="materialDifference">Materialunterschied</string>
+  <string name="preferences">Iischtelligä</string>
+  <string name="gameDisplay">Schpiildarschtellig</string>
+  <string name="pieceAnimation">Figuränanimation</string>
+  <string name="materialDifference">Materialunderschiid</string>
   <string name="boardHighlights">Markierungen auf dem Brett (letzter Zug und Schach)</string>
   <string name="pieceDestinations">Zielfelder markieren (gültige Züge und Vorauszüge)</string>
   <string name="boardCoordinates">Brättkoordinatä (A-H, 1-8)</string>
