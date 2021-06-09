@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess стримери</string>
-  <string name="lichessStreamer">Lichess стример</string>
+  <string name="lichessStreamers">Lichess стриймъри</string>
+  <string name="lichessStreamer">Lichess стриймър</string>
   <string name="live">НА ЖИВО!</string>
   <string name="offline">ИЗВЪН ЛИНИЯ</string>
+  <string name="becomeStreamer">Станете Lichess стриймър</string>
   <string name="hereWeGo">Идем!</string>
+  <string name="allStreamers">Всички стриймъри</string>
   <string name="perk3">Известие до последователите ви в Lichess.</string>
   <string name="longDescription">Дълго описание</string>
   <string name="changePicture">Промяна/изтриване на снимката ви</string>
