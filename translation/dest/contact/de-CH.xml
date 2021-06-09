@@ -45,7 +45,7 @@
   <string name="illegalCastling">Unerlaubtes oder unmögliches Rochieren</string>
   <string name="castlingPrevented">Die Rochade wird nur verhindert, falls der König durch ein kontrolliertes Feld zieht.</string>
   <string name="castlingRules">Stelle sicher, dass du mit den Rochaderegeln vertraut bist</string>
-  <string name="tryCastling">Probiere dieses kleine, interaktive Spiel um die Rochade im Spiel zu üben</string>
+  <string name="tryCastling">Probiär das chliine, interaktive Schpiil zum d\'Roschaadä im Schpiil z\'üäbä</string>
   <string name="castlingImported">Falls du ein Spiel importiert oder es von einer Stellung heraus gestartet hast, stelle sicher, dass du die Rochaderechte richtig eingestellt hast.</string>
   <string name="insufficientMaterial">Unzureichendes Material zum Mattsetzen</string>
   <string name="fideMate">Gemäß den FIDE Schachregeln §6.9 wird das Spiel nicht als Remis gewertet, falls ein Schachmatt in irgendeiner Serie von legalen Zügen erreichbar ist</string>
