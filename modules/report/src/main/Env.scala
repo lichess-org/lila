@@ -74,7 +74,7 @@ final class Env(
   )
 
   lila.common.Bus.subscribeFun("playban", "autoFlag") {
-    case lila.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId).unit
+    case lila.hub.actorApi.playban.Playban(userId, mins) => api.maybeAutoPlaybanReport(userId, mins).unit
     case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text) =>
       api.autoCommFlag(SuspectId(suspectId), resource, text).unit
   }
