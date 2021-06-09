@@ -113,14 +113,14 @@ Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwü
   <string name="similarOpponents">Gägner mit ähnlicher Schpiilschtärchi</string>
   <string name="notPlayedRecently">Dä Schpiller hät nöd gnüägänd aktuälli Partiiä gschpillt. Abhängig vodä Aazahl vo Partiiä, wo du gschpillt häsch, benötigsch ungfähr äs Johr Inaktivität, bis dini Wärtig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkreet bedüütet das, dass d\'Abwiichig in Glicko-2 grösser als 110 isch. D\'Abwiichig isch s\'Vertrauä, wo s\'Syschtem i d\'Wärtig hät. Je nidriger d\'Abwiichig, deschto schtabiler isch ä Wärtig.</string>
-  <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
-  <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
-  <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä,</string>
-  <string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
+  <string name="howDoLeaderoardsWork">Wiä funktioniäräd Räng und Rangliischtä?</string>
+  <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muäsch du:</string>
+  <string name="ratingLeaderboards">Wärtigs-Rangliischtä</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtäns 30 gwärtäti Partiiä inärä beschtimmtä Kategorie gschpillt ha,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">idä letschtä Wuchä ä gwärtäti Partii i därä Kategorie gschpillt ha,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä, und</string>
+  <string name="beInTopTen">idä Top 10 vo därä Wärtigskategorie sii.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
   <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
   <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
  
