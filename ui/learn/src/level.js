@@ -26,7 +26,7 @@ module.exports = function (blueprint, opts) {
   var complete = function () {
     vm.willComplete = true;
     vm.score += scoring.getLevelBonus(blueprint, vm.nbMoves);
-    if (!blueprint.nextButton) opts.onCompleteImmediate();
+    opts.onCompleteImmediate();
     timeouts.setTimeout(
       function () {
         vm.lastStep = false;
