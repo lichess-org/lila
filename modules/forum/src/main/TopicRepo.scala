@@ -1,8 +1,10 @@
 package lila.forum
 
+import org.joda.time.DateTime
 import Filter._
 import lila.db.dsl._
 import lila.user.User
+import scala.concurrent.duration._
 
 final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -59,6 +61,14 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
       else fuccess(slug)
     }
   }
+
+  private val store = new lila.memo.ExpireSetMemo(1 hour)
+
+  private def key(userId: Option[String], name: String) = s"${userId}:${name}"
+
+  def exists(topic: Topic) = store.get(key(topic.userId, topic.name))
+
+  def putStore(topic: Topic) = store.put(key(topic.userId, topic.name))
 
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery

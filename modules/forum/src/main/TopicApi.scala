@@ -70,7 +70,12 @@ final private[forum] class TopicApi(
         categId = categ.id,
         modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
       )
-      env.postRepo.coll.insert.one(post) >>
+      if (env.topicRepo exists topic) {
+        fuccess(topic);
+      } else {
+        env.topicRepo putStore topic
+
+        env.postRepo.coll.insert.one(post) >>
         env.topicRepo.coll.insert.one(topic withPost post) >>
         env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
           !categ.quiet ?? (indexer ! InsertPost(post))
@@ -87,6 +92,7 @@ final private[forum] class TopicApi(
           env.mentionNotifier.notifyMentionedUsers(post, topic)
           Bus.publish(actorApi.CreatePost(post), "forumPost")
         } inject topic
+      }
     }
 
   def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
