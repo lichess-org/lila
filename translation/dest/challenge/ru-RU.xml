@@ -9,7 +9,7 @@
   <string name="youCannotChallengeX">Вы не можете вызвать на игру %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не принимает вызовы.</string>
   <string name="yourXRatingIsTooFarFromY">Ваш рейтинг %1$s слишком далёк от %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Невозможно из-за недостоверности рейтинга %s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Невозможно вызвать на игру из-за недостоверности рейтинга %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s принимает вызовы только от друзей.</string>
   <string name="declineGeneric">Я не принимаю вызовы прямо сейчас.</string>
   <string name="declineLater">Я не принимаю вызовы прямо сейчас, пожалуйста, вызовите меня позже.</string>
@@ -19,7 +19,7 @@
   <string name="declineRated">Вызовите меня на рейтинговую игру, пожалуйста.</string>
   <string name="declineCasual">Вызовите меня на товарищескую игру, пожалуйста.</string>
   <string name="declineStandard">Я не принимаю вызовы на неклассические шахматы прямо сейчас.</string>
-  <string name="declineVariant">Я не хочу играть в этот вариант шахмат прямо сейчас.</string>
+  <string name="declineVariant">Я не хочу играть в этот вариант шахмат сейчас.</string>
   <string name="declineNoBot">Я не принимаю вызовы от ботов.</string>
   <string name="declineOnlyBot">Я принимаю вызовы только от ботов.</string>
 </resources>
