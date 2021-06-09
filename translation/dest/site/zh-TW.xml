@@ -816,4 +816,5 @@
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="download">下載</string>
+  <string name="welcome">歡迎！</string>
 </resources>
