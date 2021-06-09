@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import Filter._
 import lila.db.dsl._
 import lila.user.User
+import scala.concurrent.duration._
 
 final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     ec: scala.concurrent.ExecutionContext
@@ -61,14 +62,13 @@ final class TopicRepo(val coll: Coll, filter: Filter = Safe)(implicit
     }
   }
 
-  def findDuplicate(topic: Topic): Fu[Option[Topic]] =
-    coll.one[Topic](
-      $doc(
-        "createdAt" $gt DateTime.now.minusHours(1),
-        "userId" -> ~topic.userId,
-        "name"   -> topic.name
-      )
-    )
+  private val store = new lila.memo.ExpireSetMemo(1 hour)
+
+  private def key(userId: Option[String], name: String) = s"${userId}:${name}"
+
+  def exists(topic: Topic) = store.get(key(topic.userId, topic.name))
+
+  def put(topic: Topic) = store.put(key(topic.userId, topic.name))
 
   def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
