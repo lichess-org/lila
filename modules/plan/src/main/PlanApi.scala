@@ -82,13 +82,17 @@ final class PlanApi(
           giftTo match {
             case Some(to) => gift(user, to, money)
             case None =>
-              val patron = prevPatron
-                .copy(lastLevelUp = prevPatron.lastLevelUp orElse DateTime.now.some)
-                .levelUpIfPossible
-              patronColl.update.one($id(prevPatron.id), patron) >>
-                setDbUserPlanOnCharge(user, prevPatron.canLevelUp) >> {
-                  isLifetime ?? setLifetime(user)
-                }
+              stripeClient.getCustomer(stripeCharge.customer) flatMap { customer =>
+                val freq = if (customer.exists(_.renew)) Freq.Monthly else Freq.Onetime
+                val patron = prevPatron
+                  .copy(lastLevelUp = prevPatron.lastLevelUp orElse DateTime.now.some)
+                  .levelUpIfPossible
+                  .expireInOneMonth(freq == Freq.Onetime)
+                patronColl.update.one($id(prevPatron.id), patron) >>
+                  setDbUserPlanOnCharge(user, prevPatron.canLevelUp) >> {
+                    isLifetime ?? setLifetime(user)
+                  }
+              }
           }
         }
     }
