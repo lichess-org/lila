@@ -111,7 +111,7 @@ Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwü
   <string name="provisionalRatingExplanation">Das Frogezeichä bedüütät, dass dWärtig no provisorisch isch. Zu dä Gründ ghöräd:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Dä Schpiller / diä Schpillerin hät nonig gnuäg gwärtäti Partiiä gäg %1$s idä Wärtigskategorie beändät.</string>
   <string name="similarOpponents">Gägner mit ähnlicher Schpiilschtärchi</string>
-  <string name="notPlayedRecently">Dä Schpiller hät nöd gnüägänd aktuälli Partiiä gschpillt. Abhängig vodä Aazahl vo Partiiä, wo du gschpillt häsch, benötigsch ungfähr äs Johr Inaktivität, bis dini Wärtig wieder provisorisch wird.</string>
+  <string name="notPlayedRecently">Dä Schpiller / diä Schpillerin hät nöd gnüägänd aktuälli Partiiä gschpillt. Abhängig vodä Aazahl vo Partiiä, wo du gschpillt häsch, benötigsch ungfähr äs Johr Inaktivität, bis dini Wärtig wieder provisorisch wird.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Konkreet bedüütet das, dass d\'Abwiichig in Glicko-2 grösser als 110 isch. D\'Abwiichig isch s\'Vertrauä, wo s\'Syschtem i d\'Wärtig hät. Je nidriger d\'Abwiichig, deschto schtabiler isch ä Wärtig.</string>
   <string name="howDoLeaderoardsWork">Wiä funktioniäräd Räng und Rangliischtä?</string>
   <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muäsch du:</string>
@@ -120,11 +120,11 @@ Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwü
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">idä letschtä Wuchä ä gwärtäti Partii i därä Kategorie gschpillt ha,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä, und</string>
   <string name="beInTopTen">idä Top 10 vo därä Wärtigskategorie sii.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller/-innä, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
   <string name="whyAreRatingHigher">Wroum sind d\'Wärtigä im Verglich zu andärnä Websiitänä und Organisationä wiä FIDE, USCF und äm ICC höchär?</string>
-  <string name="whyAreRatingHigherExplanation">Äs isch am beschtä, Wärtigä nöd als absoluti Zaalä z\'betrachtä oder si mit andärnä Organisationä z\'vergliichä. Verschidäni Organisationä händ underschidlichi Schpillerklassä, verschidäni Wärtigssyschtem (Elo, Glicko, Glicko-2, oder ä modifiziärti Version devo). Diä Faktorä chönd di absolutä Zaalä (Wärtigä) drastisch beiiflussä.
+  <string name="whyAreRatingHigherExplanation">Äs isch am beschtä, Wärtigä nöd als absoluti Zaalä z\'betrachtä oder si mit andärnä Organisationä z\'vergliichä. Verschidäni Organisationä händ underschidlichi Schpiller/-innä-Klassä, verschidäni Wärtigssyschtem (Elo, Glicko, Glicko-2, oder ä modifiziärti Version devo). Diä Faktorä chönd di absolutä Zaalä (Wärtigä) drastisch beiiflussä.
  
-Äs isch stattdessä am beschtä, Wärtigä als \"relativi\" Wärt z\'betrachtä (im Gägäsatz zu \"absolutä\" Wärt): Innerhalb vomänä Schpillerpuul hälfäd dir relativi Underschiid idä Wärtigä däbii abzschätzä, wär ehnder gwünnt/verlüürt und wiä oft öppä. Z\'sägä \"Ich han ä X-Wärtig\" bedüütät nüt, äs sei dänn, äs git andäri Schpiller, mit dänä du dini Wärtig vergliichsch..</string>
+Äs isch stattdessä am beschtä, Wärtigä als \"relativi\" Wärt z\'betrachtä (im Gägäsatz zu \"absolutä\" Wärt): Innerhalb vomänä Pool a Schpiller/-innä hälfäd dir relativi Underschiid idä Wärtigä däbii abzschätzä, wär ehnder gwünnt/verlüürt und wiä oft öppä. Z\'sägä \"Ich han ä X-Wärtig\" bedüütät nüt, äs sei dänn, äs git andäri Schpiller/-innä, mit dänä du dini Wärtig vergliichsch.</string>
   <string name="howToHideRatingWhilePlaying">Wiä chamer Wärtigä während äm Schpiil uusbländä?</string>
   <string name="enableZenMode">Aktiviär dä Zen-Modus idä %1$s oder truck %2$s währänd dä Partii.</string>
   <string name="displayPreferences">Aazeige-Iischtelligä</string>
