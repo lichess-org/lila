@@ -500,7 +500,7 @@
   <string name="troll">Troll</string>
   <string name="ratingManipulation">Manipulation vo dä Wärtigszahl</string>
   <string name="other">Suschtigs</string>
-  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit em Benutzer sim Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
+  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit äm Benutzer sim / dä Benutzerin ihräm Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens ein Link zumnä Spiel aa, wo drin bschisse worde isch.</string>
   <string name="by">vo %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch gschlossä wordä.</string>
@@ -687,7 +687,7 @@
   <string name="withEverybody">Mit dä ganzä Wält</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du häsch di folgände Emailadrässö scho regischtriärt: %s</string>
   <string name="kidMode">Chindermodus</string>
-  <string name="kidModeExplanation">Das isch ä Sicherheitsiischtellig. Im Chindermodus sind alli Kommunikationsmöglichkeitä deaktiviärt. Aktiviär diä Option, zum Chind und Schüäler vor andärnä Internetbenutzer z\'schützä.</string>
+  <string name="kidModeExplanation">Das isch ä Sicherheitsiischtellig. Im Chindermodus sind alli Kommunikationsmöglichkeitä deaktiviärt. Aktiviär diä Option, zum Chind und Schüäler/innä vor andärnä Internetbenutzer/-innä z\'schützä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chindermodus bechunnt s\'Lichess-Logo än %s-Icon, däm du aagsehsch, dass dini Chind gschützt sind.</string>
   <string name="enableKidMode">Chindermodus aktiviärä</string>
   <string name="disableKidMode">Chindermodus deaktiviärä</string>
