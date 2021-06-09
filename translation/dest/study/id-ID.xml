@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Tanggal ditambahkan (terlama)</string>
   <string name="recentlyUpdated">Baru saja diperbarui</string>
   <string name="mostPopular">Paling populer</string>
+  <string name="alphabetical">Menurut abjad</string>
   <string name="addNewChapter">Tambahkan bab baru</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Bab</item>
@@ -123,4 +124,9 @@
   <string name="deleteStudy">Hapus studi</string>
   <string name="deleteTheEntireStudy">Hapus semua studi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
+  <string name="goodMove">Langkah bagus</string>
+  <string name="mistake">Kesalahan</string>
+  <string name="brilliantMove">Langkah Brilian</string>
+  <string name="blunder">Blunder</string>
+  <string name="interestingMove">Langkah menarik</string>
 </resources>
