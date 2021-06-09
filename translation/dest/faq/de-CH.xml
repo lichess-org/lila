@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
-  <string name="frequentlyAskedQuestions">Hüfig gschtellti fragä</string>
-  <string name="whyIsLichessCalledLichess">Werum heisst Lichess Lichess?</string>
+  <string name="frequentlyAskedQuestions">Hüfig gschtellti Frogä</string>
+  <string name="whyIsLichessCalledLichess">Worum heisst Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Äs wird %1$s usgsprochä.</string>
-  <string name="leechess">li-tschess</string>
-  <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
+  <string name="leechess">li-tschäss</string>
+  <string name="hearItPronouncedBySpecialist">Los dir d\'Uussproch vomänä Schpezialischt aa.</string>
   <string name="whyLiveLightLibre">Live, will Partiiä wärdäd 24/7 in Echtziit gschpillt und aagluägät; liächt und gratis ufgrund vodä Tatsach, dass Lichess quälloffä und frei vo proprietäräm Müll isch, wo anderi Internetsiitä belaschtät.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhaltät sichs au mitäm Quällcode vo Lichess, %1$s, was für li[chess in sca]la stoht. Dä Grossteil vo Lichess isch in %2$s gschribä worde, änärä intuitivä Programmiersproch.</string>
-  <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Spendä von Unterstützer und vo de Leistigä vo Teams von Freiwilligä betriebä.</string>
-  <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du Lichess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
-  <string name="beingAPatron">ein Patron zu sein</string>
-  <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
-  <string name="otherWaysToHelp">andere Wege zu helfen</string>
-  <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
+  <string name="howCanIContributeToLichess">Wiä chan ich zu Lichess biiträgä?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Schpändä vo Underschtützer und vodä Leischtigä vo Freiwilligä betribä.</string>
+  <string name="findMoreAndSeeHowHelp">Du chasch meh drüber usäfindä, %1$s (inklusiv änärä %2$s). Falls du Lichess dur freiwilligi Arbät underschtützä wöttsch, gits vili %3$s.</string>
+  <string name="beingAPatron">än Patroon z\'sii</string>
+  <string name="breakdownOfOurCosts">Ufschlüssälig vo üsnä Choschtä</string>
+  <string name="otherWaysToHelp">anderi Wääg z\'hälfä</string>
+  <string name="areThereWebsitesBasedOnLichess">Gits Websiitänä wo uf Lichess basiäräd?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
   <string name="fairPlay">Färs Spiil</string>
   <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
