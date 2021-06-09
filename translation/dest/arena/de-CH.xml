@@ -21,12 +21,12 @@ Für Partiiä ohni Grundbedenkziit (0+1, 0+2) isch \"Bärsärk\" nöd verfüegba
 
 Dä zuäsätzlichi Punkt für \"Bärsärk\" wird nu vergeh, wenn du mindeschtens siebä Züg ide Partii gmacht hesch.</string>
   <string name="howIsTheWinnerDecided">Wiä wird dä Gwünner ermittlät?</string>
-  <string name="howIsTheWinnerDecidedAnswer">Schpiller mit dä meischtä Pünkt bi Turnierschluss wärdäd als Gwünner bekanntgeh.
+  <string name="howIsTheWinnerDecidedAnswer">Schpiller/-innä mit dä meischtä Pünkt bi Turnierschluss wärdäd als Gwünner/-innä bekanntgeh.
 
-Wenn zwei oder meh Schpiller di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
+Wenn zwei oder meh Schpiller/-innä di gliich Punktzahl bsitzäd, entscheidät d\'Turnierleischtig als Fiinwärtig.</string>
   <string name="howDoesPairingWork">Wiä wärdäd d\'Turnierpaarigä ermittlät?</string>
-  <string name="howDoesPairingWorkAnswer">Am Afang vom Turnier wärdäd d\'Schpiller uf Grundlag vode Wärtigszahl zuäteilt.
-Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller im Turnier spillsch.
+  <string name="howDoesPairingWorkAnswer">Am Afang vom Turnier wärdäd d\'Schpiller/-innä uf Grundlag vode Wärtigszahl zuäteilt.
+Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller/ ä Schpillerin mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller/-innä im Turnier spillsch.
 Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erziilä.</string>
   <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
   <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh.
@@ -34,12 +34,12 @@ Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</
   <string name="otherRules">Anderi wichtigi Reglä</string>
   <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Remis innerhalb des ersten Zugs wird keinem Spieler Punkte einbringen.</item>
-    <item quantity="other">Äs Remis innerhalb vu %s Züg wird keim Schpiller Pünkt iibringä.</item>
+    <item quantity="one">Remis innerhalb vom erschtä Zug wird keim Schpiller / keinärä Schpillerin Pünkt iibringä.</item>
+    <item quantity="other">Äs Remis innerhalb vu %s Züg wird keim Schpiller / keinärä Schpillerin Pünkt iibringä.</item>
   </plurals>
   <string name="thisIsPrivate">Das isch äs privats Turnier</string>
   <string name="shareUrl">Teil diä URL, zum ander iizladä: %s</string>
-  <string name="drawStreak">Remis-Strähne: Wänn än Schpiller mehreri ufänanderfolgendi Remis ide Arena erziilt, wird nu fürs erschte Remis än Punkt vergeh, oder aber für Remis, wo meh als %s Züg aduuräd. Ä Remis-Strähne cha nur durän Sieg brochä wärdä, nöd durä verloräni Partii oder äs Remis.</string>
+  <string name="drawStreak">Remis-Strähne: Wänn än Schpiller / ä Schpillerin mehreri ufänanderfolgendi Remis ide Arena erziilt, wird nu fürs erschte Remis än Punkt vergeh, oder aber für Remis, wo meh als %s Züg aduuräd. Ä Remis-Strähne cha nur durän Sieg brochä wärdä, nöd durä verloräni Partii oder äs Remis.</string>
   <string name="history">Arena-Hischtoriä</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Das Team ansehen</item>
