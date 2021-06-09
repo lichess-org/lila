@@ -27,7 +27,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
             const whiteAreaFill = 'rgba(255, 255, 255, 0.2)';
             const whiteColumnFill = 'rgba(255, 255, 255, 0.4)';
             const whiteColumnBorder = '#00000077';
-            const blackAreaFill = 'rgba(0, 0, 0, 0.7)';
+            const blackAreaFill = 'rgba(0, 0, 0, 0.4)';
             const blackColumnFill = 'rgba(0, 0, 0, 0.7)';
             const blackColumnBorder = '#ffffff33';
 
