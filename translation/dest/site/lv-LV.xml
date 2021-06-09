@@ -713,7 +713,7 @@
   <string name="printFriendlyPDF">Drukājams PDF</string>
   <string name="crosstable">Šķērstabula</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Varat arī ritināt virs galdiņa, lai pārvietotos spēlē.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Virziet kursoru uz datoranalīzes variācijām, lai tās skatītu.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">Virziet kursoru uz datoranalīzes variācijām, lai tās skatītu.</string>
   <string name="analysisShapesHowTo">Klikšķiniet, turot pārslēgšanas taustiņu, vai klikšķiniet ar labo taustiņu uz galdiņa, lai zīmētu riņķus un bultas.</string>
   <string name="letOtherPlayersMessageYou">Ļaut citiem spēlētājiem jums sūtīt ziņas</string>
   <string name="receiveForumNotifications">Saņemt paziņojumus, kad esmu minēts forumā</string>
