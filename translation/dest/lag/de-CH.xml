@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Laggt Lichess?</string>
-  <string name="measurementInProgressThreeDot">Mässigä werded duregfüehrt...</string>
-  <string name="noAndYourNetworkIsGood">Nei. Dis Netz isch übrigens tiptop.</string>
-  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Nein. Zudem ist deine Netzwerkverbindung schlecht.</string>
-  <string name="yesItWillBeFixedSoon">Jo. Aber es wird bald scho behobe si!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt di lang Antwort! De Lag beschtoht us zwei vonänand unabhängigä Wärt (nidriger isch besser):</string>
-  <string name="lichessServerLatency">D\'Lichess Server-Latenz</string>
-  <string name="lichessServerLatencyExplanation">D\'Ziit wo benötiget wird, um en Zug ufm Server z\'verarbeitä. Si isch für alli gliich und hanget nu vode Serverlascht ab. Je meh Schpiller/-innä, deschto höcher wird\'si, aber d\'Lichess-Entwickler gäbäd ihres Beschti, um si niedrig zu haltä. Si überschtiigt sältä 10ms.</string>
-  <string name="networkBetweenLichessAndYou">D\'Netzwerkverbindung zwüsched Lichess und Dir</string>
-  <string name="networkBetweenLichessAndYouExplanation">D\'Ziit wo benötiget wird, um en Zug von dim Computer zum Lichess-Server z\'sändä und d\'Antwort zruggzbecho. Si isch abhängig von diner Entfärnig zu Lichess (bide Franzose) und vode Qualität vo diner Internetverbindung. D\'Lichess-Entwickler chönd dis WLAN nöd repariärä oder Liächt schnäller machä, dänk.</string>
+  <string name="isLichessLagging">Läggt Lichess?</string>
+  <string name="measurementInProgressThreeDot">Mässigä wärdäd durägfüärt...</string>
+  <string name="noAndYourNetworkIsGood">Nei. Dis Netz isch übrigäns tiptop.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Nei. Aber dini Netzwerkverbindig isch schlächt.</string>
+  <string name="yesItWillBeFixedSoon">Jawoll. Aber äs wird bald scho behobä si!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt di lang Antwort! Dä Läg beschtoht us zwei vonänand unabhängigä Wärt (nidriger isch besser):</string>
+  <string name="lichessServerLatency">D\'Lichess Server-Latänz</string>
+  <string name="lichessServerLatencyExplanation">D\'Ziit wo benötigät wird, um än Zug ufm Server z\'verarbeitä. Si isch für alli gliich und hangät nu vodä Serverlascht ab. Je meh Schpiller/-innä, deschto höcher wird\'si, aber d\'Lichess-Entwickler gäbäd ihräs Beschti, zum si nidrig z\'haltä. Si überschtiigt sältä 10ms.</string>
+  <string name="networkBetweenLichessAndYou">D\'Netzwerkverbindig zwüschäd Lichess und Dir</string>
+  <string name="networkBetweenLichessAndYouExplanation">D\'Ziit wo benötigät wird, zum än Zug vo dim Kompi zum Lichess-Server z\'sändä und d\'Antwort zruggzbecho. Si isch abhängig von dinär Entfärnig zu Lichess (bidä Franzose) und vodä Qualität vo dinär Internetverbindig. D\'Lichess-Entwickler chönd dis WLAN nöd repariärä oder Liächt schnäller machä, dänk.</string>
   <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Beidi Wärt chönd jederziit iigseh wärdä, indäm du uf din Benutzernamä ide obere Liischtä klicksch.</string>
-  <string name="lagCompensation">Lag-Kompensation</string>
+  <string name="lagCompensation">Läg-Kompensation</string>
   <string name="lagCompensationExplanation">Lichess kompensiert dä Netzwerk-Lag. Dezue ghöred anhaltendi Verzögerigä und glegentlichi Lag-Spitzä. Es exischtiered Grenzä und e Heuristik uf de Grundlage vo Zytkontrolle und de bisher usgeglichenä Verzögerig, so dass sich s\'Ergebnis für beidi Schpiller/-innä vernünftig afühlä sött. Folglich isch es keis Handicap, en höcherä Netzwerk-Lag als dä Gegner z\'ha!</string>
 </resources>
