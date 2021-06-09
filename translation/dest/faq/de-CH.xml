@@ -69,14 +69,14 @@ Tschägg %3$s für ächli Üäbig mit därä Art vo Zug.</string>
   <string name="repeatedPositionsThatMatters">Bi drüfach gliicher Schtellig gohts um vollschtändig gliichi %1$s, nöd um Zugwiderholigä. Di gliichi Schtellig cha mit beliäbigä Züg ärreicht wärdä, sofärn d\'Zugmöglichkeitä i dänä Schtelligä immer gliich sind.</string>
   <string name="positions">Schtelligä</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ ä Schtellig drümol ärreicht. Wieso isch d\'Partii nöd Remis ärchlärt wordä?</string>
-  <string name="threeFoldHasToBeClaimed">Drüfach gliichi Schtellig muäs vo eim vo beidnä Schpiller reklamiärt wärdän. Das chasch du ärreichä, indem du uf d\'Schaltflächi trucksch, wo aazeigt wird, oder indem du Remis vor dim letschtä Zug aabütisch, wonä söttigi Schtellig herbiifüährt. In däm Fall wird ä berächtigti Reklamation wägä drüfach gliicher Schtellig selbscht dänn erfolgriich si, wänn din Gägner das Aagebot ablehnt. Du chasch Lichess au so %1$s, dass automatisch drüfach gliichi Schtellig für dich reklamiärt wird. Usserdäm beändät ä füüffach gliichi Schtellig mit gliichä Zugmöglichkeitä immer sofort s\'Schpiil.</string>
+  <string name="threeFoldHasToBeClaimed">Drüfach gliichi Schtellig muäs vo eim vo beidnä Schpiller/-innä reklamiärt wärdän. Das chasch du ärreichä, indem du uf d\'Schaltflächi trucksch, wo aazeigt wird, oder indem du Remis vor dim letschtä Zug aabütisch, wonä söttigi Schtellig herbiifüährt. In däm Fall wird ä berächtigti Reklamation wägä drüfach gliicher Schtellig selbscht dänn erfolgriich si, wänn din Gägner das Aagebot ablehnt. Du chasch Lichess au so %1$s, dass automatisch drüfach gliichi Schtellig für dich reklamiärt wird. Usserdäm beändät ä füüffach gliichi Schtellig mit gliichä Zugmöglichkeitä immer sofort s\'Schpiil.</string>
   <string name="configure">konfiguriärä</string>
   <string name="accounts">Kontä</string>
   <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess anärkännt alli FIDE-Titel, wo am Brätt gwunnä wordä sind, äbäso %1$s. Das isch ä Liischtä vo FIDE-Titäl:</string>
   <string name="showYourTitle">Wänn du än OTB Titäl häsch, chasch du beaatragä, dass dä uf dim Konto aazeigt wird, indem du das %1$s uusfüllsch, mitämä klarä Bild vomänä Identifikationsuswiis oder vonärä -chaartä undämä Selfie vo dir, i däm du dä Uswiis oder d\'Chartä im Bild zeigsch.
 
-Ä söttigi Verifikation als Titälschpiller uf Lichess ermöglichät d\'Teilnaam idä Titäl-Arena-Events.
+Ä söttigi Verifikation als Titälschpiller/-in uf Lichess ermöglichät d\'Teilnaam idä Titäl-Arena-Events.
 
 Usserdäm gits au än Ehrätitäl %2$s.</string>
   <string name="asWellAsManyNMtitles">vili nationaali Meischtertitäl</string>
@@ -85,7 +85,7 @@ Usserdäm gits au än Ehrätitäl %2$s.</string>
   <string name="noUpperCaseDot">Leider nei.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Dä Ehrätitäl isch inoffiziäll und exischtiärt nur uf Lichess.
 
-Mir belohnäd dämit i sältänä Fäll und noch üsäm Ärmässä usschliässlich bemärkänswärti Schpiller, wo zudäm guäti Bürger vo Lichess sind. Si bechömäd dä LM Titäl nöd, dä LM Titel chunnt zu ihnä. Wänn du dich qualifiziärsch, bechunnsch du vo üs ä Nochricht zu däm Thema und häsch dänn d\'Möglichkeit, dä Titäl aazneh oder abzlehnä.
+Mir belohnäd dämit i sältänä Fäll und noch üsäm Ärmässä usschliässlich bemärkänswärti Schpiller/-innä, wo zudäm guäti Bürger/-innä vo Lichess sind. Si bechömäd dä LM Titäl nöd, dä LM Titel chunnt zu ihnä. Wänn du dich qualifiziärsch, bechunnsch du vo üs ä Nochricht zu däm Thema und häsch dänn d\'Möglichkeit, dä Titäl aazneh oder abzlehnä.
 
 Bitt nöd drum, dä LM-Titäl z\'bechoh.</string>
   <string name="whatUsernameCanIchoose">Wiä chan min Benutzernamä luutä?</string>
@@ -104,7 +104,7 @@ Bitt nöd drum, dä LM-Titäl z\'bechoh.</string>
 
 Grundsätzlich verwändät Glicko-Wärtigä \"Konfidänzintervall\" bidä Berächnig vo dinärä Wärtig. Wänn du s\'erscht Mol uf därä Websiitä schpillsch, foht dini Wärtig bi 1500 ± 700 aa. Diä 1500 schtelläd dini Wärtig dar, und d\'700 schtellt s\'Konfidänzintervall dar.
 
-Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
+Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller / ä Schpillerin gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller/-innä wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
 
 Än wiitärä Punkt isch, dass sich s\'Konfidänzintervall im Lauf vodä Ziit erhöht. Das erlaubts dir, Pünkt schnäller z\'gwünne oder z\'verliüüre, zum alli Änderigä vo dinä Färtigkeitä während däm Ziitruum z\'berücksichtigä.</string>
   <string name="whatIsProvisionalRating">Worum gits äs Frogezeichä (?) näbädärä Wärtig?</string>
