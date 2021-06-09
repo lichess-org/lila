@@ -645,6 +645,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">手順の上にカーソルを移動させるとプレビューが表示されます。</string>
   <string name="analysisShapesHowTo">Shift + クリックや右クリックで盤上に丸や矢印が描けます。</string>
   <string name="letOtherPlayersMessageYou">他のプレイヤーからのメッセージを受け付ける</string>
+  <string name="receiveForumNotifications">フォーラムで自分の名前が出たときに通知を受け取る</string>
   <string name="shareYourInsightsData">Insights のデータを共有する</string>
   <string name="withNobody">誰にも見せない</string>
   <string name="withFriends">友達にだけ</string>
@@ -824,4 +825,8 @@
   <string name="refundXpointsTimeControlY">レーティングの復活：%1$s %2$s 点。</string>
   <string name="timeAlmostUp">残り時間わずか！</string>
   <string name="clickToRevealEmailAddress">[ クリックでメールアドレスを表示 ]</string>
+  <string name="download">ダウンロード</string>
+  <string name="welcome">ようこそ！</string>
+  <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
+運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
 </resources>

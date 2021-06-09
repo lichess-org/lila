@@ -32,7 +32,7 @@
 Мысалы, қазақ тілі үшін \"[KZ]\", түрік тілі үшін \"[TR]\", француз тілі үшін \"[FR]\", т. с. с.
 Бұны Личес сайтында емес, Twitch не YouTube бетінде стрим тақырыбының басына қосуыңыз керек.
 Егер стрим ағылшын тілінде өтетін болса, тіл тэгін қосуының керегі жоқ.</string>
-  <string name="twitchUsername">Twitch аккаунт атыңыз немесе URL</string>
+  <string name="twitchUsername">Twitch тіркелгі атыңыз немесе URL</string>
   <string name="optionalOrEmpty">Міндетті емес. Жоқ болса, бос қалдырыңыз</string>
   <string name="youtubeChannel">YouTube арнаңыздағы ID не URL</string>
   <string name="streamerName">Личестегі стример атыңыз</string>

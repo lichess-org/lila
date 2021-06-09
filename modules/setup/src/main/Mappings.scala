@@ -7,6 +7,7 @@ import chess.Mode
 import chess.{ variant => V }
 import lila.rating.RatingRange
 import lila.lobby.Color
+import chess.format.FEN
 
 private object Mappings {
 
@@ -40,5 +41,10 @@ private object Mappings {
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
-  val fenField    = optional(nonEmptyText)
+  val fenField = optional {
+    import lila.common.Form.fen._
+    of[FEN]
+      .transform[FEN](f => FEN(f.value.trim), identity)
+      .transform[FEN](truncateMoveNumber, identity)
+  }
 }

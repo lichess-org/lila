@@ -158,6 +158,11 @@ export default rollupProject({
     output: 'checkout',
     name: 'checkoutStart',
   },
+  plan: {
+    input: 'src/plan.ts',
+    output: 'plan',
+    name: 'planStart',
+  },
   login: {
     input: 'src/login.ts',
     output: 'login',
@@ -209,5 +214,10 @@ export default rollupProject({
   userGamesDownload: {
     input: 'src/userGamesDownload.ts',
     output: 'userGamesDownload',
+  },
+  modActivity: {
+    input: 'src/modActivity.ts',
+    output: 'modActivity',
+    name: 'modActivity',
   },
 });

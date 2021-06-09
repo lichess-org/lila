@@ -132,7 +132,7 @@ export interface ExplorerCtrl {
   allowed: Prop<boolean>;
   loading: Prop<boolean>;
   enabled: Prop<boolean>;
-  failing: Prop<boolean>;
+  failing: Prop<Error | null>;
   movesAway: Prop<number>;
   config: ExplorerConfigCtrl;
   withGames: boolean;

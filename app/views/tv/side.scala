@@ -54,16 +54,7 @@ object side {
               separator,
               (if (game.rated) trans.rated else trans.casual).txt(),
               separator,
-              if (game.variant.exotic)
-                views.html.game.bits.variantLink(
-                  game.variant,
-                  (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName
-                   else game.variant.name).toUpperCase
-                )
-              else
-                game.perfType.map { pt =>
-                  span(title := pt.desc)(pt.trans)
-                }
+              views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
             )
           )
         ),

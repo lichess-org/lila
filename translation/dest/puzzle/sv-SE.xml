@@ -63,4 +63,10 @@
   <string name="streakSkipExplanation">Skippa detta drag för att bevara din vinstserie! Fungerar bara en gång per spel.</string>
   <string name="continueTheStreak">Fortsätt vinstserien</string>
   <string name="newStreak">Ny vinstserie</string>
+  <string name="fromMyGames">Från mina partier</string>
+  <string name="lookupOfPlayer">Leta upp schackproblem från en spelares partier</string>
+  <string name="searchPuzzles">Sök schackproblem</string>
+  <string name="fromMyGamesNone">Du har inga schackproblem i databasen, men Lichess tycker om dig väldigt mycket ändå.
+Spela snabbschack och klassiska partier för att öka dina chanser att få ett av dina schackproblem tillagt!</string>
+  <string name="fromXGamesFound">%1$s schackproblem hittade i %2$s partier</string>
 </resources>

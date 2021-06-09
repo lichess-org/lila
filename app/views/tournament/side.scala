@@ -27,13 +27,11 @@ object side {
             p(
               tour.clock.show,
               separator,
-              if (tour.variant.exotic) {
-                views.html.game.bits.variantLink(
-                  tour.variant,
-                  if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName
-                  else tour.variant.name
-                )
-              } else tour.perfType.trans,
+              views.html.game.bits.variantLink(
+                tour.variant,
+                tour.perfType.some,
+                shortName = true
+              ),
               tour.position.isDefined ?? s"$separator${trans.thematic.txt()}",
               separator,
               tour.durationString

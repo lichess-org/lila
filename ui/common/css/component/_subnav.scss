@@ -46,6 +46,7 @@
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
+      max-width: 30ch;
 
       &::after {
         content: '';

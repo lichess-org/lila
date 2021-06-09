@@ -195,7 +195,7 @@ object JsonApi {
               "id"   -> a.id,
               "nodes" -> Json.obj(
                 "nnue"      -> a.nodes,
-                "classical" -> a.nodes * 2,
+                "classical" -> a.nodes * 2
               )
             ),
             "nodes"         -> a.nodes * 2, // bc for fishnet 1.x clients without nnue

@@ -805,9 +805,8 @@ final class StudyApi(
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
       if (v) studyRepo byId studyId foreach {
-        _ foreach { study =>
-          if (who.u != study.ownerId && study.isPublic)
-            timeline ! (Propagate(StudyLike(who.u, study.id.value, study.name.value)) toFollowersOf who.u)
+        _.filter(_.isPublic) foreach { study =>
+          timeline ! (Propagate(StudyLike(who.u, study.id.value, study.name.value)) toFollowersOf who.u)
         }
       }
     }

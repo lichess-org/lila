@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
   <string name="continueTheStreak">Continuar la racha</string>
   <string name="newStreak">Nueva racha</string>
+  <string name="fromMyGames">De mis partidas</string>
+  <string name="lookupOfPlayer">Buscar ejercicios de las partidas de un jugador</string>
+  <string name="fromXGames">Ejercicios de las partidas de %s</string>
+  <string name="searchPuzzles">Buscar ejercicios</string>
+  <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
+¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
+  <string name="fromXGamesFound">%1$s ejercicios encontrados en %2$s partidas</string>
 </resources>

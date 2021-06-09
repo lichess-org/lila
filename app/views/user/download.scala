@@ -136,9 +136,8 @@ object download {
     form3.cmnToggle(
       s"dl-perf-${perfType.key}",
       "",
-      user.perfs(perfType).nb > 0,
-      value = perfType.key,
-      disabled = user.perfs(perfType).nb == 0
+      true,
+      value = perfType.key
     ),
     label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
   )

@@ -47,7 +47,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
             if (mainlinePly === false) unselect(chart);
             else {
               const point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtTurn];
-              if (defined(point)) point.select();
+              if (defined(point)) point.select(true);
               else unselect(chart);
             }
           }
@@ -62,9 +62,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
             else {
               const white = mainlinePly % 2 !== 0;
               const serie = white ? 0 : 1;
-              const turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
+              const turn = (mainlinePly - 1 - data.game.startedAtTurn) >> 1;
               const point = chart.series[serie].data[turn];
-              if (defined(point)) point.select();
+              if (defined(point)) point.select(true);
               else unselect(chart);
             }
           }

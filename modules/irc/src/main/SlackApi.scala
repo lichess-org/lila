@@ -21,13 +21,13 @@ final class SlackApi(
 
     private var buffer: Vector[ChargeEvent] = Vector.empty
 
-    implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.amount)
+    implicit private val amountOrdering = Ordering.by[ChargeEvent, Int](_.cents)
 
     def apply(event: ChargeEvent): Funit = {
       buffer = buffer :+ event
       buffer.head.date.isBefore(DateTime.now.minusHours(12)) ?? {
         val firsts    = Heapsort.topN(buffer, 10, amountOrdering).map(_.username).map(userAt).mkString(", ")
-        val amountSum = buffer.map(_.amount).sum
+        val amountSum = buffer.map(_.cents).sum
         val patrons =
           if (firsts.lengthIs > 10) s"$firsts and, like, ${firsts.length - 10} others,"
           else firsts

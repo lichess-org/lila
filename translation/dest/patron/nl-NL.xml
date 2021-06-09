@@ -5,6 +5,10 @@
   <string name="freeAccount">Gratis account</string>
   <string name="becomePatron">Word een Lichess Patroon</string>
   <string name="xBecamePatron">%s is een Lichess Patroon geworden</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s is %2$s maand een Lichess Patroon</item>
+    <item quantity="other">%1$s is %2$s maanden een Lichess Patroon</item>
+  </plurals>
   <string name="newPatrons">Nieuwe Patronen</string>
   <string name="freeChess">Gratis schaken voor iedereen, voor altijd!</string>
   <string name="noAdsNoSubs">Geen advertenties, geen abonnementen; maar open-source en passie.</string>
@@ -17,13 +21,12 @@
   <string name="lifetime">Levenslang</string>
   <string name="payLifetimeOnce">Betaal %s eenmalig. Wees voor altijd een Lichess Patroon!</string>
   <string name="lifetimePatron">Levenslange Lichess Patroon</string>
-  <string name="makeExtraDonation">Een extra donatie maken?</string>
   <string name="monthly">Maandelijks</string>
   <string name="recurringBilling">Terugkerende betaling, verlengt je Patroonvleugels elke maand.</string>
   <string name="onetime">Eenmalig</string>
   <string name="singleDonation">Een enkele donatie die u de Patroonvleugels geeft voor één maand.</string>
   <string name="otherAmount">Overige</string>
-  <string name="pleaseEnterAmount">Vul een USD bedrag in</string>
+  <string name="pleaseEnterAmountInX">Voer een bedrag in %s in</string>
   <string name="withCreditCard">Creditcard</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">We zijn een klein team, dus je steun maakt een enorm verschil!</string>
@@ -55,6 +58,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="nextPayment">Volgende betaling</string>
   <string name="youWillBeChargedXOnY">Er wordt %1$s in rekening gebracht op %2$s.</string>
   <string name="makeAdditionalDonation">Maak nu een extra donatie</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Doneer Patroonvleugels aan een speler</string>
   <string name="update">Bijwerken</string>
   <string name="changeMonthlyAmount">Het maandelijkse bedrag wijzigen (%s)</string>
   <string name="cancelSupport">je steun annuleren</string>
@@ -62,8 +66,6 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="decideHowMuch">Beslis wat Lichess voor jou waard is:</string>
   <string name="stopPayments">Trek je creditcard terug en stop de betalingen:</string>
   <string name="noLongerSupport">Lichess wordt niet langer gesteund</string>
-  <string name="paymentHistory">Betaalgeschiedenis</string>
-  <string name="paid">Betaald</string>
   <string name="viewOthers">Andere Lichess Patronen bekijken</string>
   <string name="date">Datum</string>
   <string name="amount">Bedrag</string>

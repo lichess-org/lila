@@ -14,8 +14,8 @@ object PlanForm {
       "txn_id"            -> optional(nonEmptyText),
       "subscr_id"         -> optional(nonEmptyText),
       "txn_type"          -> text.verifying("Invalid txn type", txnTypes contains _),
+      "mc_currency"       -> nonEmptyText,
       "mc_gross"          -> bigDecimal,
-      "mc_fee"            -> bigDecimal,
       "custom"            -> optional(text),
       "payer_email"       -> optional(nonEmptyText),
       "first_name"        -> optional(text),
@@ -28,9 +28,9 @@ object PlanForm {
       txnId: Option[String],
       subId: Option[String],
       txnType: String,
+      currencyCode: String,
       gross: BigDecimal,
-      fee: BigDecimal,
-      userId: Option[String],
+      custom: Option[String],
       email: Option[String],
       firstName: Option[String],
       lastName: Option[String],
@@ -39,10 +39,16 @@ object PlanForm {
 
     def name = (firstName, lastName) mapN { _ + " " + _ }
 
-    def grossCents = (gross * 100).toInt
+    def country = countryCode map Country
 
-    def feeCents = (fee * 100).toInt
+    def money = CurrencyApi currencyOption currencyCode map {
+      Money(gross, _)
+    }
 
-    def country = countryCode.map(Country)
+    val (userId, giftTo) = custom.??(_.trim) match {
+      case s"$userId $giftTo" => (userId.some, giftTo.some)
+      case s"$userId"         => (userId.some, none)
+      case _                  => (none, none)
+    }
   }
 }

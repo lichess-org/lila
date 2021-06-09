@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Sla deze zet over om je reeks te behouden! Werkt maar eenmaal per sessie.</string>
   <string name="continueTheStreak">Doorgaan met de reeks</string>
   <string name="newStreak">Nieuwe reeks</string>
+  <string name="fromMyGames">Van mijn partijen</string>
+  <string name="lookupOfPlayer">Zoek puzzels uit partijen van een specifieke speler</string>
+  <string name="fromXGames">Puzzels uit de partijen van %s</string>
+  <string name="searchPuzzles">Puzzels zoeken</string>
+  <string name="fromMyGamesNone">Je hebt geen puzzels in de database staan, maar Lichess waardeert je nog steeds heel erg.
+Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jouw partijen wordt toegevoegd!</string>
+  <string name="fromXGamesFound">%1$s puzzels gevonden in %2$s partijen</string>
 </resources>

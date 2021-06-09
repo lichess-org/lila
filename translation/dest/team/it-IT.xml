@@ -49,4 +49,6 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="teamPasswordDescriptionForLeader">(Facoltativo) Una password che i nuovi membri devono sapere per unirsi a questo team.</string>
   <string name="incorrectTeamPassword">Password del team errata.</string>
   <string name="teamAlreadyExists">Questa squadra esiste già.</string>
+  <string name="upcomingTourns">Prossimi tornei</string>
+  <string name="completedTourns">Tornei completati</string>
 </resources>

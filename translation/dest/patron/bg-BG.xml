@@ -15,7 +15,7 @@
   <string name="monthly">Ежемесечно</string>
   <string name="onetime">Еднократно</string>
   <string name="otherAmount">Друго</string>
-  <string name="pleaseEnterAmount">Моля въведете сума в щатски долари (USD)</string>
+  <string name="pleaseEnterAmountInX">Моля въведете сума в %s</string>
   <string name="withCreditCard">Кредитна карта</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Ние сме малък екип, за това Вашата подкрепа има огромно значение!</string>
@@ -32,12 +32,11 @@
   <string name="nextPayment">Следващо плащане</string>
   <string name="youWillBeChargedXOnY">Ще платите %1$s на %2$s.</string>
   <string name="makeAdditionalDonation">Направете допълнително дарение сега</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Подари \"крила\" на Дарител на друг играч</string>
   <string name="update">Актуализиране</string>
   <string name="changeMonthlyAmount">Промяна на ежемесечната сума (%s)</string>
   <string name="cancelSupport">преустановете поддръжката си</string>
   <string name="xOrY">%1$s или %2$s</string>
-  <string name="paymentHistory">История на плащанията</string>
-  <string name="paid">Платено</string>
   <string name="viewOthers">Вижте другите Lichess Дарители</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>

@@ -1,56 +1,68 @@
 package lila.plan
 
+import java.util.Currency
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation.Constraints
+import scala.concurrent.duration._
+
+import lila.user.User
 
 case class Checkout(
     email: Option[String],
-    amount: Cents,
-    freq: Freq
+    money: Money,
+    freq: Freq,
+    giftTo: Option[String]
 ) {
-
-  def cents = amount
-
-  def toFormData =
-    Some(
-      (email, amount.value, freq.toString.toLowerCase)
-    )
-}
-
-object Checkout {
-
-  def make(
-      email: Option[String],
-      amount: Int,
-      freq: String
-  ) =
-    Checkout(
-      email,
-      Cents(amount),
-      if (freq == "monthly") Freq.Monthly else Freq.Onetime
-    )
-
-  val form = Form[Checkout](
-    mapping(
-      "email"  -> optional(email),
-      "amount" -> number(min = 100, max = 100 * 100000),
-      "freq"   -> nonEmptyText
-    )(Checkout.make)(_.toFormData)
+  def fixFreq = copy(
+    freq = if (giftTo.isDefined) Freq.Onetime else freq
   )
 }
 
-case class Switch(usd: BigDecimal) {
+private object Checkout {
 
-  def cents = Usd(usd).cents
+  def amountField(pricing: PlanPricing) = bigDecimal(10, 3)
+    .verifying(Constraints.max(pricing.max.amount))
+    .verifying(Constraints.min(pricing.min.amount))
 }
+
+final class CheckoutForm(lightUserApi: lila.user.LightUserApi) {
+
+  private def make(
+      currency: Currency
+  )(email: Option[String], amount: BigDecimal, freq: String, giftTo: Option[String]) =
+    Checkout(
+      email,
+      Money(amount, currency),
+      if (freq == "monthly") Freq.Monthly else Freq.Onetime,
+      giftTo = giftTo
+    )
+
+  def form(pricing: PlanPricing) = Form[Checkout](
+    mapping(
+      "email"  -> optional(email),
+      "amount" -> Checkout.amountField(pricing),
+      "freq"   -> nonEmptyText,
+      "gift" -> optional(lila.user.UserForm.historicalUsernameField)
+        .verifying("Unknown receiver", n => n.fold(true) { blockingFetchUser(_).isDefined })
+        .verifying(
+          "Receiver is already a Patron",
+          n => n.fold(true) { blockingFetchUser(_).fold(true)(!_.isPatron) }
+        )
+    )(make(pricing.currency) _)(_ => none)
+  )
+
+  private def blockingFetchUser(username: String) =
+    lightUserApi.async(User normalize username).await(1 second, "giftUser")
+}
+
+case class Switch(money: Money)
 
 object Switch {
 
-  val form = Form(
+  def form(pricing: PlanPricing) = Form(
     mapping(
-      "usd" -> bigDecimal(precision = 10, scale = 2)
-        .verifying(_ >= 1)
-        .verifying(_ <= 100000)
-    )(Switch.apply)(Switch.unapply)
+      "amount" -> Checkout.amountField(pricing)
+    )(a => Switch(Money(a, pricing.currency)))(_ => none)
   )
 }

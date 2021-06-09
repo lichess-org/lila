@@ -63,4 +63,11 @@
   <string name="streakSkipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>
   <string name="continueTheStreak">Jarraitu garaipen-bolada</string>
   <string name="newStreak">Garaipen-bolada berria</string>
+  <string name="fromMyGames">Nire partidetatik</string>
+  <string name="lookupOfPlayer">Bilatu jokalari baten partidetatik ateratako ariketak</string>
+  <string name="fromXGames">%s jokalariaren partidetako ariketak</string>
+  <string name="searchPuzzles">Ariketak bilatu</string>
+  <string name="fromMyGamesNone">Ez duzu ariketarik datu-basean, hala ere Lichessek asko maite zaitu.
+Jokatu partida azkar eta arruntak zure partidetatik eratorritako ariketak izateko!</string>
+  <string name="fromXGamesFound">%1$s ariketa aurkitu dira %2$s partidatan</string>
 </resources>

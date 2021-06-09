@@ -170,6 +170,10 @@ object pref {
               radios(form("studyInvite"), translatedStudyInviteChoices)
             ),
             setting(
+              trans.receiveForumNotifications(),
+              radios(form("mention"), booleanChoices)
+            ),
+            setting(
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices)
             )

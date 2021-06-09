@@ -124,7 +124,7 @@ object forms {
       titleF: Frag,
       route: Call,
       error: Option[Frag] = None,
-      forceTimeMode: Boolean = false,
+      forceTimeMode: Boolean = false
   )(fields: Frag)(implicit ctx: Context) =
     div(cls := error.isDefined option "error")(
       h2(titleF),

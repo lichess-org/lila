@@ -55,4 +55,6 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="teamPasswordDescriptionForLeader">(Opcjonalnie) Hasło, które nowi gracze muszą znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectTeamPassword">Nieprawidłowe hasło.</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
+  <string name="upcomingTourns">Nadchodzące turnieje</string>
+  <string name="completedTourns">Ukończone turnieje</string>
 </resources>

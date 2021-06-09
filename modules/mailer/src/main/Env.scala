@@ -42,8 +42,11 @@ final class Env(
     "fishnet" -> { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key).unit
     },
-    "planStart" -> { case lila.hub.actorApi.plan.PlanStart(userId) =>
-      automaticEmail.onPatronNew(userId).unit
+    "planStart" -> {
+      case lila.hub.actorApi.plan.PlanStart(userId) =>
+        automaticEmail.onPatronNew(userId).unit
+      case lila.hub.actorApi.plan.PlanGift(from, to, lifetime) =>
+        automaticEmail.onPatronGift(from, to, lifetime).unit
     },
     "planExpire" -> { case lila.hub.actorApi.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId).unit

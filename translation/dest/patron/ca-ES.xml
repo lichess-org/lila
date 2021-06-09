@@ -21,13 +21,12 @@
   <string name="lifetime">Per sempre</string>
   <string name="payLifetimeOnce">Paga %s una vegada. Sigues Patró de Lichess per sempre!</string>
   <string name="lifetimePatron">Patró de Lichess de per vida</string>
-  <string name="makeExtraDonation">Fer una donació extra?</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturació recurrent, renovant les teves ales de Patró cada mes.</string>
   <string name="onetime">Una vegada</string>
   <string name="singleDonation">Una única donació que et dona les ales de Patró per un mes.</string>
   <string name="otherAmount">Altre</string>
-  <string name="pleaseEnterAmount">Si us plau, posa la quantitat en USD</string>
+  <string name="pleaseEnterAmountInX">Si us plau, escriu una quantitat en %s</string>
   <string name="withCreditCard">Targeta de crèdit</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Som un equip petit, per això el teu suport fa una gran diferència!</string>
@@ -59,6 +58,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="nextPayment">Proper pagament</string>
   <string name="youWillBeChargedXOnY">Se\'t cobrarà %1$s el %2$s.</string>
   <string name="makeAdditionalDonation">Fes ara una donació addicional</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Regalar les ales de Patró a un altre jugador</string>
   <string name="update">Actualitzar</string>
   <string name="changeMonthlyAmount">Canvia la quantitat mensual (%s)</string>
   <string name="cancelSupport">cancel·la el teu suport</string>
@@ -66,8 +66,6 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="decideHowMuch">Decideix quant val Lichess per a tu:</string>
   <string name="stopPayments">Retira la targeta de crèdit i atura els pagaments:</string>
   <string name="noLongerSupport">Ja no dónes suport a Lichess</string>
-  <string name="paymentHistory">Historial de pagaments</string>
-  <string name="paid">Pagat</string>
   <string name="viewOthers">Veure altres Patrons de Lichess</string>
   <string name="date">Data</string>
   <string name="amount">Quantitat</string>

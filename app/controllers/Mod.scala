@@ -338,6 +338,22 @@ final class Mod(
       }
     }
 
+  def activity = activityOf("team", "month")
+
+  def activityOf(who: String, period: String) =
+    Secure(_.GamifyView) { implicit ctx => me =>
+      env.mod.activity(who, period)(me.user) map { activity =>
+        Ok(html.mod.activity(activity))
+      }
+    }
+
+  def queues(period: String) =
+    Secure(_.GamifyView) { implicit ctx => me =>
+      env.mod.queueStats(period) map { stats =>
+        Ok(html.mod.queueStats(stats))
+      }
+    }
+
   def search =
     SecureBody(_.UserSearch) { implicit ctx => me =>
       implicit def req = ctx.body
@@ -427,7 +443,8 @@ final class Mod(
               modApi.setPermissions(me, user.username, Permission(permissions)) >> {
                 newPermissions(Permission.Coach) ?? env.mailer.automaticEmail.onBecomeCoach(user)
               } >> {
-                Permission(permissions).exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
+                Permission(permissions)
+                  .exists(_ is Permission.SeeReport) ?? env.plan.api.setLifetime(user)
               } inject Redirect(routes.Mod.permissions(username)).flashSuccess
             }
           )

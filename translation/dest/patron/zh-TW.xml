@@ -13,7 +13,6 @@
   <string name="monthly">每個月</string>
   <string name="onetime">一次性</string>
   <string name="otherAmount">其他</string>
-  <string name="pleaseEnterAmount">請輸入金額(美元)</string>
   <string name="withCreditCard">信用卡</string>
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">我捐出的錢會到哪裡?</string>
@@ -35,8 +34,6 @@
   <string name="cancelSupport">取消贊助</string>
   <string name="xOrY">%1$s 或 %2$s</string>
   <string name="noLongerSupport">不再贊助 Lichess</string>
-  <string name="paymentHistory">付款記錄</string>
-  <string name="paid">已支付</string>
   <string name="viewOthers">查看其他 Lichess 贊助者</string>
   <string name="date">日期</string>
   <string name="amount">金額</string>

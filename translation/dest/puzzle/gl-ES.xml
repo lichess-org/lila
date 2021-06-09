@@ -39,6 +39,10 @@
   <string name="normal">Normal</string>
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Un punto por debaixo da túa puntuación de exercicios</item>
+    <item quantity="other">%s puntos por debaixo da túa puntuación de exercicios</item>
+  </plurals>
   <string name="harder">Máis difícil</string>
   <string name="hardest">O máis difícil</string>
   <string name="example">Exemplo</string>
@@ -50,4 +54,16 @@
   <string name="history">Historial de crebacabezas</string>
   <string name="solved">resoltos</string>
   <string name="failed">fallados</string>
+  <string name="streakDescription">Soluciona exercicios cada vez máis difíciles e consigue unha racha de victorias. Non hai conta atrás, así que podes ir a modo. Se te equivocas nun só movemento, acabouse! Pero lembra que podes omitir un movemento por sesión.</string>
+  <string name="yourStreakX">A túa puntuación: %s</string>
+  <string name="streakSkipExplanation">Omite este movemento para conservar o teu combo. Só funciona unha vez por corrida.</string>
+  <string name="continueTheStreak">Continúa a racha</string>
+  <string name="newStreak">Nova racha</string>
+  <string name="fromMyGames">Das miñas partidas</string>
+  <string name="lookupOfPlayer">Buscar exercicios das partidas dun xogador/a</string>
+  <string name="fromXGames">Exercicios das partidas de %s</string>
+  <string name="searchPuzzles">Busca exercicios</string>
+  <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
+Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
+  <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
 </resources>

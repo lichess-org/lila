@@ -59,7 +59,9 @@ lichess.RoundNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+        variantNope =
+          !supportedVariant(d.game.variant.key) &&
+          'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
           Chessground(document.createElement('div'), {
@@ -169,10 +171,13 @@ lichess.RoundNVUI = function (redraw: Redraw) {
             {
               hook: onInsert(el => {
                 const $board = $(el as HTMLElement);
-                $board.on('keypress', boardCommandsHandler());
                 $board.on('keypress', () => console.log(ctrl));
                 // NOTE: This is the only line different from analysis board listener setup
-                $board.on(
+                const $buttons = $board.find('button');
+                $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+                $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+                $buttons.on('keypress', boardCommandsHandler());
+                $buttons.on(
                   'keypress',
                   lastCapturedCommandHandler(
                     () => ctrl.data.steps.map(step => step.fen),
@@ -180,15 +185,16 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                     prefixStyle.get()
                   )
                 );
-                const $buttons = $board.find('button');
-                $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
-                $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                 $buttons.on(
                   'keypress',
                   possibleMovesHandler(
                     ctrl.data.player.color,
+                    () => ctrl.chessground.state.turnColor,
                     ctrl.chessground.getFen,
-                    () => ctrl.chessground.state.pieces
+                    () => ctrl.chessground.state.pieces,
+                    ctrl.data.game.variant.key,
+                    () => ctrl.chessground.state.movable.dests,
+                    () => ctrl.data.steps
                   )
                 );
                 $buttons.on('keypress', positionJumpHandler());

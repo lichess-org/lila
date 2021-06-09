@@ -1,18 +1,18 @@
 package lila.playban
 
+import chess.{ Centis, Color, Status }
+import org.joda.time.DateTime
+import play.api.Mode
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import chess.{ Centis, Color, Status }
 import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Game, Player, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.{ User, UserRepo }
-
-import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import lila.user.NoteApi
+import lila.user.{ User, UserRepo }
 
 final class PlaybanApi(
     coll: Coll,
@@ -21,7 +21,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mode: Mode) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
@@ -44,7 +44,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    Uptime.startedSinceMinutes(10) ?? {
+    (mode != Mode.Prod || Uptime.startedSinceMinutes(10)) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
@@ -207,27 +207,55 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome, userId: User.ID, rsUpdate: RageSit.Update): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
-    coll.ext
-      .findAndUpdate[UserRecord](
-        selector = $id(userId),
-        update = $doc(
-          $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
-            rsUpdate match {
-              case RageSit.Reset            => $min("c" -> 0)
-              case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
-              case _                        => $empty
+    for {
+      withOutcome <- coll.ext
+        .findAndUpdate[UserRecord](
+          selector = $id(userId),
+          update = $doc(
+            $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)) ++ {
+              rsUpdate match {
+                case RageSit.Reset            => $min("c" -> 0)
+                case RageSit.Inc(v) if v != 0 => $inc("c" -> v)
+                case _                        => $empty
+              }
             }
-          }
-        ),
-        fetchNewObject = true,
-        upsert = true
-      ) orFail s"can't find newly created record for user $userId" flatMap { record =>
-      (outcome != Outcome.Good) ?? {
-        userRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
-      } >>
-        registerRageSit(record, rsUpdate)
-    }
+          ),
+          fetchNewObject = true,
+          upsert = true
+        ) orFail s"can't find newly created record for user $userId"
+      withBan <- {
+        if (outcome == Outcome.Good) fuccess(withOutcome)
+        else
+          for {
+            createdAt <- userRepo.createdAtById(userId) orFail s"Missing user creation date $userId"
+            withBan   <- legiferate(withOutcome, createdAt)
+          } yield withBan
+      }
+      _ <- registerRageSit(withBan, rsUpdate)
+    } yield ()
   }.void logFailure lila.log("playban")
+
+  private def legiferate(record: UserRecord, accCreatedAt: DateTime): Fu[UserRecord] =
+    record
+      .bannable(accCreatedAt)
+      .ifFalse(record.banInEffect)
+      .?? { ban =>
+        lila.mon.playban.ban.count.increment()
+        lila.mon.playban.ban.mins.record(ban.mins)
+        Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), "playban")
+        coll.ext
+          .findAndUpdate[UserRecord](
+            selector = $id(record.userId),
+            update = $unset("o") ++ $push(
+              "b" -> $doc(
+                "$each"  -> List(ban),
+                "$slice" -> -30
+              )
+            ),
+            fetchNewObject = true
+          )
+      }
+      .map(_ | record) >>- cleanUserIds.remove(record.userId)
 
   private def registerRageSit(record: UserRecord, update: RageSit.Update): Funit =
     update match {
@@ -239,7 +267,7 @@ final class PlaybanApi(
               lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
-            if (record.isLethal)
+            if (record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60))
               userRepo
                 .byId(record.userId)
                 .flatMap {
@@ -252,26 +280,5 @@ final class PlaybanApi(
           }
         }
       case _ => funit
-    }
-
-  private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit =
-    record.bannable(accCreatedAt) ?? { ban =>
-      (!record.banInEffect) ?? {
-        lila.mon.playban.ban.count.increment()
-        lila.mon.playban.ban.mins.record(ban.mins)
-        Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), "playban")
-        coll.update
-          .one(
-            $id(record.userId),
-            $unset("o") ++
-              $push(
-                "b" -> $doc(
-                  "$each"  -> List(ban),
-                  "$slice" -> -30
-                )
-              )
-          )
-          .void >>- cleanUserIds.remove(record.userId)
-      }
     }
 }

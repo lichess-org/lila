@@ -296,8 +296,9 @@ package study {
 }
 
 package plan {
-  case class ChargeEvent(username: String, amount: Int, percent: Int, date: DateTime)
+  case class ChargeEvent(username: String, cents: Int, percent: Int, date: DateTime)
   case class MonthInc(userId: String, months: Int)
   case class PlanStart(userId: String)
+  case class PlanGift(from: String, to: String, lifetime: Boolean)
   case class PlanExpire(userId: String)
 }

@@ -45,7 +45,7 @@
   <string name="waitingToStart">Warte auf den Start</string>
   <string name="createNewGame">Ein neues Rennen erstellen</string>
   <string name="joinPublicRace">An einem öffentlichen Rennen teilnehmen</string>
-  <string name="raceYourFriends">Lade deine Freunde zu einem Rennen ein</string>
+  <string name="raceYourFriends">Spiele ein Rennen mit deinen Freunden</string>
   <string name="skip">überspringen</string>
   <string name="skipHelp">Du kannst einen Zug pro Rennen überspringen:</string>
   <string name="skipExplanation">Überspringe diesen Zug, um deine Kombination beizubehalten! Du kannst das nur einmal pro Rennen machen.</string>

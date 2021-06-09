@@ -28,7 +28,7 @@ object edit extends Context.ToLang {
           if (ctx.is(s.user))
             div(cls := "streamer-header")(
               if (s.streamer.hasPicture)
-                a(targetBlank, href := routes.Streamer.picture, title := changePicture.txt())(
+                a(targetBlank, cls := "picture-edit", href := routes.Streamer.picture, title := changePicture.txt())(
                   bits.pic(s.streamer, s.user)
                 )
               else

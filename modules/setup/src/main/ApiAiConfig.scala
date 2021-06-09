@@ -71,7 +71,7 @@ object ApiAiConfig extends BaseConfig {
       cl: Option[Clock.Config],
       d: Option[Int],
       c: Option[String],
-      pos: Option[String]
+      pos: Option[FEN]
   ) =
     new ApiAiConfig(
       variant = chess.variant.Variant.orDefault(~v),
@@ -79,6 +79,6 @@ object ApiAiConfig extends BaseConfig {
       daysO = d,
       color = Color.orDefault(~c),
       level = l,
-      fen = pos map FEN.apply
+      fen = pos
     ).autoVariant
 }

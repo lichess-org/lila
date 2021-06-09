@@ -30,7 +30,7 @@ final class Search(env: Env) extends LilaController(env) {
             api = _ => Unauthorized(jsonError("Login required")).fuccess
           )
         else
-          NotForBots {
+          OnlyHumans {
             val page = p atLeast 1
             Reasonable(page, 100) {
               val ip           = HTTPRequest ipAddress ctx.req

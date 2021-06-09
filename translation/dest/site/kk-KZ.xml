@@ -139,9 +139,9 @@
   <string name="viewInFullSize">Жайып көрсету</string>
   <string name="logOut">Шығу</string>
   <string name="signIn">Кіру</string>
-  <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге аккаунт қажет</string>
+  <string name="youNeedAnAccountToDoThat">Бұны істеу үшін сізге тіркелгі қажет</string>
   <string name="signUp">Тіркелу</string>
-  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше аккаунт жасауды құптамаймыз, тым көп аккаунт жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
+  <string name="computersAreNotAllowedToPlay">Компьютер көмегін пайдалану - тыйым. Ойын кезінде әр түрлі шахмат програмдарын, дерекқорларын не басқа бір ойыншының көмегін қолданбаңыз. Сонымен қатар, бірнеше тіркелгі жасауды құптамаймыз, тым көп тіркелгі жасауыңыз сізді шектеуге әкеліп соқтырады.</string>
   <string name="games">Ойындар</string>
   <string name="forum">Форум</string>
   <string name="xPostedInForumY">%1$s %2$s тақырыбын жария етті</string>
@@ -173,7 +173,7 @@
   <string name="username">Пайдаланушы аты</string>
   <string name="usernameOrEmail">Атыңыз не поштаңыз</string>
   <string name="changeUsername">Атыңызды өзгерту</string>
-  <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"mirasbala\" дегенді \"MirasBala\" деп.</string>
+  <string name="changeUsernameNotSame">Тек әріптер үлкендігін өзгерту рұқсат. Мысалы, \"tolebi\" дегенді \"ToleBi\" деп.</string>
   <string name="changeUsernameDescription">Пайдаланушы атын өзгертіңіз. Бұны бір мәрте ғана жасауға рұқсат. Тек әріптің үлкендігін ғана өзгерте аласыз.</string>
   <string name="password">Құпиясөз</string>
   <string name="changePassword">Құпиясөзді өзгерту</string>
@@ -273,7 +273,7 @@
     <item quantity="one">%s секунд беру</item>
     <item quantity="other">%s секунд беру</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Бұл аккаунт Личес-тің Қызмет көрсету шартын бұзды</string>
+  <string name="thisAccountViolatedTos">Бұл тіркелгі Личес-тің Қызмет көрсету шартын бұзды</string>
   <string name="openingExplorerAndTablebase">Бастаулар мен аяқталулар қоры</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүріс қайтаруды сұрау</string>
@@ -395,7 +395,7 @@
   <string name="conditionOfEntry">Кіру талаптары:</string>
   <string name="advancedSettings">Қосымша баптаулар</string>
   <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
-  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет аккаунтыңызды жабылуға шалдықтыру мүмкін.</string>
+  <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет себебінен тіркелгіңіз жабылуы мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
   <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
   <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
@@ -494,7 +494,7 @@
   <string name="typePrivateNotesHere">Жеке жазбаларыңыз үшін</string>
   <string name="invalidUsernameOrPassword">Атыңыз не құпиясөз қате</string>
   <string name="incorrectPassword">Құпиясөз қате</string>
-  <string name="invalidAuthenticationCode">Анықтау коды қате</string>
+  <string name="invalidAuthenticationCode">Түпнұсқалық растама коды қате</string>
   <string name="emailMeALink">Поштама сілтеме жібер</string>
   <string name="currentPassword">Қазіргі құпиясөз</string>
   <string name="newPassword">Жаңа кұпиясөз</string>
@@ -571,7 +571,7 @@
   <string name="error.email">Бұл пошта мекенжайы қате</string>
   <string name="error.email_acceptable">Бұл пошта мекенжайы қолжетімсіз. Оны қайта тексеріп көріңіз.</string>
   <string name="error.email_unique">Бұл пошта тіркелген</string>
-  <string name="error.email_different">Бұл сіздің поштаңыз</string>
+  <string name="error.email_different">Бұл сіздің бұрынғы поштаңыз</string>
   <string name="ifRatingIsPlusMinusX">Егер рейтингі ± %s болса</string>
   <string name="onlyExistingConversations">Тек бар әңгімелесуден</string>
   <string name="onlyFriends">Достар ғана</string>
@@ -647,7 +647,7 @@
   <string name="cumulative">Жинақылық</string>
   <string name="glicko2Rating">Glicko-2 рейтинг</string>
   <string name="checkYourEmail">Поштаңызды қараңыз</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге хат жібердік. Хаттағы сілтемеге бассаңыз, аккаунтыңыз расталады.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Біз сізге электронды хат жібердік. Хаттағы сілтемеге бассаңыз, тіркелгіңіз расталады.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Егер хат көрінбей тұрса, басқа болжамды жерлерді қарап көріңіз, мысалы – қоржын, спам, әлеуметтік желілер сияқты қалталар.</string>
   <string name="weHaveSentYouAnEmailTo">Біз хатты %s-ға жібердік. Құпиясөзді арылту үшін хаттағы сілтемеге басыңыз.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Сіздің тіркелуіңіз – %s-н мойындайтыныңыздың белгісі.</string>
@@ -669,11 +669,11 @@
   <string name="youHaveAlreadyRegisteredTheEmail">%s деген поштаны сіз өткенде тіркегенсіз</string>
   <string name="kidMode">Балалық нұсқа</string>
   <string name="kidModeExplanation">Бұл қауіпсіздік үшін жасалынды. Балалық нұсқада бүкіл әңгімелесу жолдары жабылған. Балалар мен мектеп оқушыларын басқа интернет қолданушыларынан қорғау мақсатында осы нұсқаны іске қосыңыз.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаларыңыз қауіптен алшақ екенін біліп отырасыз.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Балалық нұсқа кезінде Личес таңбасына %s белгісі қосылады, осылайша балаңызға қауіп жоқ екенін білесіз.</string>
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бұл – сіздің аккаунтыңызға жалғанған құрылғылар тізімі. Арасында бейтаныс жайт болса, оны ажыратыңыз.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бұл – сіздің тіркелгіңізге жалғанған құрылғылар тізімі. Арасында бейтаныс жайт болса, оны ажыратыңыз.</string>
   <string name="alternativelyYouCanX">Сонымен қатар, сіз %s-ға дәрмендісіз.</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
@@ -803,7 +803,7 @@
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>
-  <string name="agreementAccount">Мен бірнеше аккаунт жасамаймын деп уәде беремін.</string>
+  <string name="agreementAccount">Мен бірнеше тіркелгі жасамаймын деп уәде беремін.</string>
   <string name="agreementPolicy">Мен Личестің барлық қағидаларын ұстанамын деп уәде беремін.</string>
   <string name="searchOrStartNewDiscussion">Жаңа әңгімелесуді бастау не іздеу</string>
   <string name="edit">Өзгерту</string>

@@ -85,8 +85,8 @@
   .tour__prize {
     @extend %box-radius;
 
-    padding: 1em;
-    background: mix($c-fancy, $c-bg-box, 15%);
+    padding: 1em 2vmin;
+    background: $c-bg-zebra;
     margin-bottom: 1em;
     font-size: 0.9em;
   }

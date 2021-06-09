@@ -47,4 +47,6 @@
   <string name="teamPasswordDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
   <string name="incorrectTeamPassword">Falsches Team-Passwort.</string>
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
+  <string name="upcomingTourns">Anstehende Turniere</string>
+  <string name="completedTourns">Beendete Turniere</string>
 </resources>

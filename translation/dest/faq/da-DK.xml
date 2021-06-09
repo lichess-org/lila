@@ -9,9 +9,9 @@
   <string name="whyLiveLightLibre">Live, fordi partier spilles og ses i realtid 24/7; light og libre eftersom Lichess er open-source og ikke tynges af proprietært bras, der plager andre websteder.</string>
   <string name="whyIsLilaCalledLila">Tilsvarende gælder for Lichess-kildekoden, %1$s, der står for li[chess in sca]la, eftersom hovedparten af Lichess er skrevet i %2$s, et intuitivt programmeringssprog.</string>
   <string name="howCanIContributeToLichess">Hvordan kan jeg bidrage til Lichess?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives af donationer fra patroner og indsatsen fra et hold af frivillige.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess drives af donationer fra protektorer og indsatsen fra et hold af frivillige.</string>
   <string name="findMoreAndSeeHowHelp">Du kan finde mere information om %1$s (inklusiv en %2$s). Hvis du vil hjælpe Lichess ved at tilbyde din tid og kundskaber, er der mange %3$s.</string>
-  <string name="beingAPatron">være en patron</string>
+  <string name="beingAPatron">være en protektor</string>
   <string name="breakdownOfOurCosts">opgørelse af vores omkostninger</string>
   <string name="otherWaysToHelp">andre måder at hjælpe</string>
   <string name="areThereWebsitesBasedOnLichess">Er der websteder baseret på Lichess?</string>

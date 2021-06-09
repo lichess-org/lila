@@ -114,6 +114,8 @@ case class User(
 
   def planMonths: Option[Int] = activePlan.map(_.months)
 
+  def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
+
   def createdSinceDays(days: Int) = createdAt isBefore DateTime.now.minusDays(days)
 
   def is(name: String) = id == User.normalize(name)
@@ -126,10 +128,11 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified   = roles.exists(_ contains "ROLE_VERIFIED")
-  def isSuperAdmin = roles.exists(_ contains "ROLE_SUPER_ADMIN")
-  def isAdmin      = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
-  def isApiHog     = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
+  def isSuperAdmin      = roles.exists(_ contains "ROLE_SUPER_ADMIN")
+  def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
+  def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerifiedOrAdmin = isVerified || isAdmin
 }
 
 object User {

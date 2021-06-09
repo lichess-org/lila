@@ -538,7 +538,8 @@ final class Team(
         err => Left(err),
         msg =>
           Right {
-            PmAllLimitPerUser[RateLimit.Result](me.id) {
+            val cost = if (me.isVerifiedOrAdmin) 1 else pmAllCost
+            PmAllLimitPerUser[RateLimit.Result](me.id, cost) {
               val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
@@ -553,12 +554,13 @@ You received this because you are subscribed to messages of the team $url."""
           }
       )
 
+  private val pmAllCost = 5
   private val PmAllLimitPerUser = lila.memo.RateLimit.composite[lila.user.User.ID](
     key = "team.pm.all",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 1, 3.minutes),
-    ("slow", 4, 24.hours)
+    ("fast", 1 * pmAllCost, 3.minutes),
+    ("slow", 4 * pmAllCost, 24.hours)
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =

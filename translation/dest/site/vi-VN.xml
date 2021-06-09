@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Bạn chơi quân trắng</string>
   <string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
   <string name="itsYourTurn">Đến lượt bạn!</string>
+  <string name="cheatDetected">Phát hiện gian lận</string>
   <string name="kingInTheCenter">Vua ở trung tâm</string>
   <string name="threeChecks">Ba lần chiếu</string>
   <string name="raceFinished">Cuộc thi kết thúc.</string>
@@ -114,6 +115,15 @@
   <string name="blunder">Sai lầm</string>
   <string name="mistake">Lỗi</string>
   <string name="inaccuracy">Thiếu chính xác</string>
+  <plurals name="nbBlunders">
+    <item quantity="other">%s sai lầm nghiêm trọng</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s nước đi sai</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="other">%s nước đi không chính xác</item>
+  </plurals>
   <string name="moveTimes">Thời gian đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
   <string name="threefoldRepetition">Lặp cờ</string>
@@ -413,6 +423,7 @@
   <string name="firstName">Tên</string>
   <string name="lastName">Họ</string>
   <string name="biography">Lý lịch</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc quốc kỳ</string>
   <string name="thankYou">Cám ơn!</string>
   <string name="socialMediaLinks">Kênh mạng xã hội</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
@@ -433,6 +444,8 @@
   <string name="tournamentWinners">Các nhà vô địch giải</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
+  <string name="descPrivate">Mô tả riêng tư</string>
+  <string name="descPrivateHelp">Mô tả mà chỉ thành viên đội nhìn thấy. Nếu được đặt, sẽ thay thế mô tả thường cho thành viên đội.</string>
   <string name="no">Không chọn</string>
   <string name="yes">Chọn</string>
   <string name="help">Hổ trợ</string>

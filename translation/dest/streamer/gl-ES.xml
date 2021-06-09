@@ -1,2 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Streamers de Lichess</string>
+  <string name="lichessStreamer">Streamer de Lichess</string>
+  <string name="live">En directo!</string>
+  <string name="offline">Desconectado/a</string>
+  <string name="currentlyStreaming">Transmitindo agora mesmo: %s</string>
+  <string name="lastStream">Última transimisión %s</string>
+  <string name="becomeStreamer">Convírtete nun streamer de Lichess</string>
+  <string name="doYouHaveStream">Tes unha conta de Twitch ou unha canle de Youtube?</string>
+  <string name="hereWeGo">Imos!</string>
+  <string name="allStreamers">Tod@s @s streamers</string>
+  <string name="editPage">Edita a túa páxina de streamer</string>
+  <string name="yourPage">A túa páxina de streamer</string>
+  <string name="downloadKit">Descarga o kit de streamer</string>
+  <string name="xIsStreaming">%s está transmitindo</string>
+  <string name="rules">Regras de Streaming</string>
+  <string name="rule1">Incúe a palabra \"lichess.org\" no título da túa transmisión e usa a categoría \"Chess\" cando retransmitas en Lichess.</string>
+  <string name="rule2">Elimina a palabra cando transmitas contido que non estea relacionado con Lichess.</string>
+  <string name="rule3">Lichess detectará a túa transmisión automaticamente e habilitará os siguientes beneficios:</string>
+  <string name="perks">Beneficios de transmitir coa palabra</string>
+  <string name="perk1">Obtén unha flameante icona de presentador no teu perfil de Lichess.</string>
+  <string name="perk2">Sube á cima da lista de streamers.</string>
+  <string name="perk3">Notifica aos teus seguidos de Lichess.</string>
+  <string name="perk4">Amosa a túa transmisión nas túas partidas, torneos e estudios.</string>
+  <string name="approved">A túa transmisión está aprobada.</string>
+  <string name="pendingReview">A túa transmisión está sendo revisada por moderadores/as.</string>
+  <string name="pleaseFillIn">Por favor, enche a información como streamer e sube unha foto.</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado/a para ser un Lichess streamer, %s</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">pide unha revisión por un moderador/a</string>
+  <string name="anotherLanguage">Se a túa transmisión está noutro idioma que non sexa o inglés, inclúe a etiqueta de idioma correcta (%s), entre corchetes, ao comezo do título da túa transmisión.
+Por exemplo, inclúe \"[GL]\" para galego, \"[FR]\" para francés, \"[PT]\" para portugués, etc.
+Colócaa no título da transmisión na páxina de Twitch ou YouTube, non na configuración da transmisión de Lichess.
+Se a túa transmisión está en inglés, non hai necesidade de incluir unha etiqueta de idioma.</string>
+  <string name="twitchUsername">O teu usuario de Twitch ou URL</string>
+  <string name="optionalOrEmpty">Opcional. Baleiro se non tes</string>
+  <string name="youtubeChannel">A túa canle de Youtube ou URL</string>
+  <string name="streamerName">O teu nome de streamer en Lichess</string>
+  <string name="visibility">Visible na páxina de streamers</string>
+  <string name="whenApproved">Cando sexa aprobado polos moderadores/as</string>
+  <string name="headline">Titular</string>
+  <string name="tellUsAboutTheStream">Cóntanos sobre a túa transmisión nunha frase</string>
+  <string name="longDescription">Descrición longa</string>
+  <string name="xStreamerPicture">%s foto d@ streamer</string>
+  <string name="changePicture">Cambia/borra a túa foto</string>
+  <string name="uploadPicture">Sube unha foto</string>
+  <string name="deletePicture">Borra a foto</string>
+  <string name="maxSize">Tamaño máximo: %s</string>
+  <string name="installBlocker">Instala un bloqueador de malware!</string>
+  <string name="beSafe">Mantente a salvo dos anuncios e rastrexadores
+que infestan Twitch e YouTube.
+Lichess recomenda uBlock Origin
+que é gratis e de código abierto.</string>
+</resources>

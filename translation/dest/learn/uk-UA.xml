@@ -158,6 +158,10 @@
 Король безцінний! Його втрата означає, що гру програно.</string>
   <string name="queenOverBishop">Атакуйте фігури з найбільшою цінністю!
 Ферзь &gt; Слон</string>
+  <string name="pieceValueExchange">Побийте найціннішу фігуру!
+Не розмінюйте дорожчі фігури на менш цінні.</string>
+  <string name="pieceValueLegal">Побийте найціннішу фігуру!
+Переконайтесь що ваш хід можливий!</string>
   <string name="takeThePieceWithTheHighestValue">Атакуйте фігури з найбільшою цінністю!</string>
   <string name="pieceValueComplete">Вітаємо! Ви знаєте цінність фігур!
 Ферзь = 9 пішаків

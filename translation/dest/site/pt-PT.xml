@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Tu jogas com as peças brancas</string>
   <string name="youPlayTheBlackPieces">Tu jogas com as peças pretas</string>
   <string name="itsYourTurn">É a tua vez!</string>
+  <string name="cheatDetected">Fraude detectada</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
@@ -58,7 +59,7 @@
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
   <string name="loadingEngine">A carregar o motor de jogo ...</string>
-  <string name="cloudAnalysis">Análise na \"cloud\"</string>
+  <string name="cloudAnalysis">Análise na nuvem</string>
   <string name="goDeeper">Aprofundar</string>
   <string name="showThreat">Mostrar ameaça</string>
   <string name="inLocalBrowser">no navegador local</string>
@@ -189,7 +190,7 @@
   <string name="changeUsernameDescription">Altera o teu nome de utilizador. Isso só pode ser feito uma vez e só poderás trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Palavra-passe</string>
   <string name="changePassword">Alterar a palavra-passe</string>
-  <string name="changeEmail">Alterar o e-mail</string>
+  <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinir a palavra-passe</string>
   <string name="forgotPassword">Esqueceste-te da tua palavra-passe?</string>
@@ -454,6 +455,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="firstName">Nome próprio</string>
   <string name="lastName">Apelido</string>
   <string name="biography">Biografia</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="inlineNotation">Anotações em linha</string>
@@ -676,6 +678,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
   <string name="analysisShapesHowTo">Pressiona shift+clique ou clica com o botão direito do rato para desenhares círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores te enviem mensagens</string>
   <string name="shareYourInsightsData">Compartilhar os teus dados de \"insights\" de xadrez</string>
@@ -860,4 +863,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="lostAgainstTOSViolator">Perdes-te contra alguém que violou as regras do Lichess</string>
   <string name="refundXpointsTimeControlY">Devolução: %1$s %2$s pontos de Elo.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
+  <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
+  <string name="download">Transferir</string>
+  <string name="welcome">Bem-vindo(a)!</string>
+  <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
+Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
 </resources>

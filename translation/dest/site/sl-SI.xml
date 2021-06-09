@@ -734,6 +734,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Pomaknite se preko računalniških različicah, da jih ogledate.</string>
   <string name="analysisShapesHowTo">Pritisni shift+klik ali desni klik za risanje krožcev in puščic po šahovnici</string>
   <string name="letOtherPlayersMessageYou">Dovoli drugim, da ti pišejo sporočila</string>
+  <string name="receiveForumNotifications">Prejemajte obvestila, ko so omenjena na forumu</string>
   <string name="shareYourInsightsData">Deli svoje statistične podatke</string>
   <string name="withNobody">Z nikomer</string>
   <string name="withFriends">S prijatelji</string>

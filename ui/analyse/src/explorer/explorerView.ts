@@ -428,7 +428,7 @@ function showFailing(ctrl: AnalyseCtrl) {
     h('div.title', showTitle(ctrl, ctrl.data.game.variant)),
     h('div.failing.message', [
       h('h3', 'Oops, sorry!'),
-      h('p.explanation', 'The explorer is temporarily out of service. Try again soon!'),
+      h('p.explanation', ctrl.explorer.failing()?.toString()),
       closeButton(ctrl),
     ]),
   ]);
@@ -450,7 +450,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       class: {
         loading,
         config: configOpened,
-        reduced: !configOpened && (explorer.failing() || explorer.movesAway() > 2),
+        reduced: !configOpened && (!!explorer.failing() || explorer.movesAway() > 2),
       },
       hook: {
         insert: vnode => ((vnode.elm as HTMLElement).scrollTop = 0),

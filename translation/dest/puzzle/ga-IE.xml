@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Fadbhbanna</string>
-  <string name="puzzleThemes">Téamaí fadhbhanna fichille</string>
+  <string name="puzzles">Fadhbanna</string>
+  <string name="puzzleThemes">Téamaí fadhbanna fichille</string>
   <string name="recommended">Molta</string>
   <string name="phases">Céimeanna</string>
   <string name="motifs">Móitífeanna</string>
   <string name="advanced">Ardleibhéal</string>
   <string name="lengths">Faid</string>
-  <string name="mates">Marbhsháinneacha</string>
-  <string name="goals">Aidhmeanna</string>
+  <string name="mates">Marbhsháinne</string>
+  <string name="goals">Aidhme</string>
   <string name="origin">Foinse</string>
   <string name="specialMoves">Bearta speisialta</string>
   <string name="didYouLikeThisPuzzle">Ba mhaith leat an fadhb seo?</string>
@@ -72,4 +72,11 @@
   <string name="streakSkipExplanation">Scipeáil an beart seo chun do stríoc a choinneáil! Ní oibríonn sé ach uair amháin i sruth.</string>
   <string name="continueTheStreak">Lean leis an stríoc</string>
   <string name="newStreak">Stríoc nua</string>
+  <string name="fromMyGames">Ó mo chluichí</string>
+  <string name="lookupOfPlayer">Cuardaigh fadhbanna ó chluichí imreoir</string>
+  <string name="fromXGames">Fadhbanna ó chluichí %s\'</string>
+  <string name="searchPuzzles">Cuardaigh fadhbanna</string>
+  <string name="fromMyGamesNone">Níl aon fadhb agat sa bhunachar sonraí, ach is breá le Lichess tú go mór fós. 
+Imir cluichí gasta agus clasaiceacha chun cur leis na seansanna go gcuirfear fadhb de do chuid féin leis!</string>
+  <string name="fromXGamesFound">%1$s fadhb le fáil i %2$s cluiche</string>
 </resources>

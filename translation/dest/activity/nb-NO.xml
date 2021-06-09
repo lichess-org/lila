@@ -3,8 +3,8 @@
   <string name="activity">Aktivitet</string>
   <string name="hostedALiveStream">Startet en direktestrøm</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Har støttet lichess.org i %1$s måned som en %2$s</item>
-    <item quantity="other">Har støttet lichess.org i %1$s måneder som en %2$s</item>
+    <item quantity="one">Har støttet lichess.org i %1$s måned som %2$s</item>
+    <item quantity="other">Har støttet lichess.org i %1$s måneder som %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Praktiserte %1$s stilling på %2$s</item>

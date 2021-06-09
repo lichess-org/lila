@@ -62,7 +62,7 @@ object list {
                 td(
                   r.inquiry match {
                     case None =>
-                      if (r.processedBy.isDefined)
+                      if (r.done.isDefined)
                         postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
@@ -121,7 +121,7 @@ object list {
                     )
                   )(
                     room.name,
-                    scoreTag(scores get room)
+                    scores.get(room).filter(20 <).map(scoreTag(_))
                   )
                 }
               },

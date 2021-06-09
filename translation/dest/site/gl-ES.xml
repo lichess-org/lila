@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Xogas coas brancas</string>
   <string name="youPlayTheBlackPieces">Xogas coas negras</string>
   <string name="itsYourTurn">Tócache!</string>
+  <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Xaque triplo</string>
   <string name="raceFinished">Carreira finalizada</string>
@@ -442,6 +443,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
   <string name="biography">Biografía</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou bandeira</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Enlaces ás redes sociais</string>
   <string name="inlineNotation">Notación compacta</string>
@@ -664,8 +666,10 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="printFriendlyPDF">Descargar PDF</string>
   <string name="crosstable">Táboa de cruces</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes facer scroll sobre o taboleiro para moverte pola partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsado sobre as variantes da análise para previsualizalas.</string>
   <string name="analysisShapesHowTo">Pulsa Mays+clic ou fai clic dereito para debuxar círculos e frechas no taboleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores te envíen mensaxes</string>
+  <string name="receiveForumNotifications">Recibe notificacións cando alguén te mencione no foro</string>
   <string name="shareYourInsightsData">Compartir os teus datos estatísticos</string>
   <string name="withNobody">Con ninguén</string>
   <string name="withFriends">Cos teus amigos</string>
@@ -833,4 +837,24 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="youCannotPostYetPlaySomeGames">Aínda non podes publicar nos foros. Xoga algunhas partidas!</string>
   <string name="subscribe">Subscribirse</string>
   <string name="unsubscribe">Cancelar a subscrición</string>
+  <string name="mentionedYouInX">fuches mencionad@ en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s mencionouche en \"%2$s\".</string>
+  <string name="invitedYouToX">invitouche a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s invitouche a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Agora es parte do equipo.</string>
+  <string name="youHaveJoinedTeamX">Unícheste a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Alguén que reportaches foi banead@</string>
+  <string name="congratsYouWon">Parabéns, gañaches!</string>
+  <string name="gameVsX">Xogo contra %1$s</string>
+  <string name="resVsX">%1$s contra %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Alguén revisou o teu perfil de entrenador/a.</string>
+  <string name="newPendingReview">Nova revisión pendente</string>
+  <string name="lostAgainstTOSViolator">Perdiches con alguén que incumpriu as condicións de servizo de Lichess</string>
+  <string name="refundXpointsTimeControlY">Recuperaches %1$s puntos en %2$s.</string>
+  <string name="timeAlmostUp">Quédache pouco tempo!</string>
+  <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
+  <string name="download">Descarga</string>
+  <string name="welcome">Benvid@!</string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un software totalmente libre e de código aberto.
+Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicamente mediante as doazóns d@s usuari@s.</string>
 </resources>

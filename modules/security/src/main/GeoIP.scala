@@ -45,6 +45,7 @@ object GeoIP {
 
 case class Location(
     country: String,
+    countryCode: Option[String],
     region: Option[String],
     city: Option[String]
 ) {
@@ -56,10 +57,10 @@ case class Location(
 
 object Location {
 
-  val unknown = Location("Solar System", none, none)
+  val unknown = Location("Solar System", none, none, none)
 
-  val tor = Location("Tor exit node", none, none)
+  val tor = Location("Tor exit node", none, none, none)
 
   def apply(ipLoc: IpLocation): Location =
-    Location(ipLoc.countryName | unknown.country, ipLoc.region, ipLoc.city)
+    Location(ipLoc.countryName | unknown.country, ipLoc.countryCode, ipLoc.region, ipLoc.city)
 }
