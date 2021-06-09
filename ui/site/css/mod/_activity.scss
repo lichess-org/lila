@@ -22,12 +22,12 @@
   .chart-grid {
     padding: 4vh 4vw;
     background: $c-bg-zebra;
-    min-height: 40vh;
   }
   .chart {
     min-height: 40vh;
     max-width: 100%;
     overflow: hidden;
+    min-height: 40vh;
     &:last-child {
       border-top: 1px solid white;
     }
@@ -37,7 +37,6 @@
     grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
     align-content: start;
     gap: 4vh 4vw;
-    > div {
-    }
+    min-height: 90vh;
   }
 }
