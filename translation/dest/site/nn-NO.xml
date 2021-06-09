@@ -868,4 +868,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="welcome">Velkomen!</string>
   <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
+  <string name="coachManager">Trenarleiar</string>
+  <string name="streamerManager">Strøymingsleiar</string>
 </resources>
