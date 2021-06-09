@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Schpändä</string>
-  <string name="lichessPatron">Lichess Gönnär</string>
+  <string name="lichessPatron">Lichess Patroon</string>
   <string name="freeAccount">Kostenloses Konto</string>
-  <string name="becomePatron">Werde Lichess Patron</string>
-  <string name="xBecamePatron">%s wurde Lichess Patron</string>
+  <string name="becomePatron">Wird Lichess Patroon</string>
+  <string name="xBecamePatron">%s isch Lichess Patroon wordä</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s unterstützt Lichess seit %2$s Monat als Patron</item>
-    <item quantity="other">%1$s unterstützt Lichess seit %2$s Monaten als Patron</item>
+    <item quantity="one">%1$s underschtützt Lichess sit %2$s Mönät als Patroon</item>
+    <item quantity="other">%1$s underschtützt Lichess sit %2$s Monät als Patroon</item>
   </plurals>
-  <string name="newPatrons">Neue Unterstützer</string>
+  <string name="newPatrons">Neui Patroons</string>
   <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
   <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und mit Leidenschaft.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
-  <string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
+  <string name="patronUntil">Du bsitzisch äs Patroonkonto bis %s.</string>
   <string name="ifNotRenewed">Falls nicht erneuert, wird dein Konto zu einem kostenlosen herabgestuft.</string>
   <string name="weAreNonProfit">Wir sind eine Non-Profit-Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Schachplattform von Weltklasse haben sollte.</string>
-  <string name="weRelyOnSupport">Wir sind auf Unterstützung von Leuten wie dir angewiesen, um das möglich zu machen. Falls dir Lichess gefällt, kannst du Lichess unterstützen, indem du spendest und ein Patron wirst!</string>
+  <string name="weRelyOnSupport">Mir sind uf Underschtützig vo Lüüt wi dir aagwisä, um das möglich z\'machä. Falls dir Lichess gfallt, chasch du Lichess underschtützä, indäm du schpändisch und än Patroon wirsch!</string>
   <string name="lifetime">Lebenslang</string>
   <string name="payLifetimeOnce">Bezahle einmalig %s. Werde für immer Lichess Patron!</string>
-  <string name="lifetimePatron">Lebenslanger Lichess Patron</string>
+  <string name="lifetimePatron">Läbänslangä Lichess Patroon</string>
   <string name="monthly">Monatlich</string>
   <string name="recurringBilling">Wiederkehrende Zahlung, erneuert deine Patron-Flügel jeden Monat.</string>
   <string name="onetime">Einmalig</string>
@@ -30,7 +30,7 @@
   <string name="withCreditCard">Kreditkarte</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Wir sind ein kleines Team, deswegen macht deine Unterstützung einen riesen Unterschied!</string>
-  <string name="celebratedPatrons">Die gefeierten Unterstützer, die Lichess möglich machen</string>
+  <string name="celebratedPatrons">Di gfiirätä Underschtützer, wo Lichess möglich machäd</string>
   <string name="whereMoneyGoes">Wohin fließt das Geld?</string>
   <string name="serversAndDeveloper">Zallererscht in leischtigsstarchi Server. 
 Dänn zahläd mir än Vollziit-Entwickler: %s, dä Gründer vo Lichess.</string>
@@ -44,13 +44,13 @@ Oder du kannst %s.</string>
   <string name="otherMethods">Andri wäg um spändä?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
   <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
-  <string name="patronFeatures">Gibt es zusätzliche Funktionen für Unterstützer?</string>
-  <string name="noPatronFeatures">Nein, denn Lichess ist komplett kostenlos, für immer und für alle. Das ist ein Versprechen.
-Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzugeben.</string>
+  <string name="patronFeatures">Gits zuäsätzlichi Funktionä für Underschtützer?</string>
+  <string name="noPatronFeatures">Nei, will Lichess isch komplett chostälos, für immer und für alli. Das isch äs Versprächä.
+Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z\'blöffä.</string>
   <string name="featuresComparison">Sieh dir den Detailvergleich der Funktionen an</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess Patron für einen Monat</item>
-    <item quantity="other">Lichess Patron für %s Monate</item>
+    <item quantity="one">Lichess Patroon für ein Monät</item>
+    <item quantity="other">Lichess Patroon für %s Mönät</item>
   </plurals>
   <string name="youSupportWith">Du unterstützt lichess.org mit %s pro Monat.</string>
   <string name="tyvm">Vielen Dank für deine Unterstützung. Du rockst!</string>
