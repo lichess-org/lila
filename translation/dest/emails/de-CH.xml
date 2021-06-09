@@ -10,11 +10,11 @@
   <string name="emailChange_intro">Du häsch en Änderig vo dinere E-Mail Adrässe aagforderät.</string>
   <string name="emailChange_click">Zum bestätigä, dass Du Zuegriff auf diä E-Mail häsch, klick bitte auf dä Link da une:</string>
   <string name="welcome_subject">Wilkomä uf lichess.org, %s</string>
-  <string name="welcome_text">Du häsch erfolgrich dis Benutzerkkonto uf https://lichess.org erschtellt. 
+  <string name="welcome_text">Du häsch erfolgriich dis Benutzerkkonto uf https://lichess.org ärschtellt. 
 
-Da gahts zu dinerä Konto-Siite: %1$s. Du chasch si uf %2$s personalisierä.
+Do gohts zu dinärä Konto-Siite: %1$s. Du chasch si uf %2$s personalisiärä.
 
-Viel Spass und möged dinni Figure immer dä Wäg zum gägnerischä König finde!</string>
+Vill Schpass und möged dini Figure immer dä Wäg zum gägnerischä König finde!</string>
   <string name="logInToLichess">Mäld dich ah uf lichess.org, %s</string>
   <string name="common_orPaste">(Klickä funktioniert nöd? Versuch dä Link i din Browser iizfüegä!)</string>
   <string name="common_note">Das isch ä Service-E-Mail im Zämähang mit dim Gebruch vo %s.</string>
