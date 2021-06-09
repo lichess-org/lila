@@ -121,7 +121,7 @@ Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwü
   <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä, und</string>
   <string name="beInTopTen">idä Top 10 vo därä Wärtigskategorie sii.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
-  <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
+  <string name="whyAreRatingHigher">Wroum sind d\'Wärtigä im Verglich zu andärnä Websiitänä und Organisationä wiä FIDE, USCF und äm ICC höchär?</string>
   <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
  
 Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz zu \"absoluten\" Werten): Innerhalb eines Spielerpools helfen dir relative Unterschiede in den Wertungen dabei abzuschätzen, wer gewinnt/verliert und wie oft. Zu sagen \"Ich habe eine X-Wertung\" bedeutet nichts, es sei denn, es gibt andere Spieler, mit denen man diese Wertung vergleicht.</string>
