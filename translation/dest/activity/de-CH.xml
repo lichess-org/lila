@@ -35,8 +35,8 @@
     <item quantity="other">Hat %s Fernschachpartien gespielt</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Folgät %s Schpiller</item>
-    <item quantity="other">Folgät %s Schpiller</item>
+    <item quantity="one">Folgät %s Schpiller/-in</item>
+    <item quantity="other">Folgät %s Schpiller/-innä</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Hat %s neuen Follower</item>
