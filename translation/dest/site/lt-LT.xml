@@ -949,4 +949,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="welcome">Sveiki atvykę!</string>
   <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
+  <string name="coachManager">Trenerių valdymas</string>
+  <string name="streamerManager">Transliuotojų valdymas</string>
 </resources>
