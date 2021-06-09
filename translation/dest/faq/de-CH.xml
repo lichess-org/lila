@@ -122,20 +122,20 @@ Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwü
   <string name="beInTopTen">idä Top 10 vo därä Wärtigskategorie sii.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
   <string name="whyAreRatingHigher">Wroum sind d\'Wärtigä im Verglich zu andärnä Websiitänä und Organisationä wiä FIDE, USCF und äm ICC höchär?</string>
-  <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
+  <string name="whyAreRatingHigherExplanation">Äs isch am beschtä, Wärtigä nöd als absoluti Zaalä z\'betrachtä oder si mit andärnä Organisationä z\'vergliichä. Verschidäni Organisationä händ underschidlichi Schpillerklassä, verschidäni Wärtigssyschtem (Elo, Glicko, Glicko-2, oder ä modifiziärti Version devo). Diä Faktorä chönd di absolutä Zaalä (Wärtigä) drastisch beiiflussä.
  
-Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz zu \"absoluten\" Werten): Innerhalb eines Spielerpools helfen dir relative Unterschiede in den Wertungen dabei abzuschätzen, wer gewinnt/verliert und wie oft. Zu sagen \"Ich habe eine X-Wertung\" bedeutet nichts, es sei denn, es gibt andere Spieler, mit denen man diese Wertung vergleicht.</string>
-  <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
-  <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
-  <string name="displayPreferences">Anzeigeeinstellungen</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
+Äs isch stattdessä am beschtä, Wärtigä als \"relativi\" Wärt z\'betrachtä (im Gägäsatz zu \"absolutä\" Wärt): Innerhalb vomänä Schpillerpuul hälfäd dir relativi Underschiid idä Wärtigä däbii abzschätzä, wär ehnder gwünnt/verlüürt und wiä oft öppä. Z\'sägä \"Ich han ä X-Wärtig\" bedüütät nüt, äs sei dänn, äs git andäri Schpiller, mit dänä du dini Wärtig vergliichsch..</string>
+  <string name="howToHideRatingWhilePlaying">Wiä chamer Wärtigä während äm Schpiil uusbländä?</string>
+  <string name="enableZenMode">Aktiviär dä Zen-Modus idä %1$s oder truck %2$s währänd dä Partii.</string>
+  <string name="displayPreferences">Aazeige-Iischtelligä</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich han ä Partii wäg Lag/Internetprobleem verlorä. Chan ich mini Wärtigspünkt zruggbecho?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chömmär kei Wärtigspünkt für Partiiä zrugggeh, wo ufgrund vo Läg- oder Internetproblem verlorä gangä sind, unabhängig dävo, öb das Problem vo diner oder vo üsärä Siitä verursacht wordä isch. Letztäres isch aber sehr sältä. Obacht, gäll, dassmär ä Partii abbrächäd, wänn Lichess neu gschtartät wird und du drum uf Ziit verlüürä würsch.</string>
-  <string name="howToThreeDots">Wie kann ich...</string>
-  <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
-  <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
+  <string name="howToThreeDots">Wiä chan ich...</string>
+  <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>
+  <string name="viewSiteInformationPopUp">Siitäinformations-Popup aazeigä</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benochrichtigungä versändä, zum Biischpiil wänn du am Zug bisch oder ä privati Nochricht becho häsch.
 
-Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
+Klick uf s\'Schlosssymbool näbäd dä lichess.org Adrässä idä URL-Liischtä vo dim Browser.
 
-Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
+Wähl dänn us, ob Benochrichtigungä vo Lichess erlaubt oder blockiärt wärdä sölläd.</string>
 </resources>
