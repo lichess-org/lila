@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Zwei-Faktorä Autentifizierig</string>
-  <string name="twoFactorHelp">Zwei-Faktor Authentifizierig füegt dim Konto es zuesätzlichs Sicherheitsmerkmal hinzue.</string>
-  <string name="twoFactorApp">Inschtalliär en App für d\'Zwei-Faktor-Authentifiziärig, zum Biischpiil andOTP für %1$s oder Google Authenticator für %2$s.</string>
+  <string name="twoFactorHelp">Zwei-Faktor Authentifizierig füägt dim Konto es zuäsätzlichs Sicherheitsmerkmal hinzuä.</string>
+  <string name="twoFactorApp">Inschtalliär än App für d\'Zwei-Faktor-Authentifiziärig, zum Biischpiil andOTP für %1$s oder Google Authenticator für %2$s.</string>
   <string name="scanTheCode">Scann dä QR Code mit dä App.</string>
   <string name="enterPassword">Gib dis Passwort und dä Authentifizierigscode i, wo vode App generiert worde isch, um diä Yrichtig abzschlüssä. Du benötigsch für jedi wyter Amäldig en Authentifizierigscode.</string>
   <string name="ifYouCannotScanEnterX">Falls dä Code nicht einscannä chasch, tipp dä gheim Code %s i dini App.</string>
   <string name="authenticationCode">Authentifizierigscode</string>
-  <string name="ifYouLoseAccess">Obacht: Wenn du dä Zuegang zu dim Zwei-Faktor-Authentifizierigscodes verlürsch, muesch dis Passwort per E-Mail zruggsetzä.</string>
+  <string name="ifYouLoseAccess">Obacht: Wänn du dä Zuägang zu dim Zwei-Faktor-Authäntifiziärigscodes verlürsch, muäsch dis Passwort pär E-Mail zruggsetzä.</string>
   <string name="enableTwoFactor">Aktivier d\'Zwei-Faktor-Authentifizierig</string>
   <string name="disableTwoFactor">Deaktivier d\'Zwei-Faktor-Authentifizierig</string>
   <string name="twoFactorEnabled">Zwei-Faktor Authentifizierig isch aktiviert</string>
-  <string name="twoFactorDisable">Du benötigsch dis Passwort und en Authentifizierigscode us diner Authentifizierigs-App, zum d\'Zwei-Faktor-Authentifizierig z\'deaktivierä.
-Wenn du de Zuegang zu dim Authentifizierigscode verlürsch, muesch dis Passwort au per E-Mail zruggsetzä.</string>
-  <string name="openTwoFactorApp">Öffne uf dim Grät d\'App zur zweistufigä Authentifizierig, zum din Authentifizierigscode azeigä und dini Identität beschtätigä.</string>
+  <string name="twoFactorDisable">Du benötigsch dis Passwort und än Authäntifiziärigscode us dinär Authäntifiziärigs-App, zum d\'Zwei-Faktor-Authäntifiziärig z\'deaktiviärä.
+Wänn du dä Zuägang zu dim Authäntifiziärigscode verlürsch, muäsch dis Passwort au pär E-Mail zruggsetzä.</string>
+  <string name="openTwoFactorApp">Öffnä uf dim Grät d\'App zur zweistufigä Authäntifiziärig, zum din Authäntifiziärigscode aaz\'zeigä und dini Identität z\'beschtätigä.</string>
 </resources>
