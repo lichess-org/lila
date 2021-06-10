@@ -24,8 +24,8 @@
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Funcionamento do jogo</string>
   <string name="howDoYouMovePieces">Como queres mexer as peças?</string>
   <string name="clickTwoSquares">Clicar em duas casas</string>
-  <string name="dragPiece">Arrastar a peça</string>
-  <string name="bothClicksAndDrag">Ambos</string>
+  <string name="dragPiece">Arrastar uma peça</string>
+  <string name="bothClicksAndDrag">Qualquer</string>
   <string name="premovesPlayingDuringOpponentTurn">Jogadas antecipadas (jogadas durante a vez do adversário)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogadas atrás (com aprovação do adversário)</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
