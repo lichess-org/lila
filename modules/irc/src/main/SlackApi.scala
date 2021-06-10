@@ -140,16 +140,6 @@ final class SlackApi(
       )
     )
 
-  def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
-    client(
-      SlackMessage(
-        username = "Self Report",
-        icon = "kms",
-        text = s"[*$typ*] ${userLink(user)}@$ip ${gameLink(path)}",
-        channel = rooms.tavernBots
-      )
-    )
-
   def broadcastError(id: String, name: String, error: String): Funit =
     client(
       SlackMessage(

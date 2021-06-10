@@ -4,6 +4,7 @@ import lila.common.LightUser
 import lila.user.User
 import lila.user.Holder
 import org.joda.time.DateTime
+import lila.common.IpAddress
 
 final class IrcApi(
     discord: DiscordClient,
@@ -67,6 +68,18 @@ final class IrcApi(
         s":note: ${markdown.userLink(modName)} **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
       )
+
+  def selfReport(typ: String, path: String, user: User, ip: IpAddress): Funit =
+    slack(
+      SlackMessage(
+        username = "Self Report",
+        icon = "kms",
+        text = s"[*$typ*] ${slackdown.userLink(user)}@$ip ${slackdown.gameLink(path)}",
+        channel = SlackApi.rooms.tavernBots
+      )
+    ) >> zulip.mod(ZulipClient.topic.clientReports)(
+      s"[*$typ*] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
+    )
 }
 
 private object IrcApi {
@@ -78,6 +91,7 @@ private object IrcApi {
     def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
     def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
     def userLink(user: User): String            = userLink(user.username)
+    def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
     val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
     def linkifyUsers(msg: String) =

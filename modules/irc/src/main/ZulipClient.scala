@@ -60,9 +60,10 @@ private object ZulipClient {
     val default = lila
   }
   object topic {
-    val general = "general"
-    val notes   = "notes"
-    val default = general
+    val general       = "general"
+    val notes         = "notes"
+    val clientReports = "clientReports"
+    val default       = general
   }
 }
 
