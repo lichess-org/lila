@@ -44,7 +44,7 @@
   <string name="doubleCheckDescription">Schachgebot mit zwei Figuren gleichzeitig als Ergebnis eines Abzugsangriffs, bei dem sowohl die abziehende als auch die zuvor blockierte Figur den gegnerischen König angreifen.</string>
   <string name="endgame">Endspiel</string>
   <string name="endgameDescription">Eine Taktik in der letzten Phase der Partie.</string>
-  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorübergehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
+  <string name="enPassantDescription">Eine Taktik, die die Schachregel \"en passant\" (im Vorbeigehen) einbezieht, bei der ein Bauer einen gegnerischen Bauer schlagen kann, der an ihm mit seinem Doppelschritt aus der Ausgangsstellung vorbeigegangen ist.</string>
   <string name="exposedKing">Exponierter König</string>
   <string name="exposedKingDescription">Eine Taktik, bei der der König nur von wenigen Figuren verteidigt wird, was oft zum Matt führt.</string>
   <string name="fork">Gabel</string>
