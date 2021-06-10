@@ -27,7 +27,7 @@ final class Env(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    discordApi: lila.irc.DiscordApi,
+    ircApi: lila.irc.IrcApi,
     captcher: lila.hub.actors.Captcher,
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,

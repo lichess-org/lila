@@ -9,7 +9,7 @@ import lila.user.Holder
 
 final class SlackApi(
     client: SlackClient,
-    noteApi: lila.user.NoteApi,
+    zulip: ZulipClient,
     implicit val lightUser: LightUser.Getter
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -215,7 +215,6 @@ final class SlackApi(
   private def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
   private def userLink(user: User): String            = userLink(user.username)
   private def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
-  private def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
   private def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
   private val chatPanicLink                           = lichessLink("mod/chat-panic", "Chat Panic")
 
@@ -224,39 +223,6 @@ final class SlackApi(
 
   private def linkifyUsers(msg: String) =
     userRegex matcher msg replaceAll userReplace
-
-  def userMod(user: User, mod: Holder): Funit =
-    noteApi
-      .forMod(user.id)
-      .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
-      .map {
-        case None =>
-          SlackMessage(
-            username = mod.user.username,
-            icon = "eyes",
-            text = s"Let's have a look at _*${userLink(user.username)}*_",
-            channel = rooms.tavern
-          )
-        case Some(note) =>
-          SlackMessage(
-            username = mod.user.username,
-            icon = "spiral_note_pad",
-            text = s"_*${userLink(user.username)}*_ (${userNotesLink(user.username)}):\n" +
-              linkifyUsers(note.text take 2000),
-            channel = rooms.tavern
-          )
-      } flatMap client.apply
-
-  def userModNote(modName: String, username: String, note: String): Funit =
-    client(
-      SlackMessage(
-        username = modName,
-        icon = "spiral_note_pad",
-        text = (s"_*${userLink(username)}*_ (${userNotesLink(username)}):\n" +
-          linkifyUsers(note take 2000)),
-        channel = rooms.tavernNotes
-      )
-    )
 
   def userAppeal(user: User, mod: Holder): Funit =
     client(

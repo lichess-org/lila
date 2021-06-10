@@ -24,9 +24,12 @@ final class Env(
 
   private lazy val discordClient = new DiscordClient(ws, appConfig.get[Secret]("discord.webhook.url"))
 
+  private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")(ZulipClient.zulipConfigLoader)
+  private lazy val zulipClient = wire[ZulipClient]
+
   lazy val slack: SlackApi = wire[SlackApi]
 
-  lazy val discord: DiscordApi = wire[DiscordApi]
+  lazy val api: IrcApi = wire[IrcApi]
 
   if (mode == Mode.Prod) {
     slack.publishInfo("Lichess has started!")
@@ -35,7 +38,7 @@ final class Env(
 
   lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
     case d: ChargeEvent                                => slack.charge(d).unit
-    case Note(from, to, text, true) if from != "Irwin" => slack.userModNote(from, to, text).unit
+    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text).unit
     case e: Event                                      => slack.publishEvent(e).unit
   }
 }

@@ -18,6 +18,11 @@ final private class DiscordClient(ws: StandaloneWSClient, url: Secret)(implicit
     key = "discord.client"
   )
 
+  def apply(channel: Double)(content: String): Funit = apply(DiscordMessage(channel, content))
+
+  def webhook = apply(DiscordClient.channels.webhook) _
+  def comms   = apply(DiscordClient.channels.comms) _
+
   def apply(msg: DiscordMessage): Funit =
     limiter(msg) {
       if (url.value.isEmpty) fuccess(lila.log("discord").info(msg.toString))
@@ -26,7 +31,7 @@ final private class DiscordClient(ws: StandaloneWSClient, url: Secret)(implicit
           .post(
             Json
               .obj(
-                "content" -> msg.text,
+                "content" -> msg.content,
                 "channel" -> msg.channel
               )
               .noNull
@@ -37,4 +42,20 @@ final private class DiscordClient(ws: StandaloneWSClient, url: Secret)(implicit
           }
           .nevermind
     }(funit)
+}
+
+private case class DiscordMessage(
+    channel: Double,
+    content: String
+) {
+
+  override def toString = s"[$channel] $content"
+}
+
+private object DiscordClient {
+
+  object channels {
+    val webhook = 672938635120869400d
+    val comms   = 685084348096970770d
+  }
 }

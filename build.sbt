@@ -331,7 +331,7 @@ lazy val push = module("push",
 
 lazy val irc = smallModule("irc",
   Seq(common, hub, user),
-  reactivemongo.bundle ++ macwire.bundle
+  Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
 lazy val mailer = module("mailer",
