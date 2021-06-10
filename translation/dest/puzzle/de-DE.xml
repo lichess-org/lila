@@ -47,7 +47,7 @@
   <string name="hardest">Am schwierigsten</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="one">Ein Punkt über deiner Aufgaben-Wertung</item>
-    <item quantity="other">%s Punkte über deiner Aufgabenwertung</item>
+    <item quantity="other">%s Punkte über deiner Aufgaben-Wertung</item>
   </plurals>
   <string name="example">Beispiel</string>
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
