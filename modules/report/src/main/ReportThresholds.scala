@@ -40,6 +40,6 @@ private object ReportThresholds {
     store[Int](
       "discordScoreThreshold",
       default = 80,
-      text = "Discord score threshold. Comm reports with higher scores are notified in discord".some
+      text = "Discord score threshold. Comm reports with higher scores are notified in Discord".some
     )
 }
