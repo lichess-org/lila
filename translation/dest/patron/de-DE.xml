@@ -6,7 +6,7 @@
   <string name="becomePatron">Werde Lichess Patron</string>
   <string name="xBecamePatron">%s wurde Lichess Patron</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s unterstützt Lichess seit %2$s Monat als Patron</item>
+    <item quantity="one">%1$s unterstützt Lichess für %2$s Monat als Patron</item>
     <item quantity="other">%1$s unterstützt Lichess seit %2$s Monaten als Patron</item>
   </plurals>
   <string name="newPatrons">Neue Unterstützer</string>
@@ -58,7 +58,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nextPayment">Nächste Zahlung</string>
   <string name="youWillBeChargedXOnY">Dir werden %1$s am %2$s berechnet.</string>
   <string name="makeAdditionalDonation">Leiste jetzt eine zusätzliche Spende</string>
-  <string name="giftPatronWings">Schenke einem Spieler Patron-Flügel</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schenke einem Spieler Patron-Flügel</string>
   <string name="update">Aktualisierung</string>
   <string name="changeMonthlyAmount">Ändere den monatlichen Betrag (%s)</string>
   <string name="cancelSupport">beende deine Unterstützung</string>
