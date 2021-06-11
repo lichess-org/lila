@@ -15,6 +15,7 @@ cg-resize {
     width: $resize-width;
     height: $resize-width;
     cursor: nwse-resize;
+    z-index: 10;
 
     &::before,
     &::after {
