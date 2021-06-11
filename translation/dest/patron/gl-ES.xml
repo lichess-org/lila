@@ -5,6 +5,10 @@
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Faite patrón de Lichess</string>
   <string name="xBecamePatron">%s fíxose patrón de Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s é Patrón/a de Lichess por %2$s mes</item>
+    <item quantity="other">%1$s é Patrón/a de Lichess por %2$s meses</item>
+  </plurals>
   <string name="newPatrons">Novos patróns</string>
   <string name="freeChess">Xadrez gratis para todos, para sempre!</string>
   <string name="noAdsNoSubs">Sen anuncios, sen suscricións; só código aberto e paixón.</string>
