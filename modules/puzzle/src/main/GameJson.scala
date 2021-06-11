@@ -31,7 +31,7 @@ final private class GameJson(
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
-      .maximumSize(1024)
+      .maximumSize(4096)
       .buildAsyncFuture(key =>
         readKey(key) match {
           case (id, plies) => generate(id, plies, false)

@@ -19,7 +19,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   import Game.{ ID, BSONFields => F }
   import Player.holdAlertBSONHandler
 
-  def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
+  def game(gameId: ID): Fu[Option[Game]]              = coll.byId[Game](gameId)
+  def gameFromSecondary(gameId: ID): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
   def gamesFromSecondary(gameIds: Seq[ID]): Fu[List[Game]] =
     coll.byOrderedIds[Game, ID](gameIds, readPreference = ReadPreference.secondaryPreferred)(_.id)
