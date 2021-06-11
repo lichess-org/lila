@@ -98,7 +98,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
-    setPath(treePath.init(initialPath));
+    setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
       jump(initialPath);
       redraw();
@@ -232,12 +232,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (recursive) node.children.forEach(child => reorderChildren(path + child.id, true));
   }
 
+  function instantRevertUserMove(): void {
+    withGround(g => g.cancelPremove());
+    userJump(treePath.init(vm.path));
+    redraw();
+  }
+
   function revertUserMove(): void {
-    setTimeout(() => {
-      withGround(g => g.cancelPremove());
-      userJump(treePath.init(vm.path));
-      redraw();
-    }, 100);
+    if (lichess.PuzzleNVUI) instantRevertUserMove();
+    else setTimeout(instantRevertUserMove, 100);
   }
 
   function applyProgress(progress: undefined | 'fail' | 'win' | MoveTest): void {
