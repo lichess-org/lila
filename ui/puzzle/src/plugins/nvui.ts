@@ -124,20 +124,28 @@ function onSubmit(
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
-      const fen = ctrl.vm.node.fen;
-      const uci = inputToLegalUci(input, fen, ground);
+      const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
         if (ctrl.vm.lastFeedback === 'fail') notify(ctrl.trans.noarg('notTheMove'));
         else if (ctrl.vm.lastFeedback === 'win') notify(ctrl.trans.noarg('puzzleSuccess'));
         else notify('');
       } else {
-        notify(`Invalid move: ${input}`);
+        notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }
     }
     $input.val('');
     return false;
   };
+}
+
+function isYourMove(ctrl: Controller) {
+  return ctrl.vm.node.children.length === 0 || ctrl.vm.node.children[0].puzzle === 'fail';
+}
+
+function browseHint(ctrl: Controller): string[] {
+  if (ctrl.vm.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.']
+  else return [];
 }
 
 const shortCommands = ['l', 'last', 'p', 's', 'v'];
