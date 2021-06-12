@@ -498,7 +498,7 @@
   <string name="cheat">Hile</string>
   <string name="insult">Hakaret</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation">Derecelendirme manipülasyonu</string>
+  <string name="ratingManipulation">Puan manipülasyonu</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
@@ -516,8 +516,8 @@
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
   <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
-  <string name="newPasswordsDontMatch">Yeni parolalar eşleşmiyor</string>
-  <string name="newPasswordStrength">Şifrenin zorluğu</string>
+  <string name="newPasswordsDontMatch">Yeni şifreler eşleşmiyor</string>
+  <string name="newPasswordStrength">Şifre gücü</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
@@ -843,7 +843,7 @@
   <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
   <string name="thisTopicIsArchived">Bu konu arşivlenmiştir ve daha fazla yorum yapılmasına izin verilemez.</string>
-  <string name="joinTheTeamXToPost">Bu forumda yorum yapmak için lütfen %1$s takımına katılın</string>
+  <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
   <string name="subscribe">Abone ol</string>
@@ -851,7 +851,7 @@
   <string name="mentionedYouInX">\"%1$s\" adlı gönderide sizden bahsetti.</string>
   <string name="xMentionedYouInY">%1$s sizden bahsetti: \"%2$s\".</string>
   <string name="invitedYouToX">sizi \"%1$s\" adlı çalışmaya davet etti.</string>
-  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" için davet ediyor.</string>
+  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
   <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
   <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
