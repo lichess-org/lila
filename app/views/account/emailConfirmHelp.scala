@@ -54,7 +54,7 @@ object emailConfirmHelp {
                   p(
                     "It can take some time to arrive.",
                     br,
-                    strong("Wait 10 minutes and refresh your email inbox.")
+                    strong("Wait 5 minutes and refresh your email inbox.")
                   ),
                   p("Also check your spam folder, it might end up there. If so, mark it as NOT spam."),
                   p("If everything else fails, then send us this email:"),
@@ -76,14 +76,9 @@ object emailConfirmHelp {
                   p("You do not need a confirmation email.")
                 )
               case Closed(name) =>
-                frag(
-                  p("The account ", strong(name), " is closed.")
-                )
+                p("The account ", strong(name), " is closed.")
               case NoEmail(name) =>
-                frag(
-                  p("The account ", strong(name), " doesn't have an email."),
-                  p("Visit the ", a(href := routes.Main.contact)("contact page"), ".")
-                )
+                p("The account ", strong(name), " was registered without an email.")
             }
           )
         )
