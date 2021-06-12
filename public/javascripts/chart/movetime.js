@@ -25,10 +25,10 @@ lichess.movetimeChart = function (data, trans, hunter) {
             const highlightColor = '#3893E8';
             const xAxisColor = '#cccccc99';
             const whiteAreaFill = 'rgba(255, 255, 255, 0.2)';
-            const whiteColumnFill = 'rgba(255, 255, 255, 0.4)';
-            const whiteColumnBorder = '#00000077';
+            const whiteColumnFill = 'rgba(255, 255, 255, 0.9)';
+            const whiteColumnBorder = '#00000044';
             const blackAreaFill = 'rgba(0, 0, 0, 0.4)';
-            const blackColumnFill = 'rgba(0, 0, 0, 0.7)';
+            const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
             const blackColumnBorder = '#ffffff33';
 
             const moveSeries = {
@@ -119,6 +119,20 @@ lichess.movetimeChart = function (data, trans, hunter) {
               credits: disabled,
               legend: disabled,
               series: [
+                {
+                  name: 'White',
+                  type: hunter ? 'area' : 'column',
+                  yAxis: 0,
+                  data: moveSeries.white,
+                  borderColor: whiteColumnBorder,
+                },
+                {
+                  name: 'Black',
+                  type: hunter ? 'area' : 'column',
+                  yAxis: 0,
+                  data: moveSeries.black,
+                  borderColor: blackColumnBorder,
+                },
                 ...(showTotal
                   ? [
                       {
@@ -135,20 +149,6 @@ lichess.movetimeChart = function (data, trans, hunter) {
                       },
                     ]
                   : []),
-                {
-                  name: 'White',
-                  type: hunter ? 'area' : 'column',
-                  yAxis: 0,
-                  data: moveSeries.white,
-                  borderColor: whiteColumnBorder,
-                },
-                {
-                  name: 'Black',
-                  type: hunter ? 'area' : 'column',
-                  yAxis: 0,
-                  data: moveSeries.black,
-                  borderColor: blackColumnBorder,
-                },
               ],
               chart: {
                 alignTicks: false,
@@ -176,11 +176,11 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   fillColor: whiteAreaFill,
                   negativeFillColor: blackAreaFill,
                   threshold: 0,
-                  lineWidth: 1,
+                  lineWidth: hunter ? 1 : 2,
                   color: highlightColor,
                   states: {
                     hover: {
-                      lineWidth: 1,
+                      lineWidth: hunter ? 1 : 2,
                     },
                   },
                   marker: {
@@ -204,7 +204,8 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   color: whiteColumnFill,
                   negativeColor: blackColumnFill,
                   grouping: false,
-                  pointPadding: Math.max(0.25 - moveSeries.white.length / 250, -0.2),
+                  groupPadding: 0,
+                  pointPadding: 0,
                   states: {
                     hover: {
                       enabled: false,
