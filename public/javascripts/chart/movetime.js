@@ -204,7 +204,8 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   color: whiteColumnFill,
                   negativeColor: blackColumnFill,
                   grouping: false,
-                  pointPadding: Math.max(0.25 - moveSeries.white.length / 250, -0.2),
+                  groupPadding: 0,
+                  pointPadding: 0,
                   states: {
                     hover: {
                       enabled: false,
