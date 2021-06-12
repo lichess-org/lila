@@ -842,10 +842,10 @@
   <string name="useTheReportForm">rapor formunu kullanın</string>
   <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
-  <string name="thisTopicIsArchived">Bu konu arşivlenmiştir ve daha fazla yorum yapılmasına izin verilemez.</string>
+  <string name="thisTopicIsArchived">Bu konu arşivlenmiş ve yeni yanıtlara kapatılmıştır.</string>
   <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
+  <string name="youCannotPostYetPlaySomeGames">Henüz forumda konu açamazsınız. Biraz daha maç yaptıktan sonra tekrar deneyin.</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
   <string name="mentionedYouInX">\"%1$s\" adlı gönderide sizden bahsetti.</string>
