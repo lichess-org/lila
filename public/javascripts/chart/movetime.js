@@ -52,7 +52,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
             const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
             if (data.player.color === 'white') blurs.reverse();
 
-            data.game.moveCentis.forEach(function (time, x) {
+            data.game.moveCentis.forEach(function (centis, x) {
               const node = tree[x + 1];
               ply = node ? node.ply : ply + 1;
               const san = node ? node.san : '-';
@@ -61,7 +61,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
               const color = ply & 1;
               const colorName = color ? 'white' : 'black';
 
-              const y = Math.pow(Math.log(0.005 * Math.min(time, 12e4) + 3), 2) - logC;
+              const y = Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC;
               maxMove = Math.max(y, maxMove);
 
               let label = turn + (color ? '. ' : '... ') + san;
@@ -81,18 +81,29 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 label += ' [blur]';
               }
 
-              labels.push(label);
+              const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
+              label += '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
               moveSeries[colorName].push(movePoint);
 
-              const clock = node ? node.clock : x === data.game.moveCentis.length - 1 ? 0 : undefined;
-              if (clock == undefined) showTotal = false;
-              else {
+              let clock = node?.clock;
+              if (clock == undefined) {
+                if (x < data.game.moveCentis.length - 1) showTotal = false;
+                else if (data.game.status.name === 'outoftime') clock = 0;
+                else if (data.clock) {
+                  const prevClock = tree[x - 1]?.clock;
+                  if (prevClock) clock = prevClock + data.clock.increment + centis;
+                }
+              }
+              if (clock != undefined) {
+                label += '<br />' + formatClock(clock);
                 maxTotal = Math.max(clock, maxTotal);
                 totalSeries[colorName].push({
                   x,
                   y: color ? clock : -clock,
                 });
               }
+
+              labels.push(label);
             });
 
             const disabled = {
@@ -157,12 +168,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
               },
               tooltip: {
                 formatter: function () {
-                  let seconds = data.game.moveCentis[this.x] / 100;
-                  if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
-                  let text = labels[this.x] + '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
-                  const node = tree[this.x + 1];
-                  if (node && node.clock) text += '<br />' + formatClock(node.clock);
-                  return text;
+                  return labels[this.x];
                 },
               },
               plotOptions: {
