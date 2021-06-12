@@ -156,7 +156,6 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 animation: false,
               },
               tooltip: {
-                shared: true,
                 formatter: function () {
                   let seconds = data.game.moveCentis[this.x] / 100;
                   if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
