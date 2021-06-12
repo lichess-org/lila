@@ -55,7 +55,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
               },
               [
                 h('label', [
-                  ctrl.trans.noarg(ctrl.vm.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
+                  ctrl.vm.pov === 'white' ? 'Find the best move for white.' : 'Find the best move for black.',
                   h('input.move.mousetrap', {
                     attrs: {
                       name: 'move',
@@ -134,8 +134,8 @@ function onSubmit(
       const uci = inputToLegalUci(input, ctrl.vm.node.fen, ground);
       if (uci) {
         ctrl.playUci(uci);
-        if (ctrl.vm.lastFeedback === 'fail') notify(ctrl.trans.noarg('notTheMove'));
-        else if (ctrl.vm.lastFeedback === 'win') notify(ctrl.trans.noarg('puzzleSuccess'));
+        if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
+        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
         else notify('');
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
@@ -179,7 +179,7 @@ function viewOrAdvanceSolution(ctrl: Controller, notify: (txt: string) => void):
       control.next(ctrl);
       ctrl.redraw();
     } else if (isInSolution(node)) {
-      notify(ctrl.trans.noarg('puzzleComplete'));
+      notify('Puzzle complete!');
     } else {
       ctrl.viewSolution();
     }
