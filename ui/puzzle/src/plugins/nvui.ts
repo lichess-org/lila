@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Controller, Redraw } from '../interfaces';
-import { puzzleBox } from '../view/side';
+import { puzzleBox, userBox } from '../view/side';
 import theme from '../view/theme';
 import { castlingFlavours, inputToLegalUci, renderPieces, renderSan, Style, styleSetting } from 'nvui/chess';
 import { Chessground } from 'chessground';
@@ -9,7 +9,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as control from '../control';
-import { onInsert } from '../util';
+import { bind, onInsert } from '../util';
 import { Api } from 'chessground/api';
 
 lichess.PuzzleNVUI = function (redraw: Redraw) {
@@ -29,8 +29,22 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             h('h2', 'Puzzle info'),
             puzzleBox(ctrl),
             theme(ctrl),
+            !ctrl.streak ? userBox(ctrl) : null,
             h('h2', 'Pieces'),
             h('div.pieces', renderPieces(pieces, moveStyle.get())),
+            h('h2', 'Puzzle status'),
+            h(
+              'div.status',
+              {
+                attrs: {
+                  role: 'status',
+                  'aria-live': 'polite',
+                  'aria-atomic': 'true',
+                },
+              },
+              renderStatus(ctrl)
+            ),
+            ctrl.streak ? renderStreak(ctrl) : null,
             h('h2', 'Last move'),
             h(
               'p.lastMove',
@@ -68,13 +82,15 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
               ]
             ),
             notify.render(),
+            h('h2', 'Actions'),
+            ctrl.vm.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
             h('h2', 'Settings'),
             h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
             h('h2', 'Keyboard shortcuts'),
             h('p', [
-              'left and right arrow keys or j and k: Navigate to the previous or the next move.',
+              'Left and right arrow keys or j and k: Navigate to the previous or the next move.',
               h('br'),
-              'up and down arrow keys or 0 and $: Navigate to the first or the last move.'
+              'Up and down arrow keys or 0 and $: Navigate to the first or the last move.',
             ]),
             h('h2', 'Commands'),
             h('p', [
@@ -104,6 +120,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
 
 function lastMove(ctrl: Controller, style: Style): string {
   const node = ctrl.vm.node;
+  if (node.ply === 0) return 'Initial position';
   // make sure consecutive moves are different so that they get re-read
   return renderSan(node.san || '', node.uci, style) + (node.ply % 2 === 0 ? '' : ' ');
 }
@@ -135,8 +152,6 @@ function onSubmit(
       if (uci) {
         ctrl.playUci(uci);
         if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
-        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
-        else notify('');
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }
@@ -151,7 +166,7 @@ function isYourMove(ctrl: Controller) {
 }
 
 function browseHint(ctrl: Controller): string[] {
-  if (ctrl.vm.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.']
+  if (ctrl.vm.mode !== 'view' && !isYourMove(ctrl)) return ['You browsed away from the latest position.'];
   else return [];
 }
 
@@ -195,4 +210,48 @@ function isInSolution(node?: Tree.Node): boolean {
 function nextNode(node?: Tree.Node): Tree.Node | undefined {
   if (node?.children?.length) return node.children[0];
   else return;
+}
+
+function renderStreak(ctrl: Controller): VNode[] {
+  if (!ctrl.streak) return [];
+  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || ctrl.trans.noarg('streakDescription'))];
+}
+
+function renderStatus(ctrl: Controller) {
+  if (ctrl.vm.mode !== 'view') return 'Your move.';
+  else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
+  else if (ctrl.vm.lastFeedback === 'win') return 'Success!';
+  else return 'Puzzle complete.';
+}
+
+function playActions(ctrl: Controller): VNode {
+  if (ctrl.streak) return button(ctrl.trans.noarg('skip'), ctrl.skip, ctrl.trans.noarg('streakSkipExplanation'));
+  else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
+}
+
+function afterActions(ctrl: Controller): VNode {
+  const win = ctrl.vm.lastFeedback === 'win';
+  if (ctrl.streak && !win) return anchor(ctrl.trans.noarg('newStreak'), '/streak');
+  else return h('div.actions_after', button('Continue training', ctrl.nextPuzzle));
+}
+
+function anchor(text: string, href: string): VNode {
+  return h(
+    'a',
+    {
+      attrs: { href },
+    },
+    text
+  );
+}
+
+function button(text: string, action: (e: Event) => void, title?: string): VNode {
+  return h(
+    'button',
+    {
+      hook: bind('click', action),
+      attrs: title ? { title } : undefined,
+    },
+    text
+  );
 }
