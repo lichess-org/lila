@@ -250,6 +250,14 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 },
               ],
             });
+            this.highcharts.selectPly = ply => {
+              const white = ply % 2 !== 0;
+              const serie = (white ? 0 : 1) + (showTotal ? 2 : 0);
+              const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);
+              const point = chart.series[serie].data[turn];
+              if (point) point.select();
+              else this.highcharts.getSelectedPoints().forEach(point => point.select(false));
+            };
           });
           lichess.pubsub.emit('analysis.change.trigger');
         };

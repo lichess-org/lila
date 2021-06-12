@@ -2,13 +2,13 @@ import type Highcharts from 'highcharts';
 
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
-import { defined } from 'common';
 import modal from 'common/modal';
 import { formToXhr } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
 interface PlyChart extends Highcharts.ChartObject {
   lastPly?: Ply | false;
+  selectPly(ply: number): void;
 }
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
@@ -41,32 +41,21 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         lastFen = fen;
       }
       if ($chart.length) {
-        const chart: PlyChart = ($chart[0] as HighchartsHTMLElement).highcharts;
+        const chart = ($chart[0] as HighchartsHTMLElement).highcharts as PlyChart;
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
-            else {
-              const point = chart.series[0].data[mainlinePly - 1 - data.game.startedAtTurn];
-              if (defined(point)) point.select();
-              else unselect(chart);
-            }
+            else chart.selectPly(mainlinePly);
           }
           chart.lastPly = mainlinePly;
         }
       }
       if ($timeChart.length) {
-        const chart: PlyChart = ($timeChart[0] as HighchartsHTMLElement).highcharts;
+        const chart = ($timeChart[0] as HighchartsHTMLElement).highcharts as PlyChart;
         if (chart) {
           if (mainlinePly != chart.lastPly) {
             if (mainlinePly === false) unselect(chart);
-            else {
-              const white = mainlinePly % 2 !== 0;
-              const serie = white ? 0 : 1;
-              const turn = Math.floor((mainlinePly - 1 - data.game.startedAtTurn) / 2);
-              const point = chart.series[serie].data[turn];
-              if (defined(point)) point.select();
-              else unselect(chart);
-            }
+            else chart.selectPly(mainlinePly);
           }
           chart.lastPly = mainlinePly;
         }
