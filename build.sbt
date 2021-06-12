@@ -274,6 +274,11 @@ lazy val oauth = smallModule("oauth",
   Seq(autoconfig) ++ reactivemongo.bundle ++ macwire.bundle
 )
 
+lazy val oauth2 = smallModule("oauth2",
+  Seq(common),
+  Seq()
+)
+
 lazy val security = module("security",
   Seq(common, hub, db, user, i18n, irc, oauth, mailer),
   Seq(maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
