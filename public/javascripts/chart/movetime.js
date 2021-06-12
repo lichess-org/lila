@@ -25,10 +25,10 @@ lichess.movetimeChart = function (data, trans, hunter) {
             const highlightColor = '#3893E8';
             const xAxisColor = '#cccccc99';
             const whiteAreaFill = 'rgba(255, 255, 255, 0.2)';
-            const whiteColumnFill = 'rgba(255, 255, 255, 0.4)';
-            const whiteColumnBorder = '#00000077';
+            const whiteColumnFill = 'rgba(255, 255, 255, 0.9)';
+            const whiteColumnBorder = '#00000044';
             const blackAreaFill = 'rgba(0, 0, 0, 0.4)';
-            const blackColumnFill = 'rgba(0, 0, 0, 0.7)';
+            const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
             const blackColumnBorder = '#ffffff33';
 
             const moveSeries = {
@@ -114,27 +114,40 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 },
               },
             };
+            const areaLineTypeOptions = {
+              ...sharedTypeOptions,
+              trackByArea: true,
+              fillColor: whiteAreaFill,
+              negativeFillColor: blackAreaFill,
+              threshold: 0,
+              lineWidth: hunter ? 1 : 2,
+              color: highlightColor,
+              states: {
+                hover: {
+                  lineWidth: hunter ? 1 : 2,
+                },
+              },
+              marker: {
+                radius: 1,
+                states: {
+                  hover: {
+                    radius: 3,
+                    lineColor: highlightColor,
+                    fillColor: 'white',
+                  },
+                  select: {
+                    radius: 4,
+                    lineColor: highlightColor,
+                    fillColor: 'white',
+                  },
+                },
+              },
+            };
 
             this.highcharts = Highcharts.chart(this, {
               credits: disabled,
               legend: disabled,
               series: [
-                ...(showTotal
-                  ? [
-                      {
-                        name: 'White Clock',
-                        type: 'area',
-                        yAxis: 1,
-                        data: totalSeries.white,
-                      },
-                      {
-                        name: 'Black Clock',
-                        type: 'area',
-                        yAxis: 1,
-                        data: totalSeries.black,
-                      },
-                    ]
-                  : []),
                 {
                   name: 'White',
                   type: hunter ? 'area' : 'column',
@@ -149,6 +162,22 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   data: moveSeries.black,
                   borderColor: blackColumnBorder,
                 },
+                ...(showTotal
+                  ? [
+                      {
+                        name: 'White Clock',
+                        type: 'line',
+                        yAxis: 1,
+                        data: totalSeries.white,
+                      },
+                      {
+                        name: 'Black Clock',
+                        type: 'line',
+                        yAxis: 1,
+                        data: totalSeries.black,
+                      },
+                    ]
+                  : []),
               ],
               chart: {
                 alignTicks: false,
@@ -170,35 +199,8 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 series: {
                   animation: false,
                 },
-                area: {
-                  ...sharedTypeOptions,
-                  trackByArea: true,
-                  fillColor: whiteAreaFill,
-                  negativeFillColor: blackAreaFill,
-                  threshold: 0,
-                  lineWidth: 1,
-                  color: highlightColor,
-                  states: {
-                    hover: {
-                      lineWidth: 1,
-                    },
-                  },
-                  marker: {
-                    radius: 1,
-                    states: {
-                      hover: {
-                        radius: 3,
-                        lineColor: highlightColor,
-                        fillColor: 'white',
-                      },
-                      select: {
-                        radius: 4,
-                        lineColor: highlightColor,
-                        fillColor: 'white',
-                      },
-                    },
-                  },
-                },
+                area: areaLineTypeOptions,
+                line: areaLineTypeOptions,
                 column: {
                   ...sharedTypeOptions,
                   color: whiteColumnFill,
