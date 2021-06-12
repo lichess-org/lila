@@ -8,6 +8,7 @@ import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
+import * as control from '../control';
 import { onInsert } from '../util';
 import { Api } from 'chessground/api';
 
@@ -69,6 +70,12 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             notify.render(),
             h('h2', 'Settings'),
             h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+            h('h2', 'Keyboard shortcuts'),
+            h('p', [
+              'left and right arrow keys or j and k: Navigate to the previous or the next move.',
+              h('br'),
+              'up and down arrow keys or 0 and $: Navigate to the first or the last move.'
+            ]),
             h('h2', 'Commands'),
             h('p', [
               'Type these commands in the move input.',
@@ -169,7 +176,7 @@ function viewOrAdvanceSolution(ctrl: Controller, notify: (txt: string) => void):
       next = nextNode(node),
       nextNext = nextNode(next);
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
-      ctrl.userJump(ctrl.vm.path + ctrl.vm.node.children[0].id);
+      control.next(ctrl);
       ctrl.redraw();
     } else if (isInSolution(node)) {
       notify(ctrl.trans.noarg('puzzleComplete'));
