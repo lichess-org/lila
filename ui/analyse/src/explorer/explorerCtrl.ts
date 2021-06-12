@@ -62,9 +62,9 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
 
   let cache: Dictionary<ExplorerData> = {};
   function onConfigClose() {
-    root.redraw();
     cache = {};
     setNode();
+    root.redraw();
   }
   const data = root.data,
     withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
