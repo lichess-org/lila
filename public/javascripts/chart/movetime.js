@@ -24,10 +24,10 @@ lichess.movetimeChart = function (data, trans, hunter) {
 
             const highlightColor = '#3893E8';
             const xAxisColor = '#cccccc99';
-            const whiteAreaFill = 'rgba(255, 255, 255, 0.2)';
+            const whiteAreaFill = hunter ? Highcharts.theme.lichess.area.white : 'rgba(255, 255, 255, 0.2)';
             const whiteColumnFill = 'rgba(255, 255, 255, 0.9)';
             const whiteColumnBorder = '#00000044';
-            const blackAreaFill = 'rgba(0, 0, 0, 0.4)';
+            const blackAreaFill = hunter ? Highcharts.theme.lichess.area.black : 'rgba(0, 0, 0, 0.4)';
             const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
             const blackColumnBorder = '#ffffff33';
 
