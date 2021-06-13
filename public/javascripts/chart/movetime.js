@@ -107,7 +107,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 click: event => {
                   if (event.point) {
                     const x = event.point.x;
-                    const p = this.highcharts.series[(tree[x]?.ply ?? x) % 2].data[x >> 1];
+                    const p = this.highcharts.series[(showTotal ? 4 : 0) + ((tree[x]?.ply ?? x) % 2)].data[x >> 1];
                     if (p) p.select(true);
                     lichess.pubsub.emit('analysis.chart.click', x);
                   }
@@ -214,6 +214,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   ...(hunter
                     ? foregrondLineOptions
                     : {
+                        ...clickableOptions,
                         lineWidth: 0,
                         states: {
                           hover: {
