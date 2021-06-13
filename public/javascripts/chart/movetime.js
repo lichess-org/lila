@@ -101,7 +101,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
             const noText = {
               text: null,
             };
-            const sharedTypeOptions = {
+            const clickableOptions = {
               cursor: 'pointer',
               events: {
                 click: event => {
@@ -114,20 +114,61 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 },
               },
             };
+            const foregrondLineOptions = {
+              ...clickableOptions,
+              color: highlightColor,
+              lineWidth: hunter ? 1 : 2,
+              states: {
+                hover: {
+                  lineWidth: hunter ? 1 : 2,
+                },
+              },
+              marker: {
+                radius: 1,
+                states: {
+                  hover: {
+                    radius: 3,
+                    lineColor: highlightColor,
+                    fillColor: 'white',
+                  },
+                  select: {
+                    radius: 4,
+                    lineColor: highlightColor,
+                    fillColor: 'white',
+                  },
+                },
+              },
+            };
 
             this.highcharts = Highcharts.chart(this, {
               credits: disabled,
               legend: disabled,
               series: [
+                ...(showTotal
+                  ? [
+                      {
+                        name: 'White Clock Area',
+                        type: 'area',
+                        yAxis: 1,
+                        data: totalSeries.white,
+                      },
+                      {
+                        name: 'Black Clock Area',
+                        type: 'area',
+                        yAxis: 1,
+                        data: totalSeries.black,
+                      },
+                    ]
+                  : []),
                 {
-                  name: 'White',
+                  name: 'White Move Time',
                   type: hunter ? 'area' : 'column',
                   yAxis: 0,
                   data: moveSeries.white,
                   borderColor: whiteColumnBorder,
                 },
                 {
-                  name: 'Black',
+                  name: 'Black Move Time',
                   type: hunter ? 'area' : 'column',
                   yAxis: 0,
                   data: moveSeries.black,
@@ -136,14 +177,14 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 ...(showTotal
                   ? [
                       {
-                        name: 'White Clock',
-                        type: 'area',
+                        name: 'White Clock Line',
+                        type: 'line',
                         yAxis: 1,
                         data: totalSeries.white,
                       },
                       {
-                        name: 'Black Clock',
-                        type: 'area',
+                        name: 'Black Clock Line',
+                        type: 'line',
                         yAxis: 1,
                         data: totalSeries.black,
                       },
@@ -170,45 +211,31 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   animation: false,
                 },
                 area: {
-                  ...sharedTypeOptions,
+                  ...(hunter
+                    ? foregrondLineOptions
+                    : {
+                        lineWidth: 0,
+                        states: {
+                          hover: {
+                            lineWidth: 0,
+                          },
+                        },
+                        marker: disabled,
+                      }),
                   trackByArea: true,
                   fillColor: whiteAreaFill,
                   negativeFillColor: blackAreaFill,
-                  threshold: 0,
-                  lineWidth: hunter ? 1 : 2,
-                  color: highlightColor,
-                  states: {
-                    hover: {
-                      lineWidth: hunter ? 1 : 2,
-                    },
-                  },
-                  marker: {
-                    radius: 1,
-                    states: {
-                      hover: {
-                        radius: 3,
-                        lineColor: highlightColor,
-                        fillColor: 'white',
-                      },
-                      select: {
-                        radius: 4,
-                        lineColor: highlightColor,
-                        fillColor: 'white',
-                      },
-                    },
-                  },
                 },
+                line: foregrondLineOptions,
                 column: {
-                  ...sharedTypeOptions,
+                  ...clickableOptions,
                   color: whiteColumnFill,
                   negativeColor: blackColumnFill,
                   grouping: false,
                   groupPadding: 0,
                   pointPadding: 0,
                   states: {
-                    hover: {
-                      enabled: false,
-                    },
+                    hover: disabled,
                     select: {
                       enabled: !showTotal,
                       color: highlightColor,
@@ -252,7 +279,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
             });
             this.highcharts.selectPly = ply => {
               const white = ply % 2 !== 0;
-              const serie = (white ? 0 : 1) + (showTotal ? 2 : 0);
+              const serie = (white ? 0 : 1) + (showTotal ? 4 : 0);
               const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);
               const point = this.highcharts.series[serie].data[turn];
               if (point) point.select(true);
