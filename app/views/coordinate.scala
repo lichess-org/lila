@@ -69,8 +69,9 @@ object coordinate {
           )
         ),
         div(cls := "coord-trainer__board main-board")(
-          raw(
-            """<svg class="coords-svg" viewBox="0 0 100 100"><text class="coord current-coord"/><text class="coord next-coord"/></svg>"""
+          svgTag(cls := "coords-svg", viewBoxAttr := "0 0 100 100")(
+            textTag(cls := "coord current-coord"),
+            textTag(cls := "coord next-coord")
           ),
           chessgroundBoard
         ),

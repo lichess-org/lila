@@ -25,6 +25,7 @@ trait ScalatagsAttrs {
   val dataBotAttr    = attr("data-bot").empty
   val deferAttr      = attr("defer").empty
   val downloadAttr   = attr("download").empty
+  val viewBoxAttr    = attr("viewBox")
 
   object frame {
     val scrolling       = attr("scrolling")
@@ -54,7 +55,8 @@ trait ScalatagsSnippets extends Cap {
   val goodTag                                = tag("good")
   val badTag                                 = tag("bad")
   val timeTag                                = tag("time")
-  val dialog                                 = tag("dialog")
+  val svgTag                                 = tag("svg")
+  val textTag                                = tag("text")
 
   def userTitleTag(t: Title) =
     span(
