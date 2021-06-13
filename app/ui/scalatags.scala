@@ -55,6 +55,7 @@ trait ScalatagsSnippets extends Cap {
   val goodTag                                = tag("good")
   val badTag                                 = tag("bad")
   val timeTag                                = tag("time")
+  val dialog                                 = tag("dialog")
   val svgTag                                 = tag("svg")
   val textTag                                = tag("text")
 
