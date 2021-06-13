@@ -920,5 +920,9 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
+  <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
+  <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
+  <string name="download">Stiahnuť</string>
+  <string name="welcome">Vitajte!</string>
   <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Správca streamov</string>
 </resources>
