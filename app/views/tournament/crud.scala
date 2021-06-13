@@ -58,7 +58,7 @@ object crud {
             action := routes.TournamentCrud.cloneT(tour.id),
             method := "get"
           )(
-            form3.submit("Clone", "g".some, klass = "button-green")
+            form3.submit("Clone", "".some, klass = "button-green")
           )
         ),
         standardFlash(),
