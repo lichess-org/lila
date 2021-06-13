@@ -9,7 +9,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'wayOfBerserk',
   name: 'The way of Berserk',
-  icon: '\ue053',
+  icon: '',
   url: '//lichess.org/faq#trophies',
   klass: 'fire-trophy',
   order: NumberInt(2),
@@ -50,7 +50,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
-  icon: '\ue020',
+  icon: '',
   url: '//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1',
   klass: 'fire-trophy',
   order: NumberInt(7),
@@ -59,7 +59,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'developer',
   name: 'Lichess developer',
-  icon: '\ue000',
+  icon: '',
   url: 'https://github.com/ornicar/lila/graphs/contributors',
   klass: 'icon3d',
   order: NumberInt(100),
@@ -68,7 +68,7 @@ db.trophyKind.insert({
 db.trophyKind.insert({
   _id: 'moderator',
   name: 'Lichess moderator',
-  icon: '\ue002',
+  icon: '',
   url: '//lichess.org/report',
   klass: 'icon3d',
   order: NumberInt(101),
