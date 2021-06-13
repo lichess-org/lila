@@ -52,6 +52,7 @@
     @extend %flex-between-nowrap;
     &__meta {
       white-space: nowrap;
+      text-align: right;
     }
   }
 }

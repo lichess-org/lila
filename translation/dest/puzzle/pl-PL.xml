@@ -53,13 +53,13 @@
   <string name="solved">rozwiązane</string>
   <string name="failed">nie udało się</string>
   <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć ruch w danej sesji.</string>
-  <string name="yourStreakX">Twój seria: %s</string>
+  <string name="yourStreakX">Twoja seria: %s</string>
   <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>
   <string name="continueTheStreak">Kontynuuj serię</string>
   <string name="newStreak">Nowa seria</string>
   <string name="fromMyGames">Z moich gier</string>
   <string name="lookupOfPlayer">Wyszukaj zadań z gier gracza</string>
-  <string name="fromXGames">Zadania z %s gier</string>
+  <string name="fromXGames">Zadania z gier gracza %s</string>
   <string name="searchPuzzles">Szukaj zadań</string>
   <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale Lichess nadal bardzo Cię kocha.
 Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>

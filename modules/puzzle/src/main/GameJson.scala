@@ -31,7 +31,7 @@ final private class GameJson(
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson") {
     _.expireAfterAccess(5 minutes)
-      .maximumSize(1024)
+      .maximumSize(4096)
       .buildAsyncFuture(key =>
         readKey(key) match {
           case (id, plies) => generate(id, plies, false)
@@ -50,7 +50,7 @@ final private class GameJson(
   }
 
   private def generate(gameId: Game.ID, plies: Int, bc: Boolean): Fu[JsObject] =
-    gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
+    gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
       lightUserApi preloadMany game.userIds map { _ =>
         if (bc) generateBc(game, plies)
         else generate(game, plies)

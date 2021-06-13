@@ -869,4 +869,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="welcome">Welcome!</string>
   <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
 All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="coachManager">Coach manager</string>
+  <string name="streamerManager">Streamer manager</string>
 </resources>

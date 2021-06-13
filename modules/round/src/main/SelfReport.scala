@@ -10,7 +10,7 @@ final class SelfReport(
     tellRound: TellRound,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    slackApi: lila.irc.SlackApi,
+    ircApi: lila.irc.IrcApi,
     proxyRepo: GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -40,7 +40,7 @@ final class SelfReport(
                 s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
               )
             user.filter(u => onceEvery(u.id)) foreach { u =>
-              slackApi.selfReport(
+              ircApi.selfReport(
                 typ = name,
                 path = fullId.value,
                 user = u,

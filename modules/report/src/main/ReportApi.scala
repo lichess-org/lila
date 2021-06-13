@@ -6,6 +6,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.Bus
+import lila.common.Heapsort
 import lila.db.dsl._
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
@@ -17,7 +18,7 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
-    discordApi: lila.irc.DiscordApi,
+    ircApi: lila.irc.IrcApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
@@ -68,7 +69,7 @@ final class ReportApi(
               report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
               prev.exists(_.score.value < thresholds.discord())
-            ) discordApi.commReportBurst(c.suspect.user)
+            ) ircApi.commReportBurst(c.suspect.user)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>- {
                 if (report.isCheat)
@@ -191,15 +192,16 @@ final class ReportApi(
       case _ => funit
     }
 
-  def maybeAutoPlaybanReport(userId: User.ID): Funit =
-    userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
+  def maybeAutoPlaybanReport(userId: User.ID, minutes: Int): Funit =
+    (minutes > 60 * 24) ?? userLoginsApi.getUserIdsWithSameIpAndPrint(userId) flatMap { ids =>
       playbanApi
         .bans(userId :: ids.toList)
         .map {
-          _ filter { case (_, bans) => bans > 2 }
+          _ filter { case (_, bans) => bans > 4 }
         }
         .flatMap { bans =>
-          (bans.values.sum >= 80) ?? {
+          val topSum = Heapsort.topNToList(bans.values, 10, implicitly[Ordering[Int]]).sum
+          (topSum >= 80) ?? {
             userRepo.byId(userId) zip
               getLichessReporter zip
               findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {

@@ -13,7 +13,7 @@ function formatClock(centis) {
   else result += Math.floor(secs).toString().padStart(2, '0');
   return result;
 }
-lichess.movetimeChart = function (data, trans) {
+lichess.movetimeChart = function (data, trans, hunter) {
   if (!data.game.moveCentis) return; // imported games
   lichess.loadScript('javascripts/chart/common.js').then(function () {
     lichess.loadScript('javascripts/chart/division.js').then(function () {
@@ -25,10 +25,10 @@ lichess.movetimeChart = function (data, trans) {
             const highlightColor = '#3893E8';
             const xAxisColor = '#cccccc99';
             const whiteAreaFill = 'rgba(255, 255, 255, 0.2)';
-            const whiteColumnFill = 'rgba(255, 255, 255, 0.4)';
-            const whiteColumnBorder = '#00000077';
-            const blackAreaFill = 'rgba(0, 0, 0, 0.7)';
-            const blackColumnFill = 'rgba(0, 0, 0, 0.7)';
+            const whiteColumnFill = 'rgba(255, 255, 255, 0.9)';
+            const whiteColumnBorder = '#00000044';
+            const blackAreaFill = 'rgba(0, 0, 0, 0.4)';
+            const blackColumnFill = 'rgba(0, 0, 0, 0.9)';
             const blackColumnBorder = '#ffffff33';
 
             const moveSeries = {
@@ -45,7 +45,7 @@ lichess.movetimeChart = function (data, trans) {
             let ply = 0,
               maxMove = 0,
               maxTotal = 0,
-              showTotal = true;
+              showTotal = !hunter;
 
             const logC = Math.pow(Math.log(3), 2);
 
@@ -61,11 +61,10 @@ lichess.movetimeChart = function (data, trans) {
               const color = ply & 1;
               const colorName = color ? 'white' : 'black';
 
-              const y = Math.max(Math.pow(Math.log(0.005 * Math.min(time, 12e4) + 3), 2) - logC, 0.2);
+              const y = Math.pow(Math.log(0.005 * Math.min(time, 12e4) + 3), 2) - logC;
               maxMove = Math.max(y, maxMove);
 
-              labels.push(turn + (color ? '. ' : '... ') + san);
-
+              let label = turn + (color ? '. ' : '... ') + san;
               const movePoint = {
                 x,
                 y: color ? y : -y,
@@ -79,9 +78,10 @@ lichess.movetimeChart = function (data, trans) {
                   lineColor: highlightColor,
                   fillColor: color ? '#fff' : '#333',
                 };
-                movePoint.name += ' [blur]';
+                label += ' [blur]';
               }
 
+              labels.push(label);
               moveSeries[colorName].push(movePoint);
 
               const clock = node ? node.clock : x === data.game.moveCentis.length - 1 ? 0 : undefined;
@@ -119,6 +119,20 @@ lichess.movetimeChart = function (data, trans) {
               credits: disabled,
               legend: disabled,
               series: [
+                {
+                  name: 'White',
+                  type: hunter ? 'area' : 'column',
+                  yAxis: 0,
+                  data: moveSeries.white,
+                  borderColor: whiteColumnBorder,
+                },
+                {
+                  name: 'Black',
+                  type: hunter ? 'area' : 'column',
+                  yAxis: 0,
+                  data: moveSeries.black,
+                  borderColor: blackColumnBorder,
+                },
                 ...(showTotal
                   ? [
                       {
@@ -135,20 +149,6 @@ lichess.movetimeChart = function (data, trans) {
                       },
                     ]
                   : []),
-                {
-                  name: 'White',
-                  type: 'column',
-                  yAxis: 0,
-                  data: moveSeries.white,
-                  borderColor: whiteColumnBorder,
-                },
-                {
-                  name: 'Black',
-                  type: 'column',
-                  yAxis: 0,
-                  data: moveSeries.black,
-                  borderColor: blackColumnBorder,
-                },
               ],
               chart: {
                 alignTicks: false,
@@ -156,7 +156,6 @@ lichess.movetimeChart = function (data, trans) {
                 animation: false,
               },
               tooltip: {
-                shared: true,
                 formatter: function () {
                   let seconds = data.game.moveCentis[this.x] / 100;
                   if (seconds) seconds = seconds.toFixed(seconds >= 2 ? 1 : 2);
@@ -176,11 +175,11 @@ lichess.movetimeChart = function (data, trans) {
                   fillColor: whiteAreaFill,
                   negativeFillColor: blackAreaFill,
                   threshold: 0,
-                  lineWidth: 1,
+                  lineWidth: hunter ? 1 : 2,
                   color: highlightColor,
                   states: {
                     hover: {
-                      lineWidth: 1,
+                      lineWidth: hunter ? 1 : 2,
                     },
                   },
                   marker: {
@@ -204,7 +203,8 @@ lichess.movetimeChart = function (data, trans) {
                   color: whiteColumnFill,
                   negativeColor: blackColumnFill,
                   grouping: false,
-                  pointPadding: Math.max(0.25 - moveSeries.white.length / 250, -0.2),
+                  groupPadding: 0,
+                  pointPadding: 0,
                   states: {
                     hover: {
                       enabled: false,

@@ -43,7 +43,7 @@ object contact {
           a(href := "https://github.com/veloce/lichobile/issues")(reportMobileIssue())
         ),
         li(
-          a(href := "https://discord.gg/hy5jqSs")(reportBugInDiscord())
+          a(href := "https://discord.gg/lichess")(reportBugInDiscord())
         )
       ),
       p(howToReportBug())

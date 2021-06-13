@@ -4,8 +4,7 @@
 
 - [Set up your development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 - [Pick a GitHub issue to work on](https://github.com/ornicar/lila/issues). The [good first issue](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and [no scala](https://github.com/ornicar/lila/issues?q=is%3Aissue+is%3Aopen+label%3A%22no+scala%22) tags might be useful.
-- Communicate with other devs on the #lichess IRC channel on freenode
-  or [Discord](https://discord.gg/hy5jqSs).
+- Communicate with other devs on [Discord](https://discord.gg/lichess).
 
 ## I want to report a bug or a problem about Lichess
 

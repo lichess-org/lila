@@ -11,8 +11,6 @@
       .more {
         color: $c-font-dim;
 
-        @include transition;
-
         &:hover {
           color: $c-link;
         }

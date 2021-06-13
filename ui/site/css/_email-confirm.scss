@@ -12,14 +12,32 @@
   }
 
   @keyframes appear {
-    from {
-      opacity: 0;
-    }
-
     30% {
       transform: translateY(0);
     }
 
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes appear-pulse {
+    5% {
+      transform: translateY(0);
+    }
+    10% {
+      opacity: 1;
+    }
+    20% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 1;
+    }
+    70% {
+      opacity: 0.4;
+    }
     to {
       opacity: 1;
       transform: translateY(0);
@@ -45,15 +63,12 @@
     }
 
     ol li:nth-child(3) {
+      animation: appear-pulse 30s forwards;
       animation-delay: 10s;
     }
 
     ol li:nth-child(4) {
-      animation-delay: 14s;
-    }
-
-    ol li:nth-child(5) {
-      animation-delay: 18s;
+      animation-delay: 50s;
     }
   }
 }

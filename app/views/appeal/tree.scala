@@ -48,7 +48,7 @@ object tree {
             "Please use ",
             a(href := routes.Main.contact)("the contact page"),
             " or ",
-            a(href := "https://discordapp.com/invite/pvHanhg")("our discord server"),
+            a(href := "https://discord.gg/lichess")("our Discord server"),
             " to contact us about other issues.",
             br,
             "You can also ",

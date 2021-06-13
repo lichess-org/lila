@@ -253,7 +253,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: SlackApi)(
     )
 
   def userHistory(userId: User.ID): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](60)
 
   def countRecentCheatDetected(userId: User.ID): Fu[Int] =
     coll.countSel(

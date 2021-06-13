@@ -44,7 +44,7 @@ z-index: 99;
   val connectLinks =
     div(cls := "connect-links")(
       a(href := "https://twitter.com/lichess", targetBlank, noFollow)("Twitter"),
-      a(href := "https://discord.gg/hy5jqSs", targetBlank, noFollow)("Discord"),
+      a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
       a(href := "https://www.youtube.com/channel/UCr6RfQga70yMM9-nuzAYTsA", targetBlank, noFollow)("YouTube"),
       a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
     )

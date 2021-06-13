@@ -213,7 +213,7 @@ final class Mod(
   def notifySlack(username: String) =
     OAuthMod(_.NotifySlack) { _ => me =>
       withSuspect(username) { sus =>
-        env.irc.slack.userMod(user = sus.user, mod = me) map some
+        env.irc.api.userMod(user = sus.user, mod = me) map some
       }
     }(actionResult(username))
 

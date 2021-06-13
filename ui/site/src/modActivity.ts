@@ -87,7 +87,6 @@ export function queues(data: any) {
         colors: ['#03A9F4', '#4CAF50', '#F9CE1D', '#FF9800'],
       }
     );
-    console.log(cfg);
     new ApexCharts($('<div>').appendTo($grid)[0], cfg).render();
   });
 }

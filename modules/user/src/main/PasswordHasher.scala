@@ -32,10 +32,8 @@ final private class Aes(secret: Secret) {
   }
 
   import Cipher.{ DECRYPT_MODE, ENCRYPT_MODE }
-  def encrypt(iv: Aes.InitVector, b: Array[Byte]) =
-    lila.mon.chronoSync(_.security.passwordHasher.encrypt)(run(ENCRYPT_MODE, iv, b))
-  def decrypt(iv: Aes.InitVector, b: Array[Byte]) =
-    lila.mon.chronoSync(_.security.passwordHasher.decrypt)(run(DECRYPT_MODE, iv, b))
+  def encrypt(iv: Aes.InitVector, b: Array[Byte]) = run(ENCRYPT_MODE, iv, b)
+  def decrypt(iv: Aes.InitVector, b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
 
 private object Aes {

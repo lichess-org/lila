@@ -38,7 +38,7 @@ Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lich
 
 See [lichess.org/source](https://lichess.org/source) for a list of repositories.
 
-[Join us on discord](https://discord.gg/hy5jqSs) or in the `#lichess` freenode IRC channel for more info.
+[Join us on Discord](https://discord.gg/lichess) for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 ## Installation
