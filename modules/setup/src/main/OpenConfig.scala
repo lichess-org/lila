@@ -35,7 +35,7 @@ object OpenConfig {
   def from(v: Option[String], cl: Option[Clock.Config], pos: Option[String]) =
     new OpenConfig(
       variant = shogi.variant.Variant.orDefault(~v),
-      clock = cl,
+      clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement),
       position = pos map FEN
     ).autoVariant
 }
