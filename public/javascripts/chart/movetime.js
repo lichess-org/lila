@@ -255,7 +255,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
               const serie = (white ? 0 : 1) + (showTotal ? 2 : 0);
               const turn = Math.floor((ply - 1 - data.game.startedAtTurn) / 2);
               const point = this.highcharts.series[serie].data[turn];
-              if (point) point.select();
+              if (point) point.select(true);
               else this.highcharts.getSelectedPoints().forEach(point => point.select(false));
             };
           });
