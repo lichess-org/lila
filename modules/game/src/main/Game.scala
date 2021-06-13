@@ -498,7 +498,7 @@ case class Game(
       !isCorrespondence && clockValidity && c.outOfTime(turnColor, withGrace) && c.hasPeriodsLeft(turnColor)
     }
 
-  private def clockValidity: Boolean = started && playable && (bothPlayersHaveMoved || isSimul || isSwiss)
+  private def clockValidity: Boolean = started && playable
 
   private def outoftimeClock(withGrace: Boolean): Boolean =
     clock ?? { c =>
