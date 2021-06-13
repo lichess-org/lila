@@ -112,10 +112,10 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         const move = parseUci(uci)!;
         const destSquare = san.startsWith('O-O') // castle, short or long
           ? squareRank(move.to) === 0 // white castle
-            ? san === 'O-O-O'
+            ? san.startsWith('O-O-O')
               ? 'c1'
               : 'g1'
-            : san === 'O-O-O'
+            : san.startsWith('O-O-O')
             ? 'c8'
             : 'g8'
           : makeSquare(move.to);
