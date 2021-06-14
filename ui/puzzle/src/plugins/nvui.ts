@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Controller, Redraw } from '../interfaces';
-import { puzzleBox, userBox } from '../view/side';
+import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
   arrowKeyHandler,
@@ -184,6 +184,9 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
             h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
             h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
+            ...(!ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
+              ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
+              : []),
             h('h2', 'Keyboard shortcuts'),
             h('p', [
               'Left and right arrow keys or k and j: Navigate to the previous or next move.',
@@ -362,8 +365,26 @@ function playActions(ctrl: Controller): VNode {
 
 function afterActions(ctrl: Controller): VNode {
   const win = ctrl.vm.lastFeedback === 'win';
-  if (ctrl.streak && !win) return anchor(ctrl.trans.noarg('newStreak'), '/streak');
-  else return h('div.actions_after', button('Continue training', ctrl.nextPuzzle));
+  return h(
+    'div.actions_after',
+    ctrl.streak && !win
+      ? anchor(ctrl.trans.noarg('newStreak'), '/streak')
+      : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)]
+  );
+}
+
+const renderVoteTutorial = (ctrl: Controller): VNode[] =>
+  ctrl.session.isNew() && ctrl.getData().user?.provisional
+    ? [h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')), h('p', ctrl.trans.noarg('voteToLoadNextOne'))]
+    : [];
+
+function renderVote(ctrl: Controller): VNode[] {
+  if (!ctrl.getData().user || ctrl.autoNexting()) return [];
+  return [
+    ...renderVoteTutorial(ctrl),
+    button('Vote up', () => ctrl.vote(true), undefined, ctrl.vm.voteDisabled),
+    button('Vote down', () => ctrl.vote(false), undefined, ctrl.vm.voteDisabled),
+  ];
 }
 
 function anchor(text: string, href: string): VNode {
@@ -376,12 +397,15 @@ function anchor(text: string, href: string): VNode {
   );
 }
 
-function button(text: string, action: (e: Event) => void, title?: string): VNode {
+function button(text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode {
   return h(
     'button',
     {
       hook: bind('click', action),
-      attrs: title ? { title } : undefined,
+      attrs: {
+        ...(title ? { title } : {}),
+        disabled: !!disabled,
+      },
     },
     text
   );
