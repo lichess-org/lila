@@ -22,6 +22,7 @@
   <string name="onetime">مرة واحدة</string>
   <string name="singleDonation">تبرع واحد يمنحك اجنحة الراعي لمدة شهر واحد.</string>
   <string name="otherAmount">أخرى</string>
+  <string name="pleaseEnterAmountInX">يرجى إدخال المبلغ بالدولار</string>
   <string name="withCreditCard">بطاقة ائتمان</string>
   <string name="withPaypal">باي بال</string>
   <string name="weAreSmallTeam">نحن فريق صغير، لذلك دعمك يشكل فارقاً كبيراً!</string>
@@ -50,6 +51,7 @@
   <string name="nextPayment">الدفعة القادمة</string>
   <string name="youWillBeChargedXOnY">سيتم خصم %1$s في %2$s.</string>
   <string name="makeAdditionalDonation">قم بتبرع إضافي الآن</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">يتم إعطاء المتبرع شعار الجناح كهدية</string>
   <string name="update">تحديث</string>
   <string name="changeMonthlyAmount">تغيير المبلغ الشهري (%s)</string>
   <string name="cancelSupport">إلغاء دعمك</string>
