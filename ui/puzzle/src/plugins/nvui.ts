@@ -3,11 +3,23 @@ import { Controller, Redraw } from '../interfaces';
 import { puzzleBox, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
+  arrowKeyHandler,
+  boardCommandsHandler,
+  boardSetting,
   castlingFlavours,
   inputToLegalUci,
+  lastCapturedCommandHandler,
+  pieceJumpingHandler,
+  pieceSetting,
+  positionJumpHandler,
+  positionSetting,
+  possibleMovesHandler,
+  prefixSetting,
+  renderBoard,
   renderMainline,
   renderPieces,
   renderSan,
+  selectionHandler,
   Style,
   styleSetting,
 } from 'nvui/chess';
@@ -19,10 +31,22 @@ import { commands } from 'nvui/command';
 import * as control from '../control';
 import { bind, onInsert } from '../util';
 import { Api } from 'chessground/api';
+import throttle from 'common/throttle';
+
+const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+
+const selectSound = throttled('select');
+const wrapSound = throttled('wrapAround');
+const borderSound = throttled('outOfBound');
+const errorSound = throttled('error');
 
 lichess.PuzzleNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
-    moveStyle = styleSetting();
+    moveStyle = styleSetting(),
+    prefixStyle = prefixSetting(),
+    pieceStyle = pieceSetting(),
+    positionStyle = positionSetting(),
+    boardStyle = boardSetting();
 
   return {
     render(ctrl: Controller): VNode {
@@ -103,8 +127,63 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             notify.render(),
             h('h2', 'Actions'),
             ctrl.vm.mode === 'view' ? afterActions(ctrl) : playActions(ctrl),
+            h('h2', 'Board'),
+            h(
+              'div.board',
+              {
+                hook: onInsert(el => {
+                  const $board = $(el);
+                  const $buttons = $board.find('button');
+                  const steps = () => ctrl.getTree().getNodeList(ctrl.vm.path);
+                  const uciSteps = () => steps().filter(hasUci);
+                  const fenSteps = () => steps().map(step => step.fen);
+                  const opponentColor = ctrl.vm.pov === 'white' ? 'black' : 'white';
+                  $board.on('click', selectionHandler(opponentColor, selectSound));
+                  $board.on('keypress', arrowKeyHandler(ctrl.vm.pov, borderSound));
+                  $board.on('keypress', boardCommandsHandler());
+                  $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
+                  $buttons.on(
+                    'keypress',
+                    possibleMovesHandler(
+                      ctrl.vm.pov,
+                      () => ground.state.turnColor,
+                      ground.getFen,
+                      () => ground.state.pieces,
+                      'standard',
+                      () => ground.state.movable.dests,
+                      uciSteps
+                    )
+                  );
+                  $buttons.on('keypress', positionJumpHandler());
+                  $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
+                }),
+              },
+              renderBoard(
+                ground.state.pieces,
+                ctrl.vm.pov,
+                pieceStyle.get(),
+                prefixStyle.get(),
+                positionStyle.get(),
+                boardStyle.get()
+              )
+            ),
+            h(
+              'div.boardstatus',
+              {
+                attrs: {
+                  'aria-live': 'polite',
+                  'aria-atomic': 'true',
+                },
+              },
+              ''
+            ),
             h('h2', 'Settings'),
             h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
+            h('h3', 'Board Settings'),
+            h('label', ['Piece style', renderSetting(pieceStyle, ctrl.redraw)]),
+            h('label', ['Piece prefix style', renderSetting(prefixStyle, ctrl.redraw)]),
+            h('label', ['Show position', renderSetting(positionStyle, ctrl.redraw)]),
+            h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
             h('h2', 'Keyboard shortcuts'),
             h('p', [
               'Left and right arrow keys or j and k: Navigate to the previous or the next move.',
@@ -124,6 +203,31 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
               commands.scan.help,
               h('br'),
             ]),
+            h('h2', 'Board Mode commands'),
+            h('p', [
+              'Use these commands when focused on the board itself.',
+              h('br'),
+              'o: announce current position.',
+              h('br'),
+              "c: announce last move's captured piece.",
+              h('br'),
+              'l: announce last move.',
+              h('br'),
+              't: announce clocks.',
+              h('br'),
+              'm: announce possible moves for the selected piece.',
+              h('br'),
+              'shift+m: announce possible moves for the selected pieces which capture..',
+              h('br'),
+              'arrow keys: move left, right, up or down.',
+              h('br'),
+              'kqrbnp/KQRBNP: move forward/backward to a piece.',
+              h('br'),
+              '1-8: move to rank 1-8.',
+              h('br'),
+              'Shift+1-8: move to file a-h.',
+              h('br'),
+            ]),
             h('h2', 'Promotion'),
             h('p', [
               'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
@@ -136,6 +240,14 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
     },
   };
 };
+
+interface StepWithUci extends Tree.Node {
+  uci: Uci;
+}
+
+function hasUci(step: Tree.Node): step is StepWithUci {
+  return step.uci !== undefined;
+}
 
 function lastMove(ctrl: Controller, style: Style): string {
   const node = ctrl.vm.node;
