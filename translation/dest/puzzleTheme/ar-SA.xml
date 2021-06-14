@@ -9,7 +9,20 @@
   <string name="attackingF2F7">الهجوم على f2 أو f7</string>
   <string name="attraction">الجذب(التضحية)</string>
   <string name="attractionDescription">تضحية خادعة تغري الخصم لأخذها لتنفيذ فكرة تكتيكية، أو تبادل قطع بهدف إرغام الخضم على نقل قطعة إلى مربع حيث يمكن استغلال موقعها الجديد من خلال تكتيك معين.</string>
+  <string name="backRankMate">كش مات في الصف الأخير</string>
+  <string name="bishopEndgame">مرحلة نهاية اللعبة بالفيلة</string>
+  <string name="bishopEndgameDescription">مرحلة نهاية اللعبة تتضمن فيل وجنود فقط.</string>
   <string name="bodenMate">كش مات \"بودين\"</string>
   <string name="castling">تبييت</string>
   <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
+  <string name="capturingDefender">خذ المدافع</string>
+  <string name="crushing">سحق</string>
+  <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
+  <string name="doubleBishopMate">كش مات بفيلين</string>
+  <string name="equality">المساواة</string>
+  <string name="kingsideAttack">هجوم من طرف الملك</string>
+  <string name="defensiveMove">نقلة دفاعية</string>
+  <string name="doubleCheck">كشة مزدوجة</string>
+  <string name="endgame">مرحلة نهاية المباراة</string>
+  <string name="fork">شوكة</string>
 </resources>
