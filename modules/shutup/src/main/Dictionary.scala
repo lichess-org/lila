@@ -8,9 +8,7 @@ private object Dictionary {
 
   def en = dict("""
 (f+|ph)(u{1,}|a{1,}|e{1,})c?k(er|r|u|k|ed|d|t|ing?|ign|en|tard?|face|off?|)
-(f|ph)ag
-(f|ph)agg?ot
-cock(suc?ker|)
+(f|ph)agg?([oi]t|)
 [ck]um(shot|)
 [ck]unt(ing|)
 abortion
@@ -25,8 +23,7 @@ aus?c?hwitz
 bastard?
 be[ea]+ch
 bit?ch
-blow
-blowjob
+blow(job|)
 blumpkin
 bollock
 boner
@@ -35,14 +32,12 @@ bugger
 buk?kake
 bull?shit
 cancer
-cheat(ing|ed|er|s|)
-shogi(|-|_)bot(.?com)?
+cheat(ing|ed|er|)
 chicken
 chink
-clit
-clitoris
+clit(oris|)
 clown
-cock
+cock(suc?k(er|ing)|)
 condom
 coon
 coward?
@@ -65,43 +60,42 @@ hitler+
 homm?o(sexual|)
 honkey
 hooker
+(ho?pe ((yo)?[uy](r family)?( and )*)+ (die|burn)s?|((die|burn)s? irl))
 horny
 humping
 idiot
 incest
 jerk
 jizz?(um|)
-kill (yo)?urself
+(kill|hang|neck) ((yo)?[uy]r ?(self|family)( and )?)+
 kys
 labia
 lamer?
 lesbo
-loo?ser
+lo+ser
 masturbat(e|ion|ing)
 milf
 molest
 moron
-motherfuc?k(er|)
-mothers?
+mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?(er|a|ah)
 nonce
 noo+b
 nutsac?k
-pa?edo
-pa?edo(f|ph)ile
+pa?edo((f|ph)ile|)
 paki
 pathetic
-pederast
-pen(1|i)s
+pa?ederast
+penis
 pig
-pimps?
+pimp
 piss
 poof
 poon
-poop(face|)
-porn
+poo+p(face|)
+porn(hub|)
 pric?k
 prostitute
 punani
@@ -123,7 +117,8 @@ semen
 sex
 shag
 shemale
-(((you'? ?((is|a?re) )?)shit)|(shit(?!\b)))(z|e|y|ty|bag|)
+shit(z|e|y|ty|bag|)
+shogi(|-|_)bot(.?com)?
 sissy
 slag
 slave
@@ -140,8 +135,9 @@ stupid
 suicide
 suck m[ey]
 terrorist
-tit(|t?ies|ty)(fuc?k)
+tit(t?ies|ty|)(fuc?k|)
 tosser
+trann(y|ie)
 trash
 turd
 twat
@@ -158,36 +154,55 @@ wog
 """)
 
   def ru = dict("""
-(|на|по)хуй(|ня)
+(|на|по)ху(й|ю|я|ям|йня|йло|йла|йлу)
 (|от)муд(охать|охал|охала|охали|аки?|акам|азвону?)
-(|от)хер(|ачить|ово|ня)
 (|от|по)cос(и|ать|ала?|)
 (|от|с)пизд(а|ы|е|у|ить|ил|ила|или|ошить|ошил|ошила|ошили|охать|охал|охала|охали|юлить|юлил|юлила|юлили|ярить|ярил|ярила|ярили|яхать|яхал|яхала|яхали|ячить|ячил|ячила|ячили|якать|якал|якала|якали|ец|ецкий|абол|атый)
-(|отъ|вы|до|за|у)(е|ё)ба(л|ла|ли|лся|льник|ть|на|нул|нула|нулся|нн?ый)
+(|отъ?|вы|до|за|у|про)(е|ё)ба(л|ла|ли|ло|лся|льник|ть|на|нул|нула|нулся|нн?ый)
 (ё|е)бл(а|о|у|ану?)
+(|за|отъ?|у)ебись
+(|на|вы)ебнуть?ся
+blyat
 p[ie]d[aoe]?r
 анус
-бля(|дь|ди|де|динам?|дине|дство)
-г(а|о)ндон(|у|ам?|ы)
+бля(|дь|ди|де|динам?|дине|дство|ть)
+вы[её]бывае?(ть?ся|тесь)
+г[ао]ндон(|у|ам?|ы|ов)
+гнид(|ам?|е|у|ы)
+д[ао]лбо[её]б(у|ам?|ы|ов)
+даун(|у|ам?|ы|ов)
+д[еи]бил(|ам?|ы|у|ов)
 дерьм(а|о|вый|вая|вое)
-Лопух
-Лох(|и|ам)
-охуе(л|ла|ли|ть|нн?о)
+к[ао]з(|е|ё)л(ам?|у|ы)
+лопух
+лох(|у|и|ам?)
+лошар(|ам?|е|у|ы)
+лузер(|ам?|у|ов|ы)
+идиот(|ам?|ы|у|ов)
+[оа]хуе(|л|ла|ли|ть|нн?о)
 педерасты?
-пид(о|а)р(а|ы|у|ам|асы?|асам?)
+пид(о|а)р(а|ы|у|ам|асы?|асам?|ов)
 пидр
 поебень
+придур(ок|кам?|ков|ки)
 [сc][уy][кk](а|a|и|е|у|ам)
-у(ё|е)бищ(е|а|ам)
+твар(ь|и|е|ина|ине|ину|ины)
+тупиц(|ам?|ы|е)
+ублюд(ок|кам?|ков|ку)
+у(ё|е)бищ(е|а|ам|у)
 ху(ё|е)(во|сос)
-хуит(а|е|ы)
-читак(и|ам|у)
-читер(|ила?|ить?|ишь?|ша|ы|ам?|у)
+ху[еи]т(а|е|ы)
+читак(и|ам?|у|ов)
+читер(|ила?|ить?|ишь?|ша|ы|ам?|у|ов)
+чмо(|шник)
+шмар(ам?|е|ы)
+шлюх(|ам?|е|и)
 """)
 
   def es = dict("""
 cabr[oó]na?
 chupame
+cobarde
 est[úu]pid[ao]
 imbecil
 maric[oó]n
@@ -203,6 +218,7 @@ verga
 baldracca
 bastardo
 cazzo
+coglione
 cretino
 di merda
 figa
@@ -210,6 +226,7 @@ putt?ana
 stronzo
 troia
 vaffanculo
+sparati
 """)
 
   def hi = dict("""
@@ -221,8 +238,7 @@ gaa?nd
   def fr = dict("""
 fdp
 pd
-triche
-tricheurs?
+triche(ur|)
 """)
 
   def de = dict("""
@@ -244,17 +260,17 @@ wichser
 """)
 
   def tr = dict("""
-am[iı]na (koyay[iı]m|koydum)
+am[iı]na (koyay[iı]m|koy?dum)
 amc[iı]k
 anan[iı]n am[iı]
-ananizi s[ii̇]k[ii̇]y[ii̇]m
+ann?an[iı](zi)? s[ii̇]k[eii̇]y[ii̇]m
 aptal
 beyinsiz
 bok yedin
 gerizekal[iı]
 ibne
 ka[sş]ar
-orospu
+orospu( ([çc]o[çc]u[ğg]?u|evlad[ıi]))?
 piç(lik)?
 pu[sş]t
 salak
@@ -266,22 +282,20 @@ yarra[gğ][iı] yediniz
 
   def ja = dict("""
 ばか
+バカ
 うざい
 わるがき
-ぶす
 奴
 ちくしょう
-どけ
-くそくらえ
 ばかやろう
 しんじまえ
 ちくしょう
-くそ
 ふざけるな
 だまれこのやろう
 やりまん
+ヤリマン
 くたばれ
-死ねえ
+死ね
 """)
 
   private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
