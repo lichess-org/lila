@@ -261,8 +261,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataLive := isLive.option(game.id),
       dataColor := pov.color.name,
       dataFen := Forsyth.exportSituation(game.situation),
-      dataLastmove := ~game.lastMoveKeys,
-      dataPocket := ~game.pocketsKeys
+      dataLastmove := ~game.lastMoveKeys
     )(cgWrapContent)
   }
 
@@ -280,7 +279,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       dataColor := pov.color.name,
       dataFen := Forsyth.exportSituation(pov.game.situation),
       dataLastmove := ~pov.game.lastMoveKeys,
-      dataPocket := ~pov.game.pocketsKeys,
       target := blank.option("_blank")
     )(cgWrapContent)
   }

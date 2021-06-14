@@ -253,8 +253,6 @@ case class Game(
     }
   }
 
-  def pocketsKeys: Option[String] = board.crazyData.map { data => data.pockets.keys }
-
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
       copy(sentePlayer = f(sentePlayer)),
