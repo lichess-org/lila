@@ -6,6 +6,10 @@
   <string name="advantageDescription">اغتنم فرصتك للحصول على ميزة حاسمة. (200cp ≤ التقييم ≤ 600cp)</string>
   <string name="anastasiaMate">أنماط كش مات</string>
   <string name="arabianMate">كش مات عربي</string>
+  <string name="attackingF2F7">الهجوم على f2 أو f7</string>
   <string name="attraction">الجذب(التضحية)</string>
   <string name="attractionDescription">تضحية خادعة تغري الخصم لأخذها لتنفيذ فكرة تكتيكية، أو تبادل قطع بهدف إرغام الخضم على نقل قطعة إلى مربع حيث يمكن استغلال موقعها الجديد من خلال تكتيك معين.</string>
+  <string name="bodenMate">كش مات \"بودين\"</string>
+  <string name="castling">تبييت</string>
+  <string name="castlingDescription">ضع الملك في أمان، وانشر القلعة للهجوم.</string>
 </resources>
