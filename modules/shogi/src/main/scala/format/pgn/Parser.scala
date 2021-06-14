@@ -111,7 +111,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
 
     val moveRegex =
-      """(?:(?:0\-0(?:\-0|)[\+\=]?)|[PKRBNLSGUMAHDTa-i*][PKRBNLSGUMAHDTa-i1-9x=\+\*]{1,6})[\?!□]{0,2}""".r
+      """(?:(?:0\-0(?:\-0|)[\+\=]?)|[PKRBNLSGUMAHDTa-i\*][a-i1-9x=\+\*]{1,6})[\?!□]{0,2}""".r
 
     def strMove: Parser[StrMove] =
       as("move") {
@@ -171,8 +171,8 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     private val fileMap                       = rangeToMap('a' to 'i')
     private val rankMap                       = rangeToMap('1' to '9')
 
-    private val MoveR = """^(N|B|R|G|S|L|U|M|A|H|D|T|K|P)([a-i]?)([1-9]?)(x?)([a-i][0-9])(\+?\=?)$""".r
-    private val DropR = """^(N|B|R|L|S|G|P)*([a-i][1-9])$""".r
+    private val MoveR = """^(N|B|R|G|S|L|U|M|A|H|D|T|K|P)([a-i]?)([1-9]?)(x?)([a-i][0-9])(\+|=)?$""".r
+    private val DropR = """^(N|B|R|L|S|G|P)\*([a-i][1-9])$""".r
 
     def apply(str: String, variant: Variant): Valid[San] = {
       str match {
@@ -222,17 +222,15 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
 
     private def slow(str: String): Valid[San] = {
-      parseAll(move, str) match {
+      parseAll(standard, str) match {
         case Success(san, _) => succezz(san)
         case err             => "Cannot parse move: %s\n%s".format(err.toString, str).failureNel
       }
     }
 
-    def move: Parser[San] = standard
-
     def standard: Parser[San] =
       as("standard") {
-        (ambiguous | disambiguated | drop) ~ suffixes ^^ { case std ~ suf =>
+        (disambiguated | ambiguous | drop) ~ suffixes ^^ { case std ~ suf =>
           std withSuffixes suf
         }
       }
@@ -253,7 +251,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
         }
       }
 
-    // Bac3 Baxc3 B2c3 B2xc3 Ba2xc3
+    // Ba2c3 Ba2xc3
     def disambiguated: Parser[Std] =
       as("disambiguated") {
         role ~ opt(file) ~ opt(rank) ~ x ~ dest ^^ { case ro ~ fi ~ ra ~ ca ~ de =>
@@ -268,7 +266,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       }
 
     def suffixes: Parser[Suffixes] =
-      opt(promotion) ~ glyphs ^^ { case p ~ g =>
+      promotion ~ glyphs ^^ { case p ~ g =>
         Suffixes(p, g)
       }
 
@@ -289,15 +287,13 @@ object Parser extends scalaz.syntax.ToTraverseOps {
 
     val x = exists("x")
 
+    val promotion = "+" ^^^ true | "=" ^^^ false | success(false)
+
     val role = mapParser(Role.allByPgn, "role")
 
     val file = mapParser(fileMap, "file")
 
     val rank = mapParser(rankMap, "rank")
-
-    val promotion = "+" | "=" //~> mapParser(promotable, "promotion")
-
-    //val promotable = Role.allPromotableByPgn mapKeys (_.toUpper)
 
     val dest = mapParser(Pos.allKeys, "dest")
 
