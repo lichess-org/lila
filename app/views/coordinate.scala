@@ -43,7 +43,12 @@ object coordinate {
               div(cls := "scores")(scoreCharts(score))
             }
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color, method := "post")(
+          form(
+            cls := "color buttons",
+            action := routes.Coordinate.color,
+            method := "post",
+            autocomplete := "off"
+          )(
             st.group(cls := "radio")(
               List(Color.BLACK, Color.RANDOM, Color.WHITE).map { id =>
                 div(
