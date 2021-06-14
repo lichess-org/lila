@@ -48,17 +48,17 @@ final case class Actor(
       case PromotedKnight => shortRange(PromotedKnight.dirsOpposite)
 
       case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
-      
+
       case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)
 
       case King               => shortRange(King.dirs)
     }
     def maybePromote(m: Move): Option[Move] =
       if (
-        (List(Pawn, Lance, Knight, Silver, Bishop, Rook) contains m.piece.role) &&
+        (Role.promotableRoles contains m.piece.role) &&
         ((m.color.promotableZone contains m.orig.y) || (m.color.promotableZone contains m.dest.y))
       ) {
-        (m.after promote (m.dest, Role.promotesTo(m.piece.role).get)) map { b2 =>
+        (m.after promote m.dest) map { b2 =>
           m.copy(after = b2, promotion = true)
         }
       } else None
@@ -77,7 +77,7 @@ final case class Actor(
 
     val promotedMoves = moves flatMap maybePromote
 
-    return (moves ++ promotedMoves).filter { m => forcePromotion(m) }
+    (moves ++ promotedMoves).filter { m => forcePromotion(m) }
   }
 
   lazy val destinations: List[Pos] = moves map (_.dest)
@@ -153,8 +153,6 @@ final case class Actor(
       capture = capture,
       promotion = promotion,
     )
-
-  private def history = board.history
 }
 
 object Actor {

@@ -32,17 +32,15 @@ abstract class Variant private[variant] (
   def initialFen = format.Forsyth.initial
 
   def isValidPromotion(piece: Piece, promotion: Boolean, orig: Pos, dest: Pos) = {
-    piece match {
-      case p if p.role == Pawn && p.color.backrankY == dest.y && !promotion  => false
-      case p if p.role == Lance && p.color.backrankY == dest.y && !promotion => false
-      case p
-          if p.role == Knight && (p.color.backrankY == dest.y || p.color.backrankY2 == dest.y) && !promotion =>
+    piece.role match {
+      case Pawn if piece.color.backrankY == dest.y && !promotion  => false
+      case Lance if piece.color.backrankY == dest.y && !promotion => false
+      case Knight if (piece.color.backrankY == dest.y || piece.color.backrankY2 == dest.y) && !promotion =>
         false
-      case p
-          if promotion && (p.color.promotableZone contains orig.y) || (p.color.promotableZone contains dest.y) =>
+      case _
+          if !promotion || (promotion && (piece.color.promotableZone contains orig.y) || (piece.color.promotableZone contains dest.y)) =>
         true
-      case _ if !promotion => true
-      case _               => false
+      case _ => false
     }
   }
 
@@ -197,14 +195,15 @@ abstract class Variant private[variant] (
   /** Returns true if neither player can win. The game should end immediately.
     */
   def isInsufficientMaterial(board: Board) =
-    board.pieces.size == 0 ||
-    (board.pieces.size == 2 && board.pieces.forall{ p => p._2 is King })
+    ((board.crazyData.fold(0){ _.pockets.size } + board.pieces.size) <= 2) &&
+    (board.pieces.forall{ p => p._2 is King })
 
   /** Returns true if the other player cannot win. This is relevant when the
     * side to move times out or disconnects. Instead of losing on time,
     * the game should be drawn.
     */
-  def opponentHasInsufficientMaterial(situation: Situation) = situation.board.piecesOf(!situation.color).size < 2
+  def opponentHasInsufficientMaterial(situation: Situation) =
+    ((situation.board.crazyData.fold(0){ _.pockets.size } + situation.board.piecesOf(!situation.color).size) <= 2)
 
   // Some variants could have an extra effect on the board on a move
   def hasMoveEffects = false
@@ -250,14 +249,14 @@ abstract class Variant private[variant] (
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _
 
   val roles = List(
+    Pawn,
     Lance,
     Knight,
     Silver,
     Gold,
     King,
-    Rook,
     Bishop,
-    Pawn,
+    Rook,
     PromotedLance,
     PromotedKnight,
     PromotedSilver,

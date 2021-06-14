@@ -176,6 +176,28 @@ object Role {
     PromotedLance,
     Dragon
   )
+
+  val promotableRoles: List[Role] = List(
+    Pawn,
+    Lance,
+    Knight,
+    Silver,
+    Bishop,
+    Rook
+  )
+
+  // Correct order
+  val handRoles: List[Role] = List(
+    Rook,
+    Bishop,
+    Gold,
+    Silver,
+    Knight,
+    Lance,
+    Pawn
+  )
+
+
   val allByForsyth: Map[Char, Role] = all map { r =>
     (r.forsyth, r)
   } toMap

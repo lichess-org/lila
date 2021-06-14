@@ -63,15 +63,8 @@ case class Board(
 
   def destsFrom(from: Pos): Option[List[Pos]] = actorAt(from) map (_.destinations)
 
-  def seq(actions: Board => Valid[Board]*): Valid[Board] =
-    actions.foldLeft(success(this): Valid[Board])(_ flatMap _)
-
-  def place(piece: Piece) =
-    new {
-      def at(at: Pos): Valid[Board] =
-        if (pieces contains at) failureNel("Cannot place at occupied " + at)
-        else success(copy(pieces = pieces + ((at, piece))))
-    }
+  def seq(actions: Board => Option[Board]*): Option[Board] =
+    actions.foldLeft(Option(this): Option[Board])(_ flatMap _)
 
   def place(piece: Piece, at: Pos): Option[Board] =
     if (pieces contains at) None
@@ -95,26 +88,16 @@ case class Board(
       if pieces contains takenPos
     } yield copy(pieces = pieces - takenPos - orig + (dest -> piece))
 
-  def move(orig: Pos) =
-    new {
-      def to(dest: Pos): Valid[Board] = {
-        if (pieces contains dest) failureNel("Cannot move to occupied " + dest)
-        else
-          pieces get orig map { piece =>
-            copy(pieces = pieces - orig + (dest -> piece))
-          } toSuccess ("No piece at " + orig + " to move")
-      }
-    }
-
   lazy val occupation: Color.Map[Set[Pos]] = Color.Map { color =>
     pieces.collect { case (pos, piece) if piece is color => pos }.to(Set)
   }
 
   def hasPiece(p: Piece) = pieces.values exists (p ==)
 
-  def promote(pos: Pos, promotedRole: Role): Option[Board] =
+  def promote(pos: Pos): Option[Board] =
     for {
       piece <- apply(pos)
+      promotedRole <- Role.promotesTo(piece.role)
       b2    <- take(pos)
       b3    <- b2.place(Piece(piece.color, promotedRole), pos)
     } yield b3
@@ -154,23 +137,19 @@ case class Board(
 
   def perpetualCheckColor: Option[Color] = {
     val checks = history.checkCount
-    if (checks.sente >= 4 && checks.gote >= 4)
-      return None
-    else if (checks.sente >= 4)
-      return Some(Sente)
-    else if (checks.gote >= 4)
-      return Some(Gote)
-    else
-      return None
+    if (checks.sente >= 4 && checks.gote >= 4) None
+    else if (checks.sente >= 4) Some(Sente)
+    else if (checks.gote >= 4) Some(Gote)
+    else None
   }
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount
-    history.fivefoldRepetition && (checks.sente >= 4 || checks.gote >= 4)
+    history.fourfoldRepetition && (checks.sente >= 4 || checks.gote >= 4)
   }
 
   def autoDraw: Boolean = {
-    history.fivefoldRepetition && !perpetualCheck
+    (history.fourfoldRepetition && !perpetualCheck) || variant.isInsufficientMaterial(this)
   }
 
   def situationOf(color: Color) = Situation(this, color)
@@ -187,12 +166,9 @@ case class Board(
 object Board {
 
   def apply(pieces: Iterable[(Pos, Piece)], variant: Variant): Board =
-    Board(pieces.toMap, History(), variant, variantCrazyData(variant))
+    Board(pieces.toMap, History(), variant, Some(Data.init))
 
   def init(variant: Variant): Board = Board(variant.pieces, variant)
 
   def empty(variant: Variant): Board = Board(Nil, variant)
-
-  private def variantCrazyData(variant: Variant) =
-    Some(Data.init)
 }

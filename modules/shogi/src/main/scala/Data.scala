@@ -50,6 +50,12 @@ case class Pockets(sente: Pocket, gote: Pocket) {
     else pocketStr
   }
 
+  def size: Int =
+    sente.size + gote.size
+
+  def size(color: Color): Int =
+    color.fold(sente.size, gote.size)
+
   def valueOf: Int =
     sente.valueOf - gote.valueOf
 }
@@ -62,6 +68,8 @@ case class Pocket(roles: List[Role]) {
   def store(role: Role) =
     if (Data.storableRoles contains role) copy(roles = role :: roles)
     else this
+
+  def size: Int = roles.size
   
   def exportPocket: String =
     Data.storableRoles.map { r =>

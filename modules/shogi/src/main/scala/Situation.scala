@@ -30,7 +30,7 @@ case class Situation(board: Board, color: Color) {
 
   def staleMate: Boolean = board.variant staleMate this
 
-  def autoDraw: Boolean = board.autoDraw // || board.variant.specialDraw(this)
+  def autoDraw: Boolean = board.autoDraw || board.variant.specialDraw(this)
 
   def opponentHasInsufficientMaterial: Boolean = board.variant.opponentHasInsufficientMaterial(this)
 

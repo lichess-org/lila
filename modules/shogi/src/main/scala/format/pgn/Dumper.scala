@@ -3,7 +3,7 @@ package format.pgn
 
 object Dumper {
 
-  def apply(situation: Situation, data: shogi.Move, next: Situation): String = {
+  def apply(situation: Situation, data: shogi.Move): String = {
     import data._
 
     ((promotion, piece.role) match {
@@ -26,7 +26,7 @@ object Dumper {
         }
         val promotes = {
           if (
-            !promotion && (List(Pawn, Lance, Knight, Silver, Bishop, Rook) contains piece.role) &&
+            !promotion && (Role.promotableRoles contains piece.role) &&
             ((piece.color.promotableZone contains orig.y) ||
               (piece.color.promotableZone contains dest.y))
           )
@@ -39,20 +39,13 @@ object Dumper {
     })
   }
 
-  def apply(data: shogi.Drop, next: Situation): String = {
+  def apply(data: shogi.Drop): String = {
     data.toUci.uci
   }
 
   def apply(data: shogi.Move): String =
     apply(
       data.situationBefore,
-      data,
-      data.afterWithLastMove situationOf !data.color
-    )
-
-  def apply(data: shogi.Drop): String =
-    apply(
-      data,
-      data.afterWithLastMove situationOf !data.color
+      data
     )
 }
