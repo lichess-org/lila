@@ -31,6 +31,8 @@
   <string name="basedOnGameDuration">تحكم وقت اللعبة مبني على المدة المقدرة للعبة = %1$s
 على سبيل المثال، المدة المقدرة للعبة 5+3 هي 5 × 60 + 40 × 3 = 420 ثانية.</string>
   <string name="durationFormula">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s ثانية=%2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s ثانية=%2$s</string>
   <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
   <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
   <string name="eightVariants">8 متغيرات من شطرنج</string>
