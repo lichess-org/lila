@@ -186,9 +186,9 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             h('label', ['Board layout', renderSetting(boardStyle, ctrl.redraw)]),
             h('h2', 'Keyboard shortcuts'),
             h('p', [
-              'Left and right arrow keys or j and k: Navigate to the previous or the next move.',
+              'Left and right arrow keys or k and j: Navigate to the previous or next move.',
               h('br'),
-              'Up and down arrow keys or 0 and $: Navigate to the first or the last move.',
+              'Up and down arrow keys or 0 and $: Jump to the first or last move.',
             ]),
             h('h2', 'Commands'),
             h('p', [
