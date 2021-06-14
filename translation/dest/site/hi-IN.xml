@@ -118,6 +118,10 @@
   <string name="blunder">भयंकर गलती</string>
   <string name="mistake">गलती</string>
   <string name="inaccuracy">गलती</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s गंभीर गलती</item>
+    <item quantity="other">%s गंभीर गल्तियां</item>
+  </plurals>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
@@ -442,6 +446,7 @@
   <string name="firstName">प्रथम नाम</string>
   <string name="lastName">अंतिम नाम</string>
   <string name="biography">जीवनी</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">देश या झंडा</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
@@ -669,6 +674,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
   <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
+  <string name="receiveForumNotifications">जब आपके नाम का ज़िक्र हो तब नोटिफ़िकेशन पाएँ</string>
   <string name="shareYourInsightsData">अपने इनसाइट डेटा साझा करें</string>
   <string name="withNobody">किसी के साथ नहीं</string>
   <string name="withFriends">दोस्तों के साथ</string>
@@ -851,4 +857,8 @@
   <string name="lostAgainstTOSViolator">आप Lichess TOS का उल्लंघन करने वाले व्यक्ति से हार गए</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s वापसी की</string>
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
+  <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
+  <string name="download">डाउनलोड करें</string>
+  <string name="welcome">आपका स्वागत है!</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">कोच मनेजर</string>
 </resources>

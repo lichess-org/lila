@@ -120,5 +120,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
   <string name="healthyMix">Sano misto</string>
-  <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, cosicché si rimane pronti a tutto! Proprio come nelle partite vere.</string>
+  <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, cosicché si rimanga pronti a qualsiasi cosa! Proprio come nelle partite vere.</string>
 </resources>

@@ -22,7 +22,7 @@
   <string name="score">Punktestand</string>
   <string name="moves">Züge</string>
   <string name="accuracy">Genauigkeit</string>
-  <string name="combo">Kombo</string>
+  <string name="combo">Erfolgsserie</string>
   <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
   <string name="highestSolved">Schwierigste gelöste Aufgabe</string>

@@ -22,6 +22,10 @@
   <string name="teamRecentMembers">Membros recentes</string>
   <string name="kickSomeone">Botar a alguén fóra do equipo</string>
   <string name="whoToKick">A quen queres botar fóra do equipo?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s petición de ingreso</item>
+    <item quantity="other">%s peticións de ingreso</item>
+  </plurals>
   <string name="willBeReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
   <string name="beingReviewed">A túa petición de ingreso vai ser revisada por un Líder de equipo.</string>
   <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>

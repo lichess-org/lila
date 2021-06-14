@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Вы гуляеце белымі фігурамі</string>
   <string name="youPlayTheBlackPieces">Вы гуляеце чорнымі фігурамі</string>
   <string name="itsYourTurn">Зараз ваш ход!</string>
+  <string name="cheatDetected">Чыт выяўлены</string>
   <string name="kingInTheCenter">Кароль у цэнтры</string>
   <string name="threeChecks">Тры шахі</string>
   <string name="raceFinished">Гонка скончаная</string>
@@ -515,6 +516,7 @@
   <string name="firstName">Імя</string>
   <string name="lastName">Прозвішча</string>
   <string name="biography">Пра сябе</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна і сцяг</string>
   <string name="thankYou">Дзякуй!</string>
   <string name="socialMediaLinks">Спасылкі на сацсеткі</string>
   <string name="inlineNotation">Убудаваная натацыя</string>
@@ -538,6 +540,8 @@
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
+  <string name="descPrivate">Прыватнае апісанне</string>
+  <string name="descPrivateHelp">Дапамагчы зрабіць \"прыватнае апісанне\".</string>
   <string name="no">Не</string>
   <string name="yes">Так</string>
   <string name="help">Дапамога:</string>
@@ -736,6 +740,9 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на ваш адрас %s. Пстрыкніце спасылку ў ім, каб скінуць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
+  <string name="readAboutOur">Чытай пра нас
+
+Зменная% s - гэта спасылка на Палітыку прыватнасці. Загаловак спасылкі - радок.</string>
   <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час апрацоўкі ходу на серверы</string>
   <string name="downloadAnnotated">Спампаваць з анатацыямі</string>
@@ -744,6 +751,7 @@
   <string name="printFriendlyPDF">Спампаваць у PDF</string>
   <string name="crosstable">Лік</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вы таксама можаце гартаць хады колцам мышы, калі навядзецеся на дошку.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
   <string name="shareYourInsightsData">Хто бачыць маю статыстыку</string>

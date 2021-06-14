@@ -1,141 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">Hüfig Gfrögt</string>
-  <string name="frequentlyAskedQuestions">Hüfig gschtellti fragä</string>
-  <string name="whyIsLichessCalledLichess">Werum heisst Lichess Lichess?</string>
+  <string name="frequentlyAskedQuestions">Hüfig gschtellti Frogä</string>
+  <string name="whyIsLichessCalledLichess">Worum heisst Lichess Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess isch ä Kombination us live/light/libre und Schach. Äs wird %1$s usgsprochä.</string>
-  <string name="leechess">li-tschess</string>
-  <string name="hearItPronouncedBySpecialist">Höre dir die Aussprache von einem Spezialisten an.</string>
+  <string name="leechess">li-tschäss</string>
+  <string name="hearItPronouncedBySpecialist">Los dir d\'Uussproch vomänä Schpezialischt aa.</string>
   <string name="whyLiveLightLibre">Live, will Partiiä wärdäd 24/7 in Echtziit gschpillt und aagluägät; liächt und gratis ufgrund vodä Tatsach, dass Lichess quälloffä und frei vo proprietäräm Müll isch, wo anderi Internetsiitä belaschtät.</string>
   <string name="whyIsLilaCalledLila">Ähnlich verhaltät sichs au mitäm Quällcode vo Lichess, %1$s, was für li[chess in sca]la stoht. Dä Grossteil vo Lichess isch in %2$s gschribä worde, änärä intuitivä Programmiersproch.</string>
-  <string name="howCanIContributeToLichess">Wie kann ich zu Lichess beitragen?</string>
-  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Spendä von Unterstützer und vo de Leistigä vo Teams von Freiwilligä betriebä.</string>
-  <string name="findMoreAndSeeHowHelp">Du kannst mehr darüber herausfinden, %1$s (inklusive einer %2$s). Falls du Lichess durch freiwillige Arbeit unterstützen möchtest, gibt es viele %3$s.</string>
-  <string name="beingAPatron">ein Patron zu sein</string>
-  <string name="breakdownOfOurCosts">Aufschlüsselung unserer Kosten</string>
-  <string name="otherWaysToHelp">andere Wege zu helfen</string>
-  <string name="areThereWebsitesBasedOnLichess">Gibt es Websites, die auf Lichess basieren?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess hat in der Tat andere quelloffene Seiten inspiriert, die unsere %1$s, %2$s oder %3$s verwenden.</string>
-  <string name="fairPlay">Färs Spiil</string>
-  <string name="whenAmIEligibleRatinRefund">Wann qualifiziere ich mich für die automatische Wertungs-Rückerstattung von Betrügern?</string>
+  <string name="howCanIContributeToLichess">Wiä chan ich zu Lichess biiträgä?</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess wird dur Schpändä vo Underschtützer und vodä Leischtigä vo Freiwilligä betribä.</string>
+  <string name="findMoreAndSeeHowHelp">Du chasch meh drüber usäfindä, %1$s (inklusiv änärä %2$s). Falls du Lichess dur freiwilligi Arbät underschtützä wöttsch, gits vili %3$s.</string>
+  <string name="beingAPatron">än Patroon z\'sii</string>
+  <string name="breakdownOfOurCosts">Ufschlüssälig vo üsnä Choschtä</string>
+  <string name="otherWaysToHelp">anderi Wääg z\'hälfä</string>
+  <string name="areThereWebsitesBasedOnLichess">Gits Websiitänä wo uf Lichess basiäräd?</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">Jawoll. Lichess hät in der Tat anderi quälloffäni Siitä inschpiriärt, wo üsän %1$s, üsäs %2$s oder üsi %3$s verwändäd.</string>
+  <string name="fairPlay">Fäärs Schpiil</string>
+  <string name="whenAmIEligibleRatinRefund">Wänn qualifiziär ich mich für di automatische Wärtigs-Rückerschtattig vo Bschiiser?</string>
   <string name="ratingRefundExplanation">Eine Minute, nachdem ein Spieler markiert wurde, werden seine 40 neuesten Partien in den letzten 3 Tagen betrachtet. Wenn du in diesen Partien unter den Gegnern warst, sich damit deine Wertung (wegen einer Niederlage oder eines Remis\') verschlechtert hat und deine Wertung nicht vorläufig war, erhältst du eine Wertungsrückerstattung. Die Rückerstattung wird begrenzt durch deine Spitzenwertung und deine Wertungsfortschritte nach der Partie.
  (Wenn deine Wertung nach diesen Partien stark gestiegen ist, erhältst du möglicherweise keine Rückerstattung oder nur eine Teilrückerstattung.) Eine Rückerstattung beträgt nie mehr als 150 Punkte.</string>
   <string name="preventLeavingGameWithoutResigning">Was geschieht mit Spielern, die Partien verlassen ohne aufzugeben?</string>
   <string name="leavingGameWithoutResigningExplanation">Falls dein Gegner häufig Partien abbricht/verlässt, erhält er einen \"Spiel-Bann\", was bedeutet, dass er temporär keine Partien mehr spielen kann. Dies wird nicht öffentlich auf der Profilseite vermerkt. Falls dieses Verhalten fortbesteht, wird die Länge des Spiel-Banns verlängert. Weitere dieser Vergehen können schließlich zur Schließung des Kontos führen.</string>
-  <string name="howCanIBecomeModerator">Wie kann ich Moderator werden?</string>
-  <string name="youCannotApply">Es ist nicht möglich, sich als Moderator zu bewerben. Wenn wir jemanden sehen, von dem wir glauben, dass er als Moderator gut wäre, werden wir ihn direkt kontaktieren.</string>
-  <string name="isCorrespondenceDifferent">Unterscheidet sich Fernschach von normalem Schach?</string>
-  <string name="youCanUseOpeningBookNoEngine">Bei Lichess besteht der Hauptunterschied bei den Regeln für Fernschach darin, dass hier zwar ein Eröffnungsbuch erlaubt ist. Die Verwendung von Schachcomputern ist jedoch immer noch verboten und führt zu einer Markierung des Kontos wegen unerlaubter Unterstützung durch Schachcomputer. Obwohl die ICCF die Verwendung von Schachcomputern in Fernschachpartien erlaubt, ist dies auf Lichess nicht gestattet.</string>
-  <string name="gameplay">Spielerlebnis</string>
-  <string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
+  <string name="howCanIBecomeModerator">Wiä chan ich Moderator wärdä?</string>
+  <string name="youCannotApply">Äs isch nöd möglich, sich als Moderator z\'bewärbä. Wänn mir öpper gsehnd, vo däm mir glaubäd, dass er/sie als Moderator guet wär, wärdäd mir ihn/sie direkt kontaktiärä.</string>
+  <string name="isCorrespondenceDifferent">Underscheidät sich Färnschach vo normaläm Schach?</string>
+  <string name="youCanUseOpeningBookNoEngine">Bi Lichess beschtoht dä Hauptunderschiid idä Reglä für Fürnschach dodrin, dass äs Eröffnigsbuäch erlaubt isch. D\'Verwändig vo Schachkompis isch aber immer no verbotä und füährt zunärä Markiärig vom Konto wäg unerlaubter Underschtützig dur Schachkompis. Obwohl d\'ICCF d\'Verwändig vo Schachkompis in Färnschachpartiiä erlaubt, isch das uf Lichess nöd gschtattät.</string>
+  <string name="gameplay">Schpiilärläbnis</string>
+  <string name="howBulletBlitzEtcDecided">Wiä wird entschidä, was Bullet, Blitz und anderi Ziitkontrollä sind?</string>
   <string name="basedOnGameDuration">Lichess Ziitkontrollä basiäräd uf dä erwartätä Schpillduur = %1$s
 Zum Biischpiil berächnät sich di erwartätä Schpillduur vonärä 5+3 Partii zu 5 × 60 + 40 × 3 = 420 Sekundä.</string>
-  <string name="durationFormula">(Zeitguthaben zu Beginn) + 40 × (Zug-Inkrement)</string>
+  <string name="durationFormula">(Ziitguäthabä am Aafang) + 40 × (Zug-Inkremänt)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
-  <string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lichess spielen?</string>
+  <string name="whatVariantsCanIplay">Weli Variantä chan ich uf Lichess schpilä?</string>
   <string name="lichessSupportChessAnd">Lichess underschtützt Schtandardschach und %1$s.</string>
-  <string name="eightVariants">8 Schachvarianten</string>
-  <string name="whatIsACPL">Was ist durchschnittlicher Hundertstelbauer-Verlust (ACPL)?</string>
-  <string name="acplExplanation">Dä Centipuur oder Hundertschtälppur isch ä Masseinheit im Schach für dä Vorteil vumä Schpiller. Dä Centipuur entspricht äm Wärt vo 1/100 vumä regulärä Puur. Also gilt: 100 Centipuurä = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller nützlich und schpilläd im Kompischach än essänziälli Roll bidä Bewärtig vo Schtelligä.
+  <string name="eightVariants">8 Schachvariantä</string>
+  <string name="whatIsACPL">Was isch durchschnittlichä Hundertschtälpuur-Verluscht (ACPL)?</string>
+  <string name="acplExplanation">Dä Centipuur oder Hundertschtälppur isch ä Masseinheit im Schach für dä Vorteil vomänä Schpiller / vonärä Schpillerin. Dä Centipuur entspricht äm Wärt vo 1/100 vumä regulärä Puur. Also gilt: 100 Centipuurä = 1 Puur. Diä Wärt schpiläd während dä Partii kei bsunderi Rolle, sind aber für Schpiller/-innä nützlich und schpilläd im Kompischach än essänziälli Roll bidä Bewärtig vo Schtelligä.
 
 Dä bescht Kompizug verlüürt kan Centippur, schlächtäri Züg verschlächtäräd aber d\'Schtellig, was in Centipuurä gmässä wird.
 
 Dä Wärt chan als Indikator für d\'Schpiilqualität benutzt wärdä. Je wäniger Centipuurä pro Zug verlorä wärdäd, deschto grösser d\'Schpiilstärchi.
 
 D\'Kompianalysä wird uf Lichess vo Stockfish durägfüährt.</string>
-  <string name="insufficientMaterial">Auf Zeit verlieren, Remis und ungenügendes Material</string>
-  <string name="lichessFollowFIDErules">Wänn ämänä Schpiller kei Bedenkziit meh zur Verfüägig schtoht, verlüürt är ide Regäl d\'Partii. Allerdings wird ä Partii Remis erchläärt, falls äm Gägner dur kei legali Zugfolg meh möglich isch, äs Matt z\'erzwingä (%1$s). Schtandardmässig wird immer für däsäb Schpiller entschidä, dessä Bedenkziit nöd abgloffä isch.
+  <string name="insufficientMaterial">Uf Ziit verlüürä, Remis und ungnüägänds Material</string>
+  <string name="lichessFollowFIDErules">Wänn ämänä Schpiller / änärä Schpillerin kei Bedenkziit meh zur Verfüägig schtoht, verlüürt är ide Regäl d\'Partii. Allerdings wird ä Partii Remis erchläärt, falls äm Gägner dur kei legali Zugfolg meh möglich isch, äs Matt z\'erzwingä (%1$s). Schtandardmässig wird immer für däsäb Schpiller / disäb Schpillerin entschidä, dessä Bedenkziit nöd abgloffä isch.
 
 I sältänä Fäll chas schwirig si, das automatisch z\'entscheidä. (Erzwungäni Zugfolgä, Feschtigä)
 
 Obacht drum, dass mitämä einzälnä Gaul oder Läufer äs Matt z\'erzwingä nöd möglich isch, sötti dä Gägner ä Figur bsitzä, wo sin König blockiärä chönt.</string>
-  <string name="fideHandbookX">FIDE-Handbuch %s</string>
-  <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
-  <string name="explainingEnPassant">Das isch än regelgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
+  <string name="fideHandbookX">FIDE-Handbuäch %s</string>
+  <string name="discoveringEnPassant">Worum chan än Puur än andärä Puur schloh, wänn dä bereits vorbiizogä isch? (im Vorbigoh)</string>
+  <string name="explainingEnPassant">Das isch än regälgemäässä Zug, bekannt als \"im Vorbiigoh\". Dä Wikipedia-Artikel git än %1$s.
 
-Das wird in Abschnitt 3.7 vu %2$s uf Hoochtüütsch beschribä.
+Das wird in Abschnitt 3.7 vum %2$s uf Hoochtüütsch beschribä.
 
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Tschägg %3$s für ächli Üäbig mit därä Art vo Zug.</string>
-  <string name="goodIntroduction">guten ersten Eindruck</string>
-  <string name="officialRulesPDF">offiziellen Regeln (PDF)</string>
+  <string name="goodIntroduction">guätä erschtä Iidruck</string>
+  <string name="officialRulesPDF">offiziälli Reglä (PDF)</string>
   <string name="lichessTraining">Lichess-Träning</string>
-  <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
-  <string name="threefoldRepetitionExplanation">Wenn eine Stellung dreimal auftritt, können Spieler ein Remis durch %1$s reklamieren. Lichess implementiert die offiziellen FIDE-Regeln, wie in Artikel 9.2 des %2$s beschrieben.</string>
-  <string name="threefoldRepetitionLowerCase">dreifache Stellungswiederholung</string>
-  <string name="notRepeatedMoves">Wir haben keine Züge wiederholt, warum wurde die Partie trotzdem durch Stellungswiederholung für remis erklärt?</string>
-  <string name="repeatedPositionsThatMatters">Bei dreifach gleicher Stellung geht es um vollständig gleiche %1$s, nicht um Zugwiederholungen. Die gleichen Stellungen können mit beliebigen Zügen erreicht werden, sofern die Zugmöglichkeiten in diesen Stellungen immer gleich sind.</string>
-  <string name="positions">Stellungen</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Wir haben eine Stellung dreimal erreicht. Wieso wurde die Partie nicht für remis erklärt?</string>
-  <string name="threeFoldHasToBeClaimed">Dreifach gleiche Stellung muss von einem der Spieler reklamiert werden. Das kannst du erreichen, indem du auf die Schaltfläche drückst, die angezeigt wird, oder indem du Remis vor deinem letzten Zug anbietest, der eine solche Stellung herbeiführt. In letztem Fall wird eine berechtigte Reklamation wegen dreifach gleicher Stellung selbst dann erfolgreich sein, wenn dein Gegner das Angebot ablehnt. Du kannst Lichess auch so %1$s, dass automatisch dreifach gleiche Stellung für dich reklamiert wird. Zusätzlich beendet die fünffach gleiche Stellung mit gleichen Zugmöglichkeiten immer sofort das Spiel.</string>
-  <string name="configure">konfigurieren</string>
-  <string name="accounts">Konten</string>
-  <string name="titlesAvailableOnLichess">Welche Titel gibt es auf Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess erkennt alle FIDE-Titel an, die beim OTB (am Brett) Spiel gewonnen wurden, sowie %1$s. Hier ist eine Liste von FIDE-Titeln:</string>
-  <string name="showYourTitle">Wenn du einen OTB Titel hast, kannst du beantragen, dass dieser auf deinem Konto angezeigt wird, indem du das %1$s ausfüllst, mit einem klaren Bild eines Identifikationsausweises/einer -karte und einem Selfie von dir, in dem du diese/n Ausweis/Karte im Bild hochhältst.
+  <string name="threefoldRepetition">Drüfachi Schtelligswiderholig</string>
+  <string name="threefoldRepetitionExplanation">Wänn ä Schtellig drümol uftritt, chönd Schpiller/-innä äs Remis dur %1$s reklamiärä. Lichess implemäntiärt di offiziällä FIDE-Reglä, wo in Artikel 9.2 vom %2$s beschribä sind.</string>
+  <string name="threefoldRepetitionLowerCase">drüfachi Schtelligswiderholig</string>
+  <string name="notRepeatedMoves">Mir händ kei Züge widerholt, worum isch d\'Partii trotzdäm dur Schtelligswiderholig für Remis ärchlärt wordä?</string>
+  <string name="repeatedPositionsThatMatters">Bi drüfach gliicher Schtellig gohts um vollschtändig gliichi %1$s, nöd um Zugwiderholigä. Di gliichi Schtellig cha mit beliäbigä Züg ärreicht wärdä, sofärn d\'Zugmöglichkeitä i dänä Schtelligä immer gliich sind.</string>
+  <string name="positions">Schtelligä</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Mir händ ä Schtellig drümol ärreicht. Wieso isch d\'Partii nöd Remis ärchlärt wordä?</string>
+  <string name="threeFoldHasToBeClaimed">Drüfach gliichi Schtellig muäs vo eim vo beidnä Schpiller/-innä reklamiärt wärdän. Das chasch du ärreichä, indäm du uf d\'Schaltflächi trucksch, wo aazeigt wird, oder indäm du Remis vor dim letschtä Zug aabütisch, wonä söttigi Schtellig herbiifüährt. In däm Fall wird ä berächtigti Reklamation wägä drüfach gliicher Schtellig selbscht dänn erfolgriich si, wänn din Gägner das Aagebot ablehnt. Du chasch Lichess au so %1$s, dass automatisch drüfach gliichi Schtellig für dich reklamiärt wird. Usserdäm beändät ä füüffach gliichi Schtellig mit gliichä Zugmöglichkeitä immer sofort s\'Schpiil.</string>
+  <string name="configure">konfiguriärä</string>
+  <string name="accounts">Kontä</string>
+  <string name="titlesAvailableOnLichess">Weli Titäl gits uf Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anärkännt alli FIDE-Titel, wo am Brätt gwunnä wordä sind, äbäso %1$s. Das isch ä Liischtä vo FIDE-Titäl:</string>
+  <string name="showYourTitle">Wänn du än OTB Titäl häsch, chasch du beaatragä, dass dä uf dim Konto aazeigt wird, indäm du das %1$s uusfüllsch, mitämä klaarä Bild vomänä Identifikationsuswiis oder vonärä -chaartä undämä Selfie vo dir, i däm du dä Uswiis oder d\'Chartä im Bild zeigsch.
 
-Eine solche Verifikation als Titelspieler auf Lichess ermöglicht die Teilnahme in den Titel-Arena-Events.
+Ä söttigi Verifikation als Titälschpiller/-in uf Lichess ermöglichät d\'Teilnaam idä Titäl-Arena-Events.
 
-Daneben gibt es auch einen Ehrentitel %2$s.</string>
-  <string name="asWellAsManyNMtitles">viele nationale Meistertitel</string>
+Usserdäm gits au än Ehrätitäl %2$s.</string>
+  <string name="asWellAsManyNMtitles">vili nationaali Meischtertitäl</string>
   <string name="verificationForm">Verifikationsformular</string>
   <string name="canIbecomeLM">Chan ich dä Lichess Meischter (LM) Titel bechoo?</string>
-  <string name="noUpperCaseDot">Nein.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Dieser Ehrentitel ist inoffiziell und existiert nur auf Lichess.
+  <string name="noUpperCaseDot">Leider nei.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Dä Ehrätitäl isch inoffiziäll und exischtiärt nur uf Lichess.
 
-Wir belohnen damit in seltenen Fällen und nach unserem Ermessen ausschließlich bemerkenswerte Spieler, die zudem gute Bürger von Lichess sind. Diese erhalten den LM Titel nicht, der LM Titel kommt zu ihnen. Wenn du dich qualifizierst, erhältst du von uns eine Nachricht zu diesem Thema und hast die Möglichkeit, diesen Titel anzunehmen oder abzulehnen.
+Mir belohnäd dämit i sältänä Fäll und noch üsäm Ärmässä usschliässlich bemärkänswärti Schpiller/-innä, wo zudäm guäti Bürger/-innä vo Lichess sind. Si bechömäd dä LM Titäl nöd, dä LM Titel chunnt zu ihnä. Wänn du dich qualifiziärsch, bechunnsch du vo üs ä Nochricht zu däm Thema und häsch dänn d\'Möglichkeit, dä Titäl aazneh oder abzlehnä.
 
-Bitte nicht darum, den LM-Titel zu erhalten.</string>
-  <string name="whatUsernameCanIchoose">Wie kann mein Benutzername lauten?</string>
-  <string name="usernamesNotOffensive">Im Allgemeinen sollten Nutzernamen nicht anstößig, jemand anderen imitierend oder Werbung sein. Du kannst mehr über die %1$s lesen.</string>
-  <string name="guidelines">Richtlinien</string>
-  <string name="canIChangeMyUsername">Kann ich meinen Benutzernamen ändern?</string>
-  <string name="usernamesCannotBeChanged">Nein, Benutzernamen können aus technischen und praktischen Gründen nicht geändert werden. Die Benutzernamen tauchen an zu vielen Stellen auf: Datenbanken, Exporte, Logs und im Gedächtnis anderer Leute. Du kannst lediglich einmal die Groß-/Kleinschreibung ändern.</string>
-  <string name="uniqueTrophies">Einzigartige Trophäen</string>
-  <string name="ownerUniqueTrophies">Diese Trophäe ist einzigartig in der Geschichte von Lichess, niemand außer %1$s wird sie jemals haben.</string>
-  <string name="wayOfBerserkExplanation">Um sie zu bekommen, forderte hiimgosu sich selbst heraus, 100%% der Partien %s zu berserken und zu gewinnen.</string>
-  <string name="aHourlyBulletTournament">einer stündlichen Bullet-Arena</string>
+Bitt nöd drum, dä LM-Titäl z\'bechoh.</string>
+  <string name="whatUsernameCanIchoose">Wiä chan min Benutzernamä luutä?</string>
+  <string name="usernamesNotOffensive">Im Allgemeinä söttäd Nutzernämä nöd aaschtöössig, öpper anders imitiäränd oder Wärbig sii. Du chasch meh über d\'%1$s läsä.</string>
+  <string name="guidelines">Richtliniä</string>
+  <string name="canIChangeMyUsername">Chan ich min Benutzernamä ändärä?</string>
+  <string name="usernamesCannotBeChanged">Leider nei, Benutzernamä chönd us technischä und praktischä Gründ nöd g\'ändärät wärdä. D\'Benutzernamä tauchäd a zu vilä Schtellä uf: Datäbankä, Export, Logs und im Gedächtnis vo andärnä Lüüt. Du chasch aber eimol d\'Gross-/Chliischriibig ändärä.</string>
+  <string name="uniqueTrophies">Einzigartigi Trophä\'ä</string>
+  <string name="ownerUniqueTrophies">Diä Trophä\'ä isch einzigartig idä Gschicht vo Lichess, niemärt ussertäm %1$s wird si jemols haa.</string>
+  <string name="wayOfBerserkExplanation">Är hät si becho, wil är 100%% vodä Partiiä vönärä %s bärsärkt und gwunnä hät.</string>
+  <string name="aHourlyBulletTournament">schtündlichä Bullet-Arena</string>
   <string name="goldenZeeExplanation">Dä ZugAddict hät ämol gstreamt und über 2 Schtundä lang versuächt, dä Kompi uf Schtufä 8 imänä 1+0 Schpiil z\'besiigä, ohni Erfolg. Dä Thibault hätäm dänn versprochä, dasär än einzigartigi Trophä\'ä bechiäm, wänär das erfolgrich im Stream schaffä würd. Ä Schtund spöter hätär Stockfish butzt und s\'Versprächä isch iighaltä wordä.</string>
-  <string name="lichessRatings">Lichess-Wertungen</string>
-  <string name="whichRatingSystemUsedByLichess">Welches Wertungssystem nutzt Lichess?</string>
+  <string name="lichessRatings">Lichess-Wärtigä</string>
+  <string name="whichRatingSystemUsedByLichess">Weläs Wärtigssyschtem benutzt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Wärtigä (\"Wärtigszahlä\", \"Ratings\") wärdäd mit dä vom Mark Glickman entwicklätä Glicko-2-Wärtigsmethodä berächnät. Das isch ä sehr beliebti Wärtigsmethodä und wird vonärä bedüütendä Aazahl vo Schachorganisationä verwändät (FIDE isch äs bemärkänswärts Gegäbiischpiil wo immer no s\'veraaltete Elo-Wärtigs-Syschtem verwändät).
 
 Grundsätzlich verwändät Glicko-Wärtigä \"Konfidänzintervall\" bidä Berächnig vo dinärä Wärtig. Wänn du s\'erscht Mol uf därä Websiitä schpillsch, foht dini Wärtig bi 1500 ± 700 aa. Diä 1500 schtelläd dini Wärtig dar, und d\'700 schtellt s\'Konfidänzintervall dar.
 
-Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
+Grundsätzlich isch sich das Syschtem aber zu 90% sicher, dass dini Wärtig zwüsched 800 und 2200 liit. Das isch zimli ungwüss. Us däm Grund wird sich d\'Wärtig, wänn än Schpiller / ä Schpillerin gad aafoht, drastisch ändärä, möglicherwiis um mehreri hundert Pünkt pro Schtund. Aber noch äs paar Schpiil gäg etablierti Schpiller/-innä wird sich s\'Konfidänzintervall verchlinärä und d\'Anzahl vo gwunnänä/verloränä Pünkt noch jedem Schpiil wärdäd wäniger.
 
 Än wiitärä Punkt isch, dass sich s\'Konfidänzintervall im Lauf vodä Ziit erhöht. Das erlaubts dir, Pünkt schnäller z\'gwünne oder z\'verliüüre, zum alli Änderigä vo dinä Färtigkeitä während däm Ziitruum z\'berücksichtigä.</string>
-  <string name="whatIsProvisionalRating">Warum gibt es ein Fragezeichen (?) neben einer Wertung?</string>
-  <string name="provisionalRatingExplanation">Das Fragezeichen bedeutet, dass die Wertung vorläufig ist. Zu den Gründen gehört:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Der Spieler hat noch nicht genug gewertete Partien gegen %1$s in der Wertungskategorie beendet.</string>
-  <string name="similarOpponents">Gegner ähnlicher Spielstärke</string>
-  <string name="notPlayedRecently">Der Spieler hat nicht genügend aktuelle Partien gespielt. Abhängig von der Anzahl der Partien, die du gespielt hast, benötigt es ungefähr ein Jahr der Inaktivität, bis deine Wertung wieder vorläufig ist.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Konkret bedeutet dies, dass die Abweichung in Glicko-2 größer als 110 ist. Die Abweichung ist das Vertrauen, das das System in die Wertung hat. Je niedriger die Abweichung, desto stabiler ist eine Wertung.</string>
-  <string name="howDoLeaderoardsWork">Wie funktionieren Ränge und Ranglisten?</string>
-  <string name="inOrderToAppearsYouMust">Um auf die %1$s zu kommen, musst du:</string>
-  <string name="ratingLeaderboards">Wertungs-Ranglisten</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä,</string>
-  <string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
-  <string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>
-  <string name="whyAreRatingHigherExplanation">Es ist am besten, Wertungen nicht als absolute Zahlen zu betrachten oder sie mit anderen Organisationen zu vergleichen. Verschiedene Organisationen haben unterschiedliche Spielerklassen, verschiedene Wertungssysteme (Elo, Glicko, Glicko-2, oder eine modifizierte Version der genannten). Diese Faktoren können die absoluten Zahlen (Wertungen) drastisch beeinflussen.
+  <string name="whatIsProvisionalRating">Worum gits äs Frogezeichä (?) näbädärä Wärtig?</string>
+  <string name="provisionalRatingExplanation">Das Frogezeichä bedüütät, dass dWärtig no provisorisch isch. Zu dä Gründ ghöräd:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Dä Schpiller / diä Schpillerin hät nonig gnuäg gwärtäti Partiiä gäg %1$s idä Wärtigskategorie beändät.</string>
+  <string name="similarOpponents">Gägner mit ähnlicher Schpiilschtärchi</string>
+  <string name="notPlayedRecently">Dä Schpiller / diä Schpillerin hät nöd gnüägänd aktuälli Partiiä gschpillt. Abhängig vodä Aazahl vo Partiiä, wo du gschpillt häsch, benötigsch ungfähr äs Johr Inaktivität, bis dini Wärtig wieder provisorisch wird.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkreet bedüütet das, dass d\'Abwiichig in Glicko-2 grösser als 110 isch. D\'Abwiichig isch s\'Vertrauä, wo s\'Syschtem i d\'Wärtig hät. Je nidriger d\'Abwiichig, deschto schtabiler isch ä Wärtig.</string>
+  <string name="howDoLeaderoardsWork">Wiä funktioniäräd Räng und Rangliischtä?</string>
+  <string name="inOrderToAppearsYouMust">Um uf d\'%1$s z\'cho, muäsch du:</string>
+  <string name="ratingLeaderboards">Wärtigs-Rangliischtä</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">mindeschtäns 30 gwärtäti Partiiä inärä beschtimmtä Kategorie gschpillt ha,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">idä letschtä Wuchä ä gwärtäti Partii i därä Kategorie gschpillt ha,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">ä Wärtigsabwiichig chlinär als %1$s im Schtandardschach und tüüfär als %2$s i Variantä bsitzä, und</string>
+  <string name="beInTopTen">idä Top 10 vo därä Wärtigskategorie sii.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Di zweit Bedingig diänt däzuä, dass Schpiller/-innä, wo ihri Kontä nümä verwändäd, au nümä in Rangliischtä uftauchäd.</string>
+  <string name="whyAreRatingHigher">Wroum sind d\'Wärtigä im Verglich zu andärnä Websiitänä und Organisationä wiä FIDE, USCF und äm ICC höchär?</string>
+  <string name="whyAreRatingHigherExplanation">Äs isch am beschtä, Wärtigä nöd als absoluti Zaalä z\'betrachtä oder si mit andärnä Organisationä z\'vergliichä. Verschidäni Organisationä händ underschidlichi Schpiller/-innä-Klassä, verschidäni Wärtigssyschtem (Elo, Glicko, Glicko-2, oder ä modifiziärti Version devo). Diä Faktorä chönd di absolutä Zaalä (Wärtigä) drastisch beiiflussä.
  
-Es ist am besten, Wertungen als \"relative\" Werte zu betrachten (im Gegensatz zu \"absoluten\" Werten): Innerhalb eines Spielerpools helfen dir relative Unterschiede in den Wertungen dabei abzuschätzen, wer gewinnt/verliert und wie oft. Zu sagen \"Ich habe eine X-Wertung\" bedeutet nichts, es sei denn, es gibt andere Spieler, mit denen man diese Wertung vergleicht.</string>
-  <string name="howToHideRatingWhilePlaying">Wie kann man Wertungen während des Spiels ausblenden?</string>
-  <string name="enableZenMode">Aktiviere den Zen-Modus in den %1$s oder durch Drücken von %2$s während einer Partie.</string>
-  <string name="displayPreferences">Anzeigeeinstellungen</string>
-  <string name="connexionLostCanIGetMyRatingBack">Ich habe eine Partie wegen Lag/Internetproblemen verloren. Kann ich meine Wertungspunkte zurückbekommen?</string>
+Äs isch stattdessä am beschtä, Wärtigä als \"relativi\" Wärt z\'betrachtä (im Gägäsatz zu \"absolutä\" Wärt): Innerhalb vomänä Pool a Schpiller/-innä hälfäd dir relativi Underschiid idä Wärtigä däbii abzschätzä, wär ehnder gwünnt/verlüürt und wiä oft öppä. Z\'sägä \"Ich han ä X-Wärtig\" bedüütät nüt, äs sei dänn, äs git andäri Schpiller/-innä, mit dänä du dini Wärtig vergliichsch.</string>
+  <string name="howToHideRatingWhilePlaying">Wiä chamer Wärtigä während äm Schpiil uusbländä?</string>
+  <string name="enableZenMode">Aktiviär dä Zen-Modus idä %1$s oder truck %2$s währänd dä Partii.</string>
+  <string name="displayPreferences">Aazeige-Iischtelligä</string>
+  <string name="connexionLostCanIGetMyRatingBack">Ich han ä Partii wäg Lag/Internetprobleem verlorä. Chan ich mini Wärtigspünkt zruggbecho?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Leider chömmär kei Wärtigspünkt für Partiiä zrugggeh, wo ufgrund vo Läg- oder Internetproblem verlorä gangä sind, unabhängig dävo, öb das Problem vo diner oder vo üsärä Siitä verursacht wordä isch. Letztäres isch aber sehr sältä. Obacht, gäll, dassmär ä Partii abbrächäd, wänn Lichess neu gschtartät wird und du drum uf Ziit verlüürä würsch.</string>
-  <string name="howToThreeDots">Wie kann ich...</string>
-  <string name="enableDisableNotificationPopUps">Benachrichtigungs-Popups aktivieren oder deaktivieren?</string>
-  <string name="viewSiteInformationPopUp">Seiteninformations-Popup anzeigen</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess kann optional Popup-Benachrichtigungen versenden, zum Beispiel wenn du am Zug bist oder eine private Nachricht erhalten hast.
+  <string name="howToThreeDots">Wiä chan ich...</string>
+  <string name="enableDisableNotificationPopUps">Benochrichtigungs-Popups aktiviärä oder deaktiviärä?</string>
+  <string name="viewSiteInformationPopUp">Siitäinformations-Popup aazeigä</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess chan optional Popup-Benochrichtigungä versändä, zum Biischpiil wänn du am Zug bisch oder ä privati Nochricht becho häsch.
 
-Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste deines Browsers.
+Klick uf s\'Schlosssymbool näbäd dä lichess.org Adrässä idä URL-Liischtä vo dim Browser.
 
-Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
+Wähl dänn us, ob Benochrichtigungä vo Lichess erlaubt oder blockiärt wärdä sölläd.</string>
 </resources>

@@ -498,7 +498,7 @@
   <string name="cheat">Hile</string>
   <string name="insult">Hakaret</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation">Derecelendirme manipülasyonu</string>
+  <string name="ratingManipulation">Puan manipülasyonu</string>
   <string name="other">Diğer</string>
   <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
@@ -516,8 +516,8 @@
   <string name="currentPassword">Geçerli şifre</string>
   <string name="newPassword">Yeni şifre</string>
   <string name="newPasswordAgain">Yeni şifre(tekrar)</string>
-  <string name="newPasswordsDontMatch">Yeni parolalar eşleşmiyor</string>
-  <string name="newPasswordStrength">Şifrenin zorluğu</string>
+  <string name="newPasswordsDontMatch">Yeni şifreler eşleşmiyor</string>
+  <string name="newPasswordStrength">Şifre gücü</string>
   <string name="clockInitialTime">Maç başlangıç süresi</string>
   <string name="clockIncrement">Hamle başına süre artışı</string>
   <string name="privacy">Gizlilik</string>
@@ -677,7 +677,7 @@
   <string name="printFriendlyPDF">Yazdırılabilir PDF</string>
   <string name="crosstable">Çapraz Tablo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Bilgisayar varyantlarını görebilmek için yukarı kaydır.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
@@ -842,29 +842,31 @@
   <string name="useTheReportForm">rapor formunu kullanın</string>
   <string name="toRequestSupport">Destek almak istiyorsanız, %1$s</string>
   <string name="tryTheContactPage">iletişim sayfasını kullanmayı deneyebilirsiniz</string>
-  <string name="thisTopicIsArchived">Bu konu arşivlenmiştir ve daha fazla yorum yapılmasına izin verilemez.</string>
-  <string name="joinTheTeamXToPost">Bu forumda yorum yapmak için lütfen %1$s takımına katılın</string>
+  <string name="thisTopicIsArchived">Bu konu arşivlenmiş ve yeni yanıtlara kapatılmıştır.</string>
+  <string name="joinTheTeamXToPost">Bu forumda paylaşım yapmak için %1$s adlı takıma katılın</string>
   <string name="teamNamedX">%1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Şu anda bu forumlarda konu açamazsınız. Biraz oyun oynamayı deneyebilirsiniz :)</string>
+  <string name="youCannotPostYetPlaySomeGames">Henüz forumda konu açamazsınız. Biraz daha maç yaptıktan sonra tekrar deneyin.</string>
   <string name="subscribe">Abone ol</string>
   <string name="unsubscribe">Abonelikten çık</string>
-  <string name="mentionedYouInX">\"%1$s\"de sizden bahsetti.</string>
+  <string name="mentionedYouInX">\"%1$s\" adlı gönderide sizden bahsetti.</string>
   <string name="xMentionedYouInY">%1$s sizden bahsetti: \"%2$s\".</string>
   <string name="invitedYouToX">sizi \"%1$s\" adlı çalışmaya davet etti.</string>
-  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" için davet ediyor.</string>
+  <string name="xInvitedYouToY">%1$s sizi \"%2$s\" adlı çalışmaya davet ediyor.</string>
   <string name="youAreNowPartOfTeam">Artık ekibin bir üyesisiniz.</string>
-  <string name="youHaveJoinedTeamX">\"%1$s\" için katılım başarılı.</string>
+  <string name="youHaveJoinedTeamX">\"%1$s\" adlı takıma katıldın.</string>
   <string name="someoneYouReportedWasBanned">İhbar ettiğiniz biri engellendi</string>
   <string name="congratsYouWon">Tebrikler, kazandınız!</string>
   <string name="gameVsX">%1$s ile oyun</string>
-  <string name="resVsX">%1$s ile %2$s kapışması</string>
+  <string name="resVsX">%1$s ile %2$s karşı karşıya</string>
   <string name="someoneReviewedYourCoachProfile">Birisi antrenör profilinizi inceledi.</string>
   <string name="newPendingReview">Yeni bekleyen inceleme</string>
   <string name="lostAgainstTOSViolator">Lichess Kulanım Şartları\'nı ihlal eden birine kaybettiniz</string>
   <string name="refundXpointsTimeControlY">%1$s %2$s puanı iade edildi.</string>
-  <string name="timeAlmostUp">Zaman neredeyse doldu!</string>
+  <string name="timeAlmostUp">Zaman dolmak üzere!</string>
   <string name="clickToRevealEmailAddress">[E-posta adresini göstermek için tıklayın]</string>
   <string name="download">İndir</string>
   <string name="welcome">Hoş geldiniz!</string>
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Eğitmen ayarları</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Yayıncı ayarları</string>
 </resources>

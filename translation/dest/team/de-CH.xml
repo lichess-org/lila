@@ -13,12 +13,12 @@
   <string name="joinTeam">Tritt äm Team bii</string>
   <string name="quitTeam">Team verloh</string>
   <string name="manuallyReviewAdmissionRequests">Biitrittsafrogä manuäll überprüäfä</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">Wenn diä Option aktiviert isch, müend Schpiller än Anfrog schriibä, zum äm Team biiztrete; du chasch si ablehnä oder akzeptierä.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Wenn diä Option aktiviert isch, müend Schpiller/-innä än Anfrog schriibä, zum äm Team biiztrete; du chasch si ablehnä oder akzeptierä.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Teamleiter</item>
     <item quantity="other">Teamleiter</item>
   </plurals>
-  <string name="teamBestPlayers">Beschti Schpiller</string>
+  <string name="teamBestPlayers">Beschti Schpiller/-innä</string>
   <string name="teamRecentMembers">Neuschti Teammitgliider</string>
   <string name="kickSomeone">Öppert usm Team schmeissä</string>
   <string name="whoToKick">Wer wottsch usm Team schmeissä?</string>
@@ -30,16 +30,16 @@
   <string name="beingReviewed">Dini Biitrittsanfrog wird gad vonänä Teamleiter überprüäft.</string>
   <string name="subToTeamMessages">Team-Nochrichtä abonnierä</string>
   <string name="teamBattle">Teamfight</string>
-  <string name="teamBattleOverview">En Fight vo mehrere Teams, jede Schpiller sammlät Pünkt für sis Team</string>
+  <string name="teamBattleOverview">En Fight vo mehrere Teams, alli Schpiller/-innä sammläd Pünkt für ihräs Team</string>
   <string name="teamTournament">Team-Turniär</string>
   <string name="teamTournamentOverview">Es Arenaturnier, zu däm nur Mitglieder vo dim Team biitrettä chönd</string>
   <string name="swissTournamentOverview">Es Schwiizer-System-Turnier, zu däm nur Mitglieder vo dim Team bitrettä chönd</string>
   <string name="messageAllMembers">Benochrichtigä alli Mitgliider</string>
   <string name="messageAllMembersOverview">Schick ä privati Nochricht an alli Mitgliider vom Team</string>
-  <string name="messageAllMembersLongDescription">Schick ä privati Nochricht a ALLI Mitgliider us dem Team. Du chasch diä Funktion benutzä, um Schpiller zumänä Turnier odermä Team-Fight ufzrüäfä. Schpiller, wo diä Art vo Nochrichtä nöd empfangä wönd, chönd dis Team verloh.</string>
+  <string name="messageAllMembersLongDescription">Schick ä privati Nochricht a ALLI Mitgliider us dem Team. Du chasch diä Funktion benutzä, um Schpiller/-innä zumänä Turnier odermä Team-Fight ufzrüäfä. Schpiller/-innä, wo diä Art vo Nochrichtä nöd empfangä wönd, chönd dis Team verloh.</string>
   <string name="teamsIlead">Teams wonich leitä</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Möchtisch eis vo de kommendä Turniere verlinkä?</string>
-  <string name="usersWhoCanManageThisTeam">Benutzer wo da Team verwaltä chönd</string>
+  <string name="usersWhoCanManageThisTeam">Benutzer/-innä wo da Team verwaltä chönd</string>
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>

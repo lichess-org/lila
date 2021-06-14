@@ -45,6 +45,10 @@
   </plurals>
   <string name="harder">Máis difícil</string>
   <string name="hardest">O máis difícil</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Un punto por riba da túa puntuación de exercicios</item>
+    <item quantity="other">%s puntos por riba da túa puntuación de exercicios</item>
+  </plurals>
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Engadir outro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>

@@ -137,8 +137,8 @@
   <string name="offerDraw">Remis aabütä</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s Schpiller</item>
-    <item quantity="other">%s Schpiller</item>
+    <item quantity="one">%s Schpiller/-in</item>
+    <item quantity="other">%s Schpiller/-innä</item>
   </plurals>
   <string name="currentGames">Laufendi Partiiä</string>
   <plurals name="nbGames">
@@ -159,12 +159,12 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s hät zum Thema %2$s öppis gschribä</string>
   <string name="latestForumPosts">Neuschti Foräbiiträg</string>
-  <string name="players">Schpiller</string>
+  <string name="players">Schpiller/-innä</string>
   <string name="friends">Fründä</string>
   <string name="discussions">Konvärsazion</string>
   <string name="today">Hüt</string>
   <string name="yesterday">Geschter</string>
-  <string name="minutesPerSide">Minutä pro Schpiller</string>
+  <string name="minutesPerSide">Minutä pro Schpiller/-in</string>
   <string name="variant">Variantä</string>
   <string name="variants">Variantä</string>
   <string name="timeControl">Bedenkziit</string>
@@ -335,7 +335,7 @@
   <string name="mustBeInTeam">Du muäsch im Team %s sii</string>
   <string name="youAreNotInTeam">Du bisch nöd im Team %s</string>
   <string name="backToGame">Zrug zum Spiil</string>
-  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt uf enerä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäge en Fründ, Kompiuter oder gäge en zuefälligä Gägner!</string>
+  <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
   <string name="xJoinedTeamY">%1$s isch äm Team %2$s biiträttä</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründät</string>
   <string name="xStartedStreaming">%s hät än Stream gschtartät</string>
@@ -391,7 +391,7 @@
   <string name="more">Meh</string>
   <string name="memberSince">Mitgliid sit</string>
   <string name="lastSeenActive">Zletscht aktiv %s</string>
-  <string name="player">Schpiller</string>
+  <string name="player">Schpiller/-in</string>
   <string name="list">Lischtä</string>
   <string name="graph">Graaf</string>
   <plurals name="lessThanNbMinutes">
@@ -409,9 +409,9 @@
   <string name="advancedSettings">Erwiitäräti Iischtelligä</string>
   <string name="safeTournamentName">Wähl än möglichscht sichäre Namä fürs Turniär.</string>
   <string name="inappropriateNameWarning">Alläs nur äs bitzli Unagmässäs chan zur Schlüssig vo dim Konto füährä.</string>
-  <string name="emptyTournamentName">Läär loh zum s\'Turniär nochemene namhaftä Schachschpiller zbenännä.</string>
+  <string name="emptyTournamentName">Frei laa zum s Turniär nach emene namhaftä Schachspilär z benännä.</string>
   <string name="recommendNotTouching">Mir empfehläd, d\'Finger devo z\'loh.</string>
-  <string name="fewerPlayers">Wänn du Teilnahmebedingigä setzisch, wird dis Turniär wäniger Schpiller ha.</string>
+  <string name="fewerPlayers">Wänn du Teilnahmebedingigä setzisch, wird dis Turniär wäniger Schpiller/-innä ha.</string>
   <string name="showAdvancedSettings">Zeig erwiitäräti Iischtelligä</string>
   <string name="makePrivateTournament">Mach s\'Turniär privat und beschränk dä Zuägang mitämä Passwort</string>
   <string name="join">Teilnää</string>
@@ -460,9 +460,9 @@
   <string name="inlineNotation">Inline-Notation</string>
   <string name="watchLichessTV">Lichess-TV aaluägä</string>
   <string name="previouslyOnLichessTV">Zletscht uf Lichess TV</string>
-  <string name="onlinePlayers">Schpiller online</string>
+  <string name="onlinePlayers">Schpiller/-innä online</string>
   <string name="activeToday">Hüt aktiv</string>
-  <string name="activePlayers">Aktivi Schpiller</string>
+  <string name="activePlayers">Aktivi Schpiller/-innä</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Obacht, das Schpiil isch gwärtät, hät aber keis Ziitlimit!</string>
   <string name="success">Jawoll</string>
   <plurals name="nbGamesInPlay">
@@ -491,8 +491,8 @@
   <string name="reply">Antwortä</string>
   <string name="message">Nochricht</string>
   <string name="createTheTopic">Thema ärschtellä</string>
-  <string name="reportAUser">Benutzer mäldä</string>
-  <string name="user">Benutzer</string>
+  <string name="reportAUser">Benutzer-/in mäldä</string>
+  <string name="user">Benutzer/-in</string>
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was isch s\'Problem?</string>
   <string name="cheat">Bschiss</string>
@@ -500,7 +500,7 @@
   <string name="troll">Troll</string>
   <string name="ratingManipulation">Manipulation vo dä Wärtigszahl</string>
   <string name="other">Suschtigs</string>
-  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit em Benutzer sim Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
+  <string name="reportDescriptionHelp">Füeg dä Link zu einerä oder mehrärä Partii(ä) ii und erchlär, was falsch isch mit äm Benutzer sim / dä Benutzerin ihräm Verhaltä. Säg nöd eifach \"bschiist\", sondern säg au wie du uf dä Schluss cho bisch. Din Bricht wird schnellär bearbeität, wännd Änglisch redsch.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindeschtens ein Link zumnä Spiel aa, wo drin bschisse worde isch.</string>
   <string name="by">vo %s</string>
   <string name="thisTopicIsNowClosed">Das Thema isch gschlossä wordä.</string>
@@ -551,14 +551,14 @@
   <string name="starting">Schtartät:</string>
   <string name="allInformationIsPublicAndOptional">Alli Informationä sind öffentlich und freiwillig.</string>
   <string name="yourCityRegionOrDepartment">Dini Stadt, Region oder Kanton.</string>
-  <string name="biographyDescription">Verzell über dich, was du a Schach gärn häsch, dini Lieblingseröffnigä, Partiiä, Schpiller, ...</string>
+  <string name="biographyDescription">Verzell über dich, was du a Schach gärn häsch, dini Lieblingseröffnigä, Partiiä, Schpiller/-innä, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Höchschtens %s Zeichä.</item>
     <item quantity="other">Höchschtens %s Zeichä.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s gesperrtä Schpiller</item>
-    <item quantity="other">%s gesperrti Schpiller</item>
+    <item quantity="one">%s gesperrtä/-i Schpiller/-in</item>
+    <item quantity="other">%s gesperrti Schpiller/-innä</item>
   </plurals>
   <string name="listBlockedPlayers">Lischtä vo dinä gesperrtä Schpillär</string>
   <string name="human">Mänsch</string>
@@ -623,7 +623,7 @@
   <string name="noSimulFound">Simultan nöd gfundä</string>
   <string name="noSimulExplanation">Das Simultan exischtiärt nöd.</string>
   <string name="returnToSimulHomepage">Zrugg zur Simultan-Homepage</string>
-  <string name="aboutSimul">Bim Simultan spillt än Spielär gleichziitig gäg mehreri Gegnär.</string>
+  <string name="aboutSimul">Bim Simultan schpillt än Schpiller / ä Schpillerin gliichziitig gäg mehreri Gägner.</string>
   <string name="aboutSimulImage">Gäg 50 Gägner hät dä Fischer 47 Partiä gwunnä, zwei remisiärt und eini verlorä.</string>
   <string name="aboutSimulRealLife">S\'Konzept ähnlet dem vo ächte Simultanveraaschtaltigä, wo sich dä Veraaschtalter vo Brätt zu Brätt bewegt.</string>
   <string name="aboutSimulRules">Bim Schtart vom Simultan fangt dä Veraaschtalter mit Wiis a und schpillt so lang mit wächselnde Gägner, bis alli Partiä färtig sind.</string>
@@ -649,16 +649,16 @@
   <string name="tournamentHomeDescription">Schpill rasanti Turniär! Tritt ämänä plantä Turniär bii oder ärschtell gad äs neuis. Bullet, Blitz, Klassisch, Fischer-Rändom, Hügelkönig, Drüfachschach und wiitäri Schachvarianteä für Spass wi bim Après-Ski.</string>
   <string name="tournamentNotFound">Turniär nöd gfundä</string>
   <string name="tournamentDoesNotExist">Das Turniär gits nöd.</string>
-  <string name="tournamentMayHaveBeenCanceled">Womöglich ischäs abgsait worde, wil zu Turniärbeginn kei Schpiller (meh) registriärt gsi sind.</string>
+  <string name="tournamentMayHaveBeenCanceled">Womöglich ischäs abgsait worde, wil zu Turniärbeginn kei Schpiller/-innä (meh) registriärt gsi sind.</string>
   <string name="returnToTournamentsHomepage">Zrugg zur Turniär-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wüchäntlichi %s-Wärtigsverteilig</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s %2$s Schpiller diä Wuchä.</item>
-    <item quantity="other">%1$s %2$s Schpiller diä Wuchä.</item>
+    <item quantity="one">%1$s %2$s Schpiller/-in diä Wuchä.</item>
+    <item quantity="other">%1$s %2$s Schpiller/-innä diä Wuchä.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Dini %1$s-Wärtigszahl isch %2$s.</string>
-  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vo %2$s-Schpiller.</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bisch besser als %1$s vo %2$s-Schpiller/-innä.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s isch besser als %2$s vo %3$s-Schpiller/-innä.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du häsch kei feschtstehändi %s-Wärtig.</string>
   <string name="yourRating">Dini Wärtigszahl</string>
   <string name="cumulative">Summiärt</string>
@@ -679,7 +679,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du chasch au ufäm Brätt scrollä, zum diä Partii duräzgoh.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll über Kompivariantä, zum ä Vorschau uf si z\'ärhaltä.</string>
   <string name="analysisShapesHowTo">Truck Shift+Muusklick oder Rechtsklick, zum Chreis und Pfiil ufäm Brätt z\'zeichnä.</string>
-  <string name="letOtherPlayersMessageYou">Erlaub andärnä Schpiller dich z\'kontaktiärä</string>
+  <string name="letOtherPlayersMessageYou">Erlaub andärnä Schpiller/-innä dich z\'kontaktiärä</string>
   <string name="receiveForumNotifications">Benochrichtigung übercho wänn im Forum erwähnt wirsch</string>
   <string name="shareYourInsightsData">Dini persönlichä Schpillerschtatistikä teilä</string>
   <string name="withNobody">Mit niämärtäm</string>
@@ -687,7 +687,7 @@
   <string name="withEverybody">Mit dä ganzä Wält</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du häsch di folgände Emailadrässö scho regischtriärt: %s</string>
   <string name="kidMode">Chindermodus</string>
-  <string name="kidModeExplanation">Das isch ä Sicherheitsiischtellig. Im Chindermodus sind alli Kommunikationsmöglichkeitä deaktiviärt. Aktiviär diä Option, zum Chind und Schüäler vor andärnä Internetbenutzer z\'schützä.</string>
+  <string name="kidModeExplanation">Das isch ä Sicherheitsiischtellig. Im Chindermodus sind alli Kommunikationsmöglichkeitä deaktiviärt. Aktiviär diä Option, zum Chind und Schüäler/innä vor andärnä Internetbenutzer/-innä z\'schützä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Im Chindermodus bechunnt s\'Lichess-Logo än %s-Icon, däm du aagsehsch, dass dini Chind gschützt sind.</string>
   <string name="enableKidMode">Chindermodus aktiviärä</string>
   <string name="disableKidMode">Chindermodus deaktiviärä</string>
@@ -718,7 +718,7 @@
   <string name="xCreatesStudyY">%1$s hät Schtuudiä %2$s ärschtellt</string>
   <string name="quickPairing">Schnälls Schpiil</string>
   <string name="lobby">Lobby</string>
-  <string name="anonymous">Anonymä Schpiller</string>
+  <string name="anonymous">Anonymä/-i Schpiller/-in</string>
   <string name="yourScore">Punkteschtand: %s</string>
   <string name="language">Sproch</string>
   <string name="background">Hindergrund</string>
@@ -809,7 +809,7 @@
   <string name="timeoutExpires">D\'Schperri ändät in %s.</string>
   <string name="why">Worum?</string>
   <string name="pleasantChessExperience">Mir möchtäd allnä ä möglichscht guäti Schach-Erfahrig büütä.</string>
-  <string name="goodPractice">Zum das z\'ärreichä, müänd mir sicherschtellä, dass sich alli Schpiller korrekt verhaltäd.</string>
+  <string name="goodPractice">Zum das z\'ärreichä, müänd mir sicherschtellä, dass sich alli Schpiller/-innä korrekt verhaltäd.</string>
   <string name="potentialProblem">Mir zeigäd diä Nochricht aa, wänn äs möglichs Problem erkannt wordä isch.</string>
   <string name="howToAvoidThis">Wiä chan das verhindärät wärdä?</string>
   <string name="playEveryGame">Schpill jedes Schpiil, wo du aafohsch.</string>
@@ -821,7 +821,7 @@
   <string name="lifetimeScore">Ewigä Schpillschtand</string>
   <string name="currentMatchScore">Aktuällä Schpiilschtand</string>
   <string name="agreementAssistance">Ich schtimmä zuä, dass ich zu keiner Ziit während minä Partiiä Hilf in Aaschpruch nimm (dur än Schachkompi, äs Buäch, ä Datäbank oder än andäri Person).</string>
-  <string name="agreementNice">Ich schtimmä zuä, dass ich andärnä Schpiller immer reschpäktvoll gägänüberträtä.</string>
+  <string name="agreementNice">Ich schtimmä zuä, dass ich andärnä Schpiller/-innä immer reschpäktvoll gägänüberträtä.</string>
   <string name="agreementAccount">Ich schtimmä zuä, dass ich nöd mehreri Kontänä ärschtellä.</string>
   <string name="agreementPolicy">Ich schtimmä zuä, dass ich allnä Lichess-Richtliniä folgä.</string>
   <string name="searchOrStartNewDiscussion">Suäch oder schtart ä neui Konversazion</string>
@@ -868,4 +868,6 @@
   <string name="welcome">Härzlich Willkommä!</string>
   <string name="lichessPatronInfo">Lichess isch ä Wohltätigkeitsorganisation und ä völlig chostälosi/freii Open-Source-Software.
 Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Trääner Mänätscher</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Schtreamer Mänätscher</string>
 </resources>

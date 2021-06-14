@@ -3,10 +3,10 @@
   <string name="lichessClasses">Lichess Klassen</string>
   <string name="teachClassesOfChessStudents">Unterrichte Schachklassen mit den Lichess Klassen-Werkzeugen.</string>
   <string name="features">Funktionen</string>
-  <string name="quicklyGenerateSafeUsernames">Erstelle schnell sichere Benutzernamen und Passwörter für deine Schüler</string>
-  <string name="trackStudentProgress">Verfolge den Fortschritt deiner Schüler in Spielen und Puzzles</string>
+  <string name="quicklyGenerateSafeUsernames">Ärschtell schnäll sichäri Benutzernämä und Passwörter für dini Schüäler/-innä</string>
+  <string name="trackStudentProgress">Verfolg dä Fortschritt vo dinä Schüäler/-unnä i Schpiil und Ufgoobä</string>
   <string name="messageAllStudents">Benachrichtige alle Schüler über neues Lehrmaterial</string>
-  <string name="freeForAllForever">100% kostenlos für alle, für immer, ohne Werbung oder Tracker</string>
+  <string name="freeForAllForever">100% choschtälos für alli, für immer, ohni Wärbig oder Tracker</string>
   <string name="applyToBeLichessTeacher">Bewirb dich als Lichess-Lehrer</string>
   <string name="noClassesYet">Bisher keine Klassen.</string>
   <string name="teachersX">Lehrer: %s</string>
@@ -23,7 +23,7 @@
   <string name="classDescription">Klassenbeschreibung</string>
   <string name="visibleByBothStudentsAndTeachers">Sichtbar für Lehrer und Schüler der Klasse</string>
   <string name="teachersOfTheClass">Lehrer der Klasse</string>
-  <string name="addLichessUsernames">Füge Lichess-Benutzernamen hinzu, um sie als Lehrer einzuladen. Einen pro Zeile.</string>
+  <string name="addLichessUsernames">Füäg Lichess-Benutzernämä hinzuä, zum si als Lehrer iizladä. Einnä pro Ziilä.</string>
   <string name="resetPassword">Passwort zurücksetzen</string>
   <string name="makeSureToCopy">Stelle sicher, dass du das Passwort jetzt kopierst oder aufschreibst. Du wirst keine Möglichkeit bekommen es erneut zu sehen!</string>
   <string name="passwordX">Passwort: %s</string>
@@ -33,8 +33,8 @@
   <string name="privateWillNeverBeShown">Privat. Wird nie außerhalb der Klasse angezeigt. Hilft dir, dich zu erinnern, wer der Schüler ist.</string>
   <string name="addStudent">Schüler hinzufügen</string>
   <string name="lichessProfileXCreatedForY">Lichess-Profil %1$s erstellt für %2$s.</string>
-  <string name="studentCredentials">Schüler: %1$s
-Benutzername: %2$s
+  <string name="studentCredentials">Schüäler/-in: %1$s
+Benutzernamä: %2$s
 Passwort: %3$s</string>
   <string name="inviteALichessAccount">Einen Lichess-Nutzer einladen</string>
   <string name="inviteDesc1">Falls der Schüler bereits ein Lichess-Konto besitzt, kannst du ihn zur Klasse hinzufügen.</string>
@@ -46,8 +46,8 @@ Passwort: %3$s</string>
   <string name="createDesc2">Es wird keine E-Mail-Adresse benötigt. Ein Passwort wird generiert und du musst es dem Schüler mitteilen, damit er sich anmelden kann.</string>
   <string name="createDesc3">Wichtig: Ein Schüler darf nicht mehrere Konten besitzen.</string>
   <string name="createDesc4">Verwende stattdessen das Einladungsformular, falls sie bereits eines besitzen.</string>
-  <string name="lichessUsername">Lichess Benutzername</string>
-  <string name="generateANewUsername">Erstelle einen neuen Benutzernamen</string>
+  <string name="lichessUsername">Lichess Benutzernamä</string>
+  <string name="generateANewUsername">Ärschtell än neuä Benutzernamä</string>
   <string name="welcomeToClass">Willkommen in deiner Klasse: %s.
 Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="invitationToClass">Du bist eingeladen, der Klasse \"%s\" als Schüler beizutreten.</string>
@@ -80,7 +80,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="progress">Fortschritt</string>
   <string name="noStudents">Bisher keine Schüler in dieser Klasse.</string>
   <string name="noRemovedStudents">Keine entfernten Schüler.</string>
-  <string name="overDays">Über Tage</string>
+  <string name="overDays">Über Täg</string>
   <string name="timePlaying">Spielzeit</string>
   <string name="variantXOverLastY">%1$s über die letzten %2$s</string>
   <string name="winrate">Gewinnquote</string>

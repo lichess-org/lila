@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Laggt Lichess?</string>
-  <string name="measurementInProgressThreeDot">Mässigä werded duregfüehrt...</string>
-  <string name="noAndYourNetworkIsGood">Nei. Dis Netz isch übrigens tiptop.</string>
-  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Nein. Zudem ist deine Netzwerkverbindung schlecht.</string>
-  <string name="yesItWillBeFixedSoon">Jo. Aber es wird bald scho behobe si!</string>
-  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt di lang Antwort! De Lag bestoht us zwei voneinander unabhängigä Wärt (niedriger isch besser):</string>
-  <string name="lichessServerLatency">D\'Lichess Server-Latenz</string>
-  <string name="lichessServerLatencyExplanation">D\'Zyt wo benötiget wird, um en Zug ufm Server z\'verarbeitä. Si isch für alli glych und hanget nu vode Serverlascht ab. Je meh Schpiller, desto höcher wird\'si, aber d\'Lichess-Entwickler gäbäd ihres Beschti, um si niedrig zu haltä. Si überschtigt sältä 10ms.</string>
-  <string name="networkBetweenLichessAndYou">D\'Netzwerkverbindung zwüsched Lichess und Dir</string>
-  <string name="networkBetweenLichessAndYouExplanation">D\'Zyt wo benötiget wird, um en Zug von dim Computer zum Lichess-Server z\'sendä und d\'Antwort zruggzbecho. Si isch abhängig von diner Entfernig zu Lichess (bide Franzose) und vode Qualität vo diner Internetverbindung. D\'Lichess-Entwickler chönd dis WLAN nöd repariere oder Liecht schneller machä, denk.</string>
-  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Beidi Wärt chönd jederzyt ygseh werdä, indem du uf din Benutzernamä ide obere Lischtä klicksch.</string>
-  <string name="lagCompensation">Lag-Kompensation</string>
-  <string name="lagCompensationExplanation">Lichess kompensiert dä Netzwerk-Lag. Dezue ghöred anhaltendi Verzögerigä und glegentlichi Lag-Spitzä. Es exischtiered Grenzä und e Heuristik uf de Grundlage vo Zytkontrolle und de bisher usgeglichenä Verzögerig, so dass sich s\'Ergebnis für beidi Schpiller vernünftig afühlä sött. Folglich isch es keis Handicap, en höcherä Netzwerk-Lag als dä Gegner z\'ha!</string>
+  <string name="isLichessLagging">Läggt Lichess?</string>
+  <string name="measurementInProgressThreeDot">Mässigä wärdäd durägfüärt...</string>
+  <string name="noAndYourNetworkIsGood">Nei. Dis Netz isch übrigäns tiptop.</string>
+  <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Nei. Aber dini Netzwerkverbindig isch schlächt.</string>
+  <string name="yesItWillBeFixedSoon">Jawoll. Aber äs wird bald scho behobä si!</string>
+  <string name="andNowTheLongAnswerLagComposedOfTwoValues">Und jetzt di lang Antwort! Dä Läg beschtoht us zwei vonänand unabhängigä Wärt (nidriger isch besser):</string>
+  <string name="lichessServerLatency">D\'Lichess Server-Latänz</string>
+  <string name="lichessServerLatencyExplanation">D\'Ziit wo benötigät wird, um än Zug ufm Server z\'verarbeitä. Si isch für alli gliich und hangät nu vodä Serverlascht ab. Je meh Schpiller/-innä, deschto höcher wird\'si, aber d\'Lichess-Entwickler gäbäd ihräs Beschti, zum si nidrig z\'haltä. Si überschtiigt sältä 10ms.</string>
+  <string name="networkBetweenLichessAndYou">D\'Netzwerkverbindig zwüschäd Lichess und Dir</string>
+  <string name="networkBetweenLichessAndYouExplanation">D\'Ziit wo benötigät wird, zum än Zug vo dim Kompi zum Lichess-Server z\'sändä und d\'Antwort zruggzbecho. Si isch abhängig von dinär Entfärnig zu Lichess (bidä Franzose) und vodä Qualität vo dinär Internetverbindig. D\'Lichess-Entwickler chönd dis WLAN nöd repariärä oder Liächt schnäller machä, dänk.</string>
+  <string name="youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername">Beidi Wärt chönd jederziit iigseh wärdä, indäm du uf din Benutzernamä ide obärä Liischtä klicksch.</string>
+  <string name="lagCompensation">Läg-Kompensation</string>
+  <string name="lagCompensationExplanation">Lichess kompensiärt dä Netzwerk-Läg. Däzuä ghöred anhaltändi Verzögerigä und glegäntlichi Läg-Schpitzä. Äs exischtiered Gränzä und ä Heuristik uf dä Grundlag vo Ziitkontrollä und dä bishär usgeglichänä Verzögärig, damit sich s\'Ärgebnis für beidi Schpiller/-innä vernünftig aafüülä sött. Folglich isch äs keis Händicäp, än höchärä Netzwerk-Läg als dä Gegner z\'ha!</string>
 </resources>

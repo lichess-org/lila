@@ -15,9 +15,9 @@
   <string name="thankYou">Tak for dit bidrag!</string>
   <string name="youHaveLifetime">Du har en livstid-protektor-konto. Det er ret fantastisk!</string>
   <string name="patronUntil">Du har en protektor-konto indtil %s.</string>
-  <string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til gratis.</string>
+  <string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til en gratis.</string>
   <string name="weAreNonProfit">Vi er en nonprofitorganisation, da vi mener, at alle bør have adgang til en gratis, verdensomspændende skakplatform.</string>
-  <string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre det muligt. Hvis du nyder at bruge Lichess, så overvej gerne at støtte os med et bidrag og bliv protektor!</string>
+  <string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre dette muligt. Hvis du nyder at bruge Lichess, så overvej gerne at støtte os med et bidrag og bliv protektor!</string>
   <string name="lifetime">Livstid</string>
   <string name="payLifetimeOnce">Betal %s én gang. Vær Lichess Protektor for evigt!</string>
   <string name="lifetimePatron">Livstids Lichess Protektor</string>
@@ -58,7 +58,7 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="nextPayment">Næste betaling</string>
   <string name="youWillBeChargedXOnY">Du vil blive opkrævet %1$s den %2$s.</string>
   <string name="makeAdditionalDonation">Giv et ekstra bidrag nu</string>
-  <string name="giftPatronWings">Giv protektor-vinger til en spiller</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Giv protektor-vinger til en spiller</string>
   <string name="update">Opdatér</string>
   <string name="changeMonthlyAmount">Ændr det månedlige beløb (%s)</string>
   <string name="cancelSupport">annuller din støtte</string>

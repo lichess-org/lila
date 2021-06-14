@@ -868,4 +868,6 @@
   <string name="welcome">Ongi etorri!</string>
   <string name="lichessPatronInfo">Lichess software librea da.
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
+  <string name="coachManager">Entrenatzaileen kudeatzailea</string>
+  <string name="streamerManager">Zuzenekoen kudeatzailea</string>
 </resources>

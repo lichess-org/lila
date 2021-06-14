@@ -26,8 +26,8 @@
   <string name="youPlayTheBlackPieces">您執黑棋</string>
   <string name="itsYourTurn">輪到你了！</string>
   <string name="cheatDetected">偵測到作弊行為</string>
-  <string name="kingInTheCenter">王居中勝</string>
-  <string name="threeChecks">三次將軍勝</string>
+  <string name="kingInTheCenter">王居中</string>
+  <string name="threeChecks">三次將軍</string>
   <string name="raceFinished">競王結束</string>
   <string name="variantEnding">變體終局</string>
   <string name="newOpponent">換個對手</string>
@@ -36,7 +36,7 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的對手已經離開了遊戲。你將在 %s 秒後獲勝。</item>
+    <item quantity="other">您的對手已經離開了遊戲。您將在 %s 秒後獲勝。</item>
   </plurals>
   <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
@@ -97,18 +97,18 @@
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
   <string name="allSet">一切就緒！</string>
-  <string name="importPgn">匯入PGN</string>
+  <string name="importPgn">匯入 PGN</string>
   <string name="delete">刪除</string>
-  <string name="deleteThisImportedGame">刪除這局匯入的棋局?</string>
+  <string name="deleteThisImportedGame">刪除此匯入的棋局？</string>
   <string name="replayMode">重播模式</string>
-  <string name="realtimeReplay">根據真實時間重播</string>
-  <string name="byCPL">以CPL重播</string>
+  <string name="realtimeReplay">實時</string>
+  <string name="byCPL">CPL</string>
   <string name="openStudy">打開研究視窗</string>
   <string name="enable">開啟</string>
   <string name="bestMoveArrow">最佳移動的箭頭</string>
   <string name="evaluationGauge">棋力估計表</string>
   <string name="multipleLines">路線分析線</string>
-  <string name="cpus">CPU數</string>
+  <string name="cpus">CPU</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
@@ -816,4 +816,5 @@
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="download">下載</string>
+  <string name="welcome">歡迎！</string>
 </resources>

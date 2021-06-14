@@ -31,7 +31,7 @@
   <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
 Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
 Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
-  <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
+  <string name="twitchUsername">Din Twitch-Benutzernamä oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
@@ -50,8 +50,8 @@ Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.<
   <string name="deletePicture">Lösche ein Bild</string>
   <string name="maxSize">Maximale Größe: %s</string>
   <string name="installBlocker">Inschtalliär än Malware-Blocker!</string>
-  <string name="beSafe">Schütze dich vor Werbung und Trackern,
-die Twitch und YouTube befallen.
-Lichess empfiehlt uBlock Origin,
-was kostenlos und quelloffen ist.</string>
+  <string name="beSafe">Schütz dich vor Wärbig und Trackern,
+wo Twitch und YouTube befalläd.
+Lichess empfillt uBlock Origin,
+wo choschtälos und quälloffä isch.</string>
 </resources>

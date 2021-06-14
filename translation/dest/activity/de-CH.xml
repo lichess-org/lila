@@ -7,8 +7,8 @@
     <item quantity="other">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Hät %1$s Stellig bei %2$s güebt</item>
-    <item quantity="other">Hat %1$s Stellungen bei %2$s geübt</item>
+    <item quantity="one">Hät %1$s Schtellig bi %2$s güäbt</item>
+    <item quantity="other">Hät %1$s Schtelligä bi %2$s güäbt</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Hät %s Taktikufgoob glöst</item>
@@ -35,8 +35,8 @@
     <item quantity="other">Hat %s Fernschachpartien gespielt</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">Folgät %s Schpiller</item>
-    <item quantity="other">Folgät %s Schpiller</item>
+    <item quantity="one">Folgät %s Schpiller/-in</item>
+    <item quantity="other">Folgät %s Schpiller/-innä</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="one">Hat %s neuen Follower</item>

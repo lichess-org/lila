@@ -35,8 +35,8 @@
   <string name="kick">踢出</string>
   <string name="leaveTheStudy">退出研究</string>
   <string name="youAreNowAContributor">你現在是一位研究者了</string>
-  <string name="youAreNowASpectator">你現在是一位旁觀者了</string>
-  <string name="pgnTags">PGN標籤</string>
+  <string name="youAreNowASpectator">你現在是旁觀者了</string>
+  <string name="pgnTags">PGN 標籤</string>
   <string name="like">喜歡</string>
   <string name="newTag">新標籤</string>
   <string name="commentThisPosition">對於目前局面的評論</string>
@@ -48,13 +48,13 @@
   <string name="makeSureTheChapterIsComplete">確認此章節已完成，您只能要求分析一次</string>
   <string name="allSyncMembersRemainOnTheSamePosition">所有的SYNC成員處於相同局面</string>
   <string name="playing">下棋中</string>
-  <string name="first">第一個</string>
-  <string name="previous">上一個</string>
-  <string name="next">下一個</string>
-  <string name="last">最後一個</string>
+  <string name="first">第一頁</string>
+  <string name="previous">上一頁</string>
+  <string name="next">下一頁</string>
+  <string name="last">最後一頁</string>
   <string name="shareAndExport">分享 &amp; 導出</string>
   <string name="cloneStudy">複製</string>
-  <string name="studyPgn">研究PGN</string>
+  <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下載所有棋局</string>
   <string name="chapterPgn">章節PGN</string>
   <string name="downloadGame">下載棋局</string>
@@ -116,4 +116,19 @@
   <string name="clearChat">清空對話紀錄</string>
   <string name="deleteTheStudyChatHistory">確定要清空課程對話紀錄嗎？此操作無法還原！</string>
   <string name="deleteStudy">刪除此研究</string>
+  <string name="goodMove">好棋</string>
+  <string name="mistake">失誤</string>
+  <string name="blunder">嚴重失誤</string>
+  <string name="equalPosition">勢均力敵</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局勢不明</string>
+  <string name="whiteIsSlightlyBetter">白方稍占優勢</string>
+  <string name="blackIsSlightlyBetter">黑方稍占優勢</string>
+  <string name="whiteIsBetter">白方占優勢</string>
+  <string name="blackIsBetter">黑方占優勢</string>
+  <string name="whiteIsWinning">白方要取得勝利了</string>
+  <string name="blackIsWinning">黑方要取得勝利了</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻擊</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反擊</string>
+  <string name="nextChapter">下一章</string>
+  <string name="prevChapter">上一章</string>
 </resources>

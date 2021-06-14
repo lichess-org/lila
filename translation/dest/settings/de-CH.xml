@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="settings">Yschtelligä</string>
+  <string name="settings">Iischtelligä</string>
   <string name="closeAccount">Benutzerkonto gschlüssä</string>
   <string name="closingIsDefinitive">D\'Kontoschlüssig isch endgültig. Es git kas Zrugg imfall. Bisch sicher?</string>
-  <string name="cantOpenSimilarAccount">Du dörfsch kas neus Benutzerkonto mitem glychä Namä eröffnä, selbscht wenn d\'Gross-/Chlyschrybig underschiedlich isch.</string>
+  <string name="cantOpenSimilarAccount">Du dörfsch kas neus Benutzerkonto mitem gliichä Namä eröffnä, selbscht wänn d\'Gross-/Chliischriibig underschidlich isch.</string>
   <string name="changedMindDoNotCloseAccount">Ich ha mini Meinig gändert, mis Benutzerkonto doch nöd schlüssä</string>
-  <string name="closeAccountExplanation">Bischder sicher, dass du dis Benutzerkonto gschlüsse wöttsch? Das isch en endgültigi Entscheidig. Du wirsch NIE me ide Lag si, dich JEMOLS wieder yzloggä.</string>
+  <string name="closeAccountExplanation">Bischder sicher, dass du dis Benutzerkonto gschlüsse wöttsch? Das isch en endgültigi Entscheidig. Du wirsch NIE me ide Lag si, dich JEMOLS wieder iizloggä.</string>
   <string name="thisAccountIsClosed">Das Benutzerkonto isch gschlossä.</string>
 </resources>

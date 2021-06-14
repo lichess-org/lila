@@ -36,6 +36,10 @@ Se a túa transmisión está en inglés, non hai necesidade de incluir unha etiq
   <string name="optionalOrEmpty">Opcional. Baleiro se non tes</string>
   <string name="youtubeChannel">A túa canle de Youtube ou URL</string>
   <string name="streamerName">O teu nome de streamer en Lichess</string>
+  <plurals name="keepItShort">
+    <item quantity="one">Sé breve: máximo %s carácter</item>
+    <item quantity="other">Sé breve: máximo %s caracteres</item>
+  </plurals>
   <string name="visibility">Visible na páxina de streamers</string>
   <string name="whenApproved">Cando sexa aprobado polos moderadores/as</string>
   <string name="headline">Titular</string>

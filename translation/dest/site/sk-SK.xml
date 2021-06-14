@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Hráte za bieleho</string>
   <string name="youPlayTheBlackPieces">Hráte za čierneho</string>
   <string name="itsYourTurn">Ste na ťahu!</string>
+  <string name="cheatDetected">Bolo zaznamenané podvádzanie</string>
   <string name="kingInTheCenter">Kráľ v strede</string>
   <string name="threeChecks">Tri šachy</string>
   <string name="raceFinished">Preteky ukončené</string>
@@ -509,6 +510,7 @@
   <string name="firstName">Meno</string>
   <string name="lastName">Priezvisko</string>
   <string name="biography">Životopis</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Štát alebo vlajka</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociálne siete</string>
   <string name="inlineNotation">Notácia v riadkoch</string>
@@ -918,4 +920,9 @@
   <string name="youCannotPostYetPlaySomeGames">Nemôžeš prispievať do fóra. Zahraj si nejaké hry!</string>
   <string name="subscribe">Prihlásiť sa k odberu</string>
   <string name="unsubscribe">Odhlásiť sa z odberu</string>
+  <string name="timeAlmostUp">Čas čoskoro vyprší!</string>
+  <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
+  <string name="download">Stiahnuť</string>
+  <string name="welcome">Vitajte!</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Správca streamov</string>
 </resources>

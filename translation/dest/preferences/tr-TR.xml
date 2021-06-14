@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taşı sembolü</string>
-  <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
+  <string name="pgnLetter" comment="pgnLetter&#10;&#10;Please translate using the characters K, Q, R, B and N only. Letters are not currently localised.">Harf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Sade görünüm</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>

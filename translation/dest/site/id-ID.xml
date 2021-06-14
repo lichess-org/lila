@@ -828,4 +828,6 @@
   <string name="welcome">Wilujeng sumping!</string>
   <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
+  <string name="coachManager">Manajer pelatih</string>
+  <string name="streamerManager">Manajer stream</string>
 </resources>

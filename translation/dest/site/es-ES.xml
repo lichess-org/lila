@@ -868,4 +868,6 @@
   <string name="welcome">¡Bienvenidos!</string>
   <string name="lichessPatronInfo">Lichess es una organización benéfica, y un software totalmente libre y de código abierto.
 Todos los costes de funcionamiento, desarrollo y contenidos se financian únicamente mediante las donaciones de los usuarios.</string>
+  <string name="coachManager">Administrador de entrenadores</string>
+  <string name="streamerManager">Administrador de presentadores</string>
 </resources>
