@@ -8,11 +8,12 @@ lichess.load.then(() => {
   $('#trainer').each(function (this: HTMLElement) {
     const $trainer = $(this);
     const $board = $('.coord-trainer__board .cg-wrap');
+    const $coordsSvg = $('.coords-svg');
+    const $coords = $coordsSvg.find('.coord');
     let ground;
     const $side = $('.coord-trainer__side');
     const $right = $('.coord-trainer__table');
     const $bar = $trainer.find('.progress_bar');
-    const $coords = [$('#next_coord0'), $('#next_coord1')];
     const $start = $right.find('.start');
     const $explanation = $right.find('.explanation');
     const $score = $('.coord-trainer__score');
@@ -121,9 +122,7 @@ lichess.load.then(() => {
     centerRight();
 
     const clearCoords = function () {
-      $.each($coords, function (_, e) {
-        e.text('');
-      });
+      $coords.text('');
     };
 
     const newCoord = function (prevCoord) {
@@ -141,15 +140,18 @@ lichess.load.then(() => {
       );
     };
 
+    const currentCoordEl = function () {
+      return $coordsSvg.find('.current-coord');
+    };
+
+    const nextCoordEl = function () {
+      return $coordsSvg.find('.next-coord');
+    };
+
     const advanceCoords = function () {
-      $('#next_coord0').removeClass('nope');
-      const lastElement = $coords.shift()!;
-      $.each($coords, function (i, e) {
-        e.attr('id', 'next_coord' + i);
-      });
-      lastElement.attr('id', 'next_coord' + $coords.length);
-      lastElement.text(newCoord($coords[$coords.length - 1].text()));
-      $coords.push(lastElement);
+      $coords.toggleClass('current-coord').toggleClass('next-coord');
+      const currentCoordValue = currentCoordEl().text();
+      nextCoordEl().text(newCoord(currentCoordValue));
     };
 
     const stop = function () {
@@ -204,7 +206,7 @@ lichess.load.then(() => {
         ground.set({
           events: {
             select(key) {
-              const hit = key == $coords[0].text();
+              const hit = key == currentCoordEl().text();
               if (hit) {
                 score++;
                 $score.text(score);
@@ -220,9 +222,10 @@ lichess.load.then(() => {
             },
           },
         });
-        $coords[0].text(newCoord('a1'));
-        let i;
-        for (i = 1; i < $coords.length; i++) $coords[i].text(newCoord($coords[i - 1].text()));
+
+        const initialCoordValue = newCoord('a1');
+        currentCoordEl().text(initialCoordValue);
+        nextCoordEl().text(newCoord(initialCoordValue));
         tick();
       }, 1000);
     });
