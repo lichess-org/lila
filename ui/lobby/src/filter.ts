@@ -33,9 +33,10 @@ export default class Filter {
     };
   };
 
-  save = (form: HTMLFormElement) => {
-    const lines = toFormLines(form);
-    this.store.set(lines);
+  save = (form: HTMLFormElement | null) => {
+    const lines = form && toFormLines(form);
+    if (lines) this.store.set(lines);
+    else this.store.remove();
     this.set(lines);
     this.root.onSetFilter();
   };

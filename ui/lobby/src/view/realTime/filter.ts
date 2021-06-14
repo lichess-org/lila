@@ -27,7 +27,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     .find('form')
     .on('reset', (e: Event) => {
       e.preventDefault();
-      ctrl.filter.set(null);
+      ctrl.filter.save(null);
       ctrl.filter.open = false;
       ctrl.redraw();
     })
