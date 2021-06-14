@@ -63,6 +63,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
 
   .sub:last-child {
     margin-bottom: -7px;
+    overflow: hidden;
   }
 
   .sub > div {

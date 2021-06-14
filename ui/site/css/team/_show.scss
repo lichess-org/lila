@@ -12,6 +12,7 @@ $section-margin-more: 5vh;
 
   h1 {
     @extend %break-word-hard;
+    overflow: hidden;
   }
 
   .mchat {
@@ -87,6 +88,7 @@ $section-margin-more: 5vh;
     background: $c-bg-high;
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
+    overflow: hidden;
   }
 
   &__members {
@@ -163,16 +165,19 @@ $section-margin-more: 5vh;
       @extend %flex-between;
 
       margin-bottom: 0.5rem;
+      overflow: hidden;
     }
 
     p {
       color: $c-font-dim;
+      overflow: hidden;
     }
 
     a.more {
       display: block;
       text-align: right;
       margin: 10px 10px 0 0;
+      overflow: hidden;
     }
   }
 
