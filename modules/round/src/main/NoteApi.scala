@@ -1,12 +1,14 @@
 package lila.round
 
+import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
+
 import lila.db.dsl._
 import lila.game.Game
-import reactivemongo.api.bson._
 
 final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def collName = coll.name
+  def collName  = coll.name
   val noteField = "t"
 
   def get(gameId: Game.ID, userId: String): Fu[String] =
@@ -23,11 +25,11 @@ final class NoteApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) 
   }.void
 
   def byGameIds(gameIds: Seq[Game.ID], userId: String): Fu[Map[Game.ID, String]] =
-    coll.byIds(gameIds.map(makeId(_, userId))) map { docs =>
+    coll.byIds(gameIds.map(makeId(_, userId)), ReadPreference.secondaryPreferred) map { docs =>
       (for {
-        doc <- docs
+        doc    <- docs
         noteId <- doc.getAsOpt[String]("_id")
-        note <- doc.getAsOpt[String](noteField)
+        note   <- doc.getAsOpt[String](noteField)
       } yield (noteId take Game.gameIdSize, note)).toMap
     }
 
