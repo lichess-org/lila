@@ -27,7 +27,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     },
     [
       h('a.close', {
-        attrs: dataIcon('L'),
+        attrs: dataIcon(''),
         hook: bind('click', () => ctrl.showPlayerInfo(data), ctrl.redraw),
       }),
       h('div.stats', [

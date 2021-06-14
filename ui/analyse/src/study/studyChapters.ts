@@ -150,9 +150,9 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
-            chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon('J'), title: 'Ongoing' } }) : null,
+            chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } }) : null,
             !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('i.act', { attrs: dataIcon('%') }) : null,
+            canContribute ? h('i.act', { attrs: dataIcon('') }) : null,
           ]
         );
       })
@@ -164,7 +164,7 @@ export function view(ctrl: StudyCtrl): VNode {
                 {
                   hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw),
                 },
-                [h('span', iconTag('O')), h('h3', ctrl.trans.noarg('addNewChapter'))]
+                [h('span', iconTag('')), h('h3', ctrl.trans.noarg('addNewChapter'))]
               ),
             ]
           : []

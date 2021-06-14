@@ -44,7 +44,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           'button.rematch-decline',
           {
             attrs: {
-              'data-icon': 'L',
+              'data-icon': '',
               title: noarg('decline'),
             },
             hook: util.bind('click', () => ctrl.socket.send('rematch-no')),
@@ -136,14 +136,14 @@ export function opponentGone(ctrl: RoundController) {
 
 const fbtCancel = (ctrl: RoundController, f: (v: boolean) => void) =>
   h('button.fbt.no', {
-    attrs: { title: ctrl.noarg('cancel'), 'data-icon': 'L' },
+    attrs: { title: ctrl.noarg('cancel'), 'data-icon': '' },
     hook: util.bind('click', () => f(false)),
   });
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
     h('button.fbt.yes', {
-      attrs: { title: ctrl.noarg('resign'), 'data-icon': 'b' },
+      attrs: { title: ctrl.noarg('resign'), 'data-icon': '' },
       hook: util.bind('click', () => ctrl.resign(true)),
     }),
     fbtCancel(ctrl, ctrl.resign),
@@ -224,7 +224,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void, 
       )
     : h('a.accept', {
         attrs: {
-          'data-icon': 'E',
+          'data-icon': '',
           title: text,
         },
         hook: util.bind('click', action),
@@ -242,7 +242,7 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nK
       )
     : h('a.decline', {
         attrs: {
-          'data-icon': 'L',
+          'data-icon': '',
           title: text,
         },
         hook: util.bind('click', action),
@@ -277,7 +277,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
           'a.text.fbt.strong.glowing',
           {
             attrs: {
-              'data-icon': 'G',
+              'data-icon': '',
               href: '/tournament/' + d.tournament.id,
             },
             hook: util.bind('click', ctrl.setRedirecting),
@@ -292,7 +292,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
               action: '/tournament/' + d.tournament.id + '/withdraw',
             },
           },
-          [h('button.text.fbt.weak', util.justIcon('Z'), 'Pause')]
+          [h('button.text.fbt.weak', util.justIcon(''), 'Pause')]
         ),
         analysisButton(ctrl),
       ])
@@ -307,7 +307,7 @@ export function backToSwiss(ctrl: RoundController): VNode | undefined {
           'a.text.fbt.strong.glowing',
           {
             attrs: {
-              'data-icon': 'G',
+              'data-icon': '',
               href: '/swiss/' + d.swiss.id,
             },
             hook: util.bind('click', ctrl.setRedirecting),
@@ -324,7 +324,7 @@ export function moretime(ctrl: RoundController) {
     ? h('a.moretime', {
         attrs: {
           title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) : ctrl.noarg('giveMoreTime'),
-          'data-icon': 'O',
+          'data-icon': '',
         },
         hook: util.bind('click', ctrl.socket.moreTime),
       })

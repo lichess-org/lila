@@ -37,7 +37,7 @@ fetch($button.data('action'), {method:'post'})
             cls := "report-block button",
             st.title := trans.block.txt()
           )(
-            span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId))
+            span(cls := "text", dataIcon := "")("Block ", usernameOrId(userId))
           )
         ),
         br,

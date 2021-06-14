@@ -39,7 +39,7 @@ object dev {
                     })
                   )
               },
-              submitButton(cls := "button button-empty", dataIcon := "E")
+              submitButton(cls := "button button-empty", dataIcon := "")
             )
           }
         )

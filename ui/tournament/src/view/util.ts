@@ -45,7 +45,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender = false
     [
       h(
         'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
-        defender ? { attrs: dataIcon('5') } : leader ? { attrs: dataIcon('8') } : {},
+        defender ? { attrs: dataIcon('') } : leader ? { attrs: dataIcon('') } : {},
         playerName(p)
       ),
       withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,

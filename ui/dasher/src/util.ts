@@ -40,7 +40,7 @@ export function header(name: string, close: Close) {
   return h(
     'a.head.text',
     {
-      attrs: { 'data-icon': 'I' },
+      attrs: { 'data-icon': '' },
       hook: bind('click', close),
     },
     name

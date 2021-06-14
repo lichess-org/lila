@@ -13,7 +13,7 @@ export function withdraw(ctrl: TournamentController): VNode {
     return h(
       'button.fbt.text',
       {
-        attrs: dataIcon(pause ? 'Z' : 'b'),
+        attrs: dataIcon(pause ? '' : ''),
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
       ctrl.trans.noarg(pause ? 'pause' : 'withdraw')
@@ -30,7 +30,7 @@ export function join(ctrl: TournamentController): VNode {
       {
         attrs: {
           disabled: !joinable,
-          'data-icon': 'G',
+          'data-icon': '',
         },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
@@ -74,7 +74,7 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
       {
         attrs: {
           href: '/login?referrer=' + window.location.pathname,
-          'data-icon': 'G',
+          'data-icon': '',
         },
       },
       ctrl.trans('signIn')

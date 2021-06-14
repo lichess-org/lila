@@ -28,7 +28,7 @@ object home {
             )
           ),
           div(cls := "team")(
-            iconTag("f"),
+            iconTag(""),
             p(
               "Swiss tournaments can only be created by team leaders, and can only be played by team members.",
               br,
@@ -72,7 +72,7 @@ object home {
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := "r")(s.nbPlayers.localize)
+              span(cls := "players text", dataIcon := "")(s.nbPlayers.localize)
             )
           )
         }

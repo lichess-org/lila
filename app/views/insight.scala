@@ -66,7 +66,7 @@ object insight {
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
+        h1(cls := "text", dataIcon := "")(u.username, " chess insights"),
         p(userLink(u), " has no chess insights yet!"),
         refreshForm(u, s"Generate ${u.username}'s chess insights")
       )
@@ -88,7 +88,7 @@ object insight {
 
   def refreshForm(u: User, action: String) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
-      button(dataIcon := "E", cls := "button text")(action),
+      button(dataIcon := "", cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,
         br,

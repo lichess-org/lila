@@ -42,7 +42,7 @@ object form {
             fields.isTeamBattle option form3.hidden(form("teamBattleByTeam")),
             form3.actions(
               a(href := routes.Tournament.home)(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = "g".some)
+              form3.submit(trans.createANewTournament(), icon = "".some)
             )
           )
         ),
@@ -81,11 +81,11 @@ object form {
             ),
             form3.actions(
               a(href := routes.Tournament.show(tour.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = "g".some)
+              form3.submit(trans.save(), icon = "".some)
             )
           ),
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
-            submitButton(dataIcon := "j", cls := "text button button-red confirm")(
+            submitButton(dataIcon := "", cls := "text button button-red confirm")(
               "Cancel the tournament"
             )
           )
@@ -296,7 +296,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       legend(trans.advancedSettings()),
       errMsg(form("conditions")),
       p(
-        strong(dataIcon := "!", cls := "text")(trans.recommendNotTouching()),
+        strong(dataIcon := "", cls := "text")(trans.recommendNotTouching()),
         " ",
         trans.fewerPlayers(),
         " ",

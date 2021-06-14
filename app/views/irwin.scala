@@ -116,7 +116,7 @@ object irwin {
                       link = false
                     ),
                     br,
-                    pov.game.isTournament ?? frag(iconTag("g"), " "),
+                    pov.game.isTournament ?? frag(iconTag(""), " "),
                     pov.game.perfType.map { pt =>
                       iconTag(pt.iconChar)
                     },

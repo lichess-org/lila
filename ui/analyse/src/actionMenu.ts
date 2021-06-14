@@ -53,7 +53,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
           {
             attrs: {
               type: 'submit',
-              'data-icon': 'q',
+              'data-icon': '',
             },
           },
           ctrl.trans.noarg('delete')
@@ -115,7 +115,7 @@ function studyButton(ctrl: AnalyseCtrl) {
           href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
           target: '_blank',
           rel: 'noopener',
-          'data-icon': '4',
+          'data-icon': '',
         },
       },
       ctrl.trans.noarg('openStudy')
@@ -143,7 +143,7 @@ function studyButton(ctrl: AnalyseCtrl) {
         {
           attrs: {
             type: 'submit',
-            'data-icon': '4',
+            'data-icon': '',
           },
         },
         ctrl.trans.noarg('toStudy')
@@ -172,7 +172,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         'a.button.button-empty',
         {
           hook: bind('click', ctrl.flip),
-          attrs: dataIcon('B'),
+          attrs: dataIcon(''),
         },
         noarg('flipBoard')
       ),
@@ -183,7 +183,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             {
               attrs: {
                 href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
-                'data-icon': 'm',
+                'data-icon': '',
                 ...(ctrl.embed
                   ? {
                       target: '_blank',
@@ -201,7 +201,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             'a.button.button-empty',
             {
               hook: bind('click', _ => modal($('.continue-with.g_' + d.game.id))),
-              attrs: dataIcon('U'),
+              attrs: dataIcon(''),
             },
             noarg('continueFromHere')
           )

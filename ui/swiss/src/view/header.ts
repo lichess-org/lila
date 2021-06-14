@@ -42,7 +42,7 @@ function ongoing(ctrl: SwissCtrl): VNode | undefined {
 export default function (ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
-    h('i.img', dataIcon('g')),
+    h('i.img', dataIcon('')),
     h(
       'h1',
       greatPlayer

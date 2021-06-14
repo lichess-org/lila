@@ -181,7 +181,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             h(
               'a.text',
               {
-                attrs: dataIcon('v'),
+                attrs: dataIcon(''),
                 hook: bind('click', _ => openGame(ctrl, game.id)),
               },
               'View'
@@ -191,7 +191,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                   h(
                     'a.text',
                     {
-                      attrs: dataIcon('c'),
+                      attrs: dataIcon(''),
                       hook: bind('click', _ => send(false), ctrl.redraw),
                     },
                     'Cite'
@@ -199,7 +199,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
                   h(
                     'a.text',
                     {
-                      attrs: dataIcon('O'),
+                      attrs: dataIcon(''),
                       hook: bind('click', _ => send(true), ctrl.redraw),
                     },
                     'Insert'
@@ -209,7 +209,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
             h(
               'a.text',
               {
-                attrs: dataIcon('L'),
+                attrs: dataIcon(''),
                 hook: bind('click', _ => ctrl.explorer.gameMenu(null), ctrl.redraw),
               },
               'Close'
@@ -286,7 +286,7 @@ function closeButton(ctrl: AnalyseCtrl): VNode {
   return h(
     'button.button.button-empty.text',
     {
-      attrs: dataIcon('L'),
+      attrs: dataIcon(''),
       hook: bind('click', ctrl.toggleExplorer, ctrl.redraw),
     },
     ctrl.trans.noarg('close')
@@ -467,7 +467,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       !content || explorer.failing()
         ? null
         : h('span.toconf', {
-            attrs: dataIcon(configOpened ? 'L' : '%'),
+            attrs: dataIcon(configOpened ? '' : ''),
             hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
           }),
     ]

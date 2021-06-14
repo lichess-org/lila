@@ -86,7 +86,7 @@ object layout {
 
   private def zenToggle(implicit ctx: Context) =
     spaceless(s"""
-  <a data-icon="E" id="zentog" class="text fbt active">
+  <a data-icon="" id="zentog" class="text fbt active">
     ${trans.preferences.zenMode.txt()}
   </a>""")
 
@@ -100,7 +100,7 @@ object layout {
     spaceless(s"""<div>
   <a id="challenge-toggle" class="toggle link">
     <span title="${trans.challenge.challenges
-      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon="U"></span>
+      .txt()}" class="data-count" data-count="${ctx.nbChallenges}" data-icon=""></span>
   </a>
   <div id="challenge-app" class="dropdown"></div>
 </div>
@@ -115,14 +115,14 @@ object layout {
   private def anonDasher(playing: Boolean)(implicit ctx: Context) =
     spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${trans.preferences.preferences.txt()}" data-icon="%"></span>
+    <span title="${trans.preferences.preferences.txt()}" data-icon=""></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
 <a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn
       .txt()}</a>""")
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := "y"))
+  private val clinputLink = a(cls := "link")(span(dataIcon := ""))
 
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
@@ -289,12 +289,12 @@ object layout {
             id := "friend_box",
             dataI18n := safeJsonValue(i18nJsObject(i18nKeys))
           )(
-            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
+            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(""))),
             div(cls := "content_wrap none")(
               div(cls := "content list")
             )
           ),
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
+          a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
           loadScripts(moreJs, chessground)
         )
       )
@@ -341,7 +341,7 @@ object layout {
           cls := "link data-count link-center",
           href := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon := "f",
+          dataIcon := "",
           title := trans.team.teams.txt()
         )
 

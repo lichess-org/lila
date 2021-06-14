@@ -49,7 +49,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         canDelete && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
-                'data-icon': 'q',
+                'data-icon': '',
                 title: 'Delete',
               },
               hook: bind(
@@ -65,7 +65,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         isMine && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
-                'data-icon': 'm',
+                'data-icon': '',
                 title: 'Edit',
               },
               hook: bind(

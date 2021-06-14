@@ -64,7 +64,7 @@ object edit {
               a(
                 href := routes.Coach.show(c.user.username),
                 cls := "button button-empty text",
-                dataIcon := "v"
+                dataIcon := ""
               )("Preview coach page")
             )
           )
@@ -182,14 +182,14 @@ object edit {
                   ),
                   div(cls := "actions btn-rack")(
                     r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := "E"),
-                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "L")
+                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := ""),
+                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "")
                   )
                 )
               }
             )
           ),
-          div(cls := "status text", dataIcon := "E")("Your changes have been saved.")
+          div(cls := "status text", dataIcon := "")("Your changes have been saved.")
         )
       )
     )

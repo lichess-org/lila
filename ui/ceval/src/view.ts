@@ -38,7 +38,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
       h('a.deeper', {
         attrs: {
           title: trans.noarg('goDeeper'),
-          'data-icon': 'O',
+          'data-icon': '',
         },
         hook: {
           insert: vnode =>
@@ -68,7 +68,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
       hidden: !!ctrl.getNode().check,
     },
     attrs: {
-      'data-icon': '7',
+      'data-icon': '',
       title: ctrl.trans.noarg('showThreat') + ' (x)',
     },
     hook: {

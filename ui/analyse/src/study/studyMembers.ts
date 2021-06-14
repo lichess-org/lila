@@ -201,14 +201,14 @@ export function view(ctrl: StudyCtrl): VNode {
         },
         attrs: { title: ctrl.trans.noarg(contrib ? 'contributor' : 'spectator') },
       },
-      [iconTag(contrib ? 'r' : 'v')]
+      [iconTag(contrib ? '' : '')]
     );
   }
 
   function configButton(ctrl: StudyCtrl, member: StudyMember) {
     if (isOwner && (member.user.id !== members.myId || ctrl.data.admin))
       return h('i.act', {
-        attrs: dataIcon('%'),
+        attrs: dataIcon(''),
         hook: bind(
           'click',
           _ => {
@@ -221,7 +221,7 @@ export function view(ctrl: StudyCtrl): VNode {
     if (!isOwner && member.user.id === members.myId)
       return h('i.act.leave', {
         attrs: {
-          'data-icon': 'F',
+          'data-icon': '',
           title: ctrl.trans.noarg('leaveTheStudy'),
         },
         hook: bind('click', members.leave, ctrl.redraw),
@@ -263,7 +263,7 @@ export function view(ctrl: StudyCtrl): VNode {
           h(
             'a.button.button-red.button-empty.text',
             {
-              attrs: dataIcon('L'),
+              attrs: dataIcon(''),
               hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw),
             },
             ctrl.trans.noarg('kick')
@@ -304,7 +304,7 @@ export function view(ctrl: StudyCtrl): VNode {
               key: 'add',
               hook: bind('click', members.inviteForm.toggle, ctrl.redraw),
             },
-            [h('div.left', [h('span.status', iconTag('O')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
+            [h('div.left', [h('span.status', iconTag('')), h('div.user-link', ctrl.trans.noarg('addMembers'))])]
           )
         : null,
       !members.canContribute() && ctrl.data.admin

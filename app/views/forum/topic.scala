@@ -23,11 +23,11 @@ object topic {
     ) {
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         h1(
-          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "I", cls := "text"),
+          a(href := routes.ForumCateg.show(categ.slug), dataIcon := "", cls := "text"),
           categ.name
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := "!", cls := "text")(trans.important()),
+          h2(dataIcon := "", cls := "text")(trans.important()),
           p(
             trans.yourQuestionMayHaveBeenAnswered(
               strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
@@ -100,7 +100,7 @@ object topic {
         h1(
           a(
             href := routes.ForumCateg.show(categ.slug),
-            dataIcon := "I",
+            dataIcon := "",
             cls := "text"
           ),
           topic.name
@@ -142,10 +142,10 @@ object topic {
                 cls := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")(
+                button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
                   trans.subscribe()
                 ),
-                button(cls := "button button-empty text off", dataIcon := "v", bits.dataUnsub := "on")(
+                button(cls := "button button-empty text off", dataIcon := "", bits.dataUnsub := "on")(
                   trans.unsubscribe()
                 )
               )

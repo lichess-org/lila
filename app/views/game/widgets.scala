@@ -60,7 +60,7 @@ object widgets {
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := "U"),
+            div(cls := "swords", dataIcon := ""),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(

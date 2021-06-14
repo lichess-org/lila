@@ -83,7 +83,7 @@
 
 .cmn-toggle:not(:checked) + label {
   &::before {
-    content: 'L';
+    content: '';
     color: $c-bad;
   }
 }
@@ -101,7 +101,7 @@
   }
 
   &::before {
-    content: 'E';
+    content: '';
     color: $c-good;
   }
 }

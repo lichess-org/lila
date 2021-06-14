@@ -16,7 +16,7 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   return h(
     'button.on-my-turn.button.text',
     {
-      attrs: dataIcon('E'),
+      attrs: dataIcon(''),
       hook: bind('click', _ => fctrl.playAndSave(firstNode)),
     },
     [
@@ -61,7 +61,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
             return h(
               'div.entry.text',
               {
-                attrs: dataIcon('G'),
+                attrs: dataIcon(''),
               },
               [
                 h(
@@ -87,7 +87,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
           'button.add.text',
           {
             class: { enabled: isCandidate },
-            attrs: dataIcon(isCandidate ? 'O' : ''),
+            attrs: dataIcon(isCandidate ? '' : ''),
             hook: bind('click', _ => fctrl.addNodes(makeCnodes(ctrl, fctrl)), ctrl.redraw),
           },
           [

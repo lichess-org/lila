@@ -76,13 +76,13 @@ object header {
               cls := "btn-rack__btn",
               href := routes.Account.profile,
               titleOrText(trans.editProfile.txt()),
-              dataIcon := "%"
+              dataIcon := ""
             ),
             a(
               cls := "btn-rack__btn",
               href := routes.Relation.blocks(),
               titleOrText(trans.listBlockedPlayers.txt()),
-              dataIcon := "k"
+              dataIcon := ""
             )
           ),
           isGranted(_.UserModView) option
@@ -96,7 +96,7 @@ object header {
             cls := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.watchGames.txt()),
-            dataIcon := "1"
+            dataIcon := ""
           ),
           (ctx.isAuth && !ctx.is(u)) option
             views.html.relation.actions(
@@ -109,13 +109,13 @@ object header {
             cls := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.exportGames.txt()),
-            dataIcon := "x"
+            dataIcon := ""
           ),
           (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls := "btn-rack__btn",
             href := s"${routes.Report.form}?username=${u.username}",
-            dataIcon := "!"
+            dataIcon := ""
           )
         )
       ),
@@ -164,7 +164,7 @@ object header {
                     submitButton(
                       cls := "button-empty button-red confirm button text",
                       style := "float:right",
-                      dataIcon := "q"
+                      dataIcon := ""
                     )("Delete")
                   )
                 )
@@ -188,7 +188,7 @@ object header {
               div(cls := "user-infos")(
                 !ctx.is(u) option frag(
                   u.lame option div(cls := "warning tos_warning")(
-                    span(dataIcon := "j", cls := "is4"),
+                    span(dataIcon := "", cls := "is4"),
                     trans.thisAccountViolatedTos()
                   )
                 ),
@@ -249,7 +249,7 @@ object header {
                 )
               ),
               info.insightVisible option
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "7")(
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := "")(
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if (ctx.is(u)) "your" else s"${u.username}'s", " games")

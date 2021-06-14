@@ -9,7 +9,7 @@ module.exports = function (ctrl) {
         'a',
         {
           class: 'preset text' + (active ? ' active' : ''),
-          'data-icon': '7',
+          'data-icon': '',
           onclick: function () {
             ctrl.setQuestion(p);
           },

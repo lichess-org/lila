@@ -16,12 +16,12 @@
   @extend %data-icon;
 
   margin-right: 0.2em;
-  content: 'N';
+  content: '';
 }
 
 bad.rp {
   &::before {
-    content: 'M';
+    content: '';
   }
 }
 

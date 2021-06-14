@@ -45,20 +45,20 @@ object mini {
         frag(
           (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
             a(
-              dataIcon := "1",
+              dataIcon := "",
               cls := "btn-rack__btn",
               title := trans.watchGames.txt(),
               href := routes.User.tv(u.username)
             ),
             !blocked option frag(
               a(
-                dataIcon := "c",
+                dataIcon := "",
                 cls := "btn-rack__btn",
                 title := trans.chat.txt(),
                 href := routes.Msg.convo(u.username)
               ),
               a(
-                dataIcon := "U",
+                dataIcon := "",
                 cls := "btn-rack__btn",
                 title := trans.challenge.challengeToPlay.txt(),
                 href := s"${routes.Lobby.home}?user=${u.username}#friend"

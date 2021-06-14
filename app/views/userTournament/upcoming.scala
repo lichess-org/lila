@@ -33,7 +33,7 @@ object upcoming {
                   td(cls := "icon")(iconTag(tournamentIconChar(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := "")(t.nbPlayers.localize)
                 )
               }
             )

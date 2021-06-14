@@ -17,7 +17,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
       h('div.msg-app__convo__head', [
         h('div.msg-app__convo__head__left', [
           h('span.msg-app__convo__head__back', {
-            attrs: { 'data-icon': 'I' },
+            attrs: { 'data-icon': '' },
             hook: bindMobileMousedown(ctrl.showSide),
           }),
           h(
@@ -40,7 +40,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           ? h(
               'div.msg-app__convo__reply__block.text',
               {
-                attrs: { 'data-icon': 'k' },
+                attrs: { 'data-icon': '' },
               },
               'This conversation is blocked.'
             )
@@ -49,7 +49,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           : h(
               'div.msg-app__convo__reply__block.text',
               {
-                attrs: { 'data-icon': 'k' },
+                attrs: { 'data-icon': '' },
               },
               `${user.name} doesn't accept new messages.`
             ),

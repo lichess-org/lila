@@ -39,7 +39,7 @@ object side {
               a(href := routes.Swiss.home)("Swiss"),
               (isGranted(_.ManageTournament) || (ctx.userId.has(s.createdBy) && !s.isFinished)) option frag(
                 " ",
-                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag("%"))
+                a(href := routes.Swiss.edit(s.id.value), title := "Edit tournament")(iconTag(""))
               )
             ),
             bits.showInterval(s)
@@ -64,8 +64,8 @@ object side {
         teamLink(s.teamId),
         if (verdicts.relevant)
           st.section(
-            dataIcon := (if (ctx.isAuth && verdicts.accepted) "E"
-                         else "L"),
+            dataIcon := (if (ctx.isAuth && verdicts.accepted) ""
+                         else ""),
             cls := List(
               "conditions" -> true,
               "accepted"   -> (ctx.isAuth && verdicts.accepted),

@@ -43,5 +43,5 @@ object navTree {
   private def makeLink(id: String) = href := s"#help-$id"
 
   private def goBack(parent: Node): Frag =
-    a(makeLink(parent.id), cls := "back", dataIcon := "I", title := "Go back")
+    a(makeLink(parent.id), cls := "back", dataIcon := "", title := "Go back")
 }

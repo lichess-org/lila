@@ -41,7 +41,7 @@ object embed {
           a(
             targetBlank,
             cls := "open",
-            dataIcon := "=",
+            dataIcon := "",
             href := url,
             title := trans.study.open.txt()
           )

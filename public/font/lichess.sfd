@@ -80,10 +80,10 @@ GaspTable: 1 65535 2 0
 Encoding: Custom
 UnicodeInterp: none
 NameList: AGL For New Fonts
-DisplaySize: -48
+DisplaySize: -96
 AntiAlias: 1
 FitToEm: 0
-WinInfo: 0 19 16
+WinInfo: 0 26 11
 Grid
 -512 468.027770996 m 0
  1024 468.027770996 l 1024
@@ -91,7 +91,7 @@ EndSplineSet
 BeginChars: 112 112
 
 StartChar: uniE020
-Encoding: 110 57376 0
+Encoding: 110 57363 0
 GlifName: uniE_020
 Width: 512
 GlyphClass: 2
@@ -121,7 +121,7 @@ Validated: 33
 EndChar
 
 StartChar: fontawesome-webfont-40
-Encoding: 0 33 1
+Encoding: 0 57365 1
 GlifName: fontawesome-webfont-40
 Width: 512
 GlyphClass: 2
@@ -174,7 +174,7 @@ Validated: 545
 EndChar
 
 StartChar: link
-Encoding: 1 34 2
+Encoding: 1 57366 2
 GlifName: link
 Width: 512
 GlyphClass: 2
@@ -232,7 +232,7 @@ Validated: 33
 EndChar
 
 StartChar: rabbit
-Encoding: 2 35 3
+Encoding: 2 57367 3
 GlifName: rabbit
 Width: 512
 GlyphClass: 2
@@ -334,7 +334,7 @@ Validated: 33
 EndChar
 
 StartChar: share-alt
-Encoding: 3 36 4
+Encoding: 3 57368 4
 GlifName: share-alt
 Width: 512
 GlyphClass: 2
@@ -376,7 +376,7 @@ Validated: 513
 EndChar
 
 StartChar: gear
-Encoding: 4 37 5
+Encoding: 4 57369 5
 GlifName: gear
 Width: 512
 GlyphClass: 2
@@ -439,7 +439,7 @@ Validated: 1
 EndChar
 
 StartChar: repo
-Encoding: 5 38 6
+Encoding: 5 57370 6
 GlifName: repo
 Width: 512
 GlyphClass: 2
@@ -508,7 +508,7 @@ Validated: 9
 EndChar
 
 StartChar: die-six
-Encoding: 6 39 7
+Encoding: 6 57371 7
 GlifName: die-six
 Width: 512
 GlyphClass: 2
@@ -588,7 +588,7 @@ Validated: 521
 EndChar
 
 StartChar: flag
-Encoding: 7 40 8
+Encoding: 7 57372 8
 GlifName: flag
 Width: 512
 GlyphClass: 2
@@ -622,7 +622,7 @@ Validated: 33
 EndChar
 
 StartChar: flame
-Encoding: 8 41 9
+Encoding: 8 57373 9
 GlifName: flame
 Width: 512
 GlyphClass: 2
@@ -665,7 +665,7 @@ Validated: 41
 EndChar
 
 StartChar: feather
-Encoding: 9 42 10
+Encoding: 9 57374 10
 GlifName: feather
 Width: 512
 GlyphClass: 2
@@ -714,7 +714,7 @@ Validated: 33
 EndChar
 
 StartChar: turtle
-Encoding: 10 43 11
+Encoding: 10 57375 11
 GlifName: turtle
 Width: 512
 GlyphClass: 2
@@ -797,7 +797,7 @@ Validated: 41
 EndChar
 
 StartChar: nuclear
-Encoding: 11 44 12
+Encoding: 11 57376 12
 GlifName: nuclear
 Width: 512
 GlyphClass: 2
@@ -1086,7 +1086,7 @@ EndSplineSet
 EndChar
 
 StartChar: arrow-streamline-target
-Encoding: 12 45 13
+Encoding: 12 57377 13
 GlifName: arrow-streamline-target
 Width: 512
 GlyphClass: 2
@@ -1210,7 +1210,7 @@ Validated: 553
 EndChar
 
 StartChar: buffer
-Encoding: 13 46 14
+Encoding: 13 57378 14
 GlifName: buffer
 Width: 512
 GlyphClass: 2
@@ -1270,7 +1270,7 @@ Validated: 1
 EndChar
 
 StartChar: upload-cloud
-Encoding: 14 47 15
+Encoding: 14 57379 15
 GlifName: upload-cloud
 Width: 512
 GlyphClass: 2
@@ -1308,7 +1308,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-42
-Encoding: 15 48 16
+Encoding: 15 57380 16
 GlifName: fontawesome-webfont-42
 Width: 512
 GlyphClass: 2
@@ -1373,7 +1373,7 @@ Validated: 513
 EndChar
 
 StartChar: television-tv
-Encoding: 16 49 17
+Encoding: 16 57381 17
 GlifName: television-tv
 Width: 512
 GlyphClass: 2
@@ -1424,7 +1424,7 @@ Validated: 553
 EndChar
 
 StartChar: ionicons
-Encoding: 17 51 18
+Encoding: 17 57382 18
 GlifName: ionicons
 Width: 512
 GlyphClass: 2
@@ -1460,7 +1460,7 @@ Validated: 1
 EndChar
 
 StartChar: delicious
-Encoding: 18 52 19
+Encoding: 18 57383 19
 GlifName: delicious
 Width: 512
 GlyphClass: 2
@@ -1499,7 +1499,7 @@ Validated: 5
 EndChar
 
 StartChar: shield
-Encoding: 19 53 20
+Encoding: 19 57384 20
 GlifName: shield
 Width: 512
 GlyphClass: 2
@@ -1532,7 +1532,7 @@ Validated: 5
 EndChar
 
 StartChar: ink-pen
-Encoding: 20 54 21
+Encoding: 20 57385 21
 GlifName: ink-pen
 Width: 512
 GlyphClass: 2
@@ -1591,7 +1591,7 @@ Validated: 553
 EndChar
 
 StartChar: ionicons-1
-Encoding: 21 55 22
+Encoding: 21 57386 22
 GlifName: ionicons-1
 Width: 512
 GlyphClass: 2
@@ -1644,7 +1644,7 @@ Validated: 513
 EndChar
 
 StartChar: crown
-Encoding: 22 56 23
+Encoding: 22 57387 23
 GlifName: crown
 Width: 512
 GlyphClass: 2
@@ -1729,7 +1729,7 @@ Validated: 5
 EndChar
 
 StartChar: chart-line
-Encoding: 23 57 24
+Encoding: 23 57388 24
 GlifName: chart-line
 Width: 512
 GlyphClass: 2
@@ -1779,7 +1779,7 @@ Validated: 545
 EndChar
 
 StartChar: graduate-cap
-Encoding: 24 58 25
+Encoding: 24 57389 25
 GlifName: graduate-cap
 Width: 512
 GlyphClass: 2
@@ -1834,7 +1834,7 @@ Validated: 517
 EndChar
 
 StartChar: email-plane
-Encoding: 25 59 26
+Encoding: 25 57390 26
 GlifName: email-plane
 Width: 512
 GlyphClass: 2
@@ -1859,7 +1859,7 @@ Validated: 517
 EndChar
 
 StartChar: zoom-in
-Encoding: 26 60 27
+Encoding: 26 57391 27
 GlifName: zoom-in
 Width: 512
 GlyphClass: 2
@@ -1909,7 +1909,7 @@ Validated: 513
 EndChar
 
 StartChar: screen-full
-Encoding: 27 61 28
+Encoding: 27 57392 28
 GlifName: screen-full
 Width: 512
 GlyphClass: 2
@@ -1960,7 +1960,7 @@ Validated: 521
 EndChar
 
 StartChar: atom
-Encoding: 28 62 29
+Encoding: 28 57393 29
 GlifName: atom
 Width: 512
 GlyphClass: 2
@@ -2066,7 +2066,7 @@ Validated: 41
 EndChar
 
 StartChar: list
-Encoding: 29 63 30
+Encoding: 29 57394 30
 GlifName: list
 Width: 512
 GlyphClass: 2
@@ -2183,7 +2183,7 @@ Validated: 1
 EndChar
 
 StartChar: antichess
-Encoding: 30 64 31
+Encoding: 30 57395 31
 GlifName: antichess
 Width: 512
 GlyphClass: 2
@@ -2314,7 +2314,7 @@ Validated: 41
 EndChar
 
 StartChar: microscope
-Encoding: 31 65 32
+Encoding: 31 57396 32
 GlifName: microscope
 Width: 512
 GlyphClass: 2
@@ -2378,7 +2378,7 @@ Validated: 41
 EndChar
 
 StartChar: loop-alt2
-Encoding: 32 66 33
+Encoding: 32 57397 33
 GlifName: loop-alt2
 Width: 512
 GlyphClass: 2
@@ -2431,7 +2431,7 @@ Validated: 513
 EndChar
 
 StartChar: crown-king-1
-Encoding: 33 67 34
+Encoding: 33 57398 34
 GlifName: crown-king-1
 Width: 512
 GlyphClass: 2
@@ -2481,7 +2481,7 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-24
-Encoding: 34 68 35
+Encoding: 34 57399 35
 GlifName: fontawesome-webfont-24
 Width: 512
 GlyphClass: 2
@@ -2509,7 +2509,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-25
-Encoding: 35 69 36
+Encoding: 35 57400 36
 GlifName: fontawesome-webfont-25
 Width: 512
 GlyphClass: 2
@@ -2540,7 +2540,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-26
-Encoding: 36 70 37
+Encoding: 36 57401 37
 GlifName: fontawesome-webfont-26
 Width: 512
 GlyphClass: 2
@@ -2609,7 +2609,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-27
-Encoding: 37 71 38
+Encoding: 37 57402 38
 GlifName: fontawesome-webfont-27
 Width: 512
 GlyphClass: 2
@@ -2632,7 +2632,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-28
-Encoding: 38 72 39
+Encoding: 38 57403 39
 GlifName: fontawesome-webfont-28
 Width: 512
 GlyphClass: 2
@@ -2662,7 +2662,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-29
-Encoding: 39 73 40
+Encoding: 39 57404 40
 GlifName: fontawesome-webfont-29
 Width: 512
 GlyphClass: 2
@@ -2692,7 +2692,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-30
-Encoding: 40 74 41
+Encoding: 40 57405 41
 GlifName: fontawesome-webfont-30
 Width: 512
 GlyphClass: 2
@@ -2718,7 +2718,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-31
-Encoding: 41 75 42
+Encoding: 41 57406 42
 GlifName: fontawesome-webfont-31
 Width: 512
 GlyphClass: 2
@@ -2757,7 +2757,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-32
-Encoding: 42 76 43
+Encoding: 42 57407 43
 GlifName: fontawesome-webfont-32
 Width: 512
 GlyphClass: 2
@@ -2799,7 +2799,7 @@ Validated: 513
 EndChar
 
 StartChar: arrow-full-lowerright
-Encoding: 43 77 44
+Encoding: 43 57408 44
 GlifName: arrow-full-lowerright
 Width: 512
 GlyphClass: 2
@@ -2820,7 +2820,7 @@ Validated: 521
 EndChar
 
 StartChar: arrow-full-upperright
-Encoding: 44 78 45
+Encoding: 44 57409 45
 GlifName: arrow-full-upperright
 Width: 512
 GlyphClass: 2
@@ -2841,7 +2841,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-33
-Encoding: 45 79 46
+Encoding: 45 57410 46
 GlifName: fontawesome-webfont-33
 Width: 512
 GlyphClass: 2
@@ -2896,7 +2896,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-41
-Encoding: 46 80 47
+Encoding: 46 57411 47
 GlifName: fontawesome-webfont-41
 Width: 512
 GlyphClass: 2
@@ -2949,7 +2949,7 @@ Validated: 545
 EndChar
 
 StartChar: burning-fire
-Encoding: 47 81 48
+Encoding: 47 57412 48
 GlifName: burning-fire
 Width: 512
 GlyphClass: 2
@@ -3010,7 +3010,7 @@ Validated: 553
 EndChar
 
 StartChar: arrow-sans-down
-Encoding: 48 82 49
+Encoding: 48 57413 49
 GlifName: arrow-sans-down
 Width: 512
 GlyphClass: 2
@@ -3027,7 +3027,7 @@ Validated: 521
 EndChar
 
 StartChar: arrow-sans-up
-Encoding: 49 83 50
+Encoding: 49 57414 50
 GlifName: arrow-sans-up
 Width: 512
 GlyphClass: 2
@@ -3044,7 +3044,7 @@ Validated: 521
 EndChar
 
 StartChar: fontawesome-webfont-34
-Encoding: 50 84 51
+Encoding: 50 57415 51
 GlifName: fontawesome-webfont-34
 Width: 512
 GlyphClass: 2
@@ -3177,7 +3177,7 @@ Validated: 2597
 EndChar
 
 StartChar: crossed-swords-small
-Encoding: 51 85 52
+Encoding: 51 57416 52
 GlifName: crossed-swords-small
 Width: 512
 GlyphClass: 2
@@ -3225,7 +3225,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-35
-Encoding: 52 86 53
+Encoding: 52 57417 53
 GlifName: fontawesome-webfont-35
 Width: 512
 GlyphClass: 2
@@ -3271,7 +3271,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-36
-Encoding: 53 87 54
+Encoding: 53 57418 54
 GlifName: fontawesome-webfont-36
 Width: 512
 GlyphClass: 2
@@ -3317,7 +3317,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-37
-Encoding: 54 88 55
+Encoding: 54 57419 55
 GlifName: fontawesome-webfont-37
 Width: 512
 GlyphClass: 2
@@ -3353,7 +3353,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-38
-Encoding: 55 89 56
+Encoding: 55 57420 56
 GlifName: fontawesome-webfont-38
 Width: 512
 GlyphClass: 2
@@ -3389,7 +3389,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-39
-Encoding: 56 90 57
+Encoding: 56 57421 57
 GlifName: fontawesome-webfont-39
 Width: 512
 GlyphClass: 2
@@ -3428,7 +3428,7 @@ Validated: 513
 EndChar
 
 StartChar: reorder
-Encoding: 57 91 58
+Encoding: 57 57422 58
 GlifName: reorder
 Width: 512
 GlyphClass: 2
@@ -3474,7 +3474,7 @@ Validated: 1
 EndChar
 
 StartChar: earth-globe-streamline
-Encoding: 58 92 59
+Encoding: 58 57423 59
 GlifName: earth-globe-streamline
 Width: 512
 GlyphClass: 2
@@ -3541,7 +3541,7 @@ Validated: 553
 EndChar
 
 StartChar: book
-Encoding: 59 93 60
+Encoding: 59 57424 60
 GlifName: book
 Width: 512
 GlyphClass: 2
@@ -3644,7 +3644,7 @@ Validated: 33
 EndChar
 
 StartChar: graph
-Encoding: 60 94 61
+Encoding: 60 57425 61
 GlifName: graph
 Width: 512
 GlyphClass: 2
@@ -3697,7 +3697,7 @@ Validated: 9
 EndChar
 
 StartChar: keypad
-Encoding: 61 95 62
+Encoding: 61 57426 62
 GlifName: keypad
 Width: 512
 GlyphClass: 2
@@ -3800,7 +3800,7 @@ Validated: 1
 EndChar
 
 StartChar: body-cut
-Encoding: 62 96 63
+Encoding: 62 57427 63
 GlifName: body-cut
 Width: 512
 GlyphClass: 2
@@ -3991,7 +3991,7 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-1
-Encoding: 63 97 64
+Encoding: 63 57428 64
 GlifName: fontawesome-webfont-1
 Width: 512
 VWidth: 1000
@@ -4033,7 +4033,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-2
-Encoding: 64 98 65
+Encoding: 64 57429 65
 GlifName: fontawesome-webfont-2
 Width: 512
 GlyphClass: 2
@@ -4109,7 +4109,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-3
-Encoding: 65 99 66
+Encoding: 65 57430 66
 GlifName: fontawesome-webfont-3
 Width: 512
 GlyphClass: 2
@@ -4175,7 +4175,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-4
-Encoding: 66 100 67
+Encoding: 66 57431 67
 GlifName: fontawesome-webfont-4
 Width: 512
 GlyphClass: 2
@@ -4276,7 +4276,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-5
-Encoding: 67 101 68
+Encoding: 67 57432 68
 GlifName: fontawesome-webfont-5
 Width: 512
 GlyphClass: 2
@@ -4344,7 +4344,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-6
-Encoding: 68 102 69
+Encoding: 68 57433 69
 GlifName: fontawesome-webfont-6
 Width: 512
 GlyphClass: 2
@@ -4438,7 +4438,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-7
-Encoding: 69 103 70
+Encoding: 69 57434 70
 GlifName: fontawesome-webfont-7
 Width: 512
 GlyphClass: 2
@@ -4508,7 +4508,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-8
-Encoding: 70 104 71
+Encoding: 70 57435 71
 GlifName: fontawesome-webfont-8
 Width: 512
 GlyphClass: 2
@@ -4606,7 +4606,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont
-Encoding: 71 105 72
+Encoding: 71 57436 72
 GlifName: fontawesome-webfont
 Width: 512
 GlyphClass: 2
@@ -4655,7 +4655,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-9
-Encoding: 72 106 73
+Encoding: 72 57437 73
 GlifName: fontawesome-webfont-9
 Width: 512
 GlyphClass: 2
@@ -4707,7 +4707,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-10
-Encoding: 73 107 74
+Encoding: 73 57438 74
 GlifName: fontawesome-webfont-10
 Width: 512
 GlyphClass: 2
@@ -4752,7 +4752,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-11
-Encoding: 74 108 75
+Encoding: 74 57439 75
 GlifName: fontawesome-webfont-11
 Width: 512
 GlyphClass: 2
@@ -4786,7 +4786,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-12
-Encoding: 75 109 76
+Encoding: 75 57440 76
 GlifName: fontawesome-webfont-12
 Width: 512
 GlyphClass: 2
@@ -4831,7 +4831,7 @@ Validated: 513
 EndChar
 
 StartChar: cogs
-Encoding: 76 110 77
+Encoding: 76 57441 77
 GlifName: cogs
 Width: 512
 GlyphClass: 2
@@ -5033,7 +5033,7 @@ Validated: 1
 EndChar
 
 StartChar: tag
-Encoding: 77 111 78
+Encoding: 77 57442 78
 GlifName: tag
 Width: 512
 GlyphClass: 2
@@ -5084,7 +5084,7 @@ Validated: 9
 EndChar
 
 StartChar: fontawesome-webfont-15
-Encoding: 78 112 79
+Encoding: 78 57443 79
 GlifName: fontawesome-webfont-15
 Width: 512
 GlyphClass: 2
@@ -5140,7 +5140,7 @@ Validated: 513
 EndChar
 
 StartChar: trash-bin
-Encoding: 79 113 80
+Encoding: 79 57444 80
 GlifName: trash-bin
 Width: 512
 GlyphClass: 2
@@ -5239,7 +5239,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-17
-Encoding: 80 114 81
+Encoding: 80 57445 81
 GlifName: fontawesome-webfont-17
 Width: 512
 GlyphClass: 2
@@ -5289,7 +5289,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-18
-Encoding: 81 115 82
+Encoding: 81 57446 82
 GlifName: fontawesome-webfont-18
 Width: 512
 GlyphClass: 2
@@ -5337,7 +5337,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-19
-Encoding: 82 116 83
+Encoding: 82 57447 83
 GlifName: fontawesome-webfont-19
 Width: 512
 GlyphClass: 2
@@ -5375,7 +5375,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-20
-Encoding: 83 117 84
+Encoding: 83 57448 84
 GlifName: fontawesome-webfont-20
 Width: 512
 GlyphClass: 2
@@ -5400,7 +5400,7 @@ Validated: 513
 EndChar
 
 StartChar: eye-view-1
-Encoding: 84 118 85
+Encoding: 84 57449 85
 GlifName: eye-view-1
 Width: 512
 GlyphClass: 2
@@ -5441,7 +5441,7 @@ Validated: 553
 EndChar
 
 StartChar: fontawesome-webfont-21
-Encoding: 85 119 86
+Encoding: 85 57450 86
 GlifName: fontawesome-webfont-21
 Width: 512
 GlyphClass: 2
@@ -5498,7 +5498,7 @@ Validated: 545
 EndChar
 
 StartChar: fontawesome-webfont-22
-Encoding: 86 120 87
+Encoding: 86 57451 87
 GlifName: fontawesome-webfont-22
 Width: 512
 GlyphClass: 2
@@ -5565,7 +5565,7 @@ Validated: 545
 EndChar
 
 StartChar: search-find
-Encoding: 87 121 88
+Encoding: 87 57452 88
 GlifName: search-find
 Width: 512
 GlyphClass: 2
@@ -5608,7 +5608,7 @@ Validated: 513
 EndChar
 
 StartChar: fontawesome-webfont-23
-Encoding: 88 122 89
+Encoding: 88 57453 89
 GlifName: fontawesome-webfont-23
 Width: 512
 GlyphClass: 2
@@ -5656,7 +5656,7 @@ Validated: 513
 EndChar
 
 StartChar: pointer
-Encoding: 89 123 90
+Encoding: 89 57454 90
 GlifName: pointer
 Width: 512
 GlyphClass: 2
@@ -5721,7 +5721,7 @@ Validated: 33
 EndChar
 
 StartChar: storm
-Encoding: 90 126 91
+Encoding: 90 57455 91
 GlifName: hookah
 Width: 512
 GlyphClass: 2
@@ -6922,7 +6922,7 @@ Validated: 1
 EndChar
 
 StartChar: crown1-1
-Encoding: 108 57369 109
+Encoding: 108 57361 109
 GlifName: crown1-1
 Width: 512
 GlyphClass: 2
@@ -7016,7 +7016,7 @@ Validated: 553
 EndChar
 
 StartChar: Ograve
-Encoding: 109 57370 110
+Encoding: 109 57362 110
 GlifName: O_grave
 Width: 512
 GlyphClass: 2
@@ -7055,7 +7055,7 @@ Validated: 1
 EndChar
 
 StartChar: streak
-Encoding: 111 125 111
+Encoding: 111 57364 111
 Width: 512
 LayerCount: 2
 Fore

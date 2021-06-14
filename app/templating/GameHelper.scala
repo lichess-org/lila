@@ -110,7 +110,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(lightUser)
 
-  val berserkIconSpan = iconTag("`")
+  val berserkIconSpan = iconTag("")
 
   def playerLink(
       player: Player,

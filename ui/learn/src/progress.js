@@ -1,7 +1,7 @@
 var m = require('mithril');
 var scoring = require('./score');
 
-var star = m('i[data-icon=t]');
+var star = m('i[data-icon=]');
 
 function makeStars(level, score) {
   var rank = scoring.getLevelRank(level, score);

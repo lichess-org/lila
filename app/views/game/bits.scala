@@ -14,12 +14,12 @@ object bits {
 
   def gameIcon(game: Game): Char =
     game.perfType match {
-      case _ if game.fromPosition         => '*'
-      case _ if game.imported             => '/'
+      case _ if game.fromPosition         => ''
+      case _ if game.imported             => ''
       case Some(p) if game.variant.exotic => p.iconChar
-      case _ if game.hasAi                => 'n'
+      case _ if game.hasAi                => ''
       case Some(p)                        => p.iconChar
-      case _                              => '8'
+      case _                              => ''
     }
 
   def sides(

@@ -81,7 +81,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             'a.button.text',
             {
               attrs: {
-                'data-icon': '4',
+                'data-icon': '',
                 href: `/study/${studyId}/clone`,
               },
             },
@@ -92,7 +92,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         'a.button.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/study/${studyId}.pgn`,
             download: true,
           },
@@ -103,7 +103,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         'a.button.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/study/${studyId}/${chapter.id}.pgn`,
             download: true,
           },
@@ -114,7 +114,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         'a.button.text',
         {
           attrs: {
-            'data-icon': 'x',
+            'data-icon': '',
             href: `/study/${studyId}/${chapter.id}.gif`,
             download: true,
           },

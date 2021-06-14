@@ -19,14 +19,14 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   if (pager.previousPage)
     nodes.push(
       h('div.pager.prev', {
-        attrs: { 'data-icon': 'S' },
+        attrs: { 'data-icon': '' },
         hook: clickHook(ctrl.previousPage),
       })
     );
   else if (pager.nextPage)
     nodes.push(
       h('div.pager.prev.disabled', {
-        attrs: { 'data-icon': 'S' },
+        attrs: { 'data-icon': '' },
       })
     );
 
@@ -35,7 +35,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   if (pager.nextPage)
     nodes.push(
       h('div.pager.next', {
-        attrs: { 'data-icon': 'R' },
+        attrs: { 'data-icon': '' },
         hook: clickHook(ctrl.nextPage),
       })
     );

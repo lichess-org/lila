@@ -29,7 +29,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
             ? h(
                 'h3.text',
                 {
-                  attrs: { 'data-icon': 'f' },
+                  attrs: { 'data-icon': '' },
                 },
                 team.name
               )
@@ -54,7 +54,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined, 
                     p.f
                       ? {
                           class: { 'is-gold': true },
-                          attrs: { 'data-icon': 'Q' },
+                          attrs: { 'data-icon': '' },
                         }
                       : {},
                     '' + p.s

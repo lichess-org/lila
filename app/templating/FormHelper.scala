@@ -165,7 +165,7 @@ trait FormHelper { self: I18nHelper =>
 
     def submit(
         content: Frag,
-        icon: Option[String] = Some("E"),
+        icon: Option[String] = Some(""),
         nameValue: Option[(String, String)] = None,
         klass: String = "",
         confirm: Option[String] = None

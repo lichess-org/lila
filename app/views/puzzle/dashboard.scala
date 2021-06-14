@@ -112,7 +112,7 @@ object dashboard {
         bits.pageMenu(path),
         div(cls := s"page-menu__content box box-pad $baseClass")(
           div(cls := "box__top")(
-            // iconTag('-'),
+            // iconTag(''),
             h1(
               title,
               strong(subtitle)
@@ -178,7 +178,7 @@ object dashboard {
           strong(results.unfixed),
           span("to replay")
         ),
-        iconTag(if (results.canReplay) 'G' else 'E')
+        iconTag(if (results.canReplay) '' else '')
       )
     )
 }

@@ -84,13 +84,13 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'tags',
         hint: noarg('pgnTags'),
-        icon: iconTag('o'),
+        icon: iconTag(''),
       }),
       toolButton({
         ctrl,
         tab: 'comments',
         hint: noarg('commentThisPosition'),
-        icon: iconTag('c'),
+        icon: iconTag(''),
         onClick() {
           ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
         },
@@ -122,7 +122,7 @@ function buttons(root: AnalyseCtrl): VNode {
         ctrl,
         tab: 'share',
         hint: noarg('shareAndExport'),
-        icon: iconTag('$'),
+        icon: iconTag(''),
       }),
       !ctrl.relay
         ? h('span.help', {
@@ -216,7 +216,7 @@ export function side(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
           },
-          [iconTag('[')]
+          [iconTag('')]
         )
       : null,
   ]);
@@ -232,7 +232,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
         h(
           'a',
           {
-            attrs: dataIcon('c'),
+            attrs: dataIcon(''),
             hook: bind('click', () => {
               ctrl.vm.toolTab('comments');
               ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);

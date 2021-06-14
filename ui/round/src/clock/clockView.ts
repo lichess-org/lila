@@ -133,7 +133,7 @@ function showBerserk(ctrl: RoundController, color: Color): boolean {
 }
 
 function renderBerserk(ctrl: RoundController, color: Color, position: Position) {
-  return showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('`')) : null;
+  return showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('')) : null;
 }
 
 function goBerserk(ctrl: RoundController) {
@@ -142,7 +142,7 @@ function goBerserk(ctrl: RoundController) {
   return h('button.fbt.go-berserk', {
     attrs: {
       title: 'GO BERSERK! Half the time, no increment, bonus point',
-      'data-icon': '`',
+      'data-icon': '',
     },
     hook: bind('click', ctrl.goBerserk),
   });

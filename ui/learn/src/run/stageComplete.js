@@ -47,11 +47,11 @@ module.exports = function (ctrl) {
                 href: '/' + next.id,
                 config: m.route,
               },
-              [ctrl.trans.noarg('next') + ': ', ctrl.trans.noarg(next.title) + ' ', m('i[data-icon=H]')]
+              [ctrl.trans.noarg('next') + ': ', ctrl.trans.noarg(next.title) + ' ', m('i[data-icon=]')]
             )
           : null,
         m(
-          'a.back.text[data-icon=I]',
+          'a.back.text[data-icon=]',
           {
             href: '/',
             config: m.route,

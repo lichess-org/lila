@@ -27,7 +27,7 @@ export function modal(d: Modal): VNode {
         },
         [
           h('span.close', {
-            attrs: { 'data-icon': 'L' },
+            attrs: { 'data-icon': '' },
             hook: bind('click', d.onClose),
           }),
           h('div', d.content),

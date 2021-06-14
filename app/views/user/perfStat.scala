@@ -112,8 +112,8 @@ object perfStat {
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if (perf.progress > 0) tag("green")(dataIcon := "N")(perf.progress)
-          else if (perf.progress < 0) tag("red")(dataIcon := "M")(-perf.progress)
+          if (perf.progress > 0) tag("green")(dataIcon := "")(perf.progress)
+          else if (perf.progress < 0) tag("red")(dataIcon := "")(-perf.progress)
           else "-"
         ),
         ". ",

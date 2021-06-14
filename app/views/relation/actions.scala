@@ -25,13 +25,13 @@ object actions {
               titleOrText(trans.challenge.challengeToPlay.txt()),
               href := s"${routes.Lobby.home}?user=$userId#friend",
               cls := "btn-rack__btn",
-              dataIcon := "U"
+              dataIcon := ""
             ),
             a(
               titleOrText(trans.composeMessage.txt()),
               href := routes.Msg.convo(userId),
               cls := "btn-rack__btn",
-              dataIcon := "c"
+              dataIcon := ""
             )
           ),
           relation match {
@@ -41,18 +41,18 @@ object actions {
                   cls := "btn-rack__btn relation-button",
                   href := routes.Relation.follow(userId),
                   titleOrText(trans.follow.txt()),
-                  dataIcon := "h"
+                  dataIcon := ""
                 ),
                 a(
                   cls := "btn-rack__btn relation-button",
                   href := routes.Relation.block(userId),
                   titleOrText(trans.block.txt()),
-                  dataIcon := "k"
+                  dataIcon := ""
                 )
               )
             case Some(true) =>
               a(
-                dataIcon := "h",
+                dataIcon := "",
                 cls := "btn-rack__btn relation-button text hover-text",
                 href := routes.Relation.unfollow(userId),
                 titleOrText(trans.following.txt()),
@@ -60,7 +60,7 @@ object actions {
               )
             case Some(false) =>
               a(
-                dataIcon := "k",
+                dataIcon := "",
                 cls := "btn-rack__btn relation-button text hover-text",
                 href := routes.Relation.unblock(userId),
                 titleOrText(trans.blocked.txt()),

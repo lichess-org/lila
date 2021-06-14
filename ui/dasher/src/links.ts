@@ -14,23 +14,23 @@ export default function (ctrl: DasherCtrl): VNode {
       ? h('div.links', [
           h(
             'a.user-link.online.text.is-green',
-            linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
+            linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
             noarg('profile')
           ),
 
-          h('a.text', linkCfg('/inbox', 'e'), noarg('inbox')),
+          h('a.text', linkCfg('/inbox', ''), noarg('inbox')),
 
           h(
             'a.text',
             linkCfg(
               '/account/preferences/game-display',
-              '%',
+              '',
               ctrl.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined
             ),
             noarg('preferences')
           ),
 
-          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), noarg('coachManager')),
+          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ''), noarg('coachManager')),
 
           !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), noarg('streamerManager')),
 
@@ -45,7 +45,7 @@ export default function (ctrl: DasherCtrl): VNode {
                 {
                   attrs: {
                     type: 'submit',
-                    'data-icon': 'w',
+                    'data-icon': '',
                   },
                 },
                 noarg('logOut')
@@ -74,7 +74,7 @@ export default function (ctrl: DasherCtrl): VNode {
           'a.text',
           {
             attrs: {
-              'data-icon': 'K',
+              'data-icon': '',
               title: 'Keyboard: z',
             },
             hook: bind('click', () => lichess.pubsub.emit('zen')),
@@ -102,6 +102,6 @@ const linkCfg = (href: string, icon: string, more?: Record<string, string>) => (
 function modeCfg(ctrl: DasherCtrl, m: Mode): any {
   return {
     hook: bind('click', () => ctrl.setMode(m)),
-    attrs: { 'data-icon': 'H' },
+    attrs: { 'data-icon': '' },
   };
 }

@@ -245,7 +245,7 @@
     &::before {
       @extend %data-icon;
 
-      content: 'h';
+      content: '';
       font-size: 1.3em;
     }
 

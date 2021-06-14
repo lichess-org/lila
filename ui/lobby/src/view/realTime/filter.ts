@@ -70,7 +70,7 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
     class: { gamesFiltered: nbFiltered > 0, active: filter.open },
     hook: bind('mousedown', filter.toggle, ctrl.redraw),
     attrs: {
-      'data-icon': filter.open ? 'L' : '%',
+      'data-icon': filter.open ? '' : '',
       title: ctrl.trans.noarg('filterGames'),
     },
   });

@@ -46,7 +46,7 @@ object reopen {
       title = "Reopen your account"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

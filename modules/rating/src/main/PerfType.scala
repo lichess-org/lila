@@ -29,7 +29,7 @@ object PerfType {
         key = "ultraBullet",
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
-        iconChar = '{'
+        iconChar = ''
       )
 
   case object Bullet
@@ -38,7 +38,7 @@ object PerfType {
         key = "bullet",
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
-        iconChar = 'T'
+        iconChar = ''
       )
 
   case object Blitz
@@ -47,7 +47,7 @@ object PerfType {
         key = "blitz",
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
-        iconChar = ')'
+        iconChar = ''
       )
 
   case object Rapid
@@ -56,7 +56,7 @@ object PerfType {
         key = "rapid",
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
-        iconChar = '#'
+        iconChar = ''
       )
 
   case object Classical
@@ -65,7 +65,7 @@ object PerfType {
         key = "classical",
         name = Speed.Classical.name,
         title = Speed.Classical.title,
-        iconChar = '+'
+        iconChar = ''
       )
 
   case object Correspondence
@@ -74,7 +74,7 @@ object PerfType {
         key = "correspondence",
         name = "Correspondence",
         title = Speed.Correspondence.title,
-        iconChar = ';'
+        iconChar = ''
       )
 
   case object Standard
@@ -83,7 +83,7 @@ object PerfType {
         key = "standard",
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
-        iconChar = '8'
+        iconChar = ''
       )
 
   case object Chess960
@@ -92,7 +92,7 @@ object PerfType {
         key = "chess960",
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
-        iconChar = '\''
+        iconChar = ''
       )
 
   case object KingOfTheHill
@@ -101,7 +101,7 @@ object PerfType {
         key = "kingOfTheHill",
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
-        iconChar = '('
+        iconChar = ''
       )
 
   case object Antichess
@@ -110,7 +110,7 @@ object PerfType {
         key = "antichess",
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
-        iconChar = '@'
+        iconChar = ''
       )
 
   case object Atomic
@@ -119,7 +119,7 @@ object PerfType {
         key = "atomic",
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
-        iconChar = '>'
+        iconChar = ''
       )
 
   case object ThreeCheck
@@ -128,7 +128,7 @@ object PerfType {
         key = "threeCheck",
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
-        iconChar = '.'
+        iconChar = ''
       )
 
   case object Horde
@@ -137,7 +137,7 @@ object PerfType {
         key = "horde",
         name = chess.variant.Horde.name,
         title = "Horde variant",
-        iconChar = '_'
+        iconChar = ''
       )
 
   case object RacingKings
@@ -164,7 +164,7 @@ object PerfType {
         key = "puzzle",
         name = "Training",
         title = "Chess tactics trainer",
-        iconChar = '-'
+        iconChar = ''
       )
 
   val all: List[PerfType] = List(
@@ -292,7 +292,7 @@ object PerfType {
     .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Char =
-    byVariant(variant).fold('C')(_.iconChar)
+    byVariant(variant).fold('')(_.iconChar)
 
   def trans(pt: PerfType)(implicit lang: Lang): String =
     pt match {

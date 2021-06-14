@@ -21,7 +21,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
         player.absent && ctrl.data.status != 'finished'
           ? h('i', {
               attrs: {
-                'data-icon': 'Z',
+                'data-icon': '',
                 title: 'Absent',
               },
             })

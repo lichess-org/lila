@@ -29,7 +29,7 @@ function renderPalantir(ctrl: Ctrl) {
     ? p.instance.render(h)
     : h('div.mchat__tab.palantir.palantir-slot', {
         attrs: {
-          'data-icon': '',
+          'data-icon': '',
           title: 'Voice chat',
         },
         hook: bind('click', () => {

@@ -116,7 +116,7 @@ object list {
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
     if (pager.currentPageResults.isEmpty)
       div(cls := "nostudies")(
-        iconTag("4"),
+        iconTag(""),
         p(trans.study.noneYet())
       )
     else
@@ -149,7 +149,7 @@ object list {
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name := "q", st.placeholder := placeholder, st.value := value),
-      submitButton(cls := "button", dataIcon := "y")
+      submitButton(cls := "button", dataIcon := "")
     )
 
   private def layout(

@@ -29,7 +29,7 @@ function jumpToNext(ctrl: RetroCtrl) {
     {
       hook: bind('click', ctrl.jumpToNext),
     },
-    [h('i', { attrs: dataIcon('G') }), ctrl.noarg('next')]
+    [h('i', { attrs: dataIcon('') }), ctrl.noarg('next')]
   );
 }
 

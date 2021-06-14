@@ -15,7 +15,7 @@ function featuredPlayer(game: FeaturedGame, color: Color) {
       player.berserk
         ? h('i', {
             attrs: {
-              'data-icon': '`',
+              'data-icon': '',
               title: 'Berserk',
             },
           })

@@ -119,7 +119,7 @@
     &::before {
       @extend %data-icon;
 
-      content: 'h';
+      content: '';
       font-size: 5em;
     }
 

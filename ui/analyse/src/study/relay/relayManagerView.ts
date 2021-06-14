@@ -16,7 +16,7 @@ export default function (ctrl: RelayCtrl): VNode | undefined {
             h('a', {
               attrs: {
                 href: `/broadcast/round/${ctrl.id}/edit`,
-                'data-icon': '%',
+                'data-icon': '',
               },
             }),
           ]),
@@ -57,7 +57,7 @@ function renderLog(ctrl: RelayCtrl) {
         'div' + (err ? '.err' : ''),
         {
           key: e.at,
-          attrs: dataIcon(err ? 'j' : 'E'),
+          attrs: dataIcon(err ? '' : ''),
         },
         [h('div', [...(err ? [err] : logSuccess(e)), h('time', dateFormatter(new Date(e.at)))])]
       );
@@ -73,7 +73,7 @@ function stateOn(ctrl: RelayCtrl) {
     'div.state.on.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(false)),
-      attrs: dataIcon('B'),
+      attrs: dataIcon(''),
     },
     [
       h(
@@ -93,7 +93,7 @@ function stateOff(ctrl: RelayCtrl) {
     'div.state.off.clickable',
     {
       hook: bind('click', _ => ctrl.setSync(true)),
-      attrs: dataIcon('G'),
+      attrs: dataIcon(''),
     },
     [h('div.fat', 'Click to connect')]
   );

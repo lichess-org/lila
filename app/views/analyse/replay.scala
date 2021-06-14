@@ -47,7 +47,7 @@ object replay {
     }
     val pgnLinks = div(
       a(
-        dataIcon := "x",
+        dataIcon := "",
         cls := "text",
         href := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
@@ -55,7 +55,7 @@ object replay {
         trans.downloadAnnotated()
       ),
       a(
-        dataIcon := "x",
+        dataIcon := "",
         cls := "text",
         href := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
@@ -63,15 +63,15 @@ object replay {
         trans.downloadRaw()
       ),
       game.isPgnImport option a(
-        dataIcon := "x",
+        dataIcon := "",
         cls := "text",
         href := s"${routes.Game.exportOne(game.id)}?imported=1",
         downloadAttr
       )(trans.downloadImported()),
       ctx.noBlind option frag(
-        a(dataIcon := "=", cls := "text embed-howto")(trans.embedInYourWebsite()),
+        a(dataIcon := "", cls := "text embed-howto")(trans.embedInYourWebsite()),
         a(
-          dataIcon := "$",
+          dataIcon := "",
           cls := "text",
           targetBlank,
           href := cdnUrl(routes.Export.gif(pov.gameId, pov.color.name).url)

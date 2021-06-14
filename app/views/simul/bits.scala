@@ -45,8 +45,8 @@ object bits {
         tr(
           td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
-          td(cls := "text", dataIcon := "p")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "r")(simul.applicants.size)
+          td(cls := "text", dataIcon := "")(simul.clock.config.show),
+          td(cls := "text", dataIcon := "")(simul.applicants.size)
         )
       }
     )

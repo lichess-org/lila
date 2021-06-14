@@ -116,7 +116,7 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
         'button-empty': !ctrl.flipped,
       },
       attrs: {
-        'data-icon': 'B',
+        'data-icon': '',
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: bind('click', ctrl.flip),
@@ -144,7 +144,7 @@ const renderLink = (ctrl: RacerCtrl) =>
         attrs: {
           title: 'Copy URL',
           'data-rel': `racer-url-${ctrl.race.id}`,
-          'data-icon': '"',
+          'data-icon': '',
         },
       }),
     ]),

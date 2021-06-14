@@ -6,7 +6,7 @@ export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
     class: { active: ctrl.searching },
     attrs: {
-      'data-icon': ctrl.searching ? 'L' : 'y',
+      'data-icon': ctrl.searching ? '' : '',
       title: 'Search tournament players',
     },
     hook: bind('click', ctrl.toggleSearch, ctrl.redraw),

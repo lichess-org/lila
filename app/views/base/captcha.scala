@@ -54,8 +54,8 @@ object captcha {
             trans.help(),
             " ",
             a(title := trans.viewTheSolution.txt(), targetBlank, href := s"${url}#last")(url),
-            div(cls := "result success text", dataIcon := "E")(trans.checkmate()),
-            div(cls := "result failure text", dataIcon := "k")(trans.notACheckmate()),
+            div(cls := "result success text", dataIcon := "")(trans.checkmate()),
+            div(cls := "result failure text", dataIcon := "")(trans.notACheckmate()),
             form3.hidden(form("move"))
           )
         )

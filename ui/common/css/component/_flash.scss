@@ -11,7 +11,7 @@
     &::before {
       @extend %data-icon;
 
-      content: 'E';
+      content: '';
       margin-right: 1em;
       font-size: 1.5em;
     }
@@ -39,7 +39,7 @@
     &::before {
       @extend %data-icon;
 
-      content: 'j';
+      content: '';
     }
   }
 }

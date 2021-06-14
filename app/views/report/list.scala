@@ -64,12 +64,12 @@ object list {
                     case None =>
                       if (r.done.isDefined)
                         postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := "G", cls := "text button button-metal")("Reopen")
+                          submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
                         frag(
                           postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
-                            submitButton(dataIcon := "G", cls := "button button-metal")
+                            submitButton(dataIcon := "", cls := "button button-metal")
                           ),
                           postForm(action := routes.Report.process(r.id), cls := "cancel")(
                             submitButton(cls := "button button-thin button-empty")("Dismiss")

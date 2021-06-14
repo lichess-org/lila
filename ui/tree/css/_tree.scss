@@ -149,7 +149,7 @@ $c-blunder: #df5353;
     color: $c-good;
     &::before {
       @extend %data-icon;
-      content: 'K';
+      content: '';
     }
   }
 

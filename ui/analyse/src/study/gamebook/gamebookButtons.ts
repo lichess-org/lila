@@ -15,7 +15,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       ? h(
           'a.fbt.text.back',
           {
-            attrs: dataIcon('I'),
+            attrs: dataIcon(''),
             hook: bind('click', () => root.userJump(''), ctrl.redraw),
           },
           'Back'
@@ -25,7 +25,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       ? h(
           'a.fbt.text.solution',
           {
-            attrs: dataIcon('G'),
+            attrs: dataIcon(''),
             hook: bind('click', ctrl.solution, ctrl.redraw),
           },
           'View the solution'
@@ -43,7 +43,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'a.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: dataIcon('v'),
+          attrs: dataIcon(''),
           hook: bind(
             'click',
             () => {
@@ -62,7 +62,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
           'a.fbt.text.preview',
           {
             class: { active: isAnalyse },
-            attrs: dataIcon('A'),
+            attrs: dataIcon(''),
             hook: bind(
               'click',
               () => {

@@ -22,7 +22,7 @@ object bits {
     frag(
       div(cls := "lobby__leaderboard lobby__box")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "C")(trans.leaderboard()),
+          h2(cls := "title text", dataIcon := "")(trans.leaderboard()),
           a(cls := "more", href := routes.User.list)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -43,7 +43,7 @@ object bits {
       ),
       div(cls := "lobby__winners lobby__box")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := "g")(trans.tournamentWinners()),
+          h2(cls := "title text", dataIcon := "")(trans.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -65,7 +65,7 @@ object bits {
       ),
       div(cls := "lobby__tournaments lobby__box")(
         a(cls := "lobby__box__top", href := routes.Tournament.home)(
-          h2(cls := "title text", dataIcon := "g")(trans.openTournaments()),
+          h2(cls := "title text", dataIcon := "")(trans.openTournaments()),
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "enterable_list lobby__box__content")(
@@ -74,7 +74,7 @@ object bits {
       ),
       simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
         a(cls := "lobby__box__top", href := routes.Simul.home)(
-          h2(cls := "title text", dataIcon := "f")(trans.simultaneousExhibitions()),
+          h2(cls := "title text", dataIcon := "")(trans.simultaneousExhibitions()),
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "enterable_list lobby__box__content")(
@@ -87,7 +87,7 @@ object bits {
     posts.nonEmpty option
       div(cls := "lobby__blog lobby__box")(
         a(cls := "lobby__box__top", href := routes.Blog.index())(
-          h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
+          h2(cls := "title text", dataIcon := "")(trans.latestUpdates()),
           span(cls := "more")(trans.more(), " »")
         ),
         div(cls := "lobby__box__content")(
@@ -138,7 +138,7 @@ object bits {
       p("You have a game in progress with ", strong(current.opponent), "."),
       br,
       br,
-      a(cls := "text button button-fat", dataIcon := "G", href := routes.Round.player(current.pov.fullId))(
+      a(cls := "text button button-fat", dataIcon := "", href := routes.Round.player(current.pov.fullId))(
         "Join the game"
       ),
       br,
@@ -147,7 +147,7 @@ object bits {
       br,
       br,
       postForm(action := routes.Round.resign(current.pov.fullId))(
-        button(cls := "text button button-red", dataIcon := "L")(
+        button(cls := "text button button-red", dataIcon := "")(
           if (current.pov.game.abortable) "Abort" else "Resign",
           " the game"
         )

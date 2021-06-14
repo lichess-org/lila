@@ -130,7 +130,7 @@ function renderYAxis() {
 export function toggle(ctrl: LobbyController) {
   return h('i.toggle', {
     key: 'set-mode-list',
-    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '?' },
+    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '' },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }

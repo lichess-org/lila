@@ -37,7 +37,7 @@ object bits {
             td(momentFromNow(s.at))
           },
           td(tour.durationString),
-          td(dataIcon := "r", cls := "text")(tour.nbPlayers)
+          td(dataIcon := "", cls := "text")(tour.nbPlayers)
         )
       }
     )

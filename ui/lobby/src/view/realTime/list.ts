@@ -57,7 +57,7 @@ function isNotMine(hook) {
 export function toggle(ctrl: LobbyController) {
   return h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '9' },
+    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '' },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 }

@@ -56,7 +56,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         player.engine
           ? h('span', {
               attrs: {
-                'data-icon': 'j',
+                'data-icon': '',
                 title: ctrl.noarg('thisAccountViolatedTos'),
               },
             })

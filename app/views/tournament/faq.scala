@@ -18,7 +18,7 @@ object faq {
     ) {
       main(cls := "page-small box box-pad page")(
         h1(
-          a(href := routes.Tournament.home, dataIcon := "I", cls := "text"),
+          a(href := routes.Tournament.home, dataIcon := "", cls := "text"),
           trans.tournamentFAQ()
         ),
         div(cls := "body")(apply())

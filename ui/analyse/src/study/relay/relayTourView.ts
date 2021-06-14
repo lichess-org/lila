@@ -65,14 +65,14 @@ export function rounds(ctrl: StudyCtrl): VNode {
               round.name
             ),
             round.ongoing
-              ? h('ongoing', { attrs: { ...dataIcon('J'), title: 'Ongoing' } })
+              ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } })
               : round.finished
-              ? h('finished', { attrs: { ...dataIcon('E'), title: 'Finished' } })
+              ? h('finished', { attrs: { ...dataIcon(''), title: 'Finished' } })
               : null,
             canContribute
               ? h('a.act', {
                   attrs: {
-                    ...dataIcon('%'),
+                    ...dataIcon(''),
                     href: `/broadcast/round/${round.id}/edit`,
                   },
                 })
@@ -90,7 +90,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
                   {
                     attrs: {
                       href: `/broadcast/${relay.data.tour.id}/new`,
-                      'data-icon': 'O',
+                      'data-icon': '',
                     },
                   },
                   ctrl.trans.noarg('addRound')

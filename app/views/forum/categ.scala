@@ -24,7 +24,7 @@ object categ {
     ) {
       main(cls := "forum index box")(
         div(cls := "box__top")(
-          h1(dataIcon := "d", cls := "text")("Lichess Forum"),
+          h1(dataIcon := "", cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -47,7 +47,7 @@ object categ {
       a(
         href := routes.ForumTopic.form(categ.slug),
         cls := "button button-empty button-green text",
-        dataIcon := "m"
+        dataIcon := ""
       )(
         trans.createANewTopic()
       )
@@ -89,7 +89,7 @@ object categ {
         h1(
           a(
             href := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := "I",
+            dataIcon := "",
             cls := "text"
           ),
           categ.team.fold(frag(categ.name))(teamIdToName)

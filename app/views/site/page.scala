@@ -122,7 +122,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 cls := "copyable autoselect",
                 value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
-              button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "\"")
+              button(title := "Copy code", cls := "copy button", dataRel := "tv-embed-src", dataIcon := "")
             ),
             parameters
           )
@@ -146,7 +146,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 title := "Copy code",
                 cls := "copy button",
                 dataRel := "puzzle-embed-src",
-                dataIcon := "\""
+                dataIcon := ""
               )
             ),
             parameters,
@@ -205,7 +205,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       moreJs = moreJs
     ) {
       val sep                  = div(cls := "sep")
-      val external             = frag(" ", i(dataIcon := "0"))
+      val external             = frag(" ", i(dataIcon := ""))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(

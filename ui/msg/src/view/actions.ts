@@ -11,7 +11,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     h(`a.${cls}.play`, {
       key: 'play',
       attrs: {
-        'data-icon': 'U',
+        'data-icon': '',
         href: `/?user=${convo.user.name}#friend`,
         title: ctrl.trans.noarg('challengeToPlay'),
       },
@@ -23,7 +23,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.text.hover-text`, {
         key: 'unblock',
         attrs: {
-          'data-icon': 'k',
+          'data-icon': '',
           title: ctrl.trans.noarg('blocked'),
           'data-hover-text': ctrl.trans.noarg('unblock'),
         },
@@ -35,7 +35,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'block',
         attrs: {
-          'data-icon': 'k',
+          'data-icon': '',
           title: ctrl.trans.noarg('block'),
         },
         hook: bind('click', withConfirm(ctrl.block)),
@@ -45,7 +45,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
     h(`button.${cls}.bad`, {
       key: 'delete',
       attrs: {
-        'data-icon': 'q',
+        'data-icon': '',
         title: ctrl.trans.noarg('delete'),
       },
       hook: bind('click', withConfirm(ctrl.delete)),
@@ -56,7 +56,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       h(`button.${cls}.bad`, {
         key: 'report',
         attrs: {
-          'data-icon': '!',
+          'data-icon': '',
           title: ctrl.trans('reportXToModerators', convo.user.name),
         },
         hook: bind('click', withConfirm(ctrl.report)),

@@ -133,7 +133,7 @@ object forms {
           frag(
             p(cls := "error")(e),
             br,
-            a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
+            a(href := routes.Lobby.home, cls := "button text", dataIcon := "")(trans.cancel.txt())
           )
         }
         .getOrElse {

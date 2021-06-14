@@ -8,7 +8,7 @@ function makeStars(nb) {
   for (var i = 0; i < 4 - nb; i++)
     stars.push(
       m('i', {
-        'data-icon': 't',
+        'data-icon': '',
       })
     );
   return stars;

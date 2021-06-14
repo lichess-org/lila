@@ -69,7 +69,7 @@ const renderControls = (ctrl: StormCtrl): VNode =>
         'button-empty': !ctrl.flipped,
       },
       attrs: {
-        'data-icon': 'B',
+        'data-icon': '',
         title: ctrl.trans.noarg('flipBoard') + ' (Keyboard: f)',
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
@@ -77,13 +77,13 @@ const renderControls = (ctrl: StormCtrl): VNode =>
     h('a.puz-side__control__reload.button.button-empty', {
       attrs: {
         href: '/storm',
-        'data-icon': 'q',
+        'data-icon': '',
         title: ctrl.trans('newRun'),
       },
     }),
     h('a.puz-side__control__end.button.button-empty', {
       attrs: {
-        'data-icon': 'b',
+        'data-icon': '',
         title: ctrl.trans('endRun'),
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
@@ -97,7 +97,7 @@ const renderStart = (ctrl: StormCtrl) =>
 
 const renderReload = (msg: string) =>
   h('div.storm.storm--reload.box.box-pad', [
-    h('i', { attrs: { 'data-icon': '~' } }),
+    h('i', { attrs: { 'data-icon': '' } }),
     h('p', msg),
     h(
       'a.storm--dup__reload.button',

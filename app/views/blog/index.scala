@@ -27,7 +27,7 @@ object index {
         div(cls := "blog index page-menu__content page-small box")(
           div(cls := "box__top")(
             h1("Lichess Official Blog"),
-            a(cls := "atom", href := routes.Blog.atom, dataIcon := "3")
+            a(cls := "atom", href := routes.Blog.atom, dataIcon := "")
           ),
           primaryPost map { post =>
             frag(
@@ -85,7 +85,7 @@ object index {
             a(
               cls := "button",
               href := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := "G"
+              dataIcon := ""
             )(
               " Continue reading this post"
             )

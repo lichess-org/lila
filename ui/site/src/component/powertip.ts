@@ -30,9 +30,9 @@ const userPowertip = (el: HTMLElement, pos?: PowerTip.Placement) => {
           '<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' +
             name +
             '</span></div></div><div class="upt__actions btn-rack">' +
-            uptA('/@/' + u + '/tv', '1') +
-            uptA('/inbox/new?user=' + u, 'c') +
-            uptA('/?user=' + u + '#friend', 'U') +
+            uptA('/@/' + u + '/tv', '') +
+            uptA('/inbox/new?user=' + u, '') +
+            uptA('/?user=' + u + '#friend', '') +
             '<a class="btn-rack__btn relation-button" disabled></a></div>'
         );
       }),

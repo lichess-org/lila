@@ -38,7 +38,7 @@ object index {
                     submitButton(
                       cls := "button button-empty button-red confirm text",
                       title := s"Revoke access from ${t.app.name}",
-                      dataIcon := "q"
+                      dataIcon := ""
                     )("Revoke")
                   )
                 )
@@ -81,13 +81,13 @@ object index {
                     href := routes.OAuthApp.edit(t.clientId.value),
                     cls := "button button-empty",
                     title := "Edit this app",
-                    dataIcon := "m"
+                    dataIcon := ""
                   ),
                   postForm(action := routes.OAuthApp.delete(t.clientId.value))(
                     submitButton(
                       cls := "button button-empty button-red confirm",
                       title := "Delete this app",
-                      dataIcon := "q"
+                      dataIcon := ""
                     )
                   )
                 )

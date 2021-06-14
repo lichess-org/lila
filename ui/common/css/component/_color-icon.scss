@@ -1,23 +1,23 @@
 .color-icon {
   @if $theme-light {
     &.white::before {
-      content: 'K';
+      content: '';
     }
 
     &.black::before {
-      content: 'J';
+      content: '';
     }
   } @else {
     &.white::before {
-      content: 'J';
+      content: '';
     }
 
     &.black::before {
-      content: 'K';
+      content: '';
     }
   }
 
   &.random::before {
-    content: 'l';
+    content: '';
   }
 }

@@ -63,7 +63,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       {
         hook: bind('click', ctrl.retry),
       },
-      [iconTag('P'), h('span', 'Retry')]
+      [iconTag(''), h('span', 'Retry')]
     );
   if (fb === 'good' && state.comment)
     return h(
@@ -71,7 +71,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       {
         hook: bind('click', ctrl.next),
       },
-      [h('span.text', { attrs: dataIcon('G') }, 'Next'), h('kbd', '<space>')]
+      [h('span.text', { attrs: dataIcon('') }, 'Next'), h('kbd', '<space>')]
     );
   if (fb === 'end') return renderEnd(ctrl);
   return h(
@@ -98,7 +98,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       ? h(
           'a.next.text',
           {
-            attrs: dataIcon('G'),
+            attrs: dataIcon(''),
             hook: bind('click', study.goToNextChapter),
           },
           'Next chapter'
@@ -107,7 +107,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
     h(
       'a.retry',
       {
-        attrs: dataIcon('P'),
+        attrs: dataIcon(''),
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
       'Play again'
@@ -115,7 +115,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
     h(
       'a.analyse',
       {
-        attrs: dataIcon('A'),
+        attrs: dataIcon(''),
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
       'Analyse'

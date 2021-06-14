@@ -86,7 +86,7 @@ final class JsonView(
       .add("declineReason" -> c.declineReason.map(_.trans.txt()))
 
   private def iconChar(c: Challenge) =
-    if (c.variant == chess.variant.FromPosition) '*'
+    if (c.variant == chess.variant.FromPosition) ''
     else c.perfType.iconChar
 
   private val i18nKeys = List(

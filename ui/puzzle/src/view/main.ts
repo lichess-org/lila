@@ -62,10 +62,10 @@ function controls(ctrl: Controller): VNode {
     },
     [
       h('div.jumps', [
-        jumpButton('W', 'first', !node.ply),
-        jumpButton('Y', 'prev', !node.ply),
-        jumpButton('X', 'next', !nextNode, goNext),
-        jumpButton('V', 'last', !nextNode, goNext),
+        jumpButton('', 'first', !node.ply),
+        jumpButton('', 'prev', !node.ply),
+        jumpButton('', 'next', !nextNode, goNext),
+        jumpButton('', 'last', !nextNode, goNext),
       ]),
     ]
   );

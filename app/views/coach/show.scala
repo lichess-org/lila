@@ -52,12 +52,12 @@ object show {
             frag(
               if (c.coach.isListed) p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit, cls := "text", dataIcon := "m")("Edit my coach profile")
+              a(href := routes.Coach.edit, cls := "text", dataIcon := "")("Edit my coach profile")
             )
           else
             a(
               cls := "text button button-empty",
-              dataIcon := "c",
+              dataIcon := "",
               href := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
           ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),

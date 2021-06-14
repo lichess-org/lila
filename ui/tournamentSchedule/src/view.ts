@@ -114,7 +114,7 @@ function tournamentClass(tour) {
 }
 
 function iconOf(tour, perfIcon) {
-  return tour.schedule && tour.schedule.freq === 'shield' ? '5' : perfIcon;
+  return tour.schedule && tour.schedule.freq === 'shield' ? '' : perfIcon;
 }
 
 let mousedownAt: number[] | undefined;
@@ -170,7 +170,7 @@ function renderTournament(ctrl, tour) {
             ? h(
                 'span.nb-players',
                 {
-                  attrs: { 'data-icon': 'r' },
+                  attrs: { 'data-icon': '' },
                 },
                 tour.nbPlayers
               )

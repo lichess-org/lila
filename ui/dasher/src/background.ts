@@ -82,7 +82,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
           'a.text',
           {
             class: { active: cur === bg.key },
-            attrs: { 'data-icon': 'E', title: bg.title || '' },
+            attrs: { 'data-icon': '', title: bg.title || '' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
           bg.name

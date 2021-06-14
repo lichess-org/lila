@@ -60,7 +60,7 @@ object show {
         }
       )(
         div(cls := "box__top")(
-          h1(cls := "text", dataIcon := "f")(t.name),
+          h1(cls := "text", dataIcon := "")(t.name),
           div(
             if (t.disabled) span(cls := "staff")("CLOSED")
             else nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
@@ -116,7 +116,7 @@ object show {
                 a(
                   href := routes.Tournament.teamBattleForm(t.id),
                   cls := "button button-empty text",
-                  dataIcon := "g"
+                  dataIcon := ""
                 )(
                   span(
                     strong(teamBattle()),
@@ -126,7 +126,7 @@ object show {
                 a(
                   href := s"${routes.Tournament.form}?team=${t.id}",
                   cls := "button button-empty text",
-                  dataIcon := "g"
+                  dataIcon := ""
                 )(
                   span(
                     strong(teamTournament()),
@@ -136,7 +136,7 @@ object show {
                 a(
                   href := s"${routes.Swiss.form(t.id)}",
                   cls := "button button-empty text",
-                  dataIcon := "g"
+                  dataIcon := ""
                 )(
                   span(
                     strong(trans.swiss.swissTournaments()),
@@ -146,7 +146,7 @@ object show {
                 a(
                   href := routes.Team.pmAll(t.id),
                   cls := "button button-empty text",
-                  dataIcon := "e"
+                  dataIcon := ""
                 )(
                   span(
                     strong(messageAllMembers()),
@@ -155,7 +155,7 @@ object show {
                 )
               ),
               ((t.enabled && info.ledByMe) || isGranted(_.Admin)) option
-                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(
+                a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 )
             ),

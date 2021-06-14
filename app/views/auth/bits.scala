@@ -42,7 +42,7 @@ object bits {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          fail option span(cls := "is-red", dataIcon := "L"),
+          fail option span(cls := "is-red", dataIcon := ""),
           trans.passwordReset()
         ),
         postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
@@ -60,7 +60,7 @@ object bits {
       title = trans.passwordReset.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
         p(trans.weHaveSentYouAnEmailTo(email)),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -81,8 +81,8 @@ object bits {
     ) {
       main(cls := "page-small box box-pad")(
         (ok match {
-          case Some(true)  => h1(cls := "is-green text", dataIcon := "E")
-          case Some(false) => h1(cls := "is-red text", dataIcon := "L")
+          case Some(true)  => h1(cls := "is-green text", dataIcon := "")
+          case Some(false) => h1(cls := "is-red text", dataIcon := "")
           case _           => h1
         })(
           userLink(u, withOnline = false),
@@ -114,7 +114,7 @@ object bits {
     ) {
       main(cls := "auth auth-signup box box-pad")(
         h1(
-          fail option span(cls := "is-red", dataIcon := "L"),
+          fail option span(cls := "is-red", dataIcon := ""),
           "Log in by email"
         ),
         p("We will send you an email containing a link to log you in."),
@@ -133,7 +133,7 @@ object bits {
       title = "Log in by email"
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+        h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
         p("We've sent you an email with a link."),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

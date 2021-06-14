@@ -55,13 +55,13 @@ function image(d): VNode | undefined {
       attrs: { src: lichess.assetUrl('images/' + s.iconImg) },
     });
   return h('i.img', {
-    attrs: dataIcon((s && s.iconFont) || 'g'),
+    attrs: dataIcon((s && s.iconFont) || ''),
   });
 }
 
 function title(ctrl: TournamentController) {
   const d = ctrl.data;
-  if (hasFreq('marathon', d)) return h('h1', [h('i.fire-trophy', '\\'), d.fullName]);
+  if (hasFreq('marathon', d)) return h('h1', [h('i.fire-trophy', ''), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
       h(
@@ -91,7 +91,7 @@ function title(ctrl: TournamentController) {
           ' Arena',
         ]
       : [d.fullName]
-    ).concat(d.private ? [' ', h('span', { attrs: dataIcon('a') })] : [])
+    ).concat(d.private ? [' ', h('span', { attrs: dataIcon('') })] : [])
   );
 }
 

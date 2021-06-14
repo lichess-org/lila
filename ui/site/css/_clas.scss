@@ -497,7 +497,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       &::before {
         @extend %data-icon;
 
-        content: '5';
+        content: '';
         font-size: 3em;
       }
     }
