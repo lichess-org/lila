@@ -476,7 +476,7 @@ final class Tournament(
     }
 
   private val streamerCache = env.memo.cacheApi[Tour.ID, List[UserModel.ID]](64, "tournament.streamers") {
-    _.refreshAfterWrite(15.seconds)
+    _.refreshAfterWrite(60.seconds)
       .maximumSize(64)
       .buildAsyncFuture { tourId =>
         env.tournament.tournamentRepo.isUnfinished(tourId) flatMap {
