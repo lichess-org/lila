@@ -53,7 +53,8 @@ object page {
       games: Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[_]],
-      social: lila.app.mashup.UserInfo.Social
+      social: lila.app.mashup.UserInfo.Social,
+      notes: Map[Game.ID, String]
   )(implicit ctx: Context) =
     views.html.base.layout(
       title =
@@ -71,7 +72,7 @@ object page {
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
           views.html.user.show.header(u, info, Angle.Games(searchForm), social),
-          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
+          div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name, notes))
         )
       )
     }

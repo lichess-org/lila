@@ -12,6 +12,7 @@ object widgets {
 
   def apply(
       games: Seq[Game],
+      notes: Map[Game.ID, String] = Map(),
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(implicit ctx: Context): Frag =
@@ -94,6 +95,9 @@ object widgets {
               )
             )
           } else frag(br, br),
+          notes get g.id map { note =>
+            div(cls := "notes")(strong("Notes: "), note)
+          },
           g.metadata.analysed option
             div(cls := "metadata text", dataIcon := "")(trans.computerAnalysisAvailable()),
           g.pgnImport.flatMap(_.user).map { user =>
