@@ -48,13 +48,11 @@ case class Std(
 
   def apply(situation: Situation) = move(situation) map Left.apply
 
-  override def withSuffixes(s: Suffixes) = {
-    val mprom = if (s.promotion == Some("+")) true else false
+  override def withSuffixes(s: Suffixes) = 
     copy(
       metas = metas withSuffixes s,
-      promotion = mprom
+      promotion = s.promotion
     )
-  }
 
   def withMetas(m: Metas) = copy(metas = m)
 
@@ -123,6 +121,6 @@ object Metas {
 }
 
 case class Suffixes(
-    promotion: Option[String],
+    promotion: Boolean,
     glyphs: Glyphs
 )
