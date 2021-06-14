@@ -9,6 +9,7 @@ import shogiground from './shogiground';
 import { OpeningPosition, Selected, EditorState } from './interfaces';
 import { parseFen } from 'shogiops/fen';
 import { PocketRole } from 'shogiops/types';
+import { defined } from 'shogiops/util';
 
 type Position = 'top' | 'bottom';
 
@@ -597,12 +598,12 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
           if(eventPos){
-            if (ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
-
             const pocketTarget = insideWhichPocket(eventPos);
             if(pocketTarget === 'sente')  ctrl.addToPocket("sente", s[1], true);
             else if(pocketTarget === 'gote') ctrl.addToPocket("gote", s[1], true);
-            else ctrl.selected(s);
+
+            // set selected only when upevent occurs outside of the board and the pocket
+            if(!defined(pocketTarget) && !defined(ctrl.shogiground!.getKeyAtDomPos(eventPos))) ctrl.selected(s);
           }
           ctrl.redraw();
         },
