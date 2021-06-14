@@ -150,6 +150,11 @@ lichess.advantageChart = function (data, trans, el) {
             ],
           },
         });
+        el.highcharts.selectPly = ply => {
+          const point = el.highcharts.series[0].data[ply - 1 - data.game.startedAtTurn];
+          if (point) point.select(true);
+          else el.highcharts.getSelectedPoints().forEach(point => point.select(false));
+        };
         lichess.pubsub.emit('analysis.change.trigger');
       });
     });
