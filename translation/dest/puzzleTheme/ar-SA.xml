@@ -54,9 +54,16 @@
   <string name="shortDescription">حركتين للانتصار.</string>
   <string name="skewer">سيخ</string>
   <string name="smotheredMate">كش بالخنق</string>
+  <string name="smotheredMateDescription">هو نمط من الكش مات بالحصان حيث أن الملك غير قادر على التحرك لأنه محاط (مخنوق) بقطعه.</string>
   <string name="superGM">مباراة أستاذ دولي كبير</string>
   <string name="superGMDescription">ألغاز من مبارايات تم لعبها من أفضل اللاعبين في العالم.</string>
+  <string name="trappedPiece">قطعة محاصرة</string>
+  <string name="trappedPieceDescription">قطعة لا تستطيع الهرب بسبب عدم وجود مربعات آمنة للهروب إليها.</string>
+  <string name="underPromotion">ترقية لغير الوزير</string>
+  <string name="underPromotionDescription">ترقية الجندي لقلعة أو فيل أو حصان.</string>
   <string name="veryLong">لغز طويل جداً</string>
+  <string name="veryLongDescription">أربع نقلات أو أكثر للفوز.</string>
   <string name="xRayAttack">هجوم X-Ray</string>
   <string name="healthyMix">خليط</string>
+  <string name="healthyMixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
 </resources>
