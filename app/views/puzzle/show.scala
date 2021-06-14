@@ -19,7 +19,10 @@ object show {
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
       title = if (isStreak) "Puzzle Streak" else trans.puzzles.txt(),
-      moreCss = cssTag("puzzle"),
+      moreCss = frag(
+        cssTag("puzzle"),
+        ctx.blind option cssTag("round.nvui")
+      ),
       moreJs = frag(
         puzzleTag,
         puzzleNvuiTag,
