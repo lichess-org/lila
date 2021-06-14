@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, VNode, VNodeChildren } from 'snabbdom';
 import { Dests, Pieces, Rank, File, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { Api } from 'chessground/api';
@@ -672,4 +672,44 @@ export function inputToLegalUci(input: string, fen: string, chessground: Api): s
 
   if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
   else return;
+}
+
+export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
+  const res: Array<string | VNode> = [];
+  let path: Tree.Path = '';
+  nodes.forEach(node => {
+    if (!node.san || !node.uci) return;
+    path += node.id;
+    const content: VNodeChildren = [
+      node.ply & 1 ? plyToTurn(node.ply) + ' ' : null,
+      renderSan(node.san, node.uci, style),
+    ];
+    res.push(
+      h(
+        'move',
+        {
+          attrs: { p: path },
+          class: { active: path === currentPath },
+        },
+        content
+      )
+    );
+    res.push(renderComments(node, style));
+    res.push(', ');
+    if (node.ply % 2 === 0) res.push(h('br'));
+  });
+  return res;
+}
+
+const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
+
+export function renderComments(node: Tree.Node, style: Style): string {
+  if (!node.comments) return '';
+  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
+}
+
+function renderComment(comment: Tree.Comment, style: Style): string {
+  return comment.by === 'lichess'
+    ? comment.text.replace(/Best move was (.+)\./, (_, san) => 'Best move was ' + renderSan(san, undefined, style))
+    : comment.text;
 }

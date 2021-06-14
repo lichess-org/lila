@@ -2,7 +2,15 @@ import { h, VNode } from 'snabbdom';
 import { Controller, Redraw } from '../interfaces';
 import { puzzleBox, userBox } from '../view/side';
 import theme from '../view/theme';
-import { castlingFlavours, inputToLegalUci, renderPieces, renderSan, Style, styleSetting } from 'nvui/chess';
+import {
+  castlingFlavours,
+  inputToLegalUci,
+  renderMainline,
+  renderPieces,
+  renderSan,
+  Style,
+  styleSetting,
+} from 'nvui/chess';
 import { Chessground } from 'chessground';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
@@ -30,6 +38,17 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
             puzzleBox(ctrl),
             theme(ctrl),
             !ctrl.streak ? userBox(ctrl) : null,
+            h('h2', 'Moves'),
+            h(
+              'p.moves',
+              {
+                attrs: {
+                  role: 'log',
+                  'aria-live': 'off',
+                },
+              },
+              renderMainline(ctrl.vm.mainline, ctrl.vm.path, moveStyle.get())
+            ),
             h('h2', 'Pieces'),
             h('div.pieces', renderPieces(pieces, moveStyle.get())),
             h('h2', 'Puzzle status'),
