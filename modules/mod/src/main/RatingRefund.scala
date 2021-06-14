@@ -76,10 +76,7 @@ final private class RatingRefund(
                   curRating = user.perfs(ref.perf).intRating,
                   perfs = perfs
                 )
-                (points > 0) ?? {
-                  logger.info(s"Refunding $ref -> $points")
-                  refundPoints(Victim(user), ref.perf, points)
-                }
+                (points > 0) ?? refundPoints(Victim(user), ref.perf, points)
               }
             }
           }
