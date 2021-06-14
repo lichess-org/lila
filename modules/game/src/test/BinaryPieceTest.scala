@@ -1,11 +1,11 @@
 package lila.game
 
-import chess._
-import chess.Pos._
+import shogi._
+import shogi.Pos._
 import org.specs2.mutable._
 
 import lila.db.ByteArray
-import chess.variant.Standard
+import shogi.variant.Standard
 
 class BinaryPieceTest extends Specification {
 
@@ -18,52 +18,47 @@ class BinaryPieceTest extends Specification {
   "binary pieces" should {
     "write" should {
       "empty board" in {
-        write(Map.empty) must_== List.fill(32)(noop)
+        write(Map.empty) must_== List.fill(81)(noop)
       }
-      "A1 white king" in {
-        write(Map(A1 -> White.king)) must_== {
-          "00010000" :: List.fill(31)(noop)
+      "A1 sente king" in {
+        write(Map(A1 -> Sente.king)) must_== {
+          "00000001" :: List.fill(80)(noop)
         }
       }
-      "A1 black knight" in {
-        write(Map(A1 -> Black.knight)) must_== {
-          "11000000" :: List.fill(31)(noop)
+      "A1 gote knight" in {
+        write(Map(A1 -> Gote.knight)) must_== {
+          "00010100" :: List.fill(80)(noop)
         }
       }
-      "B1 black pawn" in {
-        write(Map(B1 -> Black.pawn)) must_== {
-          "00001110" :: List.fill(31)(noop)
+      "B1 gote pawn" in {
+        write(Map(B1 -> Gote.pawn)) must_== {
+          noop :: "00011110" :: List.fill(79)(noop)
         }
       }
-      "A1 black knight, B1 white bishop" in {
-        write(Map(A1 -> Black.knight, B1 -> White.bishop)) must_== {
-          "11000101" :: List.fill(31)(noop)
+      "A1 gote knight, B1 sente bishop" in {
+        write(Map(A1 -> Gote.knight, B1 -> Sente.bishop)) must_== {
+          "00010100" :: "00000110" :: List.fill(79)(noop)
         }
       }
-      "A1 black knight, B1 white bishop, C1 white queen" in {
-        write(Map(A1 -> Black.knight, B1 -> White.bishop, C1 -> White.queen)) must_== {
-          "11000101" :: "00100000" :: List.fill(30)(noop)
+      "i9 gote knight" in {
+        write(Map(I9 -> Gote.knight)) must_== {
+          List.fill(80)(noop) :+ "00010100"
         }
       }
-      "H8 black knight" in {
-        write(Map(H8 -> Black.knight)) must_== {
-          List.fill(31)(noop) :+ "00001100"
-        }
-      }
-      "G8 black knight, H8 white bishop" in {
-        write(Map(G8 -> Black.knight, H8 -> White.bishop)) must_== {
-          List.fill(31)(noop) :+ "11000101"
+      "H9 gote knight, I9 sente bishop" in {
+        write(Map(H9 -> Gote.knight, I9 -> Sente.bishop)) must_== {
+          List.fill(79)(noop) :+ "00010100" :+ "00000110"
         }
       }
     }
     "read" should {
       "empty board" in {
-        read(List.fill(32)(noop)) must_== Map.empty
-        "A1 white king" in {
-          read("00010000" :: List.fill(31)(noop)) must_== Map(A1 -> White.king)
+        read(List.fill(81)(noop)) must_== Map.empty
+        "A1 sente king" in {
+          read("00000001" :: List.fill(80)(noop)) must_== Map(A1 -> Sente.king)
         }
-        "B1 black pawn" in {
-          read("00001110" :: List.fill(31)(noop)) must_== Map(B1 -> Black.pawn)
+        "B1 gote pawn" in {
+          read(noop :: "00011110" :: List.fill(79)(noop)) must_== Map(B1 -> Gote.pawn)
         }
       }
     }

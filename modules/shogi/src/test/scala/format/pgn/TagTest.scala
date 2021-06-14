@@ -1,25 +1,25 @@
-package chess
+package shogi
 package format.pgn
 
-class TagTest extends ChessTest {
+class TagTest extends ShogiTest {
 
   "Tags" should {
     // http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c8.1.1
     "be sorted" in {
       Tags(
         List(
-          Tag(Tag.Site, "https://lichess.org/QuCzSfxw"),
+          Tag(Tag.Site, "https://lishogi.org/QuCzSfxw"),
           Tag(Tag.Round, "-"),
           Tag(Tag.Date, "2018.05.04"),
-          Tag(Tag.Black, "penguingim1"),
-          Tag(Tag.White, "DrDrunkenstein"),
+          Tag(Tag.Gote, "penguingim1"),
+          Tag(Tag.Sente, "DrDrunkenstein"),
           Tag(Tag.Result, "1-0"),
           Tag(Tag.UTCDate, "2018.05.04"),
           Tag(Tag.UTCTime, "20:59:23"),
-          Tag(Tag.WhiteElo, "2870"),
-          Tag(Tag.BlackElo, "2862"),
-          Tag(Tag.WhiteRatingDiff, "+12"),
-          Tag(Tag.BlackRatingDiff, "-7"),
+          Tag(Tag.SenteElo, "2870"),
+          Tag(Tag.GoteElo, "2862"),
+          Tag(Tag.SenteRatingDiff, "+12"),
+          Tag(Tag.GoteRatingDiff, "-7"),
           Tag(Tag.Event, "Titled Arena 5")
         )
       ).sorted.value.map(_.name) must_== List(
@@ -27,15 +27,15 @@ class TagTest extends ChessTest {
         Tag.Site,
         Tag.Date,
         Tag.Round,
-        Tag.White,
-        Tag.Black,
+        Tag.Sente,
+        Tag.Gote,
         Tag.Result,
         Tag.UTCDate,
         Tag.UTCTime,
-        Tag.WhiteElo,
-        Tag.BlackElo,
-        Tag.WhiteRatingDiff,
-        Tag.BlackRatingDiff
+        Tag.SenteElo,
+        Tag.GoteElo,
+        Tag.SenteRatingDiff,
+        Tag.GoteRatingDiff
       )
     }
   }

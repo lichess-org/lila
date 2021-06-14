@@ -1,10 +1,10 @@
-package chess
+package shogi
 package format
 
 import Pos._
 import Uci._
 
-class UciCharPairTest extends ChessTest {
+class UciCharPairTest extends ShogiTest {
 
   // println(UciCharPair.implementation.pos2charMap.toList.sortBy(_._2.toInt))
   // println(UciCharPair.implementation.promotion2charMap.toList.sortBy(_._2.toInt))
@@ -21,9 +21,9 @@ class UciCharPairTest extends ChessTest {
     val allPairs = allMoves.map(conv)
 
     "regular moves" in {
-      conv(Move(A1, B1)) must_== "#$"
-      conv(Move(A1, A2)) must_== "#+"
-      conv(Move(H7, H8)) must_== "Zb"
+      conv(Move(I3, I4)) must_== "<E"
+      conv(Move(C7, C6)) must_== "ZQ"
+      conv(Move(C3, C4)) must_== "6?"
     }
     "unicity" in {
       allPairs.distinct.size must_== allMoves.size
@@ -32,15 +32,14 @@ class UciCharPairTest extends ChessTest {
       allPairs.count(_ contains UciCharPair.implementation.voidChar) must_== 0
     }
     "promotions" in {
-      conv(Move(B7, B8, Some(Queen))) must_== "Td"
-      conv(Move(B7, C8, Some(Queen))) must_== "Te"
-      conv(Move(B7, C8, Some(Knight))) must_== "T}"
+      conv(Move(B2, H8, true)) must_== ",è"
+      conv(Move(B2, H8, false)) must_== ",h"
     }
     "drops" in {
-      conv(Drop(Pawn, A1)).head must_== '#'
-      conv(Drop(Pawn, A1)).tail.head.toInt must_== 143
-      conv(Drop(Queen, H8)).head must_== 'b'
-      conv(Drop(Queen, H8)).tail.head.toInt must_== 139
+      conv(Drop(Pawn, I3)) must_== "<ö"
+      conv(Drop(Lance, I9)) must_== "rù"
+      conv(Drop(Silver, I1)) must_== "*ø"
+      conv(Drop(Bishop, E5)) must_== "Jô"
     }
   }
 }

@@ -1,15 +1,15 @@
-package chess
+package shogi
 
-class PieceTest extends ChessTest {
+class PieceTest extends ShogiTest {
 
   "Piece" should {
     "compare" in {
       "objects and - method" in {
-        !White - Pawn must_== Black - Pawn
+        !Sente - Pawn must_== Gote - Pawn
       }
       "value and - method" in {
-        val color = White
-        !color - Pawn must_== Black - Pawn
+        val color = Sente
+        !color - Pawn must_== Gote - Pawn
       }
     }
   }

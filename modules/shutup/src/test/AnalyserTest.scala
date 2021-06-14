@@ -50,23 +50,26 @@ class AnalyserTest extends Specification {
     "compute ratio" in {
       ratio("fuck that shit") must_== 2d / 3
       ratio("Beat them cunting nigger faggots with a communist dick") must_== 4d / 9
-      ratio("hello there") must_== 0
-      ratio("") must_== 0
+      ratio("hello there") must_== 0d
+      ratio("") must_== 0d
     }
-    "chessbot variations" in {
-      find("foo chessbot bar") must_== List("chessbot")
-      find("foo chess-bot bar") must_== List("chess-bot")
-      find("foo chess_bot bar") must_== List("chess_bot")
-      find("foo chess-bot.com bar") must_== List("chess-bot.com")
-      find("foo chess_bot_com bar") must_== List("chess_bot_com")
-      find("foo chessbotcom bar") must_== List("chessbotcom")
-      find("foo http://chess-bot.com bar") must_== List("chess-bot.com")
+    "shogibot variations" in {
+      find("foo shogibot bar") must_== List("shogibot")
+      find("foo shogi-bot bar") must_== List("shogi-bot")
+      find("foo shogi_bot bar") must_== List("shogi_bot")
+      find("foo shogi-bot.com bar") must_== List("shogi-bot.com")
+      find("foo shogi_bot_com bar") must_== List("shogi_bot_com")
+      find("foo shogibotcom bar") must_== List("shogibotcom")
+      find("foo http://shogi-bot.com bar") must_== List("shogi-bot.com")
     }
     "russian chars" in {
       find("sеx") must_== List("sex")
     }
     "russian" in {
       find("сука пизда") must_== List("сука", "пизда")
+    }
+    "japanese" in {
+      find("ばか") must_== List("ばか")
     }
   }
   "dirty" should {

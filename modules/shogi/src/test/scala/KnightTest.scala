@@ -1,19 +1,19 @@
-package chess
+package shogi
 
 import Pos._
 
-class KnightTest extends ChessTest {
+class KnightTest extends ShogiTest {
 
   "a knight" should {
 
-    val knight = White - Knight
+    val knight = Sente - Knight
 
-    "move in any of 8 positions, 2 and 1 squares away" in {
-      pieceMoves(knight, E4) must bePoss(F6, G5, G3, F2, D2, C3, C5, D6)
+    "move in any of 2 positions" in {
+      pieceMoves(knight, E5) must bePoss(D7, F7)
     }
 
-    "move 2 and 1 squares away, even when at the edges" in {
-      pieceMoves(knight, H8) must bePoss(G6, F7)
+    "move in 1 one position when at the edges" in {
+      pieceMoves(knight, I6) must bePoss(H8)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -24,20 +24,22 @@ k B
     P
   N
     P
-PPP  PPP
- NBQKBNR
+PPP  PPPP
+
+    K
 """
-      board destsFrom C4 must bePoss(
+      board destsFrom C5 must bePoss(
         board,
         """
 k B
 
  x B
-x   P
+    P
   N
-x   P
-PPPx PPP
- NBQKBNR
+    P
+PPP  PPPP
+
+    K
 """
       )
     }
@@ -50,20 +52,22 @@ k B
 n
   N
     b
-PPP  PPP
- NBQKBNR
+PPP  PPPP
+
+    K
 """
-      board destsFrom C4 must bePoss(
+      board destsFrom C5 must bePoss(
         board,
         """
 k B
 
  x B
-x   x
+n
   N
-x   x
-PPPx PPP
- NBQKBNR
+    b
+PPP  PPPP
+
+    K
 """
       )
     }
@@ -74,24 +78,25 @@ k B
  b B
 n
   N
-    Q
-PPP  PPP
- NBQKBNR
+    R
+PPP  PPPP
+
+    K
 """
       "a reachable enemy" in {
-        board actorAt C4 map (_ threatens A5) must beSome(true)
+        board actorAt C5 map (_ threatens B7) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens A8) must beSome(false)
+        board actorAt C5 map (_ threatens A6) must beSome(false)
       }
-      "a reachable friend" in {
-        board actorAt C4 map (_ threatens E3) must beSome(true)
+      "an unreachable friend" in {
+        board actorAt C5 map (_ threatens E4) must beSome(false)
       }
       "nothing left" in {
-        board actorAt C4 map (_ threatens B4) must beSome(false)
+        board actorAt C5 map (_ threatens B5) must beSome(false)
       }
       "nothing up" in {
-        board actorAt C4 map (_ threatens C5) must beSome(false)
+        board actorAt C5 map (_ threatens C6) must beSome(false)
       }
     }
   }

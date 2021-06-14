@@ -1,4 +1,4 @@
-package org.lichess.compression.clock
+package org.lishogi.compression.clock
 
 import org.specs2.mutable._
 

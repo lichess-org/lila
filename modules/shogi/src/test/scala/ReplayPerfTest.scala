@@ -1,8 +1,8 @@
-package chess
+package shogi
 
-class ReplayPerfTest extends ChessTest {
+class ReplayPerfTest extends ShogiTest {
 
-  args(skipAll = true)
+  //args(skipAll = true)
 
   val nb = 500
   val gameMoves = (format.pgn.Fixtures.prod500standard take nb).map {
@@ -13,7 +13,7 @@ class ReplayPerfTest extends ChessTest {
   // val iterations = 1
 
   def runOne(moves: List[String]) =
-    Replay.gameMoveWhileValid(moves, format.Forsyth.initial, chess.variant.Standard)
+    Replay.gameMoveWhileValid(moves, format.Forsyth.initial, shogi.variant.Standard)
   def run: Unit = { gameMoves foreach runOne }
 
   "playing a game" should {

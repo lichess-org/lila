@@ -1,11 +1,11 @@
-package chess
+package shogi
 
-class ColorTest extends ChessTest {
+class ColorTest extends ShogiTest {
 
   "Color" should {
     "unary !" in {
-      "white" in { !White must_== Black }
-      "black" in { !Black must_== White }
+      "sente" in { !Sente must_== Gote }
+      "gote" in { !Gote must_== Sente }
     }
   }
 }

@@ -1,113 +1,72 @@
-package chess
+package shogi
 
-import chess.variant.Chess960
+import Pos._
 
-class PerftTest extends ChessTest {
+class PerftTest extends ShogiTest {
 
+  // todo - add drop moves
   def perft(game: Game, depth: Int): Int = {
     if (depth > 0)
       game.situation.moves.values.flatten.foldLeft(0)((p, move) =>
-        if (move.piece.role == Pawn && (move.dest.y == 1 || move.dest.y == 8))
-          p + perft(game.apply(move.withPromotion(Some(Queen)).get), depth - 1)
-            + perft(game.apply(move.withPromotion(Some(Rook)).get), depth - 1)
-            + perft(game.apply(move.withPromotion(Some(Bishop)).get), depth - 1)
-            + perft(game.apply(move.withPromotion(Some(Knight)).get), depth - 1)
-        else
-          p + perft(game.apply(move), depth - 1)
+        p + perft(game.apply(move), depth - 1)
       )
     else 1
   }
 
-  "calculate standard chess perfts" should {
-    // source: https://marcelk.net/rookie/nostalgia/v3/perft-random.epd
-    "gentest-1364" in {
-      val game = Game(Some(Chess960), Some("8/4k3/2r1Br2/Pp4Q1/3N4/1p5K/1b6/8 b - -"))
-      perft(game, 3) must be equalTo 18802
-    }
-    "gentest-2309" in {
-      val game = Game(Some(Chess960), Some("7k/8/1p2p2n/Pp2P2p/7P/Q1p1P3/3NK3/4N2B b - -"))
-      perft(game, 3) must be equalTo 4760
-    }
-    "gentest-2698" in {
-      val game = Game(Some(Chess960), Some("8/8/4R3/1k6/8/5n2/Kb6/8 w - -"))
-      perft(game, 3) must be equalTo 5444
-    }
-    "gentest-3283" in {
+  "starting position" should {
+    "1 depth" in {
       val game =
-        Game(Some(Chess960), Some("r1bqkb1r/p1pp1ppp/1p3n2/6B1/Pn1p2P1/7B/RPP1PP1P/1N1QK1NR w Kkq -"))
-      perft(game, 3) must be equalTo 26302
+        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+      perft(game, 1) must be equalTo 30
     }
-    "gentest-3523" in {
-      val game = Game(Some(Chess960), Some("1n1K4/3bB3/2k5/2p5/8/8/3p4/8 w - -"))
-      perft(game, 3) must be equalTo 933
+    "2 depth" in {
+      val game =
+        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+      perft(game, 2) must be equalTo 900
     }
-    "gentest-4253" in {
-      val game = Game(Some(Chess960), Some("2Bk4/2N4N/1Q6/P2pb1P1/1R5p/2r1p2P/4K1R1/8 b - -"))
-      perft(game, 3) must be equalTo 17116
-    }
-    "gentest-4309" in {
-      val game = Game(Some(Chess960), Some("1nb1qbn1/4rk1r/ppNp3p/5ppP/P5P1/1P3P2/2PPP1RN/1R1QKB2 b - -"))
-      perft(game, 3) must be equalTo 20587
-    }
-    "gentest-5008" in {
-      val game = Game(Some(Chess960), Some("5nk1/7p/r1p4b/p5PP/K4p2/3R4/5B2/8 w - -"))
-      perft(game, 3) must be equalTo 8214
-    }
-    "gentest-5569" in {
-      val game = Game(Some(Chess960), Some("r3k1n1/p2p2p1/1p4N1/2r2pq1/2b2PPp/b1p5/P3PB1P/RQ1K1B1R b q -"))
-      perft(game, 3) must be equalTo 54944
-    }
-    "gentest-6195" in {
-      val game = Game(Some(Chess960), Some("Bnbqk2r/2pppp2/pp4p1/7p/P2b2Q1/2P1P3/1P1P1PPP/RNB2KNR w k -"))
-      perft(game, 3) must be equalTo 41002
-    }
-    "gentest-6689" in {
-      val game = Game(Some(Chess960), Some("8/k5b1/7N/2b5/8/1K3N2/8/4R3 w - -"))
-      perft(game, 3) must be equalTo 17996
+    "3 depth" in {
+      val game =
+        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+      perft(game, 3) must be equalTo 25470
     }
   }
 
-  "calculate chess960 perfts" should {
-    // source: http://www.talkchess.com/forum/viewtopic.php?t=55274
-    "x-fen 00" in {
-      val game = Game(Some(Chess960), Some("r1k1r2q/p1ppp1pp/8/8/8/8/P1PPP1PP/R1K1R2Q w KQkq - 0 1"))
-      perft(game, 3) must be equalTo 12333
-    }
-    "x-fen 01" in {
-      val game = Game(Some(Chess960), Some("r1k2r1q/p1ppp1pp/8/8/8/8/P1PPP1PP/R1K2R1Q w KQkq - 0 1"))
-      perft(game, 3) must be equalTo 20218
-    }
-    "x-fen 02" in {
-      val game = Game(Some(Chess960), Some("8/8/8/4B2b/6nN/8/5P2/2R1K2k w Q - 0 1"))
-      perft(game, 4) must be equalTo 118388
-    }
-    "x-fen 03" in {
-      val game = Game(Some(Chess960), Some("2r5/8/8/8/8/8/6PP/k2KR3 w K - 0 1"))
-      perft(game, 4) must be equalTo 57700
-    }
-    "x-fen 04" in {
-      val game = Game(Some(Chess960), Some("4r3/3k4/8/8/8/8/6PP/qR1K1R2 w KQ - 0 1"))
-      perft(game, 3) must be equalTo 12858
-    }
-  }
-
-  "calculate tricky perfts" should {
-    // source: https://chessprogramming.wikispaces.com/Perft+Results
-    "kiwipete" in {
-      val game =
-        Game(Some(Chess960), Some("r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"))
-      perft(game, 3) must be equalTo 97862
-    }
-    "position 4 mirrored" in {
-      val game =
-        Game(Some(Chess960), Some("r2q1rk1/pP1p2pp/Q4n2/bbp1p3/Np6/1B3NBn/pPPP1PPP/R3K2R b KQ - 0 1"))
-      perft(game, 3) must be equalTo 9467
-    }
-    // https://github.com/ornicar/lila/issues/4625
-    "h-side rook blocks a-side castling" in {
-      val game =
-        Game(Some(Chess960), Some("4rrk1/pbbp2p1/1ppnp3/3n1pqp/3N1PQP/1PPNP3/PBBP2P1/4RRK1 w Ff - 0 1"))
-      perft(game, 3) must be equalTo 71908
-    }
-  }
+  //val random: List[List[String]] = List(
+  //    List("l2kg2+R1/4n3+L/p1gpps3/4np3/6P1N/PP+rP2pS1/1pG2P3/4P1G2/LN3KB1+p b SPbslpppp", "107", "20080"),
+  //    List("l+Rl2+R3/3k1s2+L/p1p1p4/2Ppnp1S1/4n1Pbp/PP2G4/1G3P+n2/Kp2P4/L8 w GSPPPPbgsnp", "240", "39392"),
+  //    List("l+Rl2g2+R/3k1s2+L/p1p1p4/2Ppnp1S1/4n1Pbp/PP2G4/1G3P+n2/Kp2P4/L8 b SPPPPbgsnp", "110", "24582"),
+  //    List("l2kgb1+R1/4n3+L/p1gpps3/4np3/6P1N/PPGP2pS1/1p3P3/4P1G2/LN3KB1+p b RSPslpppp", "158", "21443"),
+  //    List("l8/1r1gk3+L/p1Npp2S1/2Psnpg2/5+r2N/PP1P2pS1/1pG1BP3/4P1G2/LN3KB1+p b SPPlppp", "109", "10902"),
+  //    List("lr6l/3g1kg2/p2pp2s+P/2Ps1ppp1/8L/P1nP2PR1/1P3PS2/1SGK5/LN3G3 b BNNPPPbpp", "7", "755"),
+  //    List("lr7/3g1kg2/p2pp2s+L/2Ps1ppp1/9/PP1P1BPS1/5P1PS/1G6+r/LN3KB2 b GNNLPPPnpp", "184", "18331"),
+  //    List("l+Rl2g2+R/2p+Sks2+L/p3p4/2Ppnp1S1/4n1Pbp/PP2G4/1G3P+n2/Kp2P4/L8 w GSPPPPbnp", "2", "326"),
+  //    List("l2s5/3kn2R+L/p1gpp+B3/4np3/2+r3P1N/PP1P2pS1/1pG2P3/4P1G2/LN3KB1+p b GLPsspppp", "165", "16018"),
+  //    List("lr7/3g1kg2/p2pp2s+L/2Psnp1p1/5+rS2/PP1P5/4BPS2/1G2P1G2/LN3KB1L w NNPPPpppp", "72", "6928"),
+  //    List("lr7/3g1kg2/p2pp2s+L/2Ps1ppp1/9/P2P1BPS1/1P3P3/1G3B3/LN2KG1r1 w NNNLPPPsppp", "123", "16661"),
+  //    List("l+Rl2+R3/3k1s2+L/p1p1p4/2Ppnp1S1/4n1Pbp/PP2G4/KG3P+n2/1p2P4/Ls7 w GSPPPPbgnp", "188", "30364"),
+  //    List("lr6l/3g1kg2/p2pp2s+P/2Ps1ppp1/7nL/P2P2PR1/1P3PN2/1SGK2S2/LN3G3 w BNPPPbpp", "109", "14585"),
+  //    List("l1S6/r3k3+L/p1gppl3/4np+B2/2+r3P1N/PP1P2pS1/1pG2P3/4P1G2/LN3KB1+p b GSPsnpppp", "163", "21883"),
+  //    List("lr7/3g1kg2/p2pp2sl/2Ps1ppp1/8L/P2P2PR1/1P3PS2/1G7/LN2KG3 b BNNNPPPbsppp", "145", "23120"),
+  //    List("l8/1r1g1k3/p1Npp1gs+L/2Psnp1p1/5+rS2/PP1P2pS1/1pG1BP3/4P1G1p/LN3KB1L b NPPpp", "84", "4399"),
+  //    List("lr7/3g1kg2/p2pp2s+L/2Ps1p1p1/5+rp2/PP1P1B1S1/5PP1S/1G2P1G2/LN3KB1L b NNPnpppp", "86", "8763"),
+  //    List("l2kgs1+R1/4n+B2+L/p1gpp4/4np3/6P1N/PP+rP2pS1/1pG2P3/4P1G2/LN3KB1+p w SSPlpppp", "95", "10625"),
+  //    List("l8/1r1gk3+L/p1Npp4/2Psnp+r2/8N/PP1P2pS1/1pG1BP3/4P1G2/LN3KB1+p b GSPPslppp", "156", "22669"),
+  //    List("lr7/3g1kg2/p2pp2s+L/2Ps1ppp1/9/PP1P1BPS1/5P1P1/1G3B1g1/LN3KN1+r b SNNLPPPpp", "181", "12037"),
+  //    List("7lk/9/8S/9/9/9/9/7L1/8K b P", "85", "639")
+  //)
+//
+  //"random positions" should {
+  //  "forall" in {
+  //    forall(random) { line =>
+  //      line match {
+  //        case sfen :: d1 :: d2 :: _ => {
+  //          val game =
+  //            Game(Some(shogi.variant.Standard), Some(sfen))
+  //          perft(game, 1) must be equalTo d1.toInt
+  //          perft(game, 2) must be equalTo d2.toInt
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 }

@@ -1,19 +1,20 @@
-package chess
+package shogi
 
-class SituationTest extends ChessTest {
+class SituationTest extends ShogiTest {
 
   "a game" should {
     "detect check" should {
       "by rook" in {
         ("""
 K  r
-""" as White).check must beTrue
+""" as Sente).check must beTrue
       }
       "by knight" in {
         ("""
-  n
+ n
+
 K
-""" as White).check must beTrue
+""" as Sente).check must beTrue
       }
       "by bishop" in {
         ("""
@@ -21,19 +22,20 @@ K
 
    
      K
-""" as White).check must beTrue
+""" as Sente).check must beTrue
       }
       "by pawn" in {
         ("""
     p
-     K
-""" as White).check must beTrue
+    K
+""" as Sente).check must beTrue
       }
       "not" in {
         ("""
-   n
 K
-""" as White).check must beFalse
+
+ n
+""" as Sente).check must beFalse
       }
     }
     "detect check mate" in {
@@ -41,33 +43,35 @@ K
         ("""
 PP
 K  r
-""" as White).checkMate must beTrue
+""" as Sente).checkMate must beTrue
       }
       "by knight" in {
         ("""
-PPn
+ n
+PB
 KR
-""" as White).checkMate must beTrue
+""" as Sente).checkMate must beTrue
       }
       "not" in {
         ("""
-  n
+ n
+ 
 K
-""" as White).checkMate must beFalse
+""" as Sente).checkMate must beFalse
       }
     }
     "stale mate" in {
       "stuck in a corner" in {
         ("""
-prr
+brr
 K
-""" as White).staleMate must beTrue
+""" as Sente).staleMate must beTrue
       }
       "not" in {
         ("""
   b
 K
-""" as White).staleMate must beFalse
+""" as Sente).staleMate must beFalse
       }
     }
 
@@ -76,11 +80,11 @@ K
         """
 PP
 K  r
-""" as White
+""" as Sente
 
       game.checkMate must beTrue
       game.winner must beSome.like { case color =>
-        color == Black
+        color == Gote
       }
     }
 
@@ -88,7 +92,7 @@ K  r
       val game = """
     p
      K
-    """ as White
+    """ as Sente
 
       game.winner must beNone
 
@@ -96,13 +100,13 @@ K  r
 
     "not be playable" in {
       "with touching kings" in {
-        val game = "kK BN" as Black
+        val game = "kK BN" as Gote
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }
 
       "with other side in check" in {
-        val game = "k Q K" as White
+        val game = "k Q K" as Sente
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }

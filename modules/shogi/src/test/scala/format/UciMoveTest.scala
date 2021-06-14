@@ -1,7 +1,7 @@
-package chess
+package shogi
 package format
 
-class UciMoveTest extends ChessTest {
+class UciMoveTest extends ShogiTest {
 
   "piotr encoding" should {
     "be reflexive" in {

@@ -1,25 +1,15 @@
-package chess
+package shogi
 
-import chess.format.{ Forsyth, Visual }
-import chess.variant.Variant
+import shogi.format.{ Forsyth, Visual }
+import shogi.variant._
 import org.specs2.matcher.{ Matcher, ValidationMatchers }
 import org.specs2.mutable.Specification
 import scalaz.{ Validation => V }
 import V.FlatMap._
 
-trait ChessTest extends Specification with ValidationMatchers {
+trait ShogiTest extends Specification with ValidationMatchers {
 
   implicit def stringToBoard(str: String): Board = Visual << str
-
-  implicit def stringToBoardBuilder(str: String) =
-    new {
-
-      def chess960: Board = makeBoard(str, chess.variant.Chess960)
-
-      def kingOfTheHill: Board = makeBoard(str, chess.variant.KingOfTheHill)
-
-      def threeCheck: Board = makeBoard(str, chess.variant.ThreeCheck)
-    }
 
   implicit def stringToSituationBuilder(str: String) =
     new {
@@ -27,20 +17,19 @@ trait ChessTest extends Specification with ValidationMatchers {
       def as(color: Color): Situation = Situation(Visual << str, color)
     }
 
-  implicit def richActor(actor: Actor) =
-    new {
-
-      def threatens(to: Pos): Boolean =
-        actor.piece.eyes(actor.pos, to) && {
-          (!actor.piece.role.projection) ||
-          actor.piece.role.dir(actor.pos, to).exists {
-            Actor.longRangeThreatens(actor.board, actor.pos, _, to)
-          }
+  case class RichActor(actor: Actor) {
+    def threatens(to: Pos): Boolean =
+      actor.piece.eyes(actor.pos, to) && {
+        (!actor.piece.role.projection) ||
+        actor.piece.role.dir(actor.pos, to).exists {
+          Actor.longRangeThreatens(actor.board, actor.pos, _, to)
         }
-    }
+      }
+  }
 
-  implicit def richGame(game: Game) =
-    new {
+  implicit def richActor(actor: Actor) = RichActor(actor)
+
+  case class RichGame(game: Game) {
 
       def as(color: Color): Game = game.withPlayer(color)
 
@@ -48,36 +37,39 @@ trait ChessTest extends Specification with ValidationMatchers {
 
       def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] = {
         val vg = moves.foldLeft(V.success(game): Valid[Game]) { (vg, move) =>
-          // vg foreach { x =>
-          // println(s"------------------------ ${x.turns} = $move")
-          // }
-          // because possible moves are asked for player highlight
-          // before the move is played (on initial situation)
           vg foreach { _.situation.destinations }
           val ng = vg flatMap { g =>
             g(move._1, move._2) map (_._1)
           }
           ng
         }
-        // vg foreach { x => println("========= PGN: " + x.pgnMoves) }
         vg
       }
 
       def playMove(
           orig: Pos,
           dest: Pos,
-          promotion: Option[PromotableRole] = None
+          promotion: Boolean = false
       ): Valid[Game] =
         game.apply(orig, dest, promotion) map (_._1)
+
+      def playDrop(
+        role: Role,
+        dest: Pos
+      ): Valid[Game] =
+        game.drop(role, dest) map (_._1)
 
       def withClock(c: Clock) = game.copy(clock = Some(c))
     }
 
-  def fenToGame(positionString: String, variant: Variant) = {
+  implicit def richGame(game: Game) = RichGame(game)
+
+
+  def fenToGame(positionString: String, variant: Variant = shogi.variant.Standard) = {
     val situation = Forsyth << positionString
     situation map { sit =>
       sit.color -> sit.withVariant(variant).board
-    } toValid "Could not construct situation from FEN" map { case (color, board) =>
+    } toValid "Could not construct situation from SFEN" map { case (color, board) =>
       Game(variant).copy(
         situation = Situation(board, color)
       )
@@ -85,21 +77,25 @@ trait ChessTest extends Specification with ValidationMatchers {
   }
 
   def makeBoard(pieces: (Pos, Piece)*): Board =
-    Board(pieces toMap, History(), chess.variant.Standard)
+    Board(pieces toMap, History(), shogi.variant.Standard)
 
   def makeBoard(str: String, variant: Variant) =
     Visual << str withVariant variant
 
-  def makeBoard: Board = Board init chess.variant.Standard
+  def makeBoard: Board = Board init shogi.variant.Standard
 
-  def makeEmptyBoard: Board = Board empty chess.variant.Standard
+  def makeEmptyBoard: Board = Board empty shogi.variant.Standard
 
   def bePoss(poss: Pos*): Matcher[Option[Iterable[Pos]]] =
     beSome.like { case p =>
       sortPoss(p.toList) must_== sortPoss(poss.toList)
     }
 
-  def makeGame: Game = Game(makeBoard, White)
+  def makeGame: Game = Game(makeBoard, Sente)
+
+  def makeHand(pawn: Int = 0, lance: Int = 0, knight: Int = 0, silver: Int = 0, gold: Int = 0, bishop: Int = 0, rook: Int = 0): Hand =
+    Hand(Map(Pawn -> pawn, Lance -> lance, Knight -> knight, Silver -> silver, Gold -> gold, Bishop -> bishop, Rook -> rook))
+
 
   def bePoss(board: Board, visual: String): Matcher[Option[Iterable[Pos]]] =
     beSome.like { case p =>
@@ -124,7 +120,7 @@ trait ChessTest extends Specification with ValidationMatchers {
   def sortPoss(poss: Seq[Pos]): Seq[Pos] = poss sortBy (_.toString)
 
   def pieceMoves(piece: Piece, pos: Pos): Option[List[Pos]] =
-    (makeEmptyBoard place piece at pos).toOption flatMap { b =>
-      b actorAt pos map (_.destinations)
+    (makeEmptyBoard.place(piece, pos)) flatMap { b =>
+      b actorAt pos map (_.destinations.distinct)
     }
 }

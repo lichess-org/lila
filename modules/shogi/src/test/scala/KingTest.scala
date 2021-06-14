@@ -1,68 +1,79 @@
-package chess
+package shogi
 
 import Pos._
 
-class KingTest extends ChessTest {
+class KingTest extends ShogiTest {
 
   "a king" should {
 
-    val king = White - King
+    val king = Sente - King
 
     "move 1 position in any direction" in {
       pieceMoves(king, D4) must bePoss(D3, C3, C4, C5, D5, E5, E4, E3)
     }
 
     "move 1 position in any direction, even from the edges" in {
-      pieceMoves(king, H8) must bePoss(H7, G7, G8)
+      pieceMoves(king, I9) must bePoss(I8, H8, H9)
     }
 
     "move behind pawn barrier" in {
       """
-PPPPPPPP
-R  QK NR""" destsFrom E1 must bePoss(F1)
+PPPPPPPPP
+LN GK  NL""" destsFrom E1 must bePoss(F1)
     }
 
     "not move to positions that are occupied by the same colour" in {
       val board = """
-   P
-NPKP   P
 
-PPPPPPPP
- NBQKBNR
+
+  
+   P
+NPKL   P
+
+P P PPP P
+
+  SGKGSNL
 """
-      board destsFrom C4 must bePoss(
+      board destsFrom C5 must bePoss(
         board,
         """
 
 
 
  xxP
-NPKP   P
+NPKL   P
  xxx
-PPPPPPPP
- NBQKBNR
+P P PPP P
+
+  SGKGSNL
 """
       )
     }
 
     "capture hanging opponent pieces" in {
       val board = """
- bpp   k
+k
+
+
+
+
+ bpl
   Kp
  p
-
+l
 """
       board destsFrom C3 must bePoss(
         board,
         """
+k
 
 
 
 
- xxx   k
-  Kp
- x
-
+ xxx
+ xKp
+ xx
+l
 """
       )
     }
@@ -73,18 +84,19 @@ k B
  b B
 bpp
   Kb
-  P Q
-PP   PPP
- NBQ BNR
+  P R
+PP   PPPP
+
+LNSG BNL
 """
       "a reachable enemy" in {
-        board actorAt C4 map (_ threatens B5) must beSome(true)
+        board actorAt C5 map (_ threatens B6) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C4 map (_ threatens A5) must beSome(false)
+        board actorAt C5 map (_ threatens A6) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C4 map (_ threatens C3) must beSome(true)
+        board actorAt C5 map (_ threatens C4) must beSome(true)
       }
     }
     "not move near from the other king" in {

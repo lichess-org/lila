@@ -2,18 +2,18 @@ package shogi
 
 import Pos._
 
-class BishopTest extends ShogiTest {
+class SilverTest extends ShogiTest {
 
-  "a bishop" should {
+  "a silver general" should {
 
-    val bishop = Sente - Bishop
+    val silver = Sente - Silver
 
-    "move in 4 directions" in {
-      pieceMoves(bishop, E5) must bePoss(F4, F6, G3, G7, H2, H8, I1, I9, D4, D6, C3, C7, B2, B8, A1, A9)
+    "move in 6 directions" in {
+      pieceMoves(silver, E5) must bePoss(E6, F6, F4, D4, D6)
     }
 
     "move in 2 directions, when at the edges" in {
-      pieceMoves(bishop, I7) must bePoss(H8, G9, H6, G5, F4, E3, D2, C1)
+      pieceMoves(silver, I9) must bePoss(H8)
     }
 
     "not move to positions that are occupied by the same colour" in {
@@ -22,8 +22,8 @@ k B
 
 
 
-N B     P
-
+ NS     P
+ G
 PPPPPPPPP
 
     K
@@ -31,12 +31,12 @@ PPPPPPPPP
       board destsFrom C5 must bePoss(
         board,
         """
-k B   x
-     x
-x   x
- x x
-N B     P
- x x
+k B
+
+
+ xxx
+ NS     P
+ G x
 PPPPPPPPP
 
     K
@@ -47,10 +47,10 @@ PPPPPPPPP
     "capture opponent pieces" in {
       val board = """
 k B
-     r
-p
 
-N B    P
+
+  p
+N S     P
 
 PPPPPPPPP
 
@@ -60,10 +60,10 @@ PPPPPPPPP
         board,
         """
 k B
-     x
-x   x
- x x
-N B    P
+
+
+ xxx
+N S     P
  x x
 PPPPPPPPP
 
@@ -76,27 +76,30 @@ PPPPPPPPP
 k B
   r  r
 p
-
-N B    P
-
-PPPPPPPPP
+  p
+ NS    P
+   P
+PPP PPPPP
 
     K
 """
       "a reachable enemy" in {
-        board actorAt C5 map (_ threatens A7) must beSome(true)
+        board actorAt C5 map (_ threatens C6) must beSome(true)
       }
       "an unreachable enemy" in {
-        board actorAt C5 map (_ threatens C8) must beSome(false)
+        board actorAt C5 map (_ threatens A7) must beSome(false)
       }
       "a reachable friend" in {
-        board actorAt C5 map (_ threatens A3) must beSome(true)
+        board actorAt C5 map (_ threatens D4) must beSome(true)
       }
-      "nothing up left" in {
+      "nothing down left" in {
+        board actorAt C5 map (_ threatens B4) must beSome(true)
+      }
+      "nothing left up" in {
         board actorAt C5 map (_ threatens B6) must beSome(true)
       }
-      "nothing down right" in {
-        board actorAt C5 map (_ threatens D4) must beSome(true)
+      "nothing right up" in {
+        board actorAt C5 map (_ threatens D6) must beSome(true)
       }
     }
   }

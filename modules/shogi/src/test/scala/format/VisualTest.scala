@@ -1,9 +1,9 @@
-package chess
+package shogi
 package format
 
 import Pos._
 
-class VisualTest extends ChessTest {
+class VisualTest extends ShogiTest {
 
   val f = Visual
 
@@ -11,72 +11,64 @@ class VisualTest extends ChessTest {
     "export new board" in {
       f.addNewLines(f >> makeBoard) must_== newBoardFormat
     }
-    // "import new board" in {
-    //   f << newBoardFormat must_== makeBoard
-    // }
+
     "import and export is non destructive" in {
       forall(examples) { example =>
         f.addNewLines(f >> (f << example)) must_== example
       }
     }
-    // "import partial board representation" in {
-    //   f << """
-    // P n
-    // PPPP   P
-    // RNBQK  R""" must_== (f << """
 
-    // P n
-    // PPPP   P
-    // RNBQK  R
-    // """)
-    // }
     "export with special marks" in {
       val board       = Visual << """
 k B
 
 
 
-N B    P
+N B     P
 
-PPPPPPPP
- NBQKBNR
+PPPPPPPPP
+
+ NSGKGSNL
 """
-      val markedBoard = f >>| (board, Map(Set(B3, D3, B5, D5, A6, E6, F7, G8) -> 'x'))
+      val markedBoard = f >>| (board, Map(Set(B4, D4, B6, D6, A7, E7, F8, G9) -> 'x'))
       f addNewLines markedBoard must_== """
 k B   x
      x
 x   x
  x x
-N B    P
+N B     P
  x x
-PPPPPPPP
- NBQKBNR
+PPPPPPPPP
+
+ NSGKGSNL
 """
     }
   }
 
   val newBoardFormat = """
-rnbqkbnr
-pppppppp
+lnsgkgsnl
+ r     b
+ppppppppp
 
 
 
-
-PPPPPPPP
-RNBQKBNR
+PPPPPPPPP
+ B     R
+LNSGKGSNL
 """
 
   val examples = Seq(
     newBoardFormat,
     """
-rnbqkp r
-pppppppp
+lnsgkgsnl
+ r     B
+pppppp pp
+      p
 
-
-
-    P n
-PPPP   P
-RNBQK  R
+  P
+PP PPPPPP
+       R
+LNSGKGSNL
 """,
     """
        k
@@ -86,37 +78,30 @@ RNBQK  R
 
 
 
+
 K
 """,
     """
-rnbqkbnr
-pppppppp
+lnsgkgsnl
+ r     b
+ppppppppp
 
 
 
 
 
-RK    NR
+LK     NL
 """,
     """
-  bqkb r
-p ppp pp
-pr
+  bgkg nl
+p ppp ppp
+ r
    P p
-   QnB
- PP  N
+
+    nB
+ PP  N  P
 P    PPP
-RN  K  R
-""",
-    """
-r   k nr
-pp n ppp
-  p p
-q
- b P B
-P N  Q P
- PP BPP
-R   K  R
+LNS K   L
 """
   )
 }

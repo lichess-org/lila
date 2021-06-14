@@ -1,8 +1,8 @@
-package chess
+package shogi
 
-class BoardReplayPerfTest extends ChessTest {
+class BoardReplayPerfTest extends ShogiTest {
 
-  args(skipAll = true)
+  //args(skipAll = true)
 
   val nb         = 100
   val iterations = 10

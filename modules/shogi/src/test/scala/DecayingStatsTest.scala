@@ -1,10 +1,10 @@
-package chess
+package shogi
 
 import org.specs2.mutable.Specification
 
 class DecayingStatsTest extends Specification {
 
-  import chess.{ DecayingStats => DS }
+  import shogi.{ DecayingStats => DS }
 
   val random = new java.util.Random(2286825201242408115L)
 

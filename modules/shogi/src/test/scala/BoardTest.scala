@@ -1,8 +1,8 @@
-package chess
+package shogi
 
 import Pos._
 
-class BoardTest extends ChessTest {
+class BoardTest extends ShogiTest {
 
   val board = makeBoard
 
@@ -10,38 +10,46 @@ class BoardTest extends ChessTest {
 
     "position pieces correctly" in {
       board.pieces must havePairs(
-        A1 -> (White - Rook),
-        B1 -> (White - Knight),
-        C1 -> (White - Bishop),
-        D1 -> (White - Queen),
-        E1 -> (White - King),
-        F1 -> (White - Bishop),
-        G1 -> (White - Knight),
-        H1 -> (White - Rook),
-        A2 -> (White - Pawn),
-        B2 -> (White - Pawn),
-        C2 -> (White - Pawn),
-        D2 -> (White - Pawn),
-        E2 -> (White - Pawn),
-        F2 -> (White - Pawn),
-        G2 -> (White - Pawn),
-        H2 -> (White - Pawn),
-        A7 -> (Black - Pawn),
-        B7 -> (Black - Pawn),
-        C7 -> (Black - Pawn),
-        D7 -> (Black - Pawn),
-        E7 -> (Black - Pawn),
-        F7 -> (Black - Pawn),
-        G7 -> (Black - Pawn),
-        H7 -> (Black - Pawn),
-        A8 -> (Black - Rook),
-        B8 -> (Black - Knight),
-        C8 -> (Black - Bishop),
-        D8 -> (Black - Queen),
-        E8 -> (Black - King),
-        F8 -> (Black - Bishop),
-        G8 -> (Black - Knight),
-        H8 -> (Black - Rook)
+        A1 -> (Sente - Lance),
+        B1 -> (Sente - Knight),
+        C1 -> (Sente - Silver),
+        D1 -> (Sente - Gold),
+        E1 -> (Sente - King),
+        F1 -> (Sente - Gold),
+        G1 -> (Sente - Silver),
+        H1 -> (Sente - Knight),
+        I1 -> (Sente - Lance),
+        B2 -> (Sente - Bishop),
+        H2 -> (Sente - Rook),
+        A3 -> (Sente - Pawn),
+        B3 -> (Sente - Pawn),
+        C3 -> (Sente - Pawn),
+        D3 -> (Sente - Pawn),
+        E3 -> (Sente - Pawn),
+        F3 -> (Sente - Pawn),
+        G3 -> (Sente - Pawn),
+        H3 -> (Sente - Pawn),
+        I3 -> (Sente - Pawn),
+        A7 -> (Gote - Pawn),
+        B7 -> (Gote - Pawn),
+        C7 -> (Gote - Pawn),
+        D7 -> (Gote - Pawn),
+        E7 -> (Gote - Pawn),
+        F7 -> (Gote - Pawn),
+        G7 -> (Gote - Pawn),
+        H7 -> (Gote - Pawn),
+        I7 -> (Gote - Pawn),
+        B8 -> (Gote - Rook),
+        H8 -> (Gote - Bishop),
+        A9 -> (Gote - Lance),
+        B9 -> (Gote - Knight),
+        C9 -> (Gote - Silver),
+        D9 -> (Gote - Gold),
+        E9 -> (Gote - King),
+        F9 -> (Gote - Gold),
+        G9 -> (Gote - Silver),
+        H9 -> (Gote - Knight),
+        I9 -> (Gote - Lance)
       )
     }
 
@@ -49,13 +57,9 @@ class BoardTest extends ChessTest {
       board.pieces must not beEmpty
     }
 
-    "have castling rights by default" in {
-      board.history.castles == Castles.all
-    }
-
     "allow a piece to be placed" in {
-      board place White - Rook at E3 must beSuccess.like { case b =>
-        b(E3) mustEqual Some(White - Rook)
+      board.place(Sente - Rook, E5) must beSome.like { case b =>
+        b(E5) mustEqual Some(Sente - Rook)
       }
     }
 
@@ -66,75 +70,75 @@ class BoardTest extends ChessTest {
     }
 
     "allow a piece to move" in {
-      board move E2 to E4 must beSuccess.like { case b =>
-        b(E4) mustEqual Some(White - Pawn)
+      board.move(E3, E4) must beSome.like { case b =>
+        b(E4) mustEqual Some(Sente - Pawn)
       }
     }
 
     "not allow an empty position to move" in {
-      board move E5 to E6 must beFailure
+      board.move(E5, E6) must beNone
     }
 
     "not allow a piece to move to an occupied position" in {
-      board move A1 to A2 must beFailure
+      board.move(A1, A3) must beNone
     }
 
-    "allow a pawn to be promoted to a queen" in {
-      makeEmptyBoard.place(Black.pawn, A8) flatMap (_ promote A8) must beSome.like { case b =>
-        b(A8) must beSome(Black.queen)
+    "allow a pawn to be promoted" in {
+      makeEmptyBoard.place(Gote.pawn, A7) flatMap (_ promote A7) must beSome.like { case b =>
+        b(A7) must beSome(Gote.tokin)
       }
     }
 
     "allow chaining actions" in {
       makeEmptyBoard.seq(
-        _ place White - Pawn at A2,
-        _ place White - Pawn at A3,
-        _ move A2 to A4
-      ) must beSuccess.like { case b =>
-        b(A4) mustEqual Some(White - Pawn)
+        _.place(Sente - Pawn, A2),
+        _.place(Sente - Pawn, A3),
+        _.move(A2, A4)
+      ) must beSome.like { case b =>
+        b(A4) mustEqual Some(Sente - Pawn)
       }
     }
 
     "fail on bad actions chain" in {
       makeEmptyBoard.seq(
-        _ place White - Pawn at A2,
-        _ place White - Pawn at A3,
-        _ move B2 to B4
-      ) must beFailure
+        _.place(Sente - Pawn, A2),
+        _.place(Sente - Pawn, C3),
+        _.move(B3, B4)
+      ) must beNone
     }
 
     "provide occupation map" in {
       makeBoard(
-        A2 -> (White - Pawn),
-        A3 -> (White - Pawn),
-        D1 -> (White - King),
-        E8 -> (Black - King),
-        H4 -> (Black - Queen)
+        A2 -> (Sente - Pawn),
+        A3 -> (Sente - Pawn),
+        D1 -> (Sente - King),
+        E8 -> (Gote - King),
+        H4 -> (Gote - Rook)
       ).occupation must_== Color.Map(
-        white = Set(A2, A3, D1),
-        black = Set(E8, H4)
+        sente = Set(A2, A3, D1),
+        gote = Set(E8, H4)
       )
     }
 
     "navigate in pos based on pieces" in {
       "right to end" in {
         val board: Board = """
-R   K  R"""
-        E1 >| (p => board.pieces contains p) must_== List(F1, G1, H1)
+R   K   R"""
+        E1 >| (p => board.pieces contains p) must_== List(F1, G1, H1, I1)
       }
       "right to next" in {
         val board: Board = """
-R   KB R"""
+R   KB  R"""
         E1 >| (p => board.pieces contains p) must_== List(F1)
       }
       "left to end" in {
         val board: Board = """
-R   K  R"""
+R   K   R"""
         E1 |< (p => board.pieces contains p) must_== List(D1, C1, B1, A1)
       }
       "right to next" in {
         val board: Board = """
-R  BK  R"""
+R  BK   R"""
         E1 |< (p => board.pieces contains p) must_== List(D1)
       }
     }

@@ -1,4 +1,4 @@
-package chess
+package shogi
 
 import org.specs2.mutable.Specification
 import org.specs2.matcher.ValidationMatchers

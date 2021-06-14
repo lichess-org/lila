@@ -1,36 +1,27 @@
-package chess
+package shogi
 
-class HistoryTest extends ChessTest {
+class HistoryTest extends ShogiTest {
 
-  "threefold repetition" should {
+  "fourfold repetition" should {
     def toHash(a: Int) = Array(a.toByte, 0.toByte, 0.toByte)
     def makeHistory(positions: List[Int]) =
       (positions map toHash).foldLeft(History()) { case (history, hash) =>
         history.copy(positionHashes = hash ++ history.positionHashes)
       }
     "empty history" in {
-      History().threefoldRepetition must_== false
+      History().fourfoldRepetition must_== false
     }
-    "not 3 same elements" in {
-      val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 23, 55))
-      history.threefoldRepetition must_== false
+    "not 4 same elements" in {
+      val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 16, 2, 23, 55))
+      history.fourfoldRepetition must_== false
     }
-    "not 3 elements same to the last one" in {
-      val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 23, 2, 55))
-      history.threefoldRepetition must_== false
+    "not 4 elements same to the last one" in {
+      val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 23, 2, 55, 2, 33))
+      history.fourfoldRepetition must_== false
     }
     "positive" in {
-      val history = makeHistory(List(1, 2, 3, 4, 5, 2, 5, 6, 23, 2))
-      history.threefoldRepetition must_== true
-    }
-  }
-
-  "set half move clock" should {
-    "set 0" in {
-      History().setHalfMoveClock(0).halfMoveClock must_== 0
-    }
-    "set 5" in {
-      History().setHalfMoveClock(5).halfMoveClock must_== 5
+      val history = makeHistory(List(1, 2, 3, 4, 5, 6, 7, 2, 5, 6, 3, 2, 6, 2))
+      history.fourfoldRepetition must_== true
     }
   }
 }
