@@ -57,6 +57,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   }
 
   .sub {
+    @extend %zalgoverflow;
     margin: 3px 0;
     font-size: 1rem;
   }
