@@ -37,6 +37,7 @@
   <string name="doubleCheck">كشة مزدوجة</string>
   <string name="endgame">مرحلة نهاية المباراة</string>
   <string name="endgameDescription">تكتيك خلال مرحلة نهاية المباراة.</string>
+  <string name="enPassantDescription">تكتيك يستخدم قاعدة \"الأخذ بالتجاوز\"، حيث يمكن للبيدق أن يأسر بيدق الخصم الذي قام بالحركة الأولية عن طريق نقله مربعين، حيث يتعرض المربع المتقاطع للهجوم من قبل بيدق يمكنه الاستيلاء على بيدق الخصم.</string>
   <string name="exposedKing">ملك مكشوف</string>
   <string name="exposedKingDescription">تكتيك حيث يكون هناك القليل من المدافعين حول الملك مما يقود غالباً إلى كش مات.</string>
   <string name="fork">شوكة</string>
@@ -45,6 +46,9 @@
   <string name="hangingPieceDescription">تكتيك حيث تكون قطعة للخصم غير مدافع عنها أو دفاع غير كافي بالتالي يمكن التقاطها بدون خسارة أي قطع من طرفك.</string>
   <string name="hookMate">كش مات بالخطاف</string>
   <string name="hookMateDescription">نمط الكش مات باستخدام قلعة و حصان و جندي بالإضافة إلى جندي الخصم ليحد من حركات الملك للهروب.</string>
+  <string name="interference">التشوش</string>
+  <string name="interferenceDescription">نقلة تحجب خط التفاعل بين قطع الخصم بعيدة المدى، ونتيجة لذلك تصبح إحدى القطعتين أو كلاهما بلا حماية. على سبيل المثال، يقف الحصان في مربع بين قلعتين.</string>
+  <string name="intermezzo">النقلة البينيّة</string>
   <string name="knightEndgame">نهاية المباراة تتضمن حصان</string>
   <string name="knightEndgameDescription">نهاية مباراة تتضمن أحصنة و بيادق فقط.</string>
   <string name="long">لغز طويل</string>
