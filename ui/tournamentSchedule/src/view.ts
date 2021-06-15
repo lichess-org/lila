@@ -1,5 +1,7 @@
 import { h, VNode } from 'snabbdom';
 
+import perfIcons from 'common/perfIcons';
+
 const scale = 8;
 let now: number, startTime: number, stopTime: number;
 
@@ -113,9 +115,7 @@ function tournamentClass(tour) {
   return classes;
 }
 
-function iconOf(tour, perfIcon) {
-  return tour.schedule && tour.schedule.freq === 'shield' ? '' : perfIcon;
-}
+const iconOf = tour => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
 
 let mousedownAt: number[] | undefined;
 
@@ -151,7 +151,7 @@ function renderTournament(ctrl, tour) {
         tour.perf
           ? {
               attrs: {
-                'data-icon': iconOf(tour, tour.perf.icon),
+                'data-icon': iconOf(tour),
                 title: tour.perf.name,
               },
             }
