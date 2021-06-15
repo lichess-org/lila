@@ -7,9 +7,9 @@ import views._
 
 import lila.api.Context
 import lila.app._
+import lila.common.config.MaxPerSecond
 import lila.relay.{ RelayRound => RoundModel, RelayTour => TourModel }
 import lila.user.{ User => UserModel }
-import lila.common.config.MaxPerSecond
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
 
@@ -29,19 +29,37 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
     }
   }
 
-  def create = AuthBody { implicit ctx => me =>
-    NoLameOrBot {
-      env.relay.tourForm.create
-        .bindFromRequest()(ctx.body, formBinding)
-        .fold(
-          err => BadRequest(html.relay.tourForm.create(err)).fuccess,
-          setup =>
-            env.relay.api.tourCreate(setup, me) map { tour =>
-              Redirect(routes.RelayRound.form(tour.id.value)).flashSuccess
-            }
-        )
-    }
-  }
+  def create =
+    AuthOrScopedBody(_.Study.Write)(
+      auth = implicit ctx =>
+        me =>
+          NoLameOrBot {
+            env.relay.tourForm.create
+              .bindFromRequest()(ctx.body, formBinding)
+              .fold(
+                err => BadRequest(html.relay.tourForm.create(err)).fuccess,
+                setup =>
+                  env.relay.api.tourCreate(setup, me) map { tour =>
+                    Redirect(routes.RelayRound.form(tour.id.value)).flashSuccess
+                  }
+              )
+          },
+      scoped = req =>
+        me =>
+          NoLameOrBot(me) {
+            env.relay.tourForm.create
+              .bindFromRequest()(req, formBinding)
+              .fold(
+                err => BadRequest(apiFormError(err)).fuccess,
+                setup =>
+                  JsonOk {
+                    env.relay.api.tourCreate(setup, me) map { tour =>
+                      env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
+                    }
+                  }
+              )
+          }
+    )
 
   def edit(id: String) = Auth { implicit ctx => me =>
     WithTourCanUpdate(id) { tour =>
