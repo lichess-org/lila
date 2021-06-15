@@ -67,19 +67,37 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
     }
   }
 
-  def update(id: String) = AuthBody { implicit ctx => me =>
-    WithTourCanUpdate(id) { tour =>
-      env.relay.tourForm
-        .edit(tour)
-        .bindFromRequest()(ctx.body, formBinding)
-        .fold(
-          err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
-          setup =>
-            env.relay.api.tourUpdate(tour, setup, me) inject
-              Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
-        )
-    }
-  }
+  def update(id: String) =
+    AuthOrScopedBody(_.Study.Write)(
+      auth = implicit ctx =>
+        me =>
+          WithTourCanUpdate(id) { tour =>
+            env.relay.tourForm
+              .edit(tour)
+              .bindFromRequest()(ctx.body, formBinding)
+              .fold(
+                err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
+                setup =>
+                  env.relay.api.tourUpdate(tour, setup, me) inject
+                    Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
+              )
+          },
+      scoped = implicit req =>
+        me =>
+          env.relay.api tourById TourModel.Id(id) flatMap {
+            _ ?? { tour =>
+              env.relay.api.canUpdate(me, tour) flatMap {
+                _ ?? env.relay.tourForm
+                  .edit(tour)
+                  .bindFromRequest()
+                  .fold(
+                    err => BadRequest(apiFormError(err)).fuccess,
+                    setup => env.relay.api.tourUpdate(tour, setup, me) inject jsonOkResult
+                  )
+              }
+            }
+          }
+    )
 
   def redirectOrApiTour(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
     env.relay.api byIdWithTour RoundModel.Id(anyId) flatMap {

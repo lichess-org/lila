@@ -20,7 +20,7 @@ final class RelayTourForm {
     mapping(
       "name"        -> cleanText(minLength = 3, maxLength = 80),
       "description" -> cleanText(minLength = 3, maxLength = 400),
-      "markup"      -> optional(cleanText(maxLength = 20000)),
+      "markup"      -> optional(cleanText(maxLength = 20_000)),
       "official"    -> optional(boolean)
     )(Data.apply)(Data.unapply)
   )
