@@ -52,7 +52,7 @@ object AuthenticationRequest {
       else if (redirectUri.scheme == "https")
         redirectUri.apexDomain getOrElse redirectUri.hostOption.fold(redirectUri.toString)(_.value)
       else
-        s"${redirectUri.scheme}://" // untrusted or insecure scheme
+        s"${redirectUri.scheme}://..." // untrusted or insecure scheme
     }
 
     def cancelHref: String = redirectUri.withQueryString(

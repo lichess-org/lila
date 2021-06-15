@@ -1,0 +1,15 @@
+.oauth {
+  width: 100%;
+  margin: auto;
+
+  @include breakpoint($mq-x-small) {
+    width: 40em;
+  }
+
+  ul {
+    margin: 25px;
+  }
+  li {
+    list-style: disc outside;
+  }
+}
