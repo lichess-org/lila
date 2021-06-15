@@ -21,8 +21,8 @@ case class Pref(
     premove: Boolean,
     animation: Int,
     captured: Boolean,
-    follow: Boolean,
-    highlight: Boolean,
+    follow: Avijitchesslogin
+    highlight: Avijit_youtuber,
     destination: Boolean,
     coords: Int,
     replay: Int,
