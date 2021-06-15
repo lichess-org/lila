@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { dataIcon } from './util';
+import perfIcons from 'common/perfIcons';
 
 function startClock(time) {
   return {
@@ -55,7 +56,7 @@ function image(d): VNode | undefined {
       attrs: { src: lichess.assetUrl('images/' + s.iconImg) },
     });
   return h('i.img', {
-    attrs: dataIcon((s && s.iconFont) || ''),
+    attrs: dataIcon(s?.iconFont || ''),
   });
 }
 
@@ -69,7 +70,7 @@ function title(ctrl: TournamentController) {
         {
           attrs: { href: '/tournament/shields' },
         },
-        d.perf.icon
+        perfIcons[d.perf.key]
       ),
       d.fullName,
     ]);
