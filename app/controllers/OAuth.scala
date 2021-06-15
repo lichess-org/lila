@@ -25,11 +25,14 @@ final class OAuth(env: Env) extends LilaController(env) {
   def authorize =
     Open { implicit ctx =>
       reqToAutenticationRequest(ctx.req).prompt match {
-        case Validated.Valid(prompt)  => Ok(html.oAuth.app.authorize(prompt)).fuccess
-        case Validated.Invalid(error) => BadRequest(Json.obj(
-          "error" -> error.error,
-          "error_description" -> error.description
-        )).fuccess
+        case Validated.Valid(prompt) => Ok(html.oAuth.app.authorize(prompt)).fuccess
+        case Validated.Invalid(error) =>
+          BadRequest(
+            Json.obj(
+              "error"             -> error.error,
+              "error_description" -> error.description
+            )
+          ).fuccess
       }
     /* ctx.me.fold(Redirect(routes.Auth.login).fuccess) { me =>
         Ok("hello").fuccess

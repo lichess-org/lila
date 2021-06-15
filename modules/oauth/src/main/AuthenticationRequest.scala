@@ -24,7 +24,7 @@ object AuthenticationRequest {
       // a valid redirect_uri is absolutely required. Ignore all other errors
       // for now.
       val scopes = scope ?? { scope => scope.split("\\s+").toList.flatMap(OAuthScope.byKey.get) }
-      parseRedirectUri(redirectUri).map { Prompt(_, scopes) }
+      parseRedirectUri(redirectUri).map { Prompt(_, scopes, state) }
     }
 
     def validate: Validated[Error, Prepared] = {
@@ -43,16 +43,23 @@ object AuthenticationRequest {
 
   case class Prompt(
     redirectUri: AbsoluteUrl,
-    scopes: List[OAuthScope]
+    scopes: List[OAuthScope],
+    state: Option[String]
   ) {
-    def shortName: String = {
-      if (redirectUri.scheme == "http" || redirectUri.scheme == "https")
-        redirectUri.apexDomain getOrElse redirectUri.hostOption.fold("???")(_.normalize.toStringPunycode)
+    def humanReadableOrigin: String = {
+      if (redirectUri.hostOption.map(_.value).has("localhost") && List("http", "ionic", "capacitor").has(redirectUri.scheme))
+        "localhost"
+      else if (redirectUri.scheme == "https")
+        redirectUri.apexDomain getOrElse redirectUri.hostOption.fold(redirectUri.toString)(_.value)
       else
-        s"${redirectUri.scheme}://"
+        s"${redirectUri.scheme}://" // untrusted or insecure scheme
     }
 
-    def cancel: String = redirectUri.toString
+    def cancelHref: String = redirectUri.withQueryString(
+      "error" -> Some("access_denied"),
+      "error_description" -> Some("user cancelled authorization"),
+      "state" -> state
+      ).toString
   }
 
   case class Prepared(

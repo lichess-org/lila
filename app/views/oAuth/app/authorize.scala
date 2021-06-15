@@ -15,17 +15,21 @@ object authorize {
     ) {
       main(cls := "box box-pad")(
         h1(
-          "Authorize ", prompt.shortName
+          "Authorize ",
+          prompt.humanReadableOrigin
         ),
         form(method := "POST")(
-          p(strong(prompt.shortName), " wants to access your Lichess account:"),
+          p(strong(prompt.humanReadableOrigin), " wants to access your Lichess account:"),
           if (prompt.scopes.isEmpty) ul(li("Only public data"))
-          else ul(
-            prompt.scopes map { scope =>
-              li(scope.name)
-            }
-          ),
-          a(href := prompt.cancel)("Back to ", prompt.shortName),
+          else
+            ul(
+              prompt.scopes map { scope =>
+                li(scope.name)
+              }
+            ),
+          p(strong(prompt.humanReadableOrigin), " is not owned or operated by lichess.org!"),
+          a(href := prompt.cancelHref)("Back to ", prompt.humanReadableOrigin),
+          " ",
           submitButton(
             cls := "button"
           )("Authorize")
