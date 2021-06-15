@@ -122,7 +122,7 @@ object download {
   )
 
   private def ongoing(implicit ctx: Context): Frag = tr(
-    th(label(`for` := "dl-ongoing")(trans.includeOngoing())),
+    th(label(`for` := "dl-ongoing")(trans.currentGames())),
     td(form3.cmnToggle("dl-ongoing", "ongoing", false))
   )
 

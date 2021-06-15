@@ -753,7 +753,6 @@ val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
 val `coachManager` = new I18nKey("coachManager")
 val `streamerManager` = new I18nKey("streamerManager")
-val `includeOngoing` = new I18nKey("includeOngoing")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
