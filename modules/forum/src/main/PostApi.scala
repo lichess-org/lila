@@ -35,47 +35,47 @@ final class PostApi(
       topic: Topic,
       data: ForumForm.PostData,
       me: User
-  ): Fu[Post] =
-    lastNumberOf(topic) flatMap { number =>
-      detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
-        val post = Post.make(
-          topicId = topic.id,
-          author = none,
-          userId = me.id,
-          text = spam.replace(data.text),
-          number = number + 1,
-          lang = lang.map(_.language),
-          troll = me.marks.troll,
-          hidden = topic.hidden,
-          categId = categ.id,
-          modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
-        )
-        env.postRepo findDuplicate post flatMap {
-          case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
-          case _ =>
-            env.postRepo.coll.insert.one(post) >>
-              env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
-              } >>
-              env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
-                !categ.quiet ?? (indexer ! InsertPost(post))
-                !categ.quiet ?? env.recent.invalidate()
-                promotion.save(me, post.text)
-                shutup ! {
-                  if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
-                  else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
+  ): Fu[Post] = {
+    val number = topic.nbPosts
+    detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
+      val post = Post.make(
+        topicId = topic.id,
+        author = none,
+        userId = me.id,
+        text = spam.replace(data.text),
+        number = number + 1,
+        lang = lang.map(_.language),
+        troll = me.marks.troll,
+        hidden = topic.hidden,
+        categId = categ.id,
+        modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+      )
+      env.postRepo findDuplicate post flatMap {
+        case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
+        case _ =>
+          env.postRepo.coll.insert.one(post) >>
+            env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
+              shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, value = true)
+            } >>
+            env.categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)) >>- {
+              !categ.quiet ?? (indexer ! InsertPost(post))
+              !categ.quiet ?? env.recent.invalidate()
+              promotion.save(me, post.text)
+              shutup ! {
+                if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
+                else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
+              }
+              if (!post.troll && !categ.quiet && !topic.isTooBig)
+                timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
+                  _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                 }
-                if (!post.troll && !categ.quiet && !topic.isTooBig)
-                  timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
-                    _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
-                  }
-                lila.mon.forum.post.create.increment()
-                env.mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post), "forumPost")
-              } inject post
-        }
+              lila.mon.forum.post.create.increment()
+              env.mentionNotifier.notifyMentionedUsers(post, topic)
+              Bus.publish(actorApi.CreatePost(post), "forumPost")
+            } inject post
       }
     }
+  }
 
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
@@ -181,9 +181,6 @@ final class PostApi(
         }
       }
     }
-
-  def lastNumberOf(topic: Topic): Fu[Int] =
-    env.postRepo lastByTopic topic dmap { _ ?? (_.number) }
 
   def lastPageOf(topic: Topic): Int =
     (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
