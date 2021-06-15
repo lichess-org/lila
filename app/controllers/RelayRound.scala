@@ -2,6 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.mvc._
+import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
@@ -39,8 +40,14 @@ final class RelayRound(
                 .fold(
                   err => BadRequest(html.relay.roundForm.create(err, tour)).fuccess,
                   setup =>
-                    env.relay.api.create(setup, me, tour) map { round =>
-                      Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
+                    rateLimitCreation(
+                      me,
+                      ctx.req,
+                      Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
+                    ) {
+                      env.relay.api.create(setup, me, tour) map { round =>
+                        Redirect(routes.RelayRound.show(tour.slug, round.slug, round.id.value))
+                      }
                     }
                 )
             }
@@ -57,9 +64,11 @@ final class RelayRound(
                     .fold(
                       err => BadRequest(apiFormError(err)).fuccess,
                       setup =>
-                        JsonOk {
-                          env.relay.api.create(setup, me, tour) map { round =>
-                            env.relay.jsonView.withUrl(round withTour tour)
+                        rateLimitCreation(me, req, rateLimited) {
+                          JsonOk {
+                            env.relay.api.create(setup, me, tour) map { round =>
+                              env.relay.jsonView.withUrl(round withTour tour)
+                            }
                           }
                         }
                     )
@@ -215,4 +224,34 @@ final class RelayRound(
 
   implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
+
+  private val CreateLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = 100 * 10,
+    duration = 24.hour,
+    key = "broadcast.round.user"
+  )
+
+  private val CreateLimitPerIP = new lila.memo.RateLimit[lila.common.IpAddress](
+    credits = 100 * 10,
+    duration = 24.hour,
+    key = "broadcast.round.ip"
+  )
+
+  private[controllers] def rateLimitCreation(
+      me: UserModel,
+      req: RequestHeader,
+      fail: => Result
+  )(
+      create: => Fu[Result]
+  ): Fu[Result] = {
+    val cost =
+      if (isGranted(_.Relay, me)) 2
+      else if (me.hasTitle || me.isVerified) 5
+      else 10
+    CreateLimitPerUser(me.id, cost = cost) {
+      CreateLimitPerIP(lila.common.HTTPRequest ipAddress req, cost = cost) {
+        create
+      }(fail.fuccess)
+    }(fail.fuccess)
+  }
 }
