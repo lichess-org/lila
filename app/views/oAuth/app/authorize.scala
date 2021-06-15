@@ -2,14 +2,14 @@ package views.html
 package oAuth
 package app
 
-import lila.oauth.AuthenticationRequest
+import lila.oauth.AuthorizationRequest
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
 object authorize {
-  def apply(prompt: AuthenticationRequest.Prompt)(implicit ctx: Context) =
+  def apply(prompt: AuthorizationRequest.Prompt)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth")
@@ -35,7 +35,7 @@ object authorize {
             "."
           ),
           form3.actions(
-            a(href := prompt.cancelHref)("Back to ", prompt.humanReadableOrigin),
+            a(href := prompt.cancelUrl)("Back to ", prompt.humanReadableOrigin),
             submitButton(
               cls := "button"
             )("Authorize ", prompt.humanReadableOrigin)

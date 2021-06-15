@@ -8,14 +8,14 @@ import cats.data.Validated
 import scalatags.Text.all.stringFrag
 import lila.app._
 import lila.api.Context
-import lila.oauth.AuthenticationRequest
+import lila.oauth.AuthorizationRequest
 
 final class OAuth(env: Env) extends LilaController(env) {
 
   //private val tokenApi = env.oAuth.tokenApi
 
-  private def reqToAutenticationRequest(req: RequestHeader) =
-    AuthenticationRequest.Raw(
+  private def reqToAuthorizationRequest(req: RequestHeader) =
+    AuthorizationRequest.Raw(
       responseType = get("response_type", req),
       redirectUri = get("redirect_uri", req),
       state = get("state", req),
@@ -24,17 +24,29 @@ final class OAuth(env: Env) extends LilaController(env) {
       scope = get("scope", req)
     )
 
-  private def badRequest(error: AuthenticationRequest.Error)(implicit ctx: Context) =
-    BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description)))
+  private def withPrompt(f: AuthorizationRequest.Prompt => Fu[Result])(implicit ctx: Context) =
+    reqToAuthorizationRequest(ctx.req).prompt match {
+      case Validated.Valid(prompt) => f(prompt)
+      case Validated.Invalid(error) =>
+        BadRequest(html.site.message("Bad authorization request")(stringFrag(error.description))).fuccess
+    }
 
   def authorize =
     Open { implicit ctx =>
-      fuccess(reqToAutenticationRequest(ctx.req).prompt match {
-        case Validated.Valid(prompt)  =>
-          ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> ctx.req.uri.some))) { me =>
-            Ok(html.oAuth.app.authorize(prompt))
-          }
-        case Validated.Invalid(error) => badRequest(error)
-      })
+      withPrompt { prompt =>
+        fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
+          Ok(html.oAuth.app.authorize(prompt))
+        })
+      }
+    }
+
+  def authorizeApply =
+    Auth { implicit ctx => me =>
+      withPrompt { prompt =>
+        prompt.authorize match {
+          case Validated.Valid(authorized @ _) => ???
+          case Validated.Invalid(error)        => Redirect(error.redirectUrl(prompt.redirectUri)).fuccess
+        }
+      }
     }
 }
