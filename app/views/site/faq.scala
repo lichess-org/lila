@@ -76,6 +76,13 @@ object faq {
             li(a(href := "https://lidraughts.org")("lidraughts.org"))
           )
         ),
+        question(
+          "restarts",
+          whyIsLichessRestarting.txt(),
+          p(
+            lichessRestartsExplanation()
+          )
+        ),
         h2(fairPlay()),
         question(
           "rating-refund",
