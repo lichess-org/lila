@@ -15,7 +15,7 @@ const variantConfirms = {
 
 const storageKey = key => 'lobby.variant.' + key;
 
-export default function (variant: string) {
+export default function (variant?: string) {
   return (
     !variant ||
     Object.keys(variantConfirms).every(function (key) {
