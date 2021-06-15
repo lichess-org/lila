@@ -145,8 +145,9 @@ final class RelayRound(
       scoped = _ =>
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
-            case None     => NotFound(jsonError("No such broadcast"))
-            case Some(rt) => JsonOk(env.relay.jsonView.withUrl(rt))
+            _ ?? { rt =>
+              JsonOk(env.relay.jsonView.withUrl(rt))
+            }
           }
     )
 

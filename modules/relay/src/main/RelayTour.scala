@@ -9,7 +9,6 @@ case class RelayTour(
     name: String,
     description: String,
     markup: Option[String] = None,
-    credit: Option[String] = None,
     ownerId: User.ID,
     createdAt: DateTime,
     official: Boolean,
