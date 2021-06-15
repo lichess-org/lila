@@ -25,7 +25,9 @@
   <string name="doubleBishopMateDescription">فيلين يهاجمان الملك على أوتار متجاورة ويكون الملكك محاصر بقطع صديقة ليشكل كش مات.</string>
   <string name="dovetailMate">كش مات \"Dovetail\"</string>
   <string name="equality">المساواة</string>
+  <string name="equalityDescription">تحويل الوضعية الخاسرة إلى وصعية تعادل أو موقف متعادل</string>
   <string name="kingsideAttack">هجوم من طرف الملك</string>
+  <string name="kingsideAttackDescription">الهجوم على ملك الخصم بعد أن يجري التبييت على جناح الملك.</string>
   <string name="clearance">تصفية</string>
   <string name="clearanceDescription">حركة، غالباً ما تكون تراجعية، مما يفرغ عمود أو قطر أو مربع، ليتبعه خطة تكتيكية.</string>
   <string name="defensiveMove">نقلة دفاعية</string>
