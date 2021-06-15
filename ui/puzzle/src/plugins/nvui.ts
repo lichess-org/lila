@@ -284,6 +284,7 @@ function onSubmit(
       if (uci) {
         ctrl.playUci(uci);
         if (ctrl.vm.lastFeedback === 'fail') notify("That's not the move!");
+        else if (ctrl.vm.lastFeedback === 'win') notify('Success!');
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
       }
@@ -352,7 +353,7 @@ function renderStreak(ctrl: Controller): VNode[] {
 function renderStatus(ctrl: Controller): string {
   if (ctrl.vm.mode !== 'view') return 'Solving';
   else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
-  else if (ctrl.vm.lastFeedback === 'win') return 'Success!';
+  else if (ctrl.vm.lastFeedback === 'win') return 'Puzzle solved!';
   else return 'Puzzle complete.';
 }
 
