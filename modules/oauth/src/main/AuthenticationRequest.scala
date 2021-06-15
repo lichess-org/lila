@@ -1,9 +1,16 @@
 package lila.oauth
 
 import cats.data.Validated
+import io.lemonlabs.uri.AbsoluteUrl
 
 object AuthenticationRequest {
   case class Error(error: String, description: String, state: Option[String])
+
+  def parseRedirectUri(uri: Option[String]): Validated[Error, AbsoluteUrl] = 
+    for {
+      uri <- uri.toValid(Error("invalid_request", "redirect_uri required", None))
+      uri <- AbsoluteUrl.parseOption(uri).toValid(Error("invalid_request", "redirect_uri invalid", None))
+    } yield uri
 
   case class Raw(
   state: Option[String],
@@ -12,9 +19,17 @@ object AuthenticationRequest {
   codeChallenge: Option[String],
   codeChallengeMethod: Option[String],
   scope: Option[String]) {
+    def prompt: Validated[Error, Prompt] = {
+      // In order to show a prompt and redirect back with error codes
+      // a valid redirect_uri is absolutely required. Ignore all other errors
+      // for now.
+      val scopes = scope ?? { scope => scope.split("\\s+").toList.flatMap(OAuthScope.byKey.get) }
+      parseRedirectUri(redirectUri).map { Prompt(_, scopes) }
+    }
+
     def validate: Validated[Error, Prepared] = {
       for {
-        redirectUri <- redirectUri.toValid(Error("invalid_request", "redirect_uri required", state))
+        redirectUri <- parseRedirectUri(redirectUri)
         _ <-
           responseType.toValid(Error("invalid_request", "response_type required", state))
             .ensure(Error("invalid_request", "supports only response_type 'code'", state))(_ == "code")
@@ -26,8 +41,13 @@ object AuthenticationRequest {
     }
   }
 
+  case class Prompt(
+    redirectUri: AbsoluteUrl,
+    scopes: List[OAuthScope]
+  )
+
   case class Prepared(
-    redirectUri: String,
+    redirectUri: AbsoluteUrl,
     state: Option[String],
     codeChallenge: String,
     scopes: List[OAuthScope]
