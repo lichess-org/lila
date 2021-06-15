@@ -35,15 +35,14 @@ final class PostApi(
       topic: Topic,
       data: ForumForm.PostData,
       me: User
-  ): Fu[Post] = {
-    val number = topic.nbPosts
-    detectLanguage(data.text) zip recentUserIds(topic, number) flatMap { case (lang, topicUserIds) =>
+  ): Fu[Post] =
+    detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
       val post = Post.make(
         topicId = topic.id,
         author = none,
         userId = me.id,
         text = spam.replace(data.text),
-        number = number + 1,
+        number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
         hidden = topic.hidden,
@@ -75,7 +74,6 @@ final class PostApi(
             } inject post
       }
     }
-  }
 
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
