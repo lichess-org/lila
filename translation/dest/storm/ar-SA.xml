@@ -35,6 +35,8 @@
   <string name="timePerMove">الوقت لكل نقلة</string>
   <string name="highestSolved">تقييم أصعب لغز تم حله</string>
   <string name="puzzlesPlayed">الألغاز الملعوبة</string>
+  <string name="newRun">سباق جديد</string>
+  <string name="endRun">انهاء السباق</string>
   <string name="highscores">أعلى النتائج</string>
   <string name="viewBestRuns">اعرض أفضل الجولات</string>
   <string name="bestRunOfDay">أفضل جولة في اليوم</string>
@@ -54,4 +56,5 @@
   <string name="raceYourFriends">واجه أصدقائك</string>
   <string name="skip">تخطى</string>
   <string name="skipHelp">يمكنك تخطي حركة واحدة في كل سباق:</string>
+  <string name="skipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
 </resources>
