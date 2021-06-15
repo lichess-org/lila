@@ -76,15 +76,28 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env) {
           err => BadRequest(html.relay.tourForm.edit(tour, err)).fuccess,
           setup =>
             env.relay.api.tourUpdate(tour, setup, me) inject
-              Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
+              Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
         )
     }
   }
 
-  def redirect(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
+  def redirectOrApiTour(@nowarn("msg=unused") slug: String, anyId: String) = Open { implicit ctx =>
     env.relay.api byIdWithTour RoundModel.Id(anyId) flatMap {
       case Some(rt) => Redirect(rt.path).fuccess // BC old broadcast URLs
-      case None     => env.relay.api tourById TourModel.Id(anyId) flatMap { _ ?? redirectToTour }
+      case None =>
+        env.relay.api tourById TourModel.Id(anyId) flatMap {
+          _ ?? { tour =>
+            render.async {
+              case Accepts.Json() =>
+                JsonOk {
+                  env.relay.api.withRounds(tour) map { trs =>
+                    env.relay.jsonView(trs, withUrls = true)
+                  }
+                }
+              case _ => redirectToTour(tour)
+            }
+          }
+        }
     }
   }
 

@@ -98,7 +98,7 @@ object roundForm {
           )(form3.input(_, typ = "number"))
       ),
       form3.actions(
-        a(href := routes.RelayTour.redirect(t.slug, t.id.value))(trans.cancel()),
+        a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(trans.cancel()),
         form3.submit(trans.apply())
       )
     )

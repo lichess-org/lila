@@ -27,11 +27,11 @@ object tourForm {
 
   def edit(t: RelayTour, form: Form[Data])(implicit ctx: Context) =
     layout(t.name)(
-      h1("Edit ", a(href := routes.RelayTour.redirect(t.slug, t.id.value))(t.name)),
+      h1("Edit ", a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(t.name)),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id.value))(
         inner(form),
         form3.actions(
-          a(href := routes.RelayTour.redirect(t.slug, t.id.value))(trans.cancel()),
+          a(href := routes.RelayTour.redirectOrApiTour(t.slug, t.id.value))(trans.cancel()),
           form3.submit(trans.apply())
         )
       )

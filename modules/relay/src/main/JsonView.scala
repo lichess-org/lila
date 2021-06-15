@@ -10,7 +10,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
 
   import JsonView._
 
-  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false) =
+  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
       .obj(
         "tour" -> Json
@@ -24,11 +24,23 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
           .add("markup" -> trs.tour.markup.map(markup.apply))
           .add("url" -> withUrls.option(s"$baseUrl/broadcast/${trs.tour.slug}/${trs.tour.id}")),
         "rounds" -> trs.rounds.map { round =>
-          roundWrites
-            .writes(round)
-            .add("url" -> withUrls.option(s"$baseUrl${round.withTour(trs.tour).path}"))
+          if (withUrls) withUrl(round withTour trs.tour) else apply(round)
         }
       )
+
+  def apply(round: RelayRound): JsObject =
+    Json
+      .obj(
+        "id"   -> round.id,
+        "name" -> round.name,
+        "slug" -> round.slug
+      )
+      .add("finished" -> round.finished)
+      .add("ongoing" -> (round.hasStarted && !round.finished))
+      .add("startsAt" -> round.startedAt.orElse(round.startsAt))
+
+  def withUrl(rt: RelayRound.WithTour): JsObject =
+    apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
 
   def sync(round: RelayRound) = syncWrites writes round.sync
 
@@ -54,18 +66,6 @@ object JsonView {
 
   implicit val roundIdWrites: Writes[RelayRound.Id] = Writes[RelayRound.Id] { id =>
     JsString(id.value)
-  }
-
-  implicit val roundWrites: OWrites[RelayRound] = OWrites[RelayRound] { round =>
-    Json
-      .obj(
-        "id"   -> round.id,
-        "name" -> round.name,
-        "slug" -> round.slug
-      )
-      .add("finished" -> round.finished)
-      .add("ongoing" -> (round.hasStarted && !round.finished))
-      .add("startsAt" -> round.startedAt.orElse(round.startsAt))
   }
 
   implicit val tourIdWrites: Writes[RelayTour.Id] = Writes[RelayTour.Id] { id =>

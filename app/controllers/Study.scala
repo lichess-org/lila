@@ -302,7 +302,7 @@ final class Study(
         _ ?? { study =>
           env.study.api.delete(study) >> env.relay.api.deleteRound(lila.relay.RelayRound.Id(id)).map {
             case None       => Redirect(routes.Study.mine("hot"))
-            case Some(tour) => Redirect(routes.RelayTour.redirect(tour.slug, tour.id.value))
+            case Some(tour) => Redirect(routes.RelayTour.redirectOrApiTour(tour.slug, tour.id.value))
           }
         }
       }

@@ -17,8 +17,6 @@ final class RelayRound(
     // apiC: => Api
 ) extends LilaController(env) {
 
-  import lila.relay.JsonView.roundWrites
-
   def form(tourId: String) =
     Auth { implicit ctx => me =>
       NoLameOrBot {
@@ -49,20 +47,23 @@ final class RelayRound(
           },
       scoped = req =>
         me =>
-          env.relay.api tourById TourModel.Id(tourId) flatMap {
-            _ ?? { tour =>
-              env.relay.api.withRounds(tour) flatMap { trs =>
-                !(me.isBot || me.lame) ??
+          NoLameOrBot(me) {
+            env.relay.api tourById TourModel.Id(tourId) flatMap {
+              _ ?? { tour =>
+                env.relay.api.withRounds(tour) flatMap { trs =>
                   env.relay.roundForm
                     .create(trs)
                     .bindFromRequest()(req, formBinding)
                     .fold(
                       err => BadRequest(apiFormError(err)).fuccess,
                       setup =>
-                        env.relay.api
-                          .create(setup, me, tour)
-                          .map(JsonOk(_))
+                        JsonOk {
+                          env.relay.api.create(setup, me, tour) map { round =>
+                            env.relay.jsonView.withUrl(round withTour tour)
+                          }
+                        }
                     )
+                }
               }
             }
           }
@@ -96,7 +97,7 @@ final class RelayRound(
             case Some(res) =>
               res.fold(
                 { case (_, err) => BadRequest(apiFormError(err)) },
-                rt => JsonOk(rt.round)
+                rt => JsonOk(env.relay.jsonView.withUrl(rt))
               )
           }
     )
@@ -145,7 +146,7 @@ final class RelayRound(
         me =>
           env.relay.api.byIdAndContributor(id, me) map {
             case None     => NotFound(jsonError("No such broadcast"))
-            case Some(rt) => JsonOk(rt.round)
+            case Some(rt) => JsonOk(env.relay.jsonView.withUrl(rt))
           }
     )
 
