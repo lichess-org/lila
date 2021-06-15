@@ -108,10 +108,18 @@
   <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">الشرط الثاني هو أن يتوقف اللاعبون الذين لم يعودوا يستخدمون حساباتهم عن الظهور في قائمة المتصدرين.</string>
   <string name="whyAreRatingHigher">لماذا التقييمات أعلى مقارنة بباقي المواقع و المنظمات مثل الـ USCF ،FIDE و ICC ؟</string>
+  <string name="whyAreRatingHigherExplanation">من الأفضل عدم النظر إلى التصنيفات باعتبارها أرقام مطلقة وعدم مقارنتها بالمنظمات الأخرى. تمتلك المنظمات المختلفة مستويات مختلفة من اللاعبين، وأنظمة تصنيف مختلفة (Elo أو Glicko أو Glicko-2 أو نسخة معدلة مما سبق ذكره). وكل هذه العوامل تؤثر بشكل كبير على الأرقام المطلقة (التصنيفات).
+
+من الأفضل النظر إلى التصنيفات على أنها أرقام \"نسبية\" (على عكس الأرقام \"المطلقة\"): ومن خلال مقارنة تصنيفات اللاعبين في نفس المنظمة، يمكنك توقع من سيفوز أو سيتعادل أو سيخسر وعدد مرات حدوث ذلك. ولا تعني عبارة \"لدي تصنيف X\" شيئًا حتى تعرف تصنيف خصمك أو تصنيف لاعب آخر يمكنك مقارنة تصنيفك به.</string>
   <string name="howToHideRatingWhilePlaying">كيف أخفي التصنيفات أثناء اللعب؟</string>
+  <string name="enableZenMode">تفعيل وضع التأمل في %1$s أو عن طريق الضغط على %2$s خلال المباراة.</string>
   <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
   <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">لسوء الحظ، لا يمكننا إعادة نقاط التصنيف للمباريات التي تخسرها بسبب مشاكل في شبكة الاتصال أو الكمبيوتر بغض النظر عما إذا كانت المشكلة من جانبك أم جانبنا، وهذا الأخير نادر الحدوث للغاية. وتجدر الإشارة أيضًا إلى أنه في حالة إعادة تشغيل خوادم ليشيس، فإننا نقطع المباريات حتى يتمكن اللاعبون من تجنب الخسارة غير المستحقة.</string>
   <string name="howToThreeDots">كيف يمكنني أن...</string>
   <string name="enableDisableNotificationPopUps">تفعيل أو تعطيل الإشعارات المنبثقة؟</string>
   <string name="viewSiteInformationPopUp">عرض معلومات الموقع المنبثقة</string>
+  <string name="lichessCanOptionnalySendPopUps">يرسل Lichess بشكل إختياري إشعارات منبثقة، على سبيل المثال عندما تحصل على رسالة خاصة أو عندما يكون دورك في اللعب.
+اضغط على زر القفل بجانب رابط lichess.org في متصفحك.
+ثم اختر إما تفعيل أو تعطيل الإشعارات من موقعنا.</string>
 </resources>
