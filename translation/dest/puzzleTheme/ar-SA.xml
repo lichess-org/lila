@@ -22,9 +22,14 @@
   <string name="crushing">سحق</string>
   <string name="crushingDescription">اكتشف خطأ الخصم الفادح للحصول على تفوق ساحق (يساوي 600 جزء بالمئة من البيدق أو أكثر)</string>
   <string name="doubleBishopMate">كش مات بفيلين</string>
+  <string name="doubleBishopMateDescription">فيلين يهاجمان الملك على أوتار متجاورة ويكون الملكك محاصر بقطع صديقة ليشكل كش مات.</string>
+  <string name="dovetailMate">كش مات \"Dovetail\"</string>
   <string name="equality">المساواة</string>
   <string name="kingsideAttack">هجوم من طرف الملك</string>
+  <string name="clearance">تصفية</string>
+  <string name="clearanceDescription">حركة، غالباً ما تكون تراجعية، مما يفرغ عمود أو قطر أو مربع، ليتبعه خطة تكتيكية.</string>
   <string name="defensiveMove">نقلة دفاعية</string>
+  <string name="defensiveMoveDescription">نقلات أو سلسلة من النقلات الدقيقة الضرورية لعدم خسارة قطع أو خسارة الأفضلية.</string>
   <string name="deflection">ابعاد</string>
   <string name="discoveredAttack">هجوم مكشوف</string>
   <string name="doubleCheck">كشة مزدوجة</string>
