@@ -88,11 +88,11 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
   }.zipWithIndex.toMap
 
   private def perfJson(p: PerfType)(implicit lang: Lang) =
-    Json.obj(
-      "icon"     -> p.iconChar.toString,
-      "key"      -> p.key,
-      "name"     -> p.trans,
-      "position" -> ~perfPositions.get(p)
-    )
-
+    Json
+      .obj(
+        "key"      -> p.key,
+        "name"     -> p.trans,
+        "position" -> ~perfPositions.get(p)
+      )
+      .add("icon" -> mobileBcIcons.get(p)) // mobile BC only
 }
