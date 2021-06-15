@@ -44,7 +44,16 @@ object AuthenticationRequest {
   case class Prompt(
     redirectUri: AbsoluteUrl,
     scopes: List[OAuthScope]
-  )
+  ) {
+    def shortName: String = {
+      if (redirectUri.scheme == "http" || redirectUri.scheme == "https")
+        redirectUri.apexDomain getOrElse redirectUri.hostOption.fold("???")(_.normalize.toStringPunycode)
+      else
+        s"${redirectUri.scheme}://"
+    }
+
+    def cancel: String = redirectUri.toString
+  }
 
   case class Prepared(
     redirectUri: AbsoluteUrl,
