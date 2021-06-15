@@ -89,7 +89,6 @@ final class Game(
             perfType = (~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) }).toSet,
             color = get("color", req) flatMap chess.Color.fromName,
             analysed = getBoolOpt("analysed", req),
-            ongoing = getBool("ongoing", req),
             flags = requestPgnFlags(req, extended = false).copy(literate = false),
             perSecond = MaxPerSecond(me match {
               case Some(m) if m is user.id => 60

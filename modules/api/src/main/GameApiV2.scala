@@ -112,8 +112,7 @@ final class GameApiV2(
         gameRepo
           .sortedCursor(
             config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-              Query.createdBetween(config.since, config.until) ++
-              (!config.ongoing).??(Query.finished),
+              Query.createdBetween(config.since, config.until) ++ Query.finished,
             Query.sortCreated,
             batchSize = config.perSecond.value
           )
@@ -354,7 +353,6 @@ object GameApiV2 {
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,
-      ongoing: Boolean = false,
       color: Option[chess.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond,
