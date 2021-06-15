@@ -180,10 +180,10 @@ function renderButtons(ctrl: RoundController) {
         },
       }),
       ...[
-        ['W', firstPly],
-        ['Y', ctrl.ply - 1],
-        ['X', ctrl.ply + 1],
-        ['V', lastPly],
+        ['', firstPly],
+        ['', ctrl.ply - 1],
+        ['', ctrl.ply + 1],
+        ['', lastPly],
       ].map((b, i) => {
         const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
         return h('button.fbt', {
