@@ -8,7 +8,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { SquareName, RULES, Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { parseUci } from 'chessops/util';
-import { SanToUci, sanWriter } from './sanWriter';
+import { SanToUci, sanWriter } from 'chess';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
