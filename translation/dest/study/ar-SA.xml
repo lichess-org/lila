@@ -34,6 +34,14 @@
     <item quantity="other">%s مباراة</item>
   </plurals>
   <string name="addMembers">إضافة أعضاء</string>
+  <plurals name="nbMembers">
+    <item quantity="zero">%s عضو</item>
+    <item quantity="one">%s عضو</item>
+    <item quantity="two">%s عضو</item>
+    <item quantity="few">%s عضو</item>
+    <item quantity="many">%s عضو</item>
+    <item quantity="other">%s أعضاء</item>
+  </plurals>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">يرجى فقط إضافة اشخاص تعرفهم، ويريدون المشاركة في هذه الدراسة</string>
   <string name="searchByUsername">البحث بواسطة اسم المستخدم</string>
@@ -101,6 +109,14 @@
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
   <string name="loadAGameFromPgn">استرد لعبة من PGN</string>
   <string name="automatic">تلقائي</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="zero">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="one">الصق نص الPGN هنا، حتى %s لعبة واحدة</item>
+    <item quantity="two">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="few">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="many">ألصق نص PGN هنا، حتى %s مباراة</item>
+    <item quantity="other">الصق الPGN هنا، حتى %s العاب</item>
+  </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s او %2$s</string>
   <string name="createChapter">أنشئ الفصل</string>
