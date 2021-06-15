@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
-import { tds, bind } from './util';
+import { tds, bind, perfNames } from './util';
 import LobbyController from '../ctrl';
 import { Seek, MaybeVNodes } from '../interfaces';
+import perfIcons from 'common/perfIcons';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel',
@@ -11,7 +12,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     {
       key: seek.id,
       attrs: {
-        title: seek.action === 'joinSeek' ? noarg('joinTheGame') + ' - ' + seek.perf.name : noarg('cancel'),
+        title: seek.action === 'joinSeek' ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key] : noarg('cancel'),
         'data-id': seek.id,
       },
     },
@@ -30,7 +31,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', {
-          attrs: { 'data-icon': seek.perf.icon },
+          attrs: { 'data-icon': perfIcons[seek.perf.key] },
         }),
         noarg(seek.mode === 1 ? 'rated' : 'casual'),
       ]),

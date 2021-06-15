@@ -1,6 +1,7 @@
 import { h } from 'snabbdom';
 import LobbyController from '../../ctrl';
-import { bind, tds, perfIcons } from '../util';
+import { bind, tds, perfNames } from '../util';
+import perfIcons from 'common/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import { Hook } from '../../interfaces';
 
@@ -12,7 +13,11 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       key: hook.id,
       class: { disabled: hook.disabled },
       attrs: {
-        title: hook.disabled ? '' : hook.action === 'join' ? noarg('joinTheGame') + ' | ' + hook.perf : noarg('cancel'),
+        title: hook.disabled
+          ? ''
+          : hook.action === 'join'
+          ? noarg('joinTheGame') + ' | ' + perfNames[hook.perf]
+          : noarg('cancel'),
         'data-id': hook.id,
       },
     },

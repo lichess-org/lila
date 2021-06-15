@@ -13,7 +13,19 @@ interface Untyped {
 
 export interface Hook extends Untyped {}
 
-export interface Seek extends Untyped {}
+export interface Seek {
+  id: string;
+  username: string;
+  rating: number;
+  mode: number;
+  days?: number;
+  color: string;
+  perf: {
+    key: string;
+  };
+  provisional?: boolean;
+  action: 'joinSeek' | 'cancelSeek';
+}
 
 export interface Pool {
   id: PoolId;

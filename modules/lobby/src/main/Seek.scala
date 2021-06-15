@@ -48,26 +48,20 @@ case class Seek(
 
   def rating = perf.map(_.rating)
 
-  def render(implicit lang: Lang): JsObject =
+  def render: JsObject =
     Json
       .obj(
         "id"       -> _id,
         "username" -> user.username,
         "rating"   -> rating,
-        "variant" -> Json.obj(
-          "key"   -> realVariant.key,
-          "short" -> realVariant.shortName,
-          "name"  -> realVariant.name
-        ),
-        "mode"  -> realMode.id,
-        "days"  -> daysPerTurn,
-        "color" -> chess.Color.fromName(color).??(_.name),
-        "perf" -> Json.obj(
-          "icon" -> perfType.map(_.iconChar.toString),
-          "name" -> perfType.map(_.trans)
-        )
+        "mode"     -> realMode.id,
+        "color"    -> chess.Color.fromName(color).??(_.name)
       )
-      .add("provisional" -> perf.map(_.provisional).filter(identity))
+      .add("days" -> daysPerTurn)
+      .add("perf" -> perfType.map { pt =>
+        Json.obj("key" -> pt.key)
+      })
+      .add("provisional" -> perf.exists(_.provisional))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }

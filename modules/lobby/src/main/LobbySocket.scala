@@ -71,7 +71,7 @@ final class LobbySocket(
             hookSubscriberSris diff idleSris withFilter { sri =>
               members get sri exists { biter.showHookTo(hook, _) }
             } map Sri.apply,
-            makeMessage("had", hook.render(defaultLang))
+            makeMessage("had", hook.render)
           )
         )
 
@@ -108,7 +108,7 @@ final class LobbySocket(
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send(
-          P.Out.tellSri(member.sri, makeMessage("hooks", JsArray(hooks.map(_.render(defaultLang)))))
+          P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
         )
         hookSubscriberSris += member.sri.value
     }
