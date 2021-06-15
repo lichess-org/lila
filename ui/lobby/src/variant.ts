@@ -13,17 +13,17 @@ const variantConfirms = {
     'This is a Crazyhouse game!\n\nEvery time a piece is captured, the capturing player gets a piece of the same type and of their color in their pocket.',
 };
 
-function storageKey(key) {
-  return 'lobby.variant.' + key;
-}
+const storageKey = key => 'lobby.variant.' + key;
 
 export default function (variant: string) {
-  return Object.keys(variantConfirms).every(function (key) {
-    const v = variantConfirms[key];
-    if (variant === key && !lichess.storage.get(storageKey(key))) {
-      const c = confirm(v);
-      if (c) lichess.storage.set(storageKey(key), '1');
-      return c;
-    } else return true;
-  });
+  return (
+    !variant ||
+    Object.keys(variantConfirms).every(function (key) {
+      if (variant === key && !lichess.storage.get(storageKey(key))) {
+        const c = confirm(variantConfirms[key]);
+        if (c) lichess.storage.set(storageKey(key), '1');
+        return c;
+      } else return true;
+    })
+  );
 }

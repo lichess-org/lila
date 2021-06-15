@@ -62,6 +62,7 @@ case class Seek(
         Json.obj("key" -> pt.key)
       })
       .add("provisional" -> perf.exists(_.provisional))
+      .add("variant" -> realVariant.exotic.option(realVariant.key))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }

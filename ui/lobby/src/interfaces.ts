@@ -24,6 +24,7 @@ export interface Seek {
     key: string;
   };
   provisional?: boolean;
+  variant?: string;
   action: 'joinSeek' | 'cancelSeek';
 }
 
