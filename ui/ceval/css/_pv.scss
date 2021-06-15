@@ -10,6 +10,7 @@
     line-height: 2em;
     border-top: $border;
     padding-right: 14px;
+    min-height: 2em;
 
     &.pv--nowrap {
       display: block; // "flex" doesn't support ellipsis so switch back to "block"
