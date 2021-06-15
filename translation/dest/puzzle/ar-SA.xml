@@ -43,8 +43,24 @@
   <string name="normal">عادي</string>
   <string name="easier">سهل</string>
   <string name="easiest">سهل جدًا</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="zero">نقطة واحدة أقل من تقييمك في الألغاز</item>
+    <item quantity="one">نقطة واحدة أقل من تقييمك في الألغاز</item>
+    <item quantity="two">%s نقطة أقل من تقييمك في الألغاز</item>
+    <item quantity="few">%s نقطة أقل من تقييمك في الألغاز</item>
+    <item quantity="many">%s نقطة أقل من تقييمك في الألغاز</item>
+    <item quantity="other">%s نقطة أقل من تقييمك في الألغاز</item>
+  </plurals>
   <string name="harder">أصعب</string>
   <string name="hardest">صعب جدًا</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="zero">نقطة واحدة أعلى من تقييمك في الألغاز</item>
+    <item quantity="one">نقطة واحدة أعلى من تقييمك في الألغاز</item>
+    <item quantity="two">%s نقطة أعلى من تقييمك في الألغاز</item>
+    <item quantity="few">%s نقطة أعلى من تقييمك في الألغاز</item>
+    <item quantity="many">%s نقطة أعلى من تقييمك في الألغاز</item>
+    <item quantity="other">%s نقطة أعلى من تقييمك في الألغاز</item>
+  </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">إضافة نوع آخر</string>
   <string name="jumpToNextPuzzleImmediately">انتقل للغز التالي مباشرة</string>
@@ -55,7 +71,12 @@
   <string name="solved">حلت</string>
   <string name="failed">فشلت</string>
   <string name="yourStreakX">حل متتالي: %s</string>
+  <string name="continueTheStreak">استمر في الحل المتتالي</string>
   <string name="newStreak">حل متتالي جديد</string>
   <string name="fromMyGames">من مبارياتي</string>
+  <string name="lookupOfPlayer">ابحث عن ألغاز في مباريات لاعبين آخريين</string>
   <string name="searchPuzzles">ابحث عن ألغاز</string>
+  <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
+إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
+  <string name="fromXGamesFound">%1$s ألغاز وجدت في %2$s مباراة</string>
 </resources>
