@@ -122,6 +122,14 @@
     <item quantity="many">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
     <item quantity="other">المركز #%1$s (أفضل %2$s%%) ل %3$s مباراة في %4$s</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="zero">تنافس في %s بطولة سويسرية</item>
+    <item quantity="one">تنافس في %s بطولة سويسرية</item>
+    <item quantity="two">تنافس في %s بطولة سويسرية</item>
+    <item quantity="few">تنافس في %s بطولة سويسرية</item>
+    <item quantity="many">تنافس في %s بطولة سويسرية</item>
+    <item quantity="other">تنافس في %s بطولة سويسرية</item>
+  </plurals>
   <string name="rankedInSwissTournament">حائز على تصنيف #%1$s في %2$s</string>
   <string name="signedUp">إنشيء حساب ليتشيس جديد</string>
   <plurals name="joinedNbTeams">

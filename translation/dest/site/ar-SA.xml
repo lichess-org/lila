@@ -821,8 +821,10 @@
   <string name="printFriendlyPDF">تحميل بي دي اف للطبع</string>
   <string name="crosstable">تاريخ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">يمكنك استخدام الزر الاوسط للفأرة على الرقعة لتنفيذ حركة من الدور.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">مرر فوق المتغييرات لاستعراضها.</string>
   <string name="analysisShapesHowTo">استخدم ز الفأرة الأيمن لرسم دوائر وأسهم على الرقعة</string>
   <string name="letOtherPlayersMessageYou">السماح للاعبين بمراسلتك</string>
+  <string name="receiveForumNotifications">تلقى الإشعارات في حال تمت الإشارة إليك في المنتدى</string>
   <string name="shareYourInsightsData">شارك بيانات طريقة لعبك</string>
   <string name="withNobody">وحدك</string>
   <string name="withFriends">مع الأصدقاء</string>
@@ -1024,4 +1026,8 @@
   <string name="clickToRevealEmailAddress">[انقر للكشف عن عنوان البريد الإلكتروني]</string>
   <string name="download">تحميل</string>
   <string name="welcome">مرحبا!</string>
+  <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
+كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
+  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">مدير المدرب</string>
+  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">مدير البث</string>
 </resources>

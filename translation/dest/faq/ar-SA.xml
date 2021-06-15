@@ -31,6 +31,8 @@
   <string name="basedOnGameDuration">تحكم وقت اللعبة مبني على المدة المقدرة للعبة = %1$s
 على سبيل المثال، المدة المقدرة للعبة 5+3 هي 5 × 60 + 40 × 3 = 420 ثانية.</string>
   <string name="durationFormula">(الوقت الأولي للساعة) + 40 × (زيادة الساعة)</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s ثانية=%2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$s ثانية=%2$s</string>
   <string name="whatVariantsCanIplay">ما هي متغييرات الشطرنج التي يمكنني لعبها على Lichess؟</string>
   <string name="lichessSupportChessAnd">Lichess يدعم الشطرنج القياسي و %1$s.</string>
   <string name="eightVariants">8 متغيرات من شطرنج</string>
@@ -98,6 +100,9 @@
   <string name="notPlayedRecently">لم يلعب اللاعب مباريات كافية مؤخرًا. واعتمادًا على عدد الألعاب التي لعبتها، قد يستغرق الأمر حوالي عام من عدم النشاط حتى يصبح تصنيفك مرة أخرى \"مؤقتًا\".</string>
   <string name="ratingDeviationMorethanOneHundredTen">وعلى وجه التحديد، فإن هذا يعني أن فارق Glicko-2 يبلغ أكثر من 110. والفارق هو مستوى الثقة الذي يتمتع بها النظام في التصنيف. فكلما كان الفارق أصغر، كان التصنيف أكثر استقرارًا.</string>
   <string name="howDoLeaderoardsWork">كيف تعمل التقييمات وقائمة المتصدرين؟</string>
+  <string name="inOrderToAppearsYouMust">للحصول على %1$s يجب عليك:</string>
+  <string name="ratingLeaderboards">قائمة المتصدرين</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">لعبت على الأقل 30 مباراة مصنفة في التقييم المعين</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">لعبت مباراة مصنفة خلال الأسبوع الماضي لهذا التصنيف،</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">لديك فرق تصنيف أقل من %1$s، في الشطرنج القياسي، وأقل من %2$s في المتغيرات،</string>
   <string name="beInTopTen">كن من 10 الأوائل في هذا التقييم.</string>
@@ -107,4 +112,6 @@
   <string name="displayPreferences">عرض التفضيلات الخاصة بك</string>
   <string name="connexionLostCanIGetMyRatingBack">خسرت لعبة بسبب التخلف/قطع الاتصال. هل يمكنني استعادة نقاط التقييم الخاصة بي؟</string>
   <string name="howToThreeDots">كيف يمكنني أن...</string>
+  <string name="enableDisableNotificationPopUps">تفعيل أو تعطيل الإشعارات المنبثقة؟</string>
+  <string name="viewSiteInformationPopUp">عرض معلومات الموقع المنبثقة</string>
 </resources>

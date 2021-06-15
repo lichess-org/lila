@@ -740,9 +740,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
   <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на ваш адрас %s. Пстрыкніце спасылку ў ім, каб скінуць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
-  <string name="readAboutOur">Чытай пра нас
-
-Зменная% s - гэта спасылка на Палітыку прыватнасці. Загаловак спасылкі - радок.</string>
+  <string name="readAboutOur">Чытай пра нас %s.</string>
   <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Час апрацоўкі ходу на серверы</string>
   <string name="downloadAnnotated">Спампаваць з анатацыямі</string>

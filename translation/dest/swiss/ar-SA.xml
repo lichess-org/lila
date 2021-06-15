@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">البطولات السويسرية</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="zero">اعرض الجولة%s</item>
+    <item quantity="one">عرض الجولة</item>
+    <item quantity="two">عرض الجولة %s</item>
+    <item quantity="few">عرض الجولة %s</item>
+    <item quantity="many">عرض الجولة %s</item>
+    <item quantity="other">عرض كل %s الجولات</item>
+  </plurals>
 </resources>
