@@ -70,11 +70,14 @@
   <string name="history">سجل الألغاز</string>
   <string name="solved">حلت</string>
   <string name="failed">فشلت</string>
+  <string name="streakDescription">حل الألغاز بشكل مطرد وبناء سلسلة الفوز. لا توجد ساعة، لذا خذ وقتك. نقلة خاطئة واحدة، وقد انتهت اللعبة! ولكن يمكنك تخطي حركة واحدة في كل دورة.</string>
   <string name="yourStreakX">حل متتالي: %s</string>
+  <string name="streakSkipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
   <string name="continueTheStreak">استمر في الحل المتتالي</string>
   <string name="newStreak">حل متتالي جديد</string>
   <string name="fromMyGames">من مبارياتي</string>
   <string name="lookupOfPlayer">ابحث عن ألغاز في مباريات لاعبين آخريين</string>
+  <string name="fromXGames">ألغاز من مباريات %s</string>
   <string name="searchPuzzles">ابحث عن ألغاز</string>
   <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
