@@ -56,7 +56,8 @@ object gamesContent {
               pager.currentPageResults.flatMap { Pov(_, u) }.map { pov =>
                 views.html.game.mini(pov)(ctx)(cls := "paginated")
               }
-            else views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
+            else
+              views.html.game.widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx is u),
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
           )
       )
