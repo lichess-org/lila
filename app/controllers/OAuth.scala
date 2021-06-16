@@ -71,14 +71,18 @@ final class OAuth(env: Env) extends LilaController(env) {
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
               // TODO: This is a hack using the personal access token API.
-              val token = lila.oauth.OAuthForm.token.Data(
-                description = granted.redirectUri.appOrigin,
-                scopes = granted.scopes.map(_.key)
-              ).fake(granted.userId)
-              env.oAuth.tokenApi.create(token) inject Ok(Json.obj(
-                "access_token" -> token.id.value,
-                "token_type" -> "bearer",
-              ))
+              val token = lila.oauth.OAuthForm.token
+                .Data(
+                  description = granted.redirectUri.appOrigin,
+                  scopes = granted.scopes.map(_.key)
+                )
+                .fake(granted.userId)
+              env.oAuth.tokenApi.create(token) inject Ok(
+                Json.obj(
+                  "access_token" -> token.id.value,
+                  "token_type"   -> "bearer"
+                )
+              )
             case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
           }
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess

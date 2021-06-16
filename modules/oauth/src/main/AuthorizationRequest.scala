@@ -22,7 +22,7 @@ object AuthorizationRequest {
       codeChallengeMethod: Option[String],
       scope: Option[String]
   ) {
-    // In order to show a prompt and redirect back with error codes avalid
+    // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Validated[Error, Prompt] = {
       redirectUri
@@ -55,7 +55,7 @@ object AuthorizationRequest {
 
     def cancelUrl = errorUrl(Error.AccessDenied)
 
-    private def scopes: Validated[Error, List[OAuthScope]] =
+    private def validScopes: Validated[Error, List[OAuthScope]] =
       (~scope).split("\\s+").foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) {
         case (acc, key) =>
           acc.andThen { valid =>
@@ -63,12 +63,12 @@ object AuthorizationRequest {
           }
       }
 
-    def maybeScopes: List[OAuthScope] = scopes.getOrElse(Nil)
+    def maybeScopes: List[OAuthScope] = validScopes.getOrElse(Nil)
 
     def authorize(user: User): Validated[Error, Authorized] = {
       for {
         clientId      <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
-        scopes        <- scopes
+        scopes        <- validScopes
         codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
         responseType  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         codeChallengeMethod <- codeChallengeMethod
