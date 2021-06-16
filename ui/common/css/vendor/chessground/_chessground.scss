@@ -131,20 +131,12 @@ piece {
   }
 }
 
-cg-helper {
-  position: absolute;
-  width: 12.5%;
-  padding-bottom: 12.5%;
-  display: table; // hack to round to full pixel size in chrome
-  bottom: 0;
-}
-
 cg-container {
   position: absolute;
-  width: 800%;
-  height: 800%;
+  width: 100%;
+  height: 100%;
   display: block;
-  bottom: 0;
+  top: 0;
 }
 
 cg-container .cg-shapes,

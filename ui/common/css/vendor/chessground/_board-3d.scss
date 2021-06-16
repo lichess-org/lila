@@ -18,18 +18,6 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
   }
 }
 
-cg-helper {
-  // Default (from 2D boards) would be 12.5% of width.
-  padding-bottom: $td-inner-height-ratio * 12.5%;
-
-  // The "display: table" hack is not useful here, because the board is not
-  // square. So heights corresponding to rounded widths are not always
-  // integers, much less have the desired effect.
-  // Additionally behavior with non-integer heights varies across Chrome
-  // versions.
-  display: block;
-}
-
 piece {
   /* original size: width: 140.625%; height: 179.6875%; */
   /* size on 3D board, with height/width = 90.78571% */
@@ -59,11 +47,6 @@ cg-board::before {
 
 .is2d {
   /* override miniboards */
-  cg-helper {
-    padding-bottom: 12.5%;
-    display: table;
-  }
-
   cg-board {
     top: 0;
     height: 100%;
