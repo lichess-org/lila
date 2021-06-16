@@ -122,17 +122,17 @@ object TournamentShield {
 
   object Category {
 
-    case object UltraBullet
-        extends Category(
-          of = Left(Schedule.Speed.UltraBullet),
-          iconChar = '{'
-        )
+    //case object UltraBullet
+    //    extends Category(
+    //      of = Left(Schedule.Speed.UltraBullet),
+    //      iconChar = '{'
+    //    )
 
-    case object HyperBullet
-        extends Category(
-          of = Left(Schedule.Speed.HyperBullet),
-          iconChar = 'T'
-        )
+    //case object HyperBullet
+    //    extends Category(
+    //      of = Left(Schedule.Speed.HyperBullet),
+    //      iconChar = 'T'
+    //    )
 
     case object Bullet
         extends Category(
@@ -169,9 +169,9 @@ object TournamentShield {
       SuperBlitz,
       Blitz,
       Rapid,
-      Classical,
-      HyperBullet,
-      UltraBullet
+      Classical
+      //HyperBullet,
+      //UltraBullet
     )
 
     def of(t: Tournament): Option[Category] = all.find(_ matches t)
