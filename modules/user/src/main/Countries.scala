@@ -293,7 +293,14 @@ object Countries {
     }
     .to(Map)
 
+  val nameMap: Map[Country, String] = all.view
+    .map { c =>
+      c -> c.name
+    }
+    .to(Map)
+
   val codeSet = map.keySet
 
   def info(code: String): Option[Country] = map get code
+  def name(country: Country): String = nameMap.getOrElse(country, country.name)
 }
