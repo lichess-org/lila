@@ -26,7 +26,6 @@ object download {
             opponent,
             mode,
             analysis,
-            ongoing,
             perfToggles(user),
             includeToggles,
             amount,
@@ -121,10 +120,6 @@ object download {
     )
   )
 
-  private def ongoing(implicit ctx: Context): Frag = tr(
-    th(label(`for` := "dl-ongoing")(trans.currentGames())),
-    td(form3.cmnToggle("dl-ongoing", "ongoing", false))
-  )
 
   private def perfToggles(user: User)(implicit ctx: Context): Frag = {
     val perfTypes = lila.rating.PerfType.nonPuzzle
