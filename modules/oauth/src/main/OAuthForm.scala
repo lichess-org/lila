@@ -27,12 +27,13 @@ object OAuthForm {
         description: String,
         scopes: List[String]
     ) {
-      def make(user: lila.user.User) =
+      def make(user: lila.user.User) = fake(user.id)
+      def fake(userId: lila.user.User.ID) =
         AccessToken(
           id = AccessToken.makeId,
           publicId = BSONObjectID.generate(),
           clientId = PersonalToken.clientId,
-          userId = user.id,
+          userId = userId,
           createdAt = DateTime.now.some,
           description = description.some,
           scopes = scopes.flatMap(OAuthScope.byKey.get)

@@ -1,5 +1,6 @@
 package lila.oauth
 
+import java.util.Base64
 import java.net.URLEncoder
 import cats.data.Validated
 import play.api.libs.json.Json
@@ -33,7 +34,7 @@ object Protocol {
 
   case class CodeChallenge(value: String) extends AnyVal {
     def matches(challenge: CodeVerifier) =
-      Algo.sha256(challenge.value).hex == value // XXX
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(challenge.value).bytes) == value
   }
 
   case class CodeChallengeMethod()
@@ -147,6 +148,6 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-    case object MismatchingCodeVerifier extends InvalidGrant("code_verifier does not match code_challenge")
+    case object MismatchingCodeVerifier extends InvalidGrant("hash of code_verifier does not match code_challenge")
   }
 }
