@@ -694,6 +694,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="security">Segurança</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é a lista de dispositivos que se conectaram à tua conta. Desativa quaisquer sessões que não reconheças.</string>
   <string name="alternativelyYouCanX">Alternativamente, podes %s.</string>
+  <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">desativar todas as sessões</string>
   <string name="playChessEverywhere">Joga xadrez em qualquer lugar</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
