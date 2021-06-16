@@ -1,6 +1,7 @@
 package lila.oauth
 
 import cats.data.Validated
+import com.roundeights.hasher.Algo
 import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
@@ -107,8 +108,6 @@ object AuthorizationRequest {
         codeChallenge=codeChallenge,
         user=user.id,
         scopes=scopes,
-        nonce=Random.secureString(16),
-        expires=DateTime.now().plusSeconds(120)
       )
     }
   }
@@ -120,22 +119,18 @@ object AuthorizationRequest {
     codeChallenge: String,
     user: User.ID,
     scopes: List[OAuthScope],
-    expires: DateTime,
-    nonce: String,
   ) {
-    def insecureCode = Json.obj(
-      "client_id" -> clientId,
-      "redirect_uri" -> redirectUri.toString,
-      "code_challenge" -> codeChallenge,
-      "user" -> user,
-      "scopes" -> scopes.map(_.key),
-      "expires" -> expires.toString,
-      "nonce" -> nonce,
-    ).toString
-
-    def redirectUrl: String = redirectUri.withQueryString(
-      "code" -> Some(insecureCode),
+    def redirectUrl(code: Code): String = redirectUri.withQueryString(
+      "code" -> Some(code.secret),
       "state" -> state,
     ).toString
+  }
+
+  case class Code(secret: String) extends AnyVal {
+    def hashed: String = Algo.sha256(secret).hex
+    override def toString = "AuthorizationRequest.Code(***)"
+  }
+  object Code {
+    def random() = Code(Random.secureString(32))
   }
 }

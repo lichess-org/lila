@@ -12,8 +12,6 @@ import lila.oauth.AuthorizationRequest
 
 final class OAuth(env: Env) extends LilaController(env) {
 
-  //private val tokenApi = env.oAuth.tokenApi
-
   private def reqToAuthorizationRequest(req: RequestHeader) =
     AuthorizationRequest.Raw(
       clientId = get("client_id", req),
@@ -45,7 +43,10 @@ final class OAuth(env: Env) extends LilaController(env) {
     Auth { implicit ctx => me =>
       withPrompt { prompt =>
         prompt.authorize(me) match {
-          case Validated.Valid(authorized) => Redirect(authorized.redirectUrl).fuccess
+          case Validated.Valid(authorized) =>
+            env.oAuth.authorizationApi.create(authorized) map { code =>
+              Redirect(authorized.redirectUrl(code))
+            }
           case Validated.Invalid(error) => Redirect(error.redirectUrl(prompt.redirectUri)).fuccess
         }
       }
