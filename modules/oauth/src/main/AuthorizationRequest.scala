@@ -2,6 +2,11 @@ package lila.oauth
 
 import cats.data.Validated
 import io.lemonlabs.uri.AbsoluteUrl
+import org.joda.time.DateTime
+import ornicar.scalalib.Random
+import play.api.libs.json._
+
+import lila.user.User
 
 object AuthorizationRequest {
   case class Error(error: String, description: String, state: Option[String]) {
@@ -20,6 +25,7 @@ object AuthorizationRequest {
   }
 
   case class Raw(
+    clientId: Option[String],
     state: Option[String],
     redirectUri: Option[String],
     responseType: Option[String],
@@ -36,6 +42,7 @@ object AuthorizationRequest {
         .flatMap(AbsoluteUrl.parseOption(_).toValid(Error.invalidRequest("redirect_uri invalid", None)))
         .map { redirectUri =>
           Prompt(
+            clientId=clientId,
             state=state,
             redirectUri=redirectUri,
             responseType=responseType,
@@ -48,6 +55,7 @@ object AuthorizationRequest {
   }
 
   case class Prompt(
+    clientId: Option[String],
     state: Option[String],
     redirectUri: AbsoluteUrl,
     responseType: Option[String],
@@ -77,9 +85,10 @@ object AuthorizationRequest {
 
     def scopes = validateScopes._2
 
-    def authorize: Validated[Error, Authorized] = {
+    def authorize(user: User): Validated[Error, Authorized] = {
       val (invalidScopes, validScopes) = validateScopes
       for {
+        clientId <- clientId.toValid(Error.invalidRequest("client_id required", state))
         scopes <- invalidScopes.headOption match {
           case None => Validated.valid(validScopes)
           case Some(key) => Validated.invalid(Error.invalidScope(s"invalid scope: $key", state))
@@ -91,14 +100,42 @@ object AuthorizationRequest {
         _ <-
           codeChallengeMethod.toValid(Error.invalidRequest("code_challenge_method required", state))
             .ensure(Error.unauthorizedClient("supports only code_challenge_method 'S256'", state))(_ == "S256")
-      } yield Authorized(redirectUri=redirectUri, state=state, codeChallenge=codeChallenge, scopes=scopes)
+      } yield Authorized(
+        clientId=clientId,
+        redirectUri=redirectUri,
+        state=state,
+        codeChallenge=codeChallenge,
+        user=user.id,
+        scopes=scopes,
+        nonce=Random.secureString(16),
+        expires=DateTime.now().plusSeconds(120)
+      )
     }
   }
 
   case class Authorized(
+    clientId: String,
     redirectUri: AbsoluteUrl,
     state: Option[String],
     codeChallenge: String,
-    scopes: List[OAuthScope]
-    )
+    user: User.ID,
+    scopes: List[OAuthScope],
+    expires: DateTime,
+    nonce: String,
+  ) {
+    def insecureCode = Json.obj(
+      "client_id" -> clientId,
+      "redirect_uri" -> redirectUri.toString,
+      "code_challenge" -> codeChallenge,
+      "user" -> user,
+      "scopes" -> scopes.map(_.key),
+      "expires" -> expires.toString,
+      "nonce" -> nonce,
+    ).toString
+
+    def redirectUrl: String = redirectUri.withQueryString(
+      "code" -> Some(insecureCode),
+      "state" -> state,
+    ).toString
+  }
 }
