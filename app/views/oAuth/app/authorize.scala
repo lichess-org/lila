@@ -17,28 +17,28 @@ object authorize {
       main(cls := "oauth box box-pad")(
         h1(
           "Authorize ",
-          prompt.humanReadableOrigin
+          prompt.redirectUri.appOrigin
         ),
         postForm(
-          p(strong(prompt.humanReadableOrigin), " wants to access your Lichess account:"),
-          if (prompt.scopes.isEmpty) ul(li("Only public data"))
+          p(strong(prompt.redirectUri.appOrigin), " wants to access your Lichess account:"),
+          if (prompt.maybeScopes.isEmpty) ul(li("Only public data"))
           else
             ul(
-              prompt.scopes map { scope =>
+              prompt.maybeScopes map { scope =>
                 li(scope.name)
               }
             ),
           flashMessage(cls := "flash-warning")(
-            strong(prompt.humanReadableOrigin),
+            strong(prompt.redirectUri.appOrigin),
             " is not owned or operated by lichess.org! This form will redirect to ",
             strong(prompt.redirectUri.toString),
             "."
           ),
           form3.actions(
-            a(href := prompt.cancelUrl)("Back to ", prompt.humanReadableOrigin),
+            a(href := prompt.cancelUrl)("Back to ", prompt.redirectUri.appOrigin),
             submitButton(
               cls := "button"
-            )("Authorize ", prompt.humanReadableOrigin)
+            )("Authorize ", prompt.redirectUri.appOrigin)
           )
         )
       )

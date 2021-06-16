@@ -11,20 +11,7 @@ import play.api.libs.json._
 import lila.user.User
 
 object AuthorizationRequest {
-  case class Error(error: String, description: String, state: Option[String]) {
-    def redirectUrl(base: AbsoluteUrl) = base.withQueryString(
-      "error" -> Some(error),
-      "error_description" -> Some(description),
-      "state" -> state,
-      ).toString
-  }
-  private object Error {
-    def accessDenied(state: Option[String]) = Error("access_denied", "user cancelled authorization", state)
-    def invalidRequest(description: String, state: Option[String]) = Error("invalid_request", description, state)
-    def unauthorizedClient(description: String, state: Option[String]) = Error("unauthorized_client", description, state)
-    def unsupportedResponseType(description: String, state: Option[String]) = Error("unsupported_response_type", description, state)
-    def invalidScope(description: String, state: Option[String]) = Error("invalid_scope", description, state)
-  }
+  import Protocol._
 
   case class Raw(
     clientId: Option[String],
@@ -35,18 +22,15 @@ object AuthorizationRequest {
     codeChallengeMethod: Option[String],
     scope: Option[String]
   ) {
-    // In order to show a prompt and redirect back with error codes
-    // valid redirect_uri is absolutely required.
-    // Ignore all other errors for now.
+    // In order to show a prompt and redirect back with error codes avalid
+    // redirect_uri is absolutely required. Ignore all other errors for now.
     def prompt: Validated[Error, Prompt] = {
       redirectUri
-        .toValid(Error.invalidRequest("redirect_uri required", None))
-        .flatMap(AbsoluteUrl.parseOption(_).toValid(Error.invalidRequest("redirect_uri invalid", None)))
+        .toValid(Error.RedirectUriRequired)
+        .andThen(RedirectUri.from)
         .map { redirectUri =>
-          Prompt(
+          Prompt(redirectUri, state.map(State.apply),
             clientId=clientId,
-            state=state,
-            redirectUri=redirectUri,
             responseType=responseType,
             codeChallenge=codeChallenge,
             codeChallengeMethod=codeChallengeMethod,
@@ -57,84 +41,56 @@ object AuthorizationRequest {
   }
 
   case class Prompt(
+    redirectUri: RedirectUri,
+    state: Option[State],
     clientId: Option[String],
-    state: Option[String],
-    redirectUri: AbsoluteUrl,
     responseType: Option[String],
     codeChallenge: Option[String],
     codeChallengeMethod: Option[String],
     scope: Option[String],
   ) {
-    def humanReadableOrigin: String = {
-      if (redirectUri.hostOption.map(_.value).has("localhost") && List("http", "ionic", "capacitor").has(redirectUri.scheme))
-        "localhost"
-      else if (redirectUri.scheme == "https")
-        redirectUri.apexDomain getOrElse redirectUri.hostOption.fold(redirectUri.toString)(_.value)
-      else
-        s"${redirectUri.scheme}://..." // untrusted or insecure scheme
-    }
+    def errorUrl(error: Error) = redirectUri.error(error, state)
 
-    def cancelUrl: String = Error.accessDenied(state).redirectUrl(redirectUri)
+    def cancelUrl = errorUrl(Error.AccessDenied)
 
-    private def validateScopes: (List[String], List[OAuthScope]) =
-      (~scope).split("\\s+").foldLeft(List.empty[String] -> List.empty[OAuthScope]) {
-        case ((invalid, valid), key) =>
-          OAuthScope.byKey.get(key) match {
-            case Some(scope) => invalid -> (scope :: valid)
-            case None => (key :: invalid) -> valid
+    private def scopes: Validated[Error, List[OAuthScope]] =
+      (~scope).split("\\s+").foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) {
+        case (acc, key) =>
+          acc.andThen { valid =>
+            OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
           }
       }
 
-    def scopes = validateScopes._2
+    def maybeScopes: List[OAuthScope] = scopes.getOrElse(Nil)
 
     def authorize(user: User): Validated[Error, Authorized] = {
-      val (invalidScopes, validScopes) = validateScopes
       for {
-        clientId <- clientId.toValid(Error.invalidRequest("client_id required", state))
-        scopes <- invalidScopes.headOption match {
-          case None => Validated.valid(validScopes)
-          case Some(key) => {
-            val safeKey = URLEncoder.encode(key, "UTF-8")
-            Validated.invalid(Error.invalidScope(s"invalid scope: ${safeKey}", state))
-          }
-        }
-        codeChallenge <- codeChallenge.toValid(Error.invalidRequest("code_challenge required", state))
-        _ <-
-          responseType.toValid(Error.invalidRequest("response_type required", state))
-            .ensure(Error.unsupportedResponseType("supports only response_type 'code'", state))(_ == "code")
-        _ <-
-          codeChallengeMethod.toValid(Error.invalidRequest("code_challenge_method required", state))
-            .ensure(Error.unauthorizedClient("supports only code_challenge_method 'S256'", state))(_ == "S256")
+        clientId <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
+        scopes <- scopes
+        codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
+        responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+        codeChallengeMethod <- codeChallengeMethod.toValid(Error.CodeChallengeMethodRequired).andThen(CodeChallengeMethod.from)
       } yield Authorized(
-        clientId=clientId,
-        redirectUri=redirectUri,
-        state=state,
-        codeChallenge=codeChallenge,
-        user=user.id,
-        scopes=scopes,
+        clientId,
+        redirectUri,
+        state,
+        codeChallenge,
+        codeChallengeMethod,
+        user.id,
+        scopes,
       )
     }
   }
 
   case class Authorized(
-    clientId: String,
-    redirectUri: AbsoluteUrl,
-    state: Option[String],
-    codeChallenge: String,
+    clientId: ClientId,
+    redirectUri: RedirectUri,
+    state: Option[State],
+    codeChallenge: CodeChallenge,
+    codeChallengeMethod: CodeChallengeMethod,
     user: User.ID,
     scopes: List[OAuthScope],
   ) {
-    def redirectUrl(code: Code): String = redirectUri.withQueryString(
-      "code" -> Some(code.secret),
-      "state" -> state,
-    ).toString
-  }
-
-  case class Code(secret: String) extends AnyVal {
-    def hashed: String = Algo.sha256(secret).hex
-    override def toString = "AuthorizationRequest.Code(***)"
-  }
-  object Code {
-    def random() = Code(Random.secureString(32))
+    def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
   }
 }

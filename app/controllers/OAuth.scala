@@ -49,7 +49,7 @@ final class OAuth(env: Env) extends LilaController(env) {
             env.oAuth.authorizationApi.create(authorized) map { code =>
               Redirect(authorized.redirectUrl(code))
             }
-          case Validated.Invalid(error) => Redirect(error.redirectUrl(prompt.redirectUri)).fuccess
+          case Validated.Invalid(error) => Redirect(prompt.redirectUri.error(error, prompt.state)).fuccess
         }
       }
     }
@@ -67,10 +67,13 @@ final class OAuth(env: Env) extends LilaController(env) {
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
       req.body.prepare match {
         case Validated.Valid(_) => ???
-        case Validated.Invalid(err) => BadRequest(Json.obj(
-          "error" -> err.error,
-          "error_description" -> err.description,
-        )).fuccess
+        case Validated.Invalid(err) =>
+          BadRequest(
+            Json.obj(
+              "error"             -> err.error,
+              "error_description" -> err.description
+            )
+          ).fuccess
       }
     }
 }
