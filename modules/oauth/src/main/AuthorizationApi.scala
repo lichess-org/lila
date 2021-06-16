@@ -19,9 +19,10 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
     )) inject code
   }
 
-  def consume(code: AuthorizationRequest.Code): Fu[Option[Unit]] = {
-    ???
-  }
+  def consume(request: AccessTokenRequest.Prepared): Fu[Validated[AccessTokenRequest.Error, AccessTokenRequest.Granted]] =
+    coll.findAndModify($doc(F.hashed -> request.code.hashed), coll.removeModifier) map { result =>
+      ???
+    }
 }
 
 object AuthorizationApi {

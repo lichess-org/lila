@@ -56,27 +56,21 @@ final class OAuth(env: Env) extends LilaController(env) {
 
   val accessTokenRequestForm = Form(
     mapping(
-      "grant_type"   -> text,
-      "code"         -> text,
-      "redirect_uri" -> text,
-      "client_id"    -> text,
-      "xxx"          -> text
+      "grant_type"   -> optional(text),
+      "code"         -> optional(text),
+      "redirect_uri" -> optional(text),
+      "client_id"    -> optional(text)
     )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
   )
 
   def tokenApply =
-    Action.async(parse.form(
-      accessTokenRequestForm,
-      onErrors = (form: Form[AccessTokenRequest.Raw]) =>
-            BadRequest(
-              Json
-                .obj(
-                  "error" -> "invalid_request"
-                )
-                .add("error_description" -> form.errors.headOption.map(_.message))
-            )
-    )) { implicit req =>
-      req.body.pp
-      ???
+    Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
+      req.body.prepare match {
+        case Validated.Valid(_) => ???
+        case Validated.Invalid(err) => BadRequest(Json.obj(
+          "error" -> err.error,
+          "error_description" -> err.description,
+        )).fuccess
+      }
     }
 }
