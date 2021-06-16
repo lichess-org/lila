@@ -14,13 +14,13 @@ object AuthorizationRequest {
   import Protocol._
 
   case class Raw(
-    clientId: Option[String],
-    state: Option[String],
-    redirectUri: Option[String],
-    responseType: Option[String],
-    codeChallenge: Option[String],
-    codeChallengeMethod: Option[String],
-    scope: Option[String]
+      clientId: Option[String],
+      state: Option[String],
+      redirectUri: Option[String],
+      responseType: Option[String],
+      codeChallenge: Option[String],
+      codeChallengeMethod: Option[String],
+      scope: Option[String]
   ) {
     // In order to show a prompt and redirect back with error codes avalid
     // redirect_uri is absolutely required. Ignore all other errors for now.
@@ -29,25 +29,27 @@ object AuthorizationRequest {
         .toValid(Error.RedirectUriRequired)
         .andThen(RedirectUri.from)
         .map { redirectUri =>
-          Prompt(redirectUri, state.map(State.apply),
-            clientId=clientId,
-            responseType=responseType,
-            codeChallenge=codeChallenge,
-            codeChallengeMethod=codeChallengeMethod,
-            scope=scope,
+          Prompt(
+            redirectUri,
+            state.map(State.apply),
+            clientId = clientId,
+            responseType = responseType,
+            codeChallenge = codeChallenge,
+            codeChallengeMethod = codeChallengeMethod,
+            scope = scope
           )
         }
     }
   }
 
   case class Prompt(
-    redirectUri: RedirectUri,
-    state: Option[State],
-    clientId: Option[String],
-    responseType: Option[String],
-    codeChallenge: Option[String],
-    codeChallengeMethod: Option[String],
-    scope: Option[String],
+      redirectUri: RedirectUri,
+      state: Option[State],
+      clientId: Option[String],
+      responseType: Option[String],
+      codeChallenge: Option[String],
+      codeChallengeMethod: Option[String],
+      scope: Option[String]
   ) {
     def errorUrl(error: Error) = redirectUri.error(error, state)
 
@@ -65,11 +67,13 @@ object AuthorizationRequest {
 
     def authorize(user: User): Validated[Error, Authorized] = {
       for {
-        clientId <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
-        scopes <- scopes
+        clientId      <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
+        scopes        <- scopes
         codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
-        responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
-        codeChallengeMethod <- codeChallengeMethod.toValid(Error.CodeChallengeMethodRequired).andThen(CodeChallengeMethod.from)
+        responseType  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+        codeChallengeMethod <- codeChallengeMethod
+          .toValid(Error.CodeChallengeMethodRequired)
+          .andThen(CodeChallengeMethod.from)
       } yield Authorized(
         clientId,
         redirectUri,
@@ -77,19 +81,19 @@ object AuthorizationRequest {
         codeChallenge,
         codeChallengeMethod,
         user.id,
-        scopes,
+        scopes
       )
     }
   }
 
   case class Authorized(
-    clientId: ClientId,
-    redirectUri: RedirectUri,
-    state: Option[State],
-    codeChallenge: CodeChallenge,
-    codeChallengeMethod: CodeChallengeMethod,
-    user: User.ID,
-    scopes: List[OAuthScope],
+      clientId: ClientId,
+      redirectUri: RedirectUri,
+      state: Option[State],
+      codeChallenge: CodeChallenge,
+      codeChallengeMethod: CodeChallengeMethod,
+      user: User.ID,
+      scopes: List[OAuthScope]
   ) {
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
   }

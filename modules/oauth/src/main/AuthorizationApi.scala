@@ -11,20 +11,25 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
 
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] = {
     val code = Protocol.AuthorizationCode.random()
-    coll.insert.one(PendingAuthorizationBSONHandler write PendingAuthorization(
-      code.secret.hashed,
-      request.clientId,
-      request.user,
-      request.redirectUri,
-      request.codeChallenge,
-      request.scopes,
-      DateTime.now().plusSeconds(120)
-    )) inject code
+    coll.insert.one(
+      PendingAuthorizationBSONHandler write PendingAuthorization(
+        code.secret.hashed,
+        request.clientId,
+        request.user,
+        request.redirectUri,
+        request.codeChallenge,
+        request.scopes,
+        DateTime.now().plusSeconds(120)
+      )
+    ) inject code
   }
 
-  def consume(request: AccessTokenRequest.Prepared): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
+  def consume(
+      request: AccessTokenRequest.Prepared
+  ): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
     coll.findAndModify($doc(F.hashedCode -> request.code.secret.hashed), coll.removeModifier) map {
-      _.result[PendingAuthorization].toValid(Protocol.Error.AuthorizationCodeInvalid)
+      _.result[PendingAuthorization]
+        .toValid(Protocol.Error.AuthorizationCodeInvalid)
         .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
         .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
         .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
@@ -37,23 +42,23 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
 
 private object AuthorizationApi {
   object BSONFields {
-    val hashedCode = "_id"
-    val clientId = "clientId"
-    val userId = "userId"
-    val redirectUri = "redirectUri"
+    val hashedCode    = "_id"
+    val clientId      = "clientId"
+    val userId        = "userId"
+    val redirectUri   = "redirectUri"
     val codeChallenge = "codeChallenge"
-    val scopes = "scopes"
-    val expires = "expires"
+    val scopes        = "scopes"
+    val expires       = "expires"
   }
 
   case class PendingAuthorization(
-    hashedCode: String,
-    clientId: Protocol.ClientId,
-    userId: User.ID,
-    redirectUri: Protocol.RedirectUri,
-    codeChallenge: Protocol.CodeChallenge,
-    scopes: List[OAuthScope],
-    expires: DateTime,
+      hashedCode: String,
+      clientId: Protocol.ClientId,
+      userId: User.ID,
+      redirectUri: Protocol.RedirectUri,
+      codeChallenge: Protocol.CodeChallenge,
+      scopes: List[OAuthScope],
+      expires: DateTime
   )
 
   import lila.db.BSON
@@ -75,13 +80,13 @@ private object AuthorizationApi {
 
     def writes(w: BSON.Writer, o: PendingAuthorization) =
       $doc(
-        F.hashedCode -> o.hashedCode,
-        F.clientId -> o.clientId.value,
-        F.userId -> o.userId,
-        F.redirectUri -> o.redirectUri.value.toString,
+        F.hashedCode    -> o.hashedCode,
+        F.clientId      -> o.clientId.value,
+        F.userId        -> o.userId,
+        F.redirectUri   -> o.redirectUri.value.toString,
         F.codeChallenge -> o.codeChallenge.value,
-        F.scopes -> o.scopes,
-        F.expires -> o.expires,
+        F.scopes        -> o.scopes,
+        F.expires       -> o.expires
       )
   }
 }
