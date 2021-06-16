@@ -19,13 +19,13 @@ object Protocol {
     override def hashCode = hashed.hashCode()
   }
   object Secret {
-    def random() = Secret(Random.secureString(32))
+    def random(prefix: String) = Secret(s"$prefix${Random.secureString(32)}")
   }
 
   case class AuthorizationCode(secret: Secret) extends AnyVal
   object AuthorizationCode {
     def apply(value: String): AuthorizationCode = AuthorizationCode(Secret(value))
-    def random()                                = AuthorizationCode(Secret.random())
+    def random()                                = AuthorizationCode(Secret.random("liu_"))
   }
 
   case class ClientId(value: String) extends AnyVal
