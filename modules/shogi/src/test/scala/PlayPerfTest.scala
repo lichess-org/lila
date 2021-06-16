@@ -4,7 +4,7 @@ import Pos._
 
 class PlayPerfTest extends ShogiTest {
 
-  //args(skipAll = true)
+  args(skipAll = true)
 
   val nb         = 100
   val iterations = 10

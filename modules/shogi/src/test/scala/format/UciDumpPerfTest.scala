@@ -3,7 +3,7 @@ package format
 
 class UciDumpPerfTest extends ShogiTest {
 
-  //args(skipAll = true)
+  args(skipAll = true)
 
   val nb         = 5
   val iterations = 10

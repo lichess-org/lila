@@ -3,7 +3,7 @@ package format
 
 class ForsythPerfTest extends ShogiTest {
 
-  //args(skipAll = true)
+  args(skipAll = true)
 
   val initialBoard = Board.init(variant.Standard)
   val emptyBoard   = (Forsyth << "9/9/9/9/9/9/9/9/9").get.board
