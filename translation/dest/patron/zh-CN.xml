@@ -5,6 +5,9 @@
   <string name="freeAccount">免费账户</string>
   <string name="becomePatron">成为 Lichess 赞助者</string>
   <string name="xBecamePatron">%s 成为了 Lichess 的赞助者</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="other">%1$s 已成为 Lichess 赞助者 %2$s 个月</item>
+  </plurals>
   <string name="newPatrons">新赞助者</string>
   <string name="freeChess">永远让每个人免费下棋！</string>
   <string name="noAdsNoSubs">没有广告，无需订阅；保持开源和热情。</string>

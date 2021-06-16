@@ -22,4 +22,10 @@
   <string name="sortBy">排序依据</string>
   <string name="analysis">分析</string>
   <string name="onlyAnalysed">仅显示附加电脑分析的棋局</string>
+  <string name="color">执方颜色</string>
+  <string name="evaluation">评估</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">最大数量</string>
+  <string name="maxNumberExplanation">在结果中最多显示多少条内容</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">包含</string>
+  <string name="generateURL">生成的 URL</string>
 </resources>
