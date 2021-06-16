@@ -33,8 +33,7 @@ object Protocol {
   case class State(value: String) extends AnyVal
 
   case class CodeChallenge(value: String) extends AnyVal {
-    def matches(challenge: CodeVerifier) =
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(challenge.value).bytes) == value
+    def matches(verifier: CodeVerifier) = verifier.challenge == this
   }
 
   case class CodeChallengeMethod()
@@ -46,7 +45,9 @@ object Protocol {
       }
   }
 
-  case class CodeVerifier(value: String) extends AnyVal
+  case class CodeVerifier(value: String) extends AnyVal {
+    def challenge = CodeChallenge(Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes))
+  }
 
   case class ResponseType()
   object ResponseType {
@@ -148,6 +149,8 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-    case object MismatchingCodeVerifier extends InvalidGrant("hash of code_verifier does not match code_challenge")
+        case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
+      def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
+    }
   }
 }

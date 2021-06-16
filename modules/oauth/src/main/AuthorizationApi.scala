@@ -33,7 +33,7 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
         .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
         .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
         .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
-        .ensure(Protocol.Error.MismatchingCodeVerifier)(_.codeChallenge.matches(request.codeVerifier))
+        .ensure(Protocol.Error.MismatchingCodeVerifier(request.codeVerifier))(_.codeChallenge.matches(request.codeVerifier))
         .map { pending =>
           AccessTokenRequest.Granted(pending.userId, pending.scopes, pending.redirectUri)
         }
