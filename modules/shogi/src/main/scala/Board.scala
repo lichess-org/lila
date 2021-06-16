@@ -9,7 +9,7 @@ case class Board(
     pieces: PieceMap,
     history: History,
     variant: Variant,
-    crazyData: Option[Data] = None
+    crazyData: Option[Hands] = None
 ) {
 
   import implicitFailures._
@@ -110,12 +110,12 @@ case class Board(
     copy(variant = v).ensureCrazyData
   }
 
-  def withCrazyData(data: Data)         = copy(crazyData = Some(data))
-  def withCrazyData(data: Option[Data]) = copy(crazyData = data)
-  def withCrazyData(f: Data => Data): Board =
-    withCrazyData(f(crazyData | Data.init))
+  def withCrazyData(data: Hands)         = copy(crazyData = Some(data))
+  def withCrazyData(data: Option[Hands]) = copy(crazyData = data)
+  def withCrazyData(f: Hands => Hands): Board =
+    withCrazyData(f(crazyData | Hands.init))
 
-  def ensureCrazyData = withCrazyData(crazyData | Data.init)
+  def ensureCrazyData = withCrazyData(crazyData | Hands.init)
 
   def updateHistory(f: History => History) = copy(history = f(history))
 
@@ -166,7 +166,7 @@ case class Board(
 object Board {
 
   def apply(pieces: Iterable[(Pos, Piece)], variant: Variant): Board =
-    Board(pieces.toMap, History(), variant, Some(Data.init))
+    Board(pieces.toMap, History(), variant, Some(Hands.init))
 
   def init(variant: Variant): Board = Board(variant.pieces, variant)
 

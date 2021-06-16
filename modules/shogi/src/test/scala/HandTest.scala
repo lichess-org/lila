@@ -11,7 +11,7 @@ class HandTest extends ShogiTest {
             hands.valueOf must_== 0
         }
         
-        Hands.storableRoles foreach { r =>
+        Role.handRoles foreach { r =>
             "have all pieces set to 0" in {
                 (hands.sente(r) must_== 0) && (hands.gote(r) must_== 0)
             }

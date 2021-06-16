@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.format.{ FEN, Uci }
+import shogi.format.{ FEN, Uci, Forsyth }
 import shogi.variant.Variant
 import shogi.{
   CheckCount,
@@ -10,9 +10,6 @@ import shogi.{
   Gote,
   Status,
   Mode,
-  Data,
-  Pocket,
-  Pockets,
   History => ShogiHistory,
   Game => ShogiGame
 }
@@ -37,30 +34,6 @@ object BSONHandlers {
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
-
-  implicit private[game] val crazyhouseDataBSONHandler = new BSON[Data] {
-
-    def reads(r: BSON.Reader) =
-      Data(
-        pockets = {
-          val (sente, gote) = {
-            r.str("p").view.flatMap(shogi.Piece.fromChar).to(List)
-          }.partition(_ is shogi.Sente)
-          Pockets(
-            sente = Pocket(sente.map(_.role)),
-            gote = Pocket(gote.map(_.role))
-          )
-        }
-      )
-
-    def writes(w: BSON.Writer, o: Data) =
-      BSONDocument(
-        "p" -> {
-          o.pockets.sente.roles.map(_.forsythUpper).mkString +
-            o.pockets.gote.roles.map(_.forsyth).mkString
-        }
-      )
-  }
 
   import Player.playerBSONHandler
   private val emptyPlayerBuilder = playerBSONHandler.read($empty)
@@ -90,7 +63,8 @@ object BSONHandlers {
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
           positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty,
           lastMove = r strO F.historyLastMove flatMap Uci.apply,
-          checkCount = r.intsD(F.checkCount)
+          checkCount = r.intsD(F.checkCount),
+          hands = r strO F.crazyData map Forsyth.readHands
         )
       }
       val shogiGame = ShogiGame(
@@ -103,7 +77,7 @@ object BSONHandlers {
               checkCount = CheckCount(~decoded.checkCount.headOption, ~decoded.checkCount.lastOption)
             ),
             variant = gameVariant,
-            crazyData = (gameVariant.standard || gameVariant.fromPosition) option r.get[Data](F.crazyData)
+            crazyData = decoded.hands
           ),
           color = turnColor
         ),
@@ -204,7 +178,7 @@ object BSONHandlers {
           F.positionHashes  -> o.history.positionHashes,
           F.historyLastMove -> o.history.lastMove.map(_.uci),
           F.checkCount      -> o.history.checkCount,
-          F.crazyData       -> o.board.crazyData
+          F.crazyData       -> Forsyth.exportCrazyPocket(o.board)
         )
       }
   }

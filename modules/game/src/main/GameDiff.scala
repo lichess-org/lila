@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.{ CheckCount, Clock, Color, Data, Gote, Sente }
+import shogi.{ CheckCount, Clock, Color, Hands, Gote, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -88,12 +88,11 @@ object GameDiff {
         _.history.checkCount,
         (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
       )
-    if (a.variant.standard || a.variant.fromPosition)
-      dOpt(
-        crazyData,
-        _.board.crazyData,
-        (o: Option[Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
-      )
+    d(
+      crazyData,
+      _.board.crazyData.map(_.exportHands) | "",
+      w.str
+    )
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
     dOpt(senteClockHistory, getClockHistory(Sente), clockHistoryToBytes)

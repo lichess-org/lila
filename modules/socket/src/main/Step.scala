@@ -1,7 +1,7 @@
 package lila.socket
 
 import shogi.format.Uci
-import shogi.{ Data, Pocket, Pos }
+import shogi.{ Pos, Hands, Hand, Role }
 import shogi.variant.Standard
 
 import play.api.libs.json._
@@ -14,7 +14,7 @@ case class Step(
     // None when not computed yet
     dests: Option[Map[Pos, List[Pos]]],
     drops: Option[List[Pos]],
-    crazyData: Option[Data]
+    crazyData: Option[Hands]
 ) {
 
   // who's color plays next
@@ -31,17 +31,16 @@ object Step {
 
   // TODO copied from lila.game
   // put all that shit somewhere else
-  implicit private val crazyhousePocketWriter: OWrites[Pocket] = OWrites { v =>
+  implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
     JsObject(
-      Data.storableRoles.flatMap { role =>
-        Some(v.roles.count(role ==)).filter(0 <).map { count =>
-          role.name -> JsNumber(count)
+      h.roleMap.filter(kv => 0 < kv._2).map { kv =>
+          kv._1.name -> JsNumber(kv._2)
         }
-      }
     )
   }
-  implicit private val crazyhouseDataWriter: OWrites[Data] = OWrites { v =>
-    Json.obj("pockets" -> List(v.pockets.sente, v.pockets.gote))
+
+  implicit val crazyhouseDataWriter: OWrites[Hands] = OWrites { v =>
+    Json.obj("pockets" -> List(v.sente, v.gote))
   }
 
   implicit val stepJsonWriter: Writes[Step] = Writes { step =>

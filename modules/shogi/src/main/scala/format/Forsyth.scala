@@ -80,29 +80,34 @@ object Forsyth {
         val board = Board(pieces, variant)
         if (splitted.length < 3 || splitted.lift(2).get == "-") board
         else {
-          val pockets       = pocketStringList(splitted.lift(2).get.toList.take(100))
-          val (sente, gote) = pockets.flatMap(Piece.fromChar).partition(_ is Sente)
-          import shogi.{ Data, Pocket, Pockets }
-          board.withCrazyData(
-            _.copy(
-              pockets = Pockets(
-                sente = Pocket(sente.map(_.role)),
-                gote = Pocket(gote.map(_.role))
-              )
-            )
-          )
+          val hands = readHands(splitted.lift(2).get)
+          board.withCrazyData(hands)
         }
       }
     }
 
-  private def pocketStringList(orig: List[Char], times: Int = 1, prev: Boolean = false): List[Char] = {
-    orig match {
-      case Nil                                       => Nil
-      case _ if times > 50                           => Nil
-      case c :: rest if prev && '0' <= c && c <= '9' => pocketStringList(rest, times * 10 + c.asDigit, true)
-      case c :: rest if '1' <= c && c <= '9'         => pocketStringList(rest, c.asDigit, true)
-      case c :: rest                                 => (c.toString * times).toList ::: pocketStringList(rest)
+  def readHands(sfenHand: String): Hands = {
+    var curCnt = 0
+    var total = 1
+    var sente = Hand.init
+    var gote = Hand.init
+    sfenHand foreach { p =>
+      if('0' <= p && p <= '9'){
+        curCnt = curCnt * 10 + (p - '0').toInt
+        total = curCnt
+      }
+      else {
+        Role.forsyth(p.toLower).map { role =>
+          if(Role.handRoles.contains(role)) {
+            if(p.isUpper) sente = sente.store(role, total)
+            else gote = gote.store(role, total)
+          }
+        }
+        curCnt = 0
+        total = 1
+      }
     }
+    Hands(sente, gote)
   }
 
   private def makePiecesList(
@@ -146,11 +151,9 @@ object Forsyth {
 
   def exportCrazyPocket(board: Board) =
     board.crazyData match {
-      case Some(shogi.Data(pockets)) => pockets.exportPockets
-      case _                            => "-"
+      case Some(hands) => hands.exportHands
+      case _           => "-"
     }
-
-  implicit private val posOrdering = Ordering.by[Pos, Int](_.x)
 
   def exportBoard(board: Board): String = {
     val fen   = new scala.collection.mutable.StringBuilder(256)
@@ -188,6 +191,13 @@ object Forsyth {
     read(rawSource) { fen =>
       getMoveNumber(fen) map { moveNumber =>
         moveNumber - 1
+      }
+    }
+
+  def getHands(rawSource: String): Option[Hands] =
+    read(rawSource) { fen =>
+      fen.split(' ').lift(2) map { hStr =>
+        readHands(hStr)
       }
     }
 

@@ -2,8 +2,8 @@ package lila.round
 
 import shogi.format.{ FEN, Forsyth }
 import shogi.variant._
-import shogi.{ Game => ShogiGame, Board, Color => ChessColor, Clock, Situation, Data }
-import ChessColor.{ Gote, Sente }
+import shogi.{ Game => ShogiGame, Board, Color => ShogiColor, Clock, Situation, Hands }
+import ShogiColor.{ Gote, Sente }
 import com.github.blemale.scaffeine.Cache
 import lila.memo.CacheApi
 import scala.concurrent.duration._
@@ -114,7 +114,7 @@ final private class Rematcher(
         shogi = ShogiGame(
           situation = Situation(
             board = Board(pieces, variant = pov.game.variant).withCrazyData {
-              situation.fold[Option[shogi.Data]](Some(Data.init))(_.situation.board.crazyData)
+              situation.fold[Option[shogi.Hands]](Some(Hands.init))(_.situation.board.crazyData)
             },
             color = situation.fold[shogi.Color](Sente)(_.situation.color)
           ),
@@ -133,7 +133,7 @@ final private class Rematcher(
       ) withUniqueId idGenerator
     } yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =
+  private def returnPlayer(game: Game, color: ShogiColor, users: List[User]): lila.game.Player =
     game.opponent(color).aiLevel match {
       case Some(ai) => lila.game.Player.make(color, ai.some)
       case None =>

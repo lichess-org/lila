@@ -807,7 +807,8 @@ object Game {
     val rated             = "ra"
     val analysed          = "an"
     val variant           = "v"
-    val crazyData         = "chd"
+    val crazyData         = "hs"
+    //val hands             = "chd"
     val bookmarks         = "bm"
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)

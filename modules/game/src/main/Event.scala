@@ -7,7 +7,7 @@ import shogi.{
   Pos,
   Color,
   Situation,
-  Data,
+  Hands,
   Move => ShogiMove,
   Drop => ShogiDrop,
   Clock => ShogiClock,
@@ -47,7 +47,7 @@ object Event {
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
         possibleDrops: Option[List[Pos]],
-        crazyData: Option[Data]
+        crazyData: Option[Hands]
     )(extra: JsObject) = {
       extra ++ Json
         .obj(
@@ -81,7 +81,7 @@ object Event {
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
       possibleDrops: Option[List[Pos]],
-      crazyData: Option[Data]
+      crazyData: Option[Hands]
   ) extends Event {
     val promS = { if (promotion) "+" else "" }
     def typ = "move"
@@ -103,7 +103,7 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Data]
+        crazyData: Option[Hands]
     ): Move =
       Move(
         orig = move.orig,
@@ -131,7 +131,7 @@ object Event {
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
-      crazyData: Option[Data],
+      crazyData: Option[Hands],
       possibleDrops: Option[List[Pos]]
   ) extends Event {
     def typ = "drop"
@@ -151,7 +151,7 @@ object Event {
         situation: Situation,
         state: State,
         clock: Option[ClockEvent],
-        crazyData: Option[Data]
+        crazyData: Option[Hands]
     ): Drop =
       Drop(
         role = drop.piece.role,

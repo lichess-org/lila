@@ -64,10 +64,12 @@ object Hash {
   private def get(situation: Situation, table: ZobristConstants): Long = {
 
     def crazyPocketMask(role: Role, colorshift: Int, count: Int) = {
-      // There should be no kings or promoted pieces and at most 18 pieces(2*9 pawns)
+      // There should be no kings or promoted pieces (7 roles) and at most 18 pieces(2*9 pawns)
       // of any given type in a pocket.
-      if (0 < count && count <= 18 && roleIndex(role) < 7) Some {
-        table.crazyPocketMasks(18 * roleIndex(role) + count + colorshift)
+      // 18+ pieces in hand will get hashed as (18+)%19. Theoretically some false positives for repetition
+      val minCount = count % 19
+      if (minCount > 0 && roleIndex(role) < 7) Some {
+        table.crazyPocketMasks(18 * roleIndex(role) + minCount + colorshift)
       }
       else None
     }
@@ -82,12 +84,12 @@ object Hash {
       .fold(hturn)(_ ^ _)
 
     // Hash in special crazyhouse data.
-    val hcrazy = board.crazyData.fold(hactors) { data =>
+    val hcrazy = board.crazyData.fold(hactors) { hands =>
       Color.all
         .flatMap { color =>
           val colorshift = color.fold(125, -1)
-          data.pockets(color).roles.groupBy(identity).flatMap { case (role, list) =>
-            crazyPocketMask(role, colorshift, list.size)
+          hands(color).roleMap flatMap { case (role, rolecount) =>
+            crazyPocketMask(role, colorshift, rolecount)
           }
         }
         .fold(hactors)(_ ^ _)
@@ -2377,15 +2379,6 @@ private object ZobristTables {
   )
 
   val senteTurnMask = "f8d626aaaf2785093815e537b6222c85"
-
-  val threeCheckMasks = Array(
-    "1d6dc0ee61ce803e6a2ad922a69a13e9",
-    "c6284b653d38e96a49b572c7942027d5",
-    "803f5fb0d2f97fae08c2e9271dc91e69",
-    "b183ccc9e73df9ed088dfad983bb7913",
-    "fdeef11602d6b44390a852cacfc0adeb",
-    "1b0ce4198b3801a6c8ce065f15fe38f5"
-  )
 
   val crazyPocketMasks = Array(
     "82907095d2302e0b8e6072a3c95a2a90",

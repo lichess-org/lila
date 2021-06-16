@@ -130,11 +130,11 @@ abstract class Variant private[variant] (
     )
 
   private def canDropStuff(situation: Situation) =
-    situation.board.crazyData.fold(false) { (data: Data) =>
-      val roles = data.pockets(situation.color).roles
-      roles.nonEmpty && possibleDrops(situation).fold(true) { squares =>
+    situation.board.crazyData.fold(false) { (hands: Hands) =>
+      val hand = hands(situation.color)
+      hand.size > 0 && possibleDrops(situation).fold(true) { squares =>
         squares.nonEmpty && {
-          squares.exists(s => roles.exists(r => validPieceDrop(r, s, situation)))
+          squares.exists(s => hand.roleMap.exists((kv) => kv._2 > 0 && validPieceDrop(kv._1, s, situation)))
         }
       }
     }
@@ -188,14 +188,14 @@ abstract class Variant private[variant] (
       Role.valueOf(role).fold(acc) { value =>
         acc + value * color.fold(1, -1)
       }
-    } + board.crazyData.fold(0) { cd =>
-      cd.pockets.valueOf
+    } + board.crazyData.fold(0) { hs =>
+      hs.valueOf
     }
 
   /** Returns true if neither player can win. The game should end immediately.
     */
   def isInsufficientMaterial(board: Board) =
-    ((board.crazyData.fold(0){ _.pockets.size } + board.pieces.size) <= 2) &&
+    ((board.crazyData.fold(0){ _.size } + board.pieces.size) <= 2) &&
     (board.pieces.forall{ p => p._2 is King })
 
   /** Returns true if the other player cannot win. This is relevant when the
@@ -203,7 +203,7 @@ abstract class Variant private[variant] (
     * the game should be drawn.
     */
   def opponentHasInsufficientMaterial(situation: Situation) =
-    ((situation.board.crazyData.fold(0){ _.pockets.size } + situation.board.piecesOf(!situation.color).size) <= 2)
+    ((situation.board.crazyData.fold(0){ hs => hs(!situation.color).size } + situation.board.piecesOf(!situation.color).size) <= 2)
 
   // Some variants could have an extra effect on the board on a move
   def hasMoveEffects = false
@@ -220,9 +220,9 @@ abstract class Variant private[variant] (
       _.withCheck(color, board.check(color))
     }
     uci match {
-      case Uci.Move(_, dest, _) =>
+      case Uci.Move(_, _, _) =>
         board2.crazyData.fold(board2) { data =>
-          val d1 = capture.fold(data) { data.store(_, dest) }
+          val d1 = capture.fold(data) { data.store _ }
           board2 withCrazyData d1
         }
       case _ => board2
