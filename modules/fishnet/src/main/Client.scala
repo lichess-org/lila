@@ -32,6 +32,12 @@ case class Client(
 
   def disabled = !enabled
 
+  def isNNUE =
+    evaluation match {
+      case Client.Evaluation.NNUE => true
+      case _ => false
+    }
+
   def getVariants =
     evaluation match {
       case Client.Evaluation.NNUE  => List(shogi.variant.Standard)

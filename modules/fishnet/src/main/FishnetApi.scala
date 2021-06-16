@@ -65,11 +65,11 @@ final class FishnetApi(
       analysisColl.ext
         .find(
           $doc("acquired" $exists false) ++ {
-            !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
+            $doc("lastTryByKey" $ne client.key) // client alternation
           } ++ {
             slow ?? $doc("sender.system" -> true)
           } ++ {
-            repo.selectVariant(client.getVariants.map(_.id)) // only variants client supports
+            !client.isNNUE ?? repo.selectVariant(client.getVariants.map(_.id)) // only variants client supports, all for NNUE
           }
         )
         .sort(
