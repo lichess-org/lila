@@ -712,9 +712,9 @@ GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 # OAuth
-GET   /account/oauth/authorize              controllers.OAuth.authorize
-POST  /account/oauth/authorize              controllers.OAuth.authorizeApply
-POST  /api/oauth/token                      controllers.OAuth.token
+GET   /oauth                                controllers.OAuth.authorize
+POST  /oauth                                controllers.OAuth.authorizeApply
+POST  /api/token                            controllers.OAuth.tokenApply
 GET   /account/oauth/token                  controllers.OAuthToken.index
 GET   /account/oauth/token/create           controllers.OAuthToken.create
 POST  /account/oauth/token/create           controllers.OAuthToken.createApply

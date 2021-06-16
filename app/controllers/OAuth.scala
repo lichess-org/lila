@@ -3,12 +3,14 @@ package controllers
 import views._
 
 import play.api.mvc._
+import play.api.data.Form
+import play.api.data.Forms._
 import play.api.libs.json.Json
 import cats.data.Validated
 import scalatags.Text.all.stringFrag
 import lila.app._
 import lila.api.Context
-import lila.oauth.{ AuthorizationRequest, AccessTokenRequest }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -52,10 +54,29 @@ final class OAuth(env: Env) extends LilaController(env) {
       }
     }
 
-  def token =
-    OpenBody { implicit ctx =>
-      val request = AccessTokenRequest.Raw(
-        grantType = get("grant_type", ctx.req),
-        code = get("code
+  val accessTokenRequestForm = Form(
+    mapping(
+      "grant_type"   -> text,
+      "code"         -> text,
+      "redirect_uri" -> text,
+      "client_id"    -> text,
+      "xxx"          -> text
+    )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
+  )
+
+  def tokenApply =
+    Action.async(parse.form(
+      accessTokenRequestForm,
+      onErrors = (form: Form[AccessTokenRequest.Raw]) =>
+            BadRequest(
+              Json
+                .obj(
+                  "error" -> "invalid_request"
+                )
+                .add("error_description" -> form.errors.headOption.map(_.message))
+            )
+    )) { implicit req =>
+      req.body.pp
+      ???
     }
 }
