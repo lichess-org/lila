@@ -31,7 +31,7 @@ object authorize {
           flashMessage(cls := "flash-warning")(
             strong(prompt.redirectUri.appOrigin),
             " is not owned or operated by lichess.org! This form will redirect to ",
-            strong(prompt.redirectUri.toString),
+            strong(prompt.redirectUri.value.toString),
             "."
           ),
           form3.actions(

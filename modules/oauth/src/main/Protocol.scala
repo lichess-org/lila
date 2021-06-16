@@ -31,7 +31,10 @@ object Protocol {
 
   case class State(value: String) extends AnyVal
 
-  case class CodeChallenge(value: String) extends AnyVal
+  case class CodeChallenge(value: String) extends AnyVal {
+    def matches(challenge: CodeVerifier) =
+      Algo.sha256(challenge.value).hex == value // XXX
+  }
 
   case class CodeChallengeMethod()
   object CodeChallengeMethod {
@@ -41,6 +44,8 @@ object Protocol {
         case _ => Validated.invalid(Error.UnsupportedCodeChallengeMethod)
       }
   }
+
+  case class CodeVerifier(value: String) extends AnyVal
 
   case class ResponseType()
   object ResponseType {
@@ -79,11 +84,17 @@ object Protocol {
       "code" -> Some(code.secret.value),
       "state" -> state.map(_.value)
     ).toString
+
+    def matches(other: UncheckedRedirectUri) = value.toString == other.value
   }
   object RedirectUri {
     def from(redirectUri: String): Validated[Error, RedirectUri] =
       AbsoluteUrl.parseOption(redirectUri).toValid(Error.RedirectUriInvalid).map(RedirectUri.apply)
+
+    def unchecked(trusted: String): RedirectUri = RedirectUri(AbsoluteUrl.parse(trusted))
   }
+
+  case class UncheckedRedirectUri(value: String) extends AnyVal
 
   sealed abstract class Error(val error: String) {
     def description: String
@@ -112,6 +123,7 @@ object Protocol {
     case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
     case object GrantTypeRequired extends InvalidRequest("grant_type required")
     case object CodeRequired extends InvalidRequest("code required")
+    case object CodeVerifierRequired extends InvalidRequest("code_verifier required")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
@@ -125,5 +137,6 @@ object Protocol {
     case object AuthorizationCodeExpired extends InvalidGrant("authorization code expired")
     case object MismatchingRedirectUri extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient extends InvalidGrant("authorization code was issued for a different client_Id")
+    case object MismatchingCodeVerifier extends InvalidGrant("code_verifier does not match code_challenge")
   }
 }

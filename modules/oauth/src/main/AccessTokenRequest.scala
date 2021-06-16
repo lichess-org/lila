@@ -9,6 +9,7 @@ object AccessTokenRequest {
   case class Raw(
     grantType: Option[String],
     code: Option[String],
+    codeVerifier: Option[String],
     redirectUri: Option[String],
     clientId: Option[String],
   ) {
@@ -16,15 +17,17 @@ object AccessTokenRequest {
       for {
         grantType <- grantType.toValid(Error.GrantTypeRequired).andThen(GrantType.from)
         code <- code.map(AuthorizationCode.apply).toValid(Error.CodeRequired)
-        redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
+        codeVerifier <- codeVerifier.map(CodeVerifier.apply).toValid(Error.CodeVerifierRequired)
+        redirectUri <- redirectUri.map(UncheckedRedirectUri.apply).toValid(Error.RedirectUriRequired)
         clientId <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
-      } yield Prepared(grantType, code, redirectUri, clientId)
+      } yield Prepared(grantType, code, codeVerifier, redirectUri, clientId)
   }
 
   case class Prepared(
     grantType: GrantType,
     code: AuthorizationCode,
-    redirectUri: RedirectUri,
+    codeVerifier: CodeVerifier,
+    redirectUri: UncheckedRedirectUri,
     clientId: ClientId,
   )
 
