@@ -135,8 +135,11 @@ final class TeamApi(
     } else motivateOrJoin(team, me, request)
 
   def joinApi(team: Team, me: User, oAuthAppOwner: Option[User.ID], msg: Option[String]): Fu[Requesting] =
-    if (team.open || oAuthAppOwner.contains(team.createdBy)) doJoin(team, me) inject Requesting.Joined
-    else motivateOrJoin(team, me, msg)
+    if (team.open) doJoin(team, me) inject Requesting.Joined
+    else if (oAuthAppOwner.contains(team.createdBy)) {
+      lila.log("auth").info(s"${me.id} joined restricted team of oauth app owner ${team.createdBy}")
+      doJoin(team, me) inject Requesting.Joined
+    } else motivateOrJoin(team, me, msg)
 
   private def motivateOrJoin(team: Team, me: User, msg: Option[String]) =
     msg.fold(fuccess[Requesting](Requesting.NeedRequest)) { txt =>
