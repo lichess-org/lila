@@ -12,7 +12,8 @@ final class ApiConfig(
     val prismicApiUrl: String,
     val explorerEndpoint: String,
     val tablebaseEndpoint: String,
-    val accessibility: ApiConfig.Accessibility
+    val accessibility: ApiConfig.Accessibility,
+    val pagerDuty: ApiConfig.PagerDuty
 )
 
 object ApiConfig {
@@ -28,6 +29,8 @@ object ApiConfig {
     }
   }
 
+  final class PagerDuty(val serviceId: String, val apiKey: Secret)
+
   def loadFrom(c: play.api.Configuration) =
     new ApiConfig(
       c.get[Secret]("api.token"),
@@ -40,6 +43,10 @@ object ApiConfig {
       new Accessibility(
         c.get[String]("accessibility.blind.cookie.name"),
         c.get[Secret]("accessibility.blind.cookie.salt")
+      ),
+      new PagerDuty(
+        c.get[String]("pagerDuty.serviceId"),
+        c.get[Secret]("pagerDuty.apiKey")
       )
     )
 }
