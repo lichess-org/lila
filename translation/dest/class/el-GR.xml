@@ -42,12 +42,12 @@
 	<string name="inviteDesc2">Θα λάβουν μήνυμα στο Lishogi με σύνδεσμο για συμμετοχή στη τάξη.</string>
 	<string name="inviteDesc3">Σημαντικό: προσκαλέστε μόνο μαθητές που γνωρίζετε, και που θέλουν ενεργά να συμμετέχουν στη τάξη.</string>
 	<string name="inviteDesc4">Μην στέλνετε ανεπιθύμητες προσκλήσεις σε τυχαίους παίκτες.</string>
-	<string name="createANewLishogiAccount">Create a new Lishogi account</string>
+	<string name="createANewLishogiAccount">Δημιουργία νέου λογαριασμού Lishogi</string>
 	<string name="createDesc1">Εάν ο μαθητής δεν έχει λογαριασμό Lishogi, μπορείτε να δημιουργήσετε έναν για αυτόν εδώ.</string>
 	<string name="createDesc2">Δεν χρειάζεται email. Θα δημιουργηθεί ένας κωδικός, για να τον αποστείλετε στο μαθητή, ώστε να μπορεί να συνδεθεί.</string>
 	<string name="createDesc3">Σημαντικό: ο μαθητής δεν μπορεί να έχει πολλαπλούς λογαριασμούς.</string>
 	<string name="createDesc4">Εάν έχουν ήδη ένα, αντί για αυτή χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
-	<string name="lishogiUsername">Lishogi username</string>
+	<string name="lishogiUsername">Όνομα χρήστη Lishogi</string>
 	<string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
 	<string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
 Για πρόσβαση πατήστε στον σύνδεσμο.</string>

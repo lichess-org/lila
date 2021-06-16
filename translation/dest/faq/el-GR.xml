@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="faqAbbreviation">FAQ</string>
+	<string name="faqAbbreviation">Συχνές ερωτήσεις</string>
 	<string name="frequentlyAskedQuestions">Frequently Asked Questions</string>
 	<string name="whyIsLishogiCalledLishogi">Why is Lishogi called Lishogi?</string>
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
@@ -9,14 +9,14 @@
 	<string name="hearItPronouncedBySpecialist">Hear it pronounced by a specialist.</string>
 	<string name="whyLiveLightLibre">Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lishogi is open-source and unencumbered by proprietary junk that plagues other websites.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
-	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
+	<string name="howCanIContributeToLishogi">Πώς μπορώ να συνεισφέρω στο Lishogi;</string>
 	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi is powered by donations from patrons and the efforts of a team of volunteers.</string>
 	<string name="findMoreAndSeeHowHelp">You can find out more about %1$s. If you want to help Lishogi by volunteering your time and skills, there are many %2$s.</string>
 	<string name="beingAPatron">Become a Patron.</string>
-	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
+	<string name="otherWaysToContribute">Εδώ είναι πολλοί άλλοι τρόποι που θα μπορούσατε να συνεισφέρετε στο Lishogi.</string>
 	<string name="breakdownOfOurCosts">breakdown of our costs</string>
-	<string name="otherWaysToHelp">other ways to help</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
+	<string name="otherWaysToHelp">άλλοι τρόποι για να βοηθήσετε</string>
+	<string name="areThereWebsitesBasedOnLishogi">Υπάρχουν άλλες ιστοσελίδες που βασίζονται στο Lishogi;</string>
 	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
 	<string name="fairPlay">Fair Play</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?</string>
