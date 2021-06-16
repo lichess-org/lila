@@ -1,9 +1,9 @@
 package lila.study
 
 import shogi.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import shogi.format.{ FEN, Uci, UciCharPair }
+import shogi.format.{ FEN, Uci, UciCharPair, Forsyth }
 import shogi.variant.Variant
-import shogi.{ Centis, Data, Piece, Pocket, Pockets, Pos, Role }
+import shogi.{ Centis, Piece, Hand, Hands, Pos, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
@@ -117,24 +117,6 @@ object BSONHandlers {
 
   implicit val GamebookBSONHandler = Macros.handler[Gamebook]
 
-  implicit private def CrazyDataBSONHandler: BSON[Data] =
-    new BSON[Data] {
-      private def writePocket(p: Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)  = Pocket(p.view.flatMap(shogi.Role.forsyth).toList)
-      def reads(r: Reader) =
-        Data(
-          pockets = Pockets(
-            sente = readPocket(r.strD("w")),
-            gote = readPocket(r.strD("b"))
-          )
-        )
-      def writes(w: Writer, s: Data) =
-        $doc(
-          "w" -> w.strO(writePocket(s.pockets.sente)),
-          "b" -> w.strO(writePocket(s.pockets.gote))
-        )
-    }
-
   implicit val GlyphsBSONHandler = {
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
@@ -176,7 +158,7 @@ object BSONHandlers {
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
       score          = doc.getAsOpt[Score](F.score)
       clock          = doc.getAsOpt[Centis](F.clock)
-      crazy          = doc.getAsOpt[Data](F.crazy)
+      crazy          = Forsyth.getHands(fen.value)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     } yield Node(
       id,
@@ -211,7 +193,6 @@ object BSONHandlers {
       glyphs         -> n.glyphs.nonEmpty,
       score          -> n.score,
       clock          -> n.clock,
-      crazy          -> n.crazyData,
       forceVariation -> w.boolO(n.forceVariation),
       order -> {
         (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
@@ -225,9 +206,10 @@ object BSONHandlers {
     def reads(fullReader: Reader) = {
       val rootNode = fullReader.doc.getAsOpt[Bdoc](Path.rootDbKey) err "Missing root"
       val r        = new Reader(rootNode)
+      val rootFen  = r.get[FEN](fen)
       Root(
+        fen = rootFen,
         ply = r int ply,
-        fen = r.get[FEN](fen),
         check = r boolD check,
         shapes = r.getO[Shapes](shapes) | Shapes.empty,
         comments = r.getO[Comments](comments) | Comments.empty,
@@ -235,7 +217,7 @@ object BSONHandlers {
         glyphs = r.getO[Glyphs](glyphs) | Glyphs.empty,
         score = r.getO[Score](score),
         clock = r.getO[Centis](clock),
-        crazyData = r.getO[Data](crazy),
+        crazyData = Forsyth.getHands(rootFen.value),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     }
@@ -250,8 +232,7 @@ object BSONHandlers {
           gamebook -> r.gamebook,
           glyphs   -> r.glyphs.nonEmpty,
           score    -> r.score,
-          clock    -> r.clock,
-          crazy    -> r.crazyData
+          clock    -> r.clock
         )
       }
     )

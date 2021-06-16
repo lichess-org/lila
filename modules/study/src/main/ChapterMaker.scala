@@ -1,7 +1,7 @@
 package lila.study
 
 import shogi.format.pgn.Tags
-import shogi.{ Data => ChessData }
+import shogi.Hands
 import shogi.format.{ FEN, Forsyth }
 import shogi.variant.Variant
 import lila.chat.{ Chat, ChatApi }
@@ -89,7 +89,7 @@ final private class ChapterMaker(
           fen = FEN(variant.initialFen),
           check = false,
           clock = none,
-          crazyData = Some(ChessData.init),
+          crazyData = Some(Hands.init),
           children = Node.emptyChildren
         ) -> false
     }) match {

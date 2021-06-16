@@ -1,6 +1,6 @@
 package lila.study
 
-import shogi.{ Data => ChessData }
+import shogi.Hands
 import shogi.format.pgn.{ Glyph, Glyphs }
 import shogi.format.{ FEN, Uci, UciCharPair }
 
@@ -14,7 +14,7 @@ sealed trait RootOrNode {
   val check: Boolean
   val shapes: Shapes
   val clock: Option[Centis]
-  val crazyData: Option[ChessData]
+  val crazyData: Option[Hands]
   val children: Node.Children
   val comments: Comments
   val gamebook: Option[Gamebook]
@@ -39,7 +39,7 @@ case class Node(
     glyphs: Glyphs = Glyphs.empty,
     score: Option[Score] = None,
     clock: Option[Centis],
-    crazyData: Option[ChessData],
+    crazyData: Option[Hands],
     children: Node.Children,
     forceVariation: Boolean
 ) extends RootOrNode {
@@ -241,7 +241,7 @@ object Node {
       glyphs: Glyphs = Glyphs.empty,
       score: Option[Score] = None,
       clock: Option[Centis],
-      crazyData: Option[ChessData],
+      crazyData: Option[Hands],
       children: Children
   ) extends RootOrNode {
 
@@ -329,7 +329,7 @@ object Node {
         fen = FEN(variant.initialFen),
         check = false,
         clock = none,
-        crazyData = Some(ChessData.init),
+        crazyData = Some(Hands.init),
         children = emptyChildren
       )
 
@@ -369,7 +369,6 @@ object Node {
     val glyphs         = "g"
     val score          = "e"
     val clock          = "l"
-    val crazy          = "z"
     val forceVariation = "fv"
     val order          = "o"
   }

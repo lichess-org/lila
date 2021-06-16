@@ -1,9 +1,9 @@
 package lila.study
 
-import shogi.Data
 import shogi.format.pgn._
 import shogi.format.{ FEN, Uci, UciCharPair }
 import shogi.variant
+import shogi.Hands
 import Node._
 import org.specs2.mutable._
 
@@ -21,7 +21,7 @@ class PgnDumpTest extends Specification {
       fen = FEN("<fen>"),
       check = false,
       clock = None,
-      crazyData = Some(Data.init),
+      crazyData = Some(Hands.init),
       children = children,
       forceVariation = false
     )
