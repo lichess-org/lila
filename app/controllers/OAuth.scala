@@ -8,7 +8,7 @@ import cats.data.Validated
 import scalatags.Text.all.stringFrag
 import lila.app._
 import lila.api.Context
-import lila.oauth.AuthorizationRequest
+import lila.oauth.{ AuthorizationRequest, AccessTokenRequest }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -50,5 +50,12 @@ final class OAuth(env: Env) extends LilaController(env) {
           case Validated.Invalid(error) => Redirect(error.redirectUrl(prompt.redirectUri)).fuccess
         }
       }
+    }
+
+  def token =
+    OpenBody { implicit ctx =>
+      val request = AccessTokenRequest.Raw(
+        grantType = get("grant_type", ctx.req),
+        code = get("code
     }
 }
