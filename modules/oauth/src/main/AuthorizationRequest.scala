@@ -1,5 +1,6 @@
 package lila.oauth
 
+import java.net.URLEncoder
 import cats.data.Validated
 import com.roundeights.hasher.Algo
 import io.lemonlabs.uri.AbsoluteUrl
@@ -92,7 +93,10 @@ object AuthorizationRequest {
         clientId <- clientId.toValid(Error.invalidRequest("client_id required", state))
         scopes <- invalidScopes.headOption match {
           case None => Validated.valid(validScopes)
-          case Some(key) => Validated.invalid(Error.invalidScope(s"invalid scope: $key", state))
+          case Some(key) => {
+            val safeKey = URLEncoder.encode(key, "UTF-8")
+            Validated.invalid(Error.invalidScope(s"invalid scope: ${safeKey}", state))
+          }
         }
         codeChallenge <- codeChallenge.toValid(Error.invalidRequest("code_challenge required", state))
         _ <-
