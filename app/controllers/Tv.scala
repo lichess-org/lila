@@ -75,7 +75,7 @@ final class Tv(
   def apiGamesChannel(chanKey: String) =
     Action.async { req =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
-        env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30)) map { gameIds =>
+        env.tv.tv.getGameIds(channel, getInt("nb", req).fold(10)(_ atMost 30 atLeast 1)) map { gameIds =>
           val config =
             lila.api.GameApiV2.ByIdsConfig(
               ids = gameIds,
