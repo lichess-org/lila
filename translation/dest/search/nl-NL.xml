@@ -15,7 +15,7 @@
   <string name="from">Van</string>
   <string name="to">Tot</string>
   <string name="humanOrComputer">Was de tegenstander een persoon of een computer</string>
-  <string name="aiLevel">AI niveau</string>
+  <string name="aiLevel">A.I. niveau</string>
   <string name="source">Bron</string>
   <string name="nbTurns">Aantal zetten</string>
   <string name="result">Uitslag</string>
@@ -25,8 +25,9 @@
   <string name="analysis">Analyse</string>
   <string name="onlyAnalysed">Alleen partijen waarvan een computeranalyse beschikbaar is</string>
   <string name="color">Kleur</string>
-  <string name="evaluation">Computerbeoordeling</string>
-  <string name="maxNumber" comment="maxNumber&#10;&#10;Description: The maximum number of games to return">Maximumaantal</string>
+  <string name="evaluation">Computeroordeel</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Maximumaantal</string>
   <string name="maxNumberExplanation">Het maximum aantal partijen dat getoond moet worden</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Voeg toe</string>
   <string name="generateURL">URL genereren</string>
 </resources>
