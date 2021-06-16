@@ -10,26 +10,50 @@ import play.api.i18n.Lang
 
 object security {
 
-  def apply(u: lila.user.User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit
+  def apply(
+      u: lila.user.User,
+      sessions: List[lila.security.LocatedSession],
+      curSessionId: String,
+      thirdPartyApps: Boolean,
+      personalAccessTokens: Boolean
+  )(implicit
       ctx: Context
   ) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
-      div(cls := "account security box")(
-        h1(trans.security()),
-        standardFlash(cls := "box__pad"),
-        div(cls := "box__pad")(
-          p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
-          sessions.sizeIs > 1 option div(
-            trans.alternativelyYouCanX {
-              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                submitButton(cls := "button button-empty button-red confirm")(
-                  trans.revokeAllSessions()
+      div(cls := "account security")(
+        div(cls := "box")(
+          h1(trans.sessions()),
+          standardFlash(cls := "box__pad"),
+          div(cls := "box__pad")(
+            p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
+            sessions.sizeIs > 1 option div(
+              trans.alternativelyYouCanX {
+                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                  submitButton(cls := "button button-empty button-red confirm")(
+                    trans.revokeAllSessions()
+                  )
                 )
-              )
-            }
+              }
+            )
+          ),
+          table(sessions, curSessionId.some)
+        ),
+        thirdPartyApps option div(cls := "account security box")(
+          h1("Third party apps"),
+          p(cls := "box__pad")(
+            "Revoke access of any ",
+            a(href := routes.OAuthApp.index)("third party apps"),
+            " that you do not trust."
           )
         ),
-        table(sessions, curSessionId.some)
+        personalAccessTokens option div(cls := "account security box")(
+          h1("Personal access tokens"),
+          p(cls := "box__pad")(
+            "Revoke any ",
+            a(href := routes.OAuthToken.index)("personal access tokens"),
+            " that you do not recognize."
+          )
+        )
       )
     }
 
