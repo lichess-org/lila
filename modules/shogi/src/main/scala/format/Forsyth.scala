@@ -99,8 +99,9 @@ object Forsyth {
       else {
         Role.forsyth(p.toLower).map { role =>
           if(Role.handRoles.contains(role)) {
-            if(p.isUpper) sente = sente.store(role, total)
-            else gote = gote.store(role, total)
+            val toStore = Math.min(total, 81)
+            if(p.isUpper) sente = sente.store(role, toStore)
+            else gote = gote.store(role, toStore)
           }
         }
         curCnt = 0
