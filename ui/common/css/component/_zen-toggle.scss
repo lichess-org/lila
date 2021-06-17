@@ -6,7 +6,7 @@
   display: none;
   border-bottom-right-radius: $box-radius-size;
 
-  body.zen & {
+  body.playing.zen & {
     display: block;
   }
 
