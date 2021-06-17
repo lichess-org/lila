@@ -176,7 +176,7 @@ export default class Setup {
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
         const timeOk = timeMode != '1' || ((limit > 0 || inc > 0 || byo > 0) && (byo || per == 1)),
           ratedOk = typ != 'hook' || !rated || timeMode != '0',
-          aiOk = typ != 'ai' || variantId != '3' || (limit >= 1 || byo >= 10 || inc >= 5);
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || byo >= 10 || inc >= 5;
         if (timeOk && ratedOk && aiOk) {
           $submits.toggleClass('nope', false);
           $submitsError.html('');
@@ -288,10 +288,10 @@ export default class Setup {
       $form.one('submit', function () {
         $submits.hide().end().append(li.spinnerHtml);
       });
-      $timeInput.add($periodsInput).on('change', function () {
-        toggleButtons();
-        showRating();
-      });
+    $timeInput.add($periodsInput).on('change', function () {
+      toggleButtons();
+      showRating();
+    });
     if (this.root.opts.blindMode) {
       $variantSelect.focus();
       $timeInput.add($incrementInput).on('change', function () {

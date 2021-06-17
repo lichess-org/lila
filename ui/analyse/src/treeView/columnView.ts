@@ -15,7 +15,7 @@ import {
   truncateComment,
   retroLine,
   Ctx as BaseCtx,
-  Opts as BaseOpts
+  Opts as BaseOpts,
 } from './treeView';
 import { enrichText, innerHTML } from '../util';
 import { notationStyle } from 'common/notation';

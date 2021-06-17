@@ -185,7 +185,8 @@ export default class RoundController {
   };
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key) => {
-    if (this.data.player.spectator || piece.color !== this.data.player.color || crazyValid(this, piece.role, key)) sound.move();
+    if (this.data.player.spectator || piece.color !== this.data.player.color || crazyValid(this, piece.role, key))
+      sound.move();
   };
 
   private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {

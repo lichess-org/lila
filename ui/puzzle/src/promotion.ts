@@ -63,8 +63,8 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
-    let left = (8 - cgUtil.key2pos(dest)[0]) * (100/9);
-    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * (100/9);
+    let left = (8 - cgUtil.key2pos(dest)[0]) * (100 / 9);
+    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * (100 / 9);
     const vertical = color === orientation ? 'top' : 'bottom';
 
     return h(
@@ -76,8 +76,8 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
         }),
       },
       pieces.map(function (serverRole, i) {
-        let top = (i + cgUtil.key2pos(dest)[1]) * (100/9);
-        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100/9);
+        let top = (i + cgUtil.key2pos(dest)[1]) * (100 / 9);
+        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100 / 9);
         return h(
           'square',
           {

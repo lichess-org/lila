@@ -26,7 +26,8 @@
     }
     &.pointer {
       @extend %box-radius-left;
-      &.selected-square, &:hover {
+      &.selected-square,
+      &:hover {
         background: fade-out($c-good, 0.8);
       }
       piece {

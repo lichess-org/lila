@@ -87,8 +87,7 @@ $pocket-col1-height: auto;
     grid-template-columns:
       $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap)
       $col3-uniboard-table;
-      grid-template-rows: clamp($square-min, $square-max, $square-max) auto clamp($square-min, $square-max, $square-max);
-    
+    grid-template-rows: clamp($square-min, $square-max, $square-max) auto clamp($square-min, $square-max, $square-max);
   }
 
   &__side {

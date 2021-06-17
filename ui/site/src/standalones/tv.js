@@ -4,7 +4,7 @@ function parseFen($elem) {
     var lm = $this.data('lastmove');
     var dropOrMove = lm ? (lm.includes('*') ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]) : undefined;
     var fen = $this.data('fen');
-    var hands = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : "";
+    var hands = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '';
     var color = $this.data('color');
     var ground = $this.data('shogiground');
     var config = {

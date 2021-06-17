@@ -12,7 +12,15 @@ import { plyStep } from '../round';
 import { onInsert } from '../util';
 import { Step, Dests, Position, Redraw } from '../interfaces';
 import * as game from 'game';
-import { renderSan, renderPieces, renderBoard, styleSetting, castlingFlavours, supportedVariant, Style } from 'nvui/chess';
+import {
+  renderSan,
+  renderPieces,
+  renderBoard,
+  styleSetting,
+  castlingFlavours,
+  supportedVariant,
+  Style,
+} from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';

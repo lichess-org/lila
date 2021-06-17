@@ -14,12 +14,12 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
   display: grid;
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
-  'spare-top'
-  'e-pocket-top'
-  'e-board'
-  'e-pocket-bot'
-  'spare-bottom'
-  'e-tools';
+    'spare-top'
+    'e-pocket-top'
+    'e-board'
+    'e-pocket-bot'
+    'spare-bottom'
+    'e-tools';
   user-select: none;
   .main-board {
     grid-area: e-board;

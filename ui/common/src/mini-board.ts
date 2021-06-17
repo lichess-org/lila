@@ -17,7 +17,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
         viewOnly: !node.getAttribute('data-playable'),
         resizable: false,
         hasPockets: true,
-        pockets: fen.split(' ').length > 2 ? fen.split(' ')[2] : "",
+        pockets: fen.split(' ').length > 2 ? fen.split(' ')[2] : '',
         fen,
         lastMove: lm && (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
         drawable: {

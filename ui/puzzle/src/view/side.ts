@@ -108,18 +108,18 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
             h(
               'div.player.color-icon.is.text.' + p.color,
               p.ai
-                ? "Engine level " + p.ai
+                ? 'Engine level ' + p.ai
                 : p.userId === 'anon'
-                  ? 'Anonymous'
-                  : p.userId
-                  ? h(
-                      'a.user-link.ulpt',
-                      {
-                        attrs: { href: '/@/' + p.userId },
-                      },
-                      playerName(p)
-                    )
-                  : p.name
+                ? 'Anonymous'
+                : p.userId
+                ? h(
+                    'a.user-link.ulpt',
+                    {
+                      attrs: { href: '/@/' + p.userId },
+                    },
+                    playerName(p)
+                  )
+                : p.name
             )
           )
         ),

@@ -11,7 +11,6 @@ import view from './view/main';
 import boot from './boot';
 
 export function start(opts: LobbyOpts) {
-
   const ctrl = new makeCtrl(opts, redraw);
 
   const blueprint = view(ctrl);

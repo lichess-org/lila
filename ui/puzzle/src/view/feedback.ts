@@ -39,10 +39,7 @@ function good(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.good', [
     h('div.player', [
       h('div.icon', '✓'),
-      h('div.instruction', [
-        h('strong', ctrl.trans.noarg('bestMove')),
-        h('em', ctrl.trans.noarg('keepGoing')),
-      ]),
+      h('div.instruction', [h('strong', ctrl.trans.noarg('bestMove')), h('em', ctrl.trans.noarg('keepGoing'))]),
     ]),
     viewSolution(ctrl),
   ]);

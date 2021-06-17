@@ -3,7 +3,13 @@ import resizeHandle from 'common/resize';
 import { Config as CgConfig } from 'shogiground/config';
 import { PuzPrefs, UserDrop, UserMove } from '../interfaces';
 
-export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove, userDrop: UserDrop, redraw: () => void): CgConfig {
+export function makeConfig(
+  opts: CgConfig,
+  pref: PuzPrefs,
+  userMove: UserMove,
+  userDrop: UserDrop,
+  redraw: () => void
+): CgConfig {
   return {
     fen: opts.fen,
     orientation: opts.orientation,

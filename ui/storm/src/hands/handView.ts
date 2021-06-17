@@ -6,7 +6,6 @@ import { PocketRole } from 'shogiops/types';
 import { opposite } from 'shogiops/util';
 import StormCtrl from '../ctrl';
 
-
 const eventNames1 = ['mousedown', 'touchmove'];
 const eventNames2 = ['click'];
 const eventNames3 = ['contextmenu'];
@@ -45,8 +44,7 @@ export default function (ctrl: StormCtrl, position: Position) {
     oKeys.map(role => {
       const nb = pocket[role as PocketRole] ?? 0;
       const g = ctrl.ground();
-      const selectedPiece =
-        g && role == g.state.drawable.piece?.role && color == g.state.drawable.piece?.color;
+      const selectedPiece = g && role == g.state.drawable.piece?.role && color == g.state.drawable.piece?.color;
       const selectedSquare: boolean =
         g &&
         g.state.dropmode.active &&

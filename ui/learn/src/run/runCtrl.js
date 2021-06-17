@@ -7,7 +7,7 @@ const timeouts = require('../timeouts');
 
 module.exports = function (opts, trans) {
   timeouts.clearTimeouts();
-  
+
   var stage = stages.byId[m.route.param('stage')];
   if (!stage) m.route('/');
   opts.side.ctrl.setStage(stage);

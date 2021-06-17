@@ -22,9 +22,9 @@
       grid-template-columns: $col2-uniboard-width $col3-uniboard-table;
       grid-template-rows: min-content 1fr min-content;
       grid-template-areas:
-      'board   pocket-top'
-      'board   side'
-      'board   pocket-bot';
+        'board   pocket-top'
+        'board   side'
+        'board   pocket-bot';
     }
   }
 }

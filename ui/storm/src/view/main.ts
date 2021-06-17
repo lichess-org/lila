@@ -9,7 +9,7 @@ import { makeConfig as makeCgConfig } from 'puz/view/shogiground';
 import { onInsert } from 'puz/util';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { VNode } from 'snabbdom/vnode';
-import  HandView from '../hands/handView';
+import HandView from '../hands/handView';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -33,10 +33,7 @@ const shogiground = (ctrl: StormCtrl): VNode =>
           Shogiground(
             vnode.elm as HTMLElement,
             makeCgConfig(
-              makeCgOpts(
-                ctrl.run,
-                !ctrl.run.endAt
-              ),
+              makeCgOpts(ctrl.run, !ctrl.run.endAt),
               ctrl.pref,
               ctrl.userMove,
               ctrl.userDrop,

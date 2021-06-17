@@ -36,26 +36,25 @@ export function drag(ctrl: StormCtrl, e: cg.MouchEvent): void {
 }
 
 export function selectToDrop(ctrl: StormCtrl, e: cg.MouchEvent): void {
- if (e.button !== undefined && e.button !== 0) return;
- const el = e.target as HTMLElement;
- const role = el.getAttribute('data-role') as cg.Role,
- number = el.getAttribute('data-nb'),
- color = el.getAttribute('data-color') as cg.Color;
- if (!role || number === '0') return;
- ctrl.withGround(g => {
-  if (g.state.movable.color !== color) return;
-  if (!g.state.dropmode.piece || g.state.dropmode.piece.role !== role) {
-    ctrl.vm.dropRedraw = true;
-    setDropMode(g.state, { color, role });
-  } else {
-    cancelDropMode(g.state);
-    ctrl.vm.dropRedraw = false;
-  }
-  e.stopPropagation();
-  e.preventDefault();
-  ctrl.redraw();
- });
-
+  if (e.button !== undefined && e.button !== 0) return;
+  const el = e.target as HTMLElement;
+  const role = el.getAttribute('data-role') as cg.Role,
+    number = el.getAttribute('data-nb'),
+    color = el.getAttribute('data-color') as cg.Color;
+  if (!role || number === '0') return;
+  ctrl.withGround(g => {
+    if (g.state.movable.color !== color) return;
+    if (!g.state.dropmode.piece || g.state.dropmode.piece.role !== role) {
+      ctrl.vm.dropRedraw = true;
+      setDropMode(g.state, { color, role });
+    } else {
+      cancelDropMode(g.state);
+      ctrl.vm.dropRedraw = false;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+    ctrl.redraw();
+  });
 }
 
 export function valid(fen: string, piece: cg.Piece, pos: Key): boolean {

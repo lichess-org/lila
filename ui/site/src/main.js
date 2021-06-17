@@ -247,7 +247,7 @@
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
       var fen = $this.data('fen') || lishogi.readServerFen($this.data('z'));
-      var pocketFromFen = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : "";
+      var pocketFromFen = fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '';
       var config = {
         coordinates: false,
         viewOnly: !playable,

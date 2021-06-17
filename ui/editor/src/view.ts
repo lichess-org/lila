@@ -30,7 +30,6 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
         let startX: number;
         let startY: number;
 
-
         return h(
           'div.no-square',
           {
@@ -50,21 +49,21 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
                 e.preventDefault();
               },
               mousemove: e => {
-                if(!isActive) return;
+                if (!isActive) return;
                 const diffX = Math.abs(e.pageX - startX);
                 const diffY = Math.abs(e.pageY - startY);
                 if (diffX >= delta || diffY >= delta) {
-                  dragFromPocket(ctrl, [c, r as Role], nb, "mouseup")(e as MouchEvent);
+                  dragFromPocket(ctrl, [c, r as Role], nb, 'mouseup')(e as MouchEvent);
                   isActive = false;
                 }
               },
               touchmove: e => {
                 lastTouchMovePos = eventPosition(e as any);
-                if(!isActive || !lastTouchMovePos) return;
+                if (!isActive || !lastTouchMovePos) return;
                 const diffX = Math.abs(lastTouchMovePos[0] - startX);
                 const diffY = Math.abs(lastTouchMovePos[1] - startY);
                 if (diffX >= delta || diffY >= delta) {
-                  dragFromPocket(ctrl, [c, r as Role], nb, "touchend")(e as MouchEvent);
+                  dragFromPocket(ctrl, [c, r as Role], nb, 'touchend')(e as MouchEvent);
                   isActive = false;
                 }
               },
@@ -78,7 +77,7 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
                 e.preventDefault();
               },
               touchend: e => {
-                if(isActive){
+                if (isActive) {
                   if (ctrl.selected() === 'trash') ctrl.removeFromPocket(c, r as Role, true);
                   else ctrl.addToPocket(c, r as Role, true);
                 }
@@ -88,7 +87,7 @@ function pocket(ctrl: EditorCtrl, c: Color, p: Position): VNode {
               },
               contextmenu: e => {
                 ctrl.removeFromPocket(c, r as Role, true);
-                
+
                 e.preventDefault();
               },
             },
@@ -133,12 +132,12 @@ function dragFromPocket(ctrl: EditorCtrl, s: Selected, nb: number, upEvent: stri
         upEvent,
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
-          if(eventPos){
+          if (eventPos) {
             if (ctrl.shogiground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
 
             const pocketTarget = insideWhichPocket(eventPos);
-            if(pocketTarget === 'sente')  ctrl.addToPocket("sente", s[1], true);
-            else if(pocketTarget === 'gote') ctrl.addToPocket("gote", s[1], true);
+            if (pocketTarget === 'sente') ctrl.addToPocket('sente', s[1], true);
+            else if (pocketTarget === 'gote') ctrl.addToPocket('gote', s[1], true);
           }
           ctrl.redraw();
         },
@@ -149,20 +148,27 @@ function dragFromPocket(ctrl: EditorCtrl, s: Selected, nb: number, upEvent: stri
 }
 
 function insideWhichPocket(eventPos: NumberPair): Color | undefined {
-  const sente = document.getElementsByClassName("e-pocket sente")[0];
-  if(sente){
+  const sente = document.getElementsByClassName('e-pocket sente')[0];
+  if (sente) {
     const rectSente = sente.getBoundingClientRect();
-    if(eventPos[0] >= rectSente.left && eventPos[0] <= rectSente.right &&
-      eventPos[1] >= rectSente.top && eventPos[1] <= rectSente.bottom)
-      return "sente";
-  
+    if (
+      eventPos[0] >= rectSente.left &&
+      eventPos[0] <= rectSente.right &&
+      eventPos[1] >= rectSente.top &&
+      eventPos[1] <= rectSente.bottom
+    )
+      return 'sente';
   }
-  const gote = document.getElementsByClassName("e-pocket gote")[0];
-  if(gote){
+  const gote = document.getElementsByClassName('e-pocket gote')[0];
+  if (gote) {
     const rectGote = gote.getBoundingClientRect();
-    if(eventPos[0] >= rectGote.left && eventPos[0] <= rectGote.right &&
-      eventPos[1] >= rectGote.top && eventPos[1] <= rectGote.bottom)
-      return "gote";
+    if (
+      eventPos[0] >= rectGote.left &&
+      eventPos[0] <= rectGote.right &&
+      eventPos[1] >= rectGote.top &&
+      eventPos[1] <= rectGote.bottom
+    )
+      return 'gote';
   }
   return undefined;
 }
@@ -597,13 +603,13 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
         upEvent,
         (e: MouchEvent) => {
           const eventPos = eventPosition(e) || lastTouchMovePos;
-          if(eventPos){
+          if (eventPos) {
             const pocketTarget = insideWhichPocket(eventPos);
-            if(pocketTarget === 'sente')  ctrl.addToPocket("sente", s[1], true);
-            else if(pocketTarget === 'gote') ctrl.addToPocket("gote", s[1], true);
+            if (pocketTarget === 'sente') ctrl.addToPocket('sente', s[1], true);
+            else if (pocketTarget === 'gote') ctrl.addToPocket('gote', s[1], true);
 
             // set selected only when upevent occurs outside of the board and the pocket
-            if(!defined(pocketTarget) && !defined(ctrl.shogiground!.getKeyAtDomPos(eventPos))) ctrl.selected(s);
+            if (!defined(pocketTarget) && !defined(ctrl.shogiground!.getKeyAtDomPos(eventPos))) ctrl.selected(s);
           }
           ctrl.redraw();
         },

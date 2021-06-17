@@ -1,5 +1,5 @@
 import { Shogi } from 'shogiops';
-import {parseLishogiUci} from 'shogiops/compat';
+import { parseLishogiUci } from 'shogiops/compat';
 import { parseFen } from 'shogiops/fen';
 import { Puzzle } from './interfaces';
 import { getNow } from './util';

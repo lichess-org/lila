@@ -5,9 +5,9 @@ import { Config as CgConfig } from 'shogiground/config';
 import * as cgUtil from 'shogiground/util';
 import { Role } from 'shogiground/types';
 import { MaybeVNode, Redraw, Promotion } from './interfaces';
-import {defined} from 'common';
-import {canPiecePromote, promote as sPromote} from 'shogiops/util';
-import {parseChessSquare} from 'shogiops/compat';
+import { defined } from 'common';
+import { canPiecePromote, promote as sPromote } from 'shogiops/util';
+import { parseChessSquare } from 'shogiops/compat';
 
 export default function (
   withGround: <A>(f: (cg: CgApi) => A) => A | false,
@@ -70,9 +70,9 @@ export default function (
   function renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
     if (!promoting) return;
 
-    let left = (8 - cgUtil.key2pos(dest)[0]) * (100/9);
+    let left = (8 - cgUtil.key2pos(dest)[0]) * (100 / 9);
 
-    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * (100/9);
+    if (orientation === 'sente') left = cgUtil.key2pos(dest)[0] * (100 / 9);
     const vertical = color === orientation ? 'top' : 'bottom';
 
     return h(
@@ -84,8 +84,8 @@ export default function (
         }),
       },
       pieces.map(function (serverRole, i) {
-        let top = (color === orientation ? i : 8 - i) * (100/9);
-        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100/9);
+        let top = (color === orientation ? i : 8 - i) * (100 / 9);
+        if (orientation === 'sente') top = (9 - (i + cgUtil.key2pos(dest)[1])) * (100 / 9);
 
         return h(
           'square',
@@ -111,9 +111,10 @@ export default function (
       if (!promoting) return;
       let pieces: Role[] = [];
       withGround(g => {
-        pieces = g.state.turnColor === 'sente'
-          ? [sPromote(promoting.role), promoting.role]
-          : [promoting.role, sPromote(promoting.role)];
+        pieces =
+          g.state.turnColor === 'sente'
+            ? [sPromote(promoting.role), promoting.role]
+            : [promoting.role, sPromote(promoting.role)];
       });
       return (
         withGround(g =>

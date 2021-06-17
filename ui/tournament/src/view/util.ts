@@ -36,7 +36,7 @@ export function miniBoard(game) {
         href: '/' + game.id + (game.color === 'sente' ? '' : '/gote'),
         'data-color': game.color,
         'data-fen': game.fen,
-        'data-lastmove': game.lastMove
+        'data-lastmove': game.lastMove,
       },
       hook: {
         insert(vnode) {

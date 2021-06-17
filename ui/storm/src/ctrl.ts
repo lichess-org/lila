@@ -13,9 +13,9 @@ import { Promotion, Run } from 'puz/interfaces';
 import { Combo } from 'puz/combo';
 import CurrentPuzzle from 'puz/current';
 import { Clock } from 'puz/clock';
-import {isDrop, Move, PocketRole} from 'shogiops/types';
-import {SquareSet} from 'shogiops/squareSet';
-import {cancelDropMode} from 'shogiground/drop';
+import { isDrop, Move, PocketRole } from 'shogiops/types';
+import { SquareSet } from 'shogiops/squareSet';
+import { cancelDropMode } from 'shogiground/drop';
 
 export default class StormCtrl {
   private data: StormData;
@@ -88,21 +88,21 @@ export default class StormCtrl {
   userDrop = (piece: Piece, dest: Key): void => {
     const move = {
       role: piece.role as PocketRole,
-      to: parseChessSquare(dest)!
+      to: parseChessSquare(dest)!,
     };
     this.finishMoveOrDrop(move);
-  }
+  };
 
   playUserMove = (orig: Key, dest: Key, promotion?: boolean): void => {
     const move = {
       from: parseChessSquare(orig)!,
       to: parseChessSquare(dest)!,
-      promotion: !!promotion
+      promotion: !!promotion,
     };
     this.finishMoveOrDrop(move);
   };
 
-  private finishMoveOrDrop(move: Move){
+  private finishMoveOrDrop(move: Move) {
     this.run.clock.start();
     this.run.moves++;
     this.promotion.cancel();
@@ -111,8 +111,8 @@ export default class StormCtrl {
     const pos = puzzle.position();
     const uci = makeLishogiUci(move);
 
-    if(isDrop(move) && !pos.isLegal(move)){
-      this.withGround(g =>{
+    if (isDrop(move) && !pos.isLegal(move)) {
+      this.withGround(g => {
         this.dropRedraw();
         cancelDropMode(g.state);
         g.set(makeCgOpts(this.run, !this.run.endAt));
@@ -123,10 +123,11 @@ export default class StormCtrl {
     let captureSound = pos.board.occupied.has(move.to);
 
     pos.play(move);
-    if (pos.isCheckmate() ||
-        uci == puzzle.expectedMove() ||
-        (!isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
-      ) {
+    if (
+      pos.isCheckmate() ||
+      uci == puzzle.expectedMove() ||
+      (!isDrop(move) && this.isForcedPromotion(uci, puzzle.expectedMove(), pos.turn, pos.board.getRole(move.from)))
+    ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
       this.run.modifier.moveAt = getNow();
@@ -160,7 +161,7 @@ export default class StormCtrl {
     this.redraw();
     this.redrawQuick();
     this.redrawSlow();
-    this.withGround(g =>{
+    this.withGround(g => {
       cancelDropMode(g.state);
       this.vm.dropRedraw = false;
       g.set(makeCgOpts(this.run, !this.run.endAt));
@@ -180,11 +181,11 @@ export default class StormCtrl {
   }
 
   dropRedraw = () => {
-    if(this.vm.dropRedraw){
+    if (this.vm.dropRedraw) {
       this.vm.dropRedraw = false;
       this.redrawQuick();
     }
-  }
+  };
   private redrawQuick = () => setTimeout(this.redraw, 100);
   private redrawSlow = () => setTimeout(this.redraw, 1000);
 
