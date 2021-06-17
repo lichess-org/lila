@@ -52,7 +52,7 @@ object ApiConfig extends BaseHumanConfig {
   ) =
     new ApiConfig(
       variant = shogi.variant.Variant.orDefault(~v),
-      clock = cl,
+      clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement || c.hasByoyomi),
       days = d,
       rated = r,
       color = Color.orDefault(~c),
