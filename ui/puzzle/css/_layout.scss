@@ -66,7 +66,7 @@
     grid-template-areas: 'user' 'theme' 'metas' 'config';
 
     .puzzle-replay & {
-      grid-template-areas: 'replay' 'user' 'metas' 'config';
+      grid-template-areas: 'replay' 'user' 'theme' 'metas' 'config';
     }
 
     @include breakpoint($mq-xx-small) {
@@ -75,7 +75,7 @@
       grid-template-rows: min-content min-content min-content;
 
       .puzzle-replay & {
-        grid-template-areas: 'metas replay' 'metas user' 'config user';
+        grid-template-areas: 'metas replay' 'metas user' 'config user' 'config theme';
       }
     }
 
@@ -88,7 +88,7 @@
       max-width: 350px;
 
       .puzzle-replay & {
-        grid-template-areas: 'metas' 'replay' 'user' 'config';
+        grid-template-areas: 'metas' 'replay' 'user' 'theme' 'config';
       }
     }
 
