@@ -26,7 +26,7 @@ module.exports = {
   ping: partial(simulAction, 'host-ping'),
   start: partial(simulAction, 'start'),
   abort: partial(simulAction, 'abort'),
-  join: lishogi.debounce((ctrl, variantKey) => simulAction('join/' + variantKey, ctrl), 4000, true),
+  join: lishogi.debounce((ctrl, variantKey) => simulAction('join/' + variantKey, ctrl), 2000, true),
   withdraw: partial(simulAction, 'withdraw'),
   accept: function (user) {
     return partial(simulAction, 'accept/' + user);
