@@ -89,7 +89,7 @@ export default class StormCtrl {
     const move = {
       role: piece.role as PocketRole,
       to: parseChessSquare(dest)!
-    }
+    };
     this.finishMoveOrDrop(move);
   }
 
@@ -99,7 +99,7 @@ export default class StormCtrl {
       to: parseChessSquare(dest)!,
       promotion: !!promotion
     };
-    this.finishMoveOrDrop(move)
+    this.finishMoveOrDrop(move);
   };
 
   private finishMoveOrDrop(move: Move){

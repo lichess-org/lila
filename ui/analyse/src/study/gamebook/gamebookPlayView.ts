@@ -1,8 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import GamebookPlayCtrl from './gamebookPlayCtrl';
+import GamebookPlayCtrl, { State } from './gamebookPlayCtrl';
 import { bind, dataIcon, iconTag, richHTML } from '../../util';
-import { State } from './gamebookPlayCtrl';
 import { toBlackWhite } from 'shogiops/util';
 
 const defaultComments = {
@@ -88,7 +87,6 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
                 src: window.lishogi.assetUrl(`images/${toBlackWhite(color)}Piece.svg`),
               },
             }),
-            ,
             h('div.instruction', [
               h('strong', ctrl.trans.noarg('yourTurn')),
               h('em', ctrl.trans.noarg(color === 'sente' ? 'findTheBestMoveForBlack' : 'findTheBestMoveForWhite')),

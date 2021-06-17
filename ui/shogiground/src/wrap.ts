@@ -1,9 +1,7 @@
 import { State } from './state';
 import { setVisible, createEl, isMiniBoard } from './util';
-//import { colors, files, ranks } from "./types";
-import { colors, Notation } from './types';
+import { colors, Notation, Elements } from './types';
 import { createElement as createSVG } from './svg';
-import { Elements } from './types';
 
 export function renderWrap(element: HTMLElement, s: State, relative: boolean): Elements {
   // .cg-wrap (element passed to Shogiground)

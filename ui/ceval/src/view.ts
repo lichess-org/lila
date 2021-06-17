@@ -5,13 +5,12 @@ import { defined } from 'common';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { ExtendedMoveInfo, notationStyle } from 'common/notation';
-import { Position } from 'shogiops/shogi';
+import { Shogi, Position } from 'shogiops/shogi';
 import { makeLishogiUci, assureUsi } from 'shogiops/compat';
 import { opposite, parseUsi } from 'shogiops/util';
 import { makeFen, parseFen } from 'shogiops/fen';
 import { makeSanAndPlay } from 'shogiops/san';
 import { Move } from 'shogiops/types';
-import { Shogi } from 'shogiops/shogi';
 
 let gaugeLast = 0;
 const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>

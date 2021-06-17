@@ -54,7 +54,7 @@ export function selectToDrop(ctrl: StormCtrl, e: cg.MouchEvent): void {
   e.stopPropagation();
   e.preventDefault();
   ctrl.redraw();
- })
+ });
 
 }
 

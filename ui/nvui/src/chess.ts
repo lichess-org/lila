@@ -1,9 +1,8 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { Pieces } from 'shogiground/types';
+import { Pieces, files } from 'shogiground/types';
 import { invRanks, allKeys } from 'shogiground/util';
 import { Setting, makeSetting } from './setting';
-import { files } from 'shogiground/types';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 

@@ -24,7 +24,7 @@ export const getNow = (): number => Math.round(performance.now());
 export const uciToLastMove = (uci: string): [Key, Key] | [Key] => {
   if(uci[1] === '*') return [uci.substr(2, 2) as Key];
   return [uci.substr(0, 2) as Key, uci.substr(2, 2) as Key];
-}
+};
 
 export const puzzlePov = (puzzle: Puzzle) => parseFen(puzzle.fen).unwrap().turn;
 

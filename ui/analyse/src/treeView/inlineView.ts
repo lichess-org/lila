@@ -4,8 +4,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
-import { mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
-import { Ctx, Opts } from './treeView';
+import { Ctx, Opts, mainHook, nodeClasses, findCurrentPath, renderInlineCommentsOf, retroLine } from './treeView';
 import { notationStyle } from 'common/notation';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {

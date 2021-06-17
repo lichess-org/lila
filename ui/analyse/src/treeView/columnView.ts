@@ -14,9 +14,10 @@ import {
   renderInlineCommentsOf,
   truncateComment,
   retroLine,
+  Ctx as BaseCtx,
+  Opts as BaseOpts
 } from './treeView';
 import { enrichText, innerHTML } from '../util';
-import { Ctx as BaseCtx, Opts as BaseOpts } from './treeView';
 import { notationStyle } from 'common/notation';
 
 interface Ctx extends BaseCtx {

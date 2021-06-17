@@ -4,9 +4,8 @@ import * as cg from 'shogiground/types';
 import { DrawShape } from 'shogiground/draw';
 import * as xhr from './xhr';
 import { key2pos } from 'shogiground/util';
-import { bind } from './util';
+import { bind, onInsert } from './util';
 import RoundController from './ctrl';
-import { onInsert } from './util';
 import { MaybeVNode } from './interfaces';
 import { promote as sPromote } from 'shogiops/util';
 

@@ -1,8 +1,7 @@
-import { winningChances } from 'ceval';
+import { CevalCtrl, winningChances } from 'ceval';
 import { DrawShape } from 'shogiground/draw';
 import { Vm } from './interfaces';
 import { Api as CgApi } from 'shogiground/api';
-import { CevalCtrl } from 'ceval';
 import { opposite } from 'shogiground/util';
 import { assureLishogiUci, makeChessSquare, parseLishogiUci } from 'shogiops/compat';
 import { isDrop } from 'shogiops';

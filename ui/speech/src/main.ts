@@ -1,5 +1,4 @@
-import { notationStyle } from 'common/notation';
-import { Notation } from 'common/notation';
+import { Notation, notationStyle } from 'common/notation';
 
 const roles: { [letter: string]: string } = {
   B: 'bishop',
