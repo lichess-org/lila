@@ -16,7 +16,7 @@ object authorize {
       moreCss = cssTag("oauth")
     ) {
       main(cls := "oauth box box-pad")(
-        h1("Authorize third party app"),
+        h1(dataIcon := "", cls := "text")("Authorize third party"),
         postForm(
           p(
             strong(code(prompt.redirectUri.appOrigin)),
@@ -45,7 +45,7 @@ object authorize {
           ),
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button")("Authorize ", me.username)
+            submitButton(cls := "button")("Authorize")
           )
         )
       )
