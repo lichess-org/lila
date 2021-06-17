@@ -24,8 +24,6 @@ final class CoachPager(
       collection = coll,
       selector = listableSelector ++ lang.?? { l =>
         $doc("languages" -> l.code)
-      } ++ country.?? { c =>
-        $doc("countries" -> c.code)
       },
       projection = none,
       sort = order.predicate

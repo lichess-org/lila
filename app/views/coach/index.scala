@@ -22,7 +22,6 @@ object index {
       lang: Option[Lang],
       order: lila.coach.CoachPager.Order,
       langCodes: Set[String],
-      countryCodes: Set[String],
       country: Option[Country]
   )(implicit
       ctx: Context

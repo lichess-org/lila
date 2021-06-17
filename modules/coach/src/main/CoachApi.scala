@@ -94,14 +94,6 @@ final class CoachApi(
   }
   def allLanguages: Fu[Set[String]] = languagesCache.get {}
 
-  private val countriesCache = cacheApi.unit[Set[String]] {
-    _.refreshAfterWrite(1 hour)
-      .buildAsyncFuture { _ =>
-        coachColl.secondaryPreferred.distinctEasy[String, Set]("countries", $empty)
-      }
-  }
-  def allCountries: Fu[Set[String]] = countriesCache.get {}
-
   private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
   object reviews {
