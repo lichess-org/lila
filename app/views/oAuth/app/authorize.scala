@@ -13,7 +13,9 @@ object authorize {
   def apply(prompt: AuthorizationRequest.Prompt, me: User)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Authorization",
-      moreCss = cssTag("oauth")
+      moreCss = cssTag("oauth"),
+      moreJs =
+        embedJsUnsafeLoadThen("""setTimeout(() => $('#oauth-authorize').removeAttr('disabled'), 2000);""")
     ) {
       main(cls := "oauth box box-pad")(
         h1(dataIcon := "", cls := "text")("Authorize third party"),
@@ -45,7 +47,7 @@ object authorize {
           ),
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button")("Authorize")
+            submitButton(cls := "button", disabled := true, id := "oauth-authorize")("Authorize")
           )
         )
       )
