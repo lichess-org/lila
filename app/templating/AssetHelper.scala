@@ -54,6 +54,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def analyseTag                            = jsModule("analysisBoard")
   def analyseNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("analysisBoard.nvui")
 
+  def puzzleTag                            = jsModule("puzzle")
+  def puzzleNvuiTag(implicit ctx: Context) = ctx.blind option jsModule("puzzle.nvui")
+
   def captchaTag          = jsModule("captcha")
   def infiniteScrollTag   = jsModule("infiniteScroll")
   def chessgroundTag      = jsAt("javascripts/vendor/chessground.min.js")

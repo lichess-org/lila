@@ -72,6 +72,12 @@ export interface Controller extends KeyboardController {
 
   path?: Tree.Path;
   autoScrollRequested?: boolean;
+
+  nvui?: NvuiPlugin;
+}
+
+export interface NvuiPlugin {
+  render(ctrl: Controller): VNode;
 }
 
 export interface Vm {

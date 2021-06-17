@@ -1,5 +1,5 @@
 import { Dests } from '../interfaces';
-import { sanWriter, SanToUci } from './sanWriter';
+import { sanWriter, SanToUci } from 'chess';
 import { KeyboardMove } from '../keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;

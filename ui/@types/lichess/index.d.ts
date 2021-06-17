@@ -78,6 +78,11 @@ interface Lichess {
   ): {
     render(ctrl: any): any;
   };
+  PuzzleNVUI?(
+    redraw: () => void
+  ): {
+    render(ctrl: any): any;
+  };
   playMusic(): any;
   quietMode?: boolean;
   keyboardMove?: any;

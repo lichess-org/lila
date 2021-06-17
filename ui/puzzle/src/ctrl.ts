@@ -19,7 +19,17 @@ import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
-import { Redraw, Vm, Controller, PuzzleOpts, PuzzleData, PuzzleResult, MoveTest, ThemeKey } from './interfaces';
+import {
+  Redraw,
+  Vm,
+  Controller,
+  PuzzleOpts,
+  PuzzleData,
+  PuzzleResult,
+  MoveTest,
+  ThemeKey,
+  NvuiPlugin,
+} from './interfaces';
 import { Role, Move, Outcome } from 'chessops/types';
 import { storedProp } from 'common/storage';
 
@@ -88,7 +98,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
     vm.pov = vm.initialNode.ply % 2 == 1 ? 'black' : 'white';
 
-    setPath(treePath.init(initialPath));
+    setPath(lichess.PuzzleNVUI ? initialPath : treePath.init(initialPath));
     setTimeout(() => {
       jump(initialPath);
       redraw();
@@ -222,12 +232,15 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     if (recursive) node.children.forEach(child => reorderChildren(path + child.id, true));
   }
 
+  function instantRevertUserMove(): void {
+    withGround(g => g.cancelPremove());
+    userJump(treePath.init(vm.path));
+    redraw();
+  }
+
   function revertUserMove(): void {
-    setTimeout(() => {
-      withGround(g => g.cancelPremove());
-      userJump(treePath.init(vm.path));
-      redraw();
-    }, 100);
+    if (lichess.PuzzleNVUI) instantRevertUserMove();
+    else setTimeout(instantRevertUserMove, 100);
   }
 
   function applyProgress(progress: undefined | 'fail' | 'win' | MoveTest): void {
@@ -563,5 +576,6 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     skip,
     flip,
     flipped: () => flipped,
+    nvui: lichess.PuzzleNVUI ? (lichess.PuzzleNVUI(redraw) as NvuiPlugin) : undefined,
   };
 }
