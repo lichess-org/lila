@@ -16,7 +16,6 @@ export const init = (node: HTMLElement) => {
       config = {
         coordinates: false,
         viewOnly: true,
-        resizable: false,
         fen,
         orientation,
         lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),

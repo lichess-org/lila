@@ -449,7 +449,6 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     orientation,
     coordinates: false,
     viewOnly: true,
-    resizable: false,
     drawable: {
       enabled: false,
       visible: false,

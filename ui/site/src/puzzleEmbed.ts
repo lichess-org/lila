@@ -8,7 +8,6 @@ window.onload = () => {
 
   Chessground(board.firstChild as HTMLElement, {
     coordinates: false,
-    resizable: false,
     drawable: { enabled: false, visible: false },
     viewOnly: true,
     fen: fen,
