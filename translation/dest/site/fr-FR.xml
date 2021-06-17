@@ -869,6 +869,6 @@
   <string name="welcome">Bienvenue !</string>
   <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
-  <string name="coachManager">Gestionnaire de coachs</string>
-  <string name="streamerManager">Gestionnaire de streamer</string>
+  <string name="coachManager">Configuration des paramètres Coach</string>
+  <string name="streamerManager">Configuration des paramètres Streamer</string>
 </resources>
