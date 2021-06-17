@@ -38,8 +38,11 @@ object timeline {
     if (ctx.noKid) entries
     else entries.filter(e => e.okForKid)
 
-  private def userLink(userId: lila.user.User.ID)(implicit lang: Lang) =
-    userIdLink(userId.some, withOnline = true)
+  private def userLink(userId: lila.user.User.ID)(implicit ctx: Context) =
+    ctx.me match {
+      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(ctx.lang)(cls := "online")
+      case _                         => userIdLink(userId.some, withOnline = true)
+    }
 
   private def entry(e: lila.timeline.Entry)(implicit ctx: Context) =
     frag(
