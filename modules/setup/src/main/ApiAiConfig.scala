@@ -78,7 +78,7 @@ object ApiAiConfig extends BaseConfig {
   ) =
     new ApiAiConfig(
       variant = shogi.variant.Variant.orDefault(~v),
-      clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement),
+      clock = cl.filter(c => c.limitSeconds > 0 || c.hasIncrement || c.hasByoyomi),
       daysO = d,
       color = Color.orDefault(~c),
       level = l,
