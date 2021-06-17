@@ -315,7 +315,7 @@ final class User(
         env.user.cached.top200Perf get perfType.id dmap { _ take (nb atLeast 1 atMost 200) } flatMap {
           users =>
             negotiate(
-              html = Ok(html.user.top(perfType, users)).fuccess,
+              html = (nb == 200) ?? Ok(html.user.top(perfType, users)).fuccess,
               api = _ =>
                 fuccess {
                   implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)

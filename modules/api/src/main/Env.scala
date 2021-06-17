@@ -6,10 +6,11 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
-import lila.common.config._
-import lila.common.Bus
-import lila.user.User
 import lila.chat.GetLinkCheck
+import lila.common.Bus
+import lila.common.config._
+import lila.hub.actorApi.Announce
+import lila.user.User
 
 @Module
 final class Env(
@@ -58,7 +59,7 @@ final class Env(
 ) {
 
   val config = ApiConfig loadFrom appConfig
-  import config.apiToken
+  import config.{ apiToken, pagerDuty => pagerDutyConfig }
   import net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
@@ -94,8 +95,11 @@ final class Env(
 
   private lazy val linkCheck = wire[LinkCheck]
 
-  Bus.subscribeFun("chatLinkCheck") { case GetLinkCheck(line, source, promise) =>
-    promise completeWith linkCheck(line, source)
+  private lazy val pagerDuty = wire[PagerDuty]
+
+  Bus.subscribeFun("chatLinkCheck", "announce") {
+    case GetLinkCheck(line, source, promise)                   => promise completeWith linkCheck(line, source)
+    case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date).unit
   }
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>

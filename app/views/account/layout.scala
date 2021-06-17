@@ -34,6 +34,9 @@ object layout {
           a(activeCls("editProfile"), href := routes.Account.profile)(
             trans.editProfile()
           ),
+          a(activeCls("username"), href := routes.Account.username)(
+            trans.changeUsername()
+          ),
           isGranted(_.Coach) option a(activeCls("coach"), href := routes.Coach.edit)(
             trans.coach.lichessCoach()
           ),
@@ -43,9 +46,6 @@ object layout {
           ),
           a(activeCls("email"), href := routes.Account.email)(
             trans.changeEmail()
-          ),
-          a(activeCls("username"), href := routes.Account.username)(
-            trans.changeUsername()
           ),
           a(activeCls("twofactor"), href := routes.Account.twoFactor)(
             trans.tfa.twoFactorAuth()

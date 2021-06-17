@@ -90,6 +90,7 @@ public class StringUtils {
               case '\u200f':
               case '\u202e':
               case '\u1160': 
+              case '\u3164': 
                 break;
               default:
                 sb.append(c);

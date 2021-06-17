@@ -142,7 +142,7 @@ export default class RoundController {
     });
 
     lichess.pubsub.on('zen', () => {
-      if (this.isPlaying()) {
+      if (!this.data.player.spectator) {
         const zen = $('body').toggleClass('zen').hasClass('zen');
         window.dispatchEvent(new Event('resize'));
         xhr.setZen(zen);

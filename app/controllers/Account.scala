@@ -366,7 +366,10 @@ final class Account(
     Auth { implicit ctx => me =>
       env.security.api.dedup(me.id, ctx.req) >>
         env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
-          Ok(html.account.security(me, sessions, currentSessionId))
+          Ok(
+            html.account
+              .security(me, sessions, currentSessionId, thirdPartyApps = true, personalAccessTokens = true)
+          )
         }
     }
 

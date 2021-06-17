@@ -371,7 +371,7 @@ object GameApiV2 {
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond,
-      playerFile: Option[String]
+      playerFile: Option[String] = None
   ) extends Config
 
   case class ByTournamentConfig(

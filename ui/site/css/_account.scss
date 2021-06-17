@@ -26,6 +26,13 @@
   .slist {
     @extend %break-word;
   }
+
+  .box {
+    margin-bottom: 4em;
+    > p {
+      padding-bottom: 2em;
+    }
+  }
 }
 
 .twofactor ol li {
