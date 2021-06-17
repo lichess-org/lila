@@ -56,7 +56,7 @@ object AuthorizationRequest {
     def cancelUrl = errorUrl(Error.AccessDenied)
 
     private def validScopes: Validated[Error, List[OAuthScope]] =
-      (~scope).split("\\s+").foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) {
+      (~scope).split(" ").filter(_ != "").foldLeft(Validated.valid[Error, List[OAuthScope]](List.empty[OAuthScope])) {
         case (acc, key) =>
           acc.andThen { valid =>
             OAuthScope.byKey.get(key).toValid(Error.InvalidScope(key)).map(_ :: valid)
