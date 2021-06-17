@@ -868,4 +868,6 @@
   <string name="welcome">Tervetuloa!</string>
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
+  <string name="coachManager">Valmentaja-asetukset</string>
+  <string name="streamerManager">Striimausasetukset</string>
 </resources>
