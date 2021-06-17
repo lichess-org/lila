@@ -150,5 +150,5 @@ const editor = (ctrl: Controller): VNode[] => {
           ),
         ]
       : []),
-  ]);
+  ];
 };
