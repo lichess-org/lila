@@ -18,7 +18,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
   private val dataColor    = attr("data-color")
   private val dataFen      = attr("data-fen")
   private val dataLastmove = attr("data-lastmove")
-  private val dataPocket   = attr("data-pocket")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String

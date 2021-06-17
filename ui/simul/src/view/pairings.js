@@ -27,7 +27,6 @@ function miniPairing(ctrl) {
             class: 'mini-board mini-board-' + game.id + ' parse-fen is2d',
             'data-color': game.orient,
             'data-fen': game.fen,
-            'data-pocket': game.pockets,
             'data-lastmove': game.lastMove,
             config: function (el, isUpdate) {
               if (!isUpdate) lishogi.parseFen($(el));
