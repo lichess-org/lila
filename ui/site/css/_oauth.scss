@@ -12,4 +12,9 @@
   li {
     list-style: disc outside;
   }
+
+  code {
+    color: $c-bad;
+    word-wrap: anywhere;
+  }
 }

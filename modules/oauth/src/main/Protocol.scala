@@ -46,7 +46,9 @@ object Protocol {
   }
 
   case class CodeVerifier(value: String) extends AnyVal {
-    def challenge = CodeChallenge(Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes))
+    def challenge = CodeChallenge(
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
+    )
   }
 
   case class ResponseType()
@@ -69,7 +71,7 @@ object Protocol {
 
   case class RedirectUri(value: AbsoluteUrl) extends AnyVal {
     def appOrigin =
-      s"${value.scheme}://${value.hostOption.fold("")(_.value)}"
+      s"${value.scheme}://${value.hostOption.fold("")(_.toStringPunycode)}"
 
     def error(error: Error, state: Option[State]): String = value
       .withQueryString(
@@ -90,9 +92,12 @@ object Protocol {
   }
   object RedirectUri {
     def from(redirectUri: String): Validated[Error, RedirectUri] =
-      AbsoluteUrl.parseOption(redirectUri)
+      AbsoluteUrl
+        .parseOption(redirectUri)
         .toValid(Error.RedirectUriInvalid)
-        .ensure(Error.RedirectSchemeNotAllowed)(url => List("http", "https", "ionic", "capacitor").has(url.scheme))
+        .ensure(Error.RedirectSchemeNotAllowed)(url =>
+          List("http", "https", "ionic", "capacitor").has(url.scheme)
+        )
         .map(RedirectUri.apply)
 
     def unchecked(trusted: String): RedirectUri = RedirectUri(AbsoluteUrl.parse(trusted))
@@ -122,13 +127,14 @@ object Protocol {
     case object ClientIdRequired                           extends InvalidRequest("client_id required")
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
-    case object RedirectSchemeNotAllowed                   extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
-    case object ResponseTypeRequired                       extends InvalidRequest("response_type required")
-    case object CodeChallengeRequired                      extends InvalidRequest("code_challenge required")
-    case object CodeChallengeMethodRequired                extends InvalidRequest("code_challenge_method required")
-    case object GrantTypeRequired                          extends InvalidRequest("grant_type required")
-    case object CodeRequired                               extends InvalidRequest("code required")
-    case object CodeVerifierRequired                       extends InvalidRequest("code_verifier required")
+    case object RedirectSchemeNotAllowed
+        extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
+    case object ResponseTypeRequired        extends InvalidRequest("response_type required")
+    case object CodeChallengeRequired       extends InvalidRequest("code_challenge required")
+    case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
+    case object GrantTypeRequired           extends InvalidRequest("grant_type required")
+    case object CodeRequired                extends InvalidRequest("code required")
+    case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
@@ -146,7 +152,7 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-        case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
+    case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
       def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
     }
   }

@@ -36,7 +36,7 @@ final class OAuth(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       withPrompt { prompt =>
         fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
-          Ok(html.oAuth.app.authorize(prompt))
+          Ok(html.oAuth.app.authorize(prompt, me))
         })
       }
     }
