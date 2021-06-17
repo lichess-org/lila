@@ -667,8 +667,6 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def pageHit(req: RequestHeader): Unit =
     if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment().unit
 
-  protected def BadRequestWithReason(reason: String) = makeCustomResult(BAD_REQUEST, reason).pp
-
   protected def makeCustomResult(status: Int, reasonPhrase: String) =
     Result(
       header = new ResponseHeader(status, reasonPhrase = reasonPhrase.some).pp,
