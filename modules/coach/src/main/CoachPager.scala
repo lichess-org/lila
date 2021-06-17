@@ -7,6 +7,7 @@ import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
+import lila.user.Country
 
 final class CoachPager(
     userRepo: UserRepo,
@@ -18,11 +19,13 @@ final class CoachPager(
   import CoachPager._
   import BsonHandlers._
 
-  def apply(lang: Option[Lang], order: Order, page: Int): Fu[Paginator[Coach.WithUser]] = {
+  def apply(lang: Option[Lang], order: Order, country: Option[Country], page: Int): Fu[Paginator[Coach.WithUser]] = {
     val adapter = new Adapter[Coach](
       collection = coll,
       selector = listableSelector ++ lang.?? { l =>
         $doc("languages" -> l.code)
+      } ++ country.?? { c =>
+        $doc("countries" -> c.code)
       },
       projection = none,
       sort = order.predicate
