@@ -136,7 +136,7 @@ class ForsythTest extends ShogiTest {
           case s =>
             s.situation.board.crazyData must beSome.like { case d => {
                 val sente: HandMap = Map(Rook -> 7, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 3, Lance -> 2, Pawn -> 15)
-                val gote: HandMap = Map(Rook -> 1, Bishop -> 0, Gold -> 230, Silver -> 3, Knight -> 0, Lance -> 1, Pawn -> 12)
+                val gote: HandMap = Map(Rook -> 1, Bishop -> 0, Gold -> 81, Silver -> 3, Knight -> 0, Lance -> 1, Pawn -> 12)
                 d must_== Hands(Hand(sente), Hand(gote))
               }
             }
