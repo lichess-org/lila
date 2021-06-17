@@ -69,14 +69,7 @@ object Protocol {
 
   case class RedirectUri(value: AbsoluteUrl) extends AnyVal {
     def appOrigin =
-      if (
-        value.hostOption.map(_.value).has("localhost") && List("http", "ionic", "capacitor").has(value.scheme)
-      )
-        "localhost"
-      else if (value.scheme == "https")
-        value.apexDomain getOrElse value.hostOption.fold(value.toString)(_.value)
-      else
-        s"${value.scheme}://" // untrusted or insecure scheme
+      s"${value.scheme}://${value.hostOption.fold("")(_.value)}"
 
     def error(error: Error, state: Option[State]): String = value
       .withQueryString(
@@ -97,7 +90,10 @@ object Protocol {
   }
   object RedirectUri {
     def from(redirectUri: String): Validated[Error, RedirectUri] =
-      AbsoluteUrl.parseOption(redirectUri).toValid(Error.RedirectUriInvalid).map(RedirectUri.apply)
+      AbsoluteUrl.parseOption(redirectUri)
+        .toValid(Error.RedirectUriInvalid)
+        .ensure(Error.RedirectSchemeNotAllowed)(url => List("http", "https", "ionic", "capacitor").has(url.scheme))
+        .map(RedirectUri.apply)
 
     def unchecked(trusted: String): RedirectUri = RedirectUri(AbsoluteUrl.parse(trusted))
   }
@@ -126,6 +122,7 @@ object Protocol {
     case object ClientIdRequired                           extends InvalidRequest("client_id required")
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
+    case object RedirectSchemeNotAllowed                   extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
     case object ResponseTypeRequired                       extends InvalidRequest("response_type required")
     case object CodeChallengeRequired                      extends InvalidRequest("code_challenge required")
     case object CodeChallengeMethodRequired                extends InvalidRequest("code_challenge_method required")
