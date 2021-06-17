@@ -1,5 +1,7 @@
 @import 'side';
 
+@include body-fixed-scroll;
+
 .tv-games {
   .page-menu__content {
     @extend %box-radius-force;
