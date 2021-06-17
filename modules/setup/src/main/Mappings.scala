@@ -30,7 +30,7 @@ private object Mappings {
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)
   val time                     = of[Double].verifying(HookConfig validateTime _)
   val increment                = number.verifying(HookConfig validateIncrement _)
-  val days                     = number(min = 1, max = 14)
+  val days                     = lila.common.Form.numberIn(List(1, 3, 5, 7, 10, 14))
   def timeMode                 = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean) = optional(rawMode(withRated))
   def rawMode(withRated: Boolean) =

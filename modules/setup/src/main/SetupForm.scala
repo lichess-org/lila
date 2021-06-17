@@ -77,6 +77,34 @@ object SetupForm {
 
   lazy val boardApiHook = Form(
     mapping(
+      "time"        -> optional(time),
+      "increment"   -> optional(increment),
+      "days"        -> optional(days),
+      "variant"     -> optional(boardApiVariantKeys),
+      "rated"       -> optional(boolean),
+      "color"       -> optional(color),
+      "ratingRange" -> optional(ratingRange)
+    )((t, i, d, v, r, c, g) =>
+      HookConfig(
+        variant = v.flatMap(Variant.apply) | Variant.default,
+        timeMode = if (d.isDefined) TimeMode.Correspondence else TimeMode.RealTime,
+        time = t | 10,
+        increment = i | 5,
+        days = d | 7,
+        mode = chess.Mode(~r),
+        color = lila.lobby.Color.orDefault(c),
+        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
+      )
+    )(_ => none)
+      .verifying("Invalid clock", _.validClock)
+      .verifying(
+        "Invalid time control",
+        hook => hook.makeClock.exists(lila.game.Game.isBoardCompatible) || hook.makeDaysPerTurn.isDefined
+      )
+  )
+
+  lazy val boardApiSeek = Form(
+    mapping(
       "time"        -> time,
       "increment"   -> increment,
       "variant"     -> optional(boardApiVariantKeys),

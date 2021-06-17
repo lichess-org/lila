@@ -235,7 +235,13 @@ final class Setup(
                         env.lobby.boardApiHookStream(hook.copy(boardApi = true))
                       )(apiC.sourceToNdJsonOption).fuccess
                     }(rateLimitedFu)
-                  case _ => BadRequest(jsonError("Invalid board API seek")).fuccess
+                  case Right(Some(seek)) =>
+                    env.setup.processor.createSeekIfAllowed(seek, me.id) map {
+                      case HookResult.Refused =>
+                        BadRequest(Json.obj("error" -> "Already playing too many games"))
+                      case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                    }
+                  case Right(None) => notFoundJson()
                 }
               }
           )
