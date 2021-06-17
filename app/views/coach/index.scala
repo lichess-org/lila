@@ -10,6 +10,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.Countries
+import lila.user.Countries._
 import lila.user.Country
 
 object index {
@@ -36,6 +37,7 @@ object index {
         .map { l =>
           l.code -> LangList.name(l)
         }
+      val countrySelections = ("All", "All countries") :: allPairs
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
@@ -55,7 +57,7 @@ object index {
                 langSelections
                   .map { case (code, name) =>
                     a(
-                      href := routes.Coach.search(code, order.key),
+                      href := routes.Coach.search(code, order.key, country.fold("all")(_.code)),
                       cls := (code == lang.fold("all")(_.code)).option("current")
                     )(name)
                   }
@@ -63,11 +65,11 @@ object index {
               views.html.base.bits.mselect(
                 "coach-country",
                 country.fold("All countries")(Countries.name),
-                langSelections
+                countrySelections
                   .map { case (code, name) =>
                     a(
-                      href := routes.Coach.search(code, order.key),
-                      cls := (code == lang.fold("all")(_.code)).option("current")
+                      href := routes.Coach.search(lang.fold("all")(_.code), order.key, code),
+                      cls := (code == country.fold("all")(_.code)).option("current")
                     )(name)
                   }
               ),
@@ -76,7 +78,7 @@ object index {
                 order.name,
                 lila.coach.CoachPager.Order.all map { o =>
                   a(
-                    href := routes.Coach.search(lang.fold("all")(_.code), o.key),
+                    href := routes.Coach.search(lang.fold("all")(_.code), o.key, country.fold("all")(_.code)),
                     cls := (order == o).option("current")
                   )(
                     o.name
@@ -94,7 +96,7 @@ object index {
             pagerNext(
               pager,
               np =>
-                addQueryParameter(routes.Coach.search(lang.fold("all")(_.code), order.key).url, "page", np)
+                addQueryParameter(routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url, "page", np)
             )
           )
         )
