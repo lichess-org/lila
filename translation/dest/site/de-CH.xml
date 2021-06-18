@@ -694,7 +694,7 @@
   <string name="security">Sicherheit</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Das isch ä Liischtä vo allnä Grät, wo mit dim Konto verchnüpft sind. Entfärn alli Sitzigä, wo du nöd kennsch.</string>
   <string name="alternativelyYouCanX">Alternativ chasch au %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sitzigä</string>
+  <string name="sessions">Sitzigä</string>
   <string name="revokeAllSessions">alli Sitzigä beändä</string>
   <string name="playChessEverywhere">Schpill Schach überall</string>
   <string name="asFreeAsLichess">Gratis wiä Lichess</string>
