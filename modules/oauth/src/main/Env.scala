@@ -20,6 +20,7 @@ final class Env(
     appConfig: Configuration,
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
+    lilaDb: lila.db.Db,
     mongo: lila.db.Env
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -47,6 +48,8 @@ final class Env(
     }
 
   lazy val tokenApi = wire[PersonalTokenApi]
+
+  lazy val authorizationApi = new AuthorizationApi(lilaDb(CollName("oauth2_authorization")))
 
   def forms = OAuthForm
 }
