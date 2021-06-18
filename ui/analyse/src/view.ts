@@ -376,7 +376,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           ]
         ),
       gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
-      menuIsOpen || intro ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+      intro ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
       gamebookPlayView ||
         (intro
           ? null
@@ -391,7 +391,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-      menuIsOpen || intro ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+      intro ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
       gamebookPlayView || intro ? null : controls(ctrl),
       ctrl.embed || intro
         ? null
