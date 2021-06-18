@@ -13,7 +13,7 @@
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
-  <string name="yourPuzzleRatingX">Twój ranking treningowy: %s</string>
+  <string name="yourPuzzleRatingX">Twój ranking zadań: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
