@@ -124,7 +124,7 @@ object Protocol {
     }
 
     abstract class InvalidRequest(val description: String) extends Error("invalid_request")
-    case object ClientIdRequired                           extends InvalidRequest("client_id required")
+    case object ClientIdRequired                           extends InvalidRequest("client_id required (choose any)")
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
