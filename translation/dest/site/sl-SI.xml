@@ -748,7 +748,7 @@
   <string name="security">Varnost</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
   <string name="alternativelyYouCanX">Alternativa je %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Seje</string>
+  <string name="sessions">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
   <string name="asFreeAsLichess">Brezplačen kot lichess</string>
