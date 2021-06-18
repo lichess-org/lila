@@ -25,8 +25,9 @@
   <string name="analysis">Ανάλυση</string>
   <string name="onlyAnalysed">Μόνο παρτίδες με ανάλυση από υπολογιστή</string>
   <string name="color">Χρώμα</string>
-  <string name="evaluation">Αξιολόγηση</string>
+  <string name="evaluation">Ανάλυση/Πλεονεκτήματα</string>
   <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Μέγιστος αριθμός</string>
   <string name="maxNumberExplanation">Ο μέγιστος αριθμός παιχνιδιών που θα επιστραφούν</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Να συμπεριλιφθούν</string>
   <string name="generateURL">Δημιουργία διεύθυνσης URL</string>
 </resources>

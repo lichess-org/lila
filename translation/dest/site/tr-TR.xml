@@ -677,7 +677,7 @@
   <string name="printFriendlyPDF">Yazdırılabilir PDF</string>
   <string name="crosstable">Çapraz Tablo</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Ayrıca fare tekerini kullanarak da hamle yapabilirsiniz.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Fareyi bilgisayar varyantlarının üzerine getirerek pozisyonu görüntüleyin.</string>
   <string name="analysisShapesHowTo">Tahta üzerinde çember ya da ok çizmek için lütfen shift+click ya da right+click kullanın.</string>
   <string name="letOtherPlayersMessageYou">Diğer oyuncular size mesaj yollayabilsinler mi?</string>
   <string name="receiveForumNotifications">Forumda sizden bahsedildiğinde bildirim alın</string>
@@ -694,6 +694,7 @@
   <string name="security">Güvenlik</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
   <string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Oturumlar</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
   <string name="asFreeAsLichess">lichess kadar özgür</string>
@@ -867,6 +868,6 @@
   <string name="download">İndir</string>
   <string name="welcome">Hoş geldiniz!</string>
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Eğitmen ayarları</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Yayıncı ayarları</string>
+  <string name="coachManager">Eğitmen ayarları</string>
+  <string name="streamerManager">Yayıncı ayarları</string>
 </resources>

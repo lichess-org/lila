@@ -728,6 +728,7 @@
   <string name="security">Securitate</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aceasta este o listă cu device-urile conectate la contul dvs.. Revocați orice sesiune pe care nu o recunoașteți.</string>
   <string name="alternativelyYouCanX">Alternativ, puteți %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
   <string name="asFreeAsLichess">Gratis ca Lichess</string>

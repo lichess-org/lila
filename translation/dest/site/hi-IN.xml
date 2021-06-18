@@ -860,5 +860,5 @@
   <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
   <string name="download">डाउनलोड करें</string>
   <string name="welcome">आपका स्वागत है!</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">कोच मनेजर</string>
+  <string name="coachManager">कोच मनेजर</string>
 </resources>

@@ -749,7 +749,7 @@
   <string name="printFriendlyPDF">Спампаваць у PDF</string>
   <string name="crosstable">Лік</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Вы таксама можаце гартаць хады колцам мышы, калі навядзецеся на дошку.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem" comment="scrollOverComputerVariationsToPreviewThem&#10;&#10;When performing computer analysis of a position, the engine offers several possible continuations of the game, called variations.&#10;The user can hover over a variation in this list to see a popup with a preview of this variation.">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
   <string name="shareYourInsightsData">Хто бачыць маю статыстыку</string>

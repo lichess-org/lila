@@ -694,6 +694,7 @@
   <string name="security">Biztonság</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
   <string name="alternativelyYouCanX">Ha úgy gondolod %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Munkamenetek</string>
   <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
   <string name="asFreeAsLichess">Olyannyira ingyenes mint a Lichess</string>
@@ -868,6 +869,6 @@
   <string name="welcome">Üdvözlünk!</string>
   <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Edzői vezérlőpult</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Közvetítői vezérlőpult</string>
+  <string name="coachManager">Edzői vezérlőpult</string>
+  <string name="streamerManager">Közvetítői vezérlőpult</string>
 </resources>

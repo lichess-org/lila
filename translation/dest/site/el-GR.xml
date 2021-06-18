@@ -695,6 +695,7 @@
   <string name="security">Ασφάλεια</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
   <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
   <string name="asFreeAsLichess">Δωρεάν</string>
@@ -869,6 +870,6 @@
   <string name="welcome">Καλώς ήρθατε!</string>
   <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Διαχειριστής προπονητή</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Διαχειριστής streamer</string>
+  <string name="coachManager">Διαχειριστής προπονητή</string>
+  <string name="streamerManager">Διαχειριστής streamer</string>
 </resources>

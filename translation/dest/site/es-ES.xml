@@ -694,6 +694,7 @@
   <string name="security">Seguridad</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta es una lista de dispositivos desde los que has iniciado sesión. Cierra todas las sesiones que no reconozcas.</string>
   <string name="alternativelyYouCanX">O también puedes %s.</string>
+  <string name="sessions">Sesiones</string>
   <string name="revokeAllSessions">cerrar todas las sesiones</string>
   <string name="playChessEverywhere">Juega al ajedrez donde sea</string>
   <string name="asFreeAsLichess">Tan gratis como lichess</string>

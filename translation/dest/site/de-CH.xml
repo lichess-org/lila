@@ -13,7 +13,7 @@
   <string name="toggleTheChat">Tschätt ii- und uusschaltä</string>
   <string name="toggleSound">Ton ii/uus schalte</string>
   <string name="chat">Tschätt</string>
-  <string name="resign">Uffgää</string>
+  <string name="resign">Ufgää</string>
   <string name="checkmate">Schachmatt</string>
   <string name="stalemate">Patt</string>
   <string name="white">Wiis</string>
@@ -27,7 +27,7 @@
   <string name="itsYourTurn">Du bisch am Zug!</string>
   <string name="cheatDetected">Bschiss erchännt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">Drümol schach gsetzt</string>
+  <string name="threeChecks">Drü Mal Schach gsetzt</string>
   <string name="raceFinished">Ränä beändät</string>
   <string name="variantEnding">Variantä ändät</string>
   <string name="newOpponent">Neuä Gägner</string>
@@ -694,6 +694,7 @@
   <string name="security">Sicherheit</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Das isch ä Liischtä vo allnä Grät, wo mit dim Konto verchnüpft sind. Entfärn alli Sitzigä, wo du nöd kennsch.</string>
   <string name="alternativelyYouCanX">Alternativ chasch au %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sitzigä</string>
   <string name="revokeAllSessions">alli Sitzigä beändä</string>
   <string name="playChessEverywhere">Schpill Schach überall</string>
   <string name="asFreeAsLichess">Gratis wiä Lichess</string>
@@ -868,6 +869,6 @@
   <string name="welcome">Härzlich Willkommä!</string>
   <string name="lichessPatronInfo">Lichess isch ä Wohltätigkeitsorganisation und ä völlig chostälosi/freii Open-Source-Software.
 Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Trääner Mänätscher</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Schtreamer Mänätscher</string>
+  <string name="coachManager">Trääner Mänätscher</string>
+  <string name="streamerManager">Schtreamer Mänätscher</string>
 </resources>
