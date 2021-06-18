@@ -748,6 +748,7 @@
   <string name="security">Varnost</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
   <string name="alternativelyYouCanX">Alternativa je %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
   <string name="asFreeAsLichess">Brezplačen kot lichess</string>
@@ -926,6 +927,6 @@
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
   <string name="download">Prenos</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Nastavitve za trenerja</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Nastavitve upravitelja pretočnega predvajanja</string>
+  <string name="coachManager">Nastavitve za trenerja</string>
+  <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
 </resources>

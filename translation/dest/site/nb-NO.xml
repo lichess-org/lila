@@ -694,6 +694,7 @@
   <string name="security">Sikkerhet</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheter du har logget inn på med din konto. Lukk alle økter du ikke gjenkjenner.</string>
   <string name="alternativelyYouCanX">Ellers kan du %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spill sjakk overalt</string>
   <string name="asFreeAsLichess">Like gratis som lichess</string>
@@ -868,6 +869,6 @@
   <string name="welcome">Velkommen!</string>
   <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Innstillinger for trenere</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Innstillinger for strømmere</string>
+  <string name="coachManager">Innstillinger for trenere</string>
+  <string name="streamerManager">Innstillinger for strømmere</string>
 </resources>

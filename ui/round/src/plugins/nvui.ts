@@ -1,5 +1,4 @@
 import { h, VNode } from 'snabbdom';
-import { sanWriter, SanToUci } from './sanWriter';
 import RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
@@ -9,7 +8,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
 import { plyStep } from '../round';
 import { onInsert } from '../util';
-import { Step, Dests, Position, Redraw } from '../interfaces';
+import { Step, Position, Redraw } from '../interfaces';
 import * as game from 'game';
 import {
   renderSan,
@@ -30,6 +29,7 @@ import {
   castlingFlavours,
   supportedVariant,
   Style,
+  inputToLegalUci,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -288,9 +288,6 @@ lichess.RoundNVUI = function (redraw: Redraw) {
   };
 };
 
-const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
-const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
-
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return () => {
     let input = castlingFlavours(($input.val() as string).trim());
@@ -298,31 +295,8 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
-        legalUcis = destsToUcis(ctrl.chessground.state.movable.dests!),
-        legalSans: SanToUci = sanWriter(plyStep(d, ctrl.ply).fen, legalUcis) as SanToUci;
-      let uci = sanToUci(input, legalSans) || input,
-        promotion = '';
-
-      if (input.match(promotionRegex)) {
-        uci = sanToUci(input.slice(0, -2), legalSans) || input;
-        promotion = input.slice(-1).toLowerCase();
-      } else if (input.match(uciPromotionRegex)) {
-        uci = input.slice(0, -1);
-        promotion = input.slice(-1).toLowerCase();
-      }
-      console.log(uci);
-      console.log(uci.slice(0, -1));
-      console.log(promotion);
-      console.log(legalSans);
-
-      if (legalUcis.includes(uci.toLowerCase()))
-        ctrl.socket.send(
-          'move',
-          {
-            u: uci + promotion,
-          },
-          { ackable: true }
-        );
+        uci = inputToLegalUci(input, plyStep(d, ctrl.ply).fen, ctrl.chessground);
+      if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
       else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
     }
     $input.val('');
@@ -359,24 +333,6 @@ function anyClock(ctrl: RoundController, position: Position) {
     (d.correspondence && renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)) ||
     undefined
   );
-}
-
-function destsToUcis(dests: Dests) {
-  const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    if (d)
-      d.forEach(function (dest) {
-        ucis.push(orig + dest);
-      });
-  }
-  return ucis;
-}
-
-function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
-  if (san in legalSans) return legalSans[san];
-  const lowered = san.toLowerCase();
-  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
-  return;
 }
 
 function renderMoves(steps: Step[], style: Style) {

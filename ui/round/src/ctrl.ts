@@ -574,7 +574,7 @@ export default class RoundController {
     if (was !== is) {
       lichess.quietMode = is;
       $('body')
-        .toggleClass('playing', is)
+        .toggleClass('playing', !this.data.spectator)
         .toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
     }
   };

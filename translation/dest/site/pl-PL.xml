@@ -766,6 +766,7 @@
   <string name="security">Bezpieczeństwo</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To jest lista urządzeń, z których logowałeś się na swoje konto. Unieważnij sesje, których nie rozpoznajesz.</string>
   <string name="alternativelyYouCanX">Możesz również %s.</string>
+  <string name="sessions">Sesje</string>
   <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
   <string name="asFreeAsLichess">Darmowa jak całe lichess</string>

@@ -758,6 +758,7 @@
   <string name="security">Zabezpečenie</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je prehľad zariadení, ktoré sa prihlásili cez Váš účet. Ak niektoré zariadenie nespoznávate, môžete zrušiť jeho reláciu.</string>
   <string name="alternativelyYouCanX">Alebo môžete %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Pripojenia</string>
   <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
@@ -924,5 +925,5 @@
   <string name="clickToRevealEmailAddress">[Kliknite pre zobrazenie e-mailovej adresy]</string>
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Správca streamov</string>
+  <string name="streamerManager">Správca streamov</string>
 </resources>

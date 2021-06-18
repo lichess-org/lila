@@ -766,6 +766,7 @@
   <string name="security">Безопасность</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
   <string name="alternativelyYouCanX">Также вы можете %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Сессии</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
   <string name="asFreeAsLichess">Бесплатен, как Lichess</string>
@@ -948,6 +949,6 @@
   <string name="welcome">Добро пожаловать!</string>
   <string name="lichessPatronInfo">Lichess — это благотворительная организация, предоставляющая свободное и бесплатное программное обеспечение с открытым исходным кодом.
 Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Для тренеров</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Для стримеров</string>
+  <string name="coachManager">Для тренеров</string>
+  <string name="streamerManager">Для стримеров</string>
 </resources>

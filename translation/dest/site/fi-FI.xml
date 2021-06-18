@@ -694,6 +694,7 @@
   <string name="security">Turvallisuus</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
   <string name="alternativelyYouCanX">Tai voit %s.</string>
+  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
   <string name="asFreeAsLichess">Yhtä ilmainen ja vapaa kuin lichess</string>
@@ -868,4 +869,6 @@
   <string name="welcome">Tervetuloa!</string>
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
+  <string name="coachManager">Valmentaja-asetukset</string>
+  <string name="streamerManager">Striimausasetukset</string>
 </resources>

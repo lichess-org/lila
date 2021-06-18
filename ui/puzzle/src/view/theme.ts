@@ -6,7 +6,9 @@ const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
 export default function theme(ctrl: Controller): MaybeVNode {
   const t = ctrl.getData().theme;
-  return ctrl.streak || ctrl.getData().replay
+  const showEditor = ctrl.vm.mode == 'view' && !ctrl.autoNexting();
+  if (ctrl.getData().replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
+  return ctrl.streak
     ? null
     : h('div.puzzle__side__theme', [
         h('a', { attrs: { href: '/training/themes' } }, h('h2', ['« ', t.name])),
@@ -24,13 +26,13 @@ export default function theme(ctrl: Controller): MaybeVNode {
               [' ', ctrl.trans.noarg('example')]
             ),
         ]),
-        ctrl.vm.mode != 'view' || ctrl.autoNexting() ? null : editor(ctrl),
+        showEditor ? h('div.puzzle__themes', editor(ctrl)) : null,
       ]);
 }
 
 const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 
-const editor = (ctrl: Controller): VNode => {
+const editor = (ctrl: Controller): VNode[] => {
   const data = ctrl.getData(),
     trans = ctrl.trans.noarg,
     votedThemes = ctrl.vm.round?.themes || {};
@@ -41,7 +43,7 @@ const editor = (ctrl: Controller): VNode => {
   const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter(t => !votedThemes[t]) : null;
   if (availableThemes) availableThemes.sort((a, b) => (trans(a) < trans(b) ? -1 : 1));
-  return h('div.puzzle__themes', [
+  return [
     h(
       'div.puzzle__themes_list',
       {
@@ -148,5 +150,5 @@ const editor = (ctrl: Controller): VNode => {
           ),
         ]
       : []),
-  ]);
+  ];
 };

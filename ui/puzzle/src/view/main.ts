@@ -74,6 +74,7 @@ function controls(ctrl: Controller): VNode {
 let cevalShown = false;
 
 export default function (ctrl: Controller): VNode {
+  if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const showCeval = ctrl.vm.showComputer(),
     gaugeOn = ctrl.showEvalGauge();
   if (cevalShown !== showCeval) {

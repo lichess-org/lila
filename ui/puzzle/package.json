@@ -22,6 +22,7 @@
     "chessground": "^8.0.0-beta2",
     "chessops": "^0.9.0",
     "common": "2.0.0",
+    "nvui": "2.0.0",
     "snabbdom": "^3.0.1",
     "tree": "2.0.0"
   },

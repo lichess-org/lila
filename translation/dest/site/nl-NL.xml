@@ -677,6 +677,7 @@
   <string name="printFriendlyPDF">Printvriendelijke PDF</string>
   <string name="crosstable">Onderlinge partijen</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Je kunt ook over het bord scrollen om je zetten uit te voeren.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Beweeg de muis over computervarianten om ze te bekijken.</string>
   <string name="analysisShapesHowTo">Druk op shift+linkermuisknop of rechtermuisknop om cirkels en pijlen op het bord te tekenen.</string>
   <string name="letOtherPlayersMessageYou">Andere spelers mogen je berichten zenden</string>
   <string name="receiveForumNotifications">Ontvang meldingen wanneer je genoemd wordt op het forum</string>
@@ -693,6 +694,7 @@
   <string name="security">Beveiliging</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Stop alle sessies die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kunt u %s.</string>
+  <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
   <string name="playChessEverywhere">Schaak overal</string>
   <string name="asFreeAsLichess">Zo gratis als lichess</string>
@@ -865,6 +867,8 @@
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
   <string name="download">Downloaden</string>
   <string name="welcome">Welkom!</string>
-  <string name="coachManager" comment="coachManager&#10;&#10;In the user pop-up menu, a link to the Coach Manager page.&#10;It leads to coach-specific settings, and is only visible to coaches.">Coach manager</string>
-  <string name="streamerManager" comment="streamerManager&#10;&#10;In the user pop-up menu, a link to the Streamer Manager page. It leads to stream-specific settings, and is only visible to streamers.">Streamer manager</string>
+  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
+Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
+  <string name="coachManager">Coach manager</string>
+  <string name="streamerManager">Streamer manager</string>
 </resources>

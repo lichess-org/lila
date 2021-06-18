@@ -10,6 +10,8 @@ import {
   renderSan,
   renderPieces,
   renderBoard,
+  renderMainline,
+  renderComments,
   styleSetting,
   pieceSetting,
   prefixSetting,
@@ -299,49 +301,11 @@ function requestAnalysisButton(ctrl: AnalyseController, inProgress: Prop<boolean
   );
 }
 
-function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style) {
-  const res: Array<string | VNode> = [];
-  let path: Tree.Path = '';
-  nodes.forEach(node => {
-    if (!node.san || !node.uci) return;
-    path += node.id;
-    const content: MaybeVNodes = [
-      node.ply & 1 ? moveView.plyToTurn(node.ply) + ' ' : null,
-      renderSan(node.san, node.uci, style),
-    ];
-    res.push(
-      h(
-        'move',
-        {
-          attrs: { p: path },
-          class: { active: path === currentPath },
-        },
-        content
-      )
-    );
-    res.push(renderComments(node, style));
-    res.push(', ');
-    if (node.ply % 2 === 0) res.push(h('br'));
-  });
-  return res;
-}
-
 function renderCurrentNode(node: Tree.Node, style: Style): string {
   if (!node.san || !node.uci) return 'Initial position';
   return [moveView.plyToTurn(node.ply), renderSan(node.san, node.uci, style), renderComments(node, style)]
     .join(' ')
     .trim();
-}
-
-function renderComments(node: Tree.Node, style: Style): string {
-  if (!node.comments) return '';
-  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
-}
-
-function renderComment(comment: Tree.Comment, style: Style): string {
-  return comment.by === 'lichess'
-    ? comment.text.replace(/Best move was (.+)\./, (_, san) => 'Best move was ' + renderSan(san, undefined, style))
-    : comment.text;
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {

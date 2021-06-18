@@ -15,8 +15,8 @@
     <item quantity="other">Hät %s Taktikufgoobä glöst</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Hat %1$s Partie %2$s gespielt</item>
-    <item quantity="other">Hat %1$s Partien %2$s gespielt</item>
+    <item quantity="one">Hät %1$s Parti %2$s gschpillt</item>
+    <item quantity="other">Hät %1$s Partiä %2$s gschpillt</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">Hat %1$s Nachricht in %2$s geschrieben</item>
@@ -31,8 +31,8 @@
     <item quantity="other">in %1$s Fernschachpartien</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Hat %s Fernschachpartie gespielt</item>
-    <item quantity="other">Hat %s Fernschachpartien gespielt</item>
+    <item quantity="one">Hät %s Fernschachparti gschpillt</item>
+    <item quantity="other">Hät %s Fernschachpartiä gschpillt</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Folgät %s Schpiller/-in</item>

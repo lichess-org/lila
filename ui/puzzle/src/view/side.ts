@@ -195,53 +195,7 @@ export function config(ctrl: Controller): MaybeVNode {
       ]),
       h('label', { attrs: { for: id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately')),
     ]),
-    !ctrl.getData().replay && !ctrl.streak && ctrl.difficulty
-      ? h(
-          'form.puzzle__side__config__difficulty',
-          {
-            attrs: {
-              action: `/training/difficulty/${ctrl.getData().theme.key}`,
-              method: 'post',
-            },
-          },
-          [
-            h(
-              'label',
-              {
-                attrs: { for: 'puzzle-difficulty' },
-              },
-              ctrl.trans.noarg('difficultyLevel')
-            ),
-            h(
-              'select#puzzle-difficulty.puzzle__difficulty__selector',
-              {
-                attrs: { name: 'difficulty' },
-                hook: onInsert(elm =>
-                  elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())
-                ),
-              },
-              difficulties.map(([key, delta]) =>
-                h(
-                  'option',
-                  {
-                    attrs: {
-                      value: key,
-                      selected: key == ctrl.difficulty,
-                      title:
-                        !!delta &&
-                        ctrl.trans.plural(
-                          delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
-                          Math.abs(delta)
-                        ),
-                    },
-                  },
-                  [ctrl.trans.noarg(key), delta ? ` (${delta > 0 ? '+' : ''}${delta})` : '']
-                )
-              )
-            ),
-          ]
-        )
-      : null,
+    !ctrl.getData().replay && !ctrl.streak && ctrl.difficulty ? renderDifficultyForm(ctrl) : null,
     h('div.puzzle__side__config__toggles', [
       h(
         'a.puzzle__side__config__zen.button.button-empty',
@@ -266,4 +220,50 @@ export function config(ctrl: Controller): MaybeVNode {
       ),
     ]),
   ]);
+}
+
+export function renderDifficultyForm(ctrl: Controller): VNode {
+  return h(
+    'form.puzzle__side__config__difficulty',
+    {
+      attrs: {
+        action: `/training/difficulty/${ctrl.getData().theme.key}`,
+        method: 'post',
+      },
+    },
+    [
+      h(
+        'label',
+        {
+          attrs: { for: 'puzzle-difficulty' },
+        },
+        ctrl.trans.noarg('difficultyLevel')
+      ),
+      h(
+        'select#puzzle-difficulty.puzzle__difficulty__selector',
+        {
+          attrs: { name: 'difficulty' },
+          hook: onInsert(elm => elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())),
+        },
+        difficulties.map(([key, delta]) =>
+          h(
+            'option',
+            {
+              attrs: {
+                value: key,
+                selected: key == ctrl.difficulty,
+                title:
+                  !!delta &&
+                  ctrl.trans.plural(
+                    delta < 0 ? 'nbPointsBelowYourPuzzleRating' : 'nbPointsAboveYourPuzzleRating',
+                    Math.abs(delta)
+                  ),
+              },
+            },
+            [ctrl.trans.noarg(key), delta ? ` (${delta > 0 ? '+' : ''}${delta})` : '']
+          )
+        )
+      ),
+    ]
+  );
 }
