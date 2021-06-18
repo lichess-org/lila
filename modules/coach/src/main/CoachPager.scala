@@ -11,6 +11,7 @@ import lila.user.Country
 
 final class CoachPager(
     userRepo: UserRepo,
+    coachRepo: CoachRepo,
     coll: Coll
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -22,7 +23,7 @@ final class CoachPager(
   def apply(lang: Option[Lang], order: Order, country: Option[Country], page: Int): Fu[Paginator[Coach.WithUser]] = {
     val adapter = new Adapter[Coach](
       collection = coll,
-      selector = listableSelector ++ lang.?? { l =>
+      selector = coachRepo.selectors.listed ++ coachRepo.selectors.approved ++ coachRepo.selectors.available ++ lang.?? { l =>
         $doc("languages" -> l.code)
       },
       projection = none,

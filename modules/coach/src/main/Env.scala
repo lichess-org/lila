@@ -38,6 +38,8 @@ final class Env(
     cacheApi = cacheApi
   )
 
+  private lazy val coachRepo = new CoachRepo(db(CollName("coach")))
+
   lazy val pager = wire[CoachPager]
 
   lila.common.Bus.subscribeFun(
