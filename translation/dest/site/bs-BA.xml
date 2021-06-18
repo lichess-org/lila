@@ -729,7 +729,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="security">Sigurnost</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili na Vaš račun. Opozovite bilo koju sesiju koju ne prepoznajete.</string>
   <string name="alternativelyYouCanX">Alternativno, možete %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sesije</string>
+  <string name="sessions">Sesije</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igrajte šah svugdje</string>
   <string name="asFreeAsLichess">Besplatno kao i lichess</string>
