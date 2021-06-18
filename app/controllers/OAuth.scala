@@ -73,7 +73,7 @@ final class OAuth(env: Env) extends LilaController(env) {
               // TODO: This is a hack using the personal access token API.
               val token = lila.oauth.OAuthForm.token
                 .Data(
-                  description = granted.redirectUri.appOrigin,
+                  description = granted.redirectUri.clientOrigin,
                   scopes = granted.scopes.map(_.key)
                 )
                 .fake(granted.userId)

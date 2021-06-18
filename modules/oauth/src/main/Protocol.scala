@@ -70,7 +70,7 @@ object Protocol {
   }
 
   case class RedirectUri(value: AbsoluteUrl) extends AnyVal {
-    def appOrigin =
+    def clientOrigin =
       s"${value.scheme}://${value.hostOption.fold("")(_.toStringPunycode)}"
 
     def error(error: Error, state: Option[State]): String = value

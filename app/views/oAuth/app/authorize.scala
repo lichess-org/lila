@@ -21,7 +21,7 @@ object authorize {
         h1(dataIcon := "", cls := "text")("Authorize third party"),
         postForm(
           p(
-            strong(code(prompt.redirectUri.appOrigin)),
+            strong(code(prompt.redirectUri.clientOrigin)),
             " wants to access your ",
             strong(me.username),
             " account:"
@@ -41,7 +41,7 @@ object authorize {
             code(
               raw(
                 escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
-                  .replaceFirst(prompt.redirectUri.appOrigin, strong(prompt.redirectUri.appOrigin).render)
+                  .replaceFirst(prompt.redirectUri.clientOrigin, strong(prompt.redirectUri.clientOrigin).render)
               )
             )
           ),
