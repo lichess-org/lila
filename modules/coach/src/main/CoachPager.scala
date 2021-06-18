@@ -3,7 +3,7 @@ package lila.coach
 import reactivemongo.api._
 import play.api.i18n.Lang
 
-import lila.common.paginator.Paginator
+import lila.common.paginator.{ Paginator, AdapterLike }
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
@@ -21,16 +21,45 @@ final class CoachPager(
   import BsonHandlers._
 
   def apply(lang: Option[Lang], order: Order, country: Option[Country], page: Int): Fu[Paginator[Coach.WithUser]] = {
-    val adapter = new Adapter[Coach](
-      collection = coll,
-      selector = coachRepo.selectors.listed ++ coachRepo.selectors.approved ++ coachRepo.selectors.available ++ lang.?? { l =>
-        $doc("languages" -> l.code)
-      },
-      projection = none,
-      sort = order.predicate
-    ) mapFutureList withUsers
     Paginator(
-      adapter = adapter,
+      adapter = new AdapterLike[Coach.WithUser] {
+
+        def nbResults: Fu[Int] = fuccess(9999)
+
+        def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
+          coachRepo.coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework._
+              Match(country.?? { c => $doc("profile.country" -> c.code) }) -> List(
+                PipelineOperator(
+                  $doc(
+                    "$lookup" -> $doc(
+                      "from" -> coachRepo.coll.name,
+                      "as"   -> "coach",
+                      "let"  -> $doc("id" -> "$_id"),
+                      "pipeline" -> $arr(
+                        $doc(
+                          "$match" -> $doc(
+                            "$expr" -> $doc(
+                              $doc("$eq" -> $arr("$coachId", "$$id"))
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                ),
+                UnwindField("coach")
+              )
+            }
+            .map { docs =>
+              for {
+                doc   <- docs
+                user  <- doc.asOpt[User]
+                coach <- doc.getAsOpt[Coach]("coach")
+              } yield Coach.WithUser(coach, user)
+            }
+      },
       currentPage = page,
       maxPerPage = maxPerPage
     )
