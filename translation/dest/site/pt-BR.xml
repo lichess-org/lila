@@ -694,7 +694,7 @@
   <string name="security">Segurança</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é uma lista de dispositivos com os quais você logou em sua conta. Revogue qualquer sessão que você não reconheça.</string>
   <string name="alternativelyYouCanX">Como alternativa, você pode %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sessões</string>
+  <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
   <string name="asFreeAsLichess">Tão gratuito quanto o Lichess</string>
