@@ -695,7 +695,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="security">Seguridade</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é unha lista de dispositivos que teñen iniciado sesión coa túa conta. Peche todas as sesións que non recoñeza.</string>
   <string name="alternativelyYouCanX">Alternativamente podes %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sesións</string>
+  <string name="sessions">Sesións</string>
   <string name="revokeAllSessions">pechar todas as sesións</string>
   <string name="playChessEverywhere">Xoga ó xadrez en todas partes</string>
   <string name="asFreeAsLichess">Tan libre coma lichess</string>
