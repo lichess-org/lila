@@ -659,7 +659,7 @@
   <string name="security">セキュリティ</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">これはあなたのアカウントにログインしたデバイスの一覧です。覚えのないセッションは削除してください。</string>
   <string name="alternativelyYouCanX">あるいは %s こともできます。</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account."> セッション</string>
+  <string name="sessions"> セッション</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスを対局</string>
   <string name="asFreeAsLichess">Lichess は常に無料</string>
