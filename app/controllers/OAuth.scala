@@ -54,7 +54,7 @@ final class OAuth(env: Env) extends LilaController(env) {
       }
     }
 
-  val accessTokenRequestForm = Form(
+  private val accessTokenRequestForm = Form(
     mapping(
       "grant_type"    -> optional(text),
       "code"          -> optional(text),

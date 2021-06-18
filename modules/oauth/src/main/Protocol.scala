@@ -13,8 +13,8 @@ object Protocol {
     def hashed: String    = Algo.sha256(value).hex
     override def toString = "Secret(***)"
     override def equals(other: Any) = other match {
-      case other @ Secret(_) => hashed == other.hashed
-      case _                 => false
+      case other: Secret => hashed == other.hashed
+      case _             => false
     }
     override def hashCode = hashed.hashCode()
   }
