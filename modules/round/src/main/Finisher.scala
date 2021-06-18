@@ -120,7 +120,7 @@ final private class Finisher(
       gameRepo.finish(
         id = g.id,
         winnerColor = winnerC,
-        winnerId = winnerC flatMap (g.player(_).userId),
+        winnerId = winnerC map (g.player(_).userId | ""),
         status = prog.game.status
       ) >>
       userRepo
