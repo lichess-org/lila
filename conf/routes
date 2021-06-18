@@ -720,10 +720,6 @@ GET   /account/oauth/token/create           controllers.OAuthToken.create
 POST  /account/oauth/token/create           controllers.OAuthToken.createApply
 POST  /account/oauth/token/:publicId/delete controllers.OAuthToken.delete(publicId: String)
 GET   /account/oauth/app                    controllers.OAuthApp.index
-GET   /account/oauth/app/create             controllers.OAuthApp.create
-POST  /account/oauth/app/create             controllers.OAuthApp.createApply
-GET   /account/oauth/app/:id/edit           controllers.OAuthApp.edit(id: String)
-POST  /account/oauth/app/:id/edit           controllers.OAuthApp.update(id: String)
 POST  /account/oauth/app/:id/delete         controllers.OAuthApp.delete(id: String)
 POST  /account/oauth/app/:id/revoke         controllers.OAuthApp.revoke(id: String)
 

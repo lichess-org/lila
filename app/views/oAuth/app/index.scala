@@ -50,17 +50,29 @@ object index {
           h1(id := "made")("My OAuth Apps"),
           p(cls := "box__pad")(
             "Want to build something that integrates with and extends Lichess? ",
-            a(href := routes.OAuthApp.create)("Register a new OAuth App"),
-            " to get started developing with the Lichess API.",
-            br,
-            br,
+            "Lichess now supports OAuth for unregistered and public clients with PKCE. ",
             "Here's a ",
-            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
+            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-app")(
               "Lichess OAuth app example"
             ),
             ", and the ",
             a(href := routes.Api.index)("API documentation"),
-            "."
+            ".",
+            br,
+            br,
+            made.nonEmpty option {
+              frag(
+                flashMessage(cls := "flash-warning box__pad")(
+                  "The following apps have been created while registration was still required. ",
+                  "Please update them to use PKCE. ",
+                  "Lichess will soon drop support for the authorization code flow without PKCE. ",
+                  strong(a(href := "https://github.com/ornicar/lila/issues/9214")("More information")),
+                  "."
+                ),
+                br,
+                br
+              )
+            }
           ),
           table(cls := "slist slist-pad")(
             made.map { t =>
@@ -77,12 +89,6 @@ object index {
                   momentFromNow(t.createdAt)
                 ),
                 td(cls := "action")(
-                  a(
-                    href := routes.OAuthApp.edit(t.clientId.value),
-                    cls := "button button-empty",
-                    title := "Edit this app",
-                    dataIcon := ""
-                  ),
                   postForm(action := routes.OAuthApp.delete(t.clientId.value))(
                     submitButton(
                       cls := "button button-empty button-red confirm",

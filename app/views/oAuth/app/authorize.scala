@@ -41,7 +41,10 @@ object authorize {
             code(
               raw(
                 escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
-                  .replaceFirst(prompt.redirectUri.clientOrigin, strong(prompt.redirectUri.clientOrigin).render)
+                  .replaceFirst(
+                    prompt.redirectUri.clientOrigin,
+                    strong(prompt.redirectUri.clientOrigin).render
+                  )
               )
             )
           ),
