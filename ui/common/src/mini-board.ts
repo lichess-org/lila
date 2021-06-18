@@ -15,7 +15,6 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
         orientation,
         coordinates: false,
         viewOnly: !node.getAttribute('data-playable'),
-        resizable: false,
         fen,
         lastMove: lm && (lm[1] === '@' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
         drawable: {
