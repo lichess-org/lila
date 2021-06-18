@@ -758,7 +758,7 @@
   <string name="security">Zabezpečenie</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je prehľad zariadení, ktoré sa prihlásili cez Váš účet. Ak niektoré zariadenie nespoznávate, môžete zrušiť jeho reláciu.</string>
   <string name="alternativelyYouCanX">Alebo môžete %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Pripojenia</string>
+  <string name="sessions">Pripojenia</string>
   <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
   <string name="asFreeAsLichess">Slobodný ako lichess</string>
