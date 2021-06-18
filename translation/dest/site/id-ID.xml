@@ -658,7 +658,7 @@
   <string name="security">Keamanan</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah daftar perangkat yang memiliki login ke akun Anda. Batalkan setiap sesi yang Anda tidak mengenali.</string>
   <string name="alternativelyYouCanX">Atau Anda dapat %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Sesi</string>
+  <string name="sessions">Sesi</string>
   <string name="revokeAllSessions">mencabut semua sesi</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
   <string name="asFreeAsLichess">Gratis seperti lichess</string>
