@@ -231,7 +231,7 @@
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
-  <string name="mode">Ρύθμιση</string>
+  <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
   <string name="casualTournament">Φιλικό</string>
