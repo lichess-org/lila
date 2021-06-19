@@ -92,6 +92,7 @@
   <string name="sacrificeDescription">Taktika zahrnující krátkodobé vzdání materiálu, s cílem získat opět výhodu po vynucené sekvenci tahů.</string>
   <string name="short">Krátká úloha</string>
   <string name="shortDescription">Dva tahy do výhry.</string>
+  <string name="skewerDescription">Motiv zahrnující útok na figuru vyšší hodnoty, která útoku uhne, ale dovolí tak útok nebo sebrání figury nižší hodnoty za ní, opak vazby.</string>
   <string name="smotheredMate">Dušený mat</string>
   <string name="superGM">Úlohy Super GM</string>
   <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
