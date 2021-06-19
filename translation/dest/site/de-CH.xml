@@ -692,8 +692,6 @@
   <string name="enableKidMode">Chindermodus aktiviärä</string>
   <string name="disableKidMode">Chindermodus deaktiviärä</string>
   <string name="security">Sicherheit</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Das isch ä Liischtä vo allnä Grät, wo mit dim Konto verchnüpft sind. Entfärn alli Sitzigä, wo du nöd kennsch.</string>
-  <string name="alternativelyYouCanX">Alternativ chasch au %s.</string>
   <string name="sessions">Sitzigä</string>
   <string name="revokeAllSessions">alli Sitzigä beändä</string>
   <string name="playChessEverywhere">Schpill Schach überall</string>
