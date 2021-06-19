@@ -746,8 +746,6 @@
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
-  <string name="alternativelyYouCanX">Alternativa je %s.</string>
   <string name="sessions">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
