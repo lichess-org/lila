@@ -728,8 +728,6 @@
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Šis ir saraksts ar visām ierīcēm, kuras pieslēgušās jūsu kontam. Dzēsiet jebkuru sesiju, kuru neatpazīstat.</string>
-  <string name="alternativelyYouCanX">Varat arī %s.</string>
   <string name="sessions">Sesijas</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
   <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
