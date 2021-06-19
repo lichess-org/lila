@@ -941,4 +941,6 @@
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
   <string name="timeAlmostUp">Čas vám běží!</string>
   <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
+  <string name="download">Stáhnout</string>
+  <string name="welcome">Vítej!</string>
 </resources>
