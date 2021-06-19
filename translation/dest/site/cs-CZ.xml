@@ -752,6 +752,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Najetím na varianty počítače zobrazíte jejich náhled.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
+  <string name="receiveForumNotifications">Dostat oznámení, pokud jste zmíněni ve fóru</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
   <string name="withNobody">S nikým</string>
   <string name="withFriends">S přáteli</string>
@@ -763,8 +764,7 @@
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je přehled zařízení, na kterých došlo k přihlášení k Vašemu účtu. Pokud některé zařízení nepoznáváte, můžete zrušit jeho relaci.</string>
-  <string name="alternativelyYouCanX">Nebo můžete %s.</string>
+  <string name="sessions">Relace</string>
   <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
