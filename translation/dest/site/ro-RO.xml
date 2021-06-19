@@ -726,8 +726,6 @@
   <string name="enableKidMode">Activează modul „copil”</string>
   <string name="disableKidMode">Dezactivează modul „copil”</string>
   <string name="security">Securitate</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aceasta este o listă cu device-urile conectate la contul dvs.. Revocați orice sesiune pe care nu o recunoașteți.</string>
-  <string name="alternativelyYouCanX">Alternativ, puteți %s.</string>
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
