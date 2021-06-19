@@ -96,7 +96,7 @@ object AccessToken {
         usedAt       -> o.usedAt,
         scopes       -> o.scopes,
         clientOrigin -> o.clientOrigin,
-        expires      -> o.expires,
+        expires      -> o.expires
       )
   }
 }

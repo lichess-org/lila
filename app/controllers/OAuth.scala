@@ -96,4 +96,18 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
       }
     }
+
+  private val revokeClientForm = Form(single("origin" -> text))
+
+  def revokeClient =
+    AuthBody { implicit ctx => me =>
+      implicit def req = ctx.body
+      revokeClientForm
+        .bindFromRequest()
+        .fold(
+          _ => funit,
+          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) // TODO: also remove from token cache
+        )
+
+    }
 }

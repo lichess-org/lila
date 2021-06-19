@@ -14,7 +14,7 @@ object security {
       u: lila.user.User,
       sessions: List[lila.security.LocatedSession],
       curSessionId: String,
-      thirdPartyApps: Boolean,
+      clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(implicit
       ctx: Context
@@ -42,10 +42,10 @@ object security {
               "."
             )
           ),
-          table(sessions, curSessionId.some, personalAccessTokens)
+          table(sessions, curSessionId.some, clients, personalAccessTokens)
         ),
-        thirdPartyApps option div(cls := "account security box")(
-          h1("Third party apps"),
+        div(cls := "account security box")(
+          h1("Additional third party apps"),
           p(cls := "box__pad")(
             "Revoke access of any ",
             a(href := routes.OAuthApp.index)("third party apps"),
@@ -58,6 +58,7 @@ object security {
   def table(
       sessions: List[lila.security.LocatedSession],
       curSessionId: Option[String],
+      clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(implicit lang: Lang) =
     st.table(cls := "slist slist-pad")(
@@ -91,11 +92,40 @@ object security {
           }
         )
       },
+      clients map { client =>
+        tr(
+          td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
+          td(cls := "info")(
+            strong(client.origin),
+            p(cls := "ua")(
+              if (client.scopes.nonEmpty)
+                frag(
+                  "Third party application with permissions: ",
+                  client.scopes.map(_.name).mkString(", ")
+                )
+              else
+                frag("Third party application using only public data.")
+            ),
+            client.usedAt map { usedAt =>
+              p(cls := "date")(
+                "Last used ",
+                momentFromNow(usedAt)
+              )
+            }
+          ),
+          td(
+            postForm(action := routes.OAuth.revokeClient)(
+              input(tpe := "hidden", name := "origin", value := client.origin),
+              submitButton(cls := "button button-red", title := "Revoke", dataIcon := "")
+            )
+          )
+        )
+      },
       (personalAccessTokens > 0) option tr(
         td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
         td(cls := "info")(
           strong("Personal access tokens"),
-          " have been issued for your account. Revoke any that you do not recognize."
+          " can be used to access your account. Revoke any that you do not recognize."
         ),
         td(
           a(href := routes.OAuthToken.index, cls := "button", title := "API access tokens", dataIcon := "")

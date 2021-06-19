@@ -10,7 +10,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def index =
     Auth { implicit ctx => me =>
-      tokenApi.list(me) map { tokens =>
+      tokenApi.listPersonal(me) map { tokens =>
         Ok(html.oAuth.token.index(tokens))
       }
     }
@@ -40,7 +40,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def delete(publicId: String) =
     Auth { _ => me =>
-      tokenApi.deleteByPublicId(publicId, me) map {
+      tokenApi.revokeByPublicId(publicId, me) map {
         _ foreach { token =>
           env.oAuth.server.deleteCached(token.id)
         }

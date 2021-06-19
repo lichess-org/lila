@@ -367,15 +367,16 @@ final class Account(
       for {
         _                    <- env.security.api.dedup(me.id, ctx.req)
         sessions             <- env.security.api.locatedOpenSessions(me.id, 50)
-        personalAccessTokens <- env.oAuth.tokenApi.count(me)
+        clients              <- env.oAuth.tokenApi.listClients(me, 50)
+        personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
       } yield Ok(
         html.account
           .security(
             me,
             sessions,
             currentSessionId,
-            thirdPartyApps = true,
-            personalAccessTokens = personalAccessTokens
+            clients,
+            personalAccessTokens
           )
       )
     }

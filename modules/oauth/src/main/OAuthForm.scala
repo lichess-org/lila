@@ -37,7 +37,7 @@ object OAuthForm {
           description = description.some,
           scopes = scopes.flatMap(OAuthScope.byKey.get),
           clientOrigin = None,
-          expires = None,
+          expires = None
         )
     }
   }

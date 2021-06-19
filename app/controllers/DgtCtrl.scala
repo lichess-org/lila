@@ -52,5 +52,5 @@ final class DgtCtrl(env: Env) extends LilaController(env) {
   }
 
   private def findToken(me: lila.user.User) =
-    env.oAuth.tokenApi.findCompatible(me, dgtScopes)
+    env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)
 }
