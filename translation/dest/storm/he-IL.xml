@@ -6,5 +6,15 @@
   <string name="newDailyHighscore">שיא יומי חדש!</string>
   <string name="newWeeklyHighscore">שיא שבועי חדש!</string>
   <string name="newMonthlyHighscore">שיא חודשי חדש!</string>
-  <string name="newAllTimeHighscore">שיא חדש של כל הזמנים!</string>
+  <string name="newAllTimeHighscore">שיא חדש בכל הזמנים!</string>
+  <string name="previousHighscoreWasX">שיא קודם היה %s</string>
+  <string name="playAgain">שחק שוב</string>
+  <string name="score">ניקוד</string>
+  <string name="moves">מהלכים</string>
+  <string name="accuracy">דיוק</string>
+  <string name="combo">רצף</string>
+  <string name="time">זמן</string>
+  <string name="skip">דלג</string>
+  <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
+  <string name="skipExplanation">דלג על מהלך זה כדי לשמור על הקומבו שלך! עובד רק פעם אחת במירוץ.</string>
 </resources>
