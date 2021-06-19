@@ -692,6 +692,7 @@
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
+  <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">tancar totes les sessions</string>
   <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
   <string name="asFreeAsLichess">Tan lliure com lichess</string>
