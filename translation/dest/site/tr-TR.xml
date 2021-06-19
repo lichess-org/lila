@@ -692,8 +692,6 @@
   <string name="enableKidMode">Çocuk modunu aktifleştir</string>
   <string name="disableKidMode">Çocuk modunu devre dışı bırak</string>
   <string name="security">Güvenlik</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu, hesabınıza giriş yaptığınız cihazların listesidir. Tanımadığınız veya bilmediğiniz tüm oturumları kapatın.</string>
-  <string name="alternativelyYouCanX">Ayrıca %s de yapabilirsiniz.</string>
   <string name="sessions">Oturumlar</string>
   <string name="revokeAllSessions">tüm oturumları kaldır</string>
   <string name="playChessEverywhere">Her yerde satranç oyna</string>
