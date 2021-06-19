@@ -27,7 +27,7 @@ final class CoachPager(
         def nbResults: Fu[Int] = fuccess(9999)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
-          coachRepo.coll
+          userRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
               Match(country.?? { c => $doc("profile.country" -> c.code) }) -> List(
@@ -41,7 +41,7 @@ final class CoachPager(
                         $doc(
                           "$match" -> $doc(
                             "$expr" -> $doc(
-                              $doc("$eq" -> $arr("$coachId", "$$id"))
+                              $doc("$eq" -> $arr("$_id", "$$id"))
                             )
                           )
                         )
