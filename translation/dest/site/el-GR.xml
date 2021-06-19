@@ -693,8 +693,6 @@
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
   <string name="security">Ασφάλεια</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
-  <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
   <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
