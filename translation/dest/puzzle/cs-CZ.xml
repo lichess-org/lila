@@ -57,4 +57,5 @@
   <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
   <string name="continueTheStreak">Pokračovat v sérii</string>
   <string name="newStreak">Nová série</string>
+  <string name="fromMyGames">Z mých her</string>
 </resources>
