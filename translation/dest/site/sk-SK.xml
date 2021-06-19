@@ -756,8 +756,6 @@
   <string name="enableKidMode">Povoliť detský režim</string>
   <string name="disableKidMode">Vypnúť detský režim</string>
   <string name="security">Zabezpečenie</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je prehľad zariadení, ktoré sa prihlásili cez Váš účet. Ak niektoré zariadenie nespoznávate, môžete zrušiť jeho reláciu.</string>
-  <string name="alternativelyYouCanX">Alebo môžete %s.</string>
   <string name="sessions">Pripojenia</string>
   <string name="revokeAllSessions">odobrať všetky relácie</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoľvek</string>
