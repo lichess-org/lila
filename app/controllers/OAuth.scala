@@ -7,10 +7,12 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import cats.data.Validated
+import reactivemongo.api.bson.BSONObjectID
+import org.joda.time.DateTime
 import scalatags.Text.all.stringFrag
 import lila.app._
 import lila.api.Context
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest }
+import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -70,17 +72,23 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
-              // TODO: This is a hack using the personal access token API.
-              val token = lila.oauth.OAuthForm.token
-                .Data(
-                  description = granted.redirectUri.clientOrigin,
-                  scopes = granted.scopes.map(_.key)
-                )
-                .fake(granted.userId)
+              val expiresIn = 60 * 60 * 24 * 60
+              val token = AccessToken(
+                id = AccessToken.Id(lila.oauth.Protocol.Secret.random("lio_").value),
+                publicId = BSONObjectID.generate(),
+                clientId = "lichess_personal_token", // TODO
+                userId = granted.userId,
+                createdAt = DateTime.now().some,
+                description = granted.redirectUri.clientOrigin.some,
+                scopes = granted.scopes,
+                clientOrigin = granted.redirectUri.clientOrigin.some,
+                expires = DateTime.now().plusSeconds(expiresIn).some
+              )
               env.oAuth.tokenApi.create(token) inject Ok(
                 Json.obj(
+                  "token_type"   -> "bearer",
                   "access_token" -> token.id.value,
-                  "token_type"   -> "bearer"
+                  "expires_in"   -> expiresIn
                 )
               )
             case Validated.Invalid(err) => BadRequest(err.toJson).fuccess

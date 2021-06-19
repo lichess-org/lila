@@ -13,7 +13,9 @@ case class AccessToken(
     createdAt: Option[DateTime] = None, // for personal access tokens
     description: Option[String] = None, // for personal access tokens
     usedAt: Option[DateTime] = None,
-    scopes: List[OAuthScope]
+    scopes: List[OAuthScope],
+    clientOrigin: Option[String],
+    expires: Option[DateTime]
 ) {
   def isBrandNew = createdAt.exists(DateTime.now.minusSeconds(5).isBefore)
 }
@@ -33,14 +35,16 @@ object AccessToken {
   case class WithApp(token: AccessToken, app: OAuthApp)
 
   object BSONFields {
-    val id          = "access_token_id"
-    val publicId    = "_id"
-    val clientId    = "client_id"
-    val userId      = "user_id"
-    val createdAt   = "create_date"
-    val description = "description"
-    val usedAt      = "used_at"
-    val scopes      = "scopes"
+    val id           = "access_token_id"
+    val publicId     = "_id"
+    val clientId     = "client_id"
+    val userId       = "user_id"
+    val createdAt    = "create_date"
+    val description  = "description"
+    val usedAt       = "used_at"
+    val scopes       = "scopes"
+    val clientOrigin = "clientOrigin"
+    val expires      = "expires"
   }
 
   import lila.db.BSON
@@ -76,19 +80,23 @@ object AccessToken {
         createdAt = r.getO[DateTime](createdAt),
         description = r strO description,
         usedAt = r.getO[DateTime](usedAt),
-        scopes = r.get[List[OAuthScope]](scopes)
+        scopes = r.get[List[OAuthScope]](scopes),
+        clientOrigin = r strO clientOrigin,
+        expires = r.getO[DateTime](expires)
       )
 
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
-        id          -> o.id,
-        publicId    -> o.publicId,
-        clientId    -> o.clientId,
-        userId      -> o.userId,
-        createdAt   -> o.createdAt,
-        description -> o.description,
-        usedAt      -> o.usedAt,
-        scopes      -> o.scopes
+        id           -> o.id,
+        publicId     -> o.publicId,
+        clientId     -> o.clientId,
+        userId       -> o.userId,
+        createdAt    -> o.createdAt,
+        description  -> o.description,
+        usedAt       -> o.usedAt,
+        scopes       -> o.scopes,
+        clientOrigin -> o.clientOrigin,
+        expires      -> o.expires,
       )
   }
 }
