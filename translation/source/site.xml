@@ -693,7 +693,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognise.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>

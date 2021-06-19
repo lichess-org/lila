@@ -25,7 +25,13 @@ object security {
           h1(trans.sessions()),
           standardFlash(cls := "box__pad"),
           div(cls := "box__pad")(
-            p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
+            p(
+              "This is a list of devices that are logged into your account. If you notice any suspicious activity, make sure to ",
+              a(href := routes.Account.email)("check your recovery email address"),
+              " and ",
+              a(href := routes.Account.passwd)("change your password"),
+              "."
+            ),
             sessions.sizeIs > 1 option div(
               trans.alternativelyYouCanX {
                 postForm(cls := "revoke-all", action := routes.Account.signout("all"))(

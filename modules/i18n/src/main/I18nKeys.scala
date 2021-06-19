@@ -552,7 +552,6 @@ val `inKidModeTheLichessLogoGetsIconX` = new I18nKey("inKidModeTheLichessLogoGet
 val `enableKidMode` = new I18nKey("enableKidMode")
 val `disableKidMode` = new I18nKey("disableKidMode")
 val `security` = new I18nKey("security")
-val `thisIsAListOfDevicesThatHaveLoggedIntoYourAccount` = new I18nKey("thisIsAListOfDevicesThatHaveLoggedIntoYourAccount")
 val `alternativelyYouCanX` = new I18nKey("alternativelyYouCanX")
 val `sessions` = new I18nKey("sessions")
 val `revokeAllSessions` = new I18nKey("revokeAllSessions")
