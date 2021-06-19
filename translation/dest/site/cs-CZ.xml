@@ -516,6 +516,7 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
@@ -748,6 +749,7 @@
   <string name="printFriendlyPDF">PDF pro tisk</string>
   <string name="crosstable">Výsledky</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Najetím na varianty počítače zobrazíte jejich náhled.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
