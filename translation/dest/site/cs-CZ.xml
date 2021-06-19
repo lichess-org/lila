@@ -943,4 +943,6 @@
   <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
   <string name="download">Stáhnout</string>
   <string name="welcome">Vítej!</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý open source software.
+Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
 </resources>
