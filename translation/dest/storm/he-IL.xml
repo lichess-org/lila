@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">אתה משחק בלבן בכל החידות</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">אתה משחק בשחור בכל החידות</string>
+  <string name="puzzlesSolved">חידות נפתרו</string>
+  <string name="newDailyHighscore">שיא יומי חדש!</string>
+  <string name="newWeeklyHighscore">שיא שבועי חדש!</string>
+  <string name="newMonthlyHighscore">שיא חודשי חדש!</string>
+  <string name="newAllTimeHighscore">שיא חדש של כל הזמנים!</string>
+</resources>
