@@ -801,8 +801,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="enableKidMode">Cuir mód na bpáistí ar siúl</string>
   <string name="disableKidMode">Múch mód na bpáistí</string>
   <string name="security">Slándáil</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Seo liosta de na gléasanna atá logáilte isteach i do chuntas. Déan aon seisiúin nach n-aithníonn tú a chealú.</string>
-  <string name="alternativelyYouCanX">Mar rogha eile is féidir leat %s.</string>
   <string name="sessions">Seisiúin</string>
   <string name="revokeAllSessions">cealaigh gach seisiún</string>
   <string name="playChessEverywhere">Imir ficheall i ngach áit</string>
