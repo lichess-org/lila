@@ -231,7 +231,7 @@
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
-  <string name="mode">Ρύθμιση</string>
+  <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
   <string name="rated">Βαθμολογημένο</string>
   <string name="casualTournament">Φιλικό</string>
@@ -695,7 +695,7 @@
   <string name="security">Ασφάλεια</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
   <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Συνεδρίες</string>
+  <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
   <string name="asFreeAsLichess">Δωρεάν</string>

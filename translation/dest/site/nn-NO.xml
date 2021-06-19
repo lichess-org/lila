@@ -694,7 +694,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="security">Tryggleik</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er ei liste over einingar du har logga inn på med din konto. Lukk dei du ikkje dreg kjensel på.</string>
   <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
-  <string name="sessions" comment="sessions&#10;&#10;In the security settings, the title of the section.&#10;The sessions are a list of devices that have logged into the user's account.">Økter</string>
+  <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spel sjakk overalt</string>
   <string name="asFreeAsLichess">Så fri som lichess</string>

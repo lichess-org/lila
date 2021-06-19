@@ -680,6 +680,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">संगणक बदलांचे पूर्वावलोकन करण्यासाठी त्यांचेवर स्क्रोल करा.</string>
   <string name="analysisShapesHowTo">पटावर वर्तुळे आणि बाण काढण्यासाठी शिफ्ट + क्लिक दाबा किंवा उजवे-क्लिक दाबा.</string>
   <string name="letOtherPlayersMessageYou">इतर खेळाडूंना संदेश पाठवू द्या</string>
+  <string name="receiveForumNotifications">फोरममध्ये नमूद केल्यावर सूचना प्राप्त करा</string>
   <string name="shareYourInsightsData">आपला बुद्धिबळ अंतर्गत डेटा सामायिक करा</string>
   <string name="withNobody">कोणासोबाही नाही</string>
   <string name="withFriends">मित्रांसोबत</string>
@@ -693,6 +694,7 @@
   <string name="security">सुरक्षितता</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ही आपल्या खात्यात लॉग इन केलेल्या उपकरणांची सूची आहे. आपण ओळखत नसलेली कोणतीही सत्रे मागे घ्या.</string>
   <string name="alternativelyYouCanX">याव्यतिरिक्त आपण हे करू शकता %s.</string>
+  <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>
   <string name="asFreeAsLichess">लिचेस सारखे निशुल्क</string>
@@ -867,4 +869,6 @@
   <string name="welcome">सुस्वागतम!</string>
   <string name="lichessPatronInfo">Lichess एक चॅरिटी आहे आणि संपूर्णपणे मुक्त / नि: शुल्क मुक्त स्रोत सॉफ्टवेअर आहे.
 सर्व ऑपरेटिंग खर्च, विकास आणि सामग्री केवळ वापरकर्त्याच्या देणग्याद्वारे अनुदानित केली जाते.</string>
+  <string name="coachManager">प्रशिक्षक व्यवस्थापक</string>
+  <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
 </resources>
