@@ -105,8 +105,13 @@ final class OAuth(env: Env) extends LilaController(env) {
       revokeClientForm
         .bindFromRequest()
         .fold(
-          _ => funit,
-          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) // TODO: also remove from token cache
+          _ => BadRequest.fuccess,
+          origin =>
+            env.oAuth.tokenApi.revokeByClientOrigin(origin, me) map {
+              _ foreach { token =>
+                env.oAuth.server.deleteCached(token)
+              }
+            } inject NoContent
         )
 
     }

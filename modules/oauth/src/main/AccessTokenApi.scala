@@ -63,8 +63,8 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
           ) -> List(
             UnwindField(F.scopes),
             GroupField(F.clientOrigin)(
-              F.usedAt    -> MaxField(F.usedAt),
-              F.scopes    -> AddFieldToSet(F.scopes)
+              F.usedAt -> MaxField(F.usedAt),
+              F.scopes -> AddFieldToSet(F.scopes)
             ),
             Sort(Descending(F.usedAt))
           )
@@ -74,21 +74,34 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
         for {
           doc    <- docs
           origin <- doc.getAsOpt[String]("_id")
-          usedAt  = doc.getAsOpt[DateTime](F.usedAt)
+          usedAt = doc.getAsOpt[DateTime](F.usedAt)
           scopes <- doc.getAsOpt[List[OAuthScope]](F.scopes)
         } yield AccessTokenApi.Client(origin, usedAt, scopes)
       }
 
-  def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
-    colls.token {
-      _.delete
-        .one(
+  def revokeByClientOrigin(clientOrigin: String, user: User): Fu[List[AccessToken.Id]] =
+    colls.token { coll =>
+      coll
+        .find(
           $doc(
             F.userId       -> user.id,
             F.clientOrigin -> clientOrigin
-          )
+          ),
+          $doc(F.id -> 1).some
         )
-        .void
+        .sort($sort desc F.usedAt)
+        .cursor[Bdoc]()
+        .list(100)
+        .flatMap { invalidate =>
+          coll.delete
+            .one(
+              $doc(
+                F.userId       -> user.id,
+                F.clientOrigin -> clientOrigin
+              )
+            )
+            .inject(invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)))
+        }
     }
 
   def revokeByPublicId(publicId: String, user: User): Fu[Option[AccessToken]] =
