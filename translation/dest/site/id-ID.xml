@@ -656,8 +656,6 @@
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah daftar perangkat yang memiliki login ke akun Anda. Batalkan setiap sesi yang Anda tidak mengenali.</string>
-  <string name="alternativelyYouCanX">Atau Anda dapat %s.</string>
   <string name="sessions">Sesi</string>
   <string name="revokeAllSessions">mencabut semua sesi</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
