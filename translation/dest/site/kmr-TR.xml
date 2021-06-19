@@ -680,8 +680,6 @@
   <string name="enableKidMode">Moda zarokan aktîv bike</string>
   <string name="disableKidMode">Moda zarokan neçalak bike</string>
   <string name="security">Ewlehî</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ev lîsteyeke amûrên ku têketine hesaba te ne. Danişînên ku tu nas nakî betal bike.</string>
-  <string name="alternativelyYouCanX">Alternatîven tu dikarî %s.</string>
   <string name="revokeAllSessions">hemû danişînan betal bikî</string>
   <string name="playChessEverywhere">Kişikê bilîze li her derî</string>
   <string name="asFreeAsLichess">Bi qasî lichessê azad</string>
