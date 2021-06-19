@@ -12,7 +12,7 @@ import org.joda.time.DateTime
 import scalatags.Text.all.stringFrag
 import lila.app._
 import lila.api.Context
-import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
+import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, PersonalToken }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -76,7 +76,7 @@ final class OAuth(env: Env) extends LilaController(env) {
               val token = AccessToken(
                 id = AccessToken.Id(lila.oauth.Protocol.Secret.random("lio_").value),
                 publicId = BSONObjectID.generate(),
-                clientId = "lichess_personal_token", // TODO
+                clientId = PersonalToken.clientId, // TODO
                 userId = granted.userId,
                 createdAt = DateTime.now().some,
                 description = granted.redirectUri.clientOrigin.some,

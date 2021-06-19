@@ -15,7 +15,7 @@ object security {
       sessions: List[lila.security.LocatedSession],
       curSessionId: String,
       thirdPartyApps: Boolean,
-      personalAccessTokens: Boolean
+      personalAccessTokens: Int
   )(implicit
       ctx: Context
   ) =
@@ -26,23 +26,23 @@ object security {
           standardFlash(cls := "box__pad"),
           div(cls := "box__pad")(
             p(
-              "This is a list of devices that are logged into your account. If you notice any suspicious activity, make sure to ",
+              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
               a(href := routes.Account.email)("check your recovery email address"),
               " and ",
               a(href := routes.Account.passwd)("change your password"),
               "."
             ),
             sessions.sizeIs > 1 option div(
-              trans.alternativelyYouCanX {
-                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red confirm")(
-                    trans.revokeAllSessions()
-                  )
+              "You can also ",
+              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                submitButton(cls := "button button-empty button-red confirm")(
+                  trans.revokeAllSessions()
                 )
-              }
+              ),
+              "."
             )
           ),
-          table(sessions, curSessionId.some)
+          table(sessions, curSessionId.some, personalAccessTokens)
         ),
         thirdPartyApps option div(cls := "account security box")(
           h1("Third party apps"),
@@ -51,19 +51,15 @@ object security {
             a(href := routes.OAuthApp.index)("third party apps"),
             " that you do not trust."
           )
-        ),
-        personalAccessTokens option div(cls := "account security box")(
-          h1("Personal access tokens"),
-          p(cls := "box__pad")(
-            "Revoke any ",
-            a(href := routes.OAuthToken.index)("personal access tokens"),
-            " that you do not recognize."
-          )
         )
       )
     }
 
-  def table(sessions: List[lila.security.LocatedSession], curSessionId: Option[String])(implicit lang: Lang) =
+  def table(
+      sessions: List[lila.security.LocatedSession],
+      curSessionId: Option[String],
+      personalAccessTokens: Int
+  )(implicit lang: Lang) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
@@ -94,6 +90,16 @@ object security {
             )
           }
         )
-      }
+      },
+      (personalAccessTokens > 0) option tr(
+        td(cls := "icon")(span(cls := "is-green", dataIcon := "")),
+        td(cls := "info")(
+          strong("Personal access tokens"),
+          " have been issued for your account. Revoke any that you do not recognize."
+        ),
+        td(
+          a(href := routes.OAuthToken.index, cls := "button", title := "API access tokens", dataIcon := "")
+        )
+      )
     )
 }

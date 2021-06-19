@@ -49,6 +49,15 @@ final class PersonalTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Ex
           }
       }
     }
+
+  def count(u: User): Fu[Int] =
+    colls.token {
+      _.countSel($doc(
+        F.userId -> u.id,
+        F.clientId -> PersonalToken.clientId,
+        F.clientOrigin -> $exists(false),
+      ))
+    }
 }
 
 object PersonalToken {
