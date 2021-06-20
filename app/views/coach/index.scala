@@ -36,7 +36,7 @@ object index {
         .map { l =>
           l.code -> LangList.name(l)
         }
-      val countrySelections = ("All", "All countries") :: allPairs
+      val countrySelections = ("all", "All countries") :: allPairs
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
