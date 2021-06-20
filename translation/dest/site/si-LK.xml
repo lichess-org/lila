@@ -146,6 +146,12 @@
   <string name="games">තරඟ</string>
   <string name="forum">සාකච්ඡා මණ්ඩපය</string>
   <string name="xPostedInForumY">%1$sposted in topic%2$s</string>
+  <string name="latestForumPosts">නවතම පෝරම සටහන්</string>
+  <string name="players">ක්‍රීඩකයන්</string>
+  <string name="friends">යහළුවන්</string>
+  <string name="discussions">සංවාද</string>
+  <string name="today">අද</string>
+  <string name="yesterday">ඊයේ</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
