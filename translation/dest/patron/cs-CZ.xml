@@ -22,7 +22,7 @@
   <string name="onetime">Jednorázově</string>
   <string name="singleDonation">Jediný příspěvek, který vám poskytne křídla Patrona na jeden měsíc.</string>
   <string name="otherAmount">Ostatní</string>
-  <string name="pleaseEnterAmountInX">Zadejte částku v %s</string>
+  <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Platební karta</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
