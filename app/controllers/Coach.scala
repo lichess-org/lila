@@ -21,8 +21,10 @@ final class Coach(env: Env) extends LilaController(env) {
       val lang  = (l != "all") ?? play.api.i18n.Lang.get(l)
       val country = (c != "all") ?? Countries.info(c)
       env.coach.api.allLanguages flatMap { langCodes =>
-        env.coach.pager(lang, order, country, page) map { pager =>
-          Ok(html.coach.index(pager, lang, order, langCodes, country))
+        env.coach.api.allCountries flatMap { countryCodes =>
+          env.coach.pager(lang, order, country, page) map { pager =>
+            Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+          }
         }
       }
     }

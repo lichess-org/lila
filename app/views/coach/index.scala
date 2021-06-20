@@ -22,6 +22,7 @@ object index {
       lang: Option[Lang],
       order: lila.coach.CoachPager.Order,
       langCodes: Set[String],
+      countryCodes: Set[String],
       country: Option[Country]
   )(implicit
       ctx: Context
@@ -36,7 +37,12 @@ object index {
         .map { l =>
           l.code -> LangList.name(l)
         }
-      val countrySelections = ("all", "All countries") :: allPairs
+      val countrySelections = ("all", "All languages") :: {
+        countryCodes map { c =>
+          c -> allPairs.toMap.get(c).get
+        }
+      }.toList.sortBy(_._2)
+
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
           p(
