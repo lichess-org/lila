@@ -11,7 +11,22 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
   import OAuthScope.scopeHandler
   import AccessToken.{ BSONFields => F, _ }
 
-  def create(token: AccessToken) = colls.token(_.insert.one(token).void)
+  def create(token: AccessToken): Funit = colls.token(_.insert.one(token).void)
+
+  def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
+    val token = AccessToken(
+      id = AccessToken.Id(Protocol.Secret.random("lio_").value),
+      publicId = BSONObjectID.generate(),
+      clientId = PersonalToken.clientId, // TODO
+      userId = granted.userId,
+      createdAt = DateTime.now().some,
+      description = granted.redirectUri.clientOrigin.some,
+      scopes = granted.scopes,
+      clientOrigin = granted.redirectUri.clientOrigin.some,
+      expires = DateTime.now().plusMonths(2).some
+    )
+    create(token) inject token
+  }
 
   def listPersonal(user: User): Fu[List[AccessToken]] =
     colls.token {

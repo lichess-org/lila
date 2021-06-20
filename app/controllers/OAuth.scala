@@ -1,17 +1,15 @@
 package controllers
 
-import views._
-
-import play.api.mvc._
+import cats.data.Validated
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
-import cats.data.Validated
-import reactivemongo.api.bson.BSONObjectID
-import org.joda.time.DateTime
+import play.api.mvc._
 import scalatags.Text.all.stringFrag
-import lila.app._
+import views._
+
 import lila.api.Context
+import lila.app._
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, PersonalToken }
 
 final class OAuth(env: Env) extends LilaController(env) {
@@ -72,25 +70,16 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
-              val expiresIn = 60 * 60 * 24 * 60
-              val token = AccessToken(
-                id = AccessToken.Id(lila.oauth.Protocol.Secret.random("lio_").value),
-                publicId = BSONObjectID.generate(),
-                clientId = PersonalToken.clientId, // TODO
-                userId = granted.userId,
-                createdAt = DateTime.now().some,
-                description = granted.redirectUri.clientOrigin.some,
-                scopes = granted.scopes,
-                clientOrigin = granted.redirectUri.clientOrigin.some,
-                expires = DateTime.now().plusSeconds(expiresIn).some
-              )
-              env.oAuth.tokenApi.create(token) inject Ok(
-                Json.obj(
-                  "token_type"   -> "bearer",
-                  "access_token" -> token.id.value,
-                  "expires_in"   -> expiresIn
+              env.oAuth.tokenApi.create(granted) map { token =>
+                Ok(
+                  Json
+                    .obj(
+                      "token_type"   -> "bearer",
+                      "access_token" -> token.id.value
+                    )
+                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
-              )
+              }
             case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
           }
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
