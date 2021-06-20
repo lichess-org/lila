@@ -190,6 +190,18 @@
   </plurals>
   <string name="gamesPlayed">ක්‍රීඩා කල ක්‍රීඩා ගණන</string>
   <string name="cancel">අවලංගු කරන්න</string>
+  <string name="whiteTimeOut">සුදුගේ වේලාව ඉවතට</string>
+  <string name="blackTimeOut">කලුගේ වේලාව ඉවතට</string>
+  <string name="drawOfferSent">සමාන කිරීමේ අවස්තාව යවා ඇත</string>
+  <string name="drawOfferDeclined">සමාන කිරීමේ අවස්තාව ප්‍රතික්ශේප කරයි</string>
+  <string name="drawOfferAccepted">සමාන කිරීමේ අවස්තාව පිලිගනී</string>
+  <string name="drawOfferCanceled">සමාන කිරීමේ අවස්තාව අවලංගු කරයි</string>
+  <string name="whiteOffersDraw">සුදු සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
+  <string name="blackOffersDraw">කලු සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
+  <string name="whiteDeclinesDraw">සුදු සමාන කිරීමේ අවස්තාව ප්‍රතික්ශේප කරයි</string>
+  <string name="blackDeclinesDraw">කලු සමාන කිරීමේ අවස්තාව ප්‍රතික්ශේප කරයි</string>
+  <string name="yourOpponentOffersADraw">ඔබගේ ප්‍රතිවාදියා සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
+  <string name="accept">පිලිගන්නවා</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
