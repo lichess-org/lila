@@ -159,6 +159,21 @@
   <string name="realTime">සත්‍ය වේලාව</string>
   <string name="correspondence">දීර්ඝ කාල පරාසය</string>
   <string name="daysPerTurn">දින ගණන</string>
+  <string name="oneDay">එක් දිනක්</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s දිනක්</item>
+    <item quantity="other">%s දින</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s පැයක්</item>
+    <item quantity="other">%s පැය</item>
+  </plurals>
+  <string name="time">වෙලාව</string>
+  <string name="rating">තක්සේරු</string>
+  <string name="ratingStats">තක්සේරු තත්වය</string>
+  <string name="username">පරිශීලක නාමය</string>
+  <string name="usernameOrEmail">පරිශීලක නාමය හෝ ඊ තැපෑල</string>
+  <string name="changeUsername">පරිශීලක නාමය වෙනස් කරන්න</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
