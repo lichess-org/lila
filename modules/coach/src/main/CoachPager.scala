@@ -24,38 +24,31 @@ final class CoachPager(
     Paginator(
       adapter = new AdapterLike[Coach.WithUser] {
 
-        def nbResults: Fu[Int] = fuccess(9999)
+        def nbResults: Fu[Int] = fuccess(3)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
-          userRepo.coll
+          coachRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
-              Match(country.?? { c => $doc("profile.country" -> c.code) }) -> List(
+              Match($doc("languages" -> "es-ES")) -> List(
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
-                      "from" -> coachRepo.coll.name,
-                      "as"   -> "coach",
-                      "let"  -> $doc("id" -> "$_id"),
-                      "pipeline" -> $arr(
-                        $doc(
-                          "$match" -> $doc(
-                            "$expr" -> $doc(
-                              $doc("$eq" -> $arr("$_id", "$$id"))
-                            )
-                          )
-                        )
-                      )
+                      "from" -> userRepo.coll.name,
+                      "localField" -> "_id",
+                      "foreignField" -> "_id",
+                      "as" -> "coach"
                     )
                   )
                 ),
-                UnwindField("coach")
+                UnwindField("coach"),
+                Match($doc("coach.profile.country" -> "AF"))
               )
             }
             .map { docs =>
               for {
-                doc   <- docs
-                user  <- doc.asOpt[User]
+                doc <- docs
+                user <- doc.asOpt[User]
                 coach <- doc.getAsOpt[Coach]("coach")
               } yield Coach.WithUser(coach, user)
             }
