@@ -21,16 +21,18 @@ final class CoachPager(
   import BsonHandlers._
 
   def apply(lang: Option[Lang], order: Order, country: Option[Country], page: Int): Fu[Paginator[Coach.WithUser]] = {
+    def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
+
     Paginator(
       adapter = new AdapterLike[Coach.WithUser] {
 
-        def nbResults: Fu[Int] = fuccess(9999)
+        def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
           coachRepo.coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
-              Match(lang.?? { l => $doc("languages" -> l.code) }) -> List(
+              Match(selector) -> List(
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
