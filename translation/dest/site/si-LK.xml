@@ -35,6 +35,10 @@
   <string name="joinTheGame">ක්‍රීඩාවට සම්බන්ධ වන්න</string>
   <string name="whitePlays">සෙල්ලම් කිරීමට සුදු</string>
   <string name="blackPlays">සෙල්ලම් කිරීමට කළු</string>
+  <plurals name="opponentLeftCounter">
+    <item quantity="one">ඔබගේ ප්‍රතිවාදියා තරඟය හැර ගොස් ඇත. තව තත්පරය්%s කින් ඔබට ජයග්‍රණයට හිමිකම් කීමට හැකියාව තිබේ.</item>
+    <item quantity="other">ඔබගේ ප්‍රතිවාදියා තරඟය හැර ගොස් ඇත. තව තත්පර %s කින් ඔබට ජයග්‍රණයට හිමිකම් කීමට හැකියාව තිබේ.</item>
+  </plurals>
   <string name="opponentLeftChoices">අනෙක් ක්‍රීඩකයා ක්‍රීඩාවෙන් ඉවත් වන්නට ඇත. ඔබට ජයග්‍රහණයට හිමිකම් කීමට, ක්‍රීඩාව දිනුම් ඇදීමක් ලෙස හැඳින්විමට, නැතහොත් රැඳී සිටින්න.</string>
   <string name="makeYourOpponentResign">ඔබේ විරුද්ධවාදියා ඉල්ලා අස්වීමට</string>
   <string name="forceResignation">ජයග්‍රහණය ඉල්ලා සිටින්න</string>
