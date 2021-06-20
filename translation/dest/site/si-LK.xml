@@ -152,6 +152,13 @@
   <string name="discussions">සංවාද</string>
   <string name="today">අද</string>
   <string name="yesterday">ඊයේ</string>
+  <string name="minutesPerSide">එක් පැත්තකට මිනිත්තු</string>
+  <string name="variant">වර්ගය</string>
+  <string name="variants">වර්ග</string>
+  <string name="timeControl">කාල පරාසය</string>
+  <string name="realTime">සත්‍ය වේලාව</string>
+  <string name="correspondence">දීර්ඝ කාල පරාසය</string>
+  <string name="daysPerTurn">දින ගණන</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
