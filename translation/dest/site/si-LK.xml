@@ -183,6 +183,13 @@
   <string name="passwordReset">මුරපදය වෙනස් කරන්න</string>
   <string name="forgotPassword">මුරපදය මතක නැහැ?</string>
   <string name="rank">ශ්‍රේණිය</string>
+  <string name="rankX">ශ්‍රේණිය %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">ශ්‍රේණිය සෑම මිනිත්තුවකම යාවත්කාලීන වේ</item>
+    <item quantity="other">සෑම මිනිත්තු %s ශ්‍රේණිය යාවත්කාලීන වේ</item>
+  </plurals>
+  <string name="gamesPlayed">ක්‍රීඩා කල ක්‍රීඩා ගණන</string>
+  <string name="cancel">අවලංගු කරන්න</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
