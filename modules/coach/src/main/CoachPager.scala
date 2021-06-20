@@ -8,6 +8,10 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
 import lila.user.Country
+import lila.coach.CoachPager.Order.Alphabetical
+import lila.coach.CoachPager.Order.NbReview
+import lila.coach.CoachPager.Order.LichessRating
+import lila.coach.CoachPager.Order.Login
 
 final class CoachPager(
     userRepo: UserRepo,
@@ -33,6 +37,14 @@ final class CoachPager(
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
               Match(selector) -> List(
+                Sort(
+                  order match {
+                    case Alphabetical => Ascending("_id")
+                    case NbReview => Descending("nbReview")
+                    case LichessRating => Descending("user.rating")
+                    case Login => Descending("user.seenAt")
+                  }
+                ),
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
@@ -82,15 +94,14 @@ object CoachPager {
 
   sealed abstract class Order(
       val key: String,
-      val name: String,
-      val predicate: Bdoc
+      val name: String
   )
 
   object Order {
-    case object Login         extends Order("login", "Last login", $sort desc "user.seenAt")
-    case object LichessRating extends Order("rating", "Lichess rating", $sort desc "user.rating")
-    case object NbReview      extends Order("review", "User reviews", $sort desc "nbReviews")
-    case object Alphabetical  extends Order("alphabetical", "Alphabetical", $sort asc "_id")
+    case object Login         extends Order("login", "Last login")
+    case object LichessRating extends Order("rating", "Lichess rating")
+    case object NbReview      extends Order("review", "User reviews")
+    case object Alphabetical  extends Order("alphabetical", "Alphabetical")
 
     val default                   = Login
     val all                       = List(Login, LichessRating, NbReview, Alphabetical)
