@@ -1,3 +1,5 @@
+# Run `./lila playRoutes` after modifying this file
+
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
