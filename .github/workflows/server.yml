@@ -14,7 +14,7 @@ on:
       - "conf/application.conf.default"
       - ".sbtopts.default"
     branches-ignore:
-      - "l10n_master"
+      - "l10n_master2"
   pull_request:
     paths:
       - ".github/workflows/server.yml"
