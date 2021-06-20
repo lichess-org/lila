@@ -215,7 +215,7 @@ object PuzzleTheme {
     hangingPiece      -> "y65GVqXf",
     kingsideAttack    -> "f62Rz8Qb",
     pin               -> "WCTmpBFb",
-    promotion         -> "aCGe2oRZ",
+    promotion         -> "BNuCO8JO",
     skewer            -> "iF38PGid",
     clearance         -> "ZZsl7iCi",
     trappedPiece      -> "ZJQkwFP6",
