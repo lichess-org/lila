@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">זוז כדי להתחיל</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">אתה משחק בלבן בכל החידות</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">אתה משחק בשחור בכל החידות</string>
   <string name="puzzlesSolved">חידות נפתרו</string>
@@ -14,8 +15,12 @@
   <string name="accuracy">דיוק</string>
   <string name="combo">רצף</string>
   <string name="time">זמן</string>
+  <string name="joinTheRace">הצטרפו למירוץ!</string>
+  <string name="yourRankX">הדרגה שלך: %s</string>
+  <string name="waitForRematch">המתן למשחק חוזר</string>
   <string name="waitingToStart">מחכה להתחיל</string>
   <string name="createNewGame">צור משחק חדש</string>
+  <string name="joinPublicRace">הצטרפו למירוץ ציבורי</string>
   <string name="raceYourFriends">התחרה עם חבריך</string>
   <string name="skip">דלג</string>
   <string name="skipHelp">אתה יכול לדלג פעם אחת לכל מרוץ:</string>
