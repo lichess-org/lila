@@ -59,8 +59,8 @@
   <string name="solved">gelöst</string>
   <string name="failed">fehlgeschlagen</string>
   <string name="streakDescription">Lös schwiriger wärdändi Ufgoobä und bau än Erfolgsschträhnä uf. Äs git kei Uhr, also nimm\'der Ziit. Än falschä Zug und äs isch vorbei! Du chasch aber ein Zug pro Sitzig überschpringä.</string>
-  <string name="yourStreakX">Deine Siegesserie: %s</string>
-  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
+  <string name="yourStreakX">Dini Siegesschträhnä: %s</string>
+  <string name="streakSkipExplanation">Überschpring dä Zug, zum dini Erfolgsschträhnä biizbhaltä! Du chasch das nur eimol pro Durchlauf machä.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
   <string name="fromMyGames">Aus meinen Partien</string>
