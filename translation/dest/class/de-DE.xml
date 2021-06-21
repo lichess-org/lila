@@ -66,7 +66,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
-  <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
+  <string name="realUniqueEmail">Echte, eindeutige E-Mail-Adresse des Schülers. Wir werden eine Bestätigungs-E-Mail mit einem Link zur Freigabe des Kontos versenden.</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Schülerkonto schließen</string>
   <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Das Schülerkonto für immer schließen.</string>
   <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Der Schüler wird das Konto nie wieder nutzen können. Die Schließung ist endgültig. Stelle sicher, dass der Schüler dies versteht und einverstanden ist.</string>
