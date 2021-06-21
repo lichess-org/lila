@@ -31,9 +31,8 @@ final class CoachPager(
   ): Fu[Paginator[Coach.WithUser]] = {
     def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
 
-    Paginator(
-      adapter = new AdapterLike[Coach.WithUser] {
-
+    val adapter = country match {
+      case Some(_) => new AdapterLike[Coach.WithUser] {
         def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
@@ -60,7 +59,7 @@ final class CoachPager(
                   )
                 ),
                 UnwindField("coach"),
-                Match(country.?? { c => $doc("coach.profile.country" -> c.code) })
+                Match(country.?? { c => $doc("coach.profile.country" -> c.code) } )
               )
             }
             .map { docs =>
@@ -70,7 +69,18 @@ final class CoachPager(
                 user  <- doc.getAsOpt[User]("coach")
               } yield Coach.WithUser(coach, user)
             }
-      },
+      }
+
+      case None => new Adapter[Coach](
+        collection = coll,
+        selector = selector,
+        projection = none,
+        sort = order.predicate
+      ) mapFutureList withUsers
+    }
+
+    Paginator(
+      adapter,
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -98,14 +108,15 @@ object CoachPager {
 
   sealed abstract class Order(
       val key: String,
-      val name: String
+      val name: String,
+      val predicate: Bdoc
   )
 
   object Order {
-    case object Login         extends Order("login", "Last login")
-    case object LichessRating extends Order("rating", "Lichess rating")
-    case object NbReview      extends Order("review", "User reviews")
-    case object Alphabetical  extends Order("alphabetical", "Alphabetical")
+    case object Login         extends Order("login", "Last login", $sort desc "user.seenAt")
+    case object LichessRating extends Order("rating", "Lichess rating", $sort desc "user.rating")
+    case object NbReview      extends Order("review", "User reviews", $sort desc "nbReviews")
+    case object Alphabetical  extends Order("alphabetical", "Alphabetical", $sort asc "_id")
 
     val default                   = Login
     val all                       = List(Login, LichessRating, NbReview, Alphabetical)
