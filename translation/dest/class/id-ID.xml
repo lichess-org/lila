@@ -66,6 +66,10 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="releaseDesc1">Akun yang dirilis tidak dapat dikelola lagi. Siswa akan dapat mengaktifkan mode anak dan mereset kata sandi sendiri.</string>
   <string name="releaseDesc2">Siswa akan tetap berada di kelas setelah akun mereka dirilis.</string>
   <string name="realUniqueEmail">Alamat email siswa yang nyata dan unik. Kami akan mengirim email konfirmasi ke sana, dengan tautan untuk melepaskan akun.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Tutup akun</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Tutup akun siswa secara permanen.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Siswa tidak akan dapat menggunakan akun ini lagi. Penutupan ini bersifat final. Pastikan siswa memahami dan menyetujui.</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Anda mungkin ingin memberikan kendali kepada siswa atas akun sebagai gantinya, sehingga mereka dapat terus menggunakannya.</string>
   <string name="teachers">Guru-guru</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s guru</item>
