@@ -14,34 +14,36 @@ export const playModifiers = (run: Run) => {
   };
 };
 
-export const renderCombo = (config: Config, renderBonus: (bonus: number) => string) => (run: Run): VNode => {
-  const level = run.combo.level();
-  return h('div.puz-combo', [
-    h('div.puz-combo__counter', [
-      h('span.puz-combo__counter__value', run.combo.current),
-      h('span.puz-combo__counter__combo', 'COMBO'),
-    ]),
-    h('div.puz-combo__bars', [
-      h('div.puz-combo__bar', [
-        h('div.puz-combo__bar__in', {
-          attrs: { style: `width:${run.combo.percent()}%` },
-        }),
-        h('div.puz-combo__bar__in-full'),
+export const renderCombo =
+  (config: Config, renderBonus: (bonus: number) => string) =>
+  (run: Run): VNode => {
+    const level = run.combo.level();
+    return h('div.puz-combo', [
+      h('div.puz-combo__counter', [
+        h('span.puz-combo__counter__value', run.combo.current),
+        h('span.puz-combo__counter__combo', 'COMBO'),
       ]),
-      h(
-        'div.puz-combo__levels',
-        [0, 1, 2, 3].map(l =>
-          h(
-            'div.puz-combo__level',
-            {
-              class: {
-                active: l < level,
+      h('div.puz-combo__bars', [
+        h('div.puz-combo__bar', [
+          h('div.puz-combo__bar__in', {
+            attrs: { style: `width:${run.combo.percent()}%` },
+          }),
+          h('div.puz-combo__bar__in-full'),
+        ]),
+        h(
+          'div.puz-combo__levels',
+          [0, 1, 2, 3].map(l =>
+            h(
+              'div.puz-combo__level',
+              {
+                class: {
+                  active: l < level,
+                },
               },
-            },
-            h('span', renderBonus(config.combo.levels[l + 1][1]))
+              h('span', renderBonus(config.combo.levels[l + 1][1]))
+            )
           )
-        )
-      ),
-    ]),
-  ]);
-};
+        ),
+      ]),
+    ]);
+  };

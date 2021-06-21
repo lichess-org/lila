@@ -68,19 +68,13 @@ interface Lichess {
     (data: any, trans: Trans, el: HTMLElement): void;
   };
   movetimeChart: any;
-  RoundNVUI?(
-    redraw: () => void
-  ): {
+  RoundNVUI?(redraw: () => void): {
     render(ctrl: any): any;
   };
-  AnalyseNVUI?(
-    redraw: () => void
-  ): {
+  AnalyseNVUI?(redraw: () => void): {
     render(ctrl: any): any;
   };
-  PuzzleNVUI?(
-    redraw: () => void
-  ): {
+  PuzzleNVUI?(redraw: () => void): {
     render(ctrl: any): any;
   };
   playMusic(): any;
