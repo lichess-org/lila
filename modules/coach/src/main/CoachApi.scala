@@ -97,7 +97,7 @@ final class CoachApi(
   private val countriesCache = cacheApi.unit[Set[String]] {
     _.refreshAfterWrite(1 hour)
       .buildAsyncFuture { _ =>
-        userRepo.coll.secondaryPreferred.distinctEasy[String, Set]("profile.country", $empty)
+        userRepo.coll.secondaryPreferred.distinctEasy[String, Set]("profile.country", $doc("roles" -> "ROLE_COACH", "enabled" -> true))
       }
   }
   def allCountries: Fu[Set[String]] = countriesCache.get {}

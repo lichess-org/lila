@@ -37,7 +37,7 @@ object index {
         .map { l =>
           l.code -> LangList.name(l)
         }
-      val countrySelections = ("all", "All languages") :: {
+      val countrySelections = ("all", "All countries") :: {
         countryCodes map { c =>
           c -> allPairs.toMap.get(c).get
         }
