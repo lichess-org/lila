@@ -338,7 +338,7 @@
   <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
   <string name="xJoinedTeamY">%1$s isch äm Team %2$s biiträttä</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründät</string>
-  <string name="xStartedStreaming">%s hät än Stream gschtartät</string>
+  <string name="xStartedStreaming">%s hät än Schtriim gschtartät</string>
   <string name="averageElo">Durchschnittswärtig</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partiiä filtärä</string>
@@ -605,7 +605,7 @@
   <string name="tpTimeSpentOnTV">Gsamtziit uf Lichess TV: %s</string>
   <string name="watch">Zuäluägä</string>
   <string name="videoLibrary">Filmli-Bibliothek</string>
-  <string name="streamersMenu">Schtreamer</string>
+  <string name="streamersMenu">Schtriimer/-innä</string>
   <string name="mobileApp">Mobili Äpp</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>
@@ -868,5 +868,5 @@
   <string name="lichessPatronInfo">Lichess isch ä Wohltätigkeitsorganisation und ä völlig chostälosi/freii Open-Source-Software.
 Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
   <string name="coachManager">Trääner Mänätscher</string>
-  <string name="streamerManager">Schtreamer Mänätscher</string>
+  <string name="streamerManager">Schtriimer Mänätscher</string>
 </resources>
