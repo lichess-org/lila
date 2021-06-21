@@ -114,11 +114,11 @@ lichess.advantageChart = function (data, trans, el) {
           tooltip: {
             pointFormatter: function (format) {
               format = format.replace('{series.name}', trans('advantage'));
-              var eval = data.treeParts[this.x + 1].eval;
-              if (!eval) return;
-              else if (eval.mate) return format.replace('{point.y}', '#' + eval.mate);
-              else if (typeof eval.cp !== 'undefined') {
-                var e = Math.max(Math.min(Math.round(eval.cp / 10) / 10, 99), -99);
+              const ev = data.treeParts[this.x + 1].eval;
+              if (!ev) return;
+              else if (ev.mate) return format.replace('{point.y}', '#' + ev.mate);
+              else if (typeof ev.cp !== 'undefined') {
+                var e = Math.max(Math.min(Math.round(ev.cp / 10) / 10, 99), -99);
                 if (e > 0) e = '+' + e;
                 return format.replace('{point.y}', e);
               }
