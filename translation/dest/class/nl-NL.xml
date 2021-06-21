@@ -67,6 +67,7 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="releaseDesc1">Een vrijgegeven account kan niet opnieuw worden beheerd. De student kan dan zelf de kind-modus veranderen of het wachtwoord resetten.</string>
   <string name="releaseDesc2">De leerling blijft in de groep nadat zijn account is vrijgegeven.</string>
   <string name="realUniqueEmail">Echt, unieke e-mailadres van de student. We sturen een bevestigingsmail met een link om het account vrij te geven.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Account sluiten</string>
   <string name="teachers">Leraren</string>
   <plurals name="nbTeachers">
     <item quantity="one">Leraar</item>
