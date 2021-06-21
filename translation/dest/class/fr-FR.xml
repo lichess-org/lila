@@ -69,6 +69,8 @@ Voici le lien pour accéder à la classe.</string>
   <string name="realUniqueEmail">Adresse email réelle de l\'élève. Nous lui enverrons une mail de confirmation, avec un lien pour rendre le compte autonome.</string>
   <string name="closeStudent">Fermer le compte</string>
   <string name="closeTheAccount">Fermer le compte de l\'élève définitivement</string>
+  <string name="closeDesc1">L\'élève ne pourra plus utiliser ce compte. Il sera fermé définitivement. Assurez-vous que l\'élève l\'a compris et accepté.</string>
+  <string name="closeDesc2">Vous pouvez aussi laisser le contrôle du compte à l\'élève pour qu\'il puisse continuer de l\'utiliser.</string>
   <string name="teachers">Enseignants</string>
   <plurals name="nbTeachers">
     <item quantity="one">Enseignant</item>
