@@ -68,6 +68,8 @@ Lūk saite, lai piekļūtu kasei.</string>
   <string name="releaseDesc1">Atbrīvotu kontu nevar padarīt pārvaldāmu. Skolēns varēs pats pārslēgt bērnu režīmu un atiestatīt paroli.</string>
   <string name="releaseDesc2">Skolēns paliks grupā pēc konta atbrīvošanas.</string>
   <string name="realUniqueEmail">Īsta, unikāla skolēna e-pasta adrese. Mēs uz to nosūtīsim apstiprinājuma e-pastu, ar saiti lai atbrīvotu kontu.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Slēgt kontu</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Mūžīgi slēgt skolēna kontu.</string>
   <string name="teachers">Skolotāji</string>
   <plurals name="nbTeachers">
     <item quantity="zero">%s skolotāji</item>
