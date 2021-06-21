@@ -15,7 +15,6 @@ import lila.coach.CoachPager.Order.Login
 
 final class CoachPager(
     userRepo: UserRepo,
-    coachRepo: CoachRepo,
     coll: Coll
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -38,7 +37,7 @@ final class CoachPager(
         def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
-          coachRepo.coll
+          coll
             .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
               import framework._
               Match(selector) -> List(
