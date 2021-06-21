@@ -17,8 +17,8 @@ final class Coach(env: Env) extends LilaController(env) {
   def search(l: String, o: String, c: String, page: Int) =
     Open { implicit ctx =>
       pageHit
-      val order = CoachPager.Order(o)
-      val lang  = (l != "all") ?? play.api.i18n.Lang.get(l)
+      val order   = CoachPager.Order(o)
+      val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
       val country = (c != "all") ?? Countries.info(c)
       env.coach.api.allLanguages flatMap { langCodes =>
         env.coach.api.allCountries flatMap { countryCodes =>

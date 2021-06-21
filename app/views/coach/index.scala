@@ -101,7 +101,11 @@ object index {
             pagerNext(
               pager,
               np =>
-                addQueryParameter(routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url, "page", np)
+                addQueryParameter(
+                  routes.Coach.search(lang.fold("all")(_.code), order.key, country.fold("all")(_.code)).url,
+                  "page",
+                  np
+                )
             )
           )
         )

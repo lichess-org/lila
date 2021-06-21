@@ -302,5 +302,5 @@ object Countries {
   val codeSet = map.keySet
 
   def info(code: String): Option[Country] = map get code
-  def name(country: Country): String = nameMap.getOrElse(country, country.name)
+  def name(country: Country): String      = nameMap.getOrElse(country, country.name)
 }

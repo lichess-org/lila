@@ -105,12 +105,12 @@ object download {
 
   private def analysis(implicit ctx: Context): Frag = tr(
     th(
-    	label(`for` := "dl-analysis")(
-    	 trans.search.analysis(),
-    	 " ",
-    	 span(cls := "help", title := trans.search.onlyAnalysed.txt())("(?)")
-    	 )
-    	),
+      label(`for` := "dl-analysis")(
+        trans.search.analysis(),
+        " ",
+        span(cls := "help", title := trans.search.onlyAnalysed.txt())("(?)")
+      )
+    ),
     td(cls := "single")(
       select(id := "dl-analysis", name := "analysed")(
         option(value := ""),
@@ -119,7 +119,6 @@ object download {
       )
     )
   )
-
 
   private def perfToggles(user: User)(implicit ctx: Context): Frag = {
     val perfTypes = lila.rating.PerfType.nonPuzzle

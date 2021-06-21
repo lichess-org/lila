@@ -3,7 +3,7 @@ package lila.coach
 import reactivemongo.api._
 import play.api.i18n.Lang
 
-import lila.common.paginator.{ Paginator, AdapterLike }
+import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
@@ -24,7 +24,12 @@ final class CoachPager(
   import CoachPager._
   import BsonHandlers._
 
-  def apply(lang: Option[Lang], order: Order, country: Option[Country], page: Int): Fu[Paginator[Coach.WithUser]] = {
+  def apply(
+      lang: Option[Lang],
+      order: Order,
+      country: Option[Country],
+      page: Int
+  ): Fu[Paginator[Coach.WithUser]] = {
     def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
 
     Paginator(
@@ -39,19 +44,19 @@ final class CoachPager(
               Match(selector) -> List(
                 Sort(
                   order match {
-                    case Alphabetical => Ascending("_id")
-                    case NbReview => Descending("nbReview")
+                    case Alphabetical  => Ascending("_id")
+                    case NbReview      => Descending("nbReview")
                     case LichessRating => Descending("user.rating")
-                    case Login => Descending("user.seenAt")
+                    case Login         => Descending("user.seenAt")
                   }
                 ),
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
-                      "from" -> userRepo.coll.name,
-                      "localField" -> "_id",
+                      "from"         -> userRepo.coll.name,
+                      "localField"   -> "_id",
                       "foreignField" -> "_id",
-                      "as" -> "coach"
+                      "as"           -> "coach"
                     )
                   )
                 ),
@@ -61,9 +66,9 @@ final class CoachPager(
             }
             .map { docs =>
               for {
-                doc <- docs
+                doc   <- docs
                 coach <- doc.asOpt[Coach]
-                user <- doc.getAsOpt[User]("coach")
+                user  <- doc.getAsOpt[User]("coach")
               } yield Coach.WithUser(coach, user)
             }
       },
