@@ -20,7 +20,7 @@
   <string name="playingExperience">Experiência de jogo</string>
   <string name="teachingExperience">Experiência de ensino</string>
   <string name="otherExperiences">Outras experiências</string>
-  <string name="bestSkills">Melhores habilidades</string>
+  <string name="bestSkills">Melhores competências</string>
   <string name="teachingMethod">Metodologia de ensino</string>
   <string name="publicStudies">Estudos públicos</string>
   <string name="youtubeVideos">Vídeos no YouTube</string>
@@ -28,8 +28,8 @@
     <item quantity="one">Avaliação de um aluno</item>
     <item quantity="other">Avaliação de %s alunos</item>
   </plurals>
-  <string name="thankYouForReview">Obrigado pela tua avaliação!</string>
-  <string name="xWillApproveIt">%s aprovar-te-á em breve ou um moderador dar-lhe-á uma olhada.</string>
+  <string name="thankYouForReview">Obrigado pela avaliação!</string>
+  <string name="xWillApproveIt">%s irá aprovar em breve ou um moderador irá dar-lhe uma olhada.</string>
   <string name="reviewCoach">Avaliar este treinador</string>
   <string name="describeExperienceWith">Descreve a tua experiência de treino com %s</string>
 </resources>
