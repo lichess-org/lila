@@ -67,6 +67,8 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
   <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
   <string name="realUniqueEmail">Korrekt, unik e-postadresse for eleven. Vi sender ei stadfestingsmelding til adressa med ei lenke for å frigi kontoen.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Steng elevkonto</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Steng elevkontoen permanent.</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærar</item>
