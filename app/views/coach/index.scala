@@ -38,7 +38,7 @@ object index {
         }
       val countrySelections = ("all", "All countries") :: {
         countryCodes map { c =>
-          c -> Countries.allPairs.toMap.get(c).get
+          c -> Countries.allPairs.toMap.apply(c)
         }
       }.toList.sortBy(_._2)
 
