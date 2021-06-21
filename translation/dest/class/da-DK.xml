@@ -67,6 +67,10 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="releaseDesc1">En frigivet konto kan ikke sættes under administration igen. Eleven vil kunne ændre i børnetilstand og selv nulstille adgangskode.</string>
   <string name="releaseDesc2">Eleven vil blive i klassen efter deres konto er frigivet.</string>
   <string name="realUniqueEmail">Korrekt, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til at frigive kontoen.</string>
+  <string name="closeStudent">Luk konto</string>
+  <string name="closeTheAccount">Luk elevkontoen permanent.</string>
+  <string name="closeDesc1">Eleven vil aldrig kunne bruge denne konto igen. Lukning er endelig. Sørg for at eleven forstår og er enig.</string>
+  <string name="closeDesc2">Du bør måske give eleven kontrol over kontoen i stedet, så de kan fortsætte med at bruge den.</string>
   <string name="teachers">Lærere</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærer</item>
