@@ -32,7 +32,7 @@ final class CoachPager(
     def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
 
     val adapter = country match {
-      case Some(_) => new AdapterLike[Coach.WithUser] {
+      case Some(country) => new AdapterLike[Coach.WithUser] {
         def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
         def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
@@ -59,7 +59,7 @@ final class CoachPager(
                   )
                 ),
                 UnwindField("coach"),
-                Match(country.?? { c => $doc("coach.profile.country" -> c.code) } )
+                Match($doc("coach.profile.country" -> country.code))
               )
             }
             .map { docs =>
