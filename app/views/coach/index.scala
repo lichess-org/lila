@@ -38,9 +38,9 @@ object index {
         }
       val countrySelections = ("all", "All countries") :: {
         countryCodes map { c =>
-          c -> Countries.allPairs.filter(el => !Countries.nonCountries.contains(el._1)).toMap.apply(c)
+          c -> Countries.allPairs.toMap.apply(c)
         }
-      }.toList.sortBy(_._2)
+      }.filter(el => !Countries.nonCountries.contains(el._1)).toList.sortBy(_._2)
 
       main(cls := "coach-list coach-full-page")(
         st.aside(cls := "coach-list__side coach-side")(
