@@ -54,19 +54,19 @@ final class CoachPager(
                       "from"         -> userRepo.coll.name,
                       "localField"   -> "_id",
                       "foreignField" -> "_id",
-                      "as"           -> "coach"
+                      "as"           -> "user"
                     )
                   )
                 ),
-                UnwindField("coach"),
-                Match($doc("coach.profile.country" -> country.code))
+                UnwindField("user"),
+                Match($doc("user.profile.country" -> country.code))
               )
             }
             .map { docs =>
               for {
                 doc   <- docs
                 coach <- doc.asOpt[Coach]
-                user  <- doc.getAsOpt[User]("coach")
+                user  <- doc.getAsOpt[User]("user")
               } yield Coach.WithUser(coach, user)
             }
       }
