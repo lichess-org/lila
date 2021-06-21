@@ -10,7 +10,6 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.Countries
-import lila.user.Countries._
 import lila.user.Country
 
 object index {
@@ -39,7 +38,7 @@ object index {
         }
       val countrySelections = ("all", "All countries") :: {
         countryCodes map { c =>
-          c -> allPairs.toMap.get(c).get
+          c -> Countries.allPairs.toMap.get(c).get
         }
       }.toList.sortBy(_._2)
 
