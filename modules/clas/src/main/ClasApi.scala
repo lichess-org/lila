@@ -273,6 +273,9 @@ final class ClasApi(
           fetchNewObject = true
         )
 
+    def closeAccount(s: Student.WithUser): Funit =
+      coll.delete.one($id(s.student.id)).void
+
     private[ClasApi] def sendWelcomeMessage(teacherId: User.ID, student: User, clas: Clas): Funit =
       msgApi
         .post(

@@ -515,9 +515,8 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     @extend %archived;
   }
 
-  &__archive {
-    margin-top: 3em;
-    text-align: right;
+  &__other-actions {
+    @extend %flex-between;
   }
 
   &__password {

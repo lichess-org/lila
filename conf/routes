@@ -565,6 +565,8 @@ GET   /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentEdit(id: 
 POST  /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentUpdate(id: String, username: String)
 GET   /class/$id<\w{8}>/student/:username/release controllers.Clas.studentRelease(id: String, username: String)
 POST  /class/$id<\w{8}>/student/:username/release controllers.Clas.studentReleasePost(id: String, username: String)
+GET   /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClose(id: String, username: String)
+POST  /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClosePost(id: String, username: String)
 POST  /class/$id<\w{8}>/invitation/revoke controllers.Clas.invitationRevoke(id: String)
 
 # DB image

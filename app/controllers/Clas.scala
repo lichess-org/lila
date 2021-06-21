@@ -533,6 +533,30 @@ final class Clas(
       }
     }
 
+  def studentClose(id: String, username: String) =
+    Secure(_.Teacher) { implicit ctx => me =>
+      WithClassAndStudents(me, id) { (clas, students) =>
+        WithStudent(clas, username) { s =>
+          if (s.student.managed)
+            Ok(views.html.clas.student.close(clas, students, s)).fuccess
+          else
+            Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).fuccess
+        }
+      }
+    }
+
+  def studentClosePost(id: String, username: String) =
+    SecureBody(_.Teacher) { implicit ctx => me =>
+      WithClassAndStudents(me, id) { (clas, students) =>
+        WithStudent(clas, username) { s =>
+          if (s.student.managed)
+            env.clas.api.student.closeAccount(s) >>
+              env.closeAccount(s.user, me) inject Redirect(routes.Clas show id).flashSuccess
+          else Redirect(routes.Clas.show(clas.id.value)).fuccess
+        }
+      }
+    }
+
   def becomeTeacher =
     AuthBody { implicit ctx => me =>
       couldBeTeacher flatMap {
