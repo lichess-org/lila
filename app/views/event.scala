@@ -33,7 +33,7 @@ object event {
             }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
-            form3.submit("Clone", "".some, klass = "button-green button-empty")
+            form3.submit("Clone", "".some)(cls := "button-green button-empty")
           )
         ),
         standardFlash(),

@@ -167,7 +167,6 @@ trait FormHelper { self: I18nHelper =>
         content: Frag,
         icon: Option[String] = Some(""),
         nameValue: Option[(String, String)] = None,
-        klass: String = "",
         confirm: Option[String] = None
     ): Tag =
       submitButton(
@@ -177,8 +176,7 @@ trait FormHelper { self: I18nHelper =>
         cls := List(
           "submit button" -> true,
           "text"          -> icon.isDefined,
-          "confirm"       -> confirm.nonEmpty,
-          klass           -> klass.nonEmpty
+          "confirm"       -> confirm.nonEmpty
         ),
         title := confirm
       )(content)

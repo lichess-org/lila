@@ -31,9 +31,8 @@ object close {
                 form3.submit(
                   closeAccount(),
                   icon = "".some,
-                  confirm = closingIsDefinitive.txt().some,
-                  klass = "button-red"
-                )
+                  confirm = closingIsDefinitive.txt().some
+                )(cls := "button-red")
               )
             )
           )
