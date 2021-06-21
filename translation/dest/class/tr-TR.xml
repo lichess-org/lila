@@ -67,6 +67,8 @@ Sınıfa erişim linki burada.</string>
   <string name="releaseDesc1">Serbest bırakılan bir hesap tekrar yönetilemez. Öğrenciler kendileri çocuk modunu değiştirebilirler ve şifrelerini sıfırlayabilirler.</string>
   <string name="releaseDesc2">Öğrenciler hesapları serbest bırakıldıktan sonra sınıfta kalmaya devam edecekler.</string>
   <string name="realUniqueEmail">Öğrencinin gerçek ve kendisine özgü e-posta adresi. Bu adrese, hesabının serbest bırakma bağlantısını içeren bir onay e-postası göndereceğiz.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Hesabı kapat</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Öğrenci hesabını kalıcı olarak kapat.</string>
   <string name="teachers">Antrenörler</string>
   <plurals name="nbTeachers">
     <item quantity="one">Antrenör</item>
