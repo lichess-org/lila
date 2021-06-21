@@ -301,6 +301,14 @@ object Countries {
 
   val codeSet = map.keySet
 
+  val nonCountries = List(
+    "_lichess",
+    "_pirate",
+    "_rainbow",
+    "_united-nations",
+    "_earth"
+  )
+
   def info(code: String): Option[Country] = map get code
   def name(country: Country): String      = nameMap.getOrElse(country, country.name)
 }
