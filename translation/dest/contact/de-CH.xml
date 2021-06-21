@@ -69,7 +69,7 @@
   <string name="welcomeToUse">Du bisch iigladä, Lichess für dini Aktivitätä z\'verwändä, sogar für kommerzielli Zwäck.</string>
   <string name="videosAndBooks">Du chasch das i dinä Videos zeigä und du chasch au Screenshots vo Lichess in dini Büächer truckä.</string>
   <string name="creditAppreciated">Än Erwähnig isch wünschenswärt, aber nöd notwändig.</string>
-  <string name="noneOfTheAbove">Keines der oben genannten</string>
-  <string name="sendEmailAt">Sende uns eine Mail an %s.</string>
+  <string name="noneOfTheAbove">Öppis anders</string>
+  <string name="sendEmailAt">Schick üs äs Mail a %s.</string>
   <string name="explainYourRequest">Bitte beschriib dini Afrog klar und düütlich. Nenn din Lichess Nutzernamä und jeglichi Informationä, won üs hälfä chöntäd, Dir z\'hälfä.</string>
 </resources>
