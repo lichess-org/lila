@@ -11,7 +11,7 @@
   <string name="hereWeGo">Los geht\'s!</string>
   <string name="allStreamers">Alle Streamer</string>
   <string name="editPage">Streamerseite bearbeiten</string>
-  <string name="yourPage">Deine Streamerseite</string>
+  <string name="yourPage">Dini Schtriimersiitä</string>
   <string name="downloadKit">Lade das Streamerpaket herunter</string>
   <string name="xIsStreaming">%s streamt gerade</string>
   <string name="rules">Streaming-Regeln</string>
@@ -42,7 +42,7 @@ Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.<
   <string name="visibility">Sichtbar auf der Streamerseite</string>
   <string name="whenApproved">Sobald von den Moderatoren genehmigt</string>
   <string name="headline">Titel</string>
-  <string name="tellUsAboutTheStream">Erzähle uns in einem Satz etwas über deinen Stream</string>
+  <string name="tellUsAboutTheStream">Verzell üs i eim Satz öppis über din Schtriim</string>
   <string name="longDescription">Ausführliche Beschreibung</string>
   <string name="xStreamerPicture">%s Streamerbild</string>
   <string name="changePicture">Ändere/Lösche dein Bild</string>
