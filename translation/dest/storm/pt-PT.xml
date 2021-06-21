@@ -42,6 +42,7 @@
   <string name="waitForRematch">Espera pela desforra</string>
   <string name="nextRace">Próxima corrida</string>
   <string name="waitingToStart">Esperando pelo início</string>
+  <string name="createNewGame">Criar um novo jogo</string>
   <string name="joinPublicRace">Junta-te a uma corrida pública</string>
   <string name="skip">ignorar</string>
   <string name="skipHelp">Pode pular um movimento por corrida:</string>
