@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">Lichess Streamer</string>
-  <string name="lichessStreamer">Lichess Streamer</string>
+  <string name="lichessStreamers">Lichess Schtriimer/-in</string>
+  <string name="lichessStreamer">Lichess Schtriimer/-in</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Streamt gerade: %s</string>
-  <string name="lastStream">Letzter Stream %s</string>
-  <string name="becomeStreamer">Werd en Lichess Streamer</string>
+  <string name="currentlyStreaming">Schtriimt grad: %s</string>
+  <string name="lastStream">Letschtä Schtriim %s</string>
+  <string name="becomeStreamer">Wird än Lichess Schtriimer / ä Lichess Schtriimerin</string>
   <string name="doYouHaveStream">Hast du einen Twitch oder YouTube-Kanal?</string>
   <string name="hereWeGo">Los geht\'s!</string>
-  <string name="allStreamers">Alle Streamer</string>
+  <string name="allStreamers">Alli Schtriimer/-innä</string>
   <string name="editPage">Streamerseite bearbeiten</string>
   <string name="yourPage">Dini Schtriimersiitä</string>
   <string name="downloadKit">Lade das Streamerpaket herunter</string>
-  <string name="xIsStreaming">%s streamt gerade</string>
+  <string name="xIsStreaming">%s schtriimt grad</string>
   <string name="rules">Streaming-Regeln</string>
-  <string name="rule1">Füäg s\'Stichwort \"lichess.org\" i dim Streamtitäl ii und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess streamsch.</string>
+  <string name="rule1">Füäg s\'Stichwort \"lichess.org\" i dim Schtriimtitäl ii und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess schtriimsch.</string>
   <string name="rule2">Entferne das Stichwort, wenn du gerade nicht Lichess-bezogen streamst.</string>
-  <string name="rule3">Lichess wird automatisch deinen Stream erkennen und folgende Zusatzdienste aktivieren:</string>
+  <string name="rule3">Lichess wird automatisch din Schtriim ärkänä und folgändi Zuäsatzdiänscht aktiviärä:</string>
   <string name="perks">Vorteile für das Streamen mit dem Schlüsselwort</string>
-  <string name="perk1">Erhalte ein flammendes Streamer-Symbol auf deinem Lichess-Profil.</string>
+  <string name="perk1">Bechum äs flammänds Schtriimer-Symbol uf dim Lichess-Profil.</string>
   <string name="perk2">Werde an die Spitze der Streamerliste gesetzt.</string>
   <string name="perk3">Benachrichtige deine Lichess-Follower.</string>
-  <string name="perk4">Zeige deinen Stream in deinen Spielen, Turnieren und Studien.</string>
+  <string name="perk4">Zeig din Schtriim i dinä Schpiil, Turniär und Schtuudiä.</string>
   <string name="approved">Dein Stream wurde genehmigt.</string>
   <string name="pendingReview">Dein Stream wird von Moderatoren überprüft.</string>
-  <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
+  <string name="pleaseFillIn">Bitte füll dini Schtriimer-Informationä us und lad äs Bildli uä.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">fordere eine Überprüfung durch Moderatoren an</string>
-  <string name="anotherLanguage">Falls du in einer anderen Sprache als Englisch streamst, füge die richtige Sprachmarkierung (%s) am Anfang deines Streamtitels ein, eingeschlossen von eckigen Klammern. Zum Beispiel \"[DE]\" für deutsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
-Das kannst du auf Twitch oder YouTube einstellen, nicht in den Lichess-Streamereinstellungen. 
-Falls dein Stream in Englisch ist, bruchst du keine Sprachmarkierung einfügen.</string>
+  <string name="anotherLanguage">Falls du inärä andärä Schproch als Änglisch schtriimsch, füäg di richtig Sprochmarkiärig (%s) am Afang vom Schtriimtitäl ii, inklusive eggigä Chlammärä. Zum Biischpiil \"[DE]\" für hochdüütsch, \"[TR]\" für türkisch, \"[FR]\" für französisch usw.
+Das chasch du uf Twitch oder YouTube iischtelä, nöd idä Lichess-Schtriimeriischtelligä. 
+Falls din Schtriim uf Änglisch isch, muäsch kei Schprochmarkiärig iifüägä.</string>
   <string name="twitchUsername">Din Twitch-Benutzernamä oder d\'URL</string>
   <string name="optionalOrEmpty">Optional. Leer lassen falls nicht verfügbar</string>
   <string name="youtubeChannel">Dini YouTube-Kanal-ID oder -URL</string>
