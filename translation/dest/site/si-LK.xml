@@ -206,6 +206,7 @@
   <string name="blackDeclinesDraw">කලු සමාන කිරීමේ අවස්තාව ප්‍රතික්ශේප කරයි</string>
   <string name="yourOpponentOffersADraw">ඔබගේ ප්‍රතිවාදියා සමාන කිරීමේ අවස්තාවක් එවා ඇත</string>
   <string name="accept">පිලිගන්නවා</string>
+  <string name="decline">ප්‍රතික්ෂේප කරන්න</string>
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
