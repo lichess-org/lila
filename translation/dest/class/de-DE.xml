@@ -69,6 +69,7 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Schülerkonto schließen</string>
   <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Das Schülerkonto für immer schließen.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Der Schüler wird das Konto nie wieder nutzen können. Die Schließung ist endgültig. Stelle sicher, dass der Schüler dies versteht und einverstanden ist.</string>
   <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Du möchtest vielleicht stattdessen dem Schüler die Kontrolle über das Konto überlassen, so dass er es weiter nutzen kann.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
