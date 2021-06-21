@@ -79,7 +79,7 @@ final class Team(
     }
 
   def users(teamId: String) =
-    AnonOrScoped()(
+    AnonOrScoped(_.Team.Read)(
       anon = req => usersExport(teamId, none, req),
       scoped = req => me => usersExport(teamId, me.some, req)
     )
