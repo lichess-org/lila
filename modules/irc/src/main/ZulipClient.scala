@@ -13,7 +13,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     ec: scala.concurrent.ExecutionContext
 ) {
 
-  private val limiter = new RateLimit[ZulipMessage](
+  private val limiter = new RateLimit[Int](
     credits = 1,
     duration = 15 minutes,
     key = "zulip.client"
@@ -27,7 +27,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   def mod(topic: String = ZulipClient.topic.default) = apply(stream = ZulipClient.stream.mod, topic = topic) _
 
   def apply(msg: ZulipMessage): Funit =
-    limiter(msg) {
+    limiter(msg.hashCode) {
       if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString))
       else
         ws.url(s"https://${config.domain}/api/v1/messages")
