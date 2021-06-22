@@ -67,10 +67,10 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar de nuevo. El estudiante podrá cambiar el modo infantil y la contraseña por sí mismo.</string>
   <string name="releaseDesc2">El estudiante permanecerá en la clase tras la liberación de su cuenta.</string>
   <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
-  <string name="closeStudent">Cerrar cuenta</string>
-  <string name="closeTheAccount">Cerrar la cuenta del estudiante permanentemente.</string>
-  <string name="closeDesc1">El estudiante nunca podrá usar esta cuenta otra vez. El cierre es definitivo. Asegúrate que el estudiante entienda y esté de acuerdo con esto.</string>
-  <string name="closeDesc2">Es posible que quieras dar al estudiante control sobre la cuenta en su lugar, para que pueda seguir usándola.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Cerrar cuenta</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Cerrar la cuenta del estudiante permanentemente.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">El estudiante nunca podrá usar esta cuenta otra vez. El cierre es definitivo. Asegúrate que el estudiante entienda y esté de acuerdo con esto.</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Es posible que quieras dar al estudiante control sobre la cuenta en su lugar, para que pueda seguir usándola.</string>
   <string name="teachers">Profesores</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s profesor</item>
