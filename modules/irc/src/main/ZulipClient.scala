@@ -63,6 +63,7 @@ private object ZulipClient {
     val general       = "general"
     val notes         = "notes"
     val clientReports = "clientReports"
+    val commLog       = "commLog"
     val default       = general
   }
 }

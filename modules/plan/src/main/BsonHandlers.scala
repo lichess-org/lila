@@ -11,7 +11,7 @@ private[plan] object BsonHandlers {
   implicit val CustomerIdBSONHandler = stringAnyValHandler[CustomerId](_.value, CustomerId.apply)
   implicit val CurrencyBSONHandler   = stringAnyValHandler[Currency](_.getCurrencyCode, Currency.getInstance)
   implicit val MoneyBSONHandler      = Macros.handler[Money]
-  implicit val UsdBSONHandler        = bigDecimalAnyValHandler[Usd](_.value, Usd.apply)
+  implicit val UsdBSONHandler        = lila.db.dsl.bigDecimalAnyValHandler[Usd](_.value, Usd)
 
   object PatronHandlers {
     import Patron._

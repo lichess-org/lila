@@ -41,7 +41,6 @@ final private[api] class Cli(
         case None                       => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
-          slackApi gdprErase user
           userRepo setEraseAt user
           email gdprErase user
           Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
