@@ -71,6 +71,8 @@ Oto link do klasy.</string>
   <string name="realUniqueEmail">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem.</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Zamknij konto</string>
   <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Zamknij nieodwracalnie konto studenckie.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Uczeń nigdy więcej nie będzie mógł używać tego konta. Zamykanie jest ostateczne. Upewnij się, że rozumie i zgadza się na to.</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Zamiast tego możesz dać uczniowi kontrolę nad kontem, aby mógł on nadal z niego korzystać.</string>
   <string name="teachers">Nauczyciele</string>
   <plurals name="nbTeachers">
     <item quantity="one">Nauczyciel</item>
