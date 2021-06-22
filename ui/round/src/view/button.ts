@@ -164,45 +164,6 @@ export function resignConfirm(ctrl: RoundController): VNode {
   return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
 }
 
-export function drawConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '2', 'draw-yes');
-}
-
-export function threefoldClaimDraw(ctrl: RoundController) {
-  return ctrl.data.game.threefold
-    ? h('div.suggestion', [
-        h(
-          'p',
-          {
-            hook: onSuggestionHook,
-          },
-          ctrl.noarg('threefoldRepetition')
-        ),
-        h(
-          'button.button',
-          {
-            hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim')),
-          },
-          ctrl.noarg('claimADraw')
-        ),
-      ])
-    : null;
-}
-
-export function cancelDrawOffer(ctrl: RoundController) {
-  return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', ctrl.noarg('drawOfferSent'))]) : null;
-}
-
-export function answerOpponentDrawOffer(ctrl: RoundController) {
-  return ctrl.data.opponent.offeringDraw
-    ? h('div.negotiation.draw', [
-        h('p', ctrl.noarg('yourOpponentOffersADraw')),
-        acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
-        declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
-      ])
-    : null;
-}
-
 export function cancelTakebackProposition(ctrl: RoundController) {
   return ctrl.data.player.proposingTakeback
     ? h('div.pending', [
