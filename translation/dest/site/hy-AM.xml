@@ -163,7 +163,7 @@
   <string name="ratingStats">Վարկանիշի ստատիստիկա</string>
   <string name="username">Օգտատիրոջ անուն</string>
   <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
-  <string name="changeUsername">Փոփոխել օգտանուն</string>
+  <string name="changeUsername">Փոխել օգտանունը</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
@@ -274,9 +274,17 @@
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s ստուդիա</item>
+    <item quantity="other">%s ուսուցում</item>
+  </plurals>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="thematic">Թեմատիկա</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">Վարկանիշային խաղերը՝ ≥ %s</item>
+    <item quantity="other">Վարկանիշային խաղերը՝ ≥ %s</item>
+  </plurals>
   <string name="backToGame">Վերադառնալ պարտիային</string>
   <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
@@ -408,7 +416,7 @@
   <string name="reply">պատասխանել</string>
   <string name="message">հաղորդագրություն</string>
   <string name="createTheTopic">Ստեղծել թեմա</string>
-  <string name="reportAUser">Հաղորդել օգտվողին</string>
+  <string name="reportAUser">Հաղորդել օգտատիրոջ մասին</string>
   <string name="user">Օգտատեր</string>
   <string name="reason">Պատճառ</string>
   <string name="whatIsIheMatter">Ի՞նչ է պատահել</string>
@@ -487,6 +495,10 @@
   <string name="castling">Փոխատեղում</string>
   <string name="whiteCastlingKingside">Սպիտակները O-O</string>
   <string name="blackCastlingKingside">Սեւերը O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s հաղորդագրություն ֆորումում</item>
+    <item quantity="other">%s հաղորդագրություն ֆորումում</item>
+  </plurals>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
