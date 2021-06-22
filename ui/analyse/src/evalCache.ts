@@ -14,7 +14,7 @@ const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
 function qualityCheck(ev): boolean {
-  // below 500k nodes, the eval might come from an imminent threefold repetition
+  // below 500k nodes, the eval might come from an imminent fourfold repetition
   // and should therefore be ignored
   return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);
 }

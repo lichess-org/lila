@@ -666,7 +666,7 @@ export default class AnalyseCtrl {
   }
 
   canUseCeval(): boolean {
-    return !this.node.threefold && !this.outcome();
+    return !this.node.fourfold && !this.outcome();
   }
 
   startCeval = throttle(800, () => {
@@ -830,11 +830,11 @@ export default class AnalyseCtrl {
   canEvalGet(): boolean {
     if (this.node.ply >= 15 && !this.opts.study) return false;
 
-    // cloud eval does not support threefold repetition
+    // cloud eval does not support fourfold repetition
     const fens = new Set();
     for (let i = this.nodeList.length - 1; i >= 0; i--) {
       const node = this.nodeList[i];
-      const fen = node.fen.split(' ').slice(0, 4).join(' ');
+      const fen = node.fen.split(' ').slice(0, 3).join(' ');
       if (fens.has(fen)) return false;
       fens.add(fen);
     }

@@ -123,7 +123,6 @@ export interface ApiMove extends Step {
   status: Status;
   winner?: Color;
   check: boolean;
-  threefold: boolean;
   sDraw: boolean;
   gDraw: boolean;
   crazyhouse?: CrazyData;

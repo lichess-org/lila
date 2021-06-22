@@ -370,7 +370,7 @@ declare namespace Tree {
     shapes?: Shape[];
     comp?: boolean;
     san?: string;
-    threefold?: boolean;
+    fourfold?: boolean;
     fail?: boolean;
     puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;

@@ -42,7 +42,6 @@ object Event {
     def data(
         fen: String,
         check: Boolean,
-        threefold: Boolean,
         state: State,
         clock: Option[ClockEvent],
         possibleMoves: Map[Pos, List[Pos]],
@@ -59,7 +58,6 @@ object Event {
         .add("status" -> state.status)
         .add("winner" -> state.winner)
         .add("check" -> check)
-        .add("threefold" -> threefold)
         .add("sDraw" -> state.senteOffersDraw)
         .add("gDraw" -> state.goteOffersDraw)
         .add("crazyhouse" -> crazyData)
@@ -75,7 +73,6 @@ object Event {
       san: String,
       fen: String,
       check: Boolean,
-      threefold: Boolean,
       promotion: Boolean,
       state: State,
       clock: Option[ClockEvent],
@@ -86,7 +83,7 @@ object Event {
     val promS = { if (promotion) "+" else "" }
     def typ = "move"
     def data = {
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json
           .obj(
             "uci" -> s"${orig.key}${dest.key}$promS",
@@ -111,7 +108,6 @@ object Event {
         san = shogi.format.pgn.Dumper(move),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
-        threefold = situation.fourfoldRepetition,
         promotion = move.promotion,
         state = state,
         clock = clock,
@@ -127,7 +123,6 @@ object Event {
       san: String,
       fen: String,
       check: Boolean,
-      threefold: Boolean,
       state: State,
       clock: Option[ClockEvent],
       possibleMoves: Map[Pos, List[Pos]],
@@ -136,7 +131,7 @@ object Event {
   ) extends Event {
     def typ = "drop"
     def data =
-      MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData) {
+      MoveOrDrop.data(fen, check, state, clock, possibleMoves, possibleDrops, crazyData) {
         Json.obj(
           "role" -> role.name,
           "uci"  -> s"${role.pgn}*${pos.key}",
@@ -159,7 +154,6 @@ object Event {
         san = shogi.format.pgn.Dumper(drop),
         fen = shogi.format.Forsyth.exportSituation(situation),
         check = situation.check,
-        threefold = situation.fourfoldRepetition,
         state = state,
         clock = clock,
         possibleMoves = situation.destinations,

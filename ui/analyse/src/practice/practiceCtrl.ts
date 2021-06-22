@@ -1,6 +1,6 @@
 import { winningChances, Eval } from 'ceval';
 import { path as treePath } from 'tree';
-import { detectThreefold } from '../nodeFinder';
+import { detectFourfold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
@@ -97,7 +97,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const nodeEval: Eval =
-        tbhitToEval(node.tbhit) || (node.threefold || (outcome && !outcome.winner) ? { cp: 0 } : (node.ceval as Eval));
+        tbhitToEval(node.tbhit) || (node.fourfold || (outcome && !outcome.winner) ? { cp: 0 } : (node.ceval as Eval));
       const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
@@ -197,7 +197,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     onJump() {
       played(false);
       hinting(null);
-      detectThreefold(root.nodeList, root.node);
+      detectFourfold(root.nodeList, root.node);
       checkCevalOrTablebase();
     },
     isMyTurn,

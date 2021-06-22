@@ -40,7 +40,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
   switch (goal.result) {
     case 'drawIn':
     case 'equalIn':
-      if (node.threefold) return true;
+      if (node.fourfold) return true;
       if (isDrawish(node) === false) return false;
       if (nbMoves > goal.moves!) return false;
       if (outcome && !outcome.winner) return true;

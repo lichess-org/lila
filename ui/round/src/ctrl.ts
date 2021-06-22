@@ -425,7 +425,6 @@ export default class RoundController {
       blur.onMove();
       li.pubsub.emit('ply', this.ply);
     }
-    d.game.threefold = !!o.threefold;
     const step = {
       ply: round.lastPly(this.data) + 1,
       fen: o.fen,

@@ -27,7 +27,6 @@ final class JsonView(rematches: Rematches) {
         "status"        -> game.status,
         "createdAt"     -> game.createdAt
       )
-      .add("threefold" -> game.history.fourfoldRepetition)
       .add("boosted" -> game.boosted)
       .add("tournamentId" -> game.tournamentId)
       .add("winner" -> game.winnerColor)
