@@ -70,6 +70,7 @@ Oto link do klasy.</string>
   <string name="releaseDesc2">Uczeń pozostanie w klasie po przekazaniu mu zarządzania kontem.</string>
   <string name="realUniqueEmail">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem.</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Zamknij konto</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Zamknij nieodwracalnie konto studenckie.</string>
   <string name="teachers">Nauczyciele</string>
   <plurals name="nbTeachers">
     <item quantity="one">Nauczyciel</item>
