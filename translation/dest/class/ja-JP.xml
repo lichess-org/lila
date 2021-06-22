@@ -68,6 +68,8 @@
   <string name="realUniqueEmail">生徒の実在のメールアドレス。Lichess からアカウント解放用のリンクを付した確認メールが送られます。</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">アカウント停止</string>
   <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">生徒のアカウントを永久に停止する</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">生徒はこのアカウントを二度と使えなくなります。停止は後で解除できません。生徒の理解と同意を確かめてください。</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">あるいはアカウントのコントロールを生徒に渡すこともでき、そうすれば生徒はアカウント使用を続けられます。</string>
   <string name="teachers">講師</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 講師</item>
