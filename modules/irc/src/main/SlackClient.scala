@@ -43,6 +43,26 @@ final private class SlackClient(ws: StandaloneWSClient, url: Secret)(implicit
     }(funit)
 }
 
+private object SlackClient {
+
+  private[irc] object rooms {
+    val general          = "team"
+    val tavern           = "tavern"
+    val tavernBots       = "tavern-bots"
+    val tavernNotes      = "tavern-notes"
+    val tavernAppeal     = "tavern-appeal"
+    val tavernLog        = "tavern-log"
+    val broadcast        = "broadcast"
+    val tavernMonitorAll = "tavern-monitor-all"
+    val gdprLog          = "gdpr-log"
+  }
+
+  private[irc] object stage {
+    val name = "stage.lichess.org"
+    val icon = "volcano"
+  }
+}
+
 private case class SlackMessage(
     username: String,
     text: String,

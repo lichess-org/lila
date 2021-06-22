@@ -27,13 +27,11 @@ final class Env(
   private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")(ZulipClient.zulipConfigLoader)
   private lazy val zulipClient = wire[ZulipClient]
 
-  lazy val slack: SlackApi = wire[SlackApi]
-
   lazy val api: IrcApi = wire[IrcApi]
 
   if (mode == Mode.Prod) {
     api.publishInfo("Lichess has started!")
-    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell slack")(slack.stop _)
+    Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell IRC")(api.stop _)
   }
 
   lila.common.Bus.subscribeFun("slack", "plan", "userNote") {

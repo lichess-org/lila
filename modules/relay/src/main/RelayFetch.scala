@@ -20,7 +20,7 @@ import lila.round.GameProxyRepo
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    slackApi: lila.irc.SlackApi,
+    irc: lila.irc.IrcApi,
     formatApi: RelayFormatApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
@@ -117,7 +117,7 @@ final private class RelayFetch(
             .filterNot(_.isTimeout)
             .flatMap(_.error)
             .ifTrue(rt.tour.official && rt.round.hasStarted) foreach { error =>
-            slackApi.broadcastError(rt.round.id.value, rt.round.name, error)
+            irc.broadcastError(rt.round.id.value, rt.round.name, error)
           }
           60
         } else

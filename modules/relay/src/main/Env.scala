@@ -18,7 +18,7 @@ final class Env(
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.round.GameProxyRepo,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.irc.SlackApi,
+    irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
 )(implicit
     ec: scala.concurrent.ExecutionContext,
