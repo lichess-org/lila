@@ -198,15 +198,15 @@
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
-  <string name="drawOfferSent">引き分けの提案を送信しました</string>
+  <string name="drawOfferSent">ドローの提案を送信しました</string>
   <string name="drawOfferDeclined">ドロー提案が拒否されました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
-  <string name="drawOfferCanceled">引き分けの提案をキャンセルしました</string>
+  <string name="drawOfferCanceled">ドローの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
   <string name="whiteDeclinesDraw">白が引き分けを拒否しました</string>
   <string name="blackDeclinesDraw">黒が引き分けを拒否しました</string>
-  <string name="yourOpponentOffersADraw">相手が引き分けを申し込みました</string>
+  <string name="yourOpponentOffersADraw">相手がドローを提案しました</string>
   <string name="accept">承諾</string>
   <string name="decline">拒否</string>
   <string name="playingRightNow">対局中</string>
@@ -224,7 +224,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局の申し込みです</string>
+  <string name="rematchOfferSent">再対局の提案が来ました</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
