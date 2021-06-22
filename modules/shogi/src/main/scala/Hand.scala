@@ -24,8 +24,15 @@ case class Hands(sente: Hand, gote: Hand) {
   def size: Int =
     sente.size + gote.size
 
-  def valueOf: Int =
-    sente.valueOf - gote.valueOf
+  def valueOf(c: Color) =
+    c.fold(sente.value, gote.value)
+
+  def value: Int =
+    sente.value - gote.value
+
+  def impasseValueOf(c: Color) =
+    c.fold(sente.impasseValue, gote.impasseValue)
+
 
   def exportHands: String = {
     val pocketStr = sente.exportHand.toUpperCase() + gote.exportHand.toLowerCase()
@@ -33,6 +40,7 @@ case class Hands(sente: Hand, gote: Hand) {
     else pocketStr
   }
 
+  override def toString = s"$exportHands"
 }
 
 object Hands {
@@ -63,11 +71,14 @@ case class Hand(roleMap: HandMap) {
   def size: Int =
     roleMap.foldLeft(0)( (acc, kv) => acc + kv._2)
 
-  def valueOf: Int =
+  def value: Int =
     roleMap.foldLeft(0) { (acc, kv) =>
-      Role.valueOf(kv._1).fold(acc) { value =>
-        acc + value * kv._2
-      }
+      acc + Role.valueOf(kv._1) * kv._2
+    }
+
+  def impasseValue: Int =
+    roleMap.foldLeft(0) { (acc, kv) =>
+      acc + Role.impasseValueOf(kv._1) * kv._2
     }
 
 }

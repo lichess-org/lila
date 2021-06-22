@@ -197,7 +197,6 @@ object Role {
     Pawn
   )
 
-
   val allByForsyth: Map[Char, Role] = all map { r =>
     (r.forsyth, r)
   } toMap
@@ -233,18 +232,29 @@ object Role {
     }
   }
 
-  def valueOf(r: Role): Option[Int] =
+  def valueOf(r: Role): Int =
     r match {
-      case Pawn                                                   => Some(1)
-      case Lance                                                  => Some(3)
-      case Knight                                                 => Some(4)
-      case Silver                                                 => Some(5)
-      case Gold | PromotedSilver | PromotedLance | PromotedKnight => Some(6)
-      case Tokin                                                  => Some(7)
-      case Bishop                                                 => Some(8)
-      case Rook                                                   => Some(10)
-      case Horse                                                  => Some(10)
-      case Dragon                                                 => Some(12)
-      case King                                                   => None
+      case Pawn                                                   => 1
+      case Lance                                                  => 3
+      case Knight                                                 => 4
+      case Silver                                                 => 5
+      case Gold | PromotedSilver | PromotedLance | PromotedKnight => 6
+      case Tokin                                                  => 7
+      case Bishop                                                 => 8
+      case Rook                                                   => 10
+      case Horse                                                  => 10
+      case Dragon                                                 => 12
+      case King                                                   => 0
+    }
+  
+  def impasseValueOf(r: Role): Int =
+    r match {
+      case
+        Bishop |
+        Rook |
+        Horse |
+        Dragon => 5
+      case King => 0
+      case _ => 1
     }
 }

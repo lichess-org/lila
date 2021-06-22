@@ -14,7 +14,9 @@ export const ids = {
   outoftime: 35,
   cheat: 36,
   noStart: 37,
-  impasse: 39,
+  tryRule: 39,
+  perpetualCheck: 40,
+  impasse27: 41,
   variantEnd: 60,
 };
 

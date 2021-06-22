@@ -25,7 +25,6 @@ export interface Game {
   moveCentis?: number[];
   initialFen?: string;
   importedBy?: string;
-  threefold?: boolean;
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
@@ -43,7 +42,8 @@ export type StatusName =
   | 'mate'
   | 'resign'
   | 'stalemate'
-  | 'impasse'
+  | 'tryRule'
+  | 'impasse27'
   | 'perpetualCheck'
   | 'timeout'
   | 'draw'

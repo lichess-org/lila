@@ -8,9 +8,6 @@ case class Piece(color: Color, role: Role) {
 
   def oneOf(rs: Set[Role]) = rs(role)
 
-  def isMinor = oneOf(Set(Knight, Bishop))
-  def isMajor = oneOf(Set(Rook))
-
   def forsyth: Char       = if (color == Sente) role.forsythUpper else role.forsyth
   def forsythFull: String = if (color == Sente) role.forsythFullUpper else role.forsythFull
 

@@ -26,7 +26,7 @@ final case class ApiConfig(
   def validFen =
     variant != FromPosition || {
       position ?? { f =>
-        ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+        ~(Forsyth <<< f.value).map(_.situation playableNoImpasse strictFen)
       }
     }
 

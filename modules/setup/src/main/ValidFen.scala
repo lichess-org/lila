@@ -14,7 +14,7 @@ object ValidFen {
   def apply(strict: Boolean)(fen: String): Option[ValidFen] =
     for {
       parsed <- shogi.format.Forsyth <<< fen
-      if parsed.situation playable strict
+      if parsed.situation playableNoImpasse strict
       validated = shogi.format.Forsyth >> parsed
     } yield ValidFen(FEN(validated), parsed.situation)
 }

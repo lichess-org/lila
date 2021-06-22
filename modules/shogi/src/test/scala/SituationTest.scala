@@ -110,6 +110,18 @@ K  r
         game.playable(true) must beFalse
         game.playable(false) must beFalse
       }
+
+      "with doubled pawns" in {
+        val game = """
+k
+
+Pp
+P
+K  
+        """ as Sente
+        game.playable(true) must beFalse
+        game.playable(false) must beFalse
+      }
     }
 
   }

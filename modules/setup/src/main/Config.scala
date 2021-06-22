@@ -69,7 +69,7 @@ trait Positional { self: Config =>
 
   lazy val validFen = variant != FromPosition || {
     fen ?? { f =>
-      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+      ~(Forsyth <<< f.value).map(_.situation playableNoImpasse strictFen)
     }
   }
 

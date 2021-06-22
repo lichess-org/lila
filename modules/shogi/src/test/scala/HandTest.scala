@@ -8,7 +8,7 @@ class HandTest extends ShogiTest {
             hands.size must_== 0
         }
         "have 0 value" in {
-            hands.valueOf must_== 0
+            hands.value must_== 0
         }
         
         Role.handRoles foreach { r =>
@@ -30,7 +30,7 @@ class HandTest extends ShogiTest {
                 h.sente(Pawn) must_== 1
             }
             "have proper value" in {
-                h.valueOf must_== 1
+                h.value must_== 1
             }
             "have proper export" in {
                 h.exportHands must_== "P"
@@ -49,7 +49,7 @@ class HandTest extends ShogiTest {
                 h.sente(Pawn) must_== 2
             }
             "have proper value" in {
-                h.valueOf must_== 2
+                h.value must_== 2
             }
             "have proper export" in {
                 h.exportHands must_== "2P"
@@ -69,7 +69,7 @@ class HandTest extends ShogiTest {
                 h.gote(Bishop) must_== 1
             }
             "have proper value" in {
-                h.valueOf must_== -6
+                h.value must_== -6
             }
             "have proper export" in {
                 h.exportHands must_== "2Pb"

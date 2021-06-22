@@ -37,7 +37,14 @@ case class Board(
   def occupiedPawnFiles(c: Color): List[Int] =
     pieces
       .collect {
-        case (pos, piece) if piece.color == c && piece.role == Pawn => pos.x
+        case (pos, piece) if (piece.color == c) && (piece.role == Pawn) => pos.x
+      }
+      .to(List)
+
+  def rolesInPromotionZoneOf(c: Color): List[Role] =
+    pieces
+      .collect {
+        case (pos, piece) if (piece.color == c) && (c.promotableZone contains pos.y) => piece.role
       }
       .to(List)
 
@@ -51,7 +58,7 @@ case class Board(
 
   def kingPosOf(c: Color): Option[Pos] = kingPos get c
 
-  def check(c: Color): Boolean = c.sente.fold(checkSente, checkGote)
+  def check(c: Color): Boolean = c.fold(checkSente, checkGote)
 
   lazy val checkSente = checkOf(Sente)
   lazy val checkGote  = checkOf(Gote)
@@ -122,26 +129,23 @@ case class Board(
   def count(p: Piece): Int = pieces.values count (_ == p)
   def count(c: Color): Int = pieces.values count (_.color == c)
 
-  def kingsEntered: Boolean = {
-    ((kingPosOf(Gote) exists (pos => Gote.promotableZone contains pos.y)) &&
-    (kingPosOf(Sente) exists (pos => Sente.promotableZone contains pos.y)))
+  def kingEntered(c: Color): Boolean =
+    kingPosOf(c) exists (pos => c.promotableZone contains pos.y)
+
+  def enoughImpasseValue(c: Color): Boolean = {
+    val rp = rolesInPromotionZoneOf(c)
+    val piecesValue = rp.foldLeft(0){(acc, r) => acc + Role.impasseValueOf(r)} +
+      crazyData.fold(0)(h => h.impasseValueOf(c))
+    rp.size > 10 && piecesValue >= c.fold(28, 27)
   }
 
-  def tryRule: Boolean =
-    (kingPosOf(Sente) == posAt(5, 9)) || (kingPosOf(Gote) == posAt(5, 1))
+  def impasse(c: Color): Boolean =
+    kingEntered(c) &&
+    !c.fold(checkSente, checkGote) &&
+    enoughImpasseValue(c)
 
-  def tryRuleColor: Option[Color] =
-    if (kingPosOf(Sente) == posAt(5, 9)) Sente.some
-    else if (kingPosOf(Gote) == posAt(5, 1)) Gote.some
-    else none
-
-  def perpetualCheckColor: Option[Color] = {
-    val checks = history.checkCount
-    if (checks.sente >= 4 && checks.gote >= 4) None
-    else if (checks.sente >= 4) Some(Sente)
-    else if (checks.gote >= 4) Some(Gote)
-    else None
-  }
+  def tryRule(c: Color): Boolean =
+    kingPosOf(c) == c.fold(posAt(5, 9), posAt(5, 1))
 
   def perpetualCheck: Boolean = {
     val checks = history.checkCount
@@ -160,7 +164,7 @@ case class Board(
 
   def materialImbalance: Int = variant.materialImbalance(this)
 
-  override def toString = s"$variant Position after ${history.lastMove}\n$visual"
+  override def toString = s"$variant Position after ${history.lastMove}\n$visual\n$crazyData"
 }
 
 object Board {

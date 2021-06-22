@@ -25,8 +25,9 @@ object Status {
   case object Cheat          extends Status(36)
   case object NoStart        extends Status(37) // the player did not make the first move in time
   case object UnknownFinish  extends Status(38) // we don't know why the game ended
-  case object Impasse        extends Status(39)
+  case object TryRule        extends Status(39)
   case object PerpetualCheck extends Status(40)
+  case object Impasse27      extends Status(41)
   case object VariantEnd     extends Status(60) // the variant has a special ending
 
   val all = List(
@@ -42,7 +43,8 @@ object Status {
     Cheat,
     NoStart,
     UnknownFinish,
-    Impasse,
+    TryRule,
+    Impasse27,
     PerpetualCheck,
     VariantEnd
   )
@@ -52,7 +54,7 @@ object Status {
   }
 
   val finishedWithWinner =
-    List(Mate, Resign, Timeout, Outoftime, Cheat, NoStart, VariantEnd, Stalemate, Impasse, PerpetualCheck)
+    List(Mate, Resign, Timeout, Outoftime, Cheat, NoStart, VariantEnd, Stalemate, TryRule, Impasse27, PerpetualCheck)
 
   val byId = all map { v =>
     (v.id, v)

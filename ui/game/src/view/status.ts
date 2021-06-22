@@ -14,8 +14,10 @@ export default function status(ctrl: Ctrl): string {
       return noarg(d.game.winner == 'sente' ? 'whiteResigned' : 'blackResigned');
     case 'stalemate':
       return noarg('stalemate');
-    case 'impasse':
-      return 'Impasse (Try Rule)';
+    case 'impasse27':
+      return 'Impasse';
+    case 'tryRule':
+      return 'Try rule';
     case 'perpetualCheck':
       return 'Perpetual check (Illegal move)';
     case 'timeout':

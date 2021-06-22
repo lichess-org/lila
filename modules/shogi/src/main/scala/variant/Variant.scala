@@ -164,15 +164,14 @@ abstract class Variant private[variant] (
 
   def checkmate(situation: Situation) = situation.check && situation.moves.isEmpty && !canDropStuff(situation)
 
-  // In most variants, the winner is the last player to have played and there is a possibility of either a traditional
-  // checkmate or a variant end condition
+  // Player wins or loses after their move
   def winner(situation: Situation): Option[Color] = {
-    val lastMove = situation.board.history.lastMove
-    if (situation.checkMate && lastMove.fold(false){ l => l.uci(0) == 'P' }) Some(situation.color)
+    val pawnDrop = situation.board.history.lastMove.fold(false){ l => l.uci(0) == 'P'}
+    if (situation.checkMate && pawnDrop) Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
-    else if (situation.board.tryRule) situation.board.tryRuleColor
-    else if (situation.board.perpetualCheck) situation.board.perpetualCheckColor
+    else if (situation.impasse) Some(!situation.color)
+    else if (situation.perpetualCheck) Some(situation.color)
     else None
   }
 
@@ -185,11 +184,9 @@ abstract class Variant private[variant] (
     */
   def materialImbalance(board: Board): Int =
     board.pieces.values.foldLeft(0) { case (acc, Piece(color, role)) =>
-      Role.valueOf(role).fold(acc) { value =>
-        acc + value * color.fold(1, -1)
-      }
+      acc + Role.valueOf(role) * color.fold(1, -1)
     } + board.crazyData.fold(0) { hs =>
-      hs.valueOf
+      hs.value
     }
 
   /** Returns true if neither player can win. The game should end immediately.
@@ -229,7 +226,7 @@ abstract class Variant private[variant] (
     }
   }
 
-  protected def pieceInPromotionRank(board: Board, color: Color) = {
+  protected def unmovablePieces(board: Board, color: Color) = {
     board.pieces.exists {
       case (pos, Piece(c, r)) if c == color && (r == Pawn || r == Lance) && (c.backrankY == pos.y) => true
       case (pos, Piece(c, r))
@@ -241,9 +238,10 @@ abstract class Variant private[variant] (
 
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
     val roles = board rolesOf color
+    val pawnFiles = board occupiedPawnFiles color
     roles.size > 0 &&
-    (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 }) &&
-    !pieceInPromotionRank(board, color)
+    (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 && roles.count(_ == King) == 1}) &&
+    !unmovablePieces(board, color) && pawnFiles.distinct.size == pawnFiles.size && roles.count(_ == King) <= 1
   }
 
   def valid(board: Board, strict: Boolean) = Color.all forall validSide(board, strict) _
