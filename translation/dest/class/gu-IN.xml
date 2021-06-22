@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">આ બટન ઉપર ક્લિક કરવાથી સ્ટુડન્ટ અકાઉંટ બંધ થશે</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">વિદ્યાર્થી નું એકાઉન્ટ મેનેજ અને કંટ્રોલ કરવા માટે આ ચેસ ટીચર માટે છે, જો તેઓ એકાઉન્ટ બંધ કરવા ઈછતા હોય તો.</string>
+</resources>
