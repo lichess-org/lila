@@ -66,6 +66,8 @@
   <string name="releaseDesc1">解放したアカウントは二度と管理下にできません。生徒は自分でキッズモードの切り替えやパスワードリセットを行なえます。</string>
   <string name="releaseDesc2">アカウントを解放しても、生徒は教室に残ったままです。</string>
   <string name="realUniqueEmail">生徒の実在のメールアドレス。Lichess からアカウント解放用のリンクを付した確認メールが送られます。</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">アカウント停止</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">生徒のアカウントを永久に停止する</string>
   <string name="teachers">講師</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 講師</item>
