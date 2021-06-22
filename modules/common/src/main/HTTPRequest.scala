@@ -91,9 +91,13 @@ object HTTPRequest {
   def printClient(req: RequestHeader) =
     s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 
-  def isOAuth(req: RequestHeader) = req.headers.toMap
-    .get(HeaderNames.AUTHORIZATION)
-    .exists(_.exists(_ startsWith "Bearer "))
+  def bearer(req: RequestHeader): Option[String] =
+    req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
+      val prefix = "Bearer "
+      authorization.startsWith(prefix) option authorization.stripPrefix(prefix)
+    }
+
+  def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"

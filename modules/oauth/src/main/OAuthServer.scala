@@ -5,6 +5,7 @@ import play.api.http.HeaderNames.AUTHORIZATION
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
+import lila.common.HTTPRequest
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
@@ -63,9 +64,7 @@ final class OAuthServer(
     accessTokenCache.put(id, fuccess(none))
 
   private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
-    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect { case Array("Bearer", tokenStr) =>
-      AccessToken.Id(tokenStr)
-    }
+    HTTPRequest.bearer(req).map(AccessToken.Id.apply)
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
