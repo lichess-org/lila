@@ -88,10 +88,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       ),
     ]),
     d.db.selected() === 'masters'
-      ? h('div.masters.message', [
-          h('i', { attrs: dataIcon('C') }),
-          h('p', 'masterdb'),
-        ])
+      ? h('div.masters.message', [h('i', { attrs: dataIcon('C') }), h('p', 'masterdb')])
       : h('div', [
           h('section.rating', [
             h('label', ctrl.trans.noarg('averageElo')),

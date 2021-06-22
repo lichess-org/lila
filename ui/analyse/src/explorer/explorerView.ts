@@ -246,13 +246,7 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
 }
 
 function showDtm(_ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
-  if (move.dtm)
-    return h(
-      'result.' + winnerOf(fen, move),
-      {
-      },
-      'DTM ' + Math.abs(move.dtm)
-    );
+  if (move.dtm) return h('result.' + winnerOf(fen, move), {}, 'DTM ' + Math.abs(move.dtm));
   return undefined;
 }
 
@@ -269,11 +263,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
     return move.san.includes('x')
       ? h('result.' + winnerOf(fen, move), trans('capture'))
       : h('result.' + winnerOf(fen, move), trans('pawnMove'));
-  return h(
-    'result.' + winnerOf(fen, move),
-    {},
-    'DTZ ' + Math.abs(move.dtz)
-  );
+  return h('result.' + winnerOf(fen, move), {}, 'DTZ ' + Math.abs(move.dtz));
 }
 
 function closeButton(ctrl: AnalyseCtrl): VNode {

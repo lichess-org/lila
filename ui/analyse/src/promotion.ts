@@ -103,11 +103,5 @@ export function view(ctrl: AnalyseCtrl): MaybeVNode {
       ? [sPromote(promoting.role), promoting.role]
       : [promoting.role, sPromote(promoting.role)];
 
-  return renderPromotion(
-    ctrl,
-    promoting.dest,
-    roles,
-    ctrl.turnColor(),
-    ctrl.shogiground.state.orientation
-  );
+  return renderPromotion(ctrl, promoting.dest, roles, ctrl.turnColor(), ctrl.shogiground.state.orientation);
 }
