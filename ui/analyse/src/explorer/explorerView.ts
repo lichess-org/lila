@@ -245,14 +245,11 @@ function showTablebase(ctrl: AnalyseCtrl, title: string, moves: TablebaseMoveSta
   ];
 }
 
-function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
+function showDtm(_ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
   if (move.dtm)
     return h(
       'result.' + winnerOf(fen, move),
       {
-        attrs: {
-          title: ctrl.trans.plural('mateInXHalfMoves', Math.abs(move.dtm)) + ' (Depth To Mate)',
-        },
       },
       'DTM ' + Math.abs(move.dtm)
     );
@@ -274,11 +271,7 @@ function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode |
       : h('result.' + winnerOf(fen, move), trans('pawnMove'));
   return h(
     'result.' + winnerOf(fen, move),
-    {
-      attrs: {
-        title: ctrl.trans.plural('nextCaptureOrPawnMoveInXHalfMoves', Math.abs(move.dtz)),
-      },
-    },
+    {},
     'DTZ ' + Math.abs(move.dtz)
   );
 }
@@ -369,12 +362,12 @@ function show(ctrl: AnalyseCtrl) {
             m => m.wdl === -2 && m.dtz !== null && !zeroed && dtz(m) - halfmoves === -100,
           ],
           [
-            trans('winPreventedBy50MoveRule'),
+            'winPreventedBy50MoveRule',
             m => m.dtz !== null && (m.wdl === -1 || (m.wdl === -2 && !zeroed && dtz(m) - halfmoves < -100)),
           ],
           [trans('drawn'), m => m.wdl === 0],
           [
-            trans('lossSavedBy50MoveRule'),
+            'lossSavedBy50MoveRule',
             m => m.dtz !== null && (m.wdl === 1 || (m.wdl === 2 && !zeroed && dtz(m) + halfmoves > 100)),
           ],
           [

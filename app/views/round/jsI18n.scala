@@ -30,8 +30,6 @@ object jsI18n {
   private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove).map(_.key)
 
   private val variantTranslations = Vector(
-    trans.kingInTheCenter,
-    trans.threeChecks,
     trans.variantEnding
   ).map(_.key)
 
@@ -58,7 +56,6 @@ object jsI18n {
     trans.opponentLeftChoices,
     trans.forceResignation,
     trans.forceDraw,
-    trans.threefoldRepetition,
     trans.claimADraw,
     trans.drawOfferSent,
     trans.cancel,

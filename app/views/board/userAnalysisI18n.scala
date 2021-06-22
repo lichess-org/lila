@@ -42,8 +42,6 @@ object userAnalysisI18n {
     trans.whiteIsVictorious,
     trans.blackIsVictorious,
     trans.cheatDetected,
-    trans.kingInTheCenter,
-    trans.threeChecks,
     trans.variantEnding,
     trans.whitePlays,
     trans.blackPlays,
@@ -85,7 +83,6 @@ object userAnalysisI18n {
     trans.inaccuracy,
     trans.mistake,
     trans.blunder,
-    trans.threefoldRepetition,
     trans.anotherWasX,
     trans.bestWasX,
     trans.youBrowsedAway,
@@ -150,13 +147,8 @@ object userAnalysisI18n {
     trans.topGames,
     trans.whiteDrawBlack,
     trans.averageRatingX,
-    trans.masterDbExplanation,
-    trans.mateInXHalfMoves,
-    trans.nextCaptureOrPawnMoveInXHalfMoves,
     trans.noGameFound,
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
-    trans.winPreventedBy50MoveRule,
-    trans.lossSavedBy50MoveRule,
     trans.allSet
   ).map(_.key)
 

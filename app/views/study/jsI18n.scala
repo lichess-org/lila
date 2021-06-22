@@ -33,7 +33,7 @@ object jsI18n {
       leaveTheStudy,
       youAreNowAContributor,
       youAreNowASpectator,
-      pgnTags,
+      tags,
       like,
       newTag,
       commentThisPosition,
@@ -52,9 +52,7 @@ object jsI18n {
       last,
       shareAndExport,
       cloneStudy,
-      studyPgn,
       downloadAllGames,
-      chapterPgn,
       downloadGame,
       studyUrl,
       broadcastUrl,
@@ -123,8 +121,7 @@ object jsI18n {
       whereDoYouWantToStudyThat,
       nbChapters,
       nbGames,
-      nbMembers,
-      pasteYourPgnTextHereUpToNbGames
+      nbMembers
     ).map(_.key)
   }
 }

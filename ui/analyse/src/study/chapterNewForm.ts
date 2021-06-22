@@ -258,7 +258,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             ? h('div.form-groupabel', [
                 h('textarea#chapter-pgn.form-control', {
                   attrs: {
-                    placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax),
+                    placeholder: "max" + ctrl.multiPgnMax,
                   },
                 }),
                 window.FileReader

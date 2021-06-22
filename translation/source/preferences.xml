@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Move list while playing</string>
 	<string name="pgnPieceNotation">Move notation</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen mode</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
 	<string name="onlyOnInitialPosition">Only on initial position</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">In casual games only</string>
 	<string name="promoteToQueenAutomatically">Promote to Queen automatically</string>
 	<string name="whenPremoving">When premoving</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Claim draw on threefold repetition automatically</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">When time remaining &lt; 30 seconds</string>
 	<string name="moveConfirmation">Move confirmation</string>
 	<string name="inCorrespondenceGames">Correspondence games</string>
 	<string name="correspondenceAndUnlimited">Correspondence and unlimited</string>
 	<string name="confirmResignationAndDrawOffers">Confirm resignation and draw offers</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Castling method</string>
-	<string name="castleByMovingTwoSquares">Move king two squares</string>
-	<string name="castleByMovingOntoTheRook">Move king onto rook</string>
 	<string name="inputMovesWithTheKeyboard">Input moves with the keyboard</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
 </resources>
