@@ -35,7 +35,7 @@ object OAuthScope {
   }
 
   object Team {
-    case object Read extends OAuthScope("team:read", "Read private team information")
+    case object Read  extends OAuthScope("team:read", "Read private team information")
     case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
   }
 

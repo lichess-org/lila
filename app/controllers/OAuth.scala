@@ -9,6 +9,7 @@ import scalatags.Text.all.stringFrag
 import views._
 
 import lila.api.Context
+import lila.common.HTTPRequest
 import lila.app._
 import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, PersonalToken }
 
@@ -86,11 +87,27 @@ final class OAuth(env: Env) extends LilaController(env) {
       }
     }
 
+  private val revokeTokenForm = Form(single("token" -> text))
+
+  def tokenRevoke =
+    Action.async(parse.anyContent) { implicit req =>
+      implicit def body = req.body
+      val tokens = List(
+        revokeTokenForm.bindFromRequest().value,
+        HTTPRequest.bearer(req)
+      ).flatten
+      if (tokens.isEmpty) BadRequest.fuccess
+      else
+        tokens.map { token =>
+          env.oAuth.tokenApi.revoke(AccessToken.Id(token)) map env.oAuth.server.deleteCached
+        }.sequenceFu inject NoContent
+    }
+
   private val revokeClientForm = Form(single("origin" -> text))
 
   def revokeClient =
     AuthBody { implicit ctx => me =>
-      implicit def req = ctx.body
+      implicit def body = ctx.body
       revokeClientForm
         .bindFromRequest()
         .fold(
@@ -102,6 +119,5 @@ final class OAuth(env: Env) extends LilaController(env) {
               }
             } inject NoContent
         )
-
     }
 }

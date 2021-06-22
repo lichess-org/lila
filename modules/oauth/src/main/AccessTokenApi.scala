@@ -94,6 +94,11 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
         } yield AccessTokenApi.Client(origin, usedAt, scopes)
       }
 
+  def revoke(token: AccessToken.Id): Fu[AccessToken.Id] =
+    colls.token {
+      _.delete.one($doc(F.id -> token)).inject(token)
+    }
+
   def revokeByClientOrigin(clientOrigin: String, user: User): Fu[List[AccessToken.Id]] =
     colls.token { coll =>
       coll
@@ -127,7 +132,6 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
         }
       }
     }
-
 }
 
 object AccessTokenApi {

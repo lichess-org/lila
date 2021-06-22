@@ -720,6 +720,7 @@ GET   /oauth                                controllers.OAuth.authorize
 POST  /oauth                                controllers.OAuth.authorizeApply
 POST  /oauth/revoke-client                  controllers.OAuth.revokeClient
 POST  /api/token                            controllers.OAuth.tokenApply
+POST  /api/token/revoke                     controllers.OAuth.tokenRevoke
 GET   /account/oauth/token                  controllers.OAuthToken.index
 GET   /account/oauth/token/create           controllers.OAuthToken.create
 POST  /account/oauth/token/create           controllers.OAuthToken.createApply
