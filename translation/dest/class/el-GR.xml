@@ -67,6 +67,10 @@
   <string name="releaseDesc1">Ένας αυτόνομος λογαριασμός δεν μπορεί να ξαναγίνει διαχειριζόμενος. Ο μαθητής θα μπορεί να ενεργοποιήσει ή να απενεργοποιήσει την παιδική λειτουργία και να επαναφέρει το κωδικό πρόσβασης.</string>
   <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
   <string name="realUniqueEmail">Πραγματική, μοναδική διεύθυνση ηλεκτρονικού ταχυδρομείου του μαθητή. Θα στείλουμε ένα email επιβεβαίωσης σε αυτήν με ένα σύνδεσμο για ενεργοποίηση του λογαριασμού.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Κλείστε αυτόν τον λογαριασμό</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Κλείστε μόνιμα αυτόν τον μαθητικό λογαριασμό.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Ο μαθητής δε θα μπορέσει ποτέ να χρησιμοποιήσει ξανά αυτόν τον λογαριασμό. Η ενέργειά σας αυτή είναι τελική. Βεβαιωθείτε ότι ο μαθητής κατανοεί τις επιπτώσεις και συμφωνεί με την απόφαση.</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Μπορεί εναλλακτικά, αν θέλετε, να δώσετε τον έλεγχο του λογαριασμού στον μαθητή, έτσι ώστε να μπορεί να τον χρησιμοποιεί.</string>
   <string name="teachers">Δάσκαλοι</string>
   <plurals name="nbTeachers">
     <item quantity="one">Δάσκαλος</item>
