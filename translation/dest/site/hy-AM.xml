@@ -514,6 +514,10 @@
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
+  <string name="boardSize">Խաղատախտակի չափսը</string>
+  <string name="pieceSet">Խաղաքարերի ձևավորում</string>
+  <string name="embedInYourWebsite">Ստանալ կոդ՝ կայքում տեղադրելու համար</string>
+  <string name="usernameAlreadyUsed">Մասնակցային այս անունն արդեն զբաղված է։ Խնդրում ենք փորձել ուրիշը</string>
   <string name="chessBasics">Շախմատի հիմունքներ</string>
   <string name="error.unknown">Սխալ</string>
   <string name="whiteWinsGame">Սպիտակները հաղթեցին</string>
