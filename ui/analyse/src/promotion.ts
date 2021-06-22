@@ -16,7 +16,7 @@ interface Promoting {
   callback: Callback;
 }
 
-type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, role: Boolean) => void;
+type Callback = (orig: Key, dest: Key, capture: JustCaptured | undefined, promotion: Boolean) => void;
 
 let promoting: Promoting | undefined;
 
@@ -45,12 +45,9 @@ export function start(
 }
 
 function finish(ctrl: AnalyseCtrl, role: Role): void {
-  if (promoting) {
-    ground.promote(ctrl.shogiground, promoting.dest, role);
-    let prom: boolean = false;
-    if (!['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role)) prom = true;
-    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, prom);
-  }
+  const promoted = !['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role);
+  if (promoting && promoted) ground.promote(ctrl.shogiground, promoting.dest, role);
+  if (promoting && promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoting.capture, promoted);
   promoting = undefined;
 }
 
@@ -110,7 +107,7 @@ export function view(ctrl: AnalyseCtrl): MaybeVNode {
     ctrl,
     promoting.dest,
     roles,
-    promoting.dest[1] >= '7' ? 'sente' : 'gote',
+    ctrl.turnColor(),
     ctrl.shogiground.state.orientation
   );
 }

@@ -48,7 +48,7 @@ export default function (vm: Vm, getGround: Prop<CgApi>, redraw: Redraw): Promot
   function finish(role: Role): void {
     const promoted = !['pawn', 'lance', 'knight', 'silver', 'bishop', 'rook'].includes(role);
     if (promoting && promoted) promote(getGround(), promoting.dest, role);
-    if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoted);
+    if (promoting && promoting.callback) promoting.callback(promoting.orig, promoting.dest, promoted);
     promoting = false;
   }
 
