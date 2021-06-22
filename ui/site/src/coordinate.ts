@@ -140,18 +140,17 @@ lichess.load.then(() => {
       );
     };
 
-    const currentCoordEl = function () {
-      return $coordsSvg.find('.current-coord');
-    };
-
-    const nextCoordEl = function () {
-      return $coordsSvg.find('.next-coord');
-    };
+    const resolvedCoordEl = () => $coordsSvg.find('.coord_resolved');
+    const currentCoordEl = () => $coordsSvg.find('.coord_current');
+    const nextCoordEl = () => $coordsSvg.find('.coord_next');
+    const newCoordEl = () => $coordsSvg.find('.coord_new');
 
     const advanceCoords = function () {
-      $coords.toggleClass('current-coord').toggleClass('next-coord');
-      const currentCoordValue = currentCoordEl().text();
-      nextCoordEl().text(newCoord(currentCoordValue));
+      const resolved = resolvedCoordEl().remove();
+      currentCoordEl().removeClass('coord_current').addClass('coord_resolved');
+      nextCoordEl().removeClass('coord_next').addClass('coord_current');
+      newCoordEl().text(newCoord(currentCoordEl().text())).removeClass('coord_new').addClass('coord_next');
+      resolved.text('').removeClass('coord_resolved').addClass('coord_new').appendTo($coordsSvg);
     };
 
     const stop = function () {
