@@ -48,6 +48,8 @@ final class CoachPager(
                     case Login         => Descending("user.seenAt")
                   }
                 ),
+                Skip(offset),
+                Limit(length),
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
