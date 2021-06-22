@@ -41,22 +41,6 @@ object faq {
             a(href := routes.Page.help())(otherWaysToContribute()) // other ways to contribute
           )
         ),
-        // question(
-        //   "sites_based_on_Lichess",
-        //   areThereWebsitesBasedOnLishogi.txt(),
-        //   p(
-        //     yesLishogiInspiredOtherOpenSourceWebsites(
-        //       a(href := "/source")(trans.sourceCode()),
-        //       a(href := "/api")("API"),
-        //       a(href := "https://database.lishogi.org")(trans.database())
-        //     )
-        //   ),
-        //   ul(
-        //     li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
-        //     li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
-        //     li(a(href := "https://lidraughts.org")("lidraughts.org"))
-        //   )
-        // ),
         h2(fairPlay()),
         question(
           "marks",
@@ -108,22 +92,6 @@ object faq {
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )
         ),
-        //question( // todo variant
-        //  "variants",
-        //  whatVariantsCanIplay.txt(),
-        //  p(
-        //    lishogiSupportChessAnd(
-        //      a(href := routes.Page.variantHome())(eightVariants())
-        //    )
-        //  )
-        //),
-        // question(
-        //   "timeout",
-        //   insufficientMaterial.txt(),
-        //   p(
-        //     lishogiFollowFIDErules(a(href := fideHandbook)(linkToFIDErules()))
-        //   )
-        // ),
         h2(accounts()),
         question(
           "lm",

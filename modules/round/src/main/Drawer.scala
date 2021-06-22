@@ -18,8 +18,6 @@ final private[round] class Drawer(
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
-      //case pov if pov.game.history.threefoldRepetition =>
-      //  finisher.other(pov.game, _.Draw, None)
       case pov if pov.opponent.isOfferingDraw =>
         finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
       case Pov(g, color) if g playerCanOfferDraw color =>

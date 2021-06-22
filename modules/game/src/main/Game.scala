@@ -336,9 +336,6 @@ case class Game(
 
   def alarmable = hasCorrespondenceClock && playable && nonAi
 
-  def continuable =
-    status != Status.Mate && status != Status.Stalemate && status != Status.Impasse && status != Status.PerpetualCheck // todo
-
   def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
 
   def hasAi: Boolean = players.exists(_.isAi)

@@ -234,19 +234,6 @@ object index {
 
   private def faq(implicit lang: Lang) =
     div(cls := "faq")(
-      //dl(
-      //  dt(whereMoneyGoes()),
-      //  dd(
-      //    serversAndDeveloper(userIdLink("thibault".some))
-      //  ),
-      //  dt(officialNonProfit()),
-      //  dd(
-      //    a(
-      //      href := "https://www.journal-officiel.gouv.fr/associations/detail-annonce/associations_b/20160025/818"
-      //    )(actOfCreation()),
-      //    "."
-      //  )
-      //),
       dl(
         dt(changeMonthlySupport()),
         dd(
