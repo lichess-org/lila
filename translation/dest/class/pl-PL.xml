@@ -69,6 +69,7 @@ Oto link do klasy.</string>
   <string name="releaseDesc1">Nie będzie można ponownie zarządzać kontem. Uczeń będzie mógł samodzielnie przełączyć tryb konta i resetować hasło.</string>
   <string name="releaseDesc2">Uczeń pozostanie w klasie po przekazaniu mu zarządzania kontem.</string>
   <string name="realUniqueEmail">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Zamknij konto</string>
   <string name="teachers">Nauczyciele</string>
   <plurals name="nbTeachers">
     <item quantity="one">Nauczyciel</item>
