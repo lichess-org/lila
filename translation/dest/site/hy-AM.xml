@@ -187,7 +187,7 @@
     <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
   </plurals>
   <string name="cancel">Հերքել</string>
-  <string name="whiteTimeOut">Սպաիտակների ժամանակը սպառվեց</string>
+  <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
   <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը մերժվել է</string>
