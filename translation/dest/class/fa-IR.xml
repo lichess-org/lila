@@ -8,4 +8,5 @@
   <string name="removedStudents">حذف شده</string>
   <string name="className">نام کلاس</string>
   <string name="realName">نام واقعی</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">بستن حساب کاربری</string>
 </resources>
