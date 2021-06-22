@@ -87,20 +87,11 @@ final class OAuth(env: Env) extends LilaController(env) {
       }
     }
 
-  private val revokeTokenForm = Form(single("token" -> text))
-
   def tokenRevoke =
-    Action.async(parse.anyContent) { implicit req =>
-      implicit def body = req.body
-      val tokens = List(
-        revokeTokenForm.bindFromRequest().value,
-        HTTPRequest.bearer(req)
-      ).flatten
-      if (tokens.isEmpty) BadRequest.fuccess
-      else
-        tokens.map { token =>
-          env.oAuth.tokenApi.revoke(AccessToken.Id(token)) map env.oAuth.server.deleteCached
-        }.sequenceFu inject NoContent
+    Scoped() { implicit req => _ =>
+      HTTPRequest.bearer(req) ?? { token =>
+        env.oAuth.tokenApi.revoke(AccessToken.Id(token)) map env.oAuth.server.deleteCached inject NoContent
+      }
     }
 
   private val revokeClientForm = Form(single("origin" -> text))
