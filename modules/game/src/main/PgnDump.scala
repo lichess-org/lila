@@ -125,12 +125,19 @@ final class PgnDump(
             _.Termination, {
               import shogi.Status._
               game.status match {
-                case Created | Started                                                        => "Unterminated"
-                case Aborted | NoStart                                                        => "Abandoned"
-                case Timeout | Outoftime                                                      => "Time forfeit"
-                case Resign | Draw | Stalemate | Mate | VariantEnd | Impasse | PerpetualCheck => "Normal"
-                case Cheat                                                                    => "Rules infraction"
-                case UnknownFinish                                                            => "Unknown"
+                case Created | Started   => "Unterminated"
+                case Aborted | NoStart   => "Abandoned"
+                case Timeout | Outoftime => "Time forfeit"
+                case Resign |
+                  Draw |
+                  Stalemate |
+                  Mate |
+                  VariantEnd |
+                  TryRule |
+                  PerpetualCheck |
+                  Impasse27         => "Normal"
+                case Cheat              => "Rules infraction"
+                case UnknownFinish      => "Unknown"
               }
             }
           ).some
