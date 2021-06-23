@@ -532,7 +532,7 @@ POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: Strin
 POST  /coach/mod-review/:id            controllers.Coach.modReview(id: String)
 GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)
-GET   /coach/:lang/:order              controllers.Coach.search(lang: String, order: String, page: Int ?= 1)
+GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order: String, country: String, page: Int ?= 1)
 
 # Clas
 GET   /class                           controllers.Clas.index

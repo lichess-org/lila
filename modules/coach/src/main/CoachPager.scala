@@ -3,10 +3,15 @@ package lila.coach
 import reactivemongo.api._
 import play.api.i18n.Lang
 
-import lila.common.paginator.Paginator
+import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.{ User, UserRepo }
+import lila.user.Country
+import lila.coach.CoachPager.Order.Alphabetical
+import lila.coach.CoachPager.Order.NbReview
+import lila.coach.CoachPager.Order.LichessRating
+import lila.coach.CoachPager.Order.Login
 
 final class CoachPager(
     userRepo: UserRepo,
@@ -18,17 +23,66 @@ final class CoachPager(
   import CoachPager._
   import BsonHandlers._
 
-  def apply(lang: Option[Lang], order: Order, page: Int): Fu[Paginator[Coach.WithUser]] = {
-    val adapter = new Adapter[Coach](
-      collection = coll,
-      selector = listableSelector ++ lang.?? { l =>
-        $doc("languages" -> l.code)
-      },
-      projection = none,
-      sort = order.predicate
-    ) mapFutureList withUsers
+  def apply(
+      lang: Option[Lang],
+      order: Order,
+      country: Option[Country],
+      page: Int
+  ): Fu[Paginator[Coach.WithUser]] = {
+    def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
+
+    val adapter = country match {
+      case Some(country) => new AdapterLike[Coach.WithUser] {
+        def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
+
+        def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
+          coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework._
+              Match(selector) -> List(
+                Sort(
+                  order match {
+                    case Alphabetical  => Ascending("_id")
+                    case NbReview      => Descending("nbReview")
+                    case LichessRating => Descending("user.rating")
+                    case Login         => Descending("user.seenAt")
+                  }
+                ),
+                PipelineOperator(
+                  $doc(
+                    "$lookup" -> $doc(
+                      "from"         -> userRepo.coll.name,
+                      "localField"   -> "_id",
+                      "foreignField" -> "_id",
+                      "as"           -> "_user"
+                    )
+                  )
+                ),
+                UnwindField("_user"),
+                Match($doc("_user.profile.country" -> country.code)),
+                Skip(offset),
+                Limit(length)
+              )
+            }
+            .map { docs =>
+              for {
+                doc   <- docs
+                coach <- doc.asOpt[Coach]
+                user  <- doc.getAsOpt[User]("_user")
+              } yield Coach.WithUser(coach, user)
+            }
+      }
+
+      case None => new Adapter[Coach](
+        collection = coll,
+        selector = selector,
+        projection = none,
+        sort = order.predicate
+      ) mapFutureList withUsers
+    }
+
     Paginator(
-      adapter = adapter,
+      adapter,
       currentPage = page,
       maxPerPage = maxPerPage
     )
