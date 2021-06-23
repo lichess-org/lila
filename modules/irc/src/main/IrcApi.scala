@@ -189,9 +189,8 @@ final class IrcApi(
     slack(
       SlackMessage(
         username = "deployment",
-        icon = "lichess",
-        text = "Lichess is being updated! Brace for impact.",
-        channel = SlackClient.rooms.general
+        icon = "horsey",
+        text = "Lichess is being updated! Brace for impact."
       )
     ) >> zulip()("Lichess is restarting.")
 
@@ -207,8 +206,7 @@ final class IrcApi(
       SlackMessage(
         username = "lichess error",
         icon = "lightning",
-        text = slackdown.linkifyUsers(msg),
-        channel = SlackClient.rooms.general
+        text = slackdown.linkifyUsers(msg)
       )
     ) >> zulip()(s":lightning: ${markdown linkifyUsers msg}")
 
@@ -217,8 +215,7 @@ final class IrcApi(
       SlackMessage(
         username = "lichess warning",
         icon = "thinking_face",
-        text = slackdown.linkifyUsers(msg),
-        channel = SlackClient.rooms.general
+        text = slackdown.linkifyUsers(msg)
       )
     ) >> zulip()(s":thinking: ${markdown linkifyUsers msg}")
 
@@ -227,8 +224,7 @@ final class IrcApi(
       SlackMessage(
         username = "lichess victory",
         icon = "tada",
-        text = slackdown.linkifyUsers(msg),
-        channel = SlackClient.rooms.general
+        text = slackdown.linkifyUsers(msg)
       )
     ) >> zulip()(s":tada: ${markdown linkifyUsers msg}")
 
@@ -236,9 +232,8 @@ final class IrcApi(
     slack(
       SlackMessage(
         username = "lichess info",
-        icon = "lichess",
-        text = slackdown.linkifyUsers(msg),
-        channel = SlackClient.rooms.general
+        icon = "horsey",
+        text = slackdown linkifyUsers msg
       )
     ) >> zulip()(s":lichess: ${markdown linkifyUsers msg}")
 
