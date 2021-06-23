@@ -56,13 +56,16 @@ final class Authenticator(
     res
   }
 
-  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll
-      .one[User](select) map {
-      case (Some(authData), Some(user)) =>
-        User.LoginCandidate(user, authWithBenefits(authData)).some
-      case _ => none
-    }
+  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {
+    userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip
+      userRepo.coll.one[User](select) map {
+        case (Some(authData), Some(user)) =>
+          User.LoginCandidate(user, authWithBenefits(authData)).some
+        case _ => none
+      }
+  } recover { case _: reactivemongo.api.bson.exceptions.HandlerException =>
+    none
+  }
 }
 
 object Authenticator {
