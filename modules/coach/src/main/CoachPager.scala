@@ -48,8 +48,6 @@ final class CoachPager(
                     case Login         => Descending("user.seenAt")
                   }
                 ),
-                Skip(offset),
-                Limit(length),
                 PipelineOperator(
                   $doc(
                     "$lookup" -> $doc(
@@ -61,7 +59,9 @@ final class CoachPager(
                   )
                 ),
                 UnwindField("_user"),
-                Match($doc("_user.profile.country" -> country.code))
+                Match($doc("_user.profile.country" -> country.code)),
+                Skip(offset),
+                Limit(length)
               )
             }
             .map { docs =>
