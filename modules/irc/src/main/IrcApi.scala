@@ -98,7 +98,7 @@ final class IrcApi(
       )
     ) >> zulip.mod(ZulipClient.topic.commLog)({
       val finalS = if (user.username endsWith "s") "" else "s"
-      s"checked out _*${markdown.userLink(user.username)}*_'$finalS communications "
+      s"**${markdown userLink mod.user.username}** checked out **${markdown userLink user.username}**'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
       s"while investigating a report created by ${markdown.userLink(by)}"
     })
