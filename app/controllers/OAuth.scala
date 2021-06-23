@@ -75,7 +75,7 @@ final class OAuth(env: Env) extends LilaController(env) {
                 Ok(
                   Json
                     .obj(
-                      "token_type"   -> "bearer",
+                      "token_type"   -> "Bearer",
                       "access_token" -> token.id.value
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
