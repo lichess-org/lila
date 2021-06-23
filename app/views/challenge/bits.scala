@@ -41,6 +41,8 @@ object bits {
           )
         )
       ),
-      div(cls := "mode")(modeName(c.mode))
+      div(cls := "mode")(
+        s"${c.finalColor.name} • ${modeName(c.mode)}",
+      )
     )
 }
