@@ -204,7 +204,7 @@ final class RelayRound(
   private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter)(implicit
       ctx: Context
   ): Fu[Result] =
-    studyC.CanViewResult(oldSc.study) {
+    studyC.CanView(oldSc.study, ctx.me) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
@@ -220,7 +220,7 @@ final class RelayRound(
       } yield EnableSharedArrayBuffer(
         Ok(html.relay.show(rt withStudy sc.study, data, chat, sVersion, streamers))
       )
-    }
+    }(studyC.privateUnauthorizedFu(oldSc.study), studyC.privateForbiddenFu(oldSc.study))
 
   implicit private def makeRelayId(id: String): RoundModel.Id           = RoundModel.Id(id)
   implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)

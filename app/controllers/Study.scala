@@ -167,7 +167,7 @@ final class Study(
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>
-      CanViewResult(oldSc.study) {
+      CanView(oldSc.study, ctx.me) {
         for {
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
@@ -192,7 +192,7 @@ final class Study(
               }
           )
         } yield res
-      }
+      }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     } map NoCache
 
   private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
@@ -384,9 +384,9 @@ final class Study(
   def cloneStudy(id: String) =
     Auth { implicit ctx => _ =>
       OptionFuResult(env.study.api.byId(id)) { study =>
-        CanViewResult(study) {
+        CanView(study, ctx.me) {
           Ok(html.study.clone(study)).fuccess
-        }
+        }(privateUnauthorizedFu(study), privateForbiddenFu(study))
       }
     }
 
@@ -408,11 +408,11 @@ final class Study(
       CloneLimitPerUser(me.id, cost = cost) {
         CloneLimitPerIP(HTTPRequest ipAddress ctx.req, cost = cost) {
           OptionFuResult(env.study.api.byId(id)) { prev =>
-            CanViewResult(prev) {
+            CanView(prev, me.some) {
               env.study.api.clone(me, prev) map { study =>
                 Redirect(routes.Study.show((study | prev).id.value))
               }
-            }
+            }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
           }
         }(rateLimitedFu)
       }(rateLimitedFu)
@@ -428,28 +428,48 @@ final class Study(
     Open { implicit ctx =>
       PgnRateLimitPerIp(HTTPRequest ipAddress ctx.req) {
         OptionFuResult(env.study.api byId id) { study =>
-          CanViewResult(study) {
-            lila.mon.export.pgn.study.increment()
-            Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
-              .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
-              .as(pgnContentType)
-              .fuccess
-          }
+          CanView(study, ctx.me) {
+            doPgn(study, ctx.req).fuccess
+          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }(rateLimitedFu)
     }
+
+  def apiPgn(id: String) = {
+    def handle(me: Option[lila.user.User], req: RequestHeader): Fu[Result] =
+      env.study.api.byId(id).map {
+        _.fold(NotFound(jsonError("Study not found"))) { study =>
+          PgnRateLimitPerIp(HTTPRequest ipAddress req) {
+            CanView(study, me) {
+              doPgn(study, req)
+            }(privateUnauthorizedJson, privateForbiddenJson)
+          }(rateLimitedJson)
+        }
+      }
+    AnonOrScoped(_.Study.Read)(
+      anon = req => handle(none, req),
+      scoped = req => me => handle(me.some, req)
+    )
+  }
+
+  private def doPgn(study: StudyModel, req: RequestHeader) = {
+    lila.mon.export.pgn.study.increment()
+    Ok.chunked(env.study.pgnDump(study, requestPgnFlags(req)))
+      .pipe(asAttachmentStream(s"${env.study.pgnDump filename study}.pgn"))
+      .as(pgnContentType)
+  }
 
   def chapterPgn(id: String, chapterId: String) =
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
-          CanViewResult(study) {
+          CanView(study, ctx.me) {
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
               .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
               .as(pgnContentType)
               .fuccess
-          }
+          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }
     }
@@ -496,13 +516,13 @@ final class Study(
     Open { implicit ctx =>
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) { case WithChapter(study, chapter) =>
-          CanViewResult(study) {
+          CanView(study, ctx.me) {
             env.study.gifExport.ofChapter(chapter) map { stream =>
               Ok.chunked(stream)
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
             }
-          }
+          }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }
     }
@@ -510,9 +530,9 @@ final class Study(
   def multiBoard(id: String, page: Int) =
     Open { implicit ctx =>
       OptionFuResult(env.study.api byId id) { study =>
-        CanViewResult(study) {
+        CanView(study, ctx.me) {
           env.study.multiBoard.json(study.id, page, getBool("playing")) map JsonOk
-        }
+        }(privateUnauthorizedJson.fuccess, privateForbiddenJson.fuccess)
       }
     }
 
@@ -548,18 +568,29 @@ final class Study(
         )
     }
 
-  private[controllers] def CanViewResult(
-      study: StudyModel
-  )(f: => Fu[Result])(implicit ctx: lila.api.Context) =
-    if (canView(study)) f
-    else
-      negotiate(
-        html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
-        api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
-      )
+  def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
+  def privateUnauthorizedFu(study: StudyModel)(implicit ctx: lila.api.Context) =
+    negotiate(
+      html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
+      api = _ => fuccess(privateUnauthorizedJson)
+    )
 
-  private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
-    !study.isPrivate || ctx.userId.exists(study.members.contains)
+  def privateForbiddenJson = Forbidden(jsonError("This study is now private"))
+  def privateForbiddenFu(study: StudyModel)(implicit ctx: lila.api.Context) =
+    negotiate(
+      html = fuccess(Forbidden(html.site.message.privateStudy(study))),
+      api = _ => fuccess(privateForbiddenJson)
+    )
+
+  def CanView[A](study: StudyModel, me: Option[lila.user.User])(
+      f: => A
+  )(unauthorized: => A, forbidden: => A): A =
+    me match {
+      case _ if !study.isPrivate                     => f
+      case None                                      => unauthorized
+      case Some(me) if study.members.contains(me.id) => f
+      case _                                         => forbidden
+    }
 
   implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
   implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
