@@ -91,7 +91,7 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 else if (data.game.status.name === 'outoftime') clock = 0;
                 else if (data.clock) {
                   const prevClock = tree[x - 1]?.clock;
-                  if (prevClock) clock = prevClock + data.clock.increment + centis;
+                  if (prevClock) clock = prevClock + data.clock.increment - centis;
                 }
               }
               if (clock != undefined) {
