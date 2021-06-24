@@ -250,7 +250,7 @@
   <string name="play">Pelaa</string>
   <string name="inbox">Postilaatikko</string>
   <string name="chatRoom">Keskusteluhuone</string>
-  <string name="loginToChat">Kirjaudu chattiin</string>
+  <string name="loginToChat">Kirjaudu osallistuaksesi keskusteluun</string>
   <string name="youHaveBeenTimedOut">Olet jäähyllä.</string>
   <string name="spectatorRoom">Katsojienhuone</string>
   <string name="composeMessage">Luo viesti</string>
@@ -426,7 +426,7 @@
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
-  <string name="berserkRate">Berserkprosentti</string>
+  <string name="berserkRate">Berserkkiprosentti</string>
   <string name="performance">Suoritus</string>
   <string name="tournamentComplete">Turnaus päättynyt</string>
   <string name="movesPlayed">Siirtoja</string>
@@ -875,4 +875,5 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
+  <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
 </resources>
