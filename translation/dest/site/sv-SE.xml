@@ -871,4 +871,7 @@
 och påverkar spelares rating</string>
   <string name="noRestriction">Ingen begränsning</string>
   <string name="minimumRatedGames">Minst antal rankade partier</string>
+  <string name="minimumRating">Lägsta rating</string>
+  <string name="maximumWeeklyRating">Högsta vecko-rating</string>
+  <string name="onlyTitled">Endast betitlade spelare</string>
 </resources>
