@@ -869,4 +869,10 @@
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="cancelTournament">Toernooi annuleren</string>
+  <string name="tournDescription">Toernooibeschrijving</string>
+  <string name="onlyMembersOfTeam">Alleen leden van het team</string>
+  <string name="noRestriction">Geen restrictie</string>
+  <string name="minimumRating">Minimale rating</string>
+  <string name="maximumWeeklyRating">Maximale wekelijkse rating</string>
 </resources>
