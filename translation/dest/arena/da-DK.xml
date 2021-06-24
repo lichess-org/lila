@@ -42,4 +42,12 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
     <item quantity="one">Se holdet</item>
     <item quantity="other">Se alle %s hold</item>
   </plurals>
+  <string name="newTeamBattle">Ny holdkamp</string>
+  <string name="customStartDate">Tilpasset startdato</string>
+  <string name="customStartDateHelp">I din egen lokale tidszone. Dette tilsidesætter \"Tid før turnering starter\" indstillingen</string>
+  <string name="allowBerserk">Tillad Berserk</string>
+  <string name="allowBerserkHelp">Lad spillerne halvere deres tid på uret for at få et ekstra point</string>
+  <string name="allowChatHelp">Lad spillere diskutere i et chatrum</string>
+  <string name="arenaStreaks">Arena-stime</string>
+  <string name="arenaStreaksHelp">Efter 2 sejre giver fortløbende sejre 4 point i stedet for 2.</string>
 </resources>
