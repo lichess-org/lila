@@ -949,4 +949,8 @@
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="coachManager">Menedżer trenera</string>
   <string name="streamerManager">Menedżer streamera</string>
+  <string name="cancelTournament">Anuluj turniej</string>
+  <string name="tournDescription">Opis turnieju</string>
+  <string name="noRestriction">Bez ograniczeń</string>
+  <string name="minimumRating">Minimalny ranking</string>
 </resources>
