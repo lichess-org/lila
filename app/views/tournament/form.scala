@@ -235,7 +235,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = trans.positionInputHelp(a(href := routes.Editor.index, target := "_blank")(trans.boardEditor.txt())).some
+      help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(
       views.html.tournament.form.startingPosition(_, tour)
     )
