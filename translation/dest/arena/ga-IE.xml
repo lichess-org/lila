@@ -53,6 +53,7 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   </plurals>
   <string name="newTeamBattle">Cath Foirne Nua</string>
   <string name="customStartDate">Dáta tosaigh saincheaptha</string>
+  <string name="customStartDateHelp">I do chrios ama áitiúil féin. Sáraíonn sé seo an socrú \"Am sula dtosaíonn an comórtas\"</string>
   <string name="allowBerserk">Lig Berserk</string>
   <string name="allowBerserkHelp">Lig d’imreoirí a gcuid ama clog a laghdú chun pointe breise a fháil</string>
   <string name="allowChatHelp">Lig d’imreoirí plé a dhéanamh i seomra comhrá</string>
