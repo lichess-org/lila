@@ -870,4 +870,7 @@
   <string name="streamerManager">Configurações para streamers</string>
   <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Algo especial que você queira dizer aos participantes? Tente ser breve. Links em Markdown disponíveis: [name](https://url)</string>
+  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Os jogos valem pontos
+e afetam a classificação dos jogadores</string>
 </resources>
