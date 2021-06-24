@@ -869,4 +869,8 @@
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
+  <string name="tournDescription">Описание на турнира</string>
+  <string name="noRestriction">Без ограничение</string>
+  <string name="minimumRating">Минимален рейтинг</string>
+  <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
 </resources>
