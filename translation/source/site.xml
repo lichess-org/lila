@@ -870,4 +870,20 @@ computer analysis, game chat and shareable URL.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="cancelTournament">Cancel the tournament</string>
+  <string name="tournDescription">Tournament description</string>
+  <string name="tournDescriptionHelp">Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)</string>
+  <string name="ratedFormHelp">Games are rated
+and impact players ratings</string>
+  <string name="onlyMembersOfTeam">Only members of team</string>
+  <string name="noRestriction">No restriction</string>
+  <string name="minimumRatedGames">Minimum rated games</string>
+  <string name="minimumRating">Minimum rating</string>
+  <string name="maximumWeeklyRating">Maximum weekly rating</string>
+  <string name="onlyTitled">Only titled players</string>
+  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
+  <string name="positionInputHelp">Paste a valid FEN to start every game from a given position.
+It only works for standard games, not with variants.
+You can use the %s to generate a FEN position, then paste it here.
+Leave empty to start games from the normal initial position.</string>
 </resources>
