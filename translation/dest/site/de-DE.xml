@@ -871,6 +871,7 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
+  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
   <string name="ratedFormHelp">Partien sind gewertet und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
   <string name="noRestriction">Keine Einschränkung</string>
