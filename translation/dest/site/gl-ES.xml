@@ -870,4 +870,19 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
 Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicamente mediante as doazóns d@s usuari@s.</string>
   <string name="coachManager">Administrador de adestradores/as</string>
   <string name="streamerManager">Administrador de streamers</string>
+  <string name="cancelTournament">Cancelar o torneo</string>
+  <string name="tournDescription">Descripción do torneo</string>
+  <string name="tournDescriptionHelp">Tes algo en especial que dicir ás participantes? Tenta ser breve. Poden engadir ligazóns de Markdown [name](https://url)</string>
+  <string name="ratedFormHelp">As partidas son puntuadas e impactan nas calificacións das xogadoras</string>
+  <string name="onlyMembersOfTeam">Só membros do equipo</string>
+  <string name="noRestriction">Sen restrición</string>
+  <string name="minimumRatedGames">Mínimo de partidas por puntos</string>
+  <string name="minimumRating">Mínima puntuación</string>
+  <string name="maximumWeeklyRating">Máxima puntuación semanal</string>
+  <string name="onlyTitled">Só xogadoras tituladas</string>
+  <string name="onlyTitledHelp">Require un título oficial para xogar o torneo</string>
+  <string name="positionInputHelp">Pega un FEN válido para comezar cada partida dende unha posición determinada.
+Só funciona para xogos estándar, non con variantes.
+Podes empregar o %s para xerar unha posición FEN e despois pegala aquí.
+Deixa en branco para comezar partidas dende a posición inicial normal.</string>
 </resources>
