@@ -992,5 +992,14 @@ Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir tr�
   <string name="streamerManager">Socruithe sruthanna a bhainistiú</string>
   <string name="cancelTournament">Cuir an comórtas ar ceal</string>
   <string name="tournDescription">Cur síos ar an gcomórtas</string>
+  <string name="tournDescriptionHelp">Rud ar bith speisialta ba mhaith leat a rá leis na rannpháirtithe? Déan iarracht é a choinneáil gearr. Tá naisc Markdown ar fáil: [name](https://url)</string>
+  <string name="ratedFormHelp">Déantar cluichí a rátáil
+agus rátálacha imreoirí tionchair</string>
   <string name="onlyMembersOfTeam">Baill foirne amháin</string>
+  <string name="noRestriction">Gan aon srian</string>
+  <string name="minimumRatedGames">Cluichí rátáilte íosta</string>
+  <string name="minimumRating">Rátáil íosta</string>
+  <string name="maximumWeeklyRating">Uasráta seachtainiúil</string>
+  <string name="onlyTitled">Imreoirí dar teideal amháin</string>
+  <string name="onlyTitledHelp">Teideal oifigiúil a éileamh chun páirt a ghlacadh sa chomórtas</string>
 </resources>
