@@ -31,4 +31,5 @@
   <string name="otherRules">قوانین مهم دیگر</string>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
+  <string name="newTeamBattle">مبارزه تیمی جدید</string>
 </resources>
