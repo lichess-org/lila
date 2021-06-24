@@ -28,7 +28,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
                   {
                     attrs: {
                       href: `/training/${puzzle.id}`,
-                      ...(ctrl.streak ? { target: '_blank' } : {}),
+                      ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                     },
                   },
                   '#' + puzzle.id
