@@ -869,4 +869,5 @@
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
   <string name="coachManager">Innstillinger for trenere</string>
   <string name="streamerManager">Innstillinger for strømmere</string>
+  <string name="tournDescription">Turneringsbeskrivelse</string>
 </resources>
