@@ -951,6 +951,13 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="streamerManager">Menedżer streamera</string>
   <string name="cancelTournament">Anuluj turniej</string>
   <string name="tournDescription">Opis turnieju</string>
+  <string name="tournDescriptionHelp">Czy chcesz powiedzieć coś szczególnego uczestnikom? Pisz krótko i na temat. Istnieje możliwość dodania odnośników: [text](https://url)</string>
+  <string name="ratedFormHelp">Partie są rankingowe i wpływają na ranking graczy</string>
+  <string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
   <string name="noRestriction">Bez ograniczeń</string>
+  <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
   <string name="minimumRating">Minimalny ranking</string>
+  <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
+  <string name="onlyTitled">Tylko gracze z tytułem</string>
+  <string name="onlyTitledHelp">Wymagaj oficjalnego tytułu, aby dołączyć do turnieju</string>
 </resources>
