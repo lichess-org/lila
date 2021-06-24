@@ -952,6 +952,7 @@ Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik 
   <string name="streamerManager">Transliuotojų valdymas</string>
   <string name="cancelTournament">Atšaukti turnyrą</string>
   <string name="tournDescription">Turnyro aprašymas</string>
+  <string name="tournDescriptionHelp">Yra kažkas, ką turi žinoti dalyviai? Stenkitės perteikti trumpai. Galimos Markdown nuorodos: [pavadinimas](https://url)</string>
   <string name="ratedFormHelp">Partijos reitinguotos
 ir daro įtaką žaidėjų reitingams</string>
   <string name="onlyMembersOfTeam">Tik komandos nariai</string>
@@ -961,4 +962,8 @@ ir daro įtaką žaidėjų reitingams</string>
   <string name="maximumWeeklyRating">Maksimalus savaitinis reitingas</string>
   <string name="onlyTitled">Tik tituluoti žaidėjai</string>
   <string name="onlyTitledHelp">Jungiantis prie turnyro reikalauti oficialaus titulo</string>
+  <string name="positionInputHelp">Norėdami pradėti žaidimą nuo specifinės pozicijos, įklijuokite teisingą FEN.
+Veikia tik standartiniams žaidimams, ne variantams.
+Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
+Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijos.</string>
 </resources>
