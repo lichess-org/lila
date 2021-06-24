@@ -185,7 +185,7 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = views.html.tournament.form.positionInputHelp.some
+      help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(form3.input(_))
   def startsAt =
     form3.group(

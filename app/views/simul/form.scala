@@ -125,7 +125,7 @@ object form {
           trans.startPosition(),
           klass = "position",
           half = true,
-          help = views.html.tournament.form.positionInputHelp.some
+          help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
         )(form3.input(_))
       ),
       form3.group(
