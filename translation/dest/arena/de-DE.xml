@@ -46,6 +46,8 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
     <item quantity="other">Alle %s Teams ansehen</item>
   </plurals>
   <string name="newTeamBattle">Neuer Teamkampf</string>
+  <string name="customStartDate">Benutzerdefiniertes Startdatum</string>
+  <string name="customStartDateHelp">In deiner eigenen lokalen Zeitzone. Dies wird die Einstellung \"Zeit vor Turnier\" überschrieben</string>
   <string name="allowBerserk">Berserk erlauben</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>
