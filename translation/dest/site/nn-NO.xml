@@ -869,7 +869,20 @@ få en computeranalyse, chatte eller dele ein URL.</string>
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
-  <string name="cancelTournament">Avlys turneringa</string>
+  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Avlys turneringa</string>
   <string name="tournDescription">Beskriving av turneringa</string>
-  <string name="tournDescriptionHelp">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
+  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Partia er rata
+og påverkar ratinga til spelarane</string>
+  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Berre medlemar av laget</string>
+  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournament games.">Inga avgrensingar</string>
+  <string name="minimumRatedGames">Minste antal rata parti</string>
+  <string name="minimumRating">Lågaste rating</string>
+  <string name="maximumWeeklyRating">Høgste rating siste veke</string>
+  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Berre spelarar med sjakktittel</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Krev ein offisiell sjakktittel for å delta med i turneringa</string>
+  <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
+Det fungerar berre for standardparti, ikke for variantar.
+Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
+La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</string>
 </resources>
