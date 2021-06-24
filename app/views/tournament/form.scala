@@ -186,7 +186,6 @@ object form {
     form3.input(field)(
       tour.exists(t => !t.isCreated && t.position.isEmpty).option(disabled := true)
     )
-
 }
 
 final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit ctx: Context) {
