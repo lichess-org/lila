@@ -870,4 +870,13 @@
   <string name="streamerManager">Yayıncı ayarları</string>
   <string name="cancelTournament">Turnuvayı iptal et</string>
   <string name="tournDescription">Turnuca açıklaması</string>
+  <string name="tournDescriptionHelp">Katılımcılara söylemek istediğiniz özel bir şey var mı? Kısa tutmaya çalışın. İşaretleme bağlantılarını kullanabilirsiniz: [name](https://url)</string>
+  <string name="ratedFormHelp">Oyunlar derecelidir ve oyuncu puanlarını etkilemektedir</string>
+  <string name="onlyMembersOfTeam">Sadece takım üyeleri</string>
+  <string name="noRestriction">Kısıtlama yok</string>
+  <string name="minimumRatedGames">En düşük puanlı oyunlar</string>
+  <string name="minimumRating">En düşük puan</string>
+  <string name="maximumWeeklyRating">Haftalık en yüksek puan</string>
+  <string name="onlyTitled">Sadece unvanlı oyuncular</string>
+  <string name="onlyTitledHelp">Turnuvaya katılmak için resmi bir unvanı zorunlu kıl</string>
 </resources>
