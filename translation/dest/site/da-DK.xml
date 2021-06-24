@@ -871,4 +871,18 @@ Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerd
   <string name="streamerManager">Streamer-administration</string>
   <string name="cancelTournament">Aflys turneringen</string>
   <string name="tournDescription">Turneringsbeskrivelse</string>
+  <string name="tournDescriptionHelp">Noget særligt du ønsker at fortælle deltagerne? Prøv at holde det kort. Markdown-links er tilgængelige: [name](https://url)</string>
+  <string name="ratedFormHelp">Partier er ratede
+og påvirker spilleres ratings</string>
+  <string name="onlyMembersOfTeam">Kun medlemmer af hold</string>
+  <string name="noRestriction">Ingen restriktion</string>
+  <string name="minimumRatedGames">Minimum ratede partier</string>
+  <string name="minimumRating">Minimum rating</string>
+  <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
+  <string name="onlyTitled">Kun spilere med titel</string>
+  <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
+  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
+Det virker kun for standardspil, ikke med varianter.
+Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
+Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
 </resources>
