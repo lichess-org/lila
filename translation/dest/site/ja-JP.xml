@@ -657,7 +657,7 @@
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
-  <string name="sessions"> セッション</string>
+  <string name="sessions">セッション</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスを対局</string>
   <string name="asFreeAsLichess">Lichess は常に無料</string>
