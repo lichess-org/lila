@@ -47,4 +47,5 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
     <item quantity="many">Zobacz wszystkie %s zespołów</item>
     <item quantity="other">Zobacz wszystkie %s zespołów</item>
   </plurals>
+  <string name="customStartDate">Niestandardowa data rozpoczęcia</string>
 </resources>
