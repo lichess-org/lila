@@ -48,4 +48,5 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir Berserk</string>
   <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Os jogadores poderão reduzir seu tempo pela metade para ganhar um ponto extra</string>
   <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Permite que os jogadores discutam em uma sala de chat</string>
+  <string name="arenaStreaksHelp">Após ganhar 2 partidas, vitórias consecutivas valem 4 pontos, ao invés de 2.</string>
 </resources>
