@@ -193,7 +193,7 @@ object form {
     "It only works for standard games, not with variants.",
     br,
     "You can use the ",
-    a(href := routes.Editor.index, target := "_blank")("board editor"),
+    a(href := routes.Editor.index, targetBlank)("board editor"),
     " to generate a FEN position, then paste it here.",
     br,
     "Leave empty to start games from the normal initial position."
