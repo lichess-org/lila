@@ -880,9 +880,9 @@ a la puntuación de los jugadores</string>
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
   <string name="onlyTitled">Solo jugadores titulados</string>
-  <string name="onlyTitledHelp">Se necesita un título oficial para participar en el torneo</string>
-  <string name="positionInputHelp">Pega una posición FEN válida para iniciar cualquier partida desde una posición específica.
+  <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
+  <string name="positionInputHelp">Pega una posición FEN válida para empezar todas las partidas con una posición específica.
 Solo funciona con partidas estándar, no con las variantes.
-Puedes usar el %s para generar una posición y, a continuación, pegarla aquí.
+Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
 Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
 </resources>
