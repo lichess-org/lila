@@ -45,5 +45,7 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alle %s Teams ansehen</item>
   </plurals>
+  <string name="newTeamBattle">Neuer Teamkampf</string>
   <string name="allowBerserk">Berserk erlauben</string>
+  <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>
