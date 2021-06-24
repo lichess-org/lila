@@ -42,4 +42,6 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
     <item quantity="one">Ver a equipe</item>
     <item quantity="other">Ver todas as %s equipes</item>
   </plurals>
+  <string name="newTeamBattle">Nova batalha de equipes</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Mudar a data de início</string>
 </resources>
