@@ -949,6 +949,7 @@
 Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Для стримеров</string>
+  <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
   <string name="tournDescriptionHelp">Всё, что вы хотите рассказать участникам. Будьте краткими. Для ссылок доступна разметка Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
@@ -960,4 +961,8 @@
   <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
   <string name="onlyTitled">Только игроки со званиями</string>
   <string name="onlyTitledHelp">Требует официального звания для участия в турнире</string>
+  <string name="positionInputHelp">Вставьте правильную строку FEN, чтобы каждая игра начиналась с заданной позиции.
+Это работает только для стандартных игр, но не с вариантами.
+Вы можете использовать %s для создания позиции FEN, а затем вставить её здесь.
+Оставьте поле пустым, чтобы игры начинались с обычной начальной позиции.</string>
 </resources>
