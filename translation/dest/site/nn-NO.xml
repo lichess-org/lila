@@ -869,4 +869,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
+  <string name="cancelTournament">Avlys turneringa</string>
+  <string name="tournDescription">Beskriving av turneringa</string>
+  <string name="tournDescriptionHelp">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
 </resources>
