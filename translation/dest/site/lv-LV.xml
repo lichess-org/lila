@@ -919,4 +919,9 @@ Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi
   <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Minimālais reitings</string>
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Maksimālais nedēļas reitings</string>
   <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Tikai spēlētāji ar tituliem</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Pieprasīt titulu pirms pievienošanās turnīram</string>
+  <string name="positionInputHelp">Ielīmējiet derīgu FEN, lai sāktu katru spēli no dotās pozīcijas.
+Šis darbojas tikai ar standarta spēlēm nevis variantiem.
+Varat izmantot rīku \"%s\", lai izveidotu FEN pozīciju, tad ielīmējiet to šeit.
+Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
 </resources>
