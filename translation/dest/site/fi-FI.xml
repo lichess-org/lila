@@ -875,9 +875,14 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="ratedFormHelp">Pelit pisteytetään ja niillä on
 vaikutus pelaajien vahvuuslukuihin</string>
   <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
+  <string name="noRestriction">Ei rajoituksia</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
   <string name="onlyTitledHelp">Turnaukseen liittyminen edellyttää virallista arvonimeä</string>
+  <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
+Se toimii vain tavallisissa peleissä, ei varianteissa.
+Voit luoda aseman %slla ja kopioida FEN-koodin sieltä tänne.
+Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</string>
 </resources>
