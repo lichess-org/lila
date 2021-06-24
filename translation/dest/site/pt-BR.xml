@@ -868,4 +868,6 @@
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="coachManager">Configurações para professores</string>
   <string name="streamerManager">Configurações para streamers</string>
+  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Cancelar o torneio</string>
+  <string name="tournDescription">Descrição do torneio</string>
 </resources>
