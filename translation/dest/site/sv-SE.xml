@@ -864,4 +864,7 @@
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
   <string name="welcome">Välkommen!</string>
+  <string name="cancelTournament">Avbryt turneringen</string>
+  <string name="tournDescription">Turneringsbeskrivning</string>
+  <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
 </resources>
