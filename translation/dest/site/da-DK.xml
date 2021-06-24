@@ -869,4 +869,6 @@
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="coachManager">Træner-administration</string>
   <string name="streamerManager">Streamer-administration</string>
+  <string name="cancelTournament">Aflys turneringen</string>
+  <string name="tournDescription">Turneringsbeskrivelse</string>
 </resources>
