@@ -869,4 +869,10 @@
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>
+  <string name="tournDescription">Turnauksen kuvaus</string>
+  <string name="ratedFormHelp">Pelit pisteytetään ja niillä on
+vaikutus pelaajien vahvuuslukuihin</string>
+  <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
+  <string name="minimumRating">Vahvuusluku vähintään</string>
+  <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
 </resources>
