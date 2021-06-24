@@ -44,4 +44,8 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   </plurals>
   <string name="newTeamBattle">Nova batalha de equipes</string>
   <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Mudar a data de início</string>
+  <string name="customStartDateHelp">No seu próprio fuso horário. Isso irá cancelar a configuração \"Contagem regressiva para início do torneio\"</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir Berserk</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Os jogadores poderão reduzir seu tempo pela metade para ganhar um ponto extra</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Permite que os jogadores discutam em uma sala de chat</string>
 </resources>
