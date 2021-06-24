@@ -40,4 +40,6 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="newTeamBattle">Ny lagkamp</string>
   <string name="allowBerserk">Tillat berserk</string>
   <string name="allowBerserkHelp">La spillerne halvere tiden sin på klokken for et ekstra poeng</string>
+  <string name="arenaStreaks">Arenarekker</string>
+  <string name="arenaStreaksHelp">Etter 2 seiere gir påfølgende seiere 4 poeng i stedet for 2.</string>
 </resources>
