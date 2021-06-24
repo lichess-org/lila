@@ -49,5 +49,6 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
   <string name="customStartDate">Benutzerdefiniertes Startdatum</string>
   <string name="customStartDateHelp">In deiner eigenen lokalen Zeitzone. Dies wird die Einstellung \"Zeit vor Turnier\" überschrieben</string>
   <string name="allowBerserk">Berserk erlauben</string>
+  <string name="allowChatHelp">Lass Spieler in einem Chatraum diskutieren</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>
