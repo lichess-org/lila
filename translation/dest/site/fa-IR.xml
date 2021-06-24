@@ -851,15 +851,19 @@
   <string name="welcome">خوش آمدید!</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="coachManager">تنظیمات مربی</string>
-  <string name="cancelTournament">لغو مسابقه</string>
+  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
-  <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
-  <string name="ratedFormHelp">بازی ها رتبه بندی می شوند و در ریتینگ بازیکنان موثر است</string>
-  <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
-  <string name="noRestriction">بدون محدودیت</string>
-  <string name="minimumRatedGames">حداقل بازی های ریتد</string>
-  <string name="minimumRating">حداقل امتیاز</string>
-  <string name="maximumWeeklyRating">حداکثر امتیاز هفتگی</string>
-  <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
-  <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
+  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">بازی ها رتبه بندی می شوند و در ریتینگ بازیکنان موثر است</string>
+  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">تنها اعضای تیم</string>
+  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">بدون محدودیت</string>
+  <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">حداقل بازی های ریتد</string>
+  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">حداقل امتیاز</string>
+  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">حداکثر امتیاز هفتگی</string>
+  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">تنها بازیکنان عنوان دار</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
+  <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.
+این عمل فقط برای بازی های استاندارد امکان پذیر است، نه با واریانت ها.
+شما می توانید %s را جهت ساخت یک پوزیشن FEN استفاده کنید و سپس اینجا جایگذاری کنید.
+برای شروع بازی ها از وضعیت عادی ابتدایی خالی بگذارید.</string>
 </resources>
