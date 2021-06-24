@@ -44,4 +44,5 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lis채채 pelej채 ja ansaita lis�
     <item quantity="other">N채yt채 kaikki %s joukkuetta</item>
   </plurals>
   <string name="allowBerserkHelp">Anna pelaajien puolittaa aika kellossaan ja tavoitella lis채pistett채</string>
+  <string name="allowChatHelp">Anna pelaajien kirjoittaa keskusteluhuoneeseen</string>
 </resources>
