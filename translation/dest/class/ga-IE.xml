@@ -70,6 +70,9 @@ Seo an nasc le dul isteach sa rang.</string>
   <string name="releaseDesc1">Ní féidir cuntas scaoilte a bhainistiú arís. Beidh an dalta in ann modh páiste a scoránú agus pasfhocal a athshocrú iad féin.</string>
   <string name="releaseDesc2">Fanfaidh an dalta sa rang tar éis a chuntas a scaoileadh.</string>
   <string name="realUniqueEmail">Seoladh ríomhphoist fíor, uathúil an dalta. Seolfaimid r-phost dearbhaithe chuige, le nasc chun an cuntas a scaoileadh.</string>
+  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Dún cuntas</string>
+  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Dún cuntas na mac léinn go buan.</string>
+  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Ní bheidh an mac léinn riamh in ann an cuntas seo a úsáid arís. Tá an clabhsúr críochnaitheach. Déan cinnte go dtuigeann agus go n-aontaíonn an mac léinn.</string>
   <string name="teachers">Múinteoirí</string>
   <plurals name="nbTeachers">
     <item quantity="one">Múiteoir</item>
