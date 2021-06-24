@@ -874,4 +874,5 @@ och påverkar spelares rating</string>
   <string name="minimumRating">Lägsta rating</string>
   <string name="maximumWeeklyRating">Högsta vecko-rating</string>
   <string name="onlyTitled">Endast betitlade spelare</string>
+  <string name="onlyTitledHelp">Kräv en officiell titel för att delta i turneringen</string>
 </resources>
