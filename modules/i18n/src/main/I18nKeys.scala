@@ -1842,7 +1842,15 @@ val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
 
 object swiss {
 val `swissTournaments` = new I18nKey("swiss:swissTournaments")
+val `roundsAreStartedManually` = new I18nKey("swiss:roundsAreStartedManually")
+val `startingIn` = new I18nKey("swiss:startingIn")
+val `nextRound` = new I18nKey("swiss:nextRound")
 val `viewAllXRounds` = new I18nKey("swiss:viewAllXRounds")
+val `nbRounds` = new I18nKey("swiss:nbRounds")
+val `oneRoundEveryXDays` = new I18nKey("swiss:oneRoundEveryXDays")
+val `xSecondsBetweenRounds` = new I18nKey("swiss:xSecondsBetweenRounds")
+val `xMinutesBetweenRounds` = new I18nKey("swiss:xMinutesBetweenRounds")
+val `ongoingGames` = new I18nKey("swiss:ongoingGames")
 }
 
 object puzzle {

@@ -5,4 +5,26 @@
     <item quantity="one">View the round</item>
     <item quantity="other">View all %s rounds</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s rounds</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">One round per day</item>
+    <item quantity="other">One round every %s days</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Rounds are started manually</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s second between rounds</item>
+    <item quantity="other">%s seconds between rounds</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minunte between rounds</item>
+    <item quantity="other">%s minutes between rounds</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Starting in</string>
+  <string name="nextRound">Next round</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Ongoing game</item>
+    <item quantity="other">Ongoing games</item>
+  </plurals>
 </resources>
