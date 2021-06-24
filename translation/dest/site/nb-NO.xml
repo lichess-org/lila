@@ -869,5 +869,10 @@
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
   <string name="coachManager">Innstillinger for trenere</string>
   <string name="streamerManager">Innstillinger for strømmere</string>
+  <string name="cancelTournament">Avlys turneringen</string>
   <string name="tournDescription">Turneringsbeskrivelse</string>
+  <string name="ratedFormHelp">Partiene er ratet
+og påvirker spillernes rating</string>
+  <string name="onlyTitled">Kun spillere med sjakktittel</string>
+  <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å bli med i turneringen</string>
 </resources>
