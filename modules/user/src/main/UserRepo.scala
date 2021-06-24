@@ -391,8 +391,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
-  def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
-
   def filterEngine(ids: Seq[ID]): Fu[Set[ID]] =
     coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ engineSelect(true)))
 
