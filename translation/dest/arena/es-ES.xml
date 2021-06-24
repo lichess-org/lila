@@ -44,4 +44,6 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
     <item quantity="one">Ver equipo</item>
     <item quantity="other">Ver los %s equipos</item>
   </plurals>
+  <string name="newTeamBattle">Nueva batalla de equipo</string>
+  <string name="customStartDate">Fecha de inicio personalizada</string>
 </resources>
