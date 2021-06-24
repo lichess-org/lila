@@ -42,4 +42,7 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="customStartDateHelp">I din tidssone. Dette overstyrar innstillinga «Tid før turnering startar»</string>
   <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Tillat berserk</string>
   <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Lat spelarane halvere tida si på klokka for eit ekstra poeng</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Lat spelarane diskutera i samtalerom</string>
+  <string name="arenaStreaks">Arena-sigersrekkjer</string>
+  <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
 </resources>
