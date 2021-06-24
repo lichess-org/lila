@@ -43,4 +43,5 @@
     <item quantity="one">Вижте отбора</item>
     <item quantity="other">Вижте всички %s отбора</item>
   </plurals>
+  <string name="newTeamBattle">Нова отборна битка</string>
 </resources>
