@@ -1002,4 +1002,8 @@ agus rátálacha imreoirí tionchair</string>
   <string name="maximumWeeklyRating">Uasráta seachtainiúil</string>
   <string name="onlyTitled">Imreoirí dar teideal amháin</string>
   <string name="onlyTitledHelp">Teideal oifigiúil a éileamh chun páirt a ghlacadh sa chomórtas</string>
+  <string name="positionInputHelp">Greamaigh FEN bailí chun gach cluiche a thosú ó áit ar leith.
+Ní oibríonn sé ach le haghaidh cluichí caighdeánacha, ní le leaganacha.
+Is féidir leat an %s a úsáid chun suíomh FEN a ghiniúint, ansin é a ghreamú anseo.
+Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
 </resources>
