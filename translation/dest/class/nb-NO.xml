@@ -70,6 +70,7 @@ Her er lenken som gir tilgang til klassen.</string>
   <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Avslutt konto</string>
   <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Steng elevkontoen for godt.</string>
   <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Eleven vil aldri kunne bruke denne kontoen igjen. Dette er endelig. Sørg for at eleven forstår dette og er enig i det.</string>
+  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Du vil kanskje heller gi eleven kontroll over kontoen, slik at bruken kan fortsette.</string>
   <string name="teachers">Lærere</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærer</item>
