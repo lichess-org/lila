@@ -990,4 +990,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
 Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
   <string name="coachManager">Socruithe cóitseál a bhainistiú</string>
   <string name="streamerManager">Socruithe sruthanna a bhainistiú</string>
+  <string name="cancelTournament">Cuir an comórtas ar ceal</string>
+  <string name="tournDescription">Cur síos ar an gcomórtas</string>
+  <string name="onlyMembersOfTeam">Baill foirne amháin</string>
 </resources>
