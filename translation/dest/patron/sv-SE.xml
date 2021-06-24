@@ -19,10 +19,10 @@
   <string name="weAreNonProfit">Vi är en ideell förening eftersom vi anser att alla bör ha tillgång till en gratis schackplattform i världsklass.</string>
   <string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lichess, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betala %s en gång. Var en Lichess beskyddare för evigt!</string>
-  <string name="lifetimePatron">Livstids Lichess beskyddare</string>
+  <string name="payLifetimeOnce">Betala %s en gång. Var en Lichess Patron för evigt!</string>
+  <string name="lifetimePatron">Livstids Lichess Patron</string>
   <string name="monthly">Månadsvis</string>
-  <string name="recurringBilling">Återkommande fakturering, förnya dina beskyddare vingar varje månad.</string>
+  <string name="recurringBilling">Återkommande fakturering, förnya dina Patron-vingar varje månad.</string>
   <string name="onetime">En gång</string>
   <string name="singleDonation">En enda donation som ger dig Beskyddar-vingar i en månad.</string>
   <string name="otherAmount">Annat</string>
@@ -30,7 +30,7 @@
   <string name="withCreditCard">Kreditkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi är ett litet team, så ditt stöd gör en enorm skillnad!</string>
-  <string name="celebratedPatrons">Dessa hyllade beskyddare som gör Lichess möjligt</string>
+  <string name="celebratedPatrons">De berömda Patronerna som gör Lichess möjligt</string>
   <string name="whereMoneyGoes">Vart går pengarna?</string>
   <string name="serversAndDeveloper">Först och främst till kraftfulla servrar.
 Sedan betalar vi en heltidsutvecklare: %s, grundaren av Lichess.</string>
@@ -49,8 +49,8 @@ Eller så kan du %s.</string>
 Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="featuresComparison">Se den detaljerade jämförelsen av funktioner</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess beskyddare i en månad</item>
-    <item quantity="other">Lichess beskyddare i %s månader</item>
+    <item quantity="one">Lichess Patron i en månad</item>
+    <item quantity="other">Lichess Patron i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du stödjer lichess.org med %s per månad.</string>
   <string name="tyvm">Tack så mycket för din hjälp. Du äger!</string>
