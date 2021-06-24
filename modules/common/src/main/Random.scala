@@ -44,5 +44,5 @@ object ThreadLocalRandom extends Random {
 }
 
 object SecureRandom extends Random {
-  override val current = new java.security.SecureRandom().pp("init secure random")
+  override val current = new java.security.SecureRandom()
 }
