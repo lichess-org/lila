@@ -949,4 +949,15 @@
 Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Для стримеров</string>
+  <string name="tournDescription">Описание турнира</string>
+  <string name="tournDescriptionHelp">Всё, что вы хотите рассказать участникам. Будьте краткими. Для ссылок доступна разметка Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
+и влияют на рейтинг игроков</string>
+  <string name="onlyMembersOfTeam">Только для членов клуба</string>
+  <string name="noRestriction">Без ограничений</string>
+  <string name="minimumRatedGames">Минимум рейтинговых игр</string>
+  <string name="minimumRating">Минимальный рейтинг</string>
+  <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
+  <string name="onlyTitled">Только игроки со званиями</string>
+  <string name="onlyTitledHelp">Требует официального звания для участия в турнире</string>
 </resources>
