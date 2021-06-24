@@ -98,7 +98,10 @@ final class CoachApi(
     _.refreshAfterWrite(1 hour)
       .buildAsyncFuture { _ =>
         userRepo.coll.secondaryPreferred
-          .distinctEasy[String, Set]("profile.country", $doc("roles" -> lila.security.Permission.Coach.dbKey, "enabled" -> true))
+          .distinctEasy[String, Set](
+            "profile.country",
+            $doc("roles" -> lila.security.Permission.Coach.dbKey, "enabled" -> true)
+          )
       }
   }
   def allCountries: Fu[Set[String]] = countriesCache.get {}

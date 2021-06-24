@@ -54,7 +54,7 @@ final private class PasswordHasher(
   import org.mindrot.BCrypt
   import User.ClearPassword
 
-  private val aes  = new Aes(secret)
+  private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 

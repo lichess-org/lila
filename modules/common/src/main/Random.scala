@@ -3,15 +3,16 @@ package lila.common
 import scala.collection.mutable.StringBuilder
 
 abstract class Random {
+
   protected def current: java.util.Random
 
-  def nextBoolean(): Boolean              = current.nextBoolean()
-  def nextDouble(): Double                = current.nextDouble()
-  def nextFloat(): Float                  = current.nextFloat()
-  def nextInt(): Int                      = current.nextInt()
-  def nextInt(n: Int): Int                = current.nextInt(n)
-  def nextLong(): Long                    = current.nextLong()
-  def nextGaussian(): Double              = current.nextGaussian()
+  def nextBoolean(): Boolean = current.nextBoolean()
+  def nextDouble(): Double   = current.nextDouble()
+  def nextFloat(): Float     = current.nextFloat()
+  def nextInt(): Int         = current.nextInt()
+  def nextInt(n: Int): Int   = current.nextInt(n)
+  def nextLong(): Long       = current.nextLong()
+  def nextGaussian(): Double = current.nextGaussian()
 
   def nextBytes(len: Int): Array[Byte] = {
     val bytes = new Array[Byte](len)

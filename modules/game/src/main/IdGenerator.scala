@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Color
 
-import lila.common.{ ThreadLocalRandom, SecureRandom }
+import lila.common.{ SecureRandom, ThreadLocalRandom }
 import lila.db.dsl._
 
 final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
