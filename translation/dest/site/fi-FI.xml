@@ -352,7 +352,7 @@
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
-  <string name="importGameExplanation">Kun liität pelin PGN:n, voit selata peliä, näet tietokoneen analyysin ja pelille luodaan chat sekä URL, jonka voi jakaa.</string>
+  <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -872,8 +872,10 @@ Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan kä
   <string name="tournDescription">Turnauksen kuvaus</string>
   <string name="ratedFormHelp">Pelit pisteytetään ja niillä on
 vaikutus pelaajien vahvuuslukuihin</string>
+  <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
+  <string name="onlyTitledHelp">Turnaukseen liittyminen edellyttää virallista arvonimeä</string>
 </resources>
