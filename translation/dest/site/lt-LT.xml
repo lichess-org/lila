@@ -950,4 +950,15 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
+  <string name="cancelTournament">Atšaukti turnyrą</string>
+  <string name="tournDescription">Turnyro aprašymas</string>
+  <string name="ratedFormHelp">Partijos reitinguotos
+ir daro įtaką žaidėjų reitingams</string>
+  <string name="onlyMembersOfTeam">Tik komandos nariai</string>
+  <string name="noRestriction">Jokių apribojimų</string>
+  <string name="minimumRatedGames">Mažiausiai įvertintos partijos</string>
+  <string name="minimumRating">Minimalus reitingas</string>
+  <string name="maximumWeeklyRating">Maksimalus savaitinis reitingas</string>
+  <string name="onlyTitled">Tik tituluoti žaidėjai</string>
+  <string name="onlyTitledHelp">Jungiantis prie turnyro reikalauti oficialaus titulo</string>
 </resources>
