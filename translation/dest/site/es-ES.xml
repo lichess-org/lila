@@ -879,4 +879,5 @@ Todos los costes de funcionamiento, desarrollo y contenidos se financian únicam
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
   <string name="onlyTitled">Sólo jugadores titulados</string>
+  <string name="onlyTitledHelp">Se requiere un título oficial para unirse al torneo</string>
 </resources>
