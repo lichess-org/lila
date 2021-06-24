@@ -43,4 +43,6 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
     <item quantity="one">Ver o equipo</item>
     <item quantity="other">Ver todos os %s equipos</item>
   </plurals>
+  <string name="newTeamBattle">Nova batalla por equipos</string>
+  <string name="customStartDate">Fecha de comezo persoalizada</string>
 </resources>
