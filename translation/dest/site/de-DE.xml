@@ -869,4 +869,7 @@
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="coachManager">Trainerverwaltung</string>
   <string name="streamerManager">Streamerverwaltung</string>
+  <string name="tournDescription">Turnierbeschreibung</string>
+  <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
+  <string name="noRestriction">Keine Einschränkung</string>
 </resources>
