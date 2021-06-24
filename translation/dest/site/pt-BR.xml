@@ -879,4 +879,5 @@ e afetam a classificação dos jogadores</string>
   <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Classificação mínima</string>
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Classificação máxima da semana</string>
   <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Apenas jogadores titulados</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Exigir um título oficial para entrar no torneio</string>
 </resources>
