@@ -960,4 +960,8 @@ Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z dar
   <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
   <string name="onlyTitled">Tylko gracze z tytułem</string>
   <string name="onlyTitledHelp">Wymagaj oficjalnego tytułu, aby dołączyć do turnieju</string>
+  <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
+Działa tylko dla standardowych gier, nie działa dla wariantów.
+Możesz użyć %s , aby wygenerować pozycję FEN, a następnie wkleić ją tutaj.
+Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</string>
 </resources>
