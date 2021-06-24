@@ -51,4 +51,7 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
     <item quantity="many">Féach ar na %s foireann go léir</item>
     <item quantity="other">Féach ar na %s foireann go léir</item>
   </plurals>
+  <string name="newTeamBattle">Cath Foirne Nua</string>
+  <string name="customStartDate">Dáta tosaigh saincheaptha</string>
+  <string name="allowBerserk">Lig Berserk</string>
 </resources>
