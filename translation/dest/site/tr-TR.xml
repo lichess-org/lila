@@ -868,4 +868,6 @@
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="coachManager">Eğitmen ayarları</string>
   <string name="streamerManager">Yayıncı ayarları</string>
+  <string name="cancelTournament">Turnuvayı iptal et</string>
+  <string name="tournDescription">Turnuca açıklaması</string>
 </resources>
