@@ -59,8 +59,7 @@ final private class PasswordHasher(
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
   def hash(p: ClearPassword): HashedPassword = {
-    val salt = new Array[Byte](16)
-    SecureRandom.nextBytes(salt)
+    val salt = SecureRandom.nextBytes(16)
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 

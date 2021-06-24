@@ -48,11 +48,7 @@ object TotpSecret {
 
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
-  def random: TotpSecret = {
-    val secret = new Array[Byte](20)
-    SecureRandom.nextBytes(secret)
-    TotpSecret(secret)
-  }
+  def random = TotpSecret(SecureRandom.nextBytes(20))
 
   private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },
