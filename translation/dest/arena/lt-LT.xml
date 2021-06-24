@@ -47,4 +47,7 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
     <item quantity="many">Peržvelgti visas %s komandų</item>
     <item quantity="other">Peržvelgti visas %s komandų</item>
   </plurals>
+  <string name="newTeamBattle">Nauja komandinė kova</string>
+  <string name="allowChatHelp">Leisti žaidėjams kalbėtis pokalbių kambaryje</string>
+  <string name="arenaStreaks">Arenos serijos</string>
 </resources>
