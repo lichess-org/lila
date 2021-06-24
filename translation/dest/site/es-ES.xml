@@ -871,4 +871,12 @@ Todos los costes de funcionamiento, desarrollo y contenidos se financian únicam
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar el torneo</string>
   <string name="tournDescription">Descripción del torneo</string>
+  <string name="tournDescriptionHelp">¿Algo especial que quieras decir a los participantes? Intenta ser breve. Los enlaces Markdown están disponibles: [nombre](https://url)</string>
+  <string name="ratedFormHelp">Los partidas son puntuadas e impactan las calificaciones de los jugadores</string>
+  <string name="onlyMembersOfTeam">Sólo miembros del equipo</string>
+  <string name="noRestriction">Sin restricción</string>
+  <string name="minimumRatedGames">Mínimo de partidas por puntos</string>
+  <string name="minimumRating">Puntuación mínima</string>
+  <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
+  <string name="onlyTitled">Sólo jugadores titulados</string>
 </resources>
