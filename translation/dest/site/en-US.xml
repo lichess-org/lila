@@ -331,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
   <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf" comment="ratedLessThanInPerf&#10;&#10;Appears on tournament pages. Explains that you need to be rated below a certain threshold to enter a tournament.&#10;&#10;%1$s is the rating.&#10;%2$s is the variant.&#10;&#10;Example:&#10;Rated ≤ 1800 in Blitz for the last week&#10;&#10;This could be restated as 'Rated xx in xx this week'">Rated ≤ %1$s in %2$s for the last week</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
