@@ -38,4 +38,6 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
     <item quantity="other">Vis alle %s lagene</item>
   </plurals>
   <string name="newTeamBattle">Ny lagkamp</string>
+  <string name="allowBerserk">Tillat berserk</string>
+  <string name="allowBerserkHelp">La spillerne halvere tiden sin på klokken for et ekstra poeng</string>
 </resources>
