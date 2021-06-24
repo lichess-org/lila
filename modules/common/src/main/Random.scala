@@ -2,9 +2,8 @@ package lila.common
 
 import scala.collection.mutable.StringBuilder
 
-object ThreadLocalRandom {
-
-  import java.util.concurrent.ThreadLocalRandom.current
+abstract class Random {
+  protected def current: java.util.Random
 
   def nextBoolean(): Boolean              = current.nextBoolean()
   def nextBytes(bytes: Array[Byte]): Unit = current.nextBytes(bytes)
@@ -14,21 +13,31 @@ object ThreadLocalRandom {
   def nextInt(n: Int): Int                = current.nextInt(n)
   def nextLong(): Long                    = current.nextLong()
   def nextGaussian(): Double              = current.nextGaussian()
-  def nextChar(): Char = {
-    val i = nextInt(62)
-    if (i < 26) i + 65
-    else if (i < 52) i + 71
-    else i - 4
-  }.toChar
-  def shuffle[T, C](xs: IterableOnce[T])(implicit bf: scala.collection.BuildFrom[xs.type, T, C]): C =
-    new scala.util.Random(current).shuffle(xs)
+
+  private def nextAlphanumeric(): Char = {
+    val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    chars charAt nextInt(chars.length) // Constant time
+  }
+
   def nextString(len: Int): String = {
     val sb = new StringBuilder(len)
-    for (_ <- 0 until len) sb += nextChar()
+    for (_ <- 0 until len) sb += nextAlphanumeric()
     sb.result()
   }
+
+  def shuffle[T, C](xs: IterableOnce[T])(implicit bf: scala.collection.BuildFrom[xs.type, T, C]): C =
+    new scala.util.Random(current).shuffle(xs)
+
   def oneOf[A](vec: Vector[A]): Option[A] =
     vec.nonEmpty ?? {
       vec lift nextInt(vec.size)
     }
+}
+
+object ThreadLocalRandom extends Random {
+  override def current = java.util.concurrent.ThreadLocalRandom.current
+}
+
+object SecureRandom extends Random {
+  override val current = new java.security.SecureRandom().pp("init secure random")
 }

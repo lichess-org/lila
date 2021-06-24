@@ -3,6 +3,7 @@ package lila.oauth
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
+import lila.common.SecureRandom
 import lila.user.User
 
 case class AccessToken(
@@ -28,7 +29,7 @@ object AccessToken {
     def isPersonal = value.lengthIs == idSize
   }
 
-  def makeId = Id(ornicar.scalalib.Random secureString idSize)
+  def makeId = Id(SecureRandom nextString idSize)
 
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
