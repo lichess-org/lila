@@ -867,4 +867,8 @@
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
   <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
+  <string name="ratedFormHelp">Partier är rankade
+och påverkar spelares rating</string>
+  <string name="noRestriction">Ingen begränsning</string>
+  <string name="minimumRatedGames">Minst antal rankade partier</string>
 </resources>
