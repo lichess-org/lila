@@ -871,6 +871,9 @@ Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door do
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Toernooi annuleren</string>
   <string name="tournDescription">Toernooibeschrijving</string>
+  <string name="tournDescriptionHelp">Iets bijzonders dat je de deelnemers wilt vertellen? Probeer het kort te houden. Markdown-links zijn beschikbaar: [name](https://url)</string>
+  <string name="ratedFormHelp">Partijen worden met rating gespeeld 
+en hebben effect op de rating van de spelers</string>
   <string name="onlyMembersOfTeam">Alleen leden van het team</string>
   <string name="noRestriction">Geen restrictie</string>
   <string name="minimumRatedGames">Minimumaantal partijen met rating</string>
