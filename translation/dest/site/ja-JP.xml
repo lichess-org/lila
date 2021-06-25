@@ -840,4 +840,10 @@
   <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">必要対局数（レート戦）</string>
   <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">レーティング下限</string>
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">レーティング上限（週内）</string>
+  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">公式タイトル保持者のみ</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">参加には公式タイトルを必須とする</string>
+  <string name="positionInputHelp">有効な FEN をペーストすると全対局がその局面から始まります。
+通常ルールのチェスだけで、バリアントには使えません。
+%s を使えば FEN が作れます。それをここにペーストするだけです。
+通常の開始局面から始める場合はここは空白のままです。</string>
 </resources>
