@@ -765,6 +765,13 @@ val `onlyTitled` = new I18nKey("onlyTitled")
 val `onlyTitledHelp` = new I18nKey("onlyTitledHelp")
 val `hasChatHelp` = new I18nKey("hasChatHelp")
 val `positionInputHelp` = new I18nKey("positionInputHelp")
+val `cancelSimul` = new I18nKey("cancelSimul")
+val `simulHostcolor` = new I18nKey("simulHostcolor")
+val `estimatedStart` = new I18nKey("estimatedStart")
+val `simulFeatured` = new I18nKey("simulFeatured")
+val `simulFeaturedHelp` = new I18nKey("simulFeaturedHelp")
+val `simulDescription` = new I18nKey("simulDescription")
+val `simulDescriptionHelp` = new I18nKey("simulDescriptionHelp")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")

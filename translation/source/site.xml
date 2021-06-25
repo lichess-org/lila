@@ -886,4 +886,11 @@ and impact players ratings</string>
 It only works for standard games, not with variants.
 You can use the %s to generate a FEN position, then paste it here.
 Leave empty to start games from the normal initial position.</string>
+<string name="cancelSimul">Cancel the simul</string>
+<string name="simulHostcolor">Host color for each game</string>
+<string name="estimatedStart">Estimated start time</string>
+<string name="simulFeatured">Feature on %s</string>
+<string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
+<string name="simulDescription">Simul description</string>
+<string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
 </resources>
