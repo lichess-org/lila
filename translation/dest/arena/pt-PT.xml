@@ -49,4 +49,7 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
   <string name="customStartDateHelp">No seu próprio fuso horário local. Substitui a configuração \"Tempo antes do torneio começar\"</string>
   <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir Berserk</string>
   <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir aos jogadores ganhar um ponto extra ao reduzir a duração do relógio a metade</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Permitir que os jogadores discutam numa sala de bate-papo</string>
+  <string name="arenaStreaks">Séries de Arena</string>
+  <string name="arenaStreaksHelp">Depois de 2 vitórias, vitórias consecutivas concedem 4 pontos em vez de 2.</string>
 </resources>
