@@ -48,4 +48,5 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Naj igralci razpolovijo svoj čas ure, da pridobijo dodatno točko</string>
   <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Naj igralci razpravljajo v klepetalnici</string>
   <string name="arenaStreaks">Arena proge</string>
+  <string name="arenaStreaksHelp">Po 2 zaporednih zmagah nadaljne zmage namesto 2 dodelijo 4 točke.</string>
 </resources>
