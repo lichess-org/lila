@@ -44,4 +44,6 @@
     <item quantity="other">Вижте всички %s отбора</item>
   </plurals>
   <string name="newTeamBattle">Нова отборна битка</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Начална дата</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Позволи Берсерк</string>
 </resources>
