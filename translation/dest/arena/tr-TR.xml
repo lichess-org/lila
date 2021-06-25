@@ -48,5 +48,6 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Berserk\'i aktif et</string>
   <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Oyuncuların zamanını yarıya bölmesi karşılığında ekstra puan kazanmasına izin ver</string>
   <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Oyuncuların sohbet odasında tartışmasına izin ver</string>
+  <string name="arenaStreaks">Arena serisi</string>
   <string name="arenaStreaksHelp">2 galibiyet sonrası, sonraki galibiyetler 2 puan yerine 4 puan kazandırır.</string>
 </resources>
