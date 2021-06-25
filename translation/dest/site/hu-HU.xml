@@ -869,4 +869,6 @@
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
+  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Versenykiírás törlése</string>
+  <string name="tournDescription">Verseny leírása</string>
 </resources>
