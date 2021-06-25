@@ -41,4 +41,11 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
   <string name="drawStreak">Niz remijev: Ko igralec zeporedoma remizira v areni, bo le leprvi remi rezultiral v točko ali remiji z več kot %s potezami. Niz remijev se lahko prekine le z zmago, ne pa s porazom ali remijem.</string>
   <string name="history">Zgodovina arene</string>
+  <string name="newTeamBattle">Nova skupinska bitka</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Začetni datum po meri</string>
+  <string name="customStartDateHelp">V svojem lokalnem časovnem pasu. To preglasi nastavitev \"Čas pred začetkom turnirja\"</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Dovoli divjanje</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Naj igralci razpolovijo svoj čas ure, da pridobijo dodatno točko</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Naj igralci razpravljajo v klepetalnici</string>
+  <string name="arenaStreaks">Arena proge</string>
 </resources>
