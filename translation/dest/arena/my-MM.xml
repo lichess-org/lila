@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="newTeamBattle">အသင်းအလိုက် တိုက်ပွဲ အသစ်</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">ပြိုင်ပွဲ စတင်ရန် စိတ်ကြိုက် သတ်မှတ်သည့် နေ့ရက်</string>
+  <string name="customStartDateHelp">သင့် ဒေသန္တရ အချိန်ဇုံ အရ။ ဤသတ်မှတ်ချက်က \"ပြိုင်ပွဲ မစမီ အချိန်ကာလ\" ဆက်တင်ကို လွှမ်းမိုးသည်</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">အသဲအသန် Berserk အချိန်တိုင်း ပုံစံ ခွင့်ပြုသည်</string>
+</resources>
