@@ -6,21 +6,25 @@ import lila.api.Context
 import lila.app._
 import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
 import views._
+import lila.user.Countries
 
 final class Coach(env: Env) extends LilaController(env) {
 
   private def api = env.coach.api
 
-  def all(page: Int) = search("all", CoachPager.Order.Login.key, page)
+  def all(page: Int) = search("all", CoachPager.Order.Login.key, "all", page)
 
-  def search(l: String, o: String, page: Int) =
+  def search(l: String, o: String, c: String, page: Int) =
     Open { implicit ctx =>
       pageHit
-      val order = CoachPager.Order(o)
-      val lang  = (l != "all") ?? play.api.i18n.Lang.get(l)
+      val order   = CoachPager.Order(o)
+      val lang    = (l != "all") ?? play.api.i18n.Lang.get(l)
+      val country = (c != "all") ?? Countries.info(c)
       env.coach.api.allLanguages flatMap { langCodes =>
-        env.coach.pager(lang, order, page) map { pager =>
-          Ok(html.coach.index(pager, lang, order, langCodes))
+        env.coach.api.allCountries flatMap { countryCodes =>
+          env.coach.pager(lang, order, country, page) map { pager =>
+            Ok(html.coach.index(pager, lang, order, langCodes, countryCodes, country))
+          }
         }
       }
     }

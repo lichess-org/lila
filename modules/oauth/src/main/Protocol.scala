@@ -6,7 +6,8 @@ import cats.data.Validated
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
 import io.lemonlabs.uri.AbsoluteUrl
-import ornicar.scalalib.Random
+
+import lila.common.SecureRandom
 
 object Protocol {
   case class Secret(value: String) {
@@ -19,7 +20,7 @@ object Protocol {
     override def hashCode = hashed.hashCode()
   }
   object Secret {
-    def random(prefix: String) = Secret(s"$prefix${Random.secureString(32)}")
+    def random(prefix: String) = Secret(s"$prefix${SecureRandom.nextString(32)}")
   }
 
   case class AuthorizationCode(secret: Secret) extends AnyVal

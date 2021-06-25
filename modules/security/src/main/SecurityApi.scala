@@ -1,7 +1,6 @@
 package lila.security
 
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
@@ -12,7 +11,7 @@ import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
@@ -94,7 +93,7 @@ final class SecurityApi(
     userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
-        val sessionId = Random secureString 22
+        val sessionId = SecureRandom nextString 22
         if (tor isExitNode HTTPRequest.ipAddress(req)) logger.info(s"Tor login $userId")
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
@@ -102,7 +101,7 @@ final class SecurityApi(
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
       req: RequestHeader
   ): Funit = {
-    val sessionId = lila.common.ThreadLocalRandom nextString 22
+    val sessionId = SecureRandom nextString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
@@ -211,7 +210,7 @@ final class SecurityApi(
       sessionId.startsWith(prefix) ?? store.getIfPresent(sessionId)
 
     def saveAuthentication(userId: User.ID)(implicit req: RequestHeader): Fu[SessionId] = {
-      val sessionId = s"$prefix${Random secureString 22}"
+      val sessionId = s"$prefix${SecureRandom nextString 22}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)

@@ -30,7 +30,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    slackApi: lila.irc.SlackApi,
+    ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,

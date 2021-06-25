@@ -16,7 +16,6 @@ final private[api] class Cli(
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
-    slackApi: lila.irc.SlackApi,
     email: lila.mailer.AutomaticEmail
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {

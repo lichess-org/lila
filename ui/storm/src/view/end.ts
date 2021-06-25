@@ -116,6 +116,7 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
                 attrs: {
                   href: `/training/${round.puzzle.id}`,
                   target: '_blank',
+                  rel: 'noopener',
                 },
                 hook: onInsert(e => {
                   const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();

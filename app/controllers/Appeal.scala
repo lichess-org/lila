@@ -124,7 +124,7 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
   def notifySlack(username: String) =
     Secure(_.NotifySlack) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
-        env.irc.slack.userAppeal(user = suspect.user, mod = me) inject NoContent
+        env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }
     }
 

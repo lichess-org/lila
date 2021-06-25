@@ -356,7 +356,10 @@ final class Account(
 
   def apiKidPost =
     Scoped(_.Preference.Write) { req => me =>
-      env.user.repo.setKid(me, getBool("v", req)) inject jsonOkResult
+      getBoolOpt("v", req) match {
+        case None    => BadRequest(jsonError("Missing v parameter")).fuccess
+        case Some(v) => env.user.repo.setKid(me, v) inject jsonOkResult
+      }
     }
 
   private def currentSessionId(implicit ctx: Context) =
