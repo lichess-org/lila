@@ -871,4 +871,5 @@ Les despeses de funcionament, desenvolupament i continguts es financen exclusiva
   <string name="tournDescription">Descripció del torneig</string>
   <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Només membres de l\'equip</string>
   <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Sense restriccions</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Es necessita un títol oficial per entrar en el torneig</string>
 </resources>
