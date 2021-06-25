@@ -879,6 +879,8 @@ befolyásolják a játékosok értékszámát</string>
   <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">Legkevesebb értékelt játszma</string>
   <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Legalacsonyabb értékszám</string>
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Legmagasabb heti értékszám</string>
+  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Csak címmel rendelkező játékosok</string>
+  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">A részvétel feltétele a hivatalos cím megléte</string>
   <string name="positionInputHelp">Illessz be egy FEN sort, hogy minden játszma adott állásból induljon.
 Csak hagyományos játszmákkal működik, variánsokkal nem.
 Használhatod a %s a FEN készítésére, azt illeszd be ide.
