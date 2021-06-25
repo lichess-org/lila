@@ -53,7 +53,7 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
     <item quantity="other">Lichess Patron i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du stödjer lichess.org med %s per månad.</string>
-  <string name="tyvm">Tack så mycket för din hjälp. Du äger!</string>
+  <string name="tyvm">Tack så mycket för din hjälp. Du är bäst!</string>
   <string name="currentStatus">Nuvarande status</string>
   <string name="nextPayment">Nästa betalning</string>
   <string name="youWillBeChargedXOnY">Du kommer att debiteras %1$s den %2$s.</string>
