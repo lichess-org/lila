@@ -939,4 +939,8 @@ in vplivajo na rejtinge igralcev</string>
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Najvišji tedenski rejting</string>
   <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Samo igralci z nazivom</string>
   <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Za pridružitev turnirju zahtevajte uradni naziv</string>
+  <string name="positionInputHelp">Prilepite veljaven FEN, da začnete vsako igro z določenega položaja.
+Deluje samo za standardne igre, ne pa tudi z različicami.
+%s lahko ustvarite položaj FEN, nato pa ga prilepite sem.
+Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
 </resources>
