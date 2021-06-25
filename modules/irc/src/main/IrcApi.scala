@@ -113,7 +113,7 @@ final class IrcApi(
             text = s":$icon: ${slackdown.linkifyUsers(text)}",
             channel = s"tavern-monitor-${tpe.toString.toLowerCase}"
           )
-        val md = s":$icon: ${markdown.linkifyUsers(text)}"
+        val md = s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
         slack(msg) >>
           slack(msg.copy(channel = SlackClient.rooms.tavernMonitorAll)) >>
           zulip.mod(s"monitor-${tpe.toString.toLowerCase}")(md) >>
