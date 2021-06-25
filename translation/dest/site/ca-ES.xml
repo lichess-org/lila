@@ -867,4 +867,6 @@
   <string name="welcome">Benvinguts!</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Cancel-lar el torneig</string>
+  <string name="tournDescription">Descripció del torneig</string>
 </resources>
