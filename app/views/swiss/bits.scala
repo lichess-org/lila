@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nKeys => trans }
 import lila.swiss.Swiss
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -70,7 +71,7 @@ object bits {
       )
     )
 
-  def showInterval(s: Swiss): Frag =
+  def showInterval(s: Swiss)(implicit lang: Lang): Frag =
     s.settings.dailyInterval match {
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
