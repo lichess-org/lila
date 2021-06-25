@@ -140,17 +140,17 @@ lichess.load.then(() => {
       );
     };
 
-    const resolvedCoordEl = () => $coordsSvg.find('.coord_resolved');
-    const currentCoordEl = () => $coordsSvg.find('.coord_current');
-    const nextCoordEl = () => $coordsSvg.find('.coord_next');
-    const newCoordEl = () => $coordsSvg.find('.coord_new');
+    const resolvedCoordEl = () => $coordsSvg.find('.coord--resolved');
+    const currentCoordEl = () => $coordsSvg.find('.coord--current');
+    const nextCoordEl = () => $coordsSvg.find('.coord--next');
+    const newCoordEl = () => $coordsSvg.find('.coord--new');
 
     const advanceCoords = function () {
       const resolved = resolvedCoordEl().remove();
-      currentCoordEl().removeClass('coord_current').addClass('coord_resolved');
-      nextCoordEl().removeClass('coord_next').addClass('coord_current');
-      newCoordEl().text(newCoord(currentCoordEl().text())).removeClass('coord_new').addClass('coord_next');
-      resolved.text('').removeClass('coord_resolved').addClass('coord_new').appendTo($coordsSvg);
+      currentCoordEl().removeClass('coord--current').addClass('coord--resolved');
+      nextCoordEl().removeClass('coord--next').addClass('coord--current');
+      newCoordEl().text(newCoord(currentCoordEl().text())).removeClass('coord--new').addClass('coord--next');
+      resolved.text('').removeClass('coord--resolved').addClass('coord--new').appendTo($coordsSvg);
     };
 
     const stop = function () {

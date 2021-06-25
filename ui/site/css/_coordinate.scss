@@ -142,19 +142,19 @@ $mq-col3: $mq-x-large;
         transform: translate($translate-x, $translate-y);
       }
 
-      &_resolved {
+      &--resolved {
         @include coord(#fff, 0, 30px, -8px, 60px);
       }
 
-      &_current {
+      &--current {
         @include coord(#fff, 0.8, 30px, 22px, 60px);
       }
 
-      &_next {
+      &--next {
         @include coord(#eee, 0.7, 12px, 64px, 64px);
       }
 
-      &_new {
+      &--new {
         @include coord(#eee, 0, 12px, 76px, 64px);
       }
     }
@@ -190,7 +190,7 @@ $mq-col3: $mq-x-large;
       color: $c-wrong !important;
     }
 
-    .coord_current {
+    .coord--current {
       fill: $c-wrong !important;
     }
   }
