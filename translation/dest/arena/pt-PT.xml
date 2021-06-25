@@ -44,4 +44,9 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
     <item quantity="one">Ver a equipa</item>
     <item quantity="other">Ver todas as %s equipas</item>
   </plurals>
+  <string name="newTeamBattle">Batalha de Equipas</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Data inicial personalizada</string>
+  <string name="customStartDateHelp">No seu próprio fuso horário local. Substitui a configuração \"Tempo antes do torneio começar\"</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir Berserk</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permitir aos jogadores ganhar um ponto extra ao reduzir a duração do relógio a metade</string>
 </resources>
