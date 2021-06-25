@@ -95,6 +95,8 @@
   <string name="unsubscribe">မရယူလိုတော့ပါ။</string>
   <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">ပြိုင်ပွဲကို ပယ်ဖျက်သည်</string>
   <string name="tournDescription">ပြိုင်ပွဲ အကြောင်းအရာ</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">ပြိုင်ပွဲဝင်တို့ထံ အထူး မှာကြားချက် (တိုတိုရေးပါ)။ Markdown စာသားများထံ အညွှန်း ထည့်သွင်းနိုင်ပါသည် - [name](https://url)</string>
+  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">လက်ရည် အတက်အကျ အတွက် အကျုံးဝင်သည်</string>
   <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">အသင်းဝင်များသာ</string>
   <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">ကန့်သတ်ချက် မရှိ</string>
   <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">လက်ရည် ကန့်သတ်ချက်ဖြင့် ကစားပြီး ဖြစ်ရမည့် ကစားပွဲ အနည်းဆုံး အရေအတွက်</string>
@@ -102,4 +104,8 @@
   <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">ရက်သတ္တ တစ်ပတ် အတွင်း ရရှိသော အမြင့်ဆုံး လက်ရည်</string>
   <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">တရားဝင်ဘွဲ့ထူး ရရှိထားသော ကစားသမားများသာ</string>
   <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">ပြိုင်ပွဲသို့ ဝင်ရောက်နိုင်ရေး အတွက် တရားဝင်ဘွဲ့ထူး ရရှိထားရန် လိုအပ်သည်</string>
+  <string name="positionInputHelp">ကစားပွဲတိုင်းကို သတ်မှတ် အနေအထား တစ်မျိုးတည်းမှ စတင်ရန် အလို့ငှာ အမှားကင်းသော FEN တစ်ခု ထည့်သွင်းပါ။
+မူကွဲစနစ်များ အတွက် မရဘဲ စံနစ်သုံးပွဲများ အတွက်သာ လုပ်ဆောင်နိုင်ပါသည်။
+ထည့်သွင်းလိုသည့် FEN ကို %s အသုံးပြုကာ ထုတ်လုပ်နိုင်ပါသည်။
+ပုံမှန် အနေအထား အတိုင်း စတင်ရန် အတွက် FEN မထည့်ဘဲ အလွတ်ထားပါ။</string>
 </resources>
