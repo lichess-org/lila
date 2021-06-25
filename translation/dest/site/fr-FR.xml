@@ -876,4 +876,6 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
 et ont un impact sur les évaluations des joueurs</string>
   <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Seulement les membres de l\'équipe</string>
   <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Sans restriction</string>
+  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Note minimale</string>
+  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Note hebdomadaire maximale</string>
 </resources>
