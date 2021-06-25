@@ -43,4 +43,10 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
     <item quantity="one">Csapat megtekintése</item>
     <item quantity="other">Mind a %s csapat megtekintése</item>
   </plurals>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Kezdés időpontja</string>
+  <string name="customStartDateHelp">Saját időzóna szerint. Ez felülbírálja a \"Hátralévő idő a verseny kezdetéig\" beállítást</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Berserk engedélyezése</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">A játékosok saját idejük feléért cserébe többletpontot kapnak</string>
+  <string name="arenaStreaks">Aréna sorozatok</string>
+  <string name="arenaStreaksHelp">A második nyert játszmát követően minden nyert játszma 4 pontot ér 2 helyett.</string>
 </resources>
