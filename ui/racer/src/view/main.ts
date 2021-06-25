@@ -1,11 +1,10 @@
 import config from '../config';
 import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
-import { bind } from 'puz/util';
+import { MaybeVNodes, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
-import { MaybeVNodes } from 'puz/interfaces';
 import { renderBoard } from './board';
 import { povMessage } from 'puz/run';
 

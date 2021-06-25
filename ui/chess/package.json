@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org chess utils",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "main.js",
+  "types": "main.d.ts",
   "keywords": [
     "chess",
     "lichess"
@@ -16,6 +16,11 @@
     "compile": "tsc --incremental",
     "dev": "yarn run compile",
     "prod": "yarn run compile"
+  },
+  "dependencies": {
+    "chessground": "^8.0.0",
+    "common": "2.0.0",
+    "snabbdom": "^3.0.1"
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",

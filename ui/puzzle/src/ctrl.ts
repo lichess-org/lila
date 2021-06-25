@@ -2,7 +2,7 @@ import * as speech from './speech';
 import * as xhr from './xhr';
 import computeAutoShapes from './autoShape';
 import keyboard from './keyboard';
-import makePromotion from './promotion';
+import { PromotionCtrl } from 'chess/promotion';
 import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
@@ -488,7 +488,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
 
   initiate(opts.data);
 
-  const promotion = makePromotion(vm, ground, redraw);
+  const promotion = new PromotionCtrl(withGround, () => withGround(g => g.set(vm.cgConfig)), redraw);
 
   function playBestMove(): void {
     const uci = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);

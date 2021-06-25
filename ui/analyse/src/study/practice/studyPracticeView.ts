@@ -5,6 +5,7 @@ import { MaybeVNodes } from '../../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
 import { view as descView } from '../description';
+import { bindNonPassive } from 'common/snabbdom';
 
 function selector(data: StudyPracticeData) {
   return h(
@@ -120,7 +121,7 @@ export function side(ctrl: StudyCtrl): VNode {
     h(
       'div.practice__side__chapters',
       {
-        hook: bind('click', e => {
+        hook: bindNonPassive('click', e => {
           e.preventDefault();
           const target = e.target as HTMLElement,
             id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');

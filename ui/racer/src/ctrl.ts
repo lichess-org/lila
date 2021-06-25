@@ -1,6 +1,5 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
-import makePromotion from 'puz/promotion';
 import throttle from 'common/throttle';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
@@ -10,11 +9,12 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { Promotion, Run } from 'puz/interfaces';
+import { Run } from 'puz/interfaces';
 import { prop, Prop } from 'common';
 import { RacerOpts, RacerData, RacerVm, RacerPrefs, Race, UpdatableData, RaceStatus, WithGround } from './interfaces';
 import { Role } from 'chessground/types';
 import { storedProp } from 'common/storage';
+import { PromotionCtrl } from 'chess/promotion';
 
 export default class StormCtrl {
   private data: RacerData;
@@ -26,7 +26,7 @@ export default class StormCtrl {
   run: Run;
   vm: RacerVm;
   trans: Trans;
-  promotion: Promotion;
+  promotion: PromotionCtrl;
   countdown: Countdown;
   boost: Boost = new Boost();
   skipAvailable = true;
@@ -56,7 +56,7 @@ export default class StormCtrl {
       alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(this.run.clock, this.resetGround, () => setTimeout(this.redraw));
-    this.promotion = makePromotion(this.withGround, this.cgOpts, this.redraw);
+    this.promotion = new PromotionCtrl(this.withGround, this.resetGround, this.redraw);
     this.serverUpdate(opts.data);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false, {
       events: {

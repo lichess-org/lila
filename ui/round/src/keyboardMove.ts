@@ -4,8 +4,8 @@ import { Step, Redraw } from './interfaces';
 import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
-import { sendPromotion } from './promotion';
 import { onInsert } from './util';
+import {promote} from "chess/promotion";
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
@@ -68,7 +68,8 @@ export function ctrl(root: RoundController, step: Step, redraw: Redraw): Keyboar
       const role = sanToRole[piece];
       if (!role || role == 'pawn') return;
       root.chessground.cancelMove();
-      sendPromotion(root, orig, dest, role, { premove: false });
+      promote(root.chessground, dest, role);
+      root.sendMove(orig, dest, role, { premove: false });
     },
     update(step, yourMove = false) {
       if (handler) handler(step.fen, cgState.movable.dests, yourMove);

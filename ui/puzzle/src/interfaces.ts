@@ -3,12 +3,13 @@ import { Api as CgApi } from 'chessground/api';
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Config as CgConfig } from 'chessground/config';
 import { Deferred } from 'common/defer';
-import { Outcome, Role, Move } from 'chessops/types';
+import { Outcome, Move } from 'chessops/types';
 import { Prop } from 'common';
 import { StoredBooleanProp } from 'common/storage';
 import { TreeWrapper } from 'tree';
 import { VNode } from 'snabbdom';
 import PuzzleStreak from './streak';
+import { PromotionCtrl } from 'chess/promotion';
 
 export type MaybeVNode = VNode | string | null | undefined;
 export type MaybeVNodes = MaybeVNode[];
@@ -61,7 +62,7 @@ export interface Controller extends KeyboardController {
   pref: PuzzlePrefs;
   difficulty?: PuzzleDifficulty;
   userMove(orig: Key, dest: Key): void;
-  promotion: Promotion;
+  promotion: PromotionCtrl;
   autoNext: StoredBooleanProp;
   autoNexting: () => boolean;
   session: PuzzleSession;
@@ -197,12 +198,6 @@ export interface PuzzleRound {
   win: boolean;
   ratingDiff: number;
   themes?: RoundThemes;
-}
-
-export interface Promotion {
-  start(orig: Key, dest: Key, callback: (orig: Key, dest: Key, prom: Role) => void): boolean;
-  cancel(): void;
-  view(): MaybeVNode;
 }
 
 export interface MoveTest {

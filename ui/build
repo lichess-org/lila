@@ -14,9 +14,10 @@ cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p public/compiled
 
-apps1="common chess"
-apps2="ceval game tree chat nvui puz"
-apps3="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt storm racer"
+apps1="common"
+apps2="chess"
+apps3="ceval game tree chat nvui puz"
+apps4="site swiss msg chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul dasher speech palantir serviceWorker dgt storm racer"
 site_plugins="tvEmbed puzzleEmbed analyseEmbed user modUser clas coordinate captcha expandText team forum account coachShow coachForm challengePage checkout plan login passwordComplexity tourForm teamBattleForm gameSearch userComplete infiniteScroll flatpickr teamAdmin appeal modGames publicChats contact userGamesDownload modActivity"
 round_plugins="nvui keyboardMove"
 analyse_plugins="nvui studyTopicForm"
@@ -50,7 +51,7 @@ build_plugin() {
 }
 
 if [ $mode != "upgrade" ] && [ $mode != "js" ]; then
-  apps3="css $apps3"
+  apps4="css $apps4"
 fi
 
 if [ $mode == "css" ]; then
@@ -65,13 +66,14 @@ else
     parallel --gnu $P_OPTS build ::: $apps1
     parallel --gnu $P_OPTS build ::: $apps2
     parallel --gnu $P_OPTS build ::: $apps3
+    parallel --gnu $P_OPTS build ::: $apps4
     parallel --gnu $P_OPTS build_plugin site ::: $site_plugins
     parallel --gnu $P_OPTS build_plugin round ::: $round_plugins
     parallel --gnu $P_OPTS build_plugin analyse ::: $analyse_plugins
     parallel --gnu $P_OPTS build_plugin puzzle ::: $puzzle_plugins
   else # sequential execution
     echo "For faster builds, install GNU parallel."
-    for app in $apps1 $apps2 $apps3; do (build $app); done
+    for app in $apps1 $apps2 $apps3 $apps4; do (build $app); done
     for plugin in $site_plugins; do (build_plugin site $plugin); done
     for plugin in $round_plugins; do (build_plugin round $plugin); done
     for plugin in $analyse_plugins; do (build_plugin analyse $plugin); done

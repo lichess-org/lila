@@ -11,7 +11,6 @@ import { path as treePath } from 'tree';
 import { render as renderTreeView } from './treeView/treeView';
 import * as control from './control';
 import { view as actionMenu } from './actionMenu';
-import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
 import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
@@ -35,6 +34,7 @@ import relayTour from './study/relay/relayTourView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
+import { bindNonPassive } from 'common/snabbdom';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   let result: string | undefined;
@@ -350,14 +350,14 @@ export default function (ctrl: AnalyseCtrl): VNode {
             hook:
               'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
-                : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
+                : bindNonPassive('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },
           [
             ...(clocks || []),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
             chessground.render(ctrl),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
-            renderPromotion(ctrl),
+            ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
           ]
         ),
       gaugeOn && !tour ? cevalView.renderGauge(ctrl) : null,

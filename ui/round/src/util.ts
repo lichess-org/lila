@@ -1,7 +1,9 @@
 import * as cg from 'chessground/types';
 import { h, Hooks, VNodeData } from 'snabbdom';
 import { opposite } from 'chessground/util';
-import { Redraw, EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
+import { EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
+
+export { bind } from 'common/snabbdom';
 
 const pieceScores = {
   pawn: 1,
@@ -27,18 +29,6 @@ export const onInsert = (f: (el: HTMLElement) => void): Hooks => ({
     f(vnode.elm as HTMLElement);
   },
 });
-
-export const bind = (eventName: string, f: (e: Event) => void, redraw?: Redraw, passive = true): Hooks =>
-  onInsert(el => {
-    el.addEventListener(
-      eventName,
-      e => {
-        f(e);
-        redraw && redraw();
-      },
-      { passive }
-    );
-  });
 
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();

@@ -1,5 +1,7 @@
-import { h, VNode, Hooks, Attrs } from 'snabbdom';
+import { h, VNode, Attrs } from 'snabbdom';
 import { fixCrazySan } from 'chess';
+
+export { bind, onInsert, bindSubmit } from 'common/snabbdom';
 
 export { autolink, innerHTML, enrichText, richHTML, toYouTubeEmbed, toTwitchEmbed } from 'common/richText';
 
@@ -42,36 +44,6 @@ export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, red
   el.addEventListener('touchend', () => {
     clearTimeout(longPressCountdown);
   });
-}
-
-function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => unknown, redraw?: () => void) {
-  el.addEventListener(eventName, e => {
-    const res = f(e);
-    if (res === false) e.preventDefault();
-    if (redraw) redraw();
-    return res;
-  });
-}
-
-export function bind(eventName: string, f: (e: Event) => unknown, redraw?: () => void): Hooks {
-  return onInsert(el => listenTo(el, eventName, f, redraw));
-}
-
-export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks {
-  return bind(
-    'submit',
-    e => {
-      e.preventDefault();
-      return f(e);
-    },
-    redraw
-  );
-}
-
-export function onInsert<A extends HTMLElement>(f: (element: A) => void): Hooks {
-  return {
-    insert: vnode => f(vnode.elm as A),
-  };
 }
 
 export function readOnlyProp<A>(value: A): () => A {

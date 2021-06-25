@@ -26,6 +26,8 @@ node_modules/
 local/
 ui/common/**/*.js
 ui/common/**/*.d.ts
+ui/chess/**/*.js
+ui/chess/**/*.d.ts
 ui/game/**/*.js
 ui/game/**/*.d.ts
 ui/nvui/**/*.js
