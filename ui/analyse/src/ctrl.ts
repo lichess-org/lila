@@ -2,7 +2,6 @@ import * as cg from 'chessground/types';
 import * as chessUtil from 'chess';
 import * as game from 'game';
 import * as keyboard from './keyboard';
-import * as promotion from './promotion';
 import * as speech from './speech';
 import * as util from './util';
 import * as xhr from 'common/xhr';
@@ -43,6 +42,7 @@ import { storedProp, StoredBooleanProp } from 'common/storage';
 import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
+import { PromotionCtrl } from 'chess/promotion';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -71,6 +71,7 @@ export default class AnalyseCtrl {
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
+  promotion: PromotionCtrl;
 
   // state flags
   justPlayed?: string; // pos
@@ -118,6 +119,7 @@ export default class AnalyseCtrl {
     this.embed = opts.embed;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
+    this.promotion = new PromotionCtrl(this.withCg, () => this.withCg(g => g.set(this.cgConfig)), this.redraw);
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
 
@@ -365,7 +367,7 @@ export default class AnalyseCtrl {
     this.explorer.setNode();
     this.updateHref();
     this.autoScroll();
-    promotion.cancel(this);
+    this.promotion.cancel();
     if (pathChanged) {
       if (this.retro) this.retro.onJump();
       if (this.practice) this.practice.onJump();
@@ -476,7 +478,9 @@ export default class AnalyseCtrl {
     const piece = this.chessground.state.pieces.get(dest);
     const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
     this.sound[isCapture ? 'capture' : 'move']();
-    if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
+    if (!this.promotion.start(orig, dest, (orig, dest, prom) => this.sendMove(orig, dest, capture, prom))) {
+      this.sendMove(orig, dest, capture);
+    }
   };
 
   sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
@@ -899,8 +903,8 @@ export default class AnalyseCtrl {
 
   isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
 
-  withCg<A>(f: (cg: ChessgroundApi) => A): A | undefined {
+  withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined => {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
     return undefined;
-  }
+  };
 }

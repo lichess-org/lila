@@ -1,5 +1,4 @@
 import * as keyboard from '../keyboard';
-import * as promotion from '../promotion';
 import * as util from '../util';
 import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
@@ -67,7 +66,7 @@ export function main(ctrl: RoundController): VNode {
                 ? undefined
                 : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
           },
-          [renderGround(ctrl), promotion.view(ctrl)]
+          [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')]
         ),
         crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
         ...renderTable(ctrl),
