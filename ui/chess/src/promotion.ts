@@ -45,13 +45,7 @@ export class PromotionCtrl {
     private autoQueenPref: Prefs.AutoQueen = Prefs.AutoQueen.Never
   ) {}
 
-  start = (
-    orig: Key,
-    dest: Key,
-    callback: Callback,
-    meta?: cg.MoveMetadata,
-    forceAutoQueen = false
-  ): boolean =>
+  start = (orig: Key, dest: Key, callback: Callback, meta?: cg.MoveMetadata, forceAutoQueen = false): boolean =>
     this.withGround(g => {
       const premovePiece = g.state.pieces.get(orig);
       const piece = premovePiece || g.state.pieces.get(dest);

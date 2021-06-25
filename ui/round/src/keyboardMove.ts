@@ -5,7 +5,7 @@ import RoundController from './ctrl';
 import { ClockController } from './clock/clockCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { onInsert } from './util';
-import {promote} from "chess/promotion";
+import { promote } from 'chess/promotion';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 

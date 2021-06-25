@@ -24,7 +24,8 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: () => voi
   );
 }
 
-export const bindNonPassive = (eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks => bind(eventName, f, redraw, false);
+export const bindNonPassive = (eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks =>
+  bind(eventName, f, redraw, false);
 
 export function bindSubmit(f: (e: Event) => unknown, redraw?: () => void): Hooks {
   return bind('submit', e => (e.preventDefault(), f(e)), redraw, false);
