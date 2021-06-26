@@ -868,17 +868,17 @@
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="coachManager">Eğitmen ayarları</string>
   <string name="streamerManager">Yayıncı ayarları</string>
-  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Turnuvayı iptal et</string>
+  <string name="cancelTournament">Turnuvayı iptal et</string>
   <string name="tournDescription">Turnuva açıklaması</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Katılımcılara söylemek istediğiniz özel bir şey var mı? Kısa tutmaya çalışın. İşaretleme bağlantılarını kullanabilirsiniz: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Oyunlar derecelidir ve oyuncu puanlarını etkilemektedir</string>
-  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Sadece takım üyeleri</string>
-  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Kısıtlama yok</string>
-  <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">En düşük puanlı oyunlar</string>
-  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">En düşük puan</string>
-  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Haftalık en yüksek puan</string>
-  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Sadece unvanlı oyuncular</string>
-  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Sadece resmî bir unvana sahip oyuncular turnuvaya katılsın</string>
+  <string name="tournDescriptionHelp">Katılımcılara söylemek istediğiniz özel bir şey var mı? Kısa tutmaya çalışın. İşaretleme bağlantılarını kullanabilirsiniz: [name](https://url)</string>
+  <string name="ratedFormHelp">Oyunlar derecelidir ve oyuncu puanlarını etkilemektedir</string>
+  <string name="onlyMembersOfTeam">Sadece takım üyeleri</string>
+  <string name="noRestriction">Kısıtlama yok</string>
+  <string name="minimumRatedGames">En düşük puanlı oyunlar</string>
+  <string name="minimumRating">En düşük puan</string>
+  <string name="maximumWeeklyRating">Haftalık en yüksek puan</string>
+  <string name="onlyTitled">Sadece unvanlı oyuncular</string>
+  <string name="onlyTitledHelp">Sadece resmî bir unvana sahip oyuncular turnuvaya katılsın</string>
   <string name="positionInputHelp">Her oyunda belirli bir pozisyondan başlamak için geçerli FEN yazınız.
 Sadece standart oyunlarda çalışır, varyantlarda çalışmaz.
 FEN pozisyonu oluşturmak için %s kullanıp buraya yazabilirsiniz.
