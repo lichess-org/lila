@@ -869,14 +869,14 @@
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
-  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Отмени турнира</string>
+  <string name="cancelTournament">Отмени турнира</string>
   <string name="tournDescription">Описание на турнира</string>
-  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Игрите са с рейтинг и влияят на рейтинга на играчите</string>
-  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Само членове на отбора</string>
-  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Без ограничение</string>
-  <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">Минимален брой игри с рейтинг</string>
-  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Минимален рейтинг</string>
-  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Максимален седмичен рейтинг</string>
-  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Само титулувани играчи</string>
-  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Изискване на официална титла за участие в турнира</string>
+  <string name="ratedFormHelp">Игрите са с рейтинг и влияят на рейтинга на играчите</string>
+  <string name="onlyMembersOfTeam">Само членове на отбора</string>
+  <string name="noRestriction">Без ограничение</string>
+  <string name="minimumRatedGames">Минимален брой игри с рейтинг</string>
+  <string name="minimumRating">Минимален рейтинг</string>
+  <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
+  <string name="onlyTitled">Само титулувани играчи</string>
+  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
 </resources>
