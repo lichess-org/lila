@@ -886,5 +886,9 @@ Het werkt alleen voor standaardpartijen, niet met varianten.
 U kunt de %s gebruiken om een FEN-code te genereren en deze hier plakken.
 Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="cancelSimul">Simultaan annuleren</string>
+  <string name="estimatedStart">Geschatte starttijd</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Tonen op %s</string>
+  <string name="simulFeaturedHelp">De simultaan voor iedereen weergeven op %s. Uitschakelen voor privésimultaans.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
+  <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
 </resources>
