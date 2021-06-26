@@ -51,6 +51,13 @@ object Protocol {
       Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
     )
   }
+  object CodeVerifier {
+    def from(value: String): Validated[Error, CodeVerifier] =
+      Validated
+        .valid(value)
+        .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
+        .map(CodeVerifier.apply)
+  }
 
   case class ResponseType()
   object ResponseType {
@@ -136,6 +143,7 @@ object Protocol {
     case object GrantTypeRequired           extends InvalidRequest("grant_type required")
     case object CodeRequired                extends InvalidRequest("code required")
     case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
+    case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
