@@ -69,8 +69,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   if (ctrl.showAutoShapes() && ctrl.showComputer()) {
     if (nEval.best) shapes = shapes.concat(makeShapesFromUci(rcolor, nEval.best, 'paleGreen'));
     if (!hovering && parseInt(instance.multiPv())) {
-      let nextBest = ctrl.nextNodeBest();
-      if (!nextBest && instance.enabled() && nCeval) nextBest = nCeval.pvs[0].moves[0];
+      const nextBest = instance.enabled() && nCeval ? nCeval.pvs[0].moves[0] : ctrl.nextNodeBest();
       if (nextBest) shapes = shapes.concat(makeShapesFromUci(color, nextBest, 'paleBlue'));
       if (instance.enabled() && nCeval && nCeval.pvs[1] && !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)) {
         nCeval.pvs.forEach(function (pv) {
