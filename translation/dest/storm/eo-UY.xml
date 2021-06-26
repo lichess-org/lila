@@ -10,4 +10,6 @@
   <string name="time">Tempo</string>
   <string name="timePerMove">Tempo por movo</string>
   <string name="puzzlesPlayed">Luditaj puzloj</string>
+  <string name="yourRankX">Via poentaro: %s</string>
+  <string name="createNewGame">Kreu novan ludon</string>
 </resources>
