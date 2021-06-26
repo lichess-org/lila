@@ -55,7 +55,7 @@ object form {
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
           submitButton(dataIcon := "", cls := "text button button-red confirm")(
-            "Cancel the simul"
+           trans.cancelSimul()
           )
         )
       )
@@ -94,11 +94,11 @@ object form {
       form3.split(
         form3.group(
           form("clockTime"),
-          raw("Clock initial time"),
+          trans.clockInitialTime(),
           help = trans.simulClockHint().some,
           half = true
         )(form3.select(_, clockTimeChoices)),
-        form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+        form3.group(form("clockIncrement"), trans.clockIncrement(), half = true)(
           form3.select(_, clockIncrementChoices)
         )
       ),
@@ -111,14 +111,14 @@ object form {
         )(
           form3.select(_, clockExtraChoices)
         ),
-        form3.group(form("color"), raw("Host color for each game"), half = true)(
+        form3.group(form("color"), trans.simulHostcolor(), half = true)(
           form3.select(_, colorChoices)
         )
       ),
       form3.split(
         teams.nonEmpty option
-          form3.group(form("team"), raw("Only members of team"), half = true)(
-            form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
+          form3.group(form("team"), trans.onlyMembersOfTeam(), half = true)(
+            form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
           ),
         form3.group(
           form("position"),
@@ -131,18 +131,18 @@ object form {
       ),
       form3.group(
         form("estimatedStartAt"),
-        frag("Estimated start time"),
+        trans.estimatedStart(),
         half = true
       )(form3.flatpickr(_)),
       form3.group(
         form("text"),
-        raw("Simul description"),
-        help = frag("Anything you want to tell the participants?").some
+        trans.simulDescription(),
+        help = trans.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
       ctx.me.exists(_.canBeFeatured) option form3.checkbox(
         form("featured"),
-        frag("Feature on lichess.org/simul"),
-        help = frag("Show your simul to everyone on lichess.org/simul. Disable for private simuls.").some
+        trans.simulFeatured("lichess.org/simul"),
+        help = trans.simulFeaturedHelp("lichess.org/simul").some
       )
     )
   }
