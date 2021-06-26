@@ -19,10 +19,8 @@ $clock-height: 20px;
   &.bottom {
     @extend %box-radius-bottom;
 
-    bottom: #{-$clock-height};
-    z-index: 1;
-
-    // over the board coords
+    top: var(--cg-height, 100%);
+    z-index: 1; // over the board coords
   }
 
   &.active {
