@@ -869,13 +869,13 @@
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
   <string name="coachManager">Configuration des paramètres Coach</string>
   <string name="streamerManager">Configuration des paramètres Streamer</string>
-  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Annuler le tournoi</string>
+  <string name="cancelTournament">Annuler le tournoi</string>
   <string name="tournDescription">Description du tournoi</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Quelque chose de spécial à dire aux participants ? Essayez de faire court. Des liens Markdown sont disponibles : [name](https://url)</string>
-  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Les jeux sont évalués
+  <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants ? Essayez de faire court. Des liens Markdown sont disponibles : [name](https://url)</string>
+  <string name="ratedFormHelp">Les jeux sont évalués
 et ont un impact sur les évaluations des joueurs</string>
-  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Seulement les membres de l\'équipe</string>
-  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Sans restriction</string>
-  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Note minimale</string>
-  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Note hebdomadaire maximale</string>
+  <string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
+  <string name="noRestriction">Sans restriction</string>
+  <string name="minimumRating">Note minimale</string>
+  <string name="maximumWeeklyRating">Note hebdomadaire maximale</string>
 </resources>
