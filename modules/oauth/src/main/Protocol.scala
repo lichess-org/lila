@@ -136,7 +136,7 @@ object Protocol {
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
-        extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
+        extends InvalidRequest("open a github issue to get exotic redirect_uri schemes whitelisted")
     case object ResponseTypeRequired        extends InvalidRequest("response_type required")
     case object CodeChallengeRequired       extends InvalidRequest("code_challenge required")
     case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
