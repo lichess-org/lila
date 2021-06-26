@@ -37,6 +37,7 @@ case class Pref(
     keyboardMove: Int,
     zen: Int,
     rookCastle: Int,
+    scrollMoves: Int,
     moveEvent: Int,
     pieceNotation: Int,
     resizeHandle: Int,
@@ -213,6 +214,8 @@ object Pref {
   }
 
   object Mention extends BooleanPref
+
+  object ScrollMoves extends BooleanPref
 
   object KeyboardMove extends BooleanPref
 
@@ -441,6 +444,7 @@ object Pref {
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,
     rookCastle = RookCastle.YES,
+    scrollMoves = ScrollMoves.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,

@@ -150,6 +150,10 @@ object pref {
             setting(
               sayGgWpAfterLosingOrDrawing(),
               radios(form("behavior.courtesy"), booleanChoices)
+            ),
+            setting(
+              scrollOnTheBoardToReplayMoves(),
+              radios(form("behavior.scrollMoves"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

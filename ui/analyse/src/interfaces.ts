@@ -56,6 +56,7 @@ export interface AnalysePref {
   is3d?: boolean;
   showDests?: boolean;
   rookCastle?: boolean;
+  scrollMoves?: boolean;
   destination?: boolean;
   highlight?: boolean;
   animationDuration?: number;

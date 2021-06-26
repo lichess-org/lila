@@ -41,7 +41,8 @@ object JsonView {
       "keyboardMove"  -> p.keyboardMove,
       "zen"           -> p.zen,
       "moveEvent"     -> p.moveEvent,
-      "rookCastle"    -> p.rookCastle
+      "rookCastle"    -> p.rookCastle,
+      "scrollMoves"   -> p.scrollMoves
     )
   }
 }
