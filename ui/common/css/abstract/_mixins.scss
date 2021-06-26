@@ -79,3 +79,33 @@
     overflow-y: scroll;
   }
 }
+
+@mixin dark-theme {
+  @media (prefers-color-scheme: dark) {
+    body.system {
+      @content;
+    }
+  }
+
+  body.dark &, body.transp & {
+    @content;
+  }
+}
+
+@mixin light-theme {
+  @media (prefers-color-scheme: light) {
+    body.system {
+      @content;
+    }
+  }
+
+  body.light & {
+    @content;
+  }
+}
+
+@mixin transp-theme {
+  body.transp & {
+    @content;
+  }
+}

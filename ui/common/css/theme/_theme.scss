@@ -1,0 +1,30 @@
+@import '../abstract/mixins';
+@import 'default';
+@import 'dark';
+@import 'transp';
+
+@mixin metal-bg {
+  background: var(--bg-metal);
+}
+
+@mixin metal {
+  @include metal-bg;
+
+  text-shadow: var(--text-shadow);
+}
+
+@mixin metal-hover {
+  background: var(--bg-metal-hover);
+  color: var(--c-metal-hover);
+  text-shadow: var(--text-shadow);
+}
+
+@mixin page-metal {
+  background: var(--bg-page-metal);
+  text-shadow: var(--text-shadow);
+}
+
+@mixin page-metal-hover {
+  background: var(--bg-page-metal-hover);
+  text-shadow: var(--text-shadow);
+}

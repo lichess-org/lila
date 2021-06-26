@@ -214,9 +214,9 @@ object layout {
           },
           cssTag("site"),
           ctx.pref.is3d option cssTag("board-3d"),
-          ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
-          ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
-          ctx.blind option cssTagNoTheme("blind"),
+          ctx.pageData.inquiry.isDefined option cssTag("mod.inquiry"),
+          ctx.userContext.impersonatedBy.isDefined option cssTag("mod.impersonate"),
+          ctx.blind option cssTag("blind"),
           moreCss,
           pieceSprite,
           meta(
