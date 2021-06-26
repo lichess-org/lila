@@ -38,9 +38,13 @@
   <string name="mate">Mato</string>
   <string name="mateDescription">Gajni la ludon stile.</string>
   <string name="mateIn1">Mato en 1</string>
+  <string name="mateIn1Description">Liveri ŝakmaton en unu movo.</string>
   <string name="mateIn2">Mato en 2</string>
+  <string name="mateIn2Description">Liveri ŝakmaton en du movoj.</string>
   <string name="mateIn3">Mato en 3</string>
+  <string name="mateIn3Description">Liveri ŝakmaton en tri movoj.</string>
   <string name="mateIn4">Mato en 4</string>
+  <string name="mateIn4Description">Liveri ŝakmaton en kvar movoj.</string>
   <string name="mateIn5">Mato en 5 aŭ pli</string>
   <string name="middlegame">Mezludo</string>
   <string name="oneMove">Unumova puzlo</string>
@@ -54,7 +58,9 @@
   <string name="sacrifice">Ofero</string>
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
+  <string name="trappedPiece">Kaptita ŝakpeco</string>
   <string name="underPromotionDescription">Damigi al ĉevalo, kuriero aŭ turo.</string>
   <string name="veryLong">Tre longa puzlo</string>
   <string name="veryLongDescription">Kvar aŭ pliaj movoj por venki.</string>
+  <string name="xRayAttack">X-radia atako</string>
 </resources>
