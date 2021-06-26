@@ -869,18 +869,18 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
   <string name="streamerManager">Gestor de streamers</string>
-  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Cancelar o torneio</string>
+  <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Os jogos são classificados
+  <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Os jogos são classificados
 e afetam as avaliações dos jogadores</string>
-  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Apenas membros da equipa</string>
-  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Sem restrições</string>
-  <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">Jogos com classificação mínima</string>
-  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Classificação mínima</string>
-  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Avaliação semanal máxima</string>
-  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Apenas jogadores com títulos</string>
-  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Exigir um título oficial para entrar no torneio</string>
+  <string name="onlyMembersOfTeam">Apenas membros da equipa</string>
+  <string name="noRestriction">Sem restrições</string>
+  <string name="minimumRatedGames">Jogos com classificação mínima</string>
+  <string name="minimumRating">Classificação mínima</string>
+  <string name="maximumWeeklyRating">Avaliação semanal máxima</string>
+  <string name="onlyTitled">Apenas jogadores com títulos</string>
+  <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
   <string name="positionInputHelp">Cole um FEN válido para iniciar todos os jogos a partir de uma determinada posição.
 Só funciona para os jogos padrão, não com variantes.
 Você pode usar o %s para gerar uma posição FEN e, em seguida, colá-lo aqui.
