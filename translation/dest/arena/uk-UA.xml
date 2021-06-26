@@ -46,4 +46,6 @@
     <item quantity="many">Переглянути %s команд</item>
     <item quantity="other">Переглянути %s команди</item>
   </plurals>
+  <string name="newTeamBattle">Нова Командна битва</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Власна дата початку</string>
 </resources>
