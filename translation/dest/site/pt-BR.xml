@@ -868,18 +868,18 @@
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="coachManager">Configurações para professores</string>
   <string name="streamerManager">Configurações para streamers</string>
-  <string name="cancelTournament" comment="cancelTournament&#10;&#10;A tournament host can select this option to cancel the tournament before it has started.">Cancelar o torneio</string>
+  <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).">Algo especial que você queira dizer aos participantes? Tente ser breve. Links em Markdown disponíveis: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="ratedFormHelp&#10;&#10;Explanation for a tournament's setting. Please include a line break, like the source string.">Os jogos valem pontos
+  <string name="tournDescriptionHelp">Algo especial que você queira dizer aos participantes? Tente ser breve. Links em Markdown disponíveis: [name](https://url)</string>
+  <string name="ratedFormHelp">Os jogos valem pontos
 e afetam a classificação dos jogadores</string>
-  <string name="onlyMembersOfTeam" comment="onlyMembersOfTeam&#10;&#10;This setting restricts the arena tournament to only members of a team.">Apenas membros da equipe</string>
-  <string name="noRestriction" comment="noRestriction&#10;&#10;A setting when creating tournaments. This option removes restrictions on rating/games played.">Sem restrição</string>
-  <string name="minimumRatedGames" comment="minimumRatedGames&#10;&#10;A setting when creating tournaments. Requires a player to have played a specified amount of rated games.">Mínimo de partidas ranqueadas</string>
-  <string name="minimumRating" comment="minimumRating&#10;&#10;A setting when creating tournaments. Requires a player to have a specified rating (e.g. &gt;1800)">Classificação mínima</string>
-  <string name="maximumWeeklyRating" comment="maximumWeeklyRating&#10;&#10;Requires a player to be in a specified rating range (e.g. &lt;2000)/&#10;'Weekly' refers to limits how the rating is calculated. Only the rating of that week will be looked at.">Classificação máxima da semana</string>
-  <string name="onlyTitled" comment="onlyTitled&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Apenas jogadores titulados</string>
-  <string name="onlyTitledHelp" comment="onlyTitledHelp&#10;&#10;This is a setting which allows a tournament host to mandate an official title (from FIDE for example).">Exigir um título oficial para entrar no torneio</string>
+  <string name="onlyMembersOfTeam">Apenas membros da equipe</string>
+  <string name="noRestriction">Sem restrição</string>
+  <string name="minimumRatedGames">Mínimo de partidas ranqueadas</string>
+  <string name="minimumRating">Classificação mínima</string>
+  <string name="maximumWeeklyRating">Classificação máxima da semana</string>
+  <string name="onlyTitled">Apenas jogadores titulados</string>
+  <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
   <string name="positionInputHelp">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
 Só funciona com jogos padrão, e não com variantes.
 Use o %s para gerar uma posição FEN, e depois cole-a aqui.
