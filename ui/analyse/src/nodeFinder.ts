@@ -41,8 +41,8 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
         found.push(node);
       }
     }
-    return found;
   }
+  return found;
 }
 
 function threefoldFen(fen: Fen) {
