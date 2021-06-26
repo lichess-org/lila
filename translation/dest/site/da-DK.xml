@@ -885,4 +885,11 @@ og påvirker spilleres ratings</string>
 Det virker kun for standardspil, ikke med varianter.
 Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
 Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
+  <string name="cancelSimul">Annuller simultanen</string>
+  <string name="simulHostcolor">Værtsfarve for hvert parti</string>
+  <string name="estimatedStart">Anslået starttidspunkt</string>
+  <string name="simulFeatured">Vis på %s</string>
+  <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
+  <string name="simulDescription">Simultanbeskrivelse</string>
+  <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
 </resources>
