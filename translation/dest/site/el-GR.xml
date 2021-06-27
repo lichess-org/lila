@@ -870,4 +870,6 @@
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="coachManager">Διαχειριστής προπονητή</string>
   <string name="streamerManager">Διαχειριστής streamer</string>
+  <string name="cancelTournament">Ακύρωση τουρνουά</string>
+  <string name="tournDescription">Περιγραφή του τουρνουά</string>
 </resources>
