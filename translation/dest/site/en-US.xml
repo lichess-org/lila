@@ -869,4 +869,11 @@ computer analysis, game chat and shareable URL.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="cancelSimul">Cancel the simul</string>
+  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Host color for each game</string>
+  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Estimated start time</string>
+  <string name="simulFeatured">Feature on %s</string>
+  <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
+  <string name="simulDescription">Simul description</string>
+  <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
 </resources>
