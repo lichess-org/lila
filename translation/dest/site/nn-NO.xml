@@ -886,8 +886,11 @@ og påverkar ratinga til spelarane</string>
 Det fungerar berre for standardparti, ikke for variantar.
 Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
 La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</string>
-  <string name="cancelSimul">Avbryt simultanen</string>
+  <string name="cancelSimul">Avbryt simultantilskipinga</string>
   <string name="simulHostcolor">Vertsfarge for kvart parti</string>
   <string name="estimatedStart">Forventa starttidspunkt</string>
   <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Vis på %s</string>
+  <string name="simulFeaturedHelp">Vis simultantilskipinga til alle på %s. Deaktivér for private simultantilskipingar.</string>
+  <string name="simulDescription">Beskriving av simultantilskipinga</string>
+  <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
 </resources>
