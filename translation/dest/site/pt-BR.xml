@@ -886,4 +886,5 @@ Use o %s para gerar uma posição FEN, e depois cole-a aqui.
 Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="cancelSimul">Cancelar a simultânea</string>
   <string name="simulDescription">Descrição da simultânea</string>
+  <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
 </resources>
