@@ -10,23 +10,12 @@ import io.lemonlabs.uri.AbsoluteUrl
 import lila.common.SecureRandom
 
 object Protocol {
-  case class Secret(value: String) {
-    def hashed: String    = Algo.sha256(value).hex
-    override def toString = "Secret(***)"
-    override def equals(other: Any) = other match {
-      case other: Secret => hashed == other.hashed
-      case _             => false
-    }
-    override def hashCode = hashed.hashCode()
+  case class AuthorizationCode(secret: String) extends AnyVal {
+    def hashed = Algo.sha256(secret).hex
+    override def toString = "AuthorizationCode(***)"
   }
-  object Secret {
-    def random(prefix: String) = Secret(s"$prefix${SecureRandom.nextString(32)}")
-  }
-
-  case class AuthorizationCode(secret: Secret) extends AnyVal
   object AuthorizationCode {
-    def apply(value: String): AuthorizationCode = AuthorizationCode(Secret(value))
-    def random()                                = AuthorizationCode(Secret.random("liu_"))
+    def random() = AuthorizationCode(s"liu_${SecureRandom.nextString(32)}")
   }
 
   case class ClientId(value: String) extends AnyVal
@@ -91,7 +80,7 @@ object Protocol {
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
       .withQueryString(
-        "code"  -> Some(code.secret.value),
+        "code"  -> Some(code.secret),
         "state" -> state.map(_.value)
       )
       .toString
