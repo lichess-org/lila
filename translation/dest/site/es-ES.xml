@@ -885,5 +885,12 @@ a la puntuación de los jugadores</string>
 Solo funciona con partidas estándar, no con las variantes.
 Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
 Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
+  <string name="cancelSimul">Cancelar la simulación</string>
+  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Color del anfitrión para cada partida</string>
+  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Hora de inicio estimada</string>
+  <string name="simulFeatured">Mostrar simultánea en %s</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Muestra la simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
+  <string name="simulDescription">Descripción de la simultánea</string>
+  <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s está disponible para una sintaxis más avanzada.</string>
 </resources>
