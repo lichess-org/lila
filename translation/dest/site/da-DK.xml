@@ -40,7 +40,7 @@
     <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
   </plurals>
   <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
-  <string name="makeYourOpponentResign">Tving din modstander til at opgive</string>
+  <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Fremtving remis</string>
   <string name="talkInChat">Hold en venlig tone i chatten!</string>
@@ -58,7 +58,7 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser engine ...</string>
+  <string name="loadingEngine">Indlæser skakmotor ...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
