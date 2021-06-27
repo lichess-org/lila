@@ -885,7 +885,7 @@ a la puntuación de los jugadores</string>
 Solo funciona con partidas estándar, no con las variantes.
 Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
 Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
-  <string name="cancelSimul">Cancelar la simulación</string>
+  <string name="cancelSimul">Cancelar la simultánea</string>
   <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Color del anfitrión para cada partida</string>
   <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Hora de inicio estimada</string>
   <string name="simulFeatured">Mostrar simultánea en %s</string>
