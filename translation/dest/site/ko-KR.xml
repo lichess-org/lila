@@ -442,7 +442,7 @@
   <string name="puzzles">퍼즐</string>
   <string name="latestUpdates">최근 업데이트</string>
   <string name="tournamentWinners">토너먼트 승리자</string>
-  <string name="name">팀 이름</string>
+  <string name="name">이름</string>
   <string name="description">설명</string>
   <string name="descPrivate">비공개 설명</string>
   <string name="descPrivateHelp">팀 멤버만 볼 수 있는 텍스트입니다. 설정된다면, 팀 멤버에게는 공개 설명 대신 보이게 됩니다.</string>
@@ -824,4 +824,13 @@
   <string name="welcome">환영합니다!</string>
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
+  <string name="cancelTournament">토너먼트 취소</string>
+  <string name="tournDescription">토너먼트 설명</string>
+  <string name="tournDescriptionHelp">참가자에게 하고 싶은 말이 있나요? 짧게 작성해주세요. 마크다운 링크가 가능합니다: [name](https://url)</string>
+  <string name="noRestriction">제한 없음</string>
+  <string name="minimumRatedGames">최소 레이팅 게임 참여 횟수</string>
+  <string name="minimumRating">최소 레이팅</string>
+  <string name="maximumWeeklyRating">최대 주간 레이팅</string>
+  <string name="onlyTitled">타이틀 플레이어만</string>
+  <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
 </resources>
