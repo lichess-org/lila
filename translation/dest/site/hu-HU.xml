@@ -885,4 +885,11 @@ befolyásolják a játékosok értékszámát</string>
 Csak hagyományos játszmákkal működik, variánsokkal nem.
 Használhatod a %s a FEN készítésére, azt illeszd be ide.
 Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
+  <string name="cancelSimul">Szimultán törlése</string>
+  <string name="simulHostcolor">Szimultánt adó színe minden játszmában</string>
+  <string name="estimatedStart">Kezdés becsült ideje</string>
+  <string name="simulFeatured">Közzététel %s</string>
+  <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
+  <string name="simulDescription">Szimultán leírása</string>
+  <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
 </resources>
