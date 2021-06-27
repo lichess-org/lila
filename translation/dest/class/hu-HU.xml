@@ -67,10 +67,10 @@ Itt található a link az osztály eléréséhez.</string>
   <string name="releaseDesc1">A kiadott fiókot nem lehet újra kezelni. A hallgató képes lesz a gyerek mód váltására és a jelszó visszaállítására.</string>
   <string name="releaseDesc2">A tanuló a fiókja kiadása után az osztályban marad.</string>
   <string name="realUniqueEmail">A hallgató valódi, egyedi e-mail címe. Küldünk neki egy visszaigazoló e-mailt, amelyben megtalálható egy link a fiók felszabadításához.</string>
-  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Fiók törlése</string>
-  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">A tanulói fiók végleges törlése.</string>
-  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">A tanuló soha többé nem fér újra hozzá ehhez a fiókhoz. A törlés végleges. Bizonyosodj meg, hogy a tanuló megérti és elfogadja ezt.</string>
-  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Lehetőséged van a fiók jogosultságait átadni a tanulónak, így továbbra is használhatja majd azt.</string>
+  <string name="closeStudent">Fiók törlése</string>
+  <string name="closeTheAccount">A tanulói fiók végleges törlése.</string>
+  <string name="closeDesc1">A tanuló soha többé nem fér újra hozzá ehhez a fiókhoz. A törlés végleges. Bizonyosodj meg, hogy a tanuló megérti és elfogadja ezt.</string>
+  <string name="closeDesc2">Lehetőséged van a fiók jogosultságait átadni a tanulónak, így továbbra is használhatja majd azt.</string>
   <string name="teachers">Tanárok</string>
   <plurals name="nbTeachers">
     <item quantity="one">Tanár</item>
@@ -97,5 +97,4 @@ Itt található a link az osztály eléréséhez.</string>
   <string name="newsEdit2">Adja hozzá a legfrissebb híreket a tetején. Ne törölje a korábbi híreket.</string>
   <string name="newsEdit3">Különválaszthatja a ---
 Vízszintes vonalat jelenít meg.</string>
-  <string name="markdownAvailable">A %s elérhető a fejlettebb szintaxishoz.</string>
 </resources>
