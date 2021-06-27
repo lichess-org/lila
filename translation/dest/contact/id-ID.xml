@@ -52,6 +52,7 @@
   <string name="knightMate">Dimungkinkan untuk skakmat hanya dengan sebuah bidak kuda atau bidak gajah, jika lawan memiliki lebih dari satu raja di papan catur.</string>
   <string name="noRatingPoints">Tidak ada poin rating yang diberikan</string>
   <string name="ratedGame">Pastikan Anda memainkan permainan ber rating. Permainan santai tidak memengaruhi rating pemain.</string>
+  <string name="botRatingAbuse">Dalam keadaan tertentu saat bermain melawan akun bot, sebuah game yang diberi peringkat mungkin tidak memberikan poin jika ditentukan bahwa pemain menyalahgunakan bot untuk poin peringkat.</string>
   <string name="errorPage">Halaman bermasalah</string>
   <string name="reportErrorPage">Jika Anda menghadapi halaman bermasalah, Anda dapat melaporkannya:</string>
   <string name="banAppeal">Pertimbangan untuk larangan atau pembatasan IP</string>
