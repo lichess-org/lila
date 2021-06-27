@@ -40,7 +40,7 @@ export default function (ctrl: LobbyController) {
                   orientation: pov.color,
                   fen: pov.fen,
                   hasPockets: true,
-                  pockets: pov.pockets,
+                  pockets: pov.fen && pov.fen.split(' ').length > 2 ? pov.fen.split(' ')[2] : '',
                   lastMove: lm && [lm[0] + lm[1], lm[2] + lm[3]],
                 });
               },

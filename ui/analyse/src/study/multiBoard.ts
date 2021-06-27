@@ -166,7 +166,7 @@ function makeCg(preview: ChapterPreview): VNode {
           orientation: preview.orientation,
           fen: preview.fen,
           hasPockets: true,
-          pockets: preview.fen.split(' ').length > 2 ? preview.fen.split(' ')[2] : undefined,
+          pockets: preview.fen && preview.fen.split(' ').length > 2 ? preview.fen.split(' ')[2] : '',
           lastMove: uciToLastMove(preview.lastMove),
         });
         vnode.data!.cp = { cg, fen: preview.fen };

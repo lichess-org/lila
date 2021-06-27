@@ -193,7 +193,6 @@ export default function (opts: CevalOpts): CevalCtrl {
       work.currentFen = fen;
       work.initialFen = fen;
     } else {
-      // send fen after latest castling move and the following moves
       for (let i = 1; i < steps.length; i++) {
         const s = steps[i];
         work.moves.push(s.uci!);

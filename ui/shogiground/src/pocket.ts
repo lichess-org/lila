@@ -19,6 +19,7 @@ export function makePockets(str?: string): Pockets | undefined {
   ];
   if (!str) return pockets;
 
+  // we might not need JSON anymore? I would prefer to always get it from from sfen
   try {
     let jsonParsed = JSON.parse(str);
     // if pocket is a json like "[{pawn: 1, gold: 1},{pawn: 3, silver: 1}]

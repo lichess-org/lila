@@ -16,9 +16,9 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
         coordinates: false,
         viewOnly: !node.getAttribute('data-playable'),
         resizable: false,
+        fen: fen,
         hasPockets: true,
-        pockets: fen.split(' ').length > 2 ? fen.split(' ')[2] : '',
-        fen,
+        pockets: fen && fen.split(' ').length > 2 ? fen.split(' ')[2] : '',
         lastMove: lm && (lm[1] === '*' ? [lm.slice(2)] : [lm[0] + lm[1], lm[2] + lm[3]]),
         drawable: {
           enabled: false,
