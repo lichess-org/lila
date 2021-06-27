@@ -99,8 +99,22 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
       pos.eco ? `${pos.eco} ${pos.name}` : pos.name
     );
   };
+
+  const endgamePosition2option = function (pos: Editor.EndgamePosition): VNode {
+    return h(
+      'option',
+      {
+        attrs: {
+          value: pos.epd || pos.fen,
+          'data-fen': pos.fen,
+        },
+      },
+      pos.name
+    );
+  };
+
   return h('div.board-editor__tools', [
-    ...(ctrl.cfg.embed || !ctrl.cfg.positions
+    ...(ctrl.cfg.embed || !ctrl.cfg.positions || ! ctrl.cfg.endgamePositions
       ? []
       : [
           h('div', [
@@ -133,6 +147,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   ...ctrl.extraPositions.map(position2option),
                 ]),
                 optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option)),
+                optgroup(ctrl.trans.noarg('endgamePositions'), ctrl.cfg.endgamePositions.map(endgamePosition2option)),
               ]
             ),
           ]),
