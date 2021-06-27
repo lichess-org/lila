@@ -8,8 +8,8 @@
   <string name="removedStudents">حذف شده</string>
   <string name="className">نام کلاس</string>
   <string name="realName">نام واقعی</string>
-  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">بستن حساب کاربری</string>
-  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">بستن دائمی حساب دانش آموز.</string>
-  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
-  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
+  <string name="closeStudent">بستن حساب کاربری</string>
+  <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
+  <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
+  <string name="closeDesc2">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
 </resources>
