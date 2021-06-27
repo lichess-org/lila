@@ -826,7 +826,7 @@
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
   <string name="rapid">Rapid</string>
-  <string name="classical">Klassisk</string>
+  <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vanvittigt hurtige spil: mindre end 30 sekunder</string>
   <string name="bulletDesc">Meget hurtige spil: mindre end 3 minutter</string>
   <string name="blitzDesc">Hurtige spil: 3 til 8 minutter</string>
