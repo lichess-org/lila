@@ -876,8 +876,11 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
 et ont un impact sur les évaluations des joueurs</string>
   <string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
   <string name="noRestriction">Sans restriction</string>
+  <string name="minimumRatedGames">Nombre minimum de parties classées</string>
   <string name="minimumRating">Note minimale</string>
   <string name="maximumWeeklyRating">Note hebdomadaire maximale</string>
+  <string name="onlyTitled">Joueurs titrés seulement</string>
+  <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="cancelSimul">Annuler la simultanée</string>
   <string name="estimatedStart">Heure de début estimée</string>
   <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez pour les simulanées privées.</string>
