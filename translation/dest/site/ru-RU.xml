@@ -966,7 +966,7 @@
 Вы можете использовать %s для создания позиции FEN, а затем вставить её здесь.
 Оставьте поле пустым, чтобы игры начинались с обычной начальной позиции.</string>
   <string name="cancelSimul">Отменить сеанс</string>
-  <string name="simulHostcolor">Цвет в каждой партии</string>
+  <string name="simulHostcolor">Цвет сеансёра в каждой партии</string>
   <string name="estimatedStart">Предполагаемое время начала сеанса</string>
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
