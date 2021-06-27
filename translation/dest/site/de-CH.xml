@@ -872,16 +872,24 @@ Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutz
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
   <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
-  <string name="ratedFormHelp">Partien sind gewertet und beeinflussen die Wertungszahl der Spieler</string>
+  <string name="ratedFormHelp">Partien sind gewertet
+und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
   <string name="noRestriction">Keine Einschränkung</string>
   <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
-  <string name="minimumRating">Mindest-Wertungszahl</string>
-  <string name="maximumWeeklyRating">Maximale Wertungszahl in dieser Woche</string>
+  <string name="minimumRating">Niedrigste Wertungszahl</string>
+  <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Setze einen offiziellen Titel voraus, um dem Turnier beizutreten</string>
-  <string name="positionInputHelp">Füge eine gültige FEN ein, um jedes Spiel von einer bestimmten Position zu starten.
-Funktioniert nur für Standardspiele, nicht für Varianten.
-Du kannst den %s verwenden, um eine FEN-Position zu generieren, füge diese dann hier ein.
-Leer lassen, um Spiele von der normalen Ausgangsposition aus zu starten.</string>
+  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
+Das funktioniert nur für Standardspiele, nicht für Varianten.
+Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
+Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
+  <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
+  <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
+  <string name="estimatedStart">Voraussichtliche Startzeit</string>
+  <string name="simulFeatured">Auf %s zeigen</string>
+  <string name="simulFeaturedHelp">Zeige allen deine Simultan-Veranstaltung auf %s. Für private Simultan-Veranstaltungen deaktivieren.</string>
+  <string name="simulDescription">Simultan Beschreibung</string>
+  <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
 </resources>
