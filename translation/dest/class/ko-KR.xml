@@ -90,5 +90,4 @@
   <string name="newsEdit2">상단에 최근 뉴스를 추가하세요. 이전 뉴스를 삭제하지 마세요.</string>
   <string name="newsEdit3">각 뉴스를 ---로 구분하세요.
 가로선으로 보이게 됩니다.</string>
-  <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
 </resources>
