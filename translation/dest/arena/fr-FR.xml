@@ -44,4 +44,5 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   </plurals>
   <string name="newTeamBattle">Nouveau combat en équipe</string>
   <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Date de début modifiée</string>
+  <string name="customStartDateHelp">Selon votre fuseau horaire. Ce paramètre désactive le paramètre « Temps avant le début du tournoi ».</string>
 </resources>
