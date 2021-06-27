@@ -885,4 +885,5 @@ e afetam as avaliações dos jogadores</string>
 Só funciona para os jogos padrão, não com variantes.
 Você pode usar o %s para gerar uma posição FEN e, em seguida, colá-lo aqui.
 Deixe em branco para iniciar jogos da posição inicial normal.</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s está disponível para sintaxe mais avançada.</string>
 </resources>
