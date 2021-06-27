@@ -53,6 +53,7 @@ ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="knightMate">Is féidir marbhsháinn a dhéanamh le ridire nó easpag amháin, má tá níos mó ná rí ag an céile comhraic.</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
+  <string name="botRatingAbuse">In imthosca áirithe agus é ag imirt i gcoinne cuntas bot, ní fhéadfaidh cluiche rátáilte pointí a dhámhachtain má chinntear go bhfuil an t-imreoir ag mí-úsáid an bot le haghaidh pointí rátála.</string>
   <string name="errorPage">Leathanach earráide</string>
   <string name="reportErrorPage">Má thiteann tú ar leathanach earráide, féadfaidh tú é a thuairisciú:</string>
   <string name="banAppeal">Achomharc ar thoirmeasc nó srian IP</string>
