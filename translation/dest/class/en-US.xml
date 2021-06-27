@@ -67,10 +67,10 @@ Here is the link to access the class.</string>
   <string name="releaseDesc1">A released account cannot be made managed again. The student will be able to toggle kid mode and reset password themselves.</string>
   <string name="releaseDesc2">The student will remain in the class after their account is released.</string>
   <string name="realUniqueEmail">Real, unique email address of the student. We will send a confirmation email to it, with a link to release the account.</string>
-  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Close account</string>
-  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Close the student account permanently.</string>
-  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees.</string>
-  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">You may want to give the student control over the account instead, so that they can continue using it.</string>
+  <string name="closeStudent">Close account</string>
+  <string name="closeTheAccount">Close the student account permanently.</string>
+  <string name="closeDesc1">The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees.</string>
+  <string name="closeDesc2">You may want to give the student control over the account instead, so that they can continue using it.</string>
   <string name="teachers">Teachers</string>
   <plurals name="nbTeachers">
     <item quantity="one">Teacher</item>
@@ -97,5 +97,4 @@ Here is the link to access the class.</string>
   <string name="newsEdit2">Add the recent news at the top. Don\'t delete previous news.</string>
   <string name="newsEdit3">Separate news with ---
 It will display a horizontal line.</string>
-  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
 </resources>
