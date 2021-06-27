@@ -52,6 +52,7 @@
   <string name="knightMate">It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board.</string>
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>
+  <string name="botRatingAbuse">En algunas circunstancias, al jugar contra una cuenta de bot, es posible que una partida por puntos no se contabilice si se determina que el jugador abusa del bot para conseguir puntos.</string>
   <string name="errorPage">Página de error</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
