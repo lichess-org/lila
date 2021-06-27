@@ -871,19 +871,19 @@ Tous les coûts d\'exploitation, le développement et le contenu sont financés 
   <string name="streamerManager">Configuration des paramètres Streamer</string>
   <string name="cancelTournament">Annuler le tournoi</string>
   <string name="tournDescription">Description du tournoi</string>
-  <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants ? Essayez de faire court. Des liens Markdown sont disponibles : [name](https://url)</string>
-  <string name="ratedFormHelp">Les jeux sont évalués
-et ont un impact sur les évaluations des joueurs</string>
+  <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants? Soyez bref. Des liens Markdown sont disponibles : [name](https://url)</string>
+  <string name="ratedFormHelp">Les parties sont classées
+et ont un impact sur le classement des joueurs</string>
   <string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
   <string name="noRestriction">Sans restriction</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
-  <string name="minimumRating">Note minimale</string>
+  <string name="minimumRating">Classement minimal</string>
   <string name="maximumWeeklyRating">Note hebdomadaire maximale</string>
   <string name="onlyTitled">Joueurs titrés seulement</string>
   <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="cancelSimul">Annuler la simultanée</string>
-  <string name="estimatedStart">Heure de début estimée</string>
-  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez pour les simulanées privées.</string>
+  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Heure de début estimée</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Montrez votre simultanée à tout le monde sur %s. Désactivez pour les simulanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
 </resources>
