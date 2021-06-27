@@ -910,4 +910,5 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
   <string name="noRestriction">Fără restricții</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s este disponibil pentru sintaxă mai avansată.</string>
 </resources>
