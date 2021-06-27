@@ -34,16 +34,7 @@ object wall {
           ul(
             li(trans.clas.newsEdit2()),
             li(trans.clas.newsEdit3()),
-            li(
-              trans.clas.markdownAvailable(
-                a(
-                  href := "https://guides.github.com/features/mastering-markdown/",
-                  targetBlank
-                )(
-                  "Markdown"
-                )
-              )
-            )
+            li(markdownAvailable)
           )
         ),
         postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(

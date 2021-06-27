@@ -22,9 +22,9 @@ $player-height: 1.6rem;
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
   position: absolute;
-  left: 0;
   right: 0;
   font-weight: bold;
+  width: var(--cg-width, 100%);
   height: $player-height;
   white-space: nowrap;
 
@@ -37,7 +37,7 @@ $player-height: 1.6rem;
   &-bot {
     @extend %box-radius-bottom;
 
-    bottom: #{-$player-height};
+    top: var(--cg-height, 100%);
   }
 
   .left {

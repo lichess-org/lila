@@ -97,5 +97,4 @@ Here is the link to access the class.</string>
   <string name="newsEdit2">Add the recent news at the top. Don't delete previous news.</string>
   <string name="newsEdit3">Separate news with ---
 It will display a horizontal line.</string>
-  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
 </resources>

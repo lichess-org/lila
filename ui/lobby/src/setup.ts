@@ -162,9 +162,10 @@ export default class Setup {
         }
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
         const timeOk = timeMode != '1' || limit > 0 || inc > 0,
-          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || timeMode != '1';
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || timeMode != '1',
+          fenOk = variantId !== '3' || $fenInput.hasClass('success');
         const disable = ($e: Cash, d: boolean) => $e.prop('disabled', d).toggleClass('disabled', d);
-        if (timeOk && aiOk) {
+        if (timeOk && aiOk && fenOk) {
           disable($submits, false);
           if (rated && randomColorVariants.includes(variantId)) {
             disable($submits.filter(':not(.random)'), true);
@@ -394,13 +395,13 @@ export default class Setup {
             $fenPosition.find('a.board_editor').each(function (this: HTMLAnchorElement) {
               this.href = this.href.replace(/editor\/.+$/, 'editor/' + fen);
             });
-            $submits.removeClass('nope');
+            toggleButtons();
             lichess.contentLoaded();
           },
           _ => {
             $fenInput.addClass('failure');
             $fenPosition.find('.preview').html('');
-            $submits.addClass('nope');
+            toggleButtons();
           }
         );
       }
@@ -415,6 +416,7 @@ export default class Setup {
         $modeChoicesWrap.toggle(!isFen);
         if (isFen) {
           $casual.trigger('click');
+          validateFen();
           requestAnimationFrame(() => document.body.dispatchEvent(new Event('chessground.resize')));
         }
         showRating();

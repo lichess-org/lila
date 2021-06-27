@@ -8,7 +8,7 @@ import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.{ markdownLinksOrRichText, richText, safeJsonValue }
+import lila.common.String.html.{ richText, safeJsonValue }
 import lila.team.Team
 
 object show {
@@ -176,7 +176,7 @@ object show {
           div(cls := "team-show__content__col2")(
             standardFlash(),
             st.section(cls := "team-show__desc")(
-              markdownLinksOrRichText {
+              markdown {
                 t.descPrivate.ifTrue(info.mine) | t.description
               },
               t.location.map { loc =>
@@ -227,6 +227,18 @@ object show {
         )
       )
     }
+
+  private object markdown {
+    import scala.concurrent.duration._
+    private val renderer = new lila.common.Markdown(list = true)
+    private val cache: com.github.blemale.scaffeine.LoadingCache[String, String] =
+      lila.memo.CacheApi.scaffeineNoScheduler
+        .expireAfterAccess(10 minutes)
+        .maximumSize(512)
+        .build(renderer.apply)
+
+    def apply(text: String): Frag = raw(cache get text)
+  }
 
   // handle special teams here
   private def joinButton(t: Team)(implicit ctx: Context) =
