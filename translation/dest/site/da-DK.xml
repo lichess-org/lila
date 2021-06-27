@@ -646,7 +646,7 @@
   <string name="keyEnterOrExitVariation">Start/slut variation</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Skakturnering med forskellige tidskontroller og varianter</string>
-  <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Klassisk, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
+  <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
   <string name="tournamentNotFound">Turnering ikke fundet</string>
   <string name="tournamentDoesNotExist">Denne turnering eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan være blevet aflyst, hvis alle spillere forlod den før turneringsstart.</string>
@@ -832,7 +832,7 @@
   <string name="blitzDesc">Hurtige spil: 3 til 8 minutter</string>
   <string name="rapidDesc">Hurtige spil: 8 til 25 minutter</string>
   <string name="classicalDesc">Klassiske spil: 25 minutter eller mere</string>
-  <string name="correspondenceDesc">Korrespondancespil: en eller adskillige dage per træk</string>
+  <string name="correspondenceDesc">Korrespondancepartier: en eller adskillige dage per træk</string>
   <string name="puzzleDesc">Skaktaktik-træner</string>
   <string name="important">Vigtigt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Der findes måske allerede et svar på dit spørgsmål %1$s</string>
@@ -888,7 +888,7 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cancelSimul">Annuller simultanen</string>
   <string name="simulHostcolor">Værtsfarve for hvert parti</string>
   <string name="estimatedStart">Anslået starttidspunkt</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Vis på %s</string>
+  <string name="simulFeatured">Vis på %s</string>
   <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
