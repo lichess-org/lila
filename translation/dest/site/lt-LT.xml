@@ -966,4 +966,7 @@ ir daro įtaką žaidėjų reitingams</string>
 Veikia tik standartiniams žaidimams, ne variantams.
 Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
 Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijos.</string>
+  <string name="estimatedStart">Numatytas pradžios laikas</string>
+  <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
 </resources>
