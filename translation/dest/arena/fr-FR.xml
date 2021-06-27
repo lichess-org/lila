@@ -42,4 +42,6 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
     <item quantity="one">Voir l\'équipe</item>
     <item quantity="other">Voir toutes les équipes %s</item>
   </plurals>
+  <string name="newTeamBattle">Nouveau combat en équipe</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Date de début modifiée</string>
 </resources>
