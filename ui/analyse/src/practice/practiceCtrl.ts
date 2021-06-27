@@ -1,12 +1,12 @@
 import { winningChances, Eval } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectFourfold } from '../nodeFinder';
-import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
+//import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { defined, prop, Prop } from 'common';
+import { prop, Prop } from 'common';
 import { makeSan } from 'shogiops/san';
-import { parseLishogiUci } from 'shogiops/compat';
+import { parseLishogiUci, assureLishogiUci } from 'shogiops/compat';
 
 declare type Verdict = 'goodMove' | 'inaccuracy' | 'mistake' | 'blunder';
 
@@ -49,7 +49,7 @@ export interface PracticeCtrl {
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
-  const variant = root.data.game.variant.key,
+  const //variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
     hovering = prop<any>(null),
@@ -87,7 +87,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     );
   }
   function nodeBestUci(node: Tree.Node): Uci | undefined {
-    return (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+    const uci = (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+    return uci && assureLishogiUci(uci);
   }
 
   function makeComment(prev: Tree.Node, node: Tree.Node, path: Tree.Path): Comment {
@@ -110,7 +111,6 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       else if (shift < 0.14) verdict = 'mistake';
       else verdict = 'blunder';
     }
-
     return {
       prev,
       node,
@@ -138,7 +138,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
+    //if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -171,18 +171,19 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function checkCevalOrTablebase() {
-    if (tablebaseGuaranteed(variant, root.node.fen))
-      root.explorer.fetchTablebaseHit(root.node.fen).then(
-        hit => {
-          if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
-          checkCeval();
-        },
-        () => {
-          if (!defined(root.node.tbhit)) root.node.tbhit = null;
-          checkCeval();
-        }
-      );
-    else checkCeval();
+    //if (tablebaseGuaranteed(variant, root.node.fen))
+    //  root.explorer.fetchTablebaseHit(root.node.fen).then(
+    //    hit => {
+    //      if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
+    //      checkCeval();
+    //    },
+    //    () => {
+    //      if (!defined(root.node.tbhit)) root.node.tbhit = null;
+    //      checkCeval();
+    //    }
+    //  );
+    //else
+    checkCeval();
   }
 
   function resume() {
@@ -239,7 +240,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       root.setAutoShapes();
     },
     hint() {
-      const best = root.node.ceval ? root.node.ceval.pvs[0].moves[0] : null,
+      const best = root.node.ceval ? assureLishogiUci(root.node.ceval.pvs[0].moves[0]) : null,
         prev = hinting();
       if (!best || (prev && prev.mode === 'move')) hinting(null);
       else
