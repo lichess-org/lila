@@ -96,5 +96,4 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="newsEdit1">Alle klasse-nyheder i et enkelt felt.</string>
   <string name="newsEdit2">Tilføj de seneste nyheder i toppen. Slet ikke tidligere nyheder.</string>
   <string name="newsEdit3">Adskil nyheder med --- det vil blive vist som en vandret linje.</string>
-  <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
 </resources>
