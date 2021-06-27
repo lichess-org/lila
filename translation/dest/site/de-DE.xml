@@ -872,11 +872,12 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
   <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
-  <string name="ratedFormHelp">Partien sind gewertet und beeinflussen die Wertungszahl der Spieler</string>
+  <string name="ratedFormHelp">Partien sind gewertet
+und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
   <string name="noRestriction">Keine Einschränkung</string>
   <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
-  <string name="minimumRating">Mindest-Wertungszahl</string>
+  <string name="minimumRating">Niedrigste Wertungszahl</string>
   <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
   <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
@@ -884,4 +885,11 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
 Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
 Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
+  <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
+  <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
+  <string name="estimatedStart">Voraussichtliche Startzeit</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Auf %s zeigen</string>
+  <string name="simulFeaturedHelp">Zeige deine Simultan-Veranstaltung allen auf %s. Für private Simultan-Veranstaltungen deaktivieren.</string>
+  <string name="simulDescription">Simultan Beschreibung</string>
+  <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
 </resources>
