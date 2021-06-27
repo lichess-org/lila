@@ -96,5 +96,4 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
   <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
   <string name="newsEdit3">Trenne Neuigkeiten mit --- Es wird als horizontale Linie angezeigt.</string>
-  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
 </resources>
