@@ -52,6 +52,7 @@
   <string name="knightMate">É possível fazer xeque-mate apenas com um cavalo ou um bispo se o adversário tiver outra peça além do rei no tabuleiro.</string>
   <string name="noRatingPoints">Não recebi pontos após a partida</string>
   <string name="ratedGame">Certifique-se de ter jogado uma partida por pontuação. Jogos casuais não alteram a pontuação dos jogadores.</string>
+  <string name="botRatingAbuse">Em certos casos, ao jogar contra uma conta bot, um jogo ranqueado poderá não valer pontos, se for determinado que o jogador está abusando do bot para conseguir pontos.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
   <string name="banAppeal">Apelação de banimento ou restrição de IP</string>
