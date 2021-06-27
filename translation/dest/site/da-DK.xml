@@ -557,7 +557,7 @@
     <item quantity="other">Maximum: %s tegn.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blokerede spillere</item>
+    <item quantity="one">%s blokeret spiller</item>
     <item quantity="other">%s blokerede spillere</item>
   </plurals>
   <string name="listBlockedPlayers">Vis spillere du har blokeret</string>
@@ -571,7 +571,7 @@
   <string name="signedOut">Du er blevet logget ud</string>
   <string name="loginSuccessful">Du er nu logget ind</string>
   <string name="playOnTheBoardOffline">Spil offline, brug som bræt</string>
-  <string name="playOfflineComputer">Spil computer offline</string>
+  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Modstander</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Studie</string>
@@ -676,7 +676,7 @@
   <string name="downloadImported">Download importeret</string>
   <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Korstabel</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle frem til et træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
@@ -703,7 +703,7 @@
   <string name="phoneAndTablet">Telefon og tablet</string>
   <string name="bulletBlitzClassical">Bullet, lyn, klassisk</string>
   <string name="correspondenceChess">Korrespondanceskak</string>
-  <string name="onlineAndOfflinePlay">Online eller offline spil</string>
+  <string name="onlineAndOfflinePlay">Online og offline spil</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="followAndChallengeFriends">Følg og udfordre dine venner</string>
   <plurals name="availableInNbLanguages">
@@ -820,7 +820,7 @@
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Nuværende kampscore</string>
   <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
-  <string name="agreementNice">Jeg lover, at jeg altid vil være venlig mod andre spillere.</string>
+  <string name="agreementNice">Jeg lover, at jeg altid vil være respektfuld mod andre spillere.</string>
   <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
