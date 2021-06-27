@@ -970,4 +970,5 @@
   <string name="estimatedStart">Предполагаемое время начала сеанса</string>
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
+  <string name="markdownAvailable">%s доступен для расширенного форматирования.</string>
 </resources>
