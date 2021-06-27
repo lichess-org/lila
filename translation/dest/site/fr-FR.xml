@@ -888,4 +888,5 @@ et ont un impact sur le classement des joueurs</string>
   <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
   <string name="simulDescription">Description de la simultanée</string>
   <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s offre des options de formatage supplémentaires.</string>
 </resources>
