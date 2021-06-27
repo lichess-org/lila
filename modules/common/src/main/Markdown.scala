@@ -9,7 +9,7 @@ import com.vladsch.flexmark.util.data.MutableDataSet
 import scala.jdk.CollectionConverters._
 
 final class Markdown(
-    autoLink: Boolean = false,
+    autoLink: Boolean = true,
     table: Boolean = false,
     strikeThrough: Boolean = false,
     header: Boolean = false,
