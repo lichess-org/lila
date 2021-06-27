@@ -69,7 +69,7 @@ object activity {
   private def onePractice(tup: (lila.practice.PracticeStudy, Int))(implicit ctx: Context) =
     tup match {
       case (study, nb) =>
-        val href = routes.Page.notSupported() // show("-", study.slug, study.id.value)
+        val href = routes.Practice.show("-", study.slug, study.id.value)
         frag(
           trans.activity.practicedNbPositions.plural(nb, nb, a(st.href := href)(study.name)),
           br

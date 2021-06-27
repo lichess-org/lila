@@ -58,8 +58,8 @@ final class Practice(
         struct.sections.find(_.id == sectionId).fold(notFound) { section =>
           select(section) ?? { study =>
             Redirect(
-              routes.Page.notSupported()
-            ).fuccess // show(section.id, study.slug, study.id.value)).fuccess
+              routes.Practice.show(section.id, study.slug, study.id.value)
+            ).fuccess
           }
         }
       }
@@ -129,7 +129,7 @@ final class Practice(
 
   def reset =
     AuthBody { _ => me =>
-      api.progress.reset(me) inject Redirect(routes.Page.notSupported()) // index
+      api.progress.reset(me) inject Redirect(routes.Practice.index())
     }
 
   def config =
@@ -149,7 +149,7 @@ final class Practice(
         } { text =>
           ~api.config.set(text).toOption >>-
             api.structure.clear() >>
-            env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Page.notSupported()) // config
+            env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config())
         }
       }
     }
