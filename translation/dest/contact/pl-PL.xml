@@ -52,6 +52,7 @@
   <string name="knightMate">Można zamatować przeciwnika tylko skoczkiem lub gońcem, jeśli przeciwnik ma więcej niż tylko króla.</string>
   <string name="noRatingPoints">Nie przyznano punktów rankingowych</string>
   <string name="ratedGame">Upewnij się, że grałeś partię rankingową. Zwykłe gry nie mają wpływu na ranking graczy.</string>
+  <string name="botRatingAbuse">W pewnych okolicznościach, grając przeciwko botowi, partia rankingowa może nie przynieść punktów, jeśli zostanie rozpoznane, że gracz nadużywa bota do nabijania ich sobie.</string>
   <string name="errorPage">Strona błędu</string>
   <string name="reportErrorPage">Jeśli znalazłeś się na stronie błędu, możesz to zgłosić:</string>
   <string name="banAppeal">Odwołanie od zablokowania konta lub ograniczenia IP</string>
