@@ -52,6 +52,7 @@
   <string name="knightMate">Mogoče je matirati samo s skakačem ali lovcem, če nasprotnik nima na šahovnici samo kralja.</string>
   <string name="noRatingPoints">Nobene rating točke niso bile podeljene</string>
   <string name="ratedGame">Prepričajte se, da ste igrali rangirano igro. Običajne igre ne vplivajo na igralčeve ratinge.</string>
+  <string name="botRatingAbuse">V določenih okoliščinah pri igranju proti robotskemu računu rejtingirana igra ne sme dodeliti točk, če se ugotovi, da igralec zlorablja robota za rejtingiranje.</string>
   <string name="errorPage">Stran z napako</string>
   <string name="reportErrorPage">Če ste soočeni s stranjo z napako, jo lahko prijavite:</string>
   <string name="banAppeal">Pritožba na prepoved ali omejitev IP</string>
