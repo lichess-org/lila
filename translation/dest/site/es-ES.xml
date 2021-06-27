@@ -885,4 +885,5 @@ a la puntuación de los jugadores</string>
 Solo funciona con partidas estándar, no con las variantes.
 Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
 Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
+  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
 </resources>
