@@ -44,4 +44,8 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
     <item quantity="one">Δείτε την ομάδα</item>
     <item quantity="other">Δείτε όλες τις %s ομάδες</item>
   </plurals>
+  <string name="newTeamBattle">Νέα ομαδική μάχη</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Προσαρμοσμένη ημερομηνία έναρξης</string>
+  <string name="customStartDateHelp" comment="customStartDateHelp&#10;&#10;Explanatory text for 'Custom start date', which lets you put in a precise time &amp; date when creating a tournament. This is instead of opening the tournament and then starting it in 15 minutes, as an example.&#10;&#10;You can find this and other control in the tournament creation screen: https://lichess.org/tournament/new (requires sign in)">Στην τοπική ζώνη ώρας σας. Αυτό υπερισχύει της ρύθμισης \"Χρόνος προτού ξεκινήσει το πρωτάθλημα\"</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Να επιτρέπεται το Berserk</string>
 </resources>
