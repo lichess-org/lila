@@ -47,10 +47,10 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
   </plurals>
   <string name="newTeamBattle">Neuer Teamkampf</string>
   <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Benutzerdefiniertes Startdatum</string>
-  <string name="customStartDateHelp">In deiner eigenen lokalen Zeitzone. Dies wird die Einstellung \"Zeit vor Turnier\" überschrieben</string>
+  <string name="customStartDateHelp">In deiner eigenen, lokalen Zeitzone. Dies wird die Einstellung \"Zeit bevor das Turnier beginnt\" überschreiben</string>
   <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Berserk erlauben</string>
-  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Lasse Spieler ihre Startbedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
-  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Lass Spieler in einem Chatraum diskutieren</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Lasse Spieler ihre Bedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Lasse Spieler in einem Chatraum diskutieren</string>
   <string name="arenaStreaks">Arena-Siegesserien</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>
