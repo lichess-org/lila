@@ -72,6 +72,7 @@ Amañ emañ al liamm evit mont ennañ.</string>
   <string name="realUniqueEmail">Chomlec\'h postel nemetañ ha gwir ar studier. Ur gemennadenn gadarnaat a vo kaset gant ul liamm da glikañ warnañ evit dieubiñ ar gont.</string>
   <string name="closeStudent">Serriñ ar gont</string>
   <string name="closeTheAccount">Serriñ kont ar studier da viken.</string>
+  <string name="closeDesc1">Ne c\'hallo ket ar studier implijout ar gont-mañ ken. Peurbadus eo serriñ. Bezit sur eo bet komprenet hag asantet gant ar studier.</string>
   <string name="teachers">Kelennerien</string>
   <plurals name="nbTeachers">
     <item quantity="one">Kelenner</item>
