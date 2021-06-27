@@ -681,6 +681,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over datamaskin-variasjonane for å førehandsvisa dei.</string>
   <string name="analysisShapesHowTo">Trykk shift-klikk eller høyreklikk for å tegne sirklar og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
+  <string name="receiveForumNotifications">Bli varsla når du vert nemd i forumet</string>
   <string name="shareYourInsightsData">Del den personlege spelarstatistikken din</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vener</string>
@@ -885,4 +886,8 @@ og påverkar ratinga til spelarane</string>
 Det fungerar berre for standardparti, ikke for variantar.
 Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
 La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</string>
+  <string name="cancelSimul">Avbryt simultanen</string>
+  <string name="simulHostcolor">Vertsfarge for kvart parti</string>
+  <string name="estimatedStart">Forventa starttidspunkt</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Vis på %s</string>
 </resources>
