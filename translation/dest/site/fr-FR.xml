@@ -878,7 +878,7 @@ et ont un impact sur le classement des joueurs</string>
   <string name="noRestriction">Sans restriction</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
   <string name="minimumRating">Classement minimal</string>
-  <string name="maximumWeeklyRating">Note hebdomadaire maximale</string>
+  <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
   <string name="onlyTitled">Joueurs titrés seulement</string>
   <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="cancelSimul">Annuler la simultanée</string>
