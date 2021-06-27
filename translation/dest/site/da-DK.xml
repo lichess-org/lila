@@ -892,4 +892,5 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
+  <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
 </resources>
