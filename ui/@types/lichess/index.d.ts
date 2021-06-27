@@ -233,7 +233,7 @@ declare namespace Editor {
   export interface EndgamePosition {
     name: string;
     fen: string;
-    epd?: string
+    epd?: string;
   }
 }
 

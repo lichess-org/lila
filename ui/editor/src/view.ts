@@ -114,7 +114,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   };
 
   return h('div.board-editor__tools', [
-    ...(ctrl.cfg.embed || !ctrl.cfg.positions || ! ctrl.cfg.endgamePositions
+    ...(ctrl.cfg.embed || !ctrl.cfg.positions || !ctrl.cfg.endgamePositions
       ? []
       : [
           h('div', [
