@@ -73,6 +73,7 @@ object jsI18n {
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
     trans.draw,
+    trans.impasse,
     trans.timeOut,
     trans.whiteIsVictorious,
     trans.blackIsVictorious,

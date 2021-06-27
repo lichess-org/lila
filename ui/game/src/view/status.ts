@@ -15,7 +15,7 @@ export default function status(ctrl: Ctrl): string {
     case 'stalemate':
       return noarg('stalemate');
     case 'impasse27':
-      return 'Impasse';
+      return noarg('impasse');
     case 'tryRule':
       return 'Try rule';
     case 'perpetualCheck':

@@ -184,7 +184,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.UnknownFinish  => trans.finished.txt()
       case S.Stalemate      => trans.stalemate.txt()
       case S.TryRule        => "Try Rule"
-      case S.Impasse27      => "Impasse"
+      case S.Impasse27      => trans.impasse.txt()
       case S.PerpetualCheck => "Perpetual Check"
       case S.Timeout =>
         game.loser match {

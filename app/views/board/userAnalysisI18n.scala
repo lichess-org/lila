@@ -37,6 +37,7 @@ object userAnalysisI18n {
     trans.whiteLeftTheGame,
     trans.blackLeftTheGame,
     trans.draw,
+    trans.impasse,
     trans.timeOut,
     trans.playingRightNow,
     trans.whiteIsVictorious,
