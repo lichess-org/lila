@@ -69,10 +69,10 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="releaseDesc1">Objavljen račun ne more biti spet upravljan. Študent bo lahko sam preklopil način za otroke in ponastavil geslo.</string>
   <string name="releaseDesc2">Študent bo ostal v razredu po objavi njegovega računa.</string>
   <string name="realUniqueEmail">Reničen, unikaten elektronski naslov študenta. Poslali bomo potrditveno pošto na ta elektronski naslov s povezavo za objavo računa.</string>
-  <string name="closeStudent" comment="closeStudent&#10;Clicking this button will close the student's account.">Zapri račun</string>
-  <string name="closeTheAccount" comment="closeTheAccount&#10;&#10;Student account - as in the type of account.&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Trajno zaprite študentski račun.</string>
-  <string name="closeDesc1" comment="closeDesc1&#10;&#10;This is shown to chess teachers who control and manage the student's account, if they are looking to close it.">Študent tega računa ne bo mogel več uporabljati. Zaprtje je dokončno. Prepričajte se, da študent razume in se strinja.</string>
-  <string name="closeDesc2" comment="closeDesc2&#10;&#10;This is shown to chess teachers who control and manage a student's account, in case they are looking to close it.">Namesto tega boste morda želeli študentu dati nadzor nad računom, da ga bo lahko še naprej uporabljal.</string>
+  <string name="closeStudent">Zapri račun</string>
+  <string name="closeTheAccount">Trajno zaprite študentski račun.</string>
+  <string name="closeDesc1">Študent tega računa ne bo mogel več uporabljati. Zaprtje je dokončno. Prepričajte se, da študent razume in se strinja.</string>
+  <string name="closeDesc2">Namesto tega boste morda želeli študentu dati nadzor nad računom, da ga bo lahko še naprej uporabljal.</string>
   <string name="teachers">Učitelji</string>
   <plurals name="nbTeachers">
     <item quantity="one">Učitelj</item>
@@ -103,5 +103,4 @@ Tukaj je povezava za dostop do razreda.</string>
   <string name="newsEdit2">Dodajte zadnje novice na vrh. Ne izbrišite prejšnjih novic.</string>
   <string name="newsEdit3">Ločene novice s ---
 Prikazal bo horizontalno črto.</string>
-  <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
 </resources>
