@@ -209,7 +209,6 @@ object contact {
                 p(ratedGame()),
                 botRatingAbuse()
               )
-              
             ),
             Leaf(
               "error-page",

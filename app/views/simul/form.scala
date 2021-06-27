@@ -55,7 +55,7 @@ object form {
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
           submitButton(dataIcon := "", cls := "text button button-red confirm")(
-           trans.cancelSimul()
+            trans.cancelSimul()
           )
         )
       )
