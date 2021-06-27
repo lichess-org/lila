@@ -875,4 +875,5 @@ och påverkar spelares rating</string>
   <string name="maximumWeeklyRating">Högsta vecko-rating</string>
   <string name="onlyTitled">Endast betitlade spelare</string>
   <string name="onlyTitledHelp">Kräv en officiell titel för att delta i turneringen</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s är tillgängligt för mer avancerad syntax.</string>
 </resources>
