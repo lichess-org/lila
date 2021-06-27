@@ -967,6 +967,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="cancelSimul">Anuluj symultanę</string>
   <string name="simulHostcolor">Kolor prowadzącego symultanę dla każdej partii</string>
   <string name="estimatedStart">Szacowany czas rozpoczęcia</string>
+  <string name="simulFeatured">Dostępna na %s</string>
   <string name="simulFeaturedHelp">Pokaż symultanę wszystkim na %s. Wyłącz dla prywatnych symultan.</string>
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
