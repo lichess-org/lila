@@ -881,9 +881,9 @@ a la puntuación de los jugadores</string>
   <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
   <string name="onlyTitled">Solo jugadores titulados</string>
   <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
-  <string name="positionInputHelp">Pega una posición FEN válida para empezar todas las partidas con una posición específica.
+  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Pega una posición FEN válida para empezar todas las partidas con una posición específica.
 Solo funciona con partidas estándar, no con las variantes.
 Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
 Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
-  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s está disponible para una sintaxis más avanzada.</string>
 </resources>
