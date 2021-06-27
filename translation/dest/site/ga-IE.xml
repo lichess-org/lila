@@ -1002,8 +1002,16 @@ agus rátálacha imreoirí tionchair</string>
   <string name="maximumWeeklyRating">Uasráta seachtainiúil</string>
   <string name="onlyTitled">Imreoirí dar teideal amháin</string>
   <string name="onlyTitledHelp">Teideal oifigiúil a éileamh chun páirt a ghlacadh sa chomórtas</string>
-  <string name="positionInputHelp">Greamaigh FEN bailí chun gach cluiche a thosú ó áit ar leith.
+  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Greamaigh FEN bailí chun gach cluiche a thosú ó áit ar leith.
 Ní oibríonn sé ach le haghaidh cluichí caighdeánacha, ní le leaganacha.
 Is féidir leat an %s a úsáid chun suíomh FEN a ghiniúint, ansin é a ghreamú anseo.
 Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
+  <string name="cancelSimul">Cuir an taispeántas comhuaineach ar ceal</string>
+  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Dath óstach do gach cluiche</string>
+  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Am tosaithe measta</string>
+  <string name="simulFeatured">Gné ar %s</string>
+  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Taispeáin do thaispeántas comhuaineach do gach duine ar %s. Díchumasaithe do thaispeántais chomhuaineacha phríobháideacha.</string>
+  <string name="simulDescription">Tuairisc ar thaispeántas comhuaineach</string>
+  <string name="simulDescriptionHelp">Rud ar bith is mian leat a rá leis na rannpháirtithe?</string>
+  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
 </resources>
