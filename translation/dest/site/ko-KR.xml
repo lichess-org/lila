@@ -408,7 +408,7 @@
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
   <string name="popularOpenings">인기 있는 오프닝</string>
-  <string name="startPosition">원래대로</string>
+  <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
   <string name="loadPosition">포지션 불러오기</string>
@@ -643,6 +643,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">마우스 스크롤을 돌림으로써 수를 진행할 수 있습니다.</string>
   <string name="analysisShapesHowTo">Shift + 왼쪽/오른쪽 클릭으로 원이나 화살표를 보드 상에 그릴 수 있습니다.</string>
   <string name="letOtherPlayersMessageYou">다른 사람들이 당신에게 메시지를 보낼 수 있도록 합니다.</string>
+  <string name="receiveForumNotifications">포럼에서 언급되면 알림을 받습니다</string>
   <string name="shareYourInsightsData">당신의 게임 분석 결과를 공유합니다.</string>
   <string name="withNobody">나만 보기</string>
   <string name="withFriends">친구들만</string>
@@ -654,6 +655,7 @@
   <string name="enableKidMode">아이 모드 활성화하기</string>
   <string name="disableKidMode">아이 모드 비활성화하기</string>
   <string name="security">보안</string>
+  <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
   <string name="asFreeAsLichess">lichess처럼 무료입니다</string>
@@ -827,10 +829,16 @@
   <string name="cancelTournament">토너먼트 취소</string>
   <string name="tournDescription">토너먼트 설명</string>
   <string name="tournDescriptionHelp">참가자에게 하고 싶은 말이 있나요? 짧게 작성해주세요. 마크다운 링크가 가능합니다: [name](https://url)</string>
+  <string name="ratedFormHelp">레이팅 게임을 합니다
+플레이어 레이팅에 영향을 줍니다</string>
+  <string name="onlyMembersOfTeam">팀 멤버만</string>
   <string name="noRestriction">제한 없음</string>
   <string name="minimumRatedGames">최소 레이팅 게임 참여 횟수</string>
   <string name="minimumRating">최소 레이팅</string>
   <string name="maximumWeeklyRating">최대 주간 레이팅</string>
   <string name="onlyTitled">타이틀 플레이어만</string>
+  <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다</string>
+  <string name="cancelSimul">동시대국 취소하기</string>
+  <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
 </resources>
