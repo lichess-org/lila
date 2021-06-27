@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spil mod en ven</string>
   <string name="playWithTheMachine">Spil mod computeren</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at give denne URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at oplyse denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
   <string name="waiting">Venter</string>
@@ -335,13 +335,13 @@
   <string name="mustBeInTeam">Skal være en del af hold %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Tilbage til partiet</string>
-  <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
+  <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <string name="xStartedStreaming">%s begyndte at streame</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
-  <string name="filterGames">Filtrér spil</string>
+  <string name="filterGames">Filtrér partier</string>
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
@@ -463,7 +463,7 @@
   <string name="onlinePlayers">Online spillere</string>
   <string name="activeToday">Aktiv i dag</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Spillet er ratet, men er uden tidsbegrænsning!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
   <string name="success">Fuldført</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti i gang</item>
