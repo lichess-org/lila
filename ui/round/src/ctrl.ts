@@ -66,6 +66,7 @@ export default class RoundController {
   loading: boolean = false;
   loadingTimeout: number;
   redirecting: boolean = false;
+  impasseHelp: boolean = false;
   transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
@@ -508,6 +509,7 @@ export default class RoundController {
     d.game.boosted = o.boosted;
     this.userJump(round.lastPly(d));
     this.shogiground.stop();
+    this.impasseHelp = false;
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];

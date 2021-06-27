@@ -62,6 +62,7 @@ export function renderTablePlay(ctrl: RoundController) {
             game.abortable(d)
               ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort')
               : button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+            button.impasse(ctrl),
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
@@ -73,6 +74,7 @@ export function renderTablePlay(ctrl: RoundController) {
       ? [submit]
       : [
           button.opponentGone(ctrl),
+          button.impasseHelp(ctrl),
           button.cancelTakebackProposition(ctrl),
           button.answerOpponentTakebackProposition(ctrl),
         ];

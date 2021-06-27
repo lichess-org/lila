@@ -16,8 +16,6 @@
   .negotiation {
     padding: 0.5em 3%;
     background: $c-bg-zebra;
-    border: $border;
-    border-width: 0 1px;
   }
   .suggestion {
     @extend %flex-center;
@@ -25,8 +23,30 @@
     p {
       width: 100%;
     }
+    h5 {
+      width: 100%;
+      font-size: 1.2rem;
+    }
     .button {
       margin: 0.5em 0 0 0;
+    }
+    .impasse {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1rem;
+      .color-icon:before {
+        font-size: 1.3rem;
+      }
+      .impasse-list {
+        text-align: left;
+        li {
+          margin: 0.1rem;
+        }
+      }
+    }
+    .impasse-explanation {
+      padding: 0.6rem;
     }
   }
   .pending {
@@ -131,7 +151,7 @@
     &.fbt {
       @extend %metal;
       font-size: 1.2em;
-      height: 6rem;
+      height: 5.5rem;
       @include transition();
     }
     &.me {
@@ -166,7 +186,8 @@
         animation: rubber-band 5s infinite;
       }
     }
-    &.fbt:not(.disabled):hover {
+    &.fbt:not(.disabled):hover,
+    &.fbt.active {
       background: mix($c-link, $c-bg-box, 70%);
       color: #fff;
       animation: none;
@@ -179,7 +200,7 @@
       top: 0;
       right: -25px;
       width: 25px;
-      height: 6rem;
+      height: 5.5rem;
       border: 0;
       opacity: 0.7;
       background: mix($c-bad, $c-bg-box, 50%);

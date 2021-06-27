@@ -19,7 +19,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       isRunning = player.color === clock.times.activeColor;
     els.time = el;
     els.clock = el.parentElement!;
-    el.innerHTML = formatClockTime(millis, clock.showTenths(millis), isRunning, clock.opts.nvui);
+    el.innerHTML = formatClockTime(millis, clock.showTenths(millis, player.color), isRunning, clock.opts.nvui);
   };
   const timeHook: Hooks = {
     insert: vnode => update(vnode.elm as HTMLElement),
@@ -140,8 +140,8 @@ function showBar(ctrl: RoundController, color: Color) {
   });
 }
 
-export function updateElements(clock: ClockController, els: ClockElements, millis: Millis) {
-  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis), true, clock.opts.nvui);
+export function updateElements(clock: ClockController, els: ClockElements, millis: Millis, color: Color) {
+  if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis, color), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock) {
     const cl = els.clock.classList;

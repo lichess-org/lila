@@ -9,6 +9,9 @@ import { PlayerUser } from 'game';
 import { RoundData, MaybeVNodes } from '../interfaces';
 import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
+import { Shogi } from 'shogiops/shogi';
+import { parseFen } from 'shogiops/fen';
+import { SquareSet } from 'shogiops/squareSet';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -116,6 +119,23 @@ export function standard(
   );
 }
 
+export function impasse(ctrl: RoundController): VNode {
+  return h(
+    'button.fbt.impasse',
+    {
+      attrs: {
+        title: ctrl.noarg('impasse'),
+      },
+      class: { active: ctrl.impasseHelp },
+      hook: util.bind('click', _ => {
+        ctrl.impasseHelp = !ctrl.impasseHelp;
+        ctrl.redraw();
+      }),
+    },
+    [h('span', ctrl.nvui ? [ctrl.noarg('impasse')] : util.justIcon('&'))]
+  );
+}
+
 export function opponentGone(ctrl: RoundController) {
   const gone = ctrl.opponentGone();
   return gone === true
@@ -162,6 +182,63 @@ function actConfirm(
 
 export function resignConfirm(ctrl: RoundController): VNode {
   return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
+}
+
+export function impasseHelp(ctrl: RoundController) {
+  if (!ctrl.impasseHelp) return null;
+
+  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1];
+  const shogi = Shogi.fromSetup(parseFen(lastStep.fen).unwrap(), false).unwrap();
+
+  const sentePromotion = SquareSet.promotionZone('sente').intersect(shogi.board.sente);
+  const gotePromotion = SquareSet.promotionZone('gote').intersect(shogi.board.gote);
+  const allMajorPieces = shogi.board.bishop.union(shogi.board.rook).union(shogi.board.horse).union(shogi.board.dragon);
+
+  const senteKing: boolean = !sentePromotion.intersect(shogi.board.king).isEmpty();
+  const goteKing: boolean = !gotePromotion.intersect(shogi.board.king).isEmpty();
+
+  const senteNumberOfPieces: number = sentePromotion.diff(shogi.board.king).size();
+  const goteNumberOfPieces: number = gotePromotion.diff(shogi.board.king).size();
+
+  const senteImpasseValue =
+    senteNumberOfPieces +
+    allMajorPieces.intersect(sentePromotion).size() * 4 +
+    shogi.pockets['sente'].count() +
+    (shogi.pockets['sente'].bishop + shogi.pockets['sente'].rook) * 4;
+
+  const goteImpasseValue =
+    goteNumberOfPieces +
+    allMajorPieces.intersect(gotePromotion).size() * 4 +
+    shogi.pockets['gote'].count() +
+    (shogi.pockets['gote'].bishop + shogi.pockets['gote'].rook) * 4;
+
+  return h('div.suggestion', [
+    h(
+      'h5',
+      {
+        hook: onSuggestionHook,
+      },
+      [ctrl.noarg('impasse'), h('a.impasse-explanation', { attrs: { href: '/page/impasse', target: '_blank' } }, '?')]
+    ),
+    h('div.impasse', [
+      h(
+        'div.color-icon.sente',
+        h('ul.impasse-list', [
+          h('li', ['Entering king: ', senteKing ? '✓' : '✗']),
+          h('li', ['Invading pieces: ', senteNumberOfPieces >= 10 ? '✓' : senteNumberOfPieces + '/10']),
+          h('li', ['Total value: ', senteImpasseValue >= 28 ? '✓' : senteImpasseValue + '/28']),
+        ])
+      ),
+      h(
+        'div.color-icon.gote',
+        h('ul.impasse-list', [
+          h('li', ['Entering king: ', goteKing ? '✓' : '✗']),
+          h('li', ['Invading pieces: ', goteNumberOfPieces >= 10 ? '✓' : goteNumberOfPieces + '/10']),
+          h('li', ['Total value: ', goteImpasseValue >= 27 ? '✓' : goteImpasseValue + '/27']),
+        ])
+      ),
+    ]),
+  ]);
 }
 
 export function cancelTakebackProposition(ctrl: RoundController) {

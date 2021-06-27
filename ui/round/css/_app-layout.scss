@@ -146,6 +146,9 @@ $controls-height: auto;
         display: none;
         background: none;
       }
+      &.impasse {
+        display: none;
+      }
     }
     .keyboard-move {
       margin-top: $block-gap;

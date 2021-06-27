@@ -242,17 +242,23 @@ export function render(ctrl: RoundController): VNode | undefined {
       );
   return ctrl.nvui
     ? undefined
-    : h('div.rmoves', [
-        renderButtons(ctrl),
-        initMessage(d, ctrl.trans.noarg) ||
-          (moves
-            ? col1
-              ? h('div.col1-moves', [
-                  col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
-                  moves,
-                  col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d)),
-                ])
-              : moves
-            : renderResult(ctrl)),
-      ]);
+    : h(
+        'div.rmoves',
+        {
+          class: { impasse: ctrl.impasseHelp },
+        },
+        [
+          renderButtons(ctrl),
+          initMessage(d, ctrl.trans.noarg) ||
+            (moves
+              ? col1
+                ? h('div.col1-moves', [
+                    col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
+                    moves,
+                    col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d)),
+                  ])
+                : moves
+              : renderResult(ctrl)),
+        ]
+      );
 }
