@@ -59,20 +59,20 @@ object leaderboard {
           )
         )
 
-      def marathonWinners =
-        section(
-          h2(cls := "text", dataIcon := "\\")("Marathon"),
-          ul(
-            winners.marathon.map { w =>
-              li(
-                userIdLink(w.userId.some),
-                a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-                  w.tourName.replace(" Marathon", "")
-                )
-              )
-            }
-          )
-        )
+      //def marathonWinners =
+      //  section(
+      //    h2(cls := "text", dataIcon := "\\")("Marathon"),
+      //    ul(
+      //      winners.marathon.map { w =>
+      //        li(
+      //          userIdLink(w.userId.some),
+      //          a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+      //            w.tourName.replace(" Marathon", "")
+      //          )
+      //        )
+      //      }
+      //    )
+      //  )
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("tournament"),
         div(cls := "page-menu__content box box-pad")(
@@ -86,7 +86,7 @@ object leaderboard {
             freqWinners(winners.hyperrapid, PerfType.Rapid, "HyperRapid"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             freqWinners(winners.classical, PerfType.Classical, "Classical"),
-            marathonWinners,
+            //marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
                 winners.variants.get(pt.key).map { w =>
