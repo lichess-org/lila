@@ -878,4 +878,9 @@ et ont un impact sur les évaluations des joueurs</string>
   <string name="noRestriction">Sans restriction</string>
   <string name="minimumRating">Note minimale</string>
   <string name="maximumWeeklyRating">Note hebdomadaire maximale</string>
+  <string name="cancelSimul">Annuler la simultanée</string>
+  <string name="estimatedStart">Heure de début estimée</string>
+  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez pour les simulanées privées.</string>
+  <string name="simulDescription">Description de la simultanée</string>
+  <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants ?</string>
 </resources>
