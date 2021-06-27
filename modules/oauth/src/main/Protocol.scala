@@ -11,7 +11,7 @@ import lila.common.SecureRandom
 
 object Protocol {
   case class AuthorizationCode(secret: String) extends AnyVal {
-    def hashed = Algo.sha256(secret).hex
+    def hashed            = Algo.sha256(secret).hex
     override def toString = "AuthorizationCode(***)"
   }
   object AuthorizationCode {
@@ -22,10 +22,6 @@ object Protocol {
 
   case class State(value: String) extends AnyVal
 
-  case class CodeChallenge(value: String) extends AnyVal {
-    def matches(verifier: CodeVerifier) = verifier.challenge == this
-  }
-
   case class CodeChallengeMethod()
   object CodeChallengeMethod {
     def from(codeChallengeMethod: String): Validated[Error, CodeChallengeMethod] =
@@ -35,10 +31,11 @@ object Protocol {
       }
   }
 
+  case class CodeChallenge(value: String) extends AnyVal
+
   case class CodeVerifier(value: String) extends AnyVal {
-    def challenge = CodeChallenge(
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
-    )
+    def matches(challenge: CodeChallenge) =
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes) == challenge.value
   }
   object CodeVerifier {
     def from(value: String): Validated[Error, CodeVerifier] =
@@ -46,6 +43,13 @@ object Protocol {
         .valid(value)
         .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
         .map(CodeVerifier.apply)
+  }
+
+  case class HashedClientSecret(value: String) extends AnyVal
+
+  case class ClientSecret(secret: String) extends AnyVal {
+    def matches(hash: HashedClientSecret) = Algo.sha256(secret).hex == hash.value
+    override def toString                 = "ClientSecret(***)"
   }
 
   case class ResponseType()
@@ -133,6 +137,7 @@ object Protocol {
     case object CodeRequired                extends InvalidRequest("code required")
     case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
     case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
+    case object ClientSecretRequired        extends InvalidRequest("client_secret required (or switch to pkce)")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
@@ -150,8 +155,9 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-    case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
-      def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
-    }
+    case object MismatchingCodeVerifier
+        extends InvalidGrant("hash of code_verifier does not match code_challenge")
+    case object MismatchingClientSecret
+        extends InvalidGrant("fix mismatching client secret (or switch to pkce)")
   }
 }

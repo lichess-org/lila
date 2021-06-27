@@ -45,7 +45,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def authorizeApply =
     Auth { implicit ctx => me =>
       withPrompt { prompt =>
-        prompt.authorize(me) match {
+        prompt.authorize(me, ???) flatMap {
           case Validated.Valid(authorized) =>
             env.oAuth.authorizationApi.create(authorized) map { code =>
               Redirect(authorized.redirectUrl(code))
@@ -60,6 +60,7 @@ final class OAuth(env: Env) extends LilaController(env) {
       "grant_type"    -> optional(text),
       "code"          -> optional(text),
       "code_verifier" -> optional(text),
+      "client_secret" -> optional(text),
       "redirect_uri"  -> optional(text),
       "client_id"     -> optional(text)
     )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
