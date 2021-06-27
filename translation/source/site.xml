@@ -894,4 +894,9 @@ Leave empty to start games from the normal initial position.</string>
 <string name="simulDescription">Simul description</string>
 <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
 <string name="markdownAvailable">%s is available for more advanced syntax.</string>
+<string name="inYourLocalTimezone">In your own local timezone</string>
+<string name="tournChat">Tournament chat</string>
+<string name="noChat">No chat</string>
+<string name="onlyTeamLeaders">Only team leaders</string>
+<string name="onlyTeamMembers">Only team members</string>
 </resources>
