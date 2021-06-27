@@ -44,5 +44,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   </plurals>
   <string name="newTeamBattle">Nouveau combat en équipe</string>
   <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Date de début modifiée</string>
-  <string name="customStartDateHelp">Selon votre fuseau horaire. Ce paramètre désactive le paramètre « Temps avant le début du tournoi ».</string>
+  <string name="customStartDateHelp" comment="customStartDateHelp&#10;&#10;Explanatory text for 'Custom start date', which lets you put in a precise time &amp; date when creating a tournament. This is instead of opening the tournament and then starting it in 15 minutes, as an example.&#10;&#10;You can find this and other control in the tournament creation screen: https://lichess.org/tournament/new (requires sign in)">Selon votre fuseau horaire. Ce paramètre désactive le paramètre « Temps avant le début du tournoi ».</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Activer l\'option Berserk</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Permettre aux joueurs de réduire de moitié leur temps pour gagner un point supplémentaire</string>
 </resources>
