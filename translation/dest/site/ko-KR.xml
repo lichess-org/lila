@@ -839,6 +839,8 @@
   <string name="onlyTitled">타이틀 플레이어만</string>
   <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다</string>
   <string name="cancelSimul">동시대국 취소하기</string>
+  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">각 게임에서 호스트의 색</string>
+  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">예상 시작 시간</string>
   <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
 </resources>
