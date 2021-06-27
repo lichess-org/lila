@@ -87,7 +87,8 @@
     }
   }
 
-  body.dark &, body.transp & {
+  body.dark &,
+  body.transp & {
     @content;
   }
 }
