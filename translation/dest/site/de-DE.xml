@@ -892,4 +892,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="simulFeaturedHelp">Zeige allen deine Simultan-Veranstaltung auf %s. Für private Simultan-Veranstaltungen deaktivieren.</string>
   <string name="simulDescription">Simultan Beschreibung</string>
   <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
+  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
 </resources>
