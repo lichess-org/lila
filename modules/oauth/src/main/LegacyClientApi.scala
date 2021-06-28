@@ -30,6 +30,8 @@ object LegacyClientApi {
     override def toString                 = "ClientSecret(***)"
   }
 
-  case object MismatchingClientSecret extends Protocol.Error.InvalidGrant("fix mismatching client secret (or update to pkce)")
-  case object ClientSecretRequired extends Protocol.Error.InvalidRequest("client_secret required (or update to pkce)")
+  case object MismatchingClientSecret
+      extends Protocol.Error.InvalidGrant("fix mismatching client secret (or update to pkce)")
+  case object ClientSecretRequired
+      extends Protocol.Error.InvalidRequest("client_secret required (or update to pkce)")
 }
