@@ -90,24 +90,7 @@ object Protocol {
         .parseOption(redirectUri)
         .toValid(Error.RedirectUriInvalid)
         .ensure(Error.RedirectSchemeNotAllowed)(url =>
-          List(
-            // standard
-            "http",
-            "https",
-            "ionic",
-            "capacitor",
-            // bc
-            "squareoffapp",
-            "anichess",
-            "lichessmac",
-            "chessrtx",
-            "chesscomopse",
-            // whitelist (consider automating)
-            "no.rieck.chess.dgt",
-            "net.developerfluid.darkknight",
-            "com.guykn.chessboard3",
-            "com.georgdotorg.catur"
-          ).has(url.scheme)
+          List("http", "https", "ionic", "capacitor").has(url.scheme)
         )
         .map(RedirectUri.apply)
 
