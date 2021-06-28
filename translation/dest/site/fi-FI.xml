@@ -881,16 +881,16 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
   <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
   <string name="onlyTitledHelp">Turnaukseen liittyminen edellyttää virallista arvonimeä</string>
-  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
+  <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
 Se toimii vain tavallisissa peleissä, ei varianteissa.
 Voit luoda aseman %slla ja kopioida FEN-koodin sieltä tänne.
 Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</string>
   <string name="cancelSimul">Peruuta simultaani</string>
-  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Isännän väri joka pelissä</string>
-  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Arvioitu alkamisaika</string>
+  <string name="simulHostcolor">Isännän väri joka pelissä</string>
+  <string name="estimatedStart">Arvioitu alkamisaika</string>
   <string name="simulFeatured">Näytä sivulla %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
+  <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
-  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
+  <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
 </resources>
