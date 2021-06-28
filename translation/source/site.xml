@@ -440,6 +440,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="boardEditor">Board editor</string>
   <string name="setTheBoard">Set the board</string>
   <string name="popularOpenings">Popular openings</string>
+  <string name="endgamePositions">Endgame positions</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>

@@ -213,6 +213,7 @@ declare namespace Editor {
     };
     embed: boolean;
     positions?: OpeningPosition[];
+    endgamePositions?: EndgamePosition[];
     i18n: I18nDict;
   }
 
@@ -224,6 +225,12 @@ declare namespace Editor {
 
   export interface OpeningPosition {
     eco?: string;
+    name: string;
+    fen: string;
+    epd?: string;
+  }
+
+  export interface EndgamePosition {
     name: string;
     fen: string;
     epd?: string;
