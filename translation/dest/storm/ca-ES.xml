@@ -38,6 +38,7 @@
   <string name="raceComplete">Cursa finalitzada!</string>
   <string name="spectating">Observant</string>
   <string name="joinTheRace">Uneix-te a la cursa!</string>
+  <string name="startTheRace">Comença la cursa</string>
   <string name="yourRankX">La teva puntuació: %s</string>
   <string name="waitForRematch">Espera per a la revenja</string>
   <string name="nextRace">Cursa següent</string>
