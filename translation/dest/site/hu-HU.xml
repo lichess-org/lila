@@ -895,7 +895,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="markdownAvailable">%s is elérhető a haladó szerkesztéshez.</string>
   <string name="inYourLocalTimezone">Saját időzónád szerint</string>
   <string name="tournChat">Verseny csevegő</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Nincs csevegő</string>
+  <string name="noChat">Nincs csevegő</string>
   <string name="onlyTeamLeaders">Csak csapatvezetőknek</string>
   <string name="onlyTeamMembers">Csak csapattagoknak</string>
 </resources>
