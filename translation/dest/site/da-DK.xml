@@ -881,16 +881,16 @@ og påvirker spilleres ratings</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
   <string name="onlyTitled">Kun spilere med titel</string>
   <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
-  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
+  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
 Det virker kun for standardspil, ikke med varianter.
 Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
 Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cancelSimul">Annuller simultanen</string>
-  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Værtsfarve for hvert parti</string>
-  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Anslået starttidspunkt</string>
+  <string name="simulHostcolor">Værtsfarve for hvert parti</string>
+  <string name="estimatedStart">Anslået starttidspunkt</string>
   <string name="simulFeatured">Vis på %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
+  <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
-  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s er tilgængelig for mere avanceret syntaks.</string>
+  <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
 </resources>
