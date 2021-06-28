@@ -885,5 +885,12 @@ e afetam as avaliações dos jogadores</string>
 Só funciona para os jogos padrão, não com variantes.
 Você pode usar o %s para gerar uma posição FEN e, em seguida, colá-lo aqui.
 Deixe em branco para iniciar jogos da posição inicial normal.</string>
+  <string name="cancelSimul">Cancelar a simultânea</string>
+  <string name="simulHostcolor">Cor do anfitrião para cada jogo</string>
+  <string name="estimatedStart">Hora de início prevista</string>
+  <string name="simulFeatured">Em destaque em %s</string>
+  <string name="simulFeaturedHelp">Mostre a sua simultânea a todos em %s. Desativar para simultâneas privadas.</string>
+  <string name="simulDescription">Descrição da simultânea</string>
+  <string name="simulDescriptionHelp">Quer dizer alguma coisa aos participantes?</string>
   <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
 </resources>
