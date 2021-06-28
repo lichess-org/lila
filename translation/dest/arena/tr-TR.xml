@@ -43,11 +43,11 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
     <item quantity="other">Tüm %s takımlarını görüntüleyin</item>
   </plurals>
   <string name="newTeamBattle">Yeni Takım Çarpışması</string>
-  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Özel başlangıç tarihi</string>
+  <string name="customStartDate">Özel başlangıç tarihi</string>
   <string name="customStartDateHelp">Kendi saat diliminizi kullanın. \"Turnuvaya kalan süre\" ayarı geçersiz kalacaktır</string>
-  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Divane moduna izin ver</string>
-  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Ekstra puan kazanmak isteyen oyuncuların, sürelerinin yarısından feragat etmesine izin ver</string>
-  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Oyuncuların sohbet odasında konuşmasına izin ver</string>
+  <string name="allowBerserk">Divane moduna izin ver</string>
+  <string name="allowBerserkHelp">Ekstra puan kazanmak isteyen oyuncuların, sürelerinin yarısından feragat etmesine izin ver</string>
+  <string name="allowChatHelp">Oyuncuların sohbet odasında konuşmasına izin ver</string>
   <string name="arenaStreaks">Arena serisi</string>
   <string name="arenaStreaksHelp">2 kez üst üste kazandıktan sonra yapılan maçlar 2 yerine 4 puan verir.</string>
 </resources>
