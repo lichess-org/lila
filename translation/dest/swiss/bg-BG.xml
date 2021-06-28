@@ -5,6 +5,10 @@
     <item quantity="one">Вижте рунда</item>
     <item quantity="other">Вижте всички %s рунда</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s рунд</item>
+    <item quantity="other">%s рунда</item>
+  </plurals>
   <string name="tournStartDate">Начална дата на турнира</string>
   <string name="roundInterval">Интервал между рундовете</string>
   <string name="forbiddenPairings">Забранени съчетавания</string>
