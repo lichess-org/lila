@@ -57,5 +57,6 @@
   <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">العدد الفردي من الجولات يسمح بتوازن اكبر.</string>
   <string name="roundInterval">الفاصل الزمني بين المباريات</string>
   <string name="forbiddenPairings">أزواج محظورة</string>
+  <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
 </resources>
