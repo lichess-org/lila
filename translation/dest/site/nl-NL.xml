@@ -891,11 +891,11 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulFeatured">Simultaan tonen op %s</string>
   <string name="simulFeaturedHelp">De simultaan voor iedereen weergeven op %s. Schakel dit uit voor privésimultaans.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
-  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">Is er nog iets wat de deelnemers moeten weten?</string>
+  <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
   <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
   <string name="tournChat">Toernooichat</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Geen chat</string>
-  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Alleen teamleiders</string>
-  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Alleen teamleden</string>
+  <string name="noChat">Geen chat</string>
+  <string name="onlyTeamLeaders">Alleen teamleiders</string>
+  <string name="onlyTeamMembers">Alleen teamleden</string>
 </resources>
