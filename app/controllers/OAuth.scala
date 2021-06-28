@@ -21,8 +21,8 @@ final class OAuth(env: Env) extends LilaController(env) {
       responseType = get("response_type", req),
       redirectUri = get("redirect_uri", req),
       state = get("state", req),
-      codeChallenge = get("code_challenge", req),
       codeChallengeMethod = get("code_challenge_method", req),
+      codeChallenge = get("code_challenge", req),
       scope = get("scope", req)
     )
 

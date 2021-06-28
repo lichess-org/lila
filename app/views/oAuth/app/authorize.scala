@@ -52,6 +52,11 @@ object authorize {
             a(href := prompt.cancelUrl)("Cancel"),
             submitButton(cls := "button", disabled := true, id := "oauth-authorize")("Authorize")
           )
+        ),
+        prompt.maybeLegacy option p(
+          "Note for developers: The OAuth flow without PKCE is ",
+          a(href := "https://github.com/ornicar/lila/issues/9214")("deprecated"),
+          ". Consider updating your app."
         )
       )
     }

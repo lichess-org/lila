@@ -17,8 +17,8 @@ object AuthorizationRequest {
       state: Option[String],
       redirectUri: Option[String],
       responseType: Option[String],
-      codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
+      codeChallenge: Option[String],
       scope: Option[String]
   ) {
     // In order to show a prompt and redirect back with error codes a valid
@@ -32,8 +32,8 @@ object AuthorizationRequest {
         state.map(State.apply),
         clientId = clientId,
         responseType = responseType,
-        codeChallenge = codeChallenge,
         codeChallengeMethod = codeChallengeMethod,
+        codeChallenge = codeChallenge,
         scope = scope
       )
   }
@@ -43,8 +43,8 @@ object AuthorizationRequest {
       state: Option[State],
       clientId: ClientId,
       responseType: Option[String],
-      codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
+      codeChallenge: Option[String],
       scope: Option[String]
   ) {
     def errorUrl(error: Error) = redirectUri.error(error, state)
@@ -62,6 +62,8 @@ object AuthorizationRequest {
         }
 
     def maybeScopes: List[OAuthScope] = validScopes.getOrElse(Nil)
+
+    def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
 
     def authorize(
         user: User,
