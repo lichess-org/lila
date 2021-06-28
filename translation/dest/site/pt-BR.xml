@@ -890,11 +890,11 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="simulFeatured">Compartilhar em %s</string>
   <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
   <string name="simulDescription">Descrição da simultânea</string>
-  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">Você gostaria de dizer algo aos participantes?</string>
+  <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
   <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário</string>
   <string name="tournChat">Chat do torneio</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Sem chat</string>
-  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Apenas líderes de equipe</string>
-  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Apenas membros da equipe</string>
+  <string name="noChat">Sem chat</string>
+  <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
+  <string name="onlyTeamMembers">Apenas membros da equipe</string>
 </resources>

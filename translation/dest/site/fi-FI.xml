@@ -895,7 +895,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
   <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
   <string name="tournChat">Turnauksen keskusteluhuone</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Ei keskustelua</string>
-  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Vain joukkueenjohtajille</string>
-  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Vain joukkueen jäsenille</string>
+  <string name="noChat">Ei keskustelua</string>
+  <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
+  <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
 </resources>

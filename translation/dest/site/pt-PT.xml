@@ -895,7 +895,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
   <string name="inYourLocalTimezone">No seu próprio fuso horário local</string>
   <string name="tournChat">Chat do torneio</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Sem chat</string>
+  <string name="noChat">Sem chat</string>
   <string name="onlyTeamLeaders">Apenas líderes da equipa</string>
   <string name="onlyTeamMembers">Apenas membros da equipa</string>
 </resources>
