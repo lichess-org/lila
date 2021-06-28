@@ -5,6 +5,8 @@ export type RaceStatus = 'pre' | 'racing' | 'post';
 
 export type WithGround = <A>(f: (g: CgApi) => A) => A | false;
 
+export type PlayerId = string;
+
 export interface RacerOpts {
   data: RacerData;
   pref: RacerPrefs;
@@ -22,6 +24,7 @@ export interface RacerData extends UpdatableData {
   race: Race;
   puzzles: Puzzle[];
   player: Player;
+  owner?: boolean;
 }
 
 export interface Race {
