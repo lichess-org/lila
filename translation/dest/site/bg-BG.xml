@@ -879,6 +879,7 @@
   <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
   <string name="onlyTitled">Само титулувани играчи</string>
   <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
+  <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
   <string name="noChat">Без чат</string>
   <string name="onlyTeamLeaders">Само организаторите на отбора</string>
