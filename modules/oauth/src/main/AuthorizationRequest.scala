@@ -67,11 +67,11 @@ object AuthorizationRequest {
 
     def authorize(
         user: User,
-        legacy: ClientId => Fu[Option[LegacyClientApi.HashedClientSecret]]
+        legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     ): Fu[Validated[Error, Authorized]] =
       (codeChallengeMethod match {
         case None =>
-          legacy(clientId).dmap(
+          legacy(clientId, redirectUri).dmap(
             _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
           )
         case Some(method) =>

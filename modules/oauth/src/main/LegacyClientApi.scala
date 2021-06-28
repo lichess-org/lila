@@ -8,9 +8,12 @@ import lila.db.dsl._
 final class LegacyClientApi(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
   import LegacyClientApi.{ BSONFields => F, _ }
 
-  def apply(clientId: Protocol.ClientId): Fu[Option[HashedClientSecret]] =
+  def apply(clientId: Protocol.ClientId, redirectUri: Protocol.RedirectUri): Fu[Option[HashedClientSecret]] =
     coll
-      .findAndUpdate($id(clientId.value), $set(F.usedAt -> DateTime.now()))
+      .findAndUpdate(
+        $doc(F.id     -> clientId.value, F.redirectUri -> redirectUri.value.toString),
+        $set(F.usedAt -> DateTime.now())
+      )
       .map {
         _.result[Bdoc].flatMap(_.getAsOpt[String](F.hashedSecret)).map(HashedClientSecret)
       }
@@ -19,6 +22,7 @@ final class LegacyClientApi(val coll: Coll)(implicit ec: scala.concurrent.Execut
 object LegacyClientApi {
   object BSONFields {
     val id           = "_id"
+    val redirectUri  = "redirectUri"
     val hashedSecret = "secret"
     val usedAt       = "used"
   }
