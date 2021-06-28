@@ -31,7 +31,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       class: {
         outoftime: millis <= 0,
         running: isRunning,
-        emerg: millis < clock.emergMs && clock.byoyomi === 0, // if we have byo, why make the clock red
+        emerg: (millis < clock.emergMs && clock.byoyomi === 0) || (
+            clock.isUsingByo(player.color) && millis < clock.byoEmergeS * 1000
+        ),
       },
     },
     clock.opts.nvui
@@ -143,9 +145,11 @@ function showBar(ctrl: RoundController, color: Color) {
 export function updateElements(clock: ClockController, els: ClockElements, millis: Millis, color: Color) {
   if (els.time) els.time.innerHTML = formatClockTime(millis, clock.showTenths(millis, color), true, clock.opts.nvui);
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
-  if (els.clock) {
-    const cl = els.clock.classList;
-    if (millis < clock.emergMs) cl.add('emerg');
+  if (els.clock && els.clock.parentElement) {
+    const cl = els.clock.parentElement.classList;
+    if ((millis < clock.emergMs && clock.byoyomi === 0) || (
+      clock.isUsingByo(color) && millis < clock.byoEmergeS * 1000
+  )) cl.add('emerg');
     else if (cl.contains('emerg')) cl.remove('emerg');
   }
 }

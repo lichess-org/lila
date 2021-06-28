@@ -72,7 +72,7 @@ export class ClockController {
     },
   };
 
-  showTenths: (millis: Millis) => boolean;
+  showTenths: (millis: Millis, color: Color) => boolean;
   showBar = {} as ColorMap<boolean>;
   times: Times;
 
@@ -100,7 +100,7 @@ export class ClockController {
     if (cdata.showTenths === 0) this.showTenths = () => false;
     else {
       const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
-      this.showTenths = time => time < cutoff;
+      this.showTenths = (time, color) => time < cutoff && (this.byoyomi === 0 || time <= 1000 || this.isUsingByo(color) || cdata.showTenths === 2);
     }
 
     this.byoyomi = cdata.byoyomi;
@@ -138,7 +138,7 @@ export class ClockController {
     this.curPeriods['sente'] = sPer;
     this.curPeriods['gote'] = gPer;
 
-    if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
+    if (isClockRunning) this.scheduleTick(this.times[d.game.player], d.game.player, delayMs);
   };
 
   addTime = (color: Color, time: Centis): void => {
@@ -166,13 +166,13 @@ export class ClockController {
 
   hardStopClock = (): void => (this.times.activeColor = undefined);
 
-  private scheduleTick = (time: Millis, extraDelay: Millis) => {
+  private scheduleTick = (time: Millis, color: Color, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
       this.tick,
       // changing the value of active node confuses the chromevox screen reader
       // so update the clock less often
-      this.opts.nvui ? 1000 : (time % (this.showTenths(time) ? 100 : 500)) + 1 + extraDelay
+      this.opts.nvui ? 1000 : (time % (this.showTenths(time, color) ? 100 : 500)) + 1 + extraDelay
     );
   };
 
@@ -186,9 +186,9 @@ export class ClockController {
     const now = performance.now();
     const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
-    this.scheduleTick(millis, 0);
+    this.scheduleTick(millis, color, 0);
     if (millis === 0) this.opts.onFlag();
-    else updateElements(this, this.elements[color], millis);
+    else updateElements(this, this.elements[color], millis, color);
 
     if (this.opts.soundColor === color) {
       if (this.emergSound.playable[color]) {
