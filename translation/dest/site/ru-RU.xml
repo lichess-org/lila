@@ -968,6 +968,8 @@
   <string name="cancelSimul">Отменить сеанс</string>
   <string name="simulHostcolor">Цвет сеансёра в каждой партии</string>
   <string name="estimatedStart">Предполагаемое время начала сеанса</string>
+  <string name="simulFeatured">Показывать на %s</string>
+  <string name="simulFeaturedHelp">Показывать сеанс на %s. Отключите для частных сеансов.</string>
   <string name="simulDescription">Описание сеанса</string>
   <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
   <string name="markdownAvailable">%s доступен для расширенного форматирования.</string>
