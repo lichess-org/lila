@@ -41,7 +41,7 @@ case class Situation(board: Board, color: Color) {
   // Not in use currently
   def tryRule = Color.all exists { board tryRule _ }
 
-  def impasse = Color.all exists { board impasse _ }
+  def impasse = board impasse color
 
   def perpetualCheck = board perpetualCheck
 

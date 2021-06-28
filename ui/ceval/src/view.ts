@@ -142,6 +142,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     threat = threatMode && ctrl.getNode().threat,
     bestEv = threat || getBestEval(evs);
   let pearl: VNode | string, percent: number;
+  // add impasse here - just the pearl, ceval can continue; also stalemate
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
     percent = evs.client

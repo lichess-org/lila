@@ -170,7 +170,7 @@ abstract class Variant private[variant] (
     if (situation.checkMate && pawnDrop) Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
-    else if (situation.impasse) Some(!situation.color)
+    else if (situation.impasse) Some(situation.color)
     else if (situation.perpetualCheck) Some(situation.color)
     else None
   }
