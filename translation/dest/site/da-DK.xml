@@ -893,4 +893,9 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
   <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
+  <string name="inYourLocalTimezone">I din egen lokale tidszone</string>
+  <string name="tournChat">Turneringschat</string>
+  <string name="noChat">Ingen chat</string>
+  <string name="onlyTeamLeaders">Kun holdledere</string>
+  <string name="onlyTeamMembers">Kun holdmedlemmer</string>
 </resources>
