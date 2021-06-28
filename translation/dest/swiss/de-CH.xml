@@ -5,4 +5,9 @@
     <item quantity="one">Die Runde ansehen</item>
     <item quantity="other">Alli %s Rundenä aluegä</item>
   </plurals>
+  <string name="tournStartDate">Turnier-Startzeit</string>
+  <string name="roundInterval">Zeitabstand zwischen Runden</string>
+  <string name="forbiddenPairings">Verbotene Paarungen</string>
+  <string name="forbiddenPairingsHelp">Benutzernamen von Spielern, die nicht gegeneinander spielen dürfen (zum Beispiel Geschwister). Zwei Benutzernamen pro Zeile, getrennt durch ein Leerzeichen.</string>
+  <string name="newSwiss">Neues Turnier nach Schweizer System</string>
 </resources>
