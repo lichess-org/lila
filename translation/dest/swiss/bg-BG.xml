@@ -13,9 +13,23 @@
     <item quantity="one">Един рунд на ден</item>
     <item quantity="other">Един рунд всеки %s дена</item>
   </plurals>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s секунда между рундовете</item>
+    <item quantity="other">%s секунди между рундовете</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s минута между рундовете</item>
+    <item quantity="other">%s минути между рундовете</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Започва след</string>
   <string name="nextRound">Следващ рунд</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Текуща партия</item>
+    <item quantity="other">Текущи партии</item>
+  </plurals>
   <string name="tournStartDate">Начална дата на турнира</string>
+  <string name="numberOfRounds">Брой рундове</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Нечетен брой рундове оптимално балансира на цветовете за всички играчи.</string>
   <string name="roundInterval">Интервал между рундовете</string>
   <string name="forbiddenPairings">Забранени съчетавания</string>
   <string name="forbiddenPairingsHelp">Имена на играчите които не трябва да играят един срещу друг (например роднини). Въведете по две имена на линия, разделени с интервал.</string>
