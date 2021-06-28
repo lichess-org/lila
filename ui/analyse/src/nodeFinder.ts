@@ -35,7 +35,10 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
     const prev = mainline[i - 1];
     if (nodeFilter(node) && node.eval && prev.eval) {
       const diff = Math.abs(winningChances.povDiff('white', prev.eval, node.eval));
-      if (hasCompChild(prev) && (diff > threshold || (prev.eval.mate && !node.eval.mate && prev.eval.mate <= 3))) {
+      if (
+        hasCompChild(prev) &&
+        (diff > threshold || (prev.eval.mate && !node.eval.mate && Math.abs(prev.eval.mate) <= 3))
+      ) {
         found.push(node);
       }
     }
