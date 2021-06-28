@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spil mod en ven</string>
   <string name="playWithTheMachine">Spil mod computeren</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at give denne URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at oplyse denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
   <string name="waiting">Venter</string>
@@ -40,7 +40,7 @@
     <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
   </plurals>
   <string name="opponentLeftChoices">Din modstander har forladt spillet. Du kan fremtvinge modstanderens kapitulation eller vente.</string>
-  <string name="makeYourOpponentResign">Tving din modstander til at opgive</string>
+  <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Fremtving remis</string>
   <string name="talkInChat">Hold en venlig tone i chatten!</string>
@@ -58,7 +58,7 @@
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
-  <string name="loadingEngine">Indlæser engine ...</string>
+  <string name="loadingEngine">Indlæser skakmotor ...</string>
   <string name="cloudAnalysis">Cloud-analyse</string>
   <string name="goDeeper">Analysér dybere</string>
   <string name="showThreat">Vis trussel</string>
@@ -137,8 +137,8 @@
   <string name="offerDraw">Tilbyd remis</string>
   <string name="draw">Remis</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s spiller online</item>
-    <item quantity="other">%s spillere online</item>
+    <item quantity="one">%s spiller</item>
+    <item quantity="other">%s spillere</item>
   </plurals>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
@@ -335,13 +335,13 @@
   <string name="mustBeInTeam">Skal være en del af hold %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Tilbage til partiet</string>
-  <string name="siteDescription">Gratis online skakspil. Spil skak med det samme i et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
+  <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
   <string name="xJoinedTeamY">%1$s blev medlem af %2$s</string>
   <string name="xCreatedTeamY">%1$s oprettede holdet %2$s</string>
   <string name="xStartedStreaming">%s begyndte at streame</string>
   <string name="averageElo">Gennemsnitlig rating</string>
   <string name="location">Sted</string>
-  <string name="filterGames">Filtrér spil</string>
+  <string name="filterGames">Filtrér partier</string>
   <string name="reset">Nulstil</string>
   <string name="apply">Anvend</string>
   <string name="save">Gem</string>
@@ -463,7 +463,7 @@
   <string name="onlinePlayers">Online spillere</string>
   <string name="activeToday">Aktiv i dag</string>
   <string name="activePlayers">Aktive spillere</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Spillet er ratet, men er uden tidsbegrænsning!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Bemærk: Partiet er ratet, men er uden tidsbegrænsning!</string>
   <string name="success">Fuldført</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s parti i gang</item>
@@ -557,7 +557,7 @@
     <item quantity="other">Maximum: %s tegn.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blokerede spillere</item>
+    <item quantity="one">%s blokeret spiller</item>
     <item quantity="other">%s blokerede spillere</item>
   </plurals>
   <string name="listBlockedPlayers">Vis spillere du har blokeret</string>
@@ -571,7 +571,7 @@
   <string name="signedOut">Du er blevet logget ud</string>
   <string name="loginSuccessful">Du er nu logget ind</string>
   <string name="playOnTheBoardOffline">Spil offline, brug som bræt</string>
-  <string name="playOfflineComputer">Spil computer offline</string>
+  <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Modstander</string>
   <string name="learnMenu">Lær</string>
   <string name="studyMenu">Studie</string>
@@ -608,7 +608,7 @@
   <string name="streamersMenu">Streamere</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
-  <string name="about">Om os</string>
+  <string name="about">Om</string>
   <string name="aboutX">Om %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), libre, annoncefri, open source skak-server.</string>
   <string name="really">virkelig</string>
@@ -646,7 +646,7 @@
   <string name="keyEnterOrExitVariation">Start/slut variation</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Skakturnering med forskellige tidskontroller og varianter</string>
-  <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Klassisk, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
+  <string name="tournamentHomeDescription">Spil tempofyldte skakturneringer! Meld dig til en officielt organiseret turnering eller opret din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Tre-check og andre muligheder for ubegrænset skaksjov.</string>
   <string name="tournamentNotFound">Turnering ikke fundet</string>
   <string name="tournamentDoesNotExist">Denne turnering eksisterer ikke.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan være blevet aflyst, hvis alle spillere forlod den før turneringsstart.</string>
@@ -676,7 +676,7 @@
   <string name="downloadImported">Download importeret</string>
   <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Korstabel</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også rulle over bord for at bevæge sig i spillet.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle frem til et træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>
@@ -687,13 +687,11 @@
   <string name="withEverybody">Med alle</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Du har allerede registreret Email adressen: %s</string>
   <string name="kidMode">Børnetilstand</string>
-  <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér hvis du vil beskytte dine børn eller skolebørn fra at kunne kommunikere med andre internetbrugere.</string>
+  <string name="kidModeExplanation">Dette angår sikkerhed. I børnetilstand er alt kommunikation deaktiveret. Aktivér hvis du vil beskytte dine børn eller skoleelever fra at kunne kommunikere med andre internetbrugere.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I børnetilstand vil Lichess-logoet få et %s ikon, så du ved, at dine børn er sikret.</string>
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheder, der har logget ind på din konto, Annuller enhver session du ikke genkender.</string>
-  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>
@@ -705,7 +703,7 @@
   <string name="phoneAndTablet">Telefon og tablet</string>
   <string name="bulletBlitzClassical">Bullet, lyn, klassisk</string>
   <string name="correspondenceChess">Korrespondanceskak</string>
-  <string name="onlineAndOfflinePlay">Online eller offline spil</string>
+  <string name="onlineAndOfflinePlay">Online og offline spil</string>
   <string name="viewTheSolution">Se løsningen</string>
   <string name="followAndChallengeFriends">Følg og udfordre dine venner</string>
   <plurals name="availableInNbLanguages">
@@ -822,19 +820,19 @@
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Nuværende kampscore</string>
   <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
-  <string name="agreementNice">Jeg lover, at jeg altid vil være venlig mod andre spillere.</string>
+  <string name="agreementNice">Jeg lover, at jeg altid vil være respektfuld mod andre spillere.</string>
   <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
-  <string name="rapid">Hurtigskak</string>
-  <string name="classical">Klassisk</string>
+  <string name="rapid">Rapid</string>
+  <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vanvittigt hurtige spil: mindre end 30 sekunder</string>
   <string name="bulletDesc">Meget hurtige spil: mindre end 3 minutter</string>
   <string name="blitzDesc">Hurtige spil: 3 til 8 minutter</string>
   <string name="rapidDesc">Hurtige spil: 8 til 25 minutter</string>
   <string name="classicalDesc">Klassiske spil: 25 minutter eller mere</string>
-  <string name="correspondenceDesc">Korrespondancespil: en eller adskillige dage per træk</string>
+  <string name="correspondenceDesc">Korrespondancepartier: en eller adskillige dage per træk</string>
   <string name="puzzleDesc">Skaktaktik-træner</string>
   <string name="important">Vigtigt</string>
   <string name="yourQuestionMayHaveBeenAnswered">Der findes måske allerede et svar på dit spørgsmål %1$s</string>
@@ -871,4 +869,33 @@
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="coachManager">Træner-administration</string>
   <string name="streamerManager">Streamer-administration</string>
+  <string name="cancelTournament">Aflys turneringen</string>
+  <string name="tournDescription">Turneringsbeskrivelse</string>
+  <string name="tournDescriptionHelp">Noget særligt du ønsker at fortælle deltagerne? Prøv at holde det kort. Markdown-links er tilgængelige: [name](https://url)</string>
+  <string name="ratedFormHelp">Partier er ratede
+og påvirker spilleres ratings</string>
+  <string name="onlyMembersOfTeam">Kun medlemmer af hold</string>
+  <string name="noRestriction">Ingen restriktion</string>
+  <string name="minimumRatedGames">Minimum ratede partier</string>
+  <string name="minimumRating">Minimum rating</string>
+  <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
+  <string name="onlyTitled">Kun spilere med titel</string>
+  <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
+  <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given position.
+Det virker kun for standardspil, ikke med varianter.
+Du kan bruge %s til at generere en FEN-position og derefter indsætte den her.
+Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
+  <string name="cancelSimul">Annuller simultanen</string>
+  <string name="simulHostcolor">Værtsfarve for hvert parti</string>
+  <string name="estimatedStart">Anslået starttidspunkt</string>
+  <string name="simulFeatured">Vis på %s</string>
+  <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
+  <string name="simulDescription">Simultanbeskrivelse</string>
+  <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
+  <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
+  <string name="inYourLocalTimezone">I din egen lokale tidszone</string>
+  <string name="tournChat">Turneringschat</string>
+  <string name="noChat">Ingen chat</string>
+  <string name="onlyTeamLeaders">Kun holdledere</string>
+  <string name="onlyTeamMembers">Kun holdmedlemmer</string>
 </resources>

@@ -52,6 +52,7 @@
   <string name="knightMate">É posible dar xaque mate con só un cabalo ou un alfil se o opoñente posúe algunha peza máis no taboleiro.</string>
   <string name="noRatingPoints">Non se concederon puntos</string>
   <string name="ratedGame">Asegúrate que xogaches unha partida puntuada. Partidas amistosas non afectan á puntuación dos xogadores/as.</string>
+  <string name="botRatingAbuse">Baixo determinadas circunstancias cando xogas contra un bot, unha partida puntuada non dará puntos se determínase que o xogador abusa do bot para conseguir puntos.</string>
   <string name="errorPage">Páxina de erro</string>
   <string name="reportErrorPage">Se unha páxina dá erro, podes reportala:</string>
   <string name="banAppeal">Apelar por un bloqueo o unha restricción de IP</string>

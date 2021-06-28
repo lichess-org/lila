@@ -59,6 +59,7 @@ function notificationDenied(): VNode {
       attrs: {
         href: '/faq#browser-notifications',
         target: '_blank',
+        rel: 'noopener',
       },
     },
     'Notification popups disabled by browser setting'

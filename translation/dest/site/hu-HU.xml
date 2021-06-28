@@ -692,8 +692,6 @@
   <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
-  <string name="alternativelyYouCanX">Ha úgy gondolod %s.</string>
   <string name="sessions">Munkamenetek</string>
   <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>
@@ -871,4 +869,33 @@
 Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
+  <string name="cancelTournament">Versenykiírás törlése</string>
+  <string name="tournDescription">Verseny leírása</string>
+  <string name="tournDescriptionHelp">Bármi különleges amit a résztvevőkkel közölnél? Próbáld rövidre fogni. Markdown linkek elérhetőek: [name](https://url)</string>
+  <string name="ratedFormHelp">Rangsorolt játszmák amik
+befolyásolják a játékosok értékszámát</string>
+  <string name="onlyMembersOfTeam">Kizárólag csapattagoknak</string>
+  <string name="noRestriction">Korlátozás nélkül</string>
+  <string name="minimumRatedGames">Legkevesebb értékelt játszma</string>
+  <string name="minimumRating">Legalacsonyabb értékszám</string>
+  <string name="maximumWeeklyRating">Legmagasabb heti értékszám</string>
+  <string name="onlyTitled">Csak címmel rendelkező játékosok</string>
+  <string name="onlyTitledHelp">A részvétel feltétele a hivatalos cím megléte</string>
+  <string name="positionInputHelp">Illessz be egy FEN sort, hogy minden játszma adott állásból induljon.
+Csak hagyományos játszmákkal működik, variánsokkal nem.
+Használhatod a %s a FEN készítésére, azt illeszd be ide.
+Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
+  <string name="cancelSimul">Szimultán törlése</string>
+  <string name="simulHostcolor">Szimultánt adó színe minden játszmában</string>
+  <string name="estimatedStart">Kezdés becsült ideje</string>
+  <string name="simulFeatured">Közzététel %s</string>
+  <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
+  <string name="simulDescription">Szimultán leírása</string>
+  <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
+  <string name="markdownAvailable">%s is elérhető a haladó szerkesztéshez.</string>
+  <string name="inYourLocalTimezone">Saját időzónád szerint</string>
+  <string name="tournChat">Verseny csevegő</string>
+  <string name="noChat">Nincs csevegő</string>
+  <string name="onlyTeamLeaders">Csak csapatvezetőknek</string>
+  <string name="onlyTeamMembers">Csak csapattagoknak</string>
 </resources>

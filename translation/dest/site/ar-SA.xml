@@ -836,8 +836,6 @@
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">هذه هي قائمة بالأجهزة التي قامت بتسجيل الدخول إلى حسابك. قم بإلغاء أي جلسات اعمل لا تعرفها.</string>
-  <string name="alternativelyYouCanX">وبدلاً من ذلك يمكنك %s.</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="asFreeAsLichess">مجاني</string>

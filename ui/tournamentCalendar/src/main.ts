@@ -2,13 +2,13 @@ import view from './view';
 
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 
-import { Ctrl } from './interfaces';
+import { Ctrl, Opts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export function app(element: HTMLElement, env: any) {
+export function app(element: HTMLElement, opts: Opts) {
   // enrich tournaments
-  env.data.tournaments.forEach(t => {
+  opts.data.tournaments.forEach(t => {
     if (!t.bounds)
       t.bounds = {
         start: new Date(t.startsAt),
@@ -17,8 +17,8 @@ export function app(element: HTMLElement, env: any) {
   });
 
   const ctrl: Ctrl = {
-    data: env.data,
-    trans: lichess.trans(env.i18n),
+    data: opts.data,
+    trans: lichess.trans(opts.i18n),
   };
 
   let vnode: VNode;

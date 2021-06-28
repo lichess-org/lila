@@ -71,6 +71,7 @@ object racer {
       s.raceComplete,
       s.spectating,
       s.joinTheRace,
+      s.startTheRace,
       s.yourRankX,
       s.waitForRematch,
       s.nextRace,

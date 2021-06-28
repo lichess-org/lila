@@ -746,8 +746,6 @@
   <string name="enableKidMode">Vključite otroški način</string>
   <string name="disableKidMode">Izključite otroški način</string>
   <string name="security">Varnost</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To je seznam naprav, ki so prijavljene v tvoj račun. Prekličite vse seje, ki jih ne prepoznate.</string>
-  <string name="alternativelyYouCanX">Alternativa je %s.</string>
   <string name="sessions">Seje</string>
   <string name="revokeAllSessions">preklic vseh sej</string>
   <string name="playChessEverywhere">Igraj šah kjerkoli</string>
@@ -929,4 +927,28 @@
   <string name="download">Prenos</string>
   <string name="coachManager">Nastavitve za trenerja</string>
   <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
+  <string name="cancelTournament">Prekini turnir</string>
+  <string name="tournDescription">Opis turnirja</string>
+  <string name="tournDescriptionHelp">Kaj posebnega želite povedati udeležencem? Poskusite, da bo kratek. Na voljo so povezave do oznak: [name] (https://url)</string>
+  <string name="ratedFormHelp">Igre so rangirane
+in vplivajo na rejtinge igralcev</string>
+  <string name="onlyMembersOfTeam">Samo člani ekipe</string>
+  <string name="noRestriction">Brez omejitev</string>
+  <string name="minimumRatedGames">Najmanjše število rangiranih iger</string>
+  <string name="minimumRating">Najmanjši rejting</string>
+  <string name="maximumWeeklyRating">Najvišji tedenski rejting</string>
+  <string name="onlyTitled">Samo igralci z nazivom</string>
+  <string name="onlyTitledHelp">Za pridružitev turnirju zahtevajte uradni naziv</string>
+  <string name="positionInputHelp">Prilepite veljaven FEN, da začnete vsako igro z določenega položaja.
+Deluje samo za standardne igre, ne pa tudi z različicami.
+%s lahko ustvarite položaj FEN, nato pa ga prilepite sem.
+Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
+  <string name="cancelSimul">Prekliči simultanko</string>
+  <string name="simulHostcolor">Barva gostitelja za vsako igro</string>
+  <string name="estimatedStart">Predvideni čas začetka</string>
+  <string name="simulFeatured">Funkcija v %s</string>
+  <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
+  <string name="simulDescription">Opis simultanke</string>
+  <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
+  <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
 </resources>

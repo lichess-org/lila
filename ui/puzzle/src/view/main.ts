@@ -109,7 +109,10 @@ export default function (ctrl: Controller): VNode {
       h(
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
-          hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+          hook:
+            'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
+              ? undefined
+              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),
@@ -148,7 +151,7 @@ function session(ctrl: Controller) {
           },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
-            ...(ctrl.streak ? { target: '_blank' } : {}),
+            ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
         rd

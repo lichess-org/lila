@@ -90,5 +90,4 @@
   <string name="newsEdit2">在顶部添加最近的新闻。不要删除以前的新闻。</string>
   <string name="newsEdit3">用----分离新闻
 它将显示一条横线。</string>
-  <string name="markdownAvailable">%s 可用于更高级的语法。</string>
 </resources>

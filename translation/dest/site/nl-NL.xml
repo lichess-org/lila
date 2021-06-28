@@ -692,8 +692,6 @@
   <string name="enableKidMode">Activeer Kindermodus</string>
   <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Stop alle sessies die je niet herkent.</string>
-  <string name="alternativelyYouCanX">Als alternatief kunt u %s.</string>
   <string name="sessions">Sessies</string>
   <string name="revokeAllSessions">alle sessies intrekken</string>
   <string name="playChessEverywhere">Schaak overal</string>
@@ -871,4 +869,33 @@
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="cancelTournament">Toernooi annuleren</string>
+  <string name="tournDescription">Toernooibeschrijving</string>
+  <string name="tournDescriptionHelp">Iets bijzonders dat je de deelnemers wilt vertellen? Probeer het kort te houden. Markdown-links zijn beschikbaar: [name](https://url)</string>
+  <string name="ratedFormHelp">Partijen worden met rating gespeeld 
+en hebben effect op de rating van de spelers</string>
+  <string name="onlyMembersOfTeam">Alleen leden van het team</string>
+  <string name="noRestriction">Geen restrictie</string>
+  <string name="minimumRatedGames">Minimumaantal partijen met rating</string>
+  <string name="minimumRating">Minimumrating</string>
+  <string name="maximumWeeklyRating">Maximale wekelijkse rating</string>
+  <string name="onlyTitled">Alleen titelhouders</string>
+  <string name="onlyTitledHelp">Officiële titel vereist voor deelname aan het toernooi</string>
+  <string name="positionInputHelp">Plak een geldige FEN-code om een partij te beginnen vanaf een bepaalde stelling.
+Het werkt alleen voor standaardpartijen, niet met varianten.
+U kunt de %s gebruiken om een FEN-code te genereren en deze hier plakken.
+Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
+  <string name="cancelSimul">Simultaan annuleren</string>
+  <string name="simulHostcolor">Kleur van de simultaangever voor elk spel</string>
+  <string name="estimatedStart">Geschatte starttijd</string>
+  <string name="simulFeatured">Simultaan tonen op %s</string>
+  <string name="simulFeaturedHelp">De simultaan voor iedereen weergeven op %s. Schakel dit uit voor privésimultaans.</string>
+  <string name="simulDescription">Omschrijving van de simultaan</string>
+  <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
+  <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
+  <string name="inYourLocalTimezone">In je eigen lokale tijdzone</string>
+  <string name="tournChat">Toernooichat</string>
+  <string name="noChat">Geen chat</string>
+  <string name="onlyTeamLeaders">Alleen teamleiders</string>
+  <string name="onlyTeamMembers">Alleen teamleden</string>
 </resources>

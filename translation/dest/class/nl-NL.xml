@@ -67,6 +67,10 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="releaseDesc1">Een vrijgegeven account kan niet opnieuw worden beheerd. De student kan dan zelf de kind-modus veranderen of het wachtwoord resetten.</string>
   <string name="releaseDesc2">De leerling blijft in de groep nadat zijn account is vrijgegeven.</string>
   <string name="realUniqueEmail">Echt, unieke e-mailadres van de student. We sturen een bevestigingsmail met een link om het account vrij te geven.</string>
+  <string name="closeStudent">Account sluiten</string>
+  <string name="closeTheAccount">Sluit het leerlingaccount zonder dat ongedaan maken mogelijk is.</string>
+  <string name="closeDesc1">De leerling zal dit dit account nooit meer kunnen gebruiken. Sluiten is definitief. Zorg ervoor dat de leerling dit begrijpt en ermee instemt.</string>
+  <string name="closeDesc2">Je kunt de leerling in plaats daarvan controle over het account geven, zodat de leerling het account kan blijven gebruiken.</string>
   <string name="teachers">Leraren</string>
   <plurals name="nbTeachers">
     <item quantity="one">Leraar</item>
@@ -92,5 +96,4 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="newsEdit1">Alle groepsnieuws in een enkel veld.</string>
   <string name="newsEdit2">Voeg het laatste nieuws toe aan de top. Verwijder vorig nieuws niet.</string>
   <string name="newsEdit3">Scheid het nieuws met --- het zal als een horizontale lijn worden weergeven.</string>
-  <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde syntaxis.</string>
 </resources>

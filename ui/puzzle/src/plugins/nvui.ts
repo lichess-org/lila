@@ -138,7 +138,7 @@ lichess.PuzzleNVUI = function (redraw: Redraw) {
                 const fenSteps = () => steps().map(step => step.fen);
                 const opponentColor = ctrl.vm.pov === 'white' ? 'black' : 'white';
                 $board.on('click', selectionHandler(opponentColor, selectSound));
-                $board.on('keypress', arrowKeyHandler(ctrl.vm.pov, borderSound));
+                $board.on('keydown', arrowKeyHandler(ctrl.vm.pov, borderSound));
                 $board.on('keypress', boardCommandsHandler());
                 $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
                 $buttons.on(

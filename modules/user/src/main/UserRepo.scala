@@ -22,7 +22,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   val normalize = User normalize _
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledSelect).sort($sort desc "count.game").cursor[User]().list(nb)
+    coll.find(enabledNoBotSelect).sort($sort desc "count.game").cursor[User]().list(nb)
 
   def byId(id: ID): Fu[Option[User]] = User.noGhost(id) ?? coll.byId[User](id)
 
@@ -277,6 +277,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     $doc(F.marks -> UserMark.Boost.key),
     $doc(F.marks -> UserMark.Troll.key)
   )
+  val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
@@ -390,8 +391,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def isKid(id: ID) = coll.exists($id(id) ++ $doc(F.kid -> true))
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
-
-  def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
 
   def filterEngine(ids: Seq[ID]): Fu[Set[ID]] =
     coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ engineSelect(true)))

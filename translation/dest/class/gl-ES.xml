@@ -67,6 +67,10 @@ Aquí está a ligazón para acceder.</string>
   <string name="releaseDesc1">Unha conta liberada non pode volver ser supervisada de novo. O estudante poderá cambiar o modo infantil e redefinir o contrasinal por si mesmo.</string>
   <string name="releaseDesc2">O estudante permanecerá na clase trala liberación da conta.</string>
   <string name="realUniqueEmail">Dirección de correo electrónico real e única do estudante. Enviaremos unha mail de confirmación para el, cun link para liberar a conta.</string>
+  <string name="closeStudent">Pechar conta</string>
+  <string name="closeTheAccount">Pechar a conta de estudante permanentemente.</string>
+  <string name="closeDesc1">A estudante non poderá usar esta conta de novo. O peche é definitivo. Asegúrate que a estudante o entende e está dacordo.</string>
+  <string name="closeDesc2">Quizais queres darlle á estudante o control sobre a conta no seu lugar, de maneira que poida seguir empregándoa.</string>
   <string name="teachers">Profesores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
@@ -93,5 +97,4 @@ Aquí está a ligazón para acceder.</string>
   <string name="newsEdit2">Engade as novas recente na parte superior. Non elimines as novidades previas.</string>
   <string name="newsEdit3">Separa as novas con ---
 Amosará unha liña separadora horizontal.</string>
-  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
 </resources>

@@ -51,9 +51,9 @@
   <string name="long">Дълга задача</string>
   <string name="longDescription">Победа в три хода.</string>
   <string name="master">Майсторски Игри</string>
-  <string name="masterDescription">Задачи от партии играни от титуловани играчи.</string>
+  <string name="masterDescription">Задачи от партии играни от титулувани играчи.</string>
   <string name="masterVsMaster">Партии Майстор срещу Майстор</string>
-  <string name="masterVsMasterDescription">Задачи от партии играни от титуловани играчи.</string>
+  <string name="masterVsMasterDescription">Задачи от партии между двама титулувани играчи.</string>
   <string name="mate">Матове</string>
   <string name="mateDescription">Победи със стил.</string>
   <string name="mateIn1">Мат в 1 ход</string>

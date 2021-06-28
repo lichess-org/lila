@@ -68,6 +68,6 @@
   <string name="fromXGames">Opgaver fra %s\' partier</string>
   <string name="searchPuzzles">Søg opgaver</string>
   <string name="fromMyGamesNone">Du har ingen opgaver i databasen, men Lichess elsker dig alligevel.
-Spil hurtige og klassiske partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
+Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
   <string name="fromXGamesFound">%1$s opgaver fundet i %2$s partier</string>
 </resources>

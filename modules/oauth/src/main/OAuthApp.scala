@@ -2,6 +2,7 @@ package lila.oauth
 
 import org.joda.time.DateTime
 
+import lila.common.SecureRandom
 import lila.user.User
 import io.lemonlabs.uri.AbsoluteUrl
 
@@ -21,8 +22,8 @@ object OAuthApp {
   case class Id(value: String)     extends AnyVal
   case class Secret(value: String) extends AnyVal
 
-  def makeId     = Id(ornicar.scalalib.Random secureString 16)
-  def makeSecret = Secret(ornicar.scalalib.Random secureString 32)
+  def makeId     = Id(SecureRandom nextString 16)
+  def makeSecret = Secret(SecureRandom nextString 32)
 
   object BSONFields {
     val clientId     = "client_id"

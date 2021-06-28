@@ -11,7 +11,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     'tr.hook.' + hook.action,
     {
       key: hook.id,
-      class: { disabled: hook.disabled },
+      class: { disabled: !!hook.disabled },
       attrs: {
         title: hook.disabled
           ? ''
@@ -45,17 +45,17 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
   );
 }
 
-function isStandard(value) {
-  return function (hook) {
+function isStandard(value: boolean) {
+  return function (hook: Hook) {
     return (hook.variant === 'standard') === value;
   };
 }
 
-function isMine(hook) {
+function isMine(hook: Hook) {
   return hook.action === 'cancel';
 }
 
-function isNotMine(hook) {
+function isNotMine(hook: Hook) {
   return !isMine(hook);
 }
 

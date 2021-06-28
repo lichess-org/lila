@@ -38,6 +38,7 @@
   <string name="raceComplete">Ο αγώνας ολοκληρώθηκε!</string>
   <string name="spectating">Παρακολούθηση</string>
   <string name="joinTheRace">Λάβετε μέρος στον αγώνα!</string>
+  <string name="startTheRace">Εκκίνηση αγώνα</string>
   <string name="yourRankX">Κατάταξη: %s</string>
   <string name="waitForRematch">Αναμονή για ρεβάνς</string>
   <string name="nextRace">Επόμενος αγώνας</string>

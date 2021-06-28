@@ -13,7 +13,8 @@ object editor {
   def apply(
       sit: chess.Situation,
       fen: FEN,
-      positionsJson: String
+      positionsJson: String,
+      endgamePositionsJson: String,
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
@@ -21,7 +22,7 @@ object editor {
         jsModule("editor"),
         embedJsUnsafeLoadThen(
           s"""const data=${safeJsonValue(bits.jsData(sit, fen))};data.positions=$positionsJson;
-LichessEditor(document.getElementById('board-editor'), data);"""
+data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementById('board-editor'), data);"""
         )
       ),
       moreCss = cssTag("editor"),

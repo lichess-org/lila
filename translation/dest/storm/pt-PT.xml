@@ -38,10 +38,12 @@
   <string name="raceComplete">Corrida concluída!</string>
   <string name="spectating">A assistir</string>
   <string name="joinTheRace">Junta-te à corrida!</string>
+  <string name="startTheRace">Começar a corrida</string>
   <string name="yourRankX">A tua posição: %s</string>
   <string name="waitForRematch">Espera pela desforra</string>
   <string name="nextRace">Próxima corrida</string>
   <string name="waitingToStart">Esperando pelo início</string>
+  <string name="createNewGame">Criar um novo jogo</string>
   <string name="joinPublicRace">Junta-te a uma corrida pública</string>
   <string name="skip">ignorar</string>
   <string name="skipHelp">Pode pular um movimento por corrida:</string>

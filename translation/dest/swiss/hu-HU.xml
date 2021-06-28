@@ -5,4 +5,11 @@
     <item quantity="one">Forduló megtekintése</item>
     <item quantity="other">Mind a %s forduló megtekintése</item>
   </plurals>
+  <string name="tournStartDate">Verseny kezdési ideje</string>
+  <string name="nbRounds">Fordulók száma</string>
+  <string name="nbRoundsHelp">Páratlan számú fordulók kiegyensúlyozottabb színpárosítást tesznek lehetővé.</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Fordulók közötti szünet</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Tiltott párosítások</string>
+  <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Új svájci rendszerű verseny</string>
 </resources>

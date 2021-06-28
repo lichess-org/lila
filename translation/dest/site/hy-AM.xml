@@ -163,7 +163,7 @@
   <string name="ratingStats">Վարկանիշի ստատիստիկա</string>
   <string name="username">Օգտատիրոջ անուն</string>
   <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
-  <string name="changeUsername">Փոփոխել օգտանուն</string>
+  <string name="changeUsername">Փոխել օգտանունը</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
@@ -177,13 +177,17 @@
     <item quantity="one">Վարկանիշը թարմացվում է ամեն րոպե</item>
     <item quantity="other">Վարկանիշը թարմացվում է ամեն %s րոպե</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s խնդիր</item>
+    <item quantity="other">%s խնդիրներ</item>
+  </plurals>
   <string name="gamesPlayed">Խաղացած խաղեր</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s Խաղեր՝ ձեր հետ</item>
     <item quantity="other">%s Խաղեր՝ ձեր հետ</item>
   </plurals>
   <string name="cancel">Հերքել</string>
-  <string name="whiteTimeOut">Սպաիտակների ժամանակը սպառվեց</string>
+  <string name="whiteTimeOut">Սպիտակների ժամանակը սպառվեց</string>
   <string name="blackTimeOut">Սևերի ժամանակը սպառվեց</string>
   <string name="drawOfferSent">Ոչ-ոքի առաջարկը ուղարկված է</string>
   <string name="drawOfferDeclined">Ոչ-ոքի առաջարկը մերժվել է</string>
@@ -248,6 +252,10 @@
     <item quantity="one">%s ոչ-ոքի</item>
     <item quantity="other">%s ոչ-ոքի</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s խաղացվում Է</item>
+    <item quantity="other">%s խաղացվում են</item>
+  </plurals>
   <string name="exportGames">Էկսպորտ անել խաղերը</string>
   <string name="ratingRange">Elo միջակայք</string>
   <plurals name="giveNbSeconds">
@@ -266,9 +274,17 @@
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
+  <plurals name="nbStudies">
+    <item quantity="one">%s ստուդիա</item>
+    <item quantity="other">%s ուսուցում</item>
+  </plurals>
   <string name="viewTournament">Դիտել մրցաշարը</string>
   <string name="backToTournament">Վերադարձ դեպի մրցաշարը</string>
   <string name="thematic">Թեմատիկա</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">Վարկանիշային խաղերը՝ ≥ %s</item>
+    <item quantity="other">Վարկանիշային խաղերը՝ ≥ %s</item>
+  </plurals>
   <string name="backToGame">Վերադառնալ պարտիային</string>
   <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
@@ -400,7 +416,7 @@
   <string name="reply">պատասխանել</string>
   <string name="message">հաղորդագրություն</string>
   <string name="createTheTopic">Ստեղծել թեմա</string>
-  <string name="reportAUser">Հաղորդել օգտվողին</string>
+  <string name="reportAUser">Հաղորդել օգտատիրոջ մասին</string>
   <string name="user">Օգտատեր</string>
   <string name="reason">Պատճառ</string>
   <string name="whatIsIheMatter">Ի՞նչ է պատահել</string>
@@ -479,6 +495,10 @@
   <string name="castling">Փոխատեղում</string>
   <string name="whiteCastlingKingside">Սպիտակները O-O</string>
   <string name="blackCastlingKingside">Սեւերը O-O</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s հաղորդագրություն ֆորումում</item>
+    <item quantity="other">%s հաղորդագրություն ֆորումում</item>
+  </plurals>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
@@ -514,16 +534,63 @@
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
+  <string name="boardSize">Խաղատախտակի չափսը</string>
+  <string name="pieceSet">Խաղաքարերի ձևավորում</string>
+  <string name="embedInYourWebsite">Ստանալ կոդ՝ կայքում տեղադրելու համար</string>
+  <string name="usernameAlreadyUsed">Մասնակցային այս անունն արդեն զբաղված է։ Խնդրում ենք փորձել ուրիշը</string>
+  <string name="usernamePrefixInvalid">Մասնակցային անունը պետք է սկսվի տառով</string>
+  <string name="usernameSuffixInvalid">Մասնակցային անունը պետք է վերջանա տառով կամ թվով։</string>
+  <string name="usernameCharsInvalid">Մասնակցային անունը պետք է բաղկացած լինի միայն տառերից, թվերից, ընդգծումներից և գծիկներից։</string>
+  <string name="usernameUnacceptable">Մասնակցային այս անունն արդեն զբաղված է կամ անթույլատրելի է։ </string>
+  <string name="directlySupportLichess">Աջակցել Lichess-ին։</string>
+  <string name="playChessInStyle">Շախմատային ոճով</string>
   <string name="chessBasics">Շախմատի հիմունքներ</string>
+  <string name="coaches">Մարզիչներ</string>
+  <string name="invalidPgn">Ոչ կոռեկտ PGN</string>
+  <string name="invalidFen">Ոչ կոռեկտ PGN</string>
+  <string name="error.minLength">Նվազագույն երկարությունը՝ %s</string>
+  <string name="error.maxLength">Նվազագույն երկարությունը՝ %s</string>
+  <string name="error.min">Արժեքը պետք է լինի մեծ կամ հավասար %s-ին</string>
+  <string name="error.max">Արժեքը պետք է լինի մեծ կամ հավասար %s-ին</string>
   <string name="error.unknown">Սխալ</string>
+  <string name="custom">Սեփական խաղ</string>
+  <string name="notifications">Ծանուցումներ</string>
+  <string name="perfRatingX">Վարկանիշ՝ %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s վայրկյան առաջին քայլի համար</item>
+    <item quantity="other">%s վայրկյան առաջին քայլի համար</item>
+  </plurals>
+  <string name="practiceWithComputer">Մարզում համակարգչի հետ</string>
+  <string name="anotherWasX">Կարելի էր %s</string>
+  <string name="bestWasX">Ավելի լավ էր %s</string>
+  <string name="youBrowsedAway">Դուք դուրս եկաք մարզման ռեժիմից</string>
+  <string name="resumePractice">Վերսկսել մարզումը</string>
+  <string name="theGameIsADraw">Խաղն ավարտվեց ոչ-ոքի։</string>
+  <string name="computerThinking">Համակարգիչը մտածում է...</string>
+  <string name="seeBestMove">Դիտել լավագույն քայլը</string>
+  <string name="hideBestMove">Թաքցնել լավագույն քայլը</string>
+  <string name="getAHint">Օգտվել հուշումից</string>
+  <string name="evaluatingYourMove">Ձեր քայլի գնահատականը...</string>
   <string name="whiteWinsGame">Սպիտակները հաղթեցին</string>
   <string name="blackWinsGame">Սևերն հաղթեցին</string>
   <string name="learnFromYourMistakes">Սովորիր սխալներից</string>
   <string name="learnFromThisMistake">Սովորիր այս սխալից</string>
   <string name="skipThisMove">Բաց թողնել այս քայլը</string>
   <string name="next">Հաջորդ</string>
+  <string name="xWasPlayed">Խաղացվել է %s</string>
+  <string name="findBetterMoveForWhite">Սպիտակների համար գտե՛ք ավելի ուժեղ քայլ</string>
+  <string name="findBetterMoveForBlack">Սևերի համար գտե՛ք ավելի ուժեղ քայլ</string>
   <string name="resumeLearning">Շարունակել սովորել</string>
+  <string name="youCanDoBetter">Կա ավելի ուժեղ քայլ</string>
+  <string name="tryAnotherMoveForWhite">Սպիտակների համար փորձե՛ք այլ քայլ </string>
+  <string name="tryAnotherMoveForBlack">Սևերի համար փորձե՛ք այլ քայլ </string>
   <string name="solution">Լուծում</string>
+  <string name="waitingForAnalysis">Վերլուծության ստացման սպասում</string>
+  <string name="noMistakesFoundForWhite">Սպիտակների սխալներ չեն գտնվել</string>
+  <string name="noMistakesFoundForBlack">Սևերի սխալներ չեն գտնվել</string>
+  <string name="doneReviewingWhiteMistakes">Սպիտակների սխալները վերլուծված են</string>
+  <string name="doneReviewingBlackMistakes">Սևերի սխալները վերլուծված են</string>
+  <string name="doItAgain">Կատարել ևս մեկ անգամ</string>
   <string name="reviewBlackMistakes">Վերանայել սևերի սխալները</string>
   <string name="advantage">Առավելություն</string>
   <plurals name="nbSeconds">
@@ -551,4 +618,10 @@
   <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
+  <string name="download">Ներբեռնել</string>
+  <string name="welcome">Բարի՜ գալուստ։</string>
+  <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
+Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
+  <string name="coachManager">Մարզիչների համար</string>
+  <string name="streamerManager">Սթրիմերների համար</string>
 </resources>

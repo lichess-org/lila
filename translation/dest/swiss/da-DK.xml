@@ -5,4 +5,11 @@
     <item quantity="one">Se runden</item>
     <item quantity="other">Se alle %s runder</item>
   </plurals>
+  <string name="tournStartDate">Startdato for turnering</string>
+  <string name="nbRounds">Antal runder</string>
+  <string name="nbRoundsHelp">Et ulige antal runder giver optimal farvebalance.</string>
+  <string name="roundInterval">Interval mellem runder</string>
+  <string name="forbiddenPairings">Forbudte parringer</string>
+  <string name="forbiddenPairingsHelp">Brugernavne på spillere der ikke må spille sammen (for eksempel søskende). To brugernavne pr. linje, adskilt af et mellemrum.</string>
+  <string name="newSwiss">Ny monradturnering</string>
 </resources>

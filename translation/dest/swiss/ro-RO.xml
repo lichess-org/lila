@@ -6,4 +6,9 @@
     <item quantity="few">Vezi toate cele %s runde</item>
     <item quantity="other">Vezi toate cele %s de runde</item>
   </plurals>
+  <string name="tournStartDate">Data de începere a turneului</string>
+  <string name="nbRounds">Număr de runde</string>
+  <string name="roundInterval">Interval între runde</string>
+  <string name="forbiddenPairings">Asocieri interzise</string>
+  <string name="forbiddenPairingsHelp">Numele de utilizator ale jucătorilor care nu trebuie să se joace împreună (frați, de exemplu). Două nume de utilizator pe linie, separate de un spațiu.</string>
 </resources>

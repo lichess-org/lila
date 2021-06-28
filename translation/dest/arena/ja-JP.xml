@@ -35,4 +35,12 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">%s チームを表示</item>
   </plurals>
+  <string name="newTeamBattle">新しいチームバトル</string>
+  <string name="customStartDate">開始日を指定</string>
+  <string name="customStartDateHelp">自分のタイムゾーンでの日時。これは「トーナメント開始時刻」の設定より優先されます。</string>
+  <string name="allowBerserk">バーサークあり</string>
+  <string name="allowBerserkHelp">持時間半減で 1 ポイントボーナスを認める</string>
+  <string name="allowChatHelp">チャットルームでの会話を認める</string>
+  <string name="arenaStreaks">連勝ボーナスあり</string>
+  <string name="arenaStreaksHelp">2 連勝すると以降の勝ちは 2 ではなく 4 ポイントになる。</string>
 </resources>

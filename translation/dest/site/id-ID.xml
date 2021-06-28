@@ -656,8 +656,6 @@
   <string name="enableKidMode">Mengaktifkan mode anak</string>
   <string name="disableKidMode">Menonaktifkan modus anak</string>
   <string name="security">Keamanan</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah daftar perangkat yang memiliki login ke akun Anda. Batalkan setiap sesi yang Anda tidak mengenali.</string>
-  <string name="alternativelyYouCanX">Atau Anda dapat %s.</string>
   <string name="sessions">Sesi</string>
   <string name="revokeAllSessions">mencabut semua sesi</string>
   <string name="playChessEverywhere">Bermain catur dimanapun</string>
@@ -831,4 +829,28 @@
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
   <string name="coachManager">Manajer pelatih</string>
   <string name="streamerManager">Manajer stream</string>
+  <string name="cancelTournament">Batalkan turnamen</string>
+  <string name="tournDescription">Deskripsi turnamen</string>
+  <string name="tournDescriptionHelp">Adakah sesuatu yang spesial yang Anda ingin katakan kepada peserta? Coba buat pendek saja. Tautan Markdown tersedia: [name] (https://url)</string>
+  <string name="ratedFormHelp">Permainan dinilai 
+dan berdampak pada peringkat pemain</string>
+  <string name="onlyMembersOfTeam">Hanya anggota dari tim</string>
+  <string name="noRestriction">Tidak ada pembatasan</string>
+  <string name="minimumRatedGames">Permainan di nilai minimum</string>
+  <string name="minimumRating">Peringkat minimum</string>
+  <string name="maximumWeeklyRating">Peringkat mingguan maksimum</string>
+  <string name="onlyTitled">Hanya pemain yang memiliki gelar</string>
+  <string name="onlyTitledHelp">Diperlukan sebuah gelar resmi untuk mengikuti turnamen</string>
+  <string name="positionInputHelp">Tempelkan sebuah FEN yang valid untuk memulai setiap game dari posisi yang diberikan.
+Ini hanya berfungsi untuk game standar, bukan yang dengan variasi.
+Anda dapat menggunakan %s untuk menghasilkan sebuah posisi FEN, lalu tempel di sini.
+Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
+  <string name="cancelSimul">Batalkan simulasi</string>
+  <string name="simulHostcolor">Pilih warna untuk setiap permainan</string>
+  <string name="estimatedStart">Waktu estimasi mulai</string>
+  <string name="simulFeatured">Tersedia di %s</string>
+  <string name="simulFeaturedHelp">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
+  <string name="simulDescription">Deskripsi simulasi</string>
+  <string name="simulDescriptionHelp">Adakah sesuatu yang ingin Anda sampaikan pada peserta?</string>
+  <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
 </resources>

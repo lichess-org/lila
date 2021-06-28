@@ -93,5 +93,4 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
   <string name="newsEdit2">Afegeix les novetats més recents a la part superior. No eliminis les novetats anteriors.</string>
   <string name="newsEdit3">Separa les novetats amb ---
 Mostrarà una línia separadora horitzontal.</string>
-  <string name="markdownAvailable">%s està disponible per a una sintaxis més avançada.</string>
 </resources>

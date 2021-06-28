@@ -10,7 +10,7 @@
   <string name="moveListWhilePlaying">Zobraziť šachovú notáciu počas partie</string>
   <string name="pgnPieceNotation">Označenie figúr v notácii</string>
   <string name="chessPieceSymbol">Symboly šachových figúr</string>
-  <string name="pgnLetter" comment="pgnLetter&#10;&#10;Please translate using the characters K, Q, R, B and N only. Letters are not currently localised.">Písmenová notácia (K, D, V, S, J)</string>
+  <string name="pgnLetter">Písmenová notácia (K, D, V, S, J)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mód</string>
   <string name="displayBoardResizeHandle">Zobraziť tlačidlo na zmenu veľkosti šachovnice</string>
   <string name="onlyOnInitialPosition">Iba v základnom postavení</string>

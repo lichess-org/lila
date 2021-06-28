@@ -6,4 +6,11 @@
     <item quantity="one">Skatīt %s kārtu</item>
     <item quantity="other">Skatīt %s kārtas</item>
   </plurals>
+  <string name="tournStartDate">Turnīra sākuma datums</string>
+  <string name="nbRounds">Raundu skaits</string>
+  <string name="nbRoundsHelp">Nepāra raundu skaits atļauj noturēt vislabāko krāsu līdzsvaru.</string>
+  <string name="roundInterval">Laiks starp raundiem</string>
+  <string name="forbiddenPairings">Neatļautie pāri</string>
+  <string name="forbiddenPairingsHelp">Spēlētāji, kuri nedrīkst spēlēt kopā (piemēram brāļi vai māsas). Katrā rindā, ar atstarpi atdalīti, divi lietotājvārdi.</string>
+  <string name="newSwiss">Jauns Šveices turnīrs</string>
 </resources>

@@ -1,12 +1,13 @@
 package lila.user
 
-import org.apache.commons.codec.binary.Base32
-import reactivemongo.api.bson._
-
-import java.security.SecureRandom
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import java.nio.ByteBuffer
+import org.apache.commons.codec.binary.Base32
+import reactivemongo.api.bson._
+
+import lila.common.SecureRandom
+
 import User.TotpToken
 
 case class TotpSecret(secret: Array[Byte]) extends AnyVal {
@@ -45,15 +46,9 @@ object TotpSecret {
     "0" * (6 - s.length) + s
   }
 
-  private[this] val secureRandom = new SecureRandom()
-
   def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
 
-  def random: TotpSecret = {
-    val secret = new Array[Byte](20)
-    secureRandom.nextBytes(secret)
-    TotpSecret(secret)
-  }
+  def random = TotpSecret(SecureRandom.nextBytes(20))
 
   private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },

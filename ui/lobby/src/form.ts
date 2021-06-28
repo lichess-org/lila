@@ -20,7 +20,7 @@ export const toFormObject = (lines: FormLines): FormObject =>
     const i = k.indexOf('[');
     const fk = i > 0 ? k.slice(0, i) : k;
     return i > 0 ? { ...o, [fk]: [...(o[fk] || []), lines[k]] } : { ...o, [fk]: lines[k] };
-  }, {});
+  }, {} as FormObject);
 
 export const makeStore = (storage: LichessStorage): FormStore => ({
   get: () => JSON.parse(storage.get() || 'null') as FormLines,

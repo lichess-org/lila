@@ -59,6 +59,7 @@ object bits {
     trans.flipBoard,
     trans.loadPosition,
     trans.popularOpenings,
+    trans.endgamePositions,
     trans.castling,
     trans.whiteCastlingKingside,
     trans.blackCastlingKingside,

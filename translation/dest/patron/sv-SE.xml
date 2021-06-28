@@ -3,26 +3,26 @@
   <string name="donate">Donera</string>
   <string name="lichessPatron">Lichess-donator</string>
   <string name="freeAccount">Gratis konto</string>
-  <string name="becomePatron">Bli en Lichess beskyddare</string>
-  <string name="xBecamePatron">%s blev en Lichess beskyddare</string>
+  <string name="becomePatron">Bli en Lichess Patron</string>
+  <string name="xBecamePatron">%s blev en Lichess Patron</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s är en Lichess-donator i %2$s månad</item>
-    <item quantity="other">%1$s är en Lichess-donator i %2$s månader</item>
+    <item quantity="one">%1$s är en Lichess Patron i %2$s månad</item>
+    <item quantity="other">%1$s är en Lichess Patron i %2$s månader</item>
   </plurals>
-  <string name="newPatrons">Nya beskyddare (Patrons)</string>
+  <string name="newPatrons">Nya Patroner</string>
   <string name="freeChess">Gratis schack för alla, för evigt!</string>
   <string name="noAdsNoSubs">Inga annonser, inga prenumerationer; men öppen källkod och passion.</string>
   <string name="thankYou">Tack för din gåva!</string>
-  <string name="youHaveLifetime">Du har ett livstids beskyddare konto. Det är respekt!</string>
-  <string name="patronUntil">Du har ett beskyddarkonto till %s.</string>
+  <string name="youHaveLifetime">Du har ett livstids Patron-konto. Det är ganska häftigt!</string>
+  <string name="patronUntil">Du har ett Patron-konto till %s.</string>
   <string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
   <string name="weAreNonProfit">Vi är en ideell förening eftersom vi anser att alla bör ha tillgång till en gratis schackplattform i världsklass.</string>
   <string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lichess, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
   <string name="lifetime">Livstid</string>
-  <string name="payLifetimeOnce">Betala %s en gång. Var en Lichess beskyddare för evigt!</string>
-  <string name="lifetimePatron">Livstids Lichess beskyddare</string>
+  <string name="payLifetimeOnce">Betala %s en gång. Var en Lichess Patron för evigt!</string>
+  <string name="lifetimePatron">Livstids Lichess Patron</string>
   <string name="monthly">Månadsvis</string>
-  <string name="recurringBilling">Återkommande fakturering, förnya dina beskyddare vingar varje månad.</string>
+  <string name="recurringBilling">Återkommande fakturering, förnya dina Patron-vingar varje månad.</string>
   <string name="onetime">En gång</string>
   <string name="singleDonation">En enda donation som ger dig Beskyddar-vingar i en månad.</string>
   <string name="otherAmount">Annat</string>
@@ -30,7 +30,7 @@
   <string name="withCreditCard">Kreditkort</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Vi är ett litet team, så ditt stöd gör en enorm skillnad!</string>
-  <string name="celebratedPatrons">Dessa hyllade beskyddare som gör Lichess möjligt</string>
+  <string name="celebratedPatrons">De berömda Patronerna som gör Lichess möjligt</string>
   <string name="whereMoneyGoes">Vart går pengarna?</string>
   <string name="serversAndDeveloper">Först och främst till kraftfulla servrar.
 Sedan betalar vi en heltidsutvecklare: %s, grundaren av Lichess.</string>
@@ -49,15 +49,16 @@ Eller så kan du %s.</string>
 Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="featuresComparison">Se den detaljerade jämförelsen av funktioner</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Lichess beskyddare i en månad</item>
-    <item quantity="other">Lichess beskyddare i %s månader</item>
+    <item quantity="one">Lichess Patron i en månad</item>
+    <item quantity="other">Lichess Patron i %s månader</item>
   </plurals>
   <string name="youSupportWith">Du stödjer lichess.org med %s per månad.</string>
-  <string name="tyvm">Tack så mycket för din hjälp. Du äger!</string>
+  <string name="tyvm">Tack så mycket för din hjälp. Du är bäst!</string>
   <string name="currentStatus">Nuvarande status</string>
   <string name="nextPayment">Nästa betalning</string>
   <string name="youWillBeChargedXOnY">Du kommer att debiteras %1$s den %2$s.</string>
   <string name="makeAdditionalDonation">Gör ytterligare en donation nu</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Skänk Patron-vingar till en spelare</string>
   <string name="update">Uppdatera</string>
   <string name="changeMonthlyAmount">Ändra månadsbeloppet (%s)</string>
   <string name="cancelSupport">avbryt ditt stöd</string>

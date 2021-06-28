@@ -67,6 +67,10 @@ Aqui está o link para acessar a turma.</string>
   <string name="releaseDesc1">Uma conta libertada não pode ser administrada novamente. O aluno será capaz de alternar o modo de criança e redefinir a palavra-passe para si mesmo.</string>
   <string name="releaseDesc2">O aluno permanecerá na aula após a libertação da sua conta.</string>
   <string name="realUniqueEmail">Endereço de e-mail real e exclusivo do aluno. Enviaremos um e-mail de confirmação para ele, com um link para libertar a conta.</string>
+  <string name="closeStudent">Encerrar conta</string>
+  <string name="closeTheAccount">Encerrar a conta do aluno permanentemente.</string>
+  <string name="closeDesc1">O aluno nunca mais poderá usar esta conta novamente. O encerramento é definitivo. Tenha certeza de que o aluno entende e concorda.</string>
+  <string name="closeDesc2">Você também pode dar ao aluno controle sobre a conta. Assim, ele poderá continuar usando-a.</string>
   <string name="teachers">Professores</string>
   <plurals name="nbTeachers">
     <item quantity="one">Professor</item>
@@ -92,5 +96,4 @@ Aqui está o link para acessar a turma.</string>
   <string name="newsEdit1">Todas as notícias sobre a aula num único campo.</string>
   <string name="newsEdit2">Adicione as notícias recentes no topo. Não exclua notícias anteriores.</string>
   <string name="newsEdit3">Separe as notícias com --- tal irá mostrar uma linha horizontal.</string>
-  <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
 </resources>

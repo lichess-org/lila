@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Defioj</string>
+  <string name="challengeToPlay">Defii al nova ludo</string>
+  <string name="challengeDeclined">Defio malakceptita</string>
+  <string name="challengeAccepted">Defio akceptita!</string>
+  <string name="challengeCanceled">Defio nuligita.</string>
+  <string name="youCannotChallengeX">Vi ne povas defii %s.</string>
+  <string name="xDoesNotAcceptChallenges">%s ne akceptas defiojn.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s nur akceptas defiojn de amikoj.</string>
+  <string name="declineGeneric">Mi ne akceptas defiojn en tiu ĉi momento.</string>
+  <string name="declineNoBot">Mi ne akceptas defiojn de robotoj.</string>
+  <string name="declineOnlyBot">Mi nur akceptas defiojn de robotoj.</string>
+</resources>

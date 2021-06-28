@@ -73,8 +73,7 @@ Veure el capítol de %3$s sobre aquest moviment per practicar-lo.</string>
   <string name="configure">configurar</string>
   <string name="accounts">Comptes</string>
   <string name="titlesAvailableOnLichess">Quins títols hi ha a Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess reconeix tots els títols FIDE obtinguts OTB (sobre el tauler), així com %1$s.
-Aquí hi ha una llista de títols FIDE:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess reconeix tots els títols FIDE obtinguts OTB (sobre el tauler), així com %1$s. Aquí hi ha una llista de títols FIDE:</string>
   <string name="showYourTitle">Si tens un títol OTB, pots sol·licitar que es mostri en la teva compta completant el %1$s, incloent una imatge clara d\'un document/targeta d\'identificació i una foto teva portant el document/targeta.
 
 La verificació com a jugador titulat a Lichess dóna accés a jugar en els esdeveniments d\'Arena per a titulats.
@@ -130,8 +129,7 @@ Un altre punt que cal destacar és que, al passar el temps, l\'interval de confi
   <string name="enableZenMode">Habilita el mode Zen a les %1$s o prement %2$s durant una partida.</string>
   <string name="displayPreferences">preferències de visualització</string>
   <string name="connexionLostCanIGetMyRatingBack">He perdut una partida degut a un retard/desconnexió. Puc recuperar els meus punts?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadament, no podem retornar punts en les partides perdudes degut al retard de la xarxa o per desconnexió, independentment de si el problema era teu o nostre.
-L\'últim cas cal dir que és molt estrany. També cal tenir en compte que quan Lichess es reinicia i perds per temps per aquest motiu, avortem la partida per prevenir una pèrdua injusta.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Desafortunadament, no podem retornar punts en les partides perdudes degut al retard de la xarxa o per desconnexió, independentment de si el problema era teu o nostre. L\'últim cas cal dir que és molt estrany. També cal tenir en compte que quan Lichess es reinicia i perds per temps per aquest motiu, avortem la partida per prevenir una pèrdua injusta.</string>
   <string name="howToThreeDots">Com...</string>
   <string name="enableDisableNotificationPopUps">Activar o desactivar les notificacions emergents?</string>
   <string name="viewSiteInformationPopUp">Veure finestra emergent d\'informació del lloc</string>

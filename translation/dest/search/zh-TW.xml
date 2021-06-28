@@ -15,7 +15,7 @@
   <string name="humanOrComputer">不管您的對手是電腦或是其他玩家</string>
   <string name="aiLevel">A.I等級</string>
   <string name="source">來源</string>
-  <string name="nbTurns">回和數</string>
+  <string name="nbTurns">回合數</string>
   <string name="result">結果</string>
   <string name="winnerColor">獲勝方棋子顏色</string>
   <string name="date">日期</string>
@@ -24,8 +24,8 @@
   <string name="onlyAnalysed">僅可進行有電腦分析的遊戲</string>
   <string name="color">顏色</string>
   <string name="evaluation">評估</string>
-  <string name="maxNumber">最大值</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">最大值</string>
   <string name="maxNumberExplanation">回傳的最大場數</string>
-  <string name="include">包含</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">包含</string>
   <string name="generateURL">產生網址</string>
 </resources>

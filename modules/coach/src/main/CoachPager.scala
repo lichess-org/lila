@@ -32,53 +32,55 @@ final class CoachPager(
     def selector = listableSelector ++ lang.?? { l => $doc("languages" -> l.code) }
 
     val adapter = country match {
-      case Some(country) => new AdapterLike[Coach.WithUser] {
-        def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
+      case Some(country) =>
+        new AdapterLike[Coach.WithUser] {
+          def nbResults: Fu[Int] = coll.secondaryPreferred.countSel(selector)
 
-        def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
-          coll
-            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-              import framework._
-              Match(selector) -> List(
-                Sort(
-                  order match {
-                    case Alphabetical  => Ascending("_id")
-                    case NbReview      => Descending("nbReview")
-                    case LichessRating => Descending("user.rating")
-                    case Login         => Descending("user.seenAt")
-                  }
-                ),
-                PipelineOperator(
-                  $doc(
-                    "$lookup" -> $doc(
-                      "from"         -> userRepo.coll.name,
-                      "localField"   -> "_id",
-                      "foreignField" -> "_id",
-                      "as"           -> "_user"
+          def slice(offset: Int, length: Int): Fu[List[Coach.WithUser]] =
+            coll
+              .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+                import framework._
+                Match(selector) -> List(
+                  Sort(
+                    order match {
+                      case Alphabetical  => Ascending("_id")
+                      case NbReview      => Descending("nbReview")
+                      case LichessRating => Descending("user.rating")
+                      case Login         => Descending("user.seenAt")
+                    }
+                  ),
+                  PipelineOperator(
+                    $doc(
+                      "$lookup" -> $doc(
+                        "from"         -> userRepo.coll.name,
+                        "localField"   -> "_id",
+                        "foreignField" -> "_id",
+                        "as"           -> "_user"
+                      )
                     )
-                  )
-                ),
-                UnwindField("_user"),
-                Match($doc("_user.profile.country" -> country.code)),
-                Skip(offset),
-                Limit(length)
-              )
-            }
-            .map { docs =>
-              for {
-                doc   <- docs
-                coach <- doc.asOpt[Coach]
-                user  <- doc.getAsOpt[User]("_user")
-              } yield Coach.WithUser(coach, user)
-            }
-      }
+                  ),
+                  UnwindField("_user"),
+                  Match($doc("_user.profile.country" -> country.code)),
+                  Skip(offset),
+                  Limit(length)
+                )
+              }
+              .map { docs =>
+                for {
+                  doc   <- docs
+                  coach <- doc.asOpt[Coach]
+                  user  <- doc.getAsOpt[User]("_user")
+                } yield Coach.WithUser(coach, user)
+              }
+        }
 
-      case None => new Adapter[Coach](
-        collection = coll,
-        selector = selector,
-        projection = none,
-        sort = order.predicate
-      ) mapFutureList withUsers
+      case None =>
+        new Adapter[Coach](
+          collection = coll,
+          selector = selector,
+          projection = none,
+          sort = order.predicate
+        ) mapFutureList withUsers
     }
 
     Paginator(

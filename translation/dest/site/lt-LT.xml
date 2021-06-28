@@ -765,8 +765,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toliau pateikiamas sąrašas įrenginių, kurie yra prisijungę prie jūsų paskyros. Panaikinkite visus seansus, kurių neatpažįstate.</string>
-  <string name="alternativelyYouCanX">Arba galite %s.</string>
   <string name="sessions">Sesijos</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
@@ -952,4 +950,33 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="coachManager">Trenerių valdymas</string>
   <string name="streamerManager">Transliuotojų valdymas</string>
+  <string name="cancelTournament">Atšaukti turnyrą</string>
+  <string name="tournDescription">Turnyro aprašymas</string>
+  <string name="tournDescriptionHelp">Yra kažkas, ką turi žinoti dalyviai? Stenkitės perteikti trumpai. Galimos Markdown nuorodos: [pavadinimas](https://url)</string>
+  <string name="ratedFormHelp">Partijos reitinguotos
+ir daro įtaką žaidėjų reitingams</string>
+  <string name="onlyMembersOfTeam">Tik komandos nariai</string>
+  <string name="noRestriction">Jokių apribojimų</string>
+  <string name="minimumRatedGames">Mažiausiai įvertintos partijos</string>
+  <string name="minimumRating">Minimalus reitingas</string>
+  <string name="maximumWeeklyRating">Maksimalus savaitinis reitingas</string>
+  <string name="onlyTitled">Tik tituluoti žaidėjai</string>
+  <string name="onlyTitledHelp">Jungiantis prie turnyro reikalauti oficialaus titulo</string>
+  <string name="positionInputHelp">Norėdami pradėti žaidimą nuo specifinės pozicijos, įklijuokite teisingą FEN.
+Veikia tik standartiniams žaidimams, ne variantams.
+Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
+Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijos.</string>
+  <string name="cancelSimul">Atšaukti simulą</string>
+  <string name="simulHostcolor">Šeimininko spalva kiekvienam žaidimui</string>
+  <string name="estimatedStart">Numatytas pradžios laikas</string>
+  <string name="simulFeatured">Rodyti %s</string>
+  <string name="simulFeaturedHelp">Rodyti simulą visiems %s. Neįjungta privatiems simulams.</string>
+  <string name="simulDescription">Simulo aprašymas</string>
+  <string name="simulDescriptionHelp">Ar norite ką nors pranešti dalyviams?</string>
+  <string name="markdownAvailable">%s prieinama norint naudoti sudėtingesnę sintaksę.</string>
+  <string name="inYourLocalTimezone">Jūsų laiko zonoje</string>
+  <string name="tournChat">Turnyro pokalbis</string>
+  <string name="noChat">Jokio pokalbio</string>
+  <string name="onlyTeamLeaders">Tik komandų vadovams</string>
+  <string name="onlyTeamMembers">Tik komandos nariams</string>
 </resources>

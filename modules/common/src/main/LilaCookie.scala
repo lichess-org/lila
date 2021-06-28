@@ -1,6 +1,5 @@
 package lila.common
 
-import ornicar.scalalib.Random
 import play.api.mvc._
 import scala.concurrent.ExecutionContext
 
@@ -12,7 +11,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) {
 
   def makeSessionId(implicit req: RequestHeader) = session(LilaCookie.sessionId, generateSessionId())
 
-  def generateSessionId() = Random secureString 22
+  def generateSessionId() = SecureRandom nextString 22
 
   def session(name: String, value: String)(implicit req: RequestHeader): Cookie =
     withSession { s =>

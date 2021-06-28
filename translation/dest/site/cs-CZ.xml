@@ -516,6 +516,7 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="inlineNotation">Notace v řádcích</string>
@@ -748,8 +749,10 @@
   <string name="printFriendlyPDF">PDF pro tisk</string>
   <string name="crosstable">Výsledky</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">K pohybu v partii můžete také použít scrollovací kolečko myši nad šachovnicí.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Najetím na varianty počítače zobrazíte jejich náhled.</string>
   <string name="analysisShapesHowTo">Kliknutím se shiftem či kliknutím pravým tlačítkem lze kreslit do šachovnice kolečka a šipky.</string>
   <string name="letOtherPlayersMessageYou">Povolit zprávy od ostatních hráčů</string>
+  <string name="receiveForumNotifications">Dostat oznámení, pokud jste zmíněni ve fóru</string>
   <string name="shareYourInsightsData">Sdílejte výsledky analýzy vašeho hraní</string>
   <string name="withNobody">S nikým</string>
   <string name="withFriends">S přáteli</string>
@@ -761,8 +764,6 @@
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toto je přehled zařízení, na kterých došlo k přihlášení k Vašemu účtu. Pokud některé zařízení nepoznáváte, můžete zrušit jeho relaci.</string>
-  <string name="alternativelyYouCanX">Nebo můžete %s.</string>
   <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
@@ -941,4 +942,8 @@
   <string name="refundXpointsTimeControlY">Vráceno %1$s %2$s ratingových bodů.</string>
   <string name="timeAlmostUp">Čas vám běží!</string>
   <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
+  <string name="download">Stáhnout</string>
+  <string name="welcome">Vítej!</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý open source software.
+Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
 </resources>

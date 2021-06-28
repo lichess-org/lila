@@ -103,8 +103,18 @@ object form {
 
   private def textFields(form: Form[_])(implicit ctx: Context) = frag(
     form3.group(form("location"), trans.location())(form3.input(_)),
-    form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
-    form3.group(form("descPrivate"), trans.descPrivate(), help = trans.descPrivateHelp().some)(
+    form3.group(form("description"), trans.description(), help = markdownAvailable.some)(
+      form3.textarea(_)(rows := 10)
+    ),
+    form3.group(
+      form("descPrivate"),
+      trans.descPrivate(),
+      help = frag(
+        trans.descPrivateHelp(),
+        br,
+        markdownAvailable
+      ).some
+    )(
       form3.textarea(_)(rows := 10)
     )
   )

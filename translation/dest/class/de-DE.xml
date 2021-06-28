@@ -62,11 +62,15 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="managed">Verwaltet</string>
   <string name="thisStudentAccountIsManaged">Dieses Schülerkonto wird verwaltet</string>
   <string name="upgradeFromManaged">Aufwerten von verwaltet zu selbstständig</string>
-  <string name="release">Freigabe</string>
+  <string name="release">Hochstufen</string>
   <string name="releaseTheAccount">Gib das Konto frei, damit der Schüler es selbstständig verwalten kann.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
-  <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
+  <string name="realUniqueEmail">Echte, eindeutige E-Mail-Adresse des Schülers. Wir werden eine Bestätigungs-E-Mail mit einem Link zur Freigabe des Kontos versenden.</string>
+  <string name="closeStudent">Schülerkonto schließen</string>
+  <string name="closeTheAccount">Das Schülerkonto dauerhaft schließen.</string>
+  <string name="closeDesc1">Der Schüler wird das Konto nie wieder nutzen können. Die Schließung ist endgültig. Stelle sicher, dass der Schüler dies versteht und einverstanden ist.</string>
+  <string name="closeDesc2">Du kannst stattdessen dem Schüler die Kontrolle über das Konto überlassen, so dass er es weiter nutzen kann.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>
@@ -92,5 +96,4 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
   <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
   <string name="newsEdit3">Trenne Neuigkeiten mit --- Es wird als horizontale Linie angezeigt.</string>
-  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
 </resources>

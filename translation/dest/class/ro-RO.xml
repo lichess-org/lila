@@ -68,6 +68,10 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="releaseDesc1">Un cont eliberat nu poate fi facut din nou manageriat. Studentul poate să activeze modul copil și să reseteze parola singur.</string>
   <string name="releaseDesc2">Studentul va rămâne în clasă dupa e contul lui este eliberat.</string>
   <string name="realUniqueEmail">Adresa de e-mail unică și reală a studentului. Vom trimite un e-mail de confirmare la acea adresă, cu un link-ul pentru a elibera contul.</string>
+  <string name="closeStudent">Închide contul</string>
+  <string name="closeTheAccount">Închideți permanent contul de student.</string>
+  <string name="closeDesc1">Studentul nu va mai putea niciodată să folosească acest cont. Închiderea este finală. Asigurați-vă că elevul înțelege și este de acord.</string>
+  <string name="closeDesc2">În schimb, poate doriți să îi acordați studentului controlul asupra contului, astfel încât să îl poată folosi în continuare.</string>
   <string name="teachers">Profesori</string>
   <plurals name="nbTeachers">
     <item quantity="one">Profesor</item>
@@ -96,5 +100,4 @@ Aici este link-ul pentru a accesa clasa.</string>
   <string name="newsEdit2">Adaugă noutățile recente în partea de sus. Nu șterge noutățile anterioare.</string>
   <string name="newsEdit3">Separă noutățile cu ---
 Va aparea o linie orizontală.</string>
-  <string name="markdownAvailable">%s este disponibil pentru o sintaxă mai avansată.</string>
 </resources>

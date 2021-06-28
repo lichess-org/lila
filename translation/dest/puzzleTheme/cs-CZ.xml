@@ -38,6 +38,7 @@
   <string name="endgame">Koncovka</string>
   <string name="endgameDescription">Taktický obrat během poslední fáze hry.</string>
   <string name="exposedKing">Ohrožený král</string>
+  <string name="exposedKingDescription">Taktika zahrnují krále s pár obránci okolo něj, obvykle vedoucí k matu.</string>
   <string name="fork">Vidlička</string>
   <string name="forkDescription">Tah, kterým tažená figura útočí na dvě protivníkovy figury najednou.</string>
   <string name="hangingPiece">Visící figura</string>
@@ -91,6 +92,7 @@
   <string name="sacrificeDescription">Taktika zahrnující krátkodobé vzdání materiálu, s cílem získat opět výhodu po vynucené sekvenci tahů.</string>
   <string name="short">Krátká úloha</string>
   <string name="shortDescription">Dva tahy do výhry.</string>
+  <string name="skewerDescription">Motiv zahrnující útok na figuru vyšší hodnoty, která útoku uhne, ale dovolí tak útok nebo sebrání figury nižší hodnoty za ní, opak vazby.</string>
   <string name="smotheredMate">Dušený mat</string>
   <string name="superGM">Úlohy Super GM</string>
   <string name="superGMDescription">Hádanky z her hraných nejlepšími hráči na světě.</string>
