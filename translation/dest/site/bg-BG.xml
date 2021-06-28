@@ -440,6 +440,7 @@
   <string name="boardEditor">Шахматен редактор</string>
   <string name="setTheBoard">Подреди дъската</string>
   <string name="popularOpenings">Популярни дебюти</string>
+  <string name="endgamePositions">Ендшпилни позиции</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="savePosition">Запази позицията</string>
