@@ -880,16 +880,16 @@ e afetam a classificação dos jogadores</string>
   <string name="maximumWeeklyRating">Classificação máxima da semana</string>
   <string name="onlyTitled">Apenas jogadores titulados</string>
   <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
-  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
+  <string name="positionInputHelp">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
 Só funciona com jogos padrão, e não com variantes.
 Use o %s para gerar uma posição FEN, e depois cole-a aqui.
 Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="cancelSimul">Cancelar a simultânea</string>
-  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Cor do simultanista em cada jogo</string>
-  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Tempo de início estimado</string>
+  <string name="simulHostcolor">Cor do simultanista em cada jogo</string>
+  <string name="estimatedStart">Tempo de início estimado</string>
   <string name="simulFeatured">Compartilhar em %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
+  <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
   <string name="simulDescription">Descrição da simultânea</string>
   <string name="simulDescriptionHelp">Você gostaria de dizer algo aos participantes?</string>
-  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s está disponível para opções de formatação adicionais.</string>
+  <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>
 </resources>
