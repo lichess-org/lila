@@ -45,4 +45,10 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   </plurals>
   <string name="newTeamBattle">Taldeen Arteko Txapelketa berria</string>
   <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Pertsonalizatutako hasiera data</string>
+  <string name="customStartDateHelp" comment="customStartDateHelp&#10;&#10;Explanatory text for 'Custom start date', which lets you put in a precise time &amp; date when creating a tournament. This is instead of opening the tournament and then starting it in 15 minutes, as an example.&#10;&#10;You can find this and other control in the tournament creation screen: https://lichess.org/tournament/new (requires sign in)">Zure ordu-zonan. Honek \"Txapeketa hasi aurreko denbora\" ezarpena gainidazten du</string>
+  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Berserk onartu</string>
+  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Utzi jokalariei beren denbora erdira jaisten puntu gehigarri bat lortzeko</string>
+  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">Utzi jokalariei txatean hitz egiten</string>
+  <string name="arenaStreaks">Arena boladak</string>
+  <string name="arenaStreaksHelp">Bi garaipenen ostean, jarraian datozen garaipenek 4 puntu emango dituzte 2 eman beharrean.</string>
 </resources>
