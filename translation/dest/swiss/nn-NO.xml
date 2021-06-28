@@ -5,4 +5,6 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
+  <string name="tournStartDate">Startdato for turneringa</string>
+  <string name="nbRounds">Antal rundar</string>
 </resources>
