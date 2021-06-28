@@ -13,10 +13,9 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
   hooks.sort(ctrl.sort === 'time' ? timeOrder : ratingOrder);
 }
 
-export function init(hook: Hook): Hook {
+export function init(hook: Hook) {
   hook.action = hook.sri === lichess.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
-  return hook;
 }
 
 export function initAll(ctrl: LobbyController) {

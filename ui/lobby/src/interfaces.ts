@@ -66,7 +66,7 @@ export interface LobbyData {
   me?: {
     isBot: boolean;
     username: string;
-  }
+  };
 }
 
 export interface NowPlaying {
