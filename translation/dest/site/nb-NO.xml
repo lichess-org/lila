@@ -888,4 +888,6 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="cancelSimul">Avbryt simultanoppvisningen</string>
   <string name="simulHostcolor">Vertsfarge for hvert parti</string>
   <string name="estimatedStart">Forventet starttidspunkt</string>
+  <string name="simulFeatured">Vis på %s</string>
+  <string name="inYourLocalTimezone">I tidssonen din</string>
 </resources>
