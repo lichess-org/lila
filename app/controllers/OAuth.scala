@@ -45,7 +45,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def authorizeApply =
     Auth { implicit ctx => me =>
       withPrompt { prompt =>
-        prompt.authorize(me, ???) flatMap {
+        prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
           case Validated.Valid(authorized) =>
             env.oAuth.authorizationApi.create(authorized) map { code =>
               Redirect(authorized.redirectUrl(code))
