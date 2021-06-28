@@ -71,6 +71,8 @@
   <string name="releaseDesc1">لا يمكن إدارة حساب نم إطلاقه مرة اخرى. سيستطيع الطالب تبديل وضع الأطفال وتغيير كلمة المرور بنفسه.</string>
   <string name="releaseDesc2">سيبقى الطالب في الفصل بعد إطلاق حسابه.</string>
   <string name="realUniqueEmail">عنوان بريد إلكتروني حقيقي وفريد من نوعه للطالب. سوف نرسل له رسالة تأكيد بالبريد الإلكتروني، مع رابط لإطلاق الحساب.</string>
+  <string name="closeStudent">اغلاق الحساب</string>
+  <string name="closeTheAccount">أغلق حساب التلميذ بشكل دائم.</string>
   <string name="teachers">معلمون</string>
   <plurals name="nbTeachers">
     <item quantity="zero">لا يوجد معلم</item>
