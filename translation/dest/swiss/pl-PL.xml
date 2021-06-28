@@ -12,5 +12,6 @@
   <string name="nbRoundsHelp">Nieparzysta liczba rund pozwala na optymalną równowagę kolorów.</string>
   <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interwał między rundami</string>
   <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Zabronione pary</string>
+  <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Nowy turniej systemem szwajcarskim</string>
 </resources>
