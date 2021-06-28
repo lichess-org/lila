@@ -20,7 +20,14 @@
   }
 
   &__user {
+    display: flex;
+    align-items: baseline;
     overflow: hidden;
+  }
+
+  .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .rating {
@@ -33,7 +40,7 @@
   &__clock {
     @extend %roboto;
 
-    padding: 0 1ch;
+    padding-left: 2ch;
 
     &.clock--run {
       color: $c-accent;

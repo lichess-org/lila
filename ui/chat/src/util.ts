@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 
 export function userLink(u: string, title?: string, patron?: boolean): VNode {
-  const trunc = u.substring(0, 14);
+  const trunc = u.length > 13 ? u.substring(0, 13) + '…' : u;
   const line = patron
     ? h('line.line.patron', {
         attrs: {
