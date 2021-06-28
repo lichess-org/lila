@@ -3,8 +3,9 @@ import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer 
 import { teamName } from './battle';
 import * as status from 'game/status';
 import TournamentController from '../ctrl';
+import { Player } from '../interfaces';
 
-function result(win, stat): string {
+function result(win: boolean, stat: number): string {
   switch (win) {
     case true:
       return '1';
@@ -15,7 +16,7 @@ function result(win, stat): string {
   }
 }
 
-function playerTitle(player) {
+function playerTitle(player: Player) {
   return h('h2', [h('span.rank', player.rank + '. '), renderPlayer(player, true, false, false)]);
 }
 
@@ -31,7 +32,7 @@ export default function (ctrl: TournamentController): VNode {
   const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
-    return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player), spinner()])]);
+    return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
   const nb = data.player.nb,
     pairingsLen = data.pairings.length,
     avgOp = pairingsLen
@@ -62,7 +63,7 @@ export default function (ctrl: TournamentController): VNode {
           ? h(
               'team',
               {
-                hook: bind('click', () => ctrl.showTeamInfo(data.player.team), ctrl.redraw),
+                hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw),
               },
               [teamName(ctrl.data.teamBattle!, data.player.team)]
             )

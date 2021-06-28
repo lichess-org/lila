@@ -16,9 +16,11 @@ function confetti(data: TournamentData): VNode | undefined {
         insert: _ => lichess.loadScript('javascripts/confetti.js'),
       },
     });
+  return undefined;
 }
 
-function stats(data: TournamentData, trans: Trans): VNode {
+function stats(data: TournamentData, trans: Trans): VNode | undefined {
+  if (!data.stats) return undefined;
   const noarg = trans.noarg;
   const tableData = [
     numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
@@ -30,8 +32,7 @@ function stats(data: TournamentData, trans: Trans): VNode {
   ];
 
   if (data.berserkable) {
-    const berserkRate = [data.stats.berserks / 2, data.stats.games];
-    tableData.push(numberRow(noarg('berserkRate'), berserkRate, 'percent'));
+    tableData.push(numberRow(noarg('berserkRate'), [data.stats.berserks / 2, data.stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [
@@ -117,7 +118,5 @@ export function table(ctrl: TournamentController): VNode | undefined {
     ? playerInfo(ctrl)
     : ctrl.teamInfo.requested
     ? teamInfo(ctrl)
-    : stats
-    ? stats(ctrl.data, ctrl.trans)
-    : undefined;
+    : stats(ctrl.data, ctrl.trans);
 }
