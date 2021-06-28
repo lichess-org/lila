@@ -881,11 +881,11 @@ og påvirker spillernes rating</string>
   <string name="maximumWeeklyRating">Maksimum ukerating</string>
   <string name="onlyTitled">Kun spillere med sjakktittel</string>
   <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å bli med i turneringen</string>
-  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Lim inn gyldig FEN for å begynne hvert parti fra gitt stilling.
+  <string name="positionInputHelp">Lim inn gyldig FEN for å begynne hvert parti fra gitt stilling.
 Det fungerer bare for standardpartier, ikke for varianter.
 Du kan bruke %s for å generere en FEN-stilling, som du limer inn her.
 La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</string>
   <string name="cancelSimul">Avbryt simultanoppvisningen</string>
-  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Vertsfarge for hvert parti</string>
-  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Forventet starttidspunkt</string>
+  <string name="simulHostcolor">Vertsfarge for hvert parti</string>
+  <string name="estimatedStart">Forventet starttidspunkt</string>
 </resources>
