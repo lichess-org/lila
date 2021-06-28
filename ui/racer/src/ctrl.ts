@@ -95,6 +95,8 @@ export default class StormCtrl {
 
   isRacing = () => this.status() == 'racing';
 
+  isOwner = () => this.data.owner;
+
   myScore = (): number | undefined => {
     const p = this.data.players.find(p => p.name == this.data.player.name);
     return p?.score;
@@ -102,6 +104,10 @@ export default class StormCtrl {
 
   join = throttle(1000, () => {
     if (!this.isPlayer()) this.socketSend('racerJoin');
+  });
+
+  start = throttle(1000, () => {
+    if (this.isOwner()) this.socketSend('racerStart');
   });
 
   countdownSeconds = (): number | undefined =>

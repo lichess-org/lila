@@ -36,7 +36,7 @@ export default class LobbyController {
     this.data.hooks = [];
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.isBot = opts.data.me && opts.data.me.isBot;
+    this.isBot = !!opts.data.me?.isBot;
     this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
     this.setup = new Setup(lichess.storage.make, this);
 
@@ -44,7 +44,7 @@ export default class LobbyController {
     seekRepo.initAll(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
-    this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
+    this.stores = makeStores(this.data.me?.username.toLowerCase());
     (this.tab = this.isBot ? 'now_playing' : this.stores.tab.get()),
       (this.mode = this.stores.mode.get()),
       (this.sort = this.stores.sort.get()),

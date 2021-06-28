@@ -15,7 +15,7 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
     val token = AccessToken(
-      id = AccessToken.Id(Protocol.Secret.random("lio_").value),
+      id = AccessToken.Id.random(),
       publicId = BSONObjectID.generate(),
       clientId = PersonalToken.clientId, // TODO
       userId = granted.userId,

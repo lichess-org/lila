@@ -1,8 +1,11 @@
 #promotion-choice {
-  @extend %abs-100;
-
   background: fade-out($c-bg-page, 0.3);
   z-index: z('cg__promotion');
+
+  position: absolute;
+  width: var(--cg-width, 100%);
+  height: var(--cg-height, 100%);
+  right: 0;
 
   square {
     cursor: pointer;

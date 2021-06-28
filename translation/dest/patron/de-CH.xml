@@ -10,13 +10,13 @@
     <item quantity="other">%1$s underschtützt Lichess sit %2$s Monät als Patroon</item>
   </plurals>
   <string name="newPatrons">Neui Patroons</string>
-  <string name="freeChess">Kostenloses Schach für alle, für immer!</string>
+  <string name="freeChess">Choschtälosäs Schach für alli, für immer!</string>
   <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und mit Leidenschaft.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du bsitzisch äs läbänslangs Underschtützerkonto. Das isch schlichtwäg grossartig!</string>
   <string name="patronUntil">Du bsitzisch äs Patroonkonto bis %s.</string>
   <string name="ifNotRenewed">Falls nicht erneuert, wird dein Konto zu einem kostenlosen herabgestuft.</string>
-  <string name="weAreNonProfit">Wir sind eine Non-Profit-Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Schachplattform von Weltklasse haben sollte.</string>
+  <string name="weAreNonProfit">Mir sind ä Non-Profit-Organisation, will mir dra glaubäd, dass alli än Zuägang zunärä choschtälosä Schachplattform vo Wältklass ha söttäd.</string>
   <string name="weRelyOnSupport">Mir sind uf Underschtützig vo Lüüt wi dir aagwisä, um das möglich z\'machä. Falls dir Lichess gfallt, chasch du Lichess underschtützä, indäm du schpändisch und än Patroon wirsch!</string>
   <string name="lifetime">Lebenslang</string>
   <string name="payLifetimeOnce">Zall eimalig %s. Wird für immer Lichess Patroon!</string>

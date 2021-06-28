@@ -95,5 +95,4 @@ Lozinka: %3$s</string>
   <string name="newsEdit2">Postavi posljednje novosti na vrh. Nemoj obrisati prethodne novosti.</string>
   <string name="newsEdit3">Odvoji novosti sa ---
 To će prikazati horizontalnu liniju.</string>
-  <string name="markdownAvailable">%s je dostupan za još napredniju sintaksu.</string>
 </resources>

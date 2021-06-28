@@ -4,4 +4,11 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">%s ラウンドを表示</item>
   </plurals>
+  <string name="tournStartDate">トーナメント開始日</string>
+  <string name="nbRounds">ラウンド数</string>
+  <string name="nbRoundsHelp">ラウンド数は奇数のほうが色のバランスがよくなります。</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">ラウンド間のインターバル時間</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">禁止ペアリング</string>
+  <string name="forbiddenPairingsHelp">対戦しないプレイヤーのユーザー名（兄弟姉妹など）。1 行につき 2 つのユーザー名を半角スペースで区切って並べます。</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">新しいスイス式トーナメント</string>
 </resources>

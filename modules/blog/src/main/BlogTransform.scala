@@ -16,7 +16,7 @@ object BlogTransform {
     private type Text = String
     private type Html = String
 
-    private val renderer = new lila.common.Markdown
+    private val renderer = new lila.common.Markdown(table = true)
 
     private val cache: LoadingCache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(15 minutes)

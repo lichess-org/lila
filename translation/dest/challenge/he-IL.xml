@@ -8,5 +8,18 @@
   <string name="registerToSendChallenges">אנא הירשמו על מנת לשלוח הזמנות למשחקים.</string>
   <string name="youCannotChallengeX">לא ניתן להזמין את %s למשחק.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל הזמנות למשחקים.</string>
+  <string name="yourXRatingIsTooFarFromY">הדירוג שלך %1$s רחוק מדי מ%2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">אין אפשרות לאתגר בגלל דירוג זמני של %s.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s מאשר רק אתגרים מחברים.</string>
+  <string name="declineGeneric">לא מקבל תלמידים בזמן זה.</string>
+  <string name="declineLater">זה לא הזמן המתאים עבורי, אנא שאל שוב מאוחר יותר.</string>
+  <string name="declineTooFast">הזמנים האלו יותר מדי מהירים בשבילי, בבקשה תאתגר שוב עם משחק יותר איטי.</string>
+  <string name="declineTooSlow">הזמנים האלו יותר מדי איטיים בשבילי, בבקשה תאתגר שוב עם משחק יותר מהיר.</string>
+  <string name="declineTimeControl">אני לא מאשר אתגרים עם בקרת זמנים.</string>
+  <string name="declineRated">בבקשה תשלח לי אתגר מדורג במקום.</string>
+  <string name="declineCasual">בבקשה תשלח לי אתגר לא מדורג במקום.</string>
+  <string name="declineStandard">אני לא מקבל אתגרים של גרסאות אחרות בזמן זה.</string>
+  <string name="declineVariant">אני לא מוכן לשחק את הגרסה האחרת הזאת עכשיו.</string>
+  <string name="declineNoBot">אני לא מאשר הזמנות מבוטים.</string>
   <string name="declineOnlyBot">מאשר הזמנות למשחק רק מבוטים.</string>
 </resources>

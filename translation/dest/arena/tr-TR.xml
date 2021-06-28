@@ -42,4 +42,12 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
     <item quantity="one">Takımı görüntüleyin</item>
     <item quantity="other">Tüm %s takımlarını görüntüleyin</item>
   </plurals>
+  <string name="newTeamBattle">Yeni Takım Çarpışması</string>
+  <string name="customStartDate">Özel başlangıç tarihi</string>
+  <string name="customStartDateHelp">Kendi saat diliminizi kullanın. \"Turnuvaya kalan süre\" ayarı geçersiz kalacaktır</string>
+  <string name="allowBerserk">Divane moduna izin ver</string>
+  <string name="allowBerserkHelp">Ekstra puan kazanmak isteyen oyuncuların, sürelerinin yarısından feragat etmesine izin ver</string>
+  <string name="allowChatHelp">Oyuncuların sohbet odasında konuşmasına izin ver</string>
+  <string name="arenaStreaks">Arena serisi</string>
+  <string name="arenaStreaksHelp">2 kez üst üste kazandıktan sonra yapılan maçlar 2 yerine 4 puan verir.</string>
 </resources>

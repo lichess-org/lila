@@ -7,11 +7,23 @@ export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
 
-interface Untyped {
-  [key: string]: any;
+export interface Hook {
+  id: string;
+  sri: string;
+  clock: string;
+  t: number; // time
+  s: number; // speed
+  i: number; // increment
+  variant: VariantKey;
+  perf: Exclude<Perf, 'fromPosition'>;
+  prov?: true; // is rating provisional
+  u?: string; // username
+  rating?: number;
+  ra?: 1; // rated
+  c?: Color;
+  action: 'cancel' | 'join';
+  disabled?: boolean;
 }
-
-export interface Hook extends Untyped {}
 
 export interface Seek {
   id: string;
@@ -21,7 +33,7 @@ export interface Seek {
   days?: number;
   color: string;
   perf: {
-    key: string;
+    key: Exclude<Perf, 'fromPosition'>;
   };
   provisional?: boolean;
   variant?: string;
@@ -35,17 +47,26 @@ export interface Pool {
   perf: string;
 }
 
-export interface LobbyOpts extends Untyped {
+export interface LobbyOpts {
   element: HTMLElement;
   socketSend: SocketSend;
   pools: Pool[];
   blindMode: boolean;
+  playban: boolean;
+  data: LobbyData;
+  i18n: I18nDict;
+  trans: Trans;
 }
 
-export interface LobbyData extends Untyped {
+export interface LobbyData {
   hooks: Hook[];
   seeks: Seek[];
+  nbNowPlaying: number;
   nowPlaying: NowPlaying[];
+  me?: {
+    isBot: boolean;
+    username: string;
+  };
 }
 
 export interface NowPlaying {

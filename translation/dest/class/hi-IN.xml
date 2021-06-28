@@ -93,5 +93,4 @@
   <string name="newsEdit2">शीर्ष पर हाल की खबर जोड़ें। पिछली खबरों को डिलीट न करें।</string>
   <string name="newsEdit3">अलग खबरें ---
 यह एक क्षैतिज रेखा प्रदर्शित करेगा।</string>
-  <string name="markdownAvailable">%s अधिक उन्नत सिंटैक्स के लिए उपलब्ध है।</string>
 </resources>

@@ -672,8 +672,6 @@
   <string name="enableKidMode">Activar lo modo infantil</string>
   <string name="disableKidMode">Desactivar lo modo infantil</string>
   <string name="security">Seguridat</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta ye una lista de dispositivos dende los quals has iniciau sesión. Zarra totas las sesions que no reconoixcas.</string>
-  <string name="alternativelyYouCanX">U tamién puetz %s.</string>
   <string name="revokeAllSessions">zarrar totas las sesions</string>
   <string name="playChessEverywhere">Chuga a los escaques an que siga</string>
   <string name="asFreeAsLichess">Igual de gratis como lichess</string>

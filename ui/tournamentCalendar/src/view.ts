@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { Classes, h, VNode } from 'snabbdom';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
 import getHours from 'date-fns/getHours';
@@ -8,18 +8,18 @@ import format from 'date-fns/format';
 import { Tournament, Lanes, Ctrl } from './interfaces';
 import perfIcons from 'common/perfIcons';
 
-function tournamentClass(tour: Tournament, day: Date) {
+function tournamentClass(tour: Tournament, day: Date): Classes {
   const classes = {
     rated: tour.rated,
     casual: !tour.rated,
     'max-rating': tour.hasMaxRating,
     yesterday: tour.bounds.start < day,
-  };
+  } as Classes;
   if (tour.schedule) classes[tour.schedule.freq] = true;
   return classes;
 }
 
-const iconOf = tour => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
+const iconOf = (tour: Tournament) => (tour.schedule?.freq === 'shield' ? '' : perfIcons[tour.perf.key]);
 
 function renderTournament(tour: Tournament, day: Date) {
   let left = ((getHours(tour.bounds.start) + getMinutes(tour.bounds.start) / 60) / 24) * 100;
@@ -121,7 +121,7 @@ function renderTimeline() {
 }
 
 // converts Date to "%H:%M" with leading zeros
-function timeString(hour) {
+function timeString(hour: number) {
   return ('0' + hour).slice(-2);
 }
 
@@ -132,7 +132,7 @@ function makeGroups(days: Date[]): Date[][] {
   return groups;
 }
 
-export default function (ctrl) {
+export default function (ctrl: Ctrl) {
   const days = eachDayOfInterval({
     start: new Date(ctrl.data.since),
     end: new Date(ctrl.data.to),

@@ -8,4 +8,8 @@
   <string name="removedStudents">حذف شده</string>
   <string name="className">نام کلاس</string>
   <string name="realName">نام واقعی</string>
+  <string name="closeStudent">بستن حساب کاربری</string>
+  <string name="closeTheAccount">بستن دائمی حساب دانش آموز.</string>
+  <string name="closeDesc1">دانش آموز هرگز قادر به استفاده دوباره از این حساب کاربری نخواهد بود. بستن حساب گام نهایی است. مطمئن شود که دانش آموز درک می کند و موافق است.</string>
+  <string name="closeDesc2">شما ممکن است بخواهد به دانش آموزان کنترل اکانت را بدهید، بنابراین آن ها می توانند که به استفاده از آن ادامه دهند.</string>
 </resources>

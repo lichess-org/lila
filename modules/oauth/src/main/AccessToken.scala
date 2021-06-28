@@ -23,13 +23,10 @@ case class AccessToken(
 
 object AccessToken {
 
-  val idSize = 16
-
-  case class Id(value: String) extends AnyVal {
-    def isPersonal = value.lengthIs == idSize
+  case class Id(value: String) extends AnyVal
+  object Id {
+    def random() = Id(s"lio_${SecureRandom.nextString(32)}")
   }
-
-  def makeId = Id(SecureRandom nextString idSize)
 
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 

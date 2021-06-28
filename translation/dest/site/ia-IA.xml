@@ -676,8 +676,6 @@
   <string name="enableKidMode">Activar modo infantil</string>
   <string name="disableKidMode">Disactivar modo infantil</string>
   <string name="security">Securitate</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Isto es un lista de dispositivos que tu ha registrate in tu conto. Revoca qualcunque session que tu non recognosce.</string>
-  <string name="alternativelyYouCanX">Alternativemente tu pote %s.</string>
   <string name="revokeAllSessions">revocar tote sessiones</string>
   <string name="playChessEverywhere">Joca chacos ubique!</string>
   <string name="asFreeAsLichess">Tanto gratis como Lichess</string>

@@ -139,7 +139,8 @@ object inquiry {
           )
         },
         isGranted(_.Shadowban) option
-          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
+          a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
+        in.report.isAppeal option a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal")
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(

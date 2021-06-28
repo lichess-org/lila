@@ -95,5 +95,4 @@ Evo linka za pristup času.</string>
   <string name="newsEdit1">Sve vijesti časa u jednom polju.</string>
   <string name="newsEdit2">Dodajte najnoviju vijest na vrh. Ne brišite prethodne vijesti.</string>
   <string name="newsEdit3">Odvojite vijesti sa --- kako biste prikazali horizontalnu liniju.</string>
-  <string name="markdownAvailable">%s je na raspolaganju za napredniju sintaksu.</string>
 </resources>

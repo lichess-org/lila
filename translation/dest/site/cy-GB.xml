@@ -605,8 +605,6 @@
   <string name="enableKidMode">Galluogi modd plant</string>
   <string name="disableKidMode">Analluogi modd plant</string>
   <string name="security">Diogelwch</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dyma restr o ddyfeisiau a defnyddiwyd i fewngofnodi i\'ch cyfrif. Analluogwch unrhyw sesiynnau amheus.</string>
-  <string name="alternativelyYouCanX">Fel arall gallwch %s.</string>
   <string name="revokeAllSessions">dirymu pob sesiwn</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
   <string name="asFreeAsLichess">Yn ddi-dâl fel lichess</string>

@@ -43,4 +43,12 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
     <item quantity="one">Näytä joukkue</item>
     <item quantity="other">Näytä kaikki %s joukkuetta</item>
   </plurals>
+  <string name="newTeamBattle">Uusi joukkuetaisto</string>
+  <string name="customStartDate">Mukautettu alkamisaika</string>
+  <string name="customStartDateHelp">Omalla aikavyöhykkeelläsi. Tämä korvaa asetuksen \"Aika ennen turnauksen alkua\"</string>
+  <string name="allowBerserk">Salli berserkki</string>
+  <string name="allowBerserkHelp">Anna pelaajien puolittaa aika kellossaan ja tavoitella lisäpistettä</string>
+  <string name="allowChatHelp">Anna pelaajien kirjoittaa keskusteluhuoneeseen</string>
+  <string name="arenaStreaks">Areenaputket</string>
+  <string name="arenaStreaksHelp">Kahden voiton jälkeen jokaisesta seuraavasta voitosta saa 4 pistettä (2 pisteen sijaan).</string>
 </resources>

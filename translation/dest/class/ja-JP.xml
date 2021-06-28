@@ -66,6 +66,10 @@
   <string name="releaseDesc1">解放したアカウントは二度と管理下にできません。生徒は自分でキッズモードの切り替えやパスワードリセットを行なえます。</string>
   <string name="releaseDesc2">アカウントを解放しても、生徒は教室に残ったままです。</string>
   <string name="realUniqueEmail">生徒の実在のメールアドレス。Lichess からアカウント解放用のリンクを付した確認メールが送られます。</string>
+  <string name="closeStudent">アカウント停止</string>
+  <string name="closeTheAccount">生徒のアカウントを永久に停止する</string>
+  <string name="closeDesc1">生徒はこのアカウントを二度と使えなくなります。停止は後で解除できません。生徒の理解と同意を確かめてください。</string>
+  <string name="closeDesc2">あるいはアカウントのコントロールを生徒に渡すこともでき、そうすれば生徒はアカウント使用を続けられます。</string>
   <string name="teachers">講師</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 講師</item>
@@ -89,5 +93,4 @@
   <string name="newsEdit1">教室のニュースをすべてひとつのフィールドに入れます。</string>
   <string name="newsEdit2">最新ニュースをいちばん上に追加、古いものも削除しないこと。</string>
   <string name="newsEdit3">項目の間に「---」を入れてください、横線が表示されます。</string>
-  <string name="markdownAvailable">もっと高度な文法として %s も使えます。</string>
 </resources>

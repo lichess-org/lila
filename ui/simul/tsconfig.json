@@ -1,7 +1,3 @@
 {
-  "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "noImplicitAny": false,
-    "noImplicitReturns": false
-  }
+  "extends": "../tsconfig.base.json"
 }

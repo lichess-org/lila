@@ -27,12 +27,12 @@
     <item quantity="other">Spillede %1$s træk</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="one">i %1$s korrespondance-spil</item>
-    <item quantity="other">i %1$s korrespondance-spil</item>
+    <item quantity="one">i %1$s korrespondanceparti</item>
+    <item quantity="other">i %1$s korrespondancepartier</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Afsluttede %s korrespondancespil</item>
-    <item quantity="other">Afsluttede %s korrespondancespil</item>
+    <item quantity="one">Afsluttede %s korrespondanceparti</item>
+    <item quantity="other">Afsluttede %s korrespondancepartier</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Begyndte at følge %s spiller</item>

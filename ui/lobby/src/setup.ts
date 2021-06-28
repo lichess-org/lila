@@ -4,12 +4,14 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import LobbyController from './ctrl';
 
+type Stores = {
+  hook: FormStore;
+  friend: FormStore;
+  ai: FormStore;
+};
+
 export default class Setup {
-  stores: {
-    hook: FormStore;
-    friend: FormStore;
-    ai: FormStore;
-  };
+  stores: Stores;
 
   constructor(readonly makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
@@ -19,7 +21,8 @@ export default class Setup {
     };
   }
 
-  private save = (form: HTMLFormElement) => this.stores[form.getAttribute('data-type')!].set(toFormLines(form));
+  private save = (form: HTMLFormElement) =>
+    this.stores[form.getAttribute('data-type') as keyof Stores].set(toFormLines(form));
 
   private sliderTimes = [
     0,
@@ -162,9 +165,10 @@ export default class Setup {
         }
         $rated.prop('disabled', !!cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
         const timeOk = timeMode != '1' || limit > 0 || inc > 0,
-          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || timeMode != '1';
+          aiOk = typ != 'ai' || variantId != '3' || limit >= 1 || timeMode != '1',
+          fenOk = variantId !== '3' || $fenInput.hasClass('success');
         const disable = ($e: Cash, d: boolean) => $e.prop('disabled', d).toggleClass('disabled', d);
-        if (timeOk && aiOk) {
+        if (timeOk && aiOk && fenOk) {
           disable($submits, false);
           if (rated && randomColorVariants.includes(variantId)) {
             disable($submits.filter(':not(.random)'), true);
@@ -173,7 +177,7 @@ export default class Setup {
       },
       save = () => this.save($form[0] as HTMLFormElement);
 
-    const c = this.stores[typ].get();
+    const c = this.stores[typ as keyof Stores].get();
     if (c) {
       Object.keys(c).forEach(k => {
         $form.find(`[name="${k}"]`).each(function (this: HTMLInputElement) {
@@ -394,13 +398,13 @@ export default class Setup {
             $fenPosition.find('a.board_editor').each(function (this: HTMLAnchorElement) {
               this.href = this.href.replace(/editor\/.+$/, 'editor/' + fen);
             });
-            $submits.removeClass('nope');
+            toggleButtons();
             lichess.contentLoaded();
           },
           _ => {
             $fenInput.addClass('failure');
             $fenPosition.find('.preview').html('');
-            $submits.addClass('nope');
+            toggleButtons();
           }
         );
       }
@@ -415,6 +419,7 @@ export default class Setup {
         $modeChoicesWrap.toggle(!isFen);
         if (isFen) {
           $casual.trigger('click');
+          validateFen();
           requestAnimationFrame(() => document.body.dispatchEvent(new Event('chessground.resize')));
         }
         showRating();

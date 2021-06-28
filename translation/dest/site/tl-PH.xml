@@ -677,8 +677,6 @@
   <string name="enableKidMode">Paganahin ang Batang mode</string>
   <string name="disableKidMode">Huwag paganahin ang batang mode</string>
   <string name="security">Seguridad</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ito ay isang listahan ng mga aparatu na nakalog-in sa iyong akawnt. Bawiin ang kahit anong sesyon na hindi mo kilala.</string>
-  <string name="alternativelyYouCanX">Altenatibong pwede mong %s.</string>
   <string name="revokeAllSessions">bawiin ang lahat ng sesyon</string>
   <string name="playChessEverywhere">Maglaro ng chess kahit saan</string>
   <string name="asFreeAsLichess">Kasinglibre ng lichess</string>

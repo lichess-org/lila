@@ -52,6 +52,7 @@
   <string name="knightMate">たとえばナイト 1 個やビショップ 1 個だけでも、相手にキング以外の駒が残っていればメイトの可能性があります。</string>
   <string name="noRatingPoints">勝ったのにレーティングが増えない</string>
   <string name="ratedGame">レート戦だったかどうか確かめてください。非レート戦ではレーティングは動きません。</string>
+  <string name="botRatingAbuse">ボットアカウントとの対戦で、ボットを利用してレーティングを操作していると判断された場合は、レーティングの点が与えられません。</string>
   <string name="errorPage">エラーページ</string>
   <string name="reportErrorPage">エラーページに出会ったら、以下で報告できます。</string>
   <string name="banAppeal">アクセス禁止や IP 制限への異議申し立て</string>

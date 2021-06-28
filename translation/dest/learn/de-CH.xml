@@ -135,9 +135,9 @@ wänn sich din Puur uf dä 5. Reihä befindät.</string>
 - Schwarz kann sich nicht bewegen
 - Es wird kein Schach geboten.</string>
   <string name="stalemateComplete">Herzlichen Glückwunsch! Lieber Patt als Matt!</string>
-  <string name="advanced">Fortgeschritten</string>
+  <string name="advanced">Fortgschrittä</string>
   <string name="pieceValue">Figuräwert</string>
-  <string name="evaluatePieceStrength">Bewerti d\'stärchi vo de Figuren</string>
+  <string name="evaluatePieceStrength">Bewärt d\'Stärchi vo dä Figurä</string>
   <string name="pieceValueIntro">Figurä mit meh Zugmöglichkeitä besitzäd än höcherä Wärt! Mä chan sich das so verbildlichä, dass diä mit höchärä Zahlä Oschtschwiizer sind.
 Damä = 9
 Turm = 5
@@ -171,14 +171,14 @@ Puur = 1</string>
   <string name="getAFreeLichessAccount">Bechum äs chostäloses Benutzerkonto bi Lichess</string>
   <string name="practice">Üäbä</string>
   <string name="learnCommonChessPositions">Hüüfigi Motiiv lärnä</string>
-  <string name="puzzles">Uufgabä</string>
-  <string name="exerciseYourTacticalSkills">Trainiere deine taktischen Fähigkeiten</string>
+  <string name="puzzles">Ufgoobä</string>
+  <string name="exerciseYourTacticalSkills">Träniär dini taktischä Fähigkeitä</string>
   <string name="videos">Filmli</string>
-  <string name="watchInstructiveChessVideos">Sieh dir lehrreiche Schachvideos an</string>
+  <string name="watchInstructiveChessVideos">Luäg dir lehrriichi Schachfilmli aa</string>
   <string name="playPeople">Online schpilä</string>
-  <string name="opponentsFromAroundTheWorld">Gegner aus der ganzen Welt</string>
+  <string name="opponentsFromAroundTheWorld">Gegner us dä ganzä Wält</string>
   <string name="playMachine">Computerschach</string>
-  <string name="testYourSkillsWithTheComputer">Fordere den Computer heraus</string>
+  <string name="testYourSkillsWithTheComputer">Fordärä dä Kompi usä</string>
   <string name="letsGo">Los geht\'s!</string>
   <string name="stageX">Level %s</string>
   <string name="awesome">Super!</string>

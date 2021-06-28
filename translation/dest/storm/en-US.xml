@@ -38,6 +38,7 @@
   <string name="raceComplete">Race complete!</string>
   <string name="spectating">Spectating</string>
   <string name="joinTheRace">Join the race!</string>
+  <string name="startTheRace">Start the race</string>
   <string name="yourRankX">Your rank: %s</string>
   <string name="waitForRematch">Wait for rematch</string>
   <string name="nextRace">Next race</string>

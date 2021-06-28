@@ -27,7 +27,7 @@ export default function (ctrl: LobbyController) {
     ctrl.isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
     active === 'now_playing' || nbPlaying || ctrl.isBot
       ? tab(ctrl, 'now_playing', active, [
-          ctrl.trans.plural('nbGamesInPlay', nbPlaying >= 100 ? '100+' : nbPlaying),
+          ...ctrl.trans.vdomPlural('nbGamesInPlay', nbPlaying, nbPlaying >= 100 ? '100+' : nbPlaying.toString()),
           myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
         ])
       : null,

@@ -692,8 +692,6 @@
   <string name="enableKidMode">Activer le mode enfants</string>
   <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
-  <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">supprimer toutes les sessions</string>
   <string name="playChessEverywhere">Jouez aux échecs partout</string>
@@ -871,4 +869,29 @@
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
   <string name="coachManager">Configuration des paramètres Coach</string>
   <string name="streamerManager">Configuration des paramètres Streamer</string>
+  <string name="cancelTournament">Annuler le tournoi</string>
+  <string name="tournDescription">Description du tournoi</string>
+  <string name="tournDescriptionHelp">Quelque chose de spécial à dire aux participants? Soyez bref. Des liens Markdown sont disponibles : [name](https://url)</string>
+  <string name="ratedFormHelp">Les parties sont classées
+et ont un impact sur le classement des joueurs</string>
+  <string name="onlyMembersOfTeam">Seulement les membres de l\'équipe</string>
+  <string name="noRestriction">Sans restriction</string>
+  <string name="minimumRatedGames">Nombre minimum de parties classées</string>
+  <string name="minimumRating">Classement minimal</string>
+  <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
+  <string name="onlyTitled">Joueurs titrés seulement</string>
+  <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
+  <string name="cancelSimul">Annuler la simultanée</string>
+  <string name="simulHostcolor">Couleur des pièces jouées par l\'hôte pour chaque partie</string>
+  <string name="estimatedStart">Heure de début estimée</string>
+  <string name="simulFeatured">Simultanée diffusée sur %s</string>
+  <string name="simulFeaturedHelp">Montrez votre simultanée à tout le monde sur %s. Désactivez cette option pour les simultanées privées.</string>
+  <string name="simulDescription">Description de la simultanée</string>
+  <string name="simulDescriptionHelp">Voulez-vous dire quelque chose aux participants?</string>
+  <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
+  <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
+  <string name="tournChat">Salon de discussion du tournoi</string>
+  <string name="noChat">Aucun salon de discussion</string>
+  <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
+  <string name="onlyTeamMembers">Seulement les membres des équipes</string>
 </resources>

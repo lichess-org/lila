@@ -38,6 +38,7 @@
   <string name="raceComplete">Yarış sona erdi!</string>
   <string name="spectating">İzleyici modu</string>
   <string name="joinTheRace">Yarışa katıl!</string>
+  <string name="startTheRace">Yarışı başlat</string>
   <string name="yourRankX">Sıralamanız: %s</string>
   <string name="waitForRematch">Rövanş için bekle</string>
   <string name="nextRace">Sıradaki yarış</string>

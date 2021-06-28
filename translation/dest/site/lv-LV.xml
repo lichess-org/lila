@@ -728,8 +728,6 @@
   <string name="enableKidMode">Iespējot Bērnu režīmu</string>
   <string name="disableKidMode">Atspējot Bērnu režīmu</string>
   <string name="security">Drošība</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Šis ir saraksts ar visām ierīcēm, kuras pieslēgušās jūsu kontam. Dzēsiet jebkuru sesiju, kuru neatpazīstat.</string>
-  <string name="alternativelyYouCanX">Varat arī %s.</string>
   <string name="sessions">Sesijas</string>
   <string name="revokeAllSessions">dzēst visas sesijas</string>
   <string name="playChessEverywhere">Spēlējiet šahu jebkur</string>
@@ -911,4 +909,32 @@
 Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
   <string name="coachManager">Trenera iestatījumi</string>
   <string name="streamerManager">Straumētāja iestatījumi</string>
+  <string name="cancelTournament">Atcelt turnīru</string>
+  <string name="tournDescription">Turnīra apraksts</string>
+  <string name="tournDescriptionHelp">Vai vēlaties dalībniekiem teikt ko īpašu? Centieties izteikties īsi! Iespējams ievietot Markdown saites: [nosaukums](https://url)</string>
+  <string name="ratedFormHelp">Spēles ir vērtētas un ietekmē spēlētāju reitingu</string>
+  <string name="onlyMembersOfTeam">Tikai komandas dalībnieki</string>
+  <string name="noRestriction">Bez ierobežojumiem</string>
+  <string name="minimumRatedGames">Minimālais vērtēto spēļu skaits</string>
+  <string name="minimumRating">Minimālais reitings</string>
+  <string name="maximumWeeklyRating">Maksimālais nedēļas reitings</string>
+  <string name="onlyTitled">Tikai spēlētāji ar tituliem</string>
+  <string name="onlyTitledHelp">Pieprasīt titulu pirms pievienošanās turnīram</string>
+  <string name="positionInputHelp">Ielīmējiet derīgu FEN, lai sāktu katru spēli no dotās pozīcijas.
+Šis darbojas tikai ar standarta spēlēm nevis variantiem.
+Varat izmantot rīku \"%s\", lai izveidotu FEN pozīciju, tad ielīmējiet to šeit.
+Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
+  <string name="cancelSimul">Atcelt simultānseansu</string>
+  <string name="simulHostcolor">Uzņemošā spēlētāja krāsa katrā spēlē</string>
+  <string name="estimatedStart">Paredzētais sākuma laiks</string>
+  <string name="simulFeatured">Rādīt %s</string>
+  <string name="simulFeaturedHelp">Visiem rādīt simultānseansu %s. Atspējojiet šo opciju privātiem simultānseansiem.</string>
+  <string name="simulDescription">Simultānseansa apraksts</string>
+  <string name="simulDescriptionHelp">Vai vēlaties ko teikt dalībniekiem?</string>
+  <string name="markdownAvailable">Papildu formatējumam pieejams %s.</string>
+  <string name="inYourLocalTimezone">Jūsu vietējā laika zonā</string>
+  <string name="tournChat">Turnīra saruna</string>
+  <string name="noChat">Nav sarunas</string>
+  <string name="onlyTeamLeaders">Tikai komandas vadītāji</string>
+  <string name="onlyTeamMembers">Tikai komandas dalībnieki</string>
 </resources>

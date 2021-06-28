@@ -5,4 +5,11 @@
     <item quantity="one">View the round</item>
     <item quantity="other">View all %s rounds</item>
   </plurals>
+  <string name="tournStartDate">Tournament start date</string>
+  <string name="nbRounds">Number of rounds</string>
+  <string name="nbRoundsHelp">An odd number of rounds allows optimal color balance.</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interval between rounds</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Forbidden pairings</string>
+  <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">New Swiss tournament</string>
 </resources>

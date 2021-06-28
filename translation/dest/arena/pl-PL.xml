@@ -47,4 +47,12 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
     <item quantity="many">Zobacz wszystkie %s zespołów</item>
     <item quantity="other">Zobacz wszystkie %s zespołów</item>
   </plurals>
+  <string name="newTeamBattle">Nowa bitwa klubów</string>
+  <string name="customStartDate">Niestandardowa data rozpoczęcia</string>
+  <string name="customStartDateHelp">W Twojej lokalnej strefie czasowej. Nadpisuje ustawienie \"Czas przed rozpoczęciem turnieju\"</string>
+  <string name="allowBerserk">Zezwalaj na Berserk</string>
+  <string name="allowBerserkHelp">Pozwól graczom na zmniejszenie o połowę czasu pozwalając na zdobycie dodatkowego punktu</string>
+  <string name="allowChatHelp">Pozwól graczom dyskutować na czacie</string>
+  <string name="arenaStreaks">Serie aren</string>
+  <string name="arenaStreaksHelp">Po dwóch zwycięstwach, kolejne zwycięstwa dają 4 punkty zamiast 2.</string>
 </resources>

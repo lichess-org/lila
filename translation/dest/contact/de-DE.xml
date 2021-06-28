@@ -52,6 +52,7 @@
   <string name="knightMate">Es ist möglich mit nur einem Springer oder Läufer Matt zu setzen, falls der Gegner mehr als einen König auf dem Brett hat.</string>
   <string name="noRatingPoints">Keine Wertungspunkte wurden vergeben</string>
   <string name="ratedGame">Stelle sicher, dass du ein gewertetes Spiel spielst. Ungewertete Spiele beeinflussen nicht die Spielerwertungen.</string>
+  <string name="botRatingAbuse">Wenn ein Spieler gegen einen Bot spielt, kann es unter Umständen passieren, dass ein Sieg in einem gewertetem Spiel keine Punkte einbringt, falls der Spieler den Bot dazu benutzt, Wertungspunkte anzuhäufen.</string>
   <string name="errorPage">Fehlerseite</string>
   <string name="reportErrorPage">Falls du eine Fehlerseite entdeckt hast kannst du sie melden:</string>
   <string name="banAppeal">Einspruch gegen einen Bann oder IP-Beschränkung</string>

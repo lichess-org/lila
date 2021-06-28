@@ -135,18 +135,27 @@ $mq-col3: $mq-x-large;
       font-weight: bold;
       text-shadow: 0 10px 10px #444;
 
-      &.current-coord {
-        fill: #fff;
-        opacity: 0.8;
-        font-size: 30px;
-        transform: translate(22px, 60px);
+      @mixin coord($fill, $opacity, $font-size, $translate-x, $translate-y) {
+        fill: $fill;
+        opacity: $opacity;
+        font-size: $font-size;
+        transform: translate($translate-x, $translate-y);
       }
 
-      &.next-coord {
-        fill: #eee;
-        opacity: 0.7;
-        font-size: 12px;
-        transform: translate(64px, 64px);
+      &--resolved {
+        @include coord(#fff, 0, 30px, -8px, 60px);
+      }
+
+      &--current {
+        @include coord(#fff, 0.8, 30px, 22px, 60px);
+      }
+
+      &--next {
+        @include coord(#eee, 0.7, 12px, 64px, 64px);
+      }
+
+      &--new {
+        @include coord(#eee, 0, 12px, 76px, 64px);
       }
     }
   }
@@ -181,7 +190,7 @@ $mq-col3: $mq-x-large;
       color: $c-wrong !important;
     }
 
-    .current-coord {
+    .coord--current {
       fill: $c-wrong !important;
     }
   }

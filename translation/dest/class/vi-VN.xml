@@ -89,5 +89,4 @@ Mật khẩu: %3$s</string>
   <string name="newsEdit1">Tất cả các tin tức lớp học trong một lĩnh vực đơn lẻ.</string>
   <string name="newsEdit2">Thêm những tin tức mới nhất lên đầu trang. Đừng xóa tin tức trước đó.</string>
   <string name="newsEdit3">Phân cách tin tức bởi --- nó sẽ hiển thị một đường ngang.</string>
-  <string name="markdownAvailable">%s sẵn sàng cho cấu trúc nâng cao hơn.</string>
 </resources>

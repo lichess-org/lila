@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">مسابقات</string>
   <string name="isItRated">آیا رسمی است؟</string>
   <string name="willBeNotified">هنگام شروع تورنومنت به شما اطلاع داده خواهد شد، پس در زمان انتظار بازی کردن در تب های دیگر بلامانع است.</string>
   <string name="isRated">این تورنومنت رسمی است و بر روی ریتینگ شما تاثیر میگذارد.</string>
@@ -25,10 +26,17 @@
   <string name="howDoesPairingWorkAnswer">در ابتدای تورنومنت، بازیکنان با توجه به امتیازهایشان با یکدیگر روبه رو میشوند.
 به محض اینکه شما بازی را تمام کردید و به لابی تورنومنت برگردید: شما به بازیکنی که رتبه نزدیک تری به شما دارد متصل میشوید. این مکانیزم در حداقل زمان ممکن انجام میشود، هرچند امکان دارد با همه بازیکنان تورنومنت روبه رو نشوید.
 سریع بازی کنید و به لابی برگردید تا بازی های بیشتری بازی کنید و امتیاز بیشتری بگیرید.</string>
-  <string name="howDoesItEnd">چگونه پایان میابد؟</string>
-  <string name="howDoesItEndAnswer">تورنومنت یک ساعت شمارش معکوس دارد. وقتی به صفر برسد، رتبه بندی تورنومنت غیرقابل تغییر میشود، و برنده اعلام میشود.
-بازی های در حال اجرا باید تمام شوند، هر چند نتیجه آن بازی ها تاثیری در تورنومنت ندارد.</string>
+  <string name="howDoesItEnd">چگونه به پایان می رسد؟</string>
+  <string name="howDoesItEndAnswer">تورنومنت یک ساعت شمارش معکوس دارد. وقتی به صفر برسد، رتبه بندی تورنومنت غیرقابل تغییر میشود، و برنده اعلام میشود. بازی های در حال اجرا باید تمام شوند، هر چند نتیجه آن بازی ها تاثیری در تورنومنت ندارد.</string>
   <string name="otherRules">قوانین مهم دیگر</string>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
+  <string name="history">تاریخچه مسابقات</string>
+  <string name="newTeamBattle">مبارزه تیمی جدید</string>
+  <string name="customStartDate">تنظیم تاریخ شروع</string>
+  <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
+  <string name="allowBerserk">مجاز کردن برسرک</string>
+  <string name="allowBerserkHelp">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
+  <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
+  <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی بجای 2 امتیاز 4 امتیاز می دهند.</string>
 </resources>

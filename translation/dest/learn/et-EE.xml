@@ -152,7 +152,7 @@ Blokeeri ruut, siis mine lossi!</string>
 lossi kuninga poolele!</string>
   <string name="findAWayToCastleQueenSide">Leia tee lossi kuninganna poolele!</string>
   <string name="castlingComplete">Palju õnne! Sa peaks peaaegu alati vangerdama.</string>
-  <string name="enPassant">Kõrvalmärkusena</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Eriline etturi liigutus</string>
   <string name="enPassantIntro">Kui vastase ettur on liikunud kahe ruudu võrra, siis sa saad seda kui ühe ruuduna võtta.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Must liikus etturiga
