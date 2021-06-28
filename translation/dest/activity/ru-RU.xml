@@ -3,10 +3,10 @@
   <string name="activity">Активность</string>
   <string name="hostedALiveStream">Проведён стрим</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Продлена поддержка (%2$s) lichess.org на %1$s месяц</item>
-    <item quantity="few">Продлена поддержка (%2$s) lichess.org на %1$s месяца</item>
-    <item quantity="many">Продлена поддержка (%2$s) lichess.org на %1$s месяцев</item>
-    <item quantity="other">Продлена поддержка (%2$s) lichess.org на %1$s месяцев</item>
+    <item quantity="one">Поддерживает (%2$s) lichess.org %1$s месяц</item>
+    <item quantity="few">Поддерживает (%2$s) lichess.org %1$s месяца</item>
+    <item quantity="many">Поддерживает (%2$s) lichess.org %1$s месяцев</item>
+    <item quantity="other">Поддерживает (%2$s) lichess.org %1$s месяцев</item>
   </plurals>
   <plurals name="practicedNbPositions">
     <item quantity="one">Выполнено %1$s упражнение в %2$s</item>
