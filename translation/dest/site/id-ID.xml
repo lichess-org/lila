@@ -841,16 +841,16 @@ dan berdampak pada peringkat pemain</string>
   <string name="maximumWeeklyRating">Peringkat mingguan maksimum</string>
   <string name="onlyTitled">Hanya pemain yang memiliki gelar</string>
   <string name="onlyTitledHelp">Diperlukan sebuah gelar resmi untuk mengikuti turnamen</string>
-  <string name="positionInputHelp" comment="positionInputHelp&#10;&#10;%s is 'Board Editor', which allows you to set up a position to play from.&#10;&#10;'Leave empty' means leaving the input box empty (not entering a FEN).">Tempelkan sebuah FEN yang valid untuk memulai setiap game dari posisi yang diberikan.
+  <string name="positionInputHelp">Tempelkan sebuah FEN yang valid untuk memulai setiap game dari posisi yang diberikan.
 Ini hanya berfungsi untuk game standar, bukan yang dengan variasi.
 Anda dapat menggunakan %s untuk menghasilkan sebuah posisi FEN, lalu tempel di sini.
 Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="cancelSimul">Batalkan simulasi</string>
-  <string name="simulHostcolor" comment="simulHostcolor&#10;&#10;Lets the simul host select is they will always play as white/black/random colour.">Pilih warna untuk setiap permainan</string>
-  <string name="estimatedStart" comment="estimatedStart&#10;&#10;For simuls. The simul host is always in control of when to start the simul, but they can enter an estimated start time to give players an idea of when it will begin.">Waktu estimasi mulai</string>
+  <string name="simulHostcolor">Pilih warna untuk setiap permainan</string>
+  <string name="estimatedStart">Waktu estimasi mulai</string>
   <string name="simulFeatured">Tersedia di %s</string>
-  <string name="simulFeaturedHelp" comment="simulFeaturedHelp&#10;&#10;This option lets the player control if they should be featured on the Lichess homepage. Appears on the simul creation page and is only shown to strong or titled players.">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
+  <string name="simulFeaturedHelp">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
   <string name="simulDescription">Deskripsi simulasi</string>
   <string name="simulDescriptionHelp">Adakah sesuatu yang ingin Anda sampaikan pada peserta?</string>
-  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s tersedia untuk sintaks lebih lanjut.</string>
+  <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
 </resources>
