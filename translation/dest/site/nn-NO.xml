@@ -893,5 +893,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulFeaturedHelp">Vis simultantilskipinga til alle på %s. Deaktivér for private simultantilskipingar.</string>
   <string name="simulDescription">Beskriving av simultantilskipinga</string>
   <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
-  <string name="markdownAvailable" comment="markdownAvailable&#10;&#10;%s is the word 'Markdown'. Because Markdown is a proper noun (it is a markup language/code you can use to make text bold, etc), it is intentionally kept as a variable.">%s er tilgjengeleg for meir avansert syntaks.</string>
+  <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
 </resources>
