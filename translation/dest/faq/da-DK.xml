@@ -73,8 +73,7 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s.
-Her er en liste over FIDE-titler:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s. Her er en liste over FIDE-titler:</string>
   <string name="showYourTitle">Hvis du har en OTB-title, kan du anmode om at få denne vist på din konto ved at udfylde en %1$s, inklusiv et tydeligt billede af et identificerende dokument/kort og en selfie af dig, som holder dokumentet/kortet.
 
   Verificering som titulær spiller på Lichess giver adgang til at spille ved Titled Arena-begivenheder.
