@@ -224,7 +224,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局の申し込みです</string>
+  <string name="rematchOfferSent">再対局の提案が来ました</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>
@@ -852,11 +852,11 @@
   <string name="simulFeatured">%s に表示</string>
   <string name="simulFeaturedHelp">%s 上の全員に表示します。非公開の同時対局では無効にしてください。</string>
   <string name="simulDescription">同時対局の説明</string>
-  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">参加者に伝えたいことがあればどうぞ</string>
+  <string name="simulDescriptionHelp">参加者に伝えたいことがあればどうぞ</string>
   <string name="markdownAvailable">高度な修飾方法として %s も使えます。</string>
   <string name="inYourLocalTimezone">自分のタイムゾーンで</string>
   <string name="tournChat">トーナメント チャット</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">チャットなし</string>
-  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">チームリーダー限定</string>
-  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">チームメンバー限定</string>
+  <string name="noChat">チャットなし</string>
+  <string name="onlyTeamLeaders">チームリーダー限定</string>
+  <string name="onlyTeamMembers">チームメンバー限定</string>
 </resources>
