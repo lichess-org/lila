@@ -885,4 +885,9 @@ Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicame
 Só funciona para xogos estándar, non con variantes.
 Podes empregar o %s para xerar unha posición FEN e despois pegala aquí.
 Deixa en branco para comezar partidas dende a posición inicial normal.</string>
+  <string name="inYourLocalTimezone">Na túa zona horaria</string>
+  <string name="tournChat">Chat do torneo</string>
+  <string name="noChat">Sen chat</string>
+  <string name="onlyTeamLeaders">Só líderes de equipo</string>
+  <string name="onlyTeamMembers">Só membros do equipo</string>
 </resources>
