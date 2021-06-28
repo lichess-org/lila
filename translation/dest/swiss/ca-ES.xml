@@ -6,10 +6,8 @@
     <item quantity="other">Veure les %s rondes</item>
   </plurals>
   <string name="tournStartDate">Data d\'inici del torneig</string>
-  <string name="nbRounds">Número de rondes</string>
-  <string name="nbRoundsHelp">Un número imparell de rondes permet l\'equilibri òptim de colors.</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interval entre rondes</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Aparellaments prohibits</string>
+  <string name="roundInterval">Interval entre rondes</string>
+  <string name="forbiddenPairings">Aparellaments prohibits</string>
   <string name="forbiddenPairingsHelp">Nom d\'usuari dels jugadors que no han de jugar junts (Germans, per exemple). Dos noms d\'usuari per línia, separats per un espai.</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Nou torneig Suís</string>
+  <string name="newSwiss">Nou torneig Suís</string>
 </resources>
