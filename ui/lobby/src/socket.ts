@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
 import LobbyController from './ctrl';
-import { Hook, PoolMember } from './interfaces';
+import { PoolMember, Hook } from './interfaces';
 
 interface Handlers {
   [key: string]: (data: any) => void;
@@ -31,7 +31,7 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       hli(ids: string) {
-        hookRepo.syncIds(ctrl, ids.match(/.{8}/g));
+        hookRepo.syncIds(ctrl, ids.match(/.{8}/g) || []);
         ctrl.redraw();
       },
       reload_seeks() {

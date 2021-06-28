@@ -4,12 +4,14 @@ import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
 import LobbyController from './ctrl';
 
+type Stores = {
+  hook: FormStore;
+  friend: FormStore;
+  ai: FormStore;
+};
+
 export default class Setup {
-  stores: {
-    hook: FormStore;
-    friend: FormStore;
-    ai: FormStore;
-  };
+  stores: Stores;
 
   constructor(readonly makeStorage: (name: string) => LichessStorage, readonly root: LobbyController) {
     this.stores = {
@@ -19,7 +21,8 @@ export default class Setup {
     };
   }
 
-  private save = (form: HTMLFormElement) => this.stores[form.getAttribute('data-type')!].set(toFormLines(form));
+  private save = (form: HTMLFormElement) =>
+    this.stores[form.getAttribute('data-type') as keyof Stores].set(toFormLines(form));
 
   private sliderTimes = [
     0,
@@ -174,7 +177,7 @@ export default class Setup {
       },
       save = () => this.save($form[0] as HTMLFormElement);
 
-    const c = this.stores[typ].get();
+    const c = this.stores[typ as keyof Stores].get();
     if (c) {
       Object.keys(c).forEach(k => {
         $form.find(`[name="${k}"]`).each(function (this: HTMLInputElement) {

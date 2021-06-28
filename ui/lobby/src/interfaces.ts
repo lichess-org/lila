@@ -11,7 +11,23 @@ interface Untyped {
   [key: string]: any;
 }
 
-export interface Hook extends Untyped {}
+export interface Hook {
+  id: string;
+  sri: string;
+  clock: string;
+  t: number; // time
+  s: number; // speed
+  i: number; // increment
+  variant: VariantKey;
+  perf: Exclude<Perf, 'fromPosition'>;
+  prov?: true; // is rating provisional
+  u?: string; // username
+  rating?: number;
+  ra?: 1; // rated
+  c?: Color;
+  action: 'cancel' | 'join';
+  disabled?: boolean;
+}
 
 export interface Seek {
   id: string;
@@ -21,7 +37,7 @@ export interface Seek {
   days?: number;
   color: string;
   perf: {
-    key: string;
+    key: Exclude<Perf, 'fromPosition'>;
   };
   provisional?: boolean;
   variant?: string;
