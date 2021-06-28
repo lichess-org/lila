@@ -100,7 +100,8 @@ export class ClockController {
     if (cdata.showTenths === 0) this.showTenths = () => false;
     else {
       const cutoff = cdata.showTenths === 1 ? 10000 : 3600000;
-      this.showTenths = (time, color) => time < cutoff && (this.byoyomi === 0 || time <= 1000 || this.isUsingByo(color) || cdata.showTenths === 2);
+      this.showTenths = (time, color) =>
+        time < cutoff && (this.byoyomi === 0 || time <= 1000 || this.isUsingByo(color) || cdata.showTenths === 2);
     }
 
     this.byoyomi = cdata.byoyomi;

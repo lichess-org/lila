@@ -31,9 +31,9 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
       class: {
         outoftime: millis <= 0,
         running: isRunning,
-        emerg: (millis < clock.emergMs && clock.byoyomi === 0) || (
-            clock.isUsingByo(player.color) && millis < clock.byoEmergeS * 1000
-        ),
+        emerg:
+          (millis < clock.emergMs && clock.byoyomi === 0) ||
+          (clock.isUsingByo(player.color) && millis < clock.byoEmergeS * 1000),
       },
     },
     clock.opts.nvui
@@ -147,9 +147,11 @@ export function updateElements(clock: ClockController, els: ClockElements, milli
   if (els.bar) els.bar.style.transform = 'scale(' + clock.timeRatio(millis) + ',1)';
   if (els.clock && els.clock.parentElement) {
     const cl = els.clock.parentElement.classList;
-    if ((millis < clock.emergMs && clock.byoyomi === 0) || (
-      clock.isUsingByo(color) && millis < clock.byoEmergeS * 1000
-  )) cl.add('emerg');
+    if (
+      (millis < clock.emergMs && clock.byoyomi === 0) ||
+      (clock.isUsingByo(color) && millis < clock.byoEmergeS * 1000)
+    )
+      cl.add('emerg');
     else if (cl.contains('emerg')) cl.remove('emerg');
   }
 }
