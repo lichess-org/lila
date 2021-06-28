@@ -5,4 +5,8 @@
     <item quantity="one">Die Runde ansehen</item>
     <item quantity="other">Alle %s Runden ansehen</item>
   </plurals>
+  <string name="tournStartDate">Turnier-Startzeit</string>
+  <string name="nbRounds">Anzahl der Runden</string>
+  <string name="nbRoundsHelp">Eine ungerade Anzahl von Runden ermöglicht eine optimale Farbverteilung.</string>
+  <string name="forbiddenPairings">Verbotene Paarungen</string>
 </resources>
