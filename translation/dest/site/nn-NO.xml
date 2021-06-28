@@ -892,11 +892,11 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="simulFeatured">Vis på %s</string>
   <string name="simulFeaturedHelp">Vis simultantilskipinga til alle på %s. Deaktivér for private simultantilskipingar.</string>
   <string name="simulDescription">Beskriving av simultantilskipinga</string>
-  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">Noko du vil fortelja deltakarane?</string>
+  <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
   <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
   <string name="inYourLocalTimezone">I di tidssone</string>
   <string name="tournChat">Turneringschat</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Ikkje chat</string>
-  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Berre lagleiarar</string>
-  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Berre lagsmedlemer</string>
+  <string name="noChat">Ikkje chat</string>
+  <string name="onlyTeamLeaders">Berre lagleiarar</string>
+  <string name="onlyTeamMembers">Berre lagsmedlemer</string>
 </resources>
