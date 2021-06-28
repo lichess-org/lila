@@ -46,6 +46,7 @@
   <string name="raceComplete">انتهى السباق!</string>
   <string name="spectating">تفرج</string>
   <string name="joinTheRace">انضم للسباق!</string>
+  <string name="startTheRace">بدء السباق</string>
   <string name="yourRankX">رتبتك %s</string>
   <string name="waitForRematch">انتظر إعادة اللعب</string>
   <string name="nextRace">السباق التالي</string>
