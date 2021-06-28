@@ -13,12 +13,12 @@ const variantConfirms = {
     'This is a Crazyhouse game!\n\nEvery time a piece is captured, the capturing player gets a piece of the same type and of their color in their pocket.',
 };
 
-const storageKey = key => 'lobby.variant.' + key;
+const storageKey = (key: string) => 'lobby.variant.' + key;
 
 export default function (variant?: string) {
   return (
     !variant ||
-    Object.keys(variantConfirms).every(function (key) {
+    Object.keys(variantConfirms).every(function (key: keyof typeof variantConfirms) {
       if (variant === key && !lichess.storage.get(storageKey(key))) {
         const c = confirm(variantConfirms[key]);
         if (c) lichess.storage.set(storageKey(key), '1');

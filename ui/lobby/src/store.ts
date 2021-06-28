@@ -38,7 +38,7 @@ const sort: Config<Sort> = {
   },
 };
 
-function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
+function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
   const fullKey = conf.key + ':' + (userId || '-');
   return {
     set(v: string): A {
@@ -52,7 +52,7 @@ function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
   };
 }
 
-export function make(userId: string): Stores {
+export function make(userId?: string): Stores {
   return {
     tab: makeStore<Tab>(tab, userId),
     mode: makeStore<Mode>(mode, userId),
