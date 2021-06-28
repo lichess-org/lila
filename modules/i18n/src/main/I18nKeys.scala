@@ -1877,6 +1877,9 @@ val `lagCompensationExplanation` = new I18nKey("lag:lagCompensationExplanation")
 
 object swiss {
 val `swissTournaments` = new I18nKey("swiss:swissTournaments")
+val `roundsAreStartedManually` = new I18nKey("swiss:roundsAreStartedManually")
+val `startingIn` = new I18nKey("swiss:startingIn")
+val `nextRound` = new I18nKey("swiss:nextRound")
 val `tournStartDate` = new I18nKey("swiss:tournStartDate")
 val `nbRounds` = new I18nKey("swiss:nbRounds")
 val `nbRoundsHelp` = new I18nKey("swiss:nbRoundsHelp")
@@ -1885,6 +1888,11 @@ val `forbiddenPairings` = new I18nKey("swiss:forbiddenPairings")
 val `forbiddenPairingsHelp` = new I18nKey("swiss:forbiddenPairingsHelp")
 val `newSwiss` = new I18nKey("swiss:newSwiss")
 val `viewAllXRounds` = new I18nKey("swiss:viewAllXRounds")
+val `nbRounds` = new I18nKey("swiss:nbRounds")
+val `oneRoundEveryXDays` = new I18nKey("swiss:oneRoundEveryXDays")
+val `xSecondsBetweenRounds` = new I18nKey("swiss:xSecondsBetweenRounds")
+val `xMinutesBetweenRounds` = new I18nKey("swiss:xMinutesBetweenRounds")
+val `ongoingGames` = new I18nKey("swiss:ongoingGames")
 }
 
 object puzzle {
