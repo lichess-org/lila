@@ -8,4 +8,11 @@
     <item quantity="many">Féach ar na %s babhta go léir</item>
     <item quantity="other">Féach ar na %s babhta go léir</item>
   </plurals>
+  <string name="tournStartDate">Dáta tosaigh an chomórtais</string>
+  <string name="nbRounds">Líon na mbabhtaí</string>
+  <string name="nbRoundsHelp">Ligeann corr-líon babhtaí an chothromaíocht dathanna is fearr.</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Sos idir babhtaí</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Péirí faoi chosc</string>
+  <string name="forbiddenPairingsHelp">Ainmneacha úsáideora na n-imreoirí nach gcaithfidh imirt le chéile (Siblíní, mar shampla). Dhá ainm úsáideora in aghaidh an líne, scartha le spás.</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Comórtas Swiss nua</string>
 </resources>
