@@ -5,4 +5,7 @@
     <item quantity="one">Voir la ronde</item>
     <item quantity="other">Voir les %s rondes en détail</item>
   </plurals>
+  <string name="tournStartDate">Date de début du tournoi</string>
+  <string name="nbRounds">Nombre de rondes</string>
+  <string name="nbRoundsHelp">Un nombre impair de rondes permet une alternance optimale des couleurs.</string>
 </resources>
