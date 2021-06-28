@@ -5,4 +5,6 @@
     <item quantity="one">Bekijk de ronde</item>
     <item quantity="other">Bekijk alle %s rondes</item>
   </plurals>
+  <string name="nbRounds">Aantal rondes</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interval tussen rondes</string>
 </resources>
