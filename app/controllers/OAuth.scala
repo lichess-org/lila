@@ -37,9 +37,16 @@ final class OAuth(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       withPrompt { prompt =>
         fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
-          Ok(html.oAuth.app.authorize(prompt, me))
+          Ok(
+            html.oAuth.app.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
+          )
         })
       }
+    }
+
+  def legacyAuthorize =
+    Action { req =>
+      MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
   def authorizeApply =
@@ -87,6 +94,8 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
       }
     }
+
+  def legacyTokenApply = tokenApply
 
   def tokenRevoke =
     Scoped() { implicit req => _ =>
