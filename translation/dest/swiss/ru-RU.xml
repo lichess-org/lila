@@ -12,4 +12,6 @@
   <string name="nbRoundsHelp">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
   <string name="roundInterval">Перерыв между турами</string>
   <string name="forbiddenPairings">Запрещённые пары</string>
+  <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
+  <string name="newSwiss">Новый турнир по швейцарской системе</string>
 </resources>
