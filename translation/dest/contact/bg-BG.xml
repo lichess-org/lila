@@ -16,6 +16,7 @@
   <string name="wantReport">Искам да докладвам играч</string>
   <string name="calledEnPassant">Нарича се \"ан пасан\" и е едно от правилата на шаха.</string>
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
+  <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
   <string name="welcomeToUse">Добре сте дошли да използвате Lichess за своята дейност, дори и търговска такава.</string>
   <string name="noneOfTheAbove">Никое от горните</string>
