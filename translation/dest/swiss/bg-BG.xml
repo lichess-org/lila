@@ -7,4 +7,9 @@
   </plurals>
   <string name="tournStartDate">Начална дата на турнира</string>
   <string name="nbRounds">Брой рундове</string>
+  <string name="nbRoundsHelp">Нечетен брой рундове оптимално балансира на цветовете за всички играчи.</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Интервал между рундовете</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Забранени съчетавания</string>
+  <string name="forbiddenPairingsHelp">Имена на играчите които не трябва да играят един срещу друг (например роднини). Въведете по две имена на линия, разделени с интервал.</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Нов швейцарски турнир</string>
 </resources>
