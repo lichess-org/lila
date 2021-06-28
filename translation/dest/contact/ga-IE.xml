@@ -43,8 +43,7 @@
   <string name="calledEnPassant">Tugtar \"en passant\" air agus \'sé ceann de rialacha i bhficheall.</string>
   <string name="tryEnPassant">Bain triail as an gcluiche beag idirghníomhach seo chun níos mó a fhoghlaim faoi \"en passant\".</string>
   <string name="illegalCastling">Caisliú dodhéanta nó mídhleathach</string>
-  <string name="castlingPrevented">Níor cheart an Rí dul trasna cearnóg atá faoi
-ionsaí namhaid agus tú ag iarraidh caisliú.</string>
+  <string name="castlingPrevented">Níor cheart an Rí dul trasna cearnóg atá faoi ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="castlingRules">Déan cinnte go dtuigeann tú na rialacha faoin caisliú</string>
   <string name="tryCastling">Bain triail as an gcluiche beag idirghníomhach seo chun an caisliú i bhficheall a chleachtadh</string>
   <string name="castlingImported">Má iompórtáladh tú an cluiche, nó má chuir tú tús leis ó shuíomh, déan cinnte go socróidh tú na rialacha caisliú i gceart.</string>
