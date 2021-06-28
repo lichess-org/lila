@@ -224,9 +224,8 @@ object topic {
         form3.actions(
           button(cls := "cancel button button-empty", value := "cancel")("Cancel"),
           form3.submit(
-            frag("Delete the post"),
-            klass = "button-red"
-          )(value := "default")
+            frag("Delete the post")
+          )(value := "default", cls := "button-red")
         )
       )
     )

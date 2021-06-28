@@ -269,16 +269,21 @@ object student {
             form3.submit(trans.apply())
           )
         ),
-        s.student.isActive option frag(
-          hr,
-          postForm(
-            action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true),
-            cls := "student-show__archive"
-          )(
-            form3.submit(trans.clas.removeStudent(), icon = none)(
-              cls := "confirm button-red button-empty"
-            )
-          )
+        hr,
+        div(cls := "student-show__other-actions")(
+          s.student.isActive option
+            postForm(
+              action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = true)
+            )(
+              form3.submit(trans.clas.removeStudent(), icon = none)(
+                cls := "confirm button-red button-empty"
+              )
+            ),
+          s.student.managed option a(
+            href := routes.Clas.studentClose(clas.id.value, s.user.username),
+            cls := "button button-empty button-red",
+            title := trans.clas.closeDesc1.txt()
+          )(trans.clas.closeStudent())
         )
       )
     )
@@ -306,6 +311,27 @@ object student {
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
             form3.submit(trans.apply())
+          )
+        )
+      )
+    )
+
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(implicit
+      ctx: Context
+  ) =
+    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+      cls := "student-show student-edit",
+      top(clas, s),
+      div(cls := "box__pad")(
+        h2(trans.clas.closeTheAccount()),
+        p(strong(badTag(trans.clas.closeDesc1()))),
+        p(
+          a(href := routes.Clas.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id.value, s.user.username))(
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.cancel()),
+            form3.submit(trans.clas.closeTheAccount(), icon = "".some)(cls := "button-red confirm")
           )
         )
       )

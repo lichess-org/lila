@@ -1,11 +1,11 @@
 package lila.user
 
-import java.security.SecureRandom
 import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits._
 
+import lila.common.SecureRandom
 import lila.common.config.Secret
 
 /** Encryption for bcrypt hashes.
@@ -54,14 +54,12 @@ final private class PasswordHasher(
   import org.mindrot.BCrypt
   import User.ClearPassword
 
-  private val prng = new SecureRandom()
-  private val aes  = new Aes(secret)
+  private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
   def hash(p: ClearPassword): HashedPassword = {
-    val salt = new Array[Byte](16)
-    prng.nextBytes(salt)
+    val salt = SecureRandom.nextBytes(16)
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
   }
 

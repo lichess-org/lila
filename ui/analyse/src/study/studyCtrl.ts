@@ -710,7 +710,7 @@ export default function (
     redraw,
     trans: ctrl.trans,
     socketHandler: (t: string, d: any) => {
-      const handler = ((socketHandlers as any) as SocketHandlers)[t];
+      const handler = (socketHandlers as any as SocketHandlers)[t];
       if (handler) {
         handler(d);
         return true;

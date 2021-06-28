@@ -21,6 +21,7 @@ export default function theme(ctrl: Controller): MaybeVNode {
                 attrs: {
                   href: `${studyUrl}/${t.chapter}`,
                   target: '_blank',
+                  rel: 'noopener',
                 },
               },
               [' ', ctrl.trans.noarg('example')]
@@ -144,6 +145,7 @@ const editor = (ctrl: Controller): VNode[] => {
                 'data-icon': '',
                 href: studyUrl,
                 target: '_blank',
+                rel: 'noopener',
               },
             },
             'About puzzle themes'

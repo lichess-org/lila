@@ -47,7 +47,7 @@ final class Env(
       none
     }
 
-  lazy val tokenApi = wire[PersonalTokenApi]
+  lazy val tokenApi = wire[AccessTokenApi]
 
   lazy val authorizationApi = new AuthorizationApi(lilaDb(CollName("oauth2_authorization")))
 

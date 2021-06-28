@@ -16,12 +16,12 @@
   "dependencies": {
     "chessops": "^0.9.0",
     "snabbdom": "^3.0.1",
-    "chessground": "^8.0.0",
+    "chessground": "^8.1.1",
     "common": "2.0.0"
   },
   "devDependencies": {
     "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
-    "typescript": "^4.1.3"
+    "typescript": "^4.3.4"
   }
 }

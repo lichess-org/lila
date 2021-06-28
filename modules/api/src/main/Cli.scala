@@ -16,7 +16,6 @@ final private[api] class Cli(
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
-    slackApi: lila.irc.SlackApi,
     email: lila.mailer.AutomaticEmail
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends lila.common.Cli {
@@ -41,7 +40,6 @@ final private[api] class Cli(
         case None                       => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
-          slackApi gdprErase user
           userRepo setEraseAt user
           email gdprErase user
           Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")

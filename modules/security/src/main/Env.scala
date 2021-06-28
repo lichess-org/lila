@@ -21,7 +21,7 @@ final class Env(
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,
-    slack: lila.irc.SlackApi,
+    irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,

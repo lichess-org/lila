@@ -1,3 +1,5 @@
+# Run `./lila playRoutes` after modifying this file
+
 # Lobby
 GET   /                                controllers.Lobby.home
 GET   /lobby/seeks                     controllers.Lobby.seeks
@@ -530,7 +532,7 @@ POST  /coach/approve-review/:id        controllers.Coach.approveReview(id: Strin
 POST  /coach/mod-review/:id            controllers.Coach.modReview(id: String)
 GET   /coach/:username                 controllers.Coach.show(username: String)
 POST  /coach/:username/review          controllers.Coach.review(username: String)
-GET   /coach/:lang/:order              controllers.Coach.search(lang: String, order: String, page: Int ?= 1)
+GET   /coach/:lang/:country/:order     controllers.Coach.search(lang: String, order: String, country: String, page: Int ?= 1)
 
 # Clas
 GET   /class                           controllers.Clas.index
@@ -563,6 +565,8 @@ GET   /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentEdit(id: 
 POST  /class/$id<\w{8}>/student/:username/edit controllers.Clas.studentUpdate(id: String, username: String)
 GET   /class/$id<\w{8}>/student/:username/release controllers.Clas.studentRelease(id: String, username: String)
 POST  /class/$id<\w{8}>/student/:username/release controllers.Clas.studentReleasePost(id: String, username: String)
+GET   /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClose(id: String, username: String)
+POST  /class/$id<\w{8}>/student/:username/close controllers.Clas.studentClosePost(id: String, username: String)
 POST  /class/$id<\w{8}>/invitation/revoke controllers.Clas.invitationRevoke(id: String)
 
 # DB image
@@ -712,16 +716,18 @@ GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 # OAuth
-GET   /oauth                                controllers.OAuth.authorize
-POST  /oauth                                controllers.OAuth.authorizeApply
-POST  /api/token                            controllers.OAuth.tokenApply
-GET   /account/oauth/token                  controllers.OAuthToken.index
-GET   /account/oauth/token/create           controllers.OAuthToken.create
-POST  /account/oauth/token/create           controllers.OAuthToken.createApply
-POST  /account/oauth/token/:publicId/delete controllers.OAuthToken.delete(publicId: String)
-GET   /account/oauth/app                    controllers.OAuthApp.index
-POST  /account/oauth/app/:id/delete         controllers.OAuthApp.delete(id: String)
-POST  /account/oauth/app/:id/revoke         controllers.OAuthApp.revoke(id: String)
+GET    /oauth                                controllers.OAuth.authorize
+POST   /oauth                                controllers.OAuth.authorizeApply
+POST   /oauth/revoke-client                  controllers.OAuth.revokeClient
+POST   /api/token                            controllers.OAuth.tokenApply
+DELETE /api/token                            controllers.OAuth.tokenRevoke
+GET    /account/oauth/token                  controllers.OAuthToken.index
+GET    /account/oauth/token/create           controllers.OAuthToken.create
+POST   /account/oauth/token/create           controllers.OAuthToken.createApply
+POST   /account/oauth/token/:publicId/delete controllers.OAuthToken.delete(publicId: String)
+GET    /account/oauth/app                    controllers.OAuthApp.index
+POST   /account/oauth/app/:id/delete         controllers.OAuthApp.delete(id: String)
+POST   /account/oauth/app/:id/revoke         controllers.OAuthApp.revoke(id: String)
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)

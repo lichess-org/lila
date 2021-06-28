@@ -258,13 +258,13 @@ final class Mod(
               } flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
                 if (priv) {
                   if (!inquiry.??(_.isRecentCommOf(Suspect(user)))) {
-                    env.irc.slack.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                    env.irc.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
                     if (isGranted(_.MonitoredMod))
-                      env.irc.slack.monitorMod(
+                      env.irc.api.monitorMod(
                         me.id,
                         "eyes",
                         s"spontaneously checked out @${user.username}'s private comms",
-                        lila.irc.SlackApi.MonitorType.Comm
+                        lila.irc.IrcApi.MonitorType.Comm
                       )
                   }
                 }
@@ -489,7 +489,7 @@ final class Mod(
     OAuthMod(_.Shadowban) { req => me =>
       val v = getBool("v", req)
       env.chat.panic.set(v)
-      env.irc.slack.chatPanic(me, v)
+      env.irc.api.chatPanic(me, v)
       fuccess(().some)
     }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
 

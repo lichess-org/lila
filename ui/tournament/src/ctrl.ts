@@ -3,7 +3,7 @@ import * as xhr from './xhr';
 import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
+import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 // eslint-disable-next-line no-duplicate-imports
 import { TournamentSocket } from './socket';
 
@@ -22,7 +22,7 @@ export default class TournamentController {
   lastPageDisplayed: number | undefined;
   focusOnMe: boolean;
   joinSpinner = false;
-  playerInfo: PlayerInfo = {};
+  playerInfo: { id?: string; player?: Player; data?: PlayerInfo } = {};
   teamInfo: CtrlTeamInfo = {};
   disableClicks = true;
   searching = false;
@@ -55,10 +55,10 @@ export default class TournamentController {
 
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
-    if (!this.data.me && data.me && this.data['private']) lichess.reload();
+    if (!this.data.me && data.me && this.data.private) lichess.reload();
     this.data = { ...this.data, ...data };
     this.data.me = data.me; // to account for removal on withdraw
-    if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo;
+    if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
     sound.end(data);
@@ -159,19 +159,18 @@ export default class TournamentController {
     if (this.focusOnMe) this.scrollToMe();
   };
 
-  showPlayerInfo = player => {
+  showPlayerInfo = (player: Player) => {
     if (this.data.secondsToStart) return;
     const userId = player.name.toLowerCase();
     this.teamInfo.requested = undefined;
     this.playerInfo = {
-      id: this.playerInfo.id === userId ? null : userId,
+      id: this.playerInfo.id === userId ? undefined : userId,
       player: player,
-      data: null,
     };
     if (this.playerInfo.id) xhr.playerInfo(this, this.playerInfo.id);
   };
 
-  setPlayerInfoData = data => {
+  setPlayerInfoData = (data: PlayerInfo) => {
     if (data.player.id === this.playerInfo.id) this.playerInfo.data = data;
   };
 

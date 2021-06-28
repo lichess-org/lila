@@ -4,9 +4,8 @@ import scala.concurrent.duration._
 
 import chess.{ Black, Clock, White }
 
-import lila.common.Future
+import lila.common.{ Future, ThreadLocalRandom }
 import lila.game.{ Game, GameRepo, UciMemo }
-import ornicar.scalalib.Random.approximately
 
 final class FishnetPlayer(
     redis: FishnetRedis,
@@ -43,7 +42,7 @@ final class FishnetPlayer(
         sleep = (delay * accel) atMost 500
         if sleep > 25
         millis     = sleep * 10
-        randomized = approximately(0.5f)(millis)
+        randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
         divided    = randomized / (if (g.turns > 9) 1 else 2)
       } yield divided.millis
 

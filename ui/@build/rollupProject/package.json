@@ -7,12 +7,12 @@
   "main": "index.js",
   "type": "commonjs",
   "dependencies": {
-    "@rollup/plugin-commonjs": "^16.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.1",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.1.0",
-    "rollup": "^2.35.1",
+    "rollup": "^2.52.2",
     "rollup-plugin-terser": "^7.0.2",
-    "tslib": "^2.0.3",
-    "typescript": "^4.1.3"
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.4"
   }
 }

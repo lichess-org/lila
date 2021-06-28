@@ -5,7 +5,6 @@ import cats.data.Validated
 import com.roundeights.hasher.Algo
 import io.lemonlabs.uri.AbsoluteUrl
 import org.joda.time.DateTime
-import ornicar.scalalib.Random
 import play.api.libs.json._
 
 import lila.user.User

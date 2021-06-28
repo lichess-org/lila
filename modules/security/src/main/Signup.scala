@@ -21,7 +21,7 @@ final class Signup(
     hcaptcha: Hcaptcha,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
-    slack: lila.irc.SlackApi,
+    irc: lila.irc.IrcApi,
     netConfig: NetConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
 

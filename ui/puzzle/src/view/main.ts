@@ -148,7 +148,7 @@ function session(ctrl: Controller) {
           },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
-            ...(ctrl.streak ? { target: '_blank' } : {}),
+            ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
         rd

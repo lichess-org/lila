@@ -15,7 +15,7 @@ case class AssetVersion(value: String) extends AnyVal with StringValue
 object AssetVersion {
   var current = random
   def change() = { current = random }
-  private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
+  private def random = AssetVersion(SecureRandom nextString 6)
 }
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue

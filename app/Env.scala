@@ -12,6 +12,7 @@ import lila.common.config._
 import lila.common.{ Bus, Strings, UserIds }
 import lila.memo.SettingStore.Strings._
 import lila.memo.SettingStore.UserIds._
+import lila.security.Granter
 import lila.user.{ Holder, User }
 
 final class Env(
@@ -145,7 +146,8 @@ final class Env(
     for {
       playbanned <- playban.api.hasCurrentBan(u.id)
       selfClose = u.id == by.id
-      badApple  = u.lameOrTrollOrAlt || !selfClose
+      modClose  = !selfClose && Granter(_.CloseAccount)(by.user)
+      badApple  = u.lameOrTrollOrAlt || modClose
       _       <- user.repo.disable(u, keepEmail = badApple || playbanned)
       _       <- relation.api.unfollowAll(u.id)
       _       <- user.rankingApi.remove(u.id)

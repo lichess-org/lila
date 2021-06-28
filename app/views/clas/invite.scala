@@ -35,15 +35,13 @@ object invite {
                 form3.submit(
                   trans.decline(),
                   nameValue = ("v" -> false.toString).some,
-                  klass = "button-red button-fat",
                   icon = "".some
-                )
+                )(cls := "button-red button-fat")
               else p,
               form3.submit(
                 trans.accept(),
-                klass = "button-green button-fat",
                 nameValue = ("v" -> true.toString).some
-              )
+              )(cls := "button-green button-fat")
             )
           )
       )

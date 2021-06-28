@@ -73,6 +73,7 @@ export default function (ctrl: Controller): VNode {
                 href: `/analysis/${ctrl.vm.node.fen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
                 title: ctrl.trans.noarg('playWithTheMachine'),
                 target: '_blank',
+                rel: 'noopener',
               },
             }),
             data.user

@@ -224,7 +224,7 @@
   <string name="ratedTournament">レート戦</string>
   <string name="thisGameIsRated">この対局はレート戦です</string>
   <string name="rematch">再対局</string>
-  <string name="rematchOfferSent">再対局の提案が来ました</string>
+  <string name="rematchOfferSent">再対局の申し込みです</string>
   <string name="rematchOfferSentWhite">白が再対局を提案しました</string>
   <string name="rematchOfferSentBlack">黒が再対局を提案しました</string>
   <string name="rematchOfferAccepted">再対局の提案が承諾されました</string>

@@ -52,6 +52,7 @@ trait Handlers {
 
   def bigDecimalIsoHandler[A](implicit iso: BigDecimalIso[A]): BSONHandler[A] =
     BSONDecimalHandler.as[A](iso.from, iso.to)
+
   def bigDecimalAnyValHandler[A](to: A => BigDecimal, from: BigDecimal => A): BSONHandler[A] =
     bigDecimalIsoHandler(Iso(from, to))
 
@@ -63,10 +64,7 @@ trait Handlers {
       def readTry(bson: BSONValue) =
         read
           .andThen(Success(_))
-          .applyOrElse(
-            bson,
-            (b: BSONValue) => handlerBadType(b)
-          )
+          .applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
       def writeTry(t: T) = Success(write(t))
     }
 

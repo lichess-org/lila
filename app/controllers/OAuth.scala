@@ -1,18 +1,17 @@
 package controllers
 
-import views._
-
-import play.api.mvc._
+import cats.data.Validated
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
-import cats.data.Validated
-import reactivemongo.api.bson.BSONObjectID
-import org.joda.time.DateTime
+import play.api.mvc._
 import scalatags.Text.all.stringFrag
-import lila.app._
+import views._
+
 import lila.api.Context
-import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
+import lila.common.HTTPRequest
+import lila.app._
+import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, PersonalToken }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -72,28 +71,44 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
-              val expiresIn = 60 * 60 * 24 * 60
-              val token = AccessToken(
-                id = AccessToken.Id(lila.oauth.Protocol.Secret.random("lio_").value),
-                publicId = BSONObjectID.generate(),
-                clientId = "lichess_personal_token", // TODO
-                userId = granted.userId,
-                createdAt = DateTime.now().some,
-                description = granted.redirectUri.clientOrigin.some,
-                scopes = granted.scopes,
-                clientOrigin = granted.redirectUri.clientOrigin.some,
-                expires = DateTime.now().plusSeconds(expiresIn).some
-              )
-              env.oAuth.tokenApi.create(token) inject Ok(
-                Json.obj(
-                  "token_type"   -> "bearer",
-                  "access_token" -> token.id.value,
-                  "expires_in"   -> expiresIn
+              env.oAuth.tokenApi.create(granted) map { token =>
+                Ok(
+                  Json
+                    .obj(
+                      "token_type"   -> "Bearer",
+                      "access_token" -> token.id.value
+                    )
+                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
-              )
+              }
             case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
           }
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
       }
+    }
+
+  def tokenRevoke =
+    Scoped() { implicit req => _ =>
+      HTTPRequest.bearer(req) ?? { token =>
+        env.oAuth.tokenApi.revoke(AccessToken.Id(token)) map env.oAuth.server.deleteCached inject NoContent
+      }
+    }
+
+  private val revokeClientForm = Form(single("origin" -> text))
+
+  def revokeClient =
+    AuthBody { implicit ctx => me =>
+      implicit def body = ctx.body
+      revokeClientForm
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest.fuccess,
+          origin =>
+            env.oAuth.tokenApi.revokeByClientOrigin(origin, me) map {
+              _ foreach { token =>
+                env.oAuth.server.deleteCached(token)
+              }
+            } inject NoContent
+        )
     }
 }
