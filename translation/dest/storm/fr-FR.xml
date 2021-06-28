@@ -22,11 +22,11 @@
   <string name="score">Score</string>
   <string name="moves">Coups</string>
   <string name="accuracy">Précision</string>
-  <string name="combo">Enchaînement</string>
+  <string name="combo">Combo</string>
   <string name="time">Temps</string>
   <string name="timePerMove">Temps par coup</string>
   <string name="highestSolved">Prob. résolu le plus difficile</string>
-  <string name="puzzlesPlayed">Problèmes faits</string>
+  <string name="puzzlesPlayed">Problèmes joués</string>
   <string name="newRun">Nouvel essai (raccourci clavier: Espace)</string>
   <string name="endRun">Terminer l\'essai (raccourci clavier: Entrée)</string>
   <string name="highscores">Meilleurs scores</string>
