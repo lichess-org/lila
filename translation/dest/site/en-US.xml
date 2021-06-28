@@ -879,4 +879,6 @@ All operating costs, development, and content are funded solely by user donation
   <string name="inYourLocalTimezone">In your own local timezone</string>
   <string name="tournChat">Tournament chat</string>
   <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">No chat</string>
+  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Only team leaders</string>
+  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Only team members</string>
 </resources>
