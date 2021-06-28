@@ -235,7 +235,7 @@ final class IrcApi(
         icon = "horsey",
         text = slackdown linkifyUsers msg
       )
-    ) >> zulip()(s":lichess: ${markdown linkifyUsers msg}")
+    ) >> zulip()(s":info: ${markdown linkifyUsers msg}")
 
   object charge {
     import lila.hub.actorApi.plan.ChargeEvent
