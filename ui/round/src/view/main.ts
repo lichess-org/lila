@@ -63,7 +63,7 @@ export function main(ctrl: RoundController): VNode {
           'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
           {
             hook:
-              'ontouchstart' in window
+              'ontouchstart' in window || !ctrl.data.pref.scrollMoves
                 ? undefined
                 : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false),
           },

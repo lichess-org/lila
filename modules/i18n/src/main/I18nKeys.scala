@@ -1601,6 +1601,7 @@ val `inputMovesWithTheKeyboard` = new I18nKey("preferences:inputMovesWithTheKeyb
 val `snapArrowsToValidMoves` = new I18nKey("preferences:snapArrowsToValidMoves")
 val `sayGgWpAfterLosingOrDrawing` = new I18nKey("preferences:sayGgWpAfterLosingOrDrawing")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
+val `scrollOnTheBoardToReplayMoves` = new I18nKey("preferences:scrollOnTheBoardToReplayMoves")
 }
 
 object team {

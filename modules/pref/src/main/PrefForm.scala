@@ -39,7 +39,8 @@ object PrefForm {
         "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
         "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
         "keyboardMove"  -> optional(booleanNumber),
-        "rookCastle"    -> optional(booleanNumber)
+        "rookCastle"    -> optional(booleanNumber),
+        "scrollMoves"   -> optional(booleanNumber)
       )(BehaviorData.apply)(BehaviorData.unapply),
       "clock" -> mapping(
         "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
@@ -78,7 +79,8 @@ object PrefForm {
       submitMove: Int,
       confirmResign: Int,
       keyboardMove: Option[Int],
-      rookCastle: Option[Int]
+      rookCastle: Option[Int],
+      scrollMoves: Option[Int]
   )
 
   case class ClockData(
@@ -129,6 +131,7 @@ object PrefForm {
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
+        scrollMoves = behavior.scrollMoves | pref.scrollMoves,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
@@ -158,7 +161,8 @@ object PrefForm {
           submitMove = pref.submitMove,
           confirmResign = pref.confirmResign,
           keyboardMove = pref.keyboardMove.some,
-          rookCastle = pref.rookCastle.some
+          rookCastle = pref.rookCastle.some,
+          scrollMoves = pref.scrollMoves.some
         ),
         clock = ClockData(
           tenths = pref.clockTenths,

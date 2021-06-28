@@ -109,7 +109,10 @@ export default function (ctrl: Controller): VNode {
       h(
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
-          hook: 'ontouchstart' in window ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
+          hook:
+            'ontouchstart' in window || !ctrl.pref.scrollMoves
+              ? undefined
+              : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
         },
         [chessground(ctrl), ctrl.promotion.view()]
       ),

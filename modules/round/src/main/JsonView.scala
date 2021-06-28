@@ -94,6 +94,7 @@ final class JsonView(
               .add("confirmResign" -> (!nvui && pref.confirmResign == Pref.ConfirmResign.YES))
               .add("keyboardMove" -> (!nvui && pref.keyboardMove == Pref.KeyboardMove.YES))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+              .add("scrollMoves" -> (pref.scrollMoves == Pref.ScrollMoves.YES))
               .add("blindfold" -> pref.isBlindfold)
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
@@ -189,6 +190,7 @@ final class JsonView(
               .add("highlight" -> pref.highlight)
               .add("destination" -> (pref.destination && !pref.isBlindfold))
               .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+              .add("scrollMoves" -> (pref.scrollMoves == Pref.ScrollMoves.YES))
               .add("showCaptured" -> pref.captured),
             "evalPut" -> JsBoolean(me.??(evalCache.shouldPut))
           )
@@ -244,6 +246,7 @@ final class JsonView(
             "moveEvent"         -> pref.moveEvent
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
+          .add("scrollMoves" -> (pref.scrollMoves == Pref.ScrollMoves.YES))
           .add("is3d" -> pref.is3d)
           .add("highlight" -> pref.highlight)
           .add("destination" -> (pref.destination && !pref.isBlindfold)),
