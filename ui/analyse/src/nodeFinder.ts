@@ -2,9 +2,7 @@ import { winningChances } from 'ceval';
 import { defined } from 'common';
 
 function hasCompChild(node: Tree.Node): boolean {
-  return !!node.children.find(function (c) {
-    return !!c.comp;
-  });
+  return !!node.children.find(c => !!c.comp);
 }
 
 export function nextGlyphSymbol(
