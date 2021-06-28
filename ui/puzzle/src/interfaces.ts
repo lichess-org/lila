@@ -119,7 +119,6 @@ export interface PuzzlePrefs {
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;
-  scrollMoves?: boolean;
   moveEvent: number;
   highlight: boolean;
   animation: {

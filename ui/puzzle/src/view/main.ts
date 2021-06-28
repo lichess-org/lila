@@ -110,7 +110,7 @@ export default function (ctrl: Controller): VNode {
         'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
         {
           hook:
-            'ontouchstart' in window || !ctrl.pref.scrollMoves
+            'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
               ? undefined
               : bind('wheel', e => wheel(ctrl, e as WheelEvent)),
         },

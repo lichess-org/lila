@@ -347,7 +347,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           addChapterId(study, 'div.analyse__board.main-board'),
           {
             hook:
-              'ontouchstart' in window || ctrl.gamebookPlay() || !ctrl.data.pref.scrollMoves
+              'ontouchstart' in window || ctrl.gamebookPlay() || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
                 : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },

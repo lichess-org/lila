@@ -175,7 +175,6 @@ export interface Pref {
   moveEvent: Prefs.MoveEvent;
   replay: Prefs.Replay;
   rookCastle: boolean;
-  scrollMoves?: boolean;
   showCaptured: boolean;
   submitMove: boolean;
   resizeHandle: Prefs.ShowResizeHandle;
