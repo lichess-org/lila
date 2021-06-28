@@ -42,5 +42,5 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
     <item quantity="other">Veure els %s equips</item>
   </plurals>
   <string name="newTeamBattle">Nova batalla d\'equips</string>
-  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">Es permet Berserk</string>
+  <string name="allowBerserk">Es permet Berserk</string>
 </resources>
