@@ -42,4 +42,12 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
     <item quantity="one">Voir l\'équipe</item>
     <item quantity="other">Voir toutes les équipes %s</item>
   </plurals>
+  <string name="newTeamBattle">Nouveau combat en équipe</string>
+  <string name="customStartDate">Date de début modifiée</string>
+  <string name="customStartDateHelp">Selon votre fuseau horaire. Ce paramètre désactive le paramètre « Temps restant avant le début du tournoi ».</string>
+  <string name="allowBerserk">Activer l\'option Berserk</string>
+  <string name="allowBerserkHelp">Permettre aux joueurs de réduire de moitié leur temps pour gagner un point supplémentaire</string>
+  <string name="allowChatHelp">Permettre aux joueurs de clavarder dans le salon de discussion</string>
+  <string name="arenaStreaks">Série de victoires dans l\'arène</string>
+  <string name="arenaStreaksHelp">Après 2 victoires, des victoires consécutives donnent 4 points au lieu de 2.</string>
 </resources>

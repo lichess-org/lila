@@ -92,5 +92,4 @@ Aqui está o link para acederes à aula.</string>
   <string name="newsEdit1">Todas as novidades sobre a aula num único campo.</string>
   <string name="newsEdit2">Adiciona as novidades recentes no topo. Não excluas novidades anteriores.</string>
   <string name="newsEdit3">Separa as novidades com --- tal irá mostrar uma linha horizontal.</string>
-  <string name="markdownAvailable">%s está disponível para sintaxe mais avançada.</string>
 </resources>

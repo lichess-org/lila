@@ -693,7 +693,6 @@
   <string name="enableKidMode">Включване на детски режим</string>
   <string name="disableKidMode">Изключване на детски режим</string>
   <string name="security">Сигурност</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Това е списъкът на устройствата, които са логнати във вашия акаунт. Отменете всички сесии, които не разпознавате.</string>
   <string name="sessions">Сесии</string>
   <string name="revokeAllSessions">отмени всички сесии</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>
@@ -870,4 +869,14 @@
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
   <string name="coachManager">Настройки за треньори</string>
   <string name="streamerManager">Настройки за стриймъри</string>
+  <string name="cancelTournament">Отмени турнира</string>
+  <string name="tournDescription">Описание на турнира</string>
+  <string name="ratedFormHelp">Игрите са с рейтинг и влияят на рейтинга на играчите</string>
+  <string name="onlyMembersOfTeam">Само членове на отбора</string>
+  <string name="noRestriction">Без ограничение</string>
+  <string name="minimumRatedGames">Минимален брой игри с рейтинг</string>
+  <string name="minimumRating">Минимален рейтинг</string>
+  <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
+  <string name="onlyTitled">Само титулувани играчи</string>
+  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
 </resources>

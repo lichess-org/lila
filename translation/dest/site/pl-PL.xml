@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Zagraj ze znajomym</string>
-  <string name="playWithTheMachine">Zagraj z komputerem</string>
+  <string name="playWithTheMachine">Graj z komputerem</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Przekaż ten adres, by zaprosić kogoś do wspólnej gry</string>
   <string name="gameOver">Partia zakończona</string>
   <string name="waitingForOpponent">Oczekiwanie na przeciwnika</string>
@@ -387,7 +387,7 @@
   <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
   <string name="youAreNotInTeam">Nie należysz do klubu %s</string>
   <string name="backToGame">Wróć do partii</string>
-  <string name="siteDescription">Darmowe szachy online. Zagraj teraz w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
+  <string name="siteDescription">Darmowe szachy online. Zagraj w szachy o przyjaznym interfejsie. Bez rejestracji, bez reklam, bez wtyczek. Zagraj w szachy z komputerem, znajomymi lub losowo wybranymi przeciwnikami.</string>
   <string name="xJoinedTeamY">%1$s dołączył do klubu %2$s</string>
   <string name="xCreatedTeamY">%1$s założył klub %2$s</string>
   <string name="xStartedStreaming">%s rozpoczął streaming</string>
@@ -764,8 +764,6 @@
   <string name="enableKidMode">Włącz tryb dla dzieci</string>
   <string name="disableKidMode">Wyłącz tryb dla dzieci</string>
   <string name="security">Bezpieczeństwo</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">To jest lista urządzeń, z których logowałeś się na swoje konto. Unieważnij sesje, których nie rozpoznajesz.</string>
-  <string name="alternativelyYouCanX">Możesz również %s.</string>
   <string name="sessions">Sesje</string>
   <string name="revokeAllSessions">unieważnić wszystkie sesje</string>
   <string name="playChessEverywhere">Graj w szachy wszędzie</string>
@@ -951,4 +949,27 @@
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="coachManager">Menedżer trenera</string>
   <string name="streamerManager">Menedżer streamera</string>
+  <string name="cancelTournament">Anuluj turniej</string>
+  <string name="tournDescription">Opis turnieju</string>
+  <string name="tournDescriptionHelp">Czy chcesz powiedzieć coś szczególnego uczestnikom? Pisz krótko i na temat. Istnieje możliwość dodania odnośników: [text](https://url)</string>
+  <string name="ratedFormHelp">Partie są rankingowe i wpływają na ranking graczy</string>
+  <string name="onlyMembersOfTeam">Tylko członkowie klubu</string>
+  <string name="noRestriction">Bez ograniczeń</string>
+  <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
+  <string name="minimumRating">Minimalny ranking</string>
+  <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
+  <string name="onlyTitled">Tylko gracze z tytułem</string>
+  <string name="onlyTitledHelp">Wymagaj oficjalnego tytułu, aby dołączyć do turnieju</string>
+  <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
+Działa tylko dla standardowych gier, nie działa dla wariantów.
+Możesz użyć %s , aby wygenerować pozycję FEN, a następnie wkleić ją tutaj.
+Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</string>
+  <string name="cancelSimul">Anuluj symultanę</string>
+  <string name="simulHostcolor">Kolor prowadzącego symultanę dla każdej partii</string>
+  <string name="estimatedStart">Szacowany czas rozpoczęcia</string>
+  <string name="simulFeatured">Dostępna na %s</string>
+  <string name="simulFeaturedHelp">Pokaż symultanę wszystkim na %s. Wyłącz dla prywatnych symultan.</string>
+  <string name="simulDescription">Opis symultany</string>
+  <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
+  <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
 </resources>

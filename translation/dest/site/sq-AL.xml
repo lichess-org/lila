@@ -691,8 +691,6 @@
   <string name="enableKidMode">Aktivizo modalitetin per femije</string>
   <string name="disableKidMode">Çaktivizo modalitetin per femije</string>
   <string name="security">Siguria</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Kjo eshte nje liste e pajisjeve qe kane hyre ne llogarine tuaj. Terhiq cdo seance qe nuk e njihni.</string>
-  <string name="alternativelyYouCanX">Ose mund te %s.</string>
   <string name="revokeAllSessions">terhiq te gjitha seksionet</string>
   <string name="playChessEverywhere">Luaj shah kudo</string>
   <string name="asFreeAsLichess">Pa pagesë si vetë lichess</string>

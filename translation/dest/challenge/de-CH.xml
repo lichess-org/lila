@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challenges">Usäfoderigä</string>
-  <string name="challengeToPlay">Zu nere partie useforderä</string>
+  <string name="challengeToPlay">Zunärä Partii usäfordärä</string>
   <string name="challengeDeclined">Usäfoderig abglähnt</string>
   <string name="challengeAccepted">Usäfoderig angnoo!</string>
   <string name="challengeCanceled">Usäfoderig abbrochää.</string>
@@ -13,11 +13,11 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s nimmt Usäfoderigä nur vo Brudis a.</string>
   <string name="declineGeneric">I nim momentan kei Usäfoderigä me a.</string>
   <string name="declineLater">I nim momentan kei Usäfoderigä me a, bitte frog spöter nonemol.</string>
-  <string name="declineTooFast">Ziet zum überlege isch z\'churz für mi, bitte forderä mich nomel mit meh Bedenkzeit ussä.</string>
-  <string name="declineTooSlow">Ziet zum überlege isch z\'lang für mi, bitte forderä mich nomel mit weniger Bedenkzeit ussä.</string>
+  <string name="declineTooFast">Ziit zum Überlegä isch z\'churz für mich, bitte fordärä mich nomol mit meh Bedänkziit usä.</string>
+  <string name="declineTooSlow">Ziit zum Überlegä isch z\'lang für mich, bitte fordärä mich nomol mit wäniger Bedänkziit usä.</string>
   <string name="declineTimeControl">I nim momentan kei Usäfoderigä me a.</string>
-  <string name="declineRated">Bitte forderä mi stattdessä zu enerä gewertetä Partie usä.</string>
-  <string name="declineCasual">Bitte fordere mich stattdessä zu einer ungewertetä Partie usä.</string>
+  <string name="declineRated">Bitte fordrää mich schtattdessä zunärä gwärtätä Partii usä.</string>
+  <string name="declineCasual">Bitte fordärä mich schtattdessä zunärä ungwärtätä Partii usä.</string>
   <string name="declineStandard">I nimm momentan kei Usäforderigä für anderi Schpiilvariantä a.</string>
   <string name="declineVariant">I bi im moment nöd parrat, diä Variantä zu spielä.</string>
   <string name="declineNoBot">Ich nimm kei Usäfoderigä von Bots a.</string>

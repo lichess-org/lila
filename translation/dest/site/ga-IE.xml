@@ -990,4 +990,28 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
 Maoinítear na costais oibriúcháin, na forbartha agus an t-ábhar go léir trí thabhartais úsáideora amháin.</string>
   <string name="coachManager">Socruithe cóitseál a bhainistiú</string>
   <string name="streamerManager">Socruithe sruthanna a bhainistiú</string>
+  <string name="cancelTournament">Cuir an comórtas ar ceal</string>
+  <string name="tournDescription">Cur síos ar an gcomórtas</string>
+  <string name="tournDescriptionHelp">Rud ar bith speisialta ba mhaith leat a rá leis na rannpháirtithe? Déan iarracht é a choinneáil gearr. Tá naisc Markdown ar fáil: [name](https://url)</string>
+  <string name="ratedFormHelp">Déantar cluichí a rátáil
+agus rátálacha imreoirí tionchair</string>
+  <string name="onlyMembersOfTeam">Baill foirne amháin</string>
+  <string name="noRestriction">Gan aon srian</string>
+  <string name="minimumRatedGames">Cluichí rátáilte íosta</string>
+  <string name="minimumRating">Rátáil íosta</string>
+  <string name="maximumWeeklyRating">Uasráta seachtainiúil</string>
+  <string name="onlyTitled">Imreoirí dar teideal amháin</string>
+  <string name="onlyTitledHelp">Teideal oifigiúil a éileamh chun páirt a ghlacadh sa chomórtas</string>
+  <string name="positionInputHelp">Greamaigh FEN bailí chun gach cluiche a thosú ó áit ar leith.
+Ní oibríonn sé ach le haghaidh cluichí caighdeánacha, ní le leaganacha.
+Is féidir leat an %s a úsáid chun suíomh FEN a ghiniúint, ansin é a ghreamú anseo.
+Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
+  <string name="cancelSimul">Cuir an taispeántas comhuaineach ar ceal</string>
+  <string name="simulHostcolor">Dath óstach do gach cluiche</string>
+  <string name="estimatedStart">Am tosaithe measta</string>
+  <string name="simulFeatured">Gné ar %s</string>
+  <string name="simulFeaturedHelp">Taispeáin do thaispeántas comhuaineach do gach duine ar %s. Díchumasaithe do thaispeántais chomhuaineacha phríobháideacha.</string>
+  <string name="simulDescription">Tuairisc ar thaispeántas comhuaineach</string>
+  <string name="simulDescriptionHelp">Rud ar bith is mian leat a rá leis na rannpháirtithe?</string>
+  <string name="markdownAvailable">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
 </resources>

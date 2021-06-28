@@ -67,6 +67,10 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="releaseDesc1">En frigjeven konto kan ikkje settast under administrasjon igjen. Eleven vil kunne endre barnemodus og sjølv nullstille passordet.</string>
   <string name="releaseDesc2">Eleven vil bli i klassa sjølv om kontoen er frigjeven.</string>
   <string name="realUniqueEmail">Korrekt, unik e-postadresse for eleven. Vi sender ei stadfestingsmelding til adressa med ei lenke for å frigi kontoen.</string>
+  <string name="closeStudent">Steng elevkonto</string>
+  <string name="closeTheAccount">Steng elevkontoen permanent.</string>
+  <string name="closeDesc1">Eleven vil aldri kunne bruka denne kontoen att. Stenging er ei endeleg avgjerd. Ver heilt sikker på at eleven forstår og samtykkjer i dette.</string>
+  <string name="closeDesc2">Eit alternativ er å gje eleven kontroll over kontoen slik at den framleis kan vera til gagn.</string>
   <string name="teachers">Lærarar</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærar</item>
@@ -92,5 +96,4 @@ Her er lenka som gir deg tilgjenge til klassen.</string>
   <string name="newsEdit1">Alle klassenyhende i eit enkelt felt.</string>
   <string name="newsEdit2">Legg inn dei siste nyhendene på toppen. Ikkje slett tidlegare nyhende.</string>
   <string name="newsEdit3">Sett inn --- mellom kvar nyhende, det vil visast med ei horisontal linje.</string>
-  <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
 </resources>

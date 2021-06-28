@@ -67,6 +67,10 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="releaseDesc1">Vapautettua käyttäjätiliä ei voi myöhemmin enää ottaa hallintaan. Oppilas voi itsenäisesti kytkeä lapsitilan pois päältä ja nollata salasanan.</string>
   <string name="releaseDesc2">Oppilas pysyy luokassa senkin jälkeen, kun käyttäjätili on vapautettu.</string>
   <string name="realUniqueEmail">Oppilaan todellinen ja yksilöllinen sähköpostiosoite. Lähetämme siihen vahvistussähköpostilla linkin, jolla käyttäjätunnuksen voi vapauttaa.</string>
+  <string name="closeStudent">Sulje tunnus</string>
+  <string name="closeTheAccount">Sulje oppilaan tunnus pysyvästi.</string>
+  <string name="closeDesc1">Oppilaasi ei voi enää koskaan käyttää tätä tunnusta. Sulkeminen on lopullinen. Varmistathan, että oppilaasi ymmärtää ja hyväksyy tämän.</string>
+  <string name="closeDesc2">Vaihtoehtoisesti voit antaa oppilaan hallita tunnusta, jotta hän voi edelleen käyttää sitä.</string>
   <string name="teachers">Opettajat</string>
   <plurals name="nbTeachers">
     <item quantity="one">Opettaja</item>
@@ -93,5 +97,4 @@ Tässä on linkki, josta pääset luokkaan.</string>
   <string name="newsEdit2">Lisää tuoreet uutiset ylimmäksi. Älä poista aiempia uutisia.</string>
   <string name="newsEdit3">Erottele uutiset näin: --- 
 Se luo vaakasuoran erotinviivan.</string>
-  <string name="markdownAvailable">%s-muotoilua voi käyttää edistyneempään muotoiluun.</string>
 </resources>

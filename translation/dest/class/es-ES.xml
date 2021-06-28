@@ -67,6 +67,10 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="releaseDesc1">Una cuenta liberada no se puede volver a gestionar de nuevo. El estudiante podrá cambiar el modo infantil y la contraseña por sí mismo.</string>
   <string name="releaseDesc2">El estudiante permanecerá en la clase tras la liberación de su cuenta.</string>
   <string name="realUniqueEmail">Dirección de correo electrónico real y única del estudiante. Enviaremos un correo electrónico de confirmación, con un enlace para liberar la cuenta.</string>
+  <string name="closeStudent">Cerrar cuenta</string>
+  <string name="closeTheAccount">Cerrar la cuenta del estudiante permanentemente.</string>
+  <string name="closeDesc1">El estudiante nunca podrá usar esta cuenta otra vez. El cierre es definitivo. Asegúrate que el estudiante entienda y esté de acuerdo con esto.</string>
+  <string name="closeDesc2">En su lugar, puedes transferir el control de la cuenta al estudiante para que pueda seguir usándola.</string>
   <string name="teachers">Profesores</string>
   <plurals name="nbTeachers">
     <item quantity="one">%s profesor</item>
@@ -93,5 +97,4 @@ Aquí está el enlace para acceder a la clase.</string>
   <string name="newsEdit2">Añade las novedades más recientes en la parte superior. No elimines las novedades anteriores.</string>
   <string name="newsEdit3">Separa las novedades con ---
 Mostrará una línea separadora horizontal.</string>
-  <string name="markdownAvailable">%s está disponible para una sintaxis más avanzada.</string>
 </resources>

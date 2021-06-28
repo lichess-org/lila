@@ -46,4 +46,12 @@
     <item quantity="many">Переглянути %s команд</item>
     <item quantity="other">Переглянути %s команди</item>
   </plurals>
+  <string name="newTeamBattle">Нова Командна битва</string>
+  <string name="customStartDate">Власна дата початку</string>
+  <string name="customStartDateHelp">У вашому локальному часовому поясі. Це замінює налаштування \"Час до початку турніру\"</string>
+  <string name="allowBerserk">Дозволити Берсерк</string>
+  <string name="allowBerserkHelp">Дозволити гравцям зменшити наполовину свій час, щоб отримати додатковий бал</string>
+  <string name="allowChatHelp">Дозволити гравцям обговорення в чаті</string>
+  <string name="arenaStreaks">Серії Арени</string>
+  <string name="arenaStreaksHelp">Після двох перемог, кожна наступна перемога принесе 4 бали замість 2.</string>
 </resources>

@@ -52,6 +52,10 @@
 Ето линк за достъп към класа.</string>
   <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
   <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
+  <string name="closeStudent">Закриване на регистрацията</string>
+  <string name="closeTheAccount">Постоянно закриване на регистрацията на ученика.</string>
+  <string name="closeDesc1">Ученикът няма никога вече да може да използва тази регистрация. Затварянето е постоянно. Уверете се че ученикът разбира и се съгласява с това.</string>
+  <string name="closeDesc2">Вместо това, можете да предадете контрола върху регистрацията на ученика, така че тя/той да продължат да я използват.</string>
   <string name="teachers">Учители</string>
   <plurals name="nbTeachers">
     <item quantity="one">Учител</item>

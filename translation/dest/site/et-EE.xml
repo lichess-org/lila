@@ -850,4 +850,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
   <string name="download">Allalaadimine</string>
   <string name="welcome">Tere tulemast!</string>
+  <string name="cancelTournament">Tühista turniir</string>
+  <string name="tournDescription">Turniiri kirjeldus</string>
 </resources>

@@ -198,15 +198,15 @@
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
-  <string name="drawOfferSent">引き分けの提案を送信しました</string>
+  <string name="drawOfferSent">ドローの提案を送信しました</string>
   <string name="drawOfferDeclined">ドロー提案が拒否されました</string>
   <string name="drawOfferAccepted">ドロー提案が承諾されました</string>
-  <string name="drawOfferCanceled">引き分けの提案をキャンセルしました</string>
+  <string name="drawOfferCanceled">ドローの提案をキャンセルしました</string>
   <string name="whiteOffersDraw">白が引き分けを提案しました</string>
   <string name="blackOffersDraw">黒が引き分けを提案しました</string>
   <string name="whiteDeclinesDraw">白が引き分けを拒否しました</string>
   <string name="blackDeclinesDraw">黒が引き分けを拒否しました</string>
-  <string name="yourOpponentOffersADraw">相手が引き分けを申し込みました</string>
+  <string name="yourOpponentOffersADraw">相手がドローを提案しました</string>
   <string name="accept">承諾</string>
   <string name="decline">拒否</string>
   <string name="playingRightNow">対局中</string>
@@ -657,7 +657,7 @@
   <string name="enableKidMode">キッズモードを有効化</string>
   <string name="disableKidMode">キッズモードを無効化</string>
   <string name="security">セキュリティ</string>
-  <string name="sessions"> セッション</string>
+  <string name="sessions">セッション</string>
   <string name="revokeAllSessions">すべてのセッションを取り消す</string>
   <string name="playChessEverywhere">どこでもチェスを対局</string>
   <string name="asFreeAsLichess">Lichess は常に無料</string>
@@ -830,4 +830,33 @@
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="coachManager">コーチ用設定</string>
   <string name="streamerManager">配信者用設定</string>
+  <string name="cancelTournament">トーナメントをキャンセル</string>
+  <string name="tournDescription">トーナメントの説明</string>
+  <string name="tournDescriptionHelp">参加者に特に説明しておきたいことはありますか？　短く書いてください。リンクも入れられます：[name](https://url)</string>
+  <string name="ratedFormHelp">レート戦です
+プレイヤーのレーティングが動きます</string>
+  <string name="onlyMembersOfTeam">チームメンバーのみ</string>
+  <string name="noRestriction">制限なし</string>
+  <string name="minimumRatedGames">必要対局数（レート戦）</string>
+  <string name="minimumRating">レーティング下限</string>
+  <string name="maximumWeeklyRating">レーティング上限（週内）</string>
+  <string name="onlyTitled">公式タイトル保持者のみ</string>
+  <string name="onlyTitledHelp">参加には公式タイトルを必須とする</string>
+  <string name="positionInputHelp">有効な FEN をペーストすると全対局がその局面から始まります。
+通常ルールのチェスだけで、バリアントには使えません。
+%s を使えば FEN が作れます。それをここにペーストするだけです。
+通常の開始局面から始める場合はここは空白のままです。</string>
+  <string name="cancelSimul">同時対局をキャンセル</string>
+  <string name="simulHostcolor">ホスト側の手番</string>
+  <string name="estimatedStart">開始予定時刻</string>
+  <string name="simulFeatured">%s に表示</string>
+  <string name="simulFeaturedHelp">%s 上の全員に表示します。非公開の同時対局では無効にしてください。</string>
+  <string name="simulDescription">同時対局の説明</string>
+  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">参加者に伝えたいことがあればどうぞ</string>
+  <string name="markdownAvailable">高度な修飾方法として %s も使えます。</string>
+  <string name="inYourLocalTimezone">自分のタイムゾーンで</string>
+  <string name="tournChat">トーナメント チャット</string>
+  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">チャットなし</string>
+  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">チームリーダー限定</string>
+  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">チームメンバー限定</string>
 </resources>

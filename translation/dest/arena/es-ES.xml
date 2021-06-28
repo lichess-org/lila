@@ -44,4 +44,12 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
     <item quantity="one">Ver equipo</item>
     <item quantity="other">Ver los %s equipos</item>
   </plurals>
+  <string name="newTeamBattle">Nueva batalla de equipo</string>
+  <string name="customStartDate">Fecha de inicio personalizada</string>
+  <string name="customStartDateHelp">En tu propia zona horaria local. Esto reemplaza la configuración de «Tiempo antes de que comience el torneo».</string>
+  <string name="allowBerserk">Permitir Berserk</string>
+  <string name="allowBerserkHelp">Permite a los jugadores reducir el tiempo de la partida a la mitad para ganar un punto extra</string>
+  <string name="allowChatHelp">Permite a los jugadores comunicarse en una sala de chat</string>
+  <string name="arenaStreaks">Rachas de torneos</string>
+  <string name="arenaStreaksHelp">Después de ganar 2 partidas seguidas, cada victoria consecutiva concede 4 puntos en lugar de 2.</string>
 </resources>

@@ -29,8 +29,7 @@ Wenn zwei oder mehr Spieler die gleiche Punktzahl besitzen, entscheidet die Turn
 Sobald du ein Spiel beendet hast, kannst du zur Turnierübersicht zurückkehren. Dir wird dann ein Spieler mit ähnlichem Rang zugeteilt. Dadurch wird eine kurze Wartezeit erreicht, allerdings kann es sein, dass du nicht gegen alle anderen Spieler in diesem Turnier spielen wirst.
 Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spielen und eine höhere Punktzahl zu erzielen.</string>
   <string name="howDoesItEnd">Wann endet das Turnier?</string>
-  <string name="howDoesItEndAnswer">Während des Turniers wird die Zeit heruntergezählt. Wenn sie null erreicht, wird die Rangliste eingefroren und der Gewinner bekanntgegeben.
-Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnier.</string>
+  <string name="howDoesItEndAnswer">Während des Turniers wird die Zeit heruntergezählt. Wenn sie null erreicht, wird die Rangliste eingefroren und der Gewinner bekanntgegeben. Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnier.</string>
   <string name="otherRules">Andere wichtige Regeln</string>
   <string name="thereIsACountdown">Es gibt einen Countdown für deinen ersten Zug. Ziehst du nicht innerhalb dieser Zeit, wird der Sieg deinem Gegner zugesprochen.</string>
   <plurals name="drawingWithinNbMoves">
@@ -45,4 +44,12 @@ Laufende Partien müssen beendet werden, zählen aber nicht mehr für das Turnie
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alle %s Teams ansehen</item>
   </plurals>
+  <string name="newTeamBattle">Neuer Teamkampf</string>
+  <string name="customStartDate">Benutzerdefiniertes Startdatum</string>
+  <string name="customStartDateHelp">In deiner eigenen, lokalen Zeitzone. Dies wird die Einstellung \"Zeit bevor das Turnier beginnt\" überschreiben</string>
+  <string name="allowBerserk">Berserk erlauben</string>
+  <string name="allowBerserkHelp">Lasse Spieler ihre Bedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
+  <string name="allowChatHelp">Lasse Spieler in einem Chatraum diskutieren</string>
+  <string name="arenaStreaks">Arena-Siegesserien</string>
+  <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>

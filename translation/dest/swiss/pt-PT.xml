@@ -5,4 +5,11 @@
     <item quantity="one">Ver a ronda</item>
     <item quantity="other">Ver todas as %s equipas</item>
   </plurals>
+  <string name="tournStartDate">Data de início do torneio</string>
+  <string name="nbRounds">Número de rondas</string>
+  <string name="nbRoundsHelp">Um número ímpar de rondas permite um equilíbrio de cores ideal.</string>
+  <string name="roundInterval">Intervalo entre rondas</string>
+  <string name="forbiddenPairings">Emparelhamentos proibidos</string>
+  <string name="forbiddenPairingsHelp">Nomes de utilizador de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes de utilizador por linha, separados por um espaço.</string>
+  <string name="newSwiss">Novo torneio em sistema Suíço</string>
 </resources>

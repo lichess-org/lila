@@ -38,6 +38,7 @@
   <string name="raceComplete">Kisa on päättynyt!</string>
   <string name="spectating">Katsomassa</string>
   <string name="joinTheRace">Liity kisaan!</string>
+  <string name="startTheRace">Aloita kisa</string>
   <string name="yourRankX">Sijoituksesi: %s</string>
   <string name="waitForRematch">Odota revanssia</string>
   <string name="nextRace">Seuraava kisa</string>

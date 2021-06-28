@@ -48,4 +48,12 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
     <item quantity="one">Skatīt %s komandu</item>
     <item quantity="other">Skatīt visas %s komandas</item>
   </plurals>
+  <string name="newTeamBattle">Jauna Komandas Kauja</string>
+  <string name="customStartDate">Pielāgots sākuma datums</string>
+  <string name="customStartDateHelp">Jūsu laika zonā. Šis aizstās iestatījumu \"Laiks līdz turnīra sākumam\"</string>
+  <string name="allowBerserk">Atļaut \"dullās\" spēles</string>
+  <string name="allowBerserkHelp">Ļaut spēlētājiem apmainīt pusi laika pret iespēju gūt papildpunktu</string>
+  <string name="allowChatHelp">Ļaut spēlētājiem izmantot sarunu istabu</string>
+  <string name="arenaStreaks">Arēnas uzvaru sērija</string>
+  <string name="arenaStreaksHelp">Pēc 2 uzvarām, secīgās uzvaras piešķirs 4 punktus nevis 2.</string>
 </resources>

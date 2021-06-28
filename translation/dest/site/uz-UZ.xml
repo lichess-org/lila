@@ -672,8 +672,6 @@
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Sizning akkauntingiz bilan kirilgan qurilmalaringiz ro\'yhati. O\'zingizga tanimagan seanslarni bekor qilishingiz mumkin.</string>
-  <string name="alternativelyYouCanX">Yoki siz %s ni qilishingiz mumkin.</string>
   <string name="revokeAllSessions">barcha sessiyalarni bekor qilish</string>
   <string name="playChessEverywhere">Shahmatni xamma joyda o\'ynash</string>
   <string name="asFreeAsLichess">Lichess kabi bepul</string>

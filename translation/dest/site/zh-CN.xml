@@ -654,7 +654,6 @@
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>
-  <string name="alternativelyYouCanX">或者你可以 %s。</string>
   <string name="revokeAllSessions">注销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="asFreeAsLichess">Lichess 永远免费</string>

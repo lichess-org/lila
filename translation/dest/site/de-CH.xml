@@ -93,7 +93,7 @@
     <item quantity="one">Nächschti Schlag- oder Buuräzug in %s Halbzug (Dischtanz zum Zruggsetzte vom Zähler für d 50-Züg-Reglä)</item>
     <item quantity="other">Nöchschti Schlag- oder Puuräzug in %s Halbzüg (Dischtanz zum Zruggsetzte vom Zähler fürd 50-Züg-Reglä)</item>
   </plurals>
-  <string name="noGameFound">Kas Schpiil gfundä</string>
+  <string name="noGameFound">Käs Schpiil gfundä</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht söted meh Schpiil vom Iischteligs Menu iibezogä werdä?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
   <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
@@ -338,7 +338,7 @@
   <string name="siteDescription">Chostälosi online Schach-Server. Schpill jetzt ufärä übersichtlichä Benutzeroberflächi Schach! Käi Regrischtriärig und käi Plugins erforderlich und komplett ohni Wärbig. Schpill jetzt gäg än Fründ, dä Kompi oder gäg än zuefälligä Gägnär!</string>
   <string name="xJoinedTeamY">%1$s isch äm Team %2$s biiträttä</string>
   <string name="xCreatedTeamY">%1$s hät s\'Team %2$s gründät</string>
-  <string name="xStartedStreaming">%s hät än Stream gschtartät</string>
+  <string name="xStartedStreaming">%s hät än Schtriim gschtartät</string>
   <string name="averageElo">Durchschnittswärtig</string>
   <string name="location">Ort</string>
   <string name="filterGames">Partiiä filtärä</string>
@@ -605,7 +605,7 @@
   <string name="tpTimeSpentOnTV">Gsamtziit uf Lichess TV: %s</string>
   <string name="watch">Zuäluägä</string>
   <string name="videoLibrary">Filmli-Bibliothek</string>
-  <string name="streamersMenu">Schtreamer</string>
+  <string name="streamersMenu">Schtriimer/-innä</string>
   <string name="mobileApp">Mobili Äpp</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>
@@ -868,5 +868,29 @@
   <string name="lichessPatronInfo">Lichess isch ä Wohltätigkeitsorganisation und ä völlig chostälosi/freii Open-Source-Software.
 Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
   <string name="coachManager">Trääner Mänätscher</string>
-  <string name="streamerManager">Schtreamer Mänätscher</string>
+  <string name="streamerManager">Schtriimer Mänätscher</string>
+  <string name="cancelTournament">Turnier abbrechen</string>
+  <string name="tournDescription">Turnierbeschreibung</string>
+  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
+  <string name="ratedFormHelp">Partien sind gewertet
+und beeinflussen die Wertungszahl der Spieler</string>
+  <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
+  <string name="noRestriction">Keine Einschränkung</string>
+  <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
+  <string name="minimumRating">Niedrigste Wertungszahl</string>
+  <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
+  <string name="onlyTitled">Nur Spieler mit Titel</string>
+  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
+Das funktioniert nur für Standardspiele, nicht für Varianten.
+Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
+Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
+  <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
+  <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
+  <string name="estimatedStart">Voraussichtliche Startzeit</string>
+  <string name="simulFeatured">Auf %s zeigen</string>
+  <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
+  <string name="simulDescription">Simultan Beschreibung</string>
+  <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
+  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
 </resources>

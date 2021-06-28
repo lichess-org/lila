@@ -38,6 +38,7 @@
   <string name="raceComplete">Race fuldført!</string>
   <string name="spectating">Tilskuere</string>
   <string name="joinTheRace">Deltag i racet!</string>
+  <string name="startTheRace">Start racet</string>
   <string name="yourRankX">Din rang: %s</string>
   <string name="waitForRematch">Vent på omkamp</string>
   <string name="nextRace">Næste race</string>

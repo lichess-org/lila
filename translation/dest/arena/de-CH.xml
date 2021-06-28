@@ -29,8 +29,7 @@ Wenn zwei oder meh Schpiller/-innä di gliich Punktzahl bsitzäd, entscheidät d
 Sobald du es Schpiil beändät häsch, chasch du zur Turnierübersicht zrugggoh. Dir wird dänn än Schpiller/ ä Schpillerin mit ähnlichäm Rang zuäteilt. So wird ä churzi Warteziit erreicht, allerdings cha passiärä, dass du nöd geg alli anderä Schpiller/-innä im Turnier spillsch.
 Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und ä höcheri Punktzahl z\'erziilä.</string>
   <string name="howDoesItEnd">Wänn ändät äsTurnier?</string>
-  <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh.
-Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
+  <string name="howDoesItEndAnswer">WährendmäTurnier wird d\'Ziit abäzellt. Wenn si null erreicht, wird d\'Ranglischte iigfrorä und dä Gwünner bekanntgeh. Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</string>
   <string name="otherRules">Anderi wichtigi Reglä</string>
   <string name="thereIsACountdown">Es git en Countdown für din erschtä Zug. Züchsch du nöd innerhalb vo därä Zit, wird dä Siig dim Gegner zuegsprochä. Usserdem bechömäd Zürcher immer ein Punkt Abzug.</string>
   <plurals name="drawingWithinNbMoves">
@@ -45,4 +44,12 @@ Laufendi Partiä münd beändä wärdä, zelläd aber nümä für das Turnier.</
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alli %s Teams aluägä</item>
   </plurals>
+  <string name="newTeamBattle">Neuer Teamkampf</string>
+  <string name="customStartDate">Benutzerdefiniertes Startdatum</string>
+  <string name="customStartDateHelp">In deiner eigenen, lokalen Zeitzone. Dies wird die Einstellung \"Zeit bevor das Turnier beginnt\" überschreiben</string>
+  <string name="allowBerserk">Berserk erlauben</string>
+  <string name="allowBerserkHelp">Lasse Spieler ihre Bedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
+  <string name="allowChatHelp">Lasse Spieler in einem Chatraum diskutieren</string>
+  <string name="arenaStreaks">Arena-Siegesserien</string>
+  <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>

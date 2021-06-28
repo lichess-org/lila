@@ -692,6 +692,7 @@
   <string name="enableKidMode">Activar el mode de nen</string>
   <string name="disableKidMode">Desactivar el mode de nen</string>
   <string name="security">Seguretat</string>
+  <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">tancar totes les sessions</string>
   <string name="playChessEverywhere">Jugueu a escacs a qualsevol lloc</string>
   <string name="asFreeAsLichess">Tan lliure com lichess</string>
@@ -866,4 +867,9 @@
   <string name="welcome">Benvinguts!</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="cancelTournament">Cancel-lar el torneig</string>
+  <string name="tournDescription">Descripció del torneig</string>
+  <string name="onlyMembersOfTeam">Només membres de l\'equip</string>
+  <string name="noRestriction">Sense restriccions</string>
+  <string name="onlyTitledHelp">Es necessita un títol oficial per entrar en el torneig</string>
 </resources>

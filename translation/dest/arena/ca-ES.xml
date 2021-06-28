@@ -41,4 +41,6 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
     <item quantity="one">Veure l\'equip</item>
     <item quantity="other">Veure els %s equips</item>
   </plurals>
+  <string name="newTeamBattle">Nova batalla d\'equips</string>
+  <string name="allowBerserk">Es permet Berserk</string>
 </resources>

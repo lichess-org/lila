@@ -5,4 +5,5 @@
     <item quantity="one">Vaata vooru</item>
     <item quantity="other">Vaata kõiki %s vooru</item>
   </plurals>
+  <string name="newSwiss">Uus Šveitsi turniir</string>
 </resources>

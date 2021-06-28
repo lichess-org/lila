@@ -52,6 +52,7 @@
   <string name="knightMate">상대방이 킹이 아닌 다른 기물을 가지고 있다면 나이트 하나 또는 비숍 하나로도 체크메이트가 가능합니다.</string>
   <string name="noRatingPoints">레이팅 포인트 미지급</string>
   <string name="ratedGame">레이팅 게임을 했는지 다시 한번 확인하십시오. 캐주얼 게임은 레이팅에 영향을 미치지 않습니다.</string>
+  <string name="botRatingAbuse">특정 상황에서 봇 계정을 상대로 플레이할 때, 플레이어가 레이팅을 얻기 위해 부정행위를 하는 것으로 판단될 경우 레이팅 포인트가 부여되지 않을 수 있습니다.</string>
   <string name="errorPage">에러 페이지</string>
   <string name="reportErrorPage">에러 페이지가 나온 경우 여기에서 신고해주세요:</string>
   <string name="banAppeal">차단 또는 IP 제한에 대한 이의를 제기하고 싶습니다</string>

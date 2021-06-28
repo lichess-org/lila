@@ -9,7 +9,7 @@
   <string name="freeChess">Šachy zdarma pro všechny, navždy!</string>
   <string name="noAdsNoSubs">Žádné reklamy, žádné předplatné, ale otevřený kód a vášeň.</string>
   <string name="thankYou">Děkujeme za váš příspěvek!</string>
-  <string name="youHaveLifetime">Máte doživotní Patron účet. To je docela úžasné!</string>
+  <string name="youHaveLifetime">You have a Lifetime Patron account. That\'s pretty awesome!</string>
   <string name="patronUntil">Máte Patron účet do %s.</string>
   <string name="ifNotRenewed">Pokud nedojde k obnoveni, budete sníženi na variantu zdarma.</string>
   <string name="weAreNonProfit">Jsme neziskovým sdružením, protože jsme přesvědčeni, že každý by měl mít přístup k bezplatné, prvotřídní šachové platformě.</string>
@@ -22,6 +22,7 @@
   <string name="onetime">Jednorázově</string>
   <string name="singleDonation">Jediný příspěvek, který vám poskytne křídla Patrona na jeden měsíc.</string>
   <string name="otherAmount">Ostatní</string>
+  <string name="pleaseEnterAmountInX">Please enter an amount in %s</string>
   <string name="withCreditCard">Platební karta</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Jsme malý tým, takže vaše podpora dělá velké změny!</string>
@@ -55,6 +56,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="nextPayment">Další platba</string>
   <string name="youWillBeChargedXOnY">Bude vám účtováno %1$s dne %2$s.</string>
   <string name="makeAdditionalDonation">Poskytnout nyní další příspěvek</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Darujte křídla někomu jinému</string>
   <string name="update">Aktualizovat</string>
   <string name="changeMonthlyAmount">Změnit měsíční částku (%s)</string>
   <string name="cancelSupport">zrušit svou podporu</string>

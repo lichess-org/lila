@@ -851,4 +851,24 @@
   <string name="welcome">خوش آمدید!</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="coachManager">تنظیمات مربی</string>
+  <string name="cancelTournament">لغو مسابقه</string>
+  <string name="tournDescription">توضیحات مسابقه</string>
+  <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
+  <string name="ratedFormHelp">بازی ها رتبه بندی می شوند و در ریتینگ بازیکنان موثر است</string>
+  <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
+  <string name="noRestriction">بدون محدودیت</string>
+  <string name="minimumRatedGames">حداقل بازی های ریتد</string>
+  <string name="minimumRating">حداقل امتیاز</string>
+  <string name="maximumWeeklyRating">حداکثر امتیاز هفتگی</string>
+  <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
+  <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
+  <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.
+این عمل فقط برای بازی های استاندارد امکان پذیر است، نه با واریانت ها.
+شما می توانید %s را جهت ساخت یک پوزیشن FEN استفاده کنید و سپس اینجا جایگذاری کنید.
+برای شروع بازی ها از وضعیت عادی ابتدایی خالی بگذارید.</string>
+  <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
+  <string name="tournChat">چت مسابقه</string>
+  <string name="noChat">بدون چت</string>
+  <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
+  <string name="onlyTeamMembers">تنها اعضای تیم</string>
 </resources>

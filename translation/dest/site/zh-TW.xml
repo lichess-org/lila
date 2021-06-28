@@ -652,7 +652,6 @@
   <string name="enableKidMode">啟用兒童模式</string>
   <string name="disableKidMode">停用兒童模式</string>
   <string name="security">資訊安全相關設定</string>
-  <string name="alternativelyYouCanX">或者，您可以%s</string>
   <string name="revokeAllSessions">登出所有裝置</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永遠的免費。</string>

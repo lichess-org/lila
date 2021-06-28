@@ -43,4 +43,12 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
     <item quantity="one">Csapat megtekintése</item>
     <item quantity="other">Mind a %s csapat megtekintése</item>
   </plurals>
+  <string name="newTeamBattle">Új csapatverseny</string>
+  <string name="customStartDate">Kezdés időpontja</string>
+  <string name="customStartDateHelp">Saját időzóna szerint. Ez felülbírálja a \"Hátralévő idő a verseny kezdetéig\" beállítást</string>
+  <string name="allowBerserk">Berserk engedélyezése</string>
+  <string name="allowBerserkHelp">A játékosok saját idejük feléért cserébe többletpontot kapnak</string>
+  <string name="allowChatHelp">Chatszoba engedélyezése a játékosoknak</string>
+  <string name="arenaStreaks">Aréna sorozatok</string>
+  <string name="arenaStreaksHelp">A második nyert játszmát követően minden nyert játszma 4 pontot ér 2 helyett.</string>
 </resources>

@@ -653,7 +653,6 @@
   <string name="enableKidMode">Kích hoạt chế độ trẻ em</string>
   <string name="disableKidMode">Tắt chế độ trẻ em</string>
   <string name="security">Bảo mật</string>
-  <string name="alternativelyYouCanX">Ngoài ra, bạn có thể %s.</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="asFreeAsLichess">Miễn phí như lichess</string>

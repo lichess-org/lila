@@ -19,7 +19,7 @@
   <string name="weAreNonProfit">Somos una organización sin ánimo de lucro porque creemos que todos deberíamos tener acceso a una plataforma de ajedrez de primera clase y gratuita.</string>
   <string name="weRelyOnSupport">Lo hacemos posible gracias al apoyo de gente como tú. Si te gusta Lichess, por favor ¡considera apoyarnos donando y convirtiéndote en patrón!</string>
   <string name="lifetime">De por vida</string>
-  <string name="payLifetimeOnce">Paga %s una vez. ¡Sé un patrón de Lichess para siempre!</string>
+  <string name="payLifetimeOnce">Pay %s once. Be a Lichess Patron forever!</string>
   <string name="lifetimePatron">Patrón de Lichess de por vida</string>
   <string name="monthly">Mensual</string>
   <string name="recurringBilling">Facturación recurrente, renovando tus alas de patrón cada mes.</string>
@@ -52,27 +52,27 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
     <item quantity="one">Patrón de Lichess por un mes</item>
     <item quantity="other">Patrón de Lichess por %s meses</item>
   </plurals>
-  <string name="youSupportWith">Apoyas a lichess.org con %s al mes.</string>
-  <string name="tyvm">¡Muchas gracias por tu apoyo! ¡Eres genial!</string>
-  <string name="currentStatus">Estado actual</string>
-  <string name="nextPayment">Próximo pago</string>
-  <string name="youWillBeChargedXOnY">Se te cobrará %1$s el %2$s.</string>
-  <string name="makeAdditionalDonation">Haz una donación adicional ahora</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Regalar alas de patrocinador a un jugador</string>
-  <string name="update">Actualizar</string>
-  <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>
-  <string name="cancelSupport">cancela tu apoyo</string>
-  <string name="xOrY">%1$s o %2$s</string>
+  <string name="youSupportWith">You support lichess.org with %s per month.</string>
+  <string name="tyvm">Thank you very much for your help. You rock!</string>
+  <string name="currentStatus">Current status</string>
+  <string name="nextPayment">Next payment</string>
+  <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
+  <string name="makeAdditionalDonation">Make an additional donation</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Gift Patron wings to a player</string>
+  <string name="update">Update</string>
+  <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
+  <string name="cancelSupport">cancel your support</string>
+  <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide cuanto vale Lichess para ti:</string>
   <string name="stopPayments">Retira tu tarjeta de crédito y detén los pagos:</string>
-  <string name="noLongerSupport">Ya no apoyas a Lichess</string>
+  <string name="noLongerSupport">No longer support Lichess</string>
   <string name="viewOthers">Ver otros Patrones de Lichess</string>
-  <string name="date">Fecha</string>
-  <string name="amount">Cantidad</string>
-  <string name="transactionCompleted">La transacción ha sido completada y el recibo de la donación se te ha enviado por correo electrónico.</string>
+  <string name="date">Date</string>
+  <string name="amount">Amount</string>
+  <string name="transactionCompleted">Your transaction has been completed, and a receipt for your donation has been emailed to you.</string>
   <string name="permanentPatron">Ahora tienes una cuenta de Patrón permanente.</string>
   <string name="checkOutProfile">¡Échale un vistazo a tu página de perfil!</string>
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
-  <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess será reducida a la versión normal.</string>
+  <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
 </resources>

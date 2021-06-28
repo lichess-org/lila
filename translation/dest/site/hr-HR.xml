@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Igraš bijelim figurama</string>
   <string name="youPlayTheBlackPieces">Igraš crnim figurama</string>
   <string name="itsYourTurn">Ti si na redu!</string>
+  <string name="cheatDetected">Varanje otkriveno</string>
   <string name="kingInTheCenter">Kralj na centru</string>
   <string name="threeChecks">Tri šaha</string>
   <string name="raceFinished">Utrka je završena</string>
@@ -470,6 +471,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Životopis</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="inlineNotation">Kompaktnija notacija</string>

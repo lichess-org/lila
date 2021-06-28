@@ -331,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste ukeratingen din i %1$s (%2$s) er for høy</string>
   <string name="yourPerfRatingIsTooLow">Ratingen din i %1$s (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
-  <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s denne uken</string>
+  <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s den foregående uken</string>
   <string name="mustBeInTeam">Du må være med i laget %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
@@ -869,4 +869,25 @@
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerdonasjoner.</string>
   <string name="coachManager">Innstillinger for trenere</string>
   <string name="streamerManager">Innstillinger for strømmere</string>
+  <string name="cancelTournament">Avlys turneringen</string>
+  <string name="tournDescription">Turneringsbeskrivelse</string>
+  <string name="tournDescriptionHelp">Noe du vil si til deltakerne? Vær kortfattet. Markdown-lenker kan brukes: [name](https://url)</string>
+  <string name="ratedFormHelp">Partiene er ratet
+og påvirker spillernes rating</string>
+  <string name="onlyMembersOfTeam">Kun lagmedlemmer</string>
+  <string name="noRestriction">Ingen begrensning</string>
+  <string name="minimumRatedGames">Minimum ratede partier</string>
+  <string name="minimumRating">Minimum rating</string>
+  <string name="maximumWeeklyRating">Maksimum ukerating</string>
+  <string name="onlyTitled">Kun spillere med sjakktittel</string>
+  <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å bli med i turneringen</string>
+  <string name="positionInputHelp">Lim inn gyldig FEN for å begynne hvert parti fra gitt stilling.
+Det fungerer bare for standardpartier, ikke for varianter.
+Du kan bruke %s for å generere en FEN-stilling, som du limer inn her.
+La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</string>
+  <string name="cancelSimul">Avbryt simultanoppvisningen</string>
+  <string name="simulHostcolor">Vertsfarge for hvert parti</string>
+  <string name="estimatedStart">Forventet starttidspunkt</string>
+  <string name="simulFeatured">Vis på %s</string>
+  <string name="inYourLocalTimezone">I tidssonen din</string>
 </resources>

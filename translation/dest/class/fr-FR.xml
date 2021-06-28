@@ -67,6 +67,10 @@ Voici le lien pour accéder à la classe.</string>
   <string name="releaseDesc1">Un compte autonome ne peut plus être géré. L\'élève pourra choisir d\'utiliser ou non le mode enfant et changer son mot de passe lui-même.</string>
   <string name="releaseDesc2">L\'élève restera dans la classe après que son compte ait été libéré.</string>
   <string name="realUniqueEmail">Adresse email réelle de l\'élève. Nous lui enverrons une mail de confirmation, avec un lien pour rendre le compte autonome.</string>
+  <string name="closeStudent">Fermer le compte</string>
+  <string name="closeTheAccount">Fermer le compte de l\'élève définitivement.</string>
+  <string name="closeDesc1">L\'élève ne pourra plus utiliser ce compte. Il sera fermé définitivement. Assurez-vous que l\'élève l\'a compris et accepté.</string>
+  <string name="closeDesc2">Vous pouvez aussi laisser le contrôle du compte à l\'élève pour qu\'il puisse continuer de l\'utiliser.</string>
   <string name="teachers">Enseignants</string>
   <plurals name="nbTeachers">
     <item quantity="one">Enseignant</item>
@@ -92,5 +96,4 @@ Voici le lien pour accéder à la classe.</string>
   <string name="newsEdit1">Toutes les nouvelles de la classe dans un seul champ.</string>
   <string name="newsEdit2">Ajouter les dernières nouvelles en haut. Ne pas supprimer les nouvelles précédentes.</string>
   <string name="newsEdit3">Séparez les actualités par ---- cela affichera une barre horizontale.</string>
-  <string name="markdownAvailable">%s est disponible pour une syntaxe plus avancée.</string>
 </resources>

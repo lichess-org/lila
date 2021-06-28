@@ -43,8 +43,7 @@
   <string name="calledEnPassant">Tugtar \"en passant\" air agus \'sé ceann de rialacha i bhficheall.</string>
   <string name="tryEnPassant">Bain triail as an gcluiche beag idirghníomhach seo chun níos mó a fhoghlaim faoi \"en passant\".</string>
   <string name="illegalCastling">Caisliú dodhéanta nó mídhleathach</string>
-  <string name="castlingPrevented">Níor cheart an Rí dul trasna cearnóg atá faoi
-ionsaí namhaid agus tú ag iarraidh caisliú.</string>
+  <string name="castlingPrevented">Níor cheart an Rí dul trasna cearnóg atá faoi ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="castlingRules">Déan cinnte go dtuigeann tú na rialacha faoin caisliú</string>
   <string name="tryCastling">Bain triail as an gcluiche beag idirghníomhach seo chun an caisliú i bhficheall a chleachtadh</string>
   <string name="castlingImported">Má iompórtáladh tú an cluiche, nó má chuir tú tús leis ó shuíomh, déan cinnte go socróidh tú na rialacha caisliú i gceart.</string>
@@ -53,6 +52,7 @@ ionsaí namhaid agus tú ag iarraidh caisliú.</string>
   <string name="knightMate">Is féidir marbhsháinn a dhéanamh le ridire nó easpag amháin, má tá níos mó ná rí ag an céile comhraic.</string>
   <string name="noRatingPoints">Níor bronnadh aon phointí rátála</string>
   <string name="ratedGame">Déan cinnte gur imir tú cluiche rátáilte. Ní dhéanann cluichí ócáideacha difear do rátálacha na n-imreoirí.</string>
+  <string name="botRatingAbuse">In imthosca áirithe agus é ag imirt i gcoinne cuntas bot, ní fhéadfaidh cluiche rátáilte pointí a dhámhachtain má chinntear go bhfuil an t-imreoir ag mí-úsáid an bot le haghaidh pointí rátála.</string>
   <string name="errorPage">Leathanach earráide</string>
   <string name="reportErrorPage">Má thiteann tú ar leathanach earráide, féadfaidh tú é a thuairisciú:</string>
   <string name="banAppeal">Achomharc ar thoirmeasc nó srian IP</string>

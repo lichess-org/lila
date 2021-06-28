@@ -37,4 +37,12 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
     <item quantity="one">Vis laget</item>
     <item quantity="other">Vis alle %s lag</item>
   </plurals>
+  <string name="newTeamBattle">Ny lagkamp</string>
+  <string name="customStartDate">Eigendefinert startdato</string>
+  <string name="customStartDateHelp">I din tidssone. Dette overstyrar innstillinga «Tid før turnering startar»</string>
+  <string name="allowBerserk">Tillat berserk</string>
+  <string name="allowBerserkHelp">Lat spelarane halvere tida si på klokka for eit ekstra poeng</string>
+  <string name="allowChatHelp">Lat spelarane diskutera i samtalerom</string>
+  <string name="arenaStreaks">Arena-sigersrekkjer</string>
+  <string name="arenaStreaksHelp">Etter to sigrar gjev seinara sigrar fire poeng i staden for to.</string>
 </resources>

@@ -57,4 +57,7 @@
   <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
   <string name="continueTheStreak">Pokračovat v sérii</string>
   <string name="newStreak">Nová série</string>
+  <string name="fromMyGames">Z mých partií</string>
+  <string name="fromMyGamesNone">V databázi nemáte žádné úlohy, ale Lichess vás stále velmi miluje.
+Hrajte rapid a klasické hry ke zvýšení šance na přidání vlastní úlohy!</string>
 </resources>

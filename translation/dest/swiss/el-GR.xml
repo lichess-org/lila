@@ -5,4 +5,11 @@
     <item quantity="one">Δείτε τον γύρο</item>
     <item quantity="other">Δείτε όλους τους %s γύρους</item>
   </plurals>
+  <string name="tournStartDate">Ημερομηνία έναρξης τουρνουά</string>
+  <string name="nbRounds">Αριθμός γύρων</string>
+  <string name="nbRoundsHelp">Ένας περιττός αριθμός γύρων βοηθάει στη βέλτιστη ισορροπία χρωμάτων.</string>
+  <string name="roundInterval">Διάστημα μεταξύ γύρων</string>
+  <string name="forbiddenPairings">Απαγορευμένες κληρώσεις</string>
+  <string name="forbiddenPairingsHelp">Ονόματα χρηστών των παικτών που δεν πρέπει να παίξουν μαζί (για παράδειγμα δύο αδέρφια). Εισάγετε δύο ονόματα χρήστη σε κάθε γραμμή, με ένα κενό ανάμεσα.</string>
+  <string name="newSwiss">Νέο Ελβετικό πρωτάθλημα</string>
 </resources>

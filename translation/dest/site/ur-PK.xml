@@ -668,8 +668,6 @@
   <string name="enableKidMode">کڈز موڈ آن کریں</string>
   <string name="disableKidMode">کڈز موڈ آف کریں</string>
   <string name="security">سیکورٹی</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">یہ ان آلات کی فہرست ہے جنہوں نے آپ کے اکاؤنٹ میں لاگ ان کیا ہے۔ کسی بھی سیشن کو کالعدم کریں جسے آپ نہیں پہچانتے ہیں۔.</string>
-  <string name="alternativelyYouCanX">اس کے بجائے آپ %s کر سکتے ہیں.</string>
   <string name="revokeAllSessions">تمام سیشنز کالعدم قرار دے دیں</string>
   <string name="playChessEverywhere">شطرنج کھلیں ہر جگا</string>
   <string name="asFreeAsLichess">لی چیس کی طرح مفت</string>

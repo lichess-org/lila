@@ -653,8 +653,6 @@
   <string name="enableKidMode">Балалар осулын куй</string>
   <string name="disableKidMode">Сабый осулын кирегә куй</string>
   <string name="security">Хәвефсезлек</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бу сезнең хисапка кергән җайланмалар исемлеге. Сез танымаган сессияләрне кире кагарга.</string>
-  <string name="alternativelyYouCanX">Альтернатив рәвештә сез %s эшли аласыз.</string>
   <string name="revokeAllSessions">һәр сессиядан чыгу</string>
   <string name="playChessEverywhere">Уйна шаһмат бөтен җирдә</string>
   <string name="asFreeAsLichess">Личесс кебек азат</string>

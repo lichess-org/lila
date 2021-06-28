@@ -692,8 +692,6 @@
   <string name="enableKidMode">Habilitar o modo infantil</string>
   <string name="disableKidMode">Desabilitar o modo infantil</string>
   <string name="security">Segurança</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é uma lista de dispositivos com os quais você logou em sua conta. Revogue qualquer sessão que você não reconheça.</string>
-  <string name="alternativelyYouCanX">Como alternativa, você pode %s.</string>
   <string name="sessions">Sessões</string>
   <string name="revokeAllSessions">revogar todas as sessões</string>
   <string name="playChessEverywhere">Jogue xadrez em qualquer lugar</string>
@@ -870,4 +868,33 @@
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="coachManager">Configurações para professores</string>
   <string name="streamerManager">Configurações para streamers</string>
+  <string name="cancelTournament">Cancelar o torneio</string>
+  <string name="tournDescription">Descrição do torneio</string>
+  <string name="tournDescriptionHelp">Algo especial que você queira dizer aos participantes? Tente ser breve. Links em Markdown disponíveis: [name](https://url)</string>
+  <string name="ratedFormHelp">Os jogos valem pontos
+e afetam a classificação dos jogadores</string>
+  <string name="onlyMembersOfTeam">Apenas membros da equipe</string>
+  <string name="noRestriction">Sem restrição</string>
+  <string name="minimumRatedGames">Mínimo de partidas ranqueadas</string>
+  <string name="minimumRating">Classificação mínima</string>
+  <string name="maximumWeeklyRating">Classificação máxima da semana</string>
+  <string name="onlyTitled">Apenas jogadores titulados</string>
+  <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
+  <string name="positionInputHelp">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
+Só funciona com jogos padrão, e não com variantes.
+Use o %s para gerar uma posição FEN, e depois cole-a aqui.
+Deixe em branco para começar as partidas na posição inicial padrão.</string>
+  <string name="cancelSimul">Cancelar a simultânea</string>
+  <string name="simulHostcolor">Cor do simultanista em cada jogo</string>
+  <string name="estimatedStart">Tempo de início estimado</string>
+  <string name="simulFeatured">Compartilhar em %s</string>
+  <string name="simulFeaturedHelp">Compartilhar a simultânia com todos em %s. Desative para jogos privados.</string>
+  <string name="simulDescription">Descrição da simultânea</string>
+  <string name="simulDescriptionHelp" comment="simulDescriptionHelp&#10;&#10;Appears on the simul creation page. Prompts the simul host to add a description to their simul.">Você gostaria de dizer algo aos participantes?</string>
+  <string name="markdownAvailable">%s está disponível para opções de formatação adicionais.</string>
+  <string name="inYourLocalTimezone">No seu próprio fuso horário</string>
+  <string name="tournChat">Chat do torneio</string>
+  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Sem chat</string>
+  <string name="onlyTeamLeaders" comment="onlyTeamLeaders&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team leaders.">Apenas líderes de equipe</string>
+  <string name="onlyTeamMembers" comment="onlyTeamMembers&#10;&#10;Configuration option when creating a Swiss tournament, which lets you restrict chat to only team members (and not the wider public).">Apenas membros da equipe</string>
 </resources>
