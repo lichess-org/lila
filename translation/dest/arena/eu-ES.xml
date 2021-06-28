@@ -43,4 +43,6 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
     <item quantity="one">Taldea ikusi</item>
     <item quantity="other">%s taldeak ikusi</item>
   </plurals>
+  <string name="newTeamBattle">Taldeen Arteko Txapelketa berria</string>
+  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">Pertsonalizatutako hasiera data</string>
 </resources>
