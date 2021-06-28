@@ -277,10 +277,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     $doc(F.marks -> UserMark.Boost.key),
     $doc(F.marks -> UserMark.Troll.key)
   )
-  val enabledNoBotSelect = $and(
-    $doc(F.enabled -> true),
-    $doc(F.title   -> $ne(Title.BOT))
-  )
+  val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val patronSelect = $doc(s"${F.plan}.active" -> true)
