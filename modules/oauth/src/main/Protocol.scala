@@ -45,13 +45,6 @@ object Protocol {
         .map(CodeVerifier.apply)
   }
 
-  case class HashedClientSecret(value: String) extends AnyVal
-
-  case class ClientSecret(secret: String) extends AnyVal {
-    def matches(hash: HashedClientSecret) = Algo.sha256(secret).hex == hash.value
-    override def toString                 = "ClientSecret(***)"
-  }
-
   case class ResponseType()
   object ResponseType {
     def from(responseType: String): Validated[Error, ResponseType] =
@@ -137,7 +130,6 @@ object Protocol {
     case object CodeRequired                extends InvalidRequest("code required")
     case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
     case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
-    case object ClientSecretRequired        extends InvalidRequest("client_secret required (or switch to pkce)")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
@@ -157,7 +149,5 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different client_Id")
     case object MismatchingCodeVerifier
         extends InvalidGrant("hash of code_verifier does not match code_challenge")
-    case object MismatchingClientSecret
-        extends InvalidGrant("fix mismatching client secret (or switch to pkce)")
   }
 }

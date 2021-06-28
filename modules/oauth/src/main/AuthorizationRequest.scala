@@ -67,7 +67,7 @@ object AuthorizationRequest {
 
     def authorize(
         user: User,
-        legacy: ClientId => Fu[Option[HashedClientSecret]]
+        legacy: ClientId => Fu[Option[LegacyClientApi.HashedClientSecret]]
     ): Fu[Validated[Error, Authorized]] =
       (codeChallengeMethod match {
         case None =>
@@ -100,7 +100,7 @@ object AuthorizationRequest {
       state: Option[State],
       user: User.ID,
       scopes: List[OAuthScope],
-      challenge: Either[HashedClientSecret, CodeChallenge]
+      challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ) {
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
   }

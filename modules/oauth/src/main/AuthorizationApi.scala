@@ -38,9 +38,9 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
         _ <- pending.challenge match {
           case Left(hashedClientSecret) =>
             request.clientSecret
-              .map(Protocol.ClientSecret)
-              .toValid(Protocol.Error.ClientSecretRequired)
-              .ensure(Protocol.Error.MismatchingClientSecret)(_.matches(hashedClientSecret))
+              .map(LegacyClientApi.ClientSecret)
+              .toValid(LegacyClientApi.ClientSecretRequired)
+              .ensure(LegacyClientApi.MismatchingClientSecret)(_.matches(hashedClientSecret))
               .map(_.unit)
           case Right(codeChallenge) =>
             request.codeVerifier
@@ -70,7 +70,7 @@ private object AuthorizationApi {
       clientId: Protocol.ClientId,
       userId: User.ID,
       redirectUri: Protocol.RedirectUri,
-      challenge: Either[Protocol.HashedClientSecret, Protocol.CodeChallenge],
+      challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: List[OAuthScope],
       expires: DateTime
   )
@@ -88,7 +88,7 @@ private object AuthorizationApi {
         userId = r.str(F.userId),
         redirectUri = Protocol.RedirectUri.unchecked(r.str(F.redirectUri)),
         challenge = r.strO(F.hashedClientSecret) match {
-          case Some(hashedClientSecret) => Left(Protocol.HashedClientSecret(hashedClientSecret))
+          case Some(hashedClientSecret) => Left(LegacyClientApi.HashedClientSecret(hashedClientSecret))
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
         },
         scopes = r.get[List[OAuthScope]](F.scopes),
