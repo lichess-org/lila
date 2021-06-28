@@ -5,4 +5,5 @@
     <item quantity="one">Näytä kierros</item>
     <item quantity="other">Näytä kaikki %s kierrosta</item>
   </plurals>
+  <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
 </resources>
