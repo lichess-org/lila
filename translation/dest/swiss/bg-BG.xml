@@ -5,4 +5,6 @@
     <item quantity="one">Вижте рунда</item>
     <item quantity="other">Вижте всички %s рунда</item>
   </plurals>
+  <string name="tournStartDate">Начална дата на турнира</string>
+  <string name="nbRounds">Брой рундове</string>
 </resources>
