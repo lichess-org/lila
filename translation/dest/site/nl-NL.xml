@@ -893,4 +893,9 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="simulDescription">Omschrijving van de simultaan</string>
   <string name="simulDescriptionHelp">Is er nog iets wat de deelnemers moeten weten?</string>
   <string name="markdownAvailable">%s is beschikbaar voor meer geavanceerde opmaak.</string>
+  <string name="inYourLocalTimezone">In uw eigen lokale tijdzone</string>
+  <string name="tournChat">Toernooi-chat</string>
+  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Geen chat</string>
+  <string name="onlyTeamLeaders">Alleen teamleiders</string>
+  <string name="onlyTeamMembers">Alleen teamleden</string>
 </resources>
