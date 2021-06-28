@@ -2,17 +2,18 @@ import { h, VNode } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes } from '../interfaces';
+import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
-function scoreTag(s) {
-  return h(scoreTagNames[(s[1] || 1) - 1], [Array.isArray(s) ? s[0] : s]);
+function scoreTag(s: [number, number] | number) {
+  const [score, tag] = Array.isArray(s) ? s : [s, 1];
+  return h(scoreTagNames[tag - 1], [score]);
 }
 
-function playerTr(ctrl: TournamentController, player) {
+function playerTr(ctrl: TournamentController, player: StandingPlayer) {
   const userId = player.name.toLowerCase(),
     nbScores = player.sheet.scores.length;
   const battle = ctrl.data.teamBattle;
@@ -54,7 +55,7 @@ function playerTr(ctrl: TournamentController, player) {
   );
 }
 
-function podiumUsername(p) {
+function podiumUsername(p: PodiumPlayer) {
   return h(
     'a.text.ulpt.user-link',
     {
@@ -64,7 +65,7 @@ function podiumUsername(p) {
   );
 }
 
-function podiumStats(p, berserkable, trans: Trans): VNode {
+function podiumStats(p: PodiumPlayer, berserkable: boolean, trans: Trans): VNode {
   const noarg = trans.noarg,
     nb = p.nb;
   return h('table.stats', [
@@ -79,8 +80,9 @@ function podiumStats(p, berserkable, trans: Trans): VNode {
   ]);
 }
 
-function podiumPosition(p, pos: string, berserkable, trans: Trans): VNode | undefined {
+function podiumPosition(p: PodiumPlayer, pos: string, berserkable: boolean, trans: Trans): VNode | undefined {
   if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, trans)]);
+  return undefined;
 }
 
 let lastBody: MaybeVNodes | undefined;
@@ -98,11 +100,11 @@ function preloadUserTips(el: HTMLElement) {
   lichess.powertip.manualUserIn(el);
 }
 
-export function controls(ctrl: TournamentController, pag): VNode {
+export function controls(ctrl: TournamentController, pag: Pagination): VNode {
   return h('div.tour__controls', [h('div.pager', pagination.renderPager(ctrl, pag)), button.joinWithdraw(ctrl)]);
 }
 
-export function standing(ctrl: TournamentController, pag, klass?: string): VNode {
+export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {
   const tableBody = pag.currentPageResults ? pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(

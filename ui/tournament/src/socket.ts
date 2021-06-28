@@ -19,7 +19,8 @@ export default function (send: SocketSend, ctrl: TournamentController) {
   return {
     send,
     receive(type: string, data: any) {
-      if (handlers[type]) return handlers[type](data);
+      const handler = (handlers as SocketHandlers)[type];
+      if (handler) return handler(data);
       return false;
     },
   };
