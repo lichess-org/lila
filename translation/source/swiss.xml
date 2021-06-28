@@ -28,8 +28,8 @@
     <item quantity="other">Ongoing games</item>
   </plurals>
   <string name="tournStartDate">Tournament start date</string>
-  <string name="nbRounds">Number of rounds</string>
-  <string name="nbRoundsHelp">An odd number of rounds allows optimal color balance.</string>
+  <string name="numberOfRounds">Number of rounds</string>
+  <string name="numberOfRoundsHelp">An odd number of rounds allows optimal color balance.</string>
   <string name="roundInterval">Interval between rounds</string>
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>

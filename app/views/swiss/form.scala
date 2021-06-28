@@ -87,7 +87,7 @@ object form {
       )
     }
 
-private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
+  private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
       form3.split(
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
@@ -133,8 +133,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
   def nbRounds =
     form3.group(
       form("nbRounds"),
-      trans.swiss.nbRounds(),
-      help = trans.swiss.nbRoundsHelp().some,
+      trans.swiss.numberOfRounds(),
+      help = trans.swiss.numberOfRoundsHelp().some,
       half = true
     )(
       form3.input(_, typ = "number")
@@ -183,7 +183,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
+      help =
+        trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(form3.input(_))
   def startsAt =
     form3.group(
