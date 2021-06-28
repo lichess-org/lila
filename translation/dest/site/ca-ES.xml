@@ -195,7 +195,7 @@
   <string name="passwordReset">Restablir la contrasenya</string>
   <string name="forgotPassword">Has oblidat la contrasenya?</string>
   <string name="rank">Classificació</string>
-  <string name="rankX">Puntuació: %s</string>
+  <string name="rankX">Classificació: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">La classificació s\'actualitza cada minut</item>
     <item quantity="other">La classificació s\'actualitza cada %s minuts</item>
