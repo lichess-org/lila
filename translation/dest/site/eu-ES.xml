@@ -692,8 +692,6 @@
   <string name="enableKidMode">Haurren modua aktibatu</string>
   <string name="disableKidMode">Haurren modua desaktibatu</string>
   <string name="security">Segurtasuna</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Zure kontua erabili duten gailuen zerre da da hau. Itxi ezagutzen ez dituzun sesio guztiak.</string>
-  <string name="alternativelyYouCanX">Gainera %s ditzakezu.</string>
   <string name="sessions">Saioak</string>
   <string name="revokeAllSessions">sesio guztiak itxi</string>
   <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>

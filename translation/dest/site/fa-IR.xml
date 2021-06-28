@@ -676,8 +676,6 @@
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">این لیستی از تمامی دستگاه هایی است که وارد حساب کاربری شما شده اند.مواردی را که نمی شناسید،باطل کنید.</string>
-  <string name="alternativelyYouCanX">همچنین شما می توانید %s.</string>
   <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>

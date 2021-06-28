@@ -692,8 +692,6 @@
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
-  <string name="alternativelyYouCanX">Tai voit %s.</string>
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>

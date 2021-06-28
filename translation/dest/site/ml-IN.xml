@@ -688,8 +688,6 @@
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ഇത് നിങ്ങളുടെ അക്കൗണ്ടിൽ ലോഗിൻ ചെയ്ത ഉപകരണങ്ങളാണ്. നിങ്ങൾ അറിയാത്ത വല്ല ഉപകരണങ്ങളും ഇതിൽ ഉണ്ടെങ്കിൽ ആ ഉപകരണം ഇതിൽ നിന്നും പിൻവലിക്കാൻ സാധിക്കുന്നതാണ്.</string>
-  <string name="alternativelyYouCanX">ഇതിനുപുറമേ നിങ്ങൾക്ക് %s പറ്റും.</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
   <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
   <string name="asFreeAsLichess">Lichess തികച്ചും സ്വതന്ത്രമാണ്</string>

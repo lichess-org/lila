@@ -694,7 +694,6 @@
   <string name="disableKidMode">Изключване на детски режим</string>
   <string name="security">Сигурност</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Това е списъкът на устройствата, които са логнати във вашия акаунт. Отменете всички сесии, които не разпознавате.</string>
-  <string name="alternativelyYouCanX">Като алтернатива можете да %s.</string>
   <string name="sessions">Сесии</string>
   <string name="revokeAllSessions">отмени всички сесии</string>
   <string name="playChessEverywhere">Играй шах навсякъде</string>

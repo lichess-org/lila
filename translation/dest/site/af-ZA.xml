@@ -673,8 +673,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="enableKidMode">Skakel kindermodus aan</string>
   <string name="disableKidMode">Skakel kindermodus aan</string>
   <string name="security">Sekuriteit</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hierdie is \'n lys van toestelle wat in jou rekening ingeteken het. Herroep enige sessies wat jy nie herken nie.</string>
-  <string name="alternativelyYouCanX">Andersins kan jy %s.</string>
   <string name="revokeAllSessions">alle sessies herroep</string>
   <string name="playChessEverywhere">Speel skaak oral</string>
   <string name="asFreeAsLichess">So gratis soos Lichess</string>

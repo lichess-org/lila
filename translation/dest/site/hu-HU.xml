@@ -692,8 +692,6 @@
   <string name="enableKidMode">Gyereküzemmód bekapcsolása</string>
   <string name="disableKidMode">Gyereküzemmód kikapcsolása</string>
   <string name="security">Biztonság</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ezen a listán megtalálod az összes eszközt, amin be vagy jelentkezve. Ha nem ismersz fel egy eszközt, vond vissza.</string>
-  <string name="alternativelyYouCanX">Ha úgy gondolod %s.</string>
   <string name="sessions">Munkamenetek</string>
   <string name="revokeAllSessions">eltávolíthatod az összes eszközt</string>
   <string name="playChessEverywhere">Sakkozz bárhol!</string>

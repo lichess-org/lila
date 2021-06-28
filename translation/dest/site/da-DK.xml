@@ -692,8 +692,6 @@
   <string name="enableKidMode">Aktiver børnetilstand</string>
   <string name="disableKidMode">Deaktiver børnetilstand</string>
   <string name="security">Sikkerhed</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er en liste over enheder, der har logget ind på din konto, Annuller enhver session du ikke genkender.</string>
-  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">annuller alle sessioner</string>
   <string name="playChessEverywhere">Spil skak hvor som helst</string>

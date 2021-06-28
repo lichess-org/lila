@@ -761,8 +761,6 @@
   <string name="enableKidMode">Gweredekaat ar mod evit ar vugale</string>
   <string name="disableKidMode">Diweredekaat ar mod evit ar vugale</string>
   <string name="security">Surentez</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Setu roll an trobarzhelloù bet luget war ho kont. Skarzhit an dalc\'hoù dianav deoc\'h.</string>
-  <string name="alternativelyYouCanX">A-hend-all e c\'hallit %s.</string>
   <string name="revokeAllSessions">skarzhañ an holl zalc\'hoù</string>
   <string name="playChessEverywhere">C\'hoari echedoù e pep lec\'h</string>
   <string name="asFreeAsLichess">Ken digoust ha lichess</string>

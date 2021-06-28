@@ -647,8 +647,6 @@
   <string name="enableKidMode">Kveikja á krakkaham</string>
   <string name="disableKidMode">Slökkva á krakkaham</string>
   <string name="security">Öryggi</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Þetta er listi af tækjum sem hafa skráð sig inn á reikninginn þinn. Lokaðu á allar tengingar sem þú þekkir ekki.</string>
-  <string name="alternativelyYouCanX">Þú getur líka %s.</string>
   <string name="revokeAllSessions">lokað á allar tengingar</string>
   <string name="playChessEverywhere">Tefldu hvar sem er</string>
   <string name="asFreeAsLichess">Eins frítt og lichess</string>

@@ -694,7 +694,6 @@
   <string name="disableKidMode">বাচ্চা ধরন নিষ্ক্রিয় করুন</string>
   <string name="security">নিরাপত্তা</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">এটা হয় ডিভাইসগুলির একটি তালিকা যা আপনার একাউন্টের সাথে লগইন আছে. বাতিল করুন সেই সেশন গুলো যা আপনি চেনেন না.</string>
-  <string name="alternativelyYouCanX">অন্যভাবে আপনি পারেন %s.</string>
   <string name="revokeAllSessions">সকল সেশন বাতিল করুন</string>
   <string name="playChessEverywhere">দাবা খেলুন সব জায়গায়</string>
   <string name="asFreeAsLichess">যেমন লিচাস মুক্ত হিসাবে</string>

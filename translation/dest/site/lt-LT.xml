@@ -765,8 +765,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="enableKidMode">Įjungti vaiko veikseną</string>
   <string name="disableKidMode">Išjungti vaiko veikseną</string>
   <string name="security">Saugumas</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Toliau pateikiamas sąrašas įrenginių, kurie yra prisijungę prie jūsų paskyros. Panaikinkite visus seansus, kurių neatpažįstate.</string>
-  <string name="alternativelyYouCanX">Arba galite %s.</string>
   <string name="sessions">Sesijos</string>
   <string name="revokeAllSessions">atšaukti visus seansus</string>
   <string name="playChessEverywhere">Žaiskite šachmatais visur</string>
