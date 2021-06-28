@@ -458,8 +458,6 @@
   <string name="enableKidMode">Pasang mod kanak-kanak</string>
   <string name="disableKidMode">Lumpuhkan mod kanak-kanak</string>
   <string name="security">Keselamatan</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah senarai alat mudah alih yang sudah log dalam akaun anda. Batalkan sesi yang anda tidak kenal.</string>
-  <string name="alternativelyYouCanX">Secara alternatif, anda boleh %s.</string>
   <string name="revokeAllSessions">batalkan semua sesi</string>
   <string name="playChessEverywhere">Main catur dimana-mana</string>
   <string name="asFreeAsLichess">Percuma seperti Lichess</string>

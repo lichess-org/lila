@@ -654,8 +654,6 @@
   <string name="enableKidMode">아이 모드 활성화하기</string>
   <string name="disableKidMode">아이 모드 비활성화하기</string>
   <string name="security">보안</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">사용자 계정에 로그인한 장치의 목록입니다. 이 중 낯선 장치가 보이면 세션을 취소하세요.</string>
-  <string name="alternativelyYouCanX">%s를 하셔도 됩니다.</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
   <string name="asFreeAsLichess">lichess처럼 무료입니다</string>

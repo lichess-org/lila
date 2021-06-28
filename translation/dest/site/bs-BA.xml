@@ -727,8 +727,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="enableKidMode">Uključite dječji režim</string>
   <string name="disableKidMode">Isključite dječji režim</string>
   <string name="security">Sigurnost</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili na Vaš račun. Opozovite bilo koju sesiju koju ne prepoznajete.</string>
-  <string name="alternativelyYouCanX">Alternativno, možete %s.</string>
   <string name="sessions">Sesije</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igrajte šah svugdje</string>

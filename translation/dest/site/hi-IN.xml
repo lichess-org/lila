@@ -686,8 +686,6 @@
   <string name="enableKidMode">बच्चे मोड को सक्षम करें</string>
   <string name="disableKidMode">बच्चे मोड अक्षम करें</string>
   <string name="security">सुरक्षा</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">यह उन डिवाइसों की एक सूची है जो आपके खाते में लॉग इन हैं। उन सत्रों को रद्द करें जिन्हें आप नहीं पहचानते हैं</string>
-  <string name="alternativelyYouCanX">वैकल्पिक रूप से आप %s कर सकते हैं।</string>
   <string name="revokeAllSessions">सभी सत्र रद्द</string>
   <string name="playChessEverywhere">हर जगह शतरंज खेलें</string>
   <string name="asFreeAsLichess">Lichess जैसा मुक्त</string>

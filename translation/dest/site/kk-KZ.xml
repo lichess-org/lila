@@ -673,8 +673,6 @@
   <string name="enableKidMode">Балалық нұсқаны іске қосу</string>
   <string name="disableKidMode">Балалық нұсқаны сөндіру</string>
   <string name="security">Қауіпсіздік</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Бұл – сіздің тіркелгіңізге жалғанған құрылғылар тізімі. Арасында бейтаныс жайт болса, оны ажыратыңыз.</string>
-  <string name="alternativelyYouCanX">Сонымен қатар, сіз %s-ға дәрмендісіз.</string>
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="asFreeAsLichess">Личес-тей тегін</string>

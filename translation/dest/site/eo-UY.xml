@@ -673,8 +673,6 @@
   <string name="enableKidMode">Aktivigi infanan modon</string>
   <string name="disableKidMode">Malaktivigi infanan modon</string>
   <string name="security">Sekureco</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ĉi tio estas listo da aparatoj kiuj ensalutis en vian konton. Revoku ajnan sesion kiun vi ne rekonas.</string>
-  <string name="alternativelyYouCanX">Alternative vi povas %s.</string>
   <string name="revokeAllSessions">revoki ĉiujn sesiojn</string>
   <string name="playChessEverywhere">Ludi ŝakon ĉie</string>
   <string name="asFreeAsLichess">Tiom libera kiom lichess</string>

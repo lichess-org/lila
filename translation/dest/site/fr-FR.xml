@@ -692,8 +692,6 @@
   <string name="enableKidMode">Activer le mode enfants</string>
   <string name="disableKidMode">Désactiver le mode enfants</string>
   <string name="security">Sécurité</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Voici une liste de périphériques qui sont connectés à votre compte. Supprimez les sessions que vous ne reconnaissez pas.</string>
-  <string name="alternativelyYouCanX">Vous pouvez également %s.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">supprimer toutes les sessions</string>
   <string name="playChessEverywhere">Jouez aux échecs partout</string>

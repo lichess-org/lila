@@ -707,8 +707,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="enableKidMode">Omogući dječji način</string>
   <string name="disableKidMode">Onemogući dječji način</string>
   <string name="security">Sigurnost</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ovo je popis uređaja koji su se prijavili u tvoj račun. Opozovi bilo koju sesiju koju ne prepoznaješ.</string>
-  <string name="alternativelyYouCanX">Alternativno, možeš %s.</string>
   <string name="revokeAllSessions">opozvati sve sesije</string>
   <string name="playChessEverywhere">Igraj šah svugdje</string>
   <string name="asFreeAsLichess">Besplatno kao i lichess</string>

@@ -764,8 +764,6 @@
   <string name="enableKidMode">הפעל מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">רשימת המכשירים שהתחברו לחשבונך, בטל את ההתחברויות שאתה לא מכיר.</string>
-  <string name="alternativelyYouCanX">לחלופין, ניתן לעשות %s.</string>
   <string name="revokeAllSessions">בטל כל הפעלות</string>
   <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
   <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>

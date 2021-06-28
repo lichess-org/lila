@@ -665,8 +665,6 @@
   <string name="enableKidMode">बाल मोड लागु गरौं</string>
   <string name="disableKidMode">बाल मोड बन्द गरौं</string>
   <string name="security">सुरक्षा</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">यो सुची तपाइको खाताबाट लीचेसमा लग इन गरेका उपकरणहरुको हो। तपाइले नचिन्ने सत्रहरु हटाउनुहोस्।</string>
-  <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
   <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
   <string name="asFreeAsLichess">लीचेस जस्तै सित्तैमा</string>
