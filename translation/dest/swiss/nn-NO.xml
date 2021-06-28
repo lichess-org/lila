@@ -6,10 +6,8 @@
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
   <string name="tournStartDate">Startdato for turneringa</string>
-  <string name="nbRounds">Antal rundar</string>
-  <string name="nbRoundsHelp">Eit ulike antal rundar gjer optimal fargefordeling.</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Intervall mellom rundar</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Forbodne parsamansetjingar</string>
+  <string name="roundInterval">Intervall mellom rundar</string>
+  <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Ny sveitserturnering</string>
+  <string name="newSwiss">Ny sveitserturnering</string>
 </resources>
