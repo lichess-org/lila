@@ -45,4 +45,10 @@
     <item quantity="many">عرض %s فرق</item>
     <item quantity="other">عرض %s فرق</item>
   </plurals>
+  <string name="newTeamBattle">معركة فريق جديدة</string>
+  <string name="customStartDate">تاريخ بدأ مخصص</string>
+  <string name="allowBerserk">السماح بالتحدي بنصف الوقت</string>
+  <string name="allowBerserkHelp">السماح للاعبين بالتضحية بنصف وقتهم مقابل الحصول على نقاط إضافية</string>
+  <string name="allowChatHelp">السماح للاعبين بالمناقشة في غرفة الدردشة</string>
+  <string name="arenaStreaks">تسلسل الفوز في الارينا</string>
 </resources>
