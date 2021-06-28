@@ -34,10 +34,10 @@
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
   <string name="history">تاریخچه مسابقات</string>
   <string name="newTeamBattle">مبارزه تیمی جدید</string>
-  <string name="customStartDate" comment="customStartDate&#10;&#10;A setting/option when creating a tournament, to edit the start date (instead of starting it right away).">تنظیم تاریخ شروع</string>
+  <string name="customStartDate">تنظیم تاریخ شروع</string>
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
-  <string name="allowBerserk" comment="allowBerserk&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">مجاز کردن برسرک</string>
-  <string name="allowBerserkHelp" comment="allowBerserkHelp&#10;&#10;This is a setting which allows a tournament host to turn the Berserk option on/off for the tournament.">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
-  <string name="allowChatHelp" comment="allowChatHelp&#10;&#10;This is a setting which allows a tournament host to enable/disable the tournament chat.">اجازه دادن بحث به بازیکنان در چت روم</string>
+  <string name="allowBerserk">مجاز کردن برسرک</string>
+  <string name="allowBerserkHelp">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
+  <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی بجای 2 امتیاز 4 امتیاز می دهند.</string>
 </resources>
