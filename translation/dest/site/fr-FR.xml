@@ -891,7 +891,7 @@ et ont un impact sur le classement des joueurs</string>
   <string name="markdownAvailable">%s offre des options de formatage supplémentaires.</string>
   <string name="inYourLocalTimezone">Dans votre fuseau horaire</string>
   <string name="tournChat">Salon de discussion du tournoi</string>
-  <string name="noChat" comment="noChat&#10;&#10;This is a configuration option for tournaments. Selecting this disables the tournament-wide chat box.">Aucun salon de discussion</string>
+  <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
   <string name="onlyTeamMembers">Seulement les membres des équipes</string>
 </resources>
