@@ -17,6 +17,9 @@
     "dev": "yarn run compile",
     "prod": "yarn run compile"
   },
+  "dependencies": {
+    "snabbdom": "^3.0.1"
+  },
   "devDependencies": {
     "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
