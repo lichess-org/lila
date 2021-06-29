@@ -635,8 +635,6 @@
   <string name="enableKidMode">Хүүхдэд ээлтэй хувилбар руу шилжүүл</string>
   <string name="disableKidMode">Хүүхдэд ээлтэй хувилбараас гарах</string>
   <string name="security">Хамгаалалт</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Жагсаалтад таны нэвтэрсэн төхөөрөмжүүд бүртгэгдсэн байгаа. Таны мэдэхгүй хандалт байгаа бол хүчингүй болгоно уу.</string>
-  <string name="alternativelyYouCanX">Эсвэл та %s.</string>
   <string name="revokeAllSessions">бүх хандалтыг хүчингүй болгох</string>
   <string name="playChessEverywhere">Хаа газар шатар тоглоцгооё</string>
   <string name="asFreeAsLichess">Ямар ч үнэ төлбөргүй</string>

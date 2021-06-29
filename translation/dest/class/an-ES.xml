@@ -92,5 +92,4 @@ Aquí ye lo vinclo d\'acceso.</string>
   <string name="newsEdit1">Totas las noticias de clase en un solo puesto.</string>
   <string name="newsEdit2">Anyade las noticias recients en a parte superior. No elimina las noticias anteriors.</string>
   <string name="newsEdit3">Deseparar noticias con --- amostrará una linia horizontal.</string>
-  <string name="markdownAvailable">%s ye disponible pa una sintaxi mas abanzada.</string>
 </resources>

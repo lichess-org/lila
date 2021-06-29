@@ -27,7 +27,8 @@ final class RacerJson(stormJson: StormJson, sign: StormSign, lightUserSync: Ligh
           .add("lobby", race.isLobby),
         "player"  -> player,
         "puzzles" -> race.puzzles
-      ) ++ state(race)
+      )
+      .add("owner", race.owner == player.id) ++ state(race)
 
   // socket updates
   def state(race: RacerRace) = Json

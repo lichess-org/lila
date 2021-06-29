@@ -43,4 +43,12 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
     <item quantity="one">Taldea ikusi</item>
     <item quantity="other">%s taldeak ikusi</item>
   </plurals>
+  <string name="newTeamBattle">Taldeen Arteko Txapelketa berria</string>
+  <string name="customStartDate">Pertsonalizatutako hasiera data</string>
+  <string name="customStartDateHelp">Zure ordu-zonan. Honek \"Txapeketa hasi aurreko denbora\" ezarpena gainidazten du</string>
+  <string name="allowBerserk">Berserk onartu</string>
+  <string name="allowBerserkHelp">Utzi jokalariei beren denbora erdira jaisten puntu gehigarri bat lortzeko</string>
+  <string name="allowChatHelp">Utzi jokalariei txatean hitz egiten</string>
+  <string name="arenaStreaks">Arena boladak</string>
+  <string name="arenaStreaksHelp">Bi garaipenen ostean, jarraian datozen garaipenek 4 puntu emango dituzte 2 eman beharrean.</string>
 </resources>

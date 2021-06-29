@@ -41,4 +41,12 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
   <string name="drawStreak">Niz remijev: Ko igralec zeporedoma remizira v areni, bo le leprvi remi rezultiral v točko ali remiji z več kot %s potezami. Niz remijev se lahko prekine le z zmago, ne pa s porazom ali remijem.</string>
   <string name="history">Zgodovina arene</string>
+  <string name="newTeamBattle">Nova skupinska bitka</string>
+  <string name="customStartDate">Začetni datum po meri</string>
+  <string name="customStartDateHelp">V svojem lokalnem časovnem pasu. To preglasi nastavitev \"Čas pred začetkom turnirja\"</string>
+  <string name="allowBerserk">Dovoli divjanje</string>
+  <string name="allowBerserkHelp">Naj igralci razpolovijo svoj čas ure, da pridobijo dodatno točko</string>
+  <string name="allowChatHelp">Naj igralci razpravljajo v klepetalnici</string>
+  <string name="arenaStreaks">Arena proge</string>
+  <string name="arenaStreaksHelp">Po 2 zaporednih zmagah nadaljne zmage namesto 2 dodelijo 4 točke.</string>
 </resources>

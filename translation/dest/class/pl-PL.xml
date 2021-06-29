@@ -69,6 +69,10 @@ Oto link do klasy.</string>
   <string name="releaseDesc1">Nie będzie można ponownie zarządzać kontem. Uczeń będzie mógł samodzielnie przełączyć tryb konta i resetować hasło.</string>
   <string name="releaseDesc2">Uczeń pozostanie w klasie po przekazaniu mu zarządzania kontem.</string>
   <string name="realUniqueEmail">Adres e-mail ucznia. Wyślemy na niego wiadomość z linkiem pozwalającym mu przejąć zarządzanie jego kontem.</string>
+  <string name="closeStudent">Zamknij konto</string>
+  <string name="closeTheAccount">Zamknij nieodwracalnie konto studenckie.</string>
+  <string name="closeDesc1">Uczeń nigdy więcej nie będzie mógł używać tego konta. Zamykanie jest ostateczne. Upewnij się, że rozumie i zgadza się na to.</string>
+  <string name="closeDesc2">Zamiast tego możesz dać uczniowi kontrolę nad kontem, aby mógł on nadal z niego korzystać.</string>
   <string name="teachers">Nauczyciele</string>
   <plurals name="nbTeachers">
     <item quantity="one">Nauczyciel</item>
@@ -98,5 +102,4 @@ Oto link do klasy.</string>
   <string name="newsEdit1">Wszystkie aktualności w jednym polu.</string>
   <string name="newsEdit2">Dodaj najnowsze wiadomości u góry. Nie usuwaj poprzednich wiadomości.</string>
   <string name="newsEdit3">Oddziel wiadomości --- co wyświetli poziomą linię.</string>
-  <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
 </resources>

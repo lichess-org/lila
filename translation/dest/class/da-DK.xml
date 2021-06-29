@@ -63,10 +63,14 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="thisStudentAccountIsManaged">Denne elevkonto er under administration</string>
   <string name="upgradeFromManaged">Opgrader fra administreret til selvstyret</string>
   <string name="release">Frigiv</string>
-  <string name="releaseTheAccount">Frigiv kontoen så eleven kan styre den selv.</string>
+  <string name="releaseTheAccount">Frigiv kontoen så eleven selv kan kontrollere den.</string>
   <string name="releaseDesc1">En frigivet konto kan ikke sættes under administration igen. Eleven vil kunne ændre i børnetilstand og selv nulstille adgangskode.</string>
   <string name="releaseDesc2">Eleven vil blive i klassen efter deres konto er frigivet.</string>
-  <string name="realUniqueEmail">Korrekt, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til at frigive kontoen.</string>
+  <string name="realUniqueEmail">Rigtig, unik e-mailadresse for eleven. Vi sender en bekræftelsesmail til den med et link til frigivelse af kontoen.</string>
+  <string name="closeStudent">Luk konto</string>
+  <string name="closeTheAccount">Luk elevkontoen permanent.</string>
+  <string name="closeDesc1">Eleven vil aldrig kunne bruge denne konto igen. Lukning er endelig. Sørg for at eleven forstår og er enig.</string>
+  <string name="closeDesc2">Du bør måske give eleven kontrol over kontoen i stedet, så de kan fortsætte med at bruge den.</string>
   <string name="teachers">Lærere</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lærer</item>
@@ -92,5 +96,4 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="newsEdit1">Alle klasse-nyheder i et enkelt felt.</string>
   <string name="newsEdit2">Tilføj de seneste nyheder i toppen. Slet ikke tidligere nyheder.</string>
   <string name="newsEdit3">Adskil nyheder med --- det vil blive vist som en vandret linje.</string>
-  <string name="markdownAvailable">%s er tilgængelig for mere avanceret syntaks.</string>
 </resources>

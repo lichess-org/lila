@@ -43,4 +43,10 @@
     <item quantity="one">Вижте отбора</item>
     <item quantity="other">Вижте всички %s отбора</item>
   </plurals>
+  <string name="newTeamBattle">Нова отборна битка</string>
+  <string name="customStartDate">Начална дата</string>
+  <string name="allowBerserk">Позволи Берсерк</string>
+  <string name="allowChatHelp">Позволи на играчите да обсъждат в чата</string>
+  <string name="arenaStreaks">Последователности в арената</string>
+  <string name="arenaStreaksHelp">След 2 победи, всяка последователна победа носи 4 точки вместо 2.</string>
 </resources>

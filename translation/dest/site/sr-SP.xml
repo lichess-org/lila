@@ -709,8 +709,6 @@
   <string name="enableKidMode">Омогућите Дечији режим рада</string>
   <string name="disableKidMode">Онемогућите Дечији режим рада</string>
   <string name="security">Сигурност</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ово је листа уређаја који су евидентирани у ваш налог. Опозовите све сесије које не препознајете.</string>
-  <string name="alternativelyYouCanX">Алтернативно, можете %s.</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
   <string name="playChessEverywhere">Играј шах свуда</string>
   <string name="asFreeAsLichess">Бесплатно као лицхесс</string>

@@ -26,7 +26,7 @@ class Report:
 
 
 def short_lang(lang):
-    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW", "tlh-AA", "ml-IN", "pt-BR", "tt-RU"]:
+    if lang in ["ne-NP", "la-LA", "nn-NO", "zh-CN", "ur-PK", "zh-TW", "tlh-AA", "ml-IN", "pt-BR", "tt-RU", "de-CH"]:
         return lang.replace("-", "").lower()
     elif lang == "kab-DZ":
         return "kaby"

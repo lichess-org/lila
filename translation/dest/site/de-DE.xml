@@ -692,8 +692,6 @@
   <string name="enableKidMode">Kindermodus aktivieren</string>
   <string name="disableKidMode">Kindermodus deaktivieren</string>
   <string name="security">Sicherheit</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dies ist eine Liste aller Geräte, die mit deinem Konto verknüpft sind. Entferne alle Sitzungen, die du nicht kennst.</string>
-  <string name="alternativelyYouCanX">Alternativ kannst du %s.</string>
   <string name="sessions">Sitzungen</string>
   <string name="revokeAllSessions">alle Sitzungen beenden</string>
   <string name="playChessEverywhere">Spiele Schach überall</string>
@@ -871,4 +869,33 @@
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="coachManager">Trainerverwaltung</string>
   <string name="streamerManager">Streamerverwaltung</string>
+  <string name="cancelTournament">Turnier abbrechen</string>
+  <string name="tournDescription">Turnierbeschreibung</string>
+  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
+  <string name="ratedFormHelp">Partien sind gewertet
+und beeinflussen die Wertungszahl der Spieler</string>
+  <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
+  <string name="noRestriction">Keine Einschränkung</string>
+  <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
+  <string name="minimumRating">Niedrigste Wertungszahl</string>
+  <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
+  <string name="onlyTitled">Nur Spieler mit Titel</string>
+  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
+Das funktioniert nur für Standardspiele, nicht für Varianten.
+Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
+Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
+  <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
+  <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
+  <string name="estimatedStart">Voraussichtliche Startzeit</string>
+  <string name="simulFeatured">Auf %s zeigen</string>
+  <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
+  <string name="simulDescription">Simultan Beschreibung</string>
+  <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
+  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
+  <string name="inYourLocalTimezone">In deiner eigenen lokalen Zeitzone</string>
+  <string name="tournChat">Turnierchat</string>
+  <string name="noChat">Kein Chat</string>
+  <string name="onlyTeamLeaders">Nur Teamleiter</string>
+  <string name="onlyTeamMembers">Nur Teammitglieder</string>
 </resources>

@@ -763,8 +763,6 @@
   <string name="enableKidMode">Уключыць дзіцячы рэжым</string>
   <string name="disableKidMode">Адключыць дзіцячы рэжым</string>
   <string name="security">Бяспека</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Гэта спіс прылад, з якіх уваходзілі ў ваш акаўнт. Скасуеце кожныя падазроныя сеансы.</string>
-  <string name="alternativelyYouCanX">У якасці альтэрнатывы вы можаце %s.</string>
   <string name="revokeAllSessions">скасаваць усе сесіі</string>
   <string name="playChessEverywhere">Гуляйце ў шахматы дзе заўгодна</string>
   <string name="asFreeAsLichess">Бясплатна, як і Lichess</string>

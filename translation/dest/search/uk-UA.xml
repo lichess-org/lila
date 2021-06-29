@@ -28,4 +28,9 @@
   <string name="sortBy">Підбирати за</string>
   <string name="analysis">Аналіз</string>
   <string name="onlyAnalysed">Лише ігри з комп\'ютерним аналізом</string>
+  <string name="color">Колір</string>
+  <string name="evaluation">Оцінка</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Максимальне число</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Включити</string>
+  <string name="generateURL">Згенерувати URL</string>
 </resources>

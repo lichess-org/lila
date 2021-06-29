@@ -5,7 +5,7 @@
   <string name="recommended">Empfohlä</string>
   <string name="phases">Phasä</string>
   <string name="motifs">Motiv</string>
-  <string name="advanced">Fortgeschritten</string>
+  <string name="advanced">Fortgschrittä</string>
   <string name="lengths">Längen</string>
   <string name="mates">Matts</string>
   <string name="goals">Ziele</string>
@@ -16,7 +16,7 @@
   <string name="yourPuzzleRatingX">Dini Taktikwärtig: %s</string>
   <string name="findTheBestMoveForWhite">Find dä beschte Zug für Wiis.</string>
   <string name="findTheBestMoveForBlack">Finde den besten Zug für Schwarz.</string>
-  <string name="toGetPersonalizedPuzzles">Um personalisierte Aufgaben zu erhalten:</string>
+  <string name="toGetPersonalizedPuzzles">Zum personalisiärti Ufgoobä z\'bechoo:</string>
   <string name="puzzleId">Aufgabe %s</string>
   <string name="puzzleOfTheDay">Ufgoob vom Tag</string>
   <string name="clickToSolve">Zum Lösen klicken</string>
@@ -28,12 +28,12 @@
   <string name="notTheMove">Das ist nicht der Zug!</string>
   <string name="trySomethingElse">Versuche etwas anderes.</string>
   <string name="ratingX">Wertung: %s</string>
-  <string name="hidden">versteckt</string>
+  <string name="hidden">verschteckt</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s mal gespielt</item>
     <item quantity="other">%s mal gespielt</item>
   </plurals>
-  <string name="fromGameLink">Aus der Partie %s</string>
+  <string name="fromGameLink">Us dä Partii %s</string>
   <string name="continueTraining">Training fortsetzen</string>
   <string name="difficultyLevel">Schwierigkeitsgrad</string>
   <string name="normal">Normal</string>
@@ -51,16 +51,16 @@
   </plurals>
   <string name="example">Beispiel</string>
   <string name="addAnotherTheme">Ein weiteres Motiv hinzufügen</string>
-  <string name="jumpToNextPuzzleImmediately">Sofort zur nächsten Aufgabe springen</string>
+  <string name="jumpToNextPuzzleImmediately">Sofort zur nöchschtä Ufgoob gumpä</string>
   <string name="puzzleDashboard">Ufgoobäübersicht</string>
   <string name="improvementAreas">Värbessärigsbereich</string>
   <string name="strengths">Stärken</string>
   <string name="history">Ufoobäverlauf</string>
   <string name="solved">gelöst</string>
   <string name="failed">fehlgeschlagen</string>
-  <string name="streakDescription">Löse schwieriger werdende Aufgaben und baue eine Erfolgsserie auf. Es gibt keine Uhr, also nimm dir Zeit. Ein falscher Zug und es ist vorbei! Du kannst jedoch einen Zug pro Sitzung überspringen.</string>
-  <string name="yourStreakX">Deine Siegesserie: %s</string>
-  <string name="streakSkipExplanation">Überspringe diesen Zug, um deine Erfolgsserie beizubehalten! Du kannst das nur einmal pro Durchlauf machen.</string>
+  <string name="streakDescription">Lös schwiriger wärdändi Ufgoobä und bau än Erfolgsschträhnä uf. Äs git kei Uhr, also nimm\'der Ziit. Än falschä Zug und äs isch vorbei! Du chasch aber ein Zug pro Sitzig überschpringä.</string>
+  <string name="yourStreakX">Dini Siegesschträhnä: %s</string>
+  <string name="streakSkipExplanation">Überschpring dä Zug, zum dini Erfolgsschträhnä biizbhaltä! Du chasch das nur eimol pro Durchlauf machä.</string>
   <string name="continueTheStreak">Erfolgsserie fortsetzen</string>
   <string name="newStreak">Neue Erfolgsserie</string>
   <string name="fromMyGames">Aus meinen Partien</string>

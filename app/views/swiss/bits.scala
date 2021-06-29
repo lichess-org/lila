@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ I18nKeys => trans }
 import lila.swiss.Swiss
+import play.api.i18n.Lang
 
 import controllers.routes
 
@@ -70,17 +71,13 @@ object bits {
       )
     )
 
-  def showInterval(s: Swiss): Frag =
+  def showInterval(s: Swiss)(implicit lang: Lang): Frag =
     s.settings.dailyInterval match {
-      case Some(1)                         => frag("One round per day")
-      case Some(d)                         => frag(s"One round every $d days")
-      case None if s.settings.manualRounds => frag("Rounds are started manually")
+      case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
+      case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
-        frag(
-          if (s.settings.intervalSeconds < 60) pluralize("second", s.settings.intervalSeconds)
-          else pluralize("minute", s.settings.intervalSeconds / 60),
-          " between rounds"
-        )
+        if (s.settings.intervalSeconds < 60) trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
+        else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
     }
 
   def jsI18n(implicit ctx: Context) = i18nJsObject(i18nKeys)
@@ -102,6 +99,10 @@ object bits {
     trans.averageOpponent,
     trans.tournamentComplete,
     trans.password,
-    trans.swiss.viewAllXRounds
+    trans.swiss.viewAllXRounds,
+    trans.swiss.ongoingGames,
+    trans.swiss.startingIn,
+    trans.swiss.nextRound,
+    trans.team.joinTeam,
   ).map(_.key)
 }

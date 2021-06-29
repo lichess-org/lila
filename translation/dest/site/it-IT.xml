@@ -693,8 +693,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Questa è la lista di dispositivi collegata al tuo account. Rimuovi ogni istanza che non riconosci.</string>
-  <string name="alternativelyYouCanX">In alternativa è possibile %s.</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>

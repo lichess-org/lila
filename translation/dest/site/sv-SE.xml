@@ -692,8 +692,6 @@
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Detta är en lista över enheter som har loggat in på ditt konto. Återkalla alla sessioner som du inte känner igen.</string>
-  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
@@ -866,4 +864,23 @@
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
   <string name="welcome">Välkommen!</string>
+  <string name="cancelTournament">Avbryt turneringen</string>
+  <string name="tournDescription">Turneringsbeskrivning</string>
+  <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
+  <string name="ratedFormHelp">Partier är rankade
+och påverkar spelares rating</string>
+  <string name="noRestriction">Ingen begränsning</string>
+  <string name="minimumRatedGames">Minst antal rankade partier</string>
+  <string name="minimumRating">Lägsta rating</string>
+  <string name="maximumWeeklyRating">Högsta vecko-rating</string>
+  <string name="onlyTitled">Endast betitlade spelare</string>
+  <string name="onlyTitledHelp">Kräv en officiell titel för att delta i turneringen</string>
+  <string name="cancelSimul">Avbryt simultanen</string>
+  <string name="simulHostcolor">Värdfärg för varje parti</string>
+  <string name="estimatedStart">Beräknad starttid</string>
+  <string name="simulFeatured">Visa på %s</string>
+  <string name="simulFeaturedHelp">Visa din simultan för alla på %s. Inaktivera för privata simultaner.</string>
+  <string name="simulDescription">Simultan-beskrivning</string>
+  <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
+  <string name="markdownAvailable">%s är tillgängligt för mer avancerad syntax.</string>
 </resources>

@@ -1,7 +1,6 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
 import LichessChat from 'chat';
-// eslint-disable-next-line no-duplicate-imports
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view';

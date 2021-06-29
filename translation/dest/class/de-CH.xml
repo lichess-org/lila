@@ -30,7 +30,7 @@
   <string name="generateANewPassword">Generiere ein neues Passwort für den Schüler</string>
   <string name="invitedToXByY">Eingeladen zu %1$s von %2$s</string>
   <string name="realName">Echter Name</string>
-  <string name="privateWillNeverBeShown">Privat. Wird nie außerhalb der Klasse angezeigt. Hilft dir, dich zu erinnern, wer der Schüler ist.</string>
+  <string name="privateWillNeverBeShown">Privat. Wird niä usserhalb vodä Klass aazeigt. Hilft dir, dich z\'erinnärä, wer dä Schüaler / diä Schüälerin isch.</string>
   <string name="addStudent">Schüler hinzufügen</string>
   <string name="lichessProfileXCreatedForY">Lichess-Profil %1$s erstellt für %2$s.</string>
   <string name="studentCredentials">Schüäler/-in: %1$s
@@ -67,6 +67,10 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
   <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
+  <string name="closeStudent">Benutzerkonto gschlüssä</string>
+  <string name="closeTheAccount">Schüälerkonto permanent gschlüssä.</string>
+  <string name="closeDesc1">Dä Schüäler / diä Schüälerin cha das Konto niä meh verwändä. Gschlüssä isch endgültig. Schtell sicher, dass dä Schüäler / d\'Schüälerin das verschtoht und akzeptiärt.</string>
+  <string name="closeDesc2">Du chasch schattdessä äm Schüäler / diä Schüälerin d\'Kontrollä über das Konto gäh, damit är sis / si ihräs Konto wiiterhin verwändä chan.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>
@@ -92,5 +96,4 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="newsEdit1">Alle Klassennachrichten in einem einzigen Feld.</string>
   <string name="newsEdit2">Füge die aktuellen Neuigkeiten oben hinzu. Lösche keine vorherigen Neuigkeiten.</string>
   <string name="newsEdit3">Trenne Neuigkeiten mit --- Es wird als horizontale Linie angezeigt.</string>
-  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
 </resources>

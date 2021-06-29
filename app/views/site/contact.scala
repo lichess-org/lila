@@ -205,7 +205,10 @@ object contact {
             Leaf(
               "casual",
               noRatingPoints(),
-              p(ratedGame())
+              frag(
+                p(ratedGame()),
+                botRatingAbuse()
+              )
             ),
             Leaf(
               "error-page",

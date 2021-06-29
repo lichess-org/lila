@@ -692,8 +692,6 @@
   <string name="enableKidMode">Kid Mode सुरू करा</string>
   <string name="disableKidMode">Kid Mode बंद करा</string>
   <string name="security">सुरक्षितता</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ही आपल्या खात्यात लॉग इन केलेल्या उपकरणांची सूची आहे. आपण ओळखत नसलेली कोणतीही सत्रे मागे घ्या.</string>
-  <string name="alternativelyYouCanX">याव्यतिरिक्त आपण हे करू शकता %s.</string>
   <string name="sessions">सत्र</string>
   <string name="revokeAllSessions">सर्व सत्र रद्द करा</string>
   <string name="playChessEverywhere">सगळीकडे बुद्धिबळ खेळा</string>

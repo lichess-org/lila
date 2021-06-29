@@ -691,8 +691,6 @@
   <string name="enableKidMode">Uşaq rejimini aktivləşdir</string>
   <string name="disableKidMode">Uşaq rejimini deaktiv et</string>
   <string name="security">Təhlükəsizlik</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Bu hesabınıza daxil olan cihazların siyahısıdır. Tanımadığınız sessiyaları ləğv edin.</string>
-  <string name="alternativelyYouCanX">Həmçinin %s də edə bilərsiniz.</string>
   <string name="revokeAllSessions">bütün sessiyaları ləğv et</string>
   <string name="playChessEverywhere">Şahmatı hər yerdə oyna</string>
   <string name="asFreeAsLichess">Lichess kimi azad</string>

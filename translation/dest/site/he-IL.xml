@@ -516,6 +516,7 @@
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
   <string name="biography">ביוגרפיה</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">מדינה או דגל</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="socialMediaLinks">קישורי רשתות חברתיות</string>
   <string name="inlineNotation">תיאור מהלכים בשורה</string>
@@ -764,8 +765,6 @@
   <string name="enableKidMode">הפעל מצב ילדים</string>
   <string name="disableKidMode">בטל מצב ילדים</string>
   <string name="security">אבטחה</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">רשימת המכשירים שהתחברו לחשבונך, בטל את ההתחברויות שאתה לא מכיר.</string>
-  <string name="alternativelyYouCanX">לחלופין, ניתן לעשות %s.</string>
   <string name="revokeAllSessions">בטל כל הפעלות</string>
   <string name="playChessEverywhere">שחק בשחמט בכל מקום</string>
   <string name="asFreeAsLichess">חופשי כמו ליצ\'ס</string>

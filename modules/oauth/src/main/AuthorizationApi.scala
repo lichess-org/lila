@@ -13,7 +13,7 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
     val code = Protocol.AuthorizationCode.random()
     coll.insert.one(
       PendingAuthorizationBSONHandler write PendingAuthorization(
-        code.secret.hashed,
+        code.hashed,
         request.clientId,
         request.user,
         request.redirectUri,
@@ -27,7 +27,7 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
   def consume(
       request: AccessTokenRequest.Prepared
   ): Fu[Validated[Protocol.Error, AccessTokenRequest.Granted]] =
-    coll.findAndModify($doc(F.hashedCode -> request.code.secret.hashed), coll.removeModifier) map {
+    coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier) map {
       _.result[PendingAuthorization]
         .toValid(Protocol.Error.AuthorizationCodeInvalid)
         .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))

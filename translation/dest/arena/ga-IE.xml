@@ -51,4 +51,12 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
     <item quantity="many">Féach ar na %s foireann go léir</item>
     <item quantity="other">Féach ar na %s foireann go léir</item>
   </plurals>
+  <string name="newTeamBattle">Cath Foirne Nua</string>
+  <string name="customStartDate">Dáta tosaigh saincheaptha</string>
+  <string name="customStartDateHelp">I do chrios ama áitiúil féin. Sáraíonn sé seo an socrú \"Am sula dtosaíonn an comórtas\"</string>
+  <string name="allowBerserk">Lig Berserk</string>
+  <string name="allowBerserkHelp">Lig d’imreoirí a gcuid ama clog a laghdú chun pointe breise a fháil</string>
+  <string name="allowChatHelp">Lig d’imreoirí plé a dhéanamh i seomra comhrá</string>
+  <string name="arenaStreaks">Sruthanna airéine</string>
+  <string name="arenaStreaksHelp">Tar éis 2 bhua, deonaíonn 4 bhua as a chéile 4 phointe in ionad 2.</string>
 </resources>

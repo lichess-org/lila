@@ -250,7 +250,7 @@
   <string name="play">Pelaa</string>
   <string name="inbox">Postilaatikko</string>
   <string name="chatRoom">Keskusteluhuone</string>
-  <string name="loginToChat">Kirjaudu chattiin</string>
+  <string name="loginToChat">Kirjaudu osallistuaksesi keskusteluun</string>
   <string name="youHaveBeenTimedOut">Olet jäähyllä.</string>
   <string name="spectatorRoom">Katsojienhuone</string>
   <string name="composeMessage">Luo viesti</string>
@@ -352,7 +352,7 @@
   <string name="continueFromHere">Jatka tästä</string>
   <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
-  <string name="importGameExplanation">Kun liität pelin PGN:n, voit selata peliä, näet tietokoneen analyysin ja pelille luodaan chat sekä URL, jonka voi jakaa.</string>
+  <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -426,7 +426,7 @@
   <string name="standByX">Ole valmiina %s, etsimme sinulle seuraavaa vastustajaa!</string>
   <string name="youArePlaying">Sinä pelaat!</string>
   <string name="winRate">Voittoprosentti</string>
-  <string name="berserkRate">Berserkprosentti</string>
+  <string name="berserkRate">Berserkkiprosentti</string>
   <string name="performance">Suoritus</string>
   <string name="tournamentComplete">Turnaus päättynyt</string>
   <string name="movesPlayed">Siirtoja</string>
@@ -692,8 +692,6 @@
   <string name="enableKidMode">Lapsitila käyttöön</string>
   <string name="disableKidMode">Lapsitila käytöstä</string>
   <string name="security">Turvallisuus</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Lista laitteista joihin olet kirjautunut tunnuksellasi. Katkaise sessiot, joita et tunnista.</string>
-  <string name="alternativelyYouCanX">Tai voit %s.</string>
   <string name="sessions">Istunnot</string>
   <string name="revokeAllSessions">katkaista kaikki sessiot</string>
   <string name="playChessEverywhere">Pelaa shakkia kaikkialla</string>
@@ -871,4 +869,33 @@
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>
+  <string name="cancelTournament">Peruuta turnaus</string>
+  <string name="tournDescription">Turnauksen kuvaus</string>
+  <string name="tournDescriptionHelp">Haluatko kertoa osallistujille jotain erityistä? Kerro se lyhyesti ja ytimekkäästi. Voit käyttää markdown-linkkejä: [name](https://url)</string>
+  <string name="ratedFormHelp">Pelit pisteytetään ja niillä on
+vaikutus pelaajien vahvuuslukuihin</string>
+  <string name="onlyMembersOfTeam">Vain joukkueen jäsenet</string>
+  <string name="noRestriction">Ei rajoituksia</string>
+  <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
+  <string name="minimumRating">Vahvuusluku vähintään</string>
+  <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
+  <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
+  <string name="onlyTitledHelp">Turnaukseen liittyminen edellyttää virallista arvonimeä</string>
+  <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
+Se toimii vain tavallisissa peleissä, ei varianteissa.
+Voit luoda aseman %slla ja kopioida FEN-koodin sieltä tänne.
+Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</string>
+  <string name="cancelSimul">Peruuta simultaani</string>
+  <string name="simulHostcolor">Isännän väri joka pelissä</string>
+  <string name="estimatedStart">Arvioitu alkamisaika</string>
+  <string name="simulFeatured">Näytä sivulla %s</string>
+  <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
+  <string name="simulDescription">Simultaanin kuvaus</string>
+  <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
+  <string name="markdownAvailable">Tekstin yksityiskohtaisempaan muotoiluun voit käyttää %s-kieltä.</string>
+  <string name="inYourLocalTimezone">Omalla aikavyöhykkeelläsi</string>
+  <string name="tournChat">Turnauksen keskusteluhuone</string>
+  <string name="noChat">Ei keskustelua</string>
+  <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
+  <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
 </resources>

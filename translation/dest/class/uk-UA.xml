@@ -99,5 +99,4 @@
   <string name="newsEdit2">Додавайте останні новини зверху. Не видаляйте попередні новини.</string>
   <string name="newsEdit3">Відокремте новини через ---
 Вони будуть відображені в горизонтальну лінію.</string>
-  <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
 </resources>

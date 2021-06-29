@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Verlauf</string>
-  <string name="hostedALiveStream">Hät en livestream gmacht</string>
+  <string name="hostedALiveStream">Hät en liveschtriim gmacht</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">Unterstützt lichess.org sit %1$s Monät als %2$s</item>
     <item quantity="other">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>

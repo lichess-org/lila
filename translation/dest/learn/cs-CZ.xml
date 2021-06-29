@@ -147,6 +147,12 @@ Král má nevyčíslitelnou hodnotu! Ztráta krále znamená prohru partie.</str
   <string name="queenOverBishop">Vyberte figuru
 s nejvyšší hodnotou!
 Dáma &gt; Střelec</string>
+  <string name="pieceValueExchange">Vyberte figuru s nejvyšší hodnotou!
+ Nevyměňujte
+ figuru s vyšší hodnotou za figuru s menší hodnotou.</string>
+  <string name="pieceValueLegal">Vyberte figuru
+s nejvyšší hodnotou!
+Ujistěte se, že je váš tah legální!</string>
   <string name="takeThePieceWithTheHighestValue">Vyberte figuru s nejvyšší hodnotou!</string>
   <string name="pieceValueComplete">Blahopřejeme! Nyní znáte hodnotu materiálu!
 Dáma = 9

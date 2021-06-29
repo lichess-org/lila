@@ -7,4 +7,11 @@
     <item quantity="many">Peržvelgti visus %s raundo</item>
     <item quantity="other">Peržvelgti visus %s raundų</item>
   </plurals>
+  <string name="tournStartDate">Turnyro pradžios data</string>
+  <string name="nbRounds">Raundų skaičius</string>
+  <string name="nbRoundsHelp">Nelyginis raundų skaičius užtikrina žaidžiamų spalvų balansą.</string>
+  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Tarpai tarp raundų</string>
+  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Neleistinos poros</string>
+  <string name="forbiddenPairingsHelp">Vartotojai, kurie negali žaisti akrtu (pvz. broliai, sesės). Du vartotojų vardai per eilutę, atskirti tarpu.</string>
+  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Naujas Šveicariškas turnyras</string>
 </resources>

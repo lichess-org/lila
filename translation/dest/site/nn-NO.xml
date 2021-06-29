@@ -681,6 +681,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over datamaskin-variasjonane for å førehandsvisa dei.</string>
   <string name="analysisShapesHowTo">Trykk shift-klikk eller høyreklikk for å tegne sirklar og piler på brettet.</string>
   <string name="letOtherPlayersMessageYou">Lat andre spelarar ta kontakt med deg</string>
+  <string name="receiveForumNotifications">Bli varsla når du vert nemd i forumet</string>
   <string name="shareYourInsightsData">Del den personlege spelarstatistikken din</string>
   <string name="withNobody">Med ingen</string>
   <string name="withFriends">Med vener</string>
@@ -692,8 +693,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="enableKidMode">Skru på barnemodus</string>
   <string name="disableKidMode">Skru av barnemodus</string>
   <string name="security">Tryggleik</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dette er ei liste over einingar du har logga inn på med din konto. Lukk dei du ikkje dreg kjensel på.</string>
-  <string name="alternativelyYouCanX">Alternativt kan du %s.</string>
   <string name="sessions">Økter</string>
   <string name="revokeAllSessions">lukke alle økter</string>
   <string name="playChessEverywhere">Spel sjakk overalt</string>
@@ -871,4 +870,33 @@ få en computeranalyse, chatte eller dele ein URL.</string>
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
+  <string name="cancelTournament">Avlys turneringa</string>
+  <string name="tournDescription">Beskriving av turneringa</string>
+  <string name="tournDescriptionHelp">Noko du vil seie til deltakarane? Ver kortfatta. Du kan gje URL\'en eit namn: [name](https://url)</string>
+  <string name="ratedFormHelp">Partia er rata
+og påverkar ratinga til spelarane</string>
+  <string name="onlyMembersOfTeam">Berre medlemar av laget</string>
+  <string name="noRestriction">Inga avgrensingar</string>
+  <string name="minimumRatedGames">Minste antal rata parti</string>
+  <string name="minimumRating">Lågaste rating</string>
+  <string name="maximumWeeklyRating">Høgste rating siste veke</string>
+  <string name="onlyTitled">Berre spelarar med sjakktittel</string>
+  <string name="onlyTitledHelp">Krev ein offisiell sjakktittel for å delta med i turneringa</string>
+  <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
+Det fungerar berre for standardparti, ikke for variantar.
+Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
+La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</string>
+  <string name="cancelSimul">Avbryt simultantilskipinga</string>
+  <string name="simulHostcolor">Vertsfarge for kvart parti</string>
+  <string name="estimatedStart">Forventa starttidspunkt</string>
+  <string name="simulFeatured">Vis på %s</string>
+  <string name="simulFeaturedHelp">Vis simultantilskipinga til alle på %s. Deaktivér for private simultantilskipingar.</string>
+  <string name="simulDescription">Beskriving av simultantilskipinga</string>
+  <string name="simulDescriptionHelp">Noko du vil fortelja deltakarane?</string>
+  <string name="markdownAvailable">%s er tilgjengeleg for meir avansert syntaks.</string>
+  <string name="inYourLocalTimezone">I di tidssone</string>
+  <string name="tournChat">Turneringschat</string>
+  <string name="noChat">Ikkje chat</string>
+  <string name="onlyTeamLeaders">Berre lagleiarar</string>
+  <string name="onlyTeamMembers">Berre lagsmedlemer</string>
 </resources>

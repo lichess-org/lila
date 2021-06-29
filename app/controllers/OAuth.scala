@@ -48,9 +48,9 @@ final class OAuth(env: Env) extends LilaController(env) {
         prompt.authorize(me) match {
           case Validated.Valid(authorized) =>
             env.oAuth.authorizationApi.create(authorized) map { code =>
-              Redirect(authorized.redirectUrl(code))
+              SeeOther(authorized.redirectUrl(code))
             }
-          case Validated.Invalid(error) => Redirect(prompt.redirectUri.error(error, prompt.state)).fuccess
+          case Validated.Invalid(error) => SeeOther(prompt.redirectUri.error(error, prompt.state)).fuccess
         }
       }
     }

@@ -1,4 +1,4 @@
-#{$moves-tag} {
+#{$moves-tag} > :not(.result-wrap) {
   @extend %zen;
 }
 

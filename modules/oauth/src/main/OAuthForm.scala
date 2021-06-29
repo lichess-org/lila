@@ -29,7 +29,7 @@ object OAuthForm {
     ) {
       def make(user: lila.user.User) =
         AccessToken(
-          id = AccessToken.makeId,
+          id = AccessToken.Id.random(),
           publicId = BSONObjectID.generate(),
           clientId = PersonalToken.clientId,
           userId = user.id,

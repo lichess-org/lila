@@ -331,7 +331,7 @@
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
   <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
   <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s for the last week</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
@@ -440,6 +440,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="boardEditor">Board editor</string>
   <string name="setTheBoard">Set the board</string>
   <string name="popularOpenings">Popular openings</string>
+  <string name="endgamePositions">Endgame positions</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
@@ -693,8 +694,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</string>
-  <string name="alternativelyYouCanX">Alternatively you can %s.</string>
+  <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
   <string name="asFreeAsLichess">As free as lichess</string>
@@ -871,4 +871,33 @@ computer analysis, game chat and shareable URL.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="cancelTournament">Cancel the tournament</string>
+  <string name="tournDescription">Tournament description</string>
+  <string name="tournDescriptionHelp">Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)</string>
+  <string name="ratedFormHelp">Games are rated
+and impact players ratings</string>
+  <string name="onlyMembersOfTeam">Only members of team</string>
+  <string name="noRestriction">No restriction</string>
+  <string name="minimumRatedGames">Minimum rated games</string>
+  <string name="minimumRating">Minimum rating</string>
+  <string name="maximumWeeklyRating">Maximum weekly rating</string>
+  <string name="onlyTitled">Only titled players</string>
+  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
+  <string name="positionInputHelp">Paste a valid FEN to start every game from a given position.
+It only works for standard games, not with variants.
+You can use the %s to generate a FEN position, then paste it here.
+Leave empty to start games from the normal initial position.</string>
+  <string name="cancelSimul">Cancel the simul</string>
+  <string name="simulHostcolor">Host color for each game</string>
+  <string name="estimatedStart">Estimated start time</string>
+  <string name="simulFeatured">Feature on %s</string>
+  <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
+  <string name="simulDescription">Simul description</string>
+  <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
+  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
+  <string name="inYourLocalTimezone">In your own local timezone</string>
+  <string name="tournChat">Tournament chat</string>
+  <string name="noChat">No chat</string>
+  <string name="onlyTeamLeaders">Only team leaders</string>
+  <string name="onlyTeamMembers">Only team members</string>
 </resources>

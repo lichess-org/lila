@@ -6,7 +6,14 @@ import scala.concurrent.duration._
 
 final class RelayMarkup {
 
-  private val renderer = new lila.common.Markdown(autoLink = true)
+  private val renderer =
+    new lila.common.Markdown(
+      autoLink = true,
+      list = true,
+      table = true,
+      strikeThrough = true,
+      header = true
+    )
 
   private val cache: LoadingCache[String, String] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)

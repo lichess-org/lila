@@ -5,4 +5,11 @@
     <item quantity="one">Txanda ikusi</item>
     <item quantity="other">%s txandak ikusi</item>
   </plurals>
+  <string name="tournStartDate">Txapelketaren hasiera data</string>
+  <string name="nbRounds">Txanda kopurua</string>
+  <string name="nbRoundsHelp">Txanda kopuru bakoitiak partidetako koloreak era egokian banatzen ditu.</string>
+  <string name="roundInterval">Txanden arteko itxaron-denbora</string>
+  <string name="forbiddenPairings">Debekatutako parekatzeak</string>
+  <string name="forbiddenPairingsHelp">Elkarren artean jokatu ezin duten jokalarien erabiltzaile-izenak. Lerro bakoitzean espazioaren banatutako bi erabiltzaile-izen idatzi.</string>
+  <string name="newSwiss">Txapelketa Suitzar berria</string>
 </resources>

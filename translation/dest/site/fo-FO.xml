@@ -675,8 +675,6 @@
   <string name="enableKidMode">Vel barnastøðu</string>
   <string name="disableKidMode">Sløkk barnastøðu</string>
   <string name="security">Trygd</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Hetta er ein listi yvir tól, ið hava ritað inn á tína kontu. Strika tær setur, tú ikki kennir aftur.</string>
-  <string name="alternativelyYouCanX">Í øðrum lagi kanst tú %s.</string>
   <string name="revokeAllSessions">strika allar setur (sessions)</string>
   <string name="playChessEverywhere">Telva allastaðni</string>
   <string name="asFreeAsLichess">Ókeypis sum Lichess</string>

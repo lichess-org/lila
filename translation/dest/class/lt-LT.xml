@@ -69,6 +69,10 @@ Slaptažodis: %3$s</string>
   <string name="releaseDesc1">Išleista paskyra nebegali tapti valdoma. Mokinys galės perjungi vaikų režimą ar pakeisti savo slaptažodį.</string>
   <string name="releaseDesc2">Po paskyros paleidimo mokinys liks klasėje.</string>
   <string name="realUniqueEmail">Tikras, unikalus mokinio el. pašto adresas. Juo išsiųsime patvirtinimo laišką su nuoroda išleisti paskyrą.</string>
+  <string name="closeStudent">Uždaryti paskyrą</string>
+  <string name="closeTheAccount">Visam laikui uždaro mokinio paskyrą.</string>
+  <string name="closeDesc1">Mokinys nebegalės prieiti prie šios paskyros. Uždarymas yra neatstatomas. Įsitikinkite, kad mokinys supranta ir sutinka.</string>
+  <string name="closeDesc2">Jūs taip pat galite paskyros valdymą perleisti mokiniui. Taip jie galės toliau naudotis savo paskyra.</string>
   <string name="teachers">Mokytojai</string>
   <plurals name="nbTeachers">
     <item quantity="one">Mokytojas</item>
@@ -99,5 +103,4 @@ Slaptažodis: %3$s</string>
   <string name="newsEdit2">Paskutines naujienas pridėkite viršuje. Netrinkite esamų naujienų.</string>
   <string name="newsEdit3">Atskirkite naujienas su ---
 Taip bus parodyta horizontali linija.</string>
-  <string name="markdownAvailable">%s prieinamas sudėtingesnei sintaksei.</string>
 </resources>

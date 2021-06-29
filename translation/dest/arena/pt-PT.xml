@@ -44,4 +44,12 @@ Joga rápido e volta ao vestíbulo para jogares mais jogos e ganhares mais ponto
     <item quantity="one">Ver a equipa</item>
     <item quantity="other">Ver todas as %s equipas</item>
   </plurals>
+  <string name="newTeamBattle">Batalha de Equipas</string>
+  <string name="customStartDate">Data inicial personalizada</string>
+  <string name="customStartDateHelp">No seu próprio fuso horário local. Substitui a configuração \"Tempo antes do torneio começar\"</string>
+  <string name="allowBerserk">Permitir Berserk</string>
+  <string name="allowBerserkHelp">Permitir aos jogadores ganhar um ponto extra ao reduzir a duração do relógio a metade</string>
+  <string name="allowChatHelp">Permitir que os jogadores discutam numa sala de bate-papo</string>
+  <string name="arenaStreaks">Séries de Arena</string>
+  <string name="arenaStreaksHelp">Depois de 2 vitórias, vitórias consecutivas concedem 4 pontos em vez de 2.</string>
 </resources>

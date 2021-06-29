@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">برای شروع حرکت کنید</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">شما تمام پازل ها را با رنگ سفید بازی میکنید</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">شما تمام پازل ها را با رنگ سیاه بازی میکنید</string>
+  <string name="puzzlesSolved">معماها حل شد</string>
+  <string name="newDailyHighscore">رکورد جدید روزانه!</string>
+  <string name="newWeeklyHighscore">رکورد جدید هفتگی!</string>
+  <string name="newMonthlyHighscore">رکورد جدید ماهانه!</string>
+  <string name="startTheRace">شروع مسابقه</string>
   <string name="createNewGame">ایجاد یک بازی جدید</string>
   <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
   <string name="skip">رد کردن</string>

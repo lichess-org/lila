@@ -95,5 +95,5 @@ final class EvalCacheApi(
     }
 
   private def destSize(fen: FEN): Int =
-    chess.Game(chess.variant.Standard.some, fen.some).situation.destinations.size
+    chess.Game(chess.variant.Standard.some, fen.some).situation.moves.view.map(_._2.size).sum
 }

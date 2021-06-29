@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">مسابقات فرمت سوئیسی</string>
+  <string name="tournStartDate">زمان آغاز مسابقه</string>
+  <string name="nbRounds">تعداد دورها</string>
+  <string name="roundInterval">فاصله بین دورها</string>
+  <string name="newSwiss">مسابقه سوئیسی جدید</string>
 </resources>

@@ -52,6 +52,7 @@
   <string name="knightMate">Schaakmat is mogelijk met enkel een paard of een loper, als de tegenstander meer stukken dan enkel een koning op het bord heeft.</string>
   <string name="noRatingPoints">Geen ratingpunten toegekend</string>
   <string name="ratedGame">Zorg ervoor dat je een partij met rating hebt gespeeld. Vrijblijvende partijen hebben geen invloed op de rating van de spelers.</string>
+  <string name="botRatingAbuse">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>

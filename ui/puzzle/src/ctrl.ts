@@ -554,7 +554,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     userMove,
     playUci,
     showEvalGauge() {
-      return vm.showComputer() && ceval.enabled();
+      return vm.showComputer() && ceval.enabled() && !outcome();
     },
     getOrientation() {
       return withGround(g => g.state.orientation)!;

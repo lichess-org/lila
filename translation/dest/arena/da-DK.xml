@@ -24,7 +24,7 @@ Bersærk giver kun ekstra point, hvis du laver mindst 7 træk i partiet.</string
   <string name="howIsTheWinnerDecided">Hvordan findes vinderen?</string>
   <string name="howIsTheWinnerDecidedAnswer">Spilleren (eller spillerne) med flest point, når turneringens fastsatte tidsgrænse nås, erklæres for vinder(e).</string>
   <string name="howDoesPairingWork">Hvordan foretages pardannelse?</string>
-  <string name="howDoesPairingWorkAnswer">Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din score. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
+  <string name="howDoesPairingWorkAnswer">Ved starten på turneringen parres spillere på baggrund af deres rating. Vend tilbage til turneringslobbyen, når du afslutter et parti: så vil du igen blive parret med en spiller tæt på din ranking. Det sikrer minimal ventetid, men du møder måske ikke alle andre deltagere i turneringen.
 Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde flere point.</string>
   <string name="howDoesItEnd">Hvordan afsluttes det?</string>
   <string name="howDoesItEndAnswer">Turneringen har et nedtællingsur. Når det rammer nul fastfryses turneringsplaceringer, og en vinder kåres. Igangværende partier skal spilles færdig, men de tæller ikke med i turneringen.</string>
@@ -42,4 +42,12 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
     <item quantity="one">Se holdet</item>
     <item quantity="other">Se alle %s hold</item>
   </plurals>
+  <string name="newTeamBattle">Ny holdkamp</string>
+  <string name="customStartDate">Tilpasset startdato</string>
+  <string name="customStartDateHelp">I din egen lokale tidszone. Dette tilsidesætter \"Tid før turnering starter\" indstillingen</string>
+  <string name="allowBerserk">Tillad Berserk</string>
+  <string name="allowBerserkHelp">Lad spillerne halvere deres tid på uret for at få et ekstra point</string>
+  <string name="allowChatHelp">Lad spillere diskutere i et chatrum</string>
+  <string name="arenaStreaks">Arena-stime</string>
+  <string name="arenaStreaksHelp">Efter 2 sejre giver fortløbende sejre 4 point i stedet for 2.</string>
 </resources>

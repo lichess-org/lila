@@ -105,5 +105,4 @@
   <string name="newsEdit2">إضافة الأخبار الأخيرة في الأعلى. لا تقم بحذف الأخبار السابقة.</string>
   <string name="newsEdit3">إفصل الأخبار ب ---
 سيعرض سطرا أفقيا.</string>
-  <string name="markdownAvailable">%s متاح لتركيبات الأكثر تطوراً.</string>
 </resources>

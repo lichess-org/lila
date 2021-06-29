@@ -764,8 +764,6 @@
   <string name="enableKidMode">Включить детский режим</string>
   <string name="disableKidMode">Отключить детский режим</string>
   <string name="security">Безопасность</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Это список устройств, с которых входили в ваш аккаунт. Закройте все подозрительные сеансы.</string>
-  <string name="alternativelyYouCanX">Также вы можете %s.</string>
   <string name="sessions">Сессии</string>
   <string name="revokeAllSessions">закрыть все сессии</string>
   <string name="playChessEverywhere">Играйте в шахматы везде</string>
@@ -951,4 +949,33 @@
 Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Для стримеров</string>
+  <string name="cancelTournament">Отменить турнир</string>
+  <string name="tournDescription">Описание турнира</string>
+  <string name="tournDescriptionHelp">Всё, что вы хотите рассказать участникам. Будьте краткими. Для ссылок доступна разметка Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
+и влияют на рейтинг игроков</string>
+  <string name="onlyMembersOfTeam">Только для членов клуба</string>
+  <string name="noRestriction">Без ограничений</string>
+  <string name="minimumRatedGames">Минимум рейтинговых игр</string>
+  <string name="minimumRating">Минимальный рейтинг</string>
+  <string name="maximumWeeklyRating">Максимальный еженедельный рейтинг</string>
+  <string name="onlyTitled">Только игроки со званиями</string>
+  <string name="onlyTitledHelp">Требует официального звания для участия в турнире</string>
+  <string name="positionInputHelp">Вставьте правильную строку FEN, чтобы каждая игра начиналась с заданной позиции.
+Это работает только для стандартных игр, но не с вариантами.
+Вы можете использовать %s для создания позиции FEN, а затем вставить её здесь.
+Оставьте поле пустым, чтобы игры начинались с обычной начальной позиции.</string>
+  <string name="cancelSimul">Отменить сеанс</string>
+  <string name="simulHostcolor">Цвет сеансёра в каждой партии</string>
+  <string name="estimatedStart">Предполагаемое время начала сеанса</string>
+  <string name="simulFeatured">Показывать на %s</string>
+  <string name="simulFeaturedHelp">Показывать сеанс на %s. Отключите для частных сеансов.</string>
+  <string name="simulDescription">Описание сеанса</string>
+  <string name="simulDescriptionHelp">Хотите что-нибудь сказать участникам?</string>
+  <string name="markdownAvailable">%s доступен для расширенного форматирования.</string>
+  <string name="inYourLocalTimezone">В вашем часовом поясе</string>
+  <string name="tournChat">Чат турнира</string>
+  <string name="noChat">Без чата</string>
+  <string name="onlyTeamLeaders">Только организаторы клуба</string>
+  <string name="onlyTeamMembers">Только члены клуба</string>
 </resources>

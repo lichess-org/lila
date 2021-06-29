@@ -86,7 +86,7 @@ object form {
           ),
           postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
-               trans.cancelTournament()
+              trans.cancelTournament()
             )
           )
         )
@@ -234,7 +234,8 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
+      help =
+        trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(
       views.html.tournament.form.startingPosition(_, tour)
     )

@@ -92,5 +92,4 @@ Questo è il link per accedere alla lezione.</string>
   <string name="newsEdit1">Tutte le news di classe in un unico campo.</string>
   <string name="newsEdit2">Aggiungi le notizie recenti in alto. Non eliminare le notizie precedenti.</string>
   <string name="newsEdit3">Separa le notizie con --- mostrerà una linea orizzontale.</string>
-  <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
 </resources>

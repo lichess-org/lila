@@ -692,8 +692,6 @@
   <string name="enableKidMode">Haurren modua aktibatu</string>
   <string name="disableKidMode">Haurren modua desaktibatu</string>
   <string name="security">Segurtasuna</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Zure kontua erabili duten gailuen zerre da da hau. Itxi ezagutzen ez dituzun sesio guztiak.</string>
-  <string name="alternativelyYouCanX">Gainera %s ditzakezu.</string>
   <string name="sessions">Saioak</string>
   <string name="revokeAllSessions">sesio guztiak itxi</string>
   <string name="playChessEverywhere">Jokatu xakean, nonnahi</string>
@@ -871,4 +869,32 @@
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="coachManager">Entrenatzaileen kudeatzailea</string>
   <string name="streamerManager">Zuzenekoen kudeatzailea</string>
+  <string name="cancelTournament">Bertan behera utzi txapelketa</string>
+  <string name="tournDescription">Txapelketaren deskribapena</string>
+  <string name="tournDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu? Markdown erako estekak erabili ditzakezu [izena](http://helbidea)</string>
+  <string name="ratedFormHelp">Partidek jokalarien sailkapenerako balio dute</string>
+  <string name="onlyMembersOfTeam">Talde bateko kideak bakarrik</string>
+  <string name="noRestriction">Murrizketarik ez</string>
+  <string name="minimumRatedGames">Gutxieneko partida kopurua</string>
+  <string name="minimumRating">Gutxieneko sailkapena</string>
+  <string name="maximumWeeklyRating">Asteroko gehieneko sailkapena</string>
+  <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
+  <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
+  <string name="positionInputHelp">Partida guztiak posizio jakin batekin asteko sartu posizioaren FEN balioa.
+Xake-arrunteko partidekin bakarrik balio du, ez aldaerekin.
+%s erabili dezakezu FEN balioa lortzeko, eta ondoren hemen itsatsi.
+Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
+  <string name="cancelSimul">Utzi bertan behera aldi-berekoa</string>
+  <string name="simulHostcolor">Aldi-berekoa ematen duenaren kolorea</string>
+  <string name="estimatedStart">Ustezko hasiera ordua</string>
+  <string name="simulFeatured">Destakatu hemen: %s</string>
+  <string name="simulFeaturedHelp">Erakutsi zure aldi-berekoa mundu guztiari %s helbideak. Desaktibatu aldi-bereko pribatuentzat.</string>
+  <string name="simulDescription">Aldi-berekoaren deskribapena</string>
+  <string name="simulDescriptionHelp">Parte-hartzaileei zerbait esan nahi diezu?</string>
+  <string name="markdownAvailable">%s erabili dezakezu.</string>
+  <string name="inYourLocalTimezone">Zure ordu-zonan</string>
+  <string name="tournChat">Txapelketaren txata</string>
+  <string name="noChat">Txatik ez</string>
+  <string name="onlyTeamLeaders">Taldeen kapitainak bakarrik</string>
+  <string name="onlyTeamMembers">Taldeen kideak bakarrik</string>
 </resources>

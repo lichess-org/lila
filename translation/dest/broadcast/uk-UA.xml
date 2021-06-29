@@ -3,10 +3,14 @@
   <string name="broadcasts">Трансляція</string>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова трансляція наживо</string>
+  <string name="addRound">Додати раунд</string>
   <string name="ongoing">Поточні</string>
   <string name="upcoming">Майбутні</string>
   <string name="completed">Завершені</string>
-  <string name="roundNumber">Номер раунда</string>
+  <string name="roundName">Назва раунду</string>
+  <string name="roundNumber">Номер раунду</string>
+  <string name="tournamentName">Назва турніру</string>
+  <string name="tournamentDescription">Короткий опис турніру</string>
   <string name="fullDescription">Повний опис події</string>
   <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
   <string name="sourceUrlOrGameIds">URL джерела, або ідентифікатор гри</string>
@@ -15,4 +19,9 @@
   <string name="startDate">Дата початку у Вашому часовому поясі</string>
   <string name="startDateHelp">Необов\'язково, якщо Ви знаєте, коли починається подія</string>
   <string name="credits">Вдячність джерелу</string>
+  <string name="resetRound">Скинути цей раунд</string>
+  <string name="deleteRound">Видалити цей раунд</string>
+  <string name="broadcastUrl">Посилання на трансляцію</string>
+  <string name="currentRoundUrl">Посилання на поточний раунд</string>
+  <string name="currentGameUrl">Посилання на поточну гру</string>
 </resources>
