@@ -141,7 +141,8 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
                   const $board = $(el.elm as HTMLElement);
                   $board.on('keypress', boardCommandsHandler());
                   const $buttons = $board.find('button');
-                  $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+                  const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
+                  $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                   $buttons.on('keypress', positionJumpHandler());
                   $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));

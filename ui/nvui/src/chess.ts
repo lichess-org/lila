@@ -488,8 +488,9 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   };
 }
 
-export function selectionHandler(opponentColor: Color, selectSound: () => void) {
+export function selectionHandler(getOpponentColor: () => Color, selectSound: () => void) {
   return (ev: MouseEvent) => {
+    const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
     const $rank = $evBtn.attr('rank');
