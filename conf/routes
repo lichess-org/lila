@@ -717,7 +717,9 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 
 # OAuth
 GET    /oauth                                controllers.OAuth.authorize
-POST   /oauth                                controllers.OAuth.authorizeApply
+POST   /oauth                                controllers.OAuth.legacyTokenApply
+GET    /oauth/authorize                      controllers.OAuth.legacyAuthorize
+POST   /oauth/authorize                      controllers.OAuth.authorizeApply
 POST   /oauth/revoke-client                  controllers.OAuth.revokeClient
 POST   /api/token                            controllers.OAuth.tokenApply
 DELETE /api/token                            controllers.OAuth.tokenRevoke
