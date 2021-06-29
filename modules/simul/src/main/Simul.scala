@@ -46,7 +46,7 @@ case class Simul(
 
   def addApplicant(applicant: SimulApplicant) =
     Created {
-      if (!hasApplicant(applicant.player.user) && variants.has(applicant.player.variant))
+      if (!hasApplicant(applicant.player.user) && !isHost(applicant.player.user) && variants.has(applicant.player.variant))
         copy(applicants = applicants :+ applicant)
       else this
     }
@@ -119,6 +119,7 @@ case class Simul(
 
   def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
   def isHost(user: User): Boolean               = user.id == hostId
+  def isHost(userId: User.ID): Boolean          = userId == hostId
 
   def playingPairings = pairings filterNot (_.finished)
 
