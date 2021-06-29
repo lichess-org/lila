@@ -20,7 +20,10 @@ export default function (ctrl: SimulCtrl) {
       h('aside.simul__side', {
         hook: util.onInsert(el => {
           $(el).replaceWith(ctrl.opts.$side);
-          ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
+          if (ctrl.opts.chat) {
+            ctrl.opts.chat.data.hostId = ctrl.data.host.id;
+            lichess.makeChat(ctrl.opts.chat);
+          }
         }),
       }),
       h(

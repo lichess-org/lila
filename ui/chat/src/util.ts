@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 
-export function userLinkColor(u: string, title?: string, patron?: boolean,owner?: boolean): VNode {
+export function userLink(u: string, title?: string, patron?: boolean): VNode {
   const trunc = u.length > 13 ? u.substring(0, 13) + '…' : u;
   const line = patron
     ? h('line.line.patron', {
@@ -16,8 +16,6 @@ export function userLinkColor(u: string, title?: string, patron?: boolean,owner?
       class: {
         'user-link': true,
         ulpt: true,
-        'simul-host': owner?true:false,
-        
       },
       attrs: {
         href: '/@/' + u,
@@ -25,11 +23,6 @@ export function userLinkColor(u: string, title?: string, patron?: boolean,owner?
     },
     title && title != 'BOT' ? [line, h('span.utitle', title), trunc] : [line, trunc]
   );
-
-}
-
-export function userLink(u: string, title?: string, patron?: boolean): VNode {
-  return userLinkColor(u,title,patron,undefined)
 }
 
 export function bind(eventName: string, f: (e: Event) => void) {

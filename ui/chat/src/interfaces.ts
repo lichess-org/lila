@@ -39,6 +39,7 @@ export interface ChatData {
   restricted: boolean;
   palantir: boolean;
   domVersion: number;
+  hostId?: string;
 }
 
 export interface Line {
