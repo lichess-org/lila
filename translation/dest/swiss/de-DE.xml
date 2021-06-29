@@ -5,6 +5,15 @@
     <item quantity="one">Die Runde ansehen</item>
     <item quantity="other">Alle %s Runden ansehen</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s Runde</item>
+    <item quantity="other">%s Runden</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Eine Runde pro Tag</item>
+    <item quantity="other">Eine Runde alle %s Tage</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Runden werden manuell gestartet</string>
   <string name="tournStartDate">Turnier-Startzeit</string>
   <string name="roundInterval">Zeitabstand zwischen Runden</string>
   <string name="forbiddenPairings">Verbotene Paarungen</string>
