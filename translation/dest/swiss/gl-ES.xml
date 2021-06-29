@@ -5,4 +5,34 @@
     <item quantity="one">Ver a ronda</item>
     <item quantity="other">Ver as %s rondas</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rondas</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Unha ronda por día</item>
+    <item quantity="other">Unha ronda cada %s días</item>
+  </plurals>
+  <string name="roundsAreStartedManually">As rondas comezan manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo entre rondas</item>
+    <item quantity="other">%s segundos entre rondas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto entre rondas</item>
+    <item quantity="other">%s minutos entre rondas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Comeza en</string>
+  <string name="nextRound">Nova ronda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partida en curso</item>
+    <item quantity="other">Partidas en curso</item>
+  </plurals>
+  <string name="tournStartDate">Data de comezo do torno</string>
+  <string name="numberOfRounds">Número de rondas</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Un número impar de rondas permite un equilibrio de cores óptimo.</string>
+  <string name="roundInterval">Intervalo entre rondas</string>
+  <string name="forbiddenPairings">Emparellamentos prohibidos</string>
+  <string name="forbiddenPairingsHelp">Xogadores/as que non poden xogar xuntos (irmás, por exemplo). Dous nomes de usuario por liña, separados por un espazo.</string>
+  <string name="newSwiss">Novo torneo suízo</string>
 </resources>

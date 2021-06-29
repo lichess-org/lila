@@ -563,6 +563,7 @@
   <string name="boardEditor">محرر الرقعة</string>
   <string name="setTheBoard">إعداد الرقعة</string>
   <string name="popularOpenings">إفتتاحيات شائعة</string>
+  <string name="endgamePositions">وضعية نهاية المباراة</string>
   <string name="startPosition">وضع البداية</string>
   <string name="clearBoard">رقعة بلا قطع</string>
   <string name="savePosition">حفظ الوضع</string>
@@ -836,6 +837,7 @@
   <string name="enableKidMode">تمكين نمط الطفل</string>
   <string name="disableKidMode">تعطيل نمط الطفل</string>
   <string name="security">الأمان</string>
+  <string name="sessions">جلسات</string>
   <string name="revokeAllSessions">إلغاء كافة جلسات العمل</string>
   <string name="playChessEverywhere">العب الشطرنج فى كل مكان</string>
   <string name="asFreeAsLichess">مجاني</string>
@@ -1028,4 +1030,25 @@
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="coachManager">مدير المدرب</string>
   <string name="streamerManager">مدير البث</string>
+  <string name="cancelTournament">الغاء البطولة</string>
+  <string name="tournDescription">وصف البطولة</string>
+  <string name="ratedFormHelp">المباراة مصنفة و ستأثر على تقييم اللاعبين</string>
+  <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
+  <string name="noRestriction">لا قيود</string>
+  <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>
+  <string name="minimumRating">أقل تصنيف</string>
+  <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
+  <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
+  <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
+  <string name="cancelSimul">ابطال المباراة الجماعية</string>
+  <string name="simulHostcolor">لون المضيف لكل لعبة</string>
+  <string name="estimatedStart">الوقت المتوقع للبدأ</string>
+  <string name="simulFeatured">ميزة في %s</string>
+  <string name="simulDescription">وصف المباراة الجماعية</string>
+  <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
+  <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
+  <string name="tournChat">دردشة البطولة</string>
+  <string name="noChat">لا دردشة</string>
+  <string name="onlyTeamLeaders">فقط قائدي الفريق</string>
+  <string name="onlyTeamMembers">فقط لاعبي الفريق</string>
 </resources>

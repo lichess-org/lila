@@ -533,6 +533,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="boardEditor">Eagarthóir boird</string>
   <string name="setTheBoard">Socraigh an bord</string>
   <string name="popularOpenings">Deiseanna a bhfuil tóir orthu</string>
+  <string name="endgamePositions">Suíomhanna deiridh an cluiche</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="clearBoard">Glan an bord</string>
   <string name="savePosition">Sábháil an suíomh</string>
@@ -1014,4 +1015,9 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="simulDescription">Tuairisc ar thaispeántas comhuaineach</string>
   <string name="simulDescriptionHelp">Rud ar bith is mian leat a rá leis na rannpháirtithe?</string>
   <string name="markdownAvailable">Tá %s ar fáil le haghaidh comhréir níos airde.</string>
+  <string name="inYourLocalTimezone">I do chrios ama áitiúil féin</string>
+  <string name="tournChat">Comhrá comórtais</string>
+  <string name="noChat">Cosc ar comhrá</string>
+  <string name="onlyTeamLeaders">Ceannairí foirne amháin</string>
+  <string name="onlyTeamMembers">Baill foirne amháin</string>
 </resources>

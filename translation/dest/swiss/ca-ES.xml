@@ -5,4 +5,9 @@
     <item quantity="one">Veure la ronda</item>
     <item quantity="other">Veure les %s rondes</item>
   </plurals>
+  <string name="tournStartDate">Data d\'inici del torneig</string>
+  <string name="roundInterval">Interval entre rondes</string>
+  <string name="forbiddenPairings">Aparellaments prohibits</string>
+  <string name="forbiddenPairingsHelp">Nom d\'usuari dels jugadors que no han de jugar junts (Germans, per exemple). Dos noms d\'usuari per línia, separats per un espai.</string>
+  <string name="newSwiss">Nou torneig Suís</string>
 </resources>

@@ -36,7 +36,7 @@
   <string name="moveConfirmation">Konfirmasi langkah</string>
   <string name="inCorrespondenceGames">Pada partai korespondensi</string>
   <string name="correspondenceAndUnlimited">Korespondensi dan permainan tanpa batas waktu</string>
-  <string name="confirmResignationAndDrawOffers">Mengkonfirmasi tawaran nyerah dan remis</string>
+  <string name="confirmResignationAndDrawOffers">Mengonfirmasi tawaran menyerah dan remis</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metode rokade</string>
   <string name="castleByMovingTwoSquares">Memindahkan raja dua kotak</string>
   <string name="castleByMovingOntoTheRook">Memindahkan raja ke benteng</string>

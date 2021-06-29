@@ -440,6 +440,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
   <string name="popularOpenings">Aberturas populares</string>
+  <string name="endgamePositions">Posições finais</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar o tabuleiro</string>
   <string name="savePosition">Guardar a posição</string>

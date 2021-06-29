@@ -470,6 +470,7 @@
   <string name="boardEditor">Galdiņa redaktors</string>
   <string name="setTheBoard">Uzstādīt galdiņu</string>
   <string name="popularOpenings">Populāras atklātnes</string>
+  <string name="endgamePositions">Spēļu beigu pozīcijas</string>
   <string name="startPosition">Sākuma pozīcija</string>
   <string name="clearBoard">Notīrīt lauciņu</string>
   <string name="savePosition">Saglabāt pozīciju</string>

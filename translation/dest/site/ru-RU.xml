@@ -501,6 +501,7 @@
   <string name="boardEditor">Редактор доски</string>
   <string name="setTheBoard">Установить позицию</string>
   <string name="popularOpenings">Популярные дебюты</string>
+  <string name="endgamePositions">Эндшпильные позиции</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="savePosition">Сохранить позицию</string>
