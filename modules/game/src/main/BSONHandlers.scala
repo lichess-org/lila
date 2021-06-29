@@ -13,6 +13,7 @@ import chess.{
   History => ChessHistory,
   Game => ChessGame
 }
+import chess.format.FEN
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.{ Success, Try }
@@ -102,6 +103,8 @@ object BSONHandlers {
       val decoded = r.bytesO(F.huffmanPgn).map { PgnStorage.Huffman.decode(_, playedPlies) } | {
         val clm      = r.get[CastleLastMove](F.castleLastMove)
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
+        val halfMoveClock =
+          pgnMoves.reverse.indexWhere(san => san.contains("x") || san.headOption.exists(_.isLower))
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
@@ -109,9 +112,9 @@ object BSONHandlers {
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
-          halfMoveClock = pgnMoves.reverse.indexWhere(san =>
-            san.contains("x") || san.headOption.exists(_.isLower)
-          ) atLeast 0
+          halfMoveClock =
+            (if (halfMoveClock < 0) r.getO[FEN](F.initialFen).flatMap(_.halfMove) | playedPlies
+             else halfMoveClock)
         )
       }
       val chessGame = ChessGame(
