@@ -23,6 +23,7 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   Style,
+  lastCapturedCommandHandler,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -137,8 +138,11 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
                   const $board = $(el.elm as HTMLElement);
                   $board.on('keypress', boardCommandsHandler());
                   const $buttons = $board.find('button');
+                  const steps = () => ctrl.tree.getNodeList(ctrl.path);
+                  const fenSteps = () => steps().map(step => step.fen);
                   $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+                  $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
                   $buttons.on('keypress', positionJumpHandler());
                   $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
                 },
