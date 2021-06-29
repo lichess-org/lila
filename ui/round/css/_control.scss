@@ -44,6 +44,10 @@
           margin: 0.1rem;
         }
       }
+      .good {
+        color: $c-good;
+        font-weight: bold;
+      }
     }
     .impasse-explanation {
       padding: 0.6rem;

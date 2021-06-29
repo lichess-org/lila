@@ -212,6 +212,8 @@ export function impasseHelp(ctrl: RoundController) {
     shogi.pockets['gote'].count() +
     (shogi.pockets['gote'].bishop + shogi.pockets['gote'].rook) * 4;
 
+  const greenCheckmark = h('span.good', '✓');
+
   return h('div.suggestion', [
     h(
       'h5',
@@ -224,17 +226,17 @@ export function impasseHelp(ctrl: RoundController) {
       h(
         'div.color-icon.sente',
         h('ul.impasse-list', [
-          h('li', ['Entering king: ', senteKing ? '✓' : '✗']),
-          h('li', ['Invading pieces: ', senteNumberOfPieces >= 10 ? '✓' : senteNumberOfPieces + '/10']),
-          h('li', ['Total value: ', senteImpasseValue >= 28 ? '✓' : senteImpasseValue + '/28']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', senteKing ? greenCheckmark : '✗']),
+          h('li', [ctrl.noarg('invadingPieces') + ': ', senteNumberOfPieces >= 10 ? greenCheckmark : senteNumberOfPieces + '/10']),
+          h('li', [ctrl.noarg('totalImpasseValue') + ': ', senteImpasseValue >= 28 ? greenCheckmark : senteImpasseValue + '/28']),
         ])
       ),
       h(
         'div.color-icon.gote',
         h('ul.impasse-list', [
-          h('li', ['Entering king: ', goteKing ? '✓' : '✗']),
-          h('li', ['Invading pieces: ', goteNumberOfPieces >= 10 ? '✓' : goteNumberOfPieces + '/10']),
-          h('li', ['Total value: ', goteImpasseValue >= 27 ? '✓' : goteImpasseValue + '/27']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', goteKing ? greenCheckmark : '✗']),
+          h('li', [ctrl.noarg('invadingPieces') + ': ', goteNumberOfPieces >= 10 ? greenCheckmark : goteNumberOfPieces + '/10']),
+          h('li', [ctrl.noarg('totalImpasseValue') + ': ', goteImpasseValue >= 27 ? greenCheckmark : goteImpasseValue + '/27']),
         ])
       ),
     ]),

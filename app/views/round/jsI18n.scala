@@ -95,6 +95,9 @@ object jsI18n {
     trans.yourOpponentWantsToPlayANewGameWithYou,
     trans.youPlayTheWhitePieces,
     trans.youPlayTheBlackPieces,
-    trans.itsYourTurn
+    trans.itsYourTurn,
+    trans.enteringKing,
+    trans.invadingPieces,
+    trans.totalImpasseValue
   ).map(_.key)
 }
