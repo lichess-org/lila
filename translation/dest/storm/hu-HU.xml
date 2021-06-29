@@ -38,6 +38,7 @@
   <string name="raceComplete">Vége a versenynek!</string>
   <string name="spectating">Megfigyelés</string>
   <string name="joinTheRace">Csatlakozz a versenyhez!</string>
+  <string name="startTheRace">Kezdés</string>
   <string name="yourRankX">Helyezésed: %s</string>
   <string name="waitForRematch">Várj az újrajátszásig</string>
   <string name="nextRace">Következő futam</string>
