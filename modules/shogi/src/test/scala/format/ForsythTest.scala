@@ -113,6 +113,14 @@ class ForsythTest extends ShogiTest {
   }
   "pieces in hand" should {
     "read" in {
+      "readHands" in {
+        val h = f.readHands("-")
+        h must_== Hands.init
+        val h2 = f.readHands("10p25P")
+        val sente: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 25)
+        val gote: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 10)
+        h2 must_== Hands(Hand(sente), Hand(gote))
+      }
       "empty hand" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1" must beSome.like { case s =>
           s.situation.board.crazyData must beSome.like { case d =>

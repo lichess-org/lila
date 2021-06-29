@@ -165,6 +165,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     handlers,
     moreTime: throttle(300, () => send('moretime')),
     outoftime: backoff(500, 1.1, () => {
+      // add berserk check
       if (
         ctrl.clock &&
         ctrl.clock.byoyomi > 0 &&
