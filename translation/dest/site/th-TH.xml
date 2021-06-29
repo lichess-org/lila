@@ -616,6 +616,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s เก่งกว่า %2$s ของผู้เล่น %3$s ทั้งหมด</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
   <string name="yourRating">ระดับคะแนนของคุณ</string>
   <string name="cumulative">สะสม</string>
