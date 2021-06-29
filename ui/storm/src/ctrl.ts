@@ -62,6 +62,14 @@ export default class StormCtrl {
         this.redraw();
       }
     }, config.timeToStart + 1000);
+    lichess.pubsub.on('zen', () => {
+      if (!this.run.endAt) {
+        const zen = $('body').toggleClass('zen').hasClass('zen');
+        window.dispatchEvent(new Event('resize'));
+        xhr.setZen(zen);
+      }
+    });
+    $('#zentog').on('click', this.toggleZen);
   }
 
   end = (): void => {
@@ -74,6 +82,7 @@ export default class StormCtrl {
       this.vm.response = res;
       this.redraw();
     });
+    $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
   };
 
@@ -203,8 +212,11 @@ export default class StormCtrl {
     });
   };
 
+  private toggleZen = () => lichess.pubsub.emit('zen');
+
   private hotkeys = () =>
     window.Mousetrap.bind('space', () => location.reload())
       .bind('return', this.end)
-      .bind('f', this.flip);
+      .bind('f', this.flip)
+      .bind('z', this.toggleZen);
 }
