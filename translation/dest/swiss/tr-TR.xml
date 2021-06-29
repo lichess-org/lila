@@ -5,4 +5,13 @@
     <item quantity="one">Turu görüntüleyin</item>
     <item quantity="other">Tüm %s turlarını görüntüle</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s tur</item>
+    <item quantity="other">%s tur</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Günde bir tur</item>
+    <item quantity="other">%s günde bir tur</item>
+  </plurals>
+  <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
 </resources>
