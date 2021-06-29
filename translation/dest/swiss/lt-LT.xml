@@ -7,6 +7,12 @@
     <item quantity="many">Peržvelgti visus %s raundo</item>
     <item quantity="other">Peržvelgti visus %s raundų</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s raundas</item>
+    <item quantity="few">%s raundai</item>
+    <item quantity="many">%s raundo</item>
+    <item quantity="other">%s raundų</item>
+  </plurals>
   <string name="tournStartDate">Turnyro pradžios data</string>
   <string name="roundInterval">Tarpai tarp raundų</string>
   <string name="forbiddenPairings">Neleistinos poros</string>
