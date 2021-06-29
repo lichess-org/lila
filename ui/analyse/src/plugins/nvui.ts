@@ -86,7 +86,7 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
           h('h2', 'Current position'),
           h(
-            'p.position',
+            'p.position.lastMove',
             {
               attrs: {
                 'aria-live': 'assertive',
