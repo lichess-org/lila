@@ -5,6 +5,10 @@
     <item quantity="one">Voir la ronde</item>
     <item quantity="other">Voir les %s rondes en détail</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rondes</item>
+    <item quantity="other">%s rondes</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Une ronde par jour</item>
     <item quantity="other">Une ronde tous les %s jours</item>
