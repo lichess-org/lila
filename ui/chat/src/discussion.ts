@@ -5,7 +5,7 @@ import { flag } from './xhr';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction } from './moderation';
 import { presetView } from './preset';
-import { userLink } from './util';
+import { userLinkColor } from './util';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -207,8 +207,9 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   if (line.u === 'lichess') return h('li.system', textNode);
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
-
-  const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
+  
+  const isFromOwner = line.u == ctrl.data.userId;
+  const userNode = thunk('a', line.u, userLinkColor, [line.u, line.title, line.p,isFromOwner]);
 
   return h(
     'li',
