@@ -5,6 +5,11 @@
     <item quantity="one">Voir la ronde</item>
     <item quantity="other">Voir les %s rondes en détail</item>
   </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Une ronde par jour</item>
+    <item quantity="other">Une ronde tous les %s jours</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Les rondes sont lancées manuellement</string>
   <string name="tournStartDate">Date de début du tournoi</string>
   <string name="roundInterval">Délai entre les rondes</string>
   <string name="forbiddenPairings">Appariements interdits</string>
