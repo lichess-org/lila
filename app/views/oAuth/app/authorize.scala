@@ -14,8 +14,9 @@ object authorize {
     views.html.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
-      moreJs =
-        embedJsUnsafeLoadThen("""setTimeout(() => $('#oauth-authorize').removeAttr('disabled'), 2000);""")
+      moreJs = embedJsUnsafeLoadThen(
+        """setTimeout(() => $('#oauth-authorize').removeAttr('disabled').removeClass('disabled'), 2000);"""
+      )
     ) {
       main(cls := "oauth box box-pad")(
         h1(dataIcon := "", cls := "text")("Authorize third party"),
@@ -50,7 +51,7 @@ object authorize {
           ),
           form3.actions(
             a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button", disabled := true, id := "oauth-authorize")("Authorize")
+            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           )
         ),
         prompt.maybeLegacy option p(
