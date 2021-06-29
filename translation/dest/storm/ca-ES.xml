@@ -4,7 +4,7 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">Jugues amb blanques a tots els problemes</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Jugues amb negres a tots els problemes</string>
   <string name="puzzlesSolved">problemes resolts</string>
-  <string name="newDailyHighscore">Nou récord de puntuació diària!</string>
+  <string name="newDailyHighscore">Nou rècord de puntuació diària!</string>
   <string name="newWeeklyHighscore">Nou récord de puntuació setmanal!</string>
   <string name="newMonthlyHighscore">Nou récord de puntuació mensual!</string>
   <string name="newAllTimeHighscore">Nou récord de puntuació de tots els temps!</string>
@@ -38,6 +38,7 @@
   <string name="raceComplete">Cursa finalitzada!</string>
   <string name="spectating">Observant</string>
   <string name="joinTheRace">Uneix-te a la cursa!</string>
+  <string name="startTheRace">Comença la cursa</string>
   <string name="yourRankX">La teva puntuació: %s</string>
   <string name="waitForRematch">Espera per a la revenja</string>
   <string name="nextRace">Cursa següent</string>

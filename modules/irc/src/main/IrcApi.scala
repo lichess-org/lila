@@ -50,7 +50,7 @@ final class IrcApi(
               channel = SlackClient.rooms.tavern
             )
           ) >> zulip.mod()(
-            s":note: ${markdown.userLink(mod.user.username)}: **${markdown
+            s"${markdown.userLink(mod.user.username)} :note: **${markdown
               .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -132,7 +132,9 @@ final class IrcApi(
             channel = SlackClient.rooms.tavernLog
           )
         ) >>
-          zulip.mod(ZulipClient.topic.actionLog)(s":$icon: ${markdown.linkifyUsers(text)}")
+          zulip.mod(ZulipClient.topic.actionLog)(
+            s"${markdown.userLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
+          )
       }
     }
 

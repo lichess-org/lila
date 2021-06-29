@@ -5,11 +5,34 @@
     <item quantity="one">View the round</item>
     <item quantity="other">View all %s rounds</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rounds</item>
+    <item quantity="other">%s rounds</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">One round per day</item>
+    <item quantity="other">One round every %s days</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Rounds are started manually</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s second between rounds</item>
+    <item quantity="other">%s seconds between rounds</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minunte between rounds</item>
+    <item quantity="other">%s minutes between rounds</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Starting in</string>
+  <string name="nextRound">Next round</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Ongoing game</item>
+    <item quantity="other">Ongoing games</item>
+  </plurals>
   <string name="tournStartDate">Tournament start date</string>
-  <string name="nbRounds">Number of rounds</string>
-  <string name="nbRoundsHelp">An odd number of rounds allows optimal color balance.</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interval between rounds</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Forbidden pairings</string>
+  <string name="numberOfRounds">Number of rounds</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">An odd number of rounds allows optimal color balance.</string>
+  <string name="roundInterval">Interval between rounds</string>
+  <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">New Swiss tournament</string>
+  <string name="newSwiss">New Swiss tournament</string>
 </resources>

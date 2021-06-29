@@ -47,9 +47,9 @@ final class Env(
       none
     }
 
-  lazy val tokenApi = wire[AccessTokenApi]
-
+  lazy val tokenApi         = wire[AccessTokenApi]
   lazy val authorizationApi = new AuthorizationApi(lilaDb(CollName("oauth2_authorization")))
+  lazy val legacyClientApi  = new LegacyClientApi(lilaDb(CollName("oauth2_legacy_client")))
 
   def forms = OAuthForm
 }

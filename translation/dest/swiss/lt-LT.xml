@@ -7,11 +7,44 @@
     <item quantity="many">Peržvelgti visus %s raundo</item>
     <item quantity="other">Peržvelgti visus %s raundų</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s raundas</item>
+    <item quantity="few">%s raundai</item>
+    <item quantity="many">%s raundo</item>
+    <item quantity="other">%s raundų</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Vienas raundas per dieną</item>
+    <item quantity="few">Vienas raundas per %s dienas</item>
+    <item quantity="many">Vienas raundas per %s dienos</item>
+    <item quantity="other">Vienas raundas per %s dienų</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Raundai pradedami ranka</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekundė tarp raundų</item>
+    <item quantity="few">%s sekundės tarp raundų</item>
+    <item quantity="many">%s sekundės tarp raundų</item>
+    <item quantity="other">%s sekundžių tarp raundų</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutė tarp raundų</item>
+    <item quantity="few">%s minutės tarp raundų</item>
+    <item quantity="many">%s minutės tarp raundų</item>
+    <item quantity="other">%s minučių tarp raundų</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Prasideda po</string>
+  <string name="nextRound">Kitas raundas</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Vykstantis žaidimas</item>
+    <item quantity="few">Vykstantys žaidimai</item>
+    <item quantity="many">Vykstančio žaidimo</item>
+    <item quantity="other">Vykstančių žaidimų</item>
+  </plurals>
   <string name="tournStartDate">Turnyro pradžios data</string>
-  <string name="nbRounds">Raundų skaičius</string>
-  <string name="nbRoundsHelp">Nelyginis raundų skaičius užtikrina žaidžiamų spalvų balansą.</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Tarpai tarp raundų</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Neleistinos poros</string>
+  <string name="numberOfRounds">Raundų skaičius</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Nelyginis raundų skaičius leidžia visiems sužaisti abiejomis spalvomis.</string>
+  <string name="roundInterval">Tarpai tarp raundų</string>
+  <string name="forbiddenPairings">Neleistinos poros</string>
   <string name="forbiddenPairingsHelp">Vartotojai, kurie negali žaisti akrtu (pvz. broliai, sesės). Du vartotojų vardai per eilutę, atskirti tarpu.</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Naujas Šveicariškas turnyras</string>
+  <string name="newSwiss">Naujas Šveicariškas turnyras</string>
 </resources>

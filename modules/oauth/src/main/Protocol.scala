@@ -11,7 +11,7 @@ import lila.common.SecureRandom
 
 object Protocol {
   case class AuthorizationCode(secret: String) extends AnyVal {
-    def hashed = Algo.sha256(secret).hex
+    def hashed            = Algo.sha256(secret).hex
     override def toString = "AuthorizationCode(***)"
   }
   object AuthorizationCode {
@@ -22,10 +22,6 @@ object Protocol {
 
   case class State(value: String) extends AnyVal
 
-  case class CodeChallenge(value: String) extends AnyVal {
-    def matches(verifier: CodeVerifier) = verifier.challenge == this
-  }
-
   case class CodeChallengeMethod()
   object CodeChallengeMethod {
     def from(codeChallengeMethod: String): Validated[Error, CodeChallengeMethod] =
@@ -35,10 +31,11 @@ object Protocol {
       }
   }
 
+  case class CodeChallenge(value: String) extends AnyVal
+
   case class CodeVerifier(value: String) extends AnyVal {
-    def challenge = CodeChallenge(
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
-    )
+    def matches(challenge: CodeChallenge) =
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes) == challenge.value
   }
   object CodeVerifier {
     def from(value: String): Validated[Error, CodeVerifier] =
@@ -150,8 +147,7 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-    case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
-      def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
-    }
+    case object MismatchingCodeVerifier
+        extends InvalidGrant("hash of code_verifier does not match code_challenge")
   }
 }

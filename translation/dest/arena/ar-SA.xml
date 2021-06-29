@@ -45,4 +45,12 @@
     <item quantity="many">عرض %s فرق</item>
     <item quantity="other">عرض %s فرق</item>
   </plurals>
+  <string name="newTeamBattle">معركة فريق جديدة</string>
+  <string name="customStartDate">تاريخ بدأ مخصص</string>
+  <string name="customStartDateHelp">في المنطقة الزمنية المحلية الخاصة بك. هذا يتجاوز إعداد \"الوقت قبل بدء البطولة\"</string>
+  <string name="allowBerserk">السماح بالتحدي بنصف الوقت</string>
+  <string name="allowBerserkHelp">السماح للاعبين بالتضحية بنصف وقتهم مقابل الحصول على نقاط إضافية</string>
+  <string name="allowChatHelp">السماح للاعبين بالمناقشة في غرفة الدردشة</string>
+  <string name="arenaStreaks">تسلسل الفوز في الارينا</string>
+  <string name="arenaStreaksHelp">بعد تحقيق فوزين، الفوز المتتالي يمنحك اربعة نقاط بدلاً من ٢.</string>
 </resources>

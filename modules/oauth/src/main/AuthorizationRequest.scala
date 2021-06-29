@@ -17,37 +17,34 @@ object AuthorizationRequest {
       state: Option[String],
       redirectUri: Option[String],
       responseType: Option[String],
-      codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
+      codeChallenge: Option[String],
       scope: Option[String]
   ) {
     // In order to show a prompt and redirect back with error codes a valid
     // redirect_uri is absolutely required. Ignore all other errors for now.
-    def prompt: Validated[Error, Prompt] = {
-      redirectUri
-        .toValid(Error.RedirectUriRequired)
-        .andThen(RedirectUri.from)
-        .map { redirectUri =>
-          Prompt(
-            redirectUri,
-            state.map(State.apply),
-            clientId = clientId,
-            responseType = responseType,
-            codeChallenge = codeChallenge,
-            codeChallengeMethod = codeChallengeMethod,
-            scope = scope
-          )
-        }
-    }
+    def prompt: Validated[Error, Prompt] =
+      for {
+        redirectUri <- redirectUri.toValid(Error.RedirectUriRequired).andThen(RedirectUri.from)
+        clientId    <- clientId.map(ClientId).toValid(Error.ClientIdRequired)
+      } yield Prompt(
+        redirectUri,
+        state.map(State.apply),
+        clientId = clientId,
+        responseType = responseType,
+        codeChallengeMethod = codeChallengeMethod,
+        codeChallenge = codeChallenge,
+        scope = scope
+      )
   }
 
   case class Prompt(
       redirectUri: RedirectUri,
       state: Option[State],
-      clientId: Option[String],
+      clientId: ClientId,
       responseType: Option[String],
-      codeChallenge: Option[String],
       codeChallengeMethod: Option[String],
+      codeChallenge: Option[String],
       scope: Option[String]
   ) {
     def errorUrl(error: Error) = redirectUri.error(error, state)
@@ -66,35 +63,44 @@ object AuthorizationRequest {
 
     def maybeScopes: List[OAuthScope] = validScopes.getOrElse(Nil)
 
-    def authorize(user: User): Validated[Error, Authorized] = {
-      for {
-        clientId      <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
-        scopes        <- validScopes
-        codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
-        responseType  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
-        codeChallengeMethod <- codeChallengeMethod
-          .toValid(Error.CodeChallengeMethodRequired)
-          .andThen(CodeChallengeMethod.from)
-      } yield Authorized(
-        clientId,
-        redirectUri,
-        state,
-        codeChallenge,
-        codeChallengeMethod,
-        user.id,
-        scopes
-      )
-    }
+    def maybeLegacy: Boolean = codeChallengeMethod.isEmpty && codeChallenge.isEmpty
+
+    def authorize(
+        user: User,
+        legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
+    ): Fu[Validated[Error, Authorized]] =
+      (codeChallengeMethod match {
+        case None =>
+          legacy(clientId, redirectUri).dmap(
+            _.toValid[Error](Error.CodeChallengeMethodRequired).map(Left.apply)
+          )
+        case Some(method) =>
+          fuccess(CodeChallengeMethod.from(method).andThen { _ =>
+            codeChallenge.map(CodeChallenge).toValid[Error](Error.CodeChallengeRequired).map(Right.apply)
+          })
+      }) dmap { challenge =>
+        for {
+          challenge    <- challenge
+          scopes       <- validScopes
+          responseType <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+        } yield Authorized(
+          clientId,
+          redirectUri,
+          state,
+          user.id,
+          scopes,
+          challenge
+        )
+      }
   }
 
   case class Authorized(
       clientId: ClientId,
       redirectUri: RedirectUri,
       state: Option[State],
-      codeChallenge: CodeChallenge,
-      codeChallengeMethod: CodeChallengeMethod,
       user: User.ID,
-      scopes: List[OAuthScope]
+      scopes: List[OAuthScope],
+      challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
   ) {
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
   }

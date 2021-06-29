@@ -501,6 +501,7 @@
   <string name="boardEditor">Edytor pozycji</string>
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
+  <string name="endgamePositions">Pozycje końcowe</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
@@ -972,4 +973,9 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="simulDescription">Opis symultany</string>
   <string name="simulDescriptionHelp">Wiadomość do przekazania uczestnikom</string>
   <string name="markdownAvailable">%s jest dostępny dla bardziej zaawansowanej składni.</string>
+  <string name="inYourLocalTimezone">W Twojej lokalnej strefie czasowej</string>
+  <string name="tournChat">Czat turniejowy</string>
+  <string name="noChat">Wyłącz czat</string>
+  <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
+  <string name="onlyTeamMembers">Tylko członkowie klubu</string>
 </resources>

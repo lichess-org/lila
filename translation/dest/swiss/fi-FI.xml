@@ -6,8 +6,6 @@
     <item quantity="other">Näytä kaikki %s kierrosta</item>
   </plurals>
   <string name="tournStartDate">Turnauksen alkamisaika</string>
-  <string name="nbRounds">Kierrosten määrä</string>
-  <string name="nbRoundsHelp">Parittomalla kierrosten määrällä värit jakautuvat tasapainoisimmin.</string>
   <string name="roundInterval">Kierrosten välinen aika</string>
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>

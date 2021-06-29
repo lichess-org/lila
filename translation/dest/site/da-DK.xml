@@ -439,6 +439,7 @@
   <string name="boardEditor">Opstilling</string>
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
+  <string name="endgamePositions">Slutspilspositioner</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
@@ -676,7 +677,7 @@
   <string name="downloadImported">Download importeret</string>
   <string name="printFriendlyPDF">Print-venlig PDF</string>
   <string name="crosstable">Korstabel</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Du kan også scrolle frem til et træk i partiet.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Brug musens scrollhjul på brættet til at skifte mellem træk i partiet.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variationer for at få en forhåndsvisning af dem.</string>
   <string name="analysisShapesHowTo">Tryk shift + klik eller højreklik for at tegne cirkler og pile på brættet.</string>
   <string name="letOtherPlayersMessageYou">Lad andre spillere sende en besked til dig</string>

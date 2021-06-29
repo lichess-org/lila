@@ -9,4 +9,54 @@
     <item quantity="many">عرض الجولة %s</item>
     <item quantity="other">عرض كل %s الجولات</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="zero">%s جولات</item>
+    <item quantity="one">%s جولات</item>
+    <item quantity="two">%s جولات</item>
+    <item quantity="few">%s جولات</item>
+    <item quantity="many">%s جولات</item>
+    <item quantity="other">%s جولات</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="zero">جولة واحدة في اليوم</item>
+    <item quantity="one">جولة واحدة في اليوم</item>
+    <item quantity="two">%s جولات في اليوم</item>
+    <item quantity="few">%s جولات في اليوم</item>
+    <item quantity="many">%s جولات في اليوم</item>
+    <item quantity="other">%s جولات في اليوم</item>
+  </plurals>
+  <string name="roundsAreStartedManually">الجودات ستبدأ بشكل يدوي</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="zero">%s ثواني بين الجولات</item>
+    <item quantity="one">%s ثواني بين الجولات</item>
+    <item quantity="two">%s ثواني بين الجولات</item>
+    <item quantity="few">%s ثواني بين الجولات</item>
+    <item quantity="many">%s ثواني بين الجولات</item>
+    <item quantity="other">%s ثواني بين الجولات</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="zero">%s دقائق بين الجولات</item>
+    <item quantity="one">%s دقائق بين الجولات</item>
+    <item quantity="two">%s دقائق بين الجولات</item>
+    <item quantity="few">%s دقائق بين الجولات</item>
+    <item quantity="many">%s دقائق بين الجولات</item>
+    <item quantity="other">%s دقائق بين الجولات</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">تبدأ في</string>
+  <string name="nextRound">الجولة التالية</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="zero">المباريات الجارية</item>
+    <item quantity="one">المباريات الجارية</item>
+    <item quantity="two">المباريات الجارية</item>
+    <item quantity="few">المباريات الجارية</item>
+    <item quantity="many">المباريات الجارية</item>
+    <item quantity="other">المباريات الجارية</item>
+  </plurals>
+  <string name="tournStartDate">تاريخ بداية البطولة</string>
+  <string name="numberOfRounds">عدد الجولات</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">العدد الفردي من الجولات يسمح بتوازن اكبر.</string>
+  <string name="roundInterval">الفاصل الزمني بين المباريات</string>
+  <string name="forbiddenPairings">أزواج محظورة</string>
+  <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
+  <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
 </resources>

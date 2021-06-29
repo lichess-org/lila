@@ -8,4 +8,9 @@
     <item quantity="many">Féach ar na %s babhta go léir</item>
     <item quantity="other">Féach ar na %s babhta go léir</item>
   </plurals>
+  <string name="tournStartDate">Dáta tosaigh an chomórtais</string>
+  <string name="roundInterval">Sos idir babhtaí</string>
+  <string name="forbiddenPairings">Péirí faoi chosc</string>
+  <string name="forbiddenPairingsHelp">Ainmneacha úsáideora na n-imreoirí nach gcaithfidh imirt le chéile (Siblíní, mar shampla). Dhá ainm úsáideora in aghaidh an líne, scartha le spás.</string>
+  <string name="newSwiss">Comórtas Swiss nua</string>
 </resources>
