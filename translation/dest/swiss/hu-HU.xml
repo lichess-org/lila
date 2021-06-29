@@ -13,6 +13,7 @@
     <item quantity="one">Egy forduló naponta</item>
     <item quantity="other">Egy forduló %s naponta</item>
   </plurals>
+  <string name="roundsAreStartedManually">Manuálisan indított fordulók</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s másodperc a fordulók között</item>
     <item quantity="other">%s másodperc a fordulók között</item>
