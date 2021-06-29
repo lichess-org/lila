@@ -5,7 +5,23 @@
     <item quantity="one">Bekijk de ronde</item>
     <item quantity="other">Bekijk alle %s rondes</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rondes</item>
+    <item quantity="other">%s rondes</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Eén ronde per dag</item>
+    <item quantity="other">Eén ronde elke %s dagen</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Ronden worden handmatig gestart</string>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuut tussen rondes</item>
+    <item quantity="other">%s minuten tussen rondes</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Begint binnen</string>
+  <string name="nextRound">Volgende ronde</string>
   <string name="tournStartDate">Begindatum toernooi</string>
+  <string name="numberOfRounds">Aantal rondes</string>
   <string name="roundInterval">Interval tussen rondes</string>
   <string name="forbiddenPairings">Verboden paringen</string>
   <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
