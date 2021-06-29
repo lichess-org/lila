@@ -5,6 +5,10 @@
     <item quantity="one">Forduló megtekintése</item>
     <item quantity="other">Mind a %s forduló megtekintése</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s forduló</item>
+    <item quantity="other">%s forduló</item>
+  </plurals>
   <string name="tournStartDate">Verseny kezdési ideje</string>
   <string name="roundInterval">Fordulók közötti szünet</string>
   <string name="forbiddenPairings">Tiltott párosítások</string>
