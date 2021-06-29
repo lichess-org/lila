@@ -48,7 +48,7 @@ body {
     grid-area: acpl;
   }
 
-  .chat__members {
+  &__underchat {
     grid-area: uchat;
   }
 
@@ -73,7 +73,7 @@ body {
     grid-row-gap: 0;
 
     &__side,
-    .chat__members,
+    &__underchat,
     .mchat {
       margin: $block-gap 0 0 0;
     }

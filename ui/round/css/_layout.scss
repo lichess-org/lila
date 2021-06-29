@@ -31,10 +31,10 @@
     @extend %zen;
 
     grid-area: uchat;
+  }
 
-    #{$move-tag} {
-      display: none;
-    }
+  &__mod {
+    margin-top: 1em;
   }
 
   grid-template-areas: 'app' 'under' 'side' 'uchat';

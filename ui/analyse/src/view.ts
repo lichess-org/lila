@@ -435,9 +435,33 @@ export default function (ctrl: AnalyseCtrl): VNode {
         }),
       ctrl.embed
         ? null
-        : h('div.chat__members.none', {
-            hook: onInsert(lichess.watchers),
-          }),
+        : h('div.analyse__underchat', [
+            h('div.chat__members.none', {
+              hook: onInsert(lichess.watchers),
+            }),
+            ctrl.opts.hunter
+              ? h(
+                  'div.analyse__mod',
+                  [ctrl.data.player, ctrl.data.opponent]
+                    .filter(p => p.blurs && p.blurs.percent > 30)
+                    .map(p =>
+                      h('div', [
+                        h(
+                          'a',
+                          { attrs: { class: `user-link color-icon is ${p.color}` }, href: '/@/' + p.id + '?mod' },
+                          [
+                            p.user?.title && p.user.title !== 'BOT' ? h('span.utitle', p.user.title) : undefined,
+                            p.user?.username || 'Anonymous',
+                            ` (${p.rating ?? '?'}${p.provisional ? '?' : ''})`,
+                          ]
+                        ),
+                        ` ${p.blurs!.nb}/${Math.round((p.blurs!.nb * 100) / p.blurs!.percent)} blurs `,
+                        h('strong', `${p.blurs!.percent} %`),
+                      ])
+                    )
+                )
+              : undefined,
+          ]),
     ]
   );
 }
