@@ -55,7 +55,7 @@ export type StatusId = number;
 
 export interface Player {
   id: string;
-  name: string;
+  name: string | null;
   user?: PlayerUser;
   spectator?: boolean;
   color: Color;
