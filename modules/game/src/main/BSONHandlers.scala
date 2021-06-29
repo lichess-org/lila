@@ -104,7 +104,10 @@ object BSONHandlers {
         val clm      = r.get[CastleLastMove](F.castleLastMove)
         val pgnMoves = PgnStorage.OldBin.decode(r bytesD F.oldPgn, playedPlies)
         val halfMoveClock =
-          pgnMoves.reverse.indexWhere(san => san.contains("x") || san.headOption.exists(_.isLower))
+          pgnMoves.reverse
+            .indexWhere(san => san.contains("x") || san.headOption.exists(_.isLower))
+            .some
+            .filter(0 <=)
         PgnStorage.Decoded(
           pgnMoves = pgnMoves,
           pieces = BinaryFormat.piece.read(r bytes F.binaryPieces, gameVariant),
@@ -112,9 +115,8 @@ object BSONHandlers {
           unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
           lastMove = clm.lastMove,
           castles = clm.castles,
-          halfMoveClock =
-            (if (halfMoveClock < 0) r.getO[FEN](F.initialFen).flatMap(_.halfMove) | playedPlies
-             else halfMoveClock)
+          halfMoveClock = halfMoveClock orElse
+            r.getO[FEN](F.initialFen).flatMap(_.halfMove) getOrElse playedPlies
         )
       }
       val chessGame = ChessGame(
