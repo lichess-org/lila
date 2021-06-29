@@ -19,11 +19,10 @@ final private class Streaming(
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,
-    twitchCredentials: () => (String, String)
+    twitchApi: TwitchApi
 ) extends Actor {
 
   import Stream._
-  import Twitch.Reads._
   import YouTube.Reads._
 
   private case object Tick
@@ -51,7 +50,16 @@ final private class Streaming(
       }
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
-        fetchTwitchStreams(streamers, 0, None, Nil) zip fetchYouTubeStreams(streamers)
+        twitchApi.fetchStreams(streamers, 0, None) map {
+          _.collect { case Twitch.TwitchStream(name, title, _) =>
+            streamers.find { s =>
+              s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
+                title.toLowerCase.contains(keyword.toLowerCase) ||
+                alwaysFeatured().value.contains(s.userId)
+              }
+            } map { Twitch.Stream(name, title, _) }
+          }.flatten
+        } zip fetchYouTubeStreams(streamers)
       streams = LiveStreams {
         lila.common.ThreadLocalRandom.shuffle {
           (twitchStreams ::: youTubeStreams) pipe dedupStreamers
@@ -86,57 +94,6 @@ final private class Streaming(
           lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
       }
     }
-  }
-
-  def fetchTwitchStreams(
-      streamers: List[Streamer],
-      page: Int,
-      pagination: Option[Twitch.Pagination],
-      acc: List[Twitch.Stream]
-  ): Fu[List[Twitch.Stream]] = {
-    val (clientId, secret) = twitchCredentials()
-    if (clientId.nonEmpty && secret.nonEmpty && page < 10) {
-      val query = List(
-        "game_id" -> "368914", // shogi
-        "first"   -> "100" // max results per page
-      ) ::: List(
-        pagination.flatMap(_.cursor).map { "after" -> _ }
-      ).flatten
-      ws.url("https://api.twitch.tv/helix/streams")
-        .withQueryStringParameters(query: _*)
-        .withHttpHeaders(
-          "Client-ID"     -> clientId,
-          "Authorization" -> s"Bearer $secret"
-        )
-        .get()
-        .flatMap {
-          case res if res.status == 200 =>
-            res.json.validate[Twitch.Result](twitchResultReads) match {
-              case JsSuccess(result, _) => fuccess(result)
-              case JsError(err)         => fufail(s"twitch $err ${lila.log http res}")
-            }
-          case res => fufail(s"twitch ${lila.log http res}")
-        }
-        .recover { case e: Exception =>
-          logger.warn(e.getMessage)
-          Twitch.Result(None, None)
-        }
-        .monSuccess(_.tv.streamer.twitch)
-        .flatMap { result =>
-          if (result.data.exists(_.nonEmpty))
-            fetchTwitchStreams(
-              streamers,
-              page + 1,
-              result.pagination,
-              acc ::: result.streams(
-                keyword,
-                streamers,
-                alwaysFeatured().value.map(_.toLowerCase)
-              )
-            )
-          else fuccess(acc)
-        }
-    } else fuccess(acc)
   }
 
   private var prevYouTubeStreams = YouTube.StreamsFetched(Nil, DateTime.now)
