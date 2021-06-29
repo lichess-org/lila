@@ -440,6 +440,7 @@
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="setTheBoard">Στήστε την σκακιέρα</string>
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
+  <string name="endgamePositions">Θέσεις φινάλε</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="savePosition">Αποθηκεύστε τη θέση</string>
