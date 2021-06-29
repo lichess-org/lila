@@ -439,6 +439,7 @@
   <string name="boardEditor">Éditeur de position</string>
   <string name="setTheBoard">Entrer une position</string>
   <string name="popularOpenings">Ouvertures courantes</string>
+  <string name="endgamePositions">Positions de finale</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -881,6 +882,10 @@ et ont un impact sur le classement des joueurs</string>
   <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
   <string name="onlyTitled">Joueurs titrés seulement</string>
   <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
+  <string name="positionInputHelp">Collez un FEN valide pour commencer chaque partie à partir d\'une position donnée.
+Cela ne fonctionne que pour les parties normales, pas avec les variantes.
+Vous pouvez utiliser le %s pour créer une position FEN puis la coller ici.
+Laissez vide pour commencer les parties à partir de la position initiale normale.</string>
   <string name="cancelSimul">Annuler la simultanée</string>
   <string name="simulHostcolor">Couleur des pièces jouées par l\'hôte pour chaque partie</string>
   <string name="estimatedStart">Heure de début estimée</string>
