@@ -10,7 +10,7 @@ const scoreTagNames = ['score', 'streak', 'double'];
 
 function scoreTag(s: [number, number] | number) {
   const [score, tag] = Array.isArray(s) ? s : [s, 1];
-  return h(scoreTagNames[tag - 1], [score]);
+  return h(scoreTagNames[tag - 1 || 1], [score]);
 }
 
 function playerTr(ctrl: TournamentController, player: StandingPlayer) {
