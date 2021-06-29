@@ -153,6 +153,16 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
               boardStyle.get()
             )
           ),
+          h(
+            'div.boardstatus',
+            {
+              attrs: {
+                'aria-live': 'polite',
+                'aria-atomic': 'true',
+              },
+            },
+            ''
+          ),
           h('div.content', {
             hook: {
               insert: vnode => {
