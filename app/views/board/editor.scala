@@ -14,7 +14,7 @@ object editor {
       sit: chess.Situation,
       fen: FEN,
       positionsJson: String,
-      endgamePositionsJson: String,
+      endgamePositionsJson: String
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
