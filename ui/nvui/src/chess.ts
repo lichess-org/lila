@@ -71,7 +71,7 @@ const whiteUpperLetterPiece: { [letter: string]: string } = {
   Q: 'Q',
   K: 'K',
 };
-const namePiece: { [letter: string]: string } = {
+export const namePiece: { [letter: string]: string } = {
   p: 'pawn',
   r: 'rook',
   n: 'knight',

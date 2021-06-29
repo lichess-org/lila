@@ -23,6 +23,9 @@ import {
   positionJumpHandler,
   pieceJumpingHandler,
   Style,
+  castlingFlavours,
+  inputToLegalUci,
+  namePiece,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -30,6 +33,7 @@ import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
 import { bind } from '../util';
 import throttle from 'common/throttle';
+import { Role } from 'chessground/types';
 
 export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 
@@ -216,10 +220,20 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
   return function () {
-    let input = ($input.val() as string).trim();
+    let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
-    else notify('Invalid command');
+    else {
+      const uci = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
+      if (uci)
+        ctrl.sendMove(
+          uci.slice(0, 2) as Key,
+          uci.slice(2, 4) as Key,
+          undefined,
+          namePiece[uci.slice(4)] as Role | undefined
+        );
+      else notify('Invalid command');
+    }
     $input.val('');
     return false;
   };
