@@ -121,6 +121,8 @@ lichess.movetimeChart = function (data, trans, hunter) {
                     const p =
                       this.highcharts.series[(showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)]
                         .data[x >> 1];
+                    if (p) p.select(true);
+                    lichess.pubsub.emit('analysis.chart.click', x);
                   }
                 },
               },
