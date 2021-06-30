@@ -1,3 +1,5 @@
+@import '../../common/css/theme/mixins';
+
 main {
   @include fluid-size('--gauge-gap', 8px, 17px);
 }
@@ -5,8 +7,12 @@ main {
 .eval-gauge {
   width: var(--gauge-gap);
   position: relative;
-  background: if($theme-light, #fff, #a0a0a0);
   overflow: hidden;
+  background: #fff;
+
+  @include dark-theme {
+    background: #a0a0a0;
+  }
 
   @include breakpoint($mq-col1-uniboard) {
     display: none;

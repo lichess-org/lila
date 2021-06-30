@@ -1,3 +1,5 @@
+@import '../../../common/css/theme/mixins';
+
 %top-icon {
   display: block;
   height: $site-header-height;
@@ -68,7 +70,7 @@
   .signin {
     margin: 0 1rem;
 
-    @if $theme == 'transp' {
+    @include transp-theme {
       &.button-empty {
         @extend %metal;
 
