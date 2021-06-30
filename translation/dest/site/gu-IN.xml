@@ -303,6 +303,7 @@
   <string name="message">સંદેશ</string>
   <string name="reason">કારણ</string>
   <string name="insult">અપમાન</string>
+  <string name="sound">ધ્વનિ</string>
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="aboutX">%s વિશે</string>
@@ -310,6 +311,10 @@
   <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
+  <string name="language">ભાષા</string>
+  <string name="background">પૃષ્ઠભૂમિ</string>
+  <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
+  <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
