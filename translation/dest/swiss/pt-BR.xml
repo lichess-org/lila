@@ -5,7 +5,32 @@
     <item quantity="one">Ver a rodada</item>
     <item quantity="other">Ver todas as %s rodadas</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rodadas</item>
+    <item quantity="other">%s rodadas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Uma rodada por dia</item>
+    <item quantity="other">Uma rodada a cada %s dias</item>
+  </plurals>
+  <string name="roundsAreStartedManually">As rodadas são iniciadas manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo entre as rodadas</item>
+    <item quantity="other">%s segundos entre as rodadas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto entre as rodadas</item>
+    <item quantity="other">%s minutos entre as rodadas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Começando em</string>
+  <string name="nextRound">Próxima rodada</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Jogo em andamento</item>
+    <item quantity="other">Jogos em andamento</item>
+  </plurals>
   <string name="tournStartDate">Data de início do torneio</string>
+  <string name="numberOfRounds">Número de rodadas</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Um número ímpar de rodadas permite um equilíbrio ideal das cores.</string>
   <string name="roundInterval">Intervalo entre rodadas</string>
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
