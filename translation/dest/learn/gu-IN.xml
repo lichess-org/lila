@@ -4,8 +4,12 @@
   <string name="byPlaying">રમી ને!</string>
   <string name="menu">મેનુ</string>
   <string name="progressX">પ્રગતિ: %s</string>
+  <string name="resetMyProgress">મારી પ્રગતિ રીસેટ કરો</string>
+  <string name="youWillLoseAllYourProgress">તમે તમારી બધી જ પ્રગતિ ખોઇ દેશો!</string>
   <string name="play">ચાલો!</string>
+  <string name="chessPieces">શતરંજના મહોરાં</string>
   <string name="theRook">ઊંટ</string>
+  <string name="itMovesInStraightLines">તે સીધી રેખામાં ચાલે છે</string>
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
   <string name="greatJob">સરસ!</string>
