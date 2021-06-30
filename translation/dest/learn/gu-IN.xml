@@ -7,9 +7,11 @@
   <string name="resetMyProgress">મારી પ્રગતિ રીસેટ કરો</string>
   <string name="youWillLoseAllYourProgress">તમે તમારી બધી જ પ્રગતિ ખોઇ દેશો!</string>
   <string name="play">ચાલો!</string>
-  <string name="chessPieces">શતરંજના મહોરાં</string>
   <string name="theRook">ઊંટ</string>
   <string name="itMovesInStraightLines">તે સીધી રેખામાં ચાલે છે</string>
+  <string name="rookIntro">હાથી એક શક્તિશાળી પાત્ર છે. શું તમે એને હુકમ આપવા તૈયાર છો?</string>
+  <string name="rookGoal">હાથી પર ક્લિક કરો
+જેથી એને તારા પર લાવી શકો!</string>
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
   <string name="greatJob">સરસ!</string>
