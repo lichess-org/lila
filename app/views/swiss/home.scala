@@ -1,5 +1,6 @@
 package views.html.swiss
 
+import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
