@@ -24,6 +24,10 @@ jobs:
         with:
           submodules: recursive
       - run: git submodule absorbgitdirs
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
       - uses: actions/checkout@v2
         with:
           repository: lichess-org/ab
@@ -34,13 +38,6 @@ jobs:
         id: ab
       - run: yarn link --cwd "$GITHUB_WORKSPACE/ab" && yarn link ab --cwd ui/round
         if: steps.ab.outcome == 'success'
-      - run: echo "::set-output name=dir::$(yarn cache dir)"
-        id: yarn-cache
-      - uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
       - run: ./ui/build prod
       - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
       - run: cd assets && tar -cvpJf ../assets.tar.xz . && cd -
