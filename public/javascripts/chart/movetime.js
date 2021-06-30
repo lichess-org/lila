@@ -119,9 +119,8 @@ lichess.movetimeChart = function (data, trans, hunter) {
                   if (event.point) {
                     const x = event.point.x;
                     const p =
-                      this.highcharts.series[
-                        (showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)
-                      ].data[x >> 1];
+                      this.highcharts.series[(showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)]
+                        .data[x >> 1];
                   }
                 },
               },
