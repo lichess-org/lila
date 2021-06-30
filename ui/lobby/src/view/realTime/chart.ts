@@ -57,6 +57,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
         }, 20);
       },
       destroy(vnode) {
+        $.powerTip.hide(vnode.elm as HTMLElement, true);
         $.powerTip.destroy(vnode.elm as HTMLElement);
       },
     },
