@@ -15,6 +15,7 @@
 	<string name="resign">استسلام</string>
 	<string name="checkmate">كش مات</string>
 	<string name="stalemate">مات مخنوق</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">أبيض</string>
 	<string name="black">أسود</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">أنت تلعب القطع السوداء</string>
 	<string name="itsYourTurn">إنه دورك!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">الملك في الوسط</string>
-	<string name="threeChecks">كش ملك ثلاثا</string>
-	<string name="raceFinished">نهاية السباق</string>
 	<string name="variantEnding">نهاية مختلفة</string>
 	<string name="newOpponent">خصم جديد</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">يريد متحديك أن يلعب مباراة جديدة معك</string>
@@ -91,29 +89,10 @@
 	<string name="averageRatingX">معدل التقييم: %s</string>
 	<string name="recentGames">أحدث المباريات</string>
 	<string name="topGames">أفضل الالعاب</string>
-	<string name="masterDbExplanation">اثنان مليون مباراة من قاعدة بيانات الاساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="zero">مات في %s نصف-نقلة</item>
-		<item quantity="one">مات في %s نصف-نقلة</item>
-		<item quantity="two">مات في %s نصف-نقلة</item>
-		<item quantity="few">مات في %s نصف-نقلة</item>
-		<item quantity="many">مات في %s نصف-نقلة</item>
-		<item quantity="other">مات في %s نصف-نقلة</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="zero">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-		<item quantity="one">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-		<item quantity="two">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-		<item quantity="few">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-		<item quantity="many">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-		<item quantity="other">أي التقاط مستقبلي أو نقل بيدق في %s نصف-نقلة (يتم تصفير عداد ال 50 نقلة)</item>
-	</plurals>
 	<string name="noGameFound">لم يتم العثور على مباريات</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
 	<string name="openingExplorer">مستكشف الافتتاحيات</string>
 	<string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
-	<string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
-	<string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
 	<string name="allSet">إعتمد كل الإعدادات!</string>
 	<string name="importPgn">استيراد PGN</string>
 	<string name="delete">حذف</string>
@@ -138,7 +117,6 @@
 	<string name="inaccuracies">نقلات غير دقيقة</string>
 	<string name="moveTimes">توقيت النقلات</string>
 	<string name="flipBoard">تدوير الرقعة</string>
-	<string name="threefoldRepetition">تكرار ثلاثي</string>
 	<string name="claimADraw">إعلان التعادل</string>
 	<string name="offerDraw">عرض التعادل</string>
 	<string name="draw">تعادل</string>
@@ -735,7 +713,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">الزيادة</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">شارك PGN</string>
 	<string name="playOnline">العب على الإنترنت</string>
 	<string name="playOffline">العب دون اتصال</string>
 	<string name="allowAnalytics">السماح بإرسال إحصائيات غير شخصية</string>
@@ -908,7 +885,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">المدربين</string>
-	<string name="invalidPgn">ملف بي جي ان غير صالح</string>
 	<string name="invalidFen">FEN غير صالح</string>
 	<string name="error.minLength">الحد الأدنى للطول هو %s</string>
 	<string name="error.maxLength">حد الطول الأقصى هو %s</string>

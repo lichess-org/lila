@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Çalışmadan ayrıl</string>
   <string name="youAreNowAContributor">Artık bir katılımcısınız</string>
   <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
-  <string name="pgnTags">PGN etiketleri</string>
+  <string name="tags">Tags</string>
   <string name="like">Beğen</string>
   <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
@@ -57,9 +57,7 @@
   <string name="last">Son</string>
   <string name="shareAndExport">Paylaş ve dışa aktar</string>
   <string name="cloneStudy">Klonla</string>
-  <string name="studyPgn">Çalışma PGN\'si</string>
   <string name="downloadAllGames">Bütün oyunları indir</string>
-  <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="broadcastUrl">Yayın URL’si</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">FEN kullanarak pozisyon yükle</string>
   <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
   <string name="automatic">Otomatik</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
-    <item quantity="other">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
-  </plurals>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
   <string name="loadAGameFromXOrY">%1$s kullanarak oyun yükle</string>
   <string name="createChapter">Bölüm oluştur</string>

@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Verlaat die studie</string>
   <string name="youAreNowAContributor">Jy is nou \'n bydraer</string>
   <string name="youAreNowASpectator">Jy is nou \'n toeskouer</string>
-  <string name="pgnTags">PGN etikette</string>
+  <string name="tags">Tags</string>
   <string name="like">Hou van</string>
   <string name="newTag">Nuwe etiket</string>
   <string name="commentThisPosition">Lewer kommentaar op hierdie posisie</string>
@@ -57,9 +57,7 @@
   <string name="last">Laaste</string>
   <string name="shareAndExport">Deel &amp; voer uit</string>
   <string name="cloneStudy">Kloneer</string>
-  <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Download all games</string>
-  <string name="chapterPgn">Hoofstuk PGN</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Bestudeer URL</string>
   <string name="broadcastUrl">Broadcast URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Laai posisie vanaf FEN</string>
   <string name="loadAGameFromPgn">Laai wedstryd vanaf PGN</string>
   <string name="automatic">Outomaties</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Plak jou PGN teks hier, tot by %s spel</item>
-    <item quantity="other">Plak jou PGN teks hier, tot by %s spelle</item>
-  </plurals>
   <string name="urlOfTheGame">URL van die wedstryd</string>
   <string name="loadAGameFromXOrY">Laai \'n wedstryd van %1$s</string>
   <string name="createChapter">Skep \'n hoofstuk</string>

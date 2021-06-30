@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Du har ett livstids beskyddare konto. Det är respekt!</string>
 	<string name="patronUntil">Du har ett beskyddarkonto till %s.</string>
 	<string name="ifNotRenewed">Om det inte förnyas kommer du sedan nedgraderas till fri.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">Vi förlitar oss på stöd från personer som du för att göra detta möjligt. Om du tycker om att använda Lishogi, vänligen överväg att stödja oss genom att donera och bli beskyddare!</string>
 	<string name="lifetime">Livstid</string>
 	<string name="payLifetimeOnce">Betala %s en gång. Var en Lishogi beskyddare för evigt!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Se den detaljerade kostnadsfördelningen</string>
-	<string name="officialNonProfit">Är Lishogi en officiell ideell organisation?</string>
-	<string name="actOfCreation">Ja, här är den skapande handlingen (på franska)</string>
 	<string name="changeMonthlySupport">Kan jag ändra/avbryta mitt månatliga bidrag?</string>
 	<string name="changeOrContact">Ja, när som helst, från den här sidan.
 Eller så kan du %s.</string>

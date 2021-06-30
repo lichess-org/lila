@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Umalis sa pag-aaral na ito</string>
   <string name="youAreNowAContributor">Ikaw ay isa nang kontribyutor</string>
   <string name="youAreNowASpectator">Ikaw ay isa nang manonood</string>
-  <string name="pgnTags">Mga PGN tag</string>
+  <string name="tags">Tags</string>
   <string name="like">Like</string>
   <string name="newTag">Bagong tag</string>
   <string name="commentThisPosition">Magkomento sa posisyong ito</string>
@@ -57,9 +57,7 @@
   <string name="last">Huli</string>
   <string name="shareAndExport">Share &amp; export</string>
   <string name="cloneStudy">Clone</string>
-  <string name="studyPgn">PGN ng pag-aaral</string>
   <string name="downloadAllGames">I-download lahat ng mga laro</string>
-  <string name="chapterPgn">Chapter PGN</string>
   <string name="downloadGame">I-download ang laro</string>
   <string name="studyUrl">URL ng pag-aaral</string>
   <string name="broadcastUrl">I-broadcast ang URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Load a position from FEN</string>
   <string name="loadAGameFromPgn">Load games from PGN</string>
   <string name="automatic">Awtomatiko</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Paste your PGN text here, up to %s game</item>
-    <item quantity="other">Paste your PGN text here, up to %s games</item>
-  </plurals>
   <string name="urlOfTheGame">URL of the games, one per line</string>
   <string name="loadAGameFromXOrY">Load games from %1$s</string>
   <string name="createChapter">Gumawa ng kabanata</string>

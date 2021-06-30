@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">अध्ययन छोड़े</string>
   <string name="youAreNowAContributor">अब आप एक योगदानकर्ता हैं</string>
   <string name="youAreNowASpectator">अब आप एक दर्शक हैं</string>
-  <string name="pgnTags">PGN टैग</string>
+  <string name="tags">Tags</string>
   <string name="like">पसंद करें</string>
   <string name="newTag">नया टैग</string>
   <string name="commentThisPosition">इस स्थिति पर टिप्पणी करें</string>
@@ -57,9 +57,7 @@
   <string name="last">अंतिम</string>
   <string name="shareAndExport">शेयर (Share) &amp; एक्सपोर्ट (export) करें</string>
   <string name="cloneStudy">क्लोन</string>
-  <string name="studyPgn">अध्ययन का PGN</string>
   <string name="downloadAllGames">सभी गेम डाउनलोड करें</string>
-  <string name="chapterPgn">अध्याय का PGN</string>
   <string name="downloadGame">गेम डाउनलोड करो</string>
   <string name="studyUrl">अध्ययन का URL</string>
   <string name="broadcastUrl">प्रसारण (Broadcast) का URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
   <string name="loadAGameFromPgn">PGN से गेम लोड करें</string>
   <string name="automatic">स्वचालित</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">यहां अपना PGN टेक्स्ट (text) डाले, %s खेल तक</item>
-    <item quantity="other">यहां अपना PGN टेक्स्ट (text) डाले, %s खेल तक</item>
-  </plurals>
   <string name="urlOfTheGame">खेल का URL, प्रति पंक्ति एक</string>
   <string name="loadAGameFromXOrY">%1$s से गेम लोड करें</string>
   <string name="createChapter">अध्याय बनाएँ</string>

@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Zetnotatie zichtbaar tijdens partij</string>
 	<string name="pgnPieceNotation">Stuknotatie in PGN</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen modus</string>
 	<string name="displayBoardResizeHandle">Toon wijzig bordformaat knop</string>
 	<string name="onlyOnInitialPosition">Alleen tijdens de startpositie</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Alleen bij partijen zonder rating</string>
 	<string name="promoteToQueenAutomatically">Automatisch promoveren tot dame</string>
 	<string name="whenPremoving">Bij vooraf-zetten</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
 	<string name="moveConfirmation">Zetbevestiging</string>
 	<string name="inCorrespondenceGames">Bij correspondentiepartijen</string>
 	<string name="correspondenceAndUnlimited">Correspondentiepartij en zonder klok</string>
 	<string name="confirmResignationAndDrawOffers">Opgave en remise-aanbod bevestigen</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokeren</string>
-	<string name="castleByMovingTwoSquares">Verplaats de koning twee velden</string>
-	<string name="castleByMovingOntoTheRook">Verplaats de koning naar de toren</string>
 	<string name="inputMovesWithTheKeyboard">Zetten invoeren met het toetsenbord</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Uw voorkeuren werden opgeslagen.</string>
 </resources>

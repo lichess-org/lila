@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Jy het \'n lewenslange Beskermheer rekening. Dis wonderlik!</string>
 	<string name="patronUntil">Jy het \'n Beskermheer rekening tot %s.</string>
 	<string name="ifNotRenewed">As jy dit nie hernu nie, sal jy weer een van die leke wees.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">Ons steun op die ondersteuning van mense soos julle om dit moontlik te maak. Indien jy dit geniet om Lishogi te gebruik, oorweeg dit om ons te ondersteun deur \'n skenking te maak en \'n Beskermheer te word!</string>
 	<string name="lifetime">Lewenslange</string>
 	<string name="payLifetimeOnce">Betaal %s een keer. Word \'n Lishogi Beskermheer vir ewig!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Sien die uiteengesette koste analise</string>
-	<string name="officialNonProfit">Is Lishogi \'n amptelike organisasie sonder winsbejag?</string>
-	<string name="actOfCreation">Sowaar, hier is die akte van oprigting (in Frans)</string>
 	<string name="changeMonthlySupport">Kan ek my maandelikse ondersteuning kanseleer of verander?</string>
 	<string name="changeOrContact">Natuurlik, enige tyd, van hierdie blad af.
 Of jy kan %s.</string>

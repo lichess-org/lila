@@ -15,6 +15,7 @@
 	<string name="resign">Предај</string>
 	<string name="checkmate">Шах-мат</string>
 	<string name="stalemate">Пат</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Бели</string>
 	<string name="black">Црни</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Играш са црним фигурама</string>
 	<string name="itsYourTurn">Ти си на потезу!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Краљ је у центру</string>
-	<string name="threeChecks">Три шаха</string>
-	<string name="raceFinished">Трка је завршена</string>
 	<string name="variantEnding">Крај варијацијом</string>
 	<string name="newOpponent">Нови противник</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Твој противник жели да игра нову партију са тобом</string>
@@ -88,23 +86,10 @@
 	<string name="averageRatingX">Просечан рејтинг: %s</string>
 	<string name="recentGames">Недавне партије</string>
 	<string name="topGames">Најбоље партије</string>
-	<string name="masterDbExplanation">Два милиона партија на табли %1$s+ ФИДЕ рангираних играча од %2$s. до %3$s.</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Мат у %s полу-потезу</item>
-		<item quantity="few">Мат у %s полу-потеза</item>
-		<item quantity="other">Мат у %s полу-потеза</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Следеће узимање или потез пешаком у %s полу-потезу (бројање до 50 потеза за реми)</item>
-		<item quantity="few">Следеће узимање или потез пешаком у %s полу-потеза (бројање до 50 потеза за реми)</item>
-		<item quantity="other">Следеће узимање или потез пешаком у %s полу-потеза (бројање до 50 потеза за реми)</item>
-	</plurals>
 	<string name="noGameFound">Партија није нађена</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Можда укључите више партија у менију за подешавања?</string>
 	<string name="openingExplorer">Претраживач отварања</string>
 	<string name="xOpeningExplorer">%s претаживач отварања</string>
-	<string name="winPreventedBy50MoveRule">Добитак спречен правилом о 50 потеза</string>
-	<string name="lossSavedBy50MoveRule">Пораз спречен правилом о 50 потеза</string>
 	<string name="allSet">Све је спремно!</string>
 	<string name="importPgn">Унеси PGN</string>
 	<string name="delete">Обриши</string>
@@ -129,7 +114,6 @@
 	<string name="inaccuracies">Непрецизности</string>
 	<string name="moveTimes">Време померања фигура</string>
 	<string name="flipBoard">Обрни таблу</string>
-	<string name="threefoldRepetition">Троструко понављање</string>
 	<string name="claimADraw">Затражи реми</string>
 	<string name="offerDraw">Понуди реми</string>
 	<string name="draw">Реми</string>
@@ -640,7 +624,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">додатак</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Подели PGN</string>
 	<string name="playOnline">Играј online</string>
 	<string name="playOffline">Играј offline</string>
 	<string name="allowAnalytics">Дозволи анонимну статистику</string>
@@ -804,7 +787,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
-	<string name="invalidPgn">Неважећи ПГН</string>
 	<string name="invalidFen">Неважећи ФЕН</string>
 	<string name="error.minLength">Минимална дужина је %s</string>
 	<string name="error.maxLength">Максимална дужина је %s</string>

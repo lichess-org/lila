@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">רשימת מהלכים במהלך המשחק</string>
 	<string name="pgnPieceNotation">תיאור המהלכים</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">מצב זן</string>
 	<string name="displayBoardResizeHandle">הצג סמן להגדלת הלוח</string>
 	<string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">במשחקים ללא דירוג בלבד</string>
 	<string name="promoteToQueenAutomatically">הפוך למלכה באופן אוטומטי</string>
 	<string name="whenPremoving">כאשר מבצעים קדם-מהלך</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">הכרז על תיקו בחזרה משולשת באופן אוטומטי</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">כשהזמן הנותר &lt; 30 שניות</string>
 	<string name="moveConfirmation">אישור מהלך</string>
 	<string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
 	<string name="correspondenceAndUnlimited">התכתבות וללא הגבלה</string>
 	<string name="confirmResignationAndDrawOffers">אשר הצעות כניעה ותיקו</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">שיטת הצרחה</string>
-	<string name="castleByMovingTwoSquares">הזז את המלך שני משבצות</string>
-	<string name="castleByMovingOntoTheRook">הזז את המלך על הצריח</string>
 	<string name="inputMovesWithTheKeyboard">קלוט מהלכים באמצעות המקלדת</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">העדפותיך נשמרו</string>
 </resources>

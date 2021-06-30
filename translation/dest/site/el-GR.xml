@@ -15,6 +15,7 @@
 	<string name="resign">Παραίτηση</string>
 	<string name="checkmate">Ματ</string>
 	<string name="stalemate">Πατ</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Λευκά</string>
 	<string name="black">Μαύρα</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Παίζετε τα μαύρα</string>
 	<string name="itsYourTurn">Είναι η σειρά σας!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Βασιλιάς στο κέντρο</string>
-	<string name="threeChecks">Τρία σαχ</string>
-	<string name="raceFinished">Τέλος αγώνα</string>
 	<string name="variantEnding">Εκδοχή ολοκληρώθηκε</string>
 	<string name="newOpponent">Νέος αντίπαλος</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Ο αντίπαλος θέλει να παίξει νέο παιχνίδι μαζί σας</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Μέση βαθμολογία: %s</string>
 	<string name="recentGames">Πρόσφατα παιχνίδια</string>
 	<string name="topGames">Κορυφαίες παρτίδες</string>
-	<string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Ματ σε %s μισή κίνηση</item>
-		<item quantity="other">Ματ σε %s μισές κινήσεις</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισή κίνηση (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
-		<item quantity="other">Επόμενο πιάσιμο ή κίνηση πιονιού σε %s μισές κινήσεις (Απόσταση μηδενισμού μετρητή 50 κινήσεων)</item>
-	</plurals>
 	<string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
 	<string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
 	<string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
-	<string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
-	<string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
 	<string name="allSet">Εφαρμογή!</string>
 	<string name="importPgn">Εισαγωγή PGN</string>
 	<string name="delete">Διαγραφή</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Ανακρίβειες</string>
 	<string name="moveTimes">Χρόνοι κινήσεων</string>
 	<string name="flipBoard">Περιστροφή σκακιέρας</string>
-	<string name="threefoldRepetition">Τριπλή επανάληψη</string>
 	<string name="claimADraw">Απαίτηση ισοπαλίας</string>
 	<string name="offerDraw">Προσφορά ισοπαλίας</string>
 	<string name="draw">Ισοπαλία</string>
@@ -608,7 +594,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Προσαύξηση</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Κοινοποιήστε PGN</string>
 	<string name="playOnline">Παίξτε σε διαδικτυακώς</string>
 	<string name="playOffline">Παίξτε χωρίς σύνδεση</string>
 	<string name="allowAnalytics">Επιτρέψτε την αποστολή ανώνυμων στατιστικών</string>
@@ -769,7 +754,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Προπονητές</string>
-	<string name="invalidPgn">Μη έγκυρο PGN</string>
 	<string name="invalidFen">Μη έγκυρο FEN</string>
 	<string name="error.minLength">Ελάχιστο μήκος είναι %s</string>
 	<string name="error.maxLength">Μέγιστο μήκος είναι %s</string>

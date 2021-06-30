@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Trækliste mens der spilles</string>
 	<string name="pgnPieceNotation">Notation</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zentilstand</string>
 	<string name="displayBoardResizeHandle">Vis indstilling af brætstørrelse</string>
 	<string name="onlyOnInitialPosition">Kun ved indledende position</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Kun i ikke-ratede spil</string>
 	<string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
 	<string name="whenPremoving">Ved forhåndstræk</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv remis ved trefold gentagelse automatisk</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
 	<string name="moveConfirmation">Bekræft træk</string>
 	<string name="inCorrespondenceGames">I korrespondancepartier</string>
 	<string name="correspondenceAndUnlimited">Korrespondance og ubegrænset</string>
 	<string name="confirmResignationAndDrawOffers">Bekræft opgivelse og tilbud om remis</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rokade metode</string>
-	<string name="castleByMovingTwoSquares">Flyt kongen to felter</string>
-	<string name="castleByMovingOntoTheRook">Flyt kongen over på tårn</string>
 	<string name="inputMovesWithTheKeyboard">Lav træk med tastaturet</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Dine præferencer er blevet gemt.</string>
 </resources>

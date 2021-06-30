@@ -15,6 +15,7 @@
 	<string name="resign">Aufgeben</string>
 	<string name="checkmate">Schachmatt</string>
 	<string name="stalemate">Patt</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Weiß</string>
 	<string name="black">Schwarz</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Du spielst mit den schwarzen Figuren</string>
 	<string name="itsYourTurn">Du bist am Zug!</string>
 	<string name="cheatDetected">Betrug erkannt</string>
-	<string name="kingInTheCenter">König im Zentrum</string>
-	<string name="threeChecks">Dreimal Schach gegeben</string>
-	<string name="raceFinished">Rennen beendet</string>
 	<string name="variantEnding">Ende der Variante</string>
 	<string name="newOpponent">Neuer Gegner</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte ein neues Spiel mit dir spielen</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
 	<string name="recentGames">Neue Partien</string>
 	<string name="topGames">Spitzenpartien</string>
-	<string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Matt in %s Halbzug</item>
-		<item quantity="other">Matt in %s Halbzügen</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Nächster Schlag- oder Bauernzug in %s Halbzug (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
-		<item quantity="other">Nächster Schlag- oder Bauernzug in %s Halbzügen (Distanz zum Zurücksetzen des Zählers für die 50-Züge-Regel)</item>
-	</plurals>
 	<string name="noGameFound">Kein Spiel gefunden</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Vielleicht sollten mehr Spiele über das \"Einstellungen\"-Menü einbezogen werden?</string>
 	<string name="openingExplorer">Eröffnungsdatenbank</string>
 	<string name="xOpeningExplorer">%s Eröffnungsbuch</string>
-	<string name="winPreventedBy50MoveRule">Sieg durch 50-Züge-Regel verhindert</string>
-	<string name="lossSavedBy50MoveRule">Verlust durch 50-Züge-Regel verhindert</string>
 	<string name="allSet">Fertig!</string>
 	<string name="importPgn">PGN importieren</string>
 	<string name="delete">Löschen</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Ungenauigkeiten</string>
 	<string name="moveTimes">Zugzeiten</string>
 	<string name="flipBoard">Brett drehen</string>
-	<string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
 	<string name="claimADraw">Remis beanspruchen</string>
 	<string name="offerDraw">Remis anbieten</string>
 	<string name="draw">Remis</string>
@@ -606,7 +592,6 @@
 	<string name="increment">Inkrement</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Perioden</string>
-	<string name="sharePGN">PGN teilen</string>
 	<string name="playOnline">Spiele online</string>
 	<string name="playOffline">Spiele offline</string>
 	<string name="allowAnalytics">Anonyme Statistiken senden</string>
@@ -767,7 +752,6 @@
 	<string name="chessBasics">Shogi-Grundlagen</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trainer</string>
-	<string name="invalidPgn">Fehlerhaftes PGN</string>
 	<string name="invalidFen">FEN ungültig</string>
 	<string name="error.minLength">Mindestens %s Zeichen</string>
 	<string name="error.maxLength">Höchstens %s Zeichen</string>

@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Lista de movimentos</string>
 	<string name="pgnPieceNotation">Anotação de movimentos</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Modo Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
 	<string name="onlyOnInitialPosition">Apenas na posição inicial</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Somente em jogos casuais</string>
 	<string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
 	<string name="whenPremoving">Quando mover antecipadamente</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar empate automaticamente à repetição de três movimentos</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for menos do que 30 segundos</string>
 	<string name="moveConfirmation">Confirmação de movimento</string>
 	<string name="inCorrespondenceGames">Jogos por correspondência</string>
 	<string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
 	<string name="confirmResignationAndDrawOffers">Confirmar desistências e propor empate</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Método de enrocar</string>
-	<string name="castleByMovingTwoSquares">Mover o rei duas casas</string>
-	<string name="castleByMovingOntoTheRook">Mover o rei até à torre</string>
 	<string name="inputMovesWithTheKeyboard">Lançar movimentos com o teclado</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">As suas preferências foram guardadas.</string>
 </resources>

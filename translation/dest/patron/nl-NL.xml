@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Je hebt een levenslang Patroon-account. Dat is super geweldig!</string>
 	<string name="patronUntil">Je hebt een Patroon-account tot %s.</string>
 	<string name="ifNotRenewed">Indien niet vernieuwd, wordt je naar het standaard account teruggezet.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">We rekenen op de steun van mensen zoals u om dit mogelijk te maken. Als het gebruik van Lishogi u bevalt, overweeg dan alstublieft om ons te steunen door te doneren en een Patroon te worden!</string>
 	<string name="lifetime">Levenslang</string>
 	<string name="payLifetimeOnce">Betaal %s eenmalig. Wees voor altijd een Lishogi Patroon!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Zie de gedetailleerde kostenverdeling</string>
-	<string name="officialNonProfit">Is Lishogi echt een organisatie zonder winstoogmerk?</string>
-	<string name="actOfCreation">Ja, hier is de akte van oprichting (in Franse taal)</string>
 	<string name="changeMonthlySupport">Kan ik mijn maandelijkse ondersteuning wijzigen of annuleren?</string>
 	<string name="changeOrContact">Ja, op elk gewenst moment vanaf deze pagina.
 Of u kunt %s.</string>

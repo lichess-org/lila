@@ -15,6 +15,7 @@
 	<string name="resign">Gee oor</string>
 	<string name="checkmate">Skaakmat</string>
 	<string name="stalemate">Dooiepunt</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Wit</string>
 	<string name="black">Swart</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Jy speel met die swart stukke</string>
 	<string name="itsYourTurn">Dit is jou beurt!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Koning in die middel</string>
-	<string name="threeChecks">Drie maal skaak</string>
-	<string name="raceFinished">Race klaar</string>
 	<string name="variantEnding">Variant geëindig</string>
 	<string name="newOpponent">Nuwe opponent</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Gemiddelde Gradering: %s</string>
 	<string name="recentGames">Onlangse wedstryde</string>
 	<string name="topGames">Top spelle</string>
-	<string name="masterDbExplanation">Twee miljoen Oor die Bord spelle van %1$s+ FIDE-gegradeerde spelers van %2$s tot %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat in %s half-skuif</item>
-		<item quantity="other">Mat in %s half-skuiwe</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Volgende stukvat of pionskuif in %s halwe-skuiwe (Afstand Tot Herstel van die 50 skuif teller)</item>
-		<item quantity="other">Volgende vat of pionskuif in %s halwe-skuiwe(Afstand Tot Herstel van die 50 skuif teller)</item>
-	</plurals>
 	<string name="noGameFound">Geen spel gevind</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voeg dalk meer wedstryde van die voorkeure kieslys by?</string>
 	<string name="openingExplorer">Opening ontdekker</string>
 	<string name="xOpeningExplorer">%s opening ontdekker</string>
-	<string name="winPreventedBy50MoveRule">Oorwinning gekelder deur 50-skuifreël</string>
-	<string name="lossSavedBy50MoveRule">Verloor voorkom deur 50-skuifreël</string>
 	<string name="allSet">Gereed!</string>
 	<string name="importPgn">Voer PGN in</string>
 	<string name="delete">Skrap</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Onakkuraathede</string>
 	<string name="moveTimes">Skuif tye</string>
 	<string name="flipBoard">Keer bord om</string>
-	<string name="threefoldRepetition">Drie-malige herhaling</string>
 	<string name="claimADraw">Eis gelykop</string>
 	<string name="offerDraw">Bied gelykop aan</string>
 	<string name="draw">Gelykop</string>
@@ -609,7 +595,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="increment">Inkrement</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Deel PGN</string>
 	<string name="playOnline">Speel aanlyn</string>
 	<string name="playOffline">Speel vanlyn</string>
 	<string name="allowAnalytics">Laat anonieme statistieke toe</string>
@@ -770,7 +755,6 @@ Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Afrigters</string>
-	<string name="invalidPgn">Ongeldige PGN</string>
 	<string name="invalidFen">Ongeldige FEN</string>
 	<string name="error.minLength">Minimum lengte is %s</string>
 	<string name="error.maxLength">Maximum lengte is %s</string>

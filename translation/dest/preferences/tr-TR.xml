@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
 	<string name="pgnPieceNotation">Notasyon tut</string>
 	<string name="chessPieceSymbol">Satranç taş sembolleri</string>
-	<string name="pgnLetter">Harf (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen modu</string>
 	<string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
 	<string name="onlyOnInitialPosition">Sadece oyunun başında</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Sadece puansız oyunlarda</string>
 	<string name="promoteToQueenAutomatically">Geçer piyonu otomatik olarak Vezir\'e terfi et</string>
 	<string name="whenPremoving">Ön hamlelerde</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Üçlü tekrarda otomatik olarak beraberlik teklif et</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Kalan zaman 30 saniyeden az ise</string>
 	<string name="moveConfirmation">Hamleyi onayla</string>
 	<string name="inCorrespondenceGames">Notasyonlu oyunlarda</string>
 	<string name="correspondenceAndUnlimited">Yazışmalı ve sınırsız</string>
 	<string name="confirmResignationAndDrawOffers">Oyundan çekilme ve beraberlik tekliflerini kabul et</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Rok atma şekli</string>
-	<string name="castleByMovingTwoSquares">Şahı iki kare sürerek</string>
-	<string name="castleByMovingOntoTheRook">Şahı kalenin üstüne getirerek</string>
 	<string name="inputMovesWithTheKeyboard">Hamleleri klavye ile gir</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
 </resources>

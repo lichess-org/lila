@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Листа потеза током партије</string>
 	<string name="pgnPieceNotation">Нотација</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">зен стање</string>
 	<string name="displayBoardResizeHandle">Show board resize handle</string>
 	<string name="onlyOnInitialPosition">Само на почетку партије</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Само у неформалним партијама</string>
 	<string name="promoteToQueenAutomatically">Промовишите у Даму аутоматски</string>
 	<string name="whenPremoving">Током претпотеза</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">аутоматски реми после три понављања позиције</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Када преостане &lt; 30 секунди</string>
 	<string name="moveConfirmation">Потврди потез</string>
 	<string name="inCorrespondenceGames">У дописним играма</string>
 	<string name="correspondenceAndUnlimited">Dopisno i neograniceno</string>
 	<string name="confirmResignationAndDrawOffers">Потврда за предавање и предлагање ремија</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода прављења рокаде</string>
-	<string name="castleByMovingTwoSquares">Помери краља за два поља</string>
-	<string name="castleByMovingOntoTheRook">Помери краља на топа</string>
 	<string name="inputMovesWithTheKeyboard">Уноеси потезе са тастатуром</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваше преференце су сачуване.</string>
 </resources>

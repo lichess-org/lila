@@ -41,7 +41,7 @@
   <string name="leaveTheStudy">Напусти студију</string>
   <string name="youAreNowAContributor">Постали сте сарадник</string>
   <string name="youAreNowASpectator">Постали сте посматрач</string>
-  <string name="pgnTags">ПГН тагс</string>
+  <string name="tags">Tags</string>
   <string name="like">Свиђа ми се</string>
   <string name="newTag">Нова ознака</string>
   <string name="commentThisPosition">Коментирајте ову позицију</string>
@@ -60,9 +60,7 @@
   <string name="last">Посљедња</string>
   <string name="shareAndExport">Подетлите и извезите</string>
   <string name="cloneStudy">Клонирајте</string>
-  <string name="studyPgn">Студи ПГН</string>
   <string name="downloadAllGames">Преузми све партије</string>
-  <string name="chapterPgn">ПГН поглавља</string>
   <string name="downloadGame">Преузми игру</string>
   <string name="studyUrl">Проучите УРЛ адресу</string>
   <string name="broadcastUrl">Објави линк</string>
@@ -101,11 +99,6 @@
   <string name="loadAPositionFromFen">Учитај позицију преко FEN</string>
   <string name="loadAGameFromPgn">Учитај игру из PGN</string>
   <string name="automatic">Аутоматски</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Налепите свој PGN текст овде, до %s игре</item>
-    <item quantity="few">Налепите свој PGN текст овде, до %s игара</item>
-    <item quantity="other">Налепите свој PGN текст овде, до %s игара</item>
-  </plurals>
   <string name="urlOfTheGame">URL игре</string>
   <string name="loadAGameFromXOrY">Учитај игру из %1$s</string>
   <string name="createChapter">Креирај поглавље</string>

@@ -50,7 +50,7 @@
   <string name="leaveTheStudy">مغادرة الدراسة</string>
   <string name="youAreNowAContributor">انت الان اصبحت مساهم</string>
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
-  <string name="pgnTags">وسم PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">إعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
@@ -69,9 +69,7 @@
   <string name="last">الأخير</string>
   <string name="shareAndExport">مشاركة و تصدير</string>
   <string name="cloneStudy">استنساخ</string>
-  <string name="studyPgn">PGN الدراسة</string>
   <string name="downloadAllGames">Download all games</string>
-  <string name="chapterPgn">PGN الفصل</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="broadcastUrl">Broadcast URL</string>
@@ -110,14 +108,6 @@
   <string name="loadAPositionFromFen">تحميل موقف من FEN</string>
   <string name="loadAGameFromPgn">Load games from PGN</string>
   <string name="automatic">تلقائي</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="zero">Paste your PGN text here, up to %s games</item>
-    <item quantity="one">Paste your PGN text here, up to %s game</item>
-    <item quantity="two">Paste your PGN text here, up to %s games</item>
-    <item quantity="few">Paste your PGN text here, up to %s games</item>
-    <item quantity="many">Paste your PGN text here, up to %s games</item>
-    <item quantity="other">Paste your PGN text here, up to %s games</item>
-  </plurals>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="loadAGameFromXOrY">استيراد لعبة من %1$s</string>
   <string name="createChapter">أنشئ الفصل</string>

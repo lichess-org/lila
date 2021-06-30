@@ -15,6 +15,7 @@
 	<string name="resign">हार मान लें</string>
 	<string name="checkmate">शह और मात</string>
 	<string name="stalemate">स्टेलमेट (Stalemate)</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">गोते (Gote/White)</string>
 	<string name="black">सेनटे (Sente/Black)</string>
 	<string name="shitate">शिताते (Shitate)</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">आप काले (सेंटे) के रूप में खेलते हैं</string>
 	<string name="itsYourTurn">यह आपकी बारी है!</string>
 	<string name="cheatDetected">धोखा का पता चला</string>
-	<string name="kingInTheCenter">राजा बीच में</string>
-	<string name="threeChecks">तीन शह</string>
-	<string name="raceFinished">दौड़ समाप्त</string>
 	<string name="variantEnding">प्रकार समाप्त</string>
 	<string name="newOpponent">नया प्रतिद्वंदी ढूंढें</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">आपका प्रतिद्वंदी आपके साथ एक और खेल खेलना चाहता है</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">औसत रेटिंग: %s</string>
 	<string name="recentGames">हाल के खेल</string>
 	<string name="topGames">शीर्ष खेल</string>
-	<string name="masterDbExplanation">%2$s से %3$s के दशक के %1$s+ FIDE- रेटेड खिलाड़ियों के दो मिलियन ओटीबी खेल</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">%s आधे-कदम में चेकमैट</item>
-		<item quantity="other">%s आधे-कदम में चेकमैट</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
-		<item quantity="other">%s आधे-कदम में अगला कैप्चर या मोहर चाल (50 कदम काउंटर के शून्यकरण करने के लिए दूरी)</item>
-	</plurals>
 	<string name="noGameFound">कोई गेम नहीं मिला</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं ?</string>
 	<string name="openingExplorer">प्रारम्भ अन्वेषक (Opening explorer)</string>
 	<string name="xOpeningExplorer">%s प्रारम्भ अन्वेषक</string>
-	<string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
-	<string name="lossSavedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
 	<string name="allSet">सब तैयार !</string>
 	<string name="importPgn">PGN आयात करें</string>
 	<string name="delete">हटाएं</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">अशुद्धि</string>
 	<string name="moveTimes">चाल समय</string>
 	<string name="flipBoard">बोर्ड पलटें</string>
-	<string name="threefoldRepetition">तिगुना दोहराव (Threefold repetition)</string>
 	<string name="claimADraw">ड्रा का दावा करें</string>
 	<string name="offerDraw">ड्रा का प्रस्ताव रखें</string>
 	<string name="draw">ड्रा</string>
@@ -608,7 +594,6 @@
 	<string name="increment">वृद्धि (Increment)</string>
 	<string name="byoyomi">बायोयोमी (Byoyomi)</string>
 	<string name="periods">अवधि (Periods)</string>
-	<string name="sharePGN">Share PGN</string>
 	<string name="playOnline">Play online</string>
 	<string name="playOffline">Play offline</string>
 	<string name="allowAnalytics">Allow anonymous statistics</string>
@@ -769,8 +754,7 @@
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
-	<string name="invalidPgn">Invalid PGN</string>
-	<string name="invalidFen">Invalid FEN</string>
+	<string name="invalidFen">Invalid SFEN</string>
 	<string name="error.minLength">Minimum length is %s</string>
 	<string name="error.maxLength">Maximum length is %s</string>
 	<string name="error.min">Must be greater or equal to %s</string>

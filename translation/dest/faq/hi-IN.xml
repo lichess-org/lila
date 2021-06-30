@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi ओपन सोर्स प्रोजेक्ट (Open Source Project) है, जो Lichess से लिया गया है, लेकिन चूंकि यह shogi खेलने के लिए है, इसलिए इसे Lishogi कहा जाता है।</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">क्योंकि यह Liсhess से लिया गया है। और Liсhess को Liсhess कहा जाता है क्योंकि यह लाइव (live)/ लाइट(light) / लिबर्रे(libre) और शतरंज का संयोजन है। Lishogi का उच्चारण %1$s है।</string>
 	<string name="leechess">ली-शोगी (lee-shogi)</string>
-	<string name="hearItPronouncedBySpecialist">किसी विशेषज्ञ द्वारा उच्चारित इसे सुनें।</string>
 	<string name="whyLiveLightLibre">लाइव, क्योंकि गेम वास्तविक समय 24/7 में खेले और देखे जाते हैं; इस तथ्य के लिए कि Lishogi ओपन-सोर्स है और स्वामित्व वाली कबाड़ से अप्रभावित है जो अन्य वेबसाइटों को नुकसान पहुंचाती है।</string>
 	<string name="whyIsLilaCalledLila">इसी तरह, lishogi के लिए सोर्स कोड, %1$s, li[shogi in sca]la हे, यह देखते हुए कि lishogi के थोक को %2$s मे हे, एक सहज ज्ञान युक्त प्रोग्रामिंग भाषा में लिखा गया है।</string>
 	<string name="howCanIContributeToLishogi">मैं lishogi में कैसे योगदान कर सकता हूं ?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">यहाँ कई अन्य तरीके हैं जिनसे आप lishogi में योगदान कर सकते हैं।</string>
 	<string name="breakdownOfOurCosts">हमारी लागतों का विभाजन</string>
 	<string name="otherWaysToHelp">मदद करने के अन्य तरीके</string>
-	<string name="areThereWebsitesBasedOnLishogi">क्या लाइकस पर आधारित वेबसाइटें हैं ?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">हाँ। Lishogi ने वास्तव में अन्य ओपन-सोर्स साइटों को प्रेरित किया है जो हमारे %1$s, %2$s, या %3$s का उपयोग करते हैं।</string>
 	<string name="fairPlay">फेयर प्ले (Fair Play)</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">मुझे कृत्रिम रेटिंग हेरफेर (सैंडबैगिंग और बूस्टिंग) या कंप्यूटर सहायता के लिए क्यों ध्वजांकित किया गया है?</string>
 	<string name="cheatDetectionMethods">Lishogi के पास मजबूत पहचान के तरीके हैं और सभी सबूतों की समीक्षा करने और निर्णय लेने के लिए एक बहुत ही गहन प्रक्रिया है। प्रक्रिया में अक्सर कई मध्यस्थ शामिल होते हैं और इसमें लंबा समय लग सकता है। निशान के अलावा, हम सबूत या व्यक्तिगत मामलों के लिए निर्णय लेने की प्रक्रिया के बारे में विवरण में नहीं जाएंगे। ऐसा करने से भविष्य में पता लगाने से बचना आसान होगा, और अनुत्पादक बहस का निमंत्रण हो सकता है। वह समय और प्रयास अन्य महत्वपूर्ण मामलों पर बेहतर ढंग से खर्च होता है। उपयोगकर्ता %1$s को ईमेल करके अपील कर सकते हैं, लेकिन निर्णय शायद ही कभी पलट दिए जाते हैं।</string>
@@ -39,7 +36,6 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi पर मैं कौन से संस्करण (variants) खेल सकता हूं ?</string>
 	<string name="lishogiSupportChessAnd">Lishogi मानक shogi और %1$s का समर्थन करता है।</string>
-	<string name="eightVariants">८ shogi वेरिएंट</string>
 	<string name="whatIsACPL">औसत सेंटीपोन हानि (एसीपीएल) क्या है?</string>
 	<string name="acplExplanation">सेंटपिपेन shogi में इस्तेमाल की जाने वाली माप की इकाई है जो कि लाभ का प्रतिनिधित्व करती है। एक सेंटिपोन एक मोहरे के 1/100 वें हिस्से के बराबर है। इसलिए 100 सेंटीपोन्स = 1 मोहरा। ये मूल्य खेल में कोई औपचारिक भूमिका नहीं निभाते हैं, लेकिन खिलाड़ियों के लिए उपयोगी होते हैं, और पदों के मूल्यांकन के लिए कंप्यूटर shogi में आवश्यक हैं।
 
@@ -49,42 +45,22 @@
 
 लिचेस पर कंप्यूटर विश्लेषण Stockfish द्वारा संचालित है।</string>
 	<string name="insufficientMaterial">समय पर हार, ड्राइंग और अपर्याप्त सामग्री</string>
-	<string name="lishogiFollowFIDErules">एक खिलाड़ी के समय से बाहर होने की स्थिति में, वह खिलाड़ी आमतौर पर खेल खो देगा। हालाँकि, खेल तब खींचा जाता है जब स्थिति ऐसी होती है कि प्रतिद्वंद्वी खिलाड़ी के राजा को किसी भी कानूनी कदम (%1$s) की संभावित श्रृंखला द्वारा जाँच नहीं कर सकता है।
-
-दुर्लभ मामलों में यह स्वचालित रूप से तय करने के लिए मुश्किल हो सकता है (मजबूर लाइनें, किले)। डिफ़ॉल्ट रूप से हम हमेशा उस खिलाड़ी के साथ होते हैं जो समय से बाहर नहीं भागता था।
-
-ध्यान दें कि एक एकल नाइट या बिशप के साथ संभोग करना संभव हो सकता है यदि प्रतिद्वंद्वी के पास एक टुकड़ा है जो राजा को अवरुद्ध कर सकता है।</string>
-	<string name="linkToFIDErules">फाइड (FIDE) हैंडबुक §6.9, पीडीएफ (PDF)</string>
-	<string name="discoveringEnPassant">जब पहले से ही पास हो तो कोई मोहरा दूसरे मोहरे पर कब्जा क्यों कर सकता है ? (एन पासेंट)</string>
-	<string name="explainingEnPassant">यह एक कानूनी कदम है जिसे \"एन पासेंट\" के रूप में जाना जाता है। विकिपीडिया लेख एक %1$s देता है।
-
-इसे %2$s की धारा 3.7 (d) में वर्णित किया गया है:
-
-\" एक प्यादा पर एक वर्ग के कब्जे के रूप में और एक प्रतिद्वंद्वी के मोहरे के लिए एक आसन्न फ़ाइल पर, जो अपने मूल वर्ग से एक चाल में दो वर्गों को उन्नत करता है, इस प्रतिद्वंद्वी के मोहरे को पकड़ सकता है जैसे कि बाद वाले को केवल एक वर्ग में ले जाया गया था।\" इस अग्रिम के बाद इस कदम पर कब्जा केवल कानूनी है और इसे \'एन पासेंट\' कैप्चर कहा जाता है।”
-
-इसके साथ कुछ अभ्यास के लिए इस कदम पर %3$s देखें।</string>
 	<string name="goodIntroduction">अच्छा परिचय</string>
 	<string name="officialRulesPDF">आधिकारिक नियम (पीडीएफ)</string>
 	<string name="lishogiTraining">Lishogi प्रशिक्षण</string>
-	<string name="threefoldRepetition">तिगुना दोहराव (Threefold repetition)</string>
-	<string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी %1$s द्वारा ड्रा का दावा कर सकते हैं। Lishogi आधिकारिक FIDE नियमों को लागू करता है, जैसा कि %2$s के अनुच्छेद 9.2 (d) में वर्णित है।</string>
-	<string name="threefoldRepetitionLowerCase">तिगुना दोहराव (Threefold repetition)</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">हैंडबुक (पीडीएफ)</string>
 	<string name="notRepeatedMoves">हमने चालें नहीं दोहराईं। क्यों खेल अभी भी पुनरावृत्ति द्वारा तैयार किया गया था ?</string>
 	<string name="repeatedPositionsThatMatters">तीन गुना दोहराव लगभग %1$s है, चाल नहीं। पुनरावृत्ति लगातार नहीं होती है।</string>
 	<string name="positions">पोजीशन (positions)</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">हमने तीन बार एक पोजीशन दोहराई। खेल क्यों नहीं खींचा गया ?</string>
-	<string name="threeFoldHasToBeClaimed">खिलाड़ियों में से एक द्वारा दोहराव का दावा किया जाना चाहिए। आप दिखाए गए बटन को दबाकर कर सकते हैं, या अपने अंतिम दोहराए जाने से पहले ड्रॉ की पेशकश कर सकते हैं, इससे कोई फर्क नहीं पड़ेगा कि आपका प्रतिद्वंद्वी ड्रॉ ऑफ़र को अस्वीकार कर देता है, वैसे भी तीन गुना पुनरावृत्ति ड्रा का दावा किया जाएगा। आप स्वचालित रूप से आपके लिए पुनरावृत्ति का दावा करने के लिए %1$s Lishogi भी कर सकते हैं। इसके अतिरिक्त, पांच गुना दोहराव हमेशा खेल को तुरंत समाप्त करता है।</string>
 	<string name="configure">विन्यस्त करें</string>
 	<string name="accounts">खाता</string>
 	<string name="titlesAvailableOnLishogi">Lishogi पर कौन से शीर्षक हैं ?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi ओटीबी (बोर्ड मे) खेलने के साथ-साथ %1$s से प्राप्त सभी FIDE खिताबों को पहचानता है। यहाँ FIDE शीर्षक की एक सूची है:</string>
 	<string name="showYourTitle">यदि आपके पास एक ओटीबी (OTB) शीर्षक है, तो आप इसे अपने खाते पर %1$s को पूरा करने के लिए आवेदन कर सकते हैं, जिसमें एक पहचान दस्तावेज / कार्ड की स्पष्ट छवि और दस्तावेज़ / कार्ड रखने की एक सेल्फी शामिल है।
 
 Lishogi पर एक शीर्षक वाले खिलाड़ी के रूप में सत्यापित करने से शीर्षक वाले एरिना की घटनाओं में खेलने की सुविधा मिलती है।
 
 अंत में एक मानद %2$s शीर्षक है।</string>
-	<string name="asWellAsManyNMtitles">कई राष्ट्रीय मास्टर खिताब</string>
 	<string name="verificationForm">सत्यापन प्रपत्र</string>
 	<string name="canIbecomeLM">क्या मुझे Lishogi मास्टर (LM) उपाधि मिल सकती है?</string>
 	<string name="noUpperCaseDot">नहीं</string>
@@ -98,9 +74,7 @@ LM शीर्षक के लिए मत पूछो।</string>
 	<string name="guidelines">दिशा निर्देशों</string>
 	<string name="uniqueTrophies">अनोखी ट्राफियां</string>
 	<string name="ownerUniqueTrophies">Lishogi के इतिहास में यह ट्रॉफी अद्वितीय है, %1$s के अलावा किसी के पास कभी नहीं होगा।</string>
-	<string name="wayOfBerserkExplanation">इसे पाने के लिए, hiimgosu ने खुद को निडर होने के लिए चुनौती दी और 100%% का %s गेम जीत लिया।</string>
 	<string name="aHourlyBulletTournament">प्रति घंटा बुलेट टूर्नामेंट</string>
-	<string name="goldenZeeExplanation">ZugAddict स्ट्रीमिंग कर रहा थी और पिछले 2 घंटों से वह ए.आई. स्तर 8 एक 1+0 खेल में, सफलता के बिना। Thibault ने उसे बताया कि अगर उसने सफलतापूर्वक इसे स्ट्रीम पर किया, तो उसे एक अनूठी ट्रॉफी मिलेगी। एक घंटे बाद, उन्होंने Stockfish को धराशायी कर दिया, और वादा सम्मानित किया गया।</string>
 	<string name="lishogiRatings">Lishogi प्रशिक्षण</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi किस रेटिंग प्रणाली का उपयोग करता है?</string>
 	<string name="ratingSystemUsedByLishogi">Mark Glickman द्वारा विकसित Glicko-2 रेटिंग पद्धति का उपयोग करके रेटिंग की गणना की जाती है। यह एक बहुत ही लोकप्रिय रेटिंग पद्धति है, और इसका उपयोग कई महत्वपूर्ण शतरंज संगठनों द्वारा किया जाता है (FIDE एक उल्लेखनीय काउंटर-उदाहरण है, क्योंकि वे अभी भी दिनांकित ELO रेटिंग प्रणाली का उपयोग करते हैं)।

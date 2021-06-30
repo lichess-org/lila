@@ -15,6 +15,7 @@
 	<string name="resign">Resign</string>
 	<string name="checkmate">Checkmate</string>
 	<string name="stalemate">Stalemate</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Gote</string>
 	<string name="black">Sente</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">You play as sente</string>
 	<string name="itsYourTurn">It\'s your turn!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">King in the centre</string>
-	<string name="threeChecks">Three checks</string>
-	<string name="raceFinished">Race finished</string>
 	<string name="variantEnding">Variant ending</string>
 	<string name="newOpponent">New opponent</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Your opponent wants to play a new game with you</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Average rating: %s</string>
 	<string name="recentGames">Recent games</string>
 	<string name="topGames">Top games</string>
-	<string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE-rated players from %2$s to %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mate in %s half-move</item>
-		<item quantity="other">Mate in %s half-moves</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Next capture or pawn move in %s half-move (Distance To Zeroing of the 50 move counter)</item>
-		<item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
-	</plurals>
 	<string name="noGameFound">No game found</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
 	<string name="openingExplorer">Opening explorer</string>
 	<string name="xOpeningExplorer">%s opening explorer</string>
-	<string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
-	<string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
 	<string name="allSet">All set!</string>
 	<string name="importPgn">Import PGN</string>
 	<string name="delete">Delete</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Inaccuracies</string>
 	<string name="moveTimes">Move times</string>
 	<string name="flipBoard">Flip board</string>
-	<string name="threefoldRepetition">Threefold repetition</string>
 	<string name="claimADraw">Claim a draw</string>
 	<string name="offerDraw">Offer draw</string>
 	<string name="draw">Draw</string>
@@ -345,7 +331,7 @@
 	<string name="save">Save</string>
 	<string name="leaderboard">Leaderboard</string>
 	<string name="selectHandicap">Select handicap</string>
-	<string name="pasteTheFenStringHere">Paste the FEN text here</string>
+	<string name="pasteTheFenStringHere">Paste the SFEN text here</string>
 	<string name="pasteThePgnStringHere">Paste the PGN text here</string>
 	<string name="fromPosition">From position</string>
 	<string name="continueFromHere">Continue from here</string>
@@ -608,7 +594,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Increment</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Share PGN</string>
 	<string name="playOnline">Play online</string>
 	<string name="playOffline">Play offline</string>
 	<string name="allowAnalytics">Allow anonymous statistics</string>
@@ -769,8 +754,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
-	<string name="invalidPgn">Invalid PGN</string>
-	<string name="invalidFen">Invalid FEN</string>
+	<string name="invalidFen">Invalid SFEN</string>
 	<string name="error.minLength">Minimum length is %s</string>
 	<string name="error.maxLength">Maximum length is %s</string>
 	<string name="error.min">Must be greater or equal to %s</string>

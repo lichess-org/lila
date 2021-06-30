@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Du har en livstid-patron-konto. Det er ret fantastisk!</string>
 	<string name="patronUntil">Du har en patron-konto indtil %s.</string>
 	<string name="ifNotRenewed">Hvis den ikke fornyes, vil du blive nedgraderet til gratis.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">Vi er afhængige af støtte fra folk som dig for at gøre det muligt. Hvis du nyder at bruge Lishogi, så overvej gerne at støtte os med et bidrag og bliv til en Patron!</string>
 	<string name="lifetime">Livstid</string>
 	<string name="payLifetimeOnce">Betal %s én gang. Vær en Lishogi Patron for evigt!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Se en detaljeret opgørelse over omkostninger</string>
-	<string name="officialNonProfit">Er Lishogi officielt en nonprofit?</string>
-	<string name="actOfCreation">Ja, her er fundatsen (på fransk)</string>
 	<string name="changeMonthlySupport">Kan jeg ændre/annullere mit månedlige bidrag?</string>
 	<string name="changeOrContact">Ja, til enhver tid, fra denne side.
 Eller du kan %s.</string>

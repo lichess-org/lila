@@ -15,6 +15,7 @@
 	<string name="resign">Ge upp</string>
 	<string name="checkmate">Schackmatt</string>
 	<string name="stalemate">Patt</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Vit</string>
 	<string name="black">Svart</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Du spelar med de svarta pjäserna</string>
 	<string name="itsYourTurn">Det är din tur!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Kungen är i centrum</string>
-	<string name="threeChecks">Tre schackar</string>
-	<string name="raceFinished">Lopp slut</string>
 	<string name="variantEnding">Variantbaserat slut</string>
 	<string name="newOpponent">Ny motståndare</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Din motståndare vill spela ett nytt parti med dig</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Medelrating: %s</string>
 	<string name="recentGames">Senaste partier</string>
 	<string name="topGames">Toppartier</string>
-	<string name="masterDbExplanation">Två miljoner schackpartier, spelade över ett fysiskt bräde, av %1$s+ Elo-rankade spelare från %2$s till %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Matt på %s halvdrag</item>
-		<item quantity="other">Matt på %s halvdrag</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
-		<item quantity="other">Nästa slag eller bondedrag inom %s halvdrag (drag till nollställning av räknaren för 50-dragsregeln)</item>
-	</plurals>
 	<string name="noGameFound">Inget parti hittades</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
 	<string name="openingExplorer">Öppningsbok</string>
 	<string name="xOpeningExplorer">%s öppningsutforskare</string>
-	<string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
-	<string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
 	<string name="allSet">Klart!</string>
 	<string name="importPgn">Importera PGN</string>
 	<string name="delete">Ta bort</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Felaktigheter</string>
 	<string name="moveTimes">Dragtider</string>
 	<string name="flipBoard">Vänd brädet</string>
-	<string name="threefoldRepetition">Trefaldig upprepning</string>
 	<string name="claimADraw">Begär remi</string>
 	<string name="offerDraw">Föreslå remi</string>
 	<string name="draw">Remi</string>
@@ -607,7 +593,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Tidstillägg</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Dela PGN</string>
 	<string name="playOnline">Spela uppkopplad</string>
 	<string name="playOffline">Spela nerkopplad</string>
 	<string name="allowAnalytics">Tillåt anonym statistik</string>
@@ -768,7 +753,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Schacktränare</string>
-	<string name="invalidPgn">Ogiltig PGN</string>
 	<string name="invalidFen">Ogiltig FEN</string>
 	<string name="error.minLength">Minimilängd är %s</string>
 	<string name="error.maxLength">Maximumlängd är %s</string>

@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
 	<string name="pgnPieceNotation">चाल नोटेशन</string>
 	<string name="chessPieceSymbol">शोगी टुकड़ा प्रतीक</string>
-	<string name="pgnLetter">अक्षर (K, Q, B, G, S, N, L)</string>
 	<string name="zenMode">ज़ेन मोड</string>
 	<string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
 	<string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">केवल आकस्मिक खेलों में ही</string>
 	<string name="promoteToQueenAutomatically">रानी की उन्नति (प्रमोट) अपने आप करें</string>
 	<string name="whenPremoving">पहले से चाल चलते समय</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">दावा तीन बार दोहराव पर स्वचालित रूप से ड्रा</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">जब बचा हुआ समय &lt; 30 सेकेंड</string>
 	<string name="moveConfirmation">चाल की पुष्टि करें</string>
 	<string name="inCorrespondenceGames">पत्राचार खेल</string>
 	<string name="correspondenceAndUnlimited">पत्राचार और असीमित</string>
 	<string name="confirmResignationAndDrawOffers">इस्तीफे की पुष्टि करें और ड्रा ऑफर करें</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">आप कैसे कैंसिल करना चाहते हो?</string>
-	<string name="castleByMovingTwoSquares">राजा दो चौकों ले जाएँ</string>
-	<string name="castleByMovingOntoTheRook">राजा हाथी पर ले जाएँ</string>
 	<string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>

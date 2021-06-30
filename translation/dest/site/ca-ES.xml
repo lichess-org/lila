@@ -15,6 +15,7 @@
 	<string name="resign">Rendir-se</string>
 	<string name="checkmate">Escac i mat</string>
 	<string name="stalemate">Ofegat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Blanques</string>
 	<string name="black">Negres</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Jugues les peces negres</string>
 	<string name="itsYourTurn">És el teu torn!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Rei al centre</string>
-	<string name="threeChecks">Tres escacs</string>
-	<string name="raceFinished">Cursa finalitzada</string>
 	<string name="variantEnding">Acabament de variant</string>
 	<string name="newOpponent">Nou adversari</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">El teu adversari vol jugar una altra partida amb tu</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Puntuació mitjana: %s</string>
 	<string name="recentGames">Partides recents</string>
 	<string name="topGames">Millors partides</string>
-	<string name="masterDbExplanation">Dos mil·lions de partides OTB de jugadors amb ELO FIDE +%1$s des de %2$s fins a %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat en %s mig-moviment</item>
-		<item quantity="other">Mat en %s mig-moviments</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Següent captura o moviment de peó en %s mig-moviment (distància a zero dels 50 moviments)</item>
-		<item quantity="other">Següent captura o moviment de peó en %s mig-moviments (distància a zero dels 50 moviments)</item>
-	</plurals>
 	<string name="noGameFound">No s\'ha trobat cap joc</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser inclou més jocs des d\' el menú de preferències?</string>
 	<string name="openingExplorer">Explorador d\'obertures</string>
 	<string name="xOpeningExplorer">Explorador d\'obertures %s</string>
-	<string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
-	<string name="lossSavedBy50MoveRule">Derrota no permesa per la regla dels 50 moviments</string>
 	<string name="allSet">Tot a punt!</string>
 	<string name="importPgn">Importar PGN</string>
 	<string name="delete">Suprimir</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Imprecisions</string>
 	<string name="moveTimes">Temps dels moviments</string>
 	<string name="flipBoard">Gira el tauler</string>
-	<string name="threefoldRepetition">Triple repetició</string>
 	<string name="claimADraw">Reclama taules</string>
 	<string name="offerDraw">Ofereix taules</string>
 	<string name="draw">Taules</string>
@@ -610,7 +596,6 @@ en %3$s</string>
 	<string name="increment">Increment</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Comparteix PGN</string>
 	<string name="playOnline">Juga online</string>
 	<string name="playOffline">Juga offline</string>
 	<string name="allowAnalytics">Permetre estadístiques anònimes</string>
@@ -771,7 +756,6 @@ en %3$s</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Entrenador</string>
-	<string name="invalidPgn">PGN no vàlid</string>
 	<string name="invalidFen">FEN no vàlid</string>
 	<string name="error.minLength">La llargada mínima és de %s</string>
 	<string name="error.maxLength">La llargada máxima és de %s</string>

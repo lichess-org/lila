@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Lépéslista játék közben</string>
 	<string name="pgnPieceNotation">Lépés jelölése</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen mód</string>
 	<string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
 	<string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Csak rangosorolás nélküli játékok esetén</string>
 	<string name="promoteToQueenAutomatically">Gyalog automatikus előléptetése vezérré</string>
 	<string name="whenPremoving">Előre meghatározott lépés esetén</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Háromszori ismétlés esetén automatikus döntetlen igénylése</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Ha a hátralévő idő &lt; 30 másodperc</string>
 	<string name="moveConfirmation">Lépés jóváhagyatása</string>
 	<string name="inCorrespondenceGames">Levelező mérkőzés</string>
 	<string name="correspondenceAndUnlimited">Távjáték és korlátlan</string>
 	<string name="confirmResignationAndDrawOffers">Feladás és döntetlen kérelem megerősítése</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sáncolás módszere</string>
-	<string name="castleByMovingTwoSquares">Király mozog két mezőt</string>
-	<string name="castleByMovingOntoTheRook">Király mozog a bástyára</string>
 	<string name="inputMovesWithTheKeyboard">Lépések bevitele a billentyűzettel</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Beállítások elmentve.</string>
 </resources>

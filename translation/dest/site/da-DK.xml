@@ -15,6 +15,7 @@
 	<string name="resign">Kapituler</string>
 	<string name="checkmate">Skakmat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Hvid</string>
 	<string name="black">Sort</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Du spiller med de sorte brikker</string>
 	<string name="itsYourTurn">Det er din tur!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Konge i centrum</string>
-	<string name="threeChecks">Tre skakker</string>
-	<string name="raceFinished">Race færdigt</string>
 	<string name="variantEnding">Variantafslutning</string>
 	<string name="newOpponent">Ny modstander</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Gennemsnitlig rating: %s</string>
 	<string name="recentGames">Seneste partier</string>
 	<string name="topGames">Top-partier</string>
-	<string name="masterDbExplanation">To millioner OTB spil af %1$s + FIDE ratede spillere fra %2$s til %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat i %s halv-træk</item>
-		<item quantity="other">Mat i %s halv-træk</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
-		<item quantity="other">Næste vundet brik eller bondetræk i %s halvtræk (Afstand for at nulstille 50-træks-tæller)</item>
-	</plurals>
 	<string name="noGameFound">Intet parti fundet</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
 	<string name="openingExplorer">Åbningsbog</string>
 	<string name="xOpeningExplorer">%s åbningsbog</string>
-	<string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
-	<string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
 	<string name="allSet">Klar!</string>
 	<string name="importPgn">Importer PGN</string>
 	<string name="delete">Slet</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Unøjagtigheder</string>
 	<string name="moveTimes">Træktider</string>
 	<string name="flipBoard">Vend bræt</string>
-	<string name="threefoldRepetition">Trefoldig gentagelse</string>
 	<string name="claimADraw">Kræv remis</string>
 	<string name="offerDraw">Tilbyd remis</string>
 	<string name="draw">Remis</string>
@@ -607,7 +593,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Forøgelse</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Del PGN</string>
 	<string name="playOnline">Spil online</string>
 	<string name="playOffline">Spil offline</string>
 	<string name="allowAnalytics">Tillad anonym statistik</string>
@@ -768,7 +753,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Skaktrænere</string>
-	<string name="invalidPgn">Ugyldig PGN</string>
 	<string name="invalidFen">Ugyldig FEN</string>
 	<string name="error.minLength">Minimumslængde er %s</string>
 	<string name="error.maxLength">Maksimumslængde er %s</string>

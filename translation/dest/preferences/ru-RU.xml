@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Показывать список ходов</string>
 	<string name="pgnPieceNotation">Шахматная нотация</string>
 	<string name="chessPieceSymbol">Символ фигуры</string>
-	<string name="pgnLetter">Буква (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Режим Дзен</string>
 	<string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
 	<string name="onlyOnInitialPosition">Только в начальном положении</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Только в товарищеских играх</string>
 	<string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
 	<string name="whenPremoving">Когда сделан предварительный ход</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при трёхкратном повторении хода</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Когда остаётся меньше 30 секунд</string>
 	<string name="moveConfirmation">Подтверждение хода</string>
 	<string name="inCorrespondenceGames">В игре по переписке</string>
 	<string name="correspondenceAndUnlimited">По переписке и без ограничения времени</string>
 	<string name="confirmResignationAndDrawOffers">Подтверждать признание поражения и предложение ничьей</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Способ рокировки</string>
-	<string name="castleByMovingTwoSquares">Переместить короля на две клетки</string>
-	<string name="castleByMovingOntoTheRook">Переместить короля на ладью</string>
 	<string name="inputMovesWithTheKeyboard">Вводить ходы с помощью клавиатуры</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
 </resources>

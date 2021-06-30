@@ -35,7 +35,7 @@
   <string name="leaveTheStudy">この研究から出る</string>
   <string name="youAreNowAContributor">参加者になりました</string>
   <string name="youAreNowASpectator">観戦者になりました</string>
-  <string name="pgnTags">PGN タグ</string>
+  <string name="tags">Tags</string>
   <string name="like">いいね</string>
   <string name="newTag">新しいタグ</string>
   <string name="commentThisPosition">この局面にコメントする</string>
@@ -54,9 +54,7 @@
   <string name="last">最後</string>
   <string name="shareAndExport">共有とエクスポート</string>
   <string name="cloneStudy">研究をコピー</string>
-  <string name="studyPgn">研究の PGN</string>
   <string name="downloadAllGames">全対局をダウンロード</string>
-  <string name="chapterPgn">章の PGN</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
   <string name="broadcastUrl">ブロードキャスト URL</string>
@@ -95,9 +93,6 @@
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
   <string name="loadAGameFromPgn">棋譜を PGN で読み込み</string>
   <string name="automatic">自動</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
-  </plurals>
   <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
   <string name="loadAGameFromXOrY">%1$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>

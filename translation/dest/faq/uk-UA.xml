@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">Послухайте це у виконанні спеціаліста.</string>
 	<string name="whyLiveLightLibre">Живі, тому що ігри грають і спостерігають в режимі реального часу 24/7; легкі і вільні через той факт, що Lishogi має відкритий вихідний код і не нагромаджений мотлохом, який пропагує інші веб-сайти.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">звіт про витрати</string>
 	<string name="otherWaysToHelp">інші способи допомогти</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
 	<string name="fairPlay">Чесна гра</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Чому я позначений за використання штучної маніпуляції з рейтингом (навмисне зниження або піднімання) або комп\'ютерної допомоги?</string>
 	<string name="cheatDetectionMethods">Lishogi має сильні методи виявлення і дуже ретельний процес перевірки всіх доказів та прийняття рішення. Цей процес часто залучає багатьох модераторів і може зайняти тривалий час. Окрім самої відмітки, ми не будемо вдаватись до дрібниць про докази або про процес прийняття рішень для окремих випадків. Це дозволить уникнути виявлення у майбутньому та позбавить від непродуктивних дебатів. Цей час і зусилля краще витратити на інші важливі справи. Користувачі можуть подати оскарження електронною поштою %1$s, але рішення рідко змінюються.</string>
@@ -39,7 +36,6 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
 	<string name="whatVariantsCanIplay">В які варіанти я можу грати на Lishogi?</string>
 	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
-	<string name="eightVariants">8 варіантів шахів</string>
 	<string name="whatIsACPL">Чому дорівнює середній збиток сантипішаків(ACPL)?</string>
 	<string name="acplExplanation">Сантипішак - це одиниця міри, яка використовується в шахах як представлення переваги. Сантипішак дорівнює 1/100-му від пішака. В цьому випадку, 100 сантипішаків = 1 пішак. Ці значення не відіграють формальної ролі в грі, але корисні для гравців і необхідні для оцінювання позицій комп\'ютером.
 
@@ -49,42 +45,22 @@
 
 Комп\'ютерний аналіз на Lishogi використовує Stockfish.</string>
 	<string name="insufficientMaterial">Програш по часу, нічия та недостатнього матеріалу</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">Розділ 6.9 довідника правил ФІДЕ, PDF</string>
-	<string name="discoveringEnPassant">Чому пішака може захопити інший пішак, коли він вже пройшов? (en passant)</string>
-	<string name="explainingEnPassant">Це законний крок, відомий як \"en passant\". Стаття Вікіпедії дає %1$s.
-
-Він описаний у розділі 3.7 (d) від %2$s:
-
-\"Пішак, що займає квадрат на тій же лінії, що і на прилеглому файлі пішаку опонента, який щойно перетнув два квадрати за один крок з його первинної позиції, може захопити пішак цього опонента, ніби останній був переміщений лише на одну клітку. Це захоплення є лише законним способом на кроці після цього і називається захопленням \"en passant\".
-
-Перегляньте %3$s і попрактикуйтесь.</string>
 	<string name="goodIntroduction">хороше введення</string>
 	<string name="officialRulesPDF">офіційні правила (PDF)</string>
 	<string name="lishogiTraining">Lishogi training</string>
-	<string name="threefoldRepetition">Потрійне повторення</string>
-	<string name="threefoldRepetitionExplanation">Якщо позиція відбудеться тричі, гравці можуть оголосити нічию %1$s. Lishogi впроваджує офіційні правила FIDE, як описано в статті 9.2 (d) від %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">потрійне повторення</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">довідник (PDF)</string>
 	<string name="notRepeatedMoves">Ми не повторювали рухів. Чому гра все одно закінчилась повторенням?</string>
 	<string name="repeatedPositionsThatMatters">Потрійне повторення стосується повторення %1$s, а не кроків. Повторення не обов\'язково має відбуватися послідовно.</string>
 	<string name="positions">позиції</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">Ми повторили позицію тричі. Чому гра не закінчилась нічиєю?</string>
-	<string name="threeFoldHasToBeClaimed">Для оголошення повторення потрібна відповідна дія одного з гравців. Ви можете зробити це, натиснувши кнопку, яка буде показана, або запропонувавши нічию перед повторенням ходу, неважливо, якщо ваш опонент відхилить пропозицію нічиєї, триразове повторення буде заявлено все одно. Також Ви можете зробити так, щоб Lishogi %1$s автоматично оголошував повторення за Вас. Крім того, п\'ятиразове повторення завжди завершує гру.</string>
 	<string name="configure">налаштування</string>
 	<string name="accounts">Облікові записи</string>
 	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Якщо у вас є титул OTB, ви можете подати заявку на відображення у вашому обліковому запису заповнивши %1$s, включаючи чітке зображення документа/картки та селфі з вашим документом/карткою, що ідентифікує його.
 
 Визнання Вас як титульного гравця на Lishogi дає доступ до гри в подіях Титульованої Арени.
 
 І наостанок є почесний титул %2$s.</string>
-	<string name="asWellAsManyNMtitles">багато звань Національного Майстра</string>
 	<string name="verificationForm">підтверджувальна форма</string>
 	<string name="canIbecomeLM">Чи можу я отримати звання Lishogi Master (LM)?</string>
 	<string name="noUpperCaseDot">Ні.</string>
@@ -98,9 +74,7 @@ Note that it can be possible to mate with a single knight or bishop if the oppon
 	<string name="guidelines">настанови</string>
 	<string name="uniqueTrophies">Унікальні нагороди</string>
 	<string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lishogi, ніхто крім %1$s ними не зможе заволодіти.</string>
-	<string name="wayOfBerserkExplanation">Щоб його отримати, hiimgosu кинув собі виклик та застосував берсерк, вигравши 100%% ігор в %s.</string>
 	<string name="aHourlyBulletTournament">щогодинний турнір з кулі</string>
-	<string name="goldenZeeExplanation">ZugAddict транслював і останні 2 години він намагався перемогти A.I. 8 рівня в грі 1+0, безуспішно. Тібо пообіцяв йому, що якщо він успішно зробить це на трансляції, він отримає унікальний трофей. Через годину він розгромив Stockfish і обіцянку було виконано.</string>
 	<string name="lishogiRatings">Lishogi ratings</string>
 	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).

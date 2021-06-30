@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>
 	<string name="patronUntil">Destekçi hesabınızın süresi %s tarihinde sona erecek.</string>
 	<string name="ifNotRenewed">Yeniden bağış yapmadığınız takdirde hesabınız ücretsiz hesaba çevrilecektir.</string>
-	<string name="weAreNonProfit">Lishogi, kar amacı gütmeyen bir kuruluştur. Çünkü herkesin ücretsiz, birinci sınıf bir shogi platformuna erişimi olması gerektiğine inanıyoruz.</string>
 	<string name="weRelyOnSupport">Lishogi sizler gibi insanların desteği sayesinde ayakta duruyor. Bu çorbada sizin de tuzunuz olsun istiyorsanız lütfen bizden desteğinizi esirgemeyin.</string>
 	<string name="lifetime">Ömür Boyu</string>
 	<string name="payLifetimeOnce">Tek seferde %s ödeyin ve sonsuza dek Lishogi destekçisi olun!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
-	<string name="officialNonProfit">Lishogi resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
-	<string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca).</string>
 	<string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
 	<string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
 Veya %s.</string>

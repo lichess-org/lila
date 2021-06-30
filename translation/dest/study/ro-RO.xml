@@ -41,7 +41,7 @@
   <string name="leaveTheStudy">Părăsește studiul</string>
   <string name="youAreNowAContributor">Acum ești un contribuitor</string>
   <string name="youAreNowASpectator">Acum ești un spectator</string>
-  <string name="pgnTags">Etichete PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Apreciază</string>
   <string name="newTag">Etichetă nouă</string>
   <string name="commentThisPosition">Comentează această poziție</string>
@@ -60,9 +60,7 @@
   <string name="last">Ultima</string>
   <string name="shareAndExport">Împărtășește &amp; exportă</string>
   <string name="cloneStudy">Clonează</string>
-  <string name="studyPgn">PGN-ul studiului</string>
   <string name="downloadAllGames">Download all games</string>
-  <string name="chapterPgn">PGN-ul capitolului</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="broadcastUrl">Broadcast URL</string>
@@ -101,11 +99,6 @@
   <string name="loadAPositionFromFen">Încărcați o poziție din FEN</string>
   <string name="loadAGameFromPgn">Încărcați un joc din PGN</string>
   <string name="automatic">Automată</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
-    <item quantity="few">Lipiți textul PGN aici, până la %s meciuri</item>
-    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri</item>
-  </plurals>
   <string name="urlOfTheGame">URL-ul jocului</string>
   <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s</string>
   <string name="createChapter">Creați capitolul</string>

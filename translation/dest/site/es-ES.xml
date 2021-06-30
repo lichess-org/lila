@@ -15,6 +15,7 @@
 	<string name="resign">Abandonar</string>
 	<string name="checkmate">Jaque mate</string>
 	<string name="stalemate">Ahogado</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Blancas</string>
 	<string name="black">Negras</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Juegas con negras</string>
 	<string name="itsYourTurn">¡Es tu turno!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Rey en el centro</string>
-	<string name="threeChecks">Tres jaques</string>
-	<string name="raceFinished">Carrera terminada</string>
 	<string name="variantEnding">Fin de la variante</string>
 	<string name="newOpponent">Nuevo oponente</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Tu oponente quiere la revancha</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Puntuación media: %s</string>
 	<string name="recentGames">Partidas recientes</string>
 	<string name="topGames">Mejores partidas</string>
-	<string name="masterDbExplanation">Dos millones de partidas de jugadores con ELO FIDE de %1$s+, desde %2$s a %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mate en %s medio movimiento</item>
-		<item quantity="other">Mate en %s medios movimientos</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Siguiente captura o movimiento de peón en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
-		<item quantity="other">Siguiente captura o movimiento de peón en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
-	</plurals>
 	<string name="noGameFound">No se ha encontrado ninguna partida</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
 	<string name="openingExplorer">Explorador de aperturas</string>
 	<string name="xOpeningExplorer">Explorador de la apertura %s</string>
-	<string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
-	<string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
 	<string name="allSet">¡Listo!</string>
 	<string name="importPgn">Importar PGN</string>
 	<string name="delete">Borrar</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Imprecisiones</string>
 	<string name="moveTimes">Tiempo por movimiento</string>
 	<string name="flipBoard">Girar el tablero</string>
-	<string name="threefoldRepetition">Triple repetición</string>
 	<string name="claimADraw">Reclamar tablas</string>
 	<string name="offerDraw">Ofrecer tablas</string>
 	<string name="draw">Tablas</string>
@@ -607,7 +593,6 @@ análisis por computadora, chat de juego y una URL para compartir.</string>
 	<string name="increment">Incremento</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periodos</string>
-	<string name="sharePGN">Compartir PGN</string>
 	<string name="playOnline">Jugar en línea</string>
 	<string name="playOffline">Jugar sin conexión</string>
 	<string name="allowAnalytics">Permitir estadísticas anónimas</string>
@@ -768,7 +753,6 @@ análisis por computadora, chat de juego y una URL para compartir.</string>
 	<string name="chessBasics">Fundamentos de shogi</string>
 	<string name="shogiResources">Recursos de shogi</string>
 	<string name="coaches">Entrenadores</string>
-	<string name="invalidPgn">PGN inválido</string>
 	<string name="invalidFen">FEN inválido</string>
 	<string name="error.minLength">La longitud mínima es de %s</string>
 	<string name="error.maxLength">La longitud máxima es de %s</string>

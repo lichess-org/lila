@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
 	<string name="pgnPieceNotation">Siirtojen merkintätapa</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen-moodi</string>
 	<string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
 	<string name="onlyOnInitialPosition">Vain alkuasemassa</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Vain rennoissa peleissä</string>
 	<string name="promoteToQueenAutomatically">Korota automaattisesti kuningattareksi</string>
 	<string name="whenPremoving">Esisiirtäessä</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
 	<string name="moveConfirmation">Siirron vahvistus</string>
 	<string name="inCorrespondenceGames">Kirjeshakissa</string>
 	<string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
 	<string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Kuinka linnoittaudut</string>
-	<string name="castleByMovingTwoSquares">Siirrä kuningasta kaksi ruutua</string>
-	<string name="castleByMovingOntoTheRook">Siirrä kuningas tornin päälle</string>
 	<string name="inputMovesWithTheKeyboard">Syötä siirtoja näppäimistöllä</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
 </resources>

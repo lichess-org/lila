@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">יש לך חשבון תומך לכל החיים. זה מדהים!</string>
 	<string name="patronUntil">נהפכת לתומך עד %s.</string>
 	<string name="ifNotRenewed">אם לא יחודש, אז תשונמך בחינם.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">אנחנו תלויים בתומכים כמוך על מנת להפוך את זה לאפשרי. אם את/ה נהנה/ית מליצ\'ס, בבקשה תשקול/י לתמוך בנו על ידי תרומה ולהפוך לתומך!</string>
 	<string name="lifetime">לכל החיים</string>
 	<string name="payLifetimeOnce">שלם %s פעם אחת. הפוך לתומך לכל החיים!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">ראה את ניתוח ההוצאות הכלכליות</string>
-	<string name="officialNonProfit">האם ליצ\'ס נון-פרופיט באופן רשמי?</string>
-	<string name="actOfCreation">כן, הנה מסמך היצירה (בצרפתית)</string>
 	<string name="changeMonthlySupport">האם אני יכול/ה לשנות/לבטל את התמיכה החודשית שלי?</string>
 	<string name="changeOrContact">כן, בכל זמן נתון, מהעמוד הזה.
 או שאת/ה יכול/ה %s.</string>

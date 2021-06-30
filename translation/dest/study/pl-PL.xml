@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Opuść opracowanie</string>
   <string name="youAreNowAContributor">Jesteś teraz współautorem</string>
   <string name="youAreNowASpectator">Jesteś teraz obserwatorem</string>
-  <string name="pgnTags">Znaczniki PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Lubię to</string>
   <string name="newTag">Nowy znacznik</string>
   <string name="commentThisPosition">Skomentuj tę pozycję</string>
@@ -63,9 +63,7 @@
   <string name="last">Ostatni</string>
   <string name="shareAndExport">Udostępnianie i eksport</string>
   <string name="cloneStudy">Powiel</string>
-  <string name="studyPgn">PGN opracowania</string>
   <string name="downloadAllGames">Pobierz wszystkie partie</string>
-  <string name="chapterPgn">PGN rozdziału</string>
   <string name="downloadGame">Pobierz partię</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="broadcastUrl">Adres URL transmisji</string>
@@ -104,12 +102,6 @@
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
   <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
-    <item quantity="few">Wklej tutaj swój PGN, max %s partie</item>
-    <item quantity="many">Wklej tutaj swój PGN, max %s partii</item>
-    <item quantity="other">Wklej tutaj swój PGN, max %s partii</item>
-  </plurals>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s</string>
   <string name="createChapter">Stwórz rozdział</string>

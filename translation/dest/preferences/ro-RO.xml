@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
 	<string name="pgnPieceNotation">Notația mutării</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Modul Zen</string>
 	<string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
 	<string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">În jocuri amicale</string>
 	<string name="promoteToQueenAutomatically">Promovează automat in damă</string>
 	<string name="whenPremoving">În cazul mutărilor anticipate</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Declară automat o remiză în cazul a trei repetări</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Cînd timpul rămas e mai scurt de 30 de secunde</string>
 	<string name="moveConfirmation">Confirmare mutare</string>
 	<string name="inCorrespondenceGames">În jocuri prin corespondență</string>
 	<string name="correspondenceAndUnlimited">Corespondență sau timp nelimitat</string>
 	<string name="confirmResignationAndDrawOffers">Confirmă abandonarea și oferirea remizei</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Metoda prin care faci rocada</string>
-	<string name="castleByMovingTwoSquares">Mută regele două pătrățele</string>
-	<string name="castleByMovingOntoTheRook">Mută regele pe turn</string>
 	<string name="inputMovesWithTheKeyboard">Introdu mutări folosind tastatura</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Preferințele tale au fost salvate</string>
 </resources>

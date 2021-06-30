@@ -15,6 +15,7 @@
 	<string name="resign">Abandonner</string>
 	<string name="checkmate">Échec et mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Gote</string>
 	<string name="black">Sente</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Vous jouez sente</string>
 	<string name="itsYourTurn">C\'est votre tour !</string>
 	<string name="cheatDetected">Tricherie détectée</string>
-	<string name="kingInTheCenter">Roi au centre</string>
-	<string name="threeChecks">Trois échecs</string>
-	<string name="raceFinished">Course terminée</string>
 	<string name="variantEnding">Fin par variante</string>
 	<string name="newOpponent">Nouvel adversaire</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Votre adversaire souhaite jouer une nouvelle partie avec vous</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Classement moyen : %s</string>
 	<string name="recentGames">Parties récentes</string>
 	<string name="topGames">Meilleures parties</string>
-	<string name="masterDbExplanation">Deux millions de parties jouées en tournois FIDE &gt;%1$s de %2$s à %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mate en %s demi-coup</item>
-		<item quantity="other">Mate en %s demi-coups</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Prochaine prise ou coup de pion dans %s demi-coup (distance de remise à zéro de la règle des 50 coups)</item>
-		<item quantity="other">Prochaine prise ou coup de pion dans %s demi-coups (distance de remise à zéro de la règle des 50 coups)</item>
-	</plurals>
 	<string name="noGameFound">Aucune partie trouvée</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
 	<string name="openingExplorer">Explorateur d\'ouvertures</string>
 	<string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
-	<string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
-	<string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
 	<string name="allSet">Tout est prêt !</string>
 	<string name="importPgn">Importer le PGN</string>
 	<string name="delete">Effacer</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Imprécisions</string>
 	<string name="moveTimes">Temps par coup</string>
 	<string name="flipBoard">Tourner l\'échiquier</string>
-	<string name="threefoldRepetition">Triple répétition</string>
 	<string name="claimADraw">Revendiquer la partie nulle</string>
 	<string name="offerDraw">Proposer la nulle</string>
 	<string name="draw">Partie nulle</string>
@@ -606,7 +592,6 @@
 	<string name="increment">Incrément</string>
 	<string name="byoyomi">Byôyomi</string>
 	<string name="periods">Périodes</string>
-	<string name="sharePGN">Partager le PGN</string>
 	<string name="playOnline">Jouer en ligne</string>
 	<string name="playOffline">Jouer hors ligne</string>
 	<string name="allowAnalytics">Autoriser l\'envoi de statistiques anonymes</string>
@@ -767,7 +752,6 @@
 	<string name="chessBasics">Bases du shogi</string>
 	<string name="shogiResources">Ressources pour le shogi</string>
 	<string name="coaches">Entraîneurs</string>
-	<string name="invalidPgn">PGN non valide</string>
 	<string name="invalidFen">FEN non valide</string>
 	<string name="error.minLength">Vous devez écrire au moins %s caractères</string>
 	<string name="error.maxLength">Vous pouvez écrire un maximum de %s caractères</string>

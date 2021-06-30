@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi je projekt s otevřeným zdrojovým kódem vycházející z liShessu, ale protože je určen k hraní shogi, nazývá se lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Protože je to odvozeno od Liсhess. A Liсhess se nazývá Liсhess, protože je to kombinace live (živě)/light (lehkého)/libre (zdarma) a šachu. Lishogi se vyslovuje %1$s</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">Poslechněte si, jak je vyslovováno profesionálem.</string>
 	<string name="whyLiveLightLibre">Živé, protože hry jsou hrány a sledovány v reálném čase 24/7; lehké a volné, protože Lishogi má otevřený zdrojový kód a je nezatížené proprietárním nepořádkem, který zaplavuje ostatní weby.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">rozložení našich nákladů</string>
 	<string name="otherWaysToHelp">další způsoby jak pomoci</string>
-	<string name="areThereWebsitesBasedOnLishogi">Existují nějaké webové stránky založené na Lichess?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Ano. Lichess vskutku inspiroval další otevřené stránky využívající náš %1$s, %2$s nebo %3$s.</string>
 	<string name="fairPlay">Férová hra</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Proč jsem podezřelý z manipulování s ratingem (úmyslné prohry a vnější pomoc) nebo z hraní za pomoci umělé intelegince?</string>
 	<string name="cheatDetectionMethods">Lishogi má silné metody detekce a velmi důkladný postup pro přezkoumání všech důkazů a rozhodování. Tento proces často zahrnuje mnoho moderátorů a může trvat delší dobu. V jednotlivých případech nebudeme s důvody rozhodnutí zacházet do podrobností o důkazech nebo rozhodovacím procesu. Takový postup by v budoucnu usnadnil obcházení detekcí a byl by pozvánkou k neproduktivním diskusím. Tento čas a úsilí je lépe využit na jiné důležité věci. Uživatelé se mohou odvolat e-mailem %1$s, ale rozhodnutí se zřídka mění.</string>
@@ -39,7 +36,6 @@ For instance, the estimated duration of a 5+3|4 game is 60 × 5 + 60 × 3 + 25 �
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lishogi?</string>
 	<string name="lishogiSupportChessAnd">Lishogi podporuje standardní shogi a %1$s.</string>
-	<string name="eightVariants">8 variant šachu</string>
 	<string name="whatIsACPL">Co je to průměrná pěšcová ztráta (angl. \"average centipawn loss\")?</string>
 	<string name="acplExplanation">V šachu se jako jednotka síly jednotlivých tahů ve srovnání s nejlepšími možnými tahy doporučenými počítačem používá tzv. centipawn (z angličtiny). Jeden centipawn je ekvivalentní jedné setině hodnoty pěšáka. To znamená, že 100 centipawnů odpovídá jednomu pěšákovi.
 
@@ -49,42 +45,22 @@ Tato hodnota se používá pro ověření kvality hry. Čím nižší má hráč
 
 Počítačová analýza na Lishogi využívá program Stockfish. Hráčovi tahy jsou tedy porovnávány vůči tahům, které by zahrál Stockfish.</string>
 	<string name="insufficientMaterial">Prohrávání na čas, remízování a nedostatečný materiál</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">FIDE handbook §6.9, PDF</string>
-	<string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
-	<string name="explainingEnPassant">This is a legal move known as \"en passant\". The Wikipedia article gives a %1$s.
-
-It is described in section 3.7 (d) of the %2$s:
-
-\"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
-
-See the %3$s on this move for some practice with it.</string>
 	<string name="goodIntroduction">dobré zahájení</string>
 	<string name="officialRulesPDF">official rules (PDF)</string>
 	<string name="lishogiTraining">Trénink Lishogi</string>
-	<string name="threefoldRepetition">Threefold repetition</string>
-	<string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lishogi implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">threefold repetition</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">handbook (PDF)</string>
 	<string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
-	<string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
+	<string name="repeatedPositionsThatMatters">Fourfold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
 	<string name="positions">pozice</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">Třikrát jsme zopakovali stejnou pozici. Proč hra neskončila remízou?</string>
-	<string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lishogi to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
 	<string name="configure">nastavit</string>
 	<string name="accounts">Účty</string>
 	<string name="titlesAvailableOnLishogi">Jaké tituly jsou na Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
 
 Verifying as a titled player on Lishogi gives access to play in the Titled Arena events.
 
 Finally there is an honorary %2$s title.</string>
-	<string name="asWellAsManyNMtitles">many national master titles</string>
 	<string name="verificationForm">formulář pro ověření</string>
 	<string name="canIbecomeLM">Can I get the Lishogi Master (LM) title?</string>
 	<string name="noUpperCaseDot">Ne.</string>
@@ -98,9 +74,7 @@ Do not ask for the LM title.</string>
 	<string name="guidelines">guidelines</string>
 	<string name="uniqueTrophies">Unique trophies</string>
 	<string name="ownerUniqueTrophies">That trophy is unique in the history of Lishogi, nobody other than %1$s will ever have it.</string>
-	<string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>
 	<string name="aHourlyBulletTournament">a hourly Bullet tournament</string>
-	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
 	<string name="lishogiRatings">Lishogi hodnocení</string>
 	<string name="whichRatingSystemUsedByLishogi">Jaký systém hodnocení Lishogi využívá?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).

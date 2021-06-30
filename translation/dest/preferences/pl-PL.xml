@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Lista ruchów podczas partii</string>
 	<string name="pgnPieceNotation">Notacja ruchów</string>
 	<string name="chessPieceSymbol">Symbole bierek</string>
-	<string name="pgnLetter">Litery (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Tryb Zen</string>
 	<string name="displayBoardResizeHandle">Uchwyt zmiany rozmiaru szachownicy</string>
 	<string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Tylko w grach towarzyskich</string>
 	<string name="promoteToQueenAutomatically">Automatyczna promocja na hetmana</string>
 	<string name="whenPremoving">W czasie ruchu planowanego</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Automatyczny remis po trzykrotnym powtórzeniu pozycji</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Kiedy pozostało mniej niż 30 sekund</string>
 	<string name="moveConfirmation">Potwierdzenie ruchu</string>
 	<string name="inCorrespondenceGames">W grze korespondencyjnej</string>
 	<string name="correspondenceAndUnlimited">Korespondencyjne i bez limitu czasu</string>
 	<string name="confirmResignationAndDrawOffers">Potwierdzaj poddanie się i wysłanie propozycji remisu</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sposób roszowania</string>
-	<string name="castleByMovingTwoSquares">Ruch królem o dwa pola</string>
-	<string name="castleByMovingOntoTheRook">Ruch królem na wieżę</string>
 	<string name="inputMovesWithTheKeyboard">Wprowadzaj ruchy za pomocą klawiatury</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
 </resources>

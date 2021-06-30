@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Opustit studii</string>
   <string name="youAreNowAContributor">Nyní jste přispívající</string>
   <string name="youAreNowASpectator">Nyní jste divák</string>
-  <string name="pgnTags">PGN tagy</string>
+  <string name="tags">Tags</string>
   <string name="like">To se mi líbí</string>
   <string name="newTag">Nový štítek</string>
   <string name="commentThisPosition">Komentář k tomuto příspěvku</string>
@@ -63,9 +63,7 @@
   <string name="last">Poslední</string>
   <string name="shareAndExport">Sdílení a export</string>
   <string name="cloneStudy">Klonovat</string>
-  <string name="studyPgn">PGN studie</string>
   <string name="downloadAllGames">Stáhnout všechny hry</string>
-  <string name="chapterPgn">PGN kapitoly</string>
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
   <string name="broadcastUrl">Adresa vysílání</string>
@@ -104,12 +102,6 @@
   <string name="loadAPositionFromFen">Načíst polohu z FEN</string>
   <string name="loadAGameFromPgn">Načíst hru z PGN</string>
   <string name="automatic">Automatický</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Vložte obsah vašeho PGN souboru (až %s hra)</item>
-    <item quantity="few">Vložte obsah vašeho PGN souboru (až %s hry)</item>
-    <item quantity="many">Vložte obsah vašeho PGN souboru (až %s her)</item>
-    <item quantity="other">Vložte obsah vašeho PGN souboru (až %s her)</item>
-  </plurals>
   <string name="urlOfTheGame">URL hry</string>
   <string name="loadAGameFromXOrY">Načíst hru z %1$s</string>
   <string name="createChapter">Vytvořit kapitolu</string>

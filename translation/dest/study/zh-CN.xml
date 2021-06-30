@@ -35,7 +35,7 @@
   <string name="leaveTheStudy">离开研究</string>
   <string name="youAreNowAContributor">您现在是一位贡献者</string>
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
-  <string name="pgnTags">PGN标签</string>
+  <string name="tags">Tags</string>
   <string name="like">赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论当前局面</string>
@@ -54,9 +54,7 @@
   <string name="last">末页</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
-  <string name="studyPgn">研究PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
-  <string name="chapterPgn">章节PGN</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
   <string name="broadcastUrl">直播链接</string>
@@ -95,9 +93,6 @@
   <string name="loadAPositionFromFen">从 FEN 加载一个局面</string>
   <string name="loadAGameFromPgn">从 PGN 文件加载游戏</string>
   <string name="automatic">自动</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="other">在此粘贴您的 PGN 文本，最多支持 %s 个游戏</item>
-  </plurals>
   <string name="urlOfTheGame">游戏的 URL</string>
   <string name="loadAGameFromXOrY">从 %1$s 加载游戏</string>
   <string name="createChapter">创建章节</string>

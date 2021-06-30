@@ -15,6 +15,7 @@
 	<string name="resign">Oyundan Çekil</string>
 	<string name="checkmate">Şah Mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Gote</string>
 	<string name="black">Sente</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Siyah taşlar sizin</string>
 	<string name="itsYourTurn">Sıra sizde!</string>
 	<string name="cheatDetected">Hile Tespit Edildi</string>
-	<string name="kingInTheCenter">Şah merkezde</string>
-	<string name="threeChecks">Üç şah</string>
-	<string name="raceFinished">Yarış bitti</string>
 	<string name="variantEnding">Varyant bitti</string>
 	<string name="newOpponent">Yeni rakip</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Rakibiniz sizinle yeni bir oyun oynamak istiyor</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Ortalama puan: %s</string>
 	<string name="recentGames">Son oyunlar</string>
 	<string name="topGames">En yüksek puanlı oyunlar</string>
-	<string name="masterDbExplanation">%2$s yılından %3$s yılına kadar %1$s+ FIDE puanına sahip oyuncular tarafından tahta üzerinde oynanmış 2 milyon oyun</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">%s yarım hamle sonra mat</item>
-		<item quantity="other">%s yarım hamle sonra mat</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
-		<item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
-	</plurals>
 	<string name="noGameFound">Oyun bulunamadı</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
 	<string name="openingExplorer">Açılış kâşifi</string>
 	<string name="xOpeningExplorer">%s açılış kâşifi</string>
-	<string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
-	<string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
 	<string name="allSet">Her şey tamam!</string>
 	<string name="importPgn">PGN\'yi içe aktar</string>
 	<string name="delete">Sil</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Kusurlu hamleler</string>
 	<string name="moveTimes">Hamle zamanları</string>
 	<string name="flipBoard">Tahtayı döndür</string>
-	<string name="threefoldRepetition">Üç kez hamle tekrarı</string>
 	<string name="claimADraw">Beraberlik talep et</string>
 	<string name="offerDraw">Beraberlik teklif et</string>
 	<string name="draw">Berabere</string>
@@ -606,7 +592,6 @@
 	<string name="increment">Artış</string>
 	<string name="byoyomi">Geri sayım</string>
 	<string name="periods">Periyotlar</string>
-	<string name="sharePGN">PGN \'yi paylaş</string>
 	<string name="playOnline">Çevrimiçi Oyna</string>
 	<string name="playOffline">Çevrimdışı Oyna</string>
 	<string name="allowAnalytics">İstatistikleri paylaşmaya izin ver</string>
@@ -767,7 +752,6 @@
 	<string name="chessBasics">Shogi temelleri</string>
 	<string name="shogiResources">Shogi kaynakları</string>
 	<string name="coaches">Eğitmenler</string>
-	<string name="invalidPgn">Geçersiz PGN</string>
 	<string name="invalidFen">Geçersiz FEN</string>
 	<string name="error.minLength">Asgari uzunluk: %s</string>
 	<string name="error.maxLength">Azami uzunluk: %s</string>

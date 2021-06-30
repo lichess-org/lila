@@ -15,6 +15,7 @@
 	<string name="resign">Poddaj się</string>
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Białe</string>
 	<string name="black">Czarne</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Grasz czarnymi</string>
 	<string name="itsYourTurn">Twój ruch!</string>
 	<string name="cheatDetected">Wykryto oszustwo</string>
-	<string name="kingInTheCenter">Król w centrum</string>
-	<string name="threeChecks">Trzy szachy</string>
-	<string name="raceFinished">Wyścig zakończony</string>
 	<string name="variantEnding">Wariant zakończony</string>
 	<string name="newOpponent">Nowy przeciwnik</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Przeciwnik chce zagrać z Tobą nową partię</string>
@@ -89,25 +87,10 @@
 	<string name="averageRatingX">Średni ranking: %s</string>
 	<string name="recentGames">Ostatnie partie</string>
 	<string name="topGames">Najlepsze partie</string>
-	<string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat w %s posunięciu</item>
-		<item quantity="few">Mat w %s posunięciach</item>
-		<item quantity="many">Mat w %s posunięciach</item>
-		<item quantity="other">Mat w %s posunięciach</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Następne bicie lub ruch pionem w następnym posunięciu (zerowanie licznika posunięć reguły 50 ruchów)</item>
-		<item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-		<item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-		<item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
-	</plurals>
 	<string name="noGameFound">Nie znaleziono partii</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
 	<string name="openingExplorer">Biblioteka otwarć</string>
 	<string name="xOpeningExplorer">Biblioteka otwarć %s</string>
-	<string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
-	<string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
 	<string name="allSet">Gotowe!</string>
 	<string name="importPgn">Importuj PGN</string>
 	<string name="delete">Usuń</string>
@@ -132,7 +115,6 @@
 	<string name="inaccuracies">Niedokładności</string>
 	<string name="moveTimes">Tempo gry</string>
 	<string name="flipBoard">Obróć szachownicę</string>
-	<string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
 	<string name="claimADraw">Ogłoś remis</string>
 	<string name="offerDraw">Zaproponuj remis</string>
 	<string name="draw">Remis</string>
@@ -671,7 +653,6 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="increment">Czas dodawany</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Okresy</string>
-	<string name="sharePGN">Udostępnij PGN</string>
 	<string name="playOnline">Graj online</string>
 	<string name="playOffline">Graj offline</string>
 	<string name="allowAnalytics">Wysyłaj anonimowe statystyki</string>
@@ -838,7 +819,6 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="chessBasics">Podstawy shogi</string>
 	<string name="shogiResources">Materiały o shogi</string>
 	<string name="coaches">Trenerzy</string>
-	<string name="invalidPgn">Nieprawidłowy PGN</string>
 	<string name="invalidFen">Nieprawidłowy FEN</string>
 	<string name="error.minLength">Minimalna długość to %s znaków</string>
 	<string name="error.maxLength">Maksymalna długość to %s znaków</string>

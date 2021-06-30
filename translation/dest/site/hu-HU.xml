@@ -15,6 +15,7 @@
 	<string name="resign">Feladás</string>
 	<string name="checkmate">Sakk-matt</string>
 	<string name="stalemate">Patt</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Világos</string>
 	<string name="black">Sötét</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Sötéttel fogsz játszani</string>
 	<string name="itsYourTurn">Te következel</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Király a centrumban</string>
-	<string name="threeChecks">Három sakk</string>
-	<string name="raceFinished">A verseny befejeződött</string>
 	<string name="variantEnding">Variáns vége</string>
 	<string name="newOpponent">Új ellenfél</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Az ellenfeled visszavágót szeretne</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Átlagos értékszám: %s</string>
 	<string name="recentGames">Legutóbbi játszmák</string>
 	<string name="topGames">Legjobb játszmák</string>
-	<string name="masterDbExplanation">Kétmillió táblán játszott parti %2$s és %3$s között %1$s fölött rangsorolt FIDE játékosoktól</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Matt %s féllépésben</item>
-		<item quantity="other">Matt %s féllépésben</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
-		<item quantity="other">%s féllépés a következő ütésig vagy gyaloglépésig (az 50 lépés számláló nullázásáig)</item>
-	</plurals>
 	<string name="noGameFound">Nem található játszma</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">És ha több játszmát beveszel a beállítások menüben?</string>
 	<string name="openingExplorer">Megnyitás böngésző</string>
 	<string name="xOpeningExplorer">%s megnyitás böngésző</string>
-	<string name="winPreventedBy50MoveRule">Az 50 lépés szabály miatt nem nyert</string>
-	<string name="lossSavedBy50MoveRule">Az 50 lépés szabály miatt nem vesztett</string>
 	<string name="allSet">Mehet!</string>
 	<string name="importPgn">PGN importálás</string>
 	<string name="delete">Töröl</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Pontatlanság</string>
 	<string name="moveTimes">Lépésidők</string>
 	<string name="flipBoard">Tábla megfordítása</string>
-	<string name="threefoldRepetition">Háromszori lépésismétlés</string>
 	<string name="claimADraw">Döntetlen igénylése</string>
 	<string name="offerDraw">Döntetlen felajánlása</string>
 	<string name="draw">Döntetlen</string>
@@ -607,7 +593,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Többletidő</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">PGN megosztása</string>
 	<string name="playOnline">Online játék</string>
 	<string name="playOffline">Offline játék</string>
 	<string name="allowAnalytics">Névtelen statisztika engedélyezése</string>
@@ -768,7 +753,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Oktatók</string>
-	<string name="invalidPgn">Hibás PGN</string>
 	<string name="invalidFen">Hibás FEN</string>
 	<string name="error.minLength">A legkisebb megengedett karakterszám %s</string>
 	<string name="error.maxLength">A maximális megengedett karakterszám %s</string>

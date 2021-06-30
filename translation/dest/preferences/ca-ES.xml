@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
 	<string name="pgnPieceNotation">Notació de les jugades</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
 	<string name="onlyOnInitialPosition">Només en posició inicial</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Només en els jocs amistosos</string>
 	<string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
 	<string name="whenPremoving">En moviments anticipats</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Demana empat per repetició automàticament</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
 	<string name="moveConfirmation">Confirmació de moviment</string>
 	<string name="inCorrespondenceGames">Només en partides per correspondència</string>
 	<string name="correspondenceAndUnlimited">Per correspondència i sense límit de temps</string>
 	<string name="confirmResignationAndDrawOffers">Confirmar resignació i oferiments d\'empat</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mètode d\'Enroc</string>
-	<string name="castleByMovingTwoSquares">Moure el rei dues caselles</string>
-	<string name="castleByMovingOntoTheRook">Moure el rei a la torre</string>
 	<string name="inputMovesWithTheKeyboard">Moure peces amb el teclat</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
 </resources>

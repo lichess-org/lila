@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">あなたに永久パトロンアカウントを所持しています。すばらしい！</string>
 	<string name="patronUntil">%s までのパトロン・アカウントを贈ります。</string>
 	<string name="ifNotRenewed">更新しないと無料アカウントに戻ります。</string>
-	<string name="weAreNonProfit">Lishogiは非営利団体です。世界規模の将棋サイトを誰もが無料で使えるべきだと考えているからです。</string>
 	<string name="weRelyOnSupport">そのためにはあなたのような方からのサポートが必要です。Lishogi を楽しんでいるのなら、寄付をしてパトロンになることを考えてみてください！</string>
 	<string name="lifetime">永久</string>
 	<string name="payLifetimeOnce">%s を一度に寄付すれば、永久に Lihosig パトロンです！</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">まず第一に、より強力なサーバーです。
 そして Lishogi の創設者であり常勤の開発者でもある %s に支払われます。</string>
 	<string name="costBreakdown">費用の内訳を見る</string>
-	<string name="officialNonProfit">Lishogi は公式の非営利団体ですか？</string>
-	<string name="actOfCreation">そうです。設立文書（フランス語）はこちら</string>
 	<string name="changeMonthlySupport">毎月の寄付を変更／キャンセルできますか？</string>
 	<string name="changeOrContact">はい、このページでいつでも。
 あるいは %s を。</string>

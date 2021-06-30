@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi は lichess から枝分かれしたオープンソースプロジェクトですが、将棋をするので lishogi と呼ばれます。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Lichess から派生しているからです。そして Lichess が Lichess と呼ばれるのはライブ/軽い/自由 (live/light/libre) とチェスの組み合わせだからです。Lishogi は %1$s と発音します。</string>
 	<string name="leechess">リーショウギ</string>
-	<string name="hearItPronouncedBySpecialist"> 実際の発音をお聞きください。</string>
 	<string name="whyLiveLightLibre">「ライブ」それは24時間常に対局・観戦できるから。「軽い」「自由」は Lishogi がオープンソースで、他のサイトにありがちな誰かの権利などにわずらわされないからです。</string>
 	<string name="whyIsLilaCalledLila">同様に、Lishogi のソースコード %1$s は li[shogi in sca]la の略であり、 Lishogi の大部分は直感的なプログラミング言語である %2$s で書かれています。</string>
 	<string name="howCanIContributeToLishogi">どうやったら Lishogi に貢献できますか？</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">他にも様々な方法で Lishogi への貢献が可能です。</string>
 	<string name="breakdownOfOurCosts">経費の内訳</string>
 	<string name="otherWaysToHelp">手助けする他の方法</string>
-	<string name="areThereWebsitesBasedOnLishogi">Lishogi の基となったウェブサイトはありますか？</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">はい。 Lishogi は %1$s, %2$s や %3$s を使った他のオープンソースサイトに本当に発想を得ています。</string>
 	<string name="fairPlay">フェアプレイについて</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">なぜ私にレーティング不正操作（恣意的なレート下げやブースト）／コンピュータ不正使用のマークが付いたのですか？</string>
 	<string name="cheatDetectionMethods">Lishogi には強力な検知手段と、すべての証拠を検討した上で判断を下す念入りなプロセスがあります。このプロセスにはたいてい複数のモデレーターが関与し、長時間かかることもあります。マークを付ける以外、個々のケースについて証拠や判断プロセスの詳細は開示しません。開示すれば今後の検知が難しくなるし、実りのない議論を招くだけでしょう。その時間と努力は他のだいじなケースに向けるべきです。ユーザーは%1$sに電子メールを送って不服申し立てを行なえますが、判断がくつがえることはめったにありません。</string>
@@ -39,43 +36,26 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">Lishogi にはどんなバリアント（変則ルール）がありますか？</string>
 	<string name="lishogiSupportChessAnd">Lishogi は標準の将棋と %1$s をサポートしています。</string>
-	<string name="eightVariants">8種類のバリアント</string>
 	<string name="whatIsACPL">「平均センチポーン差（ACPL: average centipawn loss）」とは？</string>
 	<string name="acplExplanation">「センチポーン」とはチェスで局面の有利さを表現するために使われる単位です。1 センチポーンは 1/100 ポーン、つまり 100 センチポーン＝1 ポーンです。この数字は対局には関係ありませんが、局面を評価する際に便利であり、コンピューターチェスでは欠かせないものとなっています。
   コンピュータの示す最善手をゼロとして、他の手で生じる局面を評価し、その差をセンチポーン単位で表現します。
  この数値はプレイの質の指標としても使えます。1 手あたりの平均センチポーン差が小さいほどしっかり指せたということです。
  Lishogi ではコンピューター解析に Stockfish を使っています。</string>
 	<string name="insufficientMaterial">時間切れと戦力不足について</string>
-	<string name="lishogiFollowFIDErules">一方のプレイヤーが時間切れになると、通常そのプレーヤーは負けになります。ただし、時間を残したプレイヤーがいかなる合法な手順で相手のキングをメイトすることができない場合はドローになります（%1$s）。
-まれな場合、自動での判定が難しいことがあります（強制手順、要塞状態など）。標準では、常に時間を残した方を有利に判定しています。
- 一方がビショップかナイト 1 個だけでも、他方にキング以外の駒が残っていればメイトの可能性があることに注意してください。</string>
-	<string name="linkToFIDErules">FIDE ハンドブック §6.9 (pdf)</string>
-	<string name="discoveringEnPassant">ポーンがすでに通過したマスで取られてしまうのですが…？（アンパッサンについて）</string>
-	<string name="explainingEnPassant">それは「アンパッサン (en passant)」というルールです。ウィキペディアの記事がまず%1$sになるでしょう。
-  これは%2$sの第 3.7 (d) 項にあります。
-  「相手のポーンが元のマスから 1 手で 2 マス進んだ時、この相手のポーンと同じランクで隣のファイルにいるポーンは、相手のポーンが 1 マス進んだ時と同じように相手のポーンを取ることができる。これは相手のポーンが進んだ直後の手でしか行えず、『アンパッサン』と呼ばれる」
-  %3$sでアンパッサンを練習することができます。
-  </string>
 	<string name="goodIntroduction">参考</string>
 	<string name="officialRulesPDF">公式ルール (pdf)</string>
 	<string name="lishogiTraining">Lishogi トレーニング</string>
-	<string name="threefoldRepetition">同形三復について</string>
-	<string name="threefoldRepetitionExplanation">同じ局面が 3 回起きたら、申し立てをすることで%1$sのドローになります。Lishogi は FIDE の公式ルール、%2$sの第 9.2 (d) 項を実装しています。</string>
-	<string name="threefoldRepetitionLowerCase">同形三復</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">ハンドブック (pdf)</string>
 	<string name="notRepeatedMoves">同じ手は指していないのに、なぜ同形三復（repetition）で引き分けなのですか？</string>
 	<string name="repeatedPositionsThatMatters">同形三復は同じ%1$sの繰り返しを言うのであって、同じ手ではありません。繰り返しが連続で起きる必要はないのです。</string>
 	<string name="positions">局面</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">同じ局面が 3 回起きました。なぜ引き分けにならないのですか？</string>
-	<string name="threeFoldHasToBeClaimed">同形三復によるドローはどちらかが申し立てする必要があります。「相手の手で 3 回目になった時にドローのボタンを押す」か、「ドローのボタンを押してから 3 回目になる手を指す」か、です。また%1$sによって 3 回目に自動的にドローにすることもできます。さらに同じ局面が 5 回起きたら自動的にドローになります。</string>
 	<string name="configure">設定</string>
 	<string name="accounts">アカウントについて</string>
 	<string name="titlesAvailableOnLishogi">Lishogi にはどんなタイトルがありますか？</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi はボード上から得られるすべてのFIDEタイトルと %1$s を認めています。FIDEタイトルは以下の通りです。</string>
 	<string name="showYourTitle">実戦の公式称号を持っていれば、%1$sに記入することでアカウントに称号を表示できます。本人を確認できる文書／カードの鮮明な画像と、その文書／カードを手に持ったあなた自身の画像が必要です。
 称号保持者であることを証明すれば、タイトル付・アリーナに参加できます。
 最後に、名誉称号の %2$s があります。</string>
-	<string name="asWellAsManyNMtitles">各国のナショナル・マスター称号</string>
 	<string name="verificationForm">確認フォーム</string>
 	<string name="canIbecomeLM">私も Lishogi Master (LM) になれますか？</string>
 	<string name="noUpperCaseDot">原則としてできません。</string>
@@ -87,9 +67,7 @@
 	<string name="guidelines">ガイドライン</string>
 	<string name="uniqueTrophies">ユニークトロフィー</string>
 	<string name="ownerUniqueTrophies">このトロフィーは Lishogi の歴史で唯一のもので、与えられるのは今後を含めて %1$s だけです。</string>
-	<string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
 	<string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
-	<string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
 	<string name="lishogiRatings">Lishogi レーティング</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi の使うレーティングシステムは何ですか？</string>
 	<string name="ratingSystemUsedByLishogi">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、チェス団体FIDE は今も古い Elo 方式を使っています）。

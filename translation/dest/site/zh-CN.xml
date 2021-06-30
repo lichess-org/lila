@@ -15,6 +15,7 @@
 	<string name="resign">认输</string>
 	<string name="checkmate">将死</string>
 	<string name="stalemate">逼和</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">白方</string>
 	<string name="black">黑方</string>
 	<string name="shitate">下手</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">你执黑棋</string>
 	<string name="itsYourTurn">轮到你了！</string>
 	<string name="cheatDetected">检测到作弊</string>
-	<string name="kingInTheCenter">国王在中间</string>
-	<string name="threeChecks">三次将军</string>
-	<string name="raceFinished">比赛结束</string>
 	<string name="variantEnding">变种结束</string>
 	<string name="newOpponent">新对手</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">你的对手想和你再玩一局</string>
@@ -86,19 +84,10 @@
 	<string name="averageRatingX">平均积分：%s</string>
 	<string name="recentGames">最近对局</string>
 	<string name="topGames">名局</string>
-	<string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上选手的两百万局棋谱</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="other">离将死剩%s着</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="other">下次吃子或走兵发生在%s步后（与重置50步计数的距离）</item>
-	</plurals>
 	<string name="noGameFound">没找到符合要求的棋局</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
 	<string name="openingExplorer">开局浏览器</string>
 	<string name="xOpeningExplorer">%s开局浏览器</string>
-	<string name="winPreventedBy50MoveRule">因50步和棋规则未赢</string>
-	<string name="lossSavedBy50MoveRule">因50步和棋规则未输</string>
 	<string name="allSet">一切就绪！</string>
 	<string name="importPgn">导入PGN文件</string>
 	<string name="delete">删除</string>
@@ -123,7 +112,6 @@
 	<string name="inaccuracies">轻微失误</string>
 	<string name="moveTimes">走棋时间</string>
 	<string name="flipBoard">翻转棋盘</string>
-	<string name="threefoldRepetition">三次重复局面</string>
 	<string name="claimADraw">宣布和棋</string>
 	<string name="offerDraw">提出和棋</string>
 	<string name="draw">和棋</string>
@@ -574,7 +562,6 @@
 	<string name="increment">加秒</string>
 	<string name="byoyomi">读秒</string>
 	<string name="periods">读秒次数</string>
-	<string name="sharePGN">分享PGN</string>
 	<string name="playOnline">在线下棋</string>
 	<string name="playOffline">离线下棋</string>
 	<string name="allowAnalytics">允许匿名统计数据</string>
@@ -732,7 +719,6 @@
 	<string name="chessBasics">将棋基础知识</string>
 	<string name="shogiResources">将棋资料</string>
 	<string name="coaches">教练</string>
-	<string name="invalidPgn">PGN无法识别</string>
 	<string name="invalidFen">FEN无法识别</string>
 	<string name="error.minLength">最小长度：%s</string>
 	<string name="error.maxLength">最大长度：%s</string>

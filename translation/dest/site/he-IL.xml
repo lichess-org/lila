@@ -15,6 +15,7 @@
 	<string name="resign">פרוש</string>
 	<string name="checkmate">מט</string>
 	<string name="stalemate">פט</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">לבן</string>
 	<string name="black">שחור</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">את/ה משחק/ת את הכלים השחורים</string>
 	<string name="itsYourTurn">זה התור שלך!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">המלך במרכז</string>
-	<string name="threeChecks">שח משולש</string>
-	<string name="raceFinished">המירוץ נגמר</string>
 	<string name="variantEnding">סיום הוריאנט</string>
 	<string name="newOpponent">יריב חדש</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">יריבך רוצה לשחק איתך שוב</string>
@@ -89,25 +87,10 @@
 	<string name="averageRatingX">דירוג ממוצע: %s</string>
 	<string name="recentGames">משחקים אחרונים</string>
 	<string name="topGames">המשחקים המובילים</string>
-	<string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">מט בעוד חצי מהלך</item>
-		<item quantity="two">מט בעוד %s חצאי מהלכים</item>
-		<item quantity="many">מט בעוד %s חצאי מהלכים</item>
-		<item quantity="other">מט בעוד %s חצאי מהלך</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">לקיחת כלי או מהלך רגלי בחצי המהלך הבא (עבור חישוב סף 50 המהלכים)</item>
-		<item quantity="two">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
-		<item quantity="many">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
-		<item quantity="other">לקיחת כלי או מהלך רגלי ב-%s חצאי המהלך הבאים (עבור חישוב סף 50 המהלכים)</item>
-	</plurals>
 	<string name="noGameFound">אין משחק זמין</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
 	<string name="openingExplorer">סייר הפתיחות</string>
 	<string name="xOpeningExplorer">חוקר פתיחות %s</string>
-	<string name="winPreventedBy50MoveRule">ניצחון נמנע מפעת כלל 50 המהלכים</string>
-	<string name="lossSavedBy50MoveRule">נמנע הפסד מפעת כלל 50 המהלכים</string>
 	<string name="allSet">הכול מוכן!</string>
 	<string name="importPgn">ייבא בפורמט PGN</string>
 	<string name="delete">מחק</string>
@@ -132,7 +115,6 @@
 	<string name="inaccuracies">החמצות</string>
 	<string name="moveTimes">זמני המהלך</string>
 	<string name="flipBoard">הפוך את הלוח</string>
-	<string name="threefoldRepetition">חזרה משולשת</string>
 	<string name="claimADraw">דרוש תיקו</string>
 	<string name="offerDraw">הצע תיקו</string>
 	<string name="draw">תיקו</string>
@@ -674,7 +656,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">שניות למהלך</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">שתף PGN</string>
 	<string name="playOnline">משחק רשת</string>
 	<string name="playOffline">משחק מקומי</string>
 	<string name="allowAnalytics">אפשר דגימה אנונימית</string>
@@ -841,7 +822,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">מאמנים</string>
-	<string name="invalidPgn">PGN לא חוקי</string>
 	<string name="invalidFen">FEN לא חוקי</string>
 	<string name="error.minLength">האורך המינימלי הוא %s</string>
 	<string name="error.maxLength">האורך המקסימלי הוא %s</string>

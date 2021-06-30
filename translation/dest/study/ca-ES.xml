@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Deixar l’estudi</string>
   <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
-  <string name="pgnTags">Etiquetes PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">M’agrada</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar en aquesta posició</string>
@@ -57,9 +57,7 @@
   <string name="last">Últim</string>
   <string name="shareAndExport">Comparteix i exporta</string>
   <string name="cloneStudy">Clona</string>
-  <string name="studyPgn">PGN de l’estudi</string>
   <string name="downloadAllGames">Descarrega tots els jocs</string>
-  <string name="chapterPgn">PGN del capítol</string>
   <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>
   <string name="broadcastUrl">URL de transmisió</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Carregar una posició via codi FEN</string>
   <string name="loadAGameFromPgn">Carregar una partida desde PGN</string>
   <string name="automatic">Automàtic</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Enganxa el teu PGN aquí, fins a %s partida</item>
-    <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
-  </plurals>
   <string name="urlOfTheGame">URL del joc</string>
   <string name="loadAGameFromXOrY">Carregar una partida desde %1$s</string>
   <string name="createChapter">Crear capítol</string>

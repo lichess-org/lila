@@ -15,6 +15,7 @@
 	<string name="resign">Abbandona</string>
 	<string name="checkmate">Scacco matto</string>
 	<string name="stalemate">Stallo</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Bianco</string>
 	<string name="black">Nero</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Sei il Nero</string>
 	<string name="itsYourTurn">Tocca a te!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Re al centro</string>
-	<string name="threeChecks">Tre scacchi</string>
-	<string name="raceFinished">Corsa terminata</string>
 	<string name="variantEnding">Fine variante</string>
 	<string name="newOpponent">Nuovo avversario</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Il tuo avversario vuole giocare un\'altra partita con te</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Punteggio medio: %s</string>
 	<string name="recentGames">Partite recenti</string>
 	<string name="topGames">Migliori partite</string>
-	<string name="masterDbExplanation">Due milioni di partite dal %2$s al %3$s di giocatori con punteggio FIDE %1$s+</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Matto in %s semi-mossa</item>
-		<item quantity="other">Matto in %s semi-mosse</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Prossima cattura o mossa di pedone in %s semi-mossa (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
-		<item quantity="other">Prossima cattura o mossa di pedone in %s semi-mosse (distanza dall\'azzeramento del conteggio delle 50 mosse)</item>
-	</plurals>
 	<string name="noGameFound">Nessun partita trovata</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
 	<string name="openingExplorer">Esplora aperture</string>
 	<string name="xOpeningExplorer">Explorer delle aperture %s</string>
-	<string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
-	<string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
 	<string name="allSet">Tutto pronto!</string>
 	<string name="importPgn">Importa PGN</string>
 	<string name="delete">Elimina</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Imprecisioni</string>
 	<string name="moveTimes">Tempo per mossa</string>
 	<string name="flipBoard">Ruota la scacchiera</string>
-	<string name="threefoldRepetition">Triplice ripetizione</string>
 	<string name="claimADraw">Reclama patta</string>
 	<string name="offerDraw">Offri patta</string>
 	<string name="draw">Patta</string>
@@ -608,7 +594,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Incremento</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Condividi PGN</string>
 	<string name="playOnline">Gioca online</string>
 	<string name="playOffline">Gioca offline</string>
 	<string name="allowAnalytics">Permetti statistiche anonime</string>
@@ -769,7 +754,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Istruttori</string>
-	<string name="invalidPgn">PGN non valido</string>
 	<string name="invalidFen">FEN non valido</string>
 	<string name="error.minLength">La lunghezza minima è %s</string>
 	<string name="error.maxLength">La lunghezza massima è %s</string>

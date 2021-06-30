@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Sair do estudo</string>
   <string name="youAreNowAContributor">Agora és um colaborador</string>
   <string name="youAreNowASpectator">Agora és um espectador</string>
-  <string name="pgnTags">Etiquetas PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Gostar</string>
   <string name="newTag">Nova etiqueta</string>
   <string name="commentThisPosition">Comentar esta posição</string>
@@ -57,9 +57,7 @@
   <string name="last">Última</string>
   <string name="shareAndExport">Partilhar &amp; exportar</string>
   <string name="cloneStudy">Clonar</string>
-  <string name="studyPgn">PGN do estudo</string>
   <string name="downloadAllGames">Descarregar todas as partidas</string>
-  <string name="chapterPgn">PGN do capítulo</string>
   <string name="downloadGame">Descarregar partida</string>
   <string name="studyUrl">URL do estudo</string>
   <string name="broadcastUrl">Transmitir o URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Carregar uma posição por FEN</string>
   <string name="loadAGameFromPgn">Carregar um jogo por PGN</string>
   <string name="automatic">Automática</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Cole seu texto PGN aqui, até %s jogo</item>
-    <item quantity="other">Cole seu texto PGN aqui, até %s jogos</item>
-  </plurals>
   <string name="urlOfTheGame">URL do jogo</string>
   <string name="loadAGameFromXOrY">Carregar um jogo do %1$s</string>
   <string name="createChapter">Criar capítulo</string>

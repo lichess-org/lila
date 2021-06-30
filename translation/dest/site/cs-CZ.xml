@@ -15,6 +15,7 @@
 	<string name="resign">Vzdát se</string>
 	<string name="checkmate">Šach mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Bílý</string>
 	<string name="black">Černý</string>
 	<string name="shitate">Slabší hráč</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
 	<string name="itsYourTurn">Jste na tahu!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
-	<string name="threeChecks">Třikrát šach</string>
-	<string name="raceFinished">Závod skončil</string>
 	<string name="variantEnding">Jiné ukončení</string>
 	<string name="newOpponent">Nový protihráč</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Váš soupeř s Vámi chce hrát další partii</string>
@@ -89,25 +87,10 @@
 	<string name="averageRatingX">Průměrný rating: %s</string>
 	<string name="recentGames">Nedávné hry</string>
 	<string name="topGames">Top hry</string>
-	<string name="masterDbExplanation">Dva miliony her hráčů Ela FIDE %1$s+ od let %2$s do %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat v %s půltahu</item>
-		<item quantity="few">Mat v %s půltazích</item>
-		<item quantity="many">Mat v %s půltazích</item>
-		<item quantity="other">Mat v %s půltazích</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">%s půltah do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-		<item quantity="few">%s půltahy do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-		<item quantity="many">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-		<item quantity="other">%s půltahů do dalšího braní nebo tahu pěšcem (vynulování pravidla 50ti tahů)</item>
-	</plurals>
 	<string name="noGameFound">Žádná hra nenalezena</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
 	<string name="openingExplorer">Průzkumník zahájení</string>
 	<string name="xOpeningExplorer">%s průzkumník zahájení</string>
-	<string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
-	<string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
 	<string name="allSet">Vše nastaveno!</string>
 	<string name="importPgn">Vložit PGN</string>
 	<string name="delete">Smazat</string>
@@ -132,7 +115,6 @@
 	<string name="inaccuracies">Nepřesnosti</string>
 	<string name="moveTimes">Čas na tah</string>
 	<string name="flipBoard">Otočit šachovnici</string>
-	<string name="threefoldRepetition">Trojí opakování pozice</string>
 	<string name="claimADraw">Reklamovat remízu</string>
 	<string name="offerDraw">Nabídnout remízu</string>
 	<string name="draw">Remíza</string>
@@ -670,7 +652,6 @@
 	<string name="increment">Navýšení</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Interval</string>
-	<string name="sharePGN">Sdílet PGN</string>
 	<string name="playOnline">Hrát online</string>
 	<string name="playOffline">Hrát offline</string>
 	<string name="allowAnalytics">Povolit anonymní statistiky</string>
@@ -837,7 +818,6 @@
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Trenéři</string>
-	<string name="invalidPgn">Neplatný formát PGN</string>
 	<string name="invalidFen">Neplatný formát FEN</string>
 	<string name="error.minLength">Minimální délka je %s</string>
 	<string name="error.maxLength">Maximální délka je %s</string>

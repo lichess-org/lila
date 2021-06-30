@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Vous avez un compte mécène à vie ! C\'est génial !</string>
 	<string name="patronUntil">Vous avez un compte mécène jusqu\'au %s.</string>
 	<string name="ifNotRenewed">Si non renouvelé, votre compte ne sera plus un mécène.</string>
-	<string name="weAreNonProfit">Nous sommes une association à but non lucratif parce que nous pensons que tout le monde devrait avoir accès à une plateforme gratuite d\'envergure mondiale.</string>
 	<string name="weRelyOnSupport">Nous comptons sur le soutien de personnes comme vous pour rendre cela possible. Si vous aimez utiliser Lishogi, pensez à nous soutenir en faisant un don et en devenant un mécène !</string>
 	<string name="lifetime">À vie</string>
 	<string name="payLifetimeOnce">Payez %s une fois. Devenez un mécène de Lishogi pour toujours !</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Voyez la liste détaillée des frais</string>
-	<string name="officialNonProfit">Lishogi est-elle officiellement une ONG ?</string>
-	<string name="actOfCreation">Oui, voici l\'acte de création</string>
 	<string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel ?</string>
 	<string name="changeOrContact">Oui, à n\'importe quel moment, depuis cette page.
 Ou vous pouvez %s.</string>

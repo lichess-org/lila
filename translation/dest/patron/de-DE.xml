@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Du besitzt ein lebenslanges Unterstützerkonto. Das ist einfach großartig!</string>
 	<string name="patronUntil">Du besitzt ein Unterstützerkonto bis %s.</string>
 	<string name="ifNotRenewed">Falls nicht erneuert, wird dein Konto zu einem kostenlosen herabgestuft.</string>
-	<string name="weAreNonProfit">Wir sind eine Non-Profit-Organisation, denn wir glauben daran, dass jeder Zugang zu einer kostenlosen Shogi-Plattform von Weltklasse haben sollte.</string>
 	<string name="weRelyOnSupport">Wir sind auf Unterstützung von Leuten wie dir angewiesen, um das möglich zu machen. Falls dir Lishogi gefällt, kannst du Lishogi unterstützen, indem du spendest und ein Patron wirst!</string>
 	<string name="lifetime">Lebenslang</string>
 	<string name="payLifetimeOnce">Bezahle einmalig %s. Werde für immer Lishogi Patron!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Detaillierte Kostenaufteilung anzeigen</string>
-	<string name="officialNonProfit">Ist Lishogi eine offizielle Non-Profit-Organisation?</string>
-	<string name="actOfCreation">Ja, hier ist die Gründungsurkunde (in Französisch)</string>
 	<string name="changeMonthlySupport">Kann ich meine monatliche Unterstützung ändern/beenden?</string>
 	<string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
 Oder du kannst %s.</string>

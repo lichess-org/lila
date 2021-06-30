@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Lämna studien</string>
   <string name="youAreNowAContributor">Du är nu en bidragsgivare</string>
   <string name="youAreNowASpectator">Du är nu en åskådare</string>
-  <string name="pgnTags">PGN taggar</string>
+  <string name="tags">Tags</string>
   <string name="like">Gilla</string>
   <string name="newTag">Ny tagg</string>
   <string name="commentThisPosition">Kommentera denna position</string>
@@ -57,9 +57,7 @@
   <string name="last">Sista</string>
   <string name="shareAndExport">Dela &amp; exportera</string>
   <string name="cloneStudy">Klona</string>
-  <string name="studyPgn">Studera PGN</string>
   <string name="downloadAllGames">Ladda ner alla partier</string>
-  <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studie-URL</string>
   <string name="broadcastUrl">Länk till direktsändning (URL)</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Importera en position med FEN-kod</string>
   <string name="loadAGameFromPgn">Importera ett spel med PGN-kod</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Klistra in din PGN-kod här, upp till %s parti</item>
-    <item quantity="other">Klistra in din PGN-kod här, upp till %s partier</item>
-  </plurals>
   <string name="urlOfTheGame">URL till partiet</string>
   <string name="loadAGameFromXOrY">Importera ett parti från %1$s</string>
   <string name="createChapter">Skapa kapitel</string>

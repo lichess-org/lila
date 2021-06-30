@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">आपके पास एक लाइफटाइम संरक्षक खाता है। यह बहुत बढ़िया है!</string>
 	<string name="patronUntil">%s तक आपके पास एक संरक्षक खाता है।</string>
 	<string name="ifNotRenewed">यदि नवीनीकृत नहीं किया जाता है, तो आप एक नियमित खाते में वापस आ जायेंगे।</string>
-	<string name="weAreNonProfit">हम एक गैर लाभ संस्था हैं क्योंकि हमारा मानना ​​है कि हर किसी की मुफ्त, विश्व स्तरीय शोगी मंच तक पहुंच होनी चाहिए।</string>
 	<string name="weRelyOnSupport">हम आप जैसे लोगों से मिलने वाले समर्थन पर भरोसा करते हैं। यदि आप Lishogi का उपयोग करने का आनंद लेते हैं, तो कृपया दान करके और संरक्षक बनकर हमारा समर्थन करें!</string>
 	<string name="lifetime">जीवन काल</string>
 	<string name="payLifetimeOnce">एक बार %s का भुगतान करें। हमेशा के लिए एक Lishogi संरक्षक बनें!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">सबसे पहले, शक्तिशाली सर्वर।
 फिर हम एक पूर्णकालिक डेवलपर का भुगतान करते हैं: Lishogi के संस्थापक,%s।</string>
 	<string name="costBreakdown">विस्तृत लागत ब्रेकडाउन देखें</string>
-	<string name="officialNonProfit">Lishogi एक आधिकारिक गैर-लाभकारी है?</string>
-	<string name="actOfCreation">हाँ, यहाँ निगमन प्रमाणपत्र है (फ्रेंच में)</string>
 	<string name="changeMonthlySupport">क्या मैं अपना मासिक समर्थन बदल / रद्द कर सकता हूँ?</string>
 	<string name="changeOrContact">हाँ, किसी भी समय, इस पृष्ठ से।
 या आप %s कर सकते हैं।</string>

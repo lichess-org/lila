@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Jätä tutkielma</string>
   <string name="youAreNowAContributor">Olet nyt osallistuja</string>
   <string name="youAreNowASpectator">Olet nyt katsoja</string>
-  <string name="pgnTags">PGN-tunnisteet</string>
+  <string name="tags">Tags</string>
   <string name="like">Tykkää</string>
   <string name="newTag">Uusi tunniste</string>
   <string name="commentThisPosition">Kommentoi asemaa</string>
@@ -57,9 +57,7 @@
   <string name="last">Loppuun</string>
   <string name="shareAndExport">Jaa &amp; vie</string>
   <string name="cloneStudy">Kloonaa</string>
-  <string name="studyPgn">Tutkielman PGN</string>
   <string name="downloadAllGames">Lataa kaikki pelit</string>
-  <string name="chapterPgn">Luvun PGN</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="broadcastUrl">Lähetyksen URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Lataa asema FEN:istä</string>
   <string name="loadAGameFromPgn">Ota peli PGN:stä</string>
   <string name="automatic">Automaattinen</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Liitä PGN tähän, enintään %s peli</item>
-    <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
-  </plurals>
   <string name="urlOfTheGame">URL peliin</string>
   <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s</string>
   <string name="createChapter">Aloita luku</string>

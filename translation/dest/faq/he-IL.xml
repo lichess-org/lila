@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">שמע אותו מבוטא על ידי מומחה.</string>
 	<string name="whyLiveLightLibre">בשידור חי, מכיוון שמשחקים משוחקים ונצפים בזמן אמת 24/7; קל וחומר על כך שליצ\'ס היא קוד פתוח ובלתי פוסק על ידי זבל קנייני שמצוי באתרים אחרים.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">פירוט העלויות שלנו</string>
 	<string name="otherWaysToHelp">דרכים אחרות לעזור</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
 	<string name="fairPlay">שחק הגון</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">מדוע אני מסומן לצורך מניפולציה של דירוג מלאכותי (אי רצון לנצח וסיוע) או סיוע ממחשב?</string>
 	<string name="cheatDetectionMethods">לליצ\'ס שיטות איתור חזקות ותהליך יסודי מאוד לבחינת כל הראיות ולקבלת החלטה. התהליך כרוך לעתים קרובות במנחים רבים ויכול לקחת זמן רב. מלבד הסימן עצמו, לא נעבור לפרטים אודות ראיות או תהליך קבלת ההחלטות למקרים בודדים. פעולה זו תקל על הימנעות מגילוי בעתיד, ותהווה הזמנה לוויכוחים בלתי פרודוקטיביים. כי זמן ומאמץ מבלים יותר טוב על מקרים חשובים אחרים. משתמשים יכולים לערער באמצעות שליחת אימייל %1$s, אך לעיתים נדירות משתנות ההחלטות.</string>
@@ -39,7 +36,6 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">אילו סוגי שחמט אני יכול לשחק בליצ\'ס?</string>
 	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
-	<string name="eightVariants">8 סוגי שחמט</string>
 	<string name="whatIsACPL">מהו ההפסד הממוצע של הפסד מאית החייל (ACPL)?</string>
 	<string name="acplExplanation">הפסד מאית חייל היא יחידת מידה המשמשת בשחמט את היתרון. מאית חייל שווה ל -1 / 100 מחייל. לכן 100 מאית חייל = 1 חייל. ערכים אלה אינם ממלאים תפקיד רשמי במשחק אך הם מועילים לשחקנים, וחיוניים בשחמט מחשבים, לצורך הערכת עמדות.
 
@@ -49,42 +45,22 @@
 
 ניתוח המחשבים בליצ\'ס מופעל על ידי סטוקפיש.</string>
 	<string name="insufficientMaterial">הפסד בזמן, מוביל לתיקו אם אין מספיק חומר</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">ספר החוקים של פיד\"ה סעיף 6.9, PDF</string>
-	<string name="discoveringEnPassant">למה רגלי יכול לאכול רגלי אחר כאשר הוא כבר עבר? (אגב הילוכו)</string>
-	<string name="explainingEnPassant">זהו מסע חוקי הידוע בכינויו \"דרך/אגב הילוכו. הערך הויקיפדי נותן %1$s. 
-
-זה מוסבר בסעיף 3.7 ד\' של ה%2$s:
-
-\"רגלי, התופס ערוגה באותה שורה ובטור סמוך שעליהם עומד רגלי יריב  שזה עתה התקדם שתי ערוגות במסע אחד מערוגתו המקורית, יכול להכות רגלי יריב זה כאילו זה האחרון נסע ערוגה אחת בלבד. הכאה זו הינה חוקית רק במסע הבא לאחר התקדמות זו והיא מכונה \"אגב הילוכו\".\"
-
-ראה את ה%3$s במהלך זה בשביל קצת אימון.</string>
 	<string name="goodIntroduction">הקדמה טובה</string>
 	<string name="officialRulesPDF">חוקים רשמיים (PDF)</string>
 	<string name="lishogiTraining">Lishogi training</string>
-	<string name="threefoldRepetition">חזרה משולשת</string>
-	<string name="threefoldRepetitionExplanation">אם עמדה כלשהי מופיעה שלוש פעמים, שחקן יכול לדרוש תיקו ע\"י %1$s. ליצ\'ס מיישם את החוקים הרשמיים של פיד\"ה, שתוארו במאמר 9.2 ד\' של ה%2$s.</string>
-	<string name="threefoldRepetitionLowerCase">חזרה משולשת</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">ספר החוקים (PDF)</string>
 	<string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
-	<string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
+	<string name="repeatedPositionsThatMatters">Fourfold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
 	<string name="positions">positions</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-	<string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lishogi to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
 	<string name="configure">configure</string>
 	<string name="accounts">Accounts</string>
 	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
 
 Verifying as a titled player on Lishogi gives access to play in the Titled Arena events.
 
 Finally there is an honorary %2$s title.</string>
-	<string name="asWellAsManyNMtitles">many national master titles</string>
 	<string name="verificationForm">verification form</string>
 	<string name="canIbecomeLM">Can I get the Lishogi Master (LM) title?</string>
 	<string name="noUpperCaseDot">No.</string>
@@ -98,9 +74,7 @@ Do not ask for the LM title.</string>
 	<string name="guidelines">guidelines</string>
 	<string name="uniqueTrophies">Unique trophies</string>
 	<string name="ownerUniqueTrophies">That trophy is unique in the history of Lishogi, nobody other than %1$s will ever have it.</string>
-	<string name="wayOfBerserkExplanation">To get it, hiimgosu challenged himself to berserk and win 100%% games of %s.</string>
 	<string name="aHourlyBulletTournament">a hourly Bullet tournament</string>
-	<string name="goldenZeeExplanation">ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he\'d get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured.</string>
 	<string name="lishogiRatings">Lishogi ratings</string>
 	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).

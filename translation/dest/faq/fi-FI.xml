@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist"> Kuuntele se asiantuntijan lausumana.</string>
 	<string name="whyLiveLightLibre">Live, koska pelejä pelataan ja katsellaan reaaliajassa 24 tuntia päivässä; light (kevyt) ja libre (vapaa) siksi, että Lishogi perustuu avoimelle lähdekoodille, eikä sitä rasita toisia nettisivuja turmeleva omisteinen roina.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
 	<string name="otherWaysToHelp">muitakin tapoja auttaa</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
 	<string name="fairPlay">Reilu peli</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Miksi minulla on merkintä vahvuusluvun keinotekoisesta manipuloinnista (löysäilystä ja boostaamisesta) tai tietokoneavusta?</string>
 	<string name="cheatDetectionMethods">Lishogiillä on vahvat paljastusmenetelmät ja hyvin kattava prosessi todisteiden tarkastamiseen ja päätöksen tekoon. Prosessiin osallistuu usein monta moderaattoria, ja se voi kestää kauan. Merkintää lukuun ottamatta emme lähde yksittäistapauksissa erittelemään todisteita emmekä päätöksentekoprosessia. Jos tekisimme niin, paljastumisen välttäminen helpottuisi tulevaisuudessa, ja hyödyttömiä keskusteluja voisi herätä. Niihin kuluva aika ja vaiva on parasta käyttää muihin tärkeisiin asioihin. Käyttäjät voivat vedota meihin lähettämällä sähköpostin osoitteeseen %1$s, mutta päätöksiä muutetaan hyvin harvoin.</string>
@@ -39,7 +36,6 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
 	<string name="whatVariantsCanIplay">Mitä variantteja voin pelata Lishogiissä?</string>
 	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
-	<string name="eightVariants">8 shakkivarianttia</string>
 	<string name="whatIsACPL">Mikä on keskimääräinen sadasosasotilaan menetys (ACPL)?</string>
 	<string name="acplExplanation">Sadasosasotilas on shakissa käytettävä mittayksikkö, jolla kuvataan pelaajan etua. Sadasosasotilas on 1/100 sotilaan arvosta. Näin ollen 100 sadasosasotilasta = 1 sotilas. Näillä arvoilla ei ole pelissä mitään muodollista virkaa, mutta asemien arvioinnin kannalta ne ovat pelaajille hyödyksi ja tietokoneshakissa olennaisia.
 
@@ -49,43 +45,22 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
 
  Lishogiin tietokoneanalyysi pohjautuu Stockfish-ohjelmaan.</string>
 	<string name="insufficientMaterial">Ajalla häviäminen, tasapeli ja riittämätön materiaali</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">FIDE:n käsikirja §6.9, PDF</string>
-	<string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
-	<string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
- 
- Siirto on kuvattu %2$s kohdassa 3.7 (d):
-
-  \"Sotilas, joka uhkaa ruutua, jonka alkuruudustaan kaksi ruutua kerrallaan siirtynyt vastustajan sotilas on ylittänyt, voi lyödä tämän vastustajan sotilaan ikäänkuin se olisi siirtynyt vain yhden ruudun. Tämä lyönti on laillinen vain välittömästi vastauksena kahden ruudun siirtoon, ja tätä lyöntiä kutsutaan ohestalyönniksi (en passant).\"
-
-  Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.
-  </string>
 	<string name="goodIntroduction">hyvä johdanto</string>
 	<string name="officialRulesPDF">virallisten sääntöjen (PDF)</string>
 	<string name="lishogiTraining">Lishogi training</string>
-	<string name="threefoldRepetition">Aseman toisto kolmesti</string>
-	<string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lishogi noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
-	<string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">käsikirjan (PDF)</string>
 	<string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
 	<string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
 	<string name="positions">aseman</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">Asema toistui meillä kolme kertaa. Miksi peli ei päättynyt tasapeliin?</string>
-	<string name="threeFoldHasToBeClaimed">Jonkun pelaajista pitää vaatia tasapeliä aseman toistuessa. Voit tehdä sen painamalla näkyviin tulevaa nappia tai tarjoamalla tasapeliä ennen viimeistä toistuvaa siirtoasi. Voit myös %1$s Lishogiin vaatimaan sinulle automaattisesti tasapelin toiston perusteella. Lisäksi aseman viisinkertainen toistuminen lopettaa pelin välittömästi.</string>
 	<string name="configure">konfiguroida</string>
 	<string name="accounts">Käyttäjätunnukset</string>
 	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Jos sinulla on lähishakin arvonimi, voit hakea sen näyttämistä käyttäjätunnuksessasi täyttämällä %1$s ja liittämällä oheen selvän kuvan henkilöllisyystodistuksesta tai selfien, jossa pidät sitä kädessäsi.
 
  Kun arvonimesi on varmennettu Lishogiissä, pääset pelaamaan Arvonimiareena-tapahtumissa.
 
  Lisäksi on olemassa kunnianimi %2$s.</string>
-	<string name="asWellAsManyNMtitles">monia kansallisia mestarititteleitä</string>
 	<string name="verificationForm">varmennuslomakkeen</string>
 	<string name="canIbecomeLM">Voinko saada Lishogi-mestarin (LM) arvonimen?</string>
 	<string name="noUpperCaseDot">Et.</string>
@@ -99,9 +74,7 @@ Note that it can be possible to mate with a single knight or bishop if the oppon
 	<string name="guidelines">ohjeista</string>
 	<string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
 	<string name="ownerUniqueTrophies">Tämä palkinto on Lishogiin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-	<string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
 	<string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
-	<string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
 	<string name="lishogiRatings">Lishogi ratings</string>
 	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).

@@ -15,6 +15,7 @@
 	<string name="resign">Bỏ cuộc</string>
 	<string name="checkmate">Chiếu hết</string>
 	<string name="stalemate">Hòa pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Trắng</string>
 	<string name="black">Đen</string>
 	<string name="shitate">Người được chấp quân</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Bạn chơi quân đen</string>
 	<string name="itsYourTurn">Đến lượt bạn!</string>
 	<string name="cheatDetected">Phát hiện gian lận</string>
-	<string name="kingInTheCenter">Vua ở trung tâm</string>
-	<string name="threeChecks">Ba lần chiếu</string>
-	<string name="raceFinished">Cuộc thi kết thúc.</string>
 	<string name="variantEnding">Hết cờ theo luật</string>
 	<string name="newOpponent">Đối thủ mới</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Đối thủ muốn chơi một ván cờ mới với bạn</string>
@@ -86,19 +84,10 @@
 	<string name="averageRatingX">Xếp loại bình quân: %s</string>
 	<string name="recentGames">Ván gần đây</string>
 	<string name="topGames">Các ván đấu hàng đầu</string>
-	<string name="masterDbExplanation">Hai triệu OTB trò chơi của %1$s + FIDE xếp hạng người chơi từ %2$s đến %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="other">Chiếu hết trong %s nước đi</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="other">Sẽ có nước ăn quân hoặc đi tốt trong %s nước đi nữa (Bộ đếm 50 nước đi sẽ trở về 0)</item>
-	</plurals>
 	<string name="noGameFound">Đã hết nước đi gợi ý</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
 	<string name="openingExplorer">Sách khai cuộc</string>
 	<string name="xOpeningExplorer">Sách khai cuộc %s</string>
-	<string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
-	<string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
 	<string name="allSet">Đã xong!</string>
 	<string name="importPgn">Nhập PGN</string>
 	<string name="delete">Xóa</string>
@@ -123,7 +112,6 @@
 	<string name="inaccuracies">Nước đi không chính xác</string>
 	<string name="moveTimes">Thời gian đi</string>
 	<string name="flipBoard">Quay bàn cờ</string>
-	<string name="threefoldRepetition">Lặp cờ</string>
 	<string name="claimADraw">Buộc hòa do lặp cờ</string>
 	<string name="offerDraw">Xin hoà</string>
 	<string name="draw">Hoà</string>
@@ -574,7 +562,6 @@
 	<string name="increment">Gia tăng</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Chu kỳ</string>
-	<string name="sharePGN">Chia sẻ tập tin pgn</string>
 	<string name="playOnline">Chơi trực tuyến</string>
 	<string name="playOffline">Chơi ngoại tuyến</string>
 	<string name="allowAnalytics">Cho phép thống kê nặc danh</string>
@@ -732,7 +719,6 @@
 	<string name="chessBasics">Shogi cơ bản</string>
 	<string name="shogiResources">Tài nguyên về Shogi</string>
 	<string name="coaches">Huấn luyện viên</string>
-	<string name="invalidPgn">PGN không hợp lệ</string>
 	<string name="invalidFen">PEN không hợp lệ</string>
 	<string name="error.minLength">Độ dài tối thiểu là %s</string>
 	<string name="error.maxLength">Độ dài tối đa là %s</string>

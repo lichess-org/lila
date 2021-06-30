@@ -15,6 +15,7 @@
 	<string name="resign">Geef op</string>
 	<string name="checkmate">Schaakmat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Wit</string>
 	<string name="black">Zwart</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Je speelt met zwart</string>
 	<string name="itsYourTurn">Je bent aan zet!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Koning in het centrum</string>
-	<string name="threeChecks">Drie keer schaak</string>
-	<string name="raceFinished">De race is voorbij</string>
 	<string name="variantEnding">Einde van de variant</string>
 	<string name="newOpponent">Nieuwe tegenstander</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Uw tegenstander wil een nieuwe partij met u spelen</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Gemiddelde rating: %s</string>
 	<string name="recentGames">Recente partijen</string>
 	<string name="topGames">Toppartijen</string>
-	<string name="masterDbExplanation">Twee miljoen OTB-partijen van %1$s+ FIDE-gerankte spelers van %2$s tot %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Schaakmat in %s halfzet</item>
-		<item quantity="other">Schaakmat in %s halfzetten</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Volgende slag- of pionzet in %s halfzet (afstand tot het herstellen van de vijftig zetten teller)</item>
-		<item quantity="other">Volgende slag- of pionzet in %s halfzetten (afstand tot het herstellen van de vijftig zetten teller)</item>
-	</plurals>
 	<string name="noGameFound">Geen partij gevonden</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
 	<string name="openingExplorer">Openingverkenner</string>
 	<string name="xOpeningExplorer">%s openingsverkenner</string>
-	<string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
-	<string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
 	<string name="allSet">Klaar!</string>
 	<string name="importPgn">PGN importeren</string>
 	<string name="delete">Verwijderen</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Imperfecties</string>
 	<string name="moveTimes">Tijdsgebruik van zetten</string>
 	<string name="flipBoard">Bord draaien</string>
-	<string name="threefoldRepetition">Driemaal dezelfde stelling</string>
 	<string name="claimADraw">Remise opeisen</string>
 	<string name="offerDraw">Remise aanbieden</string>
 	<string name="draw">Remise</string>
@@ -607,7 +593,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Extra tijd</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Deel PGN</string>
 	<string name="playOnline">Speel online</string>
 	<string name="playOffline">Speel offline</string>
 	<string name="allowAnalytics">Sta anonieme statistieken toe</string>
@@ -768,7 +753,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Coaches</string>
-	<string name="invalidPgn">Ongeldige PGN</string>
 	<string name="invalidFen">Ongeldige FEN</string>
 	<string name="error.minLength">Minimumlengte is %s tekens</string>
 	<string name="error.maxLength">Maximumlengte is %s tekens</string>

@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">你有一个终身赞助者帐户。这太棒了！</string>
 	<string name="patronUntil">您的赞助帐户直到 %s。</string>
 	<string name="ifNotRenewed">如果没有续订，你将被降级为免费账户。</string>
-	<string name="weAreNonProfit">我们是一个非营利协会，因为我们相信每个人都应享有一个免费的、世界级的将棋平台。</string>
 	<string name="weRelyOnSupport">我们能做到现在，就是依靠像您这样的人的支持。 如果您喜欢使用 Lishogi，请考虑捐赠并成为赞助者来支持我们！</string>
 	<string name="lifetime">终生</string>
 	<string name="payLifetimeOnce">支付 %s 一次。永远成为 Lishogi 赞助者！</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">首先是快速的服务器。
 然后我们将聘请一个全职程序员：%s，Lishogi 的创始者。</string>
 	<string name="costBreakdown">查看详细的费用明细</string>
-	<string name="officialNonProfit">Lishogi 是官方的非营利组织吗？</string>
-	<string name="actOfCreation">是的。参考法人成立公务文书（法语）</string>
 	<string name="changeMonthlySupport">我可以更改或取消我的每月捐赠吗？</string>
 	<string name="changeOrContact">当然，任何时候在本页。
 或者可以 %s。</string>

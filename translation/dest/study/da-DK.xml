@@ -38,7 +38,7 @@
   <string name="leaveTheStudy">Forlad dette studie</string>
   <string name="youAreNowAContributor">Du er nu bidragsyder</string>
   <string name="youAreNowASpectator">Du er nu tilskuer</string>
-  <string name="pgnTags">PGN tags</string>
+  <string name="tags">Tags</string>
   <string name="like">Synes godt om</string>
   <string name="newTag">Nyt tag</string>
   <string name="commentThisPosition">Kommenter på denne position</string>
@@ -57,9 +57,7 @@
   <string name="last">Sidste</string>
   <string name="shareAndExport">Del &amp; eksport</string>
   <string name="cloneStudy">Klon</string>
-  <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Download alle partier</string>
-  <string name="chapterPgn">Kapitel PGN</string>
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
   <string name="broadcastUrl">Transmission URL</string>
@@ -98,10 +96,6 @@
   <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
   <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Indsæt din PGN-tekst her, op til %s parti</item>
-    <item quantity="other">Indsæt din PGN-tekst her, op til %s partier</item>
-  </plurals>
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s</string>
   <string name="createChapter">Opret kapitel</string>

@@ -35,7 +35,7 @@
   <string name="leaveTheStudy">Rời khỏi nghiên cứu</string>
   <string name="youAreNowAContributor">Bây giờ bạn là người đóng góp</string>
   <string name="youAreNowASpectator">Bây giờ bạn là khán giả</string>
-  <string name="pgnTags">Nhãn PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Thích</string>
   <string name="newTag">Nhãn mới</string>
   <string name="commentThisPosition">Bình luận về thế cờ này</string>
@@ -54,9 +54,7 @@
   <string name="last">Cuối cùng</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Bản sao</string>
-  <string name="studyPgn">Nghiên cứu PGN</string>
   <string name="downloadAllGames">Tải xuống tất cả các ván đấu</string>
-  <string name="chapterPgn">PGN chương</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="broadcastUrl">URL phát sóng</string>
@@ -95,9 +93,6 @@
   <string name="loadAPositionFromFen">Tải thế cờ từ FEN</string>
   <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="other">Dán PGN của bạn ở đây, lên tới %s ván</item>
-  </plurals>
   <string name="urlOfTheGame">URL tới ván đấu, mỗi URL một dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s</string>
   <string name="createChapter">Tạo chương mới</string>

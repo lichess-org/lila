@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">لديك حساب راعي مدى الحياة، هذا رائع جداً!</string>
 	<string name="patronUntil">لديك حساب راعي حتى %s.</string>
 	<string name="ifNotRenewed">اذا لم تجدد، سيتم تخفيضك لحساب مجاني.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">نحن نعتمد على دعم من أُناس مثلك لجعل هذا ممكناً، اذا استمتعت على Lishogi، يرجى النظر في دعمنا وأن تصبح راعي!</string>
 	<string name="lifetime">مدى الحياة</string>
 	<string name="payLifetimeOnce">ادفع %s مره، وكنّ راعي Lishogi للأبد!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">انظر للتكاليف مفصلة.</string>
-	<string name="officialNonProfit">هل Lishogi رسمياً غير ربحي؟</string>
-	<string name="actOfCreation">نعم، إليك عملية الإنشاء (باللغة الفرنسية)</string>
 	<string name="changeMonthlySupport">هل يمكنني تغيير/الغاء دعمي الشهري؟</string>
 	<string name="changeOrContact">Yes, at any time, from this page.
 Or you can %s.</string>

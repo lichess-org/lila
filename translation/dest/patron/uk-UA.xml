@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">У Вас пожиттєвий обліковий запис \"Покровителя\". Це доволі круто!</string>
 	<string name="patronUntil">У вас є обліковий запис Покровителя до %s.</string>
 	<string name="ifNotRenewed">Якщо не продовжите, то Ви будете знижені до безкоштовного.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">Ми покладаємося на підтримку таких як ви, щоб зробити його можливим. Якщо вам подобається користуватися Lishogi, будь ласка, підтримайте нас, зробивши внесок і ставши Покровителем!</string>
 	<string name="lifetime">Пожиттєва</string>
 	<string name="payLifetimeOnce">Заплатіть %s один раз. Станьте Покровителем назавжди!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Переглянути детальний розподіл витрат</string>
-	<string name="officialNonProfit">Чи Lishogi офіційно некомерційний?</string>
-	<string name="actOfCreation">Так, ось акт створення (французькою)</string>
 	<string name="changeMonthlySupport">Я можу змінити/скасувати свою місячну підтримку?</string>
 	<string name="changeOrContact">Так, у будь-який момент з цієї сторінки.
 Або ви можете %s.</string>

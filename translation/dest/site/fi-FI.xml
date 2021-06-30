@@ -15,6 +15,7 @@
 	<string name="resign">Luovuta</string>
 	<string name="checkmate">Shakkimatti</string>
 	<string name="stalemate">Patti</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Valkea</string>
 	<string name="black">Musta</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Sinä pelaat mustilla</string>
 	<string name="itsYourTurn">Sinun vuorosi!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Kuningas keskustassa</string>
-	<string name="threeChecks">Kolme shakkia</string>
-	<string name="raceFinished">Kilpa loppunut</string>
 	<string name="variantEnding">Lopetus varianttisääntöjen mukaan</string>
 	<string name="newOpponent">Uusi vastustaja</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Vastustajasi haluaa pelata uudelleen</string>
@@ -87,21 +85,10 @@
 	<string name="averageRatingX">Vahvuuslukukeskiarvo %s</string>
 	<string name="recentGames">Viimeaikaiset pelit</string>
 	<string name="topGames">Kärkipelit</string>
-	<string name="masterDbExplanation">2 miljoonaa %1$s+ FIDE-rankattujen pelaajien vuosina %2$s-%3$s laudalla pelaamaa peliä</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Matti %s puolisiirrolla</item>
-		<item quantity="other">Matti %s puolisiirrolla</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
-		<item quantity="other">Seuraava lyönti tai sotilassiirto %s puolisiirron päästä (DTZ tulee sanoista \"Distance To Zeroing of the 50 move counter\")</item>
-	</plurals>
 	<string name="noGameFound">Pelejä ei löytynyt</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
 	<string name="openingExplorer">Avaustietokanta</string>
 	<string name="xOpeningExplorer">%s -avaustietokanta</string>
-	<string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
-	<string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
 	<string name="allSet">Valmis!</string>
 	<string name="importPgn">Tuo PGN</string>
 	<string name="delete">Poista</string>
@@ -126,7 +113,6 @@
 	<string name="inaccuracies">Epätarkkuudet</string>
 	<string name="moveTimes">Siirtoihin käytetty aika</string>
 	<string name="flipBoard">Käännä lauta</string>
-	<string name="threefoldRepetition">Aseman toisto kolmesti</string>
 	<string name="claimADraw">Vaadi tasapeli</string>
 	<string name="offerDraw">Ehdota tasapeliä</string>
 	<string name="draw">Tasapeli</string>
@@ -607,7 +593,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Lisäaika</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Jaa PGN</string>
 	<string name="playOnline">Pelaa verkossa</string>
 	<string name="playOffline">Pelaa paikallisesti</string>
 	<string name="allowAnalytics">Salli anonyymit tilastot</string>
@@ -768,7 +753,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Valmentajat</string>
-	<string name="invalidPgn">PGN ei kelpaa</string>
 	<string name="invalidFen">FEN ei kelpaa</string>
 	<string name="error.minLength">Vähimmäispituus on %s</string>
 	<string name="error.maxLength">Enimmäispituus on %s</string>

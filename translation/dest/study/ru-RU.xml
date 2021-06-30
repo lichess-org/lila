@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Покинуть студию</string>
   <string name="youAreNowAContributor">Теперь вы редактор</string>
   <string name="youAreNowASpectator">Теперь вы зритель</string>
-  <string name="pgnTags">Теги PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Нравится</string>
   <string name="newTag">Новый тег</string>
   <string name="commentThisPosition">Комментировать эту позицию</string>
@@ -63,9 +63,7 @@
   <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
-  <string name="studyPgn">PGN студии</string>
   <string name="downloadAllGames">Скачать все партии</string>
-  <string name="chapterPgn">PGN главы</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
   <string name="broadcastUrl">Интернет-адрес трансляции</string>
@@ -104,12 +102,6 @@
   <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
   <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
   <string name="automatic">Автоматически</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Вставьте текст в формате PGN, не больше %s игры</item>
-    <item quantity="few">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="many">Вставьте текст в формате PGN, не больше %s игр</item>
-    <item quantity="other">Вставьте текст в формате PGN, не больше %s игр</item>
-  </plurals>
   <string name="urlOfTheGame">URL игры</string>
   <string name="loadAGameFromXOrY">Загрузить игру из %1$s</string>
   <string name="createChapter">Создать главу</string>

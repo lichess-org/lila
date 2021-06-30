@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">У вас есть пожизненная учётная запись спонсора. Это очень круто!</string>
 	<string name="patronUntil">Ваш аккаунт покровителя действует до %s.</string>
 	<string name="ifNotRenewed">Если не будет продлено, то вы будете переведены на бесплатный план.</string>
-	<string name="weAreNonProfit">Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к платформе для сёги мирового класса.</string>
 	<string name="weRelyOnSupport">Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lishogi, пожалуйста, поддержите нас, сделав пожертвование и став его спонсором!</string>
 	<string name="lifetime">Пожизненная</string>
 	<string name="payLifetimeOnce">Заплатите %s один раз. Станьте спонсором навсегда!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Посмотрите детальную калькуляцию расходов</string>
-	<string name="officialNonProfit">Правда, что Lishogi официально некоммерческий?</string>
-	<string name="actOfCreation">Да, вот документ (на французском языке)</string>
 	<string name="changeMonthlySupport">Могу ли я изменить или отменить мою ежемесячную поддержку?</string>
 	<string name="changeOrContact">Да, в любое время, с этой страницы.
 Или вы можете %s.</string>

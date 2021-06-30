@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Liste des coups durant la partie</string>
 	<string name="pgnPieceNotation">Notation des coups</string>
 	<string name="chessPieceSymbol">Figurine de la pièce</string>
-	<string name="pgnLetter">Lettre (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
 	<string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Durant les parties amicales seulement</string>
 	<string name="promoteToQueenAutomatically">Promouvoir en dame automatiquement</string>
 	<string name="whenPremoving">Lors d\'un pré-coup</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Déclarer la nulle par répétition automatiquement</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Quand il reste moins de 30 secondes</string>
 	<string name="moveConfirmation">Confirmation de coup</string>
 	<string name="inCorrespondenceGames">Dans les parties par correspondance</string>
 	<string name="correspondenceAndUnlimited">Correspondance et illimité</string>
 	<string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Manière de roquer</string>
-	<string name="castleByMovingTwoSquares">En déplaçant le Roi de 2 cases</string>
-	<string name="castleByMovingOntoTheRook">En déplaçant le Roi sur la Tour</string>
 	<string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
 </resources>

@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi is open source project forked from liсhess, but since it\'s for playing shogi, it\'s called lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Because it\'s derived from Liсhess. And Liсhess is called Liсhess because it\'s a combination of live/light/libre and chess. Lishogi is pronounced %1$s.</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist"> Hoor het uitgesproken door een specialist.</string>
 	<string name="whyLiveLightLibre">Live, omdat voortdurend partijen worden gespeeld en bekeken; licht en vrij omdat Lishogi open source is en niet gebukt gaat onder allerhande ballast die andere websites plaagt.</string>
 	<string name="whyIsLilaCalledLila">Similarly, the source code for Lishogi, %1$s, stands for li[shogi in sca]la, seeing as the bulk of Lishogi is written in %2$s, an intuitive programming language.</string>
 	<string name="howCanIContributeToLishogi">How can I contribute to Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Here are many other ways you could contribute to Lishogi.</string>
 	<string name="breakdownOfOurCosts">uitsplitsing van onze kosten</string>
 	<string name="otherWaysToHelp">andere manieren om te helpen</string>
-	<string name="areThereWebsitesBasedOnLishogi">Are there websites based on Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Yes. Lishogi has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s.</string>
 	<string name="fairPlay">Eerlijk spel</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Waarom ben ik gemarkeerd als een speler die zich schuldig maakt aan kunstmatige ratingmanipulatie (sandbagging en boosten) of computerhulp?</string>
 	<string name="cheatDetectionMethods">Lishogi heeft sterke detectiemethoden en een zeer grondig proces voor het beoordelen van al het bewijsmateriaal en het nemen van een besluit. Het proces omvat vaak veel moderators en kan lang duren. Behalve het merkteken zelf zullen we niet in details treden over het bewijs of de besluitvormingsprocedure voor individuele gevallen. Dit zou het gemakkelijker maken om detectie in de toekomst te voorkomen en een uitnodiging zijn voor onproductieve discussies. Die tijd en inspanning kunnen worden beter besteed aan andere belangrijke gevallen. Gebruikers kunnen in beroep gaan door %1$s te e-mailen, maar besluiten worden zelden ongedaan gemaakt.</string>
@@ -39,7 +36,6 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lishogi?</string>
 	<string name="lishogiSupportChessAnd">Lishogi supports standard shogi and %1$s.</string>
-	<string name="eightVariants">acht schaakvarianten</string>
 	<string name="whatIsACPL">Wat is het gemiddelde centipion verlies (ACPL)?</string>
 	<string name="acplExplanation">De centipion is de maateenheid die in schaken wordt gebruikt als een voordeel. Eén centipion is gelijk aan 1/100 van een pion. Dus 100 centipionnen = 1 pion. Deze waarden spelen formeel geen rol in het spel, maar zijn nuttig voor spelers en essentieel voor computerschaak om posities te beoordelen.
 
@@ -49,42 +45,22 @@ Deze waarde kan worden gebruikt als een indicator van de kwaliteit van het spel.
 
 De computeranalyse op Lishogi wordt aangedreven door Stockfish.</string>
 	<string name="insufficientMaterial">Verliezen op tijd, remise en onvoldoende materiaal</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">FIDE-handboek §6.9, pdf</string>
-	<string name="discoveringEnPassant">Waarom kan een pion een andere pion slaan als hij die al gepasseerd is? (en passant)</string>
-	<string name="explainingEnPassant">Dit is een geldige zet die bekend staat als \"en passant\" slaan. Het Wikipedia-artikel geeft een %1$s.
-
-Het wordt beschreven in sectie 3. (d) van de %2$s:
-	
-\"Een pion op een veld op dezelfde rij als een pion van een tegenstander op een naastgelegen rij die net twee velden van zijn beginpositie vooruit is gezet, kan de pion van de tegenstander slaan alsof die laatste slechts één veld is verplaatst. Deze manier van slaan is alleen geldig na deze voorgang en dit wordt \"en passant\" slaan genoemd.
-    
-  Zie de %3$s over deze zet om er wat mee te oefenen.</string>
 	<string name="goodIntroduction">goede inleiding</string>
 	<string name="officialRulesPDF">officiële regels (pdf)</string>
 	<string name="lishogiTraining">Lishogi training</string>
-	<string name="threefoldRepetition">Driemaal dezelfde stelling</string>
-	<string name="threefoldRepetitionExplanation">Als een stelling driemaal tot stand komt, kunnen spelers remise claimen door %1$s. Lishogi volgt de officiële FIDE-regels, zoals beschreven in artikel 9.2 (d) van de %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">Driemaal dezelfde stelling</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">handboek (pdf)</string>
 	<string name="notRepeatedMoves">We hebben geen zetten herhaald. Waarom werd de partij toch remise door zetherhaling?</string>
 	<string name="repeatedPositionsThatMatters">Bij deze regel gaat het om herhaling van %1$s, niet zetten. De herhaling hoeft niet aaneengesloten te gebeuren.</string>
 	<string name="positions">stellingen</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">We hebben driemaal dezelfde stelling gehad. Waarom is de partij niet in remise geëindigd?</string>
-	<string name="threeFoldHasToBeClaimed">Herhaling moet worden geclaimd door een van de spelers. Je kunt dit doen door op de getoonde knop te drukken, of door remise aan te bieden voordat je de laatste zet doet. Je kunt ook Lishogi %1$s om automatisch herhalingen voor je op te eisen. Daarnaast eindigt de partij altijd onmiddellijk als dezelfde stelling zich voor de vijfde maal voordoet.</string>
 	<string name="configure">configureren</string>
 	<string name="accounts">Accounts</string>
 	<string name="titlesAvailableOnLishogi">What titles are there on Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">Als u een meestertitel heeft, kunt u een aanvraag doen om dit bij account te laten weergeven door het %1$s in te vullen, vergezeld van een duidelijke foto van een geldig identiteitsbewijs en een foto van u met dat identiteitsbewijs.
 
 Verificatie als titelhouder op Lishogi maakt deelname mogelijk aan Titelhouder Arena-evenementen.
 
 Ten slotte is er een %2$s eretitel.</string>
-	<string name="asWellAsManyNMtitles">veel nationale meestertitels</string>
 	<string name="verificationForm">verificatieformulier</string>
 	<string name="canIbecomeLM">Kan ik de Lishogi Meester (LM) titel krijgen?</string>
 	<string name="noUpperCaseDot">Nee.</string>
@@ -98,9 +74,7 @@ Vraag niet om de LM-titel.</string>
 	<string name="guidelines">richtlijnen</string>
 	<string name="uniqueTrophies">Unieke trofeeën</string>
 	<string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lishogi, niemand anders dan %1$s zal die ooit bezitten.</string>
-	<string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
 	<string name="aHourlyBulletTournament">elk uur een bullet-toernooi</string>
-	<string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
 	<string name="lishogiRatings">Lishogi ratings</string>
 	<string name="whichRatingSystemUsedByLishogi">What rating system does Lishogi use?</string>
 	<string name="ratingSystemUsedByLishogi">Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system).

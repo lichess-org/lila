@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi jest projektem open source wywodzącym się z Lichess, ale ponieważ służy do grania w shogi, nazywa się Lishogi.</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Ponieważ wywodzi się z Lichess. A Lichess nazwa się Lichess, ponieważ jest to połąćzenie live/light/libre oraz chess. Lishogi wymawia się %1$s.</string>
 	<string name="leechess">li-szogi</string>
-	<string name="hearItPronouncedBySpecialist"> Posłuchaj jak wymawia to ekspert.</string>
 	<string name="whyLiveLightLibre">Live (na żywo), ponieważ partie rozgrywane są i oglądane w czasie rzeczywistym (24 godziny przez 7 dni w tygodniu); Light (lekkie), ponieważ Lishogi nie jest obciążone zbędnymi wodotryskami, reklamami itp.; Libre (darmowe), ponieważ Lishogi oparty jest o oprogramowanie typu open-source.</string>
 	<string name="whyIsLilaCalledLila">Podobnie, kod źródłowy Lishogi, %1$s, oznacza li[shogi in sca]la, a to dlatego, że większość kodu Lishogi napisanego jest w intuicyjnym języku programowania %2$s.</string>
 	<string name="howCanIContributeToLishogi">Jak mogę pomóc współtworzyć Lishogi?</string>
@@ -18,8 +17,6 @@
 	<string name="otherWaysToContribute">Oto wiele sposobów, na które możesz wspomóc Lishogi.</string>
 	<string name="breakdownOfOurCosts">Podział naszych kosztów</string>
 	<string name="otherWaysToHelp">Inne sposoby pomocy</string>
-	<string name="areThereWebsitesBasedOnLishogi">Czy istnieją inne strony internetowe oparte na Lishogi?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Tak. Lishogi zainspirowało inne strony typu open source, które wykorzystują nasz %1$s, %2$s lub %3$s.</string>
 	<string name="fairPlay">Fair Play</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Dlaczego zostałem oznaczony jako gracz sztucznie manipulujący swoim rankingiem (obniżanie lub nieuczciwe podbijanie) lub korzystający z pomocy komputera podczas gry?</string>
 	<string name="cheatDetectionMethods">Lishogi posiada silne metody wykrywania oraz bardzo dokładny proces przeglądu wszystkich dowodów i podejmowania decyzji. Proces ten często angażuje wielu moderatorów i może zająć dużo czasu. Poza samym oznakowaniem, nie będziemy szczegółowo przedstawiać dowodów ani procesu podejmowania decyzji w indywidualnych przypadkach. Ułatwiłoby to uniknięcie wykrywania w przyszłości i prowadziłoby do bezsensownych debat. Ten czas i wysiłek są lepiej wykorzystane na innych ważniejszych sprawach. Użytkownicy mogą odwoływać się wysyłając e-mail na %1$s, ale decyzje są rzadko uchylane.</string>
@@ -41,7 +38,6 @@ Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">W jakie warianty shogi mogę zagrać na Lishogi?</string>
 	<string name="lishogiSupportChessAnd">Lishogi umożliwia grę w standardowe shogi oraz %1$s.</string>
-	<string name="eightVariants">8 wariantów szachów</string>
 	<string name="whatIsACPL">Czym jest średnia strata setnej części piona (ACPL - average centipawn loss)?</string>
 	<string name="acplExplanation">Średnia strata setnej części piona (ACPL - average centipawn loss) jest jednostką miary stosowaną w szachach do przedstawienia straty wynikającej z wykonania danego posunięcia. Wartość ta nie odgrywa żadnej formalnej roli podczas rozgrywania partii, ale jest użyteczna dla graczy podczas jej analizy. Silniki szachowe wykorzystują ją natomiast do oceny pozycji podczas samej rozgrywki.
 
@@ -51,42 +47,22 @@ Ta wartość może być użyta jako wskaźnik siły gry. Im mniej setnych częś
 
 Analiza komputerowa dostępna na Lishogi wspierana jest przez silnik szachowy Stockfish.</string>
 	<string name="insufficientMaterial">Przegrana z powodu upłynięcia czasu gry, remis i niewystarczający materiał aby zamatować przeciwnika</string>
-	<string name="lishogiFollowFIDErules">W przypadku gdy jednemu z graczy skończy się czas, gracz ten zazwyczaj przegrywa. Jednakże w przypadku gdy pozycja na szachownicy uniemożliwia przeciwnikowi doprowadzenie do zamatowania króla gracza żadną możliwą sekwencją ruchów (%1$s), gra jest remisowana.
-
-W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.</string>
-	<string name="linkToFIDErules">FIDE handbook §6.9, pdf</string>
-	<string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
-	<string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
-
-Szczegóły ruchu opisano w artykule 3 %2$s:
-
-„Pion, który właśnie przesunął się o dwa pola z pozycji wyjściowej, może zostać zbity
-przez piona przeciwnika zajmującego pozycję w tym samym rzędzie i na sąsiedniej linii
-tak, jakby został przesunięty tylko o jedno pole. Takie bicie może być wykonane tylko bezpośrednio po przesunięciu pionka przeciwnika i nazywa się „biciem w przelocie“ (francuskie określenie „en passant“, skrót e.p.).”
-
-Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
 	<string name="goodIntroduction">dobre wprowadzenie</string>
 	<string name="officialRulesPDF">oficjalnych przepisów gry w shogi (pdf)</string>
 	<string name="lishogiTraining">Nauka</string>
-	<string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
-	<string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lishogi wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">podręcznik (pdf)</string>
 	<string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
 	<string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>
 	<string name="positions">pozycji</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">Powtórzyliśmy trzykrotnie pozycję. Dlaczego partia nie została zremisowana?</string>
-	<string name="threeFoldHasToBeClaimed">Trzykrotne powtórzenie pozycji musi zostać zgłoszone przez jednego z graczy. Możesz to zrobić naciskając pokazujący się w takiej sytuacji przycisk, lub oferując przeciwnikowi remis przed wykonaniem ruchu będącego końcowym powtórzeniem. Możesz również %1$s Lishogi tak, aby automatycznie zgłaszał za Ciebie trzykrotne powtórzenie pozycji. Dodatkowo, pięciokrotne powtórzenie się pozycji zawsze natychmiast kończy grę.</string>
 	<string name="configure">skonfigurować</string>
 	<string name="accounts">Konta</string>
 	<string name="titlesAvailableOnLishogi">Jakie tytuły uznawane są przez Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi uznaje wszystkie tytuły FIDE zdobyte w grze na prawdziwej szachownicy (OTB - over the board) oraz %1$s. Oto lista tytułów FIDE:</string>
 	<string name="showYourTitle">Jeśli posiadasz tytuł OTB, możesz złożyć wniosek o wyświetlenie go na swoim koncie, wypełniając %1$s, załączając w nim skan dokumentu potwierdzającego tytuł oraz zdjęcie siebie trzymającego ten dokument.
 
   Zweryfikowanie Cię jako utytułowanego gracza na Lishogi pozwoli Ci na dostęp do gry w turniejach Titled Arena.
 
   Szczególnym tytułem jest %2$s.</string>
-	<string name="asWellAsManyNMtitles">wiele krajowych tytułów mistrzowskich</string>
 	<string name="verificationForm">formularz weryfikacyjny</string>
 	<string name="canIbecomeLM">Czy mogę zdobyć tytuł Lishogi Master (LM)?</string>
 	<string name="noUpperCaseDot">Nie.</string>
@@ -100,9 +76,7 @@ Nie proś nas o przyznanie tytułu LM.</string>
 	<string name="guidelines">Zasady dotyczące nazwy użytkownika</string>
 	<string name="uniqueTrophies">Unikalne trofea</string>
 	<string name="ownerUniqueTrophies">To unikalne trofeum w historii Lishogi, nikt inny oprócz %1$s nie będzie go mieć.</string>
-	<string name="wayOfBerserkExplanation">Aby je zdobyć, hiimgosu postawił sobie wyzwanie wygrania %s, wygrywając wszystkie swoje partie z włączonym berserkiem.</string>
 	<string name="aHourlyBulletTournament">godzinnego turnieju Bullet</string>
-	<string name="goldenZeeExplanation">ZugAddict przez 2 godziny próbował bez powodzenia pokonać 8 poziom A.I. w grze 1+0, streamując swoje zmagania. Thibault powiedział mu, że jeśli uda mu się to zrobić podczas streamu, dostanie wyjątkowe trofeum. Godzinę później Stockfish został pokonany, a obietnica została dotrzymana.</string>
 	<string name="lishogiRatings">Rankingi Lishogi</string>
 	<string name="whichRatingSystemUsedByLishogi">Jakiego systemu rankingowego używa Lishogi?</string>
 	<string name="ratingSystemUsedByLishogi">Ranking obliczamy metodą Glicko-2 stworzonej przez Marka Glickmana. Jest to bardzo popularna metoda rankingu i jest używana przez znaczną większość organizacji szachowych (godnym uwagi kontrprzykładem jest FIDE, które nadal używa przestarzałej metody rankingu Elo).

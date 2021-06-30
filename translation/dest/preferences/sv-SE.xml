@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Lista med drag under spelets gång</string>
 	<string name="pgnPieceNotation">Dragnotation</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Zen-läge</string>
 	<string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
 	<string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Endast i icke rankade partier</string>
 	<string name="promoteToQueenAutomatically">Uppgradera till drottning automatiskt</string>
 	<string name="whenPremoving">Vid premove</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Begär remi automatiskt vid trefaldig upprepning</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">När återstående tid &lt; 30 sekunder</string>
 	<string name="moveConfirmation">Bekräftelse av drag</string>
 	<string name="inCorrespondenceGames">I korrespondenspartier</string>
 	<string name="correspondenceAndUnlimited">Korrespondens och obegränsad</string>
 	<string name="confirmResignationAndDrawOffers">Bekräfta resignation och remi-anbud</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Sätt att göra rockad</string>
-	<string name="castleByMovingTwoSquares">Flytta kungen två rutor</string>
-	<string name="castleByMovingOntoTheRook">Flytta kungen till tornet eller 2 steg</string>
 	<string name="inputMovesWithTheKeyboard">Mata in drag via tangentbord</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Dina inställningar har sparats.</string>
 </resources>

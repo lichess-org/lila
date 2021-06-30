@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi là một dự án mã nguồn mở dựa trên Lichess, nhưng vì nó dùng để chơi Shogi, nên tên của nó là Lishogi!</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">Bởi vì nó lấy cảm hứng từ Lichess, mà Lichess có tên như vậy vì nó là sự kết hợp của live/light/libre và chess. Lishogi được đọc là %1$s</string>
 	<string name="leechess">lee-shogi</string>
-	<string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
 	<string name="whyLiveLightLibre">Live ( luôn trực tiếp ) vì các ván đấu luôn được chơi và theo dõi 24/4. Light và Libre ( nhẹ và miễn phí ) vì Lishogi có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
 	<string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lishogi,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lishogi được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
 	<string name="howCanIContributeToLishogi">Làm thế nào để tôi có thể đóng góp cho Lishogi?</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">Có rất nhiều cách để bạn đóng góp cho Lishogi.</string>
 	<string name="breakdownOfOurCosts">xem bảng chi tiết về chi phí của chúng tôi</string>
 	<string name="otherWaysToHelp">những cách khác để giúp đỡ</string>
-	<string name="areThereWebsitesBasedOnLishogi">Có trang web nào tương tự, dựa trên cấu trúc của Lishogi không?</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">Đúng vậy, Lishogi thực sự đã truyền cảm hứng cho các trang web mã nguồn mở khác sử dụng %1$s, %2$s, hay là %3$s của chúng tôi.</string>
 	<string name="fairPlay">Chơi đẹp</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">Tại sao tôi lại bị đánh dấu vì tạo một xếp hạng giả (xâm nhập lỗ hổng và thay đổi trái phép) hoặc sử dụng sự hỗ trợ của máy tính?</string>
 	<string name="cheatDetectionMethods">Lishogi có các phương pháp phát hiện mạnh mẽ và một quy trình rất kỹ lưỡng để xem xét tất cả các bằng chứng và đưa ra quyết định. Quá trình này thường liên quan đến nhiều người kiểm duyệt và có thể mất nhiều thời gian. Ngoài việc đánh dấu, chúng tôi sẽ không đi sâu vào chi tiết về bằng chứng hay quy trình ra quyết định đối với các trường hợp riêng lẻ. Vì làm vậy sẽ giúp bạn dễ dàng tránh bị phát hiện hơn trong tương lai và trở thành lời mời cho các cuộc tranh luận không hiệu quả. Thời gian và công sức đó tốt hơn nên dành cho những trường hợp quan trọng khác. Người dùng có thể kháng nghị bằng cách gửi email cho %1$s, nhưng các quyết định thường hiếm khi bị thay đổi.</string>
@@ -39,7 +36,6 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s giây = %2$s</string>
 	<string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lishogi?</string>
 	<string name="lishogiSupportChessAnd">Lishogi hỗ trợ Shogi tiêu chuẩn và %1$s.</string>
-	<string name="eightVariants">8 biến thể Shogi khác</string>
 	<string name="whatIsACPL">What is the average centipawn loss (ACPL)?</string>
 	<string name="acplExplanation">The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions.
 
@@ -49,42 +45,22 @@ This value can be used as an indicator of the quality of play. The fewer centipa
 
 The computer analysis on Lishogi is powered by Stockfish.</string>
 	<string name="insufficientMaterial">Thua về thời gian, hòa và không đủ quân chiếu hết</string>
-	<string name="lishogiFollowFIDErules">In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player\'s king by any possible series of legal moves (%1$s).
-
-In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time.
-
-Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.</string>
-	<string name="linkToFIDErules">FIDE handbook §6.9, PDF</string>
-	<string name="discoveringEnPassant">Why can a pawn capture another pawn when it is already passed? (en passant)</string>
-	<string name="explainingEnPassant">This is a legal move known as \"en passant\". The Wikipedia article gives a %1$s.
-
-It is described in section 3.7 (d) of the %2$s:
-
-\"A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.\"
-
-See the %3$s on this move for some practice with it.</string>
 	<string name="goodIntroduction">lời mở đầu tốt</string>
 	<string name="officialRulesPDF">luật chính thức (PDF)</string>
 	<string name="lishogiTraining">Luyện tập Lishogi</string>
-	<string name="threefoldRepetition">Threefold repetition</string>
-	<string name="threefoldRepetitionExplanation">If a position occurs three times, players can claim a draw by %1$s. Lishogi implements the official FIDE rules, as described in Article 9.2 (d) of the %2$s.</string>
-	<string name="threefoldRepetitionLowerCase">threefold repetition</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">cẩm nang (PDF)</string>
 	<string name="notRepeatedMoves">We did not repeat moves. Why was the game still drawn by repetition?</string>
-	<string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
+	<string name="repeatedPositionsThatMatters">Fourfold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
 	<string name="positions">thế trận</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-	<string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lishogi to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
 	<string name="configure">cấu hình</string>
 	<string name="accounts">Tài khoản</string>
 	<string name="titlesAvailableOnLishogi">Có những danh hiệu nào trên Lishogi?</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lishogi recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles:</string>
 	<string name="showYourTitle">If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card.
 
 Verifying as a titled player on Lishogi gives access to play in the Titled Arena events.
 
 Finally there is an honorary %2$s title.</string>
-	<string name="asWellAsManyNMtitles">nhiều danh hiệu quốc gia</string>
 	<string name="verificationForm">biểu mẫu xác minh</string>
 	<string name="canIbecomeLM">Tôi có thể nhận danh hiệu Lishogi Master (LM) không?</string>
 	<string name="noUpperCaseDot">Không.</string>
@@ -98,9 +74,7 @@ Và đừng bao giờ hỏi xin danh hiệu LM.</string>
 	<string name="guidelines">hướng dẫn</string>
 	<string name="uniqueTrophies">Danh hiệu độc nhất</string>
 	<string name="ownerUniqueTrophies">Danh hiệu này là duy nhất trong lịch sử của Lishogi, không ai khác ngoài %1$s sẽ có được nó.</string>
-	<string name="wayOfBerserkExplanation">Để có được thành tích này, hiimgosu đã tự tử thách bản thân bằng cách chia đôi thời gian mỗi ván và dành chiến thằng 100%% trong tất cả các ván của %s.</string>
 	<string name="aHourlyBulletTournament">một giải đấu cờ siêu chớp hàng giờ</string>
-	<string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại A.I. cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên sóng trực tiếp, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được thực hiện.</string>
 	<string name="lishogiRatings">Xếp hạng Lishogi</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi sử dụng hệ thống xếp hạng nào?</string>
 	<string name="ratingSystemUsedByLishogi">Xếp hạng được tính toán dựa trên phương pháp Glicko-2 được phát triển bởi Mark Glickman. Đây là một phương pháp tính toán xếp hạng rất nổi tiếng, và cũng được sử dụng bởi đa số các tổ chức cờ vua (FIDE là ngoại lệ, họ vẫn sử dụng hệ thống xếp hạng Elo) 

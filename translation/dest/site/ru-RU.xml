@@ -15,6 +15,7 @@
 	<string name="resign">Сдаться</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Белые</string>
 	<string name="black">Чёрные</string>
 	<string name="shitate">Шитатэ</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Вы играете чёрными фигурами</string>
 	<string name="itsYourTurn">Ваш ход!</string>
 	<string name="cheatDetected">Обнаружено жульничество</string>
-	<string name="kingInTheCenter">Король в центре</string>
-	<string name="threeChecks">Три шаха</string>
-	<string name="raceFinished">Гонка окончена</string>
 	<string name="variantEnding">Партия окончена</string>
 	<string name="newOpponent">Найти другого соперника</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Соперник предлагает вам сыграть ещё раз</string>
@@ -89,25 +87,10 @@
 	<string name="averageRatingX">Средний рейтинг: %s</string>
 	<string name="recentGames">Недавние игры</string>
 	<string name="topGames">Лучшие игры</string>
-	<string name="masterDbExplanation">Два миллиона игр, проведённых за доской игроками FIDE с рейтингом %1$s+ с %2$s по %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Мат в %s полуход</item>
-		<item quantity="few">Мат в %s полухода</item>
-		<item quantity="many">Мат в %s полуходов</item>
-		<item quantity="other">Мат в %s полуходов</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Следующее взятие или ход пешкой в %s полуход (Расстояние до обнуления счётчика 50 ходов)</item>
-		<item quantity="few">Следующее взятие или ход пешкой в %s полухода (Расстояние до обнуления счётчика 50 ходов)</item>
-		<item quantity="many">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
-		<item quantity="other">Следующее взятие или ход пешкой в %s полуходов (Расстояние до обнуления счётчика 50 ходов)</item>
-	</plurals>
 	<string name="noGameFound">Партий не найдено</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
 	<string name="openingExplorer">База дебютов</string>
 	<string name="xOpeningExplorer">База дебютов для %s</string>
-	<string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
-	<string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
 	<string name="allSet">Готово!</string>
 	<string name="importPgn">Импортировать в PGN</string>
 	<string name="delete">Удалить</string>
@@ -132,7 +115,6 @@
 	<string name="inaccuracies">Неточности</string>
 	<string name="moveTimes">Время на ход</string>
 	<string name="flipBoard">Перевернуть доску</string>
-	<string name="threefoldRepetition">Троекратное повторение позиции</string>
 	<string name="claimADraw">Потребовать ничью</string>
 	<string name="offerDraw">Предложить ничью</string>
 	<string name="draw">Ничья</string>
@@ -670,7 +652,6 @@
 	<string name="increment">Добавка</string>
 	<string name="byoyomi">Бёёми</string>
 	<string name="periods">Периоды</string>
-	<string name="sharePGN">Поделиться PGN</string>
 	<string name="playOnline">Играть онлайн</string>
 	<string name="playOffline">Играть офлайн</string>
 	<string name="allowAnalytics">Разрешить анонимный сбор статистики</string>
@@ -837,7 +818,6 @@
 	<string name="chessBasics">Основы сёги</string>
 	<string name="shogiResources">Ресурсы по сёги</string>
 	<string name="coaches">Тренеры</string>
-	<string name="invalidPgn">Некорректный PGN</string>
 	<string name="invalidFen">Некорректный FEN</string>
 	<string name="error.minLength">Минимальная длина — %s</string>
 	<string name="error.maxLength">Максимальная длина — %s</string>

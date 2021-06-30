@@ -15,6 +15,7 @@
 	<string name="resign">Abandonează</string>
 	<string name="checkmate">Şah mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Alb</string>
 	<string name="black">Negru</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Joci cu negrele</string>
 	<string name="itsYourTurn">E rândul tău!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Regele în centru</string>
-	<string name="threeChecks">Trei șahuri</string>
-	<string name="raceFinished">Competiție terminată</string>
 	<string name="variantEnding">Sfârșit prin variantă</string>
 	<string name="newOpponent">Adversar nou</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Adversarul dvs. vă propune o nouă partidă</string>
@@ -88,23 +86,10 @@
 	<string name="averageRatingX">Medie evaluare: %s</string>
 	<string name="recentGames">Jocuri recente</string>
 	<string name="topGames">Cele mai bune jocuri</string>
-	<string name="masterDbExplanation">Două milioane de jocuri reale OTB ale jucătorilor cu evaluare FIDE %1$s+ între %2$s și %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Mat la prima mutare</item>
-		<item quantity="few">Mat în %s mutări</item>
-		<item quantity="other">Mat în %s mutări</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Următoarea captură sau mutare de pion la următoarea mutare (distanța până la îndeplinirea regulii de 50 de mutări)</item>
-		<item quantity="few">Următoarea captură sau mutare de pion în %s mutări (distanța până la îndeplinirea regulii de 50 de mutări)</item>
-		<item quantity="other">Următoarea captură sau mutare de pion în %s mutări (distanța până la îndeplinirea regulii de 50 de mutări)</item>
-	</plurals>
 	<string name="noGameFound">Nu a fost găsit niciun joc</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
 	<string name="openingExplorer">Cercetarea deschiderilor</string>
 	<string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
-	<string name="winPreventedBy50MoveRule">Victoria a fost împiedicată de regula celor 50 de mutări</string>
-	<string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
 	<string name="allSet">Gata!</string>
 	<string name="importPgn">Importare PGN</string>
 	<string name="delete">Șterge</string>
@@ -129,7 +114,6 @@
 	<string name="inaccuracies">Inexactități</string>
 	<string name="moveTimes">Timpii de mutare</string>
 	<string name="flipBoard">Rotiţi tabla</string>
-	<string name="threefoldRepetition">Repetare de trei ori</string>
 	<string name="claimADraw">Cere remiză</string>
 	<string name="offerDraw">Propune remiză</string>
 	<string name="draw">Remiză</string>
@@ -639,7 +623,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Suplimentar</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Distribuie PGN</string>
 	<string name="playOnline">Joacă online</string>
 	<string name="playOffline">Joacă offline</string>
 	<string name="allowAnalytics">Permite colectarea de statistici anonime</string>
@@ -803,7 +786,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Antrenori</string>
-	<string name="invalidPgn">PGN invalid</string>
 	<string name="invalidFen">FEN invalid</string>
 	<string name="error.minLength">Lungimea minimă e: %s</string>
 	<string name="error.maxLength">Lungimea maximă este: %s</string>

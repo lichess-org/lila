@@ -6,7 +6,6 @@
 	<string name="forkedFromLichess">Lishogi 是从 lichess 来的开源网站，但因为是玩将棋，叫lishogi。</string>
 	<string name="lishogiCombinationLiveLightLibrePronounced">因为从 Lichess 来源。Lichess 叫 Lichess 因为它是现时/轻/自由 (live/light/libre) 和象棋(chess)。%1$s 发音 Lishogi。</string>
 	<string name="leechess">lishogi</string>
-	<string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
 	<string name="whyLiveLightLibre">Live ，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lishogi 开源且不被纠缠其它网站的专利垃圾打扰。</string>
 	<string name="whyIsLilaCalledLila">同样，Lishogi 源代码 %1$s，表示 li[chess in sca]la，查看 Lishogi 的主体是用 %2$s 写的，一种直观的编程语言。</string>
 	<string name="howCanIContributeToLishogi">我可以如何为 Lishogi 做出贡献？</string>
@@ -16,8 +15,6 @@
 	<string name="otherWaysToContribute">以下为你可以向lishogi贡献的一些方式。</string>
 	<string name="breakdownOfOurCosts">我们的费用明细表</string>
 	<string name="otherWaysToHelp">其它的帮助方式</string>
-	<string name="areThereWebsitesBasedOnLishogi">是否有基于 Lishogi 的网站？</string>
-	<string name="yesLishogiInspiredOtherOpenSourceWebsites">是的。Lishogi 确实启发了其他开源站点，用我们的%1$s、%2$s或%3$s。</string>
 	<string name="fairPlay">公平竞争</string>
 	<string name="whyFlaggedRatingManipulationOrCheater">为什么我被标记为人为操纵分数 (伪装和欺骗) 或开外挂？</string>
 	<string name="cheatDetectionMethods">Lishogi具有一套强有力的侦查方法和非常彻底的审查所有证据和作出决定的程序。 这套程序往往涉及许多仲裁人，而且可能需要很长时间。 除了标记本身外，我们将不详细了解个别案件的证据或决策过程。 这样做将使今后更容易避免被发现，并且是邀请进行毫无结果的辩论。 这个时间和精力最好花在其他重要案件上。用户可以通过电子邮件 %1$s进行上诉，但是裁决很少被推翻。</string>
@@ -38,7 +35,6 @@
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$s秒 = %2$s</string>
 	<string name="whatVariantsCanIplay">我可以在 Lishogi上玩哪些变体？</string>
 	<string name="lishogiSupportChessAnd">Lichess支持标准将棋和 %1$s。</string>
-	<string name="eightVariants">8 种国际象棋变体</string>
 	<string name="whatIsACPL">平均兵厘损失 (ACPL) 是什么？</string>
 	<string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。1兵厘等于兵价值的1/100。也就是说，100兵厘=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
@@ -48,36 +44,20 @@
 
 Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="insufficientMaterial">超时判负，和棋以及子力不足</string>
-	<string name="lishogiFollowFIDErules">如果玩家消尽了时间，该玩家通常会被判负（%1$s)。</string>
-	<string name="linkToFIDErules">FIDE（世界国际象棋联合会）手册PDF章节§6.9</string>
-	<string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
-	<string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
-
-在3.7 (d)节中作了描述在%2$s。
-
-“对方一只兵刚刚从初始位置起步走两格，与本方的兵处在相邻横线时，本方的兵可以吃掉它，就如同它只走了一格一样。这种吃法称为‘吃过路兵’，只能在对方兵走两格之后立即进行。“
-
-请查看 %3$s 以练习这个着法。</string>
 	<string name="goodIntroduction">不错的介绍</string>
 	<string name="officialRulesPDF">官方规则 (pdf)</string>
 	<string name="lishogiTraining">Lishogi 训练</string>
-	<string name="threefoldRepetition">三次重复局面</string>
-	<string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lishogi执行FIDE官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
-	<string name="threefoldRepetitionLowerCase">三次重复局面</string>
+	<string name="fourfoldRepetition">Fourfold repetition</string>
 	<string name="handBookPDF">手册 (pdf)</string>
 	<string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
 	<string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
 	<string name="positions">位置</string>
-	<string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-	<string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。您可以通过按下显示的按钮，或者在您最后一次重复移动之前提出和棋。您也可以%1$sLishogi为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。Lishogi</string>
 	<string name="configure">配置</string>
 	<string name="accounts">帐号</string>
 	<string name="titlesAvailableOnLishogi">Lishogi 上有什么称号？</string>
-	<string name="lishogiRecognizeAllOTBtitles">Lichess承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
 	<string name="showYourTitle">如果您有称号，可以完成%1$s将账户下表贴。
 
 最后，有一个%2$s荣誉称号。</string>
-	<string name="asWellAsManyNMtitles">许多国家级大师头衔</string>
 	<string name="verificationForm">验证表格</string>
 	<string name="canIbecomeLM">我可以获得 Lishogi 大师 (LM) 头衔吗？</string>
 	<string name="noUpperCaseDot">不能。</string>
@@ -91,9 +71,7 @@ Lishogi上的电脑分析是基于Stockfish的。</string>
 	<string name="guidelines">指南</string>
 	<string name="uniqueTrophies">独一无二的奖杯</string>
 	<string name="ownerUniqueTrophies">这个奖杯在 Lishogi 上是独一无二的，除了%1$s，任何人都不会得到。</string>
-	<string name="wayOfBerserkExplanation">为了获得它，hiimgosu 挑战自己 berserk 并赢得100%%的%s。</string>
 	<string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-	<string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
 	<string name="lishogiRatings">Lishogi 评分</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi 使用什么评分系统？</string>
 	<string name="ratingSystemUsedByLishogi">评分是使用 Mark Glickman 的 Glicko-2 评分方法计算得。 这是一种非常普及的评分算法，许多国际象棋组织都使用了这算法。 

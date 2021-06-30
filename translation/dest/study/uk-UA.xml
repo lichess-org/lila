@@ -44,7 +44,7 @@
   <string name="leaveTheStudy">Покинути дослідження</string>
   <string name="youAreNowAContributor">Тепер ви редактор</string>
   <string name="youAreNowASpectator">Тепер ви глядач</string>
-  <string name="pgnTags">Теги PGN</string>
+  <string name="tags">Tags</string>
   <string name="like">Подобається</string>
   <string name="newTag">Новий тег</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
@@ -63,9 +63,7 @@
   <string name="last">Остання</string>
   <string name="shareAndExport">Надсилання та експорт</string>
   <string name="cloneStudy">Клонувати</string>
-  <string name="studyPgn">PGN дослідження</string>
   <string name="downloadAllGames">Завантажити всі ігри</string>
-  <string name="chapterPgn">PGN розділу</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="broadcastUrl">Посилання на трансляцію</string>
@@ -104,12 +102,6 @@
   <string name="loadAPositionFromFen">Завантажити позицію з FEN</string>
   <string name="loadAGameFromPgn">Завантажити гру з PGN</string>
   <string name="automatic">Автоматично</string>
-  <plurals name="pasteYourPgnTextHereUpToNbGames">
-    <item quantity="one">Вставте ваш PGN текст тут, до %s гри</item>
-    <item quantity="few">Вставте ваш PGN текст тут, до %s ігор</item>
-    <item quantity="many">Вставте ваш PGN текст тут, до %s ігор</item>
-    <item quantity="other">Вставте ваш PGN текст тут, до %s ігор</item>
-  </plurals>
   <string name="urlOfTheGame">URL-адреса гри</string>
   <string name="loadAGameFromXOrY">Завантажити гру з %1$s</string>
   <string name="createChapter">Створити розділ</string>

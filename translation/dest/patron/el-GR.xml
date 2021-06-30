@@ -12,7 +12,6 @@
 	<string name="youHaveLifetime">Έχετε έναν εφ όρου ζωής λογαριασμό Δωρητή. Αυτό είναι φανταστικό!</string>
 	<string name="patronUntil">Έχετε έναν λογαριασμό Δωρητή μέχρι %s.</string>
 	<string name="ifNotRenewed">Εάν δεν ανανεώσετε, θα υποβαθμιστείτε σε ελεύθερο.</string>
-	<string name="weAreNonProfit">We are a non‑profit association because we believe everyone should have access to a free, world-class shogi platform.</string>
 	<string name="weRelyOnSupport">Βασιζόμαστε στην υποστήριξη από ανθρώπους σαν εσάς για να το πραγματοποιήσουμε. Αν νιώθετε ευχαρίστηση να χρησιμοποιείτε το Lishogi, παρακαλώ σκεφτείτε να μας υποστηρίξετε με δωρεά και να γίνεται Δωρητής!</string>
 	<string name="lifetime">Εφ\' όρου ζωής</string>
 	<string name="payLifetimeOnce">Πληρώστε %s μια φορά. Γίνετε Lishogi Δωρητής για πάντα!</string>
@@ -32,8 +31,6 @@
 	<string name="serversAndDeveloper">First of all, powerful servers.
 Then we pay a full-time developer: %s, the founder of Lishogi.</string>
 	<string name="costBreakdown">Δείτε τα αναλυτικά έξοδα</string>
-	<string name="officialNonProfit">Είναι το Lishogi επίσημα χωρίς κέρδος;</string>
-	<string name="actOfCreation">Ναι, εδώ είναι η πράξη δημιουργίας (στα γαλλικά)</string>
 	<string name="changeMonthlySupport">Μπορώ να αλλάξω/ακυρώσω την μηνιαία υποστήριξη μου;</string>
 	<string name="changeOrContact">Ναι, οποιαδήποτε στιγμή, από αυτή τη σελίδα.
 Ή μπορείτε %s.</string>

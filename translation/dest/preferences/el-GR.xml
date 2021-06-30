@@ -11,7 +11,6 @@
 	<string name="moveListWhilePlaying">Λίστα κινήσεων κατά τη διάρκεια της παρτίδας</string>
 	<string name="pgnPieceNotation">Εμφάνιση κινήσεων</string>
 	<string name="chessPieceSymbol">Shogi piece symbol</string>
-	<string name="pgnLetter">Letter (K, R, B, G, S, N, L)</string>
 	<string name="zenMode">Λειτουργία Zεν</string>
 	<string name="displayBoardResizeHandle">Εμφάνιση χειριστηρίου αλλαγής μεγέθους σκακιέρας</string>
 	<string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
@@ -32,15 +31,14 @@
 	<string name="inCasualGamesOnly">Μόνο σε φιλικά παιχνίδια</string>
 	<string name="promoteToQueenAutomatically">Αυτόματη προαγωγή σε βασίλισσα</string>
 	<string name="whenPremoving">Κατά προεπιλογή κίνησης</string>
-	<string name="claimDrawOnThreefoldRepetitionAutomatically">Διεκδικήστε ισοπαλία αυτόματα σε τριπλή επανάληψη</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">Όταν απομένουν &lt; 30 δευτερόλεπτα</string>
 	<string name="moveConfirmation">Επιβεβαίωση κίνησης</string>
 	<string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
 	<string name="correspondenceAndUnlimited">Δι\' αλληλογραφίας και απεριορίστου χρόνου</string>
 	<string name="confirmResignationAndDrawOffers">Επιβεβαίωση παραίτησης και προσφοράς ισοπαλίας</string>
-	<string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Μέθοδος ροκέ</string>
-	<string name="castleByMovingTwoSquares">Ροκέ μετακινώντας τον βασιλιά δύο τετράγωνα</string>
-	<string name="castleByMovingOntoTheRook">Ροκέ μετακινώντας τον βασιλιά πάνω στον πύργο</string>
 	<string name="inputMovesWithTheKeyboard">Κάντε κινήσεις με το πληκτρολόγιο</string>
+	<string name="westernNotation">Western notation</string>
+	<string name="japaneseNotation">Japanese notatation</string>
+	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
 	<string name="yourPreferencesHaveBeenSaved">Οι προτιμήσεις σας αποθηκεύτηκαν.</string>
 </resources>

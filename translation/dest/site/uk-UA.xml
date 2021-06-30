@@ -15,6 +15,7 @@
 	<string name="resign">Здатися</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
+	<string name="impasse">Impasse</string>
 	<string name="white">Білі</string>
 	<string name="black">Чорні</string>
 	<string name="shitate">Shitate</string>
@@ -27,9 +28,6 @@
 	<string name="youPlayTheBlackPieces">Граєш чорними постатями</string>
 	<string name="itsYourTurn">Твій хід!</string>
 	<string name="cheatDetected">Cheat Detected</string>
-	<string name="kingInTheCenter">Король в осередку</string>
-	<string name="threeChecks">Три шахи</string>
-	<string name="raceFinished">Перегони завершені</string>
 	<string name="variantEnding">Инак завершено</string>
 	<string name="newOpponent">Новий суперник</string>
 	<string name="yourOpponentWantsToPlayANewGameWithYou">Ваш суперник знову хоче з вами зіграти</string>
@@ -89,25 +87,10 @@
 	<string name="averageRatingX">Середній щабель: %s</string>
 	<string name="recentGames">Останні ігри</string>
 	<string name="topGames">Найкращі ігри</string>
-	<string name="masterDbExplanation">Два мільйони OTB ігор %1$s+ FIDE гравців щабелю від %2$s до %3$s</string>
-	<plurals name="mateInXHalfMoves">
-		<item quantity="one">Мат в %s полуходів</item>
-		<item quantity="few">Мат в %s полуходів</item>
-		<item quantity="many">Мат в %s полуходів</item>
-		<item quantity="other">Мат у %s напівходів</item>
-	</plurals>
-	<plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-		<item quantity="one">Наступне взяття чи хід пішаком у %s полухід (до обнулення лічильника 50 ходів)</item>
-		<item quantity="few">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
-		<item quantity="many">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
-		<item quantity="other">Наступне взяття чи хід пішаком у %s полуходів (до обнулення лічильника 50 ходів)</item>
-	</plurals>
 	<string name="noGameFound">Не знайдено гри</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може варто включити більше ігор з вкладки переваг?</string>
 	<string name="openingExplorer">Перегляд початків</string>
 	<string name="xOpeningExplorer">Провідник початку %s</string>
-	<string name="winPreventedBy50MoveRule">Без перемоги за правилом 50 ходів</string>
-	<string name="lossSavedBy50MoveRule">Без поразки за правилом 50 ходів</string>
 	<string name="allSet">Готово!</string>
 	<string name="importPgn">Імпорт PGN</string>
 	<string name="delete">Видалити</string>
@@ -132,7 +115,6 @@
 	<string name="inaccuracies">Неточності</string>
 	<string name="moveTimes">Час ходів</string>
 	<string name="flipBoard">Переверни дошку</string>
-	<string name="threefoldRepetition">Трикратний повтір</string>
 	<string name="claimADraw">Заяви нічию</string>
 	<string name="offerDraw">Запропонувати нічию</string>
 	<string name="draw">Нічия</string>
@@ -672,7 +654,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="increment">Приріст</string>
 	<string name="byoyomi">Byoyomi</string>
 	<string name="periods">Periods</string>
-	<string name="sharePGN">Шир PGN</string>
 	<string name="playOnline">Грай намережево</string>
 	<string name="playOffline">Грай безмережево</string>
 	<string name="allowAnalytics">Дозволь безіменні обліки</string>
@@ -839,7 +820,6 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="chessBasics">Shogi basics</string>
 	<string name="shogiResources">Shogi resources</string>
 	<string name="coaches">Тренери</string>
-	<string name="invalidPgn">Неприпустимий PGN</string>
 	<string name="invalidFen">Неприпустимий FEN</string>
 	<string name="error.minLength">Мінімальна довжина-%s</string>
 	<string name="error.maxLength">Максимальна довжина-%s</string>
