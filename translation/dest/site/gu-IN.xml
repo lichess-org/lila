@@ -269,9 +269,14 @@
   <string name="whiteWins">સફેદ ની જીત</string>
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
+  <string name="watchLichessTV">Lichess TV જુઓ</string>
+  <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
   <string name="difficultyNormal">સામાન્ય</string>
+  <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
+  <string name="aboutX">%s વિશે</string>
+  <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
