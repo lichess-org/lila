@@ -17,6 +17,7 @@ module.exports = targets => {
               name: target.name,
               plugins: [
                 terser({
+                  safari10: true,
                   output: {
                     comments: false,
                   },
