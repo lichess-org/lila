@@ -189,8 +189,8 @@
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="accept">સ્વીકારો</string>
   <string name="decline">નકારો</string>
-  <string name="playingRightNow">હાલમાં રમે છે</string>
-  <string name="eventInProgress">હાલમાં રમે છે</string>
+  <string name="playingRightNow">અત્યારે રમાય છે</string>
+  <string name="eventInProgress">અત્યારે રમાય છે</string>
   <string name="finished">સમાપ્ત થઈ</string>
   <string name="finishesX">%s માં પૂરી થાય છે</string>
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
@@ -232,8 +232,8 @@
     <item quantity="other">%s હાર</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s રમતો છે</item>
-    <item quantity="other">%s રમતા છે</item>
+    <item quantity="one">%s રમતમાં</item>
+    <item quantity="other">%s રમતમાં</item>
   </plurals>
   <string name="exportGames">રમતોનો નિકાસ કરો</string>
   <plurals name="giveNbSeconds">
