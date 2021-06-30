@@ -221,7 +221,7 @@
   <string name="subject">વિષય</string>
   <string name="recipient">મેળવનાર</string>
   <string name="send">મોકલો</string>
-  <string name="incrementInSeconds">સેકન્ડસ મા વૃદ્ધિ</string>
+  <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
   <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
   <plurals name="nbWins">
     <item quantity="one">%s જીત</item>
@@ -234,6 +234,11 @@
   <plurals name="nbPlaying">
     <item quantity="one">%s રમતો છે</item>
     <item quantity="other">%s રમતા છે</item>
+  </plurals>
+  <string name="exportGames">રમતોનો નિકાસ કરો</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s સેકંડ આપો</item>
+    <item quantity="other">%s સેકંડો આપો</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -285,10 +290,19 @@
   <string name="whiteWins">સફેદ ની જીત</string>
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
+  <string name="thankYou">આભાર!</string>
   <string name="watchLichessTV">Lichess TV જુઓ</string>
   <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
   <string name="success">સફળતા</string>
   <string name="puzzles">કોયડા</string>
+  <string name="description">વર્ણન</string>
+  <string name="no">નહીં</string>
+  <string name="yes">હા</string>
+  <string name="help">સહાયતા:</string>
+  <string name="replies">જવાબો</string>
+  <string name="message">સંદેશ</string>
+  <string name="reason">કારણ</string>
+  <string name="insult">અપમાન</string>
   <string name="difficultyNormal">સામાન્ય</string>
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="aboutX">%s વિશે</string>
