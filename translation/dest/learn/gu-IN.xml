@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="learnChess">શતરંજ શીખો</string>
+  <string name="byPlaying">રમી ને!</string>
+  <string name="menu">મેનુ</string>
+  <string name="progressX">પ્રગતિ: %s</string>
   <string name="play">ચાલો!</string>
   <string name="theRook">ઊંટ</string>
   <string name="theKnight">ઘોડો</string>
