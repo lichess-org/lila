@@ -11,11 +11,8 @@
     @extend %top-icon;
 
     /* we don't want a lighter dark font in the top gradient */
-    @if $theme == 'transp' {
-      @extend %page-text;
-    } @else {
-      color: $c-font;
-    }
+    @extend %page-text;
+    color: var(--c-font);
 
     font-size: 1.1rem;
     padding: 0 0.7rem;

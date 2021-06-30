@@ -79,34 +79,3 @@
     overflow-y: scroll;
   }
 }
-
-@mixin dark-theme {
-  @media (prefers-color-scheme: dark) {
-    body.system #{if(&, "&", "")} {
-      @content;
-    }
-  }
-
-  body.dark #{if(&, "&", "")},
-  body.transp #{if(&, "&", "")} {
-    @content;
-  }
-}
-
-@mixin light-theme {
-  @media (prefers-color-scheme: light) {
-    body.system #{if(&, "&", "")} {
-      @content;
-    }
-  }
-
-  body.light #{if(&, "&", "")} {
-    @content;
-  }
-}
-
-@mixin transp-theme {
-  body.transp #{if(&, "&", "")} {
-    @content;
-  }
-}
