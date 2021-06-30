@@ -9,7 +9,7 @@
     content: '';
   }
 
-  @include theme-light {
+  @include light-theme {
     &.white::before {
       content: '';
     }

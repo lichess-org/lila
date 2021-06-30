@@ -83,7 +83,7 @@
 .ddloader {
   background: img-url('loader/whitex1.png') no-repeat;
 
-  @include theme-light {
+  @include light-theme {
     background: img-url('loader/blackx1.png') no-repeat;
   }
 

@@ -36,38 +36,28 @@ $c-font-page: c-light($c-font, 37%);
 $c-primary: hsl(209, 77%, 46%);
 $c-primary-dim: c-dimmer($c-primary);
 $c-primary-clear: c-clearer($c-primary);
-$c-primary-over: #fff;
-
-/* text over primary background */
+$c-primary-over: #fff; // text over primary background
 
 /* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
 $c-secondary-dim: c-dimmer($c-secondary);
 $c-secondary-dimmer: c-dimmer($c-secondary, 40%);
-$c-secondary-over: #fff;
-
-/* text over secondary background */
+$c-secondary-over: #fff; // text over secondary background
 
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
 $c-accent-dim: c-dimmer($c-accent);
 $c-accent-clear: c-clearer($c-accent);
-$c-accent-over: #fff;
-
-/* text over accent background */
+$c-accent-over: #fff; // text over accent background
 
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 48%);
-$c-brag-over: #fff;
-
-/* text over brag background */
+$c-brag-over: #fff; // text over brag background
 
 /* Error: red */
 $c-red: hsl(0, 60%, 50%);
 $c-error: $c-red;
-$c-error-over: #fff;
-
-/* text over brag background */
+$c-error-over: #fff; // text over brag background
 
 /* Good: green */
 $c-good: $c-secondary;
@@ -83,9 +73,7 @@ $c-bad-over: $c-error-over;
 
 /* Fancy: pink */
 $c-fancy: hsl(294, 61%, 62%);
-$c-fancy-over: white;
-
-/* text over brag background */
+$c-fancy-over: white; // text over fancy background
 
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;

@@ -105,7 +105,7 @@
     background: #fff;
     box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.1) inset;
 
-    @include theme-dark {
+    @include dark-theme {
       color: #222;
       background: #ccc;
       box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.25) inset;
@@ -117,7 +117,7 @@
     color: #fff;
     box-shadow: 0 5px 7px rgba(255, 255, 255, 0.2) inset;
 
-    @include theme-dark {
+    @include dark-theme {
       color: #ddd;
       box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1) inset;
     }
@@ -126,7 +126,7 @@
   .draws {
     background: #a0a0a0;
 
-    @include theme-dark {
+    @include dark-theme {
       background: #666;
     }
   }
@@ -135,7 +135,7 @@
     background: #555;
     color: #ddd;
 
-    @include theme-dark {
+    @include dark-theme {
       background: #333;
     }
   }
