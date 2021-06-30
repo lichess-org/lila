@@ -67,7 +67,7 @@
   }
 
   .autoplay {
-    display: flex;
+    @extend %flex-wrap;
 
     a {
       color: $c-font-dim;
