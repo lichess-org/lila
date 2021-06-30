@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="tournStartDate">ပြိုင်ပွဲစရက်</string>
+  <string name="roundInterval">ပွဲစဉ် round တို့ အကြား အချိန်ကာလ</string>
+  <string name="forbiddenPairings">တားမြစ်သော ပြိုင်ဘက် အတွဲများ</string>
+</resources>
