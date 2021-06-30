@@ -138,7 +138,7 @@ object Pref {
     val DARK        = 200
     val DARKBOARD   = 300
     val TRANSPARENT = 400
-    val SYSTEM = 500
+    val SYSTEM      = 500
 
     val choices = Seq(
       LIGHT       -> "Light",
