@@ -181,7 +181,9 @@ lichess.load.then(() => {
     if (url.includes('://')) return url; // youtube, img, etc
     const parsed = new URL(url, window.location.href);
     const theme = themes.find(theme => document.body.classList.contains(theme));
+    const pieceSet = document.body.dataset.pieceSet;
     if (theme) parsed.searchParams.append('theme', theme);
+    if (pieceSet) parsed.searchParams.append('pieceSet', pieceSet);
     parsed.searchParams.append('bg', document.body.getAttribute('data-theme')!);
     return parsed.href;
   }
