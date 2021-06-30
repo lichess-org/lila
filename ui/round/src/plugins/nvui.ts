@@ -174,7 +174,10 @@ lichess.RoundNVUI = function (redraw: Redraw) {
                 $board.on('keypress', () => console.log(ctrl));
                 // NOTE: This is the only line different from analysis board listener setup
                 const $buttons = $board.find('button');
-                $buttons.on('click', selectionHandler(ctrl.data.opponent.color, selectSound));
+                $buttons.on(
+                  'click',
+                  selectionHandler(() => ctrl.data.opponent.color, selectSound)
+                );
                 $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
                 $buttons.on('keypress', boardCommandsHandler());
                 $buttons.on(
