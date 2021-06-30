@@ -34,6 +34,12 @@
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
   <string name="nextRound">Следующий тур</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Текущая партия</item>
+    <item quantity="few">Текущие партии</item>
+    <item quantity="many">Текущие партии</item>
+    <item quantity="other">Текущие партии</item>
+  </plurals>
   <string name="tournStartDate">Дата начала турнира</string>
   <string name="numberOfRounds">Количество туров</string>
   <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
