@@ -215,7 +215,7 @@
   <string name="confirmMove">ચાલની ખાતરી કરો</string>
   <string name="play">રમો</string>
   <string name="inbox">ઇનબૉક્સ</string>
-  <string name="chatRoom">વાતચીત જગ્યા</string>
+  <string name="chatRoom">વાતચીતની જગ્યા</string>
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
   <string name="subject">વિષય</string>
@@ -313,9 +313,13 @@
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
   <string name="language">ભાષા</string>
   <string name="background">પૃષ્ઠભૂમિ</string>
+  <string name="light">સફેદ</string>
+  <string name="dark">ઘેરું</string>
+  <string name="transparent">પારદર્શક</string>
   <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
   <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
-  <string name="boardTheme">બોર્ડની સજાવટ</string>
+  <string name="boardTheme">બોર્ડની પસંદગી</string>
+  <string name="pieceSet">મહોરાંની પસંદગી</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
