@@ -24,10 +24,10 @@ jobs:
         with:
           submodules: recursive
       - run: git submodule absorbgitdirs
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2.2.0
         with:
           node-version: '14'
-          cache: 'yarn'
+          cache: yarn
       - uses: actions/checkout@v2
         with:
           repository: lichess-org/ab
