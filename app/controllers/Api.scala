@@ -395,6 +395,13 @@ final class Api(
       }
     }
 
+  def perfStat(username: String, perfKey: String) = ApiRequest { req =>
+    implicit val lang = reqLang(req)
+    env.perfStat.api.data(username, perfKey, none) map {
+      _.fold[ApiResult](NoData) { data => Data(env.perfStat.jsonView(data)) }
+    }
+  }
+
   def CookieBasedApiRequest(js: Context => Fu[ApiResult]) =
     Open { ctx =>
       js(ctx) map toHttp
