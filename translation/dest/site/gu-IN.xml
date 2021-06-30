@@ -221,6 +221,20 @@
   <string name="subject">વિષય</string>
   <string name="recipient">મેળવનાર</string>
   <string name="send">મોકલો</string>
+  <string name="incrementInSeconds">સેકન્ડસ મા વૃદ્ધિ</string>
+  <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s જીત</item>
+    <item quantity="other">%s જીત</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s હાર</item>
+    <item quantity="other">%s હાર</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s રમતો છે</item>
+    <item quantity="other">%s રમતા છે</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
