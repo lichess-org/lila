@@ -891,4 +891,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="estimatedStart">Forventet starttidspunkt</string>
   <string name="simulFeatured">Vis på %s</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>
+  <string name="tournChat">Turneringssamtale</string>
+  <string name="noChat">Ingen samtale</string>
+  <string name="onlyTeamLeaders">Bare lagledere</string>
+  <string name="onlyTeamMembers">Bare lagmedlemmer</string>
 </resources>
