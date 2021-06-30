@@ -218,6 +218,8 @@
   <string name="chatRoom">વાતચીત જગ્યા</string>
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
+  <string name="subject">વિષય</string>
+  <string name="recipient">મેળવનાર</string>
   <string name="send">મોકલો</string>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -277,6 +279,8 @@
   <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
   <string name="aboutX">%s વિશે</string>
   <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
+  <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
   <string name="viewTheSolution">ઉકેલ જુઓ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
