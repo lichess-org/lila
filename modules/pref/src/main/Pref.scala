@@ -52,7 +52,9 @@ case class Pref(
   def realTheme3d    = Theme3d(theme3d)
   def realPieceSet3d = PieceSet3d(pieceSet3d)
 
-  def themeColor = if (bg == Bg.LIGHT) "#dbd7d1" else "#2e2a24"
+  val themeColorLight = "#dbd7d1"
+  val themeColorDark  = "#2e2a24"
+  def themeColor      = if (bg == Bg.LIGHT) themeColorLight else themeColorDark
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -138,19 +140,22 @@ object Pref {
     val DARK        = 200
     val DARKBOARD   = 300
     val TRANSPARENT = 400
+    val SYSTEM      = 500
 
     val choices = Seq(
       LIGHT       -> "Light",
       DARK        -> "Dark",
       DARKBOARD   -> "Dark Board",
-      TRANSPARENT -> "Transparent"
+      TRANSPARENT -> "Transparent",
+      SYSTEM      -> "System Default"
     )
 
     val fromString = Map(
       "light"     -> LIGHT,
       "dark"      -> DARK,
       "darkBoard" -> DARKBOARD,
-      "transp"    -> TRANSPARENT
+      "transp"    -> TRANSPARENT,
+      "system"    -> SYSTEM
     )
 
     val asString = fromString.map(_.swap)
@@ -406,7 +411,7 @@ object Pref {
 
   lazy val default = Pref(
     _id = "",
-    bg = Bg.LIGHT,
+    bg = Bg.SYSTEM,
     bgImg = none,
     is3d = false,
     theme = Theme.default.name,

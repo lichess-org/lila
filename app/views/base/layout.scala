@@ -26,8 +26,10 @@ object layout {
       }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag =
       metaCsp(csp getOrElse defaultCsp)
-    def metaThemeColor(implicit ctx: Context): Frag =
-      raw {
+    def metaThemeColor(implicit ctx: Context): Frag = if (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) raw {
+        s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" + 
+        s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
+      } else raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
@@ -37,6 +39,28 @@ object layout {
         href := assetUrl(s"piece-css/$ps.css"),
         rel := "stylesheet"
       )
+    def scriptSystemTheme(implicit ctx: Context) = embedJsUnsafe("""
+const updateTheme = (m, prev) => {
+  const bg = m.matches ? 'dark' : 'light';
+  prev ||= document.body.dataset.theme;
+  if (prev !== bg) {
+    const updateBody = () => {
+      document.body.classList.remove(prev);
+      document.body.classList.add(bg);
+      document.body.dataset.theme = bg;
+    };
+    if (document.readyState === 'complete' || document.readyState === 'loaded') updateBody();
+    else document.addEventListener('DOMContentLoaded', updateBody);
+    // document.documentElement.style.display = 'none';
+    document
+      .querySelectorAll('link[href*=".' + bg + '."]')
+      .forEach((el) => (el.href = el.href.replace('.' + bg + '.', '.' + bg + '.')));
+  }
+};
+const m = window.matchMedia('(prefers-color-scheme: dark)');
+updateTheme(m, 'light');
+m.addEventListener('change', (e) => updateTheme(e));
+""")
   }
   import bits._
 
@@ -242,7 +266,8 @@ object layout {
           },
           fontPreload,
           manifests,
-          jsLicense
+          jsLicense,
+          ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option scriptSystemTheme
         ),
         st.body(
           cls := {
