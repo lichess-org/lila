@@ -12,6 +12,9 @@
   <string name="rookIntro">હાથી એક શક્તિશાળી પાત્ર છે. શું તમે એને હુકમ આપવા તૈયાર છો?</string>
   <string name="rookGoal">હાથી પર ક્લિક કરો
 જેથી એને તારા પર લાવી શકો!</string>
+  <string name="grabAllTheStars">બધા તારા એકત્રિત કરો!</string>
+  <string name="theFewerMoves">જેટલી ઓછી ચાલ રમશો,
+તેટલાં વધારે અંક જીતશો!</string>
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
   <string name="greatJob">સરસ!</string>
