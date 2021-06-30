@@ -517,38 +517,22 @@ final class User(
 
   def perfStat(username: String, perfKey: String) =
     Open { implicit ctx =>
-      OptionFuResult(env.user.repo named username) { u =>
-        if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserModView)) notFound
-        else
-          PerfType(perfKey).fold(notFound) { perfType =>
-            for {
-              ranks       <- env.user.cached rankingsOf u.id
-              oldPerfStat <- env.perfStat.get(u, perfType)
-              perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-              distribution <- u.perfs(perfType).established ?? {
-                env.user.rankingApi.weeklyRatingDistribution(perfType) dmap some
-              }
-              percentile = distribution.map { distrib =>
-                lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match {
-                  case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
+      env.perfStat.api.data(username, perfKey, ctx.me) flatMap {
+        _ ?? { data =>
+          negotiate(
+            html = env.history.ratingChartApi(data.user) map { chart =>
+              Ok(html.user.perfStat(data, chart))
+            },
+            api = _ =>
+              JsonOk {
+                getBool("graph").?? {
+                  env.history.ratingChartApi.singlePerf(data.user, data.stat.perfType) map some
+                } map { graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
                 }
               }
-              ratingChart <- env.history.ratingChartApi(u)
-              _           <- env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
-              response <- negotiate(
-                html = Ok(html.user.perfStat(u, ranks, perfType, percentile, perfStat, ratingChart)).fuccess,
-                api = _ =>
-                  getBool("graph").?? {
-                    env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
-                  } map {
-                    val data = env.perfStat.jsonView(u, perfStat, ranks get perfType, percentile)
-                    _.fold(data) { graph =>
-                      data + ("graph" -> graph)
-                    }
-                  } map { Ok(_) }
-              )
-            } yield response
-          }
+          )
+        }
       }
     }
 

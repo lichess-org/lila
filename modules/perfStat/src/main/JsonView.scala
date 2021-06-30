@@ -33,18 +33,13 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   implicit val countWrites                         = Json.writes[Count]
   implicit def perfStatWrites(implicit lang: Lang) = Json.writes[PerfStat]
 
-  def apply(
-      user: User,
-      stat: PerfStat,
-      rank: Option[Int],
-      percentile: Option[Double]
-  )(implicit lang: Lang) =
+  def apply(data: PerfStatData)(implicit lang: Lang) =
     Json.obj(
-      "user"       -> user,
-      "perf"       -> user.perfs(stat.perfType),
-      "rank"       -> rank,
-      "percentile" -> percentile,
-      "stat"       -> stat
+      "user"       -> data.user,
+      "perf"       -> data.user.perfs(data.stat.perfType),
+      "rank"       -> data.rank,
+      "percentile" -> data.percentile,
+      "stat"       -> data.stat
     )
 }
 

@@ -14,7 +14,7 @@ final class Env(
     db: lila.db.Db,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
-    perfStat: lila.perfStat.Env,
+    perfStat: lila.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
