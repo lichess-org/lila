@@ -315,6 +315,7 @@
   <string name="background">પૃષ્ઠભૂમિ</string>
   <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
   <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
+  <string name="boardTheme">બોર્ડની સજાવટ</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
   <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
