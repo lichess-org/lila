@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Turnirji švicarskega formata</string>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s krog</item>
+    <item quantity="two">%s kroga</item>
+    <item quantity="few">%s krogi</item>
+    <item quantity="other">%s krogov</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">En krog na dan</item>
+    <item quantity="two">En krog vsaka %s dni</item>
+    <item quantity="few">En krog vsake %s dni</item>
+    <item quantity="other">En krog vsakih %s dni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Runde se začnejo ročno</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekanda med krogi</item>
+    <item quantity="two">%s sekundi med krogi</item>
+    <item quantity="few">%s sekunde med krogi</item>
+    <item quantity="other">%s sekund med krogi</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuta med krogi</item>
+    <item quantity="two">%s minuti med krogi</item>
+    <item quantity="few">%s minute med krogi</item>
+    <item quantity="other">%s minut med krogi</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Začetek v</string>
+  <string name="nextRound">Naslednji krog</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Tekoča igra</item>
+    <item quantity="two">Tekoči igri</item>
+    <item quantity="few">Tekoče igre</item>
+    <item quantity="other">Tekočih iger</item>
+  </plurals>
+  <string name="tournStartDate">Datum začetka turnirja</string>
+  <string name="numberOfRounds">Število krogov</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Neparno število krogov omogoča optimalno barvno ravnovesje.</string>
+  <string name="roundInterval">Interval med krogi</string>
+  <string name="forbiddenPairings">Prepovedano delanje parov</string>
+  <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
+  <string name="newSwiss">Nov švicarski turnir</string>
 </resources>

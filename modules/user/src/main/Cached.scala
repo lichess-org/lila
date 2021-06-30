@@ -88,7 +88,7 @@ final class Cached(
 
   def getTop50Online = top50OnlineCache.getUnit
 
-  def rankingsOf(userId: User.ID): Fu[Map[PerfType, Int]] = rankingApi.weeklyStableRanking of userId
+  def rankingsOf(userId: User.ID): Fu[lila.rating.UserRankMap] = rankingApi.weeklyStableRanking of userId
 
   private[user] val botIds = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(10 minutes)

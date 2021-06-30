@@ -76,7 +76,8 @@ object bits {
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
       case None =>
-        if (s.settings.intervalSeconds < 60) trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
+        if (s.settings.intervalSeconds < 60)
+          trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
     }
 
@@ -103,6 +104,6 @@ object bits {
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,
     trans.swiss.nextRound,
-    trans.team.joinTeam,
+    trans.team.joinTeam
   ).map(_.key)
 }

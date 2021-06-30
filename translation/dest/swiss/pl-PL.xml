@@ -7,4 +7,44 @@
     <item quantity="many">Zobacz wszystkie %s rund</item>
     <item quantity="other">Zobacz wszystkie %s rund</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s runda</item>
+    <item quantity="few">%s rundy</item>
+    <item quantity="many">%s rund</item>
+    <item quantity="other">%s rund</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Jedna runda dziennie</item>
+    <item quantity="few">Jedna runda co %s dni</item>
+    <item quantity="many">Jedna runda co %s dni</item>
+    <item quantity="other">Jedna runda co %s dni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Rundy są uruchamiane ręcznie</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekunda między rundami</item>
+    <item quantity="few">%s sekundy między rundami</item>
+    <item quantity="many">%s sekund między rundami</item>
+    <item quantity="other">%s sekund między rundami</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minunta między rundami</item>
+    <item quantity="few">%s minuty między rundami</item>
+    <item quantity="many">%s minunt między rundami</item>
+    <item quantity="other">%s minut między rundami</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Rozpoczęcie za</string>
+  <string name="nextRound">Następna runda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Trwająca partia</item>
+    <item quantity="few">Trwające partie</item>
+    <item quantity="many">Trwające partie</item>
+    <item quantity="other">Trwające partie</item>
+  </plurals>
+  <string name="tournStartDate">Data rozpoczęcia turnieju</string>
+  <string name="numberOfRounds">Liczba rund</string>
+  <string name="numberOfRoundsHelp">Nieparzysta liczba rund pozwala na optymalną równowagę kolorów.</string>
+  <string name="roundInterval">Interwał między rundami</string>
+  <string name="forbiddenPairings">Zabronione pary</string>
+  <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
+  <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
 </resources>

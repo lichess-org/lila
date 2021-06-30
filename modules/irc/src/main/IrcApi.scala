@@ -50,7 +50,7 @@ final class IrcApi(
               channel = SlackClient.rooms.tavern
             )
           ) >> zulip.mod()(
-            s":note: ${markdown.userLink(mod.user.username)}: **${markdown
+            s"${markdown.userLink(mod.user.username)} :note: **${markdown
               .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -132,7 +132,9 @@ final class IrcApi(
             channel = SlackClient.rooms.tavernLog
           )
         ) >>
-          zulip.mod(ZulipClient.topic.actionLog)(s":$icon: ${markdown.linkifyUsers(text)}")
+          zulip.mod(ZulipClient.topic.actionLog)(
+            s"${markdown.userLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
+          )
       }
     }
 
@@ -170,7 +172,7 @@ final class IrcApi(
         text = s"${slackdown.broadcastLink(id, name)}: $error",
         channel = SlackClient.rooms.broadcast
       )
-    ) >> zulip(ZulipClient.stream.broadcast)(s":lightning: ${slackdown.broadcastLink(id, name)}: $error")
+    ) >> zulip(ZulipClient.stream.broadcast)(s":lightning: ${markdown.broadcastLink(id, name)}: $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
     slack(
@@ -294,6 +296,7 @@ object IrcApi {
     def userLink(user: User): String            = userLink(user.username)
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
+    def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
     val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
     def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
   }

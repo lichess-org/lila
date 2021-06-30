@@ -440,6 +440,7 @@
   <string name="boardEditor">Шахматен редактор</string>
   <string name="setTheBoard">Подреди дъската</string>
   <string name="popularOpenings">Популярни дебюти</string>
+  <string name="endgamePositions">Ендшпилни позиции</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="savePosition">Запази позицията</string>
@@ -879,4 +880,10 @@
   <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
   <string name="onlyTitled">Само титулувани играчи</string>
   <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
+  <string name="markdownAvailable">%s е достъпен за разширено форматиране.</string>
+  <string name="inYourLocalTimezone">Във Вашата часова зона</string>
+  <string name="tournChat">Чат в турнира</string>
+  <string name="noChat">Без чат</string>
+  <string name="onlyTeamLeaders">Само организаторите на отбора</string>
+  <string name="onlyTeamMembers">Само членовете на отбора</string>
 </resources>

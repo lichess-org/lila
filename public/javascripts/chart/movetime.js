@@ -85,12 +85,12 @@ lichess.movetimeChart = function (data, trans, hunter) {
               label += '<br />' + trans('nbSeconds', '<strong>' + seconds + '</strong>');
               moveSeries[colorName].push(movePoint);
 
-              let clock = node?.clock;
+              let clock = node ? node.clock : undefined;
               if (clock == undefined) {
                 if (x < data.game.moveCentis.length - 1) showTotal = false;
                 else if (data.game.status.name === 'outoftime') clock = 0;
                 else if (data.clock) {
-                  const prevClock = tree[x - 1]?.clock;
+                  const prevClock = tree[x - 1] ? tree[x - 1].clock : undefined;
                   if (prevClock) clock = prevClock + data.clock.increment - centis;
                 }
               }
@@ -118,9 +118,10 @@ lichess.movetimeChart = function (data, trans, hunter) {
                 click: event => {
                   if (event.point) {
                     const x = event.point.x;
-                    const p = this.highcharts.series[(showTotal ? 4 : 0) + ((tree[x]?.ply ?? x) % 2)].data[x >> 1];
-                    if (p) p.select(true);
-                    lichess.pubsub.emit('analysis.chart.click', x);
+                    const p =
+                      this.highcharts.series[
+                        (showTotal ? 4 : 0) + (((tree[x] ? tree[x].ply : undefined) || x) % 2)
+                      ].data[x >> 1];
                   }
                 },
               },

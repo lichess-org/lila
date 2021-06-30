@@ -5,4 +5,29 @@
     <item quantity="one">Ver la ronda</item>
     <item quantity="other">Ver las %s rondas</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s ronda</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Una ronda por día</item>
+    <item quantity="other">Una ronda cada %s días</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Las rondas se inician manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo entre rondas</item>
+    <item quantity="other">%s segundos entre rondas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto entre rondas</item>
+    <item quantity="other">%s minutos entre rondas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Comienza en</string>
+  <string name="nextRound">Siguiente ronda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partida en curso</item>
+    <item quantity="other">Partidas en curso</item>
+  </plurals>
+  <string name="numberOfRounds">Número de rondas</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Un número impar de rondas permite un equilibrio de colores óptimo.</string>
 </resources>

@@ -38,6 +38,7 @@
   <string name="raceComplete">Wedstrijd afgelopen!</string>
   <string name="spectating">Toeschouwer</string>
   <string name="joinTheRace">Doe mee aan de wedstrijd!</string>
+  <string name="startTheRace">Start de race</string>
   <string name="yourRankX">Jouw plaats: %s</string>
   <string name="waitForRematch">Wacht op nieuwe wedstrijd</string>
   <string name="nextRace">Volgende wedstrijd</string>

@@ -624,6 +624,7 @@ GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: S
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/user/:name/current-game     controllers.User.tvExport(name: String)
+GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name: String, perfKey: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
@@ -717,7 +718,9 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 
 # OAuth
 GET    /oauth                                controllers.OAuth.authorize
-POST   /oauth                                controllers.OAuth.authorizeApply
+POST   /oauth                                controllers.OAuth.legacyTokenApply
+GET    /oauth/authorize                      controllers.OAuth.legacyAuthorize
+POST   /oauth/authorize                      controllers.OAuth.authorizeApply
 POST   /oauth/revoke-client                  controllers.OAuth.revokeClient
 POST   /api/token                            controllers.OAuth.tokenApply
 DELETE /api/token                            controllers.OAuth.tokenRevoke

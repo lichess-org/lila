@@ -2,15 +2,15 @@ import { h, VNode } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
 import { teamName } from './battle';
-import { MaybeVNodes, Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
+import { MaybeVNodes, Pagination, PodiumPlayer, Score, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
-function scoreTag(s: [number, number] | number) {
-  const [score, tag] = Array.isArray(s) ? s : [s, 1];
-  return h(scoreTagNames[tag - 1], [score]);
+function scoreTag(s: Score) {
+  const [score, tag] = Array.isArray(s) ? s : [s];
+  return h(scoreTagNames[(tag || 1) - 1], [score]);
 }
 
 function playerTr(ctrl: TournamentController, player: StandingPlayer) {

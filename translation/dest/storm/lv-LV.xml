@@ -40,6 +40,7 @@
   <string name="raceComplete">Sacīkstes beigušās!</string>
   <string name="spectating">Skatās</string>
   <string name="joinTheRace">Pievienoties sacīkstēm!</string>
+  <string name="startTheRace">Sākt sacīkstes</string>
   <string name="yourRankX">Jūsu vieta: %s</string>
   <string name="waitForRematch">Gaidiet nākamo spēli</string>
   <string name="nextRace">Nākamā spēle</string>

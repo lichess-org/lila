@@ -502,6 +502,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="boardEditor">Lentos rengyklė</string>
   <string name="setTheBoard">Paruošti lentą</string>
   <string name="popularOpenings">Populiarūs debiutai</string>
+  <string name="endgamePositions">Endšpilio pozicijos</string>
   <string name="startPosition">Pradinė pozicija</string>
   <string name="clearBoard">Išvalyti lentą</string>
   <string name="savePosition">Išsaugoti poziciją</string>

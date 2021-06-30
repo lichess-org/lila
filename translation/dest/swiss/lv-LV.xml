@@ -6,9 +6,37 @@
     <item quantity="one">Skatīt %s kārtu</item>
     <item quantity="other">Skatīt %s kārtas</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="zero">%s raundu</item>
+    <item quantity="one">%s raunds</item>
+    <item quantity="other">%s raundi</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="zero">Jauns raunds ik pēc %s dienām</item>
+    <item quantity="one">Jauns raunds ik pēc %s dienas</item>
+    <item quantity="other">Jauns raunds ik pēc %s dienām</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Raundus sāk manuāli</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="zero">%s sekunžu starp raundiem</item>
+    <item quantity="one">%s sekunde starp raundiem</item>
+    <item quantity="other">%s sekundes starp raundiem</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="zero">%s minūšu starp raundiem</item>
+    <item quantity="one">%s minūte starp raundiem</item>
+    <item quantity="other">%s minūtes starp raundiem</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Sāksies pēc</string>
+  <string name="nextRound">Nākamais raunds</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="zero">Pašreizējās spēles</item>
+    <item quantity="one">Pašreizējā spēle</item>
+    <item quantity="other">Pašreizējās spēles</item>
+  </plurals>
   <string name="tournStartDate">Turnīra sākuma datums</string>
-  <string name="nbRounds">Raundu skaits</string>
-  <string name="nbRoundsHelp">Nepāra raundu skaits atļauj noturēt vislabāko krāsu līdzsvaru.</string>
+  <string name="numberOfRounds">Raundu skaits</string>
+  <string name="numberOfRoundsHelp">Nepāra raundu skaits atļauj noturēt vislabāko krāsu līdzsvaru.</string>
   <string name="roundInterval">Laiks starp raundiem</string>
   <string name="forbiddenPairings">Neatļautie pāri</string>
   <string name="forbiddenPairingsHelp">Spēlētāji, kuri nedrīkst spēlēt kopā (piemēram brāļi vai māsas). Katrā rindā, ar atstarpi atdalīti, divi lietotājvārdi.</string>

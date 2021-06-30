@@ -20,6 +20,15 @@
       line-height: 1.2em;
       overflow-y: hidden;
       user-select: text;
+
+      &.me {
+        border-left: 3px solid $c-secondary-dim;
+        padding-left: 7px;
+      }
+
+      &.host {
+        background-color: rgba($c-secondary-dim, 0.4);
+      }
     }
 
     .deleted {

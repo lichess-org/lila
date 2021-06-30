@@ -52,6 +52,7 @@
   <string name="knightMate">من الممكن عمل كش مات للخص باستعمال الحصان والفيل فقط، وهذا حتى إذا كان للخصم أكثر من قطعة متبقية على الرقعة.</string>
   <string name="noRatingPoints">لم يتم منح أي نقاط تقييم</string>
   <string name="ratedGame">تأكد من أنك لعبت لعبة مقيمة. الألعاب الاستعراضية لا تؤثر على تقييم اللاعبين.</string>
+  <string name="botRatingAbuse">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
   <string name="errorPage">صفحة خطأ</string>
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
   <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>

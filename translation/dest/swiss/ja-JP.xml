@@ -4,11 +4,29 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">%s ラウンドを表示</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="other">%s ラウンド</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="other">%s 日ごとに 1 ラウンド</item>
+  </plurals>
+  <string name="roundsAreStartedManually">ラウンドは手動で開始されます</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="other">ラウンド間 %s 秒</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="other">ラウンド間 %s 分</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">開始まで</string>
+  <string name="nextRound">次のラウンド</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="other">対局中</item>
+  </plurals>
   <string name="tournStartDate">トーナメント開始日</string>
-  <string name="nbRounds">ラウンド数</string>
-  <string name="nbRoundsHelp">ラウンド数は奇数のほうが色のバランスがよくなります。</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">ラウンド間のインターバル時間</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">禁止ペアリング</string>
+  <string name="numberOfRounds">ラウンド数</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">ラウンド数は奇数のほうが色のバランスがよくなります。</string>
+  <string name="roundInterval">ラウンド間のインターバル時間</string>
+  <string name="forbiddenPairings">禁止ペアリング</string>
   <string name="forbiddenPairingsHelp">対戦しないプレイヤーのユーザー名（兄弟姉妹など）。1 行につき 2 つのユーザー名を半角スペースで区切って並べます。</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">新しいスイス式トーナメント</string>
+  <string name="newSwiss">新しいスイス式トーナメント</string>
 </resources>

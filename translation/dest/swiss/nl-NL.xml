@@ -6,10 +6,8 @@
     <item quantity="other">Bekijk alle %s rondes</item>
   </plurals>
   <string name="tournStartDate">Begindatum toernooi</string>
-  <string name="nbRounds">Aantal rondes</string>
-  <string name="nbRoundsHelp">Een oneven aantal rondes zorgt voor een optimale kleurenbalans.</string>
-  <string name="roundInterval" comment="roundInterval&#10;&#10;Specifically a time interval (e.g. 5 minutes) between rounds in a Swiss tournament">Interval tussen rondes</string>
-  <string name="forbiddenPairings" comment="forbiddenPairings&#10;&#10;This option disallows pairing certain players.">Verboden paringen</string>
-  <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar zullen spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Nieuw Zwitsers toernooi</string>
+  <string name="roundInterval">Interval tussen rondes</string>
+  <string name="forbiddenPairings">Verboden paringen</string>
+  <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
+  <string name="newSwiss">Nieuw Zwitsers toernooi</string>
 </resources>

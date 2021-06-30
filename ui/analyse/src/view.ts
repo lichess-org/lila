@@ -91,6 +91,7 @@ function renderAnalyse(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
 }
 
 function wheel(ctrl: AnalyseCtrl, e: WheelEvent) {
+  if (ctrl.gamebookPlay()) return;
   const target = e.target as HTMLElement;
   if (target.tagName !== 'PIECE' && target.tagName !== 'SQUARE' && target.tagName !== 'CG-BOARD') return;
   e.preventDefault();
@@ -347,7 +348,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           addChapterId(study, 'div.analyse__board.main-board'),
           {
             hook:
-              'ontouchstart' in window || ctrl.gamebookPlay() || lichess.storage.get('scrollMoves') == '0'
+              'ontouchstart' in window || lichess.storage.get('scrollMoves') == '0'
                 ? undefined
                 : bind('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },

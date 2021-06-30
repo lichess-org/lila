@@ -26,6 +26,7 @@ import {
   castlingFlavours,
   inputToLegalUci,
   namePiece,
+  lastCapturedCommandHandler,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
@@ -90,7 +91,7 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
           h('h2', 'Current position'),
           h(
-            'p.position',
+            'p.position.lastMove',
             {
               attrs: {
                 'aria-live': 'assertive',
@@ -141,9 +142,12 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
                   const $board = $(el.elm as HTMLElement);
                   $board.on('keypress', boardCommandsHandler());
                   const $buttons = $board.find('button');
+                  const steps = () => ctrl.tree.getNodeList(ctrl.path);
+                  const fenSteps = () => steps().map(step => step.fen);
                   const opponentColor = () => (ctrl.node.ply % 2 === 0 ? 'black' : 'white');
                   $buttons.on('click', selectionHandler(opponentColor, selectSound));
                   $buttons.on('keydown', arrowKeyHandler(ctrl.data.player.color, borderSound));
+                  $buttons.on('keypress', lastCapturedCommandHandler(fenSteps, pieceStyle.get(), prefixStyle.get()));
                   $buttons.on('keypress', positionJumpHandler());
                   $buttons.on('keypress', pieceJumpingHandler(wrapSound, errorSound));
                 },
@@ -157,6 +161,16 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
               positionStyle.get(),
               boardStyle.get()
             )
+          ),
+          h(
+            'div.boardstatus',
+            {
+              attrs: {
+                'aria-live': 'polite',
+                'aria-atomic': 'true',
+              },
+            },
+            ''
           ),
           h('div.content', {
             hook: {

@@ -176,6 +176,37 @@ object tree {
     )
   }
 
+  private def rankBanMenu(implicit ctx: Context): Branch = {
+    val accept = "I accept that I have manipulated my account to get on the leaderboard."
+    val deny =
+      "I deny having manipulated my account to get on the leaderboard."
+    Branch(
+      "root",
+      "Your account has been excluded from leaderboards.",
+      List(
+        Leaf(
+          "rankban-accept",
+          accept,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(accept)
+          )
+        ),
+        Leaf(
+          "rankban-deny",
+          deny,
+          frag(
+            sendUsAnAppeal,
+            newAppeal(deny)
+          )
+        )
+      ),
+      content = frag(
+        "We define this as using any unfair way to get on the leaderboard."
+      ).some
+    )
+  }
+
   private def playbanMenu(implicit ctx: Context): Branch = {
     Branch(
       "root",
@@ -252,6 +283,7 @@ object tree {
                 else if (me.marks.engine || query.contains("engine")) engineMenu
                 else if (me.marks.boost || query.contains("boost")) boostMenu
                 else if (me.marks.troll || query.contains("shadowban")) muteMenu
+                else if (me.marks.rankban || query.contains("rankban")) rankBanMenu
                 else cleanMenu
               },
               none

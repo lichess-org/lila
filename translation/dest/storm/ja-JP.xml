@@ -36,6 +36,7 @@
   <string name="raceComplete">レース終了！</string>
   <string name="spectating">観戦中</string>
   <string name="joinTheRace">レースに参戦！</string>
+  <string name="startTheRace">レースを開始</string>
   <string name="yourRankX">順位：%s</string>
   <string name="waitForRematch">次をお待ちください</string>
   <string name="nextRace">次のレース</string>

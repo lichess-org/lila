@@ -483,6 +483,7 @@
   <string name="boardEditor">Urejevalec igralne površine</string>
   <string name="setTheBoard">Uredi šahovnico</string>
   <string name="popularOpenings">Popularne otvoritve</string>
+  <string name="endgamePositions">Položaji končnice</string>
   <string name="startPosition">Začetna pozicija</string>
   <string name="clearBoard">Počisti igralno površino</string>
   <string name="savePosition">Shrani pozicijo</string>
@@ -951,4 +952,9 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
   <string name="markdownAvailable">%s je na voljo za naprednejšo skladnjo.</string>
+  <string name="inYourLocalTimezone">V svojem lokalnem časovnem pasu</string>
+  <string name="tournChat">Turnirski klepet</string>
+  <string name="noChat">Brez klepeta</string>
+  <string name="onlyTeamLeaders">Dovoljeno samo voditeljem ekip</string>
+  <string name="onlyTeamMembers">Dovoljeno samo članom ekip</string>
 </resources>

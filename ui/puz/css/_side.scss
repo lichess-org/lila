@@ -12,6 +12,10 @@ $mq-col2: $mq-col2-uniboard;
 
   @include breakpoint($mq-col2) {
     padding: 3vh 2vw;
+
+    .playing.zen & {
+      justify-content: space-evenly;
+    }
   }
 
   &__top {

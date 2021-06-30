@@ -5,6 +5,5 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundene</item>
   </plurals>
-  <string name="nbRounds">Antall runder</string>
-  <string name="newSwiss" comment="newSwiss&#10;&#10;Appears on a button: clicking this lets you create a new tournament in the Swiss format.">Ny sveitserturnering</string>
+  <string name="newSwiss">Ny sveitserturnering</string>
 </resources>

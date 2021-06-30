@@ -21,8 +21,8 @@ final class OAuth(env: Env) extends LilaController(env) {
       responseType = get("response_type", req),
       redirectUri = get("redirect_uri", req),
       state = get("state", req),
-      codeChallenge = get("code_challenge", req),
       codeChallengeMethod = get("code_challenge_method", req),
+      codeChallenge = get("code_challenge", req),
       scope = get("scope", req)
     )
 
@@ -37,15 +37,22 @@ final class OAuth(env: Env) extends LilaController(env) {
     Open { implicit ctx =>
       withPrompt { prompt =>
         fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
-          Ok(html.oAuth.app.authorize(prompt, me))
+          Ok(
+            html.oAuth.app.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
+          )
         })
       }
+    }
+
+  def legacyAuthorize =
+    Action { req =>
+      MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
     }
 
   def authorizeApply =
     Auth { implicit ctx => me =>
       withPrompt { prompt =>
-        prompt.authorize(me) match {
+        prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
           case Validated.Valid(authorized) =>
             env.oAuth.authorizationApi.create(authorized) map { code =>
               SeeOther(authorized.redirectUrl(code))
@@ -60,6 +67,7 @@ final class OAuth(env: Env) extends LilaController(env) {
       "grant_type"    -> optional(text),
       "code"          -> optional(text),
       "code_verifier" -> optional(text),
+      "client_secret" -> optional(text),
       "redirect_uri"  -> optional(text),
       "client_id"     -> optional(text)
     )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
@@ -86,6 +94,8 @@ final class OAuth(env: Env) extends LilaController(env) {
         case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
       }
     }
+
+  def legacyTokenApply = tokenApply
 
   def tokenRevoke =
     Scoped() { implicit req => _ =>
