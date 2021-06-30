@@ -169,6 +169,7 @@
   <string name="username">વપરાશકર્તાનું નામ</string>
   <string name="usernameOrEmail">વપરાશકર્તાનું નામ અથવા ઇમેઇલ</string>
   <string name="changeUsername">વપરાશર્તાનું નામ બદલો</string>
+  <string name="changeUsernameNotSame">માત્ર અક્ષરોની સ્થિતી બદલી શકાય. ઉદાહણરૂપે \"johndoe\" થી \"JohnDoe\".</string>
   <string name="password">પાસવર્ડ</string>
   <string name="changePassword">પાસવર્ડ બદલો</string>
   <string name="changeEmail">ઇમેઇલ બદલો</string>
