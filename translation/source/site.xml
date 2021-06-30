@@ -900,4 +900,22 @@ Leave empty to start games from the normal initial position.</string>
 <string name="noChat">No chat</string>
 <string name="onlyTeamLeaders">Only team leaders</string>
 <string name="onlyTeamMembers">Only team members</string>
+<string name="welcomeToLichess">Welcome to lichess.org!</string>
+<string name="thisIsYourProfilePage">This is your profile page.</string>
+<string name="kidModeIsEnabled">Kid mode is enabled.</string>
+<string name="newPlayerWhatNow">What now? Here are a few suggestions:</string>
+<string name="learnChessRules">Learn chess rules</string>
+<string name="improveWithChessTactics">Improve with chess tactics puzzles</string>
+<string name="playTheAI">Play the artificial intelligence</string>
+<string name="playOpponentsAroundWorld">Play opponents from around the world</string>
+<string name="followYourFriends">Follow your friends on Lichess</string>
+<string name="playInTourns">Play in tournaments</string>
+<string name="newPlayerLearnFrom">Learn from %1$s and %2$s</string>
+<string name="studies">studies</string>
+<string name="videos">videos</string>
+<string name="configureLichessToYourLiking">Configure Lichess to your liking</string>
+<string name="newPlayerExploreSite">Explore the site and have fun :)</string>
+<string name="newPlayerKidMode">Will a child use this account? You might want to enable %s.</string>
+<string name="newPlayerImproveProfile">Would you like to %s?</string>
+<string name="improveIt" comment="will be used for the link in the following string: Would you like to improve it?">improve it</string>
 </resources>
