@@ -22,8 +22,10 @@
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
   <string name="puzzles">કોયડા</string>
+  <string name="exerciseYourTacticalSkills">તમારી વ્યૂહાત્મક કુશળતા વાપરો</string>
   <string name="greatJob">સરસ!</string>
   <string name="yesYesYes">હા!</string>
   <string name="next">આગલુ</string>
+  <string name="puzzleFailed">કોયડાનો ખોટો જવાબ!</string>
   <string name="retry">ફરી પ્રયાસ કરો</string>
 </resources>
