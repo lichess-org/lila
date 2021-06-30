@@ -261,6 +261,8 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="wins">જીત</string>
+  <string name="losses">હાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
