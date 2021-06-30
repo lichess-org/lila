@@ -123,8 +123,8 @@
   <string name="pinnedStudyComment">Kiinnitetty tutkielmakommentti</string>
   <string name="start">Aloita</string>
   <string name="save">Tallenna</string>
-  <string name="clearChat">Tyhjennä chatti</string>
-  <string name="deleteTheStudyChatHistory">Poista tutkielman chattihistoria? Paluuta ei ole!</string>
+  <string name="clearChat">Tyhjennä keskustelu</string>
+  <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
   <string name="deleteTheEntireStudy">Poista koko tutkielma? Paluuta ei ole!</string>
   <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>

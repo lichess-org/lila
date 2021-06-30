@@ -42,6 +42,7 @@
   <string name="raceComplete">Wyścig zakończony!</string>
   <string name="spectating">Obserwowanie</string>
   <string name="joinTheRace">Dołącz do wyścigu!</string>
+  <string name="startTheRace">Rozpocznij wyścig</string>
   <string name="yourRankX">Twoja pozycja: %s</string>
   <string name="waitForRematch">Poczekaj na rewanż</string>
   <string name="nextRace">Następny wyścig</string>

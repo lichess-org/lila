@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import play.api.data._
+import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
@@ -25,6 +26,14 @@ trait FormHelper { self: I18nHelper =>
 
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
+
+  def markdownAvailable(implicit lang: Lang) =
+    trans.markdownAvailable(
+      a(
+        href := "https://guides.github.com/features/mastering-markdown/",
+        targetBlank
+      )("Markdown")
+    )
 
   object form3 {
 

@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import TournamentController from './ctrl';
-import { MaybeVNodes } from './interfaces';
+import { MaybeVNodes, Pagination } from './interfaces';
 import { bind } from './view/util';
 import * as search from './search';
 
@@ -26,9 +26,10 @@ function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
       },
       hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
     });
+  return undefined;
 }
 
-export function renderPager(ctrl: TournamentController, pag): MaybeVNodes {
+export function renderPager(ctrl: TournamentController, pag: Pagination): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
     page = ctrl.page;
   return pag.nbPages > -1
@@ -48,7 +49,7 @@ export function renderPager(ctrl: TournamentController, pag): MaybeVNodes {
     : [];
 }
 
-export function players(ctrl: TournamentController) {
+export function players(ctrl: TournamentController): Pagination {
   const page = ctrl.page,
     nbResults = ctrl.data.nbPlayers,
     from = (page - 1) * maxPerPage,
@@ -66,4 +67,5 @@ export function players(ctrl: TournamentController) {
 
 export function myPage(ctrl: TournamentController): number | undefined {
   if (ctrl.data.me) return Math.floor((ctrl.data.me.rank - 1) / 10) + 1;
+  return undefined;
 }

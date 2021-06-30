@@ -52,6 +52,7 @@
   <string name="knightMate">Lehet mattot adni egy futóval vagy huszárral is, ha az ellenfélnek van még figurája a királyon kívül.</string>
   <string name="noRatingPoints">Nem kaptam értékpontot jutalmul</string>
   <string name="ratedGame">Ellenőrizd, hogy rangsorolt játszmát játszol. Nem rangsorolt játékok nincsenek hatással az értékszámra.</string>
+  <string name="botRatingAbuse">Bizonyos helyzetekben amikor a játékos bot ellen játszik, az értékelt játszma nem feltétlen oszt pontokat, ha a játékos kikövetkeztethetően visszaél a bottal szemben értékpontok miatt.</string>
   <string name="errorPage">Hibaoldal</string>
   <string name="reportErrorPage">Ha hibaoldallal találkoztál, itt jelentheted:</string>
   <string name="banAppeal">Fellebbezés kitiltás vagy IP cím korlátozás miatt</string>

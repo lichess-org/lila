@@ -96,5 +96,4 @@
   <string name="newsEdit2">Додајте нове вести на врх. Не бришите претходне вести.</string>
   <string name="newsEdit3">Одвојите вести са ---
 Биће приказано као хоризонтална линија.</string>
-  <string name="markdownAvailable">%s је доступно за напреднију синтаксу.</string>
 </resources>

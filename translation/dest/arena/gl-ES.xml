@@ -43,4 +43,12 @@ Xoga rápido e volta ao lobby para xogar máis partidas e gañar máis puntos.</
     <item quantity="one">Ver o equipo</item>
     <item quantity="other">Ver todos os %s equipos</item>
   </plurals>
+  <string name="newTeamBattle">Nova batalla por equipos</string>
+  <string name="customStartDate">Fecha de comezo persoalizada</string>
+  <string name="customStartDateHelp">Na túa zona de tempo local. Isto sobreescribe a preferencia \"Tempo antes de que o torneo comece\"</string>
+  <string name="allowBerserk">Berserk permitido</string>
+  <string name="allowBerserkHelp">Deixa ás xogadoras que reduzan á metade o seu tempo para gañar un ponto extra</string>
+  <string name="allowChatHelp">Deixa ás xogadoras falar nunha sala de chat</string>
+  <string name="arenaStreaks">Racha de victorias no Torneo</string>
+  <string name="arenaStreaksHelp">Despois de 2 victorias, as seguintes victorias consecutivas dan 4 pontos en lugar de 2.</string>
 </resources>

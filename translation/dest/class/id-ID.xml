@@ -66,6 +66,10 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="releaseDesc1">Akun yang dirilis tidak dapat dikelola lagi. Siswa akan dapat mengaktifkan mode anak dan mereset kata sandi sendiri.</string>
   <string name="releaseDesc2">Siswa akan tetap berada di kelas setelah akun mereka dirilis.</string>
   <string name="realUniqueEmail">Alamat email siswa yang nyata dan unik. Kami akan mengirim email konfirmasi ke sana, dengan tautan untuk melepaskan akun.</string>
+  <string name="closeStudent">Tutup akun</string>
+  <string name="closeTheAccount">Tutup akun siswa secara permanen.</string>
+  <string name="closeDesc1">Siswa tidak akan dapat menggunakan akun ini lagi. Penutupan ini bersifat final. Pastikan siswa memahami dan menyetujui.</string>
+  <string name="closeDesc2">Anda mungkin ingin memberikan kendali kepada siswa atas akun sebagai gantinya, sehingga mereka dapat terus menggunakannya.</string>
   <string name="teachers">Guru-guru</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s guru</item>
@@ -89,5 +93,4 @@ Inilah tautan untuk mengakses kelas.</string>
   <string name="newsEdit1">Semua berita kelas dalam satu tempat.</string>
   <string name="newsEdit2">Tambahkan berita terbaru di atas. Jangan hapus berita sebelumnya.</string>
   <string name="newsEdit3">Pisahkan berita dengan --- itu akan menampilkan garis horizontal.</string>
-  <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
 </resources>

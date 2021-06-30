@@ -45,7 +45,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
         : [
             waitingToStart(noarg),
             h('div.racer__pre__message', [
-              ctrl.raceFull() ? undefined : ctrl.isPlayer() ? renderLink(ctrl) : renderJoin(ctrl),
+              ...(ctrl.raceFull() ? [] : ctrl.isPlayer() ? [renderLink(ctrl), renderStart(ctrl)] : [renderJoin(ctrl)]),
               povMsg,
             ]),
             comboZone(ctrl),
@@ -149,6 +149,26 @@ const renderLink = (ctrl: RacerCtrl) =>
       }),
     ]),
   ]);
+
+const renderStart = (ctrl: RacerCtrl) =>
+  ctrl.isOwner() && !ctrl.vm.startsAt
+    ? h(
+        'div.puz-side__start',
+        h(
+          'button.button.button-fat',
+          {
+            class: {
+              disabled: ctrl.players().length < 2,
+            },
+            hook: bind('click', ctrl.start),
+            attrs: {
+              disabled: ctrl.players().length < 2,
+            },
+          },
+          ctrl.trans.noarg('startTheRace')
+        )
+      )
+    : null;
 
 const renderJoin = (ctrl: RacerCtrl) =>
   h(

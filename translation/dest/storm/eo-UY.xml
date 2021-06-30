@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToStart">Movu por komenci</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Vi ludas per la blankaj pecoj en ĉiuj puzloj</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Vi ludas per la nigraj pecoj en ĉiuj puzloj</string>
+  <string name="puzzlesSolved">puzloj solvitaj</string>
+  <string name="playAgain">Reludi</string>
+  <string name="moves">Movoj</string>
+  <string name="accuracy">Precizeco</string>
+  <string name="time">Tempo</string>
+  <string name="timePerMove">Tempo por movo</string>
+  <string name="puzzlesPlayed">Luditaj puzloj</string>
+  <string name="yourRankX">Via poentaro: %s</string>
+  <string name="createNewGame">Kreu novan ludon</string>
+</resources>

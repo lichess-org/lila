@@ -92,5 +92,4 @@ Här är länken för att komma till klassen.</string>
   <string name="newsEdit1">Alla klassnyheter i ett enda fält.</string>
   <string name="newsEdit2">Lägg till de senaste nyheterna högst upp. Ta inte bort tidigare nyheter.</string>
   <string name="newsEdit3">Separera nyheter med --- det kommer att visa en horisontell linje.</string>
-  <string name="markdownAvailable">%s är tillgänglig för mer avancerad syntax.</string>
 </resources>

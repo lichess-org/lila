@@ -212,6 +212,12 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
 
   return h(
     'li',
+    {
+      class: {
+        me: line.u === ctrl.data.userId,
+        host: line.u === ctrl.data.hostId,
+      },
+    },
     ctrl.moderation()
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [

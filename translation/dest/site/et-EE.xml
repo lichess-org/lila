@@ -683,8 +683,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="enableKidMode">Aktiveeri lapserežiim</string>
   <string name="disableKidMode">Deaktiveeri lapserežiim</string>
   <string name="security">Turvalisus</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">See on nimekiri seadmetest, mis on sellesse kasutajasse sisselogitud. Eemalda kõik sessioonid, mis ei ole tuttavad.</string>
-  <string name="alternativelyYouCanX">Võite ka %s.</string>
   <string name="sessions">Sessioonid</string>
   <string name="revokeAllSessions">lõpetada kõik sessioonid</string>
   <string name="playChessEverywhere">Mängi malet kõikjal</string>
@@ -852,4 +850,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
   <string name="download">Allalaadimine</string>
   <string name="welcome">Tere tulemast!</string>
+  <string name="cancelTournament">Tühista turniir</string>
+  <string name="tournDescription">Turniiri kirjeldus</string>
 </resources>

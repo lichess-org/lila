@@ -45,4 +45,12 @@ Play fast and return to the lobby to play more games and win more points.</strin
     <item quantity="one">View the team</item>
     <item quantity="other">View all %s teams</item>
   </plurals>
+  <string name="newTeamBattle">New Team Battle</string>
+  <string name="customStartDate">Custom start date</string>
+  <string name="customStartDateHelp">In your own local timezone. This overrides the \"Time before tournament starts\" setting</string>
+  <string name="allowBerserk">Allow Berserk</string>
+  <string name="allowBerserkHelp">Let players halve their clock time to gain an extra point</string>
+  <string name="allowChatHelp">Let players discuss in a chat room</string>
+  <string name="arenaStreaks">Arena streaks</string>
+  <string name="arenaStreaksHelp">After 2 wins, consecutive wins grant 4 points instead of 2.</string>
 </resources>

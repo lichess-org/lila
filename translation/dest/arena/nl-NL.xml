@@ -43,4 +43,12 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
     <item quantity="one">Bekijk het team</item>
     <item quantity="other">Bekijk alle %s teams</item>
   </plurals>
+  <string name="newTeamBattle">Nieuwe wedstrijd</string>
+  <string name="customStartDate">Aangepaste startdatum</string>
+  <string name="customStartDateHelp">In je eigen lokale tijdzone. Dit overschrijft de instelling \"Tijd voordat het toernooi begint\"</string>
+  <string name="allowBerserk">Berserk toestaan</string>
+  <string name="allowBerserkHelp">Spelers kunnen met de helft van de tijd spelen om een extra punt te krijgen</string>
+  <string name="allowChatHelp">Spelers kunnen chatten in de chat room</string>
+  <string name="arenaStreaks">Arena streaks</string>
+  <string name="arenaStreaksHelp">Na 2 overwinningen geven opeenvolgende overwinningen 4 punten in plaats van 2.</string>
 </resources>

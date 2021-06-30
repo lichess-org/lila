@@ -5,4 +5,9 @@
     <item quantity="one">Ver a rodada</item>
     <item quantity="other">Ver todas as %s rodadas</item>
   </plurals>
+  <string name="tournStartDate">Data de início do torneio</string>
+  <string name="roundInterval">Intervalo entre rodadas</string>
+  <string name="forbiddenPairings">Pareamentos proibidos</string>
+  <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
+  <string name="newSwiss">Novo torneio suíço</string>
 </resources>

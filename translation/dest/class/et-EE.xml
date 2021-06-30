@@ -67,6 +67,8 @@ Siin on link klassi sisenemiseks.</string>
   <string name="releaseDesc1">Vabastatud kasutajaid ei saa uuesti hallata. Õpilane saab ise ümberlülituda lapsereziimile ja lähtestada oma parooli ise.</string>
   <string name="releaseDesc2">Õpilane jääb peale vabastamist ikka klassi.</string>
   <string name="realUniqueEmail">Päris, unikaalne õpilase emaili aadress. Me saadame sinna kinnituse koos lingiga, et vabastada kasutajanimi.</string>
+  <string name="closeStudent">Sulge konto</string>
+  <string name="closeTheAccount">Sulge õpilase konto jäädavalt.</string>
   <string name="teachers">Õpetajad</string>
   <plurals name="nbTeachers">
     <item quantity="one">Õpetaja</item>
@@ -93,5 +95,4 @@ Siin on link klassi sisenemiseks.</string>
   <string name="newsEdit2">Lisa uued uudised ülespoole. Ära kustuta vanu uudiseid.</string>
   <string name="newsEdit3">Eralda uudiseid nii: --- 
 Neid näidatakse horisontaalselt.</string>
-  <string name="markdownAvailable">%s on võimalik kasutada edasiarenenuma kujunduse jaoks.</string>
 </resources>

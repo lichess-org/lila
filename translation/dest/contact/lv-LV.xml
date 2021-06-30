@@ -52,6 +52,7 @@
   <string name="knightMate">Mats var būt iespējams ar karali un laidni, ja pretiniekam ir vairāk kā tikai karalis uz galdiņa.</string>
   <string name="noRatingPoints">Neviens reitinga punkts netika piešķirts</string>
   <string name="ratedGame">Pārliecinieties, ka spēlējāt vērtētu spēli. Draudzīgas spēles nemaina spēlētāju reitingus.</string>
+  <string name="botRatingAbuse">Noteiktos gadījumos, spēlējot pret datorprogrammu, par vērtētām spēlēm nepiešķir punktus, ja ir noteikts, ka spēlētājs ļaunprātīgi izmanto programmu, lai paaugstinātu reitingu.</string>
   <string name="errorPage">Kļūdas lapa</string>
   <string name="reportErrorPage">Ja saskārāties ar kļūdas lapu, varat par to ziņot:</string>
   <string name="banAppeal">Pārsūdzēt liegumu vai IP ierobežojumu</string>

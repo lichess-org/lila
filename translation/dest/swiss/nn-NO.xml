@@ -5,4 +5,9 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
+  <string name="tournStartDate">Startdato for turneringa</string>
+  <string name="roundInterval">Intervall mellom rundar</string>
+  <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
+  <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
+  <string name="newSwiss">Ny sveitserturnering</string>
 </resources>

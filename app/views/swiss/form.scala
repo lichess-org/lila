@@ -14,14 +14,14 @@ object form {
 
   def create(form: Form[_], teamId: TeamID)(implicit ctx: Context) =
     views.html.base.layout(
-      title = "New Swiss tournament",
+      title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
       moreJs = jsModule("tourForm")
     ) {
       val fields = new SwissFields(form, none)
       main(cls := "page-small")(
         div(cls := "swiss__form tour__form box box-pad")(
-          h1("New Swiss tournament"),
+          h1(trans.swiss.newSwiss()),
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.rated, fields.variant),
@@ -80,7 +80,7 @@ object form {
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id.value))(
             submitButton(dataIcon := "", cls := "text button button-red confirm")(
-              "Cancel the tournament"
+              trans.cancelTournament()
             )
           )
         )
@@ -90,23 +90,23 @@ object form {
   private def condition(form: Form[_], fields: SwissFields, swiss: Option[Swiss])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), frag("Minimum rated games"), half = true)(
+        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
           form3.select(_, SwissCondition.DataForm.nbRatedGameChoices)
         ),
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
           form3.checkbox(
             form("conditions.titled"),
-            frag("Only titled players"),
-            help = frag("Require an official title to join the tournament").some,
+            trans.onlyTitled(),
+            help = trans.onlyTitledHelp().some,
             half = true
           )
         }
       ),
       form3.split(
-        form3.group(form("conditions.minRating.rating"), frag("Minimum rating"), half = true)(
+        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
           form3.select(_, SwissCondition.DataForm.minRatingChoices)
         ),
-        form3.group(form("conditions.maxRating.rating"), frag("Maximum weekly rating"), half = true)(
+        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
           form3.select(_, SwissCondition.DataForm.maxRatingChoices)
         )
       )
@@ -133,8 +133,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
   def nbRounds =
     form3.group(
       form("nbRounds"),
-      "Number of rounds",
-      help = raw("An odd number of rounds allows optimal color balance.").some,
+      trans.swiss.numberOfRounds(),
+      help = trans.swiss.numberOfRoundsHelp().some,
       half = true
     )(
       form3.input(_, typ = "number")
@@ -145,7 +145,7 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       form3.checkbox(
         form("rated"),
         trans.rated(),
-        help = raw("Games are rated<br>and impact players ratings").some
+        help = trans.ratedFormHelp().some
       ),
       st.input(tpe := "hidden", st.name := form("rated").name, value := "false") // hack allow disabling rated
     )
@@ -167,16 +167,14 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       )
     )
   def roundInterval =
-    form3.group(form("roundInterval"), frag("Interval between rounds"), half = true)(
+    form3.group(form("roundInterval"), trans.swiss.roundInterval(), half = true)(
       form3.select(_, SwissForm.roundIntervalChoices)
     )
   def description =
     form3.group(
       form("description"),
-      frag("Tournament description"),
-      help = frag(
-        "Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url)"
-      ).some,
+      trans.tournDescription(),
+      help = trans.tournDescriptionHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
   def position =
@@ -185,25 +183,26 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       trans.startPosition(),
       klass = "position",
       half = true,
-      help = trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
+      help =
+        trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
     )(form3.input(_))
   def startsAt =
     form3.group(
       form("startsAt"),
-      frag("Tournament start date"),
-      help = frag("In your own local timezone").some,
+      trans.swiss.tournStartDate(),
+      help = trans.inYourLocalTimezone().some,
       half = true
     )(form3.flatpickr(_))
 
   def chatFor =
-    form3.group(form("chatFor"), frag("Tournament chat"), half = true) { f =>
+    form3.group(form("chatFor"), trans.tournChat(), half = true) { f =>
       form3.select(
         f,
         Seq(
-          Swiss.ChatFor.NONE    -> "No chat",
-          Swiss.ChatFor.LEADERS -> "Only team leaders",
-          Swiss.ChatFor.MEMBERS -> "Only team members",
-          Swiss.ChatFor.ALL     -> "All Lichess players"
+          Swiss.ChatFor.NONE    -> trans.noChat.txt(),
+          Swiss.ChatFor.LEADERS -> trans.onlyTeamLeaders.txt(),
+          Swiss.ChatFor.MEMBERS -> trans.onlyTeamMembers.txt(),
+          Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
         )
       )
     }
@@ -219,10 +218,8 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
   def forbiddenPairings =
     form3.group(
       form("forbiddenPairings"),
-      frag("Forbidden pairings"),
-      help = frag(
-        "Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space."
-      ).some,
+      trans.swiss.forbiddenPairings(),
+      help = trans.swiss.forbiddenPairingsHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 }

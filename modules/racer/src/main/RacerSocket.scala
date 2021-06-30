@@ -28,6 +28,12 @@ final private class RacerSocket(
       api.join(raceId, playerId).unit
     case Protocol.In.PlayerScore(raceId, playerId, score) =>
       api.registerPlayerScore(raceId, playerId, score)
+    case Protocol.In.RaceStart(raceId, playerId) =>
+      api
+        .get(raceId)
+        .filter(_.startsAt.isEmpty)
+        .filter(_.owner == playerId)
+        .foreach(api.manualStart)
   }
 
   remoteSocketApi.subscribe("racer-in", Protocol.In.reader)(
@@ -45,6 +51,7 @@ object RacerSocket {
 
       case class PlayerJoin(race: RacerRace.Id, player: RacerPlayer.Id)              extends P.In
       case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
+      case class RaceStart(race: RacerRace.Id, player: RacerPlayer.Id)               extends P.In
 
       val reader: P.In.Reader = raw => raceReader(raw) orElse RP.In.reader(raw)
 
@@ -57,6 +64,10 @@ object RacerSocket {
           case "racer/score" =>
             raw.get(3) { case Array(raceId, playerId, scoreStr) =>
               scoreStr.toIntOption map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
+            }
+          case "racer/start" =>
+            raw.get(2) { case Array(raceId, playerId) =>
+              RaceStart(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
             }
           case _ => none
         }

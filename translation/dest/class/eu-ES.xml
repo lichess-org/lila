@@ -67,6 +67,10 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="releaseDesc1">Askatutako kontua ezin da kudeatutako kontu bihurtu berriz. Ikasleak haur-modua aktibatu dezake eta pasahitza euren kabuz berrezarri dezakete.</string>
   <string name="releaseDesc2">Ikasleak klasean jarraituko du kontua askatu ostean.</string>
   <string name="realUniqueEmail">Ikaslearen benetako eposta helbidea. Kontua askatzeko konfirmazio mezua bidaliko diogu.</string>
+  <string name="closeStudent">Kontua itxi</string>
+  <string name="closeTheAccount">Ikasle-kontua betiko itxi.</string>
+  <string name="closeDesc1">Ikasleak ezingo du kontu hau berriz erabili. Ixtea betiko izango da. Ziurtatu ikasleak ulertu duela eta ados dagoela.</string>
+  <string name="closeDesc2">Ikasleari bere kontuaren kontrola eman diezaiokezu, horrela erabiltzen jarraitu ahal izango du.</string>
   <string name="teachers">Irakasleak</string>
   <plurals name="nbTeachers">
     <item quantity="one">Irakaslea</item>
@@ -92,5 +96,4 @@ Hemen dago bertara sartzeko lotura.</string>
   <string name="newsEdit1">Klaseko albiste guztiak leku bakarrean.</string>
   <string name="newsEdit2">Albiste berrienak goian gehitu. Ez ezabatu albiste zaharrak.</string>
   <string name="newsEdit3">Albisteak --- ikurrarekin banatu. Horrela marra bat agertuko da.</string>
-  <string name="markdownAvailable">%s erabili dezakezu gauza aurreratuak egiteko.</string>
 </resources>

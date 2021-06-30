@@ -51,6 +51,7 @@ lichess.load.then(() => {
           window.InfiniteScroll('.infinite-scroll');
         });
     $angles.on('click', 'a', function (this: HTMLAnchorElement) {
+      if ($('#games .to-search').hasClass('active')) return true;
       $angles.find('.active').removeClass('active');
       $(this).addClass('active');
       browseTo(this.href);

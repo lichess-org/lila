@@ -120,7 +120,7 @@ object Form {
   def hasKey[A](choices: Options[A], key: A) =
     choices.map(_._1).toList contains key
 
-  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "on" || v == "yes"
+  def trueish(v: Any) = v == 1 || v == "1" || v == "true" || v == "True" || v == "on" || v == "yes"
 
   private def pluralize(pattern: String, nb: Int) =
     pattern.replace("{s}", if (nb == 1) "" else "s")

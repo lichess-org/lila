@@ -693,8 +693,6 @@
   <string name="enableKidMode">Ενεργοποίηση λειτουργίας παιδιού</string>
   <string name="disableKidMode">Απενεργοποίηση λειτουργίας παιδιού</string>
   <string name="security">Ασφάλεια</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Αυτή είναι η λίστα συσκευών συνδεδεμένες με τον λογαριασμό σας. Ανακαλέστε τις συνεδρίες που δεν αναγνωρίζετε.</string>
-  <string name="alternativelyYouCanX">Εναλλακτικά, μπορείτε να %s.</string>
   <string name="sessions">Συνεδρίες</string>
   <string name="revokeAllSessions">ανακαλέστε όλες τις συνεδρίες</string>
   <string name="playChessEverywhere">Παίξτε σκάκι παντού</string>
@@ -872,4 +870,33 @@
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="coachManager">Διαχειριστής προπονητή</string>
   <string name="streamerManager">Διαχειριστής streamer</string>
+  <string name="cancelTournament">Ακύρωση τουρνουά</string>
+  <string name="tournDescription">Περιγραφή του τουρνουά</string>
+  <string name="tournDescriptionHelp">Θέλετε να πείτε κάτι ιδιαίτερο στους παίκτες; Προσπαθήστε να κρατήσετε το μήνυμά σας σύντομο. Μπορείτε να χρησιμοποιείτε συνδέσμους σε Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Τα παιχνίδια αξιολογούνται
+και επηρεάζουν τη βαθμολογία των παιχτών</string>
+  <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
+  <string name="noRestriction">Χωρίς περιορισμούς</string>
+  <string name="minimumRatedGames">Ελάχιστος αριθμός βαθμολογημένων παιχνιδιών</string>
+  <string name="minimumRating">Ελάχιστη βαθμολογία</string>
+  <string name="maximumWeeklyRating">Μέγιστη εβδομαδιαία βαθμολογία</string>
+  <string name="onlyTitled">Μόνο τιτλούχοι παίκτες</string>
+  <string name="onlyTitledHelp">Να απαιτείται επίσημος τίτλος για τη συμμετοχή στο τουρνουά</string>
+  <string name="positionInputHelp">Επικολλήστε ένα έγκυρο FEN για να ξεκινήσει κάθε παιχνίδι από μια συγκεκριμένη θέση.
+Λειτουργεί μόνο για κανονικά παιχνίδια, όχι για παραλλαγές.
+Μπορείτε να χρησιμοποιήσετε τον %s για να πάρετε το FEN μιας θέσης, και στη συνέχεια να την επικολλήστε το εδώ.
+Μπορείτε να αφήσετε το πλαίσιο κενό για να ξεκινούν οι παρτίδες από την κανονική αρχική θέση.</string>
+  <string name="cancelSimul">Ακύρωση σιμουλτανέ</string>
+  <string name="simulHostcolor">Χρώμα διοργανωτή σε κάθε παιχνίδι</string>
+  <string name="estimatedStart">Εκτιμώμενη ώρα έναρξης</string>
+  <string name="simulFeatured">Προβεβλημένο στο %s</string>
+  <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
+  <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
+  <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
+  <string name="markdownAvailable">Η μορφή %s είναι διαθέσιμη για μια πιο προχωρημένη σύνταξη.</string>
+  <string name="inYourLocalTimezone">Στη δική σας ζώνη ώρας</string>
+  <string name="tournChat">Δωμάτιο συνομιλίας τουρνουά</string>
+  <string name="noChat">Να μην επιτρέπεται η συνομιλία</string>
+  <string name="onlyTeamLeaders">Μόνο οι αρχηγοί ομάδων</string>
+  <string name="onlyTeamMembers">Μόνο τα μέλη της ομάδας</string>
 </resources>

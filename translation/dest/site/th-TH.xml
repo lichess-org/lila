@@ -646,8 +646,6 @@
   <string name="enableKidMode">เปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="disableKidMode">ปิดใช้งานโหมดสำหรับเด็ก</string>
   <string name="security">ความปลอดภัย</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">นี่คือรายการอุปกรณ์ที่ได้เข้าสู่บัญชีของคุณ จงยกเลิกวาระที่คุณไม่รู้จัก</string>
-  <string name="alternativelyYouCanX">อีกวิธีหนึ่งคือคุณสามารถ %s</string>
   <string name="revokeAllSessions">ยกเลิกวาระทั้งหมด</string>
   <string name="playChessEverywhere">เล่นหมากรุกได้ทุกที่</string>
   <string name="asFreeAsLichess">อิสระเหมือนดั่ง lichess</string>

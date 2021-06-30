@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Գործունեություն</string>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Ավարտված է %s «Արենա» մրցաշարը</item>
+    <item quantity="other">Ավարտված են %s «Արենա» մրցաշարերը</item>
+  </plurals>
 </resources>

@@ -67,6 +67,10 @@ Sınıfa erişim linki burada.</string>
   <string name="releaseDesc1">Serbest bırakılan bir hesap tekrar yönetilemez. Öğrenciler kendileri çocuk modunu değiştirebilirler ve şifrelerini sıfırlayabilirler.</string>
   <string name="releaseDesc2">Öğrenciler hesapları serbest bırakıldıktan sonra sınıfta kalmaya devam edecekler.</string>
   <string name="realUniqueEmail">Öğrencinin gerçek ve kendisine özgü e-posta adresi. Bu adrese, hesabının serbest bırakma bağlantısını içeren bir onay e-postası göndereceğiz.</string>
+  <string name="closeStudent">Hesabı kapat</string>
+  <string name="closeTheAccount">Öğrenci hesabını kalıcı olarak kapat.</string>
+  <string name="closeDesc1">Öğrenci, hesabını bir daha asla kullanamayacak. Bu işlem geri çevrilemez. Öğrencinin bu durumdan haberdar olduğuna emin olun.</string>
+  <string name="closeDesc2">Bunun yerine hesabın kontrolünü öğrenciye devredebilirsiniz. Böylece hesabı kullanmaya devam edebilir.</string>
   <string name="teachers">Antrenörler</string>
   <plurals name="nbTeachers">
     <item quantity="one">Antrenör</item>
@@ -93,5 +97,4 @@ Sınıfa erişim linki burada.</string>
   <string name="newsEdit2">Yeni haberleri en üstte göster. Eski haberleri silme.</string>
   <string name="newsEdit3">Haberleri şununla ayırın ---
 Bu yatay bir çizgi oluşturacaktır.</string>
-  <string name="markdownAvailable">%s daha gelişmiş sözdizimi için kullanılabilir.</string>
 </resources>

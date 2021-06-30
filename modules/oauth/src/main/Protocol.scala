@@ -10,32 +10,17 @@ import io.lemonlabs.uri.AbsoluteUrl
 import lila.common.SecureRandom
 
 object Protocol {
-  case class Secret(value: String) {
-    def hashed: String    = Algo.sha256(value).hex
-    override def toString = "Secret(***)"
-    override def equals(other: Any) = other match {
-      case other: Secret => hashed == other.hashed
-      case _             => false
-    }
-    override def hashCode = hashed.hashCode()
+  case class AuthorizationCode(secret: String) extends AnyVal {
+    def hashed            = Algo.sha256(secret).hex
+    override def toString = "AuthorizationCode(***)"
   }
-  object Secret {
-    def random(prefix: String) = Secret(s"$prefix${SecureRandom.nextString(32)}")
-  }
-
-  case class AuthorizationCode(secret: Secret) extends AnyVal
   object AuthorizationCode {
-    def apply(value: String): AuthorizationCode = AuthorizationCode(Secret(value))
-    def random()                                = AuthorizationCode(Secret.random("liu_"))
+    def random() = AuthorizationCode(s"liu_${SecureRandom.nextString(32)}")
   }
 
   case class ClientId(value: String) extends AnyVal
 
   case class State(value: String) extends AnyVal
-
-  case class CodeChallenge(value: String) extends AnyVal {
-    def matches(verifier: CodeVerifier) = verifier.challenge == this
-  }
 
   case class CodeChallengeMethod()
   object CodeChallengeMethod {
@@ -46,10 +31,18 @@ object Protocol {
       }
   }
 
+  case class CodeChallenge(value: String) extends AnyVal
+
   case class CodeVerifier(value: String) extends AnyVal {
-    def challenge = CodeChallenge(
-      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes)
-    )
+    def matches(challenge: CodeChallenge) =
+      Base64.getUrlEncoder().withoutPadding().encodeToString(Algo.sha256(value).bytes) == challenge.value
+  }
+  object CodeVerifier {
+    def from(value: String): Validated[Error, CodeVerifier] =
+      Validated
+        .valid(value)
+        .ensure(Error.CodeVerifierTooShort)(_.size >= 43)
+        .map(CodeVerifier.apply)
   }
 
   case class ResponseType()
@@ -84,7 +77,7 @@ object Protocol {
 
     def code(code: AuthorizationCode, state: Option[State]): String = value
       .withQueryString(
-        "code"  -> Some(code.secret.value),
+        "code"  -> Some(code.secret),
         "state" -> state.map(_.value)
       )
       .toString
@@ -129,13 +122,14 @@ object Protocol {
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
-        extends InvalidRequest("contact us to get exotic redirect_uri schemes whitelisted")
+        extends InvalidRequest("open a github issue to get exotic redirect_uri schemes whitelisted")
     case object ResponseTypeRequired        extends InvalidRequest("response_type required")
     case object CodeChallengeRequired       extends InvalidRequest("code_challenge required")
     case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
     case object GrantTypeRequired           extends InvalidRequest("grant_type required")
     case object CodeRequired                extends InvalidRequest("code required")
     case object CodeVerifierRequired        extends InvalidRequest("code_verifier required")
+    case object CodeVerifierTooShort        extends InvalidRequest("code_verifier too short")
 
     case class InvalidScope(val key: String) extends Error("invalid_scope") {
       def description = s"invalid scope: ${URLEncoder.encode(key, "UTF-8")}"
@@ -153,8 +147,7 @@ object Protocol {
         extends InvalidGrant("authorization code was issued for a different redirect_uri")
     case object MismatchingClient
         extends InvalidGrant("authorization code was issued for a different client_Id")
-    case class MismatchingCodeVerifier(val verifier: CodeVerifier) extends Error("invalid_grant") {
-      def description = s"hash '${verifier.challenge.value}' of code_verifier does not match code_challenge"
-    }
+    case object MismatchingCodeVerifier
+        extends InvalidGrant("hash of code_verifier does not match code_challenge")
   }
 }

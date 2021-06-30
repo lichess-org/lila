@@ -150,7 +150,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
           'data-icon': '',
         },
       },
-      'Join the team'
+      ctrl.trans.noarg('joinTeam')
     );
 
   if (d.canJoin)

@@ -666,8 +666,6 @@
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ова е листа на уреди кои се приклучиле на вашата сметка. Избришете ги сесиите кои ви се непознати.</string>
-  <string name="alternativelyYouCanX">Исто така можете да ги %s.</string>
   <string name="revokeAllSessions">избришете сите сесии</string>
   <string name="playChessEverywhere">Играј шах секаде</string>
   <string name="asFreeAsLichess">Бесплатно како lichess</string>

@@ -5,4 +5,9 @@
     <item quantity="one">Bekijk de ronde</item>
     <item quantity="other">Bekijk alle %s rondes</item>
   </plurals>
+  <string name="tournStartDate">Begindatum toernooi</string>
+  <string name="roundInterval">Interval tussen rondes</string>
+  <string name="forbiddenPairings">Verboden paringen</string>
+  <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
+  <string name="newSwiss">Nieuw Zwitsers toernooi</string>
 </resources>

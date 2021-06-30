@@ -44,4 +44,12 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
     <item quantity="one">Δείτε την ομάδα</item>
     <item quantity="other">Δείτε όλες τις %s ομάδες</item>
   </plurals>
+  <string name="newTeamBattle">Νέα ομαδική μάχη</string>
+  <string name="customStartDate">Προσαρμοσμένη ημερομηνία έναρξης</string>
+  <string name="customStartDateHelp">Στην τοπική ζώνη ώρας σας. Αυτό υπερισχύει της ρύθμισης \"Χρόνος προτού ξεκινήσει το πρωτάθλημα\"</string>
+  <string name="allowBerserk">Να επιτρέπεται το Berserk</string>
+  <string name="allowBerserkHelp">Να επιτρέπεται στους παίκτες να μειώσουν τον χρόνο στο ρολόι τους κατά το ήμισυ για να κερδίσουν έναν επιπλέον πόντο</string>
+  <string name="allowChatHelp">Να επιτρέπεται στους παίκτες να συζητούν σε δωμάτιο συνομιλίας</string>
+  <string name="arenaStreaks">Arena streaks</string>
+  <string name="arenaStreaksHelp">Μετά από 2 νίκες, επιπλέον διαδοχικές νίκες σας 4 πόντους αντί για 2.</string>
 </resources>

@@ -726,8 +726,6 @@
   <string name="enableKidMode">Activează modul „copil”</string>
   <string name="disableKidMode">Dezactivează modul „copil”</string>
   <string name="security">Securitate</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Aceasta este o listă cu device-urile conectate la contul dvs.. Revocați orice sesiune pe care nu o recunoașteți.</string>
-  <string name="alternativelyYouCanX">Alternativ, puteți %s.</string>
   <string name="sessions">Sesiuni</string>
   <string name="revokeAllSessions">revocați toate sesiunile</string>
   <string name="playChessEverywhere">Joacă șah oriunde</string>
@@ -907,4 +905,13 @@
   <string name="welcome">Bine ați venit!</string>
   <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
+  <string name="cancelTournament">Anulează turneul</string>
+  <string name="tournDescription">Descrierea turneului</string>
+  <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
+  <string name="onlyMembersOfTeam">Numai membrii echipei</string>
+  <string name="noRestriction">Fără restricții</string>
+  <string name="markdownAvailable">%s este disponibil pentru sintaxă mai avansată.</string>
+  <string name="inYourLocalTimezone">În fusul orar local</string>
+  <string name="onlyTeamLeaders">Doar lideri de echipă</string>
+  <string name="onlyTeamMembers">Doar membrii echipei</string>
 </resources>

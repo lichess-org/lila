@@ -21,6 +21,7 @@
   <string name="raceComplete">Dirka končana!</string>
   <string name="spectating">Gledanje</string>
   <string name="joinTheRace">Pridruži se dirki!</string>
+  <string name="startTheRace">Začnite dirko</string>
   <string name="yourRankX">Tvoj rang: %s</string>
   <string name="waitForRematch">Počakajte na revanšo</string>
   <string name="nextRace">Naslednja dirka</string>

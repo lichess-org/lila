@@ -21,7 +21,7 @@
   <string name="ratingRefundExplanation">Et minut efter en spiller får en anmærkning, bliver deres 40 seneste ratede sejre i løbet af de sidste 3 dage inddraget. Hvis du var deres modstander i de partier og din rating ikke var provisorisk, vil du få en rating-refundering. Størrelsen på refunderingen afgøres af din højeste rating og din rating-udvikling efter partiet. 
   (Hvis for eksempel din rating steg markant efter de partier, får du måske ingen refundering eller kun en delvis refundering.) En refundering vil aldrig være på mere end 150 point.</string>
   <string name="preventLeavingGameWithoutResigning">Hvad gøres der ved spillere, som forlader partier uden at opgive?</string>
-  <string name="leavingGameWithoutResigningExplanation">Hvis din modstander ofte afbryder / forlader spil, får de \"spilforbud\", hvilket betyder, at de får et midlertidigt forbud mod at spille. Dette er ikke offentliggjort på deres profil. Hvis denne opførsel fortsætter, øges spilleforbuddets længde - og en vedvarende opførsel af denne art kan føre til lukning af kontoen.</string>
+  <string name="leavingGameWithoutResigningExplanation">Hvis din modstander ofte afbryder / forlader spil, får de \"spilforbud\", hvilket betyder, at de får et midlertidigt forbud mod at spille. Dette er ikke offentliggjort på deres profil. Hvis denne opførsel fortsætter, forlænges spilleforbuddet - og en vedvarende opførsel af denne art kan føre til lukning af kontoen.</string>
   <string name="howCanIBecomeModerator">Hvordan kan jeg blive moderator?</string>
   <string name="youCannotApply">Det er ikke muligt at ansøge om at blive moderator. Hvis vi ser nogen, som vi tror ville være en god moderator, vil du kontakte dem direkte.</string>
   <string name="isCorrespondenceDifferent">Er korrespondance anderledes end normal skak?</string>
@@ -73,8 +73,7 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="configure">konfigurér</string>
   <string name="accounts">Konti</string>
   <string name="titlesAvailableOnLichess">Hvilke titler er der på Lichess?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s.
-Her er en liste over FIDE-titler:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess anerkender alle FIDE-titler opnået OTB (over brættet) spil, såvel som %1$s. Her er en liste over FIDE-titler:</string>
   <string name="showYourTitle">Hvis du har en OTB-title, kan du anmode om at få denne vist på din konto ved at udfylde en %1$s, inklusiv et tydeligt billede af et identificerende dokument/kort og en selfie af dig, som holder dokumentet/kortet.
 
   Verificering som titulær spiller på Lichess giver adgang til at spille ved Titled Arena-begivenheder.

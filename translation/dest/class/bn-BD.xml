@@ -50,5 +50,4 @@
   <string name="newsEdit2">সামপ্রতিক সংবাদ উপরে যোগ করুন। পুরনো সংবাদ মুছবেন না।</string>
   <string name="newsEdit3">--- দিয়ে সংবাদ পৃথক করুন
 এটা একটা আনুভূমিক রেখা প্রদর্শন করবে।</string>
-  <string name="markdownAvailable">%s আরো অ্যাডভান্সড সিনট্যাক্সের জন্য উপলব্ধ।</string>
 </resources>

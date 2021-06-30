@@ -42,6 +42,7 @@
   <string name="raceComplete">Lenktynės baigtos!</string>
   <string name="spectating">Stebima</string>
   <string name="joinTheRace">Prisijungti prie lenktynių!</string>
+  <string name="startTheRace">Pradėti lenktynes</string>
   <string name="yourRankX">Jūsų reitingas: %s</string>
   <string name="waitForRematch">Laukti revanšo</string>
   <string name="nextRace">Kitos lenktynės</string>

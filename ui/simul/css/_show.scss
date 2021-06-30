@@ -35,10 +35,16 @@ $box-padding: var(--box-padding);
   .simul-text {
     @extend %box-neat;
 
-    margin: 0 auto 2em auto;
-    padding: 1.5em 2.5em;
+    margin: 0 1em 1em 1em;
+    padding: 1.5em 2em;
     background: $c-bg-zebra;
-    width: 70%;
+    overflow-wrap: anywhere;
+
+    @include breakpoint($mq-col3) {
+      margin: 0 auto 2em auto;
+      padding: 1.5em 2.5em;
+      width: 70%;
+    }
 
     textarea {
       width: 100%;

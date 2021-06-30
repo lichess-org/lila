@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Mula dengan buah putih</string>
   <string name="youPlayTheBlackPieces">Mula dengan buah hitam</string>
   <string name="itsYourTurn">Giliran anda sekarang!</string>
+  <string name="cheatDetected">Penipuan Dikesan</string>
   <string name="kingInTheCenter">Raja di tengah</string>
   <string name="threeChecks">Tiga check</string>
   <string name="raceFinished">Perlumbaan tamat</string>
@@ -272,6 +273,7 @@
   <plurals name="nbTournamentPoints">
     <item quantity="other">%s tournament points</item>
   </plurals>
+  <string name="viewTournament">Lihat pertandingan</string>
   <string name="backToTournament">Back to tournament</string>
   <string name="thematic">Thematic</string>
   <plurals name="moreThanNbRatedGames">
@@ -296,6 +298,15 @@
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
   <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
+  <string name="reset">Tetap Semula</string>
+  <string name="apply">Hantar</string>
+  <string name="save">Simpan</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s rakan dalam talian</item>
+  </plurals>
+  <string name="noFriendsOnline">Tiada rakan dalam talian</string>
+  <string name="findFriends">Cari rakan</string>
+  <string name="follow">Ikut</string>
   <string name="following">Senarai yang diikuti</string>
   <string name="unfollow">Berhenti mengikuti</string>
   <string name="block">Menghalang</string>
@@ -351,7 +362,14 @@
   <string name="tournamentComplete">Pertandingan selesai</string>
   <string name="movesPlayed">Gerakan dimain</string>
   <string name="whiteWins">Buah putih menang</string>
+  <string name="blackWins">Menang Hitam</string>
+  <string name="draws">Seri</string>
+  <string name="membersOnly">Ahli sahaja</string>
   <string name="startPosition">Posisi permulaan</string>
+  <string name="socialMediaLinks">Pautan media sosial</string>
+  <string name="activeToday">Aktif hari ini</string>
+  <string name="activePlayers">Pemain aktif</string>
+  <string name="success">Berjaya</string>
   <plurals name="nbGamesInPlay">
     <item quantity="other">%s permainan sedang berlangsung</item>
   </plurals>
@@ -396,6 +414,23 @@
   <string name="incorrectPassword">Kata kunci tidak tepat</string>
   <string name="invalidAuthenticationCode">Kod authentikasi tidak sah</string>
   <string name="emailMeALink">Emel saya link tersebut</string>
+  <string name="currentPassword">Kata laluan kini</string>
+  <string name="newPassword">Kata laluan baharu</string>
+  <string name="newPasswordAgain">Kata laluan baharu (lagi sekali)</string>
+  <string name="newPasswordsDontMatch">Kata laluan baharu tidak sepadan</string>
+  <string name="newPasswordStrength">Kekuatan kata laluan</string>
+  <string name="privacy">Privasi</string>
+  <string name="privacyPolicy">Polisi privasi</string>
+  <string name="sound">Bunyi</string>
+  <string name="none">Tiada</string>
+  <string name="fast">Laju</string>
+  <string name="normal">Biasa</string>
+  <string name="slow">Perlahan</string>
+  <string name="difficultyEasy">Mudah</string>
+  <string name="difficultyNormal">Biasa</string>
+  <string name="difficultyHard">Susah</string>
+  <string name="victory">Menang</string>
+  <string name="defeat">Kalah</string>
   <string name="opponent">Lawan</string>
   <string name="learnMenu">Belajar</string>
   <string name="studyMenu">Selidik</string>
@@ -458,8 +493,6 @@
   <string name="enableKidMode">Pasang mod kanak-kanak</string>
   <string name="disableKidMode">Lumpuhkan mod kanak-kanak</string>
   <string name="security">Keselamatan</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ini adalah senarai alat mudah alih yang sudah log dalam akaun anda. Batalkan sesi yang anda tidak kenal.</string>
-  <string name="alternativelyYouCanX">Secara alternatif, anda boleh %s.</string>
   <string name="revokeAllSessions">batalkan semua sesi</string>
   <string name="playChessEverywhere">Main catur dimana-mana</string>
   <string name="asFreeAsLichess">Percuma seperti Lichess</string>
@@ -520,4 +553,10 @@
   <string name="timeoutExpires">Timeout berakhir %s.</string>
   <string name="why">Kenapa?</string>
   <string name="pleasantChessExperience">Matlamat kami adalah untuk memberikan pengalaman catur yang baik untuk semua.</string>
+  <string name="congratsYouWon">Tahniah, anda menang!</string>
+  <string name="download">Muat turun</string>
+  <string name="welcome">Selamat Datang!</string>
+  <string name="estimatedStart">Anggaran masa bermula</string>
+  <string name="onlyTeamLeaders">Ketua pasukan sahaja</string>
+  <string name="onlyTeamMembers">Ahli pasukan sahaja</string>
 </resources>

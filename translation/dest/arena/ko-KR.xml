@@ -43,4 +43,12 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">모두 %s개 팀 보기</item>
   </plurals>
+  <string name="newTeamBattle">새 팀 배틀</string>
+  <string name="customStartDate">시작시간 설정</string>
+  <string name="customStartDateHelp">당신의 현지 시간대입니다. \"토너먼트 시작까지 시간\" 설정을 덮어씁니다.</string>
+  <string name="allowBerserk">버서크 모드 허용</string>
+  <string name="allowBerserkHelp">플레이어는 자신의 시간을 절반으로 줄이며 대신 추가 승점을 얻습니다</string>
+  <string name="allowChatHelp">플레이어가 채팅방에서 토론할 수 있습니다</string>
+  <string name="arenaStreaks">아레나 연승</string>
+  <string name="arenaStreaksHelp">2승 이후 추가로 연승을 하면 2점이 아니라 4점을 얻습니다.</string>
 </resources>

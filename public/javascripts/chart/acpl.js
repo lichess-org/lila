@@ -91,7 +91,7 @@ lichess.advantageChart = function (data, trans, el) {
               events: {
                 click: function (event) {
                   if (event.point) {
-                    event.point.select();
+                    event.point.select(true);
                     lichess.pubsub.emit('analysis.chart.click', event.point.x);
                   }
                 },

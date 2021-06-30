@@ -39,7 +39,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
         .make(
           owner = player,
           puzzles = puzzles.grouped(2).flatMap(_.headOption).toList,
-          countdownSeconds = 10
+          countdownSeconds = 5
         )
       store.put(race.id, race)
       lila.mon.racer.race(lobby = race.isLobby).increment()
@@ -69,17 +69,22 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
 
   def join(id: RacerRace.Id, player: RacerPlayer.Id): Option[RacerRace] =
     get(id).flatMap(_ join player) map { r =>
-      val race = start(r) | r
+      val race = (r.isLobby ?? doStart(r)) | r
       saveAndPublish(race)
       race
     }
 
-  private def start(race: RacerRace): Option[RacerRace] = race.startCountdown.map { starting =>
-    system.scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
-      finish(race.id)
-    }
-    starting
+  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby ?? {
+    doStart(race) foreach saveAndPublish
   }
+
+  private def doStart(race: RacerRace): Option[RacerRace] =
+    race.startCountdown.map { starting =>
+      system.scheduler.scheduleOnce(RacerRace.duration.seconds + race.countdownSeconds.seconds + 50.millis) {
+        finish(race.id)
+      }
+      starting
+    }
 
   private def finish(id: RacerRace.Id): Unit =
     get(id) foreach { race =>

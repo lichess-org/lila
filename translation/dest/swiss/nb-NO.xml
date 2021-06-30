@@ -5,4 +5,5 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundene</item>
   </plurals>
+  <string name="newSwiss">Ny sveitserturnering</string>
 </resources>

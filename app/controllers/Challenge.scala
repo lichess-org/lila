@@ -202,7 +202,7 @@ final class Challenge(
     Action.async { req =>
       import cats.implicits._
       val scopes = List(OAuthScope.Challenge.Write)
-      (get("token1", req) map AccessToken.Id, get("token2", req) map AccessToken.Id).mapN {
+      (get("token1", req) map AccessToken.Id.apply, get("token2", req) map AccessToken.Id.apply).mapN {
         env.oAuth.server.authBoth(scopes)
       } ?? {
         _ flatMap {

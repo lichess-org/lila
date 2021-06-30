@@ -52,6 +52,7 @@
   <string name="knightMate">Det er mogleg å setja sjakkmatt med berre éin springar eller éin løpar dersom motspelaren har fleire brikker enn kongen på brettet.</string>
   <string name="noRatingPoints">Det vart ikkje tildelt ratingpoeng</string>
   <string name="ratedGame">Forsikre deg om at partiet du spela var rangert. Uforpliktande parti påverkar ikkje ratinga til spelarane.</string>
+  <string name="botRatingAbuse">Dersom det vert slått fast at ein spelar misbrukar ein bot-konto for å manipulera ratingpoeng, kan det hende det ikkje vert gjeven poeng for spelet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Dersom du støtte på ei feilside kan du rapportere det:</string>
   <string name="banAppeal">Protest ved utestenging eller IP-restriksjon</string>

@@ -52,6 +52,7 @@
   <string name="knightMate">On mahdollista matittaa pelkällä ratsulla ja lähetillä, jos vastustajalla on pelkkä kuningas laudalla.</string>
   <string name="noRatingPoints">Vahvuuslukupisteitä ei jaettu</string>
   <string name="ratedGame">Varmistu että pelasit pisteytetyn pelin. Rennot pelit eivät vaikuta pelaajien vahvuuslukuihin.</string>
+  <string name="botRatingAbuse">Joissakin tilanteissa bottia vastaan pelatusta pisteytetystä pelistä ei välttämättä saa pisteitä, jos pelaajan katsotaan käyttävän bottia hyväkseen pisteiden saamiseksi.</string>
   <string name="errorPage">Virhesivu</string>
   <string name="reportErrorPage">Jos törmäsit virhesivuun, voit raportoida sen:</string>
   <string name="banAppeal">Valita porttikiellosta tai IP-estosta</string>

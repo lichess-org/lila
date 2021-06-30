@@ -8,7 +8,7 @@ const percents = (v: number) => v + '%';
 
 const ratingLog = (a: number) => Math.log(a / 150 + 1);
 
-function ratingY(e: number) {
+function ratingY(e?: number) {
   const rating = Math.max(1000, Math.min(2200, e || 1500));
   let ratio: number;
   const mid = 2 / 5;
@@ -42,7 +42,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
     hook: {
       insert(vnode) {
         $(vnode.elm as HTMLElement).powerTip({
-          placement: hook.rating > 1800 ? 'se' : 'ne',
+          placement: hook.rating && hook.rating > 1800 ? 'se' : 'ne',
           closeDelay: 200,
           popupId: 'hook',
           preRender() {

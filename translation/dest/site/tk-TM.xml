@@ -638,8 +638,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="enableKidMode">Çaga moduny işlet</string>
   <string name="disableKidMode">Çaga moduny bekle</string>
   <string name="security">Howpsuzlyk</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ynha hasabyňyza giriş amala aşyrlan enjamlaryň sanawy. Size degişli däl sessiýalary ýapyň.</string>
-  <string name="alternativelyYouCanX">Bolmasa %s hem mümkin.</string>
   <string name="revokeAllSessions">ähli sessiýalary ýapmak</string>
   <string name="playChessEverywhere">Her ýerde küşt oýna</string>
   <string name="asFreeAsLichess">Lichess deýin mugt</string>

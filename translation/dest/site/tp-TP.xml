@@ -690,8 +690,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="enableKidMode">o kepeken e nasin pi jan lili</string>
   <string name="disableKidMode">o kepeken ala e nasin pi jan lili</string>
   <string name="security">awen sona</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">ilo ni li kepeken e lipu lawa sina. sina sona ala e ilo pi lipu ni la, sina ken pakala e linja ona.</string>
-  <string name="alternativelyYouCanX">ante la, sina ken %s.</string>
   <string name="revokeAllSessions">pakala e linja ale</string>
   <string name="playChessEverywhere">o musi lon ma ale</string>
   <string name="asFreeAsLichess">sama ilo Lichess la, ona li wile ala e mani</string>
@@ -863,4 +861,5 @@ sina wile e ni la, o pali e tawa ken pi jan musi tu.</string>
   <string name="refundXpointsTimeControlY">sina kama jo monsi e nanpa wawa %1$s pi nasin musi %2$s.</string>
   <string name="timeAlmostUp">tenpo lili li lon a!</string>
   <string name="clickToRevealEmailAddress">[pilin la sina ken lukin e ma pi lipu kon]</string>
+  <string name="welcome">o kama pona!</string>
 </resources>

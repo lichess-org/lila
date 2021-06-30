@@ -3,10 +3,12 @@ $mq-col2: $mq-col2-uniboard;
 @import 'play';
 @import 'end';
 @import 'high';
+@import 'zen';
 
 .storm {
   &-play-scores {
     @extend %flex-between;
+    @extend %zen;
 
     color: $c-font-page;
     margin: 2vh 2vw;
@@ -24,6 +26,8 @@ $mq-col2: $mq-col2-uniboard;
     @include breakpoint($mq-not-xx-small) {
       display: none;
     }
+
+    @extend %zen;
   }
 
   &--reload {
@@ -46,5 +50,7 @@ $mq-col2: $mq-col2-uniboard;
     margin-top: 2vh;
     text-align: center;
     font-size: 0.8em;
+
+    @extend %zen;
   }
 }

@@ -28,12 +28,14 @@ final class GameSearchApi(
   def store(game: Game) =
     storable(game) ?? {
       gameRepo isAnalysed game.id flatMap { analysed =>
-        lila.common.Future.retry(
-          () => client.store(Id(game.id), toDoc(game, analysed)),
-          delay = 20.seconds,
-          retries = 2,
-          logger.some
-        )
+        lila.common.Future
+          .retry(
+            () => client.store(Id(game.id), toDoc(game, analysed)),
+            delay = 20.seconds,
+            retries = 2,
+            logger.some
+          )
+          .monSuccess(_.search.index)
       }
     }
 

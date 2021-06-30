@@ -41,4 +41,12 @@
     <item quantity="many">Посмотреть все %s клубов</item>
     <item quantity="other">Посмотреть все %s клубов</item>
   </plurals>
+  <string name="newTeamBattle">Новый межклубный турнир</string>
+  <string name="customStartDate">Особая дата начала</string>
+  <string name="customStartDateHelp">В вашем часовом поясе. Это переопределяет настройку «Время до начала турнира»</string>
+  <string name="allowBerserk">Разрешить Берсерк</string>
+  <string name="allowBerserkHelp">Разрешает игрокам получать дополнительные очки, если они уменьшат своё время наполовину</string>
+  <string name="allowChatHelp">Разрешить игрокам обсуждение в чате</string>
+  <string name="arenaStreaks">Серии Арены</string>
+  <string name="arenaStreaksHelp">После двух побед подряд каждая следующая победа даёт не 2 очка, а 4.</string>
 </resources>

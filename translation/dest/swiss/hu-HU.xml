@@ -5,4 +5,9 @@
     <item quantity="one">Forduló megtekintése</item>
     <item quantity="other">Mind a %s forduló megtekintése</item>
   </plurals>
+  <string name="tournStartDate">Verseny kezdési ideje</string>
+  <string name="roundInterval">Fordulók közötti szünet</string>
+  <string name="forbiddenPairings">Tiltott párosítások</string>
+  <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
+  <string name="newSwiss">Új svájci rendszerű verseny</string>
 </resources>

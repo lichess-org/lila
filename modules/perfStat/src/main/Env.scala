@@ -6,26 +6,30 @@ import play.api.Configuration
 
 import lila.common.config._
 
+@Module
 final class Env(
     appConfig: Configuration,
     lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    rankingsOf: lila.user.RankingsOf,
+    rankingApi: lila.user.RankingApi,
     db: lila.db.Db
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
 ) {
 
-  lazy val storage = new PerfStatStorage(
+  private lazy val storage = new PerfStatStorage(
     coll = db(appConfig.get[CollName]("perfStat.collection.perf_stat"))
   )
 
   lazy val indexer = wire[PerfStatIndexer]
 
-  lazy val jsonView = wire[JsonView]
+  lazy val api = wire[PerfStatApi]
 
-  def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
-    storage.find(user.id, perfType) getOrElse indexer.userPerf(user, perfType)
+  lazy val jsonView = wire[JsonView]
 
   lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>

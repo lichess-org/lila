@@ -278,7 +278,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     import lila.mod.{ Modlog => M }
     val icon = m.action match {
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
-      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
+      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
       case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
       case M.chatTimeout                                                    => "hourglass_flowing_sand"
       case M.closeTopic | M.disableTeam                                     => "lock"
