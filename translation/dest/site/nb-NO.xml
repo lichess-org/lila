@@ -890,6 +890,10 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="simulHostcolor">Vertsfarge for hvert parti</string>
   <string name="estimatedStart">Forventet starttidspunkt</string>
   <string name="simulFeatured">Vis på %s</string>
+  <string name="simulFeaturedHelp">Vis simultanoppvisningen til alle på %s. Skru av for private simultanoppvisninger.</string>
+  <string name="simulDescription">Beskrivelse av simultanoppvisningen</string>
+  <string name="simulDescriptionHelp">Er det noe du vil si til deltakerne?</string>
+  <string name="markdownAvailable">%s er tilgjengelig for utforming.</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>
   <string name="tournChat">Turneringssamtale</string>
   <string name="noChat">Ingen samtale</string>
