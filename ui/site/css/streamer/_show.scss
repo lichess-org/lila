@@ -37,7 +37,7 @@ $mq-picture: $mq-large;
     }
   }
   .embed {
-    @extend %video;
+    @extend %embed;
     margin-bottom: $block-gap;
   }
   .nostream {

@@ -75,7 +75,7 @@
     width: 90%;
   }
   .embed {
-    @extend %video;
+    @extend %embed;
     &.not-found {
       height: 100px;
       padding: 0;

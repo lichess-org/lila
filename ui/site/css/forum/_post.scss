@@ -57,7 +57,7 @@
     @extend %break-word;
     margin-bottom: 0.5em;
     .embed:not(img) {
-      @extend %video;
+      @extend %embed;
       margin: $block-gap auto;
     }
     img {

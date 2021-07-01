@@ -154,16 +154,19 @@
 }
 
 %video {
-  position: relative;
   display: block;
-  height: 0;
-  padding-bottom: 56.25%; /* 16/9 */
-  // padding-bottom: 75%; /* 4/3 */
   width: 100%;
   > * {
     @extend %abs-100;
     border: none;
   }
+}
+
+%embed {
+  @extend %video;
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
 }
 
 %data-icon {

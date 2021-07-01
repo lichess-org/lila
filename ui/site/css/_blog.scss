@@ -103,7 +103,7 @@
       padding: 1em;
     }
     .embed {
-      @extend %video;
+      @extend %embed;
       margin: $block-gap auto;
     }
   }

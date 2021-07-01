@@ -24,6 +24,7 @@
     @extend %box-radius, %button-shadow;
     position: relative;
     overflow: hidden;
+    padding-bottom: calc(56.25% + 30px);
     @include transition();
     color: $c-font;
     &:hover {
@@ -31,7 +32,10 @@
     }
     .img {
       @extend %video;
+      position: absolute;
+      height: 100%;
       background-size: cover;
+      background-position-y: bottom;
       @include transition();
     }
     &:hover .img {
@@ -40,6 +44,9 @@
     .info {
       @extend %metal;
       display: block;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
       padding: 6px 8px;
       border: $border;
       border-top: 0;
@@ -47,7 +54,7 @@
     .title {
       font-weight: bold;
       display: block;
-      height: 40px;
+      height: 32px;
     }
     .reveal {
       @extend %metal;
@@ -89,6 +96,8 @@
     .full-title {
       font-weight: bold;
       display: block;
+      max-height: 55px;
+      overflow: hidden;
     }
     .author {
       display: block;
@@ -109,6 +118,9 @@
   .show {
     .embed {
       @extend %video, %box-radius-top;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
       overflow: hidden;
       margin-bottom: 2em;
     }
@@ -142,6 +154,7 @@
 
   .subnav {
     text-transform: capitalize;
+    min-width: 225px;
     a {
       @extend %flex-between;
       padding: 0.5em 0.8em;

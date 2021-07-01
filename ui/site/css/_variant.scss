@@ -5,7 +5,7 @@
     margin-bottom: 30px;
   }
   [data-oembed] {
-    @extend %video;
+    @extend %embed;
   }
 }
 

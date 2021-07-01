@@ -28,7 +28,7 @@
     margin-left: 8px;
   }
   .embed {
-    @extend %video;
+    @extend %embed;
     width: calc(100% + 2em);
     margin: -0.7em -1em;
   }
