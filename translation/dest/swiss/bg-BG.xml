@@ -13,6 +13,7 @@
     <item quantity="one">Един рунд на ден</item>
     <item quantity="other">Един рунд всеки %s дена</item>
   </plurals>
+  <string name="roundsAreStartedManually">Рундовете се пускат на ръка</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s секунда между рундовете</item>
     <item quantity="other">%s секунди между рундовете</item>
