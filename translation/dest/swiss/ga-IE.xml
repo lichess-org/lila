@@ -8,6 +8,21 @@
     <item quantity="many">Féach ar na %s babhta go léir</item>
     <item quantity="other">Féach ar na %s babhta go léir</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">babhta amháin</item>
+    <item quantity="two">%s bhabhta</item>
+    <item quantity="few">%s mbabhta</item>
+    <item quantity="many">%s babhta</item>
+    <item quantity="other">%s babhta</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Babhta amháin in aghaidh an lae</item>
+    <item quantity="two">Babhta amháin gach %s lá</item>
+    <item quantity="few">Babhta amháin gach %s lá</item>
+    <item quantity="many">Babhta amháin gach %s lá</item>
+    <item quantity="other">Babhta amháin gach %s lá</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Tosaíonn babhtaí de láimh</string>
   <string name="tournStartDate">Dáta tosaigh an chomórtais</string>
   <string name="roundInterval">Sos idir babhtaí</string>
   <string name="forbiddenPairings">Péirí faoi chosc</string>
