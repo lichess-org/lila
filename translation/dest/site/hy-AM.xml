@@ -541,7 +541,7 @@
   <string name="usernamePrefixInvalid">Մասնակցային անունը պետք է սկսվի տառով</string>
   <string name="usernameSuffixInvalid">Մասնակցային անունը պետք է վերջանա տառով կամ թվով։</string>
   <string name="usernameCharsInvalid">Մասնակցային անունը պետք է բաղկացած լինի միայն տառերից, թվերից, ընդգծումներից և գծիկներից։</string>
-  <string name="usernameUnacceptable">Մասնակցային այս անունն արդեն զբաղված է կամ անթույլատրելի է։ </string>
+  <string name="usernameUnacceptable">Մասնակցային այս անունն արդեն զբաղված է կամ անթույլատրելի է։.</string>
   <string name="directlySupportLichess">Աջակցել Lichess-ին։</string>
   <string name="playChessInStyle">Շախմատային ոճով</string>
   <string name="chessBasics">Շախմատի հիմունքներ</string>
@@ -582,8 +582,8 @@
   <string name="findBetterMoveForBlack">Սևերի համար գտե՛ք ավելի ուժեղ քայլ</string>
   <string name="resumeLearning">Շարունակել սովորել</string>
   <string name="youCanDoBetter">Կա ավելի ուժեղ քայլ</string>
-  <string name="tryAnotherMoveForWhite">Սպիտակների համար փորձե՛ք այլ քայլ </string>
-  <string name="tryAnotherMoveForBlack">Սևերի համար փորձե՛ք այլ քայլ </string>
+  <string name="tryAnotherMoveForWhite">Սպիտակների համար փորձե՛ք այլ քայլ</string>
+  <string name="tryAnotherMoveForBlack">Սևերի համար փորձե՛ք այլ քայլ</string>
   <string name="solution">Լուծում</string>
   <string name="waitingForAnalysis">Վերլուծության ստացման սպասում</string>
   <string name="noMistakesFoundForWhite">Սպիտակների սխալներ չեն գտնվել</string>
