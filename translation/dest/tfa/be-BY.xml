@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="twoFactorAuth">Двухфактарная аўтэнтыфікацыя</string>
+  <string name="twoFactorHelp">Двухфактарная аўтэнтыфікацыя дадае ўзровень бяспекі да вашага ўліковага запісу.</string>
+  <string name="twoFactorApp">Спампуйце прыладу двухфактарнай аўтэнтыфікацыі, напрыклад, andOTP для %1$s або Google Authenticator для %2$s.</string>
+  <string name="scanTheCode">Адскануйце QR прыладай.</string>
   <string name="authenticationCode">Код аўтэнтыфікацыі</string>
   <string name="enableTwoFactor">Уключыць двухфактарную аўтэнтыфікацыю</string>
   <string name="disableTwoFactor">Адключыць двухфактарную аўтэнтыфікацыю</string>
