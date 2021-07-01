@@ -1,6 +1,5 @@
 package views.html
 package oAuth
-package app
 
 import lila.api.Context
 import lila.app.templating.Environment._

@@ -31,7 +31,6 @@ object OAuthForm {
         AccessToken(
           id = AccessToken.Id.randomPersonal(),
           publicId = BSONObjectID.generate(),
-          clientId = PersonalToken.clientId,
           userId = user.id,
           createdAt = DateTime.now.some,
           description = description.some,

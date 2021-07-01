@@ -43,14 +43,6 @@ object security {
             )
           ),
           table(sessions, curSessionId.some, clients, personalAccessTokens)
-        ),
-        div(cls := "account security box")(
-          h1("Additional third party apps"),
-          p(cls := "box__pad")(
-            "Revoke access of any ",
-            a(href := routes.OAuthApp.index)("third party apps"),
-            " that you do not trust."
-          )
         )
       )
     }

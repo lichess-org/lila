@@ -11,7 +11,7 @@ import views._
 import lila.api.Context
 import lila.common.HTTPRequest
 import lila.app._
-import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest, PersonalToken }
+import lila.oauth.{ AccessToken, AccessTokenRequest, AuthorizationRequest }
 
 final class OAuth(env: Env) extends LilaController(env) {
 
@@ -38,7 +38,7 @@ final class OAuth(env: Env) extends LilaController(env) {
       withPrompt { prompt =>
         fuccess(ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(ctx.req.uri)))) { me =>
           Ok(
-            html.oAuth.app.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
+            html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${ctx.req.rawQueryString}")
           )
         })
       }
