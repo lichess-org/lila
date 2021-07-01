@@ -128,8 +128,8 @@ export function render(ctrl: KeyboardMove) {
       }),
     }),
     ctrl.hasFocus()
-	// todo
-      ? h('em', 'Enter USI (2a3c) or (2133) to make a move, or type / to focus chat')
+      ? // todo
+        h('em', 'Enter USI (2a3c) or (2133) to make a move, or type / to focus chat')
       : h('strong', 'Press <enter> to focus'),
   ]);
 }
