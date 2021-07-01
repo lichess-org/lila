@@ -872,6 +872,7 @@
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмени турнира</string>
   <string name="tournDescription">Описание на турнира</string>
+  <string name="tournDescriptionHelp">Искате да кажете нещо специално на участниците? Моля бъдете кратки. За връзки можете да използвате Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игрите са с рейтинг и влияят на рейтинга на играчите</string>
   <string name="onlyMembersOfTeam">Само членове на отбора</string>
   <string name="noRestriction">Без ограничение</string>
