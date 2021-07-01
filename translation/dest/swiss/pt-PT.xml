@@ -5,7 +5,32 @@
     <item quantity="one">Ver a ronda</item>
     <item quantity="other">Ver todas as %s equipas</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rondas</item>
+    <item quantity="other">%s Rondas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Uma ronda por dia</item>
+    <item quantity="other">Uma ronda cada %s dias</item>
+  </plurals>
+  <string name="roundsAreStartedManually">As rondas são iniciadas manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundos entre rondas</item>
+    <item quantity="other">%s segundos entre rondas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutos entre rondas</item>
+    <item quantity="other">%s minutos entre rondas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Começando em %s</string>
+  <string name="nextRound">Próxima ronda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partida em curso</item>
+    <item quantity="other">Partidas em curso</item>
+  </plurals>
   <string name="tournStartDate">Data de início do torneio</string>
+  <string name="numberOfRounds">Número de rondas</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Um número ímpar de rondas permite um equilíbrio de cores ideal.</string>
   <string name="roundInterval">Intervalo entre rondas</string>
   <string name="forbiddenPairings">Emparelhamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de utilizador de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes de utilizador por linha, separados por um espaço.</string>

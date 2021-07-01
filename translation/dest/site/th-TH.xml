@@ -118,6 +118,9 @@
   <plurals name="nbBlunders">
     <item quantity="other">%s พลาดมหันต์</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="other">%s พลาด</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s ไม่แม่นยำ</item>
   </plurals>
@@ -616,6 +619,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s เก่งกว่า %2$s ของผู้เล่น %3$s ทั้งหมด</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
   <string name="yourRating">ระดับคะแนนของคุณ</string>
   <string name="cumulative">สะสม</string>
@@ -785,4 +789,5 @@
   <string name="someoneYouReportedWasBanned">ผู้เล่นที่คุณรายงานถูกแบนแล้ว</string>
   <string name="congratsYouWon">ยินดีด้วย คุณชนะแล้ว</string>
   <string name="timeAlmostUp">เวลาใกล้จะหมดแล้ว</string>
+  <string name="download">ดาวน์โหลด</string>
 </resources>

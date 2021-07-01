@@ -52,6 +52,7 @@
   <string name="knightMate">Det er mulig å sette sjakkmatt med kun én springer eller én løper dersom motspilleren har flere brikker enn kongen på brettet.</string>
   <string name="noRatingPoints">Det ble ikke tildelt ratingpoeng</string>
   <string name="ratedGame">Forsikre deg om at du spilte et ratet parti. Uformelle partier påvirker ikke spillernes rating.</string>
+  <string name="botRatingAbuse">Dersom det blir slått fast at en spiller misbruker en botkonto for å manipulere ratingpoengene, kan det hende det ikke blir gitt poeng for partiet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Hvis du støtte på en feilside, kan du rapportere det:</string>
   <string name="banAppeal">Klage ved utestenging eller IP-restriksjon</string>

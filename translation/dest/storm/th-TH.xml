@@ -11,6 +11,7 @@
   <string name="combo">คอมโบ</string>
   <string name="highscores">คะแนนสูงสุด</string>
   <string name="getReady">เตรียมพร้อม!</string>
+  <string name="yourRankX">อันดับของคุณ: %s</string>
   <string name="joinPublicRace">เข้าร่วมการแข่งขันสาธารณะ</string>
   <string name="raceYourFriends">แข่งกับเพื่อนๆของคุณ</string>
   <string name="skip">ข้าม</string>

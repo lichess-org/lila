@@ -1046,6 +1046,7 @@
   <string name="simulFeatured">ميزة في %s</string>
   <string name="simulDescription">وصف المباراة الجماعية</string>
   <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
+  <string name="markdownAvailable">%s متاح لتركيبات الأكثر تطوراً.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
   <string name="noChat">لا دردشة</string>

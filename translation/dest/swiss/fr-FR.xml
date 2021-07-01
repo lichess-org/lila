@@ -5,9 +5,34 @@
     <item quantity="one">Voir la ronde</item>
     <item quantity="other">Voir les %s rondes en détail</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s rondes</item>
+    <item quantity="other">%s rondes</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Une ronde par jour</item>
+    <item quantity="other">Une ronde tous les %s jours</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Les rondes sont lancées manuellement</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s seconde entre les rondes</item>
+    <item quantity="other">%s secondes entre les rondes</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minute entre les rondes</item>
+    <item quantity="other">%s minutes entre les rondes</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Commence dans</string>
+  <string name="nextRound">Prochaine ronde</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partie en cours</item>
+    <item quantity="other">Parties en cours</item>
+  </plurals>
   <string name="tournStartDate">Date de début du tournoi</string>
+  <string name="numberOfRounds">Nombre de rondes</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Un nombre impair de rondes permet un équilibre optimal des couleurs.</string>
   <string name="roundInterval">Délai entre les rondes</string>
   <string name="forbiddenPairings">Appariements interdits</string>
-  <string name="forbiddenPairingsHelp">Noms d\'utilisateur des joueurs qui ne doivent pas jouer ensemble (frères et sœurs, par exemple). Deux noms d\'utilisateur par ligne, séparés par un espace.</string>
-  <string name="newSwiss">Nouveau tournoi suisse</string>
+  <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
+  <string name="newSwiss">Nouveau tournoi au système suisse</string>
 </resources>

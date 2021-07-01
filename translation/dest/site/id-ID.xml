@@ -408,6 +408,7 @@
   <string name="boardEditor">Edit Papan</string>
   <string name="setTheBoard">Atur papan</string>
   <string name="popularOpenings">Pembuka populer</string>
+  <string name="endgamePositions">Posisi akhir permainan</string>
   <string name="startPosition">Posisi Awal</string>
   <string name="clearBoard">Bersihkan papan</string>
   <string name="savePosition">Simpan posisi</string>

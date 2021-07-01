@@ -37,4 +37,11 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
     <item quantity="one">Visa laget</item>
     <item quantity="other">Visa alla %s lag</item>
   </plurals>
+  <string name="newTeamBattle">Ny Lagmatch</string>
+  <string name="customStartDate">Anpassat startdatum</string>
+  <string name="customStartDateHelp">I din egen lokala tidszon. Detta åsidosätter inställningen \"Tid tills turneringen börjar\"</string>
+  <string name="allowBerserk">Tillåt Berserk</string>
+  <string name="allowBerserkHelp">Låt spelarna halvera sin klocktid för att få en extra poäng</string>
+  <string name="allowChatHelp">Låt spelare diskutera i ett chattrum</string>
+  <string name="arenaStreaksHelp">Efter 2 vinster, ger efterföljande vinster 4 poäng i stället för 2.</string>
 </resources>

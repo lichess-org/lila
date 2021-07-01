@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="learnChess">શતરંજ શીખો</string>
+  <string name="byPlaying">રમી ને!</string>
+  <string name="menu">મેનુ</string>
+  <string name="progressX">પ્રગતિ: %s</string>
+  <string name="resetMyProgress">મારી પ્રગતિ રીસેટ કરો</string>
+  <string name="youWillLoseAllYourProgress">તમે તમારી બધી જ પ્રગતિ ખોઇ દેશો!</string>
   <string name="play">ચાલો!</string>
-  <string name="theRook">ઊંટ</string>
+  <string name="theRook">હાથી</string>
+  <string name="itMovesInStraightLines">તે સીધી રેખામાં ચાલે છે</string>
+  <string name="rookIntro">હાથી એક શક્તિશાળી પાત્ર છે. શું તમે એને હુકમ આપવા તૈયાર છો?</string>
+  <string name="rookGoal">હાથી પર ક્લિક કરો
+જેથી એને તારા પર લાવી શકો!</string>
+  <string name="grabAllTheStars">બધા તારા એકત્રિત કરો!</string>
+  <string name="theFewerMoves">જેટલી ઓછી ચાલ રમશો,
+તેટલાં વધારે અંક જીતશો!</string>
+  <string name="useTwoRooks">બે હાથી વાપરો
+ઝડપથી કરવા માટે!</string>
+  <string name="rookComplete">અભિનંદન! તમે હાથી કાબૂ કરતા સફળતાપૂર્વક શીખી ગયા.</string>
+  <string name="theBishop">ઊંટ</string>
   <string name="theKnight">ઘોડો</string>
   <string name="thePawn">પ્યાદું</string>
+  <string name="puzzles">કોયડા</string>
+  <string name="exerciseYourTacticalSkills">તમારી વ્યૂહાત્મક કુશળતા વાપરો</string>
   <string name="greatJob">સરસ!</string>
   <string name="yesYesYes">હા!</string>
   <string name="next">આગલુ</string>
+  <string name="puzzleFailed">કોયડાનો ખોટો જવાબ!</string>
   <string name="retry">ફરી પ્રયાસ કરો</string>
 </resources>

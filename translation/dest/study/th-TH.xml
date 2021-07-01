@@ -119,4 +119,7 @@
   <string name="deleteStudy">ลบกรณีศึกษา</string>
   <string name="deleteTheEntireStudy">ลบทั้งกรณีศึกษาหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="whereDoYouWantToStudyThat">คุณต้องการศึกษาที่ไหน?</string>
+  <string name="goodMove">เดินได้ดี</string>
+  <string name="mistake">พลาด</string>
+  <string name="blunder">พลาดมหันต์</string>
 </resources>

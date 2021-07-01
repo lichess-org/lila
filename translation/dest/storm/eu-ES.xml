@@ -38,6 +38,7 @@
   <string name="raceComplete">Lasterketa amaitu da!</string>
   <string name="spectating">Ikusten</string>
   <string name="joinTheRace">Sartu lasterketara!</string>
+  <string name="startTheRace">Hasi lasterketa</string>
   <string name="yourRankX">Zure sailkapena: %s</string>
   <string name="waitForRematch">Itxaron berriz jokatzeko</string>
   <string name="nextRace">Hurrengo lasterketa</string>

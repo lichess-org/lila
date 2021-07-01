@@ -287,7 +287,7 @@
     <item quantity="other">Προσθέστε %s δευτερόλεπτα</item>
   </plurals>
   <string name="thisAccountViolatedTos">Αυτός ο λογαριασμός παραβαίνει τους όρους χρήσης του Lichess</string>
-  <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; τελειωμάτων</string>
+  <string name="openingExplorerAndTablebase">Εξερευνητής ανοιγμάτων &amp; φινάλε</string>
   <string name="takeback">Ανάκληση κίνησης</string>
   <string name="proposeATakeback">Προσφέρετε ανάκληση της προηγούμενης κίνησης</string>
   <string name="takebackPropositionSent">Προσφορά ανάκλησης κίνησης εστάλη</string>
@@ -440,6 +440,7 @@
   <string name="boardEditor">Προετοιμαστής σκακιέρας</string>
   <string name="setTheBoard">Στήστε την σκακιέρα</string>
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
+  <string name="endgamePositions">Θέσεις φινάλε</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="savePosition">Αποθηκεύστε τη θέση</string>

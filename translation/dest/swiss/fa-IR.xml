@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">مسابقات فرمت سوئیسی</string>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s دور</item>
+    <item quantity="other">%s دور</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">یک دور در هر روز</item>
+    <item quantity="other">یک دور در هر %s روز</item>
+  </plurals>
+  <string name="roundsAreStartedManually">دورها به صورت دستی شروع می شوند</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s ثانیه بین دورها</item>
+    <item quantity="other">%s ثانیه بین دورها</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s دقیقه بین دورها</item>
+    <item quantity="other">%s دقیقه بین دورها</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">شروع در</string>
+  <string name="nextRound">دور بعد</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">بازی در جریان</item>
+    <item quantity="other">بازی های در جریان</item>
+  </plurals>
   <string name="tournStartDate">زمان آغاز مسابقه</string>
+  <string name="numberOfRounds">تعداد دورها</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
   <string name="newSwiss">مسابقه سوئیسی جدید</string>
 </resources>
