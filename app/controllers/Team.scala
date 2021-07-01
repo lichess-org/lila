@@ -301,9 +301,7 @@ final class Team(
                 .fold(
                   newJsonFormError,
                   setup =>
-                    env.oAuth.server.fetchAppAuthor(req) flatMap {
-                      api.joinApi(team, me, _, setup.message)
-                    } flatMap {
+                    api.join(team, me, setup.message, setup.password) flatMap {
                       case Requesting.Joined => jsonOkResult.fuccess
                       case Requesting.NeedPassword =>
                         Forbidden(jsonError("This team requires a password.")).fuccess
