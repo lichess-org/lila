@@ -4,11 +4,25 @@
   <string name="becomePatron">Стаць Спонсарам Lichess</string>
   <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
   <string name="thankYou">Дзякуй за ваш унёсак!</string>
+  <string name="onetime">Аднаразова</string>
+  <string name="singleDonation">Адначасовае ахвяраванне, якое дадае вам крылы Спонсара на адзін месяц.</string>
   <string name="otherAmount">Іншая сума</string>
   <string name="pleaseEnterAmountInX">Калі ласка, увядзіце суму ў %s</string>
+  <string name="withCreditCard">Банкаўская картка</string>
   <string name="withPaypal">PayPal</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
+  <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
+  <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
+Ці можаце %s.</string>
   <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бескаштовы, назаўседы і для кожнага. Гэта абяцанне.
 Аднак, Спонсары атрымліваюць класную ікунку да профілю.</string>
   <string name="featuresComparison">Паглядзець дакладнае параўнанне магчымасцяў</string>
+  <string name="currentStatus">Бягучы статус</string>
+  <string name="nextPayment">Наступны плацёж</string>
+  <string name="update">Абнавіць</string>
+  <string name="cancelSupport">скасаваць падтрымку</string>
+  <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
+  <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
+  <string name="date">Дата</string>
+  <string name="amount">Сума</string>
 </resources>
