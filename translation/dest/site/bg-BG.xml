@@ -888,6 +888,9 @@
   <string name="simulHostcolor">Цвят на домакина във всяка игра</string>
   <string name="estimatedStart">Очаквано време на започване</string>
   <string name="simulFeatured">Показва се на %s</string>
+  <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
+  <string name="simulDescription">Описание на сеанса</string>
+  <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
   <string name="markdownAvailable">%s е достъпен за разширено форматиране.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>
