@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Ахвяраваць</string>
+  <string name="becomePatron">Стаць Спонсарам Lichess</string>
+  <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
+  <string name="thankYou">Дзякуй за ваш унёсак!</string>
+  <string name="otherAmount">Іншая сума</string>
+  <string name="pleaseEnterAmountInX">Калі ласка, увядзіце суму ў %s</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
+  <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бескаштовы, назаўседы і для кожнага. Гэта абяцанне.
+Аднак, Спонсары атрымліваюць класную ікунку да профілю.</string>
+  <string name="featuresComparison">Паглядзець дакладнае параўнанне магчымасцяў</string>
+</resources>

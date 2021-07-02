@@ -752,6 +752,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Пракруціць кампутарныя варыяцыі, каб праглядзець іх.</string>
   <string name="analysisShapesHowTo">Каб маляваць стрэлкі і кружкі на дошцы, карыстайцеся Shift + ЛКМ або ПКМ.</string>
   <string name="letOtherPlayersMessageYou">Дазволіць дасылаць вам паведамленні</string>
+  <string name="receiveForumNotifications">Атрымоўваць паведамленні, калі узгадваць на форме</string>
   <string name="shareYourInsightsData">Хто бачыць маю статыстыку</string>
   <string name="withNobody">Ніхто</string>
   <string name="withFriends">Сябры</string>
@@ -917,6 +918,7 @@
   <string name="inTheFAQ">у FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
+  <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
   <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
   <string name="teamNamedX">каманда %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
@@ -928,9 +930,26 @@
   <string name="xInvitedYouToY">%1$s запрасіў вас у «%2$s».</string>
   <string name="youAreNowPartOfTeam">Цяпер вы з\'яўляецеся часткай каманды.</string>
   <string name="youHaveJoinedTeamX">Вы далучыліся да %1$s.</string>
+  <string name="someoneYouReportedWasBanned">Хтосьці заблакаваны па вашаму звароту</string>
   <string name="congratsYouWon">Віншуем, вы перамаглі!</string>
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш профіль трэнера.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
+  <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
+  <string name="download">Спампаваць</string>
+  <string name="welcome">Вітаем!</string>
+  <string name="cancelTournament">Скасаваць турнір</string>
+  <string name="tournDescription">Апісанне турніру</string>
+  <string name="ratedFormHelp">Гульні - рэйтынгавыя
+і ўплываюць на рэйтынг гульцоў</string>
+  <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>
+  <string name="noRestriction">Без абмежаванняў</string>
+  <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
+  <string name="minimumRating">Мінімальны рэйтынг</string>
+  <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
+  <string name="tournChat">Чат турніру</string>
+  <string name="noChat">Без чату</string>
+  <string name="onlyTeamLeaders">Толькі лідары каманды</string>
+  <string name="onlyTeamMembers">Толькі чальцы каманды</string>
 </resources>
