@@ -243,6 +243,8 @@
   <logger name="play.core.server.netty.NettyModelConversion" level="ERROR" />
   <!-- TolerantText body parser tried to parse request 108654561 as text body with charset UTF-8, but it contains invalid characters! -->
   <logger name="play.api.mvc.PlayBodyParsers" level="ERROR" />
+  <!-- p.s.a.o.a.n.h.i.Unauthorized401Interceptor Can't handle 401 with Basic realm as auth was preemptive and already performed -->
+  <logger name="play.server.api.org.asynchttpclient.netty.handler.intercept.Unauthorized401Interceptor" level="WARNING" />
   <!-- allows failing async computations instead of returning null, without seeing the WARN -->
   <logger name="com.github.benmanes.caffeine.cache.LocalAsyncCache" level="ERROR">
     <appender-ref ref="STDOUT" />
