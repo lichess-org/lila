@@ -9,6 +9,12 @@
   <string name="location">Месцазнаходжання</string>
   <string name="languages">Мовы</string>
   <string name="rating">Рэйтынг</string>
+  <string name="hourlyRate">Аплата за гадзіну</string>
+  <string name="availability">Даступны</string>
+  <string name="accepting">Набірае вучняў</string>
+  <string name="notAccepting">Не набірае вучняў на дадзены момант</string>
+  <string name="xCoachesStudents">Трэніруe шахматам %s вучняў</string>
+  <string name="viewXProfile">Паглядзець профіль %s на Lichess</string>
   <string name="sendPM">Даслаць асабістае паведамленне</string>
   <string name="aboutMe">Пра сябе</string>
   <string name="playingExperience">Досвед гульні</string>
