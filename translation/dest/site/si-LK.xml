@@ -226,6 +226,13 @@
   <string name="rematchOfferSentWhite">සුදු නැවත තරඟ කිරීමක් පිරිනමයි</string>
   <string name="rematchOfferSentBlack">කළු නැවත තරඟ කිරීමක් පිරිනමයි</string>
   <string name="rematchOfferAccepted">නැවත තරඟ කීරීම පිළිගත්තා</string>
+  <string name="rematchOfferCanceled">නැවත තරඟ කීරීම පිළිගත්තා</string>
+  <string name="rematchOfferDeclined">නැවත පිරිනැමීමේ දීමනාව ප්‍රතික්ෂේප විය</string>
+  <string name="viewRematch">නැවත ගැලපීම බලන්න</string>
+  <string name="play">සෙල්ලම් කරන්න</string>
+  <string name="inbox">එන ලිපි</string>
+  <string name="composeMessage">පණිවිඩය රචනා කරන්න</string>
+  <string name="viewTournament">තරඟාවලිය බලන්න</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
