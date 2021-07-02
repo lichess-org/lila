@@ -20,7 +20,7 @@ final class IrcApi(
 
   def commReportBurst(user: User): Funit = {
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
-    discord.comms(md) >> zulip.mod()(md)
+    discord.comms(md) >> zulip(_.mod.commsPrivate, "burst")(md)
   }
 
   def userMod(user: User, mod: Holder): Funit =
@@ -36,7 +36,7 @@ final class IrcApi(
               text = s"Let's have a look at _*${slackdown.userLink(user.username)}*_",
               channel = SlackClient.rooms.tavern
             )
-          ) >> zulip.mod()(
+          ) >> zulip(_.mod.hunterCheat, user.username)(
             s":eyes: ${markdown.userLink(mod.user.username)}: Let's have a look at **${markdown.userLink(user.username)}**"
           )
         case Some(note) =>
@@ -49,7 +49,7 @@ final class IrcApi(
                   slackdown.linkifyUsers(note.text take 2000),
               channel = SlackClient.rooms.tavern
             )
-          ) >> zulip.mod()(
+          ) >> zulip(_.mod.hunterCheat, user.username)(
             s"${markdown.userLink(mod.user.username)} :note: **${markdown
               .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
@@ -66,7 +66,7 @@ final class IrcApi(
         channel = SlackClient.rooms.tavernNotes
       )
     ) >>
-      zulip.mod(ZulipClient.topic.notes)(
+      zulip(_.mod.adminLog, "notes")(
         s":note: ${markdown.userLink(modName)} **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
       )
@@ -79,7 +79,7 @@ final class IrcApi(
         text = s"[*$typ*] ${slackdown.userLink(user)}@$ip ${slackdown.gameLink(path)}",
         channel = SlackClient.rooms.tavernBots
       )
-    ) >> zulip.mod(ZulipClient.topic.clientReports)(
+    ) >> zulip(_.mod.log, "self report")(
       s"[*$typ*] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
     )
 
@@ -96,7 +96,7 @@ final class IrcApi(
         },
         channel = "commlog"
       )
-    ) >> zulip.mod(ZulipClient.topic.commLog)({
+    ) >> zulip(_.mod.adminLog, "private comms checks")({
       val finalS = if (user.username endsWith "s") "" else "s"
       s"**${markdown userLink mod.user.username}** checked out **${markdown userLink user.username}**'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
@@ -116,8 +116,8 @@ final class IrcApi(
         val md = s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
         slack(msg) >>
           slack(msg.copy(channel = SlackClient.rooms.tavernMonitorAll)) >>
-          zulip.mod(s"monitor-${tpe.toString.toLowerCase}")(md) >>
-          zulip.mod(ZulipClient.topic.monitor)(md)
+          zulip(_.mod.adminMonitor(tpe), mod.name)(md) >>
+          zulip(_.mod.adminMonitorAll, mod.name)(md)
       }
     }
 
@@ -132,7 +132,7 @@ final class IrcApi(
             channel = SlackClient.rooms.tavernLog
           )
         ) >>
-          zulip.mod(ZulipClient.topic.actionLog)(
+          zulip(_.mod.log, "actions")(
             s"${markdown.userLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
           )
       }
@@ -150,7 +150,7 @@ final class IrcApi(
           s"${if (v) "Enabled" else "Disabled"} ${slackdown.lichessLink("mod/chat-panic", " Chat Panic")}",
         channel = SlackClient.rooms.tavern
       )
-    ) >> zulip.mod()(
+    ) >> zulip(_.mod.log, "chat panic")(
       s":stop: ${if (v) "Enabled" else "Disabled"} ${markdown.lichessLink("mod/chat-panic", " Chat Panic")}"
     )
 
@@ -162,7 +162,7 @@ final class IrcApi(
         text = slackdown.linkifyUsers(msg),
         channel = SlackClient.rooms.tavernBots
       )
-    ) >> zulip.mod(ZulipClient.topic.altLog)(s":put_litter_in_its_place: ${markdown linkifyUsers msg}")
+    ) >> zulip(_.mod.log, "garbage collector")(markdown linkifyUsers msg)
 
   def broadcastError(id: String, name: String, error: String): Funit =
     slack(
@@ -172,7 +172,7 @@ final class IrcApi(
         text = s"${slackdown.broadcastLink(id, name)}: $error",
         channel = SlackClient.rooms.broadcast
       )
-    ) >> zulip(ZulipClient.stream.broadcast)(s":lightning: ${markdown.broadcastLink(id, name)}: $error")
+    ) >> zulip(_.broadcast, "main")(s":lightning: ${markdown.broadcastLink(id, name)}: $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
     slack(
@@ -183,7 +183,7 @@ final class IrcApi(
           s"Let's have a look at the appeal of _*${slackdown.lichessLink(s"/appeal/${user.username}", user.username)}*_",
         channel = SlackClient.rooms.tavernAppeal
       )
-    ) >> zulip.mod(ZulipClient.topic.appeal)(
+    ) >> zulip(_.mod.adminAppeal, user.username)(
       s"Let's have a look at the appeal of _*${markdown.lichessLink(s"/appeal/${user.username}", user.username)}*_"
     )
 
@@ -194,7 +194,7 @@ final class IrcApi(
         icon = "horsey",
         text = "Lichess is being updated! Brace for impact."
       )
-    ) >> zulip()("Lichess is restarting.")
+    ) >> zulip(_.general, "lila")("Lichess is restarting.")
 
   def publishEvent(event: Event): Funit = event match {
     case Error(msg)   => publishError(msg)
@@ -210,7 +210,7 @@ final class IrcApi(
         icon = "lightning",
         text = slackdown.linkifyUsers(msg)
       )
-    ) >> zulip()(s":lightning: ${markdown linkifyUsers msg}")
+    ) >> zulip(_.general, "lila")(s":lightning: ${markdown linkifyUsers msg}")
 
   private def publishWarning(msg: String): Funit =
     slack(
@@ -219,7 +219,7 @@ final class IrcApi(
         icon = "thinking_face",
         text = slackdown.linkifyUsers(msg)
       )
-    ) >> zulip()(s":thinking: ${markdown linkifyUsers msg}")
+    ) >> zulip(_.general, "lila")(s":thinking: ${markdown linkifyUsers msg}")
 
   private def publishVictory(msg: String): Funit =
     slack(
@@ -228,7 +228,7 @@ final class IrcApi(
         icon = "tada",
         text = slackdown.linkifyUsers(msg)
       )
-    ) >> zulip()(s":tada: ${markdown linkifyUsers msg}")
+    ) >> zulip(_.general, "lila")(s":tada: ${markdown linkifyUsers msg}")
 
   private[irc] def publishInfo(msg: String): Funit =
     slack(
@@ -237,7 +237,7 @@ final class IrcApi(
         icon = "horsey",
         text = slackdown linkifyUsers msg
       )
-    ) >> zulip()(s":info: ${markdown linkifyUsers msg}")
+    ) >> zulip(_.general, "lila")(s":info: ${markdown linkifyUsers msg}")
 
   object charge {
     import lila.hub.actorApi.plan.ChargeEvent
@@ -268,7 +268,7 @@ final class IrcApi(
           text = slackdown.linkifyUsers(text),
           channel = "team"
         )
-      ) >> zulip()(markdown.linkifyUsers(text))
+      ) >> zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
     private def userAt(username: String) =
       if (username == "Anonymous") "Anonymous"
@@ -280,7 +280,9 @@ final class IrcApi(
 
 object IrcApi {
 
-  sealed trait MonitorType
+  sealed trait MonitorType {
+    def key = toString.toLowerCase
+  }
   object MonitorType {
     case object Hunt  extends MonitorType
     case object Comm  extends MonitorType
