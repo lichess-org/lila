@@ -55,13 +55,14 @@ private object ZulipClient {
   implicit val zulipConfigLoader = AutoConfig.loader[Config]
 
   object stream {
-    val lila      = "lila"
-    val mod       = "lila-mod"
-    val broadcast = "broadcast"
-    val default   = lila
+    val general     = "general"
+    val modLog      = "mod-log"
+    val modAdminLog = "mod-admin-log"
+    val broadcast   = "broadcast"
   }
   object topic {
-    val general       = "general"
+    val main          = "main"
+    val lila          = "lila"
     val notes         = "notes"
     val clientReports = "client reports"
     val commLog       = "comm log"
@@ -69,7 +70,7 @@ private object ZulipClient {
     val actionLog     = "action log"
     val altLog        = "alt log"
     val appeal        = "appeal"
-    val default       = general
+    val default       = main
   }
 }
 
