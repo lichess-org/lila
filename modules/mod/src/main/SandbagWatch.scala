@@ -34,7 +34,11 @@ final private class SandbagWatch(
     if (record.immaculate) fuccess {
       records invalidate userId
     }
-    else {
+    else if (game.isTournament && game.winnerUserId.has(userId)) {
+      // if your opponent always resigns to you in a tournament
+      // we'll assume you're not boosting
+      funit
+    } else {
       records.put(userId, record)
       val sandbagCount = record.countSandbagWithLatest
       val boostCount   = record.samePlayerBoostCount
