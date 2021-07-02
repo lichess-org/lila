@@ -5,10 +5,19 @@
   <string name="freeAccount">Безкаштовы акаўнт</string>
   <string name="becomePatron">Стаць Спонсарам Lichess</string>
   <string name="xBecamePatron">%s стаў(-ла) Спонсарам Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяца</item>
+    <item quantity="few">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+    <item quantity="many">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+    <item quantity="other">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+  </plurals>
   <string name="newPatrons">Новыя спонсары</string>
   <string name="freeChess">Безкаштовыя шахматы для ўсіх, назаўседы!</string>
   <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
   <string name="thankYou">Дзякуй за ваш унёсак!</string>
+  <string name="patronUntil">Вы спонсар да %s.</string>
+  <string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
+  <string name="weRelyOnSupport">Мы разлічваем на дапамогу людзей як вы каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце на пагчымасцью ахвяраваць грошы і стаць спонсарам!</string>
   <string name="lifetime">Пажыццёва</string>
   <string name="monthly">Штомесячна</string>
   <string name="onetime">Аднаразова</string>
