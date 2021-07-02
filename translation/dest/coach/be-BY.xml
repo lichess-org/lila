@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="languages">Мовы</string>
+  <string name="rating">Рэйтынг</string>
+  <string name="aboutMe">Пра сябе</string>
+  <string name="playingExperience">Досвед гульні</string>
+  <string name="teachingExperience">Досвед выкладання</string>
+  <string name="otherExperiences">Іншыя досведы</string>
+</resources>
