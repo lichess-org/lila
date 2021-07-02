@@ -306,7 +306,7 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    const baseUrls = document.body.getAttribute('data-socket-domains')!.split(',');
+    const baseUrls = document.body.dataset.socketDomains!.split(',');
     let url = this.storage.get();
     if (!url || this.tryOtherUrl) {
       url = baseUrls[Math.floor(Math.random() * baseUrls.length)];

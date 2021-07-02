@@ -175,15 +175,15 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
-  private val dataSocketDomains = attr("data-socket-domains")
+  private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
-  val dataAssetUrl              = attr("data-asset-url")
+  val dataAssetUrl              = attr("data-asset-url") := netConfig.assetBaseUrl
   val dataAssetVersion          = attr("data-asset-version")
-  val dataDev                   = attr("data-dev")
+  val dataDev                   = attr("data-dev") := (!netConfig.minifiedAssets).option("true")
 
   def apply(
       title: String,
@@ -259,12 +259,12 @@ object layout {
               "playing fixed-scroll" -> playing
             )
           },
-          dataDev := (!netConfig.minifiedAssets).option("true"),
+          dataDev,
           dataVapid := vapidPublicKey,
           dataUser := ctx.userId,
           dataSoundSet := ctx.currentSoundSet.toString,
-          dataSocketDomains := netConfig.socketDomains.mkString(","),
-          dataAssetUrl := netConfig.assetBaseUrl,
+          dataSocketDomains,
+          dataAssetUrl,
           dataAssetVersion := assetVersion.value,
           dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme := ctx.currentBg,
