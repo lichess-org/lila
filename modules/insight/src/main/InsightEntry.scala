@@ -277,3 +277,23 @@ object CplRange {
   }.toMap
   val worse = all.last
 }
+
+sealed abstract class EvalRange(val id: Int, val name: String, val eval: Int)
+object EvalRange {
+  case object Down3 extends EvalRange(1, "Less than -700", -700)
+  case object Down2 extends EvalRange(2, "-300 to -700", -300)
+  case object Down1 extends EvalRange(3, "-120 to -300", -120)
+  case object Equal extends EvalRange(4, "About equal", 120)
+  case object Up1   extends EvalRange(5, "+120 to +300", 300)
+  case object Up2   extends EvalRange(6, "+300 to +700", 700)
+  case object Up3   extends EvalRange(7, "More than +700", Int.MaxValue)
+  val all             = List(Down3, Down2, Down1, Equal, Up1, Up2, Up3)
+  def reversedButLast = all.init.reverse
+  val byId = all map { p =>
+    (p.id, p)
+  } toMap
+  def toRange(er: EvalRange): (Int, Int) = (
+    byId.get(er.id - 1).fold(Int.MinValue)(_.eval),
+    er.eval
+  )
+}

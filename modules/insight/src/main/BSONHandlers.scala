@@ -48,6 +48,10 @@ private object BSONHandlers {
     { case BSONInteger(v) => MaterialRange.byId get v toTry s"Invalid material range $v" },
     e => BSONInteger(e.id)
   )
+  implicit val EvalRangeBSONHandler = tryHandler[EvalRange](
+    { case BSONInteger(v) => EvalRange.byId get v toTry s"Invalid eval range $v" },
+    e => BSONInteger(e.id)
+  )
   implicit val QueenTradeBSONHandler = BSONBooleanHandler.as[QueenTrade](QueenTrade.apply, _.id)
 
   private val BSONBooleanNullHandler = quickHandler[Boolean](
