@@ -933,4 +933,19 @@
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш профіль трэнера.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
+  <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
+  <string name="download">Спампаваць</string>
+  <string name="welcome">Вітаем!</string>
+  <string name="tournDescription">Апісанне турніру</string>
+  <string name="ratedFormHelp">Гульні - рэйтынгавыя
+і ўплываюць на рэйтынг гульцоў</string>
+  <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>
+  <string name="noRestriction">Без абмежаванняў</string>
+  <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
+  <string name="minimumRating">Мінімальны рэйтынг</string>
+  <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
+  <string name="tournChat">Чат турніру</string>
+  <string name="noChat">Без чату</string>
+  <string name="onlyTeamLeaders">Толькі лідары каманды</string>
+  <string name="onlyTeamMembers">Толькі чальцы каманды</string>
 </resources>
