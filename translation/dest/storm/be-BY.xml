@@ -7,4 +7,5 @@
   <string name="newMonthlyHighscore">Новы месячны рэкорд!</string>
   <string name="bestRunOfDay">Лепшая спроба за дзень</string>
   <string name="skip">прапусціць</string>
+  <string name="skipHelp">Вы можаце прапусціць адзін ход за гонку:</string>
 </resources>
