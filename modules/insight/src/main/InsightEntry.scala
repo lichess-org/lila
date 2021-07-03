@@ -280,14 +280,18 @@ object CplRange {
 
 sealed abstract class EvalRange(val id: Int, val name: String, val eval: Int)
 object EvalRange {
-  case object Down3 extends EvalRange(1, "Less than -700", -700)
-  case object Down2 extends EvalRange(2, "-300 to -700", -300)
-  case object Down1 extends EvalRange(3, "-120 to -300", -120)
-  case object Equal extends EvalRange(4, "About equal", 120)
-  case object Up1   extends EvalRange(5, "+120 to +300", 300)
-  case object Up2   extends EvalRange(6, "+300 to +700", 700)
-  case object Up3   extends EvalRange(7, "More than +700", Int.MaxValue)
-  val all             = List(Down3, Down2, Down1, Equal, Up1, Up2, Up3)
+  case object Down5 extends EvalRange(1, "Less than -600", -600)
+  case object Down4 extends EvalRange(2, "-350 to -600", -350)
+  case object Down3 extends EvalRange(3, "-175 to -350", -175)
+  case object Down2 extends EvalRange(4, "-80 to -175", -80)
+  case object Down1 extends EvalRange(5, "-25 to -80", -25)
+  case object Equal extends EvalRange(6, "Equality", 25)
+  case object Up1   extends EvalRange(7, "+25 to +80", 80)
+  case object Up2   extends EvalRange(8, "+80 to +175", 175)
+  case object Up3   extends EvalRange(9, "+175 to +350", 350)
+  case object Up4   extends EvalRange(10, "+350 to +600", 600)
+  case object Up5   extends EvalRange(11, "More than +600", Int.MaxValue)
+  val all             = List(Down5, Down4, Down3, Down2, Down1, Equal, Up1, Up2, Up3, Up4, Up5)
   def reversedButLast = all.init.reverse
   val byId = all map { p =>
     (p.id, p)

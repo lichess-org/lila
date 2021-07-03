@@ -71,7 +71,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           )
         )
         lazy val evalIdDispatcher =
-          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up3.id)) { case (acc, ev) =>
+          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { case (acc, ev) =>
             $doc(
               "$cond" -> $arr(
                 $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
