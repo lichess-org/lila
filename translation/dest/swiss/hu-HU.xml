@@ -48,6 +48,12 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
   <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
+  <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
+Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
+  <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
+  <string name="whatIfOneDoesntPlayA">Az órájuk ugyanúgy ketyeg, az idejük lejár és elvesztik a játszmát.
+A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
+ Bármikor újracsatlakozhatnak a versenyhez.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
   <string name="lateJoinASingleBye">Kései csatlakozók kapnak egy szabadkört, akkor is ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
