@@ -1,5 +1,6 @@
 package views.html.swiss
 
+import play.api.i18n.Lang
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -22,18 +23,17 @@ object home {
           div(cls := "wiki")(
             iconTag(""),
             p(
-              "In a Swiss tournament ",
-              a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)"),
-              ", each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."
+              trans.swiss.swissDescription(
+                a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
+              )
             )
           ),
           div(cls := "team")(
             iconTag(""),
-            p(
-              "Swiss tournaments can only be created by team leaders, and can only be played by team members.",
-              br,
-              a(href := routes.Team.home())("Join or create a team"),
-              " to start playing in swiss tournaments."
+           p(
+              trans.swiss.teamOnly(
+                a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
+              )
             )
           ),
           comparison,
@@ -79,187 +79,164 @@ object home {
       )
     )
 
-  private lazy val comparison = table(cls := "comparison slist")(
+ private def comparison(implicit lang: Lang) = table(cls := "comparison slist")(
     thead(
       tr(
-        th("Comparison"),
-        th(strong("Arena"), " tournaments"),
-        th(strong("Swiss"), " tournaments")
+        th(trans.swiss.comparison()),
+        th(strong(trans.arena.arenaTournaments())),
+        th(strong(trans.swiss.swissTournaments()))
       )
     ),
     tbody(
       tr(
-        th("Duration of the tournament"),
-        td("Predefined duration in minutes"),
-        td("Predefined max rounds, but duration unknown")
+        th(trans.swiss.tournDuration()),
+        td(trans.swiss.predefinedDuration()),
+        td(trans.swiss.durationUnknown())
       ),
       tr(
-        th("Number of games"),
-        td("As many as can be played in the allotted duration"),
-        td("Decided in advance, same for all players")
+        th(trans.swiss.numberOfGames()),
+        td(trans.swiss.numberOfGamesAsManyAsPossible()),
+        td(trans.swiss.numberOfGamesPreDefined())
       ),
       tr(
-        th("Pairing system"),
-        td("Any available opponent with similar ranking"),
-        td("Best pairing based on points and tie breaks")
+        th(trans.swiss.pairingSystem()),
+        td(trans.swiss.pairingSystemArena()),
+        td(trans.swiss.pairingSystemSwiss())
       ),
       tr(
-        th("Pairing wait time"),
-        td("Fast: doesn't wait for all players"),
-        td("Slow: waits for all players")
+        th(trans.swiss.pairingWaitTime()),
+        td(trans.swiss.pairingWaitTime()),
+        td(trans.swiss.pairingWaitTime())
       ),
       tr(
-        th("Identical pairing"),
-        td("Possible, but not consecutive"),
-        td("Forbidden")
+        th(trans.swiss.identicalPairing()),
+        td(trans.swiss.possibleButNotConsecutive()),
+        td(trans.swiss.identicalForbidden())
       ),
       tr(
-        th("Late join"),
-        td("Yes"),
-        td("Yes until more than half the rounds have started")
+        th(trans.swiss.lateJoin()),
+        td(trans.yes()),
+        td(trans.swiss.lateJoinUntil())
       ),
       tr(
-        th("Pause"),
-        td("Yes"),
-        td("Yes but might reduce the number of rounds")
+        th(trans.swiss.pause()),
+        td(trans.yes()),
+        td(trans.swiss.pauseSwiss())
       ),
       tr(
-        th("Streaks & Berserk"),
-        td("Yes"),
-        td("No")
+        th(trans.swiss.streaksAndBerserk()),
+        td(trans.yes()),
+        td(trans.no())
       ),
       tr(
-        th("Similar to OTB tournaments"),
-        td("No"),
-        td("Yes")
+        th(trans.swiss.similarToOTB()),
+        td(trans.no()),
+        td(trans.yes())
       ),
       tr(
-        th("Unlimited and free"),
-        td("Yes"),
-        td("Yes")
+        th(trans.swiss.unlimitedAndFree()),
+        td(trans.yes()),
+        td(trans.yes())
       )
     )
   )
-
-  private lazy val faq = frag(
+  private def faq(implicit lang: Lang) = frag(
     div(cls := "faq")(
       i("?"),
       p(
-        strong("When to use swiss tournaments instead of arenas?"),
-        "In a swiss tournament, all participants play the same number of games, and can only play each other once.",
-        br,
-        "It can be a good option for clubs and official tournaments."
+        strong(trans.swiss.swissVsArenaQ()),
+        trans.swiss.swissVsArenaA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("How are points calculated?"),
-        "A win is worth one point, a draw is a half point, and a loss is zero points.",
-        br,
-        "When a player can't be paired during a round, they receive a bye worth one point."
+        strong(trans.swiss.pointsCalculationQ()),
+        trans.swiss.pointsCalculationA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("How are tie breaks calculated?"),
-        "With the ",
-        a(
-          href := "https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score"
-        )("Sonneborn–Berger score"),
-        ".",
-        br,
-        "Add the scores of every opponent the player beats and half of the score of every opponent the player draws."
+        strong(trans.swiss.tiebreaksCalculationQ()),
+        trans.swiss.tiebreaksCalculationA(
+          a(
+            href := "https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score"
+          )(trans.swiss.sonnebornBergerScore.txt())
+        )
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("How are pairings decided?"),
-        "With the ",
-        a(
-          href := "https://en.wikipedia.org/wiki/Swiss-system_tournament#Dutch_system"
-        )("Dutch system"),
-        ", implemented by ",
-        a(href := "https://github.com/BieremaBoyzProgramming/bbpPairings")("bbPairings"),
-        " in accordance with the ",
-        a(href := "https://handbook.fide.com/chapter/C0403")("FIDE handbook"),
-        "."
+        strong(trans.swiss.pairingsQ()),
+        trans.swiss.pairingsA(
+          a(
+            href := "https://en.wikipedia.org/wiki/Swiss-system_tournament#Dutch_system"
+          )(trans.swiss.dutchSystem.txt()),
+          a(href := "https://github.com/BieremaBoyzProgramming/bbpPairings")("bbPairings"),
+          a(href := "https://handbook.fide.com/chapter/C0403")(trans.swiss.FIDEHandbook.txt())
+        )
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("What happens if the tournament has more rounds than players?"),
-        "When all possible pairings have been played, the tournament will be ended and a winner declared."
+        strong(trans.swiss.moreRoundsThanPlayersQ()),
+        trans.swiss.moreRoundsThanPlayersA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("Why is it restricted to teams?"),
-        "Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.",
-        br,
-        "We think these conditions are more likely to be met within a team than in global tournaments."
+        strong(trans.swiss.restrictedToTeamsQ()),
+        trans.swiss.restrictedToTeamsANotForOnline(),
+        trans.swiss.restrictedToTeamsABetterMet()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("How many byes can a player get?"),
-        "A player gets a bye of one point every time the pairing system can't find a pairing for them.",
-        br,
-        "Additionally, a single bye of half a point is attributed when a player late-joins a tournament."
+        strong(trans.swiss.numberOfByesQ()),
+        trans.swiss.numberOfByesA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("What happens if a player doesn't play a game?"),
-        "Their clock will tick, they will flag, and lose the game.",
-        br,
-        "Then the system will withdraw the player from the tournament, so they don't lose more games.",
-        br,
-        "They can re-join the tournament at any time."
+        strong(trans.swiss.whatIfOneDoesntPlayQ()),
+        trans.swiss.whatIfOneDoesntPlayA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("Can players late-join?"),
-        "Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round 7 starts.",
-        br,
-        "Late joiners get a single bye, even if they missed several rounds."
+        strong(trans.swiss.lateJoinQ()),
+        trans.swiss.lateJoinAYes(),
+        trans.swiss.lateJoinASingleBye()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("Will swiss replace arena tournaments?"),
-        "No. They're complementary features."
+        strong(trans.swiss.willSwissReplaceArenasQ()),
+        trans.swiss.willSwissReplaceArenasA()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("What about Round Robin?"),
-        "We'd like to add it, but unfortunately Round Robin doesn't work online.",
-        br,
-        "The reason is that it has no fair way of dealing with people leaving the tournament early. ",
-        "We cannot expect that all players will play all their games in an online event. ",
-        "It just won't happen, and as a result most Round Robin tournaments would be flawed and unfair, ",
-        "which defeats their very reason to exist.",
-        br,
-        "The closest you can get to Round Robin online is to play a Swiss tournament with a very high ",
-        "number of rounds. Then all possible pairings will be played before the tournament ends."
+        strong(trans.swiss.roundRobinQ()),
+        trans.swiss.roundRobinAWontWork(),
+        trans.swiss.roundRobinANoBecause(),
+        trans.swiss.roundRobinATheClosestPossible()
       )
     ),
     div(cls := "faq")(
       i("?"),
       p(
-        strong("What about other tournament systems?"),
-        "We don't plan to add more tournament systems to Lichess at the moment."
+        strong(trans.swiss.otherSystemsQ()),
+        trans.swiss.otherSystemsA()
       )
     )
   )
