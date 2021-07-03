@@ -120,7 +120,7 @@
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s grobä Fähler</item>
-    <item quantity="other">%s grobi Patzer</item>
+    <item quantity="other">%s grobi Fählär</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Fähler</item>
@@ -436,7 +436,7 @@
   <string name="nextXTournament">Nöchschts %s Turniär:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
   <string name="membersOnly">Nur für Mitgliidär</string>
-  <string name="boardEditor">Stellig ufbouä</string>
+  <string name="boardEditor">Schtellig ufbouä</string>
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiilpositionä</string>
