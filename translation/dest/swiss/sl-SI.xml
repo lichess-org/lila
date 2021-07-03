@@ -41,4 +41,14 @@
   <string name="forbiddenPairings">Prepovedano delanje parov</string>
   <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
   <string name="newSwiss">Nov švicarski turnir</string>
+  <string name="swissVsArenaQ">Kdaj uporabiti švicarske turnirje namesto aren?</string>
+  <string name="swissVsArenaA">Na švicarskem turnirju vsi udeleženci igrajo enako število iger in lahko med seboj igrajo le enkrat.
+To je lahko dobra izbira za klube in uradne turnirje.</string>
+  <string name="pointsCalculationQ">Kako se izračuna točke?</string>
+  <string name="pointsCalculationA">Zmaga je vredna eno točko, remi je pol točke, izguba pa nič točk.
+Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
+  <string name="tiebreaksCalculationQ">Kako se izračunajo neodločeni izidi?</string>
+  <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
+  <string name="tiebreaksCalculationA">Z %s.
+Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
 </resources>
