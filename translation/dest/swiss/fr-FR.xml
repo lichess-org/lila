@@ -35,4 +35,5 @@
   <string name="forbiddenPairings">Appariements interdits</string>
   <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
+  <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène?</string>
 </resources>
