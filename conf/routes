@@ -684,6 +684,8 @@ GET   /how-to-cheat                    controllers.Page.howToCheat
 GET   /ads                             controllers.Page.ads
 GET   /resources                       controllers.Page.resources
 GET   /page/:bookmark                  controllers.Page.loneBookmark(bookmark: String)
+GET   /explanation/impasse             controllers.Page.impasse
+GET   /explanation/storm               controllers.Page.storm
 
 # Variants
 GET   /variant                         controllers.Page.variantHome

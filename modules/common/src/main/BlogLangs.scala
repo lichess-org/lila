@@ -1,6 +1,7 @@
 package lila.common
 
 object BlogLangs {
+  val default = "en-US"
   val langs   = Set("en-US", "ja-JP") // en-US has to be first
   val enIndex = 0
 

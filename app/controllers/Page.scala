@@ -18,6 +18,10 @@ final class Page(
   val ads          = helpDocument("ads")
   val patron       = singleDocument("patron")
   val notSupported = singleDocument("404")
+  
+  // Explanations use lang
+  val storm        = explanation("storm")
+  val impasse      = explanation("impasse")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>
@@ -58,6 +62,14 @@ final class Page(
     }
 
   def loneBookmark(name: String) = bookmark(name)
+
+  private def explanation(uid: String) =
+    Open { implicit ctx =>
+      pageHit
+      OptionOk(prismicC.getPage("doc", uid, ctx.lang.code)) { case (doc, resolver) =>
+        views.html.site.page(doc, resolver)
+      }
+    }
 
   def variantHome =
     Open { implicit ctx =>

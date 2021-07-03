@@ -2,6 +2,7 @@ package controllers
 
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
+import lila.common.BlogLangs
 
 final class Prismic(
     env: Env
@@ -28,10 +29,11 @@ final class Prismic(
       }
     }
 
-  private def getDocumentByUID(form: String, uid: String) =
+  private def getDocumentByUID(form: String, uid: String, langCode: String) =
     prismicApi flatMap { api =>
       api
         .forms("everything")
+        .set("lang", BlogLangs.parse(langCode))
         .query(s"""[[:d = at(my.$form.uid, "$uid")]]""")
         .ref(api.master.ref)
         .submit() dmap {
@@ -39,9 +41,9 @@ final class Prismic(
       }
     }
 
-  def getPage(form: String, uid: String) =
+  def getPage(form: String, uid: String, langCode: String = BlogLangs.default) =
     prismicApi flatMap { api =>
-      getDocumentByUID(form, uid) map2 { (doc: io.prismic.Document) =>
+      getDocumentByUID(form, uid, langCode) map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }
     } recover { case e: Exception =>
