@@ -52,6 +52,7 @@
   <string name="knightMate">Có thể xảy ra trường hợp chiếu hết chỉ với một quân mã hoặc một quân tượng, nếu đối thủ có nhiều hơn chỉ có vua trên bàn cờ.</string>
   <string name="noRatingPoints">Không có hệ số nào được tăng</string>
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ xếp hạng. Các ván đấu thường sẽ không ảnh hưởng đến hệ số của người chơi.</string>
+  <string name="botRatingAbuse">Trong một số trường hợp nhất định khi chơi với tài khoản bot, trò chơi được xếp hạng có thể không trao điểm nếu xác định được rằng người chơi đang lạm dụng bot để lấy điểm xếp hạng.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thẻ báo cáo nó:</string>
   <string name="banAppeal">Kháng cáo cho việc ban và chặn IP</string>
