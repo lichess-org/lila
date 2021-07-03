@@ -62,4 +62,9 @@ De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardiveme
 Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.
 Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</string>
   <string name="lateJoinQ">Un joueur peut-il se joindre tardivement à un tournoi?</string>
+  <string name="lateJoinAYes">Oui, tant que plus de la moitié des rondes n\'ont pas été jouées. Par exemple, pour un tournoi suisse de 11 rondes, un joueur doit s\'inscrire avant la ronde 6; pour un tournoi de 12 rondes, il doit s\'inscrire avant la ronde 7.</string>
+  <string name="lateJoinASingleBye">Les joueurs inscrits après le début du tournoi reçoivent un seul bye, même s\'ils ont manqué plusieurs rondes.</string>
+  <string name="willSwissReplaceArenasQ">Les tournois de type suisse remplaceront-ils les tournois de type arène?</string>
+  <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
+  <string name="roundRobinQ">Et les tournois à la ronde?</string>
 </resources>
