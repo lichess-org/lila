@@ -21,4 +21,12 @@
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
   <string name="restrictedToTeamsANotForOnline">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
+  <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
+  <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
+Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
+  <string name="whatIfOneDoesntPlayQ">Mitä tapahtuu, jos pelaaja jättää pelin pelaamatta?</string>
+  <string name="whatIfOneDoesntPlayA">Aika kuluu pelaajan kellossa, lippu putoaa ja hän häviää pelin.
+Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
+Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
+  <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
 </resources>
