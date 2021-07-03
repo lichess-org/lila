@@ -42,18 +42,18 @@
 
     .pv-wrap-toggle {
       position: absolute;
+      top: 0;
       right: 0;
       padding: 0 4px;
       margin: 0;
       cursor: pointer;
-      top: 2px;
 
       &:hover {
         background: $c-secondary;
         color: $c-secondary-over;
       }
       &::before {
-        content: '▴';
+        content: '▲';
       }
     }
 
