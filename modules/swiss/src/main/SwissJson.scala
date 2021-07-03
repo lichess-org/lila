@@ -257,7 +257,7 @@ object SwissJson {
   private[swiss] def boardJson(b: SwissBoard.WithGame) =
     Json.obj(
       "id"       -> b.game.id,
-      "fen"      -> (shogi.format.Forsyth exportBoard b.game.board),
+      "fen"      -> (shogi.format.Forsyth exportSituation b.game.situation),
       "lastMove" -> ~b.game.lastMoveKeys,
       "sente"    -> boardPlayerJson(b.board.sente),
       "gote"     -> boardPlayerJson(b.board.gote)
