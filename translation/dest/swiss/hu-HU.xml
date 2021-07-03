@@ -41,7 +41,10 @@ Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek
   <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
   <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
 Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
+  <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
+  <string name="tiebreaksCalculationA">A %s alapján.
+Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
@@ -63,6 +66,7 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="roundRobinAWontWork">Szeretnénk hozzáadni, de sajnos a körmérkőzések nem működnek online</string>
   <string name="roundRobinANoBecause">Ennek az az oka, hogy nem lehet igazságosan kezelni, ha valaki korán elhagyja a versenyt. Nem várható el a játékosoktól, hogy minden partit végigjátszanak egy online eseményen. Nem működne, mert a körmérkőzéses versenyek eredménye hibás és igazságtalan lenne, ami ellentmond annak az alapvető gondolatával.</string>
   <string name="roundRobinATheClosestPossible">Ami leginkább megközelíti a körmérkőzést az egy svájci rendszerű verseny nagyon sok fordulóval. Ezáltal minden lehetséges párosítás végbemegy még a verseny befejezte előtt.</string>
+  <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
