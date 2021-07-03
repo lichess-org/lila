@@ -41,6 +41,8 @@ object bits {
           )
         )
       ),
-      div(cls := "mode")(modeName(c.mode))
+      div(cls := "mode")(
+        s"${c.colorChoice.toString()} • ${modeName(c.mode)}"
+      )
     )
 }

@@ -47,10 +47,11 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
       [
         h('div.content', [
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
-          h(
-            'span.desc',
-            [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • ')
-          ),
+          h('span.desc', [
+            h('span.is.is2.color-icon.' + (c.color || 'random')),
+            ' • ',
+            [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(' • '),
+          ]),
         ]),
         h('i', {
           attrs: { 'data-icon': c.perf.icon },
