@@ -49,7 +49,7 @@
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
-  <string name="dutchSystem">System holenderski</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">System holenderski</string>
   <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
   <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
