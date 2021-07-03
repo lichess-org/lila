@@ -44,8 +44,26 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
+  <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
+  <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
+  <string name="tournDuration">A verseny időtartama</string>
+  <string name="predefinedDuration">Percben előre meghatározott</string>
+  <string name="durationUnknown">Meghatározott a körök száma, de ismeretlen ideig</string>
+  <string name="numberOfGames">Játszmák száma</string>
+  <string name="numberOfGamesAsManyAsPossible">Amennyi belefér az előre lefoglalt időtartamba</string>
+  <string name="numberOfGamesPreDefined">Előre eldöntött, minden játékosnak egyforma</string>
+  <string name="pairingSystem">Játszmák száma</string>
+  <string name="pairingWaitTime">Párosítás üteme</string>
+  <string name="pairingWaitTimeFast">Gyors: nem vár minden játékosra</string>
+  <string name="pairingWaitTimeSlow">Lassú: minden játékosra vár</string>
+  <string name="identicalPairing">Azonos párosítás</string>
+  <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
+  <string name="identicalForbidden">Tiltott</string>
+  <string name="lateJoin">Késői csatlakozás</string>
+  <string name="lateJoinUntil">Lehet amíg legfeljebb a körök fele elkezdődött</string>
   <string name="pause">Szünet</string>
+  <string name="pauseSwiss">Lehet, de ezzel csökkenhet a fordulók száma</string>
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
 </resources>
