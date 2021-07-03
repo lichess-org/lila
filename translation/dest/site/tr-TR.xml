@@ -900,4 +900,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="onlyTeamMembers">Yalnızca takım üyeleri</string>
   <string name="playComputerMove">En iyi bilgisayar hamlesini oyna</string>
   <string name="analysisOptions">Analiz seçenekleri</string>
+  <string name="showHelpDialog">Bu yardım iletisini göster</string>
 </resources>
