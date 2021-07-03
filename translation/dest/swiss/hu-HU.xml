@@ -35,4 +35,8 @@
   <string name="forbiddenPairings">Tiltott párosítások</string>
   <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
+  <string name="swissVsArenaQ">Mikor érdemes svájci rendszerű versenyt indítani aréna helyett?</string>
+  <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik és minden ellenféllel csak egyszer.
+Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek.</string>
+  <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
 </resources>
