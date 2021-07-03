@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Зрабіце ход, каб пачаць</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі ва ўсіх галаваломках</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі ва ўсіх задачах</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце за чорныя фігуры ва ўсіх задачках</string>
-  <string name="puzzlesSolved">рашано задач</string>
+  <string name="puzzlesSolved">задач вырашана</string>
   <string name="newDailyHighscore">Новы дзенны рэкорд!</string>
   <string name="newWeeklyHighscore">Новы тыднёвы рэкорд!</string>
   <string name="newMonthlyHighscore">Новы месячны рэкорд!</string>
@@ -30,7 +30,7 @@
   <string name="time">Час</string>
   <string name="timePerMove">Час на ход</string>
   <string name="highestSolved">Найцяжейшая вырашаная</string>
-  <string name="puzzlesPlayed">Галаваломак сыграна</string>
+  <string name="puzzlesPlayed">Задач згуляна</string>
   <string name="newRun">Новая спроба (клавіша: Space)</string>
   <string name="endRun">Скончыць спробу (клавіша: Enter)</string>
   <string name="highscores">Рэкорды</string>
