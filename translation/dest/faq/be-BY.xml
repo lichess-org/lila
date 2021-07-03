@@ -23,6 +23,8 @@
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
+  <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
+  <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
