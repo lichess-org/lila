@@ -46,7 +46,7 @@ Si un joueur ne peut pas être apparié, il reçoit un bye d\'un demi-point.</st
   <string name="tiebreaksCalculationA">Avec le %s.
 Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du résultat de chaque adversaire contre lequel le joueur a fait nulle.</string>
   <string name="pairingsQ">Comment les appariements sont-ils faits?</string>
-  <string name="dutchSystem">Système néerlandais</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Système néerlandais</string>
   <string name="FIDEHandbook">Manuel de la FIDE</string>
   <string name="pairingsA">Avec le %1$s, mis en place par %2$s, selon le %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Qu\'arrive-t-il si le tournoi compte plus de rondes que de joueurs?</string>
