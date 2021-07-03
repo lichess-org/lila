@@ -42,4 +42,8 @@
 Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçer ve bir puan alır.</string>
   <string name="tiebreaksCalculationQ">Eşitlik bozma puanları nasıl hesaplanıyor?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger sistemi</string>
+  <string name="tiebreaksCalculationA">%s ile.
+Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere kaldığı bütün rakiplerin puanları toplamının yarısı alınır. Bu iki sayı birbiriyle toplanır.</string>
+  <string name="pairingsQ">Eşleştirmeler nasıl yapılıyor?</string>
+  <string name="moreRoundsThanPlayersQ">Turnuvadaki tur sayısı, oyuncu sayısından fazla olursa ne olur?</string>
 </resources>
