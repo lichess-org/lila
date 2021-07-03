@@ -71,5 +71,8 @@
   <string name="pairingSystem">Количество партий</string>
   <string name="pairingSystemArena">Любой доступный противник со схожим рейтингом</string>
   <string name="pairingWaitTimeFast">Быстро: не нужно ждать всех игроков</string>
+  <string name="pause">Пауза</string>
+  <string name="pauseSwiss">Да, но может уменьшить количество раундов</string>
+  <string name="streaksAndBerserk">Серии и берсерк</string>
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
 </resources>
