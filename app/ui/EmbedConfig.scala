@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.common.Nonce
 
-case class EmbedConfig(bg: String, board: String, lang: Lang, req: RequestHeader, nonce: Nonce)
+case class EmbedConfig(bg: String, board: String, pieceSet: lila.pref.PieceSet, lang: Lang, req: RequestHeader, nonce: Nonce)
 
 object EmbedConfig {
 
@@ -19,6 +19,7 @@ object EmbedConfig {
     EmbedConfig(
       bg = get("bg", req).filterNot("auto".==) | "light",
       board = lila.pref.Theme(~get("theme", req)).cssClass,
+      pieceSet = lila.pref.PieceSet(~get("pieceSet", req)),
       lang = lila.i18n.I18nLangPicker(req, none),
       req = req,
       nonce = Nonce.random
