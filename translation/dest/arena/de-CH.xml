@@ -44,12 +44,12 @@ Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alli %s Teams aluägä</item>
   </plurals>
-  <string name="newTeamBattle">Neuer Teamkampf</string>
-  <string name="customStartDate">Benutzerdefiniertes Startdatum</string>
+  <string name="newTeamBattle">Neuä Teamfight</string>
+  <string name="customStartDate">Benutzärdefiniärts Schtartdatum</string>
   <string name="customStartDateHelp">In deiner eigenen, lokalen Zeitzone. Dies wird die Einstellung \"Zeit bevor das Turnier beginnt\" überschreiben</string>
-  <string name="allowBerserk">Berserk erlauben</string>
+  <string name="allowBerserk">Bersärk erlaubä</string>
   <string name="allowBerserkHelp">Lasse Spieler ihre Bedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
-  <string name="allowChatHelp">Lasse Spieler in einem Chatraum diskutieren</string>
+  <string name="allowChatHelp">La Schpillär imnä Tschättruum diskutiärä</string>
   <string name="arenaStreaks">Arena-Siegesserien</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
 </resources>

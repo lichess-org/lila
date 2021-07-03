@@ -6,11 +6,12 @@
   <string name="becomePatron">Lichess Destekçisi olun</string>
   <string name="xBecamePatron">%s Lichess Destekçisi oldu</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">%1$s %2$s aydır Lichess Destekçisi</item>
-    <item quantity="other">%1$s %2$s aydır Lichess Destekçisi</item>
+    <item quantity="one">%1$s %2$s aylığına Lichess\'i destekledi</item>
+    <item quantity="other">%1$s %2$s aylığına Lichess\'i destekledi</item>
   </plurals>
   <string name="newPatrons">Yeni Destekçiler</string>
-  <string name="freeChess">Herkes için ücretsiz satranç, sonsuza kadar!</string>
+  <string name="freeChess">Herkes için ücretsiz satranç,
+sonsuza kadar!</string>
   <string name="noAdsNoSubs">Ne reklam var ne abonelik; kodumuz açık kaynaklı, tutkumuz epik.</string>
   <string name="thankYou">Yardımınız için teşekkür ederiz!</string>
   <string name="youHaveLifetime">Artık Ömür Boyu Destekçi hesabınız var. Bu müthiş bir şey!</string>

@@ -1,4 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Турніры па швейцарскай сыстэме</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Паглядзець тур</item>
+    <item quantity="few">Паглядзець усе %s туры</item>
+    <item quantity="many">Паглядзець усе %s тураў</item>
+    <item quantity="other">Паглядзець усе %s тураў</item>
+  </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s тур</item>
+    <item quantity="few">%s тураў</item>
+    <item quantity="many">%s тураў</item>
+    <item quantity="other">%s тураў</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Адзін тур у дзень</item>
+    <item quantity="few">Адзін тур кожныя %s дні</item>
+    <item quantity="many">Адзін тур кожныя %s дзён</item>
+    <item quantity="other">Адзін тур кожныя %s дзён</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Туры распачынаюцца ўручную</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s сякунда паміж турамі</item>
+    <item quantity="few">%s сякунд паміж турамі</item>
+    <item quantity="many">%s сякунд паміж турамі</item>
+    <item quantity="other">%s сякунд паміж турамі</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s хвілін паміж турамі</item>
+    <item quantity="few">%s хвіліны паміж турамі</item>
+    <item quantity="many">%s хвіліны паміж турамі</item>
+    <item quantity="other">%s хвіліны паміж турамі</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Пачынаецца праз</string>
+  <string name="nextRound">Наступны тур</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Бягучая партыя</item>
+    <item quantity="few">Бягучыя партыі</item>
+    <item quantity="many">Бягучыя партыі</item>
+    <item quantity="other">Бягучыя партыі</item>
+  </plurals>
+  <string name="tournStartDate">Дата пачатку турніру</string>
+  <string name="numberOfRounds">Колькасць тураў</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Няцотная колькасць тураў стварае аптымальны баланс колераў фігур.</string>
+  <string name="roundInterval">Інтэрвал паміж турамі</string>
+  <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
+  <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
+  <string name="newSwiss">Новы турнір па швейцарскай сыстэме</string>
 </resources>

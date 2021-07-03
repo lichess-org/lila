@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessClasses">Заняткі</string>
+  <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
+  <string name="newClass">Новы занятак</string>
+  <string name="removeStudent">Выдаліць вучня</string>
+  <string name="removedStudents">Выдаленыя</string>
+  <string name="inviteTheStudentBack">Запрасіць вучня абратна</string>
+  <string name="sendAMessage">Даслаць паведамленне ўсім вучням.</string>
+  <string name="className">Назва занятку</string>
+  <string name="classDescription">Апісанне занятку</string>
+  <string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і вучням занятку</string>
+  <string name="teachersOfTheClass">Выкладчыкі занятку</string>
+  <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
+  <string name="generateANewPassword">Стварыць новы пароль для вучняў</string>
+  <string name="addStudent">Дадаць вучня</string>
+  <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
+  <string name="lichessUsername">Імя карыстальніка Lichess</string>
+  <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
+  <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
+  <string name="students">Вучні</string>
+  <string name="progress">Прагрэс</string>
+  <string name="noStudents">Пакуль ніводнага вучня на занятку.</string>
+  <string name="noRemovedStudents">Няма выдаленных вучняў.</string>
+  <string name="overDays">На працягу дзён</string>
+  <string name="winrate">Адсотак перамог</string>
+  <string name="news">Навіны занятку</string>
+  <string name="notifyAllStudents">Паведаміць усім вучням</string>
+  <string name="nothingHere">Пакуль нічога.</string>
+</resources>

@@ -11,7 +11,7 @@
   </plurals>
   <string name="newPatrons">Neui Patroons</string>
   <string name="freeChess">Choschtälosäs Schach für alli, für immer!</string>
-  <string name="noAdsNoSubs">Keine Werbung, keine Abonnements; aber quelloffen und mit Leidenschaft.</string>
+  <string name="noAdsNoSubs">Kei Wärbig, kei Abos; aber open-source und mit Lidäschaft.</string>
   <string name="thankYou">Vielen Dank für die Spende!</string>
   <string name="youHaveLifetime">Du bsitzisch äs läbänslangs Underschtützerkonto. Das isch schlichtwäg grossartig!</string>
   <string name="patronUntil">Du bsitzisch äs Patroonkonto bis %s.</string>
@@ -41,7 +41,7 @@ Dänn zahläd mir än Vollziit-Entwickler: %s, dä Gründer vo Lichess.</string>
   <string name="changeOrContact">Ja, jederzeit von dieser Seite aus.
 Oder du kannst %s.</string>
   <string name="contactSupport">den Lichess Support kontaktieren</string>
-  <string name="otherMethods">Andri wäg um spändä?</string>
+  <string name="otherMethods">Andäri Wäg zum schpändä?</string>
   <string name="bankTransfers">Wir akzeptieren auch Überweisungen</string>
   <string name="bitcoin">Und hier ist unsere Bitcoinadresse: %s</string>
   <string name="patronFeatures">Gits zuäsätzlichi Funktionä für Underschtützer?</string>
@@ -53,26 +53,26 @@ Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z
     <item quantity="other">Lichess Patroon für %s Mönät</item>
   </plurals>
   <string name="youSupportWith">Du unterstützt lichess.org mit %s pro Monat.</string>
-  <string name="tyvm">Vielen Dank für deine Unterstützung. Du rockst!</string>
-  <string name="currentStatus">Aktueller Status</string>
-  <string name="nextPayment">Nächste Zahlung</string>
-  <string name="youWillBeChargedXOnY">Dir werden %1$s am %2$s berechnet.</string>
-  <string name="makeAdditionalDonation">Leiste jetzt eine zusätzliche Spende</string>
+  <string name="tyvm">Merci vill Mal für dini Unterschtützig. Du rocksch!</string>
+  <string name="currentStatus">Aktuellä Status</string>
+  <string name="nextPayment">Nächschti Zahlig</string>
+  <string name="youWillBeChargedXOnY">Dir werdäd am %2$s %1$s berechnät.</string>
+  <string name="makeAdditionalDonation">Mach ä zuäsätzlichi Spänd</string>
   <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schänk ämänä Schpiller / änärä Schpillerin Patroon-Flügäl</string>
-  <string name="update">Aktualisierung</string>
-  <string name="changeMonthlyAmount">Ändere den monatlichen Betrag (%s)</string>
-  <string name="cancelSupport">beende deine Unterstützung</string>
+  <string name="update">Update</string>
+  <string name="changeMonthlyAmount">Änderä dä monatlichi Betrag (%s)</string>
+  <string name="cancelSupport">beänd dini Untärschtützig</string>
   <string name="xOrY">%1$s oder %2$s</string>
-  <string name="decideHowMuch">Entscheide wieviel dir Lichess wert ist:</string>
-  <string name="stopPayments">Deine Kreditkarte zurückziehen und Zahlungen beenden:</string>
-  <string name="noLongerSupport">Lichess nicht weiter unterstützen</string>
+  <string name="decideHowMuch">Entscheid wievill der Lichess wert isch:</string>
+  <string name="stopPayments">Dini Kreditchartä zruggziä und Zalligä beändä:</string>
+  <string name="noLongerSupport">Lichess nöd wiitär unterschtützä</string>
   <string name="viewOthers">Luäg dir andäri Lichess Underschtützer aa</string>
   <string name="date">Datum</string>
   <string name="amount">Betrag</string>
-  <string name="transactionCompleted">Dini Transaktion isch erfolgreich gsie und ä Spendenquittung isch der per E-Mail zugschickt wordä.</string>
+  <string name="transactionCompleted">Dini Transaktion isch erfolgreich gsi und ä Spendenquittig isch der per E-Mail zuägschickt wordä.</string>
   <string name="permanentPatron">Du bsitzisch jetzt äs duurhafts Underschtützerkonto.</string>
-  <string name="checkOutProfile">Sieh dir deine Profilseite an!</string>
+  <string name="checkOutProfile">Luäg där dini Profilsiitä aa!</string>
   <string name="nowLifetime">Du bisch jetzt läbänslangä Lichess-Patroon!</string>
   <string name="nowOneMonth">Du bisch jetzt für ein Monät Lichess Patroon!</string>
-  <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
+  <string name="downgradeNextMonth">Dir wird imnä Monät NÜT neu berächnät und dis Lichess-Konto wird wieder inäs regulärs Konto umgwandlät.</string>
 </resources>

@@ -6,6 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre і chess. Lichess вымаўляцца як %1$s.</string>
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта прамаўляе спецыяліст.</string>
+  <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
   <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess валанцёрствам, сваімі навыкамі і часам, то ёсць шмат %3$s.</string>
   <string name="beingAPatron">стаўшы донарам</string>
   <string name="otherWaysToHelp">іншых спосабаў дапамагчы</string>
@@ -15,10 +16,24 @@
   <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+  <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
+  <string name="lichessSupportChessAnd">Lichess падтрымлівае класічныя шахматы і %1$s.</string>
+  <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
+  <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="positions">пазіцыі</string>
+  <string name="accounts">Акаўнты</string>
+  <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
+  <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
+  <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
+  <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
+  <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
+  <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
+  <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
+  <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>

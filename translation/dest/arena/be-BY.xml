@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arenaTournaments">Турніры Арэны</string>
   <string name="isItRated">Гэта рэйтынгавыя гульні?</string>
   <string name="willBeNotified">Вас апавясцяць, калі пачнецца турнір, так што пакуль што можаце пагуляць, адкрыўшы іншую ўкладку.</string>
   <string name="isRated">Гэты турнір рэйтынгавы і паўплывае на ваш рэйтынг.</string>
@@ -36,4 +37,6 @@
   <string name="thisIsPrivate">Гэта прыватны турнір</string>
   <string name="shareUrl">Падзяліцеся гэтай спасылкай, каб запрасіць гульцоў: %s</string>
   <string name="drawStreak">Серыя нічыіх: Калі гулец мае некалькі паслядоуных нічыіх на Арэне, то толькі першая з іх прынясе ачко, або нічыі, якія працягнуцца болей чым %s хадоу. Серыю нічыіх можна перапыніць толькі перамогай, але не пройгрышам або яшчэ адной нічыёй.</string>
+  <string name="history">Гісторыя Арэны</string>
+  <string name="allowBerserk">Дазволіць Шалёны рэжым</string>
 </resources>

@@ -120,7 +120,7 @@
   <string name="inaccuracy">Ungnauigkeit</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s grobä Fähler</item>
-    <item quantity="other">%s grobi Patzer</item>
+    <item quantity="other">%s grobi Fählär</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s Fähler</item>
@@ -436,9 +436,10 @@
   <string name="nextXTournament">Nöchschts %s Turniär:</string>
   <string name="averageOpponent">Durchschnittlichä Gägnär</string>
   <string name="membersOnly">Nur für Mitgliidär</string>
-  <string name="boardEditor">Stellig ufbouä</string>
+  <string name="boardEditor">Schtellig ufbouä</string>
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
+  <string name="endgamePositions">Ändschpiilpositionä</string>
   <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
   <string name="savePosition">Schtellig schpeichärä</string>
@@ -477,7 +478,7 @@
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Texscht wo numä Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt är für Teammitglider dä öffentlichi Texscht.</string>
+  <string name="descPrivateHelp">Tegscht wo numä Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt är für Teammitglider dä öffentlichi Tegscht.</string>
   <string name="no">Nei dankä</string>
   <string name="yes">Jawoll</string>
   <string name="help">Hilf:</string>
@@ -489,7 +490,7 @@
   <string name="replies">Antwortä</string>
   <string name="replyToThisTopic">Uf das Thema antwortä</string>
   <string name="reply">Antwortä</string>
-  <string name="message">Nochricht</string>
+  <string name="message">Nachricht</string>
   <string name="createTheTopic">Thema ärschtellä</string>
   <string name="reportAUser">Benutzer-/in mäldä</string>
   <string name="user">Benutzer/-in</string>
@@ -869,33 +870,33 @@
 Alli Betriebschostä, Entwicklig und Inhält wärdäd usschliässlich dur Benutzerschpändä finanziärt.</string>
   <string name="coachManager">Trääner Mänätscher</string>
   <string name="streamerManager">Schtriimer Mänätscher</string>
-  <string name="cancelTournament">Turnier abbrechen</string>
-  <string name="tournDescription">Turnierbeschreibung</string>
-  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
-  <string name="ratedFormHelp">Partien sind gewertet
-und beeinflussen die Wertungszahl der Spieler</string>
-  <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
-  <string name="noRestriction">Keine Einschränkung</string>
-  <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
-  <string name="minimumRating">Niedrigste Wertungszahl</string>
-  <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
-  <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="cancelTournament">Turniär abbrächä</string>
+  <string name="tournDescription">Turniärbeschriibig</string>
+  <string name="tournDescriptionHelp">Wettsch dä Teilnehmer öppis Bsundrix mitteilä? Halt dich churz. Du chasch ä Url mitmä Namä verseh: [name](https://url)</string>
+  <string name="ratedFormHelp">Partiiä sind gwärtät
+und beeiflussäd Schpillärwärtig</string>
+  <string name="onlyMembersOfTeam">Nur Teammitgliidär</string>
+  <string name="noRestriction">Kä Iischränkigä</string>
+  <string name="minimumRatedGames">Mindeschtaazahl vo gwärtätä Partiiä</string>
+  <string name="minimumRating">Mindäscht-Wärtig</string>
+  <string name="maximumWeeklyRating">Maximali Wärtigszahl i därä Wuchä</string>
+  <string name="onlyTitled">Nur Schpillär mit Titel</string>
+  <string name="onlyTitledHelp">Brucht än offiziellä Titel, zum a dem Turniär teilznäh</string>
   <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
 Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
 Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
-  <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
+  <string name="cancelSimul">Simultan abbrächä</string>
   <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
-  <string name="estimatedStart">Voraussichtliche Startzeit</string>
-  <string name="simulFeatured">Auf %s zeigen</string>
+  <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
+  <string name="simulFeatured">Uf %s zeigä</string>
   <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
-  <string name="simulDescription">Simultan Beschreibung</string>
-  <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
+  <string name="simulDescription">Simultanbeschriibig</string>
+  <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
   <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
   <string name="inYourLocalTimezone">In deiner eigenen lokalen Zeitzone</string>
-  <string name="tournChat">Turnierchat</string>
-  <string name="noChat">Kein Chat</string>
-  <string name="onlyTeamLeaders">Nur Teamleiter</string>
-  <string name="onlyTeamMembers">Nur Teammitglieder</string>
+  <string name="tournChat">Turniärtschätt</string>
+  <string name="noChat">Kein Tschätt</string>
+  <string name="onlyTeamLeaders">Nur Teamleitär</string>
+  <string name="onlyTeamMembers">Nur Teammitglidär</string>
 </resources>

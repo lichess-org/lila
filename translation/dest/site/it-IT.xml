@@ -440,6 +440,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="boardEditor">Editor scacchiera</string>
   <string name="setTheBoard">Imposta la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
+  <string name="endgamePositions">Poizioni di chiusura</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
   <string name="savePosition">Salva la posizione</string>
@@ -693,6 +694,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="enableKidMode">Attiva \"modalità bambino\"</string>
   <string name="disableKidMode">Disattiva \"modalità bambino\"</string>
   <string name="security">Sicurezza</string>
+  <string name="sessions">Sessioni</string>
   <string name="revokeAllSessions">rimuovi tutte le sessioni</string>
   <string name="playChessEverywhere">Gioca a scacchi ovunque</string>
   <string name="asFreeAsLichess">Gratuita, proprio come Lichess</string>
@@ -867,4 +869,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="welcome">Benvenuto!</string>
   <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
+  <string name="cancelTournament">Annulla il torneo</string>
+  <string name="noRestriction">Nessuna restrizione</string>
 </resources>

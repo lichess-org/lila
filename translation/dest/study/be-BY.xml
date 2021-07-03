@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="noneYet">Пакуль нічога няма.</string>
+  <string name="recentlyUpdated">Нядаўна абноўленыя</string>
+  <string name="mostPopular">Найбольш папулярныя</string>
+  <string name="addMembers">Дадаць удзельнікаў</string>
+  <string name="spectator">Глядач</string>
+  <string name="kick">Выдаліць</string>
+  <string name="like">Падабайка</string>
+  <string name="commentThisMove">Каментаваць гэты ход</string>
+  <string name="first">На першую</string>
+  <string name="previous">Папярэдняя</string>
+  <string name="next">Наступная</string>
+  <string name="last">На апошнюю</string>
+  <string name="cloneStudy">Кланаваць</string>
+</resources>

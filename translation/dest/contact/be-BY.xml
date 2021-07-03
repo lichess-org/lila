@@ -7,4 +7,26 @@
   <string name="iCantLogIn">Не магу ўвайсці</string>
   <string name="noConfirmationEmail">Не атрымаў ліста пацвярджэння</string>
   <string name="forgotPassword">Забыўся(-лася) пароль</string>
+  <string name="forgotUsername">Забыўся(-лася) на свае імя карыстальніе</string>
+  <string name="youCanLoginWithEmail">Вы можаце ўваісці з дапамогай электронай пошты, з якой вы рэгістраваліся</string>
+  <string name="lost2FA">Страчаны доступ да кадоў двухфактарнаў аўтарызацыі</string>
+  <string name="accountSupport">Мне трэба дапамога з акаўнтам</string>
+  <string name="wantCloseAccount">Хачу зачыніць акаўнт</string>
+  <string name="closeYourAccount">Вы можаце зачыніць свой акаўнт на гэтай старонцы</string>
+  <string name="doNotAskByEmail">Не прасіце нас зачыніць акаўнт праз электроныя лісты, мы не будзем.</string>
+  <string name="wantReopen">Хачу пераадчыніць свой акаўнт</string>
+  <string name="reopenOnThisPage">Вы можаце пераадчыніць акаўнт на гэтай старонцы. Гэта спрацуе толькі адзін раз.</string>
+  <string name="doNotAskByEmailToReopen">Не прасіце нас пераадчыніць акаўнт праз электроныя лісты, мы не будзем.</string>
+  <string name="wantChangeUsername">Хачу змяніць імя карыстальніка</string>
+  <string name="wantReport">Хачу паскардзіцца на гульца</string>
+  <string name="toReportAPlayerUseForm">Каб паскардзіцца на гульца, выкарыстайце форму скаргі</string>
+  <string name="doNotSendReportEmails">Не дасылайце нам эляктроныя лісты са скаргамі.</string>
+  <string name="wantReportBug">Хачу паведаміць пра памылку</string>
+  <string name="insufficientMaterial">Недастаткова матэрыялу, каб паставіць мат</string>
+  <string name="errorPage">Старонка памылкі</string>
+  <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>
+  <string name="otherRestriction">Іншыя абмежаванні</string>
+  <string name="buyingLichess">Купіць Lichess</string>
+  <string name="authorizationToUse">Аўтарызацыя на Lichess</string>
+  <string name="sendEmailAt">Даслаць нам ліст на %s.</string>
 </resources>

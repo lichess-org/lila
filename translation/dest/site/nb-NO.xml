@@ -623,18 +623,18 @@
   <string name="hostANewSimul">Opprett en simultan</string>
   <string name="noSimulFound">Simultan ikke funnet</string>
   <string name="noSimulExplanation">Denne simultanoppvisningen eksisterer ikke.</string>
-  <string name="returnToSimulHomepage">Returner til Simultanhjemmesiden</string>
+  <string name="returnToSimulHomepage">Returner til simultanhjemmesiden</string>
   <string name="aboutSimul">Simultaner består av en enkelt spiller som spiller mot flere spillere samtidig.</string>
-  <string name="aboutSimulImage">Mot 50 motstandere, vant Fischer 47 partier, spilte to remis og tapte ett.</string>
+  <string name="aboutSimulImage">Mot 50 motstandere vant Fischer 47 partier, spilte to remis og tapte ett.</string>
   <string name="aboutSimulRealLife">Konseptet er tatt fra virkelige oppvisninger. I disse oppvisningene beveger den som gjør oppvisning seg fra brett til brett for å gjøre enkelttrekk.</string>
-  <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med den som gjør oppvisning. Den som gjør oppvisning spiller hvit i alle partier og simultanen slutter når alle partier er ferdig.</string>
-  <string name="aboutSimulSettings">Simultanoppvisninger er alltid uformelle. Funksjoner som \"omkamp\", \"ta tilbake trekk\" og \"mer tid\" er utilgjengelige.</string>
+  <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med verten. Simultanen avsluttes når alle partiene er ferdige.</string>
+  <string name="aboutSimulSettings">Simultaner er alltid uformelle. Omkamper, angring og ekstra tid er ikke lov.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du oppretter en simultanoppvisning får du spille mot flere spillere samtidig.</string>
+  <string name="whenCreateSimul">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
-  <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å håndtere simultanen.</string>
-  <string name="simulHostExtraTime">Ekstra tid for simultanoppviseren</string>
+  <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
+  <string name="simulHostExtraTime">Ekstra tid for verten</string>
   <string name="lichessTournaments">Lichessturneringer</string>
   <string name="tournamentFAQ">Arenaturneringsspørsmål</string>
   <string name="tournamentOfficial">Offisiell</string>
@@ -886,12 +886,12 @@ og påvirker spillernes rating</string>
 Det fungerer bare for standardpartier, ikke for varianter.
 Du kan bruke %s for å generere en FEN-stilling, som du limer inn her.
 La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</string>
-  <string name="cancelSimul">Avbryt simultanoppvisningen</string>
+  <string name="cancelSimul">Avbryt simultanen</string>
   <string name="simulHostcolor">Vertsfarge for hvert parti</string>
   <string name="estimatedStart">Forventet starttidspunkt</string>
   <string name="simulFeatured">Vis på %s</string>
-  <string name="simulFeaturedHelp">Vis simultanoppvisningen til alle på %s. Skru av for private simultanoppvisninger.</string>
-  <string name="simulDescription">Beskrivelse av simultanoppvisningen</string>
+  <string name="simulFeaturedHelp">Vis simultanen din til alle på %s. Skru av for private simultaner.</string>
+  <string name="simulDescription">Beskrivelse av simultanen</string>
   <string name="simulDescriptionHelp">Er det noe du vil si til deltakerne?</string>
   <string name="markdownAvailable">%s er tilgjengelig for utforming.</string>
   <string name="inYourLocalTimezone">I tidssonen din</string>

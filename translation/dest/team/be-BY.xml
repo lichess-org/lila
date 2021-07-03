@@ -14,6 +14,8 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="quitTeam">Выйсці з каманды</string>
+  <string name="manuallyReviewAdmissionRequests">Асабістая праверка запытаў на ўступ</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">Калі абрана, гульцы будуць павінны напісаць запыт, каб далучыцца да каманды, яго можна будзе адхіліць або пацвердзіць.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Лідар каманды</item>
     <item quantity="few">Лідары каманды</item>
@@ -47,7 +49,12 @@
   <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
   <string name="usersWhoCanManageThisTeam">Карыстальнікі, якія могуць кіраваць камандай</string>
   <string name="leadersChat">Чат лідараў</string>
+  <string name="closeTeam">Зачыніць каманду</string>
+  <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
   <string name="teamPassword">Камандны пароль</string>
+  <string name="teamPasswordDescriptionForLeader">(Неабавязкова) Пароль, якія новыя ўдзельнікі павінны ведаць, каб далучыцца да каманды.</string>
   <string name="incorrectTeamPassword">Няправільні камандны пароль.</string>
   <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
+  <string name="upcomingTourns">Надыходзячыя турніры</string>
+  <string name="completedTourns">Завершаныя турніры</string>
 </resources>
