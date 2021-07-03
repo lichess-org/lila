@@ -85,7 +85,7 @@ Then the system will withdraw the player from the tournament, so they don't lose
   <string name="numberOfGames">Number of games</string>
   <string name="numberOfGamesAsManyAsPossible">As many as can be played in the allotted duration</string>
   <string name="numberOfGamesPreDefined">Decided in advance, same for all players</string>
-  <string name="pairingSystem">Number of games</string>
+  <string name="pairingSystem">Pairing system</string>
   <string name="pairingSystemArena">Any available opponent with similar ranking</string>
   <string name="pairingSystemSwiss">Best pairing based on points and tie breaks</string>
   <string name="pairingWaitTime">Pairing wait time</string>
