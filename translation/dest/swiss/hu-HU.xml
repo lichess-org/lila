@@ -45,6 +45,11 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
+  <string name="lateJoinASingleBye">Kései csatlakozók kapnak egy szabadkört, akkor is ha több fordulóból maradtak ki.</string>
+  <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
+  <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
+  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
+  <string name="roundRobinAWontWork">Szeretnénk hozzáadni, de sajnos a körmérkőzések nem működnek online</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
