@@ -35,4 +35,5 @@
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
   <string name="newSwiss">Novo torneio suíço</string>
+  <string name="swissVsArenaQ">Quando usar torneios suíços em vez de arenas?</string>
 </resources>
