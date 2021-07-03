@@ -29,4 +29,8 @@ Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnauk
 Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
 Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
+  <string name="lateJoinAYes">Voi siihen asti, kunnes yli puolet kierroksista on alkanut. Esimerkiksi 11 kierroksen sveitsiläiseen voi vielä liittyä ennen 6. kierroksen alkua ja 12-kierroksiseen ennen 7. kierroksen alkua.</string>
+  <string name="lateJoinASingleBye">Myöhään liittyvät pelaajat saavat vain yhden huilauksen, vaikka heiltä olisi jäänyt väliin monta kierrosta.</string>
+  <string name="willSwissReplaceArenasQ">Korvaako sveitsiläinen turnaus areenaturnaukset?</string>
+  <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
 </resources>
