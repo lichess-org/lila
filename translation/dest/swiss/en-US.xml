@@ -35,14 +35,34 @@
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="newSwiss">New Swiss tournament</string>
+  <string name="swissVsArenaQ">When to use swiss tournaments instead of arenas?</string>
+  <string name="swissVsArenaA">In a swiss tournament, all participants play the same number of games, and can only play each other once.
+It can be a good option for clubs and official tournaments.</string>
+  <string name="pointsCalculationQ">How are points calculated?</string>
+  <string name="pointsCalculationA">A win is worth one point, a draw is a half point, and a loss is zero points.
+When a player can\'t be paired during a round, they receive a bye worth one point.</string>
+  <string name="tiebreaksCalculationQ">How are tie breaks calculated?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger score</string>
+  <string name="pairingsQ">How are pairings decided?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Dutch system</string>
+  <string name="FIDEHandbook">FIDE handbook</string>
+  <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
+  <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
+  <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="numberOfGames">Number of games</string>
+  <string name="numberOfGamesAsManyAsPossible">As many as can be played in the allotted duration</string>
+  <string name="numberOfGamesPreDefined">Decided in advance, same for all players</string>
+  <string name="pairingSystem">Pairing system</string>
+  <string name="pairingSystemArena">Any available opponent with similar ranking</string>
+  <string name="pairingSystemSwiss">Best pairing based on points and tie breaks</string>
   <string name="pairingWaitTime">Pairing wait time</string>
   <string name="pairingWaitTimeFast">Fast: doesn\'t wait for all players</string>
   <string name="pairingWaitTimeSlow">Slow: waits for all players</string>
   <string name="identicalPairing">Identical pairing</string>
-  <string name="possibleButNotConsecutive" comment="possibleButNotConsecutive&#10;&#10;In reference to identical pairing.">Possible, but not consecutive</string>
-  <string name="identicalForbidden" comment="identicalForbidden&#10;&#10;In reference to identical pairing.">Forbidden</string>
-  <string name="lateJoin" comment="lateJoin&#10;&#10;Controls the setting for late joiners to a Swiss tournament">Late join</string>
-  <string name="lateJoinUntil" comment="lateJoinUntil&#10;&#10;A setting for late joiners to the tournament.">Yes until more than half the rounds have started</string>
+  <string name="possibleButNotConsecutive">Possible, but not consecutive</string>
+  <string name="identicalForbidden">Forbidden</string>
+  <string name="lateJoin">Late join</string>
+  <string name="lateJoinUntil">Yes until more than half the rounds have started</string>
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
