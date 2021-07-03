@@ -96,6 +96,7 @@
   <string name="noGameFound">Oyun bulunamadı</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
   <string name="openingExplorer">Açılış kâşifi</string>
+  <string name="openingEndgameExplorer">Açılış/oyunsonu kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
   <string name="lossSavedBy50MoveRule">Mağlubiyet 50 hamle kuralı sayesinde kurtarıldı</string>
@@ -897,4 +898,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="noChat">Sohbet yasak</string>
   <string name="onlyTeamLeaders">Yalnızca takım liderleri</string>
   <string name="onlyTeamMembers">Yalnızca takım üyeleri</string>
+  <string name="playComputerMove">En iyi bilgisayar hamlesini oyna</string>
+  <string name="analysisOptions">Analiz seçenekleri</string>
 </resources>
