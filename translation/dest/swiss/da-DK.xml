@@ -39,4 +39,34 @@
   <string name="swissVsArenaA">I en monradturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
 Det kan være en god mulighed for klubber og officielle turneringer.</string>
   <string name="pointsCalculationQ">Hvordan beregnes points?</string>
+  <string name="pointsCalculationA">En sejr er ét point værd, en remis et halvt point mens et tab ingen point giver.
+Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', der er ét point værd.</string>
+  <string name="tiebreaksCalculationQ">Hvordan udregnes tie breaks?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger score</string>
+  <string name="pairingsQ">Hvordan afgøres parringer?</string>
+  <string name="nowPlaying">Spiller nu</string>
+  <string name="startingSoon">Starter snart</string>
+  <string name="comparison">Sammenligning</string>
+  <string name="tournDuration">Varighed af turneringen</string>
+  <string name="predefinedDuration">Prædefineret varighed i minutter</string>
+  <string name="durationUnknown">Prædefineret maksimalt antal runder, men ukendt varighed</string>
+  <string name="numberOfGames">Antal partier</string>
+  <string name="numberOfGamesAsManyAsPossible">Så mange som kan spilles i den tildelte varighed</string>
+  <string name="numberOfGamesPreDefined">Besluttet på forhånd, samme for alle spillere</string>
+  <string name="pairingSystem">Antal partier</string>
+  <string name="pairingSystemArena">Enhver tilgængelig modstander med tilsvarende rating</string>
+  <string name="pairingSystemSwiss">Bedste parring baseret på point og tie breaks</string>
+  <string name="pairingWaitTime">Parring ventetid</string>
+  <string name="pairingWaitTimeFast">Hurtig: venter ikke på alle spillere</string>
+  <string name="pairingWaitTimeSlow">Langsomt: venter på alle spillere</string>
+  <string name="identicalPairing">Identisk parring</string>
+  <string name="possibleButNotConsecutive">Mulige, men ikke på hinanden følgende</string>
+  <string name="identicalForbidden">Forbudt</string>
+  <string name="lateJoin">Forsinket tilmelding</string>
+  <string name="lateJoinUntil">Ja indtil mere end halvdelen af runderne er startet</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, men kan reducere antallet af runder</string>
+  <string name="streaksAndBerserk">Stimer og Bersærk</string>
+  <string name="similarToOTB">Svarende til OTB turneringer</string>
+  <string name="unlimitedAndFree">Ubegrænset og fri</string>
 </resources>
