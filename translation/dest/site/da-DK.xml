@@ -900,4 +900,10 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="noChat">Ingen chat</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
+  <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
+  <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
+  <string name="playComputerMove">Spil det bedste computertræk</string>
+  <string name="analysisOptions">Analysemuligheder</string>
+  <string name="focusChat">Fokusér chat</string>
+  <string name="showHelpDialog">Vis denne hjælpedialog</string>
 </resources>
