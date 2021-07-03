@@ -36,4 +36,10 @@
   <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
   <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène?</string>
+  <string name="swissVsArenaA">Dans un tournoi suisse, les participants jouent le même nombre de parties et n\'affrontent jamais deux fois un même adversaire.
+C\'est un bon choix pour les clubs et les tournois officiels.</string>
+  <string name="pointsCalculationQ">Comment calcule-t-on les points?</string>
+  <string name="pointsCalculationA">Une victoire donne un point, une nulle donne un demi-point, une défaite ne donne aucun point.
+Si un joueur ne peut pas être apparié, il reçoit un bye d\'un demi-point.</string>
+  <string name="tiebreaksCalculationQ">Comment les points de départage sont-ils calculés?</string>
 </resources>
