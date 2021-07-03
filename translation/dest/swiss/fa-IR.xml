@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">مسابقات فرمت سوئیسی</string>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s دور</item>
     <item quantity="other">%s دور</item>
   </plurals>
@@ -26,7 +26,7 @@
   </plurals>
   <string name="tournStartDate">زمان آغاز مسابقه</string>
   <string name="numberOfRounds">تعداد دورها</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
+  <string name="numberOfRoundsHelp">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
   <string name="newSwiss">مسابقه سوئیسی جدید</string>
 </resources>
