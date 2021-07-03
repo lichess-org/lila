@@ -53,10 +53,10 @@ Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z
     <item quantity="other">Lichess Patroon für %s Mönät</item>
   </plurals>
   <string name="youSupportWith">Du unterstützt lichess.org mit %s pro Monat.</string>
-  <string name="tyvm">Vielen Dank für deine Unterstützung. Du rockst!</string>
-  <string name="currentStatus">Aktueller Status</string>
-  <string name="nextPayment">Nächste Zahlung</string>
-  <string name="youWillBeChargedXOnY">Dir werden %1$s am %2$s berechnet.</string>
+  <string name="tyvm">Merci vill Mal für dini Unterschtützig. Du rocksch!</string>
+  <string name="currentStatus">Aktuellä Status</string>
+  <string name="nextPayment">Nächschti Zahlig</string>
+  <string name="youWillBeChargedXOnY">Dir werdäd am %2$s %1$s berechnät.</string>
   <string name="makeAdditionalDonation">Mach ä zuäsätzlichi Spänd</string>
   <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schänk ämänä Schpiller / änärä Schpillerin Patroon-Flügäl</string>
   <string name="update">Update</string>
