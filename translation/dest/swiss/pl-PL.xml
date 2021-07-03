@@ -47,7 +47,18 @@
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
+  <string name="pairingsQ">Jak ustalane są pary?</string>
+  <string name="dutchSystem">System holenderski</string>
   <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
+  <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
+  <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
+  <string name="joinOrCreateTeam">Dołącz lub utwórz zespół</string>
+  <string name="nowPlaying">W toku</string>
+  <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
   <string name="tournDuration">Czas trwania turnieju</string>
+  <string name="predefinedDuration">Predefiniowany czas trwania w minutach</string>
+  <string name="durationUnknown">Predefiniowana maksymalna liczba rund, czas trwania nieokreślony</string>
+  <string name="pause">Wstrzymaj</string>
+  <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
 </resources>
