@@ -30,14 +30,23 @@
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
+  <string name="serversAndDeveloper">Перш за ўсе, магутныя серверы.
+Потым заробак за поўныя працоўныя дні распрацоўшчыку: %s, заснавальніку Lichess.</string>
   <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
   <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
 Ці можаце %s.</string>
   <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
+  <string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
   <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бескаштовы, назаўседы і для кожнага. Гэта абяцанне.
 Аднак, Спонсары атрымліваюць класную ікунку да профілю.</string>
   <string name="featuresComparison">Паглядзець дакладнае параўнанне магчымасцяў</string>
+  <plurals name="patronForMonths">
+    <item quantity="one">Спонсар Lichess на працягу месяца</item>
+    <item quantity="few">Спонсар Lichess на працягу %s месяцаў</item>
+    <item quantity="many">Спонсар Lichess на працягу %s месяцаў</item>
+    <item quantity="other">Спонсар Lichess на працягу %s месяцаў</item>
+  </plurals>
   <string name="youSupportWith">Вы ахвяруеце lichess.org %s кожны месяц.</string>
   <string name="tyvm">Дзякуй вілікі за дапамогу! Вы неверагодны!</string>
   <string name="currentStatus">Бягучы статус</string>
