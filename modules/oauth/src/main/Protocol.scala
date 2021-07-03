@@ -102,6 +102,7 @@ object Protocol {
             "lichessmac",
             "chessrtx",
             "chesscomopse",
+            "tectootb",
             // whitelist (consider automating)
             "no.rieck.chess.dgt",
             "net.developerfluid.darkknight",
