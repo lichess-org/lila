@@ -11,8 +11,7 @@ import lila.db.AsyncColl
 
 private case class OauthConfig(
     @ConfigName("mongodb.uri") mongoUri: String,
-    @ConfigName("collection.access_token") tokenColl: CollName,
-    @ConfigName("collection.app") appColl: CollName
+    @ConfigName("collection.access_token") tokenColl: CollName
 )
 
 @Module
@@ -31,9 +30,7 @@ final class Env(
 
   private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
 
-  private lazy val colls = new OauthColls(db(config.tokenColl), db(config.appColl))
-
-  lazy val appApi = wire[OAuthAppApi]
+  private lazy val colls = new OauthColls(db(config.tokenColl))
 
   lazy val server = wire[OAuthServer]
 
@@ -54,4 +51,4 @@ final class Env(
   def forms = OAuthForm
 }
 
-private class OauthColls(val token: AsyncColl, val app: AsyncColl)
+private class OauthColls(val token: AsyncColl)

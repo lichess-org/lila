@@ -17,7 +17,6 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
     val token = AccessToken(
       id = AccessToken.Id.random(),
       publicId = BSONObjectID.generate(),
-      clientId = PersonalToken.clientId, // TODO
       userId = granted.userId,
       createdAt = DateTime.now().some,
       description = granted.redirectUri.clientOrigin.some,
@@ -33,7 +32,6 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
       _.find(
         $doc(
           F.userId       -> user.id,
-          F.clientId     -> PersonalToken.clientId,
           F.clientOrigin -> $exists(false)
         )
       )
@@ -47,7 +45,6 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
       _.countSel(
         $doc(
           F.userId       -> user.id,
-          F.clientId     -> PersonalToken.clientId,
           F.clientOrigin -> $exists(false)
         )
       )
@@ -58,7 +55,6 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
       _.one[AccessToken](
         $doc(
           F.userId       -> user.id,
-          F.clientId     -> PersonalToken.clientId,
           F.clientOrigin -> $exists(false),
           F.scopes $all scopes.toSeq
         )
@@ -140,9 +136,4 @@ object AccessTokenApi {
       usedAt: Option[DateTime],
       scopes: List[OAuthScope]
   )
-}
-
-object PersonalToken {
-
-  val clientId = "lichess_personal_token"
 }
