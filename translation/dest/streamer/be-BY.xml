@@ -10,9 +10,13 @@
   <string name="doYouHaveStream">У вас ёсць каналы на Twitch або YouTube?</string>
   <string name="hereWeGo">Пачынаем!</string>
   <string name="allStreamers">Усе стрымеры</string>
+  <string name="editPage">Змяніць стрымерскую старонку</string>
+  <string name="yourPage">Ваша старонка стрымеру</string>
   <string name="downloadKit">Спапаваць прылады для стрыму</string>
   <string name="xIsStreaming">%s у эфіры</string>
   <string name="rules">Правілы стрымаў</string>
+  <string name="rule1">Уключыце ключавое слова \"lichess.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lichess.</string>
+  <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
   <plurals name="keepItShort">
     <item quantity="one">Сцісла: максімальна %s сімвал</item>
     <item quantity="few">Сцісла: максімальна %s сімвала</item>
