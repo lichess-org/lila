@@ -38,4 +38,8 @@
   <string name="swissVsArenaQ">İsviçre sistemi turnuvaları ne zaman arena turnuvaları yerine kullanmalıyım?</string>
   <string name="swissVsArenaA">İsviçre sistemi turnuvalarda bütün oyuncular eşit sayıda maç yapar ve birbirleriyle yalnızca bir kez karşı karşıya gelir. Satranç kulüpleri ve resmî turnuvalar için iyi bir seçenek olabilir.</string>
   <string name="pointsCalculationQ">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
+  <string name="pointsCalculationA">Kazanılan maç bir puan, beraberlik yarım puan, kaybedilen maç ise sıfır puan değerindedir.
+Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçer ve bir puan alır.</string>
+  <string name="tiebreaksCalculationQ">Eşitlik bozma puanları nasıl hesaplanıyor?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger sistemi</string>
 </resources>
