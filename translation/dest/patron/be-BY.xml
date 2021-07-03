@@ -26,6 +26,7 @@
   <string name="pleaseEnterAmountInX">Калі ласка, увядзіце суму ў %s</string>
   <string name="withCreditCard">Банкаўская картка</string>
   <string name="withPaypal">PayPal</string>
+  <string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
   <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
   <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
@@ -50,4 +51,6 @@
   <string name="amount">Сума</string>
   <string name="permanentPatron">У вас цяпер пажыцевы спонсарскі акаунт.</string>
   <string name="checkOutProfile">Праверце сваю старонку!</string>
+  <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
+  <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
 </resources>
