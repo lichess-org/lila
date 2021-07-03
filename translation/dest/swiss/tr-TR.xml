@@ -54,4 +54,11 @@ Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere 
   <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
 Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
   <string name="whatIfOneDoesntPlayQ">Rakip oyuna gelmezse ne olur?</string>
+  <string name="whatIfOneDoesntPlayA">Süresi bitene kadar oyun devam eder ve süre bittiğinde mağlup sayılır.
+Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.
+Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
+  <string name="lateJoinQ">Turnuvaya geç katılmak mümkün mü?</string>
+  <string name="lateJoinAYes">Evet, toplam tur sayısının yarısına ulaşana dek turnuvaya katılmak mümkün. Örneğin 11 turluk bir turnuvaya 6. tur başlayana kadar, 12 turluk bir turnuvaya ise 7. tur başlayana kadar katılabilirsiniz.</string>
+  <string name="lateJoinASingleBye">Birkaç tur kaçırmış olsalar dahi geç katılanlara yalnızca yarım puan verilir.</string>
+  <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>
 </resources>
