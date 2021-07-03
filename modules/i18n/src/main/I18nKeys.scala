@@ -778,6 +778,15 @@ val `availableInNbLanguages` = new I18nKey("availableInNbLanguages")
 val `nbSecondsToPlayTheFirstMove` = new I18nKey("nbSecondsToPlayTheFirstMove")
 val `nbSeconds` = new I18nKey("nbSeconds")
 val `andSaveNbPremoveLines` = new I18nKey("andSaveNbPremoveLines")
+val `openingEndgameExplorer` = new I18nKey("openingEndgameExplorer")
+val `navigateMoveTree` = new I18nKey("navigateMoveTree")
+val `mouseTricks` = new I18nKey("mouseTricks")
+val `toggleLocalAnalysis` = new I18nKey("toggleLocalAnalysis")
+val `toggleAllAnalysis` = new I18nKey("toggleAllAnalysis")
+val `playComputerMove` = new I18nKey("playComputerMove")
+val `analysisOptions` = new I18nKey("analysisOptions")
+val `focusChat` = new I18nKey("focusChat")
+val `showHelpDialog` = new I18nKey("showHelpDialog")
 
 object arena {
 val `arenaTournaments` = new I18nKey("arena:arenaTournaments")
@@ -1188,6 +1197,7 @@ val `nbChapters` = new I18nKey("study:nbChapters")
 val `nbGames` = new I18nKey("study:nbGames")
 val `nbMembers` = new I18nKey("study:nbMembers")
 val `pasteYourPgnTextHereUpToNbGames` = new I18nKey("study:pasteYourPgnTextHereUpToNbGames")
+val `studyActions` = new I18nKey("study:studyActions")
 }
 
 object clas {

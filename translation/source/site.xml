@@ -96,6 +96,7 @@
   <string name="noGameFound">No game found</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
+  <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
@@ -887,17 +888,25 @@ and impact players ratings</string>
 It only works for standard games, not with variants.
 You can use the %s to generate a FEN position, then paste it here.
 Leave empty to start games from the normal initial position.</string>
-<string name="cancelSimul">Cancel the simul</string>
-<string name="simulHostcolor">Host color for each game</string>
-<string name="estimatedStart">Estimated start time</string>
-<string name="simulFeatured">Feature on %s</string>
-<string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
-<string name="simulDescription">Simul description</string>
-<string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
-<string name="markdownAvailable">%s is available for more advanced syntax.</string>
-<string name="inYourLocalTimezone">In your own local timezone</string>
-<string name="tournChat">Tournament chat</string>
-<string name="noChat">No chat</string>
-<string name="onlyTeamLeaders">Only team leaders</string>
-<string name="onlyTeamMembers">Only team members</string>
+  <string name="cancelSimul">Cancel the simul</string>
+  <string name="simulHostcolor">Host color for each game</string>
+  <string name="estimatedStart">Estimated start time</string>
+  <string name="simulFeatured">Feature on %s</string>
+  <string name="simulFeaturedHelp">Show your simul to everyone on %s. Disable for private simuls.</string>
+  <string name="simulDescription">Simul description</string>
+  <string name="simulDescriptionHelp">Anything you want to tell the participants?</string>
+  <string name="markdownAvailable">%s is available for more advanced syntax.</string>
+  <string name="inYourLocalTimezone">In your own local timezone</string>
+  <string name="tournChat">Tournament chat</string>
+  <string name="noChat">No chat</string>
+  <string name="onlyTeamLeaders">Only team leaders</string>
+  <string name="onlyTeamMembers">Only team members</string>
+  <string name="navigateMoveTree">Navigate the move tree</string>
+  <string name="mouseTricks">Mouse tricks</string>
+  <string name="toggleLocalAnalysis">Toggle local computer analysis</string>
+  <string name="toggleAllAnalysis">Toggle all computer analysis</string>
+  <string name="playComputerMove">Play best computer move</string>
+  <string name="analysisOptions">Analysis options</string>
+  <string name="focusChat">Focus chat</string>
+  <string name="showHelpDialog">Show this help dialog</string>
 </resources>
