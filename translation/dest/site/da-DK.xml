@@ -96,6 +96,7 @@
   <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbningsbog</string>
+  <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
