@@ -9,7 +9,7 @@
     <item quantity="many">عرض الجولة %s</item>
     <item quantity="other">عرض كل %s الجولات</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="zero">%s جولات</item>
     <item quantity="one">%s جولات</item>
     <item quantity="two">%s جولات</item>
@@ -54,7 +54,7 @@
   </plurals>
   <string name="tournStartDate">تاريخ بداية البطولة</string>
   <string name="numberOfRounds">عدد الجولات</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">العدد الفردي من الجولات يسمح بتوازن اكبر.</string>
+  <string name="numberOfRoundsHelp">العدد الفردي من الجولات يسمح بتوازن اكبر.</string>
   <string name="roundInterval">الفاصل الزمني بين المباريات</string>
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
