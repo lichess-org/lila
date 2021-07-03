@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Перавага</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="doubleCheck">Падвойны шах</string>
+  <string name="endgame">Эндшпіль</string>
   <string name="fork">Відэлец</string>
+  <string name="long">Доўгая задача</string>
+  <string name="longDescription">Да перамогі 3 хады.</string>
+  <string name="master">Гульні майстроў</string>
+  <string name="masterDescription">Задачы з гульняў тытулаваных гульцоў.</string>
+  <string name="mate">Мат</string>
+  <string name="mateDescription">Выйграйце стылёва.</string>
+  <string name="mateIn1">Мат у 1 ход</string>
+  <string name="mateIn2">Мат у 2 хады</string>
+  <string name="mateIn3">Мат у 3 хады</string>
+  <string name="mateIn4">Мат у 4 хады</string>
+  <string name="mateIn5">Мат у 5 хадоў</string>
+  <string name="oneMove">Аднахадовая галаваломка</string>
+  <string name="opening">Дэбют</string>
+  <string name="pin">Звязка</string>
+  <string name="quietMove">Павольны ход</string>
+  <string name="rookEndgame">Ладзейны эндшпіль</string>
+  <string name="sacrifice">Ахвяра</string>
 </resources>
