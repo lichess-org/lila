@@ -900,4 +900,12 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="noChat">Kein Chat</string>
   <string name="onlyTeamLeaders">Nur Teamleiter</string>
   <string name="onlyTeamMembers">Nur Teammitglieder</string>
+  <string name="navigateMoveTree">Navigiere den Zugbaum</string>
+  <string name="mouseTricks">Maus-Tricks</string>
+  <string name="toggleLocalAnalysis">Lokale Computeranalyse aktivieren/deaktivieren</string>
+  <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
+  <string name="playComputerMove">Spiele den besten Computerzug</string>
+  <string name="analysisOptions">Analyseoptionen</string>
+  <string name="focusChat">Auf Chat fokussieren</string>
+  <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
 </resources>
