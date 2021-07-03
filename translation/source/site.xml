@@ -96,6 +96,7 @@
   <string name="noGameFound">No game found</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
+  <string name="openingEndgameExplorer">Opening/endgame explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
@@ -870,4 +871,12 @@ computer analysis, game chat and shareable URL.</string>
 All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
+  <string name="navigateMoveTree">Navigate the move tree</string>
+  <string name="mouseTricks">Mouse tricks</string>
+  <string name="toggleLocalAnalysis">Toggle local computer analysis</string>
+  <string name="toggleAllAnalysis">Toggle all computer analysis</string>
+  <string name="playComputerMove">Play best computer move</string>
+  <string name="analysisOptions">Analysis options</string>
+  <string name="focusChat">Focus chat</string>
+  <string name="showHelpDialog">Show this help dialog</string>
 </resources>
