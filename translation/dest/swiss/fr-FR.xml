@@ -52,5 +52,6 @@ Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du 
   <string name="moreRoundsThanPlayersQ">Qu\'arrive-t-il si le tournoi compte plus de rondes que de joueurs?</string>
   <string name="moreRoundsThanPlayersA">Une fois tous les appariements possibles faits et toutes les parties jouées, le tournoi se termine et un gagnant est choisi.</string>
   <string name="restrictedToTeamsQ">Pourquoi peut-on participer uniquement en équipe?</string>
-  <string name="restrictedToTeamsANotForOnline">Les tournois de format suisse n\'ont pas été conçus pour jouer en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs.</string>
+  <string name="restrictedToTeamsANotForOnline">Les tournois de format suisse ne sont pas conçus pour le jeu en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs.</string>
+  <string name="restrictedToTeamsABetterMet">Nous pensons que ces conditions seront probablement mieux remplies par joueurs en équipe que par des joueurs individuels.</string>
 </resources>
