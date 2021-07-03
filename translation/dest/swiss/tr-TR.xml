@@ -46,4 +46,9 @@ Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçe
 Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere kaldığı bütün rakiplerin puanları toplamının yarısı alınır. Bu iki sayı birbiriyle toplanır.</string>
   <string name="pairingsQ">Eşleştirmeler nasıl yapılıyor?</string>
   <string name="moreRoundsThanPlayersQ">Turnuvadaki tur sayısı, oyuncu sayısından fazla olursa ne olur?</string>
+  <string name="moreRoundsThanPlayersA">Mümkün olan bütün eşleşmeler oynandığında turnuva sonra erer ve kazanan ilan edilir.</string>
+  <string name="restrictedToTeamsQ">Neden sadece takım üyeleri katılabiliyor?</string>
+  <string name="restrictedToTeamsANotForOnline">İsviçre sistemi turnuvalar çevrimiçi satranç için tasarlanmamıştır. Oyuncuların dakik, ilgili ve sabırlı olması gerekir.</string>
+  <string name="restrictedToTeamsABetterMet">Bu şartların takım üyeleri tarafından karşılanmasının daha olası olduğunu düşünüyoruz.</string>
+  <string name="numberOfByesQ">Bir oyuncu kaç kez bay geçebilir?</string>
 </resources>
