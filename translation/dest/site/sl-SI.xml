@@ -963,4 +963,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="toggleAllAnalysis">Preklopi vso računalniško analizo</string>
   <string name="playComputerMove">Igraj najboljšo računalniško potezo</string>
   <string name="analysisOptions">Možnosti analize</string>
+  <string name="focusChat">Fokus klepet</string>
+  <string name="showHelpDialog">Show this help dialog</string>
 </resources>
