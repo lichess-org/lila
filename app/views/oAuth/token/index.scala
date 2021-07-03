@@ -32,7 +32,7 @@ object index {
           " that you can directly use in API requests.",
           br,
           br,
-          "Guard these tokens carefully! They are like password. ",
+          "Guard these tokens carefully! They are like passwords. ",
           "The advantage to using tokens over putting your password into a script is that tokens can be revoked, ",
           "and you can generate lots of them.",
           br,
