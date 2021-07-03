@@ -76,7 +76,7 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
               F.clientOrigin -> $exists(true)
             )
           ) -> List(
-            UnwindField(F.scopes),
+            Unwind(path = F.scopes, includeArrayIndex = None, preserveNullAndEmptyArrays = Some(true)),
             GroupField(F.clientOrigin)(
               F.usedAt -> MaxField(F.usedAt),
               F.scopes -> AddFieldToSet(F.scopes)
