@@ -42,4 +42,8 @@ C\'est un bon choix pour les clubs et les tournois officiels.</string>
   <string name="pointsCalculationA">Une victoire donne un point, une nulle donne un demi-point, une défaite ne donne aucun point.
 Si un joueur ne peut pas être apparié, il reçoit un bye d\'un demi-point.</string>
   <string name="tiebreaksCalculationQ">Comment les points de départage sont-ils calculés?</string>
+  <string name="sonnebornBergerScore">Résultat Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationA">Avec le %s.
+Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du résultat de chaque adversaire contre lequel le joueur a fait nulle.</string>
+  <string name="pairingsQ">Comment les appariements sont-ils faits?</string>
 </resources>
