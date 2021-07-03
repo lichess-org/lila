@@ -47,4 +47,7 @@
   <string name="forbiddenPairings">Запрещённые пары</string>
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
   <string name="newSwiss">Новый турнир по швейцарской системе</string>
+  <string name="swissVsArenaQ">Когда использовать турниры по швейцарской системе вместо арен?</string>
+  <string name="pointsCalculationQ">Как начисляются очки?</string>
+  <string name="sonnebornBergerScore">Коэффициент Соннеборна — Бергера</string>
 </resources>
