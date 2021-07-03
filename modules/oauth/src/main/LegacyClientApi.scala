@@ -35,7 +35,17 @@ object LegacyClientApi {
   }
 
   case object MismatchingClientSecret
-      extends Protocol.Error.InvalidGrant("fix mismatching client secret (or update to pkce)")
+      extends Protocol.Error.InvalidGrant(
+        "fix mismatching client secret (or update to pkce and update endpoints)"
+      )
   case object ClientSecretRequired
-      extends Protocol.Error.InvalidRequest("client_secret required (or update to pkce)")
+      extends Protocol.Error.InvalidRequest("client_secret required (or update to pkce and update endpoints)")
+  case object ClientSecretIgnored
+      extends Protocol.Error.InvalidRequest(
+        "cannot finish legacy flow with pkce token request (client_secret ignored, update to pkce or check endpoint)"
+      )
+  case object CodeVerifierIgnored
+      extends Protocol.Error.InvalidRequest(
+        "cannot finish pkce flow with legacy token request (code_verifier ignored, update endpoint)"
+      )
 }

@@ -67,9 +67,9 @@ final class OAuth(env: Env) extends LilaController(env) {
       "grant_type"    -> optional(text),
       "code"          -> optional(text),
       "code_verifier" -> optional(text),
-      "client_secret" -> optional(text),
+      "client_id"     -> optional(text),
       "redirect_uri"  -> optional(text),
-      "client_id"     -> optional(text)
+      "client_secret" -> optional(text)
     )(AccessTokenRequest.Raw.apply)(AccessTokenRequest.Raw.unapply)
   )
 
@@ -86,11 +86,6 @@ final class OAuth(env: Env) extends LilaController(env) {
                       "token_type"   -> "Bearer",
                       "access_token" -> token.id.value
                     )
-                    .add(
-                      "refresh_token" -> prepared.clientSecret.map(_ =>
-                        s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
-                      )
-                    )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
@@ -100,7 +95,28 @@ final class OAuth(env: Env) extends LilaController(env) {
       }
     }
 
-  def legacyTokenApply = tokenApply
+  def legacyTokenApply =
+    Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
+      req.body.prepareLegacy match {
+        case Validated.Valid(prepared) =>
+          env.oAuth.authorizationApi.consume(prepared) flatMap {
+            case Validated.Valid(granted) =>
+              env.oAuth.tokenApi.create(granted) map { token =>
+                Ok(
+                  Json
+                    .obj(
+                      "token_type"    -> "Bearer",
+                      "access_token"  -> token.id.value,
+                      "refresh_token" -> s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
+                    )
+                    .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
+                )
+              }
+            case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+          }
+        case Validated.Invalid(err) => BadRequest(err.toJson).fuccess
+      }
+    }
 
   def tokenRevoke =
     Scoped() { implicit req => _ =>
