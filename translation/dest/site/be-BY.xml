@@ -501,6 +501,7 @@
   <string name="boardEditor">Рэдактар дошкі</string>
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
+  <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
   <string name="savePosition">Захаваць пазіцыю</string>
@@ -764,6 +765,7 @@
   <string name="enableKidMode">Уключыць дзіцячы рэжым</string>
   <string name="disableKidMode">Адключыць дзіцячы рэжым</string>
   <string name="security">Бяспека</string>
+  <string name="sessions">Сэсіі</string>
   <string name="revokeAllSessions">скасаваць усе сесіі</string>
   <string name="playChessEverywhere">Гуляйце ў шахматы дзе заўгодна</string>
   <string name="asFreeAsLichess">Бясплатна, як і Lichess</string>
@@ -920,6 +922,7 @@
   <string name="useTheReportForm">скарыстайцеся формай справаздачы</string>
   <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
   <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
+  <string name="thisTopicIsArchived">Гэта тэма была архівавана і абмяркаваць яе больш немагчыма.</string>
   <string name="teamNamedX">каманда %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
