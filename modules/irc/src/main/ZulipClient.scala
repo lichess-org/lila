@@ -44,6 +44,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
             case res if res.status == 200 => funit
             case res                      => fufail(s"[zulip] $msg ${res.status} ${res.body}")
           }
+          .monSuccess(_.irc.zulip.say(msg.stream, msg.topic))
           .nevermind
     }(funit)
 }

@@ -205,6 +205,12 @@ object mon {
   object duct {
     def overflow(name: String) = counter("duct.overflow").withTag("name", name)
   }
+  object irc {
+    object zulip {
+      def say(stream: String, topic: String) =
+        future("irc.zulip.say", Map("stream" -> stream, "topic" -> topic))
+    }
+  }
   object user {
     val online = gauge("user.online").withoutTags()
     object register {
@@ -706,6 +712,8 @@ object mon {
   private def histogram(name: String) = kamon.Kamon.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
+  private def future(name: String, tags: Map[String, String]) = (success: Boolean) =>
+    timer(name).withTags(tags + ("success" -> successTag(success)))
   private def future(name: String, segment: String) =
     (success: Boolean) =>
       timer(name).withTags(
