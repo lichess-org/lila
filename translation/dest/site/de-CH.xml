@@ -478,7 +478,7 @@
   <string name="name">Namä</string>
   <string name="description">Beschriibig</string>
   <string name="descPrivate">Privati Beschriibig</string>
-  <string name="descPrivateHelp">Texscht wo numä Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt är für Teammitglider dä öffentlichi Texscht.</string>
+  <string name="descPrivateHelp">Tegscht wo numä Teammitgliider gseh chönd. Wänn usgfüllt, ersetzt är für Teammitglider dä öffentlichi Tegscht.</string>
   <string name="no">Nei dankä</string>
   <string name="yes">Jawoll</string>
   <string name="help">Hilf:</string>
@@ -490,7 +490,7 @@
   <string name="replies">Antwortä</string>
   <string name="replyToThisTopic">Uf das Thema antwortä</string>
   <string name="reply">Antwortä</string>
-  <string name="message">Nochricht</string>
+  <string name="message">Nachricht</string>
   <string name="createTheTopic">Thema ärschtellä</string>
   <string name="reportAUser">Benutzer-/in mäldä</string>
   <string name="user">Benutzer/-in</string>
