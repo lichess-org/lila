@@ -392,7 +392,7 @@
   <string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
   <string name="xStartedStreaming">%s пачаў трансляцыю</string>
   <string name="averageElo">Сярэдні рэйтынг</string>
-  <string name="location">Месцазнаходжанне</string>
+  <string name="location">Месцазнаходжання</string>
   <string name="filterGames">Фільтраваць гульні</string>
   <string name="reset">Скінуць</string>
   <string name="apply">Ужыць</string>
@@ -450,7 +450,7 @@
   </plurals>
   <string name="more">Яшчэ</string>
   <string name="memberSince">Далучыўся</string>
-  <string name="lastSeenActive">Апошні раз бачылі %s</string>
+  <string name="lastSeenActive">Анлайн %s</string>
   <string name="player">Гулец</string>
   <string name="list">Спіс</string>
   <string name="graph">Дыяграма</string>
@@ -616,7 +616,7 @@
   <string name="starting">Пачатак:</string>
   <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>
   <string name="yourCityRegionOrDepartment">Ваш горад, вобласць ці акруга</string>
-  <string name="biographyDescription">Раскажыце пра сябе. Што вам падабаецца ў шахматах? Якія вашыя любімыя дэбюты, партыі, гульцы?</string>
+  <string name="biographyDescription">Раскажыце пра сябе, вашы інтарэсы, што падабаецца ў шахматах, ўлюбляныя дэбюты, гульцы...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максімум: %s сімвал.</item>
     <item quantity="few">Максімум: %s сімвалы.</item>
