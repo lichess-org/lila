@@ -35,4 +35,8 @@
   <string name="forbiddenPairings">Forbudte parringer</string>
   <string name="forbiddenPairingsHelp">Brugernavne på spillere der ikke må spille sammen (for eksempel søskende). To brugernavne pr. linje, adskilt af et mellemrum.</string>
   <string name="newSwiss">Ny monradturnering</string>
+  <string name="swissVsArenaQ">Hvornår skal du bruge monradturneringer i stedet for arenaer?</string>
+  <string name="swissVsArenaA">I en monradturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
+Det kan være en god mulighed for klubber og officielle turneringer.</string>
+  <string name="pointsCalculationQ">Hvordan beregnes points?</string>
 </resources>
