@@ -86,6 +86,11 @@ final class OAuth(env: Env) extends LilaController(env) {
                       "token_type"   -> "Bearer",
                       "access_token" -> token.id.value
                     )
+                    .add(
+                      "refresh_token" -> prepared.clientSecret.map(_ =>
+                        s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
+                      )
+                    )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
               }
