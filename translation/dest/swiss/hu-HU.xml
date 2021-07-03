@@ -5,7 +5,32 @@
     <item quantity="one">Forduló megtekintése</item>
     <item quantity="other">Mind a %s forduló megtekintése</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s forduló</item>
+    <item quantity="other">%s forduló</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Egy forduló naponta</item>
+    <item quantity="other">Egy forduló %s naponta</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Manuálisan indított fordulók</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s másodperc a fordulók között</item>
+    <item quantity="other">%s másodperc a fordulók között</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s perc a fordulók között</item>
+    <item quantity="other">%s perc a fordulók között</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Hátralévő idő</string>
+  <string name="nextRound">Következő forduló</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Folyamatban lévő játék</item>
+    <item quantity="other">Folyamatban lévő játékok</item>
+  </plurals>
   <string name="tournStartDate">Verseny kezdési ideje</string>
+  <string name="numberOfRounds">Fordulók száma</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Páratlan számú fordulók kiegyensúlyozottabb színpárosítást tesznek lehetővé.</string>
   <string name="roundInterval">Fordulók közötti szünet</string>
   <string name="forbiddenPairings">Tiltott párosítások</string>
   <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>

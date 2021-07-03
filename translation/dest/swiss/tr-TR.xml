@@ -5,4 +5,34 @@
     <item quantity="one">Turu görüntüleyin</item>
     <item quantity="other">Tüm %s turlarını görüntüle</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s tur</item>
+    <item quantity="other">%s tur</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Günde bir tur</item>
+    <item quantity="other">%s günde bir tur</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Turları el ile başlat</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">Turlar arası %s saniye</item>
+    <item quantity="other">Turlar arası %s saniye</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">Turlar arası %s dakika</item>
+    <item quantity="other">Turlar arası %s dakika</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Başlamasına</string>
+  <string name="nextRound">Sıradaki tur</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Devam eden oyun</item>
+    <item quantity="other">Devam eden oyunlar</item>
+  </plurals>
+  <string name="tournStartDate">Turnuvanın başlama zamanı</string>
+  <string name="numberOfRounds">Tur sayısı</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Tek sayı girerseniz oyuncular arasındaki renk dengesi daha adil olur.</string>
+  <string name="roundInterval">Turlar arası süre</string>
+  <string name="forbiddenPairings">Yasaklı eşleşmeler</string>
+  <string name="forbiddenPairingsHelp">(aynı evdeki kardeşler gibi) Karşı karşıya gelmemesi gereken oyuncuların kullanıcı adları. Her satıra aralarında bir boşluk bulunan iki kullanıcı ismi girin.</string>
+  <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
 </resources>

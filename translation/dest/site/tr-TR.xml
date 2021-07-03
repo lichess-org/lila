@@ -439,7 +439,7 @@
   <string name="boardEditor">Tahta yapıcı</string>
   <string name="setTheBoard">Tahtayı ayarla</string>
   <string name="popularOpenings">Popüler açılışlar</string>
-  <string name="endgamePositions">Oyun sonu pozisyonları</string>
+  <string name="endgamePositions">Oyunsonu pozisyonları</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="savePosition">Konumu kaydet</string>
@@ -884,4 +884,17 @@
 Sadece standart oyunlarda çalışır, varyantlarda çalışmaz.
 FEN pozisyonu oluşturmak için %s kullanıp buraya yazabilirsiniz.
 Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
+  <string name="cancelSimul">Eş zamanlı gösteriyi iptal et</string>
+  <string name="simulHostcolor">Ev sahibinin rengi</string>
+  <string name="estimatedStart">Tahminî başlangıç süresi</string>
+  <string name="simulFeatured">%s adresinden yayımla</string>
+  <string name="simulFeaturedHelp">Eş zamanlı gösteriyi %s adresinden herkese görünür kılar. Özel gösteriler için devre dışı bırakın.</string>
+  <string name="simulDescription">Eş zamanlı gösterinin açıklaması</string>
+  <string name="simulDescriptionHelp">Katılımcılara söylemek istediğiniz bir şey var mı?</string>
+  <string name="markdownAvailable">%s kullanarak metni daha ayrıntılı bir şekilde biçimlendirebilirsiniz.</string>
+  <string name="inYourLocalTimezone">Yerel zaman diliminizde</string>
+  <string name="tournChat">Turnuva sohbeti</string>
+  <string name="noChat">Sohbet yasak</string>
+  <string name="onlyTeamLeaders">Yalnızca takım liderleri</string>
+  <string name="onlyTeamMembers">Yalnızca takım üyeleri</string>
 </resources>

@@ -71,7 +71,7 @@ def main(args):
 
 
 def terser(js):
-    p = subprocess.Popen(["yarn", "run", "--silent", "terser", "--mangle", "--compress"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
+    p = subprocess.Popen(["yarn", "run", "--silent", "terser", "--mangle", "--compress", "--safari10"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=sys.stderr)
     stdout, stderr = p.communicate(js.encode("utf-8"))
     if p.returncode != 0:
         sys.exit(p.returncode)

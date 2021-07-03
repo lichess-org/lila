@@ -439,6 +439,7 @@
   <string name="boardEditor">Táblaszerkesztő</string>
   <string name="setTheBoard">Táblaállás</string>
   <string name="popularOpenings">Népszerű megnyitások</string>
+  <string name="endgamePositions">Végjáték állások</string>
   <string name="startPosition">Alapállás</string>
   <string name="clearBoard">Üres tábla</string>
   <string name="savePosition">Állás mentése</string>

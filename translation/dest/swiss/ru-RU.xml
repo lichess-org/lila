@@ -7,11 +7,42 @@
     <item quantity="many">Посмотреть все %s раундов</item>
     <item quantity="other">Посмотреть все %s раундов</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s тур</item>
+    <item quantity="few">%s тура</item>
+    <item quantity="many">%s туров</item>
+    <item quantity="other">%s туров</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Один тур в %s день</item>
+    <item quantity="few">Один тур в %s дня</item>
+    <item quantity="many">Один тур в %s дней</item>
+    <item quantity="other">Один тур в %s дней</item>
+  </plurals>
   <string name="roundsAreStartedManually">Туры запускаются вручную</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s секунда между турами</item>
+    <item quantity="few">%s секунды между турами</item>
+    <item quantity="many">%s секунд между турами</item>
+    <item quantity="other">%s секунд между турами</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s минута между турами</item>
+    <item quantity="few">%s минуты между турами</item>
+    <item quantity="many">%s минут между турами</item>
+    <item quantity="other">%s минут между турами</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
   <string name="nextRound">Следующий тур</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Текущая партия</item>
+    <item quantity="few">Текущие партии</item>
+    <item quantity="many">Текущие партии</item>
+    <item quantity="other">Текущие партии</item>
+  </plurals>
   <string name="tournStartDate">Дата начала турнира</string>
   <string name="numberOfRounds">Количество туров</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
   <string name="roundInterval">Перерыв между турами</string>
   <string name="forbiddenPairings">Запрещённые пары</string>
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>

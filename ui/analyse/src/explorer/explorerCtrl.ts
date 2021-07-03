@@ -54,8 +54,11 @@ export default function (root: AnalyseCtrl, opts: ExplorerOpts, allow: boolean):
     movesAway = prop(0),
     gameMenu = prop<string | null>(null);
 
-  const checkHash = () => {
-    if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) enabled(true);
+  const checkHash = (e?: HashChangeEvent) => {
+    if ((location.hash === '#explorer' || location.hash === '#opening') && !root.embed) {
+      enabled(true);
+      if (e) root.redraw();
+    }
   };
   window.addEventListener('hashchange', checkHash, false);
   checkHash();

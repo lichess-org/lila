@@ -52,10 +52,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[Bdoc](readPreference)
   }
 
-  def countRecentByPrevEmail(
-      email: NormalizedEmailAddress,
-      since: DateTime = DateTime.now.minusWeeks(1)
-  ): Fu[Int] =
+  def countRecentByPrevEmail(email: NormalizedEmailAddress, since: DateTime): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
 
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =

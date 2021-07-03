@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце за чорныя фігуры ва ўсіх задачках</string>
+  <string name="puzzlesSolved">рашано задач</string>
+  <string name="newDailyHighscore">Новы дзенны рэкорд!</string>
+  <string name="newWeeklyHighscore">Новы тыднёвы рэкорд!</string>
+  <string name="newMonthlyHighscore">Новы месячны рэкорд!</string>
+  <string name="bestRunOfDay">Лепшая спроба за дзень</string>
+  <string name="skip">прапусціць</string>
+  <string name="skipHelp">Вы можаце прапусціць адзін ход за гонку:</string>
+</resources>

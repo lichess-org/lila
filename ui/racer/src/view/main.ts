@@ -45,7 +45,13 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
         : [
             waitingToStart(noarg),
             h('div.racer__pre__message', [
-              ...(ctrl.raceFull() ? [] : ctrl.isPlayer() ? [renderLink(ctrl), renderStart(ctrl)] : [renderJoin(ctrl)]),
+              ...(ctrl.raceFull()
+                ? ctrl.isPlayer()
+                  ? [renderStart(ctrl)]
+                  : []
+                : ctrl.isPlayer()
+                ? [renderLink(ctrl), renderStart(ctrl)]
+                : [renderJoin(ctrl)]),
               povMsg,
             ]),
             comboZone(ctrl),

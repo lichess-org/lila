@@ -439,7 +439,7 @@
   <string name="boardEditor">Editor de tablero</string>
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
-  <string name="endgamePositions">Posición del final del juego</string>
+  <string name="endgamePositions">Posiciones de finales</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
@@ -894,4 +894,9 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
   <string name="markdownAvailable">%s está disponible para una sintaxis más avanzada.</string>
+  <string name="inYourLocalTimezone">En tu zona horaria local</string>
+  <string name="tournChat">Chat del torneo</string>
+  <string name="noChat">Sin chat</string>
+  <string name="onlyTeamLeaders">Solo líderes del equipo</string>
+  <string name="onlyTeamMembers">Solo miembros del equipo</string>
 </resources>

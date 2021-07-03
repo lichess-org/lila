@@ -1032,6 +1032,7 @@
   <string name="streamerManager">مدير البث</string>
   <string name="cancelTournament">الغاء البطولة</string>
   <string name="tournDescription">وصف البطولة</string>
+  <string name="tournDescriptionHelp">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
   <string name="ratedFormHelp">المباراة مصنفة و ستأثر على تقييم اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
   <string name="noRestriction">لا قيود</string>
@@ -1040,12 +1041,18 @@
   <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
   <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
   <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
+  <string name="positionInputHelp">لصق FEN صالح لبدء كل لعبة من موقع معين.
+إنه يعمل فقط للألعاب العادية، وليس مع المتغيرات.
+يمكنك استخدام %s لإنشاء موضع FEN، ثم لصقه هنا.
+اتركه فارغاً لبدء الألعاب من الوضع الأولي العادي.</string>
   <string name="cancelSimul">ابطال المباراة الجماعية</string>
   <string name="simulHostcolor">لون المضيف لكل لعبة</string>
   <string name="estimatedStart">الوقت المتوقع للبدأ</string>
   <string name="simulFeatured">ميزة في %s</string>
+  <string name="simulFeaturedHelp">إظهار التبسيط الخاص بك للجميع في %s. تعطيل للمحاكاة الخاصة.</string>
   <string name="simulDescription">وصف المباراة الجماعية</string>
   <string name="simulDescriptionHelp">أي شيء تريد أن تخبره للمشاركين؟</string>
+  <string name="markdownAvailable">%s متاح لتركيبات الأكثر تطوراً.</string>
   <string name="inYourLocalTimezone">في منطقتك الزمنية المحلية</string>
   <string name="tournChat">دردشة البطولة</string>
   <string name="noChat">لا دردشة</string>

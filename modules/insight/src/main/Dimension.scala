@@ -197,6 +197,15 @@ object Dimension {
         raw("Centipawns lost by each move, according to Stockfish evaluation.")
       )
 
+  case object EvalRange
+      extends Dimension[EvalRange](
+        "eval",
+        "Evaluation",
+        F.moves("e"),
+        Move,
+        raw("Stockfish evaluation of the position, relative to the player, in centipawns.")
+      )
+
   def requiresStableRating(d: Dimension[_]) =
     d match {
       case OpponentStrength => true
@@ -220,6 +229,7 @@ object Dimension {
       case MyCastling | OpCastling => lila.insight.Castling.all
       case QueenTrade              => lila.insight.QueenTrade.all
       case MaterialRange           => lila.insight.MaterialRange.all
+      case EvalRange               => lila.insight.EvalRange.all
       case Blur                    => lila.insight.Blur.all
       case TimeVariance            => lila.insight.TimeVariance.all
     }
@@ -241,6 +251,7 @@ object Dimension {
       case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
       case QueenTrade              => lila.insight.QueenTrade(key == "true").some
       case MaterialRange           => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
+      case EvalRange               => key.toIntOption flatMap lila.insight.EvalRange.byId.get
       case Blur                    => lila.insight.Blur(key == "true").some
       case TimeVariance            => key.toFloatOption map lila.insight.TimeVariance.byId
     }
@@ -269,6 +280,7 @@ object Dimension {
       case MyCastling | OpCastling => v.id
       case QueenTrade              => v.id
       case MaterialRange           => v.id
+      case EvalRange               => v.id
       case Blur                    => v.id
       case TimeVariance            => v.id
     }).toString
@@ -290,6 +302,7 @@ object Dimension {
       case MyCastling | OpCastling => JsString(v.name)
       case QueenTrade              => JsString(v.name)
       case MaterialRange           => JsString(v.name)
+      case EvalRange               => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
     }
@@ -326,6 +339,20 @@ object Dimension {
               }
             )
         }
+      case Dimension.EvalRange =>
+        selected match {
+          case Nil => $empty
+          case many =>
+            $doc(
+              "$or" -> many.map { range =>
+                val intRange = lila.insight.EvalRange.toRange(range)
+                if (range.eval < 0)
+                  $doc(d.dbKey $gte intRange._1 $lt intRange._2)
+                else
+                  $doc(d.dbKey $gt intRange._1 $lte intRange._2)
+              }
+            )
+        }
       case Dimension.TimeVariance =>
         selected match {
           case Nil => $empty
@@ -344,6 +371,13 @@ object Dimension {
         }
     }
   }
+
+  def requiresAnalysis(d: Dimension[_]) =
+    d match {
+      case CplRange  => true
+      case EvalRange => true
+      case _         => false
+    }
 
   def dataTypeOf[X](d: Dimension[X]): String =
     d match {

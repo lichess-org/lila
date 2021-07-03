@@ -14,6 +14,12 @@
   <string name="noTeamFound">Каманда не знойдзена</string>
   <string name="joinTeam">Далучыцца да каманды</string>
   <string name="quitTeam">Выйсці з каманды</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Лідар каманды</item>
+    <item quantity="few">Лідары каманды</item>
+    <item quantity="many">Лідары каманды</item>
+    <item quantity="other">Лідары каманды</item>
+  </plurals>
   <string name="teamBestPlayers">Лепшыя гульцы каманды</string>
   <string name="teamRecentMembers">Нядаўна далучыліся</string>
   <string name="kickSomeone">Выгнаць кагосьці з каманды</string>
@@ -26,10 +32,22 @@
   </plurals>
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
+  <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
   <string name="teamBattle">Міжгрупная сутычка</string>
   <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае ачкі для сваёй каманды</string>
   <string name="teamTournament">Групны турнір</string>
   <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
+  <string name="swissTournamentOverview">Турнір па швейцарскай сістэме, да якога могуць далучыцца толькі чальці вашай каманды</string>
   <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>
   <string name="messageAllMembersOverview">Напісаць асобнае паведамленне ўсім удзельнікам каманды</string>
+  <string name="messageAllMembersLongDescription">Даслаць асабістае паведамленне да ЎСІХ чальцоў каманды.
+Гэта можна выкарыстоўваць, каб паклікаць далучыцца да турніру або каманднай гульні.
+Гульцы, якія ня любяць такія паведамленні могуць пакінуць каманду.</string>
+  <string name="teamsIlead">Каманды, лідарам якіх я з\'яўляюся</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Можа вы хочаце дадаць якія небудзь з найбліжэйшых турніраў?</string>
+  <string name="usersWhoCanManageThisTeam">Карыстальнікі, якія могуць кіраваць камандай</string>
+  <string name="leadersChat">Чат лідараў</string>
+  <string name="teamPassword">Камандны пароль</string>
+  <string name="incorrectTeamPassword">Няправільні камандны пароль.</string>
+  <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
 </resources>

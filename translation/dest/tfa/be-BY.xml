@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="twoFactorAuth">Двухфактарная аўтэнтыфікацыя</string>
+  <string name="twoFactorHelp">Двухфактарная аўтэнтыфікацыя дадае ўзровень бяспекі да вашага ўліковага запісу.</string>
+  <string name="twoFactorApp">Спампуйце прыладу двухфактарнай аўтэнтыфікацыі, напрыклад, andOTP для %1$s або Google Authenticator для %2$s.</string>
+  <string name="scanTheCode">Адскануйце QR прыладай.</string>
+  <string name="enterPassword">Увядзіце ваш пароль і згенерыраваны прыладай код аўтэнтыфікацыі, каб завяршыць наладу. Код аўтэнтыфікацыі з прылады спатрэбіцца пры кожным уваходзе.</string>
+  <string name="ifYouCannotScanEnterX">Калі не атрымоўваецца адсканаваць код, увядзіце сакрэтны код %s у вашу прыладу.</string>
+  <string name="authenticationCode">Код аўтэнтыфікацыі</string>
+  <string name="ifYouLoseAccess">Заўвага: калі вы згубіце вашы коды аўтэнтыфікацыі, вы можаце скасаваць пароль праз электроную пошту.</string>
+  <string name="enableTwoFactor">Уключыць двухфактарную аўтэнтыфікацыю</string>
+  <string name="disableTwoFactor">Адключыць двухфактарную аўтэнтыфікацыю</string>
+  <string name="twoFactorEnabled">Двухфактарная аўтэнтыфікацыя ўключана</string>
+  <string name="twoFactorDisable">Вам спатрэбіцца ваш пароль та код аўтэнтыфікацыі з вашай прылады аўтэнтыфікацыі, каб адключыць двухфактарную аўтэнтыфікацыю.
+Калі вы згубіце вашы коды аўтэнтыфікацыі, вы можаце скасаваць пароль праз электроную пошту.</string>
+  <string name="openTwoFactorApp">Адкрыйце прыладу для двухфактарнай аўтэнтыфікацыі, каб паглядзець код аўтэнтыфікацыі та пацвердзіць сваю асобу.</string>
+</resources>

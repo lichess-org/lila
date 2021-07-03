@@ -15,4 +15,11 @@
   <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
+  <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
+  <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
+  <string name="positions">пазіцыі</string>
+  <string name="noUpperCaseDot">Не.</string>
+  <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
+  <string name="howToThreeDots">Як...</string>
+  <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
 </resources>

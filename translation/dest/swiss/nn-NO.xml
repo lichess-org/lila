@@ -5,7 +5,32 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s runde</item>
+    <item quantity="other">%s rundar</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Ein runde pr. dag</item>
+    <item quantity="other">Ein runde kvar %s dag</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Rundar vert starta manuelt</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekund mellom rundar</item>
+    <item quantity="other">%s sekund mellom rundar</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutt mellom rundar</item>
+    <item quantity="other">%s minutt mellom rundar</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
+  <string name="nextRound">Neste runde</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Pågåande parti</item>
+    <item quantity="other">Pågåande parti</item>
+  </plurals>
   <string name="tournStartDate">Startdato for turneringa</string>
+  <string name="numberOfRounds">Antal rundar</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Eit ulike antal rundar (oddetal) gjer optimal fargefordeling.</string>
   <string name="roundInterval">Intervall mellom rundar</string>
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>

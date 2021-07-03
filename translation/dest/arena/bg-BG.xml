@@ -45,7 +45,9 @@
   </plurals>
   <string name="newTeamBattle">Нова отборна битка</string>
   <string name="customStartDate">Начална дата</string>
+  <string name="customStartDateHelp">Във Вашата времева зона. Това ще замени настройката \"Време до началото на турнира\"</string>
   <string name="allowBerserk">Позволи Берсерк</string>
+  <string name="allowBerserkHelp">Позволете на играчите печелят допълнителна точка ако намалят времето си наполовина</string>
   <string name="allowChatHelp">Позволи на играчите да обсъждат в чата</string>
   <string name="arenaStreaks">Последователности в арената</string>
   <string name="arenaStreaksHelp">След 2 победи, всяка последователна победа носи 4 точки вместо 2.</string>

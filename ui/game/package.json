@@ -15,7 +15,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
+    "compile": "tsc --incremental",
     "dev": "yarn run compile",
     "prod": "yarn run compile"
   },

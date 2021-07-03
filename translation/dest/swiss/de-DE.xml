@@ -5,7 +5,32 @@
     <item quantity="one">Die Runde ansehen</item>
     <item quantity="other">Alle %s Runden ansehen</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s Runde</item>
+    <item quantity="other">%s Runden</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Eine Runde pro Tag</item>
+    <item quantity="other">Eine Runde alle %s Tage</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Runden werden manuell gestartet</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s Sekunde zwischen den Runden</item>
+    <item quantity="other">%s Sekunden zwischen den Runden</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s Minute zwischen den Runden</item>
+    <item quantity="other">%s Minuten zwischen den Runden</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Beginnt in</string>
+  <string name="nextRound">Nächste Runde</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Laufende Partie</item>
+    <item quantity="other">Laufende Partien</item>
+  </plurals>
   <string name="tournStartDate">Turnier-Startzeit</string>
+  <string name="numberOfRounds">Anzahl der Runden</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Eine ungerade Anzahl der Runden ermöglicht eine optimale Farbverteilung.</string>
   <string name="roundInterval">Zeitabstand zwischen Runden</string>
   <string name="forbiddenPairings">Verbotene Paarungen</string>
   <string name="forbiddenPairingsHelp">Benutzernamen von Spielern, die nicht gegeneinander spielen dürfen (zum Beispiel Geschwister). Zwei Benutzernamen pro Zeile, getrennt durch ein Leerzeichen.</string>

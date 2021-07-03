@@ -39,15 +39,6 @@ final class OAuthServer(
       Left(e)
     }
 
-  def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
-    reqToTokenId(req) ?? { tokenId =>
-      colls.token {
-        _.primitiveOne[OAuthApp.Id]($doc(F.id -> tokenId), F.clientId) flatMap {
-          _ ?? appApi.authorOf
-        }
-      }
-    }
-
   def authBoth(scopes: List[OAuthScope])(
       token1: AccessToken.Id,
       token2: AccessToken.Id

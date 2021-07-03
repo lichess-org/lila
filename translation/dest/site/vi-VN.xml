@@ -408,6 +408,7 @@
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
   <string name="setTheBoard">Thiết lập bàn cờ</string>
   <string name="popularOpenings">Khai cuộc phổ biến</string>
+  <string name="endgamePositions">Các vị trí trong tàn cuộc</string>
   <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="savePosition">Lưu lại thế trận</string>
@@ -466,6 +467,7 @@
   <string name="cheat">Gian lận</string>
   <string name="insult">Xúc phạm</string>
   <string name="troll">Chọc tức</string>
+  <string name="ratingManipulation">Thao tác xếp hạng</string>
   <string name="other">Khác</string>
   <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\", mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Xin hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
@@ -640,8 +642,10 @@
   <string name="printFriendlyPDF">Bản PDF thân thiện với in ấn</string>
   <string name="crosstable">Bảng tổng điểm</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến thể máy tính để xem trước chúng.</string>
   <string name="analysisShapesHowTo">Nhấn shift + click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
   <string name="letOtherPlayersMessageYou">Cho phép người chơi khác gửi tin nhắn cho bạn</string>
+  <string name="receiveForumNotifications">Nhận thông báo khi được đề cập trong diễn đàn</string>
   <string name="shareYourInsightsData">Chia sẻ dữ liệu chi tiết về cờ vua của bạn</string>
   <string name="withNobody">Không chia sẻ</string>
   <string name="withFriends">Với bạn bè</string>
@@ -653,6 +657,7 @@
   <string name="enableKidMode">Kích hoạt chế độ trẻ em</string>
   <string name="disableKidMode">Tắt chế độ trẻ em</string>
   <string name="security">Bảo mật</string>
+  <string name="sessions">Session</string>
   <string name="revokeAllSessions">xóa toàn bộ phiên đăng nhập</string>
   <string name="playChessEverywhere">Chơi cờ ở bất cứ đâu</string>
   <string name="asFreeAsLichess">Miễn phí như lichess</string>
@@ -803,4 +808,34 @@
   <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàng được. Chơi vài trận đi!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
+  <string name="mentionedYouInX">đã đề cập đến bạn trong \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s đã đề cập đến bạn trong \"%2$s\".</string>
+  <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s đã mời bạn tham gia \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Bây giờ bạn là một phần của nhóm.</string>
+  <string name="youHaveJoinedTeamX">Bạn đã tham gia \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Ai đó bạn báo cáo đã bị cấm</string>
+  <string name="congratsYouWon">Chúc mừng bạn đã chiến thắng!</string>
+  <string name="gameVsX">Trò chơi so với%1$s</string>
+  <string name="resVsX">%1$s so với%2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Ai đó đã xem xét hồ sơ huấn luyện viên của bạn.</string>
+  <string name="newPendingReview">Đánh giá mới đang chờ xử lý</string>
+  <string name="lostAgainstTOSViolator">Bạn đã thua người vi phạm Điều Khoản Dịch Vụ của Lichess</string>
+  <string name="refundXpointsTimeControlY">Hoàn lại:%1$s %2$s điểm xếp hạng.</string>
+  <string name="timeAlmostUp">Thời gian sắp hết!</string>
+  <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
+  <string name="download">Tải xuống</string>
+  <string name="welcome">Xin chào!</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức từ thiện và phần mềm nguồn mở hoàn toàn miễn phí.
+Tất cả chi phí vận hành, phát triển và nội dung chỉ được tài trợ bởi sự đóng góp của người dùng.</string>
+  <string name="coachManager">Quản lý huấn luyện viên</string>
+  <string name="streamerManager">Người quản lý streamer</string>
+  <string name="cancelTournament">Hủy giải đấu</string>
+  <string name="tournDescription">Mô tả giải đấu</string>
+  <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng giữ nó ngắn gọn. Các liên kết đánh dấu có sẵn: [name] (https: // url)</string>
+  <string name="ratedFormHelp">Trò chơi được xếp hạng và tác động đến xếp hạng của người chơi</string>
+  <string name="onlyMembersOfTeam">Chỉ dành cho thành viên trong đội</string>
+  <string name="noRestriction">Không giới hạn</string>
+  <string name="minimumRatedGames">Trò chơi được xếp hạng tối thiểu</string>
+  <string name="minimumRating">Xếp hạng tối thiểu</string>
 </resources>

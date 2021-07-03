@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
-  <string name="gameOver">Spiel vorbei</string>
+  <string name="gameOver">Spiel beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
   <string name="waiting">Warten</string>
   <string name="yourTurn">Du bist am Zug</string>
@@ -31,7 +31,7 @@
   <string name="raceFinished">Rennen beendet</string>
   <string name="variantEnding">Ende der Variante</string>
   <string name="newOpponent">Neuer Gegner</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte ein neues Spiel mit dir spielen</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Dein Gegner möchte eine neue Partie mit dir spielen</string>
   <string name="joinTheGame">Der Partie beitreten</string>
   <string name="whitePlays">Weiß am Zug</string>
   <string name="blackPlays">Schwarz am Zug</string>
@@ -862,7 +862,7 @@
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
-  <string name="timeAlmostUp">Die Zeit ist fast abgelaufen!</string>
+  <string name="timeAlmostUp">Deine Zeit ist fast abgelaufen!</string>
   <string name="clickToRevealEmailAddress">[Klicke, um die E-Mail-Adresse anzuzeigen]</string>
   <string name="download">Herunterladen</string>
   <string name="welcome">Herzlich Willkommen!</string>

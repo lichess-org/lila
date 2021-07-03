@@ -19,12 +19,12 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     key = "zulip.client"
   )
 
-  def apply(stream: String = ZulipClient.stream.default, topic: String = ZulipClient.topic.default)(
+  def apply(stream: ZulipClient.stream.Selector, topic: String)(
       content: String
   ): Funit =
-    apply(ZulipMessage(stream = stream, topic = topic, content = content))
-
-  def mod(topic: String = ZulipClient.topic.default) = apply(stream = ZulipClient.stream.mod, topic = topic) _
+    apply(
+      ZulipMessage(stream = stream(ZulipClient.stream), topic = topic, content = content)
+    )
 
   def apply(msg: ZulipMessage): Funit =
     limiter(msg.hashCode) {
@@ -55,21 +55,18 @@ private object ZulipClient {
   implicit val zulipConfigLoader = AutoConfig.loader[Config]
 
   object stream {
-    val lila      = "lila"
-    val mod       = "lila-mod"
+    object mod {
+      val log                                   = "mod-log"
+      val adminLog                              = "mod-admin-log"
+      val commsPrivate                          = "mod-comms-private"
+      val hunterCheat                           = "mod-hunter-cheat"
+      def adminMonitor(tpe: IrcApi.MonitorType) = s"mod-admin-monitor-${tpe.key}"
+      def adminMonitorAll                       = "mod-admin-monitor-all"
+      def adminAppeal                           = "mod-admin-appeal"
+    }
+    val general   = "general"
     val broadcast = "broadcast"
-    val default   = lila
-  }
-  object topic {
-    val general       = "general"
-    val notes         = "notes"
-    val clientReports = "client reports"
-    val commLog       = "comm log"
-    val monitor       = "monitor"
-    val actionLog     = "action log"
-    val altLog        = "alt log"
-    val appeal        = "appeal"
-    val default       = general
+    type Selector = ZulipClient.stream.type => String
   }
 }
 

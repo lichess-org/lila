@@ -169,6 +169,8 @@
   <string name="username">વપરાશકર્તાનું નામ</string>
   <string name="usernameOrEmail">વપરાશકર્તાનું નામ અથવા ઇમેઇલ</string>
   <string name="changeUsername">વપરાશર્તાનું નામ બદલો</string>
+  <string name="changeUsernameNotSame">માત્ર અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલી શકાય. ઉદાહણરૂપે \"johndoe\" થી \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">તમારું વપરાશકર્તા નામ બદલો. આ માત્ર એક જ વાર થઈ શકે અને તમને ફક્ત વપરાશકર્તા નામ ના અક્ષરોની સ્થિતી અપર/લોઅર કેસમાં બદલવાની મંજૂરી છે.</string>
   <string name="password">પાસવર્ડ</string>
   <string name="changePassword">પાસવર્ડ બદલો</string>
   <string name="changeEmail">ઇમેઇલ બદલો</string>
@@ -187,8 +189,8 @@
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="accept">સ્વીકારો</string>
   <string name="decline">નકારો</string>
-  <string name="playingRightNow">હાલમાં રમે છે</string>
-  <string name="eventInProgress">હાલમાં રમે છે</string>
+  <string name="playingRightNow">અત્યારે રમાય છે</string>
+  <string name="eventInProgress">અત્યારે રમાય છે</string>
   <string name="finished">સમાપ્ત થઈ</string>
   <string name="finishesX">%s માં પૂરી થાય છે</string>
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
@@ -213,9 +215,31 @@
   <string name="confirmMove">ચાલની ખાતરી કરો</string>
   <string name="play">રમો</string>
   <string name="inbox">ઇનબૉક્સ</string>
-  <string name="chatRoom">વાતચીત જગ્યા</string>
+  <string name="chatRoom">વાતચીતની જગ્યા</string>
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
+  <string name="subject">વિષય</string>
+  <string name="recipient">મેળવનાર</string>
+  <string name="send">મોકલો</string>
+  <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
+  <string name="freeOnlineChess">મફત ઓનલાઇન શતરંજ</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s જીત</item>
+    <item quantity="other">%s જીત</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s હાર</item>
+    <item quantity="other">%s હાર</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s રમતમાં</item>
+    <item quantity="other">%s રમતમાં</item>
+  </plurals>
+  <string name="exportGames">રમતોનો નિકાસ કરો</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s સેકંડ આપો</item>
+    <item quantity="other">%s સેકંડો આપો</item>
+  </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
     <item quantity="other">તમારે હજી %1$s %2$s ક્રમિત રમત રમવી પડશે</item>
@@ -259,11 +283,44 @@
   <string name="block">બ્લોક</string>
   <string name="blocked">બ્લોકડ</string>
   <string name="unblock">અનબ્લોક</string>
+  <string name="wins">જીત</string>
+  <string name="losses">હાર</string>
   <string name="tournamentComplete">પ્રતિયોગિતા પૂર્ણ</string>
   <string name="movesPlayed">ચાલ રમ્યા</string>
   <string name="whiteWins">સફેદ ની જીત</string>
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
+  <string name="thankYou">આભાર!</string>
+  <string name="watchLichessTV">Lichess TV જુઓ</string>
+  <string name="previouslyOnLichessTV">અગાઉનું Lichess TV પર</string>
+  <string name="success">સફળતા</string>
+  <string name="puzzles">કોયડા</string>
+  <string name="description">વર્ણન</string>
+  <string name="no">નહીં</string>
+  <string name="yes">હા</string>
+  <string name="help">સહાયતા:</string>
+  <string name="replies">જવાબો</string>
+  <string name="message">સંદેશ</string>
+  <string name="reason">કારણ</string>
+  <string name="insult">અપમાન</string>
+  <string name="sound">ધ્વનિ</string>
+  <string name="difficultyNormal">સામાન્ય</string>
+  <string name="connectedToLichess">તમે હવે lichess.org સાથે જોડાયેલા છો</string>
+  <string name="aboutX">%s વિશે</string>
+  <string name="lichessTournaments">Lichess પ્રતિયોગિતાઓ</string>
+  <string name="networkLagBetweenYouAndLichess">તમારા અને Lichess વચ્ચે નેટવર્ક વિલંબ છે</string>
+  <string name="timeToProcessAMoveOnLichessServer">Lichess ના સર્વર પર એક ચાલની પ્રક્રિયા માટેનો સમય</string>
+  <string name="viewTheSolution">ઉકેલ જુઓ</string>
+  <string name="language">ભાષા</string>
+  <string name="background">પૃષ્ઠભૂમિ</string>
+  <string name="light">સફેદ</string>
+  <string name="dark">ઘેરું</string>
+  <string name="transparent">પારદર્શક</string>
+  <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
+  <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
+  <string name="boardTheme">બોર્ડની પસંદગી</string>
+  <string name="pieceSet">મહોરાંની પસંદગી</string>
   <string name="opening">શરૂઆત</string>
   <string name="playX">%s ચાલો</string>
+  <string name="puzzleDesc">શતરંજના વ્યૂહની તાલીમ</string>
 </resources>

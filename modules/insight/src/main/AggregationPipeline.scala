@@ -70,6 +70,16 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             }
           )
         )
+        lazy val evalIdDispatcher =
+          EvalRange.reversedButLast.foldLeft[BSONValue](BSONInteger(EvalRange.Up5.id)) { case (acc, ev) =>
+            $doc(
+              "$cond" -> $arr(
+                $doc("$lt" -> $arr("$" + F.moves("e"), ev.eval)),
+                ev.id,
+                acc
+              )
+            )
+          }
         lazy val timeVarianceIdDispatcher =
           TimeVariance.all.reverse
             .drop(1)
@@ -87,6 +97,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
             case Dimension.MovetimeRange => movetimeIdDispatcher
             case Dimension.CplRange      => cplIdDispatcher
             case Dimension.MaterialRange => materialIdDispatcher
+            case Dimension.EvalRange     => evalIdDispatcher
             case Dimension.TimeVariance  => timeVarianceIdDispatcher
             case d                       => BSONString("$" + d.dbKey)
           }
@@ -163,6 +174,7 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           } ::: (dimension match {
             case D.TimeVariance => List($doc(F.moves("v") $exists true))
             case D.CplRange     => List($doc(F.moves("c") $exists true))
+            case D.EvalRange    => List($doc(F.moves("e") $exists true))
             case _              => List.empty[Bdoc]
           })).some.filterNot(_.isEmpty) map Match.apply
 
@@ -177,7 +189,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
           selectUserId(user.id) ++
             gameMatcher ++
             (dimension == Dimension.Opening).??($doc(F.eco $exists true)) ++
-            Metric.requiresAnalysis(metric).??($doc(F.analysed -> true)) ++
+            (Metric.requiresAnalysis(metric) || Dimension.requiresAnalysis(dimension))
+              .??($doc(F.analysed -> true)) ++
             (Metric.requiresStableRating(metric) || Dimension.requiresStableRating(dimension)).?? {
               $doc(F.provisional $ne true)
             }

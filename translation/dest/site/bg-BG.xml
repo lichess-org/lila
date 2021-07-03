@@ -872,6 +872,7 @@
   <string name="streamerManager">Настройки за стриймъри</string>
   <string name="cancelTournament">Отмени турнира</string>
   <string name="tournDescription">Описание на турнира</string>
+  <string name="tournDescriptionHelp">Искате да кажете нещо специално на участниците? Моля бъдете кратки. За връзки можете да използвате Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игрите са с рейтинг и влияят на рейтинга на играчите</string>
   <string name="onlyMembersOfTeam">Само членове на отбора</string>
   <string name="noRestriction">Без ограничение</string>
@@ -880,6 +881,16 @@
   <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
   <string name="onlyTitled">Само титулувани играчи</string>
   <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
+  <string name="positionInputHelp">За започва всяка игра от зададена позиция, въведете валиден FEN код. 
+Това работи само за стандартни игри, но не с варианти. Можете да използвате %s за да създадете FEN позиция и след това да копирате кода тук.
+За да започват игрите от обичайната позиция, оставете полето празно.</string>
+  <string name="cancelSimul">Отмени сеанса</string>
+  <string name="simulHostcolor">Цвят на домакина във всяка игра</string>
+  <string name="estimatedStart">Очаквано време на започване</string>
+  <string name="simulFeatured">Показва се на %s</string>
+  <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
+  <string name="simulDescription">Описание на сеанса</string>
+  <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>
   <string name="markdownAvailable">%s е достъпен за разширено форматиране.</string>
   <string name="inYourLocalTimezone">Във Вашата часова зона</string>
   <string name="tournChat">Чат в турнира</string>

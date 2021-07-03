@@ -131,12 +131,14 @@ object inquiry {
         )
       ),
       div(cls := "links")(
-        boostOpponents(in.report) map { opponents =>
-          a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
-            "View",
-            br,
-            "Games"
-          )
+        isGranted(_.MarkBooster) option {
+          boostOpponents(in.report, in.allReports, in.user) map { opponents =>
+            a(href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}")(
+              "View",
+              br,
+              "Games"
+            )
+          }
         },
         isGranted(_.Shadowban) option
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms"),
@@ -251,9 +253,15 @@ object inquiry {
     if (report.isAppeal) routes.Appeal.snooze(report.user, duration).url
     else routes.Report.snooze(report.id, duration).url
 
-  private def boostOpponents(report: Report): Option[NonEmptyList[User.ID]] =
-    (report.reason == Reason.Boost) ?? {
-      report.atoms.toList
+  private def boostOpponents(
+      report: Report,
+      allReports: List[Report],
+      reportee: User
+  ): Option[NonEmptyList[User.ID]] =
+    (report.reason == Reason.Boost || reportee.marks.boost) ?? {
+      allReports
+        .filter(_.reason == Reason.Boost)
+        .flatMap(_.atoms.toList)
         .withFilter(_.byLichess)
         .flatMap(_.text.linesIterator)
         .collect {

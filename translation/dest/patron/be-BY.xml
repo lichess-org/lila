@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">Ахвяраваць</string>
+  <string name="lichessPatron">Спонсар Lichess</string>
+  <string name="freeAccount">Безкаштовы акаўнт</string>
+  <string name="becomePatron">Стаць Спонсарам Lichess</string>
+  <string name="xBecamePatron">%s стаў(-ла) Спонсарам Lichess</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяца</item>
+    <item quantity="few">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+    <item quantity="many">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+    <item quantity="other">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
+  </plurals>
+  <string name="newPatrons">Новыя спонсары</string>
+  <string name="freeChess">Безкаштовыя шахматы для ўсіх, назаўседы!</string>
+  <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
+  <string name="thankYou">Дзякуй за ваш унёсак!</string>
+  <string name="patronUntil">Вы спонсар да %s.</string>
+  <string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
+  <string name="weRelyOnSupport">Мы разлічваем на дапамогу людзей як вы каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце на пагчымасцью ахвяраваць грошы і стаць спонсарам!</string>
+  <string name="lifetime">Пажыццёва</string>
+  <string name="monthly">Штомесячна</string>
+  <string name="onetime">Аднаразова</string>
+  <string name="singleDonation">Адначасовае ахвяраванне, якое дадае вам крылы Спонсара на адзін месяц.</string>
+  <string name="otherAmount">Іншая сума</string>
+  <string name="pleaseEnterAmountInX">Калі ласка, увядзіце суму ў %s</string>
+  <string name="withCreditCard">Банкаўская картка</string>
+  <string name="withPaypal">PayPal</string>
+  <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
+  <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
+  <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
+Ці можаце %s.</string>
+  <string name="otherMethods">Іншыя шляхі ахвяравання?</string>
+  <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
+  <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бескаштовы, назаўседы і для кожнага. Гэта абяцанне.
+Аднак, Спонсары атрымліваюць класную ікунку да профілю.</string>
+  <string name="featuresComparison">Паглядзець дакладнае параўнанне магчымасцяў</string>
+  <string name="youSupportWith">Вы ахвяруеце lichess.org %s кожны месяц.</string>
+  <string name="tyvm">Дзякуй вілікі за дапамогу! Вы неверагодны!</string>
+  <string name="currentStatus">Бягучы статус</string>
+  <string name="nextPayment">Наступны плацёж</string>
+  <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
+  <string name="makeAdditionalDonation">Зрабіць дадатковае ахвяраванне</string>
+  <string name="update">Абнавіць</string>
+  <string name="changeMonthlyAmount">Змяніць штомесячную суму (%s)</string>
+  <string name="cancelSupport">скасаваць падтрымку</string>
+  <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
+  <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
+  <string name="date">Дата</string>
+  <string name="amount">Сума</string>
+  <string name="permanentPatron">У вас цяпер пажыцевы спонсарскі акаунт.</string>
+  <string name="checkOutProfile">Праверце сваю старонку!</string>
+</resources>

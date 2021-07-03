@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Звязацца</string>
+  <string name="contactLichess">Звязацца з Lichess</string>
+  <string name="whatCanWeHelpYouWith">Чым мы можам вам дапамагчы?</string>
+  <string name="visitThisPage">Наведайце гэтую старонку каб вырашыць праблему</string>
+  <string name="iCantLogIn">Не магу ўвайсці</string>
+  <string name="noConfirmationEmail">Не атрымаў ліста пацвярджэння</string>
+  <string name="forgotPassword">Забыўся(-лася) пароль</string>
+</resources>

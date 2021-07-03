@@ -92,6 +92,13 @@
     <item quantity="many">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
     <item quantity="other">Заняў %1$s месца (лепшыя %2$s%%) турніру %4$s, узяўшы ўдзел у %3$s гульнях</item>
   </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Паўдзельнічаў(-ла) у %s турніры па швейцарскай сістэме</item>
+    <item quantity="few">Паўдзельнічаў(-ла) у %s турнірах па швейцырскай сістэме</item>
+    <item quantity="many">Паўдзельнічаў(-ла) у %s турнірах па швейцырскай сістэме</item>
+    <item quantity="other">Паўдзельнічаў(-ла) у %s турнірах па швейцырскай сістэме</item>
+  </plurals>
+  <string name="rankedInSwissTournament">Скончыў на %1$s месцы ў %2$s</string>
   <string name="signedUp">Зарэгістраваўся на lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Далучыўся да %s каманды</item>

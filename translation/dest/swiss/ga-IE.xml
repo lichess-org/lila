@@ -8,7 +8,47 @@
     <item quantity="many">Féach ar na %s babhta go léir</item>
     <item quantity="other">Féach ar na %s babhta go léir</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">babhta amháin</item>
+    <item quantity="two">%s bhabhta</item>
+    <item quantity="few">%s mbabhta</item>
+    <item quantity="many">%s babhta</item>
+    <item quantity="other">%s babhta</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Babhta amháin in aghaidh an lae</item>
+    <item quantity="two">Babhta amháin gach %s lá</item>
+    <item quantity="few">Babhta amháin gach %s lá</item>
+    <item quantity="many">Babhta amháin gach %s lá</item>
+    <item quantity="other">Babhta amháin gach %s lá</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Tosaíonn babhtaí de láimh</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">soicind idir babhtaí</item>
+    <item quantity="two">%s soicind idir babhtaí</item>
+    <item quantity="few">%s soicind idir babhtaí</item>
+    <item quantity="many">%s soicind idir babhtaí</item>
+    <item quantity="other">%s soicind idir babhtaí</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">nóiméad amháin idir babhtaí</item>
+    <item quantity="two">%s nóiméad idir babhtaí</item>
+    <item quantity="few">%s nóiméad idir babhtaí</item>
+    <item quantity="many">%s nóiméad idir babhtaí</item>
+    <item quantity="other">%s nóiméad idir babhtaí</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Ag tosú i</string>
+  <string name="nextRound">An chéad bhabhta eile</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Cluiche leanúnach</item>
+    <item quantity="two">Cluichí leanúnacha</item>
+    <item quantity="few">Cluichí leanúnacha</item>
+    <item quantity="many">Cluichí leanúnacha</item>
+    <item quantity="other">Cluichí leanúnacha</item>
+  </plurals>
   <string name="tournStartDate">Dáta tosaigh an chomórtais</string>
+  <string name="numberOfRounds">Líon na mbabhtaí</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Ligeann corr-líon babhtaí an chothromaíocht dathanna is fearr.</string>
   <string name="roundInterval">Sos idir babhtaí</string>
   <string name="forbiddenPairings">Péirí faoi chosc</string>
   <string name="forbiddenPairingsHelp">Ainmneacha úsáideora na n-imreoirí nach gcaithfidh imirt le chéile (Siblíní, mar shampla). Dhá ainm úsáideora in aghaidh an líne, scartha le spás.</string>

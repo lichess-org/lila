@@ -4,19 +4,19 @@
   <string name="emailConfirm_click" comment="emailConfirm_click&#10;&#10;Part of the confirmation email upon registering for a Lichess account.&#10;&#10;The unique reset link is presented just after this string.">Націсніце на спасылку, каб актываваць уліковы запіс Lichess:</string>
   <string name="emailConfirm_ignore">Калі вы не рэгістраваліся на Lichess, проста праігнаруйце гэты ліст.</string>
   <string name="passwordReset_subject">%s, вы скідваеце ваш пароль на lichess.org</string>
-  <string name="passwordReset_intro">Мы атрымалі запыт на скід пароля для вашага ўліковага запісу.</string>
-  <string name="passwordReset_clickOrIgnore">Калі вы сапраўды рабілі гэты запыт, пстрыкніце па спасылцы ніжэй. Калі не, праігнаруйце гэты ліст.</string>
+  <string name="passwordReset_intro">Мы атрымалі запыт на скасаванне пароля да вашага ўліковага запісу.</string>
+  <string name="passwordReset_clickOrIgnore">Калі запыт выкананы вамі, націсніце на спасылку ніжэй. Калі не, праігнаруйце гэты ліст.</string>
   <string name="emailChange_subject">%s, пацвердзіце новы адрас пошты</string>
   <string name="emailChange_intro">Мы атрымалі запыт на змену вашага адраса электроннай пошты.</string>
-  <string name="emailChange_click">Каб пацвердзіць змену адрасу, перайдзіце па гэтай спасылцы:</string>
+  <string name="emailChange_click">Доўжачы пацверджанні наяўнасці доступу да гэтай пошты, калі ласка, націсніце на спасылку ніжэй:</string>
   <string name="welcome_subject">Вітаем вас на lichess.org, %s</string>
-  <string name="welcome_text">Ваш уліковы запіс на https://lichess.org быў паспяхова створаны.
+  <string name="welcome_text">Вы паспяхова зарэгістравалі свой акаўнт на https://lichess.org.
 
-Гэта старонка вашага профілю: %1$s. Вы можаце наладзіць профіль на %2$s.
+Вось спасылка на Ваш профіль: %1$s. Вы можаце наладзіць яго тут %2$s.
 
-Весяліцеся! Няхай вашыя фігуры заўсёды знойдуць шлях да караля суперніка!</string>
+Поспехаў, і ды знойдуць Вашы фігуры шлях да караля суперніка!</string>
   <string name="logInToLichess">Уваход на lichess.org, %s</string>
-  <string name="common_orPaste">(Не атрымліваецца пстрыкнуць па спасылцы? Паспрабуйце ўставіць яе ў адрасны радок!)</string>
+  <string name="common_orPaste">(Клік па спасылцы не працуе? Паспрабуйце ўставіць у ваш браўзер!)</string>
   <string name="common_note">Гэта службовы ліст ад %s.</string>
   <string name="common_contact">Каб звязацца з намі, калі ласка, выкарыстоўвайце %s.</string>
 </resources>

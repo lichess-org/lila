@@ -9,7 +9,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
+    "compile": "tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
     "dev": "yarn run compile && rollup --config",
     "prod": "yarn run compile && rollup --config --config-prod"
   },

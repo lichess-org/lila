@@ -5,5 +5,34 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundene</item>
   </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s runde</item>
+    <item quantity="other">%s runder</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">En runde hver dag</item>
+    <item quantity="other">En runde hver %s. dag</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Rundene startes manuelt</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekund mellom rundene</item>
+    <item quantity="other">%s sekunder mellom rundene</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutt mellom rundene</item>
+    <item quantity="other">%s minutter mellom rundene</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Starter om</string>
+  <string name="nextRound">Neste runde</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Pågående parti</item>
+    <item quantity="other">Pågående partier</item>
+  </plurals>
+  <string name="tournStartDate">Startdato for turneringen</string>
+  <string name="numberOfRounds">Antall runder</string>
+  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Hvis antall runder er et oddetall, blir det best fordeling mellom fargene.</string>
+  <string name="roundInterval">Intervall mellom rundene</string>
+  <string name="forbiddenPairings">Forbudte par</string>
+  <string name="forbiddenPairingsHelp">Brukernavn for spillere som ikke skal spille mot hverandre (søsken, for eksempel). To brukernavn på hver linje, skilt med mellomrom.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
 </resources>
