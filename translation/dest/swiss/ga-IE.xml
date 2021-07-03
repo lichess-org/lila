@@ -8,7 +8,7 @@
     <item quantity="many">Féach ar na %s babhta go léir</item>
     <item quantity="other">Féach ar na %s babhta go léir</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">babhta amháin</item>
     <item quantity="two">%s bhabhta</item>
     <item quantity="few">%s mbabhta</item>
@@ -48,7 +48,7 @@
   </plurals>
   <string name="tournStartDate">Dáta tosaigh an chomórtais</string>
   <string name="numberOfRounds">Líon na mbabhtaí</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Ligeann corr-líon babhtaí an chothromaíocht dathanna is fearr.</string>
+  <string name="numberOfRoundsHelp">Ligeann corr-líon babhtaí an chothromaíocht dathanna is fearr.</string>
   <string name="roundInterval">Sos idir babhtaí</string>
   <string name="forbiddenPairings">Péirí faoi chosc</string>
   <string name="forbiddenPairingsHelp">Ainmneacha úsáideora na n-imreoirí nach gcaithfidh imirt le chéile (Siblíní, mar shampla). Dhá ainm úsáideora in aghaidh an líne, scartha le spás.</string>
