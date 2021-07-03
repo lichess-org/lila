@@ -68,4 +68,8 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
   <string name="roundRobinQ">Et les tournois à la ronde?</string>
   <string name="roundRobinAWontWork">Ce serait intéressant, mais ce type de tournoi n\'est pas compatible avec les parties en ligne.</string>
+  <string name="roundRobinANoBecause">Pourquoi? Parce qu\'il n\'y a pas de moyen satisfaisant de régler le problème des joueurs qui abandonnent le tournoi. Dans un tournoi en ligne, nous ne pouvons pas présumer que tous les joueurs joueront toutes leurs parties. Un tournoi à la ronde est mal adapté à cette situation et risque de donner des résultats inéquitables.</string>
+  <string name="roundRobinATheClosestPossible">Ce qui se rapproche le plus d\'un tournoi à la ronde, c\'est un tournoi suisse comptant un grand nombre de rondes. Alors, tous les appariements possibles seront faits et toutes les parties seront jouées avant la fin du tournoi.</string>
+  <string name="otherSystemsQ">Y a-t-il d\'autres types de tournoi?</string>
+  <string name="otherSystemsA">Pour le moment, nous ne prévoyons pas ajouter d\'autres types de tournoi dans Lichess.</string>
 </resources>
