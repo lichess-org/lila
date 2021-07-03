@@ -7,7 +7,7 @@
     <item quantity="many">Паглядзець усе %s тураў</item>
     <item quantity="other">Паглядзець усе %s тураў</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s тур</item>
     <item quantity="few">%s тураў</item>
     <item quantity="many">%s тураў</item>
@@ -42,7 +42,7 @@
   </plurals>
   <string name="tournStartDate">Дата пачатку турніру</string>
   <string name="numberOfRounds">Колькасць тураў</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Няцотная колькасць тураў стварае аптымальны баланс колераў фігур.</string>
+  <string name="numberOfRoundsHelp">Няцотная колькасць тураў стварае аптымальны баланс колераў фігур.</string>
   <string name="roundInterval">Інтэрвал паміж турамі</string>
   <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
   <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
