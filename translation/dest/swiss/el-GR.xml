@@ -39,4 +39,16 @@
   <string name="swissVsArenaA">Στα ελβετικά τουρνουά, όλοι οι παίκτες παίζουν τον ίδιο αριθμό παιχνιδιών και μόνο μία φορά με κάθε παίκτη.
 Είναι μία καλή επιλογή για συλλόγους ή επίσημα τουρνουά.</string>
   <string name="pointsCalculationQ">Πώς υπολογίζονται οι βαθμοί;</string>
+  <string name="pointsCalculationA">Μια νίκη αξίζει ένα βαθμό, μια ισοπαλία μισό, και μια ήττα κανέναν.
+Κάποιες φορές, όταν ο αριθμός των παιχτών είναι περιττός, ένας παίκτης παίρνει «bye», το οποίο αξίζει όσο ένας βαθμός.</string>
+  <string name="tiebreaksCalculationQ">Ποια τα κριτήρια σε περίπτωση ισοβαθμίας;</string>
+  <string name="sonnebornBergerScore">Κριτήριο Sonneborn–Berger</string>
+  <string name="pairingsQ">Πώς αποφασίζονται τα ζευγάρια;</string>
+  <string name="dutchSystem">Ολλανδικό σύστημα</string>
+  <string name="FIDEHandbook">Βιβλίο κανονισμών της FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Τι συμβαίνει αν το τουρνουά έχει περισσότερους γύρους από τους παίκτες;</string>
+  <string name="moreRoundsThanPlayersA">Όταν εξαντληθούν όλα τα πιθανά ζευγάρια, το τουρνουά τελειώνει και ανακοινώνεται ο νικητής.</string>
+  <string name="restrictedToTeamsQ">Γιατί τα ελβετικά τουρνουά περιορίζονται σε ομάδες;</string>
+  <string name="restrictedToTeamsANotForOnline">Τα ελβετικά τουρνουά δε σχεδιάστηκαν για διαδικτυακό σκάκι. Απαιτούν ακρίβεια, αφοσίωση και υπομονή από τους παίκτες.</string>
+  <string name="restrictedToTeamsABetterMet">Πιστεύουμε ότι αυτές οι προϋποθέσεις πληρούνται περισσότερο μέσα σε μια ομάδα.</string>
 </resources>
