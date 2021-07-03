@@ -67,10 +67,10 @@ Hier ist der Link zum Zugriff auf die Klasse.</string>
   <string name="releaseDesc1">Ein freigegebenes Konto kann nicht mehr verwaltet werden. Der Schüler wird in der Lage sein den Kindermodus abzuschalten und das Passwort selbstständig zurückzusetzen.</string>
   <string name="releaseDesc2">Der Schüler bleibt in der Klasse nachdem sein Konto freigegeben wurde.</string>
   <string name="realUniqueEmail">Echte, einmalige Email-Adresse des Schülers. Wir werden eine Bestätigungsmail mit einem Link zur Freigabe des Kontos versenden.</string>
-  <string name="closeStudent">Benutzerkonto gschlüssä</string>
+  <string name="closeStudent">Benutzerkonto schlüssä</string>
   <string name="closeTheAccount">Schüälerkonto permanent gschlüssä.</string>
   <string name="closeDesc1">Dä Schüäler / diä Schüälerin cha das Konto niä meh verwändä. Gschlüssä isch endgültig. Schtell sicher, dass dä Schüäler / d\'Schüälerin das verschtoht und akzeptiärt.</string>
-  <string name="closeDesc2">Du chasch schattdessä äm Schüäler / diä Schüälerin d\'Kontrollä über das Konto gäh, damit är sis / si ihräs Konto wiiterhin verwändä chan.</string>
+  <string name="closeDesc2">Du chasch schattdessä äm Schüäler / dä Schüälerin d\'Kontrollä über s Konto gäh, damit är sis / si ihräs Konto wiiterhin verwändä chan.</string>
   <string name="teachers">Lehrer</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lehrer</item>
