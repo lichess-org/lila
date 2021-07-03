@@ -16,11 +16,24 @@
     <item quantity="many">%s спробаў</item>
     <item quantity="other">%s спробаў</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Выкарастана адна з %2$s спроб</item>
+    <item quantity="few">Выкарастана %1$s з %2$s спроб</item>
+    <item quantity="many">Выкарастана %1$s з %2$s спробаў</item>
+    <item quantity="other">Выкарастана %1$s з %2$s спробаў</item>
+  </plurals>
+  <string name="highscoreX">Рэкорд: %s</string>
   <string name="score">Вынік</string>
   <string name="moves">Хады</string>
   <string name="accuracy">Дакладнасць</string>
+  <string name="combo">Серыя</string>
   <string name="time">Час</string>
   <string name="timePerMove">Час на ход</string>
+  <string name="highestSolved">Найцяжейшая вырашаная</string>
+  <string name="puzzlesPlayed">Галаваломак сыграна</string>
+  <string name="newRun">Новая спроба (клавіша: Space)</string>
+  <string name="endRun">Скончыць спробу (клавіша: Enter)</string>
+  <string name="highscores">Рэкорды</string>
   <string name="viewBestRuns">Праглядзець лепшыя спробы</string>
   <string name="bestRunOfDay">Лепшая спроба за дзень</string>
   <string name="runs">Спробы</string>
