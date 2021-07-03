@@ -96,6 +96,7 @@
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos através do menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
+  <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">%s Explorador de aberturas</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pela regra dos 50 movimentos</string>
@@ -898,4 +899,12 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="noChat">Sem chat</string>
   <string name="onlyTeamLeaders">Apenas líderes de equipe</string>
   <string name="onlyTeamMembers">Apenas membros da equipe</string>
+  <string name="navigateMoveTree">Navegar pela notação de movimentos</string>
+  <string name="mouseTricks">Funcionalidades do mouse</string>
+  <string name="toggleLocalAnalysis">Ativar/desativar análise local do computador</string>
+  <string name="toggleAllAnalysis">Ativar/desativar todas análises locais do computador</string>
+  <string name="playComputerMove">Jogar o melhor lance de computador</string>
+  <string name="analysisOptions">Opções de análise</string>
+  <string name="focusChat">Focar texto</string>
+  <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
 </resources>
