@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Турніры па швейцарскай сыстэме</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Паглядзець тур</item>
+    <item quantity="few">Паглядзець усе %s туры</item>
+    <item quantity="many">Паглядзець усе %s тураў</item>
+    <item quantity="other">Паглядзець усе %s тураў</item>
+  </plurals>
+  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+    <item quantity="one">%s тур</item>
+    <item quantity="few">%s тураў</item>
+    <item quantity="many">%s тураў</item>
+    <item quantity="other">%s тураў</item>
+  </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">Адзін тур у дзень</item>
     <item quantity="few">Адзін тур кожныя %s дні</item>
     <item quantity="many">Адзін тур кожныя %s дзён</item>
     <item quantity="other">Адзін тур кожныя %s дзён</item>
   </plurals>
+  <string name="roundsAreStartedManually">Туры распачынаюцца ўручную</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s сякунда паміж турамі</item>
     <item quantity="few">%s сякунд паміж турамі</item>
