@@ -14,4 +14,8 @@
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
+  <string name="tiebreaksCalculationQ">Miten paremmuus määriytyy tasatilanteessa?</string>
+  <string name="pairingsQ">Miten parit määriytyvät?</string>
+  <string name="FIDEHandbook">FIDEn käsikirja</string>
+  <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
 </resources>
