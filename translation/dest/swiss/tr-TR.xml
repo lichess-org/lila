@@ -51,4 +51,6 @@ Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere 
   <string name="restrictedToTeamsANotForOnline">İsviçre sistemi turnuvalar çevrimiçi satranç için tasarlanmamıştır. Oyuncuların dakik, ilgili ve sabırlı olması gerekir.</string>
   <string name="restrictedToTeamsABetterMet">Bu şartların takım üyeleri tarafından karşılanmasının daha olası olduğunu düşünüyoruz.</string>
   <string name="numberOfByesQ">Bir oyuncu kaç kez bay geçebilir?</string>
+  <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
+Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
 </resources>
