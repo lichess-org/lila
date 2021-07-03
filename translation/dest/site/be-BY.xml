@@ -225,10 +225,10 @@
     <item quantity="other">Рэйтынг абнаўляецца кожныя %s хвілін</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s галаваломка</item>
-    <item quantity="few">%s галаваломкі</item>
-    <item quantity="many">%s галаваломак</item>
-    <item quantity="other">%s галаваломак</item>
+    <item quantity="one">%s задача</item>
+    <item quantity="few">%s задачы</item>
+    <item quantity="many">%s задач</item>
+    <item quantity="other">%s задач</item>
   </plurals>
   <string name="gamesPlayed">Усяго гульняў</string>
   <plurals name="nbGamesWithYou">
@@ -536,7 +536,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
-  <string name="puzzles">Галаваломкі</string>
+  <string name="puzzles">Задачы</string>
   <string name="latestUpdates">Апошнія абнаўленні</string>
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
@@ -601,7 +601,7 @@
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
   <string name="difficultyEasy">Лёгкая</string>
-  <string name="difficultyNormal">Нармальная</string>
+  <string name="difficultyNormal">Сярэдняя</string>
   <string name="difficultyHard">Цяжкая</string>
   <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="xAskedY">%1$s пытаецца: %2$s</string>
@@ -777,7 +777,7 @@
   <string name="bulletBlitzClassical">«Куля», бліц, класічны рэжым</string>
   <string name="correspondenceChess">Гульня па ліставанні</string>
   <string name="onlineAndOfflinePlay">Гульня анлайн і афлайн</string>
-  <string name="viewTheSolution">Паказаць рашэнне</string>
+  <string name="viewTheSolution">Паглядзець рашэнне</string>
   <string name="followAndChallengeFriends">Падпісацца і выклікаць на гульню сяброў</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Даступна на %s мове!</item>
