@@ -38,9 +38,11 @@ case class Team(
   def publicForum: Boolean = !hideForum.has(true)
 
   def passwordMatches(pw: String) =
-    password.forall(teamPw => teamPw.size == pw.size && teamPw.zip(pw).foldLeft(0) {
-      case (acc, (a, b)) => acc | (a ^ b) // constant time
-    } == 0)
+    password.forall(teamPw =>
+      teamPw.size == pw.size && teamPw.zip(pw).foldLeft(0) { case (acc, (a, b)) =>
+        acc | (a ^ b) // constant time
+      } == 0
+    )
 }
 
 object Team {

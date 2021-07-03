@@ -25,7 +25,7 @@ object AccessToken {
 
   case class Id(value: String) extends AnyVal
   object Id {
-    def random() = Id(s"lio_${SecureRandom.nextString(32)}")
+    def random()         = Id(s"lio_${SecureRandom.nextString(32)}")
     def randomPersonal() = Id(SecureRandom.nextString(16)) // TODO: remove
   }
 
