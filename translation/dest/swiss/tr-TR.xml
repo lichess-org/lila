@@ -82,4 +82,16 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="pairingSystemArena">Oyun puanı yakın olan müsait bir rakip seçilir</string>
   <string name="pairingSystemSwiss">Turnuva ve eşitlik bozma puanlarına göre en uygun eşleştirme yapılır</string>
   <string name="pairingWaitTime">Eşleştirme bekleme süresi</string>
+  <string name="pairingWaitTimeFast">Hızlı: diğer oyuncular beklenmez</string>
+  <string name="pairingWaitTimeSlow">Yavaş: bütün maçların bitmesi beklenir</string>
+  <string name="identicalPairing">Aynı kişiyle eşleşme</string>
+  <string name="possibleButNotConsecutive">Mümkün ancak üst üste olmaz</string>
+  <string name="identicalForbidden">Mümkün değil</string>
+  <string name="lateJoin">Geç katılma</string>
+  <string name="lateJoinUntil">Turnuvanın yarısına ulaşana kadar mümkün</string>
+  <string name="pause">Ara verme</string>
+  <string name="pauseSwiss">Mümkün fakat oynanan tur sayısını azaltabilir</string>
+  <string name="streaksAndBerserk">Kazanma serisi ve divane (berserk) seçeneği</string>
+  <string name="similarToOTB">Yüz yüze turnuvalara benzer</string>
+  <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
 </resources>
