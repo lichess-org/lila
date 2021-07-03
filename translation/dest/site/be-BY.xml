@@ -951,6 +951,7 @@
   <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
+  <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
   <string name="simulDescription">Апісанне сеансу</string>
   <string name="tournChat">Чат турніру</string>
