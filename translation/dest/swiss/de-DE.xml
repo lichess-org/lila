@@ -71,4 +71,33 @@ Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht mehr Spi
   <string name="roundRobinATheClosestPossible">Das nächstmögliche an Round-Robin online ist, ein Schweizer Turnier mit einer sehr hohen Anzahl an Runden zu spielen. Dann werden alle möglichen Paare gespielt, bevor das Turnier endet.</string>
   <string name="otherSystemsQ">Was ist mit anderen Turniersystemen?</string>
   <string name="otherSystemsA">Wir planen derzeit keine weiteren Turniersysteme zu Lichess hinzuzufügen.</string>
+  <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen sich in jeder Runde einzeln und werden mithilfe einer Reihe von Regeln gepaart, um sicherzustellen, dass jeder Wettbewerber Gegner mit einem ähnlichen Punktestand spielt, aber nicht den gleichen Gegner mehr als einmal. Der Gewinner ist der Wettbewerber mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine seltsame Anzahl von Spielern.\"</string>
+  <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
+%1$s um an Schweizer Turnieren teilzunehmen.</string>
+  <string name="joinOrCreateTeam">Erstelle ein Team oder tritt einem anderen Team bei</string>
+  <string name="nowPlaying">Läuft gerade</string>
+  <string name="startingSoon">Beginnt in Kürze</string>
+  <string name="comparison">Vergleich</string>
+  <string name="tournDuration">Dauer des Turniers</string>
+  <string name="predefinedDuration">Vordefinierte Dauer in Minuten</string>
+  <string name="durationUnknown">Vordefinierte Maximalrunden, aber unbekannte Dauer</string>
+  <string name="numberOfGames">Anzahl der Spiele</string>
+  <string name="numberOfGamesAsManyAsPossible">So viele wie in der zugewiesenen Dauer gespielt werden können</string>
+  <string name="numberOfGamesPreDefined">Im Voraus entschieden, für alle Spieler gleich</string>
+  <string name="pairingSystem">Anzahl der Spiele</string>
+  <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
+  <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Tie-Breaks</string>
+  <string name="pairingWaitTime">Wartezeit für Paarung</string>
+  <string name="pairingWaitTimeFast">Schnell: wartet nicht auf alle Spieler</string>
+  <string name="pairingWaitTimeSlow">Langsam: wartet auf alle Spieler</string>
+  <string name="identicalPairing">Gleiche Paarung mehrmals</string>
+  <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
+  <string name="identicalForbidden">Verboten</string>
+  <string name="lateJoin">Später Beitritt</string>
+  <string name="lateJoinUntil">Ja bis mehr als die Hälfte der Runden begonnen haben</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, aber könnte die Anzahl der Runden verringern</string>
+  <string name="streaksAndBerserk">Streaks und Berserken</string>
+  <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
+  <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
 </resources>
