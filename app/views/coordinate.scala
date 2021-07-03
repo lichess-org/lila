@@ -75,10 +75,10 @@ object coordinate {
         ),
         div(cls := "coord-trainer__board main-board")(
           svgTag(cls := "coords-svg", viewBoxAttr := "0 0 100 100")(
-            textTag(cls := "coord coord--resolved"),
-            textTag(cls := "coord coord--current"),
-            textTag(cls := "coord coord--next"),
-            textTag(cls := "coord coord--new")
+            svgGroupTag(cls := "coord coord--resolved")(svgTextTag),
+            svgGroupTag(cls := "coord coord--current")(svgTextTag),
+            svgGroupTag(cls := "coord coord--next")(svgTextTag),
+            svgGroupTag(cls := "coord coord--new")(svgTextTag)
           ),
           chessgroundBoard
         ),

@@ -4,12 +4,14 @@ import throttle from 'common/throttle';
 import resizeHandle from 'common/resize';
 import * as cg from 'chessground/types';
 
+type CoordModifier = 'new' | 'next' | 'current' | 'resolved';
+
 lichess.load.then(() => {
   $('#trainer').each(function (this: HTMLElement) {
     const $trainer = $(this);
     const $board = $('.coord-trainer__board .cg-wrap');
     const $coordsSvg = $('.coords-svg');
-    const $coords = $coordsSvg.find('.coord');
+    const $coordTexts = $coordsSvg.find('.coord text');
     let ground;
     const $side = $('.coord-trainer__side');
     const $right = $('.coord-trainer__table');
@@ -122,7 +124,7 @@ lichess.load.then(() => {
     centerRight();
 
     const clearCoords = function () {
-      $coords.text('');
+      $coordTexts.text('');
     };
 
     const newCoord = function (prevCoord) {
@@ -140,17 +142,20 @@ lichess.load.then(() => {
       );
     };
 
-    const resolvedCoordEl = () => $coordsSvg.find('.coord--resolved');
-    const currentCoordEl = () => $coordsSvg.find('.coord--current');
-    const nextCoordEl = () => $coordsSvg.find('.coord--next');
-    const newCoordEl = () => $coordsSvg.find('.coord--new');
+    const coordClass = (modifier: CoordModifier) => `coord--${modifier}`;
+    const coordEl = (modifier: CoordModifier) => $coordsSvg.find(`.${coordClass(modifier)}`);
+    const coordTextEl = (modifier: CoordModifier) => coordEl(modifier).find('text');
 
     const advanceCoords = function () {
-      const resolved = resolvedCoordEl().remove();
-      currentCoordEl().removeClass('coord--current').addClass('coord--resolved');
-      nextCoordEl().removeClass('coord--next').addClass('coord--current');
-      newCoordEl().text(newCoord(currentCoordEl().text())).removeClass('coord--new').addClass('coord--next');
-      resolved.text('').removeClass('coord--resolved').addClass('coord--new').appendTo($coordsSvg);
+      coordTextEl('resolved').text('');
+      const resolvedEl = coordEl('resolved').remove();
+
+      coordEl('current').removeClass(coordClass('current')).addClass(coordClass('resolved'));
+      coordEl('next').removeClass(coordClass('next')).addClass(coordClass('current'));
+      coordTextEl('new').text(newCoord(coordTextEl('current').text()));
+      coordEl('new').removeClass(coordClass('new')).addClass(coordClass('next'));
+
+      resolvedEl.removeClass(coordClass('resolved')).addClass(coordClass('new')).appendTo($coordsSvg);
     };
 
     const stop = function () {
@@ -205,7 +210,7 @@ lichess.load.then(() => {
         ground.set({
           events: {
             select(key) {
-              const hit = key == currentCoordEl().text();
+              const hit = key == coordEl('current').text();
               if (hit) {
                 score++;
                 $score.text(score);
@@ -223,8 +228,8 @@ lichess.load.then(() => {
         });
 
         const initialCoordValue = newCoord('a1');
-        currentCoordEl().text(initialCoordValue);
-        nextCoordEl().text(newCoord(initialCoordValue));
+        coordTextEl('current').text(initialCoordValue);
+        coordTextEl('next').text(newCoord(initialCoordValue));
         tick();
       }, 1000);
     });
