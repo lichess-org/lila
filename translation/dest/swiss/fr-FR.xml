@@ -67,4 +67,5 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="willSwissReplaceArenasQ">Les tournois de type suisse remplaceront-ils les tournois de type arène?</string>
   <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
   <string name="roundRobinQ">Et les tournois à la ronde?</string>
+  <string name="roundRobinAWontWork">Ce serait intéressant, mais ce type de tournoi n\'est pas compatible avec les parties en ligne.</string>
 </resources>
