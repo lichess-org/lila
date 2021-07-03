@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="viewTheGames">Праглядзець гульні</string>
+  <string name="totalGames">Агулам гульняў</string>
+  <string name="ratedGames">Рэйтынгавыя гульні</string>
+  <string name="tournamentGames">Гульні ў турнірах</string>
+  <string name="berserkedGames">Гульні ў шаленым рэжыме</string>
+  <string name="winningStreak">Перамог запар</string>
+  <string name="losingStreak">Паразаў запар</string>
+  <string name="bestRated">Лепшыя рэйтынгавыя перамогі</string>
+  <string name="worstRated">Горшыя рэйтынгавыя паразы</string>
+  <string name="gamesInARow">Гульняў сыграна запар</string>
+  <string name="now">зараз</string>
+</resources>
