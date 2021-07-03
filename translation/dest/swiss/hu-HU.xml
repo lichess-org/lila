@@ -67,6 +67,7 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="roundRobinANoBecause">Ennek az az oka, hogy nem lehet igazságosan kezelni, ha valaki korán elhagyja a versenyt. Nem várható el a játékosoktól, hogy minden partit végigjátszanak egy online eseményen. Nem működne, mert a körmérkőzéses versenyek eredménye hibás és igazságtalan lenne, ami ellentmond annak az alapvető gondolatával.</string>
   <string name="roundRobinATheClosestPossible">Ami leginkább megközelíti a körmérkőzést az egy svájci rendszerű verseny nagyon sok fordulóval. Ezáltal minden lehetséges párosítás végbemegy még a verseny befejezte előtt.</string>
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
+  <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
@@ -87,5 +88,6 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="lateJoinUntil">Lehet amíg legfeljebb a körök fele elkezdődött</string>
   <string name="pause">Szünet</string>
   <string name="pauseSwiss">Lehet, de ezzel csökkenhet a fordulók száma</string>
+  <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
   <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
 </resources>
