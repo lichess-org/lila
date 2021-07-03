@@ -54,4 +54,8 @@ Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du 
   <string name="restrictedToTeamsQ">Pourquoi peut-on participer uniquement en équipe?</string>
   <string name="restrictedToTeamsANotForOnline">Les tournois de format suisse ne sont pas conçus pour le jeu en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs.</string>
   <string name="restrictedToTeamsABetterMet">Nous pensons que ces conditions seront probablement mieux remplies par joueurs en équipe que par des joueurs individuels.</string>
+  <string name="numberOfByesQ">Combien de bye un joueur peut-il obtenir?</string>
+  <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
+De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardivement à un tournoi.</string>
+  <string name="whatIfOneDoesntPlayQ">Qu\'arrive-t-il si un joueur ne se présente pas pour la partie?</string>
 </resources>
