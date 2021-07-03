@@ -50,4 +50,18 @@
   <string name="swissVsArenaQ">Когда использовать турниры по швейцарской системе вместо арен?</string>
   <string name="pointsCalculationQ">Как начисляются очки?</string>
   <string name="sonnebornBergerScore">Коэффициент Соннеборна — Бергера</string>
+  <string name="FIDEHandbook">Руководство ФИДЕ</string>
+  <string name="willSwissReplaceArenasQ">Заменят ли турниры по швейцарской системе турниры «Арены»?</string>
+  <string name="willSwissReplaceArenasA">Нет. Они дополняют друг друга.</string>
+  <string name="roundRobinQ">Что насчёт круговой системы?</string>
+  <string name="nowPlaying">Сейчас играются</string>
+  <string name="startingSoon">Скоро начинаются</string>
+  <string name="tournDuration">Продолжительность турнира</string>
+  <string name="numberOfGames">Количество партий</string>
+  <string name="numberOfGamesAsManyAsPossible">Столько, сколько может быть сыграно за отведённое время</string>
+  <string name="numberOfGamesPreDefined">Решается заранее, одинаково для всех игроков</string>
+  <string name="pairingSystem">Количество партий</string>
+  <string name="pairingSystemArena">Любой доступный противник со схожим рейтингом</string>
+  <string name="pairingWaitTimeFast">Быстро: не нужно ждать всех игроков</string>
+  <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
 </resources>
