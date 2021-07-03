@@ -913,7 +913,7 @@
   <string name="classicalDesc">Класічныя гульні: 25 хвілін і больш</string>
   <string name="correspondenceDesc">Завочныя гульні: адзін або некалькі дзён на ход</string>
   <string name="puzzleDesc">Трэнер па шахматнай тактыцы</string>
-  <string name="important">Важна</string>
+  <string name="important">Важліва</string>
   <string name="yourQuestionMayHaveBeenAnswered">Ваш запыт можа ужо мець адказ %1$s</string>
   <string name="inTheFAQ">у FAQ</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Каб паведаміць аб падмане ці дрэнных паводзінах карыстальніка, %1$s</string>
@@ -948,6 +948,8 @@
   <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
+  <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
+  <string name="simulDescription">Апісанне сеансу</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
