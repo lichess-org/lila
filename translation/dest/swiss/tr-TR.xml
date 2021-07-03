@@ -63,4 +63,7 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>
   <string name="willSwissReplaceArenasA">Hayır. Bu turnuvalar tamamlayıcı niteliktedir.</string>
   <string name="roundRobinQ">Peki her oyuncunun birbiriyle en az bir kez maç yaptığı (Round Robin) turnuvalar gelecek mi?</string>
+  <string name="roundRobinAWontWork">Bunu eklemek isterdik fakat bu tür turnuvalar çevrimiçi ortamda iyi işlemiyor</string>
+  <string name="roundRobinANoBecause">Zira turnuvadan erken ayrılan oyuncular ile adil bir şekilde başa çıkmak mümkün değil. Çevrimiçi bir etkinlikte tüm oyuncuların bütün maçlara katılmasını bekleyemeyiz. Maalesef bu imkânsız. Bu yüzden çoğu Round Robin turnuvası kusurlu ve adaletsiz olacaktır ki bu da turnuvanın var olma sebebiyle örtüşmez.</string>
+  <string name="joinOrCreateTeam">Bir takıma katıl veya takım oluştur</string>
 </resources>
