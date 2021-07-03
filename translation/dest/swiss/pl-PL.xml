@@ -47,4 +47,7 @@
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
+  <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
+  <string name="comparison">Porównanie</string>
+  <string name="tournDuration">Czas trwania turnieju</string>
 </resources>
