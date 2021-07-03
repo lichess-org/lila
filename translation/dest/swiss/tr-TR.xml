@@ -61,4 +61,6 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="lateJoinAYes">Evet, toplam tur sayısının yarısına ulaşana dek turnuvaya katılmak mümkün. Örneğin 11 turluk bir turnuvaya 6. tur başlayana kadar, 12 turluk bir turnuvaya ise 7. tur başlayana kadar katılabilirsiniz.</string>
   <string name="lateJoinASingleBye">Birkaç tur kaçırmış olsalar dahi geç katılanlara yalnızca yarım puan verilir.</string>
   <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>
+  <string name="willSwissReplaceArenasA">Hayır. Bu turnuvalar tamamlayıcı niteliktedir.</string>
+  <string name="roundRobinQ">Peki her oyuncunun birbiriyle en az bir kez maç yaptığı (Round Robin) turnuvalar gelecek mi?</string>
 </resources>
