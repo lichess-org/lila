@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Зрабіце ход, каб пачаць</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі ва ўсіх галаваломках</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце за чорныя фігуры ва ўсіх задачках</string>
   <string name="puzzlesSolved">рашано задач</string>
   <string name="newDailyHighscore">Новы дзенны рэкорд!</string>
   <string name="newWeeklyHighscore">Новы тыднёвы рэкорд!</string>
   <string name="newMonthlyHighscore">Новы месячны рэкорд!</string>
+  <string name="newAllTimeHighscore">Новы рэкорд за ўсе часы!</string>
+  <string name="previousHighscoreWasX">Папярэні рэкорд быў %s</string>
+  <string name="playAgain">Гуляць яшчэ раз</string>
+  <string name="moves">Хады</string>
   <string name="bestRunOfDay">Лепшая спроба за дзень</string>
+  <string name="getReady">Прыгатуйцеся!</string>
+  <string name="waitingForMorePlayers">Чакаем пакуль больш гульцоў далучыцца...</string>
+  <string name="raceComplete">Гонка завершана!</string>
+  <string name="spectating">Заяўзятарства</string>
+  <string name="joinTheRace">Далучыцца да гонкі!</string>
+  <string name="startTheRace">Распачаць гонку</string>
+  <string name="raceYourFriends">Паганяцца з сябрамі</string>
   <string name="skip">прапусціць</string>
   <string name="skipHelp">Вы можаце прапусціць адзін ход за гонку:</string>
 </resources>
