@@ -18,4 +18,7 @@
   <string name="pairingsQ">Miten parit määriytyvät?</string>
   <string name="FIDEHandbook">FIDEn käsikirja</string>
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
+  <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
+  <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
+  <string name="restrictedToTeamsANotForOnline">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
 </resources>
