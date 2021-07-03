@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import sparkline from '@fnando/sparkline';
+import { sparkline } from '@fnando/sparkline';
 import throttle from 'common/throttle';
 import resizeHandle from 'common/resize';
 import * as cg from 'chessground/types';
