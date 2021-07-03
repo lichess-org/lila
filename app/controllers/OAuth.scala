@@ -121,7 +121,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def tokenRevoke =
     Scoped() { implicit req => _ =>
       HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(token) map env.oAuth.server.deleteCached inject NoContent
+        env.oAuth.tokenApi.revoke(token) inject NoContent
       }
     }
 
@@ -134,12 +134,7 @@ final class OAuth(env: Env) extends LilaController(env) {
         .bindFromRequest()
         .fold(
           _ => BadRequest.fuccess,
-          origin =>
-            env.oAuth.tokenApi.revokeByClientOrigin(origin, me) map {
-              _ foreach { token =>
-                env.oAuth.server.deleteCached(token)
-              }
-            } inject NoContent
+          origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
         )
     }
 }

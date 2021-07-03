@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
-    colls: OauthColls,
+    tokenApi: AccessTokenApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -26,7 +26,7 @@ final class OAuthServer(
     }
 
   def auth(tokenId: Bearer, scopes: List[OAuthScope]): Fu[AuthResult] =
-    accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
+    tokenApi.get(tokenId) orFailWith NoSuchToken flatMap {
       case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
       case at =>
         userRepo enabledById at.userId flatMap {
@@ -48,24 +48,6 @@ final class OAuthServer(
     user2  <- auth2
     result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
   } yield result
-
-  def deleteCached(id: Bearer): Unit =
-    accessTokenCache.put(id, fuccess(none))
-
-  private val accessTokenCache =
-    cacheApi[Bearer, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
-      _.expireAfterWrite(5 minutes)
-        .buildAsyncFuture(fetchAccessToken)
-    }
-
-  private def fetchAccessToken(tokenId: Bearer): Fu[Option[AccessToken.ForAuth]] =
-    colls.token {
-      _.ext.findAndUpdate[AccessToken.ForAuth](
-        selector = $doc(F.id -> tokenId),
-        update = $set(F.usedAt -> DateTime.now),
-        fields = AccessToken.forAuthProjection.some
-      )
-    }
 }
 
 object OAuthServer {

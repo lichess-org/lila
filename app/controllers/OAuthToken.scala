@@ -40,11 +40,6 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def delete(publicId: String) =
     Auth { _ => me =>
-      tokenApi.revokeByPublicId(publicId, me) map {
-        _ foreach { token =>
-          env.oAuth.server.deleteCached(token.id)
-        }
-      } inject
-        Redirect(routes.OAuthToken.index).flashSuccess
+      tokenApi.revokeByPublicId(publicId, me) inject Redirect(routes.OAuthToken.index).flashSuccess
     }
 }

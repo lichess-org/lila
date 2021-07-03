@@ -1,5 +1,6 @@
 package lila.oauth
 
+import scala.concurrent.duration._
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
@@ -7,7 +8,9 @@ import lila.common.Bearer
 import lila.db.dsl._
 import lila.user.User
 
-final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.ExecutionContext) {
+final class AccessTokenApi(colls: OauthColls, cacheApi: lila.memo.CacheApi)(implicit
+    ec: scala.concurrent.ExecutionContext
+) {
 
   import OAuthScope.scopeHandler
   import AccessToken.{ BSONFields => F, _ }
@@ -91,12 +94,12 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
         } yield AccessTokenApi.Client(origin, usedAt, scopes)
       }
 
-  def revoke(token: Bearer): Fu[Bearer] =
+  def revoke(token: Bearer): Funit =
     colls.token {
-      _.delete.one($doc(F.id -> token)).inject(token)
+      _.delete.one($doc(F.id -> token)).map(_ => invalidateCached(token))
     }
 
-  def revokeByClientOrigin(clientOrigin: String, user: User): Fu[List[Bearer]] =
+  def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     colls.token { coll =>
       coll
         .find(
@@ -117,18 +120,40 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
                 F.clientOrigin -> clientOrigin
               )
             )
-            .inject(invalidate.flatMap(_.getAsOpt[Bearer](F.id)))
+            .map(_ => invalidate.flatMap(_.getAsOpt[Bearer](F.id)).foreach(invalidateCached))
         }
     }
 
-  def revokeByPublicId(publicId: String, user: User): Fu[Option[AccessToken]] =
+  def revokeByPublicId(publicId: String, user: User): Funit =
     BSONObjectID.parse(publicId).toOption ?? { objectId =>
       colls.token { coll =>
         coll.findAndModify($doc(F.publicId -> objectId, F.userId -> user.id), coll.removeModifier) map {
-          _.result[AccessToken]
+          _.result[AccessToken].foreach { token =>
+            invalidateCached(token.id)
+          }
         }
       }
     }
+
+  def get(bearer: Bearer) = accessTokenCache.get(bearer)
+
+  private val accessTokenCache =
+    cacheApi[Bearer, Option[AccessToken.ForAuth]](32, "oauth.access_token") {
+      _.expireAfterWrite(5 minutes)
+        .buildAsyncFuture(fetchAccessToken)
+    }
+
+  private def fetchAccessToken(tokenId: Bearer): Fu[Option[AccessToken.ForAuth]] =
+    colls.token {
+      _.ext.findAndUpdate[AccessToken.ForAuth](
+        selector = $doc(F.id -> tokenId),
+        update = $set(F.usedAt -> DateTime.now()),
+        fields = AccessToken.forAuthProjection.some
+      )
+    }
+
+  private def invalidateCached(id: Bearer): Unit =
+    accessTokenCache.put(id, fuccess(none))
 }
 
 object AccessTokenApi {
