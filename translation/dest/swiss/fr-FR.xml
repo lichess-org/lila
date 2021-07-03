@@ -58,4 +58,8 @@ Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du 
   <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
 De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardivement à un tournoi.</string>
   <string name="whatIfOneDoesntPlayQ">Qu\'arrive-t-il si un joueur ne se présente pas pour la partie?</string>
+  <string name="whatIfOneDoesntPlayA">Son horloge démarrera et il perdra éventuellement la partie au temps.
+Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.
+Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</string>
+  <string name="lateJoinQ">Un joueur peut-il se joindre tardivement à un tournoi?</string>
 </resources>
