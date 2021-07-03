@@ -45,7 +45,7 @@ Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
   <string name="tiebreaksCalculationA">Mit dem %s.
 Fügen Sie die Punkte jedes Gegners hinzu, die der Spieler schlägt, und die Hälfte der Punkte jedes Gegners, gegen den der Spieler remisiert.</string>
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
-  <string name="dutchSystem">Niederländisches System</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Niederländisches System</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
   <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit dem %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
