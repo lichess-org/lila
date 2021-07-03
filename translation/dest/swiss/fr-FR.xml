@@ -73,6 +73,13 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="otherSystemsQ">Y a-t-il d\'autres types de tournoi?</string>
   <string name="otherSystemsA">Pour le moment, nous ne prévoyons pas ajouter d\'autres types de tournoi dans Lichess.</string>
   <string name="swissDescription">Dans un tournoi suisse %1$s, un joueur n\'affronte pas tous les autres joueurs. Les adversaires sont appariés à chaque ronde selon des règles qui font que chaque joueur rencontre toujours un adversaire différent, mais dont le pointage est similaire au sien. Le gagnant du tournoi est le joueur qui a accumulé le plus grand nombre de points à la fin du tournoi. Tous les joueurs jouent à chaque ronde, à moins qu\'ils soient en nombre impair.</string>
-  <string name="teamOnly">Un tournoi suisse ne peut être créé que par les chefs d\'équipe, et seules des équipes peuvent y participer.            
+  <string name="teamOnly">Seuls des chefs d\'équipe peuvent créer un tournoi suisse, et seules des équipes peuvent y participer.            
 %1$s pour commencer à jouer dans un tournoi suisse.</string>
+  <string name="joinOrCreateTeam">Joindre ou créer une équipe</string>
+  <string name="nowPlaying">Tournoi en cours</string>
+  <string name="startingSoon">Tournoi sur le point de commencer</string>
+  <string name="comparison">Comparaison</string>
+  <string name="tournDuration">Durée du tournoi</string>
+  <string name="predefinedDuration">Durée prédéterminée en minutes</string>
+  <string name="durationUnknown">Nombre prédéterminé maximal de rondes, mais durée indéterminée</string>
 </resources>
