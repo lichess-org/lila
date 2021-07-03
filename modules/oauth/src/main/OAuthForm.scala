@@ -6,6 +6,7 @@ import play.api.data._
 import play.api.data.Forms._
 import reactivemongo.api.bson.BSONObjectID
 
+import lila.common.Bearer
 import lila.common.Form.absoluteUrl
 
 object OAuthForm {
@@ -29,7 +30,7 @@ object OAuthForm {
     ) {
       def make(user: lila.user.User) =
         AccessToken(
-          id = AccessToken.Id.randomPersonal(),
+          id = Bearer.randomPersonal(),
           publicId = BSONObjectID.generate(),
           userId = user.id,
           createdAt = DateTime.now.some,

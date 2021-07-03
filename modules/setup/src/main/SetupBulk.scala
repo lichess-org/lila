@@ -9,13 +9,10 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
-import lila.game.Game
-import lila.game.IdGenerator
-import lila.oauth.AccessToken
-import lila.oauth.OAuthScope
-import lila.oauth.OAuthServer
+import lila.common.{ Bearer, Template }
+import lila.game.{ Game, IdGenerator }
+import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User
-import lila.common.Template
 
 object SetupBulk {
 
@@ -76,7 +73,7 @@ object SetupBulk {
     }(_ => None)
   )
 
-  private[setup] def extractTokenPairs(str: String): List[(AccessToken.Id, AccessToken.Id)] =
+  private[setup] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
     str
       .split(',')
       .view
@@ -85,11 +82,11 @@ object SetupBulk {
         w.trim -> b.trim
       }
       .collect {
-        case (w, b) if w.nonEmpty && b.nonEmpty => (AccessToken.Id(w), AccessToken.Id(b))
+        case (w, b) if w.nonEmpty && b.nonEmpty => (Bearer(w), Bearer(b))
       }
       .toList
 
-  case class BadToken(token: AccessToken.Id, error: OAuthServer.AuthError)
+  case class BadToken(token: Bearer, error: OAuthServer.AuthError)
 
   case class ScheduledGame(id: Game.ID, white: User.ID, black: User.ID)
 

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
-import lila.common.HTTPRequest
+import lila.common.{ Bearer, HTTPRequest }
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
@@ -19,13 +19,13 @@ final class OAuthServer(
   import OAuthServer._
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
-    reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
+    HTTPRequest.bearer(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) {
       auth(_, scopes)
     } recover { case e: AuthError =>
       Left(e)
     }
 
-  def auth(tokenId: AccessToken.Id, scopes: List[OAuthScope]): Fu[AuthResult] =
+  def auth(tokenId: Bearer, scopes: List[OAuthScope]): Fu[AuthResult] =
     accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
       case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
       case at =>
@@ -38,8 +38,8 @@ final class OAuthServer(
     }
 
   def authBoth(scopes: List[OAuthScope])(
-      token1: AccessToken.Id,
-      token2: AccessToken.Id
+      token1: Bearer,
+      token2: Bearer
   ): Fu[Either[AuthError, (User, User)]] = for {
     auth1 <- auth(token1, scopes)
     auth2 <- auth(token2, scopes)
@@ -49,19 +49,16 @@ final class OAuthServer(
     result <- if (user1.user is user2.user) Left(OneUserWithTwoTokens) else Right(user1.user -> user2.user)
   } yield result
 
-  def deleteCached(id: AccessToken.Id): Unit =
+  def deleteCached(id: Bearer): Unit =
     accessTokenCache.put(id, fuccess(none))
 
-  private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
-    HTTPRequest.bearer(req).map(AccessToken.Id.apply)
-
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
+    cacheApi[Bearer, Option[AccessToken.ForAuth]](32, "oauth.server.personal_access_token") {
       _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(fetchAccessToken)
     }
 
-  private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
+  private def fetchAccessToken(tokenId: Bearer): Fu[Option[AccessToken.ForAuth]] =
     colls.token {
       _.ext.findAndUpdate[AccessToken.ForAuth](
         selector = $doc(F.id -> tokenId),

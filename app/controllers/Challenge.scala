@@ -9,13 +9,12 @@ import views.html
 import lila.api.Context
 import lila.app._
 import lila.challenge.{ Challenge => ChallengeModel }
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.{ Bearer, HTTPRequest, IpAddress, Template }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ AccessToken, OAuthScope }
 import lila.setup.ApiConfig
 import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
-import lila.common.Template
 
 final class Challenge(
     env: Env
@@ -202,7 +201,7 @@ final class Challenge(
     Action.async { req =>
       import cats.implicits._
       val scopes = List(OAuthScope.Challenge.Write)
-      (get("token1", req) map AccessToken.Id.apply, get("token2", req) map AccessToken.Id.apply).mapN {
+      (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
         env.oAuth.server.authBoth(scopes)
       } ?? {
         _ flatMap {
@@ -373,7 +372,7 @@ final class Challenge(
       strToken: String
   )(managedBy: lila.user.User, message: Option[Template]) =
     env.security.api.oauthScoped(
-      lila.oauth.AccessToken.Id(strToken),
+      Bearer(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write)
     ) flatMap {
       _.fold(

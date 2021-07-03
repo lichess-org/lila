@@ -3,6 +3,7 @@ package lila.oauth
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
+import lila.common.Bearer
 import lila.db.dsl._
 import lila.user.User
 
@@ -15,7 +16,7 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
     val token = AccessToken(
-      id = AccessToken.Id.random(),
+      id = Bearer.random(),
       publicId = BSONObjectID.generate(),
       userId = granted.userId,
       createdAt = DateTime.now().some,
@@ -90,12 +91,12 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
         } yield AccessTokenApi.Client(origin, usedAt, scopes)
       }
 
-  def revoke(token: AccessToken.Id): Fu[AccessToken.Id] =
+  def revoke(token: Bearer): Fu[Bearer] =
     colls.token {
       _.delete.one($doc(F.id -> token)).inject(token)
     }
 
-  def revokeByClientOrigin(clientOrigin: String, user: User): Fu[List[AccessToken.Id]] =
+  def revokeByClientOrigin(clientOrigin: String, user: User): Fu[List[Bearer]] =
     colls.token { coll =>
       coll
         .find(
@@ -116,7 +117,7 @@ final class AccessTokenApi(colls: OauthColls)(implicit ec: scala.concurrent.Exec
                 F.clientOrigin -> clientOrigin
               )
             )
-            .inject(invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)))
+            .inject(invalidate.flatMap(_.getAsOpt[Bearer](F.id)))
         }
     }
 

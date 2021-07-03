@@ -11,7 +11,7 @@ import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
+import lila.common.{ ApiVersion, Bearer, EmailAddress, HTTPRequest, IpAddress, SecureRandom }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
@@ -147,7 +147,7 @@ final class SecurityApi(
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
 
   def oauthScoped(
-      tokenId: AccessToken.Id,
+      tokenId: Bearer,
       scopes: List[lila.oauth.OAuthScope]
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
     tryOauthServer().flatMap {

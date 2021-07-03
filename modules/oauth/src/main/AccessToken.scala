@@ -3,11 +3,11 @@ package lila.oauth
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
-import lila.common.SecureRandom
+import lila.common.{ Bearer, SecureRandom }
 import lila.user.User
 
 case class AccessToken(
-    id: AccessToken.Id,
+    id: Bearer,
     publicId: BSONObjectID,
     userId: User.ID,
     createdAt: Option[DateTime] = None, // for personal access tokens
@@ -21,12 +21,6 @@ case class AccessToken(
 }
 
 object AccessToken {
-
-  case class Id(value: String) extends AnyVal
-  object Id {
-    def random() =         Id(s"lio_${SecureRandom.nextString(32)}")
-    def randomPersonal() = Id(SecureRandom.nextString(16)) // TODO: prefix lip_, more entropy
-  }
 
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
@@ -52,7 +46,7 @@ object AccessToken {
     BSONFields.scopes -> true
   )
 
-  implicit private[oauth] val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
+  implicit private[oauth] val accessTokenIdHandler = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
 
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
     def readDocument(doc: BSONDocument) =
@@ -68,7 +62,7 @@ object AccessToken {
 
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
-        id = r.get[Id](id),
+        id = r.get[Bearer](id),
         publicId = r.get[BSONObjectID](publicId),
         userId = r str userId,
         createdAt = r.getO[DateTime](createdAt),

@@ -51,7 +51,7 @@ final class BulkPairing(env: Env) extends LilaController(env) {
                   Json.obj(
                     "tokens" -> JsObject {
                       tokens.map { case BadToken(token, error) =>
-                        token.value -> JsString(error.message)
+                        token.secret -> JsString(error.message)
                       }
                     }
                   )
