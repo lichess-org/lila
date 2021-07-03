@@ -74,6 +74,12 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="comparison">Karşılaştırma</string>
   <string name="tournDuration">Turnuvanın uzunluğu</string>
   <string name="predefinedDuration">Kaç dakika süreceği önceden belirlenir</string>
-  <string name="durationUnknown">Azami tur sayısı önceden belirlenir fakat ne kadar süreceği bilinmez</string>
+  <string name="durationUnknown">Azami tur sayısı önceden belirlenir fakat turnuvanın ne kadar süreceği bilinmez</string>
   <string name="numberOfGames">Maç sayısı</string>
+  <string name="numberOfGamesAsManyAsPossible">Turnuva süresi boyunca ne kadar maç yapılırsa o kadar</string>
+  <string name="numberOfGamesPreDefined">Önceden belirlenir, her oyuncu için aynıdır</string>
+  <string name="pairingSystem">Eşleştirme sistemi</string>
+  <string name="pairingSystemArena">Oyun puanı yakın olan müsait bir rakip seçilir</string>
+  <string name="pairingSystemSwiss">Turnuva ve eşitlik bozma puanlarına göre en uygun eşleştirme yapılır</string>
+  <string name="pairingWaitTime">Eşleştirme bekleme süresi</string>
 </resources>
