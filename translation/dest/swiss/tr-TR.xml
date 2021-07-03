@@ -53,4 +53,5 @@ Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere 
   <string name="numberOfByesQ">Bir oyuncu kaç kez bay geçebilir?</string>
   <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
 Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
+  <string name="whatIfOneDoesntPlayQ">Rakip oyuna gelmezse ne olur?</string>
 </resources>
