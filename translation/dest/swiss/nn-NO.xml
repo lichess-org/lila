@@ -5,7 +5,7 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s runde</item>
     <item quantity="other">%s rundar</item>
   </plurals>
@@ -30,7 +30,7 @@
   </plurals>
   <string name="tournStartDate">Startdato for turneringa</string>
   <string name="numberOfRounds">Antal rundar</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Eit ulike antal rundar (oddetal) gjer optimal fargefordeling.</string>
+  <string name="numberOfRoundsHelp">Eit ulike antal rundar (oddetal) gjer optimal fargefordeling.</string>
   <string name="roundInterval">Intervall mellom rundar</string>
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
