@@ -39,4 +39,13 @@
   <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik és minden ellenféllel csak egyszer.
 Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek.</string>
   <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
+  <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
+Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
+  <string name="dutchSystem">Holland rendszer</string>
+  <string name="FIDEHandbook">FIDE kézikönyv</string>
+  <string name="startingSoon">Hamarosan kezdődik</string>
+  <string name="comparison">Összehasonlítás</string>
+  <string name="pause">Szünet</string>
+  <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
 </resources>
