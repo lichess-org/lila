@@ -35,4 +35,16 @@
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="newSwiss">New Swiss tournament</string>
+  <string name="pairingWaitTime">Pairing wait time</string>
+  <string name="pairingWaitTimeFast">Fast: doesn\'t wait for all players</string>
+  <string name="pairingWaitTimeSlow">Slow: waits for all players</string>
+  <string name="identicalPairing">Identical pairing</string>
+  <string name="possibleButNotConsecutive" comment="possibleButNotConsecutive&#10;&#10;In reference to identical pairing.">Possible, but not consecutive</string>
+  <string name="identicalForbidden" comment="identicalForbidden&#10;&#10;In reference to identical pairing.">Forbidden</string>
+  <string name="lateJoin" comment="lateJoin&#10;&#10;Controls the setting for late joiners to a Swiss tournament">Late join</string>
+  <string name="lateJoinUntil" comment="lateJoinUntil&#10;&#10;A setting for late joiners to the tournament.">Yes until more than half the rounds have started</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
+  <string name="streaksAndBerserk">Streaks and Berserk</string>
+  <string name="unlimitedAndFree">Unlimited and free</string>
 </resources>
