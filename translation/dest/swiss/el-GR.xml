@@ -35,4 +35,8 @@
   <string name="forbiddenPairings">Απαγορευμένες κληρώσεις</string>
   <string name="forbiddenPairingsHelp">Ονόματα χρηστών των παικτών που δεν πρέπει να παίξουν μαζί (για παράδειγμα δύο αδέρφια). Εισάγετε δύο ονόματα χρήστη σε κάθε γραμμή, με ένα κενό ανάμεσα.</string>
   <string name="newSwiss">Νέο Ελβετικό πρωτάθλημα</string>
+  <string name="swissVsArenaQ">Ποια η διαφορά μεταξύ ελβετικών τουρνουά και αρένων;</string>
+  <string name="swissVsArenaA">Στα ελβετικά τουρνουά, όλοι οι παίκτες παίζουν τον ίδιο αριθμό παιχνιδιών και μόνο μία φορά με κάθε παίκτη.
+Είναι μία καλή επιλογή για συλλόγους ή επίσημα τουρνουά.</string>
+  <string name="pointsCalculationQ">Πώς υπολογίζονται οι βαθμοί;</string>
 </resources>
