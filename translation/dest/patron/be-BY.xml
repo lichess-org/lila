@@ -19,6 +19,8 @@
   <string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
   <string name="weRelyOnSupport">Мы разлічваем на дапамогу людзей як вы каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце на пагчымасцью ахвяраваць грошы і стаць спонсарам!</string>
   <string name="lifetime">Пажыццёва</string>
+  <string name="payLifetimeOnce">Ахвяруйце %s аднойчы. Станьце спонсарам Lichess пажыццёва!</string>
+  <string name="lifetimePatron">Пажыццёвы спонсар Lichess</string>
   <string name="monthly">Штомесячна</string>
   <string name="onetime">Аднаразова</string>
   <string name="singleDonation">Адначасовае ахвяраванне, якое дадае вам крылы Спонсара на адзін месяц.</string>
@@ -42,15 +44,18 @@
   <string name="nextPayment">Наступны плацёж</string>
   <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
   <string name="makeAdditionalDonation">Зрабіць дадатковае ахвяраванне</string>
+  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Падарыць крылы спонсара іншаму гульцу</string>
   <string name="update">Абнавіць</string>
   <string name="changeMonthlyAmount">Змяніць штомесячную суму (%s)</string>
   <string name="cancelSupport">скасаваць падтрымку</string>
+  <string name="xOrY">%1$s ці %2$s</string>
   <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
   <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
   <string name="date">Дата</string>
   <string name="amount">Сума</string>
   <string name="permanentPatron">У вас цяпер пажыцевы спонсарскі акаунт.</string>
   <string name="checkOutProfile">Праверце сваю старонку!</string>
+  <string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lichess!</string>
   <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
   <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
 </resources>
