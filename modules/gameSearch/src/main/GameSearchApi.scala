@@ -35,7 +35,6 @@ final class GameSearchApi(
             retries = 2,
             logger.some
           )
-          .monSuccess(_.search.index)
       }
     }
 

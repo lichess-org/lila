@@ -200,7 +200,6 @@ object mon {
           "success" -> successTag(success)
         )
       )
-    val index = future("search.index")
   }
   object duct {
     def overflow(name: String) = counter("duct.overflow").withTag("name", name)
