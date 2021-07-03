@@ -52,9 +52,12 @@
   <string name="dutchSystem">System holenderski</string>
   <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
   <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
+  <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
+  <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
+  <string name="willSwissReplaceArenasA">Nie. To całkiem nowa funkcjonalność.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
-  <string name="joinOrCreateTeam">Dołącz lub utwórz zespół</string>
+  <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
   <string name="nowPlaying">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
