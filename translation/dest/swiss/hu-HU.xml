@@ -50,6 +50,8 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
   <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
   <string name="roundRobinAWontWork">Szeretnénk hozzáadni, de sajnos a körmérkőzések nem működnek online</string>
+  <string name="roundRobinANoBecause">Ennek az az oka, hogy nem lehet igazságosan kezelni, ha valaki korán elhagyja a versenyt. Nem várható el a játékosoktól, hogy minden partit végigjátszanak egy online eseményen. Nem működne, mert a körmérkőzéses versenyek eredménye hibás és igazságtalan lenne, ami ellentmond annak az alapvető gondolatával.</string>
+  <string name="roundRobinATheClosestPossible">Ami leginkább megközelíti a körmérkőzést az egy svájci rendszerű verseny nagyon sok fordulóval. Ezáltal minden lehetséges párosítás végbemegy még a verseny befejezte előtt.</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
   <string name="comparison">Összehasonlítás</string>
