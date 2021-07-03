@@ -20,8 +20,11 @@
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
   <string name="students">Вучні</string>
   <string name="progress">Прагрэс</string>
+  <string name="noStudents">Пакуль ніводнага вучня на занятку.</string>
   <string name="noRemovedStudents">Няма выдаленных вучняў.</string>
+  <string name="overDays">На працягу дзён</string>
   <string name="winrate">Адсотак перамог</string>
   <string name="news">Навіны занятку</string>
+  <string name="notifyAllStudents">Паведаміць усім вучням</string>
   <string name="nothingHere">Пакуль нічога.</string>
 </resources>
