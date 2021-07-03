@@ -42,8 +42,12 @@ Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek
   <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
 Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
+  <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
   <string name="dutchSystem">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
+  <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
+  <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
+  <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
   <string name="lateJoinASingleBye">Kései csatlakozók kapnak egy szabadkört, akkor is ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
