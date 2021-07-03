@@ -46,7 +46,7 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="tiebreaksCalculationA">A %s alapján.
 Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
-  <string name="dutchSystem">Holland rendszer</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Holland rendszer</string>
   <string name="FIDEHandbook">FIDE kézikönyv</string>
   <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
@@ -72,7 +72,7 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
-%1$s svájci rendszerű versenyben szerepléshez.</string>
+%1$s, hogy részt vehess svájci rendszerű versenyben.</string>
   <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
   <string name="nowPlaying">Most játszik</string>
   <string name="startingSoon">Hamarosan kezdődik</string>
@@ -89,10 +89,10 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="pairingWaitTimeFast">Gyors: nem vár minden játékosra</string>
   <string name="pairingWaitTimeSlow">Lassú: minden játékosra vár</string>
   <string name="identicalPairing">Azonos párosítás</string>
-  <string name="possibleButNotConsecutive" comment="possibleButNotConsecutive&#10;&#10;In reference to identical pairing.">Lehetséges, de nem egymást követően</string>
-  <string name="identicalForbidden" comment="identicalForbidden&#10;&#10;In reference to identical pairing.">Tiltott</string>
-  <string name="lateJoin" comment="lateJoin&#10;&#10;Controls the setting for late joiners to a Swiss tournament">Késői csatlakozás</string>
-  <string name="lateJoinUntil" comment="lateJoinUntil&#10;&#10;A setting for late joiners to the tournament.">Lehet amíg legfeljebb a körök fele elkezdődött</string>
+  <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
+  <string name="identicalForbidden">Tiltott</string>
+  <string name="lateJoin">Késői csatlakozás</string>
+  <string name="lateJoinUntil">Lehet amíg legfeljebb a körök fele elkezdődött</string>
   <string name="pause">Szünet</string>
   <string name="pauseSwiss">Lehet, de ezzel csökkenhet a fordulók száma</string>
   <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
