@@ -954,6 +954,9 @@
   <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
   <string name="simulDescription">Апісанне сеансу</string>
+  <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
+  <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
+  <string name="inYourLocalTimezone">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
