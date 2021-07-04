@@ -57,8 +57,8 @@ Füge die Punkte jedes Gegners hinzu, die der Spieler schlägt, und die Hälfte 
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler zu spät an einem Turnier teilnimmt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht spielt?</string>
-  <string name="whatIfOneDoesntPlayA">Ihre Uhr wird ticken, sie werden die Zeit überschreiten und das Spiel verlieren.
-Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht mehr Spiele verliert.
+  <string name="whatIfOneDoesntPlayA">Seine Zeit wird ablaufen und er wird die Partie verlieren.
+Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht noch mehr Partien verliert.
  Dieser kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
   <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden begonnen hat; So können Spieler zum Beispiel in einem 11-Runden-Schweizer-System-Turnier vor dem Start der 6. Runde und in einem Turnier mit 12 Runden vor Beginn der 7. Runde teilnehmen.</string>
