@@ -310,7 +310,7 @@ final class Mod(
   def spontaneousInquiry(username: String) =
     Secure(_.SeeReport) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
-        env.appeal.api.exists(user) flatMap { isAppeal =>
+        (isGranted(_.Appeals) ?? env.appeal.api.exists(user)) flatMap { isAppeal =>
           val f =
             if (isAppeal) env.report.api.inquiries.appeal _
             else env.report.api.inquiries.spontaneous _
