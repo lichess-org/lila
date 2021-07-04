@@ -113,7 +113,7 @@ export default function (publicKey: string, pricing: Pricing) {
     if (!amount) return;
     $checkout.find('.service').html(lichess.spinnerHtml);
 
-    fetch('/patron/stripe/checkout', {
+    fetch(`/patron/stripe/checkout?currency=${pricing.currency}`, {
       ...xhr.defaultInit,
       headers: {
         ...xhr.jsonHeader,
@@ -139,6 +139,10 @@ export default function (publicKey: string, pricing: Pricing) {
         } else location.assign('/patron');
       });
   });
+
+  const $currencyForm = $('form.currency');
+  $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
+  $currencyForm.find('select').on('change', () => ($currencyForm[0] as HTMLFormElement).submit());
 
   // Close Checkout on page navigation:
   $(window).on('popstate', function () {

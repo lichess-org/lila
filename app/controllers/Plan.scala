@@ -103,10 +103,11 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
   } yield res
 
   private def myCurrency(implicit ctx: Context): Currency =
-    env.plan.currencyApi.currencyByCountryCodeOrLang(
-      env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
-      ctx.lang
-    )
+    get("currency") flatMap lila.plan.CurrencyApi.currencyOption getOrElse
+      env.plan.currencyApi.currencyByCountryCodeOrLang(
+        env.security.geoIP(HTTPRequest.ipAddress(ctx.req)).flatMap(_.countryCode),
+        ctx.lang
+      )
 
   def features =
     Open { implicit ctx =>

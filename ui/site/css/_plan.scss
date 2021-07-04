@@ -181,13 +181,19 @@
         }
       }
 
-      .links {
-        justify-content: flex-start;
+      .other-choices {
+        @extend %flex-between;
         margin-top: 1em;
         font-size: 1rem;
-        a {
-          margin-right: 1em;
+        .links {
+          a {
+            margin-left: 2em;
+          }
         }
+      }
+      .currency {
+        font-size: 1rem;
+        margin-top: 1em;
       }
     }
 

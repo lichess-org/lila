@@ -1,13 +1,13 @@
 package views.html.plan
 
+import controllers.routes
+import java.util.Currency
 import play.api.i18n.Lang
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object index {
 
@@ -217,9 +217,22 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
                         )("Log in to donate")
                     ),
-                    ctx.isAuth option div(cls := "links")(
-                      a(cls := "stripe")("Google Pay"),
-                      a(cls := "stripe")("Apple Pay")
+                    ctx.isAuth option div(cls := "other-choices")(
+                      a(cls := "currency-toggle")(trans.patron.changeCurrency()),
+                      div(cls := "links")(
+                        a(cls := "stripe")("Google Pay"),
+                        a(cls := "stripe")("Apple Pay")
+                      )
+                    ),
+                    form(cls := "currency none", action := routes.Plan.index)(
+                      select(name := "currency")(
+                        lila.plan.CurrencyApi.currencyList.map { cur =>
+                          option(
+                            value := cur.getCurrencyCode,
+                            pricing.currencyCode == cur.getCurrencyCode option selected
+                          )(showCurrency(cur))
+                        }
+                      )
                     )
                   )
                 )
@@ -241,6 +254,9 @@ ${payPalFormSingle(pricing, "lichess.org lifetime")}
       )
     }
   }
+
+  private def showCurrency(cur: Currency)(implicit ctx: Context) =
+    s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
   private def payPalFormSingle(pricing: lila.plan.PlanPricing, itemName: String)(implicit ctx: Context) = s"""
   ${payPalForm(pricing, itemName)}
