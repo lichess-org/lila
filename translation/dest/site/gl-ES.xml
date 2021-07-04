@@ -890,4 +890,5 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="noChat">Sen chat</string>
   <string name="onlyTeamLeaders">Só líderes de equipo</string>
   <string name="onlyTeamMembers">Só membros do equipo</string>
+  <string name="showHelpDialog">Amosa este diálogo de axuda</string>
 </resources>
