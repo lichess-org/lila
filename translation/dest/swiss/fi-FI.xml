@@ -43,4 +43,8 @@ Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Entä täyskierrosturnaus?</string>
   <string name="roundRobinAWontWork">Mielellämme lisäisimme sen, mutta täyskierrosturnaus ei valitettavasti toimi netissä</string>
+  <string name="roundRobinANoBecause">Siinä ei nimittäin voi ratkaista reilulla tavalla turnauksen etuajassa keskeyttävistä pelaajista syntyvää ongelmaa. Nettiturnauksessa emme voi odottaa kaikkien pelaajien pelaavan kaikkia pelejään – se ei vain onnistu. Tämän johdosta useimmat täyskierrosturnaukset olisivat puutteellisia ja epäreiluja, eikä niiden järjestämiseen siten riitä perusteita.</string>
+  <string name="roundRobinATheClosestPossible">Lähimmäksi täyskierrosturnausta pääset netissä osallistumalla sveitsiläiseen turnaukseen, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan toisiaan vastaan, ennen kuin turnaus loppuu.</string>
+  <string name="otherSystemsQ">Entä muut turnausjärjestelmät?</string>
+  <string name="otherSystemsA">Emme toistaiseksi aio lisätä Lichessiin enempää turnausjärjestelmiä.</string>
 </resources>
