@@ -10,10 +10,13 @@
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
   <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess валанцёрствам, сваімі навыкамі і часам, то ёсць шмат %3$s.</string>
   <string name="beingAPatron">стаўшы донарам</string>
+  <string name="breakdownOfOurCosts">дэтальнае апісанне нашых затрат</string>
   <string name="otherWaysToHelp">іншых спосабаў дапамагчы</string>
   <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
+  <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
+  <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
   <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
