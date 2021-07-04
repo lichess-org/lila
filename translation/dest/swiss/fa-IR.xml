@@ -29,4 +29,5 @@
   <string name="numberOfRoundsHelp">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
   <string name="newSwiss">مسابقه سوئیسی جدید</string>
+  <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
 </resources>
