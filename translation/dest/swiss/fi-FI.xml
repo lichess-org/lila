@@ -14,6 +14,9 @@
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
+  <string name="swissVsArenaQ">Milloin kannattaa pelata sveitsiläisiä turnauksia areenaturnauksien sijaan?</string>
+  <string name="swissVsArenaA">Sveitsiläisessä turnauksessa kaikki osallistujat pelaavat saman määrän pelejä ja kohtaavat toisensa korkeintaan kerran.
+Se voi olla hyvä vaihtoehto seurakäyttöön ja virallisiin turnauksiin.</string>
   <string name="pointsCalculationQ">Miten pisteet lasketaan?</string>
   <string name="pointsCalculationA">Voitto on yhden pisteen arvoinen, tasapelistä saa puoli pistettä ja tappiosta nolla pistettä.
 Jos pelaajalle ei jollakin kierroksella löydy paria, hän saa yhden pisteen arvoisen huilausvuoron.</string>
@@ -74,4 +77,6 @@ Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="pause">Tauon pitäminen</string>
   <string name="pauseSwiss">Mahdollista, mutta se voi vähentää kierrosmäärää</string>
   <string name="streaksAndBerserk">Putket ja berserkki</string>
+  <string name="similarToOTB">Samanlainen kuin lähishakkiturnaukset</string>
+  <string name="unlimitedAndFree">Rajoittamaton ja ilmainen</string>
 </resources>
