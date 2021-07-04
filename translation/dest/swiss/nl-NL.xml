@@ -66,7 +66,8 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hoe zit het met Round Robin?</string>
   <string name="roundRobinAWontWork">We zouden het graag toevoegen, maar helaas werkt Round Robin niet online</string>
-  <string name="roundRobinATheClosestPossible">Wat het meest in de buurt komt van online Round Robin, is het spelen van een Zwitsers toernooi met een zeer groot aantal rondes. Dan worden alle mogelijke paringen afgewerkt voordat het toernooi eindigt.</string>
+  <string name="roundRobinANoBecause">De reden is dat er geen eerlijke manier bestaat om om te gaan met mensen die het toernooi vroegtijdig verlaten. We kunnen niet verwachten dat alle spelers ook al hun partijen spelen in een online evenement. Dat gebeurt gewoon niet, en als gevolg daarvan zouden de meeste round-robintoernooien fouten bevatten en oneerlijk zijn, wat afbreuk doet aan hun bestaansreden.</string>
+  <string name="roundRobinATheClosestPossible">Wat het meest in de buurt komt van een online round-robintoernooi is het spelen van een Zwitsers toernooi met een zeer groot aantal rondes. Dan worden alle mogelijke paringen afgewerkt voordat het toernooi eindigt.</string>
   <string name="otherSystemsQ">Hoe zit het met andere toernooisystemen?</string>
   <string name="otherSystemsA">Momenteel zijn we niet van plan om meer toernooisystemen aan Lichess toe te voegen.</string>
   <string name="teamOnly">Zwitserse toernooien kunnen alleen worden aangemaakt door teamleiders, en kunnen alleen worden gespeeld door teamleden.           
