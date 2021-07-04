@@ -904,5 +904,6 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Genel bilgisayar analizini aç/kapat</string>
   <string name="playComputerMove">En iyi bilgisayar hamlesini oyna</string>
   <string name="analysisOptions">Analiz seçenekleri</string>
+  <string name="focusChat">Sohbete odaklan</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
 </resources>
