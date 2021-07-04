@@ -63,6 +63,9 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="willSwissReplaceArenasQ">Poden os torneos suizos reemprazar os torneos area?</string>
   <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Que hai sobre Round Robin?</string>
+  <string name="roundRobinAWontWork">Gustaríanos engadilo, pero desafortunadamente Round Robin non funciona online</string>
+  <string name="roundRobinANoBecause">A razón é que non hai maneira axeitada de tratar á xente que deixa un torneo prematuramente. Non podemos agardar que todas as persoas xogadoras xoguen todas as súas partidas nun evento online. Non vai pasar e como resultado a maioría dos torneos Round Robin serían inxustos, o que os faría totalmente inoperativos.</string>
+  <string name="roundRobinATheClosestPossible">O máis parecido a un Round Robien online sería xogar un torneo suizo cun número moi alto de rondas. Así todos os posibles emparellamentos xogaríanse antes de que o torneo rematara.</string>
   <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
   <string name="otherSystemsA">Non temos plans de engadir máis tipos de torneos a Lichess polo de agora.</string>
   <string name="teamOnly">Torneos suizos só poden ser creados por líderes de equipos e só poden ser xogados por membros dos equipos. %1$s para comezar a xogar en torneos suizos.</string>
@@ -74,6 +77,8 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="predefinedDuration">Duración predefinida en minutos</string>
   <string name="durationUnknown">Rondas máximas predefinidas, pero con duración descoñecida</string>
   <string name="numberOfGames">Número de partidas</string>
+  <string name="numberOfGamesAsManyAsPossible">Todas as partidas que se poden xogar na duración proposta</string>
+  <string name="numberOfGamesPreDefined">Decidido de antemán, igual para todas as xogadoras</string>
   <string name="pairingSystem">Sistema de emparellamento</string>
   <string name="pairingSystemArena">Calquera opoñente dispoñible cunha puntuación similar</string>
   <string name="pairingSystemSwiss">Mellor emparellamento baseado en puntos e desempates</string>
