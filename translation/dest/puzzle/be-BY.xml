@@ -25,7 +25,7 @@
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
   <string name="puzzleComplete">Задача рэшана!</string>
-  <string name="notTheMove">Гэта не ход!</string>
+  <string name="notTheMove">Гэта не той ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
   <string name="hidden">схаваны</string>
@@ -57,4 +57,5 @@
   <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>
   <string name="continueTheStreak">Працягнуць серыю</string>
   <string name="newStreak">Новая серыя</string>
+  <string name="fromMyGames">З маіх гульняў</string>
 </resources>

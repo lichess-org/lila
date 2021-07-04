@@ -5,7 +5,7 @@
     <item quantity="one">Vis runden</item>
     <item quantity="other">Vis alle %s rundar</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s runde</item>
     <item quantity="other">%s rundar</item>
   </plurals>
@@ -30,9 +30,35 @@
   </plurals>
   <string name="tournStartDate">Startdato for turneringa</string>
   <string name="numberOfRounds">Antal rundar</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Eit ulike antal rundar (oddetal) gjer optimal fargefordeling.</string>
+  <string name="numberOfRoundsHelp">Eit ulike antal rundar (oddetal) gjer optimal fargefordeling.</string>
   <string name="roundInterval">Intervall mellom rundar</string>
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
+  <string name="swissVsArenaQ">Når skal du arrangera etter sveitsarsystemet i staden for arenaturnering?</string>
+  <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
+Det kan vera eit godt alternativ for klubbar og offisielle turneringar.</string>
+  <string name="pointsCalculationQ">Korleis vert poenga rekna ut?</string>
+  <string name="pointsCalculationA">Siger gjev eitt poeng, remis eit halvt poeng og tap null poeng.
+Spelarar som ikkje får tildelt motspelar i ein runde får eitt poeng.</string>
+  <string name="tiebreaksCalculationQ">Korleis vert poenga rekna ut ved uavgjord resultat (\"tie-break\")?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger skåre</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
+Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga til dei motspelarane som spelaren fekk remis mot.</string>
+  <string name="pairingsQ">Korleis vert parsamansetjingane avgjord?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
+  <string name="FIDEHandbook">FIDE handbok</string>
+  <string name="pairingsA">Med %1$s, sett i verk av %2$s, i fylgje %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
+  <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
+  <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsarturneringar vart ikkje opphavleg laga for online sjakk. Turneringsformen krev at spelarane er punktlege, dedikerte og tolmodige.</string>
+  <string name="restrictedToTeamsABetterMet">Vi trur at desse vilkåra er truleg meir til stades i eit lag enn i globale turneringar.</string>
+  <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få?</string>
+  <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelaren eit halvt poeng om motspelaren kjem for seint til turneringsstart.</string>
+  <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
+  <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
+  <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
+  <string name="lateJoinAYes">Ja, heilt fram til halvparten av rundane har starta. Til dømes kan ein spela koma inn i ein 11-rundars sveitsarturnering fram til sjette runde har starta og til sjuande runde i ein tolvrundars turnering.</string>
+  <string name="lateJoinASingleBye">Spelarar som kjem seint til ei turnering får berre eit halvt poeng, sjølv om dei gjekk glipp av flerire rundar.</string>
 </resources>

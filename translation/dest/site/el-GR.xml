@@ -96,6 +96,7 @@
   <string name="noGameFound">Δεν βρέθηκε παρτίδα</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Δοκιμάστε να συμπεριλάβετε περισσότερα παιχνίδια από το μενού προτιμήσεων.</string>
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
+  <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
@@ -900,4 +901,8 @@
   <string name="noChat">Να μην επιτρέπεται η συνομιλία</string>
   <string name="onlyTeamLeaders">Μόνο οι αρχηγοί ομάδων</string>
   <string name="onlyTeamMembers">Μόνο τα μέλη της ομάδας</string>
+  <string name="toggleLocalAnalysis">Εναλλαγή ανάλυσης τοπικού υπολογιστή</string>
+  <string name="playComputerMove">Παίξτε την καλύτερη κίνηση που προτείνει ο υπολογιστής</string>
+  <string name="analysisOptions">Ρυθμίσεις ανάλυσης</string>
+  <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
 </resources>

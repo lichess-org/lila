@@ -5,7 +5,7 @@
     <item quantity="one">Δείτε τον γύρο</item>
     <item quantity="other">Δείτε όλους τους %s γύρους</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s γύροι</item>
     <item quantity="other">%s γύροι</item>
   </plurals>
@@ -30,9 +30,25 @@
   </plurals>
   <string name="tournStartDate">Ημερομηνία έναρξης τουρνουά</string>
   <string name="numberOfRounds">Αριθμός γύρων</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Ένας περιττός αριθμός γύρων βοηθάει στη βέλτιστη ισορροπία χρωμάτων.</string>
+  <string name="numberOfRoundsHelp">Ένας περιττός αριθμός γύρων βοηθάει στη βέλτιστη ισορροπία χρωμάτων.</string>
   <string name="roundInterval">Διάστημα μεταξύ γύρων</string>
   <string name="forbiddenPairings">Απαγορευμένες κληρώσεις</string>
   <string name="forbiddenPairingsHelp">Ονόματα χρηστών των παικτών που δεν πρέπει να παίξουν μαζί (για παράδειγμα δύο αδέρφια). Εισάγετε δύο ονόματα χρήστη σε κάθε γραμμή, με ένα κενό ανάμεσα.</string>
   <string name="newSwiss">Νέο Ελβετικό πρωτάθλημα</string>
+  <string name="swissVsArenaQ">Ποια η διαφορά μεταξύ ελβετικών τουρνουά και αρένων;</string>
+  <string name="swissVsArenaA">Στα ελβετικά τουρνουά, όλοι οι παίκτες παίζουν τον ίδιο αριθμό παιχνιδιών και μόνο μία φορά με κάθε παίκτη.
+Είναι μία καλή επιλογή για συλλόγους ή επίσημα τουρνουά.</string>
+  <string name="pointsCalculationQ">Πώς υπολογίζονται οι βαθμοί;</string>
+  <string name="pointsCalculationA">Μια νίκη αξίζει ένα βαθμό, μια ισοπαλία μισό, και μια ήττα κανέναν.
+Κάποιες φορές, όταν ο αριθμός των παιχτών είναι περιττός, ένας παίκτης παίρνει «bye», το οποίο αξίζει όσο ένας βαθμός.</string>
+  <string name="tiebreaksCalculationQ">Ποια τα κριτήρια σε περίπτωση ισοβαθμίας;</string>
+  <string name="sonnebornBergerScore">Κριτήριο Sonneborn–Berger</string>
+  <string name="pairingsQ">Πώς αποφασίζονται τα ζευγάρια;</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Ολλανδικό σύστημα</string>
+  <string name="FIDEHandbook">Βιβλίο κανονισμών της FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Τι συμβαίνει αν το τουρνουά έχει περισσότερους γύρους από τους παίκτες;</string>
+  <string name="moreRoundsThanPlayersA">Όταν εξαντληθούν όλα τα πιθανά ζευγάρια, το τουρνουά τελειώνει και ανακοινώνεται ο νικητής.</string>
+  <string name="restrictedToTeamsQ">Γιατί τα ελβετικά τουρνουά περιορίζονται σε ομάδες;</string>
+  <string name="restrictedToTeamsANotForOnline">Τα ελβετικά τουρνουά δε σχεδιάστηκαν για διαδικτυακό σκάκι. Απαιτούν ακρίβεια, αφοσίωση και υπομονή από τους παίκτες.</string>
+  <string name="restrictedToTeamsABetterMet">Πιστεύουμε ότι αυτές οι προϋποθέσεις πληρούνται περισσότερο μέσα σε μια ομάδα.</string>
 </resources>

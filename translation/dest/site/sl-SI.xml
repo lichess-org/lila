@@ -102,6 +102,7 @@
   <string name="noGameFound">Igra ni najdena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bi vključili več partij v meniju nastavitev?</string>
   <string name="openingExplorer">Raziskovalec otvoritev</string>
+  <string name="openingEndgameExplorer">Raziskovalec otovoritev/končnic</string>
   <string name="xOpeningExplorer">%s raziskovalec otvoritev</string>
   <string name="winPreventedBy50MoveRule">Zmago preprečilo pravilo 50 potez</string>
   <string name="lossSavedBy50MoveRule">Poraz rešilo pravilo 50 potez</string>
@@ -957,4 +958,11 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="noChat">Brez klepeta</string>
   <string name="onlyTeamLeaders">Dovoljeno samo voditeljem ekip</string>
   <string name="onlyTeamMembers">Dovoljeno samo članom ekip</string>
+  <string name="navigateMoveTree">Krmarite po drevesu potez</string>
+  <string name="toggleLocalAnalysis">Preklopi lokalno računalniško analizo</string>
+  <string name="toggleAllAnalysis">Preklopi vso računalniško analizo</string>
+  <string name="playComputerMove">Igraj najboljšo računalniško potezo</string>
+  <string name="analysisOptions">Možnosti analize</string>
+  <string name="focusChat">Fokus klepet</string>
+  <string name="showHelpDialog">Show this help dialog</string>
 </resources>

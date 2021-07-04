@@ -15,10 +15,10 @@
     <item quantity="other">Практыкаваны пазіцыі %1$s у %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Вырашана %s галаваломка</item>
-    <item quantity="few">Вырашана %s галаваломкі</item>
-    <item quantity="many">Вырашана %s галаваломак</item>
-    <item quantity="other">Вырашана %s галаваломак</item>
+    <item quantity="one">Вырашана %s задача</item>
+    <item quantity="few">Вырашана %s задач</item>
+    <item quantity="many">Вырашана %s задач</item>
+    <item quantity="other">Вырашана %s задач</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Згуляна %1$s гульня ў %2$s</item>
@@ -63,16 +63,16 @@
     <item quantity="other">%s новых падпісчыкаў</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">Правёў %s сеанс паралельнай гульні</item>
-    <item quantity="few">Правёў %s сеансы паралельнай гульні</item>
-    <item quantity="many">Правёў %s сеансаў паралельнай гульні</item>
-    <item quantity="other">Правёў %s сеансаў паралельнай гульні</item>
+    <item quantity="one">Правёў %s сеанс адначасовай гульні</item>
+    <item quantity="few">Правёў %s сеансы адначасовай гульні</item>
+    <item quantity="many">Правёў %s сеансаў адначасовай гульні</item>
+    <item quantity="other">Правёў %s сеансаў адначасовай гульні</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Браў удзел у %s сеансе паралельнай гульні</item>
-    <item quantity="few">Браў удзел у %s сеансах паралельнай гульні</item>
-    <item quantity="many">Браў удзел у %s сеансах паралельнай гульні</item>
-    <item quantity="other">Браў удзел у %s сеансах паралельнай гульні</item>
+    <item quantity="one">Браў удзел у %s сеансе адначасовай гульні</item>
+    <item quantity="few">Браў удзел у %s сеансах адначасовай гульні</item>
+    <item quantity="many">Браў удзел у %s сеансах адначасовай гульні</item>
+    <item quantity="other">Браў удзел у %s сеансах адначасовай гульні</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Стварыў %s новае даследаванне</item>

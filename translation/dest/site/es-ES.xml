@@ -96,6 +96,7 @@
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas</string>
+  <string name="openingEndgameExplorer">Explorador de aperturas/finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
@@ -899,4 +900,5 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="noChat">Sin chat</string>
   <string name="onlyTeamLeaders">Solo líderes del equipo</string>
   <string name="onlyTeamMembers">Solo miembros del equipo</string>
+  <string name="navigateMoveTree">Navegar el árbol de movimientos</string>
 </resources>

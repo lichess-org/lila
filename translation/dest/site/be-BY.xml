@@ -81,7 +81,7 @@
   <string name="losing">Пройгрышныя</string>
   <string name="drawn">Нічыя</string>
   <string name="unknown">Невядома</string>
-  <string name="database">База звестак</string>
+  <string name="database">База дадзеных</string>
   <string name="whiteDrawBlack">Белыя / нічыя / чорныя</string>
   <string name="averageRatingX">Сярэдні рэйтынг: %s</string>
   <string name="recentGames">Нядаўнія гульні</string>
@@ -225,10 +225,10 @@
     <item quantity="other">Рэйтынг абнаўляецца кожныя %s хвілін</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s галаваломка</item>
-    <item quantity="few">%s галаваломкі</item>
-    <item quantity="many">%s галаваломак</item>
-    <item quantity="other">%s галаваломак</item>
+    <item quantity="one">%s задача</item>
+    <item quantity="few">%s задачы</item>
+    <item quantity="many">%s задач</item>
+    <item quantity="other">%s задач</item>
   </plurals>
   <string name="gamesPlayed">Усяго гульняў</string>
   <plurals name="nbGamesWithYou">
@@ -392,7 +392,7 @@
   <string name="xCreatedTeamY">%1$s стварыў каманду %2$s</string>
   <string name="xStartedStreaming">%s пачаў трансляцыю</string>
   <string name="averageElo">Сярэдні рэйтынг</string>
-  <string name="location">Месцазнаходжанне</string>
+  <string name="location">Месцазнаходжання</string>
   <string name="filterGames">Фільтраваць гульні</string>
   <string name="reset">Скінуць</string>
   <string name="apply">Ужыць</string>
@@ -450,7 +450,7 @@
   </plurals>
   <string name="more">Яшчэ</string>
   <string name="memberSince">Далучыўся</string>
-  <string name="lastSeenActive">Апошні раз бачылі %s</string>
+  <string name="lastSeenActive">Анлайн %s</string>
   <string name="player">Гулец</string>
   <string name="list">Спіс</string>
   <string name="graph">Дыяграма</string>
@@ -536,7 +536,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
-  <string name="puzzles">Галаваломкі</string>
+  <string name="puzzles">Задачы</string>
   <string name="latestUpdates">Апошнія абнаўленні</string>
   <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
@@ -601,7 +601,7 @@
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
   <string name="difficultyEasy">Лёгкая</string>
-  <string name="difficultyNormal">Нармальная</string>
+  <string name="difficultyNormal">Сярэдняя</string>
   <string name="difficultyHard">Цяжкая</string>
   <string name="xCompetesInY">%1$s прымае ўдзел у турніры %2$s</string>
   <string name="xAskedY">%1$s пытаецца: %2$s</string>
@@ -616,7 +616,7 @@
   <string name="starting">Пачатак:</string>
   <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>
   <string name="yourCityRegionOrDepartment">Ваш горад, вобласць ці акруга</string>
-  <string name="biographyDescription">Раскажыце пра сябе. Што вам падабаецца ў шахматах? Якія вашыя любімыя дэбюты, партыі, гульцы?</string>
+  <string name="biographyDescription">Раскажыце пра сябе, вашы інтарэсы, што падабаецца ў шахматах, ўлюбляныя дэбюты, гульцы...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Максімум: %s сімвал.</item>
     <item quantity="few">Максімум: %s сімвалы.</item>
@@ -674,11 +674,11 @@
   <string name="tpTimeSpentPlaying">Агульны час у гульні: %s</string>
   <string name="watchGames">Назіраць за гульнямі</string>
   <string name="tpTimeSpentOnTV">Час у TV: %s</string>
-  <string name="watch">Прагляд</string>
+  <string name="watch">Глядзець</string>
   <string name="videoLibrary">Відэатэка</string>
   <string name="streamersMenu">Стрымеры</string>
   <string name="mobileApp">Мабільная праграма</string>
-  <string name="webmasters">Для распрацоўнікаў</string>
+  <string name="webmasters">Распрацоўшчыкам</string>
   <string name="about">Пра сайт</string>
   <string name="aboutX">Пра %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s – шахматны анлайн-сэрвіс: бясплатны (%2$s), без рэкламы і з адкрытым зыходным кодам.</string>
@@ -686,7 +686,7 @@
   <string name="contribute">Зрабіць унёсак</string>
   <string name="termsOfService">Умовы карыстання</string>
   <string name="sourceCode">Зыходны код</string>
-  <string name="simultaneousExhibitions">Паралельныя гульні</string>
+  <string name="simultaneousExhibitions">Сеансы адначасавай гульні</string>
   <string name="host">Арганізатар</string>
   <string name="hostColorX">Колер арганізатара: %s</string>
   <string name="createdSimuls">Нядаўна створаныя сеансы</string>
@@ -694,13 +694,13 @@
   <string name="noSimulFound">Сеанс не знойдзены</string>
   <string name="noSimulExplanation">Не атрымалася знайсці такі сеанс.</string>
   <string name="returnToSimulHomepage">Да асноўнай старонкі</string>
-  <string name="aboutSimul">Паралельныя гульні – гэта такі рэжым, дзе адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
-  <string name="aboutSimulImage">Фішэр гуляўся паралельна з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
+  <string name="aboutSimul">Сеанс адначасавай гульні – рэжым, калі адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
+  <string name="aboutSimulImage">Фішэр гуляў адначасова з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
   <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: арганізатар ходзіць ад стала да стала, робячы хады.</string>
-  <string name="aboutSimulRules">Калі пачынаецца сеанс паралельнай гульні, кожны гулец гуляе асобную партыю з арганізатарам, які заўсёды гуляе за белых. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
-  <string name="aboutSimulSettings">Паралельныя гульні заўсёды вядуцца ў бязрэйтынгавым рэжыме. Нельга скасоўваць хады ці дадаваць час, а таксама немагчыма запытаць рэванш.</string>
+  <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з арганізатарам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
+  <string name="aboutSimulSettings">Сеансы адначасавай гульні заўсёды бязрэйтынгавыя. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
-  <string name="whenCreateSimul">Калі вы створыце сеанс паралельнай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
+  <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
@@ -737,9 +737,9 @@
   <string name="cumulative">Сукупна</string>
   <string name="glicko2Rating">Рэйтынг Glicko-2</string>
   <string name="checkYourEmail">Праверце сваю пошту</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Ліст дасланы на ваш адрас. Пстрыкніце спасылку ў ім, каб пацвердзіць ваш уліковы запіс.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Ліст атасланы на вашу электронную пошту. Перайдзіце па спасылцы ў лісце, каб актываваць ваш акаўнт.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Калі вы не бачыце ліст, праверце, магчыма, ён трапіў у тэчку для спаму.</string>
-  <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на ваш адрас %s. Пстрыкніце спасылку ў ім, каб скінуць ваш пароль.</string>
+  <string name="weHaveSentYouAnEmailTo">Мы адправілі ліст на вашу пошту %s. Перайдзіце па спасылцы ў лісце, каб аднавіць ваш пароль.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Звярніце ўвагу: рэгіструючыся, вы прымаеце нашыя %s.</string>
   <string name="readAboutOur">Чытай пра нас %s.</string>
   <string name="networkLagBetweenYouAndLichess">Затрымка сеткі паміж вамі і Lichess</string>
@@ -777,7 +777,7 @@
   <string name="bulletBlitzClassical">«Куля», бліц, класічны рэжым</string>
   <string name="correspondenceChess">Гульня па ліставанні</string>
   <string name="onlineAndOfflinePlay">Гульня анлайн і афлайн</string>
-  <string name="viewTheSolution">Паказаць рашэнне</string>
+  <string name="viewTheSolution">Паглядзець рашэнне</string>
   <string name="followAndChallengeFriends">Падпісацца і выклікаць на гульню сяброў</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Даступна на %s мове!</item>
@@ -938,12 +938,14 @@
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш профіль трэнера.</string>
+  <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
   <string name="welcome">Вітаем!</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
+  <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
   <string name="ratedFormHelp">Гульні - рэйтынгавыя
 і ўплываюць на рэйтынг гульцоў</string>
   <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>
@@ -951,10 +953,22 @@
   <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
+  <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
+  <string name="simulHostcolor">Колер арганізатара ў кожнай гульне</string>
+  <string name="estimatedStart">Меркаваны час пачатку</string>
+  <string name="simulFeatured">Паказваць на %s</string>
+  <string name="simulFeaturedHelp">Паказваць сеанс адначасовай гульні усім на %s. Адключыце для прыватных сеансаў.</string>
   <string name="simulDescription">Апісанне сеансу</string>
+  <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
+  <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
+  <string name="inYourLocalTimezone">У вашым часавым поясе</string>
   <string name="tournChat">Чат турніру</string>
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Укл./адкл. лакальны камп\'ютарны аналіз</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Укл./адкл. усе камп\'ютарныя аналізы</string>
+  <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
+  <string name="showHelpDialog">Паказаць чат дапамогі</string>
 </resources>

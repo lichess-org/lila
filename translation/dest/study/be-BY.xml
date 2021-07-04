@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="private">Прыватнае</string>
   <string name="noneYet">Пакуль нічога няма.</string>
+  <string name="hot">Гарачыя</string>
   <string name="recentlyUpdated">Нядаўна абноўленыя</string>
   <string name="mostPopular">Найбольш папулярныя</string>
   <string name="addMembers">Дадаць удзельнікаў</string>

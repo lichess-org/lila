@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Monradturneringer</string>
+  <string name="swissTournaments">Schweizerturneringer</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Se runden</item>
     <item quantity="other">Se alle %s runder</item>
@@ -34,5 +34,51 @@
   <string name="roundInterval">Interval mellem runder</string>
   <string name="forbiddenPairings">Forbudte parringer</string>
   <string name="forbiddenPairingsHelp">Brugernavne på spillere der ikke må spille sammen (for eksempel søskende). To brugernavne pr. linje, adskilt af et mellemrum.</string>
-  <string name="newSwiss">Ny monradturnering</string>
+  <string name="newSwiss">Ny schweizerturnering</string>
+  <string name="swissVsArenaQ">Hvornår skal du bruge schweizerturneringer i stedet for arenaer?</string>
+  <string name="swissVsArenaA">I en schweizerturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
+Det kan være en god mulighed for klubber og officielle turneringer.</string>
+  <string name="pointsCalculationQ">Hvordan beregnes points?</string>
+  <string name="pointsCalculationA">En sejr er ét point værd, en remis et halvt point mens et tab ingen point giver.
+Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', der er ét point værd.</string>
+  <string name="tiebreaksCalculationQ">Hvordan udregnes tie breaks?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
+Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for hver modstander, spilleren spiller remis.</string>
+  <string name="pairingsQ">Hvordan bestemmes parringer?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Schweiziske turneringer blev ikke oprindeligt designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.</string>
+  <string name="lateJoinAYes">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
+  <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
+  <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hvad med Round Robin?</string>
+  <string name="roundRobinATheClosestPossible">Det nærmeste du kan komme til Round Robin online er at spille en schweitzerturnering med et meget højt antal runder. Så vil alle mulige parringer blive spillet, før turneringen slutter.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I en schweizerturnering %1$s, spiller hver deltager ikke nødvendigvis mod alle andre deltagere. Deltagere mødes en-til-en i hver runde og parres ved hjælp af et sæt regler, der er designet til at sikre, at hver konkurrent får modstandere med en lignende rating, men ikke den samme modstander mere end én gang. Vinderen er deltageren med det højeste antal point optjent i alle runder. Alle deltagere spiller i hver runde, medmindre der er et ulige antal spillere.</string>
+  <string name="teamOnly">Schweitzerturneringer kan kun oprettes af holdledere, og kan kun spilles af holdmedlemmer.           
+%1$s for at begynde at spille i schweitzerturneringer.</string>
+  <string name="nowPlaying">Spiller nu</string>
+  <string name="startingSoon">Starter snart</string>
+  <string name="comparison">Sammenligning</string>
+  <string name="tournDuration">Varighed af turneringen</string>
+  <string name="predefinedDuration">Prædefineret varighed i minutter</string>
+  <string name="durationUnknown">Prædefineret maksimalt antal runder, men ukendt varighed</string>
+  <string name="numberOfGames">Antal partier</string>
+  <string name="numberOfGamesAsManyAsPossible">Så mange som kan spilles i den tildelte varighed</string>
+  <string name="numberOfGamesPreDefined">Besluttet på forhånd, samme for alle spillere</string>
+  <string name="pairingSystem">Antal partier</string>
+  <string name="pairingSystemArena">Enhver tilgængelig modstander med tilsvarende rating</string>
+  <string name="pairingSystemSwiss">Bedste parring baseret på point og tie breaks</string>
+  <string name="pairingWaitTime">Parring ventetid</string>
+  <string name="pairingWaitTimeFast">Hurtig: venter ikke på alle spillere</string>
+  <string name="pairingWaitTimeSlow">Langsomt: venter på alle spillere</string>
+  <string name="identicalPairing">Identisk parring</string>
+  <string name="possibleButNotConsecutive">Mulige, men ikke på hinanden følgende</string>
+  <string name="identicalForbidden">Forbudt</string>
+  <string name="lateJoin">Forsinket tilmelding</string>
+  <string name="lateJoinUntil">Ja indtil mere end halvdelen af runderne er startet</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, men kan reducere antallet af runder</string>
+  <string name="streaksAndBerserk">Stimer og Bersærk</string>
+  <string name="similarToOTB">Svarende til OTB turneringer</string>
+  <string name="unlimitedAndFree">Ubegrænset og fri</string>
 </resources>

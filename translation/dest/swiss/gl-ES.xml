@@ -5,7 +5,7 @@
     <item quantity="one">Ver a ronda</item>
     <item quantity="other">Ver as %s rondas</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s rondas</item>
     <item quantity="other">%s rondas</item>
   </plurals>
@@ -30,9 +30,69 @@
   </plurals>
   <string name="tournStartDate">Data de comezo do torno</string>
   <string name="numberOfRounds">Número de rondas</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Un número impar de rondas permite un equilibrio de cores óptimo.</string>
+  <string name="numberOfRoundsHelp">Un número impar de rondas permite un equilibrio de cores óptimo.</string>
   <string name="roundInterval">Intervalo entre rondas</string>
   <string name="forbiddenPairings">Emparellamentos prohibidos</string>
   <string name="forbiddenPairingsHelp">Xogadores/as que non poden xogar xuntos (irmás, por exemplo). Dous nomes de usuario por liña, separados por un espazo.</string>
   <string name="newSwiss">Novo torneo suízo</string>
+  <string name="swissVsArenaQ">Cando debería usar torneos suizos en lugar de areas?</string>
+  <string name="swissVsArenaA">Nun torneo suizo, todas as participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
+Pode ser unha boa opción para clubes e torneos oficiais.</string>
+  <string name="pointsCalculationQ">Como se calculan os puntos?</string>
+  <string name="pointsCalculationA">Unha victoria vale un punto, un empate é un medio punto e unha pérdida son cero puntos.
+Cando unha xogadora non pode emparellarse durante unha ronda, recibe un \"bye\", que vale un punto.</string>
+  <string name="tiebreaksCalculationQ">Como se calculan os \"tie breaks\"?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Puntuación Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Co %s.
+Engade a puntuación de cada opoñente que venceu e a metada da puntuación de cada opoñente que empatou.</string>
+  <string name="pairingsQ">Como se decidan os emparellamentos?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Sistema holandés</string>
+  <string name="FIDEHandbook">Do manual da FIDE</string>
+  <string name="pairingsA">Co %1$s, implementado por %2$s, dacordo co %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis rondas que xogadores/as?</string>
+  <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador/a.</string>
+  <string name="restrictedToTeamsQ">Porque isto está restrinxido aos equipos?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Os torneos suizos non están deseñados para o xadrez online, xa que esixen puntualidade, dedicación e paciencia dos xogadores/as.</string>
+  <string name="restrictedToTeamsABetterMet">Cremos que estas condicións son máis propensas a ser cumplidas dentro dun equipo que en torneos globais.</string>
+  <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
+  <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
+  <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
+  <string name="lateJoinQ">Poden os xogadores entrar tarde?</string>
+  <string name="lateJoinAYes">Si, pero ata o comezo da metade das rondas; por exemplo, nun torneo suizo de 11 rondas, as xogadoras poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.</string>
+  <string name="lateJoinASingleBye">Xogadores/as tardíos/as teñen un só \"bye\", mesmo cando perderon varias rondas.</string>
+  <string name="willSwissReplaceArenasQ">Poden os torneos suizos reemprazar os torneos area?</string>
+  <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Que hai sobre Round Robin?</string>
+  <string name="roundRobinAWontWork">Gustaríanos engadilo, pero desafortunadamente Round Robin non funciona online</string>
+  <string name="roundRobinANoBecause">A razón é que non hai maneira axeitada de tratar á xente que deixa un torneo prematuramente. Non podemos agardar que todas as persoas xogadoras xoguen todas as súas partidas nun evento online. Non vai pasar e como resultado a maioría dos torneos Round Robin serían inxustos, o que os faría totalmente inoperativos.</string>
+  <string name="roundRobinATheClosestPossible">O máis parecido a un Round Robien online sería xogar un torneo suizo cun número moi alto de rondas. Así todos os posibles emparellamentos xogaríanse antes de que o torneo rematara.</string>
+  <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
+  <string name="otherSystemsA">Non temos plans de engadir máis tipos de torneos a Lichess polo de agora.</string>
+  <string name="teamOnly">Torneos suizos só poden ser creados por líderes de equipos e só poden ser xogados por membros dos equipos. %1$s para comezar a xogar en torneos suizos.</string>
+  <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
+  <string name="nowPlaying">A reproducir </string>
+  <string name="startingSoon">Comeza pronto</string>
+  <string name="comparison">Comparación</string>
+  <string name="tournDuration">Duración do torneo</string>
+  <string name="predefinedDuration">Duración predefinida en minutos</string>
+  <string name="durationUnknown">Rondas máximas predefinidas, pero con duración descoñecida</string>
+  <string name="numberOfGames">Número de partidas</string>
+  <string name="numberOfGamesAsManyAsPossible">Todas as partidas que se poden xogar na duración proposta</string>
+  <string name="numberOfGamesPreDefined">Decidido de antemán, igual para todas as xogadoras</string>
+  <string name="pairingSystem">Sistema de emparellamento</string>
+  <string name="pairingSystemArena">Calquera opoñente dispoñible cunha puntuación similar</string>
+  <string name="pairingSystemSwiss">Mellor emparellamento baseado en puntos e desempates</string>
+  <string name="pairingWaitTime">Tempo de emparellamento</string>
+  <string name="pairingWaitTimeFast">Rápido: non agarda por todos os xogadores e xogadoras</string>
+  <string name="pairingWaitTimeSlow">Lento: agarda por todos os xogadores e xogadoras</string>
+  <string name="identicalPairing">Emparellamento coa mesma xogadora</string>
+  <string name="possibleButNotConsecutive">Posible, pero non consecutivo</string>
+  <string name="identicalForbidden">Prohibido</string>
+  <string name="lateJoin">Entrada tardía</string>
+  <string name="lateJoinUntil">Si ata que máis da metade das rondas comezaran</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Si pero redúcense o número de rondas</string>
+  <string name="streaksAndBerserk">Rachas e Berserk</string>
+  <string name="similarToOTB">Similar aos torneos OTB (Over The Board, no taboleiro)</string>
+  <string name="unlimitedAndFree">Ilimitado e libre</string>
 </resources>

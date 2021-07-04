@@ -96,6 +96,7 @@
   <string name="noGameFound">Intet parti fundet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Inkluder måske flere partier fra præferencemenuen?</string>
   <string name="openingExplorer">Åbningsbog</string>
+  <string name="openingEndgameExplorer">Åbning/slutspilsbog</string>
   <string name="xOpeningExplorer">%s åbningsbog</string>
   <string name="winPreventedBy50MoveRule">Sejr forhindret af 50-træks reglen</string>
   <string name="lossSavedBy50MoveRule">Nederlag undgået på grund af 50-træks reglen</string>
@@ -899,4 +900,10 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="noChat">Ingen chat</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
+  <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
+  <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
+  <string name="playComputerMove">Spil det bedste computertræk</string>
+  <string name="analysisOptions">Analysemuligheder</string>
+  <string name="focusChat">Fokusér chat</string>
+  <string name="showHelpDialog">Vis denne hjælpedialog</string>
 </resources>

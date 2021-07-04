@@ -7,7 +7,7 @@
   <string name="iCantLogIn">Не магу ўвайсці</string>
   <string name="noConfirmationEmail">Не атрымаў ліста пацвярджэння</string>
   <string name="forgotPassword">Забыўся(-лася) пароль</string>
-  <string name="forgotUsername">Забыўся(-лася) на свае імя карыстальніе</string>
+  <string name="forgotUsername">Забыўся(-лася) на сваё імя карыстальніка(-цы)</string>
   <string name="youCanLoginWithEmail">Вы можаце ўваісці з дапамогай электронай пошты, з якой вы рэгістраваліся</string>
   <string name="lost2FA">Страчаны доступ да кадоў двухфактарнаў аўтарызацыі</string>
   <string name="accountSupport">Мне трэба дапамога з акаўнтам</string>
@@ -22,6 +22,7 @@
   <string name="toReportAPlayerUseForm">Каб паскардзіцца на гульца, выкарыстайце форму скаргі</string>
   <string name="doNotSendReportEmails">Не дасылайце нам эляктроныя лісты са скаргамі.</string>
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
+  <string name="illegalPawnCapture">Немагчымае ўзяцце пешкі</string>
   <string name="insufficientMaterial">Недастаткова матэрыялу, каб паставіць мат</string>
   <string name="errorPage">Старонка памылкі</string>
   <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>

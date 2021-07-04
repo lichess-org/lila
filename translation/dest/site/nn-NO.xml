@@ -96,6 +96,7 @@
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openingExplorer">Opningsbok</string>
+  <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
@@ -900,4 +901,12 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="noChat">Ikkje chat</string>
   <string name="onlyTeamLeaders">Berre lagleiarar</string>
   <string name="onlyTeamMembers">Berre lagsmedlemer</string>
+  <string name="navigateMoveTree">Naviger i trekk-treet</string>
+  <string name="mouseTricks">Musekunstar</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Aktiver/deaktiver lokal maskinanalyse</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Aktiver/deaktiver all maskinanalyse</string>
+  <string name="playComputerMove">Spel det beste maskintrekket</string>
+  <string name="analysisOptions">Analyseval</string>
+  <string name="focusChat">Fokusér prateromet</string>
+  <string name="showHelpDialog">Vis denne hjelpedialogen</string>
 </resources>

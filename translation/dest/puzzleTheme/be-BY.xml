@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advantage">Перавага</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="doubleCheck">Падвойны шах</string>
+  <string name="endgame">Эндшпіль</string>
+  <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="fork">Відэлец</string>
+  <string name="long">Доўгая задача</string>
+  <string name="longDescription">Да перамогі 3 хады.</string>
+  <string name="master">Гульні майстроў</string>
+  <string name="masterDescription">Задачы з гульняў тытулаваных гульцоў.</string>
+  <string name="masterVsMasterDescription">Задачы з гульняў паміж тытулаванымі гульцамі.</string>
+  <string name="mate">Мат</string>
+  <string name="mateDescription">Выйграйце стылёва.</string>
+  <string name="mateIn1">Мат у 1 ход</string>
+  <string name="mateIn1Description">Пастаўце мат у адзін ход.</string>
+  <string name="mateIn2">Мат у 2 хады</string>
+  <string name="mateIn2Description">Пастаўце мат у два хады.</string>
+  <string name="mateIn3">Мат у 3 хады</string>
+  <string name="mateIn3Description">Пастаўце мат у тры хады.</string>
+  <string name="mateIn4">Мат у 4 хады</string>
+  <string name="mateIn4Description">Пастаўце мат у чатыры хады.</string>
+  <string name="mateIn5">Мат у 5 хадоў</string>
+  <string name="oneMove">Аднахадовая задача</string>
+  <string name="opening">Дэбют</string>
+  <string name="pawnEndgame">Пешачны эндшпіль</string>
+  <string name="pawnEndgameDescription">Эндшпіль выключна з пешкамі.</string>
+  <string name="pin">Звязка</string>
+  <string name="quietMove">Павольны ход</string>
+  <string name="rookEndgame">Ладзейны эндшпіль</string>
+  <string name="sacrifice">Ахвяра</string>
+  <string name="short">Кароткая задача</string>
+  <string name="shortDescription">Да перамогі 2 хады.</string>
+  <string name="veryLong">Вельмі доўгая задача</string>
+  <string name="healthyMixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
 </resources>

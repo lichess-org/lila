@@ -190,8 +190,8 @@
   <string name="getAFreeLichessAccount">Стварыце бясплатны ўліковы запіс</string>
   <string name="practice">Практыка</string>
   <string name="learnCommonChessPositions">Вучыце асноўныя пазіцыі</string>
-  <string name="puzzles">Заданні</string>
-  <string name="exerciseYourTacticalSkills">Ужыццяўляйце свае тактычныя навыкі</string>
+  <string name="puzzles">Задачы</string>
+  <string name="exerciseYourTacticalSkills">Патрэніруйце свае тактычныя навыкі</string>
   <string name="videos">Відэа</string>
   <string name="watchInstructiveChessVideos">Глядзець навучальныя відэазапісы</string>
   <string name="playPeople">Гульня анлайн</string>
@@ -214,6 +214,6 @@
   <string name="yourScore">Ваш вынік</string>
   <string name="next">Далей</string>
   <string name="backToMenu">Вярнуцца ў меню</string>
-  <string name="puzzleFailed">Заданне не вырашана!</string>
+  <string name="puzzleFailed">Задача не вырашана!</string>
   <string name="retry">Яшчэ раз</string>
 </resources>

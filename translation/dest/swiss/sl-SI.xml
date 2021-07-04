@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Turnirji švicarskega formata</string>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s krog</item>
     <item quantity="two">%s kroga</item>
     <item quantity="few">%s krogi</item>
@@ -36,9 +36,19 @@
   </plurals>
   <string name="tournStartDate">Datum začetka turnirja</string>
   <string name="numberOfRounds">Število krogov</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Neparno število krogov omogoča optimalno barvno ravnovesje.</string>
+  <string name="numberOfRoundsHelp">Neparno število krogov omogoča optimalno barvno ravnovesje.</string>
   <string name="roundInterval">Interval med krogi</string>
   <string name="forbiddenPairings">Prepovedano delanje parov</string>
   <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
   <string name="newSwiss">Nov švicarski turnir</string>
+  <string name="swissVsArenaQ">Kdaj uporabiti švicarske turnirje namesto aren?</string>
+  <string name="swissVsArenaA">Na švicarskem turnirju vsi udeleženci igrajo enako število iger in lahko med seboj igrajo le enkrat.
+To je lahko dobra izbira za klube in uradne turnirje.</string>
+  <string name="pointsCalculationQ">Kako se izračuna točke?</string>
+  <string name="pointsCalculationA">Zmaga je vredna eno točko, remi je pol točke, izguba pa nič točk.
+Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
+  <string name="tiebreaksCalculationQ">Kako se izračunajo neodločeni izidi?</string>
+  <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
+  <string name="tiebreaksCalculationA">Z %s.
+Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
 </resources>

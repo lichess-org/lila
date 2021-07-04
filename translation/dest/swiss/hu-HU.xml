@@ -5,7 +5,7 @@
     <item quantity="one">Forduló megtekintése</item>
     <item quantity="other">Mind a %s forduló megtekintése</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s forduló</item>
     <item quantity="other">%s forduló</item>
   </plurals>
@@ -30,9 +30,71 @@
   </plurals>
   <string name="tournStartDate">Verseny kezdési ideje</string>
   <string name="numberOfRounds">Fordulók száma</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Páratlan számú fordulók kiegyensúlyozottabb színpárosítást tesznek lehetővé.</string>
+  <string name="numberOfRoundsHelp">Páratlan számú fordulók kiegyensúlyozottabb színpárosítást tesznek lehetővé.</string>
   <string name="roundInterval">Fordulók közötti szünet</string>
   <string name="forbiddenPairings">Tiltott párosítások</string>
   <string name="forbiddenPairingsHelp">Játékosok felhasználónevei amelyek nem játszhatnak egymás ellen (például testvérek). Két felhasználónév soronként, szóközzel elválasztva.</string>
   <string name="newSwiss">Új svájci rendszerű verseny</string>
+  <string name="swissVsArenaQ">Mikor érdemes svájci rendszerű versenyt indítani aréna helyett?</string>
+  <string name="swissVsArenaA">Svájci rendszerű versenyben minden résztvevő ugyanannyi partit játszik és minden ellenféllel csak egyszer.
+Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek.</string>
+  <string name="pointsCalculationQ">Hogyan történik a pontok számítása?</string>
+  <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
+Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
+  <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
+  <string name="tiebreaksCalculationA">A %s alapján.
+Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
+  <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Holland rendszer</string>
+  <string name="FIDEHandbook">FIDE kézikönyv</string>
+  <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
+  <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
+  <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
+  <string name="restrictedToTeamsANotForOnline">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Megköveteli a pontosságot, elhivatottságot és türelmet a játékosok részéről.</string>
+  <string name="restrictedToTeamsABetterMet">Úgy gondoljuk ezek a feltételek előbb adottak egy csapaton belül, mint egy nyílt verseny résztvevői között.</string>
+  <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
+  <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
+Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
+  <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
+  <string name="whatIfOneDoesntPlayA">Az órájuk ugyanúgy ketyeg, az idejük lejár és elvesztik a játszmát.
+A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
+ Bármikor újracsatlakozhatnak a versenyhez.</string>
+  <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
+  <string name="lateJoinAYes">Igen, de legkésőbb amíg a fordulók több mint fele megkezdődött; például egy 11-fordulós svájciba a játékosok csatlakozhatnak a 6. forduló kezdetéig, egy 12-fordulósba a 7. forduló kezdetéig.</string>
+  <string name="lateJoinASingleBye">Kései csatlakozók kapnak egy szabadkört, akkor is ha több fordulóból maradtak ki.</string>
+  <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
+  <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
+  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
+  <string name="roundRobinAWontWork">Szeretnénk hozzáadni, de sajnos a körmérkőzések nem működnek online</string>
+  <string name="roundRobinANoBecause">Ennek az az oka, hogy nem lehet igazságosan kezelni, ha valaki korán elhagyja a versenyt. Nem várható el a játékosoktól, hogy minden partit végigjátszanak egy online eseményen. Nem működne, mert a körmérkőzéses versenyek eredménye hibás és igazságtalan lenne, ami ellentmond annak az alapvető gondolatával.</string>
+  <string name="roundRobinATheClosestPossible">Ami leginkább megközelíti a körmérkőzést az egy svájci rendszerű verseny nagyon sok fordulóval. Ezáltal minden lehetséges párosítás végbemegy még a verseny befejezte előtt.</string>
+  <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
+  <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
+  <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
+%1$s, hogy részt vehess svájci rendszerű versenyben.</string>
+  <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
+  <string name="nowPlaying">Most játszik</string>
+  <string name="startingSoon">Hamarosan kezdődik</string>
+  <string name="comparison">Összehasonlítás</string>
+  <string name="tournDuration">A verseny időtartama</string>
+  <string name="predefinedDuration">Percben előre meghatározott</string>
+  <string name="durationUnknown">Meghatározott a körök száma, de ismeretlen ideig</string>
+  <string name="numberOfGames">Játszmák száma</string>
+  <string name="numberOfGamesAsManyAsPossible">Amennyi belefér az előre lefoglalt időtartamba</string>
+  <string name="numberOfGamesPreDefined">Előre eldöntött, minden játékosnak egyforma</string>
+  <string name="pairingSystem">Játszmák száma</string>
+  <string name="pairingSystemArena">Bármelyik szabad játékos hasonló értékszámmal</string>
+  <string name="pairingWaitTime">Párosítás üteme</string>
+  <string name="pairingWaitTimeFast">Gyors: nem vár minden játékosra</string>
+  <string name="pairingWaitTimeSlow">Lassú: minden játékosra vár</string>
+  <string name="identicalPairing">Azonos párosítás</string>
+  <string name="possibleButNotConsecutive">Lehetséges, de nem egymást követően</string>
+  <string name="identicalForbidden">Tiltott</string>
+  <string name="lateJoin">Késői csatlakozás</string>
+  <string name="lateJoinUntil">Lehet amíg legfeljebb a körök fele elkezdődött</string>
+  <string name="pause">Szünet</string>
+  <string name="pauseSwiss">Lehet, de ezzel csökkenhet a fordulók száma</string>
+  <string name="streaksAndBerserk">Nyerő széria és Berserk</string>
+  <string name="unlimitedAndFree">Korlátlan és ingyenes</string>
 </resources>

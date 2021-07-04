@@ -102,6 +102,7 @@
   <string name="noGameFound">Partijų nerasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
+  <string name="openingEndgameExplorer">Debiutų/endšpilių naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
   <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
   <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
@@ -980,4 +981,12 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="noChat">Jokio pokalbio</string>
   <string name="onlyTeamLeaders">Tik komandų vadovams</string>
   <string name="onlyTeamMembers">Tik komandos nariams</string>
+  <string name="navigateMoveTree">Keliauti per ėjimų medį</string>
+  <string name="mouseTricks">Triukai pele</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Įjungti/išjungti vietinę kompiuterio analizę</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Įjungti/išjungti visą kompiuterio analizę</string>
+  <string name="playComputerMove">Žaisti geriausią kompiuterio ėjimą</string>
+  <string name="analysisOptions">Analizės nustatymai</string>
+  <string name="focusChat">Perjungti į pokalbį</string>
+  <string name="showHelpDialog">Rodyti šį pagalbos dialogą</string>
 </resources>

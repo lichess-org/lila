@@ -96,6 +96,7 @@
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
+  <string name="openingEndgameExplorer">Explorateur d\'ouvertures/de finales</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
   <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
@@ -899,4 +900,11 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="noChat">Aucun salon de discussion</string>
   <string name="onlyTeamLeaders">Seulement les chefs d’équipe</string>
   <string name="onlyTeamMembers">Seulement les membres des équipes</string>
+  <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
+  <string name="mouseTricks">Astuces pour la souris</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Basculer vers l\'analyse de l\'ordinateur local</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Basculer vers l\'analyse de tous les ordinateurs</string>
+  <string name="playComputerMove">Jouer le meilleur coup de l\'ordinateur</string>
+  <string name="analysisOptions">Options d\'analyse</string>
+  <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
 </resources>

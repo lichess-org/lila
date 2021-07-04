@@ -4,7 +4,7 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">Lihat semua %s ronde</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s babak</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -23,5 +23,5 @@
     <item quantity="other">Permainan yang sedang berlangsung</item>
   </plurals>
   <string name="numberOfRounds">Jumlah babak</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
+  <string name="numberOfRoundsHelp">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
 </resources>

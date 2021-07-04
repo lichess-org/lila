@@ -6,13 +6,22 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre і chess. Lichess вымаўляцца як %1$s.</string>
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта прамаўляе спецыяліст.</string>
+  <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
   <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess валанцёрствам, сваімі навыкамі і часам, то ёсць шмат %3$s.</string>
   <string name="beingAPatron">стаўшы донарам</string>
+  <string name="breakdownOfOurCosts">дэтальнае апісанне нашых затрат</string>
   <string name="otherWaysToHelp">іншых спосабаў дапамагчы</string>
   <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
+  <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
+  <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
+  <string name="youCannotApply">Немагчыма падаць заяўку, каб стаць мадэратарам. Калі мы заўважым кагосьці, хто, на нашу думку, будзе добрым мадэратарам, мы звяжамся з імі напрасткі.</string>
+  <string name="isCorrespondenceDifferent">Ліставаная гульня адрозніваецца ад звычайных шахмат?</string>
+  <string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
+  <string name="basedOnGameDuration">Кантролі часу на Lichess заснаваны на чаканай працягласці гульні = %1$s
+Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
   <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
@@ -24,17 +33,27 @@
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="positions">пазіцыі</string>
   <string name="accounts">Акаўнты</string>
+  <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
   <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
+  <string name="whatIsProvisionalRating">Што значыць пытальнік (?) побач з рэйтынгам?</string>
+  <string name="provisionalRatingExplanation">Пытальнік значыць, што рэйтынг яшчэ не ўсталяваўся. Магчымыя прычыны:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Гулец яшчэ ня скончыў дастатков рэйтынгавых гульняў супраць %1$s у адпаведнай рэйтынгавай катэгорыі.</string>
+  <string name="similarOpponents">супернікаў падобнага моцу</string>
+  <string name="notPlayedRecently">Гулец даўно не гуляў. Залежыць ад колькасці сыграных партый, звычайна, праходзіць каля году, калі рэйтынг зноўку становіцца неўсталяваным.</string>
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
+  <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуўшы падчас гульні %2$s.</string>
+  <string name="displayPreferences">наладках адлюстравання</string>
+  <string name="connexionLostCanIGetMyRatingBack">Я прайграм праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, адна, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
 </resources>

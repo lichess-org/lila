@@ -4,7 +4,7 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">%s ラウンドを表示</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s ラウンド</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
@@ -24,9 +24,75 @@
   </plurals>
   <string name="tournStartDate">トーナメント開始日</string>
   <string name="numberOfRounds">ラウンド数</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">ラウンド数は奇数のほうが色のバランスがよくなります。</string>
+  <string name="numberOfRoundsHelp">ラウンド数は奇数のほうが色のバランスがよくなります。</string>
   <string name="roundInterval">ラウンド間のインターバル時間</string>
   <string name="forbiddenPairings">禁止ペアリング</string>
   <string name="forbiddenPairingsHelp">対戦しないプレイヤーのユーザー名（兄弟姉妹など）。1 行につき 2 つのユーザー名を半角スペースで区切って並べます。</string>
   <string name="newSwiss">新しいスイス式トーナメント</string>
+  <string name="swissVsArenaQ">アリーナよりスイス式のほうがいいのはどんな時？</string>
+  <string name="swissVsArenaA">スイス式トーナメントでは全参加者が同じ局数をプレイし、また同じ相手とは一度だけ対戦します。
+クラブ内の大会や公式トーナメントに向いた方式です。</string>
+  <string name="pointsCalculationQ">スコアの計算方法は？</string>
+  <string name="pointsCalculationA">勝ちは 1 ポイント、ドローは 0.5 ポイント、負けは 0 ポイントです。
+あるラウンドにペアリングされなかった人には「バイ (bye)」と言って 1 ポイントが与えられます。</string>
+  <string name="tiebreaksCalculationQ">タイブレークの計算方法は？</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">ソンボーン・ベルガー (SB)</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s によります。
+その人が勝った相手の獲得ポイントの全部と、引き分けた相手の獲得ポイントの半分を合計します。</string>
+  <string name="pairingsQ">ペアリングはどう決まりますか？</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">オランダ方式</string>
+  <string name="FIDEHandbook">FIDE ハンドブック</string>
+  <string name="pairingsA">%1$s によります。%2$s が %3$s に従って実装したものです。</string>
+  <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
+  <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
+  <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">スイス式はオンラインチェスのために作られたものではありません。参加者には時間厳守、熱意、忍耐が必要です。</string>
+  <string name="restrictedToTeamsABetterMet">こういった条件を満たすためには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
+  <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
+  <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
+また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
+  <string name="whatIfOneDoesntPlayQ">プレイヤーが対局しないとどうなりますか？</string>
+  <string name="whatIfOneDoesntPlayA">時計が進み、持時間がなくなって負けになります。
+続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
+その人はまた後に途中参加することができます。</string>
+  <string name="lateJoinQ">途中参加はできますか？</string>
+  <string name="lateJoinAYes">はい、全ラウンド数の過半が始まるまではできます。たとえば 11 ラウンドのスイス式なら第 6 ラウンド開始まで、12 ラウンドなら第 7 ラウンド開始までです。</string>
+  <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
+  <string name="willSwissReplaceArenasQ">スイス式はアリーナに取って代わるもの？</string>
+  <string name="willSwissReplaceArenasA">いいえ。両者は互いに補いあう機能です。</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
+  <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
+  <string name="roundRobinANoBecause">トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりのトーナメントは欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。</string>
+  <string name="roundRobinATheClosestPossible">総当たりに近い方式として、ラウンド数を非常に多くしたスイス式トーナメントを行なう手があります。これならトーナメント終了までにすべての可能なペアリングが行われるはずです。</string>
+  <string name="otherSystemsQ">その他のトーナメント方式は？</string>
+  <string name="otherSystemsA">当面、Lichess にその他のシステムを追加する予定はありません。</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">スイス式トーナメント %1$s では、参加者は他の全員と対戦するとは限りません。参加者の各ラウンドの対戦相手は、全員がなるべく近いスコアの相手と対戦するように作られたルールに従って決まります。ただし同じ相手とは二度と対戦しません。全ラウンド終了後に合計ポイントがもっとも多いプレイヤーが優勝です。人数が奇数でない限り、全員が毎ラウンド誰かと対戦することになります。</string>
+  <string name="teamOnly">スイス式トーナメントを作成できるのはチームリーダーだけ、参加できるのはチームメンバーだけです。           
+%1$s すればスイス式トーナメントに参加できます。</string>
+  <string name="joinOrCreateTeam">チームに参加かチームを作成</string>
+  <string name="nowPlaying">対局中</string>
+  <string name="startingSoon">間もなく開始</string>
+  <string name="comparison">比較</string>
+  <string name="tournDuration">トーナメントの所要時間</string>
+  <string name="predefinedDuration">決められた時間（分）</string>
+  <string name="durationUnknown">決められたラウンド数、所要時間は不明</string>
+  <string name="numberOfGames">局数</string>
+  <string name="numberOfGamesAsManyAsPossible">指定の時間内にプレイできるだけ</string>
+  <string name="numberOfGamesPreDefined">全員が指定の局数をプレイ</string>
+  <string name="pairingSystem">ペアリングの方式</string>
+  <string name="pairingSystemArena">手の空いている近い順位の相手</string>
+  <string name="pairingSystemSwiss">ポイント数とタイブレークに基づく最善の組み合わせ</string>
+  <string name="pairingWaitTime">ペアリングの待ち時間</string>
+  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たなくてよい</string>
+  <string name="pairingWaitTimeSlow">長い。全員の対局終了を待つ</string>
+  <string name="identicalPairing">同じ相手との対戦</string>
+  <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
+  <string name="identicalForbidden">なし</string>
+  <string name="lateJoin">途中参加</string>
+  <string name="lateJoinUntil">はい、全ラウンド数の過半が開始するまで</string>
+  <string name="pause">一時停止</string>
+  <string name="pauseSwiss">はい、ただし対局数が減るおそれあり</string>
+  <string name="streaksAndBerserk">連勝ボーナスとバーサーク</string>
+  <string name="similarToOTB">現実世界の大会と同じ？</string>
+  <string name="unlimitedAndFree">無制限で無料</string>
 </resources>

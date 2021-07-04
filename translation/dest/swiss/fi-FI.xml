@@ -9,9 +9,28 @@
   <string name="nextRound">Seuraava kierros</string>
   <string name="tournStartDate">Turnauksen alkamisaika</string>
   <string name="numberOfRounds">Kierrosten määrä</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Parittomalla kierrosten määrällä värit jakautuvat tasapainoisimmin.</string>
+  <string name="numberOfRoundsHelp">Parittomalla kierrosten määrällä värit jakautuvat tasapainoisimmin.</string>
   <string name="roundInterval">Kierrosten välinen aika</string>
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
+  <string name="tiebreaksCalculationQ">Miten paremmuus määriytyy tasatilanteessa?</string>
+  <string name="pairingsQ">Miten parit määriytyvät?</string>
+  <string name="FIDEHandbook">FIDEn käsikirja</string>
+  <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
+  <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
+  <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
+  <string name="restrictedToTeamsANotForOnline">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
+  <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
+  <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
+Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
+  <string name="whatIfOneDoesntPlayQ">Mitä tapahtuu, jos pelaaja jättää pelin pelaamatta?</string>
+  <string name="whatIfOneDoesntPlayA">Aika kuluu pelaajan kellossa, lippu putoaa ja hän häviää pelin.
+Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
+Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
+  <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
+  <string name="lateJoinAYes">Voi siihen asti, kunnes yli puolet kierroksista on alkanut. Esimerkiksi 11 kierroksen sveitsiläiseen voi vielä liittyä ennen 6. kierroksen alkua ja 12-kierroksiseen ennen 7. kierroksen alkua.</string>
+  <string name="lateJoinASingleBye">Myöhään liittyvät pelaajat saavat vain yhden huilauksen, vaikka heiltä olisi jäänyt väliin monta kierrosta.</string>
+  <string name="willSwissReplaceArenasQ">Korvaako sveitsiläinen turnaus areenaturnaukset?</string>
+  <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
 </resources>

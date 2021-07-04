@@ -7,7 +7,7 @@
     <item quantity="many">Посмотреть все %s раундов</item>
     <item quantity="other">Посмотреть все %s раундов</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s тур</item>
     <item quantity="few">%s тура</item>
     <item quantity="many">%s туров</item>
@@ -42,9 +42,37 @@
   </plurals>
   <string name="tournStartDate">Дата начала турнира</string>
   <string name="numberOfRounds">Количество туров</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
+  <string name="numberOfRoundsHelp">Нечётное количество туров даёт оптимальный баланс цвета для всех игроков.</string>
   <string name="roundInterval">Перерыв между турами</string>
   <string name="forbiddenPairings">Запрещённые пары</string>
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
   <string name="newSwiss">Новый турнир по швейцарской системе</string>
+  <string name="swissVsArenaQ">Когда использовать турниры по швейцарской системе вместо арен?</string>
+  <string name="pointsCalculationQ">Как начисляются очки?</string>
+  <string name="tiebreaksCalculationQ">Как рассчитываются дополнительные показатели?</string>
+  <string name="FIDEHandbook">Руководство ФИДЕ</string>
+  <string name="moreRoundsThanPlayersQ">Что произойдёт, если в турнире будет больше раундов, чем игроков?</string>
+  <string name="restrictedToTeamsANotForOnline">Турниры по швейцарской системе не были рассчитаны на онлайн-шахматы. Они требуют пунктуальности, преданности и терпения со стороны игроков.</string>
+  <string name="restrictedToTeamsABetterMet">Мы считаем, что эти условия с большей вероятностью будут выполнены в команде, чем в общих турнирах.</string>
+  <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
+  <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
+  <string name="whatIfOneDoesntPlayA">Его часы будут запущены, он просрочит время и проиграет партию.
+Тогда система снимет игрока с турнира, чтобы избежать дальнейших поражений.
+ Игрок может вернуться в турнир в любое время.</string>
+  <string name="willSwissReplaceArenasQ">Заменят ли турниры по швейцарской системе турниры «Арены»?</string>
+  <string name="willSwissReplaceArenasA">Нет. Они дополняют друг друга.</string>
+  <string name="roundRobinQ">Что насчёт круговой системы?</string>
+  <string name="nowPlaying">Сейчас играются</string>
+  <string name="startingSoon">Скоро начинаются</string>
+  <string name="tournDuration">Продолжительность турнира</string>
+  <string name="numberOfGames">Количество партий</string>
+  <string name="numberOfGamesAsManyAsPossible">Столько, сколько может быть сыграно за отведённое время</string>
+  <string name="numberOfGamesPreDefined">Решается заранее, одинаково для всех игроков</string>
+  <string name="pairingSystem">Количество партий</string>
+  <string name="pairingSystemArena">Любой доступный противник со схожим рейтингом</string>
+  <string name="pairingWaitTimeFast">Быстро: не нужно ждать всех игроков</string>
+  <string name="pause">Пауза</string>
+  <string name="pauseSwiss">Да, но может уменьшить количество раундов</string>
+  <string name="streaksAndBerserk">Серии и берсерк</string>
+  <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
 </resources>

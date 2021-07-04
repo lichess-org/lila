@@ -5,7 +5,7 @@
     <item quantity="one">Ver a rodada</item>
     <item quantity="other">Ver todas as %s rodadas</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s rodadas</item>
     <item quantity="other">%s rodadas</item>
   </plurals>
@@ -30,9 +30,10 @@
   </plurals>
   <string name="tournStartDate">Data de início do torneio</string>
   <string name="numberOfRounds">Número de rodadas</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Um número ímpar de rodadas permite um equilíbrio ideal das cores.</string>
+  <string name="numberOfRoundsHelp">Um número ímpar de rodadas permite um equilíbrio ideal das cores.</string>
   <string name="roundInterval">Intervalo entre rodadas</string>
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
   <string name="newSwiss">Novo torneio suíço</string>
+  <string name="swissVsArenaQ">Quando usar torneios suíços em vez de arenas?</string>
 </resources>

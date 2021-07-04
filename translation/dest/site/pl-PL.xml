@@ -102,6 +102,7 @@
   <string name="noGameFound">Nie znaleziono partii</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
+  <string name="openingEndgameExplorer">Biblioteka otwarć i końcówek</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
@@ -978,4 +979,7 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="noChat">Wyłącz czat</string>
   <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
   <string name="onlyTeamMembers">Tylko członkowie klubu</string>
+  <string name="playComputerMove">Zagraj najlepszy ruch komputera</string>
+  <string name="analysisOptions">Opcje analizy</string>
+  <string name="showHelpDialog">Pokaż okno pomocy</string>
 </resources>

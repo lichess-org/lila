@@ -6,7 +6,7 @@
     <item quantity="few">Vezi toate cele %s runde</item>
     <item quantity="other">Vezi toate cele %s de runde</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s rundă</item>
     <item quantity="few">%s runde</item>
     <item quantity="other">%s de runde</item>
@@ -36,7 +36,7 @@
   </plurals>
   <string name="tournStartDate">Data de începere a turneului</string>
   <string name="numberOfRounds">Număr de runde</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Un număr impar de runde permite un echilibru optim de culori.</string>
+  <string name="numberOfRoundsHelp">Un număr impar de runde permite un echilibru optim de culori.</string>
   <string name="roundInterval">Interval între runde</string>
   <string name="forbiddenPairings">Asocieri interzise</string>
   <string name="forbiddenPairingsHelp">Numele de utilizator ale jucătorilor care nu trebuie să se joace împreună (frați, de exemplu). Două nume de utilizator pe linie, separate de un spațiu.</string>

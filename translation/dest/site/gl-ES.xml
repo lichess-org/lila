@@ -96,6 +96,7 @@
   <string name="noGameFound">Non se atoparon partidas</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">E se probas a incluír máis partidas dende o menú de preferencias?</string>
   <string name="openingExplorer">Abrir o explorador</string>
+  <string name="openingEndgameExplorer">Explorador de aperturas/finais</string>
   <string name="xOpeningExplorer">Explorador de aperturas %s</string>
   <string name="winPreventedBy50MoveRule">Victoria impedida pola regra das 50 xogadas</string>
   <string name="lossSavedBy50MoveRule">Derrota impedida pola regra das 50 xogadas</string>
@@ -890,4 +891,12 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="noChat">Sen chat</string>
   <string name="onlyTeamLeaders">Só líderes de equipo</string>
   <string name="onlyTeamMembers">Só membros do equipo</string>
+  <string name="navigateMoveTree">Navegar a árbore de movementos</string>
+  <string name="mouseTricks">Trucos co rato</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Cambiar a análise local da computadora</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Cambiar todo a análise da computadora</string>
+  <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
+  <string name="analysisOptions">Opcións de análise</string>
+  <string name="focusChat">Enfocar o chat</string>
+  <string name="showHelpDialog">Amosa este diálogo de axuda</string>
 </resources>

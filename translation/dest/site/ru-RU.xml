@@ -979,4 +979,6 @@
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
+  <string name="playComputerMove">Play best computer move</string>
+  <string name="analysisOptions">Параметры анализа</string>
 </resources>

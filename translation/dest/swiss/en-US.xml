@@ -5,7 +5,7 @@
     <item quantity="one">View the round</item>
     <item quantity="other">View all %s rounds</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s rounds</item>
     <item quantity="other">%s rounds</item>
   </plurals>
@@ -30,9 +30,67 @@
   </plurals>
   <string name="tournStartDate">Tournament start date</string>
   <string name="numberOfRounds">Number of rounds</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">An odd number of rounds allows optimal color balance.</string>
+  <string name="numberOfRoundsHelp">An odd number of rounds allows optimal color balance.</string>
   <string name="roundInterval">Interval between rounds</string>
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="newSwiss">New Swiss tournament</string>
+  <string name="swissVsArenaQ">When to use swiss tournaments instead of arenas?</string>
+  <string name="swissVsArenaA">In a swiss tournament, all participants play the same number of games, and can only play each other once.
+It can be a good option for clubs and official tournaments.</string>
+  <string name="pointsCalculationQ">How are points calculated?</string>
+  <string name="pointsCalculationA">A win is worth one point, a draw is a half point, and a loss is zero points.
+When a player can\'t be paired during a round, they receive a bye worth one point.</string>
+  <string name="tiebreaksCalculationQ">How are tie breaks calculated?</string>
+  <string name="sonnebornBergerScore">Sonneborn–Berger score</string>
+  <string name="pairingsQ">How are pairings decided?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Dutch system</string>
+  <string name="FIDEHandbook">FIDE handbook</string>
+  <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
+  <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
+  <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.</string>
+  <string name="numberOfByesQ">How many byes can a player get?</string>
+  <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
+Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
+  <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
+  <string name="lateJoinQ">Can players late-join?</string>
+  <string name="lateJoinAYes">Yes, until more than half the rounds have started; for example in an 11-rounds swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.</string>
+  <string name="lateJoinASingleBye">Late joiners get a single bye, even if they missed several rounds.</string>
+  <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
+  <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">What about round-robin?</string>
+  <string name="roundRobinAWontWork">We\'d like to add it, but unfortunately round-robin doesn\'t work online</string>
+  <string name="roundRobinANoBecause">The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won\'t happen, and as a result most round-robin tournaments would be flawed and unfair, which defeats their very reason to exist.</string>
+  <string name="roundRobinATheClosestPossible">The closest you can get to round-robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
+  <string name="otherSystemsQ">What about other tournament systems?</string>
+  <string name="otherSystemsA">We don\'t plan to add more tournament systems to Lichess at the moment.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>
+  <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.           
+%1$s to start playing in swiss tournaments.</string>
+  <string name="joinOrCreateTeam">Join or create a team</string>
+  <string name="nowPlaying">Now playing</string>
+  <string name="startingSoon">Starting soon</string>
+  <string name="comparison">Comparison</string>
+  <string name="tournDuration">Duration of the tournament</string>
+  <string name="predefinedDuration">Predefined duration in minutes</string>
+  <string name="durationUnknown">Predefined max rounds, but duration unknown</string>
+  <string name="numberOfGames">Number of games</string>
+  <string name="numberOfGamesAsManyAsPossible">As many as can be played in the allotted duration</string>
+  <string name="numberOfGamesPreDefined">Decided in advance, same for all players</string>
+  <string name="pairingSystem">Pairing system</string>
+  <string name="pairingSystemArena">Any available opponent with similar ranking</string>
+  <string name="pairingSystemSwiss">Best pairing based on points and tie breaks</string>
+  <string name="pairingWaitTime">Pairing wait time</string>
+  <string name="pairingWaitTimeFast">Fast: doesn\'t wait for all players</string>
+  <string name="pairingWaitTimeSlow">Slow: waits for all players</string>
+  <string name="identicalPairing">Identical pairing</string>
+  <string name="possibleButNotConsecutive">Possible, but not consecutive</string>
+  <string name="identicalForbidden">Forbidden</string>
+  <string name="lateJoin">Late join</string>
+  <string name="lateJoinUntil">Yes until more than half the rounds have started</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
+  <string name="streaksAndBerserk">Streaks and Berserk</string>
+  <string name="unlimitedAndFree">Unlimited and free</string>
 </resources>

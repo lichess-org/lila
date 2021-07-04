@@ -5,7 +5,7 @@
     <item quantity="one">Turu görüntüleyin</item>
     <item quantity="other">Tüm %s turlarını görüntüle</item>
   </plurals>
-  <plurals name="nbRounds" comment="nbRounds&#10;%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3 [other], so the singular translation can be anything, as it will never be used.">
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s tur</item>
     <item quantity="other">%s tur</item>
   </plurals>
@@ -30,9 +30,73 @@
   </plurals>
   <string name="tournStartDate">Turnuvanın başlama zamanı</string>
   <string name="numberOfRounds">Tur sayısı</string>
-  <string name="numberOfRoundsHelp" comment="numberOfRoundsHelp&#10;&#10;Colour balance refers to how frequently a players get to play black and white.">Tek sayı girerseniz oyuncular arasındaki renk dengesi daha adil olur.</string>
+  <string name="numberOfRoundsHelp">Tek sayı girerseniz oyuncular arasındaki renk dengesi daha adil olur.</string>
   <string name="roundInterval">Turlar arası süre</string>
   <string name="forbiddenPairings">Yasaklı eşleşmeler</string>
   <string name="forbiddenPairingsHelp">(aynı evdeki kardeşler gibi) Karşı karşıya gelmemesi gereken oyuncuların kullanıcı adları. Her satıra aralarında bir boşluk bulunan iki kullanıcı ismi girin.</string>
   <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
+  <string name="swissVsArenaQ">İsviçre sistemi turnuvaları ne zaman arena turnuvaları yerine kullanmalıyım?</string>
+  <string name="swissVsArenaA">İsviçre sistemi turnuvalarda bütün oyuncular eşit sayıda maç yapar ve birbirleriyle yalnızca bir kez karşı karşıya gelir. Satranç kulüpleri ve resmî turnuvalar için iyi bir seçenek olabilir.</string>
+  <string name="pointsCalculationQ">Maçlardan alınan puanlar nasıl hesaplanıyor?</string>
+  <string name="pointsCalculationA">Kazanılan maç bir puan, beraberlik yarım puan, kaybedilen maç ise sıfır puan değerindedir.
+Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçer ve bir puan alır.</string>
+  <string name="tiebreaksCalculationQ">Eşitlik bozma puanları nasıl hesaplanıyor?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn–Berger sistemi</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s ile.
+Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere kaldığı bütün rakiplerin puanları toplamının yarısı alınır. Bu iki sayı birbiriyle toplanır.</string>
+  <string name="pairingsQ">Eşleştirmeler nasıl yapılıyor?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Ratinge Dayanan İsviçre Sistemi (Dutch Sistemi)</string>
+  <string name="FIDEHandbook">FIDE kuralları</string>
+  <string name="pairingsA">%3$s kapsamında %2$s tarafından uygulanan %1$s ile.</string>
+  <string name="moreRoundsThanPlayersQ">Turnuvadaki tur sayısı, oyuncu sayısından fazla olursa ne olur?</string>
+  <string name="moreRoundsThanPlayersA">Mümkün olan bütün eşleşmeler oynandığında turnuva sonra erer ve kazanan ilan edilir.</string>
+  <string name="restrictedToTeamsQ">Neden sadece takım üyeleri katılabiliyor?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">İsviçre sistemi turnuvalar çevrimiçi satranç için tasarlanmamıştır. Oyuncuların dakik, ilgili ve sabırlı olması gerekir.</string>
+  <string name="restrictedToTeamsABetterMet">Bu şartların takım üyeleri tarafından karşılanmasının daha olası olduğunu düşünüyoruz.</string>
+  <string name="numberOfByesQ">Bir oyuncu kaç kez bay geçebilir?</string>
+  <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
+Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan verilir.</string>
+  <string name="whatIfOneDoesntPlayQ">Rakip oyuna gelmezse ne olur?</string>
+  <string name="whatIfOneDoesntPlayA">Süresi bitene kadar oyun devam eder ve süre bittiğinde mağlup sayılır.
+Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.
+Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
+  <string name="lateJoinQ">Turnuvaya geç katılmak mümkün mü?</string>
+  <string name="lateJoinAYes">Evet, toplam tur sayısının yarısına ulaşana dek turnuvaya katılmak mümkün. Örneğin 11 turluk bir turnuvaya 6. tur başlayana kadar, 12 turluk bir turnuvaya ise 7. tur başlayana kadar katılabilirsiniz.</string>
+  <string name="lateJoinASingleBye">Birkaç tur kaçırmış olsalar dahi geç katılanlara yalnızca yarım puan verilir.</string>
+  <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>
+  <string name="willSwissReplaceArenasA">Hayır. Bu turnuvalar tamamlayıcı niteliktedir.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Peki her oyuncunun birbiriyle en az bir kez maç yaptığı (Round Robin) turnuvalar gelecek mi?</string>
+  <string name="roundRobinAWontWork">Bunu eklemek isterdik fakat bu tür turnuvalar çevrimiçi ortamlarda iyi işlemiyor</string>
+  <string name="roundRobinANoBecause">Zira turnuvadan erken ayrılan oyuncular ile adil bir şekilde başa çıkmak mümkün değil. Çevrimiçi bir etkinlikte tüm oyuncuların bütün maçlara katılmasını bekleyemeyiz. Maalesef bu imkânsız. Bu yüzden çoğu Round Robin turnuvası kusurlu ve adaletsiz olacaktır ki bu da turnuvanın amacıyla örtüşmez.</string>
+  <string name="roundRobinATheClosestPossible">Turnuvadaki her oyuncunun birbiriyle maç yapmasını istiyorsanız İsviçre sistemi bir turnuva düzenleyip tur sayısını mümkün olduğunca artırabilirsiniz. Böylece turnuva sona ermeden önce olası bütün eşleşmeler gerçekleşecektir.</string>
+  <string name="otherSystemsQ">Ufukta başka turnuva sistemleri var mı?</string>
+  <string name="otherSystemsA">Lichess\'e başka bir turnuva sistemi eklemeyi şu anda planlamıyoruz.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">İsviçre sistemi turnuvalarda %1$s, her oyuncunun bütün katılımcılarla maç yapması şart değildir. Her tur eşleştirmeler yapılırken turnuva puanları esas alınır. Oyuncular kendilerine en yakın turnuva puanına sahip rakiplerden biriyle eşleşir ancak aynı rakip ile birden fazla maç yapamaz. Turnuvanın galibi, bütün turlarda kazandığı puanların toplamı en yüksek olan oyuncu olur. Katılımcı sayısı bir tek sayı olmadığı sürece bütün yarışmacılar her turda maç yapar.</string>
+  <string name="teamOnly">İsviçre sistemi turnuvalar sadece takım liderleri tarafından oluşturulabilir ve bu turnuvalara yalnızca takım üyeleri katılabilir. İsviçre sistemi turnuvalarda yer almak için %1$s.</string>
+  <string name="joinOrCreateTeam">bir takıma katıl veya yeni bir takım oluştur</string>
+  <string name="nowPlaying">Devam eden turnuvalar</string>
+  <string name="startingSoon">Başlamak üzere</string>
+  <string name="comparison">Karşılaştırma</string>
+  <string name="tournDuration">Turnuvanın uzunluğu</string>
+  <string name="predefinedDuration">Kaç dakika süreceği önceden belirlenir</string>
+  <string name="durationUnknown">Azami tur sayısı önceden belirlenir fakat turnuvanın ne kadar süreceği bilinmez</string>
+  <string name="numberOfGames">Maç sayısı</string>
+  <string name="numberOfGamesAsManyAsPossible">Turnuva süresi boyunca ne kadar maç yapılırsa o kadar</string>
+  <string name="numberOfGamesPreDefined">Önceden belirlenir, her oyuncu için aynıdır</string>
+  <string name="pairingSystem">Eşleştirme sistemi</string>
+  <string name="pairingSystemArena">Turnuva puanı yakın olan müsait bir rakip seçilir</string>
+  <string name="pairingSystemSwiss">Turnuva ve eşitlik bozma puanlarına göre en uygun eşleştirme yapılır</string>
+  <string name="pairingWaitTime">Eşleştirme bekleme süresi</string>
+  <string name="pairingWaitTimeFast">Hızlı: diğer oyuncular beklenmez</string>
+  <string name="pairingWaitTimeSlow">Yavaş: bütün maçların bitmesi beklenir</string>
+  <string name="identicalPairing">Aynı kişiyle eşleşme</string>
+  <string name="possibleButNotConsecutive">Mümkün ancak üst üste olmaz</string>
+  <string name="identicalForbidden">Mümkün değil</string>
+  <string name="lateJoin">Geç katılma</string>
+  <string name="lateJoinUntil">Turnuvanın yarısına ulaşana kadar mümkün</string>
+  <string name="pause">Ara verme</string>
+  <string name="pauseSwiss">Mümkün fakat oynanan tur sayısını azaltabilir</string>
+  <string name="streaksAndBerserk">Kazanma serisi ve divane (berserk) seçeneği</string>
+  <string name="similarToOTB">Yüz yüze turnuvalara benzer</string>
+  <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
 </resources>

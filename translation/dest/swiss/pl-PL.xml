@@ -47,4 +47,27 @@
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
+  <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
+  <string name="pairingsQ">Jak ustalane są pary?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">System holenderski</string>
+  <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
+  <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
+  <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
+  <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
+  <string name="willSwissReplaceArenasA">Nie. To całkiem nowa funkcjonalność.</string>
+  <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
+  <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
+  <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
+  <string name="nowPlaying">W toku</string>
+  <string name="startingSoon">Rozpoczną się wkrótce</string>
+  <string name="comparison">Porównanie</string>
+  <string name="tournDuration">Czas trwania turnieju</string>
+  <string name="predefinedDuration">Predefiniowany czas trwania w minutach</string>
+  <string name="durationUnknown">Predefiniowana maksymalna liczba rund, czas trwania nieokreślony</string>
+  <string name="numberOfGames">Liczba partii</string>
+  <string name="pairingSystem">Liczba partii</string>
+  <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
+  <string name="identicalForbidden">Zabronione</string>
+  <string name="pause">Wstrzymaj</string>
+  <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
 </resources>
