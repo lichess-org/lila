@@ -45,4 +45,11 @@
   <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
 Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
   <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
+  <string name="tiebreaksCalculationQ">Kā izšķir vienādu punktu skaitus?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Zonnenborna—Bergera koeficientu</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Ar %s.
+Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu pretinieku punktu summu.</string>
+  <string name="pairingsQ">Kā sapāro spēlētājus?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Nīderlandes sistēma</string>
+  <string name="FIDEHandbook">FIDE rokasgrāmata</string>
 </resources>
