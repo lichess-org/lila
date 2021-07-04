@@ -46,6 +46,8 @@ Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçe
 Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere kaldığı bütün rakiplerin puanları toplamının yarısı alınır. Bu iki sayı birbiriyle toplanır.</string>
   <string name="pairingsQ">Eşleştirmeler nasıl yapılıyor?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Ratinge Dayanan İsviçre Sistemi (Dutch Sistemi)</string>
+  <string name="FIDEHandbook">FIDE kuralları</string>
+  <string name="pairingsA">%3$s kapsamında %2$s tarafından uygulanan %1$s ile.</string>
   <string name="moreRoundsThanPlayersQ">Turnuvadaki tur sayısı, oyuncu sayısından fazla olursa ne olur?</string>
   <string name="moreRoundsThanPlayersA">Mümkün olan bütün eşleşmeler oynandığında turnuva sonra erer ve kazanan ilan edilir.</string>
   <string name="restrictedToTeamsQ">Neden sadece takım üyeleri katılabiliyor?</string>
