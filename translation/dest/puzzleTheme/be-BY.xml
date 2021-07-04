@@ -4,6 +4,7 @@
   <string name="arabianMate">Арабскі мат</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
+  <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="fork">Відэлец</string>
   <string name="long">Доўгая задача</string>
   <string name="longDescription">Да перамогі 3 хады.</string>
