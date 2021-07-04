@@ -967,7 +967,7 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^8.1.0, chessground@^8.1.1:
+chessground@^8.1.1:
   version "8.1.1"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.1.1.tgz#685aee54a23009121deecacd4f6b1ce6042e5123"
   integrity sha512-xFLrO+kAa1H1h7kpN9blDz1C172C/4M72LcaWl/2OHfJ+7Jx5Qr4gCXIdEofReABoXaTJt6hAhJxSL/2SSj1ug==
