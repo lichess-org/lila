@@ -897,5 +897,6 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Cambiar todo a análise da computadora</string>
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
+  <string name="focusChat">Enfocar o chat</string>
   <string name="showHelpDialog">Amosa este diálogo de axuda</string>
 </resources>
