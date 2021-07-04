@@ -102,6 +102,7 @@
   <string name="noGameFound">Partijų nerasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Galbūt įtraukti daugiau partijų iš parinkčių meniu?</string>
   <string name="openingExplorer">Debiutų naršyklė</string>
+  <string name="openingEndgameExplorer">Debiutų/endšpilių naršyklė</string>
   <string name="xOpeningExplorer">%s debiutų naršyklė</string>
   <string name="winPreventedBy50MoveRule">Pergalei sukliudė 50-ies ėjimų taisyklė</string>
   <string name="lossSavedBy50MoveRule">Pralaimėjimo išvengta dėl 50-ies ėjimų taisyklės</string>
