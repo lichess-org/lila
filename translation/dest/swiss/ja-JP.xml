@@ -37,7 +37,7 @@
 あるラウンドにペアリングされなかった人には「バイ (bye)」と言って 1 ポイントが与えられます。</string>
   <string name="tiebreaksCalculationQ">タイブレークの計算方法は？</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">ソンボーン・ベルガー (SB)</string>
-  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s の場合。
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s によります。
 その人が勝った相手の獲得ポイントの全部と、引き分けた相手の獲得ポイントの半分を合計します。</string>
   <string name="pairingsQ">ペアリングはどう決まりますか？</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">オランダ方式</string>
@@ -59,4 +59,11 @@
   <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
   <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
+  <string name="roundRobinANoBecause">トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりのトーナメントは欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。</string>
+  <string name="roundRobinATheClosestPossible">総当たりに近い方式として、ラウンド数を非常に多くしたスイス式トーナメントを行なう手があります。これならトーナメント終了までにすべての可能なペアリングが行われるはずです。</string>
+  <string name="otherSystemsQ">その他のトーナメント方式は？</string>
+  <string name="otherSystemsA">当面、Lichess にその他のシステムを追加する予定はありません。</string>
+  <string name="teamOnly">スイス式トーナメントを作成できるのはチームリーダーだけ、参加できるのはチームメンバーだけです。           
+%1$s すればスイス式トーナメントに参加できます。</string>
+  <string name="joinOrCreateTeam">チームに参加かチームを作成</string>
 </resources>
