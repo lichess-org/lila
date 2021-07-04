@@ -69,4 +69,5 @@ No entanto, os patronos têm direito a um novo ícone de perfil fixe.</string>
   <string name="nowLifetime">Agora é um patrono do Lichess vitalício!</string>
   <string name="nowOneMonth">Agora és um patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, tu NÃO serás cobrado novamente, e a tua conta Lichess voltará para uma conta regular.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Alterar moeda</string>
 </resources>
