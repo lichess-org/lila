@@ -56,4 +56,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="restrictedToTeamsABetterMet">Vi trur at desse vilkåra er truleg meir til stades i eit lag enn i globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få?</string>
   <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelaren eit halvt poeng om motspelaren kjem for seint til turneringsstart.</string>
+  <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
+  <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
+  <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
 </resources>
