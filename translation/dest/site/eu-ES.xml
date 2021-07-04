@@ -96,6 +96,7 @@
   <string name="noGameFound">Ez da partidarik aurkitu</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Agian hobespenen menutik partida gehiago gehitu beharko dituzu?</string>
   <string name="openingExplorer">Hasiera-arakatzailea</string>
+  <string name="openingEndgameExplorer">Hasiera/finalen bilatzailea</string>
   <string name="xOpeningExplorer">%s hasiera arakatzailea</string>
   <string name="winPreventedBy50MoveRule">50 jokaldien arauak ekidindako garaipena</string>
   <string name="lossSavedBy50MoveRule">50 jokaldien arauak ekidindako porrota</string>
@@ -439,6 +440,7 @@
   <string name="boardEditor">Taula-editorea</string>
   <string name="setTheBoard">Xake-taula konfiguratu</string>
   <string name="popularOpenings">Hasiera ohikoenak</string>
+  <string name="endgamePositions">Finalen posizioak</string>
   <string name="startPosition">Hasierako posizioa</string>
   <string name="clearBoard">Pieza guztiak kendu</string>
   <string name="savePosition">Posizioa gorde</string>
@@ -897,4 +899,12 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="noChat">Txatik ez</string>
   <string name="onlyTeamLeaders">Taldeen kapitainak bakarrik</string>
   <string name="onlyTeamMembers">Taldeen kideak bakarrik</string>
+  <string name="navigateMoveTree">Nabigatu jokaldien zuhaitza</string>
+  <string name="mouseTricks">Saguaren trukuak</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Aktibatu ordenagailu lokaleko analisia</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Aktibatu ordenagailu guztietako analisia</string>
+  <string name="playComputerMove">Jokatu ordenagailuaren jokaldi onena</string>
+  <string name="analysisOptions">Analisiaren aukerak</string>
+  <string name="focusChat">Eraman fokua txatera</string>
+  <string name="showHelpDialog">Erakutsi laguntza leiho hau</string>
 </resources>
