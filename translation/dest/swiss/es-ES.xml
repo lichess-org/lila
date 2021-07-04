@@ -64,7 +64,7 @@ A continuación, el sistema retirará al jugador del torneo para que no pierda m
   <string name="lateJoinQ">¿Puede un jugador unirse a un torneo empezado?</string>
   <string name="lateJoinAYes">Sí, hasta que se haya iniciado más de la mitad de las rondas; por ejemplo, en un torneo suizo de 11 rondas, los jugadores pueden unirse antes de que empiece la ronda 6; en un torneo de 12 rondas, podrán unirse antes de que empiece la ronda 7.</string>
   <string name="lateJoinASingleBye">Los jugadores que se unan a un torneo empezado recibirán un único bye, excepto si no se presentan a varias rondas.</string>
-  <string name="willSwissReplaceArenasQ">¿Se impondrán los torneos suizos?</string>
+  <string name="willSwissReplaceArenasQ">¿Reemplazarán los torneos suizos a los torneos estándar?</string>
   <string name="willSwissReplaceArenasA">No, son características complementarias.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">¿Qué ocurre con los emparejamientos de todos contra todos?</string>
   <string name="roundRobinAWontWork">Nos gustaría agregarlos, pero este tipo de emparejamientos no funcionan en los entornos en línea.</string>
@@ -77,7 +77,7 @@ A continuación, el sistema retirará al jugador del torneo para que no pierda m
 %1$s para empezar a jugar en torneos suizos.</string>
   <string name="joinOrCreateTeam">Únete o crea un equipo</string>
   <string name="nowPlaying">En curso</string>
-  <string name="startingSoon">Empiezan en breve</string>
+  <string name="startingSoon">Empiezan pronto</string>
   <string name="comparison">Comparación</string>
   <string name="tournDuration">Duración del torneo</string>
   <string name="predefinedDuration">Duración predefinida en minutos</string>
