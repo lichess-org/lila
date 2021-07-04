@@ -74,4 +74,17 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="tournDuration">Duur van het toernooi</string>
   <string name="predefinedDuration">Voorgedefinieerde duur in minuten</string>
   <string name="durationUnknown">Voorgedefinieerd maximumaantal rondes, maar duur onbekend</string>
+  <string name="numberOfGames">Aantal partijen</string>
+  <string name="pairingSystem">Paringsysteem</string>
+  <string name="pairingWaitTime">Wachttijd voor paring</string>
+  <string name="pairingWaitTimeFast">Kort: wacht niet op alle spelers</string>
+  <string name="pairingWaitTimeSlow">Lang: wacht op alle spelers</string>
+  <string name="identicalPairing">Identieke paring</string>
+  <string name="possibleButNotConsecutive">Mogelijk, maar niet opeenvolgend</string>
+  <string name="identicalForbidden">Niet toegestaan</string>
+  <string name="lateJoin">Laat meedoen</string>
+  <string name="lateJoinUntil">Ja, tot meer dan de helft van de rondes is begonnen</string>
+  <string name="pause">Pauzeren</string>
+  <string name="pauseSwiss">Ja, maar kan het aantal rondes verminderen</string>
+  <string name="similarToOTB">Vergelijkbaar met fysieke toernooien</string>
 </resources>
