@@ -48,9 +48,11 @@
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
+  <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
+Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">System holenderski</string>
-  <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">System holenderski</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Przepisy gry w szachy FIDE</string>
   <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
   <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
