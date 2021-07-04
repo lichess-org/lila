@@ -35,10 +35,13 @@
   <string name="forbiddenPairings">Verboden paringen</string>
   <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
   <string name="newSwiss">Nieuw Zwitsers toernooi</string>
+  <string name="swissVsArenaA">In een Zwitsers toernooi spelen alle deelnemers hetzelfde aantal partijen en kunnen ze elkaar maar één keer treffen. Dit kan een goede optie zijn voor clubs en officiële toernooien.</string>
+  <string name="pointsCalculationQ">Hoe worden punten berekend?</string>
   <string name="pointsCalculationA">Een overwinning is één punt waard, remise een half punt, en een verlies nul punten.
 Als een speler niet kan worden gepaard tijdens een ronde, krijgt deze een bye met één punt.</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger punten</string>
   <string name="pairingsQ">Hoe komen paringen tot stand?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Systeem Keizer</string>
   <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE-handboek</string>
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
@@ -50,6 +53,7 @@ Als een speler niet kan worden gepaard tijdens een ronde, krijgt deze een bye me
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
  Op elk moment kan de speler opnieuw deelnemen aan het toernooi.</string>
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
+  <string name="lateJoinAYes">Ja, tot meer dan de helft van de rondes is begonnen; bij 11 rondes Zwitsers, bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en bij 12 rondes voordat ronde 7 begint.</string>
   <string name="lateJoinASingleBye">Late deelnemers krijgen slechts één bye, ook als ze meerdere rondes hebben gemist.</string>
   <string name="nowPlaying">Nu bezig</string>
   <string name="comparison">Vergelijking</string>
