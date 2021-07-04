@@ -75,5 +75,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
-  <string name="changeCurrency">Währung ändern</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung ändern</string>
 </resources>
