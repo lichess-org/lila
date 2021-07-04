@@ -83,4 +83,9 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="predefinedDuration">Durée prédéterminée en minutes</string>
   <string name="durationUnknown">Nombre prédéterminé maximal de rondes, mais durée indéterminée</string>
   <string name="numberOfGames">Nombre de parties</string>
+  <string name="numberOfGamesAsManyAsPossible">Autant de parties que possible dans la durée allouée</string>
+  <string name="numberOfGamesPreDefined">Nombre décidé à l\'avance, et le même pour tous les joueurs</string>
+  <string name="pairingSystem">Type d\'appariement</string>
+  <string name="pairingSystemArena">N\'importe quel adversaire disponible avec un classement similaire</string>
+  <string name="pairingSystemSwiss">Meilleur appariement selon le nombre de points et le départage</string>
 </resources>
