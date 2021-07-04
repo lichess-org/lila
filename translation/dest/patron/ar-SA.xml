@@ -67,7 +67,7 @@
   <string name="nextPayment">الدفعة القادمة</string>
   <string name="youWillBeChargedXOnY">سيتم خصم %1$s في %2$s.</string>
   <string name="makeAdditionalDonation">قم بتبرع إضافي الآن</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">يتم إعطاء المتبرع شعار الجناح كهدية</string>
+  <string name="giftPatronWings">يتم إعطاء المتبرع شعار الجناح كهدية</string>
   <string name="update">تحديث</string>
   <string name="changeMonthlyAmount">تغيير المبلغ الشهري (%s)</string>
   <string name="cancelSupport">إلغاء دعمك</string>
