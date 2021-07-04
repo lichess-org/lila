@@ -45,4 +45,10 @@
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
   <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">スイス式はオンラインチェスのために作られたものではありません。参加者には時間厳守、熱意、忍耐が必要です。</string>
+  <string name="restrictedToTeamsABetterMet">こういった条件を満たすためには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
+  <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
+  <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
+また第 2 ラウンドから参加の場合、第 1 ラウンドについて 0.5 ポイントのバイが与えられます。</string>
+  <string name="whatIfOneDoesntPlayQ">プレイヤーが対局しないとどうなりますか？</string>
 </resources>
