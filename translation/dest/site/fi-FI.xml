@@ -899,4 +899,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="noChat">Ei keskustelua</string>
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
   <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
+  <string name="focusChat">Kohdista keskusteluun</string>
 </resources>
