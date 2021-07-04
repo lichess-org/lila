@@ -35,6 +35,7 @@
   <string name="forbiddenPairings">Verboden paringen</string>
   <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
   <string name="newSwiss">Nieuw Zwitsers toernooi</string>
+  <string name="swissVsArenaQ">Wanneer gebruik je een Zwitsers toernooi in plaats van arena\'s?</string>
   <string name="swissVsArenaA">In een Zwitsers toernooi spelen alle deelnemers hetzelfde aantal partijen en kunnen ze elkaar maar één keer treffen. Dit kan een goede optie zijn voor clubs en officiële toernooien.</string>
   <string name="pointsCalculationQ">Hoe worden punten berekend?</string>
   <string name="pointsCalculationA">Een overwinning is één punt waard, remise een half punt, en een verlies nul punten.
