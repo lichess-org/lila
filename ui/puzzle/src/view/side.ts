@@ -12,16 +12,14 @@ export function puzzleBox(ctrl: Controller): VNode {
 }
 
 function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
-  const isTsume = puzzle.themes.includes('tsume');
   return h(
     'div.infos.puzzle',
     {
-      attrs: dataIcon(isTsume ? '7' : '-'),
+      attrs: dataIcon('-'),
     },
     [
       h('div', [
         h('p', [
-          isTsume ? ctrl.trans.noarg('tsume') + ' ' : '',
           ...ctrl.trans.vdom(
             'puzzleId',
             h(
@@ -48,7 +46,9 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
 
 function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
   const authorName =
-    game.author && game.author.startsWith('http')
+    ctrl.vm.mode === 'play'
+      ? h('span.hidden', ctrl.trans.noarg('hidden'))
+      : game.author && game.author.startsWith('http')
       ? h(
           'a',
           {
