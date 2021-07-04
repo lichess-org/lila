@@ -938,6 +938,7 @@
   <string name="gameVsX">Партыя супраць %1$s</string>
   <string name="resVsX">%1$s супраць %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш профіль трэнера.</string>
+  <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
@@ -966,6 +967,8 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Укл./адкл. лакальны камп\'ютарны аналіз</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Укл./адкл. усе камп\'ютарныя аналізы</string>
   <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
 </resources>
