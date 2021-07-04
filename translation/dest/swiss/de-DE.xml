@@ -55,7 +55,7 @@ Summiert die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der P
   <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
   <string name="numberOfByesQ">Wie viele halbe Punkte kann ein Spieler für das Aussetzen bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
-Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler zu spät an einem Turnier teilnimmt.</string>
+Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler einem Turnier zu spät beitritt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
