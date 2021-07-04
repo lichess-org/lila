@@ -79,4 +79,5 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nowLifetime">Jesteś teraz dożywotnim patronem Lichess!</string>
   <string name="nowOneMonth">Jesteś teraz patronem Lichess na jeden miesiąc!</string>
   <string name="downgradeNextMonth">W tym miesiącu NIE zostaniesz ponownie obciążony, a Twoje konto Lichess pozostanie darmowe.</string>
+  <string name="changeCurrency">Zmień walutę</string>
 </resources>
