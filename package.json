@@ -29,7 +29,8 @@
     "@typescript-eslint/eslint-plugin": "^4.27.0",
     "@typescript-eslint/parser": "^4.27.0",
     "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.1.0"
+    "eslint-config-prettier": "^8.1.0",
+    "rollup-plugin-analyzer": "^4.0.0"
   },
   "scripts": {
     "format": "prettier --write .",

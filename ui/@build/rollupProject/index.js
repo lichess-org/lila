@@ -39,9 +39,9 @@ module.exports = targets => {
         commonjs({
           extensions: ['.js'],
         }),
-        analyze({
-          summaryOnly: true,
-        }),
+        // analyze({
+        //   summaryOnly: true,
+        // }),
       ],
     };
   };

@@ -13,8 +13,7 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0",
-    "rollup-plugin-analyzer": "^4.0.0"
+    "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "ab": "https://github.com/lichess-org/ab-stub",
