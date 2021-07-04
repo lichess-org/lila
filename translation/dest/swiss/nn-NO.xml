@@ -61,4 +61,8 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
   <string name="lateJoinAYes">Ja, heilt fram til halvparten av rundane har starta. Til dømes kan ein spelar koma inn i ein 11-rundars sveitsarturnering fram til sjette runde har starta og til sjuande runde i ein tolvrundars turnering.</string>
   <string name="lateJoinASingleBye">Spelarar som kjem seint til ei turnering får berre eit halvt poeng, sjølv om dei gjekk glipp av flerire rundar.</string>
+  <string name="willSwissReplaceArenasQ">Vil sveitsarturneringar ta over for andre turneringsformer?</string>
+  <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kva med round robin-turneringar?</string>
+  <string name="roundRobinAWontWork">Vi skulle gjerne hatt med round robin-turneringar, men diverre er dei ikkje egna til online spel</string>
 </resources>
