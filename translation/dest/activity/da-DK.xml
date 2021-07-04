@@ -63,8 +63,8 @@
     <item quantity="other">Rangeret #%1$s (top %2$s%%) med %3$s partier i %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Deltog i %s monradturnering</item>
-    <item quantity="other">Deltog i %s monradturneringer</item>
+    <item quantity="one">Deltog i %s schweizerturnering</item>
+    <item quantity="other">Deltog i %s schweizerturneringer</item>
   </plurals>
   <string name="rankedInSwissTournament">Rangeret #%1$s i %2$s</string>
   <string name="signedUp">Tilmeldte sig lichess.org</string>
