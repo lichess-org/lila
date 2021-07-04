@@ -83,4 +83,10 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="numberOfGamesAsManyAsPossible">Så mange som kan spelas i den tildelte varigheita</string>
   <string name="numberOfGamesPreDefined">Bestemd på førehand, likt for alle spelarar</string>
   <string name="pairingSystem">System for parsamansetjing</string>
+  <string name="pairingSystemArena">Ein tilgjengeleg motspelar med tilvarande rating</string>
+  <string name="pairingSystemSwiss">Beste samanstilling basert på poeng og uavgjortresultat (\"tie breaks\")</string>
+  <string name="pairingWaitTime">Ventar på å finne motspelar</string>
+  <string name="pairingWaitTimeFast">Snøgg: ventar ikkje på alle spelarar</string>
+  <string name="pairingWaitTimeSlow">Langsom: ventar på alle spelarar</string>
+  <string name="identicalPairing">Identisk parsamansetjing</string>
 </resources>
