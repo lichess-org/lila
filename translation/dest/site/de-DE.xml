@@ -906,6 +906,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle Computeranalysen aktivieren/deaktivieren</string>
   <string name="playComputerMove">Spiele den besten Computerzug</string>
   <string name="analysisOptions">Analyseoptionen</string>
-  <string name="focusChat">Chat fokussieren</string>
+  <string name="focusChat">Auf den Chat fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
 </resources>
