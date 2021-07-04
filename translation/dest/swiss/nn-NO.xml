@@ -72,4 +72,15 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>
   <string name="teamOnly">Sveitsarturneringar kan berre arrangeras av lagleiarar og kan berre spelas av lagmedlemer.           
 %1$s for å starte å spele i sveitsarturneriangar.</string>
+  <string name="joinOrCreateTeam">Bli med eller opprett eit lag</string>
+  <string name="nowPlaying">Spelar no</string>
+  <string name="startingSoon">Startar om kort tid</string>
+  <string name="comparison">Samanlikning</string>
+  <string name="tournDuration">Lengd på turneringa</string>
+  <string name="predefinedDuration">Førehandsdefinert lengd</string>
+  <string name="durationUnknown">Førehandsdefinert maksimum antal rundar, men ukjend varigheit</string>
+  <string name="numberOfGames">Antal parti</string>
+  <string name="numberOfGamesAsManyAsPossible">Så mange som kan spelas i den tildelte varigheita</string>
+  <string name="numberOfGamesPreDefined">Bestemd på førehand, likt for alle spelarar</string>
+  <string name="pairingSystem">System for parsamansetjing</string>
 </resources>
