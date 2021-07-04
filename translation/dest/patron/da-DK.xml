@@ -75,4 +75,5 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="nowLifetime">Du er nu Lichess Protektor for livstid!</string>
   <string name="nowOneMonth">Du er nu Lichess Protektor i en måned!</string>
   <string name="downgradeNextMonth">Om en måned bliver du IKKE debiteret igen, og din konto bliver nedgraderet til gratis.</string>
+  <string name="changeCurrency">Skift valuta</string>
 </resources>
