@@ -61,9 +61,17 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
   <string name="lateJoinAYes">Ja, tot meer dan de helft van de rondes is begonnen; bij 11 rondes Zwitsers, bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en bij 12 rondes voordat ronde 7 begint.</string>
   <string name="lateJoinASingleBye">Late deelnemers krijgen slechts één bye, ook als ze meerdere rondes hebben gemist.</string>
+  <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
+  <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hoe zit het met Round Robin?</string>
+  <string name="roundRobinAWontWork">We zouden het graag toevoegen, maar helaas werkt Round Robin niet online</string>
   <string name="teamOnly">Zwitserse toernooien kunnen alleen worden aangemaakt door teamleiders, en kunnen alleen worden gespeeld door teamleden.           
 %1$s om te beginnen met spelen in Zwitserse toernooien.</string>
+  <string name="joinOrCreateTeam">Word lid van een team of maak zelf een team aan</string>
   <string name="nowPlaying">Nu bezig</string>
+  <string name="startingSoon">Begint binnenkort</string>
   <string name="comparison">Vergelijking</string>
   <string name="tournDuration">Duur van het toernooi</string>
+  <string name="predefinedDuration">Voorgedefinieerde duur in minuten</string>
+  <string name="durationUnknown">Voorgedefinieerd maximumaantal rondes, maar duur onbekend</string>
 </resources>
