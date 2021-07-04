@@ -74,4 +74,5 @@ Tai voit %s.</string>
   <string name="nowLifetime">Olet nyt elinikäinen Lichessin tukija!</string>
   <string name="nowOneMonth">Olet nyt Lichessin tukija kuukauden ajan!</string>
   <string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen, ja Lichess-tilisi palautuu ilmaistiliksi.</string>
+  <string name="changeCurrency">Vaihda valuutta</string>
 </resources>
