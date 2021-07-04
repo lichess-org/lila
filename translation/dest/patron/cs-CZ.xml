@@ -56,7 +56,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="nextPayment">Další platba</string>
   <string name="youWillBeChargedXOnY">Bude vám účtováno %1$s dne %2$s.</string>
   <string name="makeAdditionalDonation">Poskytnout nyní další příspěvek</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Darujte křídla někomu jinému</string>
+  <string name="giftPatronWings">Darujte křídla někomu jinému</string>
   <string name="update">Aktualizovat</string>
   <string name="changeMonthlyAmount">Změnit měsíční částku (%s)</string>
   <string name="cancelSupport">zrušit svou podporu</string>
