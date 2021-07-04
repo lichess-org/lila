@@ -942,4 +942,7 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="navigateMoveTree">Izskatīt gājienu koku</string>
   <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Ieslēgt/izslēgt ierīces datoranalīzi</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Ieslēgt/izslēgt visu datoranalīzi</string>
+  <string name="playComputerMove">Izspēlēt labāko datora gājienu</string>
+  <string name="analysisOptions">Analīzes iespējas</string>
+  <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
 </resources>
