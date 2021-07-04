@@ -43,29 +43,28 @@ Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
   <string name="tiebreaksCalculationQ">Wie werden Tie-Breaks berechnet?</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn–Berger Wertung</string>
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Mit dem %s.
-Füge die Punkte jedes Gegners hinzu, die der Spieler schlägt, und die Hälfte der Punkte jedes Gegners, gegen den der Spieler remisiert.</string>
+Addiere die Punkte aller Gegner, die der Spieler besiegt und die Hälfte der Punkte aller Gegner, gegen den der Spieler remisiert.</string>
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Niederländisches System</string>
   <string name="FIDEHandbook">FIDE Handbuch</string>
-  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit dem %3$s.</string>
+  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Turniere nach Schweizer System sind nicht für Online-Schach konzipiert. Sie erfordern Pünktlichkeit, Hingabe und Geduld der Spieler.</string>
   <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
-  <string name="numberOfByesQ">Wie viele Aussetzungspunkte kann ein Spieler bekommen?</string>
+  <string name="numberOfByesQ">Wie viele halbe Punkte kann ein Spieler für das Aussetzen bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler zu spät an einem Turnier teilnimmt.</string>
-  <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht spielt?</string>
-  <string name="whatIfOneDoesntPlayA">Seine Zeit wird ablaufen und er wird die Partie verlieren.
-Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht noch mehr Partien verliert.
- Dieser kann jederzeit wieder am Turnier teilnehmen.</string>
+  <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
+  <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
+ Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
   <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden begonnen hat; So können Spieler zum Beispiel in einem 11-Runden-Schweizer-System-Turnier vor dem Start der 6. Runde und in einem Turnier mit 12 Runden vor Beginn der 7. Runde teilnehmen.</string>
   <string name="lateJoinASingleBye">Spieler, die zu spät beitreten, bekommen nur einen einzigen Aussetzungspunkt, auch wenn sie mehrere Runden verpasst haben.</string>
   <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Was ist mit Round-Robin?</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Was ist mit Rundenturnieren?</string>
   <string name="roundRobinAWontWork">Wir würden es gerne hinzufügen, aber leider funktioniert Round-Robin online nicht</string>
   <string name="roundRobinANoBecause">Der Grund dafür ist, dass es keine faire Möglichkeit hat, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler alle ihre Spiele in einem Online-Event spielen. Das wird einfach nicht passieren, und dadurch wären die meisten Round Robin-Turniere fehlerhaft und unfair, was ihren eigentlichen Sinn zunichte macht.</string>
   <string name="roundRobinATheClosestPossible">Das Ähnlichste zu Round-Robin online ist es, ein Schweizer Turnier mit einer sehr hohen Anzahl an Runden zu spielen. Dann werden alle möglichen Paare gespielt, bevor das Turnier endet.</string>
@@ -94,10 +93,10 @@ Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht noch meh
   <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
   <string name="identicalForbidden">Verboten</string>
   <string name="lateJoin">Später Beitritt</string>
-  <string name="lateJoinUntil">Ja bis mehr als die Hälfte der Runden begonnen haben</string>
+  <string name="lateJoinUntil">Erlaubt, bis mehr als die Hälfte der Runden begonnen haben</string>
   <string name="pause">Pause</string>
-  <string name="pauseSwiss">Ja, aber könnte die Anzahl der Runden verringern</string>
-  <string name="streaksAndBerserk">Streaks und Berserken</string>
+  <string name="pauseSwiss">Ja, könnte aber die Anzahl der Runden verringern</string>
+  <string name="streaksAndBerserk">Siegesserien und Berserken</string>
   <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
 </resources>
