@@ -841,4 +841,7 @@
 	<string name="previousBlogPosts">Bài blog trước</string>
 	<string name="continueReadingThis"> Tiếp tục đọc bài này</string>
 	<string name="discussBlogForum">Bàn luận về bài blog trong forum</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

@@ -949,4 +949,7 @@
 	<string name="previousBlogPosts">Предыдущие записи блога</string>
 	<string name="continueReadingThis"> Продолжить чтение поста</string>
 	<string name="discussBlogForum">Обсудить этот пост на форуме</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

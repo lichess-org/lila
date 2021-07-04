@@ -877,4 +877,7 @@
 	<string name="previousBlogPosts">Önceki blog gönderileri</string>
 	<string name="continueReadingThis"> Bu gönderiyi okumaya devam edin</string>
 	<string name="discussBlogForum">Bu blog gönderisini forumda tartışın</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

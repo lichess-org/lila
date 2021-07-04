@@ -879,4 +879,7 @@
 	<string name="previousBlogPosts">पिछले ब्लॉग पोस्ट</string>
 	<string name="continueReadingThis"> इस पोस्ट को पढ़ना जारी रखें</string>
 	<string name="discussBlogForum">फ़ोरम में इस ब्लॉग पोस्ट पर चर्चा करें</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

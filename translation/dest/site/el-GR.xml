@@ -879,4 +879,7 @@ computer analysis, game chat and shareable URL.</string>
 	<string name="previousBlogPosts">Previous blog posts</string>
 	<string name="continueReadingThis"> Continue reading this post</string>
 	<string name="discussBlogForum">Discuss this blog post in the forum</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

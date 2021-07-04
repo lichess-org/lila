@@ -841,4 +841,7 @@
 	<string name="previousBlogPosts">较旧的博文</string>
 	<string name="continueReadingThis"> 继续阅读此博文</string>
 	<string name="discussBlogForum">在论坛讨论这个博文</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

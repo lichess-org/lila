@@ -950,4 +950,7 @@ analizować komputerowo, dyskutować i udostępniać.</string>
 	<string name="previousBlogPosts">Poprzednie wpisy</string>
 	<string name="continueReadingThis"> Czytaj dalej</string>
 	<string name="discussBlogForum">Dyskutuj o tym wpisie na forum</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>

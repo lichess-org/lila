@@ -877,4 +877,7 @@
 	<string name="previousBlogPosts">Publications précédentes</string>
 	<string name="continueReadingThis"> Lire la suite</string>
 	<string name="discussBlogForum">Discutez de cet article dans le forum</string>
+	<string name="invadingPieces">Invading pieces</string>
+	<string name="enteringKing">Entering king</string>
+	<string name="totalImpasseValue">Total value</string>
 </resources>
