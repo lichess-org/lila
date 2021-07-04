@@ -88,4 +88,12 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="pairingSystem">Type d\'appariement</string>
   <string name="pairingSystemArena">N\'importe quel adversaire disponible avec un classement similaire</string>
   <string name="pairingSystemSwiss">Meilleur appariement selon le nombre de points et le départage</string>
+  <string name="pairingWaitTime">Temps d\'attente pour l\'appariement</string>
+  <string name="pairingWaitTimeFast">Rapide : n\'attend pas tous les joueurs</string>
+  <string name="pairingWaitTimeSlow">Lent : attend tous les joueurs</string>
+  <string name="identicalPairing">Appariement identique</string>
+  <string name="possibleButNotConsecutive">Possible, mais pas de façon consécutive</string>
+  <string name="identicalForbidden">Interdit</string>
+  <string name="lateJoin">Inscription tardive</string>
+  <string name="lateJoinUntil">Oui, jusqu\'à ce que plus de la moitié des rondes aient été jouées.</string>
 </resources>
