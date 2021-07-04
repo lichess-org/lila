@@ -46,7 +46,7 @@ Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
 Summiert die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen den der Spieler remisiert.</string>
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Niederländisches System</string>
-  <string name="FIDEHandbook">FIDE -Handbuch</string>
+  <string name="FIDEHandbook">FIDE-Handbuch</string>
   <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
@@ -55,12 +55,12 @@ Summiert die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der P
   <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
   <string name="numberOfByesQ">Wie viele halbe Punkte kann ein Spieler für das Aussetzen bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
-Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler einem Turnier zu spät beitritt.</string>
+Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu spät beitritt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
-  <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden gespielt wurden; So können Spieler zum Beispiel an einem 11-Runden Turnier nach Schweizer System vor dem Start der 6. Runde und in einem Turnier mit 12 Runden vor Beginn der 7. Runde teilnehmen.</string>
+  <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden begonnen wurden; so können Spieler zum Beispiel an einem elfründigen Turnier nach Schweizer System vor dem Beginn der Runde 6 und in einem zwölfründigen vor Beginn der Runde 7 beitreten.</string>
   <string name="lateJoinASingleBye">Spieler, die zu spät beitreten, bekommen nur einen einzigen halben Punkt, auch wenn sie mehrere Runden verpasst haben.</string>
   <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
