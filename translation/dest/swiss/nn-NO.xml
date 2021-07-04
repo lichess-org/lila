@@ -46,4 +46,6 @@ Spelarar som ikkje får tildelt motspelar i ein runde får eitt poeng.</string>
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
 Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga til dei motspelarane som spelaren fekk remis mot.</string>
   <string name="pairingsQ">Korleis vert parsamansetjingane avgjord?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
+  <string name="FIDEHandbook">FIDE handbok</string>
 </resources>
