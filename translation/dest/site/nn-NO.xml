@@ -907,4 +907,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Aktiver/deaktiver all maskinanalyse</string>
   <string name="playComputerMove">Spel det beste maskintrekket</string>
   <string name="analysisOptions">Analyseval</string>
+  <string name="focusChat">Fokusér prateromet</string>
+  <string name="showHelpDialog">Vis denne hjelpedialogen</string>
 </resources>
