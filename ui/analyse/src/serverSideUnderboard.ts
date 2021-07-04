@@ -70,7 +70,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    return `<div id="acpl-chart-loader"><span>Stockfish 13+<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+    return `<div id="acpl-chart-loader"><span>Stockfish 14+<br>server analysis</span>${lichess.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
     if (lichess.advantageChart || lichess.AnalyseNVUI) return;
