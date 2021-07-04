@@ -33,4 +33,16 @@
   <string name="swissVsArenaA">スイス式トーナメントでは全参加者が同じ局数をプレイし、また同じ相手とは一度だけ対戦します。
 クラブ内の大会や公式トーナメントに向いた方式です。</string>
   <string name="pointsCalculationQ">スコアの計算方法は？</string>
+  <string name="pointsCalculationA">勝ちは 1 ポイント、ドローは 0.5 ポイント、負けは 0 ポイントです。
+あるラウンドにペアリングされなかった人には「バイ (bye)」と言って 1 ポイントが与えられます。</string>
+  <string name="tiebreaksCalculationQ">タイブレークの計算方法は？</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">ソンボーン・ベルガー (SB)</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s の場合。
+その人が勝った相手の獲得ポイントの全部と、引き分けた相手の獲得ポイントの半分を合計します。</string>
+  <string name="pairingsQ">ペアリングはどう決まりますか？</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">オランダ方式</string>
+  <string name="FIDEHandbook">FIDE ハンドブック</string>
+  <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
+  <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
+  <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
 </resources>
