@@ -41,4 +41,8 @@
   <string name="forbiddenPairings">Neatļautie pāri</string>
   <string name="forbiddenPairingsHelp">Spēlētāji, kuri nedrīkst spēlēt kopā (piemēram brāļi vai māsas). Katrā rindā, ar atstarpi atdalīti, divi lietotājvārdi.</string>
   <string name="newSwiss">Jauns Šveices turnīrs</string>
+  <string name="swissVsArenaQ">Kad izmantot Šveices turnīrus arēnu vietā?</string>
+  <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
+Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
+  <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
 </resources>
