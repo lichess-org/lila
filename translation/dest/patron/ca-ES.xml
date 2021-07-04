@@ -58,7 +58,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="nextPayment">Proper pagament</string>
   <string name="youWillBeChargedXOnY">Se\'t cobrarà %1$s el %2$s.</string>
   <string name="makeAdditionalDonation">Fes ara una donació addicional</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Regalar les ales de Patró a un altre jugador</string>
+  <string name="giftPatronWings">Regalar les ales de Patró a un altre jugador</string>
   <string name="update">Actualitzar</string>
   <string name="changeMonthlyAmount">Canvia la quantitat mensual (%s)</string>
   <string name="cancelSupport">cancel·la el teu suport</string>
