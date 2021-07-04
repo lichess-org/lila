@@ -39,6 +39,8 @@
   <string name="swissVsArenaA">Nun torneo suizo, todas as participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
 Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="pointsCalculationQ">Como se calculan os puntos?</string>
+  <string name="pointsCalculationA">Unha victoria vale un punto, un empate é un medio punto e unha pérdida son cero puntos.
+Cando unha xogadora non pode emparellarse durante unha ronda, recibe un \"bye\", que vale un punto.</string>
   <string name="tiebreaksCalculationQ">Como se calculan os \"tie breaks\"?</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Puntuación Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Co %s.
@@ -53,6 +55,17 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Os torneos suizos non están deseñados para o xadrez online, xa que esixen puntualidade, dedicación e paciencia dos xogadores/as.</string>
   <string name="restrictedToTeamsABetterMet">Cremos que estas condicións son máis propensas a ser cumplidas dentro dun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
+  <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
+  <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
+  <string name="lateJoinQ">Poden os xogadores entrar tarde?</string>
+  <string name="lateJoinAYes">Si, pero ata o comezo da metade das rondas; por exemplo, nun torneo suizo de 11 rondas, as xogadoras poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.</string>
+  <string name="lateJoinASingleBye">Xogadores/as tardíos/as teñen un só \"bye\", mesmo cando perderon varias rondas.</string>
+  <string name="willSwissReplaceArenasQ">Poden os torneos suizos reemprazar os torneos area?</string>
+  <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Que hai sobre Round Robin?</string>
+  <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
+  <string name="otherSystemsA">Non temos plans de engadir máis tipos de torneos a Lichess polo de agora.</string>
+  <string name="teamOnly">Torneos suizos só poden ser creados por líderes de equipos e só poden ser xogados por membros dos equipos. %1$s para comezar a xogar en torneos suizos.</string>
   <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
   <string name="nowPlaying">A reproducir </string>
   <string name="startingSoon">Comeza pronto</string>
