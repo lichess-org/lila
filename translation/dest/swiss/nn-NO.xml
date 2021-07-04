@@ -65,4 +65,5 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kva med round robin-turneringar?</string>
   <string name="roundRobinAWontWork">Vi skulle gjerne hatt med round robin-turneringar, men diverre er dei ikkje egna til online spel</string>
+  <string name="roundRobinANoBecause">Årsaka er at turneringsforma ikkje har ei rettvis måte å handtere spelarar som forlet turnering før den er avslutta. I online-arrangement kan ein ikkje rekne med at alle spelarar vil spele alle sine parti, og dermed vil dei fleste round robin-turneringar bli mangelfulle og urettvise, noko som øydelegg grunnen til å arrangere slike.</string>
 </resources>
