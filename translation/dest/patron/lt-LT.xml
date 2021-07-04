@@ -79,4 +79,5 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="nowLifetime">Jūs esate Lichess rėmėjas visam gyvenimui!</string>
   <string name="nowOneMonth">Jūs esate Lichess rėmėjas vienam mėnesiui!</string>
   <string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų Lichess paskyra atsistatys į įprastą.</string>
+  <string name="changeCurrency">Pakeisti valiutą</string>
 </resources>
