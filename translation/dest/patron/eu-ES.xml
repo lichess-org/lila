@@ -74,4 +74,5 @@ Edo %s.</string>
   <string name="nowLifetime">Orain Bizi guztirako Lichess Babeslea zara!</string>
   <string name="nowOneMonth">Orain hilabeterako Lichess Babeslea zara!</string>
   <string name="downgradeNextMonth">Hilabetean EZ dizugu berriz kobratuko eta zure kontua ohiko izatera pasatuko da.</string>
+  <string name="changeCurrency">Aldatu moneta</string>
 </resources>
