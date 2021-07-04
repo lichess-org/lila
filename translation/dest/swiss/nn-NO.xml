@@ -55,4 +55,5 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsarturneringar vart ikkje opphavleg laga for online sjakk. Turneringsformen krev at spelarane er punktlege, dedikerte og tolmodige.</string>
   <string name="restrictedToTeamsABetterMet">Vi trur at desse vilkåra er truleg meir til stades i eit lag enn i globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få?</string>
+  <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelaren eit halvt poeng om motspelaren kjem for seint til turneringsstart.</string>
 </resources>
