@@ -96,6 +96,7 @@
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openingExplorer">Openingverkenner</string>
+  <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
