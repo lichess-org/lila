@@ -30,6 +30,7 @@ themes = [
   ['Shogi_cz', 'svg'],
   ['Ryoko_1Kanji', 'svg'],
   ['Portella', 'png'],
+  ['Portella_2Kanji', 'png'],
   ['western', 'png'],
 ]
 types = {

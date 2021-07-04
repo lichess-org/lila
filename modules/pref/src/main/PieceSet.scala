@@ -33,6 +33,7 @@ object PieceSet extends PieceSetObject {
     "orangain",
     "kanji_red_wood",
     "Portella",
+    "Portella_2Kanji",
     "1Kanji_3D",
     "2Kanji_3D",
     "Shogi_cz",
