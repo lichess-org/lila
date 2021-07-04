@@ -76,6 +76,8 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="durationUnknown">Voorgedefinieerd maximumaantal rondes, maar duur onbekend</string>
   <string name="numberOfGames">Aantal partijen</string>
   <string name="pairingSystem">Paringsysteem</string>
+  <string name="pairingSystemArena">Elke beschikbare tegenstander met vergelijkbare rating</string>
+  <string name="pairingSystemSwiss">Beste paring gebaseerd op punten en tiebreaks</string>
   <string name="pairingWaitTime">Wachttijd voor paring</string>
   <string name="pairingWaitTimeFast">Kort: wacht niet op alle spelers</string>
   <string name="pairingWaitTimeSlow">Lang: wacht op alle spelers</string>
@@ -87,4 +89,5 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="pause">Pauzeren</string>
   <string name="pauseSwiss">Ja, maar kan het aantal rondes verminderen</string>
   <string name="similarToOTB">Vergelijkbaar met fysieke toernooien</string>
+  <string name="unlimitedAndFree">Onbeperkt en gratis</string>
 </resources>
