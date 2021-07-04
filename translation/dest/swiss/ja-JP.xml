@@ -29,4 +29,8 @@
   <string name="forbiddenPairings">禁止ペアリング</string>
   <string name="forbiddenPairingsHelp">対戦しないプレイヤーのユーザー名（兄弟姉妹など）。1 行につき 2 つのユーザー名を半角スペースで区切って並べます。</string>
   <string name="newSwiss">新しいスイス式トーナメント</string>
+  <string name="swissVsArenaQ">アリーナよりスイス式のほうがいいのはどんな時？</string>
+  <string name="swissVsArenaA">スイス式トーナメントでは全参加者が同じ局数をプレイし、また同じ相手とは一度だけ対戦します。
+クラブ内の大会や公式トーナメントに向いた方式です。</string>
+  <string name="pointsCalculationQ">スコアの計算方法は？</string>
 </resources>
