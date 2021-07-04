@@ -899,4 +899,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>
   <string name="onlyTeamMembers">Alleen teamleden</string>
+  <string name="analysisOptions">Analyse opties</string>
 </resources>
