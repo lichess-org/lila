@@ -35,4 +35,9 @@
   <string name="forbiddenPairings">Verboden paringen</string>
   <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
   <string name="newSwiss">Nieuw Zwitsers toernooi</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
+  <string name="FIDEHandbook">FIDE-handboek</string>
+  <string name="nowPlaying">Nu bezig</string>
+  <string name="comparison">Vergelijking</string>
+  <string name="tournDuration">Duur van het toernooi</string>
 </resources>
