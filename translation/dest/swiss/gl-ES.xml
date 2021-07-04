@@ -39,6 +39,10 @@
   <string name="swissVsArenaA">Nun torneo suizo, todas as participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
 Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="pointsCalculationQ">Como se calculan os puntos?</string>
+  <string name="tiebreaksCalculationQ">Como se calculan os \"tie breaks\"?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Puntuación Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Co %s.
+Engade a puntuación de cada opoñente que venceu e a metada da puntuación de cada opoñente que empatou.</string>
   <string name="pairingsQ">Como se decidan os emparellamentos?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Sistema holandés</string>
   <string name="FIDEHandbook">Do manual da FIDE</string>
@@ -49,17 +53,28 @@ Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Os torneos suizos non están deseñados para o xadrez online, xa que esixen puntualidade, dedicación e paciencia dos xogadores/as.</string>
   <string name="restrictedToTeamsABetterMet">Cremos que estas condicións son máis propensas a ser cumplidas dentro dun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
+  <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
   <string name="nowPlaying">A reproducir </string>
+  <string name="startingSoon">Comeza pronto</string>
+  <string name="comparison">Comparación</string>
   <string name="tournDuration">Duración do torneo</string>
   <string name="predefinedDuration">Duración predefinida en minutos</string>
   <string name="durationUnknown">Rondas máximas predefinidas, pero con duración descoñecida</string>
+  <string name="numberOfGames">Número de partidas</string>
+  <string name="pairingSystem">Sistema de emparellamento</string>
+  <string name="pairingSystemArena">Calquera opoñente dispoñible cunha puntuación similar</string>
+  <string name="pairingSystemSwiss">Mellor emparellamento baseado en puntos e desempates</string>
+  <string name="pairingWaitTime">Tempo de emparellamento</string>
   <string name="pairingWaitTimeFast">Rápido: non agarda por todos os xogadores e xogadoras</string>
   <string name="pairingWaitTimeSlow">Lento: agarda por todos os xogadores e xogadoras</string>
+  <string name="identicalPairing">Emparellamento coa mesma xogadora</string>
   <string name="possibleButNotConsecutive">Posible, pero non consecutivo</string>
   <string name="identicalForbidden">Prohibido</string>
   <string name="lateJoin">Entrada tardía</string>
+  <string name="lateJoinUntil">Si ata que máis da metade das rondas comezaran</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Si pero redúcense o número de rondas</string>
+  <string name="streaksAndBerserk">Rachas e Berserk</string>
   <string name="similarToOTB">Similar aos torneos OTB (Over The Board, no taboleiro)</string>
   <string name="unlimitedAndFree">Ilimitado e libre</string>
 </resources>
