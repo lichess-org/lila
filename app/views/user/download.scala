@@ -26,7 +26,7 @@ object download {
             opponent,
             mode,
             analysis,
-            perfToggles(user),
+            perfToggles,
             includeToggles,
             amount,
             tr(cls := "output")(
@@ -120,19 +120,19 @@ object download {
     )
   )
 
-  private def perfToggles(user: User)(implicit ctx: Context): Frag = {
+  private def perfToggles(implicit ctx: Context): Frag = {
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
       td(
         div(id := "dl-perfs", cls := "toggle-columns")(
-          perfTypes map perfToggle(user)
+          perfTypes map perfToggle
         )
       )
     )
   }
 
-  private def perfToggle(user: User)(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
+  private def perfToggle(perfType: lila.rating.PerfType)(implicit ctx: Context): Frag = div(
     form3.cmnToggle(
       s"dl-perf-${perfType.key}",
       "",
