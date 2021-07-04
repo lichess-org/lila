@@ -43,4 +43,7 @@ Det kan vera eit godt alternativ for klubbar og offisielle turneringar.</string>
 Spelarar som ikkje får tildelt motspelar i ein runde får eitt poeng.</string>
   <string name="tiebreaksCalculationQ">Korleis vert poenga rekna ut ved uavgjord resultat (\"tie-break\")?</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger skåre</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
+Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga til dei motspelarane som spelaren fekk remis mot.</string>
+  <string name="pairingsQ">Korleis vert parsamansetjingane avgjord?</string>
 </resources>
