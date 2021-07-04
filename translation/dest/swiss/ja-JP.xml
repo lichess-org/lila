@@ -58,6 +58,8 @@
   <string name="lateJoinQ">途中参加はできますか？</string>
   <string name="lateJoinAYes">はい、全ラウンド数の過半が始まるまではできます。たとえば 11 ラウンドのスイス式なら第 6 ラウンド開始まで、12 ラウンドなら第 7 ラウンド開始までです。</string>
   <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
+  <string name="willSwissReplaceArenasQ">スイス式はアリーナに取って代わるもの？</string>
+  <string name="willSwissReplaceArenasA">いいえ。両者は互いに補いあう機能です。</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
   <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
   <string name="roundRobinANoBecause">トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりのトーナメントは欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。</string>
@@ -86,4 +88,10 @@
   <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
   <string name="identicalForbidden">なし</string>
   <string name="lateJoin">途中参加</string>
+  <string name="lateJoinUntil">はい、全ラウンド数の過半が開始するまで</string>
+  <string name="pause">一時停止</string>
+  <string name="pauseSwiss">はい、ただし対局数が減るおそれあり</string>
+  <string name="streaksAndBerserk">連勝ボーナスとバーサーク</string>
+  <string name="similarToOTB">現実世界の大会と同じ？</string>
+  <string name="unlimitedAndFree">無制限で無料</string>
 </resources>
