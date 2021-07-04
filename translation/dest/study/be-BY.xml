@@ -9,10 +9,12 @@
   <string name="spectator">Глядач</string>
   <string name="kick">Выдаліць</string>
   <string name="like">Падабайка</string>
+  <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
   <string name="first">На першую</string>
   <string name="previous">Папярэдняя</string>
   <string name="next">Наступная</string>
   <string name="last">На апошнюю</string>
   <string name="cloneStudy">Кланаваць</string>
+  <string name="downloadAllGames">Спампаваць усе гульні</string>
 </resources>
