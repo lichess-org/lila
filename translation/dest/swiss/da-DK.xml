@@ -42,8 +42,8 @@ Det kan være en god mulighed for klubber og officielle turneringer.</string>
   <string name="pointsCalculationA">En sejr er ét point værd, en remis et halvt point mens et tab ingen point giver.
 Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', der er ét point værd.</string>
   <string name="tiebreaksCalculationQ">Hvordan udregnes tie breaks?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger score</string>
-  <string name="pairingsQ">Hvordan afgøres parringer?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
+  <string name="pairingsQ">Hvordan bestemmes sammensætningen af par?</string>
   <string name="nowPlaying">Spiller nu</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
