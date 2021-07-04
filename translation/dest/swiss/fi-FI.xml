@@ -62,4 +62,16 @@ Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="numberOfGamesPreDefined">Ennalta määritelty, kaikille pelaajille sama</string>
   <string name="pairingSystem">Parien muodostus</string>
   <string name="pairingSystemArena">Kuka tahansa vastustaja, jonka sijoitus on lähellä omaasi</string>
+  <string name="pairingSystemSwiss">Pisteiden ja muiden sijoituskriteerien perusteella sopivin pari</string>
+  <string name="pairingWaitTime">Parin odotusaika</string>
+  <string name="pairingWaitTimeFast">Nopea: ei odota kaikkia pelaajia</string>
+  <string name="pairingWaitTimeSlow">Hidas: odottaa kaikkia pelaajia</string>
+  <string name="identicalPairing">Saman parin toistuminen</string>
+  <string name="possibleButNotConsecutive">Mahdollista, mutta ei peräjälkeen</string>
+  <string name="identicalForbidden">Ei sallittu</string>
+  <string name="lateJoin">Myöhään liittyminen</string>
+  <string name="lateJoinUntil">Mahdollista, ennen kuin yli puolet kierroksista on alkanut</string>
+  <string name="pause">Tauon pitäminen</string>
+  <string name="pauseSwiss">Mahdollista, mutta se voi vähentää kierrosmäärää</string>
+  <string name="streaksAndBerserk">Putket ja berserkki</string>
 </resources>
