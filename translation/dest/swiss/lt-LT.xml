@@ -59,6 +59,10 @@ Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų 
   <string name="FIDEHandbook">FIDE taisyklės</string>
   <string name="pairingsA">Su %1$s įgyvendintomis %2$s remiantis %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kas vyksta, jei turnyras turi daugiau raundų nei žaidėjų?</string>
+  <string name="moreRoundsThanPlayersA">Kai sužaidžiamos visos poros turnyras pasibaigia ir yra nusprendžiamas laimėtojas.</string>
+  <string name="restrictedToTeamsQ">Kodėl jie apriboti tik komandoms?</string>
+  <string name="numberOfByesQ">Kiek \"bye\" gali gauti vienas žaidėjas?</string>
+  <string name="lateJoinQ">Ar žaidėjai gali prisijungti pavėlavę?</string>
   <string name="willSwissReplaceArenasQ">Ar šveicariški turnyrai pakeis arenos turnyrus?</string>
   <string name="willSwissReplaceArenasA">Ne, tai yra papildomos funkcijos.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kaip dėl Round Robin?</string>
