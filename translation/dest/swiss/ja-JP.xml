@@ -49,10 +49,14 @@
   <string name="restrictedToTeamsABetterMet">こういった条件を満たすためには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
   <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
-また第 2 ラウンドから参加の場合、第 1 ラウンドについて 0.5 ポイントのバイが与えられます。</string>
+また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
   <string name="whatIfOneDoesntPlayQ">プレイヤーが対局しないとどうなりますか？</string>
   <string name="whatIfOneDoesntPlayA">時計が進み、持時間がなくなって負けになります。
 続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
 その人はまた後に途中参加することができます。</string>
   <string name="lateJoinQ">途中参加はできますか？</string>
+  <string name="lateJoinAYes">はい、全ラウンド数の過半が始まるまではできます。たとえば 11 ラウンドのスイス式なら第 6 ラウンド開始まで、12 ラウンドなら第 7 ラウンド開始までです。</string>
+  <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
+  <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
 </resources>
