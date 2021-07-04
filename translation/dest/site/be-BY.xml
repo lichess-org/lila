@@ -944,6 +944,7 @@
   <string name="welcome">Вітаем!</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
+  <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
   <string name="ratedFormHelp">Гульні - рэйтынгавыя
 і ўплываюць на рэйтынг гульцоў</string>
   <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>
@@ -953,6 +954,10 @@
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
   <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
+  <string name="simulHostcolor">Колер арганізатара ў кожнай гульне</string>
+  <string name="estimatedStart">Меркаваны час пачатку</string>
+  <string name="simulFeatured">Паказваць на %s</string>
+  <string name="simulFeaturedHelp">Паказваць сеанс адначасовай гульні усім на %s. Адключыце для прыватных сеансаў.</string>
   <string name="simulDescription">Апісанне сеансу</string>
   <string name="simulDescriptionHelp">Жадаеце штосьці сказаць удзельнікам?</string>
   <string name="markdownAvailable">Можаце выкарыстаць %s для больш адмысловага сінтаксісу.</string>
@@ -961,4 +966,6 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
+  <string name="showHelpDialog">Паказаць чат дапамогі</string>
 </resources>
