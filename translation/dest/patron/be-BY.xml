@@ -74,4 +74,5 @@
   <string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lichess!</string>
   <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
   <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
+  <string name="changeCurrency">Змяніць валюту</string>
 </resources>
