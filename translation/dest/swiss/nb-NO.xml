@@ -35,4 +35,6 @@
   <string name="forbiddenPairings">Forbudte par</string>
   <string name="forbiddenPairingsHelp">Brukernavn for spillere som ikke skal spille mot hverandre (søsken, for eksempel). To brukernavn på hver linje, skilt med mellomrom.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
+  <string name="comparison">Sammenligning</string>
+  <string name="numberOfGames">Antall partier</string>
 </resources>
