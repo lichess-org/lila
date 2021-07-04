@@ -85,7 +85,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
   <string name="numberOfGamesPreDefined">Im Voraus entschieden, für alle Spieler gleich</string>
   <string name="pairingSystem">Paarungssystem</string>
   <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
-  <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Tie-Breaks</string>
+  <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Feinwertungen</string>
   <string name="pairingWaitTime">Wartezeit für die Paarung</string>
   <string name="pairingWaitTimeFast">Schnell: wartet nicht auf alle Spieler</string>
   <string name="pairingWaitTimeSlow">Langsam: wartet auf alle Spieler</string>
