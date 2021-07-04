@@ -40,4 +40,7 @@
   <string name="roundInterval">Interval între runde</string>
   <string name="forbiddenPairings">Asocieri interzise</string>
   <string name="forbiddenPairingsHelp">Numele de utilizator ale jucătorilor care nu trebuie să se joace împreună (frați, de exemplu). Două nume de utilizator pe linie, separate de un spațiu.</string>
+  <string name="pointsCalculationQ">Cum sunt calculate punctele?</string>
+  <string name="pointsCalculationA">O victorie valorează un punct, o remiză este o jumătate de punct, iar o pierdere zero puncte.
+Atunci când un jucător nu poate fi împerecheat în timpul unei runde, acesta primește o compensație în valoare de un punct.</string>
 </resources>
