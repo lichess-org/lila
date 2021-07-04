@@ -75,4 +75,5 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="nowLifetime">Vous êtes maintenant un mécène de Lichess à vie !</string>
   <string name="nowOneMonth">Vous êtes maintenant un mécène de Lichess pour un mois !</string>
   <string name="downgradeNextMonth">Dans un mois, vous NE serez PAS débité à nouveau, et votre compte Lichess redeviendra un compte ordinaire.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Changer de devise</string>
 </resources>
