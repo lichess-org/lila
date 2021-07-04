@@ -35,6 +35,9 @@
   <string name="forbiddenPairings">Emparellamentos prohibidos</string>
   <string name="forbiddenPairingsHelp">Xogadores/as que non poden xogar xuntos (irmás, por exemplo). Dous nomes de usuario por liña, separados por un espazo.</string>
   <string name="newSwiss">Novo torneo suízo</string>
+  <string name="swissVsArenaQ">Cando debería usar torneos suizos en lugar de areas?</string>
+  <string name="swissVsArenaA">Nun torneo suizo, todas as participantes xogan o mesmo número de partidas e só xogan unha vez con cada opoñente.
+Pode ser unha boa opción para clubes e torneos oficiais.</string>
   <string name="pointsCalculationQ">Como se calculan os puntos?</string>
   <string name="pairingsQ">Como se decidan os emparellamentos?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Sistema holandés</string>
@@ -54,5 +57,9 @@
   <string name="pairingWaitTimeSlow">Lento: agarda por todos os xogadores e xogadoras</string>
   <string name="possibleButNotConsecutive">Posible, pero non consecutivo</string>
   <string name="identicalForbidden">Prohibido</string>
+  <string name="lateJoin">Entrada tardía</string>
   <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Si pero redúcense o número de rondas</string>
+  <string name="similarToOTB">Similar aos torneos OTB (Over The Board, no taboleiro)</string>
+  <string name="unlimitedAndFree">Ilimitado e libre</string>
 </resources>
