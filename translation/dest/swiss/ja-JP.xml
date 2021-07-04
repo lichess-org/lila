@@ -42,6 +42,7 @@
   <string name="pairingsQ">ペアリングはどう決まりますか？</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">オランダ方式</string>
   <string name="FIDEHandbook">FIDE ハンドブック</string>
+  <string name="pairingsA">%1$s によります。%2$s が %3$s に従って実装したものです。</string>
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
   <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
@@ -66,4 +67,23 @@
   <string name="teamOnly">スイス式トーナメントを作成できるのはチームリーダーだけ、参加できるのはチームメンバーだけです。           
 %1$s すればスイス式トーナメントに参加できます。</string>
   <string name="joinOrCreateTeam">チームに参加かチームを作成</string>
+  <string name="nowPlaying">対局中</string>
+  <string name="startingSoon">間もなく開始</string>
+  <string name="comparison">比較</string>
+  <string name="tournDuration">トーナメントの所要時間</string>
+  <string name="predefinedDuration">決められた時間（分）</string>
+  <string name="durationUnknown">決められたラウンド数、所要時間は不明</string>
+  <string name="numberOfGames">局数</string>
+  <string name="numberOfGamesAsManyAsPossible">指定の時間内にプレイできるだけ</string>
+  <string name="numberOfGamesPreDefined">全員が指定の局数をプレイ</string>
+  <string name="pairingSystem">ペアリングの方式</string>
+  <string name="pairingSystemArena">手の空いている近い順位の相手</string>
+  <string name="pairingSystemSwiss">ポイント数とタイブレークに基づく最善の組み合わせ</string>
+  <string name="pairingWaitTime">ペアリングの待ち時間</string>
+  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たなくてよい</string>
+  <string name="pairingWaitTimeSlow">長い。全員の対局終了を待つ</string>
+  <string name="identicalPairing">同じ相手との対戦</string>
+  <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
+  <string name="identicalForbidden">なし</string>
+  <string name="lateJoin">途中参加</string>
 </resources>
