@@ -40,7 +40,8 @@
   <string name="pointsCalculationQ">Hoe worden punten berekend?</string>
   <string name="pointsCalculationA">Een overwinning is één punt waard, remise een half punt, en een verlies nul punten.
 Als een speler niet kan worden gepaard tijdens een ronde, krijgt deze een bye met één punt.</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger punten</string>
+  <string name="tiebreaksCalculationQ">Hoe worden tiebreaks berekend?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Bergerscore</string>
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Met %s.
 Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus de helft van de punten van elke tegenstander met wie de speler remiseerde.</string>
   <string name="pairingsQ">Hoe komen paringen tot stand?</string>
@@ -65,6 +66,8 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hoe zit het met Round Robin?</string>
   <string name="roundRobinAWontWork">We zouden het graag toevoegen, maar helaas werkt Round Robin niet online</string>
+  <string name="otherSystemsQ">Hoe zit het met andere toernooisystemen?</string>
+  <string name="otherSystemsA">Momenteel zijn we niet van plan om meer toernooisystemen aan Lichess toe te voegen.</string>
   <string name="teamOnly">Zwitserse toernooien kunnen alleen worden aangemaakt door teamleiders, en kunnen alleen worden gespeeld door teamleden.           
 %1$s om te beginnen met spelen in Zwitserse toernooien.</string>
   <string name="joinOrCreateTeam">Word lid van een team of maak zelf een team aan</string>
@@ -75,6 +78,8 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="predefinedDuration">Voorgedefinieerde duur in minuten</string>
   <string name="durationUnknown">Voorgedefinieerd maximumaantal rondes, maar duur onbekend</string>
   <string name="numberOfGames">Aantal partijen</string>
+  <string name="numberOfGamesAsManyAsPossible">Zoveel als er kunnen worden gespeeld binnen de toegewezen duur</string>
+  <string name="numberOfGamesPreDefined">Vooraf bepaald, hetzelfde voor alle spelers</string>
   <string name="pairingSystem">Paringsysteem</string>
   <string name="pairingSystemArena">Elke beschikbare tegenstander met vergelijkbare rating</string>
   <string name="pairingSystemSwiss">Beste paring gebaseerd op punten en tiebreaks</string>
