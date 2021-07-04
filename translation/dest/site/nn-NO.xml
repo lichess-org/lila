@@ -96,6 +96,7 @@
   <string name="noGameFound">Fann ikkje noko parti</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Gå til innstillingsmenyen om du vil søkje blant fleire parti.</string>
   <string name="openingExplorer">Opningsbok</string>
+  <string name="openingEndgameExplorer">Opnings-/sluttspelbok</string>
   <string name="xOpeningExplorer">%s opningsutforskar</string>
   <string name="winPreventedBy50MoveRule">Vinst forhindra av 50-trekkregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindra av 50-trekkregelen</string>
@@ -900,4 +901,6 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="noChat">Ikkje chat</string>
   <string name="onlyTeamLeaders">Berre lagleiarar</string>
   <string name="onlyTeamMembers">Berre lagsmedlemer</string>
+  <string name="navigateMoveTree">Naviger i trekk-treet</string>
+  <string name="mouseTricks">Musetriks</string>
 </resources>
