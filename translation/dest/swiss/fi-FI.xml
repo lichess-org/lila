@@ -47,4 +47,8 @@ Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="roundRobinATheClosestPossible">Lähimmäksi täyskierrosturnausta pääset netissä osallistumalla sveitsiläiseen turnaukseen, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan toisiaan vastaan, ennen kuin turnaus loppuu.</string>
   <string name="otherSystemsQ">Entä muut turnausjärjestelmät?</string>
   <string name="otherSystemsA">Emme toistaiseksi aio lisätä Lichessiin enempää turnausjärjestelmiä.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Sveitsiläisessä turnauksessa %1$s pelaaja ei välttämättä pelaa kaikki muita osallistujia vastaan. Osallistujat pelaavat kullakin kierroksella pareina, jotka muodostetaan tiettyjä sääntöjä noudattaen. Säännöillä varmistetaan, että kaikki pelaavat sellaisia vastustajia vastaan, joilla on jotakuinkin sama pistemäärä, mutta eivät kuitenkaan samaa vastustajaa vastaan useammin kuin kerran. Voittaja on kaikilta kierroksilta korkeimmat yhteispisteet saanut pelaaja. Kaikki osallistujat pelaavat joka kierroksella, paitsi jos pelaajia on pariton määrä.</string>
+  <string name="teamOnly">Sveitsiläisiä turnauksia voivat luoda vain joukkueenjohtajat, ja niissä voivat pelata vain joukkueen jäsenet.           
+%1$s pelataksesi sveitsiläisissä turnauksissa.</string>
+  <string name="joinOrCreateTeam">Liity joukkueeseen tai luo joukkue</string>
 </resources>
