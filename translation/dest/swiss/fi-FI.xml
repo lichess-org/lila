@@ -14,13 +14,17 @@
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
+  <string name="pointsCalculationQ">Miten pisteet lasketaan?</string>
+  <string name="pointsCalculationA">Voitto on yhden pisteen arvoinen, tasapelistä saa puoli pistettä ja tappiosta nolla pistettä.
+Jos pelaajalle ei jollakin kierroksella löydy paria, hän saa yhden pisteen arvoisen huilausvuoron.</string>
   <string name="tiebreaksCalculationQ">Miten paremmuus määriytyy tasatilanteessa?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger-pisteillä</string>
   <string name="pairingsQ">Miten parit määriytyvät?</string>
   <string name="FIDEHandbook">FIDEn käsikirja</string>
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
-  <string name="restrictedToTeamsANotForOnline">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
   <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
 Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
