@@ -209,13 +209,14 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
+  const userId = line.u?.toLowerCase();
 
   return h(
     'li',
     {
       class: {
-        me: line.u === ctrl.data.userId,
-        host: line.u === ctrl.data.hostId,
+        me: userId === ctrl.data.userId,
+        host: userId === ctrl.data.hostId,
       },
     },
     ctrl.moderation()
