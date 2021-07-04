@@ -52,4 +52,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsarturneringar vart ikkje opphavleg laga for online sjakk. Turneringsformen krev at spelarane er punktlege, dedikerte og tolmodige.</string>
+  <string name="restrictedToTeamsABetterMet">Vi trur at desse vilkåra er truleg meir til stades i eit lag enn i globale turneringar.</string>
+  <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få?</string>
 </resources>
