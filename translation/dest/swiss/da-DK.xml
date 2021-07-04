@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Monradturneringer</string>
+  <string name="swissTournaments">Schweizerturneringer</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Se runden</item>
     <item quantity="other">Se alle %s runder</item>
@@ -34,16 +34,17 @@
   <string name="roundInterval">Interval mellem runder</string>
   <string name="forbiddenPairings">Forbudte parringer</string>
   <string name="forbiddenPairingsHelp">Brugernavne på spillere der ikke må spille sammen (for eksempel søskende). To brugernavne pr. linje, adskilt af et mellemrum.</string>
-  <string name="newSwiss">Ny monradturnering</string>
-  <string name="swissVsArenaQ">Hvornår skal du bruge monradturneringer i stedet for arenaer?</string>
-  <string name="swissVsArenaA">I en monradturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
+  <string name="newSwiss">Ny schweizerturnering</string>
+  <string name="swissVsArenaQ">Hvornår skal du bruge schweizerturneringer i stedet for arenaer?</string>
+  <string name="swissVsArenaA">I en schweizerturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
 Det kan være en god mulighed for klubber og officielle turneringer.</string>
   <string name="pointsCalculationQ">Hvordan beregnes points?</string>
   <string name="pointsCalculationA">En sejr er ét point værd, en remis et halvt point mens et tab ingen point giver.
 Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', der er ét point værd.</string>
   <string name="tiebreaksCalculationQ">Hvordan udregnes tie breaks?</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
-  <string name="pairingsQ">Hvordan bestemmes sammensætningen af par?</string>
+  <string name="pairingsQ">Hvordan bestemmes parringer?</string>
+  <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="nowPlaying">Spiller nu</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
