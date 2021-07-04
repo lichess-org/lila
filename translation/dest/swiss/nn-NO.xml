@@ -69,4 +69,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="roundRobinATheClosestPossible">Det næraste ein kjem round robin i online spel er sveitsarturneringar med svært mange deltakarar. Då vil alle moglege parsammensetningar bli spela før turneringa blir avslutta.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
   <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på Lichess.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>
+  <string name="teamOnly">Sveitsarturneringar kan berre arrangeras av lagleiarar og kan berre spelas av lagmedlemer.           
+%1$s for å starte å spele i sveitsarturneriangar.</string>
 </resources>
