@@ -33,7 +33,7 @@
   <string name="teamBattleOverview">Et slag mellem adskillige hold, hver spiller scorer point for deres hold</string>
   <string name="teamTournament">Holdturnering</string>
   <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
-  <string name="swissTournamentOverview">En monradturnering som kun medlemmer af dit hold kan deltage i</string>
+  <string name="swissTournamentOverview">En schweizerturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="messageAllMembers">Send besked til alle medlemmer</string>
   <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
   <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.
