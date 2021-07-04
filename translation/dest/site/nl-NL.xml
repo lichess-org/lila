@@ -900,7 +900,7 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>
   <string name="onlyTeamMembers">Alleen teamleden</string>
-  <string name="mouseTricks">Muis-trucs</string>
+  <string name="mouseTricks">Muistrucs</string>
   <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Lokale computeranalyse in-/uitschakelen</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle computeranalyses in-/uitschakelen</string>
   <string name="playComputerMove">Doe de beste computerzet</string>
