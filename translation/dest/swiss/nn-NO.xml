@@ -35,4 +35,7 @@
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
+  <string name="swissVsArenaQ">Når skal du arrangera etter sveitsarsystemet i staden for arenaturnering?</string>
+  <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
+Det kan vera eit godt alternativ for klubbar og offisielle turneringar.</string>
 </resources>
