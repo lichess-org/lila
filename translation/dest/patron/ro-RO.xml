@@ -77,4 +77,5 @@ Totuși, Patronii primesc drepturi de laudă cu o nouă pictogramă faină lâng
   <string name="nowLifetime">Acum ești Patron Lichess pe viață!</string>
   <string name="nowOneMonth">Acum ești Patron Lichess pentru o lună!</string>
   <string name="downgradeNextMonth">Într-o lună, NU vei fi taxat din nou, iar contul tău de Lichess va fi înapoi un cont normal.</string>
+  <string name="changeCurrency">Schimbă moneda</string>
 </resources>
