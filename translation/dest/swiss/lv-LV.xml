@@ -67,4 +67,5 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kādas ir iespējas apļa sistēmas turnīriem?</string>
+  <string name="roundRobinAWontWork">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē</string>
 </resources>
