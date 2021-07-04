@@ -41,14 +41,15 @@
   <string name="pointsCalculationA">Kazanılan maç bir puan, beraberlik yarım puan, kaybedilen maç ise sıfır puan değerindedir.
 Eşleştirme esnasında eğer bir oyuncuya rakip bulunamazsa bu oyuncu bay geçer ve bir puan alır.</string>
   <string name="tiebreaksCalculationQ">Eşitlik bozma puanları nasıl hesaplanıyor?</string>
-  <string name="sonnebornBergerScore">Sonneborn–Berger sistemi</string>
-  <string name="tiebreaksCalculationA">%s ile.
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn–Berger sistemi</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s ile.
 Bir oyuncunun yendiği bütün rakiplerin turnuva puanları toplanır. Berabere kaldığı bütün rakiplerin puanları toplamının yarısı alınır. Bu iki sayı birbiriyle toplanır.</string>
   <string name="pairingsQ">Eşleştirmeler nasıl yapılıyor?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Ratinge Dayanan İsviçre Sistemi (Dutch Sistemi)</string>
   <string name="moreRoundsThanPlayersQ">Turnuvadaki tur sayısı, oyuncu sayısından fazla olursa ne olur?</string>
   <string name="moreRoundsThanPlayersA">Mümkün olan bütün eşleşmeler oynandığında turnuva sonra erer ve kazanan ilan edilir.</string>
   <string name="restrictedToTeamsQ">Neden sadece takım üyeleri katılabiliyor?</string>
-  <string name="restrictedToTeamsANotForOnline">İsviçre sistemi turnuvalar çevrimiçi satranç için tasarlanmamıştır. Oyuncuların dakik, ilgili ve sabırlı olması gerekir.</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">İsviçre sistemi turnuvalar çevrimiçi satranç için tasarlanmamıştır. Oyuncuların dakik, ilgili ve sabırlı olması gerekir.</string>
   <string name="restrictedToTeamsABetterMet">Bu şartların takım üyeleri tarafından karşılanmasının daha olası olduğunu düşünüyoruz.</string>
   <string name="numberOfByesQ">Bir oyuncu kaç kez bay geçebilir?</string>
   <string name="numberOfByesA">Eşleştirme sistemi tarafından rakip bulunamayan oyuncuya bir puan verilir.
@@ -62,7 +63,7 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="lateJoinASingleBye">Birkaç tur kaçırmış olsalar dahi geç katılanlara yalnızca yarım puan verilir.</string>
   <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>
   <string name="willSwissReplaceArenasA">Hayır. Bu turnuvalar tamamlayıcı niteliktedir.</string>
-  <string name="roundRobinQ">Peki her oyuncunun birbiriyle en az bir kez maç yaptığı (Round Robin) turnuvalar gelecek mi?</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Peki her oyuncunun birbiriyle en az bir kez maç yaptığı (Round Robin) turnuvalar gelecek mi?</string>
   <string name="roundRobinAWontWork">Bunu eklemek isterdik fakat bu tür turnuvalar çevrimiçi ortamlarda iyi işlemiyor</string>
   <string name="roundRobinANoBecause">Zira turnuvadan erken ayrılan oyuncular ile adil bir şekilde başa çıkmak mümkün değil. Çevrimiçi bir etkinlikte tüm oyuncuların bütün maçlara katılmasını bekleyemeyiz. Maalesef bu imkânsız. Bu yüzden çoğu Round Robin turnuvası kusurlu ve adaletsiz olacaktır ki bu da turnuvanın amacıyla örtüşmez.</string>
   <string name="roundRobinATheClosestPossible">Turnuvadaki her oyuncunun birbiriyle maç yapmasını istiyorsanız İsviçre sistemi bir turnuva düzenleyip tur sayısını mümkün olduğunca artırabilirsiniz. Böylece turnuva sona ermeden önce olası bütün eşleşmeler gerçekleşecektir.</string>
