@@ -38,4 +38,9 @@
   <string name="swissVsArenaQ">Når skal du arrangera etter sveitsarsystemet i staden for arenaturnering?</string>
   <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
 Det kan vera eit godt alternativ for klubbar og offisielle turneringar.</string>
+  <string name="pointsCalculationQ">Korleis vert poenga rekna ut?</string>
+  <string name="pointsCalculationA">Siger gjev eitt poeng, remis eit halvt poeng og tap null poeng.
+Spelarar som ikkje får tildelt motspelar i ein runde får eitt poeng.</string>
+  <string name="tiebreaksCalculationQ">Korleis vert poenga rekna ut ved uavgjord resultat (\"tie-break\")?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger skåre</string>
 </resources>
