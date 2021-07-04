@@ -86,6 +86,7 @@ final class Report(
             goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
               userC.modZoneOrRedirect(me, s.user.username)
             }
+          case Some(prev) if prev.isSpontaneous => Redirect(modC.userUrl(prev.user, mod = true)).fuccess
           case Some(prev) =>
             val dataOpt = ctx.body.body match {
               case AnyContentAsFormUrlEncoded(data) => data.some

@@ -76,6 +76,8 @@ case class Report(
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
   def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
+
+  def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
 }
 
 object Report {
