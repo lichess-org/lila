@@ -37,6 +37,11 @@
   <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
   <string name="accounts">Акаўнты</string>
   <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
+  <string name="showYourTitle">Калі вы маеце тытул у жыцці, каб адлюстроўваць яго ў акаўнце, вы можаце падаць запыт праз %1$s, дадаўшы выразнае фота пацвярджаючага дакумента/карткі та сэлфі, дзе вы трымаеце дакумент/картку.
+
+Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
+
+Нарэшце, ёсць ганаровы тытул %2$s.</string>
   <string name="verificationForm">форму верыфікацыі</string>
   <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
