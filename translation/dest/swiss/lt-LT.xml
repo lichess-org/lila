@@ -57,6 +57,14 @@ Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų 
   <string name="pairingsQ">Kaip išrenkamos poros?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Olandiška sistema</string>
   <string name="FIDEHandbook">FIDE taisyklės</string>
+  <string name="pairingsA">Su %1$s įgyvendintomis %2$s remiantis %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Kas vyksta, jei turnyras turi daugiau raundų nei žaidėjų?</string>
+  <string name="willSwissReplaceArenasQ">Ar šveicariški turnyrai pakeis arenos turnyrus?</string>
+  <string name="willSwissReplaceArenasA">Ne, tai yra papildomos funkcijos.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kaip dėl Round Robin?</string>
+  <string name="otherSystemsQ">O kaip su kitomis turnyrų sistemomis?</string>
+  <string name="otherSystemsA">Šiuo metu prie Lichess daugiau turnyrų sistemų pridėti neplanuojame.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Šveicariškuose turnyruose %1$s kiekvienas varžovas ne būtinai turi žaisti su visais kitais dalyviais. Priešininkai susitinka akis į akį kiekviename raunde ir yra suporuojami remiantis tam tikromis taisyklėmis. Šios taisyklės užtikrina, kad kiekvienas varžovas žaidžia su priešininkais turinčiais panašų taškų skaičių, bet su tuo pačiu oponentu ne daugiau nei kartą. Laimėtojas yra varžovas su daugiausia per visus raundus surinktų taškų. Visi varžovai žaidžia po raundą, nebent yra nelyginis žaidėjų skaičius.\"</string>
   <string name="teamOnly">Šveicariški turnyrai gali būti pradėti tik komandų lygerių ir gali būti žaidžiami tik komandos narių.           
 %1$s norėdami pradėti žaisti šveicariškuose turnyruose.</string>
   <string name="joinOrCreateTeam">Prisijungti prie arba sukurti komandą</string>
