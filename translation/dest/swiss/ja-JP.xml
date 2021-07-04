@@ -51,4 +51,8 @@
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
 また第 2 ラウンドから参加の場合、第 1 ラウンドについて 0.5 ポイントのバイが与えられます。</string>
   <string name="whatIfOneDoesntPlayQ">プレイヤーが対局しないとどうなりますか？</string>
+  <string name="whatIfOneDoesntPlayA">時計が進み、持時間がなくなって負けになります。
+続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
+その人はまた後に途中参加することができます。</string>
+  <string name="lateJoinQ">途中参加はできますか？</string>
 </resources>
