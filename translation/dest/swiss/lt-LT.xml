@@ -47,4 +47,42 @@
   <string name="forbiddenPairings">Neleistinos poros</string>
   <string name="forbiddenPairingsHelp">Vartotojai, kurie negali žaisti akrtu (pvz. broliai, sesės). Du vartotojų vardai per eilutę, atskirti tarpu.</string>
   <string name="newSwiss">Naujas Šveicariškas turnyras</string>
+  <string name="pointsCalculationQ">Kaip skaičiuojami taškai?</string>
+  <string name="pointsCalculationA">Pergalė verta vieno taško, lygiosios pusės taško, pralaimėjimas nulio taškų.
+Kai žaidėjas negali rasti poros raunde, jie gauna \"bye\" vertą vieno taško.</string>
+  <string name="tiebreaksCalculationQ">Kaip išsprendžiamos lygiosios?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger taškai</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Su %s.
+Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų oponentų, prieš kuriuos žaidėjas sužaidė lygiosiomis, taškų.</string>
+  <string name="pairingsQ">Kaip išrenkamos poros?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Olandiška sistema</string>
+  <string name="FIDEHandbook">FIDE taisyklės</string>
+  <string name="teamOnly">Šveicariški turnyrai gali būti pradėti tik komandų lygerių ir gali būti žaidžiami tik komandos narių.           
+%1$s norėdami pradėti žaisti šveicariškuose turnyruose.</string>
+  <string name="joinOrCreateTeam">Prisijungti prie arba sukurti komandą</string>
+  <string name="nowPlaying">Žaidžiama</string>
+  <string name="startingSoon">Greitai prasidės</string>
+  <string name="comparison">Palyginimas</string>
+  <string name="tournDuration">Turnyro trukmė</string>
+  <string name="predefinedDuration">Nustatyta trukmė minutėmis</string>
+  <string name="durationUnknown">Nustatytas didžiausias raundų skaičius, tačiau trukmė nežinoma</string>
+  <string name="numberOfGames">Žaidimų skaičius</string>
+  <string name="numberOfGamesAsManyAsPossible">Daugiausia tiek, kiek gali būti sužaista per paskirtą laiką</string>
+  <string name="numberOfGamesPreDefined">Nusprendžiama iš anksto visiems žaidėjams</string>
+  <string name="pairingSystem">Poravimo sistema</string>
+  <string name="pairingSystemArena">Bet koks prieinamas žaidėjas su panašiu reitingu</string>
+  <string name="pairingSystemSwiss">Geriausias poravimas remiantis taškais ir išspręstomis lygiosiomis</string>
+  <string name="pairingWaitTime">Suporavimo laikas</string>
+  <string name="pairingWaitTimeFast">Greitas, nelaukia visų žaidėjų</string>
+  <string name="pairingWaitTimeSlow">Lėtas: laukia visų žaidėjų</string>
+  <string name="identicalPairing">Vienodas suporavimas</string>
+  <string name="possibleButNotConsecutive">Galimas, bet ne iš karto vienas po kito</string>
+  <string name="identicalForbidden">Uždraustas</string>
+  <string name="lateJoin">Vėlyvas prisijungimas</string>
+  <string name="lateJoinUntil">Taip, kol neprasidėjo daugiau nei pusė raundų</string>
+  <string name="pause">Pauzė</string>
+  <string name="pauseSwiss">Taip, bet gali sumažėti raundų skaičius</string>
+  <string name="streaksAndBerserk">Pergalių serijos ir įsiutis</string>
+  <string name="similarToOTB">Panašu į gyvus turnyrus</string>
+  <string name="unlimitedAndFree">Neribojama ir nemokama</string>
 </resources>
