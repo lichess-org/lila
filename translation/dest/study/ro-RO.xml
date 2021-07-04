@@ -150,4 +150,5 @@
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Atac</string>
   <string name="nextChapter">Capitolul următor</string>
   <string name="prevChapter">Capitolul precedent</string>
+  <string name="studyActions">Acţiuni de studiu</string>
 </resources>
