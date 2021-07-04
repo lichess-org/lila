@@ -51,4 +51,15 @@ Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="teamOnly">Sveitsiläisiä turnauksia voivat luoda vain joukkueenjohtajat, ja niissä voivat pelata vain joukkueen jäsenet.           
 %1$s pelataksesi sveitsiläisissä turnauksissa.</string>
   <string name="joinOrCreateTeam">Liity joukkueeseen tai luo joukkue</string>
+  <string name="nowPlaying">Käynnissä</string>
+  <string name="startingSoon">Alkaa pian</string>
+  <string name="comparison">Vertailu</string>
+  <string name="tournDuration">Turnauksen kesto</string>
+  <string name="predefinedDuration">Rajattu kesto minuuteissa</string>
+  <string name="durationUnknown">Kierrosten maksimimäärä on rajattu, mutta kesto avoin</string>
+  <string name="numberOfGames">Pelien lukumäärä</string>
+  <string name="numberOfGamesAsManyAsPossible">Niin monta kuin peliä kuin rajattuna peliaikana ehtii</string>
+  <string name="numberOfGamesPreDefined">Ennalta määritelty, kaikille pelaajille sama</string>
+  <string name="pairingSystem">Parien muodostus</string>
+  <string name="pairingSystemArena">Kuka tahansa vastustaja, jonka sijoitus on lähellä omaasi</string>
 </resources>
