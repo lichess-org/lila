@@ -2,6 +2,7 @@ const resolve = require('@rollup/plugin-node-resolve').default;
 const commonjs = require('@rollup/plugin-commonjs');
 const typescript = require('@rollup/plugin-typescript');
 const terser = require('rollup-plugin-terser').terser;
+const analyze = require('rollup-plugin-analyzer');
 
 module.exports = targets => {
   return args => {
@@ -37,6 +38,9 @@ module.exports = targets => {
         ...(target.js ? [] : [typescript()]),
         commonjs({
           extensions: ['.js'],
+        }),
+        analyze({
+          summaryOnly: true,
         }),
       ],
     };
