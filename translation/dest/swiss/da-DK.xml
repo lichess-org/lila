@@ -52,6 +52,8 @@ Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for 
   <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
   <string name="moreRoundsThanPlayersA">Når alle mulige parringer er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
   <string name="restrictedToTeamsQ">Hvorfor er den begrænset til hold?</string>
+  <string name="restrictedToTeamsA">Schweiziske turneringer blev ikke designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.
+Vi mener, at disse betingelser har større chance for at blive opfyldt inden for et hold end i åbne turneringer.</string>
   <string name="numberOfByesQ">Hvor mange byes kan en spiller få?</string>
   <string name="numberOfByesA">En spiller får en bye på et point, hver gang parringssystemet ikke kan finde en parring for dem.
 Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent slutter sig til en turnering.</string>
@@ -60,6 +62,7 @@ Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent
 Så vil systemet trække spilleren ud af turneringen, så de ikke taber flere partier.
  De kan til enhver tid vende tilbage til turneringen.</string>
   <string name="lateJoinQ">Kan spillere melde sig til sent?</string>
+  <string name="lateJoinA">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
   <string name="roundRobinQ">Hvad med Round Robin?</string>
