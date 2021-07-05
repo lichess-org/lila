@@ -686,7 +686,7 @@
   <string name="contribute">Зрабіць унёсак</string>
   <string name="termsOfService">Умовы карыстання</string>
   <string name="sourceCode">Зыходны код</string>
-  <string name="simultaneousExhibitions">Сеансы адначасавай гульні</string>
+  <string name="simultaneousExhibitions">Сеансы адначасовай гульні</string>
   <string name="host">Арганізатар</string>
   <string name="hostColorX">Колер арганізатара: %s</string>
   <string name="createdSimuls">Нядаўна створаныя сеансы</string>
@@ -694,11 +694,11 @@
   <string name="noSimulFound">Сеанс не знойдзены</string>
   <string name="noSimulExplanation">Не атрымалася знайсці такі сеанс.</string>
   <string name="returnToSimulHomepage">Да асноўнай старонкі</string>
-  <string name="aboutSimul">Сеанс адначасавай гульні – рэжым, калі адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
+  <string name="aboutSimul">Сеанс адначасовай гульні – рэжым, калі адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
   <string name="aboutSimulImage">Фішэр гуляў адначасова з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
-  <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: арганізатар ходзіць ад стала да стала, робячы хады.</string>
+  <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: сеансёр ходзіць ад стала да стала, робячы хады.</string>
   <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з арганізатарам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
-  <string name="aboutSimulSettings">Сеансы адначасавай гульні заўсёды бязрэйтынгавыя. Нельга перахадзіць ці дадаваць час.</string>
+  <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды бязрэйтынгавыя. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
   <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
