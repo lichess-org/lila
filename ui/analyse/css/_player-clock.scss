@@ -27,9 +27,4 @@ $clock-height: 20px;
   tenths {
     font-size: 80%;
   }
-
-  /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
-  @include breakpoint($mq-col1) {
-    display: none;
-  }
 }
