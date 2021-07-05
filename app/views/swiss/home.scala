@@ -190,8 +190,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.restrictedToTeamsQ()),
-        trans.swiss.restrictedToTeamsANotForOnline(),
-        trans.swiss.restrictedToTeamsABetterMet()
+        trans.swiss.restrictedToTeamsA(),
       )
     ),
     div(cls := "faq")(
@@ -212,8 +211,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.lateJoinQ()),
-        trans.swiss.lateJoinAYes(),
-        trans.swiss.lateJoinASingleBye()
+        trans.swiss.lateJoinA(),
       )
     ),
     div(cls := "faq")(
@@ -227,9 +225,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.roundRobinQ()),
-        trans.swiss.roundRobinAWontWork(),
-        trans.swiss.roundRobinANoBecause(),
-        trans.swiss.roundRobinATheClosestPossible()
+        trans.swiss.roundRobinA(),
       )
     ),
     div(cls := "faq")(

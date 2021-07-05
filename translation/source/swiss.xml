@@ -34,7 +34,7 @@
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="newSwiss">New Swiss tournament</string>
-   <string name="swissVsArenaQ">When to use swiss tournaments instead of arenas?</string>
+  <string name="swissVsArenaQ">When to use swiss tournaments instead of arenas?</string>
   <string name="swissVsArenaA">In a swiss tournament, all participants play the same number of games, and can only play each other once.
 It can be a good option for clubs and official tournaments.</string>
   <string name="pointsCalculationQ">How are points calculated?</string>
@@ -51,8 +51,8 @@ Add the scores of every opponent the player beats and half of the score of every
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
   <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
-  <string name="restrictedToTeamsANotForOnline">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.</string>
-<string name="restrictedToTeamsABetterMet">We think these conditions are more likely to be met within a team than in global tournaments.</string>
+  <string name="restrictedToTeamsA">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.
+We think these conditions are more likely to be met within a team than in global tournaments.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can't find a pairing for them.
 Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>	
@@ -60,19 +60,18 @@ Additionally, a single bye of half a point is attributed when a player late-join
   <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
 Then the system will withdraw the player from the tournament, so they don't lose more games.
  They can re-join the tournament at any time.</string>
- <string name="lateJoinQ">Can players late-join?</string>
- <string name="lateJoinAYes">Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round 7 starts.</string>
- <string name="lateJoinASingleBye">Late joiners get a single bye, even if they missed several rounds.</string>
- <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
- <string name="willSwissReplaceArenasA">No. They're complementary features.</string>
- <string name="roundRobinQ">What about Round Robin?</string>
- <string name="roundRobinAWontWork">We'd like to add it, but unfortunately Round Robin doesn't work online
-</string>
-<string name="roundRobinANoBecause">The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won't happen, and as a result most Round Robin tournaments would be flawed and unfair, which defeats their very reason to exist.</string>
-<string name="roundRobinATheClosestPossible">The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
- <string name="otherSystemsQ">What about other tournament systems?</string>
- <string name="otherSystemsA">We don't plan to add more tournament systems to Lichess at the moment.</string>
- <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."</string>
+  <string name="lateJoinQ">Can players late-join?</string>
+  <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds swiss players can join before round 6 starts and in a 12-rounds before round 7 starts.
+Late joiners get a single bye, even if they missed several rounds.</string>
+  <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
+  <string name="willSwissReplaceArenasA">No. They're complementary features.</string>
+  <string name="roundRobinQ">What about Round Robin?</string>
+  <string name="roundRobinA">We'd like to add it, but unfortunately Round Robin doesn't work online.
+The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won't happen, and as a result most Round Robin tournaments would be flawed and unfair, which defeats their very reason to exist.
+The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
+  <string name="otherSystemsQ">What about other tournament systems?</string>
+  <string name="otherSystemsA">We don't plan to add more tournament systems to Lichess at the moment.</string>
+  <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players."</string>
   <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.           
 %1$s to start playing in swiss tournaments.</string>           
   <string name="joinOrCreateTeam">Join or create a team</string>
