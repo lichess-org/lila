@@ -18,6 +18,13 @@
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Адно чакаючае запрашэнне</item>
+    <item quantity="few">%s чакаючых запрашэння</item>
+    <item quantity="many">%s чакаючых запрашэнняў</item>
+    <item quantity="other">%s чакаючых запрашэнняў</item>
+  </plurals>
+  <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
   <string name="students">Вучні</string>
   <string name="progress">Прагрэс</string>
   <string name="noStudents">Пакуль ніводнага вучня на занятку.</string>
