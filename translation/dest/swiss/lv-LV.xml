@@ -68,4 +68,14 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kādas ir iespējas apļa sistēmas turnīriem?</string>
   <string name="roundRobinAWontWork">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē</string>
+  <string name="otherSystemsQ">Kā ar citām turnīru sistēmām?</string>
+  <string name="otherSystemsA">Mums šobrīd nav plānu pievienot citas turnīru sistēmas vietnei Lichess.</string>
+  <string name="joinOrCreateTeam">Pievienoties vai izveidot komandu</string>
+  <string name="nowPlaying">Pašlaik notiek</string>
+  <string name="startingSoon">Drīz sāksies</string>
+  <string name="comparison">Salīdzinājums</string>
+  <string name="tournDuration">Turnīra ilgums</string>
+  <string name="predefinedDuration">Noteikts minūtēs</string>
+  <string name="durationUnknown">Noteikts maksimālais raundu skaits, bet nezināms ilgums</string>
+  <string name="numberOfGames">Spēļu skaits</string>
 </resources>
