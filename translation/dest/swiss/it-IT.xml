@@ -71,4 +71,33 @@ Allora il sistema preleverà il giocatore dal torneo, così che non perderà alt
   <string name="roundRobinATheClosestPossible">Il più vicino che si può arrivare a Round Robin online è giocare un torneo svizzero con un numero molto elevato di turni. Quindi tutti gli abbinamenti possibili saranno giocati prima della fine del torneo.</string>
   <string name="otherSystemsQ">E gli altri sistemi di torneo?</string>
   <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a Lichess al momento.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">In un torneo svizzero %1$s, ogni concorrente non gioca necessariamente con ogni partecipante. I concorrenti si incontrano uno a uno in ogni turno e sono abbinati usando una serie di regole progettate per assicurarsi che ogni concorrente giochi con i rivali con un punteggio simile, ma non lo stesso rivale più di una volta. Il vincitore è il concorrente con i punti aggregati maggiori ottenuti in tutti i turni. Tutti i concorrenti giocano in ogni turno a meno che non ci sia un numero disparo di giocatori.\"</string>
+  <string name="teamOnly">I tornei svizzeri sono creabili solo dai leader della squadra e giocabili solo dai membri della squadra.           
+%1$s per iniziare a giocare ai tornei svizzeri.</string>
+  <string name="joinOrCreateTeam">Partecipa o crea una squadra</string>
+  <string name="nowPlaying">In gioco</string>
+  <string name="startingSoon">Inizia a breve</string>
+  <string name="comparison">Confronto</string>
+  <string name="tournDuration">Durata del torneo</string>
+  <string name="predefinedDuration">Durata predefinita in minuti</string>
+  <string name="durationUnknown">Turni massimi predefiniti, ma durata sconosciuta</string>
+  <string name="numberOfGames">Numero di partite</string>
+  <string name="numberOfGamesAsManyAsPossible">Quante ne possono esser giocate nella durata assegnata</string>
+  <string name="numberOfGamesPreDefined">Deciso in anticipo, uguale per tutti i giocatori</string>
+  <string name="pairingSystem">Sistema di abbinamento</string>
+  <string name="pairingSystemArena">Ogni rivale disponibile con livello simile</string>
+  <string name="pairingSystemSwiss">Miglior abbinamento basato sui punti e i tie break</string>
+  <string name="pairingWaitTime">Tempo d\'attesa dell\'abbinamento</string>
+  <string name="pairingWaitTimeFast">Veloce: non attendere tutti i giocatori</string>
+  <string name="pairingWaitTimeSlow">Lento: attendi tutti i giocatori</string>
+  <string name="identicalPairing">Abbinamento identico</string>
+  <string name="possibleButNotConsecutive">Possibile, ma non consecutivo</string>
+  <string name="identicalForbidden">Proibito</string>
+  <string name="lateJoin">Partecipazione tardiva</string>
+  <string name="lateJoinUntil">Sì finché più di metà dei turni sono iniziati</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sì ma potrebbe ridurre il numero di turni</string>
+  <string name="streaksAndBerserk">Serie e Berserk</string>
+  <string name="similarToOTB">Simile ai tornei OTB</string>
+  <string name="unlimitedAndFree">Illimitato e gratuito</string>
 </resources>
