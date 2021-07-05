@@ -117,7 +117,7 @@ final private class RelayFetch(
             .filterNot(_.isTimeout)
             .flatMap(_.error)
             .ifTrue(rt.tour.official && rt.round.hasStarted) foreach { error =>
-            irc.broadcastError(rt.round.id.value, rt.round.name, error)
+            irc.broadcastError(rt.round.id.value, rt.fullName, error)
           }
           60
         } else
