@@ -33,10 +33,8 @@ final class AuthorizationApi(val coll: Coll)(implicit ec: scala.concurrent.Execu
           .result[PendingAuthorization]
           .toValid(Protocol.Error.AuthorizationCodeInvalid)
           .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(DateTime.now()))
-          .ensure(Protocol.Error.MismatchingRedirectUri)(p =>
-            request.redirectUri.forall(p.redirectUri.matches)
-          )
-          .ensure(Protocol.Error.MismatchingClient)(p => request.clientId.forall(_ == p.clientId))
+          .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
+          .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
         _ <- pending.challenge match {
           case Left(hashedClientSecret) =>
             request.clientSecret

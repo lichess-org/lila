@@ -97,7 +97,7 @@ final class OAuth(env: Env) extends LilaController(env) {
 
   def legacyTokenApply =
     Action.async(parse.form(accessTokenRequestForm)) { implicit req =>
-      req.body.prepareLegacy match {
+      req.body.prepareLegacy(AccessTokenRequest.BasicAuth from req) match {
         case Validated.Valid(prepared) =>
           env.oAuth.authorizationApi.consume(prepared) flatMap {
             case Validated.Valid(granted) =>
