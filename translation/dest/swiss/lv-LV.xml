@@ -78,4 +78,22 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="predefinedDuration">Noteikts minūtēs</string>
   <string name="durationUnknown">Noteikts maksimālais raundu skaits, bet nezināms ilgums</string>
   <string name="numberOfGames">Spēļu skaits</string>
+  <string name="numberOfGamesAsManyAsPossible">Tik, cik iespējams izspēlēt novēlētajā laikā</string>
+  <string name="numberOfGamesPreDefined">Iepriekš noteikts tāds pats visiem spēlētājiem</string>
+  <string name="pairingSystem">Pārošanas sistēma</string>
+  <string name="pairingSystemArena">Jebkurš pretinieks ar līdzīgu vietu</string>
+  <string name="pairingSystemSwiss">Vislabākie pāri balstoties uz punktiem un vienādu punktu izšķiršanu</string>
+  <string name="pairingWaitTime">Pārošanas gaidīšanas laiks</string>
+  <string name="pairingWaitTimeFast">Īss: negaida visus spēlētājus</string>
+  <string name="pairingWaitTimeSlow">Ilgs: jāsagaida visi spēlētāji</string>
+  <string name="identicalPairing">Atkārtoti pretinieki</string>
+  <string name="possibleButNotConsecutive">Iespējams, bet ne secīgās spēlēs</string>
+  <string name="identicalForbidden">Nav atļauts</string>
+  <string name="lateJoin">Aizkavēta pievienošanās</string>
+  <string name="lateJoinUntil">Atļauta, kamēr nav sākušies vismaz puse raundu</string>
+  <string name="pause">Pauzes</string>
+  <string name="pauseSwiss">Atļautas, bet var samazināt raundu skaitu</string>
+  <string name="streaksAndBerserk">Uzvaru sērijas un \"dullās\" spēles</string>
+  <string name="similarToOTB">Līdzīgs turnīram uz vietas</string>
+  <string name="unlimitedAndFree">Neierobežots un bezmaksas</string>
 </resources>
