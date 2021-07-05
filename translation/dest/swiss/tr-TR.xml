@@ -73,7 +73,7 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="otherSystemsA">Lichess\'e başka bir turnuva sistemi eklemeyi şu anda planlamıyoruz.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">İsviçre sistemi turnuvalarda %1$s, her oyuncunun bütün katılımcılarla maç yapması şart değildir. Her tur eşleştirmeler yapılırken turnuva puanları esas alınır. Oyuncular kendilerine en yakın turnuva puanına sahip rakiplerden biriyle eşleşir ancak aynı rakip ile birden fazla maç yapamaz. Turnuvanın galibi, bütün turlarda kazandığı puanların toplamı en yüksek olan oyuncu olur. Katılımcı sayısı bir tek sayı olmadığı sürece bütün yarışmacılar her turda maç yapar.</string>
   <string name="teamOnly">İsviçre sistemi turnuvalar sadece takım liderleri tarafından oluşturulabilir ve bu turnuvalara yalnızca takım üyeleri katılabilir. İsviçre sistemi turnuvalarda yer almak için %1$s.</string>
-  <string name="joinOrCreateTeam">bir takıma katıl veya yeni bir takım oluştur</string>
+  <string name="joinOrCreateTeam">bir takıma katılın veya yeni bir takım oluşturun</string>
   <string name="nowPlaying">Devam eden turnuvalar</string>
   <string name="startingSoon">Başlamak üzere</string>
   <string name="comparison">Karşılaştırma</string>
