@@ -29,6 +29,7 @@
   <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess падтрымлівае класічныя шахматы і %1$s.</string>
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
+  <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
@@ -69,6 +70,8 @@
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаване для таго, каб гульцы, якія больш не карыстаюцца свае акаўнты, не займалі месца на дошках лідараў.</string>
+  <string name="whyAreRatingHigher">Чаму рэйтынгі вышэй, чым на іншых сайтах та арганісацыях такіх як ФІДЭ, USCF і ICC?</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
   <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуць %2$s падчас гульні.</string>
   <string name="displayPreferences">наладках адлюстравання</string>
