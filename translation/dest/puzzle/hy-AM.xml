@@ -28,4 +28,30 @@
   <string name="notTheMove">Վատ քայլ է</string>
   <string name="trySomethingElse">Փորձեք այլ կերպ։</string>
   <string name="ratingX">Վարկանիշ՝ %s</string>
+  <string name="hidden">թաքցրած է</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">Փորձել են լուծել %s անգամ</item>
+    <item quantity="other">Փորձել են լուծել %s անգամ</item>
+  </plurals>
+  <string name="fromGameLink">%s պարտիայից</string>
+  <string name="continueTraining">Շարունակել մարզումը</string>
+  <string name="difficultyLevel">Բարդության մակարդակը</string>
+  <string name="normal">Միջին</string>
+  <string name="easier">Հեշտ</string>
+  <string name="easiest">Շատ հեշտ</string>
+  <string name="harder">Բարդ</string>
+  <string name="hardest">Բարդագույն</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Մեկ միավոր բարձր խնդիրների լուծման Ձեր վարկանիշից</item>
+    <item quantity="other">%s միավոր բարձր խնդիրների լուծման Ձեր վարկանիշից</item>
+  </plurals>
+  <string name="example">Օրինակ</string>
+  <string name="addAnotherTheme">Ավելացնել այլ մոտիվ</string>
+  <string name="jumpToNextPuzzleImmediately">Անմիջապես անցնել հաջորդ խնդրին</string>
+  <string name="puzzleDashboard">Խնդիրների վահանակ</string>
+  <string name="improvementAreas">Թույլ կողմեր</string>
+  <string name="strengths">Ուժեղ կողմեր</string>
+  <string name="history">Խնդիրների պատմություն</string>
+  <string name="solved">լուծված</string>
+  <string name="failed">անհաջող</string>
 </resources>
