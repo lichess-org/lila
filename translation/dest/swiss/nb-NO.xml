@@ -56,6 +56,8 @@ Legg sammen poengene til hver motstander spilleren har vunnet over, og halvparte
   <string name="numberOfByesA">Spillerne får frirunde og ett poeng hver gang parsystemet ikke finner par til dem.
 I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng.</string>
   <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
+  <string name="willSwissReplaceArenasQ">Vil sveitserturneringer erstatte arenaturneringer?</string>
+  <string name="willSwissReplaceArenasA">Nei. De utfyller hverandre.</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
   <string name="numberOfGames">Antall partier</string>
