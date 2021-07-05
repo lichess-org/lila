@@ -5,4 +5,27 @@
   <string name="recommended">Խորհուրդ է տրվում</string>
   <string name="phases">Խաղի փուլեր</string>
   <string name="motifs">Մոտիվներ</string>
+  <string name="advanced">Առաջադեմ</string>
+  <string name="lengths">Քայլերի քանակը</string>
+  <string name="mates">Մատեր</string>
+  <string name="goals">Նպատակներ</string>
+  <string name="origin">Պարտիաներից</string>
+  <string name="specialMoves">Հատուկ քայլեր</string>
+  <string name="didYouLikeThisPuzzle">Հավանեցի՞ք խնդիրը։</string>
+  <string name="voteToLoadNextOne">Քվեարկե՛ք և անցե՛ք հաջորդին։</string>
+  <string name="yourPuzzleRatingX">Խնդիրներ լուծելու Ձեր վարկանիշը՝ %s</string>
+  <string name="findTheBestMoveForWhite">Գտե՛ք սպիտակների լավագույն քայլը։</string>
+  <string name="findTheBestMoveForBlack">Գտե՛ք սևերի լավագույն քայլը։</string>
+  <string name="toGetPersonalizedPuzzles">Անհատական խնդիրներ ստանալու համար.</string>
+  <string name="puzzleId">Խնդիր № %s</string>
+  <string name="puzzleOfTheDay">Օրվա խնդիրը</string>
+  <string name="clickToSolve">Սեղմեք լուծելու համար</string>
+  <string name="goodMove">Լավ քայլ է</string>
+  <string name="bestMove">Լավագո՛ւյն քայլը</string>
+  <string name="keepGoing">Շարունակեք…</string>
+  <string name="puzzleSuccess">Խնդիրը լուծված է</string>
+  <string name="puzzleComplete">Խնդիրը լուծված է</string>
+  <string name="notTheMove">Վատ քայլ է</string>
+  <string name="trySomethingElse">Փորձեք այլ կերպ։</string>
+  <string name="ratingX">Վարկանիշ՝ %s</string>
 </resources>
