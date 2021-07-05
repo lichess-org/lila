@@ -97,6 +97,7 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="lateJoinUntil">Ja, tot meer dan de helft van de rondes is begonnen</string>
   <string name="pause">Pauzeren</string>
   <string name="pauseSwiss">Ja, maar kan het aantal rondes verminderen</string>
+  <string name="streaksAndBerserk">Reeksen en Berserk</string>
   <string name="similarToOTB">Vergelijkbaar met fysieke toernooien</string>
   <string name="unlimitedAndFree">Onbeperkt en gratis</string>
 </resources>
