@@ -76,7 +76,7 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
 %1$s om te beginnen met spelen in Zwitserse toernooien.</string>
   <string name="joinOrCreateTeam">Word lid van een team of maak zelf een team aan</string>
   <string name="nowPlaying">Nu bezig</string>
-  <string name="startingSoon">Begint binnenkort</string>
+  <string name="startingSoon">Aanstaand</string>
   <string name="comparison">Vergelijking</string>
   <string name="tournDuration">Duur van het toernooi</string>
   <string name="predefinedDuration">Voorgedefinieerde duur in minuten</string>
