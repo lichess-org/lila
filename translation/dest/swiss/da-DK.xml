@@ -46,7 +46,10 @@ Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', de
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
 Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for hver modstander, spilleren spiller remis.</string>
   <string name="pairingsQ">Hvordan bestemmes parringer?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Hollandsk system</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE håndbog</string>
+  <string name="pairingsA">Med %1$s, implementeret af %2$s, i overensstemmelse med %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Schweiziske turneringer blev ikke oprindeligt designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.</string>
   <string name="lateJoinAYes">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
