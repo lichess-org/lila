@@ -945,5 +945,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Ieslēgt/izslēgt visu datoranalīzi</string>
   <string name="playComputerMove">Izspēlēt labāko datora gājienu</string>
   <string name="analysisOptions">Analīzes iespējas</string>
+  <string name="focusChat" comment="focusChat&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)">Fokusēt sarunu</string>
   <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
 </resources>
