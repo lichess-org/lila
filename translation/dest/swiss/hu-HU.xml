@@ -42,18 +42,16 @@ Ez jó alternetívát nyújt kluboknak és hivatalos rendezvények szervezőinek
   <string name="pointsCalculationA">Minden nyert játszma egy, a döntetlen fél és a vereség nulla pontot ér.
 Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot érő szabadkört.</string>
   <string name="tiebreaksCalculationQ">Hogyan történik a holtverseny eldöntése?</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn–Berger pont</string>
-  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">A %s alapján.
+  <string name="sonnebornBergerScore">Sonneborn–Berger pont</string>
+  <string name="tiebreaksCalculationA">A %s alapján.
 Összeadja a játékos legyőzött ellenfelei pontjainak összegét és a döntetlent játszott ellenfelek pontjainak felét.</string>
   <string name="pairingsQ">Hogyan történik a játékosok párosítása?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Holland rendszer</string>
-  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE kézikönyv</string>
+  <string name="dutchSystem">Holland rendszer</string>
+  <string name="FIDEHandbook">FIDE kézikönyv</string>
   <string name="pairingsA">%1$s közreműködésével, %2$s által megvalósítva, %3$s szerint.</string>
   <string name="moreRoundsThanPlayersQ">Mi történik, ha több forduló van előírva, mint amennyi résztvevő van?</string>
   <string name="moreRoundsThanPlayersA">Ha minden lehetséges párosítást lejátszottak, a versenynek vége és a győztest kihirdetjük.</string>
   <string name="restrictedToTeamsQ">Miért van csapatokra korlátozva?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">A svájci rendszerű versenyek nem online sakkra lettek kitalálva. Megköveteli a pontosságot, elhivatottságot és türelmet a játékosok részéről.</string>
-  <string name="restrictedToTeamsABetterMet">Úgy gondoljuk ezek a feltételek előbb adottak egy csapaton belül, mint egy nyílt verseny résztvevői között.</string>
   <string name="numberOfByesQ">Hány szabadkört kaphat egy játékos?</string>
   <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
 Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
@@ -62,17 +60,12 @@ Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki kés
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
  Bármikor újracsatlakozhatnak a versenyhez.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
-  <string name="lateJoinAYes">Igen, de legkésőbb amíg a fordulók több mint fele megkezdődött; például egy 11-fordulós svájciba a játékosok csatlakozhatnak a 6. forduló kezdetéig, egy 12-fordulósba a 7. forduló kezdetéig.</string>
-  <string name="lateJoinASingleBye">Kései csatlakozók kapnak egy szabadkört, akkor is ha több fordulóból maradtak ki.</string>
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Mi a helyzet a körmérkőzéssel?</string>
-  <string name="roundRobinAWontWork">Szeretnénk hozzáadni, de sajnos a körmérkőzések nem működnek online</string>
-  <string name="roundRobinANoBecause">Ennek az az oka, hogy nem lehet igazságosan kezelni, ha valaki korán elhagyja a versenyt. Nem várható el a játékosoktól, hogy minden partit végigjátszanak egy online eseményen. Nem működne, mert a körmérkőzéses versenyek eredménye hibás és igazságtalan lenne, ami ellentmond annak az alapvető gondolatával.</string>
-  <string name="roundRobinATheClosestPossible">Ami leginkább megközelíti a körmérkőzést az egy svájci rendszerű verseny nagyon sok fordulóval. Ezáltal minden lehetséges párosítás végbemegy még a verseny befejezte előtt.</string>
+  <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
-  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes akinek a legtöbb pontot szerezte az összes fordulóban. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
+  <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes akinek a legtöbb pontot szerezte az összes fordulóban. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>
   <string name="teamOnly">Svájci rendszerű versenyeket csak csapatvezetők indíthatnak és csak csapattagok vehetnek benne részt.           
 %1$s, hogy részt vehess svájci rendszerű versenyben.</string>
   <string name="joinOrCreateTeam">Csatlakozz vagy csinálj egy csapatot</string>
