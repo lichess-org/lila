@@ -5,4 +5,52 @@
     <item quantity="one">Visualizza il round</item>
     <item quantity="other">Visualizza tutti i %s round</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s turno</item>
+    <item quantity="other">%s turni</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Un turno al giorno</item>
+    <item quantity="other">Un turno ogni %s giorni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">I turni sono avviati manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s secondo tra i turni</item>
+    <item quantity="other">%s secondi tra i turni</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto tra i turni</item>
+    <item quantity="other">%s minuti tra i turni</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Inizia tra</string>
+  <string name="nextRound">Prossimo turno</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partita in corso</item>
+    <item quantity="other">Partite in corso</item>
+  </plurals>
+  <string name="tournStartDate">Data d\'inizio del torneo</string>
+  <string name="numberOfRounds">Numero di turni</string>
+  <string name="numberOfRoundsHelp">Un numero dispari di turni consente un equilibrio cromatico ottimale.</string>
+  <string name="roundInterval">Intervallo tra i turni</string>
+  <string name="forbiddenPairings">Abbinamenti proibiti</string>
+  <string name="forbiddenPairingsHelp">Nomi utenti dei giocatori che non devono giocare insieme (Gemelli, ad esempio). Due nomi utenti per riga, separati da uno spazio.</string>
+  <string name="newSwiss">Nuovo torneo svizzero</string>
+  <string name="swissVsArenaQ">Quando usare i tornei svizzeri invece delle arene?</string>
+  <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro una volta.
+Può essere una buona opzione per i club e per i tornei ufficiali.</string>
+  <string name="pointsCalculationQ">Come sono calcolati i punti?</string>
+  <string name="pointsCalculationA">Una vittoria vale un punto, un pareggio mezzo punto e una perdita zero.
+Quando un giocatore non è accoppiabile durante un turno, ricevono un bye dal valore di un punto.</string>
+  <string name="tiebreaksCalculationQ">Come sono calcolati i tie break?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Punteggio di Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Con il %s.
+Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio di ogni rivale che pareggia con il giocatore.</string>
+  <string name="pairingsQ">Come sono decise le patte?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Sistema olandese</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Manuale FIDE</string>
+  <string name="pairingsA">Con il %1$s, implementato da %2$s, in conformità con il %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Che succede se il torneo ha più turni che giocatori?</string>
+  <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
+  <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">I tornei svizzeri non sono stati pensati per gli scacchi online. Richiedono puntualità, dedizione e pazienza dai giocatori.</string>
 </resources>
