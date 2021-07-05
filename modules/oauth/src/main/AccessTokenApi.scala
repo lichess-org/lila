@@ -6,9 +6,9 @@ import reactivemongo.api.bson._
 
 import lila.common.Bearer
 import lila.db.dsl._
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
-final class AccessTokenApi(colls: OauthColls, cacheApi: lila.memo.CacheApi)(implicit
+final class AccessTokenApi(colls: OauthColls, cacheApi: lila.memo.CacheApi, userRepo: UserRepo)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -16,6 +16,16 @@ final class AccessTokenApi(colls: OauthColls, cacheApi: lila.memo.CacheApi)(impl
   import AccessToken.{ BSONFields => F, _ }
 
   def create(token: AccessToken): Funit = colls.token(_.insert.one(token).void)
+
+  def create(setup: OAuthForm.token.Data, me: User, isStudent: Boolean): Funit =
+    (fuccess(isStudent) >>| userRepo.isManaged(me.id)) flatMap { noBot =>
+      val token = setup make me
+      create(
+        token.copy(
+          scopes = token.scopes.filterNot(_ == OAuthScope.Bot.Play && noBot)
+        )
+      )
+    }
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
     val token = AccessToken(

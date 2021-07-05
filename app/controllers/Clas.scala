@@ -17,23 +17,25 @@ final class Clas(
 
   def index =
     Open { implicit ctx =>
-      ctx.me match {
-        case _ if getBool("home") => renderHome
-        case None                 => renderHome
-        case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-          env.clas.api.clas.of(me) map { classes =>
-            Ok(views.html.clas.clas.teacherIndex(classes))
-          }
-        case Some(me) =>
-          (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
-            case true =>
-              env.clas.api.student.clasIdsOfUser(me.id) flatMap
-                env.clas.api.clas.byIds map {
-                  case List(single) => Redirect(routes.Clas.show(single.id.value))
-                  case many         => Ok(views.html.clas.clas.studentIndex(many))
-                }
-            case _ => renderHome
-          }
+      NoBot {
+        ctx.me match {
+          case _ if getBool("home") => renderHome
+          case None                 => renderHome
+          case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
+            env.clas.api.clas.of(me) map { classes =>
+              Ok(views.html.clas.clas.teacherIndex(classes))
+            }
+          case Some(me) =>
+            (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
+              case true =>
+                env.clas.api.student.clasIdsOfUser(me.id) flatMap
+                  env.clas.api.clas.byIds map {
+                    case List(single) => Redirect(routes.Clas.show(single.id.value))
+                    case many         => Ok(views.html.clas.clas.studentIndex(many))
+                  }
+              case _ => renderHome
+            }
+        }
       }
     }
 
@@ -570,9 +572,10 @@ final class Clas(
 
   private def couldBeTeacher(implicit ctx: Context) =
     ctx.me match {
-      case None             => fuTrue
-      case _ if ctx.hasClas => fuTrue
-      case Some(me)         => !env.mod.logApi.wasUnteachered(me.id)
+      case None                 => fuTrue
+      case Some(me) if me.isBot => fuFalse
+      case _ if ctx.hasClas     => fuTrue
+      case Some(me)             => !env.mod.logApi.wasUnteachered(me.id)
     }
 
   def invitation(id: String) =
