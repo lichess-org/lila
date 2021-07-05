@@ -103,8 +103,12 @@ object side {
             .map { number =>
               st.section(
                 trans.chess960StartPosition(
-                  a(href := routes.UserAnalysis.parseArg(s"chess960/${(initialFen | chess.format.Forsyth.initial).value.replace(" ", "_")}"))(number)
-                )  
+                  a(
+                    href := routes.UserAnalysis.parseArg(
+                      s"chess960/${(initialFen | chess.format.Forsyth.initial).value.replace(" ", "_")}"
+                    )
+                  )(number)
+                )
               )
             },
         userTv.map { u =>
