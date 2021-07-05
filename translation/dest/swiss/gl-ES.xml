@@ -46,8 +46,8 @@ Cando unha xogadora non pode emparellarse durante unha ronda, recibe un \"bye\",
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Co %s.
 Engade a puntuación de cada opoñente que venceu e a metada da puntuación de cada opoñente que empatou.</string>
   <string name="pairingsQ">Como se decidan os emparellamentos?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Sistema holandés</string>
-  <string name="FIDEHandbook">Do manual da FIDE</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Sistema holandés</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Do manual da FIDE</string>
   <string name="pairingsA">Co %1$s, implementado por %2$s, dacordo co %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis rondas que xogadores/as?</string>
   <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador/a.</string>
@@ -74,7 +74,7 @@ El poderá volver a unirse ao torneo en calquera momento.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Nun torneo suizo %1$s, cada xogadora non xoga necesariamente con todas as demais participantes. Os competidores xogan un a un en cada ronda e son emparellados usando unha serie de normas designadas para asegurarse que cada competidor xoga con opoñentes dunha categoría similar, pero non máis dunha vez con cada un. O gañador é o xogador co maior número de puntos agregados en todas as rondas. Todos os competidores xogan en cada ronda a menos que haxa un número impar de xogadoras.\"</string>
   <string name="teamOnly">Torneos suizos só poden ser creados por líderes de equipos e só poden ser xogados por membros dos equipos. %1$s para comezar a xogar en torneos suizos.</string>
   <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
-  <string name="nowPlaying">A reproducir </string>
+  <string name="nowPlaying">A reproducir</string>
   <string name="startingSoon">Comeza pronto</string>
   <string name="comparison">Comparación</string>
   <string name="tournDuration">Duración do torneo</string>
