@@ -30,5 +30,6 @@
   <string name="otherRestriction">Іншыя абмежаванні</string>
   <string name="buyingLichess">Купіць Lichess</string>
   <string name="authorizationToUse">Аўтарызацыя на Lichess</string>
+  <string name="noneOfTheAbove">Нічога з пералічанага</string>
   <string name="sendEmailAt">Даслаць нам ліст на %s.</string>
 </resources>
