@@ -68,6 +68,8 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kādas ir iespējas apļa sistēmas turnīriem?</string>
   <string name="roundRobinAWontWork">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē</string>
+  <string name="roundRobinANoBecause">Iemesls ir tāds, ka nav iespējams atrast taisnīgu risinājumu, ja spēlētāji pamet turnīru pirms beigām. Nevar gaidīt, ka visi spēlētāji izspēlēs visas spēles interneta turnīrā. Tas vienkārši nenotiks, un rezultātā lielākā daļa apļa sistēmas turnīru būtu neizdevušies un negodīgi – tieši pretēji to sākotnējam mērķim.</string>
+  <string name="roundRobinATheClosestPossible">Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojot Šveices turnīru ar ļoti lielu raundu skaitu. Tad visas iespējamās sapārošanas būs izspēlētas pirms turnīrs beigsies.</string>
   <string name="otherSystemsQ">Kā ar citām turnīru sistēmām?</string>
   <string name="otherSystemsA">Mums šobrīd nav plānu pievienot citas turnīru sistēmas vietnei Lichess.</string>
   <string name="joinOrCreateTeam">Pievienoties vai izveidot komandu</string>
