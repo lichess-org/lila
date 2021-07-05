@@ -206,8 +206,7 @@ object mon {
   }
   object irc {
     object zulip {
-      def say(stream: String, topic: String) =
-        future("irc.zulip.say", Map("stream" -> stream, "topic" -> topic))
+      def say(stream: String) = future("irc.zulip.say", Map("stream" -> stream))
     }
   }
   object user {

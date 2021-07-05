@@ -44,7 +44,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
             case res if res.status == 200 => funit
             case res                      => fufail(s"[zulip] $msg ${res.status} ${res.body}")
           }
-          .monSuccess(_.irc.zulip.say(msg.stream, msg.topic))
+          .monSuccess(_.irc.zulip.say(msg.stream))
           .nevermind
     }(funit)
 }
@@ -66,7 +66,7 @@ private object ZulipClient {
       def adminAppeal                           = "mod-admin-appeal"
     }
     val general   = "general"
-    val broadcast = "broadcast"
+    val broadcast = "content-broadcast"
     type Selector = ZulipClient.stream.type => String
   }
 }
