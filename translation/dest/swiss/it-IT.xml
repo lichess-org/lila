@@ -53,4 +53,19 @@ Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio d
   <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
   <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">I tornei svizzeri non sono stati pensati per gli scacchi online. Richiedono puntualità, dedizione e pazienza dai giocatori.</string>
+  <string name="restrictedToTeamsABetterMet">Pensiamo che sia più probabile soddisfare queste condizioni in una squadra piuttosto che nei tornei globali.</string>
+  <string name="numberOfByesQ">Quanti bye sono ottenibili da ogni giocatore?</string>
+  <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
+  <string name="whatIfOneDoesntPlayQ">Che succede se un giocatore non gioca una partita?</string>
+  <string name="whatIfOneDoesntPlayA">Il loro timer scadrà, saranno segnalati e perderanno la partita.
+Allora il sistema preleverà il giocatore dal torneo, così che non perderà altre partite.
+ Possono unirsi nuovamente al torneo in qualsiasi momento.</string>
+  <string name="lateJoinQ">I giocatori possono unirsi in ritardo?</string>
+  <string name="lateJoinAYes">Sì, finché non sono iniziati più di metà dei turni; ad esempio in uno svizzero da 11 tornei i giocatori possono unirsi prima che il turno 6 inizi e in uno da 12 turni prima che inizi il 7.</string>
+  <string name="lateJoinASingleBye">Chi si unisce in ritardo ottiene un bye singolo, anche se ha perso diversi turni.</string>
+  <string name="willSwissReplaceArenasQ">Lo svizzero sostituirà i tornei dell\'arena?</string>
+  <string name="willSwissReplaceArenasA">No. Sono caratteristiche complementari.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">E i Round Robin?</string>
+  <string name="roundRobinAWontWork">Vorremmo aggiungerlo, ma sfortunatamente il Round Robin non funziona online</string>
+  <string name="roundRobinANoBecause">Il motivo è che non ha un modo corretto di trattare con le persone che abbandonano anticipatamente il torneo. Non possiamo prevedere che tutti i giocatori giocheranno le loro partite in un evento online. Semplicemente non succederà e ne risulterà che più tornei Round Robin saranno viziati e ingiusti, sconfiggendo il motivo stesso per cui esistono.</string>
 </resources>
