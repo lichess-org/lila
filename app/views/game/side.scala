@@ -102,7 +102,7 @@ object side {
             .positionNumber(initialFen | chess.format.Forsyth.initial)
             .map { number =>
               st.section(
-                "Chess960 start position: ",
+                trans.chess960StartPosition.txt(),
                 strong(number)
               )
             },
