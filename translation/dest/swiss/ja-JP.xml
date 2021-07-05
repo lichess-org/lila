@@ -46,8 +46,6 @@
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
   <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">スイス式はオンラインチェスのために作られたものではありません。参加者には時間厳守、熱意、忍耐が必要です。</string>
-  <string name="restrictedToTeamsABetterMet">こういった条件を満たすためには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
   <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
 また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
@@ -56,14 +54,9 @@
 続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
 その人はまた後に途中参加することができます。</string>
   <string name="lateJoinQ">途中参加はできますか？</string>
-  <string name="lateJoinAYes">はい、全ラウンド数の過半が始まるまではできます。たとえば 11 ラウンドのスイス式なら第 6 ラウンド開始まで、12 ラウンドなら第 7 ラウンド開始までです。</string>
-  <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
   <string name="willSwissReplaceArenasQ">スイス式はアリーナに取って代わるもの？</string>
   <string name="willSwissReplaceArenasA">いいえ。両者は互いに補いあう機能です。</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
-  <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
-  <string name="roundRobinANoBecause">トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりのトーナメントは欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。</string>
-  <string name="roundRobinATheClosestPossible">総当たりに近い方式として、ラウンド数を非常に多くしたスイス式トーナメントを行なう手があります。これならトーナメント終了までにすべての可能なペアリングが行われるはずです。</string>
   <string name="otherSystemsQ">その他のトーナメント方式は？</string>
   <string name="otherSystemsA">当面、Lichess にその他のシステムを追加する予定はありません。</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">スイス式トーナメント %1$s では、参加者は他の全員と対戦するとは限りません。参加者の各ラウンドの対戦相手は、全員がなるべく近いスコアの相手と対戦するように作られたルールに従って決まります。ただし同じ相手とは二度と対戦しません。全ラウンド終了後に合計ポイントがもっとも多いプレイヤーが優勝です。人数が奇数でない限り、全員が毎ラウンド誰かと対戦することになります。</string>

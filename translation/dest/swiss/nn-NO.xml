@@ -52,21 +52,14 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsarturneringar vart ikkje opphavleg laga for online sjakk. Denne turneringsforma krev at spelarane er punktlege, dedikerte og tolmodige.</string>
-  <string name="restrictedToTeamsABetterMet">Vi går ut frå at eit lag truleg oppfyller desse vilkåre betre enn individuelle spelarar i globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få om motspelaren ikkje møter opp i rett tid?</string>
   <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelarar som kjem for seint til turneringsstart eit einsleg halvpoeng.</string>
   <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
   <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
-  <string name="lateJoinAYes">Ja, heilt fram til halvparten av rundane har starta. Til dømes kan ein spelar koma inn i ein 11-rundars sveitsarturnering fram til sjette runde har starta og til sjuande runde i ein tolvrundars turnering.</string>
-  <string name="lateJoinASingleBye">Spelarar som kjem seint til ei turnering får berre eit halvt poeng, sjølv om dei gjekk glipp av flerire rundar.</string>
   <string name="willSwissReplaceArenasQ">Vil sveitsarturneringar ta over for andre turneringsformer?</string>
   <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kva med round robin-turneringar?</string>
-  <string name="roundRobinAWontWork">Vi skulle gjerne hatt med round robin-turneringar, men diverre er dei ikkje egna til online spel</string>
-  <string name="roundRobinANoBecause">Årsaka er at turneringsforma ikkje har ei rettvis måte å handtere spelarar som forlet turnering før den er avslutta. I online-arrangement kan ein ikkje rekne med at alle spelarar vil spele alle sine parti, og dermed vil dei fleste round robin-turneringar bli mangelfulle og urettvise, noko som øydelegg grunnen til å arrangere slike.</string>
-  <string name="roundRobinATheClosestPossible">Det næraste ein kjem round robin i online spel er sveitsarturneringar med svært mange deltakarar. Då vil alle moglege parsammensetningar bli spela før turneringa blir avslutta.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
   <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på Lichess.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>

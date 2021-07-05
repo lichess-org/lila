@@ -56,16 +56,12 @@ Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu preti
   <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>
   <string name="moreRoundsThanPlayersA">Kad visi iespējamie pāri būs izspēlēti, turnīrs beigsies un pasludinās uzvarētāju.</string>
   <string name="restrictedToTeamsQ">Kāpēc tas ir tikai komandām?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Šveices turnīri nav domāti interneta šaham. Tie pieprasa spēlētāju punktualitāti, apņemšanos un pacietību.</string>
-  <string name="restrictedToTeamsABetterMet">Mūsuprāt ir liela varbūtība, ka komanda būs piemērotāka šiem nosacījumiem nekā visi lietotāji kopā.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
 Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
-  <string name="lateJoinAYes">Jā, līdz kamēr vairāk kā puse raundu ir izspēlēta. Piemēram, 11 raundu turnīrā, spēlētāji var pievienoties pirms sākas 6. raunds, bet 12 raundu turnīrā – pirms sākas 7. raunds.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kādas ir iespējas apļa sistēmas turnīriem?</string>
-  <string name="roundRobinAWontWork">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē</string>
 </resources>

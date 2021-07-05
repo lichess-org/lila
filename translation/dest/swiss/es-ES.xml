@@ -52,8 +52,6 @@ Se suman las puntuaciones de todos los oponentes a los que haya vencido el jugad
   <string name="moreRoundsThanPlayersQ">¿Qué ocurre si el torneo tiene más rondas que jugadores?</string>
   <string name="moreRoundsThanPlayersA">Cuando se hayan jugado todos los emparejamientos posibles, el torneo finalizará y se declarará un ganador.</string>
   <string name="restrictedToTeamsQ">¿Por qué está limitado a los equipos?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Los torneos suizos no se diseñaron para el ajedrez en línea. Exigen puntualidad, dedicación y paciencia por parte de los jugadores.</string>
-  <string name="restrictedToTeamsABetterMet">Creemos que es más probable que estas condiciones se cumplan en un equipo que en torneos globales.</string>
   <string name="numberOfByesQ">¿Cuántos byes puede recibir un jugador?</string>
   <string name="numberOfByesA">Un jugador recibe un bye de un punto cada vez que el sistema de emparejamiento no puede encontrar a un oponente válido.
 Además, se concede un único bye de medio punto cuando un jugador se une a un torneo ya empezado.</string>
@@ -62,14 +60,9 @@ Además, se concede un único bye de medio punto cuando un jugador se une a un t
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
  Podrá volver a unirse al torneo en cualquier momento.</string>
   <string name="lateJoinQ">¿Puede un jugador unirse a un torneo empezado?</string>
-  <string name="lateJoinAYes">Sí, hasta que se hayan iniciado más de la mitad de las rondas; por ejemplo, en un torneo suizo de 11 rondas, los jugadores pueden unirse antes de que empiece la ronda 6; en un torneo de 12 rondas, podrán unirse antes de que empiece la ronda 7.</string>
-  <string name="lateJoinASingleBye">Los jugadores que se unan a un torneo empezado recibirán un único bye, excepto si no se presentan a varias rondas.</string>
   <string name="willSwissReplaceArenasQ">¿Reemplazarán los torneos suizos a los torneos estándar?</string>
   <string name="willSwissReplaceArenasA">No, son características complementarias.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">¿Qué ocurre con los emparejamientos de todos contra todos?</string>
-  <string name="roundRobinAWontWork">Nos gustaría agregarlos, pero este tipo de emparejamientos no funcionan en los entornos en línea.</string>
-  <string name="roundRobinANoBecause">El motivo es que no existe una forma justa de penalizar a los jugadores que abandonen el torneo de forma temprana. No podemos esperar que todos los participantes jueguen todas sus partidas en un evento en línea. Es algo que simplemente no ocurrirá y, como resultado, la mayoría de los torneos de todos contra todos serán imperfectos e injustos, lo que hace que su principal finalidad sea inválida.</string>
-  <string name="roundRobinATheClosestPossible">El formato más próximo a un torneo en línea de todos contra todos es un torneo suizo con un número de rondas muy elevado. De esta forma, se jugarán todos los posibles emparejamientos antes de que finalice el torneo.</string>
   <string name="otherSystemsQ">¿Qué ocurre con otros sistemas de torneos?</string>
   <string name="otherSystemsA">Actualmente, no tenemos previsto añadir más sistemas de torneos a Lichess.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">En un torneo suizo %1$s, cada jugador no tiene que enfrentarse necesariamente a todos los participantes. Los jugadores se enfrentan uno a uno en cada ronda y se emparejan mediante un conjunto de reglas diseñado para garantizar que jueguen con oponentes de una puntuación similar; pero no pueden enfrentarse más de una vez al mismo oponente. El ganador es el jugador que obtenga el mayor número de puntos en todas las rondas. Los participantes deben jugar todas las rondas, excepto si hay un número impar de jugadores.</string>

@@ -51,8 +51,6 @@ Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien 
   <string name="moreRoundsThanPlayersQ">Zer gertatzen da txapelketak jokalari baino txanda gehiago baditu?</string>
   <string name="moreRoundsThanPlayersA">Partida posible guztiak jokatu direnean, txapelketa amaitu eta irabazlea zein den erabakiko da.</string>
   <string name="restrictedToTeamsQ">Zergatik dago taldeetara mugatuta?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Txapelketa suitzarrak ez daude online xakerako prestatuta. Puntualtasuna, dedikazioa eta pazientzia eskatzen dute.</string>
-  <string name="restrictedToTeamsABetterMet">Horregatik gure ustez hori talde baten barruko txapelketetarako egokiagoa dela uste dugu.</string>
   <string name="numberOfByesQ">Jokalari baten zenbat bye edo atseden izan ditzake?</string>
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
 Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara berandu sartzen bada.</string>
@@ -61,10 +59,7 @@ Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
  Edozein momentutan partidara berriz sartu daiteke jokalaria.</string>
   <string name="lateJoinQ">Sartu daitezke jokalariak berandu?</string>
-  <string name="lateJoinAYes">Bai, aurreikusitako txanden erdia baino gehiago hasten diren arte; adibidez 11 txandako txapelketa baten, 6. txanda hasi aurretik eta 12 txandako baten 7. a hasi aurretik.</string>
-  <string name="lateJoinASingleBye">Berandu sartzen direnek puntu-erdiko atseden bakarra jasoko dute, nahiz eta txanda bat baino gehiago ez jokatu.</string>
   <string name="willSwissReplaceArenasQ">Txapelketa suitzarren Arena txapelketak ordezkatuko dituzte?</string>
   <string name="willSwissReplaceArenasA">Ez. Aukera ezberdinak dira eta horrela jarraituko dute.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>
-  <string name="roundRobinAWontWork">Gehitu nahiko genuke, baina sistema horrek ez du funtzionatzen online-xakean</string>
 </resources>

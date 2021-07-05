@@ -47,12 +47,9 @@ Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', de
 Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for hver modstander, spilleren spiller remis.</string>
   <string name="pairingsQ">Hvordan bestemmes parringer?</string>
   <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Schweiziske turneringer blev ikke oprindeligt designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.</string>
-  <string name="lateJoinAYes">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hvad med Round Robin?</string>
-  <string name="roundRobinATheClosestPossible">Det nærmeste du kan komme til Round Robin online er at spille en schweitzerturnering med et meget højt antal runder. Så vil alle mulige parringer blive spillet, før turneringen slutter.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I en schweizerturnering %1$s, spiller hver deltager ikke nødvendigvis mod alle andre deltagere. Deltagere mødes en-til-en i hver runde og parres ved hjælp af et sæt regler, der er designet til at sikre, at hver konkurrent får modstandere med en lignende rating, men ikke den samme modstander mere end én gang. Vinderen er deltageren med det højeste antal point optjent i alle runder. Alle deltagere spiller i hver runde, medmindre der er et ulige antal spillere.</string>
   <string name="teamOnly">Schweitzerturneringer kan kun oprettes af holdledere, og kan kun spilles af holdmedlemmer.           
 %1$s for at begynde at spille i schweitzerturneringer.</string>

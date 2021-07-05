@@ -51,8 +51,6 @@ Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus d
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
   <string name="restrictedToTeamsQ">Waarom is het beperkt tot teams?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Zwitserse toernooien zijn niet bedoeld voor online schaken. Ze vereisen punctualiteit, toewijding en geduld van spelers.</string>
-  <string name="restrictedToTeamsABetterMet">Wij zijn van mening dat deze voorwaarden eerder binnen een team zullen worden vervuld dan in wereldwijde toernooien.</string>
   <string name="numberOfByesQ">Hoeveel byes kan een speler krijgen?</string>
   <string name="numberOfByesA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
 Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>
@@ -61,14 +59,9 @@ Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat 
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
  Op elk moment kan de speler opnieuw deelnemen aan het toernooi.</string>
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
-  <string name="lateJoinAYes">Ja, tot meer dan de helft van de rondes is begonnen; bij 11 rondes Zwitsers, bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en bij 12 rondes voordat ronde 7 begint.</string>
-  <string name="lateJoinASingleBye">Late deelnemers krijgen slechts één bye, ook als ze meerdere rondes hebben gemist.</string>
   <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
   <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hoe zit het met Round Robin?</string>
-  <string name="roundRobinAWontWork">We zouden het graag toevoegen, maar helaas werkt Round Robin niet online</string>
-  <string name="roundRobinANoBecause">De reden is dat er geen eerlijke manier bestaat om om te gaan met mensen die het toernooi vroegtijdig verlaten. We kunnen niet verwachten dat alle spelers ook al hun partijen spelen in een online evenement. Dat gebeurt gewoon niet, en als gevolg daarvan zouden de meeste round-robintoernooien fouten bevatten en oneerlijk zijn, wat afbreuk doet aan hun bestaansreden.</string>
-  <string name="roundRobinATheClosestPossible">Wat het meest in de buurt komt van een online round-robintoernooi is het spelen van een Zwitsers toernooi met een zeer groot aantal rondes. Dan worden alle mogelijke paringen afgewerkt voordat het toernooi eindigt.</string>
   <string name="otherSystemsQ">Hoe zit het met andere toernooisystemen?</string>
   <string name="otherSystemsA">Momenteel zijn we niet van plan om meer toernooisystemen aan Lichess toe te voegen.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">In een Zwitsers toernooi %1$s speelt elke concurrent niet noodzakelijkerwijs tegen alle andere deelnemers. Deelnemers ontmoeten elkaar een-op-een in elke ronde en worden gepaard met een serie regels die ervoor zorgt dat elke deelnemer tegenstanders treft met een vergelijkbare score, maar niet dezelfde tegenstander meer dan één keer. De winnaar is de deelnemer die in alle rondes de meeste punten heeft verdiend. Alle deelnemers spelen in elke ronde, tenzij er een oneven aantal spelers is.</string>
