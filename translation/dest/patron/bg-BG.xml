@@ -43,4 +43,5 @@
   <string name="transactionCompleted">Трансакцията е завършена и квитанция за Вашето дарение бе изпратена на електронната Ви поща.</string>
   <string name="permanentPatron">Сега имате постоянна регистрация като Дарител.</string>
   <string name="checkOutProfile">Проверете страницата на профила си!</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Промяна на валута</string>
 </resources>
