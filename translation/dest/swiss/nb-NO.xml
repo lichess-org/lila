@@ -60,4 +60,8 @@ I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng
   <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
   <string name="comparison">Sammenligning</string>
   <string name="numberOfGames">Antall partier</string>
+  <string name="pairingSystem">Parsystem</string>
+  <string name="identicalPairing">Samme par</string>
+  <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
+  <string name="identicalForbidden">Forbudt</string>
 </resources>
