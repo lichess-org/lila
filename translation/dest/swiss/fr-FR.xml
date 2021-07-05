@@ -53,7 +53,7 @@ Ajoute le résultat de chaque adversaire battu par le joueur et la moitié du r�
   <string name="moreRoundsThanPlayersA">Une fois tous les appariements possibles faits et toutes les parties jouées, le tournoi se termine et un gagnant est choisi.</string>
   <string name="restrictedToTeamsQ">Pourquoi peut-on participer uniquement en équipe?</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Les tournois de format suisse ne sont pas conçus pour le jeu en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs.</string>
-  <string name="restrictedToTeamsABetterMet">Nous pensons que ces conditions seront probablement mieux remplies par joueurs en équipe que par des joueurs individuels.</string>
+  <string name="restrictedToTeamsABetterMet">Nous pensons que ces conditions seront probablement mieux remplies par des joueurs en équipe que par des joueurs individuels.</string>
   <string name="numberOfByesQ">Combien de bye un joueur peut-il obtenir?</string>
   <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
 De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardivement à un tournoi.</string>
@@ -66,7 +66,7 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="lateJoinASingleBye">Les joueurs inscrits après le début du tournoi reçoivent un seul bye, même s\'ils ont manqué plusieurs rondes.</string>
   <string name="willSwissReplaceArenasQ">Les tournois de type suisse remplaceront-ils les tournois de type arène?</string>
   <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Et les tournois toutes rondes (round-robin)?</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Et les tournois à la ronde?</string>
   <string name="roundRobinAWontWork">Ce serait intéressant, mais ce type de tournoi n\'est pas compatible avec les parties en ligne.</string>
   <string name="roundRobinANoBecause">Pourquoi? Parce qu\'il n\'y a pas de moyen satisfaisant de régler le problème des joueurs qui abandonnent le tournoi. Dans un tournoi en ligne, nous ne pouvons pas présumer que tous les joueurs joueront toutes leurs parties. Un tournoi toutes rondes est mal adapté à cette situation et risque de donner des résultats inéquitables.</string>
   <string name="roundRobinATheClosestPossible">Ce qui se rapproche le plus d\'un tournoi à la ronde, c\'est un tournoi suisse comptant un grand nombre de rondes. Alors, tous les appariements possibles seront faits et toutes les parties seront jouées avant la fin du tournoi.</string>
