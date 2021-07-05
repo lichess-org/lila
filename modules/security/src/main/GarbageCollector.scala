@@ -68,7 +68,7 @@ final class GarbageCollector(
               "userSignup"
             )
             printOpt.filter(_.banned).map(_.fp.value) match {
-              case Some(print) => collect(user, email, msg = s"Print ban: ${print.value}")
+              case Some(print) => collect(user, email, msg = s"Print ban: `${print.value}`")
               case _ =>
                 badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
                   logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")

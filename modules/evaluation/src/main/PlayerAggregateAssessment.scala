@@ -116,13 +116,13 @@ case class PlayerAggregateAssessment(
       .sortBy(-_.assessment.id)
       .take(maxGames)
       .map { a =>
-        a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
+        s"    ${a.assessment.emoticon} lichess.org/${a.gameId}/${a.color.name}"
       }
       .mkString("\n")
 
     s"""Cheating Games: $cheatingSum (weighted: $weightedCheatingSum)
-    Likely Cheating Games: $likelyCheatingSum (weighted: $weightedLikelyCheatingSum)
-    $gameLinks"""
+Likely Cheating Games: $likelyCheatingSum (weighted: $weightedLikelyCheatingSum)
+$gameLinks"""
   }
 }
 

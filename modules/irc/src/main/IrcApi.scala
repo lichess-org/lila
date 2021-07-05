@@ -50,7 +50,7 @@ final class IrcApi(
               channel = SlackClient.rooms.tavern
             )
           ) >> zulip(_.mod.hunterCheat, user.username)(
-            s"${markdown.userLink(mod.user.username)} :note: **${markdown
+            s"${markdown.modLink(mod.user.username)} :note: **${markdown
               .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -67,7 +67,7 @@ final class IrcApi(
       )
     ) >>
       zulip(_.mod.adminLog, "notes")(
-        s":note: ${markdown.userLink(modName)} **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
+        s"${markdown.modLink(modName)} :note: **${markdown.userLink(username)}** (${markdown.userNotesLink(username)}):\n" +
           markdown.linkifyUsers(note take 2000)
       )
 
@@ -80,7 +80,7 @@ final class IrcApi(
         channel = SlackClient.rooms.tavernBots
       )
     ) >> zulip(_.mod.log, "self report")(
-      s"[*$typ*] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
+      s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
     )
 
   def commlog(mod: Holder, user: User, reportBy: Option[User.ID]): Funit =
@@ -98,7 +98,7 @@ final class IrcApi(
       )
     ) >> zulip(_.mod.adminLog, "private comms checks")({
       val finalS = if (user.username endsWith "s") "" else "s"
-      s"**${markdown userLink mod.user.username}** checked out **${markdown userLink user.username}**'$finalS communications "
+      s"**${markdown modLink mod.user.username}** checked out **${markdown userLink user.username}**'$finalS communications "
     } + reportBy.filter(mod.id !=).fold("spontaneously") { by =>
       s"while investigating a report created by ${markdown.userLink(by)}"
     })
@@ -133,7 +133,7 @@ final class IrcApi(
           )
         ) >>
           zulip(_.mod.log, "actions")(
-            s"${markdown.userLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
+            s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
           )
       }
     }
@@ -151,7 +151,7 @@ final class IrcApi(
         channel = SlackClient.rooms.tavern
       )
     ) >> zulip(_.mod.log, "chat panic")(
-      s":stop: ${if (v) "Enabled" else "Disabled"} ${markdown.lichessLink("mod/chat-panic", " Chat Panic")}"
+      s":stop: ${markdown.modLink(mod.user)} ${if (v) "enabled" else "disabled"} ${markdown.lichessLink("mod/chat-panic", " Chat Panic")}"
     )
 
   def garbageCollector(msg: String): Funit =
@@ -184,7 +184,8 @@ final class IrcApi(
         channel = SlackClient.rooms.tavernAppeal
       )
     ) >> zulip(_.mod.adminAppeal, user.username)(
-      s"Let's have a look at the appeal of _*${markdown.lichessLink(s"/appeal/${user.username}", user.username)}*_"
+      s"${markdown.modLink(mod.user)} :eyes: Let's have a look at the appeal of _*${markdown
+        .lichessLink(s"/appeal/${user.username}", user.username)}*_"
     )
 
   def stop(): Funit =
@@ -296,6 +297,8 @@ object IrcApi {
     def lichessLink(path: String, name: String) = s"[$name](https://lichess.org$path)"
     def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
     def userLink(user: User): String            = userLink(user.username)
+    def modLink(name: String): String           = lichessLink(s"/@/$name", name)
+    def modLink(user: User): String             = modLink(user.username)
     def gameLink(id: String)                    = lichessLink(s"/$id", s"#$id")
     def userNotesLink(name: String)             = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
