@@ -13,6 +13,8 @@
   <string name="teachersOfTheClass">Выкладчыкі занятку</string>
   <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
   <string name="generateANewPassword">Стварыць новы пароль для вучняў</string>
+  <string name="realName">Сапраўднае імя</string>
+  <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто вучань.</string>
   <string name="addStudent">Дадаць вучня</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
@@ -25,6 +27,7 @@
     <item quantity="other">%s чакаючых запрашэнняў</item>
   </plurals>
   <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
+  <string name="lastActiveDate">Анлайн</string>
   <string name="students">Вучні</string>
   <string name="progress">Прагрэс</string>
   <string name="noStudents">Пакуль ніводнага вучня на занятку.</string>
