@@ -38,6 +38,7 @@
   <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
   <string name="accounts">Акаўнты</string>
   <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess прызнае ўсе тытулы ФІДЭ, атрыманыя ў рэальным жыцці, а таксама %1$s. Вось спіс тытулаў ФІДЭ:</string>
   <string name="showYourTitle">Калі вы маеце тытул у жыцці, каб адлюстроўваць яго ў акаўнце, вы можаце падаць запыт праз %1$s, дадаўшы выразнае фота пацвярджаючага дакумента/карткі та сэлфі, дзе вы трымаеце дакумент/картку.
 
 Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
@@ -48,6 +49,8 @@
   <string name="noUpperCaseDot">Не.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
+  <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
+  <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="whatIsProvisionalRating">Што значыць пытальнік (?) побач з рэйтынгам?</string>
@@ -55,6 +58,7 @@
   <string name="notPlayedEnoughRatedGamesAgainstX">Гулец яшчэ ня скончыў дастатков рэйтынгавых гульняў супраць %1$s ў адпаведнай рэйтынгавай катэгорыі.</string>
   <string name="similarOpponents">супернікаў падобнага моцу</string>
   <string name="notPlayedRecently">Гулец даўно не гуляў. Залежыць ад колькасці сыграных партый, звычайна, праходзіць каля году, калі рэйтынг зноўку становіцца неўсталяваным.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Па сутнасці, гэта азначае, што адхіленне Glicko-2 больш за 110. Адхіленне - гэта ўзровень даверу, які сістэма мае да рэйтынгу. Чым ніжэй адхіленне, тым больш стабільным з\'яўляецца рэйтынг.</string>
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
