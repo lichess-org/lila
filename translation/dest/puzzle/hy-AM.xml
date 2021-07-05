@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">Խնդիրներ</string>
+  <string name="puzzleThemes">Խնդիրների թեմաներ</string>
+  <string name="recommended">Խորհուրդ է տրվում</string>
+  <string name="phases">Խաղի փուլեր</string>
+  <string name="motifs">Մոտիվներ</string>
 </resources>
