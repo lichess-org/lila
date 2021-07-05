@@ -142,8 +142,7 @@ object pref {
             ),
             setting(
               inputMovesWithTheKeyboard(),
-              radios(form("behavior.keyboardMove"), booleanChoices),
-              false
+              radios(form("behavior.keyboardMove"), booleanChoices)
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(

@@ -1,11 +1,11 @@
 import sanWriter from './sanWriter';
 import { Dests } from '../interfaces';
 
-const keyRegex = /^[a-i][1-9]$/;
-const fileRegex = /^[a-i]$/;
-const crazyhouseRegex = /^\w?\*[a-i][1-9]$/;
-const ambiguousPromotionCaptureRegex = /^([a-i]x?)?[a-i](1|9)$/;
-const promotionRegex = /^([a-i]x?)?[a-i](1|9)=?[\+|\=]$/;
+const keyRegex = /^[1-9][1-9]$/;
+const fileRegex = /^[1-9]$/;
+const dropRegex = /^\w?\*[1-9][1-9]$/;
+const ambiguousPromotionRegex = /^([1-9]x?)?[1-9]([1-37-9])$/;
+const promotionRegex = /^([1-9]x?)?[1-9]([1-37-9])[\+|\=]$/;
 
 interface SubmitOpts {
   force?: boolean;
@@ -20,31 +20,29 @@ window.lishogi.keyboardMove = function (opts: any) {
   let sans: any = null;
 
   const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
-    // consider 0's as O's for castling
-    v = v.replace(/0/g, 'O');
     const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
-      // ambiguous castle
-      if (v.toLowerCase() === 'o-o' && sans['O-O-O'] && !submitOpts.force) return;
       // ambiguous UCI
-      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(v);
-      // ambiguous promotion (also check sans[v] here because bc8 could mean Bc8)
-      if (v.match(ambiguousPromotionCaptureRegex) && sans[v] && !submitOpts.force) return;
-      else opts.ctrl.san(foundUci.slice(0, 2), foundUci.slice(2));
+      if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(alpha(v));
+      // ambiguous promotion (missing = or +)
+      // Surely force=false always since promotion/unpromotion must be selected?
+      // Why allow a player to use <Enter> to force input?
+      if (v.match(ambiguousPromotionRegex) && !submitOpts.force) return;
+      else opts.ctrl.san(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2)));
       clear();
     } else if (sans && v.match(keyRegex)) {
-      opts.ctrl.select(v);
+      opts.ctrl.select(alpha(v));
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
     } else if (sans && v.match(promotionRegex)) {
       const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
       if (!foundUci) return;
-      opts.ctrl.promote(foundUci.slice(0, 2), foundUci.slice(2), v.slice(-1).toUpperCase());
+      opts.ctrl.promote(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2)), v.slice(-1));
       clear();
-    } else if (v.match(crazyhouseRegex)) {
+    } else if (v.match(dropRegex)) {
       if (v.length === 3) v = 'P' + v;
-      opts.ctrl.drop(v.slice(2), v[0].toUpperCase());
+      opts.ctrl.drop(alpha(v.slice(2)), v[0].toUpperCase());
       clear();
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
@@ -126,15 +124,26 @@ function sanCandidates(san: string, sans) {
   });
 }
 
+function alpha(coordinate) {
+  // "97" -> "a3"
+  return String.fromCharCode((8 - (coordinate.charCodeAt(0) - 49)) + 97) + String.fromCharCode((8 - (coordinate.charCodeAt(1) - 49)) + 49);
+}
+
+function coordinate(square) {
+  // "a3" -> "97"
+  return String.fromCharCode((8 - (square.charCodeAt(0) - 97)) + 49) + String.fromCharCode((8 - (square.charCodeAt(1) - 49)) + 49);
+}
+
 function destsToUcis(dests: Dests) {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
     d.forEach(function (dest) {
-      ucis.push(orig + dest);
+      ucis.push(coordinate(orig) + coordinate(dest));
     });
   }
   return ucis;
 }
+
 
 function focusChat() {
   const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;

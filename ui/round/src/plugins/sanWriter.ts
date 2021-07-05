@@ -3,14 +3,14 @@ function decomposeUci(uci) {
 }
 
 function square(name) {
-  return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 9;
+  return name.charCodeAt(0) - 49 + (name.charCodeAt(1) - 49) * 9;
 }
 
 function squareDist(a, b) {
-  var x1 = a & 7,
-    x2 = b & 7;
-  var y1 = a >> 3,
-    y2 = b >> 3;
+  var x1 = a % 9,
+    x2 = b % 9;
+  var y1 = a / 9,
+    y2 = b / 9;
   return Math.max(Math.abs(x1 - x2), Math.abs(y1 - y2));
 }
 
@@ -25,15 +25,15 @@ function readFen(fen) {
     .split('/')
     .slice(0, 9)
     .forEach(function (row, y) {
-      var x = 0;
+      var x = 8;
       row.split('').forEach(function (v) {
         var nb = parseInt(v, 10);
-        if (nb) x += nb;
+        if (nb) x -= nb;
         else {
-          var square = (8 - y) * 9 + x;
+          var square = y * 9 + x;
           board.pieces[square] = v;
           if (v === 'k' || v === 'K') board[v] = square;
-          x++;
+          x--;
         }
       });
     });
@@ -42,27 +42,26 @@ function readFen(fen) {
 }
 
 function kingMovesTo(s) {
-  return [s - 1, s - 9, s - 8, s - 7, s + 1, s + 9, s + 8, s + 7].filter(function (o) {
-    return o >= 0 && o < 64 && squareDist(s, o) === 1;
+  return [s - 1, s - 10, s - 9, s - 8, s + 1, s + 10, s + 9, s + 8].filter(function (o) {
+    return o >= 0 && o < 81 && squareDist(s, o) === 1;
   });
 }
 
 function knightMovesTo(s) {
-  return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function (o) {
-    return o >= 0 && o < 64 && squareDist(s, o) <= 2;
+  return [s + 19, s + 17, s - 17, s - 19].filter(function (o) {
+    return o >= 0 && o < 81 && squareDist(s, o) <= 2;
   });
 }
 
-var ROOK_DELTAS = [8, 1, -8, -1];
-var BISHOP_DELTAS = [9, -9, 7, -7];
-var QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
+var ROOK_DELTAS = [9, 1, -9, -1];
+var BISHOP_DELTAS = [10, -10, 8, -8];
 
 function slidingMovesTo(s: number, deltas: number[], board): number[] {
   var result: number[] = [];
   deltas.forEach(function (delta) {
     for (
       var square = s + delta;
-      square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
+      square >= 0 && square < 81 && squareDist(square, square - delta) === 1;
       square += delta
     ) {
       result.push(square);
@@ -83,7 +82,7 @@ function sanOf(board, uci) {
   var pt = board.pieces[from].toLowerCase();
 
   // pawn moves
-  if (pt === 'z') {
+  if (pt === 'p') {
     var san;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
@@ -99,14 +98,13 @@ function sanOf(board, uci) {
   else if (pt == 'n') candidates = knightMovesTo(to);
   else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
   else if (pt == 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
-  else if (pt == 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
 
   var rank = false,
     file = false;
   for (var i = 0; i < candidates.length; i++) {
     if (candidates[i] === from || board.pieces[candidates[i]] !== p) continue;
-    if (from >> 3 === candidates[i] >> 3) file = true;
-    if ((from & 7) === (candidates[i] & 7)) rank = true;
+    if (from / 9 === candidates[i] / 9) file = true;
+    if ((from % 9) === (candidates[i] % 9)) rank = true;
     else file = true;
   }
   if (file) san += uci[0];
