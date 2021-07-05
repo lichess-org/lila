@@ -863,6 +863,7 @@
   <string name="onlyTeamMembers">チームメンバー限定</string>
   <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">ローカルコンピュータ解析の切り替え</string>
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">全コンピュータ解析の切り替え</string>
+  <string name="playComputerMove">コンピュータの最善手をプレイ</string>
   <string name="analysisOptions">解析のオプション</string>
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
