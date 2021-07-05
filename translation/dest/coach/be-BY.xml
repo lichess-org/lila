@@ -11,9 +11,9 @@
   <string name="rating">Рэйтынг</string>
   <string name="hourlyRate">Аплата за гадзіну</string>
   <string name="availability">Даступны</string>
-  <string name="accepting">Набірае вучняў</string>
-  <string name="notAccepting">Не набірае вучняў на дадзены момант</string>
-  <string name="xCoachesStudents">Трэніруe шахматам %s вучняў</string>
+  <string name="accepting">Набірае студэнтаў</string>
+  <string name="notAccepting">Не набірае студэнтаў на дадзены момант</string>
+  <string name="xCoachesStudents">Трэніруe шахматам %s студэнтаў</string>
   <string name="viewXProfile">Паглядзець профіль %s на Lichess</string>
   <string name="sendPM">Даслаць асабістае паведамленне</string>
   <string name="aboutMe">Пра сябе</string>
@@ -25,10 +25,10 @@
   <string name="publicStudies">Даступныя ўсім уроки</string>
   <string name="youtubeVideos">Відэа YouTube</string>
   <plurals name="studentReviews">
-    <item quantity="one">Водгук ад вучня</item>
-    <item quantity="few">%s водгукаў ад вучняў</item>
-    <item quantity="many">%s водгукаў ад вучняў</item>
-    <item quantity="other">%s водгукаў ад вучняў</item>
+    <item quantity="one">Водгук ад студэнта</item>
+    <item quantity="few">%s водгукаў ад студэнтаў</item>
+    <item quantity="many">%s водгукаў ад студэнтаў</item>
+    <item quantity="other">%s водгукаў ад студэнтаў</item>
   </plurals>
   <string name="thankYouForReview">Дзякуй за водгук!</string>
   <string name="xWillApproveIt">%s зацвердзіць яго хутка, або мадэратар праглядзіць яго.</string>
