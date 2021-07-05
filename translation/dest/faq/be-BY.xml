@@ -44,9 +44,15 @@
 Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
 
 Нарэшце, ёсць ганаровы тытул %2$s.</string>
+  <string name="asWellAsManyNMtitles">розныя нацыянальныя тытулы майстроў</string>
   <string name="verificationForm">форму верыфікацыі</string>
   <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Гэты ганаровы тытул неафіцыйны та існу толькі на Lichess.
+
+Мы зрэдку ўзнагароджваем адметных гульцоў, якія на наша меркаванне з\'яўляюцца добрымі грамадзянамі Lichess. Не вы прыходзіце за тытулам LM, тытул LM прыходзіць да вас. Калі вы будзеце варты, вы атрымаеце паведамленне ад нас пра гэта, з магчымасцю прыняць або адмовіцца ад яго.
+
+Не выпрошвайце тытул LM.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
