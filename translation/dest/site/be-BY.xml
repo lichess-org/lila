@@ -943,6 +943,8 @@
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
   <string name="welcome">Вітаем!</string>
+  <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
+Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
   <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
