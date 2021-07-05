@@ -906,5 +906,6 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Basculer vers l\'analyse de tous les ordinateurs</string>
   <string name="playComputerMove">Jouer le meilleur coup de l\'ordinateur</string>
   <string name="analysisOptions">Options d\'analyse</string>
+  <string name="focusChat">Priorité au salon de discussion</string>
   <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
 </resources>
