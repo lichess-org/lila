@@ -40,8 +40,8 @@
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s によります。
 その人が勝った相手の獲得ポイントの全部と、引き分けた相手の獲得ポイントの半分を合計します。</string>
   <string name="pairingsQ">ペアリングはどう決まりますか？</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">オランダ方式</string>
-  <string name="FIDEHandbook">FIDE ハンドブック</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">オランダ方式</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE ハンドブック</string>
   <string name="pairingsA">%1$s によります。%2$s が %3$s に従って実装したものです。</string>
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
@@ -60,7 +60,7 @@
   <string name="lateJoinASingleBye">途中参加者が複数のラウンドを飛ばした場合でも、もらえるバイは 1 回だけです。</string>
   <string name="willSwissReplaceArenasQ">スイス式はアリーナに取って代わるもの？</string>
   <string name="willSwissReplaceArenasA">いいえ。両者は互いに補いあう機能です。</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）は？</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">総当たり方式（ラウンドロビン）はないの？</string>
   <string name="roundRobinAWontWork">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。</string>
   <string name="roundRobinANoBecause">トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりのトーナメントは欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。</string>
   <string name="roundRobinATheClosestPossible">総当たりに近い方式として、ラウンド数を非常に多くしたスイス式トーナメントを行なう手があります。これならトーナメント終了までにすべての可能なペアリングが行われるはずです。</string>
@@ -73,7 +73,7 @@
   <string name="nowPlaying">対局中</string>
   <string name="startingSoon">間もなく開始</string>
   <string name="comparison">比較</string>
-  <string name="tournDuration">トーナメントの所要時間</string>
+  <string name="tournDuration">所要時間</string>
   <string name="predefinedDuration">決められた時間（分）</string>
   <string name="durationUnknown">決められたラウンド数、所要時間は不明</string>
   <string name="numberOfGames">局数</string>
@@ -81,9 +81,9 @@
   <string name="numberOfGamesPreDefined">全員が指定の局数をプレイ</string>
   <string name="pairingSystem">ペアリングの方式</string>
   <string name="pairingSystemArena">手の空いている近い順位の相手</string>
-  <string name="pairingSystemSwiss">ポイント数とタイブレークに基づく最善の組み合わせ</string>
-  <string name="pairingWaitTime">ペアリングの待ち時間</string>
-  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たなくてよい</string>
+  <string name="pairingSystemSwiss">スコアとタイブレークによる最適の組み合わせ</string>
+  <string name="pairingWaitTime">ペアリング待ち時間</string>
+  <string name="pairingWaitTimeFast">短い。全員の対局終了を待たない</string>
   <string name="pairingWaitTimeSlow">長い。全員の対局終了を待つ</string>
   <string name="identicalPairing">同じ相手との対戦</string>
   <string name="possibleButNotConsecutive">あり（ただし連続はしない）</string>
