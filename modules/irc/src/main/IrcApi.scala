@@ -172,7 +172,7 @@ final class IrcApi(
         text = s"${slackdown.broadcastLink(id, name)}: $error",
         channel = SlackClient.rooms.broadcast
       )
-    ) >> zulip(_.broadcast, "main")(s":lightning: ${markdown.broadcastLink(id, name)}: $error")
+    ) >> zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
     slack(

@@ -64,10 +64,10 @@ object discussion {
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           },
           postForm(
-            action := routes.Appeal.notifySlack(modData.suspect.user.id),
+            action := routes.Appeal.sendToZulip(modData.suspect.user.id),
             cls := "appeal__actions__slack"
           )(
-            submitButton(cls := "button button-thin")("Send to slack")
+            submitButton(cls := "button button-thin")("Send to Zulip")
           )
         )
       )

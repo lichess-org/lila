@@ -211,7 +211,7 @@ final class Mod(
     }
 
   def notifySlack(username: String) =
-    OAuthMod(_.NotifySlack) { _ => me =>
+    OAuthMod(_.SendToZulip) { _ => me =>
       withSuspect(username) { sus =>
         env.irc.api.userMod(user = sus.user, mod = me) map some
       }

@@ -605,7 +605,7 @@ GET   /appeal/:username                controllers.Appeal.show(username: String)
 POST  /appeal/:username                controllers.Appeal.reply(username: String)
 POST  /appeal/:username/mute           controllers.Appeal.mute(username: String)
 POST  /appeal/:username/snooze/:dur    controllers.Appeal.snooze(username: String, dur: String)
-POST  /appeal/:username/notify-slack   controllers.Appeal.notifySlack(username: String)
+POST  /appeal/:username/send-to-zulip  controllers.Appeal.sendToZulip(username: String)
 
 # Stats
 GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf: String)

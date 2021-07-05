@@ -21,7 +21,7 @@ object Permission {
   case object GamifyView            extends Permission("GAMIFY_VIEW", "See mod leaderboard")
   case object UserModView           extends Permission("USER_SPY", "User profile mod view")
   case object UserEvaluate          extends Permission("USER_EVALUATE", "Request evaluation")
-  case object NotifySlack           extends Permission("NOTIFY_SLACK", List(UserModView), "Notify #tavern")
+  case object SendToZulip           extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
   case object ViewPrivateComms      extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban             extends Permission("SHADOWBAN", List(UserModView, ChatTimeout), "Shadowban")
   case object SetKidMode            extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
@@ -147,7 +147,7 @@ object Permission {
           ManageTournament,
           ManageSimul,
           ManageEvent,
-          NotifySlack,
+          SendToZulip,
           PracticeConfig,
           PuzzleCurator,
           Presets,

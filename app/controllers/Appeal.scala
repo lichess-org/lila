@@ -121,8 +121,8 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
       }
     }
 
-  def notifySlack(username: String) =
-    Secure(_.NotifySlack) { implicit ctx => me =>
+  def sendToZulip(username: String) =
+    Secure(_.SendToZulip) { implicit ctx => me =>
       asMod(username) { (appeal, suspect) =>
         env.irc.api.userAppeal(user = suspect.user, mod = me) inject NoContent
       }

@@ -203,7 +203,7 @@ object inquiry {
         div(cls := "dropper more buttons")(
           iconTag(""),
           div(
-            isGranted(_.NotifySlack) option {
+            isGranted(_.SendToZulip) option {
               postForm(action := routes.Mod.notifySlack(in.user.id))(
                 submitButton(cls := "fbt")("Notify Slack")
               )
