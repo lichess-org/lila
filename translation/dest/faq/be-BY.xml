@@ -3,7 +3,7 @@
   <string name="faqAbbreviation">Пытанні і адказы</string>
   <string name="frequentlyAskedQuestions">Частыя пытанні</string>
   <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre і chess. Lichess вымаўляцца як %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). Lichess вымаўляцца як %1$s.</string>
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта прамаўляе спецыяліст.</string>
   <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
