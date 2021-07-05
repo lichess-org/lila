@@ -68,4 +68,7 @@ Allora il sistema preleverà il giocatore dal torneo, così che non perderà alt
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">E i Round Robin?</string>
   <string name="roundRobinAWontWork">Vorremmo aggiungerlo, ma sfortunatamente il Round Robin non funziona online</string>
   <string name="roundRobinANoBecause">Il motivo è che non ha un modo corretto di trattare con le persone che abbandonano anticipatamente il torneo. Non possiamo prevedere che tutti i giocatori giocheranno le loro partite in un evento online. Semplicemente non succederà e ne risulterà che più tornei Round Robin saranno viziati e ingiusti, sconfiggendo il motivo stesso per cui esistono.</string>
+  <string name="roundRobinATheClosestPossible">Il più vicino che si può arrivare a Round Robin online è giocare un torneo svizzero con un numero molto elevato di turni. Quindi tutti gli abbinamenti possibili saranno giocati prima della fine del torneo.</string>
+  <string name="otherSystemsQ">E gli altri sistemi di torneo?</string>
+  <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a Lichess al momento.</string>
 </resources>
