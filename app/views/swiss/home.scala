@@ -30,7 +30,7 @@ object home {
           ),
           div(cls := "team")(
             iconTag(""),
-           p(
+            p(
               trans.swiss.teamOnly(
                 a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
               )
@@ -79,7 +79,7 @@ object home {
       )
     )
 
- private def comparison(implicit lang: Lang) = table(cls := "comparison slist")(
+  private def comparison(implicit lang: Lang) = table(cls := "comparison slist")(
     thead(
       tr(
         th(trans.swiss.comparison()),
