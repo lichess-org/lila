@@ -57,6 +57,9 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
   <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
+  <string name="whatIfOneDoesntPlayA">O seu reló pararase, será marcado e perderá a partida.
+Entón o sistema botará ao xogador do torneo, para que non perda máis partidas.
+El poderá volver a unirse ao torneo en calquera momento.</string>
   <string name="lateJoinQ">Poden os xogadores entrar tarde?</string>
   <string name="lateJoinAYes">Si, pero ata o comezo da metade das rondas; por exemplo, nun torneo suizo de 11 rondas, as xogadoras poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.</string>
   <string name="lateJoinASingleBye">Xogadores/as tardíos/as teñen un só \"bye\", mesmo cando perderon varias rondas.</string>
@@ -68,6 +71,7 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="roundRobinATheClosestPossible">O máis parecido a un Round Robien online sería xogar un torneo suizo cun número moi alto de rondas. Así todos os posibles emparellamentos xogaríanse antes de que o torneo rematara.</string>
   <string name="otherSystemsQ">Que pasa con outros sistemas de torneos?</string>
   <string name="otherSystemsA">Non temos plans de engadir máis tipos de torneos a Lichess polo de agora.</string>
+  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Nun torneo suizo %1$s, cada xogadora non xoga necesariamente con todas as demais participantes. Os competidores xogan un a un en cada ronda e son emparellados usando unha serie de normas designadas para asegurarse que cada competidor xoga con opoñentes dunha categoría similar, pero non máis dunha vez con cada un. O gañador é o xogador co maior número de puntos agregados en todas as rondas. Todos os competidores xogan en cada ronda a menos que haxa un número impar de xogadoras.\"</string>
   <string name="teamOnly">Torneos suizos só poden ser creados por líderes de equipos e só poden ser xogados por membros dos equipos. %1$s para comezar a xogar en torneos suizos.</string>
   <string name="joinOrCreateTeam">Únete ou crea un equipo</string>
   <string name="nowPlaying">A reproducir </string>

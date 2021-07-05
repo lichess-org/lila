@@ -16,7 +16,7 @@
   <string name="weRelyOnSupport">Contiamo sul supporto di persone come te per renderlo possibile. Se ti diverti usando Lichess, per favore considera la possibilità di supportarci facendo una donazione e diventando così un Mecenate!</string>
   <string name="lifetime">A vita</string>
   <string name="payLifetimeOnce">Paga %s una volta. Sii un Mecenate di Lichess per sempre!</string>
-  <string name="lifetimePatron">Mecenate di Lichess a vita</string>
+  <string name="lifetimePatron">Patron di Lichess a vita</string>
   <string name="monthly">Mensile</string>
   <string name="recurringBilling">Fatturazione periodica, rinnovando le tue ali da Mecenate ogni mese.</string>
   <string name="onetime">Una volta</string>
@@ -54,7 +54,7 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nextPayment">Prossimo pagamento</string>
   <string name="youWillBeChargedXOnY">Ti verrà addebitato %1$s il %2$s.</string>
   <string name="makeAdditionalDonation">Fai un\'altra donazione ora</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Dona le ali da Patron ad un giocatore</string>
+  <string name="giftPatronWings">Dona le ali da Patron ad un giocatore</string>
   <string name="update">Aggiorna</string>
   <string name="changeMonthlyAmount">Modifica l\'importo mensile (%s)</string>
   <string name="cancelSupport">annulla il tuo supporto</string>
@@ -71,4 +71,5 @@ Tuttavia, i Mecenati possono vantare una fantastica icona di profilo.</string>
   <string name="nowLifetime">Ora sei un Patrono di Lichess a vita!</string>
   <string name="nowOneMonth">Ora sei un Patrono di Lichess per un mese!</string>
   <string name="downgradeNextMonth">Tra un mese, NON ti verrà addebitato di nuovo un costo e il tuo account Lichess verrà declassato gratuitamente.</string>
+  <string name="changeCurrency">Cambia valuta</string>
 </resources>

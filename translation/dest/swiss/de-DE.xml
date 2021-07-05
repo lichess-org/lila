@@ -43,17 +43,17 @@ Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
   <string name="tiebreaksCalculationQ">Wie werden Tie-Breaks berechnet?</string>
   <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger-Wertung</string>
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Mit dem %s.
-Summiert die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen den der Spieler remisiert.</string>
+Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen die der Spieler remisiert.</string>
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Niederländisches System</string>
-  <string name="FIDEHandbook">FIDE-Handbuch</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Niederländisches System</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE-Handbuch</string>
   <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
   <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Turniere nach Schweizer System sind nicht für Online-Schach konzipiert. Sie erfordern Pünktlichkeit, Hingabe und Geduld der Spieler.</string>
   <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
-  <string name="numberOfByesQ">Wie viele halbe Punkte kann ein Spieler für das Aussetzen bekommen?</string>
+  <string name="numberOfByesQ">Wie viele kampflose Punkte kann ein Spieler bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu spät beitritt.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>

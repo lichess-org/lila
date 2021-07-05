@@ -11,6 +11,7 @@
   <string name="youCanLoginWithEmail">Вы можаце ўваісці з дапамогай электронай пошты, з якой вы рэгістраваліся</string>
   <string name="lost2FA">Страчаны доступ да кадоў двухфактарнаў аўтарызацыі</string>
   <string name="accountSupport">Мне трэба дапамога з акаўнтам</string>
+  <string name="wantTitle">Хачу, каб мой тытул адлюстроўвася на Lichess</string>
   <string name="wantCloseAccount">Хачу зачыніць акаўнт</string>
   <string name="closeYourAccount">Вы можаце зачыніць свой акаўнт на гэтай старонцы</string>
   <string name="doNotAskByEmail">Не прасіце нас зачыніць акаўнт праз электроныя лісты, мы не будзем.</string>

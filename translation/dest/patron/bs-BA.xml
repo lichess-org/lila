@@ -77,4 +77,5 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nowLifetime">Od sada ste doživotni Lichess Pokrovitelj!</string>
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na period od mjesec dana!</string>
   <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
+  <string name="changeCurrency">Promijenite valutu</string>
 </resources>

@@ -35,4 +35,13 @@
   <string name="forbiddenPairings">Забранени съчетавания</string>
   <string name="forbiddenPairingsHelp">Имена на играчите които не трябва да играят един срещу друг (например роднини). Въведете по две имена на линия, разделени с интервал.</string>
   <string name="newSwiss">Нов швейцарски турнир</string>
+  <string name="pointsCalculationQ">Как се изчисляват точките?</string>
+  <string name="startingSoon">Скоро започва</string>
+  <string name="comparison">Сравнение</string>
+  <string name="tournDuration">Продължителност на турнира</string>
+  <string name="numberOfGames">Брой партии</string>
+  <string name="identicalForbidden">Забранено</string>
+  <string name="pause">Пауза</string>
+  <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
+  <string name="unlimitedAndFree">Неограничено и безплатно</string>
 </resources>

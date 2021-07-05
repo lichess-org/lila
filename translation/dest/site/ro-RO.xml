@@ -98,6 +98,7 @@
   <string name="noGameFound">Nu a fost găsit nici un joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Poate doriți să includeți mai multe jocuri din meniul de preferințe?</string>
   <string name="openingExplorer">Cercetarea deschiderilor</string>
+  <string name="openingEndgameExplorer">Explorator de deschideri/finaluri de joc</string>
   <string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
   <string name="winPreventedBy50MoveRule">Victoria partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
@@ -914,4 +915,12 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="inYourLocalTimezone">În fusul orar local</string>
   <string name="onlyTeamLeaders">Doar lideri de echipă</string>
   <string name="onlyTeamMembers">Doar membrii echipei</string>
+  <string name="navigateMoveTree">Navigați pe arborele de mutări</string>
+  <string name="mouseTricks">Trucuri cu mouse-ul</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Activează/dezactivează analiza computerizată locală</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Activează/dezactivează analiza computerizată</string>
+  <string name="playComputerMove">Joacă cea mai bună mutare a calculatorului</string>
+  <string name="analysisOptions">Opțiuni de analiză</string>
+  <string name="focusChat">Focalizează conversația</string>
+  <string name="showHelpDialog">Arată acest dialog de ajutor</string>
 </resources>

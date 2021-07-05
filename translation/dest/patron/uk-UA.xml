@@ -55,7 +55,7 @@
   <string name="nextPayment">Наступний платіж</string>
   <string name="youWillBeChargedXOnY">З %2$s буде знято %1$s.</string>
   <string name="makeAdditionalDonation">Зробити додатковий внесок зараз</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Подарувати крила Покровителя гравцю</string>
+  <string name="giftPatronWings">Подарувати крила Покровителя гравцю</string>
   <string name="update">Оновити</string>
   <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>
   <string name="cancelSupport">скасувати підтримку</string>

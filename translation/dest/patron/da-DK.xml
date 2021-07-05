@@ -58,7 +58,7 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="nextPayment">Næste betaling</string>
   <string name="youWillBeChargedXOnY">Du vil blive opkrævet %1$s den %2$s.</string>
   <string name="makeAdditionalDonation">Giv et ekstra bidrag nu</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Giv protektor-vinger til en spiller</string>
+  <string name="giftPatronWings">Giv protektor-vinger til en spiller</string>
   <string name="update">Opdatér</string>
   <string name="changeMonthlyAmount">Ændr det månedlige beløb (%s)</string>
   <string name="cancelSupport">annuller din støtte</string>
@@ -75,4 +75,5 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="nowLifetime">Du er nu Lichess Protektor for livstid!</string>
   <string name="nowOneMonth">Du er nu Lichess Protektor i en måned!</string>
   <string name="downgradeNextMonth">Om en måned bliver du IKKE debiteret igen, og din konto bliver nedgraderet til gratis.</string>
+  <string name="changeCurrency">Skift valuta</string>
 </resources>

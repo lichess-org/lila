@@ -46,8 +46,8 @@ Si un joueur ne peut pas être apparié, il reçoit un bye d\'un demi-point.</st
   <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Avec le %s.
 Ajoute le résultat de chaque adversaire défait par le joueur et la moitié du résultat de chaque adversaire contre lequel le joueur a fait nulle.</string>
   <string name="pairingsQ">Comment les appariements sont-ils faits?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Système néerlandais</string>
-  <string name="FIDEHandbook">Manuel de la FIDE</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Système néerlandais</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Manuel de la FIDE</string>
   <string name="pairingsA">Avec le %1$s, mis en place par %2$s, selon le %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Qu\'arrive-t-il si le tournoi compte plus de rondes que de joueurs?</string>
   <string name="moreRoundsThanPlayersA">Une fois tous les appariements possibles faits et toutes les parties jouées, le tournoi se termine et un gagnant est choisi.</string>
@@ -96,4 +96,9 @@ Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</strin
   <string name="identicalForbidden">Interdit</string>
   <string name="lateJoin">Inscription tardive</string>
   <string name="lateJoinUntil">Oui, jusqu\'à ce que plus de la moitié des rondes aient été jouées.</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Oui, mais peut réduire le nombre de rondes</string>
+  <string name="streaksAndBerserk">Streaks et Berserk</string>
+  <string name="similarToOTB">Similaire aux tournois OTB</string>
+  <string name="unlimitedAndFree">Illimité et gratuit</string>
 </resources>

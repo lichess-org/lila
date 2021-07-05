@@ -35,6 +35,7 @@
   <string name="serversAndDeveloper">Перш за ўсе, магутныя серверы.
 Потым заробак за поўныя працоўныя дні распрацоўшчыку: %s, заснавальніку Lichess.</string>
   <string name="costBreakdown">Паглядзець дасканалую справазадачу выдаткаў</string>
+  <string name="actOfCreation">Так, вось тут акт стварэння (на французскай мове)</string>
   <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
   <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
 Ці можаце %s.</string>
@@ -58,11 +59,12 @@
   <string name="nextPayment">Наступны плацёж</string>
   <string name="youWillBeChargedXOnY">%2$s вы заплаціце %1$s.</string>
   <string name="makeAdditionalDonation">Зрабіць дадатковае ахвяраванне</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Падарыць крылы спонсара іншаму гульцу</string>
+  <string name="giftPatronWings">Падарыць крылы спонсара іншаму гульцу</string>
   <string name="update">Абнавіць</string>
   <string name="changeMonthlyAmount">Змяніць штомесячную суму (%s)</string>
   <string name="cancelSupport">скасаваць падтрымку</string>
   <string name="xOrY">%1$s ці %2$s</string>
+  <string name="decideHowMuch">Колькі каштуе Lichess, на вашу думку:</string>
   <string name="stopPayments">Адгукнуць картку і прыпыніць платяжы:</string>
   <string name="noLongerSupport">Больш не падтрымліваць Lichess</string>
   <string name="viewOthers">Паглядзець іншых спонсараў Lichess</string>
@@ -74,4 +76,5 @@
   <string name="nowLifetime">Цяпер вы пажыцёвы спонсар Lichess!</string>
   <string name="nowOneMonth">Вы цяпер спонсар Lichess на месяц!</string>
   <string name="downgradeNextMonth">Праз месяц, грошы НЕ спішуцца зноў, і ваш акаўнт на Lichess зробіцца звычайным.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Змяніць валюту</string>
 </resources>

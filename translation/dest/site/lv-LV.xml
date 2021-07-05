@@ -99,6 +99,7 @@
   <string name="noGameFound">Neviena spēle nav atrasta</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Varbūt iekļaujiet vairāk spēļu uzstādījumu izvēlnē?</string>
   <string name="openingExplorer">Atklātņu pārlūks</string>
+  <string name="openingEndgameExplorer">Atklātņu un beigu spēļu pārlūks</string>
   <string name="xOpeningExplorer">%s atklātņu pārlūks</string>
   <string name="winPreventedBy50MoveRule">50 gājienu noteikums novērsa uzvaru</string>
   <string name="lossSavedBy50MoveRule">50 gājienu likums novērš zaudējumu</string>
@@ -938,4 +939,10 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="noChat">Nav sarunas</string>
   <string name="onlyTeamLeaders">Tikai komandas vadītāji</string>
   <string name="onlyTeamMembers">Tikai komandas dalībnieki</string>
+  <string name="navigateMoveTree">Izskatīt gājienu koku</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Ieslēgt/izslēgt ierīces datoranalīzi</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Ieslēgt/izslēgt visu datoranalīzi</string>
+  <string name="playComputerMove">Izspēlēt labāko datora gājienu</string>
+  <string name="analysisOptions">Analīzes iespējas</string>
+  <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
 </resources>

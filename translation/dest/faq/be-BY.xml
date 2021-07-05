@@ -31,9 +31,18 @@
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
+  <string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
+  <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтараныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
   <string name="positions">пазіцыі</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
   <string name="accounts">Акаўнты</string>
   <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
+  <string name="showYourTitle">Калі вы маеце тытул у жыцці, каб адлюстроўваць яго ў акаўнце, вы можаце падаць запыт праз %1$s, дадаўшы выразнае фота пацвярджаючага дакумента/карткі та сэлфі, дзе вы трымаеце дакумент/картку.
+
+Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
+
+Нарэшце, ёсць ганаровы тытул %2$s.</string>
+  <string name="verificationForm">форму верыфікацыі</string>
   <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>

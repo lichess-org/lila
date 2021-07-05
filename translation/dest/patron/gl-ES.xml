@@ -58,7 +58,7 @@ Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</st
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Cobrarémosche %1$s o %2$s.</string>
   <string name="makeAdditionalDonation">Fai unha doazón adicional agora</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Agasalla ás de Patrón/a a un xogador/a</string>
+  <string name="giftPatronWings">Agasalla ás de Patrón/a a un xogador/a</string>
   <string name="update">Actualiza</string>
   <string name="changeMonthlyAmount">Cambia a cantidade mensual (%s)</string>
   <string name="cancelSupport">cancela o teu apoio</string>
@@ -75,4 +75,5 @@ Porén, os patróns teñen dereito de presumir da súa nova icona de perfil.</st
   <string name="nowLifetime">Agora es un patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">Agora es un patrón de Lichess por un mes!</string>
   <string name="downgradeNextMonth">Nun mes, NON se che cobrará de novo, e a túa conta de Lichess será rebaixada á versión normal.</string>
+  <string name="changeCurrency">Cambiar moeda</string>
 </resources>

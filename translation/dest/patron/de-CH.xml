@@ -58,7 +58,7 @@ Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z
   <string name="nextPayment">Nächschti Zahlig</string>
   <string name="youWillBeChargedXOnY">Dir werdäd am %2$s %1$s berechnät.</string>
   <string name="makeAdditionalDonation">Mach ä zuäsätzlichi Spänd</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schänk ämänä Schpiller / änärä Schpillerin Patroon-Flügäl</string>
+  <string name="giftPatronWings">Schänk ämänä Schpiller / änärä Schpillerin Patroon-Flügäl</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Änderä dä monatlichi Betrag (%s)</string>
   <string name="cancelSupport">beänd dini Untärschtützig</string>

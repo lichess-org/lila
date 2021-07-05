@@ -58,7 +58,7 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nextPayment">Nächste Zahlung</string>
   <string name="youWillBeChargedXOnY">Dir werden %1$s am %2$s berechnet.</string>
   <string name="makeAdditionalDonation">Leiste jetzt eine zusätzliche Spende</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Schenke einem Spieler Patron-Flügel</string>
+  <string name="giftPatronWings">Schenke einem Spieler Patron-Flügel</string>
   <string name="update">Aktualisierung</string>
   <string name="changeMonthlyAmount">Ändere den monatlichen Betrag (%s)</string>
   <string name="cancelSupport">beende deine Unterstützung</string>
@@ -75,4 +75,5 @@ Jedoch erhalten Unterstützer das Recht, mit ihrem coolen neuen Profil-Icon anzu
   <string name="nowLifetime">Du bist jetzt lebenslanger Lichess-Patron!</string>
   <string name="nowOneMonth">Du bist jetzt für einen Monat Lichess Patron!</string>
   <string name="downgradeNextMonth">Dir wird in einem Monat NICHTS erneut berechnet und dein Lichess-Konto wird in ein reguläres Konto umgewandelt.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währung ändern</string>
 </resources>

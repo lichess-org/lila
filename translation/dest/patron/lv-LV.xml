@@ -77,4 +77,5 @@ Taču Sponsoriem ir tiesības lielīties ar jaunu stilīgu profila ikonu.</strin
   <string name="nowLifetime">Tagad esat mūžīgs Lichess Sponsors!</string>
   <string name="nowOneMonth">Tagad būsiet Lichess sponsors vienu mēnesi!</string>
   <string name="downgradeNextMonth">Pēc mēneša NETIKS veikts vēl viens maksājums, un jūsu Lichess konts tiks pazemināts uz bezmaksas kontu.</string>
+  <string name="changeCurrency">Mainīt valūtu</string>
 </resources>

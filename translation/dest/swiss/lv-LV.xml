@@ -41,4 +41,31 @@
   <string name="forbiddenPairings">Neatļautie pāri</string>
   <string name="forbiddenPairingsHelp">Spēlētāji, kuri nedrīkst spēlēt kopā (piemēram brāļi vai māsas). Katrā rindā, ar atstarpi atdalīti, divi lietotājvārdi.</string>
   <string name="newSwiss">Jauns Šveices turnīrs</string>
+  <string name="swissVsArenaQ">Kad izmantot Šveices turnīrus arēnu vietā?</string>
+  <string name="swissVsArenaA">Šveices turnīrā, visi dalībnieki izspēlēs vienādu skaitu spēļu, un pret katru pretinieku var spēlēt tikai vienreiz.
+Šī var būt laba izvēle klubiem un oficiāliem turnīriem.</string>
+  <string name="pointsCalculationQ">Kā tiek aprēķināti punkti?</string>
+  <string name="tiebreaksCalculationQ">Kā izšķir vienādu punktu skaitus?</string>
+  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Zonnenborna—Bergera koeficientu</string>
+  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Ar %s.
+Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu pretinieku punktu summu.</string>
+  <string name="pairingsQ">Kā sapāro spēlētājus?</string>
+  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Nīderlandes sistēmu</string>
+  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE rokasgrāmatu</string>
+  <string name="pairingsA">Ar %1$s, īstenotu ar \"%2$s\", saskaņā ar %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>
+  <string name="moreRoundsThanPlayersA">Kad visi iespējamie pāri būs izspēlēti, turnīrs beigsies un pasludinās uzvarētāju.</string>
+  <string name="restrictedToTeamsQ">Kāpēc tas ir tikai komandām?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Šveices turnīri nav domāti interneta šaham. Tie pieprasa spēlētāju punktualitāti, apņemšanos un pacietību.</string>
+  <string name="restrictedToTeamsABetterMet">Mūsuprāt ir liela varbūtība, ka komanda būs piemērotāka šiem nosacījumiem nekā visi lietotāji kopā.</string>
+  <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
+  <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
+Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
+Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
+  <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
+  <string name="lateJoinAYes">Jā, līdz kamēr vairāk kā puse raundu ir izspēlēta. Piemēram, 11 raundu turnīrā, spēlētāji var pievienoties pirms sākas 6. raunds, bet 12 raundu turnīrā – pirms sākas 7. raunds.</string>
+  <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
+  <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
+  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kādas ir iespējas apļa sistēmas turnīriem?</string>
+  <string name="roundRobinAWontWork">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē</string>
 </resources>

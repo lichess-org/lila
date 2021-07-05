@@ -64,7 +64,7 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nextPayment">An chéad íocaíocht eile</string>
   <string name="youWillBeChargedXOnY">Beidh tú muirearaithe %1$s ar %2$s.</string>
   <string name="makeAdditionalDonation">Déan bronntanas breise anois</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Tabhair sciatháin Pátrún mar bronntanas d’imreoir</string>
+  <string name="giftPatronWings">Tabhair sciatháin Pátrún mar bronntanas d’imreoir</string>
   <string name="update">Nuashonrú</string>
   <string name="changeMonthlyAmount">Athraigh an méid míosúil (%s)</string>
   <string name="cancelSupport">cuir do thacaíocht ar ceal</string>

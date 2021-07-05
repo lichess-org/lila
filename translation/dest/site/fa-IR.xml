@@ -92,6 +92,7 @@
   <string name="noGameFound">بازی مورد نظر یافت نشد</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید نیاز است که بازی های بیشتری را از منوی مرجع لحاظ کنید؟</string>
   <string name="openingExplorer">جست و جوگر گشایش</string>
+  <string name="openingEndgameExplorer">جستجوگر شروع/پایان بازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="winPreventedBy50MoveRule">قانون 50 حرکت مانع از برد شد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>

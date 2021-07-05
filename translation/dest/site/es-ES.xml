@@ -900,5 +900,12 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="noChat">Sin chat</string>
   <string name="onlyTeamLeaders">Solo líderes del equipo</string>
   <string name="onlyTeamMembers">Solo miembros del equipo</string>
-  <string name="navigateMoveTree">Navegar el árbol de movimientos</string>
+  <string name="navigateMoveTree">Desplazarse por el árbol de movimientos</string>
+  <string name="mouseTricks">Trucos de ratón</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Activar/desactivar análisis por ordenador local</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Activar/desactivar todos los análisis por ordenador</string>
+  <string name="playComputerMove">Jugar el mejor movimiento por ordenador</string>
+  <string name="analysisOptions">Opciones de análisis</string>
+  <string name="focusChat">Foco en el chat</string>
+  <string name="showHelpDialog">Mostrar este cuadro de diálogo de ayuda</string>
 </resources>

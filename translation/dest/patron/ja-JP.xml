@@ -73,4 +73,5 @@
   <string name="nowLifetime">あなたは Lichess の永久パトロンです！</string>
   <string name="nowOneMonth">あなたはこれから 1 か月の間 Lichess パトロンです！</string>
   <string name="downgradeNextMonth">1 か月後にまた請求されることはなく、無料アカウントに戻ります。</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">通貨を変更</string>
 </resources>

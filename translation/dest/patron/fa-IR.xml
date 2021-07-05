@@ -2,4 +2,5 @@
 <resources>
   <string name="pleaseEnterAmountInX">لطفا مقدار را در %s وارد کنید</string>
   <string name="giftPatronWings">اهدای بال های پاترون به یک بازیکن</string>
+  <string name="changeCurrency">تغییر واحد پول</string>
 </resources>

@@ -58,7 +58,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
   <string name="makeAdditionalDonation">Make an additional donation</string>
-  <string name="giftPatronWings" comment="giftPatronWings&#10;&#10;An option to donate but with another player getting the wings, as a gift.">Gift Patron wings to a player</string>
+  <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>
@@ -75,4 +75,5 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
+  <string name="changeCurrency">Cambiar moneda</string>
 </resources>

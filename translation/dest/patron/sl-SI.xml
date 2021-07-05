@@ -78,4 +78,5 @@ Ali pa %s.</string>
   <string name="nowLifetime">Zdaj ste doživljenski Lichess pokrovitelj!</string>
   <string name="nowOneMonth">Zdaj ste Lichess pokrovitelj za en mesec!</string>
   <string name="downgradeNextMonth">V enem mesecu vam NE bomo spet zaračunali in vaš Lichess račun se bo vrnil na običajni račun.</string>
+  <string name="changeCurrency">Spremeni valuto</string>
 </resources>

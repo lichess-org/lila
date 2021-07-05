@@ -96,6 +96,7 @@
   <string name="noGameFound">Geen partij gevonden</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Misschien meer partijen toevoegen via het voorkeuren-menu?</string>
   <string name="openingExplorer">Openingverkenner</string>
+  <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
@@ -899,5 +900,10 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>
   <string name="onlyTeamMembers">Alleen teamleden</string>
+  <string name="mouseTricks">Muistrucs</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Lokale computeranalyse in-/uitschakelen</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle computeranalyses in-/uitschakelen</string>
+  <string name="playComputerMove">Doe de beste computerzet</string>
   <string name="analysisOptions">Analyse opties</string>
+  <string name="showHelpDialog">Help-dialoogvenster weergeven</string>
 </resources>
