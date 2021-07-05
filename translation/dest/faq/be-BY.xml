@@ -60,10 +60,10 @@
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
-  <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуўшы падчас гульні %2$s.</string>
+  <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуць %2$s падчас гульні.</string>
   <string name="displayPreferences">наладках адлюстравання</string>
-  <string name="connexionLostCanIGetMyRatingBack">Я прайграм праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, адна, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Я прайграў праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, аднак, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
 </resources>
