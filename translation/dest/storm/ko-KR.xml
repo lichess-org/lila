@@ -36,6 +36,7 @@
   <string name="raceComplete">레이스 완료!</string>
   <string name="spectating">관전</string>
   <string name="joinTheRace">레이스에 참가!</string>
+  <string name="startTheRace">레이스 시작</string>
   <string name="yourRankX">당신의 순위: %s</string>
   <string name="waitForRematch">재경기를 위해 대기</string>
   <string name="nextRace">다음 레이스</string>
