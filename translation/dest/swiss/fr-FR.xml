@@ -52,6 +52,7 @@ Ajoute le résultat de chaque adversaire battu par le joueur et la moitié du r�
   <string name="moreRoundsThanPlayersQ">Qu\'arrive-t-il si le tournoi compte plus de rondes que de joueurs?</string>
   <string name="moreRoundsThanPlayersA">Une fois tous les appariements possibles faits et toutes les parties jouées, le tournoi se termine et un gagnant est choisi.</string>
   <string name="restrictedToTeamsQ">Pourquoi peut-on participer uniquement en équipe?</string>
+  <string name="restrictedToTeamsA">Les tournois de type suisse n\'ont pas été conçus pour les parties d\'échecs en ligne. Ils exigent ponctualité, engagement et patience de la part des joueurs. Nous pensons que ces conditions sont probablement mieux satisfaites dans des tournois par équipes que dans des tournois individuels.</string>
   <string name="numberOfByesQ">Combien de bye un joueur peut-il obtenir?</string>
   <string name="numberOfByesA">Un joueur reçoit un bye de un point chaque fois qu\'il est impossible de l\'apparier à un autre joueur.
 De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardivement à un tournoi.</string>
@@ -60,6 +61,8 @@ De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardiveme
 Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.
 Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</string>
   <string name="lateJoinQ">Un joueur peut-il se joindre tardivement à un tournoi?</string>
+  <string name="lateJoinA">Oui, tant que pas plus de la moitié des rondes ont été jouées. Par exemple, pour un tournoi suisse de 11 rondes, un joueur doit s\'inscrire avant la ronde 6; pour un tournoi de 12 rondes, il doit s\'inscrire avant la ronde 7.
+Les joueurs inscrits tardivement reçoivent un bye de un point, même s\'ils ont manqué plusieurs rondes.</string>
   <string name="willSwissReplaceArenasQ">Les tournois de type suisse remplaceront-ils les tournois de type arène?</string>
   <string name="willSwissReplaceArenasA">Non. Ce sont des tournois de type complémentaire.</string>
   <string name="roundRobinQ">Et les tournois à la ronde?</string>
