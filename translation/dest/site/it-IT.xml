@@ -888,4 +888,25 @@ e impattano le valutazioni dei giocatori</string>
 Funziona solo per le partite standard, non con le varianti.
 Puoi usare %s per generare una posizione FEN, poi incollala qui.
 Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
+  <string name="cancelSimul">Annulla simulazione</string>
+  <string name="simulHostcolor">Colore host per ogni partita</string>
+  <string name="estimatedStart">Tempo di avvio stimato</string>
+  <string name="simulFeatured">Mostra su %s</string>
+  <string name="simulFeaturedHelp">Mostra la tua simulazione a tutti su %s. Disabilita per le simulazioni private.</string>
+  <string name="simulDescription">Descrizione della simulazione</string>
+  <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
+  <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
+  <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
+  <string name="tournChat">Chat del torneo</string>
+  <string name="noChat">Nessuna chat</string>
+  <string name="onlyTeamLeaders">Solo leader della squadra</string>
+  <string name="onlyTeamMembers">Solo membri della squadra</string>
+  <string name="navigateMoveTree">Sfoglia l\'albero delle mosse</string>
+  <string name="mouseTricks">Trucchi del mouse</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Abilita/Disabilita le analisi del computer locali</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Abilita/Disabilita tutte le analisi del computer</string>
+  <string name="playComputerMove">Gioca la migliore mossa del computer</string>
+  <string name="analysisOptions">Opzioni d\'analisi</string>
+  <string name="focusChat">Focalizza chat</string>
+  <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
 </resources>
