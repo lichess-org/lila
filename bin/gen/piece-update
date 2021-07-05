@@ -20,7 +20,7 @@ fi
 bin/gen/piece-sprite
 git add public/piece
 git add public/piece-css
-git commit -m "$commit_msg - for #5707"
+git commit -m "$commit_msg"
 
 git log --name-status HEAD^..HEAD
 read -n 1 -p "Press [Enter] to push"
