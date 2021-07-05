@@ -139,6 +139,8 @@ object Query {
     case s if s.is(_.NoStart)        => none
     case s if s.is(_.UnknownFinish)  => none
     case s if s.is(_.VariantEnd)     => none
+    case s if s.is(_.Impasse27)      => Some(s.id -> "Impasse")
+    case s if s.is(_.TryRule)        => Some(s.id -> "Try rule")
     case s if s.is(_.Outoftime)      => Some(s.id -> "Clock Flag")
     case s if s.is(_.PerpetualCheck) => Some(s.id -> "Perpetual Check")
     case s                           => Some(s.id -> s.toString)
