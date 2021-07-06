@@ -5,6 +5,7 @@
     <item quantity="one">Näytä kierros</item>
     <item quantity="other">Näytä kaikki %s kierrosta</item>
   </plurals>
+  <string name="roundsAreStartedManually">Kierrokset aloitetaan käsin</string>
   <string name="startingIn" comment="Displayed above a timer">Turnauksen alkuun on</string>
   <string name="nextRound">Seuraava kierros</string>
   <string name="tournStartDate">Turnauksen alkamisaika</string>
@@ -27,6 +28,7 @@ Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä
   <string name="pairingsQ">Miten parit määriytyvät?</string>
   <string name="dutchSystem">Hollantilainen järjestelmä</string>
   <string name="FIDEHandbook">FIDEn käsikirja</string>
+  <string name="pairingsA">Käytössä on %1$s, joka on toteuttu %2$sillä %3$sn mukaisesti.</string>
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
