@@ -184,8 +184,8 @@ final class IrcApi(
         channel = SlackClient.rooms.tavernAppeal
       )
     ) >> zulip(_.mod.adminAppeal, user.username)(
-      s"${markdown.modLink(mod.user)} :eyes: Let's have a look at the appeal of _*${markdown
-        .lichessLink(s"/appeal/${user.username}", user.username)}*_"
+      s"${markdown.modLink(mod.user)} :eyes: Let's have a look at the appeal of **${markdown
+        .lichessLink(s"/appeal/${user.username}", user.username)}**"
     )
 
   def stop(): Funit =

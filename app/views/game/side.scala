@@ -102,8 +102,13 @@ object side {
             .positionNumber(initialFen | chess.format.Forsyth.initial)
             .map { number =>
               st.section(
-                "Chess960 start position: ",
-                strong(number)
+                trans.chess960StartPosition(
+                  a(
+                    href := routes.UserAnalysis.parseArg(
+                      s"chess960/${(initialFen | chess.format.Forsyth.initial).value.replace(" ", "_")}"
+                    )
+                  )(number)
+                )
               )
             },
         userTv.map { u =>

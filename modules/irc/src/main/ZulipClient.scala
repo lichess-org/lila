@@ -22,14 +22,12 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   def apply(stream: ZulipClient.stream.Selector, topic: String)(
       content: String
   ): Funit =
-    apply(
-      ZulipMessage(stream = stream(ZulipClient.stream), topic = topic, content = content)
-    )
+    send(ZulipMessage(stream = stream(ZulipClient.stream), topic = topic, content = content))
 
-  def apply(msg: ZulipMessage): Funit =
+  private def send(msg: ZulipMessage): Funit =
     limiter(msg.hashCode) {
       if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString))
-      else
+      else {
         ws.url(s"https://${config.domain}/api/v1/messages")
           .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
           .post(
@@ -47,6 +45,8 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
           .monSuccess(_.irc.zulip.say(msg.stream))
           .logFailure(lila.log("zulip"))
           .nevermind
+        funit // return immediately! don't make mod actions slower because of that
+      }
     }(funit)
 }
 
