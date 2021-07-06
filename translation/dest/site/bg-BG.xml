@@ -441,6 +441,7 @@
   <string name="setTheBoard">Подреди дъската</string>
   <string name="popularOpenings">Популярни дебюти</string>
   <string name="endgamePositions">Ендшпилни позиции</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Начална позиция в Chess960: %s</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="savePosition">Запази позицията</string>
