@@ -69,6 +69,7 @@ export interface StudyCtrl {
   setGamebookOverride(o: GamebookOverride): void;
   explorerGame(gameId: string, insert: boolean): void;
   onPremoveSet(): void;
+  looksNew(): boolean;
   redraw: Redraw;
   trans: Trans;
 }

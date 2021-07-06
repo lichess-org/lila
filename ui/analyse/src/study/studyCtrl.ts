@@ -707,6 +707,10 @@ export default function (
     onPremoveSet() {
       if (gamebookPlay) gamebookPlay.onPremoveSet();
     },
+    looksNew() {
+      const cs = chapters.list();
+      return cs.length == 1 && cs[0].name == 'Chapter 1' && !currentChapter().ongoing;
+    },
     redraw,
     trans: ctrl.trans,
     socketHandler: (t: string, d: any) => {

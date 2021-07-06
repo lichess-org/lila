@@ -37,7 +37,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
             })
           : h('div', relay.data.tour.description),
       ]),
-      study.multiBoard.looksEmpty() ? null : multiBoardView(study.multiBoard, study),
+      study.looksNew() ? null : multiBoardView(study.multiBoard, study),
     ]);
   }
   return undefined;
