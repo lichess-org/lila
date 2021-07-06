@@ -440,6 +440,7 @@
   <string name="setTheBoard">Asettele lauta</string>
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Shakki960-alkuasema: %s</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="savePosition">Tallenna asema</string>
