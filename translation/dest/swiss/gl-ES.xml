@@ -52,6 +52,8 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
   <string name="moreRoundsThanPlayersQ">Que pasa se o torneo ten máis rondas que xogadores/as?</string>
   <string name="moreRoundsThanPlayersA">Cando se xogaron todos os posibles emparellamentos, o torneo remata e declárase un gañador/a.</string>
   <string name="restrictedToTeamsQ">Porque isto está restrinxido aos equipos?</string>
+  <string name="restrictedToTeamsA">Os torneos suizos non están deseñados para o xadrez online, pois esixen puntualidade, dedicación e paciencia dos xogadores.
+Cremos que estas condicións é maís probable que se cumpran nun equipo que en torneos globais.</string>
   <string name="numberOfByesQ">Cantas exencións de ronda pode ter un xogador?</string>
   <string name="numberOfByesA">Un xogador/a ten un \"bye\" de un punto cada vez que o sistema de emparellamento non pode atoparlle opoñente. Adicionalmente, un \"bye\" de medio punto daráselle a un xogador cando entre tardiamente nun torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Que pasa se un xogador/a non xoga unha partida?</string>
@@ -59,6 +61,8 @@ Engade a puntuación de cada opoñente que venceu e a metada da puntuación de c
 Entón o sistema botará ao xogador do torneo, para que non perda máis partidas.
 El poderá volver a unirse ao torneo en calquera momento.</string>
   <string name="lateJoinQ">Poden os xogadores entrar tarde?</string>
+  <string name="lateJoinA">Si, pero ata o comezo da metade das rondas; por exemplo, nun torneo suizo de 11 rondas, as xogadoras poden entrar antes de que a 6ª ronda comece e nun de 12 rondas antes de que comece a 7ª ronda.
+As xogadores que entren tarde teñen un só \"bye\", mesmo se non se presentan a varias rondas.</string>
   <string name="willSwissReplaceArenasQ">Poden os torneos suizos reemprazar os torneos area?</string>
   <string name="willSwissReplaceArenasA">Non, teñen características complementarias.</string>
   <string name="roundRobinQ">Que hai sobre Round Robin?</string>
