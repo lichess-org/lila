@@ -917,8 +917,8 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="onlyTeamMembers">Doar membrii echipei</string>
   <string name="navigateMoveTree">Navigați pe arborele de mutări</string>
   <string name="mouseTricks">Trucuri cu mouse-ul</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Activează/dezactivează analiza computerizată locală</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Activează/dezactivează analiza computerizată</string>
+  <string name="toggleLocalAnalysis">Activează/dezactivează analiza computerizată locală</string>
+  <string name="toggleAllAnalysis">Activează/dezactivează analiza computerizată</string>
   <string name="playComputerMove">Joacă cea mai bună mutare a calculatorului</string>
   <string name="analysisOptions">Opțiuni de analiză</string>
   <string name="focusChat">Focalizează conversația</string>
