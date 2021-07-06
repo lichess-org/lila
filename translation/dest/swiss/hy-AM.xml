@@ -30,4 +30,13 @@
   </plurals>
   <string name="tournStartDate">Մրցաշարը սկսվելու օրը</string>
   <string name="numberOfRounds">Խաղափուլերի քանակը</string>
+  <string name="numberOfRoundsHelp">Խաղափուլերի կենտ քանակը բոլոր խաղացողների համար տալիս է գույների լավագույն բալանսը։</string>
+  <string name="roundInterval">Ընդմիջում խաղափուլերի միջև</string>
+  <string name="forbiddenPairings">Արգելված զույգեր</string>
+  <string name="forbiddenPairingsHelp">Այն խաղացողների անունները, որոնք չպետք է խաղան իրար հետ (օրինակ, ազգականները)։ Տողում երկուական անուն՝ բաժանված բացատներով։</string>
+  <string name="newSwiss">Շվեյցարական մրցակարգով նոր մրցաշար</string>
+  <string name="swissVsArenaQ">Ե՞րբ օգտագործել շվեյցարական մրցակարգով մրցաշարերը «Արենայի» փոխարեն։</string>
+  <string name="swissVsArenaA">Շվեյցարական մրցակարգով մրցաշարում բոլոր մասնակիցներն անցկացնում են հավասար քանակությամբ պարտիաներ և միմյանց դեմ կարող են խաղալ միայն մեկ անգամ։
+Դա կարող է լավ տարբերակ լինել ակումբների և պաշտոնական մրցաշարերի համար։</string>
+  <string name="pointsCalculationQ">Ինչպե՞ս են հաշվարկվում միավորները։</string>
 </resources>
