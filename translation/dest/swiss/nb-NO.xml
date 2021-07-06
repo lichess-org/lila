@@ -67,6 +67,9 @@ Spillere som deltar sent, får et halvt fripoeng én gang, selv om de har gått 
   <string name="willSwissReplaceArenasQ">Vil sveitserturneringer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nei. De utfyller hverandre.</string>
   <string name="roundRobinQ">Hva med alle-mot-alle-turneringer?</string>
+  <string name="roundRobinA">Vi vil gjerne, men alle-mot-alle-turneringer virker ikke på nett.
+Grunnen er at det ikke finnes noen rettferdig måte å håndtere dem som forlater turneringen før tiden. Vi kan ikke forvente at alle spillerne vil spille alle partiene sine i en turnering på nett. Det skjer bare ikke, og derfor vil de fleste alle-mot-alle-turneringene være feilaktige og urettferdige, noe som fjerner eksistensgrunnlaget.
+Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sveitserturnering med et høyt antall runder. Da kan alle mulige par spilles før turneringen avsluttes.</string>
   <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
   <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
   <string name="teamOnly">Sveitserturneringer kan bare opprettes av lagledere, og kan bare spilles av lagmedlemmer.
