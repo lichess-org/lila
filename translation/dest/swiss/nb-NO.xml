@@ -83,7 +83,10 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="identicalPairing">Samme par</string>
   <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
   <string name="identicalForbidden">Forbudt</string>
+  <string name="lateJoin">Sen deltakelse</string>
+  <string name="lateJoinUntil">Ja, før over halvparten av rundene har begynt</string>
   <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, men kan redusere antall runder</string>
   <string name="streaksAndBerserk">Rekker og berserk</string>
   <string name="similarToOTB">Tilsvarer fysiske turneringer</string>
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
