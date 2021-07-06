@@ -43,4 +43,7 @@ Pode ser uma boa opção para clubes e torneios oficiais.</string>
 Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um bye valendo um ponto.</string>
   <string name="tiebreaksCalculationQ">Como os desempates são calculados?</string>
   <string name="sonnebornBergerScore">Pontuação Sonneborn–Berger</string>
+  <string name="pairingsQ">Como os pareamentos são decididos?</string>
+  <string name="dutchSystem">Sistema holandês</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
 </resources>
