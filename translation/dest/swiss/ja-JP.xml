@@ -46,6 +46,8 @@
   <string name="moreRoundsThanPlayersQ">参加人数よりもラウンド数が多い場合はどうなりますか？</string>
   <string name="moreRoundsThanPlayersA">可能なすべてのペアリングがプレイされた時点でトーナメントは終了し、優勝者が決まります。</string>
   <string name="restrictedToTeamsQ">なぜチーム内限定なのですか？</string>
+  <string name="restrictedToTeamsA">スイス式はオンラインチェスのために作られたものではありません。時間厳守、熱意、忍耐が参加者に求められます。
+こういった条件を満たすには自由参加ではなくチーム内限定のほうがいいと考えています。</string>
   <string name="numberOfByesQ">プレイヤーがもらえるバイの上限は？</string>
   <string name="numberOfByesA">ペアリングシステムが対戦相手を見つけられないとそのたびに 1 ポイントのバイが与えられます。
 また途中参加の場合、0.5 ポイントのバイが 1 回だけ与えられます。</string>
@@ -54,9 +56,14 @@
 続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
 その人はまた後に途中参加することができます。</string>
   <string name="lateJoinQ">途中参加はできますか？</string>
+  <string name="lateJoinA">はい、全ラウンド数の過半が始まるまではできます。たとえば 11 ラウンドのスイス式なら第 6 ラウンド開始まで、12 ラウンドなら第 7 ラウンド開始までです。途中参加の人には、飛ばしたラウンドが複数でもバイが 1 回だけ与えられます。</string>
   <string name="willSwissReplaceArenasQ">スイス式はアリーナに取って代わるもの？</string>
   <string name="willSwissReplaceArenasA">いいえ。両者は互いに補いあう機能です。</string>
   <string name="roundRobinQ">総当たり方式（ラウンドロビン）はないの？</string>
+  <string name="roundRobinA">追加したいのですが、あいにく総当たりはオンラインではうまくいきません。
+トーナメントを途中放棄する人をどう扱うか、いい方法がないからです。
+オンラインの大会で全員が最後までプレイすることは期待できません。ほとんどそうはならず、結果として総当たりの大会は欠陥のある不公平なものになってしまいます。だから追加する意味がないのです。
+総当たりに近い方式として、ラウンド数を非常に多くしたスイス式トーナメントを行なう手があります。これならトーナメント終了までにすべての可能なペアリングが行われるはずです。</string>
   <string name="otherSystemsQ">その他のトーナメント方式は？</string>
   <string name="otherSystemsA">当面、Lichess にその他のシステムを追加する予定はありません。</string>
   <string name="swissDescription">スイス式トーナメント %1$s では、参加者は他の全員と対戦するとは限りません。参加者の各ラウンドの対戦相手は、全員がなるべく近いスコアの相手と対戦するように作られたルールに従って決まります。ただし同じ相手とは二度と対戦しません。全ラウンド終了後に合計ポイントがもっとも多いプレイヤーが優勝です。人数が奇数でない限り、全員が毎ラウンド誰かと対戦することになります。</string>
