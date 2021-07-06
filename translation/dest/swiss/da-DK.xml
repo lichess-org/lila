@@ -66,6 +66,9 @@ Så vil systemet trække spilleren ud af turneringen, så de ikke taber flere pa
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
   <string name="roundRobinQ">Hvad med Round Robin?</string>
+  <string name="roundRobinA">Vi vil gerne tilføje det, men Round Robin fungerer desværre ikke online.
+Grunden er, at det ikke har nogen fair måde at håndtere folk, der forlader turneringen tidligt. Vi kan ikke forvente, at alle spillere vil spille alle deres partier i en online begivenhed. Det vil simpelthen bare ikke ske, og som et resultat ville de fleste runde Robin turneringer være fejlbehæftede og uretfærdige, hvilket fjerner hele deres eksistensgrundlag.
+Det tætteste du kan komme på Round Robin online er at spille en schweizisk turnering med et meget højt antal runder. Så vil alle mulige parringer blive spillet, før turneringen slutter.</string>
   <string name="otherSystemsQ">Hvad med andre turneringssystemer?</string>
   <string name="otherSystemsA">Vi planlægger ikke at tilføje flere turneringssystemer til Lichess i øjeblikket.</string>
   <string name="swissDescription">I en schweizerturnering %1$s, spiller hver deltager ikke nødvendigvis mod alle andre deltagere. Deltagere mødes en-til-en i hver runde og parres ved hjælp af et sæt regler, der er designet til at sikre, at hver konkurrent får modstandere med en lignende rating, men ikke den samme modstander mere end én gang. Vinderen er deltageren med det højeste antal point optjent i alle runder. Alle deltagere spiller i hver runde, medmindre der er et ulige antal spillere.</string>

@@ -5,6 +5,7 @@
     <item quantity="one">Näytä kierros</item>
     <item quantity="other">Näytä kaikki %s kierrosta</item>
   </plurals>
+  <string name="roundsAreStartedManually">Kierrokset aloitetaan käsin</string>
   <string name="startingIn" comment="Displayed above a timer">Turnauksen alkuun on</string>
   <string name="nextRound">Seuraava kierros</string>
   <string name="tournStartDate">Turnauksen alkamisaika</string>
@@ -27,9 +28,11 @@ Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä
   <string name="pairingsQ">Miten parit määriytyvät?</string>
   <string name="dutchSystem">Hollantilainen järjestelmä</string>
   <string name="FIDEHandbook">FIDEn käsikirja</string>
+  <string name="pairingsA">Käytössä on %1$s, joka on toteuttu %2$sillä %3$sn mukaisesti.</string>
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
+  <string name="restrictedToTeamsA">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä. Nämä ehdot täyttyvät mielestämme todennäköisemmin joukkueen sisäisissä kuin avoimissa turnauksissa.</string>
   <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
 Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
@@ -38,9 +41,14 @@ Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnauk
 Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
 Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
+  <string name="lateJoinA">Voi siihen asti, kunnes yli puolet kierroksista on alkanut. Esimerkiksi 11 kierroksen sveitsiläiseen voi vielä liittyä ennen 6. kierroksen alkua ja 12-kierroksiseen ennen 7. kierroksen alkua.
+Myöhään liittyville merkitään yksi huilaus, vaikka heiltä olisi jäänyt väliin useita kierroksia.</string>
   <string name="willSwissReplaceArenasQ">Korvaako sveitsiläinen turnaus areenaturnaukset?</string>
   <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
   <string name="roundRobinQ">Entä täyskierrosturnaus?</string>
+  <string name="roundRobinA">Haluaisimme lisätä sen, mutta täyskierrosturnaus ei toimi verkossa.
+Siinä ei nimittäin voisi ratkaista reilulla tavalla turnauksen etuajassa jättävistä pelaajista syntyvää ongelmaa. Verkkotapahtumassa ei voi odottaa kaikkien pelaajien pelaavan kaikkia pelejään – niin ei vain tapahdu. Tämän seurauksena useimmat täyskierrosturnaukset olisivat puuttellisia ja epäreiluja, eikä niiden järjestämiselle siten ole perusteita.
+Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauksessa, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan keskenään ennen kuin turnaus loppuu.</string>
   <string name="otherSystemsQ">Entä muut turnausjärjestelmät?</string>
   <string name="otherSystemsA">Emme toistaiseksi aio lisätä Lichessiin enempää turnausjärjestelmiä.</string>
   <string name="swissDescription">Sveitsiläisessä turnauksessa %1$s pelaaja ei välttämättä pelaa kaikki muita osallistujia vastaan. Osallistujat pelaavat kullakin kierroksella pareina, jotka muodostetaan tiettyjä sääntöjä noudattaen. Säännöillä varmistetaan, että kaikki pelaavat sellaisia vastustajia vastaan, joilla on jotakuinkin sama pistemäärä, mutta eivät kuitenkaan samaa vastustajaa vastaan useammin kuin kerran. Voittaja on kaikilta kierroksilta korkeimmat yhteispisteet saanut pelaaja. Kaikki osallistujat pelaavat joka kierroksella, paitsi jos pelaajia on pariton määrä.</string>

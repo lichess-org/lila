@@ -441,6 +441,7 @@
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
@@ -902,8 +903,8 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="onlyTeamMembers">Solo miembros del equipo</string>
   <string name="navigateMoveTree">Desplazarse por el árbol de movimientos</string>
   <string name="mouseTricks">Trucos de ratón</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Activar/desactivar análisis por ordenador local</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Activar/desactivar todos los análisis por ordenador</string>
+  <string name="toggleLocalAnalysis">Activar/desactivar análisis por ordenador local</string>
+  <string name="toggleAllAnalysis">Activar/desactivar todos los análisis por ordenador</string>
   <string name="playComputerMove">Jugar el mejor movimiento por ordenador</string>
   <string name="analysisOptions">Opciones de análisis</string>
   <string name="focusChat">Foco en el chat</string>

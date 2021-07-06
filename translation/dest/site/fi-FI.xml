@@ -96,6 +96,7 @@
   <string name="noGameFound">Pelejä ei löytynyt</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Voisit sisällyttää lisää pelejä asetusvalikosta?</string>
   <string name="openingExplorer">Avaustietokanta</string>
+  <string name="openingEndgameExplorer">Avaus- ja loppupeliselain</string>
   <string name="xOpeningExplorer">%s -avaustietokanta</string>
   <string name="winPreventedBy50MoveRule">50 siirron sääntö estää voiton</string>
   <string name="lossSavedBy50MoveRule">50 siirron sääntö estää tappion</string>
@@ -440,6 +441,7 @@
   <string name="setTheBoard">Asettele lauta</string>
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Shakki960-alkuasema: %s</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="savePosition">Tallenna asema</string>
@@ -899,5 +901,11 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="noChat">Ei keskustelua</string>
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
   <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
+  <string name="mouseTricks">Hiiritoiminnot</string>
+  <string name="toggleLocalAnalysis">Paikallinen tietokoneanalyysi päälle/pois</string>
+  <string name="toggleAllAnalysis">Kaikki tietokoneanalyysi päälle/pois</string>
+  <string name="playComputerMove">Pelaa tietokoneen paras siirto</string>
+  <string name="analysisOptions">Analyysiasetukset</string>
   <string name="focusChat">Kohdista keskusteluun</string>
+  <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
 </resources>

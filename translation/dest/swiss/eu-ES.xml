@@ -59,6 +59,8 @@ Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
  Edozein momentutan partidara berriz sartu daiteke jokalaria.</string>
   <string name="lateJoinQ">Sartu daitezke jokalariak berandu?</string>
+  <string name="lateJoinA">Bai, aurreikusitako txanden erdia baino gehiago hasten diren arte; adibidez 11 txandako txapelketa baten, 6. txanda hasi aurretik eta 12 txandako baten 7. a hasi aurretik.
+Berandu sartzen diren jokalariek, puntu erdiko bye edo atseden bakarra jasoko dute, berdin delarik huts egin duten txanda kopurua.</string>
   <string name="willSwissReplaceArenasQ">Txapelketa suitzarren Arena txapelketak ordezkatuko dituzte?</string>
   <string name="willSwissReplaceArenasA">Ez. Aukera ezberdinak dira eta horrela jarraituko dute.</string>
   <string name="roundRobinQ">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>

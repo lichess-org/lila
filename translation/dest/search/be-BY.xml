@@ -29,7 +29,9 @@
   <string name="analysis">Аналіз</string>
   <string name="onlyAnalysed">Толькі гульні, для якіх даступны камп\'ютарны аналіз</string>
   <string name="color">Колер</string>
+  <string name="evaluation">Ацэнка</string>
   <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Максімальная колькасць</string>
+  <string name="maxNumberExplanation">Максімальная колькасць гульняў, якія будуць вернуты</string>
   <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Уключыць</string>
   <string name="generateURL">Стварыць спасылку</string>
 </resources>

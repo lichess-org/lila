@@ -442,6 +442,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Omtykte opningar</string>
   <string name="endgamePositions">Sluttspelstillingar</string>
+  <string name="chess960StartPosition">Fishersjakk, startoppstilling %s</string>
   <string name="startPosition">Startposisjon</string>
   <string name="clearBoard">Tøm brettet</string>
   <string name="savePosition">Lagre stilling</string>
@@ -903,8 +904,8 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="onlyTeamMembers">Berre lagsmedlemer</string>
   <string name="navigateMoveTree">Naviger i trekk-treet</string>
   <string name="mouseTricks">Musekunstar</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Aktiver/deaktiver lokal maskinanalyse</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Aktiver/deaktiver all maskinanalyse</string>
+  <string name="toggleLocalAnalysis">Aktiver/deaktiver lokal maskinanalyse</string>
+  <string name="toggleAllAnalysis">Aktiver/deaktiver all maskinanalyse</string>
   <string name="playComputerMove">Spel det beste maskintrekket</string>
   <string name="analysisOptions">Analyseval</string>
   <string name="focusChat">Fokusér prateromet</string>

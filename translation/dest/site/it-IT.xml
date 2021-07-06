@@ -903,8 +903,8 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="onlyTeamMembers">Solo membri della squadra</string>
   <string name="navigateMoveTree">Sfoglia l\'albero delle mosse</string>
   <string name="mouseTricks">Trucchi del mouse</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Abilita/Disabilita le analisi del computer locali</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Abilita/Disabilita tutte le analisi del computer</string>
+  <string name="toggleLocalAnalysis">Abilita/Disabilita le analisi del computer locali</string>
+  <string name="toggleAllAnalysis">Abilita/Disabilita tutte le analisi del computer</string>
   <string name="playComputerMove">Gioca la migliore mossa del computer</string>
   <string name="analysisOptions">Opzioni d\'analisi</string>
   <string name="focusChat">Focalizza chat</string>

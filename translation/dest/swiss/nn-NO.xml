@@ -64,6 +64,8 @@ Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berr
   <string name="willSwissReplaceArenasQ">Vil sveitsarturneringar ta over for andre turneringsformer?</string>
   <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
   <string name="roundRobinQ">Kva med round robin-turneringar?</string>
+  <string name="roundRobinA">Vi skulle gjerne hatt med Round Robin-turneringar, men diverre fungerar dei ikkje online.
+Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet turneringa før den er ferdigspela. Det er ikkje å forvente at alle online-spelarar vil spele alle sine parti, og difor vil dei fleste Round Robin-turneringar verte feilaktige og urettvise. Det næraste ein kjem Round Robin-spel online er i sveitsarturneringar med svært mange rundar. I slike høve vil alle moglege parsamansetjingar verte spela før turneringa endar.</string>
   <string name="otherSystemsQ">Kva med andre turneringssystem?</string>
   <string name="otherSystemsA">Nett no går vi ikkje med planar om fleire turneringssystem enn dei som allereie finst på Lichess.</string>
   <string name="swissDescription">I ein sveitsarturnering %1$s, er det ikkje sikkert at kvar deltakar spelar mot alle andre som deltek. Deltakarane møter ein motspelar i kvar runde og samansetjinga vert bestemt ved hjelp av eit regelsett som er laga slik at deltakarar med nærast mogleg poengtal, men slik at ingen møtest meir enn ein gon per turnering. Vinnar er den med det høgaste poengalet i alle rundene. Alle deltakarar spelar i alle rundane så lenge det er eit partal spelarar i runden</string>
@@ -86,4 +88,13 @@ Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berr
   <string name="pairingWaitTimeFast">Snøgg: ventar ikkje på alle spelarar</string>
   <string name="pairingWaitTimeSlow">Langsom: ventar på alle spelarar</string>
   <string name="identicalPairing">Identisk parsamansetjing</string>
+  <string name="possibleButNotConsecutive">Mogleg, men ikkje direkte etterfølgjande</string>
+  <string name="identicalForbidden">Forbode</string>
+  <string name="lateJoin">Forseinka påmelding</string>
+  <string name="lateJoinUntil">Ja fram til meir enn halvparten av rundane er påbyrja</string>
+  <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, men talet på rundar kan verte redusert</string>
+  <string name="streaksAndBerserk">Sigersrekkjer og Berserk</string>
+  <string name="similarToOTB">Svarande til turneringar over bordet (\"OTB\")</string>
+  <string name="unlimitedAndFree">Uavgrensa og fritt tilgjengeleg</string>
 </resources>

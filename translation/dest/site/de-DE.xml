@@ -441,6 +441,7 @@
   <string name="setTheBoard">Brett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="endgamePositions">Endspielstellungen</string>
+  <string name="chess960StartPosition">Schach960 Anfangsstellung: %s</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
   <string name="savePosition">Stellung speichern</string>
@@ -902,8 +903,8 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="onlyTeamMembers">Nur Teammitglieder</string>
   <string name="navigateMoveTree">Durch den Zugbaum navigieren</string>
   <string name="mouseTricks">Maus-Tricks</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Lokale Computeranalyse aktivieren/deaktivieren</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle Computeranalysen aktivieren/deaktivieren</string>
+  <string name="toggleLocalAnalysis">Lokale Computeranalyse aktivieren/deaktivieren</string>
+  <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
   <string name="playComputerMove">Spiele den besten Computerzug</string>
   <string name="analysisOptions">Analyseoptionen</string>
   <string name="focusChat">Chateingabefeld fokussieren</string>

@@ -58,6 +58,8 @@
   <string name="continueTheStreak">Працягнуць серыю</string>
   <string name="newStreak">Новая серыя</string>
   <string name="fromMyGames">З маіх гульняў</string>
+  <string name="lookupOfPlayer">Шукаць задачы з партый гульца</string>
   <string name="fromXGames">Задачы з гульняў %s</string>
   <string name="searchPuzzles">Шукаць задачы</string>
+  <string name="fromXGamesFound">Знойдзена %1$s задач ў %2$s гульнях</string>
 </resources>

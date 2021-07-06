@@ -940,11 +940,11 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="onlyTeamLeaders">Tikai komandas vadītāji</string>
   <string name="onlyTeamMembers">Tikai komandas dalībnieki</string>
   <string name="navigateMoveTree">Izskatīt gājienu koku</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;The title for a paragraph containing the following text:&#10;&#10;You can also scroll over the board to move in the game.&#10;Scroll over computer variations to preview them.&#10;Press shift+click or right-click to draw circles and arrows on the board.">Peles kontroles</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Ieslēgt/izslēgt ierīces datoranalīzi</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Ieslēgt/izslēgt visu datoranalīzi</string>
+  <string name="mouseTricks">Peles kontroles</string>
+  <string name="toggleLocalAnalysis">Ieslēgt/izslēgt ierīces datoranalīzi</string>
+  <string name="toggleAllAnalysis">Ieslēgt/izslēgt visu datoranalīzi</string>
   <string name="playComputerMove">Izspēlēt labāko datora gājienu</string>
   <string name="analysisOptions">Analīzes iespējas</string>
-  <string name="focusChat" comment="focusChat&#10;&#10;Focus means selecting an element in an interface. Text entered at the keyboard is sent to the component which has focus.&#10;https://en.wikipedia.org/wiki/Focus_(computing)">Fokusēt sarunu</string>
+  <string name="focusChat">Fokusēt sarunu</string>
   <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
 </resources>

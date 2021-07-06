@@ -441,6 +441,7 @@
   <string name="setTheBoard">Táblaállás</string>
   <string name="popularOpenings">Népszerű megnyitások</string>
   <string name="endgamePositions">Végjáték állások</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 kezdőállás: %s</string>
   <string name="startPosition">Alapállás</string>
   <string name="clearBoard">Üres tábla</string>
   <string name="savePosition">Állás mentése</string>
@@ -902,8 +903,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="onlyTeamMembers">Csak csapattagoknak</string>
   <string name="navigateMoveTree">Navigálj a lépések közt</string>
   <string name="mouseTricks">Trükkök az egérrel</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Helyi számítógépes elemzés engedélyezése</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Összes számítógépes elemzés engedélyezése</string>
+  <string name="toggleLocalAnalysis">Helyi számítógépes elemzés engedélyezése</string>
+  <string name="toggleAllAnalysis">Összes számítógépes elemzés engedélyezése</string>
   <string name="playComputerMove">Számítógép szerinti legjobb lépés megjátszása</string>
   <string name="analysisOptions">Elemzés beállításai</string>
   <string name="focusChat">Fókusz a csevegőre</string>

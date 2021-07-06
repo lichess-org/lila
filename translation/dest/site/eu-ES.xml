@@ -901,8 +901,8 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="onlyTeamMembers">Taldeen kideak bakarrik</string>
   <string name="navigateMoveTree">Nabigatu jokaldien zuhaitza</string>
   <string name="mouseTricks">Saguaren trukuak</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Aktibatu ordenagailu lokaleko analisia</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Aktibatu ordenagailu guztietako analisia</string>
+  <string name="toggleLocalAnalysis">Aktibatu ordenagailu lokaleko analisia</string>
+  <string name="toggleAllAnalysis">Aktibatu ordenagailu guztietako analisia</string>
   <string name="playComputerMove">Jokatu ordenagailuaren jokaldi onena</string>
   <string name="analysisOptions">Analisiaren aukerak</string>
   <string name="focusChat">Eraman fokua txatera</string>

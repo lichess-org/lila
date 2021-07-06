@@ -902,8 +902,8 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="onlyTeamMembers">Seulement les membres des équipes</string>
   <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
   <string name="mouseTricks">Astuces pour la souris</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Basculer vers l\'analyse de l\'ordinateur local</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Basculer vers l\'analyse de tous les ordinateurs</string>
+  <string name="toggleLocalAnalysis">Basculer vers l\'analyse de l\'ordinateur local</string>
+  <string name="toggleAllAnalysis">Basculer vers l\'analyse de tous les ordinateurs</string>
   <string name="playComputerMove">Jouer le meilleur coup de l\'ordinateur</string>
   <string name="analysisOptions">Options d\'analyse</string>
   <string name="focusChat">Priorité au salon de discussion</string>

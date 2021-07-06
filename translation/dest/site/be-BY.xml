@@ -970,8 +970,8 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Укл./адкл. лакальны камп\'ютарны аналіз</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Укл./адкл. усе камп\'ютарныя аналізы</string>
+  <string name="toggleLocalAnalysis">Укл./адкл. лакальны камп\'ютарны аналіз</string>
+  <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>
   <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
 </resources>
