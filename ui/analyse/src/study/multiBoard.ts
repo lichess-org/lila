@@ -58,6 +58,11 @@ export class MultiBoardCtrl {
     this.playing = v;
     this.reload();
   };
+
+  looksEmpty = () =>
+    this.pager && this.pager.currentPage == 1 && this.looksLikeNewChapter(this.pager.currentPageResults[0]);
+
+  private looksLikeNewChapter = (chapter: ChapterPreview) => chapter.name == 'Chapter 1' && !chapter.playing;
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
