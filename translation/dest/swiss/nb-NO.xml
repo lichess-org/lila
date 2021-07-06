@@ -67,6 +67,8 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
+  <string name="tournDuration">Turneringsvarighet</string>
+  <string name="predefinedDuration">Forhåndsbestemt varighet i minutter</string>
   <string name="numberOfGames">Antall partier</string>
   <string name="pairingSystem">Parsystem</string>
   <string name="pairingWaitTime">Parventetid</string>
@@ -74,5 +76,6 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
   <string name="identicalForbidden">Forbudt</string>
   <string name="pause">Pause</string>
+  <string name="similarToOTB">Tilsvarer fysiske turneringer</string>
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
 </resources>
