@@ -900,8 +900,8 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="onlyTeamMembers">Yalnızca takım üyeleri</string>
   <string name="navigateMoveTree">Hamleler arasında gezin</string>
   <string name="mouseTricks">Fare ile yapılan numaralar</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Yerel bilgisayar analizini aç/kapat</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Genel bilgisayar analizini aç/kapat</string>
+  <string name="toggleLocalAnalysis">Yerel bilgisayar analizini aç/kapat</string>
+  <string name="toggleAllAnalysis">Genel bilgisayar analizini aç/kapat</string>
   <string name="playComputerMove">En iyi bilgisayar hamlesini oyna</string>
   <string name="analysisOptions">Analiz seçenekleri</string>
   <string name="focusChat">Sohbete odaklan</string>
