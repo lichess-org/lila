@@ -69,6 +69,7 @@
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">мець адхіленне рэйтынгу менш за %1$s у звычайных шахматах, і менш за %2$s у варыянтах,</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаване для таго, каб гульцы, якія больш не карыстаюцца свае акаўнты, не займалі месца на дошках лідараў.</string>
   <string name="whyAreRatingHigher">Чаму рэйтынгі вышэй, чым на іншых сайтах та арганісацыях такіх як ФІДЭ, USCF і ICC?</string>
