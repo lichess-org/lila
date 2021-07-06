@@ -204,9 +204,14 @@ export function side(ctrl: StudyCtrl): VNode {
       'Broadcast'
     );
 
+  const chaptersTab =
+    tourShow && ctrl.multiBoard.looksEmpty()
+      ? null
+      : makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
+
   const tabs = h('div.tabs-horiz', [
     tourTab,
-    makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
+    chaptersTab,
     !tourTab || ctrl.members.canContribute() || ctrl.data.admin
       ? makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size()))
       : null,
