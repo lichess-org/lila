@@ -441,6 +441,7 @@
   <string name="setTheBoard">Zet het bord op</string>
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Beginstelling Chess960: %s</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="savePosition">Sla de stelling op</string>
