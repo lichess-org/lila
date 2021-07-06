@@ -441,6 +441,7 @@
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
