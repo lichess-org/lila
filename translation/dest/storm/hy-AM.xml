@@ -48,4 +48,6 @@
   <string name="joinPublicRace">Մասնակցել ընդհանուր մրցավազքին</string>
   <string name="raceYourFriends">Մրցել ընկերների հետ</string>
   <string name="skip">բաց թողնել</string>
+  <string name="skipHelp">Մրցավազքի ընթացքում Դուք կարող եք բաց թողնել մեկ քայլ.</string>
+  <string name="skipExplanation">Բաց թողնել այս քայլը՝ շարքը պահպանելու համար։ Մրցավազքի ընթացքում կարելի է օգտագործել միայն մեկ անգամ։</string>
 </resources>
