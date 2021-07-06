@@ -1025,4 +1025,8 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="mouseTricks">Cleasanna luiche</string>
   <string name="toggleLocalAnalysis">Scoránú anailís áitiúil ar ríomhaire</string>
   <string name="toggleAllAnalysis">Scoránú gach anailís ríomhaire</string>
+  <string name="playComputerMove">Déan an beart ríomhaire is fearr</string>
+  <string name="analysisOptions">Roghanna anailíse</string>
+  <string name="focusChat">Comhrá spriocghrúpa</string>
+  <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
 </resources>
