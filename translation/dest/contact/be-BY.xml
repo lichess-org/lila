@@ -29,6 +29,7 @@
   <string name="tryCastling">Паспрабуйце гэтую маленькую інтэрактыўную гульню, каб папрактыкавацца ракіроўцы ў шахматах</string>
   <string name="insufficientMaterial">Недастаткова матэрыялу, каб паставіць мат</string>
   <string name="noRatingPoints">Рэйтынг ня быў даданы</string>
+  <string name="ratedGame">Пераканайцеся, што вы згулялі рэйтынгавую гульню. Таварыскія гульні не ўплываюць на рэйтынг гульцоў.</string>
   <string name="errorPage">Старонка памылкі</string>
   <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>
   <string name="otherRestriction">Іншыя абмежаванні</string>
