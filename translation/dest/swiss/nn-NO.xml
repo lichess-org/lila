@@ -52,11 +52,15 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
+  <string name="restrictedToTeamsA">Sveitsarturneringar er laga for tradisjonelle turneringar med brett og brikker og ikkje for online spel. Turneringsforma krev punktlege, dediserte og tolmodige spelarar.
+Desse eigenskapane finn ein truleg heller innan lag enn i opne, globale turneringar.</string>
   <string name="numberOfByesQ">Kor mange halve poeng kan ein spelar få om motspelaren ikkje møter opp i rett tid?</string>
   <string name="numberOfByesA">Ein spelar får eit poeng kvar gong systemet ikkje finn ein motspelar. I tillegg får spelarar som kjem for seint til turneringsstart eit einsleg halvpoeng.</string>
   <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
   <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>
+  <string name="lateJoinA">Ja, heilt fram til halvparten av rundane har starta. Til dømes kan ein spelar koma inn i ein 11-rundars sveitsarturnering fram til sjette runde har starta og fram til sjuande runde i ein 12-rundars turnering.
+Spelarar som kjem til turneringa etter at den er starta vert godskrivne med berre eit halvt poeng, sjølv om dei mista meir enn ein runde.</string>
   <string name="willSwissReplaceArenasQ">Vil sveitsarturneringar ta over for andre turneringsformer?</string>
   <string name="willSwissReplaceArenasA">Nei. Dei utfyller kvarandre.</string>
   <string name="roundRobinQ">Kva med round robin-turneringar?</string>
