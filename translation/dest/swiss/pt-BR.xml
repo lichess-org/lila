@@ -36,4 +36,6 @@
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
   <string name="newSwiss">Novo torneio suíço</string>
   <string name="swissVsArenaQ">Quando usar torneios suíços em vez de arenas?</string>
+  <string name="swissVsArenaA">Em um torneio suíço, todos os participantes jogam o mesmo número de partidas, e só podem enfrentar o mesmo adversário uma vez.
+Pode ser uma boa opção para clubes e torneios oficiais.</string>
 </resources>
