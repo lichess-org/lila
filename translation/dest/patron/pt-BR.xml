@@ -75,4 +75,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nowLifetime">Você agora é um Patrono Lichess vitalício!</string>
   <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será rebaixada para a versão gratuita.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Trocar de moeda</string>
 </resources>
