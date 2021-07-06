@@ -5,4 +5,92 @@
     <item quantity="one">Visualizza il round</item>
     <item quantity="other">Visualizza tutti i %s round</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s turno</item>
+    <item quantity="other">%s turni</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Un turno al giorno</item>
+    <item quantity="other">Un turno ogni %s giorni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">I turni sono avviati manualmente</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s secondo tra i turni</item>
+    <item quantity="other">%s secondi tra i turni</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto tra i turni</item>
+    <item quantity="other">%s minuti tra i turni</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Inizia tra</string>
+  <string name="nextRound">Prossimo turno</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partita in corso</item>
+    <item quantity="other">Partite in corso</item>
+  </plurals>
+  <string name="tournStartDate">Data d\'inizio del torneo</string>
+  <string name="numberOfRounds">Numero di turni</string>
+  <string name="numberOfRoundsHelp">Un numero dispari di turni consente un equilibrio cromatico ottimale.</string>
+  <string name="roundInterval">Intervallo tra i turni</string>
+  <string name="forbiddenPairings">Abbinamenti proibiti</string>
+  <string name="forbiddenPairingsHelp">Nomi utenti dei giocatori che non devono giocare insieme (Gemelli, ad esempio). Due nomi utenti per riga, separati da uno spazio.</string>
+  <string name="newSwiss">Nuovo torneo svizzero</string>
+  <string name="swissVsArenaQ">Quando usare i tornei svizzeri invece delle arene?</string>
+  <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro una volta.
+Può essere una buona opzione per i club e per i tornei ufficiali.</string>
+  <string name="pointsCalculationQ">Come sono calcolati i punti?</string>
+  <string name="pointsCalculationA">Una vittoria vale un punto, un pareggio mezzo punto e una perdita zero.
+Quando un giocatore non è accoppiabile durante un turno, ricevono un bye dal valore di un punto.</string>
+  <string name="tiebreaksCalculationQ">Come sono calcolati i tie break?</string>
+  <string name="sonnebornBergerScore">Punteggio di Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationA">Con il %s.
+Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio di ogni rivale che pareggia con il giocatore.</string>
+  <string name="pairingsQ">Come sono decise le patte?</string>
+  <string name="dutchSystem">Sistema olandese</string>
+  <string name="FIDEHandbook">Manuale FIDE</string>
+  <string name="pairingsA">Con il %1$s, implementato da %2$s, in conformità con il %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Che succede se il torneo ha più turni che giocatori?</string>
+  <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
+  <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
+  <string name="numberOfByesQ">Quanti bye sono ottenibili da ogni giocatore?</string>
+  <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
+  <string name="whatIfOneDoesntPlayQ">Che succede se un giocatore non gioca una partita?</string>
+  <string name="whatIfOneDoesntPlayA">Il loro timer scadrà, saranno segnalati e perderanno la partita.
+Allora il sistema preleverà il giocatore dal torneo, così che non perderà altre partite.
+ Possono unirsi nuovamente al torneo in qualsiasi momento.</string>
+  <string name="lateJoinQ">I giocatori possono unirsi in ritardo?</string>
+  <string name="willSwissReplaceArenasQ">Lo svizzero sostituirà i tornei dell\'arena?</string>
+  <string name="willSwissReplaceArenasA">No. Sono caratteristiche complementari.</string>
+  <string name="roundRobinQ">E i Round Robin?</string>
+  <string name="otherSystemsQ">E gli altri sistemi di torneo?</string>
+  <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a Lichess al momento.</string>
+  <string name="swissDescription">In un torneo svizzero %1$s, ogni concorrente non gioca necessariamente con ogni partecipante. I concorrenti si incontrano uno a uno in ogni turno e sono abbinati usando una serie di regole progettate per assicurarsi che ogni concorrente giochi con i rivali con un punteggio simile, ma non lo stesso rivale più di una volta. Il vincitore è il concorrente con i punti aggregati maggiori ottenuti in tutti i turni. Tutti i concorrenti giocano in ogni turno a meno che non ci sia un numero disparo di giocatori.\"</string>
+  <string name="teamOnly">I tornei svizzeri sono creabili solo dai leader della squadra e giocabili solo dai membri della squadra.           
+%1$s per iniziare a giocare ai tornei svizzeri.</string>
+  <string name="joinOrCreateTeam">Partecipa o crea una squadra</string>
+  <string name="nowPlaying">In gioco</string>
+  <string name="startingSoon">Inizia a breve</string>
+  <string name="comparison">Confronto</string>
+  <string name="tournDuration">Durata del torneo</string>
+  <string name="predefinedDuration">Durata predefinita in minuti</string>
+  <string name="durationUnknown">Turni massimi predefiniti, ma durata sconosciuta</string>
+  <string name="numberOfGames">Numero di partite</string>
+  <string name="numberOfGamesAsManyAsPossible">Quante ne possono esser giocate nella durata assegnata</string>
+  <string name="numberOfGamesPreDefined">Deciso in anticipo, uguale per tutti i giocatori</string>
+  <string name="pairingSystem">Sistema di abbinamento</string>
+  <string name="pairingSystemArena">Ogni rivale disponibile con livello simile</string>
+  <string name="pairingSystemSwiss">Miglior abbinamento basato sui punti e i tie break</string>
+  <string name="pairingWaitTime">Tempo d\'attesa dell\'abbinamento</string>
+  <string name="pairingWaitTimeFast">Veloce: non attendere tutti i giocatori</string>
+  <string name="pairingWaitTimeSlow">Lento: attendi tutti i giocatori</string>
+  <string name="identicalPairing">Abbinamento identico</string>
+  <string name="possibleButNotConsecutive">Possibile, ma non consecutivo</string>
+  <string name="identicalForbidden">Proibito</string>
+  <string name="lateJoin">Partecipazione tardiva</string>
+  <string name="lateJoinUntil">Sì finché più di metà dei turni sono iniziati</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sì ma potrebbe ridurre il numero di turni</string>
+  <string name="streaksAndBerserk">Serie e Berserk</string>
+  <string name="similarToOTB">Simile ai tornei OTB</string>
+  <string name="unlimitedAndFree">Illimitato e gratuito</string>
 </resources>

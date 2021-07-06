@@ -16,11 +16,16 @@
   <string name="xIsStreaming">%s у эфіры</string>
   <string name="rules">Правілы стрымаў</string>
   <string name="rule1">Уключыце ключавое слова \"lichess.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lichess.</string>
+  <string name="perks">Перавагі стрыму з ключавым словам</string>
+  <string name="perk3">Паведамляе падпісчыкаў.</string>
   <string name="approved">Ваш стрым зацверджана.</string>
   <string name="pendingReview">Ваш стрым разглядаецца мадэратарамі.</string>
   <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запрасіць прагляд мадэратара</string>
+  <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
   <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
+  <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
+  <string name="streamerName">Ваша стрымерскае імя на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Сцісла: максімальна %s сімвал</item>
     <item quantity="few">Сцісла: максімальна %s сімвала</item>
@@ -28,6 +33,7 @@
     <item quantity="other">Сцісла: максімальна %s сімвалаў</item>
   </plurals>
   <string name="visibility">Паказваць на старонке са стрымерамі</string>
+  <string name="whenApproved">Пасля зацвярджэння мадэратарамі</string>
   <string name="headline">Загаловак</string>
   <string name="tellUsAboutTheStream">Распавядзіце пра ваш стрым адным сказам</string>
   <string name="longDescription">Поўнае апісанне</string>

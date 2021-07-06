@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Spiele mit einem Freund</string>
   <string name="playWithTheMachine">Spiele mit dem Computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
-  <string name="gameOver">Spiel beendet</string>
+  <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
   <string name="waiting">Warten</string>
   <string name="yourTurn">Du bist am Zug</string>
@@ -859,7 +859,7 @@
   <string name="congratsYouWon">Herzlichen Glückwunsch, du hast gewonnen!</string>
   <string name="gameVsX">Partie gegen %1$s</string>
   <string name="resVsX">%1$s gegen %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil überprüft.</string>
+  <string name="someoneReviewedYourCoachProfile">Jemand hat dein Trainerprofil bewertet.</string>
   <string name="newPendingReview">Neue, ausstehende Rezension</string>
   <string name="lostAgainstTOSViolator">Du hast gegen jemanden verloren, der gegen die Lichess-Nutzungsbedingungen verstoßen hat</string>
   <string name="refundXpointsTimeControlY">Rückerstattung: %1$s %2$s Wertungspunkte.</string>
@@ -873,7 +873,7 @@ Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutz
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
-  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst eine URL mit einem Namen versehen: [Name](https://url)</string>
+  <string name="tournDescriptionHelp">Möchtest du den Teilnehmern etwas Besonderes mitteilen? Fasse dich kurz. Du kannst Markdown-formatierte Links benutzen: [Name](https://url)</string>
   <string name="ratedFormHelp">Partien sind gewertet
 und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>
@@ -894,7 +894,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
   <string name="simulDescription">Simultan Beschreibung</string>
   <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
-  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
+  <string name="markdownAvailable">%s ist für erweiterte Formatierung verfügbar.</string>
   <string name="inYourLocalTimezone">In deiner eigenen lokalen Zeitzone</string>
   <string name="tournChat">Turnierchat</string>
   <string name="noChat">Kein Chat</string>
@@ -906,6 +906,6 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle Computeranalysen aktivieren/deaktivieren</string>
   <string name="playComputerMove">Spiele den besten Computerzug</string>
   <string name="analysisOptions">Analyseoptionen</string>
-  <string name="focusChat">Auf den Chat fokussieren</string>
+  <string name="focusChat">Chateingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
 </resources>

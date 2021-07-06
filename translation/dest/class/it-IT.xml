@@ -67,6 +67,10 @@ Questo è il link per accedere alla lezione.</string>
   <string name="releaseDesc1">Un account rilasciato non può essere nuovamente gestito. Lo studente sarà in grado di cambiare la modalità bambino e resettare la password.</string>
   <string name="releaseDesc2">Lo studente rimarrà in classe dopo il rilascio del suo account.</string>
   <string name="realUniqueEmail">Reale e univoco indirizzo email dello studente. Invieremo una email di conferma con un link di rilascio dell\'account.</string>
+  <string name="closeStudent">Chiudi profilo</string>
+  <string name="closeTheAccount">Chiudi il profilo dello studente permanentemente.</string>
+  <string name="closeDesc1">Lo studente non potrà usare di nuovo questo profilo. La chiusura è finale. Assicurati che lo studente comprenda e acconsenta.</string>
+  <string name="closeDesc2">Potresti piuttosto voler dare controllo allo studente sul profilo, così che possa continuare a usarlo.</string>
   <string name="teachers">Insegnanti</string>
   <plurals name="nbTeachers">
     <item quantity="one">Insegnante</item>

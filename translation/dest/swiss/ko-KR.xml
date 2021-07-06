@@ -4,4 +4,31 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">총 %s 라운드 보기</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s 라운드</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="other">%s일마다 1라운드</item>
+  </plurals>
+  <string name="nowPlaying">진행중</string>
+  <string name="startingSoon">곧 시작됨</string>
+  <string name="comparison">비교</string>
+  <string name="numberOfGames">게임의 수</string>
+  <string name="numberOfGamesAsManyAsPossible">주어진 시간 동안 가능한 만큼</string>
+  <string name="numberOfGamesPreDefined">미리 결정됨. 모든 플레이어가 동일</string>
+  <string name="pairingSystem">페어링 시스템</string>
+  <string name="pairingSystemArena">비슷한 순위의 가능한 상대</string>
+  <string name="pairingSystemSwiss">포인트와 타이 브레이크에 기반한 최적의 페어링</string>
+  <string name="pairingWaitTime">페어링 대기 시간</string>
+  <string name="pairingWaitTimeFast">빠름: 모든 플레이어를 기다릴 필요 없음</string>
+  <string name="pairingWaitTimeSlow">느림: 모든 플레이어를 기다려야 함</string>
+  <string name="identicalPairing">같은 플레이어와 다시 매칭</string>
+  <string name="possibleButNotConsecutive">연속되지 않으면 가능</string>
+  <string name="identicalForbidden">금지</string>
+  <string name="lateJoin">늦게 참가</string>
+  <string name="lateJoinUntil">절반 이상 라운드가 지나기 전까지 가능</string>
+  <string name="pause">일시 중지</string>
+  <string name="streaksAndBerserk">연승/버서크 모드</string>
+  <string name="similarToOTB">OTB 토너먼트와 유사한가</string>
+  <string name="unlimitedAndFree">무제한/무료인가</string>
 </resources>

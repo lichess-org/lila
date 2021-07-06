@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Зрабіце ход, каб пачаць</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі ва ўсіх задачах</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце за чорныя фігуры ва ўсіх задачках</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Вы гуляеце белымі фігурамі ва ўсіх задачах</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Вы гуляеце чорнымі фігурамі ва ўсіх задачах</string>
   <string name="puzzlesSolved">задач вырашана</string>
   <string name="newDailyHighscore">Новы дзенны рэкорд!</string>
   <string name="newWeeklyHighscore">Новы тыднёвы рэкорд!</string>

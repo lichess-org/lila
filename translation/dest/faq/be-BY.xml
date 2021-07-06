@@ -3,15 +3,16 @@
   <string name="faqAbbreviation">Пытанні і адказы</string>
   <string name="frequentlyAskedQuestions">Частыя пытанні</string>
   <string name="whyIsLichessCalledLichess">Чаму Lichess называецца Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre і chess. Lichess вымаўляцца як %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess — гэта камбінацыя live/light/libre(жывы/лёгкі/вольны) і chess(шахматы). Lichess вымаўляцца як %1$s.</string>
   <string name="leechess">лі-чэсс</string>
-  <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта прамаўляе спецыяліст.</string>
+  <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта вымаўляе спецыяліст.</string>
+  <string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо Lichess мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
   <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
-  <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess валанцёрствам, сваімі навыкамі і часам, то ёсць шмат %3$s.</string>
-  <string name="beingAPatron">стаўшы донарам</string>
+  <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра тое як %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess ахверуючы свае навыкі і час, то ёсць шмат %3$s.</string>
+  <string name="beingAPatron">стаць спонсарам</string>
   <string name="breakdownOfOurCosts">дэтальнае апісанне нашых затрат</string>
-  <string name="otherWaysToHelp">іншых спосабаў дапамагчы</string>
+  <string name="otherWaysToHelp">іншых спосабаў дапамогі</string>
   <string name="areThereWebsitesBasedOnLichess">Ёсць лі іншыя сайты, якія былі заснаваныя на Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
@@ -28,41 +29,54 @@
   <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess падтрымлівае класічныя шахматы і %1$s.</string>
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
+  <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
-  <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтараныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
+  <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
   <string name="positions">пазіцыі</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
   <string name="accounts">Акаўнты</string>
   <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess прызнае ўсе тытулы ФІДЭ, атрыманыя ў рэальным жыцці, а таксама %1$s. Вось спіс тытулаў ФІДЭ:</string>
   <string name="showYourTitle">Калі вы маеце тытул у жыцці, каб адлюстроўваць яго ў акаўнце, вы можаце падаць запыт праз %1$s, дадаўшы выразнае фота пацвярджаючага дакумента/карткі та сэлфі, дзе вы трымаеце дакумент/картку.
 
 Пацвярджэнне тытулу на Lichess даст магчымасць гульц у Тытуляваных Арэнах.
 
 Нарэшце, ёсць ганаровы тытул %2$s.</string>
+  <string name="asWellAsManyNMtitles">розныя нацыянальныя тытулы майстроў</string>
   <string name="verificationForm">форму верыфікацыі</string>
   <string name="canIbecomeLM">Магу я атрымаць тытул Lichess Майстар (LM)?</string>
   <string name="noUpperCaseDot">Не.</string>
+  <string name="lMtitleComesToYouDoNotRequestIt">Гэты ганаровы тытул неафіцыйны та існу толькі на Lichess.
+
+Мы зрэдку ўзнагароджваем адметных гульцоў, якія на наша меркаванне з\'яўляюцца добрымі грамадзянамі Lichess. Не вы прыходзіце за тытулам LM, тытул LM прыходзіць да вас. Калі вы будзеце варты, вы атрымаеце паведамленне ад нас пра гэта, з магчымасцю прыняць або адмовіцца ад яго.
+
+Не выпрошвайце тытул LM.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
+  <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
+  <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="whatIsProvisionalRating">Што значыць пытальнік (?) побач з рэйтынгам?</string>
   <string name="provisionalRatingExplanation">Пытальнік значыць, што рэйтынг яшчэ не ўсталяваўся. Магчымыя прычыны:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Гулец яшчэ ня скончыў дастатков рэйтынгавых гульняў супраць %1$s у адпаведнай рэйтынгавай катэгорыі.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Гулец яшчэ ня скончыў дастатков рэйтынгавых гульняў супраць %1$s ў адпаведнай рэйтынгавай катэгорыі.</string>
   <string name="similarOpponents">супернікаў падобнага моцу</string>
   <string name="notPlayedRecently">Гулец даўно не гуляў. Залежыць ад колькасці сыграных партый, звычайна, праходзіць каля году, калі рэйтынг зноўку становіцца неўсталяваным.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Па сутнасці, гэта азначае, што адхіленне Glicko-2 больш за 110. Адхіленне - гэта ўзровень даверу, які сістэма мае да рэйтынгу. Чым ніжэй адхіленне, тым больш стабільным з\'яўляецца рэйтынг.</string>
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаване для таго, каб гульцы, якія больш не карыстаюцца свае акаўнты, не займалі месца на дошках лідараў.</string>
+  <string name="whyAreRatingHigher">Чаму рэйтынгі вышэй, чым на іншых сайтах та арганісацыях такіх як ФІДЭ, USCF і ICC?</string>
   <string name="howToHideRatingWhilePlaying">Як схаваць рэйтынг пад час гульні?</string>
-  <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуўшы падчас гульні %2$s.</string>
+  <string name="enableZenMode">Уключыць рэжым Дзэн у %1$s або націснуць %2$s падчас гульні.</string>
   <string name="displayPreferences">наладках адлюстравання</string>
-  <string name="connexionLostCanIGetMyRatingBack">Я прайграм праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, адна, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Я прайграў праз затрымку/адключэнне сеткі. Магчыма вярнуць страчаны рэйтынг?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, аднак, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
 </resources>

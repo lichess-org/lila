@@ -52,7 +52,7 @@
   <string name="history">Гісторыя задач</string>
   <string name="solved">рэшана</string>
   <string name="failed">памылка</string>
-  <string name="streakDescription">Рашайце задачы, якія паступова ўскладняюцца, і стварыце пераможную серыю. Тут няма гадзін, так што не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за сеанс.</string>
+  <string name="streakDescription">Вырашайце патупова ўскладняючыеся задачы і стварыце пераможную серыю. Тут няма гадзінніку, таму не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за спробу.</string>
   <string name="yourStreakX">Ваша серыя: %s</string>
   <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>
   <string name="continueTheStreak">Працягнуць серыю</string>

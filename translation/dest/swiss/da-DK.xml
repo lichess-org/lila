@@ -42,20 +42,36 @@ Det kan være en god mulighed for klubber og officielle turneringer.</string>
   <string name="pointsCalculationA">En sejr er ét point værd, en remis et halvt point mens et tab ingen point giver.
 Når en spiller ikke kan parres i løbet af en runde, modtager de en \'bye\', der er ét point værd.</string>
   <string name="tiebreaksCalculationQ">Hvordan udregnes tie breaks?</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger score</string>
-  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">Med %s.
+  <string name="sonnebornBergerScore">Sonneborn-Berger score</string>
+  <string name="tiebreaksCalculationA">Med %s.
 Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for hver modstander, spilleren spiller remis.</string>
   <string name="pairingsQ">Hvordan bestemmes parringer?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.">Hollandsk system</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Schweiziske turneringer blev ikke oprindeligt designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.</string>
-  <string name="lateJoinAYes">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
+  <string name="dutchSystem">Hollandsk system</string>
+  <string name="FIDEHandbook">FIDE håndbog</string>
+  <string name="pairingsA">Med %1$s, implementeret af %2$s, i overensstemmelse med %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
+  <string name="moreRoundsThanPlayersA">Når alle mulige parringer er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
+  <string name="restrictedToTeamsQ">Hvorfor er den begrænset til hold?</string>
+  <string name="restrictedToTeamsA">Schweiziske turneringer blev ikke designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.
+Vi mener, at disse betingelser har større chance for at blive opfyldt inden for et hold end i åbne turneringer.</string>
+  <string name="numberOfByesQ">Hvor mange byes kan en spiller få?</string>
+  <string name="numberOfByesA">En spiller får en bye på et point, hver gang parringssystemet ikke kan finde en parring for dem.
+Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent slutter sig til en turnering.</string>
+  <string name="whatIfOneDoesntPlayQ">Hvad sker der, hvis en spiller ikke spiller et spil?</string>
+  <string name="whatIfOneDoesntPlayA">Deres ur vil løbe ud, og de taber partiet.
+Så vil systemet trække spilleren ud af turneringen, så de ikke taber flere partier.
+ De kan til enhver tid vende tilbage til turneringen.</string>
+  <string name="lateJoinQ">Kan spillere melde sig til sent?</string>
+  <string name="lateJoinA">Ja, indtil mere end halvdelen af runderne er startet: I en 11-runders schweitzer kan spillere for eksempel slutte sig til før runde 6 starter og i en 12-runders før runde 7 starter.</string>
   <string name="willSwissReplaceArenasQ">Vil schweizer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nej. De er komplementære funktioner.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Hvad med Round Robin?</string>
-  <string name="roundRobinATheClosestPossible">Det nærmeste du kan komme til Round Robin online er at spille en schweitzerturnering med et meget højt antal runder. Så vil alle mulige parringer blive spillet, før turneringen slutter.</string>
-  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">I en schweizerturnering %1$s, spiller hver deltager ikke nødvendigvis mod alle andre deltagere. Deltagere mødes en-til-en i hver runde og parres ved hjælp af et sæt regler, der er designet til at sikre, at hver konkurrent får modstandere med en lignende rating, men ikke den samme modstander mere end én gang. Vinderen er deltageren med det højeste antal point optjent i alle runder. Alle deltagere spiller i hver runde, medmindre der er et ulige antal spillere.</string>
+  <string name="roundRobinQ">Hvad med Round Robin?</string>
+  <string name="otherSystemsQ">Hvad med andre turneringssystemer?</string>
+  <string name="otherSystemsA">Vi planlægger ikke at tilføje flere turneringssystemer til Lichess i øjeblikket.</string>
+  <string name="swissDescription">I en schweizerturnering %1$s, spiller hver deltager ikke nødvendigvis mod alle andre deltagere. Deltagere mødes en-til-en i hver runde og parres ved hjælp af et sæt regler, der er designet til at sikre, at hver konkurrent får modstandere med en lignende rating, men ikke den samme modstander mere end én gang. Vinderen er deltageren med det højeste antal point optjent i alle runder. Alle deltagere spiller i hver runde, medmindre der er et ulige antal spillere.</string>
   <string name="teamOnly">Schweitzerturneringer kan kun oprettes af holdledere, og kan kun spilles af holdmedlemmer.           
 %1$s for at begynde at spille i schweitzerturneringer.</string>
+  <string name="joinOrCreateTeam">Deltag i eller opret et hold</string>
   <string name="nowPlaying">Spiller nu</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>

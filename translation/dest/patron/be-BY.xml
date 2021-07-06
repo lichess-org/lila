@@ -2,7 +2,7 @@
 <resources>
   <string name="donate">Ахвяраваць</string>
   <string name="lichessPatron">Спонсар Lichess</string>
-  <string name="freeAccount">Безкаштовы акаўнт</string>
+  <string name="freeAccount">Бясплатны акаўнт</string>
   <string name="becomePatron">Стаць cпонсарам Lichess</string>
   <string name="xBecamePatron">%s стаў(-ла) cпонсарам Lichess</string>
   <plurals name="xIsPatronForNbMonths">
@@ -12,13 +12,14 @@
     <item quantity="other">%1$s з\'яўляецца спонсарам Lichess на працягу %2$s месяцаў</item>
   </plurals>
   <string name="newPatrons">Новыя спонсары</string>
-  <string name="freeChess">Безкаштовыя шахматы для ўсіх, назаўседы!</string>
+  <string name="freeChess">Бясплатныя шахматы для ўсіх, назаўседы!</string>
   <string name="noAdsNoSubs">Ніякай рэкламы, ніякіх падпісак; толькі адкрыты зыходны код та запал.</string>
   <string name="thankYou">Дзякуй за ваш унёсак!</string>
   <string name="youHaveLifetime">У вас пажыццёвы акаўнт спонсара. Гэта вельмі крута!</string>
   <string name="patronUntil">Вы спонсар да %s.</string>
   <string name="ifNotRenewed">Пры неаднаўленні, яго ўзровень будзе паніжаны да бясплатнага.</string>
-  <string name="weRelyOnSupport">Мы разлічваем на дапамогу людзей як вы каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце пра магчымасць дапамагчы нам грошовым ахвяраваннем і стаць спонсарам!</string>
+  <string name="weAreNonProfit">Мы некамерцыйная арганізацыя, таму што лічым, што кожны варты мець доступ да бясплатнай шахматнай платформы сусветнага ўзроўня.</string>
+  <string name="weRelyOnSupport">Мы разлічваем на дапамогу такіх людзей як вы, каб зрабіць усе гэта магчым. Калі вам падабаецца Lichess, калі ласка, падумайце пра магчымасць дапамагчы нам грашовым ахвяраваннем і стаць спонсарам!</string>
   <string name="lifetime">Пажыццёва</string>
   <string name="payLifetimeOnce">Ахвяруйце %s аднойчы. Станьце спонсарам Lichess пажыццёва!</string>
   <string name="lifetimePatron">Пажыццёвы спонсар Lichess</string>
@@ -31,10 +32,12 @@
   <string name="withCreditCard">Банкаўская картка</string>
   <string name="withPaypal">PayPal</string>
   <string name="weAreSmallTeam">Мы маленькая каманда, таму ваша дамога вельмі важлівая!</string>
+  <string name="celebratedPatrons">Выдатныя спонсары, якія робяць Lichess магчымым</string>
   <string name="whereMoneyGoes">На што выкарыстоўваюцца грошы?</string>
   <string name="serversAndDeveloper">Перш за ўсе, магутныя серверы.
 Потым заробак за поўныя працоўныя дні распрацоўшчыку: %s, заснавальніку Lichess.</string>
   <string name="costBreakdown">Паглядзець дасканалую справазадачу выдаткаў</string>
+  <string name="officialNonProfit">Lichess афіцыйна некамерцыйная арганізацыя?</string>
   <string name="actOfCreation">Так, вось тут акт стварэння (на французскай мове)</string>
   <string name="changeMonthlySupport">Магу я змяніць/скасаваць месячную падпіску?</string>
   <string name="changeOrContact">Так, у любы час, з гэтай старонкі.
@@ -44,8 +47,8 @@
   <string name="bankTransfers">Мы таксама прымаем банкаўскія пералікі</string>
   <string name="bitcoin">А вось тут наш біткоін-адрас: %s</string>
   <string name="patronFeatures">Можа нейкія ўнікальныя магчымасці прыдугледжаны для спонсараў?</string>
-  <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бескаштовы, назаўседы і для кожнага. Гэта абяцанне.
-Аднак, Спонсары атрымліваюць класную ікунку да профілю.</string>
+  <string name="noPatronFeatures">Не, таму што Lichess поўнасцю бясплатны, назаўсёды і для кожнага. Гэта абяцанне.
+Аднак, спонсары атрымліваюць цудоўную іконку да профілю.</string>
   <string name="featuresComparison">Паглядзець дакладнае параўнанне магчымасцяў</string>
   <plurals name="patronForMonths">
     <item quantity="one">Спонсар Lichess на працягу месяца</item>

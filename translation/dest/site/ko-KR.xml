@@ -93,6 +93,7 @@
   <string name="noGameFound">게임을 찾을 수 없습니다.</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">설정에서 더 많은 게임을 포함하세요.</string>
   <string name="openingExplorer">오프닝 탐색기</string>
+  <string name="openingEndgameExplorer">오프닝/엔드게임 탐색기</string>
   <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
@@ -408,6 +409,7 @@
   <string name="boardEditor">보드 편집기</string>
   <string name="setTheBoard">보드 세팅하기</string>
   <string name="popularOpenings">인기 있는 오프닝</string>
+  <string name="endgamePositions">엔드게임 포지션</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -853,4 +855,9 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
   <string name="markdownAvailable">추가로 %s 문법을 사용하실 수 있습니다.</string>
+  <string name="inYourLocalTimezone">본인의 현지 시간대 기준</string>
+  <string name="tournChat">토너먼트 채팅</string>
+  <string name="noChat">채팅 없음</string>
+  <string name="onlyTeamLeaders">팀 리더만</string>
+  <string name="onlyTeamMembers">팀 멤버만</string>
 </resources>

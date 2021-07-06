@@ -96,6 +96,7 @@
   <string name="noGameFound">Käs Schpiil gfundä</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Villicht söted meh Schpiil vom Iischteligs Menu iibezogä werdä?</string>
   <string name="openingExplorer">Eröffnigsdatäbank</string>
+  <string name="openingEndgameExplorer">Eröffnigs-/Ändschpiil-Entdeckär</string>
   <string name="xOpeningExplorer">%s Eröffnigsbuäch</string>
   <string name="winPreventedBy50MoveRule">Sieg dur d 50-Züg-Reglä verhinderet</string>
   <string name="lossSavedBy50MoveRule">Verluscht dur d 50-Züg-Reglä verhinderät</string>
@@ -887,16 +888,24 @@ Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
 Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
   <string name="cancelSimul">Simultan abbrächä</string>
-  <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
+  <string name="simulHostcolor">Farb vom Veraaschtaltär i jedärä Partii</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
   <string name="simulFeatured">Uf %s zeigä</string>
-  <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
+  <string name="simulFeaturedHelp">Zeig allnä uf %s dis Simultan. Für äs privats Schpiil deaktiviärä.</string>
   <string name="simulDescription">Simultanbeschriibig</string>
   <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
-  <string name="markdownAvailable">%s ist für erweiterte Syntax verfügbar.</string>
-  <string name="inYourLocalTimezone">In deiner eigenen lokalen Zeitzone</string>
+  <string name="markdownAvailable">%s isch für erwiitärätä Syntax erhältlich.</string>
+  <string name="inYourLocalTimezone">I dinärä eigänä lokalä Ziitzonä</string>
   <string name="tournChat">Turniärtschätt</string>
   <string name="noChat">Kein Tschätt</string>
   <string name="onlyTeamLeaders">Nur Teamleitär</string>
   <string name="onlyTeamMembers">Nur Teammitglidär</string>
+  <string name="navigateMoveTree">Dur dä Zugbaum navigiärä</string>
+  <string name="mouseTricks">Muus-Tricks</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Lokale Computeranalyse aktivieren/deaktivieren</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Alle Computeranalysen aktivieren/deaktivieren</string>
+  <string name="playComputerMove">Spiil dä beschti Kompiutärzug</string>
+  <string name="analysisOptions">Analüsä optionä</string>
+  <string name="focusChat">Tschätt fokussiärä</string>
+  <string name="showHelpDialog">Zeig dä Hilfsdialog</string>
 </resources>

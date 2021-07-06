@@ -9,7 +9,7 @@
   <string name="forgotPassword">Забыўся(-лася) пароль</string>
   <string name="forgotUsername">Забыўся(-лася) на сваё імя карыстальніка(-цы)</string>
   <string name="youCanLoginWithEmail">Вы можаце ўваісці з дапамогай электронай пошты, з якой вы рэгістраваліся</string>
-  <string name="lost2FA">Страчаны доступ да кадоў двухфактарнаў аўтарызацыі</string>
+  <string name="lost2FA">Страціў доступ да кадоў двухфактарнаў аўтарызацыі</string>
   <string name="accountSupport">Мне трэба дапамога з акаўнтам</string>
   <string name="wantTitle">Хачу, каб мой тытул адлюстроўвася на Lichess</string>
   <string name="wantCloseAccount">Хачу зачыніць акаўнт</string>
@@ -30,5 +30,8 @@
   <string name="otherRestriction">Іншыя абмежаванні</string>
   <string name="buyingLichess">Купіць Lichess</string>
   <string name="authorizationToUse">Аўтарызацыя на Lichess</string>
+  <string name="creditAppreciated">Падзяка вітаецца, але не з\'яўляецца абавязковай.</string>
+  <string name="noneOfTheAbove">Нічога з пералічанага</string>
   <string name="sendEmailAt">Даслаць нам ліст на %s.</string>
+  <string name="explainYourRequest">Калі ласка, апішыце свой запыт зразумела і дасканала. Пазначце ваша імя карыстальніка Lichess і ўсю іншыў інфармацыю, якая можа быць карыснай у нашай вам дапамозе.</string>
 </resources>

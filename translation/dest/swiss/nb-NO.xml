@@ -35,6 +35,44 @@
   <string name="forbiddenPairings">Forbudte par</string>
   <string name="forbiddenPairingsHelp">Brukernavn for spillere som ikke skal spille mot hverandre (søsken, for eksempel). To brukernavn på hver linje, skilt med mellomrom.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
+  <string name="swissVsArenaQ">Når bør sveitserturneringer brukes i stedet for arenaturneringer?</string>
+  <string name="swissVsArenaA">I sveitserturneringer spiller alle deltakerne like mange partier og kan bare møtes én gang.
+Det kan være et bra alternativ for klubber og offisielle turneringer.</string>
+  <string name="pointsCalculationQ">Hvordan beregnes poengene?</string>
+  <string name="pointsCalculationA">Seier er verdt ett poeng, remis et halvt poeng og tap er null poeng.
+Spiller som ikke får tildelt motspiller i en runde, får frirunde og ett poeng.</string>
+  <string name="tiebreaksCalculationQ">Hvordan avgjøres rekkefølgen ved poenglikhet?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger-kvalitet</string>
+  <string name="tiebreaksCalculationA">Med %s.
+Legg sammen poengene til hver motstander spilleren har vunnet over, og halvparten av poengene til hver motstander spilleren har spilt remis mot.</string>
+  <string name="pairingsQ">Hvordan bestemmes parene?</string>
+  <string name="dutchSystem">hollandsk system</string>
+  <string name="FIDEHandbook">FIDEs håndbok</string>
+  <string name="pairingsA">Med %1$s, implementert av %2$s, i overenstemmelse med %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Hva skjer hvis turneringen har flere runder enn spillere?</string>
+  <string name="moreRoundsThanPlayersA">Når alle mulige par er spilt, avsluttes turneringen og vinneren utropes.</string>
+  <string name="restrictedToTeamsQ">Hvorfor er det avgrenset til lag?</string>
+  <string name="numberOfByesQ">Hvor mange frirunder kan en spiller få?</string>
+  <string name="numberOfByesA">Spillerne får frirunde og ett poeng hver gang parsystemet ikke finner par til dem.
+I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng.</string>
+  <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
+  <string name="whatIfOneDoesntPlayA">Klokken begynner å gå og spilleren taper på tid.
+Systemet vil så fjerne spilleren fra turneringen for å unngå flere tap.
+Spilleren kan når som helst komme tilbake til turneringen.</string>
+  <string name="lateJoinQ">Kan spillere delta sent?</string>
+  <string name="willSwissReplaceArenasQ">Vil sveitserturneringer erstatte arenaturneringer?</string>
+  <string name="willSwissReplaceArenasA">Nei. De utfyller hverandre.</string>
+  <string name="roundRobinQ">Hva med alle mot alle-turneringer?</string>
+  <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
+  <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
+  <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
   <string name="numberOfGames">Antall partier</string>
+  <string name="pairingSystem">Parsystem</string>
+  <string name="pairingWaitTime">Parventetid</string>
+  <string name="identicalPairing">Samme par</string>
+  <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
+  <string name="identicalForbidden">Forbudt</string>
+  <string name="pause">Pause</string>
+  <string name="unlimitedAndFree">Ubegrenset og gratis</string>
 </resources>

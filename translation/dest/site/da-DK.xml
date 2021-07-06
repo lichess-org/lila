@@ -900,8 +900,9 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="noChat">Ingen chat</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
-  <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
-  <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
+  <string name="navigateMoveTree">Navigér i træk-træet</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Slå lokal computeranalyse til/fra</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Slå al computeranalyse til/fra</string>
   <string name="playComputerMove">Spil det bedste computertræk</string>
   <string name="analysisOptions">Analysemuligheder</string>
   <string name="focusChat">Fokusér chat</string>

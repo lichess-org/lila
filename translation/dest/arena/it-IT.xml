@@ -50,4 +50,12 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
     <item quantity="one">Visualizza la squadra</item>
     <item quantity="other">Visualizza tutte le %s squadre</item>
   </plurals>
+  <string name="newTeamBattle">Nuova Battaglia di Squadra</string>
+  <string name="customStartDate">Data iniziale personalizzata</string>
+  <string name="customStartDateHelp">Nel tuo fuso orario locale. Questo sovrascrive l\'impostazione \"Tempo prima dell\'inizio del torneo\"</string>
+  <string name="allowBerserk">Consenti Berserk</string>
+  <string name="allowBerserkHelp">Consenti ai giocatori di dimezzare il loro tempo d\'orologio per ottenere un punto extra</string>
+  <string name="allowChatHelp">Consenti ai giocatori di discutere nella chat room</string>
+  <string name="arenaStreaks">Serie dell\'arena</string>
+  <string name="arenaStreaksHelp">Dopo 2 vittorie, le vittorie consecutive concedono 4 punti invece di 2.</string>
 </resources>

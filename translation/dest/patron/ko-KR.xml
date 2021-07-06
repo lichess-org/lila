@@ -73,4 +73,5 @@
   <string name="nowLifetime">당신은 이제 평생 Lichess 후원자입니다!</string>
   <string name="nowOneMonth">당신은 이제 한 달간 Lichess 후원자입니다!</string>
   <string name="downgradeNextMonth">한달 안에 다시 지불하지 않는다면 당신의 Lichess 계정은 일반 계정으로 전환됩니다.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">통화 변경</string>
 </resources>

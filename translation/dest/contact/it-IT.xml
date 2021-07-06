@@ -52,6 +52,7 @@
   <string name="knightMate">È possibile dare scacco matto con un solo cavallo o con un alfiere, se l\'avversario ha più di un re sulla scacchiera.</string>
   <string name="noRatingPoints">Nessun punteggio assegnato</string>
   <string name="ratedGame">Assicurati di aver giocato a un gioco classificato. Le partite occasionali non influenzano il rating dei giocatori.</string>
+  <string name="botRatingAbuse">In certe circostanze giocando contro un profilo bot, un gioco valutato potrebbe non ricompensare punti se è determinato che il giocatore stia abusando del bot per i punti di valutazione.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
   <string name="banAppeal">Reclamo per un ban o una restrizione IP</string>

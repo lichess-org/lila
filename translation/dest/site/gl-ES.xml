@@ -441,6 +441,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="boardEditor">Editor de taboleiro</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
   <string name="popularOpenings">Aperturas populares</string>
+  <string name="endgamePositions">Posicións de finais</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar taboleiro</string>
   <string name="savePosition">Gardar posición</string>
@@ -886,6 +887,14 @@ Tódolos custos de funcionamento, desenvolvemento e contidos financianse unicame
 Só funciona para xogos estándar, non con variantes.
 Podes empregar o %s para xerar unha posición FEN e despois pegala aquí.
 Deixa en branco para comezar partidas dende a posición inicial normal.</string>
+  <string name="cancelSimul">Cancela a simulación</string>
+  <string name="simulHostcolor">Cor do anfitrión para cada partida</string>
+  <string name="estimatedStart">Tempo estimado de comezo</string>
+  <string name="simulFeatured">Amosar simultánea en %s</string>
+  <string name="simulFeaturedHelp">Amosa a simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
+  <string name="simulDescription">Descrición da simulación</string>
+  <string name="simulDescriptionHelp">Algo que queiras dicir ás persoas participantes?</string>
+  <string name="markdownAvailable">%s está dispoñíbel para unha sintaxe máis avanzada.</string>
   <string name="inYourLocalTimezone">Na túa zona horaria</string>
   <string name="tournChat">Chat do torneo</string>
   <string name="noChat">Sen chat</string>

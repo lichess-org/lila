@@ -21,17 +21,15 @@ Se voi olla hyvä vaihtoehto seurakäyttöön ja virallisiin turnauksiin.</strin
   <string name="pointsCalculationA">Voitto on yhden pisteen arvoinen, tasapelistä saa puoli pistettä ja tappiosta nolla pistettä.
 Jos pelaajalle ei jollakin kierroksella löydy paria, hän saa yhden pisteen arvoisen huilausvuoron.</string>
   <string name="tiebreaksCalculationQ">Miten paremmuus määriytyy tasatilanteessa?</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn-Berger-pisteillä</string>
-  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s.
+  <string name="sonnebornBergerScore">Sonneborn-Berger-pisteillä</string>
+  <string name="tiebreaksCalculationA">%s.
 Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä puolet pelaajan kanssa tasapelin pelanneiden vastustajien pisteistä.</string>
   <string name="pairingsQ">Miten parit määriytyvät?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Hollantilainen järjestelmä</string>
-  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDEn käsikirja</string>
+  <string name="dutchSystem">Hollantilainen järjestelmä</string>
+  <string name="FIDEHandbook">FIDEn käsikirja</string>
   <string name="moreRoundsThanPlayersQ">Mitä tapahtuu, jos turnauksessa on enemmän kierroksia kuin pelaajia?</string>
   <string name="moreRoundsThanPlayersA">Kun kaikki mahdolliset parit ovat pelanneet keskinäisen pelin, turnaus päättyy ja voittaja julistetaan.</string>
   <string name="restrictedToTeamsQ">Miksi se on rajattu joukkueen sisäiseksi?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Sveitsiläisiä turnauksia ei ole luotu nettishakkia varten. Ne vaativat pelaajilta täsmällisyyttä, omistautumista ja kärsivällisyyttä.</string>
-  <string name="restrictedToTeamsABetterMet">Meidän mielestämme nämä ehdot täyttyvät todennäköisemmin joukkueen sisäisissä kuin kaikille avoimissa turnauksissa.</string>
   <string name="numberOfByesQ">Kuinka monta kierrosta pelaaja voi huilata?</string>
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
 Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
@@ -40,17 +38,12 @@ Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnauk
 Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
 Pelaaja voi kuitenkin milloin tahansa liittyä turnaukseen uudestaan.</string>
   <string name="lateJoinQ">Voiko turnaukseen liittyä myöhässä?</string>
-  <string name="lateJoinAYes">Voi siihen asti, kunnes yli puolet kierroksista on alkanut. Esimerkiksi 11 kierroksen sveitsiläiseen voi vielä liittyä ennen 6. kierroksen alkua ja 12-kierroksiseen ennen 7. kierroksen alkua.</string>
-  <string name="lateJoinASingleBye">Myöhään liittyvät pelaajat saavat vain yhden huilauksen, vaikka heiltä olisi jäänyt väliin monta kierrosta.</string>
   <string name="willSwissReplaceArenasQ">Korvaako sveitsiläinen turnaus areenaturnaukset?</string>
   <string name="willSwissReplaceArenasA">Ei. Ne täydentävät toisiaan.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Entä täyskierrosturnaus?</string>
-  <string name="roundRobinAWontWork">Mielellämme lisäisimme sen, mutta täyskierrosturnaus ei valitettavasti toimi netissä</string>
-  <string name="roundRobinANoBecause">Siinä ei nimittäin voi ratkaista reilulla tavalla turnauksen etuajassa keskeyttävistä pelaajista syntyvää ongelmaa. Nettiturnauksessa emme voi odottaa kaikkien pelaajien pelaavan kaikkia pelejään – se ei vain onnistu. Tämän johdosta useimmat täyskierrosturnaukset olisivat puutteellisia ja epäreiluja, eikä niiden järjestämiseen siten riitä perusteita.</string>
-  <string name="roundRobinATheClosestPossible">Lähimmäksi täyskierrosturnausta pääset netissä osallistumalla sveitsiläiseen turnaukseen, jossa on hyvin monta kierrosta. Tällöin kaikki mahdolliset parit pääsevät pelaamaan toisiaan vastaan, ennen kuin turnaus loppuu.</string>
+  <string name="roundRobinQ">Entä täyskierrosturnaus?</string>
   <string name="otherSystemsQ">Entä muut turnausjärjestelmät?</string>
   <string name="otherSystemsA">Emme toistaiseksi aio lisätä Lichessiin enempää turnausjärjestelmiä.</string>
-  <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Sveitsiläisessä turnauksessa %1$s pelaaja ei välttämättä pelaa kaikki muita osallistujia vastaan. Osallistujat pelaavat kullakin kierroksella pareina, jotka muodostetaan tiettyjä sääntöjä noudattaen. Säännöillä varmistetaan, että kaikki pelaavat sellaisia vastustajia vastaan, joilla on jotakuinkin sama pistemäärä, mutta eivät kuitenkaan samaa vastustajaa vastaan useammin kuin kerran. Voittaja on kaikilta kierroksilta korkeimmat yhteispisteet saanut pelaaja. Kaikki osallistujat pelaavat joka kierroksella, paitsi jos pelaajia on pariton määrä.</string>
+  <string name="swissDescription">Sveitsiläisessä turnauksessa %1$s pelaaja ei välttämättä pelaa kaikki muita osallistujia vastaan. Osallistujat pelaavat kullakin kierroksella pareina, jotka muodostetaan tiettyjä sääntöjä noudattaen. Säännöillä varmistetaan, että kaikki pelaavat sellaisia vastustajia vastaan, joilla on jotakuinkin sama pistemäärä, mutta eivät kuitenkaan samaa vastustajaa vastaan useammin kuin kerran. Voittaja on kaikilta kierroksilta korkeimmat yhteispisteet saanut pelaaja. Kaikki osallistujat pelaavat joka kierroksella, paitsi jos pelaajia on pariton määrä.</string>
   <string name="teamOnly">Sveitsiläisiä turnauksia voivat luoda vain joukkueenjohtajat, ja niissä voivat pelata vain joukkueen jäsenet.           
 %1$s pelataksesi sveitsiläisissä turnauksissa.</string>
   <string name="joinOrCreateTeam">Liity joukkueeseen tai luo joukkue</string>

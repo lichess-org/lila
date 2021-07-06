@@ -96,6 +96,7 @@
   <string name="noGameFound">Nessun partita trovata</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openingExplorer">Esplora aperture</string>
+  <string name="openingEndgameExplorer">Esploratore aperture/chiusure</string>
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
   <string name="lossSavedBy50MoveRule">Sconfitta evitata per la regola delle 50 mosse</string>
@@ -869,6 +870,43 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="welcome">Benvenuto!</string>
   <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
+  <string name="coachManager">Gestore allenatore</string>
+  <string name="streamerManager">Gestore streamer</string>
   <string name="cancelTournament">Annulla il torneo</string>
+  <string name="tournDescription">Descrizione del torneo</string>
+  <string name="tournDescriptionHelp">Qualcosa di speciale che vuoi dire ai partecipanti? Prova a mantenerla breve. I link di markdown sono disponibili: [name](https://url)</string>
+  <string name="ratedFormHelp">Le partite sono valutate
+e impattano le valutazioni dei giocatori</string>
+  <string name="onlyMembersOfTeam">Solo i membri della squadra</string>
   <string name="noRestriction">Nessuna restrizione</string>
+  <string name="minimumRatedGames">Giochi votati al minimo</string>
+  <string name="minimumRating">Valutazione minima</string>
+  <string name="maximumWeeklyRating">Valutazione settimanale massima</string>
+  <string name="onlyTitled">Solo giocatori intitolati</string>
+  <string name="onlyTitledHelp">Richiedi un titolo ufficiale per partecipare al torneo</string>
+  <string name="positionInputHelp">Incolla un FEN valido per avviare ogni partita da una data posizione.
+Funziona solo per le partite standard, non con le varianti.
+Puoi usare %s per generare una posizione FEN, poi incollala qui.
+Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
+  <string name="cancelSimul">Annulla simulazione</string>
+  <string name="simulHostcolor">Colore host per ogni partita</string>
+  <string name="estimatedStart">Tempo di avvio stimato</string>
+  <string name="simulFeatured">Mostra su %s</string>
+  <string name="simulFeaturedHelp">Mostra la tua simulazione a tutti su %s. Disabilita per le simulazioni private.</string>
+  <string name="simulDescription">Descrizione della simulazione</string>
+  <string name="simulDescriptionHelp">Vuoi dire qualcosa ai partecipanti?</string>
+  <string name="markdownAvailable">%s è disponibile per la sintassi più avanzata.</string>
+  <string name="inYourLocalTimezone">Nel tuo fuso orario locale</string>
+  <string name="tournChat">Chat del torneo</string>
+  <string name="noChat">Nessuna chat</string>
+  <string name="onlyTeamLeaders">Solo leader della squadra</string>
+  <string name="onlyTeamMembers">Solo membri della squadra</string>
+  <string name="navigateMoveTree">Sfoglia l\'albero delle mosse</string>
+  <string name="mouseTricks">Trucchi del mouse</string>
+  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Abilita/Disabilita le analisi del computer locali</string>
+  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Abilita/Disabilita tutte le analisi del computer</string>
+  <string name="playComputerMove">Gioca la migliore mossa del computer</string>
+  <string name="analysisOptions">Opzioni d\'analisi</string>
+  <string name="focusChat">Focalizza chat</string>
+  <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
 </resources>

@@ -41,18 +41,16 @@
   <string name="pointsCalculationA">Garaipenak puntu bat ematen du, berdinketak erdia eta porrotak zero.
 Jokalari bat ezin denean parekatu (jokalari kopuru bakoitia dagoela) puntu bat irabazten du.</string>
   <string name="tiebreaksCalculationQ">Nola hausten dira berdinketak?</string>
-  <string name="sonnebornBergerScore" comment="sonnebornBergerScore&#10;&#10;Please note this is part of a larger FAQ answer about tiebreaks, which reads:&#10;'With the Sonneborn-Berger score.&#10;Add the scores of every opponent the player beats and half of the score of every opponent the player draws.'">Sonneborn–Berger puntuazioa</string>
-  <string name="tiebreaksCalculationA" comment="tiebreaksCalculationA&#10;&#10;%s is 'Sonneborn-Berger score', another string which can be translated. It is a variable because the text also links to the English Wikipedia page, https://en.wikipedia.org/wiki/Tie-breaking_in_Swiss-system_tournaments#Sonneborn%E2%80%93Berger_score.">%s erabiliz.
+  <string name="sonnebornBergerScore">Sonneborn–Berger puntuazioa</string>
+  <string name="tiebreaksCalculationA">%s erabiliz.
 Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien puntuen erdiak.</string>
   <string name="pairingsQ">Nola erabakitzen da noren aurka jokatu?</string>
-  <string name="dutchSystem" comment="dutchSystem&#10;&#10;A pairing system in Swiss tournaments.&#10;&#10;Used as %1$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">Sistema holandarra</string>
-  <string name="FIDEHandbook" comment="FIDEHandbook&#10;&#10;Used as %3$s in the string&#10;&quot;With the %1$s, implemented by %2$s, in accordance with the %3$s.&quot;">FIDE Handbook</string>
+  <string name="dutchSystem">Sistema holandarra</string>
+  <string name="FIDEHandbook">FIDE Handbook</string>
   <string name="pairingsA">%1$s sistema erabiliz, %2$s inplementatzen duen bezala, %3$s dioenaren arabera.</string>
   <string name="moreRoundsThanPlayersQ">Zer gertatzen da txapelketak jokalari baino txanda gehiago baditu?</string>
   <string name="moreRoundsThanPlayersA">Partida posible guztiak jokatu direnean, txapelketa amaitu eta irabazlea zein den erabakiko da.</string>
   <string name="restrictedToTeamsQ">Zergatik dago taldeetara mugatuta?</string>
-  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Txapelketa suitzarrak ez daude online xakerako prestatuta. Puntualtasuna, dedikazioa eta pazientzia eskatzen dute.</string>
-  <string name="restrictedToTeamsABetterMet">Horregatik gure ustez hori talde baten barruko txapelketetarako egokiagoa dela uste dugu.</string>
   <string name="numberOfByesQ">Jokalari baten zenbat bye edo atseden izan ditzake?</string>
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
 Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara berandu sartzen bada.</string>
@@ -61,10 +59,7 @@ Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
  Edozein momentutan partidara berriz sartu daiteke jokalaria.</string>
   <string name="lateJoinQ">Sartu daitezke jokalariak berandu?</string>
-  <string name="lateJoinAYes">Bai, aurreikusitako txanden erdia baino gehiago hasten diren arte; adibidez 11 txandako txapelketa baten, 6. txanda hasi aurretik eta 12 txandako baten 7. a hasi aurretik.</string>
-  <string name="lateJoinASingleBye">Berandu sartzen direnek puntu-erdiko atseden bakarra jasoko dute, nahiz eta txanda bat baino gehiago ez jokatu.</string>
   <string name="willSwissReplaceArenasQ">Txapelketa suitzarren Arena txapelketak ordezkatuko dituzte?</string>
   <string name="willSwissReplaceArenasA">Ez. Aukera ezberdinak dira eta horrela jarraituko dute.</string>
-  <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>
-  <string name="roundRobinAWontWork">Gehitu nahiko genuke, baina sistema horrek ez du funtzionatzen online-xakean</string>
+  <string name="roundRobinQ">Eta zer diozue Round Robin edo guztiek-guztien aurkako txapelketez?</string>
 </resources>
