@@ -441,6 +441,7 @@
   <string name="setTheBoard">Tahtayı ayarla</string>
   <string name="popularOpenings">Popüler açılışlar</string>
   <string name="endgamePositions">Oyunsonu pozisyonları</string>
+  <string name="chess960StartPosition">Chess960 başlangıç pozisyonu: %s</string>
   <string name="startPosition">Başlangıç konumu</string>
   <string name="clearBoard">Tahtayı temizle</string>
   <string name="savePosition">Konumu kaydet</string>
