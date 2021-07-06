@@ -75,11 +75,16 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="numberOfGamesAsManyAsPossible">Så mange som kan spilles i den avsatte varigheten</string>
   <string name="numberOfGamesPreDefined">Forhåndsbestemt, likt for alle spillerne</string>
   <string name="pairingSystem">Parsystem</string>
+  <string name="pairingSystemArena">Enhver tilgjengelig motstander med tilsvarende rating</string>
+  <string name="pairingSystemSwiss">Beste par basert på poeng og kvalitet</string>
   <string name="pairingWaitTime">Parventetid</string>
+  <string name="pairingWaitTimeFast">Hurtig: venter ikke på alle spillerne</string>
+  <string name="pairingWaitTimeSlow">Treg: venter på alle spillerne</string>
   <string name="identicalPairing">Samme par</string>
   <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
   <string name="identicalForbidden">Forbudt</string>
   <string name="pause">Pause</string>
+  <string name="streaksAndBerserk">Rekker og berserk</string>
   <string name="similarToOTB">Tilsvarer fysiske turneringer</string>
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
 </resources>
