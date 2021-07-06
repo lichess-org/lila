@@ -472,6 +472,7 @@
   <string name="setTheBoard">Uzstādīt galdiņu</string>
   <string name="popularOpenings">Populāras atklātnes</string>
   <string name="endgamePositions">Spēļu beigu pozīcijas</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">960-šaha sākumpozīcija: %s</string>
   <string name="startPosition">Sākuma pozīcija</string>
   <string name="clearBoard">Notīrīt lauciņu</string>
   <string name="savePosition">Saglabāt pozīciju</string>
