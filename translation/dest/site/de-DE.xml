@@ -441,6 +441,7 @@
   <string name="setTheBoard">Brett aufbauen</string>
   <string name="popularOpenings">Beliebte Eröffnungen</string>
   <string name="endgamePositions">Endspielstellungen</string>
+  <string name="chess960StartPosition">Schach960 Anfangsstellung: %s</string>
   <string name="startPosition">Anfangsposition</string>
   <string name="clearBoard">Brett räumen</string>
   <string name="savePosition">Stellung speichern</string>
