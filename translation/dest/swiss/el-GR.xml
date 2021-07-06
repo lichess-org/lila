@@ -48,6 +48,7 @@
   <string name="pairingsQ">Πώς αποφασίζονται τα ζευγάρια;</string>
   <string name="dutchSystem">Ολλανδικό σύστημα</string>
   <string name="FIDEHandbook">Βιβλίο κανονισμών της FIDE</string>
+  <string name="pairingsA">Με το %1$s, όπως αυτό δημιουργήθηκε από το %2$s, σύμφωνα με το %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Τι συμβαίνει αν το τουρνουά έχει περισσότερους γύρους από τους παίκτες;</string>
   <string name="moreRoundsThanPlayersA">Όταν εξαντληθούν όλα τα πιθανά ζευγάρια, το τουρνουά τελειώνει και ανακοινώνεται ο νικητής.</string>
   <string name="restrictedToTeamsQ">Γιατί τα ελβετικά τουρνουά περιορίζονται σε ομάδες;</string>
@@ -77,4 +78,27 @@
   <string name="joinOrCreateTeam">Εγγραφείτε ή δημιουργήστε μια ομάδα</string>
   <string name="nowPlaying">Παίζονται τώρα</string>
   <string name="startingSoon">Αρχίζουν σύντομα</string>
+  <string name="comparison">Χαρακτηριστικό</string>
+  <string name="tournDuration">Διάρκεια τουρνουά</string>
+  <string name="predefinedDuration">Προκαθορισμένη διάρκεια σε λεπτά</string>
+  <string name="durationUnknown">Προκαθορισμένος αριθμός γύρων, αλλά άγνωστη διάρκεια</string>
+  <string name="numberOfGames">Αριθμός παιχνιδιών</string>
+  <string name="numberOfGamesAsManyAsPossible">Όσα μπορούν να παιχτούν στην προκαθορισθείσα διάρκεια</string>
+  <string name="numberOfGamesPreDefined">Αποφασισμένος εκ των προτέρων, ίδιος για όλους τους παίκτες</string>
+  <string name="pairingSystem">Σύστημα κληρώσεων</string>
+  <string name="pairingSystemArena">Οποιοσδήποτε αντίπαλος με παρόμοια κατάταξη</string>
+  <string name="pairingSystemSwiss">Η καλύτερη δυνατή κλήρωση βάσει πόντων και κριτηρίων</string>
+  <string name="pairingWaitTime">Χρόνος για την επόμενη κλήρωση</string>
+  <string name="pairingWaitTimeFast">Γρήγορο: δεν περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="pairingWaitTimeSlow">Αργό: περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="identicalPairing">Ίδιες κληρώσεις</string>
+  <string name="possibleButNotConsecutive">Πιθανές, αλλά όχι διαδοχικές</string>
+  <string name="identicalForbidden">Απαγορευμένες</string>
+  <string name="lateJoin">Καθυστερημένη δήλωση συμμετοχής</string>
+  <string name="lateJoinUntil">Ναι, αλλά όχι αφού ολοκληρωθούν περισσότεροι από τους μισούς γύρους</string>
+  <string name="pause">Δυνατότητα παύσης</string>
+  <string name="pauseSwiss">Ναι, αλλά μπορεί να μειώσει τον αριθμό γύρων</string>
+  <string name="streaksAndBerserk">Streaks και Berserk</string>
+  <string name="similarToOTB">Όμοιο με τα διά ζώσης τουρνουά</string>
+  <string name="unlimitedAndFree">Απεριόριστο και δωρεάν</string>
 </resources>
