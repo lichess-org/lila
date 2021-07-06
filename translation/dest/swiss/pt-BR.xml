@@ -42,4 +42,5 @@ Pode ser uma boa opção para clubes e torneios oficiais.</string>
   <string name="pointsCalculationA">Uma vitória vale um ponto, um empate vale meio ponto, e uma perda vale zero pontos.
 Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um bye valendo um ponto.</string>
   <string name="tiebreaksCalculationQ">Como os desempates são calculados?</string>
+  <string name="sonnebornBergerScore">Pontuação Sonneborn–Berger</string>
 </resources>
