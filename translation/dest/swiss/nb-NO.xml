@@ -25,8 +25,8 @@
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="nextRound">Neste runde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Pågående parti</item>
-    <item quantity="other">Pågående partier</item>
+    <item quantity="one">parti pågår</item>
+    <item quantity="other">partier pågår</item>
   </plurals>
   <string name="tournStartDate">Startdato for turneringen</string>
   <string name="numberOfRounds">Antall runder</string>
