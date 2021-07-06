@@ -504,6 +504,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="setTheBoard">Paruošti lentą</string>
   <string name="popularOpenings">Populiarūs debiutai</string>
   <string name="endgamePositions">Endšpilio pozicijos</string>
+  <string name="chess960StartPosition">Chess960 pradinė pozicija: %s</string>
   <string name="startPosition">Pradinė pozicija</string>
   <string name="clearBoard">Išvalyti lentą</string>
   <string name="savePosition">Išsaugoti poziciją</string>
