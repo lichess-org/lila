@@ -63,6 +63,8 @@ Sudėkite visų oponentų, kuriuos žaidėjas nugalėjo, taškus ir pusę visų 
   <string name="moreRoundsThanPlayersQ">Kas vyksta, jei turnyras turi daugiau raundų nei žaidėjų?</string>
   <string name="moreRoundsThanPlayersA">Kai sužaidžiamos visos poros turnyras pasibaigia ir yra nusprendžiamas laimėtojas.</string>
   <string name="restrictedToTeamsQ">Kodėl jie apriboti tik komandoms?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Šveicariški turnyrai nebuvo sukurti šachmatams tinkle. Jie iš žaidėjų reikalauja punktualumo, pasiryžimo ir kantrybės.</string>
+  <string name="restrictedToTeamsABetterMet">Mes manome, kad šios sąlygos greičiau bus išpildytos komandoje, negu pasauliniuose turnyruose.</string>
   <string name="numberOfByesQ">Kiek \"bye\" gali gauti vienas žaidėjas?</string>
   <string name="numberOfByesA">Žaidėjas gauna vieno taško vertės \"bye\" kiekvieną kartą kai poravimo sistema jam negali surasti partnerio.
 Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavėluotai prisijungia prie turnyro.</string>
@@ -71,9 +73,12 @@ Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavė
 Tada sistema pašalins žaidėją iš turnyro tam, kad jie nepralaimėtų daugiau partijų.
 Žaidėjai bet kada gali grįžti į turnyrą.</string>
   <string name="lateJoinQ">Ar žaidėjai gali prisijungti pavėlavę?</string>
+  <string name="lateJoinAYes">Taip, kol neprasidėjo daugiau nei pusė raundų. Pavyzdžiui 11 raundų šveicariškame turnyre žaidėjai gali prisijungti iki prasidės 6 raundas, 12 raundų iki prasidės 7 raundas.</string>
+  <string name="lateJoinASingleBye">Vėliau prisijungę žaidėjai gauna vieną \"bye\", net jei praleido daugiau nei vieną raundą.</string>
   <string name="willSwissReplaceArenasQ">Ar šveicariški turnyrai pakeis arenos turnyrus?</string>
   <string name="willSwissReplaceArenasA">Ne, tai yra papildomos funkcijos.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Kaip dėl Round Robin?</string>
+  <string name="roundRobinAWontWork">Mes norėtume tai pridėti, tačiau Round Robin neveikia žaidžiant tinkle</string>
   <string name="otherSystemsQ">O kaip su kitomis turnyrų sistemomis?</string>
   <string name="otherSystemsA">Šiuo metu prie Lichess daugiau turnyrų sistemų pridėti neplanuojame.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">Šveicariškuose turnyruose %1$s kiekvienas varžovas ne būtinai turi žaisti su visais kitais dalyviais. Priešininkai susitinka akis į akį kiekviename raunde ir yra suporuojami remiantis tam tikromis taisyklėmis. Šios taisyklės užtikrina, kad kiekvienas varžovas žaidžia su priešininkais turinčiais panašų taškų skaičių, bet su tuo pačiu oponentu ne daugiau nei kartą. Laimėtojas yra varžovas su daugiausia per visus raundus surinktų taškų. Visi varžovai žaidžia po raundą, nebent yra nelyginis žaidėjų skaičius.\"</string>

@@ -52,6 +52,8 @@
   <string name="tiebreaksCalculationQ">Как рассчитываются дополнительные показатели?</string>
   <string name="FIDEHandbook">Руководство ФИДЕ</string>
   <string name="moreRoundsThanPlayersQ">Что произойдёт, если в турнире будет больше раундов, чем игроков?</string>
+  <string name="restrictedToTeamsANotForOnline">Турниры по швейцарской системе не были рассчитаны на онлайн-шахматы. Они требуют пунктуальности, преданности и терпения со стороны игроков.</string>
+  <string name="restrictedToTeamsABetterMet">Мы считаем, что эти условия с большей вероятностью будут выполнены в команде, чем в общих турнирах.</string>
   <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, он просрочит время и проиграет партию.

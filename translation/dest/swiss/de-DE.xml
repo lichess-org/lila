@@ -51,6 +51,8 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Turniere nach Schweizer System sind nicht für Online-Schach konzipiert. Sie erfordern Pünktlichkeit, Hingabe und Geduld der Spieler.</string>
+  <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
   <string name="numberOfByesQ">Wie viele kampflose Punkte kann ein Spieler bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu spät beitritt.</string>
@@ -58,9 +60,14 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
+  <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden begonnen wurden; so können Spieler zum Beispiel an einem elfründigen Turnier nach Schweizer System vor dem Beginn der Runde 6 und in einem zwölfründigen vor Beginn der Runde 7 beitreten.</string>
+  <string name="lateJoinASingleBye">Spieler, die zu spät beitreten, bekommen nur einen einzigen halben Punkt, auch wenn sie mehrere Runden verpasst haben.</string>
   <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">Was ist mit Rundenturnieren?</string>
+  <string name="roundRobinAWontWork">Wir würden es gerne hinzufügen, aber leider funktionieren Rundenturniere online nicht</string>
+  <string name="roundRobinANoBecause">Der Grund dafür ist, dass es keine faire Möglichkeit gibt, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler alle ihre Spiele in einem Online-Event spielen. Das wird einfach nicht passieren, wodurch die meisten Rundenturniere fehlerhaft und unfair wären, was ihren eigentlichen Sinn zunichte macht.</string>
+  <string name="roundRobinATheClosestPossible">Das Ähnlichste zu online Rundenturnieren ist es, ein Turnier nach Schweizer System mit einer sehr hohen Anzahl an Runden zu spielen. Dadurch werden alle möglichen Paarungen gespielt, bevor das Turnier endet.</string>
   <string name="otherSystemsQ">Was ist mit anderen Turniersystemen?</string>
   <string name="otherSystemsA">Wir planen derzeit keine weiteren Turniersysteme zu Lichess hinzuzufügen.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.\"</string>

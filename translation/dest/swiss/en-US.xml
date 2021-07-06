@@ -49,14 +49,20 @@ When a player can\'t be paired during a round, they receive a bye worth one poin
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
   <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
 Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
   <string name="lateJoinQ">Can players late-join?</string>
+  <string name="lateJoinAYes">Yes, until more than half the rounds have started; for example in an 11-rounds swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.</string>
+  <string name="lateJoinASingleBye">Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
   <string name="roundRobinQ" comment="roundRobinQ&#10;&#10;Round-robin is a simple tournament format with some similarities to Swiss. It is not supported by Lichess.">What about round-robin?</string>
+  <string name="roundRobinAWontWork">We\'d like to add it, but unfortunately round-robin doesn\'t work online</string>
+  <string name="roundRobinANoBecause">The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won\'t happen, and as a result most round-robin tournaments would be flawed and unfair, which defeats their very reason to exist.</string>
+  <string name="roundRobinATheClosestPossible">The closest you can get to round-robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
   <string name="otherSystemsQ">What about other tournament systems?</string>
   <string name="otherSystemsA">We don\'t plan to add more tournament systems to Lichess at the moment.</string>
   <string name="swissDescription" comment="swissDescription&#10;&#10;%1$s is not a translation, but it's a link icon which takes the player to the page https://en.wikipedia.org/wiki/Swiss-system_tournament. It is currently hardcoded to link to the English-language Wikipedia.">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>

@@ -54,6 +54,8 @@ Adaugă scorurile fiecărui adversar pe care jucătorul îl învinge și jumăta
   <string name="moreRoundsThanPlayersQ">Ce se întâmplă dacă turneul are mai multe runde decât numărul jucătorilor?</string>
   <string name="moreRoundsThanPlayersA">După ce vor fi jucate toate perechile posibile, turneul va fi încheiat şi va fi declarat un câştigător.</string>
   <string name="restrictedToTeamsQ">De ce este limitat la echipe?</string>
+  <string name="restrictedToTeamsANotForOnline" comment="restrictedToTeamsANotForOnline&#10;&#10;Lichess recommends the Arena tournament format for conventional online chess, where players may drop in and out.">Turneele elvețiene nu au fost proiectate pentru șah online. Ele necesită punctualitate, dedicare și răbdare din partea jucătorilor.</string>
+  <string name="restrictedToTeamsABetterMet">Credem că este mai probabil ca aceste condiţii să fie îndeplinite în echipă decât în turneele globale.</string>
   <string name="whatIfOneDoesntPlayQ">Ce se întâmplă dacă un jucător nu joacă un joc?</string>
   <string name="joinOrCreateTeam">Alătură-te sau creează o echipă</string>
   <string name="startingSoon">Începe în curând</string>

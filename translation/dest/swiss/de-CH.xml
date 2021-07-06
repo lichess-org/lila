@@ -51,6 +51,8 @@ Fügen Sie die Punkte jedes Gegners hinzu, die der Spieler schlägt, und die Hä
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paare gespielt haben, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
+  <string name="restrictedToTeamsANotForOnline">Die Turniere nach Schweizer System waren nicht für Online-Schach konzipiert, sondern erfordern Pünktlichkeit, Hingabe und Geduld von Spielern.</string>
+  <string name="restrictedToTeamsABetterMet">Wir denken, dass diese Bedingungen eher innerhalb eines Teams erfüllt werden als in globalen Turnieren.</string>
   <string name="numberOfByesQ">Wie viele Aussetzungspunkte kann ein Spieler bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler zu spät an einem Turnier teilnimmt.</string>
@@ -59,9 +61,14 @@ Zusätzlich wird ein halber Punkt zugeordnet, wenn ein Spieler zu spät an einem
 Dann zieht das System den Spieler vom Turnier zurück, so dass er nicht mehr Spiele verliert.
  Dieser kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
+  <string name="lateJoinAYes">Ja, bis mehr als die Hälfte der Runden begonnen hat; So können Spieler zum Beispiel in einem 11-Runden-Schweizer-System-Turnier vor dem Start der 6. Runde und in einem Turnier mit 12 Runden vor Beginn der 7. Runde teilnehmen.</string>
+  <string name="lateJoinASingleBye">Spieler, die zu spät beitreten, bekommen nur einen einzigen Aussetzungspunkt, auch wenn sie mehrere Runden verpasst haben.</string>
   <string name="willSwissReplaceArenasQ">Wird das Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
   <string name="roundRobinQ">Was ist mit Round-Robin?</string>
+  <string name="roundRobinAWontWork">Wir würden es gerne hinzufügen, aber leider funktioniert Round-Robin nicht online</string>
+  <string name="roundRobinANoBecause">Der Grund dafür ist, dass es keine faire Möglichkeit hat, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler alle ihre Spiele in einem Online-Event spielen. Es wird einfach nicht passieren, und dadurch wären die meisten Round Robin-Turniere fehlerhaft und unfair, was ihren eigentlichen Grund zum Bestehen zunichte macht.</string>
+  <string name="roundRobinATheClosestPossible">Das nächstmögliche an Round-Robin online ist, ein Schweizer Turnier mit einer sehr hohen Anzahl an Runden zu spielen. Dann werden alle möglichen Paare gespielt, bevor das Turnier endet.</string>
   <string name="otherSystemsQ">Was ist mit anderen Turniersystemen?</string>
   <string name="otherSystemsA">Wir planen derzeit keine weiteren Turniersysteme zu Lichess hinzuzufügen.</string>
   <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen sich in jeder Runde einzeln und werden mithilfe einer Reihe von Regeln gepaart, um sicherzustellen, dass jeder Wettbewerber Gegner mit einem ähnlichen Punktestand spielt, aber nicht den gleichen Gegner mehr als einmal. Der Gewinner ist der Wettbewerber mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine seltsame Anzahl von Spielern.\"</string>

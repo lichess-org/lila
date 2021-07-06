@@ -49,4 +49,6 @@
   <string name="moreRoundsThanPlayersQ">Τι συμβαίνει αν το τουρνουά έχει περισσότερους γύρους από τους παίκτες;</string>
   <string name="moreRoundsThanPlayersA">Όταν εξαντληθούν όλα τα πιθανά ζευγάρια, το τουρνουά τελειώνει και ανακοινώνεται ο νικητής.</string>
   <string name="restrictedToTeamsQ">Γιατί τα ελβετικά τουρνουά περιορίζονται σε ομάδες;</string>
+  <string name="restrictedToTeamsANotForOnline">Τα ελβετικά τουρνουά δε σχεδιάστηκαν για διαδικτυακό σκάκι. Απαιτούν ακρίβεια, αφοσίωση και υπομονή από τους παίκτες.</string>
+  <string name="restrictedToTeamsABetterMet">Πιστεύουμε ότι αυτές οι προϋποθέσεις πληρούνται περισσότερο μέσα σε μια ομάδα.</string>
 </resources>
