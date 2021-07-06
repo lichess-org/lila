@@ -65,11 +65,15 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="roundRobinQ">Hva med alle mot alle-turneringer?</string>
   <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
   <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
+  <string name="nowPlaying">Pågår nå</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
   <string name="tournDuration">Turneringsvarighet</string>
   <string name="predefinedDuration">Forhåndsbestemt varighet i minutter</string>
+  <string name="durationUnknown">Forhåndsbestemt maks antall runder, men ukjent varighet</string>
   <string name="numberOfGames">Antall partier</string>
+  <string name="numberOfGamesAsManyAsPossible">Så mange som kan spilles i den avsatte varigheten</string>
+  <string name="numberOfGamesPreDefined">Forhåndsbestemt, likt for alle spillerne</string>
   <string name="pairingSystem">Parsystem</string>
   <string name="pairingWaitTime">Parventetid</string>
   <string name="identicalPairing">Samme par</string>
