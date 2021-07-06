@@ -902,8 +902,8 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="onlyTeamMembers">Só membros do equipo</string>
   <string name="navigateMoveTree">Navegar a árbore de movementos</string>
   <string name="mouseTricks">Trucos co rato</string>
-  <string name="toggleLocalAnalysis" comment="toggleLocalAnalysis&#10;&#10;Local analysis runs in your browser only, and doesn't use Lichess's analysis servers.">Cambiar a análise local da computadora</string>
-  <string name="toggleAllAnalysis" comment="toggleAllAnalysis&#10;&#10;All analysis means both local analysis (in your web browser) and also analysis run by Lichess servers.">Cambiar todo a análise da computadora</string>
+  <string name="toggleLocalAnalysis">Cambiar a análise local da computadora</string>
+  <string name="toggleAllAnalysis">Cambiar todo a análise da computadora</string>
   <string name="playComputerMove">Xogar o mellor movemento da computadora</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Enfocar o chat</string>
