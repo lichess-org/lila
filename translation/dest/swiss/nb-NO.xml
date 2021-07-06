@@ -62,6 +62,8 @@ I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng
 Systemet vil så fjerne spilleren fra turneringen for å unngå flere tap.
 Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="lateJoinQ">Kan spillere delta sent?</string>
+  <string name="lateJoinA">Ja, før over halvparten av rundene har begynt. Spillere kan for eksempel delta før runde 6 starter i en sveitserturnering med 11 runder og før runde 7 med 12 runder.
+Spillere som deltar sent, får ett enkelt halvpoeng, selv om de har gått glipp av flere runder.</string>
   <string name="willSwissReplaceArenasQ">Vil sveitserturneringer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nei. De utfyller hverandre.</string>
   <string name="roundRobinQ">Hva med alle mot alle-turneringer?</string>
