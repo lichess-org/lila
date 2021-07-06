@@ -65,6 +65,9 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="roundRobinQ">Hva med alle mot alle-turneringer?</string>
   <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
   <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
+  <string name="teamOnly">Sveitserturneringer kan bare opprettes av lagledere, og kan bare spilles av lagmedlemmer.
+%1$s for å begynne å spille i sveitserturneringer.</string>
+  <string name="joinOrCreateTeam">Bli med på eller opprett et lag</string>
   <string name="nowPlaying">Pågår nå</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
