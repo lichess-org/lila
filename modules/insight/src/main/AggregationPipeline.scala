@@ -20,8 +20,8 @@ final private class AggregationPipeline(store: Storage)(implicit ec: scala.concu
         import InsightEntry.{ BSONFields => F }
         import Storage._
 
-        val sampleGames    = Sample(10_000)
-        val sampleMoves    = Sample(200_000).some
+        val sampleGames    = Sample(50_000)
+        val sampleMoves    = Sample(1_000_000).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some
         def limit(nb: Int) = Limit(nb).some
