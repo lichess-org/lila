@@ -903,6 +903,8 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="onlyTeamMembers">Bare lagmedlemmer</string>
   <string name="navigateMoveTree">Naviger i trekktreet</string>
   <string name="mouseTricks">Musetriks</string>
+  <string name="toggleLocalAnalysis">Skru av eller på lokal maskinanalyse</string>
+  <string name="toggleAllAnalysis">Skru av eller på all maskinanalyse</string>
   <string name="playComputerMove">Spill det beste maskintrekket</string>
   <string name="analysisOptions">Analysevalg</string>
   <string name="focusChat">Fokus på samtale</string>
