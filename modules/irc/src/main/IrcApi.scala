@@ -79,7 +79,7 @@ final class IrcApi(
         text = s"[*$typ*] ${slackdown.userLink(user)}@$ip ${slackdown.gameLink(path)}",
         channel = SlackClient.rooms.tavernBots
       )
-    ) >> zulip(_.mod.log, "self report")(
+    ) >> zulip(_.mod.adminLog, "self report")(
       s"[**$typ**] ${markdown.userLink(user)}@$ip ${markdown.gameLink(path)}"
     )
 
