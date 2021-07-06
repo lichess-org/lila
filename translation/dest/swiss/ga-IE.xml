@@ -55,6 +55,10 @@
   <string name="newSwiss">Comórtas Swiss nua</string>
   <string name="swissVsArenaQ">Cathain is féidir comórtas swiss a úsáid in ionad airéine?</string>
   <string name="pointsCalculationQ">Conas a ríomhtar pointí?</string>
+  <string name="tiebreaksCalculationQ">Conas a ríomhtar babhtaI réitigh?</string>
+  <string name="sonnebornBergerScore">scór Sonneborn–Berger</string>
   <string name="pauseSwiss">Sea ach d’fhéadfadh sé seo líon na mbabhta a laghdú</string>
+  <string name="streaksAndBerserk">Stríoca agus Berserk</string>
+  <string name="similarToOTB">Cosúil le comórtais TB (thar bord)</string>
   <string name="unlimitedAndFree">Neamhtheoranta agus saor in aisce</string>
 </resources>
