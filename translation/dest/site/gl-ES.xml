@@ -442,6 +442,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posicións de finais</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posición de comezo Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar taboleiro</string>
   <string name="savePosition">Gardar posición</string>
