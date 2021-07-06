@@ -6,6 +6,8 @@
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="fork">Відэлец</string>
+  <string name="knightEndgame">Канёвы эндшпіль</string>
+  <string name="knightEndgameDescription">Эндшпіль выключна з канямі і пешкамі.</string>
   <string name="long">Доўгая задача</string>
   <string name="longDescription">Да перамогі 3 хады.</string>
   <string name="master">Гульні майстроў</string>
@@ -22,8 +24,12 @@
   <string name="mateIn4">Мат у 4 хады</string>
   <string name="mateIn4Description">Пастаўце мат у чатыры хады.</string>
   <string name="mateIn5">Мат у 5 хадоў</string>
+  <string name="middlegame">Мітальшпіль</string>
+  <string name="middlegameDescription">Тактыка на другім этапе гульні.</string>
   <string name="oneMove">Аднахадовая задача</string>
+  <string name="oneMoveDescription">Задача ў адзін ход.</string>
   <string name="opening">Дэбют</string>
+  <string name="openingDescription">Тактыка на першым этапе гульні.</string>
   <string name="pawnEndgame">Пешачны эндшпіль</string>
   <string name="pawnEndgameDescription">Эндшпіль выключна з пешкамі.</string>
   <string name="pin">Звязка</string>
@@ -33,5 +39,6 @@
   <string name="short">Кароткая задача</string>
   <string name="shortDescription">Да перамогі 2 хады.</string>
   <string name="veryLong">Вельмі доўгая задача</string>
+  <string name="zugzwang">Цугцванг</string>
   <string name="healthyMixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
 </resources>
