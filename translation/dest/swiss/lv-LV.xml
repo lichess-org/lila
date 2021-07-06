@@ -64,6 +64,9 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ">Kādas ir iespējas apļa sistēmas turnīriem?</string>
+  <string name="roundRobinA">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē.
+Iemesls ir tāds, ka nav iespējams atrast taisnīgu risinājumu, ja spēlētāji pamet turnīru pirms tā beigām. Nevar gaidīt, ka visi spēlētāji izspēlēs visas spēles interneta turnīrā. Tas vienkārši nenotiks, un rezultātā lielākā daļa apļa sistēmas turnīru būtu neizdevušies un negodīgi – tieši pretēji to sākotnējam mērķim.
+Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojot Šveices sistēmas turnīru ar ļoti lielu raundu skaitu. Tad visas iespējamās sapārošanas būs izspēlētas pirms turnīrs beigsies.</string>
   <string name="otherSystemsQ">Kā ar citām turnīru sistēmām?</string>
   <string name="otherSystemsA">Mums šobrīd nav plānu pievienot citas turnīru sistēmas vietnei Lichess.</string>
   <string name="joinOrCreateTeam">Pievienoties vai izveidot komandu</string>
