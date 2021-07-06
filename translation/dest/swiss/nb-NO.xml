@@ -39,7 +39,7 @@
   <string name="swissVsArenaA">I sveitserturneringer spiller alle deltakerne like mange partier og kan bare møtes én gang.
 Det kan være et bra alternativ for klubber og offisielle turneringer.</string>
   <string name="pointsCalculationQ">Hvordan beregnes poengene?</string>
-  <string name="pointsCalculationA">Seier er verdt ett poeng, remis et halvt poeng og tap er null poeng.
+  <string name="pointsCalculationA">Seier er verdt ett poeng, remis et halvt poeng og tap null poeng.
 Spiller som ikke får tildelt motspiller i en runde, får frirunde og ett poeng.</string>
   <string name="tiebreaksCalculationQ">Hvordan avgjøres rekkefølgen ved poenglikhet?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-kvalitet</string>
@@ -54,7 +54,7 @@ Legg sammen poengene til hver motstander spilleren har vunnet over, og halvparte
   <string name="restrictedToTeamsQ">Hvorfor er det avgrenset til lag?</string>
   <string name="restrictedToTeamsA">Sveitserturneringer er ikke laget for nettsjakk. De krever punktlighet, engasjement og tålmodighet hos spillerne.
 Vi tror at disse vilkårene lettere blir oppfylt innen et lag enn i åpne turneringer.</string>
-  <string name="numberOfByesQ">Hvor mange frirunder kan en spiller få?</string>
+  <string name="numberOfByesQ">Hvor mange fripoeng kan spillerne få?</string>
   <string name="numberOfByesA">Spillerne får frirunde og ett poeng hver gang parsystemet ikke finner par til dem.
 I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng.</string>
   <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
