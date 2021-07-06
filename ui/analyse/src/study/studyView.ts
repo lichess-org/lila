@@ -205,7 +205,7 @@ export function side(ctrl: StudyCtrl): VNode {
     );
 
   const chaptersTab =
-    tourShow && ctrl.looksNew()
+    tourShow && ctrl.looksNew() && !ctrl.members.canContribute()
       ? null
       : makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size()));
 
