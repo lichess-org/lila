@@ -69,19 +69,25 @@ final private class Streaming(
       _ <- api.setLiveNow(streamers.withFilter(streams.has).map(_.id))
     } yield publishStreams(streamers, streams)
 
+  private val streamStartMemo = new lila.memo.ExpireSetMemo(2 hour)
+
   def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) = {
     if (newStreams != liveStreams) {
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
       } foreach { s =>
-        timeline ! {
-          import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
-          Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
+        import s.streamer.userId
+        if (!streamStartMemo.get(userId)) {
+          streamStartMemo.put(userId)
+          timeline ! {
+            import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
+            Propagate(StreamStart(userId, s.streamer.name.value)) toFollowersOf userId
+          }
+          Bus.publish(
+            lila.hub.actorApi.streamer.StreamStart(userId),
+            "streamStart"
+          )
         }
-        Bus.publish(
-          lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
-          "streamStart"
-        )
       }
     }
     liveStreams = newStreams
