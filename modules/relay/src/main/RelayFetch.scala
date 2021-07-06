@@ -202,7 +202,9 @@ final private class RelayFetch(
               (gameDoc.format match {
                 case RelayFormat.DocFormat.Pgn => httpGet(gameDoc.url)
                 case RelayFormat.DocFormat.Json =>
-                  httpGetJson[GameJson](gameDoc.url) map { _.toPgn(pairing.tags) }
+                  httpGetJson[GameJson](gameDoc.url).recover { case _: Exception =>
+                    GameJson(moves = Nil, result = none)
+                  } map { _.toPgn(pairing.tags) }
               }) map (number -> _)
             }
             .sequenceFu
