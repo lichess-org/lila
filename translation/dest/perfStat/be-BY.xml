@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="viewTheGames">Праглядзець гульні</string>
+  <string name="ratingDeviation">Адхіленне рэйтынгу: %s.</string>
   <string name="totalGames">Агулам гульняў</string>
   <string name="ratedGames">Рэйтынгавыя гульні</string>
   <string name="tournamentGames">Гульні ў турнірах</string>
   <string name="berserkedGames">Гульні ў шаленым рэжыме</string>
+  <string name="averageOpponent">Сярэдні рэйтынг суперніка</string>
+  <string name="victories">Перамогі</string>
+  <string name="defeats">Паразы</string>
+  <string name="disconnections">Адключэнні</string>
+  <string name="notEnoughGames">Згуляна недастаткова партый</string>
+  <string name="highestRating">Найвышэйшы рэйтынг: %s</string>
+  <string name="lowestRating">Найніжэйшы рэйтынг: %s</string>
+  <string name="fromXToY">ад %1$s да %2$s</string>
   <string name="winningStreak">Перамог запар</string>
   <string name="losingStreak">Паразаў запар</string>
+  <string name="longestStreak">Найдаўжэйшая серыя: %s</string>
+  <string name="currentStreak">Бягучая серыя: %s</string>
   <string name="bestRated">Лепшыя рэйтынгавыя перамогі</string>
   <string name="worstRated">Горшыя рэйтынгавыя паразы</string>
   <string name="gamesInARow">Гульняў сыграна запар</string>
+  <string name="lessThanOneHour">Менш за гадзіну паміж гульнямі</string>
+  <string name="maxTimePlaying">Максімальны час за гульнёй</string>
   <string name="now">зараз</string>
 </resources>
