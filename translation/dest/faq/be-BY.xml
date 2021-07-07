@@ -7,6 +7,7 @@
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта вымаўляе спецыяліст.</string>
   <string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо Lichess мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
+  <string name="whyIsLilaCalledLila">Аналагічна, зыходны код Lichess, %1$s, расшыфроўваецца як li [chess на sca] la, бо асноўная частка Lichess напісана на %2$s, інтуітыўна зразумелай мове праграмавання.</string>
   <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
   <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра тое як %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess ахверуючы свае навыкі і час, то ёсць шмат %3$s.</string>
@@ -17,6 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
   <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
+  <string name="preventLeavingGameWithoutResigning">Якія меры прымаюцца супраць гульцоў, якія пакідаюць гульні без здачы?</string>
   <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
   <string name="youCannotApply">Немагчыма падаць заяўку, каб стаць мадэратарам. Калі мы заўважым кагосьці, хто, на нашу думку, будзе добрым мадэратарам, мы звяжамся з імі напрасткі.</string>
   <string name="isCorrespondenceDifferent">Ліставаная гульня адрозніваецца ад звычайных шахмат?</string>
