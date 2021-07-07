@@ -43,7 +43,7 @@
   </plurals>
   <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
   <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
-  <string name="forceResignation">Залічыць паразу</string>
+  <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Той, хто перайдзе па гэтай спасылцы, зможа згуляць з вамі.</string>
