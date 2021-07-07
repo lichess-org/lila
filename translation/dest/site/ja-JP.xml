@@ -411,6 +411,7 @@
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">チェス960 開始局面: %s</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
@@ -861,6 +862,8 @@
   <string name="noChat">チャットなし</string>
   <string name="onlyTeamLeaders">チームリーダー限定</string>
   <string name="onlyTeamMembers">チームメンバー限定</string>
+  <string name="navigateMoveTree">分岐ツリー内の移動</string>
+  <string name="mouseTricks">マウスでの操作</string>
   <string name="toggleLocalAnalysis">ローカルコンピュータ解析の切り替え</string>
   <string name="toggleAllAnalysis">全コンピュータ解析の切り替え</string>
   <string name="playComputerMove">コンピュータの最善手をプレイ</string>
