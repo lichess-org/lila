@@ -14,4 +14,18 @@
   <string name="numberOfRounds">Počet kol</string>
   <string name="roundInterval">Interval mezi koly</string>
   <string name="forbiddenPairings">Tato možnost zabraňuje párování určitých hráčů</string>
+  <string name="forbiddenPairingsHelp">Jména hráčů, kteří nesmí spolu hrát (Například sourozenci). Dvě jména na řádek, oddělená mezerou.</string>
+  <string name="newSwiss">Nový Švýcarský turnaj</string>
+  <string name="swissVsArenaQ">Kdy hrát švýcarský turnaj místo arény?</string>
+  <string name="swissVsArenaA">Ve švýcarském turnaji hrají všichni účastníci stejný počet kol a mohou spolu hrát jen jednou. Tato možnost je dobrá pro kluby a oficiální turnaje.</string>
+  <string name="pointsCalculationQ">Jak se počítají body?</string>
+  <string name="pointsCalculationA">Výhra získává jeden bod, remíza půl a prohra nic. Když hráč nemůže být do kola nalosován, obdrží bye se ziskem jednoho bodu.</string>
+  <string name="tiebreaksCalculationQ">Jak se počítá pomocné hodnocení?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger skóre</string>
+  <string name="tiebreaksCalculationA">S %s.
+Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se kterým remizoval.</string>
+  <string name="pairingsQ">Jak se losují soupeři?</string>
+  <string name="dutchSystem">Holandský systém</string>
+  <string name="FIDEHandbook">Příručka FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
 </resources>
