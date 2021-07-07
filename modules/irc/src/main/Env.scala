@@ -20,10 +20,6 @@ final class Env(
     mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private lazy val slackClient = new SlackClient(ws, appConfig.get[Secret]("slack.incoming.url"))
-
-  private lazy val discordClient = new DiscordClient(ws, appConfig.get[Secret]("discord.webhook.url"))
-
   private val zulipConfig      = appConfig.get[ZulipClient.Config]("zulip")(ZulipClient.zulipConfigLoader)
   private lazy val zulipClient = wire[ZulipClient]
 
