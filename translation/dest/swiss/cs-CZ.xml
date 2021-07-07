@@ -7,4 +7,11 @@
     <item quantity="many">Zobrazit %s kol</item>
     <item quantity="other">Zobrazit všech %s kol</item>
   </plurals>
+  <string name="roundsAreStartedManually">Kola se spouští ručně</string>
+  <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
+  <string name="nextRound">Další kolo</string>
+  <string name="tournStartDate">Zahajovací datum turnaje</string>
+  <string name="numberOfRounds">Počet kol</string>
+  <string name="roundInterval">Interval mezi koly</string>
+  <string name="forbiddenPairings">Tato možnost zabraňuje párování určitých hráčů</string>
 </resources>
