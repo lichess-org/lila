@@ -51,6 +51,18 @@
   <string name="numberOfByesQ">플레이어가 얼마나 많은 부전승을 얻을 수 있나요?</string>
   <string name="numberOfByesA">플레이어는 페어링 시스템이 상대를 찾을 수 없을 때마다 부전승으로 승점 1점을 받습니다.
 또한, 토너먼트에 늦게 참여한 플레이어는 0.5점을 받습니다.</string>
+  <string name="whatIfOneDoesntPlayQ">플레이어가 게임을 하지 않으면 어떻게 되나요?</string>
+  <string name="whatIfOneDoesntPlayA">플레이어의 시간이 줄어들고, 시간이 다하면 게임에서 패배합니다.
+이후 시스템은 그 플레이어를 토너먼트에서 기권처리하므로 더 이상 점수를 잃지 않습니다.
+플레이어는 언제든 토너먼트에 다시 참가할 수 있습니다.</string>
+  <string name="lateJoinQ">늦게 참가할 수 있나요?</string>
+  <string name="lateJoinA">네, 라운드의 절반이 지나지 않았다면 참여할 수 있습니다. 예를 들어 11라운드 스위스 토너먼트에서는 6라운드가 시작하지 전까지, 12라운드 토너먼트에서는 7라운드가 시작하기 전까지 참가할 수 있습니다.
+여러 라운드를 놓친 경우에도 1부전승만 얻습니다.</string>
+  <string name="willSwissReplaceArenasQ">스위스 토너먼트가 아레나 토너먼트를 대체하나요?</string>
+  <string name="willSwissReplaceArenasA">아니요. 서로 보완관계입니다.</string>
+  <string name="roundRobinQ">라운드 로빈은 어떤가요?</string>
+  <string name="otherSystemsQ">다른 토너먼트 시스템은요?</string>
+  <string name="otherSystemsA">현재로선 리체스에 다른 토너먼트 시스템을 추가할 예정이 없습니다.</string>
   <string name="swissDescription">스위스 토너먼트%1$s에서는, 각 경쟁자는 다른 모든 참가자들과 플레이하는 것은 아닙니다. 경쟁자들은 비슷한 승점을 가진 상대와 만나고 이미 만난 상대와는 다시 만나지 않는 규칙을 이용해 일대일로 각 라운드에 매치됩니다. 승자는 모든 라운드에서 가장 높은 승점을 얻은 플레이어입니다. 참가자가 홀수인 경우를 제외하면 모든 참가자는 모든 라운드를 플레이합니다.</string>
   <string name="teamOnly">스위스 토너먼트는 팀 리더만 생성할 수 있고 팀 멤버만 참여할 수 있습니다.           
 스위스 토너먼트를 시작하기 위해서는 %1$s.</string>
