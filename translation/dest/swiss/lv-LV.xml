@@ -72,6 +72,8 @@ Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojo
   <string name="otherSystemsQ">Kā ar citām turnīru sistēmām?</string>
   <string name="otherSystemsA">Mums šobrīd nav plānu pievienot citas turnīru sistēmas vietnei Lichess.</string>
   <string name="swissDescription">Šveices sistēmas turnīrā %1$s katrs dalībnieks ne vienmēr izspēlēs pret visiem citiem. Spēlētāji tiekas viens pret vienu katrā raundā, un tiek sadalīti pa pāriem izmantojot noteikumus, kas veidoti tā, lai katrs spēlētu pret pretiniekiem ar līdzīgu pašreizējo rezultātu – bet viens pāris divreiz nespēlēs. Dalībnieks ar vislielāko kopējo punktu skaitu visos turnīros ir uzvarētājs. Visi dalībnieki piedalās katrā raundā, izņemot, ja ir nepāra spēlētāju skaits.</string>
+  <string name="teamOnly">Šveices sistēmas turnīrus var izveidot tikai komandu vadītāji, un tajos var piedalīties tikai komandas dalībnieki.
+%1$s, lai sāktu spēlēt Šveices sistēmas turnīros.</string>
   <string name="joinOrCreateTeam">Pievienoties vai izveidot komandu</string>
   <string name="nowPlaying">Pašlaik notiek</string>
   <string name="startingSoon">Drīz sāksies</string>
