@@ -15,31 +15,39 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
   import OAuthScope.scopeHandler
   import AccessToken.{ BSONFields => F }
 
-  def create(token: AccessToken): Funit = coll.insert.one(token).void
+  private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
 
-  def create(setup: OAuthForm.token.Data, me: User, isStudent: Boolean): Funit =
+  def create(setup: OAuthTokenForm.Data, me: User, isStudent: Boolean): Fu[AccessToken] =
     (fuccess(isStudent) >>| userRepo.isManaged(me.id)) flatMap { noBot =>
-      val token = setup make me
+      val plain = Bearer.randomPersonal()
       create(
-        token.copy(
-          scopes = token.scopes.filterNot(_ == OAuthScope.Bot.Play && noBot)
+        AccessToken(
+          id = AccessToken.Id.from(plain),
+          plain = plain,
+          userId = me.id,
+          description = setup.description.some,
+          createdAt = DateTime.now().some,
+          scopes = setup.scopes.flatMap(OAuthScope.byKey.get).filterNot(_ == OAuthScope.Bot.Play && noBot),
+          clientOrigin = None,
+          expires = None
         )
       )
     }
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] = {
     val plain = Bearer.random()
-    val token = AccessToken(
-      id = AccessToken.Id.from(plain),
-      plain = plain,
-      userId = granted.userId,
-      description = None,
-      createdAt = DateTime.now().some,
-      scopes = granted.scopes,
-      clientOrigin = granted.redirectUri.clientOrigin.some,
-      expires = DateTime.now().plusMonths(12).some
+    create(
+      AccessToken(
+        id = AccessToken.Id.from(plain),
+        plain = plain,
+        userId = granted.userId,
+        description = None,
+        createdAt = DateTime.now().some,
+        scopes = granted.scopes,
+        clientOrigin = granted.redirectUri.clientOrigin.some,
+        expires = DateTime.now().plusMonths(12).some
+      )
     )
-    create(token) inject token
   }
 
   def listPersonal(user: User): Fu[List[AccessToken]] =

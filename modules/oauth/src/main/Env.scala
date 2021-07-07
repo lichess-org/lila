@@ -23,6 +23,4 @@ final class Env(
   lazy val authorizationApi = new AuthorizationApi(db(CollName("oauth2_authorization")))
   lazy val tokenApi         = new AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userRepo)
   lazy val server           = wire[OAuthServer]
-
-  def forms = OAuthForm
 }
