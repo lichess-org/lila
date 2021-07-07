@@ -28,4 +28,16 @@ Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se k
   <string name="dutchSystem">Holandský systém</string>
   <string name="FIDEHandbook">Příručka FIDE</string>
   <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
+  <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
+  <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
+  <string name="numberOfByesQ">Kolik volných kol může hráč dostat?</string>
+  <string name="numberOfByesA">Hráč dostane bod pokaždé, když systém pro něj nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
+  <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
+Takového hráče systém diskvalifikuje, aby neprohrál více partií.
+Do turnaje se mohou připojit kdykoliv.</string>
+  <string name="lateJoinQ">Mohou se hráči připojit po začátku?</string>
+  <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12-ti kolovém turnaji do začátku 7. kola.
+Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více kol.</string>
+  <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
 </resources>
