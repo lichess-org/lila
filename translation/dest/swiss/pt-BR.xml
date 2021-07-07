@@ -57,6 +57,8 @@ Além disso, um bye valendo meio ponto é dado ao jogador, se ele entrar atrasad
 Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca mais jogos.
  O jogador pode retornar ao torneio a qualquer momento.</string>
   <string name="lateJoinQ">Os jogadores podem entrar atrasados?</string>
+  <string name="lateJoinA">Sim, até que mais da metade das rodadas comecem. Por exemplo, em uma torneio suíço de 11 rodadas, os jogadores podem entrar antes da 6ª rodada começar; e em um torneio de 12 rodadas, antes da 7ª rodada.
+Jogadores atrasados ganham apenas um bye, mesmo se eles perderem várias rodadas.</string>
   <string name="willSwissReplaceArenasQ">Os torneios suíços substituirão os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. Eles são torneios complementares.</string>
   <string name="roundRobinQ">E quanto ao round robin?</string>
@@ -81,7 +83,7 @@ Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca m
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
   <string name="lateJoin">Entrar atrasado</string>
-  <string name="lateJoinUntil">Sim, até que mais da metade das rodadas tenham começado</string>
+  <string name="lateJoinUntil">Sim, até que mais da metade das rodadas comecem</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Sim, mas pode reduzir o número de rodadas</string>
   <string name="streaksAndBerserk">Sequências e Berserk</string>
