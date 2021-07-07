@@ -52,4 +52,12 @@
   <string name="moreRoundsThanPlayersQ">Ի՞նչ կլինի, եթե մրցաշարում լինի ավելի շատ խաղափուլ, քան խաղացողներն են։</string>
   <string name="moreRoundsThanPlayersA">Երբ բոլոր  հնարավոր զույգերը խաղացվեն, մրցաշարը կավարտվի և կհայտարարվի հաղթողը։</string>
   <string name="restrictedToTeamsQ">Ինչո՞ւ է դա հասանելի միայն թիմերին։</string>
+  <string name="restrictedToTeamsA">Շվեյցարական մրցաշարերը նախատեսված չէին առցանց շախմատի համար։ Նրանք խաղացողներից պահանջում են ճշտապահություն, նպատակաուղղվածություն և համբերություն:
+Կարծում ենք, որ այս պայմանները ավելի հաճախ կատարվում են թիմի ներսում, քան գլոբալ մրցաշարերում։</string>
+  <string name="numberOfByesQ">Քանի՞ bye կարող է ստանալ խաղացողը  (կարող է լինել խաղափուլից ազատ)։</string>
+  <string name="joinOrCreateTeam">Միացեք կամ ստեղծեք թիմ</string>
+  <string name="nowPlaying">Այժմ խաղում են</string>
+  <string name="startingSoon">Շուտով կսկսվեն</string>
+  <string name="comparison">Համեմատություն</string>
+  <string name="tournDuration">Մրցաշարի տևողությունը</string>
 </resources>
