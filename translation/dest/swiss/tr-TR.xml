@@ -93,6 +93,6 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="pause">Ara verme</string>
   <string name="pauseSwiss">Mümkün fakat oynanan tur sayısını azaltabilir</string>
   <string name="streaksAndBerserk">Kazanma serisi ve divane (berserk) seçeneği</string>
-  <string name="similarToOTB">Yüz yüze turnuvalara benzer</string>
+  <string name="similarToOTB">Yüz yüze turnuvalar gibi</string>
   <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
 </resources>
