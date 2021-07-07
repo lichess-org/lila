@@ -62,6 +62,7 @@
   <string name="tournDuration">Մրցաշարի տևողությունը</string>
   <string name="numberOfGames">Պարտիաների քանակ</string>
   <string name="numberOfGamesAsManyAsPossible">Այնքան, որքան հնարավոր է խաղալ հատկացված ժամանակում</string>
+  <string name="numberOfGamesPreDefined">Որոշվում է նախապես, բոլոր խաղացողների համար միանման</string>
   <string name="pairingSystem">Պարտիաների քանակը</string>
   <string name="pairingSystemArena">Համեմատելի վարկանիշով ցանկացած հասանելի մրցակից</string>
   <string name="pairingSystemSwiss">Լավագույն զույգն ըստ վաստակած միավորների և թայ-բրեյքների</string>
