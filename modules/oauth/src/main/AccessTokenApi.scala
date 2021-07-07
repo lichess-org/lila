@@ -50,7 +50,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           F.clientOrigin -> $exists(false)
         )
       )
-      .sort($sort desc F.createdAt)
+      .sort($sort desc F.createdAt) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
