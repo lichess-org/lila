@@ -46,9 +46,16 @@ Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um by
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="restrictedToTeamsQ">Por que ele é restringido a equipes?</string>
+  <string name="restrictedToTeamsA">Torneios suíços não foram feitos para o xadrez online. Eles demandam pontualidade, dedicação e paciência dos jogadores.
+Pensamos que é mais provável encontrar essas condições em uma equipe, do que em torneios globais.</string>
+  <string name="numberOfByesQ">Quantos byes um jogador pode ganhar?</string>
   <string name="lateJoinQ">Os jogadores podem entrar atrasados?</string>
   <string name="willSwissReplaceArenasQ">Os torneios suíços substituirão os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. Eles são torneios complementares.</string>
+  <string name="roundRobinQ">E quanto ao round robin?</string>
+  <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
+  <string name="otherSystemsA">Não planejamos adicionar mais sistemas de torneio ao Lichess no momento.</string>
   <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
   <string name="startingSoon">Começando em breve</string>
   <string name="comparison">Comparação</string>
