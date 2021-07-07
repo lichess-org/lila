@@ -47,5 +47,9 @@
 Գումարեք միավորների գումարը բոլոր այն մրցակիցների, որոնց հաղթել է խաղացողը, և միավորների կեսը այն մրցակիցների, որոնց հետ նա խաղացել է ոչ-ոքի։</string>
   <string name="pairingsQ">Ինչպե՞ս են որոշվում զույգերը։</string>
   <string name="dutchSystem">Հոլանդական համակարգ</string>
-  <string name="FIDEHandbook">ՖԻԴԵ-ի ղեկավարություն</string>
+  <string name="FIDEHandbook">ՖԻԴԵ-ի կանոնադրություն</string>
+  <string name="pairingsA">%1$sով, իրացված %2$s-ով, %3$sը հաշվի առնելով։</string>
+  <string name="moreRoundsThanPlayersQ">Ի՞նչ կլինի, եթե մրցաշարում լինի ավելի շատ խաղափուլ, քան խաղացողներն են։</string>
+  <string name="moreRoundsThanPlayersA">Երբ բոլոր  հնարավոր զույգերը խաղացվեն, մրցաշարը կավարտվի և կհայտարարվի հաղթողը։</string>
+  <string name="restrictedToTeamsQ">Ինչո՞ւ է դա հասանելի միայն թիմերին։</string>
 </resources>
