@@ -66,14 +66,16 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         hook: util.bind(
           'click',
           e => {
-            const d = ctrl.data;
+            const d = ctrl.data,
+              isAsynchronous = d.game.speed === 'correspondence' || d.game.speed === 'unlimited';
             if (d.game.rematch) location.href = gameRoute(d.game.rematch, d.opponent.color);
             else if (d.player.offeringRematch) {
               d.player.offeringRematch = false;
               ctrl.socket.send('rematch-no');
-            } else if (d.opponent.onGame) {
+            } else if (d.opponent.onGame || isAsynchronous) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
+              if (isAsynchronous) ctrl.challengeRematch();
             } else if (!(e.currentTarget as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
           },
           ctrl.redraw
