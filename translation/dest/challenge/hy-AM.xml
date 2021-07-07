@@ -20,4 +20,6 @@
   <string name="declineCasual">Հրավիրեք ինձ ընկերական խաղի, խնդրում եմ։</string>
   <string name="declineStandard">Ես չեմ ընդունում ոչ դասական շախմատի մարտահրավերներ հենց հիմա։</string>
   <string name="declineVariant">Ես չեմ ցանկանում շախմատի այս տարբերակը խաղալ հիմա։</string>
+  <string name="declineNoBot">Ես չեմ ընդունում բոտերի մարտահրավերները։</string>
+  <string name="declineOnlyBot">Ես ընդունում եմ միայն բոտերի մարտահրավերները։</string>
 </resources>
