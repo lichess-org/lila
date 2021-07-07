@@ -190,7 +190,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.restrictedToTeamsQ()),
-        trans.swiss.restrictedToTeamsA(),
+        trans.swiss.restrictedToTeamsA()
       )
     ),
     div(cls := "faq")(
@@ -211,7 +211,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.lateJoinQ()),
-        trans.swiss.lateJoinA(),
+        trans.swiss.lateJoinA()
       )
     ),
     div(cls := "faq")(
@@ -225,7 +225,7 @@ object home {
       i("?"),
       p(
         strong(trans.swiss.roundRobinQ()),
-        trans.swiss.roundRobinA(),
+        trans.swiss.roundRobinA()
       )
     ),
     div(cls := "faq")(
