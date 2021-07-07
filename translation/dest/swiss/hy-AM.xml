@@ -60,4 +60,22 @@
   <string name="startingSoon">Շուտով կսկսվեն</string>
   <string name="comparison">Համեմատություն</string>
   <string name="tournDuration">Մրցաշարի տևողությունը</string>
+  <string name="numberOfGames">Պարտիաների քանակ</string>
+  <string name="numberOfGamesAsManyAsPossible">Այնքան, որքան հնարավոր է խաղալ հատկացված ժամանակում</string>
+  <string name="pairingSystem">Պարտիաների քանակը</string>
+  <string name="pairingSystemArena">Համեմատելի վարկանիշով ցանկացած հասանելի մրցակից</string>
+  <string name="pairingSystemSwiss">Լավագույն զույգն ըստ վաստակած միավորների և թայ-բրեյքների</string>
+  <string name="pairingWaitTime">Միանալու սպասման ժամանակ</string>
+  <string name="pairingWaitTimeFast">Արագ. պետք չէ սպասել բոլոր խաղացողներին</string>
+  <string name="pairingWaitTimeSlow">Դանդաղ. սպասել բոլոր խաղացողներին</string>
+  <string name="identicalPairing">Նման զույգեր</string>
+  <string name="possibleButNotConsecutive">Հնարավոր, բայց ոչ հաջորդական</string>
+  <string name="identicalForbidden">Արգելված է</string>
+  <string name="lateJoin">Ուշ միացում</string>
+  <string name="lateJoinUntil">Այո, մինչև խաղափուլերից կեսից ավելիի սկսվելը</string>
+  <string name="pause">Դադար</string>
+  <string name="pauseSwiss">Այո, բայց կարող է կրճատել խաղափուլերի քանակը</string>
+  <string name="streaksAndBerserk">Շարքեր և բերսերկ</string>
+  <string name="similarToOTB">Նման է OTB մրցաշարերին</string>
+  <string name="unlimitedAndFree">Անսահմանափակ և անվճար</string>
 </resources>
