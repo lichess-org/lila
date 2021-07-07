@@ -46,6 +46,10 @@ Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um by
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="lateJoinQ">Os jogadores podem entrar atrasados?</string>
+  <string name="willSwissReplaceArenasQ">Os torneios suíços substituirão os torneios de arena?</string>
+  <string name="willSwissReplaceArenasA">Não. Eles são torneios complementares.</string>
+  <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
   <string name="startingSoon">Começando em breve</string>
   <string name="comparison">Comparação</string>
   <string name="tournDuration">Duração do torneio</string>
@@ -63,6 +67,7 @@ Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um by
   <string name="identicalPairing">Pareamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
+  <string name="lateJoin">Entrar atrasado</string>
   <string name="lateJoinUntil">Sim, até que mais da metade das rodadas tenham começado</string>
   <string name="pause">Pausa</string>
   <string name="pauseSwiss">Sim, mas pode reduzir o número de rodadas</string>
