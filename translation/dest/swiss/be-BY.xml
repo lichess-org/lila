@@ -47,5 +47,6 @@
   <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
   <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
   <string name="newSwiss">Новы турнір па швейцарскай сыстэме</string>
+  <string name="identicalForbidden">Забаронена</string>
   <string name="unlimitedAndFree">Неабмежавана і бясплатна</string>
 </resources>
