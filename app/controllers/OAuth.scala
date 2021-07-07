@@ -84,7 +84,7 @@ final class OAuth(env: Env) extends LilaController(env) {
                   Json
                     .obj(
                       "token_type"   -> "Bearer",
-                      "access_token" -> token.id.secret
+                      "access_token" -> token.plain.secret
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
                 )
@@ -106,7 +106,7 @@ final class OAuth(env: Env) extends LilaController(env) {
                   Json
                     .obj(
                       "token_type"    -> "Bearer",
-                      "access_token"  -> token.id.secret,
+                      "access_token"  -> token.plain.secret,
                       "refresh_token" -> s"invalid_for_bc_${lila.common.ThreadLocalRandom.nextString(17)}"
                     )
                     .add("expires_in" -> token.expires.map(_.getSeconds - nowSeconds))
@@ -121,7 +121,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def tokenRevoke =
     Scoped() { implicit req => _ =>
       HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(token) inject NoContent
+        env.oAuth.tokenApi.revoke(AccessToken.Id.from(token)) inject NoContent
       }
     }
 

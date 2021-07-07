@@ -371,7 +371,7 @@ final class Challenge(
       challenge: lila.challenge.Challenge,
       strToken: String
   )(managedBy: lila.user.User, message: Option[Template]) =
-    env.security.api.oauthScoped(
+    env.oAuth.server.auth(
       Bearer(strToken),
       List(lila.oauth.OAuthScope.Challenge.Write)
     ) flatMap {

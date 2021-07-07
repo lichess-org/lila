@@ -25,7 +25,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
-    tryOAuthServer: OAuthServer.Try,
+    oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
 )(implicit

@@ -718,17 +718,17 @@ GET   /account/info                    controllers.Account.info
 GET   /account/now-playing             controllers.Account.nowPlaying
 
 # OAuth
-GET    /oauth                                controllers.OAuth.authorize
-POST   /oauth                                controllers.OAuth.legacyTokenApply
-GET    /oauth/authorize                      controllers.OAuth.legacyAuthorize
-POST   /oauth/authorize                      controllers.OAuth.authorizeApply
-POST   /oauth/revoke-client                  controllers.OAuth.revokeClient
-POST   /api/token                            controllers.OAuth.tokenApply
-DELETE /api/token                            controllers.OAuth.tokenRevoke
-GET    /account/oauth/token                  controllers.OAuthToken.index
-GET    /account/oauth/token/create           controllers.OAuthToken.create
-POST   /account/oauth/token/create           controllers.OAuthToken.createApply
-POST   /account/oauth/token/:publicId/delete controllers.OAuthToken.delete(publicId: String)
+GET    /oauth                          controllers.OAuth.authorize
+POST   /oauth                          controllers.OAuth.legacyTokenApply
+GET    /oauth/authorize                controllers.OAuth.legacyAuthorize
+POST   /oauth/authorize                controllers.OAuth.authorizeApply
+POST   /oauth/revoke-client            controllers.OAuth.revokeClient
+POST   /api/token                      controllers.OAuth.tokenApply
+DELETE /api/token                      controllers.OAuth.tokenRevoke
+GET    /account/oauth/token            controllers.OAuthToken.index
+GET    /account/oauth/token/create     controllers.OAuthToken.create
+POST   /account/oauth/token/create     controllers.OAuthToken.createApply
+POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id: String)
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)

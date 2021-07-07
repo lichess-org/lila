@@ -2,16 +2,17 @@ package lila.oauth
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+import com.roundeights.hasher.Algo
 
 import lila.common.{ Bearer, SecureRandom }
 import lila.user.User
 
 case class AccessToken(
-    id: Bearer,
-    publicId: BSONObjectID,
+    id: AccessToken.Id,
+    plain: Bearer,
     userId: User.ID,
-    createdAt: Option[DateTime] = None, // for personal access tokens
-    description: Option[String] = None, // for personal access tokens
+    createdAt: Option[DateTime],
+    description: Option[String], // for personal access tokens
     usedAt: Option[DateTime] = None,
     scopes: List[OAuthScope],
     clientOrigin: Option[String],
@@ -22,15 +23,20 @@ case class AccessToken(
 
 object AccessToken {
 
+  case class Id(value: String) extends AnyVal
+  object Id {
+    def from(bearer: Bearer) = Id(Algo.sha256(bearer.secret).hex)
+  }
+
   case class ForAuth(userId: User.ID, scopes: List[OAuthScope])
 
   object BSONFields {
-    val id           = "access_token_id"
-    val publicId     = "_id"
-    val userId       = "user_id"
-    val createdAt    = "create_date"
+    val id           = "_id"
+    val plain        = "plain"
+    val userId       = "userId"
+    val createdAt    = "created"
     val description  = "description"
-    val usedAt       = "used_at"
+    val usedAt       = "used"
     val scopes       = "scopes"
     val clientOrigin = "clientOrigin"
     val expires      = "expires"
@@ -46,7 +52,8 @@ object AccessToken {
     BSONFields.scopes -> true
   )
 
-  implicit private[oauth] val accessTokenIdHandler = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
+  implicit private[oauth] val idHandler     = stringAnyValHandler[Id](_.value, Id.apply)
+  implicit private[oauth] val bearerHandler = stringAnyValHandler[Bearer](_.secret, Bearer.apply)
 
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
     def readDocument(doc: BSONDocument) =
@@ -62,8 +69,8 @@ object AccessToken {
 
     def reads(r: BSON.Reader): AccessToken =
       AccessToken(
-        id = r.get[Bearer](id),
-        publicId = r.get[BSONObjectID](publicId),
+        id = r.get[Id](id),
+        plain = r.get[Bearer](plain),
         userId = r str userId,
         createdAt = r.getO[DateTime](createdAt),
         description = r strO description,
@@ -76,7 +83,7 @@ object AccessToken {
     def writes(w: BSON.Writer, o: AccessToken) =
       $doc(
         id           -> o.id,
-        publicId     -> o.publicId,
+        plain        -> o.plain,
         userId       -> o.userId,
         createdAt    -> o.createdAt,
         description  -> o.description,

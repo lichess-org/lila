@@ -2,7 +2,6 @@ package lila.oauth
 
 import org.joda.time.DateTime
 import play.api.mvc.{ RequestHeader, Result }
-import scala.concurrent.duration._
 
 import lila.common.{ Bearer, HTTPRequest }
 import lila.db.dsl._
@@ -14,8 +13,6 @@ final class OAuthServer(
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  import AccessToken.accessTokenIdHandler
-  import AccessToken.{ BSONFields => F }
   import OAuthServer._
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
@@ -55,9 +52,7 @@ object OAuthServer {
   type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
-  case object ServerOffline                            extends AuthError("OAuth server is offline! Try again soon.")
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
-  case object InvalidAuthorizationHeader               extends AuthError("Invalid authorization header")
   case object NoSuchToken                              extends AuthError("No such token")
   case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
   case object NoSuchUser                               extends AuthError("No such user")
@@ -70,6 +65,4 @@ object OAuthServer {
       "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
       "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
     )
-
-  type Try = () => Fu[Option[OAuthServer]]
 }

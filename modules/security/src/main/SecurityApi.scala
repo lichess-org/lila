@@ -26,7 +26,7 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
-    tryOauthServer: lila.oauth.OAuthServer.Try,
+    oAuthServer: lila.oauth.OAuthServer,
     tor: Tor
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -122,17 +122,9 @@ final class SecurityApi(
 
   def oauthScoped(
       req: RequestHeader,
-      scopes: List[lila.oauth.OAuthScope],
-      retries: Int = 2
+      scopes: List[lila.oauth.OAuthScope]
   ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None if retries > 0 =>
-        lila.common.Future.delay(2 seconds) {
-          oauthScoped(req, scopes, retries - 1)
-        }
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
-    }
+    oAuthServer.auth(req, scopes) map { _ map stripRolesOfOAuthUser }
 
   private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
 
@@ -145,15 +137,6 @@ final class SecurityApi(
     else user
 
   private def stripRolesOfUser(user: User) = user.copy(roles = user.roles.filter(nonModRoles.contains))
-
-  def oauthScoped(
-      tokenId: Bearer,
-      scopes: List[lila.oauth.OAuthScope]
-  ): Fu[lila.oauth.OAuthServer.AuthResult] =
-    tryOauthServer().flatMap {
-      case None         => fuccess(Left(OAuthServer.ServerOffline))
-      case Some(server) => server.auth(tokenId, scopes)
-    }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
     store.openSessions(userId, nb) map {
