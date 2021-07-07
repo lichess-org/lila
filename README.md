@@ -48,7 +48,7 @@ Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and 
 run
 ```
 
-The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
+The Wiki describes [how to setup Lichess development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
 ## HTTP API
 
