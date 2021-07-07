@@ -311,12 +311,20 @@ final class Mod(
     Secure(_.SeeReport) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         (isGranted(_.Appeals) ?? env.appeal.api.exists(user)) flatMap { isAppeal =>
-          val f =
-            if (isAppeal) env.report.api.inquiries.appeal _
-            else env.report.api.inquiries.spontaneous _
-          f(me, Suspect(user)) inject {
-            if (isAppeal) Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
-            else redirect(user.username, mod = true)
+          isAppeal.??(env.report.api.inquiries.ongoingAppealOf(user.id)) flatMap {
+            case Some(ongoing) if ongoing.mod != me.id =>
+              env.user.lightUserApi.asyncFallback(ongoing.mod) map { mod =>
+                Redirect(routes.Appeal.show(user.username))
+                  .flashFailure(s"Currently processed by ${mod.name}")
+              }
+            case _ =>
+              val f =
+                if (isAppeal) env.report.api.inquiries.appeal _
+                else env.report.api.inquiries.spontaneous _
+              f(me, Suspect(user)) inject {
+                if (isAppeal) Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
+                else redirect(user.username, mod = true)
+              }
           }
         }
       }

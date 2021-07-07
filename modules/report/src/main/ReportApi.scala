@@ -556,6 +556,17 @@ final class ReportApi(
     def ofSuspectId(suspectId: User.ID): Fu[Option[Report.Inquiry]] =
       coll.primitiveOne[Report.Inquiry]($doc("inquiry.mod" $exists true, "user" -> suspectId), "inquiry")
 
+    def ongoingAppealOf(suspectId: User.ID): Fu[Option[Report.Inquiry]] =
+      coll.primitiveOne[Report.Inquiry](
+        $doc(
+          "inquiry.mod" $exists true,
+          "user"         -> suspectId,
+          "room"         -> Room.Other.key,
+          "atoms.0.text" -> Report.appealText
+        ),
+        "inquiry"
+      )
+
     /*
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.
