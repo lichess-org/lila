@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">Մարտահրավերներ</string>
+  <string name="challengeToPlay">Ուղարկել խաղի մարտահրավեր</string>
+  <string name="challengeDeclined">Մարտահրավերը մերժված է</string>
+  <string name="challengeAccepted">Մարտահրավերն ընդունված է</string>
+  <string name="challengeCanceled">Մարտահրավերը կասեցված է</string>
+  <string name="registerToSendChallenges">Գրանցվեք՝ մրցակիցներին խաղի հրավիրելու համար։</string>
+  <string name="youCannotChallengeX">Դուք չեք կարող խաղին հրավիրել %s-ին։</string>
+  <string name="xDoesNotAcceptChallenges">%s-ը չի ընդունում մարտահրավերները։</string>
+  <string name="yourXRatingIsTooFarFromY">Ձեր %1$s վարկանիշը շատ հեռու է %2$s-ից։</string>
+</resources>
