@@ -43,4 +43,9 @@
 Եթե խաղացողը խաղափուլի ընթացքում չունի մրցակից, նա բաց է թողնում այդ խաղափուլը՝ ստանալով մեկ միավոր։</string>
   <string name="tiebreaksCalculationQ">Ինչպես են հաշվարկվում լրացուցիչ ցուցանիշները։</string>
   <string name="sonnebornBergerScore">Զոննեբորգ-Բերգերի գործակից</string>
+  <string name="tiebreaksCalculationA">%s-ով։
+Գումարեք միավորների գումարը բոլոր այն մրցակիցների, որոնց հաղթել է խաղացողը, և միավորների կեսը այն մրցակիցների, որոնց հետ նա խաղացել է ոչ-ոքի։</string>
+  <string name="pairingsQ">Ինչպե՞ս են որոշվում զույգերը։</string>
+  <string name="dutchSystem">Հոլանդական համակարգ</string>
+  <string name="FIDEHandbook">ՖԻԴԵ-ի ղեկավարություն</string>
 </resources>
