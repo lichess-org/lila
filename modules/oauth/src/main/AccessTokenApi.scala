@@ -36,7 +36,7 @@ final class AccessTokenApi(colls: OauthColls, cacheApi: lila.memo.CacheApi, user
       description = granted.redirectUri.clientOrigin.some,
       scopes = granted.scopes,
       clientOrigin = granted.redirectUri.clientOrigin.some,
-      expires = DateTime.now().plusMonths(2).some
+      expires = DateTime.now().plusMonths(12).some
     )
     create(token) inject token
   }
