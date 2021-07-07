@@ -60,6 +60,10 @@
   <string name="pairingsQ">Conas a roghnaítear péireáil?</string>
   <string name="dutchSystem">Córas Dúitseach</string>
   <string name="FIDEHandbook">Lámhleabhar FIDE</string>
+  <string name="roundRobinQ">Cad faoi Round Robin?</string>
+  <string name="otherSystemsQ">Cad mar gheall ar chórais comórtais eile?</string>
+  <string name="otherSystemsA">Níl sé beartaithe againn níos mó córas comórtais a chur le Lichess i láthair na huaire.</string>
+  <string name="joinOrCreateTeam">Bí ar fhoireann nó cruthaigh foireann</string>
   <string name="startingSoon">Ag tosú go luath</string>
   <string name="comparison">Comparáid</string>
   <string name="tournDuration">Fad an chomórtais</string>
