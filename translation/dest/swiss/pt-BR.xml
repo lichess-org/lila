@@ -50,6 +50,12 @@ Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um by
   <string name="restrictedToTeamsA">Torneios suíços não foram feitos para o xadrez online. Eles demandam pontualidade, dedicação e paciência dos jogadores.
 Pensamos que é mais provável encontrar essas condições em uma equipe, do que em torneios globais.</string>
   <string name="numberOfByesQ">Quantos byes um jogador pode ganhar?</string>
+  <string name="numberOfByesA">Um jogador ganha um bye valendo um ponto, toda vez que o sistema de pareamento não conseguir achar um adversário.
+Além disso, um bye valendo meio ponto é dado ao jogador, se ele entrar atrasado no torneio.</string>
+  <string name="whatIfOneDoesntPlayQ">O que acontece se um jogador não comparecer a uma partida?</string>
+  <string name="whatIfOneDoesntPlayA">O relógio vai começar, ele será reportado e perderá a partida.
+Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca mais jogos.
+ O jogador pode retornar ao torneio a qualquer momento.</string>
   <string name="lateJoinQ">Os jogadores podem entrar atrasados?</string>
   <string name="willSwissReplaceArenasQ">Os torneios suíços substituirão os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. Eles são torneios complementares.</string>
