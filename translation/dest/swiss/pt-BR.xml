@@ -48,6 +48,9 @@ Adicione as pontuações de cada oponente que o jogador derrotar, e metade da po
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="pairingsA">Com o %1$s, implementado por %2$s, de acordo com o %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">O que acontece se o torneio tiver mais rodadas que jogadores?</string>
+  <string name="moreRoundsThanPlayersA">Quando todos os pareamentos possíveis forem jogados, o torneio terminará e um vencedor será declarado.</string>
   <string name="restrictedToTeamsQ">Por que ele é restringido a equipes?</string>
   <string name="restrictedToTeamsA">Torneios suíços não foram feitos para o xadrez online. Eles demandam pontualidade, dedicação e paciência dos jogadores.
 Pensamos que é mais provável encontrar essas condições em uma equipe, do que em torneios globais.</string>
@@ -69,6 +72,7 @@ O motivo é a injustiça com as pessoas que saem do torneio antes. Não podemos 
 O mais próximo que se pode ter de um round robin online, é jogar um torneio suíço com um alto número de partidas. Assim, todos os pareamentos possíveis serão jogados antes de o torneio acabar.</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
   <string name="otherSystemsA">Não planejamos adicionar mais sistemas de torneio ao Lichess no momento.</string>
+  <string name="swissDescription">Em um torneio suíço %1$s, cada jogador não necessariamente enfrenta todos os outros oponentes. Os competidores se encontram um a um em cada rodada, e são pareados segundo uma série de regras para que cada jogador enfrente oponentes com pontuações similares, mas nunca o mesmo oponente mais de uma vez. O vencedor é o competidor com a maior quantidade de pontos acumulados em todas as rodadas. Todos os competidores jogam em cada rodada, a menos que haja um número ímpar de rodadas.</string>
   <string name="teamOnly">Torneios suíços só podem ser criados por líderes de equipe, e só podem ser jogados pelos membros de uma equipe.           
 %1$s para começar a jogar em torneios suíços.</string>
   <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
