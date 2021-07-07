@@ -9,4 +9,13 @@
   <string name="youCannotChallengeX">Դուք չեք կարող խաղին հրավիրել %s-ին։</string>
   <string name="xDoesNotAcceptChallenges">%s-ը չի ընդունում մարտահրավերները։</string>
   <string name="yourXRatingIsTooFarFromY">Ձեր %1$s վարկանիշը շատ հեռու է %2$s-ից։</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Հնարավոր չէ հրավիրել խաղի՝ %s վարկանիշի անհավաստիության պատճառով։</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s-ն մարտահրավերներ է ընդունում միայն ընկերներից։</string>
+  <string name="declineGeneric">Այս պահին մարտահրավերներ չեմ ընդունում։</string>
+  <string name="declineLater">Այս պահին մարտահրավերներ չեմ ընդունում, խնդրում եմ, հրավիրեք ինձ ավելի ուշ։</string>
+  <string name="declineTooFast">Այդ ժամակարգն ինձ համար շատ արագ է, խնդրում եմ, հրավիրեք ինձ ավելի երկար ժամակարգով խաղի։</string>
+  <string name="declineTooSlow">Այդ ժամակարգն ինձ համար շատ դանդաղ է, խնդրում եմ, հրավիրեք ինձ ավելի կարճ ժամակարգով խաղի։</string>
+  <string name="declineTimeControl">Այդպիսի ժամակարգով մարտահրավերներ չեմ ընդունում։</string>
+  <string name="declineRated">Հրավիրեք ինձ վարկանիշային խաղի, խնդրում եմ։</string>
+  <string name="declineCasual">Հրավիրեք ինձ ընկերական խաղի, խնդրում եմ։</string>
 </resources>
