@@ -29,6 +29,13 @@
   <string name="forbiddenPairings">금지된 페어링</string>
   <string name="forbiddenPairingsHelp">함께 플레이해서는 안되는 플레이어(예 : 형제)의 사용자 ID. 한 줄에 두 개의 ID를 공백으로 구분해서 입력합니다.</string>
   <string name="newSwiss">새 스위스 토너먼트</string>
+  <string name="swissVsArenaQ">언제 아레나 대신 스위스 토너먼트를 사용해야 하나요?</string>
+  <string name="swissVsArenaA">스위스 토너먼트에서는 모든 참가자가 같은 수의 게임을 하고 서로 한 번만 플레이 할 수 있습니다.
+클럽과 공식 토너먼트에 좋은 옵션이 될 수 있습니다.</string>
+  <string name="pointsCalculationQ">승점은 어떻게 계산되나요?</string>
+  <string name="pointsCalculationA">승리는 1점, 무승부는 0.5점, 패배는 0점입니다.
+라운드에 매치되지 않은 플레이어는 부전승으로 1점을 얻습니다.</string>
+  <string name="swissDescription">스위스 토너먼트%1$s에서는, 각 경쟁자는 다른 모든 참가자들과 플레이하는 것은 아닙니다. 경쟁자들은 비슷한 승점을 가진 상대와 만나고 이미 만난 상대와는 다시 만나지 않는 규칙을 이용해 일대일로 각 라운드에 매치됩니다. 승자는 모든 라운드에서 가장 높은 승점을 얻은 플레이어입니다. 참가자가 홀수인 경우를 제외하면 모든 참가자는 모든 라운드를 플레이합니다.</string>
   <string name="teamOnly">스위스 토너먼트는 팀 리더만 생성할 수 있고 팀 멤버만 참여할 수 있습니다.           
 스위스 토너먼트를 시작하기 위해서는 %1$s.</string>
   <string name="joinOrCreateTeam">팀에 가입하거나 새로 만드세요</string>
