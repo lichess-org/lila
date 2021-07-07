@@ -10,9 +10,15 @@
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">%s일마다 1라운드</item>
   </plurals>
+  <string name="teamOnly">스위스 토너먼트는 팀 리더만 생성할 수 있고 팀 멤버만 참여할 수 있습니다.           
+스위스 토너먼트를 시작하기 위해서는 %1$s.</string>
+  <string name="joinOrCreateTeam">팀에 가입하거나 새로 만드세요</string>
   <string name="nowPlaying">진행중</string>
   <string name="startingSoon">곧 시작됨</string>
   <string name="comparison">비교</string>
+  <string name="tournDuration">토너먼트 기간</string>
+  <string name="predefinedDuration">시간(분)이 미리 정해짐</string>
+  <string name="durationUnknown">최대 라운드가 미리 정해짐, 하지만 시간은 알 수 없음</string>
   <string name="numberOfGames">게임의 수</string>
   <string name="numberOfGamesAsManyAsPossible">주어진 시간 동안 가능한 만큼</string>
   <string name="numberOfGamesPreDefined">미리 결정됨. 모든 플레이어가 동일</string>
@@ -28,6 +34,7 @@
   <string name="lateJoin">늦게 참가</string>
   <string name="lateJoinUntil">절반 이상 라운드가 지나기 전까지 가능</string>
   <string name="pause">일시 중지</string>
+  <string name="pauseSwiss">예 하지만 라운드가 줄어들 수 있습니다</string>
   <string name="streaksAndBerserk">연승/버서크 모드</string>
   <string name="similarToOTB">OTB 토너먼트와 유사한가</string>
   <string name="unlimitedAndFree">무제한/무료인가</string>
