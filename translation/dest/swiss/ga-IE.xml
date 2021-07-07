@@ -76,6 +76,7 @@
   <string name="pairingWaitTime">Aga feithimh péireála</string>
   <string name="pairingWaitTimeFast">Tapaigh: Ní fhanann sé le gach imreoir</string>
   <string name="pairingWaitTimeSlow">Mall: fanann sé do gach imreoir</string>
+  <string name="identicalPairing">Péireáil chomhionann</string>
   <string name="identicalForbidden">Faoi chosc</string>
   <string name="lateJoin">Comhcheangail déanach</string>
   <string name="pause">Sos</string>
