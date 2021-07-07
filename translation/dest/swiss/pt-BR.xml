@@ -43,6 +43,8 @@ Pode ser uma boa opção para clubes e torneios oficiais.</string>
 Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um bye valendo um ponto.</string>
   <string name="tiebreaksCalculationQ">Como os desempates são calculados?</string>
   <string name="sonnebornBergerScore">Pontuação Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Com a %s.
+Adicione as pontuações de cada oponente que o jogador derrotar, e metade da pontuação de cada oponente com o qual o jogador empatar.</string>
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
@@ -62,8 +64,13 @@ Jogadores atrasados ganham apenas um bye, mesmo se eles perderem várias rodadas
   <string name="willSwissReplaceArenasQ">Os torneios suíços substituirão os torneios de arena?</string>
   <string name="willSwissReplaceArenasA">Não. Eles são torneios complementares.</string>
   <string name="roundRobinQ">E quanto ao round robin?</string>
+  <string name="roundRobinA">Gostaríamos de adicioná-lo, mas infelizmente o round robin não funciona no xadrez online.
+O motivo é a injustiça com as pessoas que saem do torneio antes. Não podemos esperar que todos os jogadores joguem todas as suas partidas em um evento online. Isso simplesmente não acontece, então a maioria dos torneios round robin seria injusta, contradizendo sua própria essência.
+O mais próximo que se pode ter de um round robin online, é jogar um torneio suíço com um alto número de partidas. Assim, todos os pareamentos possíveis serão jogados antes de o torneio acabar.</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
   <string name="otherSystemsA">Não planejamos adicionar mais sistemas de torneio ao Lichess no momento.</string>
+  <string name="teamOnly">Torneios suíços só podem ser criados por líderes de equipe, e só podem ser jogados pelos membros de uma equipe.           
+%1$s para começar a jogar em torneios suíços.</string>
   <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
   <string name="startingSoon">Começando em breve</string>
   <string name="comparison">Comparação</string>
