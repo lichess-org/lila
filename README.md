@@ -36,7 +36,7 @@ Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).
 Please help us [translate Lichess with Crowdin](https://crowdin.com/project/lichess).
 
-See [lichess.org/source](https://lichess.org/source) for a list of repositories.
+See [lichess.org/source](https://lichess.org/source) for a list of Lichess repositories.
 
 [Join us on Discord](https://discord.gg/lichess) for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
