@@ -9,7 +9,7 @@
   <string name="youCannotChallengeX">Вы не можаце выклікаць на гульню %s.</string>
   <string name="xDoesNotAcceptChallenges">%s не прымае выклікі.</string>
   <string name="yourXRatingIsTooFarFromY">Ваш рэйтынг у рэжыме «%1$s» значна адрозніваецца ад %2$s.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Не магчыма выклікаць на гульню з неўсталяваным %s рэйтынгам.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">Не магчыма выклікаць на гульню з умоўным %s рэйтынгам.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s прымае выклікі толькі ад сяброў.</string>
   <string name="declineGeneric">Не прымаю выклікі на дадзены момант.</string>
   <string name="declineLater">Гэта ня зрычны час для мяне, калі ласка, спытайцеся пазней.</string>
