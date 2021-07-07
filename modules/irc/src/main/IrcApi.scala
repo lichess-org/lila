@@ -60,9 +60,9 @@ final class IrcApi(
   def monitorMod(modId: User.ID, icon: String, text: String, tpe: MonitorType): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
-        val md = s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
-        zulip(_.mod.adminMonitor(tpe), mod.name)(md) >>
-          zulip(_.mod.adminMonitorAll, mod.name)(md)
+        zulip(_.mod.adminMonitor(tpe), mod.name)(
+          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
+        )
       }
     }
 
@@ -84,7 +84,7 @@ final class IrcApi(
     )
 
   def garbageCollector(msg: String): Funit =
-    zulip(_.mod.log, "garbage collector")(markdown linkifyUsers msg)
+    zulip(_.mod.adminLog, "garbage collector")(markdown linkifyUsers msg)
 
   def broadcastError(id: String, name: String, error: String): Funit =
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")

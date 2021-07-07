@@ -63,7 +63,6 @@ private object ZulipClient {
       val commsPrivate                          = "mod-comms-private"
       val hunterCheat                           = "mod-hunter-cheat"
       def adminMonitor(tpe: IrcApi.MonitorType) = s"mod-admin-monitor-${tpe.key}"
-      def adminMonitorAll                       = "mod-admin-monitor-all"
       def adminAppeal                           = "mod-admin-appeal"
     }
     val general   = "general"
