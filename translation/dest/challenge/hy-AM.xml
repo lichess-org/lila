@@ -18,4 +18,6 @@
   <string name="declineTimeControl">Այդպիսի ժամակարգով մարտահրավերներ չեմ ընդունում։</string>
   <string name="declineRated">Հրավիրեք ինձ վարկանիշային խաղի, խնդրում եմ։</string>
   <string name="declineCasual">Հրավիրեք ինձ ընկերական խաղի, խնդրում եմ։</string>
+  <string name="declineStandard">Ես չեմ ընդունում ոչ դասական շախմատի մարտահրավերներ հենց հիմա։</string>
+  <string name="declineVariant">Ես չեմ ցանկանում շախմատի այս տարբերակը խաղալ հիմա։</string>
 </resources>
