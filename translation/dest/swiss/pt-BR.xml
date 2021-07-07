@@ -46,4 +46,7 @@ Se um jogador não puder ser emparelhado durante uma rodada, ele receberá um by
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sim mas poderia reduzir o número de rodadas</string>
+  <string name="streaksAndBerserk">Sequências e Berserk</string>
 </resources>
