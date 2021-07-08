@@ -7,7 +7,7 @@
   <string name="newDailyHighscore">¡Nuevo récord de puntuación diaria!</string>
   <string name="newWeeklyHighscore">¡Nuevo récord de puntuación semanal!</string>
   <string name="newMonthlyHighscore">¡Nuevo récord de puntuación mensual!</string>
-  <string name="newAllTimeHighscore">¡Nueva puntuación más alta absoluta!</string>
+  <string name="newAllTimeHighscore">¡Nuevo récord absoluto!</string>
   <string name="previousHighscoreWasX">El nuevo récord de puntuación era %s</string>
   <string name="playAgain">Jugar de nuevo</string>
   <plurals name="xRuns">
@@ -25,7 +25,7 @@
   <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movida</string>
-  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
+  <string name="highestSolved">Ejercicio más difícil resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
@@ -44,7 +44,7 @@
   <string name="nextRace">Próxima carrera</string>
   <string name="joinRematch">Unirse a la revancha</string>
   <string name="waitingToStart">Esperando para empezar</string>
-  <string name="createNewGame">Crear una nueva carrera</string>
+  <string name="createNewGame">Crear una nuevo juego</string>
   <string name="joinPublicRace">Unirse a una carrera pública</string>
   <string name="raceYourFriends">Competí con tus amigos</string>
   <string name="skip">omitir</string>
