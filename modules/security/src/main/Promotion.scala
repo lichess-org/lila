@@ -21,7 +21,7 @@ final class PromotionApi(domain: NetDomain) {
 
   def save(user: User, text: String): Unit = {
     val promotions = extract(text)
-    if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ extract(text))
+    if (promotions.nonEmpty) cache.put(user.id, ~cache.getIfPresent(user.id) ++ promotions)
   }
 
   private type Id = String
