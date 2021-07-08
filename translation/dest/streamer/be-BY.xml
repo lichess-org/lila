@@ -42,4 +42,9 @@
   <string name="changePicture">Змяніць/выдаліць вашу выяву</string>
   <string name="uploadPicture">Загрузіць выяву</string>
   <string name="deletePicture">Выдаліць выяву</string>
+  <string name="installBlocker">Усталюйце блакавальнік шкоднасных праграм!</string>
+  <string name="beSafe">Будзьце абаронены ад рэкламы і трэкераў
+навадняючых Twich і Youtube.
+Lichess раіць uBlock Origin,
+бясплатны і з адкрытым зыходным кодам.</string>
 </resources>
