@@ -5,4 +5,8 @@
   <string name="advantage">Առավելություն</string>
   <string name="advantageDescription">Օգտագործեք որոշիչ առավելություն ստանալու Ձեր հնարավորությունը (200-ից 600 սանտիզինվոր)</string>
   <string name="anastasiaMate">Անաստասիայի մատ</string>
+  <string name="anastasiaMateDescription">Ձին և նավակը (կամ թագուհին) մրցակցի արքային մատ են անում խաղատախտակի եզրի և մրցակցի այլ խաղաքարի միջև։</string>
+  <string name="arabianMate">Արաբական մատ</string>
+  <string name="arabianMateDescription">Ձին և նավակը մրցակցի արքային մատ են անում խաղատախտակի անկյունում։</string>
+  <string name="attackingF2F7">Գրոհ f2-ի կամ f7-ի վրա</string>
 </resources>
