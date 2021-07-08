@@ -29,6 +29,7 @@
   </plurals>
   <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
   <string name="lastActiveDate">Анлайн</string>
+  <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
   <string name="students">Студэнты</string>
   <string name="progress">Прагрэс</string>
   <string name="noStudents">Пакуль ніводнага студэнта на занятку.</string>
