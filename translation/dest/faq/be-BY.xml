@@ -42,6 +42,8 @@
   <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
   <string name="positions">пазіцыі</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Мы паўторылі хады тры разы. Чаму гульня не была скончана ўнічыю?</string>
+  <string name="threeFoldHasToBeClaimed">Паўтарэнне патрабна быць зафіксавана адным з гульцоў. Гэта магчыма зрабіць націснуўшы на адлюстраваную кнопку, альбо прапанаваўшы нічыю перад фінальным паўтарэннем хода, не мае значэнне калі ваш супер адхіліць прапанову, нічыя будзе зафіксавана ўсёроўна. Вы таксама можаце %1$s Lichess, каб аўтаматычна фіксаваць нічыю пры паўтарэннях. Дадаткова, пры 5 разовым паўтарэнні гульня скончваецца ў нічыю аўтаматычна.</string>
+  <string name="configure">наладзіць</string>
   <string name="accounts">Акаўнты</string>
   <string name="titlesAvailableOnLichess">Якія тытулы існуюць на Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess прызнае ўсе тытулы ФІДЭ, атрыманыя ў рэальным жыцці, а таксама %1$s. Вось спіс тытулаў ФІДЭ:</string>
@@ -60,6 +62,8 @@
 
 Не выпрошвайце тытул LM.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
+  <string name="usernamesNotOffensive">Увогуле, імёны карыстальнікай не павінны баць: абражаючымі, рэкламнымі, або выдаючымі вас за кагосьці іншага. Больш чытайце ў %1$s.</string>
+  <string name="guidelines">рэкамендацыях</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
