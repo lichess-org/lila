@@ -570,7 +570,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Thời gian đã chơi: %s</string>
   <string name="watchGames">Xem các ván đấu</string>
-  <string name="tpTimeSpentOnTV">Thời gian xem Lichess TV: %s</string>
+  <string name="tpTimeSpentOnTV">Thời gian hiển thị trên Lichess TV: %s</string>
   <string name="watch">Xem</string>
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các streamer</string>
