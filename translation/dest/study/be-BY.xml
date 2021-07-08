@@ -2,7 +2,7 @@
 <resources>
   <string name="private">Прыватнае</string>
   <string name="myStudies">Мае навучанні</string>
-  <string name="studiesIContributeTo">Навучанні, якія я распрацоўваю</string>
+  <string name="studiesIContributeTo">Навучанні, якія я рэдагую</string>
   <string name="myPublicStudies">Мае публічныя навучанні</string>
   <string name="myPrivateStudies">Мае прыватные навучанні</string>
   <string name="myFavoriteStudies">Мае ўлюбленые навучанні</string>
@@ -15,13 +15,38 @@
   <string name="dateAddedOldest">Дата дадання (старэйшыя)</string>
   <string name="recentlyUpdated">Нядаўна абноўленыя</string>
   <string name="mostPopular">Найбольш папулярныя</string>
+  <string name="addNewChapter">Дадаць новы раздзел</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s раздзел</item>
+    <item quantity="few">%s раздзелы</item>
+    <item quantity="many">%s раздзелаў</item>
+    <item quantity="other">%s раздзелаў</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s партыя</item>
+    <item quantity="few">%s партыі</item>
+    <item quantity="many">%s партый</item>
+    <item quantity="other">%s партый</item>
+  </plurals>
   <string name="addMembers">Дадаць удзельнікаў</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s удзельнік</item>
+    <item quantity="few">%s удзельніка</item>
+    <item quantity="many">%s удзельнікаў</item>
+    <item quantity="other">%s удзельнікаў</item>
+  </plurals>
+  <string name="inviteToTheStudy">Закліцца да навучання</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Калі ласка, заклікайце толькі людзей, якіх вы ведаеце, та тых хто актыўна хоча далучыцца да навучання.</string>
   <string name="searchByUsername">Шукаць па імені карыстальніка</string>
   <string name="spectator">Глядач</string>
+  <string name="contributor">Рэдактар</string>
   <string name="kick">Выдаліць</string>
+  <string name="leaveTheStudy">Пакінуць навучанне</string>
+  <string name="youAreNowAContributor">Вы цяпер рэдактар</string>
   <string name="like">Падабайка</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
+  <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
   <string name="first">На першую</string>
   <string name="previous">Папярэдняя</string>
   <string name="next">Наступная</string>
@@ -30,9 +55,11 @@
   <string name="downloadAllGames">Спампаваць усе гульні</string>
   <string name="downloadGame">Спампаваць гульню</string>
   <string name="analysisMode">Рэжым аналізу</string>
+  <string name="deleteChapter">Выдаліць раздзел</string>
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
   <string name="public">Публічны</string>
+  <string name="contributors">Рэдактары</string>
   <string name="clearChat">Ачысціць чат</string>
   <string name="interestingMove">Цікавы ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Адзіны ход</string>
