@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Դուք խաղում եք սպիտակ խաղաքարերով։</string>
   <string name="youPlayTheBlackPieces">Դուք խաղում եք սև խաղաքարերով։</string>
   <string name="itsYourTurn">Ձեր Քայլն է!</string>
+  <string name="cheatDetected">Հայտնաբերվել է խարդախություն</string>
   <string name="kingInTheCenter">Արքան կենտրոնում է</string>
   <string name="threeChecks">Երեք շախ</string>
   <string name="raceFinished">Մրցավազքը ավարտվեց</string>
@@ -97,9 +98,13 @@
   <string name="importPgn">Ներմուծել PGN</string>
   <string name="delete">Ջնջել</string>
   <string name="deleteThisImportedGame">Ջնջե՞լ ներմուծված խաղը</string>
+  <string name="replayMode">Դիտել կրկնապատկերը</string>
+  <string name="realtimeReplay">Ինչպես պարտիայում</string>
+  <string name="byCPL">Ըստ սխալների</string>
   <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
+  <string name="evaluationGauge">Գնահատման սանդղակ</string>
   <string name="multipleLines">Մի քանի շարունակություն</string>
   <string name="cpus">Պրոցեսորներ</string>
   <string name="memory">Հիշողություն</string>
