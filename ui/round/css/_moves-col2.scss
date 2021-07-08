@@ -42,7 +42,7 @@
   .message {
     display: flex;
     align-items: center;
-    margin: 1em;
+    margin: 0 1em;
     &::before {
       color: $c-font-dim;
       font-size: 3em;

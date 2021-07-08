@@ -9,10 +9,10 @@
   }
   @include breakpoint($mq-col2-uniboard) {
     &-top {
-      margin-bottom: $block-gap;
+      margin-bottom: 2vmin;
     }
     &-bottom {
-      margin-top: $block-gap;
+      margin-top: 2vmin;
     }
   }
 }
