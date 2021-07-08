@@ -43,6 +43,7 @@
   <string name="kick">Выдаліць</string>
   <string name="leaveTheStudy">Пакінуць навучанне</string>
   <string name="youAreNowAContributor">Вы цяпер рэдактар</string>
+  <string name="pgnTags">Тэгі PGN</string>
   <string name="like">Падабайка</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
@@ -52,15 +53,32 @@
   <string name="next">Наступная</string>
   <string name="last">На апошнюю</string>
   <string name="cloneStudy">Кланаваць</string>
+  <string name="studyPgn">PGN навучання</string>
   <string name="downloadAllGames">Спампаваць усе гульні</string>
+  <string name="chapterPgn">PGN раздзелу</string>
   <string name="downloadGame">Спампаваць гульню</string>
+  <string name="studyUrl">URL навучання</string>
+  <string name="currentChapterUrl">URL бягучага раздзелу</string>
+  <string name="studyNotFound">Навучанне не знойдзена</string>
+  <string name="editChapter">Рэдагаваць раздзел</string>
+  <string name="newChapter">Новы раздзел</string>
   <string name="analysisMode">Рэжым аналізу</string>
   <string name="deleteChapter">Выдаліць раздзел</string>
+  <string name="editor">Рэдактар</string>
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
+  <string name="urlOfTheGame">URL гульняў, адзін на радок</string>
   <string name="public">Публічны</string>
+  <string name="allowCloning">Дазволіць кланаванне</string>
+  <string name="nobody">Ніхто</string>
+  <string name="onlyMe">Толькі я</string>
   <string name="contributors">Рэдактары</string>
+  <string name="members">Удзельнікі</string>
   <string name="clearChat">Ачысціць чат</string>
+  <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
+  <string name="deleteStudy">Выдаліць навучанне</string>
+  <string name="deleteTheEntireStudy">Выдаліць навучанне цалкам? Гэта нельга будзе адмяніць!</string>
+  <string name="mistake">Памылка</string>
   <string name="interestingMove">Цікавы ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Адзіны ход</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
@@ -75,4 +93,6 @@
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Цэйтнот</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">З кампенсацыяй</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">З ідэяй</string>
+  <string name="nextChapter">Наступны раздзел</string>
+  <string name="prevChapter">Папярэдні раздзел</string>
 </resources>
