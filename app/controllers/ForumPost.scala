@@ -5,6 +5,7 @@ import views._
 
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
+import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
@@ -89,10 +90,10 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                 for {
                   userId    <- post.userId
                   reasonOpt <- forms.deleteWithReason.bindFromRequest().value
-                  reason    <- reasonOpt
+                  reason    <- reasonOpt.filter(MsgPreset.forumDeletion.presets.contains)
                   preset =
-                    if (isGranted(_.ModerateForum)) lila.msg.MsgPreset.forumDeletionByModerator
-                    else lila.msg.MsgPreset.forumDeletionByTeamLeader
+                    if (isGranted(_.ModerateForum)) MsgPreset.forumDeletion.byModerator
+                    else MsgPreset.forumDeletion.byTeamLeader
                 } env.msg.api.systemPost(userId, preset(reason))
                 NoContent
               }

@@ -212,12 +212,7 @@ object topic {
           cls := "form-control"
         )(
           option(value := "")("no message"),
-          List(
-            "public shaming",
-            "disrespecting other players",
-            "spamming",
-            "inappropriate behavior"
-          ).map { reason =>
+          lila.msg.MsgPreset.forumDeletion.presets.map { reason =>
             option(value := reason)(reason)
           }
         ),
