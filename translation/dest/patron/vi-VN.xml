@@ -52,6 +52,7 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
   <string name="nextPayment">Thanh toán tiếp theo</string>
   <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Quyên góp thêm ngay bây giờ</string>
+  <string name="giftPatronWings">Tặng đôi cánh Patron cho kỳ thủ</string>
   <string name="update">Cập nhật</string>
   <string name="changeMonthlyAmount">Đổi lượng tiền hàng tháng (%s)</string>
   <string name="cancelSupport">hủy sự giúp đỡ của bạn</string>
