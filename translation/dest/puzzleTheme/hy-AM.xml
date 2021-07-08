@@ -23,4 +23,22 @@
   <string name="capturingDefender">Պաշտպանի վերացում</string>
   <string name="capturingDefenderDescription">Այլ խաղաքարը պաշտպանող խաղաքարի շահում կամ փոխանակում՝ հետագայում անպաշտպան մնացած խաղաքարի շահումով։</string>
   <string name="crushing">Ջախջախում</string>
+  <string name="crushingDescription">Օգտագործեք մրցակցի վրիպումը՝ ջախջախիչ առավելություն (600 և ավելի սանտիզինվոր) ստանալու համար</string>
+  <string name="doubleBishopMate">Մատ երկու փղով</string>
+  <string name="doubleBishopMateDescription">Հարակից անկյունագծերում գտնվող երկու փղերը մատ են հայտարարում մրցակցի արքային, որը շրջափակված է սեփական խաղաքարերով։</string>
+  <string name="dovetailMate">«Ծիծեռնակի պոչ» մատ</string>
+  <string name="dovetailMateDescription">Մատ թագուհով կողքին կանգնած արքային, որի նահանջի միակ երկու դաշտերը զբաղեցնում են սեփական խաղաքարերը։</string>
+  <string name="equality">Հավասարեցում</string>
+  <string name="equalityDescription">Պարտված դիրքից հավասարեցրեք խաղը. պարտիան ավարտեք ոչ-ոքի կամ ստացեք նյութական հավասարություն (200 սանտիզինվորից պակաս)</string>
+  <string name="kingsideAttack">Գրոհ արքայական թևում</string>
+  <string name="kingsideAttackDescription">Գրոհ մրցակցի՝ կարճ կողմում փոխատեղում կատարած արքայի վրա։</string>
+  <string name="clearance">Գծի կամ դաշտի ազատում</string>
+  <string name="clearanceDescription">Որպես կանոն, տեմպով կատարվող քայլ, որն ազատում է դաշտը, գիծը կամ անկյունագիծը՝ մարտավարական մտահղացումն իրագործելու նպատակով։</string>
+  <string name="defensiveMove">Պաշտպանական քայլ</string>
+  <string name="defensiveMoveDescription">Ճշգրիտ քայլ կամ քայլերի հաջորդականություն, որոնք անհրաժեշտ են նյութական կամ առավելության կորստից խուսափելու համար։</string>
+  <string name="deflection">Շեղում</string>
+  <string name="doubleCheck">Կրկնակի շախ</string>
+  <string name="endgame">Վերջնախաղ</string>
+  <string name="exposedKing">Մերկ արքա</string>
+  <string name="fork">Պատառաքաղ</string>
 </resources>
