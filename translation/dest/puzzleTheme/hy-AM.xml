@@ -37,8 +37,18 @@
   <string name="defensiveMove">Պաշտպանական քայլ</string>
   <string name="defensiveMoveDescription">Ճշգրիտ քայլ կամ քայլերի հաջորդականություն, որոնք անհրաժեշտ են նյութական կամ առավելության կորստից խուսափելու համար։</string>
   <string name="deflection">Շեղում</string>
+  <string name="deflectionDescription">Քայլ, որը մրցակցի խաղաքարը շեղում է կարևոր խնդրից, օրինակ, հանգուցային դաշտի պաշտպանությունից։</string>
+  <string name="discoveredAttack">Բացված հարձակում</string>
+  <string name="discoveredAttackDescription">Քայլ խաղաքարով, որ ծածկում է հեռահար խաղաքարի գրոհի գիծը։ Օրինակ, քայլ ձիով, որով բացվում է գիծը նրա հետևում կանգնած նավակի համար։</string>
   <string name="doubleCheck">Կրկնակի շախ</string>
+  <string name="doubleCheckDescription">Շախ միաժամանակ երկու խաղաքարով՝ բաց հարձակման միջոցով։ Հնարավոր չէ վերցնել երկու գրոհող խաղաքարերը և հնարավոր չէ ծածկվել դրանցից, հետևաբար արքան կարող է միայն հեռանալ շախից։</string>
   <string name="endgame">Վերջնախաղ</string>
+  <string name="endgameDescription">Մարտավարություն խաղի վերջնամասում։</string>
+  <string name="enPassantDescription">Մարտավարություն «կողանցիկ հարված» կանոնի կիրառմամբ, որտեղ զինվորը կարող է հարվածել մրցակցի զինվորը, որը առաջին քայլն է կատարել՝ տեղաշարժվելով երկու դաշտ, ընդ որում՝ հատվող դաշտը գտնվում է մրցակցի զինվորի հարվածի տակ, որը կարող է վերցնել այդ զինվորը։</string>
   <string name="exposedKing">Մերկ արքա</string>
+  <string name="exposedKingDescription">Անպաշտպան կամ թույլ պաշտպանված արքան հաճախ դառնում է մատային գրոհի զոհը։</string>
   <string name="fork">Պատառաքաղ</string>
+  <string name="forkDescription">Քայլ, որի դեպքում հարվածի տակ է հայտնվում մրցակցի երկու խաղաքար։</string>
+  <string name="hangingPiece">Անպաշտպան խաղաքար</string>
+  <string name="hookMate">Հուք մատ</string>
 </resources>
