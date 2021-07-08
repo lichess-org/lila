@@ -16,6 +16,7 @@
   <string name="xIsStreaming">%s у эфіры</string>
   <string name="rules">Правілы стрымаў</string>
   <string name="rule1">Уключыце ключавое слова \"lichess.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lichess.</string>
+  <string name="rule2">Выдаліце ключавое слова калі стрыміце не-Lichess дзейнасць.</string>
   <string name="perks">Перавагі стрыму з ключавым словам</string>
   <string name="perk3">Паведамляе падпісчыкаў.</string>
   <string name="approved">Ваш стрым зацверджана.</string>
