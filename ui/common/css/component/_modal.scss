@@ -21,7 +21,7 @@
     }
 
     .close {
-      color: $c-font;
+      color: var(--c-font);
       position: absolute;
       font-size: 16px;
       line-height: 27px;

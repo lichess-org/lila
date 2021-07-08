@@ -34,7 +34,7 @@
 
     .liking:hover {
       opacity: 1;
-      color: $c-red;
+      color: $c-bad;
     }
   }
 }
@@ -44,7 +44,7 @@
 
   th {
     font-weight: bold;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     width: 1px;
     padding: 0 0.3em 0 1em !important;
   }
@@ -68,7 +68,7 @@
 
   input:hover,
   input:focus {
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: var(--c-primary-faded-90);
   }
 
   select {
@@ -87,7 +87,7 @@
   .topic {
     @extend %box-radius;
 
-    background: mix($c-primary, $c-bg-box, 17%);
+    background: var(--c-primary-faded-80);
     padding: 0.2em 0.6em;
     margin: 0.2em;
   }

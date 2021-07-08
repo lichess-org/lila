@@ -54,8 +54,8 @@
     display: block;
     border-radius: 20px;
     padding: 1rem;
-    background: mix($c-error, $c-bg-box, 15%);
-    border: 1px solid $c-error;
+    background: mix($c-bad, $c-bg-box, 15%);
+    border: 1px solid $c-bad;
     margin-bottom: 2rem;
   }
 
@@ -91,12 +91,12 @@
     }
 
     > div:hover {
-      color: $c-primary;
+      color: var(--c-primary);
     }
 
     > .active {
-      color: $c-primary;
-      border-bottom: 3px solid $c-primary;
+      color: var(--c-primary);
+      border-bottom: 3px solid var(--c-primary);
     }
   }
 

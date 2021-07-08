@@ -16,7 +16,7 @@
   @include transition;
 
   text-shadow: $text-shadow;
-  color: $c-font;
+  color: var(--c-font);
 
   &.invert,
   &.event-spotlight,

@@ -24,7 +24,7 @@ $clock-height: 20px;
   }
 
   &.active {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: var(--c-primary-faded-70);
   }
 
   tenths {

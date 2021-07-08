@@ -17,7 +17,7 @@
 
     @include transition;
 
-    color: $c-red;
+    color: $c-bad;
 
     &:hover {
       opacity: 1;
@@ -62,7 +62,7 @@
       @include transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
       }
 
       &:hover {
@@ -91,7 +91,7 @@
       @include transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
       }
 
       &:hover {
@@ -111,7 +111,7 @@
     }
 
     tr:hover th {
-      border-color: $c-font-dimmer;
+      border-color: var(--c-font-dimmer);
     }
 
     tr.win:hover th {
@@ -145,7 +145,7 @@
 
     .outcome {
       font-style: italic;
-      color: $c-font-dimmer;
+      color: var(--c-font-dimmer);
       text-align: center;
       text-transform: capitalize;
     }

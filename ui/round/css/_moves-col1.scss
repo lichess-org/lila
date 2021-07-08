@@ -23,11 +23,10 @@
     align-items: stretch;
     white-space: nowrap;
     overflow-x: scroll;
-    color: $c-font-page;
-
-    @if $theme-light {
-      box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
-    } @else {
+    color: var(--c-font-page);
+    
+    box-shadow: 0 4px 4px #cdc8c1 inset;
+    @include dark-theme {
       box-shadow: 0 4px 12px #000 inset;
     }
 
@@ -59,15 +58,11 @@
 
     &.#{$active-class},
     &:hover {
-      @if $theme-light {
-        background: hsl($c-site-hue, 20%, 85%);
-      } @else {
-        background: $c-bg-zebra;
-      }
+      background: var(--c-bg-zebra);
     }
 
     &.#{$active-class} {
-      color: $c-font-clearer;
+      color: var(--c-font-clearer);
     }
   }
 

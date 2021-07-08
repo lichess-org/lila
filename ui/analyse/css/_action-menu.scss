@@ -53,7 +53,7 @@
     }
 
     .button {
-      color: $c-font;
+      color: var(--c-font);
       text-transform: none;
       white-space: normal;
 
@@ -70,7 +70,7 @@
     @extend %flex-wrap;
 
     a {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       font-size: 0.9em;
       flex: 1 1 auto;
       padding: 7px 0;

@@ -21,7 +21,7 @@
     opacity: 0.8;
     width: 100%;
     height: 4px;
-    background: $c-shade;
+    background: var(--c-shade);
   }
 
   .progress div {

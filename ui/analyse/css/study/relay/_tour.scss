@@ -1,7 +1,7 @@
 .relay-tour {
   &__round {
     @extend %box-radius, %flex-between-nowrap;
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: var(--c-primary-faded-90);
     margin-bottom: 3em;
     padding: 1em 2em;
     strong {

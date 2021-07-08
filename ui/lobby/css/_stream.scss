@@ -2,7 +2,7 @@
   .stream {
     @extend %roboto, %nowrap-ellipsis, %page-text;
 
-    color: $c-font-page;
+    color: var(--c-font-page);
     display: block;
     margin-bottom: 0.5em;
     line-height: 0.9;

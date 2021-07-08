@@ -9,7 +9,8 @@
 
     &::before {
       order: 2;
-      color: mix($c-brag, $c-bg-page, 60%);
+      color: var(--c-brag);
+      opacity: 0.6;
       font-size: 2.5em;
       margin-left: 0.8rem;
     }
@@ -32,6 +33,7 @@
 
   &.active > span::before {
     color: $c-accent;
+    opacity: 1;
   }
 }
 

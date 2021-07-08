@@ -20,7 +20,7 @@ star {
 
   &:after {
     content: '';
-    color: $c-shade;
+    color: var(--c-shade);
   }
 
   &.rate-selected:after {

@@ -41,7 +41,7 @@
     @extend %flex-column, %box-shadow;
 
     font-size: 1.1em;
-    background: $c-bg-box;
+    background: var(--c-bg-box);
     border-radius: 1rem;
     position: relative;
 
@@ -49,7 +49,7 @@
     min-height: 0;
 
     @include dark-theme {
-      border: 1px solid $c-font-dimmer;
+      border: 1px solid var(--c-font-dimmer);
     }
 
     &::after {
@@ -59,15 +59,15 @@
       right: 20%;
       width: 15px;
       height: 15px;
-      background: $c-bg-box;
-      border-right: 1px solid $c-font-dimmer;
-      border-bottom: 1.5px solid $c-font-dimmer;
+      background: var(--c-bg-box);
+      border-right: 1px solid var(--c-font-dimmer);
+      border-bottom: 1.5px solid var(--c-font-dimmer);
       transform: skew(45deg) rotate(45deg);
       z-index: 1;
     }
 
     &.hinted::after {
-      background: $c-primary;
+      background: var(--c-primary);
     }
 
     .content {
@@ -79,8 +79,8 @@
 
     div.hint {
       padding: 0.8em 1em;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
       border-radius: 0 0 1rem 1rem;
       cursor: pointer;
       font-size: 0.9em;
@@ -89,7 +89,7 @@
 
     a.hint {
       padding: 0.8em 1em;
-      color: $c-primary;
+      color: var(--c-primary);
       font-size: 1rem;
     }
   }
@@ -193,8 +193,8 @@
         @extend %flex-column;
 
         flex: 1 1 100%;
-        background: mix($c-primary, $c-bg-box, 80%);
-        color: $c-primary-over;
+        background: var(--c-primary-faded-20);
+        color: var(--c-primary-over);
         font-size: 1.2em;
         align-items: center;
         justify-content: center;
@@ -219,7 +219,7 @@
         }
 
         &:hover {
-          background: $c-primary;
+          background: var(--c-primary);
         }
       }
     }

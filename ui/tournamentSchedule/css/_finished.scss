@@ -48,7 +48,7 @@
     }
 
     a {
-      color: $c-font;
+      color: var(--c-font);
 
       &:hover {
         color: $c-link-hover;

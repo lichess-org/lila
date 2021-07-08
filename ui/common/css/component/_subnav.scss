@@ -8,7 +8,7 @@
     grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
     grid-gap: 3px;
     margin-bottom: 3px;
-    background: $c-bg-page;
+    background: var(--c-bg-page);
 
     a {
       @include box-neat;
@@ -16,18 +16,18 @@
       font-family: roboto;
       display: flex;
       align-items: center;
-      color: $c-font;
+      color: var(--c-font);
       padding: 0.6rem 0 0.6rem 0.5rem;
       letter-spacing: -0.06em;
-      background: $c-bg-high;
+      background: var(--c-bg-high);
 
       &:hover {
         color: $c-link;
       }
 
       &.active {
-        background: $c-primary;
-        color: $c-primary-over;
+        background: var(--c-primary);
+        color: var(--c-primary-over);
       }
     }
 
@@ -43,7 +43,7 @@
     /* active border must go over the page content */
     a {
       display: block;
-      color: $c-font-page;
+      color: var(--c-font-page);
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;
       max-width: 30ch;

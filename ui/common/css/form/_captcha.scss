@@ -10,8 +10,8 @@
   &.is-invalid:not(.success) {
     @extend %box-radius;
 
-    border: 1px solid $c-error;
-    background: mix($c-error, $c-bg-high, 10%);
+    border: 1px solid var(--c-error);
+    background: var(--c-error-faded);
   }
 
   .challenge {
@@ -36,11 +36,11 @@
   }
 
   .success {
-    color: $c-good;
+    color: var(--c-good);
   }
 
   .failure {
-    color: $c-error;
+    color: var(--c-error);
   }
 
   &.success .success,

@@ -27,7 +27,7 @@
   .name {
     flex: 0 0 5ch;
     font-weight: bold;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   .copyable {

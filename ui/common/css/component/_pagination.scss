@@ -1,5 +1,5 @@
 .pagination {
-  color: $c-font-dimmer;
+  color: var(--c-font-dimmer);
   display: flex;
 
   a,
@@ -16,15 +16,15 @@
   }
 
   span {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
   }
 
   a:hover {
-    background: mix($c-primary, $c-bg-box, 10);
+    background: var(--c-primary-faded-90);
   }
 
   .current {
-    background: $c-primary;
-    color: $c-primary-over;
+    background: var(--c-primary);
+    color: var(--c-primary-over);
   }
 }

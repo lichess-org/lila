@@ -6,7 +6,7 @@
   opacity: 0.8;
 
   &.closed {
-    background: $c-primary;
+    background: var(--c-primary);
   }
 }
 

@@ -67,7 +67,7 @@
     a {
       padding: 1em;
       display: block;
-      color: $c-font;
+      color: var(--c-font);
 
       &:hover,
       &:hover .team {

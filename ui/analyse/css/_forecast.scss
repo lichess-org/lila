@@ -79,7 +79,7 @@
     width: 100%;
     padding: 0.7em;
     text-align: left;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     cursor: inherit;
 
     &::before {
@@ -91,7 +91,7 @@
       @extend %metal;
 
       cursor: pointer;
-      color: $c-font;
+      color: var(--c-font);
 
       @include transition;
 
@@ -113,7 +113,7 @@
       font-size: 0.9em;
 
       > span {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
       }
     }
   }

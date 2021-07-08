@@ -2,7 +2,7 @@
   &__help {
     @extend %page-text-shadow;
 
-    color: $c-font-page;
+    color: var(--c-font-page);
     max-width: 350px;
     margin: 9em $block-gap 0 0;
 

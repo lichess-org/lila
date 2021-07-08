@@ -36,6 +36,7 @@ $c-font-page: c-light($c-font, 37%);
 $c-primary: hsl(209, 77%, 46%);
 $c-primary-dim: c-dimmer($c-primary);
 $c-primary-clear: c-clearer($c-primary);
+$c-primary-clearer: c-clearer($c-primary, 25%);
 $c-primary-over: #fff; // text over primary background
 
 /* Secondary: green */
@@ -54,10 +55,13 @@ $c-accent-over: #fff; // text over accent background
 $c-brag: hsl(37, 74%, 48%);
 $c-brag-over: #fff; // text over brag background
 
-/* Error: red */
-$c-red: hsl(0, 60%, 50%);
-$c-error: $c-red;
-$c-error-over: #fff; // text over brag background
+/* Fancy: pink */
+$c-fancy: hsl(294, 61%, 62%);
+$c-fancy-over: white; // text over fancy background
+
+/* Bad: red */
+$c-bad: hsl(0, 60%, 50%);
+$c-bad-over: #fff;
 
 /* Good: green */
 $c-good: $c-secondary;
@@ -67,13 +71,6 @@ $c-good-over: $c-secondary-over;
 $c-warn: $c-brag;
 $c-warn-over: $c-brag-over;
 
-/* Bad: red */
-$c-bad: $c-error;
-$c-bad-over: $c-error-over;
-
-/* Fancy: pink */
-$c-fancy: hsl(294, 61%, 62%);
-$c-fancy-over: white; // text over fancy background
 
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
@@ -85,9 +82,6 @@ $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 98%);
 
-$c-border: hsl(0, 0%, 85%);
-$c-border-page: hsl(0, 0%, 80%);
-
 $c-page-mask: hsla(0, 0, 0%, 0.6);
 
 $c-bg-popup: $c-bg-high;
@@ -95,9 +89,6 @@ $c-popup: $c-font;
 
 $c-bg-header-dropdown: $c-bg-popup;
 $c-header-dropdown: $c-popup;
-
-$c-font-shadow: white;
-$text-shadow: 0 1px 0 $c-font-shadow;
 
 $c-bot: $c-fancy;
 
@@ -119,10 +110,15 @@ $bg-page-metal-hover: linear-gradient(
 
 /* Borders */
 
+$c-border: hsl(0, 0%, 85%);
+$c-border-page: hsl(0, 0%, 80%);
 $border-width: 1px;
 $border-style: solid;
 $border: $border-width $border-style $c-border;
 
 /* Shadows */
+
+$c-font-shadow: white;
+$text-shadow: 0 1px 0 $c-font-shadow;
 
 $box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);

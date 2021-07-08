@@ -6,7 +6,7 @@
   overflow: hidden;
 
   .label {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     font-size: .7em;
     position: absolute;
     left: 3px;

@@ -7,7 +7,7 @@
   .meta-headline {
     @extend %box-shadow;
 
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     padding: 1.4rem var(--box-padding) 0.4rem var(--box-padding);
     text-align: center;
   }
@@ -228,8 +228,8 @@
 
     @include transition;
 
-    background: $c-bg-zebra;
-    color: $c-font;
+    background: var(--c-bg-zebra);
+    color: var(--c-font);
     position: relative;
 
     &:hover {
@@ -249,7 +249,7 @@
 
     img {
       width: 100%;
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
 
     .content {
@@ -258,7 +258,7 @@
 
     .title {
       font-size: 1.3em;
-      color: $c-font-clear;
+      color: var(--c-font-clear);
       display: block;
     }
 

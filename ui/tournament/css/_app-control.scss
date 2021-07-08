@@ -31,7 +31,7 @@
 
     button {
       opacity: 0.7;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       mix-blend-mode: luminosity;
     }
   }

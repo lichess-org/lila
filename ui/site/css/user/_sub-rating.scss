@@ -20,7 +20,7 @@
     }
 
     &:hover {
-      background: mix($c-bg-box, $c-bg-page, 50%);
+      background: var(--c-bg-high);
 
       &::before {
         color: $c-link;
@@ -55,7 +55,7 @@
     i {
       font-size: 0.75em;
       opacity: 0.2;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
 
       @include transition;
     }
@@ -92,7 +92,7 @@
   }
 
   strong {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     font-weight: bold;
     font-size: 1.2em;
   }

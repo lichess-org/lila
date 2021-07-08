@@ -26,7 +26,7 @@
   }
 
   tbody tr:nth-child(even) {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   td:first-child,
@@ -48,7 +48,7 @@
 
   &-invert {
     tbody tr:nth-child(odd) {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
 
     tbody tr:nth-child(even) {

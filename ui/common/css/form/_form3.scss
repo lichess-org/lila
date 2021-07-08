@@ -47,7 +47,7 @@ textarea.form-control {
 
 .form-control:invalid,
 .form-group.is-invalid .form-control {
-  border-color: $c-error;
+  border-color: $c-bad;
 }
 
 .form3 .error,
@@ -58,12 +58,12 @@ textarea.form-control {
 }
 
 .form3 .error {
-  color: $c-error;
+  color: $c-bad;
 }
 
 .form-help,
 .password-complexity-label {
-  color: $c-font-dim;
+  color: var(--c-font-dim);
 }
 
 .form-check {

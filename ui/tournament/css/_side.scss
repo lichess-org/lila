@@ -86,7 +86,7 @@
     @extend %box-radius;
 
     padding: 1em 2vmin;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     margin-bottom: 1em;
     font-size: 0.9em;
   }

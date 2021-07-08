@@ -47,7 +47,7 @@
     a {
       @extend %box-radius;
 
-      color: $c-font;
+      color: var(--c-font);
       padding: 0.4em;
 
       @include transition(background);
@@ -56,12 +56,12 @@
       overflow: hidden;
 
       &:nth-child(even) {
-        background: $c-bg-zebra2;
+        background: var(--c-bg-zebra2);
       }
 
       &:hover {
         background: fade-out($c-link, 0.6);
-        color: $c-font-clear;
+        color: var(--c-font-clear);
       }
 
       &.active,

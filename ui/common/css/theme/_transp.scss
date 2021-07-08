@@ -18,10 +18,10 @@ $c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
 
 $c-page-input: $c-bg-box;
 
-$text-shadow: 0.5px 1px 1px #000;
-
 $bg-metal: linear-gradient(to bottom, hsla(0, 0, 0, 0.4), hsla(0, 0, 0, 0.5) 100%);
 $bg-metal-hover: linear-gradient(to bottom, hsla(0, 0, 0, 0.45), hsla(0, 0, 0, 0.55) 100%);
 $c-metal-hover: unset;
 $bg-metal-page: $bg-metal;
 $bg-page-metal-hover: $bg-metal-hover;
+
+$text-shadow: 0.5px 1px 1px #000;

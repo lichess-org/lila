@@ -58,7 +58,7 @@
   }
 
   .player_chats .game:nth-child(odd) {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   .player_chats .game .title,
@@ -114,7 +114,7 @@
   }
 
   .thread:nth-child(even) {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   .post {

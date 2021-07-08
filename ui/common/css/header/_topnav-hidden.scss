@@ -25,7 +25,7 @@
         width: 23px;
         height: 2px;
         border-radius: 3px;
-        background-color: $c-font-dim;
+        background-color: var(--c-font-dim);
 
         @include breakpoint($mq-site-header-tall) {
           width: 34px;
@@ -70,7 +70,7 @@
 
     .topnav-toggle:checked ~ & {
       position: fixed;
-      background: $c-bg-high;
+      background: var(--c-bg-high);
 
       .hbg__in {
         transform: rotate(225deg);
@@ -99,7 +99,7 @@
     top: $site-header-height;
     bottom: 0;
     left: 0;
-    background: $c-bg-high;
+    background: var(--c-bg-high);
     transform: translateX(calc(-100% - 10px));
 
     @include transition(transform, 200ms);
@@ -118,7 +118,7 @@
     z-index: z('topnav');
 
     a {
-      color: $c-font;
+      color: var(--c-font);
       text-decoration: none;
       padding: 0.7em 0;
       opacity: 0;
@@ -151,8 +151,8 @@
       }
 
       a:active {
-        background: $c-primary;
-        color: $c-primary-over;
+        background: var(--c-primary);
+        color: var(--c-primary-over);
       }
     }
 

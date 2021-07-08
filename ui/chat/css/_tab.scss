@@ -11,9 +11,9 @@
     text-align: center;
     padding: 0.4em 10px;
 
-    // background: $c-shade;
+    // background: var(--c-shade);
     cursor: pointer;
-    color: $c-font-page;
+    color: var(--c-font-page);
 
     @include transition;
 
@@ -22,7 +22,7 @@
     }
 
     &-active {
-      color: $c-font;
+      color: var(--c-font);
       background: $c-bg-box !important;
     }
 

@@ -41,7 +41,7 @@ $mq-picture: $mq-large;
 
     padding: 1em 1.5em;
     margin-bottom: 2em;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
 
     &::before {
       font-size: 2em;

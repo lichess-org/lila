@@ -235,7 +235,7 @@
         color: $c-good;
 
         &-discouraging {
-          color: $c-font-dimmer;
+          color: var(--c-font-dimmer);
         }
       }
 

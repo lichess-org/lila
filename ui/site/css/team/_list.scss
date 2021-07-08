@@ -24,8 +24,8 @@
       @extend %box-radius;
 
       padding: 1px 5px;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
       text-transform: uppercase;
       font-size: 0.9rem;
       margin-left: 1em;

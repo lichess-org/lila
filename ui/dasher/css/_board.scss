@@ -36,7 +36,7 @@
   }
 
   .list a.active {
-    background-color: $c-shade;
+    background-color: var(--c-shade);
   }
 
   &.d2 {

@@ -35,5 +35,5 @@ signal.q2 > i {
 }
 
 signal > i.off {
-  background-color: $c-shade;
+  background-color: var(--c-shade);
 }

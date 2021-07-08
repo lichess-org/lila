@@ -33,7 +33,7 @@
   .branch {
     .content {
       @extend %box-radius;
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       margin: 3em 0;
       padding: 2em 3em;
     }
@@ -48,8 +48,8 @@
       @include transition;
 
       &:hover {
-        color: $c-primary-over;
-        background: $c-primary;
+        color: var(--c-primary-over);
+        background: var(--c-primary);
       }
     }
   }

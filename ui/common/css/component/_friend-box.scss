@@ -55,7 +55,7 @@
       transition: background 0.13s;
 
       &:hover {
-        color: $c-font;
+        color: var(--c-font);
       }
 
       &.user-link {

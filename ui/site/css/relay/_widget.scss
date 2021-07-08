@@ -8,7 +8,7 @@
   @include transition;
 
   &::before {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
     font-size: 5em;
     margin-right: 0.4em;
 

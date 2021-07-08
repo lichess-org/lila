@@ -10,15 +10,6 @@
     flex: 9 1 auto;
     margin: 0;
     overflow: hidden;
-
-    a {
-      /* GM wikipedia */
-      color: mix($c-link, $c-font, 35%);
-
-      &:hover {
-        color: $c-link;
-      }
-    }
   }
 
   img {
@@ -62,7 +53,7 @@
   .clock {
     flex: 0 0 auto;
     font-weight: bold;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
 
     &-created {
       @extend %flex-column;

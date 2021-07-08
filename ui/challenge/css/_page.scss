@@ -11,7 +11,7 @@
       @extend %box-radius;
 
       padding: 2em 2em 1em 2em;
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       margin: 1em;
       flex: 1 1 auto;
     }

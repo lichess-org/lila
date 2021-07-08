@@ -37,7 +37,7 @@
 
 /* text printed directly on the page background deserves special treatment (transp theme) */
 %page-font {
-  color: $c-font-page;
+  color: var(--c-font-page);
 }
 
 %page-text-shadow {
@@ -101,9 +101,9 @@
 %active-soft {
   @extend %active-inset-shadow;
 
-  background: $c-shade;
-  color: $c-font-clearer;
-  text-shadow: 1px 1px 1px $c-font-shadow !important;
+  background: var(--c-shade);
+  color: var(--c-font-clearer);
+  text-shadow: 1px 1px 1px var(--c-font-shadow) !important;
   font-weight: bold;
 }
 
@@ -127,15 +127,15 @@
   background: none;
   border: none;
   outline: none;
-  color: $c-font;
+  color: var(--c-font);
 }
 
 %checkbox {
   @extend %box-radius;
 
   -webkit-appearance: none;
-  background: $c-bg-page;
-  border: 1px solid $c-bg-low;
+  background: var(--c-bg-page);
+  border: 1px solid var(--c-bg-low);
   display: inline-block;
   padding: 0.5em;
 
@@ -146,7 +146,7 @@
 }
 
 %focus-shadow {
-  box-shadow: 0 0 12px $c-font-dim;
+  box-shadow: 0 0 12px var(--c-font-dim);
 }
 
 %zalgoverflow {

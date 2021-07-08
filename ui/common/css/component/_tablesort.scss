@@ -22,7 +22,7 @@ th[aria-sort='descending']:not(.no-sort):after {
 
 th[aria-sort]:not(.no-sort) {
   background: fade-out($c-accent, 0.85);
-  color: $c-font-clear;
+  color: var(--c-font-clear);
   &:after {
     visibility: visible;
     opacity: 0.7;
@@ -30,7 +30,7 @@ th[aria-sort]:not(.no-sort) {
 }
 
 th[role='columnheader']:not(.no-sort):hover {
-  color: $c-font-clear;
+  color: var(--c-font-clear);
 
   &:after {
     opacity: 1;

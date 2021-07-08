@@ -1,4 +1,4 @@
-$c-study: $c-primary;
+$c-study: var(--c-primary);
 
 .studies {
   display: grid;
@@ -40,10 +40,10 @@ $c-study: $c-primary;
     li {
       @extend %nowrap-ellipsis;
 
-      color: $c-font-dim;
+      color: var(--c-font-dim);
 
       &::before {
-        color: $c-font-dimmer;
+        color: var(--c-font-dimmer);
       }
     }
 
@@ -67,7 +67,7 @@ $c-study: $c-primary;
       span {
         font-size: 0.9rem;
         display: block;
-        color: $c-font-dim;
+        color: var(--c-font-dim);
       }
 
       &::before {

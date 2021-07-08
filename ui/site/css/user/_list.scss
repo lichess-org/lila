@@ -78,7 +78,7 @@ $user-list-width: 30ch;
       }
 
       li:nth-child(even) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
       }
     }
   }

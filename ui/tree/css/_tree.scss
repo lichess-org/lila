@@ -41,7 +41,7 @@ $c-blunder: #df5353;
   }
 
   move.parent {
-    color: $c-primary;
+    color: var(--c-primary);
   }
 
   comment a {
@@ -54,7 +54,7 @@ $c-blunder: #df5353;
 
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: var(--c-primary-faded-80);
   }
 
   &-inline move.active {
@@ -69,8 +69,8 @@ $c-blunder: #df5353;
     &,
     index,
     eval {
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
     }
   }
 
@@ -79,13 +79,13 @@ $c-blunder: #df5353;
   }
 
   move.empty {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
     cursor: default;
   }
 
   move index {
     font-size: 90%;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   move.context-menu {
@@ -111,7 +111,7 @@ $c-blunder: #df5353;
   }
 
   line move {
-    color: $c-font;
+    color: var(--c-font);
   }
 
   &-column > move {
@@ -132,7 +132,7 @@ $c-blunder: #df5353;
     flex: 3 0 auto;
     text-align: right;
     font-size: 0.8em;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   glyph {
@@ -165,9 +165,9 @@ $c-blunder: #df5353;
     display: flex;
     justify-content: center;
     border-right: $border;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     line-height: 2.07em;
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
   }
 
   > interrupt {
@@ -176,7 +176,7 @@ $c-blunder: #df5353;
 
   &-column > interrupt {
     flex: 0 0 100%;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     border-top: 1px solid $c-border;
     border-bottom: 1px solid $c-border;
     max-width: 100%;
@@ -238,7 +238,7 @@ $c-blunder: #df5353;
 
   &-column line comment {
     display: inline;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     word-wrap: break-word;
     padding: 0 5px 0 3px;
     vertical-align: top;

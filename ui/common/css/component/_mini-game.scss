@@ -5,7 +5,7 @@
 
   &,
   &:hover {
-    color: $c-font;
+    color: var(--c-font);
   }
 
   &__player {

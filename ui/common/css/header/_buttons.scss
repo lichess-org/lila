@@ -20,7 +20,7 @@
     padding: 0 0.7rem;
 
     &:hover {
-      color: $c-font-clearer;
+      color: var(--c-font-clearer);
     }
 
     span::before {
@@ -74,7 +74,7 @@
       &.button-empty {
         @extend %metal;
 
-        color: $c-font-clear;
+        color: var(--c-font-clear);
       }
     }
   }
@@ -86,7 +86,7 @@
 
   .report-score {
     &:not(.report-score--high)::after {
-      background: $c-bg-page;
+      background: var(--c-bg-page);
       color: $c-brag;
       text-shadow: none;
       font-weight: normal;

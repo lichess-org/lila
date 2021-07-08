@@ -37,7 +37,7 @@
     }
 
     &[data-uci] .pv-san:hover {
-      color: $c-primary;
+      color: var(--c-primary);
     }
 
     .pv-wrap-toggle {

@@ -12,12 +12,12 @@
   a {
     @extend %box-radius;
 
-    background: mix($c-primary, $c-bg-box, 12%);
+    background: var(--c-primary-faded-90);
     padding: 0.2em 0.6em;
     margin: 0.2em;
 
     &:hover {
-      background: mix($c-primary, $c-bg-box, 15%);
+      background: var(--c-primary-faded-80);
     }
 
     white-space: nowrap;

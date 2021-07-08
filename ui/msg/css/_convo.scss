@@ -19,7 +19,7 @@
       @extend %flex-between-nowrap;
 
       flex: 0 0 $msg-top-height;
-      background: $c-bg-zebra2;
+      background: var(--c-bg-zebra2);
       border-bottom: $border;
 
       &__left {
@@ -32,7 +32,7 @@
       &__back {
         @extend %flex-center;
 
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         padding: 0 1em;
         font-size: 1.5em;
 
@@ -45,7 +45,7 @@
         @extend %flex-center-nowrap;
 
         flex: 0 0 auto;
-        color: $c-font-clear;
+        color: var(--c-font-clear);
         font-size: 1.4em;
 
         .utitle {
@@ -67,7 +67,7 @@
 
     &__action {
       &.button {
-        color: $c-font;
+        color: var(--c-font);
 
         &.bad:hover {
           color: $c-bad;
@@ -75,7 +75,7 @@
       }
 
       &__sep {
-        color: $c-font-dimmer;
+        color: var(--c-font-dimmer);
         margin: 0 0.5em;
       }
     }
@@ -84,7 +84,7 @@
       @extend %flex-center-nowrap;
 
       flex: 0 0 auto;
-      background: $c-bg-zebra2;
+      background: var(--c-bg-zebra2);
       border-top: $border;
       padding: 1em 2em;
 
@@ -113,7 +113,7 @@
         outline: 0;
         margin-left: 1em;
         border-radius: 99px;
-        background: $c-font-dimmer;
+        background: var(--c-font-dimmer);
 
         &.connected,
         &.connected:hover {

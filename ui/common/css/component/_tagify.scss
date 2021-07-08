@@ -1,63 +1,73 @@
-:root {
-  // should be same as "$tags-focus-border-color"
-  --tagify-dd-color-primary: #{$c-primary};
-  --tagify-dd-bg-color: #{$c-bg-box};
+@import "../theme/mixins";
+
+@import "../theme/default";
+body {
+  --tags-hover-border-color: c-clearer($c-border);
+  --tag-hover: mix($c-primary, $c-bg-zebra2, 20%);
+  --tag-remove: mix($c-bad, $c-bg-zebra2, 60%);
+  --tag-remove-bg: rgba(mix($c-bad, $c-bg-zebra2, 60%), 0.3);
+  --tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%);
+  --tag-placeholder-color: rgba($c-font-clearer, 0.4);
+  --tag-placeholder-color-focus: rgba($c-font-clearer, 0.25);
+  --tag-dropdown-box-shadow-color: rgba($c-primary, 0.1);
 }
 
+@import "../theme/dark";
+@include dark-theme {
+  --tags-hover-border-color: c-clearer($c-border);
+  --tag-hover: mix($c-primary, $c-bg-zebra2, 20%);
+  --tag-remove: mix($c-bad, $c-bg-zebra2, 60%);
+  --tag-remove-bg: rgba(mix($c-bad, $c-bg-zebra2, 60%), 0.3);
+  --tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%);
+  --tag-placeholder-color: rgba($c-font-clearer, 0.4);
+  --tag-placeholder-color-focus: rgba($c-font-clearer, 0.25);
+  --tag-dropdown-box-shadow-color: rgba($c-primary, 0.1);
+}
+
+@import "../theme/transp";
+@include transp-theme {
+  --tags-hover-border-color: c-clearer($c-border);
+  --tag-hover: mix($c-primary, $c-bg-zebra2, 20%);
+  --tag-remove: mix($c-bad, $c-bg-zebra2, 60%);
+  --tag-remove-bg: rgba(mix($c-bad, $c-bg-zebra2, 60%), 0.3);
+  --tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%);
+  --tag-placeholder-color: rgba($c-font-clearer, 0.4);
+  --tag-placeholder-color-focus: rgba($c-font-clearer, 0.25);
+  --tag-dropdown-box-shadow-color: rgba($c-primary, 0.1);
+}
+
+$tags-hover-border-color: var(--tags-hover-border-color);
+$tags-focus-border-color: var(--c-primary);
+
+$tagMargin: 5px;
+$tag-pad: 0.3em 0.5em;
+
+$tag-min-width: 1ch;
+$tag-max-width: auto;
+
+$tag-text-color: var(--c-font-clearer);
+$tag-text-color--edit: var(--c-font-clearer);
+$tag-bg: var(--c-bg-zebra2);
+$tag-hover: var(--tag-hover);
+$tag-remove: var(--tag-remove);
+$tag-remove-btn-color: var(--tag-text-color);
+$tag-remove-btn-bg: none;
+$tag-remove-btn-bg--hover: var(--c-bad);
+$tag-remove-bg: var(--tag--remove-bg);
+$tag-invalid-color: $tag-remove;
+$tag-invalid-bg: var(--tag--invalid-bg);
+$tag-inset-shadow-size: 1.5em;
+$tag-hide-transition: 0.3s;
+
+$placeholder-color: var(--tag-placeholder-color);
+$placeholder-color-focus: var(--tag-placeholder-color-focus);
+$input-color: inherit;
+$dropdown-box-shadow-color: var(--tag-dropdown-box-shadow-color);
+
 .tagify {
-  // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
   $self: &;
-  $tags-border-color: $c-border !default;
-  $tags-hover-border-color: c-clearer($c-border) !default;
-  $tags-focus-border-color: $c-primary !default;
 
-  $tagMargin: 5px !default;
-  $tag-pad: 0.3em 0.5em !default;
-
-  $tag-min-width: 1ch !default;
-  $tag-max-width: auto !default;
-
-  $tag-text-color: $c-font-clearer !default;
-  $tag-text-color--edit: $c-font-clearer !default;
-  $tag-bg: $c-bg-zebra2 !default;
-  $tag-hover: mix($c-primary, $c-bg-zebra2, 20%) !default;
-  $tag-remove: mix($c-bad, $c-bg-zebra2, 60%) !default;
-  $tag-remove-btn-color: $tag-text-color !default;
-  $tag-remove-btn-bg: none !default;
-  $tag-remove-btn-bg--hover: $c-bad !default;
-  $tag-invalid-color: $tag-remove !default;
-  $tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%) !default;
-  $tag-inset-shadow-size: 1.5em !default;
-  $tag-hide-transition: 0.3s !default;
-
-  $placeholder-color: rgba($tag-text-color, 0.4) !default;
-  $placeholder-color-focus: rgba($tag-text-color, 0.25) !default;
-  $input-color: inherit !default;
-  $tagify-dd-bg-color: white !default;
-  $tagify-dd-color-primary: $c-primary !default;
-
-  // CSS variables
-  --tags-border-color: #{$tags-border-color};
-  --tags-hover-border-color: #{$tags-hover-border-color};
-  --tags-focus-border-color: #{$tags-focus-border-color};
-  --tag-bg: #{$tag-bg};
-  --tag-hover: #{$tag-hover};
-  --tag-text-color: #{$tag-text-color};
-  --tag-text-color--edit: #{$tag-text-color--edit};
-  --tag-pad: #{$tag-pad};
-  --tag-inset-shadow-size: #{$tag-inset-shadow-size};
-  --tag-invalid-color: #{$tag-invalid-color};
-  --tag-invalid-bg: #{$tag-invalid-bg};
-  --tag-remove-bg: #{rgba($tag-remove, 0.3)};
-  --tag-remove-btn-color: #{$tag-remove-btn-color};
-  --tag-remove-btn-bg: #{$tag-remove-btn-bg};
-  --tag-remove-btn-bg--hover: #{$tag-remove-btn-bg--hover};
-  --input-color: #{$input-color};
-  --tag--min-width: #{$tag-min-width};
-  --tag--max-width: #{$tag-max-width};
-  --tag-hide-transition: #{$tag-hide-transition};
-  --placeholder-color: #{$placeholder-color};
-  --placeholder-color-focus: #{$placeholder-color-focus};
+  --tags-border-color: var(--c-border);
   --loader-size: 0.8em;
 
   @mixin firefox {
@@ -100,11 +110,11 @@
   @mixin tagReadonlyBG {
     background: linear-gradient(
         45deg,
-        var(--tag-bg) 25%,
+        $tag-bg 25%,
         transparent 25%,
         transparent 50%,
-        var(--tag-bg) 50%,
-        var(--tag-bg) 75%,
+        $tag-bg 50%,
+        $tag-bg 75%,
         transparent 75%,
         transparent
       )
@@ -130,8 +140,7 @@
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  border: 1px solid $tags-border-color;
-  border: 1px solid var(--tags-border-color);
+  border: 1px solid var(--tags-border-color, $tags-border-color);
   padding: 0;
   margin: 1em 0;
   line-height: normal;
@@ -145,13 +154,11 @@
 
   &:hover {
     border-color: $tags-hover-border-color;
-    border-color: var(--tags-hover-border-color);
   }
 
   &.tagify--focus {
     transition: 0s;
     border-color: $tags-focus-border-color;
-    border-color: var(--tags-focus-border-color);
   }
 
   // Global "read-only" mode (no input button)
@@ -171,7 +178,6 @@
 
       #{$self}__tag > div {
         padding: $tag-pad;
-        padding: var(--tag-pad);
 
         &::before {
           @include tagReadonlyBG;
@@ -228,9 +234,7 @@
       box-sizing: border-box;
       max-width: 100%;
       padding: $tag-pad;
-      padding: var(--tag-pad, $tag-pad);
       color: $tag-text-color;
-      color: var(--tag-text-color, $tag-text-color);
       line-height: inherit;
       border-radius: 3px;
       white-space: nowrap;
@@ -244,8 +248,6 @@
         vertical-align: top;
         min-width: $tag-min-width;
         max-width: $tag-max-width;
-        min-width: var(--tag--min-width, $tag-min-width);
-        max-width: var(--tag--max-width, $tag-max-width);
         transition: 0.8s ease, 0.1s color;
 
         &[contenteditable] {
@@ -274,14 +276,12 @@
         animation: tags--bump 0.3s ease-out 1;
 
         box-shadow: 0 0 0 $tag-inset-shadow-size $tag-bg inset;
-        box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-bg, $tag-bg) inset;
       }
     }
 
     &:hover:not([readonly]) {
       div {
         &::before {
-          $size: -$tagMargin / 2;
           $size: -2px;
 
           top: $size;
@@ -289,7 +289,6 @@
           bottom: $size;
           left: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
-          box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover) inset;
         }
       }
     }
@@ -323,7 +322,6 @@
       opacity: 0;
       transform: scale(0);
       transition: $tag-hide-transition;
-      transition: var(--tag-hide-transition, $tag-hide-transition);
       pointer-events: none;
 
       > div > * {
@@ -346,8 +344,6 @@
 
           &::before {
             box-shadow: 0 0 0 $tag-inset-shadow-size $tag-invalid-bg inset !important;
-            box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size)
-              var(--tag-invalid-bg, $tag-invalid-bg) inset !important;
             transition: 0.2s;
           }
         }
@@ -370,11 +366,9 @@
     &--editable {
       > div {
         color: $tag-text-color--edit;
-        color: var(--tag-text-color--edit, $tag-text-color--edit);
 
         &::before {
           box-shadow: 0 0 0 2px $tag-hover inset !important;
-          box-shadow: 0 0 0 2px var(--tag-hover, $tag-hover) inset !important;
         }
       }
 
@@ -391,7 +385,6 @@
         > div {
           &::before {
             box-shadow: 0 0 0 2px $tag-invalid-color inset !important;
-            box-shadow: 0 0 0 2px var(--tag-invalid-color, $tag-invalid-color) inset !important;
           }
         }
       }
@@ -406,11 +399,9 @@
       justify-content: center;
       border-radius: 50px;
       cursor: pointer;
-      font: #{$size} Serif;
+      font: $size Serif;
       background: $tag-remove-btn-bg;
-      background: var(--tag-remove-btn-bg, $tag-remove-btn-bg);
       color: $tag-remove-btn-color;
-      color: var(--tag-remove-btn-color, $tag-remove-btn-color);
 
       width: $size;
       height: $size;
@@ -427,7 +418,6 @@
       &:hover {
         color: white;
         background: $tag-remove-btn-bg--hover;
-        background: var(--tag-remove-btn-bg--hover, $tag-remove-btn-bg--hover);
 
         + div {
           > span {
@@ -435,9 +425,7 @@
           }
 
           &::before {
-            box-shadow: 0 0 0 $tag-inset-shadow-size rgba($tag-remove, 0.3) inset !important;
-            box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size)
-              var(--tag-remove-bg, rgba($tag-remove, 0.3)) inset !important;
+            box-shadow: 0 0 0 $tag-inset-shadow-size $tag-remove-bg inset !important;
             transition: 0.2s;
           }
         }
@@ -469,7 +457,6 @@
     min-width: $placeholder-width;
     margin: $tagMargin;
     padding: $tag-pad;
-    padding: var(--tag-pad, $tag-pad);
     line-height: inherit;
     position: relative;
 
@@ -477,7 +464,6 @@
     white-space: pre-wrap;
 
     color: $input-color;
-    color: var(--input-color, $input-color);
     box-sizing: inherit;
 
     &:empty {
@@ -527,7 +513,6 @@
           }
 
           color: $placeholder-color-focus;
-          color: var(--placeholder-color-focus);
         }
 
         &::after {
@@ -545,7 +530,6 @@
       margin: auto 0;
       z-index: 1;
       color: $placeholder-color;
-      color: var(--placeholder-color);
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
@@ -659,11 +643,9 @@
   }
 
   &--invalid {
-    --tags-border-color: #{$tag-invalid-color};
+    --tags-border-color: $tag-invalid-color;
   }
 
-  // Since the dropdown is an external element, which is positioned directly on the body element
-  // it cannot ingerit the CSS variables applied on the ".Tagify" element
   &__dropdown {
     $dropdown: &;
     $trans: 0.25s cubic-bezier(0, 1, 0.5, 1);
@@ -685,7 +667,7 @@
 
     // when the dropdown shows next to the caret while typing
     &[position='text'] {
-      box-shadow: 0 0 0 3px rgba(var(--tagify-dd-color-primary), 0.1);
+      box-shadow: 0 0 0 3px $dropdown-box-shadow-color;
       font-size: 0.9em;
 
       #{$dropdown}__wrapper {

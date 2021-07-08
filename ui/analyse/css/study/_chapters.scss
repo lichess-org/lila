@@ -20,7 +20,7 @@ $span-width: 1.7em;
 
     &.active,
     &:active {
-      color: $c-font-clear;
+      color: var(--c-font-clear);
     }
 
     > span {

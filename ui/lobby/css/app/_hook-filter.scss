@@ -1,6 +1,23 @@
+@import '../../common/css/theme/mixins';
+
+@import '../../common/css/theme/default';
+body {
+  --bg-lobby-filter: fade-out($c-bg-high, 0.5);
+}
+
+@import '../../common/css/theme/dark';
+@include dark-theme {
+  --bg-lobby-filter: fade-out($c-bg-high, 0.5);
+}
+
+@import '../../common/css/theme/transp';
+@include transp-theme {
+  --bg-lobby-filter: fade-out($c-bg-high, 0.5);
+}
+
 .hook__filters {
   padding: $block-gap 1.5em;
-  background: fade-out($c-bg-high, 0.5);
+  background: var(--bg-lobby-filter);
   height: 100%;
   white-space: nowrap;
 

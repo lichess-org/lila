@@ -17,7 +17,7 @@ $mq-col1: 9999px;
 
   padding: 0.3em;
   border-bottom: $border;
-  background: $c-bg-zebra;
+  background: var(--c-bg-zebra);
   text-align: center;
 }
 

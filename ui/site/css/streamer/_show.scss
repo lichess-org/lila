@@ -90,7 +90,7 @@ $mq-picture: $mq-large;
     font-size: 1.6em;
     line-height: 0.9;
     background: mix($c-brag, $c-bg-box, 20%);
-    color: $c-font;
+    color: var(--c-font);
 
     span {
       margin-bottom: 1em;

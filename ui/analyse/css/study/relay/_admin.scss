@@ -35,8 +35,8 @@
 
     &.clickable:hover {
       cursor: pointer;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
     }
 
     > div {
@@ -49,7 +49,7 @@
     }
 
     &.off {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: var(--c-primary-faded-20);
       color: #fff;
     }
 

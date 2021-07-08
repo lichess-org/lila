@@ -21,11 +21,12 @@
 .fire-trophy {
   @extend %fire-trophy-shadow;
 
-  color: $c-font;
+  color: #777;
   font-size: 90px;
   display: block;
 
   &:hover {
+    color: #777;
     animation: fire-trophy 1.5s ease-in-out infinite alternate;
   }
 }

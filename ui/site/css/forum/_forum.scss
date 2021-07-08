@@ -6,6 +6,23 @@
 @import 'mention';
 @import 'reactions';
 
+@import "../../common/css/theme/mixins";
+@import "../../common/css/theme/default";
+body {
+  --c-bg-forum-sticky: mix($c-secondary, $c-bg-box, 12%);
+  --c-bg-forum-sticky-even: mix($c-secondary, $c-bg-zebra, 12%);
+}
+@import "../../common/css/theme/dark";
+@include dark-theme {
+  --c-bg-forum-sticky: mix($c-secondary, $c-bg-box, 12%);
+  --c-bg-forum-sticky-even: mix($c-secondary, $c-bg-zebra, 12%);
+}
+@import "../../common/css/theme/transp";
+@include transp-theme {
+  --c-bg-forum-sticky: mix($c-secondary, $c-bg-box, 12%);
+  --c-bg-forum-sticky-even: mix($c-secondary, $c-bg-zebra, 12%);
+}
+
 .forum {
   h1,
   .slist .subject {
@@ -16,11 +33,11 @@
     padding-bottom: 1rem;
 
     .sticky {
-      background: mix($c-secondary, $c-bg-box, 12%);
+      background: var(--c-bg-forum-sticky);
     }
 
     .sticky:nth-child(even) {
-      background: mix($c-secondary, $c-bg-zebra, 12%);
+      background: var(--c-bg-forum-sticky-even);
     }
 
     .bar {

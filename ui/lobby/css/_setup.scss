@@ -43,7 +43,7 @@ $c-slider: $c-setup;
 
   .optional_config,
   .ratings {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     border-top: $border;
   }
 

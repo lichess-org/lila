@@ -44,7 +44,7 @@
     position: absolute;
     right: 0;
     z-index: z('game-bookmark');
-    color: $c-font-dim;
+    color: var(--c-font-dim);
 
     ::before {
       font-size: 1.3em;

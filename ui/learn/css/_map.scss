@@ -71,7 +71,7 @@
     }
 
     &.ongoing {
-      background: $c-primary;
+      background: var(--c-primary);
       filter: brightness(0.9);
       animation: 1.7s soft-bright ease-in-out infinite;
     }

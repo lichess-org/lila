@@ -19,7 +19,7 @@
     flex: 0 0 auto;
     display: flex;
     justify-content: stretch;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     font-size: 0.9em;
     order: 2;
 

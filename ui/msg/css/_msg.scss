@@ -11,7 +11,7 @@ body {
 
 %msg-input-focus {
   outline: 0;
-  border-color: $c-bg-zebra2;
+  border-color: var(--c-bg-zebra2);
 
   &:focus {
     border-color: mix($c-msg, $c-bg-box, 50%);

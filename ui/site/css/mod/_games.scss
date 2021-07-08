@@ -17,7 +17,7 @@
   td.input {
     cursor: pointer;
     &:hover {
-      background: $c-bg-zebra2;
+      background: var(--c-bg-zebra2);
     }
   }
   input {

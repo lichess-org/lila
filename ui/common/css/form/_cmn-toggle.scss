@@ -49,7 +49,7 @@
 }
 
 .cmn-toggle--subtle:not(:checked) + label {
-  background-color: $c-font-dimmer;
+  background-color: var(--c-font-dimmer);
 }
 
 .cmn-toggle:checked + label {
@@ -90,7 +90,7 @@
 
 .cmn-toggle--subtle:not(:checked) + label {
   &::before {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
   }
 }
 

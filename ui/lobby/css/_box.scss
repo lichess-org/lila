@@ -9,7 +9,7 @@
       padding: 0.3em 0.5em;
 
       .more {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
 
         &:hover {
           color: $c-link;
@@ -21,7 +21,7 @@
 
         font-size: 1em;
         font-weight: bold;
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         padding: 0.3em;
       }
     }
@@ -35,7 +35,7 @@
     .user-link {
       padding-left: -1em;
       font-weight: bold;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     table {
@@ -57,7 +57,7 @@
 
       &.name a {
         font-weight: bold;
-        color: $c-font-dim;
+        color: var(--c-font-dim);
 
         @include transition;
 
@@ -68,7 +68,7 @@
     }
 
     tr:nth-child(even) {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
   }
 

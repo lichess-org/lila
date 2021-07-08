@@ -92,7 +92,7 @@
   }
 
   .counter tr.full td:last-child {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   .counter tr:first-child {

@@ -42,29 +42,25 @@
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: var(--c-primary-faded-70);
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-
     background: linear-gradient(
       to right,
-      $c-me-border 0px,
-      $c-me-border 5px,
+      var(--c-secondary-dim) 0px,
+      var(--c-secondary-dim) 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%
     );
   }
 
   tr.active td:last-child {
-    $c-active-border: mix($c-primary, $c-bg-box, 70%);
-
     background: linear-gradient(
       to left,
-      $c-active-border 0px,
-      $c-active-border 5px,
+      var(--c-primary-dim) 0px,
+      var(--c-primary-dim) 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%
     );

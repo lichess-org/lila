@@ -7,8 +7,8 @@
 
   .title {
     display: flex;
-    background: $c-primary;
-    color: $c-primary-over;
+    background: var(--c-primary);
+    color: var(--c-primary-over);
 
     h2,
     h3 {
@@ -150,7 +150,7 @@
       align-content: center;
       flex: 1 1 100%;
       text-align: center;
-      background: $c-bg-high;
+      background: var(--c-bg-high);
       height: 3em;
       font-size: 0.9em;
       border-left: $border;
@@ -182,8 +182,8 @@
 
     a.active {
       opacity: 1;
-      color: $c-primary-over;
-      background: $c-primary;
+      color: var(--c-primary-over);
+      background: var(--c-primary);
     }
   }
 }

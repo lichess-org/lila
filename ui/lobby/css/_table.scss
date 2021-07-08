@@ -40,7 +40,7 @@
   &__counters {
     @extend %flex-between, %page-text;
 
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     padding: $block-gap #{$block-gap * 2};
 
     @include breakpoint($mq-col3) {
@@ -56,7 +56,7 @@
     }
 
     a {
-      color: $c-font-page;
+      color: var(--c-font-page);
 
       @include transition(color);
 

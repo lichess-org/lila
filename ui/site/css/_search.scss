@@ -140,7 +140,7 @@
   &__status {
     padding-top: 1.5em;
     padding-bottom: 1.5em;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     border: $border;
     border-width: 1px 0;
   }

@@ -39,7 +39,7 @@ $user-list-width: 35ch;
     padding: 1.2rem 1.2rem 1.2rem 0.5rem;
 
     &:nth-child(even) {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
   }
 }
@@ -92,7 +92,7 @@ $user-list-width: 35ch;
     padding: 0 var(--box-padding) 0 calc(var(--box-padding) + 70px);
 
     &:nth-child(odd) {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
   }
 }

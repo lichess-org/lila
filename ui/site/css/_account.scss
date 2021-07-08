@@ -90,7 +90,7 @@
       em {
         @extend %roboto;
         margin-left: 1rem;
-        color: $c-font-dimmer;
+        color: var(--c-font-dimmer);
       }
     }
   }
@@ -174,7 +174,7 @@
   }
 
   .kiddo {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     font-size: 1.1em;
     font-weight: bold;
   }
@@ -188,7 +188,7 @@
   .raw-text {
     @extend %box-radius, %break-word;
     font-family: monospace;
-    background: $c-bg-page;
+    background: var(--c-bg-page);
     padding: 1em 2em;
     overflow: hidden;
     white-space: pre-wrap;

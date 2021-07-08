@@ -1,7 +1,7 @@
 .racer {
   &__countdown {
     @extend %box-radius, %popup-shadow, %flex-center-nowrap;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     z-index: 100;
     position: absolute;
     top: 50%;
@@ -32,9 +32,9 @@
           opacity: 1;
         }
         &.red {
-          background: $c-red;
+          background: $c-bad;
           &.active {
-            box-shadow: 0 0 2em $c-red, 0 0 4em $c-red;
+            box-shadow: 0 0 2em $c-bad, 0 0 4em $c-bad;
           }
         }
         &.orange {
@@ -56,7 +56,7 @@
       @extend %flex-center;
       font-family: 'storm';
       font-size: 8em;
-      color: $c-font;
+      color: var(--c-font);
       margin-bottom: -0.23em;
     }
   }

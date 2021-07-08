@@ -19,7 +19,7 @@
     }
 
     a {
-      color: $c-font;
+      color: var(--c-font);
 
       &:hover {
         color: $c-link;
@@ -32,7 +32,7 @@
     }
 
     .setup {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     .icon {

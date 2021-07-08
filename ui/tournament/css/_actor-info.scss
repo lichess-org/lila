@@ -17,7 +17,7 @@
 
     @include transition;
 
-    color: $c-red;
+    color: $c-bad;
 
     &:hover {
       opacity: 1;
@@ -62,11 +62,11 @@
       @include transition(background-color);
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
       }
 
       &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
+        background: var(--c-primary-faded-70);
       }
     }
 

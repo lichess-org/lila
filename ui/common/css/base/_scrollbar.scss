@@ -5,10 +5,10 @@ body ::-webkit-scrollbar-corner {
 }
 
 body ::-webkit-scrollbar-thumb {
-  background: $c-shade;
+  background: var(--c-shade);
 }
 
 body ::-webkit-scrollbar-thumb:hover,
 body ::-webkit-scrollbar-thumb:active {
-  background: $c-font-dimmer;
+  background: var(--c-font-dimmer);
 }

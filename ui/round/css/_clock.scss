@@ -158,7 +158,7 @@
 
   &.running .time {
     background: mix($c-secondary, $c-bg-box, 30%);
-    color: $c-font-clearer;
+    color: var(--c-font-clearer);
   }
 
   &.emerg .time,
@@ -168,7 +168,7 @@
 
   &.emerg.running .time {
     background-color: mix($c-bad, $c-bg-box, 50%);
-    color: $c-font-clearer;
+    color: var(--c-font-clearer);
   }
 
   .go-berserk {

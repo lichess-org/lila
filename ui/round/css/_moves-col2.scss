@@ -27,7 +27,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   #{$move-tag} {
@@ -37,14 +37,14 @@
     cursor: pointer;
 
     &:hover {
-      background: $c-primary;
+      background: var(--c-primary);
       color: #fff;
     }
 
     &.#{$active-class} {
       font-weight: bold;
-      background: mix($c-primary, $c-bg-box, 20%);
-      color: $c-font-clear;
+      background: var(--c-primary-faded-80);
+      color: var(--c-font-clear);
     }
   }
 
@@ -54,7 +54,7 @@
     margin: 1em;
 
     &::before {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       font-size: 3em;
       margin-right: 12px;
     }

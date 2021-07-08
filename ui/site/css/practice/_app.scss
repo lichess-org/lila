@@ -3,7 +3,7 @@
     > h2 {
       @extend %roboto;
 
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       font-size: 2em;
       letter-spacing: 0.3em;
       text-transform: uppercase;
@@ -62,7 +62,7 @@
     }
 
     &.ongoing {
-      background: $c-primary;
+      background: var(--c-primary);
 
       &:hover {
         animation: 1.7s soft-bright ease-in-out infinite;

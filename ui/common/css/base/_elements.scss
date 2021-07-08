@@ -13,8 +13,8 @@ html {
 }
 
 body {
-  background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
-  color: $c-font;
+  background: var(--c-bg-page) linear-gradient(to bottom, var(--c-body-gradient), var(--c-bg-page) 116px) no-repeat;
+  color: var(--c-font);
   overflow-x: hidden;
 
   &.fixed-scroll {

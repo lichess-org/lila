@@ -42,7 +42,7 @@
 
       &:hover {
         opacity: 0.7;
-        color: $c-primary;
+        color: var(--c-primary);
       }
     }
   }

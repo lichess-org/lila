@@ -39,7 +39,7 @@
       display: none;
       margin-top: 1em;
       padding: 1em;
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
 
     .change form input {
@@ -277,7 +277,7 @@
     }
 
     a {
-      color: $c-font-page;
+      color: var(--c-font-page);
     }
   }
 }

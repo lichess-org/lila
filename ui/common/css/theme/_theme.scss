@@ -3,7 +3,6 @@
 
 body {
   --c-bg-page: $c-bg-page;
-
   --c-bg-high: $c-bg-high;
   --c-bg-low: $c-bg-low;
 
@@ -22,7 +21,14 @@ body {
 
   --c-primary: $c-primary;
   --c-primary-dim: $c-primary-dim;
-  --c-primary-clear: $c-primary-clear;
+  // --c-primary-clear: $c-primary-clear;
+  --c-primary-clearer: $c-primary-clearer;
+  --c-primary-faded-90: fade-out($c-primary, 0.9);
+  --c-primary-faded-80: fade-out($c-primary, 0.8);
+  --c-primary-faded-70: fade-out($c-primary, 0.7);
+  --c-primary-faded-40: fade-out($c-primary, 0.4);
+  --c-primary-faded-20: fade-out($c-primary, 0.2);
+  --c-primary-light: lighten($c-primary, 10%);
   --c-primary-over: $c-primary-over;
 
   --c-secondary: $c-secondary;
@@ -36,23 +42,21 @@ body {
   --c-accent-over: $c-accent-over;
 
   --c-brag: $c-brag;
+  --c-brag-faded-80: fade-out($c-brag, 0.8);
   --c-brag-over: $c-brag-over;
 
-  --c-red: $c-red;
-  --c-error: $c-error;
-  --c-error-over: $c-error-over;
+  --c-fancy: $c-fancy;
+  --c-fancy-over: $c-fancy-over;
+
+  --c-bad: $c-bad;
+  --c-bad-faded: fade-out($c-bad, 0.9);
+  --c-bad-over: $c-bad-over;
 
   --c-good: $c-good;
   --c-good-over: $c-good-over;
 
   --c-warn: $c-warn;
   --c-warn-over: $c-warn-over;
-
-  --c-bad: $c-bad;
-  --c-bad-over: $c-bad-over;
-
-  --c-fancy: $c-fancy;
-  --c-fancy-over: $c-fancy-over;
 
   --c-link: $c-link;
   --c-link-dim: $c-link-dim;
@@ -64,9 +68,6 @@ body {
   --c-bg-box-opaque: $c-bg-box-opaque;
   --c-bg-input: $c-bg-input;
 
-  --c-border: $c-border;
-  --c-border-page: $c-border-page;
-
   --c-page-mask: $c-page-mask;
 
   --c-bg-popup: $c-bg-popup;
@@ -74,9 +75,6 @@ body {
 
   --c-bg-header-dropdown: $c-bg-header-dropdown;
   --c-header-dropdown: $c-header-dropdown;
-
-  --c-font-shadow: $c-font-shadow;
-  --text-shadow: $text-shadow;
 
   --c-bot: $c-bot;
 
@@ -88,11 +86,13 @@ body {
   --bg-page-metal: $bg-page-metal;
   --bg-page-metal-hover: $bg-page-metal-hover;
 
-  --bg-lobby-pool: $bg-lobby-bool;
-
-  --border-width: $border-width;
-  --border-style: $border-style;
+  --c-border: $c-border;
+  --c-border-page: $c-border-page;
+  --c-border-faded: fade-out($c-border-page, 0.5);
   --border: $border;
+
+  --c-font-shadow: $c-font-shadow;
+  --text-shadow: $text-shadow;
 
   --box-shadow: $box-shadow;
 }
@@ -119,21 +119,24 @@ body {
 
   --c-primary: $c-primary;
   --c-primary-dim: $c-primary-dim;
-  --c-primary-clear: $c-primary-clear;
+  //--c-primary-clear: $c-primary-clear;
+  --c-primary-clearer: $c-primary-clearer;
+  --c-primary-faded-90: fade-out($c-primary, 0.9);
+  --c-primary-faded-80: fade-out($c-primary, 0.8);
+  --c-primary-faded-70: fade-out($c-primary, 0.7);
+  --c-primary-faded-40: fade-out($c-primary, 0.4);
+  --c-primary-faded-20: fade-out($c-primary, 0.2);
+  --c-primary-light: lighten($c-primary, 10%);
 
-  --c-secondary: $c-secondary;
   --c-secondary-dim: $c-secondary-dim;
   --c-secondary-dimmer: $c-secondary-dimmer;
 
   --c-brag: $c-brag;
+  --c-brag-faded-80: fade-out($c-brag, 0.8);
 
   --c-fancy: $c-fancy;
 
-  --c-good: $c-good;
-  --c-good-over: $c-good-over;
-
   --c-warn: $c-warn;
-  --c-warn-over: $c-warn-over;
 
   --c-link: $c-link;
   --c-link-dim: $c-link-dim;
@@ -160,10 +163,9 @@ body {
   --bg-page-metal: $bg-page-metal;
   --bg-page-metal-hover: $bg-page-metal-hover;
 
-  --bg-lobby-pool: $bg-lobby-bool;
-
   --c-border: $c-border;
   --c-border-page: $c-border-page;
+  --c-border-faded: fade-out($c-border-page, 0.5);
   --border: $border;
 
   --c-font-shadow: $c-font-shadow;
@@ -193,15 +195,13 @@ body {
 
   --c-page-input: $c-page-input;
 
-  --text-shadow: $text-shadow;
-
   --bg-metal: $bg-metal;
   --bg-metal-hover: $bg-metal-hover;
   --c-metal-hover: $c-metal-hover;
   --bg-page-metal: $bg-page-metal;
   --bg-page-metal-hover: $bg-page-metal-hover;
 
-  --bg-lobby-pool: $bg-lobby-bool;
+  --text-shadow: $text-shadow;
 }
 
 body.transp::before {

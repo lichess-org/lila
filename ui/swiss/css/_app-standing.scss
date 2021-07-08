@@ -37,7 +37,7 @@
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 15%);
+    background: var(--c-primary-faded-80);
     cursor: pointer;
   }
 
@@ -54,7 +54,7 @@
   }
 
   tr.active td:last-child {
-    $c-active-border: mix($c-primary, $c-bg-box, 70%);
+    $c-active-border: var(--c-primary-faded-20);
 
     background: linear-gradient(
       to left,
@@ -131,11 +131,11 @@
     }
 
     bye {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     late {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     absent {

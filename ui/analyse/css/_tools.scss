@@ -36,7 +36,7 @@
     /* required so line::before scrolls along the moves! */
     .result,
     .status {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       text-align: center;
     }
 

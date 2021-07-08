@@ -33,7 +33,7 @@
       height: 103px;
 
       > i {
-        color: $c-primary;
+        color: var(--c-primary);
       }
     }
 
@@ -106,8 +106,8 @@
 
     .owner:hover .view {
       display: block;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
 
       &::before {
         vertical-align: middle;

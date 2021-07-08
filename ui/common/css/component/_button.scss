@@ -1,7 +1,7 @@
 .button {
   @extend %roboto-fat, %button-shadow, %box-radius;
 
-  background: $c-primary;
+  background: var(--c-primary);
   text-transform: uppercase;
   padding: 0.8em 1em;
   border: none;
@@ -14,14 +14,14 @@
 
   &,
   &:visited {
-    color: $c-primary-over;
+    color: var(--c-primary-over);
   }
 
   &:not(.disabled):hover {
     @extend %button-raised-shadow;
 
-    color: $c-primary-over;
-    background: lighten($c-primary, 7);
+    color: var(--c-primary-over);
+    background: var(--c-primary-light);
   }
 
   &:not(.disabled):focus {
@@ -50,10 +50,10 @@
   }
 
   &-red {
-    background: $c-error;
+    background: $c-bad;
 
     &:not(.disabled):hover {
-      background: lighten($c-error, 11);
+      background: lighten($c-bad, 11);
     }
   }
 
@@ -62,7 +62,7 @@
 
     &,
     &:hover {
-      color: $c-primary;
+      color: var(--c-primary);
     }
 
     background: none;
@@ -82,7 +82,7 @@
 
     &.button-red,
     &.button-red:hover {
-      color: $c-error;
+      color: $c-bad;
     }
 
     &.button-green,
@@ -96,7 +96,7 @@
 
     &,
     &:hover {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     &:not(.disabled):hover {

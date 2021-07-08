@@ -1,7 +1,7 @@
 .user-link {
   @extend %nowrap-hidden;
 
-  color: $c-font;
+  color: var(--c-font);
 
   &.online .line {
     &::before {
@@ -19,7 +19,7 @@
   .line {
     @extend %data-icon;
 
-    color: $c-font;
+    color: var(--c-font);
     opacity: 0.5;
     display: inline-block;
     width: 1.5em;

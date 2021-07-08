@@ -13,7 +13,7 @@
     }
 
     .author {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       font-weight: bold;
       font-size: 1.1em;
       margin-right: 1rem;
@@ -27,7 +27,7 @@
     }
 
     .delete {
-      color: $c-font;
+      color: var(--c-font);
       margin-left: 1em;
       &:hover {
         color: $c-bad;
@@ -41,7 +41,7 @@
     }
 
     font-size: 0.9em;
-    color: $c-font;
+    color: var(--c-font);
     &:hover {
       color: $c-bad;
     }
@@ -68,7 +68,7 @@
   }
 
   &.erased {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
 
     .forum-post__message {
       font-style: italic;

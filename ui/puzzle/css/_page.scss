@@ -29,7 +29,7 @@
       @extend %data-icon;
 
       content: '';
-      color: $c-font-dimmer;
+      color: var(--c-font-dimmer);
       flex: 0 0 1.6em;
       text-align: center;
       font-size: 4.5em;
@@ -39,7 +39,7 @@
       background: mix($c-bg-box, $c-link, 90%);
 
       &::before {
-        color: $c-primary;
+        color: var(--c-primary);
       }
     }
 
@@ -66,7 +66,7 @@
       em {
         @extend %roboto;
 
-        color: $c-font-dimmer;
+        color: var(--c-font-dimmer);
         font-size: 0.8em;
         margin-left: 0.7ch;
         letter-spacing: -1px;
@@ -86,7 +86,7 @@
       }
 
       > span {
-        color: $c-font;
+        color: var(--c-font);
       }
 
       &:hover {

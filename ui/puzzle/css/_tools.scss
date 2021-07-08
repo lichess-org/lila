@@ -60,7 +60,7 @@
     }
   }
 
-  background: $c-bg-high;
+  background: var(--c-bg-high);
   justify-content: center;
 
   &:not(.after) {
@@ -146,6 +146,6 @@
   }
 
   .glowing {
-    color: $c-font-clearer;
+    color: var(--c-font-clearer);
   }
 }

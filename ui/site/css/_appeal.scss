@@ -20,7 +20,7 @@
 
     padding: 1em 1.5em;
     margin-bottom: 2em;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
 
     &::before {
       @extend %data-icon;
@@ -42,11 +42,11 @@
     }
 
     &--mod {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
 
     &--suspect {
-      border-right: 10px solid $c-bg-zebra;
+      border-right: 10px solid var(--c-bg-zebra);
     }
 
     img {
@@ -73,7 +73,7 @@
     @extend %box-radius;
     margin-top: 3em;
     padding: 2em 3em;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   @keyframes reveal {

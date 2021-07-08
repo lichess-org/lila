@@ -19,7 +19,7 @@
   .pending,
   .negotiation {
     padding: 0.5em 3%;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     border: $border;
     border-width: 0 1px;
   }
@@ -58,8 +58,8 @@
     }
 
     to {
-      background: $c-bg-zebra;
-      color: $c-font;
+      background: var(--c-bg-zebra);
+      color: var(--c-font);
     }
   }
 
@@ -177,7 +177,7 @@
     }
 
     &.me {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: var(--c-primary-faded-20);
     }
 
     @keyframes rubber-band {
@@ -225,7 +225,7 @@
     &.glowing {
       position: relative;
       animation: none;
-      color: $c-font-clear;
+      color: var(--c-font-clear);
       &::before {
         content: '';
         position: absolute;
@@ -234,7 +234,7 @@
         right: 0;
         bottom: 0;
         pointer-events: none;
-        background: $c-primary;
+        background: var(--c-primary);
         opacity: 0;
         animation: button-glowing 2s ease-in-out infinite;
       }
@@ -254,7 +254,7 @@
     &-decline {
       @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
 
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       justify-content: center;
       position: absolute;
       top: 0;

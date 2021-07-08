@@ -14,7 +14,7 @@
         display: block;
       }
       em {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         text-transform: none;
         white-space: normal;
       }

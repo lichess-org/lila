@@ -41,7 +41,7 @@
   }
 
   .metadata {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     font-size: 0.9em;
   }
 }

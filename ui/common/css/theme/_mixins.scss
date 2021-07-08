@@ -1,7 +1,6 @@
 @mixin dark-theme {
   @media (prefers-color-scheme: dark) {
-    // 'html' is to raise the specificity
-    html body.system #{if(&, "&", "")} {
+    body.system #{if(&, "&", "")} {
       @content;
     }
   }
@@ -13,13 +12,19 @@
 }
 
 @mixin light-theme {
-  body.light #{if(&, "&", "")},
-  body.system #{if(&, "&", "")} {
+  @media (prefers-color-scheme: light) {
+    body.system #{if(&, "&", "")} {
+      @content;
+    }
+  }
+
+  body.light #{if(&, "&", "")} {
     @content;
   }
 }
 
 @mixin transp-theme {
+  // 'html' is to raise the specificity
   html body.transp #{if(&, "&", "")} {
     @content;
   }

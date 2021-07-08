@@ -18,7 +18,7 @@
     margin-right: 1ch;
     &::before {
       font-size: 1em;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       margin-right: 0.2ch;
     }
   }

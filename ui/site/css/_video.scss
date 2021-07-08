@@ -30,7 +30,7 @@
 
     @include transition;
 
-    color: $c-font;
+    color: var(--c-font);
 
     &:hover {
       @extend %button-raised-shadow;
@@ -149,13 +149,13 @@
       }
 
       .author {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         font-size: 1.5em;
         margin-right: 15px;
       }
 
       .tag {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         font-weight: bold;
         margin-right: 5px;
       }
@@ -181,7 +181,7 @@
 
       em {
         font-weight: bold;
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         margin-left: 1em;
 
         @include breakpoint($mq-subnav-top) {
@@ -214,7 +214,7 @@
       }
 
       &.empty {
-        color: $c-font-dimmer;
+        color: var(--c-font-dimmer);
         cursor: default;
       }
 
@@ -235,11 +235,11 @@
     a {
       @extend %box-radius;
 
-      color: $c-font;
+      color: var(--c-font);
       display: inline-block;
       padding: 3px 5px;
       margin: 5px 5px;
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       text-transform: capitalize;
 
       &:hover {

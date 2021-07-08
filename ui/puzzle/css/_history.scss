@@ -33,7 +33,7 @@
     }
 
     &:hover .puzzle-history__round__id {
-      color: $c-font;
+      color: var(--c-font);
       visibility: visible;
     }
   }

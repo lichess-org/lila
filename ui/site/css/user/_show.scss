@@ -24,7 +24,7 @@
   &__social {
     @extend %flex-between;
 
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
 
     .number-menu {
       margin: 0 0 0.2em 1em;
@@ -87,7 +87,7 @@
 
   .number-menu .to-games.active,
   #games.number-menu {
-    background: $c-bg-low !important;
+    background: var(--c-bg-low) !important;
   }
 
   .angles {

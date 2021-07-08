@@ -1,5 +1,5 @@
-$c-report-bg: $c-bg-high;
-$c-report-high: $c-brag;
+$c-report-high: var(--c-brag);
+$c-report-high-faded: var(--c-brag-faded-80);
 $c-report-high-over: white;
 
 #report_list {
@@ -24,14 +24,14 @@ $c-report-high-over: white;
     a {
       @extend %roboto, %flex-column;
 
-      color: $c-font;
+      color: var(--c-font);
       text-transform: uppercase;
       padding: 0.5rem 1.4rem;
       align-items: center;
       justify-content: center;
 
       &:hover {
-        background: fade-out($c-report-high, 0.5);
+        background: $c-report-high-faded;
         color: $c-report-high-over;
       }
 

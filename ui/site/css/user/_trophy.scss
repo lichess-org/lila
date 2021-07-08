@@ -56,11 +56,6 @@
 }
 
 .fire-trophy {
-  &,
-  &:hover {
-    color: if($theme-light, $c-font-dim, $c-font-clear);
-  }
-
   opacity: 0.9;
   height: 80px;
   position: relative;
@@ -74,7 +69,6 @@
   &.marathonTopFifty,
   &.marathonTopHundred {
     filter: hue-rotate(190deg);
-    color: adjust-color($c-link, $hue: -190deg, $saturation: -70%);
   }
 
   &.marathonTopTen {
@@ -119,7 +113,7 @@
   width: 40px;
   height: 40px;
   font-size: 39px;
-  color: $c-font-dimmer;
+  color: #777;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
 }
 

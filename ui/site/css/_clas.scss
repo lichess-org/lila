@@ -1,14 +1,34 @@
 $c-clas: rgb(127, 90, 240);
 
-$c-font-clas: mix($c-font-clear, $c-clas, 30%);
+$c-font-clas: var(--c-font-clas);
 $c-bg-clas: $c-clas;
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
+$c-bg-clas-over-dim: var(--c-bg-clas-over-dim);
+
+@import "../../common/css/theme/mixins";
+@import "../../common/css/theme/default";
+body {
+  --c-font-clas: mix($c-font-clear, $c-clas, 30%);
+  --c-bg-clas-nav-hover: mix($c-bg-zebra, $c-clas, 20%);
+  --c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
+}
+@import "../../common/css/theme/dark";
+@include dark-theme {
+  --c-font-clas: mix($c-font-clear, $c-clas, 30%);
+  --c-bg-clas-nav-hover: mix($c-bg-zebra, $c-clas, 20%);
+  --c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
+}
+@import "../../common/css/theme/transp";
+@include transp-theme {
+  --c-font-clas: mix($c-font-clear, $c-clas, 30%);
+  --c-bg-clas-nav-hover: mix($c-bg-zebra, $c-clas, 20%);
+  --c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
+}
 
 %archived {
   @extend %box-radius, %flex-between;
 
-  background: $c-bg-zebra2;
+  background: var(--c-bg-zebra2);
   padding: 1em 2em;
   margin-bottom: 2em;
 }
@@ -122,7 +142,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       &-archived {
         &::before,
         h3 {
-          color: $c-font-dim;
+          color: var(--c-font-dim);
         }
       }
     }
@@ -146,7 +166,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__overview {
     @extend %box-padding;
 
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
 
     &__manage {
       @extend %flex-between;
@@ -239,7 +259,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
 
       &:hover {
-        background: mix($c-bg-zebra, $c-clas, 20%);
+        background: var(--c-bg-clas-nav-hover);
       }
 
       &.active {
@@ -249,7 +269,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
         .dashboard-teacher-overview &,
         .dashboard-teacher-progress & {
-          background: $c-bg-zebra;
+          background: var(--c-bg-zebra);
         }
       }
     }
@@ -295,7 +315,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     .progress {
       @extend %box-padding;
 
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
 
       > div {
         @extend %flex-center;
@@ -308,14 +328,14 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       label {
         width: 12ch;
         display: inline-block;
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         text-transform: uppercase;
       }
 
       &-choices {
         @extend %flex-center, %box-neat-force;
 
-        @if $theme-dark {
+        @include dark-theme {
           box-shadow: none;
         }
 
@@ -332,7 +352,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
         &:hover {
           background: mix($c-bg-box, $c-clas, 70%);
-          color: $c-font-clear;
+          color: var(--c-font-clear);
         }
 
         &.active {
@@ -487,7 +507,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__managed {
     @extend %box-radius, %flex-between;
 
-    background: fade-out($c-primary, 0.8);
+    background: var(--c-primary-faded-80);
     padding: 1em 2em;
     margin: 1em 0 2em 0;
 
@@ -553,7 +573,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   &__or {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
     margin: 2rem 0;
     text-align: center;
     font-style: italic;
@@ -635,6 +655,6 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   a {
-    color: $c-font;
+    color: var(--c-font);
   }
 }

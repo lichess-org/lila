@@ -87,8 +87,8 @@
     &:hover::before {
       @include transition;
 
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
     }
   }
 

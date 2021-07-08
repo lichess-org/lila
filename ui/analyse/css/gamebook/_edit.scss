@@ -3,7 +3,7 @@
 .gamebook-edit {
   @extend %flex-column;
 
-  background: $c-bg-low;
+  background: var(--c-bg-low);
 
   .deviation,
   .hint {
@@ -35,8 +35,8 @@
 
     &.clickable:hover {
       cursor: pointer;
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
 
       i {
         opacity: 0.9;

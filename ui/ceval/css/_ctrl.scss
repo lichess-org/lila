@@ -37,7 +37,7 @@
     font-size: 12px;
     line-height: 16px;
     margin-top: 3px;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   .engine {
@@ -58,7 +58,7 @@
     }
 
     .deeper {
-      color: $c-primary;
+      color: var(--c-primary);
       margin-left: 4px;
     }
 
@@ -111,7 +111,7 @@
   .show-threat {
     flex: 0 99 auto;
     line-height: 38px;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     font-size: 0.9em;
     padding-right: 0.5em;
     overflow: hidden;
@@ -119,7 +119,7 @@
 
     &:hover:not(.hidden),
     &.active {
-      color: $c-red;
+      color: $c-bad;
     }
 
     &.hidden {

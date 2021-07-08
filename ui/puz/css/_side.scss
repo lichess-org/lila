@@ -48,7 +48,7 @@ $mq-col2: $mq-col2-uniboard;
     margin-bottom: 0.2em;
 
     .button {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       padding: 0.5em 1.5em;
     }
   }

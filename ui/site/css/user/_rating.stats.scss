@@ -10,7 +10,7 @@
 
     &::before {
       font-size: 4.5em;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       margin-right: 1rem;
     }
   }

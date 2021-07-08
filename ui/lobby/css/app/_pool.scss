@@ -24,19 +24,13 @@
     align-items: center;
     cursor: pointer;
     border: $border;
-    
-    background: fade-out($c-bg-box, 0.5);
-    @include dark-theme {
-      background: fade-out($c-font, 0.95);
-    }
-
-    color: $c-font;
+    background: var(--bg-lobby-pool-card);
+    color: var(--c-font);
 
     @include transition;
 
     &:hover {
-      background: fade-out($c-accent, 0.8);
-      opacity: 1;
+      background: var(--c-accent-80);
     }
   }
 

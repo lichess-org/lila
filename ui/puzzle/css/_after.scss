@@ -10,13 +10,13 @@
 
     justify-content: center;
     font-size: 1.3em;
-    background: $c-primary;
-    color: $c-primary-over;
+    background: var(--c-primary);
+    color: var(--c-primary-over);
     text-transform: uppercase;
     padding: 2em;
 
     &:hover {
-      background: lighten($c-primary, 10%);
+      background: var(--c-primary-light);
     }
 
     i::before {
@@ -53,7 +53,7 @@
     padding: 1em 2em;
 
     a {
-      color: $c-font;
+      color: var(--c-font);
 
       &:hover {
         color: $c-link;

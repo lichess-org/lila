@@ -14,7 +14,7 @@
 
   .back {
     display: flex;
-    color: $c-font;
+    color: var(--c-font);
   }
 
   .back img {
@@ -36,7 +36,7 @@
   }
 
   .categ > h2:hover {
-    background: fade-out($c-primary, 0.8);
+    background: var(--c-primary-faded-80);
   }
 
   .categ.active {
@@ -50,8 +50,8 @@
 
   .categ.active > h2 {
     cursor: default;
-    background: $c-primary;
-    color: $c-primary-over;
+    background: var(--c-primary);
+    color: var(--c-primary-over);
   }
 
   .categ:not(.active) .categ_stages {
@@ -65,7 +65,7 @@
 
     font-size: 1.1em;
     opacity: 0.9;
-    color: $c-font;
+    color: var(--c-font);
 
     img,
     i {
@@ -81,11 +81,11 @@
     }
 
     &.active {
-      background: fade-out($c-primary, 0.8);
+      background: var(--c-primary-faded-80);
     }
 
     &.active img {
-      background: $c-primary;
+      background: var(--c-primary);
     }
 
     &.done:hover {
@@ -97,17 +97,17 @@
     }
 
     &.future:hover {
-      background: fade-out($c-primary, 0.8);
+      background: var(--c-primary-faded-80);
     }
 
     &.future img {
       opacity: 0.7;
-      background: $c-primary;
+      background: var(--c-primary);
     }
 
     &:hover {
       filter: brightness(0.9);
-      color: $c-font-clearer;
+      color: var(--c-font-clearer);
     }
   }
 }

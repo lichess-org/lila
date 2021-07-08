@@ -27,7 +27,7 @@ body {
   margin: 0.5em 1em 0.5em 0;
   display: block;
   text-align: right;
-  color: $c-font-dim;
+  color: var(--c-font-dim);
 
   &:hover {
     color: $c-link;
@@ -90,7 +90,7 @@ body {
 .lobby__puzzle .text {
   @extend %page-text-shadow;
 
-  color: $c-font-dim;
+  color: var(--c-font-dim);
   display: block;
   text-align: right;
   margin-right: 1ch;

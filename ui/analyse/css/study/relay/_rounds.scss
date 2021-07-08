@@ -8,14 +8,14 @@ $span-width: 1.7em;
   .link {
     @extend %break-word;
     flex: 1 1 100%;
-    color: $c-font;
+    color: var(--c-font);
     margin-left: 1em;
     align-self: center;
     line-height: 2;
   }
 
   > div.active .link {
-    color: $c-font-clear;
+    color: var(--c-font-clear);
   }
 
   finished {
@@ -31,7 +31,7 @@ $span-width: 1.7em;
     a {
       flex: 1 1 100%;
       padding: 0.5em 1em;
-      color: $c-font;
+      color: var(--c-font);
     }
   }
 }

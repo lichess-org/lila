@@ -21,16 +21,16 @@
   a {
     @extend %flex-column;
 
-    color: $c-font;
+    color: var(--c-font);
     padding: 0.5em 0.7em;
     white-space: nowrap;
     line-height: 1.9em;
-    border-top: 1px solid mix($c-bg-page, $c-border-page, 50%);
+    border-top: 1px solid var(--c-border-faded);
 
     @include transition;
 
     &:hover {
-      background: mix($c-link, $c-bg-page, 20%);
+      background: var(--c-primary-faded-70);
     }
   }
 
@@ -42,7 +42,7 @@
     @extend %ellipsis;
 
     font-size: 1.2em;
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     display: block;
     max-width: 60%;
   }
@@ -51,7 +51,7 @@
     @extend %box-radius;
 
     padding: 0.1em 0.5em;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   .b .utitle,

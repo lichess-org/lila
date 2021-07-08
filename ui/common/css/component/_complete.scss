@@ -21,7 +21,7 @@
   }
 
   &-result {
-    color: $c-font;
+    color: var(--c-font);
     padding: 0.4em 0 0.4em 0.4em;
     display: block;
     cursor: pointer;
@@ -32,7 +32,7 @@
     &.complete-selected {
       &,
       & i {
-        color: $c-font-clearer !important;
+        color: var(--c-font-clearer) !important;
       }
 
       background: mix($c-link, $c-bg-box, 20%);

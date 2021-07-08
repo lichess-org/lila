@@ -33,7 +33,7 @@
       border-top: $border;
 
       &:nth-child(even) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
         justify-content: space-between;
 
         .picture {

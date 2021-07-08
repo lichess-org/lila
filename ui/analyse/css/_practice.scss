@@ -6,14 +6,14 @@
     flex: 0 0 30px;
     display: flex;
     align-items: stretch;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     border-top: 1px solid $border;
     white-space: nowrap;
     line-height: 30px;
   }
 
   .progress div {
-    background: $c-shade;
+    background: var(--c-shade);
   }
 
   &.goodMove .progress div {

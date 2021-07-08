@@ -40,8 +40,8 @@
     }
 
     &:not(.disabled):hover {
-      background: $c-primary;
-      color: $c-primary-over;
+      background: var(--c-primary);
+      color: var(--c-primary-over);
     }
 
     &.prev {
@@ -82,7 +82,7 @@
   position: relative;
 
   &:hover {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
 
     i {
       color: $c-link;

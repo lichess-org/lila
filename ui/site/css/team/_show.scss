@@ -18,14 +18,14 @@ $section-margin-more: 5vh;
     height: 40vh;
     margin-bottom: $section-margin;
 
-    @if $theme-dark {
+    @include dark-theme {
       box-shadow: none;
 
       &__tabs,
       &__content,
       &__say,
       &__tab-active {
-        background: $c-bg-page !important;
+        background: var(--c-bg-page) !important;
       }
     }
   }
@@ -53,7 +53,7 @@ $section-margin-more: 5vh;
   }
 
   &__meta {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     margin-bottom: $section-margin;
   }
 
@@ -73,7 +73,7 @@ $section-margin-more: 5vh;
       }
 
       em {
-        color: $c-font-dim;
+        color: var(--c-font-dim);
         text-transform: none;
         white-space: normal;
       }
@@ -84,7 +84,7 @@ $section-margin-more: 5vh;
     @extend %box-neat;
 
     padding: 1.5em 2.5em;
-    background: $c-bg-high;
+    background: var(--c-bg-high);
     font-size: 1.1em;
     margin-bottom: $section-margin-more;
   }
@@ -137,19 +137,19 @@ $section-margin-more: 5vh;
 
     &__post {
       display: block;
-      color: $c-font;
+      color: var(--c-font);
       padding: 1em 2.5em;
       overflow: hidden;
 
       &:nth-child(odd) {
-        background: $c-bg-zebra;
+        background: var(--c-bg-zebra);
       }
 
       &:hover {
         background: mix($c-link, $c-bg-box, 10%);
 
         span {
-          color: $c-font;
+          color: var(--c-font);
         }
       }
 
@@ -167,7 +167,7 @@ $section-margin-more: 5vh;
 
     p {
       @extend %zalgoverflow;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     a.more {

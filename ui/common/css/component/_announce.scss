@@ -3,8 +3,8 @@
 
   font-size: 1.4em;
   position: fixed;
-  background: $c-primary;
-  color: $c-primary-over;
+  background: var(--c-primary);
+  color: var(--c-primary-over);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -18,7 +18,7 @@
   }
 
   a {
-    color: $c-primary-over;
+    color: var(--c-primary-over);
   }
 
   time {

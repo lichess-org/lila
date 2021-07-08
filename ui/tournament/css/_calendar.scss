@@ -17,7 +17,7 @@
     align-items: center;
 
     &:nth-child(even) {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
     }
 
     date {

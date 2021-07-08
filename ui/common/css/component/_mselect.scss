@@ -1,4 +1,4 @@
-$c-mselect: $c-primary;
+$c-mselect: var(--c-primary);
 
 .mselect {
   position: relative;
@@ -51,7 +51,7 @@ $c-mselect: $c-primary;
     @include transition(transform);
 
     .current {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
 
       @extend %flex-between-nowrap;
 

@@ -50,12 +50,12 @@
   &__matchup {
     flex: 1 1 auto;
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: var(--c-primary-faded-80);
   }
 
   povs {
     a {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       flex: 0 0 50%;
     }
 

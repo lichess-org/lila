@@ -138,7 +138,7 @@
   }
 
   .axis-form .ms-drop {
-    color: $c-font;
+    color: var(--c-font);
 
     ul > li label input {
       display: none;
@@ -165,7 +165,7 @@
       padding: 0.5em 0.2em;
       cursor: pointer;
       position: relative;
-      color: $c-font-page;
+      color: var(--c-font-page);
 
       @include transition(color, 0.25s);
 
@@ -202,7 +202,7 @@
     @extend %box-neat;
 
     a {
-      color: $c-font;
+      color: var(--c-font);
       display: block;
       padding: 0.7em;
 
@@ -413,7 +413,7 @@
 
       @include transition(background);
 
-      color: $c-font;
+      color: var(--c-font);
       padding: 0.4em;
 
       span {

@@ -16,7 +16,7 @@
   .variant {
     @extend %flex-center;
 
-    color: $c-font;
+    color: var(--c-font);
     height: 6em;
 
     @include transition;

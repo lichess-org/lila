@@ -1,8 +1,8 @@
 .learn__side-home {
   @extend %box-neat;
 
-  background: $c-primary;
-  color: $c-primary-over;
+  background: var(--c-primary);
+  color: var(--c-primary-over);
   text-align: center;
   padding: 1em 0;
 

@@ -7,7 +7,7 @@
     border-bottom: $border;
 
     a {
-      color: $c-font;
+      color: var(--c-font);
 
       &:hover {
         color: $c-link;
@@ -34,7 +34,7 @@
   }
 
   a {
-    color: $c-font;
+    color: var(--c-font);
   }
 
   .user-link {
@@ -48,7 +48,7 @@
   margin-top: 1em;
 
   a {
-    color: $c-font;
+    color: var(--c-font);
 
     @include transition;
 
@@ -60,7 +60,7 @@
 
 .scheduled {
   a {
-    color: $c-font;
+    color: var(--c-font);
     padding: 0.5em 0 0.5em 2.7em;
     display: block;
     position: relative;
@@ -72,7 +72,7 @@
       @extend %box-radius;
 
       padding-left: 3.2rem;
-      background: mix($c-brag, $c-bg-page, 20%);
+      background: var(--c-brag-faded-80);
 
       &::before {
         left: 0.5rem;
@@ -81,7 +81,7 @@
   }
 
   strong {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     display: block;
   }
 

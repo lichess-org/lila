@@ -48,7 +48,7 @@ $c-study-button: $c-accent;
     }
 
     &:hover {
-      background: $c-bg-zebra;
+      background: var(--c-bg-zebra);
       opacity: 1;
     }
   }

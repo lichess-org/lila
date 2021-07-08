@@ -1,5 +1,5 @@
 /* line with highlight area */
 .sparkline {
-  stroke: $c-primary;
-  fill: mix($c-primary, $c-bg-box, 20%);
+  stroke: var(--c-primary);
+  fill: var(--c-primary-faded-80);
 }

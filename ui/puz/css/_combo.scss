@@ -22,7 +22,7 @@
 
       font-size: 0.8em;
       letter-spacing: -1px;
-      color: $c-font-dim;
+      color: var(--c-font-dim);
     }
 
     transition: color 0.1s;
@@ -42,7 +42,7 @@
   &__bar {
     @extend %box-radius;
 
-    $c-bar-base: $c-bg-zebra2;
+    $c-bar-base: var(--c-bg-zebra2);
     $c-in-base: $c-brag;
 
     flex: 0 0 2.2em;
@@ -77,8 +77,8 @@
     }
 
     &__in-full {
-      background: $c-primary;
-      box-shadow: 0 0 10px $c-primary, 0 0 20px $c-primary;
+      background: var(--c-primary);
+      box-shadow: 0 0 10px var(--c-primary), 0 0 20px var(--c-primary);
       width: 100%;
       display: none;
       opacity: 0;
@@ -107,7 +107,7 @@
   }
 
   &__level {
-    $c-level: $c-primary;
+    $c-level: var(--c-primary);
 
     transform: skewX(-45deg);
     flex: 21% 0 0;
@@ -116,9 +116,9 @@
     height: 1.5em;
     line-height: 1.5em;
     border: $border;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
     text-align: center;
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
     font-weight: bold;
 
     span {

@@ -21,7 +21,7 @@
   .chart,
   .chart-grid {
     padding: 4vh 4vw;
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
   .chart {
     min-height: 40vh;

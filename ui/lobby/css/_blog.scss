@@ -2,7 +2,7 @@
   .post {
     @extend %flex-between;
 
-    color: $c-font;
+    color: var(--c-font);
     flex-wrap: nowrap;
     overflow: hidden;
     padding: 0.2em 0.5em;
@@ -26,7 +26,7 @@
     }
 
     time {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       white-space: nowrap;
     }
   }

@@ -1,7 +1,7 @@
 @mixin range-thumb {
   @include metal;
 
-  border: 1px solid $c-font-dimmer;
+  border: 1px solid var(--c-font-dimmer);
   height: 1em;
   width: 1.5em;
   border-radius: 12px;
@@ -13,7 +13,7 @@
   width: 100%;
   height: 1em;
   cursor: pointer;
-  background: $c-shade;
+  background: var(--c-shade);
   border-radius: 0.5em;
 }
 

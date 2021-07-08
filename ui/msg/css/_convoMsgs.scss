@@ -17,7 +17,7 @@
   }
 
   &__typing {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   &__content {
@@ -41,23 +41,23 @@
     border-radius: 6px;
     box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
 
-    @if $theme-dark {
+    @include dark-theme {
       box-shadow: 0 1px 0.5px rgb(0, 0, 0);
     }
 
     margin: 0.2em 0;
     padding: 0.5em 1em;
-    color: $c-font-clear;
+    color: var(--c-font-clear);
     max-width: 70%;
   }
 
   day {
     @extend %roboto;
 
-    background: mix($c-primary, $c-bg-box, 15%);
+    background: var(--c-primary-faded-80);
     align-self: center;
     font-size: 0.9em;
-    color: $c-font;
+    color: var(--c-font);
     margin: 0.5em 0;
   }
 
@@ -82,7 +82,7 @@
   em {
     @extend %roboto;
 
-    color: $c-font-dim;
+    color: var(--c-font-dim);
     font-size: 0.8em;
     float: right;
     margin: 0.4em 0 0 2em;

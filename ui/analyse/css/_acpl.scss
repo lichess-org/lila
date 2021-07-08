@@ -1,7 +1,7 @@
 .advice-summary {
   @extend %flex-column;
 
-  color: $c-font-page;
+  color: var(--c-font-page);
   font-size: 0.9em;
   line-height: 1.15em;
   margin-top: 1em;

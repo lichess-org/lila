@@ -28,24 +28,24 @@
   }
 
   a {
-    color: $c-font;
+    color: var(--c-font);
     text-decoration: none;
 
     &:hover {
-      color: $c-primary;
+      color: var(--c-primary);
 
       span {
-        color: $c-primary-dim;
+        color: var(--c-primary-dim);
       }
     }
   }
 
   span {
-    color: $c-font-dim;
+    color: var(--c-font-dim);
   }
 
   .kiddo {
-    color: $c-font-dimmer;
+    color: var(--c-font-dimmer);
     font-weight: bold;
     margin-right: 0.5em;
   }

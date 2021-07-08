@@ -28,9 +28,9 @@ $c-font-page: $c-font-dim;
 $c-primary: hsl(209, 79%, 56%);
 $c-primary-dim: c-dimmer($c-primary, 15%);
 $c-primary-clear: c-clearer($c-primary);
+$c-primary-clearer: c-clearer($c-primary, 25%);
 
 /* Secondary: green */
-$c-secondary: hsl(88, 62%, 37%);
 $c-secondary-dim: c-dimmer($c-secondary);
 $c-secondary-dimmer: c-dimmer($c-secondary, 40%);
 
@@ -40,13 +40,8 @@ $c-brag: hsl(37, 74%, 43%);
 /* Fancy: pink */
 $c-fancy: hsl(294, 62%, 48%);
 
-/* Good: green */
-$c-good: $c-secondary;
-$c-good-over: $c-secondary-over;
-
 /* Warn: orange */
 $c-warn: $c-brag;
-$c-warn-over: $c-brag-over;
 
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;

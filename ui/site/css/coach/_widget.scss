@@ -53,13 +53,13 @@
     line-height: 1.7;
 
     th {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
       padding-right: 1.2em;
       text-align: right;
     }
 
     .seen {
-      color: $c-font-dim;
+      color: var(--c-font-dim);
 
       time {
         font-size: inherit;
@@ -72,7 +72,7 @@
 
       a {
         display: flex;
-        color: $c-font;
+        color: var(--c-font);
 
         span {
           margin-left: 0.5em;

@@ -9,7 +9,7 @@
   @include transition(background);
 
   &:nth-child(odd) {
-    background: $c-bg-zebra;
+    background: var(--c-bg-zebra);
   }
 
   &:hover {

@@ -2,7 +2,7 @@
   @extend %box-radius;
 
   display: flex;
-  background: $c-font-dimmer;
+  background: var(--c-font-dimmer);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
 
   &-top {
@@ -21,11 +21,11 @@
     @include transition;
 
     &:hover {
-      background: fade-out($c-primary, 0.8);
+      background: var(--c-primary-faded-80);
     }
 
     &.selected-square {
-      background: fade-out($c-primary, 0.5);
+      background: var(--c-primary-faded-40);
     }
 
     div {
