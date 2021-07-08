@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Առաջ գնացած զինվոր</string>
+  <string name="advancedPawnDescription">Զինվորը վերածվելու կամ զինվորը վերածվելու սպառնալիքի հետ կապված մարտավարություն։</string>
+  <string name="advantage">Առավելություն</string>
+  <string name="advantageDescription">Օգտագործեք որոշիչ առավելություն ստանալու Ձեր հնարավորությունը (200-ից 600 սանտիզինվոր)</string>
+</resources>
