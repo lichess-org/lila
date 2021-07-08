@@ -23,6 +23,7 @@
   <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
   <string name="youCannotApply">Немагчыма падаць заяўку, каб стаць мадэратарам. Калі мы заўважым кагосьці, хто, на нашу думку, будзе добрым мадэратарам, мы звяжамся з імі напрасткі.</string>
   <string name="isCorrespondenceDifferent">Ліставаная гульня адрозніваецца ад звычайных шахмат?</string>
+  <string name="youCanUseOpeningBookNoEngine">На Lichess, галоўнае адрозненне ў правілах ліставаных шахмат з\'яўляецца магчымасць карыстацца кніга Дэбітаў. Выкарыстанне шахматных рухавікоў усё роўна забаронена і ў выніку будзе пазначэнне карыстальніка рухавіка. Хоць ICCF дазваляе выкарыстанне рухавікоў у ліставаных шахматах, Lichess не.</string>
   <string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
   <string name="basedOnGameDuration">Кантролі часу на Lichess заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
@@ -33,6 +34,7 @@
   <string name="lichessSupportChessAnd">Lichess падтрымлівае класічныя шахматы і %1$s.</string>
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
   <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
+  <string name="fideHandbookX">Правилы ФІДЭ %s</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
