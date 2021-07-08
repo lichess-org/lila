@@ -113,6 +113,18 @@
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s վրիպում</item>
+    <item quantity="other">%s վրիպում</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s սխալ</item>
+    <item quantity="other">%s սխալ</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s անճշտություն</item>
+    <item quantity="other">%s անճշտություն</item>
+  </plurals>
   <string name="moveTimes">Քայլի տևողություն</string>
   <string name="flipBoard">Շրջել խաղատախտակը</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
@@ -165,10 +177,11 @@
   </plurals>
   <string name="time">Ժամանակ</string>
   <string name="rating">Վարկանիշ</string>
-  <string name="ratingStats">Վարկանիշի ստատիստիկա</string>
+  <string name="ratingStats">Վարկանիշների բաշխում</string>
   <string name="username">Օգտատիրոջ անուն</string>
   <string name="usernameOrEmail">Օգտատիրոջ անուն կամ email</string>
   <string name="changeUsername">Փոխել օգտանունը</string>
+  <string name="changeUsernameNotSame">Կարելի է փոխել միայն նշանների ստեղնաշարքը։ Օրինակ, «hayktadevosyan»-ը դարձնել «HaykTadevosyan»։</string>
   <string name="changeUsernameDescription">Փոխել օգտանունը։ Սա կարող է արվել ընդամենը մեկ անգամ, միայն թույլատրվում է օգտանվան փոքրատառերը դարձնել մեծատառ և հակառակը։</string>
   <string name="password">Գաղտնաբառ</string>
   <string name="changePassword">Փոխել գաղտնաբառը</string>
@@ -177,7 +190,7 @@
   <string name="passwordReset">Վերականգնել գաղտնաբառը</string>
   <string name="forgotPassword">Մոռացել ե՞ք գաղտնաբառը</string>
   <string name="rank">Դասակարգում</string>
-  <string name="rankX">Դասակարգում %s</string>
+  <string name="rankX">Դասակարգում՝ %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Վարկանիշը թարմացվում է ամեն րոպե</item>
     <item quantity="other">Վարկանիշը թարմացվում է ամեն %s րոպե</item>
@@ -233,6 +246,7 @@
   <string name="inbox">Փոստարկղ</string>
   <string name="chatRoom">Չաթի պատուհան</string>
   <string name="loginToChat">Մուտք գործել չաթ</string>
+  <string name="youHaveBeenTimedOut">Զրուցարանը ժամանակավորապես անհասանելի Ձեզ համար։</string>
   <string name="spectatorRoom">Հանդիսատեսների սենյակ</string>
   <string name="composeMessage">Գրել հաղորդագրություն</string>
   <string name="noNewMessages">Դեռևս նամակներ չունեք</string>
@@ -268,6 +282,7 @@
     <item quantity="other">Տալ %s վայրկան</item>
   </plurals>
   <string name="thisAccountViolatedTos">Այս օգտատերը խախտել է Lichess-ի օգտագործման պայմանները</string>
+  <string name="openingExplorerAndTablebase">Սկզբնախաղերի և վերջնախաղերի բազա՝ &amp;</string>
   <string name="takeback">Քայլը հետ վերցնել</string>
   <string name="proposeATakeback">Քայլը հետ վերցնելու առաջարկ անել</string>
   <string name="takebackPropositionSent">Քայլը հետ վերցնելու առաջարկն ուղարկված է</string>
@@ -279,6 +294,10 @@
   <string name="tournament">Մրցաշար</string>
   <string name="tournaments">Մրցաշարեր</string>
   <string name="tournamentPoints">Մրցաշարային  միավորներ</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s մրցաշարային միավոր</item>
+    <item quantity="other">%s մրցաշարային միավոր</item>
+  </plurals>
   <plurals name="nbStudies">
     <item quantity="one">%s ստուդիա</item>
     <item quantity="other">%s ուսուցում</item>
