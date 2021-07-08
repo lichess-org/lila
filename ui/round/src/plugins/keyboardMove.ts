@@ -4,8 +4,8 @@ import { Dests } from '../interfaces';
 const keyRegex = /^[1-9][1-9]$/;
 const fileRegex = /^[1-9]$/;
 const dropRegex = /^\w?\*[1-9][1-9]$/;
-const ambiguousPromotionRegex = /^([1-9]x?)?[1-9]([1-37-9])$/;
-const promotionRegex = /^([1-9]x?)?[1-9]([1-37-9])[\+|\=]$/;
+const ambiguousPromotionRegex = /^(\\w?x?)?[1-9][1-9][\+\=]$/;
+const promotionRegex = /^[1-9][1-9]x?[1-9][1-9][\+\=]$/;
 
 interface SubmitOpts {
   force?: boolean;
@@ -22,7 +22,7 @@ window.lishogi.keyboardMove = function (opts: any) {
   const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
     const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
     if (foundUci) {
-      // ambiguous UCI
+      // ambiguous UCI (G52)
       if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(alpha(v));
       // ambiguous promotion (missing = or +)
       // Surely force=false always since promotion/unpromotion must be selected?
@@ -35,10 +35,10 @@ window.lishogi.keyboardMove = function (opts: any) {
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
-    } else if (sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v.replace('=', '').slice(0, -1), sans);
+    } else if (v.length >= 5 && sans && v.match(promotionRegex)) {
+      const foundUci = sanToUci(v, sans);
       if (!foundUci) return;
-      opts.ctrl.promote(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2)), v.slice(-1));
+      opts.ctrl.promote(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2, 4)), v.slice(-1));
       clear();
     } else if (v.match(dropRegex)) {
       if (v.length === 3) v = 'P' + v;

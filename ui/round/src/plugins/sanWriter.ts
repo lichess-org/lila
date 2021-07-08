@@ -47,6 +47,12 @@ function kingMovesTo(s) {
   });
 }
 
+function pawnMovesTo(s) {
+  return [s + 9, s - 9].filter(function (o) {
+    return o >= 0 && o < 81;
+  });
+}
+
 function knightMovesTo(s) {
   return [s + 19, s + 17, s - 17, s - 19].filter(function (o) {
     return o >= 0 && o < 81 && squareDist(s, o) <= 2;
@@ -80,21 +86,12 @@ function sanOf(board, uci) {
   var p = board.pieces[from];
   var d = board.pieces[to];
   var pt = board.pieces[from].toLowerCase();
-
-  // pawn moves
-  if (pt === 'p') {
-    var san;
-    if (uci[0] === uci[2]) san = move[1];
-    else san = uci[0] + 'x' + move[1];
-    if (move[2]) san += '=' + move[2].toUpperCase();
-    return san;
-  }
-
   var san = pt.toUpperCase();
 
   // disambiguate normal moves
   var candidates: number[] = [];
   if (pt == 'k') candidates = kingMovesTo(to);
+  else if (pt == 'p') candidates = pawnMovesTo(to);
   else if (pt == 'n') candidates = knightMovesTo(to);
   else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
   else if (pt == 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
@@ -113,6 +110,9 @@ function sanOf(board, uci) {
   // target
   if (d) san += 'x';
   san += move[1];
+
+  // (un)promotion
+  if (move[2]) san += move[2];
   return san;
 }
 
