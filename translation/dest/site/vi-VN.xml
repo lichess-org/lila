@@ -844,6 +844,7 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="onlyTitled">Kỳ thủ phải có danh hiệu</string>
   <string name="onlyTitledHelp">Đòi hỏi danh hiệu chính thức khi gia nhập giải đấu</string>
   <string name="estimatedStart">Thời gian dự kiến bắt đầu</string>
+  <string name="simulFeatured">Hiển thị trên %s</string>
   <string name="simulDescriptionHelp">Bạn có muốn thông báo gì thêm cho những người tham gia không?</string>
   <string name="markdownAvailable">%s dùng được ở đây, nếu cần soạn thảo phức tạp.</string>
   <string name="inYourLocalTimezone">Trên múi giờ địa phương của bạn</string>
