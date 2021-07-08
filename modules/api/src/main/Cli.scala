@@ -76,7 +76,6 @@ final private[api] class Cli(
       fishnet.cli.process orElse
       study.cli.process orElse
       studySearch.cli.process orElse
-      coach.cli.process orElse
       evalCache.cli.process orElse
       plan.cli.process orElse
       msg.cli.process orElse

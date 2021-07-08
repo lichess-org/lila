@@ -50,7 +50,7 @@ object show {
           ),
           if (ctx.me.exists(c.coach.is))
             frag(
-              if (c.coach.isListed) p("This page is now public.")
+              if (c.coach.listed.value) p("This page is now public.")
               else "This page is not public yet. ",
               a(href := routes.Coach.edit, cls := "text", dataIcon := "")("Edit my coach profile")
             )

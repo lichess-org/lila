@@ -95,7 +95,7 @@ final class Coach(env: Env) extends LilaController(env) {
     }
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(implicit ctx: Context) =
-    if (c.coach.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) f
+    if (c.isListed || ctx.me.??(c.coach.is) || isGranted(_.Admin)) f
     else notFound
 
   def edit =

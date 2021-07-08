@@ -41,7 +41,7 @@ final class CoachApi(
     }
 
   def isListedCoach(user: User): Fu[Boolean] =
-    Granter(_.Coach)(user) ?? coachColl.exists($id(user.id) ++ $doc("listed" -> true))
+    Granter(_.Coach)(user) ?? user.enabled ?? user.marks.clean ?? coachColl.exists($id(user.id))
 
   def setSeenAt(user: User): Funit =
     Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
@@ -66,17 +66,6 @@ final class CoachApi(
 
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
-
-  private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
-    coachColl.update.one(
-      $id(User.normalize(username)),
-      $set("approved" -> value)
-    ) dmap { result =>
-      if (result.n > 0) "Done!"
-      else "No such coach"
-    }
-
-  def remove(userId: User.ID): Funit = coachColl.updateField($id(userId), "listed", false).void
 
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded, by: User): Funit =
     photographer(c.coach.id.value, picture, createdBy = by.id).flatMap { pic =>

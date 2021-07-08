@@ -96,7 +96,7 @@ final class IrcApi(
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
-    zulip(_.mod.adminAppeal, user.username)(
+    zulip(_.mod.adminAppeal, "/" + user.username)(
       s"${markdown.modLink(mod.user)} :eyes: Let's have a look at the appeal of **${markdown
         .lichessLink(s"/appeal/${user.username}", user.username)}**"
     )
