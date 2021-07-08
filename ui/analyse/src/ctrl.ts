@@ -662,7 +662,7 @@ export default class AnalyseCtrl {
 
   position(node: Tree.Node): Result<Position, PositionError> {
     const setup = parseFen(node.fen).unwrap();
-    return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup);
+    return setupPosition(lishogiVariantRules(this.data.game.variant.key), setup, false);
   }
 
   canUseCeval(): boolean {
