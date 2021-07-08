@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">Статыстыка %s</string>
   <string name="viewTheGames">Праглядзець гульні</string>
   <string name="provisional">умоўны</string>
   <string name="notEnoughRatedGames">Не было сыграна дастаткова рэйтынгавых гульняў, каб ўсталяваць надзейны рэйтынг.</string>
