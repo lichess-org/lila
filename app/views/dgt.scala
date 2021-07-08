@@ -69,7 +69,7 @@ object dgt {
     )
 
   def play(token: AccessToken)(implicit ctx: Context) =
-    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.id.secret}")"""))(
+    layout("play", embedJsUnsafeLoadThen(s"""LichessDgt.playPage("${token.plain.secret}")"""))(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
         h2(iconTag("", "If a move is not detected")),

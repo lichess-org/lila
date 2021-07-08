@@ -3,6 +3,7 @@ package controllers
 import views._
 
 import lila.app._
+import lila.oauth.{ AccessToken, OAuthTokenForm }
 
 final class OAuthToken(env: Env) extends LilaController(env) {
 
@@ -17,18 +18,17 @@ final class OAuthToken(env: Env) extends LilaController(env) {
 
   def create =
     Auth { implicit ctx => me =>
-      val form = env.oAuth.forms.token.create fill lila.oauth.OAuthForm.token
-        .Data(
-          description = ~get("description"),
-          scopes = (~ctx.req.queryString.get("scopes[]")).toList
-        )
+      val form = OAuthTokenForm.create fill OAuthTokenForm.Data(
+        description = ~get("description"),
+        scopes = (~ctx.req.queryString.get("scopes[]")).toList
+      )
       Ok(html.oAuth.token.create(form, me)).fuccess
     }
 
   def createApply =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
-      env.oAuth.forms.token.create
+      OAuthTokenForm.create
         .bindFromRequest()
         .fold(
           err => BadRequest(html.oAuth.token.create(err, me)).fuccess,
@@ -38,8 +38,8 @@ final class OAuthToken(env: Env) extends LilaController(env) {
         )
     }
 
-  def delete(publicId: String) =
-    Auth { _ => me =>
-      tokenApi.revokeByPublicId(publicId, me) inject Redirect(routes.OAuthToken.index).flashSuccess
+  def delete(id: String) =
+    Auth { _ => _ =>
+      tokenApi.revoke(AccessToken.Id(id)) inject Redirect(routes.OAuthToken.index).flashSuccess
     }
 }

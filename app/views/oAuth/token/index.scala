@@ -54,7 +54,7 @@ object index {
                 br,
                 "You won’t be able to see it again!"
               ),
-              code(token.id.secret)
+              code(token.plain.secret)
             )
           )
         },
@@ -75,7 +75,7 @@ object index {
                 }
               ),
               td(cls := "action")(
-                postForm(action := routes.OAuthToken.delete(t.publicId.stringify))(
+                postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
                     cls := "button button-red button-empty confirm",
                     st.title := "Delete this access token"
