@@ -96,6 +96,7 @@
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
+  <string name="openingEndgameExplorer">Åpnings-/sluttspillsbok</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
@@ -900,4 +901,12 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="noChat">Ingen samtale</string>
   <string name="onlyTeamLeaders">Bare lagledere</string>
   <string name="onlyTeamMembers">Bare lagmedlemmer</string>
+  <string name="navigateMoveTree">Naviger i trekktreet</string>
+  <string name="mouseTricks">Musetriks</string>
+  <string name="toggleLocalAnalysis">Skru av eller på lokal maskinanalyse</string>
+  <string name="toggleAllAnalysis">Skru av eller på all maskinanalyse</string>
+  <string name="playComputerMove">Spill det beste maskintrekket</string>
+  <string name="analysisOptions">Analysevalg</string>
+  <string name="focusChat">Fokus på samtale</string>
+  <string name="showHelpDialog">Vis denne hjelpedialogen</string>
 </resources>

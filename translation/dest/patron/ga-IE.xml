@@ -81,4 +81,5 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nowLifetime">Is Pátrún Lichess ar feadh an tsaoil anois thú!</string>
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
   <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Athraigh airgeadra</string>
 </resources>

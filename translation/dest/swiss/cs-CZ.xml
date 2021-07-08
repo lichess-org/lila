@@ -7,4 +7,37 @@
     <item quantity="many">Zobrazit %s kol</item>
     <item quantity="other">Zobrazit všech %s kol</item>
   </plurals>
+  <string name="roundsAreStartedManually">Kola se spouští ručně</string>
+  <string name="startingIn" comment="Displayed above a timer">Začíná za</string>
+  <string name="nextRound">Další kolo</string>
+  <string name="tournStartDate">Zahajovací datum turnaje</string>
+  <string name="numberOfRounds">Počet kol</string>
+  <string name="roundInterval">Interval mezi koly</string>
+  <string name="forbiddenPairings">Tato možnost zabraňuje párování určitých hráčů</string>
+  <string name="forbiddenPairingsHelp">Jména hráčů, kteří nesmí spolu hrát (Například sourozenci). Dvě jména na řádek, oddělená mezerou.</string>
+  <string name="newSwiss">Nový Švýcarský turnaj</string>
+  <string name="swissVsArenaQ">Kdy hrát švýcarský turnaj místo arény?</string>
+  <string name="swissVsArenaA">Ve švýcarském turnaji hrají všichni účastníci stejný počet kol a mohou spolu hrát jen jednou. Tato možnost je dobrá pro kluby a oficiální turnaje.</string>
+  <string name="pointsCalculationQ">Jak se počítají body?</string>
+  <string name="pointsCalculationA">Výhra získává jeden bod, remíza půl a prohra nic. Když hráč nemůže být do kola nalosován, obdrží bye se ziskem jednoho bodu.</string>
+  <string name="tiebreaksCalculationQ">Jak se počítá pomocné hodnocení?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger skóre</string>
+  <string name="tiebreaksCalculationA">S %s.
+Přidá body od každého hráče, kterého porazí a půlku bodů hráče, se kterým remizoval.</string>
+  <string name="pairingsQ">Jak se losují soupeři?</string>
+  <string name="dutchSystem">Holandský systém</string>
+  <string name="FIDEHandbook">Příručka FIDE</string>
+  <string name="moreRoundsThanPlayersQ">Co se stane, pokud má turnaj více kol, než účastníků?</string>
+  <string name="moreRoundsThanPlayersA">Když se všechny možné kombinace odehrají, turnaj bude ukončen a bude určen vítěz.</string>
+  <string name="restrictedToTeamsQ">Proč je zakázaný pro týmy?</string>
+  <string name="numberOfByesQ">Kolik volných kol může hráč dostat?</string>
+  <string name="numberOfByesA">Hráč dostane bod pokaždé, když systém pro něj nenajde soupeře. Půl bodu je hráči přidáno, pokud se do turnaje připojí pozdě.</string>
+  <string name="whatIfOneDoesntPlayQ">Co se stane, když hráč partii neodehraje?</string>
+  <string name="whatIfOneDoesntPlayA">Jejich čas poběží, spadnou na čas, tím partii prohrají.
+Takového hráče systém diskvalifikuje, aby neprohrál více partií.
+Do turnaje se mohou připojit kdykoliv.</string>
+  <string name="lateJoinQ">Mohou se hráči připojit po začátku?</string>
+  <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12-ti kolovém turnaji do začátku 7. kola.
+Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více kol.</string>
+  <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
 </resources>

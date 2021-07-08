@@ -43,7 +43,7 @@
   </plurals>
   <string name="opponentLeftChoices">Супернік выйшаў з гульні. Вы можаце залічыць яму паразу ці нічыю або проста пачакаць, пакуль ён вернецца.</string>
   <string name="makeYourOpponentResign">Прымусіць суперніка здацца</string>
-  <string name="forceResignation">Залічыць паразу</string>
+  <string name="forceResignation">Абвясціць перамогу</string>
   <string name="forceDraw">Залічыць нічыю</string>
   <string name="talkInChat">Калі ласка, будзьце ветлівыя!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Той, хто перайдзе па гэтай спасылцы, зможа згуляць з вамі.</string>
@@ -260,9 +260,9 @@
   <string name="standard">Стандартная</string>
   <string name="unlimited">Без абмежавання часу</string>
   <string name="mode">Рэжым</string>
-  <string name="casual">Бязрэйтынгавая</string>
+  <string name="casual">Таварыская</string>
   <string name="rated">Рэйтынгавая</string>
-  <string name="casualTournament">Бязрэйтынгавая</string>
+  <string name="casualTournament">Таварыскі</string>
   <string name="ratedTournament">Рэйтынгавая</string>
   <string name="thisGameIsRated">Гульня на рэйтынг</string>
   <string name="rematch">Рэванш</string>
@@ -698,7 +698,7 @@
   <string name="aboutSimulImage">Фішэр гуляў адначасова з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
   <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: сеансёр ходзіць ад стала да стала, робячы хады.</string>
   <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з сеансёрам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
-  <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды бязрэйтынгавыя. Нельга перахадзіць ці дадаваць час.</string>
+  <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды таварыскія. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
   <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>

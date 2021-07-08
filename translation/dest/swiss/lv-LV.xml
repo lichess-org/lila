@@ -56,6 +56,8 @@ Saskaita uzvarēto pretinieku punktu summu ar pusi no neizšķirto spēļu preti
   <string name="moreRoundsThanPlayersQ">Kas notiek, ja turnīrā ir vairāk raundu nekā spēlētāju?</string>
   <string name="moreRoundsThanPlayersA">Kad visi iespējamie pāri būs izspēlēti, turnīrs beigsies un pasludinās uzvarētāju.</string>
   <string name="restrictedToTeamsQ">Kāpēc tas ir tikai komandām?</string>
+  <string name="restrictedToTeamsA">Šveices turnīri nav domāti interneta šaham. Tie pieprasa spēlētāju punktualitāti, apņemšanos un pacietību.
+Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumiem nekā neierobežotu turnīru dalībnieki.</string>
   <string name="whatIfOneDoesntPlayQ">Kas notiek, ja spēlētājs nespēlē kādu spēli?</string>
   <string name="whatIfOneDoesntPlayA">Pulkstenis iztecēs un spēlētājs zaudēs spēli.
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
@@ -64,8 +66,14 @@ Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="willSwissReplaceArenasQ">Vai Šveices turnīri aizstās arēnas turnīrus?</string>
   <string name="willSwissReplaceArenasA">Nē, šīs ir atsevišķas iespējas.</string>
   <string name="roundRobinQ">Kādas ir iespējas apļa sistēmas turnīriem?</string>
+  <string name="roundRobinA">Mēs vēlētos pievienot apļa sistēmas turnīrus, bet diemžēl tie neder spēlēšanai tiešsaistē.
+Iemesls ir tāds, ka nav iespējams atrast taisnīgu risinājumu, ja spēlētāji pamet turnīru pirms tā beigām. Nevar gaidīt, ka visi spēlētāji izspēlēs visas spēles interneta turnīrā. Tas vienkārši nenotiks, un rezultātā lielākā daļa apļa sistēmas turnīru būtu neizdevušies un negodīgi – tieši pretēji to sākotnējam mērķim.
+Vislīdzīgāko sistēmu apļa veida turnīriem internetā var iegūt, izveidojot Šveices sistēmas turnīru ar ļoti lielu raundu skaitu. Tad visas iespējamās sapārošanas būs izspēlētas pirms turnīrs beigsies.</string>
   <string name="otherSystemsQ">Kā ar citām turnīru sistēmām?</string>
   <string name="otherSystemsA">Mums šobrīd nav plānu pievienot citas turnīru sistēmas vietnei Lichess.</string>
+  <string name="swissDescription">Šveices sistēmas turnīrā %1$s katrs dalībnieks ne vienmēr izspēlēs pret visiem citiem. Spēlētāji tiekas viens pret vienu katrā raundā, un tiek sadalīti pa pāriem izmantojot noteikumus, kas veidoti tā, lai katrs spēlētu pret pretiniekiem ar līdzīgu pašreizējo rezultātu – bet viens pāris divreiz nespēlēs. Dalībnieks ar vislielāko kopējo punktu skaitu visos turnīros ir uzvarētājs. Visi dalībnieki piedalās katrā raundā, izņemot, ja ir nepāra spēlētāju skaits.</string>
+  <string name="teamOnly">Šveices sistēmas turnīrus var izveidot tikai komandu vadītāji, un tajos var piedalīties tikai komandas dalībnieki.
+%1$s, lai sāktu spēlēt Šveices sistēmas turnīros.</string>
   <string name="joinOrCreateTeam">Pievienoties vai izveidot komandu</string>
   <string name="nowPlaying">Pašlaik notiek</string>
   <string name="startingSoon">Drīz sāksies</string>

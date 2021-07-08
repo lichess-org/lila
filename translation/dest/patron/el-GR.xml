@@ -75,4 +75,5 @@
   <string name="nowLifetime">Είστε πλέον ένας Υποστηρικτής του Lichess για πάντα!</string>
   <string name="nowOneMonth">Είστε ένας υποστηρικτής του Lichess για αυτόν τον μήνα!</string>
   <string name="downgradeNextMonth">Σε ένα μήνα, ΔΕ θα χρεωθείτε ξανά, και ο λογαριασμός σας θα υποβαθμιστεί σε έναν κοινό λογαριασμό.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Αλλαγή νομίσματος</string>
 </resources>

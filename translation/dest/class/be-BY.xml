@@ -36,6 +36,7 @@
   <string name="overDays">На працягу дзён</string>
   <string name="winrate">Адсотак перамог</string>
   <string name="news">Навіны занятку</string>
+  <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>
   <string name="nothingHere">Пакуль нічога.</string>
 </resources>

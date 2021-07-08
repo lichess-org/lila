@@ -30,4 +30,6 @@
   <string name="roundInterval">فاصله بین دورها</string>
   <string name="newSwiss">مسابقه سوئیسی جدید</string>
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
+  <string name="restrictedToTeamsA">مسابقات به شیوه سوئیسی برای شطرنج آنلاین طراحی نشده اند. آن ها نیازمند وقت شناسی، فداکاری و صبر از جانب بازیکنان هستند.
+ما فکر می کنیم که این شرایط در تیم بیشتر از مسابقات جهانی بر آورده می شود.</string>
 </resources>

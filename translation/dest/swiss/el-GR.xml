@@ -43,10 +43,62 @@
 Κάποιες φορές, όταν ο αριθμός των παιχτών είναι περιττός, ένας παίκτης παίρνει «bye», το οποίο αξίζει όσο ένας βαθμός.</string>
   <string name="tiebreaksCalculationQ">Ποια τα κριτήρια σε περίπτωση ισοβαθμίας;</string>
   <string name="sonnebornBergerScore">Κριτήριο Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Με το %s.
+1 μονάδα για κάθε αντίπαλο που ο παίκτης κέρδισε και μισή για κάθε αντίπαλο με τον οποίο έκανε ισοπαλία.</string>
   <string name="pairingsQ">Πώς αποφασίζονται τα ζευγάρια;</string>
   <string name="dutchSystem">Ολλανδικό σύστημα</string>
   <string name="FIDEHandbook">Βιβλίο κανονισμών της FIDE</string>
+  <string name="pairingsA">Με το %1$s, όπως αυτό δημιουργήθηκε από το %2$s, σύμφωνα με το %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Τι συμβαίνει αν το τουρνουά έχει περισσότερους γύρους από τους παίκτες;</string>
   <string name="moreRoundsThanPlayersA">Όταν εξαντληθούν όλα τα πιθανά ζευγάρια, το τουρνουά τελειώνει και ανακοινώνεται ο νικητής.</string>
   <string name="restrictedToTeamsQ">Γιατί τα ελβετικά τουρνουά περιορίζονται σε ομάδες;</string>
+  <string name="restrictedToTeamsA">Τα ελβετικά τουρνουά δε δημιουργήθηκαν για το διαδικτυακό σκάκι. Απαιτούν ακρίβεια, αφοσίωση και υπομονή από τους παίκτες.
+Πιστεύουμε ότι αυτές οι προϋποθέσεις είναι πιο πιθανό να τηρηθούν σε μια ομάδα ή σε έναν σύλλογο παρά σε παγκόσμια τουρνουά.</string>
+  <string name="numberOfByesQ">Μέχρι πόσα byes μπορεί να πάρει ένας παίκτης;</string>
+  <string name="numberOfByesA">Ένας παίκτης παίρνει bye κάθε φορά που δεν υπάρχει άλλο άτομο με το οποίο μπορεί να κληρωθεί.
+Επιπλέον, ένα bye που αξίζει μισό πόντο δίνεται σε παίκτες που συμμετέχουν στο τουρνουά μετά τον πρώτο γύρο.</string>
+  <string name="whatIfOneDoesntPlayQ">Τι συμβαίνει εάν ένας παίκτης έχει κληρωθεί, αλλά δεν παίζει;</string>
+  <string name="whatIfOneDoesntPlayA">Το ρολόι θα συνεχίσει να τρέχει και κάποια στιγμή θα χάσει από χρόνο.
+Κατόπιν, το σύστημα θα αποκλείσει αυτόματα τον παίκτη από το τουρνουά, έτσι ώστε να μη χάσει περισσότερα παιχνίδια.
+Μπορούν να ξανασυμμετέχουν στο τουρνουά οποιαδήποτε στιγμή.</string>
+  <string name="lateJoinQ">Μπορούν οι παίκτες να δηλώσουν συμμετοχή ακόμα και μετά τον πρώτο γύρο;</string>
+  <string name="lateJoinA">Ναι, αλλά όχι μόλις έχουν ολοκληρωθεί περισσότεροι από τους μισούς γύρους. Για παράδειγμα, σε ένα ελβετικό τουρνουά 11 γύρων, ένας παίκτης μπορεί να δηλώσει συμμετοχή πριν τον 6ο γύρο, ενώ σε ένα τουρνουά 12 γύρων πριν τον 7ο.
+Οι παίκτες αυτοί παίρνουν ένα bye, ακόμα και αν έχασαν αρκετούς γύρους.</string>
+  <string name="willSwissReplaceArenasQ">Τα ελβετικά τουρνουά σκοπεύουν να αντικαταστήσουν τα τουρνουά αρένας;</string>
+  <string name="willSwissReplaceArenasA">Όχι. Και τα δύο είναι συμπληρωματικά χαρακτηριστικά.</string>
+  <string name="roundRobinQ">Σχετικά με το Round Robin;</string>
+  <string name="roundRobinA">Θα θέλαμε να το προσθέσουμε, αλλά δυστυχώς δε θα λειτουργήσει διαδικτυακά.
+Δεν υπάρχει κάποιος δίκαιος τρόπος να αντιμετωπίσουμε τους παίκτες που θα αποχωρήσουν νωρίτερα από το τουρνουά. Δεν μπορούμε να υποθέσουμε ότι όλοι οι παίκτες θα παίξουν όλα τα παιχνίδια. Κάτι τέτοιο είναι πολύ απλά αδύνατο κι έτσι τα περισσότερα τουρνουά Round Robin θα είναι άδικα.
+Εναλλακτικά, μπορείτε να συμμετέχετε σε ένα ελβετικό τουρνουά με έναν μεγάλο αριθμό γύρων. Τότε όλα τα πιθανά ζευγάρια θα έχουν παίξει πριν τελειώσει το τουρνουά.</string>
+  <string name="otherSystemsQ">Και σχετικά με τους άλλους τύπους τουρνουά;</string>
+  <string name="otherSystemsA">Δεν σκοπεύουμε να προσθέσουμε περισσότερους τύπους τουρνουά στο Lichess προς το παρόν.</string>
+  <string name="swissDescription">Στα ελβετικά τουρνουά %1$s, δεν είναι απαραίτητο κάθε παίκτης να παίζει με όλους τους υπόλοιπους. Οι παίκτες παίζουν μεταξύ τους σε κάθε γύρο σύμφωνα με ορισμένους κανόνες, έτσι ώστε να κληρώνονται με παίκτες με ίσους ή σχεδόν σχεδόν ίσους πόντους το πολύ μία φορά. Νικητής είναι εκείνος που θα συγκεντρώσει τους περισσότερους πόντους μόλις τελειώσει και ο τελευταίος γύρος. Κάθε παίκτης παίζει με έναν άλλο σε κάθε γύρο, εκτός και αν υπάρχει μονός αριθμός παικτών.</string>
+  <string name="teamOnly">Ελβετικά τουρνουά μπορούν να δημιουργηθούν μόνο από αρχηγούς ομάδων και μόνο για τα μέλη αυτής της ομάδας.
+%1$s για να ξεκινήσετε να παίζετε ελβετικά πρωταθλήματα.</string>
+  <string name="joinOrCreateTeam">Εγγραφείτε ή δημιουργήστε μια ομάδα</string>
+  <string name="nowPlaying">Παίζονται τώρα</string>
+  <string name="startingSoon">Αρχίζουν σύντομα</string>
+  <string name="comparison">Χαρακτηριστικό</string>
+  <string name="tournDuration">Διάρκεια τουρνουά</string>
+  <string name="predefinedDuration">Προκαθορισμένη διάρκεια σε λεπτά</string>
+  <string name="durationUnknown">Προκαθορισμένος αριθμός γύρων, αλλά άγνωστη διάρκεια</string>
+  <string name="numberOfGames">Αριθμός παιχνιδιών</string>
+  <string name="numberOfGamesAsManyAsPossible">Όσα μπορούν να παιχτούν στην προκαθορισθείσα διάρκεια</string>
+  <string name="numberOfGamesPreDefined">Αποφασισμένος εκ των προτέρων, ίδιος για όλους τους παίκτες</string>
+  <string name="pairingSystem">Σύστημα κληρώσεων</string>
+  <string name="pairingSystemArena">Οποιοσδήποτε αντίπαλος με παρόμοια κατάταξη</string>
+  <string name="pairingSystemSwiss">Η καλύτερη δυνατή κλήρωση βάσει πόντων και κριτηρίων</string>
+  <string name="pairingWaitTime">Χρόνος για την επόμενη κλήρωση</string>
+  <string name="pairingWaitTimeFast">Γρήγορο: δεν περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="pairingWaitTimeSlow">Αργό: περιμένει όλους τους παίκτες να τελειώσουν</string>
+  <string name="identicalPairing">Ίδιες κληρώσεις</string>
+  <string name="possibleButNotConsecutive">Πιθανές, αλλά όχι διαδοχικές</string>
+  <string name="identicalForbidden">Απαγορευμένες</string>
+  <string name="lateJoin">Καθυστερημένη δήλωση συμμετοχής</string>
+  <string name="lateJoinUntil">Ναι, αλλά όχι αφού ολοκληρωθούν περισσότεροι από τους μισούς γύρους</string>
+  <string name="pause">Δυνατότητα παύσης</string>
+  <string name="pauseSwiss">Ναι, αλλά μπορεί να μειώσει τον αριθμό γύρων</string>
+  <string name="streaksAndBerserk">Streaks και Berserk</string>
+  <string name="similarToOTB">Όμοιο με τα διά ζώσης τουρνουά</string>
+  <string name="unlimitedAndFree">Απεριόριστο και δωρεάν</string>
 </resources>

@@ -96,6 +96,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
+  <string name="openingEndgameExplorer">Explorador de aberturas/finais de jogos</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
@@ -441,6 +442,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições finais</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posição inicial do Xadrez960: %s</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar o tabuleiro</string>
   <string name="savePosition">Guardar a posição</string>
@@ -900,4 +902,11 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="noChat">Sem chat</string>
   <string name="onlyTeamLeaders">Apenas líderes da equipa</string>
   <string name="onlyTeamMembers">Apenas membros da equipa</string>
+  <string name="navigateMoveTree">Navegar pela árvore de movimentos</string>
+  <string name="mouseTricks">Movimentos do rato</string>
+  <string name="toggleLocalAnalysis">Ativar/desativar análise local no computador</string>
+  <string name="toggleAllAnalysis">Alternar todas as análises no computador</string>
+  <string name="playComputerMove">Jogar o melhor lance do computador</string>
+  <string name="analysisOptions">Opções de análise</string>
+  <string name="focusChat">Focar no bate-papo</string>
 </resources>

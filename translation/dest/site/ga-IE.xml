@@ -105,6 +105,7 @@
   <string name="noGameFound">Níor aimsíodh cluiche</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">D\'fheadfaí níos mó cluichí a chur san áireamh ón roghchlár?</string>
   <string name="openingExplorer">Ag oscailt taiscéalaí</string>
+  <string name="openingEndgameExplorer">Taiscéalaí oscailte / deireadh an chluiche</string>
   <string name="xOpeningExplorer">%s ag oscailt taiscéalaí</string>
   <string name="winPreventedBy50MoveRule">Bac ar bhua mar gheall ar riail an 50 bheart</string>
   <string name="lossSavedBy50MoveRule">Bac ar chaill mar gheall arriail an 50 bheart</string>
@@ -534,6 +535,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="setTheBoard">Socraigh an bord</string>
   <string name="popularOpenings">Deiseanna a bhfuil tóir orthu</string>
   <string name="endgamePositions">Suíomhanna deiridh an cluiche</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Suíomh tosaigh Ficheall960: %s</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="clearBoard">Glan an bord</string>
   <string name="savePosition">Sábháil an suíomh</string>
@@ -1020,4 +1022,12 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="noChat">Cosc ar comhrá</string>
   <string name="onlyTeamLeaders">Ceannairí foirne amháin</string>
   <string name="onlyTeamMembers">Baill foirne amháin</string>
+  <string name="navigateMoveTree">Déan nascleanúint ar an gcrann birt</string>
+  <string name="mouseTricks">Cleasanna luiche</string>
+  <string name="toggleLocalAnalysis">Scoránú anailís áitiúil ar ríomhaire</string>
+  <string name="toggleAllAnalysis">Scoránú gach anailís ríomhaire</string>
+  <string name="playComputerMove">Déan an beart ríomhaire is fearr</string>
+  <string name="analysisOptions">Roghanna anailíse</string>
+  <string name="focusChat">Comhrá spriocghrúpa</string>
+  <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
 </resources>

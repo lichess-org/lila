@@ -123,4 +123,7 @@
   <string name="deleteStudy">删除课程</string>
   <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
   <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
+  <string name="goodMove">好棋</string>
+  <string name="whiteIsBetter">白方占优</string>
+  <string name="blackIsBetter">黑方占优</string>
 </resources>

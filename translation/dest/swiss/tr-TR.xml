@@ -33,7 +33,7 @@
   <string name="numberOfRoundsHelp">Tek sayı girerseniz oyuncular arasındaki renk dengesi daha adil olur.</string>
   <string name="roundInterval">Turlar arası süre</string>
   <string name="forbiddenPairings">Yasaklı eşleşmeler</string>
-  <string name="forbiddenPairingsHelp">(aynı evdeki kardeşler gibi) Karşı karşıya gelmemesi gereken oyuncuların kullanıcı adları. Her satıra aralarında bir boşluk bulunan iki kullanıcı ismi girin.</string>
+  <string name="forbiddenPairingsHelp">Karşı karşıya gelmemesi gereken (aynı evdeki kardeşler gibi) oyuncuların kullanıcı adları. Her satıra aralarında bir boşluk bulunan iki kullanıcı ismi girin.</string>
   <string name="newSwiss">İsviçre Sistemi turnuvası oluştur</string>
   <string name="swissVsArenaQ">İsviçre sistemi turnuvaları ne zaman arena turnuvaları yerine kullanmalıyım?</string>
   <string name="swissVsArenaA">İsviçre sistemi turnuvalarda bütün oyuncular eşit sayıda maç yapar ve birbirleriyle yalnızca bir kez karşı karşıya gelir. Satranç kulüpleri ve resmî turnuvalar için iyi bir seçenek olabilir.</string>
@@ -93,6 +93,6 @@ Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="pause">Ara verme</string>
   <string name="pauseSwiss">Mümkün fakat oynanan tur sayısını azaltabilir</string>
   <string name="streaksAndBerserk">Kazanma serisi ve divane (berserk) seçeneği</string>
-  <string name="similarToOTB">Yüz yüze turnuvalara benzer</string>
+  <string name="similarToOTB">Yüz yüze turnuvalar gibi</string>
   <string name="unlimitedAndFree">Sınırsız ve ücretsiz</string>
 </resources>

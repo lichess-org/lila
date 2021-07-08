@@ -36,6 +36,7 @@
   <string name="raceComplete">竞速结束！</string>
   <string name="spectating">观战中</string>
   <string name="joinTheRace">加入竞速</string>
+  <string name="startTheRace">开始比赛</string>
   <string name="yourRankX">你的排名：%s</string>
   <string name="waitForRematch">等待下一场</string>
   <string name="nextRace">下一场竞速</string>

@@ -59,4 +59,14 @@
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
+  <string name="pointsCalculationQ">كيف يتم احتساب النقاط؟</string>
+  <string name="dutchSystem">النظام الألماني</string>
+  <string name="FIDEHandbook">دليل الاتحاد الدولي للشطرنج</string>
+  <string name="joinOrCreateTeam">انضم أو أنشأ فريق</string>
+  <string name="nowPlaying">الملعوبة حالياً</string>
+  <string name="startingSoon">ستبدأ قريباً</string>
+  <string name="comparison">المقارنة</string>
+  <string name="tournDuration">مدة المسابقة</string>
+  <string name="numberOfGames">عدد المباريات</string>
+  <string name="pairingWaitTime">وقت انتظار الاقتران</string>
 </resources>

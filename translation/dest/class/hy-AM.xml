@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessClasses">Դասասենյակներ</string>
+  <string name="teachClassesOfChessStudents">Շախմատն աշակերտներին դասավանդեք «Lichess-ի դասեր» գործիքների օգնությամբ։</string>
+  <string name="features">Հնարավորություններ</string>
+  <string name="quicklyGenerateSafeUsernames">Արագ ստեղծեք անվտանգ անուններ և գաղտնաբառեր աշակերտների համար։</string>
+  <string name="trackStudentProgress">Հետևեք աշակերտների առաջընթացին պարտիաներում և խնդիրներում</string>
   <string name="reopen">Վերաբացել</string>
   <string name="removedStudents">Հեռացված</string>
   <string name="inviteTheStudentBack">Հետ հրավիրել աշակերտին</string>

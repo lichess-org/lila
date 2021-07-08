@@ -7,6 +7,7 @@
   <string name="leechess">лі-чэсс</string>
   <string name="hearItPronouncedBySpecialist">Праслухайце, як гэта вымаўляе спецыяліст.</string>
   <string name="whyLiveLightLibre">Live(жывы), бо партыі граюцца і глядзяцца ў рэальным часе 24/7; light(лёгкі) і libre(вольны), бо Lichess мае адкрыты зыходны код та неабяцяжараны чыёйсці непажаданай рэкламай, як на шмат якіх сайтах.</string>
+  <string name="whyIsLilaCalledLila">Аналагічна, зыходны код Lichess, %1$s, расшыфроўваецца як li [chess на sca] la, бо асноўная частка Lichess напісана на %2$s, інтуітыўна зразумелай мове праграмавання.</string>
   <string name="howCanIContributeToLichess">Як я магу дапамагчы Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess працуе, дзякуючы ахвяраванням спонсараў та намаганнямі каманды валанцёраў.</string>
   <string name="findMoreAndSeeHowHelp">Вы можаце даведацца больш пра тое як %1$s (уключаючы %2$s). Калі вы хочаце дапамагчы Lichess ахверуючы свае навыкі і час, то ёсць шмат %3$s.</string>
@@ -17,6 +18,8 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Так. Lichess натхніў многія сайты, якія цяпер выкарыстоўваюць наш %1$s, %2$s и %3$s.</string>
   <string name="fairPlay">Сумленная гульня</string>
   <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
+  <string name="preventLeavingGameWithoutResigning">Якія меры прымаюцца супраць гульцоў, якія пакідаюць гульні без здачы?</string>
+  <string name="leavingGameWithoutResigningExplanation">Калі ваш супернік(ца) часта скасоўвае/пакідае гульні, ён(яна) атрымае \"бан на гульню\", гэта азначае, што яны часова ня могуць граць. Гэта публічна не адлюстроўваецца ў іх профіле. Калі такія паводзіны пратягваюцца, даўжыня гуллёвага бану павялічваецца - дальнейшая дзейнасць падобнага характару можа прывесці да закрыцця акаўнту.</string>
   <string name="howCanIBecomeModerator">Як я магу стаць мадэратарам?</string>
   <string name="youCannotApply">Немагчыма падаць заяўку, каб стаць мадэратарам. Калі мы заўважым кагосьці, хто, на нашу думку, будзе добрым мадэратарам, мы звяжамся з імі напрасткі.</string>
   <string name="isCorrespondenceDifferent">Ліставаная гульня адрозніваецца ад звычайных шахмат?</string>
@@ -56,19 +59,21 @@
 Не выпрошвайце тытул LM.</string>
   <string name="whatUsernameCanIchoose">Якім можа быць маё імя карыстальніка?</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
+  <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
   <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="whatIsProvisionalRating">Што значыць пытальнік (?) побач з рэйтынгам?</string>
-  <string name="provisionalRatingExplanation">Пытальнік значыць, што рэйтынг яшчэ не ўсталяваўся. Магчымыя прычыны:</string>
+  <string name="provisionalRatingExplanation">Пытальнік значыць, што рэйтынг яшчэ ўмоўны. Магчымыя прычыны:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Гулец яшчэ ня скончыў дастатков рэйтынгавых гульняў супраць %1$s ў адпаведнай рэйтынгавай катэгорыі.</string>
   <string name="similarOpponents">супернікаў падобнага моцу</string>
-  <string name="notPlayedRecently">Гулец даўно не гуляў. Залежыць ад колькасці сыграных партый, звычайна, праходзіць каля году, калі рэйтынг зноўку становіцца неўсталяваным.</string>
+  <string name="notPlayedRecently">Гулец даўно не гуляў. Залежыць ад колькасці сыграных партый, звычайна, праходзіць каля году, калі рэйтынг зноўку становіцца ўмоўным.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Па сутнасці, гэта азначае, што адхіленне Glicko-2 больш за 110. Адхіленне - гэта ўзровень даверу, які сістэма мае да рэйтынгу. Чым ніжэй адхіленне, тым больш стабільным з\'яўляецца рэйтынг.</string>
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
   <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">мець адхіленне рэйтынгу менш за %1$s у звычайных шахматах, і менш за %2$s у варыянтах,</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаване для таго, каб гульцы, якія больш не карыстаюцца свае акаўнты, не займалі месца на дошках лідараў.</string>
   <string name="whyAreRatingHigher">Чаму рэйтынгі вышэй, чым на іншых сайтах та арганісацыях такіх як ФІДЭ, USCF і ICC?</string>

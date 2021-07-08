@@ -25,8 +25,8 @@
   <string name="startingIn" comment="Displayed above a timer">Starter om</string>
   <string name="nextRound">Neste runde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">Pågående parti</item>
-    <item quantity="other">Pågående partier</item>
+    <item quantity="one">parti pågår</item>
+    <item quantity="other">partier pågår</item>
   </plurals>
   <string name="tournStartDate">Startdato for turneringen</string>
   <string name="numberOfRounds">Antall runder</string>
@@ -39,8 +39,8 @@
   <string name="swissVsArenaA">I sveitserturneringer spiller alle deltakerne like mange partier og kan bare møtes én gang.
 Det kan være et bra alternativ for klubber og offisielle turneringer.</string>
   <string name="pointsCalculationQ">Hvordan beregnes poengene?</string>
-  <string name="pointsCalculationA">Seier er verdt ett poeng, remis et halvt poeng og tap er null poeng.
-Spiller som ikke får tildelt motspiller i en runde, får frirunde og ett poeng.</string>
+  <string name="pointsCalculationA">Seier er verdt ett poeng, remis et halvt poeng og tap null poeng.
+Spillere som ikke får tildelt motspiller i en runde, får frirunde og ett fripoeng.</string>
   <string name="tiebreaksCalculationQ">Hvordan avgjøres rekkefølgen ved poenglikhet?</string>
   <string name="sonnebornBergerScore">Sonneborn-Berger-kvalitet</string>
   <string name="tiebreaksCalculationA">Med %s.
@@ -52,19 +52,30 @@ Legg sammen poengene til hver motstander spilleren har vunnet over, og halvparte
   <string name="moreRoundsThanPlayersQ">Hva skjer hvis turneringen har flere runder enn spillere?</string>
   <string name="moreRoundsThanPlayersA">Når alle mulige par er spilt, avsluttes turneringen og vinneren utropes.</string>
   <string name="restrictedToTeamsQ">Hvorfor er det avgrenset til lag?</string>
-  <string name="numberOfByesQ">Hvor mange frirunder kan en spiller få?</string>
-  <string name="numberOfByesA">Spillerne får frirunde og ett poeng hver gang parsystemet ikke finner par til dem.
-I tillegg får spillere som blir med etter turneringsstart, ett enkelt halvpoeng.</string>
+  <string name="restrictedToTeamsA">Sveitserturneringer er ikke laget for nettsjakk. De krever punktlighet, engasjement og tålmodighet hos spillerne.
+Vi tror at disse vilkårene lettere blir oppfylt innen et lag enn i åpne turneringer.</string>
+  <string name="numberOfByesQ">Hvor mange fripoeng kan spillerne få?</string>
+  <string name="numberOfByesA">Spillerne får frirunde og ett fripoeng hver gang parsystemet ikke finner par til dem.
+I tillegg får spillere som blir med etter turneringsstart, et halvt fripoeng.</string>
   <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokken begynner å gå og spilleren taper på tid.
 Systemet vil så fjerne spilleren fra turneringen for å unngå flere tap.
 Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="lateJoinQ">Kan spillere delta sent?</string>
+  <string name="lateJoinA">Ja, før over halvparten av rundene har begynt. Spillere kan for eksempel delta før runde 6 starter i en sveitserturnering med 11 runder og før runde 7 med 12 runder.
+Spillere som deltar sent, får et halvt fripoeng én gang, selv om de har gått glipp av flere runder.</string>
   <string name="willSwissReplaceArenasQ">Vil sveitserturneringer erstatte arenaturneringer?</string>
   <string name="willSwissReplaceArenasA">Nei. De utfyller hverandre.</string>
-  <string name="roundRobinQ">Hva med alle mot alle-turneringer?</string>
+  <string name="roundRobinQ">Hva med alle-mot-alle-turneringer?</string>
+  <string name="roundRobinA">Vi vil gjerne, men alle-mot-alle-turneringer virker ikke på nett.
+Grunnen er at det ikke finnes noen rettferdig måte å håndtere dem som forlater turneringen før tiden. Vi kan ikke forvente at alle spillerne vil spille alle partiene sine i en turnering på nett. Det skjer bare ikke, og derfor vil de fleste alle-mot-alle-turneringene være feilaktige og urettferdige, noe som fjerner eksistensgrunnlaget.
+Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sveitserturnering med et høyt antall runder. Da kan alle mulige par spilles før turneringen avsluttes.</string>
   <string name="otherSystemsQ">Hva med andre turneringssystemer?</string>
   <string name="otherSystemsA">Vi planlegger ikke flere turneringssystemer hos Lichess nå.</string>
+  <string name="swissDescription">I en sveitserturnering %1$s spiller ikke nødvendigvis alle deltakerne mot alle andre. Deltakere møtes to og to i hver runde. De settes opp i par ved hjelp av regler som skal sikre at hver deltaker spiller mot en motstander med tilsvarende oppnådd poengsum, men uten å spille mot samme motstander flere ganger. Vinneren er den deltakeren med høyest oppnådd poengsum gjennom alle rundene. Alle deltakerne spiller i hver runde med mindre antall spillere er et oddetall.</string>
+  <string name="teamOnly">Sveitserturneringer kan bare opprettes av lagledere, og kan bare spilles av lagmedlemmer.
+%1$s for å begynne å spille i sveitserturneringer.</string>
+  <string name="joinOrCreateTeam">Bli med på eller opprett et lag</string>
   <string name="nowPlaying">Pågår nå</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
@@ -75,11 +86,19 @@ Spilleren kan når som helst komme tilbake til turneringen.</string>
   <string name="numberOfGamesAsManyAsPossible">Så mange som kan spilles i den avsatte varigheten</string>
   <string name="numberOfGamesPreDefined">Forhåndsbestemt, likt for alle spillerne</string>
   <string name="pairingSystem">Parsystem</string>
+  <string name="pairingSystemArena">Enhver tilgjengelig motstander med tilsvarende rating</string>
+  <string name="pairingSystemSwiss">Beste par basert på poeng og kvalitet</string>
   <string name="pairingWaitTime">Parventetid</string>
+  <string name="pairingWaitTimeFast">Hurtig: venter ikke på alle spillerne</string>
+  <string name="pairingWaitTimeSlow">Treg: venter på alle spillerne</string>
   <string name="identicalPairing">Samme par</string>
   <string name="possibleButNotConsecutive">Mulig, men ikke etter hverandre</string>
   <string name="identicalForbidden">Forbudt</string>
+  <string name="lateJoin">Sen deltakelse</string>
+  <string name="lateJoinUntil">Ja, før over halvparten av rundene har begynt</string>
   <string name="pause">Pause</string>
+  <string name="pauseSwiss">Ja, men kan redusere antall runder</string>
+  <string name="streaksAndBerserk">Rekker og berserk</string>
   <string name="similarToOTB">Tilsvarer fysiske turneringer</string>
   <string name="unlimitedAndFree">Ubegrenset og gratis</string>
 </resources>

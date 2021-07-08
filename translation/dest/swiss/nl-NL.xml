@@ -51,6 +51,8 @@ Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus d
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
   <string name="restrictedToTeamsQ">Waarom is het beperkt tot teams?</string>
+  <string name="restrictedToTeamsA">Zwitserse toernooien zijn niet ontworpen voor online schaken. Ze vereisen punctualiteit, toewijding en geduld van spelers.
+Wij denken dat deze voorwaarden binnen een team waarschijnlijk eerder zullen worden vervuld dan in wereldwijde toernooien.</string>
   <string name="numberOfByesQ">Hoeveel byes kan een speler krijgen?</string>
   <string name="numberOfByesA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
 Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat deelnemen als het toernooi al begonnen is.</string>

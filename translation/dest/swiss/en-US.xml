@@ -57,6 +57,9 @@ Additionally, a single bye of half a point is attributed when a player late-join
   <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
   <string name="roundRobinQ">What about round-robin?</string>
+  <string name="roundRobinA">We\'d like to add it, but unfortunately Round Robin doesn\'t work online.
+The reason is that it has no fair way of dealing with people leaving the tournament early. We cannot expect that all players will play all their games in an online event. It just won\'t happen, and as a result most Round Robin tournaments would be flawed and unfair, which defeats their very reason to exist.
+The closest you can get to Round Robin online is to play a Swiss tournament with a very high number of rounds. Then all possible pairings will be played before the tournament ends.</string>
   <string name="otherSystemsQ">What about other tournament systems?</string>
   <string name="otherSystemsA">We don\'t plan to add more tournament systems to Lichess at the moment.</string>
   <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>

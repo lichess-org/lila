@@ -52,6 +52,8 @@ Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio d
   <string name="moreRoundsThanPlayersQ">Che succede se il torneo ha più turni che giocatori?</string>
   <string name="moreRoundsThanPlayersA">Quando tutti gli abbinamenti possibili sono stati giocati, il torneo sarà terminato e un vincitore sarà dichiarato.</string>
   <string name="restrictedToTeamsQ">Perché è limitato alle squadre?</string>
+  <string name="restrictedToTeamsA">I tornei svizzeri non sono stati progettati per gli scacchi online. Chiedono puntualità, dedizione e pazienza dai giocatori.
+Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadra piuttosto che nei tornei globali.</string>
   <string name="numberOfByesQ">Quanti bye sono ottenibili da ogni giocatore?</string>
   <string name="numberOfByesA">Un giocatore ottiene un bye di un punto ogni volta che il sistema di abbinamento non trova un abbinamento. Inoltre, un singolo bye di mezzo punto è attribuito quando un giocatore si unisce in ritardo a un torneo.</string>
   <string name="whatIfOneDoesntPlayQ">Che succede se un giocatore non gioca una partita?</string>
@@ -59,9 +61,14 @@ Aggiungi i punteggi di ogni rivale battuto dal giocatore e metà del punteggio d
 Allora il sistema preleverà il giocatore dal torneo, così che non perderà altre partite.
  Possono unirsi nuovamente al torneo in qualsiasi momento.</string>
   <string name="lateJoinQ">I giocatori possono unirsi in ritardo?</string>
+  <string name="lateJoinA">Sì, finché più di metà dei turni sono iniziati; ad esempio in un 11 turni svizzero i giocatori possono unirsi prima che inizi il turno 6 e in un 12 turni prima dell\'inizio del turno 7.
+I partecipanti tardivi ottengono un singolo bye, anche se si sono persi diversi turni.</string>
   <string name="willSwissReplaceArenasQ">Lo svizzero sostituirà i tornei dell\'arena?</string>
   <string name="willSwissReplaceArenasA">No. Sono caratteristiche complementari.</string>
   <string name="roundRobinQ">E i Round Robin?</string>
+  <string name="roundRobinA">Vorremmo aggiungerlo, ma purtroppo Round Robin non funziona online.
+Il motivo è che non ha un modo corretto di avere a che fare con le persone che abbandonano in anticipo il torneo. Non possiamo prevedere che tutti i giocatori giocheranno tutte le partite in un evento online. Semplicemente, non succederà e, di conseguenza, gran parte dei tornei Round Robin saranno viziati e ingiusti, sconfiggendone il vero significato.
+Il più vicino a un Round Robin cui ci si possa avvicinare online è giocare un torneo svizzero con un numero molto elevato di turni. Poi tutti gli abbinamenti possibili giocheranno prima della fine del torneo.</string>
   <string name="otherSystemsQ">E gli altri sistemi di torneo?</string>
   <string name="otherSystemsA">Non pianifichiamo di aggiungere altri sistemi di torneo a Lichess al momento.</string>
   <string name="swissDescription">In un torneo svizzero %1$s, ogni concorrente non gioca necessariamente con ogni partecipante. I concorrenti si incontrano uno a uno in ogni turno e sono abbinati usando una serie di regole progettate per assicurarsi che ogni concorrente giochi con i rivali con un punteggio simile, ma non lo stesso rivale più di una volta. Il vincitore è il concorrente con i punti aggregati maggiori ottenuti in tutti i turni. Tutti i concorrenti giocano in ogni turno a meno che non ci sia un numero disparo di giocatori.\"</string>
