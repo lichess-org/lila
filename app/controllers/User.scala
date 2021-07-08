@@ -360,7 +360,7 @@ final class User(
   ): Fu[UserLogins.TableData] = {
     val familyUserIds = user.id :: userLogins.otherUserIds
     (isGranted(_.ModNote) ?? env.user.noteApi
-      .forMod(familyUserIds)
+      .byUsersForMod(familyUserIds)
       .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)) zip
       env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds) zip
       lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins) map {

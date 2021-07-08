@@ -204,8 +204,8 @@ object inquiry {
           iconTag(""),
           div(
             isGranted(_.SendToZulip) option {
-              postForm(action := routes.Mod.notifySlack(in.user.id))(
-                submitButton(cls := "fbt")("Notify Slack")
+              postForm(action := routes.Mod.inquiryToZulip)(
+                submitButton(cls := "fbt")("Send to Zulip")
               )
             },
             postForm(action := routes.Report.xfiles(in.report.id))(

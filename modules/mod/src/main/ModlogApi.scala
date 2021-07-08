@@ -292,11 +292,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
         val monitorType = m.action match {
           case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt |
               M.unalt =>
-            IrcApi.MonitorType.Hunt
+            IrcApi.ModDomain.Hunt
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
               M.enableTeam | M.setKidMode | M.deletePost =>
-            IrcApi.MonitorType.Comm
-          case _ => IrcApi.MonitorType.Other
+            IrcApi.ModDomain.Comm
+          case _ => IrcApi.ModDomain.Other
         }
         ircApi.monitorMod(m.mod, icon = icon, text = text, monitorType)
       }

@@ -19,10 +19,11 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     key = "zulip.client"
   )
 
-  def apply(stream: ZulipClient.stream.Selector, topic: String)(
-      content: String
-  ): Funit =
-    send(ZulipMessage(stream = stream(ZulipClient.stream), topic = topic, content = content))
+  def apply(stream: ZulipClient.stream.Selector, topic: String): String => Funit =
+    apply(stream(ZulipClient.stream), topic) _
+
+  def apply(stream: String, topic: String)(content: String): Funit =
+    send(ZulipMessage(stream = stream, topic = topic, content = content))
 
   private def send(msg: ZulipMessage): Funit =
     limiter(msg.hashCode) {
@@ -58,12 +59,13 @@ private object ZulipClient {
 
   object stream {
     object mod {
-      val log                                   = "mod-log"
-      val adminLog                              = "mod-admin-log"
-      val commsPrivate                          = "mod-comms-private"
-      val hunterCheat                           = "mod-hunter-cheat"
-      def adminMonitor(tpe: IrcApi.MonitorType) = s"mod-admin-monitor-${tpe.key}"
-      def adminAppeal                           = "mod-admin-appeal"
+      val log                                 = "mod-log"
+      val adminLog                            = "mod-admin-log"
+      val adminGeneral                        = "mod-admin-general"
+      val commsPrivate                        = "mod-comms-private"
+      val hunterCheat                         = "mod-hunter-cheat"
+      def adminMonitor(tpe: IrcApi.ModDomain) = s"mod-admin-monitor-${tpe.key}"
+      def adminAppeal                         = "mod-admin-appeal"
     }
     val general   = "general"
     val broadcast = "content-broadcast"
@@ -77,5 +79,5 @@ private case class ZulipMessage(
     content: String
 ) {
 
-  override def toString = s"[$stream] $content"
+  override def toString = s"[$stream:$topic] $content"
 }

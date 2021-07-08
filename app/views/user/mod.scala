@@ -61,11 +61,6 @@ object mod {
             href := routes.Mod.communicationPublic(u.id),
             title := "View communications"
           )("Comms")
-        },
-        isGranted(_.SendToZulip) option {
-          postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
-            submitButton(cls := "btn-rack__btn")("Zulip")
-          )
         }
       ),
       div(cls := "btn-rack")(
