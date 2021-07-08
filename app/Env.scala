@@ -160,7 +160,6 @@ final class Env(
       _       <- security.store.closeAllSessionsOf(u.id)
       _       <- push.webSubscriptionApi.unsubscribeByUser(u)
       _       <- streamer.api.demote(u.id)
-      _       <- coach.api.remove(u.id)
       reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
       _       <- selfClose ?? mod.logApi.selfCloseAccount(u.id, reports)
       _       <- appeal.api.onAccountClose(u)

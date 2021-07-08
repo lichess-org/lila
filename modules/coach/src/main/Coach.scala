@@ -41,7 +41,7 @@ object Coach {
     )
 
   case class WithUser(coach: Coach, user: lila.user.User) {
-    def isListed = coach.listed.value && user.marks.clean
+    def isListed = coach.listed.value && user.enabled && user.marks.clean
   }
 
   case class Id(value: String)          extends AnyVal with StringValue

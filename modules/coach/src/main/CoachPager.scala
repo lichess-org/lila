@@ -60,6 +60,7 @@ final class CoachPager(
                 UnwindField("_user"),
                 Match(
                   $doc(
+                    s"_user.${User.BSONFields.enabled}" -> true,
                     s"_user.${User.BSONFields.marks}" $nin List(
                       UserMark.Engine.key,
                       UserMark.Boost.key,
