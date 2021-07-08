@@ -46,4 +46,7 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
     <item quantity="many">Zobrazit %s týmů</item>
     <item quantity="other">Zobrazit seznam všech %s týmů</item>
   </plurals>
+  <string name="newTeamBattle">Nová týmová bitva</string>
+  <string name="customStartDate">Vlastní datum zahájení</string>
+  <string name="allowBerserk">Povolit Berserk</string>
 </resources>
