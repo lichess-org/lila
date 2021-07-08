@@ -210,12 +210,26 @@ final class Mod(
       }
     }
 
-  def notifySlack(username: String) =
-    OAuthMod(_.SendToZulip) { _ => me =>
-      withSuspect(username) { sus =>
-        env.irc.api.userMod(user = sus.user, mod = me) map some
+  def inquiryToZulip =
+    Secure(_.SendToZulip) { _ => me =>
+      env.report.api.inquiries ofModId me.id flatMap {
+        case None => Redirect(routes.Report.list).fuccess
+        case Some(report) =>
+          env.user.lightUserApi asyncFallback report.user flatMap { user =>
+            import lila.report.Room
+            import lila.irc.IrcApi.ModDomain
+            env.irc.api.inquiry(
+              user = user,
+              mod = me,
+              domain = report.room match {
+                case Room.Cheat | Room.Boost => ModDomain.Hunt
+                case Room.Comm               => ModDomain.Comm
+                case _                       => ModDomain.Comm
+              }
+            ) inject NoContent
+          }
       }
-    }(actionResult(username))
+    }
 
   def table =
     Secure(_.ModLog) { implicit ctx => _ =>
@@ -245,7 +259,7 @@ final class Mod(
               (env.shutup.api getPublicLines user.id)
                 .mon(_.mod.comm.segment("publicChats")) zip
               env.user.noteApi
-                .forMod(user.id)
+                .byUserForMod(user.id)
                 .mon(_.mod.comm.segment("notes")) zip
               env.mod.logApi
                 .userHistory(user.id)
@@ -264,7 +278,7 @@ final class Mod(
                         me.id,
                         "eyes",
                         s"spontaneously checked out @${user.username}'s private comms",
-                        lila.irc.IrcApi.MonitorType.Comm
+                        lila.irc.IrcApi.ModDomain.Comm
                       )
                   }
                 }

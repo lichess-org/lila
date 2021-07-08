@@ -46,14 +46,14 @@ final class NoteApi(
       .cursor[Note]()
       .list(20)
 
-  def forMod(id: User.ID): Fu[List[Note]] =
+  def byUserForMod(id: User.ID): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort desc "date")
       .cursor[Note]()
       .list(50)
 
-  def forMod(ids: List[User.ID]): Fu[List[Note]] =
+  def byUsersForMod(ids: List[User.ID]): Fu[List[Note]] =
     coll
       .find($doc("to" $in ids, "mod" -> true))
       .sort($sort desc "date")

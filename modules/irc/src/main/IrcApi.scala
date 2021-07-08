@@ -21,22 +21,28 @@ final class IrcApi(
     zulip(_.mod.commsPrivate, "burst")(md)
   }
 
-  def userMod(user: User, mod: Holder): Funit =
+  def inquiry(user: LightUser, mod: Holder, domain: ModDomain): Funit = {
+    val stream = domain match {
+      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Hunt  => ZulipClient.stream.mod.hunterCheat
+      case ModDomain.Other => ZulipClient.stream.mod.adminGeneral
+    }
     noteApi
-      .forMod(user.id)
+      .byUserForMod(user.id)
       .map(_.headOption.filter(_.date isAfter DateTime.now.minusMinutes(5)))
       .flatMap {
         case None =>
-          zulip(_.mod.hunterCheat, user.username)(
-            s":eyes: ${markdown.userLink(mod.user.username)}: Let's have a look at **${markdown.userLink(user.username)}**"
+          zulip(stream, "/" + user.name)(
+            s":eyes: ${markdown.userLink(mod.user.username)}: Let's have a look at **${markdown.userLink(user.name)}**"
           )
         case Some(note) =>
-          zulip(_.mod.hunterCheat, user.username)(
+          zulip(stream, "/" + user.name)(
             s"${markdown.modLink(mod.user.username)} :note: **${markdown
-              .userLink(user.username)}** (${markdown.userNotesLink(user.username)}):\n" +
+              .userLink(user.name)}** (${markdown.userNotesLink(user.name)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
       }
+  }
 
   def userModNote(modName: String, username: String, note: String): Funit =
     zulip(_.mod.adminLog, "notes")(
@@ -57,7 +63,7 @@ final class IrcApi(
       s"while investigating a report created by ${markdown.userLink(by)}"
     })
 
-  def monitorMod(modId: User.ID, icon: String, text: String, tpe: MonitorType): Funit =
+  def monitorMod(modId: User.ID, icon: String, text: String, tpe: ModDomain): Funit =
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.adminMonitor(tpe), mod.name)(
@@ -150,13 +156,13 @@ final class IrcApi(
 
 object IrcApi {
 
-  sealed trait MonitorType {
+  sealed trait ModDomain {
     def key = toString.toLowerCase
   }
-  object MonitorType {
-    case object Hunt  extends MonitorType
-    case object Comm  extends MonitorType
-    case object Other extends MonitorType
+  object ModDomain {
+    case object Hunt  extends ModDomain
+    case object Comm  extends ModDomain
+    case object Other extends ModDomain
   }
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern

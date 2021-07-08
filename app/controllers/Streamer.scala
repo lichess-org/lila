@@ -102,7 +102,7 @@ final class Streamer(
   private def modData(streamer: StreamerModel)(implicit ctx: Context) =
     isGranted(_.ModLog) ?? {
       env.mod.logApi.userHistory(streamer.userId) zip
-        env.user.noteApi.forMod(streamer.userId) zip
+        env.user.noteApi.byUserForMod(streamer.userId) zip
         env.streamer.api.sameChannels(streamer) map some
     }
 
