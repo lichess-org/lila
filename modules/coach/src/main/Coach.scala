@@ -40,7 +40,9 @@ object Coach {
       updatedAt = DateTime.now
     )
 
-  case class WithUser(coach: Coach, user: lila.user.User)
+  case class WithUser(coach: Coach, user: lila.user.User) {
+    def isListed = coach.listed.value && user.marks.clean
+  }
 
   case class Id(value: String)          extends AnyVal with StringValue
   case class Listed(value: Boolean)     extends AnyVal
