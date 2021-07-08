@@ -126,4 +126,10 @@
   <string name="goodMove">Nước tốt</string>
   <string name="mistake">Sai lầm</string>
   <string name="brilliantMove">Tuyệt vời</string>
+  <string name="blunder">Nước sai nghiêm trọng</string>
+  <string name="interestingMove">Nước hay</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Đáng nghi</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nước duy nhất</string>
+  <string name="nextChapter">Chương tiếp theo</string>
+  <string name="prevChapter">Chương trước</string>
 </resources>
