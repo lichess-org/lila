@@ -18,4 +18,8 @@
   <string name="declineTimeControl">இந்த நேரக் கட்டுப்பாட்டுடன் நான் சவால்களை ஏற்கவில்லை.</string>
   <string name="declineRated">அதற்கு பதிலாக மதிப்பிடப்பட்ட சவாலை எனக்கு அனுப்புங்கள்.</string>
   <string name="declineCasual">அதற்கு பதிலாக எனக்கு ஒரு சாதாரண சவாலை அனுப்புங்கள்.</string>
+  <string name="declineStandard">நான் இப்போது மாறுபட்ட சவால்களை ஏற்கவில்லை.</string>
+  <string name="declineVariant">இந்த மாறுபாட்டை இப்போது இயக்க நான் தயாராக இல்லை.</string>
+  <string name="declineNoBot">நான் போட்களின் சவால்களை ஏற்கவில்லை.</string>
+  <string name="declineOnlyBot">நான் போட்களின் சவால்களை மட்டுமே ஏற்றுக்கொள்கிறேன்.</string>
 </resources>
