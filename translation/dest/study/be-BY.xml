@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Прыватнае</string>
+  <string name="myStudies">Мае навучанні</string>
+  <string name="studiesIContributeTo">Навучанні, якія я распрацоўваю</string>
+  <string name="myPublicStudies">Мае публічныя навучанні</string>
+  <string name="myPrivateStudies">Мае прыватные навучанні</string>
+  <string name="myFavoriteStudies">Мае ўлюбленые навучанні</string>
+  <string name="whatAreStudies">Што такое навучанні?</string>
+  <string name="allStudies">Усе навучанні</string>
+  <string name="studiesCreatedByX">Навучанні, створаныя %s</string>
   <string name="noneYet">Пакуль нічога няма.</string>
   <string name="hot">Гарачыя</string>
+  <string name="dateAddedNewest">Дата дадання (навейшыя)</string>
+  <string name="dateAddedOldest">Дата дадання (старэйшыя)</string>
   <string name="recentlyUpdated">Нядаўна абноўленыя</string>
   <string name="mostPopular">Найбольш папулярныя</string>
   <string name="addMembers">Дадаць удзельнікаў</string>
@@ -22,6 +32,7 @@
   <string name="analysisMode">Рэжым аналізу</string>
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
+  <string name="public">Публічны</string>
   <string name="clearChat">Ачысціць чат</string>
   <string name="interestingMove">Цікавы ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Адзіны ход</string>
