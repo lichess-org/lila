@@ -309,10 +309,28 @@
     <item quantity="one">Վարկանիշային խաղերը՝ ≥ %s</item>
     <item quantity="other">Վարկանիշային խաղերը՝ ≥ %s</item>
   </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">Վարկանիշային խաղ %2$s-ում ≥ %1$s</item>
+    <item quantity="other">Վարկանիշային խաղ %2$s-ում ≥ %1$s</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Դուք պետք է խաղաք ևս %1$s վարկանիշային խաղ %2$s-ում</item>
+    <item quantity="other">Դուք պետք է խաղաք ևս %1$s վարկանիշային խաղ %2$s-ում</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
+    <item quantity="other">Դուք պետք է խաղաք ևս %s վարկանիշային խաղ</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Ձեր վարկանիշը %s-ում դեռևս վավեր չէ</string>
+  <string name="ratedMoreThanInPerf">Վարկանիշը ≥ %1$s %2$s-ում</string>
+  <string name="ratedLessThanInPerf">Վարկանիշը ≤ %1$s %2$s-ում</string>
+  <string name="mustBeInTeam">Դուք պետք է լինեք %s ակումբի անդամ</string>
+  <string name="youAreNotInTeam">Դուք %s ակումբի անդամ չեք</string>
   <string name="backToGame">Վերադառնալ պարտիային</string>
   <string name="siteDescription">Անվճար օնլայն շախմատ: Խաղացեք հաճելի ինտերֆեյսով, առանց գրանցման և գովազդի: Խաղացեք համակարգչի, ընկերների կամ անծանոթների հետ:</string>
   <string name="xJoinedTeamY">%1$s միացած թիմեր %2$s</string>
   <string name="xCreatedTeamY">%1$s ստեղծած թիմ %2$s</string>
+  <string name="xStartedStreaming">%s-ն ուղիղ եթերում է</string>
   <string name="averageElo">Միջին ELO</string>
   <string name="location">Տեղակայումը</string>
   <string name="filterGames">Զտել խաղերը</string>
@@ -332,9 +350,16 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Սա շախմատային CAPTCHA է</string>
   <string name="clickOnTheBoardToMakeYourMove">Սեղմեք դաշտին, որ անեք ձեր քայլը և ապացուցեք, որ մարդ եք:</string>
+  <string name="captcha.fail">Խնդրում ենք լուծել շախմատային CAPTCHA-ն։</string>
   <string name="notACheckmate">Մատ չէ</string>
+  <string name="whiteCheckmatesInOneMove">Սպիտակները մատ են անում մեկ քայլից</string>
+  <string name="blackCheckmatesInOneMove">Սևերը մատ են անում մեկ քայլից</string>
   <string name="retry">Կրկին փորձել</string>
   <string name="reconnecting">Կապի միացում</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ընկեր առցանց է</item>
+    <item quantity="other">%s ընկեր առցանց է</item>
+  </plurals>
   <string name="noFriendsOnline">Օնլայն ընկեր չկան</string>
   <string name="findFriends">Փնտրել ընկերներ</string>
   <string name="favoriteOpponents">Սիրելի հակառակորդներ</string>
@@ -374,7 +399,10 @@
   <string name="conditionOfEntry">Մուտքի պահանջներ՝</string>
   <string name="advancedSettings">Ընդլայնված կարգավորումներ</string>
   <string name="safeTournamentName">Ընտրեք շատ ապահով անվանում մրցաշարի համար։</string>
+  <string name="recommendNotTouching">Խորհուրդ չենք տալիս սահմանել այդ պայմանները։</string>
+  <string name="fewerPlayers">Եթե Դուք սահմանեք մասնակցության պայմանները, Ձեր մրցաշարին կարող են մասնակցել ավելի քիչ թվով խաղացողներ։</string>
   <string name="showAdvancedSettings">Ցույց տալ ընդլայնված կարգավորումները</string>
+  <string name="makePrivateTournament">Մրցաշարը դարձնել փակ և մուտքը սահմանափակել գաղտնաբառով</string>
   <string name="join">Միանալ</string>
   <string name="withdraw">Չեղարկել</string>
   <string name="points">Միավորներ</string>
@@ -383,6 +411,8 @@
   <string name="winStreak">Անընդմեջ հաղթանակներ</string>
   <string name="createdBy">Ստեղծող՝</string>
   <string name="tournamentIsStarting">Մրցաշարը սկսվում է</string>
+  <string name="tournamentPairingsAreNowClosed">Մրցաշարի վիճակահանությունն ավարտված է։</string>
+  <string name="standByX">Խնդրում ենք սպասել %s, տեղի է ունենում վիճակահանություն։ Պատրա՛ստ եղեք։</string>
   <string name="youArePlaying">Դուք խաղում եք։</string>
   <string name="winRate">Հաղթանակի տոկոս</string>
   <string name="berserkRate">Բերսերկի տոկոս</string>
@@ -393,8 +423,13 @@
   <string name="blackWins">Սևերն հաղթել են</string>
   <string name="draws">Ոչ-ոքիներ</string>
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
+  <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
   <string name="membersOnly">Միայն անդամները</string>
   <string name="boardEditor">Խաղախտակի խմբագրիչ</string>
+  <string name="setTheBoard">Տեղադրել դիրքը</string>
+  <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
+  <string name="endgamePositions">Վերջնախաղային դիրքեր</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
   <string name="startPosition">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
   <string name="savePosition">Պահպանել դիրքը</string>
