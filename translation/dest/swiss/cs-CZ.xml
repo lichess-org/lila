@@ -40,4 +40,6 @@ Do turnaje se mohou připojit kdykoliv.</string>
   <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12-ti kolovém turnaji do začátku 7. kola.
 Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více kol.</string>
   <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
+  <string name="lateJoin">Pozdní připojení</string>
+  <string name="similarToOTB">Podobné OTB turnajům</string>
 </resources>
