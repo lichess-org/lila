@@ -67,15 +67,6 @@ final class CoachApi(
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
 
-  private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
-    coachColl.update.one(
-      $id(User.normalize(username)),
-      $set("approved" -> value)
-    ) dmap { result =>
-      if (result.n > 0) "Done!"
-      else "No such coach"
-    }
-
   def remove(userId: User.ID): Funit = coachColl.updateField($id(userId), "listed", false).void
 
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded, by: User): Funit =

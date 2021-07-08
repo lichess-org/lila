@@ -10,7 +10,6 @@ private[coach] object BsonHandlers {
   implicit val CoachListedBSONHandler = booleanAnyValHandler[Coach.Listed](_.value, Coach.Listed.apply)
   implicit val CoachAvailableBSONHandler =
     booleanAnyValHandler[Coach.Available](_.value, Coach.Available.apply)
-  implicit val CoachApprovedBSONHandler = booleanAnyValHandler[Coach.Approved](_.value, Coach.Approved.apply)
   implicit val CoachPicturePathBSONHandler =
     stringAnyValHandler[Coach.PicturePath](_.value, Coach.PicturePath.apply)
 

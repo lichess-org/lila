@@ -92,7 +92,6 @@ final class CoachPager(
 
   private val listableSelector = $doc(
     "listed"    -> Coach.Listed(true),
-    "approved"  -> Coach.Approved(true),
     "available" -> Coach.Available(true)
   )
 

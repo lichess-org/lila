@@ -149,13 +149,8 @@ final class ModApi(
       } ++
         // only add permissions the mod can actually grant
         permissions.filter(Granter.canGrant(mod, _))
-      userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >> {
-        Bus.publish(
-          lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.dbKey).toList),
-          "setPermissions"
-        )
+      userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
         logApi.setPermissions(mod, user.id, Permission.diff(Permission(user.roles), permissions))
-      }
     }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit =

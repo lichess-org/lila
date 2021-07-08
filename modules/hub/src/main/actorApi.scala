@@ -98,7 +98,6 @@ package mod {
   case class ChatTimeout(mod: String, user: String, reason: String, text: String)
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
-  case class SetPermissions(userId: String, permissions: List[String])
   case class AutoWarning(userId: String, subject: String)
   case class Impersonate(userId: String, by: Option[String])
   case class SelfReportMark(userId: String, name: String)
