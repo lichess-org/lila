@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s վիճակագրություն</string>
+  <string name="viewTheGames">Դիտել պարտիաները</string>
+  <string name="provisional">նախնական</string>
+  <string name="notEnoughRatedGames">Ճշգրիտ վարկանիշն իմանալու համար վարկանիշային պարտիաների քանակը բավարար չէ։</string>
+  <string name="progressOverLastXGames">Աճը վերջին %s խաղերի ընթացքում.</string>
+  <string name="ratingDeviation">Վարկանիշի շեղումը` %s։</string>
+  <string name="totalGames">Ընդամենը պարտիաներ</string>
+</resources>
