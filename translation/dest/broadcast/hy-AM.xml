@@ -1,2 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">Հեռարձակումներ</string>
+  <string name="liveBroadcasts">Մրցաշարի ուղիղ հեռարձակումներ</string>
+  <string name="newBroadcast">Նոր ուղիղ հեռարձակում</string>
+  <string name="addRound">Ավելացնել խաղափուլ</string>
+  <string name="ongoing">Ընթացիկ</string>
+  <string name="upcoming">Առաջիկայում սպասվող</string>
+  <string name="completed">Ավարտված</string>
+  <string name="roundName">Խաղափուլի անվանում</string>
+  <string name="roundNumber">Խաղափուլի համար</string>
+  <string name="tournamentName">Մրցաշարի անվանում</string>
+  <string name="tournamentDescription">Իրադարձության համառոտ նկարագրություն</string>
+  <string name="fullDescription">Իրադարձության ամբողջական նկարագրություն</string>
+  <string name="startDate">Սկսվելու ամսաթիվը Ձեր ժամագոտում</string>
+  <string name="startDateHelp">Լրացուցիչ, եթե գիտեք, թե երբ է սկսվելու իրադարձությունը</string>
+  <string name="deleteRound">Հեռացնել այս խաղափուլը</string>
+</resources>
