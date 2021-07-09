@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="faqAbbreviation">ՀՏՀ</string>
+  <string name="frequentlyAskedQuestions">Հաճախ տրվող հարցեր</string>
   <string name="leechess">լի֊չես</string>
   <string name="fairPlay">Արդար խաղ</string>
   <string name="threefoldRepetition">Եռակի կրկնություն</string>
