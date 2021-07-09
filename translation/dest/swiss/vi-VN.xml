@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Các giải đấu hệ Thụy Sĩ</string>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s vòng đấu</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="other">Một vòng đấu hàng ngày
+Một vòng đấu cho %s ngày</item>
+  </plurals>
 </resources>
