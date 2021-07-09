@@ -66,6 +66,8 @@ Mật khẩu: %3$s</string>
   <string name="releaseDesc1">Một tài khoản đã được giải phóng không thể được quản lý lại. Học viên sẽ có thể chuyển đổi chế độ trẻ em và tự đặt lại mật khẩu.</string>
   <string name="releaseDesc2">Học viên sẽ vẫn ở trong lớp sau khi tài khoản của họ được giải phóng.</string>
   <string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để giải phóng tài khoản.</string>
+  <string name="closeStudent">Đóng tài khoản</string>
+  <string name="closeTheAccount">Đóng hẳn tài khoản của học trò.</string>
   <string name="teachers">Giáo viên</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s giáo viên</item>
