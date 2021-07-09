@@ -15,7 +15,7 @@
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">Đã gửi %1$s tin nhắn tại %2$s</item>
+    <item quantity="other">Đã viết %1$s lần trong chủ đề %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">Đã chơi %1$s nước</item>
