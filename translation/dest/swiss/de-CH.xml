@@ -28,9 +28,9 @@
     <item quantity="one">Laufändi Partii</item>
     <item quantity="other">Laufändi Partiiä</item>
   </plurals>
-  <string name="tournStartDate">Turnier-Startzeit</string>
+  <string name="tournStartDate">Turniär-Schtartdatum</string>
   <string name="numberOfRounds">Aazahl Rundänä</string>
-  <string name="numberOfRoundsHelp">Eine ungerade Anzahl der Runden ermöglicht eine optimale Farbverteilung.</string>
+  <string name="numberOfRoundsHelp">Ä ungeradi Aazahl Rundänä ermöglicht ä optimali Farbäverteilig.</string>
   <string name="roundInterval">Zeitabstand zwischen Runden</string>
   <string name="forbiddenPairings">Verbotäni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernamen von Spielern, die nicht gegeneinander spielen dürfen (zum Beispiel Geschwister). Zwei Benutzernamen pro Zeile, getrennt durch ein Leerzeichen.</string>
@@ -91,9 +91,9 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="identicalPairing">Gleiche Paarung mehrmals</string>
   <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
   <string name="identicalForbidden">Verboten</string>
-  <string name="lateJoin">Später Beitritt</string>
+  <string name="lateJoin">Spaatä Biitritt</string>
   <string name="lateJoinUntil">Erlaubt, bis mehr als die Hälfte der Runden gestartet wurden</string>
-  <string name="pause">Pause</string>
+  <string name="pause">Pausä</string>
   <string name="pauseSwiss">Ja, aber die Anzahl der Runden könnte verringert werden</string>
   <string name="streaksAndBerserk">Siegesserien und Berserken</string>
   <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
