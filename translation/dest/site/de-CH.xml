@@ -178,8 +178,8 @@
     <item quantity="other">%s Täg</item>
   </plurals>
   <plurals name="nbHours">
-    <item quantity="one">%s Stund</item>
-    <item quantity="other">%s Stundä</item>
+    <item quantity="one">%s Schtund</item>
+    <item quantity="other">%s Schtundä</item>
   </plurals>
   <string name="time">Ziit</string>
   <string name="rating">Wärtigszahl</string>
@@ -441,6 +441,7 @@
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiilpositionä</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Schach960 Aafangsschtellig: %s</string>
   <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
   <string name="savePosition">Schtellig schpeichärä</string>
