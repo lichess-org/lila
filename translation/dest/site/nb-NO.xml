@@ -96,7 +96,7 @@
   <string name="noGameFound">Intet parti funnet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kanskje inkludere flere parti fra preferansemenyen?</string>
   <string name="openingExplorer">Åpningsutforsker</string>
-  <string name="openingEndgameExplorer">Åpnings-/sluttspillsbok</string>
+  <string name="openingEndgameExplorer">Åpnings-/sluttspillsutforsker</string>
   <string name="xOpeningExplorer">Åpningsutforsker for %s</string>
   <string name="winPreventedBy50MoveRule">Seier hindret av 50-trekksregelen</string>
   <string name="lossSavedBy50MoveRule">Tap forhindret av 50-trekkregelen</string>
