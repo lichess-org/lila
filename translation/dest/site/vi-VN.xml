@@ -325,7 +325,7 @@
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
-  <string name="toStudy">Học chơi</string>
+  <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Khi paste PGN vào đây, bạn replay được ván cờ trên trình duyệt, phân tích bởi máy tính, chat trong game và URL share được.</string>
   <plurals name="nbImportedGames">
@@ -543,7 +543,7 @@
   <string name="playOfflineComputer">Chơi ngoại tuyến với máy tính</string>
   <string name="opponent">Đối thủ</string>
   <string name="learnMenu">Học</string>
-  <string name="studyMenu">Học chơi</string>
+  <string name="studyMenu">Nghiên cứu</string>
   <string name="practice">Luyện tập</string>
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
