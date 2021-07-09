@@ -213,6 +213,11 @@ export default class RoundController {
     this.promotion.cancelPrePromotion();
   };
 
+  private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
+    if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
+    sound.move();
+  };
+
   private onPredrop = (role: cg.Role | undefined, _?: Key) => {
     this.preDrop = role;
     this.redraw();
@@ -235,7 +240,7 @@ export default class RoundController {
     onUserMove: this.onUserMove,
     onUserNewPiece: this.onUserNewPiece,
     onMove: this.onMove,
-    onNewPiece: sound.move,
+    onNewPiece: this.onNewPiece,
     onPremove: this.onPremove,
     onCancelPremove: this.onCancelPremove,
     onPredrop: this.onPredrop,
