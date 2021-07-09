@@ -38,7 +38,8 @@ final class PlayApi(
               env.tournament.api.withdrawAll(me) >>
                 env.team.cached.teamIdsList(me.id).flatMap { env.swiss.api.withdrawAll(me, _) } >>
                 env.user.repo.setBot(me) >>
-                env.pref.api.setBot(me) >>-
+                env.pref.api.setBot(me) >>
+                env.streamer.api.delete(me) >>-
                 env.user.lightUserApi.invalidate(me.id) pipe
                 toResult recover { case lila.base.LilaInvalid(msg) =>
                   BadRequest(jsonError(msg))

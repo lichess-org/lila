@@ -17,14 +17,16 @@ final class Streamer(
 
   def index(page: Int) =
     Open { implicit ctx =>
-      ctx.noKid ?? {
-        pageHit
-        val requests = getBool("requests") && isGranted(_.Streamers)
-        for {
-          liveStreams <- env.streamer.liveStreamApi.all
-          live        <- api withUsers liveStreams
-          pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
-        } yield Ok(html.streamer.index(live, pager, requests))
+      NoBot {
+        ctx.noKid ?? {
+          pageHit
+          val requests = getBool("requests") && isGranted(_.Streamers)
+          for {
+            liveStreams <- env.streamer.liveStreamApi.all
+            live        <- api withUsers liveStreams
+            pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
+          } yield Ok(html.streamer.index(live, pager, requests))
+        }
       }
     }
 
@@ -88,7 +90,7 @@ final class Streamer(
   def create =
     AuthBody { implicit ctx => me =>
       ctx.noKid ?? {
-        NoLame {
+        NoLameOrBot {
           NoShadowban {
             api find me flatMap {
               case None => api.create(me) inject Redirect(routes.Streamer.edit)
@@ -154,8 +156,10 @@ final class Streamer(
     }
 
   def approvalRequest =
-    AuthBody { _ => me =>
-      api.approval.request(me) inject Redirect(routes.Streamer.edit)
+    AuthBody { implicit ctx => me =>
+      NoBot {
+        api.approval.request(me) inject Redirect(routes.Streamer.edit)
+      }
     }
 
   def picture =

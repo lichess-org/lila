@@ -101,6 +101,9 @@ final class StreamerApi(
       )
       .void
 
+  def delete(user: User): Funit =
+    coll.delete.one($id(user.id)).void
+
   def create(u: User): Funit =
     coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
 
