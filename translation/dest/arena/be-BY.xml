@@ -29,14 +29,14 @@
   <string name="otherRules">Іншыя важныя правілы</string>
   <string name="thereIsACountdown">Тут ёсць зваротны адлік для вашага першага ходу. Калі вы не зробіце ход за гэты час, то перамога будзе прысуджана вашаму суперніку.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Нічыя ў першым ходзе не прынясе ачкоў ні аднаму з гульцоў.</item>
-    <item quantity="few">Нічыя ў першых %s хадах не прынясе ачкоў ні аднаму з гульцоў.</item>
-    <item quantity="many">Нічыя ў першых %s хадах не прынясе ачкоў ні аднаму з гульцоў.</item>
-    <item quantity="other">Нічыя ў першых %s хадах не прынясе ачкоў ні аднаму з гульцоў.</item>
+    <item quantity="one">Нічыя ў першым ходзе не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="few">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="many">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
+    <item quantity="other">Нічыя ў першых %s хадах не прынясе балаў ні аднаму з гульцоў.</item>
   </plurals>
   <string name="thisIsPrivate">Гэта прыватны турнір</string>
   <string name="shareUrl">Падзяліцеся гэтай спасылкай, каб запрасіць гульцоў: %s</string>
-  <string name="drawStreak">Серыя нічыіх: Калі гулец мае некалькі паслядоуных нічыіх на Арэне, то толькі першая з іх прынясе ачко, або нічыі, якія працягнуцца болей чым %s хадоу. Серыю нічыіх можна перапыніць толькі перамогай, але не пройгрышам або яшчэ адной нічыёй.</string>
+  <string name="drawStreak">Серыя нічыіх: Калі гулец мае некалькі паслядоуных нічыіх на Арэне, то толькі першая з іх прынясе бал, або нічыі, якія працягнуцца болей чым %s хадоу. Серыю нічыіх можна перапыніць толькі перамогай, але не пройгрышам або яшчэ адной нічыёй.</string>
   <string name="history">Гісторыя Арэны</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Паглядзець каманду</item>
@@ -48,7 +48,7 @@
   <string name="customStartDate">Уласная дата пачатку</string>
   <string name="customStartDateHelp">У вашым часавым поясе. Гэта перазапіша наладку \"Час да пачатку турніра\"</string>
   <string name="allowBerserk">Дазволіць Шалёны рэжым</string>
-  <string name="allowBerserkHelp">Дазволіць гульцам паловіць іх час, каб атрымаць дадатковае ачко</string>
+  <string name="allowBerserkHelp">Дазволіць гульцам паловіць іх час, каб атрымаць дадатковы бал</string>
   <string name="allowChatHelp">Дазволіць гульцам абмеркаванне ў чаце</string>
   <string name="arenaStreaks">Серыі Арэны</string>
   <string name="arenaStreaksHelp">Пасля 2 перамог запар, наступныя перамогі прынясуць 4 ачкі, замест 2.</string>
