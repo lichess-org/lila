@@ -24,6 +24,7 @@
   <string name="teachersOfTheClass">Выкладчыкі занятку</string>
   <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
   <string name="resetPassword">Скасаваць пароль</string>
+  <string name="makeSureToCopy">Абавязкова скапіруйце альбо запішыце пароль зараз. Вы не зможаце яго больш пабачыць!</string>
   <string name="passwordX">Пароль: %s</string>
   <string name="generateANewPassword">Стварыць новы пароль для студэнта(-кі)</string>
   <string name="invitedToXByY">%2$s запрасіл(а) да %1$s</string>
