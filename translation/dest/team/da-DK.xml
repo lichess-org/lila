@@ -35,7 +35,7 @@
   <string name="teamTournamentOverview">En arenaturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="swissTournamentOverview">En schweizerturnering som kun medlemmer af dit hold kan deltage i</string>
   <string name="messageAllMembers">Send besked til alle medlemmer</string>
-  <string name="messageAllMembersOverview">Send en privat besked til hvert medlem på holdet</string>
+  <string name="messageAllMembersOverview">Send en privat besked til alle medlemmer på holdet</string>
   <string name="messageAllMembersLongDescription">Send en privat besked til ALLE medlemmer af holdet.
 Du kan bruge dette til at opfordre spillere til at tilmelde sig en turnering eller en holdkamp.
 Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.</string>
