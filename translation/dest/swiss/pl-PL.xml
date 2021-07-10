@@ -62,6 +62,10 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
   <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od graczy punktualności i cierpliwości.
 Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach globalnych.</string>
+  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli gracz nie rozpocznie partii?</string>
+  <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
+Następnie system wycofa takiego gracza z turnieju, więc nie przegra on więcej partii.
+Gracz ten może w każdej chwili ponownie dołączyć do turnieju.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
   <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
