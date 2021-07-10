@@ -941,6 +941,7 @@
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш трэнерски профіль.</string>
   <string name="newPendingReview">Новы водгук</string>
   <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
+  <string name="refundXpointsTimeControlY">Вяртанне: %1$s %2$s балаў рэйтынгу.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
