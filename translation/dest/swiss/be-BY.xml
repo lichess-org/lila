@@ -50,6 +50,14 @@
   <string name="pointsCalculationQ">Як падлічваюцца балы?</string>
   <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
 Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"bуe\", які каштуе адзін бал.</string>
+  <string name="restrictedToTeamsQ">Чаму абмежавана камандамі?</string>
+  <string name="restrictedToTeamsA">Турніры па швейцарскай сістэме не былі размеркамаваны для анлайн шахмат. Яны патрабуюць ад гульцоў пунктуальнасці, адданасці і цярпення.
+На нашу думку, гэтыя ўмовы хутчэй будуць выкананы ўнутры каманды чым у глабальным турніры.</string>
+  <string name="numberOfByesQ">Колькі \"byes\" можа атрымаць гулец?</string>
+  <string name="willSwissReplaceArenasQ">Ці заменяць швейцаркі турніры Арэны?</string>
+  <string name="willSwissReplaceArenasA">Не. Яны дапаўняюць адзін аднаго.</string>
+  <string name="joinOrCreateTeam">Далучыцца або стварыць каманду</string>
+  <string name="startingSoon">Хутка пачынаецца</string>
   <string name="comparison">Параўнанне</string>
   <string name="tournDuration">Працягласць турніру</string>
   <string name="predefinedDuration">Вызначаная загадзя працягласць у хвілінах</string>
