@@ -700,6 +700,9 @@
   <string name="opening">Սկզբնախաղ</string>
   <string name="middlegame">Միջնախաղ</string>
   <string name="endgame">Վերջնախաղ</string>
+  <string name="conditionalPremoves">Պայմանական նախաքայլեր</string>
+  <string name="addCurrentVariation">Ավելացնել ընթացիկ տարբերակը</string>
+  <string name="playVariationToCreateConditionalPremoves">Պայմանական նախաքայլերն առաջադրելու համար խաղատախտակի վրա կատարեք քայլեր</string>
   <string name="playX">Խաղացեք %s</string>
   <string name="sorry">Ներողություն :(</string>
   <string name="why">Ինչու՞</string>
