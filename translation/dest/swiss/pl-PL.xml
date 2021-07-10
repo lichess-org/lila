@@ -53,6 +53,9 @@ Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
   <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
 Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
+  <string name="sonnebornBergerScore">system Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Stosujemy %s.
+Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końcowych tych zawodników, z którymi dany zawodnik wygrał oraz połowy punktów końcowych z którymi dany zawodnik zremisował.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
   <string name="dutchSystem">systemu holenderskiego</string>
   <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
