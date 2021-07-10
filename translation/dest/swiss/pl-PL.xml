@@ -53,6 +53,7 @@ Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
   <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
 Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
+  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca gdy wielu graczy uzyskało ten sam wynik?</string>
   <string name="sonnebornBergerScore">system Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Stosujemy %s.
 Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końcowych tych zawodników, z którymi dany zawodnik wygrał oraz połowy punktów końcowych z którymi dany zawodnik zremisował.</string>
@@ -94,6 +95,7 @@ Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt
   <string name="numberOfGamesPreDefined">Ustalana na początku turnieju, taka sama dla wszystkich uczestników</string>
   <string name="pairingSystem">System parowania</string>
   <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
+  <string name="pairingSystemSwiss">Najlepsze dostępne parowanie w oparciu o punkty i punkty pomocnicze</string>
   <string name="pairingWaitTime">Czas oczekiwania na parowanie</string>
   <string name="pairingWaitTimeFast">Krótki: nie czekasz na wszystkich</string>
   <string name="pairingWaitTimeSlow">Długi: czekasz aż wszyscy skończą rundę</string>
@@ -104,6 +106,7 @@ Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt
   <string name="lateJoinUntil">Tak, zanim nie rozpocznie się więcej niż połowa rund</string>
   <string name="pause">Wstrzymywanie</string>
   <string name="pauseSwiss">Tak, ale może to zmniejszyć liczbę rund</string>
+  <string name="streaksAndBerserk">Serie zwycięstw i berserk</string>
   <string name="similarToOTB">Podobieństwo do turniejów przy szachownicy</string>
   <string name="unlimitedAndFree">Bez ograniczeń i opłat</string>
 </resources>
