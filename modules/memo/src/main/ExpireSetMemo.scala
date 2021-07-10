@@ -1,6 +1,7 @@
 package lila.memo
 
 import com.github.blemale.scaffeine.Cache
+import ornicar.scalalib.Zero
 import scala.annotation.nowarn
 import scala.concurrent.duration.FiniteDuration
 
@@ -31,4 +32,24 @@ final class ExpireSetMemo(ttl: FiniteDuration) {
   def keySet: Set[String] = keys.toSet
 
   def count = cache.estimatedSize().toInt
+}
+
+final class HashCodeExpireSetMemo[A](ttl: FiniteDuration) {
+
+  private val cache: Cache[Int, Boolean] = CacheApi.scaffeineNoScheduler
+    .expireAfterWrite(ttl)
+    .build[Int, Boolean]()
+
+  @nowarn def get(key: A): Boolean = cache.underlying.getIfPresent(key.hashCode) != null
+
+  def put(key: A) = cache.put(key.hashCode, true)
+
+  def remove(key: A) = cache invalidate key.hashCode
+
+  // NOT thread-safe
+  def once[B](key: A)(action: => B)(implicit default: Zero[B]) =
+    if (!get(key)) {
+      put(key)
+      action
+    } else default.zero
 }

@@ -44,7 +44,7 @@ final class ReportApi(
               reporter,
               suspect,
               reason,
-              data.text
+              data.text take 1000
             )
           )
         }

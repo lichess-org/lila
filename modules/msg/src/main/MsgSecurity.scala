@@ -53,6 +53,8 @@ final private class MsgSecurity(
     key = "msg_reply.user"
   )
 
+  private val dirtSpamDedup = new lila.memo.HashCodeExpireSetMemo[String](1 minute)
+
   object can {
 
     def post(
@@ -80,12 +82,16 @@ final private class MsgSecurity(
           case verdict => fuccess(verdict)
         } addEffect {
           case Dirt =>
-            Bus.publish(
-              AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
-              "autoFlag"
-            )
+            dirtSpamDedup.once(text) {
+              Bus.publish(
+                AutoFlag(contacts.orig.id, s"msg/${contacts.orig.id}/${contacts.dest.id}", text),
+                "autoFlag"
+              )
+            }
           case Spam =>
-            logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
+            dirtSpamDedup.once(text) {
+              logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
+            }
           case _ =>
         }
     }
