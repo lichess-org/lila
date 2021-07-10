@@ -168,8 +168,9 @@
 Ферзь &gt; Афіцэр</string>
   <string name="pieceValueExchange">Вазьміце найбольш каштоўную фігуру!
 Не разменьвайце больше каштоўную фігуру на менш каштоўную.</string>
-  <string name="pieceValueLegal">Вазьміце найбольш каштоўную фігуру!
-Пераправерце каб ход быў магчымы!</string>
+  <string name="pieceValueLegal">Вазьміце
+найбольш каштоўную фігуру!
+Пераканайцеся, што ход магчымы!</string>
   <string name="takeThePieceWithTheHighestValue">Атакуйце фігуры
 з больш высокай каштоўнасцю!</string>
   <string name="pieceValueComplete">Віншуем! Вы ведаеце каштоўнасць фігур!
