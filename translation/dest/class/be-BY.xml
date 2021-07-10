@@ -19,10 +19,14 @@
   <string name="resetPassword">Скасаваць пароль</string>
   <string name="passwordX">Пароль: %s</string>
   <string name="generateANewPassword">Стварыць новы пароль для студэнта(-кі)</string>
+  <string name="invitedToXByY">%2$s запрасіл(а) да %1$s</string>
   <string name="realName">Сапраўднае імя</string>
   <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
   <string name="addStudent">Дадаць студэнта</string>
   <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створаны %2$s.</string>
+  <string name="studentCredentials">Студэнт(ка):  %1$s
+Імя карыстальніка(цы): %2$s
+Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
@@ -35,8 +39,15 @@
     <item quantity="other">%s чакаючых запрашэнняў</item>
   </plurals>
   <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
+  <string name="onlyVisibleToTeachers">Бачны толькі для выкладчыкаў занятку</string>
   <string name="lastActiveDate">Анлайн</string>
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
+  <plurals name="nbStudents">
+    <item quantity="one">Студэнт(ка)</item>
+    <item quantity="few">%s студэнта</item>
+    <item quantity="many">%s студэнтаў</item>
+    <item quantity="other">%s студэнтаў</item>
+  </plurals>
   <string name="students">Студэнты</string>
   <string name="progress">Прагрэс</string>
   <string name="noStudents">Пакуль ніводнага студэнта на занятку.</string>
@@ -47,4 +58,6 @@
   <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>
   <string name="nothingHere">Пакуль нічога.</string>
+  <string name="newsEdit1">Усе навіны занятка ў адным радку.</string>
+  <string name="newsEdit2">Дадавайце апошнія навіну ўверсе. Не выдаляйце папярэднія навіны.</string>
 </resources>
