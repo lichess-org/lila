@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Заняткі</string>
+  <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
+  <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
+  <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
+  <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
+  <string name="freeForAllForever">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
+  <string name="applyToBeLichessTeacher">Падаць заяўку, каб стаць Lichess выкладчыкам</string>
   <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
   <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
@@ -11,6 +17,7 @@
   <string name="removedStudents">Выдаленыя</string>
   <string name="inviteTheStudentBack">Запрасіць студэнта абратна</string>
   <string name="sendAMessage">Даслаць паведамленне ўсім студэнтам.</string>
+  <string name="aLinkToTheClassWillBeAdded">Спасылка на занятак будзе аўтаматычна дадана у канец паведамлення, таму няма неабходнасці дадаваць яе самастойна.</string>
   <string name="className">Назва занятку</string>
   <string name="classDescription">Апісанне занятку</string>
   <string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і студэнтам занятку</string>
