@@ -6,6 +6,7 @@
   <string name="newClass">Новы занятак</string>
   <string name="closeClass">Скончыць занятак</string>
   <string name="closedByX">Скончаны %s</string>
+  <string name="reopen">Пераадкрыць</string>
   <string name="removeStudent">Выдаліць студэнта</string>
   <string name="removedStudents">Выдаленыя</string>
   <string name="inviteTheStudentBack">Запрасіць студэнта абратна</string>
@@ -15,11 +16,14 @@
   <string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і студэнтам занятку</string>
   <string name="teachersOfTheClass">Выкладчыкі занятку</string>
   <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
+  <string name="resetPassword">Скасаваць пароль</string>
+  <string name="passwordX">Пароль: %s</string>
   <string name="generateANewPassword">Стварыць новы пароль для студэнта(-кі)</string>
   <string name="realName">Сапраўднае імя</string>
   <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
   <string name="addStudent">Дадаць студэнта</string>
   <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створаны %2$s.</string>
+  <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
