@@ -28,6 +28,10 @@
   <string name="pleaseFillIn">Калі ласка, запоўніце інфармацыю наконт стрыму і загрузіце выяву.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Калі будзіце гатовы быць адлюстраваным як стрымер Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запрасіць прагляд мадэратара</string>
+  <string name="anotherLanguage">Калі мова вашага стрыму не аглійская, уключыце правільны тэг мовы (%s), уключаны ў квадратныя дужкі, у пачатку загалоўка вашага стрыму.
+Напрыклад, вы можаце дадаць \"[BE]\" для беларускай, \"[RU]\" для рускай, \"[FR]\" французcкай мовы і г. д.
+Змясціце гэта ў загалоўку Twich стрыма або старонкі YouTube, не ў наладах стрымаў Lichess.
+Калі мова страму англійская, няма неабходнасці дадаваць моўны тэг.</string>
   <string name="twitchUsername">Ваша імя карыстальніка/спасылка на Twich</string>
   <string name="optionalOrEmpty">Апцыянальна. Калі няма, пакіньце пустым</string>
   <string name="youtubeChannel">ID вашага YouTube канала ці спасылка</string>
