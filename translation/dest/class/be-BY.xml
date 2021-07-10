@@ -47,6 +47,8 @@
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
   <string name="closeStudent">Зачыніць акаўнт</string>
   <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
+  <string name="closeDesc1">Студэнт(ка) ніколі не зможа карыстацца акаўнтам зноў. Закрыцце канчатковае. Пераканайцеся, што студэнт(ка) разумее і згодзен(а).</string>
+  <string name="closeDesc2">Вы, магчыма, хочаце даць студэнту(цы) кантрль над акаўнтам, каб яны маглі далей карыстацца ім.</string>
   <string name="teachers">Выкладчыкі(цы)</string>
   <plurals name="nbTeachers">
     <item quantity="one">Выкладчык(ца)</item>
