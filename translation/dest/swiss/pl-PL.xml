@@ -51,11 +51,11 @@
   <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
 Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
-  <string name="dutchSystem">System holenderski</string>
-  <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
-  <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
+  <string name="dutchSystem">systemu holenderskiego</string>
+  <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
+  <string name="pairingsA">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
-  <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
+  <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
   <string name="roundRobinQ">Co z systemem kołowym?</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
@@ -79,7 +79,9 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="possibleButNotConsecutive">Możliwe, ale nie pod rząd</string>
   <string name="identicalForbidden">Niemożliwe</string>
   <string name="lateJoin">Dołączenie po starcie</string>
+  <string name="lateJoinUntil">Tak, zanim nie rozpocznie się więcej niż połowa rund</string>
   <string name="pause">Wstrzymywanie</string>
   <string name="pauseSwiss">Tak, ale może to zmniejszyć liczbę rund</string>
-  <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
+  <string name="similarToOTB">Podobieństwo do turniejów przy szachownicy</string>
+  <string name="unlimitedAndFree">Bez ograniczeń i opłat</string>
 </resources>
