@@ -703,9 +703,17 @@
   <string name="conditionalPremoves">Պայմանական նախաքայլեր</string>
   <string name="addCurrentVariation">Ավելացնել ընթացիկ տարբերակը</string>
   <string name="playVariationToCreateConditionalPremoves">Պայմանական նախաքայլերն առաջադրելու համար խաղատախտակի վրա կատարեք քայլեր</string>
+  <string name="noConditionalPremoves">Անպայմանական նախաքայլեր</string>
   <string name="playX">Խաղացեք %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">և հիշել %s հաջորդականությունը</item>
+    <item quantity="other">և հիշել %s հաջորդականությունները</item>
+  </plurals>
   <string name="sorry">Ներողություն :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Մենք ստիպված ենք անջատել Ձեզ որոշ ժամանակով։</string>
+  <string name="timeoutExpires">Դուք կարող եք վերադառնալ %s անց։</string>
   <string name="why">Ինչու՞</string>
+  <string name="pleasantChessExperience">Մեր նպատակը շախմատը բոլորի համար հետաքրքիր դարձնելն է։</string>
   <string name="howToAvoidThis">Ինչպե՞ս խուսափել սրանից</string>
   <string name="playEveryGame">Հասցրե՛ք ավարտին սկսված բոլոր խաղերը։</string>
   <string name="tryToWin">Փորձեք հաղթել (կամ գոնե ոչ-ոքի խաղալ) յուրաքանչյուր խաղ։</string>
