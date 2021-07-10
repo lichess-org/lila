@@ -563,7 +563,9 @@
   <string name="error.email">Այս էլ-փոստի հասցեն սխալ է</string>
   <string name="error.email_acceptable">Այս էլ. փոստի հասցեն վավեր չէ</string>
   <string name="error.email_unique">Այս էլ. փոստի հասցեն արդեն գրանցված է</string>
+  <string name="error.email_different">Սա առանց այդ էլ Ձեր էլեկտրոնային փոստի հասցեն է</string>
   <string name="ifRatingIsPlusMinusX">Եթե գործակիցը ± %s</string>
+  <string name="onlyExistingConversations">Միայն գոյություն ունեցող քննարկումները</string>
   <string name="onlyFriends">Միայն ընկերները</string>
   <string name="menu">Մենյու</string>
   <string name="castling">Փոխատեղում</string>
@@ -573,6 +575,7 @@
     <item quantity="one">%s հաղորդագրություն ֆորումում</item>
     <item quantity="other">%s հաղորդագրություն ֆորումում</item>
   </plurals>
+  <string name="tpTimeSpentPlaying">Ընդհանուր խաղաժամանակ` %s</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
@@ -582,6 +585,7 @@
   <string name="aboutX">%s մասին</string>
   <string name="really">իսկապեց</string>
   <string name="termsOfService">Ծառայությունների մատուցման պայմաններ</string>
+  <string name="simultaneousExhibitions">Միաժամանակյա խաղաշար</string>
   <string name="host">Ընդունող</string>
   <string name="create">Ստեղծել</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
@@ -597,7 +601,9 @@
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
   <string name="security">Անվտանգություն</string>
-  <string name="bulletBlitzClassical">Կայծակնային, բլից, դասական</string>
+  <string name="phoneAndTablet">Հեռախոսոց և պլանշետով</string>
+  <string name="bulletBlitzClassical">Կայծակնային, արագ, դասական</string>
+  <string name="correspondenceChess">Նամակագրական շախմատ</string>
   <string name="viewTheSolution">Դիտել լուծումը</string>
   <string name="gameAnalysis">Խաղի վերլուծություն</string>
   <string name="quickPairing">Արագ սկիզբ</string>
