@@ -23,7 +23,7 @@
   <string name="wantChangeUsername">Хачу змяніць імя карыстальніка</string>
   <string name="changeUsernameCase">Наведайце гэтую старонку каб змяніць рэгістр імя карстальніка(цы)</string>
   <string name="cantChangeMore">Мы не можам змяніць нічога акрамя за рэгістра. Па тэнічных прычынах гэта проста немагчыма.</string>
-  <string name="orCloseAccount">Аднак, вы можаце закрыць ваш бягучы акаўнт і затым стварыць новы.</string>
+  <string name="orCloseAccount">Аднак, вы можаце зачыніць ваш бягучы акаўнт і затым стварыць новы.</string>
   <string name="wantClearHistory">Я хачу ачысціць сваю гісторыю альбо рэйтынг</string>
   <string name="cantClearHistory">Немагчыма ачысціць гісторыю гульняў, гісторыю задач ці рэйтынг.</string>
   <string name="wantReport">Хачу паскардзіцца на гульца</string>
