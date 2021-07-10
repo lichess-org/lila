@@ -5,6 +5,7 @@
   <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
   <string name="closeClass">Скончыць занятак</string>
+  <string name="closedByX">Скончаны %s</string>
   <string name="removeStudent">Выдаліць студэнта</string>
   <string name="removedStudents">Выдаленыя</string>
   <string name="inviteTheStudentBack">Запрасіць студэнта абратна</string>
