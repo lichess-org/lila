@@ -598,8 +598,10 @@
   <string name="cumulative">Կոմուլյատիվ</string>
   <string name="glicko2Rating">Գլիկո-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
+  <string name="withNobody">Ոչ մեկի հետ</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Դուք արդեն գրանցել եք էլեկտրոնային փոստի %s հասցեն։</string>
   <string name="kidMode">Մանկական ռեժիմ</string>
   <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
@@ -628,8 +630,11 @@
   <string name="light">Բաց</string>
   <string name="dark">Մուգ</string>
   <string name="transparent">Թափանցիկ</string>
+  <string name="backgroundImageUrl">Հետնաշերտի պատկերի հղում`</string>
+  <string name="boardGeometry">Խաղատախտակի տեսքն ու չափսը</string>
+  <string name="boardTheme">Խաղատախտակի ձևավորումը</string>
   <string name="boardSize">Խաղատախտակի չափսը</string>
-  <string name="pieceSet">Խաղաքարերի ձևավորում</string>
+  <string name="pieceSet">Խաղաքարերի ձևավորումը</string>
   <string name="embedInYourWebsite">Ստանալ կոդ՝ կայքում տեղադրելու համար</string>
   <string name="usernameAlreadyUsed">Մասնակցային այս անունն արդեն զբաղված է։ Խնդրում ենք փորձել ուրիշը</string>
   <string name="usernamePrefixInvalid">Մասնակցային անունը պետք է սկսվի տառով</string>
@@ -685,13 +690,15 @@
   <string name="doneReviewingWhiteMistakes">Սպիտակների սխալները վերլուծված են</string>
   <string name="doneReviewingBlackMistakes">Սևերի սխալները վերլուծված են</string>
   <string name="doItAgain">Կատարել ևս մեկ անգամ</string>
-  <string name="reviewBlackMistakes">Վերանայել սևերի սխալները</string>
+  <string name="reviewWhiteMistakes">Վերլուծել սպիտակների սխալները</string>
+  <string name="reviewBlackMistakes">Վերլուծել սևերի սխալները</string>
   <string name="advantage">Առավելություն</string>
   <plurals name="nbSeconds">
-    <item quantity="one">%s վարկյան</item>
+    <item quantity="one">%s վայրկյան</item>
     <item quantity="other">%s վարկյաններ</item>
   </plurals>
   <string name="opening">Սկզբնախաղ</string>
+  <string name="middlegame">Միջնախաղ</string>
   <string name="endgame">Վերջնախաղ</string>
   <string name="playX">Խաղացեք %s</string>
   <string name="sorry">Ներողություն :(</string>
