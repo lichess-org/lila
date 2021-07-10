@@ -162,4 +162,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Z pomysłem</string>
   <string name="nextChapter">Następny rozdział</string>
   <string name="prevChapter">Poprzedni rozdział</string>
+  <string name="studyActions">Opcje opracowań</string>
 </resources>
