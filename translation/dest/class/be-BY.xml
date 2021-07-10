@@ -36,6 +36,7 @@
 Імя карыстальніка(цы): %2$s
 Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
+  <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт Lichess, вы можаце запрасіць іх на занятак.</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
