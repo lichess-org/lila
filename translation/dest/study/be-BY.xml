@@ -47,7 +47,9 @@
   <string name="like">Падабайка</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Раздел занадта кароткі для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
+  <string name="getAFullComputerAnalysis">Атрымайце поўны серверны кампутарны аналіз галоўнай лініі.</string>
   <string name="makeSureTheChapterIsComplete">Пераканайцеся, што раздзел гатоў. Вы можаце запрасіць аналіз толькі адзін раз.</string>
   <string name="playing">Гуляецца</string>
   <string name="first">На першую</string>
@@ -62,11 +64,17 @@
   <string name="downloadGame">Спампаваць гульню</string>
   <string name="studyUrl">URL навучання</string>
   <string name="currentChapterUrl">URL бягучага раздзелу</string>
+  <string name="startAtInitialPosition">Пачынаць у пачатковай пазіцыі</string>
+  <string name="xBroughtToYouByY">%2$s зрабіў для вас %1$s</string>
   <string name="studyNotFound">Навучанне не знойдзена</string>
   <string name="editChapter">Рэдагаваць раздзел</string>
   <string name="newChapter">Новы раздзел</string>
   <string name="analysisMode">Рэжым аналізу</string>
+  <string name="saveChapter">Захаваць раздзел</string>
+  <string name="clearAnnotations">Ачысціць анатацыі</string>
   <string name="deleteChapter">Выдаліць раздзел</string>
+  <string name="deleteThisChapter">Выдаліць гэты раздел? Гэта нельга будзе адмяніць!</string>
+  <string name="hideNextMoves">Схаваць наступныя хады</string>
   <string name="chapterX">Раздзел %s</string>
   <string name="empty">Пуста</string>
   <string name="editor">Рэдактар</string>
