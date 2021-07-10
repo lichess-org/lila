@@ -79,6 +79,9 @@ Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt
   <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
   <string name="roundRobinQ">Co z systemem kołowym?</string>
+  <string name="roundRobinA">Chcielibyśmy go dodać, ale niestety system kołowy nie sprawdza się w turniejach online.
+Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z graczami, którzy wcześnie opuszczają turniej. Trudno oczekiwać, że wszyscy gracze zagrają wszystkie swoje gry. To po prostu się nie wydarzy, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
+Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
   <string name="swissDescription">W systemie szwajcarskim %1$s każdy gracz niekoniecznie gra ze wszystkimi innymi uczestnikami turnieju. Gracze są parowani przy użyciu zestawu zasad mających na celu zapewnienie, że każdy uczestnik gra z przeciwnikiem z podobnym wynikiem, ale nie więcej niż raz z tym samym graczem. Zwycięzcą turnieju jest gracz z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba graczy.</string>
