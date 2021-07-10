@@ -443,25 +443,29 @@
   <string name="firstName">Անուն</string>
   <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Երկիր կամ դրոշ</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
+  <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
+  <string name="inlineNotation">Տողային նոտագրություն</string>
   <string name="watchLichessTV">Դիտել Lichess TV</string>
   <string name="previouslyOnLichessTV">Նախորդները Lichess TV-ով</string>
-  <string name="onlinePlayers">Online խաղացողներ</string>
+  <string name="onlinePlayers">Առցանց խաղացողներ</string>
   <string name="activeToday">Ակտիվ այսօր</string>
   <string name="activePlayers">Ակտիվ խաղացողներ</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է սակայն առանց ժամանակի</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Զգուշացում. խաղը վարկանիշային է, սակայն առանց ժամանակի</string>
   <string name="success">Հաջողված է</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">Ընթանում է %s խաղ</item>
     <item quantity="other">Ընթանում է %s խաղ</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">խնդիրներ</string>
   <string name="latestUpdates">վերջին թարմացումները</string>
   <string name="tournamentWinners">Մրցաշարի հաղթողները</string>
-  <string name="name">անուն</string>
-  <string name="description">նկարագրություն</string>
+  <string name="name">Անուն</string>
+  <string name="description">Նկարագրություն</string>
+  <string name="descPrivate">Մասնավոր նկարագրություն</string>
   <string name="no">ոչ</string>
   <string name="yes">այո</string>
   <string name="help">օգնություն</string>
