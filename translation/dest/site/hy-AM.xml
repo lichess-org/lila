@@ -600,6 +600,9 @@
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
+  <string name="kidMode">Մանկական ռեժիմ</string>
+  <string name="kidModeExplanation">Սա անվտանգության համար է։ Մանկական ռեժիմում անջատված են կայքի հաղորդակցության բոլոր միջոցները։ Միացրեք այս ռեժիմը ձեր երեխաների և աշակերտների համար` նրանց այլ օգտատերերից պաշտպանելու համար։</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Մանկական ռեժիմում Lichess-ի պատկերանշանին ավելանում է %s տեսքով նշան, որպեսզի Դուք իմանաք, որ Ձեր երեխաներն անվտանգության մեջ են։</string>
   <string name="enableKidMode">Միացնել մանկական ռեժիմը</string>
   <string name="disableKidMode">Անջատել մանկական ռեժիմը</string>
   <string name="security">Անվտանգություն</string>
@@ -610,7 +613,8 @@
   <string name="builtForTheLoveOfChessNotMoney">Սիրով շախմատի, այլ ոչ` փողի հանդեպ</string>
   <string name="everybodyGetsAllFeaturesForFree">Բոլոր հնարավորությունները բոլորի համար անվճար են</string>
   <string name="zeroAdvertisement">Ոչ մի գովազդ</string>
-  <string name="phoneAndTablet">Հեռախոսոց և պլանշետով</string>
+  <string name="fullFeatured">Առավելագույն ֆունկցիոնալություն</string>
+  <string name="phoneAndTablet">Հեռախոսով և պլանշետով</string>
   <string name="bulletBlitzClassical">Կայծակնային, արագ, դասական</string>
   <string name="correspondenceChess">Նամակագրական շախմատ</string>
   <string name="onlineAndOfflinePlay">Առցանց և օֆլայն խաղ</string>
