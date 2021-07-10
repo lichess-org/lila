@@ -2,6 +2,7 @@
 <resources>
   <string name="advantage">Перавага</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="defensiveMove">Абарончы ход</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
