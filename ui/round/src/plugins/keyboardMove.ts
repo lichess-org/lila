@@ -3,9 +3,13 @@ import { Dests } from '../interfaces';
 
 const keyRegex = /^[1-9][1-9]$/;
 const fileRegex = /^[1-9]$/;
-const dropRegex = /^\w?\*[1-9][1-9]$/;
-const ambiguousPromotionRegex = /^(\\w?x?)?[1-9][1-9][\+\=]$/;
-const promotionRegex = /^[1-9][1-9]x?[1-9][1-9][\+\=]$/;
+const dropRegex = /^[PLNSGBR]?\*[1-9][1-9]$/;
+const partialDropRegex = /^[PLNSGBR]?\*[1-9]?$/;
+const promotableRegex = /^[PLNSBR]?[1-9]?[1-9]?[-x]?[1-9][1-9]$/;
+const promotionRegex = /^[PLNSBR]?[1-9]?[1-9]?[-x]?[1-9][1-9]\+$/;
+const unpromotionRegex = /^[PLNSBR]?[1-9]?[1-9]?[-x]?[1-9][1-9]=$/;
+const dropOrMoveRegex = /^(?:\+?[PLNSBR]|[GK])(?:\*|[1-9]?[1-9]?[-x]?)[1-9][1-9][\+=]?$/;
+const pawnRegex = /^(?:\*|[-x][1-9]?[1-9]?)?[1-9][1-9][\+=]$/;
 
 interface SubmitOpts {
   force?: boolean;
@@ -20,30 +24,31 @@ window.lishogi.keyboardMove = function (opts: any) {
   let sans: any = null;
 
   const submit: Submit = function (v: string, submitOpts: SubmitOpts) {
-    const foundUci = v.length >= 2 && sans && sanToUci(v, sans);
-    if (foundUci) {
-      // ambiguous UCI (G52)
+    if (v.match(pawnRegex)) v = 'P' + v;
+    // player pressed <Enter> instead of '+' to force promotion
+    if (v.match(promotableRegex) && submitOpts.force) v += '+';
+
+    // check length before pattern in case pattern is wrong or underperforms
+    // pattern protects against accidental submission of S6-57 (during S6-5)
+    const foundUsi = v.length >= 3 && v.match(dropOrMoveRegex) && sans && sanToUsi(v, sans);
+    if (foundUsi) {
       if (v.match(keyRegex) && opts.ctrl.hasSelected()) opts.ctrl.select(alpha(v));
-      // ambiguous promotion (missing = or +)
-      // Surely force=false always since promotion/unpromotion must be selected?
-      // Why allow a player to use <Enter> to force input?
-      if (v.match(ambiguousPromotionRegex) && !submitOpts.force) return;
-      else opts.ctrl.san(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2)));
+      else if (v.match(promotionRegex))
+        opts.ctrl.promote(alpha(foundUsi.slice(0, 2)), alpha(foundUsi.slice(2, 4)), '+' + v[0].toUpperCase());
+      else if (v.match(unpromotionRegex))
+        opts.ctrl.promote(alpha(foundUsi.slice(0, 2)), alpha(foundUsi.slice(2, 4)), '=' + v[0].toUpperCase());
+      else opts.ctrl.san(alpha(foundUsi.slice(0, 2)), alpha(foundUsi.slice(2, 4)));
       clear();
     } else if (sans && v.match(keyRegex)) {
       opts.ctrl.select(alpha(v));
       clear();
     } else if (sans && v.match(fileRegex)) {
       // do nothing
-    } else if (v.length >= 5 && sans && v.match(promotionRegex)) {
-      const foundUci = sanToUci(v, sans);
-      if (!foundUci) return;
-      opts.ctrl.promote(alpha(foundUci.slice(0, 2)), alpha(foundUci.slice(2, 4)), v.slice(-1));
-      clear();
     } else if (v.match(dropRegex)) {
-      if (v.length === 3) v = 'P' + v;
       opts.ctrl.drop(alpha(v.slice(2)), v[0].toUpperCase());
       clear();
+    } else if (v.match(partialDropRegex)) {
+      // do nothing (without DropDests piece-dest validation is infeasible)
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         readClocks(opts.ctrl.clock());
@@ -112,26 +117,32 @@ function makeBindings(opts: any, submit: Submit, clear: Function) {
 
 function sanToUci(san: string, sans): Key[] | undefined {
   if (san in sans) return sans[san];
-  const lowered = san.toLowerCase();
-  for (let i in sans) if (i.toLowerCase() === lowered) return sans[i];
+  const lowered = san.replace(/[-x]/, '').toLowerCase();
+  for (let i in sans) if (i.replace(/[-x]/, '').toLowerCase() === lowered) return sans[i];
   return;
 }
 
 function sanCandidates(san: string, sans) {
-  const lowered = san.toLowerCase();
+  const lowered = san.replace(/[-x]/, '').toLowerCase();
   return Object.keys(sans).filter(function (s) {
-    return s.toLowerCase().startsWith(lowered);
+    return s.replace(/[-x]/, '').toLowerCase().startsWith(lowered);
   });
 }
 
 function alpha(coordinate) {
   // "97" -> "a3"
-  return String.fromCharCode((8 - (coordinate.charCodeAt(0) - 49)) + 97) + String.fromCharCode((8 - (coordinate.charCodeAt(1) - 49)) + 49);
+  return (
+    String.fromCharCode(8 - (coordinate.charCodeAt(0) - 49) + 97) +
+    String.fromCharCode(8 - (coordinate.charCodeAt(1) - 49) + 49)
+  );
 }
 
 function coordinate(square) {
   // "a3" -> "97"
-  return String.fromCharCode((8 - (square.charCodeAt(0) - 97)) + 49) + String.fromCharCode((8 - (square.charCodeAt(1) - 49)) + 49);
+  return (
+    String.fromCharCode(8 - (square.charCodeAt(0) - 97) + 49) +
+    String.fromCharCode(8 - (square.charCodeAt(1) - 49) + 49)
+  );
 }
 
 function destsToUcis(dests: Dests) {
@@ -143,7 +154,6 @@ function destsToUcis(dests: Dests) {
   }
   return ucis;
 }
-
 
 function focusChat() {
   const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
