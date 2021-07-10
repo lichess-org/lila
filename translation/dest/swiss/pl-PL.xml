@@ -72,7 +72,13 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="numberOfGamesPreDefined">Ustalana na początku turnieju, taka sama dla wszystkich uczestników</string>
   <string name="pairingSystem">System parowania</string>
   <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
-  <string name="identicalForbidden">Zabronione</string>
+  <string name="pairingWaitTime">Czas oczekiwania na parowanie</string>
+  <string name="pairingWaitTimeFast">Krótki: nie czekasz na wszystkich</string>
+  <string name="pairingWaitTimeSlow">Długi: czekasz aż wszyscy skończą rundę</string>
+  <string name="identicalPairing">Wiele partii z tym samym graczem</string>
+  <string name="possibleButNotConsecutive">Możliwe, ale nie pod rząd</string>
+  <string name="identicalForbidden">Niemożliwe</string>
+  <string name="lateJoin">Dołączenie po starcie</string>
   <string name="pause">Wstrzymywanie</string>
   <string name="pauseSwiss">Tak, ale może to zmniejszyć liczbę rund</string>
   <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
