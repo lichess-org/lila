@@ -39,6 +39,7 @@
   <string name="fideHandbookX">Правилы ФІДЭ %s</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
+  <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
   <string name="notRepeatedMoves">Мы не паўтаралі хады. Чаму гульня скончылася ўнічыю праз паўтарэнне?</string>
   <string name="repeatedPositionsThatMatters">Трохразовае паўтарэнне гэта пра паўтораныя %1$s, не хады. Паўтарэнні могуць адбыцца і не запар.</string>
@@ -68,8 +69,11 @@
   <string name="guidelines">рэкамендацыях</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
   <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
+  <string name="uniqueTrophies">Унікальныя трафеі</string>
+  <string name="ownerUniqueTrophies">Гэта трэфей унікальны ў гісторыі Lichess, ніхто акрамя %1$s ніколі не будзе маць такі.</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
   <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
+  <string name="goldenZeeExplanation">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="whatIsProvisionalRating">Што значыць пытальнік (?) побач з рэйтынгам?</string>
@@ -80,7 +84,9 @@
   <string name="ratingDeviationMorethanOneHundredTen">Па сутнасці, гэта азначае, што адхіленне Glicko-2 больш за 110. Адхіленне - гэта ўзровень даверу, які сістэма мае да рэйтынгу. Чым ніжэй адхіленне, тым больш стабільным з\'яўляецца рэйтынг.</string>
   <string name="howDoLeaderoardsWork">Як працуюць рэйтынгі та дошка лідараў?</string>
   <string name="inOrderToAppearsYouMust">Каб трапіць на %1$s вам трэба:</string>
-  <string name="ratingLeaderboards">дошка лідараў рэйтынгу</string>
+  <string name="ratingLeaderboards">дошку лідараў рэйтынгу</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">сыграць па меншай меры 30 рэйтынгавых партый у дадзеным варыянце,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">сыграць хаця б адну рэйтынгавую партыю на працягу мінулага тыдня ў гэтым варыянце,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">мець адхіленне рэйтынгу менш за %1$s у звычайных шахматах, і менш за %2$s у варыянтах,</string>
   <string name="beInTopTen">уваходзіць у першую 10 па рэйтынгу.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Другое патрабаване для таго, каб гульцы, якія больш не карыстаюцца свае акаўнты, не займалі месца на дошках лідараў.</string>
