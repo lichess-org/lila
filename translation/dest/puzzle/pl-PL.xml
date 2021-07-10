@@ -41,8 +41,20 @@
   <string name="normal">Normalny</string>
   <string name="easier">Łatwy</string>
   <string name="easiest">Bardzo łatwy</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Jeden punkt poniżej Twojej oceny łamigłówki</item>
+    <item quantity="few">%s punkty poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="many">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="other">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+  </plurals>
   <string name="harder">Trudny</string>
   <string name="hardest">Bardzo trudny</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Jeden punkt powyżej Twojej oceny łamigłówki</item>
+    <item quantity="few">%s punkty powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="many">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="other">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+  </plurals>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
