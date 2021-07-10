@@ -595,6 +595,9 @@
   <string name="noSimulFound">Խաղաշարը չի գտնվել</string>
   <string name="noSimulExplanation">Այդ միաժամանակյա խաղաշարը գոյություն չունի։</string>
   <string name="returnToSimulHomepage">Վերադառնալ խաղաշարերի էջ</string>
+  <string name="aboutSimul">Խաղաշարերը ենթադրում են մեկ խաղացողի մենամարտը միաժամանակ մի քանի խաղացողի հետ։</string>
+  <string name="aboutSimulImage">Ընդհանուր 50 պարտիայից Ֆիշերը հաղթել է 47-ում, ոչ-ոքի արել 2-ում և պարտվել 1-ում։</string>
+  <string name="aboutSimulRealLife"> Գաղափարը կրկնում է կենդանի շախմատում ընդունված հայեցակարգը, երբ խաղաշար անցկացնողը տեղաշարժվում է սեղանից սեղան` մեկ քայլ կատարելու համար։</string>
   <string name="create">Ստեղծել</string>
   <string name="lichessTournaments">Lichess մրցաշարեր</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
