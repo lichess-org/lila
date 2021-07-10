@@ -36,4 +36,19 @@
   <string name="itMovesInAnLShape">Այն քայլում է L տառի նման</string>
   <string name="knightIntro">Ահա եվ խնդիր քեզ համար: Ձին բարդ խաղաքար է</string>
   <string name="knightsHaveAFancyWay">Ձիերը կարող են թռչկոտել խաղաքարերի վրայով</string>
+  <string name="stalemate">Պատ</string>
+  <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="playMachine">Համակարգիչ</string>
+  <string name="testYourSkillsWithTheComputer">Ստուգեք Ձեր հմտությունները համակարգչով</string>
+  <string name="wayToGo">Առա՛ջ։</string>
+  <string name="yesYesYes">Այո՛, այո՛, այո՛։</string>
+  <string name="youreGoodAtThis">Կեցցե՛ք։</string>
+  <string name="nailedIt">Հաջողվե՜ց։</string>
+  <string name="rightOn">Հենց այդպե՛ս։</string>
+  <string name="stageXComplete">%s դասը յուրացված է</string>
+  <string name="yourScore">Ձեր արդյունքը</string>
+  <string name="next">Հաջորդը</string>
+  <string name="backToMenu">Վերադառնալ ցանկ</string>
+  <string name="puzzleFailed">Առաջադրանքը ձախողվե՛ց</string>
+  <string name="retry">Կրկնել</string>
 </resources>
