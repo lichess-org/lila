@@ -47,6 +47,9 @@
   <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
   <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
   <string name="newSwiss">Новы турнір па швейцарскай сыстэме</string>
+  <string name="pointsCalculationQ">Як падлічваюцца балы?</string>
+  <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
+Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"bуe\", які каштуе адзін бал.</string>
   <string name="comparison">Параўнанне</string>
   <string name="tournDuration">Працягласць турніру</string>
   <string name="predefinedDuration">Вызначаная загадзя працягласць у хвілінах</string>
@@ -55,6 +58,7 @@
   <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
   <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
   <string name="identicalForbidden">Забаронена</string>
+  <string name="pause">Паўза</string>
   <string name="pauseSwiss">Так, але можа зменшыць колькасць тураў</string>
   <string name="streaksAndBerserk">Серыі і Шалёны рэжым</string>
   <string name="similarToOTB">Падобны да турніраў з сапраўднай дошкай</string>
