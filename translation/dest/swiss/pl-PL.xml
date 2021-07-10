@@ -56,7 +56,7 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
   <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
-  <string name="willSwissReplaceArenasA">Nie. To całkiem nowa funkcjonalność.</string>
+  <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
@@ -64,10 +64,10 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
   <string name="tournDuration">Czas trwania turnieju</string>
-  <string name="predefinedDuration">Predefiniowany czas trwania w minutach</string>
-  <string name="durationUnknown">Predefiniowana maksymalna liczba rund, czas trwania nieokreślony</string>
+  <string name="predefinedDuration">Ustalony czas trwania w minutach</string>
+  <string name="durationUnknown">Ustalona maksymalna liczba rund, czas trwania nieokreślony</string>
   <string name="numberOfGames">Liczba partii</string>
-  <string name="pairingSystem">Liczba partii</string>
+  <string name="pairingSystem">System parowania</string>
   <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
   <string name="identicalForbidden">Zabronione</string>
   <string name="pause">Wstrzymaj</string>
