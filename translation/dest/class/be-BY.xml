@@ -41,7 +41,19 @@
   <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
   <string name="onlyVisibleToTeachers">Бачны толькі для выкладчыкаў занятку</string>
   <string name="lastActiveDate">Анлайн</string>
+  <string name="managed">Кіраваны</string>
+  <string name="thisStudentAccountIsManaged">Гэты акаўнт студэнта(кі) кіраваны</string>
+  <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
+  <string name="closeStudent">Зачыніць акаўнт</string>
+  <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
+  <string name="teachers">Выкладчыкі(цы)</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Выкладчык(ца)</item>
+    <item quantity="few">%s выкладчыка</item>
+    <item quantity="many">%s выкладчыкаў</item>
+    <item quantity="other">%s выкладчыкаў</item>
+  </plurals>
   <plurals name="nbStudents">
     <item quantity="one">Студэнт(ка)</item>
     <item quantity="few">%s студэнта</item>
@@ -60,4 +72,6 @@
   <string name="nothingHere">Пакуль нічога.</string>
   <string name="newsEdit1">Усе навіны занятка ў адным радку.</string>
   <string name="newsEdit2">Дадавайце апошнія навіну ўверсе. Не выдаляйце папярэднія навіны.</string>
+  <string name="newsEdit3">Падзяляйце навіны з дапамогай ---
+Гэта адлюструе гарызантальную лінію.</string>
 </resources>
