@@ -47,6 +47,9 @@
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
+  <string name="swissVsArenaQ">Kiedy używać systemu szwajcarskiego zamiast aren?</string>
+  <string name="swissVsArenaA">W systemie szwajcarskim wszyscy uczestnicy grają tę samą liczbę partii i mogą grać ze sobą tylko raz.
+Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
   <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
 Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
@@ -54,6 +57,11 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="dutchSystem">systemu holenderskiego</string>
   <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
   <string name="pairingsA">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
+  <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
+  <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
+  <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od graczy punktualności i cierpliwości.
+Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach globalnych.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
   <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
