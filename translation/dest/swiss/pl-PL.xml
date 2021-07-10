@@ -81,6 +81,7 @@ Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt
   <string name="roundRobinQ">Co z systemem kołowym?</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
+  <string name="swissDescription">W systemie szwajcarskim %1$s każdy gracz niekoniecznie gra ze wszystkimi innymi uczestnikami turnieju. Gracze są parowani przy użyciu zestawu zasad mających na celu zapewnienie, że każdy uczestnik gra z przeciwnikiem z podobnym wynikiem, ale nie więcej niż raz z tym samym graczem. Zwycięzcą turnieju jest gracz z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba graczy.</string>
   <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków klubu.
 %1$s aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
