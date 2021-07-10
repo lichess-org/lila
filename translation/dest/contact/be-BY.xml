@@ -23,9 +23,13 @@
   <string name="wantChangeUsername">Хачу змяніць імя карыстальніка</string>
   <string name="changeUsernameCase">Наведайце гэтую старонку каб змяніць рэгістр імя карстальніка(цы)</string>
   <string name="cantChangeMore">Мы не можам змяніць нічога акрамя за рэгістра. Па тэнічных прычынах гэта проста немагчыма.</string>
+  <string name="orCloseAccount">Аднак, вы можаце закрыць ваш бягучы акаўнт і затым стварыць новы.</string>
+  <string name="wantClearHistory">Я хачу ачысціць сваю гісторыю альбо рэйтынг</string>
+  <string name="cantClearHistory">Немагчыма ачысціць гісторыю гульняў, гісторыю задач ці рэйтынг.</string>
   <string name="wantReport">Хачу паскардзіцца на гульца</string>
   <string name="toReportAPlayerUseForm">Каб паскардзіцца на гульца, выкарыстайце форму скаргі</string>
   <string name="doNotSendReportEmails">Не дасылайце нам эляктроныя лісты са скаргамі.</string>
+  <string name="doNotMessageModerators">Калі ласка, не дасылайце асабістыя паведамленні мадэратарам.</string>
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
   <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
   <string name="illegalCastling">Недазволеная або немагчымая ракіроўка</string>
