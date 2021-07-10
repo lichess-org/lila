@@ -24,4 +24,6 @@
   <string name="currentStatus">Ընթացիկ կարգավիճակ</string>
   <string name="nextPayment">Հաջորդ վճարում</string>
   <string name="update">Թարմացնել</string>
+  <string name="date">Ամսաթիվ</string>
+  <string name="amount">Գումար</string>
 </resources>
