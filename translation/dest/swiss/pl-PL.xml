@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Turnieje szwajcarskie</string>
+  <string name="swissTournaments">System szwajcarski</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobacz rundę</item>
     <item quantity="few">Zobacz wszystkie %s rundy</item>
@@ -57,6 +57,7 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
   <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
+  <string name="roundRobinQ">Co z systemem kołowym?</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
@@ -67,9 +68,12 @@ Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los w
   <string name="predefinedDuration">Ustalony czas trwania w minutach</string>
   <string name="durationUnknown">Ustalona maksymalna liczba rund, czas trwania nieokreślony</string>
   <string name="numberOfGames">Liczba partii</string>
+  <string name="numberOfGamesAsManyAsPossible">Tak dużo, ile można rozegrać w ustalonym czasie trwania turnieju</string>
+  <string name="numberOfGamesPreDefined">Ustalana na początku turnieju, taka sama dla wszystkich uczestników</string>
   <string name="pairingSystem">System parowania</string>
   <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
   <string name="identicalForbidden">Zabronione</string>
-  <string name="pause">Wstrzymaj</string>
+  <string name="pause">Wstrzymywanie</string>
+  <string name="pauseSwiss">Tak, ale może to zmniejszyć liczbę rund</string>
   <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
 </resources>
