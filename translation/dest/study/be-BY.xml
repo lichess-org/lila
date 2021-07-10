@@ -48,6 +48,7 @@
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
   <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
+  <string name="makeSureTheChapterIsComplete">Пераканайцеся, што раздзел гатоў. Вы можаце запрасіць аналіз толькі адзін раз.</string>
   <string name="playing">Гуляецца</string>
   <string name="first">На першую</string>
   <string name="previous">Папярэдняя</string>
