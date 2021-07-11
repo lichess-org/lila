@@ -64,6 +64,7 @@
   <string name="managed">Кіраваны</string>
   <string name="thisStudentAccountIsManaged">Гэты акаўнт студэнта(кі) кіраваны</string>
   <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
+  <string name="release">Выпусціць</string>
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
   <string name="closeStudent">Зачыніць акаўнт</string>
   <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
@@ -90,6 +91,7 @@
   <string name="timePlaying">Час за гульнёй</string>
   <string name="variantXOverLastY">%1$s на працягу апошніх %2$s</string>
   <string name="winrate">Адсотак перамог</string>
+  <string name="na">Не дастасоўваецца</string>
   <string name="news">Навіны занятку</string>
   <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>
