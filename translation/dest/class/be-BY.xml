@@ -64,7 +64,10 @@
   <string name="managed">Кіраваны</string>
   <string name="thisStudentAccountIsManaged">Гэты акаўнт студэнта(кі) кіраваны</string>
   <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
-  <string name="release">Выпусціць</string>
+  <string name="release">Вызваліць</string>
+  <string name="releaseTheAccount">Вызваліце акаўнт, каб студэнт мог самастойна кіраваць ім.</string>
+  <string name="releaseDesc1">Вызваленны акаўнт ня можа кіравацца зноў. Студэнт(ка) зможа уключаць/выключаць дзіцячы рэжым і скасоўваць паролі самастойна.</string>
+  <string name="releaseDesc2">Студэнт(ка) застанецца на занятку пасля вызвалення акаўнту.</string>
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
   <string name="closeStudent">Зачыніць акаўнт</string>
   <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
