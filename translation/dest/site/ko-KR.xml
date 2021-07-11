@@ -861,4 +861,6 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
+  <string name="playComputerMove">최선의 컴퓨터 수 두기</string>
+  <string name="analysisOptions">분석 옵션</string>
 </resources>

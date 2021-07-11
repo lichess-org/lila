@@ -923,6 +923,7 @@
   <string name="toRequestSupport">Каб атрымаць дапамогу, %1$s</string>
   <string name="tryTheContactPage">паспрабуйце старонку кантактаў</string>
   <string name="thisTopicIsArchived">Гэта тэма была архівавана і абмяркаваць яе больш немагчыма.</string>
+  <string name="joinTheTeamXToPost">Далучыцеся да %1$s, каб пакінуць пісаць на форуме</string>
   <string name="teamNamedX">каманда %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Вы яшчэ не можаце публікаваць на формах. Згуляйце некалькі партый!</string>
   <string name="subscribe">Падпісацца</string>
@@ -940,6 +941,7 @@
   <string name="someoneReviewedYourCoachProfile">Хтосьці прагледзеў ваш трэнерски профіль.</string>
   <string name="newPendingReview">Новы водгук</string>
   <string name="lostAgainstTOSViolator">Вы прайгралі камусьці, хто парушыў ўмовы карыстання Lichess</string>
+  <string name="refundXpointsTimeControlY">Вяртанне: %1$s %2$s балаў рэйтынгу.</string>
   <string name="timeAlmostUp">Час амаль выйшаў!</string>
   <string name="clickToRevealEmailAddress">Націсніце, каб высветліць электроную пошту</string>
   <string name="download">Спампаваць</string>
@@ -957,6 +959,7 @@
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
   <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
+  <string name="onlyTitledHelp">Патрабаваць афіцыйнага тытулу, каб далучыцца да турніру</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
   <string name="simulHostcolor">Колер арганізатара ў кожнай гульне</string>
   <string name="estimatedStart">Меркаваны час пачатку</string>
@@ -970,8 +973,11 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="mouseTricks">Трукі мышшу</string>
   <string name="toggleLocalAnalysis">Укл./адкл. лакальны камп\'ютарны аналіз</string>
   <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>
   <string name="playComputerMove">Згуляць лепшы ход на думку камп\'ютару</string>
+  <string name="analysisOptions">Параметры аналізу</string>
+  <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
 </resources>

@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Заняткі</string>
+  <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
+  <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
+  <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
+  <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
+  <string name="freeForAllForever">100% бясплатна для ўсіх, назаўсёды, без рэкламы і трэкінгу</string>
+  <string name="applyToBeLichessTeacher">Падаць заяўку, каб стаць Lichess выкладчыкам</string>
   <string name="noClassesYet">Пакуль няма ніякіх заняткаў.</string>
+  <string name="teachersX">Выкладчыкі: %s</string>
   <string name="newClass">Новы занятак</string>
+  <string name="closeClass">Скончыць занятак</string>
+  <string name="closedByX">Скончаны %s</string>
+  <string name="reopen">Пераадкрыць</string>
   <string name="removeStudent">Выдаліць студэнта</string>
   <string name="removedStudents">Выдаленыя</string>
   <string name="inviteTheStudentBack">Запрасіць студэнта абратна</string>
   <string name="sendAMessage">Даслаць паведамленне ўсім студэнтам.</string>
+  <string name="aLinkToTheClassWillBeAdded">Спасылка на занятак будзе аўтаматычна дадана у канец паведамлення, таму няма неабходнасці дадаваць яе самастойна.</string>
   <string name="className">Назва занятку</string>
   <string name="classDescription">Апісанне занятку</string>
   <string name="visibleByBothStudentsAndTeachers">Бачна выкладчыкам і студэнтам занятку</string>
   <string name="teachersOfTheClass">Выкладчыкі занятку</string>
   <string name="addLichessUsernames">Дадайце імёны карыстальнікаў Lichess, каб запрасіць іх у якасці выкладчыкаў. Адзін на радок.</string>
+  <string name="resetPassword">Скасаваць пароль</string>
+  <string name="makeSureToCopy">Абавязкова скапіруйце альбо запішыце пароль зараз. Вы не зможаце яго больш пабачыць!</string>
+  <string name="passwordX">Пароль: %s</string>
   <string name="generateANewPassword">Стварыць новы пароль для студэнта(-кі)</string>
+  <string name="invitedToXByY">%2$s запрасіл(а) да %1$s</string>
   <string name="realName">Сапраўднае імя</string>
   <string name="privateWillNeverBeShown">Прыватны. Ніколі не адлюструеце па за межамі занятку. Дапамагае памятаць хто студэнт.</string>
   <string name="addStudent">Дадаць студэнта</string>
   <string name="lichessProfileXCreatedForY">Профіль Lichess %1$s створаны %2$s.</string>
+  <string name="studentCredentials">Студэнт(ка):  %1$s
+Імя карыстальніка(цы): %2$s
+Пароль: %3$s</string>
+  <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
+  <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт Lichess, вы можаце запрасіць іх на занятак.</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
@@ -28,7 +48,29 @@
     <item quantity="other">%s чакаючых запрашэнняў</item>
   </plurals>
   <string name="noPendingInvitations">Ніякіх чакаючых запрашэнняў</string>
+  <string name="onlyVisibleToTeachers">Бачны толькі для выкладчыкаў занятку</string>
   <string name="lastActiveDate">Анлайн</string>
+  <string name="managed">Кіраваны</string>
+  <string name="thisStudentAccountIsManaged">Гэты акаўнт студэнта(кі) кіраваны</string>
+  <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
+  <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
+  <string name="closeStudent">Зачыніць акаўнт</string>
+  <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
+  <string name="closeDesc1">Студэнт(ка) ніколі не зможа карыстацца акаўнтам зноў. Закрыцце канчатковае. Пераканайцеся, што студэнт(ка) разумее і згодзен(а).</string>
+  <string name="closeDesc2">Вы, магчыма, хочаце даць студэнту(цы) кантрль над акаўнтам, каб яны маглі далей карыстацца ім.</string>
+  <string name="teachers">Выкладчыкі(цы)</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Выкладчык(ца)</item>
+    <item quantity="few">%s выкладчыка</item>
+    <item quantity="many">%s выкладчыкаў</item>
+    <item quantity="other">%s выкладчыкаў</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Студэнт(ка)</item>
+    <item quantity="few">%s студэнта</item>
+    <item quantity="many">%s студэнтаў</item>
+    <item quantity="other">%s студэнтаў</item>
+  </plurals>
   <string name="students">Студэнты</string>
   <string name="progress">Прагрэс</string>
   <string name="noStudents">Пакуль ніводнага студэнта на занятку.</string>
@@ -39,4 +81,8 @@
   <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>
   <string name="nothingHere">Пакуль нічога.</string>
+  <string name="newsEdit1">Усе навіны занятка ў адным радку.</string>
+  <string name="newsEdit2">Дадавайце апошнія навіну ўверсе. Не выдаляйце папярэднія навіны.</string>
+  <string name="newsEdit3">Падзяляйце навіны з дапамогай ---
+Гэта адлюструе гарызантальную лінію.</string>
 </resources>

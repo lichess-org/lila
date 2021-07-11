@@ -14,18 +14,18 @@
   <string name="rookGoal">Пстрыкніце на ладдзю і давядзіце яе да зоркі!</string>
   <string name="grabAllTheStars">Збярыце ўсе зоркі!</string>
   <string name="theFewerMoves">Чым менш хадоў вы зробіце,
-тым больш ачкоў атрымаеце!</string>
+тым больш балаў атрымаеце!</string>
   <string name="useTwoRooks">Скарыстайце дзве ладдзі, каб паскорыць працэс!</string>
   <string name="rookComplete">Віншуем! Вы навучыліся хадзіць ладдзёй.</string>
-  <string name="theBishop">Афіцэр</string>
+  <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Перасоўваецца па дыяганалях</string>
-  <string name="bishopIntro">Далей мы навучымся хадзіць афіцэрам!</string>
-  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін афіцэр,
+  <string name="bishopIntro">Далей мы навучымся хадзіць сланом!</string>
+  <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін слон,
 палі чорнага колеру — іншы.
-Вам патрэбныя абодва афіцэры!</string>
-  <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць афіцэрам.</string>
+Вам патрэбныя абодва сланы!</string>
+  <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць сланом.</string>
   <string name="theQueen">Ферзь</string>
-  <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + афіцэр</string>
+  <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + слон</string>
   <string name="queenIntro">Наймагутная фігура. Яго вялікасць — ферзь!</string>
   <string name="queenComplete">Віншуем! Вы навучыліся хадзіць ферзём.</string>
   <string name="theKing">Кароль</string>
@@ -110,7 +110,7 @@
 Яны знаходзяцца па кутах.</string>
   <string name="thenPlaceTheKnights">Потым расстаўце коней!
 Яны стаяць каля ладдзей.</string>
-  <string name="placeTheBishops">Расстаўце афіцэраў!
+  <string name="placeTheBishops">Расстаўце сланоў!
 Яны стаяць каля коней.</string>
   <string name="placeTheQueen">Пастаўце ферзя!
 Ён ставіцца на свой колер.</string>
@@ -160,22 +160,23 @@
   <string name="pieceValueIntro">Фігуры з высокай рухомасцю маюць больш высокую каштоўнасць!
 Ферзь = 9 пешак
 Ладдзя= 5 пешак
-Афіцэр = 3 пешкі
+Слон = 3 пешкі
 Конь = 3 пешкі
 Пешка = 1 пешка
 Кароль неацэнны! Яго страта азначае, што гульня прайграна.</string>
   <string name="queenOverBishop">Атакуйце фігуры з больш высокай каштоўнасцю!
-Ферзь &gt; Афіцэр</string>
+Ферзь &gt; Слон</string>
   <string name="pieceValueExchange">Вазьміце найбольш каштоўную фігуру!
 Не разменьвайце больше каштоўную фігуру на менш каштоўную.</string>
-  <string name="pieceValueLegal">Вазьміце найбольш каштоўную фігуру!
-Пераправерце каб ход быў магчымы!</string>
+  <string name="pieceValueLegal">Вазьміце
+найбольш каштоўную фігуру!
+Пераканайцеся, што ход магчымы!</string>
   <string name="takeThePieceWithTheHighestValue">Атакуйце фігуры
 з больш высокай каштоўнасцю!</string>
   <string name="pieceValueComplete">Віншуем! Вы ведаеце каштоўнасць фігур!
 Ферзь = 9 пешак
 Ладдзя= 5 пешак
-Афіцэр = 3 пешкі
+Слон = 3 пешкі
 Конь = 3 пешкі
 Пешка = 1 пешка</string>
   <string name="checkInTwo">Шах у 2 хады</string>

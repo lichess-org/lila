@@ -11,7 +11,7 @@
   <string name="level">Niveau</string>
   <string name="strength">Styrke</string>
   <string name="toggleTheChat">Skjul/Vis chat</string>
-  <string name="toggleSound">slå lyd til/fra</string>
+  <string name="toggleSound">Slå lyd til/fra</string>
   <string name="chat">Chat</string>
   <string name="resign">Kapituler</string>
   <string name="checkmate">Skakmat</string>
@@ -191,7 +191,7 @@
   <string name="changeUsernameDescription">Ændr dit brugernavn. Dette kan kun gøres én gang og du må kun ændre i dit brugernavns bogstavstørrelser.</string>
   <string name="password">Adgangskode</string>
   <string name="changePassword">Skift adgangskode</string>
-  <string name="changeEmail">Ændr email</string>
+  <string name="changeEmail">Skift e-mail</string>
   <string name="email">Email</string>
   <string name="passwordReset">Nulstil adgangskode</string>
   <string name="forgotPassword">Glemt adgangskode?</string>
@@ -210,7 +210,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
-  <string name="cancel">Afbryd</string>
+  <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
@@ -441,7 +441,7 @@
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilspositioner</string>
-  <string name="chess960StartPosition">Chess960 startposition: %s</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>

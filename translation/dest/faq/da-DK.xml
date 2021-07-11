@@ -37,13 +37,13 @@
   <string name="lichessSupportChessAnd">Lichess understøtter standardskak og %1$s.</string>
   <string name="eightVariants">8 skakvarianter</string>
   <string name="whatIsACPL">Hvad er \"Gennemsnitligt centibonde-tab\"/GCBT?</string>
-  <string name="acplExplanation">En centibonde er et mål, som bruges i skak som en repræsentation af fordelen. En centibonde svarer til en hundrededel af en bonde (1/100). Derfor er 100 centibønder = 1 bonde. Disse værdier spiller inden formel rolle i partiet, men er nyttige for spillerne og essentielle i computerskak ved evalueringen af positioner.
+  <string name="acplExplanation">En centibonde er et mål, som bruges i skak som en repræsentation af fordelen. En centibonde svarer til en hundrededel (1/100) af en bonde. Derfor er 100 centibønder = 1 bonde. Disse værdier spiller ingen formel rolle i partiet, men er nyttige for spillerne og essentielle i computerskak ved evalueringen af positioner.
 
-  Det bedste computertræk vil koste nul centibønder, mens svagere træk vil medføre en forværring af positionen, mål i centibønder.
+Det bedste computertræk vil koste nul centibønder, mens svagere træk vil medføre en forværring af positionen, målt i centibønder.
 
-  Denne værdi kan bruges som en indikator for spilkvalitet. Desto færre centibønder der tabes per træk, desto stærkere spilles der.
+Denne værdi kan bruges som en indikator for spilkvalitet. Desto færre centibønder der tabes per træk, desto stærkere spilles der.
 
-  Computeranalysen på Lichess drives af Stockfish.</string>
+Computeranalysen på Lichess leveres ved hjælp af Stockfish.</string>
   <string name="insufficientMaterial">Tabe på tid, remis og utilstrækkeligt materiale</string>
   <string name="lichessFollowFIDErules">Hvis en spiller løber tør for tid, vil denne spiller som regel tabe partiet. Partiet ender dog med remis, hvis positionen er således at modstanderen ikke kan sætte spillerens konge skakmat med en række lovlige træk (%1$s).
 

@@ -119,7 +119,7 @@
   <string name="everyone">Herkes</string>
   <string name="enableSync">Senkronizasyonu etkinleştir</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Evet: herkes aynı pozisyonda kalsın</string>
-  <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilir</string>
+  <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilsin</string>
   <string name="pinnedStudyComment">Çalışma üzerine yorumlar</string>
   <string name="start">Başlat</string>
   <string name="save">Kaydet</string>
@@ -150,8 +150,8 @@
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Saldırı</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Karşı saldırı</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Vakit sıkıntısı</string>
-  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Kısa vadeli avantaj ile</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Fikriyle</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Pozisyon avantajı ile</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Plan doğrultusunda</string>
   <string name="nextChapter">Sonraki bölüm</string>
   <string name="prevChapter">Önceki bölüm</string>
   <string name="studyActions">Çalışma seçenekleri</string>

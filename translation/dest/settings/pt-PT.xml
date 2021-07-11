@@ -6,5 +6,5 @@
   <string name="cantOpenSimilarAccount">Não poderá criar uma nova conta com o mesmo nome, mesmo que as maiúsculas ou minúsculas sejam diferentes.</string>
   <string name="changedMindDoNotCloseAccount">Mudei de ideias, não encerrem a minha conta</string>
   <string name="closeAccountExplanation">Tens a certeza que queres encerrar sua conta? Encerrar a tua conta é uma decisão permanente. Tu NUNCA MAIS serás capaz de iniciar sessão nesta conta.</string>
-  <string name="thisAccountIsClosed">Esta conta foi encerrada</string>
+  <string name="thisAccountIsClosed">Esta conta foi encerrada.</string>
 </resources>

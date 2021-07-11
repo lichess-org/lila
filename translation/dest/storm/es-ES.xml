@@ -16,7 +16,7 @@
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Ha jugado una ronda de %2$s</item>
-    <item quantity="other">Ha jugado %1$s rondas de %2$s</item>
+    <item quantity="other">%1$s rondas jugadas de %2$s</item>
   </plurals>
   <string name="highscoreX">Puntuación más alta: %s</string>
   <string name="score">Puntuación</string>
@@ -25,7 +25,7 @@
   <string name="combo">Combo</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
-  <string name="highestSolved">Ejercicio de mayor dificultad resuelto</string>
+  <string name="highestSolved">Ejercicio más difícil resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
   <string name="endRun">Finalizar ronda (tecla: Enter)</string>
@@ -41,13 +41,13 @@
   <string name="startTheRace">Iniciar la carrera</string>
   <string name="yourRankX">Tu puntuación: %s</string>
   <string name="waitForRematch">Espera para la revancha</string>
-  <string name="nextRace">Siguiente carrera</string>
+  <string name="nextRace">Próxima carrera</string>
   <string name="joinRematch">Unirse a la revancha</string>
   <string name="waitingToStart">Esperando a que empiece</string>
   <string name="createNewGame">Crear una nueva carrera</string>
   <string name="joinPublicRace">Unirse a una carrera pública</string>
   <string name="raceYourFriends">Compite con tus amigos</string>
-  <string name="skip">saltar</string>
+  <string name="skip">omitir</string>
   <string name="skipHelp">Puedes omitir un movimiento por carrera:</string>
-  <string name="skipExplanation">Omite este movimiento para conservar tu combo! Solo funciona una vez por carrera.</string>
+  <string name="skipExplanation">¡Omite este movimiento para conservar tu combo! Sólo funciona una vez por carrera.</string>
 </resources>

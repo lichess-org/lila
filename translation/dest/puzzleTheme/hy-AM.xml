@@ -1,2 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Առաջ գնացած զինվոր</string>
+  <string name="advancedPawnDescription">Զինվորը վերածվելու կամ զինվորը վերածվելու սպառնալիքի հետ կապված մարտավարություն։</string>
+  <string name="advantage">Առավելություն</string>
+  <string name="advantageDescription">Օգտագործեք որոշիչ առավելություն ստանալու Ձեր հնարավորությունը (200-ից 600 սանտիզինվոր)</string>
+  <string name="anastasiaMate">Անաստասիայի մատ</string>
+  <string name="anastasiaMateDescription">Ձին և նավակը (կամ թագուհին) մրցակցի արքային մատ են անում խաղատախտակի եզրի և մրցակցի այլ խաղաքարի միջև։</string>
+  <string name="arabianMate">Արաբական մատ</string>
+  <string name="arabianMateDescription">Ձին և նավակը մրցակցի արքային մատ են անում խաղատախտակի անկյունում։</string>
+  <string name="attackingF2F7">Գրոհ f2-ի կամ f7-ի վրա</string>
+  <string name="attackingF2F7Description">f2 կամ f7 զինվորների վրա ուղղված գրոհ, օրինակ, Ֆեգատելլոյի գրոհում (տապակած լյարդի սկզբնախաղում)։</string>
+  <string name="attraction">Հրապուրում</string>
+  <string name="attractionDescription">Փոխանակում կամ զոհաբերություն, որը ստիպում կամ մղում է մրցակցի խաղաքարին զբաղեցնել դաշտը, որից հետո հնարավոր է դառնում հետագա մարտավարական հնարքը։</string>
+  <string name="backRankMate">Մատ վերջին հորիզոնականում</string>
+  <string name="backRankMateDescription">Մատ արքային նրա իսկ հորիզոնականում, երբ նա շրջափակված է իր իսկ խաղաքարերով։</string>
+  <string name="bishopEndgame">Փղային վերջնախաղ</string>
+  <string name="bishopEndgameDescription">Միայն փղերով և զինվորներով վերջնախաղ։</string>
+  <string name="bodenMate">Բոդենի մատ</string>
+  <string name="bodenMateDescription">Խաչվող անկյունագծերում գտնվող երկու փղերը մատ են հայտարարում մրցակցի արքային, որը շրջափակված է սեփական խաղաքարերով։</string>
+  <string name="castling">Փոխատեղում</string>
+  <string name="castlingDescription">Արքայի տեղափոխումն ապահով տեղ և նավակի դուրսբերումը մարտի։</string>
+  <string name="capturingDefender">Պաշտպանի վերացում</string>
+  <string name="capturingDefenderDescription">Այլ խաղաքարը պաշտպանող խաղաքարի շահում կամ փոխանակում՝ հետագայում անպաշտպան մնացած խաղաքարի շահումով։</string>
+  <string name="crushing">Ջախջախում</string>
+  <string name="crushingDescription">Օգտագործեք մրցակցի վրիպումը՝ ջախջախիչ առավելություն (600 և ավելի սանտիզինվոր) ստանալու համար</string>
+  <string name="doubleBishopMate">Մատ երկու փղով</string>
+  <string name="doubleBishopMateDescription">Հարակից անկյունագծերում գտնվող երկու փղերը մատ են հայտարարում մրցակցի արքային, որը շրջափակված է սեփական խաղաքարերով։</string>
+  <string name="dovetailMate">«Ծիծեռնակի պոչ» մատ</string>
+  <string name="dovetailMateDescription">Մատ թագուհով կողքին կանգնած արքային, որի նահանջի միակ երկու դաշտերը զբաղեցնում են սեփական խաղաքարերը։</string>
+  <string name="equality">Հավասարեցում</string>
+  <string name="equalityDescription">Պարտված դիրքից հավասարեցրեք խաղը. պարտիան ավարտեք ոչ-ոքի կամ ստացեք նյութական հավասարություն (200 սանտիզինվորից պակաս)</string>
+  <string name="kingsideAttack">Գրոհ արքայական թևում</string>
+  <string name="kingsideAttackDescription">Գրոհ մրցակցի՝ կարճ կողմում փոխատեղում կատարած արքայի վրա։</string>
+  <string name="clearance">Գծի կամ դաշտի ազատում</string>
+  <string name="clearanceDescription">Որպես կանոն, տեմպով կատարվող քայլ, որն ազատում է դաշտը, գիծը կամ անկյունագիծը՝ մարտավարական մտահղացումն իրագործելու նպատակով։</string>
+  <string name="defensiveMove">Պաշտպանական քայլ</string>
+  <string name="defensiveMoveDescription">Ճշգրիտ քայլ կամ քայլերի հաջորդականություն, որոնք անհրաժեշտ են նյութական կամ առավելության կորստից խուսափելու համար։</string>
+  <string name="deflection">Շեղում</string>
+  <string name="deflectionDescription">Քայլ, որը մրցակցի խաղաքարը շեղում է կարևոր խնդրից, օրինակ, հանգուցային դաշտի պաշտպանությունից։</string>
+  <string name="discoveredAttack">Բացված հարձակում</string>
+  <string name="discoveredAttackDescription">Քայլ խաղաքարով, որ ծածկում է հեռահար խաղաքարի գրոհի գիծը։ Օրինակ, քայլ ձիով, որով բացվում է գիծը նրա հետևում կանգնած նավակի համար։</string>
+  <string name="doubleCheck">Կրկնակի շախ</string>
+  <string name="doubleCheckDescription">Շախ միաժամանակ երկու խաղաքարով՝ բաց հարձակման միջոցով։ Հնարավոր չէ վերցնել երկու գրոհող խաղաքարերը և հնարավոր չէ ծածկվել դրանցից, հետևաբար արքան կարող է միայն հեռանալ շախից։</string>
+  <string name="endgame">Վերջնախաղ</string>
+  <string name="endgameDescription">Մարտավարություն խաղի վերջնամասում։</string>
+  <string name="enPassantDescription">Մարտավարություն «կողանցիկ հարված» կանոնի կիրառմամբ, որտեղ զինվորը կարող է հարվածել մրցակցի զինվորը, որը առաջին քայլն է կատարել՝ տեղաշարժվելով երկու դաշտ, ընդ որում՝ հատվող դաշտը գտնվում է մրցակցի զինվորի հարվածի տակ, որը կարող է վերցնել այդ զինվորը։</string>
+  <string name="exposedKing">Մերկ արքա</string>
+  <string name="exposedKingDescription">Անպաշտպան կամ թույլ պաշտպանված արքան հաճախ դառնում է մատային գրոհի զոհը։</string>
+  <string name="fork">Պատառաքաղ</string>
+  <string name="forkDescription">Քայլ, որի դեպքում հարվածի տակ է հայտնվում մրցակցի երկու խաղաքար։</string>
+  <string name="hangingPiece">Անպաշտպան խաղաքար</string>
+  <string name="hookMate">Հուք մատ</string>
+</resources>

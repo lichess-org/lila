@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="perfStats">Статыстыка %s</string>
   <string name="viewTheGames">Праглядзець гульні</string>
   <string name="provisional">умоўны</string>
+  <string name="notEnoughRatedGames">Не было сыграна дастаткова рэйтынгавых гульняў, каб ўсталяваць надзейны рэйтынг.</string>
+  <string name="progressOverLastXGames">Прагрэс за апошнія %s гульняў:</string>
   <string name="ratingDeviation">Адхіленне рэйтынгу: %s.</string>
   <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Чым ніжэй значэнне, тым больш усталяваным з\'яўляецца рэйтынг. Рэйтынг вышэйшы за %1$s, лічыцца ўмоўным. Каб адлюстроўвацца ў спісы рэйтынгу, гэта значэнне павінна быць ніжэй за %2$s (звычайныя шахматы) або %3$s (варыянты).</string>
   <string name="totalGames">Агулам гульняў</string>

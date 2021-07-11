@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Turnieje szwajcarskie</string>
+  <string name="swissTournaments">System szwajcarski</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobacz rundę</item>
     <item quantity="few">Zobacz wszystkie %s rundy</item>
@@ -47,29 +47,70 @@
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
+  <string name="swissVsArenaQ">Kiedy używać systemu szwajcarskiego zamiast aren?</string>
+  <string name="swissVsArenaA">W systemie szwajcarskim wszyscy uczestnicy grają tę samą liczbę partii i mogą grać ze sobą tylko raz.
+Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
   <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
 Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
+  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca gdy wielu graczy uzyskało ten sam wynik?</string>
+  <string name="sonnebornBergerScore">system Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Stosujemy %s.
+Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końcowych tych zawodników, z którymi dany zawodnik wygrał oraz połowy punktów końcowych z którymi dany zawodnik zremisował.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
-  <string name="dutchSystem">System holenderski</string>
-  <string name="FIDEHandbook">Przepisy gry w szachy FIDE</string>
-  <string name="pairingsA">Z %1$s, zaimplementowanym przez %2$s, zgodnie z %3$s.</string>
+  <string name="dutchSystem">systemu holenderskiego</string>
+  <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
+  <string name="pairingsA">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
+  <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
+  <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
+  <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od graczy punktualności i cierpliwości.
+Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach globalnych.</string>
+  <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może dostać uczestnik?</string>
+  <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
+Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołączył do turnieju po jego rozpoczęciu.</string>
+  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli gracz nie rozpocznie partii?</string>
+  <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
+Następnie system wycofa takiego gracza z turnieju, więc nie przegra on więcej partii.
+Gracz ten może w każdej chwili ponownie dołączyć do turnieju.</string>
   <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
-  <string name="willSwissReplaceArenasQ">Czy turnieje szwajcarskie zastąpią Areny?</string>
-  <string name="willSwissReplaceArenasA">Nie. To całkiem nowa funkcjonalność.</string>
+  <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju gracze mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
+Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>
+  <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
+  <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
+  <string name="roundRobinQ">Co z systemem kołowym?</string>
+  <string name="roundRobinA">Chcielibyśmy go dodać, ale niestety system kołowy nie sprawdza się w turniejach online.
+Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z graczami, którzy wcześnie opuszczają turniej. Trudno oczekiwać, że wszyscy gracze zagrają wszystkie swoje gry. To po prostu się nie wydarzy, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
+Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
   <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
+  <string name="swissDescription">W systemie szwajcarskim %1$s każdy gracz niekoniecznie gra ze wszystkimi innymi uczestnikami turnieju. Gracze są parowani przy użyciu zestawu zasad mających na celu zapewnienie, że każdy uczestnik gra z przeciwnikiem z podobnym wynikiem, ale nie więcej niż raz z tym samym graczem. Zwycięzcą turnieju jest gracz z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba graczy.</string>
+  <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków klubu.
+%1$s aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
   <string name="nowPlaying">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
   <string name="tournDuration">Czas trwania turnieju</string>
-  <string name="predefinedDuration">Predefiniowany czas trwania w minutach</string>
-  <string name="durationUnknown">Predefiniowana maksymalna liczba rund, czas trwania nieokreślony</string>
+  <string name="predefinedDuration">Ustalony czas trwania w minutach</string>
+  <string name="durationUnknown">Ustalona maksymalna liczba rund, czas trwania nieokreślony</string>
   <string name="numberOfGames">Liczba partii</string>
-  <string name="pairingSystem">Liczba partii</string>
+  <string name="numberOfGamesAsManyAsPossible">Tak dużo, ile można rozegrać w ustalonym czasie trwania turnieju</string>
+  <string name="numberOfGamesPreDefined">Ustalana na początku turnieju, taka sama dla wszystkich uczestników</string>
+  <string name="pairingSystem">System parowania</string>
   <string name="pairingSystemArena">Dowolny dostępny przeciwnik o podobnym rankingu</string>
-  <string name="identicalForbidden">Zabronione</string>
-  <string name="pause">Wstrzymaj</string>
-  <string name="unlimitedAndFree">Nieograniczona i darmowa</string>
+  <string name="pairingSystemSwiss">Najlepsze dostępne parowanie w oparciu o punkty i punkty pomocnicze</string>
+  <string name="pairingWaitTime">Czas oczekiwania na parowanie</string>
+  <string name="pairingWaitTimeFast">Krótki: nie czekasz na wszystkich</string>
+  <string name="pairingWaitTimeSlow">Długi: czekasz aż wszyscy skończą rundę</string>
+  <string name="identicalPairing">Wiele partii z tym samym graczem</string>
+  <string name="possibleButNotConsecutive">Możliwe, ale nie pod rząd</string>
+  <string name="identicalForbidden">Niemożliwe</string>
+  <string name="lateJoin">Dołączenie po starcie</string>
+  <string name="lateJoinUntil">Tak, zanim nie rozpocznie się więcej niż połowa rund</string>
+  <string name="pause">Wstrzymywanie</string>
+  <string name="pauseSwiss">Tak, ale może to zmniejszyć liczbę rund</string>
+  <string name="streaksAndBerserk">Serie zwycięstw i berserk</string>
+  <string name="similarToOTB">Podobieństwo do turniejów przy szachownicy</string>
+  <string name="unlimitedAndFree">Bez ograniczeń i opłat</string>
 </resources>

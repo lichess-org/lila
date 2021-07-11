@@ -47,6 +47,43 @@
   <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
   <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
   <string name="newSwiss">Новы турнір па швейцарскай сыстэме</string>
+  <string name="swissVsArenaQ">Калі турніры па швейцарскай сістэме лепш за арэны?</string>
+  <string name="swissVsArenaA">У турнірах па швейцарскай сістэме ўсе ўдзельнікі гуляюць аднолькавую колькасць партый і могуць сыграць адзін з одным толькі аднойчы.
+Можа быць добрым варянтам для клубаў і афіцыйных турніраў.</string>
+  <string name="pointsCalculationQ">Як падлічваюцца балы?</string>
+  <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
+Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"бывай\", які каштуе адзін бал.</string>
+  <string name="dutchSystem">Галандская сістэма</string>
+  <string name="restrictedToTeamsQ">Чаму абмежавана камандамі?</string>
+  <string name="restrictedToTeamsA">Турніры па швейцарскай сістэме не былі размеркамаваны для анлайн шахмат. Яны патрабуюць ад гульцоў пунктуальнасці, адданасці і цярпення.
+На нашу думку, гэтыя ўмовы хутчэй будуць выкананы ўнутры каманды чым у глабальным турніры.</string>
+  <string name="numberOfByesQ">Колькі \"бывай\" можа атрымаць гулец?</string>
+  <string name="numberOfByesA">Гулец атрымоўвае \"бывай\" калі сістэма не можа знайсці суперніка. 
+Таксама, спазніўшыйся на турнір гулец атрымоўвае \"бывай\" на палову бала.</string>
+  <string name="lateJoinQ">Магчыма далучыцца пад час турніру?</string>
+  <string name="lateJoinA">Так, пакуль больш за палову тураў не пачата; напрыклад, у швейчарцы з 11 турамі гульцы могуць далучыцца да пачатку 6 тура, у 12-турнай да пачатку 7 тура.
+Зпазніўшыеся атрымліваюць адзін \"бывай\", нават калі яны прапусцілі некалькі тураў.</string>
+  <string name="willSwissReplaceArenasQ">Ці заменяць швейцаркі турніры Арэны?</string>
+  <string name="willSwissReplaceArenasA">Не. Яны дапаўняюць адзін аднаго.</string>
+  <string name="roundRobinQ">Што наконт кругавой сістэмы?</string>
+  <string name="otherSystemsQ">Што наконт іншых турнірных сістэм?</string>
+  <string name="otherSystemsA">На дадзены момант, мы не плануем дадаваць іншыя турнірныя сістэмы на Lichess.</string>
+  <string name="joinOrCreateTeam">Далучыцца або стварыць каманду</string>
+  <string name="startingSoon">Хутка пачынаецца</string>
+  <string name="comparison">Параўнанне</string>
+  <string name="tournDuration">Працягласць турніру</string>
+  <string name="predefinedDuration">Вызначаная загадзя працягласць у хвілінах</string>
+  <string name="durationUnknown">Вызначаная загадзя максімальная колькасць тураў, але працягласць невядома</string>
+  <string name="numberOfGames">Колькасць гульняў</string>
+  <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
+  <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
+  <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>
+  <string name="lateJoin">Далучыцца пад час турніру</string>
+  <string name="lateJoinUntil">Так, пакуль больш за палову тураў не прайшло</string>
+  <string name="pause">Паўза</string>
+  <string name="pauseSwiss">Так, але можа зменшыць колькасць тураў</string>
+  <string name="streaksAndBerserk">Серыі і Шалёны рэжым</string>
+  <string name="similarToOTB">Падобны да турніраў з сапраўднай дошкай</string>
   <string name="unlimitedAndFree">Неабмежавана і бясплатна</string>
 </resources>

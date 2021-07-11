@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Ngày thêm (cũ nhất)</string>
   <string name="recentlyUpdated">Cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
+  <string name="alphabetical">Theo thứ tự chữ cái</string>
   <string name="addNewChapter">Thêm một chương mới</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Chương</item>
@@ -123,4 +124,30 @@
   <string name="deleteStudy">Xóa bài học</string>
   <string name="deleteTheEntireStudy">Xóa toàn bộ bài học? Không thể khôi phục!</string>
   <string name="whereDoYouWantToStudyThat">Bạn muốn học ở đâu?</string>
+  <string name="goodMove">Nước tốt</string>
+  <string name="mistake">Sai lầm</string>
+  <string name="brilliantMove">Tuyệt vời</string>
+  <string name="blunder">Nước sai nghiêm trọng</string>
+  <string name="interestingMove">Nước hay</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Đáng nghi</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nước duy nhất</string>
+  <string name="equalPosition">Thế cờ cân bằng</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Thế cờ không rõ ràng</string>
+  <string name="whiteIsSlightlyBetter">Bên trắng có một chút ưu thế</string>
+  <string name="blackIsSlightlyBetter">Bên đen có một chút ưu thế</string>
+  <string name="whiteIsBetter">Ưu thế bên trắng</string>
+  <string name="blackIsBetter">Ưu thế bên đen</string>
+  <string name="whiteIsWinning">Bên trắng đang thắng</string>
+  <string name="blackIsWinning">Bên đen đang thắng</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nước cờ mới</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Phát triển</string>
+  <string name="initiative">Chủ động</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Tấn công</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Phản công</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Khủng hoảng thời gian</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">Có bồi thường</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Với ý tưởng</string>
+  <string name="nextChapter">Chương tiếp theo</string>
+  <string name="prevChapter">Chương trước</string>
+  <string name="studyActions">Các thao tác nghiên cứu</string>
 </resources>

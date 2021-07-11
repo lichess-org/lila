@@ -61,6 +61,8 @@ Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat 
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
  Op elk moment kan de speler opnieuw deelnemen aan het toernooi.</string>
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
+  <string name="lateJoinA">Ja, tot meer dan de helft van de rondes is begonnen; in een Zwitsers toernooi van 11 rondes bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en in een toernooi van 12 rondes voordat ronde 7 begint.
+Late deelnemers krijgen een enkele bye, ook als ze meerdere rondes gemist hebben.</string>
   <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
   <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
   <string name="roundRobinQ">Hoe zit het met Round Robin?</string>

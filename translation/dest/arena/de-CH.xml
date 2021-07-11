@@ -46,10 +46,10 @@ Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und
   </plurals>
   <string name="newTeamBattle">Neuä Teamfight</string>
   <string name="customStartDate">Benutzärdefiniärts Schtartdatum</string>
-  <string name="customStartDateHelp">In deiner eigenen, lokalen Zeitzone. Dies wird die Einstellung \"Zeit bevor das Turnier beginnt\" überschreiben</string>
+  <string name="customStartDateHelp">I dinärä eigänä, lokalä Ziitzonä. Das wird d Iischtellig \"Ziit bis s Turniär schtartät\" überschriibä</string>
   <string name="allowBerserk">Bersärk erlaubä</string>
-  <string name="allowBerserkHelp">Lasse Spieler ihre Bedenkzeit halbieren, um einen zusätzlichen Punkt zu erzielen</string>
+  <string name="allowBerserkHelp">La Schpillär ihri Bedänkziit halbiärä, zum än zuäsätzlichä Punkt überzcho</string>
   <string name="allowChatHelp">La Schpillär imnä Tschättruum diskutiärä</string>
   <string name="arenaStreaks">Arenä-Schtriiks</string>
-  <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
+  <string name="arenaStreaksHelp">Nach 2 Siig gänd ufänandärfolgändi Siig 4 Pünkt anstatt 2.</string>
 </resources>

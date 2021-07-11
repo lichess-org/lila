@@ -17,7 +17,7 @@
   <string name="rookComplete">Շնորհավորում ենք: Դուք արդեն վարպետացել եք նավակի հարցում:</string>
   <string name="theBishop">Փիղ</string>
   <string name="itMovesDiagonally">Տեղաշարժվում է անկյունագծերով</string>
-  <string name="bishopIntro">Հաջորդը մենք կսովորենք թե ինչպես է մանևրում փիղը</string>
+  <string name="bishopIntro">Հաջորդը մենք կսովորենք, թե ինչպես է մանևրում փիղը</string>
   <string name="youNeedBothBishops">Մեկ սպիտակադաշտ փիղ,
 մեկ սևադաշտ փիղ:
 Ձեզ երկուսն էլ անհրաժեշտ են</string>
@@ -36,4 +36,29 @@
   <string name="itMovesInAnLShape">Այն քայլում է L տառի նման</string>
   <string name="knightIntro">Ահա եվ խնդիր քեզ համար: Ձին բարդ խաղաքար է</string>
   <string name="knightsHaveAFancyWay">Ձիերը կարող են թռչկոտել խաղաքարերի վրայով</string>
+  <string name="stalemate">Պատ</string>
+  <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="watchInstructiveChessVideos">Դիտեք ուսուցանող տեսանյութերը</string>
+  <string name="playPeople">Խաղացողներ</string>
+  <string name="opponentsFromAroundTheWorld">Խաղացեք ամբողջ աշխարհի շախմատիստների հետ</string>
+  <string name="playMachine">Համակարգիչ</string>
+  <string name="testYourSkillsWithTheComputer">Ստուգեք Ձեր հմտությունները համակարգչով</string>
+  <string name="letsGo">Գնացի՜նք։</string>
+  <string name="stageX">Դաս %s</string>
+  <string name="awesome">Անհավանակա՜ն է։</string>
+  <string name="excellent">Գերազա՜նց է։</string>
+  <string name="greatJob">Հիանալի՜ աշխատանք։</string>
+  <string name="perfect">Հրաշալի՜ է։</string>
+  <string name="outstanding">Հիասքա՜նչ է։</string>
+  <string name="wayToGo">Առա՛ջ։</string>
+  <string name="yesYesYes">Այո՛, այո՛, այո՛։</string>
+  <string name="youreGoodAtThis">Կեցցե՛ք։</string>
+  <string name="nailedIt">Հաջողվե՜ց։</string>
+  <string name="rightOn">Հենց այդպե՛ս։</string>
+  <string name="stageXComplete">%s դասը յուրացված է</string>
+  <string name="yourScore">Ձեր արդյունքը</string>
+  <string name="next">Հաջորդը</string>
+  <string name="backToMenu">Վերադառնալ ցանկ</string>
+  <string name="puzzleFailed">Առաջադրանքը ձախողվե՛ց</string>
+  <string name="retry">Կրկնել</string>
 </resources>

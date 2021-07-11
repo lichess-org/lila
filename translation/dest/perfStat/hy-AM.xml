@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="perfStats">%s վիճակագրություն</string>
+  <string name="viewTheGames">Դիտել պարտիաները</string>
+  <string name="provisional">նախնական</string>
+  <string name="notEnoughRatedGames">Ճշգրիտ վարկանիշն իմանալու համար վարկանիշային պարտիաների քանակը բավարար չէ։</string>
+  <string name="progressOverLastXGames">Աճը վերջին %s խաղերի ընթացքում.</string>
+  <string name="ratingDeviation">Վարկանիշի շեղումը` %s։</string>
+  <string name="totalGames">Ընդամենը պարտիաներ</string>
+  <string name="ratedGames">Վարկանիշային պարտիաներ</string>
+  <string name="tournamentGames">Մրցաշարային պարտիաներ</string>
+  <string name="berserkedGames">Բերսերկով պարտիաներ</string>
+  <string name="timeSpentPlaying">Ընդհանուր խաղաժամանակ</string>
+  <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
+  <string name="victories">Հաղթանակներ</string>
+  <string name="defeats">Պարտություններ</string>
+  <string name="disconnections">Անջատումներ</string>
+  <string name="notEnoughGames">Խաղացված պարտիաների քանակն անբավարար է</string>
+  <string name="highestRating">Բարձրագույն վարկանիշ` %s</string>
+  <string name="lowestRating">Ցածրագույն վարկանիշ` %s</string>
+  <string name="fromXToY">%1$s-ից %2$s</string>
+  <string name="winningStreak">Անընդմեջ հաղթանակներ</string>
+  <string name="losingStreak">Անընդմեջ պարտություններ</string>
+</resources>

@@ -980,7 +980,12 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="noChat">Wyłącz czat</string>
   <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
   <string name="onlyTeamMembers">Tylko członkowie klubu</string>
+  <string name="navigateMoveTree">Nawiguj drzewo ruchów</string>
+  <string name="mouseTricks">Gesty myszy</string>
+  <string name="toggleLocalAnalysis">Włącz/wyłącz analizę lokalnego komputera</string>
+  <string name="toggleAllAnalysis">Włącz/wyłącz analizę komputera</string>
   <string name="playComputerMove">Zagraj najlepszy ruch komputera</string>
   <string name="analysisOptions">Opcje analizy</string>
+  <string name="focusChat">Aktywuj czat</string>
   <string name="showHelpDialog">Pokaż okno pomocy</string>
 </resources>

@@ -75,4 +75,5 @@ Aber Underschtützer bechömed s\'Rächt, mit ihräm coolä neuä Profiil-Icon z
   <string name="nowLifetime">Du bisch jetzt läbänslangä Lichess-Patroon!</string>
   <string name="nowOneMonth">Du bisch jetzt für ein Monät Lichess Patroon!</string>
   <string name="downgradeNextMonth">Dir wird imnä Monät NÜT neu berächnät und dis Lichess-Konto wird wieder inäs regulärs Konto umgwandlät.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Währig ändärä</string>
 </resources>

@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Դասասենյակներ</string>
+  <string name="lichessClasses">Խմբեր</string>
   <string name="teachClassesOfChessStudents">Շախմատն աշակերտներին դասավանդեք «Lichess-ի դասեր» գործիքների օգնությամբ։</string>
   <string name="features">Հնարավորություններ</string>
   <string name="quicklyGenerateSafeUsernames">Արագ ստեղծեք անվտանգ անուններ և գաղտնաբառեր աշակերտների համար։</string>
   <string name="trackStudentProgress">Հետևեք աշակերտների առաջընթացին պարտիաներում և խնդիրներում</string>
+  <string name="messageAllStudents">Հայտնեք բոլոր աշակերտներին խմբերի նոր նյութերի մասին</string>
+  <string name="freeForAllForever">Անվճար է բոլորի համար, ընդմիշտ, 100 տոկոսով առանց գովազդի և հետևման</string>
+  <string name="applyToBeLichessTeacher">Ներկայացնել հայտ՝ Lichess-ի ուսուցիչ դառնալու համար</string>
+  <string name="noClassesYet">Խմբեր դեռ չկան։</string>
+  <string name="teachersX">Ուսուցիչներ՝ %s</string>
+  <string name="newClass">Նոր խումբ</string>
+  <string name="closeClass">Փակել խումբը</string>
+  <string name="closedByX">Խումբը փակել է %s</string>
   <string name="reopen">Վերաբացել</string>
-  <string name="removedStudents">Հեռացված</string>
+  <string name="removeStudent">Հեռացնել աշակերտին</string>
+  <string name="removedStudents">Հեռացված է</string>
   <string name="inviteTheStudentBack">Հետ հրավիրել աշակերտին</string>
 </resources>

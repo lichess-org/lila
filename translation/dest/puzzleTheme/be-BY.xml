@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advantage">Перавага</string>
+  <string name="anastasiaMate">Мат Анастасіі</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="bishopEndgame">Слановы эндшпіль</string>
+  <string name="bishopEndgameDescription">Эндшпіль выключна са сланамі і пешкамі.</string>
+  <string name="bodenMate">Мат Бодэна</string>
+  <string name="castling">Ракіроўка</string>
+  <string name="defensiveMove">Абарончы ход</string>
+  <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
@@ -38,7 +45,10 @@
   <string name="sacrifice">Ахвяра</string>
   <string name="short">Кароткая задача</string>
   <string name="shortDescription">Да перамогі 2 хады.</string>
+  <string name="superGM">Партыі супергросмайстраў</string>
+  <string name="superGMDescription">Задачы з партый лепшых гульцоў у свеце.</string>
   <string name="veryLong">Вельмі доўгая задача</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="healthyMix">Здаровая сумесь</string>
   <string name="healthyMixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
 </resources>

@@ -13,7 +13,7 @@
   <string name="specialMoves">Szczególne posunięcia</string>
   <string name="didYouLikeThisPuzzle">Czy podobało Ci się to zadanie?</string>
   <string name="voteToLoadNextOne">Zagłosuj, by wczytać następny!</string>
-  <string name="yourPuzzleRatingX">Twój ranking zadań: %s</string>
+  <string name="yourPuzzleRatingX">Twój ranking w rozwiązywaniu zadań: %s</string>
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
@@ -41,8 +41,20 @@
   <string name="normal">Normalny</string>
   <string name="easier">Łatwy</string>
   <string name="easiest">Bardzo łatwy</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Jeden punkt poniżej Twojej oceny łamigłówki</item>
+    <item quantity="few">%s punkty poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="many">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="other">%s punktów poniżej Twojego rankingu w rozwiązywaniu zadań</item>
+  </plurals>
   <string name="harder">Trudny</string>
   <string name="hardest">Bardzo trudny</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">Jeden punkt powyżej Twojej oceny łamigłówki</item>
+    <item quantity="few">%s punkty powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="many">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+    <item quantity="other">%s punktów powyżej Twojego rankingu w rozwiązywaniu zadań</item>
+  </plurals>
   <string name="example">Przykład</string>
   <string name="addAnotherTheme">Dodaj inny motyw</string>
   <string name="jumpToNextPuzzleImmediately">Natychmiast przejdź do następnego zadania</string>
@@ -59,7 +71,7 @@
   <string name="newStreak">Nowa seria</string>
   <string name="fromMyGames">Z moich gier</string>
   <string name="lookupOfPlayer">Wyszukaj zadań z gier gracza</string>
-  <string name="fromXGames">Zadania z gier gracza %s</string>
+  <string name="fromXGames">Zadania z partii gracza %s</string>
   <string name="searchPuzzles">Szukaj zadań</string>
   <string name="fromMyGamesNone">Nie masz zadań w bazie danych, ale Lichess nadal bardzo Cię kocha.
 Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>

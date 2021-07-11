@@ -93,6 +93,7 @@
   <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openingExplorer">Sách khai cuộc</string>
+  <string name="openingEndgameExplorer">Sách khai cuộc/cờ tàn</string>
   <string name="xOpeningExplorer">Sách khai cuộc %s</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn chặn bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
@@ -148,7 +149,7 @@
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và việc gian lận quá nhiều sẽ dẫn đến bị cấm.</string>
   <string name="games">Các ván đấu</string>
   <string name="forum">Diễn đàn</string>
-  <string name="xPostedInForumY">%1$s được đăng trong diễn đàn %2$s</string>
+  <string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
   <string name="latestForumPosts">Bài đăng mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
@@ -324,7 +325,7 @@
   <string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
   <string name="fromPosition">Từ thế trận</string>
   <string name="continueFromHere">Tiếp tục từ đây</string>
-  <string name="toStudy">Học chơi</string>
+  <string name="toStudy">Nghiên cứu</string>
   <string name="importGame">Nhập ván cờ</string>
   <string name="importGameExplanation">Khi paste PGN vào đây, bạn replay được ván cờ trên trình duyệt, phân tích bởi máy tính, chat trong game và URL share được.</string>
   <plurals name="nbImportedGames">
@@ -409,6 +410,7 @@
   <string name="setTheBoard">Thiết lập bàn cờ</string>
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các vị trí trong tàn cuộc</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Thế cờ đầu cho Chess960: %s</string>
   <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="savePosition">Lưu lại thế trận</string>
@@ -541,7 +543,7 @@
   <string name="playOfflineComputer">Chơi ngoại tuyến với máy tính</string>
   <string name="opponent">Đối thủ</string>
   <string name="learnMenu">Học</string>
-  <string name="studyMenu">Học chơi</string>
+  <string name="studyMenu">Nghiên cứu</string>
   <string name="practice">Luyện tập</string>
   <string name="community">Cộng đồng</string>
   <string name="tools">Công cụ</string>
@@ -568,7 +570,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Thời gian đã chơi: %s</string>
   <string name="watchGames">Xem các ván đấu</string>
-  <string name="tpTimeSpentOnTV">Thời gian xem Lichess TV: %s</string>
+  <string name="tpTimeSpentOnTV">Thời gian được lên Lichess TV: %s</string>
   <string name="watch">Xem</string>
   <string name="videoLibrary">Thư viện video</string>
   <string name="streamersMenu">Các streamer</string>
@@ -838,4 +840,22 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="noRestriction">Không giới hạn</string>
   <string name="minimumRatedGames">Trò chơi được xếp hạng tối thiểu</string>
   <string name="minimumRating">Xếp hạng tối thiểu</string>
+  <string name="maximumWeeklyRating">Hệ số cao nhất trong tuần</string>
+  <string name="onlyTitled">Kỳ thủ phải có danh hiệu</string>
+  <string name="onlyTitledHelp">Đòi hỏi danh hiệu chính thức khi gia nhập giải đấu</string>
+  <string name="cancelSimul">Bỏ cuộc đánh đồng loạt</string>
+  <string name="simulHostcolor">Chọn màu cho ky thủ tổ chức đánh đồng loạt</string>
+  <string name="estimatedStart">Thời gian dự kiến bắt đầu</string>
+  <string name="simulFeatured">Hiển thị trên %s</string>
+  <string name="simulFeaturedHelp">Hiển thị cuộc đánh đồng loạt của bạn trên %s. Không áp dụng cho các cuộc đánh không công khai.</string>
+  <string name="simulDescription">Mô tả cuộc đánh đồng loạt</string>
+  <string name="simulDescriptionHelp">Bạn có muốn thông báo gì thêm cho những người tham gia không?</string>
+  <string name="markdownAvailable">%s dùng được ở đây, nếu cần soạn thảo phức tạp.</string>
+  <string name="inYourLocalTimezone">Trên múi giờ địa phương của bạn</string>
+  <string name="tournChat">Chat trong cuộc thi đấu</string>
+  <string name="noChat">Không chat</string>
+  <string name="onlyTeamLeaders">Chỉ dành cho nhóm quản lý</string>
+  <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
+  <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
+  <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
 </resources>
