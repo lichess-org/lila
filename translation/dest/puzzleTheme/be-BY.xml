@@ -12,6 +12,7 @@
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
+  <string name="enPassantDescription">Задача звязаная з \"узяццём на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
   <string name="fork">Відэлец</string>
   <string name="knightEndgame">Канёвы эндшпіль</string>
   <string name="knightEndgameDescription">Эндшпіль выключна з канямі і пешкамі.</string>
