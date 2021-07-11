@@ -14,7 +14,7 @@ object authorize {
       title = "Authorization",
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafeLoadThen(
-        """setTimeout(() => $('#oauth-authorize').removeAttr('disabled').removeClass('disabled'), 2000);"""
+        """setTimeout(() => {const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');el.classList.remove('disabled')}, 2000);"""
       )
     ) {
       main(cls := "oauth box box-pad")(
