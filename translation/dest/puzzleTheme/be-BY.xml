@@ -5,6 +5,8 @@
   <string name="arabianMate">Арабскі мат</string>
   <string name="attackingF2F7">Напад на f2 або f7</string>
   <string name="attackingF2F7Description">Нападзенне, накіраванае на пешку на f2 або f7, як у дэбюце Атакі Фегатэлла.</string>
+  <string name="backRankMate">Мат на апошняй гарызанталі</string>
+  <string name="backRankMateDescription">Пастаўце мат каралю на хатняй гарызанталі, калі ён заблакаваны сваімі фігурамі.</string>
   <string name="bishopEndgame">Слановы эндшпіль</string>
   <string name="bishopEndgameDescription">Эндшпіль выключна са сланамі і пешкамі.</string>
   <string name="bodenMate">Мат Бодэна</string>
