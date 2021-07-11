@@ -47,6 +47,9 @@
   <string name="forbiddenPairings">Забароненыя пары гульцоў</string>
   <string name="forbiddenPairingsHelp">Імёны карыстальнікаў, гульцы якіх не павінны гульць адзін супраць другога (напрыклад сваякі). Два імёны карыстальнікаў у радку, падзеленыя прабелам.</string>
   <string name="newSwiss">Новы турнір па швейцарскай сыстэме</string>
+  <string name="swissVsArenaQ">Калі турніры па швейцарскай сістэме лепш за арэны?</string>
+  <string name="swissVsArenaA">У турнірах па швейцарскай сістэме ўсе ўдзельнікі гуляюць аднолькавую колькасць партый і могуць сыграць адзін з одным толькі аднойчы.
+Можа быць добрым варянтам для клубаў і афіцыйных турніраў.</string>
   <string name="pointsCalculationQ">Як падлічваюцца балы?</string>
   <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
 Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"бывай\", які каштуе адзін бал.</string>
@@ -59,6 +62,7 @@
 Таксама, спазніўшыйся на турнір гулец атрымоўвае \"бывай\" на палову бала.</string>
   <string name="willSwissReplaceArenasQ">Ці заменяць швейцаркі турніры Арэны?</string>
   <string name="willSwissReplaceArenasA">Не. Яны дапаўняюць адзін аднаго.</string>
+  <string name="roundRobinQ">Што наконт кругавой сістэмы?</string>
   <string name="joinOrCreateTeam">Далучыцца або стварыць каманду</string>
   <string name="startingSoon">Хутка пачынаецца</string>
   <string name="comparison">Параўнанне</string>
