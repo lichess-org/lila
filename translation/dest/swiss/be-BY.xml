@@ -60,9 +60,14 @@
   <string name="numberOfByesQ">Колькі \"бывай\" можа атрымаць гулец?</string>
   <string name="numberOfByesA">Гулец атрымоўвае \"бывай\" калі сістэма не можа знайсці суперніка. 
 Таксама, спазніўшыйся на турнір гулец атрымоўвае \"бывай\" на палову бала.</string>
+  <string name="lateJoinQ">Магчыма далучыцца пад час турніру?</string>
+  <string name="lateJoinA">Так, пакуль больш за палову тураў не пачата; напрыклад, у швейчарцы з 11 турамі гульцы могуць далучыцца да пачатку 6 тура, у 12-турнай да пачатку 7 тура.
+Зпазніўшыеся атрымліваюць адзін \"бывай\", нават калі яны прапусцілі некалькі тураў.</string>
   <string name="willSwissReplaceArenasQ">Ці заменяць швейцаркі турніры Арэны?</string>
   <string name="willSwissReplaceArenasA">Не. Яны дапаўняюць адзін аднаго.</string>
   <string name="roundRobinQ">Што наконт кругавой сістэмы?</string>
+  <string name="otherSystemsQ">Што наконт іншых турнірных сістэм?</string>
+  <string name="otherSystemsA">На дадзены момант, мы не плануем дадаваць іншыя турнірныя сістэмы на Lichess.</string>
   <string name="joinOrCreateTeam">Далучыцца або стварыць каманду</string>
   <string name="startingSoon">Хутка пачынаецца</string>
   <string name="comparison">Параўнанне</string>
