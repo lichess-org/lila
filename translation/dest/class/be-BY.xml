@@ -48,6 +48,9 @@
   <string name="createDesc4">Калі ён/яна ўжо мае акаўнт, адпраўце запрашэнне замест.</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
+  <string name="welcomeToClass">Вітаем на вашым занятку: %s.
+Вось спасылка з доступам на занятак.</string>
+  <string name="invitationToClass">Вас запрасілі на занятак \"%s\" у якасці студэнта(кі).</string>
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Адно чакаючае запрашэнне</item>
@@ -84,6 +87,8 @@
   <string name="noStudents">Пакуль ніводнага студэнта на занятку.</string>
   <string name="noRemovedStudents">Няма выдаленных студэнтаў.</string>
   <string name="overDays">На працягу дзён</string>
+  <string name="timePlaying">Час за гульнёй</string>
+  <string name="variantXOverLastY">%1$s на працягу апошніх %2$s</string>
   <string name="winrate">Адсотак перамог</string>
   <string name="news">Навіны занятку</string>
   <string name="editNews">Рэдагаваць навіны</string>
