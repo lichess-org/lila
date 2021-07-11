@@ -3,6 +3,8 @@
   <string name="advantage">Перавага</string>
   <string name="anastasiaMate">Мат Анастасіі</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="attackingF2F7">Напад на f2 або f7</string>
+  <string name="attackingF2F7Description">Нападзенне, накіраванае на пешку на f2 або f7, як у дэбюце Атакі Фегатэлла.</string>
   <string name="bishopEndgame">Слановы эндшпіль</string>
   <string name="bishopEndgameDescription">Эндшпіль выключна са сланамі і пешкамі.</string>
   <string name="bodenMate">Мат Бодэна</string>
@@ -45,9 +47,11 @@
   <string name="queenRookEndgameDescription">Эндшпіль выключна з ферзямі, ладдзямі і пешкамі.</string>
   <string name="quietMove">Павольны ход</string>
   <string name="rookEndgame">Ладзейны эндшпіль</string>
+  <string name="rookEndgameDescription">Эндшпіль выключна з ладдзямі і пешкамі.</string>
   <string name="sacrifice">Ахвяра</string>
   <string name="short">Кароткая задача</string>
   <string name="shortDescription">Да перамогі 2 хады.</string>
+  <string name="skewer">Скразны ўдар</string>
   <string name="smotheredMate">Спёрты мат</string>
   <string name="smotheredMateDescription">Мат пастаўленны канём, калі заматаваны кароль не можа рухацца, бо акружаны (ці запёрты) сваімі фігурамі.</string>
   <string name="superGM">Партыі супергросмайстраў</string>
