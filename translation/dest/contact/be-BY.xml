@@ -34,6 +34,7 @@
   <string name="doNotMessageModerators">Калі ласка, не дасылайце асабістыя паведамленні мадэратарам.</string>
   <string name="onlyReports">Толькі скарга на гульцоў праз форму скаргі эфектыўна.</string>
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
+  <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
   <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
   <string name="illegalCastling">Недазволеная або немагчымая ракіроўка</string>
   <string name="castlingRules">Пераканайцеся, што вы разумееце правілы ракіроўкі</string>
