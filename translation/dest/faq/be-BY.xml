@@ -37,6 +37,8 @@
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
   <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
   <string name="fideHandbookX">Правилы ФІДЭ %s</string>
+  <string name="discoveringEnPassant">Чаму пешка можа ўзяць іншую пешку калі яна ўжо прайшла? (узяццё на праходзе)</string>
+  <string name="goodIntroduction">добрае тлумачэнне</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
