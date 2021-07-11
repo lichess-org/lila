@@ -36,6 +36,8 @@
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
   <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
   <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
+  <string name="calledEnPassant">Гэта называецца \"ўзяцце на праходзе\" і з\'яўляецца адным з правіл шахмат.</string>
+  <string name="tryEnPassant">Паспрабуйце гэтую маленькую інтэрактыўную гульню, каб дазнацца больш пра \"ўзяцце на праходзе\".</string>
   <string name="illegalCastling">Недазволеная або немагчымая ракіроўка</string>
   <string name="castlingRules">Пераканайцеся, што вы разумееце правілы ракіроўкі</string>
   <string name="tryCastling">Паспрабуйце гэтую маленькую інтэрактыўную гульню, каб папрактыкавацца ракіроўцы ў шахматах</string>
