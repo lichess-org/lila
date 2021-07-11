@@ -11,7 +11,7 @@
   <string name="level">Niveau</string>
   <string name="strength">Styrke</string>
   <string name="toggleTheChat">Skjul/Vis chat</string>
-  <string name="toggleSound">slå lyd til/fra</string>
+  <string name="toggleSound">Slå lyd til/fra</string>
   <string name="chat">Chat</string>
   <string name="resign">Kapituler</string>
   <string name="checkmate">Skakmat</string>
@@ -210,7 +210,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
-  <string name="cancel">Afbryd</string>
+  <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
   <string name="drawOfferSent">Remistilbud afsendt</string>
