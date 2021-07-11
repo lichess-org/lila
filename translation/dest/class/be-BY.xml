@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Заняткі</string>
   <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
+  <string name="features">Магчымасці</string>
   <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
   <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
   <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
@@ -37,7 +38,14 @@
 Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
   <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт Lichess, вы можаце запрасіць іх на занятак.</string>
+  <string name="inviteDesc2">Яны атрымаюць паведамленне на Lichess са спасылкай на далучэнне да занятку.</string>
+  <string name="inviteDesc3">Важна: запрашайце толькі студэнтаў, якіх ведаеце, і якія актыўна хочуць далучыцца да занятку.</string>
+  <string name="inviteDesc4">Ніколі не адпраўляйце непажаданыя запрашэнні выпадковым людзям.</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
+  <string name="createDesc1">Калі ў студэнта(кі) яшчэ няма акаўнта Lichess, вы можаце ўласнаруч стварыць яго тут.</string>
+  <string name="createDesc2">Электронная пошта не патрэбна. Пароль будзе згенераваны, і вы зможаце перадаць яго студэнту(цы) для ўвахода на сайт.</string>
+  <string name="createDesc3">Важна: студэнт(ка) не павінен мець некалькі акаўнтаў.</string>
+  <string name="createDesc4">Калі ён/яна ўжо мае акаўнт, адпраўце запрашэнне замест.</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
