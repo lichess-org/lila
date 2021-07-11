@@ -10,6 +10,7 @@ import lila.user.LightUserApi
 final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
+  import Condition.{ MaxRating, MinRating }
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
     for {
@@ -57,8 +58,8 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
-      .add("maxRating", tour.conditions.maxRating)
-      .add("minRating", tour.conditions.minRating)
+      .add("maxRating", maxRatingJson(tour.conditions.maxRating))
+      .add("minRating", minRatingJson(tour.conditions.minRating))
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(positionJson))
       .add("schedule", tour.schedule map scheduleJson)
@@ -97,4 +98,20 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
         "position" -> ~perfPositions.get(p)
       )
       .add("icon" -> mobileBcIcons.get(p)) // mobile BC only
+
+  private def maxRatingJson(maybeM: Option[MaxRating])(implicit lang: Lang) =
+    maybeM map { m =>
+      Json.obj(
+        "perf"   -> perfJson(m.perf),
+        "rating" -> m.rating
+      )
+    }
+
+  private def minRatingJson(maybeM: Option[MinRating])(implicit lang: Lang) =
+    maybeM map { m =>
+      Json.obj(
+        "perf"   -> perfJson(m.perf),
+        "rating" -> m.rating
+      )
+    }
 }
