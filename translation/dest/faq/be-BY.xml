@@ -37,9 +37,17 @@
   <string name="eightVariants">8 разнастайнасцей гэтай гульні</string>
   <string name="insufficientMaterial">Параза па часе, нічыя і недастатковы матэрыял</string>
   <string name="fideHandbookX">Правилы ФІДЭ %s</string>
-  <string name="discoveringEnPassant">Чаму пешка можа ўзяць іншую пешку калі яна ўжо прайшла? (узяццё на праходзе)</string>
+  <string name="discoveringEnPassant">Чаму пешка можа ўзяць іншую пешку калі яна ўжо прайшла? (узяцце на праходзе)</string>
+  <string name="explainingEnPassant">Гэта дазволены ход, які называецца \"ўзяццё на праходзе\". Артыкул на вікіпедыі дае %1$s.
+
+Таксама апісана ў раздзеле 3.7 (d) %2$s:
+
+\"Пешка, якая займае поле на той самай гарызанталі, што і пешка суперніка на суседняй вертыкалі, якая толькі што прасунулася на два пали за ход ад першапачатковага поля, можа ўзяць пешку суперніка, як быццам апошні прасуналася толькі на адно поле. Узяццё з\'яўляецца легальным толькі ў наступным ходзе пасля гэтага прасоўвання і называецца \"ўзяццём на праходзе\". \"
+
+Паспрабуйце %3$s для гэтага ходу, каб папрактывацца.</string>
   <string name="goodIntroduction">добрае тлумачэнне</string>
   <string name="officialRulesPDF">афіцыйныя правілы (PDF)</string>
+  <string name="lichessTraining">Lichess практыку</string>
   <string name="threefoldRepetition">Трохразовае паўтарэнне</string>
   <string name="threefoldRepetitionExplanation">Калі пазіцыя з\'яўляецца тройчы, гульцы могуць запатрабаваць нічыю праз %1$s. Lichess рэалізуе афіцыйныя правілы ФІДЭ, як апісана ў артыкуле 9.2 (d) %2$s.</string>
   <string name="threefoldRepetitionLowerCase">трохразовае паўтарэнне</string>
