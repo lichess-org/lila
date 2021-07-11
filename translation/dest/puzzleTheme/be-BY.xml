@@ -11,6 +11,8 @@
   <string name="bishopEndgameDescription">Эндшпіль выключна са сланамі і пешкамі.</string>
   <string name="bodenMate">Мат Бодэна</string>
   <string name="castling">Ракіроўка</string>
+  <string name="capturingDefender">Узяцце абаронцы</string>
+  <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="doubleCheck">Падвойны шах</string>
