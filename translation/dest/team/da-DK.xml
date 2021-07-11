@@ -8,7 +8,7 @@
   </plurals>
   <string name="allTeams">Alle hold</string>
   <string name="newTeam">Nyt hold</string>
-  <string name="myTeams">Mit hold</string>
+  <string name="myTeams">Mine hold</string>
   <string name="noTeamFound">Ingen hold fundet</string>
   <string name="joinTeam">Tilmeld dig holdet</string>
   <string name="quitTeam">Forlad holdet</string>
