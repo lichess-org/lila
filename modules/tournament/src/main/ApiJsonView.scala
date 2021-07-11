@@ -10,6 +10,7 @@ import lila.user.LightUserApi
 final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
+  import Condition.JSONHandlers._
 
   def apply(tournaments: VisibleTournaments)(implicit lang: Lang): Fu[JsObject] =
     for {
@@ -57,8 +58,8 @@ final class ApiJsonView(lightUserApi: LightUserApi)(implicit ec: scala.concurren
       )
       .add("secondsToStart", tour.secondsToStart.some.filter(0 <))
       .add("hasMaxRating", tour.conditions.maxRating.isDefined) // BC
-      .add("maxRating", tour.conditions.maxRating)
-      .add("minRating", tour.conditions.minRating)
+      .add[Condition.RatingCondition]("maxRating", tour.conditions.maxRating)
+      .add[Condition.RatingCondition]("minRating", tour.conditions.minRating)
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(positionJson))
       .add("schedule", tour.schedule map scheduleJson)
