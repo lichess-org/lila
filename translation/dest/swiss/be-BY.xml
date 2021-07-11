@@ -72,7 +72,10 @@
   <string name="numberOfGames">Колькасць гульняў</string>
   <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
   <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
+  <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>
+  <string name="lateJoin">Далучыцца пад час турніру</string>
+  <string name="lateJoinUntil">Так, пакуль больш за палову тураў не прайшло</string>
   <string name="pause">Паўза</string>
   <string name="pauseSwiss">Так, але можа зменшыць колькасць тураў</string>
   <string name="streaksAndBerserk">Серыі і Шалёны рэжым</string>
