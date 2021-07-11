@@ -347,10 +347,10 @@
     <item quantity="other">%s турнірных балаў</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s студыя</item>
-    <item quantity="few">%s студыі</item>
-    <item quantity="many">%s студый</item>
-    <item quantity="other">%s студый</item>
+    <item quantity="one">%s навучанне</item>
+    <item quantity="few">%s навучанні</item>
+    <item quantity="many">%s навучанняў</item>
+    <item quantity="other">%s навучанняў</item>
   </plurals>
   <string name="viewTournament">Адкрыць турнір</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
@@ -403,7 +403,7 @@
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
   <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
-  <string name="toStudy">Студыя</string>
+  <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
   <plurals name="nbImportedGames">
@@ -645,7 +645,7 @@
   <string name="playOfflineComputer">Камп\'ютар</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
-  <string name="studyMenu">Студыя</string>
+  <string name="studyMenu">Навучанні</string>
   <string name="practice">Практыка</string>
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
