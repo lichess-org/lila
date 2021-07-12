@@ -28,6 +28,8 @@
   <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
+  <string name="deflection">Адцягненне</string>
+  <string name="deflectionDescription">Ход, які адцягвае фігуру суперніка ад выканання іншага абавязку, напрыклад, аховы ключавога поля. Часам таксама называецца \"перагрузка\".</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
