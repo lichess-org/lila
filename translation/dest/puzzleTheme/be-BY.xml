@@ -20,6 +20,7 @@
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="enPassantDescription">Задача звязаная з \"узяццем на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
   <string name="fork">Відэлец</string>
+  <string name="intermezzo">Прамежкавы ход</string>
   <string name="knightEndgame">Канёвы эндшпіль</string>
   <string name="knightEndgameDescription">Эндшпіль выключна з канямі і пешкамі.</string>
   <string name="long">Доўгая задача</string>
@@ -47,6 +48,10 @@
   <string name="pawnEndgame">Пешачны эндшпіль</string>
   <string name="pawnEndgameDescription">Эндшпіль выключна з пешкамі.</string>
   <string name="pin">Звязка</string>
+  <string name="promotion">Ператварэнне пешкі</string>
+  <string name="promotionDescription">Ператварыцце адну з пешак ў ферзя або легкую фігуру.</string>
+  <string name="queenEndgame">Ферзёвы эндшпіль</string>
+  <string name="queenEndgameDescription">Эндшпіль выключна з ферзмі і пешкамі.</string>
   <string name="queenRookEndgame">Фярзёва-ладдзейны эндшпіль</string>
   <string name="queenRookEndgameDescription">Эндшпіль выключна з ферзямі, ладдзямі і пешкамі.</string>
   <string name="quietMove">Павольны ход</string>
@@ -60,11 +65,16 @@
   <string name="smotheredMateDescription">Мат пастаўленны канём, калі заматаваны кароль не можа рухацца, бо акружаны (ці запёрты) сваімі фігурамі.</string>
   <string name="superGM">Партыі супергросмайстраў</string>
   <string name="superGMDescription">Задачы з партый лепшых гульцоў у свеце.</string>
+  <string name="trappedPiece">Фігура ў пастцы</string>
+  <string name="trappedPieceDescription">Фігура не можа пазбегнуць збіцця, бо абмежавана ў хадах.</string>
   <string name="underPromotion">Слабае пераўтварэнне</string>
   <string name="underPromotionDescription">Пераўтварэнне пешкі ў каня, слана або ладдзю.</string>
   <string name="veryLong">Вельмі доўгая задача</string>
   <string name="veryLongDescription">Чатыры або больш хадоў да перамогі.</string>
+  <string name="xRayAttack">Рэнтген</string>
+  <string name="xRayAttackDescription">Фігара нападае або бараніць поле праз варожую фігуру.</string>
   <string name="zugzwang">Цугцванг</string>
+  <string name="zugzwangDescription">Супернік абмежаваны ў хадах і ўсе магчымыя хады пагаршаюць яго пазіцыю.</string>
   <string name="healthyMix">Здаровая сумесь</string>
   <string name="healthyMixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
 </resources>
