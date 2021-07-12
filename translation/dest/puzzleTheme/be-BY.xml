@@ -24,6 +24,7 @@
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="doubleBishopMate">Мат двума сланамі</string>
   <string name="doubleBishopMateDescription">Два нападаючых слана на суседніх дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
+  <string name="dovetailMate">Мат \"галубіны хвост\"</string>
   <string name="equality">Выраўненне</string>
   <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="defensiveMove">Абарончы ход</string>
