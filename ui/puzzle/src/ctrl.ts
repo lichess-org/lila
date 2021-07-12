@@ -174,6 +174,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     sendMove(parseUci(uci)!);
   }
 
+  function playUciList(uciList: Uci[]): void {
+    uciList.forEach(playUci);
+  }
+
   function playUserMove(orig: Key, dest: Key, promotion?: Role): void {
     sendMove({
       from: parseSquare(orig)!,
@@ -553,6 +557,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     nextNodeBest,
     userMove,
     playUci,
+    playUciList,
     showEvalGauge() {
       return vm.showComputer() && ceval.enabled() && !outcome();
     },
