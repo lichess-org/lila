@@ -55,6 +55,7 @@
   <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
   <string name="getAFullComputerAnalysis">Атрымайце поўны серверны кампутарны аналіз галоўнай лініі.</string>
   <string name="makeSureTheChapterIsComplete">Пераканайцеся, што раздзел гатоў. Вы можаце запрасіць аналіз толькі адзін раз.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Усе сінхранізаваныя ўдзельнікі застаюцца на аднолькавай пазіцыі</string>
   <string name="shareChanges">Падзяліцца зменамі з гледачамі та захаваць іх на серверы</string>
   <string name="playing">Гуляецца</string>
   <string name="first">На першую</string>
@@ -75,16 +76,19 @@
   <string name="embedInYourWebsite">Убудаваць у свой сайт або блог</string>
   <string name="readMoreAboutEmbedding">Пачытаць больш пра ўбудаванне</string>
   <string name="onlyPublicStudiesCanBeEmbedded">Толькі публічныя навучанні могуць быць убудаваны!</string>
+  <string name="open">Адкрыць</string>
   <string name="xBroughtToYouByY">%2$s зрабіў для вас %1$s</string>
   <string name="studyNotFound">Навучанне не знойдзена</string>
   <string name="editChapter">Рэдагаваць раздзел</string>
   <string name="newChapter">Новы раздзел</string>
+  <string name="orientation">Арыентацыя дошкі</string>
   <string name="analysisMode">Рэжым аналізу</string>
   <string name="pinnedChapterComment">Замацаваны каментар раздзелу</string>
   <string name="saveChapter">Захаваць раздзел</string>
   <string name="clearAnnotations">Ачысціць анатацыі</string>
   <string name="deleteChapter">Выдаліць раздзел</string>
   <string name="deleteThisChapter">Выдаліць гэты раздел? Гэта нельга будзе адмяніць!</string>
+  <string name="clearAllCommentsInThisChapter">Выдаліць усе каментары, знакавыя анатацыі і намаляваныя фігуры ў гэтым раздзеле?</string>
   <string name="rightUnderTheBoard">Адразу пад дошкай</string>
   <string name="noPinnedComment">Ніякіх</string>
   <string name="normalAnalysis">Звычайны аналіз</string>
@@ -99,9 +103,16 @@
   <string name="loadAPositionFromFen">Загрузіць пазіцыю з FEN</string>
   <string name="loadAGameFromPgn">Загрузіць гульні з PGN</string>
   <string name="automatic">Аўтаматычна</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Устаўце сюды ваш PGN тэкст, не больш за %s гульню</item>
+    <item quantity="few">Устаўце сюды ваш PGN тэкст, не больш за %s гульні</item>
+    <item quantity="many">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
+    <item quantity="other">Устаўце сюды ваш PGN тэкст, не больш за %s гульняў</item>
+  </plurals>
   <string name="urlOfTheGame">URL гульняў, адзін на радок</string>
   <string name="loadAGameFromXOrY">Загрузіць партыі з %1$s або %2$s</string>
   <string name="createChapter">Стварыць раздзел</string>
+  <string name="configureLiveBroadcast">Наладзіць прамую трансляцыю</string>
   <string name="createStudy">Стварыць навучанне</string>
   <string name="editStudy">Рэдактаваць навучанне</string>
   <string name="visibility">Бачнасць</string>
