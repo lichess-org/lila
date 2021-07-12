@@ -124,6 +124,9 @@
   <string name="contributors">Рэдактары</string>
   <string name="members">Удзельнікі</string>
   <string name="everyone">Кожны</string>
+  <string name="enableSync">Уключыць сінхранізацыю</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Так: трымаць усіх на аднолькавай пазіцыі</string>
+  <string name="noLetPeopleBrowseFreely">Не: хай людзі вольна праглядаюць пазіцыі</string>
   <string name="pinnedStudyComment">Замацаваць каментар да занятку</string>
   <string name="start">Пачаць</string>
   <string name="save">Захаваць</string>
