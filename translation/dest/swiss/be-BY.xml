@@ -75,6 +75,7 @@
   <string name="otherSystemsQ">Што наконт іншых турнірных сістэм?</string>
   <string name="otherSystemsA">На дадзены момант, мы не плануем дадаваць іншыя турнірныя сістэмы на Lichess.</string>
   <string name="joinOrCreateTeam">Далучыцца або стварыць каманду</string>
+  <string name="nowPlaying">Зараз грае</string>
   <string name="startingSoon">Хутка пачынаецца</string>
   <string name="comparison">Параўнанне</string>
   <string name="tournDuration">Працягласць турніру</string>
@@ -83,6 +84,10 @@
   <string name="numberOfGames">Колькасць гульняў</string>
   <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
   <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
+  <string name="pairingSystem">Сістэма падбору пар</string>
+  <string name="pairingSystemArena">Любы даступны супернік з падобным становішчам</string>
+  <string name="pairingSystemSwiss">Найлепшая пара, базуючыся на набраных балах і тай-брейках</string>
+  <string name="pairingWaitTime">Час чакання сістэмы падбору пар</string>
   <string name="pairingWaitTimeFast">Хутка: не чакае ўсіх гульцоў</string>
   <string name="pairingWaitTimeSlow">Павольная: чакае ўсіх гульцоў</string>
   <string name="identicalPairing">Паўторныя пары</string>
