@@ -83,6 +83,8 @@
   <string name="numberOfGames">Колькасць гульняў</string>
   <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
   <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
+  <string name="pairingWaitTimeFast">Хутка: не чакае ўсіх гульцоў</string>
+  <string name="pairingWaitTimeSlow">Павольная: чакае ўсіх гульцоў</string>
   <string name="identicalPairing">Паўторныя пары</string>
   <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>
