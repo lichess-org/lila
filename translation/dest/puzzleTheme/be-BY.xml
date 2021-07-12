@@ -13,6 +13,7 @@
   <string name="castling">Ракіроўка</string>
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
+  <string name="equality">Выраўненне</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="doubleCheck">Падвойны шах</string>
@@ -28,6 +29,7 @@
   <string name="longDescription">Да перамогі 3 хады.</string>
   <string name="master">Гульні майстроў</string>
   <string name="masterDescription">Задачы з гульняў тытулаваных гульцоў.</string>
+  <string name="masterVsMaster">З гульняў майстроў</string>
   <string name="masterVsMasterDescription">Задачы з гульняў паміж тытулаванымі гульцамі.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Выйграйце стылёва.</string>
@@ -40,6 +42,7 @@
   <string name="mateIn4">Мат у 4 хады</string>
   <string name="mateIn4Description">Пастаўце мат у чатыры хады.</string>
   <string name="mateIn5">Мат у 5 хадоў</string>
+  <string name="mateIn5Description">Знайдзіце доўгую матавую паслядоўнасць.</string>
   <string name="middlegame">Мітальшпіль</string>
   <string name="middlegameDescription">Тактыка на другім этапе гульні.</string>
   <string name="oneMove">Аднахадовая задача</string>
