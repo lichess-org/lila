@@ -39,7 +39,7 @@ final class OAuthToken(env: Env) extends LilaController(env) {
     }
 
   def delete(id: String) =
-    Auth { _ => _ =>
-      tokenApi.revoke(AccessToken.Id(id)) inject Redirect(routes.OAuthToken.index).flashSuccess
+    Auth { _ => me =>
+      tokenApi.revokeById(AccessToken.Id(id), me) inject Redirect(routes.OAuthToken.index).flashSuccess
     }
 }

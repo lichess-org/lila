@@ -121,7 +121,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def tokenRevoke =
     Scoped() { implicit req => _ =>
       HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(AccessToken.Id.from(token)) inject NoContent
+        env.oAuth.tokenApi.revoke(token) inject NoContent
       }
     }
 

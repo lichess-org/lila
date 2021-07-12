@@ -104,8 +104,15 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
       } yield AccessTokenApi.Client(origin, usedAt, scopes)
     }
 
-  def revoke(id: AccessToken.Id): Funit =
-    coll.delete.one($id(id)).map(_ => invalidateCached(id))
+  def revokeById(id: AccessToken.Id, user: User): Funit =
+    coll.delete
+      .one(
+        $doc(
+          F.id     -> id,
+          F.userId -> user.id
+        )
+      )
+      .map(_ => invalidateCached(id))
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -129,6 +136,11 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           )
           .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
       }
+
+  def revoke(bearer: Bearer) = {
+    val id = AccessToken.Id.from(bearer)
+    coll.delete.one($id(id)).map(_ => invalidateCached(id))
+  }
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 
