@@ -34,6 +34,10 @@
   <string name="doNotMessageModerators">Калі ласка, не дасылайце асабістыя паведамленні мадэратарам.</string>
   <string name="onlyReports">Толькі скарга на гульцоў праз форму скаргі эфектыўна.</string>
   <string name="wantReportBug">Хачу паведаміць пра памылку</string>
+  <string name="reportBugInForum">У раздзеле \"Зваротная сувязь Lichess\" на форуме</string>
+  <string name="reportWebsiteIssue">Як памылку сайта Lichess на GitHub</string>
+  <string name="reportMobileIssue">Як памылку мабільнай прылады Lichess на GitHub</string>
+  <string name="reportBugInDiscord">Ва Discord cерверы Lichess</string>
   <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
   <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
   <string name="calledEnPassant">Гэта называецца \"ўзяцце на праходзе\" і з\'яўляецца адным з правіл шахмат.</string>
@@ -47,6 +51,8 @@
   <string name="ratedGame">Пераканайцеся, што вы згулялі рэйтынгавую гульню. Таварыскія гульні не ўплываюць на рэйтынг гульцоў.</string>
   <string name="errorPage">Старонка памылкі</string>
   <string name="reportErrorPage">Калі вы траміце на старонку з памылкай, вы можаце паведаміць пра яе:</string>
+  <string name="accountLost">Аднак, калі вы сапраўды карысталіся дапамогай рухавіка, нават адзін раз, ваш акаўнт, на жаль, страчаны.</string>
+  <string name="doNotDeny">Не адмаўляйце, што падманулі. Калі вы хочаце мець магчымасць стварыць новы акаўнт, наўпрост прызнайце, што зрабілі, і пакажыце, што разумееце сваю памылку.</string>
   <string name="otherRestriction">Іншыя абмежаванні</string>
   <string name="collaboration">Супрацоўніцтва, юрыдычнае, камерцыйнае</string>
   <string name="monetizing">Манетызацыя Lichess</string>
