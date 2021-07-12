@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Далёка прасунутая пешка</string>
+  <string name="advancedPawnDescription">Адна з вашых пешак глыбока ў пазіцыі суперніка, магчыма пагражае ператварэннем.</string>
   <string name="advantage">Перавага</string>
   <string name="anastasiaMate">Мат Анастасіі</string>
   <string name="arabianMate">Арабскі мат</string>
