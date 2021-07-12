@@ -14,6 +14,7 @@
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="equality">Выраўненне</string>
+  <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="doubleCheck">Падвойны шах</string>
