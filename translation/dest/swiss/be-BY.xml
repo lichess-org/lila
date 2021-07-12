@@ -54,12 +54,18 @@
   <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
 Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"бывай\", які каштуе адзін бал.</string>
   <string name="dutchSystem">Галандская сістэма</string>
+  <string name="moreRoundsThanPlayersQ">Што адбываецца, калі турнір мае больш тураў, чым удзельнікаў?</string>
+  <string name="moreRoundsThanPlayersA">Калі ўсе магчымая пары згулялі, турнір скончваецца і абвяшчаецца пераможца.</string>
   <string name="restrictedToTeamsQ">Чаму абмежавана камандамі?</string>
   <string name="restrictedToTeamsA">Турніры па швейцарскай сістэме не былі размеркамаваны для анлайн шахмат. Яны патрабуюць ад гульцоў пунктуальнасці, адданасці і цярпення.
 На нашу думку, гэтыя ўмовы хутчэй будуць выкананы ўнутры каманды чым у глабальным турніры.</string>
   <string name="numberOfByesQ">Колькі \"бывай\" можа атрымаць гулец?</string>
   <string name="numberOfByesA">Гулец атрымоўвае \"бывай\" калі сістэма не можа знайсці суперніка. 
 Таксама, спазніўшыйся на турнір гулец атрымоўвае \"бывай\" на палову бала.</string>
+  <string name="whatIfOneDoesntPlayQ">Што адбываецца, калі ўдзельнік не гуляе партыю?</string>
+  <string name="whatIfOneDoesntPlayA">Іх гадзіннік будзе ісці, час выйдзе і яны прайграюць.
+Потым сістыма выключыць гульца з турніра, каб ён/яна не маглі прайграць больш партый.
+ Яны могуць зноўку далучыцца да турніру ў любы момант.</string>
   <string name="lateJoinQ">Магчыма далучыцца пад час турніру?</string>
   <string name="lateJoinA">Так, пакуль больш за палову тураў не пачата; напрыклад, у швейчарцы з 11 турамі гульцы могуць далучыцца да пачатку 6 тура, у 12-турнай да пачатку 7 тура.
 Зпазніўшыеся атрымліваюць адзін \"бывай\", нават калі яны прапусцілі некалькі тураў.</string>
@@ -77,6 +83,7 @@
   <string name="numberOfGames">Колькасць гульняў</string>
   <string name="numberOfGamesAsManyAsPossible">Столькі, колькі магчыма сыграць за адведзены час</string>
   <string name="numberOfGamesPreDefined">Вырашана загадзя, аднолькава для ўсіх гульцоў</string>
+  <string name="identicalPairing">Паўторныя пары</string>
   <string name="possibleButNotConsecutive">Магчама, але не запар</string>
   <string name="identicalForbidden">Забаронена</string>
   <string name="lateJoin">Далучыцца пад час турніру</string>
