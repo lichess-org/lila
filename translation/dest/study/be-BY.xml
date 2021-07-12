@@ -50,6 +50,7 @@
   <string name="newTag">Новы тэг</string>
   <string name="commentThisPosition">Каментаваць пазіцыю</string>
   <string name="commentThisMove">Каментаваць гэты ход</string>
+  <string name="annotateWithGlyphs">Дадаць знакавую анатацыю</string>
   <string name="theChapterIsTooShortToBeAnalysed">Раздел занадта кароткі для аналізу.</string>
   <string name="onlyContributorsCanRequestAnalysis">Толькі рэдактары навучання могуць запрасіць камп\'ютарны аналіз.</string>
   <string name="getAFullComputerAnalysis">Атрымайце поўны серверны кампутарны аналіз галоўнай лініі.</string>
