@@ -11,12 +11,15 @@
   <string name="attackingF2F7">Напад на f2 або f7</string>
   <string name="attackingF2F7Description">Нападзенне, накіраванае на пешку на f2 або f7, як у дэбюце Атакі Фегатэлла.</string>
   <string name="attraction">Прыцягненне</string>
+  <string name="attractionDescription">Абмен або ахвяра, якая заахвочвае або прымушае фігуру суперніка выйсці на поле, што дазваляе здейсніць тактыку.</string>
   <string name="backRankMate">Мат на апошняй гарызанталі</string>
   <string name="backRankMateDescription">Пастаўце мат каралю на хатняй гарызанталі, калі ён заблакаваны сваімі фігурамі.</string>
   <string name="bishopEndgame">Слановы эндшпіль</string>
   <string name="bishopEndgameDescription">Эндшпіль выключна са сланамі і пешкамі.</string>
   <string name="bodenMate">Мат Бодэна</string>
+  <string name="bodenMateDescription">Два нападаючых слана па перакрыжаваных дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="castling">Ракіроўка</string>
+  <string name="castlingDescription">Адпраўце караля ў бяспеку і выведзіце ладдзю ў атаку.</string>
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="equality">Выраўненне</string>
