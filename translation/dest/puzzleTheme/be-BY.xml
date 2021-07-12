@@ -3,10 +3,14 @@
   <string name="advancedPawn">Далёка прасунутая пешка</string>
   <string name="advancedPawnDescription">Адна з вашых пешак глыбока ў пазіцыі суперніка, магчыма пагражае ператварэннем.</string>
   <string name="advantage">Перавага</string>
+  <string name="advantageDescription">Не ўпусціце шанец, каб атрымаць вырашальную перавагу. (200сп ≤ ацэнка ≤ 600сп)</string>
   <string name="anastasiaMate">Мат Анастасіі</string>
+  <string name="anastasiaMateDescription">Конь і ладдзя (ці ферзь) працуюць разам, каб заматаваць караля суперніка паміж сваёй фігурай і краем дошкі.</string>
   <string name="arabianMate">Арабскі мат</string>
+  <string name="arabianMateDescription">Конь і ладдзя працуюць разам, каб заматаваць караля суперніка ў кутку дошкі.</string>
   <string name="attackingF2F7">Напад на f2 або f7</string>
   <string name="attackingF2F7Description">Нападзенне, накіраванае на пешку на f2 або f7, як у дэбюце Атакі Фегатэлла.</string>
+  <string name="attraction">Прыцягненне</string>
   <string name="backRankMate">Мат на апошняй гарызанталі</string>
   <string name="backRankMateDescription">Пастаўце мат каралю на хатняй гарызанталі, калі ён заблакаваны сваімі фігурамі.</string>
   <string name="bishopEndgame">Слановы эндшпіль</string>
