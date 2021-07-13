@@ -5,20 +5,51 @@ import play.api.mvc.RequestHeader
 import lila.common.HTTPRequest._
 import lila.common.config.NetConfig
 
+/* CSRF protection by using the HTTP origin header.
+ * This applies to ALL incoming HTTP requests, and therefore, all forms of the site.
+ * Read along the code comments for details.
+ */
 final class CSRFRequestHandler(net: NetConfig) {
 
+  /* Returns true if the request can be accepted
+   * Returns false to reject the request with 403 Forbidden
+   */
   def check(req: RequestHeader): Boolean = {
-    if (isXhr(req)) true // cross origin xhr not allowed by browsers
+    /* Cross origin XHR is not allowed by browsers,
+     * therefore all HXR requests can be accepted
+     */
+    if (isXhr(req)) true
+    /* GET, HEAD and OPTIONS never modify the server data,
+     * so we accept them
+     */
     else if (isSafe(req)) true
+    /* The origin header is set to a known value used by the mobile app,
+     * so we accept it */
     else if (appOrigin(req).isDefined) true
     else
       origin(req) match {
         case None =>
+          /* The origin header is not set.
+           * This can only happen with very old browsers,
+           * which support was dropped a long time ago, and that are full of other vulnerabilities.
+           * All the browsers that can run Lichess nowadays set the origin header properly.
+           * The absence of the origin header usually indicates a programmatic call (API or scrapping),
+           * so we let these requests through.
+           */
           monitor("missingOrigin", req)
           true
         case Some(o) if isSubdomain(o) =>
+          /* The origin header is set to the lichess domain, or a subdomain of it.
+           * Since the request comes from Lichess, we accept it.
+           */
           true
         case Some(_) =>
+          /* The origin header is set to another value, like a domain or "null".
+           * We reject the request.
+           * Note that in the case of an HTTP 302 redirect,
+           * or when privacy requires it, then the origin header IS SET, and contains "null",
+           * causing the unsafe request to be rejected.
+           */
           monitor("forbidden", req)
           false
       }
