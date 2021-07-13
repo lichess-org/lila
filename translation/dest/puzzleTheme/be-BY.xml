@@ -70,6 +70,7 @@
   <string name="pawnEndgame">Пешачны эндшпіль</string>
   <string name="pawnEndgameDescription">Эндшпіль выключна з пешкамі.</string>
   <string name="pin">Звязка</string>
+  <string name="pinDescription">Тактыка, уключаючая звязкі, дзе фігура не можа рухацца, не дазволіўшы нападзенне на больш каштоўную фігуру.</string>
   <string name="promotion">Ператварэнне пешкі</string>
   <string name="promotionDescription">Ператварыцце адну з пешак ў ферзя або легкую фігуру.</string>
   <string name="queenEndgame">Ферзёвы эндшпіль</string>
@@ -79,12 +80,15 @@
   <string name="queensideAttack">Атака на ферзевам флангу</string>
   <string name="queensideAttackDescription">Атака на караля суперніка, пасля ягонай доўгай ракіроўкі.</string>
   <string name="quietMove">Павольны ход</string>
+  <string name="quietMoveDescription">Ход, які не робіць не шах, не збівае штосьці, не стварае непасрэднай пагрозы, але рыхтуе схваную немянуючую пагрозу для наступных хадоў.</string>
   <string name="rookEndgame">Ладзейны эндшпіль</string>
   <string name="rookEndgameDescription">Эндшпіль выключна з ладдзямі і пешкамі.</string>
   <string name="sacrifice">Ахвяра</string>
+  <string name="sacrificeDescription">Тактыка, уключаючая кароткатэрміновае ахвяраванне матэрыялу, дзеля атрымання перавагі пасля вымушанай паслядоўнасці хадоў.</string>
   <string name="short">Кароткая задача</string>
   <string name="shortDescription">Да перамогі 2 хады.</string>
   <string name="skewer">Скразны ўдар</string>
+  <string name="skewerDescription">Матыў, уключаючы напад на каштоўную фігуру, якая сыходзячы з лініі нападу, дазваляе збіць або атакаваць стаячую ззаду менш каштоўную фігуры ззаду, адваротная звязка.</string>
   <string name="smotheredMate">Спёрты мат</string>
   <string name="smotheredMateDescription">Мат пастаўленны канём, калі заматаваны кароль не можа рухацца, бо акружаны (ці запёрты) сваімі фігурамі.</string>
   <string name="superGM">Партыі супергросмайстраў</string>
