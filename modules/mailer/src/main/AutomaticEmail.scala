@@ -115,7 +115,7 @@ $regards
     val body =
       s"""Hello,
 
-Following your request, the Lichess account "${user.username} will be fully erased in 24h from now.
+Following your request, the Lichess account "${user.username}" will be fully erased in 24h from now.
 
 $regards
 """
