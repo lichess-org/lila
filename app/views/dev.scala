@@ -71,9 +71,6 @@ object dev {
 announce 10 minutes Lichess will restart!
 announce cancel
 change asset version
-puzzle disable 70000
-team disable foobar
-team enable foobar
 fishnet client create {username}
 gdpr erase {username} forever
 patron lifetime {username}
