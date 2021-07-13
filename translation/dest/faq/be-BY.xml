@@ -122,4 +122,5 @@
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">На жаль, мы не вяртаем страчаны рэйтынг, у гульнях прайграных праз затрымку/адключэнне сеткі, нязалежна ад таго на чыім баку была праблема, вашым або нашым. Апошянее, аднак, малаверагодна. Заўважце, што, калі Lichess перазапускаецца і вы праз гэта прайграваеце па часе, мы скасоўваем гульню, каб прадухіліць несправядлівую паразу.</string>
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
+  <string name="viewSiteInformationPopUp">Праглядзець услываючае інфармацыйнае акенца сайта</string>
 </resources>
