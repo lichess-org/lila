@@ -123,4 +123,9 @@
   <string name="howToThreeDots">Як...</string>
   <string name="enableDisableNotificationPopUps">Уключыць ці адключыць усплываючыя паведамленні?</string>
   <string name="viewSiteInformationPopUp">Праглядзець услываючае інфармацыйнае акенца сайта</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess можа па вашаму жаданню дасылаць усплываючыя паведамленні, напрыклад, калі ваш ход або вы атрымалі асабістае паведамленне.
+
+Націсніце на значок замка насупраць lichess.org у адрасным полі вашага браўзера.
+
+Затым абярыце, дазваляць ці блакаваць паведамленні ад Lichess.</string>
 </resources>
