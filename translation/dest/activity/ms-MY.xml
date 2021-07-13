@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Aktiviti</string>
-  <string name="hostedALiveStream">Hos siaran langsung</string>
+  <string name="hostedALiveStream">Telah menghoskan siaran langsung</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">Sokong lichess.org untuk %1$s sebulan sebagai %2$s</item>
+    <item quantity="other">Telah menyokong lichess.org sebagai %2$s untuk %1$s bulan</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="other">Telah berlatih %1$s posisi di %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">Telah menyelesaikan %s soalan taktikal</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">Telah bermain %1$s %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="other">Telah pos %1$s mesej dalam %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">Telah bermain %1$s pergerakan</item>
   </plurals>
 </resources>
