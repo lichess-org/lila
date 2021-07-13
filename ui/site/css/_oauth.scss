@@ -14,7 +14,37 @@
   }
 
   code {
-    color: $c-bad;
+    color: $c-brag;
     word-wrap: anywhere;
+  }
+
+  h1 {
+    @extend %break-word;
+  }
+
+  &__scopes {
+    li {
+      margin: 0.5em 0;
+    }
+    .danger {
+      &::before {
+        @extend %data-icon;
+
+        margin-right: 0.2em;
+        content: '';
+        color: $c-bad;
+      }
+    }
+  }
+
+  .form-actions {
+    margin: 1.5rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $c-border;
+  }
+
+  &__footer {
+    @extend %flex-between-nowrap;
+    color: $c-font-dim;
   }
 }

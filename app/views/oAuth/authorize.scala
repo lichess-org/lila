@@ -7,6 +7,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.user.User
 import lila.oauth.AuthorizationRequest
+import lila.oauth.OAuthScope
 
 object authorize {
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) =
@@ -18,7 +19,10 @@ object authorize {
       )
     ) {
       main(cls := "oauth box box-pad")(
-        h1(dataIcon := "", cls := "text")("Authorize third party"),
+        h1(dataIcon := "", cls := "text")(prompt.redirectUri.clientOrigin),
+        prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
+          "Does not use a secure connection"
+        ),
         postForm(action := authorizeUrl)(
           p(
             strong(code(prompt.redirectUri.clientOrigin)),
@@ -28,20 +32,25 @@ object authorize {
           ),
           if (prompt.maybeScopes.isEmpty) ul(li("Only public data"))
           else
-            ul(
+            ul(cls := "oauth__scopes")(
               prompt.maybeScopes map { scope =>
-                li(scope.name)
+                li(
+                  cls := List(
+                    "danger" -> (scope == OAuthScope.Web.Mod || scope == OAuthScope.Web.Login)
+                  )
+                )(scope.name)
               }
             ),
-          prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
-            "Does not use a secure connection"
+          form3.actions(
+            a(href := prompt.cancelUrl)("Cancel"),
+            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           ),
-          flashMessage(cls := "flash-warning")(
-            "Not owned or operated by lichess.org"
-          ),
-          p(
-            "This prompt will redirect to ",
-            code(
+          div(cls := "oauth__footer")(
+            p(
+              "Not owned or operated by lichess.org"
+            ),
+            p(cls := "oauth__redirect")(
+              "Will redirect to ",
               raw(
                 escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
                   .replaceFirst(
@@ -50,16 +59,7 @@ object authorize {
                   )
               )
             )
-          ),
-          form3.actions(
-            a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           )
-        ),
-        prompt.maybeLegacy option p(
-          "Note for developers: The OAuth flow without PKCE is ",
-          a(href := "https://github.com/ornicar/lila/issues/9214")("deprecated"),
-          ". Consider updating your app."
         )
       )
     }
