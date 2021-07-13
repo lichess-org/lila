@@ -49,6 +49,8 @@ When a player can\'t be paired during a round, they receive a bye worth one poin
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
   <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
+  <string name="restrictedToTeamsA">Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players.
+We think these conditions are more likely to be met within a team than in global tournaments.</string>
   <string name="numberOfByesQ">How many byes can a player get?</string>
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
 Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
