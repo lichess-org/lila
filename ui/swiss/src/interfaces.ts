@@ -96,7 +96,7 @@ export interface BasePlayer {
 }
 
 export interface PodiumPlayer extends BasePlayer {
-  engine?: boolean;
+  lame?: boolean;
 }
 
 export interface Player extends BasePlayer {
