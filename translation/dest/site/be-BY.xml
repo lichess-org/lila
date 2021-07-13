@@ -102,6 +102,7 @@
   <string name="noGameFound">Гульні не знойдзеныя</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
+  <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
   <string name="winPreventedBy50MoveRule">Перамога немагчымая: абмежавана правілам 50-га ходу</string>
   <string name="lossSavedBy50MoveRule">Параза немагчымая: абмежавана правілам 50-га ходу</string>
@@ -346,10 +347,10 @@
     <item quantity="other">%s турнірных балаў</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s студыя</item>
-    <item quantity="few">%s студыі</item>
-    <item quantity="many">%s студый</item>
-    <item quantity="other">%s студый</item>
+    <item quantity="one">%s навучанне</item>
+    <item quantity="few">%s навучанні</item>
+    <item quantity="many">%s навучанняў</item>
+    <item quantity="other">%s навучанняў</item>
   </plurals>
   <string name="viewTournament">Адкрыць турнір</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
@@ -402,7 +403,7 @@
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
   <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
-  <string name="toStudy">Студыя</string>
+  <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
   <plurals name="nbImportedGames">
@@ -502,6 +503,7 @@
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
   <string name="savePosition">Захаваць пазіцыю</string>
@@ -643,7 +645,7 @@
   <string name="playOfflineComputer">Камп\'ютар</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
-  <string name="studyMenu">Студыя</string>
+  <string name="studyMenu">Навучанні</string>
   <string name="practice">Практыка</string>
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
@@ -948,6 +950,8 @@
   <string name="welcome">Вітаем!</string>
   <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
 Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
+  <string name="coachManager">Трэнерская старонка</string>
+  <string name="streamerManager">Стрымерская старонка</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
   <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
@@ -960,6 +964,10 @@
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
   <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="onlyTitledHelp">Патрабаваць афіцыйнага тытулу, каб далучыцца да турніру</string>
+  <string name="positionInputHelp">Устаўце дакладны FEN, каб пачынаць кожную гульню з зададзенай пазіцыі.
+Працуе толькі ў стандартных шахматах, не ў варыянтах.
+Можаце выкарыстаць %s для генерацыі пазіцыі FEN, а потым уставіць тут.
+Пакіньце пустым, каб пачынаць гульні са звычайнай пачатковай пазіцыі.</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
   <string name="simulHostcolor">Колер арганізатара ў кожнай гульне</string>
   <string name="estimatedStart">Меркаваны час пачатку</string>
@@ -973,6 +981,7 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="navigateMoveTree">Рухацца па дрэву ходаў</string>
   <string name="mouseTricks">Трукі мышшу</string>
   <string name="toggleLocalAnalysis">Укл./адкл. лакальны камп\'ютарны аналіз</string>
   <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>

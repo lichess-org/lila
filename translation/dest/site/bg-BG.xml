@@ -96,6 +96,7 @@
   <string name="noGameFound">Няма намерени игри</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Защо не включите повече игри в датабазата от менюто?</string>
   <string name="openingExplorer">Изследовател на дебютите</string>
+  <string name="openingEndgameExplorer">Изследовател на дебюти/ендшпили</string>
   <string name="xOpeningExplorer">%s датабаза</string>
   <string name="winPreventedBy50MoveRule">Победата е предотвратена от 50-ходовото правило</string>
   <string name="lossSavedBy50MoveRule">Загубата е преодоляна от правилото за 50 хода</string>
@@ -441,7 +442,7 @@
   <string name="setTheBoard">Подреди дъската</string>
   <string name="popularOpenings">Популярни дебюти</string>
   <string name="endgamePositions">Ендшпилни позиции</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Начална позиция в Chess960: %s</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Начална позиция в Chess960: %s</string>
   <string name="startPosition">Начална позиция</string>
   <string name="clearBoard">Празна дъска</string>
   <string name="savePosition">Запази позицията</string>
@@ -898,4 +899,9 @@
   <string name="noChat">Без чат</string>
   <string name="onlyTeamLeaders">Само организаторите на отбора</string>
   <string name="onlyTeamMembers">Само членовете на отбора</string>
+  <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
+  <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
+  <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
+  <string name="analysisOptions">Параметри на анализа</string>
+  <string name="focusChat">Фокусирай текста</string>
 </resources>

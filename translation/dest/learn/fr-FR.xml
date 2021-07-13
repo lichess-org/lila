@@ -23,8 +23,8 @@
 Un fou de cases noires.
 Vous avez besoin des deux !</string>
   <string name="bishopComplete">Félicitations ! Vous maîtrisez les déplacements du Fou.</string>
-  <string name="theQueen">La Dame</string>
-  <string name="queenCombinesRookAndBishop">Une dame = une tour + un fou</string>
+  <string name="theQueen">La dame</string>
+  <string name="queenCombinesRookAndBishop">Dame = tour + fou</string>
   <string name="queenIntro">La pièce la plus puissante du jeu, sa majesté la Dame !</string>
   <string name="queenComplete">Félicitations ! La Dame n\'a plus de secret pour vous.</string>
   <string name="theKing">Le Roi</string>

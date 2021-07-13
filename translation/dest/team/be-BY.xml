@@ -35,9 +35,9 @@
   <string name="willBeReviewed">Ваш запыт на далучэнне будзе разгледжан лідэрам каманды.</string>
   <string name="beingReviewed">Ваш запыт зараз разглядаецца лідэрам каманды.</string>
   <string name="subToTeamMessages">Падпісацца на камандныя паведамленні</string>
-  <string name="teamBattle">Міжгрупная сутычка</string>
-  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае ачкі для сваёй каманды</string>
-  <string name="teamTournament">Групны турнір</string>
+  <string name="teamBattle">Камандная бітва</string>
+  <string name="teamBattleOverview">Бітва некалькіх каманд, кожны гулец набірае балы для сваёй каманды</string>
+  <string name="teamTournament">Камандны турнір</string>
   <string name="teamTournamentOverview">Арэнный турнір, ўступіць у які могуць толькі члены вашай групы</string>
   <string name="swissTournamentOverview">Турнір па швейцарскай сістэме, да якога могуць далучыцца толькі чальці вашай каманды</string>
   <string name="messageAllMembers">Напісаць ўсім удзельнікам</string>

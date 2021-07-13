@@ -36,8 +36,15 @@
   <string name="itMovesInAnLShape">Այն քայլում է L տառի նման</string>
   <string name="knightIntro">Ահա եվ խնդիր քեզ համար: Ձին բարդ խաղաքար է</string>
   <string name="knightsHaveAFancyWay">Ձիերը կարող են թռչկոտել խաղաքարերի վրայով</string>
+  <string name="checkInOne">Շախ</string>
+  <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
+  <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
+  <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
   <string name="stalemate">Պատ</string>
   <string name="theGameIsADraw">Խաղն ավարտվում է ոչ-ոքի։</string>
+  <string name="puzzles">Խնդիրներ</string>
+  <string name="exerciseYourTacticalSkills">Մարզեք Ձեր մարտավարական ունակությունները</string>
+  <string name="videos">Տեսանյութեր</string>
   <string name="watchInstructiveChessVideos">Դիտեք ուսուցանող տեսանյութերը</string>
   <string name="playPeople">Խաղացողներ</string>
   <string name="opponentsFromAroundTheWorld">Խաղացեք ամբողջ աշխարհի շախմատիստների հետ</string>

@@ -66,6 +66,9 @@ Late deelnemers krijgen een enkele bye, ook als ze meerdere rondes gemist hebben
   <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
   <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
   <string name="roundRobinQ">Hoe zit het met Round Robin?</string>
+  <string name="roundRobinA">We zouden het graag toevoegen, maar helaas round-robin werkt niet online.
+De reden is dat het geen eerlijke manier biedt om om te gaan met mensen die het toernooi vroegtijdig verlaten. We kunnen niet verwachten dat alle spelers al hun partijen in een online evenement ook zullen spelen. Dat gebeurt gewoonweg niet, en als gevolg daarvan zouden de meeste round-robintoernooien fouten bevatten en oneerlijk zijn, wat afbreuk doet aan hun bestaansrecht.
+Wat het meest in de buurt komt van een online round-robin is een Zwitsers toernooi met een zeer groot aantal rondes. Dan worden alle mogelijke paringen gespeeld voordat het toernooi eindigt.</string>
   <string name="otherSystemsQ">Hoe zit het met andere toernooisystemen?</string>
   <string name="otherSystemsA">Momenteel zijn we niet van plan om meer toernooisystemen aan Lichess toe te voegen.</string>
   <string name="swissDescription">In een Zwitsers toernooi %1$s speelt elke concurrent niet noodzakelijkerwijs tegen alle andere deelnemers. Deelnemers ontmoeten elkaar een-op-een in elke ronde en worden gepaard met een serie regels die ervoor zorgt dat elke deelnemer tegenstanders treft met een vergelijkbare score, maar niet dezelfde tegenstander meer dan één keer. De winnaar is de deelnemer die in alle rondes de meeste punten heeft verdiend. Alle deelnemers spelen in elke ronde, tenzij er een oneven aantal spelers is.</string>

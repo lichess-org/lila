@@ -333,7 +333,7 @@
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Skal være en del af hold %s</string>
+  <string name="mustBeInTeam">Skal være en del af holdet %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Tilbage til partiet</string>
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>

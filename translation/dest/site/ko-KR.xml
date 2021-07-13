@@ -444,7 +444,7 @@
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
   <string name="latestUpdates">최근 업데이트</string>
-  <string name="tournamentWinners">토너먼트 승리자</string>
+  <string name="tournamentWinners">토너먼트 우승자</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
   <string name="descPrivate">비공개 설명</string>

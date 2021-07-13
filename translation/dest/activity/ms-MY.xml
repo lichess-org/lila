@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">Aktiviti</string>
+  <string name="hostedALiveStream">Telah menghoskan siaran langsung</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="other">Telah menyokong lichess.org sebagai %2$s untuk %1$s bulan</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="other">Telah berlatih %1$s posisi di %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="other">%s soalan taktikal selesai</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="other">%1$s %2$s dimain</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="other">%1$s mesej dalam %2$s dipos</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="other">%1$s pergerakan dimain</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="other">dalam %1$s mainan koresponden</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="other">%s mainan koresponden selesai</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="other">Telah mula mengikuti pemain %s</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="other">Mendapat %s pengikut baru</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="other">Telah menghoskan %s perlawanan simul</item>
+  </plurals>
+</resources>

@@ -31,7 +31,7 @@
   <string name="inCasualGamesOnly">Kun i ikke-ratede spil</string>
   <string name="promoteToQueenAutomatically">Forfrem til Dronning automatisk</string>
   <string name="whenPremoving">Ved forhåndstræk</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv remis ved trefold gentagelse automatisk</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Kræv automatisk remis ved trefoldig gentagelse</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Når tilbageværende tid &lt; 30 sekunder</string>
   <string name="moveConfirmation">Bekræft træk</string>
   <string name="inCorrespondenceGames">I korrespondancepartier</string>

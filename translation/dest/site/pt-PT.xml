@@ -909,4 +909,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="playComputerMove">Jogar o melhor lance do computador</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar no bate-papo</string>
+  <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
 </resources>

@@ -35,6 +35,10 @@
   <string name="forbiddenPairings">Emparelhamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de utilizador de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes de utilizador por linha, separados por um espaço.</string>
   <string name="newSwiss">Novo torneio em sistema Suíço</string>
+  <string name="swissVsArenaQ">Quando utilizar torneios Suíços em vez de arenas?</string>
+  <string name="swissVsArenaA">Num torneio Suíço, todos os participantes jogam o mesmo número de jogos e só podem jogar um contra outro uma única vez.
+Pode ser uma boa opção para clubes e torneios oficiais.</string>
+  <string name="pointsCalculationQ">Como são calculadas as pontuações?</string>
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez on-line. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
 </resources>

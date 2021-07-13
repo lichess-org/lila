@@ -102,11 +102,11 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratings udregnes efter Glicko-2 metoden udviklet af Mark Glickman. Dette er en meget populær ratingmetode og bruges af et betydeligt antal skakorganisationer (FIDE er en bemærkelsesværdig undtagelse, eftersom de stadig bruger det forældede Elo ratingsystem).
 
-  Grundlæggende bruger Glicko-ratings \"konfidensintervaller\" ved udregningen og præsentationen af din rating. Når du første gang bruger sitet, starter din rating ved 1500 ± 700. De 1500 udgør din rating og de 700 repræsenterer konfidensintervallet.
+Grundlæggende bruger Glicko-ratings \"konfidensintervaller\" ved udregningen og præsentationen af din rating. Når du første gang bruger sitet, starter din rating ved 1500 ± 700. De 1500 udgør din rating og de 700 repræsenterer konfidensintervallet.
 
-  I udgangspunktet er systemet 90% sikker på, at din rating ligger et sted mellem 800 og 2200. Det er utroligt usikkert. Når en spiller starter vil deres rating derfor skifte dramatisk, potentielt flere hundrede point ad gangen. Men efter nogle partier mod etablerede spillere vil konfidensintervallet indsnævres, og antallet af point opnået/mistet efter hvert parti vil falde.
+I udgangspunktet er systemet 90% sikker på, at din rating ligger et sted mellem 800 og 2200. Det er utroligt usikkert. Når en spiller starter vil deres rating derfor skifte dramatisk, potentielt flere hundrede point ad gangen. Men efter nogle partier mod etablerede spillere vil konfidensintervallet indsnævres, og antallet af point opnået/mistet efter hvert parti vil falde.
 
-  Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensintervallet øges. Dette gør det muligt for dig at vinde/tabe point hurtigere som et match til ændringer i dit færdighedsniveau over tid.</string>
+Noget andet, som er værd at bemærke, er, at som tiden går vil konfidensintervallet øges. Dette gør det muligt for dig at vinde/tabe point hurtigere som en afspejling af ændringer i dit færdighedsniveau over tid.</string>
   <string name="whatIsProvisionalRating">Hvorfor er der et spørgsmålstegn (?) ved siden af en rating?</string>
   <string name="provisionalRatingExplanation">Spørgsmålstegnet betyder at ratingen er provisorisk. Årsager inkluderer:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Spilleren har endnu ikke afsluttet nok ratede partier mod %1$s i rating-kategorien.</string>

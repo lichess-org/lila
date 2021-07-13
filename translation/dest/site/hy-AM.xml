@@ -71,7 +71,7 @@
   <string name="move">Քայլ</string>
   <string name="variantLoss">Տարբերակը պարտվում է</string>
   <string name="variantWin">Տարբերակը հաղթում է</string>
-  <string name="insufficientMaterial">Ոչ բավարար նյութ</string>
+  <string name="insufficientMaterial">Առկա նյութը մատի համար բավարար չէ</string>
   <string name="pawnMove">Զինվորի քայլ</string>
   <string name="capture">Փոխանակում</string>
   <string name="close">Փակել</string>
@@ -427,7 +427,7 @@
   <string name="nextXTournament">Մյուս %s մրցաշարը՝</string>
   <string name="averageOpponent">Մրցակիցների միջին վարկանիշը</string>
   <string name="membersOnly">Միայն անդամները</string>
-  <string name="boardEditor">Խաղախտակի խմբագրիչ</string>
+  <string name="boardEditor">Խաղատախտակի խմբագրիչ</string>
   <string name="setTheBoard">Տեղադրել դիրքը</string>
   <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
   <string name="endgamePositions">Վերջնախաղային դիրքեր</string>
@@ -606,6 +606,7 @@
   <string name="tournamentFAQ">Հարցեր «Արենա» մրցաշարերի վերաբերյալ</string>
   <string name="tournamentOfficial">Պաշտոնական</string>
   <string name="averageCentipawnLoss">Միջինուն հարյուրերորդական զինվորի կորուստ</string>
+  <string name="keyboardShortcuts">Ստեղնաշարի դյուրանցումներ</string>
   <string name="keyGoToStartOrEnd">գնալ սկիզբ/վերջ</string>
   <string name="newTournament">Նոր մրցաշար</string>
   <string name="tournamentDoesNotExist">Այս մրցաշարը գոյություն չունի։</string>
@@ -613,6 +614,9 @@
   <string name="cumulative">Կոմուլյատիվ</string>
   <string name="glicko2Rating">Գլիկո-2 վարկանիշ</string>
   <string name="checkYourEmail">Ստուգեք ձեր էլ. փոստը</string>
+  <string name="printFriendlyPDF">Բեռնել PDF ձևաչափով</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Քայլերը թերթելու համար կարելի է մկնիկի անիվը պտտել տախտակի վրա։</string>
+  <string name="analysisShapesHowTo">Խաղատախտակի վրա շրջանակներ և սլաքներ պատկերելու համար օգտագործեք Shift+մկնիկի ձախ կոճակը կամ աջ կոճակը։</string>
   <string name="withNobody">Ոչ մեկի հետ</string>
   <string name="withFriends">Ընկերների հետ</string>
   <string name="withEverybody">Բոլորի հետ</string>
