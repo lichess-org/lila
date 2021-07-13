@@ -62,13 +62,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def pair(x: ID, y: ID): Fu[Option[(User, User)]] =
-    (x.nonEmpty && y.nonEmpty && x != y) ??
-      coll.byIds[User](List(x, y)) map { users =>
-        for {
-          xx <- users.find(_.id == x)
-          yy <- users.find(_.id == y)
-        } yield xx -> yy
-      }
+    coll.byIds[User](List(x, y)) map { users =>
+      for {
+        xx <- users.find(_.id == x)
+        yy <- users.find(_.id == y)
+      } yield xx -> yy
+    }
 
   def lichessAnd(id: ID) = pair(User.lichessId, id) map2 { case (lichess, user) =>
     Holder(lichess) -> user

@@ -200,33 +200,24 @@ final class Challenge(
   def apiStartClocks(id: String) =
     Action.async { req =>
       import cats.implicits._
-      def doStart(u1: UserModel, u2: UserModel) =
-        env.game.gameRepo game id flatMap {
-          _ ?? { g =>
-            env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
-              (_.filter(_.hasUserIds(u1.id, u2.id)))
-          }
-        } map {
-          _ ?? { game =>
-            env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
-            jsonOkResult
-          }
-        }
       val scopes = List(OAuthScope.Challenge.Write)
       (get("token1", req) map Bearer.apply, get("token2", req) map Bearer.apply).mapN {
         env.oAuth.server.authBoth(scopes)
       } ?? {
         _ flatMap {
-          case Left(e) =>
-            env.security.api.oauthScoped(req, List(OAuthScope.Challenge.Write)) flatMap {
-              case Right(OAuthScope.Scoped(admin, _)) if isGranted(_.ApiChallengeAdmin, admin) =>
-                env.user.repo.pair(~get("token1", req), ~get("token2", req)) flatMap {
-                  case Some((u1, u2)) => doStart(u1, u2)
-                  case _              => BadRequest(jsonError("In admin mode, token1 and token2 contain user IDs")).fuccess
-                }
-              case _ => handleScopedFail(scopes, e)
+          case Left(e) => handleScopedFail(scopes, e)
+          case Right((u1, u2)) =>
+            env.game.gameRepo game id flatMap {
+              _ ?? { g =>
+                env.round.proxyRepo.upgradeIfPresent(g) dmap some dmap
+                  (_.filter(_.hasUserIds(u1.id, u2.id)))
+              }
+            } map {
+              _ ?? { game =>
+                env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+                jsonOkResult
+              }
             }
-          case Right((u1, u2)) => doStart(u1, u2)
         }
       }
     }
