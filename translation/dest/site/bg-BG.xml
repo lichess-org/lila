@@ -898,4 +898,8 @@
   <string name="noChat">Без чат</string>
   <string name="onlyTeamLeaders">Само организаторите на отбора</string>
   <string name="onlyTeamMembers">Само членовете на отбора</string>
+  <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
+  <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
+  <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
+  <string name="analysisOptions">Параметри на анализа</string>
 </resources>
