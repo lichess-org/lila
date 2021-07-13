@@ -228,9 +228,14 @@
   <string name="rematchOfferAccepted">නැවත තරඟ කීරීම පිළිගත්තා</string>
   <string name="rematchOfferCanceled">නැවත තරඟ කීරීම පිළිගත්තා</string>
   <string name="rematchOfferDeclined">නැවත පිරිනැමීමේ දීමනාව ප්‍රතික්ෂේප විය</string>
+  <string name="cancelRematchOffer">නැවත තරග කිරීමේ යෝජනාව අවලංගුකරන්න</string>
   <string name="viewRematch">නැවත ගැලපීම බලන්න</string>
+  <string name="confirmMove">ඇදීම තහවුරු කරන්න</string>
   <string name="play">සෙල්ලම් කරන්න</string>
   <string name="inbox">එන ලිපි</string>
+  <string name="chatRoom">කතාබස් පුවරුව</string>
+  <string name="loginToChat">කතාබස් කිරීමට පුරනය වන්න</string>
+  <string name="spectatorRoom">ප්‍රේක්ෂක කාමරය</string>
   <string name="composeMessage">පණිවිඩය රචනා කරන්න</string>
   <string name="viewTournament">තරඟාවලිය බලන්න</string>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
