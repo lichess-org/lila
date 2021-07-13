@@ -102,13 +102,8 @@ object Protocol {
             "lichessmac",
             "chessrtx",
             "chesscomopse",
-            "tectootb",
-            // whitelist (consider automating)
-            "no.rieck.chess.dgt",
-            "net.developerfluid.darkknight",
-            "com.guykn.chessboard3",
-            "com.georgdotorg.catur"
-          ).has(url.scheme)
+            "tectootb"
+          ).has(url.scheme) || url.scheme.contains(".")
         )
         .map(RedirectUri.apply)
 
@@ -140,7 +135,9 @@ object Protocol {
     case object RedirectUriRequired                        extends InvalidRequest("redirect_uri required")
     case object RedirectUriInvalid                         extends InvalidRequest("redirect_uri invalid")
     case object RedirectSchemeNotAllowed
-        extends InvalidRequest("open a github issue to get exotic redirect_uri schemes whitelisted")
+        extends InvalidRequest(
+          "exotic redirect_uri scheme not allowed (use reverse domain notation like com.example:// for custom applications)"
+        )
     case object ResponseTypeRequired        extends InvalidRequest("response_type required")
     case object CodeChallengeRequired       extends InvalidRequest("code_challenge required")
     case object CodeChallengeMethodRequired extends InvalidRequest("code_challenge_method required")
