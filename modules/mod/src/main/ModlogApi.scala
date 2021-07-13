@@ -270,11 +270,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     m.notable ?? {
       coll.insert.one {
         ModlogBSONHandler.writeTry(m).get ++ (!m.isLichess).??($doc("human" -> true))
-      } >> (m.notableSlack ?? slackMonitor(m))
+      } >> (m.notableZulip ?? zulipMonitor(m))
     }
   }
 
-  private def slackMonitor(m: Modlog): Funit = {
+  private def zulipMonitor(m: Modlog): Funit = {
     import lila.mod.{ Modlog => M }
     val icon = m.action match {
       case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
@@ -286,7 +286,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.modMessage                                                     => "left_speech_bubble"
       case _                                                                => "gear"
     }
-    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
+    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
         val monitorType = m.action match {
