@@ -54,8 +54,13 @@
   <string name="pointsCalculationA">Перамога каштуе адзін бал, нічыя - палову бала, параз - нуль.
 Калі гульцу не хапае суперніка ў раўндзе, то ён/яна атрымоўвае \"бывай\", які каштуе адзін бал.</string>
   <string name="tiebreaksCalculationQ">Як падлічваюцца тай-брэйкі?</string>
+  <string name="sonnebornBergerScore">Каэфіцыенту Бергера</string>
+  <string name="tiebreaksCalculationA">З дапамогай %s.
+Складваюцца балы кожнага суперніка, якога гулец перамог(ла), і палова балаў кожнага суперніка, з якім згуляў(ла) ўнічыю.</string>
   <string name="pairingsQ">Як абіраюцца пары?</string>
-  <string name="dutchSystem">Галандская сістэма</string>
+  <string name="dutchSystem">Галандскай сістэмы</string>
+  <string name="FIDEHandbook">правіламі ФІДЭ</string>
+  <string name="pairingsA">З дапамогай %1$s, рэалізаванага %2$s, у адпаведнасці з %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Што адбываецца, калі турнір мае больш тураў, чым удзельнікаў?</string>
   <string name="moreRoundsThanPlayersA">Калі ўсе магчымая пары згулялі, турнір скончваецца і абвяшчаецца пераможца.</string>
   <string name="restrictedToTeamsQ">Чаму абмежавана камандамі?</string>
