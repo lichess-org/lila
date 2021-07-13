@@ -38,7 +38,12 @@
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="enPassantDescription">Задача звязаная з \"узяццем на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
+  <string name="exposedKing">Адкрыты кароль</string>
+  <string name="exposedKingDescription">Тактыка, уключаючая недастаткова абароненага караля, якая часта скончваецца матам.</string>
   <string name="fork">Відэлец</string>
+  <string name="forkDescription">Ход, калі фігура, якой пахадзілі, нападае адразу на дзве фігуры суперніка.</string>
+  <string name="hangingPiece">Вісячая фігура</string>
+  <string name="hangingPieceDescription">Тактыка, уключаючая неабароненую фігуру суперніка ці недастатковую колькасць яе абаронцоў, якую можна з\'есці.</string>
   <string name="hookMate">Хук-мат</string>
   <string name="hookMateDescription">Мат ладдзёй, канём і пешкай разам з дапамогай адной пешкай суперніка, абмяжоўваючай адыход варожага караля.</string>
   <string name="intermezzo">Прамежкавы ход</string>
