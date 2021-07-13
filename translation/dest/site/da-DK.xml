@@ -333,7 +333,7 @@
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Skal være en del af holdet %s</string>
+  <string name="mustBeInTeam">Skal være medlem af holdet %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Tilbage til partiet</string>
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
@@ -441,7 +441,7 @@
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilspositioner</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 startposition: %s</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
@@ -901,8 +901,8 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="noChat">Ingen chat</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
-  <string name="navigateMoveTree">Navigér i træk-træet</string>
-  <string name="mouseTricks">Tricks med mus</string>
+  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Navigér i træk-træet</string>
+  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Tricks med mus</string>
   <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
   <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
   <string name="playComputerMove">Spil det bedste computertræk</string>
