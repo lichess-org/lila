@@ -33,6 +33,9 @@ object authorize {
                 li(scope.name)
               }
             ),
+          prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
+            "Does not use a secure connection"
+          ),
           flashMessage(cls := "flash-warning")(
             "Not owned or operated by lichess.org"
           ),

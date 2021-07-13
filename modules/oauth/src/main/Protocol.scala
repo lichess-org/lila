@@ -67,6 +67,11 @@ object Protocol {
     def clientOrigin =
       s"${value.scheme}://${value.hostOption.fold("")(_.toStringPunycode)}"
 
+    def insecure =
+      value.scheme == "http" && !value.hostOption.exists(host =>
+        List("localhost", "[::1]", "127.0.0.1").has(host.toString)
+      )
+
     def error(error: Error, state: Option[State]): String = value
       .withQueryString(
         "error"             -> Some(error.error),
