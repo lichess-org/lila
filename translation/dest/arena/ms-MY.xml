@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaTournaments">Tornemen Arena</string>
+  <string name="isItRated">Adakah rated?</string>
+  <string name="willBeNotified">Anda akan dimaklumkan apabila tornemen dimulai, selamat untuk bermain di tab yang lain sementara menunggu.</string>
+  <string name="isRated">Tornement ini dirated dan boleh mengubah rating anda.</string>
+  <string name="isNotRated">Tornemen ini *tidak* rated dan *tidak* akan ubah rating anda.</string>
+  <string name="someRated">Sesetengah tornemen adalah rated dan boleh mengubah rating anda.</string>
+</resources>
