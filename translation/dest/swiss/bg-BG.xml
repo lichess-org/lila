@@ -42,7 +42,10 @@
   <string name="numberOfGames">Брой партии</string>
   <string name="pairingWaitTimeFast">Бързо: не се изчакват всички играчи</string>
   <string name="pairingWaitTimeSlow">Бавно: изчакват се всички играчи</string>
-  <string name="identicalForbidden">Забранено</string>
+  <string name="identicalPairing">Идентични съчетавания</string>
+  <string name="possibleButNotConsecutive">Възможни, но не последователни</string>
+  <string name="identicalForbidden">Забранени</string>
+  <string name="lateJoin">Късно включване</string>
   <string name="pause">Пауза</string>
   <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
