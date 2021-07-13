@@ -69,13 +69,14 @@ final class ModQueueStats(
             "rooms" -> Room.all.map { room =>
               Json.obj(
                 "name" -> room.name,
-                "series" -> scores.map { score =>
-                  Json.obj(
-                    "name" -> score,
-                    "data" -> days.map(~_._2.collectFirst {
-                      case (r, s, nb) if r == room && s == score => nb
-                    })
-                  )
+                "series" -> scores.collect {
+                  case score if score > 20 || room == Room.Boost =>
+                    Json.obj(
+                      "name" -> score,
+                      "data" -> days.map(~_._2.collectFirst {
+                        case (r, s, nb) if r == room && s == score => nb
+                      })
+                    )
                 }
               )
             }
