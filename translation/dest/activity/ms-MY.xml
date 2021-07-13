@@ -42,6 +42,13 @@
     <item quantity="other">%s pelajaran baru dicipta</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="other">%s Pertandingan Arena disertai</item>
+    <item quantity="other">%s Tornemen Arena disertai</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="other">%s Tornemen Swiss disertai</item>
+  </plurals>
+  <string name="signedUp">Telah mendaftar di lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="other">%s pasukan sertai</item>
   </plurals>
 </resources>
