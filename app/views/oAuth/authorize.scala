@@ -19,14 +19,21 @@ object authorize {
       )
     ) {
       main(cls := "oauth box box-pad")(
-        h1(dataIcon := "", cls := "text")(prompt.redirectUri.clientOrigin),
+        div(cls := "oauth__top")(
+          img(
+            cls := "oauth__logo",
+            alt := "linked rings icon",
+            src := assetUrl("images/icons/linked-rings.png")
+          ),
+          h1("Authorize"),
+          strong(code(prompt.redirectUri.clientOrigin))
+        ),
         prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
           "Does not use a secure connection"
         ),
         postForm(action := authorizeUrl)(
           p(
-            strong(code(prompt.redirectUri.clientOrigin)),
-            " wants to access your ",
+            "Grant access to your ",
             strong(me.username),
             " account:"
           ),
@@ -55,7 +62,7 @@ object authorize {
                 escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
                   .replaceFirst(
                     prompt.redirectUri.clientOrigin,
-                    strong(prompt.redirectUri.clientOrigin).render
+                    prompt.redirectUri.clientOrigin.render
                   )
               )
             )

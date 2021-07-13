@@ -13,18 +13,32 @@
     list-style: disc outside;
   }
 
-  code {
+  strong {
     color: $c-brag;
+  }
+  code {
     word-wrap: anywhere;
+  }
+
+  &__top {
+    text-align: center;
+    margin-bottom: 4em;
+  }
+
+  &__logo {
+    width: 100px;
+    height: 100px;
+    margin: auto;
   }
 
   h1 {
     @extend %break-word;
+    margin: 1rem 0 1.5rem 0;
   }
 
   &__scopes {
     li {
-      margin: 0.5em 0;
+      margin: 0.7em 0;
     }
     .danger {
       &::before {
@@ -55,5 +69,6 @@
   &__redirect {
     flex: 0 0 60%;
     margin-left: 1em;
+    text-align: right;
   }
 }
