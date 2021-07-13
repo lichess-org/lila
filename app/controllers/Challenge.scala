@@ -317,26 +317,6 @@ final class Challenge(
         )
     }
 
-  def apiCreateAdmin(origName: String, destName: String) =
-    ScopedBody(_.Challenge.Write) { implicit req => admin =>
-      IfGranted(_.ApiChallengeAdmin, req, admin) {
-        env.user.repo.namePair(origName, destName) flatMap {
-          _ ?? { case (orig, dest) =>
-            env.setup.forms.api.admin
-              .bindFromRequest()
-              .fold(
-                err => BadRequest(apiFormError(err)).fuccess,
-                config =>
-                  acceptOauthChallenge(dest, makeOauthChallenge(config, orig, dest.some))(
-                    admin,
-                    config.message
-                  )
-              )
-          }
-        }
-      }
-    }
-
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: Option[UserModel]) = {
     import lila.challenge.Challenge._
     val timeControl = config.clock map {
@@ -357,24 +337,6 @@ final class Challenge(
       )
   }
 
-  private def acceptOauthChallenge(
-      dest: UserModel,
-      challenge: ChallengeModel
-  )(managedBy: lila.user.User, template: Option[Template]) =
-    env.challenge.api.oauthAccept(dest, challenge) flatMap {
-      case None => BadRequest(jsonError("Couldn't create game")).fuccess
-      case Some(g) =>
-        env.challenge.msg.onApiPair(challenge)(managedBy, template) inject Ok(
-          Json.obj(
-            "game" -> {
-              env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
-                "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
-              )
-            }
-          )
-        )
-    }
-
   private def apiChallengeAccept(
       dest: UserModel,
       challenge: lila.challenge.Challenge,
@@ -387,7 +349,19 @@ final class Challenge(
       _.fold(
         err => BadRequest(jsonError(err.message)).fuccess,
         scoped =>
-          if (scoped.user is dest) acceptOauthChallenge(dest, challenge)(managedBy, message)
+          if (scoped.user is dest) env.challenge.api.oauthAccept(dest, challenge) flatMap {
+            case None => BadRequest(jsonError("Couldn't create game")).fuccess
+            case Some(g) =>
+              env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok(
+                Json.obj(
+                  "game" -> {
+                    env.game.jsonView(g, challenge.initialFen) ++ Json.obj(
+                      "url" -> s"${env.net.baseUrl}${routes.Round.watcher(g.id, "white")}"
+                    )
+                  }
+                )
+              )
+          }
           else BadRequest(jsonError("dest and accept user don't match")).fuccess
       )
     }

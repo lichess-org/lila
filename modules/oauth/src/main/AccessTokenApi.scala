@@ -50,6 +50,39 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
     )
   }
 
+  def adminChallengeTokens(
+      setup: OAuthTokenForm.AdminChallengeTokensData,
+      admin: User
+  ): Fu[Map[User.ID, AccessToken]] =
+    userRepo.enabledNameds(setup.usernames) flatMap { users =>
+      val scope = OAuthScope.Challenge.Write
+      lila.common.Future
+        .linear(users) { user =>
+          coll.one[AccessToken](
+            $doc(
+              F.userId       -> user.id,
+              F.clientOrigin -> setup.description,
+              F.scopes       -> scope.key
+            )
+          ) getOrElse {
+            val plain = Bearer.randomPersonal()
+            create(
+              AccessToken(
+                id = AccessToken.Id.from(plain),
+                plain = plain,
+                userId = user.id,
+                description = s"Challenge admin: ${admin.username}".some,
+                createdAt = DateTime.now().some,
+                scopes = List(scope),
+                clientOrigin = setup.description.some,
+                expires = None
+              )
+            )
+          } map { user.id -> _ }
+        }
+        .map(_.toMap)
+    }
+
   def listPersonal(user: User): Fu[List[AccessToken]] =
     coll
       .find(
