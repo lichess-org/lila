@@ -6,7 +6,8 @@ import lila.common.HTTPRequest._
 import lila.common.config.NetConfig
 
 /* CSRF protection by using the HTTP origin header.
- * This applies to ALL incoming HTTP requests, and therefore, all forms of the site.
+ * This applies to all incoming HTTP requests, and therefore, all forms of the site.
+ * The origin header is set by the browser, and cannot be forged in cross-site requests.
  * Read along the code comments for details.
  */
 final class CSRFRequestHandler(net: NetConfig) {
@@ -16,7 +17,7 @@ final class CSRFRequestHandler(net: NetConfig) {
    */
   def check(req: RequestHeader): Boolean = {
     /* Cross origin XHR is not allowed by browsers,
-     * therefore all HXR requests can be accepted
+     * therefore all XHR requests can be accepted
      */
     if (isXhr(req)) true
     /* GET, HEAD and OPTIONS never modify the server data,
@@ -32,6 +33,7 @@ final class CSRFRequestHandler(net: NetConfig) {
           /* The origin header is not set.
            * This can only happen with very old browsers,
            * which support was dropped a long time ago, and that are full of other vulnerabilities.
+           * These old browsers cannot load Lichess because Lichess only support modern TLS.
            * All the browsers that can run Lichess nowadays set the origin header properly.
            * The absence of the origin header usually indicates a programmatic call (API or scrapping),
            * so we let these requests through.
