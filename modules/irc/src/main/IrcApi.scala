@@ -67,7 +67,7 @@ final class IrcApi(
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.adminMonitor(tpe), mod.name)(
-          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
+          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
     }
@@ -76,7 +76,7 @@ final class IrcApi(
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.log, "actions")(
-          s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
+          s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
     }
@@ -166,6 +166,7 @@ object IrcApi {
   }
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
+  private val postRegex = """(\b[\w-]+/[\w-]+\b)""".r.pattern
 
   private object markdown {
     def link(url: String, name: String)         = s"[$name]($url)"
@@ -179,5 +180,8 @@ object IrcApi {
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
     val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
     def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
+    val postReplace = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace
+    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
   }
 }
