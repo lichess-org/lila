@@ -35,18 +35,18 @@
   <string name="forbiddenPairings">Verbotäni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernamä vo Schpiller/-innä, wo nöd gegänand schpilä dörfäd (zum Biischpiil Gschwüschtärti). Zwei Benutzernamä pro Ziilä, trännt dur äs Läärzeichä.</string>
   <string name="newSwiss">Neus Turniär noch Schwiizär Syschtem</string>
-  <string name="swissVsArenaQ">Wann sollten Turniere nach Schweizer System anstelle von Arena-Turnieren verwendet werden?</string>
+  <string name="swissVsArenaQ">Wänn sölläd Turniär noch Schwiizer Syschtem anschtatt Arena-Turniär verwändät wärdä?</string>
   <string name="swissVsArenaA">Bei einem Turnier nach Schweizer System spielen alle Teilnehmer die gleiche Anzahl von Spielen und können nur einmal gegeneinander spielen.
 Es kann eine gute Option für Clubs und offizielle Turniere sein.</string>
-  <string name="pointsCalculationQ">Wie werden Punkte berechnet?</string>
+  <string name="pointsCalculationQ">Wiä wärdäd Pünkt berächnät?</string>
   <string name="pointsCalculationA">Ein Sieg ist einen Punkt wert, ein Remis einen halben Punkt, und eine Niederlage null Punkte. Wenn ein Spieler während einer Runde keinem anderen Spieler zugeteilt werden kann, erhält er einen Punkt.</string>
-  <string name="tiebreaksCalculationQ">Wie werden Tie-Breaks berechnet?</string>
-  <string name="sonnebornBergerScore">Sonneborn-Berger-Wertung</string>
+  <string name="tiebreaksCalculationQ">Wie wärdäd Tie-Breaks berächnät?</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger-Wärtig</string>
   <string name="tiebreaksCalculationA">Mit dem %s.
 Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Punkte aller Gegner, gegen die der Spieler remisiert.</string>
-  <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
-  <string name="dutchSystem">Niederländischen System</string>
-  <string name="FIDEHandbook">FIDE-Handbuch</string>
+  <string name="pairingsQ">Wiä wärdäd Paarigä entschidä?</string>
+  <string name="dutchSystem">Niderländischs Syschtem</string>
+  <string name="FIDEHandbook">FIDE-Handbuäch</string>
   <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
@@ -90,12 +90,12 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="pairingWaitTimeSlow">Langsam: wartet auf alle Spieler</string>
   <string name="identicalPairing">Gleiche Paarung mehrmals</string>
   <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
-  <string name="identicalForbidden">Verboten</string>
+  <string name="identicalForbidden">Verbottä</string>
   <string name="lateJoin">Spaatä Biitritt</string>
   <string name="lateJoinUntil">Erlaubt, bis mehr als die Hälfte der Runden gestartet wurden</string>
   <string name="pause">Pausä</string>
   <string name="pauseSwiss">Ja, aber die Anzahl der Runden könnte verringert werden</string>
-  <string name="streaksAndBerserk">Siegesserien und Berserken</string>
+  <string name="streaksAndBerserk">Schträhnä und Bärsärk</string>
   <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
   <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
 </resources>
