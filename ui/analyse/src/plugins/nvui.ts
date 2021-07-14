@@ -35,6 +35,7 @@ import * as moveView from '../moveView';
 import { bind } from '../util';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
+import explorerView from '../explorer/explorerView';
 
 export const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
 
@@ -87,6 +88,21 @@ lichess.AnalyseNVUI = function (redraw: Redraw) {
             },
             renderMainline(ctrl.mainline, ctrl.path, style)
           ),
+          ...(!ctrl.studyPractice
+            ? [
+                h(
+                  'button',
+                  {
+                    attrs: {
+                      'aria-pressed': `${ctrl.explorer.enabled()}`,
+                    },
+                    hook: bind('click', _ => ctrl.explorer.toggle(), redraw),
+                  },
+                  ctrl.trans.noarg('openingExplorerAndTablebase')
+                ),
+                explorerView(ctrl),
+              ]
+            : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
           h('h2', 'Current position'),
