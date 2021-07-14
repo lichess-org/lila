@@ -466,8 +466,11 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       content,
       !content || explorer.failing()
         ? null
-        : h('span.toconf', {
-            attrs: dataIcon(configOpened ? '' : ''),
+        : h('button.fbt.toconf', {
+            attrs: {
+              'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+              ...dataIcon(configOpened ? '' : ''),
+            },
             hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
           }),
     ]
