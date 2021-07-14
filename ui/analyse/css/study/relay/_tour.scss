@@ -19,6 +19,9 @@
 
     .slist {
       margin-bottom: 1em;
+      ongoing {
+        color: $c-red;
+      }
     }
 
     h1 {

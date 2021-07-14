@@ -3,6 +3,8 @@ import { h, VNode } from 'snabbdom';
 import { dataIcon, innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';
 import { StudyCtrl } from '../interfaces';
+import { RelayRound } from './interfaces';
+import RelayCtrl from './relayCtrl';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -36,12 +38,44 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
               hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
             })
           : h('div', relay.data.tour.description),
+        roundsTable(relay),
       ]),
       study.looksNew() ? null : multiBoardView(study.multiBoard, study),
     ]);
   }
   return undefined;
 }
+
+function roundsTable(relay: RelayCtrl): VNode {
+  return h('div.relay-tour__text__schedule', [
+    h('h2', 'Schedule'),
+    h(
+      'table.slist.slist-invert',
+      h(
+        'tbody',
+        relay.data.rounds.map(round =>
+          h('tr', [
+            h(
+              'th',
+              h(
+                'a.link',
+                {
+                  attrs: { href: relay.roundPath(round) },
+                },
+                round.name
+              )
+            ),
+            h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
+            h('td', round.startsAt ? lichess.timeago(round.startsAt) : undefined),
+            h('td', round.ongoing ? ongoing() : undefined),
+          ])
+        )
+      )
+    ),
+  ]);
+}
+
+const ongoing = () => h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } });
 
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
@@ -65,7 +99,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
               round.name
             ),
             round.ongoing
-              ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } })
+              ? ongoing()
               : round.finished
               ? h('finished', { attrs: { ...dataIcon(''), title: 'Finished' } })
               : null,
