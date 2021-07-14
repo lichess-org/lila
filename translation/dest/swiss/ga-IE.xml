@@ -86,8 +86,12 @@ Faigheann imreoirí déanacha seacha amháin, fiú má chaill siad roinnt babhta
   <string name="willSwissReplaceArenasQ">An athsholáthair swiss in ionad comórtais airéine?</string>
   <string name="willSwissReplaceArenasA">Is gnéithe comhlántacha iad.</string>
   <string name="roundRobinQ">Cad faoi Round Robin?</string>
+  <string name="roundRobinA">Ba mhaith linn é a chur leis, ach ar an drochuair ní oibríonn Round Robin ar líne.
+Is é an chúis atá leis nach bhfuil aon bhealach cóir déileáil le daoine a fhágann an comórtas go luath. Ní féidir linn a bheith ag súil go n-imreoidh gach imreoir a gcluichí go léir in imeacht ar líne. Ní tharlóidh sé, agus mar thoradh air sin bheadh an chuid is mó de chomórtais Round Robin lochtach agus éagórach, rud a thugann aghaidh ar an gcúis atá leo a bheith ann.
+Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná comórtas Swiss a imirt le líon an-ard babhtaí. Ansin imreofar gach péire féideartha sula gcríochnóidh an comórtas.</string>
   <string name="otherSystemsQ">Cad mar gheall ar chórais comórtais eile?</string>
   <string name="otherSystemsA">Níl sé beartaithe againn níos mó córas comórtais a chur le Lichess i láthair na huaire.</string>
+  <string name="swissDescription">I gcomórtas Swiss %1$s, ní gá go n-imríonn gach ficheallaí gach iontrálaí eile. Buaileann iomaitheoirí duine le duine i ngach babhta agus péireáiltear iad ag baint úsáide as rialacha atá deartha lena chinntiú go n-imríonn gach iomaitheoir comhraic ar comhscór, ach nach bhfuil an comhraic céanna acu níos mó ná uair amháin. Is é an buaiteoir an bhficheallaí leis na pointí comhiomlána is airde a thuilltear i ngach babhta. Imríonn na hiomaitheoirí go léir i ngach babhta mura bhfuil corr-uimhir imreoirí ann.\"</string>
   <string name="teamOnly">Ní féidir ach le ceannairí foirne camchuairteanna swiss a chruthú, agus ní féidir ach le baill foirne iad a imirt.
 %1$s le tosú ag imirt i gcomórtais swiss.</string>
   <string name="joinOrCreateTeam">Bí ar fhoireann nó cruthaigh foireann</string>
