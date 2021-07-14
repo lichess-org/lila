@@ -1,4 +1,5 @@
 package lila.app
+
 package ui
 
 import ornicar.scalalib.Zero
@@ -11,21 +12,19 @@ import lila.user.Title
 
 // collection of lila attrs
 trait ScalatagsAttrs {
-  val dataTag        = attr("data-tag")
-  val dataIcon       = attr("data-icon")
-  val dataHref       = attr("data-href")
-  val dataCount      = attr("data-count")
-  val dataEnableTime = attr("data-enable-time")
-  val datatime24h    = attr("data-time_24h")
-  val dataColor      = attr("data-color")
-  val dataFen        = attr("data-fen")
-  val dataRel        = attr("data-rel")
-  val novalidate     = attr("novalidate").empty
-  val datetimeAttr   = attr("datetime")
-  val dataBotAttr    = attr("data-bot").empty
-  val deferAttr      = attr("defer").empty
-  val downloadAttr   = attr("download").empty
-  val viewBoxAttr    = attr("viewBox")
+  val dataTag      = attr("data-tag")
+  val dataIcon     = attr("data-icon")
+  val dataHref     = attr("data-href")
+  val dataCount    = attr("data-count")
+  val dataColor    = attr("data-color")
+  val dataFen      = attr("data-fen")
+  val dataRel      = attr("data-rel")
+  val novalidate   = attr("novalidate").empty
+  val datetimeAttr = attr("datetime")
+  val dataBotAttr  = attr("data-bot").empty
+  val deferAttr    = attr("defer").empty
+  val downloadAttr = attr("download").empty
+  val viewBoxAttr  = attr("viewBox")
 
   object frame {
     val scrolling       = attr("scrolling")
