@@ -503,7 +503,7 @@
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
   <string name="endgamePositions">Pozycje końcowe</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Pozycja startowa w Szachach 960: %s</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Pozycja startowa w Szachach 960: %s</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
@@ -940,7 +940,7 @@
   <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
   <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
+  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał Twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
@@ -980,8 +980,8 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="noChat">Wyłącz czat</string>
   <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
   <string name="onlyTeamMembers">Tylko członkowie klubu</string>
-  <string name="navigateMoveTree">Nawiguj drzewo ruchów</string>
-  <string name="mouseTricks">Gesty myszy</string>
+  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Nawiguj drzewo ruchów</string>
+  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Gesty myszy</string>
   <string name="toggleLocalAnalysis">Włącz/wyłącz analizę lokalnego komputera</string>
   <string name="toggleAllAnalysis">Włącz/wyłącz analizę komputera</string>
   <string name="playComputerMove">Zagraj najlepszy ruch komputera</string>

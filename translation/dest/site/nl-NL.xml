@@ -441,7 +441,7 @@
   <string name="setTheBoard">Zet het bord op</string>
   <string name="popularOpenings">Populaire openingen</string>
   <string name="endgamePositions">Eindspel posities</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Beginstelling Chess960: %s</string>
+  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Beginstelling Chess960: %s</string>
   <string name="startPosition">Beginstelling</string>
   <string name="clearBoard">Maak het bord leeg</string>
   <string name="savePosition">Sla de stelling op</string>
@@ -901,10 +901,12 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="noChat">Geen chat</string>
   <string name="onlyTeamLeaders">Alleen teamleiders</string>
   <string name="onlyTeamMembers">Alleen teamleden</string>
-  <string name="mouseTricks">Muistrucs</string>
+  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Navigeer door de zettenlijst</string>
+  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Muistrucs</string>
   <string name="toggleLocalAnalysis">Lokale computeranalyse in-/uitschakelen</string>
   <string name="toggleAllAnalysis">Alle computeranalyses in-/uitschakelen</string>
   <string name="playComputerMove">Doe de beste computerzet</string>
   <string name="analysisOptions">Analyse opties</string>
+  <string name="focusChat">Selecteer chat</string>
   <string name="showHelpDialog">Help-dialoogvenster weergeven</string>
 </resources>
