@@ -57,11 +57,21 @@
   <string name="swissVsArenaA">I gcomórtas swiss, imríonn na rannpháirtithe uile an líon céanna cluichí, agus ní féidir leo a chéile a imirt ach uair amháin.
 D’fhéadfadh sé seo a bheith ina rogha maith do chlubanna agus do chomórtais oifigiúla.</string>
   <string name="pointsCalculationQ">Conas a ríomhtar pointí?</string>
+  <string name="pointsCalculationA">Is fiú pointe amháin an bua, is leathphointe do cluiche cothrom, agus caillteanas ná nialas pointí.
+Nuair nach féidir imreoir a phéireáil le linn babhta, faigheann siad seacha ar fiú pointe amháin é.</string>
   <string name="tiebreaksCalculationQ">Conas a ríomhtar babhtaI réitigh?</string>
   <string name="sonnebornBergerScore">scór Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Leis na %s.
+Cuir scóir gach chéile comhraic a bhuaigh an t-imreoir agus leath scór gach comhraic a tharraingíonn an t-imreoir.</string>
   <string name="pairingsQ">Conas a roghnaítear péireáil?</string>
   <string name="dutchSystem">Córas Dúitseach</string>
   <string name="FIDEHandbook">Lámhleabhar FIDE</string>
+  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Leis an %1$s, curtha i bhfeidhm ag %2$s, de réir an %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Cad a tharlóidh má bhíonn níos mó babhtaí ag an gcomórtas ná imreoirí?</string>
+  <string name="moreRoundsThanPlayersA">Nuair a bheidh gach péire féideartha imeartha, cuirfear deireadh leis an gcomórtas agus fógrófar buaiteoir.</string>
+  <string name="restrictedToTeamsQ">Cén fáth go bhfuil sé teoranta d’fhoirne?</string>
+  <string name="numberOfByesQ">Cé mhéad seacha is féidir le himreoir a fháil?</string>
+  <string name="whatIfOneDoesntPlayQ">Cad a tharlóidh mura n-imríonn imreoir cluiche?</string>
   <string name="lateJoinQ">An féidir le himreoirí páirt a ghlacadh go déanach?</string>
   <string name="roundRobinQ">Cad faoi Round Robin?</string>
   <string name="otherSystemsQ">Cad mar gheall ar chórais comórtais eile?</string>
