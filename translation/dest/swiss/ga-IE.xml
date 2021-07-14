@@ -74,8 +74,15 @@ Cuir scóir gach chéile comhraic a bhuaigh an t-imreoir agus leath scór gach c
 Éilíonn siad poncúlacht, dúthracht agus foighne ó imreoirí.
 Is dóigh linn gur dóichí go gcomhlíonfar na coinníollacha seo laistigh d’fhoireann ná i gcomórtais dhomhanda.</string>
   <string name="numberOfByesQ">Cé mhéad seacha is féidir le himreoir a fháil?</string>
+  <string name="numberOfByesA">Faigheann imreoir seacha agus pointe amháin gach uair nach féidir leis an gcóras péireála péireáil a fháil dóibh.
+Chomh maith le sin, tugtar seacha amháin de leathphointe nuair a théann imreoir isteach sa chomórtas go déanach.</string>
   <string name="whatIfOneDoesntPlayQ">Cad a tharlóidh mura n-imríonn imreoir cluiche?</string>
+  <string name="whatIfOneDoesntPlayA">Leanfaidh a gclog go dtí go dtitfidh an bhratach, agus caillfidh siad an cluiche.
+Ansin aistreoidh an córas an t-imreoir ón gcomórtas, mar sin ní chailleann siad níos mó cluichí.
+Féadfaidh siad a bheith páirteach arís sa chomórtas am ar bith.</string>
   <string name="lateJoinQ">An féidir le himreoirí páirt a ghlacadh go déanach?</string>
+  <string name="lateJoinA">Sea, go dtí go mbeidh níos mó ná leath na mbabhta tosaithe; mar shampla in swiss 11 bhabhta, is féidir le himreoirí a bheith páirteach sula dtosaíonn babhta 6 agus i mbabhta 12 sula dtosaíonn babhta 7.
+Faigheann imreoirí déanacha seacha amháin, fiú má chaill siad roinnt babhtaí.</string>
   <string name="willSwissReplaceArenasQ">An athsholáthair swiss in ionad comórtais airéine?</string>
   <string name="willSwissReplaceArenasA">Is gnéithe comhlántacha iad.</string>
   <string name="roundRobinQ">Cad faoi Round Robin?</string>
