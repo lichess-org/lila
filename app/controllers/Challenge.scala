@@ -174,24 +174,37 @@ final class Challenge(
     }
 
   def apiCancel(id: String) =
-    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
+    Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { req => me =>
       api.activeByIdBy(id, me) flatMap {
         case Some(c) => api.cancel(c) inject jsonOkResult
         case None =>
           api.activeByIdFor(id, me) flatMap {
             case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default) inject jsonOkResult
             case None =>
+              import lila.hub.actorApi.map.Tell
+              import lila.hub.actorApi.round.Abort
+              import lila.round.actorApi.round.AbortForce
               env.game.gameRepo game id dmap {
                 _ flatMap { Pov.ofUserId(_, me.id) }
               } flatMap {
                 _ ?? { p => env.round.proxyRepo.upgradeIfPresent(p) dmap some }
-              } dmap (_.filter(_.game.abortable)) flatMap {
-                case Some(pov) =>
-                  import lila.hub.actorApi.map.Tell
-                  import lila.hub.actorApi.round.Abort
+              } flatMap {
+                case Some(pov) if pov.game.abortable =>
                   lila.common.Bus.publish(Tell(id, Abort(pov.playerId)), "roundSocket")
                   jsonOkResult.fuccess
-                case None => notFoundJson()
+                case Some(pov) if pov.game.playable =>
+                  get("opponentToken", req).map(Bearer.apply) match {
+                    case None => BadRequest(jsonError("The game can no longer be aborted")).fuccess
+                    case Some(bearer) =>
+                      env.oAuth.server.auth(bearer, List(OAuthScope.Challenge.Write)) map {
+                        case Right(OAuthScope.Scoped(op, _)) if pov.opponent.isUser(op) =>
+                          lila.common.Bus.publish(Tell(id, AbortForce), "roundSocket")
+                          jsonOkResult
+                        case Right(_)  => BadRequest(jsonError("Not the opponent token"))
+                        case Left(err) => BadRequest(jsonError(err.message))
+                      }
+                  }
+                case _ => notFoundJson()
               }
           }
       }

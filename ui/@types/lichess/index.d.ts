@@ -61,6 +61,7 @@ interface Lichess {
 
   timeago(date: number | Date): string;
   timeagoLocale(a: number, b: number, c: number): any;
+  dateFormat: () => (date: Date) => string;
 
   // misc
   advantageChart?: {
