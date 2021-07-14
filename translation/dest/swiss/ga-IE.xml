@@ -64,7 +64,7 @@
   <string name="otherSystemsQ">Cad mar gheall ar chórais comórtais eile?</string>
   <string name="otherSystemsA">Níl sé beartaithe againn níos mó córas comórtais a chur le Lichess i láthair na huaire.</string>
   <string name="joinOrCreateTeam">Bí ar fhoireann nó cruthaigh foireann</string>
-  <string name="nowPlaying">Anois ag imirt</string>
+  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Anois ag imirt</string>
   <string name="startingSoon">Ag tosú go luath</string>
   <string name="comparison">Comparáid</string>
   <string name="tournDuration">Fad an chomórtais</string>
@@ -77,8 +77,10 @@
   <string name="pairingWaitTimeFast">Tapaigh: Ní fhanann sé le gach imreoir</string>
   <string name="pairingWaitTimeSlow">Mall: fanann sé do gach imreoir</string>
   <string name="identicalPairing">Péireáil chomhionann</string>
+  <string name="possibleButNotConsecutive">Féideartha, ach ní i ndiaidh a chéile</string>
   <string name="identicalForbidden">Faoi chosc</string>
   <string name="lateJoin">Comhcheangail déanach</string>
+  <string name="lateJoinUntil">Sea go dtí go mbeidh níos mó ná leath na mbabhta tosaithe</string>
   <string name="pause">Sos</string>
   <string name="pauseSwiss">Sea ach d’fhéadfadh sé seo líon na mbabhta a laghdú</string>
   <string name="streaksAndBerserk">Stríoca agus Berserk</string>
