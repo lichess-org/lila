@@ -902,8 +902,8 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="onlyTeamMembers">Nur Teammitglidär</string>
   <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Dur dä Zugbaum navigiärä</string>
   <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Muus-Tricks</string>
-  <string name="toggleLocalAnalysis">Lokale Computeranalyse aktivieren/deaktivieren</string>
-  <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
+  <string name="toggleLocalAnalysis">Lokali Kompianalyse aktiviärä/deaktiviärä</string>
+  <string name="toggleAllAnalysis">Alli Kompianalyse aktiviärä/deaktiviärä</string>
   <string name="playComputerMove">Spiil dä beschti Kompiutärzug</string>
   <string name="analysisOptions">Analüsä optionä</string>
   <string name="focusChat">Tschätt fokussiärä</string>
