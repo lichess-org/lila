@@ -70,12 +70,19 @@ Cuir scóir gach chéile comhraic a bhuaigh an t-imreoir agus leath scór gach c
   <string name="moreRoundsThanPlayersQ">Cad a tharlóidh má bhíonn níos mó babhtaí ag an gcomórtas ná imreoirí?</string>
   <string name="moreRoundsThanPlayersA">Nuair a bheidh gach péire féideartha imeartha, cuirfear deireadh leis an gcomórtas agus fógrófar buaiteoir.</string>
   <string name="restrictedToTeamsQ">Cén fáth go bhfuil sé teoranta d’fhoirne?</string>
+  <string name="restrictedToTeamsA">Níl comórtais swiss oiriúnach do fhicheall ar líne.
+Éilíonn siad poncúlacht, dúthracht agus foighne ó imreoirí.
+Is dóigh linn gur dóichí go gcomhlíonfar na coinníollacha seo laistigh d’fhoireann ná i gcomórtais dhomhanda.</string>
   <string name="numberOfByesQ">Cé mhéad seacha is féidir le himreoir a fháil?</string>
   <string name="whatIfOneDoesntPlayQ">Cad a tharlóidh mura n-imríonn imreoir cluiche?</string>
   <string name="lateJoinQ">An féidir le himreoirí páirt a ghlacadh go déanach?</string>
+  <string name="willSwissReplaceArenasQ">An athsholáthair swiss in ionad comórtais airéine?</string>
+  <string name="willSwissReplaceArenasA">Is gnéithe comhlántacha iad.</string>
   <string name="roundRobinQ">Cad faoi Round Robin?</string>
   <string name="otherSystemsQ">Cad mar gheall ar chórais comórtais eile?</string>
   <string name="otherSystemsA">Níl sé beartaithe againn níos mó córas comórtais a chur le Lichess i láthair na huaire.</string>
+  <string name="teamOnly">Ní féidir ach le ceannairí foirne camchuairteanna swiss a chruthú, agus ní féidir ach le baill foirne iad a imirt.
+%1$s le tosú ag imirt i gcomórtais swiss.</string>
   <string name="joinOrCreateTeam">Bí ar fhoireann nó cruthaigh foireann</string>
   <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Anois ag imirt</string>
   <string name="startingSoon">Ag tosú go luath</string>
