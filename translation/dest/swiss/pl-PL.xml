@@ -83,10 +83,10 @@ Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (p
 Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z uczestnikami, którzy wcześnie porzucają turniej. Trudno oczekiwać, że wszyscy uczestnicy zagrają wszystkie swoje partie. To po prostu się nie zdarza, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
 Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
-  <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
-  <string name="swissDescription">W systemie szwajcarskim %1$s każdy gracz niekoniecznie gra ze wszystkimi innymi uczestnikami turnieju. Gracze są parowani przy użyciu zestawu zasad mających na celu zapewnienie, że każdy uczestnik gra z przeciwnikiem z podobnym wynikiem, ale nie więcej niż raz z tym samym graczem. Zwycięzcą turnieju jest gracz z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba graczy.</string>
-  <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków klubu.
-%1$s aby zacząć grać systemem szwajcarskim.</string>
+  <string name="otherSystemsA">W tej chwili nie planujemy dodawać innych systemów turniejowych na Lichess.</string>
+  <string name="swissDescription">W systemie szwajcarskim %1$s, uczestnik niekoniecznie rozegra partie ze wszystkimi innymi uczestnikami turnieju. Uczestnicy parowani są ze sobą przy użyciu zestawu zasad mających na celu zapewnienie, że każdy zagra z przeciwnikiem mającym podobny wynik, jednak nie więcej niż raz z tym samym przeciwnikiem. Zwycięzcą turnieju jest uczestnik z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba uczestników.</string>
+  <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków tego klubu.
+%1$s, aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
   <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>
