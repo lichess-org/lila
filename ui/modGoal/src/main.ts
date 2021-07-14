@@ -1,8 +1,8 @@
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
+import { VNode, init, attributesModule, eventListenersModule, classModule } from 'snabbdom';
 import Ctrl from './ctrl';
 import view from './view';
 
-const patch = init([classModule, attributesModule]);
+const patch = init([classModule, attributesModule, eventListenersModule]);
 
 export default function LichessModGoal() {
   let vnode: VNode, ctrl: Ctrl;
