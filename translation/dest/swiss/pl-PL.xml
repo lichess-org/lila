@@ -51,16 +51,16 @@
   <string name="swissVsArenaA">W systemie szwajcarskim wszyscy uczestnicy grają tę samą liczbę partii i mogą grać ze sobą tylko raz.
 Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
-  <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
-Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
-  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca gdy wielu graczy uzyskało ten sam wynik?</string>
+  <string name="pointsCalculationA">Zwycięstwo warte jest jeden punkt, remis to pół punktu, a przegrana to brak punktów.
+Gdy uczestnik nie może być sparowany podczas rundy, otrzymuje wtedy tzw. wolny los warty jeden punkt.</string>
+  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca, gdy wielu uczestników uzyskało ten sam wynik?</string>
   <string name="sonnebornBergerScore">system Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Stosujemy %s.
-Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końcowych tych zawodników, z którymi dany zawodnik wygrał oraz połowy punktów końcowych z którymi dany zawodnik zremisował.</string>
+Liczba punktów pomocniczych danego uczestnika składa się z sumy punktów końcowych tych uczestników, z którymi dany uczestnik wygrał oraz połowy punktów końcowych, z którymi dany uczestnik zremisował.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
   <string name="dutchSystem">systemu holenderskiego</string>
   <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
-  <string name="pairingsA">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
+  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Pary ustalane są według %1$s, zaimplementowanego przez %2$s, zgodnie z %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
   <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
   <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
@@ -88,7 +88,7 @@ Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajca
   <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków klubu.
 %1$s aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
-  <string name="nowPlaying">W toku</string>
+  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>
   <string name="comparison">Porównanie</string>
   <string name="tournDuration">Czas trwania turnieju</string>
