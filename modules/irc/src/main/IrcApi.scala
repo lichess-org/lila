@@ -166,7 +166,7 @@ object IrcApi {
   }
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
-  private val postRegex = """(\b[\w-]+/[\w-]+\b)""".r.pattern
+  private val postRegex = """ ([\w-]+/[\w-]+) """.r.pattern
 
   private object markdown {
     def link(url: String, name: String)         = s"[$name]($url)"
