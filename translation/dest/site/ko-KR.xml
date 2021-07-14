@@ -862,6 +862,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
   <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">수 탐색</string>
+  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
   <string name="playComputerMove">최선의 컴퓨터 수 두기</string>
