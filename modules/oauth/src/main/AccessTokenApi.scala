@@ -75,7 +75,7 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
                 createdAt = DateTime.now().some,
                 scopes = List(scope),
                 clientOrigin = setup.description.some,
-                expires = None
+                expires = Some(DateTime.now plusMonths 6)
               )
             )
           } map { user.id -> _ }
