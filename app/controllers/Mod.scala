@@ -224,7 +224,7 @@ final class Mod(
               domain = report.room match {
                 case Room.Cheat | Room.Boost => ModDomain.Hunt
                 case Room.Comm               => ModDomain.Comm
-                case _                       => ModDomain.Comm
+                case _                       => ModDomain.Other
               }
             ) inject NoContent
           }
