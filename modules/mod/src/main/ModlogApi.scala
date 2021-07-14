@@ -290,15 +290,17 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
     userRepo.isMonitoredMod(m.mod) flatMap {
       _ ?? {
         val monitorType = m.action match {
-          case M.engine | M.unengine | M.booster | M.unbooster | M.closeAccount | M.reopenAccount | M.alt |
-              M.unalt =>
-            IrcApi.ModDomain.Hunt
+          case M.closeAccount | M.alt => None
+          case M.engine | M.unengine | M.booster | M.unbooster | M.reopenAccount | M.unalt =>
+            Some(IrcApi.ModDomain.Hunt)
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
               M.enableTeam | M.setKidMode | M.deletePost =>
-            IrcApi.ModDomain.Comm
-          case _ => IrcApi.ModDomain.Other
+            Some(IrcApi.ModDomain.Comm)
+          case _ => Some(IrcApi.ModDomain.Other)
         }
-        ircApi.monitorMod(m.mod, icon = icon, text = text, monitorType)
+        monitorType ?? {
+          ircApi.monitorMod(m.mod, icon = icon, text = text, _)
+        }
       }
     }
     ircApi.logMod(m.mod, icon = icon, text = text)
