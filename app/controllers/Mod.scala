@@ -225,7 +225,8 @@ final class Mod(
                 case Room.Cheat | Room.Boost => ModDomain.Hunt
                 case Room.Comm               => ModDomain.Comm
                 case _                       => ModDomain.Other
-              }
+              },
+              room = report.room.name
             ) inject NoContent
           }
       }

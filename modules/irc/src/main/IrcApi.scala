@@ -21,7 +21,7 @@ final class IrcApi(
     zulip(_.mod.commsPrivate, "burst")(md)
   }
 
-  def inquiry(user: LightUser, mod: Holder, domain: ModDomain): Funit = {
+  def inquiry(user: LightUser, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Hunt  => ZulipClient.stream.mod.hunterCheat
@@ -33,11 +33,12 @@ final class IrcApi(
       .flatMap {
         case None =>
           zulip(stream, "/" + user.name)(
-            s":eyes: ${markdown.userLink(mod.user.username)}: Let's have a look at **${markdown.userLink(user.name)}**"
+            s"${markdown.userLink(mod.user.username)} :monkahmm: is looking at a $room report about **${markdown
+              .userLink(user.name)}**"
           )
         case Some(note) =>
           zulip(stream, "/" + user.name)(
-            s"${markdown.modLink(mod.user.username)} :note: **${markdown
+            s"${markdown.modLink(mod.user.username)} :pepenote: **${markdown
               .userLink(user.name)}** (${markdown.userNotesLink(user.name)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
