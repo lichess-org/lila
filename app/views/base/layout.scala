@@ -257,7 +257,8 @@ object layout {
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid,
               "mobile"               -> ctx.isMobileBrowser,
-              "playing fixed-scroll" -> playing
+              "playing fixed-scroll" -> playing,
+              "as-mod"               -> isGranted(_.SeeReport)
             )
           },
           dataDev,
@@ -300,6 +301,7 @@ object layout {
               div(cls := "content list")
             )
           ),
+          // isGranted(_.SeeReport) option div(cls := "mod-goal"),
           a(id := "reconnecting", cls := "link text", dataIcon := "")(trans.reconnecting()),
           loadScripts(moreJs, chessground)
         )

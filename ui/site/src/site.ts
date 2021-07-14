@@ -139,6 +139,11 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
+    if (document.body.classList.contains('as-mod') && lichess.storage.get('mod-goal-toggle')) {
+      lichess.loadCssPath('mod-goal');
+      lichess.loadModule('modGoal').then(() => window.LichessModGoal());
+    }
+
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
       xhr
         .text('/toggle-blind-mode', {

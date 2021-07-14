@@ -1,0 +1,24 @@
+.mod-goal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: z('friend-box');
+  background: $c-bg-popup;
+  border: $border;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: $box-radius-size;
+  font-size: 0.9rem;
+  min-width: 150px;
+  max-height: 95%;
+
+  &__title {
+    @extend %metal;
+
+    padding: 3px 5px;
+    border-bottom: $border;
+  }
+}
+#friend_box {
+  display: none !important;
+}
