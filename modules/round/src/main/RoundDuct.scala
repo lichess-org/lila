@@ -299,6 +299,11 @@ final private[round] class RoundDuct(
         }
       }
 
+    case AbortForce =>
+      handle { game =>
+        game.playable ?? finisher.abortForce(game)
+      }
+
     // checks if any player can safely (grace) be flagged
     case QuietFlag =>
       handle { game =>
@@ -403,11 +408,6 @@ final private[round] class RoundDuct(
           val progress = moretimer.give(game, Color.all, 20 seconds)
           proxy save progress inject progress.events
         }
-      }
-
-    case AbortForce =>
-      handle { game =>
-        game.playable ?? finisher.other(game, _.Aborted, None)
       }
 
     case BotConnected(color, v) =>

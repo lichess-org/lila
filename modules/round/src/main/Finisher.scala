@@ -31,6 +31,9 @@ final private class Finisher(
       Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
     }
 
+  def abortForce(game: Game)(implicit proxy: GameProxy): Fu[Events] =
+    apply(game, _.Aborted, None)
+
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
       winner.foreach { color =>
