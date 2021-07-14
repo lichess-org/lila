@@ -1,10 +1,10 @@
 import AnalyseCtrl from '../../ctrl';
-import { h, VNode } from 'snabbdom';
-import { dataIcon, innerHTML } from '../../util';
-import { view as multiBoardView } from '../multiBoard';
-import { StudyCtrl } from '../interfaces';
-import { RelayRound } from './interfaces';
 import RelayCtrl from './relayCtrl';
+import { dataIcon, innerHTML } from '../../util';
+import { h, VNode } from 'snabbdom';
+import { RelayRound } from './interfaces';
+import { StudyCtrl } from '../interfaces';
+import { view as multiBoardView } from '../multiBoard';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -66,8 +66,7 @@ function roundsTable(relay: RelayCtrl): VNode {
               )
             ),
             h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
-            h('td', round.startsAt ? lichess.timeago(round.startsAt) : undefined),
-            h('td', round.ongoing ? ongoing() : undefined),
+            h('td', roundStateIcon(round)),
           ])
         )
       )
@@ -75,7 +74,12 @@ function roundsTable(relay: RelayCtrl): VNode {
   ]);
 }
 
-const ongoing = () => h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } });
+const roundStateIcon = (round: RelayRound) =>
+  round.ongoing
+    ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } })
+    : round.finished
+    ? h('finished', { attrs: { ...dataIcon(''), title: 'Finished' } })
+    : null;
 
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
@@ -98,11 +102,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
               },
               round.name
             ),
-            round.ongoing
-              ? ongoing()
-              : round.finished
-              ? h('finished', { attrs: { ...dataIcon(''), title: 'Finished' } })
-              : null,
+            roundStateIcon(round),
             canContribute
               ? h('a.act', {
                   attrs: {
