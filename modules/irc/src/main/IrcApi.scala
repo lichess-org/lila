@@ -180,8 +180,8 @@ object IrcApi {
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
     val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
     def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
-    val postReplace = lichessLink("/forum/$1", "$1")
-    def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace
-    def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
+    val postReplace                             = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
+    def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))
   }
 }
