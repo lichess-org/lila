@@ -126,10 +126,10 @@
   <string name="mistake">Памылка</string>
   <string name="inaccuracy">Недакладнасць</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s зявок</item>
-    <item quantity="few">%s зяўка</item>
-    <item quantity="many">%s зяўкоў</item>
-    <item quantity="other">%s зяўкоў</item>
+    <item quantity="one">%s позех</item>
+    <item quantity="few">%s позеха</item>
+    <item quantity="many">%s позехаў</item>
+    <item quantity="other">%s позехаў</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s памылка</item>
