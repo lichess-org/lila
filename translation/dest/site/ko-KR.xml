@@ -410,7 +410,7 @@
   <string name="setTheBoard">보드 세팅하기</string>
   <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="endgamePositions">엔드게임 포지션</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">체스960 시작 포지션: %s</string>
+  <string name="chess960StartPosition">체스960 시작 포지션: %s</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -861,8 +861,8 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
-  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">수 탐색</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">마우스 기능</string>
+  <string name="navigateMoveTree">수 탐색</string>
+  <string name="mouseTricks">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
   <string name="playComputerMove">최선의 컴퓨터 수 두기</string>
