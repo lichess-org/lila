@@ -948,4 +948,10 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="analysisOptions">Analīzes iespējas</string>
   <string name="focusChat">Fokusēt sarunu</string>
   <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
+  <string name="reopenYourAccount">Atgūt savu kontu</string>
+  <string name="closedAccountChangedMind">Ja esat slēdzis kontu, bet pārdomājāt, jums ir viena iespēja atgūt kontu.</string>
+  <string name="onlyWorksOnce">Tā darbosies tikai vienu reizi.</string>
+  <string name="cantDoThisTwice">Ja slēgsiet kontu otrreiz, nebūs iespēju to atgūt.</string>
+  <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
+  <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
 </resources>
