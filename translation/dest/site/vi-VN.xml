@@ -858,4 +858,7 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
   <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
+  <string name="reopenYourAccount">Mở lại tài khoản</string>
+  <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
+  <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
 </resources>
