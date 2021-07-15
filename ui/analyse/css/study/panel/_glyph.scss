@@ -10,16 +10,13 @@
   }
 
   button {
-    @extend %flex-center-nowrap;
+    @extend %flex-center-nowrap, %button-none;
 
     @include transition;
 
-    color: $c-font;
     height: 2.3em;
     line-height: 2.3em;
     align-items: stretch;
-    border: none;
-    background: transparent;
     width: 100%;
 
     &::before {
