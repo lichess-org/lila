@@ -410,7 +410,7 @@
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
   <string name="endgamePositions">残局局面</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Chess960 起始局面： %s</string>
+  <string name="chess960StartPosition">Chess960 起始局面： %s</string>
   <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="savePosition">保存局面</string>
@@ -826,7 +826,7 @@
   <string name="download">下载</string>
   <string name="welcome">欢迎！</string>
   <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">鼠标使用技巧</string>
+  <string name="mouseTricks">鼠标使用技巧</string>
   <string name="toggleLocalAnalysis">切换本地分析</string>
   <string name="analysisOptions">分析选项</string>
 </resources>
