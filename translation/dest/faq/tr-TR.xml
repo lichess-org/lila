@@ -20,8 +20,9 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
   <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
-  <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
-(Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>
+  <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
+
+(Mesela puanınız bu maçlardan sonra büyük ölçüde artarsa, hiç puan iadesi almayabilir ya da kısmi bir iade alabilirsiniz). Tek seferde en fazla 150 puan iade edilir.</string>
   <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyuncular hakkında ne yapılır?</string>
   <string name="leavingGameWithoutResigningExplanation">Rakibiniz sık sık oyunu iptal ederse / oyundan ayrılırsa, \'\'oyun yasaklaması\'\'alırlar, yani oyun oynamaktan geçici olarak yasaklanırlar. Bu, profillerinde genel olarak gösterilmez. Bu davranış devam ederse, oyun yasaklamasının uzunluğu artar - ve bu türden uzun süreli davranışlar hesabın kapanmasına yol açabilir.</string>
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
