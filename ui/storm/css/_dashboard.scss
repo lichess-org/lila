@@ -24,7 +24,7 @@
       font-size: 2em;
 
       &.score {
-        color: $c-brag;
+        color: var(--c-brag);
       }
     }
 

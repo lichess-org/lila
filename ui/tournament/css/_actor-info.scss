@@ -17,7 +17,7 @@
 
     @include transition;
 
-    color: $c-bad;
+    color: var(--c-bad);
 
     &:hover {
       opacity: 1;

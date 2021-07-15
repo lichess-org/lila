@@ -21,7 +21,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    background: mix($c-accent, $c-bg-box, 10%);
+    background: var(--c-accent-faded-90);
     padding: 0.5em 0.8em;
     display: none;
     z-index: 1;

@@ -50,7 +50,7 @@ a.user-link:hover {
 }
 
 .utitle {
-  color: $c-brag;
+  color: var(--c-brag);
   font-weight: bold;
 
   &[data-bot] {

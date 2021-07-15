@@ -1,4 +1,4 @@
-$c-tabs-active: $c-accent !default;
+$c-tabs-active: var(--c-accent) !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;

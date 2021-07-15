@@ -24,6 +24,6 @@ star {
   }
 
   &.rate-selected:after {
-    color: $c-brag;
+    color: var(--c-brag);
   }
 }

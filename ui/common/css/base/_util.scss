@@ -30,7 +30,7 @@ good {
 }
 
 bad {
-  color: $c-bad;
+  color: var(--c-bad);
 }
 
 .infinite-scroll .pager {

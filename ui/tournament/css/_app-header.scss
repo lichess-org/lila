@@ -64,7 +64,7 @@
 
   .tour-sched & h1,
   .tour-sched & .img {
-    color: $c-brag;
+    color: var(--c-brag);
   }
 
   .tour__main-finished & h1 {

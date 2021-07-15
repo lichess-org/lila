@@ -9,7 +9,7 @@
     padding: 0.7em;
     background: mix($c-bad, $c-bg-box, 10%);
     border: 1px solid mix($c-bad, $c-bg-box, 30%);
-    color: $c-bad;
+    color: var(--c-bad);
 
     span {
       margin-right: 0.2em;

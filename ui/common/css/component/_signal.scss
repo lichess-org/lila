@@ -27,7 +27,7 @@ signal > i:nth-child(4) {
 }
 
 signal.q1 > i {
-  background-color: $c-bad;
+  background-color: var(--c-bad);
 }
 
 signal.q2 > i {

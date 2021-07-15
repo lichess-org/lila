@@ -27,11 +27,11 @@
     }
 
     &.candidates tr.me {
-      border-left: 10px solid $c-brag;
+      border-left: 10px solid var(--c-brag);
     }
 
     &.accepted tr.me {
-      border-right: 10px solid $c-brag;
+      border-right: 10px solid var(--c-brag);
     }
   }
 

@@ -89,7 +89,7 @@
 %active {
   @extend %active-inset-shadow;
 
-  background: $c-accent;
+  background: var(--c-accent);
   color: #fff;
   text-shadow: 0 1px 1px black !important;
 }
@@ -140,8 +140,8 @@
   padding: 0.5em;
 
   &:checked {
-    background: $c-secondary-dimmer;
-    border-color: $c-secondary-dim;
+    background: var(--c-secondary-dimmer);
+    border-color: var(--c-secondary-dim);
   }
 }
 

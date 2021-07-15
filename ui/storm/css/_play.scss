@@ -21,12 +21,12 @@
     }
 
     .puz-mod-malus-slow & {
-      color: $c-bad;
+      color: var(--c-bad);
     }
   }
 
   &__pov {
-    color: $c-brag;
+    color: var(--c-brag);
     margin-left: 5vw;
 
     @include breakpoint($mq-col2) {

@@ -30,7 +30,7 @@
       color: var(--c-font);
       margin-left: 1em;
       &:hover {
-        color: $c-bad;
+        color: var(--c-bad);
       }
     }
   }
@@ -43,7 +43,7 @@
     font-size: 0.9em;
     color: var(--c-font);
     &:hover {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &.postip {

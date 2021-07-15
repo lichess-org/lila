@@ -43,7 +43,7 @@
     .close:hover {
       @extend %box-shadow;
 
-      background: $c-bad;
+      background: var(--c-bad);
       color: #fff;
     }
   }

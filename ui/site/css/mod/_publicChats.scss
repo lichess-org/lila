@@ -27,7 +27,7 @@
   .line:not(.lichess) {
     cursor: pointer;
     &:hover {
-      background: fade-out($c-accent, 0.8);
+      background: var(--c-accent-faded-80);
     }
   }
 }

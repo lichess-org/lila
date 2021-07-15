@@ -32,7 +32,7 @@
 
     .leader {
       &::before {
-        color: $c-brag;
+        color: var(--c-brag);
         margin-right: 0.15em;
       }
     }

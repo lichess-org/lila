@@ -61,8 +61,8 @@
     }
 
     span.help {
-      color: $c-secondary;
-      text-decoration: underline $c-secondary;
+      color: var(--c-secondary);
+      text-decoration: underline var(--c-secondary);
     }
 
     .error {

@@ -651,7 +651,7 @@ body {
 
   li:hover,
   .active {
-    background-color: mix($c-accent, $c-bg-popup, 10%);
+    background-color: var(--c-accent-faded-90);
   }
 
   a {

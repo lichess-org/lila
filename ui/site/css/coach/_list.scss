@@ -42,7 +42,7 @@
       }
 
       &:hover {
-        background: mix($c-accent, $c-bg-box, 12%);
+        background: var(--c-accent-faded-90);
       }
     }
 

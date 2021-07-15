@@ -113,7 +113,7 @@
     color: $c-good;
 
     &.vote-down {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &::before {
@@ -135,7 +135,7 @@
 
     &.vote-down:hover,
     &.vote-down.active {
-      background: $c-bad;
+      background: var(--c-bad);
     }
   }
 }

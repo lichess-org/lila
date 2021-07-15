@@ -32,15 +32,15 @@
           opacity: 1;
         }
         &.red {
-          background: $c-bad;
+          background: var(--c-bad);
           &.active {
-            box-shadow: 0 0 2em $c-bad, 0 0 4em $c-bad;
+            box-shadow: 0 0 2em var(--c-bad), 0 0 4em var(--c-bad);
           }
         }
         &.orange {
-          background: $c-brag;
+          background: var(--c-brag);
           &.active {
-            box-shadow: 0 0 2em $c-brag, 0 0 4em $c-brag;
+            box-shadow: 0 0 2em var(--c-brag), 0 0 4em var(--c-brag);
           }
         }
         &.green {

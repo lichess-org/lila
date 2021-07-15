@@ -15,7 +15,7 @@
         margin-right: 2.5rem;
         text-align: center;
         font-size: 2.5em;
-        color: $c-brag;
+        color: var(--c-brag);
         font-weight: bold;
       }
     }
@@ -61,7 +61,7 @@
     }
 
     .team {
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     a {
@@ -94,7 +94,7 @@
       display: block;
       font-weight: bold;
       margin-top: 0.2em;
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     .icon {
@@ -102,7 +102,7 @@
 
       i {
         font-size: 2.5em;
-        color: $c-brag;
+        color: var(--c-brag);
       }
     }
   }

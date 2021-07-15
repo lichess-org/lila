@@ -14,7 +14,7 @@
   }
 
   .closed {
-    color: $c-bad;
+    color: var(--c-bad);
     font-weight: bold;
     margin-right: 1em;
   }

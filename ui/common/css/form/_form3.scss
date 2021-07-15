@@ -47,7 +47,7 @@ textarea.form-control {
 
 .form-control:invalid,
 .form-group.is-invalid .form-control {
-  border-color: $c-bad;
+  border-color: var(--c-bad);
 }
 
 .form3 .error,
@@ -58,7 +58,7 @@ textarea.form-control {
 }
 
 .form3 .error {
-  color: $c-bad;
+  color: var(--c-bad);
 }
 
 .form-help,

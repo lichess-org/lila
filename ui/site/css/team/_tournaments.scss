@@ -46,13 +46,13 @@
 
     .enterable {
       .icon i {
-        color: $c-brag;
+        color: var(--c-brag);
         opacity: 1;
       }
     }
 
     .soon {
-      border: 1px solid $c-brag;
+      border: 1px solid var(--c-brag);
     }
   }
 }

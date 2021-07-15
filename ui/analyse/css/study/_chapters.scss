@@ -54,8 +54,8 @@ $span-width: 1.7em;
 
     &,
     .status {
-      background: $c-secondary !important;
-      color: $c-secondary-over !important;
+      background: var(--c-secondary) !important;
+      color: var(--c-secondary-over) !important;
     }
   }
 }

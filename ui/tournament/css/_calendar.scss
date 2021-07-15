@@ -97,7 +97,7 @@
 
     &.yearly,
     &.weekend {
-      background-color: $c-brag;
+      background-color: var(--c-brag);
     }
 
     &.marathon {
@@ -105,7 +105,7 @@
     }
 
     &.unique {
-      background-color: $c-brag;
+      background-color: var(--c-brag);
     }
 
     &.max-rating {

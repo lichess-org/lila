@@ -17,7 +17,7 @@
   section h2 {
     @extend %base-font;
 
-    color: $c-brag;
+    color: var(--c-brag);
     font-size: 1.2em;
 
     time {
@@ -134,10 +134,10 @@
   }
 
   draw strong {
-    background: $c-brag;
+    background: var(--c-brag);
   }
 
   loss strong {
-    background: $c-bad;
+    background: var(--c-bad);
   }
 }

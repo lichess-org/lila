@@ -26,7 +26,7 @@
     }
 
     &.result-false {
-      background: $c-bad;
+      background: var(--c-bad);
 
       &.result-empty::before {
         content: '';
@@ -34,7 +34,7 @@
     }
 
     &.current {
-      background: $c-brag;
+      background: var(--c-brag);
     }
 
     &.session-new {

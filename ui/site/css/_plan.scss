@@ -160,7 +160,7 @@
     }
 
     group .lifetime-check input + label {
-      background: $c-brag !important;
+      background: var(--c-brag) !important;
       opacity: 0.8;
       cursor: default;
     }

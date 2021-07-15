@@ -2,7 +2,7 @@
 
 .dgt {
   h1 {
-    color: $c-accent;
+    color: var(--c-accent);
   }
   &__play__help {
     margin-top: 3rem;

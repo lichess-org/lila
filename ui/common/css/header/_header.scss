@@ -25,7 +25,7 @@
     @extend %data-icon;
     content: '';
     font-size: 1.3em;
-    color: $c-brag;
+    color: var(--c-brag);
     margin: 0 0 0.08ch 0.3ch;
     transform: scaleX(-1);
   }

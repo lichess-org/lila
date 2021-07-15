@@ -28,7 +28,7 @@
     transition: color 0.1s;
 
     .puz-mod-move & {
-      color: $c-brag;
+      color: var(--c-brag);
     }
   }
 
@@ -43,7 +43,7 @@
     @extend %box-radius;
 
     $c-bar-base: var(--c-bg-zebra2);
-    $c-in-base: $c-brag;
+    $c-in-base: var(--c-brag);
 
     flex: 0 0 2.2em;
     background: $c-bar-base;
@@ -71,8 +71,8 @@
 
       .puz-mod-malus-slow & {
         transition-property: width;
-        background: $c-bad;
-        box-shadow: 0 0 10px $c-bad, 0 0 20px $c-bad;
+        background: var(--c-bad);
+        box-shadow: 0 0 10px var(--c-bad), 0 0 20px var(--c-bad);
       }
     }
 

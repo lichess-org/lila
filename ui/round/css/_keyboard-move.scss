@@ -11,8 +11,8 @@
     @include transition;
 
     &.wrong {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: var(--c-bad);
+      color: var(--c-bad-over);
     }
   }
 

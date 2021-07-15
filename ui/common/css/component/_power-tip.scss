@@ -76,7 +76,7 @@
       @extend %flex-center;
 
       text-align: center;
-      color: $c-bad;
+      color: var(--c-bad);
       flex: 1 1 auto;
     }
   }
@@ -112,7 +112,7 @@
 
     &__marks {
       padding: 3px 5px;
-      background: $c-bad;
+      background: var(--c-bad);
       color: #fff;
     }
 

@@ -43,7 +43,7 @@
     display: none;
 
     &.berserk {
-      background: $c-bad;
+      background: var(--c-bad);
     }
   }
 
@@ -157,7 +157,7 @@
   }
 
   &.running .time {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: var(--c-secondary-faded-80);
     color: var(--c-font-clearer);
   }
 
@@ -176,7 +176,7 @@
     padding: 0 0.3em;
 
     &:hover {
-      color: $c-accent !important;
+      color: var(--c-accent) !important;
       background: none !important;
     }
   }
@@ -217,6 +217,6 @@
 
   .berserked {
     font-size: 2.2em;
-    color: $c-accent;
+    color: var(--c-accent);
   }
 }

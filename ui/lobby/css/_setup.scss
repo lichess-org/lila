@@ -1,5 +1,4 @@
-$c-setup: $c-secondary;
-$c-slider: $c-setup;
+$c-setup: var(--c-secondary);
 
 .game-setup {
   display: block;
@@ -83,7 +82,7 @@ $c-slider: $c-setup;
 
   #form3-fen.failure {
     background: mix($c-bg-box, $c-bad, 80%);
-    box-shadow: 0 0 13px $c-bad;
+    box-shadow: 0 0 13px var(--c-bad);
   }
 
   .range {

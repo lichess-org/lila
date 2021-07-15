@@ -60,7 +60,7 @@
 
     input {
       border: none;
-      background: fade-out($c-secondary, 0.8);
+      background: var(--c-secondary-faded-80);
     }
 
     .search,
@@ -76,7 +76,7 @@
   padding: 1em 0;
 
   &.required {
-    background: $c-accent;
+    background: var(--c-accent);
   }
 
   input {

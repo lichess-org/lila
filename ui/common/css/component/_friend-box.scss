@@ -44,7 +44,7 @@
       display: flex;
 
       &:hover {
-        background: mix($c-secondary, $c-bg-popup, 10%);
+        background: var(--c-secondary-faded-80);
       }
     }
 

@@ -49,7 +49,7 @@ $c-blunder: #df5353;
   }
 
   move.current {
-    border: 1px solid $c-accent;
+    border: 1px solid var(--c-accent);
   }
 
   move.active {
@@ -89,11 +89,11 @@ $c-blunder: #df5353;
   }
 
   move.context-menu {
-    background: $c-accent;
-    color: $c-accent-over;
+    background: var(--c-accent);
+    color: var(--c-accent-over);
 
     index {
-      color: $c-accent-over;
+      color: var(--c-accent-over);
     }
   }
 

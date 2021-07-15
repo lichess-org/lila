@@ -4,7 +4,7 @@
 
     justify-content: space-between;
     flex: 0 0 auto;
-    background: $c-accent;
+    background: var(--c-accent);
     color: #fff;
     padding: 0.4em 10px;
     line-height: 1.4em;
@@ -54,7 +54,7 @@
     .timeout a {
       @extend %nowrap-ellipsis;
 
-      color: $c-accent;
+      color: var(--c-accent);
       display: block;
       line-height: 1.5em;
 

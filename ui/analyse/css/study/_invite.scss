@@ -10,7 +10,7 @@
   .info {
     @extend %box-radius, %flex-center-nowrap;
 
-    background: $c-accent;
+    background: var(--c-accent);
     color: var(--c-primary-over);
     padding: 1em;
     margin-bottom: 2em;

@@ -145,8 +145,8 @@
     }
 
     ul > li.selected label {
-      background: $c-accent;
-      color: $c-accent-over;
+      background: var(--c-accent);
+      color: var(--c-accent-over);
     }
   }
 
@@ -173,7 +173,7 @@
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: var(--c-accent-faded-40);
         height: 2px;
         position: absolute;
         width: 96%;
@@ -193,7 +193,7 @@
       }
 
       &.active {
-        color: $c-accent;
+        color: var(--c-accent);
       }
     }
   }
@@ -215,7 +215,7 @@
     }
 
     a:hover {
-      background: mix($c-accent, $c-bg-box, 20%);
+      background: var(--c-accent-faded-80);
     }
 
     a:hover::before {
@@ -223,12 +223,12 @@
     }
 
     a.active {
-      color: $c-accent;
+      color: var(--c-accent);
     }
   }
 
   .clear {
-    color: $c-bad;
+    color: var(--c-bad);
     font-size: 0.9em;
     margin-bottom: 0.5em;
   }
@@ -257,20 +257,8 @@
       border-bottom: 0;
     }
 
-    .ms-parent.selected .ms-choice {
-      $c-sel-ms-choice: fade-out($c-accent, 0.3);
-
-      background: linear-gradient(
-        to right,
-        $c-sel-ms-choice 0px,
-        $c-sel-ms-choice 5px,
-        rgba(0, 0, 0, 0) 5px,
-        rgba(0, 0, 0, 0) 100%
-      );
-    }
-
     .ms-parent:hover .ms-choice {
-      background: mix($c-accent, $c-bg-box, 20%);
+      background: var(--c-accent-faded-80);
     }
 
     .ms-choice span {
@@ -323,7 +311,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: mix($c-accent, $c-bg-box, 20%);
+      background: var(--c-accent-faded-80);
     }
 
     ul > li label.optgroup {

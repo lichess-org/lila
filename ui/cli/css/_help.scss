@@ -4,7 +4,7 @@
   h3 {
     font-size: 2em;
     margin: 0.5em 0;
-    color: $c-accent;
+    color: var(--c-accent);
 
     &:first-child {
       margin-top: 0;
@@ -22,7 +22,7 @@
       text-align: left;
       font-family: monospace;
       margin: 0 2em 0 0;
-      color: $c-accent;
+      color: var(--c-accent);
       font-weight: bold;
     }
 

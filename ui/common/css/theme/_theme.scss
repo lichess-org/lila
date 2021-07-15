@@ -23,30 +23,43 @@ body {
   --c-primary-dim: $c-primary-dim;
   // --c-primary-clear: $c-primary-clear;
   --c-primary-clearer: $c-primary-clearer;
-  --c-primary-faded-90: fade-out($c-primary, 0.9);
-  --c-primary-faded-80: fade-out($c-primary, 0.8);
-  --c-primary-faded-70: fade-out($c-primary, 0.7);
-  --c-primary-faded-40: fade-out($c-primary, 0.4);
   --c-primary-faded-20: fade-out($c-primary, 0.2);
+  --c-primary-faded-40: fade-out($c-primary, 0.4);
+  --c-primary-faded-70: fade-out($c-primary, 0.7);
+  --c-primary-faded-80: fade-out($c-primary, 0.8);
+  --c-primary-faded-90: fade-out($c-primary, 0.9);
   --c-primary-light: lighten($c-primary, 10%);
   --c-primary-over: $c-primary-over;
 
   --c-secondary: $c-secondary;
   --c-secondary-dim: $c-secondary-dim;
   --c-secondary-dimmer: $c-secondary-dimmer;
+  --c-secondary-faded-25: fade-out($c-secondary, 0.25);
+  --c-secondary-faded-60: fade-out($c-secondary, 0.6);
+  --c-secondary-faded-70: fade-out($c-secondary, 0.7);
+  --c-secondary-faded-80: fade-out($c-secondary, 0.8);
+  --c-secondary-light: lighten($c-secondary, 4%);
   --c-secondary-over: $c-secondary-over;
 
   --c-accent: $c-accent;
   --c-accent-dim: $c-accent-dim;
-  --c-accent-clear: $c-accent-clear;
+  //--c-accent-clear: $c-accent-clear;
+  --c-accent-faded-30: fade-out($c-accent, 0.3);
+  --c-accent-faded-40: fade-out($c-accent, 0.4);
+  --c-accent-faded-50: fade-out($c-accent, 0.5);
+  --c-accent-faded-70: fade-out($c-accent, 0.7);
+  --c-accent-faded-80: fade-out($c-accent, 0.8);
+  --c-accent-faded-90: fade-out($c-accent, 0.9);
+  --c-accent-faded-box: mix($c-accent, $c-bg-box, 15%);
   --c-accent-over: $c-accent-over;
 
   --c-brag: $c-brag;
+  --c-brag-faded-20: fade-out($c-brag, 0.2);
   --c-brag-faded-80: fade-out($c-brag, 0.8);
   --c-brag-over: $c-brag-over;
 
-  --c-fancy: $c-fancy;
-  --c-fancy-over: $c-fancy-over;
+  //--c-fancy: $c-fancy;
+  //--c-fancy-over: $c-fancy-over;
 
   --c-bad: $c-bad;
   --c-bad-faded: fade-out($c-bad, 0.9);
@@ -134,7 +147,7 @@ body {
   --c-brag: $c-brag;
   --c-brag-faded-80: fade-out($c-brag, 0.8);
 
-  --c-fancy: $c-fancy;
+  //--c-fancy: $c-fancy;
 
   --c-warn: $c-warn;
 

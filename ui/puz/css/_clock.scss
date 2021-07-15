@@ -36,6 +36,6 @@
   }
 
   &__malus {
-    color: $c-bad;
+    color: var(--c-bad);
   }
 }

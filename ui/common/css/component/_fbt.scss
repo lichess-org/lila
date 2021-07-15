@@ -8,13 +8,13 @@
 
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
-      background: mix($c-secondary, $c-bg-box, 75%);
+      background: var(--c-secondary-faded-25);
       color: #fff;
     }
   }
 
   &.active {
-    background: $c-secondary !important;
+    background: var(--c-secondary) !important;
     color: #fff;
   }
 

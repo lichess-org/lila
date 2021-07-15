@@ -208,8 +208,8 @@
         }
 
         @include breakpoint($mq-subnav-top) {
-          background: $c-accent;
-          color: $c-accent-over;
+          background: var(--c-accent);
+          color: var(--c-accent-over);
         }
       }
 
@@ -219,7 +219,7 @@
       }
 
       &:hover span::before {
-        color: $c-accent;
+        color: var(--c-accent);
       }
     }
   }
@@ -251,7 +251,7 @@
       em {
         font-weight: bold;
         opacity: 0.6;
-        color: $c-brag;
+        color: var(--c-brag);
       }
     }
   }

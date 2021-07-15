@@ -4,7 +4,7 @@
   }
 
   50% {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: var(--c-secondary-faded-70);
   }
 
   60% {
@@ -40,8 +40,8 @@
     animation: none;
 
     &:hover {
-      background: $c-bad !important;
-      color: $c-bad-over !important;
+      background: var(--c-bad) !important;
+      color: var(--c-bad-over) !important;
     }
   }
 

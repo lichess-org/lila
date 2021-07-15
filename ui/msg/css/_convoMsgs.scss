@@ -72,7 +72,7 @@
 
   their {
     align-self: flex-start;
-    background: mix($c-brag, $c-bg-box, 15%);
+    background: var(--c-brag-faded-80);
 
     &:first-child {
       border-top-left-radius: 0;

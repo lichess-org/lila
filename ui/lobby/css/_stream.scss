@@ -12,7 +12,7 @@
     }
 
     &.highlight strong {
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     strong:before {

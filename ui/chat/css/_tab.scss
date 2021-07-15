@@ -11,14 +11,13 @@
     text-align: center;
     padding: 0.4em 10px;
 
-    // background: var(--c-shade);
     cursor: pointer;
     color: var(--c-font-page);
 
     @include transition;
 
     &:hover {
-      background: mix($c-accent, $c-bg-box, 15%);
+      background: var(--c-accent-faded-box);
     }
 
     &-active {

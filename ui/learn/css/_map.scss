@@ -81,12 +81,12 @@
     }
 
     &.done {
-      background: $c-secondary;
+      background: var(--c-secondary);
     }
 
     &.future {
       opacity: 0.7;
-      background: $c-accent;
+      background: var(--c-accent);
     }
 
     &.future img {
@@ -128,7 +128,7 @@
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
 
     i {
-      color: $c-brag;
+      color: var(--c-brag);
       animation: 0.6s soft-hue ease-in-out infinite;
       text-shadow: 0 -0.5px 1px rgba(0, 0, 0, 0.5);
     }

@@ -23,7 +23,7 @@
 
   &.inaccuracy .title,
   &.inaccuracy .progress div {
-    background: $c-brag;
+    background: var(--c-brag);
     color: #fff;
   }
 
@@ -31,7 +31,7 @@
   &.blunder .title,
   &.mistake .progress div,
   &.blunder .progress div {
-    background: $c-bad;
+    background: var(--c-bad);
     color: #fff;
   }
 
@@ -66,22 +66,22 @@
   }
 
   &.inaccuracy .verdict {
-    color: $c-brag;
+    color: var(--c-brag);
   }
 
   &.inaccuracy .verdict::before {
-    background: $c-brag;
+    background: var(--c-brag);
     content: '?';
   }
 
   &.mistake .verdict,
   &.blunder .verdict {
-    color: $c-bad;
+    color: var(--c-bad);
   }
 
   &.mistake .verdict::before,
   &.blunder .verdict::before {
-    background: $c-bad;
+    background: var(--c-bad);
     content: '✗';
   }
 

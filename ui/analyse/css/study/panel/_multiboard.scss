@@ -66,8 +66,8 @@
 
       &.active,
       &:active {
-        background: $c-secondary;
-        color: $c-secondary-over;
+        background: var(--c-secondary);
+        color: var(--c-secondary-over);
       }
 
       cg-board {

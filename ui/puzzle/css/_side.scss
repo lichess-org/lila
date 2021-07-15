@@ -61,7 +61,7 @@
       }
 
       &.down {
-        color: $c-bad;
+        color: var(--c-bad);
       }
     }
   }
@@ -69,7 +69,7 @@
   &__streak {
     &__info {
       h1 {
-        color: $c-brag;
+        color: var(--c-brag);
         @extend %flex-center-nowrap;
         font-size: 2.2rem;
         margin-bottom: 1rem;
@@ -80,7 +80,7 @@
     }
 
     &__score {
-      color: $c-brag;
+      color: var(--c-brag);
       @extend %flex-center-nowrap;
       justify-content: center;
       font-size: 4em;
@@ -238,7 +238,7 @@
     }
 
     .puzzle__themes:hover &.vote-down {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &::before {
@@ -260,7 +260,7 @@
 
     &.vote-down:hover,
     &.vote-down.active {
-      background: $c-bad;
+      background: var(--c-bad);
     }
   }
 

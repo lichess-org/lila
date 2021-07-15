@@ -42,15 +42,15 @@
   }
 
   &-green {
-    background: $c-secondary;
+    background: var(--c-secondary);
 
     &:not(.disabled):hover {
-      background: lighten($c-secondary, 4);
+      background: var(--c-secondary-light);
     }
   }
 
   &-red {
-    background: $c-bad;
+    background: var(--c-bad);
 
     &:not(.disabled):hover {
       background: lighten($c-bad, 11);
@@ -82,12 +82,12 @@
 
     &.button-red,
     &.button-red:hover {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &.button-green,
     &.button-green:hover {
-      color: $c-secondary;
+      color: var(--c-secondary);
     }
   }
 

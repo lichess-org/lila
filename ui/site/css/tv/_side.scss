@@ -32,7 +32,7 @@
   }
 
   &.active > span::before {
-    color: $c-accent;
+    color: var(--c-accent);
     opacity: 1;
   }
 }

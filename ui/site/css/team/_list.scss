@@ -17,7 +17,7 @@
     margin-bottom: 0.3em;
 
     &.mine {
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     em {

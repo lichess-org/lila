@@ -50,7 +50,7 @@
 
     &.rated {
       opacity: 0.9;
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     &.cancel {

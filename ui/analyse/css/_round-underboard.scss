@@ -27,7 +27,7 @@ $col2-panel-height: 240px;
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: var(--c-accent-faded-40);
         height: 2px;
         position: absolute;
         width: 96%;
@@ -45,7 +45,7 @@ $col2-panel-height: 240px;
       }
 
       &.active {
-        color: $c-accent;
+        color: var(--c-accent);
       }
     }
 

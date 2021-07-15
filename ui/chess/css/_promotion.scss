@@ -33,7 +33,7 @@
   }
 
   square:hover {
-    box-shadow: inset 0 0 48px 8px $c-accent;
+    box-shadow: inset 0 0 48px 8px var(--c-accent);
     border-radius: 0%;
   }
 

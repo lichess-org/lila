@@ -93,7 +93,7 @@
     left: 0;
     font-size: 2.2em;
     opacity: 0.6;
-    color: $c-brag;
+    color: var(--c-brag);
   }
 
   a:hover::before {

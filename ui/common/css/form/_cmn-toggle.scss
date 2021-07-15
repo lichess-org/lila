@@ -45,7 +45,7 @@
 }
 
 .cmn-toggle:not(:checked) + label {
-  background-color: $c-bad;
+  background-color: var(--c-bad);
 }
 
 .cmn-toggle--subtle:not(:checked) + label {
@@ -84,7 +84,7 @@
 .cmn-toggle:not(:checked) + label {
   &::before {
     content: '';
-    color: $c-bad;
+    color: var(--c-bad);
   }
 }
 

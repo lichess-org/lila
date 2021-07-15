@@ -1,6 +1,23 @@
 @import 'history';
 
+$c-darken: #333;
+$glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
+
 .puzzle-dashboard {
+  @import '../../common/css/theme/mixins';
+  @import '../../common/css/theme/default';
+  --c-perf: mix($c-brag, $c-darken, 85%);
+  --c-first: mix($c-good, $c-darken, 85%);
+  --c-fix: mix($c-good, $c-darken, 50%);
+  --c-fail: mix($c-bad, $c-darken, 80%);
+  @import '../../common/css/theme/dark';
+  @include dark-theme {
+    --c-perf: mix($c-brag, $c-darken, 85%);
+    --c-first: mix($c-good, $c-darken, 85%);
+    --c-fix: mix($c-good, $c-darken, 50%);
+    --c-fail: mix($c-bad, $c-darken, 80%);
+  }
+
   .box__top {
     display: flex;
     flex-flow: nowrap;
@@ -51,8 +68,6 @@
   &__metric {
     @extend %box-neat, %flex-column;
 
-    $glow-gradient: linear-gradient(145deg, rgba(255%, 255%, 255%, 0.3) 0%, transparent 45%);
-
     align-items: center;
     padding: 0.4em 0 0.6em 0;
     text-transform: uppercase;
@@ -80,32 +95,26 @@
 
     background: var(--c-bg-zebra2);
 
-    $c-darken: #333;
-
     &--played span {
       color: var(--c-font-dim) !important;
     }
 
     &--win {
-      $c-first: mix($c-good, $c-darken, 85%);
-      $c-fix: mix($c-good, $c-darken, 50%);
-      $c-fail: mix($c-bad, $c-darken, 80%);
-
       background: $glow-gradient,
         linear-gradient(
           to right,
-          $c-first 0%,
-          $c-first var(--first),
-          $c-fix var(--first),
-          $c-fix var(--win),
-          $c-fail var(--win),
-          $c-fail 100%
+          var(--c-first) 0%,
+          var(--c-first) var(--first),
+          var(--c-fix) var(--first),
+          var(--c-fix) var(--win),
+          var(--c-fail) var(--win),
+          var(--c-fail) 100%
         );
       color: $c-good-over;
     }
 
     &--perf {
-      background: $glow-gradient mix($c-brag, $c-darken, 85%);
+      background: $glow-gradient var(--c-perf);
       color: $c-good-over;
     }
 

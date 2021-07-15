@@ -119,7 +119,7 @@
     }
 
     button.decline {
-      color: $c-bad;
+      color: var(--c-bad);
       border-right: none;
     }
 
@@ -129,7 +129,7 @@
     }
 
     button.decline:hover {
-      background: $c-bad;
+      background: var(--c-bad);
     }
 
     &:last-child {

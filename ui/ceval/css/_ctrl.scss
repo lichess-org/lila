@@ -45,8 +45,8 @@
       @extend %roboto, %box-radius;
 
       margin-left: 4px;
-      background: $c-secondary-dim;
-      color: $c-secondary-over;
+      background: var(--c-secondary-dim);
+      color: var(--c-secondary-over);
       padding: 1px 3px;
       text-transform: uppercase;
       font-size: 11px;
@@ -99,7 +99,7 @@
     transition: width 1s;
 
     &.threat {
-      background: $c-bad;
+      background: var(--c-bad);
     }
   }
 
@@ -119,7 +119,7 @@
 
     &:hover:not(.hidden),
     &.active {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &.hidden {

@@ -9,7 +9,7 @@ th[role='columnheader']:not(.no-sort):after {
   margin-top: 7px;
   border-width: 0 5px 5px;
   border-style: solid;
-  border-color: $c-accent transparent;
+  border-color: var(--c-accent) transparent;
   visibility: hidden;
   opacity: 0;
   user-select: none;
@@ -21,7 +21,7 @@ th[aria-sort='descending']:not(.no-sort):after {
 }
 
 th[aria-sort]:not(.no-sort) {
-  background: fade-out($c-accent, 0.85);
+  background: var(--c-accent-faded-80);
   color: var(--c-font-clear);
   &:after {
     visibility: visible;

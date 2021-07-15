@@ -42,12 +42,10 @@
   }
 
   tr.me td:first-child {
-    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-
     background: linear-gradient(
       to right,
-      $c-me-border 0px,
-      $c-me-border 5px,
+      var(--c-secondary-faded-25) 0px,
+      var(--c-secondary-faded-25) 5px,
       rgba(0, 0, 0, 0) 5px,
       rgba(0, 0, 0, 0) 100%
     );
@@ -127,7 +125,7 @@
     }
 
     .draw {
-      color: mix($c-brag, $c-bg-box, 70);
+      color: var(--c-brag-faded-20);
     }
 
     bye {

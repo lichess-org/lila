@@ -72,7 +72,7 @@
     }
 
     &.current a {
-      background: mix($c-accent, $c-bg-box, 70%);
+      background: var(--c-accent-faded-30);
       color: #fff;
       opacity: 1 !important;
     }
@@ -107,7 +107,7 @@
   }
 
   .loss {
-    color: $c-bad;
+    color: var(--c-bad);
   }
 
   .unavailable {

@@ -13,11 +13,11 @@
     }
 
     &.cancel td {
-      background: fade-out($c-secondary, 0.6);
+      background: var(--c-secondary-faded-60);
     }
 
     &.join:hover td {
-      background: fade-out($c-accent, 0.5);
+      background: var(--c-accent-faded-50);
       color: #fff;
     }
 

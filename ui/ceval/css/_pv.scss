@@ -20,7 +20,7 @@
     }
 
     &[data-uci]:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: var(--c-secondary-faded-80);
       cursor: pointer;
     }
 
@@ -49,8 +49,8 @@
       top: 2px;
 
       &:hover {
-        background: $c-secondary;
-        color: $c-secondary-over;
+        background: var(--c-secondary);
+        color: var(--c-secondary-over);
       }
       &::before {
         content: '⯅';

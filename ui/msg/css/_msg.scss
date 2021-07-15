@@ -1,4 +1,4 @@
-$c-msg: $c-secondary;
+$c-msg: var(--c-secondary);
 $msg-top-height: 4em;
 
 @import 'side';
@@ -35,7 +35,7 @@ body {
       font-weight: bold;
       margin: 1.2em 0 0.8em 2em;
       text-transform: uppercase;
-      color: $c-brag;
+      color: var(--c-brag);
     }
   }
 }

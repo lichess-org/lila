@@ -50,17 +50,17 @@
     @include transition;
 
     &:hover {
-      color: $c-accent;
+      color: var(--c-accent);
     }
   }
 
   .gamesFiltered {
-    color: $c-accent;
+    color: var(--c-accent);
 
     @include transition;
 
     &:hover {
-      color: $c-accent-dim;
+      color: var(--c-accent-dim);
     }
   }
 }

@@ -43,7 +43,7 @@
   }
 
   .proxy {
-    color: $c-brag;
+    color: var(--c-brag);
     font-weight: bold;
   }
 
@@ -120,16 +120,16 @@
 
     position: fixed;
     bottom: 0;
-    background: $c-brag;
+    background: var(--c-brag);
     z-index: z('mz-menu');
 
-    // border-top: 1px solid $c-brag;
+    // border-top: 1px solid var(--c-brag);
     // border-width: 3px 2px 0 2px;
     padding: 0;
 
     a {
       padding: 1.2em 1.2em;
-      color: $c-brag-over;
+      color: var(--c-brag-over);
       font-size: 1.1em;
       font-weight: bold;
       opacity: 0.5;
@@ -139,7 +139,7 @@
       }
 
       &:not(.disabled):hover {
-        background: mix(white, $c-brag, 20%);
+        background: var(--c-brag-faded-20);
       }
 
       i {
@@ -226,7 +226,7 @@
       .blocked {
         a,
         .button {
-          color: $c-bad;
+          color: var(--c-bad);
         }
       }
 
@@ -245,12 +245,9 @@
 
       &.spy_filter {
         tbody tr {
-          &:hover {
-            background: mix($c-brag, $c-bg-box, 15%);
+          &:hover, &.selected {
+            background: var(--c-brag-faded-80);
             cursor: pointer;
-          }
-          &.selected {
-            background: mix($c-brag, $c-bg-box, 40%);
           }
         }
       }
@@ -315,7 +312,7 @@
     }
 
     .appeal-muted {
-      color: $c-bad;
+      color: var(--c-bad);
     }
   }
 
@@ -423,11 +420,11 @@
     }
 
     .sig_5 {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     .result_4 {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     .result_3 {
@@ -541,7 +538,7 @@
       }
 
       .red {
-        background-color: $c-bad;
+        background-color: var(--c-bad);
       }
     }
 
@@ -560,7 +557,7 @@
       }
 
       .red {
-        color: $c-bad;
+        color: var(--c-bad);
       }
     }
   }

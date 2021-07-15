@@ -52,8 +52,8 @@
   .browser-notification {
     display: block;
     padding: 0.5em 1em;
-    background: $c-brag;
-    color: $c-brag-over;
+    background: var(--c-brag);
+    color: var(--c-brag-over);
   }
 
   .content {

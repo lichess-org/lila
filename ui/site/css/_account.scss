@@ -18,7 +18,7 @@
   }
 
   .current {
-    color: $c-brag;
+    color: var(--c-brag);
     margin-left: 1em;
     font-weight: bold;
   }
@@ -66,7 +66,7 @@
   .brand {
     @extend %box-neat;
 
-    background: mix($c-accent, $c-bg-box, 10);
+    background: var(--c-accent-faded-90);
     padding: 1em 1.5em;
   }
 
@@ -123,7 +123,7 @@
   }
 
   h1 {
-    color: $c-accent;
+    color: var(--c-accent);
   }
 
   form section {
@@ -145,7 +145,7 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        background: linear-gradient(to right, var(--c-accent-faded-50), $c-bg-box 80%);
       }
     }
   }

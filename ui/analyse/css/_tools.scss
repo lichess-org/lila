@@ -16,7 +16,7 @@
       .title {
         font-size: 0.9rem;
         line-height: 1.9em;
-        background: mix($c-secondary, $c-bg-box, 40%);
+        background: var(--c-secondary-faded-60);
         padding: 0 7px;
       }
     }

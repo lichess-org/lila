@@ -59,7 +59,7 @@
 
       &.refused,
       .refused {
-        color: $c-bad;
+        color: var(--c-bad);
       }
 
       .condition:first-child,

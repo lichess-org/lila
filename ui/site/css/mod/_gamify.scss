@@ -24,7 +24,7 @@
     @extend %ellipsis;
 
     font-size: 3em;
-    color: $c-brag;
+    color: var(--c-brag);
     margin: 1rem 0 1.6rem 0;
   }
 

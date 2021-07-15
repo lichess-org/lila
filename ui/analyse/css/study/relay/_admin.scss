@@ -88,7 +88,7 @@
     }
 
     .err::before {
-      color: $c-bad;
+      color: var(--c-bad);
     }
   }
 }

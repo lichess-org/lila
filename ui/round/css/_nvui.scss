@@ -49,13 +49,13 @@
   }
 
   .notify {
-    color: $c-bad;
+    color: var(--c-bad);
     font-weight: bold;
   }
 
   .#{$active-class} {
     font-weight: bold;
-    color: $c-accent;
+    color: var(--c-accent);
   }
 
   .content a {

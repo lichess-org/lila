@@ -1,5 +1,3 @@
-$c-study-button: $c-accent;
-
 .study__buttons {
   @extend %flex-between;
 
@@ -21,8 +19,8 @@ $c-study-button: $c-accent;
   }
 
   .behind {
-    background: $c-bad;
-    color: $c-bad-over;
+    background: var(--c-bad);
+    color: var(--c-bad-over);
     padding: 0 5px;
     border-radius: 9px;
     margin-right: 4px;
@@ -38,7 +36,7 @@ $c-study-button: $c-accent;
     i::before {
       font-size: 1.4em;
       content: '';
-      color: $c-bad;
+      color: var(--c-bad);
       margin-right: 0.2rem;
     }
 

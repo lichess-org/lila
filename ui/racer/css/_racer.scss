@@ -97,7 +97,7 @@
       justify-content: space-between;
     }
     &__pov {
-      color: $c-brag;
+      color: var(--c-brag);
       margin: 1em 0;
       @include breakpoint($mq-col2) {
         margin: 1em 0 0 0;

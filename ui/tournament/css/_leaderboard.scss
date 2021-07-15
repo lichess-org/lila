@@ -24,7 +24,7 @@ $user-list-width: 35ch;
     white-space: nowrap;
 
     a {
-      color: $c-brag;
+      color: var(--c-brag);
       display: block;
 
       &:hover {
@@ -73,7 +73,7 @@ $user-list-width: 35ch;
   letter-spacing: normal;
   color: #333;
   text-shadow: 0 0 6px #fff;
-  filter: drop-shadow(0 0 10px $c-brag);
+  filter: drop-shadow(0 0 10px var(--c-brag));
 }
 
 .tournament-categ-shields {

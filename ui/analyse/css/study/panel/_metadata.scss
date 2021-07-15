@@ -34,7 +34,7 @@
 
     .liking:hover {
       opacity: 1;
-      color: $c-bad;
+      color: var(--c-bad);
     }
   }
 }

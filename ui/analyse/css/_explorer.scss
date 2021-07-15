@@ -63,7 +63,7 @@
     }
 
     &:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: var(--c-secondary-faded-80);
     }
   }
 
@@ -176,13 +176,13 @@
   }
 
   .game_menu {
-    background: $c-secondary;
+    background: var(--c-secondary);
     cursor: default;
     padding: 0;
 
     .game_title {
       text-align: center;
-      color: $c-secondary-over;
+      color: var(--c-secondary-over);
       margin: 3px 0 1px 0;
     }
 
@@ -337,8 +337,8 @@
         }
 
         &.selected {
-          background: $c-secondary;
-          color: $c-secondary-over;
+          background: var(--c-secondary);
+          color: var(--c-secondary-over);
           text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
           font-weight: bold;
           box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) inset;

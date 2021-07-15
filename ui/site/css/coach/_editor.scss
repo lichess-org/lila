@@ -55,13 +55,13 @@
     border-radius: 20px;
     padding: 1rem;
     background: mix($c-bad, $c-bg-box, 15%);
-    border: 1px solid $c-bad;
+    border: 1px solid var(--c-bad);
     margin-bottom: 2rem;
   }
 
   .overview .todo h3 {
     margin: 0;
-    color: $c-bad;
+    color: var(--c-bad);
     font-weight: bold;
   }
 
@@ -143,8 +143,8 @@
     }
 
     .modded {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: var(--c-bad);
+      color: var(--c-bad-over);
       padding: 8px 10px;
       margin-bottom: 1em;
     }
@@ -167,7 +167,7 @@
       }
 
       .no {
-        color: $c-bad;
+        color: var(--c-bad);
       }
 
       a:hover {
@@ -176,7 +176,7 @@
       }
 
       a.no:hover {
-        background: $c-bad;
+        background: var(--c-bad);
       }
     }
   }

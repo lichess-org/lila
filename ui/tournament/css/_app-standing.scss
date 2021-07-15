@@ -105,13 +105,13 @@
   }
 
   double {
-    color: $c-brag;
+    color: var(--c-brag);
 
     /* font-weight: bold; */
   }
 
   streak {
-    color: $c-secondary;
+    color: var(--c-secondary);
 
     /* font-weight: bold; */
   }

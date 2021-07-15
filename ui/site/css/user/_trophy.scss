@@ -30,7 +30,7 @@
   }
 
   &.top1 {
-    filter: drop-shadow(0 0 6px $c-brag);
+    filter: drop-shadow(0 0 6px var(--c-brag));
   }
 }
 
@@ -120,7 +120,7 @@
 .trophy.streaming {
   @extend %fire-trophy-shadow;
 
-  color: $c-brag;
+  color: var(--c-brag);
   animation: fire-trophy 1.25s ease-in-out infinite alternate;
 }
 
@@ -129,7 +129,7 @@
   font-size: 60px;
   margin: 0 -10px 0 30px;
   transform: scale(-1, 1);
-  color: $c-brag;
+  color: var(--c-brag);
   transition: margin-top 0.5s;
 
   &:hover {
@@ -156,7 +156,7 @@
   color: #333 !important;
   text-shadow: 0 0 6px #fff;
   margin-top: -20px;
-  filter: drop-shadow(0 0 6px $c-brag);
+  filter: drop-shadow(0 0 6px var(--c-brag));
 }
 
 .revol_trophy {

@@ -27,7 +27,7 @@
     }
 
     .fbt.yes {
-      $act-confirm-shade: mix(#000, $c-accent, 30%);
+      $act-confirm-shade: var(--c-accent-dim);
 
       position: absolute;
       right: 0;
@@ -35,7 +35,7 @@
       border-radius: 8px;
       color: #fff;
       text-decoration: none;
-      background: $c-accent;
+      background: var(--c-accent);
       border-bottom: 5px solid $act-confirm-shade;
       text-shadow: 0 -1px $act-confirm-shade;
 

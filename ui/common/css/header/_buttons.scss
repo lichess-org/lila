@@ -87,7 +87,7 @@
   .report-score {
     &:not(.report-score--high)::after {
       background: var(--c-bg-page);
-      color: $c-brag;
+      color: var(--c-brag);
       text-shadow: none;
       font-weight: normal;
     }

@@ -34,7 +34,7 @@
       background: $c-bg-box;
 
       &::before {
-        color: $c-accent;
+        color: var(--c-accent);
         opacity: 0.7;
       }
     }

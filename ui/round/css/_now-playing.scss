@@ -20,11 +20,11 @@
     }
 
     .draw {
-      color: $c-brag;
+      color: var(--c-brag);
     }
 
     .loss {
-      color: $c-bad;
+      color: var(--c-bad);
     }
   }
 

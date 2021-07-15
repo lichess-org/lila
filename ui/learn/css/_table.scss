@@ -114,12 +114,12 @@
     }
 
     &.failed {
-      background: $c-bad;
-      color: $c-bad-over;
+      background: var(--c-bad);
+      color: var(--c-bad-over);
     }
 
     &.failed button {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     @keyframes go-home {

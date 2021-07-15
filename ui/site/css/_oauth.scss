@@ -14,7 +14,7 @@
   }
 
   code {
-    color: $c-bad;
+    color: var(--c-bad);
     word-wrap: anywhere;
   }
 }

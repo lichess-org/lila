@@ -15,9 +15,9 @@
 }
 
 .is-red::before {
-  color: $c-bad;
+  color: var(--c-bad);
 }
 
 .is-gold::before {
-  color: $c-brag;
+  color: var(--c-brag);
 }

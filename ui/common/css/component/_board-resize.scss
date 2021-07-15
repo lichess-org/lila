@@ -37,12 +37,12 @@ cg-resize {
 
     &:hover {
       border-radius: 50%;
-      background: fade-out($c-accent, 0.5);
+      background: var(--c-accent-faded-50);
     }
 
     .resizing & {
       border-radius: 50%;
-      background: fade-out($c-secondary, 0.5);
+      background: var(--c-secondary-faded-25);
     }
   }
 }

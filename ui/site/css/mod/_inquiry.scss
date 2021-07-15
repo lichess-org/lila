@@ -255,7 +255,7 @@ body.no-inquiry {
   }
 
   .process button:hover {
-    background: $c-secondary;
+    background: var(--c-secondary);
   }
 
   .cancel button {

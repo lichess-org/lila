@@ -6,14 +6,14 @@
       border-radius: 20px;
       padding: 1rem;
       background: mix($c-bad, $c-bg-box, 15%);
-      border: 1px solid $c-bad;
+      border: 1px solid var(--c-bad);
       text-align: center;
       font-size: 1.3em;
       margin-bottom: 2rem;
 
       h2 {
         font-weight: bold;
-        color: $c-bad;
+        color: var(--c-bad);
       }
 
       h2,

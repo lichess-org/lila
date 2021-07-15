@@ -58,7 +58,7 @@ $mq-col3: $mq-x-large;
   }
 
   .hurry {
-    color: $c-bad !important;
+    color: var(--c-bad) !important;
   }
 
   grid-template-areas: 'board' 'progress' 'score' 'table' 'side';
@@ -165,7 +165,7 @@ $mq-col3: $mq-x-large;
 
     width: 100%;
     height: 10px;
-    background-color: $c-secondary;
+    background-color: var(--c-secondary);
   }
 
   &__table {
@@ -180,7 +180,7 @@ $mq-col3: $mq-x-large;
   }
 
   &.wrong {
-    $c-wrong: $c-bad;
+    $c-wrong: var(--c-bad);
 
     .progress_bar {
       background-color: $c-wrong;

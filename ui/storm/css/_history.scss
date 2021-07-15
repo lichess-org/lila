@@ -71,7 +71,7 @@
     }
 
     bad {
-      background: $c-bad;
+      background: var(--c-bad);
 
       &::before {
         content: '';

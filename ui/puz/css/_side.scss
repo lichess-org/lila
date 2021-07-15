@@ -54,7 +54,7 @@ $mq-col2: $mq-col2-uniboard;
   }
 
   &__start {
-    color: $c-brag;
+    color: var(--c-brag);
     margin: auto;
 
     @include breakpoint($mq-col2) {
@@ -93,7 +93,7 @@ $mq-col2: $mq-col2-uniboard;
     &__text {
       font-family: 'storm';
       font-size: 5.5rem;
-      color: $c-brag;
+      color: var(--c-brag);
       margin-right: 1rem;
       transition: text-shadow 0.1s;
     }

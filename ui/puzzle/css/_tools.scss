@@ -35,7 +35,7 @@
     }
 
     &.fail glyph {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     &.good glyph,
@@ -104,7 +104,7 @@
   }
 
   &.fail .icon {
-    color: $c-bad;
+    color: var(--c-bad);
   }
 
   .instruction > * {

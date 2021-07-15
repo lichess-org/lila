@@ -53,8 +53,8 @@
 
   @keyframes flash-once {
     from {
-      background: $c-accent;
-      color: $c-accent-over;
+      background: var(--c-accent);
+      color: var(--c-accent-over);
     }
 
     to {
@@ -86,7 +86,7 @@
     }
 
     .decline {
-      color: $c-bad;
+      color: var(--c-bad);
     }
 
     a:hover {
@@ -95,7 +95,7 @@
     }
 
     a.decline:hover {
-      background: $c-bad;
+      background: var(--c-bad);
     }
 
     @include breakpoint($mq-col1) {
@@ -274,8 +274,8 @@
       }
 
       &:hover {
-        background: $c-bad;
-        color: $c-bad-over;
+        background: var(--c-bad);
+        color: var(--c-bad-over);
         right: -36px;
         width: 35px;
       }

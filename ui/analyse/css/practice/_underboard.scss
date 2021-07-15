@@ -23,7 +23,7 @@
   }
 
   &.fail {
-    background: $c-bad;
+    background: var(--c-bad);
   }
 
   &:hover {

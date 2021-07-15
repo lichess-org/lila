@@ -50,7 +50,7 @@
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: var(--c-accent-faded-40);
         width: 3px;
         position: absolute;
         height: 98%;
@@ -70,7 +70,7 @@
       }
 
       &.active {
-        color: $c-accent;
+        color: var(--c-accent);
       }
     }
 

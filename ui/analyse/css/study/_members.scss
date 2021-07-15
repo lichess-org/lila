@@ -70,12 +70,12 @@
   }
 
   .leave {
-    color: $c-bad;
+    color: var(--c-bad);
     opacity: 0.7;
   }
 
   > div:hover .leave:hover {
-    background-color: $c-bad;
+    background-color: var(--c-bad);
   }
 
   .add {
@@ -98,7 +98,7 @@
 
   m-config,
   .editing {
-    background: mix($c-accent, $c-bg-box, 10%) !important;
+    background: var(--c-accent-faded-90) !important;
   }
 
   m-config {

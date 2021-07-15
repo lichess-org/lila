@@ -89,7 +89,7 @@ $mq-picture: $mq-large;
     padding: 2em 50px 1em 58px;
     font-size: 1.6em;
     line-height: 0.9;
-    background: mix($c-brag, $c-bg-box, 20%);
+    background: var(--c-brag-faded-80);
     color: var(--c-font);
 
     span {

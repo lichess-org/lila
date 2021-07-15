@@ -8,7 +8,7 @@
       flex: 0 0 auto;
 
       &::before {
-        color: $c-accent;
+        color: var(--c-accent);
         margin-right: 5px;
       }
     }
