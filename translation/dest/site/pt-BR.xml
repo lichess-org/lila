@@ -909,4 +909,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="focusChat">Focar texto</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabra sua conta</string>
+  <string name="onlyWorksOnce">Isso só vai funcionar uma vez.</string>
 </resources>
