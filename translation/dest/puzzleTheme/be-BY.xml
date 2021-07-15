@@ -39,6 +39,7 @@
   <string name="deflection">Адцягненне</string>
   <string name="deflectionDescription">Ход, які адцягвае фігуру суперніка ад выканання іншага абавязку, напрыклад, аховы ключавога поля. Часам таксама называецца \"перагрузка\".</string>
   <string name="discoveredAttack">Ўскрыты напад</string>
+  <string name="discoveredAttackDescription">Ход фігурай (напрыклад канём), якая раней блакавала фігуру далёкага дзеяння (напрыклад ладдзю), з лініі нападу гэтай фігуры.</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
