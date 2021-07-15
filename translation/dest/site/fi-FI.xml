@@ -909,4 +909,10 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="analysisOptions">Analyysiasetukset</string>
   <string name="focusChat">Kohdista keskusteluun</string>
   <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
+  <string name="reopenYourAccount">Avaa käyttäjätunnuksesi uudelleen</string>
+  <string name="closedAccountChangedMind">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat yhden mahdollisuuden palauttaa tunnuksesi.</string>
+  <string name="onlyWorksOnce">Tämä toimii vain kerran.</string>
+  <string name="cantDoThisTwice">Jos suljet tunnuksesi toisen kerran, sitä ei voi palauttaa enää millään tavalla.</string>
+  <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
+  <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
 </resources>
