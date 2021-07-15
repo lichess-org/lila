@@ -870,4 +870,10 @@
   <string name="analysisOptions">解析のオプション</string>
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
+  <string name="reopenYourAccount">アカウントを再開する</string>
+  <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
+  <string name="onlyWorksOnce">再開は一回限りです。</string>
+  <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
+  <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
+  <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
 </resources>
