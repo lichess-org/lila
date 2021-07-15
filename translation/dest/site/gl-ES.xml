@@ -909,4 +909,10 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Enfocar o chat</string>
   <string name="showHelpDialog">Amosa este diálogo de axuda</string>
+  <string name="reopenYourAccount">Abre de novo a túa conta</string>
+  <string name="closedAccountChangedMind">Se pechaches a túa conta pero mudaches de idea, tes unha oportunidade de volver a reactivala.</string>
+  <string name="onlyWorksOnce">Só funcionará unha vez.</string>
+  <string name="cantDoThisTwice">Se pechas a túa conta de novo, non haberá maneira de recuperala.</string>
+  <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada á conta</string>
+  <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
 </resources>
