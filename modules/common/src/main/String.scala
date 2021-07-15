@@ -65,7 +65,8 @@ object String {
       }
   }
 
-  val atUsernameRegex = RawHtml.atUsernameRegex
+  val atUsernameRegex    = RawHtml.atUsernameRegex
+  val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
 
   object html {
 
