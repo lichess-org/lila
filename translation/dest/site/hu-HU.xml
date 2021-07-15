@@ -441,7 +441,7 @@
   <string name="setTheBoard">Táblaállás</string>
   <string name="popularOpenings">Népszerű megnyitások</string>
   <string name="endgamePositions">Végjáték állások</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 kezdőállás: %s</string>
+  <string name="chess960StartPosition">Chess960 kezdőállás: %s</string>
   <string name="startPosition">Alapállás</string>
   <string name="clearBoard">Üres tábla</string>
   <string name="savePosition">Állás mentése</string>
