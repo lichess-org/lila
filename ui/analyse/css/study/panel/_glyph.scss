@@ -9,7 +9,7 @@
     flex: 1 0 30%;
   }
 
-  a {
+  button {
     @extend %flex-center-nowrap;
 
     @include transition;
@@ -18,6 +18,9 @@
     height: 2.3em;
     line-height: 2.3em;
     align-items: stretch;
+    border: none;
+    background: transparent;
+    width: 100%;
 
     &::before {
       @extend %flex-center;

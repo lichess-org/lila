@@ -22,17 +22,10 @@ export interface GlyphCtrl {
 function renderGlyph(ctrl: GlyphCtrl, node: Tree.Node) {
   return function (glyph: Tree.Glyph) {
     return h(
-      'a',
+      'button',
       {
-        hook: bind(
-          'click',
-          _ => {
-            ctrl.toggleGlyph(glyph.id);
-            return false;
-          },
-          ctrl.redraw
-        ),
-        attrs: { 'data-symbol': glyph.symbol },
+        hook: bind('click', _ => ctrl.toggleGlyph(glyph.id), ctrl.redraw),
+        attrs: { 'data-symbol': glyph.symbol, type: 'button' },
         class: {
           active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
         },
