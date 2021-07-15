@@ -441,7 +441,7 @@
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Populære åpninger</string>
   <string name="endgamePositions">Sluttspillstillinger</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Fischersjakkutgangsstilling: %s</string>
+  <string name="chess960StartPosition">Fischersjakkutgangsstilling: %s</string>
   <string name="startPosition">Utgangsstilling</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="savePosition">Lagre stilling</string>
