@@ -535,7 +535,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="setTheBoard">Socraigh an bord</string>
   <string name="popularOpenings">Deiseanna a bhfuil tóir orthu</string>
   <string name="endgamePositions">Suíomhanna deiridh an cluiche</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Suíomh tosaigh Ficheall960: %s</string>
+  <string name="chess960StartPosition">Suíomh tosaigh Ficheall960: %s</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="clearBoard">Glan an bord</string>
   <string name="savePosition">Sábháil an suíomh</string>
