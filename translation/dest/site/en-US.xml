@@ -442,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="setTheBoard">Set the board</string>
   <string name="popularOpenings">Popular openings</string>
   <string name="endgamePositions">Endgame positions</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 start position: %s</string>
+  <string name="chess960StartPosition">Chess960 start position: %s</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
