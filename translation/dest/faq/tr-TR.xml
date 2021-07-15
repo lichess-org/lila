@@ -40,14 +40,14 @@
   <string name="lichessSupportChessAnd">Lichess standart satranç ile %1$s destekler.</string>
   <string name="eightVariants">8 satranç varyantını</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
-  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
+  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 100\'de 1\'ine eşittir. Yani 100 santipiyon 1 piyon değerindedir. Bu değerler oyunda doğrudan bir rol oynamasa da oyuncular için yararlı, bilgisayarlar için ise pozisyon analizlerinde gereklidir.
 
-En iyi bilgisayar hareketi sıfır santipiyon kaybettirir, ancak daha az hamle santipiyon cinsinden ölçülen pozisyonun bozulmasına neden olacaktır.
+Bilgisayarın önerdiği en iyi hamle santipiyon kaybettirmez ancak daha zayıf hamleler pozisyonun kötüye gitmesine sebep olacaktır. Bu durum da santipiyon ile ölçülür.
 
-Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybederse, oyun o kadar güçlü olur.
+Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybedilirse, hamleler o kadar güçlü demektir.
 
 Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
-  <string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
+  <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
   <string name="lichessFollowFIDErules">Bir oyuncunun zaman tükenmesi durumunda, bu oyuncu genellikle oyunu kaybedecektir. Ancak, oyun, rakip oyuncunun şahını olası herhangi bir yasal hamleler dizisi (%1$s) mat edebiliyor ise maç sonucu değişebilir.
 
 Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
