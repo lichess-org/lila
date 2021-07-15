@@ -50,7 +50,7 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
-  <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
+  <string name="restrictedToTeamsQ">Wieso isch es uf Teams beschränkt?</string>
   <string name="restrictedToTeamsA">Turniär noch Schwiizer Syschtem sind für Onlineschach echli ung\'eignät. Si verlangäd Pünktlichkeit, Durchhaltevermögä und Geduld.
 Mir glaubäd, dass die Bedingigä ehnder innerhalb vu Teams als in öffentlichä Turniär erfüllt wärdäd.</string>
   <string name="numberOfByesQ">Wie viele kampflose Punkte kann ein Spieler bekommen?</string>
@@ -59,7 +59,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
-  <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>
+  <string name="lateJoinQ">Chönd Spillär au z\'spaat biiträtä?</string>
   <string name="lateJoinA">Jawoll, bis meh als d\'Hälfti vodä Rundänä aagfangä händ; so chönd Schpiller/-innä zum Biischpiil amänä elfründigä Turniär noch Schwiizer Syschtem vor Beginn vo Rundi 6 und imänä zwölfrundigä vor Beginn vo Rundi 7 biiträtä. Noochzügler bechömäd en halbä Punkt guätgschribä, au wenn si mehräri Rundänä verpasst händ.</string>
   <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
@@ -96,6 +96,6 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="pause">Pausä</string>
   <string name="pauseSwiss">Ja, aber die Anzahl der Runden könnte verringert werden</string>
   <string name="streaksAndBerserk">Schträhnä und Bärsärk</string>
-  <string name="similarToOTB">Ähnlich wie OTB Turniere</string>
-  <string name="unlimitedAndFree">Unbegrenzt und kostenlos</string>
+  <string name="similarToOTB">Ähnlich zu OTB Turniär</string>
+  <string name="unlimitedAndFree">Unbeschränkt und gratis</string>
 </resources>
