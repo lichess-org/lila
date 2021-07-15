@@ -859,6 +859,9 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
   <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
   <string name="reopenYourAccount">Mở lại tài khoản</string>
+  <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
+  <string name="onlyWorksOnce">Chỉ làm được một lần.</string>
+  <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
   <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
   <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
 </resources>
