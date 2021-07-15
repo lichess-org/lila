@@ -909,4 +909,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="analysisOptions">Analyseoptionen</string>
   <string name="focusChat">Chateingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
+  <string name="reopenYourAccount">Wiedereröffnen deines Kontos</string>
 </resources>
