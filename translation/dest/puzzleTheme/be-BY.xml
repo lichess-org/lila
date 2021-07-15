@@ -32,10 +32,13 @@
   <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="kingsideAttack">Атака на каралеўскім флангу</string>
   <string name="kingsideAttackDescription">Атака на караля суперніка, пасля ягонай кароткай ракіроўкі.</string>
+  <string name="clearance">Расчыстка поля</string>
+  <string name="clearanceDescription">Ход, часта з тэмпам, які расчышчае поле, лінію або дыяганал для паследуючай тактыкі.</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="deflection">Адцягненне</string>
   <string name="deflectionDescription">Ход, які адцягвае фігуру суперніка ад выканання іншага абавязку, напрыклад, аховы ключавога поля. Часам таксама называецца \"перагрузка\".</string>
+  <string name="discoveredAttack">Ўскрыты напад</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
