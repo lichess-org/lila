@@ -26,7 +26,7 @@
   <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyunculara ne yapılır?</string>
   <string name="leavingGameWithoutResigningExplanation">Rakibiniz oyunlardan sık sık ayrılıyorsa yeni bir oyuna katılması geçici olarak engellenir. Bu kısıtlama oyuncunun profilinde görüntülenmez. Eğer aynı oyuncu maçı terk etmeden oyunlardan ayrılmaya devam ederse uygulanan engelin süresi artırılır. Bu davranış çok uzun süre devam ederse oyuncunun hesabı kapatılabilir.</string>
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
-  <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
+  <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
