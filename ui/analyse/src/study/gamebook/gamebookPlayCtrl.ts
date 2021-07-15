@@ -66,7 +66,7 @@ export default class GamebookPlayCtrl {
 
   isMyMove = () => this.root.turnColor() === this.root.data.orientation;
 
-  movableColor = () => ["play", "good"].includes(this.state.feedback) ? this.root.data.orientation : undefined;
+  movableColor = () => (['play', 'good'].includes(this.state.feedback) ? this.root.data.orientation : undefined);
 
   retry = () => {
     let path = this.root.path;
