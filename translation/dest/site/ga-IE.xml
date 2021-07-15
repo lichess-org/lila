@@ -1030,4 +1030,10 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="analysisOptions">Roghanna anailíse</string>
   <string name="focusChat">Comhrá spriocghrúpa</string>
   <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
+  <string name="reopenYourAccount">Athoscailt do chuntas</string>
+  <string name="closedAccountChangedMind">Má dhún tú do chuntas, ach d’athraigh tú d’intinn, gheobhaidh tú seans amháin do chuntas a fháil ar ais.</string>
+  <string name="onlyWorksOnce">Ní oibreoidh sé seo ach uair amháin.</string>
+  <string name="cantDoThisTwice">Má dhúnann tú do chuntas an dara huair, ní bheidh aon bhealach ann é a athshlánú.</string>
+  <string name="emailAssociatedToaccount">Seoladh ríomhphoist a bhaineann leis an gcuntas</string>
+  <string name="sentEmailWithLink">Tá ríomhphost seolta againn le nasc.</string>
 </resources>
