@@ -31,14 +31,14 @@
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri ne anlama geliyor?</string>
-  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
-Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
+  <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
+Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
   <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ve %1$s\'nı destekler.</string>
-  <string name="eightVariants">8 satranç varyantı</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ile %1$s destekler.</string>
+  <string name="eightVariants">8 satranç varyantını</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
   <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
 
