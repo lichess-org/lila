@@ -503,7 +503,7 @@
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
+  <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
   <string name="savePosition">Захаваць пазіцыю</string>
