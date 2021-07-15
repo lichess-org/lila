@@ -74,7 +74,7 @@ export function queues(data: any) {
     const cfg = merge(
       {
         ...conf(room.name, data.common.xaxis),
-        series: room.series.map(s => ({
+        series: room.series.map((s: any) => ({
           ...s,
           name: `Score: ${s.name}`,
         })),

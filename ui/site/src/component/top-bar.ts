@@ -36,7 +36,7 @@ export default function () {
 
   {
     // challengeApp
-    let instance, booted: boolean;
+    let instance: any, booted: boolean;
     const $toggle = $('#challenge-toggle');
     $toggle.one('mouseover click', () => load());
     const load = function (data?: any) {
@@ -69,7 +69,7 @@ export default function () {
 
   {
     // notifyApp
-    let instance, booted: boolean;
+    let instance: any, booted: boolean;
     const $toggle = $('#notify-toggle'),
       selector = '#notify-app';
 

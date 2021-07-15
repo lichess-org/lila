@@ -14,9 +14,9 @@ lichess.load.then(() => {
     return us;
   }
 
-  function userChoices(row) {
+  function userChoices(row: HTMLTableRowElement) {
     const options = ["<option value=''></option>"];
-    const isSelected = function (row, rowClassName, user, dataKey) {
+    const isSelected = function (row: HTMLTableRowElement, rowClassName: string, user: string, dataKey: string) {
       const player = $form.data(dataKey);
       return row.classList.contains(rowClassName) && player.length && user == player ? 'selected' : '';
     };
