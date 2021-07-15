@@ -12,7 +12,10 @@ function init() {
       $input = $captcha.find('input').val(''),
       cg = domData.get($board[0]!, 'chessground');
 
-    if (!cg) return (failed = true);
+    if (!cg) {
+      failed = true;
+      return;
+    }
 
     const fen = cg.getFen(),
       destsObj = $board.data('moves'),

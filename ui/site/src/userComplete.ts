@@ -2,16 +2,16 @@ import * as xhr from 'common/xhr';
 import complete from 'common/complete';
 import debounce from 'debounce-promise';
 
-interface Result extends LightUser {
-  online: boolean;
+export interface Result {
+  result: LightUserOnline[];
 }
 
 interface Opts {
   input: HTMLInputElement;
   tag?: 'a' | 'span';
   minLength?: number;
-  populate?: (result: Result) => string;
-  onSelect?: (result: Result) => void;
+  populate?: (result: LightUserOnline) => string;
+  onSelect?: (result: LightUserOnline) => void;
   focus?: boolean;
   friend?: boolean;
   tour?: string;
@@ -31,14 +31,14 @@ export default function (opts: Opts): void {
             object: 1,
           })
         )
-        .then(r => ({ term, ...r })),
+        .then((r: Result) => ({ term, ...r })),
     150
   );
 
-  complete<Result>({
+  complete<LightUserOnline>({
     input: opts.input,
     fetch: t => debounced(t).then(({ term, result }) => (t == term ? result : Promise.reject('Debounced ' + t))),
-    render(o: Result) {
+    render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
       return (
         '<' +

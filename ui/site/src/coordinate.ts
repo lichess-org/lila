@@ -3,6 +3,7 @@ import { sparkline } from '@fnando/sparkline';
 import throttle from 'common/throttle';
 import resizeHandle from 'common/resize';
 import * as cg from 'chessground/types';
+import { Api as ChessgroundApi } from 'chessground/api';
 
 type CoordModifier = 'new' | 'next' | 'current' | 'resolved';
 
@@ -12,7 +13,7 @@ lichess.load.then(() => {
     const $board = $('.coord-trainer__board .cg-wrap');
     const $coordsSvg = $('.coords-svg');
     const $coordTexts = $coordsSvg.find('.coord text');
-    let ground;
+    let ground: ChessgroundApi;
     const $side = $('.coord-trainer__side');
     const $right = $('.coord-trainer__table');
     const $bar = $trainer.find('.progress_bar');
@@ -25,9 +26,9 @@ lichess.load.then(() => {
     const tickDelay = 50;
     const resizePref = $trainer.data('resize-pref');
     let colorPref = $trainer.data('color-pref');
-    let color;
-    let startAt, score;
-    let wrongTimeout;
+    let color: Color;
+    let startAt: Date, score: number;
+    let wrongTimeout: number;
     let ply = 0;
 
     const showColor = function () {
@@ -127,7 +128,7 @@ lichess.load.then(() => {
       $coordTexts.text('');
     };
 
-    const newCoord = function (prevCoord) {
+    const newCoord = function (prevCoord: Key): Key {
       // disallow the previous coordinate's row or file from being selected
       let files = 'abcdefgh';
       const fileIndex = files.indexOf(prevCoord[0]);
@@ -137,9 +138,8 @@ lichess.load.then(() => {
       const rowIndex = rows.indexOf(prevCoord[1]);
       rows = rows.slice(0, rowIndex) + rows.slice(rowIndex + 1, 8);
 
-      return (
-        files[Math.round(Math.random() * (files.length - 1))] + rows[Math.round(Math.random() * (rows.length - 1))]
-      );
+      return (files[Math.round(Math.random() * (files.length - 1))] +
+        rows[Math.round(Math.random() * (rows.length - 1))]) as Key;
     };
 
     const coordClass = (modifier: CoordModifier) => `coord--${modifier}`;
@@ -152,7 +152,7 @@ lichess.load.then(() => {
 
       coordEl('current').removeClass(coordClass('current')).addClass(coordClass('resolved'));
       coordEl('next').removeClass(coordClass('next')).addClass(coordClass('current'));
-      coordTextEl('new').text(newCoord(coordTextEl('current').text()));
+      coordTextEl('new').text(newCoord(coordTextEl('current').text() as Key));
       coordEl('new').removeClass(coordClass('new')).addClass(coordClass('next'));
 
       resolvedEl.removeClass(coordClass('resolved')).addClass(coordClass('new')).appendTo($coordsSvg);
@@ -165,7 +165,7 @@ lichess.load.then(() => {
       $trainer.removeClass('wrong');
       ground.set({
         events: {
-          select: false,
+          select: undefined,
         },
       });
       if (scoreUrl)
@@ -181,7 +181,7 @@ lichess.load.then(() => {
     };
 
     const tick = function () {
-      const spent = Math.min(duration, new Date().getTime() - startAt);
+      const spent = Math.min(duration, new Date().getTime() - +startAt);
       const left = ((duration - spent) / 1000).toFixed(1);
       if (+left < 10) {
         $timer.addClass('hurry');
@@ -203,7 +203,7 @@ lichess.load.then(() => {
       clearCoords();
       centerRight();
       score = 0;
-      $score.text(score);
+      $score.text(score.toString());
       $bar.css('width', 0);
       setTimeout(function () {
         startAt = new Date();
@@ -213,7 +213,7 @@ lichess.load.then(() => {
               const hit = key == coordEl('current').text();
               if (hit) {
                 score++;
-                $score.text(score);
+                $score.text(score.toString());
                 advanceCoords();
               } else {
                 clearTimeout(wrongTimeout);

@@ -255,6 +255,7 @@ interface Window {
   palantir?: {
     palantir(opts: PalantirOpts): Palantir;
   };
+  LichessChat(element: Element, opts: any): unknown;
   [key: string]: any; // TODO
 }
 
@@ -273,6 +274,10 @@ interface LightUserNoId {
 
 interface LightUser extends LightUserNoId {
   id: string;
+}
+
+interface LightUserOnline extends LightUser {
+  online: boolean;
 }
 
 interface Navigator {
