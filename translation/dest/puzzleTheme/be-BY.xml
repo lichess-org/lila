@@ -41,6 +41,7 @@
   <string name="discoveredAttack">Ўскрыты напад</string>
   <string name="discoveredAttackDescription">Ход фігурай (напрыклад канём), якая раней блакавала фігуру далёкага дзеяння (напрыклад ладдзю), з лініі нападу гэтай фігуры.</string>
   <string name="doubleCheck">Падвойны шах</string>
+  <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="enPassantDescription">Задача звязаная з \"узяццем на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
@@ -52,6 +53,8 @@
   <string name="hangingPieceDescription">Тактыка, уключаючая неабароненую фігуру суперніка ці недастатковую колькасць яе абаронцоў, якую можна з\'есці.</string>
   <string name="hookMate">Хук-мат</string>
   <string name="hookMateDescription">Мат ладдзёй, канём і пешкай разам з дапамогай адной пешкай суперніка, абмяжоўваючай адыход варожага караля.</string>
+  <string name="interference">Перакрыццё</string>
+  <string name="interferenceDescription">Перамяшчэнне фігуры паміж дзвюма фігурамі суперніка, каб адна або абедзве фігуры суперніка засталіся без абароны, напрыклад, конь на абароненым полі паміж дзвюма ладдзямі.</string>
   <string name="intermezzo">Прамежкавы ход</string>
   <string name="intermezzoDescription">Замест чаканага хода, спачатку зрабіце іншы ход, ствараючы непасрэдную пагрозу, на якую супернік павінен адказаць. Таксама вядомы як \"Zwischenzug\" або \"Intermezzo\".</string>
   <string name="knightEndgame">Канёвы эндшпіль</string>
