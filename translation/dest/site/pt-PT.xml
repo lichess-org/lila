@@ -442,7 +442,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições finais</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posição inicial do Xadrez960: %s</string>
+  <string name="chess960StartPosition">Posição inicial do Xadrez960: %s</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar o tabuleiro</string>
   <string name="savePosition">Guardar a posição</string>
