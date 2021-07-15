@@ -411,7 +411,7 @@
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">チェス960 開始局面: %s</string>
+  <string name="chess960StartPosition">チェス960 開始局面: %s</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
