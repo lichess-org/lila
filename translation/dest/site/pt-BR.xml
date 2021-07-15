@@ -908,4 +908,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar texto</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
+  <string name="reopenYourAccount">Reabra sua conta</string>
 </resources>
