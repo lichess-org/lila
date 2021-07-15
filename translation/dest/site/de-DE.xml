@@ -910,4 +910,9 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="focusChat">Chateingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
   <string name="reopenYourAccount">Wiedereröffnen deines Kontos</string>
+  <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen hast, aber deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzubekommen.</string>
+  <string name="onlyWorksOnce">Das funktioniert nur einmal.</string>
+  <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
+  <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
+  <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
 </resources>
