@@ -23,6 +23,7 @@
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="crushing">Зруйнаванне</string>
+  <string name="crushingDescription">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
   <string name="doubleBishopMate">Мат двума сланамі</string>
   <string name="doubleBishopMateDescription">Два нападаючых слана на суседніх дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="dovetailMate">Мат \"галубіны хвост\"</string>
