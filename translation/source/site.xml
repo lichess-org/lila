@@ -662,8 +662,8 @@ computer analysis, game chat and shareable URL.</string>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
-  <string name="youAreBetterThanPercentOfX">You are better than %1$s of %2$s</string>
-  <string name="userIsBetterThanPercentOfX">%1$s is better than %2$s of %3$s players.</string>
+  <string name="youAreBetterThanPercentOfX">You are better than %1$s of %2$s.</string>
+  <string name="userIsBetterThanPercentOfX">%1$s is better than %2$s of %3$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
   <string name="yourRating">Your rating</string>
   <string name="cumulative">Cumulative</string>
