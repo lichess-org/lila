@@ -62,7 +62,7 @@ Rakipte kendi şahının hareketini engelleyebilecek herhangi bir taş varsa, te
 \"Orijinal karesinden bir hamlede iki kare ilerleyen bir rakibin piyonu bitişik ve aynı sırada ise, bu piyon rakibin piyonunu sanki normal piyonla taş alırmış gibi alabilir. Bu hamle sadece piyon iki kare ilerledikten hemen sonraki hamle içerisinde yapılabilir ve \'geçerken alma\' diye adlandırılır.
 
 Biraz pratik yapmak için bu hamle için olan %3$s\'ye bakın.</string>
-  <string name="goodIntroduction">iyi giriş</string>
+  <string name="goodIntroduction">güzel bir açıklama</string>
   <string name="officialRulesPDF">resmi kurallar (PDF)</string>
   <string name="lichessTraining">Lichess egzersizi</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
