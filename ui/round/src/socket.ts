@@ -153,12 +153,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     simulEnd(simul: game.Simul) {
       lichess.loadCssPath('modal');
-      modal(
-        $(
+      modal({
+        content: $(
           '<p>Simul complete!</p><br /><br />' +
             `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`
-        )
-      );
+        ),
+      });
     },
   };
 

@@ -1,16 +1,16 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
-import { storedProp, StoredProp } from 'common/storage';
 import * as xhr from 'common/xhr';
+import AnalyseCtrl from '../ctrl';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { variants as xhrVariants, importPgn } from './studyXhr';
-import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { Redraw } from '../interfaces';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { defined, prop, Prop } from 'common';
+import { h, VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
+import { Redraw } from '../interfaces';
+import { snabModal } from 'common/modal';
+import { storedProp, StoredProp } from 'common/storage';
+import { StudySocketSend } from '../socket';
+import { variants as xhrVariants, importPgn } from './studyXhr';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -140,7 +140,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return modal.modal({
+  return snabModal({
     class: 'chapter-new',
     onClose() {
       ctrl.close();
@@ -342,9 +342,22 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               modeChoices.map(c => option(c[0], mode, noarg(c[1])))
             ),
           ]),
-          modal.button(noarg('createChapter')),
+          modalButton(noarg('createChapter')),
         ]
       ),
     ],
   });
+}
+
+export function modalButton(name: string): VNode {
+  return h(
+    'div.form-actions.single',
+    h(
+      'button.button',
+      {
+        attrs: { type: 'submit' },
+      },
+      name
+    )
+  );
 }

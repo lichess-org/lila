@@ -1,10 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
-import { Redraw } from '../interfaces';
-import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
-import * as modal from '../modal';
 import * as chapterForm from './chapterNewForm';
+import { bind, bindSubmit, spinner, option, onInsert, emptyRedButton } from '../util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, StudyChapterMeta } from './interfaces';
+import { defined, prop, Prop } from 'common';
+import { h, VNode } from 'snabbdom';
+import { modalButton } from './chapterNewForm';
+import { Redraw } from '../interfaces';
+import { snabModal } from 'common/modal';
 import { StudySocketSend } from '../socket';
 
 export interface StudyChapterEditFormCtrl {
@@ -75,7 +76,7 @@ export function ctrl(
 export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
   const data = ctrl.current();
   return data
-    ? modal.modal({
+    ? snabModal({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
@@ -201,6 +202,6 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         ].map(v => option(v[0], data.description ? '1' : '', v[1]))
       ),
     ]),
-    modal.button(ctrl.trans.noarg('saveChapter')),
+    modalButton(ctrl.trans.noarg('saveChapter')),
   ];
 }

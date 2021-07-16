@@ -1,21 +1,24 @@
 import TournamentController from '../ctrl';
-import { bind, onInsert, playerName } from './util';
+import { bind, playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
-import modal from 'common/modal';
+import modal, { snabModal } from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
-  const onClose = () => {
-    ctrl.joinWithTeamSelector = false;
-    ctrl.redraw();
-  };
   const tb = ctrl.data.teamBattle!;
-  return h(
-    'div.none',
-    {
-      hook: onInsert(el => modal($(el), 'team-battle__choice', onClose)),
+  return snabModal({
+    class: 'team-battle__choice',
+    onInsert($el) {
+      $el.on('click', '.team-picker__team', e => {
+        ctrl.join(e.target.dataset['id']);
+        modal.close();
+      });
     },
-    [
+    onClose() {
+      ctrl.joinWithTeamSelector = false;
+      ctrl.redraw();
+    },
+    content: [
       h('div.team-picker', [
         h('h2', 'Pick your team'),
         h('br'),
@@ -24,9 +27,11 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               h('p', 'Which team will you represent in this battle?'),
               ...tb.joinWith.map(id =>
                 h(
-                  'a.button',
+                  'button.button.team-picker__team',
                   {
-                    hook: bind('click', () => ctrl.join(id), ctrl.redraw),
+                    attrs: {
+                      'data-id': id,
+                    },
                   },
                   tb.teams[id]
                 )
@@ -51,8 +56,8 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]),
       ]),
-    ]
-  );
+    ],
+  });
 }
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {

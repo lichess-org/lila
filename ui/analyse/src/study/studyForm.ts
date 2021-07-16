@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import * as modal from '../modal';
+import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
 import { bind, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
@@ -114,7 +114,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
     ['member', ctrl.trans.noarg('members')],
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
-  return modal.modal({
+  return snabModal({
     class: 'study-edit',
     onClose() {
       ctrl.open(false);

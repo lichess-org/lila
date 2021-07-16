@@ -2,7 +2,7 @@ import * as control from './control';
 import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
 import { h, VNode } from 'snabbdom';
-import { modal } from './modal';
+import { snabModal } from 'common/modal';
 import { spinner } from './util';
 
 export const bind = (ctrl: AnalyseCtrl) => {
@@ -93,12 +93,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return modal({
+  return snabModal({
     class: 'keyboard-help',
-    onInsert(el: HTMLElement) {
+    onInsert($wrap: Cash) {
       lichess.loadCssPath('analyse.keyboard');
       xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })).then(html => {
-        el.querySelector('.scrollable')!.innerHTML = html;
+        $wrap.find('.scrollable').html(html);
       });
     },
     onClose() {

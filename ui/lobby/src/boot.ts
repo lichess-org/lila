@@ -90,7 +90,13 @@ export default function LichessLobby(opts: LobbyOpts) {
         res.text().then(text => {
           if (res.ok) {
             lobby.setup.prepareForm(
-              modal($(text), 'game-setup', () => $startButtons.find('.active').removeClass('active'))
+              modal({
+                content: $(text),
+                class: 'game-setup',
+                onClose() {
+                  $startButtons.find('.active').removeClass('active');
+                },
+              })
             );
             lichess.contentLoaded();
           } else {

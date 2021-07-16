@@ -1,23 +1,42 @@
-export default function modal(content: Cash, cls?: string, onClose?: () => void) {
+import { h, VNode } from 'snabbdom';
+import { bind, MaybeVNodes, onInsert } from './snabbdom';
+
+interface BaseModal {
+  class?: string;
+  onInsert?: ($wrap: Cash) => void;
+  onClose?(): void;
+  noClickAway?: boolean;
+}
+
+interface Modal extends BaseModal {
+  content: Cash;
+}
+
+interface SnabModal extends BaseModal {
+  content: MaybeVNodes;
+}
+
+export default function modal(opts: Modal) {
   modal.close();
   const $wrap = $(
     '<div id="modal-wrap"><span class="close" role="button" aria-label="Close" data-icon="" tabindex="0"></span></div>'
   );
-  const $overlay = $(`<div id="modal-overlay" class="${cls}">`).on('click', modal.close);
+  const $overlay = $(`<div id="modal-overlay" class="${opts.class}">`);
+  if (!opts.noClickAway) $overlay.on('click', modal.close);
   $('<a href="#"></a>').appendTo($overlay); // guard against focus escaping to window chrome
   $wrap.appendTo($overlay);
   $('<a href="#"></a>').appendTo($overlay); // guard against focus escaping to window chrome
-  content.clone().removeClass('none').appendTo($wrap);
-  modal.onClose = onClose;
-  $wrap
-    .find('.close')
-    .on('click', modal.close)
-    .on('keydown', (e: KeyboardEvent) => (e.code === 'Space' || e.code === 'Enter' ? modal.close() : true));
-  $wrap.on('click', (e: Event) => e.stopPropagation());
+  opts.content.clone().removeClass('none').appendTo($wrap);
+  opts.onInsert && opts.onInsert($wrap);
+  modal.onClose = opts.onClose;
+  $wrap.find('.close').each(function (this: HTMLElement) {
+    bindClose(this, modal.close);
+  });
   $('body').addClass('overlayed').prepend($overlay);
-  focusFirstChild($wrap);
+  bindWrap($wrap);
   return $wrap;
 }
+
 modal.close = () => {
   $('body').removeClass('overlayed');
   $('#modal-overlay').each(function (this: HTMLElement) {
@@ -26,14 +45,57 @@ modal.close = () => {
   });
   delete modal.onClose;
 };
+
 modal.onClose = undefined as (() => void) | undefined;
+
+export function snabModal(opts: SnabModal): VNode {
+  const close = opts.onClose!;
+  return h(
+    'div#modal-overlay',
+    {
+      ...(opts.onClose && !opts.noClickAway ? { hook: bind('click', close) } : {}),
+    },
+    [
+      h(
+        'div#modal-wrap.' + opts.class,
+        {
+          hook: onInsert(el => {
+            bindWrap($(el));
+            opts.onInsert && opts.onInsert($(el));
+          }),
+        },
+        [
+          h('span.close', {
+            attrs: {
+              'data-icon': '',
+              role: 'button',
+              'aria-label': 'Close',
+              tabindex: '0',
+            },
+            hook: onInsert(el => bindClose(el, close)),
+          }),
+          h('div', opts.content),
+        ]
+      ),
+    ]
+  );
+}
+
+const bindClose = (el: HTMLElement, close: () => void) => {
+  el.addEventListener('click', close);
+  el.addEventListener('keydown', e => (e.code === 'Enter' || e.code === 'Space' ? close() : true));
+};
+
+const bindWrap = ($wrap: Cash) => {
+  $wrap.on('click', (e: Event) => e.stopPropagation());
+  focusFirstChild($wrap);
+};
 
 const focusableSelectors =
   'button:not(:disabled), [href], input:not(:disabled):not([type="hidden"]), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]';
 
 export function trapFocus(event: FocusEvent) {
-  const wrap: HTMLElement | undefined = $('#modal-wrap').get(0);
-  console.log(wrap);
+  const wrap: HTMLElement | undefined = $('#modal-wrap')[0];
   if (!wrap) return;
   const position = wrap.compareDocumentPosition(event.target as HTMLElement);
   if (position & Node.DOCUMENT_POSITION_CONTAINED_BY) return;
@@ -43,8 +105,8 @@ export function trapFocus(event: FocusEvent) {
   event.preventDefault();
 }
 
-export function focusFirstChild(parent: Cash) {
+export const focusFirstChild = (parent: Cash) => {
   const children = parent.find(focusableSelectors);
   // prefer child 1 over child 0 because child 0 should be a close button
-  (children.get(1) ?? children.get(0))?.focus();
-}
+  (children[1] ?? children[0])?.focus();
+};

@@ -5,16 +5,20 @@ lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      const $wrap = modal($('.forum-delete-modal'));
-      $wrap
-        .find('form')
-        .attr('action', link.href)
-        .on('submit', function (this: HTMLFormElement, e: Event) {
-          e.preventDefault();
-          xhr.formToXhr(this);
-          modal.close();
-          $(link).closest('.forum-post').hide();
-        });
+      modal({
+        content: $('.forum-delete-modal'),
+        onInsert($wrap) {
+          $wrap
+            .find('form')
+            .attr('action', link.href)
+            .on('submit', function (this: HTMLFormElement, e: Event) {
+              e.preventDefault();
+              xhr.formToXhr(this);
+              modal.close();
+              $(link).closest('.forum-post').hide();
+            });
+        },
+      });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
