@@ -1,5 +1,5 @@
 import * as winningChances from './winningChances';
-import { defined } from 'common';
+import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
@@ -262,7 +262,13 @@ function getElUci(e: TouchEvent | MouseEvent): string | undefined {
   );
 }
 
-function getElPvMoves(e: MouseEvent): (string | null)[] {
+function getElUciList(e: TouchEvent | MouseEvent): string[] {
+  return getElPvMoves(e)
+    .filter(notNull)
+    .map(move => move.split('|')[1]);
+}
+
+function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
   const pvMoves: (string | null)[] = [];
 
   $(e.target as HTMLElement)
@@ -338,9 +344,9 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
           el.addEventListener('mouseout', () => ctrl.getCeval().setHovering(getElFen(el)));
           for (const event of ['touchstart', 'mousedown']) {
             el.addEventListener(event, (e: TouchEvent | MouseEvent) => {
-              const uci = getElUci(e);
-              if (uci) {
-                ctrl.playUci(uci);
+              const uciList = getElUciList(e);
+              if (uciList.length > (pvIndex ?? 0)) {
+                ctrl.playUciList(uciList.slice(0, (pvIndex ?? 0) + 1));
                 e.preventDefault();
               }
             });
