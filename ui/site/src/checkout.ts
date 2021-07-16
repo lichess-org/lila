@@ -135,7 +135,7 @@ export default function (publicKey: string, pricing: Pricing) {
             .redirectToCheckout({
               sessionId: data.session.id,
             })
-            .then(result => showErrorThenReload(result.error.message));
+            .then((result: any) => showErrorThenReload(result.error.message));
         } else location.assign('/patron');
       });
   });
