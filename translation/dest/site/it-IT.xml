@@ -442,7 +442,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="setTheBoard">Imposta la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
   <string name="endgamePositions">Poizioni di chiusura</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posizione iniziale di Chess960: %s</string>
+  <string name="chess960StartPosition">Posizione iniziale di Chess960: %s</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
   <string name="savePosition">Salva la posizione</string>

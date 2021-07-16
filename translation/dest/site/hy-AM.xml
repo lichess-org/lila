@@ -431,7 +431,7 @@
   <string name="setTheBoard">Տեղադրել դիրքը</string>
   <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
   <string name="endgamePositions">Վերջնախաղային դիրքեր</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
+  <string name="chess960StartPosition">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
   <string name="startPosition">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
   <string name="savePosition">Պահպանել դիրքը</string>

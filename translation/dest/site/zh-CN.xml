@@ -93,6 +93,7 @@
   <string name="noGameFound">没找到符合要求的棋局</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
+  <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
@@ -408,7 +409,8 @@
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 起始局面： %s</string>
+  <string name="endgamePositions">残局局面</string>
+  <string name="chess960StartPosition">Chess960 起始局面： %s</string>
   <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="savePosition">保存局面</string>
@@ -823,6 +825,8 @@
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
   <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess是一个慈善机构，完全免费/图书馆的开放源码软件。
-所有操作成本、开发和内容完全由用户捐款供资。</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
+  <string name="mouseTricks">鼠标使用技巧</string>
+  <string name="toggleLocalAnalysis">切换本地分析</string>
+  <string name="analysisOptions">分析选项</string>
 </resources>

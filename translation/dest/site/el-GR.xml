@@ -442,7 +442,7 @@
   <string name="setTheBoard">Στήστε την σκακιέρα</string>
   <string name="popularOpenings">Δημοφιλή ανοίγματα</string>
   <string name="endgamePositions">Θέσεις φινάλε</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Αρχική θέση Chess960: %s</string>
+  <string name="chess960StartPosition">Αρχική θέση Chess960: %s</string>
   <string name="startPosition">Αρχική διάταξη</string>
   <string name="clearBoard">Εκκαθάριση σκακιέρας</string>
   <string name="savePosition">Αποθηκεύστε τη θέση</string>
@@ -910,4 +910,10 @@
   <string name="analysisOptions">Ρυθμίσεις ανάλυσης</string>
   <string name="focusChat">Εστίαση στο chat</string>
   <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
+  <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
+  <string name="closedAccountChangedMind">Αν κλείσατε το λογαριασμό σας, αλλά έχετε αλλάξει γνώμη, μπορείτε να τον ξανανοίξετε.</string>
+  <string name="onlyWorksOnce">Αυτό θα λειτουργήσει μόνο μία φορά.</string>
+  <string name="cantDoThisTwice">Αν κλείσετε το λογαριασμό σας για δεύτερη φορά, δε θα υπάρχει τρόπος να τον ανοίξετε ξανά.</string>
+  <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
+  <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
 </resources>

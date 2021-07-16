@@ -441,7 +441,7 @@
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilspositioner</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Chess960 startposition: %s</string>
+  <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
@@ -901,12 +901,18 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="noChat">Ingen chat</string>
   <string name="onlyTeamLeaders">Kun holdledere</string>
   <string name="onlyTeamMembers">Kun holdmedlemmer</string>
-  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Navigér i træk-træet</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Tricks med mus</string>
+  <string name="navigateMoveTree">Navigér i træk-træet</string>
+  <string name="mouseTricks">Tricks med mus</string>
   <string name="toggleLocalAnalysis">Slå lokal computeranalyse til/fra</string>
   <string name="toggleAllAnalysis">Slå al computeranalyse til/fra</string>
   <string name="playComputerMove">Spil det bedste computertræk</string>
   <string name="analysisOptions">Analysemuligheder</string>
   <string name="focusChat">Fokusér chat</string>
   <string name="showHelpDialog">Vis denne hjælpedialog</string>
+  <string name="reopenYourAccount">Genåbn din konto</string>
+  <string name="closedAccountChangedMind">Hvis du har lukket din konto, men siden ombestemt dig, har du én chance for at få din konto tilbage.</string>
+  <string name="onlyWorksOnce">Det vil kun fungere én gang.</string>
+  <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
+  <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
+  <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
 </resources>

@@ -59,7 +59,7 @@
   <string name="solved">решени</string>
   <string name="failed">неуспешни</string>
   <string name="streakDescription">Решавайте задачи с нарастваща трудност и направете поредица от победи. Няма хронометър, така че играйте спокойно. Един грешен ход, и играта свършва! Можете да пропуснете по един ход на сесия.</string>
-  <string name="yourStreakX">Вашите последователни победи: %s</string>
+  <string name="yourStreakX">Вашите поредни победи: %s</string>
   <string name="streakSkipExplanation">Пропуснете този ход за да запазите поредицата си! Може да го направите само веднъж на сесия.</string>
   <string name="continueTheStreak">Продължете поредицата</string>
   <string name="newStreak">Нова поредица</string>

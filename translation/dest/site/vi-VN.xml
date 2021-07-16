@@ -410,7 +410,7 @@
   <string name="setTheBoard">Thiết lập bàn cờ</string>
   <string name="popularOpenings">Khai cuộc phổ biến</string>
   <string name="endgamePositions">Các vị trí trong tàn cuộc</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Thế cờ đầu cho Chess960: %s</string>
+  <string name="chess960StartPosition">Thế cờ đầu cho Chess960: %s</string>
   <string name="startPosition">Thế trận ban đầu</string>
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="savePosition">Lưu lại thế trận</string>
@@ -858,4 +858,10 @@ Tất cả chi phí vận hành, phát triển và nội dung chỉ được tà
   <string name="onlyTeamMembers">Chỉ dành cho thành viên</string>
   <string name="mouseTricks">Mẹo khi sử dụng chuột</string>
   <string name="showHelpDialog">Hiển thị giao diện trợ giúp này</string>
+  <string name="reopenYourAccount">Mở lại tài khoản</string>
+  <string name="closedAccountChangedMind">Nếu bạn đóng tài khoản, song thay đổi ý định, bạn có đúng một cơ hội để mở lại tài khoản.</string>
+  <string name="onlyWorksOnce">Chỉ làm được một lần.</string>
+  <string name="cantDoThisTwice">Nếu bạn đóng tài khoản lần thứ hai, tài khoản sẽ không thể phục hồi lại.</string>
+  <string name="emailAssociatedToaccount">Địa chỉ email liên kết với tài khoản này</string>
+  <string name="sentEmailWithLink">Chúng tôi vừa gửi bạn một email với link.</string>
 </resources>

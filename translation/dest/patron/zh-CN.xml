@@ -25,6 +25,7 @@
   <string name="onetime">单次</string>
   <string name="singleDonation">单次捐赠会赠予您一个月的赞助者之翼。</string>
   <string name="otherAmount">其他</string>
+  <string name="pleaseEnterAmountInX">请输入金额（%s）</string>
   <string name="withCreditCard">信用卡</string>
   <string name="withPaypal">贝宝（PayPal）</string>
   <string name="weAreSmallTeam">我们作为一个小团队，有你的支持将带来巨大的变化！</string>
@@ -55,6 +56,7 @@
   <string name="nextPayment">下次付款</string>
   <string name="youWillBeChargedXOnY">您将于 %2$s 为 %1$s 充值</string>
   <string name="makeAdditionalDonation">立即捐款</string>
+  <string name="giftPatronWings">将赞助勋章赠送给其它玩家</string>
   <string name="update">更新</string>
   <string name="changeMonthlyAmount">更改每月数量 (%s)</string>
   <string name="cancelSupport">取消您的赞助</string>
@@ -71,4 +73,5 @@
   <string name="nowLifetime">您现在是Lichess终身会员</string>
   <string name="nowOneMonth">从现在起为期一个月，您是 Lichess 的赞助者！</string>
   <string name="downgradeNextMonth">在一个月内，您将不会再次被收取费用，且您的 Lichess 账户将被降级为免费。</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">更改币种</string>
 </resources>
