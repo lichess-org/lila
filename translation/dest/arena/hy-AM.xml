@@ -47,7 +47,7 @@
   <string name="customStartDate">Սկսելու հատուկ ամսաթիվ</string>
   <string name="customStartDateHelp">Ձեր ժամագոտում։ Դա կանխորոշում է «Մրցաշարի մեկնարկին մնացել է» կարգավորումը</string>
   <string name="allowBerserk">Թույլատրել բերսերկը</string>
-  <string name="allowBerserkHelp">Խաղացողներին թույլատրում է ստանալ լրացուցիչ միավորներ, եթե նրանք կրճատեն իրենց խաղաժամանակը կիսով չափ </string>
+  <string name="allowBerserkHelp">Խաղացողներին թույլատրում է ստանալ լրացուցիչ միավորներ, եթե նրանք կրճատեն իրենց խաղաժամանակը կիսով չափ</string>
   <string name="allowChatHelp">Խաղացողների թույլատրել քննարկումը զրուցարանում</string>
   <string name="arenaStreaks">«Արենայի» շարքեր</string>
   <string name="arenaStreaksHelp">Երկու անընդմեջ հաղթանակից հետո յուրաքանչյուր հաջորդ հաղթանակը տալիս է ոչ թե 2, այլ 4 միավոր։</string>
