@@ -476,7 +476,7 @@
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="latestUpdates">Son gelişmeler</string>
-  <string name="tournamentWinners">Turnuvanın Kazananları</string>
+  <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
   <string name="descPrivate">Üyelere özel açıklama</string>
@@ -640,7 +640,7 @@
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="tournamentOfficial">Resmî</string>
-  <string name="timeBeforeTournamentStarts">Turnuvanın başlama süresi</string>
+  <string name="timeBeforeTournamentStarts">Turnuvaya kalan süre</string>
   <string name="averageCentipawnLoss">Ortalama santipiyon kaybı</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
