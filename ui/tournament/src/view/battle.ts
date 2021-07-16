@@ -2,7 +2,7 @@ import TournamentController from '../ctrl';
 import { bind, onInsert, playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
-import { focusFirstChild } from 'common/modal';
+import modal from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const onClose = () => {
@@ -11,69 +11,46 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   };
   const tb = ctrl.data.teamBattle!;
   return h(
-    'div#modal-overlay',
+    'div.none',
     {
-      hook: bind('click', onClose),
+      hook: onInsert(el => modal($(el), 'team-battle__choice', onClose)),
     },
     [
-      h(
-        'div#modal-wrap.team-battle__choice',
-        {
-          hook: onInsert(el => {
-            focusFirstChild($(el));
-            el.addEventListener('click', e => e.stopPropagation());
-          }),
-        },
-        [
-          h('span.close', {
-            attrs: {
-              'data-icon': '',
-              role: 'button',
-              'aria-label': 'Close',
-              tabindex: '0',
-            },
-            hook: onInsert(el => {
-              el.addEventListener('click', onClose);
-              el.addEventListener('keydown', e => (e.code === 'Enter' || e.code === 'Space' ? onClose() : true));
-            }),
-          }),
-          h('div.team-picker', [
-            h('h2', 'Pick your team'),
-            h('br'),
-            ...(tb.joinWith.length
-              ? [
-                  h('p', 'Which team will you represent in this battle?'),
-                  ...tb.joinWith.map(id =>
-                    h(
-                      'a.button',
-                      {
-                        hook: bind('click', () => ctrl.join(id), ctrl.redraw),
-                      },
-                      tb.teams[id]
-                    )
-                  ),
-                ]
-              : [
-                  h('p', 'You must join one of these teams to participate!'),
+      h('div.team-picker', [
+        h('h2', 'Pick your team'),
+        h('br'),
+        ...(tb.joinWith.length
+          ? [
+              h('p', 'Which team will you represent in this battle?'),
+              ...tb.joinWith.map(id =>
+                h(
+                  'a.button',
+                  {
+                    hook: bind('click', () => ctrl.join(id), ctrl.redraw),
+                  },
+                  tb.teams[id]
+                )
+              ),
+            ]
+          : [
+              h('p', 'You must join one of these teams to participate!'),
+              h(
+                'ul',
+                shuffleArray(Object.keys(tb.teams)).map((t: string) =>
                   h(
-                    'ul',
-                    shuffleArray(Object.keys(tb.teams)).map((t: string) =>
-                      h(
-                        'li',
-                        h(
-                          'a',
-                          {
-                            attrs: { href: '/team/' + t },
-                          },
-                          tb.teams[t]
-                        )
-                      )
+                    'li',
+                    h(
+                      'a',
+                      {
+                        attrs: { href: '/team/' + t },
+                      },
+                      tb.teams[t]
                     )
-                  ),
-                ]),
-          ]),
-        ]
-      ),
+                  )
+                )
+              ),
+            ]),
+      ]),
     ]
   );
 }

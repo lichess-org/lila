@@ -33,6 +33,7 @@ const focusableSelectors =
 
 export function trapFocus(event: FocusEvent) {
   const wrap: HTMLElement | undefined = $('#modal-wrap').get(0);
+  console.log(wrap);
   if (!wrap) return;
   const position = wrap.compareDocumentPosition(event.target as HTMLElement);
   if (position & Node.DOCUMENT_POSITION_CONTAINED_BY) return;
