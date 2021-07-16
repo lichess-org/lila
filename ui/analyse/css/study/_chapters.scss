@@ -49,6 +49,11 @@ $span-width: 1.7em;
     height: $span-width;
   }
 
+  .chapter-filter {
+    width: 99%;
+    margin: 1px;
+  }
+
   .sortable-ghost {
     opacity: 0.7;
 

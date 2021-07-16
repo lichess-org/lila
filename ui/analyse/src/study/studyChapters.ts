@@ -74,6 +74,9 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
   }
 }
 
+let filteredChapters = [];
+let filterChInputValue = '';
+
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
@@ -105,6 +108,35 @@ export function view(ctrl: StudyCtrl): VNode {
       else lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
+  const filterChapters = (event) => {
+    filterChInputValue = event.target.value;
+    filteredChapters = ctrl.chapters
+      .list()
+      .filter(chapter => chapter.name.toLowerCase().includes(event.target.value.toLowerCase()));
+  };
+
+  const mapChapters = (array) => {
+    return array.map((chapter, i) => {
+      const editing = ctrl.chapters.editForm.isEditing(chapter.id),
+        loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+        active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow.active && current.id === chapter.id;
+      return h(
+        'div',
+        {
+          key: chapter.id,
+          attrs: { 'data-id': chapter.id },
+          class: { active, editing, loading, draggable: canContribute },
+        },
+        [
+          h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
+          h('h3', chapter.name),
+          chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } }) : null,
+          !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
+          canContribute ? h('i.act', { attrs: dataIcon('') }) : null,
+        ]
+      );
+    });
+  };
 
   return h(
     'div.study__chapters',
@@ -134,28 +166,24 @@ export function view(ctrl: StudyCtrl): VNode {
         },
       },
     },
-    ctrl.chapters
-      .list()
-      .map((chapter, i) => {
-        const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow.active && current.id === chapter.id;
-        return h(
-          'div',
-          {
-            key: chapter.id,
-            attrs: { 'data-id': chapter.id },
-            class: { active, editing, loading, draggable: canContribute },
-          },
-          [
-            h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
-            h('h3', chapter.name),
-            chapter.ongoing ? h('ongoing', { attrs: { ...dataIcon(''), title: 'Ongoing' } }) : null,
-            !chapter.ongoing && chapter.res ? h('res', chapter.res) : null,
-            canContribute ? h('i.act', { attrs: dataIcon('') }) : null,
-          ]
-        );
-      })
+    [
+      ctrl.chapters.list().length > 7
+        ? h('input.chapter-filter', {
+            on: { input: filterChapters },
+            attrs: { value: filterChInputValue, label: 'filter chapters', placeholder: 'filter chapters' },
+            hook: bind('input', filterChapters, ctrl.redraw),
+          })
+        : null,
+    ]
+      .concat(
+        ctrl.chapters.list().length > 7
+          ? filterChInputValue === ''
+            ? mapChapters(ctrl.chapters.list())
+            : filteredChapters.length >= 1
+            ? mapChapters(filteredChapters)
+            : h('h3', 'no results')
+          : mapChapters(ctrl.chapters.list())
+      )
       .concat(
         ctrl.members.canContribute()
           ? [
