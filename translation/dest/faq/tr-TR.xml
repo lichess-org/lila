@@ -54,7 +54,7 @@ Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı b
 
 Rakipte kendi şahının hareketini engelleyebilecek herhangi bir taş varsa, tek bir at veya fil ile mat edilmesi de mümkün olabilir.</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
-  <string name="discoveringEnPassant">Bir piyon, yanından ilk hamlesinde 2 ilerlemiş bir piyonu neden yiyebilir? (geçerken alma)</string>
+  <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi, bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Wikipedia %1$s hakkında makale veriyor.
 
 %2$s\'nin 3.7 (d) bölümünde açıklanmıştır:
