@@ -2,6 +2,7 @@ import TournamentController from '../ctrl';
 import { bind, onInsert, playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
+import { focusFirstChild } from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const onClose = () => {
@@ -19,13 +20,22 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
         'div#modal-wrap.team-battle__choice',
         {
           hook: onInsert(el => {
+            focusFirstChild($(el));
             el.addEventListener('click', e => e.stopPropagation());
           }),
         },
         [
           h('span.close', {
-            attrs: { 'data-icon': '' },
-            hook: bind('click', onClose),
+            attrs: {
+              'data-icon': '',
+              role: 'button',
+              'aria-label': 'Close',
+              tabindex: '0',
+            },
+            hook: onInsert(el => {
+              el.addEventListener('click', onClose);
+              el.addEventListener('keydown', e => (e.code === 'Enter' || e.code === 'Space' ? onClose() : true));
+            }),
           }),
           h('div.team-picker', [
             h('h2', 'Pick your team'),

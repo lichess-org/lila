@@ -1,4 +1,5 @@
 import { h, VNode } from 'snabbdom';
+import { focusFirstChild } from 'common/modal';
 import { MaybeVNodes } from './interfaces';
 import { bind, onInsert } from './util';
 
@@ -21,14 +22,23 @@ export function modal(d: Modal): VNode {
         'div#modal-wrap.study__modal.' + d.class,
         {
           hook: onInsert(el => {
+            focusFirstChild($(el));
             el.addEventListener('mousedown', e => e.stopPropagation());
             d.onInsert && d.onInsert(el);
           }),
         },
         [
           h('span.close', {
-            attrs: { 'data-icon': '' },
-            hook: bind('click', d.onClose),
+            attrs: {
+              'data-icon': '',
+              role: 'button',
+              'aria-label': 'Close',
+              tabindex: '0',
+            },
+            hook: onInsert(el => {
+              el.addEventListener('click', d.onClose);
+              el.addEventListener('keydown', e => (e.code === 'Enter' || e.code === 'Space' ? d.onClose() : true));
+            }),
           }),
           h('div', d.content),
         ]
