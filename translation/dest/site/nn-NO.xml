@@ -910,4 +910,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="analysisOptions">Analyseval</string>
   <string name="focusChat">Fokusér prateromet</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
+  <string name="reopenYourAccount">Opne kontoen din på ny</string>
 </resources>
