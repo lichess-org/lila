@@ -29,7 +29,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   var txt = renderNodesTxt(ctrl.tree.getNodeList(ctrl.path));
   var tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
-  if (g.initialFen && g.initialFen !== initialFen) tags.push(['SFEN', g.initialFen]);
+  if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);
   if (tags.length)
     txt =
       tags
