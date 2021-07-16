@@ -294,6 +294,7 @@
       display: flex;
 
       button {
+        @extend %metal;
         flex-grow: 1;
         padding: 5px 0;
         text-align: center;
@@ -301,7 +302,6 @@
 
         @include transition;
 
-        background: none;
         border: $border;
         border-width: 1px 0 1px 1px;
         text-transform: capitalize;
@@ -317,7 +317,7 @@
         }
 
         &:hover {
-          background: #fff;
+          @extend %metal-hover;
         }
 
         &[aria-pressed='true'] {
