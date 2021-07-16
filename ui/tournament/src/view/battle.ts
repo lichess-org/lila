@@ -1,81 +1,63 @@
 import TournamentController from '../ctrl';
-import { bind, onInsert, playerName } from './util';
+import { bind, playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
-import { focusFirstChild } from 'common/modal';
+import modal, { snabModal } from 'common/modal';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
-  const onClose = () => {
-    ctrl.joinWithTeamSelector = false;
-    ctrl.redraw();
-  };
   const tb = ctrl.data.teamBattle!;
-  return h(
-    'div#modal-overlay',
-    {
-      hook: bind('click', onClose),
+  return snabModal({
+    class: 'team-battle__choice',
+    onInsert($el) {
+      $el.on('click', '.team-picker__team', e => {
+        ctrl.join(e.target.dataset['id']);
+        modal.close();
+      });
     },
-    [
-      h(
-        'div#modal-wrap.team-battle__choice',
-        {
-          hook: onInsert(el => {
-            focusFirstChild($(el));
-            el.addEventListener('click', e => e.stopPropagation());
-          }),
-        },
-        [
-          h('span.close', {
-            attrs: {
-              'data-icon': '',
-              role: 'button',
-              'aria-label': 'Close',
-              tabindex: '0',
-            },
-            hook: onInsert(el => {
-              el.addEventListener('click', onClose);
-              el.addEventListener('keydown', e => (e.code === 'Enter' || e.code === 'Space' ? onClose() : true));
-            }),
-          }),
-          h('div.team-picker', [
-            h('h2', 'Pick your team'),
-            h('br'),
-            ...(tb.joinWith.length
-              ? [
-                  h('p', 'Which team will you represent in this battle?'),
-                  ...tb.joinWith.map(id =>
-                    h(
-                      'a.button',
-                      {
-                        hook: bind('click', () => ctrl.join(id), ctrl.redraw),
-                      },
-                      tb.teams[id]
-                    )
-                  ),
-                ]
-              : [
-                  h('p', 'You must join one of these teams to participate!'),
+    onClose() {
+      ctrl.joinWithTeamSelector = false;
+      ctrl.redraw();
+    },
+    content: [
+      h('div.team-picker', [
+        h('h2', 'Pick your team'),
+        h('br'),
+        ...(tb.joinWith.length
+          ? [
+              h('p', 'Which team will you represent in this battle?'),
+              ...tb.joinWith.map(id =>
+                h(
+                  'button.button.team-picker__team',
+                  {
+                    attrs: {
+                      'data-id': id,
+                    },
+                  },
+                  tb.teams[id]
+                )
+              ),
+            ]
+          : [
+              h('p', 'You must join one of these teams to participate!'),
+              h(
+                'ul',
+                shuffleArray(Object.keys(tb.teams)).map((t: string) =>
                   h(
-                    'ul',
-                    shuffleArray(Object.keys(tb.teams)).map((t: string) =>
-                      h(
-                        'li',
-                        h(
-                          'a',
-                          {
-                            attrs: { href: '/team/' + t },
-                          },
-                          tb.teams[t]
-                        )
-                      )
+                    'li',
+                    h(
+                      'a',
+                      {
+                        attrs: { href: '/team/' + t },
+                      },
+                      tb.teams[t]
                     )
-                  ),
-                ]),
-          ]),
-        ]
-      ),
-    ]
-  );
+                  )
+                )
+              ),
+            ]),
+      ]),
+    ],
+  });
 }
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {

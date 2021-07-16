@@ -200,7 +200,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ => modal($('.continue-with.g_' + d.game.id))),
+              hook: bind('click', _ =>
+                modal({
+                  content: $('.continue-with.g_' + d.game.id),
+                })
+              ),
               attrs: dataIcon(''),
             },
             noarg('continueFromHere')

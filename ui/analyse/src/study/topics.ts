@@ -1,4 +1,4 @@
-import * as modal from '../modal';
+import { snabModal } from 'common/modal';
 import * as xhr from 'common/xhr';
 import { bind, bindSubmit, onInsert } from '../util';
 import { h, VNode } from 'snabbdom';
@@ -61,7 +61,7 @@ export function view(ctrl: StudyCtrl): VNode {
 let tagify: Tagify | undefined;
 
 export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
-  return modal.modal({
+  return snabModal({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);

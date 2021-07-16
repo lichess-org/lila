@@ -49,10 +49,14 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
                       : util.bind('click', () => {
                           if (ctrl.data.variants.length === 1) xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else {
-                            modal($('.simul .continue-with'));
-                            $('#modal-wrap .continue-with a').on('click', function (this: HTMLElement) {
-                              modal.close();
-                              xhr.join(ctrl.data.id, $(this).data('variant'));
+                            modal({
+                              content: $('.simul .continue-with'),
+                              onInsert($wrap) {
+                                $wrap.find('button').on('click', function (this: HTMLElement) {
+                                  modal.close();
+                                  xhr.join(ctrl.data.id, $(this).data('variant'));
+                                });
+                              },
                             });
                           }
                         }),
@@ -200,7 +204,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode) {
         'div.continue-with.none',
         ctrl.data.variants.map(function (variant) {
           return h(
-            'a.button',
+            'button.button',
             {
               attrs: {
                 'data-variant': variant.key,
