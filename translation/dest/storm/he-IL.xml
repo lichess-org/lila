@@ -10,11 +10,14 @@
   <string name="newAllTimeHighscore">שיא חדש בכל הזמנים!</string>
   <string name="previousHighscoreWasX">שיא קודם היה %s</string>
   <string name="playAgain">שחק שוב</string>
+  <string name="highscoreX">הניקוד הגבוה%s</string>
   <string name="score">ניקוד</string>
   <string name="moves">מהלכים</string>
   <string name="accuracy">דיוק</string>
   <string name="combo">רצף</string>
   <string name="time">זמן</string>
+  <string name="timePerMove">זמן לכל מהלך</string>
+  <string name="highestSolved">הכי גבוה נשפתר</string>
   <string name="puzzlesPlayed">פאזלים ששוחקו</string>
   <string name="endRun">סיים ריצה</string>
   <string name="highscores">הניקודים הכי גבוהים</string>
