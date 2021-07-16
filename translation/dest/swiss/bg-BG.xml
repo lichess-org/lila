@@ -55,5 +55,6 @@
   <string name="lateJoinUntil">Да, преди повече от половината рундове да са започнали</string>
   <string name="pause">Пауза</string>
   <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
+  <string name="streaksAndBerserk">Поредици и Берсерк</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
 </resources>
