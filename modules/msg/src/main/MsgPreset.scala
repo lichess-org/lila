@@ -72,7 +72,7 @@ The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for L
 
 Account marked for computer assistance
 
-Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lishogi Contact contact@lishogi.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license. You can verify your title by contacting us at contact@lishogi.org.
+Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark or apologize for your wrongdoings, please send an email to Lishogi Contact contact@lishogi.org and we might lift the mark. If you are a very strong player, like a high-ranking amateur or professional player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license. The proof of identity can also happen through Shogi Club 24, if you have an active account there. You can verify your playing strength by contacting us at contact@lishogi.org.
 
 """, /* ---------------------------------------------------------------*/ """
 
