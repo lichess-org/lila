@@ -8,7 +8,7 @@ import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
 import views._
 import lila.user.Countries
 
-final class Coach(env: Env) extends LilaController(env) {
+final class Coach(env: Env) extends LilaController(env) with TwoFactorReminder {
 
   private def api = env.coach.api
 
@@ -100,6 +100,7 @@ final class Coach(env: Env) extends LilaController(env) {
 
   def edit =
     Secure(_.Coach) { implicit ctx => me =>
+      sendMsgIfTwoFactorDisabled(me.id)
       OptionFuResult(api findOrInit me) { c =>
         api.reviews.pendingByCoach(c.coach) map { reviews =>
           NoCache(Ok(html.coach.edit(c, CoachProfileForm edit c.coach, reviews)))
