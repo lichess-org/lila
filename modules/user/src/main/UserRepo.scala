@@ -400,6 +400,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setRoles(id: ID, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
 
+  def hasTwoFactor(id: ID) = coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
+
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: ID, totp: TotpSecret): Funit =

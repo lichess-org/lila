@@ -20,7 +20,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     spam: lila.security.Spam,
     chatPanic: lila.chat.ChatPanic,
-    shutup: lila.hub.actors.Shutup
+    shutup: lila.hub.actors.Shutup,
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -40,6 +41,8 @@ final class Env(
   lazy val search = wire[MsgSearch]
 
   lazy val compat = wire[MsgCompat]
+
+  lazy val twoFactorReminder = wire[TwoFactorReminder]
 
   def cli =
     new lila.common.Cli {

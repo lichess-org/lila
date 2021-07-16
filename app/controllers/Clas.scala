@@ -10,11 +10,7 @@ import lila.api.Context
 import lila.app._
 import lila.user.Holder
 
-final class Clas(
-    env: Env,
-    authC: Auth
-) extends LilaController(env)
-    with TwoFactorReminder {
+final class Clas(env: Env, authC: Auth) extends LilaController(env) {
 
   def index =
     Open { implicit ctx =>
@@ -23,10 +19,10 @@ final class Clas(
           case _ if getBool("home") => renderHome
           case None                 => renderHome
           case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-            sendMsgIfTwoFactorDisabled(me.id)
-            env.clas.api.clas.of(me) map { classes =>
-              Ok(views.html.clas.clas.teacherIndex(classes))
-            }
+            env.msg.twoFactorReminder(me.id) >>
+              env.clas.api.clas.of(me) map { classes =>
+                Ok(views.html.clas.clas.teacherIndex(classes))
+              }
           case Some(me) =>
             (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
               case true =>
