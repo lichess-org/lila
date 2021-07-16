@@ -12,15 +12,15 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
 
   def apply(userId: User.ID) = cache get userId
 
-  private val cache = mongoCache[User.ID, Boolean](1024, "security:2fa", 10 days, identity) { loader =>
-    _.expireAfterWrite(11 days)
-      .buildAsyncFuture {
-        loader { userId =>
-          userRepo hasTwoFactor userId flatMap {
-            case false => api.postPreset(userId, MsgPreset.enableTwoFactor)
-            case _     => funit
-          } inject true
+  private val cache = mongoCache[User.ID, Boolean](1024, "security:2fa:reminder", 10 days, identity) {
+    loader =>
+      _.expireAfterWrite(11 days)
+        .buildAsyncFuture {
+          loader { userId =>
+            userRepo hasTwoFactor userId flatMap { has =>
+              (!has ?? api.postPreset(userId, MsgPreset.enableTwoFactor).void) inject has
+            }
+          }
         }
-      }
   }
 }
