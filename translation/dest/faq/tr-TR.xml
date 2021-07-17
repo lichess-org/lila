@@ -66,9 +66,9 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="officialRulesPDF">resmî kurallar (PDF)</string>
   <string name="lichessTraining">Lichess egzersizlerine</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
-  <string name="threefoldRepetitionExplanation">Bir pozisyon üç kez gerçekleşirse, oyuncular %1$s ile beraberlik talebinde bulunabilirler. Lichess, %2$s\'nin 9.2 (d) maddesinde açıklandığı gibi resmi FIDE kurallarını uygular.</string>
+  <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
   <string name="threefoldRepetitionLowerCase">üç kez hamle tekrarı</string>
-  <string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>
+  <string name="notRepeatedMoves">Aynı hamleleri tekrarlamadığımız hâlde oyun neden berabere bitti?</string>
   <string name="repeatedPositionsThatMatters">Üç kez hamle tekrarı %1$s ile ilgilidir, hamle ile değil. Tekrarlama ardışık olarak gerçekleşmek zorunda değildir.</string>
   <string name="positions">pozisyonlar</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Neden oyun berabere bitmedi?</string>
