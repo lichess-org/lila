@@ -44,9 +44,9 @@
 
 Bilgisayarın önerdiği en iyi hamle santipiyon kaybettirmez ancak daha zayıf hamleler pozisyonun kötüye gitmesine sebep olacaktır. Bu durum da santipiyon ile ölçülür.
 
-Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybedilirse, hamleler o kadar güçlü demektir.
+Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hamle başına ne kadar az santipiyon kaybedilirse, oyun kalitesi o kadar yüksek demektir.
 
-Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
+Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</string>
   <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
   <string name="lichessFollowFIDErules">Oyun esnasında süresi biten oyuncu genellikle maçı kaybetmiş sayılır. Ancak rakip oyuncu, elindeki taşlar ile oyuncuyu herhangi bir şekilde mat etme şansına sahip değilse oyun berabere biter (%1$s).
 
@@ -74,7 +74,7 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
   <string name="threeFoldHasToBeClaimed">Bunun için önce oyunculardan birinin tekrar sebebiyle beraberlik talebinde bulunması gerekir. İşaret edilen beraberlik düğmesine basarak veya son tekrar hamlenizden önce beraberlik teklif ederek bu talepte bulunabilirsiniz. Üç konum tekrarında oyunculardan biri beraberlik talebinde bulunduğunda, rakibin teklifi kabul veya reddetmesine bakılmadan oyun berabere biter. Ayrıca %1$s, pozisyon tekrarlarında otomatik olarak beraberlik talep edilmesini seçebilirsiniz. Ek olarak, beş kez aynı pozisyon tekrarlandığında oyun ne olursa olsun sona erer.</string>
   <string name="configure">ayarlar kısmından</string>
-  <string name="accounts">Hesap İşlemleri</string>
+  <string name="accounts">Hesap işlemleri</string>
   <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
   <string name="showYourTitle">Resmî bir unvanınız varsa, unvanın hesabınıza tanımlanması için %1$s doldurarak başvuruda bulunabilirsiniz. Formu doldururken, unvanınızı belgeleyen evrakın net bir fotoğrafını ve sizin bu evrakı tutarken çekildiğiniz bir fotoğrafı yüklemeniz gerekir.
