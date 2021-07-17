@@ -91,13 +91,13 @@ Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
 Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. LM unvanı sizi alır, siz LM unvanını alamazsınız. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifi kabul veya reddetmek size kalmış.
 
 LM unvanını almak için bir talepte bulunmayın.</string>
-  <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
-  <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
-  <string name="guidelines">yönetmelik</string>
+  <string name="whatUsernameCanIchoose">Kullanıcı adım ne olabilir?</string>
+  <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları reklam veya taklit amaçlı olmamalı, insanları rahatsız etmemeli ve incitmemelidir. Bu konu hakkındaki %1$s göz atarak daha fazla bilgi edinebilirsiniz.</string>
+  <string name="guidelines">detaylı kurallara</string>
   <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
-  <string name="uniqueTrophies">Benzersiz kupalar</string>
-  <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
+  <string name="uniqueTrophies">Eşsiz kupalar</string>
+  <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
   <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
   <string name="goldenZeeExplanation">ZugAddict canlı yayın açmıştı ve son 2 saat boyunca A.I. level 8\'i 1+0 oyununda başarılı bir şekilde yenmeye çalışıyordu. Thibault, canlı yayında başarılı bir şekilde bunu gerçekleştirirse, ona benzersiz bir kupa alacağını söyledi. Bir saat sonra, Stockfish\'i yendi ve söz onurlandırıldı.</string>
