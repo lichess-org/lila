@@ -74,16 +74,16 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
   <string name="threeFoldHasToBeClaimed">Bunun için önce oyunculardan birinin tekrar sebebiyle beraberlik talebinde bulunması gerekir. İşaret edilen beraberlik düğmesine basarak veya son tekrar hamlenizden önce beraberlik teklif ederek bu talepte bulunabilirsiniz. Üç konum tekrarında oyunculardan biri beraberlik talebinde bulunduğunda, rakibin teklifi kabul veya reddetmesine bakılmadan oyun berabere biter. Ayrıca %1$s, pozisyon tekrarlarında otomatik olarak beraberlik talep edilmesini seçebilirsiniz. Ek olarak, beş kez aynı pozisyon tekrarlandığında oyun ne olursa olsun sona erer.</string>
   <string name="configure">ayarlar kısmından</string>
-  <string name="accounts">Hesaplar</string>
+  <string name="accounts">Hesap İşlemleri</string>
   <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess, OTB (over the board) oyunundan elde edilen tüm FIDE başlıklarını ve %1$s\'yi tanır. işte FIDE başlıklarının bir listesi:</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
   <string name="showYourTitle">Eğer bir OTB unvanınız varsa, %1$s\'yi tamamlayarak bunu hesabınızda göstermeniz için başvuruda bulunabilirsiniz; bunu, tanımlayıcı bir belge/kartın net bir görüntüsü ve belgeyi/kartı elinde tutan bir fotoğraf da dahil olmak üzere gerçekleştirebilirsiniz.
 
 Lichess\'te Unvanlı bir oyuncu olarak doğrulanmak Unvanlı Arena olaylarda oynamak için erişim sağlar.
 
 Bir de Onursal bir %2$s Unvanı var.</string>
-  <string name="asWellAsManyNMtitles">birçok ulusal usta unvanı</string>
-  <string name="verificationForm">doğrulama formu</string>
+  <string name="asWellAsManyNMtitles">birçok ulusal usta unvanını</string>
+  <string name="verificationForm">doğrulama formunu</string>
   <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
