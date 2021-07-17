@@ -84,13 +84,13 @@ Unvanınızı doğruladıktan sonra Lichess tarafından düzenlenen Titled Arena
 Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
   <string name="asWellAsManyNMtitles">birçok ulusal usta unvanını</string>
   <string name="verificationForm">doğrulama formunu</string>
-  <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
+  <string name="canIbecomeLM">Lichess Ustası (LM) unvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
+  <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmî değildir ve sadece Lichess tarafından verilir.
 
-Biz nadiren takdiri hak eden iyi Lichess kullanıcılarına bu unvanı veriyoruz. LM unvanı alamazsın, LM unvanı sana gelir. Eğer hak kazanırsanız, bizden bir mesaj alacaksınız ve kabul etme veya reddetme seçimine sahip olacaksınız.
+Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. LM unvanı sizi alır, siz LM unvanını alamazsınız. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifi kabul veya reddetmek size kalmış.
 
-LM unvanı için sorma.</string>
+LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
   <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
   <string name="guidelines">yönetmelik</string>
