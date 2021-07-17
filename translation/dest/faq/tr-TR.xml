@@ -98,10 +98,10 @@ LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
   <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
-  <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>
-  <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
-  <string name="goldenZeeExplanation">ZugAddict canlı yayın açmıştı ve son 2 saat boyunca A.I. level 8\'i 1+0 oyununda başarılı bir şekilde yenmeye çalışıyordu. Thibault, canlı yayında başarılı bir şekilde bunu gerçekleştirirse, ona benzersiz bir kupa alacağını söyledi. Bir saat sonra, Stockfish\'i yendi ve söz onurlandırıldı.</string>
-  <string name="lichessRatings">Lichess derecelendirmeleri</string>
+  <string name="wayOfBerserkExplanation">Bu kupaya erişen hiimgosu, divane (berserk) açarak %s bütün oyunları kazandı.</string>
+  <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
+  <string name="lichessRatings">Lichess puanlama sistemi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 değerlendirme yöntemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hala tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
 
