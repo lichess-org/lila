@@ -904,4 +904,6 @@
   <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
   <string name="analysisOptions">Параметри на анализа</string>
   <string name="focusChat">Фокусирай текста</string>
+  <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
+  <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
 </resources>
