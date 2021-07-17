@@ -50,14 +50,14 @@ Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.<
   <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
   <string name="lichessFollowFIDErules">Oyun esnasında süresi biten oyuncu genellikle maçı kaybetmiş sayılır. Ancak rakip oyuncu, elindeki taşlar ile oyuncuyu herhangi bir şekilde mat etme şansına sahip değilse oyun berabere biter (%1$s).
 
-Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman süresi bitmeyen oyuncunun lehine karar veririz.
+Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman, süresi bitmeyen oyuncunun lehine karar veririz.
 
-Rakipte kendi şahının hareketini engelleyebilecek herhangi bir taş varsa, tek bir at veya fil ile mat edilmesi de mümkün olabilir.</string>
+Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
   <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi, bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
 
-FIDE kurallarının 3.7 (d) sayılı maddesinde ilgili kural şöyle açıklanır (%2$s):
+Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 
 \"Bir piyon, kendi bulunduğu kareye bitişik dikeylerden birinde ve kendisiyle aynı yatayda bulunan bir rakip piyonu, bu rakip piyonun bulunduğu yere, hemen başlangıç konumundan bir hamlede iki kare ilerleyerek gelmiş olması koşuluyla alabilir. Bu alış biçimi, sadece sözü edilen piyon sürüşünü izleyen hamle için geçerlidir ve \'geçerken alma\' (en passant) olarak adlandırılır.\"
 
