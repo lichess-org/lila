@@ -72,8 +72,8 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="repeatedPositionsThatMatters">Üç konum tekrarında %1$s hesaba katılır, hamleler değil. Tekrarlamalar üst üste olmak zorunda değildir.</string>
   <string name="positions">pozisyonlar</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
-  <string name="threeFoldHasToBeClaimed">Hamle tekrarı oyunculardan biri tarafından kabul edilmesi gerekiyor. Gösterilen düğmeye basarak veya son yinelenen hareketinizden önce bir beraberlik sunarak bunu yapabilirsiniz. Ayrıca %1$s Lichess otomatik olarak sizin için hamle tekrarı talep edebilirsiniz. Ek olarak, beş kez hamle tekrarı her zaman oyunu hemen bitirir.</string>
-  <string name="configure">yapılandır</string>
+  <string name="threeFoldHasToBeClaimed">Bunun için önce oyunculardan birinin tekrar sebebiyle beraberlik talebinde bulunması gerekir. İşaret edilen beraberlik düğmesine basarak veya son tekrar hamlenizden önce beraberlik teklif ederek bu talepte bulunabilirsiniz. Üç konum tekrarında oyunculardan biri beraberlik talebinde bulunduğunda, rakibin teklifi kabul veya reddetmesine bakılmadan oyun berabere biter. Ayrıca %1$s, pozisyon tekrarlarında otomatik olarak beraberlik talep edilmesini seçebilirsiniz. Ek olarak, beş kez aynı pozisyon tekrarlandığında oyun ne olursa olsun sona erer.</string>
+  <string name="configure">ayarlar kısmından</string>
   <string name="accounts">Hesaplar</string>
   <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess, OTB (over the board) oyunundan elde edilen tüm FIDE başlıklarını ve %1$s\'yi tanır. işte FIDE başlıklarının bir listesi:</string>
