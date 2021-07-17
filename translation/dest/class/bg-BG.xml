@@ -57,6 +57,11 @@
     <item quantity="other">%s покани в изчакване</item>
   </plurals>
   <string name="noPendingInvitations">Няма покани в изчакване</string>
+  <string name="onlyVisibleToTeachers">Да се вижда само от учители на класа</string>
+  <string name="lastActiveDate">Активен</string>
+  <string name="managed">Управляван</string>
+  <string name="thisStudentAccountIsManaged">Този учебен акаунт е управляван</string>
+  <string name="upgradeFromManaged">Смени от управляван към автономен</string>
   <string name="closeStudent">Закриване на регистрацията</string>
   <string name="closeTheAccount">Постоянно закриване на регистрацията на ученика.</string>
   <string name="closeDesc1">Ученикът няма никога вече да може да използва тази регистрация. Затварянето е постоянно. Уверете се че ученикът разбира и се съгласява с това.</string>
