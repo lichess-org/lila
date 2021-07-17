@@ -65,13 +65,13 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="goodIntroduction">güzel bir açıklama</string>
   <string name="officialRulesPDF">resmî kurallar (PDF)</string>
   <string name="lichessTraining">Lichess egzersizlerine</string>
-  <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
+  <string name="threefoldRepetition">Üç konum tekrarı</string>
   <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
-  <string name="threefoldRepetitionLowerCase">üç kez hamle tekrarı</string>
+  <string name="threefoldRepetitionLowerCase">üç konum tekrarı</string>
   <string name="notRepeatedMoves">Aynı hamleleri tekrarlamadığımız hâlde oyun neden berabere bitti?</string>
-  <string name="repeatedPositionsThatMatters">Üç kez hamle tekrarı %1$s ile ilgilidir, hamle ile değil. Tekrarlama ardışık olarak gerçekleşmek zorunda değildir.</string>
+  <string name="repeatedPositionsThatMatters">Üç konum tekrarında %1$s hesaba katılır, hamleler değil. Tekrarlamalar üst üste olmak zorunda değildir.</string>
   <string name="positions">pozisyonlar</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Neden oyun berabere bitmedi?</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
   <string name="threeFoldHasToBeClaimed">Hamle tekrarı oyunculardan biri tarafından kabul edilmesi gerekiyor. Gösterilen düğmeye basarak veya son yinelenen hareketinizden önce bir beraberlik sunarak bunu yapabilirsiniz. Ayrıca %1$s Lichess otomatik olarak sizin için hamle tekrarı talep edebilirsiniz. Ek olarak, beş kez hamle tekrarı her zaman oyunu hemen bitirir.</string>
   <string name="configure">yapılandır</string>
   <string name="accounts">Hesaplar</string>
