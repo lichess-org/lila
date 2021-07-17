@@ -28,50 +28,43 @@ final class ForumPaginator(
       maxPerPage = config.postMaxPerPage
     )
 
-  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] = {
-    val adapter = new AdapterLike[TopicView] {
+  def categTopics(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] =
+    Paginator(
+      currentPage = page,
+      maxPerPage = config.postMaxPerPage,
+      adapter = new AdapterLike[TopicView] {
 
-      def nbResults: Fu[Int] = topicRepo.coll countSel selector
+        def nbResults: Fu[Int] =
+          if (categ.isTeam) topicRepo.coll countSel selector
+          else fuccess(1000)
 
-      def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
-        topicRepo.coll
-          .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
-            import framework._
-            Match(selector) -> List(
-              Sort(Descending("updatedAt")),
-              Skip(offset),
-              Limit(length),
-              PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from"         -> postRepo.coll.name,
-                    "as"           -> "post",
-                    "localField"   -> "lastPostId",
-                    "foreignField" -> "_id"
+        def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
+          topicRepo.coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework._
+              Match(selector) -> List(
+                Sort(Descending("updatedAt")),
+                Skip(offset),
+                Limit(length),
+                PipelineOperator(
+                  $lookup.simple(
+                    from = postRepo.coll,
+                    as = "post",
+                    local = "lastPostId",
+                    foreign = "_id"
                   )
                 )
               )
-            )
-          }
-          .map { docs =>
-            for {
-              doc   <- docs
-              topic <- doc.asOpt[Topic]
-              post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
-            } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
-          }
+            }
+            .map { docs =>
+              for {
+                doc   <- docs
+                topic <- doc.asOpt[Topic]
+                post = doc.getAsOpt[List[Post]]("post").flatMap(_.headOption)
+              } yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
+            }
 
-      private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
-    }
-
-    val cachedAdapter =
-      if (categ.isTeam) adapter
-      else new CachedAdapter(adapter, nbResults = fuccess(1000))
-
-    Paginator(
-      adapter = cachedAdapter,
-      currentPage = page,
-      maxPerPage = config.postMaxPerPage
+        private def selector = topicRepo.forUser(forUser) byCategNotStickyQuery categ
+      }
     )
-  }
 }
