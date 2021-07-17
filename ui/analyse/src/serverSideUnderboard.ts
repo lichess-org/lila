@@ -21,11 +21,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     $menu = $('.analyse__underboard__menu'),
     $timeChart = $('#movetimes-chart'),
     inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    unselect = (chart: Highcharts.ChartObject) => {
-      chart.getSelectedPoints().forEach(function (point) {
-        point.select(false);
-      });
-    };
+    unselect = (chart: Highcharts.ChartObject) => chart.getSelectedPoints().forEach(point => point.select(false));
   let lastFen: string;
 
   if (!lichess.AnalyseNVUI) {
