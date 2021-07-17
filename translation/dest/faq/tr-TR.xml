@@ -77,11 +77,11 @@ Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</stri
   <string name="accounts">Hesap İşlemleri</string>
   <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
-  <string name="showYourTitle">Eğer bir OTB unvanınız varsa, %1$s\'yi tamamlayarak bunu hesabınızda göstermeniz için başvuruda bulunabilirsiniz; bunu, tanımlayıcı bir belge/kartın net bir görüntüsü ve belgeyi/kartı elinde tutan bir fotoğraf da dahil olmak üzere gerçekleştirebilirsiniz.
+  <string name="showYourTitle">Resmî bir unvanınız varsa, unvanın hesabınıza tanımlanması için %1$s doldurarak başvuruda bulunabilirsiniz. Formu doldururken, unvanınızı belgeleyen evrakın net bir fotoğrafını ve sizin bu evrakı tutarken çekildiğiniz bir fotoğrafı yüklemeniz gerekir.
 
-Lichess\'te Unvanlı bir oyuncu olarak doğrulanmak Unvanlı Arena olaylarda oynamak için erişim sağlar.
+Unvanınızı doğruladıktan sonra Lichess tarafından düzenlenen Titled Arena turnuvalarına katılmaya hak kazanırsınız.
 
-Bir de Onursal bir %2$s Unvanı var.</string>
+Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
   <string name="asWellAsManyNMtitles">birçok ulusal usta unvanını</string>
   <string name="verificationForm">doğrulama formunu</string>
   <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
