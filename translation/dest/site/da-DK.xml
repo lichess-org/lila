@@ -911,7 +911,7 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="showHelpDialog">Vis denne hjælpedialog</string>
   <string name="reopenYourAccount">Genåbn din konto</string>
   <string name="closedAccountChangedMind">Hvis du har lukket din konto, men siden ombestemt dig, har du én chance for at få din konto tilbage.</string>
-  <string name="onlyWorksOnce">Det vil kun fungere én gang.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Det vil kun fungere én gang.</string>
   <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
   <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
