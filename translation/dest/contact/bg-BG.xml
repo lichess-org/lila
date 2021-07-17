@@ -16,10 +16,17 @@
   <string name="visitTitleConfirmation">За да се показва титла Ви в профила Ви в Lichess и да участвате в Titled Арени, посетете страницата за потвърждение на титлата</string>
   <string name="wantCloseAccount">Искам да затворя моя акаунт</string>
   <string name="closeYourAccount">Може да затворите акаунта Ви на тази страница</string>
+  <string name="doNotAskByEmail">Не питайте за затваряне на акаунт по имейл, няма да го направим.</string>
+  <string name="wantReopen">Искам отново да отворя акаунта ми</string>
+  <string name="reopenOnThisPage">Можете да отворите отново акаунта си на тази страница. Работи само веднъж.</string>
+  <string name="doNotAskByEmailToReopen">Не ни питайте да отворим отново акаунт по имейл, няма да го направим.</string>
   <string name="wantChangeUsername">Искам да променя потребителското ми име</string>
+  <string name="changeUsernameCase">Посетете тази страница, за да промените регистъра на потребителското си име</string>
+  <string name="cantChangeMore">Не можем да променим повече. По технически причини е направо невъзможно.</string>
   <string name="wantClearHistory">Искам да изчистя моята история или рейтинг</string>
   <string name="cantClearHistory">Не е възможно да почистите в играта своите история, шахматни задачи или рейтинги.</string>
   <string name="wantReport">Искам да докладвам играч</string>
+  <string name="toReportAPlayerUseForm">За да подадете сигнал за играч, използвайте формуляра</string>
   <string name="calledEnPassant">Нарича се \"ан пасан\" и е едно от правилата на шаха.</string>
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
