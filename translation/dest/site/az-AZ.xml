@@ -440,7 +440,7 @@
   <string name="setTheBoard">Lövhəni tənzimlə</string>
   <string name="popularOpenings">Məşhur debütlər</string>
   <string name="endgamePositions">Oyun sonu vəziyəti</string>
-  <string name="chess960StartPosition">Şahmat960 başlanğıc vəziyət</string>
+  <string name="chess960StartPosition">Şahmat960 başlanğıc vəziyət: %s</string>
   <string name="startPosition">Başlanğıc pozisiyası</string>
   <string name="clearBoard">Lövhəni təmizlə</string>
   <string name="savePosition">Pozisiyanı yadda saxla</string>
