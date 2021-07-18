@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="isLichessLagging">Lichess gecikiyor mu?</string>
+  <string name="isLichessLagging">Lichess yavaş mı?</string>
   <string name="measurementInProgressThreeDot">Ölçümler yapılıyor...</string>
-  <string name="noAndYourNetworkIsGood">Hayır. Ve ağınız gayet iyi.</string>
+  <string name="noAndYourNetworkIsGood">Hayır. Ve bağlantınız gayet iyi.</string>
   <string name="noAndYourNetworkIsBad" comment="noAndYourNetworkIsBad&#10;&#10;The system checks the network lag and replies in response to the question &quot;Is Lichess lagging?&quot;&#10;In this case, it's the user's network connection that is making the game lag.">Hayır. Ve ağınız kötü.</string>
   <string name="yesItWillBeFixedSoon">Evet. Yakında düzeltilecek!</string>
   <string name="andNowTheLongAnswerLagComposedOfTwoValues">Ve şimdi, uzun cevap! Oyun gecikmesi iki ilişkisiz değerden oluşur (Daha düşük değerler daha iyidir):</string>
