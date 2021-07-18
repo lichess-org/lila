@@ -40,23 +40,27 @@ lichess.load.then(() => {
 
     $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
       const $l = $(this);
-      const roomId = $l.parents('.game').data('room');
-      const chan = $l.parents('.game').data('chan');
-      const $wrap = modal($('.timeout-modal'));
-      $wrap.find('.username').text($l.find('.user-link').text());
-      $wrap.find('.text').text($l.text().split(' ').slice(1).join(' '));
-      $wrap.on('click', '.button', function (this: HTMLButtonElement) {
-        modal.close();
-        text('/mod/public-chat/timeout', {
-          method: 'post',
-          body: form({
-            roomId,
-            chan,
-            userId: $wrap.find('.username').text().toLowerCase(),
-            reason: this.value,
-            text: $wrap.find('.text').text(),
-          }),
-        }).then(_ => setTimeout(reloadNow, 1000));
+      modal({
+        content: $('.timeout-modal'),
+        onInsert($wrap) {
+          $wrap.find('.username').text($l.find('.user-link').text());
+          $wrap.find('.text').text($l.text().split(' ').slice(1).join(' '));
+          $wrap.on('click', '.button', function (this: HTMLButtonElement) {
+            const roomId = $l.parents('.game').data('room');
+            const chan = $l.parents('.game').data('chan');
+            text('/mod/public-chat/timeout', {
+              method: 'post',
+              body: form({
+                roomId,
+                chan,
+                userId: $wrap.find('.username').text().toLowerCase(),
+                reason: this.value,
+                text: $wrap.find('.text').text(),
+              }),
+            }).then(_ => setTimeout(reloadNow, 1000));
+            modal.close();
+          });
+        },
       });
     });
   };

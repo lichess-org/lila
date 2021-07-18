@@ -100,6 +100,7 @@ export interface ParentCtrl {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
+  playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode(): boolean;
   getNode(): Tree.Node;

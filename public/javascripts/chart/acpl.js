@@ -81,7 +81,6 @@ lichess.advantageChart = function (data, trans, el) {
               threshold: 0,
               lineWidth: 1,
               color: '#d85000',
-              allowPointSelect: true,
               cursor: 'pointer',
               states: {
                 hover: {

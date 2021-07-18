@@ -88,7 +88,7 @@ object roundForm {
           startDate(),
           help = startDateHelp().some,
           half = true
-        )(form3.flatpickr(_)),
+        )(form3.flatpickr(_, minDate = None)),
         isGranted(_.Relay) option
           form3.group(
             form("throttle"),

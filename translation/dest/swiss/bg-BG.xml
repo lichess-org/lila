@@ -38,6 +38,9 @@
   <string name="swissVsArenaA">В швейцарски турнир всички участници играят еднакъв брой игри и могат да играят един срещу друг само веднъж.
 Това е добър избор за клубове и официални турнири.</string>
   <string name="pointsCalculationQ">Как се изчисляват точките?</string>
+  <string name="dutchSystem">Холандската система</string>
+  <string name="FIDEHandbook">Правилника на ФИДЕ</string>
+  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">По %1$s, осъществена чрез %2$s, според %3$s.</string>
   <string name="startingSoon">Скоро започва</string>
   <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продължителност на турнира</string>
@@ -52,5 +55,6 @@
   <string name="lateJoinUntil">Да, преди повече от половината рундове да са започнали</string>
   <string name="pause">Пауза</string>
   <string name="pauseSwiss">Да, но може да намали броя на рундовете</string>
+  <string name="streaksAndBerserk">Поредици и Берсерк</string>
   <string name="unlimitedAndFree">Неограничено и безплатно</string>
 </resources>

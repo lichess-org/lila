@@ -442,7 +442,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="setTheBoard">Set the board</string>
   <string name="popularOpenings">Popular openings</string>
   <string name="endgamePositions">Endgame positions</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 start position: %s</string>
+  <string name="chess960StartPosition">Chess960 start position: %s</string>
   <string name="startPosition">Starting position</string>
   <string name="clearBoard">Clear board</string>
   <string name="savePosition">Save position</string>
@@ -909,4 +909,10 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus Chat</string>
+  <string name="reopenYourAccount">Reopen your account</string>
+  <string name="closedAccountChangedMind">If you closed your account, but have since changed your mind, you get one chance of getting your account back.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">This will only work once.</string>
+  <string name="cantDoThisTwice">If you close your account a second time, there will be no way of recovering it.</string>
+  <string name="emailAssociatedToaccount">Email address associated to the account</string>
+  <string name="sentEmailWithLink">We\'ve sent you an email with a link.</string>
 </resources>

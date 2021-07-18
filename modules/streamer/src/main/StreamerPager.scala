@@ -2,9 +2,8 @@ package lila.streamer
 
 import reactivemongo.api._
 
-import lila.common.paginator.Paginator
+import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
@@ -20,23 +19,51 @@ final class StreamerPager(
       live: LiveStreams,
       approvalRequested: Boolean = false
   ): Fu[Paginator[Streamer.WithUser]] = {
-    val adapter = new Adapter[Streamer](
-      collection = coll,
-      selector =
-        if (approvalRequested) approvalRequestedSelector
-        else
-          $doc(
-            "approval.granted" -> true,
-            "listed"           -> Streamer.Listed(true),
-            "_id" $nin live.streams.map(_.streamer.id)
-          ),
-      projection = none,
-      sort = if (approvalRequested) $sort asc "updatedAt" else $sort desc "liveAt"
-    ) mapFutureList withUsers
     Paginator(
-      adapter = new CachedAdapter(adapter, nbResults = fuccess(6000)),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = maxPerPage,
+      adapter = new AdapterLike[Streamer.WithUser] {
+
+        private def selector =
+          if (approvalRequested) approvalRequestedSelector
+          else
+            $doc(
+              "approval.granted" -> true,
+              "listed"           -> Streamer.Listed(true),
+              "_id" $nin live.streams.map(_.streamer.id)
+            )
+
+        def nbResults: Fu[Int] =
+          if (approvalRequested) coll.countSel(selector)
+          else fuccess(1000)
+
+        def slice(offset: Int, length: Int): Fu[Seq[Streamer.WithUser]] =
+          coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework._
+              Match(selector) -> List(
+                Sort(if (approvalRequested) Ascending("updatedAt") else Descending("liveAt")),
+                Skip(offset),
+                Limit(length),
+                PipelineOperator(
+                  $lookup.simple(
+                    from = userRepo.coll,
+                    as = "user",
+                    local = "_id",
+                    foreign = "_id"
+                  )
+                ),
+                UnwindField("user")
+              )
+            }
+            .map { docs =>
+              for {
+                doc      <- docs
+                streamer <- doc.asOpt[Streamer]
+                user     <- doc.getAsOpt[User]("user")
+              } yield Streamer.WithUser(streamer, user)
+            }
+      }
     )
   }
 
@@ -52,17 +79,4 @@ final class StreamerPager(
       "approval.requested" -> true,
       "approval.ignored"   -> false
     )
-
-  private def withUsers(streamers: Seq[Streamer]): Fu[Seq[Streamer.WithUser]] =
-    userRepo.withColl {
-      _.optionsByOrderedIds[User, User.ID](
-        streamers.map(_.id.value),
-        none,
-        ReadPreference.secondaryPreferred
-      )(_.id)
-    } map { users =>
-      streamers zip users collect { case (streamer, Some(user)) =>
-        Streamer.WithUser(streamer, user)
-      }
-    }
 }

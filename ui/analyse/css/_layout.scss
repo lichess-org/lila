@@ -21,9 +21,14 @@ body {
     margin: $block-gap;
   }
 
-  &__board,
-  .relay-tour {
+  &__board {
     grid-area: board;
+  }
+
+  .relay-tour {
+    grid-row-start: board;
+    grid-row-end: tools;
+    grid-column: board;
   }
 
   &__tools {
@@ -38,9 +43,7 @@ body {
     grid-area: under;
 
     @include breakpoint($mq-col1-uniboard) {
-      overflow: hidden;
-
-      // helps truncating long study names
+      overflow: hidden; // helps truncating long study names
     }
   }
 
@@ -64,12 +67,26 @@ body {
   }
 
   grid-template-rows: auto auto minmax(20em, 30vh);
-  grid-template-areas: 'board' 'controls' 'tools' 'side' 'acpl' 'under' 'chat' 'uchat';
+  grid-template-areas:
+    'board'
+    'controls'
+    'tools'
+    'side'
+    'acpl'
+    'under'
+    'chat'
+    'uchat';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-width var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
-    grid-template-areas: 'board      gauge tools' 'under      .     controls' 'under      .     acpl' 'under      .     side' 'chat       .     side' 'uchat      .     side';
+    grid-template-areas:
+      'board      gauge tools'
+      'under      .     controls'
+      'under      .     acpl'
+      'under      .     side'
+      'chat       .     side'
+      'uchat      .     side';
     grid-row-gap: 0;
 
     &__side,
@@ -85,6 +102,10 @@ body {
     .eval-gauge {
       display: block;
     }
+
+    .relay-tour {
+      grid-row-end: under;
+    }
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
@@ -93,8 +114,12 @@ body {
 
   @include breakpoint($mq-col3) {
     grid-template-columns: $col3-uniboard-side $block-gap $col3-uniboard-width var(--gauge-gap) $col3-uniboard-table;
-    grid-template-rows: $meta-height $chat-height 2.5em auto;
-    grid-template-areas: 'side    . board gauge tools' 'chat    . board gauge tools' 'uchat   . under .     controls' 'uchat   . under .     acpl';
+    grid-template-rows: $meta-height $chat-height 2.5em 1fr;
+    grid-template-areas:
+      'side    . board gauge tools'
+      'chat    . board gauge tools'
+      'uchat   . under .     controls'
+      'uchat   . under .     acpl';
 
     &__side {
       margin-top: 0;

@@ -255,6 +255,7 @@ interface Window {
   palantir?: {
     palantir(opts: PalantirOpts): Palantir;
   };
+  LichessChat(element: Element, opts: any): unknown;
   [key: string]: any; // TODO
 }
 
@@ -273,6 +274,10 @@ interface LightUserNoId {
 
 interface LightUser extends LightUserNoId {
   id: string;
+}
+
+interface LightUserOnline extends LightUser {
+  online: boolean;
 }
 
 interface Navigator {
@@ -311,7 +316,7 @@ declare type Perf =
 declare type Color = 'white' | 'black';
 
 declare type Files = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h';
-declare type Ranks = '1' | '2' | '3' | '4' | '5' | '5' | '6' | '7' | '8';
+declare type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
 declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;

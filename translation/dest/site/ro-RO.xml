@@ -470,7 +470,7 @@
   <string name="boardEditor">Editorul de tablă</string>
   <string name="setTheBoard">Așează tabla</string>
   <string name="popularOpenings">Deschideri populare</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Poziție de start Chess960: %s</string>
+  <string name="chess960StartPosition">Poziție de start Chess960: %s</string>
   <string name="startPosition">Poziția de start</string>
   <string name="clearBoard">Curăță tabla</string>
   <string name="savePosition">Salvează poziția</string>
@@ -924,4 +924,10 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="analysisOptions">Opțiuni de analiză</string>
   <string name="focusChat">Focalizează conversația</string>
   <string name="showHelpDialog">Arată acest dialog de ajutor</string>
+  <string name="reopenYourAccount">Redeschide contul tău</string>
+  <string name="closedAccountChangedMind">Dacă ți-ai închis contul, dar de atunci te-ai răzgândit, primești o șansă să-ți recuperezi contul.</string>
+  <string name="onlyWorksOnce">Acest lucru va funcţiona o singură dată.</string>
+  <string name="cantDoThisTwice">Dacă închideți contul de a doua oară, nu va mai exista nicio modalitate de recuperare a acestuia.</string>
+  <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
+  <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
 </resources>

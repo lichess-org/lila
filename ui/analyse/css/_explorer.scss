@@ -293,7 +293,8 @@
     .choices {
       display: flex;
 
-      span {
+      button {
+        @extend %metal;
         flex-grow: 1;
         padding: 5px 0;
         text-align: center;
@@ -316,10 +317,10 @@
         }
 
         &:hover {
-          background: #fff;
+          @extend %metal-hover;
         }
 
-        &.selected {
+        &[aria-pressed='true'] {
           background: $c-secondary;
           color: $c-secondary-over;
           text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);

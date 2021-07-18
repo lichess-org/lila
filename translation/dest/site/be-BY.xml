@@ -99,7 +99,7 @@
     <item quantity="many">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
     <item quantity="other">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
-  <string name="noGameFound">Гульні не знойдзеныя</string>
+  <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
   <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
@@ -126,10 +126,10 @@
   <string name="mistake">Памылка</string>
   <string name="inaccuracy">Недакладнасць</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s зявок</item>
-    <item quantity="few">%s зяўка</item>
-    <item quantity="many">%s зяўкоў</item>
-    <item quantity="other">%s зяўкоў</item>
+    <item quantity="one">%s позех</item>
+    <item quantity="few">%s позеха</item>
+    <item quantity="many">%s позехаў</item>
+    <item quantity="other">%s позехаў</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s памылка</item>
@@ -503,7 +503,7 @@
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
+  <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
   <string name="savePosition">Захаваць пазіцыю</string>
@@ -528,7 +528,7 @@
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s бягучая гульня</item>
@@ -637,7 +637,7 @@
   <string name="side">Бок</string>
   <string name="clock">Гадзіньнік</string>
   <string name="unauthorizedError">Няма доступу.</string>
-  <string name="noInternetConnection">Няма злучэньня зь сецівам. Ты ўсё яшчэ можаш згуляць у афлайн мэню.</string>
+  <string name="noInternetConnection">Няма злучэння з інтэрнэтам. Вы ўсё яшчэ можаце згуляць афлайн з мэню.</string>
   <string name="connectedToLichess">Ты цяпер падлучаны да lichess.org</string>
   <string name="signedOut">Ты выйшаў з свайго акаўту</string>
   <string name="loginSuccessful">Ты ўвайшоў у свой акаўнт</string>
@@ -695,7 +695,7 @@
   <string name="hostANewSimul">Арганізаваць новы сеанс</string>
   <string name="noSimulFound">Сеанс не знойдзены</string>
   <string name="noSimulExplanation">Не атрымалася знайсці такі сеанс.</string>
-  <string name="returnToSimulHomepage">Да асноўнай старонкі</string>
+  <string name="returnToSimulHomepage">Вярнуцца да асноўнай старонкі сеансу</string>
   <string name="aboutSimul">Сеанс адначасовай гульні – рэжым, калі адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
   <string name="aboutSimulImage">Фішэр гуляў адначасова з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
   <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: сеансёр ходзіць ад стала да стала, робячы хады.</string>
@@ -989,4 +989,10 @@
   <string name="analysisOptions">Параметры аналізу</string>
   <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
+  <string name="reopenYourAccount">Пераадкрыць акаўнт</string>
+  <string name="closedAccountChangedMind">Калі пасля закрыцця акаўнту, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Гэта спрацуе толькі адзін раз.</string>
+  <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
+  <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
+  <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
 </resources>

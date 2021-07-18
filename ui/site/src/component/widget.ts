@@ -1,7 +1,7 @@
 import * as data from 'common/data';
 
 const widget = (name: string, prototype: any) => {
-  const constructor = ($[name] = function (options: any, element: HTMLElement) {
+  const constructor: any = (($ as any)[name] = function (options: any, element: HTMLElement) {
     const self: any = this;
     self.element = $(element);
     (element as any)[name] = this;
@@ -9,7 +9,7 @@ const widget = (name: string, prototype: any) => {
     self._create();
   });
   constructor.prototype = prototype;
-  $.fn[name] = function (method: string) {
+  ($.fn as any)[name] = function (method: string) {
     const args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string')
       this.each(function (this: HTMLElement) {

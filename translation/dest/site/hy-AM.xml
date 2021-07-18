@@ -431,7 +431,7 @@
   <string name="setTheBoard">Տեղադրել դիրքը</string>
   <string name="popularOpenings">Հանրաճանաչ սկզբնախաղեր</string>
   <string name="endgamePositions">Վերջնախաղային դիրքեր</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
+  <string name="chess960StartPosition">Շախմատ 960-ի սկզբնական դիրք՝ %s</string>
   <string name="startPosition">Սկզբնական դիրք</string>
   <string name="clearBoard">Մաքրել տախտակը</string>
   <string name="savePosition">Պահպանել դիրքը</string>
@@ -597,7 +597,7 @@
   <string name="returnToSimulHomepage">Վերադառնալ խաղաշարերի էջ</string>
   <string name="aboutSimul">Խաղաշարերը ենթադրում են մեկ խաղացողի մենամարտը միաժամանակ մի քանի խաղացողի հետ։</string>
   <string name="aboutSimulImage">Ընդհանուր 50 պարտիայից Ֆիշերը հաղթել է 47-ում, ոչ-ոքի արել 2-ում և պարտվել 1-ում։</string>
-  <string name="aboutSimulRealLife"> Գաղափարը կրկնում է կենդանի շախմատում ընդունված հայեցակարգը, երբ խաղաշար անցկացնողը տեղաշարժվում է սեղանից սեղան` մեկ քայլ կատարելու համար։</string>
+  <string name="aboutSimulRealLife">Գաղափարը կրկնում է կենդանի շախմատում ընդունված հայեցակարգը, երբ խաղաշար անցկացնողը տեղաշարժվում է սեղանից սեղան` մեկ քայլ կատարելու համար։</string>
   <string name="aboutSimulRules">Երբ սկսվում է միաժամանակյա խաղաշարը, յուրաքանչյուր խաղացող սկսում է պարտիան խաղաշարն անցկացնողի հետ, որը խաղում է սպիտակներով։ Խաղաշարն ավարտվում է, երբ խաղացվում են բոլոր պարտիաները։</string>
   <string name="aboutSimulSettings">Միաժամանակյա խաղաշարերը չեն ենթադրում վարկանիշային պարտիաներ։ Վերախաղարկումները, քայլերի չեղարկումները և ժամանակի հավելումները արգելված են։</string>
   <string name="create">Ստեղծել</string>

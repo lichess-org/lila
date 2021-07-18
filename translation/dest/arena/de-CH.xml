@@ -47,9 +47,9 @@ Prässiär und gohn zur Turnierübersicht zrugg, zum meh Schpiil z\'schpilä und
   <string name="newTeamBattle">Neuä Teamfight</string>
   <string name="customStartDate">Benutzärdefiniärts Schtartdatum</string>
   <string name="customStartDateHelp">I dinärä eigänä, lokalä Ziitzonä. Das wird d Iischtellig \"Ziit bis s Turniär schtartät\" überschriibä</string>
-  <string name="allowBerserk">Bersärk erlaubä</string>
-  <string name="allowBerserkHelp">La Schpillär ihri Bedänkziit halbiärä, zum än zuäsätzlichä Punkt überzcho</string>
-  <string name="allowChatHelp">La Schpillär imnä Tschättruum diskutiärä</string>
-  <string name="arenaStreaks">Arenä-Schtriiks</string>
+  <string name="allowBerserk">Bärsärk erlaubä</string>
+  <string name="allowBerserkHelp">Loh Schpillär/-innä ihri Bedänkziit halbiärä, zum än zuäsätzlichä Punkt überzcho</string>
+  <string name="allowChatHelp">Loh Schpillär/-innä imnä Tschättruum diskutiärä</string>
+  <string name="arenaStreaks">Arena-Schträhnä</string>
   <string name="arenaStreaksHelp">Nach 2 Siig gänd ufänandärfolgändi Siig 4 Pünkt anstatt 2.</string>
 </resources>

@@ -4,6 +4,8 @@ import { loadScript } from './component/assets';
 import extendTablesortNumber from './component/tablesort-number';
 import * as xhr from 'common/xhr';
 
+import type { Result as UserCompleteResult } from './userComplete';
+
 lichess.load.then(() => {
   $('table.sortable').each(function (this: HTMLElement) {
     tablesort(this, {
@@ -47,14 +49,14 @@ lichess.load.then(() => {
                   })
                 )
                 .then(
-                  res => {
+                  (res: UserCompleteResult) => {
                     const current = currentUserIds();
                     callback(res.result.filter(t => !current.includes(t.id)));
                   },
                   _ => callback([])
                 );
           },
-          template: o =>
+          template: (o: LightUserOnline) =>
             '<span class="ulpt user-link' +
             (o.online ? ' online' : '') +
             '" href="/@/' +
@@ -66,7 +68,7 @@ lichess.load.then(() => {
             (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') +
             o.name +
             '</span>',
-          replace: o => '$1' + o.name + '\n',
+          replace: (o: LightUserOnline) => '$1' + o.name + '\n',
         },
       ]);
 

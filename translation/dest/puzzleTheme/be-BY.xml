@@ -22,6 +22,8 @@
   <string name="castlingDescription">Адпраўце караля ў бяспеку і выведзіце ладдзю ў атаку.</string>
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
+  <string name="crushing">Зруйнаванне</string>
+  <string name="crushingDescription">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
   <string name="doubleBishopMate">Мат двума сланамі</string>
   <string name="doubleBishopMateDescription">Два нападаючых слана на суседніх дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="dovetailMate">Мат \"галубіны хвост\"</string>
@@ -30,11 +32,16 @@
   <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="kingsideAttack">Атака на каралеўскім флангу</string>
   <string name="kingsideAttackDescription">Атака на караля суперніка, пасля ягонай кароткай ракіроўкі.</string>
+  <string name="clearance">Расчыстка поля</string>
+  <string name="clearanceDescription">Ход, часта з тэмпам, які расчышчае поле, лінію або дыяганал для паследуючай тактыкі.</string>
   <string name="defensiveMove">Абарончы ход</string>
   <string name="defensiveMoveDescription">Дакладны ход або паслядоўнасць хадоў, неабходная каб пазбегнуць страты матэрыялу або іншай перавагі.</string>
   <string name="deflection">Адцягненне</string>
   <string name="deflectionDescription">Ход, які адцягвае фігуру суперніка ад выканання іншага абавязку, напрыклад, аховы ключавога поля. Часам таксама называецца \"перагрузка\".</string>
+  <string name="discoveredAttack">Ўскрыты напад</string>
+  <string name="discoveredAttackDescription">Ход фігурай (напрыклад канём), якая раней блакавала фігуру далёкага дзеяння (напрыклад ладдзю), з лініі нападу гэтай фігуры.</string>
   <string name="doubleCheck">Падвойны шах</string>
+  <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
   <string name="endgameDescription">Тактыка на апошнім этапе гульні.</string>
   <string name="enPassantDescription">Задача звязаная з \"узяццем на праходзе\", дзе пешка можа ўзяць пешку суперніка, якая прайшла побач, выкарыстоўвыючы першы ход на два палі.</string>
@@ -46,6 +53,8 @@
   <string name="hangingPieceDescription">Тактыка, уключаючая неабароненую фігуру суперніка ці недастатковую колькасць яе абаронцоў, якую можна з\'есці.</string>
   <string name="hookMate">Хук-мат</string>
   <string name="hookMateDescription">Мат ладдзёй, канём і пешкай разам з дапамогай адной пешкай суперніка, абмяжоўваючай адыход варожага караля.</string>
+  <string name="interference">Перакрыццё</string>
+  <string name="interferenceDescription">Перамяшчэнне фігуры паміж дзвюма фігурамі суперніка, каб адна або абедзве фігуры суперніка засталіся без абароны, напрыклад, конь на абароненым полі паміж дзвюма ладдзямі.</string>
   <string name="intermezzo">Прамежкавы ход</string>
   <string name="intermezzoDescription">Замест чаканага хода, спачатку зрабіце іншы ход, ствараючы непасрэдную пагрозу, на якую супернік павінен адказаць. Таксама вядомы як \"Zwischenzug\" або \"Intermezzo\".</string>
   <string name="knightEndgame">Канёвы эндшпіль</string>

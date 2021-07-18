@@ -472,7 +472,7 @@
   <string name="setTheBoard">Uzstādīt galdiņu</string>
   <string name="popularOpenings">Populāras atklātnes</string>
   <string name="endgamePositions">Spēļu beigu pozīcijas</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">960-šaha sākumpozīcija: %s</string>
+  <string name="chess960StartPosition">960-šaha sākumpozīcija: %s</string>
   <string name="startPosition">Sākuma pozīcija</string>
   <string name="clearBoard">Notīrīt lauciņu</string>
   <string name="savePosition">Saglabāt pozīciju</string>
@@ -948,4 +948,10 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="analysisOptions">Analīzes iespējas</string>
   <string name="focusChat">Fokusēt sarunu</string>
   <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
+  <string name="reopenYourAccount">Atgūt savu kontu</string>
+  <string name="closedAccountChangedMind">Ja esat slēdzis kontu, bet pārdomājāt, jums ir viena iespēja atgūt kontu.</string>
+  <string name="onlyWorksOnce">Tā darbosies tikai vienu reizi.</string>
+  <string name="cantDoThisTwice">Ja slēgsiet kontu otrreiz, nebūs iespēju to atgūt.</string>
+  <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
+  <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
 </resources>

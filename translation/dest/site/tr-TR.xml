@@ -476,7 +476,7 @@
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="latestUpdates">Son gelişmeler</string>
-  <string name="tournamentWinners">Turnuvanın Kazananları</string>
+  <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
   <string name="descPrivate">Üyelere özel açıklama</string>
@@ -640,7 +640,7 @@
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
   <string name="tournamentOfficial">Resmî</string>
-  <string name="timeBeforeTournamentStarts">Turnuvanın başlama süresi</string>
+  <string name="timeBeforeTournamentStarts">Turnuvaya kalan süre</string>
   <string name="averageCentipawnLoss">Ortalama santipiyon kaybı</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
   <string name="keyMoveBackwardOrForward">önceki/sonraki hamle</string>
@@ -704,14 +704,14 @@
   <string name="zeroAdvertisement">Sıfır reklam</string>
   <string name="fullFeatured">Tüm özellikler</string>
   <string name="phoneAndTablet">Telefon ve tablet</string>
-  <string name="bulletBlitzClassical">Kurşun, yıldırım, klasik</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
   <string name="correspondenceChess">Yazışmalı satranç</string>
   <string name="onlineAndOfflinePlay">Çevrimiçi ve çevrimdışı oyna</string>
   <string name="viewTheSolution">Çözümü göster</string>
-  <string name="followAndChallengeFriends">Takip edin ve arkadaşlarınıza meydan okuyun</string>
+  <string name="followAndChallengeFriends">Arkadaşlarınızı takip edin ve onlarla maç yapın</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Artık %s dilinde kullanabilirsiniz.</item>
-    <item quantity="other">Artık %s dillerinde kullanabilirsiniz.</item>
+    <item quantity="one">%s farklı dili destekler!</item>
+    <item quantity="other">%s farklı dili destekler!</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
   <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
@@ -907,4 +907,10 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="analysisOptions">Analiz seçenekleri</string>
   <string name="focusChat">Sohbete odaklan</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
+  <string name="reopenYourAccount">Hesabı aktifleştir</string>
+  <string name="closedAccountChangedMind">Hesabınızı kapatıp sonradan fikrinizi değiştirdiyseniz bir kereliğine mahsus olmak üzere hesabı tekrar açabilirsiniz.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Bu işlemi yalnızca bir kez yapabilirsiniz.</string>
+  <string name="cantDoThisTwice">Hesabınızı ikinci kez kapatırsanız tekrar aktifleştiremezsiniz.</string>
+  <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
+  <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
 </resources>

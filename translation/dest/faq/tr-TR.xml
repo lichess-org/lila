@@ -19,54 +19,52 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
-  <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
-  <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
-(Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>
-  <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyuncular hakkında ne yapılır?</string>
-  <string name="leavingGameWithoutResigningExplanation">Rakibiniz sık sık oyunu iptal ederse / oyundan ayrılırsa, \'\'oyun yasaklaması\'\'alırlar, yani oyun oynamaktan geçici olarak yasaklanırlar. Bu, profillerinde genel olarak gösterilmez. Bu davranış devam ederse, oyun yasaklamasının uzunluğu artar - ve bu türden uzun süreli davranışlar hesabın kapanmasına yol açabilir.</string>
+  <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
+  <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
+
+(Mesela puanınız bu maçlardan sonra büyük ölçüde artarsa, hiç puan iadesi almayabilir ya da kısmi bir iade alabilirsiniz). Tek seferde en fazla 150 puan iade edilir.</string>
+  <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyunculara ne yapılır?</string>
+  <string name="leavingGameWithoutResigningExplanation">Rakibiniz oyunlardan sık sık ayrılıyorsa yeni bir oyuna katılması geçici olarak engellenir. Bu kısıtlama oyuncunun profilinde görüntülenmez. Eğer aynı oyuncu maçı terk etmeden oyunlardan ayrılmaya devam ederse uygulanan engelin süresi artırılır. Bu davranış çok uzun süre devam ederse oyuncunun hesabı kapatılabilir.</string>
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
-  <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
+  <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
   <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
-  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
-Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
-  <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri ne anlama geliyor?</string>
+  <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
+Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
+  <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ve %1$s\'nı destekler.</string>
-  <string name="eightVariants">8 satranç varyantı</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ile %1$s destekler.</string>
+  <string name="eightVariants">8 satranç varyantını</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
-  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
+  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 100\'de 1\'ine eşittir. Yani 100 santipiyon 1 piyon değerindedir. Bu değerler oyunda doğrudan bir rol oynamasa da oyuncular için yararlı, bilgisayarlar için ise pozisyon analizlerinde gereklidir.
 
-En iyi bilgisayar hareketi sıfır santipiyon kaybettirir, ancak daha az hamle santipiyon cinsinden ölçülen pozisyonun bozulmasına neden olacaktır.
+Bilgisayarın önerdiği en iyi hamle santipiyon kaybettirmez ancak daha zayıf hamleler pozisyonun kötüye gitmesine sebep olacaktır. Bu durum da santipiyon ile ölçülür.
 
-Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybederse, oyun o kadar güçlü olur.
+Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybedilirse, hamleler o kadar güçlü demektir.
 
 Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
-  <string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
-  <string name="lichessFollowFIDErules">Bir oyuncunun zaman tükenmesi durumunda, bu oyuncu genellikle oyunu kaybedecektir. Ancak, oyun, rakip oyuncunun şahını olası herhangi bir yasal hamleler dizisi (%1$s) mat edebiliyor ise maç sonucu değişebilir.
+  <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
+  <string name="lichessFollowFIDErules">Oyun esnasında süresi biten oyuncu genellikle maçı kaybetmiş sayılır. Ancak rakip oyuncu, elindeki taşlar ile oyuncuyu herhangi bir şekilde mat etme şansına sahip değilse oyun berabere biter (%1$s).
 
-Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
+Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman süresi bitmeyen oyuncunun lehine karar veririz.
 
-Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
-  <string name="fideHandbookX">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
+Rakipte kendi şahının hareketini engelleyebilecek herhangi bir taş varsa, tek bir at veya fil ile mat edilmesi de mümkün olabilir.</string>
+  <string name="fideHandbookX">FIDE satranç kuralları %s</string>
+  <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi, bu nasıl olur? (geçerken alma)</string>
+  <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
 
-Https://handbook. fide. com/chapter/E012018 bağlantısı.
-Dosya: Sık Sorulan Sorular (SSS) sayfası</string>
-  <string name="discoveringEnPassant">Bir piyon, yanından ilk hamlesinde 2 ilerlemiş bir piyonu neden yiyebilir? (geçerken alma)</string>
-  <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Wikipedia %1$s hakkında makale veriyor.
+FIDE kurallarının 3.7 (d) sayılı maddesinde ilgili kural şöyle açıklanır (%2$s):
 
-%2$s\'nin 3.7 (d) bölümünde açıklanmıştır:
+\"Bir piyon, kendi bulunduğu kareye bitişik dikeylerden birinde ve kendisiyle aynı yatayda bulunan bir rakip piyonu, bu rakip piyonun bulunduğu yere, hemen başlangıç konumundan bir hamlede iki kare ilerleyerek gelmiş olması koşuluyla alabilir. Bu alış biçimi, sadece sözü edilen piyon sürüşünü izleyen hamle için geçerlidir ve \'geçerken alma\' (en passant) olarak adlandırılır.\"
 
-\"Orijinal karesinden bir hamlede iki kare ilerleyen bir rakibin piyonu bitişik ve aynı sırada ise, bu piyon rakibin piyonunu sanki normal piyonla taş alırmış gibi alabilir. Bu hamle sadece piyon iki kare ilerledikten hemen sonraki hamle içerisinde yapılabilir ve \'geçerken alma\' diye adlandırılır.
-
-Biraz pratik yapmak için bu hamle için olan %3$s\'ye bakın.</string>
-  <string name="goodIntroduction">iyi giriş</string>
-  <string name="officialRulesPDF">resmi kurallar (PDF)</string>
-  <string name="lichessTraining">Lichess egzersizi</string>
+Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
+  <string name="goodIntroduction">güzel bir açıklama</string>
+  <string name="officialRulesPDF">resmî kurallar (PDF)</string>
+  <string name="lichessTraining">Lichess egzersizlerine</string>
   <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
   <string name="threefoldRepetitionExplanation">Bir pozisyon üç kez gerçekleşirse, oyuncular %1$s ile beraberlik talebinde bulunabilirler. Lichess, %2$s\'nin 9.2 (d) maddesinde açıklandığı gibi resmi FIDE kurallarını uygular.</string>
   <string name="threefoldRepetitionLowerCase">üç kez hamle tekrarı</string>

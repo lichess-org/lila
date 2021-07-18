@@ -78,14 +78,17 @@ final class MsgApi(
       orig: User.ID,
       dest: User.ID,
       text: String,
-      multi: Boolean = false
+      multi: Boolean = false,
+      ignoreSecurity: Boolean = false
   ): Fu[PostResult] =
     Msg.make(text, orig).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for {
         contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
         isNew    <- !colls.thread.exists($id(threadId))
-        verdict  <- security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
+        verdict <-
+          if (ignoreSecurity) fuccess(MsgSecurity.Ok)
+          else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _ = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
         res <- verdict match {
           case MsgSecurity.Limit     => fuccess(PostResult.Limited)

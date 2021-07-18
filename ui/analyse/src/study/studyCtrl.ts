@@ -558,6 +558,7 @@ export default function (
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setGlyphsAt(d.g, position.path);
+      if (ctrl.path === position.path) ctrl.setAutoShapes();
       redraw();
     },
     clock(d) {

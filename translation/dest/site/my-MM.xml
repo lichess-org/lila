@@ -113,4 +113,10 @@
   <string name="noChat">ချက်ထ် စကားပြောမှု ခွင့်မပြုပါ</string>
   <string name="onlyTeamLeaders">အသင်းခေါင်းဆောင်များသာ</string>
   <string name="onlyTeamMembers">အသင်းဝင်များသာ</string>
+  <string name="reopenYourAccount">မိမိ အကောင့် ပြန်ဖွင့်ရန်</string>
+  <string name="closedAccountChangedMind">လူကြီးမင်း ပိတ်လိုက်မိသော အကောင့်ကို စိတ်ပြောင်းသွား၍ ပြန်လည် အလိုရှိလျှင် အခွင့်အရေး တစ်ကြိမ် ရပါမည်။</string>
+  <string name="onlyWorksOnce">တစ်ကြိမ်သာ ပြုလုပ်နိုင်မည်။</string>
+  <string name="cantDoThisTwice">လူကြီးမင်း၏ အကောင့်အား ဒုတိယ အကြိမ် ပိတ်လိုက်လျှင် ပြန်လည် မရနိုင်တော့ပါ။</string>
+  <string name="emailAssociatedToaccount">အကောင့်နှင့် ဆက်စပ်သော အီးမေးလ် လိပ်စာ</string>
+  <string name="sentEmailWithLink">လင့်ခ် ပါဝင်သော အီးမေးလ် တစ်စောင် သင့်ထံ ပို့လိုက်ပါပြီ။</string>
 </resources>

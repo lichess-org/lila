@@ -441,7 +441,7 @@
   <string name="setTheBoard">Asettele lauta</string>
   <string name="popularOpenings">Suosittuja avauksia</string>
   <string name="endgamePositions">Loppupeliasemat</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Shakki960-alkuasema: %s</string>
+  <string name="chess960StartPosition">Shakki960-alkuasema: %s</string>
   <string name="startPosition">Alkuasema</string>
   <string name="clearBoard">Tyhjennä lauta</string>
   <string name="savePosition">Tallenna asema</string>
@@ -901,12 +901,18 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="noChat">Ei keskustelua</string>
   <string name="onlyTeamLeaders">Vain joukkueenjohtajille</string>
   <string name="onlyTeamMembers">Vain joukkueen jäsenille</string>
-  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Siirtolistalla liikkuminen</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Hiiritoiminnot</string>
+  <string name="navigateMoveTree">Siirtolistalla liikkuminen</string>
+  <string name="mouseTricks">Hiiritoiminnot</string>
   <string name="toggleLocalAnalysis">Paikallinen tietokoneanalyysi päälle/pois</string>
   <string name="toggleAllAnalysis">Kaikki tietokoneanalyysi päälle/pois</string>
   <string name="playComputerMove">Pelaa tietokoneen paras siirto</string>
   <string name="analysisOptions">Analyysiasetukset</string>
   <string name="focusChat">Kohdista keskusteluun</string>
   <string name="showHelpDialog">Näytä tämä ohjevalintaikkuna</string>
+  <string name="reopenYourAccount">Avaa käyttäjätunnuksesi uudelleen</string>
+  <string name="closedAccountChangedMind">Jos olet sulkenut käyttäjätunnuksesi mutta sen jälkeen muuttanut mieltäsi, saat yhden mahdollisuuden palauttaa tunnuksesi.</string>
+  <string name="onlyWorksOnce">Tämä toimii vain kerran.</string>
+  <string name="cantDoThisTwice">Jos suljet tunnuksesi toisen kerran, sitä ei voi palauttaa enää millään tavalla.</string>
+  <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
+  <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
 </resources>

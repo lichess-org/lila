@@ -424,7 +424,7 @@
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="setTheBoard">پوزیشن را انتخاب کنید</string>
   <string name="popularOpenings">گشایش های معروف</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">پوزیشن ابتدایی شطرنج960: %s</string>
+  <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
   <string name="savePosition">ذخیره موقعیت</string>
@@ -873,4 +873,5 @@
   <string name="noChat">بدون چت</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
+  <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
 </resources>

@@ -285,7 +285,10 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
                 on: {
                   click: () => {
-                    if (state.playable) modal($('.continue-with'));
+                    if (state.playable)
+                      modal({
+                        content: $('.continue-with'),
+                      });
                   },
                 },
               },

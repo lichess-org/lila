@@ -217,10 +217,20 @@ trait FormHelper { self: I18nHelper =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
-    def flatpickr(field: Field, withTime: Boolean = true, utc: Boolean = false): Tag =
+    private val dataEnableTime = attr("data-enable-time")
+    private val dataTime24h    = attr("data-time_24h")
+    private val dataMinDate    = attr("data-minDate")
+
+    def flatpickr(
+        field: Field,
+        withTime: Boolean = true,
+        utc: Boolean = false,
+        minDate: Option[String] = Some("today")
+    ): Tag =
       input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
-        datatime24h := withTime
+        dataTime24h := withTime,
+        dataMinDate := minDate
       )
 
     object file {

@@ -441,7 +441,7 @@
   <string name="setTheBoard">Entrer une position</string>
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="endgamePositions">Positions de finale</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Position de départ – Chess960 : %s</string>
+  <string name="chess960StartPosition">Position de départ – Chess960 : %s</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -909,4 +909,10 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="analysisOptions">Options d\'analyse</string>
   <string name="focusChat">Priorité au salon de discussion</string>
   <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
+  <string name="reopenYourAccount">Rouvrir votre compte</string>
+  <string name="closedAccountChangedMind">Si vous avez fermé votre compte, mais que vous avez depuis changé d\'avis, vous avez une chance de récupérer votre compte.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Cela ne fonctionnera qu\'une seule fois.</string>
+  <string name="cantDoThisTwice">Si vous fermez votre compte une deuxième fois, il n\'y aura aucun moyen de le récupérer.</string>
+  <string name="emailAssociatedToaccount">Adresse e-mail associée au compte</string>
+  <string name="sentEmailWithLink">Nous vous avons envoyé un e-mail avec un lien.</string>
 </resources>
