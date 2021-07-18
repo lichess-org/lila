@@ -22,4 +22,16 @@
   <string name="weeklyClassical">Ամենշաբաթյա դասական շախմատ</string>
   <string name="weeklyXArena">Ամենշաբաթյա %s Արենա</string>
   <string name="weeklyX">Ամենշաբաթյա %s</string>
+  <string name="monthlyRapidArena">Արագ շախմատի ամենամսյա Արենա</string>
+  <string name="monthlyRapid">Ամենամսյա արագ շախմատ</string>
+  <string name="monthlyClassicalArena">Դասական շախմատի ամենամսյա Արենա</string>
+  <string name="monthlyClassical">Ամենամսյա դասական շախմատ</string>
+  <string name="monthlyXArena">Ամենամսյա %s Արենա</string>
+  <string name="monthlyX">Ամենամսյա %s</string>
+  <string name="yearlyRapidArena">Արագ շախմատի ամենամյա Արենա</string>
+  <string name="yearlyRapid"> Ամենամյա արագ շախմատ</string>
+  <string name="yearlyClassicalArena">Դասական շախմատի ամենամյա Արենա</string>
+  <string name="yearlyClassical">Ամենամյա դասական շախմատ</string>
+  <string name="yearlyXArena">Ամենամյա %s Արենա</string>
+  <string name="yearlyX">Ամենամյա %s</string>
 </resources>
