@@ -18,4 +18,8 @@
   <string name="easternX">Արևելյան %s</string>
   <string name="weeklyRapidArena">Արագ շախմատի ամենշաբաթյա Արենա</string>
   <string name="weeklyRapid">Ամենշաբաթյա արագ շախմատ</string>
+  <string name="weeklyClassicalArena">Դասական շախմատի ամենշաբաթյա Արենա</string>
+  <string name="weeklyClassical">Ամենշաբաթյա դասական շախմատ</string>
+  <string name="weeklyXArena">Ամենշաբաթյա %s Արենա</string>
+  <string name="weeklyX">Ամենշաբաթյա %s</string>
 </resources>
