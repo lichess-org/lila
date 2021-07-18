@@ -27,7 +27,7 @@
   <string name="leavingGameWithoutResigningExplanation">Rakibiniz oyunlardan sık sık ayrılıyorsa yeni bir oyuna katılması geçici olarak engellenir. Bu kısıtlama oyuncunun profilinde görüntülenmez. Eğer aynı oyuncu maçı terk etmeden oyunlardan ayrılmaya devam ederse uygulanan engelin süresi artırılır. Bu davranış çok uzun süre devam ederse oyuncunun hesabı kapatılabilir.</string>
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
   <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
-  <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
+  <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
   <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri ne anlama geliyor?</string>
@@ -100,7 +100,7 @@ LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
   <string name="wayOfBerserkExplanation">Bu kupaya erişen hiimgosu, divane (berserk) açarak %s bütün oyunları kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
-  <string name="goldenZeeExplanation">Günlerden bir gün ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
   <string name="lichessRatings">Lichess puanlama sistemi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlamalar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE tarafından hâlâ eski Elo puanlama sistemini kullanılır).
