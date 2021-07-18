@@ -4,7 +4,7 @@
   <string name="teams">Takımlar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s üye</item>
-    <item quantity="other">%s üyeler</item>
+    <item quantity="other">%s üye</item>
   </plurals>
   <string name="allTeams">Tüm takımlar</string>
   <string name="newTeam">Yeni takım</string>
@@ -30,7 +30,7 @@
   <string name="beingReviewed">Katılma talebiniz takım lideri tarafından inceleniyor.</string>
   <string name="subToTeamMessages">Takım mesajlarına abone ol</string>
   <string name="teamBattle">Takım Çarpışması</string>
-  <string name="teamBattleOverview">Bu birden fazla takımın mücadelesidir, her oyuncu kendi takımına puan kazandırır</string>
+  <string name="teamBattleOverview">Birden fazla takım mücadele eder, her oyuncu kendi takımına puan kazandırır</string>
   <string name="teamTournament">Takım turnuvası</string>
   <string name="teamTournamentOverview">Sadece takım üyelerinizin katılabileceği bir Arena turnuvası</string>
   <string name="swissTournamentOverview">Yalnızca takım üyelerinizin katılabileceği İsviçre sistemi turnuvası</string>
