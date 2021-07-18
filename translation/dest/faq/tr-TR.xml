@@ -112,9 +112,9 @@ Sistem puanınızın 500 ile 2500 arasında bir yerde olduğundan %95 emindir. F
 Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
   <string name="whatIsProvisionalRating">Puanımın yanında neden soru işareti (?) var?</string>
   <string name="provisionalRatingExplanation">Soru işareti, puanınızın geçici olduğunu belirtir. Bunun sebepleri şunlardır:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz derecelendirmeli oyun kategorisinde %1$s karşısında yeterince puanlı oyun bitirmedi.</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu, %1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynamamıştır.</string>
   <string name="similarOpponents">benzer puanlı oyunculara</string>
-  <string name="notPlayedRecently">Oyuncu yeterince yeni oyun oynamadı. Oynadığınız oyun sayısına bağlı olarak, derecelendirmenizin tekrar geçici hale gelmesi yaklaşık bir yıl sürebilir.</string>
+  <string name="notPlayedRecently">Oyuncu ilgili kategoride yakın zamanda herhangi bir maç yapmamıştır. Toplam maç sayınıza bağlı olarak, yaklaşık bir sene boyunca herhangi bir maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Somut olarak, Glicko - 2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin derecelendirmede sahip olduğu güven seviyesidir. Alt sapma, daha istikrarlı bir derecelendirmedir.</string>
   <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
   <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
