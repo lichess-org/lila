@@ -6,4 +6,11 @@
   <string name="myPublicStudies">Իմ հանրային ստուդիաները</string>
   <string name="myPrivateStudies">Իմ անձնական ստուդիաները</string>
   <string name="myFavoriteStudies">Իմ սիրելի ստուդիաները</string>
+  <string name="whatAreStudies">Ի՞նչ են «ստուդիաները»</string>
+  <string name="allStudies">Բոլոր ստուդիաները</string>
+  <string name="studiesCreatedByX">%s-ի ստեղծած ստուդիաները</string>
+  <string name="noneYet">Առայժմ ոչինչ։</string>
+  <string name="hot">Ամենաակտիվները</string>
+  <string name="dateAddedNewest">Վերջերս ավելացվածները</string>
+  <string name="dateAddedOldest">Վաղուց ավելացվածները</string>
 </resources>
