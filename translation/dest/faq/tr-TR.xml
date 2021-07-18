@@ -125,10 +125,10 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
   <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
   <string name="whyAreRatingHigher">Bu sitedeki puanlar diğer sitelere veya FIDE, USCF ve ICC gibi kuruluşlara göre neden daha yüksek?</string>
-  <string name="whyAreRatingHigherExplanation">Derecelendirmeleri mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (derecelendirmeleri) büyük ölçüde etkileyebilir.
+  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmek ve diğer kuruluşlarla karşılaştırmak pek sağlıklı olmaz. Farklı kuruluşlarda farklı seviyede oyuncular ve farklı puan sistemleri olabilir (Elo, Glicko, Glicko-2 ve benzeri). Bu faktörler yüzünden puanlar arasında ciddi ölçüde farklar oluşabilir.
 
-Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): bir oyuncu havuzunda, derecelendirmelerdeki göreceli farklılıkları kimin kazanacağını/çekileceğini/kaybedeceğini ve ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, bu derecelendirmeyi karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
-  <string name="howToHideRatingWhilePlaying">Oynarken derecelendirme nasıl gizlenir?</string>
+Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak ele almak daha doğru olur. Belirli bir oyuncu havuzunda oyuncular arasındaki göreceli puan farkları, kimin ne sıklıkta kazanacağını veya kaybedeceğini tahmin etmenize yardımcı olur. Aynı platformda puanları karşılaştıracak bir oyuncu olmadan \"benim şu kadar puanım var\" demek pek bir şey ifade etmez.</string>
+  <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
   <string name="enableZenMode">%1$s\'de veya Oyun sırasında %2$s tuşlarına basarak Zen modunu etkinleştirin.</string>
   <string name="displayPreferences">görüntüleme tercihleri</string>
   <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
