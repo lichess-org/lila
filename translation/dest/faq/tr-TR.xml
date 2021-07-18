@@ -132,10 +132,10 @@ Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak el
   <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
   <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. İkincisi çok nadirdir. Ayrıca Lichess yeniden başladığında ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
-  <string name="howToThreeDots">Nasıl...</string>
-  <string name="enableDisableNotificationPopUps">Bildirimler etkinleştirilsin mi, devre dışı mı bırakılsın?</string>
-  <string name="viewSiteInformationPopUp">Site bilgilerini görüntüle</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyunayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
+  <string name="howToThreeDots">Diğer konular</string>
+  <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
+  <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess isteğe bağlı olarak oyun bildirimleri gönderebilir, örneğin hamle sırası sizdeyken veya özel bir mesaj aldığınızda.
  lichess.org sitesinde tarayıcınızdaki sol üst köşede yer alan kilit ikonuna tıklayın.
 Sonra Lichess bildirimlerine izin ver veya engelle seçeneğine tıklayın.</string>
