@@ -121,10 +121,10 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
   <string name="ratingLeaderboards">Lider tablosuna</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmalı,</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">Son bir hafta içinde en az bir puanlı maç yapmış olmalı,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">normal satrançta %1$s\'den daha düşük ve başka satranç varyantlarında %2$s\'den daha düşük bir derecelendirme sapması olması,</string>
-  <string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
-  <string name="whyAreRatingHigher">Derecelendirmeler FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmanız olmalı,</string>
+  <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
+  <string name="whyAreRatingHigher">Bu sitedeki puanlar diğer sitelere veya FIDE, USCF ve ICC gibi kuruluşlara göre neden daha yüksek?</string>
   <string name="whyAreRatingHigherExplanation">Derecelendirmeleri mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (derecelendirmeleri) büyük ölçüde etkileyebilir.
 
 Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): bir oyuncu havuzunda, derecelendirmelerdeki göreceli farklılıkları kimin kazanacağını/çekileceğini/kaybedeceğini ve ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, bu derecelendirmeyi karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
