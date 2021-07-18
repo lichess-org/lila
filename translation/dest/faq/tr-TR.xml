@@ -116,11 +116,11 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
   <string name="similarOpponents">benzer puanlı oyunculara</string>
   <string name="notPlayedRecently">Oyuncu ilgili kategoride yakın zamanda herhangi bir maç yapmamıştır. Toplam maç sayınıza bağlı olarak, yaklaşık bir sene boyunca herhangi bir maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
-  <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
-  <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
-  <string name="ratingLeaderboards">liderlik tablosu</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamak,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">bu derecelendirme için son bir hafta içinde puanlı oyun oynamak,</string>
+  <string name="howDoLeaderoardsWork">Lider tablosuna nasıl girerim?</string>
+  <string name="inOrderToAppearsYouMust">%1$s girmek için ilgili kategoride:</string>
+  <string name="ratingLeaderboards">Lider tablosuna</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmalı,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Son bir hafta içinde en az bir puanlı maç yapmış olmalı,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">normal satrançta %1$s\'den daha düşük ve başka satranç varyantlarında %2$s\'den daha düşük bir derecelendirme sapması olması,</string>
   <string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
