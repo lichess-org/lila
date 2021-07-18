@@ -36,7 +36,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup) {
       )
       .add("finished" -> round.finished)
       .add("ongoing" -> (round.hasStarted && !round.finished))
-      .add("startsAt" -> round.startedAt.orElse(round.startsAt))
+      .add("startsAt" -> round.startsAt.orElse(round.startedAt))
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
     apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
