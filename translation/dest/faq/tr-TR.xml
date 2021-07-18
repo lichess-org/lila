@@ -136,7 +136,9 @@ Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak el
   <string name="howToThreeDots">Diğer konular</string>
   <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess isteğe bağlı olarak oyun bildirimleri gönderebilir, örneğin hamle sırası sizdeyken veya özel bir mesaj aldığınızda.
- lichess.org sitesinde tarayıcınızdaki sol üst köşede yer alan kilit ikonuna tıklayın.
-Sonra Lichess bildirimlerine izin ver veya engelle seçeneğine tıklayın.</string>
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda Lichess isteğe bağlı olarak size bildirim gönderebilir.
+
+Tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
+
+Ardından, site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açabilir veya kapatabilirsiniz.</string>
 </resources>
