@@ -4,9 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
-import lila.common.Maths
 import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
+import lila.common.Maths
+import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.rating.PerfType
@@ -22,9 +22,9 @@ final class LeaderboardApi(
 
   private val maxPerPage = MaxPerPage(15)
 
-  def recentByUser(user: User, page: Int) = paginator(user, page, $sort desc "d")
+  def recentByUser(user: User, page: Int) = paginator(user, page, sortBest = false)
 
-  def bestByUser(user: User, page: Int) = paginator(user, page, $sort asc "w")
+  def bestByUser(user: User, page: Int) = paginator(user, page, sortBest = true)
 
   def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
     repo.coll
@@ -79,25 +79,41 @@ final class LeaderboardApi(
       (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 
-  private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] =
+  private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
     Paginator(
-      adapter = new Adapter[Entry](
-        collection = repo.coll,
-        selector = $doc("u" -> user.id),
-        projection = none,
-        sort = sort,
-        readPreference = ReadPreference.secondaryPreferred
-      ) mapFutureList withTournaments,
       currentPage = page,
-      maxPerPage = maxPerPage
-    )
-
-  private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
-    tournamentRepo byIds entries.map(_.tourId) map { tours =>
-      entries.flatMap { entry =>
-        tours.find(_.id == entry.tourId).map { TourEntry(_, entry) }
+      maxPerPage = maxPerPage,
+      adapter = new AdapterLike[TourEntry] {
+        private val selector   = $doc("u" -> user.id)
+        def nbResults: Fu[Int] = repo.coll.countSel(selector)
+        def slice(offset: Int, length: Int): Fu[Seq[TourEntry]] =
+          repo.coll
+            .aggregateList(length, readPreference = ReadPreference.secondaryPreferred) { framework =>
+              import framework._
+              Match(selector) -> List(
+                Sort(if (sortBest) Ascending("w") else Descending("d")),
+                Skip(offset),
+                Limit(length),
+                PipelineOperator(
+                  $lookup.simple(
+                    from = tournamentRepo.coll,
+                    as = "tour",
+                    local = "t",
+                    foreign = "_id"
+                  )
+                ),
+                UnwindField("tour")
+              )
+            }
+            .map { docs =>
+              for {
+                doc   <- docs
+                entry <- doc.asOpt[Entry]
+                tour  <- doc.getAsOpt[Tournament]("tour")
+              } yield TourEntry(tour, entry)
+            }
       }
-    }
+    )
 }
 
 object LeaderboardApi {
