@@ -13,4 +13,25 @@
   <string name="hot">Ամենաակտիվները</string>
   <string name="dateAddedNewest">Վերջերս ավելացվածները</string>
   <string name="dateAddedOldest">Վաղուց ավելացվածները</string>
+  <string name="recentlyUpdated">Վերջերս թարմացվածները</string>
+  <string name="mostPopular">Ամենահայտնիները</string>
+  <string name="alphabetical">Այբբենական կարգով</string>
+  <string name="addNewChapter">Ավելացնել նոր գլուխ</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s գլուխ</item>
+    <item quantity="other">%s գլուխ</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s պարտիա</item>
+    <item quantity="other">%s պարտիա</item>
+  </plurals>
+  <string name="addMembers">Ավելացնել մասնակիցների</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s մասնակից</item>
+    <item quantity="other">%s մասնակից</item>
+  </plurals>
+  <string name="inviteToTheStudy">Հրավիրել ստուդիա</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք ակտիվորեն ցանկանում են միանալ այս ստուդիային։</string>
+  <string name="searchByUsername">Որոնում ըստ մասնակցային անվան</string>
+  <string name="spectator">Հանդիսատես</string>
 </resources>
