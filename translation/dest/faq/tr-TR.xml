@@ -129,9 +129,9 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
 
 Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak ele almak daha doğru olur. Belirli bir oyuncu havuzunda oyuncular arasındaki göreceli puan farkları, kimin ne sıklıkta kazanacağını veya kaybedeceğini tahmin etmenize yardımcı olur. Aynı platformda puanları karşılaştıracak bir oyuncu olmadan \"benim şu kadar puanım var\" demek pek bir şey ifade etmez.</string>
   <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
-  <string name="enableZenMode">%1$s\'de veya Oyun sırasında %2$s tuşlarına basarak Zen modunu etkinleştirin.</string>
-  <string name="displayPreferences">görüntüleme tercihleri</string>
-  <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
+  <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
+  <string name="displayPreferences">Oyun görünümü panelinden</string>
+  <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. İkincisi çok nadirdir. Ayrıca Lichess yeniden başladığında ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
   <string name="howToThreeDots">Nasıl...</string>
   <string name="enableDisableNotificationPopUps">Bildirimler etkinleştirilsin mi, devre dışı mı bırakılsın?</string>
