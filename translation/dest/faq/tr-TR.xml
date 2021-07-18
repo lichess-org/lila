@@ -115,7 +115,7 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu, %1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynamamıştır.</string>
   <string name="similarOpponents">benzer puanlı oyunculara</string>
   <string name="notPlayedRecently">Oyuncu ilgili kategoride yakın zamanda herhangi bir maç yapmamıştır. Toplam maç sayınıza bağlı olarak, yaklaşık bir sene boyunca herhangi bir maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Somut olarak, Glicko - 2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin derecelendirmede sahip olduğu güven seviyesidir. Alt sapma, daha istikrarlı bir derecelendirmedir.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
   <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
   <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
   <string name="ratingLeaderboards">liderlik tablosu</string>
