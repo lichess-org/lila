@@ -103,13 +103,13 @@ LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="goldenZeeExplanation">Günlerden bir gün ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
   <string name="lichessRatings">Lichess puanlama sistemi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
-  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 değerlendirme yöntemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hala tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
+  <string name="ratingSystemUsedByLichess">Puanlamalar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE tarafından hâlâ eski Elo puanlama sistemini kullanılır).
 
-Temel olarak, glicko derecelendirmeleri, derecelendirmenizi hesaplarken ve temsil ederken \"güven aralıkları\" kullanır. Siteyi ilk kullanmaya başladığınızda, puanınız 1500 ± 700\'de başlar. 1500 puanınızı temsil eder ve 700 güven aralığını temsil eder.
+Glicko sistemi \"güven aralıkları\" kullanarak puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500 puanınızı temsil ederken 1000 de güven aralığını temsil eder.
 
-Temel olarak, sistem, derecelendirmenizin 800 ile 2200 arasında bir yerde olduğundan %90 emin. Bu inanılmaz derecede belirsiz. Bu nedenle, bir oyuncu yeni başladığında, derecelendirmeleri çok önemli ölçüde değişecek, bir seferde potansiyel olarak birkaç yüz puan. Ancak köklü oyunculara karşı bazı oyunlardan sonra güven aralığı daralır ve her oyundan sonra kazanılan/kaybedilen puan miktarı azalacaktır.
+Sistem puanınızın 500 ile 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
 
-Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının artacağıdır. Bu daha hızlı zamanla beceri düzeyi değişiklikleri için puan kaybetmek/ puan kazanmak için izin verir.</string>
+Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanır veya kaybedebilirsiniz.</string>
   <string name="whatIsProvisionalRating">Neden puanımın yanında soru işareti(?) var?</string>
   <string name="provisionalRatingExplanation">Soru işareti, derecelendirmenin geçici olduğu anlamına gelir. Nedenleri şunlardır:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz derecelendirmeli oyun kategorisinde %1$s karşısında yeterince puanlı oyun bitirmedi.</string>
