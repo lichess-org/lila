@@ -102,7 +102,7 @@ LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
   <string name="goldenZeeExplanation">Günlerden bir gün ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
   <string name="lichessRatings">Lichess puanlama sistemi</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
   <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 değerlendirme yöntemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hala tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
 
 Temel olarak, glicko derecelendirmeleri, derecelendirmenizi hesaplarken ve temsil ederken \"güven aralıkları\" kullanır. Siteyi ilk kullanmaya başladığınızda, puanınız 1500 ± 700\'de başlar. 1500 puanınızı temsil eder ve 700 güven aralığını temsil eder.
