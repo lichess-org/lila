@@ -41,6 +41,7 @@
   <string name="dutchSystem">Холандската система</string>
   <string name="FIDEHandbook">Правилника на ФИДЕ</string>
   <string name="pairingsA">По %1$s, осъществена чрез %2$s, според %3$s.</string>
+  <string name="lateJoinA">Да, докато не са започнали повече от половината рундове; например в 11-рундов швейцарските игра ту могат да се присъединят преди началото на рунд 6 и в 12 рунда преди началото на рунд 7. Късно присъединяващите се получават едно сбогом, дори ако са пропуснали няколко рунда.</string>
   <string name="startingSoon">Скоро започва</string>
   <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продължителност на турнира</string>
