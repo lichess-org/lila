@@ -47,6 +47,12 @@ Adiciona as pontuações de cada adversário que o jogador vence e metade da pon
   <string name="pairingsQ">Como são decididos os emparelhamentos?</string>
   <string name="dutchSystem">Sistema Holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="pairingsA">Com o %1$s, implementado por %2$s, de acordo com o %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">O que acontece se o torneio tiver mais rondas que jogadores?</string>
+  <string name="moreRoundsThanPlayersA">Quando forem jogadas todas as rondas possíveis, o torneio será encerrado e declarado um vencedor.</string>
+  <string name="restrictedToTeamsQ">Por que é limitado às equipas?</string>
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez on-line. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
+  <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
+  <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
 </resources>
