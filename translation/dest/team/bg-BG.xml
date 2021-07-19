@@ -30,7 +30,7 @@
   <string name="beingReviewed">Вашата заявка за присъединяване се преглежда от лидер на отбора.</string>
   <string name="subToTeamMessages">Абонирайте се за съобщения от клуба</string>
   <string name="teamBattle">Отборна битка</string>
-  <string name="teamBattleOverview">Битка между няколко отбори, всеки играч печели точки за своя отбор</string>
+  <string name="teamBattleOverview">Битка между няколко отбора, всеки играч печели точки за своя отбор</string>
   <string name="teamTournament">Отборен турнир</string>
   <string name="teamTournamentOverview">Арена турнир, към който могат да се присъединят само членове на Вашия отбор</string>
   <string name="swissTournamentOverview">Швейцарски турнир в който могат да участват само членове на клуба</string>
