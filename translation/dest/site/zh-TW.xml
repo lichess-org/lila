@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">等待對手</string>
   <string name="waiting">請稍等</string>
   <string name="yourTurn">輪到您了</string>
-  <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
   <string name="level">難度</string>
   <string name="strength">強度</string>
   <string name="toggleTheChat">聊天開關</string>
@@ -29,9 +29,9 @@
   <string name="kingInTheCenter">王居中</string>
   <string name="threeChecks">三次將軍</string>
   <string name="raceFinished">競王結束</string>
-  <string name="variantEnding">變體終局</string>
+  <string name="variantEnding">另類終局</string>
   <string name="newOpponent">換個對手</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">您的對手想和你複賽</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">你的對手想和你複賽</string>
   <string name="joinTheGame">加入這盤棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
@@ -815,4 +815,5 @@
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="download">下載</string>
   <string name="welcome">歡迎！</string>
+  <string name="reopenYourAccount">重新開啟帳戶</string>
 </resources>
