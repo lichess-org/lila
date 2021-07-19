@@ -39,6 +39,14 @@
   <string name="swissVsArenaA">Num torneio Suíço, todos os participantes jogam o mesmo número de jogos e só podem jogar um contra outro uma única vez.
 Pode ser uma boa opção para clubes e torneios oficiais.</string>
   <string name="pointsCalculationQ">Como são calculadas as pontuações?</string>
+  <string name="pointsCalculationA">Uma vitória vale um ponto, um empate vale um meio ponto e uma derrota vale zero pontos.
+Quando um jogador não pode ser emparelhado durante uma ronda, recebe um bye que vale um ponto.</string>
+  <string name="sonnebornBergerScore">Pontuação de Sonneborn- Berger</string>
+  <string name="tiebreaksCalculationA">Com o %s.
+Adiciona as pontuações de cada adversário que o jogador vence e metade da pontuação de cada adversário com que o jogador empata.</string>
+  <string name="pairingsQ">Como são decididos os emparelhamentos?</string>
+  <string name="dutchSystem">Sistema Holandês</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez on-line. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
 </resources>
