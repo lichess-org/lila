@@ -839,6 +839,7 @@
   <string name="navigateMoveTree">定位</string>
   <string name="mouseTricks">鼠标使用技巧</string>
   <string name="toggleLocalAnalysis">切换本地分析</string>
+  <string name="playComputerMove">走电脑推荐的最佳招</string>
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">显示此帮助对话框</string>
