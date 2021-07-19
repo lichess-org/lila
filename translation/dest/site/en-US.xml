@@ -909,6 +909,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Analysis options</string>
   <string name="focusChat">Focus Chat</string>
+  <string name="showHelpDialog">Show this help dialog</string>
   <string name="reopenYourAccount">Reopen your account</string>
   <string name="closedAccountChangedMind">If you closed your account, but have since changed your mind, you get one chance of getting your account back.</string>
   <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">This will only work once.</string>
