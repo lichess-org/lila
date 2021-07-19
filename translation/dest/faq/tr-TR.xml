@@ -114,7 +114,7 @@ Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanl
   <string name="provisionalRatingExplanation">Soru işareti, puanınızın geçici olduğunu belirtir. Bunun sebepleri şunlar olabilir:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">%1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynanmamıştır.</string>
   <string name="similarOpponents">Benzer puanlı oyunculara</string>
-  <string name="notPlayedRecently">Yakın zamanda herhangi bir maç yapılmamıştır. Toplam maç sayınıza bağlı olarak, ilgili kategoride yaklaşık bir sene boyunca herhangi bir maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
+  <string name="notPlayedRecently">Yakın zamanda herhangi bir maç yapılmamıştır. Toplam maç sayınıza bağlı olarak, ilgili kategoride yaklaşık bir sene boyunca maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
   <string name="howDoLeaderoardsWork">Lider tablosuna nasıl girerim?</string>
   <string name="inOrderToAppearsYouMust">%1$s girmek için ilgili kategoride:</string>
