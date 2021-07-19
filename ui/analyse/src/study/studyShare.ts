@@ -13,6 +13,7 @@ interface StudyShareCtrl {
   withPly: Prop<boolean>;
   relay: boolean;
   cloneable: boolean;
+  notation: number;
   redraw: () => void;
   trans: Trans;
 }
@@ -24,7 +25,7 @@ function fromPly(ctrl: StudyShareCtrl): VNode {
       showEval: false,
     },
     ctrl.currentNode(),
-    0
+    ctrl.notation
   );
   return h(
     'div.ply-wrap',
@@ -52,6 +53,7 @@ export function ctrl(
   currentNode: () => Tree.Node,
   relay: boolean,
   redraw: () => void,
+  notation: number,
   trans: Trans
 ): StudyShareCtrl {
   const withPly = prop(false);
@@ -65,6 +67,7 @@ export function ctrl(
     withPly,
     relay,
     cloneable: data.features.cloneable,
+    notation: notation,
     redraw,
     trans,
   };
