@@ -81,6 +81,7 @@ $c-bg-position-y: 2px;
 
   &__player {
     @extend %flex-center-nowrap;
+    @extend %zen;
 
     height: 100%;
     transition: transform 4s;
