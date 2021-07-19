@@ -91,6 +91,7 @@
   <string name="noGameFound">ಯಾವುದೇ ಆಟ ಕಂಡುಬಂದಿಲ್ಲ</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ಆದ್ಯತೆಯ ಮೆನುವಿನಿಂದ ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಸೇರಿಸಬಹುದೇ?</string>
   <string name="openingExplorer">ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
+  <string name="openingEndgameExplorer">ಆರಂಭಿಕ ಎಂಡ್ ಗೇಮ್ ಎಕ್ಸ್ ಪ್ಲೋರರ್</string>
   <string name="xOpeningExplorer">%s ಓಪನಿಂಗ್ ಎಕ್ಸ್ಪ್ಲೋರರ್</string>
   <string name="winPreventedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಗೆಲುವು ತಪ್ಪಿದೆ</string>
   <string name="lossSavedBy50MoveRule">೫೦-ನಡೆಗಳ ನಿಯಮದಿಂದ ಸೋಲು ತಪ್ಪಿದೆ</string>
@@ -113,6 +114,10 @@
   <string name="blunder">ಪ್ರಮಾದ</string>
   <string name="mistake">ತಪ್ಪು</string>
   <string name="inaccuracy">ತಪ್ಪಾಗಿದೆ</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s ಪ್ರಮಾದ</item>
+    <item quantity="other">%sಪ್ರಮಾದ</item>
+  </plurals>
   <string name="flipBoard">ಫ್ಲಿಪ್ ಬೋರ್ಡ್</string>
   <string name="threefoldRepetition">Threefold repetition</string>
   <string name="draw">ಡ್ರಾ</string>
