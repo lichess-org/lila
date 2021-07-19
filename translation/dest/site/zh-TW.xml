@@ -811,15 +811,19 @@
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
+  <string name="gameVsX">與%1$s對局</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="newPendingReview">待檢閱</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
+  <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
   <string name="download">下載</string>
   <string name="welcome">歡迎！</string>
   <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
-  <string name="onlyMembersOfTeam">只包括隊員</string>
+  <string name="onlyMembersOfTeam">只限隊員</string>
   <string name="noRestriction">沒有限制</string>
+  <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
   <string name="estimatedStart">預計開始時間</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
