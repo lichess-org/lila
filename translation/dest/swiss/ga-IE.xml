@@ -66,7 +66,7 @@ Cuir scóir gach chéile comhraic a bhuaigh an t-imreoir agus leath scór gach c
   <string name="pairingsQ">Conas a roghnaítear péireáil?</string>
   <string name="dutchSystem">Córas Dúitseach</string>
   <string name="FIDEHandbook">Lámhleabhar FIDE</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Leis an %1$s, curtha i bhfeidhm ag %2$s, de réir an %3$s.</string>
+  <string name="pairingsA">Leis an %1$s, curtha i bhfeidhm ag %2$s, de réir an %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Cad a tharlóidh má bhíonn níos mó babhtaí ag an gcomórtas ná imreoirí?</string>
   <string name="moreRoundsThanPlayersA">Nuair a bheidh gach péire féideartha imeartha, cuirfear deireadh leis an gcomórtas agus fógrófar buaiteoir.</string>
   <string name="restrictedToTeamsQ">Cén fáth go bhfuil sé teoranta d’fhoirne?</string>
@@ -95,7 +95,7 @@ Is é an ceann is gaire is féidir leat a fháil ar Round Robin ar líne ná com
   <string name="teamOnly">Ní féidir ach le ceannairí foirne camchuairteanna swiss a chruthú, agus ní féidir ach le baill foirne iad a imirt.
 %1$s le tosú ag imirt i gcomórtais swiss.</string>
   <string name="joinOrCreateTeam">Bí ar fhoireann nó cruthaigh foireann</string>
-  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Anois ag imirt</string>
+  <string name="nowPlaying">Anois ag imirt</string>
   <string name="startingSoon">Ag tosú go luath</string>
   <string name="comparison">Comparáid</string>
   <string name="tournDuration">Fad an chomórtais</string>
