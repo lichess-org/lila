@@ -48,7 +48,7 @@ Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for 
   <string name="pairingsQ">Hvordan bestemmes parringer?</string>
   <string name="dutchSystem">Hollandsk system</string>
   <string name="FIDEHandbook">FIDE håndbog</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Med %1$s, implementeret af %2$s, i overensstemmelse med %3$s.</string>
+  <string name="pairingsA">Med %1$s, implementeret af %2$s, i overensstemmelse med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
   <string name="moreRoundsThanPlayersA">Når alle mulige pardannelser er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
   <string name="restrictedToTeamsQ">Hvorfor er den begrænset til hold?</string>
@@ -75,7 +75,7 @@ Det tætteste du kan komme på Round Robin online er at spille en schweizisk tur
   <string name="teamOnly">Schweitzerturneringer kan kun oprettes af holdledere, og kan kun spilles af holdmedlemmer.           
 %1$s for at begynde at spille i schweitzerturneringer.</string>
   <string name="joinOrCreateTeam">Deltag i eller opret et hold</string>
-  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Spiller nu</string>
+  <string name="nowPlaying">Spiller nu</string>
   <string name="startingSoon">Starter snart</string>
   <string name="comparison">Sammenligning</string>
   <string name="tournDuration">Varighed af turneringen</string>
