@@ -18,7 +18,7 @@
     <item quantity="other">%s seconds between rounds</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s minunte between rounds</item>
+    <item quantity="one">%s minute between rounds</item>
     <item quantity="other">%s minutes between rounds</item>
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Starting in</string>
