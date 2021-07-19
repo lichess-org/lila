@@ -649,13 +649,7 @@ POST  /event/manager                   controllers.Event.create
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
 GET   /developers                      controllers.Main.webmasters
-GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
-GET   /get-fishnet                     controllers.Main.getFishnet
-GET   /costs                           controllers.Main.costs
-GET   /verify-title                    controllers.Main.verifyTitle
-GET   /InstantChess.com                controllers.Main.instantChess
-GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

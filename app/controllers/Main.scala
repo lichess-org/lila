@@ -70,22 +70,6 @@ final class Main(
       }
     }
 
-  def mobile =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark "mobile-apk") { case (doc, resolver) =>
-        html.mobile(doc, resolver)
-      }
-    }
-
-  def dailyPuzzleSlackApp =
-    Open { implicit ctx =>
-      pageHit
-      fuccess {
-        html.site.dailyPuzzleSlackApp()
-      }
-    }
-
   def jslog(id: String) =
     Open { ctx =>
       env.round.selfReport(
@@ -169,27 +153,6 @@ Allow: /
       } as JSON withHeaders (CACHE_CONTROL -> "max-age=1209600")
     }
 
-  def getFishnet =
-    Open { implicit ctx =>
-      pageHit
-      Ok(html.site.bits.getFishnet()).fuccess
-    }
-
-  def costs =
-    Action { req =>
-      pageHit(req)
-      Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
-    }
-
-  // Lichess.org Title Verification
-  def verifyTitle =
-    Action { req =>
-      pageHit(req)
-      Redirect(
-        "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform"
-      )
-    }
-
   def contact =
     Open { implicit ctx =>
       pageHit
@@ -207,20 +170,6 @@ Allow: /
       MovedPermanently(to)
     }
 
-  def instantChess =
-    Open { implicit ctx =>
-      pageHit
-      if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home()))
-      else
-        fuccess {
-          Redirect(s"${routes.Lobby.home()}#pool/10+0").withCookies(
-            env.lilaCookie.withSession { s =>
-              s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
-            }
-          )
-        }
-    }
-
   def legacyQaQuestion(id: Int, @nowarn("cat=unused") slug: String) =
     Open { _ =>
       MovedPermanently {
@@ -233,7 +182,6 @@ Allow: /
           case 110  => s"$faq#name"
           case 29   => s"$faq#titles"
           case 4811 => s"$faq#lm"
-          case 216  => routes.Main.mobile().url
           case 340  => s"$faq#trophies"
           case 6    => s"$faq#ratings"
           case 207  => s"$faq#hide-ratings"
