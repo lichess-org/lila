@@ -150,4 +150,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Com a ideia</string>
   <string name="nextChapter">Próximo capítulo</string>
   <string name="prevChapter">Capítulo anterior</string>
+  <string name="studyActions" comment="studyActions&#10;&#10;Heading in the keyboard shortcuts help screen (press ? on the keyboard to invoke it). These are actions you can perform while looking at a study, by pressing a specific key on the keyboard">Opções de estudo</string>
 </resources>
