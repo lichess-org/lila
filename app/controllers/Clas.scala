@@ -19,10 +19,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
           case _ if getBool("home") => renderHome
           case None                 => renderHome
           case Some(me) if isGranted(_.Teacher) && !me.lameOrTroll =>
-            env.msg.twoFactorReminder(me.id) >>
-              env.clas.api.clas.of(me) map { classes =>
-                Ok(views.html.clas.clas.teacherIndex(classes))
-              }
+            env.clas.api.clas.of(me) map { classes =>
+              Ok(views.html.clas.clas.teacherIndex(classes))
+            }
           case Some(me) =>
             (fuccess(env.clas.studentCache.isStudent(me.id)) >>| !couldBeTeacher) flatMap {
               case true =>
@@ -70,10 +69,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
     Auth { implicit ctx => me =>
       WithClassAny(id, me)(
         forTeacher = WithClass(Holder(me), id) { clas =>
-          env.clas.api.student.activeWithUsers(clas) map { students =>
-            preloadStudentUsers(students)
-            views.html.clas.teacherDashboard.overview(clas, students)
-          }
+          env.msg.twoFactorReminder(me.id) >>
+            env.clas.api.student.activeWithUsers(clas) map { students =>
+              preloadStudentUsers(students)
+              views.html.clas.teacherDashboard.overview(clas, students)
+            }
         },
         forStudent = (clas, students) =>
           env.clas.api.clas.teachers(clas) map { teachers =>
