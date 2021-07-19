@@ -3,6 +3,7 @@
 
   @include breakpoint($mq-col2) {
     flex-flow: column;
+    max-height: 50%;
   }
 
   .continue {
