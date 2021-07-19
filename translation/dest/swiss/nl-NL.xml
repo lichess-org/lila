@@ -47,7 +47,7 @@ Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus d
   <string name="pairingsQ">Hoe komen paringen tot stand?</string>
   <string name="dutchSystem">Systeem Keizer</string>
   <string name="FIDEHandbook">FIDE-handboek</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Met het %1$s, geïmplementeerd door %2$s, in overeenstemming met het %3$s.</string>
+  <string name="pairingsA">Met het %1$s, geïmplementeerd door %2$s, in overeenstemming met het %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
   <string name="restrictedToTeamsQ">Waarom is het beperkt tot teams?</string>
@@ -75,7 +75,7 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
   <string name="teamOnly">Zwitserse toernooien kunnen alleen worden aangemaakt door teamleiders, en kunnen alleen worden gespeeld door teamleden.           
 %1$s om te beginnen met spelen in Zwitserse toernooien.</string>
   <string name="joinOrCreateTeam">Word lid van een team of maak zelf een team aan</string>
-  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Nu bezig</string>
+  <string name="nowPlaying">Nu bezig</string>
   <string name="startingSoon">Begint binnenkort</string>
   <string name="comparison">Vergelijking</string>
   <string name="tournDuration">Duur van het toernooi</string>
