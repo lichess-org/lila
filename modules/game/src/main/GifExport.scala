@@ -17,8 +17,8 @@ final class GifExport(
     baseUrl: BaseUrl,
     url: String
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  private val targetMedianTime = Centis(80)
-  private val targetMaxTime    = Centis(200)
+  private val targetMedianTime = Centis(100)
+  private val targetMaxTime    = Centis(250)
 
   def fromPov(pov: Pov, initialFen: Option[FEN]): Fu[Source[ByteString, _]] =
     lightUserApi preloadMany pov.game.userIds flatMap { _ =>
@@ -27,10 +27,10 @@ final class GifExport(
         .addHttpHeaders("Content-Type" -> "application/json")
         .withBody(
           Json.obj(
-            "sente"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
-            "gote"        -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
-            "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/niklasf/lila-gif",
-            "orientation" -> pov.color.name,
+            "black"       -> Namer.playerTextBlocking(pov.game.sentePlayer, withRating = true)(lightUserApi.sync),
+            "white"        -> Namer.playerTextBlocking(pov.game.gotePlayer, withRating = true)(lightUserApi.sync),
+            "comment"     -> s"${baseUrl.value}/${pov.game.id} rendered with https://github.com/WandererXII/lishogi-gif",
+            "orientation" -> pov.color.engName,
             "delay"       -> targetMedianTime.centis, // default delay for frames
             "frames"      -> frames(pov.game, initialFen)
           )
@@ -45,13 +45,13 @@ final class GifExport(
 
   def gameThumbnail(game: Game): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> (Forsyth >> game.shogi),
-      "sente"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
-      "gote"        -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
-      "orientation" -> game.firstColor.name
+      "sfen"         -> (Forsyth >> game.shogi),
+      "black"       -> Namer.playerTextBlocking(game.sentePlayer, withRating = true)(lightUserApi.sync),
+      "white"        -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
+      "orientation" -> game.firstColor.engName
     ) ::: List(
-      game.lastMoveKeys.map { "lastMove" -> _ },
-      game.situation.checkSquare.map { "check" -> _.key }
+      game.lastMoveUsiKeys.map { "lastMove" -> _ },
+      game.situation.checkSquare.map { "check" -> _.usiKey }
     ).flatten
 
     lightUserApi preloadMany game.userIds flatMap { _ =>
@@ -67,10 +67,10 @@ final class GifExport(
     }
   }
 
-  def thumbnail(fen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
+  def thumbnail(sfen: FEN, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
     val query = List(
-      "fen"         -> fen.value,
-      "orientation" -> orientation.name
+      "sfen"        -> sfen.value,
+      "orientation" -> orientation.engName
     ) ::: List(
       lastMove.map { "lastMove" -> _ }
     ).flatten
@@ -80,7 +80,7 @@ final class GifExport(
       .withQueryStringParameters(query: _*)
       .stream() flatMap {
       case res if res.status != 200 =>
-        logger.warn(s"GifExport thumbnail ${fen} ${res.status}")
+        logger.warn(s"GifExport thumbnail ${sfen} ${res.status}")
         fufail(res.statusText)
       case res => fuccess(res.bodyAsSource)
     }
@@ -132,9 +132,9 @@ final class GifExport(
   private def frame(situation: Situation, uci: Option[Uci], delay: Option[Centis]) =
     Json
       .obj(
-        "fen"      -> (Forsyth >> situation),
-        "lastMove" -> uci.map(_.uci)
+        "sfen"     -> (Forsyth >> situation),
+        "lastMove" -> uci.map(_.usi)
       )
-      .add("check", situation.checkSquare.map(_.key))
+      .add("check", situation.checkSquare.map(_.usiKey))
       .add("delay", delay.map(_.centis))
 }

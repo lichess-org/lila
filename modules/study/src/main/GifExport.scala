@@ -16,14 +16,14 @@ final class GifExport(
       .addHttpHeaders("Content-Type" -> "application/json")
       .withBody(
         Json.obj(
-          "delay"       -> 80,
-          "orientation" -> chapter.setup.orientation.name,
-          "sente" -> List(
+          "delay"       -> 100,
+          "orientation" -> chapter.setup.orientation.engName,
+          "black" -> List(
             chapter.tags(_.SenteTitle),
             chapter.tags(_.Sente),
             chapter.tags(_.SenteElo).map(elo => s"($elo)")
           ).flatten.mkString(" "),
-          "gote" -> List(
+          "white" -> List(
             chapter.tags(_.GoteTitle),
             chapter.tags(_.Gote),
             chapter.tags(_.GoteElo).map(elo => s"($elo)")
@@ -41,17 +41,17 @@ final class GifExport(
   @annotation.tailrec
   private def framesRec(nodes: Vector[RootOrNode], arr: JsArray): JsArray =
     nodes match {
-      case Nil => arr
       case node +: tail =>
         framesRec(
           tail,
           arr :+ Json
             .obj(
-              "fen" -> node.fen.value
+              "sfen" -> node.fen.value
             )
             .add("check", node.check option true)
-            .add("lastMove", node.moveOption.map(_.uci.uci))
+            .add("lastMove", node.moveOption.map(_.uci.usi))
             .add("delay", tail.isEmpty option 500) // more delay for last frame
         )
+      case _ => arr
     }
 }

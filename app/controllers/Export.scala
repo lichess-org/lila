@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import play.api.mvc.Result
 
 import shogi.Color
+import shogi.format.Uci
 import lila.app._
 import lila.common.HTTPRequest
 import lila.game.Pov
@@ -40,7 +41,7 @@ final class Export(env: Env) extends LilaController(env) {
 
   def legacyGameThumbnail(id: String) =
     Action {
-      MovedPermanently(routes.Page.notSupported().url) // routes.Export.gameThumbnail(id).url
+      MovedPermanently(routes.Export.gameThumbnail(id).url)
     }
 
   def gameThumbnail(id: String) =
@@ -54,18 +55,13 @@ final class Export(env: Env) extends LilaController(env) {
       }(rateLimitedFu)
     }
 
-  def legacyPuzzleThumbnail(id: Int) =
-    Action {
-      MovedPermanently(routes.Page.notSupported().url) // routes.Export.puzzleThumbnail(id).url
-    }
-
   def puzzleThumbnail(id: String) =
     Open { implicit ctx =>
       ExportImageRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
         OptionFuResult(env.puzzle.api.puzzle find Id(id)) { puzzle =>
           env.game.gifExport.thumbnail(
-            fen = puzzle.fenAfterInitialMove,
-            lastMove = puzzle.lastMove.some,
+            sfen = puzzle.fenAfterInitialMove,
+            lastMove = Uci(puzzle.lastMove) map { _.usi },
             orientation = puzzle.color
           ) map stream("image/gif") map { res =>
             res.withHeaders(CACHE_CONTROL -> "max-age=86400")

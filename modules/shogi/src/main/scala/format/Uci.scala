@@ -4,6 +4,7 @@ package format
 sealed trait Uci {
 
   def uci: String
+  def usi: String
   def piotr: String
 
   def origDest: (Pos, Pos)
@@ -21,6 +22,9 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
 
     def keys = orig.key + dest.key
     def uci  = keys + promotionString
+
+    def usiKeys = orig.usiKey + dest.usiKey
+    def usi = usiKeys + promotionString
 
     def keysPiotr = orig.piotrStr + dest.piotrStr
     def piotr     = keysPiotr + promotionString
@@ -63,6 +67,8 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
   case class Drop(role: Role, pos: Pos) extends Uci {
 
     def uci = s"${role.pgn}*${pos.key}"
+
+    def usi = s"${role.pgn}*${pos.usiKey}"
 
     def piotr = s"${role.pgn}*${pos.piotrStr}"
 

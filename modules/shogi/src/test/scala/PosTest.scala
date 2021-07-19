@@ -17,4 +17,17 @@ class PosTest extends ShogiTest {
       "D5" in { D5.toString must_== "d5" }
     }
   }
+  "USI/UCI" should {
+    "be correctly converted" in {
+      A1.usiKey must_== "9i"
+      A9.usiKey must_== "9a"
+      I9.usiKey must_== "1a"
+      I1.usiKey must_== "1i"
+      E5.usiKey must_== "5e"
+      E3.usiKey must_== "5g"
+      E7.usiKey must_== "5c"
+      D5.usiKey must_== "6e"
+      F5.usiKey must_== "4e"
+    }
+  }
 }

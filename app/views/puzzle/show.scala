@@ -39,6 +39,7 @@ object show {
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(
+          image = cdnUrl(routes.Export.puzzleThumbnail(puzzle.id.value).url).some,
           title = s"Shogi tactic #${puzzle.id}",
           url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id.value).url}",
           description = s"Lishogi tactic trainer: " + puzzle.color

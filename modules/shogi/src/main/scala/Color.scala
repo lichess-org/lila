@@ -15,6 +15,7 @@ sealed trait Color {
 
   val letter: Char
   val name: String
+  val engName: String
 
   def pawn           = this - Pawn
   def gold           = this - Gold

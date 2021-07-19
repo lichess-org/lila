@@ -166,6 +166,17 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ctrl.trans.noarg('cloneStudy')
           )
         : null,
+        h(
+          'a.button.text',
+          {
+            attrs: {
+              'data-icon': 'x',
+              href: `/study/${studyId}/${chapter.id}.gif`,
+              download: true,
+            },
+          },
+          'GIF'
+        ),
     ]),
   ]);
 }
