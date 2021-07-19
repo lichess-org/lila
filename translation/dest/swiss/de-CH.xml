@@ -47,7 +47,7 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="pairingsQ">Wiä wärdäd Paarigä entschidä?</string>
   <string name="dutchSystem">Niderländischs Syschtem</string>
   <string name="FIDEHandbook">FIDE-Handbuäch</string>
-  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
+  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Wieso isch es uf Teams beschränkt?</string>
@@ -73,7 +73,7 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
 %1$s um an Turnieren nach Schweizer System teilzunehmen.</string>
   <string name="joinOrCreateTeam">Erstelle ein Team oder tritt einem anderen Team bei</string>
-  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Lauft grad</string>
+  <string name="nowPlaying">Lauft grad</string>
   <string name="startingSoon">Schtartät grad</string>
   <string name="comparison">Vergleich</string>
   <string name="tournDuration">Dauer des Turniers</string>
