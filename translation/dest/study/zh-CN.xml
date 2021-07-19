@@ -126,4 +126,7 @@
   <string name="goodMove">好棋</string>
   <string name="whiteIsBetter">白方占优</string>
   <string name="blackIsBetter">黑方占优</string>
+  <string name="nextChapter">下一章节</string>
+  <string name="prevChapter">上一章节</string>
+  <string name="studyActions" comment="studyActions&#10;&#10;Heading in the keyboard shortcuts help screen (press ? on the keyboard to invoke it). These are actions you can perform while looking at a study, by pressing a specific key on the keyboard">研讨操作</string>
 </resources>
