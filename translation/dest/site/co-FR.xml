@@ -445,9 +445,10 @@
   <string name="user">Utilizatore</string>
   <string name="reason">Mutivu</string>
   <string name="whatIsIheMatter">Chì hè u prublemu?</string>
-  <string name="cheat">Arrubera</string>
+  <string name="cheat">Ingannu</string>
   <string name="insult">Parullaccia</string>
   <string name="troll">Trollu</string>
   <string name="ratingManipulation">Valutazione trafficata</string>
   <string name="other">Altru</string>
+  <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn và micca in u cumpurtamentu di u ghjucatore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
 </resources>
