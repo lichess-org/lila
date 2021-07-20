@@ -442,7 +442,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="setTheBoard">Configurar o taboleiro</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posicións de finais</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posición de comezo Chess960: %s</string>
+  <string name="chess960StartPosition">Posición de comezo Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpar taboleiro</string>
   <string name="savePosition">Gardar posición</string>
@@ -909,4 +909,10 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="analysisOptions">Opcións de análise</string>
   <string name="focusChat">Enfocar o chat</string>
   <string name="showHelpDialog">Amosa este diálogo de axuda</string>
+  <string name="reopenYourAccount">Abre de novo a túa conta</string>
+  <string name="closedAccountChangedMind">Se pechaches a túa conta pero mudaches de idea, tes unha oportunidade de volver a reactivala.</string>
+  <string name="onlyWorksOnce">Só funcionará unha vez.</string>
+  <string name="cantDoThisTwice">Se pechas a túa conta de novo, non haberá maneira de recuperala.</string>
+  <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada á conta</string>
+  <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
 </resources>

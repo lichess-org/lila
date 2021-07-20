@@ -48,7 +48,7 @@ Adicione as pontuações de cada oponente que o jogador derrotar, e metade da po
   <string name="pairingsQ">Como os pareamentos são decididos?</string>
   <string name="dutchSystem">Sistema holandês</string>
   <string name="FIDEHandbook">Manual da FIDE</string>
-  <string name="pairingsA">Com o %1$s, implementado por %2$s, de acordo com o %3$s.</string>
+  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Com o %1$s, implementado por %2$s, de acordo com o %3$s.</string>
   <string name="moreRoundsThanPlayersQ">O que acontece se o torneio tiver mais rodadas que jogadores?</string>
   <string name="moreRoundsThanPlayersA">Quando todos os pareamentos possíveis forem jogados, o torneio terminará e um vencedor será declarado.</string>
   <string name="restrictedToTeamsQ">Por que ele é restringido a equipes?</string>
@@ -76,6 +76,7 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="teamOnly">Torneios suíços só podem ser criados por líderes de equipe, e só podem ser jogados pelos membros de uma equipe.           
 %1$s para começar a jogar em torneios suíços.</string>
   <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
+  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Torneios em curso</string>
   <string name="startingSoon">Começando em breve</string>
   <string name="comparison">Comparação</string>
   <string name="tournDuration">Duração do torneio</string>

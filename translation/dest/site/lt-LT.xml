@@ -990,4 +990,10 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="analysisOptions">Analizės nustatymai</string>
   <string name="focusChat">Perjungti į pokalbį</string>
   <string name="showHelpDialog">Rodyti šį pagalbos dialogą</string>
+  <string name="reopenYourAccount">Atidaryti uždarytą paskyrą</string>
+  <string name="closedAccountChangedMind">Jei uždarėte savo paskyrą, tačiau apsigalvojote, turite vieną šansą ją atgauti.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Tai suveiks tik kartą.</string>
+  <string name="cantDoThisTwice">Jei uždarysite savo paskyrą antrą kartą nebebus jokio būdo ją atkurti.</string>
+  <string name="emailAssociatedToaccount">Elektroninio pašto adresas susietas su paskyra</string>
+  <string name="sentEmailWithLink">Меs jums išsiuntėme laišką su nuoroda.</string>
 </resources>

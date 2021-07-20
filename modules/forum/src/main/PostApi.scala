@@ -7,9 +7,7 @@ import reactivemongo.api.ReadPreference
 import scala.util.chaining._
 
 import lila.common.Bus
-import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
@@ -19,7 +17,7 @@ import lila.user.User
 final class PostApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    maxPerPage: lila.common.config.MaxPerPage,
+    config: ForumConfig,
     modLog: ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -95,7 +93,7 @@ final class PostApi(
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == maxPerPage.value ||
+        topic.nbPosts == config.postMaxPerPage.value ||
         (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
@@ -105,7 +103,7 @@ final class PostApi(
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / maxPerPage.value + 1
+          val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
         }
       case _ => fuccess(none)
@@ -143,7 +141,7 @@ final class PostApi(
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
-      } yield PostView(post, topic, categ, lastPageOf(topic))
+      } yield PostView(post, topic, categ, topic lastPage config.postMaxPerPage)
     }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
@@ -179,21 +177,6 @@ final class PostApi(
         }
       }
     }
-
-  def lastPageOf(topic: Topic): Int =
-    (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
-
-  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
-    Paginator(
-      new Adapter(
-        collection = env.postRepo.coll,
-        selector = env.postRepo.forUser(me) selectTopic topic.id,
-        projection = none,
-        sort = env.postRepo.sortQuery
-      ),
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {

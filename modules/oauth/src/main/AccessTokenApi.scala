@@ -50,6 +50,39 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
     )
   }
 
+  def adminChallengeTokens(
+      setup: OAuthTokenForm.AdminChallengeTokensData,
+      admin: User
+  ): Fu[Map[User.ID, AccessToken]] =
+    userRepo.enabledNameds(setup.usernames) flatMap { users =>
+      val scope = OAuthScope.Challenge.Write
+      lila.common.Future
+        .linear(users) { user =>
+          coll.one[AccessToken](
+            $doc(
+              F.userId       -> user.id,
+              F.clientOrigin -> setup.description,
+              F.scopes       -> scope.key
+            )
+          ) getOrElse {
+            val plain = Bearer.randomPersonal()
+            create(
+              AccessToken(
+                id = AccessToken.Id.from(plain),
+                plain = plain,
+                userId = user.id,
+                description = s"Challenge admin: ${admin.username}".some,
+                createdAt = DateTime.now().some,
+                scopes = List(scope),
+                clientOrigin = setup.description.some,
+                expires = Some(DateTime.now plusMonths 6)
+              )
+            )
+          } map { user.id -> _ }
+        }
+        .map(_.toMap)
+    }
+
   def listPersonal(user: User): Fu[List[AccessToken]] =
     coll
       .find(
@@ -104,8 +137,15 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
       } yield AccessTokenApi.Client(origin, usedAt, scopes)
     }
 
-  def revoke(id: AccessToken.Id): Funit =
-    coll.delete.one($id(id)).map(_ => invalidateCached(id))
+  def revokeById(id: AccessToken.Id, user: User): Funit =
+    coll.delete
+      .one(
+        $doc(
+          F.id     -> id,
+          F.userId -> user.id
+        )
+      )
+      .map(_ => invalidateCached(id))
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -129,6 +169,11 @@ final class AccessTokenApi(coll: Coll, cacheApi: lila.memo.CacheApi, userRepo: U
           )
           .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(invalidateCached))
       }
+
+  def revoke(bearer: Bearer) = {
+    val id = AccessToken.Id.from(bearer)
+    coll.delete.one($id(id)).map(_ => invalidateCached(id))
+  }
 
   def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 

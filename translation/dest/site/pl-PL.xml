@@ -77,8 +77,8 @@
   <string name="pawnMove">Ruch pionem</string>
   <string name="capture">Bicie</string>
   <string name="close">Zamknij</string>
-  <string name="winning">Wygrywający</string>
-  <string name="losing">Przegrywający</string>
+  <string name="winning">Wygrywa</string>
+  <string name="losing">Przegrywa</string>
   <string name="drawn">Remisuje</string>
   <string name="unknown">Nieznany</string>
   <string name="database">Baza danych</string>
@@ -503,7 +503,7 @@
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
   <string name="endgamePositions">Pozycje końcowe</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Pozycja startowa w Szachach 960: %s</string>
+  <string name="chess960StartPosition">Pozycja startowa w Szachach 960: %s</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
@@ -580,7 +580,7 @@
   <string name="incorrectPassword">Nieprawidłowe hasło</string>
   <string name="invalidAuthenticationCode">Nieprawidłowy kod uwierzytelniający</string>
   <string name="emailMeALink">Wyślij mi link</string>
-  <string name="currentPassword">Bieżące hasło</string>
+  <string name="currentPassword">Aktualne hasło</string>
   <string name="newPassword">Nowe hasło</string>
   <string name="newPasswordAgain">Powtórz nowe hasło</string>
   <string name="newPasswordsDontMatch">Nowe hasła nie są takie same</string>
@@ -615,7 +615,7 @@
   <string name="defeatVsYInZ">%1$s z %2$s (%3$s)</string>
   <string name="drawVsYInZ">%1$s z %2$s (%3$s)</string>
   <string name="timeline">Historia</string>
-  <string name="starting">Rozpoczęcie:</string>
+  <string name="starting">Zaczynają się:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
   <string name="yourCityRegionOrDepartment">Twoje miasto, region lub województwo</string>
   <string name="biographyDescription">Napisz coś o sobie: dlaczego grasz w szachy, twoje ulubione otwarcia, partie, szachiści…</string>
@@ -934,13 +934,13 @@
   <string name="xMentionedYouInY">%1$s wspomniał o tobie w \"%2$s\".</string>
   <string name="invitedYouToX">zaprosił Cię do \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s zaprosił się do \"%2$s\".</string>
-  <string name="youAreNowPartOfTeam">Jesteś teraz częścią zespołu.</string>
+  <string name="youAreNowPartOfTeam">Należysz teraz do klubu.</string>
   <string name="youHaveJoinedTeamX">Dołączyłeś do \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Ktoś kogo zgłosiłeś został zbanowany</string>
   <string name="congratsYouWon">Gratulacje, wygrałeś!</string>
-  <string name="gameVsX">Gra przeciwko %1$s</string>
+  <string name="gameVsX">Partia przeciwko %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał twój profil trenera.</string>
+  <string name="someoneReviewedYourCoachProfile">Ktoś przejrzał Twój profil trenera.</string>
   <string name="newPendingReview">Nowa oczekująca recenzja</string>
   <string name="lostAgainstTOSViolator">Przegrałeś z kimś, kto naruszył warunki użytkowania Lichess</string>
   <string name="refundXpointsTimeControlY">Zwrot: %1$s %2$s punktów rankingu.</string>
@@ -988,4 +988,10 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="analysisOptions">Opcje analizy</string>
   <string name="focusChat">Aktywuj czat</string>
   <string name="showHelpDialog">Pokaż okno pomocy</string>
+  <string name="reopenYourAccount">Otwórz ponownie swoje konto</string>
+  <string name="closedAccountChangedMind">Jeśli zamknąłeś swoje konto, ale zmieniłeś zdanie, otrzymasz jedną szansę na jego odzyskanie.</string>
+  <string name="onlyWorksOnce">To zadziała tylko raz.</string>
+  <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
+  <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
+  <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
 </resources>

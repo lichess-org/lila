@@ -47,11 +47,11 @@ Addiere die Punkte aller Gegner, die der Spieler besiegt, und die Hälfte der Pu
   <string name="pairingsQ">Wie werden Paarungen entschieden?</string>
   <string name="dutchSystem">Niederländischen System</string>
   <string name="FIDEHandbook">FIDE-Handbuch</string>
-  <string name="pairingsA">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
+  <string name="pairingsA" comment="pairingsA&#10;&#10;%1$s is 'Dutch system', another translateable string for a pairing method.&#10;%2$s is 'bbPairings' a proper noun for the software package.&#10;%3$s is 'FIDE handbook' which is also a translateable string with a direct link.">Mit dem %1$s, implementiert von %2$s, in Übereinstimmung mit den %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Was passiert, wenn das Turnier mehr Runden als Spieler hat?</string>
   <string name="moreRoundsThanPlayersA">Wenn alle möglichen Paarungen gespielt wurden, wird das Turnier beendet und ein Sieger erklärt.</string>
   <string name="restrictedToTeamsQ">Warum ist es auf Teams beschränkt?</string>
-  <string name="restrictedToTeamsA">Turnier nach Schweizer System sind nicht für Online-Schach konzipiert. Sie erfordern von den Spielern Pünktlichkeit, Durchhaltevermögen und Geduld.
+  <string name="restrictedToTeamsA">Turniere nach Schweizer System sind nicht für Online-Schach konzipiert. Sie erfordern von den Spielern Pünktlichkeit, Durchhaltevermögen und Geduld.
 Wir glauben, dass diese Bedingungen eher innerhalb eines Teams als in öffentlichen Turnieren erfüllt werden.</string>
   <string name="numberOfByesQ">Wie viele kampflose Punkte kann ein Spieler bekommen?</string>
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
@@ -73,7 +73,7 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
 %1$s um an Turnieren nach Schweizer System teilzunehmen.</string>
   <string name="joinOrCreateTeam">Erstelle ein Team oder tritt einem anderen Team bei</string>
-  <string name="nowPlaying">Läuft gerade</string>
+  <string name="nowPlaying" comment="nowPlaying&#10;&#10;Used as a heading in the Swiss tournament list: https://lichess.org/swiss">Läuft gerade</string>
   <string name="startingSoon">Beginnt in Kürze</string>
   <string name="comparison">Vergleich</string>
   <string name="tournDuration">Dauer des Turniers</string>

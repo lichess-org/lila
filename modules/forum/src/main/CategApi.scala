@@ -4,7 +4,7 @@ import lila.common.paginator._
 import lila.db.dsl._
 import lila.user.User
 
-final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
+final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -16,7 +16,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
           CategView(
             categ,
             topicPost map { case (topic, post) =>
-              (topic, post, env.postApi lastPageOf topic)
+              (topic, post, topic lastPage config.postMaxPerPage)
             },
             forUser
           )
@@ -67,7 +67,7 @@ final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
   def show(slug: String, page: Int, forUser: Option[User]): Fu[Option[(Categ, Paginator[TopicView])]] =
     env.categRepo bySlug slug flatMap {
       _ ?? { categ =>
-        env.topicApi.paginator(categ, page, forUser) dmap { (categ, _).some }
+        env.paginator.categTopics(categ, page, forUser) dmap { (categ, _).some }
       }
     }
 

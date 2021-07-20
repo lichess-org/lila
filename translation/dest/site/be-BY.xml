@@ -99,9 +99,10 @@
     <item quantity="many">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
     <item quantity="other">Наступнае узяцце ці ход пешкай за %s паўхадоў (Дыстанцыя да 50-га ходу)</item>
   </plurals>
-  <string name="noGameFound">Гульні не знойдзеныя</string>
+  <string name="noGameFound">Не знойдзена гульняў</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Паспрабуйце пашырыць ахоп пошуку ў наладах.</string>
   <string name="openingExplorer">Аналіз дэбютных варыянтаў</string>
+  <string name="openingEndgameExplorer">Даследчык дэбютаў/эндшпіляў</string>
   <string name="xOpeningExplorer">Аналіз дэбюту %s</string>
   <string name="winPreventedBy50MoveRule">Перамога немагчымая: абмежавана правілам 50-га ходу</string>
   <string name="lossSavedBy50MoveRule">Параза немагчымая: абмежавана правілам 50-га ходу</string>
@@ -125,10 +126,10 @@
   <string name="mistake">Памылка</string>
   <string name="inaccuracy">Недакладнасць</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s зявок</item>
-    <item quantity="few">%s зяўка</item>
-    <item quantity="many">%s зяўкоў</item>
-    <item quantity="other">%s зяўкоў</item>
+    <item quantity="one">%s позех</item>
+    <item quantity="few">%s позеха</item>
+    <item quantity="many">%s позехаў</item>
+    <item quantity="other">%s позехаў</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s памылка</item>
@@ -346,10 +347,10 @@
     <item quantity="other">%s турнірных балаў</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s студыя</item>
-    <item quantity="few">%s студыі</item>
-    <item quantity="many">%s студый</item>
-    <item quantity="other">%s студый</item>
+    <item quantity="one">%s навучанне</item>
+    <item quantity="few">%s навучанні</item>
+    <item quantity="many">%s навучанняў</item>
+    <item quantity="other">%s навучанняў</item>
   </plurals>
   <string name="viewTournament">Адкрыць турнір</string>
   <string name="backToTournament">Вярнуцца да турніру</string>
@@ -402,7 +403,7 @@
   <string name="pasteThePgnStringHere">Устаўце сюды радок у фармаце PGN</string>
   <string name="fromPosition">З пазіцыі</string>
   <string name="continueFromHere">Працягнуць адсюль</string>
-  <string name="toStudy">Студыя</string>
+  <string name="toStudy">Навучанне</string>
   <string name="importGame">Імпартаваць гульню</string>
   <string name="importGameExplanation">Калі вы імпартуеце PGN-натацыю гульні, вы атрымаеце спасылку на гэтую гульню і зможаце праглядаць яе паўтор у браўзеры і аналізаваць яе. Таксама будзе даступны чат.</string>
   <plurals name="nbImportedGames">
@@ -502,6 +503,7 @@
   <string name="setTheBoard">Абраць пазіцыю</string>
   <string name="popularOpenings">Папулярныя дэбюты</string>
   <string name="endgamePositions">Пазіцыі ў эндшпілі</string>
+  <string name="chess960StartPosition">Пачатковая пазіцыя ў шахматах Фішэра: %s</string>
   <string name="startPosition">Пачатковая пазіцыя</string>
   <string name="clearBoard">Ачысціць дошку</string>
   <string name="savePosition">Захаваць пазіцыю</string>
@@ -526,7 +528,7 @@
   <string name="onlinePlayers">Гульцы анлайн</string>
   <string name="activeToday">Гулялі сёння</string>
   <string name="activePlayers">Актыўныя гульцы</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта гульня на рэйтынг, але без абмежавання часу!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Увага! Гэта рэйтынгавая гульня, але без абмежавання часу!</string>
   <string name="success">Поспех</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s бягучая гульня</item>
@@ -635,7 +637,7 @@
   <string name="side">Бок</string>
   <string name="clock">Гадзіньнік</string>
   <string name="unauthorizedError">Няма доступу.</string>
-  <string name="noInternetConnection">Няма злучэньня зь сецівам. Ты ўсё яшчэ можаш згуляць у афлайн мэню.</string>
+  <string name="noInternetConnection">Няма злучэння з інтэрнэтам. Вы ўсё яшчэ можаце згуляць афлайн з мэню.</string>
   <string name="connectedToLichess">Ты цяпер падлучаны да lichess.org</string>
   <string name="signedOut">Ты выйшаў з свайго акаўту</string>
   <string name="loginSuccessful">Ты ўвайшоў у свой акаўнт</string>
@@ -643,7 +645,7 @@
   <string name="playOfflineComputer">Камп\'ютар</string>
   <string name="opponent">Апанэнт</string>
   <string name="learnMenu">Вучыцца</string>
-  <string name="studyMenu">Студыя</string>
+  <string name="studyMenu">Навучанні</string>
   <string name="practice">Практыка</string>
   <string name="community">Супольнасць</string>
   <string name="tools">Інструменты</string>
@@ -693,7 +695,7 @@
   <string name="hostANewSimul">Арганізаваць новы сеанс</string>
   <string name="noSimulFound">Сеанс не знойдзены</string>
   <string name="noSimulExplanation">Не атрымалася знайсці такі сеанс.</string>
-  <string name="returnToSimulHomepage">Да асноўнай старонкі</string>
+  <string name="returnToSimulHomepage">Вярнуцца да асноўнай старонкі сеансу</string>
   <string name="aboutSimul">Сеанс адначасовай гульні – рэжым, калі адзін гулец супрацьстаіць некалькім супернікам у адначассе.</string>
   <string name="aboutSimulImage">Фішэр гуляў адначасова з 50 супернікамі: ён перамог у 47 гульнях, сцярпеў паразу ў адной і дзве згуляў унічыю.</string>
   <string name="aboutSimulRealLife">Такія гульні праводзяцца і «ужывую»: сеансёр ходзіць ад стала да стала, робячы хады.</string>
@@ -948,6 +950,8 @@
   <string name="welcome">Вітаем!</string>
   <string name="lichessPatronInfo">Lichess - гэта дабрачынная і цалкам бясплатная праграма з адкрытым зыходным кодам.
 Усе аперацыйныя выдаткі, распрацоўка і шахматны кантэнт фінансуюцца выключна за кошт ахвяраванняў карыстальнікаў.</string>
+  <string name="coachManager">Трэнерская старонка</string>
+  <string name="streamerManager">Стрымерская старонка</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
   <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
@@ -960,6 +964,10 @@
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
   <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
   <string name="onlyTitledHelp">Патрабаваць афіцыйнага тытулу, каб далучыцца да турніру</string>
+  <string name="positionInputHelp">Устаўце дакладны FEN, каб пачынаць кожную гульню з зададзенай пазіцыі.
+Працуе толькі ў стандартных шахматах, не ў варыянтах.
+Можаце выкарыстаць %s для генерацыі пазіцыі FEN, а потым уставіць тут.
+Пакіньце пустым, каб пачынаць гульні са звычайнай пачатковай пазіцыі.</string>
   <string name="cancelSimul">Скасаваць сеанс адначасовай гульні</string>
   <string name="simulHostcolor">Колер арганізатара ў кожнай гульне</string>
   <string name="estimatedStart">Меркаваны час пачатку</string>
@@ -973,6 +981,7 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Толькі лідары каманды</string>
   <string name="onlyTeamMembers">Толькі чальцы каманды</string>
+  <string name="navigateMoveTree">Рухацца па дрэву ходаў</string>
   <string name="mouseTricks">Трукі мышшу</string>
   <string name="toggleLocalAnalysis">Укл./адкл. лакальны камп\'ютарны аналіз</string>
   <string name="toggleAllAnalysis">Укл./адкл. усе камп\'ютарныя аналізы</string>
@@ -980,4 +989,10 @@
   <string name="analysisOptions">Параметры аналізу</string>
   <string name="focusChat">Сфакусавацца на чаце</string>
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
+  <string name="reopenYourAccount">Пераадкрыць акаўнт</string>
+  <string name="closedAccountChangedMind">Калі пасля закрыцця акаўнту, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Гэта спрацуе толькі адзін раз.</string>
+  <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
+  <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
+  <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
 </resources>

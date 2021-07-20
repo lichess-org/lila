@@ -23,9 +23,9 @@ lichess.load.then(() => {
         id: 'team',
         match: /(^|\s)(.+)$/,
         index: 2,
-        search(term: string, callback: (res: any[]) => void) {
+        search(term: string, callback: (res: Team[]) => void) {
           xhr.json(xhr.url('/team/autocomplete', { term }), { cache: 'default' }).then(
-            res => {
+            (res: Team[]) => {
               const current = textarea.value
                 .split('\n')
                 .map(t => t.split(' ')[0])

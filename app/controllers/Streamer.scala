@@ -8,10 +8,7 @@ import play.api.libs.json._
 import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
 
-final class Streamer(
-    env: Env,
-    apiC: => Api
-) extends LilaController(env) {
+final class Streamer(env: Env, apiC: => Api) extends LilaController(env) {
 
   private def api = env.streamer.api
 
@@ -111,11 +108,12 @@ final class Streamer(
   def edit =
     Auth { implicit ctx => _ =>
       AsStreamer { s =>
-        env.streamer.liveStreamApi of s flatMap { sws =>
-          modData(s.streamer) map { forMod =>
-            NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
+        env.msg.twoFactorReminder(s.user.id) >>
+          env.streamer.liveStreamApi.of(s).flatMap { sws =>
+            modData(s.streamer) map { forMod =>
+              NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
+            }
           }
-        }
       }
     }
 

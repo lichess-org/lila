@@ -112,6 +112,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
+  pvUciQueue: Uci[];
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -284,8 +285,9 @@ export default class AnalyseCtrl {
       color = this.turnColor(),
       dests = chessUtil.readDests(this.node.dests),
       drops = chessUtil.readDrops(this.node.drops),
-      movableColor = this.gamebookPlay()
-        ? color
+      gamebookPlay = this.gamebookPlay(),
+      movableColor = gamebookPlay
+        ? gamebookPlay.movableColor()
         : this.practice
         ? this.bottomColor()
         : !this.embed && ((dests && dests.size > 0) || drops === null || drops.length)
@@ -345,7 +347,6 @@ export default class AnalyseCtrl {
     const pathChanged = path !== this.path,
       isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
-    this.showGround();
     if (pathChanged) {
       const playedMyself = this.playedLastMoveMyself();
       if (this.study) this.study.setPath(path, this.node, playedMyself);
@@ -375,6 +376,7 @@ export default class AnalyseCtrl {
     }
     if (this.music) this.music.jump(this.node);
     lichess.pubsub.emit('ply', this.node.ply);
+    this.showGround();
   }
 
   userJump = (path: Tree.Path): void => {
@@ -523,7 +525,9 @@ export default class AnalyseCtrl {
     }
     this.jump(newPath);
     this.redraw();
-    this.chessground.playPremove();
+    const queuedUci = this.pvUciQueue.shift();
+    if (queuedUci) this.playUci(queuedUci, this.pvUciQueue);
+    else this.chessground.playPremove();
   }
 
   addDests(dests: string, path: Tree.Path): void {
@@ -799,7 +803,8 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  playUci(uci: Uci): void {
+  playUci(uci: Uci, uciQueue?: Uci[]): void {
+    this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
     if (isNormal(move)) {
@@ -819,6 +824,12 @@ export default class AnalyseCtrl {
         },
         to
       );
+  }
+
+  playUciList(uciList: Uci[]): void {
+    this.pvUciQueue = uciList;
+    const firstUci = this.pvUciQueue.shift();
+    if (firstUci) this.playUci(firstUci, this.pvUciQueue);
   }
 
   explorerMove(uci: Uci) {

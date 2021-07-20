@@ -2,6 +2,7 @@
 <resources>
   <string name="lichessClasses">Заняткі</string>
   <string name="teachClassesOfChessStudents">Выкладайце шахматныя заняткі студэнтам з інструментамі заняткаў Lichess.</string>
+  <string name="features">Магчымасці</string>
   <string name="quicklyGenerateSafeUsernames">Хутка стварайце імёны карыстальнікаў і паролі для студэнтаў</string>
   <string name="trackStudentProgress">Адсочвайце прагрэс студэнтаў у гульнях і задачах</string>
   <string name="messageAllStudents">Паведамляйце ўсім студэнтам аб новым матэрыяле занятка</string>
@@ -37,9 +38,19 @@
 Пароль: %3$s</string>
   <string name="inviteALichessAccount">Запрасіць Lichess акаўнт</string>
   <string name="inviteDesc1">Калі студэнт(ка) ужо мае акаўнт Lichess, вы можаце запрасіць іх на занятак.</string>
+  <string name="inviteDesc2">Яны атрымаюць паведамленне на Lichess са спасылкай на далучэнне да занятку.</string>
+  <string name="inviteDesc3">Важна: запрашайце толькі студэнтаў, якіх ведаеце, і якія актыўна хочуць далучыцца да занятку.</string>
+  <string name="inviteDesc4">Ніколі не адпраўляйце непажаданыя запрашэнні выпадковым людзям.</string>
   <string name="createANewLichessAccount">Стварыць новы акаўнт Lichess</string>
+  <string name="createDesc1">Калі ў студэнта(кі) яшчэ няма акаўнта Lichess, вы можаце ўласнаруч стварыць яго тут.</string>
+  <string name="createDesc2">Электронная пошта не патрэбна. Пароль будзе згенераваны, і вы зможаце перадаць яго студэнту(цы) для ўвахода на сайт.</string>
+  <string name="createDesc3">Важна: студэнт(ка) не павінен мець некалькі акаўнтаў.</string>
+  <string name="createDesc4">Калі ён/яна ўжо мае акаўнт, адпраўце запрашэнне замест.</string>
   <string name="lichessUsername">Імя карыстальніка Lichess</string>
   <string name="generateANewUsername">Стварыць новае імя карыстальніка</string>
+  <string name="welcomeToClass">Вітаем на вашым занятку: %s.
+Вось спасылка з доступам на занятак.</string>
+  <string name="invitationToClass">Вас запрасілі на занятак \"%s\" у якасці студэнта(кі).</string>
   <string name="clickToViewInvitation">Націсніце на спасылку, каб праглядзець запрашэнне:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">Адно чакаючае запрашэнне</item>
@@ -53,6 +64,10 @@
   <string name="managed">Кіраваны</string>
   <string name="thisStudentAccountIsManaged">Гэты акаўнт студэнта(кі) кіраваны</string>
   <string name="upgradeFromManaged">Абнавіць з кіраванага да аўтаномнага</string>
+  <string name="release">Вызваліць</string>
+  <string name="releaseTheAccount">Вызваліце акаўнт, каб студэнт мог самастойна кіраваць ім.</string>
+  <string name="releaseDesc1">Вызваленны акаўнт ня можа кіравацца зноў. Студэнт(ка) зможа уключаць/выключаць дзіцячы рэжым і скасоўваць паролі самастойна.</string>
+  <string name="releaseDesc2">Студэнт(ка) застанецца на занятку пасля вызвалення акаўнту.</string>
   <string name="realUniqueEmail">Сапраўдный, унікальны адрас электроннай пошты студэнта. Мы вышлем ліст пацверджэння на гэты імэйл, са спасылкай на акаўнт.</string>
   <string name="closeStudent">Зачыніць акаўнт</string>
   <string name="closeTheAccount">Назаўсёды зачыніць акаўнт студэнта(кі).</string>
@@ -76,7 +91,10 @@
   <string name="noStudents">Пакуль ніводнага студэнта на занятку.</string>
   <string name="noRemovedStudents">Няма выдаленных студэнтаў.</string>
   <string name="overDays">На працягу дзён</string>
+  <string name="timePlaying">Час за гульнёй</string>
+  <string name="variantXOverLastY">%1$s на працягу апошніх %2$s</string>
   <string name="winrate">Адсотак перамог</string>
+  <string name="na">Не дастасоўваецца</string>
   <string name="news">Навіны занятку</string>
   <string name="editNews">Рэдагаваць навіны</string>
   <string name="notifyAllStudents">Паведаміць усім студэнтам</string>

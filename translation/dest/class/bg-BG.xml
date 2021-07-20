@@ -52,6 +52,11 @@
 Ето линк за достъп към класа.</string>
   <string name="invitationToClass">Вие сте поканен да влезете в класа \"%s\" като ученик.</string>
   <string name="clickToViewInvitation">Натиснете тук, за да приемете поканата:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">Една покана в изчакване</item>
+    <item quantity="other">%s покани в изчакване</item>
+  </plurals>
+  <string name="noPendingInvitations">Няма покани в изчакване</string>
   <string name="closeStudent">Закриване на регистрацията</string>
   <string name="closeTheAccount">Постоянно закриване на регистрацията на ученика.</string>
   <string name="closeDesc1">Ученикът няма никога вече да може да използва тази регистрация. Затварянето е постоянно. Уверете се че ученикът разбира и се съгласява с това.</string>
@@ -69,4 +74,5 @@
   <string name="progress">Напредък</string>
   <string name="noStudents">В този клас все още няма ученици.</string>
   <string name="noRemovedStudents">Няма премахнати ученици.</string>
+  <string name="notifyAllStudents">Извести всички ученици</string>
 </resources>

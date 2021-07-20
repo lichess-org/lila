@@ -28,7 +28,7 @@ final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(im
           .replace("{player}", s"@${u1.name}")
           .replace("{opponent}", s"@${u2.name}")
           .replace("{game}", s"#${gameId}")
-        msgApi.post(managedById, u1.id, msg, multi = true)
+        msgApi.post(managedById, u1.id, msg, multi = true, ignoreSecurity = true)
       }
       .sequenceFu
       .void

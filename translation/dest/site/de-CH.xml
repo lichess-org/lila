@@ -441,7 +441,7 @@
   <string name="setTheBoard">Brätt ufbouä</string>
   <string name="popularOpenings">Beliäbti Eröffnigä</string>
   <string name="endgamePositions">Ändschpiilpositionä</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Schach960 Aafangsschtellig: %s</string>
+  <string name="chess960StartPosition">Fischer Random Aafangsschtellig: %s</string>
   <string name="startPosition">Aafangsposition</string>
   <string name="clearBoard">Brätt löschä</string>
   <string name="savePosition">Schtellig schpeichärä</string>
@@ -884,10 +884,9 @@ und beeiflussäd Schpillärwärtig</string>
   <string name="maximumWeeklyRating">Maximali Wärtigszahl i därä Wuchä</string>
   <string name="onlyTitled">Nur Schpillär mit Titel</string>
   <string name="onlyTitledHelp">Brucht än offiziellä Titel, zum a dem Turniär teilznäh</string>
-  <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
-Das funktioniert nur für Standardspiele, nicht für Varianten.
-Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
-Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</string>
+  <string name="positionInputHelp">Füäg än gültigä FEN ii, zum jedi Partii usärä bestimmtä Schtellig z\'schtartä.
+Das funktioniärt nur für Schtandardschpiil, nöd für Variantä.
+Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn do iizfüägä. Läär loh, zum Partiiä vode normale Usgangsschtellig us z\'schtartä.</string>
   <string name="cancelSimul">Simultan abbrächä</string>
   <string name="simulHostcolor">Farb vom Veraaschtaltär i jedärä Partii</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
@@ -903,8 +902,8 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="onlyTeamMembers">Nur Teammitglidär</string>
   <string name="navigateMoveTree">Dur dä Zugbaum navigiärä</string>
   <string name="mouseTricks">Muus-Tricks</string>
-  <string name="toggleLocalAnalysis">Lokale Computeranalyse aktivieren/deaktivieren</string>
-  <string name="toggleAllAnalysis">Alle Computeranalysen aktivieren/deaktivieren</string>
+  <string name="toggleLocalAnalysis">Lokali Kompianalyse aktiviärä/deaktiviärä</string>
+  <string name="toggleAllAnalysis">Alli Kompianalyse aktiviärä/deaktiviärä</string>
   <string name="playComputerMove">Spiil dä beschti Kompiutärzug</string>
   <string name="analysisOptions">Analüsä optionä</string>
   <string name="focusChat">Tschätt fokussiärä</string>

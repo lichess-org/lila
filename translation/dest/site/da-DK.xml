@@ -333,7 +333,7 @@
   <string name="yourPerfRatingIsTooLow">Din %1$s rating (%2$s) er for lav</string>
   <string name="ratedMoreThanInPerf">Ratet ≥ %1$s i %2$s</string>
   <string name="ratedLessThanInPerf">Ratet ≤ %1$s i %2$s</string>
-  <string name="mustBeInTeam">Skal være en del af hold %s</string>
+  <string name="mustBeInTeam">Skal være medlem af holdet %s</string>
   <string name="youAreNotInTeam">Du er ikke på holdet %s</string>
   <string name="backToGame">Tilbage til partiet</string>
   <string name="siteDescription">Gratis online skakserver. Spil skak med et rent design. Ingen registrering, ingen reklamer, ingen plugins nødvendige. Spil skak mod computeren, venner eller tilfældige modstandere.</string>
@@ -441,7 +441,7 @@
   <string name="setTheBoard">Opstil bræt</string>
   <string name="popularOpenings">Populære åbninger</string>
   <string name="endgamePositions">Slutspilspositioner</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 startposition: %s</string>
+  <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startopstilling</string>
   <string name="clearBoard">Fjern alle brikker</string>
   <string name="savePosition">Gem stilling</string>
@@ -909,4 +909,10 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="analysisOptions">Analysemuligheder</string>
   <string name="focusChat">Fokusér chat</string>
   <string name="showHelpDialog">Vis denne hjælpedialog</string>
+  <string name="reopenYourAccount">Genåbn din konto</string>
+  <string name="closedAccountChangedMind">Hvis du har lukket din konto, men siden ombestemt dig, har du én chance for at få din konto tilbage.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Det vil kun fungere én gang.</string>
+  <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
+  <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
+  <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
 </resources>

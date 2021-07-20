@@ -143,7 +143,7 @@ final class Gamify(
           GroupField("done.by")(
             "nb" -> Sum(
               $doc(
-                "$cond" -> $arr($doc("$eq" -> $arr("room", Room.Cheat.key)), 3, 1)
+                "$cond" -> $arr($doc("$eq" -> $arr("$room", Room.Cheat.key)), 3, 1)
               )
             )
           ),

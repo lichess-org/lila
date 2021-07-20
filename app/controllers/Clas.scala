@@ -10,10 +10,7 @@ import lila.api.Context
 import lila.app._
 import lila.user.Holder
 
-final class Clas(
-    env: Env,
-    authC: Auth
-) extends LilaController(env) {
+final class Clas(env: Env, authC: Auth) extends LilaController(env) {
 
   def index =
     Open { implicit ctx =>
@@ -72,10 +69,11 @@ final class Clas(
     Auth { implicit ctx => me =>
       WithClassAny(id, me)(
         forTeacher = WithClass(Holder(me), id) { clas =>
-          env.clas.api.student.activeWithUsers(clas) map { students =>
-            preloadStudentUsers(students)
-            views.html.clas.teacherDashboard.overview(clas, students)
-          }
+          env.msg.twoFactorReminder(me.id) >>
+            env.clas.api.student.activeWithUsers(clas) map { students =>
+              preloadStudentUsers(students)
+              views.html.clas.teacherDashboard.overview(clas, students)
+            }
         },
         forStudent = (clas, students) =>
           env.clas.api.clas.teachers(clas) map { teachers =>

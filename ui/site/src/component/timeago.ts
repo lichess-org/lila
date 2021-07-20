@@ -42,7 +42,7 @@ const formatDiff = (diff: number): string => {
 
 let formatterInst: (date: Date) => string;
 
-const formatter = () =>
+export const formatter = () =>
   (formatterInst =
     formatterInst ||
     (window.Intl && Intl.DateTimeFormat

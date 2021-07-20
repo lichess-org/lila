@@ -67,13 +67,8 @@ object list {
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        frag(
-                          postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
-                            submitButton(dataIcon := "", cls := "button button-metal")
-                          ),
-                          postForm(action := routes.Report.process(r.id), cls := "cancel")(
-                            submitButton(cls := "button button-thin button-empty")("Dismiss")
-                          )
+                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                          submitButton(dataIcon := "", cls := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(
@@ -121,7 +116,7 @@ object list {
                     )
                   )(
                     room.name,
-                    scores.get(room).filter(20 <).map(scoreTag(_))
+                    scores.get(room).filter(20 <=).map(scoreTag(_))
                   )
                 }
               },

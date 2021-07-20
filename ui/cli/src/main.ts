@@ -61,8 +61,8 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   lichess.loadCssPath('clinput.help');
-  modal(
-    $(
+  modal({
+    content: $(
       '<h3>Commands</h3>' +
         commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
         commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
@@ -74,6 +74,6 @@ function help() {
         commandHelp('c', '', 'Focus the chat input') +
         commandHelp('esc', '', 'Close modals like this one')
     ),
-    'clinput-help'
-  );
+    class: 'clinput-help',
+  });
 }

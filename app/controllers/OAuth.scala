@@ -121,7 +121,7 @@ final class OAuth(env: Env) extends LilaController(env) {
   def tokenRevoke =
     Scoped() { implicit req => _ =>
       HTTPRequest.bearer(req) ?? { token =>
-        env.oAuth.tokenApi.revoke(AccessToken.Id.from(token)) inject NoContent
+        env.oAuth.tokenApi.revoke(token) inject NoContent
       }
     }
 
@@ -136,5 +136,20 @@ final class OAuth(env: Env) extends LilaController(env) {
           _ => BadRequest.fuccess,
           origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
         )
+    }
+
+  def challengeTokens =
+    ScopedBody(_.Web.Mod) { implicit req => me =>
+      if (isGranted(_.ApiChallengeAdmin, me))
+        lila.oauth.OAuthTokenForm.adminChallengeTokens
+          .bindFromRequest()
+          .fold(
+            err => BadRequest(apiFormError(err)).fuccess,
+            data =>
+              env.oAuth.tokenApi.adminChallengeTokens(data, me).map { tokens =>
+                JsonOk(tokens.view.mapValues(t => t.plain.secret).toMap)
+              }
+          )
+      else Unauthorized(jsonError("Missing permission")).fuccess
     }
 }

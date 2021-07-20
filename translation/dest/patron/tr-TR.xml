@@ -37,7 +37,7 @@ sonsuza kadar!</string>
 Bununla birlikte, Lichess\'in kurucusu ve geliştiricisi olan %s\'a tam zamanlı ödeme yapıyoruz.</string>
   <string name="costBreakdown">Ayrıntılı maliyet dökümüne göz atın</string>
   <string name="officialNonProfit">Lichess resmî olarak kâr amacı gütmeyen bir kuruluş mu?</string>
-  <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca).</string>
+  <string name="actOfCreation">Evet, kuruluş tüzüğünü okuyabilirsiniz (Fransızca)</string>
   <string name="changeMonthlySupport">Aylık desteğimi değiştirebilir veya iptal edebilir miyim?</string>
   <string name="changeOrContact">Evet, bu sayfadan istediğiniz işlemi yapabilirsiniz.
 Veya %s.</string>
@@ -77,5 +77,5 @@ Ancak Destekçilerimiz, müthiş profil simgeleriyle sonuna kadar övünme hakk�
   <string name="nowLifetime">Bu desteğiniz bize bir ömür yeter!</string>
   <string name="nowOneMonth">Bir aylığına Lichess Destekçisi oldunuz!</string>
   <string name="downgradeNextMonth">Bir ay içinde sizden tekrar ücret talep edilmeyecek ve Lichess hesabınız ücretsiz hâline dönecek.</string>
-  <string name="changeCurrency">Para birimini değiştir</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Para birimini değiştir</string>
 </resources>

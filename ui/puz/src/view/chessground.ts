@@ -46,7 +46,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
       check: pref.highlight,
     },
     animation: {
-      enabled: false,
+      duration: pref.animation,
     },
     disableContextMenu: true,
   };

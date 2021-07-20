@@ -42,6 +42,31 @@ class StringTest extends Specification {
         String.looksLikePrize(s"ten btc") must beTrue
       }
     }
+
+    def extractPosts(s: String) = String.forumPostPathRegex.findAllMatchIn(s).toList.map(_.group(1))
+
+    "forum post path regex" should {
+      "find forum post path" in {
+        extractPosts(
+          "[mod](https://lichess.org/@/mod) :gear: Unfeature topic  general-chess-discussion/abc"
+        ) must_== List("general-chess-discussion/abc")
+        extractPosts("lichess-feedback/test-2") must_== List("lichess-feedback/test-2")
+        extractPosts("off-topic-discussion/how-come") must_== List("off-topic-discussion/how-come")
+        extractPosts(
+          "lichess-feedback/bug-unable-to-get-computer-analysis-and-learn-from-my-mistakes xx team-4-player-chess/chess-getting-boring off-topic-discussion/how-come"
+        ) must_== List(
+          "lichess-feedback/bug-unable-to-get-computer-analysis-and-learn-from-my-mistakes",
+          "team-4-player-chess/chess-getting-boring",
+          "off-topic-discussion/how-come"
+        )
+      }
+
+      "Not find forum post path" in {
+        extractPosts("yes/no/maybe") must_== List()
+        extractPosts("go/to/some/very/long/path") must_== List()
+        extractPosts("Answer me yes/no?") must_== List()
+      }
+    }
   }
 
 }

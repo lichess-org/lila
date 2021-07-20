@@ -62,13 +62,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     }
 
   def pair(x: ID, y: ID): Fu[Option[(User, User)]] =
-    (x.nonEmpty && y.nonEmpty && x != y) ??
-      coll.byIds[User](List(x, y)) map { users =>
-        for {
-          xx <- users.find(_.id == x)
-          yy <- users.find(_.id == y)
-        } yield xx -> yy
-      }
+    coll.byIds[User](List(x, y)) map { users =>
+      for {
+        xx <- users.find(_.id == x)
+        yy <- users.find(_.id == y)
+      } yield xx -> yy
+    }
 
   def lichessAnd(id: ID) = pair(User.lichessId, id) map2 { case (lichess, user) =>
     Holder(lichess) -> user
@@ -404,6 +403,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setRoles(id: ID, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
+
+  def hasTwoFactor(id: ID) = coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
 
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 

@@ -5,16 +5,20 @@ lichess.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      const $wrap = modal($('.forum-delete-modal'));
-      $wrap
-        .find('form')
-        .attr('action', link.href)
-        .on('submit', function (this: HTMLFormElement, e: Event) {
-          e.preventDefault();
-          xhr.formToXhr(this);
-          modal.close();
-          $(link).closest('.forum-post').hide();
-        });
+      modal({
+        content: $('.forum-delete-modal'),
+        onInsert($wrap) {
+          $wrap
+            .find('form')
+            .attr('action', link.href)
+            .on('submit', function (this: HTMLFormElement, e: Event) {
+              e.preventDefault();
+              xhr.formToXhr(this);
+              modal.close();
+              $(link).closest('.forum-post').hide();
+            });
+        },
+      });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
@@ -57,7 +61,7 @@ lichess.load.then(() => {
           [
             {
               match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-              search: function (term: string, callback) {
+              search: function (term: string, callback: (names: string[]) => void) {
                 // Initially we only autocomplete by participants in the thread. As the user types more,
                 // we can autocomplete against all users on the site.
                 threadParticipants.then(function (participants) {
@@ -77,7 +81,7 @@ lichess.load.then(() => {
                   }
                 });
               },
-              replace: mention => '$1@' + mention + ' ',
+              replace: (mention: string) => '$1@' + mention + ' ',
             },
           ],
           {

@@ -656,7 +656,6 @@ POST  /api/account/kid                 controllers.Account.apiKidPost
 GET   /api/account/preferences         controllers.Pref.apiGet
 POST  /api/challenge/ai                controllers.Setup.apiAi
 POST  /api/challenge/open              controllers.Challenge.openCreate
-POST  /api/challenge/admin/:orig/:dest controllers.Challenge.apiCreateAdmin(orig: String, dest: String)
 POST  /api/challenge/:user             controllers.Challenge.apiCreate(user: String)
 POST  /api/challenge/$id<\w{8}>/accept controllers.Challenge.apiAccept(id: String)
 POST  /api/challenge/$id<\w{8}>/decline controllers.Challenge.apiDecline(id: String)
@@ -729,6 +728,7 @@ GET    /account/oauth/token            controllers.OAuthToken.index
 GET    /account/oauth/token/create     controllers.OAuthToken.create
 POST   /account/oauth/token/create     controllers.OAuthToken.createApply
 POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id: String)
+POST   /api/token/admin-challenge      controllers.OAuth.challengeTokens
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id: String)

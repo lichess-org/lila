@@ -13,18 +13,16 @@ object reopen {
       ctx: Context
   ) =
     views.html.base.layout(
-      title = "Reopen your account",
+      title = trans.reopenYourAccount.txt(),
       moreCss = cssTag("auth"),
       moreJs = views.html.base.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ) {
       main(cls := "page-small box box-pad")(
-        h1("Reopen your account"),
-        p(
-          "If you closed your account, but have since changed your mind, you get one chance of getting your account back."
-        ),
-        p(strong("This will only work once.")),
-        p("If you close your account a second time, there will be no way of recovering it."),
+        h1(trans.reopenYourAccount()),
+        p(trans.closedAccountChangedMind()),
+        p(strong(trans.onlyWorksOnce())),
+        p(trans.cantDoThisTwice()),
         hr,
         postForm(cls := "form3", action := routes.Account.reopenApply)(
           error.map { err =>
@@ -32,7 +30,7 @@ object reopen {
           },
           form3.group(form("username"), trans.username())(form3.input(_)(autofocus)),
           form3
-            .group(form("email"), trans.email(), help = frag("Email address associated to the account").some)(
+            .group(form("email"), trans.email(), help = trans.emailAssociatedToaccount().some)(
               form3.input(_, typ = "email")
             ),
           views.html.base.hcaptcha.tag(form),
@@ -43,11 +41,11 @@ object reopen {
 
   def sent(implicit ctx: Context) =
     views.html.base.layout(
-      title = "Reopen your account"
+      title = trans.reopenYourAccount.txt()
     ) {
       main(cls := "page-small box box-pad")(
         h1(cls := "is-green text", dataIcon := "")(trans.checkYourEmail()),
-        p("We've sent you an email with a link."),
+        p(trans.sentEmailWithLink()),
         p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
     }

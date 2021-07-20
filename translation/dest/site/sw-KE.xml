@@ -9,6 +9,7 @@
   <string name="yourTurn">nafasi ni yako</string>
   <string name="aiNameLevelAiLevel">%1$s kiwango %2$s</string>
   <string name="level">kiwango</string>
+  <string name="strength">Kipimo cha nguvu</string>
   <string name="toggleTheChat">geuza gumzo</string>
   <string name="toggleSound">Badili Sauti</string>
   <string name="chat">Piga Gumzo</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Unacheza na nyeupe</string>
   <string name="youPlayTheBlackPieces">Unacheza na nyeusi</string>
   <string name="itsYourTurn">Nafasi ni yako!</string>
+  <string name="cheatDetected">Wizi wa Mtandao</string>
   <string name="kingInTheCenter">Mfalme katika kituo</string>
   <string name="threeChecks">Kaguzi tatu</string>
   <string name="raceFinished">Mbio imemalizika</string>

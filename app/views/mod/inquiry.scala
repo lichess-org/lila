@@ -204,7 +204,10 @@ object inquiry {
           iconTag(""),
           div(
             isGranted(_.SendToZulip) option {
-              postForm(action := routes.Mod.inquiryToZulip)(
+              val url =
+                if (in.report.isAppeal) routes.Appeal.sendToZulip(in.user.username)
+                else routes.Mod.inquiryToZulip
+              postForm(action := url)(
                 submitButton(cls := "fbt")("Send to Zulip")
               )
             },

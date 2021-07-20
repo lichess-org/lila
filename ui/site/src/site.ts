@@ -17,6 +17,7 @@ import watchers from './component/watchers';
 import { reload } from './component/reload';
 import { requestIdleCallback } from './component/functions';
 import { userComplete } from './component/assets';
+import { trapFocus } from 'common/modal';
 
 exportLichessGlobals();
 lichess.info = info;
@@ -114,6 +115,8 @@ lichess.load.then(() => {
       t.find('span').html('' + (count > 0 ? count : ''));
       return false;
     });
+
+    $('body').on('focusin', trapFocus);
 
     window.Mousetrap.bind('esc', () => {
       const $oc = $('#modal-wrap .close');

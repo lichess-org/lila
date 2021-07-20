@@ -1,6 +1,7 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
 import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
 import { Api as CgApi } from 'chessground/api';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';
@@ -68,6 +69,12 @@ export default class StormCtrl {
       },
     });
     lichess.socket.sign(this.sign);
+    lichess.pubsub.on('zen', () => {
+      const zen = $('body').toggleClass('zen').hasClass('zen');
+      window.dispatchEvent(new Event('resize'));
+      this.setZen(zen);
+    });
+    $('#zentog').on('click', this.toggleZen);
     setInterval(this.redraw, 1000);
     setTimeout(this.hotkeys, 1000);
     // this.simulate();
@@ -120,6 +127,7 @@ export default class StormCtrl {
     this.redraw();
     sound.end();
     lichess.pubsub.emit('ply', 0); // restore resize handle
+    $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
   };
 
@@ -219,5 +227,14 @@ export default class StormCtrl {
 
   private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
 
-  private hotkeys = () => window.Mousetrap.bind('f', this.flip);
+  private setZen = throttle(1000, zen =>
+    xhr.text('/pref/zen', {
+      method: 'post',
+      body: xhr.form({ zen: zen ? 1 : 0 }),
+    })
+  );
+
+  private toggleZen = () => lichess.pubsub.emit('zen');
+
+  private hotkeys = () => window.Mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

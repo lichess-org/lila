@@ -588,7 +588,9 @@ final class User(
     }
 
   def tryRedirect(username: String)(implicit ctx: Context): Fu[Option[Result]] =
-    env.user.repo enabledNamed username map2 { user =>
-      Redirect(routes.User.show(user.username))
+    env.user.repo named username map {
+      _.filter(_.enabled || isGranted(_.SeeReport)) map { user =>
+        Redirect(routes.User.show(user.username))
+      }
     }
 }

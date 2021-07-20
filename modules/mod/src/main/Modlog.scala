@@ -15,7 +15,7 @@ case class Modlog(
   def isLichess = mod == lila.user.User.lichessId
 
   def notable      = action != Modlog.terminateTournament
-  def notableSlack = notable && !isLichess
+  def notableZulip = notable && !isLichess
 
   def gameId = details.ifTrue(action == Modlog.cheatDetected).??(_.split(' ').lift(1))
 

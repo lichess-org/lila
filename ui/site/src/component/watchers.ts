@@ -21,10 +21,13 @@ export default function watchers(element: HTMLElement) {
 
   lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 
-  const set = (data: Data) => {
+  const set = (data: Data): void => {
     watchersData = data;
 
-    if (!data || !data.nb) return $element.addClass('none');
+    if (!data || !data.nb) {
+      $element.addClass('none');
+      return;
+    }
 
     $numberEl.text('' + data.nb);
 

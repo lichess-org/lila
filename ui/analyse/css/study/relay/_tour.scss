@@ -19,6 +19,12 @@
 
     .slist {
       margin-bottom: 1em;
+      ongoing {
+        color: $c-red;
+      }
+      finished {
+        color: $c-good;
+      }
     }
 
     h1 {
@@ -71,5 +77,5 @@
 }
 
 main.has-relay-tour .mchat {
-  max-height: 48vh;
+  height: 48vh;
 }

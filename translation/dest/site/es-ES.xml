@@ -441,7 +441,7 @@
   <string name="setTheBoard">Configurar tablero</string>
   <string name="popularOpenings">Aperturas populares</string>
   <string name="endgamePositions">Posiciones de finales</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posición inicial de Chess960: %s</string>
+  <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar el tablero</string>
   <string name="savePosition">Guardar posición</string>
@@ -909,4 +909,10 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="analysisOptions">Opciones de análisis</string>
   <string name="focusChat">Foco en el chat</string>
   <string name="showHelpDialog">Mostrar este cuadro de diálogo de ayuda</string>
+  <string name="reopenYourAccount">Recupera tu cuenta</string>
+  <string name="closedAccountChangedMind">Si cerraste tu cuenta y has cambiado de opinión, aún tienes una oportunidad de recuperarla.</string>
+  <string name="onlyWorksOnce">Esto solo funcionará una vez.</string>
+  <string name="cantDoThisTwice">Si vuelves a cerrar tu cuenta, no podrás recuperarla.</string>
+  <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada a la cuenta</string>
+  <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
 </resources>

@@ -488,20 +488,23 @@ final class TournamentApi(
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: Tournament.ID, userId: User.ID): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-      playerRepo.withdraw(tourId, userId) >> {
-        tour.isStarted ?? {
-          pairingRepo.findPlaying(tour.id, userId).map {
-            _ foreach { currentPairing =>
-              tellRound(currentPairing.gameId, AbortForce)
+      if (tour.isCreated)
+        playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
+      else
+        playerRepo.withdraw(tourId, userId) >> {
+          tour.isStarted ?? {
+            pairingRepo.findPlaying(tour.id, userId).map {
+              _ foreach { currentPairing =>
+                tellRound(currentPairing.gameId, AbortForce)
+              }
+            } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
+              pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
+                lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
             }
-          } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
-            pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
-        }
-      } >>
-        updateNbPlayers(tour.id) >>-
-        socket.reload(tour.id) >>- publish()
+        } >>
+          updateNbPlayers(tour.id) >>-
+          socket.reload(tour.id) >>- publish()
     }
 
   // erases player from tournament and reassigns winner

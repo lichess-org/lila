@@ -411,7 +411,7 @@
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">チェス960 開始局面: %s</string>
+  <string name="chess960StartPosition">チェス960 開始局面: %s</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
@@ -870,4 +870,10 @@
   <string name="analysisOptions">解析のオプション</string>
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
+  <string name="reopenYourAccount">アカウントを再開する</string>
+  <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
+  <string name="onlyWorksOnce">再開は一回限りです。</string>
+  <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
+  <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
+  <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
 </resources>

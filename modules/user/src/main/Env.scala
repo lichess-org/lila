@@ -79,7 +79,7 @@ final class Env(
       repo.setRoles(userId, Nil).unit
     },
     "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
-      rankingApi.remove(userId).unit
+      rankingApi remove userId
       repo.setRoles(userId, Nil).unit
     },
     "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>

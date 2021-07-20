@@ -21,7 +21,7 @@ final class IrcApi(
     zulip(_.mod.commsPrivate, "burst")(md)
   }
 
-  def inquiry(user: LightUser, mod: Holder, domain: ModDomain): Funit = {
+  def inquiry(user: LightUser, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Hunt  => ZulipClient.stream.mod.hunterCheat
@@ -33,11 +33,12 @@ final class IrcApi(
       .flatMap {
         case None =>
           zulip(stream, "/" + user.name)(
-            s":eyes: ${markdown.userLink(mod.user.username)}: Let's have a look at **${markdown.userLink(user.name)}**"
+            s"${markdown.userLink(mod.user.username)} :monkahmm: is looking at a $room report about **${markdown
+              .userLink(user.name)}**"
           )
         case Some(note) =>
           zulip(stream, "/" + user.name)(
-            s"${markdown.modLink(mod.user.username)} :note: **${markdown
+            s"${markdown.modLink(mod.user.username)} :pepenote: **${markdown
               .userLink(user.name)}** (${markdown.userNotesLink(user.name)}):\n" +
               markdown.linkifyUsers(note.text take 2000)
           )
@@ -67,7 +68,7 @@ final class IrcApi(
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.adminMonitor(tpe), mod.name)(
-          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyUsers(text)}"
+          s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
     }
@@ -76,7 +77,7 @@ final class IrcApi(
     lightUser(modId) flatMap {
       _ ?? { mod =>
         zulip(_.mod.log, "actions")(
-          s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyUsers(text)}"
+          s"${markdown.modLink(modId)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
         )
       }
     }
@@ -97,7 +98,7 @@ final class IrcApi(
 
   def userAppeal(user: User, mod: Holder): Funit =
     zulip(_.mod.adminAppeal, "/" + user.username)(
-      s"${markdown.modLink(mod.user)} :eyes: Let's have a look at the appeal of **${markdown
+      s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
         .lichessLink(s"/appeal/${user.username}", user.username)}**"
     )
 
@@ -166,6 +167,7 @@ object IrcApi {
   }
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
+  private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
   private object markdown {
     def link(url: String, name: String)         = s"[$name]($url)"
@@ -179,5 +181,8 @@ object IrcApi {
     def broadcastLink(id: String, name: String) = lichessLink(s"/broadcast/-/$id", name)
     val userReplace                             = link("https://lichess.org/@/$1?mod", "$1")
     def linkifyUsers(msg: String)               = userRegex matcher msg replaceAll userReplace
+    val postReplace                             = lichessLink("/forum/$1", "$1")
+    def linkifyPosts(msg: String)               = postRegex matcher msg replaceAll postReplace
+    def linkifyPostsAndUsers(msg: String)       = linkifyPosts(linkifyUsers(msg))
   }
 }

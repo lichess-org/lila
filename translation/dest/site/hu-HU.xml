@@ -441,7 +441,7 @@
   <string name="setTheBoard">Táblaállás</string>
   <string name="popularOpenings">Népszerű megnyitások</string>
   <string name="endgamePositions">Végjáték állások</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 kezdőállás: %s</string>
+  <string name="chess960StartPosition">Chess960 kezdőállás: %s</string>
   <string name="startPosition">Alapállás</string>
   <string name="clearBoard">Üres tábla</string>
   <string name="savePosition">Állás mentése</string>
@@ -909,4 +909,10 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="analysisOptions">Elemzés beállításai</string>
   <string name="focusChat">Fókusz a csevegőre</string>
   <string name="showHelpDialog">Mutasd ezt a súgót</string>
+  <string name="reopenYourAccount">Fiók újranyitása</string>
+  <string name="closedAccountChangedMind">Ha lezártad a fiókod, de azóta meggondoltad magad, van egy lehetőséged visszakapni a régi fiókod.</string>
+  <string name="onlyWorksOnce">Ez csak egyszer működik.</string>
+  <string name="cantDoThisTwice">Ha lezárod a fiókod másodszor is, utána már nincs lehetőség a visszaállításra.</string>
+  <string name="emailAssociatedToaccount">A fiókhoz rendelt email cím</string>
+  <string name="sentEmailWithLink">Küldtünk neked egy linket emailben.</string>
 </resources>

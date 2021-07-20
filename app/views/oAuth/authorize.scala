@@ -7,6 +7,7 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.user.User
 import lila.oauth.AuthorizationRequest
+import lila.oauth.OAuthScope
 
 object authorize {
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(implicit ctx: Context) =
@@ -18,45 +19,54 @@ object authorize {
       )
     ) {
       main(cls := "oauth box box-pad")(
-        h1(dataIcon := "", cls := "text")("Authorize third party"),
+        div(cls := "oauth__top")(
+          img(
+            cls := "oauth__logo",
+            alt := "linked rings icon",
+            src := assetUrl("images/icons/linked-rings.png")
+          ),
+          h1("Authorize"),
+          strong(code(prompt.redirectUri.clientOrigin))
+        ),
+        prompt.redirectUri.insecure option flashMessage(cls := "flash-warning")(
+          "Does not use a secure connection"
+        ),
         postForm(action := authorizeUrl)(
           p(
-            strong(code(prompt.redirectUri.clientOrigin)),
-            " wants to access your ",
+            "Grant access to your ",
             strong(me.username),
             " account:"
           ),
           if (prompt.maybeScopes.isEmpty) ul(li("Only public data"))
           else
-            ul(
+            ul(cls := "oauth__scopes")(
               prompt.maybeScopes map { scope =>
-                li(scope.name)
+                li(
+                  cls := List(
+                    "danger" -> (scope == OAuthScope.Web.Mod || scope == OAuthScope.Web.Login)
+                  )
+                )(scope.name)
               }
             ),
-          flashMessage(cls := "flash-warning")(
-            "Not owned or operated by lichess.org"
+          form3.actions(
+            a(href := prompt.cancelUrl)("Cancel"),
+            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           ),
-          p(
-            "This prompt will redirect to ",
-            code(
+          div(cls := "oauth__footer")(
+            p(
+              "Not owned or operated by lichess.org"
+            ),
+            p(cls := "oauth__redirect")(
+              "Will redirect to ",
               raw(
                 escapeHtmlRaw(prompt.redirectUri.value.toStringPunycode)
                   .replaceFirst(
                     prompt.redirectUri.clientOrigin,
-                    strong(prompt.redirectUri.clientOrigin).render
+                    prompt.redirectUri.clientOrigin.render
                   )
               )
             )
-          ),
-          form3.actions(
-            a(href := prompt.cancelUrl)("Cancel"),
-            submitButton(cls := "button disabled", disabled := true, id := "oauth-authorize")("Authorize")
           )
-        ),
-        prompt.maybeLegacy option p(
-          "Note for developers: The OAuth flow without PKCE is ",
-          a(href := "https://github.com/ornicar/lila/issues/9214")("deprecated"),
-          ". Consider updating your app."
         )
       )
     }
