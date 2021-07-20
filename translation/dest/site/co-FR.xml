@@ -96,6 +96,7 @@
   <string name="noGameFound">Ùn ci hè partita</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seria megliu d\' include d\' altre partite in u listinu di e preferenze?</string>
   <string name="openingExplorer">Espluratore d\' apertura</string>
+  <string name="openingEndgameExplorer">Apre u spluradore di i finali</string>
   <string name="xOpeningExplorer">%s espluratore d\' apertura</string>
   <string name="winPreventedBy50MoveRule">A regula di i 50 copli impedisce a vittoria</string>
   <string name="lossSavedBy50MoveRule">A regula di i 50 colpi impedisce a difesa</string>
@@ -358,6 +359,22 @@
     <item quantity="other">%s partite impurtate</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Hè un CAPTCHA di scacchi.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Clicheghja nantu à a scacchera pè ghjucà u vostru colpu è mustrà ch\' è voi site un umanu.</string>
+  <string name="captcha.fail">Pè piace risolva u captcha di scacchi.</string>
+  <string name="notACheckmate">Ùn ci hè scaccu mattu</string>
+  <string name="whiteCheckmatesInOneMove">Tocca à i bianchi à fà scaccu mattu in un colpu</string>
+  <string name="blackCheckmatesInOneMove">Tocca à i neri à fà scaccu mattu in un colpu</string>
+  <string name="retry">Pruvà da torna</string>
+  <string name="reconnecting">Ricunnettà si</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amicu in nantu à u situ</item>
+    <item quantity="other">%s amichi nantu à u situ</item>
+  </plurals>
+  <string name="noFriendsOnline">Ùn ci hè amicu cunnettatu nantu à u situ</string>
+  <string name="findFriends">Truvà amichi</string>
+  <string name="favoriteOpponents">Avversariu prefiritu</string>
+  <string name="follow">Segue</string>
+  <string name="following">Seguendu</string>
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
