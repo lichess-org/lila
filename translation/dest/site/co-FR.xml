@@ -409,6 +409,17 @@
   <string name="conditionOfEntry">Cundizioni pè ghjunghje:</string>
   <string name="advancedSettings">Uzzioni avanzati</string>
   <string name="safeTournamentName">Scegli un nomu curtesu pè a ghjustra criata.</string>
+  <string name="inappropriateNameWarning">S\'è vo date un nomu sgarbatu à u vostru turneu, u vostru contu pò esse chjosu.</string>
+  <string name="emptyTournamentName">Lascià viotu darà à a ghjustra u nomu d\' un ghjucatore famosu.</string>
+  <string name="recommendNotTouching">V\' arricumandemu d\' ùn tuccà.</string>
+  <string name="fewerPlayers">S\'è vo create parechji cundizioni d\' intrata, ci seranu menu ghjucatori.</string>
+  <string name="showAdvancedSettings">Mustrà l\' uzzioni avanzati</string>
+  <string name="makePrivateTournament">Creà una ghjustra privata è limità ne l\' accessu cù una parolla d\' intesa</string>
+  <string name="join">Ghjunghje</string>
+  <string name="withdraw">Ritirà si</string>
+  <string name="points">Punti</string>
+  <string name="wins">Vittorie</string>
+  <string name="losses">Scunfitte</string>
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
@@ -417,4 +428,11 @@
   <string name="winRate">Percentuale di vittoria</string>
   <string name="berserkRate">Percentuale di Bersek</string>
   <string name="performance">Performanza</string>
+  <string name="no">Innò</string>
+  <string name="yes">Iè</string>
+  <string name="help">Aiuta:</string>
+  <string name="createANewTopic">Creà un tema novu</string>
+  <string name="topics">Temi</string>
+  <string name="posts">Posti</string>
+  <string name="lastPost">Ultimu postu</string>
 </resources>
