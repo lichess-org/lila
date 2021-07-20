@@ -451,4 +451,19 @@
   <string name="ratingManipulation">Valutazione trafficata</string>
   <string name="other">Altru</string>
   <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn và micca in u cumpurtamentu di u ghjucatore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
+  <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
+  <string name="by">da %s</string>
+  <string name="thisTopicIsNowClosed">Stu tema hè chjosu avà.</string>
+  <string name="theming">Temi</string>
+  <string name="blog">Bloggu</string>
+  <string name="questionsAndAnswers">Dumande &amp; Risposte</string>
+  <string name="notes">Annutazioni</string>
+  <string name="typePrivateNotesHere">Scrive annutazioni persunali quì</string>
+  <string name="invalidUsernameOrPassword">Nome d\' utilizatore o parolla d\' intesa invalidi</string>
+  <string name="incorrectPassword">Parolla d\' intesa falsa</string>
+  <string name="invalidAuthenticationCode">Codice d\' autentificazione invalidu</string>
+  <string name="emailMeALink">Mandà mi una leia pè via d\' un mail</string>
+  <string name="currentPassword">Parolla d\' intesa attuale</string>
+  <string name="newPassword">Parolla d\' intesa nova</string>
+  <string name="newPasswordAgain">Parolla d\' intesa nova (da torna)</string>
 </resources>
