@@ -272,7 +272,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def trollSelect  = markSelect(UserMark.Troll) _
   val lame = $or(
     $doc(F.marks -> UserMark.Engine.key),
-    $doc(F.marks -> UserMark.Boost.key),
+    $doc(F.marks -> UserMark.Boost.key)
   )
   val lameOrTroll = $or(
     $doc(F.marks -> UserMark.Engine.key),
