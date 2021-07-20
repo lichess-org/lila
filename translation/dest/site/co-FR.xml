@@ -451,6 +451,36 @@
   <string name="profileCompletion">Cumpiimentu di u prufilu: %s</string>
   <string name="xRating">%s valutazione</string>
   <string name="ifNoneLeaveEmpty">S\'è ùn n\' avete, lasciate viotu</string>
+  <string name="gameCompletionRate">Percentuale di e partite cumplette: %s</string>
+  <string name="profile">Profilu</string>
+  <string name="editProfile">Edità u prufilu</string>
+  <string name="firstName">Nome datu</string>
+  <string name="lastName">Cugnome</string>
+  <string name="biography">Biugraffia</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Paese o bandera</string>
+  <string name="thankYou">À ringrazià vi!</string>
+  <string name="socialMediaLinks">Leie di e rete suciale</string>
+  <string name="inlineNotation">Nutazione in linea</string>
+  <string name="watchLichessTV">Fighjulà Lichess TV</string>
+  <string name="previouslyOnLichessTV">Nanzu in Lichess TV</string>
+  <string name="onlinePlayers">Ghjucatore nantu à u situ</string>
+  <string name="activeToday">Attivi oghje</string>
+  <string name="activePlayers">Ghjucatori attivi</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Attenti, a partita hè classificata ma ùn ci hè riloghju!</string>
+  <string name="success">Successu</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s partita si ghjoca avà</item>
+    <item quantity="other">%s si ghjocanu avà</item>
+  </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">Passà di modu automaticu à a prossima partita dopu à u colpu</string>
+  <string name="autoSwitch">Auto cambiamentu</string>
+  <string name="puzzles">Puzzle</string>
+  <string name="latestUpdates">Ultimi telecaricamenti</string>
+  <string name="tournamentWinners">Vincitori di i turnei</string>
+  <string name="name">Nome</string>
+  <string name="description">Descrizzione</string>
+  <string name="descPrivate">Descrizzione privata</string>
+  <string name="descPrivateHelp">Testu soltantu vistu da i membri di a squadra.</string>
   <string name="no">Innò</string>
   <string name="yes">Iè</string>
   <string name="help">Aiuta:</string>
