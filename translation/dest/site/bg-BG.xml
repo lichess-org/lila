@@ -829,12 +829,12 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
-  <string name="rapid">Бърз</string>
+  <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Бързи игри: 8 до 25 минути</string>
+  <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
