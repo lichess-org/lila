@@ -5,7 +5,7 @@ import { uciToLastMove } from './util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 
-export const makeCgOpts = (run: Run, canMove: boolean, flipped?: boolean): CgConfig => {
+export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConfig => {
   const cur = run.current;
   const pos = cur.position();
   return {
@@ -18,6 +18,9 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped?: boolean): CgCon
     },
     check: !!pos.isCheck(),
     lastMove: uciToLastMove(cur.lastMove()),
+    animation: {
+      enabled: cur.moveIndex >= 0,
+    },
   };
 };
 
