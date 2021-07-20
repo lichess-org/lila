@@ -55,4 +55,8 @@ Adiciona as pontuações de cada adversário que o jogador vence e metade da pon
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
   <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
+  <string name="numberOfGames">Número de jogos</string>
+  <string name="identicalForbidden">Proibido</string>
+  <string name="pause">Pausa</string>
+  <string name="unlimitedAndFree">Ilimitado e livre</string>
 </resources>
