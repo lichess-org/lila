@@ -18,7 +18,7 @@
   <string name="stalemate">ステイルメイト</string>
   <string name="white">白</string>
   <string name="black">黒</string>
-  <string name="randomColor">ランダムカラー</string>
+  <string name="randomColor">ランダム</string>
   <string name="createAGame">対局を作成する</string>
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
