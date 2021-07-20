@@ -420,6 +420,7 @@
   <string name="points">Punti</string>
   <string name="wins">Vittorie</string>
   <string name="losses">Scunfitte</string>
+  <string name="winStreak">Seria di vittoria</string>
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
@@ -428,6 +429,28 @@
   <string name="winRate">Percentuale di vittoria</string>
   <string name="berserkRate">Percentuale di Bersek</string>
   <string name="performance">Performanza</string>
+  <string name="tournamentComplete">Ghjustra finita</string>
+  <string name="movesPlayed">Colpi ghjucati</string>
+  <string name="whiteWins">I bianchi vincenu</string>
+  <string name="blackWins">I neri vincenu</string>
+  <string name="draws">Partite patte</string>
+  <string name="nextXTournament">Prossima %s ghjustra:</string>
+  <string name="averageOpponent">Mezana di l\' opponenti</string>
+  <string name="membersOnly">Soltantu membri</string>
+  <string name="boardEditor">Editore di scacchera</string>
+  <string name="setTheBoard">Stallà a scacchera</string>
+  <string name="popularOpenings">Aperture famose</string>
+  <string name="endgamePositions">Pusizioni di finale</string>
+  <string name="chess960StartPosition">Scacchi 960 pusizione iniziale di a scacchera: %s</string>
+  <string name="startPosition">Pusizione iniziale</string>
+  <string name="clearBoard">Sfassà a scacchera</string>
+  <string name="savePosition">Salvà a pusizione</string>
+  <string name="loadPosition">Caricà a pusizione</string>
+  <string name="isPrivate">Privatu</string>
+  <string name="reportXToModerators">Rapportu %s à i muderatori</string>
+  <string name="profileCompletion">Cumpiimentu di u prufilu: %s</string>
+  <string name="xRating">%s valutazione</string>
+  <string name="ifNoneLeaveEmpty">S\'è ùn n\' avete, lasciate viotu</string>
   <string name="no">Innò</string>
   <string name="yes">Iè</string>
   <string name="help">Aiuta:</string>
@@ -476,4 +499,6 @@
   <string name="letOtherPlayersChallengeYou">Accettà chì altri ghjucatori vi sfidanu</string>
   <string name="letOtherPlayersInviteYouToStudy">Accettà chì altri ghjucatori vi invitanu</string>
   <string name="sound">Sonu</string>
+  <string name="none">Mancunu</string>
+  <string name="fast">Veloce</string>
 </resources>
