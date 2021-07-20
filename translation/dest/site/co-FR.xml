@@ -435,4 +435,19 @@
   <string name="topics">Temi</string>
   <string name="posts">Posti</string>
   <string name="lastPost">Ultimu postu</string>
+  <string name="views">Fighjate</string>
+  <string name="replies">Risposte</string>
+  <string name="replyToThisTopic">Risponde à issu tema</string>
+  <string name="reply">Risponde</string>
+  <string name="message">Missaghju</string>
+  <string name="createTheTopic">Creà un tema</string>
+  <string name="reportAUser">Lagnà si d\' un utilizatore</string>
+  <string name="user">Utilizatore</string>
+  <string name="reason">Mutivu</string>
+  <string name="whatIsIheMatter">Chì hè u prublemu?</string>
+  <string name="cheat">Arrubera</string>
+  <string name="insult">Parullaccia</string>
+  <string name="troll">Trollu</string>
+  <string name="ratingManipulation">Valutazione trafficata</string>
+  <string name="other">Altru</string>
 </resources>
