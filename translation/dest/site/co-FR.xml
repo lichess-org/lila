@@ -466,4 +466,14 @@
   <string name="currentPassword">Parolla d\' intesa attuale</string>
   <string name="newPassword">Parolla d\' intesa nova</string>
   <string name="newPasswordAgain">Parolla d\' intesa nova (da torna)</string>
+  <string name="newPasswordsDontMatch">E duie parolla d\' intesa ùn sò e stesse</string>
+  <string name="newPasswordStrength">Parolla d\' intesa forta</string>
+  <string name="clockInitialTime">Tempu iniziale di u riloghju</string>
+  <string name="clockIncrement">Raghjunta di tempu</string>
+  <string name="privacy">Cunfidenzialità</string>
+  <string name="privacyPolicy">Pulitica di cunfidenzialità</string>
+  <string name="letOtherPlayersFollowYou">Accettà chì altri ghjucatori vi seguitinu</string>
+  <string name="letOtherPlayersChallengeYou">Accettà chì altri ghjucatori vi sfidanu</string>
+  <string name="letOtherPlayersInviteYouToStudy">Accettà chì altri ghjucatori vi invitanu</string>
+  <string name="sound">Sonu</string>
 </resources>
