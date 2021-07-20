@@ -375,6 +375,40 @@
   <string name="favoriteOpponents">Avversariu prefiritu</string>
   <string name="follow">Segue</string>
   <string name="following">Seguendu</string>
+  <string name="unfollow">Ùn segue</string>
+  <string name="block">Bluccà</string>
+  <string name="blocked">Bluccatu</string>
+  <string name="unblock">Sbluccà</string>
+  <string name="followsYou">Vi segue</string>
+  <string name="xStartedFollowingY">%1$s hà principiatu à segue%2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s seguitore</item>
+    <item quantity="other">%s seguitori</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s seguitu</item>
+    <item quantity="other">%s seguiti</item>
+  </plurals>
+  <string name="more">Più</string>
+  <string name="memberSince">Membru dapoi</string>
+  <string name="lastSeenActive">Attivu %s</string>
+  <string name="player">Ghjucatore</string>
+  <string name="list">Listu</string>
+  <string name="graph">Grafficu</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Menu di %s minutu</item>
+    <item quantity="other">Menu di %s minuti</item>
+  </plurals>
+  <string name="required">Dumandata.</string>
+  <string name="openTournaments">Ghjustra apperta</string>
+  <string name="duration">Durata</string>
+  <string name="winner">Vincitore</string>
+  <string name="standing">Rangu</string>
+  <string name="createANewTournament">Creà un turneu novu</string>
+  <string name="tournamentCalendar">Almanancu di i turnei</string>
+  <string name="conditionOfEntry">Cundizioni pè ghjunghje:</string>
+  <string name="advancedSettings">Uzzioni avanzati</string>
+  <string name="safeTournamentName">Scegli un nomu curtesu pè a ghjustra criata.</string>
   <string name="createdBy">Criatu da</string>
   <string name="tournamentIsStarting">Principia a ghjustra</string>
   <string name="tournamentPairingsAreNowClosed">L\' appariera di u turneu hè compiu avà.</string>
