@@ -248,9 +248,11 @@ final class TeamApi(
         }
       }
     } getOrElse Set.empty
-    memberRepo.filterUserIdsInTeam(team.id, leaders) flatMap { ids =>
-      ids.nonEmpty ?? {
-        if (ids(team.createdBy) || !team.leaders(team.createdBy) || by.id == team.createdBy || byMod) {
+    for {
+      ids <- memberRepo.filterUserIdsInTeam(team.id, leaders)
+      previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
+      _ <- ids.nonEmpty ?? {
+        if (ids(team.createdBy) || !previousValidLeaders(team.createdBy) || by.id == team.createdBy || byMod) {
           cached.leaders.put(team.id, fuccess(ids))
           logger.info(s"valid setLeaders ${team.id}: ${ids mkString ", "} by @${by.id}")
           teamRepo.setLeaders(team.id, ids).void
@@ -259,7 +261,7 @@ final class TeamApi(
           funit
         }
       }
-    }
+    } yield ()
   }
 
   def isLeaderOf(leader: User.ID, member: User.ID) =
