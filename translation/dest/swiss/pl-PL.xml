@@ -69,7 +69,7 @@ Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż
   <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może otrzymać uczestnik?</string>
   <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
 Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju po jego rozpoczęciu.</string>
-  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli gracz nie rozpocznie partii?</string>
+  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli uczestnik nie rozpocznie partii?</string>
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
 Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
