@@ -531,4 +531,24 @@
   <string name="sound">Sonu</string>
   <string name="none">Mancunu</string>
   <string name="fast">Veloce</string>
+  <string name="normal">Nurmale</string>
+  <string name="slow">Pianu</string>
+  <string name="insideTheBoard">In a scacchera</string>
+  <string name="outsideTheBoard">Accantu à a scacchera</string>
+  <string name="onSlowGames">Durante e partite lente</string>
+  <string name="always">Sempre</string>
+  <string name="never">Mai</string>
+  <string name="difficultyEasy">Faciule</string>
+  <string name="difficultyNormal">Nurmale</string>
+  <string name="difficultyHard">Difficiule</string>
+  <string name="xCompetesInY">%1$s rivalizeghja cù%2$s</string>
+  <string name="xAskedY">%1$s hà dumandatu%2$s</string>
+  <string name="xAnsweredY">%1$s hà rispostu %2$s</string>
+  <string name="xCommentedY">%1$s hà cummentatu %2$s</string>
+  <string name="victory">Vittoria</string>
+  <string name="defeat">Scunfitta</string>
+  <string name="victoryVsYInZ">%1$s contru à %2$s in%3$s</string>
+  <string name="defeatVsYInZ">%1$s contru à %2$s in%3$s</string>
+  <string name="drawVsYInZ">%1$s contru à %2$s in%3$s</string>
+  <string name="timeline">Crunulugia</string>
 </resources>
