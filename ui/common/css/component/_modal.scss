@@ -10,7 +10,6 @@
 
     background: $c-bg-box;
     position: relative;
-    padding: 2rem;
     text-align: center;
     max-width: 100vw;
     max-height: 96vh;
@@ -18,6 +17,7 @@
     > div {
       overflow: hidden;
       overflow-y: auto;
+      padding: 2rem;
     }
 
     .close {

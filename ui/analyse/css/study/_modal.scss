@@ -1,14 +1,8 @@
 #modal-wrap {
-  padding: 1rem;
   min-width: 80vw;
 
   @include breakpoint($mq-x-small) {
     min-width: 500px;
-  }
-
-  > div {
-    padding: 1rem;
-    overflow-y: auto;
   }
 
   .form3 {
