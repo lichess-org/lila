@@ -589,4 +589,10 @@
   <string name="shareGameURL">Caricà l\' URL d\' una partita</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
+  <string name="keyboardShortcuts">Accurtata di a tastera</string>
+  <string name="keyMoveBackwardOrForward">move daretu/davanti</string>
+  <string name="keyGoToStartOrEnd">andà à u principiu/à a fine</string>
+  <string name="keyShowOrHideComments">mustrà/ammascà i cummenti</string>
+  <string name="keyEnterOrExitVariation">entre/sorte di a variante</string>
+  <string name="newTournament">Ghjustra nova</string>
 </resources>
