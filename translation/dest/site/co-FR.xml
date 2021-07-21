@@ -573,4 +573,20 @@
   <string name="connectedToLichess">Site cunnettatu à lichess.org</string>
   <string name="signedOut">Avete chjosu a vostra sessione</string>
   <string name="loginSuccessful">Site arrigistratu avà</string>
+  <string name="playOnTheBoardOffline">Ghjucà offline</string>
+  <string name="playOfflineComputer">Urdinatore</string>
+  <string name="opponent">Aversariu</string>
+  <string name="learnMenu">Amparà</string>
+  <string name="studyMenu">Studià</string>
+  <string name="practice">Addestrà</string>
+  <string name="community">Cumunità</string>
+  <string name="tools">Arnese</string>
+  <string name="increment">Raghjunta di tempu</string>
+  <string name="sharePGN">Caricà PGN</string>
+  <string name="playOnline">Ghjucà online</string>
+  <string name="playOffline">Ghjucà offline</string>
+  <string name="allowAnalytics">Accettà i statistichi anonimi</string>
+  <string name="shareGameURL">Caricà l\' URL d\' una partita</string>
+  <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
+  <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
 </resources>
