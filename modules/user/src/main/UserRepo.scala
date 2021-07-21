@@ -267,17 +267,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
-  def engineSelect = markSelect(UserMark.Engine) _
-  def trollSelect  = markSelect(UserMark.Troll) _
-  val lame = $or(
-    $doc(F.marks -> UserMark.Engine.key),
-    $doc(F.marks -> UserMark.Boost.key)
-  )
-  val lameOrTroll = $or(
-    $doc(F.marks -> UserMark.Engine.key),
-    $doc(F.marks -> UserMark.Boost.key),
-    $doc(F.marks -> UserMark.Troll.key)
-  )
+  def engineSelect       = markSelect(UserMark.Engine) _
+  def trollSelect        = markSelect(UserMark.Troll) _
+  val lame               = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key))
+  val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
