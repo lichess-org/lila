@@ -551,4 +551,26 @@
   <string name="defeatVsYInZ">%1$s contru à %2$s in%3$s</string>
   <string name="drawVsYInZ">%1$s contru à %2$s in%3$s</string>
   <string name="timeline">Crunulugia</string>
+  <string name="starting">Principiu:</string>
+  <string name="allInformationIsPublicAndOptional">Tutti l\' infurmazioni sò pubblichi è uzziunali.</string>
+  <string name="yourCityRegionOrDepartment">A to cità, rughjone, o pruvincia.</string>
+  <string name="biographyDescription">Parlà di tè, i to interressi, ciò chì ti piace in i scacchi, a to apertura preferita, i ghjucatori preferiti...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Massimu: %s segnu.</item>
+    <item quantity="other">Massimu: %s segni.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s bluccatu</item>
+    <item quantity="other">%s bluccati</item>
+  </plurals>
+  <string name="listBlockedPlayers">Lista di i ghjucatori bluccati</string>
+  <string name="human">Umanu</string>
+  <string name="computer">Urdinatore</string>
+  <string name="side">Campu</string>
+  <string name="clock">Riloghju</string>
+  <string name="unauthorizedError">Accessu pruibitu.</string>
+  <string name="noInternetConnection">Cunessione èn ci hè. Poi ghjucà offline. ( L\' uzzione si trova in u listinu).</string>
+  <string name="connectedToLichess">Site cunnettatu à lichess.org</string>
+  <string name="signedOut">Avete chjosu a vostra sessione</string>
+  <string name="loginSuccessful">Site arrigistratu avà</string>
 </resources>
