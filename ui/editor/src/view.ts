@@ -234,7 +234,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           ]),
           h('div.actions', [
             h(
-              'a.button.button-empty.text',
+              'button.button.button-empty.text',
               {
                 attrs: { 'data-icon': '' },
                 on: {
@@ -246,7 +246,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.trans.noarg('clearBoard')
             ),
             h(
-              'a.button.button-empty.text',
+              'button.button.button-empty.text',
               {
                 attrs: { 'data-icon': '' },
                 on: {
@@ -276,7 +276,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               ctrl.trans.noarg('analysis')
             ),
             h(
-              'a',
+              'button',
               {
                 class: {
                   button: true,
