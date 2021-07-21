@@ -269,6 +269,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     else F.marks $ne mark.key
   def engineSelect = markSelect(UserMark.Engine) _
   def trollSelect  = markSelect(UserMark.Troll) _
+  val lame = $or(
+    $doc(F.marks -> UserMark.Engine.key),
+    $doc(F.marks -> UserMark.Boost.key)
+  )
   val lameOrTroll = $or(
     $doc(F.marks -> UserMark.Engine.key),
     $doc(F.marks -> UserMark.Boost.key),
@@ -389,8 +393,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
-  def filterEngine(ids: Seq[ID]): Fu[Set[ID]] =
-    coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ engineSelect(true)))
+  def filterLame(ids: Seq[ID]): Fu[Set[ID]] =
+    coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ lame))
 
   def isTroll(id: ID): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
