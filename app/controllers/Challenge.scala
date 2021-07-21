@@ -1,5 +1,6 @@
 package controllers
 
+import cats.data.Validated
 import play.api.libs.json.Json
 import play.api.mvc.Result
 import scala.annotation.nowarn
@@ -51,7 +52,7 @@ final class Challenge(
       import lila.challenge.Direction
       val direction: Option[Direction] =
         if (mine) Direction.Out.some
-        else if (isForMe(c)) Direction.In.some
+        else if (isForMe(c, ctx.me)) Direction.In.some
         else none
       val json = env.challenge.jsonView.show(c, version, direction)
       negotiate(
@@ -77,25 +78,30 @@ final class Challenge(
       case lila.challenge.Challenge.Challenger.Open                  => false
     }
 
-  private def isForMe(challenge: ChallengeModel)(implicit ctx: Context) =
-    challenge.destUserId.fold(true)(ctx.userId.contains)
+  private def isForMe(challenge: ChallengeModel, me: Option[UserModel]) =
+    challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
+      !challenge.challengerUserId.??(orig => me.exists(_ is orig))
 
   def accept(id: String, color: Option[String]) =
     Open { implicit ctx =>
       OptionFuResult(api byId id) { c =>
         val cc = color flatMap chess.Color.fromName
-        isForMe(c) ?? api
+        isForMe(c, ctx.me) ?? api
           .accept(c, ctx.me, HTTPRequest sid ctx.req, cc)
           .flatMap {
-            case Some(pov) =>
+            case Validated.Valid(Some(pov)) =>
               negotiate(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))).fuccess,
                 api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, owner = false)
-            case None =>
+            case invalid =>
               negotiate(
                 html = Redirect(routes.Round.watcher(c.id, cc.fold("white")(_.name))).fuccess,
-                api = _ => notFoundJson("Someone else accepted the challenge")
+                api = _ =>
+                  notFoundJson(invalid match {
+                    case Validated.Invalid(err) => err
+                    case _                      => "The challenge has already been accepted"
+                  })
               )
           }
       }
@@ -103,15 +109,15 @@ final class Challenge(
 
   def apiAccept(id: String) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
-      api.onlineByIdFor(id, me) flatMap {
-        _ ?? { api.accept(_, me.some, none) }
-      } flatMap { res =>
-        if (res.isDefined) jsonOkResult.fuccess
-        else
-          env.bot.player.rematchAccept(id, me) flatMap {
-            case true => jsonOkResult.fuccess
-            case _    => notFoundJson()
-          }
+      api.byId(id) flatMap {
+        _.filter(isForMe(_, me.some)) match {
+          case Some(challenge) => api.accept(challenge, me.some, none) inject jsonOkResult
+          case _ =>
+            env.bot.player.rematchAccept(id, me) flatMap {
+              case true => jsonOkResult.fuccess
+              case _    => notFoundJson()
+            }
+        }
       }
     }
 
@@ -137,7 +143,7 @@ final class Challenge(
     AuthBody { implicit ctx => _ =>
       OptionFuResult(api byId id) { c =>
         implicit val req = ctx.body
-        isForMe(c) ??
+        isForMe(c, ctx.me) ??
           api.decline(
             c,
             env.challenge.forms.decline
@@ -354,8 +360,7 @@ final class Challenge(
         err => BadRequest(jsonError(err.message)).fuccess,
         scoped =>
           if (scoped.user is dest) env.challenge.api.oauthAccept(dest, challenge) flatMap {
-            case None => BadRequest(jsonError("Couldn't create game")).fuccess
-            case Some(g) =>
+            case Validated.Valid(g) =>
               env.challenge.msg.onApiPair(challenge)(managedBy, message) inject Ok(
                 Json.obj(
                   "game" -> {
@@ -365,6 +370,7 @@ final class Challenge(
                   }
                 )
               )
+            case Validated.Invalid(err) => BadRequest(jsonError(err)).fuccess
           }
           else BadRequest(jsonError("dest and accept user don't match")).fuccess
       )
