@@ -9,6 +9,7 @@
   <string name="yourTurn">Imo ng lihok</string>
   <string name="aiNameLevelAiLevel">%1$s lebel %2$s</string>
   <string name="level">Lebel</string>
+  <string name="strength">Kakusgan</string>
   <string name="toggleTheChat">Pagpuli sa chat</string>
   <string name="toggleSound">Pagpuli sa tingog</string>
   <string name="chat">Chat</string>
