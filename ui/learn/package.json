@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "merge": "^1.2.1",
+    "merge": "^2.1.1",
     "mithril": "github:ornicar/mithril.js#lila-1",
     "shogiops": "^0.2.1",
     "snabbdom": "0.7.4"

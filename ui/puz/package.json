@@ -13,10 +13,10 @@
     "prod": "yarn run compile"
   },
   "dependencies": {
-    "shogiops": "^0.2.2",
-    "snabbdom": "^0.7.4",
+    "common": "2.0.0",
     "shogiground": "^7.8.1",
-    "common": "2.0.0"
+    "shogiops": "^0.2.2",
+    "snabbdom": "^0.7.4"
   },
   "devDependencies": {
     "@types/lishogi": "2.0.0",

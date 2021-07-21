@@ -20,8 +20,8 @@
   "dependencies": {
     "common": "2.0.0",
     "shogiground": "7.8.1",
-    "snabbdom": "^0.7.4",
-    "shogiops": "^0.2.1"
+    "shogiops": "^0.2.1",
+    "snabbdom": "^0.7.4"
   },
   "scripts": {
     "dev": "rollup --config",
