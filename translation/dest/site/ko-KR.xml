@@ -157,7 +157,7 @@
   <string name="today">오늘</string>
   <string name="yesterday">어제</string>
   <string name="minutesPerSide">주어진 시간(분)</string>
-  <string name="variant">변형게임</string>
+  <string name="variant">게임 종류</string>
   <string name="variants">변형</string>
   <string name="timeControl">시간 제한</string>
   <string name="realTime">짧은 대국</string>
@@ -871,7 +871,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="showHelpDialog">이 도움말 보기</string>
   <string name="reopenYourAccount">계정 다시 활성화</string>
   <string name="closedAccountChangedMind">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
-  <string name="onlyWorksOnce">단 한번만 가능합니다.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">단 한번만 가능합니다.</string>
   <string name="cantDoThisTwice">계정을 두 번째로 폐쇄했다면 복구할 방법이 없습니다.</string>
   <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
   <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
