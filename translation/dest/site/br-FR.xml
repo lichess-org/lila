@@ -927,4 +927,10 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="reopenYourAccount">Addigeriñ ho kont</string>
+  <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Ur wech e yelo en dro an dra se nemetken.</string>
+  <string name="cantDoThisTwice">Ma serrit ho kont un eil gwech, ne vo ket tu deoc\'h adtapout anezhañ.</string>
+  <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
+  <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
 </resources>
