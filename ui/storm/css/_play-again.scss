@@ -25,9 +25,14 @@
   @extend %flex-center;
 
   justify-content: center;
-  padding: 1em 2em;
-  font-size: 2em;
+  font-size: 1.5em;
   letter-spacing: 0.4em;
+  padding: 1em 0;
+
+  @include breakpoint($mq-xx-small) {
+    font-size: 2em;
+    padding: 1em 2em;
+  }
 
   @include breakpoint($mq-small) {
     justify-content: space-between;
