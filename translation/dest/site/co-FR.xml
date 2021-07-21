@@ -599,4 +599,13 @@
   <string name="tournamentHomeDescription">Ghjucà à lestru un turneu di scacchi! Ghjunghje unturneu ufficiale, o create u vostru. Bullet, Blitz, Classicu, Scacchi960, Rè di u poghju, Triscacchi, è tanti uzzione pè campà si cù i scacchi.</string>
   <string name="tournamentNotFound">Ùn avemu micca trovu u turneu</string>
   <string name="tournamentDoesNotExist">Issu turneu ùn esiste micca.</string>
+  <string name="tournamentMayHaveBeenCanceled">U turneu pò esse annullatu s\'è i ghjucatori si ritiranu nanzu à u principiu.</string>
+  <string name="returnToTournamentsHomepage">Vultà in a pagina d\' accolta di u turneu</string>
+  <string name="weeklyPerfTypeRatingDistribution">%s ripartizione di e valutazione di a settimana</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s ghjucatore issa settimana.</item>
+    <item quantity="other">%1$s %2$s ghjucatori di a settimana.</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">A to %1$s classifica hè%2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Site più forte chì %1$s nantu à %2$s ghjucatori.</string>
 </resources>
