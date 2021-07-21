@@ -1,7 +1,9 @@
 .keyboard-help {
   @extend %flex-column;
 
-  padding: 0 !important;
+  > div {
+    padding: 0 !important;
+  }
 
   h2 {
     margin: 0.5em 0 0 0;
