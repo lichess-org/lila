@@ -595,4 +595,8 @@
   <string name="keyShowOrHideComments">mustrà/ammascà i cummenti</string>
   <string name="keyEnterOrExitVariation">entre/sorte di a variante</string>
   <string name="newTournament">Ghjustra nova</string>
+  <string name="tournamentHomeTitle">Ghjustre di scacchi cù varii cuntrolli di tempu è variante</string>
+  <string name="tournamentHomeDescription">Ghjucà à lestru un turneu di scacchi! Ghjunghje unturneu ufficiale, o create u vostru. Bullet, Blitz, Classicu, Scacchi960, Rè di u poghju, Triscacchi, è tanti uzzione pè campà si cù i scacchi.</string>
+  <string name="tournamentNotFound">Ùn avemu micca trovu u turneu</string>
+  <string name="tournamentDoesNotExist">Issu turneu ùn esiste micca.</string>
 </resources>
