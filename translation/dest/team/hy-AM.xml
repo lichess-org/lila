@@ -21,4 +21,11 @@
   <string name="teamRecentMembers">Թիմի անդամները</string>
   <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
   <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s ընդգրկվելու հայտ</item>
+    <item quantity="other">%s ընդգրկվելու հայտ</item>
+  </plurals>
+  <string name="willBeReviewed">Ընդգրկվելու Ձեր հայտը պետք է հաստատի թիմի ղեկավարը։</string>
+  <string name="beingReviewed">Ընդգրկվելու Ձեր հայտն ուսումնասիրում է թիմի ղեկավարը։</string>
+  <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
 </resources>
