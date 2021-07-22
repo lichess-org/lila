@@ -27,16 +27,17 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   def apply(stream: String, topic: String)(content: String): Funit =
     send(ZulipMessage(stream = stream, topic = topic, content = content)).void
 
-  def sendAppealAndGetLink(topic: String)(content: String): Fu[Option[String]] =
+  def sendAndGetLink(stream: ZulipClient.stream.Selector, topic: String)(content: String): Fu[Option[String]] = {
+    val streamString =  stream(ZulipClient.stream)
     send(
-      ZulipMessage(stream = ZulipClient.stream.mod.adminAppeal, topic = topic, content = content),
+      ZulipMessage(stream = streamString, topic = topic, content = content),
       returnMsgId = true
     ).map {
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
-      _.map(msgId => // hard-coded stream id
-        s"https://${config.domain}/#narrow/streams/30/topic/${urlencode(topic)}/near/${msgId}"
+      _.map(msgId =>
+        s"https://${config.domain}/#narrow/stream/$streamString/topic/${urlencode(topic)}/near/$msgId"
       )
-    }
+    }}
 
   private def send(msg: ZulipMessage, returnMsgId: Boolean = false): Fu[Option[ZulipMessage.ID]] =
     limiter(msg.hashCode) {

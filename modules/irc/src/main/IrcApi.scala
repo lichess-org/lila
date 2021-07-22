@@ -98,7 +98,7 @@ final class IrcApi(
 
   def userAppeal(user: User, mod: Holder): Funit =
     zulip
-      .sendAppealAndGetLink("/" + user.username)(
+      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(
         s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
           .lichessLink(s"/appeal/${user.username}", user.username)}**"
       )
