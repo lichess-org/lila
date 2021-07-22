@@ -136,6 +136,10 @@
   height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
 
+  @include breakpoint($mq-col1) {
+    height: $col1-uniboard-controls;
+  }
+
   // height: calc(#{$puzzle-history-height} + #{$block-gap});
   .jumps {
     flex: 1 1 auto;
