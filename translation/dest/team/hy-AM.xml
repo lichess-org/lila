@@ -28,4 +28,6 @@
   <string name="willBeReviewed">Ընդգրկվելու Ձեր հայտը պետք է հաստատի թիմի ղեկավարը։</string>
   <string name="beingReviewed">Ընդգրկվելու Ձեր հայտն ուսումնասիրում է թիմի ղեկավարը։</string>
   <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
+  <string name="teamBattle">Միջակումբային մրցաշար</string>
+  <string name="teamBattleOverview">Մի քանի թիմի մրցաշար, յուրաքանչյուր խաղացող միավորներ է վաստակում իր թիմի համար</string>
 </resources>
