@@ -21,7 +21,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
             vnode.elm as HTMLElement,
             makeCgConfig(
               ctrl.isRacing() && ctrl.isPlayer()
-                ? makeCgOpts(ctrl.run, true)
+                ? makeCgOpts(ctrl.run, true, ctrl.flipped)
                 : {
                     fen: INITIAL_BOARD_FEN,
                     orientation: ctrl.run.pov,

@@ -56,8 +56,16 @@ export default class StormCtrl {
     this.vm = {
       alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
     };
-    this.countdown = new Countdown(this.run.clock, this.resetGround, () => setTimeout(this.redraw));
-    this.promotion = new PromotionCtrl(this.withGround, this.resetGround, this.redraw);
+    this.countdown = new Countdown(
+      this.run.clock,
+      () => {
+        this.setGround();
+        this.run.current.moveIndex = 0;
+        this.setGround();
+      },
+      () => setTimeout(this.redraw)
+    );
+    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
     lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false, {
       events: {
@@ -123,7 +131,7 @@ export default class StormCtrl {
       : undefined;
 
   end = (): void => {
-    this.resetGround();
+    this.setGround();
     this.redraw();
     sound.end();
     lichess.pubsub.emit('ply', 0); // restore resize handle
@@ -189,7 +197,11 @@ export default class StormCtrl {
       this.redrawQuick();
       this.redrawSlow();
     }
-    this.resetGround();
+    this.setGround();
+    if (this.run.current.moveIndex < 0) {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -203,7 +215,7 @@ export default class StormCtrl {
           orientation: this.run.pov,
         };
 
-  private resetGround = () => this.withGround(g => g.set(this.cgOpts()));
+  private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 
   private incPuzzle = (): boolean => {
     const index = this.run.current.index;
