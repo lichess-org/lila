@@ -630,6 +630,16 @@
   <string name="aboutSimulImage">Oppostu à 50 avversarii, Fischer hà vintu 47 partite, hà fattu 2 partite patte, è ne hà persu 1.</string>
   <string name="aboutSimulRealLife">U cuncettu hè apparitu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucatore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
+  <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
+  <string name="create">Creà</string>
+  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da ghjucà cun parechji avversarii à tempu.</string>
+  <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucatore hà da sceglia a soia pè a partita.</string>
+  <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucatore, più averete bisognu di tempu.</string>
+  <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>
+  <string name="simulHostExtraTime">Riloghju di u stratempu di l\' ostu</string>
+  <string name="lichessTournaments">Ghjustre Lichess</string>
+  <string name="tournamentFAQ">FAD di e ghjustre Arena</string>
+  <string name="tournamentOfficial">Ufficiale</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
   <string name="keyboardShortcuts">Accurtata di a tastera</string>
@@ -651,4 +661,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">A to %1$s classifica hè%2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Site più forte chì %1$s nantu à %2$s ghjucatori.</string>
+  <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
+  <string name="xJoinsY">%1$s ghjunghje%2$s</string>
+  <string name="xLikesY">À %1$s li piace%2$s</string>
 </resources>
