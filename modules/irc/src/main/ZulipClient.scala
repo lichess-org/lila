@@ -35,7 +35,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     ).map {
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
       _.map(msgId =>
-        s"https://${config.domain}/#narrow/stream/$streamString/topic/${urlencode(topic)}/near/$msgId"
+        s"https://${config.domain}/#narrow/stream/${${urlencode(streamString)}}/topic/${urlencode(topic)}/near/$msgId"
       )
     }}
 
