@@ -106,6 +106,10 @@
     }
   }
 
+  &__rematch {
+    white-space: normal;
+  }
+
   &__post__next {
     &__new {
       margin: 2em 0 1em 0;

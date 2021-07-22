@@ -112,7 +112,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
   nvui?: NvuiPlugin;
-  pvUciQueue: Uci[];
+  pvUciQueue: Uci[] = [];
 
   constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
     this.data = opts.data;
@@ -722,6 +722,7 @@ export default class AnalyseCtrl {
   cevalSetMultiPv = (v: number): void => {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
+    this.evalCache.clear();
     this.cevalReset();
   };
 
