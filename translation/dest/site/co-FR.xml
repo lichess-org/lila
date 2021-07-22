@@ -664,4 +664,14 @@
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
+  <string name="xCreatesStudyY">%1$s crea un studiu%2$s</string>
+  <string name="quickPairing">Ghjucà à lestru</string>
+  <string name="lobby">Atriu</string>
+  <string name="anonymous">Anonimu</string>
+  <string name="yourScore">I risultati: %s</string>
+  <string name="language">Lingua</string>
+  <string name="background">Ambiante</string>
+  <string name="light">Lume</string>
+  <string name="dark">Bughju</string>
+  <string name="transparent">Diafanu</string>
 </resources>
