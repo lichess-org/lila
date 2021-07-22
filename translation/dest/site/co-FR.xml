@@ -670,8 +670,14 @@
   <string name="anonymous">Anonimu</string>
   <string name="yourScore">I risultati: %s</string>
   <string name="language">Lingua</string>
-  <string name="background">Ambiante</string>
+  <string name="background">Fondu</string>
   <string name="light">Lume</string>
   <string name="dark">Bughju</string>
   <string name="transparent">Diafanu</string>
+  <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
+  <string name="boardGeometry">Geumetria di a scacchera</string>
+  <string name="boardTheme">Aspettu di a scacchera</string>
+  <string name="boardSize">Grandezza di a scacchera</string>
+  <string name="pieceSet">Aspettu di e pezze</string>
+  <string name="embedInYourWebsite">Integrà in u vostru situ web</string>
 </resources>
