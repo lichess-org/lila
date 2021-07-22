@@ -57,7 +57,7 @@ object indexStripe {
                   showDate(info.nextInvoice.dateTime)
                 ),
                 br,
-                a(href := s"${routes.Plan.list}#onetime")(makeAdditionalDonation())
+                a(href := s"${routes.Plan.list}?freq=onetime")(makeAdditionalDonation())
               )
             ),
             tr(
@@ -123,7 +123,7 @@ object indexStripe {
             tr(
               th("Gifts"),
               td(
-                a(href := s"${routes.Plan.list}#gift")(giftPatronWings()),
+                a(href := s"${routes.Plan.list}?dest=gift")(giftPatronWings()),
                 gifts.nonEmpty option
                   table(cls := "slist gifts")(
                     tbody(
