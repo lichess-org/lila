@@ -28,18 +28,22 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     send(ZulipMessage(stream = stream, topic = topic, content = content)).void
 
   def sendAppealAndGetLink(topic: String)(content: String): Fu[Option[String]] =
-    send(ZulipMessage(stream = ZulipClient.stream.mod.adminAppeal, topic = topic, content = content), returnMsgId = true).map {
-        // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
-        _.map(msgId => // hard-coded stream id
-          s"https://${config.domain}/#narrow/streams/30/topic/${urlencode(topic)}/near/${msgId}"
-        )
+    send(
+      ZulipMessage(stream = ZulipClient.stream.mod.adminAppeal, topic = topic, content = content),
+      returnMsgId = true
+    ).map {
+      // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
+      _.map(msgId => // hard-coded stream id
+        s"https://${config.domain}/#narrow/streams/30/topic/${urlencode(topic)}/near/${msgId}"
+      )
     }
 
   private def send(msg: ZulipMessage, returnMsgId: Boolean = false): Fu[Option[ZulipMessage.ID]] =
     limiter(msg.hashCode) {
       if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) >> fuccess(None)
       else {
-        val msg_id = ws.url(s"https://${config.domain}/api/v1/messages")
+        val msgId = ws
+          .url(s"https://${config.domain}/api/v1/messages")
           .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
           .post(
             Map(
@@ -60,10 +64,10 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
           .monSuccess(_.irc.zulip.say(msg.stream))
           .logFailure(lila.log("zulip"))
           .nevermind
-        if (!returnMsgId) {
-          fuccess(None) // return immediately! don't make mod actions slower because of that
+        if (returnMsgId) {
+          msgId
         } else {
-          msg_id
+          fuccess(None) // return immediately! don't make mod actions slower because of that
         }
       }
     }(fuccess(None))
