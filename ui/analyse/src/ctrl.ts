@@ -722,6 +722,7 @@ export default class AnalyseCtrl {
   cevalSetMultiPv = (v: number): void => {
     this.ceval.multiPv(v);
     this.tree.removeCeval();
+    this.evalCache.clear();
     this.cevalReset();
   };
 
