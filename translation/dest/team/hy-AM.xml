@@ -30,4 +30,8 @@
   <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
   <string name="teamBattle">Միջակումբային մրցաշար</string>
   <string name="teamBattleOverview">Մի քանի թիմի մրցաշար, յուրաքանչյուր խաղացող միավորներ է վաստակում իր թիմի համար</string>
+  <string name="teamTournament">Թիմային մրցաշար</string>
+  <string name="teamTournamentOverview">Արենա, որին կարող են մասնակցել միայն ձեր թիմի անդամները</string>
+  <string name="swissTournamentOverview">Շվեյցարական մրցաշարեր, որոնց կարող են մասնակցել միայն ձեր թիմի անդամները</string>
+  <string name="messageAllMembers">Հաղորդագրություն բոլոր մասնակիցներին</string>
 </resources>
