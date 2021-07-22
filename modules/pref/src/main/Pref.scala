@@ -101,11 +101,9 @@ case class Pref(
 
   def animationMillisForSpeedPuzzles: Int =
     animation match {
-      case Animation.NONE   => 0
-      case Animation.FAST   => 70
-      case Animation.NORMAL => 100
-      case Animation.SLOW   => 160
-      case _                => 100
+      case Animation.NONE => 0
+      case Animation.SLOW => 120
+      case _              => 70
     }
 
   def isBlindfold = blindfold == Pref.Blindfold.YES
