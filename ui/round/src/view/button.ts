@@ -337,7 +337,7 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch &&
-      (status.finished(d) || status.aborted(d)) &&
+      (status.finished(d) || (status.aborted(d) && !d.game.rated)) &&
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
