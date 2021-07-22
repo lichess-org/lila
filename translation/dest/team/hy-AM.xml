@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Թիմ</string>
   <string name="teams">Թիմեր</string>
   <plurals name="nbMembers">
     <item quantity="one">%s անդամ</item>
@@ -11,6 +12,11 @@
   <string name="noTeamFound">Թիմ գտնված չէ</string>
   <string name="joinTeam">Միանալ թիմին</string>
   <string name="quitTeam">Լքել թիմը</string>
+  <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Թիմի ղեկավար</item>
+    <item quantity="other">Թիմի ղեկավարներ</item>
+  </plurals>
   <string name="teamBestPlayers">Թիմի լավագույն խաղացողները</string>
   <string name="teamRecentMembers">Թիմի անդամները</string>
 </resources>
