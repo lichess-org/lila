@@ -40,7 +40,7 @@ export function renderRadar(data: RadarData) {
           showLabelBackdrop: false, // hide square behind text
         },
         pointLabels: {
-          fontSize: 16,
+          fontSize: window.innerWidth < 500 ? 11 : 16,
           fontColor,
         },
         gridLines: {
