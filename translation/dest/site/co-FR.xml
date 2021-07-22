@@ -587,6 +587,25 @@
   <string name="playOffline">Ghjucà offline</string>
   <string name="allowAnalytics">Accettà i statistichi anonimi</string>
   <string name="shareGameURL">Caricà l\' URL d\' una partita</string>
+  <string name="error.required">U duminiu hè nicissariu</string>
+  <string name="error.email">St\' indirizzu mail ùn funziona</string>
+  <string name="error.email_acceptable">St\' indirizzu mail ùn funziona. Verificheghja lu è prova da torna.</string>
+  <string name="error.email_unique">St\' indirizzu mail ùn esista o hè dighjà pigliata</string>
+  <string name="error.email_different">Hè dighjà u vostru indirizzu mai</string>
+  <string name="ifRatingIsPlusMinusX">S\' è a classifica hè ± %s</string>
+  <string name="onlyExistingConversations">Soltantu è chjachjere principiate</string>
+  <string name="onlyFriends">Soltantu amichi</string>
+  <string name="menu">Listinu</string>
+  <string name="castling">Arruccamentu</string>
+  <string name="whiteCastlingKingside">Bianchi 0-0</string>
+  <string name="blackCastlingKingside">Neri 0-0</string>
+  <plurals name="nbForumPosts">
+    <item quantity="one">%s messaghju nantu à u foru</item>
+    <item quantity="other">%s messaghji nantu à u foru</item>
+  </plurals>
+  <string name="tpTimeSpentPlaying">Tempu passatu à ghjucà: %s</string>
+  <string name="watchGames">Fighjulà una partita</string>
+  <string name="tpTimeSpentOnTV">Tempu passatu in direttu in a lichess TV:%s</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
   <string name="keyboardShortcuts">Accurtata di a tastera</string>
