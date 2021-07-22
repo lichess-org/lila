@@ -623,6 +623,13 @@
   <string name="hostColorX">Culore di l\' ostu: %s</string>
   <string name="createdSimuls">Nove simultanee create</string>
   <string name="hostANewSimul">Accoglie una simultanea nova</string>
+  <string name="noSimulFound">A simulatanea ùn hè truvata</string>
+  <string name="noSimulExplanation">Issa esibizione simultanea ùn esista.</string>
+  <string name="returnToSimulHomepage">Vultà in a pagina d\' accoglie di e simultanee</string>
+  <string name="aboutSimul">A simultanea oppone un ghjucatore solu contru à parechji ghjucatori.</string>
+  <string name="aboutSimulImage">Oppostu à 50 avversarii, Fischer hà vintu 47 partite, hà fattu 2 partite patte, è ne hà persu 1.</string>
+  <string name="aboutSimulRealLife">U cuncettu hè apparitu durante parechji eventi mundiali. In a realità, l\' ostu si tramuta da tola in tola pè ghjucà un colpu ogni volta.</string>
+  <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucatore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="timeBeforeTournamentStarts">Tempu sin\' à u principiu di u turneu</string>
   <string name="averageCentipawnLoss">Disavanzu mizanu di centipedina</string>
   <string name="keyboardShortcuts">Accurtata di a tastera</string>
