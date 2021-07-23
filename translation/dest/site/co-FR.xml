@@ -764,4 +764,35 @@
   <string name="seeBestMove">Vede u colpu u più forte</string>
   <string name="hideBestMove">Piattà u colpu u più forte</string>
   <string name="getAHint">Dumandà un indiziu</string>
+  <string name="evaluatingYourMove">U vostru colpu hè valutatu ...</string>
+  <string name="whiteWinsGame">I bianchi vincenu</string>
+  <string name="blackWinsGame">I neri vincenu</string>
+  <string name="learnFromYourMistakes">Amparà cù i vostri sbagli</string>
+  <string name="learnFromThisMistake">Amaprà cù stu sbagliu</string>
+  <string name="skipThisMove">Accantà stu colpu</string>
+  <string name="next">Prossimu</string>
+  <string name="xWasPlayed">%s hè statu ghjucatu</string>
+  <string name="findBetterMoveForWhite">Truvà un colpu più forte pè i bianchi</string>
+  <string name="findBetterMoveForBlack">Truvà un colpu più forte pè i neri</string>
+  <string name="resumeLearning">Ripiglià l\' amparera</string>
+  <string name="youCanDoBetter">Poi fà megliu</string>
+  <string name="tryAnotherMoveForWhite">Prova un altru colpu pè i bianchi</string>
+  <string name="tryAnotherMoveForBlack">Prova un altru colpu pè i neri</string>
+  <string name="solution">Soluzione</string>
+  <string name="waitingForAnalysis">Aspetta appena pè l\' analisa</string>
+  <string name="noMistakesFoundForWhite">Ùn avemu trovu sbagliu di i bianchi</string>
+  <string name="noMistakesFoundForBlack">Ùn avemu trovu sbagliu di i neri</string>
+  <string name="doneReviewingWhiteMistakes">Avemu vistu tutti i sbagli di i bianchi</string>
+  <string name="doneReviewingBlackMistakes">Avemu vistu tutti i sbagli di i neri</string>
+  <string name="doItAgain">Fà la da torna</string>
+  <string name="reviewWhiteMistakes">Riesaminà i sbagli di i bianchi</string>
+  <string name="reviewBlackMistakes">Riesaminà i sbagli di i neri</string>
+  <string name="advantage">Vantaghju</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s seconda</item>
+    <item quantity="other">%s seconde</item>
+  </plurals>
+  <string name="opening">Apertura</string>
+  <string name="middlegame">Core di a partita</string>
+  <string name="endgame">Finale</string>
 </resources>
