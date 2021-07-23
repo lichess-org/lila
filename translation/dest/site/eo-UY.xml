@@ -845,4 +845,7 @@
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="welcome">Bonvenon!</string>
+  <string name="tournDescription">Turnira priskribo</string>
+  <string name="onlyMembersOfTeam">Nur teamanoj</string>
 </resources>
