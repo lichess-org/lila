@@ -733,4 +733,11 @@
   <string name="boardSize">Grandezza di a scacchera</string>
   <string name="pieceSet">Aspettu di e pezze</string>
   <string name="embedInYourWebsite">Integrà in u vostru situ web</string>
+  <string name="usernameAlreadyUsed">Stu nome d\' utilizatore hè dighjà pigliatu, prova cù un altru.</string>
+  <string name="usernamePrefixInvalid">Ci vole à aduprà una lettera pè u primu caratteru di u nome d\' utilizatore.</string>
+  <string name="usernameSuffixInvalid">Ci vole à aduprà una lettera o un ciffru à a fine di un nome d\' utilizatore.</string>
+  <string name="usernameCharsInvalid">Un nome d\' utilizatore ùn pò cuntene chì letteren ciffri è righette. Ùn si pò scrive 2 righette cunsecutive.</string>
+  <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
+  <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
+  <string name="chessBasics">E base di i scacchi</string>
 </resources>
