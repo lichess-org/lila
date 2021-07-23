@@ -103,11 +103,11 @@ LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
   <string name="lichessRatings">Lichess puanlama sistemi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
-  <string name="ratingSystemUsedByLichess">Puanlamalar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE tarafından hâlâ eski Elo puanlama sistemini kullanılır).
+  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE hâlâ eski Elo puanlama sistemini kullanılır).
 
-Glicko sistemi \"güven aralıkları\" kullanarak puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500 puanınızı temsil ederken 1000 de güven aralığını temsil eder.
+Glicko sistemi \"güven aralıkları\" aracılığıyla puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500, puanınızı temsil ederken 1000 de güven aralığını temsil eder.
 
-Sistem puanınızın 500 ile 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
+Sistem puanınızın 500 ila 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
 
 Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
   <string name="whatIsProvisionalRating">Puanımın yanında neden soru işareti (?) var?</string>
@@ -132,13 +132,13 @@ Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak el
   <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
   <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyunayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyundayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
   <string name="howToThreeDots">Diğer konular</string>
   <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda Lichess isteğe bağlı olarak size bildirim gönderebilir.
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
 
-Tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
+Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
-Ardından, site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açabilir veya kapatabilirsiniz.</string>
+Ardından site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açın veya kapatın.</string>
 </resources>
