@@ -21,32 +21,33 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
     key = "zulip.client"
   )
 
-  def apply(stream: ZulipClient.stream.Selector, topic: String): String => Funit =
-    apply(stream(ZulipClient.stream), topic)(_).void
+  def apply(stream: ZulipClient.stream.Selector, topic: String)(content: String): Funit = {
+    apply(stream(ZulipClient.stream), topic)(content)
+    funit // don't wait for zulip
+  }
 
-  def apply(stream: String, topic: String)(content: String): Funit =
-    send(ZulipMessage(stream = stream, topic = topic, content = content)).void
+  def apply(stream: String, topic: String)(content: String): Funit = {
+    send(ZulipMessage(stream = stream, topic = topic, content = content))
+    funit // don't wait for zulip
+  }
 
   def sendAndGetLink(stream: ZulipClient.stream.Selector, topic: String)(
       content: String
   ): Fu[Option[String]] = {
     val streamString = stream(ZulipClient.stream)
-    send(
-      ZulipMessage(stream = streamString, topic = topic, content = content),
-      returnMsgId = true
-    ).map {
+    send(ZulipMessage(stream = streamString, topic = topic, content = content)).map {
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
-      _.map(msgId =>
+      _.map { msgId =>
         s"https://${config.domain}/#narrow/stream/${urlencode(streamString)}/topic/${urlencode(topic)}/near/$msgId"
-      )
+      }
     }
   }
 
-  private def send(msg: ZulipMessage, returnMsgId: Boolean = false): Fu[Option[ZulipMessage.ID]] =
+  private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] =
     limiter(msg.hashCode) {
-      if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) >> fuccess(None)
-      else {
-        val msgId = ws
+      if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) inject None
+      else
+        ws
           .url(s"https://${config.domain}/api/v1/messages")
           .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
           .post(
@@ -68,12 +69,7 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
           .monSuccess(_.irc.zulip.say(msg.stream))
           .logFailure(lila.log("zulip"))
           .nevermind
-        if (returnMsgId) {
-          msgId
-        } else {
-          fuccess(None) // return immediately! don't make mod actions slower because of that
-        }
-      }
+
     }(fuccess(None))
 }
 
