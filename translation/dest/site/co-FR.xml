@@ -680,6 +680,16 @@
   <string name="printFriendlyPDF">PDF adattatu pè a stampera</string>
   <string name="crosstable">Risultati</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pudete aduprà a mulletta di u topulinu nantu à a scacchera pè avanzà o riculà in a partita.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Pudete aduprà a mulletta di u topulinu nantu à e variante di l\' urdinatore pè vede le.</string>
+  <string name="analysisShapesHowTo">Appughjate nantu à shift+click o right-click pè disegnà chjerchji o fleccie nantu à a scacchera.</string>
+  <string name="letOtherPlayersMessageYou">Permette à l\' altri ghjucatori di mandà vi un messaghju</string>
+  <string name="receiveForumNotifications">Riceve una nutificazione quandu u vostru nome hè mintuvatu in u foru</string>
+  <string name="shareYourInsightsData">Sparte e vostre dati d\' analisa</string>
+  <string name="withNobody">Cù nimu</string>
+  <string name="withFriends">Cù l\' amichi</string>
+  <string name="withEverybody">Cù tuttu u mondu</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Avete dighjà arrigistatu stu mail:%s</string>
+  <string name="kidMode">Modu pè i zitelli</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
