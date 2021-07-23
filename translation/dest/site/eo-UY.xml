@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
   <string name="itsYourTurn">Estas via ludvico!</string>
+  <string name="cheatDetected">Trompo kaptita</string>
   <string name="kingInTheCenter">Reĝo en la centro</string>
   <string name="threeChecks">Tri ŝakoj</string>
   <string name="raceFinished">Kuro finiĝis</string>
