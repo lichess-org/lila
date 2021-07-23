@@ -662,6 +662,14 @@
   <string name="yourPerfTypeRatingIsRating">A to %1$s classifica hè%2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Site più forte chì %1$s nantu à %2$s ghjucatori.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s hè più forte chì %2$s di i ghjucatori di %3$s.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ùn avete micca di classifica di %s pè u mumentu.</string>
+  <string name="yourRating">A to classifica</string>
+  <string name="cumulative">Addizziunati</string>
+  <string name="glicko2Rating">Glicko-2 classifica</string>
+  <string name="checkYourEmail">Verificheghja i to mail</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Vi avemu mandatu un email. Clicate nantu à a leia mintuvatu in u mail pè attivà u vostru contu.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">S\'è ùn pudete micca vede u mail, verificate in l\' altri cartulari di a scatula mail, rumenzula, spami.</string>
+  <string name="weHaveSentYouAnEmailTo">Avemu mandatu un mail à %s. Clicate nantu à a leia in u mail pè creà da torna a vostra parolla d\' intesa.</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
