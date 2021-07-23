@@ -702,6 +702,18 @@
   <string name="builtForTheLoveOfChessNotMoney">Criatu pè l\' amore di i scacchi, senza pagà</string>
   <string name="everybodyGetsAllFeaturesForFree">Tutte e funziunalità sò di rigalu pè tuttu ognunu</string>
   <string name="zeroAdvertisement">Ùn ci hè publicità</string>
+  <string name="fullFeatured">Lichess, è tantu in più</string>
+  <string name="phoneAndTablet">Telefuninu è tavuletta</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classicu</string>
+  <string name="correspondenceChess">Scacchi in currispudenza</string>
+  <string name="onlineAndOfflinePlay">Ghjocu in direttu o in senza reta</string>
+  <string name="viewTheSolution">Vede a suluzione</string>
+  <string name="followAndChallengeFriends">Segue è sfidà amichi</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">Dispunibule in %s lingua!</item>
+    <item quantity="other">Dispunibule in %s lingue!</item>
+  </plurals>
+  <string name="gameAnalysis">Analisa di e partite</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
