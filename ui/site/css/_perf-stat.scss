@@ -1,27 +1,25 @@
 .perf-stat {
   padding-bottom: 2em;
 
-  .box__top div {
-    @extend %flex-center;
+  .box__top__title {
+    @extend %flex-center-nowrap;
   }
 
-  h1 {
-    @extend %flex-center;
-
-    span {
-      margin-left: 0.4em;
-    }
+  h1 span {
+    margin-left: 0.4em;
   }
 
   .trophy {
-    margin-top: -4em;
+    margin-top: -1rem;
+    margin-right: 0.2em;
+    margin-left: -0.6em;
 
     &.top1 {
       filter: drop-shadow(0 0 6px $c-brag);
     }
 
     img {
-      height: 8em;
+      height: 8rem;
     }
   }
 
