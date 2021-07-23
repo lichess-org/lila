@@ -50,7 +50,15 @@
   <string name="fork">Պատառաքաղ</string>
   <string name="forkDescription">Քայլ, որի դեպքում հարվածի տակ է հայտնվում մրցակցի երկու խաղաքար։</string>
   <string name="hangingPiece">Անպաշտպան խաղաքար</string>
+  <string name="hangingPieceDescription">Մարտավարություն, որի ժամանակ մրցակցի խաղաքարը պաշտպանված չէ կամ լավ պաշտպանված չէ և կարող է վերցվել։</string>
   <string name="hookMate">Հուք մատ</string>
+  <string name="hookMateDescription">Մատ զինվորով պաշտպանված ձիով և նավակով, ընդ որում` մրցակցի զինվորներից մեկը զբաղեցնում է նրա արքայի նահանջի միակ դաշտը։</string>
+  <string name="intermezzo">Միջանկյալ քայլ</string>
+  <string name="knightEndgame">Ձիու վերջնախաղ</string>
+  <string name="knightEndgameDescription">Միայն ձիերով և զինվորներով վերջնախաղ։</string>
+  <string name="long">Եռաքայլ խնդիր</string>
+  <string name="longDescription">Երեք քայլ մինչև հաղթանակ։</string>
+  <string name="master">Վարպետների պարտիաներ</string>
   <string name="mateIn1">Մատ 1 քայլից</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
