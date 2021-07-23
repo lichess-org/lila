@@ -2,24 +2,24 @@ package lila.tv
 
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.Trouper
+import lila.hub.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,
-    trouper: Trouper,
+    trouper: SyncActor,
     gameProxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Tv._
-  import ChannelTrouper._
+  import ChannelSyncActor._
 
   private def roundProxyGame = gameProxyRepo.game _
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    trouper.ask[Option[Game.ID]](TvTrouper.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
+    trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    trouper.ask[GameIdAndHistory](TvTrouper.GetGameIdAndHistory(channel, _)) flatMap {
+    trouper.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for {
           game <- gameId ?? roundProxyGame
@@ -40,14 +40,14 @@ final class Tv(
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[Game.ID]] =
-    trouper.ask[List[Game.ID]](TvTrouper.GetGameIds(channel, max, _))
+    trouper.ask[List[Game.ID]](TvSyncActor.GetGameIds(channel, max, _))
 
   def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
   def getChampions: Fu[Champions] =
-    trouper.ask[Champions](TvTrouper.GetChampions.apply)
+    trouper.ask[Champions](TvSyncActor.GetChampions.apply)
 }
 
 object Tv {

@@ -7,7 +7,7 @@ import scala.concurrent.Promise
 
 import lila.game.Pov
 import lila.hub.actorApi.timeline._
-import lila.hub.Trouper
+import lila.hub.SyncActor
 import lila.i18n.defaultLang
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
@@ -22,7 +22,7 @@ final class LobbySocket(
     biter: Biter,
     userRepo: lila.user.UserRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
-    lobby: LobbyTrouper,
+    lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     system: akka.actor.ActorSystem
@@ -35,14 +35,14 @@ final class LobbySocket(
   private var lastCounters = LobbyCounters(0, 0)
   def counters             = lastCounters
 
-  val trouper: Trouper = new Trouper {
+  val trouper: SyncActor = new SyncActor {
 
     private val members            = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
     private val idleSris           = collection.mutable.Set[SriStr]()
     private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds     = new collection.mutable.StringBuilder(1024)
 
-    val process: Trouper.Receive = {
+    val process: SyncActor.Receive = {
 
       case GetMember(sri, promise) => promise success members.get(sri.value)
 
@@ -141,7 +141,7 @@ final class LobbySocket(
   }
 
   // solve circular reference
-  lobby ! LobbyTrouper.SetSocket(trouper)
+  lobby ! LobbySyncActor.SetSocket(trouper)
 
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 14,

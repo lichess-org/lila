@@ -80,7 +80,8 @@ final class ChallengeApi(
       Bus.publish(Event.Decline(c declineWith reason), "challenge")
     }
 
-  private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
+  private val acceptQueue =
+    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,

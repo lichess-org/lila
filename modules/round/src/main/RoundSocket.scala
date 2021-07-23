@@ -17,7 +17,7 @@ import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
-import lila.hub.DuctConcMap
+import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, SocketVersion }
@@ -25,7 +25,7 @@ import lila.user.User
 
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
-    roundDependencies: RoundDuct.Dependencies,
+    roundDependencies: RoundAsyncActor.Dependencies,
     proxyDependencies: GameProxy.Dependencies,
     scheduleExpiration: ScheduleExpiration,
     tournamentActor: lila.hub.actors.TournamentApi,
@@ -43,8 +43,8 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket") { () =>
     stopping = true
-    rounds.tellAllWithAck(RoundDuct.LilaStop.apply) map { nb =>
-      Lilakka.logger.info(s"$nb round ducts have stopped")
+    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
+      Lilakka.logger.info(s"$nb round asyncActors have stopped")
     }
   }
 
@@ -69,24 +69,24 @@ final class RoundSocket(
       _ updateGame f
     }
 
-  val rounds = new DuctConcMap[RoundDuct](
-    mkDuct = id => {
+  val rounds = new AsyncActorConcMap[RoundAsyncActor](
+    mkAsyncActor = id => {
       val proxy = new GameProxy(id, proxyDependencies)
-      val duct = new RoundDuct(
+      val asyncActor = new RoundAsyncActor(
         dependencies = roundDependencies,
         gameId = id,
         socketSend = sendForGameId(id)
       )(ec, proxy)
       terminationDelay schedule Game.Id(id)
-      duct.getGame dforeach {
+      asyncActor.getGame dforeach {
         _ foreach { game =>
           scheduleExpiration(game)
           goneWeightsFor(game) dforeach { w =>
-            duct ! RoundDuct.SetGameInfo(game, w)
+            asyncActor ! RoundAsyncActor.SetGameInfo(game, w)
           }
         }
       }
-      duct
+      asyncActor
     },
     initialCapacity = 65536
   )
@@ -150,16 +150,16 @@ final class RoundSocket(
     case P.In.Ping(id) => send(P.Out.pong(id))
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
-      // schedule termination for all game ducts
+      // schedule termination for all game asyncActors
       // until players actually reconnect
       rounds foreachKey { id =>
         terminationDelay schedule Game.Id(id)
       }
-      rounds.tellAll(RoundDuct.WsBoot)
+      rounds.tellAll(RoundAsyncActor.WsBoot)
   }
 
   private def finishRound(gameId: Game.Id): Unit =
-    rounds.terminate(gameId.value, _ ! RoundDuct.Stop)
+    rounds.terminate(gameId.value, _ ! RoundAsyncActor.Stop)
 
   private lazy val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 8)
 
@@ -204,10 +204,10 @@ final class RoundSocket(
   }
 
   system.scheduler.scheduleWithFixedDelay(25 seconds, tickInterval) { () =>
-    rounds.tellAll(RoundDuct.Tick)
+    rounds.tellAll(RoundAsyncActor.Tick)
   }
   system.scheduler.scheduleWithFixedDelay(60 seconds, 60 seconds) { () =>
-    lila.mon.round.ductCount.update(rounds.size).unit
+    lila.mon.round.asyncActorCount.update(rounds.size).unit
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)

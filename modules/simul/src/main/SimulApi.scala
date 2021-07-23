@@ -30,7 +30,7 @@ final class SimulApi(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 128,
       expiration = 10 minutes,
       timeout = 10 seconds,

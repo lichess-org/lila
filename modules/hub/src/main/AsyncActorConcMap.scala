@@ -6,21 +6,21 @@ import ornicar.scalalib.Zero
 import scala.concurrent.{ ExecutionContext, Promise }
 import scala.jdk.CollectionConverters._
 
-final class DuctConcMap[D <: Duct](
-    mkDuct: String => D,
+final class AsyncActorConcMap[D <: AsyncActor](
+    mkAsyncActor: String => D,
     initialCapacity: Int
 ) extends TellMap {
 
-  def getOrMake(id: String): D = ducts.computeIfAbsent(id, loadFunction)
+  def getOrMake(id: String): D = asyncActors.computeIfAbsent(id, loadFunction)
 
-  def getIfPresent(id: String): Option[D] = Option(ducts get id)
+  def getIfPresent(id: String): Option[D] = Option(asyncActors get id)
 
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
   def tellIfPresent(id: String, msg: => Any): Unit = getIfPresent(id) foreach (_ ! msg)
 
   def tellAll(msg: Any) =
-    ducts.forEachValue(16, _ ! msg)
+    asyncActors.forEachValue(16, _ ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
 
@@ -34,21 +34,21 @@ final class DuctConcMap[D <: Duct](
   def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Any): Fu[A] =
     askIfPresent(id)(makeMsg) dmap (~_)
 
-  def exists(id: String): Boolean = ducts.get(id) != null
+  def exists(id: String): Boolean = asyncActors.get(id) != null
 
   def foreachKey(f: String => Unit): Unit =
-    ducts.forEachKey(16, k => f(k))
+    asyncActors.forEachKey(16, k => f(k))
 
   def tellAllWithAck(makeMsg: Promise[Unit] => Any)(implicit ec: ExecutionContext): Fu[Int] =
-    ducts.values.asScala
+    asyncActors.values.asScala
       .map(_ ask makeMsg)
       .sequenceFu
       .map(_.size)
 
-  def size: Int = ducts.size()
+  def size: Int = asyncActors.size()
 
-  def terminate(id: String, lastWill: Duct => Unit): Unit =
-    ducts
+  def terminate(id: String, lastWill: AsyncActor => Unit): Unit =
+    asyncActors
       .computeIfPresent(
         id,
         (_, d) => {
@@ -58,10 +58,10 @@ final class DuctConcMap[D <: Duct](
       )
       .unit
 
-  private[this] val ducts = new ConcurrentHashMap[String, D](initialCapacity)
+  private[this] val asyncActors = new ConcurrentHashMap[String, D](initialCapacity)
 
   private val loadFunction = new Function[String, D] {
-    def apply(k: String) = mkDuct(k)
+    def apply(k: String) = mkAsyncActor(k)
   }
 
   // used to remove entries

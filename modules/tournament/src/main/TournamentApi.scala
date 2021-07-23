@@ -48,7 +48,7 @@ final class TournamentApi(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 256,
       expiration = 1 minute,
       timeout = 10 seconds,

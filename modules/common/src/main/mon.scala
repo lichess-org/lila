@@ -169,7 +169,7 @@ object mon {
     object expiration {
       val count = counter("round.expiration.count").withoutTags()
     }
-    val ductCount = gauge("round.duct.count").withoutTags()
+    val asyncActorCount = gauge("round.asyncActor.count").withoutTags()
   }
   object playban {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
@@ -201,8 +201,8 @@ object mon {
         )
       )
   }
-  object duct {
-    def overflow(name: String) = counter("duct.overflow").withTag("name", name)
+  object asyncActor {
+    def overflow(name: String) = counter("asyncActor.overflow").withTag("name", name)
   }
   object irc {
     object zulip {

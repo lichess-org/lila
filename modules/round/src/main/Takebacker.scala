@@ -5,7 +5,7 @@ import lila.common.Bus
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ I18nKeys => trans, defaultLang }
-import RoundDuct.TakebackSituation
+import RoundAsyncActor.TakebackSituation
 
 final private class Takebacker(
     messenger: Messenger,

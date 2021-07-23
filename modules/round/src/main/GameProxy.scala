@@ -107,7 +107,7 @@ private object GameProxy {
       val scheduler: Scheduler
   )
 
-  // must be way under the round duct termination delay (60s)
+  // must be way under the round asyncActor termination delay (60s)
   private val scheduleDelay = 30.seconds
 
   private val emptyCancellable = new Cancellable {

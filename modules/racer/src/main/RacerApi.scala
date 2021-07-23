@@ -47,7 +47,7 @@ final class RacerApi(colls: RacerColls, selector: StormSelector, userRepo: UserR
     }
 
   private val rematchQueue =
-    new lila.hub.DuctSequencer(
+    new lila.hub.AsyncActorSequencer(
       maxSize = 32,
       timeout = 20 seconds,
       name = "racer.rematch"

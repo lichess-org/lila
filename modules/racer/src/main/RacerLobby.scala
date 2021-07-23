@@ -17,7 +17,7 @@ final class RacerLobby(api: RacerApi)(implicit ec: ExecutionContext, system: akk
   }
 
   private val workQueue =
-    new lila.hub.DuctSequencer(
+    new lila.hub.AsyncActorSequencer(
       maxSize = 128,
       timeout = 20 seconds,
       name = "racer.lobby"

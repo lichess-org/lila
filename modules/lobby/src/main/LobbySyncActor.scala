@@ -9,11 +9,11 @@ import scala.concurrent.Promise
 import lila.common.config.Max
 import lila.common.{ AtMost, Bus, Every }
 import lila.game.Game
-import lila.hub.Trouper
+import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
-final private class LobbyTrouper(
+final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
@@ -22,17 +22,17 @@ final private class LobbyTrouper(
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends Trouper {
+    extends SyncActor {
 
-  import LobbyTrouper._
+  import LobbySyncActor._
 
   private val hookRepo = new HookRepo
 
   private var remoteDisconnectAllAt = DateTime.now
 
-  private var socket: Trouper = Trouper.stub
+  private var socket: SyncActor = SyncActor.stub
 
-  val process: Trouper.Receive = {
+  val process: SyncActor.Receive = {
 
     // solve circular reference
     case SetSocket(trouper) => socket = trouper
@@ -194,9 +194,9 @@ final private class LobbyTrouper(
   }
 }
 
-private object LobbyTrouper {
+private object LobbySyncActor {
 
-  case class SetSocket(trouper: Trouper)
+  case class SetSocket(trouper: SyncActor)
 
   private case class Tick(promise: Promise[Unit])
 
@@ -206,7 +206,7 @@ private object LobbyTrouper {
       broomPeriod: FiniteDuration,
       resyncIdsPeriod: FiniteDuration
   )(
-      makeTrouper: () => LobbyTrouper
+      makeTrouper: () => LobbySyncActor
   )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     Bus.subscribe(trouper, "lobbyTrouper")

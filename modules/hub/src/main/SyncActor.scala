@@ -9,11 +9,10 @@ import scala.concurrent.{ ExecutionContext, Future, Promise }
  * Like an actor, but not an actor.
  * Uses an Atomic Reference backend for sequentiality.
  * Has an unbounded (!) Queue of messages.
- * Like Duct, but for synchronous message processors.
  */
-abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellable {
+abstract class SyncActor(implicit ec: ExecutionContext) extends lila.common.Tellable {
 
-  import Trouper._
+  import SyncActor._
 
   // implement async behaviour here
   protected val process: Receive
@@ -58,7 +57,7 @@ abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellab
   }
 }
 
-object Trouper {
+object SyncActor {
 
   type Receive = PartialFunction[Any, Unit]
 
@@ -72,7 +71,7 @@ object Trouper {
   }
 
   def stub(implicit ec: ExecutionContext) =
-    new Trouper {
+    new SyncActor {
       val process: Receive = { case msg =>
         lila.log("trouper").warn(s"stub trouper received: $msg")
       }

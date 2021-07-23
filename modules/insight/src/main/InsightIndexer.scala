@@ -23,7 +23,7 @@ final private class InsightIndexer(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencer(maxSize = 128, timeout = 2 minutes, name = "insightIndexer")
+    new lila.hub.AsyncActorSequencer(maxSize = 128, timeout = 2 minutes, name = "insightIndexer")
 
   def all(userId: User.ID): Funit =
     workQueue {

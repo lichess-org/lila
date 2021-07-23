@@ -7,23 +7,23 @@ import scala.concurrent.Promise
 
 import lila.common.{ Bus, LightUser }
 import lila.game.{ Game, Pov }
-import lila.hub.Trouper
+import lila.hub.SyncActor
 
-final private[tv] class TvTrouper(
+final private[tv] class TvSyncActor(
     renderer: lila.hub.actors.Renderer,
     lightUserSync: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends Trouper {
+    extends SyncActor {
 
-  import TvTrouper._
+  import TvSyncActor._
 
   Bus.subscribe(this, "startGame")
 
-  private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of, lightUserSync)
+  private val channelTroupers: Map[Tv.Channel, ChannelSyncActor] = Tv.Channel.all.map { c =>
+    c -> new ChannelSyncActor(c, onSelect = this.!, gameProxyRepo.game, rematches.of, lightUserSync)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
@@ -31,16 +31,16 @@ final private[tv] class TvTrouper(
   private def forward[A](channel: Tv.Channel, msg: Any) =
     channelTroupers get channel foreach { _ ! msg }
 
-  protected val process: Trouper.Receive = {
+  protected val process: SyncActor.Receive = {
 
     case GetGameId(channel, promise) =>
-      forward(channel, ChannelTrouper.GetGameId(promise))
+      forward(channel, ChannelSyncActor.GetGameId(promise))
 
     case GetGameIdAndHistory(channel, promise) =>
-      forward(channel, ChannelTrouper.GetGameIdAndHistory(promise))
+      forward(channel, ChannelSyncActor.GetGameIdAndHistory(promise))
 
     case GetGameIds(channel, max, promise) =>
-      forward(channel, ChannelTrouper.GetGameIds(max, promise))
+      forward(channel, ChannelSyncActor.GetGameIds(max, promise))
 
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
@@ -52,7 +52,7 @@ final private[tv] class TvTrouper(
         } foreach (_ addCandidate g)
       }
 
-    case s @ TvTrouper.Select => channelTroupers.foreach(_._2 ! s)
+    case s @ TvSyncActor.Select => channelTroupers.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
@@ -99,12 +99,12 @@ final private[tv] class TvTrouper(
   }
 }
 
-private[tv] object TvTrouper {
+private[tv] object TvSyncActor {
 
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[Game.ID]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[Game.ID]])
 
-  case class GetGameIdAndHistory(channel: Tv.Channel, promise: Promise[ChannelTrouper.GameIdAndHistory])
+  case class GetGameIdAndHistory(channel: Tv.Channel, promise: Promise[ChannelSyncActor.GameIdAndHistory])
 
   case object Select
   case class Selected(channel: Tv.Channel, game: Game)
