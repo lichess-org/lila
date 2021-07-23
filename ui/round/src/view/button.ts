@@ -37,6 +37,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
     them = !!d.opponent.offeringRematch,
+    disabled = !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
     noarg = ctrl.noarg;
   return [
     them
@@ -58,25 +59,24 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         class: {
           me,
           glowing: them,
-          disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
+          disabled,
         },
         attrs: {
           title: them ? noarg('yourOpponentWantsToPlayANewGameWithYou') : me ? noarg('rematchOfferSent') : '',
         },
         hook: util.bind(
           'click',
-          e => {
-            const d = ctrl.data,
-              isAsynchronous = d.game.speed === 'correspondence' || d.game.speed === 'unlimited';
+          () => {
+            const d = ctrl.data;
             if (d.game.rematch) location.href = gameRoute(d.game.rematch, d.opponent.color);
             else if (d.player.offeringRematch) {
               d.player.offeringRematch = false;
               ctrl.socket.send('rematch-no');
-            } else if (d.opponent.onGame || isAsynchronous) {
+            } else if (d.opponent.onGame || !d.clock) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
-              if (!d.opponent.onGame) ctrl.challengeRematch();
-            } else if (!(e.currentTarget as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
+              if (!disabled && !d.opponent.onGame) ctrl.challengeRematch();
+            }
           },
           ctrl.redraw
         ),
