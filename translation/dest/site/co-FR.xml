@@ -740,7 +740,7 @@
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
-  <string name="coaches">Prufessori</string>
+  <string name="coaches">Intrenatori</string>
   <string name="invalidPgn">PGN invalidu</string>
   <string name="invalidFen">FEN invalidu</string>
   <string name="error.minLength">A lughezza minima hè %s</string>
@@ -795,4 +795,20 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Core di a partita</string>
   <string name="endgame">Finale</string>
+  <string name="conditionalPremoves">Cundizione di u precolpu</string>
+  <string name="addCurrentVariation">Aghjunghje a variante attuale</string>
+  <string name="playVariationToCreateConditionalPremoves">Ghjcate una variante pè creà un precolpu cundiziunale</string>
+  <string name="noConditionalPremoves">Ùn ci hè micca precolpu cundiziunale</string>
+  <string name="playX">Ghjucà%s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">è salvà %s linea di precolpu</item>
+    <item quantity="other">è salvà %s linea di precolpu</item>
+  </plurals>
+  <string name="sorry">Scusate :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi avemu messu fora pè un mumentu.</string>
+  <string name="timeoutExpires">A suspensione finisce %s.</string>
+  <string name="why">Perchè?</string>
+  <string name="gameVsX">Partita contru à %1$s</string>
+  <string name="resVsX">%1$s contru à %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
 </resources>
