@@ -55,7 +55,19 @@ Adiciona as pontuações de cada adversário que o jogador vence e metade da pon
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
   <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
+  <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
+  <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
+  <string name="willSwissReplaceArenasA">Não. São características complementares.</string>
+  <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
+  <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
+  <string name="otherSystemsA">De momento não planeamos adicionar mais sistemas de torneio ao Lichess.</string>
+  <string name="startingSoon">A iniciar em breve</string>
+  <string name="comparison">Comparação</string>
+  <string name="tournDuration">Duração do torneio</string>
+  <string name="predefinedDuration">Duração predefinida em minutos</string>
   <string name="numberOfGames">Número de jogos</string>
+  <string name="numberOfGamesPreDefined">Decidido antecipadamente, o mesmo para todos os jogadores</string>
+  <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
   <string name="pause">Pausa</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>
