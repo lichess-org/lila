@@ -75,7 +75,6 @@ export default class RoundController {
   drawConfirm?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
-  challengeRematched = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   shouldSendMoveTime = false;
@@ -559,36 +558,30 @@ export default class RoundController {
   };
 
   challengeRematch = (): void => {
-    this.challengeRematched = true;
-    xhr.challengeRematch(this.data.game.id).then(
-      () => {
-        lichess.pubsub.emit('challenge-app.open');
-        if (lichess.once('rematch-challenge'))
-          setTimeout(() => {
-            lichess.hopscotch(function () {
-              window.hopscotch
-                .configure({
-                  i18n: { doneBtn: 'OK, got it' },
-                })
-                .startTour({
-                  id: 'rematch-challenge',
-                  showPrevButton: true,
-                  steps: [
-                    {
-                      title: 'Challenged to a rematch',
-                      content: 'Your opponent is offline, but they can accept this challenge later!',
-                      target: '#challenge-app',
-                      placement: 'bottom',
-                    },
-                  ],
-                });
-            });
-          }, 1000);
-      },
-      _ => {
-        this.challengeRematched = false;
-      }
-    );
+    xhr.challengeRematch(this.data.game.id).then(() => {
+      lichess.pubsub.emit('challenge-app.open');
+      if (lichess.once('rematch-challenge'))
+        setTimeout(() => {
+          lichess.hopscotch(function () {
+            window.hopscotch
+              .configure({
+                i18n: { doneBtn: 'OK, got it' },
+              })
+              .startTour({
+                id: 'rematch-challenge',
+                showPrevButton: true,
+                steps: [
+                  {
+                    title: 'Challenged to a rematch',
+                    content: 'Your opponent is offline, but they can accept this challenge later!',
+                    target: '#challenge-app',
+                    placement: 'bottom',
+                  },
+                ],
+              });
+          });
+        }, 1000);
+    });
   };
 
   private makeCorrespondenceClock = (): void => {

@@ -82,7 +82,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         ),
       },
       [me ? util.spinner() : h('span', noarg('rematch'))]
-    ),
+    )
   ];
 }
 
@@ -343,19 +343,7 @@ export function followUp(ctrl: RoundController): VNode {
       !d.swiss &&
       !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
-    rematchZone = ctrl.challengeRematched
-      ? [
-          h(
-            'div.suggestion.text',
-            {
-              hook: onSuggestionHook,
-            },
-            ctrl.noarg('rematchOfferSent')
-          ),
-        ]
-      : rematchable || d.game.rematch
-      ? rematchButtons(ctrl)
-      : [];
+    rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament
