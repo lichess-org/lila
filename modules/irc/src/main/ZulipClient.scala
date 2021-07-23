@@ -2,11 +2,13 @@ package lila.irc
 
 import play.api.libs.json._
 import play.api.libs.ws.DefaultBodyWritables._
+import play.api.libs.ws.JsonBodyReadables._
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.WSAuthScheme
 import scala.concurrent.duration._
 
 import lila.common.config.Secret
+import lila.common.String.urlencode
 import lila.memo.RateLimit
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(implicit
@@ -20,16 +22,29 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   )
 
   def apply(stream: ZulipClient.stream.Selector, topic: String): String => Funit =
-    apply(stream(ZulipClient.stream), topic) _
+    apply(stream(ZulipClient.stream), topic)(_).void
 
   def apply(stream: String, topic: String)(content: String): Funit =
-    send(ZulipMessage(stream = stream, topic = topic, content = content))
+    send(ZulipMessage(stream = stream, topic = topic, content = content)).void
 
-  private def send(msg: ZulipMessage): Funit =
+  def sendAndGetLink(stream: ZulipClient.stream.Selector, topic: String)(content: String): Fu[Option[String]] = {
+    val streamString =  stream(ZulipClient.stream)
+    send(
+      ZulipMessage(stream = streamString, topic = topic, content = content),
+      returnMsgId = true
+    ).map {
+      // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
+      _.map(msgId =>
+        s"https://${config.domain}/#narrow/stream/${${urlencode(streamString)}}/topic/${urlencode(topic)}/near/$msgId"
+      )
+    }}
+
+  private def send(msg: ZulipMessage, returnMsgId: Boolean = false): Fu[Option[ZulipMessage.ID]] =
     limiter(msg.hashCode) {
-      if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString))
+      if (config.domain.isEmpty) fuccess(lila.log("zulip").info(msg.toString)) >> fuccess(None)
       else {
-        ws.url(s"https://${config.domain}/api/v1/messages")
+        val msgId = ws
+          .url(s"https://${config.domain}/api/v1/messages")
           .withAuth(config.user, config.pass.value, WSAuthScheme.BASIC)
           .post(
             Map(
@@ -40,15 +55,23 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
             )
           )
           .flatMap {
-            case res if res.status == 200 => funit
-            case res                      => fufail(s"[zulip] $msg ${res.status} ${res.body}")
+            case res if res.status == 200 =>
+              (res.body[JsValue] \ "id").validate[ZulipMessage.ID] match {
+                case JsSuccess(result, _) => fuccess(result.some)
+                case JsError(err)         => fufail(s"[zulip]: $err, $msg ${res.status} ${res.body}")
+              }
+            case res => fufail(s"[zulip] $msg ${res.status} ${res.body}")
           }
           .monSuccess(_.irc.zulip.say(msg.stream))
           .logFailure(lila.log("zulip"))
           .nevermind
-        funit // return immediately! don't make mod actions slower because of that
+        if (returnMsgId) {
+          msgId
+        } else {
+          fuccess(None) // return immediately! don't make mod actions slower because of that
+        }
       }
-    }(funit)
+    }(fuccess(None))
 }
 
 private object ZulipClient {
@@ -64,8 +87,8 @@ private object ZulipClient {
       val adminGeneral                        = "mod-admin-general"
       val commsPrivate                        = "mod-comms-private"
       val hunterCheat                         = "mod-hunter-cheat"
+      val adminAppeal                         = "mod-admin-appeal"
       def adminMonitor(tpe: IrcApi.ModDomain) = s"mod-admin-monitor-${tpe.key}"
-      def adminAppeal                         = "mod-admin-appeal"
     }
     val general   = "general"
     val broadcast = "content-broadcast"
@@ -80,4 +103,8 @@ private case class ZulipMessage(
 ) {
 
   override def toString = s"[$stream:$topic] $content"
+}
+
+private object ZulipMessage {
+  type ID = Int
 }

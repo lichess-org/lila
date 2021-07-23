@@ -22,6 +22,8 @@ object String {
     slug.toLowerCase
   }
 
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+
   def decodeUriPath(input: String): Option[String] = {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some

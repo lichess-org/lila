@@ -97,10 +97,16 @@ final class IrcApi(
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
-    zulip(_.mod.adminAppeal, "/" + user.username)(
-      s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
-        .lichessLink(s"/appeal/${user.username}", user.username)}**"
-    )
+    zulip
+      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(
+        s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
+          .lichessLink(s"/appeal/${user.username}", user.username)}**"
+      )
+      .flatMap {
+        _ ?? { zulipAppealConv =>
+          noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
+        }
+      }
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
