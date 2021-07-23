@@ -102,6 +102,7 @@
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">База дебютов</string>
+  <string name="openingEndgameExplorer">Справочник начал и окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
@@ -980,6 +981,7 @@
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
+  <string name="navigateMoveTree">Навигация по нотации</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
 </resources>
