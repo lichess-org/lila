@@ -42,4 +42,9 @@
   <string name="closeTeam">Լուծարել թիմը</string>
   <string name="closeTeamDescription">Թիմն ընդմիշտ փակում է։</string>
   <string name="teamPassword">Թիմի գաղտնաբառը</string>
+  <string name="teamPasswordDescriptionForLeader">(Պարտադիր չէ) Այս թիմ նոր անդամներ ընդունելու գաղտնաբառ</string>
+  <string name="incorrectTeamPassword">Թիմային գաղտնաբառը սխալ է։</string>
+  <string name="teamAlreadyExists">Այդպիսի թիմ արդեն գոյություն ունի։</string>
+  <string name="upcomingTourns">Գալիք մրցաշարեր</string>
+  <string name="completedTourns">Ավարտված մրցաշարեր</string>
 </resources>
