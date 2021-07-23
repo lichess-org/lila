@@ -670,6 +670,16 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Vi avemu mandatu un email. Clicate nantu à a leia mintuvatu in u mail pè attivà u vostru contu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">S\'è ùn pudete micca vede u mail, verificate in l\' altri cartulari di a scatula mail, rumenzula, spami.</string>
   <string name="weHaveSentYouAnEmailTo">Avemu mandatu un mail à %s. Clicate nantu à a leia in u mail pè creà da torna a vostra parolla d\' intesa.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">L\' arregistramentu induce un accusentu cù i nostri %s.</string>
+  <string name="readAboutOur">Leghje i nostri%s.</string>
+  <string name="networkLagBetweenYouAndLichess">A reta tra voi è Lichess ùn viaghja micca</string>
+  <string name="timeToProcessAMoveOnLichessServer">Tempu pè trattà un colpu nantu à u Lichess servitore</string>
+  <string name="downloadAnnotated">Telecaricamentu annutatu</string>
+  <string name="downloadRaw">Telecaricamentu solu</string>
+  <string name="downloadImported">Telecaricamentu impurtatu</string>
+  <string name="printFriendlyPDF">PDF adattatu pè a stampera</string>
+  <string name="crosstable">Risultati</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Pudete aduprà a mulletta di u topulinu nantu à a scacchera pè avanzà o riculà in a partita.</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
