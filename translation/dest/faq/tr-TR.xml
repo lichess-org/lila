@@ -30,7 +30,7 @@
   <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri ne anlama geliyor?</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>
   <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
 Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
   <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
