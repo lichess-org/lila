@@ -2,6 +2,9 @@
 <resources>
   <string name="settings">Կարգավորումներ</string>
   <string name="closeAccount">Փակել հաշիվը</string>
+  <string name="closingIsDefinitive">Փակումը հնարավոր չի լինի չեղարկել։ Համոզվա՞ծ եք։</string>
+  <string name="cantOpenSimilarAccount">Դուք չեք կարողանա ստեղծել նույն անունով մասնակցային հաշիվ, նույնիսկ եթե տառաշարերը (մեծատառ-փոքրատառ) տարբերվեն։</string>
   <string name="changedMindDoNotCloseAccount">Ես մտափոխվել եմ, մի փակեք իմ հաշիվը</string>
+  <string name="closeAccountExplanation">Դուք համոզվա՞ծ եք, որ ցանկանում եք փակել Ձեր մասնակցային հաշիվը։ Փակումն անդառնալի է։ Դուք այլևս երբեք չեք կարողանա մուտք գործել Ձեր հաշիվ։</string>
   <string name="thisAccountIsClosed">Այս հաշիվը փակված է:</string>
 </resources>

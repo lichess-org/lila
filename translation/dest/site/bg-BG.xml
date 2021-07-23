@@ -829,12 +829,12 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Промени</string>
-  <string name="rapid">Бърз</string>
+  <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
   <string name="ultraBulletDesc">Изключително бързи игри: под 30 секунди</string>
   <string name="bulletDesc">Много бързи игри: под 3 минути</string>
   <string name="blitzDesc">Бързи игри: 3 до 8 минути</string>
-  <string name="rapidDesc">Бързи игри: 8 до 25 минути</string>
+  <string name="rapidDesc">Ускорен шахмат: 8 до 25 минути</string>
   <string name="classicalDesc">Класически игри: над 25 минути</string>
   <string name="correspondenceDesc">Задочни игри: един или повече дни на ход</string>
   <string name="puzzleDesc">Инструктор шахматни тактики</string>
@@ -899,9 +899,18 @@
   <string name="noChat">Без чат</string>
   <string name="onlyTeamLeaders">Само организаторите на отбора</string>
   <string name="onlyTeamMembers">Само членовете на отбора</string>
+  <string name="navigateMoveTree">Навигирайте листа на ходовете</string>
+  <string name="mouseTricks">Миши трик</string>
   <string name="toggleLocalAnalysis">Включи/изключи локалния компютърен анализ</string>
   <string name="toggleAllAnalysis">Включи/изключи целия компютърен анализ</string>
   <string name="playComputerMove">Изиграй най-добрия компютърен ход</string>
   <string name="analysisOptions">Параметри на анализа</string>
   <string name="focusChat">Фокусирай текста</string>
+  <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
+  <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
+  <string name="closedAccountChangedMind">Ако сте затворили акаунта Ви, но си промените решението, получавате един шанс да си върнете акаунта.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Това ще работи само един път.</string>
+  <string name="cantDoThisTwice">Ако затворите акаунта Ви за втори път, няма как да го възстановите.</string>
+  <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
+  <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
 </resources>

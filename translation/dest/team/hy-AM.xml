@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">Թիմ</string>
   <string name="teams">Թիմեր</string>
   <plurals name="nbMembers">
     <item quantity="one">%s անդամ</item>
@@ -11,6 +12,34 @@
   <string name="noTeamFound">Թիմ գտնված չէ</string>
   <string name="joinTeam">Միանալ թիմին</string>
   <string name="quitTeam">Լքել թիմը</string>
+  <string name="manuallyReviewAdmissionRequests">Մուտքի հայտերի ձեռքով ստուգում</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">Թիմի ղեկավար</item>
+    <item quantity="other">Թիմի ղեկավարներ</item>
+  </plurals>
   <string name="teamBestPlayers">Թիմի լավագույն խաղացողները</string>
   <string name="teamRecentMembers">Թիմի անդամները</string>
+  <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
+  <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s ընդգրկվելու հայտ</item>
+    <item quantity="other">%s ընդգրկվելու հայտ</item>
+  </plurals>
+  <string name="willBeReviewed">Ընդգրկվելու Ձեր հայտը պետք է հաստատի թիմի ղեկավարը։</string>
+  <string name="beingReviewed">Ընդգրկվելու Ձեր հայտն ուսումնասիրում է թիմի ղեկավարը։</string>
+  <string name="subToTeamMessages">Բաժանորդագրվել թիմի հաղորդագրություններին</string>
+  <string name="teamBattle">Միջակումբային մրցաշար</string>
+  <string name="teamBattleOverview">Մի քանի թիմի մրցաշար, յուրաքանչյուր խաղացող միավորներ է վաստակում իր թիմի համար</string>
+  <string name="teamTournament">Թիմային մրցաշար</string>
+  <string name="teamTournamentOverview">Արենա, որին կարող են մասնակցել միայն ձեր թիմի անդամները</string>
+  <string name="swissTournamentOverview">Շվեյցարական մրցաշարեր, որոնց կարող են մասնակցել միայն ձեր թիմի անդամները</string>
+  <string name="messageAllMembers">Հաղորդագրություն բոլոր մասնակիցներին</string>
+  <string name="messageAllMembersOverview">Ուղարկել անձնական հաղորդագրություն թիմի բոլոր անդամներին</string>
+  <string name="teamsIlead">Իմ ղեկավարած թիմերը</string>
+  <string name="youWayWantToLinkOneOfTheseTournaments">Չե՞ք ցանկանում կցել առաջիկա մրցաշարերից մեկը</string>
+  <string name="usersWhoCanManageThisTeam">Օգտատերեր, որոնք կարող են կառավարել այս թիմը</string>
+  <string name="leadersChat">Ղեկավարների զրուցարան</string>
+  <string name="closeTeam">Լուծարել թիմը</string>
+  <string name="closeTeamDescription">Թիմն ընդմիշտ փակում է։</string>
+  <string name="teamPassword">Թիմի գաղտնաբառը</string>
 </resources>

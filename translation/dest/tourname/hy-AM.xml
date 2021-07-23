@@ -1,2 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Արագ շախմատի ամենժամյա Արենա</string>
+  <string name="hourlyRapid"> Ամենժամյա արագ շախմատ</string>
+  <string name="hourlyXArena">Ամենժամյա %s Արենա</string>
+  <string name="hourlyX">Ամենժամյա %s</string>
+  <string name="dailyRapidArena">Արագ շախմատի ամենօրյա Արենա</string>
+  <string name="dailyRapid">Ամենօրյա արագ շախմատ</string>
+  <string name="dailyClassicalArena">Դասական շախմատի ամենօրյա Արենա</string>
+  <string name="dailyClassical">Ամենօրյա դասական շախմատ</string>
+  <string name="dailyXArena">Ամենօրյա %s Արենա</string>
+  <string name="dailyX">Ամենօրյա %s</string>
+  <string name="easternRapidArena">Արագ շախմատի արևելյան Արենա</string>
+  <string name="easternRapid">Արևելյան արագ շախմատ</string>
+  <string name="easternClassicalArena">Դասական շախմատի արևելյան Արենա</string>
+  <string name="easternClassical">Արևելյան դասական շախմատ</string>
+  <string name="easternXArena">Արևելյան %s Արենա</string>
+  <string name="easternX">Արևելյան %s</string>
+  <string name="weeklyRapidArena">Արագ շախմատի ամենշաբաթյա Արենա</string>
+  <string name="weeklyRapid">Ամենշաբաթյա արագ շախմատ</string>
+  <string name="weeklyClassicalArena">Դասական շախմատի ամենշաբաթյա Արենա</string>
+  <string name="weeklyClassical">Ամենշաբաթյա դասական շախմատ</string>
+  <string name="weeklyXArena">Ամենշաբաթյա %s Արենա</string>
+  <string name="weeklyX">Ամենշաբաթյա %s</string>
+  <string name="monthlyRapidArena">Արագ շախմատի ամենամսյա Արենա</string>
+  <string name="monthlyRapid">Ամենամսյա արագ շախմատ</string>
+  <string name="monthlyClassicalArena">Դասական շախմատի ամենամսյա Արենա</string>
+  <string name="monthlyClassical">Ամենամսյա դասական շախմատ</string>
+  <string name="monthlyXArena">Ամենամսյա %s Արենա</string>
+  <string name="monthlyX">Ամենամսյա %s</string>
+  <string name="yearlyRapidArena">Արագ շախմատի ամենամյա Արենա</string>
+  <string name="yearlyRapid"> Ամենամյա արագ շախմատ</string>
+  <string name="yearlyClassicalArena">Դասական շախմատի ամենամյա Արենա</string>
+  <string name="yearlyClassical">Ամենամյա դասական շախմատ</string>
+  <string name="yearlyXArena">Ամենամյա %s Արենա</string>
+  <string name="yearlyX">Ամենամյա %s</string>
+</resources>

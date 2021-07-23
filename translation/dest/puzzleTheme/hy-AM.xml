@@ -51,4 +51,6 @@
   <string name="forkDescription">Քայլ, որի դեպքում հարվածի տակ է հայտնվում մրցակցի երկու խաղաքար։</string>
   <string name="hangingPiece">Անպաշտպան խաղաքար</string>
   <string name="hookMate">Հուք մատ</string>
+  <string name="mateIn1">Մատ 1 քայլից</string>
+  <string name="zugzwang">Ցունգցվանգ</string>
 </resources>

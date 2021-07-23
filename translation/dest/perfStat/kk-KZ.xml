@@ -4,7 +4,7 @@
   <string name="viewTheGames">Ойындарын көру</string>
   <string name="provisional">болжамалы</string>
   <string name="notEnoughRatedGames">Тұрақты рейтингке ие болу үшін бағаламалы ойын саны жеткіліксіз.</string>
-  <string name="progressOverLastXGames">Кейінгі %s ойын нәтижесіндегі жетістігі:</string>
+  <string name="progressOverLastXGames">Кейінгі %s ойынның қорытындысы:</string>
   <string name="ratingDeviation">Рейтинг ауытқуы: %s.</string>
   <string name="totalGames">Барлық ойындар</string>
   <string name="ratedGames">Бағаланатын ойындар</string>

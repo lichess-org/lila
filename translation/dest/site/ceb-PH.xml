@@ -9,6 +9,7 @@
   <string name="yourTurn">Imo ng lihok</string>
   <string name="aiNameLevelAiLevel">%1$s lebel %2$s</string>
   <string name="level">Lebel</string>
+  <string name="strength">Kakusgan</string>
   <string name="toggleTheChat">Pagpuli sa chat</string>
   <string name="toggleSound">Pagpuli sa tingog</string>
   <string name="chat">Chat</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">ikaw mo duso sa white</string>
   <string name="youPlayTheBlackPieces">ikaw mo duso sa black</string>
   <string name="itsYourTurn">ikaw na mo duso</string>
+  <string name="cheatDetected">Nadetect ang tikas</string>
   <string name="kingInTheCenter">Ang hari naa sa tunga</string>
   <string name="threeChecks">Tulo ka mga check</string>
   <string name="raceFinished">Nahuman na ang lumba</string>
@@ -90,6 +92,7 @@
   <string name="noGameFound">Walay makita nga duwa</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pwedeng mag-apil ug mga duwa gikan sa gustong menu?</string>
   <string name="openingExplorer">Pag-abli sa explorer</string>
+  <string name="openingEndgameExplorer">Taga explore sa Opening/Endgame</string>
   <string name="xOpeningExplorer">%s pag-abli sa explorer</string>
   <string name="winPreventedBy50MoveRule">Ang pagkaog kay gi-alihan sa 50-lihok nga mando</string>
   <string name="lossSavedBy50MoveRule">Pagkapildi kay nasalbar sa 50-lihok nga mando</string>
@@ -112,13 +115,29 @@
   <string name="blunder">Kasaypanan</string>
   <string name="mistake">Sayup</string>
   <string name="inaccuracy">Dli sakto</string>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s Sayop</item>
+    <item quantity="other">%s Mga sayop</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s dili sakto</item>
+    <item quantity="other">%s mga dili sakto</item>
+  </plurals>
   <string name="moveTimes">Kadaghan sa mga paglihok</string>
   <string name="flipBoard">Baliha ang board</string>
   <string name="threefoldRepetition">Katulo nga pagbali-bali</string>
   <string name="claimADraw">Kuhaa nga tabla</string>
   <string name="offerDraw">tanyag draw</string>
   <string name="draw">tabla</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s gaduwa</item>
+    <item quantity="other">%s mga gaduwa</item>
+  </plurals>
   <string name="currentGames">mga dula karon</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s duwa</item>
+    <item quantity="other">%s mga duwa</item>
+  </plurals>
   <string name="logOut">pagsignout</string>
   <string name="players">Mga manuwaay</string>
   <string name="minutesPerSide">Minuto kada side</string>

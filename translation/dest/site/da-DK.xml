@@ -43,7 +43,7 @@
   <string name="makeYourOpponentResign">Tving din modstander til at kapitulere</string>
   <string name="forceResignation">Kræv sejr</string>
   <string name="forceDraw">Fremtving remis</string>
-  <string name="talkInChat">Hold en venlig tone i chatten!</string>
+  <string name="talkInChat">Husk den gode tone i chatten!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Den første person der bruger denne URL, vil blive din modstander</string>
   <string name="whiteResigned">Hvid har givet op</string>
   <string name="blackResigned">Sort har givet op</string>
@@ -523,7 +523,7 @@
   <string name="newPasswordStrength">Adgangskodens styrke</string>
   <string name="clockInitialTime">Indledende tid på ur</string>
   <string name="clockIncrement">Ur-forøgelse</string>
-  <string name="privacy">Privat</string>
+  <string name="privacy">Privatliv</string>
   <string name="privacyPolicy">Privatlivspolitik</string>
   <string name="letOtherPlayersFollowYou">Lad andre spillere følge dig</string>
   <string name="letOtherPlayersChallengeYou">Lad andre spillere udfordre dig</string>

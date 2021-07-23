@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessCoaches">Lichess-ի մարզիչներ</string>
+  <string name="lichessCoach">Lichess-ի մարզիչ</string>
+  <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">ՖԻԴԵ-ի կամ ազգային վարպետի կոչում</string>
+  <string name="confirmTitle">Հաստատեք Ձեր կոչումը, և մենք կքննենք Ձեր հայտը։</string>
   <string name="aboutMe">Իմ մասին</string>
   <string name="youtubeVideos">Youtube տեսանյութեր</string>
 </resources>
