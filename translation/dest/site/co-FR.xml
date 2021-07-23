@@ -740,4 +740,15 @@
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
+  <string name="coaches">Prufessori</string>
+  <string name="invalidPgn">PGN invalidu</string>
+  <string name="invalidFen">FEN invalidu</string>
+  <string name="error.minLength">A lughezza minima hè %s</string>
+  <string name="error.maxLength">A lunghezza massima hè %s</string>
+  <string name="error.min">Pò esse più grande chì o eguale à %s</string>
+  <string name="error.max">Pò esse menu grande chì o eguale à %s</string>
+  <string name="error.unknown">Errore</string>
+  <string name="custom">Abitudine</string>
+  <string name="notifications">Nutificazioni</string>
+  <string name="perfRatingX">Classifica:%s</string>
 </resources>
