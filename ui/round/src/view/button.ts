@@ -82,7 +82,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
         ),
       },
       [me ? util.spinner() : h('span', noarg('rematch'))]
-    )
+    ),
   ];
 }
 
