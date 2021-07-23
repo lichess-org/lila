@@ -195,11 +195,11 @@
   <string name="email">Currieru elettronicu</string>
   <string name="passwordReset">Riinizializà a vostra parolla d\' intesa</string>
   <string name="forgotPassword">Vi site scurdatu a vostra parolla d\' intesa?</string>
-  <string name="rank">Rangu</string>
-  <string name="rankX">Rangu: %s</string>
+  <string name="rank">Classifica</string>
+  <string name="rankX">Classifica: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">U rangu hè attualiztu ogni minuta</item>
-    <item quantity="other">U rangu hè attualiztu ogni %s minuti</item>
+    <item quantity="one">A classifica hè attualizata ogni minuta</item>
+    <item quantity="other">A classifica hè attualizata ogni %s minuti</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s prublemu</item>
@@ -403,7 +403,7 @@
   <string name="openTournaments">Ghjustra apperta</string>
   <string name="duration">Durata</string>
   <string name="winner">Vincitore</string>
-  <string name="standing">Rangu</string>
+  <string name="standing">Classifica</string>
   <string name="createANewTournament">Creà un turneu novu</string>
   <string name="tournamentCalendar">Almanancu di i turnei</string>
   <string name="conditionOfEntry">Cundizioni pè ghjunghje:</string>
@@ -751,4 +751,17 @@
   <string name="custom">Abitudine</string>
   <string name="notifications">Nutificazioni</string>
   <string name="perfRatingX">Classifica:%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s secunda pè ghjucà u primu colpu</item>
+    <item quantity="other">%s secondi pè ghjucà u primu colpu</item>
+  </plurals>
+  <string name="practiceWithComputer">Addestrà si cù l\' urdinatore</string>
+  <string name="anotherWasX">U altru era%s</string>
+  <string name="bestWasX">U più forte era%s</string>
+  <string name="resumePractice">Ripiglià l\' intrenamentu</string>
+  <string name="theGameIsADraw">A partita hè patta.</string>
+  <string name="computerThinking">L\' urdinatore riflette...</string>
+  <string name="seeBestMove">Vede u colpu u più forte</string>
+  <string name="hideBestMove">Piattà u colpu u più forte</string>
+  <string name="getAHint">Dumandà un indiziu</string>
 </resources>
