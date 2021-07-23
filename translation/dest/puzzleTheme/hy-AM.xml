@@ -83,5 +83,10 @@
   <string name="pawnEndgame">Զինվորային վերջնախաղ</string>
   <string name="pawnEndgameDescription">Վերջնախաղ զինվորներով։</string>
   <string name="pin">Կապ</string>
+  <string name="pinDescription">Կապի օգտագործումով մարտավարություն, երբ խաղաքարը չի կարող քայլել, այլապես գրոհի տակ կհայտնվի նրա հետևում գտնվող ավելի արժեքավոր խաղաքարը։</string>
+  <string name="promotion">Վերածում</string>
+  <string name="promotionDescription">Քայլ, որի ժամանակ զինվորը հասնում է վերջին հորիզոնականին և վերածվում նույն գույնի ցանկացած խաղաքարի, բացի արքայից։</string>
+  <string name="queenEndgame">Թագուհու վերջնախաղ</string>
+  <string name="queenEndgameDescription">Միայն թագուհիներով և զինվորներով վերջնախաղ։</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
