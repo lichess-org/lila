@@ -661,6 +661,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">A to %1$s classifica hè%2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Site più forte chì %1$s nantu à %2$s ghjucatori.</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s hè più forte chì %2$s di i ghjucatori di %3$s.</string>
   <string name="xHostsY">%1$s hè l\' ostu di %2$s</string>
   <string name="xJoinsY">%1$s ghjunghje%2$s</string>
   <string name="xLikesY">À %1$s li piace%2$s</string>
