@@ -13,7 +13,7 @@
   <string name="toggleTheChat">گپ روشن/خاموش</string>
   <string name="toggleSound">صدا روشن/خاموش</string>
   <string name="chat">گپ</string>
-  <string name="resign">اعلام باخت</string>
+  <string name="resign">تسلیم شوید</string>
   <string name="checkmate">کیش و مات</string>
   <string name="stalemate">پات</string>
   <string name="white">سفید</string>
@@ -28,7 +28,7 @@
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
-  <string name="raceFinished">مسابقه تمام شد</string>
+  <string name="raceFinished">رقابت به اتمام رسید</string>
   <string name="variantEnding">اتمام بازی</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
@@ -40,7 +40,7 @@
     <item quantity="other">رقیب شما بازی را ترک کرده است. شما میتوانید بعد از %s ثانیه اعلام پیروزی کنید.</item>
   </plurals>
   <string name="opponentLeftChoices">ممکن است حریف شما بازی را ترک کرده باشد. شما می توانید ادعای پیروزی کنید, اعلام تساوی کنید یا منتظر او بمانید.</string>
-  <string name="makeYourOpponentResign">ادعای پیروزی کنید</string>
+  <string name="makeYourOpponentResign">شکست حریف را به دلیل ترک بازی اعلام کنید</string>
   <string name="forceResignation">ادعای برد</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
@@ -120,6 +120,18 @@
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
   <string name="inaccuracy">بی دقتی</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s اشتباه بزرگ</item>
+    <item quantity="other">%s اشتباه بزرگ</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s اشتباه</item>
+    <item quantity="other">%s اشتباه</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s غیردقیق</item>
+    <item quantity="other">%s غیردقیق</item>
+  </plurals>
   <string name="moveTimes">مدت زمان حركت</string>
   <string name="flipBoard">چرخاندن صفحه</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
