@@ -59,6 +59,7 @@
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
+  <string name="computerAnalysisDisabled">تحليل الحاسوب غير مفعل</string>
   <string name="analysis">لوحة التحليل</string>
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
@@ -108,6 +109,7 @@
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
+  <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
