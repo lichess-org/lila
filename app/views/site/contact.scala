@@ -225,7 +225,7 @@ object contact {
                 p("Please report security issues to ", contactEmailLink),
                 p(
                   "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
-                  "Note that Lichess is built by volunteers and we currently do not have a bug bounty program."
+                  "Note that we do not currently pay cash bounties."
                 ),
                 p(
                   "Vulnerabilities are relevant even when they are not directly exploitable, ",
@@ -237,7 +237,7 @@ object contact {
                   "Avoid spamming, DDoS and volumetric attacks."
                 ),
                 p(
-                  "We believe transport encryption should be sufficient for all reports. ",
+                  "We believe transport encryption will probably be sufficient for all reports. ",
                   "If you insist on using PGP, please clarify the nature of the message ",
                   "in the plain-text subject and encrypt for ",
                   a(href := "/.well-known/gpg.asc")("multiple recipients"),
