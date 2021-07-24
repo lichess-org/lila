@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Поискайте компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="computerAnalysisAvailable">Компютърният анализ е наличен</string>
+  <string name="computerAnalysisDisabled">Компютърният анализ е изключен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
