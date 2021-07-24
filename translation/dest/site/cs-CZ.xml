@@ -102,6 +102,7 @@
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
+  <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
