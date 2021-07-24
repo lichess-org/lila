@@ -40,4 +40,6 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有%s团队</item>
   </plurals>
+  <string name="newTeamBattle">新团队战</string>
+  <string name="customStartDate">自定义开始日期</string>
 </resources>
