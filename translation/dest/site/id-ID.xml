@@ -70,7 +70,7 @@
   <string name="move">Langkah</string>
   <string name="variantLoss">Variasi kerugian</string>
   <string name="variantWin">Variasi menang</string>
-  <string name="insufficientMaterial">Bidak tidak cukup</string>
+  <string name="insufficientMaterial">Bidak tidak mencukupi</string>
   <string name="pawnMove">Langkah pion</string>
   <string name="capture">Makan</string>
   <string name="close">Tutup</string>
