@@ -39,10 +39,12 @@ function median(values: number[]): number {
   return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
 }
 
+const cevalDisabledSentinel = '1';
+
 function enabledAfterDisable() {
   const enabledAfter = lichess.tempStorage.get('ceval.enabled-after');
-  const disable = lichess.storage.get('ceval.disable');
-  return !disable || enabledAfter === disable;
+  const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
+  return enabledAfter === disable;
 }
 
 export default function (opts: CevalOpts): CevalCtrl {
@@ -308,7 +310,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       if (!opts.possible || !allowed()) return;
       stop();
       if (!enabled() && !document.hidden) {
-        const disable = lichess.storage.get('ceval.disable');
+        const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
         if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
         enabled(true);
       } else {
