@@ -295,6 +295,20 @@ function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
   return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 }
 
+function analysisDisabled(ctrl: AnalyseCtrl): VNode {
+  return h('div.comp-off__hint', [
+    h('span', ctrl.trans.noarg('computerAnalysisDisabled')),
+    h(
+      'button',
+      {
+        hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
+        attrs: { type: 'button' },
+      },
+      ctrl.trans.noarg('enable')
+    ),
+  ]);
+}
+
 export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
@@ -369,7 +383,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
-                    cevalView.renderCeval(ctrl),
+                    ctrl.showComputer() ? cevalView.renderCeval(ctrl) : analysisDisabled(ctrl),
                     showCevalPvs ? cevalView.renderPvs(ctrl) : null,
                     renderAnalyse(ctrl, concealOf),
                     gamebookEditView || forkView(ctrl, concealOf),
