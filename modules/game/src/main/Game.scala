@@ -618,6 +618,14 @@ case class Game(
 
   def secondsSinceCreation = (nowSeconds - createdAt.getSeconds).toInt
 
+  def drawReason = {
+    if (drawOffers.normalizedPlies.exists(turns <=)) DrawReason.MutualAgreement.some
+    else if (variant.fiftyMoves(history)) DrawReason.FiftyMoves.some
+    else if (history.threefoldRepetition) DrawReason.ThreefoldRepetition.some
+    else if (variant.isInsufficientMaterial(board)) DrawReason.InsufficientMaterial.some
+    else None
+  }
+
   override def toString = s"""Game($id)"""
 }
 
@@ -860,4 +868,12 @@ case class ClockHistory(
       firstMoveBy.fold(white, black),
       firstMoveBy.fold(black, white)
     )
+}
+
+sealed trait DrawReason
+object DrawReason {
+  case object MutualAgreement      extends DrawReason
+  case object FiftyMoves           extends DrawReason
+  case object ThreefoldRepetition  extends DrawReason
+  case object InsufficientMaterial extends DrawReason
 }

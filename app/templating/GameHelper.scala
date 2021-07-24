@@ -169,12 +169,22 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.UnknownFinish => trans.finished.txt()
       case S.Stalemate     => trans.stalemate.txt()
       case S.Timeout =>
-        game.loser match {
-          case Some(p) if p.color.white => trans.whiteLeftTheGame.txt()
-          case Some(_)                  => trans.blackLeftTheGame.txt()
-          case None                     => trans.draw.txt()
+        (game.loser, game.turnColor) match {
+          case (Some(p), _) if p.color.white => trans.whiteLeftTheGame.txt()
+          case (Some(_), _)                  => trans.blackLeftTheGame.txt()
+          case (None, White)                 => trans.whiteLeftTheGame.txt() + " • " + trans.draw.txt()
+          case (None, Black)                 => trans.blackLeftTheGame.txt() + " • " + trans.draw.txt()
         }
-      case S.Draw => trans.draw.txt()
+      case S.Draw => {
+        import lila.game.DrawReason._
+        game.drawReason match {
+          case Some(MutualAgreement)      => trans.drawByMutualAgreement.txt()
+          case Some(FiftyMoves)           => trans.fiftyMovesWithoutProgress.txt() + " • " + trans.draw.txt()
+          case Some(ThreefoldRepetition)  => trans.threefoldRepetition.txt() + " • " + trans.draw.txt()
+          case Some(InsufficientMaterial) => trans.insufficientMaterial.txt() + " • " + trans.draw.txt()
+          case _ => trans.draw.txt()
+        }
+      }
       case S.Outoftime =>
         (game.turnColor, game.loser) match {
           case (White, Some(_)) => trans.whiteTimeOut.txt()

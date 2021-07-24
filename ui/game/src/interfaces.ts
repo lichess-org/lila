@@ -16,6 +16,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
+  fen: Fen;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;

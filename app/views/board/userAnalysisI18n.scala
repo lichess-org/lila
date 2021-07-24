@@ -46,6 +46,9 @@ object userAnalysisI18n {
     trans.kingInTheCenter,
     trans.threeChecks,
     trans.variantEnding,
+    trans.drawByMutualAgreement,
+    trans.fiftyMovesWithoutProgress,
+    trans.insufficientMaterial
     trans.whitePlays,
     trans.blackPlays,
     trans.gameOver,
