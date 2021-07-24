@@ -991,7 +991,7 @@
   <string name="showHelpDialog">Паказаць чат дапамогі</string>
   <string name="reopenYourAccount">Пераадкрыць акаўнт</string>
   <string name="closedAccountChangedMind">Калі пасля закрыцця акаўнту, вы перадумалі, у вас ёсць адзін шанец аднавіць яго.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Гэта спрацуе толькі адзін раз.</string>
+  <string name="onlyWorksOnce">Гэта спрацуе толькі адзін раз.</string>
   <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
   <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
