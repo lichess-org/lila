@@ -15,7 +15,7 @@
   <string name="chat">Obrolan</string>
   <string name="resign">Menyerah</string>
   <string name="checkmate">Skakmat</string>
-  <string name="stalemate">Langkah buntu</string>
+  <string name="stalemate">Remis</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="randomColor">Warna acak</string>
@@ -862,8 +862,17 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="onlyTeamLeaders">Hanya pemimpin tim</string>
   <string name="onlyTeamMembers">Hanya member tim</string>
   <string name="navigateMoveTree">Navigasi gerakan partai</string>
+  <string name="mouseTricks">Trik pada tetikus/mouse</string>
   <string name="toggleLocalAnalysis">Nyala / mati analisa komputer lokal</string>
   <string name="toggleAllAnalysis">Nyala / mati semua analisa komputer</string>
   <string name="playComputerMove">Langkahkan gerakan terbaik komputer</string>
   <string name="analysisOptions">Setelan analisa</string>
+  <string name="focusChat">Fokus pada kotak obroloan</string>
+  <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
+  <string name="reopenYourAccount">Buka kembali akun Anda</string>
+  <string name="closedAccountChangedMind">Jika Anda telah menutup akun, Anda dapat satu kesempatan untuk mengembalikan akun anda.</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Ini hanya dapat dilakukan sekali.</string>
+  <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
+  <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
+  <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
 </resources>
