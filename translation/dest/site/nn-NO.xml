@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
+  <string name="computerAnalysisDisabled">Maskinanalyse er slått av</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
