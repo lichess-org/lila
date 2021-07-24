@@ -63,12 +63,25 @@
   <string name="swissVsArenaA">في نظام البطولات السويسرية، يمكن للمشاركين اللعب ضد أحدهم الآخر مرة واحدة فقط، ويلعب الجميع نفس العدد من المباريات.
 يمكن أن يكون نظام البطولات السويسرية خياراً جيداً للنوادي أو البطولات الرسمية.</string>
   <string name="pointsCalculationQ">كيف يتم احتساب النقاط؟</string>
+  <string name="pointsCalculationA">فالفوز يستحق نقطة واحدة، والخسارة هي نصف نقطة، والخسارة هي صفر نقاط.
+عندما لا يمكن الاقتران بين اللاعب خلال جولة ، فإنه يحصل على بايت بقيمة نقطة واحدة.</string>
   <string name="tiebreaksCalculationQ">كيف يتم حساب كسر التعادل؟</string>
+  <string name="sonnebornBergerScore">نقاط سونيبورن - بيرغر</string>
   <string name="pairingsQ">كيف يتم تحديد اقتران الاعبين؟</string>
   <string name="dutchSystem">النظام الألماني</string>
   <string name="FIDEHandbook">دليل الاتحاد الدولي للشطرنج</string>
+  <string name="pairingsA">مع%1$s،التي تنفذها%2$s، وفقا ل%3$s.</string>
+  <string name="moreRoundsThanPlayersQ">ماذا يحدث إذا كانت البطولة تحتوي على جولات أكثر من اللاعبين؟</string>
+  <string name="moreRoundsThanPlayersA">عندما ينتهي كل المتنافسين من اللعب ستنتهي البطولة و يتم إعلان الفائز.</string>
   <string name="restrictedToTeamsQ">لماذا هو حصري للفرق فقط؟</string>
+  <string name="restrictedToTeamsA">لم تكن البطولات السويسرية مصممة للشطرنج على الانترنت، بل تتطلب دقة المواعيد والتفاني والصبر من اللاعبين.
+نعتقد أنه من المرجح أن يتم الوفاء بهذه الشروط في إطار فريق أكثر منها في البطولات العالمية.</string>
+  <string name="numberOfByesQ">كم من البايت يستطيع اللاعب الحصول عليها؟</string>
+  <string name="whatIfOneDoesntPlayQ">ماذا يحدث إذا لم يلعب اللاعب المباراة؟</string>
   <string name="lateJoinQ">هل يمكن للاعب الانضمام متأخراً؟</string>
+  <string name="willSwissReplaceArenasQ">هل ستحل البطولات السويسرية محل البطولات العادية؟</string>
+  <string name="willSwissReplaceArenasA">لا، هذه ميزات تكميلية.</string>
+  <string name="roundRobinQ">ماذا عن جولة روبين؟</string>
   <string name="joinOrCreateTeam">انضم أو أنشأ فريق</string>
   <string name="nowPlaying">الملعوبة حالياً</string>
   <string name="startingSoon">ستبدأ قريباً</string>
@@ -81,6 +94,8 @@
   <string name="pairingWaitTime">وقت انتظار الاقتران</string>
   <string name="pairingWaitTimeFast">سريع: لا ينتظر جميع اللاعبين</string>
   <string name="pairingWaitTimeSlow">بطيء: ينتظر جميع اللاعبين</string>
+  <string name="identicalPairing">الاقتران المتطابق</string>
+  <string name="possibleButNotConsecutive">ممكن ولكن ليس على التوالي</string>
   <string name="identicalForbidden">محظور</string>
   <string name="lateJoin">الانضمام المتأخر</string>
   <string name="lateJoinUntil">ممكن في حال لم يمضي اكثر من نصف الجولات</string>
