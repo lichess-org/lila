@@ -39,7 +39,7 @@ export default function status(ctrl: Ctrl): string {
       return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')}${
         d.game.winner ? '' : ` • ${noarg('draw')}`
       }`;
-    case 'draw':
+    case 'draw': {
       if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return noarg('drawByMutualAgreement');
       if (d.game.fen.split(' ')[4] === '100') return `${noarg('fiftyMovesWithoutProgress')} • ${noarg('draw')}`;
       if (d.game.threefold) return `${noarg('threefoldRepetition')} • ${noarg('draw')}`;
@@ -48,6 +48,7 @@ export default function status(ctrl: Ctrl): string {
       const pos = setupPosition(variant, setup).unwrap();
       if (pos.isInsufficientMaterial()) return `${noarg('insufficientMaterial')} • ${noarg('draw')}`;
       return noarg('draw');
+    }
     case 'outoftime':
       return `${d.game.turns % 2 === 0 ? noarg('whiteTimeOut') : noarg('blackTimeOut')}${
         d.game.winner ? '' : ` • ${noarg('draw')}`
