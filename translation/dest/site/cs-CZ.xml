@@ -965,6 +965,10 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="simulDescription">Popis simultánky</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
+  <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
+  <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
+  <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
+  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Toto je možné provést pouze jednou.</string>
 </resources>
