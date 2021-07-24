@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Computer-Analyse anfordern</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse verfügbar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Tiefe: %s</string>
   <string name="usingServerAnalysis">Serveranalyse wird verwendet</string>
