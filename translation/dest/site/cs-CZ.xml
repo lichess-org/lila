@@ -950,5 +950,13 @@
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
+  <string name="minimumRatedGames">Minimální počet her s ratingem</string>
+  <string name="minimumRating">Minimální rating</string>
+  <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
   <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
+  <string name="cancelSimul">Zrušit simultánku</string>
+  <string name="estimatedStart">Předpokládaný začátek</string>
+  <string name="simulDescription">Popis simultánky</string>
+  <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
+  <string name="tournChat">Turnajový chat</string>
 </resources>
