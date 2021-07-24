@@ -871,7 +871,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
   <string name="reopenYourAccount">Buka kembali akun Anda</string>
   <string name="closedAccountChangedMind">Jika Anda telah menutup akun, Anda dapat satu kesempatan untuk mengembalikan akun anda.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Ini hanya dapat dilakukan sekali.</string>
+  <string name="onlyWorksOnce">Ini hanya dapat dilakukan sekali.</string>
   <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
