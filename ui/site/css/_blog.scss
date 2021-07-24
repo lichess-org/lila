@@ -131,6 +131,10 @@
     .embed {
       @extend %video;
 
+      &--game {
+        @extend %game-embed;
+      }
+
       margin: $block-gap auto;
     }
   }
