@@ -19,6 +19,7 @@
 
     &.pawn {
       background-image: url(../piece/mono/P.svg);
+      margin-left: -15px;
     }
 
     &.bishop {
