@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Выполнить компьютерный анализ</string>
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
+  <string name="computerAnalysisDisabled">Компьютерный анализ отключён</string>
   <string name="analysis">Анализировать партию</string>
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
