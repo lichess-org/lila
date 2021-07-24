@@ -24,4 +24,8 @@
   </plurals>
   <string name="numberOfRounds">Jumlah babak</string>
   <string name="numberOfRoundsHelp">Sebuah babak yang ganjil mengizinkan keseimbangan warna yang optimal.</string>
+  <string name="nowPlaying">Sedang berlangsung</string>
+  <string name="startingSoon">Segera dimulai</string>
+  <string name="comparison">Perbandingan</string>
+  <string name="pause">Jeda</string>
 </resources>
