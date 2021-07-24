@@ -22,4 +22,5 @@
   <string name="resetRound">Atur ulang ronde ini</string>
   <string name="deleteRound">Hapus ronde ini</string>
   <string name="currentRoundUrl">Tautan ronde ini</string>
+  <string name="currentGameUrl">Tautan permainan ini</string>
 </resources>
