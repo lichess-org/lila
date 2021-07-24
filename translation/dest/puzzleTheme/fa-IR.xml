@@ -27,4 +27,6 @@
   <string name="fork">چنگال</string>
   <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
   <string name="hangingPiece">مهره بی دفاع</string>
+  <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>
+  <string name="mateIn3Description">در سه حرکت کیش و مات کنید.</string>
 </resources>
