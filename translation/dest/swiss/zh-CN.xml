@@ -4,4 +4,16 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">查看所有%s回合</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s 轮</item>
+  </plurals>
+  <string name="nowPlaying">正在对局</string>
+  <string name="startingSoon">即将开始</string>
+  <string name="comparison">对比</string>
+  <string name="tournDuration">比赛时长</string>
+  <string name="predefinedDuration">预定义时长</string>
+  <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
+  <string name="numberOfGamesAsManyAsPossible">在允许的时间尽可能多地参与比赛</string>
+  <string name="pairingSystem">配对机制</string>
+  <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
 </resources>
