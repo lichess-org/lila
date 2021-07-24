@@ -270,7 +270,7 @@ export default function (
     return ctrl.node;
   }
 
-  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.data.pref.notation, ctrl.trans);
+  const share = shareCtrl(data, currentChapter, currentNode, !!relay, redraw, ctrl.data.pref.pieceNotation, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
