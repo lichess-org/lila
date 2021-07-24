@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
+  <string name="computerAnalysisDisabled">Bilgisayar analizi devre dışı bırakıldı</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
