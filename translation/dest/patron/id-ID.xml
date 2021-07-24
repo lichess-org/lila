@@ -72,4 +72,5 @@ Namun, Penyokong mendapatkan hak dengan ikon profil baru yang keren.</string>
   <string name="nowLifetime">Anda sekarang adalah penyokong lichess seumur hidup!</string>
   <string name="nowOneMonth">Sekarang Anda menjadi Penyokong Lichess selama satu bulan!</string>
   <string name="downgradeNextMonth">Dalam satu bulan, Anda TIDAK akan ditagih lagi, dan akun lichess anda akan kembali menjadi akun biasa.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Ubah mata uang</string>
 </resources>
