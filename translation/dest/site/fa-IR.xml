@@ -82,22 +82,22 @@
   <string name="unknown">ناشناخته</string>
   <string name="database">پایگاه داده</string>
   <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
-  <string name="averageRatingX">میانگین امتیاز: %s</string>
-  <string name="recentGames">بازی های اخیر</string>
-  <string name="topGames">بازی های برتر</string>
-  <string name="masterDbExplanation">دو میلیون بازی رسمی بازیکنان با امتیاز %1$s+ فیده از %2$s تا %3$s</string>
+  <string name="averageRatingX">درجه‌بندیِ میانگین: %s</string>
+  <string name="recentGames">بازی‌های اخیر</string>
+  <string name="topGames">بازی‌های برتر</string>
+  <string name="masterDbExplanation">دو میلیون بازی حقیقی بازیکنان دارای امتیاز بیشتر از %1$s در درجه‌بندی فیده از %2$s تا %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">مات در %s نیم حرکت</item>
-    <item quantity="other">مات در %s نیم حرکت</item>
+    <item quantity="one">در %s نیم‌حرکت مات می‌شود</item>
+    <item quantity="other">در %s نیم‌حرکت مات می‌شود</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">گرفتن مهره یا حرکت پیاده در %s نیم حرکت (فاصله از قانون ۵۰ حرکت مساوی)</item>
     <item quantity="other">گرفتن مهره حریف یا حرکت پیاده در %s نیم‌حرکت (فاصله از پنجاه حرکت برای رسیدن به ترکیب شناخته شده‌ای در بازی که قطعاً منجر به پیروزی می‌شود)</item>
   </plurals>
-  <string name="noGameFound">بازی مورد نظر یافت نشد</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید نیاز است که بازی های بیشتری را از منوی مرجع لحاظ کنید؟</string>
-  <string name="openingExplorer">جست و جوگر گشایش</string>
-  <string name="openingEndgameExplorer">جستجوگر شروع/پایان بازی</string>
+  <string name="noGameFound">هیچ بازی یافت نشد</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">بازی‌های بیشتری از لیست ترجیحات لحاظ شوند؟</string>
+  <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
+  <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="winPreventedBy50MoveRule">قانون 50 حرکت مانع از برد شد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
