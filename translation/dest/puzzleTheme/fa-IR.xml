@@ -12,8 +12,19 @@
   <string name="bishopEndgame">آخر بازی فیل</string>
   <string name="castling">قلعه رفتن</string>
   <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
+  <string name="kingsideAttack">حمله به جناه شاه</string>
+  <string name="kingsideAttackDescription">حمله به شاه حریف زمانی که در جناه شاه قلعه رفته است.</string>
+  <string name="clearance">پاکسازی</string>
   <string name="defensiveMove">حرکت تدافعی</string>
   <string name="deflection">منحرف کردن</string>
   <string name="discoveredAttack">حمله برخاستی</string>
   <string name="doubleCheck">کیش دوگانه</string>
+  <string name="doubleCheckDescription">کیش دادن به حریف با دو مهره به صورت هم زمان در نتیجهء یک حمله برخاستی که در آن هم مهره برخاست کننده و هم مهره پشت سر آن به شاه حریف حمله می کنند.</string>
+  <string name="endgame">آخر بازی</string>
+  <string name="endgameDescription">یک تاکتیک در لحظات آخر بازی.</string>
+  <string name="exposedKing">شاه در معرض خطر</string>
+  <string name="exposedKingDescription">تاکتیکی که در آن شاه مدافعان زیادی ندارد،اغلب این تاکتیک به مات ختم می شود.</string>
+  <string name="fork">چنگال</string>
+  <string name="forkDescription">حرکتی که در آن مهره ای که حرکت می کند دو مهره حریف را به صورت همزمان مورد حمله قرار می دهد.</string>
+  <string name="hangingPiece">مهره بی دفاع</string>
 </resources>
