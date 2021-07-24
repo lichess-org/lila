@@ -873,10 +873,18 @@
 برای شروع بازی ها از وضعیت عادی ابتدایی خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
+  <string name="estimatedStart">زمان تقریبی شروع بازی</string>
+  <string name="simulFeatured">نمایش بازی هم‌زمان روی لینک %s</string>
+  <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
+  <string name="simulDescription">توصیف بازی هم‌زمان</string>
+  <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
+  <string name="markdownAvailable">%s برای کُدهای دستوری پیچیده‌تر در دسترس است.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
+  <string name="navigateMoveTree">لیست درختی کلیدهای مربوط به جابجا شدن</string>
+  <string name="mouseTricks">ترفندهای مربوط به موشواره</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
 </resources>
