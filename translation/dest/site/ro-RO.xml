@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Cereți o analiză făcută de calculator</string>
   <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
+  <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
