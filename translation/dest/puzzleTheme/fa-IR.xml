@@ -8,4 +8,12 @@
   <string name="attackingF2F7">حمله به خانه f2 یا f7</string>
   <string name="attraction">جلب کردن</string>
   <string name="backRankMate">مات عرض آخر</string>
+  <string name="backRankMateDescription">به دام انداختن شاه حریف در عرض اولیه خود زمانی که با مهره های خودی به دام افتاده است.</string>
+  <string name="bishopEndgame">آخر بازی فیل</string>
+  <string name="castling">قلعه رفتن</string>
+  <string name="castlingDescription">شاه خود را ایمن کنید و رخ خود را برای حمله مستقر کنید.</string>
+  <string name="defensiveMove">حرکت تدافعی</string>
+  <string name="deflection">منحرف کردن</string>
+  <string name="discoveredAttack">حمله برخاستی</string>
+  <string name="doubleCheck">کیش دوگانه</string>
 </resources>
