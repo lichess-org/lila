@@ -36,6 +36,7 @@
   <string name="raceComplete">Pertandingan selesai!</string>
   <string name="spectating">Menonton</string>
   <string name="joinTheRace">Ikuti pertandingan!</string>
+  <string name="startTheRace">Mulai balapan</string>
   <string name="yourRankX">Peringkat anda: %s</string>
   <string name="waitForRematch">Tunggu permainan ulang</string>
   <string name="nextRace">Balapan selanjutnya</string>
