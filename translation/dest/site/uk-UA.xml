@@ -102,6 +102,7 @@
   <string name="noGameFound">Партій не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
+  <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
@@ -746,6 +747,7 @@
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
+  <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="asFreeAsLichess">Безкоштовний, як і Lichess</string>
@@ -924,4 +926,14 @@
   <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
   <string name="download">Завантаження</string>
   <string name="welcome">Вітаємо!</string>
+  <string name="cancelTournament">Скасувати турнір</string>
+  <string name="tournDescription">Опис турніру</string>
+  <string name="onlyMembersOfTeam">Тільки члени команди</string>
+  <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
+  <string name="minimumRating">Мінімальний рейтинг</string>
+  <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
+  <string name="onlyTitled">Тільки титуловані гравці</string>
+  <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
+  <string name="onlyTeamLeaders">Лише лідери команд</string>
+  <string name="onlyTeamMembers">Тільки члени команди</string>
 </resources>
