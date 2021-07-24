@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
+  <string name="computerAnalysisDisabled">Analiza komputerowa wyłączona</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
