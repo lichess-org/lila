@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Computeranalyse klar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiveret</string>
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Ved brug af serveranalyse</string>
