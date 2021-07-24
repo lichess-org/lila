@@ -971,4 +971,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Toto je možné provést pouze jednou.</string>
+  <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
+  <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
+  <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
 </resources>
