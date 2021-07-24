@@ -15,7 +15,7 @@
   <string name="chat">Obrolan</string>
   <string name="resign">Menyerah</string>
   <string name="checkmate">Skakmat</string>
-  <string name="stalemate">Remis</string>
+  <string name="stalemate">Langkah buntu</string>
   <string name="white">Putih</string>
   <string name="black">Hitam</string>
   <string name="randomColor">Warna acak</string>
