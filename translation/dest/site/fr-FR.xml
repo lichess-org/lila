@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
+  <string name="computerAnalysisDisabled">Analyse de l\'ordinateur désactivée</string>
   <string name="analysis">Échiquier d\'analyse</string>
   <string name="depthX">Profondeur %s</string>
   <string name="usingServerAnalysis">Analyse serveur en cours</string>
