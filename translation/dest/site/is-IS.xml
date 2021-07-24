@@ -9,6 +9,7 @@
   <string name="yourTurn">Þú átt leik</string>
   <string name="aiNameLevelAiLevel">%1$s erfiðleiki %2$s</string>
   <string name="level">Stig</string>
+  <string name="strength">Styrkleiki</string>
   <string name="toggleTheChat">Virkja spjall</string>
   <string name="toggleSound">Virkja hljóð</string>
   <string name="chat">Spjalla</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
   <string name="youPlayTheBlackPieces">Þú teflir með svörtu mennina</string>
   <string name="itsYourTurn">Þú átt leik!</string>
+  <string name="cheatDetected">Svindl greint</string>
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
   <string name="raceFinished">Kapphlaupi lokið</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
   <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
+  <string name="computerAnalysisDisabled">Tölvugreining óvirk</string>
   <string name="analysis">Greining</string>
   <string name="depthX">Dýpt %s</string>
   <string name="usingServerAnalysis">Greining frá vefþjóni</string>
@@ -90,6 +93,7 @@
   <string name="noGameFound">Enginn leikur fannst</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openingExplorer">Skoða opnanir</string>
+  <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
@@ -112,6 +116,14 @@
   <string name="blunder">Afleikur</string>
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">Afleikur</item>
+    <item quantity="other">Afleikir</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">Mistök</item>
+    <item quantity="other">Mistök</item>
+  </plurals>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
