@@ -90,6 +90,10 @@
     <item quantity="one">مات در %s نیم حرکت</item>
     <item quantity="other">مات در %s نیم حرکت</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">گرفتن مهره یا حرکت پیاده در %s نیم حرکت (فاصله از قانون ۵۰ حرکت مساوی)</item>
+    <item quantity="other">گرفتن مهره حریف یا حرکت پیاده در %s نیم‌حرکت (فاصله از پنجاه حرکت برای رسیدن به ترکیب شناخته شده‌ای در بازی که قطعاً منجر به پیروزی می‌شود)</item>
+  </plurals>
   <string name="noGameFound">بازی مورد نظر یافت نشد</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید نیاز است که بازی های بیشتری را از منوی مرجع لحاظ کنید؟</string>
   <string name="openingExplorer">جست و جوگر گشایش</string>
