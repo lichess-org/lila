@@ -502,6 +502,7 @@
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upravit šachovnici</string>
   <string name="popularOpenings">Populární zahájení</string>
+  <string name="chess960StartPosition">Základní postavení Chess960: %s</string>
   <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
   <string name="savePosition">Uložit pozici</string>
@@ -947,4 +948,7 @@
   <string name="welcome">Vítej!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý open source software.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
+  <string name="cancelTournament">Zrušit turnaj</string>
+  <string name="tournDescription">Popis turnaje</string>
+  <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
 </resources>
