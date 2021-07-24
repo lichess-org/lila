@@ -9,6 +9,8 @@
   </plurals>
   <string name="newSwiss">新瑞士锦标赛</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
+  <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
+  <string name="joinOrCreateTeam">加入或创建团队</string>
   <string name="nowPlaying">正在对局</string>
   <string name="startingSoon">即将开始</string>
   <string name="comparison">对比</string>
