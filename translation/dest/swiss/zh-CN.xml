@@ -7,6 +7,8 @@
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="other">%s 轮</item>
   </plurals>
+  <string name="newSwiss">新瑞士锦标赛</string>
+  <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="nowPlaying">正在对局</string>
   <string name="startingSoon">即将开始</string>
   <string name="comparison">对比</string>
@@ -15,5 +17,11 @@
   <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
   <string name="numberOfGamesAsManyAsPossible">在允许的时间尽可能多地参与比赛</string>
   <string name="pairingSystem">配对机制</string>
+  <string name="pairingSystemArena">任何具有相仅排名的对手</string>
   <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
+  <string name="lateJoin">比赛开始后加入</string>
+  <string name="lateJoinUntil">是的，直到一半以上的回合开始为止。</string>
+  <string name="pauseSwiss">可以，但是可能会减少回合数量</string>
+  <string name="streaksAndBerserk">允许连胜和神速</string>
+  <string name="unlimitedAndFree">无限制并免费</string>
 </resources>
