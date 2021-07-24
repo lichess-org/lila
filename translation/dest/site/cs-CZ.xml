@@ -29,7 +29,7 @@
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
-  <string name="variantEnding">Jiné ukončení</string>
+  <string name="variantEnding">Konec varianty</string>
   <string name="newOpponent">Nový protihráč</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Váš soupeř s Vámi chce hrát další partii</string>
   <string name="joinTheGame">Připojit se ke hře</string>
@@ -950,13 +950,21 @@
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
+  <string name="onlyMembersOfTeam">Pouze členové týmu</string>
+  <string name="noRestriction">Bez omezení</string>
   <string name="minimumRatedGames">Minimální počet her s ratingem</string>
   <string name="minimumRating">Minimální rating</string>
   <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
   <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
+  <string name="positionInputHelp">Vložte platný FEN popis šachovnice, pokud chcete, aby všechny hry začaly z dané pozice.
+Funguje to pouze pro standardní hry, ne pro varianty.
+Můžete použít %s pro vygenerování FEN popisu zadané pozice a potom ho sem vložit.
+Nechte toto pole prázdné, pokud chcete začínat z běžného základního postavení.</string>
   <string name="cancelSimul">Zrušit simultánku</string>
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
+  <string name="onlyTeamMembers">Pouze členové týmu</string>
+  <string name="analysisOptions">Ovládání analýzy</string>
 </resources>
