@@ -886,5 +886,12 @@
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
   <string name="navigateMoveTree">لیست درختی کلیدهای مربوط به جابجا شدن</string>
   <string name="mouseTricks">ترفندهای مربوط به موشواره</string>
+  <string name="toggleLocalAnalysis">از سخت‌افزارِ رایانه خود برای بررسی استفاده نمایید</string>
+  <string name="toggleAllAnalysis">از سخت‌افزارِ رایانه خود و از سرورهای سایت برای بررسی استفاده نمایید</string>
+  <string name="playComputerMove">بهترین حرکت پیشنهادی توسط رایانه را انتخاب و بازی کنید</string>
+  <string name="analysisOptions">امکاناتِ تجزیه و تحلیل</string>
+  <string name="focusChat">تمرکز بر روی امکان چت و نوشتن در آن</string>
+  <string name="showHelpDialog">نمایش این پنجره راهنما</string>
   <string name="reopenYourAccount">باز کردن مجدد حساب کاربری</string>
+  <string name="closedAccountChangedMind">اگر حساب کاربری خود را مسدود کردید، اما بعد از آن نظرتان عوض شد، شما یک فرصت برای بازگرداندنِ حساب کاربری خود خواهید داشت.</string>
 </resources>
