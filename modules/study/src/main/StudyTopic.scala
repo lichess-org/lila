@@ -150,7 +150,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   def recompute(): Unit =
     recomputeWorkQueue(Future.makeItLast(60 seconds)(recomputeNow)).recover {
       case _: lila.hub.BoundedAsyncActor.EnqueueException => ()
-      case e: Exception                             => logger.warn("Can't recompute study topics!", e)
+      case e: Exception                                   => logger.warn("Can't recompute study topics!", e)
     }.unit
 
   private def recomputeNow: Funit =
