@@ -48,7 +48,7 @@ object userAnalysisI18n {
     trans.variantEnding,
     trans.drawByMutualAgreement,
     trans.fiftyMovesWithoutProgress,
-    trans.insufficientMaterial
+    trans.insufficientMaterial,
     trans.whitePlays,
     trans.blackPlays,
     trans.gameOver,
@@ -134,7 +134,6 @@ object userAnalysisI18n {
     trans.games,
     trans.variantLoss,
     trans.variantWin,
-    trans.insufficientMaterial,
     trans.capture,
     trans.pawnMove,
     trans.close,
