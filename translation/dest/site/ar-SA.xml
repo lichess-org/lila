@@ -1060,4 +1060,11 @@
   <string name="noChat">لا دردشة</string>
   <string name="onlyTeamLeaders">فقط قائدي الفريق</string>
   <string name="onlyTeamMembers">فقط لاعبي الفريق</string>
+  <string name="mouseTricks">حيل بالفأرة</string>
+  <string name="playComputerMove">العب افضل نقلة يقترحها الكمبيوتر</string>
+  <string name="analysisOptions">خيارات التحليل</string>
+  <string name="reopenYourAccount">اعادة فتح حسابك</string>
+  <string name="onlyWorksOnce">سيعمل هذا لمرة واحدة فقط</string>
+  <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
+  <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
 </resources>
