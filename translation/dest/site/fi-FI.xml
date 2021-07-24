@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Pyydä tietokoneanalyysiä</string>
   <string name="computerAnalysis">Tietokoneanalyysi</string>
   <string name="computerAnalysisAvailable">Tietokoneanalyysi käytettävissä</string>
+  <string name="computerAnalysisDisabled">Tietokoneanalyysi poissa käytöstä</string>
   <string name="analysis">Analyysilauta</string>
   <string name="depthX">Syvyys %s</string>
   <string name="usingServerAnalysis">Palvelimen analyysi</string>
