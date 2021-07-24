@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
   <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است</string>
+  <string name="computerAnalysisDisabled">تحلیل رایانه‌ای غیرفعال شد</string>
   <string name="analysis">تحلیل</string>
   <string name="depthX">عمق بررسی: %s حرکت</string>
   <string name="usingServerAnalysis">با استفاده از تحلیل سرور</string>
@@ -424,6 +425,7 @@
   <string name="boardEditor">صفحه ویرایشگر</string>
   <string name="setTheBoard">پوزیشن را انتخاب کنید</string>
   <string name="popularOpenings">گشایش های معروف</string>
+  <string name="endgamePositions">موقعیتهای پایان‌بخش بازی</string>
   <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
@@ -853,6 +855,7 @@
   <string name="welcome">خوش آمدید!</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="coachManager">تنظیمات مربی</string>
+  <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
@@ -868,6 +871,8 @@
 این عمل فقط برای بازی های استاندارد امکان پذیر است، نه با واریانت ها.
 شما می توانید %s را جهت ساخت یک پوزیشن FEN استفاده کنید و سپس اینجا جایگذاری کنید.
 برای شروع بازی ها از وضعیت عادی ابتدایی خالی بگذارید.</string>
+  <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
+  <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
   <string name="noChat">بدون چت</string>
