@@ -40,7 +40,12 @@ final class ChallengeBulkApi(
   private val coll = colls.bulk
 
   private val workQueue =
-    new AsyncActorSequencers(maxSize = 16, expiration = 10 minutes, timeout = 10 seconds, name = "challenge.bulk")
+    new AsyncActorSequencers(
+      maxSize = 16,
+      expiration = 10 minutes,
+      timeout = 10 seconds,
+      name = "challenge.bulk"
+    )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
     coll.list[ScheduledBulk]($doc("by" -> me.id))
