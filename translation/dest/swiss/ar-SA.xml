@@ -59,6 +59,9 @@
   <string name="forbiddenPairings">أزواج محظورة</string>
   <string name="forbiddenPairingsHelp">أسماء المستخدمين للاعبين الذين يجب ألا يلعبوا معا (على سبيل المثال). اسمان مستخدمان لكل سطر، مفصولان بمسافة.</string>
   <string name="newSwiss">بطولة جديدة بالنظام السويسري</string>
+  <string name="swissVsArenaQ">متى تستخدم البطولا السويسرية عوضاً عن البطولات العادية؟</string>
+  <string name="swissVsArenaA">في نظام البطولات السويسرية، يمكن للمشاركين اللعب ضد أحدهم الآخر مرة واحدة فقط، ويلعب الجميع نفس العدد من المباريات.
+يمكن أن يكون نظام البطولات السويسرية خياراً جيداً للنوادي أو البطولات الرسمية.</string>
   <string name="pointsCalculationQ">كيف يتم احتساب النقاط؟</string>
   <string name="tiebreaksCalculationQ">كيف يتم حساب كسر التعادل؟</string>
   <string name="pairingsQ">كيف يتم تحديد اقتران الاعبين؟</string>
