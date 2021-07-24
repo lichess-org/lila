@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">پیاده جلو افتاده</string>
+  <string name="advantage">برتری</string>
+  <string name="anastasiaMate">مات آنستازیا</string>
+  <string name="arabianMate">مات عربی</string>
 </resources>
