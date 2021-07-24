@@ -988,7 +988,7 @@
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
   <string name="showHelpDialog">Показать справку</string>
-  <string name="reopenYourAccount">Переоткрыть аккаунт</string>
+  <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
   <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
