@@ -4,4 +4,8 @@
   <string name="advantage">برتری</string>
   <string name="anastasiaMate">مات آنستازیا</string>
   <string name="arabianMate">مات عربی</string>
+  <string name="arabianMateDescription">یک اسب و یک رخ برای به دام انداختن شاه حریف در گوشه صفحه همکاری می کنند.</string>
+  <string name="attackingF2F7">حمله به خانه f2 یا f7</string>
+  <string name="attraction">جلب کردن</string>
+  <string name="backRankMate">مات عرض آخر</string>
 </resources>
