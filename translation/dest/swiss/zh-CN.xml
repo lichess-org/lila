@@ -9,6 +9,7 @@
   </plurals>
   <string name="newSwiss">新瑞士锦标赛</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
+  <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
   <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
   <string name="joinOrCreateTeam">加入或创建团队</string>
   <string name="nowPlaying">正在对局</string>
