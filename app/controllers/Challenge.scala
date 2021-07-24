@@ -30,6 +30,19 @@ final class Challenge(
       }
     }
 
+  def apiList =
+    ScopedBody(_.Challenge.Read) { implicit req => me =>
+      implicit val lang = reqLang
+      api allFor me.id map { all =>
+        JsonOk(
+          Json.obj(
+            "in"  -> all.in.map(env.challenge.jsonView.apply(lila.challenge.Direction.In.some)),
+            "out" -> all.out.map(env.challenge.jsonView.apply(lila.challenge.Direction.Out.some))
+          )
+        )
+      }
+    }
+
   def show(id: String, @nowarn("cat=unused") _color: Option[String]) =
     Open { implicit ctx =>
       showId(id)
