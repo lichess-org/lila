@@ -12,9 +12,18 @@
   }
 
   display: grid;
-  grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-  grid-template-rows: auto 2.5rem;
-  grid-template-areas: 'board tools' 'board controls';
+  grid-template-areas:
+    'board'
+    'tools'
+    'controls';
+  grid-template-columns: auto;
+  grid-template-rows: 100vw minmax(150px, calc(100vh - 100vw - 5.5rem)) 3rem;
+
+  @include breakpoint(min-width 400px) {
+    grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
+    grid-template-rows: auto 2.5rem;
+    grid-template-areas: 'board tools' 'board controls';
+  }
 }
 
 .pocket {
