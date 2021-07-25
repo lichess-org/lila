@@ -34,11 +34,13 @@ import relayTour from './study/relay/relayTourView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
-import { bindNonPassive } from 'common/snabbdom';
+import { bindNonPassive, MaybeVNodes } from 'common/snabbdom';
+import { findTag } from './study/studyChapters';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  let result: string | undefined;
-  if (ctrl.data.game.status.id >= 30)
+  const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
+  if (ctrl.data.game.status.id >= 30) {
+    let result;
     switch (ctrl.data.game.winner) {
       case 'white':
         result = '1-0';
@@ -49,18 +51,19 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
       default:
         result = '½-½';
     }
-  const tags: VNode[] = [];
-  if (result) {
-    tags.push(h('div.result', result));
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
-    tags.push(
-      h('div.status', [
-        statusView(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
-      ])
-    );
+    return render(result, [
+      statusView(ctrl),
+      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
+    ]);
+  } else if (ctrl.study) {
+    const result = findTag(ctrl.study.data.chapter.tags, 'result');
+    if (!result || result === '*') return [];
+    if (result === '1-0') return render(result, [ctrl.trans.noarg('whiteIsVictorious')]);
+    if (result === '0-1') return render(result, [ctrl.trans.noarg('blackIsVictorious')]);
+    return render('½-½', [ctrl.trans.noarg('draw')]);
   }
-  return tags;
+  return [];
 }
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
