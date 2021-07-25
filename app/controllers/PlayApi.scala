@@ -162,7 +162,7 @@ final class PlayApi(
       apiC.jsonStream {
         env.user.repo
           .botsByIdsCursor(env.bot.onlineApiUsers.get)
-          .documentSource()
+          .documentSource(getInt("nb", req) | Int.MaxValue)
           .throttle(50, 1 second)
           .map { env.user.jsonView(_) }
       }
