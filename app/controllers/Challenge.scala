@@ -265,8 +265,8 @@ final class Challenge(
     key = "challenge.create.user",
     enforce = env.net.rateLimit.value
   )(
-    ("fast", 5, 1.minute),
-    ("slow", 30, 1.day)
+    ("fast", 5 * 5, 1.minute),
+    ("slow", 40 * 5, 1.day)
   )
 
   def toFriend(id: String) =
@@ -309,10 +309,15 @@ final class Challenge(
         .fold(
           newJsonFormError,
           config => {
-            val cost = if (me.isApiHog) 0 else 1
-            ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = cost) {
-              ChallengeUserRateLimit(me.id, cost = cost) {
-                env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
+            ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
+              env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
+                val cost = destUser match {
+                  case _ if me.isApiHog         => 0
+                  case None                     => 2
+                  case Some(dest) if dest.isBot => 1
+                  case _                        => 5
+                }
+                ChallengeUserRateLimit(me.id, cost = cost) {
                   val challenge = makeOauthChallenge(config, me, destUser)
                   (destUser, config.acceptByToken) match {
                     case (Some(dest), Some(strToken)) =>
@@ -333,8 +338,8 @@ final class Challenge(
                           }
                       } map (_ as JSON)
                   }
-                }
-              }(rateLimitedFu)
+                }(rateLimitedFu)
+              }
             }(rateLimitedFu)
           }
         )
