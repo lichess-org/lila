@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
+  <string name="computerAnalysisDisabled">コンピュータ解析は不使用です</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
