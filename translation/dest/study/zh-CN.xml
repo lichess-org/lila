@@ -125,9 +125,11 @@
   <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
   <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
   <string name="goodMove">好棋</string>
-  <string name="mistake">失误</string>
-  <string name="brilliantMove">妙招</string>
-  <string name="blunder">漏招</string>
+  <string name="mistake">坏棋</string>
+  <string name="brilliantMove">极好</string>
+  <string name="blunder">极坏</string>
+  <string name="interestingMove">略好</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">略坏</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">别无他法</string>
   <string name="equalPosition">均势</string>
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局势不明</string>
