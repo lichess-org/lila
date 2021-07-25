@@ -54,7 +54,9 @@
   <string name="shareAndExport">اشتراک &amp; صدور</string>
   <string name="cloneStudy">نمونه سازی</string>
   <string name="studyPgn">PGN درس</string>
+  <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
+  <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
   <string name="members">اعضا</string>
