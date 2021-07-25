@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Užsakyti kompiuterio analizę</string>
   <string name="computerAnalysis">Kompiuterio analizė</string>
   <string name="computerAnalysisAvailable">Galima kompiuterio analizė</string>
+  <string name="computerAnalysisDisabled">Kompiuterinė analizė išjungta</string>
   <string name="analysis">Analizės lenta</string>
   <string name="depthX">Gylis: %s</string>
   <string name="usingServerAnalysis">Naudojama serverio analizė</string>
