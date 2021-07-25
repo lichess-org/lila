@@ -91,5 +91,15 @@
   <string name="queenRookEndgame">Թագուհով և նավակով վերջնախաղ</string>
   <string name="queenRookEndgameDescription">Միայն թագուհիներով, նավակներով և զինվորներով վերջնախաղ։</string>
   <string name="queensideAttack">Գրոհ թագուհու թևում</string>
+  <string name="queensideAttackDescription">Գրոհ մրցակցի՝ երկար կողմում փոխատեղում կատարած արքայի վրա։</string>
+  <string name="quietMove">Հանգիստ քայլ</string>
+  <string name="quietMoveDescription">Քայլ առանց շախի կամ խաղաքար վերցնելու, որն այնուամենայնիվ նախապատրաստում է անխուսափելի սպառնալիք։</string>
+  <string name="rookEndgame">Նավակային վերջնախաղ</string>
+  <string name="rookEndgameDescription">Միայն նավակներով և զինվորներով վերջնախաղ։</string>
+  <string name="sacrifice">Զոհաբերություն</string>
+  <string name="sacrificeDescription">Մարտավարություն, որի ժամանակ տրվում է որևէ խաղաքար` առավելություն ստանալու, մատ հայտարարելու կամ պարտիան ոչ-ոքի ավարտելու նպատակով։</string>
+  <string name="short">Երկքայլանի խնդիր</string>
+  <string name="shortDescription">Երկու քայլ մինչև հաղթանակ։</string>
+  <string name="skewer">Գծային հարձակում</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
