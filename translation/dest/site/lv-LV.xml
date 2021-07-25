@@ -56,6 +56,7 @@
   <string name="requestAComputerAnalysis">Pieprasīt datoranalīzi</string>
   <string name="computerAnalysis">Datoranalīze</string>
   <string name="computerAnalysisAvailable">Pieejama datoranalīze</string>
+  <string name="computerAnalysisDisabled">Datora analīze atspējota</string>
   <string name="analysis">Analīze</string>
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
