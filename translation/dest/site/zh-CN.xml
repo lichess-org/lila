@@ -832,6 +832,8 @@
   <string name="coachManager">教练管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>
+  <string name="ratedFormHelp">排位赛
+将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">没有限制</string>
   <string name="inYourLocalTimezone">在您的本地时区</string>
