@@ -88,5 +88,8 @@
   <string name="promotionDescription">Քայլ, որի ժամանակ զինվորը հասնում է վերջին հորիզոնականին և վերածվում նույն գույնի ցանկացած խաղաքարի, բացի արքայից։</string>
   <string name="queenEndgame">Թագուհու վերջնախաղ</string>
   <string name="queenEndgameDescription">Միայն թագուհիներով և զինվորներով վերջնախաղ։</string>
+  <string name="queenRookEndgame">Թագուհով և նավակով վերջնախաղ</string>
+  <string name="queenRookEndgameDescription">Միայն թագուհիներով, նավակներով և զինվորներով վերջնախաղ։</string>
+  <string name="queensideAttack">Գրոհ թագուհու թևում</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
