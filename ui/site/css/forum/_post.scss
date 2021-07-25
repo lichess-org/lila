@@ -26,9 +26,12 @@
       font-weight: bold;
     }
 
+    time {
+      margin-right: 1em;
+    }
+
     .delete {
       color: $c-font;
-      margin-left: 1em;
       &:hover {
         color: $c-bad;
       }
