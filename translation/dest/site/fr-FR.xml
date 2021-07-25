@@ -904,8 +904,8 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="onlyTeamMembers">Seulement les membres des équipes</string>
   <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
   <string name="mouseTricks">Astuces pour la souris</string>
-  <string name="toggleLocalAnalysis">Basculer vers l\'analyse de l\'ordinateur local</string>
-  <string name="toggleAllAnalysis">Basculer vers l\'analyse de tous les ordinateurs</string>
+  <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
+  <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>
   <string name="playComputerMove">Jouer le meilleur coup de l\'ordinateur</string>
   <string name="analysisOptions">Options d\'analyse</string>
   <string name="focusChat">Priorité au salon de discussion</string>
