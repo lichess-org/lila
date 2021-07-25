@@ -302,6 +302,7 @@ function analysisDisabled(ctrl: AnalyseCtrl): VNode {
       'button',
       {
         hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
+        attrs: { type: 'button' },
       },
       ctrl.trans.noarg('enable')
     ),
