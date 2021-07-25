@@ -9,6 +9,7 @@
       font-size: 1.2em;
     }
   }
+
   &__text {
     @extend %box-neat;
 
@@ -16,6 +17,10 @@
     padding: 3vmin;
     max-height: 50vh;
     overflow-y: auto;
+
+    &__schedule td:nth-child(3) {
+      text-align: center;
+    }
 
     .slist {
       margin-bottom: 1em;
