@@ -113,6 +113,7 @@ object topic {
               topic,
               p,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )

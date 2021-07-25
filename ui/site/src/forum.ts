@@ -27,18 +27,51 @@ lichess.load.then(() => {
       return false;
     });
 
+  $('.forum-post__message').each(function (this: HTMLElement) {
+    if (this.innerText.match(/(^|\n)>/)) {
+      const result = [];
+      let quote = [];
+      for (const line of this.innerHTML.split('<br>')) {
+        if (line.startsWith('&gt;')) quote.push(line.substring(4));
+        else {
+          if (quote.length > 0) {
+            result.push(`<blockquote>${quote.join('<br>')}</blockquote>`);
+            quote = [];
+          }
+          result.push(line);
+        }
+      }
+      if (quote.length > 0) result.push(`<blockquote>${quote.join('<br>')}</blockquote>`);
+      this.innerHTML = result.join('<br>');
+    }
+  });
+
   $('.edit.button')
     .add('.edit-post-cancel')
     .on('click', function (this: HTMLButtonElement, e) {
       e.preventDefault();
 
-      const post = $(this).closest('.forum-post'),
-        message = post.find('.message').toggle(),
-        form = post.find('form.edit-post-form').toggle();
+      const $post = $(this).closest('.forum-post'),
+        $form = $post.find('form.edit-post-form').toggle();
 
-      (form[0] as HTMLFormElement).reset();
-      form.find('textarea').height(message.height());
+      ($form[0] as HTMLFormElement).reset();
     });
+
+  $('.quote.button').on('click', function (this: HTMLButtonElement) {
+    const $post = $(this).closest('.forum-post'),
+      author = $post.find('.author').attr('href')!.substring(3),
+      anchor = $post.find('.anchor').text(),
+      message = $post.find('.forum-post__message')[0] as HTMLElement,
+      response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
+
+    const quoteContent = message.innerText
+      .split('\n')
+      .map(line => '> ' + line)
+      .join('\n');
+    const quote = `@${author} said in ${anchor}:\n${quoteContent}\n`;
+    response.value =
+      response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
+  });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
     const textarea = this,
