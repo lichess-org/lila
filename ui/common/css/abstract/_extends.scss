@@ -206,6 +206,12 @@
   }
 }
 
+%game-embed {
+  @include breakpoint($mq-not-xx-small) {
+    padding-bottom: 160%;
+  }
+}
+
 %data-icon {
   font-size: 1.2em;
   vertical-align: middle;
