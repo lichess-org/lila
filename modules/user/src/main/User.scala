@@ -166,6 +166,7 @@ object User {
   }
 
   val anonymous                    = "Anonymous"
+  val anonMod                      = "Anonymous Moderator"
   val lichessId                    = "lichess"
   val broadcasterId                = "broadcaster"
   val ghostId                      = "ghost"

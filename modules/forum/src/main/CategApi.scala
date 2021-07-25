@@ -48,7 +48,7 @@ final class CategApi(env: Env, config: ForumConfig)(implicit ec: scala.concurren
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId,
+      userId = User.lichessId.some,
       text =
         "Welcome to the %s forum!\nOnly members of the team can post here, but everybody can read." format name,
       number = 1,

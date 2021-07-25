@@ -35,17 +35,20 @@ final class PostApi(
       me: User
   ): Fu[Post] =
     detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
+      val publicMod = MasterGranter(_.PublicMod)(me)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
+      val anonMod   = modIcon && !publicMod
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = !anonMod option me.id,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
         hidden = topic.hidden,
         categId = categ.id,
-        modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        modIcon = modIcon option true
       )
       env.postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -62,7 +65,7 @@ final class PostApi(
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
-              if (!post.troll && !categ.quiet && !topic.isTooBig)
+              if (!post.troll && !categ.quiet && !topic.isTooBig && !anonMod)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                 }
@@ -76,7 +79,7 @@ final class PostApi(
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
       post.fold[Fu[Post]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(user.id) =>
+        case (_, post) if !post.canBeEditedBy(user) =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")

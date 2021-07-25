@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.user.User
+import lila.security.Granter
 
 case class OldVersion(text: String, createdAt: DateTime)
 
@@ -31,7 +32,7 @@ case class Post(
 
   def id = _id
 
-  def showAuthor = (author map (_.trim) filter ("" !=)) | User.anonymous
+  def showAuthor = (author map (_.trim) filter ("" !=)) | (if (~modIcon) User.anonymous else User.anonMod)
 
   def showUserIdOrAuthor = if (erased) "<erased>" else userId | showAuthor
 
@@ -42,10 +43,15 @@ case class Post(
   def canStillBeEdited =
     updatedOrCreatedAt.plus(permitEditsFor.toMillis).isAfterNow
 
-  def canBeEditedBy(editingId: User.ID): Boolean = userId has editingId
+  def canBeEditedBy(editingUser: User): Boolean =
+    userId match {
+      case Some(userId) if userId == editingUser.id                                       => true
+      case None if Granter(_.PublicMod)(editingUser) || Granter(_.SeeReport)(editingUser) => true
+      case _                                                                              => false
+    }
 
-  def shouldShowEditForm(editingId: User.ID) =
-    canBeEditedBy(editingId) &&
+  def shouldShowEditForm(editingUser: User) =
+    canBeEditedBy(editingUser) &&
       updatedOrCreatedAt.plus(showEditFormFor.toMillis).isAfterNow
 
   def editPost(updated: DateTime, newText: String): Post = {
@@ -103,7 +109,7 @@ object Post {
       topicId: String,
       categId: String,
       author: Option[String],
-      userId: User.ID,
+      userId: Option[User.ID],
       text: String,
       number: Int,
       lang: Option[String],
@@ -116,7 +122,7 @@ object Post {
       _id = lila.common.ThreadLocalRandom nextString idSize,
       topicId = topicId,
       author = author,
-      userId = userId.some,
+      userId = userId,
       text = text,
       number = number,
       lang = lang,
