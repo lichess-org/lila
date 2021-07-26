@@ -442,6 +442,7 @@
   <string name="setTheBoard">Ställ upp brädet</string>
   <string name="popularOpenings">Populära öppningar</string>
   <string name="endgamePositions">Slutspelspositioner</string>
+  <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startposition</string>
   <string name="clearBoard">Rensa brädet</string>
   <string name="savePosition">Spara ställning</string>
@@ -902,4 +903,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>
   <string name="playComputerMove">Spela bästa datordraget</string>
+  <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
 </resources>
