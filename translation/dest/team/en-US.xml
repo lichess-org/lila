@@ -45,6 +45,8 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="leadersChat">Leaders chat</string>
   <string name="closeTeam">Close team</string>
   <string name="closeTeamDescription">Closes the team forever.</string>
+  <string name="entryCode" comment="entryCode&#10;&#10;For Lichess teams, which can require a code to join them if they are set up that way.">Team entry code</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
   <string name="upcomingTourns">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
