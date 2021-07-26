@@ -54,12 +54,10 @@ final class Appeal(env: Env, reportC: => Report, prismicC: => Prismic, userC: =>
 
   def queue =
     Secure(_.Appeals) { implicit ctx => me =>
-      env.appeal.api.queueOf(
-        me.user
-      ) zip env.report.api.inquiries.allBySuspect zip reportC.getScores flatMap {
+      env.appeal.api.queueOf(me.user) zip env.report.api.inquiries.allBySuspect zip reportC.getScores map {
         case ((appeals, inquiries), ((scores, streamers), nbAppeals)) =>
-          (env.user.lightUserApi preloadMany appeals.map(_.id)) inject
-            Ok(html.appeal.queue(appeals, inquiries, scores, streamers, nbAppeals))
+          env.user.lightUserApi preloadUsers appeals.map(_.user)
+          Ok(html.appeal.queue(appeals, inquiries, scores, streamers, nbAppeals))
       }
     }
 
