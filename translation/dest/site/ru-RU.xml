@@ -504,7 +504,7 @@
   <string name="setTheBoard">Установить позицию</string>
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
-  <string name="chess960StartPosition">Начальная позиция в шахматах 960: %s</string>
+  <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="savePosition">Сохранить позицию</string>
@@ -990,6 +990,8 @@
   <string name="showHelpDialog">Показать справку</string>
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
   <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
+  <string name="onlyWorksOnce">Это сработает только один раз.</string>
+  <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, возможности открыть его уже не будет.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
 </resources>
