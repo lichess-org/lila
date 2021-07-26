@@ -985,8 +985,10 @@
   <string name="navigateMoveTree">Навигация по нотации</string>
   <string name="mouseTricks">Движения мышкой</string>
   <string name="toggleLocalAnalysis">Включить локальный анализ</string>
+  <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
+  <string name="focusChat">Переключиться в окно чата</string>
   <string name="showHelpDialog">Показать справку</string>
   <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
   <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
