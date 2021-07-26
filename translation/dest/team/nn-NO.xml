@@ -45,9 +45,6 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="leadersChat">Chatt for gruppeleiarar</string>
   <string name="closeTeam">Steng ned laget</string>
   <string name="closeTeamDescription">Steng laget for all framtid.</string>
-  <string name="teamPassword">Laget sitt passord</string>
-  <string name="teamPasswordDescriptionForLeader">(Valfritt) Eit passord som nye medlemar må kjenne for å bli med i dette laget.</string>
-  <string name="incorrectTeamPassword">Feil lag-passord.</string>
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
   <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>
