@@ -10,6 +10,7 @@ import lila.coach.CoachPager.Order.NbReview
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl._
 import lila.db.paginator.Adapter
+import lila.security.Permission
 import lila.user.{ Country, User, UserMark, UserRepo }
 
 final class CoachPager(
@@ -60,6 +61,7 @@ final class CoachPager(
                 UnwindField("_user"),
                 Match(
                   $doc(
+                    s"_user.${User.BSONFields.roles}"   -> Permission.Coach.dbKey,
                     s"_user.${User.BSONFields.enabled}" -> true,
                     s"_user.${User.BSONFields.marks}" $nin List(
                       UserMark.Engine.key,
