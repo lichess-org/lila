@@ -65,13 +65,18 @@
   <string name="moreRoundsThanPlayersA">Когда все возможные пары сыграют, турнир закончится и будут объявлены победители.</string>
   <string name="restrictedToTeamsQ">Зачем нужны ограничения для команд?</string>
   <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
+  <string name="numberOfByesA">Игрок получает очко за несыгранную партию, если не удаётся найти соперника в этом туре.
+Также, пол-очка присуждается за позднее присоединение к турниру.</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, он просрочит время и проиграет партию.
 Тогда система снимет игрока с турнира, чтобы избежать дальнейших поражений.
  Игрок может вернуться в турнир в любое время.</string>
+  <string name="lateJoinQ">Могут ли игроки присоединиться к турниру позже?</string>
   <string name="willSwissReplaceArenasQ">Заменят ли турниры по швейцарской системе турниры «Арены»?</string>
   <string name="willSwissReplaceArenasA">Нет. Они дополняют друг друга.</string>
   <string name="roundRobinQ">Что насчёт круговой системы?</string>
+  <string name="otherSystemsQ">Что насчёт других турнирных систем?</string>
+  <string name="otherSystemsA">Сейчас мы не планируем добавлять другие турнирные системы.</string>
   <string name="nowPlaying">Сейчас играются</string>
   <string name="startingSoon">Скоро начинаются</string>
   <string name="tournDuration">Продолжительность турнира</string>
