@@ -106,5 +106,13 @@
   <string name="superGM">Սուպերգրոսմայստերների պարտիաներ</string>
   <string name="superGMDescription">Խնդիրներ աշխարհի լավագույն շախմատիստների պարտիաներից։</string>
   <string name="trappedPiece">Խաղաքարի որսում</string>
+  <string name="trappedPieceDescription">Խաղաքարը չի կարող հեռանալ հարձակումից, քանի որ չունի նահանջի ազատ դաշտեր, կամ այդ դաշտերը ևս հարվածի տակ են։</string>
+  <string name="underPromotion">Թույլ վերածում</string>
+  <string name="underPromotionDescription">Զինվորի վերածում ոչ թե թագուհու, այլ ձիու, փղի կամ նավակի։</string>
+  <string name="veryLong">Բազմաքայլ խնդիր</string>
+  <string name="veryLongDescription">Չորս կամ ավելի քայլ հաղթելու համար։</string>
+  <string name="xRayAttack">Ռենտգեն</string>
+  <string name="xRayAttackDescription">Իրավիճակ, երբ հեռահար խաղաքարի հարձակման կամ պաշտպանության գծին կանգնած է մրցակցի խաղաքարը։</string>
   <string name="zugzwang">Ցունգցվանգ</string>
+  <string name="zugzwangDescription">Մրցակիցը ստիպված է անել հնարավոր փոքրաթիվ քայլերից մեկը,  բայց քայլերից ցանկացածը տանում է դիրքի վատացման։</string>
 </resources>
