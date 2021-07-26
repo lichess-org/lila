@@ -40,9 +40,6 @@
   <string name="leadersChat">지도자 \'대화</string>
   <string name="closeTeam">팀 폐쇄</string>
   <string name="closeTeamDescription">영구히 팀 폐쇄</string>
-  <string name="teamPassword">팀 비밀번호</string>
-  <string name="teamPasswordDescriptionForLeader">(선택) 새 멤버가 가입하기 위해서는 비밀번호를 반드시 알아야 합니다.</string>
-  <string name="incorrectTeamPassword">팀 비밀번호가 잘못되었습니다.</string>
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
