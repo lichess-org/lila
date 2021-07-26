@@ -50,6 +50,8 @@
   <string name="closeTeam">Zapri ekipo</string>
   <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
   <string name="entryCode" comment="entryCode&#10;&#10;For Lichess teams, which can require a code to join them if they are set up that way.">Koda za vstop v ekipo</string>
+  <string name="entryCodeDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Nepravilna vstopna koda.</string>
   <string name="teamAlreadyExists">Ta ekipa že obstaja.</string>
   <string name="upcomingTourns">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>
