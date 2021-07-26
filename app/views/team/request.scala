@@ -30,7 +30,7 @@ object request {
               form3.group(form("message"), trans.message())(form3.textarea(_)()),
               p(willBeReviewed())
             ),
-            t.password.nonEmpty ?? form3.passwordModified(form("password"), teamPassword())(
+            t.password.nonEmpty ?? form3.passwordModified(form("password"), entryCode())(
               autocomplete := "new-password"
             ),
             form3.globalError(form),

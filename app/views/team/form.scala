@@ -28,7 +28,7 @@ object form {
             form3.group(form("name"), trans.name())(form3.input(_)),
             requestField(form),
             hideFields(form),
-            passwordField(form),
+            entryCodeField(form),
             textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
@@ -54,7 +54,7 @@ object form {
             ),
             requestField(form),
             hideFields(form),
-            passwordField(form),
+            entryCodeField(form),
             textFields(form),
             form3.group(form("chat"), frag("Team chat")) { f =>
               form3.select(
@@ -140,11 +140,11 @@ object form {
       )
     )
 
-  private def passwordField(form: Form[_])(implicit ctx: Context) =
+  private def entryCodeField(form: Form[_])(implicit ctx: Context) =
     form3.group(
       form("password"),
-      trans.team.teamPassword(),
-      help = trans.team.teamPasswordDescriptionForLeader().some
+      trans.team.entryCode(),
+      help = trans.team.entryCodeDescriptionForLeader().some
     )(
       form3.input(_)
     )
