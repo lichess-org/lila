@@ -54,6 +54,11 @@
   <string name="pointsCalculationA">Победа приносит одно очко, ничья – половину очка, а поражение – ноль очков.
 Если игрок остаётся без пары, то он получает компенсацию в размере одного очка.</string>
   <string name="tiebreaksCalculationQ">Как рассчитываются дополнительные показатели?</string>
+  <string name="sonnebornBergerScore">Коэффициент Бергера</string>
+  <string name="tiebreaksCalculationA">Учитывать %s.
+Считать сумму всех очков противников, у которых участник выиграл, плюс половину суммы очков противников, с которыми участник сыграл вничью.</string>
+  <string name="pairingsQ">Как подбираются пары?</string>
+  <string name="dutchSystem">Голландская система</string>
   <string name="FIDEHandbook">Руководство ФИДЕ</string>
   <string name="moreRoundsThanPlayersQ">Что произойдёт, если в турнире будет больше раундов, чем игроков?</string>
   <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
