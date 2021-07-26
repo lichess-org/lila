@@ -140,7 +140,7 @@ object form {
       )
     )
 
-  private def entryCodeField(form: Form[_])(implicit ctx: Context) =
+  private def entryCodeField(form: Form[_], team: Option[Team])(implicit ctx: Context) =
     form3.group(
       form("password"),
       trans.team.entryCode(),
