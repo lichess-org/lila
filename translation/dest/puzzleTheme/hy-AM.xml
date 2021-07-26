@@ -101,5 +101,6 @@
   <string name="short">Երկքայլանի խնդիր</string>
   <string name="shortDescription">Երկու քայլ մինչև հաղթանակ։</string>
   <string name="skewer">Գծային հարձակում</string>
+  <string name="smotheredMate">Խեղդուկ մատ</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
