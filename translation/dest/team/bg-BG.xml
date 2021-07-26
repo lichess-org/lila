@@ -45,9 +45,6 @@
   <string name="leadersChat">Чат на лидерите</string>
   <string name="closeTeam">Затвори отбора</string>
   <string name="closeTeamDescription">Затваря отбора завинаги.</string>
-  <string name="teamPassword">Парола на отбора</string>
-  <string name="teamPasswordDescriptionForLeader">(Опционално) Парола, която новите членове трябва да знаят, за да се присъединят към този екип.</string>
-  <string name="incorrectTeamPassword">Грешна отборна парола.</string>
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
   <string name="upcomingTourns">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
