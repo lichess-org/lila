@@ -45,8 +45,5 @@
   <string name="leadersChat">नेताओं के चैट</string>
   <string name="closeTeam">टीम को बंद करें</string>
   <string name="closeTeamDescription">टीम को हमेशा के लिए बंद कर देता है।</string>
-  <string name="teamPassword">टीम का कुंजिका</string>
-  <string name="teamPasswordDescriptionForLeader">(वैकल्पिक) एक कुंजिका जिसे नए सदस्यों को इस टीम में शामिल होने के लिए पता होना चाहिए।</string>
-  <string name="incorrectTeamPassword">गलत टीम कुंजिका ।</string>
   <string name="teamAlreadyExists">यह टीम पहले से मौजूद है।</string>
 </resources>
