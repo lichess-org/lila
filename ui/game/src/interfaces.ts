@@ -176,3 +176,22 @@ export type ContinueMode = 'friend' | 'ai';
 export interface GameView {
   status(ctrl: Ctrl): string;
 }
+
+export interface CheckState {
+  ply: Ply;
+  check?: unknown;
+}
+
+export interface CheckCount {
+  white: number;
+  black: number;
+}
+
+export interface MaterialDiffSide {
+  [role: string]: number;
+}
+
+export interface MaterialDiff {
+  white: MaterialDiffSide;
+  black: MaterialDiffSide;
+}

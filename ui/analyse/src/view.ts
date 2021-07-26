@@ -312,6 +312,23 @@ function analysisDisabled(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
+function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNode {
+  return h('div.analyse__player_strip.' + cls, {}, [materialDiff, clock]);
+}
+
+function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
+  if (ctrl.embed) return;
+
+  const clocks = renderClocks(ctrl),
+    whitePov = ctrl.bottomIsWhite(),
+    materialDiffs = ctrl.renderMaterialDiffs();
+
+  return [
+    renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),
+    renderPlayerStrip('bottom', materialDiffs[1], clocks?.[whitePov ? 0 : 1]),
+  ];
+}
+
 export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
@@ -322,10 +339,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
-    clocks = !playerBars && renderClocks(ctrl),
+    playerStrips = !playerBars && renderPlayerStrips(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     tour = relayTour(ctrl);
+
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -352,7 +370,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'comp-off': !ctrl.showComputer(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
-        'has-clocks': !!clocks,
         'has-relay-tour': !!tour,
         'analyse-hunter': ctrl.opts.hunter,
       },
@@ -370,7 +387,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 : bindNonPassive('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },
           [
-            ...(clocks || []),
+            ...(playerStrips || []),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
             chessground.render(ctrl),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,

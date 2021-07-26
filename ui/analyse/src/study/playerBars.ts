@@ -18,17 +18,20 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       white: findTag(tags, 'white')!,
       black: findTag(tags, 'black')!,
     };
-  if (!playerNames.white && !playerNames.black && !treeOps.findInMainline(ctrl.tree.root, n => !!n.clock)) return;
+
   const clocks = renderClocks(ctrl),
-    ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
+    ticking = !isFinished(study.data.chapter) && ctrl.turnColor(),
+    materialDiffs = ctrl.renderMaterialDiffs();
+
   return (['white', 'black'] as Color[]).map(color =>
-    renderPlayer(tags, clocks, playerNames, color, ticking === color, ctrl.bottomColor() !== color)
+    renderPlayer(tags, clocks, materialDiffs, playerNames, color, ticking === color, ctrl.bottomColor() !== color)
   );
 }
 
 function renderPlayer(
   tags: TagArray[],
   clocks: [VNode, VNode] | undefined,
+  materialDiffs: [VNode, VNode] | undefined,
   playerNames: PlayerNames,
   color: Color,
   ticking: boolean,
@@ -51,6 +54,7 @@ function renderPlayer(
           elo && h('span.elo', elo),
         ]),
       ]),
+      materialDiffs && materialDiffs[top ? 0 : 1],
       clocks && clocks[color === 'white' ? 0 : 1],
     ]
   );
