@@ -28,7 +28,7 @@ object form {
             form3.group(form("name"), trans.name())(form3.input(_)),
             requestField(form),
             hideFields(form),
-            entryCodeField(form),
+            entryCodeField(form, none),
             textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
@@ -54,7 +54,7 @@ object form {
             ),
             requestField(form),
             hideFields(form),
-            entryCodeField(form),
+            entryCodeField(form, t.some),
             textFields(form),
             form3.group(form("chat"), frag("Team chat")) { f =>
               form3.select(
@@ -145,7 +145,9 @@ object form {
       form("password"),
       trans.team.entryCode(),
       help = trans.team.entryCodeDescriptionForLeader().some
-    )(
-      form3.input(_)
-    )
+    ) { field =>
+      if (team.fold(true)(t => ctx.userId.exists(t.leaders.contains)))
+        form3.input(field)
+      else form3.input(field)(tpe := "password", disabled)
+    }
 }
