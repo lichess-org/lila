@@ -48,9 +48,6 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="leadersChat">Vadītāju sarakste</string>
   <string name="closeTeam">Slēgt komandu</string>
   <string name="closeTeamDescription">Uz visiem laikiem slēdz komandu.</string>
-  <string name="teamPassword">Komandas parole</string>
-  <string name="teamPasswordDescriptionForLeader">(Neobligāta) Parole, kas jauniem dalībniekiem jāzina, lai pievienotos komandai.</string>
-  <string name="incorrectTeamPassword">Nepareiza komandas parole.</string>
   <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
   <string name="upcomingTourns">Gaidāmie turnīri</string>
   <string name="completedTourns">Notikušie turnīri</string>
