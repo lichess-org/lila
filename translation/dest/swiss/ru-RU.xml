@@ -60,7 +60,10 @@
   <string name="pairingsQ">Как подбираются пары?</string>
   <string name="dutchSystem">Голландская система</string>
   <string name="FIDEHandbook">Руководство ФИДЕ</string>
+  <string name="pairingsA">Используется %1$s, реализованная с помощью %2$s, в соответствии с %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Что произойдёт, если в турнире будет больше раундов, чем игроков?</string>
+  <string name="moreRoundsThanPlayersA">Когда все возможные пары сыграют, турнир закончится и будут объявлены победители.</string>
+  <string name="restrictedToTeamsQ">Зачем нужны ограничения для команд?</string>
   <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, он просрочит время и проиграет партию.
