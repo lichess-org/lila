@@ -102,5 +102,9 @@
   <string name="shortDescription">Երկու քայլ մինչև հաղթանակ։</string>
   <string name="skewer">Գծային հարձակում</string>
   <string name="smotheredMate">Խեղդուկ մատ</string>
+  <string name="smotheredMateDescription">Մատ ձիով արքային, որը չի կարող փախչել, որովհետև շրջափակված է (խեղդված է) սեփական խաղաքարերով։</string>
+  <string name="superGM">Սուպերգրոսմայստերների պարտիաներ</string>
+  <string name="superGMDescription">Խնդիրներ աշխարհի լավագույն շախմատիստների պարտիաներից։</string>
+  <string name="trappedPiece">Խաղաքարի որսում</string>
   <string name="zugzwang">Ցունգցվանգ</string>
 </resources>
