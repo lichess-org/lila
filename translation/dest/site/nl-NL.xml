@@ -142,7 +142,7 @@
     <item quantity="one">%s speler</item>
     <item quantity="other">%s spelers</item>
   </plurals>
-  <string name="drawByMutualAgreement">Remise door wederzijdse overeenkomst</string>
+  <string name="drawByMutualAgreement">Remise overeengekomen</string>
   <string name="fiftyMovesWithoutProgress">Vijftig zetten zonder voortgang</string>
   <string name="currentGames">Lopende partijen</string>
   <plurals name="nbGames">
