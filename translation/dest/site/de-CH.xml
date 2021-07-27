@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Kompianalysä</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Tüüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analysä am Bruuchä</string>
