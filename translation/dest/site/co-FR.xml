@@ -855,9 +855,24 @@
   <string name="unsubscribe">Disarregistrate vi</string>
   <string name="mentionedYouInX">hà parlatu di voi in %1$s.</string>
   <string name="xMentionedYouInY">%1$shà parlatu di voi in%2$s.</string>
+  <string name="invitedYouToX">vi hà invitatu in %1$s.</string>
+  <string name="xInvitedYouToY">%1$s vi hà invitatu in %2$s.</string>
+  <string name="youAreNowPartOfTeam">Site un membru di a squadra avà.</string>
+  <string name="youHaveJoinedTeamX">Avete ghjuntu %1$s.</string>
+  <string name="someoneYouReportedWasBanned">Una persona ch\' avete denunciata hè stata messa fora</string>
+  <string name="congratsYouWon">Felicitazioni, ai vintu!</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
   <string name="newPendingReview">Un utilzatore cerca un intrenatore</string>
   <string name="lostAgainstTOSViolator">Avete persu perchè avete trasgreditu i Lichess TOS</string>
+  <string name="refundXpointsTimeControlY">Vi avemu resu: %1$s %2$s punti di classifica.</string>
+  <string name="timeAlmostUp">U tempu hè guasgi finitu!</string>
+  <string name="clickToRevealEmailAddress">[Clicheghja pè palisà l\' indirizzu mail]</string>
+  <string name="download">Telecaricà</string>
+  <string name="welcome">Benvenutu!</string>
+  <string name="lichessPatronInfo">Lichess hè un prugrammu infurmaticu in open source di rigalu in tuttu. Tutti i costi di sviluppu, di mantenanza è u cuntinutu sò pagati cù i dunazioni di l\' utilizatori.</string>
+  <string name="coachManager">Responsevule di l\' intrenatori</string>
+  <string name="streamerManager">Responsevule di i streamers</string>
+  <string name="cancelTournament">Cancellà u turneu</string>
 </resources>
