@@ -143,6 +143,7 @@
     <item quantity="other">%s играчи</item>
   </plurals>
   <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Реми по взаимно съгласие</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Петдесет хода без напредък</string>
   <string name="currentGames">Текущи игри</string>
   <plurals name="nbGames">
     <item quantity="one">%s Партия</item>
