@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hourlyRapidArena">Arena Rapid oraria</string>
-  <string name="hourlyRapid">Rapid orario</string>
-  <string name="hourlyXArena">Arena %s oraria</string>
-  <string name="hourlyX">%s orario</string>
-  <string name="dailyRapidArena">Arena Rapid giornaliera</string>
-  <string name="dailyRapid">Rapid giornaliero</string>
-  <string name="dailyClassicalArena">Arena Classical giornaliera</string>
-  <string name="dailyClassical">Classical giornaliero</string>
+  <string name="hourlyRapidArena">Arena rapida oraria</string>
+  <string name="hourlyRapid">Rapido orario</string>
+  <string name="hourlyXArena">Ogni ora %s Arena</string>
+  <string name="hourlyX">%s. oraria</string>
+  <string name="dailyRapidArena">Arena rapida giornaliera</string>
+  <string name="dailyRapid">Rapidità giornaliera</string>
+  <string name="dailyClassicalArena">Arena classica quotidiana</string>
+  <string name="dailyClassical">Classica quotidiana</string>
   <string name="dailyXArena">Arena %s giornaliera</string>
-  <string name="dailyX">%s giornaliero</string>
-  <string name="easternRapidArena">Arena Rapid Emisfero Est</string>
-  <string name="easternRapid">Rapid Emisfero Est</string>
-  <string name="easternClassicalArena">Arena Classical Emisfero Est</string>
-  <string name="easternClassical">Classical Emisfero Est</string>
+  <string name="dailyX">%s. giornaliero</string>
+  <string name="easternRapidArena">Arena rapida orientale</string>
+  <string name="easternRapid">Rapida orientale</string>
+  <string name="easternClassicalArena">Arena classica orientale</string>
+  <string name="easternClassical">Classica orientale</string>
   <string name="easternXArena">%s Arena Emisfero Est</string>
   <string name="easternX">%s Emisfero Est</string>
   <string name="weeklyRapidArena">Arena Rapid settimanale</string>
