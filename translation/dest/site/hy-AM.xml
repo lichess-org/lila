@@ -136,6 +136,8 @@
     <item quantity="one">Միացած խաղացողների թիվը՝ %s</item>
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
+  <string name="drawByMutualAgreement">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
+  <string name="fiftyMovesWithoutProgress">50 քայլ առանց առաջընթացի</string>
   <string name="currentGames">Այժմ օնլայն ընթացող խաղերը</string>
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
@@ -756,4 +758,5 @@
 Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
   <string name="coachManager">Մարզիչների համար</string>
   <string name="streamerManager">Սթրիմերների համար</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Մրցաշարին մասնակցելու կոդ</string>
 </resources>
