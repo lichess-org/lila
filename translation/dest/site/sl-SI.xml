@@ -138,6 +138,8 @@
     <item quantity="few">%s igralci</item>
     <item quantity="other">%s igralcev</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remi po dogovoru</string>
+  <string name="fiftyMovesWithoutProgress">50 potez brez napredka</string>
   <string name="currentGames">Trenutno igrane igre</string>
   <plurals name="nbGames">
     <item quantity="one">%s partija</item>
