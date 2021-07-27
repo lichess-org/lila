@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
-import { bind, bindSubmit, emptyRedButton } from '../util';
+import { bindNonPassive, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
 import { Redraw, MaybeVNodes } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
@@ -278,7 +278,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   action: '/study/' + data.id + '/clear-chat',
                   method: 'post',
                 },
-                hook: bind('submit', _ => {
+                hook: bindNonPassive('submit', _ => {
                   return confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'));
                 }),
               },
@@ -291,7 +291,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               action: '/study/' + data.id + '/delete',
               method: 'post',
             },
-            hook: bind('submit', _ => {
+            hook: bindNonPassive('submit', _ => {
               return isNew || confirm(ctrl.trans.noarg('deleteTheEntireStudy'));
             }),
           },

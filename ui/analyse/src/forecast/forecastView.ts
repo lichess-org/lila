@@ -2,7 +2,7 @@ import { h, VNode } from 'snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { bind, dataIcon, spinner } from '../util';
+import { bind, dataIcon, spinner, bindNonPassive } from '../util';
 import { fixCrazySan } from 'chess';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
@@ -67,7 +67,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
                 h(
                   'a.del',
                   {
-                    hook: bind(
+                    hook: bindNonPassive(
                       'click',
                       e => {
                         fctrl.removeIndex(i);
