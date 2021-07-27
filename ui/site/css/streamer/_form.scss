@@ -57,6 +57,10 @@ $mq-picture: $mq-large;
     margin-bottom: 6em;
   }
 
+  .mod_log {
+    @extend %break-word;
+  }
+
   #site_header a.preview {
     display: block;
     margin-top: 40px;
