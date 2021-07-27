@@ -917,5 +917,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="cantDoThisTwice">If you close your account a second time, there will be no way of recovering it.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
   <string name="sentEmailWithLink">We've sent you an email with a link.</string>
-   <string name="tournamentEntryCode">Tournament entry code</string>
+  <string name="tournamentEntryCode">Tournament entry code</string>
 </resources>

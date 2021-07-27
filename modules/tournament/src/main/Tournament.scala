@@ -226,11 +226,11 @@ object Tournament {
     def ok = error.isEmpty
   }
   object JoinResult {
-    case object Ok            extends JoinResult(none)
+    case object Ok             extends JoinResult(none)
     case object WrongEntryCode extends JoinResult("Wrong entry code".some)
-    case object Paused        extends JoinResult("Your pause is not over yet".some)
-    case object Verdicts      extends JoinResult("Tournament restrictions".some)
-    case object MissingTeam   extends JoinResult("Missing team".some)
-    case object Nope          extends JoinResult("Couldn't join for some reason?".some)
+    case object Paused         extends JoinResult("Your pause is not over yet".some)
+    case object Verdicts       extends JoinResult("Tournament restrictions".some)
+    case object MissingTeam    extends JoinResult("Missing team".some)
+    case object Nope           extends JoinResult("Couldn't join for some reason?".some)
   }
 }
