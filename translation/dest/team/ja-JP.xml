@@ -42,6 +42,9 @@
   <string name="leadersChat">リーダー・チャット</string>
   <string name="closeTeam">チームを解散</string>
   <string name="closeTeamDescription">チームを永久に閉鎖します。</string>
+  <string name="entryCode" comment="entryCode&#10;&#10;For Lichess teams, which can require a code to join them if they are set up that way.">チーム参加コード</string>
+  <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">参加コードが違います。</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
