@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyRapidArena">Արագ շախմատի ամենժամյա Արենա</string>
-  <string name="hourlyRapid"> Ամենժամյա արագ շախմատ</string>
+  <string name="hourlyRapid">Ամենժամյա արագ շախմատ</string>
   <string name="hourlyXArena">Ամենժամյա %s Արենա</string>
   <string name="hourlyX">Ամենժամյա %s</string>
   <string name="dailyRapidArena">Արագ շախմատի ամենօրյա Արենա</string>
@@ -29,7 +29,7 @@
   <string name="monthlyXArena">Ամենամսյա %s Արենա</string>
   <string name="monthlyX">Ամենամսյա %s</string>
   <string name="yearlyRapidArena">Արագ շախմատի ամենամյա Արենա</string>
-  <string name="yearlyRapid"> Ամենամյա արագ շախմատ</string>
+  <string name="yearlyRapid">Ամենամյա արագ շախմատ</string>
   <string name="yearlyClassicalArena">Դասական շախմատի ամենամյա Արենա</string>
   <string name="yearlyClassical">Ամենամյա դասական շախմատ</string>
   <string name="yearlyXArena">Ամենամյա %s Արենա</string>
