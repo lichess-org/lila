@@ -142,6 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis efter fælles aftale</string>
+  <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
@@ -916,5 +918,5 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
   <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
-  <string name="tournamentEntryCode">Turneringadgangskode</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turneringadgangskode</string>
 </resources>
