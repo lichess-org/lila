@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Dumandate una analisa à l\' urdinatore</string>
   <string name="computerAnalysis">Analisa di l\' urdinatore</string>
   <string name="computerAnalysisAvailable">L\' analisa di l\' urdinatore hè pronta</string>
+  <string name="computerAnalysisDisabled">Analisa di l\' urdinatore disattivata</string>
   <string name="analysis">Scacchera d\' analisa</string>
   <string name="depthX">Prufundezza %s</string>
   <string name="usingServerAnalysis">Aduprate l\' arnese d\' analisa</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s ghjucatore</item>
     <item quantity="other">%s ghjucatori</item>
   </plurals>
+  <string name="drawByMutualAgreement">Partita pattu per via d\' un accusentu</string>
+  <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate avali</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
@@ -738,6 +741,7 @@
   <string name="usernameSuffixInvalid">Ci vole à aduprà una lettera o un ciffru à a fine di un nome d\' utilizatore.</string>
   <string name="usernameCharsInvalid">Un nome d\' utilizatore ùn pò cuntene chì letteren ciffri è righette. Ùn si pò scrive 2 righette cunsecutive.</string>
   <string name="usernameUnacceptable">Ùn pudemu accettà issu nome d\' utilizatore.</string>
+  <string name="directlySupportLichess">Leia diretta pè l\' aiutu</string>
   <string name="playChessInStyle">Ghjucà à i scacchi cù maneghja</string>
   <string name="chessBasics">E base di i scacchi</string>
   <string name="coaches">Intrenatori</string>
@@ -758,6 +762,7 @@
   <string name="practiceWithComputer">Addestrà si cù l\' urdinatore</string>
   <string name="anotherWasX">U altru era%s</string>
   <string name="bestWasX">U più forte era%s</string>
+  <string name="youBrowsedAway">Site andatu luntanu</string>
   <string name="resumePractice">Ripiglià l\' intrenamentu</string>
   <string name="theGameIsADraw">A partita hè patta.</string>
   <string name="computerThinking">L\' urdinatore riflette...</string>
@@ -808,6 +813,7 @@
   <string name="weHadToTimeYouOutForAWhile">Vi avemu messu fora pè un mumentu.</string>
   <string name="timeoutExpires">A suspensione finisce %s.</string>
   <string name="why">Perchè?</string>
+  <string name="pleasantChessExperience">Vulemu prupone una stonda di scacchi piacevule pè tutti.</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
