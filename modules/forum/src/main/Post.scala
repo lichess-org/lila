@@ -38,6 +38,10 @@ case class Post(
 
   def isTeam = categId startsWith teamSlug("")
 
+  def isAnonModPost = !userId.isDefined && modIcon.getOrElse(
+    false
+  )
+
   def updatedOrCreatedAt = updatedAt | createdAt
 
   def canStillBeEdited =
@@ -45,9 +49,11 @@ case class Post(
 
   def canBeEditedBy(editingUser: User): Boolean =
     userId match {
-      case Some(userId) if userId == editingUser.id                                       => true
-      case None if Granter(_.PublicMod)(editingUser) || Granter(_.SeeReport)(editingUser) => true
-      case _                                                                              => false
+      case Some(userId) if userId == editingUser.id => true
+      case None
+          if (Granter(_.PublicMod)(editingUser) || Granter(_.SeeReport)(editingUser)) && isAnonModPost =>
+        true
+      case _ => false
     }
 
   def shouldShowEditForm(editingUser: User) =
