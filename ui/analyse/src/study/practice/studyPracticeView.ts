@@ -1,12 +1,11 @@
+import { bind, bindNonPassive } from 'common/snabbdom';
 import { h, thunk, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
-import { plural, spinner, richHTML, option } from '../../util';
-import { StudyCtrl } from '../interfaces';
-import { MaybeVNodes } from '../../interfaces';
-import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
+import { MaybeVNodes } from '../../interfaces';
+import { option, plural, richHTML, spinner } from '../../util';
 import { view as descView } from '../description';
-import { bindNonPassive } from 'common/snabbdom';
+import { StudyCtrl } from '../interfaces';
+import { StudyPracticeCtrl, StudyPracticeData } from './interfaces';
 
 function selector(data: StudyPracticeData) {
   return h(

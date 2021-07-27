@@ -1,8 +1,9 @@
-import { h, thunk, VNode } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
-import { option, onInsert } from '../util';
+import { h, thunk, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { StudyCtrl, StudyChapter } from './interfaces';
+import { option } from '../util';
+import { StudyChapter, StudyCtrl } from './interfaces';
 
 export interface TagsCtrl {
   submit(type: string): (tag: string) => void;
