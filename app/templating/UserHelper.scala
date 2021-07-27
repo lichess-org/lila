@@ -211,7 +211,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def anonModUser(cssClass: Option[String] = None) =
     span(
-      cls := List("online" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
+      cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
     )(
       moderatorIcon,
       User.anonMod
