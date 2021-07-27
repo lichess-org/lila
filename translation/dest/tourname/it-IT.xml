@@ -3,7 +3,7 @@
   <string name="hourlyRapidArena">Arena rapida oraria</string>
   <string name="hourlyRapid">Rapido orario</string>
   <string name="hourlyXArena">Ogni ora %s Arena</string>
-  <string name="hourlyX">%s. oraria</string>
+  <string name="hourlyX">%s oraria</string>
   <string name="dailyRapidArena">Arena rapida giornaliera</string>
   <string name="dailyRapid">Rapidità giornaliera</string>
   <string name="dailyClassicalArena">Arena classica quotidiana</string>
@@ -18,7 +18,7 @@
   <string name="easternX">%s orientale</string>
   <string name="weeklyRapidArena">Arena rapida settimanale</string>
   <string name="weeklyRapid">Rapido settimanale</string>
-  <string name="weeklyClassicalArena">Arena Classical settimanale</string>
+  <string name="weeklyClassicalArena">Arena classica settimanale</string>
   <string name="weeklyClassical">Settimanale Classica</string>
   <string name="weeklyXArena">Settimanale %s Arena</string>
   <string name="weeklyX">Settimanale %s</string>
@@ -34,16 +34,16 @@
   <string name="yearlyClassical">Annuale Classica</string>
   <string name="yearlyXArena">Annuale %s Arena</string>
   <string name="yearlyX">Annuale %s</string>
-  <string name="rapidShieldArena">Arena Mensile Rapid</string>
-  <string name="rapidShield">Rapid Mensile</string>
-  <string name="classicalShieldArena">Arena mensile Classical</string>
-  <string name="classicalShield">Classical Mensile</string>
-  <string name="xShieldArena">Arena Mensile %s</string>
-  <string name="xShield">Mensile %s</string>
-  <string name="openingRapidArena">%s Arena Rapid</string>
-  <string name="openingRapid">%s Rapid</string>
-  <string name="xTeamBattle">%s a squadre</string>
+  <string name="rapidShieldArena">Arena scudo rapido</string>
+  <string name="rapidShield">Scudo rapido</string>
+  <string name="classicalShieldArena">Arena scudo classico</string>
+  <string name="classicalShield">Scudo classico</string>
+  <string name="xShieldArena">%s Scudo Arena</string>
+  <string name="xShield">Scudo %ss</string>
+  <string name="openingRapidArena">%s Rapid Arena</string>
+  <string name="openingRapid">%s Rapido</string>
+  <string name="xTeamBattle">%s Battaglia a squadre</string>
   <string name="eliteXArena">Elite %s Arena</string>
-  <string name="eliteX">%s Elite</string>
-  <string name="xArena">Arena %s</string>
+  <string name="eliteX">Elite %s</string>
+  <string name="xArena">%s Arena</string>
 </resources>
