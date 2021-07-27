@@ -28,5 +28,6 @@ trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
       modIcon: Boolean = false
   )(implicit lang: Lang): Frag =
     if (post.erased) span(cls := "author")("<erased>")
+    else if (post.userId.isEmpty && modIcon) anonModUser(cssClass = cssClass)
     else userIdLink(post.userId, cssClass = cssClass, withOnline = withOnline, modIcon = modIcon)
 }

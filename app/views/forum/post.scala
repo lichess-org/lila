@@ -6,6 +6,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
 import lila.forum.Post
+import lila.security.Granter
 
 import controllers.routes
 
@@ -56,9 +57,9 @@ object post {
                 momentFromNow(post.createdAt)
               }
           ),
-          (!post.erased && ctx.userId.exists(post.shouldShowEditForm)) option
+          (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
             button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
-          if (!post.erased && ctx.userId.has(~post.userId))
+          if (!post.erased && ctx.me.exists(post.canBeEditedBy))
             postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
               submitButton(
                 cls := "mod delete button button-empty confirm",
@@ -99,7 +100,7 @@ object post {
         else richText(post.text)
       ),
       !post.erased option reactions(post, canReact),
-      ctx.userId.exists(post.shouldShowEditForm) option
+      ctx.me.exists(post.shouldShowEditForm) option
         postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
             bits.dataTopic := topic.id,
