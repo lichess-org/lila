@@ -86,7 +86,11 @@ object post {
                 )
               )
             },
-          canReply option button(cls := "mod quote button button-empty text", tpe := "button", dataIcon := "❝")("Quote")
+          canReply option button(
+            cls := "mod quote button button-empty text",
+            tpe := "button",
+            dataIcon := "❝"
+          )("Quote")
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),

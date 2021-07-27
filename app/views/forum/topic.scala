@@ -120,8 +120,7 @@ object topic {
           }
         ),
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) emptyFrag
-          else if (topic.isOld)
+          if (topic.isOld)
             p(trans.thisTopicIsArchived())
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())

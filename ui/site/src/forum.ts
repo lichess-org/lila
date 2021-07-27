@@ -64,11 +64,11 @@ lichess.load.then(() => {
       message = $post.find('.forum-post__message')[0] as HTMLElement,
       response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
 
-    const quoteContent = message.innerText
+    let quote = message.innerText
       .split('\n')
       .map(line => '> ' + line)
       .join('\n');
-    const quote = `@${author} said in ${anchor}:\n${quoteContent}\n`;
+    quote = `@${author} said in ${anchor}:\n${quote}\n`;
     response.value =
       response.value.substring(0, response.selectionStart) + quote + response.value.substring(response.selectionEnd);
   });
@@ -141,5 +141,20 @@ lichess.load.then(() => {
         }
       );
     }
+  });
+
+  const replyStorage = lichess.tempStorage.make('forum.reply');
+  const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
+  const storedReply = replyStorage.get();
+  let submittingReply = false;
+  if (replyEl && storedReply) replyEl.value = storedReply;
+
+  window.addEventListener('unload', () => {
+    if (!submittingReply && replyEl?.value) replyStorage.set(replyEl.value);
+  });
+
+  $('form.reply').on('submit', () => {
+    replyStorage.remove();
+    submittingReply = true;
   });
 });
