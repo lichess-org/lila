@@ -18,5 +18,17 @@
   <string name="aboutMe">Իմ մասին</string>
   <string name="playingExperience">Խաղացողի ստաժը</string>
   <string name="teachingExperience">Մարզչի ստաժը</string>
+  <string name="otherExperiences">Այլ նվաճումներ</string>
+  <string name="bestSkills">Լավագույն ունակություններ</string>
+  <string name="teachingMethod">Դասավանդման մեթոդիկան</string>
+  <string name="publicStudies">Հանրային ստուդիաները</string>
   <string name="youtubeVideos">Youtube տեսանյութեր</string>
+  <plurals name="studentReviews">
+    <item quantity="one">Մեկ աշակերտի արձագանք</item>
+    <item quantity="other">%s աշակերտի արձագանք</item>
+  </plurals>
+  <string name="thankYouForReview">Շնորհակալություն արձագանքի համար:</string>
+  <string name="xWillApproveIt">%s-ը կհաստատի այն շատ շուտով, կամ մոդերատորը կդիտի այն։</string>
+  <string name="reviewCoach">Կարծիք թողնել այս մարզչի մասին</string>
+  <string name="describeExperienceWith">Նկարագրեք %s-ում Ձեր դասավանդման փորձը</string>
 </resources>
