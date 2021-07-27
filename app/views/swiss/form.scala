@@ -33,7 +33,7 @@ object form {
             ),
             form3.split(
               fields.chatFor,
-              fields.password
+              fields.entryCode
             ),
             condition(form, fields, swiss = none),
             form3.split(fields.forbiddenPairings),
@@ -68,7 +68,7 @@ object form {
             ),
             form3.split(
               fields.chatFor,
-              fields.password
+              fields.entryCode
             ),
             condition(form, fields, swiss = swiss.some),
             form3.split(fields.forbiddenPairings),
@@ -207,11 +207,11 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
       )
     }
 
-  def password =
+  def entryCode =
     form3.group(
       form("password"),
-      trans.password(),
-      help = trans.makePrivateTournament().some,
+      trans.tournamentEntryCode(),
+      help = trans.makePrivateTournamentHelp().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
 

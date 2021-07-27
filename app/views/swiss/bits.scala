@@ -99,7 +99,7 @@ object bits {
     trans.standByX,
     trans.averageOpponent,
     trans.tournamentComplete,
-    trans.password,
+    trans.tournamentEntryCode,
     trans.swiss.viewAllXRounds,
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,
