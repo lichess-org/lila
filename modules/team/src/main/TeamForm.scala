@@ -19,7 +19,7 @@ final private[team] class TeamForm(
     val location = "location" -> optional(cleanText(minLength = 3, maxLength = 80))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
-      "team:incorrectTeamPassword",
+      "team:incorrectEntryCode",
       pw => team.passwordMatches(pw.??(_.trim))
     )
     def requestMessage(team: Team) =

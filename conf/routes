@@ -681,6 +681,7 @@ GET   /api/bot/game/stream/:id         controllers.PlayApi.botGameStream(id: Str
 POST  /api/bot/game/:id/move/:uci      controllers.PlayApi.botMove(id: String, uci: String, offeringDraw: Option[Boolean] ?= None)
 POST  /api/bot/*cmd                    controllers.PlayApi.botCommand(cmd: String)
 GET   /player/bots                     controllers.PlayApi.botOnline
+GET   /api/bot/online                  controllers.PlayApi.botOnlineApi
 
 # Board API
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id: String)

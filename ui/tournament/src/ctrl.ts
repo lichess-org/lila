@@ -137,7 +137,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(this.trans.noarg('password'));
+        password = prompt(this.trans.noarg('tournamenEntryCode'));
         if (password === null) {
           return;
         }

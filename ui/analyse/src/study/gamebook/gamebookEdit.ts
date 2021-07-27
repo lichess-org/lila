@@ -1,7 +1,8 @@
 import * as control from '../../control';
 import AnalyseCtrl from '../../ctrl';
 import throttle from 'common/throttle';
-import { bind, iconTag } from '../../util';
+import { bind } from 'common/snabbdom';
+import { iconTag } from '../../util';
 import { h, Hooks, VNode } from 'snabbdom';
 import { MaybeVNodes } from '../../interfaces';
 

@@ -13,7 +13,7 @@ import lila.user.User
 object queue {
 
   def apply(
-      appeals: List[Appeal],
+      appeals: List[Appeal.WithUser],
       inquiries: Map[User.ID, Inquiry],
       scores: lila.report.Room.Scores,
       streamers: Int,
@@ -29,10 +29,12 @@ object queue {
           )
         ),
         tbody(
-          appeals.map { appeal =>
+          appeals.map { case Appeal.WithUser(appeal, user) =>
             tr(cls := List("new" -> appeal.isUnread))(
               td(
-                userIdLink(appeal.id.some)
+                userIdLink(appeal.id.some),
+                br,
+                views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption map { msg =>
                 frag(

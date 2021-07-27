@@ -1,7 +1,8 @@
 import { renderIndexAndMove } from '../moveView';
 import { RetroCtrl } from './retroCtrl';
 import AnalyseCtrl from '../ctrl';
-import { bind, dataIcon, spinner } from '../util';
+import { bind } from 'common/snabbdom';
+import { dataIcon, spinner } from '../util';
 import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
@@ -191,7 +192,7 @@ const feedback = {
             h(
               'a',
               {
-                hook: bind('click', () => ctrl.flip()),
+                hook: bind('click', ctrl.flip),
               },
               ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes')
             ),

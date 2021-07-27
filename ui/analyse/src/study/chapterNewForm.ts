@@ -1,16 +1,17 @@
-import * as xhr from 'common/xhr';
-import AnalyseCtrl from '../ctrl';
-import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { chapter as chapterTour } from './studyTour';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { defined, prop, Prop } from 'common';
-import { h, VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
-import { Redraw } from '../interfaces';
+import { defined, prop, Prop } from 'common';
 import { snabModal } from 'common/modal';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { storedProp, StoredProp } from 'common/storage';
+import * as xhr from 'common/xhr';
+import { h, VNode } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
+import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import { variants as xhrVariants, importPgn } from './studyXhr';
+import { option, spinner } from '../util';
+import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
+import { chapter as chapterTour } from './studyTour';
+import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],

@@ -290,7 +290,7 @@ final class TournamentApi(
       playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongPassword)
+          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongEntryCode)
           else
             getVerdicts(tour, me.some, getUserTeamIds) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)

@@ -41,7 +41,8 @@ object ServerEval {
                 .UciDump(
                   moves = chapter.root.mainline.map(_.move.san),
                   initialFen = chapter.root.fen.some,
-                  variant = chapter.setup.variant
+                  variant = chapter.setup.variant,
+                  force960Notation = true
                 )
                 .toOption
                 .map(_.flatMap(chess.format.Uci.apply)) | List.empty,

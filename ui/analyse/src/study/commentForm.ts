@@ -1,9 +1,10 @@
-import { h, VNode } from 'snabbdom';
-import { currentComments, isAuthorObj } from './studyComments';
-import { nodeFullName, bind } from '../util';
 import { prop, Prop } from 'common';
+import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import { nodeFullName } from '../util';
+import { currentComments, isAuthorObj } from './studyComments';
 
 interface Current {
   chapterId: string;

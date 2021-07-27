@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { bind, onInsert } from 'common/snabbdom';
 import { StudyCtrl } from './interfaces';
-import { bind, richHTML, onInsert } from '../util';
+import { richHTML } from '../util';
 
 export type Save = (t: string) => void;
 
@@ -87,7 +88,13 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
           'data-icon': '',
           title: 'Close',
         },
-        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
+        hook: bind(
+          'click',
+          () => {
+            ctrl.edit = false;
+          },
+          ctrl.redraw
+        ),
       }),
     ]),
     h('form.form3', [

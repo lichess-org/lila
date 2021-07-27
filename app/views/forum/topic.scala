@@ -113,14 +113,14 @@ object topic {
               topic,
               p,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
           }
         ),
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) emptyFrag
-          else if (topic.isOld)
+          if (topic.isOld)
             p(trans.thisTopicIsArchived())
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())

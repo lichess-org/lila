@@ -47,6 +47,10 @@
     color: $c-font;
     &:hover {
       color: $c-bad;
+
+      &.quote {
+        color: $c-primary;
+      }
     }
 
     &.postip {
@@ -92,10 +96,20 @@
       @extend %video;
 
       margin: $block-gap auto;
+
+      .embed--game {
+        @extend %game-embed;
+      }
     }
 
     img {
       max-width: 100%;
+    }
+
+    blockquote {
+      padding-left: 0.5em;
+      border-left: 0.3em solid;
+      margin: 0.3em;
     }
   }
 

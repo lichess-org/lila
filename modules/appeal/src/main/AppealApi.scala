@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.db.dsl._
 import lila.user.{ Holder, NoteApi, User, UserRepo }
+import reactivemongo.api.ReadPreference
 
 final class AppealApi(
     coll: Coll,
@@ -61,24 +62,51 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
-  def queueOf(mod: User) = queue(snoozer snoozedKeysOf mod.id map (_.appealId))
+  def queueOf(mod: User) = bothQueues(snoozer snoozedKeysOf mod.id map (_.appealId))
 
-  private def queue(exceptIds: Iterable[User.ID]): Fu[List[Appeal]] =
-    coll
-      .find($doc("status" -> Appeal.Status.Unread.key) ++ {
+  private def bothQueues(exceptIds: Iterable[User.ID]): Fu[List[Appeal.WithUser]] =
+    fetchQueue(
+      selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
         exceptIds.nonEmpty ?? $doc("_id" $nin exceptIds)
-      })
-      .sort($doc("firstUnrepliedAt" -> 1))
-      .cursor[Appeal]()
-      .list(30) flatMap { unreads =>
-      coll
-        .find($doc("status" $ne Appeal.Status.Unread.key))
-        .sort($doc("firstUnrepliedAt" -> -1))
-        .cursor[Appeal]()
-        .list(40 - unreads.size) map {
-        unreads ::: _
-      }
+      },
+      ascending = true,
+      nb = 30
+    ) flatMap { unreads =>
+      fetchQueue(
+        selector = $doc("status" $ne Appeal.Status.Unread.key),
+        ascending = false,
+        nb = 40 - unreads.size
+      ) map { unreads ::: _ }
     }
+
+  private def fetchQueue(selector: Bdoc, ascending: Boolean, nb: Int): Fu[List[Appeal.WithUser]] =
+    coll
+      .aggregateList(
+        maxDocs = nb,
+        ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        Match(selector) -> List(
+          Sort((if (ascending) Ascending.apply _ else Descending.apply _)("firstUnrepliedAt")),
+          Limit(nb),
+          PipelineOperator(
+            $lookup.simple(
+              from = userRepo.coll,
+              as = "user",
+              local = "_id",
+              foreign = "_id"
+            )
+          ),
+          UnwindField("user")
+        )
+      }
+      .map { docs =>
+        for {
+          doc    <- docs
+          appeal <- doc.asOpt[Appeal]
+          user   <- doc.getAsOpt[User]("user")
+        } yield Appeal.WithUser(appeal, user)
+      }
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void

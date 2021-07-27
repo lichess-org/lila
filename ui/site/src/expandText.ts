@@ -93,7 +93,7 @@ lichess.load.then(() => {
     const $iframe: any = $('<iframe>')
       .addClass('analyse ' + a.type)
       .attr('src', a.src);
-    $(a.element).replaceWith($('<div class="embed">').prepend($iframe));
+    $(a.element).replaceWith($('<div class="embed embed--game">').prepend($iframe));
     return $iframe
       .on('load', function (this: HTMLIFrameElement) {
         if (this.contentDocument?.title.startsWith('404')) this.style.height = '100px';

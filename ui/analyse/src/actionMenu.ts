@@ -1,12 +1,13 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
+import { bind, bindNonPassive } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { bind, dataIcon } from './util';
+import { dataIcon } from './util';
 import * as pgnExport from './pgnExport';
 
 interface AutoplaySpeed {
@@ -45,7 +46,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
           method: 'post',
           action: '/' + g.id + '/delete',
         },
-        hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
+        hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
       },
       [
         h(

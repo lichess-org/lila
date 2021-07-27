@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
-import { bind, dataIcon } from '../../util';
+import { bind } from 'common/snabbdom';
+import { dataIcon } from '../../util';
 import AnalyseCtrl from '../../ctrl';
 import { StudyCtrl } from '../interfaces';
 

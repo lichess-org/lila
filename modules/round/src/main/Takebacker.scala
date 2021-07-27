@@ -28,9 +28,11 @@ final private class Takebacker(
                 .fromPly(pov.opponent.proposeTakebackAt)
             ) single(game)
             else double(game)
-          } dmap (_ -> situation.reset)
-        case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
-        case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
+          } >>- publishTakeback(pov) dmap (_ -> situation.reset)
+        case Pov(game, _) if pov.game.playableByAi =>
+          single(game) >>- publishTakeback(pov) dmap (_ -> situation)
+        case Pov(game, _) if pov.opponent.isAi =>
+          double(game) >>- publishTakeback(pov) dmap (_ -> situation)
         case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable =>
           {
             messenger.system(game, trans.takebackPropositionSent.txt())
@@ -122,4 +124,18 @@ final private class Takebacker(
     messenger.system(p2.game, trans.takebackPropositionAccepted.txt())
     proxy.save(p2) inject p2.events
   }
+
+  private def publishTakeback(prevPov: Pov)(implicit proxy: GameProxy): Unit =
+    if (lila.game.Game.isBoardCompatible(prevPov.game))
+      proxy
+        .withPov(prevPov.color) { p =>
+          fuccess(
+            Bus.publish(
+              lila.game.actorApi.BoardTakeback(p),
+              lila.game.actorApi.BoardTakeback makeChan prevPov.gameId
+            )
+          )
+        }
+        .unit
+
 }

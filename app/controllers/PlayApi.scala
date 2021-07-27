@@ -1,7 +1,8 @@
 package controllers
 
-import play.api.mvc._
 import play.api.i18n.Lang
+import play.api.mvc._
+import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.app._
@@ -12,6 +13,8 @@ import lila.user.{ User => UserModel }
 final class PlayApi(
     env: Env,
     apiC: => Api
+)(implicit
+    mat: akka.stream.Materializer
 ) extends LilaController(env) {
 
   implicit private def autoReqLang(implicit req: RequestHeader) = reqLang(req)
@@ -151,6 +154,17 @@ final class PlayApi(
     Open { implicit ctx =>
       env.user.repo.botsByIds(env.bot.onlineApiUsers.get) map { users =>
         Ok(views.html.user.bots(users))
+      }
+    }
+
+  def botOnlineApi =
+    Action { implicit req =>
+      apiC.jsonStream {
+        env.user.repo
+          .botsByIdsCursor(env.bot.onlineApiUsers.get)
+          .documentSource(getInt("nb", req) | Int.MaxValue)
+          .throttle(50, 1 second)
+          .map { env.user.jsonView(_) }
       }
     }
 }

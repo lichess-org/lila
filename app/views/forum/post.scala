@@ -37,6 +37,7 @@ object post {
       topic: lila.forum.Topic,
       post: lila.forum.Post,
       url: String,
+      canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
   )(implicit ctx: Context) = {
@@ -57,7 +58,7 @@ object post {
               }
           ),
           (!post.erased && ctx.me.exists(post.shouldShowEditForm)) option
-            a(cls := "mod edit button button-empty text", dataIcon := "")("Edit"),
+            button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := "")("Edit"),
           if (!post.erased && ctx.me.exists(post.canBeEditedBy))
             postForm(action := routes.ForumPost.delete(categ.slug, post.id))(
               submitButton(
@@ -85,7 +86,12 @@ object post {
                   dataIcon := ""
                 )
               )
-            }
+            },
+          canReply option button(
+            cls := "mod quote button button-empty text",
+            tpe := "button",
+            dataIcon := "❝"
+          )("Quote")
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),

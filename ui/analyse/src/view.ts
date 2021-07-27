@@ -1,44 +1,46 @@
-import { h, VNode } from 'snabbdom';
+import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import * as chessground from './ground';
-import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
+import { bind, bindNonPassive, MaybeVNodes, onInsert } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import statusView from 'game/view/status';
+import { h, VNode } from 'snabbdom';
 import { path as treePath } from 'tree';
-import { render as renderTreeView } from './treeView/treeView';
-import * as control from './control';
+import { render as acplView } from './acpl';
 import { view as actionMenu } from './actionMenu';
 import renderClocks from './clocks';
-import * as pgnExport from './pgnExport';
-import forecastView from './forecast/forecastView';
-import { view as cevalView } from 'ceval';
+import * as control from './control';
 import crazyView from './crazy/crazyView';
-import { view as keyboardView } from './keyboard';
+import AnalyseCtrl from './ctrl';
 import explorerView from './explorer/explorerView';
-import retroView from './retrospect/retroView';
+import forecastView from './forecast/forecastView';
+import { view as forkView } from './fork';
+import * as gridHacks from './gridHacks';
+import * as chessground from './ground';
+import { ConcealOf } from './interfaces';
+import { view as keyboardView } from './keyboard';
+import * as pgnExport from './pgnExport';
 import practiceView from './practice/practiceView';
+import retroView from './retrospect/retroView';
+import serverSideUnderboard from './serverSideUnderboard';
 import * as gbEdit from './study/gamebook/gamebookEdit';
 import * as gbPlay from './study/gamebook/gamebookPlayView';
 import { StudyCtrl } from './study/interfaces';
-import * as studyView from './study/studyView';
+import renderPlayerBars from './study/playerBars';
 import * as studyPracticeView from './study/practice/studyPracticeView';
-import { view as forkView } from './fork';
-import { render as acplView } from './acpl';
-import AnalyseCtrl from './ctrl';
-import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
 import relayTour from './study/relay/relayTourView';
-import renderPlayerBars from './study/playerBars';
-import serverSideUnderboard from './serverSideUnderboard';
-import * as gridHacks from './gridHacks';
-import { bindNonPassive } from 'common/snabbdom';
+import { findTag } from './study/studyChapters';
+import * as studyView from './study/studyView';
+import { render as renderTreeView } from './treeView/treeView';
+import { bindMobileMousedown, dataIcon, spinner } from './util';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
-  let result: string | undefined;
-  if (ctrl.data.game.status.id >= 30)
+  const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
+  if (ctrl.data.game.status.id >= 30) {
+    let result;
     switch (ctrl.data.game.winner) {
       case 'white':
         result = '1-0';
@@ -49,18 +51,19 @@ function renderResult(ctrl: AnalyseCtrl): VNode[] {
       default:
         result = '½-½';
     }
-  const tags: VNode[] = [];
-  if (result) {
-    tags.push(h('div.result', result));
     const winner = getPlayer(ctrl.data, ctrl.data.game.winner!);
-    tags.push(
-      h('div.status', [
-        statusView(ctrl),
-        winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
-      ])
-    );
+    return render(result, [
+      statusView(ctrl),
+      winner ? ', ' + ctrl.trans(winner.color == 'white' ? 'whiteIsVictorious' : 'blackIsVictorious') : null,
+    ]);
+  } else if (ctrl.study) {
+    const result = findTag(ctrl.study.data.chapter.tags, 'result');
+    if (!result || result === '*') return [];
+    if (result === '1-0') return render(result, [ctrl.trans.noarg('whiteIsVictorious')]);
+    if (result === '0-1') return render(result, [ctrl.trans.noarg('blackIsVictorious')]);
+    return render('½-½', [ctrl.trans.noarg('draw')]);
   }
-  return tags;
+  return [];
 }
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
@@ -302,6 +305,7 @@ function analysisDisabled(ctrl: AnalyseCtrl): VNode {
       'button',
       {
         hook: bind('click', ctrl.toggleComputer, ctrl.redraw),
+        attrs: { type: 'button' },
       },
       ctrl.trans.noarg('enable')
     ),
