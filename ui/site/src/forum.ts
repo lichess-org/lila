@@ -143,7 +143,7 @@ lichess.load.then(() => {
     }
   });
 
-  const replyStorage = lichess.tempStorage.make('forum.reply');
+  const replyStorage = lichess.tempStorage.make('forum.reply' + location.pathname);
   const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
   const storedReply = replyStorage.get();
   let submittingReply = false;
