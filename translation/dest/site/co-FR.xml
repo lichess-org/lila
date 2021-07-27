@@ -912,4 +912,9 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="showHelpDialog">Mustrà a scatula d\' aiutu</string>
   <string name="reopenYourAccount">Apre da torna u vostru contu</string>
   <string name="closedAccountChangedMind">S\'è vo avete chjosu u vostru contu, ma ch\' avete cambiatu d\' idea, vi ferma una opportunità di recuperà lu.</string>
+  <string name="onlyWorksOnce">Ùn puderete reapre lu ch\' una volta.</string>
+  <string name="cantDoThisTwice">S\'è vo chjudite u vostru contu una seconda volta, ùn puderete più recuperà lu.</string>
+  <string name="emailAssociatedToaccount">Indirizzu mail liati à u contu</string>
+  <string name="sentEmailWithLink">Vi avemu mandatu un mail cù una leia.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codice per arregistrà si in u turneu</string>
 </resources>
