@@ -916,4 +916,5 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
   <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
+  <string name="tournamentEntryCode">Turneringadgangskode</string>
 </resources>
