@@ -814,6 +814,17 @@
   <string name="timeoutExpires">A suspensione finisce %s.</string>
   <string name="why">Perchè?</string>
   <string name="pleasantChessExperience">Vulemu prupone una stonda di scacchi piacevule pè tutti.</string>
+  <string name="goodPractice">A tale scopu, vulemu assicurà chì tutti i ghjucatori seguitinu e bone pratiche.</string>
+  <string name="potentialProblem">Quandu un prublemu hè rilevatu, mustrmu stu messaghju.</string>
+  <string name="howToAvoidThis">Cumu evità stu prublemu?</string>
+  <string name="playEveryGame">Ghjucate tutte e partite chè vo principate.</string>
+  <string name="tryToWin">Cercate à vince (o omancu annullà) tutte e partite chè vo ghjucate.</string>
+  <string name="resignLostGames">Lasciate corre e partite perse ( ùn lasciate micca u riloghju turnà, abbandunate).</string>
+  <string name="temporaryInconvenience">Scusate pè u scomudu tempurariu</string>
+  <string name="wishYouGreatGames">è vi auguremu tante belle partite nantu à lichess.org.</string>
+  <string name="thankYouForReading">Vi ringraziemu d\' avè lettu!</string>
+  <string name="lifetimeScore">Storia di i risultati</string>
+  <string name="currentMatchScore">Risultatu di u scontru attuale</string>
   <string name="gameVsX">Partita contru à %1$s</string>
   <string name="resVsX">%1$s contru à %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Qualchissia hà esaminatu u vostru profilu d\' intrenatore.</string>
