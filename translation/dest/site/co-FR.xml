@@ -896,4 +896,19 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="simulFeaturedHelp">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
+  <string name="markdownAvailable">%s hè disponibule pè una synttax più cumplessa.</string>
+  <string name="inYourLocalTimezone">In u vostru circondu</string>
+  <string name="tournChat">Chjachjera di a ghjustra</string>
+  <string name="noChat">Senza chjachjera</string>
+  <string name="onlyTeamLeaders">Soltantu i capitani di e squadre</string>
+  <string name="onlyTeamMembers">Soltantu i membri di a squadra</string>
+  <string name="navigateMoveTree">Navigate in l\' arburu di colpi</string>
+  <string name="mouseTricks">Cuntrolli cù u topulinu</string>
+  <string name="toggleLocalAnalysis">Aduprà soltantu l\' analisi di l\' urdinatore lucale</string>
+  <string name="toggleAllAnalysis">Aduprà l\' analisi di tutti l\' urdinatori</string>
+  <string name="playComputerMove">Ghjucà u colpu di l\' urdinatore u più forte</string>
+  <string name="analysisOptions">Uzzione d\' analisa</string>
+  <string name="focusChat">Palisa a chjachjera</string>
+  <string name="showHelpDialog">Mustrà a scatula d\' aiutu</string>
+  <string name="reopenYourAccount">Apre da torna u vostru contu</string>
 </resources>
