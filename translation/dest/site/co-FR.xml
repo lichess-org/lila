@@ -875,4 +875,25 @@
   <string name="coachManager">Responsevule di l\' intrenatori</string>
   <string name="streamerManager">Responsevule di i streamers</string>
   <string name="cancelTournament">Cancellà u turneu</string>
+  <string name="tournDescription">Descrizzione di u turneu</string>
+  <string name="tournDescriptionHelp">Vulete dì qualcosa di speciale à i participanti? Dite la di ma fate la corta. E leie amuzzate sò dispunibule: [name] (https://url)</string>
+  <string name="ratedFormHelp">E partite sò classificate è cambianu a classifica di i participanti</string>
+  <string name="onlyMembersOfTeam">Soltantu i membri di a squadra</string>
+  <string name="noRestriction">Restrizzione ùn ci hè</string>
+  <string name="minimumRatedGames">Minimu di partite classificate</string>
+  <string name="minimumRating">Classifica minimale</string>
+  <string name="maximumWeeklyRating">Classifica massimale durante a settimana</string>
+  <string name="onlyTitled">Soltantu ghjucatori cù un titulu</string>
+  <string name="onlyTitledHelp">Ci vole un titulu ufficiale pè ghjunghje u turneu</string>
+  <string name="positionInputHelp">Incollate un FEN validu pè principà tutte e partite cù una pusizione scelta.
+Viaghja soltantu cù e partite classiche, ùn viaghja cù e variante.
+Pudete aduprà u %s pè creà a pusizione FEN, pò incollà la.
+Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
+  <string name="cancelSimul">Cancellà a simultanea</string>
+  <string name="simulHostcolor">Culore di l\' ostu pè ogni partita</string>
+  <string name="estimatedStart">Stimà l\' ore di u principiu</string>
+  <string name="simulFeatured">Caratteristichi in %s</string>
+  <string name="simulFeaturedHelp">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
+  <string name="simulDescription">Descrizzione di a simultanea</string>
+  <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
 </resources>
