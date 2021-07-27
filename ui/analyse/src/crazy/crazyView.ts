@@ -1,7 +1,7 @@
 import { drag } from './crazyCtrl';
 import { h } from 'snabbdom';
 import { MouchEvent } from 'chessground/types';
-import { onInsert } from '../util';
+import { onInsert } from 'common/snabbdom';
 import AnalyseCtrl from '../ctrl';
 
 const eventNames = ['mousedown', 'touchstart'];
