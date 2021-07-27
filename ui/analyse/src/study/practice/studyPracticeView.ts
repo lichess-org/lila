@@ -1,5 +1,6 @@
 import { h, thunk, VNode } from 'snabbdom';
-import { plural, bind, spinner, richHTML, option } from '../../util';
+import { bind } from 'common/snabbdom';
+import { plural, spinner, richHTML, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { MaybeVNodes } from '../../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';

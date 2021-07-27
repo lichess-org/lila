@@ -1,8 +1,9 @@
-import AnalyseCtrl from '../ctrl';
-import { h, VNode } from 'snabbdom';
-import { Prop, prop, defined } from 'common';
-import { spinner, bind, onInsert } from '../util';
+import { defined, Prop, prop } from 'common';
+import { bind, onInsert } from 'common/snabbdom';
 import Highcharts from 'highcharts';
+import { h, VNode } from 'snabbdom';
+import AnalyseCtrl from '../ctrl';
+import { spinner } from '../util';
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;

@@ -43,6 +43,7 @@
 
     .del {
       @extend %button-shadow;
+      @extend %button-none;
 
       position: absolute;
       right: 5px;

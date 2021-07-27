@@ -1,8 +1,9 @@
-import { h, VNode } from 'snabbdom';
-import { bind, baseUrl } from '../util';
 import { prop, Prop } from 'common';
+import { bind } from 'common/snabbdom';
+import { h, VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../moveView';
-import { StudyData, StudyChapterMeta } from './interfaces';
+import { baseUrl } from '../util';
+import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyShareCtrl {

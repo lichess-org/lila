@@ -1,11 +1,11 @@
-import { snabModal } from 'common/modal';
-import * as xhr from 'common/xhr';
-import { bind, bindSubmit, onInsert } from '../util';
-import { h, VNode } from 'snabbdom';
+import type Tagify from '@yaireo/tagify';
 import { prop, Prop } from 'common';
+import { snabModal } from 'common/modal';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
+import * as xhr from 'common/xhr';
+import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
-import type Tagify from '@yaireo/tagify';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;

@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import GamebookPlayCtrl, { Feedback } from './gamebookPlayCtrl';
-import { bind, dataIcon, iconTag, richHTML } from '../../util';
+import { bind } from 'common/snabbdom';
+import { dataIcon, iconTag, richHTML } from '../../util';
 // eslint-disable-next-line no-duplicate-imports
 import { State } from './gamebookPlayCtrl';
 

@@ -32,7 +32,7 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import * as moveView from '../moveView';
-import { bind } from '../util';
+import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
@@ -295,10 +295,7 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
       h(
         'select',
         {
-          hook: bind('change', e => {
-            ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value));
-            ctrl.redraw();
-          }),
+          hook: bind('change', e => ctrl.jumpToMain(parseInt((e.target as HTMLSelectElement).value)), ctrl.redraw),
         },
         analysisNodes
           .filter(n => (n.ply % 2 === 1) === (color === 'white'))

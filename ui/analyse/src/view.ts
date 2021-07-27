@@ -1,8 +1,9 @@
 import { h, VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
 import * as chessground from './ground';
-import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
+import { dataIcon, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
+import { bind, onInsert } from 'common/snabbdom';
 import changeColorHandle from 'common/coordsColor';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
