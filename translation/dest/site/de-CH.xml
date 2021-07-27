@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Ä Kompianalysä aafordärä</string>
   <string name="computerAnalysis">Kompianalysä</string>
   <string name="computerAnalysisAvailable">Kompianalysä verfüegbar</string>
+  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
   <string name="analysis">Analüsebrätt</string>
   <string name="depthX">Tüüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analysä am Bruuchä</string>
@@ -908,4 +909,10 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="analysisOptions">Analüsä optionä</string>
   <string name="focusChat">Tschätt fokussiärä</string>
   <string name="showHelpDialog">Zeig dä Hilfsdialog</string>
+  <string name="reopenYourAccount">Wiedereröffnen deines Kontos</string>
+  <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
+  <string name="onlyWorksOnce">Das funktioniert nur ein einziges mal.</string>
+  <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
+  <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
+  <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
 </resources>

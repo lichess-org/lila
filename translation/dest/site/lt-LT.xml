@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Užsakyti kompiuterio analizę</string>
   <string name="computerAnalysis">Kompiuterio analizė</string>
   <string name="computerAnalysisAvailable">Galima kompiuterio analizė</string>
+  <string name="computerAnalysisDisabled">Kompiuterinė analizė išjungta</string>
   <string name="analysis">Analizės lenta</string>
   <string name="depthX">Gylis: %s</string>
   <string name="usingServerAnalysis">Naudojama serverio analizė</string>
@@ -992,7 +993,7 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="showHelpDialog">Rodyti šį pagalbos dialogą</string>
   <string name="reopenYourAccount">Atidaryti uždarytą paskyrą</string>
   <string name="closedAccountChangedMind">Jei uždarėte savo paskyrą, tačiau apsigalvojote, turite vieną šansą ją atgauti.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Tai suveiks tik kartą.</string>
+  <string name="onlyWorksOnce">Tai suveiks tik kartą.</string>
   <string name="cantDoThisTwice">Jei uždarysite savo paskyrą antrą kartą nebebus jokio būdo ją atkurti.</string>
   <string name="emailAssociatedToaccount">Elektroninio pašto adresas susietas su paskyra</string>
   <string name="sentEmailWithLink">Меs jums išsiuntėme laišką su nuoroda.</string>

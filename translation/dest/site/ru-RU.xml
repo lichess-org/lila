@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Выполнить компьютерный анализ</string>
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
+  <string name="computerAnalysisDisabled">Компьютерный анализ отключён</string>
   <string name="analysis">Анализировать партию</string>
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
@@ -102,6 +103,7 @@
   <string name="noGameFound">Партий не найдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Возможно, стоит включить больше игр в настройках?</string>
   <string name="openingExplorer">База дебютов</string>
+  <string name="openingEndgameExplorer">Справочник начал и окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
@@ -502,7 +504,7 @@
   <string name="setTheBoard">Установить позицию</string>
   <string name="popularOpenings">Популярные дебюты</string>
   <string name="endgamePositions">Эндшпильные позиции</string>
-  <string name="chess960StartPosition">Начальная позиция в шахматах 960: %s</string>
+  <string name="chess960StartPosition">Начальная позиция в шахматах Фишера: %s</string>
   <string name="startPosition">Начальная позиция</string>
   <string name="clearBoard">Очистить доску</string>
   <string name="savePosition">Сохранить позицию</string>
@@ -980,6 +982,18 @@
   <string name="noChat">Без чата</string>
   <string name="onlyTeamLeaders">Только организаторы клуба</string>
   <string name="onlyTeamMembers">Только члены клуба</string>
+  <string name="navigateMoveTree">Навигация по нотации</string>
+  <string name="mouseTricks">Движения мышкой</string>
+  <string name="toggleLocalAnalysis">Включить локальный анализ</string>
+  <string name="toggleAllAnalysis">Переключить все способы компьютерного анализа</string>
   <string name="playComputerMove">Play best computer move</string>
   <string name="analysisOptions">Параметры анализа</string>
+  <string name="focusChat">Переключиться в окно чата</string>
+  <string name="showHelpDialog">Показать справку</string>
+  <string name="reopenYourAccount">Переоткройте свой аккаунт</string>
+  <string name="closedAccountChangedMind">Если вы закрыли свой аккаунт, но с тех пор передумали, то у вас есть однократная возможность восстановить его.</string>
+  <string name="onlyWorksOnce">Это сработает только один раз.</string>
+  <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, возможности открыть его уже не будет.</string>
+  <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
+  <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
 </resources>

@@ -45,9 +45,9 @@ Mesajlarınızı almayı sevmeyen oyuncular takımdan ayrılabilir.</string>
   <string name="leadersChat">Liderler arası sohbet</string>
   <string name="closeTeam">Takımı kapat</string>
   <string name="closeTeamDescription">Takımı sonsuza dek kapatır.</string>
-  <string name="teamPassword">Takım şifresi</string>
-  <string name="teamPasswordDescriptionForLeader">(İsteğe bağlı) Yeni üyelerin takıma katılabilmesi için bilmesi gereken şifredir.</string>
-  <string name="incorrectTeamPassword">Yanlış takım şifresi.</string>
+  <string name="entryCode">Takıma giriş kodu</string>
+  <string name="entryCodeDescriptionForLeader">(İsteğe bağlı) Takıma yeni katılan üyelerin bu kodu bilmesi gerekir.</string>
+  <string name="incorrectEntryCode">Giriş kodu yanlış.</string>
   <string name="teamAlreadyExists">Böyle bir takım zaten mevcut.</string>
   <string name="upcomingTourns">Yaklaşan turnuvalar</string>
   <string name="completedTourns">Tamamlanan turnuvalar</string>

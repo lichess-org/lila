@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">فعالیت</string>
+  <string name="hostedALiveStream">میزبانی یک پخش زنده</string>
   <plurals name="practicedNbPositions">
     <item quantity="one">%1$s پوزیسیون را در %2$s تمرین کرد</item>
     <item quantity="other">%1$s پوزیسیون را در %2$s تمرین کرد</item>

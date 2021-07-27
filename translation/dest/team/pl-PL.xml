@@ -51,9 +51,9 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="leadersChat">Czat liderów</string>
   <string name="closeTeam">Zamknij klub</string>
   <string name="closeTeamDescription">Zamyka klub na zawsze.</string>
-  <string name="teamPassword">Hasło klubu</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcjonalnie) Hasło, które nowi gracze muszą znać, aby dołączyć do tego klubu.</string>
-  <string name="incorrectTeamPassword">Nieprawidłowe hasło.</string>
+  <string name="entryCode">Klubowy kod dostępu</string>
+  <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
+  <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
   <string name="upcomingTourns">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>

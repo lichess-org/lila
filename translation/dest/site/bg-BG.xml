@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Поискайте компютърен анализ</string>
   <string name="computerAnalysis">Компютърен анализ</string>
   <string name="computerAnalysisAvailable">Компютърният анализ е наличен</string>
+  <string name="computerAnalysisDisabled">Компютърният анализ е изключен</string>
   <string name="analysis">Анализ</string>
   <string name="depthX">Дълбочина %s</string>
   <string name="usingServerAnalysis">Използване на сървърен анализ</string>
@@ -909,7 +910,7 @@
   <string name="showHelpDialog">Показване на този диалогов прозорец за помощ</string>
   <string name="reopenYourAccount">Отворете отново акаунта Ви</string>
   <string name="closedAccountChangedMind">Ако сте затворили акаунта Ви, но си промените решението, получавате един шанс да си върнете акаунта.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Това ще работи само един път.</string>
+  <string name="onlyWorksOnce">Това ще работи само един път.</string>
   <string name="cantDoThisTwice">Ако затворите акаунта Ви за втори път, няма как да го възстановите.</string>
   <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
   <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>

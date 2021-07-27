@@ -43,9 +43,9 @@
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
-  <string name="teamPassword">Teampasswort</string>
-  <string name="teamPasswordDescriptionForLeader">(Optional) Äs Passwort wo neui Teammitgliider kennä müend, zum em Team biizträtä.</string>
-  <string name="incorrectTeamPassword">Falsches Teampasswort.</string>
+  <string name="entryCode">Teambeitrittscode</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
+  <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>

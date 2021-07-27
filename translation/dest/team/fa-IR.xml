@@ -36,4 +36,7 @@
   <string name="leadersChat">چت رهبران</string>
   <string name="closeTeam">بستن گروه</string>
   <string name="closeTeamDescription">بستن گروه برای همیشه</string>
+  <string name="entryCode">کد ورود به تیم</string>
+  <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
+  <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
 </resources>

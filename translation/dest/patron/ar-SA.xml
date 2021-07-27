@@ -84,4 +84,5 @@
   <string name="nowLifetime">أنت الآن راع لليتشس مدى الحياة!</string>
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
   <string name="downgradeNextMonth">في شهر واحد، لن يتم تحميل رسوم مرة أخرى، وحساب Lichess الخاص بك سيصبح حساب عادي.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">غير العملة</string>
 </resources>

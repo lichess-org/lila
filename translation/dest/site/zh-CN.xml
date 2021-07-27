@@ -444,7 +444,7 @@
   <string name="autoSwitch">自动切换</string>
   <string name="puzzles">谜题</string>
   <string name="latestUpdates">最近更新</string>
-  <string name="tournamentWinners">锦标赛赢家</string>
+  <string name="tournamentWinners">锦标赛冠军</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
   <string name="descPrivate">内部简介</string>
@@ -830,6 +830,10 @@
   <string name="welcome">欢迎！</string>
   <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
   <string name="coachManager">教练管理</string>
+  <string name="cancelTournament">取消锦标赛</string>
+  <string name="tournDescription">锦标赛描述</string>
+  <string name="ratedFormHelp">排位赛
+将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">没有限制</string>
   <string name="inYourLocalTimezone">在您的本地时区</string>
@@ -843,6 +847,7 @@
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>
   <string name="showHelpDialog">显示此帮助对话框</string>
+  <string name="reopenYourAccount">重新打开您的帐户</string>
   <string name="cantDoThisTwice">如果您第二次关闭您的帐户，将无法恢复。</string>
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>

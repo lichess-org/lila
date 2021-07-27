@@ -51,6 +51,7 @@
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">جستجو پازل ها در بازی های یک بازیکن</string>
   <string name="fromXGames">پازل ها در بازی های %s</string>

@@ -45,9 +45,8 @@ Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</stri
   <string name="leadersChat">Xat de capitans</string>
   <string name="closeTeam">Eliminar equip</string>
   <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>
-  <string name="teamPassword">Contrasenya de l\'equip</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcional) Una contrasenya que els nous membres han de saber per unirse a l\'equip.</string>
-  <string name="incorrectTeamPassword">Contrasenya d\'equip incorrecta.</string>
+  <string name="entryCode">Clau d\'entrada a l\'equip</string>
+  <string name="entryCodeDescriptionForLeader">(Opcional) Una contrasenya que els nous membres han de saber per unirse a l\'equip.</string>
   <string name="teamAlreadyExists">Aquest equip ja existeix.</string>
   <string name="upcomingTourns">Propers tornejos</string>
   <string name="completedTourns">Tornejos finalitzats</string>

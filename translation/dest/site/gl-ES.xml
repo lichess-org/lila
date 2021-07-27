@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Solicitar unha análise por computador</string>
   <string name="computerAnalysis">Análise por computador</string>
   <string name="computerAnalysisAvailable">Análise de ordenador dispoñible</string>
+  <string name="computerAnalysisDisabled">Análise de ordenador deshabilitada</string>
   <string name="analysis">Taboleiro de análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">Usando análise de servidor</string>

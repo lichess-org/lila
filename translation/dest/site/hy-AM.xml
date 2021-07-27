@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Համակարգչային վերլուծություն պատվիրել</string>
   <string name="computerAnalysis">Համակարգչային վերլուծություն</string>
   <string name="computerAnalysisAvailable">Առկա է համակարգչի վերլուծություն</string>
+  <string name="computerAnalysisDisabled">Համակարգչային վերլուծությունն անջատված է</string>
   <string name="analysis">Վերլուծության տախտակ</string>
   <string name="depthX">Խորություն %s</string>
   <string name="usingServerAnalysis">Օգտագործել սերվերի վերլուծությունը</string>

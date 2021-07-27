@@ -3,10 +3,14 @@
   <string name="broadcasts">Siaran</string>
   <string name="liveBroadcasts">Siaran turnamen langsung</string>
   <string name="newBroadcast">Siaran langsung baru</string>
+  <string name="addRound">Tambakan ronde</string>
   <string name="ongoing">Sedang berlangsung</string>
   <string name="upcoming">Akan datang</string>
   <string name="completed">Telah selesai</string>
+  <string name="roundName">Nama ronde</string>
   <string name="roundNumber">Babak ronde</string>
+  <string name="tournamentName">Nama turnamen</string>
+  <string name="tournamentDescription">Deskripsi singkat turnamen</string>
   <string name="fullDescription">Keterangan acara secara penuh</string>
   <string name="fullDescriptionHelp">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
   <string name="sourceUrlOrGameIds">Sumber URL, atau IDs game</string>
@@ -15,4 +19,8 @@
   <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
   <string name="startDateHelp">Opsional, jika Anda tahu kapan acara dimulai</string>
   <string name="credits">Sertakan sumber</string>
+  <string name="resetRound">Atur ulang ronde ini</string>
+  <string name="deleteRound">Hapus ronde ini</string>
+  <string name="currentRoundUrl">Tautan ronde ini</string>
+  <string name="currentGameUrl">Tautan permainan ini</string>
 </resources>

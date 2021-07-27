@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Számítógépes elemzés kérése</string>
   <string name="computerAnalysis">Számítógépes elemzés</string>
   <string name="computerAnalysisAvailable">Számítógépes elemzés elérhető</string>
+  <string name="computerAnalysisDisabled">Számítógépes elemzés letiltva</string>
   <string name="analysis">Elemzőtábla</string>
   <string name="depthX">%s mélység</string>
   <string name="usingServerAnalysis">A szerver elemzését használja</string>

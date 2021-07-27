@@ -57,9 +57,9 @@
   <string name="leadersChat">محادثة القادة</string>
   <string name="closeTeam">إغلاق الفريق</string>
   <string name="closeTeamDescription">يغلق الفريق إلى الأبد.</string>
-  <string name="teamPassword">كلمة مرور الفريق</string>
-  <string name="teamPasswordDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
-  <string name="incorrectTeamPassword">كلمة مرور الفريق غير صحيحة.</string>
+  <string name="entryCode">رمز دخول الفريق</string>
+  <string name="entryCodeDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
+  <string name="incorrectEntryCode">رمز غير صحيح.</string>
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
   <string name="upcomingTourns">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>

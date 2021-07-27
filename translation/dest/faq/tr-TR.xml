@@ -30,7 +30,7 @@
   <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri ne anlama geliyor?</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>
   <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
 Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
   <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
@@ -54,7 +54,7 @@ Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı b
 
 Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
   <string name="fideHandbookX">FIDE satranç kuralları %s</string>
-  <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi, bu nasıl olur? (geçerken alma)</string>
+  <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi. Bu nasıl olur? (geçerken alma)</string>
   <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
 
 Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
@@ -86,11 +86,11 @@ Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
   <string name="verificationForm">doğrulama formunu</string>
   <string name="canIbecomeLM">Lichess Ustası (LM) unvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmî değildir ve sadece Lichess tarafından verilir.
+  <string name="lMtitleComesToYouDoNotRequestIt">Resmî bir geçerliliği olmayan bu onursal unvan sadece Lichess tarafından verilir.
 
-Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. LM unvanı sizi alır, siz LM unvanını alamazsınız. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifi kabul veya reddetmek size kalmış.
+Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. Siz LM unvanını değil, LM unvanı sizi alır. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifini kabul veya reddedebilirsiniz.
 
-LM unvanını almak için bir talepte bulunmayın.</string>
+LM unvanını almak için lütfen bir talepte bulunmayın.</string>
   <string name="whatUsernameCanIchoose">Kullanıcı adım ne olabilir?</string>
   <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları reklam veya taklit amaçlı olmamalı, insanları rahatsız etmemeli ve incitmemelidir. Bu konu hakkındaki %1$s göz atarak daha fazla bilgi edinebilirsiniz.</string>
   <string name="guidelines">detaylı kurallara</string>
@@ -98,16 +98,16 @@ LM unvanını almak için bir talepte bulunmayın.</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
   <string name="uniqueTrophies">Eşsiz kupalar</string>
   <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
-  <string name="wayOfBerserkExplanation">Bu kupaya erişen hiimgosu, divane (berserk) açarak %s bütün oyunları kazandı.</string>
+  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için divane (berserk) açarak %s bütün oyunları kazandı.</string>
   <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
   <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
   <string name="lichessRatings">Lichess puanlama sistemi</string>
   <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
-  <string name="ratingSystemUsedByLichess">Puanlamalar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE tarafından hâlâ eski Elo puanlama sistemini kullanılır).
+  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE hâlâ eski Elo puanlama sistemini kullanılır).
 
-Glicko sistemi \"güven aralıkları\" kullanarak puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500 puanınızı temsil ederken 1000 de güven aralığını temsil eder.
+Glicko sistemi \"güven aralıkları\" aracılığıyla puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500, puanınızı temsil ederken 1000 de güven aralığını temsil eder.
 
-Sistem puanınızın 500 ile 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
+Sistem puanınızın 500 ila 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
 
 Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
   <string name="whatIsProvisionalRating">Puanımın yanında neden soru işareti (?) var?</string>
@@ -132,13 +132,13 @@ Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak el
   <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
   <string name="displayPreferences">Oyun görünümü panelinden</string>
   <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyunayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyundayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
   <string name="howToThreeDots">Diğer konular</string>
   <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
   <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
-  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda Lichess isteğe bağlı olarak size bildirim gönderebilir.
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
 
-Tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
+Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
 
-Ardından, site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açabilir veya kapatabilirsiniz.</string>
+Ardından site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açın veya kapatın.</string>
 </resources>

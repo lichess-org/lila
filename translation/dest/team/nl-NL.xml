@@ -45,9 +45,9 @@ Spelers die je berichten niet willen ontvangen kunnen het team verlaten.</string
   <string name="leadersChat">Teamleiderschat</string>
   <string name="closeTeam">Team sluiten</string>
   <string name="closeTeamDescription">Sluit het team voor altijd.</string>
-  <string name="teamPassword">Wachtwoord voor het team</string>
-  <string name="teamPasswordDescriptionForLeader">(Optioneel) Een wachtwoord dat nieuwe leden moeten weten om lid te worden van het team.</string>
-  <string name="incorrectTeamPassword">Onjuist wachtwoord.</string>
+  <string name="entryCode">Team toegangscode</string>
+  <string name="entryCodeDescriptionForLeader">(Optioneel) Een toegangscode die nieuwe leden moeten weten om lid te worden van dit team.</string>
+  <string name="incorrectEntryCode">Onjuiste toegangscode.</string>
   <string name="teamAlreadyExists">Deze teamnaam bestaat al.</string>
   <string name="upcomingTourns">Aankomende toernooien</string>
   <string name="completedTourns">Voltooide toernooien</string>

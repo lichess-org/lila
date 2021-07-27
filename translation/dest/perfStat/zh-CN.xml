@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">因排位赛数量不足而无法测定可靠的等级分</string>
   <string name="progressOverLastXGames">最新 %s 局后的变化:</string>
   <string name="ratingDeviation">等级分偏差: %s</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">偏差值越低，等级分越稳定。若偏差值大于 %1$s，则等级分是暂时的。只有当偏差低于 %2$s（标准局）/ %3$s（变种）时，才能进入排名。</string>
   <string name="totalGames">棋局总数</string>
   <string name="ratedGames">排位赛局数</string>
   <string name="tournamentGames">锦标赛局数</string>

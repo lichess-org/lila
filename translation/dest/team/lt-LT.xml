@@ -51,9 +51,9 @@ Taip galite pakviesti žaidėjus prisijungti į turnyrą ar komandos kovą.
   <string name="leadersChat">Vadovų pokalbis</string>
   <string name="closeTeam">Uždaryti komandą</string>
   <string name="closeTeamDescription">Visam laikui uždaryti komandą.</string>
-  <string name="teamPassword">Komandos slaptažodis</string>
-  <string name="teamPasswordDescriptionForLeader">(nebūtina) Slaptažodis, kurį turi žinoti naujai prisijungiantys prie šios komandos žaidėjai.</string>
-  <string name="incorrectTeamPassword">Neteisingas komandos slaptažodis.</string>
+  <string name="entryCode">Įėjimo į komandą kodas</string>
+  <string name="entryCodeDescriptionForLeader">(Nebūtina) Įėjimo kodas, kurį norėdami prisijungti turi žinoti visi nauji komandos nariai.</string>
+  <string name="incorrectEntryCode">Netinkamas kodas.</string>
   <string name="teamAlreadyExists">Ši komanda jau egzistuoja.</string>
   <string name="upcomingTourns">Artėjantys turnyrai</string>
   <string name="completedTourns">Baigti turnyrai</string>

@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Bilgisayar analizi talep et</string>
   <string name="computerAnalysis">Bilgisayar analizi</string>
   <string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
+  <string name="computerAnalysisDisabled">Bilgisayar analizi devre dışı bırakıldı</string>
   <string name="analysis">Analiz tahtası</string>
   <string name="depthX">Derinlik %s</string>
   <string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
@@ -909,8 +910,9 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="showHelpDialog">Bu yardım iletisini göster</string>
   <string name="reopenYourAccount">Hesabı aktifleştir</string>
   <string name="closedAccountChangedMind">Hesabınızı kapatıp sonradan fikrinizi değiştirdiyseniz bir kereliğine mahsus olmak üzere hesabı tekrar açabilirsiniz.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Bu işlemi yalnızca bir kez yapabilirsiniz.</string>
+  <string name="onlyWorksOnce">Bu işlemi yalnızca bir kez yapabilirsiniz.</string>
   <string name="cantDoThisTwice">Hesabınızı ikinci kez kapatırsanız tekrar aktifleştiremezsiniz.</string>
   <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
   <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
+  <string name="tournamentEntryCode">Turnuva giriş kodu</string>
 </resources>

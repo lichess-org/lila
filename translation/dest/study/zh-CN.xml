@@ -125,19 +125,26 @@
   <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
   <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
   <string name="goodMove">好棋</string>
-  <string name="mistake">失误</string>
-  <string name="brilliantMove">妙招</string>
-  <string name="blunder">漏招</string>
+  <string name="mistake">坏棋</string>
+  <string name="brilliantMove">极好</string>
+  <string name="blunder">极坏</string>
+  <string name="interestingMove">略好</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">略坏</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">别无他法</string>
   <string name="equalPosition">均势</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">局势不明</string>
   <string name="whiteIsSlightlyBetter">白方略优</string>
   <string name="blackIsSlightlyBetter">黑方略优</string>
   <string name="whiteIsBetter">白方占优</string>
   <string name="blackIsBetter">黑方占优</string>
   <string name="whiteIsWinning">白方即胜</string>
   <string name="blackIsWinning">黑方即胜</string>
-  <string name="initiative">发动</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">新奇的</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">布局</string>
+  <string name="initiative">占据主动</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻击</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反击</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">无暇多虑</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">教科书式的</string>
   <string name="nextChapter">下一章节</string>
   <string name="prevChapter">上一章节</string>

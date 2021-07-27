@@ -40,4 +40,11 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有%s团队</item>
   </plurals>
+  <string name="newTeamBattle">新团队战</string>
+  <string name="customStartDate">自定义开始日期</string>
+  <string name="allowBerserk">允许神速模式</string>
+  <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
+  <string name="allowChatHelp">允许玩家在聊天室中讨论</string>
+  <string name="arenaStreaks">连胜奖励</string>
+  <string name="arenaStreaksHelp">连胜两场后，获得4分而不是2分。</string>
 </resources>

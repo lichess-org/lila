@@ -59,6 +59,7 @@
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
   <string name="computerAnalysisAvailable">تحليل الحاسوب متاح</string>
+  <string name="computerAnalysisDisabled">تحليل الحاسوب غير مفعل</string>
   <string name="analysis">لوحة التحليل</string>
   <string name="depthX">عمق التحليل %s</string>
   <string name="usingServerAnalysis">استخدام تحليل الخادم</string>
@@ -108,6 +109,7 @@
   <string name="noGameFound">لم يتم العثور على مباريات</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">أترغب في ضم مباريات أكثر من قائمة التفضيلات؟</string>
   <string name="openingExplorer">مستكشف الافتتاحيات</string>
+  <string name="openingEndgameExplorer">مستكشف نهاية/بداية الدور</string>
   <string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
   <string name="winPreventedBy50MoveRule">قاعدة ال 50 نقلة منعت الفوز</string>
   <string name="lossSavedBy50MoveRule">قاعدة ال 50 نقلة منعت الخسارة</string>
@@ -564,6 +566,7 @@
   <string name="setTheBoard">إعداد الرقعة</string>
   <string name="popularOpenings">إفتتاحيات شائعة</string>
   <string name="endgamePositions">وضعية نهاية المباراة</string>
+  <string name="chess960StartPosition">وضعية بدأ Chess960 هي:%s</string>
   <string name="startPosition">وضع البداية</string>
   <string name="clearBoard">رقعة بلا قطع</string>
   <string name="savePosition">حفظ الوضع</string>
@@ -1058,4 +1061,18 @@
   <string name="noChat">لا دردشة</string>
   <string name="onlyTeamLeaders">فقط قائدي الفريق</string>
   <string name="onlyTeamMembers">فقط لاعبي الفريق</string>
+  <string name="navigateMoveTree">التنقل في لائحة النقلات</string>
+  <string name="mouseTricks">حيل بالفأرة</string>
+  <string name="toggleLocalAnalysis">تبديل تحليل الكمبيوتر المحلي</string>
+  <string name="toggleAllAnalysis">تبديل كل تحليل الكمبيوتر</string>
+  <string name="playComputerMove">العب افضل نقلة يقترحها الكمبيوتر</string>
+  <string name="analysisOptions">خيارات التحليل</string>
+  <string name="focusChat">تركيز</string>
+  <string name="showHelpDialog">إظهار رسالة المساعدة هذه</string>
+  <string name="reopenYourAccount">اعادة فتح حسابك</string>
+  <string name="closedAccountChangedMind">إذا كنت قد أغلقت حسابك، و أبدلت رأيك، لديك فرصة واحدة لاستعادة الحساب.</string>
+  <string name="onlyWorksOnce">سيعمل هذا لمرة واحدة فقط</string>
+  <string name="cantDoThisTwice">إذا أغلقت حسابك مرة ثانية فليس من الممكن استعادة حسابك مرة أخرى.</string>
+  <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
+  <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
 </resources>

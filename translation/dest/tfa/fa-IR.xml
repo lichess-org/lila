@@ -2,4 +2,5 @@
 <resources>
   <string name="twoFactorAuth">احراز هویت دومرحله‌ای</string>
   <string name="twoFactorHelp">احراز هویت دو مرحله ای یک لایه امنیتی دیگر به حساب شما اضافه میکند.</string>
+  <string name="disableTwoFactor">غیر فعال کردن احراز هویت دو مرحله ای</string>
 </resources>

@@ -9,6 +9,7 @@
   <string name="yourTurn">Þú átt leik</string>
   <string name="aiNameLevelAiLevel">%1$s erfiðleiki %2$s</string>
   <string name="level">Stig</string>
+  <string name="strength">Styrkleiki</string>
   <string name="toggleTheChat">Virkja spjall</string>
   <string name="toggleSound">Virkja hljóð</string>
   <string name="chat">Spjalla</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
   <string name="youPlayTheBlackPieces">Þú teflir með svörtu mennina</string>
   <string name="itsYourTurn">Þú átt leik!</string>
+  <string name="cheatDetected">Svindl greint</string>
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
   <string name="raceFinished">Kapphlaupi lokið</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">Biðja um tölvugreiningu</string>
   <string name="computerAnalysis">Tölvugreining</string>
   <string name="computerAnalysisAvailable">Tölvugreining í boði</string>
+  <string name="computerAnalysisDisabled">Tölvugreining óvirk</string>
   <string name="analysis">Greining</string>
   <string name="depthX">Dýpt %s</string>
   <string name="usingServerAnalysis">Greining frá vefþjóni</string>
@@ -90,6 +93,7 @@
   <string name="noGameFound">Enginn leikur fannst</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Kannski að bæta við fleiri skákum til að skoða?</string>
   <string name="openingExplorer">Skoða opnanir</string>
+  <string name="openingEndgameExplorer">Byrjana/endatafls könnuður</string>
   <string name="xOpeningExplorer">%s byrjanaskoðari</string>
   <string name="winPreventedBy50MoveRule">Enginn sigur vegna 50 leikja reglu</string>
   <string name="lossSavedBy50MoveRule">Bjargað frá tapi með 50 leikja reglu</string>
@@ -112,6 +116,18 @@
   <string name="blunder">Afleikur</string>
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">Afleikur</item>
+    <item quantity="other">Afleikir</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">Mistök</item>
+    <item quantity="other">Mistök</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">ónákvæmni</item>
+    <item quantity="other">ónákvæmni</item>
+  </plurals>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
   <string name="threefoldRepetition">Þreföld endurtekning</string>
@@ -316,6 +332,7 @@
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="xJoinedTeamY">%1$s gengu í liðið %2$s</string>
   <string name="xCreatedTeamY">%1$s lið búin til %2$s</string>
+  <string name="xStartedStreaming">Byrjaði streymi</string>
   <string name="averageElo">Meðal Elo</string>
   <string name="location">Staðsetning</string>
   <string name="filterGames">Leikjasía</string>
@@ -391,6 +408,7 @@
   <string name="recommendNotTouching">Við mælum með því að breyta þessu ekki.</string>
   <string name="fewerPlayers">Ef þú setur skilyrði við þátttöku mun mótið hafa færri leikmenn.</string>
   <string name="showAdvancedSettings">Sýna ítarlegar stillingar</string>
+  <string name="makePrivateTournament">Loka móti, og takmarka aðgang með aðgangsorði</string>
   <string name="join">Taka þátt</string>
   <string name="withdraw">afturkalla</string>
   <string name="points">Punktar</string>
@@ -416,6 +434,8 @@
   <string name="boardEditor">Skákborðsritill</string>
   <string name="setTheBoard">Uppstilling</string>
   <string name="popularOpenings">Vinsælar opnanir</string>
+  <string name="endgamePositions">Endataflsstöður</string>
+  <string name="chess960StartPosition">Skák960 Byrjunarstaða</string>
   <string name="startPosition">Byrjunar staða</string>
   <string name="clearBoard">Hreinsa borð</string>
   <string name="savePosition">Vista stöðu</string>
@@ -431,7 +451,9 @@
   <string name="firstName">Fornafn</string>
   <string name="lastName">Eftirnafn</string>
   <string name="biography">Lífssaga</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eða fáni</string>
   <string name="thankYou">Takk fyrir!</string>
+  <string name="socialMediaLinks">Samfélagsmiðlatengill</string>
   <string name="watchLichessTV">Horfðu á Lichessvarpið</string>
   <string name="previouslyOnLichessTV">Áður á Lichessvarpinu</string>
   <string name="onlinePlayers">Tengdir notendur</string>

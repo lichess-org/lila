@@ -43,9 +43,9 @@
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team auflösen</string>
   <string name="closeTeamDescription">Löst das Team für immer auf.</string>
-  <string name="teamPassword">Team-Passwort</string>
-  <string name="teamPasswordDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
-  <string name="incorrectTeamPassword">Falsches Team-Passwort.</string>
+  <string name="entryCode">Teambeitrittscode</string>
+  <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
+  <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
   <string name="upcomingTourns">Anstehende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>

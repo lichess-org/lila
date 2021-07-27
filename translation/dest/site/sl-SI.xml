@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Zahtevaj računalniško analizo</string>
   <string name="computerAnalysis">Računalniška analiza</string>
   <string name="computerAnalysisAvailable">Računalniška analiza je na voljo</string>
+  <string name="computerAnalysisDisabled">Računalniška analiza ni na voljo</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Globina %s</string>
   <string name="usingServerAnalysis">Z analizo strežnika</string>

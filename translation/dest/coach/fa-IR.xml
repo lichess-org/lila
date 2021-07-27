@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessCoaches">مربی های لیچس</string>
+  <string name="lichessCoach">مربی لیچس</string>
+  <string name="location">موقعیت مکانی</string>
+  <string name="languages">زبان ها</string>
+  <string name="rating">ریتینگ</string>
+  <string name="aboutMe">درباره من</string>
+  <string name="playingExperience">سابقه بازی</string>
+  <string name="teachingExperience">سابقه تدریس</string>
+  <string name="otherExperiences">دیگر تجارب</string>
+  <string name="bestSkills">بیشترین مهارت ها</string>
+  <string name="teachingMethod">شیوه آموزش</string>
+  <string name="youtubeVideos">ویدیو های یوتیوب</string>
+</resources>

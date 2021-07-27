@@ -70,7 +70,7 @@
   <string name="move">Langkah</string>
   <string name="variantLoss">Variasi kerugian</string>
   <string name="variantWin">Variasi menang</string>
-  <string name="insufficientMaterial">Bidak tidak cukup</string>
+  <string name="insufficientMaterial">Bidak tidak mencukupi</string>
   <string name="pawnMove">Langkah pion</string>
   <string name="capture">Makan</string>
   <string name="close">Tutup</string>
@@ -93,6 +93,7 @@
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
   <string name="openingExplorer">Penjelajah pembukaan</string>
+  <string name="openingEndgameExplorer">Penjelajah pembukaan/babak akhir</string>
   <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
   <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
   <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
@@ -409,6 +410,7 @@
   <string name="setTheBoard">Atur papan</string>
   <string name="popularOpenings">Pembuka populer</string>
   <string name="endgamePositions">Posisi akhir permainan</string>
+  <string name="chess960StartPosition">Posisi awal Catur960: %s</string>
   <string name="startPosition">Posisi Awal</string>
   <string name="clearBoard">Bersihkan papan</string>
   <string name="savePosition">Simpan posisi</string>
@@ -854,4 +856,23 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="simulDescription">Deskripsi simulasi</string>
   <string name="simulDescriptionHelp">Adakah sesuatu yang ingin Anda sampaikan pada peserta?</string>
   <string name="markdownAvailable">%s tersedia untuk sintaks lebih lanjut.</string>
+  <string name="inYourLocalTimezone">Di zona waktu lokal Anda</string>
+  <string name="tournChat">Obrolan turnamen</string>
+  <string name="noChat">Tanpa obrolan</string>
+  <string name="onlyTeamLeaders">Hanya pemimpin tim</string>
+  <string name="onlyTeamMembers">Hanya member tim</string>
+  <string name="navigateMoveTree">Navigasi gerakan partai</string>
+  <string name="mouseTricks">Trik pada tetikus/mouse</string>
+  <string name="toggleLocalAnalysis">Nyala / mati analisa komputer lokal</string>
+  <string name="toggleAllAnalysis">Nyala / mati semua analisa komputer</string>
+  <string name="playComputerMove">Langkahkan gerakan terbaik komputer</string>
+  <string name="analysisOptions">Setelan analisa</string>
+  <string name="focusChat">Fokus pada kotak obroloan</string>
+  <string name="showHelpDialog">Tampilkan halaman bantuan ini</string>
+  <string name="reopenYourAccount">Buka kembali akun Anda</string>
+  <string name="closedAccountChangedMind">Jika Anda telah menutup akun, Anda dapat satu kesempatan untuk mengembalikan akun anda.</string>
+  <string name="onlyWorksOnce">Ini hanya dapat dilakukan sekali.</string>
+  <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
+  <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
+  <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
 </resources>

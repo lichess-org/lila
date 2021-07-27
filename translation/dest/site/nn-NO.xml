@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
+  <string name="computerAnalysisDisabled">Maskinanalyse er slått av</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
@@ -912,7 +913,7 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
   <string name="reopenYourAccount">Opne kontoen din på ny</string>
   <string name="closedAccountChangedMind">Om du har stengd kontoen din, men ynskjer å ta den attende, får du eitt høve til å opna den på ny.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Dette kan du berre gjera ein einaste gong.</string>
+  <string name="onlyWorksOnce">Dette kan du berre gjera ein einaste gong.</string>
   <string name="cantDoThisTwice">Om du stengde kontoen ein andre gong, er det ikkje lengre mogleg å opna den att.</string>
   <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>

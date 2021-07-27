@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
+  <string name="computerAnalysisDisabled">コンピュータ解析は不使用です</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
@@ -872,7 +873,7 @@
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
   <string name="reopenYourAccount">アカウントを再開する</string>
   <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">再開は一回限りです。</string>
+  <string name="onlyWorksOnce">再開は一回限りです。</string>
   <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
   <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
   <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>

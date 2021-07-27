@@ -4,4 +4,36 @@
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">查看所有%s回合</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="other">%s 轮</item>
+  </plurals>
+  <string name="nextRound">下一轮</string>
+  <string name="forbiddenPairings">禁止配对</string>
+  <string name="newSwiss">新瑞士锦标赛</string>
+  <string name="pointsCalculationQ">如何计算积分？</string>
+  <string name="lateJoinQ">玩家可以稍后加入吗？</string>
+  <string name="roundRobinQ">会加入循环赛吗？</string>
+  <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
+  <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
+  <string name="joinOrCreateTeam">加入或创建团队</string>
+  <string name="nowPlaying">正在对局</string>
+  <string name="startingSoon">即将开始</string>
+  <string name="comparison">对比</string>
+  <string name="tournDuration">比赛时长</string>
+  <string name="predefinedDuration">预定义时长</string>
+  <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
+  <string name="numberOfGamesAsManyAsPossible">在允许的时间尽可能多地参与比赛</string>
+  <string name="pairingSystem">配对机制</string>
+  <string name="pairingSystemArena">任何具有相仅排名的对手</string>
+  <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
+  <string name="pairingWaitTime">配对等待时间</string>
+  <string name="identicalPairing">相同配对</string>
+  <string name="possibleButNotConsecutive">有可能，但不会连续</string>
+  <string name="identicalForbidden">禁止的</string>
+  <string name="lateJoin">稍后加入</string>
+  <string name="lateJoinUntil">是的，直到一半以上的回合开始为止。</string>
+  <string name="pauseSwiss">可以，但是可能会减少回合数量</string>
+  <string name="streaksAndBerserk">允许连胜和神速</string>
+  <string name="similarToOTB">和 OTB 锦标赛相似</string>
+  <string name="unlimitedAndFree">无限制并免费</string>
 </resources>

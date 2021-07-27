@@ -43,9 +43,12 @@ It can be a good option for clubs and official tournaments.</string>
 When a player can\'t be paired during a round, they receive a bye worth one point.</string>
   <string name="tiebreaksCalculationQ">How are tie breaks calculated?</string>
   <string name="sonnebornBergerScore">Sonneborn–Berger score</string>
+  <string name="tiebreaksCalculationA">With the %s.
+Add the scores of every opponent the player beats and half of the score of every opponent the player draws.</string>
   <string name="pairingsQ">How are pairings decided?</string>
   <string name="dutchSystem">Dutch system</string>
   <string name="FIDEHandbook">FIDE handbook</string>
+  <string name="pairingsA">With the %1$s, implemented by %2$s, in accordance with the %3$s.</string>
   <string name="moreRoundsThanPlayersQ">What happens if the tournament has more rounds than players?</string>
   <string name="moreRoundsThanPlayersA">When all possible pairings have been played, the tournament will be ended and a winner declared.</string>
   <string name="restrictedToTeamsQ">Why is it restricted to teams?</string>
@@ -55,7 +58,12 @@ We think these conditions are more likely to be met within a team than in global
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
 Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
+  <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
+Then the system will withdraw the player from the tournament, so they don\'t lose more games.
+They can re-join the tournament at any time.</string>
   <string name="lateJoinQ">Can players late-join?</string>
+  <string name="lateJoinA">Yes, until more than half the rounds have started: for example, in a 11-round swiss players can join before round 6 starts, and in a 12-round before round 7 starts.
+Late joiners get a single bye, even if they missed several rounds.</string>
   <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
   <string name="roundRobinQ">What about round-robin?</string>
@@ -91,5 +99,6 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="pause">Pause</string>
   <string name="pauseSwiss">Yes but might reduce the number of rounds</string>
   <string name="streaksAndBerserk">Streaks and Berserk</string>
+  <string name="similarToOTB">Similar to OTB tournaments</string>
   <string name="unlimitedAndFree">Unlimited and free</string>
 </resources>

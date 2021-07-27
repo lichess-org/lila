@@ -180,6 +180,8 @@ The king is priceless! Losing it means losing the game.</string>
   <string name="queenOverBishop">Take the piece
 with the highest value!
 Queen &gt; Bishop</string>
+  <string name="pieceValueExchange">با ارزش ترین مهره را بگیرید! هرگز یک مهره با ارزش تر را با مهره کم ارزش تعویض نکنید.</string>
+  <string name="pieceValueLegal">با ارزش ترین مهره را بگیرید! مطمئن شوید که حرکتتان قانونی است!</string>
   <string name="takeThePieceWithTheHighestValue">با ارزش ترین مهره را بزن!</string>
   <string name="pieceValueComplete">Congratulations! You know the value of material!
 Queen = 9

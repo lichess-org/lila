@@ -25,10 +25,12 @@
   </plurals>
   <string name="willBeReviewed">Permintaan bergabung Anda akan ditinjau oleh ketua tim.</string>
   <string name="beingReviewed">Permintaan bergabung Anda telah ditinjau oleh ketua tim.</string>
+  <string name="subToTeamMessages">Berlangganan pesan tim</string>
   <string name="teamBattle">Pertarungan Tim</string>
   <string name="teamBattleOverview">Pertarungan antara bebrapa tim, setiap pemain mencetak poin untuk timnya</string>
   <string name="teamTournament">Turnamen tim</string>
   <string name="teamTournamentOverview">Sebuah arena turnamen yang hanya bisa diikuti oleh anggota tim Anda</string>
+  <string name="swissTournamentOverview">Turnamen Swiss yang hanya dapat diikuti member tim</string>
   <string name="messageAllMembers">Pesan semua anggota</string>
   <string name="messageAllMembersOverview">Kirim pesan pribadi kepada semua anggota tim</string>
   <string name="messageAllMembersLongDescription">Kirim pesan pribadi ke SEMUA anggota tim.
@@ -40,9 +42,6 @@ Pemain yang tidak suka menerima pesan anda dapat meninggalkan tim.</string>
   <string name="leadersChat">Obrolan Pemimpin</string>
   <string name="closeTeam">Bubarkan tim</string>
   <string name="closeTeamDescription">Bubarkan tim selamanya.</string>
-  <string name="teamPassword">Kata sandi tim</string>
-  <string name="teamPasswordDescriptionForLeader">(Opsi) Kata sandi yang harus diketahui anggota baru untuk bergabung tim ini.</string>
-  <string name="incorrectTeamPassword">Kata sandi tim salah.</string>
   <string name="teamAlreadyExists">Tim ini sudah ada.</string>
   <string name="upcomingTourns">Turnamen selanjutnya</string>
   <string name="completedTourns">Turnamen yang telah selesai</string>

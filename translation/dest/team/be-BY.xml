@@ -51,9 +51,6 @@
   <string name="leadersChat">Чат лідараў</string>
   <string name="closeTeam">Зачыніць каманду</string>
   <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
-  <string name="teamPassword">Камандны пароль</string>
-  <string name="teamPasswordDescriptionForLeader">(Неабавязкова) Пароль, якія новыя ўдзельнікі павінны ведаць, каб далучыцца да каманды.</string>
-  <string name="incorrectTeamPassword">Няправільні камандны пароль.</string>
   <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
   <string name="upcomingTourns">Надыходзячыя турніры</string>
   <string name="completedTourns">Завершаныя турніры</string>

@@ -47,9 +47,9 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="leadersChat">Chat-ul liderilor</string>
   <string name="closeTeam">Închide echipa</string>
   <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
-  <string name="teamPassword">Parola echipei</string>
-  <string name="teamPasswordDescriptionForLeader">(Opțional) O parolă pe care noii membri trebuie să o cunoască pentru a se alătura acestei echipe.</string>
-  <string name="incorrectTeamPassword">Parola echipei este greșită.</string>
+  <string name="entryCode">Cod de intrare în echipă</string>
+  <string name="entryCodeDescriptionForLeader">(Opțional) Un cod de intrare pe care noii membri trebuie să îl cunoască pentru a se alătura acestei echipe.</string>
+  <string name="incorrectEntryCode">Cod de intrare incorect.</string>
   <string name="teamAlreadyExists">Această echipă există deja.</string>
   <string name="upcomingTourns">Turnee viitoare</string>
   <string name="completedTourns">Turnee finalizate</string>

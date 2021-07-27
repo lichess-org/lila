@@ -43,8 +43,5 @@ Spelers wat nie daarvan hou om u boodskappe te ontvang nie, kan die span verlaat
   <string name="leadersChat">Leiers gesels</string>
   <string name="closeTeam">Naby span</string>
   <string name="closeTeamDescription">Sluit die span vir altyd.</string>
-  <string name="teamPassword">Span wagwoord</string>
-  <string name="teamPasswordDescriptionForLeader">(Optioneel) \'n Wagwoord wat nuwe lede moet ken om by die span aan te sluit.</string>
-  <string name="incorrectTeamPassword">Verkeerde span wagwoord.</string>
   <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
 </resources>

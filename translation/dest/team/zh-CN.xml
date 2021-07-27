@@ -42,9 +42,6 @@
   <string name="leadersChat">领队聊天</string>
   <string name="closeTeam">关闭团队</string>
   <string name="closeTeamDescription">永远关闭团队。</string>
-  <string name="teamPassword">团队密码</string>
-  <string name="teamPasswordDescriptionForLeader">(可选) 一个密码，新成员必须知道才能加入此团队。</string>
-  <string name="incorrectTeamPassword">团队密码不正确。</string>
   <string name="teamAlreadyExists">该团队已经存在。</string>
   <string name="upcomingTourns">即将开始的锦标赛</string>
   <string name="completedTourns">已完成的锦标赛</string>

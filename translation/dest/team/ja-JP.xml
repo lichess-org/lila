@@ -42,9 +42,9 @@
   <string name="leadersChat">リーダー・チャット</string>
   <string name="closeTeam">チームを解散</string>
   <string name="closeTeamDescription">チームを永久に閉鎖します。</string>
-  <string name="teamPassword">チームのパスワード</string>
-  <string name="teamPasswordDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なパスワード。</string>
-  <string name="incorrectTeamPassword">チームのパスワードが違います.</string>
+  <string name="entryCode">チーム参加コード</string>
+  <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
+  <string name="incorrectEntryCode">参加コードが違います。</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
   <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>

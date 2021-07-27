@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise de computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
+  <string name="computerAnalysisDisabled">Análise de computador desactivada</string>
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
@@ -912,7 +913,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabrir a sua conta</string>
   <string name="closedAccountChangedMind">Se fechou a sua conta mas desde então mudou de ideias, terá uma oportunidade de recuperar a sua conta.</string>
-  <string name="onlyWorksOnce" comment="onlyWorksOnce&#10;&#10;In relation to reopening a closed account - reopening is only allowed once if you choose to close your account.">Isto só vai funcionar uma única vez.</string>
+  <string name="onlyWorksOnce">Isto só vai funcionar uma única vez.</string>
   <string name="cantDoThisTwice">Se fechar a conta uma segunda vez, não haverá forma de a recuperar.</string>
   <string name="emailAssociatedToaccount">Endereço de email associado à conta</string>
   <string name="sentEmailWithLink">Enviámos-lhe um e-mail com um link.</string>
