@@ -1,9 +1,9 @@
 import * as cg from 'chessground/types';
-import { h, Hooks, VNodeData } from 'snabbdom';
 import { opposite } from 'chessground/util';
-import { EncodedDests, Dests, MaterialDiff, Step, CheckCount } from './interfaces';
+import { h, VNodeData } from 'snabbdom';
+import { CheckCount, Dests, EncodedDests, MaterialDiff, Step } from './interfaces';
 
-export { bind } from 'common/snabbdom';
+export { bind, onInsert } from 'common/snabbdom';
 
 const pieceScores = {
   pawn: 1,
@@ -23,12 +23,6 @@ export const uci2move = (uci: string): cg.Key[] | undefined => {
   if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
   return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
 };
-
-export const onInsert = (f: (el: HTMLElement) => void): Hooks => ({
-  insert(vnode) {
-    f(vnode.elm as HTMLElement);
-  },
-});
 
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();
