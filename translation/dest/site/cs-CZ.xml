@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
+  <string name="computerAnalysisDisabled">Analýza počítačem je vypnutá</string>
   <string name="analysis">Analýza</string>
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
@@ -155,6 +156,8 @@
     <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remíza po vzájemné dohodě</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Padesát tahů bez progresu</string>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -502,6 +505,7 @@
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upravit šachovnici</string>
   <string name="popularOpenings">Populární zahájení</string>
+  <string name="endgamePositions">Pozice koncovek</string>
   <string name="chess960StartPosition">Základní postavení Chess960: %s</string>
   <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
