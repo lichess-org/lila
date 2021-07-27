@@ -211,7 +211,7 @@ final private class SwissFields(form: Form[_], swiss: Option[Swiss])(implicit ct
     form3.group(
       form("password"),
       trans.tournamentEntryCode(),
-      help = trans.makePrivateTournamentHelp().some,
+      help = trans.makePrivateTournament().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
 
