@@ -43,7 +43,7 @@ final class CoachPager(
                 Sort(
                   order match {
                     case Alphabetical  => Ascending("_id")
-                    case NbReview      => Descending("nbReview")
+                    case NbReview      => Descending("nbReviews")
                     case LichessRating => Descending("user.rating")
                     case Login         => Descending("user.seenAt")
                   }
