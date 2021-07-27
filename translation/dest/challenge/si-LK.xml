@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="challenges">අභියෝග</string>
+  <string name="challengeToPlay">ක්‍රීඩාවකට අභියෝග කරන්න</string>
+  <string name="challengeDeclined">අභියෝගය අඩු විය</string>
+  <string name="challengeAccepted">අභියෝගය බාරගත්තා!</string>
+  <string name="challengeCanceled">අභියෝගය අවලංගු කරන ලදි.</string>
+  <string name="registerToSendChallenges">අභියෝග යැවීමට කරුණාකර ලියාපදිංචි වන්න.</string>
+  <string name="youCannotChallengeX">ඔබට %s අභියෝග කළ නොහැක.</string>
+  <string name="xDoesNotAcceptChallenges">%s අභියෝග භාර නොගනී.</string>
+  <string name="yourXRatingIsTooFarFromY">ඔබගේ %1$s ශ්‍රේණිගත කිරීම %2$s ට වඩා වැඩිය.</string>
+</resources>
