@@ -905,5 +905,13 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>
   <string name="playComputerMove">Spela bästa datordraget</string>
+  <string name="analysisOptions">Analysalternativ</string>
+  <string name="focusChat">Fokusera chatten</string>
+  <string name="showHelpDialog">Visa denna hjälpdialog</string>
+  <string name="reopenYourAccount">Öppna ditt konto igen</string>
+  <string name="closedAccountChangedMind">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
+  <string name="onlyWorksOnce">Detta fungerar bara en gång.</string>
+  <string name="cantDoThisTwice">Om du stänger ditt konto en andra gång, kommer det inte att finnas något sätt att återställa det.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
+  <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
 </resources>
