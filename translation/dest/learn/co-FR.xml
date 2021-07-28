@@ -68,4 +68,22 @@ Muvite lu, pò fate l\' arruccamentu minò.</string>
 Ci vole à move e vostre pezze prima.</string>
   <string name="castleQueenSideMovePiecesFirst">Arruccamentu maiò!
 Ci vole à move e vostre pezze prima.</string>
+  <string name="youCannotCastleIfMoved">Ùn pudete arruccà s\'è u rè o a torra si sò dighjà spiazzate.</string>
+  <string name="youCannotCastleIfAttacked">Ùn pudete micca arruccà s\'è u rè hè messu \"scaccu\" durante u so caminu.
+Impedite u scaccu pò arruccate!</string>
+  <string name="findAWayToCastleKingSide">Truvate una manera di fà l\' arruccamentu minò!</string>
+  <string name="findAWayToCastleQueenSide">Truvate una manera di fà l\' arruccamentu maiò!</string>
+  <string name="castlingComplete">Felicitazione! Pudete arruccà durante e vostre partite.</string>
+  <string name="enPassant">A presa passendu</string>
+  <string name="theSpecialPawnMove">Un move speciale di i pedini</string>
+  <string name="enPassantIntro">Quandu un pedinu di l’aversariu avanza di duie cantarelle è si mette à fiancu à u vostru pedinu, pudete piglià lu cum’è s’ellu s’hè avanzatu d’una cantarella sola.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">I neri anu avanzatu u so pedinu di duie cantarelle!
+Pigliate lu passendu.</string>
+  <string name="enPassantOnlyWorksImmediately">Attenti ! Ci vole à fà a presa subitu subitu osinnò u drittu hè persu.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">A presa passendu ùn viaghja ch\'è s\'è u vostru pedinu hè nantu à a cinquesima filare.</string>
+  <string name="takeAllThePawnsEnPassant">Pigliate tutti i pedini passendu!</string>
+  <string name="enPassantComplete">Felicitazione! Pudete avà piglià i pedini passendu.</string>
+  <string name="stalemate">Pattu</string>
+  <string name="theGameIsADraw">A partita hè patta</string>
+  <string name="stalemateIntro">Quandu un ghjucatore in pò più ghjucà un colpu regulare, ma chì u so rè ùn hè scaccu, hè un pattu. A partita hè patta, ùn ci hè nè vincitore, nè perditore.</string>
 </resources>
