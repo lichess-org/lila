@@ -38,9 +38,7 @@ case class Post(
 
   def isTeam = categId startsWith teamSlug("")
 
-  def isAnonModPost = !userId.isDefined && modIcon.getOrElse(
-    false
-  )
+  def isAnonModPost = !userId.isDefined && ~modIcon
 
   def updatedOrCreatedAt = updatedAt | createdAt
 
