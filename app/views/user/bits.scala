@@ -51,16 +51,16 @@ object bits {
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
             img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
           )
-        case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
+        case (perf, rank) if rank <= 2 =>
+          span(cls := "trophy perf top2", title := s"${perf.trans} Top 2!")(
             img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
           )
-        case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(
+        case (perf, rank) if rank <= 3 =>
+          span(cls := "trophy perf top3", title := s"${perf.trans} Top 3 player!")(
             img(src := staticUrl("images/trophy/Fancy-Gold.png"))
           )
-        case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${perf.trans} Top 100 player!")(
+        case (perf, rank) if rank <= 10 =>
+          span(cls := "trophy perf top10", title := s"${perf.trans} Top 10 player!")(
             img(src := staticUrl("images/trophy/Gold-Cup.png"))
           )
       }
