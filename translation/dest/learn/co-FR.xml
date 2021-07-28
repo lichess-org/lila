@@ -56,6 +56,11 @@ Prumove ùn hè necessariu quì.</string>
   <string name="pawnComplete">Felicitazione! I pedini ùn anu più sicretti pè voi.</string>
   <string name="pawnPromotion">A prumuzzione di u pedinu</string>
   <string name="yourPawnReachedTheEndOfTheBoard">U vostru pedinu hè ghjuntu à a fine di a scacchera!</string>
+  <string name="itNowPromotesToAStrongerPiece">Avà prumuvite in una pezza più forte.</string>
+  <string name="selectThePieceYouWant">Sceglite a pezza ch\' è vo vulete!</string>
+  <string name="fundamentals">E base</string>
+  <string name="capture">Catturà</string>
+  <string name="takeTheEnemyPieces">Piglià e pezze di l\' aversariu</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
   <string name="castling">Arrucamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
