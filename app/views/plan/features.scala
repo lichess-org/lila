@@ -76,10 +76,10 @@ object features {
             //tr(check)(
             //  "Download/Upload any game as PGN"
             //),
-            //tr(unlimited)(
-            //  a(href := routes.Search.index(1))("Advanced search"),
-            //  " through Lishogi 1.5 billion games"
-            //),
+            tr(unlimited)(
+              a(href := routes.Search.index(1))("Advanced search"),
+              " through more than 400 thousand Lishogi games"
+            ),
             tr(unlimited)(
               a(href := routes.Video.index())("Shogi video library")
             ),
