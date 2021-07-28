@@ -52,7 +52,7 @@ object show {
         )})""")
       )
     ) {
-      val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.Admin)
+      val enabledOrLeader = t.enabled || info.ledByMe || isGranted(_.ManageTeam)
       main(
         cls := "team-show box",
         socketVersion.map { v =>
@@ -154,7 +154,7 @@ object show {
                   )
                 )
               ),
-              ((t.enabled && info.ledByMe) || isGranted(_.Admin)) option
+              ((t.enabled && info.ledByMe) || isGranted(_.ManageTeam)) option
                 a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "")(
                   trans.settings.settings()
                 )
