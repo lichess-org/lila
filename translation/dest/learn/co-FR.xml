@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Amparà i scacchi</string>
+  <string name="byPlaying">ghjuchendu!</string>
+  <string name="menu">Listinu</string>
+  <string name="progressX">Prugressi: %s</string>
+  <string name="resetMyProgress">Ricumincià a prugressione</string>
+  <string name="youWillLoseAllYourProgress">Avete da perde tutta a vostr prugressione!</string>
+  <string name="play">ghjucate!</string>
+  <string name="chessPieces">E pezze</string>
+  <string name="theRook">A torra</string>
+</resources>
