@@ -9,4 +9,8 @@
   <string name="play">ghjucate!</string>
   <string name="chessPieces">E pezze</string>
   <string name="theRook">A torra</string>
+  <string name="itMovesInStraightLines">Si tramuta longu à un filare o una culonna</string>
+  <string name="rookIntro">A torra hè una pezza putenta putenta. Site prontu à ammaestrà la?</string>
+  <string name="rookGoal">Clicheghja nantu à a torra pè move la sin\' à a stella!</string>
+  <string name="grabAllTheStars">Cogli tutte e stelle!</string>
 </resources>
