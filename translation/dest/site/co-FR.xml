@@ -142,8 +142,8 @@
     <item quantity="one">%s ghjucatore</item>
     <item quantity="other">%s ghjucatori</item>
   </plurals>
-  <string name="drawByMutualAgreement">Partita pattu per via d\' un accusentu</string>
-  <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Partita pattu per via d\' un accusentu</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate avali</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
@@ -506,7 +506,7 @@
   <string name="troll">Trollu</string>
   <string name="ratingManipulation">Valutazione trafficata</string>
   <string name="other">Altru</string>
-  <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn và micca in u cumpurtamentu di u ghjucatore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
+  <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn si passa bè cù u cumpurtamentu di u ghjucatore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
   <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
   <string name="by">da %s</string>
   <string name="thisTopicIsNowClosed">Stu tema hè chjosu avà.</string>
