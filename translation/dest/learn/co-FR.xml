@@ -48,4 +48,24 @@ Ma certe volte, un cavallu pò esse praticu assai!</string>
   <string name="pawnsMoveForward">I pedini movenu davanti à elli, 
 ma catturanu in diagunale!</string>
   <string name="captureThenPromote">Cattura, pò prumovi!</string>
+  <string name="useAllThePawns">Adopra tutti i pedini!
+Prumove ùn hè necessariu quì.</string>
+  <string name="aPawnOnTheSecondRank">Un pedinu pò avanza di diue cantarelle quandu ellu hè nantu à so cantarella iniziale!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Cogli tutte e stelle!
+Ùn hè necessariu di prumove.</string>
+  <string name="pawnComplete">Felicitazione! I pedini ùn anu più sicretti pè voi.</string>
+  <string name="pawnPromotion">A prumuzzione di u pedinu</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">U vostru pedinu hè ghjuntu à a fine di a scacchera!</string>
+  <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
+  <string name="castling">Arrucamentu</string>
+  <string name="theSpecialKingMove">U move speciale di u rè</string>
+  <string name="castlingIntro">Mettite u vostru rè à l\' aggrottu, è sviluppate e vostre torre pè l\' attaccu!</string>
+  <string name="castleKingSide">Muvite u vostru rè di duie canterelle pè fà l\' arruccamentu minò!</string>
+  <string name="castleQueenSide">Muvite u vostru rè di duie canterelle pè fà l\' arruccamentu maiò!</string>
+  <string name="theKnightIsInTheWay">S\' affacca u cavallu!
+Muvite lu, pò fate l\' arruccamentu minò.</string>
+  <string name="castleKingSideMovePiecesFirst">Arruccamentu minò!
+Ci vole à move e vostre pezze prima.</string>
+  <string name="castleQueenSideMovePiecesFirst">Arruccamentu maiò!
+Ci vole à move e vostre pezze prima.</string>
 </resources>
