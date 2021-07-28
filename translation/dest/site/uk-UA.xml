@@ -126,6 +126,12 @@
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s груба помилка</item>
+    <item quantity="few">%s грубі помилки</item>
+    <item quantity="many">%s грубих помилок</item>
+    <item quantity="other">%s грубих помилок</item>
+  </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
