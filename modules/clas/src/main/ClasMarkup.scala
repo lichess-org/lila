@@ -10,7 +10,6 @@ final class ClasMarkup {
     new lila.common.Markdown(
       autoLink = true,
       list = true,
-      table = true,
       strikeThrough = true,
       header = true
     )
