@@ -40,10 +40,10 @@ final class Team(
       }
     }
 
-  def show(id: String, page: Int) =
+  def show(id: String, page: Int, mod: Boolean) =
     Open { implicit ctx =>
       Reasonable(page) {
-        OptionFuOk(api team id) { renderTeam(_, page) }
+        OptionFuOk(api team id) { renderTeam(_, page, mod) }
       }
     }
 
@@ -56,11 +56,13 @@ final class Team(
       }
     }
 
-  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+  private def renderTeam(team: TeamModel, page: Int = 1, requestModView: Boolean = false)(implicit
+      ctx: Context
+  ) =
     for {
       info    <- env.teamInfo(team, ctx.me)
       members <- paginator.teamMembers(team, page)
-      hasChat = canHaveChat(team, info)
+      hasChat = canHaveChat(team, info, requestModView)
       chat <-
         hasChat ?? env.chat.api.userChat.cached
           .findMine(lila.chat.Chat.Id(team.id), ctx.me)
@@ -69,13 +71,15 @@ final class Team(
         info.userIds ::: chat.??(_.chat.userIds)
       }
       version <- hasChat ?? env.team.version(team.id).dmap(some)
-    } yield html.team.show(team, members, info, chat, version)
+    } yield html.team.show(team, members, info, chat, version, requestModView)
 
-  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo)(implicit ctx: Context): Boolean =
+  private def canHaveChat(team: TeamModel, info: lila.app.mashup.TeamInfo, requestModView: Boolean = false)(
+      implicit ctx: Context
+  ): Boolean =
     team.enabled && !team.isChatFor(_.NONE) && ctx.noKid && {
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      isGranted(_.ChatTimeout)
+      (isGranted(_.ChatTimeout) && requestModView)
     }
 
   def users(teamId: String) =

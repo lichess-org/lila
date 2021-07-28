@@ -335,7 +335,7 @@ GET   /team/all                               controllers.Team.all(page: Int ?= 
 GET   /team/requests                          controllers.Team.requests
 GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
 GET   /team/autocomplete                      controllers.Team.autocomplete
-GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
+GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1, mod: Boolean ?= false)
 POST  /team/:id/join                          controllers.Team.join(id: String)
 POST  /team/:id/quit                          controllers.Team.quit(id: String)
 GET   /team/:id/request/new                   controllers.Team.requestForm(id: String)
