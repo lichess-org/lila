@@ -86,4 +86,33 @@ Pigliate lu passendu.</string>
   <string name="stalemate">Pattu</string>
   <string name="theGameIsADraw">A partita hè patta</string>
   <string name="stalemateIntro">Quandu un ghjucatore in pò più ghjucà un colpu regulare, ma chì u so rè ùn hè scaccu, hè un pattu. A partita hè patta, ùn ci hè nè vincitore, nè perditore.</string>
+  <string name="stalemateGoal">Pè fà un pattu à i neri:
+- I neri ùn ponu move inlocu
+-Ùn ci hè scaccu.</string>
+  <string name="stalemateComplete">Felicitazione! Hè megliu d\' esse pattu chè mattu!</string>
+  <string name="advanced">Avanzatu</string>
+  <string name="pieceValue">Valore di e pezze</string>
+  <string name="evaluatePieceStrength">Apprezziazzione di a putenza di e pezze</string>
+  <string name="pieceValueIntro">A mubilità d\'una pezza face cresce u so valore
+Dama = 9
+Torra = 5
+Alfieru = 3
+Cavallu = 3
+Pedinu = 1
+U rè ùn hà prezzu! Perde u so rè vale à dì perde a partita.</string>
+  <string name="queenOverBishop">Piglia a pezza cù u valore u più altu!
+Dama &gt; Alfieru</string>
+  <string name="pieceValueExchange">Piglia a pezza cù u valore u più altu!
+Ùn scambiate micca una pezza più forte contru à una pezza menu putenta.</string>
+  <string name="pieceValueLegal">Piglia a pezza cù u valore u più altu!
+Siate sicuru ch\' ellu rispetta e regule u vostru colpu!</string>
+  <string name="takeThePieceWithTheHighestValue">Piglia a pezza cù u valore u più altu!</string>
+  <string name="pieceValueComplete">Felicitazione! Cunnuscite u valore di u materiale!
+Dama = 9
+Torra = 5
+Alfieru = 3
+Cavallu = 3
+Pedinu = 1</string>
+  <string name="checkInTwo">Scaccu in dui colpi</string>
+  <string name="twoMovesToGiveCheck">Ghjoca dui colpi pè dà un scaccu</string>
 </resources>
