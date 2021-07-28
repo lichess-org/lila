@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Зробити запит на комп’ютерний аналіз</string>
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
+  <string name="computerAnalysisDisabled">Комп\'ютерний аналіз вимкнено</string>
   <string name="analysis">Аналіз за дошкою</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
