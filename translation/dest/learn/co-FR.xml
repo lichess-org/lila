@@ -29,4 +29,23 @@
   <string name="theMostImportantPiece">Hè a pezza a più impurtante</string>
   <string name="kingIntro">Site u rè. S\'è vo site catturatu durante a battaglia, a partita hè persa.</string>
   <string name="theKingIsSlow">U rè hè lentu.</string>
+  <string name="lastOne">L\' ultima!</string>
+  <string name="kingComplete">Avà pudete cummandà u cummandante!</string>
+  <string name="theKnight">U cavallu</string>
+  <string name="itMovesInAnLShape">Si move cum\' un L</string>
+  <string name="knightIntro">Hè una sfida pè voi. U cavallu hè... una chjocca.</string>
+  <string name="knightsHaveAFancyWay">U cavallu pò saltà tuttu intornu à ellu!</string>
+  <string name="knightsCanJumpOverObstacles">U cavallu pò saltà sopra à l\' ostaculi! 
+Scappa è raccogli e stelle!</string>
+  <string name="knightComplete">Felicitazione! Avete ammaestratu u cavallu.</string>
+  <string name="thePawn">U pedinu</string>
+  <string name="itMovesForwardOnly">Move soltantu davanti</string>
+  <string name="pawnIntro">I pedini sò debuli, ma inseme anu una vera putenza.</string>
+  <string name="pawnsMoveOneSquareOnly">Movenu solu d\' una cantarella. 
+Ma ghjunti ch\' elli sò nantu à l\' ultima filare di a scacchera, ponu esse trasfurmati in una pezza putenta!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">A spessu, u megliu hè di prumove lu in dama. 
+Ma certe volte, un cavallu pò esse praticu assai!</string>
+  <string name="pawnsMoveForward">I pedini movenu davanti à elli, 
+ma catturanu in diagunale!</string>
+  <string name="captureThenPromote">Cattura, pò prumovi!</string>
 </resources>
