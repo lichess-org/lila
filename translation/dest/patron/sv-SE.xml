@@ -75,4 +75,5 @@ Men beskyddare får skryta med rätten till en cool ny profilikon.</string>
   <string name="nowLifetime">Du är nu en livstid Lichess-beskyddare!</string>
   <string name="nowOneMonth">Du är Lichess-beskyddare i en månad!</string>
   <string name="downgradeNextMonth">Om en månad kommer du INTE att debiteras igen, och ditt Lichess-konto kommer att nedgraderas till gratis.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Ändra valuta</string>
 </resources>
