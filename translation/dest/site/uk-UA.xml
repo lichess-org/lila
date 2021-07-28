@@ -489,6 +489,7 @@
   <string name="setTheBoard">Встановити позицію</string>
   <string name="popularOpenings">Популярні дебюти</string>
   <string name="endgamePositions">Позиції ендшпілю</string>
+  <string name="chess960StartPosition">Початкова позиція Chess960: %s</string>
   <string name="startPosition">Початкова позиція</string>
   <string name="clearBoard">Очистити дошку</string>
   <string name="savePosition">Зберегти позицію</string>
