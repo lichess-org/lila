@@ -138,6 +138,8 @@
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Нічия за спільною згодою</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">П\'ятдесят кроків без прогресу</string>
   <string name="currentGames">Поточні партії</string>
   <plurals name="nbGames">
     <item quantity="one">%s ігра</item>
