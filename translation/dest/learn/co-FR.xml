@@ -13,4 +13,20 @@
   <string name="rookIntro">A torra hè una pezza putenta putenta. Site prontu à ammaestrà la?</string>
   <string name="rookGoal">Clicheghja nantu à a torra pè move la sin\' à a stella!</string>
   <string name="grabAllTheStars">Cogli tutte e stelle!</string>
+  <string name="theFewerMoves">Menu colpi ghjucarete, più piglierate punti!</string>
+  <string name="useTwoRooks">Aduprate duie torre pè esse più rapidu!</string>
+  <string name="rookComplete">Felicitazione! Ammaestrate a torra avà.</string>
+  <string name="theBishop">L\' alfieru</string>
+  <string name="itMovesDiagonally">Si tramuta in diagunale</string>
+  <string name="bishopIntro">Dopu avemu da amparà cumu si maneghja l\' alfieru!</string>
+  <string name="youNeedBothBishops">Ci hè un alfieru nantu à e cantarelle bianche è unu nantu à e cantarelle nere. Avete bisognu di i dui!</string>
+  <string name="bishopComplete">Felicitazione! Sapete move l\' alfieru.</string>
+  <string name="theQueen">A dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = torra + alfieru</string>
+  <string name="queenIntro">A più putenta di e pezze. A Dama!</string>
+  <string name="queenComplete">Felicitazione! E dame ùn anu più sicretti pè voi.</string>
+  <string name="theKing">U rè</string>
+  <string name="theMostImportantPiece">Hè a pezza a più impurtante</string>
+  <string name="kingIntro">Site u rè. S\'è vo site catturatu durante a battaglia, a partita hè persa.</string>
+  <string name="theKingIsSlow">U rè hè lentu.</string>
 </resources>
