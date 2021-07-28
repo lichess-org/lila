@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { ops as treeOps } from 'tree';
-import { TagArray } from './interfaces';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
-import { isFinished, findTag, resultOf } from './studyChapters';
+import { renderMaterialDiffs } from '../view';
+import { TagArray } from './interfaces';
+import { findTag, isFinished, resultOf } from './studyChapters';
 
 interface PlayerNames {
   white: string;
@@ -21,7 +21,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 
   const clocks = renderClocks(ctrl),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor(),
-    materialDiffs = ctrl.renderMaterialDiffs();
+    materialDiffs = renderMaterialDiffs(ctrl);
 
   return (['white', 'black'] as Color[]).map(color =>
     renderPlayer(tags, clocks, materialDiffs, playerNames, color, ticking === color, ctrl.bottomColor() !== color)
@@ -31,7 +31,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 function renderPlayer(
   tags: TagArray[],
   clocks: [VNode, VNode] | undefined,
-  materialDiffs: [VNode, VNode] | undefined,
+  materialDiffs: [VNode, VNode],
   playerNames: PlayerNames,
   color: Color,
   ticking: boolean,
@@ -54,8 +54,8 @@ function renderPlayer(
           elo && h('span.elo', elo),
         ]),
       ]),
-      materialDiffs && materialDiffs[top ? 0 : 1],
-      clocks && clocks[color === 'white' ? 0 : 1],
+      materialDiffs[top ? 0 : 1],
+      clocks?.[color === 'white' ? 0 : 1],
     ]
   );
 }

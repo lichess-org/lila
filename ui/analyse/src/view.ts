@@ -1,10 +1,12 @@
 import { view as cevalView } from 'ceval';
+import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
 import { bind, bindNonPassive, MaybeVNodes, onInsert } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
+import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
 import { path as treePath } from 'tree';
@@ -312,8 +314,23 @@ function analysisDisabled(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
+export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
+  const cgState = ctrl.chessground?.state,
+    pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
+
+  return materialView.renderMaterialDiffs(
+    true, // showCaptured
+    ctrl.flipped,
+    ctrl.data.player,
+    ctrl.data.opponent,
+    pieces,
+    ctrl.nodeList,
+    ctrl.node.ply
+  );
+}
+
 function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNode {
-  return h('div.analyse__player_strip.' + cls, {}, [materialDiff, clock]);
+  return h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 }
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
@@ -321,7 +338,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
 
   const clocks = renderClocks(ctrl),
     whitePov = ctrl.bottomIsWhite(),
-    materialDiffs = ctrl.renderMaterialDiffs();
+    materialDiffs = renderMaterialDiffs(ctrl);
 
   return [
     renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),

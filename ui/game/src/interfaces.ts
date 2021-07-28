@@ -1,3 +1,5 @@
+import * as cg from 'chessground/types';
+
 export interface GameData {
   game: Game;
   player: Player;
@@ -179,7 +181,7 @@ export interface GameView {
 
 export interface CheckState {
   ply: Ply;
-  check?: unknown;
+  check?: boolean | Key;
 }
 
 export interface CheckCount {
@@ -187,9 +189,9 @@ export interface CheckCount {
   black: number;
 }
 
-export interface MaterialDiffSide {
-  [role: string]: number;
-}
+export type MaterialDiffSide = {
+  [role in cg.Role]: number;
+};
 
 export interface MaterialDiff {
   white: MaterialDiffSide;

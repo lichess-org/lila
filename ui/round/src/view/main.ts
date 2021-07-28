@@ -4,7 +4,7 @@ import crazyView from '../crazy/crazyView';
 import RoundController from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
-import { read as fenRead } from 'chessground/fen';
+import { read as readFen } from 'chessground/fen';
 import { render as keyboardMove } from '../keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -24,7 +24,7 @@ export function main(ctrl: RoundController): VNode {
     cgState = ctrl.chessground && ctrl.chessground.state,
     topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
     bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
-    pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen),
+    pieces = cgState ? cgState.pieces : readFen(plyStep(ctrl.data, ctrl.ply).fen),
     materialDiffs = renderMaterialDiffs(
       ctrl.data.pref.showCaptured,
       ctrl.flip,

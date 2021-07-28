@@ -2,7 +2,7 @@ import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
 import { CheckCount, CheckState, MaterialDiff } from './interfaces';
 
-const pieceScores = {
+const PIECE_SCORES = {
   pawn: 1,
   knight: 3,
   bishop: 3,
@@ -11,7 +11,6 @@ const pieceScores = {
   king: 0,
 };
 
-// {white: {pawn: 3 queen: 1}, black: {bishop: 2}}
 export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
   const diff: MaterialDiff = {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
@@ -28,18 +27,18 @@ export function getMaterialDiff(pieces: cg.Pieces): MaterialDiff {
 export function getScore(pieces: cg.Pieces): number {
   let score = 0;
   for (const p of pieces.values()) {
-    score += pieceScores[p.role] * (p.color === 'white' ? 1 : -1);
+    score += PIECE_SCORES[p.role] * (p.color === 'white' ? 1 : -1);
   }
   return score;
 }
 
-export const noChecks: CheckCount = {
+export const NO_CHECKS: CheckCount = {
   white: 0,
   black: 0,
 };
 
 export function countChecks(steps: CheckState[], ply: Ply): CheckCount {
-  const checks: CheckCount = { ...noChecks };
+  const checks: CheckCount = { ...NO_CHECKS };
   for (const step of steps) {
     if (ply < step.ply) break;
     if (step.check) {

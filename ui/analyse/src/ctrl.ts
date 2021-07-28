@@ -35,7 +35,6 @@ import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { COLORS, Outcome, isNormal } from 'chessops/types';
 import { SquareSet } from 'chessops/squareSet';
 import { parseFen } from 'chessops/fen';
-import { read as fenRead } from 'chessground/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
@@ -44,7 +43,6 @@ import { AnaMove, StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
-import { renderMaterialDiffs } from 'game/view/material';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -921,19 +919,4 @@ export default class AnalyseCtrl {
     if (this.chessground && this.cgVersion.js === this.cgVersion.dom) return f(this.chessground);
     return undefined;
   };
-
-  renderMaterialDiffs() {
-    const cgState = this.chessground && this.chessground.state,
-      pieces = cgState ? cgState.pieces : fenRead(this.node.fen);
-
-    return renderMaterialDiffs(
-      true, // showCaptured
-      this.flipped,
-      this.data.player,
-      this.data.opponent,
-      pieces,
-      this.nodeList,
-      this.node.ply
-    );
-  }
 }
