@@ -21,6 +21,7 @@
   <string name="roundInterval">回合间歇时间</string>
   <string name="forbiddenPairings">禁止配对</string>
   <string name="newSwiss">新瑞士锦标赛</string>
+  <string name="swissVsArenaQ">什么时候适合用瑞士锦标赛而不是竞技场？</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="dutchSystem">荷兰规则</string>
   <string name="FIDEHandbook">国际棋联手册</string>
