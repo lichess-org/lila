@@ -33,6 +33,9 @@
   <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
 若玩家在某回合中无法配对，他将被轮空并得一分。</string>
+  <string name="tiebreaksCalculationQ">平局如何决胜？</string>
+  <string name="tiebreaksCalculationA">使用 %s。
+加上选手所有战胜的对手的得分以及所有战平的对手的得分的一半。</string>
   <string name="pairingsQ">如何决定配对？</string>
   <string name="dutchSystem">荷兰规则</string>
   <string name="FIDEHandbook">国际棋联手册</string>
@@ -47,6 +50,7 @@
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
 他们随时可以重新加入比赛。</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
+  <string name="willSwissReplaceArenasQ">瑞士锦标赛将取代竞技场吗？</string>
   <string name="willSwissReplaceArenasA">不，他们是互补的。</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
   <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
