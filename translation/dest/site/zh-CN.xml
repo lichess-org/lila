@@ -833,6 +833,7 @@
   <string name="welcome">欢迎！</string>
   <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
   <string name="coachManager">教练管理</string>
+  <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>
   <string name="tournDescriptionHelp">您有其他的信息要告诉参加者们吗？请不要写太多。可以使用Markdown来写链接：[文字](https://url)</string>
@@ -840,12 +841,21 @@
 将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">没有限制</string>
-  <string name="minimumRatedGames">最低评分的棋局</string>
-  <string name="minimumRating">最低评分</string>
+  <string name="minimumRatedGames">最少排位赛局数</string>
+  <string name="minimumRating">最低等级分</string>
   <string name="maximumWeeklyRating">每周最高评分</string>
+  <string name="onlyTitled">仅限有头衔玩家</string>
+  <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
+  <string name="positionInputHelp">粘贴一个有效的FEN来从指定位置开始每个游戏。
+它只适用于标准游戏，而不是变体。
+您可以使用 %s 来生成一个 FEN 位置，然后将其粘贴到这里。
+留空则从正常的初始位置开始游戏。</string>
   <string name="cancelSimul">取消车轮战</string>
+  <string name="simulHostcolor">主持所执方</string>
   <string name="estimatedStart">预计开始时间</string>
+  <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
+  <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>
   <string name="markdownAvailable">%s 可用于更高级的格式。</string>
   <string name="inYourLocalTimezone">在您的本地时区</string>
   <string name="tournChat">比赛聊天</string>
