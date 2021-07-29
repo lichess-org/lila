@@ -53,6 +53,9 @@
   <string name="willSwissReplaceArenasQ">瑞士锦标赛将取代竞技场吗？</string>
   <string name="willSwissReplaceArenasA">不，他们是互补的。</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
+  <string name="roundRobinA">我们曾想加入它，但很遗憾，循环赛不适用于线上。
+原因是没有公平的方法处理玩家提前离开比赛的情况。我们不能指望所有玩家在线上完成所有的比赛，这不现实。也导致大部分循环赛都存在缺陷和不公平，从而缺少存在的理由。
+在线上，最能达到和循环赛相近的方法是举办一场回合数很多的瑞士锦标赛，这样在比赛结束前所有可能的配对都将进行一场对局。</string>
   <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
   <string name="otherSystemsA">我们目前不打算为 Lichess 增加多的比赛系统。</string>
   <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
