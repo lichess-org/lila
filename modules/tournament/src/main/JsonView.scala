@@ -68,10 +68,11 @@ final class JsonView(
         playerInfoExtended(tour, pie).map(_.some)
       }
       verdicts <- full ?? {
-        me match {
-          case None                        => fuccess(tour.conditions.accepted.some)
-          case Some(_) if myInfo.isDefined => fuccess(tour.conditions.accepted.some)
-          case Some(user)                  => verify(tour.conditions, user, getUserTeamIds) map some
+        (me, myInfo) match {
+          case (None, _)                                   => fuccess(tour.conditions.accepted.some)
+          case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
+          case (Some(user), Some(_))                       => verify.rejoin(tour.conditions, user, getUserTeamIds) map some
+          case (Some(user), None)                          => verify(tour.conditions, user, getUserTeamIds) map some
         }
       }
       stats       <- statsApi(tour)
