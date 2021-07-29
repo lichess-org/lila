@@ -48,12 +48,20 @@ db.trophyKind.insert({
   withCustomImage: false,
 });
 db.trophyKind.insert({
+  _id: 'marathonTopFivehundred',
+  name: 'Marathon Top 500',
+  icon: '',
+  klass: 'fire-trophy',
+  order: NumberInt(7),
+  withCustomImage: false,
+});
+db.trophyKind.insert({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
   icon: '',
   url: '//lichess.org/blog/VXF45yYAAPQgLH4d/chess-marathon-1',
   klass: 'fire-trophy',
-  order: NumberInt(7),
+  order: NumberInt(8),
   withCustomImage: false,
 });
 db.trophyKind.insert({
