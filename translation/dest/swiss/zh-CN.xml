@@ -24,8 +24,10 @@
   <string name="pointsCalculationQ">如何计算积分？</string>
   <string name="dutchSystem">荷兰规则</string>
   <string name="FIDEHandbook">国际棋联手册</string>
+  <string name="restrictedToTeamsQ">为什么仅限于团队使用？</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
+  <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
   <string name="otherSystemsA">我们目前不打算为 Lichess 增加多的比赛系统。</string>
   <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
   <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
