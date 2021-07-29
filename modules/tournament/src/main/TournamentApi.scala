@@ -256,7 +256,7 @@ final class TournamentApi(
           case rp if rp.rank <= 50 =>
             trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
           case rp if rp.rank <= 100 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
-          case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFiveundred)
+          case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
         }.sequenceFu.void
       }
     }
