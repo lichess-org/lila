@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
+  <string name="computerAnalysisDisabled">Analisi del computer disattivata</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="depthX">Profondità %s</string>
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
@@ -141,6 +142,7 @@
     <item quantity="one">%s giocatore collegato</item>
     <item quantity="other">%s giocatori collegati</item>
   </plurals>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
@@ -910,4 +912,6 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="analysisOptions">Opzioni d\'analisi</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
+  <string name="reopenYourAccount">Riapri il tuo account</string>
+  <string name="cantDoThisTwice">Se chiudi il tuo account una seconda volta, non ci sarà modo di recuperarlo.</string>
 </resources>
