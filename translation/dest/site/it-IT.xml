@@ -914,5 +914,10 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
   <string name="reopenYourAccount">Riapri il tuo account</string>
+  <string name="closedAccountChangedMind">Se hai chiuso il tuo account, ma da allora hai cambiato idea, ottieni una possibilità di recuperare il tuo account.</string>
+  <string name="onlyWorksOnce">Questo funzionerà una sola volta.</string>
   <string name="cantDoThisTwice">Se chiudi il tuo account una seconda volta, non ci sarà modo di recuperarlo.</string>
+  <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
+  <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codice di accesso al torneo</string>
 </resources>
