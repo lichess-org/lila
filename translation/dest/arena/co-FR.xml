@@ -14,4 +14,12 @@ Cusì una vittora vale 4 punti, una partita patta 2 punti, una scunfitta èn val
 
 Per esempiu, duie vittorie seguitate d\'una partita patta rapurtanu 6 punti: 2 + 2 + (2x1)</string>
   <string name="berserk">Arena di Bersek</string>
+  <string name="berserkAnswer">Quandu un ghjucatore clicheghja nantu à u tastu \"Bersek\" à u principiu di a partita, perde a metà di u so tempu, ma guadagna un puntu di più s\' ellu vince.
+
+Fà un Bersek sfassa dinù a raghjunta di tempu. (Eccettu 1+2 chì diventa 1+0)
+
+U Bersek ùn hè dispunibule pè e partite cù u tempu iniziale di zeru seconde ( 0+1, 0+2)
+
+Ci vole à ghjucà 7 colpi durante a partita pè guadagnà u puntu di u Bersek.</string>
+  <string name="howIsTheWinnerDecided">Cumu hè determinatu u vincitore?</string>
 </resources>
