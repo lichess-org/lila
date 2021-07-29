@@ -88,6 +88,20 @@ in un colpu!</string>
   <string name="checkInOneComplete">Felicitazione! Avete fattu scaccu à u vostru aversariu, sfurzendu lu à difende u so rè!</string>
   <string name="outOfCheck">Difende u scaccu</string>
   <string name="defendYourKing">Assicurate u vostru rè</string>
+  <string name="outOfCheckIntro">Site scaccu! Ci vole à scappà o à parà l\' attaccu.</string>
+  <string name="escapeWithTheKing">Scappate cù u rè!</string>
+  <string name="theKingCannotEscapeButBlock">U rè ùn pò scappà,
+ma pudete parà u scaccu!</string>
+  <string name="youCanGetOutOfCheckByTaking">Pudete difende u scaccu
+pigliendu a pezza chì attacca u vostru rè.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">U cavallu face un scaccu
+saltendu a vostra difesa!</string>
+  <string name="escapeOrBlock">Scappate cù u vostru rè 
+o bluccate l\' attaccu!</string>
+  <string name="outOfCheckComplete">Felicitazione! U vostru rè hè sicuru, sapete difende lu contru à i scacchi!</string>
+  <string name="mateInOne">Scaccu mattu in un colpu</string>
+  <string name="defeatTheOpponentsKing">Scunfighje u rè uppostu</string>
+  <string name="mateInOneIntro">Vincite quandu l\' aversariu ùn pò difende u so rè di pettu à un scaccu.</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
   <string name="castling">Arrucamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
