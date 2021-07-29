@@ -69,6 +69,25 @@ Ma ùn perdite e vostre.</string>
   <string name="protection">Prutegge</string>
   <string name="keepYourPiecesSafe">Assicurà e so pezze</string>
   <string name="protectionIntro">Truvate e pezze attacate da l\' aversariu, pò difendite le!</string>
+  <string name="protectionComplete">Felicitazione! Una pezza ch\' ùn perdite hè una pezza guadagnata!</string>
+  <string name="escape">Site minacciatu!
+Truvate una risposta à a minaccia!</string>
+  <string name="noEscape">Ùn pudete scappà,
+ma pudete difende!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Ùn lasciate lu piglià
+mancu una pezza senza difesa!</string>
+  <string name="combat">Battaglia</string>
+  <string name="captureAndDefendPieces">Catturate è difendite e pezze</string>
+  <string name="combatIntro">Un bonu cumbattente sà attacà è difende!</string>
+  <string name="combatComplete">Felicitazione! Sapete avà cumu battaglià cù e pezze!</string>
+  <string name="checkInOne">Scaccu in un colpu</string>
+  <string name="attackTheOpponentsKing">Attacate u rè uppostu</string>
+  <string name="checkInOneIntro">Pè fà un scaccu à u vostru aversariu, attacate u so rè. Li tocca à difende lu!</string>
+  <string name="checkInOneGoal">Mirate u rè uppostu 
+in un colpu!</string>
+  <string name="checkInOneComplete">Felicitazione! Avete fattu scaccu à u vostru aversariu, sfurzendu lu à difende u so rè!</string>
+  <string name="outOfCheck">Difende u scaccu</string>
+  <string name="defendYourKing">Assicurate u vostru rè</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
   <string name="castling">Arrucamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
