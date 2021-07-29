@@ -61,6 +61,14 @@ Prumove ùn hè necessariu quì.</string>
   <string name="fundamentals">E base</string>
   <string name="capture">Catturà</string>
   <string name="takeTheEnemyPieces">Piglià e pezze di l\' aversariu</string>
+  <string name="captureIntro">Truvate e pezze chì ùn sò difese e pigliate le!</string>
+  <string name="takeTheBlackPieces">Pigliate e pezze nere!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Pigliate e pezze nere!
+Ma ùn perdite e vostre.</string>
+  <string name="captureComplete">Felicitazione! Sapete avà cumu si catturanu e pezze!</string>
+  <string name="protection">Prutegge</string>
+  <string name="keepYourPiecesSafe">Assicurà e so pezze</string>
+  <string name="protectionIntro">Truvate e pezze attacate da l\' aversariu, pò difendite le!</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
   <string name="castling">Arrucamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
