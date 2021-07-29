@@ -61,14 +61,27 @@ Julgamos que essas condições são mais susceptíveis de serem cumpridas numa e
   <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
   <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
   <string name="otherSystemsA">De momento não planeamos adicionar mais sistemas de torneio ao Lichess.</string>
+  <string name="teamOnly">Os torneios Suíços só podem ser criados por líderes de equipa e só podem ser jogados por membros da equipa.           
+%1$s para começar a jogar em torneios Suíços.</string>
+  <string name="joinOrCreateTeam">Junte-se ou crie uma equipa</string>
+  <string name="nowPlaying">A jogar</string>
   <string name="startingSoon">A iniciar em breve</string>
   <string name="comparison">Comparação</string>
   <string name="tournDuration">Duração do torneio</string>
   <string name="predefinedDuration">Duração predefinida em minutos</string>
+  <string name="durationUnknown">Máximo de jogadas predefinido, mas duração desconhecida</string>
   <string name="numberOfGames">Número de jogos</string>
+  <string name="numberOfGamesAsManyAsPossible">Tantos quantos puderem ser jogados na duração atribuída</string>
   <string name="numberOfGamesPreDefined">Decidido antecipadamente, o mesmo para todos os jogadores</string>
+  <string name="pairingSystem">Sistema de emparelhamento</string>
+  <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
+  <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
+  <string name="pairingWaitTimeFast">Rápido: não espera por todos os jogadores</string>
+  <string name="pairingWaitTimeSlow">Lento: espera por todos os jogadores</string>
+  <string name="identicalPairing">Emparelhamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
   <string name="pause">Pausa</string>
+  <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>
 </resources>
