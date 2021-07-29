@@ -780,6 +780,11 @@ export default class RoundController {
 
       speech.setup(this);
 
+      // If the spectatorWakeLock preference is set to 1,
+      // then prevent the device from going to sleep
+      if ( navigator.wakeLock && lichess.storage.get('spectatorWakeLock') == '1' )
+        navigator.wakeLock.request('screen');
+
       this.onChange();
     }, 800);
   };
