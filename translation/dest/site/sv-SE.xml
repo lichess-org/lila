@@ -872,6 +872,8 @@
   <string name="welcome">Välkommen!</string>
   <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
+  <string name="coachManager">Coach-hanterare</string>
+  <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
   <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
