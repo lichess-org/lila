@@ -902,6 +902,7 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="onlyTeamLeaders">Endast lagledare</string>
   <string name="onlyTeamMembers">Endast lagmedlemmar</string>
   <string name="navigateMoveTree">Navigera i dragträdet</string>
+  <string name="mouseTricks">Mus-trick</string>
   <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>
   <string name="playComputerMove">Spela bästa datordraget</string>
