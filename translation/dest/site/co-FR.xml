@@ -42,7 +42,7 @@
   <string name="opponentLeftChoices">U vostru aversariu si n\' hè andatu. Pudete dumandà a vittoria, dichjarà a partita patta, o aspettà.</string>
   <string name="makeYourOpponentResign">Fate tralascià u vostru aversariu</string>
   <string name="forceResignation">Dumandà a vittoria</string>
-  <string name="forceDraw">Dichjarà a partita para</string>
+  <string name="forceDraw">Dichjarà a partita patta</string>
   <string name="talkInChat">Pè piace, siate curtese in a discursata!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A prima persona chì ghjunghje issu URL hà da ghjucà cù voi.</string>
   <string name="whiteResigned">I bianchi tralascianu</string>
@@ -81,7 +81,7 @@
   <string name="drawn">Annullente</string>
   <string name="unknown">Scunnusciutu</string>
   <string name="database">Databasa</string>
-  <string name="whiteDrawBlack">Bianchi/ Para/ Neri</string>
+  <string name="whiteDrawBlack">Bianchi/ Patta/ Neri</string>
   <string name="averageRatingX">Livellu mezanu %s</string>
   <string name="recentGames">Partite recente</string>
   <string name="topGames">Partite di altu rangu</string>
@@ -135,14 +135,14 @@
   <string name="moveTimes">Durata di u coplu</string>
   <string name="flipBoard">Vultà a scacchera</string>
   <string name="threefoldRepetition">Ripetutu trè volte</string>
-  <string name="claimADraw">Dumandà a partita para</string>
-  <string name="offerDraw">Prupone a partita para</string>
-  <string name="draw">Partita para</string>
+  <string name="claimADraw">Dumandà a partita patta</string>
+  <string name="offerDraw">Prupone a partita patta</string>
+  <string name="draw">Partita patta</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s ghjucatore</item>
     <item quantity="other">%s ghjucatori</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Partita para per via d\' un accusentu</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Partita patta per via d\' un accusentu</string>
   <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate avali</string>
   <plurals name="nbGames">
@@ -216,12 +216,12 @@
   <string name="cancel">Annullà</string>
   <string name="whiteTimeOut">I bianchi ùn anu più tempu</string>
   <string name="blackTimeOut">I neri ùn anu più tempu</string>
-  <string name="drawOfferSent">Offerta di partita para mandata</string>
-  <string name="drawOfferDeclined">Offerta di para scartata</string>
-  <string name="drawOfferAccepted">Offerta di para accettata</string>
-  <string name="drawOfferCanceled">Offerta di para annullata</string>
-  <string name="whiteOffersDraw">I bianchi pruponenu a partita para</string>
-  <string name="blackOffersDraw">I neri pruponenu a partita para</string>
+  <string name="drawOfferSent">Offerta di partita patta mandata</string>
+  <string name="drawOfferDeclined">Offerta di patta scartata</string>
+  <string name="drawOfferAccepted">Offerta di patta accettata</string>
+  <string name="drawOfferCanceled">Offerta di patta annullata</string>
+  <string name="whiteOffersDraw">I bianchi pruponenu a partita patta</string>
+  <string name="blackOffersDraw">I neri pruponenu a partita patta</string>
   <string name="whiteDeclinesDraw">I bianchi ricusanu a partita patta</string>
   <string name="blackDeclinesDraw">I neri ricusanu a partita patta</string>
   <string name="yourOpponentOffersADraw">U vostru aversariu prupone a partita patta</string>
