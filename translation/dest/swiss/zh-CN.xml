@@ -45,7 +45,7 @@
   <string name="pairingSystemArena">任何具有相仅排名的对手</string>
   <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
   <string name="pairingWaitTime">配对等待时间</string>
-  <string name="pairingWaitTimeFast">快：不要等待所有玩家</string>
+  <string name="pairingWaitTimeFast">快：不等待所有玩家</string>
   <string name="pairingWaitTimeSlow">慢：等待所有玩家</string>
   <string name="identicalPairing">相同配对</string>
   <string name="possibleButNotConsecutive">有可能，但不会连续</string>
