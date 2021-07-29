@@ -11,6 +11,12 @@
     <item quantity="other">每 %s 天一轮</item>
   </plurals>
   <string name="roundsAreStartedManually">回合由手动开启</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="other">回合间隔 %s 秒</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="other">回合间隔 %s 分钟</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">开始于</string>
   <string name="nextRound">下一轮</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
@@ -18,6 +24,7 @@
   </plurals>
   <string name="tournStartDate">比赛开始日期</string>
   <string name="numberOfRounds">回合数</string>
+  <string name="numberOfRoundsHelp">奇数回合可以使执色得到最佳平衡。</string>
   <string name="roundInterval">回合间歇时间</string>
   <string name="forbiddenPairings">禁止配对</string>
   <string name="newSwiss">新瑞士锦标赛</string>
@@ -35,7 +42,12 @@
   <string name="restrictedToTeamsA">瑞士锦标赛不是为线上对弈设计的，它需要玩家高度守时、全身心投入并保持耐心。
 相对于公开比赛，我们认为在团队内更有可能满足这些条件。</string>
   <string name="numberOfByesQ">选手可能被轮空多少次？</string>
+  <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
+  <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
+然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
+他们随时可以重新加入比赛。</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
+  <string name="willSwissReplaceArenasA">不，他们是互补的。</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
   <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
   <string name="otherSystemsA">我们目前不打算为 Lichess 增加多的比赛系统。</string>
