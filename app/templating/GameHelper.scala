@@ -182,7 +182,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
           case Some(FiftyMoves)           => trans.fiftyMovesWithoutProgress.txt() + " • " + trans.draw.txt()
           case Some(ThreefoldRepetition)  => trans.threefoldRepetition.txt() + " • " + trans.draw.txt()
           case Some(InsufficientMaterial) => trans.insufficientMaterial.txt() + " • " + trans.draw.txt()
-          case _ => trans.draw.txt()
+          case _                          => trans.draw.txt()
         }
       }
       case S.Outoftime =>
