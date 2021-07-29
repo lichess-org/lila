@@ -22,9 +22,14 @@
   <string name="forbiddenPairings">禁止配对</string>
   <string name="newSwiss">新瑞士锦标赛</string>
   <string name="swissVsArenaQ">什么时候适合用瑞士锦标赛而不是竞技场？</string>
+  <string name="swissVsArenaA">在瑞士锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
   <string name="pointsCalculationQ">如何计算积分？</string>
+  <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
+若玩家在某回合中无法配对，他将被轮空并得一分。</string>
+  <string name="pairingsQ">如何决定配对？</string>
   <string name="dutchSystem">荷兰规则</string>
   <string name="FIDEHandbook">国际棋联手册</string>
+  <string name="moreRoundsThanPlayersQ">如果比赛回合数多于玩家怎么办？</string>
   <string name="restrictedToTeamsQ">为什么仅限于团队使用？</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
