@@ -40,7 +40,7 @@ You received this message because your account has special responsibilities such
     MsgPreset(
       name = "Follow limit reached!",
       text = s"""Sorry, you can't follow more than $max players on Lichess.
-To follow new players, you must first unfollow some on https://lichess.org/@/$username/following.
+To follow new players, you must first unfollow someone on https://lichess.org/@/$username/following.
 
 Thank you for your understanding."""
     )
