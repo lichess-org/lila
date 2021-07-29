@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
+  <string name="computerAnalysisDisabled">电脑分析已禁用</string>
   <string name="analysis">分析面板</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用服务器分析</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s 位在线棋手</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">双方同意和棋</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">无实质进展的 50 步</string>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
@@ -837,6 +840,7 @@
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">没有限制</string>
   <string name="inYourLocalTimezone">在您的本地时区</string>
+  <string name="tournChat">比赛聊天</string>
   <string name="noChat">关闭聊天</string>
   <string name="onlyTeamLeaders">仅限队长</string>
   <string name="onlyTeamMembers">仅限队员</string>
@@ -851,4 +855,5 @@
   <string name="cantDoThisTwice">如果您第二次关闭您的帐户，将无法恢复。</string>
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">比赛入场码</string>
 </resources>
