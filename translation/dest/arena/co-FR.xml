@@ -2,4 +2,7 @@
 <resources>
   <string name="arenaTournaments">Ghjustre Arena</string>
   <string name="isItRated">Hè classificata?</string>
+  <string name="willBeNotified">Sarete nutificatu quandu a ghjustra principierà, cusì pudete ghjucà una altra partita aspettendu.</string>
+  <string name="isRated">Stu turneu hè classificatu è impatterà a vostra classifica.</string>
+  <string name="isNotRated">Ùn turneu ùn hè classificatu è ùn impatterà micca a vostra classifica.</string>
 </resources>
