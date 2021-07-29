@@ -22,4 +22,8 @@ U Bersek ùn hè dispunibule pè e partite cù u tempu iniziale di zeru seconde 
 
 Ci vole à ghjucà 7 colpi durante a partita pè guadagnà u puntu di u Bersek.</string>
   <string name="howIsTheWinnerDecided">Cumu hè determinatu u vincitore?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Hè dichjaratu vincitore u ghjucatore chì hà più punti chì l\' atri quandu hè scorsu u tempu di u turneu.
+ 
+Quandu parechji ghjucatori ne anu altrettantu, a performanza hè aduprata pè spiccà i ghjucatori.</string>
+  <string name="howDoesPairingWork">Cumu sò appariati i ghjucatori?</string>
 </resources>
