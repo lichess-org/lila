@@ -142,6 +142,7 @@
     <item quantity="one">%s giocatore collegato</item>
     <item quantity="other">%s giocatori collegati</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Patta per comune accordo</string>
   <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
   <plurals name="nbGames">
