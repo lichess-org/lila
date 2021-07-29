@@ -19,6 +19,11 @@ function init() {
       return;
     }
 
+    $board.on('mousedown', () => {
+      const el = document.activeElement as HTMLElement;
+      if (el && 'blur' in el) el.blur();
+    });
+
     const fen = cg.getFen(),
       destsObj = $board.data('moves'),
       dests = new Map();
