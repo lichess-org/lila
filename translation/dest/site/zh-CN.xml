@@ -608,7 +608,7 @@
   <string name="lichessTournaments">Lichess 锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">官方比赛</string>
-  <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
+  <string name="timeBeforeTournamentStarts">距比赛开始时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
