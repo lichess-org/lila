@@ -846,10 +846,10 @@
   <string name="maximumWeeklyRating">每周最高评分</string>
   <string name="onlyTitled">仅限有头衔玩家</string>
   <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
-  <string name="positionInputHelp">粘贴一个有效的FEN来从指定位置开始每个游戏。
-它只适用于标准游戏，而不是变体。
-您可以使用 %s 来生成一个 FEN 位置，然后将其粘贴到这里。
-留空则从正常的初始位置开始游戏。</string>
+  <string name="positionInputHelp">将一个有效的 FEN 粘贴于此作为所有对局的起始位置。
+仅适用于标准国际象棋，对变体无效。
+你可以试用 %s 来生成 FEN，然后将其粘贴到这里。
+置空表示以标准位置开始比赛。</string>
   <string name="cancelSimul">取消车轮战</string>
   <string name="simulHostcolor">主持所执方</string>
   <string name="estimatedStart">预计开始时间</string>
