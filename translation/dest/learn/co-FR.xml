@@ -102,6 +102,26 @@ o bluccate l\' attaccu!</string>
   <string name="mateInOne">Scaccu mattu in un colpu</string>
   <string name="defeatTheOpponentsKing">Scunfighje u rè uppostu</string>
   <string name="mateInOneIntro">Vincite quandu l\' aversariu ùn pò difende u so rè di pettu à un scaccu.</string>
+  <string name="attackYourOpponentsKing">Attaccate u rè uppostu
+senza lascià lu una oppurtunità pè difendesi!</string>
+  <string name="mateInOneComplete">Felicitazione! Sapete avà vince una partita di scacchi!</string>
+  <string name="intermediate">Mezanu</string>
+  <string name="boardSetup">Accunciera di a scacchera</string>
+  <string name="howTheGameStarts">Cumu principia a partita</string>
+  <string name="boardSetupIntro">E duie armate si facenu fronte pronte à a battaglia.</string>
+  <string name="thisIsTheInitialPosition">Hè a pusizione pè principià
+tutte e partite di scacchi!
+Ghjoca un colpu pè cuntinuà.</string>
+  <string name="firstPlaceTheRooks">Prima e torre!
+Si mettenu in i scorni.</string>
+  <string name="thenPlaceTheKnights">Avà mettite i cavalli!
+Si piazzanu accantu à e torre.</string>
+  <string name="placeTheBishops">Mettite l\' alfieri!
+Sò accantu à i cavalli.</string>
+  <string name="placeTheQueen">Avà a dama!
+Si mette in a cantarella di u so culore.</string>
+  <string name="placeTheKing">U rè!
+Si mette accantu à a dama.</string>
   <string name="boardSetupComplete">Felicitazione! Cunnuscite avà l\' accunciamentu di a scacchera.</string>
   <string name="castling">Arrucamentu</string>
   <string name="theSpecialKingMove">U move speciale di u rè</string>
