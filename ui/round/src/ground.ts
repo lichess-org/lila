@@ -32,7 +32,7 @@ export function makeConfig(ctrl: RoundController): Config {
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
         const firstPly = round.firstPly(ctrl.data);
-        const isSecond = (firstPly % 2 === 0 ? "white" : "black") !== data.player.color;
+        const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
         const showUntil = firstPly + 2 + +isSecond;
         resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply, p => p <= showUntil);
         if (data.pref.coords === Prefs.Coords.Inside) changeColorHandle();
