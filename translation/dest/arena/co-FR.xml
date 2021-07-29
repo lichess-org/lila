@@ -7,4 +7,11 @@
   <string name="isNotRated">Ùn turneu ùn hè classificatu è ùn impatterà micca a vostra classifica.</string>
   <string name="someRated">Certi turnei sò classificati è impatteranu a vostra classifica.</string>
   <string name="howAreScoresCalculated">Cumu hè calculata a vostra classifica?</string>
+  <string name="howAreScoresCalculatedAnswer">Una vittoria basica vale 2 punti, una partita patta 1 puntu, una scunfitta ùn vale nunda.
+S\'è vo vincite 2 partite di fila principiate un \"streak\", raprisentatu da una fiamma.
+E partite chì seguitanu rapurtanu u doppiu di punti sin\' à una scunfitta o una partita patta.
+Cusì una vittora vale 4 punti, una partita patta 2 punti, una scunfitta èn vale nunda.
+
+Per esempiu, duie vittorie seguitate d\'una partita patta rapurtanu 6 punti: 2 + 2 + (2x1)</string>
+  <string name="berserk">Arena di Bersek</string>
 </resources>
