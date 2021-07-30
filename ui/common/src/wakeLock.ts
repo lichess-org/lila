@@ -1,11 +1,13 @@
 const supported: boolean = 'wakeLock' in navigator;
-let sentinel: WakeLockSentinel | null = null;
+let shouldLock: boolean = false;
+let sentinel: WakeLockSentinel;
 
 export const request = () => {
   if (supported) {
     navigator.wakeLock
       .request('screen')
       .then((response: WakeLockSentinel) => {
+        shouldLock = true;
         sentinel = response;
       })
       .catch((error: Error) => {
@@ -19,7 +21,7 @@ export const release = () => {
     sentinel
       .release()
       .then(() => {
-        sentinel = null;
+        shouldLock = false;
       })
       .catch((error: Error) => {
         console.error('wakeLock - release failure. ' + error.message);
@@ -27,8 +29,12 @@ export const release = () => {
   }
 };
 
+/* Since the act of switching tabs automatically releases
+ * the wake lock, we re-request wake lock here based on the
+ * `shouldLock` flag.
+ */
 document.addEventListener('visibilitychange', () => {
-  if (sentinel !== null && document.visibilityState === 'visible') {
+  if (shouldLock && document.visibilityState === 'visible') {
     request();
   }
 });
