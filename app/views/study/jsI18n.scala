@@ -118,7 +118,7 @@ object jsI18n {
       deleteTheStudyChatHistory,
       deleteStudy,
       deleteTheEntireStudy,
-      retypeStudyName,
+      confirmDeleteStudy,
       whereDoYouWantToStudyThat,
       nbChapters,
       nbGames,

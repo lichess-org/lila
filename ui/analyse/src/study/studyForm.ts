@@ -290,13 +290,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               action: '/study/' + data.id + '/delete',
               method: 'post',
             },
-            hook: bindNonPassive(
-              'submit',
-              _ =>
-                isNew ||
-                prompt(ctrl.trans.noarg('deleteTheEntireStudy') + ' ' + ctrl.trans.noarg('retypeStudyName')) ===
-                  data.name
-            ),
+            hook: bindNonPassive('submit', _ => isNew || prompt(ctrl.trans.noarg('confirmDeleteStudy')) === data.name),
           },
           [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))]
         ),
