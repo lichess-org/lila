@@ -277,7 +277,7 @@ final class TournamentApi(
         {
           tour.isStarted ?? playerRepo.exists(tour.id, user.id)
         } flatMap {
-          case true => fuccess(tour.conditions.accepted)
+          case true => verify.rejoin(tour.conditions, user, getUserTeamIds)
           case _    => verify(tour.conditions, user, getUserTeamIds)
         }
     }
