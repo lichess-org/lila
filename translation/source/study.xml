@@ -127,6 +127,7 @@
   <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
   <string name="deleteStudy">Delete study</string>
   <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
+  <string name="retypeStudyName">Type the name of the study to confirm.</string>
   <string name="whereDoYouWantToStudyThat">Where do you want to study that?</string>
   <string name="goodMove">Good move</string>
   <string name="mistake">Mistake</string>

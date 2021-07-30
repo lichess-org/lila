@@ -294,7 +294,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               'submit',
               _ =>
                 isNew ||
-                prompt(ctrl.trans.noarg('deleteTheEntireStudy') + ' ' + 'Type the name of the study to confirm') ===
+                prompt(ctrl.trans.noarg('deleteTheEntireStudy') + ' ' + ctrl.trans.noarg('retypeStudyName')) ===
                   data.name
             ),
           },
