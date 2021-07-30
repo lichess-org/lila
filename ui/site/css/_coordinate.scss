@@ -27,9 +27,6 @@ $mq-col3: $mq-x-large;
 .coord-trainer {
   grid-area: main;
   display: grid;
-  overflow: hidden;
-
-  // coords cause mobile to have horiz scrolling
 
   &__side {
     @extend %zen;
