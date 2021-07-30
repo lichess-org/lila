@@ -781,7 +781,7 @@ export default class RoundController {
       speech.setup(this);
 
       // Prevent the device from going to sleep
-      if ( 'wakeLock' in navigator ) navigator.wakeLock.request('screen');
+      if ('wakeLock' in navigator) navigator.wakeLock.request('screen');
 
       this.onChange();
     }, 800);
