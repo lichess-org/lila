@@ -6,7 +6,7 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
 @include breakpoint($mq-col1-uniboard) {
   .is3d {
     /* horiz scroll caused by 3d pieces overflowing the board */
-    overflow: hidden;
+    overflow-x: clip;
   }
 }
 
