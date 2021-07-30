@@ -191,7 +191,7 @@ object topic {
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
               (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
                 form3.submit(
-                  frag("Reply as a mod"),
+                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = "".some
                 ),

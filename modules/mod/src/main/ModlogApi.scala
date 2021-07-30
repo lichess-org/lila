@@ -150,6 +150,24 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       )
     }
 
+  // Not to be confused with the eponymous lichess account.
+  def postOrEditAsAnonMod(
+      mod: User.ID,
+      categ: String,
+      topic: String,
+      postId: String,
+      text: String,
+      edit: Boolean
+  ) =
+    add {
+      Modlog(
+        mod,
+        none,
+        if (edit) Modlog.editAsAnonMod else Modlog.postAsAnonMod,
+        details = s"$categ/$topic id: $postId ${text.take(400)}".some
+      )
+    }
+
   def deleteTeam(mod: User.ID, id: String, name: String) =
     add {
       Modlog(mod, none, Modlog.deleteTeam, details = s"$id / $name".take(200).some)
@@ -283,7 +301,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
       case M.chatTimeout                                                    => "hourglass_flowing_sand"
       case M.closeTopic | M.disableTeam                                     => "lock"
       case M.openTopic | M.enableTeam                                       => "unlock"
-      case M.modMessage                                                     => "left_speech_bubble"
+      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
       case _                                                                => "gear"
     }
     val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u")} ${~m.details}"""
@@ -294,7 +312,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi)(impl
           case M.engine | M.unengine | M.booster | M.unbooster | M.reopenAccount | M.unalt =>
             Some(IrcApi.ModDomain.Hunt)
           case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam |
-              M.enableTeam | M.setKidMode | M.deletePost =>
+              M.enableTeam | M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod =>
             Some(IrcApi.ModDomain.Comm)
           case _ => Some(IrcApi.ModDomain.Other)
         }
