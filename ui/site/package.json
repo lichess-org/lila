@@ -11,7 +11,7 @@
     "@types/fnando__sparkline": "^0.3.2",
     "@types/yaireo__tagify": "^4.0.1",
     "@types/zxcvbn": "^4.4.0",
-    "chessground": "^8.1.4",
+    "chessground": "^8.1.5",
     "rollup-plugin-copy": "^3.3.0"
   },
   "dependencies": {
