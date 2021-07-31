@@ -39,4 +39,12 @@ Ghjucate à lestu è vultate in u Lobby pè ghjucà tante partite è cumulà tan
   </plurals>
   <string name="thisIsPrivate">Issa ghjustra hè privata</string>
   <string name="shareUrl">Telecaricate issu URL pè permette à i ghjucatori di ghjunghje: %s</string>
+  <string name="drawStreak">Seria di partite patte: Quandu un ghjucatore face parechje partite patte di fila, soltantu a prima partita o e partite di più di %s colpi rapportanu un puntu. Una seria di partite patte pò soltantu esse rotta cù una vittoria, micca una scunfitta o una patta.</string>
+  <string name="history">Cronica di e ghjustre Arena</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">Vede a squadra</item>
+    <item quantity="other">Vede e %s squadre</item>
+  </plurals>
+  <string name="newTeamBattle">Nova Sfida di e Squadre</string>
+  <string name="customStartDate">Sceglite a data di u principiu</string>
 </resources>
