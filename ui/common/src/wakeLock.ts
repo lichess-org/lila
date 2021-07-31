@@ -1,40 +1,31 @@
-const supported: boolean = 'wakeLock' in navigator;
-let shouldLock: boolean = false;
-let sentinel: WakeLockSentinel;
+import '@types/dom-screen-wake-lock';
+
+let wakeLock: WakeLockSentinel | null = null;
 
 export const request = () => {
-  if (supported) {
+  if ('wakeLock' in navigator) {
     navigator.wakeLock
       .request('screen')
-      .then((response: WakeLockSentinel) => {
-        shouldLock = true;
-        sentinel = response;
+      .then(sentinel => {
+        wakeLock = sentinel;
       })
       .catch((error: Error) => {
-        console.error('wakeLock - request failure. ' + error.message);
+        console.error('wakeLock - request failed: ' + error.message);
       });
   }
 };
 
-export const release = () => {
-  if (supported) {
-    sentinel
-      .release()
-      .then(() => {
-        shouldLock = false;
-      })
-      .catch((error: Error) => {
-        console.error('wakeLock - release failure. ' + error.message);
-      });
-  }
-};
+export const release = () =>
+  wakeLock
+    ?.release()
+    .then(() => {
+      wakeLock = null;
+    })
+    .catch((error: Error) => {
+      console.error('wakeLock - release failed: ' + error.message);
+    });
 
-/* Since the act of switching tabs automatically releases
- * the wake lock, we re-request wake lock here based on the
- * `shouldLock` flag.
- */
+// re-request wakeLock if user switches tabs
 document.addEventListener('visibilitychange', () => {
-  if (shouldLock && document.visibilityState === 'visible') {
-    request();
-  }
+  if (wakeLock && document.visibilityState === 'visible') request();
 });

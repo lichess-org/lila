@@ -537,13 +537,3 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-
-type WakeLockSentinel = {
-  release(): Promise<undefined>;
-};
-type WakeLockRequestType = 'screen';
-interface Navigator {
-  wakeLock: {
-    request: (type: WakeLockRequestType) => Promise<WakeLockSentinel>;
-  };
-}
