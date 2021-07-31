@@ -142,7 +142,6 @@
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
-  <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="mistake">خطأ</string>
