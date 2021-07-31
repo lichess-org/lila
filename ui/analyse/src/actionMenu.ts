@@ -222,7 +222,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ctrlBoolSetting(
               {
                 name: 'enable',
-                title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+                title: mandatoryCeval ? 'Required by practice mode' : 'Stockfish',
                 id: 'all',
                 checked: ctrl.showComputer(),
                 disabled: mandatoryCeval,
