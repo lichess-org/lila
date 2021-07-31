@@ -10,4 +10,7 @@
     <item quantity="other">Pågående partier</item>
   </plurals>
   <string name="numberOfRounds">Antal rundor</string>
+  <string name="numberOfRoundsHelp">Ett udda antal rundor möjliggör optimal färgbalans.</string>
+  <string name="roundInterval">Intervall mellan rundor</string>
+  <string name="forbiddenPairings">Förbjudna parningar</string>
 </resources>
