@@ -126,5 +126,6 @@
   <string name="clearChat">Rensa Chatten</string>
   <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
   <string name="deleteStudy">Ta bort studie</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Radera hela studien? Detta går inte att ångra! Skriv namnet på studien för att bekräfta: %s</string>
   <string name="whereDoYouWantToStudyThat">Var vill du studera detta?</string>
 </resources>
