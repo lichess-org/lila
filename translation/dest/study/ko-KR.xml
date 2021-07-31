@@ -122,7 +122,6 @@
   <string name="clearChat">채팅 기록 지우기</string>
   <string name="deleteTheStudyChatHistory">연구 채팅 히스토리를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="deleteStudy">연구 삭제</string>
-  <string name="deleteTheEntireStudy">모든 연구를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="whereDoYouWantToStudyThat">어디에서 연구를 시작하시겠습니까?</string>
   <string name="goodMove">좋은 수</string>
   <string name="mistake">실수</string>
