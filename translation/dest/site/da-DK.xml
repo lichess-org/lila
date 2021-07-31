@@ -142,8 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
-  <string name="drawByMutualAgreement">Remis efter fælles aftale</string>
-  <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remis efter fælles aftale</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
@@ -616,7 +616,7 @@
   <string name="webmasters">Webmasters</string>
   <string name="about">Om</string>
   <string name="aboutX">Om %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), libre, annoncefri, open source skak-server.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s er en gratis (%2$s), uafhængig, reklamefri, open source skak-server.</string>
   <string name="really">virkelig</string>
   <string name="contribute">Bidrag</string>
   <string name="termsOfService">Servicevilkår</string>
