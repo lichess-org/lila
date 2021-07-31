@@ -119,6 +119,5 @@
   <string name="clearChat">Vakigi babiladon</string>
   <string name="deleteTheStudyChatHistory">Ĉu forigi la historian babilejon de la ĉapitro? Tiun agon vi ne povos malfari!</string>
   <string name="deleteStudy">Forigi studon</string>
-  <string name="deleteTheEntireStudy">Ĉu forigi la tutan studon? Tiun agon vi ne povos malfari!</string>
   <string name="whereDoYouWantToStudyThat">Kie vi volas studi tion?</string>
 </resources>
