@@ -30,4 +30,13 @@ Quandu parechji ghjucatori ne anu altrettantu, a performanza hè aduprata pè sp
 Quandu avete finitu una partita, vultate in u lobby: sarete appariatu cù un ghjucatore chì hà una classifica vicina à a vostra. Cusì l\' appariamenti sò pronti, ma ùn puderete ghjucà contru tutti i ghjucatori di u turneu.
 Ghjucate à lestu è vultate in u Lobby pè ghjucà tante partite è cumulà tanti punti.</string>
   <string name="howDoesItEnd">Cumu finisce?</string>
+  <string name="howDoesItEndAnswer">Ci hè un tempu datu pè ghjucà a ghjustra sana. Quandu ùn ci hè più tempu, u classementu hè fissatu è u vincitore hè annunciatu. I ghjucatori ponu finì e partite ch\' elli ghjucanu, ma ùn cuntanu micca per a ghjustra.</string>
+  <string name="otherRules">Altre regule impurtante</string>
+  <string name="thereIsACountdown">Ci hè un tempu datu per u primu colpu. S\' è ùn ghjucate micca u vostru durante issu tempu, perdite a partita. U vostru aversariu guadagna un puntu senza fà nunda.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Fà una partita patta senza ghjucà u primu %s colpu ùn raporta puntu nè à l\' unu nè à l\' altru di i ghjucatori.</item>
+    <item quantity="other">Fà una partita patta senza ghjucà i primi %s colpi ùn raportà puntu nè à l\' unu nè à l\' altru di i ghjucatori.</item>
+  </plurals>
+  <string name="thisIsPrivate">Issa ghjustra hè privata</string>
+  <string name="shareUrl">Telecaricate issu URL pè permette à i ghjucatori di ghjunghje: %s</string>
 </resources>
