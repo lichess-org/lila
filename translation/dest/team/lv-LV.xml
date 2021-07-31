@@ -48,6 +48,9 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="leadersChat">Vadītāju sarakste</string>
   <string name="closeTeam">Slēgt komandu</string>
   <string name="closeTeamDescription">Uz visiem laikiem slēdz komandu.</string>
+  <string name="entryCode">Komandas pievienošanās kods</string>
+  <string name="entryCodeDescriptionForLeader">(Neobligāts) Kods, kas jāzina jauniem dalībniekiem, lai pievienotos komandai.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Nepareizs pievienošanās kods.</string>
   <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
   <string name="upcomingTourns">Gaidāmie turnīri</string>
   <string name="completedTourns">Notikušie turnīri</string>
