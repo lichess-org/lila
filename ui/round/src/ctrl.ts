@@ -553,6 +553,7 @@ export default class RoundController {
     this.redraw();
     this.autoScroll();
     this.onChange();
+    lichess.pubsub.emit('game.end', o);
     if (d.tv) setTimeout(lichess.reload, 10000);
     speech.status(this);
   };
