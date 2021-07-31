@@ -13,6 +13,8 @@ function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, rev
   const input = h('input', {
     attrs: {
       type: 'checkbox',
+    },
+    props: {
       checked: ctrl.castlingToggles[id],
     },
     on: {
@@ -163,6 +165,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
               },
             },
+            props: {
+              value: ctrl.turn,
+            },
           },
           ['whitePlays', 'blackPlays'].map(function (key) {
             return h(
@@ -170,7 +175,6 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 attrs: {
                   value: key[0] == 'w' ? 'white' : 'black',
-                  selected: ctrl.turn[0] === key[0],
                 },
               },
               ctrl.trans(key)
