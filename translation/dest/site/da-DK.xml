@@ -894,7 +894,7 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cancelSimul">Annuller simultanen</string>
   <string name="simulHostcolor">Værtsfarve for hvert parti</string>
   <string name="estimatedStart">Anslået starttidspunkt</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL: lichess.org/simul">Vis på %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Vis på %s</string>
   <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
