@@ -66,7 +66,7 @@ export default class EditorCtrl {
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
     this.rules = this.cfg.embed ? 'chess' : variantToRules(params.get('variant'));
-    this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, " ");
+    this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
     this.setFen(this.initialFen);
