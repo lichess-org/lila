@@ -436,7 +436,7 @@
   <string name="movesPlayed">Spillede træk</string>
   <string name="whiteWins">Hvid vinder</string>
   <string name="blackWins">Sort vinder</string>
-  <string name="draws">Remis</string>
+  <string name="draws">Remiser</string>
   <string name="nextXTournament">Næste %s turnering:</string>
   <string name="averageOpponent">Gennemsnitlig modstander</string>
   <string name="membersOnly">Kun for medlemmer</string>
