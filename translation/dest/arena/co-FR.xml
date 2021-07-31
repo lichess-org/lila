@@ -47,4 +47,8 @@ Ghjucate à lestu è vultate in u Lobby pè ghjucà tante partite è cumulà tan
   </plurals>
   <string name="newTeamBattle">Nova Sfida di e Squadre</string>
   <string name="customStartDate">Sceglite a data di u principiu</string>
+  <string name="customStartDateHelp">Siontu u vostru sistemu urariu lucale. Sfassa u parametru \" Tempu accor\' à u principiu di u turneu\"</string>
+  <string name="allowBerserk">Bersek autorizatu</string>
+  <string name="allowBerserkHelp">Permette à i ghjucatori di smezà u so tempu pè guadagnà un puntu in più</string>
+  <string name="allowChatHelp">Permette à i ghjucatori di scrive in a salla di chjachjera</string>
 </resources>
