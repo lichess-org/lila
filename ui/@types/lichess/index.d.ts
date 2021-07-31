@@ -206,7 +206,7 @@ interface LichessEditor {
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
-    fen: string;
+    fen?: string;
     options?: Editor.Options;
     is3d: boolean;
     animation: {
