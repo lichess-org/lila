@@ -34,7 +34,7 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din modstander vil gerne spille et nyt spil</string>
   <string name="joinTheGame">Start spillet</string>
   <string name="whitePlays">Hvid i trækket</string>
-  <string name="blackPlays">Sort til at spille</string>
+  <string name="blackPlays">Sort i trækket</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din modstander har forladt spillet. Du kan kræve sejr om %s sekund.</item>
     <item quantity="other">Din modstander har forladt spillet. Du kan kræve sejr om %s sekunder.</item>
