@@ -33,4 +33,17 @@
   <string name="yearlyClassicalArena">Arena Classica annuale</string>
   <string name="yearlyClassical">Ghjustra Classica annuale</string>
   <string name="yearlyXArena">Arena %s annuale</string>
+  <string name="yearlyX">Ghjustra %s annuale</string>
+  <string name="rapidShieldArena">Arena Rapida di Scudu</string>
+  <string name="rapidShield">Ghjustra Rapida di Scudu</string>
+  <string name="classicalShieldArena">Arena Classica di Scudu</string>
+  <string name="classicalShield">Ghjustra Classica di Scudu</string>
+  <string name="xShieldArena">Arena %s di Scudu</string>
+  <string name="xShield">Gjustra %s di Scudu</string>
+  <string name="openingRapidArena">%s Arena Rapida</string>
+  <string name="openingRapid">%s Ghjustra Rapida</string>
+  <string name="xTeamBattle">%s Sfida di e squadre</string>
+  <string name="eliteXArena">Arena %s di e Leghjende</string>
+  <string name="eliteX">Ghjustra %s di e Leghjende</string>
+  <string name="xArena">Ghjustra %s Arena</string>
 </resources>
