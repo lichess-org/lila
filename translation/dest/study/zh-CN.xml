@@ -122,7 +122,6 @@
   <string name="clearChat">清空对话</string>
   <string name="deleteTheStudyChatHistory">删除课程聊天记录？本操作无法撤销！</string>
   <string name="deleteStudy">删除课程</string>
-  <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
   <string name="whereDoYouWantToStudyThat">您想从哪里开始此项研究？</string>
   <string name="goodMove">好棋</string>
   <string name="mistake">坏棋</string>
