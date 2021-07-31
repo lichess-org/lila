@@ -135,6 +135,7 @@
   <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
   <string name="deleteStudy">Ištrinti studiją</string>
   <string name="deleteTheEntireStudy">Ištrinti visą studiją? Nėra kelio atgal!</string>
+  <string name="confirmDeleteStudy">Ištrinti visą studiją? Ištrynimas negrįžtamas. Norėdami tęsti įrašykite studijos pavadinimą.</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
   <string name="goodMove">Geras ėjimas</string>
   <string name="mistake">Klaida</string>
