@@ -43,7 +43,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.5"
+    val version = "1.0.6"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
