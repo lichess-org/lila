@@ -27,6 +27,7 @@
   <string name="numberOfRoundsHelp">奇数回合可以使执色得到最佳平衡。</string>
   <string name="roundInterval">回合间歇时间</string>
   <string name="forbiddenPairings">禁止配对</string>
+  <string name="forbiddenPairingsHelp">不能配对的玩家用户名(例如空格)。每行两个用户名用空格隔开。</string>
   <string name="newSwiss">新瑞士锦标赛</string>
   <string name="swissVsArenaQ">什么时候适合用瑞士锦标赛而不是竞技场？</string>
   <string name="swissVsArenaA">在瑞士锦标赛中，所有选手将参与相同数量的棋局，并且每位对手只会遇到一次。因此适合俱乐部或正式比赛。</string>
@@ -34,6 +35,7 @@
   <string name="pointsCalculationA">获胜得一分，平局得半分，失败得零分。
 若玩家在某回合中无法配对，他将被轮空并得一分。</string>
   <string name="tiebreaksCalculationQ">平局如何决胜？</string>
+  <string name="sonnebornBergerScore">Sonneborn-Berger 分制</string>
   <string name="tiebreaksCalculationA">使用 %s。
 加上选手所有战胜的对手的得分以及所有战平的对手的得分的一半。</string>
   <string name="pairingsQ">如何决定配对？</string>
@@ -53,6 +55,8 @@
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
 他们随时可以重新加入比赛。</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>
+  <string name="lateJoinA">是的，直到一半的回合完成之前。比如一个有 11 轮的比赛，选手可以在第 6 轮开始前加入；一个 12 轮的比赛可以在第 7 轮开始前加入。
+晚加入的选手将轮空一次，无论他之前错过了多少轮。</string>
   <string name="willSwissReplaceArenasQ">瑞士锦标赛将取代竞技场吗？</string>
   <string name="willSwissReplaceArenasA">不，他们是互补的。</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
