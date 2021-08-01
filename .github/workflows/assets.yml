@@ -30,7 +30,7 @@ jobs:
           cache: yarn
       - uses: actions/checkout@v2
         with:
-          repository: lichess-org/ab
+          repository: lichess.org/ab
           ssh-key: ${{ secrets.id_rsa_ab }}
           ref: master
           path: ab
