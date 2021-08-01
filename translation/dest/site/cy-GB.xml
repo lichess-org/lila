@@ -516,6 +516,7 @@
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
+  <string name="onlyExistingConversations">Dim ond sgyrsiau eisoes</string>
   <string name="onlyFriends">Dim ond ffrindiau</string>
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
