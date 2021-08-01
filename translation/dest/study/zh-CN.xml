@@ -140,7 +140,7 @@
   <string name="whiteIsWinning">白方即胜</string>
   <string name="blackIsWinning">黑方即胜</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">新奇的</string>
-  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">布局</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">发展</string>
   <string name="initiative">占据主动</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">攻击</string>
   <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">反击</string>
