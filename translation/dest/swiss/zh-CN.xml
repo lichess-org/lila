@@ -39,12 +39,15 @@
   <string name="pairingsQ">如何决定配对？</string>
   <string name="dutchSystem">荷兰规则</string>
   <string name="FIDEHandbook">国际棋联手册</string>
+  <string name="pairingsA">根据 %3$s，采用 %2$s 实现的 %1$s。</string>
   <string name="moreRoundsThanPlayersQ">如果比赛回合数多于玩家怎么办？</string>
   <string name="moreRoundsThanPlayersA">当所有可能的配对都完成后，比赛将立即结束并决出获胜者。</string>
   <string name="restrictedToTeamsQ">为什么仅限于团队使用？</string>
   <string name="restrictedToTeamsA">瑞士锦标赛不是为线上对弈设计的，它需要玩家高度守时、全身心投入并保持耐心。
 相对于公开比赛，我们认为在团队内更有可能满足这些条件。</string>
   <string name="numberOfByesQ">选手可能被轮空多少次？</string>
+  <string name="numberOfByesA">每当系统无法为某选手配对，他将轮空一轮并获得一分。
+此外，一个晚加入比赛的选手将轮空一轮并获得半分。</string>
   <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
   <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
