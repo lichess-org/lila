@@ -143,6 +143,7 @@
     <item quantity="other">%s játékos</item>
   </plurals>
   <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Döntetlen közös megegyezés alapján</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Ötven lépés fejlemény nélkül</string>
   <string name="currentGames">Futó játékok</string>
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
