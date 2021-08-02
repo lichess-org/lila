@@ -32,7 +32,7 @@
   <string name="promoteToQueenAutomatically">Ավտոմատ փոխակերպվել թագուհու</string>
   <string name="whenPremoving">Նախաքայլ անելիս</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Քայլերի եռակի կրկնության դեպքում ինքնաբերաբար պահանջել ոչ-ոքի</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Երբ ժամանակը մնացել է &lt;30 վայրկյան</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Երբ մնում է &lt; 30 վայրկյանից քիչ</string>
   <string name="moveConfirmation">Քայլի հաստատում</string>
   <string name="inCorrespondenceGames">Նամակագրական խաղեր</string>
   <string name="correspondenceAndUnlimited">Նամակագրական և առանց ժամանակի սահմանափակման</string>
