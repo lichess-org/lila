@@ -171,6 +171,11 @@
   resolved "https://registry.yarnpkg.com/@types/debounce-promise/-/debounce-promise-3.1.3.tgz#dd0d6b96ee61da0dd4c413e3ea03a425ffa36b3f"
   integrity sha512-mjcCf//DAUQ6YLQMhqYJAv/+a4BsE1GQFmy1el5K62wLJJmQwGi3TsnshhOFynPpuBF9Gh2Vvb+5ImPi47KaZw==
 
+"@types/dom-screen-wake-lock@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/dom-screen-wake-lock/-/dom-screen-wake-lock-1.0.0.tgz#c06e415fca0afb5a6e727b900f3cb8ba3993d130"
+  integrity sha512-3o5jkfJsuhFcKj2EZ3PiEoiQQbB3J/nffsXJBKtyubkBHsX2siS6b4uij3ukr5xgDHsF4BaT9fHo8DneAw/YxA==
+
 "@types/estree@*":
   version "0.0.49"
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.49.tgz#3facb98ebcd4114a4ecef74e0de2175b56fd4464"
@@ -967,10 +972,10 @@ chessground@^4.4:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
 
-chessground@^8.1.4:
-  version "8.1.4"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.1.4.tgz#2a93a4dc3dd036cd75105af8fa72ef459de0d1ee"
-  integrity sha512-jhPnkPqfbcrhyTkvDATYfkQBPQLb5qG2m+sZFmHM+hHHaIHZNEDwGc19+gjhabu8llGxtWeuscGS5E6I1j3PFA==
+chessground@^8.1.5:
+  version "8.1.5"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-8.1.5.tgz#703f59d2b02edc3d8409ff2c5f2716815951cba8"
+  integrity sha512-Tq1opmv6a0jyvC4sXjlKfkdLz8iQzTSSYgfBJjaOBIPo4Psq71TgGoHnXDVZXwqrwKUsWm2OlXmAOT3bf8fVIg==
 
 chessops@^0.9.0:
   version "0.9.0"

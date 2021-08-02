@@ -142,6 +142,8 @@
     <item quantity="one">%s نفر بازیکن آنلاین</item>
     <item quantity="other">%s نفر بازیکن آنلاین</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">تساوی با توافق طرفین</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">persian</string>
   <string name="currentGames">بازی های در جریان</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
@@ -914,4 +916,5 @@
   <string name="cantDoThisTwice">اگر برای بار دوم حساب کاربری خود را مسدود سازید، هیچ راهی برای بازیابی آن وجود نخواهد داشت.</string>
   <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
   <string name="sentEmailWithLink">ما یک ایمیل که حاوی یک لینک می‌باشد را به شما ارسال کرده‌ایم.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">کد ورودی مسابقه</string>
 </resources>

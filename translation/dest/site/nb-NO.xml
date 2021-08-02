@@ -142,6 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis ved overenskomst</string>
+  <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -916,4 +918,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="cantDoThisTwice">Hvis du avslutter kontoen din for andre gang, er den tapt for alltid.</string>
   <string name="emailAssociatedToaccount">E-postadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg en e-post med en lenke.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turneringsadgangskode</string>
 </resources>

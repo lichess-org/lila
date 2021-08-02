@@ -17,4 +17,11 @@
   <string name="removeStudent">Հեռացնել աշակերտին</string>
   <string name="removedStudents">Հեռացված է</string>
   <string name="inviteTheStudentBack">Հետ հրավիրել աշակերտին</string>
+  <string name="sendAMessage">Հաղորդագրություն ուղարկել բոլոր աշակերտներին։</string>
+  <string name="aLinkToTheClassWillBeAdded">Խմբի հղումն ինքնաբերաբար կավելանա հաղորդագրության վերջում, ինքնուրույն ավելացնելու կարիք չկա։</string>
+  <string name="className">Խմբի անվանումը</string>
+  <string name="classDescription">Խմբի նկարագրությունը</string>
+  <string name="visibleByBothStudentsAndTeachers">Երևում է ինչպես մարզչին, այնպես էլ խմբի աշակերտներին</string>
+  <string name="teachersOfTheClass">Խմբի մարզիչները</string>
+  <string name="addLichessUsernames">Ավելացրեք Lichess-ի օգտատերերի անունները` նրանց որպես մարզիչ հրավիրելու համար։ Ամեն տողում` մեկին։</string>
 </resources>

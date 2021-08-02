@@ -10,7 +10,7 @@ object MsgPreset {
     name = "Warning: possible sandbagging",
     text =
       """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
-Losing rated games on purpose is called "sandbagging", and is not allowed on Lichess.
+Losing rated games on purpose is called "sandbagging" and is not allowed on Lichess.
 
 Thank you for your understanding."""
   )

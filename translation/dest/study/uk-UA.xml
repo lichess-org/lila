@@ -133,6 +133,5 @@
   <string name="clearChat">Очистити чат</string>
   <string name="deleteTheStudyChatHistory">Видалити історію чату дослідження? Відновити буде неможливо!</string>
   <string name="deleteStudy">Видалити дослідження</string>
-  <string name="deleteTheEntireStudy">Видалити дослідження повністю? Відновити буде неможливо!</string>
   <string name="whereDoYouWantToStudyThat">Де Ви хочете це дослідити?</string>
 </resources>

@@ -65,7 +65,16 @@ final class PostApi(
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
-              if (!post.troll && !categ.quiet && !topic.isTooBig && !anonMod)
+              if (anonMod)
+                modLog.postOrEditAsAnonMod(
+                  me.id,
+                  post.categId,
+                  post.topicId,
+                  post.id,
+                  post.text,
+                  edit = false
+                )
+              else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                 }
@@ -86,7 +95,16 @@ final class PostApi(
         case (_, post) =>
           val newPost = post.editPost(DateTime.now, spam replace newText)
           (newPost.text != post.text).?? {
-            env.postRepo.coll.update.one($id(post.id), newPost).void
+            env.postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+              modLog.postOrEditAsAnonMod(
+                user.id,
+                newPost.categId,
+                newPost.topicId,
+                newPost.id,
+                newPost.text,
+                edit = true
+              )
+            }
           } inject newPost
       }
     }

@@ -142,7 +142,6 @@
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
-  <string name="deleteTheEntireStudy">هل تريد حذف الدراسة كلها؟ لا يمكن إرجاعها!</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="mistake">خطأ</string>
@@ -170,5 +169,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">مع فكرة</string>
   <string name="nextChapter">الفصل التالي</string>
   <string name="prevChapter">الفصل السابق</string>
-  <string name="studyActions" comment="studyActions&#10;&#10;Heading in the keyboard shortcuts help screen (press ? on the keyboard to invoke it). These are actions you can perform while looking at a study, by pressing a specific key on the keyboard">خيارات الدراسة</string>
+  <string name="studyActions">خيارات الدراسة</string>
 </resources>

@@ -27,6 +27,7 @@ import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
+import * as wakeLock from 'common/wakeLock';
 
 import {
   RoundOpts,
@@ -554,6 +555,7 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (d.tv) setTimeout(lichess.reload, 10000);
+    wakeLock.release();
     speech.status(this);
   };
 
@@ -779,6 +781,8 @@ export default class RoundController {
       if (!this.nvui) keyboard.init(this);
 
       speech.setup(this);
+
+      wakeLock.request();
 
       this.onChange();
     }, 800);

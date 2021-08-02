@@ -142,6 +142,8 @@
     <item quantity="one">%s играч</item>
     <item quantity="other">%s играчи</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Реми по взаимно съгласие</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Петдесет хода без напредък</string>
   <string name="currentGames">Текущи игри</string>
   <plurals name="nbGames">
     <item quantity="one">%s Партия</item>
@@ -914,4 +916,5 @@
   <string name="cantDoThisTwice">Ако затворите акаунта Ви за втори път, няма как да го възстановите.</string>
   <string name="emailAssociatedToaccount">Имейл адресът асоцииран с този акаунт</string>
   <string name="sentEmailWithLink">Изпратихме Ви имейл с линк.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код за участие в турнира</string>
 </resources>

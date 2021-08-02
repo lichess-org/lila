@@ -52,8 +52,8 @@ final class SwissJson(
         "canJoin" -> {
           {
             (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-            (myInfo.isEmpty && swiss.isEnterable && isInTeam)
-          } && verdicts.accepted
+            (myInfo.isEmpty && swiss.isEnterable)
+          } && verdicts.accepted && isInTeam
         },
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)

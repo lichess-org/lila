@@ -12,9 +12,9 @@ object Dependencies {
   val compression = "org.lichess"                %% "compression"                     % "1.6"
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
-  val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.21"
+  val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.22"
   val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.0.2"  % "compile"
-  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "0.27.0"
+  val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.0.0"
   val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.5.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
   val lettuce     = "io.lettuce"                  % "lettuce-core"                    % "6.1.4.RELEASE"
@@ -43,12 +43,12 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "1.0.5"
+    val version = "1.0.6"
 
     val driver = "org.reactivemongo" %% "reactivemongo"               % version
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"    % version
     val epoll  = "org.reactivemongo"  % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
-    val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % version
+    val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.5"
     def bundle = Seq(driver, stream)
   }
 

@@ -125,6 +125,5 @@
   <string name="clearChat">Чатты өшіру</string>
   <string name="deleteTheStudyChatHistory">Зерттеудің чат тарихын өшіресіз бе? Кері жол жоқ!</string>
   <string name="deleteStudy">Зерттеуді жою</string>
-  <string name="deleteTheEntireStudy">Зерттеуді толықтай жоясыз ба? Кері жол жоқ!</string>
   <string name="whereDoYouWantToStudyThat">Бұл күйдің зерттеуін қай жерде бастайсыз?</string>
 </resources>

@@ -2,6 +2,7 @@ import { h } from 'snabbdom';
 import { Chessground } from 'chessground';
 import { Config } from 'chessground/config';
 import changeColorHandle from 'common/coordsColor';
+import * as round from './round';
 import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
@@ -30,7 +31,10 @@ export function makeConfig(ctrl: RoundController): Config {
       move: hooks.onMove,
       dropNewPiece: hooks.onNewPiece,
       insert(elements) {
-        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+        const firstPly = round.firstPly(ctrl.data);
+        const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
+        const showUntil = firstPly + 2 + +isSecond;
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply, p => p <= showUntil);
         if (data.pref.coords === Prefs.Coords.Inside) changeColorHandle();
       },
     },

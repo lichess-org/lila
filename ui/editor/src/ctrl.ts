@@ -77,7 +77,7 @@ export default class EditorCtrl {
       if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
       else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
     }
-    this.options.onChange && this.options.onChange(fen);
+    this.options.onChange?.(fen);
     this.redraw();
   }
 

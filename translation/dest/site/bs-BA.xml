@@ -909,4 +909,5 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
 Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donacija korisnikâ.</string>
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Lozinka za ulaz u turnir</string>
 </resources>

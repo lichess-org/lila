@@ -150,6 +150,14 @@ object Condition {
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu dmap All.WithVerdicts.apply
 
+    def withRejoinVerdicts(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[All.WithVerdicts] =
+      list.map {
+        case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
+        case c             => fuccess(WithVerdict(c, Accepted))
+      }.sequenceFu dmap All.WithVerdicts.apply
+
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
@@ -183,6 +191,10 @@ object Condition {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
+    def rejoin(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit
+        ec: scala.concurrent.ExecutionContext
+    ): Fu[All.WithVerdicts] =
+      all.withRejoinVerdicts(user, getUserTeamIds)
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
         tour: Tournament
     )(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =

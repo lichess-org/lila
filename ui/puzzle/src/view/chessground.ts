@@ -42,7 +42,7 @@ export function makeConfig(ctrl: Controller): CgConfig {
     events: {
       move: ctrl.userMove,
       insert(elements) {
-        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.vm.node.ply, _ => true);
+        resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.vm.node.ply);
         if (ctrl.pref.coords === Prefs.Coords.Inside) changeColorHandle();
       },
     },

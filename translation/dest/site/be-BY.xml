@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Запытаць камп\'ютарны аналіз</string>
   <string name="computerAnalysis">Камп’ютарны аналіз</string>
   <string name="computerAnalysisAvailable">Даступны камп’ютарны аналіз</string>
+  <string name="computerAnalysisDisabled">Кампутарны аналіз адключаны</string>
   <string name="analysis">Аналіз</string>
   <string name="depthX">Глыбіня %s</string>
   <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
@@ -155,6 +156,8 @@
     <item quantity="many">%s гульцоў</item>
     <item quantity="other">%s гульцоў</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Нічыя па ўзаемнай згодзе</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Пяцьдзесят хадоў без прагрэсу</string>
   <string name="currentGames">Бягучыя гульні</string>
   <plurals name="nbGames">
     <item quantity="one">%s гульня</item>
@@ -995,4 +998,5 @@
   <string name="cantDoThisTwice">Калі вы зачыніце яго ў другі раз, то ўжо не будзе шляху назад.</string>
   <string name="emailAssociatedToaccount">Адрас электроннай пошты, звязаны з акаўнтам</string>
   <string name="sentEmailWithLink">Мы адправілі вам электронны ліст са спасылка.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код далучэння да турніру</string>
 </resources>

@@ -125,6 +125,5 @@
   <string name="clearChat">बातें मिटा दे</string>
   <string name="deleteTheStudyChatHistory">क्या इस पड़ाई से सम्बन्धित बातों को मिटा देना चाहिए? इससे पीछे जाने का कोई रास्ता शेष नहीं है!</string>
   <string name="deleteStudy">अध्याय को मिटा दे</string>
-  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
   <string name="whereDoYouWantToStudyThat">आप इसको खा से पड़ना चाहते है</string>
 </resources>

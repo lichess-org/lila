@@ -129,7 +129,7 @@
   <string name="clearChat">Șterge conversația</string>
   <string name="deleteTheStudyChatHistory">Ștergeți istoricul chatului? Nu există cale de întoarcere!</string>
   <string name="deleteStudy">Ștergeți studiul</string>
-  <string name="deleteTheEntireStudy">Ștergeți întregul studiu? Nu există cale de întoarcere!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ștergeți întregul studiu? Nu există cale de întoarcere! Introduceți numele studiului pentru a confirma: %s</string>
   <string name="whereDoYouWantToStudyThat">Unde vreți s-o studiați?</string>
   <string name="goodMove">Mutare bună</string>
   <string name="mistake">Greșeală</string>

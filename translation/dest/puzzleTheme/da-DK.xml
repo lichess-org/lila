@@ -120,5 +120,5 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
-  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du kan forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
+  <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
 </resources>

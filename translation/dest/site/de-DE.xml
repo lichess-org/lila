@@ -142,6 +142,8 @@
     <item quantity="one">%s Spieler</item>
     <item quantity="other">%s Spieler</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis durch Einigung</string>
+  <string name="fiftyMovesWithoutProgress">50 Züge ohne Spiel-Fortschritt</string>
   <string name="currentGames">Laufende Partien</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
@@ -916,5 +918,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
   <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
-  <string name="tournamentEntryCode">Turnierbeitrittscode</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnierbeitrittscode</string>
 </resources>

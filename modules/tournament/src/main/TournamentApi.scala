@@ -248,15 +248,20 @@ final class TournamentApi(
     import lila.user.TrophyKind._
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
-      playerRepo.bestByTourWithRank(tour.id, 100).flatMap {
-        _.map {
-          case rp if rp.rank == 1 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
-          case rp if rp.rank <= 10 =>
-            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
-          case rp if rp.rank <= 50 =>
-            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
-          case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
-        }.sequenceFu.void
+      playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
+        lila.common.Future
+          .applySequentially(players) {
+            case rp if rp.rank == 1 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
+            case rp if rp.rank <= 10 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
+            case rp if rp.rank <= 50 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
+            case rp if rp.rank <= 100 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
+            case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
+          }
+          .void
       }
     }
   }
@@ -272,7 +277,7 @@ final class TournamentApi(
         {
           tour.isStarted ?? playerRepo.exists(tour.id, user.id)
         } flatMap {
-          case true => fuccess(tour.conditions.accepted)
+          case true => verify.rejoin(tour.conditions, user, getUserTeamIds)
           case _    => verify(tour.conditions, user, getUserTeamIds)
         }
     }

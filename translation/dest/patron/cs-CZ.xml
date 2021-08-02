@@ -73,4 +73,5 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="nowLifetime">Nyní jste doživotním Lichess Patronem!</string>
   <string name="nowOneMonth">Nyní jste Lichess Patronem na jeden měsíc!</string>
   <string name="downgradeNextMonth">Jeden měsíc Vám NEBUDE znovu účtován poplatek a váš Lichess účet bude ponížen na bezplatný.</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Změnit měnu</string>
 </resources>

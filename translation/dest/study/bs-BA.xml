@@ -129,7 +129,7 @@
   <string name="clearChat">Izbrišite dopisivanje</string>
   <string name="deleteTheStudyChatHistory">Da li želite izbrisati svo dopisivanje vezano za ovu studiju? Nakon ove akcije, obrisani tekst se ne može vratiti!</string>
   <string name="deleteStudy">Izbrišite studiju</string>
-  <string name="deleteTheEntireStudy">Da li želite izbrisati ovu studiju? Nakon ove akcije, studija se ne može vratiti!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Izbrisati cijelu studiju? Nema povratka! Ukucajte naziv studije da potvrdite.</string>
   <string name="whereDoYouWantToStudyThat">Gdje želite da ovu poziciju prostudirate?</string>
   <string name="goodMove">Dobar potez</string>
   <string name="mistake">Greška</string>

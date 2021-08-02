@@ -126,6 +126,22 @@
   <string name="clearChat">Rensa Chatten</string>
   <string name="deleteTheStudyChatHistory">Radera studiens chatthistorik? Detta går inte att ångra!</string>
   <string name="deleteStudy">Ta bort studie</string>
-  <string name="deleteTheEntireStudy">Vill du ta bort hela studien? Detta går inte att ångra!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Radera hela studien? Detta går inte att ångra! Skriv namnet på studien för att bekräfta: %s</string>
   <string name="whereDoYouWantToStudyThat">Var vill du studera detta?</string>
+  <string name="goodMove">Bra drag</string>
+  <string name="mistake">Misstag</string>
+  <string name="blunder">Blunder</string>
+  <string name="whiteIsSlightlyBetter">Vit är något bättre</string>
+  <string name="blackIsSlightlyBetter">Svart är något bättre</string>
+  <string name="whiteIsBetter">Vit är bättre</string>
+  <string name="blackIsBetter">Svart är bättre</string>
+  <string name="whiteIsWinning">Vit vinner</string>
+  <string name="blackIsWinning">Svart vinner</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Utveckling</string>
+  <string name="initiative">Initiativ</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Attack</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Motspel</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Tidsproblem</string>
+  <string name="nextChapter">Nästa kapitel</string>
+  <string name="prevChapter">Föregående kapitel</string>
 </resources>

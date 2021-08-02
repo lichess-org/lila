@@ -135,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s人接続中</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">合意によるドロー</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
@@ -877,4 +879,5 @@
   <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
   <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
   <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">トーナメント参加コード</string>
 </resources>
