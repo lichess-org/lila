@@ -2,4 +2,8 @@
 <resources>
   <string name="activity">Attività</string>
   <string name="hostedALiveStream">Erate l\' Ostu d\' un Direttu</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Hè ghjuntu in %s squadra</item>
+    <item quantity="other">Hè ghjuntu in %s squadre</item>
+  </plurals>
 </resources>
