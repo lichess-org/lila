@@ -26,6 +26,14 @@
     <item quantity="one">Hà ghjucatu %1$s colpu</item>
     <item quantity="other">Hà ghjucatu %1$s colpi</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">in %1$s partita di scacchi pè via di currispundenza</item>
+    <item quantity="other">in %1$s partite di scacchi pè via di currispundenza</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Hà finitu %s partita per via di currispundenza</item>
+    <item quantity="other">Hà finitu %s partite per via di a currispundenza</item>
+  </plurals>
   <plurals name="joinedNbTeams">
     <item quantity="one">Hè ghjuntu in %s squadra</item>
     <item quantity="other">Hè ghjuntu in %s squadre</item>
