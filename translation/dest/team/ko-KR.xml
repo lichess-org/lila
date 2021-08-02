@@ -40,6 +40,9 @@
   <string name="leadersChat">지도자 \'대화</string>
   <string name="closeTeam">팀 폐쇄</string>
   <string name="closeTeamDescription">영구히 팀 폐쇄</string>
+  <string name="entryCode">팀 가입 코드</string>
+  <string name="entryCodeDescriptionForLeader">(선택) 새 멤버가 가입하기 위해서는 코드를 반드시 알아야 합니다.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">코드가 잘못되었습니다.</string>
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTourns">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
