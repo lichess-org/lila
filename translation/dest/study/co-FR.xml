@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Sfassà u studiu sanu? Ùn puderete annullà! Scivite u nome di u studiu pè cunfirmà: %s</string>
+</resources>

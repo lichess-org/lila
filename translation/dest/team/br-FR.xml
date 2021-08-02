@@ -47,4 +47,7 @@ Gallout a rit gervel anezhe da gemer perzh e-barzh ur tournamant pe un emgann sk
   <string name="youWayWantToLinkOneOfTheseTournaments">Intereset e vefec\'h da gas liamm un tournamant bennak a vo a-benn nebeut?</string>
   <string name="usersWhoCanManageThisTeam">Ar re a c\'hall plediñ gant ar skipailh-mañ</string>
   <string name="leadersChat">Lec\'h flapañ ar vistri skipailh</string>
+  <string name="entryCode">Boneg mont e-barzh ar skipailh</string>
+  <string name="entryCodeDescriptionForLeader">(Diret) Ur c\'hod diret a rank bezañ anavet gant an izili nevez evit dont er skipailh.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Kod mont e-barzh direizh.</string>
 </resources>

@@ -67,6 +67,8 @@ Här är länken för att komma till klassen.</string>
   <string name="releaseDesc1">Ett frisläppt konto kan inte hanteras igen. Studenten kommer kunna växla barn-läge och byta lösenord själv.</string>
   <string name="releaseDesc2">Studenten kommer att stanna kvar i klassen efter att deras konto släppts.</string>
   <string name="realUniqueEmail">Verklig, unik e-postadress som tillhör studenten. Vi kommer att skicka ett bekräftelsemejl till det, med en länk för att släppa kontot.</string>
+  <string name="closeStudent">Avsluta konto</string>
+  <string name="closeTheAccount">Avsluta studentkontot permanent.</string>
   <string name="teachers">Lärare</string>
   <plurals name="nbTeachers">
     <item quantity="one">Lärare</item>

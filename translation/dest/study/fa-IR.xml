@@ -85,6 +85,6 @@
   <string name="clearChat">پاک کردن گفتگو</string>
   <string name="deleteTheStudyChatHistory">آیا سابقه گفتگو پاک شود? امکان بازگشت وجود ندارد!</string>
   <string name="deleteStudy">پاک کردن درس</string>
-  <string name="deleteTheEntireStudy">آیا تمام درس پاک شود? امکان بازگشت وجود ندارد!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">می خواهید کل آموزش را حذف کنید؟ راه برگشتی وجود ندارد! برای ادامه کار نام آموزش را وارد کنید</string>
   <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
 </resources>

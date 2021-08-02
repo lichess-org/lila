@@ -34,4 +34,5 @@
   <string name="pleaseOnlyInvitePeopleYouKnow">Հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք ակտիվորեն ցանկանում են միանալ այս ստուդիային։</string>
   <string name="searchByUsername">Որոնում ըստ մասնակցային անվան</string>
   <string name="spectator">Հանդիսատես</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
 </resources>

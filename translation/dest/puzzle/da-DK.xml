@@ -58,7 +58,7 @@
   <string name="history">Opgavehistorik</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
-  <string name="streakDescription">Løs gradvist sværere opgaver og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe et træk over per session.</string>
+  <string name="streakDescription">Løs opgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
   <string name="yourStreakX">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>

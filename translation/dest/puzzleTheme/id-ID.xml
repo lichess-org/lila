@@ -21,6 +21,9 @@
   <string name="castling">Rokade</string>
   <string name="castlingDescription">Letakkan posisi raja aman, dan manfaatkan benteng untuk menyerang.</string>
   <string name="capturingDefender">Memakan pelindung</string>
+  <string name="capturingDefenderDescription">Memakan bidak yang sangat penting untuk menjaga bidak lain, memungkinkan bagian yang sekarang tidak terlindungi untuk ditangkap pada langkah berikut.</string>
+  <string name="crushing">Hancurkan</string>
+  <string name="crushingDescription">Temukan kesalahan lawan untuk mendapat keuntungan yang besar. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Skak gajah ganda</string>
   <string name="equality">Kesetaraan</string>
   <string name="equalityDescription">Kembali dari posisi kalah dan amankan seri atau posisi seimbang. (eval ≤ 200cp)</string>

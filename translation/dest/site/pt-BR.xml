@@ -142,6 +142,8 @@
     <item quantity="one">%s jogadores conectados</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
+  <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
+  <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas atuais</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
@@ -915,4 +917,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="cantDoThisTwice">Caso você encerre sua conta pela segunda vez, será impossível recuperá-la.</string>
   <string name="emailAssociatedToaccount">Endereço de e-mail associado à conta</string>
   <string name="sentEmailWithLink">Enviamos um e-mail pra você com um link.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Código de entrada do torneio</string>
 </resources>

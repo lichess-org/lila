@@ -17,7 +17,7 @@
     <item quantity="other">Ketua Tim</item>
   </plurals>
   <string name="teamBestPlayers">Pemain terbaik</string>
-  <string name="teamRecentMembers">Pemain baru</string>
+  <string name="teamRecentMembers">Anggota terkini</string>
   <string name="kickSomeone">Keluarkan seseorang dari tim</string>
   <string name="whoToKick">Siapa yang ingin Anda keluarkan dari tim?</string>
   <plurals name="xJoinRequests">
@@ -30,7 +30,7 @@
   <string name="teamBattleOverview">Pertarungan antara bebrapa tim, setiap pemain mencetak poin untuk timnya</string>
   <string name="teamTournament">Turnamen tim</string>
   <string name="teamTournamentOverview">Sebuah arena turnamen yang hanya bisa diikuti oleh anggota tim Anda</string>
-  <string name="swissTournamentOverview">Turnamen Swiss yang hanya dapat diikuti member tim</string>
+  <string name="swissTournamentOverview">Turnamen Swiss yang hanya dapat diikuti anggota tim</string>
   <string name="messageAllMembers">Pesan semua anggota</string>
   <string name="messageAllMembersOverview">Kirim pesan pribadi kepada semua anggota tim</string>
   <string name="messageAllMembersLongDescription">Kirim pesan pribadi ke SEMUA anggota tim.

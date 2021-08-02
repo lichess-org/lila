@@ -142,6 +142,8 @@
     <item quantity="one">%s spelare</item>
     <item quantity="other">%s spelare</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remi genom ömsesidig överenskommelse</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Femtio drag utan framsteg</string>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -871,6 +873,8 @@
   <string name="welcome">Välkommen!</string>
   <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
+  <string name="coachManager">Coach-hanterare</string>
+  <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
   <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
@@ -900,8 +904,19 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="noChat">Ingen chatt</string>
   <string name="onlyTeamLeaders">Endast lagledare</string>
   <string name="onlyTeamMembers">Endast lagmedlemmar</string>
+  <string name="navigateMoveTree">Navigera i dragträdet</string>
+  <string name="mouseTricks">Mus-trick</string>
   <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
   <string name="toggleAllAnalysis">Växla all datoranalys</string>
   <string name="playComputerMove">Spela bästa datordraget</string>
+  <string name="analysisOptions">Analysalternativ</string>
+  <string name="focusChat">Fokusera chatten</string>
+  <string name="showHelpDialog">Visa denna hjälpdialog</string>
+  <string name="reopenYourAccount">Öppna ditt konto igen</string>
+  <string name="closedAccountChangedMind">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
+  <string name="onlyWorksOnce">Detta fungerar bara en gång.</string>
+  <string name="cantDoThisTwice">Om du stänger ditt konto en andra gång, kommer det inte att finnas något sätt att återställa det.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
+  <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Inträdeskod till turnering</string>
 </resources>

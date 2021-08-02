@@ -156,6 +156,8 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis za obopólną zgodą</string>
+  <string name="fiftyMovesWithoutProgress">50 posunięć bez bicia i ruchu pionem</string>
   <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
@@ -995,4 +997,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
   <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
   <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod dostępu do turnieju</string>
 </resources>

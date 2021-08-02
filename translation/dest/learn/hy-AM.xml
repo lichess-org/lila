@@ -3,6 +3,7 @@
   <string name="learnChess">Սովորեք շախմատ</string>
   <string name="byPlaying">խաղալով</string>
   <string name="menu">Ցանկ</string>
+  <string name="progressX">Հաղթահարված է` %s</string>
   <string name="resetMyProgress">Զրոյացնել</string>
   <string name="youWillLoseAllYourProgress">Դուք կկորցնեք Ձեր բոլոր միավորները</string>
   <string name="play">Խաղա</string>

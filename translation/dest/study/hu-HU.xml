@@ -126,7 +126,7 @@
   <string name="clearChat">Chat törlése</string>
   <string name="deleteTheStudyChatHistory">Biztosan törlöd a chat előzményeit? Ezt nem lehet visszavonni!</string>
   <string name="deleteStudy">Tanulmány törlése</string>
-  <string name="deleteTheEntireStudy">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Törlöd a teljes tanulmányt? Ezt nem lehet visszavonni! Gépeld be a tanulmány nevét a megerősítéshez: %s</string>
   <string name="whereDoYouWantToStudyThat">Hol szeretnéd a tanulmányt elhelyezni?</string>
   <string name="goodMove">Jó lépés</string>
   <string name="mistake">Hiba</string>

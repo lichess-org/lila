@@ -134,7 +134,6 @@
   <string name="clearChat">Ачысціць чат</string>
   <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="deleteStudy">Выдаліць навучанне</string>
-  <string name="deleteTheEntireStudy">Выдаліць навучанне цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
   <string name="goodMove">Добры ход</string>
   <string name="mistake">Памылка</string>
@@ -162,5 +161,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">З ідэяй</string>
   <string name="nextChapter">Наступны раздзел</string>
   <string name="prevChapter">Папярэдні раздзел</string>
-  <string name="studyActions" comment="studyActions&#10;&#10;Heading in the keyboard shortcuts help screen (press ? on the keyboard to invoke it). These are actions you can perform while looking at a study, by pressing a specific key on the keyboard">Дзеянні ў навучанні</string>
+  <string name="studyActions">Дзеянні ў навучанні</string>
 </resources>

@@ -156,6 +156,8 @@
     <item quantity="many">%s игроков</item>
     <item quantity="other">%s игроков</item>
   </plurals>
+  <string name="drawByMutualAgreement">Ничья по обоюдному согласию</string>
+  <string name="fiftyMovesWithoutProgress">Пятьдесят ходов без прогресса</string>
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
     <item quantity="one">%s игра</item>
@@ -996,4 +998,5 @@
   <string name="cantDoThisTwice">Если вы закроете свой аккаунт ещё раз, возможности открыть его уже не будет.</string>
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код для участия в турнире</string>
 </resources>

@@ -1,2 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="hourlyRapidArena">Arena Rapida di l\'ore</string>
+  <string name="hourlyRapid">Ghjustra rapida di l\' ore</string>
+  <string name="hourlyXArena">Arena %s di l\'ore</string>
+  <string name="hourlyX">Grustra %s di l\'ore</string>
+  <string name="dailyRapidArena">Arena Rapida ghjurnaliera</string>
+  <string name="dailyRapid">Ghjustra Rapida ghjurnaliera</string>
+  <string name="dailyClassicalArena">Arena Classica ghjurnaliera</string>
+  <string name="dailyClassical">Ghjustra Classica ghjurnaliera</string>
+  <string name="dailyXArena">Arena %s ghjurnaliera</string>
+  <string name="dailyX">Ghjustra %s ghjurnaliera</string>
+  <string name="easternRapidArena">Arena Rapida di u Levante</string>
+  <string name="easternRapid">Ghjustra Rapida di u Levante</string>
+  <string name="easternClassicalArena">Arena Classica di u Levante</string>
+  <string name="easternClassical">Ghjustra Classica di u Levante</string>
+  <string name="easternX">Ghjustra %s di u Punente</string>
+  <string name="weeklyRapidArena">Arena Rapida settimanale</string>
+  <string name="weeklyRapid">Ghjustra Rapida settimanale</string>
+  <string name="weeklyClassicalArena">Arena Classica settimanale</string>
+  <string name="weeklyClassical">Ghjustra Classica settimanale</string>
+  <string name="weeklyXArena">Arena %s settimanale</string>
+  <string name="weeklyX">Ghjustra %s settimanale</string>
+  <string name="monthlyRapidArena">Arena Rapida mensuale</string>
+  <string name="monthlyRapid">Ghjustra Rapida mensuale</string>
+  <string name="monthlyClassicalArena">Arena Classica mensuale</string>
+  <string name="monthlyClassical">Ghjustra Classica mensuale</string>
+  <string name="monthlyXArena">Arena %s mensuale</string>
+  <string name="monthlyX">Ghjustra %s mensuale</string>
+  <string name="yearlyRapidArena">Arena Rapida annuale</string>
+  <string name="yearlyRapid">Ghjustra rapida annuale</string>
+  <string name="yearlyClassicalArena">Arena Classica annuale</string>
+  <string name="yearlyClassical">Ghjustra Classica annuale</string>
+  <string name="yearlyXArena">Arena %s annuale</string>
+  <string name="yearlyX">Ghjustra %s annuale</string>
+  <string name="rapidShieldArena">Arena Rapida di Scudu</string>
+  <string name="rapidShield">Ghjustra Rapida di Scudu</string>
+  <string name="classicalShieldArena">Arena Classica di Scudu</string>
+  <string name="classicalShield">Ghjustra Classica di Scudu</string>
+  <string name="xShieldArena">Arena %s di Scudu</string>
+  <string name="xShield">Gjustra %s di Scudu</string>
+  <string name="openingRapidArena">%s Arena Rapida</string>
+  <string name="openingRapid">%s Ghjustra Rapida</string>
+  <string name="xTeamBattle">%s Sfida di e squadre</string>
+  <string name="eliteXArena">Arena %s di e Leghjende</string>
+  <string name="eliteX">Ghjustra %s di e Leghjende</string>
+  <string name="xArena">Ghjustra %s Arena</string>
+</resources>

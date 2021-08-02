@@ -126,7 +126,7 @@
   <string name="clearChat">Chat löschen</string>
   <string name="deleteTheStudyChatHistory">Chatverlauf der Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
   <string name="deleteStudy">Studie löschen</string>
-  <string name="deleteTheEntireStudy">Komplette Studie löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Die gesamte Studie löschen? Es gibt kein Zurück! Gib zur Bestätigung den Namen der Studie ein: %s</string>
   <string name="whereDoYouWantToStudyThat">Welche Studie möchtest du nutzen?</string>
   <string name="goodMove">Guter Zug</string>
   <string name="mistake">Fehler</string>

@@ -14,5 +14,10 @@
   <string name="fullDescription">Իրադարձության ամբողջական նկարագրություն</string>
   <string name="startDate">Սկսվելու ամսաթիվը Ձեր ժամագոտում</string>
   <string name="startDateHelp">Լրացուցիչ, եթե գիտեք, թե երբ է սկսվելու իրադարձությունը</string>
+  <string name="credits">Երախտագիտություն</string>
+  <string name="resetRound">Հեռացնել այս խաղափուլը</string>
   <string name="deleteRound">Հեռացնել այս խաղափուլը</string>
+  <string name="broadcastUrl">Հեռարձակման URL-հասցեն</string>
+  <string name="currentRoundUrl">Ընթացիկ խաղափուլի URL-հասցեն</string>
+  <string name="currentGameUrl">Ընթացիկ պարտիայի URL-հասցեն</string>
 </resources>

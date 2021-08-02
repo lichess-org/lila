@@ -51,6 +51,9 @@
   <string name="leadersChat">Чат лідараў</string>
   <string name="closeTeam">Зачыніць каманду</string>
   <string name="closeTeamDescription">Зачыніць каманду назаўсёды.</string>
+  <string name="entryCode">Код далучэння да каманды</string>
+  <string name="entryCodeDescriptionForLeader">(Неабавязкова) Код далучэння, якія новыя ўдзельнікі павінны ведаць, каб далучыцца да каманды.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Няправільны код далучэння.</string>
   <string name="teamAlreadyExists">Каманда ўжо існуе.</string>
   <string name="upcomingTourns">Надыходзячыя турніры</string>
   <string name="completedTourns">Завершаныя турніры</string>

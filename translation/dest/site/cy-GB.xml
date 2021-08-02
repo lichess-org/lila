@@ -51,6 +51,7 @@
   <string name="requestAComputerAnalysis">Gofyn am ddadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysis">Dadansoddiad cyfrifiadurol</string>
   <string name="computerAnalysisAvailable">Dadansoddiad cyfrifiadurol ar gael</string>
+  <string name="computerAnalysisDisabled">Dadansoddiad cyfrifiadur wedi ei diffodd</string>
   <string name="analysis">Bwrdd dadansoddi</string>
   <string name="depthX">Dyfnder%s</string>
   <string name="usingServerAnalysis">Dadansoddiad gweinydd</string>
@@ -84,6 +85,7 @@
   <string name="noGameFound">Dim gem wedi\'w ddarganfod</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Efallai y dylswch gynnwys mwy o gemau yn y dewislen gosodiadau.</string>
   <string name="openingExplorer">Porwr agoriadau a thabl terfyniad</string>
+  <string name="openingEndgameExplorer">Chwiliwr agoriad/diweddgem</string>
   <string name="xOpeningExplorer">Archwiliwr agoriad %s</string>
   <string name="winPreventedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
   <string name="lossSavedBy50MoveRule">Cyfartal o dan rhel 50 symudiad</string>
@@ -136,6 +138,8 @@
   <string name="claimADraw">Hawlio gêm gyfartal</string>
   <string name="offerDraw">Cynnig gêm gyfartal</string>
   <string name="draw">Gêm gyfartal</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Gêm cyfartal wedi ei cytuno</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Pumdeg tro heb cynnydd</string>
   <string name="currentGames">Gêmau ar eu hanner</string>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s o gêmau wedi\'u nodi</item>
@@ -371,6 +375,8 @@
   <string name="boardEditor">Golygydd bwrdd</string>
   <string name="setTheBoard">Gosod y bwrdd</string>
   <string name="popularOpenings">Agoriadau poblogaidd</string>
+  <string name="endgamePositions">Safleoedd diwedd-gêm</string>
+  <string name="chess960StartPosition">Safle cychwyn Gwyddbwyll960: %s</string>
   <string name="startPosition">Safle cychwyn</string>
   <string name="clearBoard">Clirio\'r bwrdd</string>
   <string name="savePosition">Cadw\'r safle</string>
@@ -386,6 +392,7 @@
   <string name="firstName">Enw cyntaf</string>
   <string name="lastName">Cyfenw</string>
   <string name="biography">Cofiant</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Gwlad neu banner</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
   <string name="inlineNotation">Nodiant mewnlin</string>
@@ -403,6 +410,8 @@
   <string name="tournamentWinners">Ennillyddion cystadleuaethau</string>
   <string name="name">Enw</string>
   <string name="description">Disgrifiad</string>
+  <string name="descPrivate">Disgrifiad preifat</string>
+  <string name="descPrivateHelp">Testun gellir ei gweld yn unig gan aelodau o\'r tîm. Os dewisir, mae\'n disodli\'r disgrifiad cyhoeddus i aelodau o\'r tîm.</string>
   <string name="no">Na</string>
   <string name="yes">Ie</string>
   <string name="help">Cymorth:</string>
@@ -423,6 +432,7 @@
   <string name="cheat">Twyll</string>
   <string name="insult">Sarhad</string>
   <string name="troll">Trôl</string>
+  <string name="ratingManipulation">Twyllo sgôr</string>
   <string name="other">Arall</string>
   <string name="reportDescriptionHelp">Gluda ddolen i\'r gêm ac esbonio be sydd o\'i le am ymddigiad y defnyddiwr hwn. Paid â dweud jyst ´\"Mae o\'n twyllo\", ond dwed pam wyt ti\'n meddwl hynny. Bydd dy adrodd yn cael ei brosesu yn gyflymach os ysgrifenni yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
@@ -506,6 +516,7 @@
   <string name="error.email_unique">Cyfeiriad e-bost yn cael ei ddefnyddio yn barod</string>
   <string name="error.email_different">Mae hwn wedi ei osod fel eich ebost yn barod</string>
   <string name="ifRatingIsPlusMinusX">Os ydy\'r raddfa ± %s</string>
+  <string name="onlyExistingConversations">Dim ond sgyrsiau eisoes</string>
   <string name="onlyFriends">Dim ond ffrindiau</string>
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
@@ -605,6 +616,7 @@
   <string name="enableKidMode">Galluogi modd plant</string>
   <string name="disableKidMode">Analluogi modd plant</string>
   <string name="security">Diogelwch</string>
+  <string name="sessions">Sesiynnau</string>
   <string name="revokeAllSessions">dirymu pob sesiwn</string>
   <string name="playChessEverywhere">Chwarae gwyddbwyll ym mhobman</string>
   <string name="asFreeAsLichess">Yn ddi-dâl fel lichess</string>

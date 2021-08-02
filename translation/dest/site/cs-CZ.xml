@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
+  <string name="computerAnalysisDisabled">Analýza počítačem je vypnutá</string>
   <string name="analysis">Analýza</string>
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
@@ -155,6 +156,8 @@
     <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remíza po vzájemné dohodě</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Padesát tahů bez progresu</string>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -502,6 +505,7 @@
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upravit šachovnici</string>
   <string name="popularOpenings">Populární zahájení</string>
+  <string name="endgamePositions">Pozice koncovek</string>
   <string name="chess960StartPosition">Základní postavení Chess960: %s</string>
   <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
@@ -766,6 +770,7 @@
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>
+  <string name="sessions">Relace</string>
   <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
@@ -950,6 +955,8 @@
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
+  <string name="tournDescriptionHelp">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
+  <string name="ratedFormHelp">Hry jsou hodnoceny a mají dopad na hodnocení hráče</string>
   <string name="onlyMembersOfTeam">Pouze členové týmu</string>
   <string name="noRestriction">Bez omezení</string>
   <string name="minimumRatedGames">Minimální počet her s ratingem</string>
@@ -963,15 +970,20 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="cancelSimul">Zrušit simultánku</string>
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
+  <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
   <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
   <string name="tournChat">Turnajový chat</string>
+  <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
+  <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
+  <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
   <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
   <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kód pro vstup do turnaje</string>
 </resources>

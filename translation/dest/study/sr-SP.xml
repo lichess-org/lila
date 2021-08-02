@@ -129,6 +129,5 @@
   <string name="clearChat">Очисти ћаскање</string>
   <string name="deleteTheStudyChatHistory">Избриши историју ћаскања студије? Нема повратка назад!</string>
   <string name="deleteStudy">Избриши студију</string>
-  <string name="deleteTheEntireStudy">Избриши целу студију? Нема повратка назад!</string>
   <string name="whereDoYouWantToStudyThat">Где желите то проучити?</string>
 </resources>

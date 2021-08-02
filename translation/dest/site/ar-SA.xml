@@ -170,6 +170,8 @@
     <item quantity="many">%s لاعبين</item>
     <item quantity="other">%s لاعب</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">التعادل بالاتفاق المتبادل</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">خمسون حركة بدون أي تقدم</string>
   <string name="currentGames">المباريات الحالية</string>
   <plurals name="nbGames">
     <item quantity="zero">%s مباراة</item>
@@ -1075,4 +1077,5 @@
   <string name="cantDoThisTwice">إذا أغلقت حسابك مرة ثانية فليس من الممكن استعادة حسابك مرة أخرى.</string>
   <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
   <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">رمز دخول البطولة</string>
 </resources>

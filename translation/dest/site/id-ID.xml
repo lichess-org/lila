@@ -308,7 +308,7 @@
   <string name="ratedMoreThanInPerf">Hanya boleh dengan rating ≥ %1$s dipermainan %2$s</string>
   <string name="ratedLessThanInPerf">Hanya boleh dengan rating ≤ %1$s dipermainan %2$s</string>
   <string name="mustBeInTeam">Harus dari dalam tim %s</string>
-  <string name="youAreNotInTeam">Anda tidak masuk di tim %s</string>
+  <string name="youAreNotInTeam">Anda tidak masuk dalam tim %s</string>
   <string name="backToGame">Kembali ke permainan</string>
   <string name="siteDescription">Permainan Catur gratis. Main Catur sekarang dengan antarmuka yang bersih. Tanpa registrasi, tanpa iklan, dan tanpa plugin tambahan. Bermain catur lawan komputer, teman atau lawan manusia secara acak.</string>
   <string name="xJoinedTeamY">%1$s bergabung tim %2$s</string>
@@ -860,7 +860,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="tournChat">Obrolan turnamen</string>
   <string name="noChat">Tanpa obrolan</string>
   <string name="onlyTeamLeaders">Hanya pemimpin tim</string>
-  <string name="onlyTeamMembers">Hanya member tim</string>
+  <string name="onlyTeamMembers">Hanya anggota tim</string>
   <string name="navigateMoveTree">Navigasi gerakan partai</string>
   <string name="mouseTricks">Trik pada tetikus/mouse</string>
   <string name="toggleLocalAnalysis">Nyala / mati analisa komputer lokal</string>
