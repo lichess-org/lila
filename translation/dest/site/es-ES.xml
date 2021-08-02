@@ -97,7 +97,7 @@
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas</string>
-  <string name="openingEndgameExplorer">Explorador de aperturas/finales</string>
+  <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
@@ -142,8 +142,8 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadores</item>
   </plurals>
-  <string name="drawByMutualAgreement">Tablas por mutuo acuerdo</string>
-  <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Tablas de mutuo acuerdo</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
@@ -483,7 +483,7 @@
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
-  <string name="descPrivateHelp">Este texto solo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará la descripción pública de los miembros del equipo.</string>
+  <string name="descPrivateHelp">Este texto sólo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará tu descripción pública cuando sea vista por los miembros del equipo.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
@@ -894,7 +894,7 @@ Deja vacío el campo para empezar las partidas desde la posición inicial normal
   <string name="cancelSimul">Cancelar la simultánea</string>
   <string name="simulHostcolor">Color del anfitrión para cada partida</string>
   <string name="estimatedStart">Hora de inicio estimada</string>
-  <string name="simulFeatured">Mostrar en %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Mostrar en %s</string>
   <string name="simulFeaturedHelp">Muestra la simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
