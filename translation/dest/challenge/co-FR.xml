@@ -16,4 +16,10 @@
   <string name="declineTooFast">Sta cadenza hè troppu rapida pè me, pè piace sfida mi cù una cadenza più lenta.</string>
   <string name="declineTooSlow">Sta cadenza hè troppu lenta pè me, pè piace sfida mi cù una cadenza più rapida.</string>
   <string name="declineTimeControl">Ùn accettu micca e sfide cù sta cadenza.</string>
+  <string name="declineRated">Pè piace, manda mi piuttostu una sfida classificata.</string>
+  <string name="declineCasual">Pè piace, manda mi piuttostu una sfida senza classifica.</string>
+  <string name="declineStandard">Ùn accettu e sfide cù e variante per u mumentu.</string>
+  <string name="declineVariant">Ùn vogliu micca ghjucà cù sta variante per u mumentu.</string>
+  <string name="declineNoBot">Ùn accettu micca e sfide chì venenu di l\' urdinatori.</string>
+  <string name="declineOnlyBot">Ùn accettu chì e sfide chì venenu di l\' autumati.</string>
 </resources>
