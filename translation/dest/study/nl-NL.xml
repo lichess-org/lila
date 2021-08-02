@@ -126,6 +126,7 @@
   <string name="clearChat">Maak de chat leeg</string>
   <string name="deleteTheStudyChatHistory">Verwijder de studiechat geschiedenis? Er is geen weg terug!</string>
   <string name="deleteStudy">Studie verwijderen</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">De hele studie verwijderen? Er is geen weg terug! Type de naam van de studie om te bevestigen dat je de studie wilt verwijderen: %s</string>
   <string name="whereDoYouWantToStudyThat">Waar wil je dat bestuderen?</string>
   <string name="goodMove">Goede zet</string>
   <string name="mistake">Fout</string>
