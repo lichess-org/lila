@@ -2,6 +2,30 @@
 <resources>
   <string name="activity">Attività</string>
   <string name="hostedALiveStream">Erate l\' Ostu d\' un Direttu</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">Aiuta lichess.org dapoi %1$s mese tale un %2$s</item>
+    <item quantity="other">Aiuta lichess.org dapoi %1$s mesi tale un %2$s</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Hà risoltu %1$s pusizione in %2$s</item>
+    <item quantity="other">Hà risoltu %1$s pusizioni in %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Hà risoltu %s prublemu di tattica</item>
+    <item quantity="other">Hà risoltu %s prublemi di tattica</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Hà ghjucatu %1$s partita di %2$s</item>
+    <item quantity="other">Hà ghjucatu %1$s partite di %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Hà mandatu %1$s messaghju in %2$s</item>
+    <item quantity="other">Hà mandatu %1$s messaghji in %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Hà ghjucatu %1$s colpu</item>
+    <item quantity="other">Hà ghjucatu %1$s colpi</item>
+  </plurals>
   <plurals name="joinedNbTeams">
     <item quantity="one">Hè ghjuntu in %s squadra</item>
     <item quantity="other">Hè ghjuntu in %s squadre</item>
