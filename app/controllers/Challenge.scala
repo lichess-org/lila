@@ -122,14 +122,16 @@ final class Challenge(
 
   def apiAccept(id: String) =
     Scoped(_.Challenge.Write, _.Bot.Play, _.Board.Play) { _ => me =>
+      def tryRematch =
+        env.bot.player.rematchAccept(id, me) flatMap {
+          case true => jsonOkResult.fuccess
+          case _    => notFoundJson()
+        }
       api.byId(id) flatMap {
         _.filter(isForMe(_, me.some)) match {
-          case Some(challenge) => api.accept(challenge, me.some, none) inject jsonOkResult
-          case _ =>
-            env.bot.player.rematchAccept(id, me) flatMap {
-              case true => jsonOkResult.fuccess
-              case _    => notFoundJson()
-            }
+          case None                  => tryRematch
+          case Some(c) if c.accepted => tryRematch
+          case Some(challenge)       => api.accept(challenge, me.some, none) inject jsonOkResult
         }
       }
     }
