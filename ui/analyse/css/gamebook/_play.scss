@@ -86,10 +86,13 @@
       z-index: 2;
     }
 
-    a.hint {
+    button.hint {
+      @extend %button-none;
+
       padding: 0.8em 1em;
       color: $c-primary;
       font-size: 1rem;
+      text-align: unset;
     }
   }
 
@@ -105,7 +108,7 @@
   }
 
   .feedback {
-    @extend %flex-column, %box-radius;
+    @extend %flex-column, %box-radius, %button-none;
 
     flex: 1 1 100%;
     height: 8rem;
@@ -188,8 +191,8 @@
       flex-flow: row;
       font-size: 0.8em;
 
-      a {
-        @extend %flex-column;
+      button {
+        @extend %flex-column, %button-none;
 
         flex: 1 1 100%;
         background: mix($c-primary, $c-bg-box, 80%);

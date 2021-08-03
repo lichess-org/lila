@@ -14,7 +14,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
   return h('div.gamebook-buttons', [
     root.path
       ? h(
-          'a.fbt.text.back',
+          'button.fbt.text.back',
           {
             attrs: dataIcon(''),
             hook: bind('click', () => root.userJump(''), ctrl.redraw),
@@ -24,7 +24,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
       : null,
     myTurn
       ? h(
-          'a.fbt.text.solution',
+          'button.fbt.text.solution',
           {
             attrs: dataIcon(''),
             hook: bind('click', ctrl.solution, ctrl.redraw),
@@ -41,7 +41,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
     const o = study.vm.gamebookOverride;
     if (study.members.canContribute())
       return h(
-        'a.fbt.text.preview',
+        'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
           attrs: dataIcon(''),

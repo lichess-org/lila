@@ -51,7 +51,7 @@ function hintZone(ctrl: GamebookPlayCtrl) {
       hook: bind('click', ctrl.hint, ctrl.redraw),
     });
   if (state.showHint) return h('div', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
-  if (state.hint) return h('a.hint', clickHook(), 'Get a hint');
+  if (state.hint) return h('button.hint', clickHook(), 'Get a hint');
   return undefined;
 }
 
@@ -60,7 +60,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     color = ctrl.root.turnColor();
   if (fb === 'bad')
     return h(
-      'div.feedback.act.bad' + (state.comment ? '.com' : ''),
+      'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       {
         hook: bind('click', ctrl.retry),
       },
@@ -68,7 +68,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     );
   if (fb === 'good' && state.comment)
     return h(
-      'div.feedback.act.good.com',
+      'button.feedback.act.good.com',
       {
         hook: bind('click', ctrl.next),
       },
@@ -97,7 +97,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
   return h('div.feedback.end', [
     study.nextChapter()
       ? h(
-          'a.next.text',
+          'button.next.text',
           {
             attrs: dataIcon(''),
             hook: bind('click', study.goToNextChapter),
@@ -106,7 +106,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         )
       : undefined,
     h(
-      'a.retry',
+      'button.retry',
       {
         attrs: dataIcon(''),
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
@@ -114,7 +114,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       'Play again'
     ),
     h(
-      'a.analyse',
+      'button.analyse',
       {
         attrs: dataIcon(''),
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
