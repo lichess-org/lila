@@ -75,10 +75,10 @@
   <string name="predefinedDuration">预定义时长</string>
   <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
   <string name="numberOfGames">比赛场数</string>
-  <string name="numberOfGamesAsManyAsPossible">在允许的时间尽可能多地参与比赛</string>
+  <string name="numberOfGamesAsManyAsPossible">在允许的时间内尽可能多地参与比赛</string>
   <string name="numberOfGamesPreDefined">事先决定，对所有玩家都是相同的</string>
   <string name="pairingSystem">配对机制</string>
-  <string name="pairingSystemArena">任何具有相仅排名的对手</string>
+  <string name="pairingSystemArena">任何具有相近排名的对手</string>
   <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
   <string name="pairingWaitTime">配对等待时间</string>
   <string name="pairingWaitTimeFast">快：不等待所有玩家</string>
