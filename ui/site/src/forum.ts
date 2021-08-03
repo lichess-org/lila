@@ -150,7 +150,10 @@ lichess.load.then(() => {
   if (replyEl && storedReply) replyEl.value = storedReply;
 
   window.addEventListener('unload', () => {
-    if (!submittingReply && replyEl?.value) replyStorage.set(replyEl.value);
+    if (!submittingReply) {
+      if (replyEl?.value) replyStorage.set(replyEl.value);
+      else replyStorage.remove();
+    }
   });
 
   $('form.reply').on('submit', () => {
