@@ -97,7 +97,7 @@
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
   <string name="openingExplorer">Explorador de aperturas</string>
-  <string name="openingEndgameExplorer">Explorador de aperturas/finales</string>
+  <string name="openingEndgameExplorer">Explorador de aperturas y finales</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
@@ -142,8 +142,8 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadores</item>
   </plurals>
-  <string name="drawByMutualAgreement">Tablas por mutuo acuerdo</string>
-  <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Tablas de mutuo acuerdo</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
@@ -483,7 +483,7 @@
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
-  <string name="descPrivateHelp">Este texto solo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará la descripción pública de los miembros del equipo.</string>
+  <string name="descPrivateHelp">Este texto sólo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará tu descripción pública cuando sea vista por los miembros del equipo.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Ayuda:</string>
@@ -857,57 +857,57 @@
   <string name="xMentionedYouInY">%1$s te mencionó en \"%2$s\".</string>
   <string name="invitedYouToX">te invitó a \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s te invitó a \"%2$s\".</string>
-  <string name="youAreNowPartOfTeam">Ya estás en el equipo.</string>
-  <string name="youHaveJoinedTeamX">Te has unido a «%1$s».</string>
-  <string name="someoneYouReportedWasBanned">Un usuario que denunciaste ha sido expulsado</string>
+  <string name="youAreNowPartOfTeam">Ahora eres miembro del equipo.</string>
+  <string name="youHaveJoinedTeamX">Te has unido a \"%$1s\".</string>
+  <string name="someoneYouReportedWasBanned">Un usuario que denunciaste fue expulsado</string>
   <string name="congratsYouWon">¡Enhorabuena, has ganado!</string>
   <string name="gameVsX">Partida contra %1$s</string>
   <string name="resVsX">%1$s contra %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Alguien ha revisado tu perfil de entrenador.</string>
   <string name="newPendingReview">Nueva revisión pendiente</string>
-  <string name="lostAgainstTOSViolator">Has perdido contra un usuario que no cumplió las condiciones de servicio de Lichess</string>
+  <string name="lostAgainstTOSViolator">Perdiste contra un usuario que incumplió las Condiciones del Servicio de Lichess</string>
   <string name="refundXpointsTimeControlY">Has recuperado %1$s puntos en %2$s.</string>
   <string name="timeAlmostUp">¡Te queda poco tiempo!</string>
-  <string name="clickToRevealEmailAddress">[Haz clic para mostrar la dirección de correo electrónico]</string>
+  <string name="clickToRevealEmailAddress">[Haz clic para mostrar el correo electrónico]</string>
   <string name="download">Descargar</string>
   <string name="welcome">¡Bienvenidos!</string>
-  <string name="lichessPatronInfo">Lichess es una organización benéfica, y un software totalmente libre y de código abierto.
-Todos los costes de funcionamiento, desarrollo y contenidos se financian únicamente mediante las donaciones de los usuarios.</string>
-  <string name="coachManager">Administrador de entrenadores</string>
-  <string name="streamerManager">Gestor de la transmisión</string>
+  <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
+Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
+  <string name="coachManager">Gestor de entrenador</string>
+  <string name="streamerManager">Gestor de emisiones</string>
   <string name="cancelTournament">Cancelar el torneo</string>
   <string name="tournDescription">Descripción del torneo</string>
-  <string name="tournDescriptionHelp">¿Quieres decirle algo especial a los participantes? Intenta ser breve. Puedes usar Markdown para escribir enlaces: [nombre](https://url)</string>
-  <string name="ratedFormHelp">Las partidas afectan 
-a la puntuación de los jugadores</string>
-  <string name="onlyMembersOfTeam">Solo miembros del equipo</string>
+  <string name="tournDescriptionHelp">¿Quieres decirle algo especial a los participantes? Intenta ser breve. Puedes usar enlaces al estilo Markdown: [nombre](https://url)</string>
+  <string name="ratedFormHelp">Las partidas son por puntos
+y afectan a la puntuación de los jugadores</string>
+  <string name="onlyMembersOfTeam">Sólo miembros del equipo</string>
   <string name="noRestriction">Sin restricciones</string>
   <string name="minimumRatedGames">Mínimo de partidas por puntos</string>
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
-  <string name="onlyTitled">Solo jugadores titulados</string>
+  <string name="onlyTitled">Sólo jugadores titulados</string>
   <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
-  <string name="positionInputHelp">Pega una posición FEN válida para empezar todas las partidas con una posición específica.
-Solo funciona con partidas estándar, no con las variantes.
-Puedes usar el %s para crear una posición FEN y, a continuación, pegarla aquí.
-Deja vacío el campo para empezar las partidas desde la posición inicial normal.</string>
+  <string name="positionInputHelp">Pega una descripción FEN para empezar todas las partidas con una posición específica.
+Sólo funciona con partidas estándar, no con las variantes.
+Puedes usar el %s para crear una posición FEN y pegarla aquí.
+Déjalo vacío para empezar las partidas desde la posición inicial habitual.</string>
   <string name="cancelSimul">Cancelar la simultánea</string>
   <string name="simulHostcolor">Color del anfitrión para cada partida</string>
-  <string name="estimatedStart">Hora de inicio estimada</string>
-  <string name="simulFeatured">Mostrar en %s</string>
+  <string name="estimatedStart">Hora de inicio aproximada</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Mostrar en %s</string>
   <string name="simulFeaturedHelp">Muestra la simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
-  <string name="markdownAvailable">%s está disponible para una sintaxis más avanzada.</string>
+  <string name="markdownAvailable">Se puede usar %s para dar formatear el texto.</string>
   <string name="inYourLocalTimezone">En tu zona horaria local</string>
   <string name="tournChat">Chat del torneo</string>
   <string name="noChat">Sin chat</string>
-  <string name="onlyTeamLeaders">Solo líderes del equipo</string>
-  <string name="onlyTeamMembers">Solo miembros del equipo</string>
+  <string name="onlyTeamLeaders">Sólo líderes del equipo</string>
+  <string name="onlyTeamMembers">Sólo miembros del equipo</string>
   <string name="navigateMoveTree">Desplazarse por el árbol de movimientos</string>
   <string name="mouseTricks">Trucos de ratón</string>
-  <string name="toggleLocalAnalysis">Activar/desactivar análisis por ordenador local</string>
-  <string name="toggleAllAnalysis">Activar/desactivar todos los análisis por ordenador</string>
+  <string name="toggleLocalAnalysis">Activar y desactivar análisis por ordenador local</string>
+  <string name="toggleAllAnalysis">Activar y desactivar todos los análisis por ordenador</string>
   <string name="playComputerMove">Jugar el mejor movimiento por ordenador</string>
   <string name="analysisOptions">Opciones de análisis</string>
   <string name="focusChat">Foco en el chat</string>

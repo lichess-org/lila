@@ -708,7 +708,7 @@
   <string name="fullFeatured">Lichess, è tantu in più</string>
   <string name="phoneAndTablet">Telefuninu è tavuletta</string>
   <string name="bulletBlitzClassical">Bullet, blitz, classicu</string>
-  <string name="correspondenceChess">Scacchi in currispudenza</string>
+  <string name="correspondenceChess">Scacchi pè via di currispundenza</string>
   <string name="onlineAndOfflinePlay">Ghjocu in direttu o in senza reta</string>
   <string name="viewTheSolution">Vede a suluzione</string>
   <string name="followAndChallengeFriends">Segue è sfidà amichi</string>
@@ -892,7 +892,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="cancelSimul">Cancellà a simultanea</string>
   <string name="simulHostcolor">Culore di l\' ostu pè ogni partita</string>
   <string name="estimatedStart">Stimà l\' ore di u principiu</string>
-  <string name="simulFeatured">Caratteristichi in %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Caratteristichi in %s</string>
   <string name="simulFeaturedHelp">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>

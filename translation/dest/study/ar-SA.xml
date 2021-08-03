@@ -142,6 +142,7 @@
   <string name="clearChat">مسح المحادثة</string>
   <string name="deleteTheStudyChatHistory">هل تريد حذف سجل الدردشة الدراسية؟ لا يمكن إرجاعها!</string>
   <string name="deleteStudy">حذف الدراسة</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">حذف الدراسة بأكملها؟ لا يمكنك التراجع عن هذه الخطوة! اكتب اسم الدراسة لتأكيد عملية الحذف: %s</string>
   <string name="whereDoYouWantToStudyThat">أين تريد دراسة ذلك؟</string>
   <string name="goodMove">نقلة جيدة</string>
   <string name="mistake">خطأ</string>

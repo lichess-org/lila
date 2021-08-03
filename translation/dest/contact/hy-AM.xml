@@ -9,4 +9,5 @@
   <string name="forgotPassword">Մոռացել եմ գաղտնաբառը։</string>
   <string name="forgotUsername">Մոռացել եմ մասնակցային անունս</string>
   <string name="youCanLoginWithEmail">Դուք կարող եք մուտք գործել այն էլեկտրոնային հասցեի օգնությամբ, որով գրանցվել եք</string>
+  <string name="doNotMessageModerators">Անձնական հաղորդագրություններ մի ուղարկեք մոդերատորներին։</string>
 </resources>

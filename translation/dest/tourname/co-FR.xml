@@ -14,7 +14,8 @@
   <string name="easternRapid">Ghjustra Rapida di u Levante</string>
   <string name="easternClassicalArena">Arena Classica di u Levante</string>
   <string name="easternClassical">Ghjustra Classica di u Levante</string>
-  <string name="easternX">Ghjustra %s di u Punente</string>
+  <string name="easternXArena">Arenua %s di u Levante</string>
+  <string name="easternX">Ghjustra %s di u Levante</string>
   <string name="weeklyRapidArena">Arena Rapida settimanale</string>
   <string name="weeklyRapid">Ghjustra Rapida settimanale</string>
   <string name="weeklyClassicalArena">Arena Classica settimanale</string>
