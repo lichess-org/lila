@@ -136,8 +136,8 @@
     <item quantity="one">Միացած խաղացողների թիվը՝ %s</item>
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
-  <string name="drawByMutualAgreement">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
-  <string name="fiftyMovesWithoutProgress">50 քայլ առանց առաջընթացի</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 քայլ առանց առաջընթացի</string>
   <string name="currentGames">Այժմ օնլայն ընթացող խաղերը</string>
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
@@ -529,7 +529,8 @@
   <string name="difficultyNormal">Նորմալ</string>
   <string name="difficultyHard">Բարդ</string>
   <string name="xCompetesInY">%1$s որոշել է մասնակցել %2$s-ին</string>
-  <string name="xCommentedY">%1$s մեկնաբանել %2$s</string>
+  <string name="xAnsweredY">%1$s-ը պատասխանեց %2$s հարցին</string>
+  <string name="xCommentedY">%1$s-ը մեկնաբանեց %2$s հարցը</string>
   <string name="victory">Հաղթանակ</string>
   <string name="defeat">Պարտություն</string>
   <string name="timeline">Ժամանակացույց</string>
