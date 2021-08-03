@@ -1,17 +1,24 @@
-var m = require('mithril');
+import { attributesModule, classModule, init } from 'snabbdom';
 
-var ctrl = require('./ctrl');
-var view = require('./view');
+import Ctrl from './ctrl';
+import { Env } from './interfaces';
+import view from './view';
 
-module.exports = function (element, opts) {
-  var controller = new ctrl(opts, element);
+const patch = init([classModule, attributesModule]);
 
-  m.module(element, {
-    controller: function () {
-      return controller;
-    },
-    view: view,
-  });
+export default function (element: Element, opts: Env) {
+  const ctrl = new Ctrl(opts, element, redraw);
 
-  return controller;
-};
+  const blueprint = view(ctrl);
+  let vnode = patch(element, blueprint);
+
+  // Wait until vnode has been intialized to call askQuestion because
+  // askQuestion can call redraw
+  ctrl.askQuestion();
+
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+  }
+
+  return ctrl;
+}

@@ -1,173 +1,160 @@
-var m = require('mithril');
-var throttle = require('common/throttle').default;
+import throttle from 'common/throttle';
+import * as xhr from 'common/xhr';
+import { Chart, Dimension, Env, Metric, Question, UI, EnvUser, Vm, Filters } from './interfaces';
 
-module.exports = function (env, domElement) {
-  this.ui = env.ui;
-  this.user = env.user;
-  this.own = env.myUserId === this.user.id;
-  this.dimensions = [].concat.apply(
-    [],
-    this.ui.dimensionCategs.map(function (c) {
-      return c.items;
-    })
-  );
-  this.metrics = [].concat.apply(
-    [],
-    this.ui.metricCategs.map(function (c) {
-      return c.items;
-    })
-  );
+export default class {
+  env: Env;
+  ui: UI;
+  user: EnvUser;
+  own: boolean;
+  domElement: Element;
+  redraw: () => void;
 
-  var findMetric = function (key) {
-    return this.metrics.find(function (x) {
-      return x.key === key;
-    });
-  }.bind(this);
+  dimensions: Dimension[];
+  metrics: Metric[];
 
-  var findDimension = function (key) {
-    return this.dimensions.find(function (x) {
-      return x.key === key;
-    });
-  }.bind(this);
+  vm: Vm;
 
-  this.vm = {
-    metric: findMetric(env.initialQuestion.metric),
-    dimension: findDimension(env.initialQuestion.dimension),
-    filters: env.initialQuestion.filters,
-    loading: true,
-    broken: false,
-    answer: null,
-    panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
-  };
+  constructor(env: Env, domElement: Element, redraw: () => void) {
+    this.env = env;
+    this.ui = env.ui;
+    this.user = env.user;
+    this.own = env.myUserId === env.user.id;
+    this.domElement = domElement;
+    this.redraw = redraw;
 
-  this.setPanel = function (p) {
+    this.dimensions = Array.prototype.concat.apply(
+      [],
+      env.ui.dimensionCategs.map(c => c.items)
+    );
+    this.metrics = Array.prototype.concat.apply(
+      [],
+      env.ui.metricCategs.map(c => c.items)
+    );
+
+    this.vm = {
+      metric: this.findMetric(this.env.initialQuestion.metric)!,
+      dimension: this.findDimension(this.env.initialQuestion.dimension)!,
+      filters: this.env.initialQuestion.filters,
+      loading: true,
+      broken: false,
+      answer: null,
+      panel: Object.keys(env.initialQuestion.filters).length ? 'filter' : 'preset',
+    };
+  }
+
+  private findMetric = (key: string) => this.metrics.find(x => x.key === key);
+
+  private findDimension = (key: string) => this.dimensions.find(x => x.key === key);
+
+  setPanel(p: 'filter' | 'preset') {
     this.vm.panel = p;
-    m.redraw();
-  }.bind(this);
+    this.redraw();
+  }
 
-  var reset = function () {
+  reset() {
     this.vm.metric = this.metrics[0];
     this.vm.dimension = this.dimensions[0];
     this.vm.filters = {};
-  }.bind(this);
+  }
 
-  var askQuestion = throttle(
-    1000,
-    function () {
-      if (!this.validCombinationCurrent()) reset();
-      this.pushState();
-      this.vm.loading = true;
-      this.vm.broken = false;
-      m.redraw();
-      setTimeout(
-        function () {
-          m.request({
-            method: 'post',
-            url: env.postUrl,
-            data: {
-              metric: this.vm.metric.key,
-              dimension: this.vm.dimension.key,
-              filters: this.vm.filters,
-            },
-            deserialize: function (d) {
-              try {
-                return JSON.parse(d);
-              } catch (e) {
-                throw new Error(d);
-              }
-            },
-          }).then(
-            function (answer) {
-              this.vm.answer = answer;
-              this.vm.loading = false;
-            }.bind(this),
-            function () {
-              this.vm.loading = false;
-              this.vm.broken = true;
-              m.redraw();
-            }.bind(this)
-          );
-        }.bind(this),
-        1
-      );
-    }.bind(this)
-  );
+  askQuestion = throttle(1000, () => {
+    if (!this.validCombinationCurrent()) this.reset();
+    this.pushState();
+    this.vm.loading = true;
+    this.vm.broken = false;
+    this.redraw();
+    setTimeout(() => {
+      xhr
+        .json(this.env.postUrl, {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            metric: this.vm.metric.key,
+            dimension: this.vm.dimension.key,
+            filters: this.vm.filters,
+          }),
+        })
+        .then(
+          (answer: Chart) => {
+            this.vm.answer = answer;
+            this.vm.loading = false;
+            this.redraw();
+          },
+          () => {
+            this.vm.loading = false;
+            this.vm.broken = true;
+            this.redraw();
+          }
+        );
+    }, 1);
+  });
 
-  this.makeUrl = function (dKey, mKey, filters) {
-    var url = [env.pageUrl, mKey, dKey].join('/');
-    var filters = Object.keys(filters)
+  makeUrl(dKey: string, mKey: string, filters: Filters) {
+    let url = [this.env.pageUrl, mKey, dKey].join('/');
+    const filtersStr = Object.keys(filters)
       .map(function (filterKey) {
         return filterKey + ':' + filters[filterKey].join(',');
       })
       .join('/');
-    if (filters.length) url += '/' + filters;
+    if (filtersStr.length) url += '/' + filtersStr;
     return url;
-  };
+  }
 
-  this.makeCurrentUrl = function () {
+  makeCurrentUrl() {
     return this.makeUrl(this.vm.dimension.key, this.vm.metric.key, this.vm.filters);
-  }.bind(this);
+  }
 
-  this.pushState = function () {
-    history.replaceState({}, null, this.makeCurrentUrl());
-  }.bind(this);
+  pushState() {
+    history.replaceState({}, '', this.makeCurrentUrl());
+  }
 
-  this.validCombination = function (dimension, metric) {
+  validCombination(dimension?: Dimension, metric?: Metric) {
     return dimension && metric && (dimension.position === 'game' || metric.position === 'move');
-  };
-  this.validCombinationCurrent = function () {
+  }
+  validCombinationCurrent() {
     return this.validCombination(this.vm.dimension, this.vm.metric);
-  }.bind(this);
+  }
 
-  this.setMetric = function (key) {
-    this.vm.metric = findMetric(key);
+  setMetric(key: string) {
+    this.vm.metric = this.findMetric(key)!;
     if (!this.validCombinationCurrent())
-      this.vm.dimension = this.dimensions.find(
-        function (d) {
-          return this.validCombination(d, this.vm.metric);
-        }.bind(this)
-      );
+      this.vm.dimension = this.dimensions.find(d => this.validCombination(d, this.vm.metric))!;
     this.vm.panel = 'filter';
-    askQuestion();
-  }.bind(this);
+    this.askQuestion();
+  }
 
-  this.setDimension = function (key) {
-    this.vm.dimension = findDimension(key);
+  setDimension(key: string) {
+    this.vm.dimension = this.findDimension(key)!;
     if (!this.validCombinationCurrent())
-      this.vm.metric = this.metrics.find(
-        function (m) {
-          return this.validCombination(this.vm.dimension, m);
-        }.bind(this)
-      );
+      this.vm.metric = this.metrics.find(m => this.validCombination(this.vm.dimension, m))!;
     this.vm.panel = 'filter';
-    askQuestion();
-  }.bind(this);
+    this.askQuestion();
+  }
 
-  this.setFilter = function (dimensionKey, valueKeys) {
+  setFilter(dimensionKey: string, valueKeys: string[]) {
     if (!valueKeys.length) delete this.vm.filters[dimensionKey];
     else this.vm.filters[dimensionKey] = valueKeys;
-    askQuestion();
-  }.bind(this);
+    this.askQuestion();
+  }
 
-  this.setQuestion = function (q) {
-    this.vm.dimension = findDimension(q.dimension);
-    this.vm.metric = findMetric(q.metric);
+  setQuestion(q: Question) {
+    this.vm.dimension = this.findDimension(q.dimension)!;
+    this.vm.metric = this.findMetric(q.metric)!;
     this.vm.filters = q.filters;
-    askQuestion();
-    $(domElement).find('select.ms').multipleSelect('open');
-    setTimeout(function () {
-      $(domElement).find('select.ms').multipleSelect('close');
+    this.askQuestion();
+    $(this.domElement).find('select.ms').multipleSelect('open');
+    setTimeout(() => {
+      $(this.domElement).find('select.ms').multipleSelect('close');
     }, 1000);
-  }.bind(this);
+  }
 
-  this.clearFilters = function () {
+  clearFilters() {
     if (Object.keys(this.vm.filters).length) {
       this.vm.filters = {};
-      askQuestion();
+      this.askQuestion();
     }
-  }.bind(this);
+  }
 
   // this.trans = lichess.trans(env.i18n);
-
-  askQuestion();
-};
+}

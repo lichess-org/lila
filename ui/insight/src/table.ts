@@ -1,9 +1,10 @@
-var m = require('mithril');
-var numeral = require('numeral');
+import { h } from 'snabbdom';
+import numeral from 'numeral';
+import Ctrl from './ctrl';
 
-function formatNumber(dt, n) {
+function formatNumber(dt: string, n: number) {
   if (dt === 'percent') n = n / 100;
-  var f;
+  let f;
   if (dt === 'seconds') f = '0.00';
   else if (dt === 'average') f = '0.00';
   else if (dt === 'percent') f = '0.0%';
@@ -11,38 +12,32 @@ function formatNumber(dt, n) {
   return numeral(n).format(f);
 }
 
-function formatSerieName(dt, n) {
+function formatSerieName(dt: string, n: number) {
   if (dt === 'date') return new Date(n * 1000).toLocaleDateString();
   return n;
 }
 
-module.exports = {
-  vert: function (ctrl) {
-    var answer = ctrl.vm.answer;
-    if (!answer) return null;
-    return m('table.slist', [
-      m(
-        'thead',
-        m('tr', [
-          m('th', answer.xAxis.name),
-          answer.series.map(function (serie) {
-            return m('th', serie.name);
-          }),
-          m('th', answer.sizeYaxis.name),
-        ])
-      ),
-      m(
-        'tbody',
-        answer.xAxis.categories.map(function (c, i) {
-          return m('tr', [
-            m('th', formatSerieName(answer.xAxis.dataType, c)),
-            answer.series.map(function (serie) {
-              return m('td.data', formatNumber(serie.dataType, serie.data[i]));
-            }),
-            m('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
-          ]);
-        })
-      ),
-    ]);
-  },
-};
+export function vert(ctrl: Ctrl) {
+  const answer = ctrl.vm.answer;
+  if (!answer) return null;
+  return h('table.slist', [
+    h(
+      'thead',
+      h('tr', [
+        h('th', answer.xAxis.name),
+        ...answer.series.map(serie => h('th', serie.name)),
+        h('th', answer.sizeYaxis.name),
+      ])
+    ),
+    h(
+      'tbody',
+      answer.xAxis.categories.map((c, i) => {
+        return h('tr', [
+          h('th', formatSerieName(answer.xAxis.dataType, c)),
+          ...answer.series.map(serie => h('td.data', formatNumber(serie.dataType, serie.data[i]))),
+          h('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
+        ]);
+      })
+    ),
+  ]);
+}

@@ -1,36 +1,45 @@
-var m = require('mithril');
+import { h, VNode } from 'snabbdom';
+import Ctrl from './ctrl';
+import { Dimension } from './interfaces';
 
-function select(ctrl) {
-  return function (dimension) {
+function select(ctrl: Ctrl) {
+  return function (dimension: Dimension) {
     if (dimension.key === 'date') return;
-    var single = dimension.key === 'period';
-    return m(
+    const single = dimension.key === 'period';
+    function multipleSelect(vnode: VNode) {
+      $(vnode.elm).multipleSelect({
+        placeholder: dimension.name,
+        width: '100%',
+        selectAll: false,
+        filter: dimension.key === 'opening',
+        single: single,
+        minimumCountSelected: 10,
+        onClick: function (view) {
+          const values = single ? [view.value] : $(vnode.elm).multipleSelect('getSelects');
+          ctrl.setFilter(dimension.key, values);
+        },
+      });
+    }
+    return h(
       'select',
       {
-        multiple: true,
-        config: function (e, isUpdate) {
-          if (isUpdate && ctrl.vm.filters[dimension.key]) return;
-          $(e).multipleSelect({
-            placeholder: dimension.name,
-            width: '100%',
-            selectAll: false,
-            filter: dimension.key === 'opening',
-            single: single,
-            minimumCountSelected: 10,
-            onClick: function (view) {
-              var values = single ? [view.value] : $(e).multipleSelect('getSelects');
-              ctrl.setFilter(dimension.key, values);
-            },
-          });
+        attrs: { multiple: true },
+        hook: {
+          insert: multipleSelect,
+          update: (_oldVnode, vnode) => {
+            if (!ctrl.vm.filters[dimension.key]) multipleSelect(vnode);
+          },
         },
       },
       dimension.values.map(function (value) {
-        var selected = ctrl.vm.filters[dimension.key];
-        return m(
+        const selected = ctrl.vm.filters[dimension.key];
+        return h(
           'option',
           {
-            value: value.key,
-            selected: selected && selected.includes(value.key),
+            attrs: {
+              value: value.key,
+              selected: selected && selected.includes(value.key),
+            },
           },
           value.name
         );
@@ -39,13 +48,14 @@ function select(ctrl) {
   };
 }
 
-module.exports = function (ctrl) {
-  return m('div.filters', [
-    m(
+export default function (ctrl: Ctrl) {
+  return h(
+    'div.filters',
+    h(
       'div.items',
       ctrl.ui.dimensionCategs.map(function (categ) {
-        return m('div.categ.box', [m('div.top', categ.name), categ.items.map(select(ctrl))]);
+        return h('div.categ.box', [h('div.top', categ.name), ...categ.items.map(select(ctrl))]);
       })
-    ),
-  ]);
-};
+    )
+  );
+}

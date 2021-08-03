@@ -1,80 +1,55 @@
-var m = require('mithril');
+import Ctrl from './ctrl';
+import { MaybeVNode, onInsert } from 'common/snabbdom';
+import { h } from 'snabbdom';
+import { Categ, Dimension, Metric } from './interfaces';
 
-module.exports = function (ctrl) {
-  return m('div.axis-form', [
-    m(
+const selectData = (onClick: (v: { value: string }) => void) => ({
+  attrs: { multiple: true },
+  hook: onInsert(e =>
+    $(e).multipleSelect({
+      width: '200px',
+      maxHeight: '400px',
+      single: true,
+      onClick,
+    })
+  ),
+});
+
+const optgroup =
+  <T>(callback: (item: T) => MaybeVNode) =>
+  (categ: Categ<T>) =>
+    h('optgroup', { attrs: { label: categ.name } }, categ.items.map(callback));
+
+const option = (ctrl: Ctrl, item: Metric | Dimension, axis: 'metric' | 'dimension') =>
+  h(
+    'option',
+    {
+      attrs: {
+        title: item.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
+        value: item.key,
+        selected: ctrl.vm[axis].key === item.key,
+        // was commented out:
+        // if axis === 'metric'
+        // disabled: !ctrl.validCombination(ctrl.vm.dimension, item),
+        // if axis === 'dimension'
+        // disabled: !ctrl.validCombination(item, ctrl.vm.metric),
+      },
+    },
+    item.name
+  );
+
+export default function (ctrl: Ctrl) {
+  return h('div.axis-form', [
+    h(
       'select.ms.metric',
-      {
-        multiple: true,
-        config: function (e, isUpdate) {
-          $(e).multipleSelect({
-            width: '200px',
-            maxHeight: '400px',
-            single: true,
-            onClick: function (v) {
-              ctrl.setMetric(v.value);
-            },
-          });
-        },
-      },
-      ctrl.ui.metricCategs.map(function (categ) {
-        return m(
-          'optgroup',
-          {
-            label: categ.name,
-          },
-          categ.items.map(function (y) {
-            return m(
-              'option',
-              {
-                title: y.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
-                value: y.key,
-                // disabled: !ctrl.validCombination(ctrl.vm.dimension, y),
-                selected: ctrl.vm.metric.key === y.key,
-              },
-              y.name
-            );
-          })
-        );
-      })
+      selectData(v => ctrl.setMetric(v.value)),
+      ctrl.ui.metricCategs.map(optgroup(y => option(ctrl, y, 'metric')))
     ),
-    m('span.by', 'by'),
-    m(
+    h('span.by', 'by'),
+    h(
       'select.ms.dimension',
-      {
-        multiple: true,
-        config: function (e, isUpdate) {
-          $(e).multipleSelect({
-            width: '200px',
-            maxHeight: '400px',
-            single: true,
-            onClick: function (v) {
-              ctrl.setDimension(v.value);
-            },
-          });
-        },
-      },
-      ctrl.ui.dimensionCategs.map(function (categ) {
-        return m(
-          'optgroup',
-          {
-            label: categ.name,
-          },
-          categ.items.map(function (x) {
-            if (x.key === 'period') return;
-            return m(
-              'option',
-              {
-                title: x.description.replace(/<a[^>]*>[^>]+<\/a[^>]*>/, ''),
-                value: x.key,
-                // disabled: !ctrl.validCombination(x, ctrl.vm.metric),
-                selected: ctrl.vm.dimension.key === x.key,
-              },
-              x.name
-            );
-          })
-        );
-      })
+      selectData(v => ctrl.setDimension(v.value)),
+      ctrl.ui.dimensionCategs.map(optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)))
     ),
   ]);
-};
+}

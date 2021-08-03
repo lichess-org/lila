@@ -1,76 +1,57 @@
-var m = require('mithril');
-var axis = require('./axis');
-var filters = require('./filters');
-var presets = require('./presets');
-var chart = require('./chart');
-var table = require('./table');
-var help = require('./help');
-var info = require('./info');
-var boards = require('./boards');
+import { h, thunk } from 'snabbdom';
+import axis from './axis';
+import filters from './filters';
+import presets from './presets';
+import chart from './chart';
+import { vert } from './table';
+import help from './help';
+import info from './info';
+import boards from './boards';
+import Ctrl from './ctrl';
+import { bind } from 'common/snabbdom';
 
-function cache(view, dataToKey) {
-  var prev = null;
-  return function (data) {
-    var key = dataToKey(data);
-    if (prev === key)
-      return {
-        subtree: 'retain',
-      };
-    prev = key;
-    return view(data);
-  };
-}
+const renderMain = (ctrl: Ctrl, _cacheKey: string | boolean) => {
+  if (ctrl.vm.broken)
+    return h('div.broken', [
+      h('i', { attrs: { 'data-icon': '' } }),
+      'Insights are unavailable.',
+      h('br'),
+      'Please try again later.',
+    ]);
+  if (!ctrl.vm.answer) return h('div'); // returning undefined breaks snabbdom's thunks
+  return h('div', [chart(ctrl), vert(ctrl), boards(ctrl)]);
+};
 
-var renderMain = cache(
-  function (ctrl) {
-    if (ctrl.vm.broken)
-      return m('div.broken', [m('i[data-icon=]'), 'Insights are unavailable.', m('br'), 'Please try again later.']);
-    if (!ctrl.vm.answer) return;
-    return m('div', [chart(ctrl), table.vert(ctrl), boards(ctrl)]);
-  },
-  function (ctrl) {
-    var q = ctrl.vm.answer ? ctrl.vm.answer.question : null;
-    return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
-  }
-);
+// Key that determines whether or not renderMain needs to get rerendered
+const cacheKey = (ctrl: Ctrl) => {
+  const q = ctrl.vm.answer?.question;
+  return q ? ctrl.makeUrl(q.dimension, q.metric, q.filters) : ctrl.vm.broken;
+};
 
-module.exports = function (ctrl) {
-  return m(
-    'div',
-    {
-      class: ctrl.vm.loading ? 'loading' : 'ready',
-    },
-    [
-      m('div.left-side', [
+const tabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
+  class: { active: ctrl.vm.panel === panel },
+  attrs: { 'data-panel': panel },
+  hook: bind('click', () => ctrl.setPanel(panel)),
+});
+
+export default function (ctrl: Ctrl) {
+  return h(
+    'main#insight',
+    h('div.' + (ctrl.vm.loading ? 'loading' : 'ready'), [
+      h('div.left-side', [
         info(ctrl),
-        m('div.panel-tabs', [
-          m(
-            'a[data-panel="preset"]',
-            {
-              class: 'tab preset' + (ctrl.vm.panel === 'preset' ? ' active' : ''),
-              onclick: function () {
-                ctrl.setPanel('preset');
-              },
-            },
-            'Presets'
-          ),
-          m(
-            'a[data-panel="filter"]',
-            {
-              class: 'tab filter' + (ctrl.vm.panel === 'filter' ? ' active' : ''),
-              onclick: function () {
-                ctrl.setPanel('filter');
-              },
-            },
-            'Filters'
-          ),
+        h('div.panel-tabs', [
+          h('a.tab.preset', tabData(ctrl, 'preset'), 'Presets'),
+          h('a.tab.filter', tabData(ctrl, 'filter'), 'Filters'),
           Object.keys(ctrl.vm.filters).length
-            ? m(
+            ? h(
                 'a.clear',
                 {
-                  title: 'Clear all filters',
-                  'data-icon': '',
-                  onclick: ctrl.clearFilters,
+                  attrs: {
+                    title: 'Clear all filters',
+                    'data-icon': '',
+                  },
+                  hook: bind('click', ctrl.clearFilters.bind(ctrl)),
                 },
                 'CLEAR'
               )
@@ -80,18 +61,8 @@ module.exports = function (ctrl) {
         ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
         help(ctrl),
       ]),
-      m('header', [
-        axis(ctrl),
-        m(
-          'h2',
-          {
-            class: 'text',
-            'data-icon': '',
-          },
-          'Chess Insights'
-        ),
-      ]),
-      m('div.insight__main.box', renderMain(ctrl)),
-    ]
+      h('header', [axis(ctrl), h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')]),
+      thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)]),
+    ])
   );
-};
+}

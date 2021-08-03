@@ -1,21 +1,21 @@
-var m = require('mithril');
+import { bind } from 'common/snabbdom';
+import { h } from 'snabbdom';
+import Ctrl from './ctrl';
 
-module.exports = function (ctrl) {
-  return m(
+export default function (ctrl: Ctrl) {
+  return h(
     'div.box.presets',
     ctrl.ui.presets.map(function (p) {
-      var active = ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl();
-      return m(
-        'a',
+      const active = ctrl.makeUrl(p.dimension, p.metric, p.filters) === ctrl.makeCurrentUrl();
+      return h(
+        'a.preset.text',
         {
-          class: 'preset text' + (active ? ' active' : ''),
-          'data-icon': '',
-          onclick: function () {
-            ctrl.setQuestion(p);
-          },
+          class: { active },
+          attrs: { 'data-icon': '' },
+          hook: bind('click', () => ctrl.setQuestion(p)),
         },
         p.name
       );
     })
   );
-};
+}

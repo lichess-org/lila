@@ -1,29 +1,32 @@
-var m = require('mithril');
+import Ctrl from './ctrl';
+import { h } from 'snabbdom';
+import { Game } from './interfaces';
+import { onInsert } from 'common/snabbdom';
 
-function miniGame(game) {
-  return m(
+function miniGame(game: Game) {
+  return h(
     'a',
     {
-      key: game.id,
-      href: `/${game.id}/${game.color}`,
+      attrs: {
+        key: game.id,
+        href: `/${game.id}/${game.color}`,
+      },
     },
     [
-      m('span.mini-board.is2d', {
-        'data-state': `${game.fen},${game.color},${game.lastMove}`,
-        config(el, isUpdate) {
-          if (!isUpdate) lichess.miniBoard.init(el);
-        },
+      h('span.mini-board.is2d', {
+        attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
+        hook: onInsert(el => lichess.miniBoard.init(el)),
       }),
-      m('span.vstext', [
-        m('span.vstext__pl', [
+      h('span.vstext', [
+        h('span.vstext__pl', [
           game.user1.name,
-          m('br'),
+          h('br'),
           game.user1.title ? game.user1.title + ' ' : '',
           game.user1.rating,
         ]),
-        m('span.vstext__op', [
+        h('span.vstext__op', [
           game.user2.name,
-          m('br'),
+          h('br'),
           game.user2.rating,
           game.user2.title ? ' ' + game.user2.title : '',
         ]),
@@ -32,11 +35,11 @@ function miniGame(game) {
   );
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl: Ctrl) {
   if (!ctrl.vm.answer) return;
 
-  return m('div.game-sample.box', [
-    m('div.top', 'Some of the games used to generate this insight'),
-    m('div.boards', ctrl.vm.answer.games.map(miniGame)),
+  return h('div.game-sample.box', [
+    h('div.top', 'Some of the games used to generate this insight'),
+    h('div.boards', ctrl.vm.answer.games.map(miniGame)),
   ]);
-};
+}
