@@ -40,7 +40,7 @@
   <string name="easier">Máis fácil</string>
   <string name="easiest">O máis fácil</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">Un punto por debaixo da túa puntuación de exercicios</item>
+    <item quantity="one">%s puntos por debaixo da túa puntuación de exercicios</item>
     <item quantity="other">%s puntos por debaixo da túa puntuación de exercicios</item>
   </plurals>
   <string name="harder">Máis difícil</string>
@@ -54,7 +54,7 @@
   <string name="jumpToNextPuzzleImmediately">Ir ao seguinte crebacabezas inmediatamente</string>
   <string name="puzzleDashboard">Informe de crebacabezas</string>
   <string name="improvementAreas">Áreas de mellora</string>
-  <string name="strengths">Punots fortes</string>
+  <string name="strengths">Puntos fortes</string>
   <string name="history">Historial de crebacabezas</string>
   <string name="solved">resoltos</string>
   <string name="failed">fallados</string>
