@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें</string>
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध है</string>
+  <string name="computerAnalysisDisabled">कंप्युटर विश्लेषण निष्क्रिय है</string>
   <string name="analysis">विश्लेषण मंडल</string>
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
@@ -96,6 +97,7 @@
   <string name="noGameFound">कोई गेम नहीं मिला</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
+  <string name="openingEndgameExplorer">प्रारम्भिक खेल/समाप्ति खेल अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
   <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
