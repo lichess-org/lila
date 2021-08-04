@@ -42,6 +42,12 @@
   <string name="thePawn">Զինվոր</string>
   <string name="itMovesForwardOnly">Քայլում է միայն առաջ</string>
   <string name="pawnIntro">Զինվորները թույլ են, սակայն ունեն մեծ ներուժ։</string>
+  <string name="pawnsMoveOneSquareOnly">Զինվորները քայլում են միայն մեկ վանդակ առաջ։ Բայց, հասնելով խաղատախտակի մյուս ծայրին, վերածվում են ուժեղ խաղաքարի։</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Մեծ մասամբ զինվորը լավ է վերածել թագուհու։
+Բայց երբեմն ձիու վերածելն ավելի նպատակահարմար է լինում։</string>
+  <string name="pawnsMoveForward">Զինվորները քայլում են առաջ, բայց հարվածում են անկյունագծերով։</string>
+  <string name="captureThenPromote">Հարվածեք, այնուհետև վերածեք </string>
+  <string name="useAllThePawns">Օգտագործե՛ք բոլոր զինվորները։ Պարտադիր չէ դրանք վերածելը։</string>
   <string name="checkInOne">Շախ</string>
   <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
