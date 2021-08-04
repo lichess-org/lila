@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Torneyos suizos</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Veyer la ronda</item>
+    <item quantity="other">Veyer las %s rondas</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s ronda</item>
+    <item quantity="other">%s rondas</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Una ronda cada día</item>
+    <item quantity="other">Una ronda cada %s días</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Las rondas s\'inician manualment</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s segundo entre rondas</item>
+    <item quantity="other">%s segundos entre rondas</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuto entre rondas</item>
+    <item quantity="other">%s minutos entre rondas</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Encomienza en</string>
+  <string name="nextRound">Siguient ronda</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partida en curso</item>
+    <item quantity="other">Partidas en curso</item>
+  </plurals>
+  <string name="tournStartDate">Data d\'inicio d\'o torneyo</string>
+  <string name="numberOfRounds">Numero de rondas</string>
+  <string name="numberOfRoundsHelp">Un numero impar de rondas permite un equilibrio de colors optimo.</string>
+  <string name="roundInterval">Tiempo entre rondas</string>
+  <string name="forbiddenPairings">Emparellamientos vedaus</string>
+  <string name="forbiddenPairingsHelp">Los nombres d\'usuario d\'os chugadors que no han d\'emparellar-se chuntos (los chirmans, per eixemplo). Dos nombres d\'usuario per linia, deseparaus per un espacio.</string>
+  <string name="newSwiss">Nuevo torneyo suizo</string>
+  <string name="swissVsArenaQ">Quan ye millor fer un torneyo suizo en cuenta d\'arenas?</string>
 </resources>
