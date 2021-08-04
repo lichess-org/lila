@@ -67,8 +67,15 @@
   <string name="protectionIntro">Որոշե՛ք` ձեր որ խաղաքարերն է գրոհել մրցակիցը և պաշտպանե՛ք դրանք։</string>
   <string name="protectionComplete">Շնորհավորո՜ւմ ենք։ Այն խաղաքարը, որը դուք տանուլ չեք տվել, շահած խաղաքար է։</string>
   <string name="escape">Ձեզ գրոհո՜ւմ են։ Խուսափե՜ք սպառնալիքից։</string>
+  <string name="noEscape">Փախչել հնարավոր չէ, բայց կարելի՜ է պաշտպանել։</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Թույլ մի՛ տվեք վերցնել ոչ մի անպաշտպան խաղաքար։</string>
+  <string name="combat">Պայքար</string>
+  <string name="captureAndDefendPieces">Հարվածեք և պաշտպանեք խաղաքարերը</string>
+  <string name="combatIntro">Լավ զինվորը գիտի ինչպես հարձակվելը, այնպես էլ պաշտպանվելը։</string>
+  <string name="combatComplete">Շնորհավորո՜ւմ ենք։ Այժմ դուք գիտե՜ք, ինչպես պայքարել շախմատի խաղաքարերով։</string>
   <string name="checkInOne">Շախ</string>
   <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
+  <string name="checkInOneIntro">Շախ հայտարարելու համար հարձակվե՛ք մրցակցի արքայի վրա։ Նա ստիպված պետք է պաշտպանվի։</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
   <string name="stalemate">Պատ</string>
