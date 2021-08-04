@@ -59,6 +59,14 @@
   <string name="capture">Խաղաքարի հարվածում</string>
   <string name="takeTheEnemyPieces">Վերցրեք մրցակցի խաղաքարերը</string>
   <string name="captureIntro">Գտե՛ք մրցակցի անպաշտպան խաղաքարերը և վերցրե՛ք։</string>
+  <string name="takeTheBlackPieces">Վերցրե՛ք սև խաղաքարերը։</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Վերցրե՛ք բոլոր սև խաղաքարերը։ Եվ չկորցնեք ձերը։</string>
+  <string name="captureComplete">Շնորհավորո՜ւմ ենք։ Այժմ դուք գիտե՜ք, ինչպես պայքարել շախմատի խաղաքարերով։</string>
+  <string name="protection">Պաշտպանություն</string>
+  <string name="keepYourPiecesSafe">Պաշտպանեք ձեր խաղաքարերը</string>
+  <string name="protectionIntro">Որոշե՛ք` ձեր որ խաղաքարերն է գրոհել մրցակիցը և պաշտպանե՛ք դրանք։</string>
+  <string name="protectionComplete">Շնորհավորո՜ւմ ենք։ Այն խաղաքարը, որը դուք տանուլ չեք տվել, շահած խաղաքար է։</string>
+  <string name="escape">Ձեզ գրոհո՜ւմ են։ Խուսափե՜ք սպառնալիքից։</string>
   <string name="checkInOne">Շախ</string>
   <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
