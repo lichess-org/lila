@@ -37,6 +37,11 @@
   <string name="itMovesInAnLShape">Այն քայլում է L տառի նման</string>
   <string name="knightIntro">Ահա եվ խնդիր քեզ համար: Ձին բարդ խաղաքար է</string>
   <string name="knightsHaveAFancyWay">Ձիերը կարող են թռչկոտել խաղաքարերի վրայով</string>
+  <string name="knightsCanJumpOverObstacles">Ձիերը կարող են ցատկել արգելքների վրայով։ Ցատկե՜ք և հավաքե՜ք աստղերը։</string>
+  <string name="knightComplete">Շնորհավորո՜ւմ ենք։ Դուք յուրացրիք «ձիավարությունը»։</string>
+  <string name="thePawn">Զինվոր</string>
+  <string name="itMovesForwardOnly">Քայլում է միայն առաջ</string>
+  <string name="pawnIntro">Զինվորները թույլ են, սակայն ունեն մեծ ներուժ։</string>
   <string name="checkInOne">Շախ</string>
   <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
