@@ -910,4 +910,9 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="showHelpDialog">Amostrar este dialogo d\'aduya</string>
   <string name="reopenYourAccount">Reubrir la tuya cuenta</string>
   <string name="closedAccountChangedMind">Si has zarrau la tuya cuenta, pero agora has cambiau d\'opinión, tiens una oportunidat de tornar a reactivar-la.</string>
+  <string name="onlyWorksOnce">Esto nomás funcionará una vegada.</string>
+  <string name="cantDoThisTwice">Si zarra la tuya cuenta per segunda vegada, ya no i habrá garra traza de tornar a recuperar-la.</string>
+  <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
+  <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codigo de participación en o torneyo</string>
 </resources>
