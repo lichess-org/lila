@@ -59,4 +59,32 @@ Suma los puntos de totz los oponents a qui lo chugador ha ganau, y la metat d\'o
 Alavez lo sistema expulsará a lo chugador d\'o torneyo, pa que no pierda mas partidas.
 Lo chugador puede tornar a dentrar en qualsequier momento.</string>
   <string name="lateJoinQ">Pueden los chugadors dentrar tarde?</string>
+  <string name="lateJoinA">Sí, siempre que no s\'haigan chugau ya la metat d\'as rondas; per eixemplo, en un suizo d\'11 rondas, los chugadors pueden dentrar antes de que encomience la ronda 6, y en uno de 12 rondas, antes que empecipie la ronda 7. Qui dentra tarde recibe un solo bye, encara que haiga faltau a mas d\'una ronda.</string>
+  <string name="willSwissReplaceArenasQ">Los torneyos suizos substituyirán a los arena?</string>
+  <string name="willSwissReplaceArenasA">No, son caracteristica complementarias.</string>
+  <string name="roundRobinQ">Y un torneyo de totz contra totz?</string>
+  <string name="roundRobinA">Nos agradaría anyadir-lo pero desafortunadament, esta mena de torneyos no funcionan en linia. 
+La razón ye que no i hai una manera chusta de tractar con a chent que abandona luego lo torneyo. No podemos esperar que en un evento en linia totz los chugadors chueguen totas las suyas partidas. Sabemos que pasará, y como resultau la mayoría d\'estes torneyos estarán sesgados y no serán chustos, lo qual invalida la razón d\'a suya existencia.
+Lo mas cercano que tiens a un torneyo de totz contra totz ye chugar un torneyo suizo con un numero muit alto de rondas. Alavez, se chugarán totz los posibles emparellamientos antes que remate lo torneyo.</string>
+  <string name="otherSystemsQ">Y quanto a los atros sistemas de torneyo?</string>
+  <string name="otherSystemsA">Per agora no pensamos anyadir mas sistemas de torneyo en Lichess.</string>
+  <string name="swissDescription">En un torneyo suizo %1$s, cada participant no necesariament chuga contra totz los de demás. Los participants chugan uno contra uno en cada ronda y son emparellaus seguindo una serie de reglas disenyadas pa que cada participant chugue con oponents con una puntuación similar, pero no mas d\'una vegada contra lo mesmo oponent. Lo ganado ye qui aconsigue mas puntos entre totas las rondas. Totz es participants chugan en totas las rondas de no estar que i haiga un numero impar de chugadors</string>
+  <string name="joinOrCreateTeam">Une-te a un equipo u crea-ne uno</string>
+  <string name="nowPlaying">Chugando-se agora</string>
+  <string name="startingSoon">Encomienza luego</string>
+  <string name="comparison">Comparanza</string>
+  <string name="tournDuration">Duración d\'o torneyo</string>
+  <string name="predefinedDuration">Duración predefinida en minutos</string>
+  <string name="durationUnknown">Numero maximo de rondas predefinido, pero duración desconoixida</string>
+  <string name="numberOfGames">Numero de partidas</string>
+  <string name="numberOfGamesAsManyAsPossible">Tantas como se pueda en o tiempo asignau</string>
+  <string name="numberOfGamesPreDefined">Decidiu antes d\'encomenzar, lo mesmo pa totz los chugadors</string>
+  <string name="pairingSystem">Sistema d\'emparellamiento</string>
+  <string name="pairingSystemArena">Qualsequier disponible con puntuación similar</string>
+  <string name="pairingSystemSwiss">Lo millor emparellamiento basau en puntos y desempaces</string>
+  <string name="pairingWaitTime">Tiempo d\'espera d\'emparellamiento</string>
+  <string name="pairingWaitTimeFast">Rapido: no aguarda a totz es chugadors</string>
+  <string name="pairingWaitTimeSlow">Lento: aguarda a totz es chugadors</string>
+  <string name="identicalPairing">Emparellamiento identico</string>
+  <string name="possibleButNotConsecutive">Posible, pero no consecutivo</string>
 </resources>
