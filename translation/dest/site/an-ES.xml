@@ -883,4 +883,7 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="noRestriction">Sin garra restricción</string>
   <string name="minimumRatedGames">Numero minimo de partidas per puntos</string>
   <string name="minimumRating">Puntuación minima</string>
+  <string name="maximumWeeklyRating">Maxima puntuación semanal</string>
+  <string name="onlyTitled">Nomás chugadors titulaus</string>
+  <string name="onlyTitledHelp">Cal tener un titol oficial pa unir-se a lo torneyo</string>
 </resources>
