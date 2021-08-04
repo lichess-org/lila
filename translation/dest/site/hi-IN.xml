@@ -872,4 +872,11 @@
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
   <string name="tournDescription">टूर्नामेंट विवरण</string>
+  <string name="tournDescriptionHelp">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
+  <string name="ratedFormHelp">खेल मूल्यांकित हैं तथा खिलाड़ी के मूल्यांकन को प्रभावित करते हैं</string>
+  <string name="onlyMembersOfTeam">केवल टीम के सदस्य</string>
+  <string name="noRestriction">अप्रतिबंधित</string>
+  <string name="minimumRatedGames">न्यूनतम मूल्यांकित खेलों की संख्या</string>
+  <string name="minimumRating">न्यूनतम मूल्यांकन</string>
+  <string name="maximumWeeklyRating">न्यूनतम साप्ताहिक मूल्यांकन</string>
 </resources>
