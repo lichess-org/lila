@@ -21,7 +21,12 @@
   <string name="castling">Enroque</string>
   <string name="castlingDescription">Asegura lo rei y apresta la torre pa l\'ataque.</string>
   <string name="capturingDefender">Capturar lo defensor</string>
+  <string name="capturingDefenderDescription">Minchar una pieza que ye vita pa desfender-ne unatra, fendo que se pueda minchar la pieza que agora ya no ye desfendida.</string>
   <string name="crushing">Destrucción</string>
+  <string name="crushingDescription">Troba la error grieu de l\'oponent pa obtener un gran avantache (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Mate con dos alfils</string>
+  <string name="doubleBishopMateDescription">Dos alfils atacando en diagonals adchacents fan mate a un rei que queda obstruyiu per piezas propias.</string>
+  <string name="dovetailMate">Mate de Cozio</string>
   <string name="equality">Igualdat</string>
   <string name="deflection">Esbarre</string>
   <string name="discoveredAttack">Ataque a la descubierta</string>
