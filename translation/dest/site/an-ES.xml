@@ -903,4 +903,11 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="navigateMoveTree">Navegar per l\'arbol de movimientos</string>
   <string name="mouseTricks">Trucos d\'o ratet</string>
   <string name="toggleLocalAnalysis">Cambiar a analisi local de l\'ordinador</string>
+  <string name="toggleAllAnalysis">Cambiar a totas las analisis</string>
+  <string name="playComputerMove">Fer lo millor movimiento de l\'ordinador</string>
+  <string name="analysisOptions">Opcions d\'analisi</string>
+  <string name="focusChat">Meter lo foco en a conversa</string>
+  <string name="showHelpDialog">Amostrar este dialogo d\'aduya</string>
+  <string name="reopenYourAccount">Reubrir la tuya cuenta</string>
+  <string name="closedAccountChangedMind">Si has zarrau la tuya cuenta, pero agora has cambiau d\'opinión, tiens una oportunidat de tornar a reactivar-la.</string>
 </resources>
