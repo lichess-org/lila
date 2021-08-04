@@ -42,4 +42,12 @@
   <string name="yourRankX">La tuya posición: %s</string>
   <string name="waitForRematch">Aguarda pa lo reminche</string>
   <string name="nextRace">Siguient corrida</string>
+  <string name="joinRematch">Une-te a lo reminche</string>
+  <string name="waitingToStart">Aguardando pa encomenzar</string>
+  <string name="createNewGame">Crear una nueva partida</string>
+  <string name="joinPublicRace">Une-te a una nueva corrida</string>
+  <string name="raceYourFriends">Fe una corrida con os tuyos amigos</string>
+  <string name="skip">blincar</string>
+  <string name="skipHelp">Puetz blincar un movimiento per corrida:</string>
+  <string name="skipExplanation">Blinca este movimiento pa preservar lo tuyo combo! Nomás funcoina una vegada per corrida.</string>
 </resources>
