@@ -14,9 +14,9 @@ final class UserSearch(
   def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] =
     (~query.as match {
       case _ => // "exact"
-        EmailAddress.from(query.q).map(searchEmail) orElse
-          IpAddress.from(query.q).map(searchIp) getOrElse
-          searchUsername(query.q)
+        EmailAddress.from(query.q.replaceAll("\\s", "")).map(searchEmail) orElse
+          IpAddress.from(query.q.replaceAll("\\s", "")).map(searchIp) getOrElse
+          searchUsername(query.q.replaceAll("\\s", ""))
     }) flatMap userRepo.withEmailsU
 
   private def searchIp(ip: IpAddress) =
