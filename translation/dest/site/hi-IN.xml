@@ -896,4 +896,8 @@
   <string name="inYourLocalTimezone">आपके अपने क्षेत्रीय समयानुसार</string>
   <string name="tournChat">प्रतियोगिता वार्ता</string>
   <string name="noChat">वार्ता निषेध</string>
+  <string name="onlyTeamLeaders">केवल टीम नेता</string>
+  <string name="onlyTeamMembers">केवल टीम सदस्य</string>
+  <string name="navigateMoveTree">चालों की सूची पर जाएं</string>
+  <string name="mouseTricks">माउस की तरकीबें</string>
 </resources>
