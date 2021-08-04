@@ -69,6 +69,7 @@ Lo mas cercano que tiens a un torneyo de totz contra totz ye chugar un torneyo s
   <string name="otherSystemsQ">Y quanto a los atros sistemas de torneyo?</string>
   <string name="otherSystemsA">Per agora no pensamos anyadir mas sistemas de torneyo en Lichess.</string>
   <string name="swissDescription">En un torneyo suizo %1$s, cada participant no necesariament chuga contra totz los de demás. Los participants chugan uno contra uno en cada ronda y son emparellaus seguindo una serie de reglas disenyadas pa que cada participant chugue con oponents con una puntuación similar, pero no mas d\'una vegada contra lo mesmo oponent. Lo ganado ye qui aconsigue mas puntos entre totas las rondas. Totz es participants chugan en totas las rondas de no estar que i haiga un numero impar de chugadors</string>
+  <string name="teamOnly">Los torneyos suizos nomás los pueden crear los liders d\'equipo, y nomás los pueden chugar los miembros de l\'equipo.        %1$s pa encomenzar a chugar en torneyos suizos.</string>
   <string name="joinOrCreateTeam">Une-te a un equipo u crea-ne uno</string>
   <string name="nowPlaying">Chugando-se agora</string>
   <string name="startingSoon">Encomienza luego</string>
@@ -85,6 +86,14 @@ Lo mas cercano que tiens a un torneyo de totz contra totz ye chugar un torneyo s
   <string name="pairingWaitTime">Tiempo d\'espera d\'emparellamiento</string>
   <string name="pairingWaitTimeFast">Rapido: no aguarda a totz es chugadors</string>
   <string name="pairingWaitTimeSlow">Lento: aguarda a totz es chugadors</string>
-  <string name="identicalPairing">Emparellamiento identico</string>
-  <string name="possibleButNotConsecutive">Posible, pero no consecutivo</string>
+  <string name="identicalPairing">Emparellamientos repetius</string>
+  <string name="possibleButNotConsecutive">Posibles, pero no consecutivos</string>
+  <string name="identicalForbidden">Vedaus</string>
+  <string name="lateJoin">Dentrada rezagada</string>
+  <string name="lateJoinUntil">Sí, siempre que no s\'haigan encomenzau mas d\'a metat d\'as rondas</string>
+  <string name="pause">Pausa</string>
+  <string name="pauseSwiss">Sí, pero puede reducir lo numero de rondas</string>
+  <string name="streaksAndBerserk">Rachas y Berserk</string>
+  <string name="similarToOTB">Como en os torneyos presencials</string>
+  <string name="unlimitedAndFree">Ilimitaus y libres</string>
 </resources>
