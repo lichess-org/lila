@@ -886,4 +886,21 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="maximumWeeklyRating">Maxima puntuación semanal</string>
   <string name="onlyTitled">Nomás chugadors titulaus</string>
   <string name="onlyTitledHelp">Cal tener un titol oficial pa unir-se a lo torneyo</string>
+  <string name="positionInputHelp">Pega un FEN valido pa iniciar totas las partidas dende una posición dada. Nomás funcina con o chuego standard, no pas con variants. Puetz fer servir l\'%s pa chenerar una posición FEN, y dimpués pegar-la aquí. Deixa-lo vuedo si quiers que las partidas empecipien dende a posición inicial normal.</string>
+  <string name="cancelSimul">Cancelar las simultanias</string>
+  <string name="simulHostcolor">Color de l\'anfitrión en cada partida</string>
+  <string name="estimatedStart">Tiempo estimau d\'inicio</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Retransmitir en %s</string>
+  <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a totz en %s. Desactiva-lo si quiers simultanias privadas.</string>
+  <string name="simulDescription">Descripción d\'as simultanias</string>
+  <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
+  <string name="markdownAvailable">Lo formato %s ye disponibles pa una sintaxi mas abanzada.</string>
+  <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
+  <string name="tournChat">Conversa d\'o torneyo</string>
+  <string name="noChat">Sin conversa</string>
+  <string name="onlyTeamLeaders">Nomás pa liders d\'os equipos</string>
+  <string name="onlyTeamMembers">Nomás pa miembros d\'os equipos</string>
+  <string name="navigateMoveTree">Navegar per l\'arbol de movimientos</string>
+  <string name="mouseTricks">Trucos d\'o ratet</string>
+  <string name="toggleLocalAnalysis">Cambiar a analisi local de l\'ordinador</string>
 </resources>
