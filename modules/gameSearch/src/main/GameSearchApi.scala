@@ -5,6 +5,7 @@ import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo }
 import lila.search._
+import akka.stream.scaladsl.Source
 
 final class GameSearchApi(
     client: ESClient,
@@ -36,6 +37,13 @@ final class GameSearchApi(
             logger.some
           )
       }
+    }
+
+  def source(query: Query, nb: Int): Source[Game, _] = {
+    val perPage = config.MaxPerPage(50)
+    val lastPage = math.ceil(nb.toFloat / perPage.value) atLeast 1 atMost (1000 / perPage.value)
+    Source.unfoldAsync(1) { page =>
+      search(query
     }
 
   private def storable(game: Game) = game.finished || game.imported

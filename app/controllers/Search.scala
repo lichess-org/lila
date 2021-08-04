@@ -93,4 +93,28 @@ final class Search(env: Env) extends LilaController(env) {
           }
       }
     }
+
+  def download(nb: Int) =
+    AuthBody { implicit ctx =>
+      OnlyHumans {
+        val max          = nb atLeast 1 atMost 1000
+        val ip           = HTTPRequest ipAddress ctx.req
+        implicit val req = ctx.body
+        SearchConcurrencyLimitPerIP(ip, limited = rateLimitedFu) {
+          searchForm
+            .bindFromRequest()
+            .fold(
+              failure => BadRequest(html.search.index(failure, none, 0)).fuccess,
+              data =>
+                data.nonEmptyQuery ?? { query =>
+                  env.gameSearch.paginator(query, page) map some
+                } map { pager =>
+                  Ok(html.search.index(searchForm fill data, pager, 0))
+                } recover { _ =>
+                  InternalServerError("Sorry, we can't process that query at the moment")
+                }
+            )
+        }
+      }
+    }
 }
