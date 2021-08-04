@@ -877,4 +877,10 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="streamerManager">Configuración pa streamers</string>
   <string name="cancelTournament">Cancelar lo torneyo</string>
   <string name="tournDescription">Descripción d\'o torneyo</string>
+  <string name="tournDescriptionHelp">Tiens bella cosa especial a contar a los participants? Mira d\'estar breu. Los vinclos de markdown son disponibles: [name](https://url)</string>
+  <string name="ratedFormHelp">Las partidas son puntuadas y afectan a las clasificacions d\'os participants</string>
+  <string name="onlyMembersOfTeam">Nomás pa los miembros de l\'equipo</string>
+  <string name="noRestriction">Sin garra restricción</string>
+  <string name="minimumRatedGames">Numero minimo de partidas per puntos</string>
+  <string name="minimumRating">Puntuación minima</string>
 </resources>
