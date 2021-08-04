@@ -76,23 +76,26 @@
       min-height: 2.5em;
     }
 
-    div.hint {
-      padding: 0.8em 1em;
-      background: $c-primary;
-      color: $c-primary-over;
-      border-radius: 0 0 1rem 1rem;
-      cursor: pointer;
-      font-size: 0.9em;
-      z-index: 2;
-    }
-
-    button.hint {
+    button {
       @extend %button-none;
 
-      padding: 0.8em 1em;
-      color: $c-primary;
-      font-size: 1rem;
-      text-align: unset;
+      text-align: start;
+
+      &.hint {
+        padding: 0.8em 1em;
+        color: $c-primary;
+        font-size: 1rem;
+      }
+
+      div.hint {
+        padding: 0.8em 1em;
+        background: $c-primary;
+        color: $c-primary-over;
+        border-radius: 0 0 1rem 1rem;
+        cursor: pointer;
+        font-size: 0.9em;
+        z-index: 2;
+      }
     }
   }
 

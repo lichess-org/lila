@@ -50,7 +50,7 @@ function hintZone(ctrl: GamebookPlayCtrl) {
     clickHook = () => ({
       hook: bind('click', ctrl.hint, ctrl.redraw),
     });
-  if (state.showHint) return h('div', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
+  if (state.showHint) return h('button', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
   if (state.hint) return h('button.hint', clickHook(), 'Get a hint');
   return undefined;
 }
