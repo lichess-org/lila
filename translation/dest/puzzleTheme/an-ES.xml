@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="attraction">Atracción</string>
   <string name="bishopEndgame">Final d\'alfils</string>
   <string name="bishopEndgameDescription">Un final d\'alfils y peons.</string>
   <string name="endgame">Final</string>
