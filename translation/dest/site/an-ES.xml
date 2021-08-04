@@ -686,6 +686,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Mantiene pretadas las variants d\'analisi pa previsualizar-las.</string>
   <string name="analysisShapesHowTo">Faiga clic con o botón dreito u Máyus+clic pa dibuixar cerclos y flechas en o escaquero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que atras personas te ninvien mensaches</string>
+  <string name="receiveForumNotifications">Recibe notificacions quan te mencionen en o foro</string>
   <string name="shareYourInsightsData">Comparte los tuyos datos estatisticos</string>
   <string name="withNobody">Con dengún</string>
   <string name="withFriends">Con os míos amigos</string>
@@ -697,6 +698,7 @@
   <string name="enableKidMode">Activar lo modo infantil</string>
   <string name="disableKidMode">Desactivar lo modo infantil</string>
   <string name="security">Seguridat</string>
+  <string name="sessions">Sesions</string>
   <string name="revokeAllSessions">zarrar totas las sesions</string>
   <string name="playChessEverywhere">Chuga a los escaques an que siga</string>
   <string name="asFreeAsLichess">Igual de gratis como lichess</string>
@@ -851,4 +853,28 @@
   <string name="youCannotPostYetPlaySomeGames">Encara no puetz publicar en os foros. Chuga qualques partidas!</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Cancelar la conduta</string>
+  <string name="mentionedYouInX">t\'ha mencionau en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s t\'ha mencionau en \"%2$s\".</string>
+  <string name="invitedYouToX">t\'ha convidau a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s t\'ha convidau a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Ya yes en l\'equipo.</string>
+  <string name="youHaveJoinedTeamX">T\'has uniu a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Belún a qui has denunciau ha estau expulsau</string>
+  <string name="congratsYouWon">Felicidatz, has ganau!</string>
+  <string name="gameVsX">Partida vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Belún ha feito una resenya d\'o tuyo perfil d\'entrenador.</string>
+  <string name="newPendingReview">Nueva resenya pendient</string>
+  <string name="lostAgainstTOSViolator">Has perdiu contra belún que ha violau las CDS de Lichess</string>
+  <string name="refundXpointsTimeControlY">Recuperas: %1$s puntos en %2$s.</string>
+  <string name="timeAlmostUp">Lo tiempo quasi ha rematau!</string>
+  <string name="clickToRevealEmailAddress">[Fe clic pa veyer l\'adreza de correu-e]</string>
+  <string name="download">Descargar</string>
+  <string name="welcome">Bienveniu/da!</string>
+  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
+Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
+  <string name="coachManager">Configuración pa entrenadors</string>
+  <string name="streamerManager">Configuración pa streamers</string>
+  <string name="cancelTournament">Cancelar lo torneyo</string>
+  <string name="tournDescription">Descripción d\'o torneyo</string>
 </resources>
