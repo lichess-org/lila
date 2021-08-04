@@ -879,4 +879,6 @@
   <string name="minimumRatedGames">न्यूनतम मूल्यांकित खेलों की संख्या</string>
   <string name="minimumRating">न्यूनतम मूल्यांकन</string>
   <string name="maximumWeeklyRating">न्यूनतम साप्ताहिक मूल्यांकन</string>
+  <string name="onlyTitled">केवल उपाधिप्राप्त खिलाड़ी</string>
+  <string name="onlyTitledHelp">प्रतियोगिता से जुड़ने के लिए आधिकारिक उपाधि आवश्यक</string>
 </resources>
