@@ -36,4 +36,27 @@
   <string name="forbiddenPairingsHelp">Los nombres d\'usuario d\'os chugadors que no han d\'emparellar-se chuntos (los chirmans, per eixemplo). Dos nombres d\'usuario per linia, deseparaus per un espacio.</string>
   <string name="newSwiss">Nuevo torneyo suizo</string>
   <string name="swissVsArenaQ">Quan ye millor fer un torneyo suizo en cuenta d\'arenas?</string>
+  <string name="swissVsArenaA">En un torneyo suizo, totz es participants chugan lo mesmo numero de partidas, y pueden chugar nomás una vez contra lo mesmo oponent. Puede estar una buena opción pa clubs y torneyos oficials.</string>
+  <string name="pointsCalculationQ">Cómo se calculan los puntos?</string>
+  <string name="pointsCalculationA">Una victoria vale un punto, un empaz ye meyo punto y una redota ye zero puntos.
+Quan un chugador no puede estar emparellau en una ronda, recibe un bye que vale un punto.</string>
+  <string name="tiebreaksCalculationQ">Cómo se calculan los desempaces?</string>
+  <string name="sonnebornBergerScore">Puntuación de Sonneborn-Berger</string>
+  <string name="tiebreaksCalculationA">Con lo %s.
+Suma los puntos de totz los oponents a qui lo chugador ha ganau, y la metat d\'os puntos de totz los oponents con qui ha empazau.</string>
+  <string name="pairingsQ">Cómo se deciden los emparellamientos?</string>
+  <string name="dutchSystem">Sistema holandés</string>
+  <string name="FIDEHandbook">Manual de la FIDE</string>
+  <string name="pairingsA">Con o %1$s, implementau con %2$s, seguntes lo %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Qué pasa si lo torneyo tiene mas rondas que chugadors?</string>
+  <string name="moreRoundsThanPlayersA">Quan totz los posibles emparellamientos s\'han chugau, lo torneyo remata y se declara lo ganyador.</string>
+  <string name="restrictedToTeamsQ">Por qué ye restrinchiu a equipos?</string>
+  <string name="restrictedToTeamsA">Los torneyos suizos no son feitos para los escaques en linia. Demandan que los chugadors tiengan puntualidat, dedicación y paciencia. Creyemos que estas condicions se dan millor endentro d\'un equipo que en torneyos globals.</string>
+  <string name="numberOfByesQ">Quántos byes puede tener un chugador?</string>
+  <string name="numberOfByesA">Un chugador obtiene un bye d\'un punto per cada vegada que lo sistema d\'emparellamientos no pueda trobar un emparellamiento pa ell u ella. Adicionalment, un chugador recibe un solo bye de meyo punto si dentra tarde a un torneyo.</string>
+  <string name="whatIfOneDoesntPlayQ">Qué pasa si un chugador no chuga una partida?</string>
+  <string name="whatIfOneDoesntPlayA">Lo suyo reloch encomenzará a funcionar y quan caiga la bandera perderá la partida.
+Alavez lo sistema expulsará a lo chugador d\'o torneyo, pa que no pierda mas partidas.
+Lo chugador puede tornar a dentrar en qualsequier momento.</string>
+  <string name="lateJoinQ">Pueden los chugadors dentrar tarde?</string>
 </resources>
