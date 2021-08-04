@@ -134,6 +134,8 @@
     <item quantity="one">%s खिलाड़ी</item>
     <item quantity="other">%s खिलाड़ी</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">आपसी सहमति से ड्रॉ</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">पचास चालें बिना किसी प्रगति के</string>
   <string name="currentGames">अभी खेले जा रहे खेल</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
@@ -433,6 +435,8 @@
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
   <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
+  <string name="endgamePositions">अंतिम चरण के खेल की स्थिति</string>
+  <string name="chess960StartPosition">चेस960 खेल की प्रारम्भिक स्थिति: %s</string>
   <string name="startPosition">शुरू करने की स्थिति:</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>
