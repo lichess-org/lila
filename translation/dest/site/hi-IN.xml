@@ -124,6 +124,14 @@
     <item quantity="one">%s गंभीर गलती</item>
     <item quantity="other">%s गंभीर गल्तियां</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s गलती</item>
+    <item quantity="other">%s गलतियाँ</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s अशुद्धि</item>
+    <item quantity="other">%s अशुद्धियाँ</item>
+  </plurals>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
@@ -655,7 +663,7 @@
   <string name="weeklyPerfTypeRatingDistribution">इस हफ्ते का %s रेटिंग वितरण</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s खिलाड़ी इस सप्ताह।</item>
-    <item quantity="other">%1$s %2$s खिलाड़ियों इस सप्ताह।</item>
+    <item quantity="other">%1$s %2$s खिलाड़ी इस सप्ताह।</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
@@ -909,4 +917,6 @@
   <string name="onlyWorksOnce">यह केवल एक बार काम करेगा।</string>
   <string name="cantDoThisTwice">अगर आपने दूसरी बार अपना खाता बंद किया, तो उसे वापस पाने का कोई रास्ता नहीं होगा।</string>
   <string name="emailAssociatedToaccount">खाते से संबंधित ईमेल पता</string>
+  <string name="sentEmailWithLink">हमने आपको लिंक के साथ एक ईमेल भेजा है।</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">प्रतियोगिता प्रवेश कोड</string>
 </resources>
