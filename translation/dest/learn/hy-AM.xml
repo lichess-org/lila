@@ -25,8 +25,8 @@
   <string name="bishopComplete">Շնորհավորում ենք, Դուք արդեն տիրապետում եք փղի քայլերին:</string>
   <string name="theQueen">Թագուհի</string>
   <string name="queenCombinesRookAndBishop">Թագուհի = նավակ + փիղ</string>
-  <string name="queenIntro">Շախմատի ամենաուժեղ խաղաքարը: Դրա համար էլ անվանում են Թագուհի</string>
-  <string name="queenComplete">Շնորհավորում ենք: Թագուհին գաղտանզերծված է Ձեր համար:</string>
+  <string name="queenIntro">Շախմատի ամենաուժեղ խաղաքարը: Նորին Մեծություն Թագուհին։</string>
+  <string name="queenComplete">Շնորհավորում ենք: Թագուհին գաղտանզերծված է Ձեզ համար:</string>
   <string name="theKing">Արքա</string>
   <string name="theMostImportantPiece">Ամենակարևոր խաղաքարը</string>
   <string name="kingIntro">Դուք արքան եք: Եթե զոհվեք ճակատամարտում՝ խաղը կավարտվի։</string>
