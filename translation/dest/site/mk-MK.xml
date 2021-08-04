@@ -9,6 +9,7 @@
   <string name="yourTurn">Ти си на ред</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Јачина</string>
   <string name="toggleTheChat">Вклучи/исклучи го разговорот</string>
   <string name="toggleSound">Вклучи/Исклучи звук</string>
   <string name="chat">Разговор</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ти си со белите фигури</string>
   <string name="youPlayTheBlackPieces">Ти си со црните фигури</string>
   <string name="itsYourTurn">Ти си на ред!</string>
+  <string name="cheatDetected">Откриена е измама</string>
   <string name="kingInTheCenter">Кралот на средина</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трката заврши</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">Побарајте компјутерска анализа</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Достапна е компјутерска анализа</string>
+  <string name="computerAnalysisDisabled">Компјутерска анализа оневозможена</string>
   <string name="analysis">Анализа</string>
   <string name="depthX">Длабочина %s</string>
   <string name="usingServerAnalysis">Користење на анализи од серверот</string>
