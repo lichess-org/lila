@@ -16,5 +16,5 @@
   <string name="logInToLichess">%s Lichess में लॉग इन करें</string>
   <string name="common_orPaste">(क्या क्लिक काम नहीं कर रहा है? इसे अपने ब्राउज़र में डालने का प्रयास करें!)</string>
   <string name="common_note">यह सेवा ईमेल आपके %s के उपयोग से संबंधित है।</string>
-  <string name="common_contact">हमें संपर्क करने के लिए कृपया %s का इस्तेमाल करें</string>
+  <string name="common_contact">हमसे संपर्क करने के लिए कृपया इस लिंक का इस्तेमाल करें %s.</string>
 </resources>
