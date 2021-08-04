@@ -686,6 +686,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можеш и да скролаш врз таблата за да одбереш потег.</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
   <string name="letOtherPlayersMessageYou">Овозможи пораки од другите играчи</string>
+  <string name="receiveForumNotifications">Добивај известувања кога си споменат на форум</string>
   <string name="shareYourInsightsData">Сподели ја твојата аналитика</string>
   <string name="withNobody">Со никого</string>
   <string name="withFriends">Со пријатели</string>
@@ -697,6 +698,7 @@
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
+  <string name="sessions">Сесии</string>
   <string name="revokeAllSessions">избришете сите сесии</string>
   <string name="playChessEverywhere">Играј шах секаде</string>
   <string name="asFreeAsLichess">Бесплатно како lichess</string>
@@ -851,4 +853,19 @@
   <string name="youCannotPostYetPlaySomeGames">Сеуште не можеш да објавуваш на форумот. Играј некоја игра!</string>
   <string name="subscribe">Заследи</string>
   <string name="unsubscribe">Престани да следиш</string>
+  <string name="mentionedYouInX">ве спомена во \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s ве спомена во \"%2$s\".</string>
+  <string name="invitedYouToX">ве покани во \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s ве покани во \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Сега сте дел од тимот.</string>
+  <string name="youHaveJoinedTeamX">Се приклучивте на \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Некој што сте го пријавиле е баниран</string>
+  <string name="congratsYouWon">Честитки, победивте!</string>
+  <string name="gameVsX">Игра против %1$s</string>
+  <string name="resVsX">%1$s против %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Некој го прегледал вашиот тренерски профил.</string>
+  <string name="newPendingReview">Нов преглед на чекање</string>
+  <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на Lichess</string>
+  <string name="refundXpointsTimeControlY">Враќање: %1$s %2$s рејтинг поени</string>
+  <string name="timeAlmostUp">Времето е пред истекување!</string>
 </resources>
