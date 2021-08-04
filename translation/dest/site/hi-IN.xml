@@ -678,6 +678,7 @@
   <string name="printFriendlyPDF">प्रिंट-अनुकूल PDF</string>
   <string name="crosstable">विजय और पराजय का अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">कंप्युटर द्वारा इस स्थिति के विभिन्न रूपांतरण को देखने के लिए चिन्हित करें</string>
   <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="receiveForumNotifications">जब आपके नाम का ज़िक्र हो तब नोटिफ़िकेशन पाएँ</string>
