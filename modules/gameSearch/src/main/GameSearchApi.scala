@@ -40,11 +40,12 @@ final class GameSearchApi(
     }
 
   def source(query: Query, nb: Int): Source[Game, _] = {
-    val perPage = config.MaxPerPage(50)
+    val perPage  = config.MaxPerPage(50)
     val lastPage = math.ceil(nb.toFloat / perPage.value) atLeast 1 atMost (1000 / perPage.value)
     Source.unfoldAsync(1) { page =>
-      search(query
+      search(query, From((page - 1) * perPage.value), Size(perPage.value))
     }
+  }
 
   private def storable(game: Game) = game.finished || game.imported
 
