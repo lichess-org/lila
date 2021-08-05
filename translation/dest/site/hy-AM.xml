@@ -792,5 +792,10 @@
 Օպերացիոն բոլոր ծախսերը, մշակումները և կոնտենտը ֆինանսավորվում են բացառապես օգտատերերի նվիրաբերությունների հաշվին։</string>
   <string name="coachManager">Մարզիչների համար</string>
   <string name="streamerManager">Սթրիմերների համար</string>
+  <string name="noRestriction">Առանց սահմանափակումների</string>
+  <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
+  <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
+  <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
   <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Մրցաշարին մասնակցելու կոդ</string>
 </resources>
