@@ -145,7 +145,7 @@ object communication {
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      highlightBad(line.text)
+                      span(cls := "message")(highlightBad(line.text))
                     )
                   }
                 )
@@ -164,7 +164,7 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(highlightBad(msg.text))
+                        td(cls := "message")(highlightBad(msg.text))
                       )
                     }
                   )

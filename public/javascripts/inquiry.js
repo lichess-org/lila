@@ -37,4 +37,10 @@ $(function () {
         .replaceAll(/(?:https:\/\/)?lichess\.org\/([\w\/]+)/g, '<a href="/$1">lichess.org/$1</a>')
     );
   });
+
+  $('#communication').on('click', '.line.author, .post.author', function () {
+    const message = $(this).find('.message').text();
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + ', ' : '') + `"${message}"`);
+  });
 });

@@ -96,6 +96,10 @@
   .player_chats .line.author,
   .threads .post.author {
     opacity: 1;
+    cursor: pointer;
+    &:hover {
+      background: fade-out($c-accent, 0.8);
+    }
   }
 
   .thread {
