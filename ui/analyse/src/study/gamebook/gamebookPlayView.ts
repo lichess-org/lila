@@ -47,11 +47,12 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 
 function hintZone(ctrl: GamebookPlayCtrl) {
   const state = ctrl.state,
-    clickHook = () => ({
+    buttonData = () => ({
+      attrs: { type: 'button' },
       hook: bind('click', ctrl.hint, ctrl.redraw),
     });
-  if (state.showHint) return h('button', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
-  if (state.hint) return h('button.hint', clickHook(), 'Get a hint');
+  if (state.showHint) return h('button', buttonData(), [h('div.hint', { hook: richHTML(state.hint!) })]);
+  if (state.hint) return h('button.hint', buttonData(), 'Get a hint');
   return undefined;
 }
 
@@ -62,6 +63,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return h(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       {
+        attrs: { type: 'button' },
         hook: bind('click', ctrl.retry),
       },
       [iconTag(''), h('span', 'Retry')]
@@ -70,6 +72,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return h(
       'button.feedback.act.good.com',
       {
+        attrs: { type: 'button' },
         hook: bind('click', ctrl.next),
       },
       [h('span.text', { attrs: dataIcon('') }, 'Next'), h('kbd', '<space>')]
@@ -99,7 +102,10 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
       ? h(
           'button.next.text',
           {
-            attrs: dataIcon(''),
+            attrs: {
+              'data-icon': '',
+              type: 'button',
+            },
             hook: bind('click', study.goToNextChapter),
           },
           'Next chapter'
@@ -108,7 +114,10 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
     h(
       'button.retry',
       {
-        attrs: dataIcon(''),
+        attrs: {
+          'data-icon': '',
+          type: 'button',
+        },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
       'Play again'
@@ -116,7 +125,10 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
     h(
       'button.analyse',
       {
-        attrs: dataIcon(''),
+        attrs: {
+          'data-icon': '',
+          type: 'button',
+        },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
       'Analyse'
