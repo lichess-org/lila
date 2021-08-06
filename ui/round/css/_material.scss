@@ -64,7 +64,7 @@
     mpiece {
       width: $col1-mat-height * 3/4;
       height: $col1-mat-height * 3/4;
-      margin-left: -8px;
+      margin-left: -8px !important;
     }
   }
 }
