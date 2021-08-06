@@ -1,0 +1,24 @@
+.add-students {
+  margin-bottom: $section-margin;
+
+  h3 {
+    margin-top: $section-margin;
+    margin-bottom: $section-margin;
+    font-weight: bold;
+  }
+
+  .student {
+    margin-right: 1rem;
+  }
+
+}
+
+.kick-members {
+  h2 {
+    margin-bottom: $section-margin;
+  }
+
+  .member {
+    margin-right: 1rem;
+  }
+}

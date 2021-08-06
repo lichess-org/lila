@@ -20,7 +20,8 @@
   </plurals>
   <string name="teamBestPlayers">Best players</string>
   <string name="teamRecentMembers">Recent members</string>
-  <string name="kickSomeone">Kick someone out of the team</string>
+  <string name="manageMembers">Manage members</string>
+  <string name="addManagedStudent">Add managed student to the team</string>
   <string name="whoToKick">Who do you want to kick out of the team?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s join request</item>

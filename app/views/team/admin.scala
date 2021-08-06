@@ -16,7 +16,10 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = jsModule("team.admin")
+      moreJs = frag(
+        jsModule("team.admin"),
+        embedJsUnsafeLoadThen("""teamAdmin.leadersStart()""")
+      )
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
@@ -39,24 +42,64 @@ object admin {
     }
   }
 
-  def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
-
-    val title = s"${t.name} • ${kickSomeone.txt()}"
-
-    bits.layout(title = title) {
+  def members(
+      t: lila.team.Team,
+      form: Form[_],
+      userIds: List[lila.user.User.ID],
+      classes: List[lila.clas.Clas.WithStudents]
+  )(implicit
+      ctx: Context
+  ) = {
+    val title = s"${t.name} • ${manageMembers.txt()}"
+    views.html.base.layout(
+      title = title,
+      moreCss = cssTag("team"),
+      moreJs = frag(
+        jsModule("team.admin"),
+        embedJsUnsafeLoadThen("""teamAdmin.membersStart()""")
+      )
+    ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p(whoToKick()),
-          br,
-          br,
-          postForm(cls := "kick", action := routes.Team.kick(t.id))(
-            userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
-              )
-            }
+          postForm(id := "members-form", action := routes.Team.manageMembers(t.id))(
+            form3.textarea(form("students"))(display.none),
+            form3.textarea(form("members"))(display.none),
+            classes.nonEmpty option
+              div(cls := "add-students")(
+                h2(addManagedStudent()),
+                classes.map { case lila.clas.Clas.WithStudents(clas, students) =>
+                  frag(
+                    h3(clas.name),
+                    students.map { student =>
+                      button(
+                        `type` := "button",
+                        cls := "student button button-empty button-no-upper",
+                        value := student.userId
+                      )(
+                        student.userId
+                      )
+                    }
+                  )
+                }
+              ),
+            div(cls := "kick-members")(
+              h2(whoToKick()),
+              userIds.sorted.map { userId =>
+                button(
+                  `type` := "button",
+                  cls := "member button button-empty button-no-upper",
+                  value := userId
+                )(
+                  usernameOrId(userId)
+                )
+              }
+            ),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.cancel()),
+              form3.submit(trans.save())
+            )
           )
         )
       )

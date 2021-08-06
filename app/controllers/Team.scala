@@ -22,6 +22,8 @@ final class Team(
   private def forms     = env.team.forms
   private def api       = env.team.api
   private def paginator = env.team.paginator
+  private def clas      = env.clas.api
+  private def userRepo  = env.user.repo
 
   def all(page: Int) =
     Open { implicit ctx =>
@@ -139,24 +141,58 @@ final class Team(
       }
     }
 
-  def kickForm(id: String) =
+  def manageMembersForm(id: String) =
     Auth { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        env.team.memberRepo userIdsByTeam team.id map { userIds =>
-          html.team.admin.kick(team, userIds.filter(me.id !=))
+        for {
+          userIds <- env.team.memberRepo userIdsByTeam team.id
+          classes <- isGranted(_.Teacher) ?? {
+            clas.clas
+              .of(me)
+              .flatMap(_.map { myClas =>
+                clas.student.activeOf(myClas).map { students =>
+                  myClas.withStudents(
+                    students.filter(student => student.managed && !userIds.contains(student.userId))
+                  )
+                }
+              }.sequenceFu)
+          }
+        } yield html.team.admin.members(
+          team,
+          forms.manageMembers,
+          userIds.filter(me.id !=),
+          classes.filter(_.students.nonEmpty)
+        )
+      }
+    }
+
+  def manageMembers(id: String) =
+    AuthBody { implicit ctx => me =>
+      WithOwnedTeamEnabled(id) { team =>
+        implicit val req = ctx.body
+        forms.manageMembers.bindFromRequest().value ?? { case (students, members) =>
+          students
+            .split(",")
+            .toList
+            .map { userId =>
+              userRepo
+                .byId(userId)
+                .flatMap(_ ?? { user =>
+                  api.doJoin(team, user)
+                })
+            }
+            .sequenceFu zip
+            members
+              .split(",")
+              .toList
+              .map { userId =>
+                api.kick(team, userId, me)
+              }
+              .sequenceFu map (_ => Redirect(routes.Team.show(team.id)).flashSuccess)
         }
       }
     }
 
-  def kick(id: String) =
-    AuthBody { implicit ctx => me =>
-      WithOwnedTeamEnabled(id) { team =>
-        implicit val req = ctx.body
-        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
-          routes.Team.kickForm(team.id)
-        ).flashSuccess
-      }
-    }
   def kickUser(teamId: String, userId: String) =
     Scoped(_.Team.Write) { _ => me =>
       api teamEnabled teamId flatMap {
