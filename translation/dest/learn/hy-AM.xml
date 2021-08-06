@@ -83,6 +83,14 @@
   <string name="outOfCheckIntro">Ձեզ շա՛խ։ Դուք պետք է հեռանաք կամ ծածկվեք գրոհից։</string>
   <string name="escapeWithTheKing">Արքան փախչո՜ւմ է։</string>
   <string name="theKingCannotEscapeButBlock">Արքան չի կարող հեռանալ, բայց դուք կարող եք պաշտպանել նրան։</string>
+  <string name="youCanGetOutOfCheckByTaking">Դուք կարող եք ազատվել շախից` վերցնելով գրոհող խաղաքարը։</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Ձին շախ է տալիս արքային նրա պաշտպանության միջով։</string>
+  <string name="escapeOrBlock">Հեռացրե՛ք արքան գրոհի տակից կամ պաշտպանե՛ք նրան։</string>
+  <string name="outOfCheckComplete">Շնորհավորո՜ւմ ենք։ Ձեր արքան հնարավոր չէ վերցնել, բայց համոզվեք, որ դուք կարող եք նրան պաշտպանել շախից։</string>
+  <string name="mateInOne">Մատ 1 քայլից</string>
+  <string name="defeatTheOpponentsKing">Ջախջախեք մրցակցի արքան</string>
+  <string name="mateInOneIntro">Դուք կհաղթեք, եթե ձեր մրցակիցը չկարողանա պաշտպանվել շախից։</string>
+  <string name="attackYourOpponentsKing">Գրոհե՛ք մրցակցի արքային այնպես, որ նրան հնարավոր չլինի պաշտպանել։</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
   <string name="stalemate">Պատ</string>
