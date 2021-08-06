@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.Clock.{ Config => ClockConfig }
+import chess.Speed
 import chess.format.FEN
 import chess.variant.Variant
 import org.joda.time.DateTime
@@ -157,21 +158,11 @@ object SwissForm {
     def realVariant  = variant flatMap Variant.apply getOrElse Variant.default
     def realStartsAt = startsAt | DateTime.now.plusMinutes(10)
     def realChatFor  = chatFor | Swiss.ChatFor.default
-    def realRoundInterval = {
+    def realRoundInterval =
       (roundInterval | Swiss.RoundInterval.auto) match {
-        case Swiss.RoundInterval.auto =>
-          import chess.Speed._
-          chess.Speed(clock) match {
-            case UltraBullet                               => 5
-            case Bullet                                    => 10
-            case Blitz if clock.estimateTotalSeconds < 300 => 20
-            case Blitz                                     => 30
-            case Rapid                                     => 60
-            case _                                         => 300
-          }
-        case i => i
+        case Swiss.RoundInterval.auto => autoInterval(clock)
+        case i                        => i.seconds
       }
-    }.seconds
     def realPosition = position ifTrue realVariant.standard
 
     def isRated = rated | true
@@ -179,4 +170,16 @@ object SwissForm {
       !isRated ||
         lila.game.Game.allowRated(realVariant, clock.some)
   }
+
+  def autoInterval(clock: ClockConfig) = {
+    import Speed._
+    Speed(clock) match {
+      case UltraBullet                               => 5
+      case Bullet                                    => 10
+      case Blitz if clock.estimateTotalSeconds < 300 => 20
+      case Blitz                                     => 30
+      case Rapid                                     => 60
+      case _                                         => 300
+    }
+  }.seconds
 }

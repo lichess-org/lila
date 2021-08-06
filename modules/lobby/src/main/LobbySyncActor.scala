@@ -213,7 +213,7 @@ private object LobbySyncActor {
     system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),
-      atMost = AtMost(10 seconds),
+      timeout = AtMost(10 seconds),
       initialDelay = 7 seconds
     ) { trouper.ask[Unit](Tick) }
     trouper
