@@ -97,7 +97,7 @@
 
       margin: $block-gap auto;
 
-      .embed--game {
+      &.embed--game {
         @extend %game-embed;
       }
     }
