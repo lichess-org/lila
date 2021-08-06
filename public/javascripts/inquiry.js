@@ -44,6 +44,8 @@ $(function () {
     const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();
     const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + ', ' : '') + `${username}: "${message}"`);
+    noteStore.set((storedNote ? storedNote + '\n' : '') + `${username}: "${message}"`);
+    const notes = $('#inquiry .notes span').addClass('flash');
+    setTimeout(() => notes.removeClass('flash'), 100);
   });
 });

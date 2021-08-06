@@ -373,4 +373,13 @@ body.no-inquiry {
       transform: scale(0.7);
     }
   }
+
+  .notes span {
+    transition: all 1s ease-out;
+    &.flash {
+      background: $c-primary !important;
+      box-shadow: 0 0px 15px $c-primary;
+      transition: none;
+    }
+  }
 }
