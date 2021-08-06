@@ -39,8 +39,11 @@ $(function () {
   });
 
   $('#communication').on('click', '.line.author, .post.author', function () {
+    // Need to take username from the communcation page so that when being in inquiry for user A and checking communication of user B
+    // the notes cannot be mistakenly attributed to user A.
+    const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();
     const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + ', ' : '') + `"${message}"`);
+    noteStore.set((storedNote ? storedNote + ', ' : '') + `${username}: "${message}"`);
   });
 });
