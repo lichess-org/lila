@@ -76,6 +76,7 @@
   <string name="checkInOne">Շախ</string>
   <string name="attackTheOpponentsKing">Գրոհեք հակառակորդի արքան</string>
   <string name="checkInOneIntro">Շախ հայտարարելու համար հարձակվե՛ք մրցակցի արքայի վրա։ Նա ստիպված պետք է պաշտպանվի։</string>
+  <string name="checkInOneGoal">Թիրախավորե՛ք մրցակցի արքային մեկ քայլով։</string>
   <string name="boardSetup">Խաղաքարերի դասավորությունը</string>
   <string name="howTheGameStarts">Շախմատային պարտիայի սկիզբը</string>
   <string name="stalemate">Պատ</string>
