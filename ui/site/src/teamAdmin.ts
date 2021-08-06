@@ -27,17 +27,17 @@ export function leadersStart() {
       tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
     });
   });
-};
+}
 
 export function membersStart() {
 
   const studentsInput = document.getElementById('form3-students') as HTMLInputElement;
   const membersInput = document.getElementById('form3-members') as HTMLInputElement;
-  let students: string[] = [];
-  let members: string[] = [];
+  const students: string[] = [];
+  const members: string[] = [];
 
   function toggle(collection: string[], item: string) {
-    let id = collection.indexOf(item);
+    const id = collection.indexOf(item);
     if (id !== -1) collection.splice(id, 1);
     else collection.push(item);
   }
