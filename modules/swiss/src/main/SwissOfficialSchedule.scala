@@ -30,21 +30,19 @@ final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(
   private def daySchedule =
     (0 to 23).toList.flatMap(i => schedule.lift(i % schedule.length))
 
-  private val teamId = "lichess-swiss"
-
   def generate: Funit = {
     val dayStart = DateTime.now.plusDays(3).withTimeAtStartOfDay
     daySchedule.zipWithIndex
       .map { case (config, hour) =>
         val startAt = dayStart plusHours hour
-        colls.swiss.exists($doc("teamId" -> teamId, "startsAt" -> startAt)) flatMap {
+        colls.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
           case true => fuFalse
           case _    => colls.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
       .sequenceFu
       .map { res =>
-        if (res.exists(identity)) cache.featuredInTeam.invalidate(teamId)
+        if (res.exists(identity)) cache.featuredInTeam.invalidate(lichessTeamId)
       }
   }
 
@@ -59,7 +57,7 @@ final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(
       nbOngoing = 0,
       createdAt = DateTime.now,
       createdBy = lila.user.User.lichessId,
-      teamId = teamId,
+      teamId = lichessTeamId,
       nextRoundAt = startAt.some,
       startsAt = startAt,
       finishedAt = none,

@@ -22,6 +22,7 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
       .preloader(
         posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).nevermind,
         tours = env.tournament.cached.onHomepage.getUnit.nevermind,
+        swiss = env.swiss.feature.onHomepage.getUnit.getIfPresent,
         events = env.event.api.promoteTo(ctx.req).nevermind,
         simuls = env.simul.allCreatedFeaturable.get {}.nevermind,
         streamerSpots = env.streamer.homepageMaxSetting.get()
