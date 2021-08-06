@@ -3,7 +3,6 @@ import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
 export function leadersStart() {
-
   const input = document.getElementById('form3-leaders') as HTMLInputElement;
 
   const tagify = new Tagify(input, {
@@ -30,7 +29,6 @@ export function leadersStart() {
 }
 
 export function membersStart() {
-
   const studentsInput = document.getElementById('form3-students') as HTMLInputElement;
   const membersInput = document.getElementById('form3-members') as HTMLInputElement;
   const students: string[] = [];
@@ -42,18 +40,17 @@ export function membersStart() {
     else collection.push(item);
   }
 
-  if(studentsInput) {
+  if (studentsInput) {
     $('.student').on('click', e => {
       $(e.target).toggleClass('button-empty button-green');
       toggle(students, e.target.value.trim());
       studentsInput.value = students.join(',');
-    })
+    });
   }
 
   $('.member').on('click', e => {
     $(e.target).toggleClass('button-empty button-red');
     toggle(members, e.target.value.trim());
     membersInput.value = members.join(',');
-  })
-
+  });
 }
