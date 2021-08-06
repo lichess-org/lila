@@ -102,7 +102,7 @@ object communication {
         else
           ul(cls := "public_chats")(
             publicLines.reverse.map { line =>
-              li(
+              li(cls := "line author")(
                 line.date.fold[Frag]("[OLD]")(momentFromNowOnce),
                 " ",
                 line.from.map {
@@ -113,8 +113,8 @@ object communication {
                   case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
                   case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
-                " ",
-                highlightBad(line.text)
+                nbsp,
+                span(cls := "message")(highlightBad(line.text))
               )
             }
           ),
@@ -145,7 +145,7 @@ object communication {
                     )(
                       userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
                       nbsp,
-                      highlightBad(line.text)
+                      span(cls := "message")(highlightBad(line.text))
                     )
                   }
                 )
@@ -164,7 +164,7 @@ object communication {
                       tr(cls := List("post" -> true, "author" -> author))(
                         td(momentFromNowOnce(msg.date)),
                         td(strong(if (author) u.username else convo.contact.name)),
-                        td(highlightBad(msg.text))
+                        td(cls := "message")(highlightBad(msg.text))
                       )
                     }
                   )
