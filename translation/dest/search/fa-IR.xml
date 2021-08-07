@@ -14,6 +14,7 @@
   <string name="loser">بازنده</string>
   <string name="from">از</string>
   <string name="to">تا</string>
+  <string name="humanOrComputer">که آیا حریف بازیکن، انسان یا رایانه بود</string>
   <string name="analysis">برسی بازی</string>
   <string name="onlyAnalysed">فقط بازی هایی که تجزیه تحلیل کامپیوتر در آنها موجود است</string>
 </resources>
