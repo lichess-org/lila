@@ -22,5 +22,6 @@
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب کردن بر اساس</string>
   <string name="analysis">برسی بازی</string>
-  <string name="onlyAnalysed">فقط بازی هایی که تجزیه تحلیل کامپیوتر در آنها موجود است</string>
+  <string name="onlyAnalysed">فقط بازی هایی که تجزیه و تحلیل کامپیوتر در آنها موجود است</string>
+  <string name="color">رنگ</string>
 </resources>
