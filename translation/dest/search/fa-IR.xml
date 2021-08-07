@@ -19,6 +19,7 @@
   <string name="source">منبع</string>
   <string name="nbTurns">تعداد حرکت</string>
   <string name="result">نتیجه</string>
+  <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب کردن بر اساس</string>
   <string name="analysis">برسی بازی</string>
@@ -28,4 +29,5 @@
   <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">حداکثر تعداد</string>
   <string name="maxNumberExplanation">حداکثر تعداد بازی برای بارگیری</string>
   <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">شامل</string>
+  <string name="generateURL">ایجاد لینک</string>
 </resources>
