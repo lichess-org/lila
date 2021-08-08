@@ -23,9 +23,9 @@ final class IrcApi(
 
   def inquiry(user: LightUser, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
-      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
-      case ModDomain.Hunt  => ZulipClient.stream.mod.hunterCheat
-      case ModDomain.Other => ZulipClient.stream.mod.adminGeneral
+      case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Hunt => ZulipClient.stream.mod.hunterCheat
+      case _              => ZulipClient.stream.mod.adminGeneral
     }
     noteApi
       .byUserForMod(user.id)
@@ -167,6 +167,7 @@ object IrcApi {
     def key = toString.toLowerCase
   }
   object ModDomain {
+    case object Admin extends ModDomain
     case object Hunt  extends ModDomain
     case object Comm  extends ModDomain
     case object Other extends ModDomain
