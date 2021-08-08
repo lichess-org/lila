@@ -124,6 +124,14 @@
     <item quantity="one">%s غلطی</item>
     <item quantity="other">%s غلطیاں</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
   <string name="moveTimes">چالوں کا دورانیہ</string>
   <string name="flipBoard">بساط کا رخ تبدیل کریں</string>
   <string name="threefoldRepetition">چالوں کی سہ بار تکرار</string>
@@ -134,6 +142,8 @@
     <item quantity="one">%s کھلاڑی</item>
     <item quantity="other">%s کھلاڑی</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">باہمی معاہدے سے ڈرا</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">پچاس چالیں بغیر ترقی کے</string>
   <string name="currentGames">جاری مقابلے</string>
   <plurals name="nbGames">
     <item quantity="one">%s مقابلے</item>
@@ -433,6 +443,8 @@
   <string name="boardEditor">بساط بنائیں</string>
   <string name="setTheBoard">بساط لگائیں</string>
   <string name="popularOpenings">مشہور ابتدائی چالیں</string>
+  <string name="endgamePositions">اینڈ گیم عہدے</string>
+  <string name="chess960StartPosition">Chess960 شروع کی پوزیشن: %s</string>
   <string name="startPosition">ابتدائی بساط</string>
   <string name="clearBoard">خالی بساط</string>
   <string name="savePosition">موجودہ بساط محفوظ کریں</string>
@@ -448,6 +460,7 @@
   <string name="firstName">پہلا نام</string>
   <string name="lastName">آخری نام</string>
   <string name="biography">سوانح حیات</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ملک یا پرچم</string>
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
   <string name="inlineNotation">ان لائن نوٹیشن</string>
@@ -469,6 +482,7 @@
   <string name="tournamentWinners">مسابقوں کے فاتحین</string>
   <string name="name">نام</string>
   <string name="description">تفصیل</string>
+  <string name="descPrivate">نجی تفصیل</string>
   <string name="no">نہ</string>
   <string name="yes">ہاں</string>
   <string name="help">تفصیل:</string>
