@@ -497,7 +497,6 @@ final class Study(
           .withAttributes(
             akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
           )
-          .throttle(30, 1 second)
       } { source =>
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))

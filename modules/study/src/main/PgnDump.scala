@@ -4,6 +4,7 @@ import akka.stream.scaladsl._
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
+import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
@@ -22,6 +23,7 @@ final class PgnDump(
   def apply(study: Study, flags: WithFlags): Source[String, _] =
     chapterRepo
       .orderedByStudySource(study.id)
+      .throttle(16, 1 second)
       .mapAsync(1)(ofChapter(study, flags))
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[String] =
