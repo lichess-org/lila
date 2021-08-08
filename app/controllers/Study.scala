@@ -465,10 +465,11 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
             lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-              .as(pgnContentType)
-              .fuccess
+            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
+              Ok(pgn.toString)
+                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+                .as(pgnContentType)
+            }
           }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }

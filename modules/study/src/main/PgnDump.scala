@@ -4,33 +4,37 @@ import akka.stream.scaladsl._
 import chess.format.pgn.{ Glyphs, Initial, Pgn, Tag, Tags }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
+import scala.concurrent.ExecutionContext
 
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
+    analyser: lila.analyse.Analyser,
+    annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-) {
+)(implicit ec: ExecutionContext) {
 
   import PgnDump._
 
   def apply(study: Study, flags: WithFlags): Source[String, _] =
     chapterRepo
       .orderedByStudySource(study.id)
-      .map(ofChapter(study, flags))
-      .map(_.toString)
-      .intersperse("\n\n\n")
+      .mapAsync(1)(ofChapter(study, flags))
 
-  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter) =
-    Pgn(
-      tags = makeTags(study, chapter),
-      turns = toTurns(chapter.root)(flags).toList,
-      initial = Initial(
-        chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+  def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[String] =
+    chapter.serverEval.exists(_.done) ?? analyser.byId(chapter.id.value) map { analysis =>
+      val pgn = Pgn(
+        tags = makeTags(study, chapter),
+        turns = toTurns(chapter.root)(flags).toList,
+        initial = Initial(
+          chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+        )
       )
-    )
+      annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+    }
 
   private val fileR = """[\s,]""".r
 
