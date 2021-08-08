@@ -9,6 +9,7 @@
   <string name="yourTurn">آپکی باری ہے</string>
   <string name="aiNameLevelAiLevel">%1$s -  %2$s : میعار</string>
   <string name="level">میعار</string>
+  <string name="strength">طاقت</string>
   <string name="toggleTheChat">گپ شپ</string>
   <string name="toggleSound">آواز</string>
   <string name="chat">مکالمہ</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">آپ کے سفید مہرے ہیں۔</string>
   <string name="youPlayTheBlackPieces">آپ کے سیاہ مہرے ہیں۔</string>
   <string name="itsYourTurn">اب آپ کی باری ہے!</string>
+  <string name="cheatDetected">دھوکہ دہی کا پتہ چلا</string>
   <string name="kingInTheCenter">بادشاہ وسط میں ہے</string>
   <string name="threeChecks">تین بار شہ</string>
   <string name="raceFinished">دوڑ ختم</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">خودکار تجزیہ کے لیے پیش کریں</string>
   <string name="computerAnalysis">خودکار تجزیہ</string>
   <string name="computerAnalysisAvailable">کمپیوٹر کا تجزیہ دستیاب ہے۔</string>
+  <string name="computerAnalysisDisabled">کمپیوٹر تجزیہ غیر فعال ہے</string>
   <string name="analysis">تجزیاتی بساط</string>
   <string name="depthX">گہرائی%s</string>
   <string name="usingServerAnalysis">سرور کے تجزیہ استعمال ہو رہا ہے۔</string>
@@ -94,6 +97,7 @@
   <string name="noGameFound">کوئی بازی نہیں ملی</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ترجیحات مینو میں سے مزید بازیاں شامل کریں?</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
+  <string name="openingEndgameExplorer">اوپننگ/اینڈ گیم ایکسپلورر</string>
   <string name="xOpeningExplorer">%s افتتاحی ایکسپلورر</string>
   <string name="winPreventedBy50MoveRule">فتح کو پچاس چال کے قانون نے روک دیا</string>
   <string name="lossSavedBy50MoveRule">شکست کو پچاس چال کے قانون نے روک دیا</string>
@@ -116,6 +120,10 @@
   <string name="blunder">احمقانہ غلطی</string>
   <string name="mistake">غلطی</string>
   <string name="inaccuracy">کمزور چال</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
   <string name="moveTimes">چالوں کا دورانیہ</string>
   <string name="flipBoard">بساط کا رخ تبدیل کریں</string>
   <string name="threefoldRepetition">چالوں کی سہ بار تکرار</string>
