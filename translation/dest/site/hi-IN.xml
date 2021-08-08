@@ -909,8 +909,10 @@
   <string name="navigateMoveTree">चालों की सूची पर जाएं</string>
   <string name="mouseTricks">माउस की तरकीबें</string>
   <string name="toggleLocalAnalysis">स्थानीय कंप्युटर विश्लेषण</string>
+  <string name="toggleAllAnalysis">सभी कंप्यूटर विश्लेषण टॉगल करें</string>
   <string name="playComputerMove">कंप्युटर की सर्वश्रेष्ठ चाल चलें</string>
   <string name="analysisOptions">विश्लेषण विकल्प</string>
+  <string name="focusChat">फोकस चैट</string>
   <string name="showHelpDialog">सहायता संवाद दर्शायें</string>
   <string name="reopenYourAccount">अपना खाता पुनः खोलें।</string>
   <string name="closedAccountChangedMind">अगर आपने अपना खाता बंद कर दिया था, लेकिन अब आपने मन बदल लिया है, तो आपको अपना खाता वापस पाने का एक अवसर मिलता है।</string>
