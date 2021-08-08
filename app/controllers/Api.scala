@@ -390,7 +390,7 @@ final class Api(
         case None => NotFound
         case Some(game) =>
           ApiMoveStreamGlobalConcurrencyLimitPerIP(HTTPRequest ipAddress req)(
-            addKeepAlive(env.round.apiMoveStream(game))
+            addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq(req)))
           )(sourceToNdJsonOption)
       }
     }
