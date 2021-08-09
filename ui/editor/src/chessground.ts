@@ -119,7 +119,7 @@ function deletePiece(ctrl: EditorCtrl, key: Key): void {
 
 function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
-    fen: ctrl.cfg.fen,
+    fen: ctrl.initialFen,
     orientation: ctrl.options.orientation || 'white',
     coordinates: !ctrl.cfg.embed,
     autoCastle: false,
