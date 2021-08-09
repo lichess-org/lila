@@ -50,7 +50,7 @@ Tilføj scorerne for hver modstander spilleren slår og halvdelen af scoren for 
   <string name="FIDEHandbook">FIDE håndbog</string>
   <string name="pairingsA">Med %1$s, implementeret af %2$s, i overensstemmelse med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Hvad sker der, hvis turneringen har flere runder end spillere?</string>
-  <string name="moreRoundsThanPlayersA">Når alle mulige parringer er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
+  <string name="moreRoundsThanPlayersA">Når alle mulige pardannelser er blevet spillet, vil turneringen blive afsluttet og en vinder erklæret.</string>
   <string name="restrictedToTeamsQ">Hvorfor er den begrænset til hold?</string>
   <string name="restrictedToTeamsA">Schweiziske turneringer blev ikke designet til online skak. De kræver punktlighed, dedikation og tålmodighed fra spillere.
 Vi mener, at disse betingelser har større chance for at blive opfyldt inden for et hold end i åbne turneringer.</string>

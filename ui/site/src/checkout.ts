@@ -135,21 +135,31 @@ export default function (publicKey: string, pricing: Pricing) {
             .redirectToCheckout({
               sessionId: data.session.id,
             })
-            .then(result => showErrorThenReload(result.error.message));
+            .then((result: any) => showErrorThenReload(result.error.message));
         } else location.assign('/patron');
       });
   });
 
   const $currencyForm = $('form.currency');
   $('.currency-toggle').one('click', () => $currencyForm.toggleClass('none'));
-  $currencyForm.find('select').on('change', () => ($currencyForm[0] as HTMLFormElement).submit());
+  $currencyForm.find('select').on('change', () => {
+    ['freq', 'dest'].forEach(name =>
+      $('<input type="hidden">')
+        .attr('name', name)
+        .val($(`input[name=${name}]:checked`).val())
+        .appendTo($currencyForm)
+    );
+    ($currencyForm[0] as HTMLFormElement).submit();
+  });
 
   // Close Checkout on page navigation:
   $(window).on('popstate', function () {
     window.stripeHandler.close();
   });
 
-  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
-  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
-  if (location.hash === '#gift') $('#dest_gift').trigger('click');
+  const queryParams = new URLSearchParams(location.search);
+  for (const name of ['dest', 'freq']) {
+    if (queryParams.has(name))
+      $(`input[name=${name}][value=${queryParams.get(name)?.replace(/[^a-z_-]/gi, '')}]`).trigger('click');
+  }
 }

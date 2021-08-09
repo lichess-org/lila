@@ -18,7 +18,7 @@
   <string name="stalemate">ステイルメイト</string>
   <string name="white">白</string>
   <string name="black">黒</string>
-  <string name="randomColor">ランダムカラー</string>
+  <string name="randomColor">ランダム</string>
   <string name="createAGame">対局を作成する</string>
   <string name="whiteIsVictorious">白の勝ちです</string>
   <string name="blackIsVictorious">黒の勝ちです</string>
@@ -54,13 +54,14 @@
   <string name="requestAComputerAnalysis">コンピューター解析をリクエスト</string>
   <string name="computerAnalysis">コンピューター解析</string>
   <string name="computerAnalysisAvailable">コンピュータ解析がされています</string>
+  <string name="computerAnalysisDisabled">コンピュータ解析は不使用です</string>
   <string name="analysis">棋譜解析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">サーバ解析を使用中</string>
   <string name="loadingEngine">エンジン読み込み中…</string>
   <string name="cloudAnalysis">クラウド解析</string>
   <string name="goDeeper">より深く</string>
-  <string name="showThreat">狙いを表示</string>
+  <string name="showThreat">脅威的な駒を表示</string>
   <string name="inLocalBrowser">ローカル ブラウザ内での解析</string>
   <string name="toggleLocalEvaluation">ローカル評価値のオン/オフ</string>
   <string name="promoteVariation">変化を主手順にする</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s人接続中</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">合意によるドロー</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
@@ -411,7 +414,7 @@
   <string name="setTheBoard">盤面を指定</string>
   <string name="popularOpenings">人気のオープニング</string>
   <string name="endgamePositions">エンドゲームの局面</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">チェス960 開始局面: %s</string>
+  <string name="chess960StartPosition">チェス960 開始局面: %s</string>
   <string name="startPosition">開始局面</string>
   <string name="clearBoard">盤面をクリアする</string>
   <string name="savePosition">盤面を保存</string>
@@ -870,4 +873,11 @@
   <string name="analysisOptions">解析のオプション</string>
   <string name="focusChat">チャットにフォーカス</string>
   <string name="showHelpDialog">このヘルプダイアログを表示</string>
+  <string name="reopenYourAccount">アカウントを再開する</string>
+  <string name="closedAccountChangedMind">アカウントを閉鎖して、後で気が変わった場合、一度だけアカウントを再開することができます。</string>
+  <string name="onlyWorksOnce">再開は一回限りです。</string>
+  <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
+  <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
+  <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">トーナメント参加コード</string>
 </resources>

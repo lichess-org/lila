@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Demander une analyse automatique</string>
   <string name="computerAnalysis">Analyse de l\'ordinateur</string>
   <string name="computerAnalysisAvailable">Analyse de l\'ordinateur disponible</string>
+  <string name="computerAnalysisDisabled">Analyse de l\'ordinateur désactivée</string>
   <string name="analysis">Échiquier d\'analyse</string>
   <string name="depthX">Profondeur %s</string>
   <string name="usingServerAnalysis">Analyse serveur en cours</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s joueur</item>
     <item quantity="other">%s joueurs</item>
   </plurals>
+  <string name="drawByMutualAgreement">Partie nulle par accord mutuel</string>
+  <string name="fiftyMovesWithoutProgress">Cinquante coups joués sans progrès</string>
   <string name="currentGames">Parties en cours</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -441,7 +444,7 @@
   <string name="setTheBoard">Entrer une position</string>
   <string name="popularOpenings">Ouvertures courantes</string>
   <string name="endgamePositions">Positions de finale</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Position de départ – Chess960 : %s</string>
+  <string name="chess960StartPosition">Position de départ – Chess960 : %s</string>
   <string name="startPosition">Position de départ</string>
   <string name="clearBoard">Vider l\'échiquier</string>
   <string name="savePosition">Enregistrer la position</string>
@@ -903,10 +906,17 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="onlyTeamMembers">Seulement les membres des équipes</string>
   <string name="navigateMoveTree">Naviguer dans l\'arbre</string>
   <string name="mouseTricks">Astuces pour la souris</string>
-  <string name="toggleLocalAnalysis">Basculer vers l\'analyse de l\'ordinateur local</string>
-  <string name="toggleAllAnalysis">Basculer vers l\'analyse de tous les ordinateurs</string>
+  <string name="toggleLocalAnalysis">Activer/désactiver l’analyse locale</string>
+  <string name="toggleAllAnalysis">Activer/désactiver toutes les analyses</string>
   <string name="playComputerMove">Jouer le meilleur coup de l\'ordinateur</string>
   <string name="analysisOptions">Options d\'analyse</string>
   <string name="focusChat">Priorité au salon de discussion</string>
   <string name="showHelpDialog">Afficher cette boîte de dialogue</string>
+  <string name="reopenYourAccount">Rouvrir votre compte</string>
+  <string name="closedAccountChangedMind">Si vous avez fermé votre compte, mais que vous avez ensuite changé d\'avis, vous avez une chance de récupérer votre compte.</string>
+  <string name="onlyWorksOnce">Cela ne fonctionnera qu\'une seule fois.</string>
+  <string name="cantDoThisTwice">Si vous fermez votre compte une seconde fois, il n\'y aura aucun moyen de le récupérer.</string>
+  <string name="emailAssociatedToaccount">Adresse courriel associée à votre compte</string>
+  <string name="sentEmailWithLink">Nous vous avons envoyé un courriel avec un lien.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Code d\'entrée du tournoi</string>
 </resources>

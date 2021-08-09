@@ -28,6 +28,7 @@ final class GameApiV2(
     playerRepo: lila.tournament.PlayerRepo,
     swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
+    annotator: lila.analyse.Annotator,
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
     gameProxy: GameProxyRepo
@@ -57,7 +58,7 @@ final class GameApiV2(
                 analysis,
                 config.flags,
                 realPlayers = realPlayers
-              ) dmap pgnDump.toPgnString
+              ) dmap annotator.toPgnString
           }
         } yield export
     }
@@ -274,7 +275,7 @@ final class GameApiV2(
       pgn <-
         withFlags.pgnInJson ?? pgnDump
           .apply(g, initialFen, analysisOption, withFlags, realPlayers = realPlayers)
-          .dmap(pgnDump.toPgnString)
+          .dmap(annotator.toPgnString)
           .dmap(some)
     } yield Json
       .obj(
@@ -310,6 +311,7 @@ final class GameApiV2(
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
       .add("tournament" -> g.tournamentId)
+      .add("swiss" -> g.swissId)
       .add("clock" -> g.clock.map { clock =>
         Json.obj(
           "initial"   -> clock.limitSeconds,

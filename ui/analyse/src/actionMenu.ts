@@ -1,12 +1,13 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
+import { bind, bindNonPassive } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { bind, dataIcon } from './util';
+import { dataIcon } from './util';
 import * as pgnExport from './pgnExport';
 
 interface AutoplaySpeed {
@@ -45,7 +46,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId?: string): VNode | undefined {
           method: 'post',
           action: '/' + g.id + '/delete',
         },
-        hook: bind('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
+        hook: bindNonPassive('submit', _ => confirm(ctrl.trans.noarg('deleteThisImportedGame'))),
       },
       [
         h(
@@ -182,7 +183,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
             'a.button.button-empty',
             {
               attrs: {
-                href: d.userAnalysis ? '/editor?fen=' + ctrl.node.fen : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
+                href: d.userAnalysis
+                  ? '/editor?' + new URLSearchParams({ fen: ctrl.node.fen, variant: d.game.variant.key })
+                  : '/' + d.game.id + '/edit?fen=' + ctrl.node.fen,
                 'data-icon': '',
                 ...(ctrl.embed
                   ? {
@@ -200,7 +203,11 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ => modal($('.continue-with.g_' + d.game.id))),
+              hook: bind('click', _ =>
+                modal({
+                  content: $('.continue-with.g_' + d.game.id),
+                })
+              ),
               attrs: dataIcon(''),
             },
             noarg('continueFromHere')
@@ -217,7 +224,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ctrlBoolSetting(
               {
                 name: 'enable',
-                title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
+                title: mandatoryCeval ? 'Required by practice mode' : 'Stockfish',
                 id: 'all',
                 checked: ctrl.showComputer(),
                 disabled: mandatoryCeval,

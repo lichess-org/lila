@@ -13,7 +13,7 @@ import lila.common.Template
 import lila.db.dsl._
 import lila.game.{ Game, Player }
 import lila.hub.actorApi.map.TellMany
-import lila.hub.DuctSequencers
+import lila.hub.AsyncActorSequencers
 import lila.rating.PerfType
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame }
 import lila.user.User
@@ -40,7 +40,12 @@ final class ChallengeBulkApi(
   private val coll = colls.bulk
 
   private val workQueue =
-    new DuctSequencers(maxSize = 16, expiration = 10 minutes, timeout = 10 seconds, name = "challenge.bulk")
+    new AsyncActorSequencers(
+      maxSize = 16,
+      expiration = 10 minutes,
+      timeout = 10 seconds,
+      name = "challenge.bulk"
+    )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
     coll.list[ScheduledBulk]($doc("by" -> me.id))

@@ -21,23 +21,23 @@ import lila.hub.actorApi.round.{
   RematchYes,
   Resign
 }
-import lila.hub.Duct
+import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.socket.UserLagCache
 import lila.user.User
 
-final private[round] class RoundDuct(
-    dependencies: RoundDuct.Dependencies,
+final private[round] class RoundAsyncActor(
+    dependencies: RoundAsyncActor.Dependencies,
     gameId: Game.ID,
     socketSend: String => Unit
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     proxy: GameProxy
-) extends Duct {
+) extends AsyncActor {
 
   import RoundSocket.Protocol
-  import RoundDuct._
+  import RoundAsyncActor._
   import dependencies._
 
   private var takebackSituation: Option[TakebackSituation] = None
@@ -109,7 +109,7 @@ final private[round] class RoundDuct(
   def getGame: Fu[Option[Game]]          = proxy.game
   def updateGame(f: Game => Game): Funit = proxy update f
 
-  val process: Duct.ReceiveAsync = {
+  val process: AsyncActor.ReceiveAsync = {
 
     case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
       fuccess {
@@ -541,7 +541,7 @@ final private[round] class RoundDuct(
   def roomId = RoomId(gameId)
 }
 
-object RoundDuct {
+object RoundAsyncActor {
 
   case class HasUserId(userId: User.ID, promise: Promise[Boolean])
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))

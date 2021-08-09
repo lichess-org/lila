@@ -1,6 +1,7 @@
-import { bind, titleNameToId, onInsert } from '../util';
+import { bind, onInsert } from 'common/snabbdom';
+import { titleNameToId } from '../util';
 import { h, VNode } from 'snabbdom';
-import { modal } from '../modal';
+import { snabModal } from 'common/modal';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
@@ -45,7 +46,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     .spectators()
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return modal({
+  return snabModal({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);

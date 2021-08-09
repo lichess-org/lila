@@ -58,6 +58,7 @@
   <string name="requestAComputerAnalysis">Iarr anailís an ríomhaire</string>
   <string name="computerAnalysis">Anailís an ríomhaire</string>
   <string name="computerAnalysisAvailable">Anailís an ríomhaire ar fáil</string>
+  <string name="computerAnalysisDisabled">Anailís ríomhaireachta díchumasaithe</string>
   <string name="analysis">Clár anailíse</string>
   <string name="depthX">Doimhneacht %s</string>
   <string name="usingServerAnalysis">Ag úsáid anailís freastalaí</string>
@@ -535,7 +536,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="setTheBoard">Socraigh an bord</string>
   <string name="popularOpenings">Deiseanna a bhfuil tóir orthu</string>
   <string name="endgamePositions">Suíomhanna deiridh an cluiche</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Suíomh tosaigh Ficheall960: %s</string>
+  <string name="chess960StartPosition">Suíomh tosaigh Ficheall960: %s</string>
   <string name="startPosition">Suíomh tosaithe</string>
   <string name="clearBoard">Glan an bord</string>
   <string name="savePosition">Sábháil an suíomh</string>
@@ -1030,4 +1031,10 @@ Fág folamh chun cluichí a thosú ón ngnáthshuíomh tosaigh.</string>
   <string name="analysisOptions">Roghanna anailíse</string>
   <string name="focusChat">Comhrá spriocghrúpa</string>
   <string name="showHelpDialog">Taispeáin an dialóg cabhrach seo</string>
+  <string name="reopenYourAccount">Athoscailt do chuntas</string>
+  <string name="closedAccountChangedMind">Má dhún tú do chuntas, ach d’athraigh tú d’intinn, gheobhaidh tú seans amháin do chuntas a fháil ar ais.</string>
+  <string name="onlyWorksOnce">Ní oibreoidh sé seo ach uair amháin.</string>
+  <string name="cantDoThisTwice">Má dhúnann tú do chuntas an dara huair, ní bheidh aon bhealach ann é a athshlánú.</string>
+  <string name="emailAssociatedToaccount">Seoladh ríomhphoist a bhaineann leis an gcuntas</string>
+  <string name="sentEmailWithLink">Tá ríomhphost seolta againn le nasc.</string>
 </resources>

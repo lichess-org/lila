@@ -9,6 +9,7 @@
   <string name="yourTurn">Ти си на ред</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
   <string name="level">Ниво</string>
+  <string name="strength">Јачина</string>
   <string name="toggleTheChat">Вклучи/исклучи го разговорот</string>
   <string name="toggleSound">Вклучи/Исклучи звук</string>
   <string name="chat">Разговор</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Ти си со белите фигури</string>
   <string name="youPlayTheBlackPieces">Ти си со црните фигури</string>
   <string name="itsYourTurn">Ти си на ред!</string>
+  <string name="cheatDetected">Откриена е измама</string>
   <string name="kingInTheCenter">Кралот на средина</string>
   <string name="threeChecks">Три шаха</string>
   <string name="raceFinished">Трката заврши</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">Побарајте компјутерска анализа</string>
   <string name="computerAnalysis">Компјутерска анализа</string>
   <string name="computerAnalysisAvailable">Достапна е компјутерска анализа</string>
+  <string name="computerAnalysisDisabled">Компјутерска анализа оневозможена</string>
   <string name="analysis">Анализа</string>
   <string name="depthX">Длабочина %s</string>
   <string name="usingServerAnalysis">Користење на анализи од серверот</string>
@@ -94,6 +97,7 @@
   <string name="noGameFound">Не е пронајдена таква партија</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Би можеле да додадете повеќе партии од менито за поставки.</string>
   <string name="openingExplorer">Пребарувач на отворања</string>
+  <string name="openingEndgameExplorer">Истражувач на отворања/затворања</string>
   <string name="xOpeningExplorer">Пребарување отворања на: %s</string>
   <string name="winPreventedBy50MoveRule">Спречена е победата поради правилото за 50 потези</string>
   <string name="lossSavedBy50MoveRule">Спречен е поразот поради правилото на 50 потези</string>
@@ -116,6 +120,18 @@
   <string name="blunder">Глупа грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s голема грешка</item>
+    <item quantity="other">%s големи грешки</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s грешка</item>
+    <item quantity="other">%s грешки</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s непрецизност</item>
+    <item quantity="other">%s непрецизности</item>
+  </plurals>
   <string name="moveTimes">Време по потег</string>
   <string name="flipBoard">Сврти ја таблата</string>
   <string name="threefoldRepetition">Тројно повторување</string>
@@ -126,6 +142,8 @@
     <item quantity="one">%s приклучени играчи</item>
     <item quantity="other">%s приклучени играчи</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Нерешено од заеднички договор</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Педесет потези без напредок</string>
   <string name="currentGames">Игри кои се играат моментално</string>
   <plurals name="nbGames">
     <item quantity="one">Види ги сите %s игри</item>
@@ -196,6 +214,8 @@
     <item quantity="other">%s игри со тебе</item>
   </plurals>
   <string name="cancel">Откажи</string>
+  <string name="whiteTimeOut">Времето на белиот истече</string>
+  <string name="blackTimeOut">Времето на црниот истече</string>
   <string name="drawOfferSent">Понуда за реми е испратена</string>
   <string name="drawOfferDeclined">Понудата за реми е одбиена</string>
   <string name="drawOfferAccepted">Понудата за реми е прифатена</string>
@@ -424,6 +444,8 @@
   <string name="boardEditor">Уредник на таблата</string>
   <string name="setTheBoard">Постави ја таблата</string>
   <string name="popularOpenings">Популарни отворања</string>
+  <string name="endgamePositions">Завршни позиции</string>
+  <string name="chess960StartPosition">Почетна позиција за Chess960: %s</string>
   <string name="startPosition">Стартна позиција</string>
   <string name="clearBoard">Исчисти ја таблата</string>
   <string name="savePosition">Зачувај ја позицијата</string>
@@ -439,6 +461,7 @@
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Држава или знаме</string>
   <string name="thankYou">Благодарам!</string>
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
   <string name="inlineNotation">Подредена нотација</string>
@@ -460,6 +483,8 @@
   <string name="tournamentWinners">Победници на турнири</string>
   <string name="name">Име</string>
   <string name="description">Опис</string>
+  <string name="descPrivate">Приватен опис</string>
+  <string name="descPrivateHelp">Текст кој само членовите на тимот ќе го видат. Ако се постави, го заменува јавниот опис за членовите од тимот.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
   <string name="help">Помош</string>
@@ -480,6 +505,7 @@
   <string name="cheat">Мамење</string>
   <string name="insult">Навреда</string>
   <string name="troll">Трол</string>
+  <string name="ratingManipulation">Манипулација на рејтинг</string>
   <string name="other">Друго</string>
   <string name="reportDescriptionHelp">Внесете линк од играта/игрите и објаснете каде е проблемот во однесувањето на овој корисник. Немојте само да обвините за мамење, туку објаснете како дојдовте до тој заклучок. Вашата пријава ќе биди разгледана побрзо ако е напишана на англиски јазик.</string>
   <string name="error.provideOneCheatedGameLink">Ве молиме доставете барем една врска до партија со мамење.</string>
@@ -497,9 +523,12 @@
   <string name="currentPassword">Тековна лозинка</string>
   <string name="newPassword">Нова лозинка</string>
   <string name="newPasswordAgain">Нова лозинка (повторно)</string>
+  <string name="newPasswordsDontMatch">Новите лозинки не се совпаѓаат</string>
+  <string name="newPasswordStrength">Јачина на лозинка</string>
   <string name="clockInitialTime">Почетно време</string>
   <string name="clockIncrement">Временски додаток</string>
   <string name="privacy">Приватност</string>
+  <string name="privacyPolicy">Полиса за приватност</string>
   <string name="letOtherPlayersFollowYou">Дозволете останатите играчи да ве следат</string>
   <string name="letOtherPlayersChallengeYou">Дозволете останатите играчи да ве предизвикуваат</string>
   <string name="letOtherPlayersInviteYouToStudy">Дозволете останатите играчи да ве повикаат во студијата</string>
@@ -568,6 +597,7 @@
   <string name="error.email_unique">Е-адресата е веќе регистрирана</string>
   <string name="error.email_different">Ова веќе е вашата е-маил адреса</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтингот е ± %s</string>
+  <string name="onlyExistingConversations">Само веќе постоечки разговори</string>
   <string name="onlyFriends">Пријатели кои се онлајн</string>
   <string name="menu">Мени</string>
   <string name="castling">Рокада</string>
@@ -645,6 +675,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не можеш да го најдеш е-писмото, провери во папките како „ѓубре“, „спам“, „социјални“ итн.</string>
   <string name="weHaveSentYouAnEmailTo">Пративме е-пошта на %s. Кликни на врската во пораката за обнова на лозинката.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Со регистрацијата, се согласуваш со нашите %s.</string>
+  <string name="readAboutOur">Прочитај за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно задоцнување меѓу Вас и Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Време за процесирање потег на сервер на lichess</string>
   <string name="downloadAnnotated">Симни со коментари</string>
@@ -655,6 +686,7 @@
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можеш и да скролаш врз таблата за да одбереш потег.</string>
   <string name="analysisShapesHowTo">Притисни shift+click или десен клик за да нацрташ кругови или стрелки на таблата.</string>
   <string name="letOtherPlayersMessageYou">Овозможи пораки од другите играчи</string>
+  <string name="receiveForumNotifications">Добивај известувања кога си споменат на форум</string>
   <string name="shareYourInsightsData">Сподели ја твојата аналитика</string>
   <string name="withNobody">Со никого</string>
   <string name="withFriends">Со пријатели</string>
@@ -666,6 +698,7 @@
   <string name="enableKidMode">Вклучи го детскиот режим</string>
   <string name="disableKidMode">Исклучи го детскиот режим</string>
   <string name="security">Безбедност</string>
+  <string name="sessions">Сесии</string>
   <string name="revokeAllSessions">избришете сите сесии</string>
   <string name="playChessEverywhere">Играј шах секаде</string>
   <string name="asFreeAsLichess">Бесплатно како lichess</string>
@@ -820,4 +853,19 @@
   <string name="youCannotPostYetPlaySomeGames">Сеуште не можеш да објавуваш на форумот. Играј некоја игра!</string>
   <string name="subscribe">Заследи</string>
   <string name="unsubscribe">Престани да следиш</string>
+  <string name="mentionedYouInX">ве спомена во \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s ве спомена во \"%2$s\".</string>
+  <string name="invitedYouToX">ве покани во \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s ве покани во \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Сега сте дел од тимот.</string>
+  <string name="youHaveJoinedTeamX">Се приклучивте на \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Некој што сте го пријавиле е баниран</string>
+  <string name="congratsYouWon">Честитки, победивте!</string>
+  <string name="gameVsX">Игра против %1$s</string>
+  <string name="resVsX">%1$s против %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Некој го прегледал вашиот тренерски профил.</string>
+  <string name="newPendingReview">Нов преглед на чекање</string>
+  <string name="lostAgainstTOSViolator">Изгубивте против некој кој ги прекршил правилата на Lichess</string>
+  <string name="refundXpointsTimeControlY">Враќање: %1$s %2$s рејтинг поени</string>
+  <string name="timeAlmostUp">Времето е пред истекување!</string>
 </resources>

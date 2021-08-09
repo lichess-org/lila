@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">请求电脑分析</string>
   <string name="computerAnalysis">电脑分析</string>
   <string name="computerAnalysisAvailable">电脑分析可用</string>
+  <string name="computerAnalysisDisabled">电脑分析已禁用</string>
   <string name="analysis">分析面板</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用服务器分析</string>
@@ -93,6 +94,7 @@
   <string name="noGameFound">没找到符合要求的棋局</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
+  <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
@@ -133,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s 位在线棋手</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">双方同意和棋</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">无实质进展的 50 步</string>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
@@ -408,7 +412,8 @@
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Chess960 起始局面： %s</string>
+  <string name="endgamePositions">残局局面</string>
+  <string name="chess960StartPosition">Chess960 起始局面： %s</string>
   <string name="startPosition">起始局面</string>
   <string name="clearBoard">清空棋盘</string>
   <string name="savePosition">保存局面</string>
@@ -442,7 +447,7 @@
   <string name="autoSwitch">自动切换</string>
   <string name="puzzles">谜题</string>
   <string name="latestUpdates">最近更新</string>
-  <string name="tournamentWinners">锦标赛赢家</string>
+  <string name="tournamentWinners">锦标赛冠军</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
   <string name="descPrivate">内部简介</string>
@@ -603,7 +608,7 @@
   <string name="lichessTournaments">Lichess 锦标赛</string>
   <string name="tournamentFAQ">锦标赛常见问题</string>
   <string name="tournamentOfficial">官方比赛</string>
-  <string name="timeBeforeTournamentStarts">锦标赛开始前的时间</string>
+  <string name="timeBeforeTournamentStarts">距比赛开始时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
@@ -642,8 +647,10 @@
   <string name="printFriendlyPDF">打印版PDF</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用鼠标滚轮浏览棋局。</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">将鼠标移到电脑分析变招上进行预览</string>
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
   <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
+  <string name="receiveForumNotifications">在论坛中被提及时接收通知</string>
   <string name="shareYourInsightsData">分享您的国际象棋统计数据</string>
   <string name="withNobody">不分享</string>
   <string name="withFriends">和朋友分享</string>
@@ -655,6 +662,7 @@
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>
+  <string name="sessions">登录设备</string>
   <string name="revokeAllSessions">注销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="asFreeAsLichess">Lichess 永远免费</string>
@@ -823,6 +831,51 @@
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
   <string name="welcome">欢迎！</string>
-  <string name="lichessPatronInfo">Lichess是一个慈善机构，完全免费/图书馆的开放源码软件。
-所有操作成本、开发和内容完全由用户捐款供资。</string>
+  <string name="lichessPatronInfo">Lichess 是一个非盈利的，完全免费、自由的开源软件，所有的运维成本、开发以及内容完全来自于用户捐赠。</string>
+  <string name="coachManager">教练管理</string>
+  <string name="streamerManager">直播管理</string>
+  <string name="cancelTournament">取消锦标赛</string>
+  <string name="tournDescription">锦标赛描述</string>
+  <string name="tournDescriptionHelp">您有其他的信息要告诉参加者们吗？请不要写太多。可以使用Markdown来写链接：[文字](https://url)</string>
+  <string name="ratedFormHelp">排位赛
+将影响玩家的等级分</string>
+  <string name="onlyMembersOfTeam">仅团队成员</string>
+  <string name="noRestriction">没有限制</string>
+  <string name="minimumRatedGames">最少排位赛局数</string>
+  <string name="minimumRating">最低等级分</string>
+  <string name="maximumWeeklyRating">每周最高评分</string>
+  <string name="onlyTitled">仅限有头衔玩家</string>
+  <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
+  <string name="positionInputHelp">将一个有效的 FEN 粘贴于此作为所有对局的起始位置。
+仅适用于标准国际象棋，对变体无效。
+你可以试用 %s 来生成 FEN，然后将其粘贴到这里。
+置空表示以标准位置开始比赛。</string>
+  <string name="cancelSimul">取消车轮战</string>
+  <string name="simulHostcolor">主持所执方</string>
+  <string name="estimatedStart">预计开始时间</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">展示在 %s</string>
+  <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的车轮战，对私人车轮战无效。</string>
+  <string name="simulDescription">车轮战描述</string>
+  <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>
+  <string name="markdownAvailable">%s 可用于更高级的格式。</string>
+  <string name="inYourLocalTimezone">在您的本地时区</string>
+  <string name="tournChat">比赛聊天</string>
+  <string name="noChat">关闭聊天</string>
+  <string name="onlyTeamLeaders">仅限队长</string>
+  <string name="onlyTeamMembers">仅限队员</string>
+  <string name="navigateMoveTree">定位</string>
+  <string name="mouseTricks">鼠标使用技巧</string>
+  <string name="toggleLocalAnalysis">切换本地计算机分析</string>
+  <string name="toggleAllAnalysis">切换所有（本地+服务器）计算机分析</string>
+  <string name="playComputerMove">走电脑推荐的最佳招</string>
+  <string name="analysisOptions">分析选项</string>
+  <string name="focusChat">聚焦聊天</string>
+  <string name="showHelpDialog">显示此帮助对话框</string>
+  <string name="reopenYourAccount">重新打开您的帐户</string>
+  <string name="closedAccountChangedMind">如果您关闭了帐户，但此后又改变了主意，您可以获得一次恢复账户的机会。</string>
+  <string name="onlyWorksOnce">账户关闭后只能恢复一次</string>
+  <string name="cantDoThisTwice">如果您第二次关闭您的帐户，将无法恢复。</string>
+  <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
+  <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">比赛入场码</string>
 </resources>

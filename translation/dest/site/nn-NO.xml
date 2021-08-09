@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Start sjakkprogramanalyse</string>
   <string name="computerAnalysis">Sjakkprogramanalyse</string>
   <string name="computerAnalysisAvailable">Dataanalyse er tilgjengeleg</string>
+  <string name="computerAnalysisDisabled">Maskinanalyse er slått av</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Djupn %s</string>
   <string name="usingServerAnalysis">Brukar serveranalyse</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s spelar</item>
     <item quantity="other">%s spelarar</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis etter semje</string>
+  <string name="fiftyMovesWithoutProgress">Femti trekk utan framgang</string>
   <string name="currentGames">Parti som blir spela no</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -910,4 +913,11 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="analysisOptions">Analyseval</string>
   <string name="focusChat">Fokusér prateromet</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
+  <string name="reopenYourAccount">Opne kontoen din på ny</string>
+  <string name="closedAccountChangedMind">Om du har stengd kontoen din, men ynskjer å ta den attende, får du eitt høve til å opna den på ny.</string>
+  <string name="onlyWorksOnce">Dette kan du berre gjera ein einaste gong.</string>
+  <string name="cantDoThisTwice">Om du stengde kontoen ein andre gong, er det ikkje lengre mogleg å opna den att.</string>
+  <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
+  <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Tilgangskode til turnering</string>
 </resources>

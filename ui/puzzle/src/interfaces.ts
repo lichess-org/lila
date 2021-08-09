@@ -46,6 +46,7 @@ export interface Controller extends KeyboardController {
   currentEvals(): NodeEvals;
   ongoing: boolean;
   playUci(uci: string): void;
+  playUciList(uciList: string[]): void;
   getOrientation(): Color;
   threatMode: Prop<boolean>;
   getNode(): Tree.Node;

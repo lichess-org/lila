@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Be om computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
   <string name="computerAnalysisAvailable">Datamaskinanalyse tilgjengelig</string>
+  <string name="computerAnalysisDisabled">Maskinanalyse er skrudd av</string>
   <string name="analysis">Analysebrett</string>
   <string name="depthX">Dybde %s</string>
   <string name="usingServerAnalysis">Bruker serveranalyse</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis ved overenskomst</string>
+  <string name="fiftyMovesWithoutProgress">Femti trekk uten framgang</string>
   <string name="currentGames">Partier som spilles nå</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -441,7 +444,7 @@
   <string name="setTheBoard">Still opp brett</string>
   <string name="popularOpenings">Populære åpninger</string>
   <string name="endgamePositions">Sluttspillstillinger</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Fischersjakkutgangsstilling: %s</string>
+  <string name="chess960StartPosition">Fischersjakkutgangsstilling: %s</string>
   <string name="startPosition">Utgangsstilling</string>
   <string name="clearBoard">Tøm brett</string>
   <string name="savePosition">Lagre stilling</string>
@@ -909,4 +912,11 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="analysisOptions">Analysevalg</string>
   <string name="focusChat">Fokus på samtale</string>
   <string name="showHelpDialog">Vis denne hjelpedialogen</string>
+  <string name="reopenYourAccount">Gjenopprett kontoen din</string>
+  <string name="closedAccountChangedMind">Hvis du har avsluttet kontoen din og så ombestemt deg, får du én sjanse til å gjenopprette kontoen din.</string>
+  <string name="onlyWorksOnce">Dette fungerer bare én gang.</string>
+  <string name="cantDoThisTwice">Hvis du avslutter kontoen din for andre gang, er den tapt for alltid.</string>
+  <string name="emailAssociatedToaccount">E-postadresse tilknyttet kontoen</string>
+  <string name="sentEmailWithLink">Vi har sendt deg en e-post med en lenke.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turneringsadgangskode</string>
 </resources>

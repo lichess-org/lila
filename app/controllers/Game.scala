@@ -147,8 +147,11 @@ final class Game(
       opening = getBoolOpt("opening", req) | extended,
       literate = getBoolOpt("literate", req) | false,
       pgnInJson = getBoolOpt("pgnInJson", req) | false,
-      delayMoves = !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
+      delayMoves = delayMovesFromReq(req)
     )
+
+  private[controllers] def delayMovesFromReq(req: RequestHeader) =
+    !get("key", req).exists(env.noDelaySecretSetting.get().value.contains)
 
   private[controllers] def gameContentType(config: GameApiV2.Config) =
     config.format match {

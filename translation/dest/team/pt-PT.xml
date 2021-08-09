@@ -43,8 +43,8 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar a equipa</string>
   <string name="closeTeamDescription">Encerrar a equipa para sempre.</string>
-  <string name="teamPassword">Palavra-passe da equipa</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcional) Uma palavra-passe de que os novos membros necessitam para se juntarem a esta equipa.</string>
-  <string name="incorrectTeamPassword">Palavra-passe da equipa incorreta.</string>
+  <string name="entryCode">Código da equipa</string>
+  <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
+  <string name="incorrectEntryCode">Código incorreto.</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
 </resources>

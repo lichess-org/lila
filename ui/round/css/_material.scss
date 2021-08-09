@@ -1,5 +1,6 @@
+@import '../../common/css/component/material';
+
 .material {
-  @extend %flex-center-nowrap;
   align-self: center;
   height: 40px;
   line-height: 0;
@@ -18,31 +19,7 @@
     display: inline-block;
 
     &.pawn {
-      background-image: url(../piece/mono/P.svg);
-    }
-
-    &.bishop {
-      background-image: url(../piece/mono/B.svg);
-    }
-
-    &.knight {
-      background-image: url(../piece/mono/N.svg);
-    }
-
-    &.rook {
-      background-image: url(../piece/mono/R.svg);
-    }
-
-    &.queen {
-      background-image: url(../piece/mono/Q.svg);
-    }
-
-    &.king {
-      background-image: url(../piece/mono/K.svg);
-    }
-
-    @if $theme == 'transp' {
-      filter: brightness(1.3) drop-shadow(0 1px 1px #000);
+      margin-left: -15px;
     }
   }
 
@@ -63,7 +40,7 @@
     mpiece {
       width: $col1-mat-height * 3/4;
       height: $col1-mat-height * 3/4;
-      margin-left: -8px;
+      margin-left: -8px !important;
     }
   }
 }

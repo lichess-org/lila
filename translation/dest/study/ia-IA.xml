@@ -78,6 +78,5 @@
   <string name="clearChat">Rader le chat</string>
   <string name="deleteTheStudyChatHistory">Deler le chronologia del chat in le studio? Iste action es irreversibile!</string>
   <string name="deleteStudy">Deler studio</string>
-  <string name="deleteTheEntireStudy">Deler le integre studio? Iste action es irreversibile!</string>
   <string name="whereDoYouWantToStudyThat">Ubi tu vole studiar isto?</string>
 </resources>

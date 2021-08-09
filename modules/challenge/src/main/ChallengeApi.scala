@@ -1,5 +1,7 @@
 package lila.challenge
 
+import cats.data.Validated
+import cats.data.Validated.{ Invalid, Valid }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
@@ -7,9 +9,9 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
+import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
-import lila.i18n.I18nLangPicker
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -48,8 +50,6 @@ final class ChallengeApi(
   def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
   def activeByIdBy(id: Challenge.ID, orig: User)  = repo.byIdBy(id, orig).dmap(_.filter(_.active))
 
-  def onlineByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.online))
-
   val countInFor = cacheApi[User.ID, Int](65536, "challenge.countInFor") {
     _.expireAfterAccess(20 minutes)
       .buildAsyncFuture(repo.countCreatedByDestId)
@@ -80,28 +80,30 @@ final class ChallengeApi(
       Bus.publish(Event.Decline(c declineWith reason), "challenge")
     }
 
-  private val acceptQueue = new lila.hub.DuctSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
+  private val acceptQueue =
+    new lila.hub.AsyncActorSequencer(maxSize = 64, timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,
       user: Option[User],
       sid: Option[String],
       color: Option[chess.Color] = None
-  ): Fu[Option[Pov]] =
+  ): Fu[Validated[String, Option[Pov]]] =
     acceptQueue {
       if (user.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config))))
-        fuccess(none)
+        fuccess(Invalid("Game incompatible with a BOT account"))
       else if (c.challengerIsOpen)
-        repo.setChallenger(c.setChallenger(user, sid), color) inject none
-      else
+        repo.setChallenger(c.setChallenger(user, sid), color) inject Valid(none)
+      else {
         joiner(c, user, color).flatMap {
-          _ ?? { pov =>
+          case Valid(pov) =>
             (repo accept c) >>- {
               uncacheAndNotify(c)
               Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
-            } inject pov.some
-          }
+            } inject Valid(pov.some)
+          case Invalid(err) => fuccess(Invalid(err))
         }
+      }
     }
 
   def sendRematchOf(game: Game, user: User): Fu[Boolean] =
@@ -120,8 +122,8 @@ final class ChallengeApi(
       lila.common.Future.applySequentially(cs)(remove).void
     }
 
-  def oauthAccept(dest: User, challenge: Challenge): Fu[Option[Game]] =
-    joiner(challenge, dest.some, none).map2(_.game)
+  def oauthAccept(dest: User, challenge: Challenge): Fu[Validated[String, Game]] =
+    joiner(challenge, dest.some, none).map(_.map(_.game))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuFalse

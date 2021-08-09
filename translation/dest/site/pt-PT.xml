@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise de computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
+  <string name="computerAnalysisDisabled">Análise de computador desactivada</string>
   <string name="analysis">Análise</string>
   <string name="depthX">Profundidade %s</string>
   <string name="usingServerAnalysis">A usar a análise do servidor</string>
@@ -96,7 +97,7 @@
   <string name="noGameFound">Nenhum jogo encontrado</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez incluir mais jogos no menu de preferências?</string>
   <string name="openingExplorer">Explorador de aberturas</string>
-  <string name="openingEndgameExplorer">Explorador de aberturas/finais de jogos</string>
+  <string name="openingEndgameExplorer">Explorador de Aberturas/Finais de Jogos</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s jogador conectado</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Empate por acordo mútuo</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquenta jogadas sem progresso</string>
   <string name="currentGames">Partidas a decorrer</string>
   <plurals name="nbGames">
     <item quantity="one">%s jogo</item>
@@ -442,7 +445,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="setTheBoard">Partilha o tabuleiro</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="endgamePositions">Posições finais</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posição inicial do Xadrez960: %s</string>
+  <string name="chess960StartPosition">Posição inicial do Xadrez960: %s</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar o tabuleiro</string>
   <string name="savePosition">Guardar a posição</string>
@@ -910,4 +913,11 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar no bate-papo</string>
   <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
+  <string name="reopenYourAccount">Reabrir a sua conta</string>
+  <string name="closedAccountChangedMind">Se fechou a sua conta mas desde então mudou de ideias, terá uma oportunidade de recuperar a sua conta.</string>
+  <string name="onlyWorksOnce">Isto só vai funcionar uma única vez.</string>
+  <string name="cantDoThisTwice">Se fechar a conta uma segunda vez, não haverá forma de a recuperar.</string>
+  <string name="emailAssociatedToaccount">Endereço de email associado à conta</string>
+  <string name="sentEmailWithLink">Enviámos-lhe um e-mail com um link.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Código de entrada do torneio</string>
 </resources>

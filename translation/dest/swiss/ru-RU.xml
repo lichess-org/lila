@@ -48,29 +48,67 @@
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
   <string name="newSwiss">Новый турнир по швейцарской системе</string>
   <string name="swissVsArenaQ">Когда использовать турниры по швейцарской системе вместо арен?</string>
+  <string name="swissVsArenaA">В турнирах по швейцарской системе все участники играют одинаковое количество партий и могут играть друг с другом только один раз.
+Это может быть хорошим выбором для клубов и официальных турниров.</string>
   <string name="pointsCalculationQ">Как начисляются очки?</string>
+  <string name="pointsCalculationA">Победа приносит одно очко, ничья – половину очка, а поражение – ноль очков.
+Если игрок остаётся без пары, то он получает компенсацию в размере одного очка.</string>
   <string name="tiebreaksCalculationQ">Как рассчитываются дополнительные показатели?</string>
+  <string name="sonnebornBergerScore">Коэффициент Бергера</string>
+  <string name="tiebreaksCalculationA">Учитывать %s.
+Считать сумму всех очков противников, у которых участник выиграл, плюс половину суммы очков противников, с которыми участник сыграл вничью.</string>
+  <string name="pairingsQ">Как подбираются пары?</string>
+  <string name="dutchSystem">Голландская система</string>
   <string name="FIDEHandbook">Руководство ФИДЕ</string>
+  <string name="pairingsA">Используется %1$s, реализованная с помощью %2$s, в соответствии с %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Что произойдёт, если в турнире будет больше раундов, чем игроков?</string>
+  <string name="moreRoundsThanPlayersA">Когда все возможные пары сыграют, турнир закончится и будут объявлены победители.</string>
+  <string name="restrictedToTeamsQ">Зачем нужны ограничения для команд?</string>
+  <string name="restrictedToTeamsA">Швейцарские турниры не созданы для онлайн-шахмат. В них важны пунктуальность, размеренность и спокойствие игроков.
+Мы полагаем, что такие условия больше подходят клубным турнирам, нежели всеобщим.</string>
   <string name="numberOfByesQ">Сколько bye может получить игрок?</string>
+  <string name="numberOfByesA">Игрок получает очко за несыгранную партию, если не удаётся найти соперника в этом туре.
+Также, пол-очка присуждается за позднее присоединение к турниру.</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, он просрочит время и проиграет партию.
 Тогда система снимет игрока с турнира, чтобы избежать дальнейших поражений.
  Игрок может вернуться в турнир в любое время.</string>
+  <string name="lateJoinQ">Могут ли игроки присоединиться к турниру позже?</string>
+  <string name="lateJoinA">Да, если не сыграны половина раундов. Например, в 11-раундовом Швейцарском турнире игрок может начать играть, если ещё не начался 6-й раунд. В 12-раундовом — если 7-й соответственно. Позднее вступление даёт только один пропуск, даже если пропущено несколько раундов.</string>
   <string name="willSwissReplaceArenasQ">Заменят ли турниры по швейцарской системе турниры «Арены»?</string>
   <string name="willSwissReplaceArenasA">Нет. Они дополняют друг друга.</string>
   <string name="roundRobinQ">Что насчёт круговой системы?</string>
+  <string name="roundRobinA">Мы бы хотели добавить, но, к сожалению, Круговой турнир не подходит для онлайн-игр. Причина в том, что нет справедливого решения для ситуаций, когда игрок покидает турнир раньше времени. Мы не можем надеяться, что все игроки сыграют все игры в онлайн-турнире. Если так и выходит, то Круговой турнир оказывается испорчен, поэтому не стоит его и начинать.
+Наиболее подходящей заменой Круговому турниру может быть турнир по Швейцарской системе с большим числом раундов. В этом случае все возможные пары могут сыграть за время турнира.</string>
+  <string name="otherSystemsQ">Что насчёт других турнирных систем?</string>
+  <string name="otherSystemsA">Сейчас мы не планируем добавлять другие турнирные системы.</string>
+  <string name="swissDescription">В турнире по Швейцарской системе %1$s каждый участник не обязательно сыграет с каждым из остальных участников. Участники играют попарно в каждом раунде, и пары подбираются с помощью набора правил, придуманных так, чтобы все играли с соперниками одинаковой силы, с примерно одинаковым числом очков, но никогда с одним и тем же соперником. Побеждает в турнире участник с максимальным числом набранных очков за все раунды. Все учасники играют в каждом раунде, кроме случая, когда число учасников нечётное.</string>
+  <string name="teamOnly">Швейцарские турниры могут быть созданы только руководителями клубов, и играть в них могут только члены клуба.
+%1$s, чтобы начать играть в Швейцарском турнире.</string>
+  <string name="joinOrCreateTeam">Присоединитесь или создайте клуб</string>
   <string name="nowPlaying">Сейчас играются</string>
   <string name="startingSoon">Скоро начинаются</string>
+  <string name="comparison">Сравнение</string>
   <string name="tournDuration">Продолжительность турнира</string>
+  <string name="predefinedDuration">Заданная продолжительность по времени</string>
+  <string name="durationUnknown">Заданное максимальное число раундов, продолжительность неизвестна</string>
   <string name="numberOfGames">Количество партий</string>
   <string name="numberOfGamesAsManyAsPossible">Столько, сколько может быть сыграно за отведённое время</string>
   <string name="numberOfGamesPreDefined">Решается заранее, одинаково для всех игроков</string>
   <string name="pairingSystem">Количество партий</string>
   <string name="pairingSystemArena">Любой доступный противник со схожим рейтингом</string>
+  <string name="pairingSystemSwiss">Лучше подбор пар по очкам и тай-брейкам</string>
+  <string name="pairingWaitTime">Ожидание подбора пар</string>
   <string name="pairingWaitTimeFast">Быстро: не нужно ждать всех игроков</string>
+  <string name="pairingWaitTimeSlow">Медленно: ожидание всех игроков</string>
+  <string name="identicalPairing">Одинаковые соперники в парах</string>
+  <string name="possibleButNotConsecutive">Возможно, но не подряд</string>
+  <string name="identicalForbidden">Запрещено</string>
+  <string name="lateJoin">Позднее вступление</string>
+  <string name="lateJoinUntil">Да, если ещё не сыграна половина раундов</string>
   <string name="pause">Пауза</string>
   <string name="pauseSwiss">Да, но может уменьшить количество раундов</string>
   <string name="streaksAndBerserk">Серии и берсерк</string>
+  <string name="similarToOTB">Подобно классическим турнирам</string>
   <string name="unlimitedAndFree">Неограниченно и бесплатно</string>
 </resources>

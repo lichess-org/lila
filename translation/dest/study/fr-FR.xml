@@ -126,7 +126,7 @@
   <string name="clearChat">Effacer le tchat</string>
   <string name="deleteTheStudyChatHistory">Supprimer l\'historique du tchat de l\'étude ? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>
-  <string name="deleteTheEntireStudy">Supprimer la totalité de l\'étude ? Cette action est irréversible !</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Supprimer toute l’étude? Aucun retour en arrière possible! Taper le nom de l’étude pour confirmer : %s</string>
   <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
   <string name="goodMove">Bon coup</string>
   <string name="mistake">Erreur</string>

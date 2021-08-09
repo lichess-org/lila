@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">竞技场比赛</string>
+  <string name="arenaTournaments">竞技场</string>
   <string name="isItRated">锦标赛有积分吗？</string>
   <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋是无碍的。</string>
   <string name="isRated">本锦标赛计分并会影响您的排名。</string>
@@ -40,4 +40,12 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有%s团队</item>
   </plurals>
+  <string name="newTeamBattle">新团队战</string>
+  <string name="customStartDate">自定义开始日期</string>
+  <string name="customStartDateHelp">在您的当地时区，这将覆盖 \"距比赛开始时间\" 选项</string>
+  <string name="allowBerserk">允许神速模式</string>
+  <string name="allowBerserkHelp">允许玩家将自己的时间减半以获得额外得分</string>
+  <string name="allowChatHelp">允许玩家在聊天室中讨论</string>
+  <string name="arenaStreaks">连胜奖励</string>
+  <string name="arenaStreaksHelp">连胜两场后，获得4分而不是2分。</string>
 </resources>

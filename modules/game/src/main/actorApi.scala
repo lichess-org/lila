@@ -31,3 +31,11 @@ object MoveGameEvent {
 }
 
 case class BoardDrawOffer(pov: Pov)
+object BoardDrawOffer {
+  def makeChan(gameId: Game.ID) = s"boardDrawOffer:$gameId"
+}
+
+case class BoardTakeback(pov: Pov)
+object BoardTakeback {
+  def makeChan(gameId: Game.ID) = s"boardTakeback:$gameId"
+}

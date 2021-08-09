@@ -95,7 +95,7 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="usernamesCannotBeChanged">Nej, brugernavne kan ikke ændres af tekniske og praktiske årsager. Brugernavne optræder for mange steder: i databaser, udtræk, logger og folks bevidsthed. Du kan kun ændre bogstavstørrelsen én gang.</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
   <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
-  <string name="wayOfBerserkExplanation">For at få det udfordrede hiimgosu sig selv til at berserke og vinde 100%% partier af %s.</string>
+  <string name="wayOfBerserkExplanation">For at få det, udfordrede hiimgosu sig selv til at bersærke og vinde alle partier af %s.</string>
   <string name="aHourlyBulletTournament">en time-Bullet turnering</string>
   <string name="goldenZeeExplanation">ZugAddict streamede og havde de sidste to timer forgæves forsøgt at slå A.I. niveau 8 i et 1+0 spil. Thibault fortalte ham, at hvis det lykkedes ham at gøre det på stream, ville han få et unikt trofæ. En time senere knuste han Stockfish og løftet blev indfriet.</string>
   <string name="lichessRatings">Lichess-ratings</string>

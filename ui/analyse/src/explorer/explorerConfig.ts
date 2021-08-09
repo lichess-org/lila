@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { prop } from 'common';
+import { bind } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp } from 'common/storage';
-import { bind, dataIcon } from '../util';
+import { dataIcon } from '../util';
 import { Game } from '../interfaces';
 import { ExplorerDb, ExplorerSpeed, ExplorerConfigData, ExplorerConfigCtrl } from './interfaces';
 
@@ -76,9 +77,11 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
         'div.choices',
         d.db.available.map(function (s) {
           return h(
-            'span',
+            'button',
             {
-              class: { selected: d.db.selected() === s },
+              attrs: {
+                'aria-pressed': `${d.db.selected() === s}`,
+              },
               hook: bind('click', _ => ctrl.toggleDb(s), ctrl.redraw),
             },
             s
@@ -98,9 +101,11 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
               'div.choices',
               d.rating.available.map(function (r) {
                 return h(
-                  'span',
+                  'button',
                   {
-                    class: { selected: d.rating.selected().includes(r) },
+                    attrs: {
+                      'aria-pressed': `${d.rating.selected().includes(r)}`,
+                    },
                     hook: bind('click', _ => ctrl.toggleRating(r), ctrl.redraw),
                   },
                   r.toString()
@@ -114,9 +119,11 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
               'div.choices',
               d.speed.available.map(function (s) {
                 return h(
-                  'span',
+                  'button',
                   {
-                    class: { selected: d.speed.selected().includes(s) },
+                    attrs: {
+                      'aria-pressed': `${d.speed.selected().includes(s)}`,
+                    },
                     hook: bind('click', _ => ctrl.toggleSpeed(s), ctrl.redraw),
                   },
                   s

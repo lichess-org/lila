@@ -39,6 +39,49 @@
   <string name="swissVsArenaA">Num torneio Suíço, todos os participantes jogam o mesmo número de jogos e só podem jogar um contra outro uma única vez.
 Pode ser uma boa opção para clubes e torneios oficiais.</string>
   <string name="pointsCalculationQ">Como são calculadas as pontuações?</string>
+  <string name="pointsCalculationA">Uma vitória vale um ponto, um empate vale um meio ponto e uma derrota vale zero pontos.
+Quando um jogador não pode ser emparelhado durante uma ronda, recebe um bye que vale um ponto.</string>
+  <string name="sonnebornBergerScore">Pontuação de Sonneborn- Berger</string>
+  <string name="tiebreaksCalculationA">Com o %s.
+Adiciona as pontuações de cada adversário que o jogador vence e metade da pontuação de cada adversário com que o jogador empata.</string>
+  <string name="pairingsQ">Como são decididos os emparelhamentos?</string>
+  <string name="dutchSystem">Sistema Holandês</string>
+  <string name="FIDEHandbook">Manual da FIDE</string>
+  <string name="pairingsA">Com o %1$s, implementado por %2$s, de acordo com o %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">O que acontece se o torneio tiver mais rondas que jogadores?</string>
+  <string name="moreRoundsThanPlayersA">Quando forem jogadas todas as rondas possíveis, o torneio será encerrado e declarado um vencedor.</string>
+  <string name="restrictedToTeamsQ">Por que é limitado às equipas?</string>
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez on-line. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
+  <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
+  <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
+  <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
+  <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
+  <string name="willSwissReplaceArenasA">Não. São características complementares.</string>
+  <string name="roundRobinQ">E no que diz respeito ao Round Robin?</string>
+  <string name="otherSystemsQ">E quanto a outros sistemas de torneio?</string>
+  <string name="otherSystemsA">De momento não planeamos adicionar mais sistemas de torneio ao Lichess.</string>
+  <string name="teamOnly">Os torneios Suíços só podem ser criados por líderes de equipa e só podem ser jogados por membros da equipa.           
+%1$s para começar a jogar em torneios Suíços.</string>
+  <string name="joinOrCreateTeam">Junte-se ou crie uma equipa</string>
+  <string name="nowPlaying">A jogar</string>
+  <string name="startingSoon">A iniciar em breve</string>
+  <string name="comparison">Comparação</string>
+  <string name="tournDuration">Duração do torneio</string>
+  <string name="predefinedDuration">Duração predefinida em minutos</string>
+  <string name="durationUnknown">Máximo de jogadas predefinido, mas duração desconhecida</string>
+  <string name="numberOfGames">Número de jogos</string>
+  <string name="numberOfGamesAsManyAsPossible">Tantos quantos puderem ser jogados na duração atribuída</string>
+  <string name="numberOfGamesPreDefined">Decidido antecipadamente, o mesmo para todos os jogadores</string>
+  <string name="pairingSystem">Sistema de emparelhamento</string>
+  <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
+  <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
+  <string name="pairingWaitTimeFast">Rápido: não espera por todos os jogadores</string>
+  <string name="pairingWaitTimeSlow">Lento: espera por todos os jogadores</string>
+  <string name="identicalPairing">Emparelhamento idêntico</string>
+  <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
+  <string name="identicalForbidden">Proibido</string>
+  <string name="pause">Pausa</string>
+  <string name="similarToOTB">Semelhante a torneios OTB</string>
+  <string name="unlimitedAndFree">Ilimitado e livre</string>
 </resources>

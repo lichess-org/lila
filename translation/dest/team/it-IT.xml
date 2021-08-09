@@ -45,9 +45,9 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="leadersChat">Chat dei leader</string>
   <string name="closeTeam">Chiudi la squadra</string>
   <string name="closeTeamDescription">Chiude la squadra per sempre.</string>
-  <string name="teamPassword">Password di squadra</string>
-  <string name="teamPasswordDescriptionForLeader">(Facoltativo) Una password che i nuovi membri devono sapere per unirsi a questo team.</string>
-  <string name="incorrectTeamPassword">Password del team errata.</string>
+  <string name="entryCode">Codice di accesso alla squadra</string>
+  <string name="entryCodeDescriptionForLeader">(Opzionale) Un codice di accesso che i nuovi membri devono conoscere per unirsi a questa squadra.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Codice di accesso errato.</string>
   <string name="teamAlreadyExists">Questa squadra esiste già.</string>
   <string name="upcomingTourns">Prossimi tornei</string>
   <string name="completedTourns">Tornei completati</string>

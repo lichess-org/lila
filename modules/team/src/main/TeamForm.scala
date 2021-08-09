@@ -4,7 +4,7 @@ import play.api.data._
 import play.api.data.Forms._
 import scala.concurrent.duration._
 
-import lila.common.Form.{ cleanNonEmptyText, cleanText, numberIn }
+import lila.common.Form.{ cleanNonEmptyText, cleanText, mustNotContainLichess, numberIn }
 import lila.db.dsl._
 
 final private[team] class TeamForm(
@@ -15,11 +15,11 @@ final private[team] class TeamForm(
     extends lila.hub.CaptchedForm {
 
   private object Fields {
-    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60)
+    val name     = "name"     -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
     val location = "location" -> optional(cleanText(minLength = 3, maxLength = 80))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
-      "team:incorrectTeamPassword",
+      "team:incorrectEntryCode",
       pw => team.passwordMatches(pw.??(_.trim))
     )
     def requestMessage(team: Team) =

@@ -42,8 +42,8 @@
 Als een speler niet kan worden gepaard tijdens een ronde, krijgt deze een bye met één punt.</string>
   <string name="tiebreaksCalculationQ">Hoe worden tiebreaks berekend?</string>
   <string name="sonnebornBergerScore">Sonneborn-Bergerscore</string>
-  <string name="tiebreaksCalculationA">Met %s.
-Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus de helft van de punten van elke tegenstander met wie de speler remiseerde.</string>
+  <string name="tiebreaksCalculationA">Met de %s.
+Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus de helft van de punten van elke tegenstander met wie de speler remise speelde.</string>
   <string name="pairingsQ">Hoe komen paringen tot stand?</string>
   <string name="dutchSystem">Systeem Keizer</string>
   <string name="FIDEHandbook">FIDE-handboek</string>
@@ -64,7 +64,7 @@ Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partij
   <string name="lateJoinA">Ja, tot meer dan de helft van de rondes is begonnen; in een Zwitsers toernooi van 11 rondes bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en in een toernooi van 12 rondes voordat ronde 7 begint.
 Late deelnemers krijgen een enkele bye, ook als ze meerdere rondes gemist hebben.</string>
   <string name="willSwissReplaceArenasQ">Zullen Zwitserse toernooien de arena-toernooien vervangen?</string>
-  <string name="willSwissReplaceArenasA">Nee. Ze zijn aanvullende functies.</string>
+  <string name="willSwissReplaceArenasA">Nee. Het zijn aanvullende functies.</string>
   <string name="roundRobinQ">Hoe zit het met Round Robin?</string>
   <string name="roundRobinA">We zouden het graag toevoegen, maar helaas round-robin werkt niet online.
 De reden is dat het geen eerlijke manier biedt om om te gaan met mensen die het toernooi vroegtijdig verlaten. We kunnen niet verwachten dat alle spelers al hun partijen in een online evenement ook zullen spelen. Dat gebeurt gewoonweg niet, en als gevolg daarvan zouden de meeste round-robintoernooien fouten bevatten en oneerlijk zijn, wat afbreuk doet aan hun bestaansrecht.
@@ -76,11 +76,11 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
 %1$s om te beginnen met spelen in Zwitserse toernooien.</string>
   <string name="joinOrCreateTeam">Word lid van een team of maak zelf een team aan</string>
   <string name="nowPlaying">Nu bezig</string>
-  <string name="startingSoon">Aanstaand</string>
+  <string name="startingSoon">Begint binnenkort</string>
   <string name="comparison">Vergelijking</string>
   <string name="tournDuration">Duur van het toernooi</string>
-  <string name="predefinedDuration">Voorgedefinieerde duur in minuten</string>
-  <string name="durationUnknown">Voorgedefinieerd maximumaantal rondes, maar duur onbekend</string>
+  <string name="predefinedDuration">Vooraf gedefinieerde duur in minuten</string>
+  <string name="durationUnknown">Vooraf gedefinieerd maximum aantal rondes, maar duur onbekend</string>
   <string name="numberOfGames">Aantal partijen</string>
   <string name="numberOfGamesAsManyAsPossible">Zoveel als er kunnen worden gespeeld binnen de toegewezen tijdsduur</string>
   <string name="numberOfGamesPreDefined">Vooraf bepaald, hetzelfde voor alle spelers</string>

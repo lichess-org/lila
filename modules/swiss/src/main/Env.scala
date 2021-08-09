@@ -75,6 +75,8 @@ final class Env(
 
   lazy val getName = new GetSwissName(cache.name.sync)
 
+  private lazy val officialSchedule = wire[SwissOfficialSchedule]
+
   lila.common.Bus.subscribeFun(
     "finishGame",
     "adjustCheater",
@@ -89,15 +91,21 @@ final class Env(
 
   ResilientScheduler(
     every = Every(1 seconds),
-    atMost = AtMost(20 seconds),
+    timeout = AtMost(20 seconds),
     initialDelay = 20 seconds
   ) { api.startPendingRounds }
 
   ResilientScheduler(
     every = Every(10 seconds),
-    atMost = AtMost(15 seconds),
+    timeout = AtMost(15 seconds),
     initialDelay = 20 seconds
   ) { api.checkOngoingGames }
+
+  ResilientScheduler(
+    every = Every(1 hour),
+    timeout = AtMost(15 seconds),
+    initialDelay = 5 minutes
+  ) { officialSchedule.generate }
 }
 
 private class SwissColls(db: lila.db.Db) {

@@ -2,6 +2,32 @@
 <resources>
   <string name="search">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
+  <plurals name="searchInXGames">
+    <item quantity="one">جستجو در %s بازی</item>
+    <item quantity="other">جستجو در %s بازی</item>
+  </plurals>
+  <plurals name="xGamesFound">
+    <item quantity="one">یک بازی یافت شد</item>
+    <item quantity="other">%s بازی یافت شد</item>
+  </plurals>
+  <string name="opponentName">نام حریف</string>
+  <string name="loser">بازنده</string>
+  <string name="from">از</string>
+  <string name="to">تا</string>
+  <string name="humanOrComputer">که آیا حریف بازیکن، انسان یا رایانه بود</string>
+  <string name="aiLevel">سطح هوش مصنوعی</string>
+  <string name="source">منبع</string>
+  <string name="nbTurns">تعداد حرکت</string>
+  <string name="result">نتیجه</string>
+  <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
+  <string name="date">تاریخ</string>
+  <string name="sortBy">مرتب کردن بر اساس</string>
   <string name="analysis">برسی بازی</string>
-  <string name="onlyAnalysed">فقط بازی هایی که تجزیه تحلیل کامپیوتر در آنها موجود است</string>
+  <string name="onlyAnalysed">فقط بازی هایی که تجزیه و تحلیل کامپیوتر در آنها موجود است</string>
+  <string name="color">رنگ</string>
+  <string name="evaluation">ارزیابی</string>
+  <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">حداکثر تعداد</string>
+  <string name="maxNumberExplanation">حداکثر تعداد بازی برای بارگیری</string>
+  <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">شامل</string>
+  <string name="generateURL">ایجاد لینک</string>
 </resources>

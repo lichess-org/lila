@@ -7,7 +7,7 @@
   <string name="waitingForOpponent">等待對手</string>
   <string name="waiting">請稍等</string>
   <string name="yourTurn">輪到您了</string>
-  <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s等級 %2$s</string>
   <string name="level">難度</string>
   <string name="strength">強度</string>
   <string name="toggleTheChat">聊天開關</string>
@@ -29,9 +29,9 @@
   <string name="kingInTheCenter">王居中</string>
   <string name="threeChecks">三次將軍</string>
   <string name="raceFinished">競王結束</string>
-  <string name="variantEnding">變體終局</string>
+  <string name="variantEnding">另類終局</string>
   <string name="newOpponent">換個對手</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">您的對手想和你複賽</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">你的對手想和你複賽</string>
   <string name="joinTheGame">加入這盤棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
@@ -408,6 +408,7 @@
   <string name="boardEditor">棋盤編輯器</string>
   <string name="setTheBoard">設定版型</string>
   <string name="popularOpenings">使用率最高的開局</string>
+  <string name="chess960StartPosition">960棋局開局位置: %s</string>
   <string name="startPosition">初始佈局</string>
   <string name="clearBoard">清空棋盤</string>
   <string name="savePosition">保存佈局</string>
@@ -810,9 +811,20 @@
   <string name="youHaveJoinedTeamX">您已加入 \"%1$s\"。</string>
   <string name="someoneYouReportedWasBanned">您檢舉的玩家已被封鎖帳號</string>
   <string name="congratsYouWon">恭喜，您贏了！</string>
+  <string name="gameVsX">與%1$s對局</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="newPendingReview">待檢閱</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
+  <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
   <string name="download">下載</string>
   <string name="welcome">歡迎！</string>
+  <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
+一切營運成本、開發和內容皆來自用戶之捐贈。</string>
+  <string name="onlyMembersOfTeam">只限隊員</string>
+  <string name="noRestriction">沒有限制</string>
+  <string name="minimumRatedGames">評分局遊玩次數下限</string>
+  <string name="minimumRating">評分下限</string>
+  <string name="estimatedStart">預計開始時間</string>
+  <string name="reopenYourAccount">重新開啟帳戶</string>
 </resources>

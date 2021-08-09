@@ -6,18 +6,18 @@ import scala.concurrent.Promise
 
 import lila.common.LightUser
 import lila.game.Game
-import lila.hub.Trouper
+import lila.hub.SyncActor
 
-final private[tv] class ChannelTrouper(
+final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
-    onSelect: TvTrouper.Selected => Unit,
+    onSelect: TvSyncActor.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID],
     lightUserSync: LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext)
-    extends Trouper {
+    extends SyncActor {
 
-  import ChannelTrouper._
+  import ChannelSyncActor._
 
   // games featured on this channel
   // first entry is the current game
@@ -30,7 +30,7 @@ final private[tv] class ChannelTrouper(
 
   private val candidateIds = new lila.memo.ExpireSetMemo(3 minutes)
 
-  protected val process: Trouper.Receive = {
+  protected val process: SyncActor.Receive = {
 
     case GetGameId(promise) => promise success oneId
 
@@ -39,10 +39,10 @@ final private[tv] class ChannelTrouper(
     case GetGameIds(max, promise) => promise success manyIds.take(max)
 
     case SetGame(game) =>
-      onSelect(TvTrouper.Selected(channel, game))
+      onSelect(TvSyncActor.Selected(channel, game))
       history = game.id :: history.take(2)
 
-    case TvTrouper.Select =>
+    case TvSyncActor.Select =>
       candidateIds.keys
         .map(proxyGame)
         .sequenceFu
@@ -110,7 +110,7 @@ final private[tv] class ChannelTrouper(
       .flatMap(Tv.titleScores.get)
 }
 
-object ChannelTrouper {
+object ChannelSyncActor {
 
   case class GetGameId(promise: Promise[Option[Game.ID]])
   case class GetGameIds(max: Int, promise: Promise[List[Game.ID]])

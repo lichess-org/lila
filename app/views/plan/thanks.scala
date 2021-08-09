@@ -74,7 +74,7 @@ object thanks {
           br,
           br,
           br,
-          a(href := s"${routes.Plan.list}#gift")(makeAdditionalDonation())
+          a(href := s"${routes.Plan.list}?dest=gift")(makeAdditionalDonation())
         )
       )
     }

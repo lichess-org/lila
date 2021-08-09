@@ -78,9 +78,10 @@ final class Env(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, whiteUserOption, blackUserOption) if !game.aborted =>
         import cats.implicits._
-        (whiteUserOption, blackUserOption) mapN { (whiteUser, blackUser) =>
-          sandbagWatch(game)
-          assessApi.onGameReady(game, whiteUser, blackUser)
+        (whiteUserOption.filter(_.enabled), blackUserOption.filter(_.enabled)) mapN {
+          (whiteUser, blackUser) =>
+            sandbagWatch(game)
+            assessApi.onGameReady(game, whiteUser, blackUser)
         }
         if (game.status == chess.Status.Cheat)
           game.loserUserId foreach { userId =>

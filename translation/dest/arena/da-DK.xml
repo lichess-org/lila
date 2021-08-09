@@ -45,7 +45,7 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="newTeamBattle">Ny holdkamp</string>
   <string name="customStartDate">Tilpasset startdato</string>
   <string name="customStartDateHelp">I din egen lokale tidszone. Dette tilsidesætter \"Tid før turnering starter\" indstillingen</string>
-  <string name="allowBerserk">Tillad Berserk</string>
+  <string name="allowBerserk">Tillad Bersærk</string>
   <string name="allowBerserkHelp">Lad spillerne halvere deres tid på uret for at få et ekstra point</string>
   <string name="allowChatHelp">Lad spillere diskutere i et chatrum</string>
   <string name="arenaStreaks">Arena-stime</string>

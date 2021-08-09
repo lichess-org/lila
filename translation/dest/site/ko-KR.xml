@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
+  <string name="computerAnalysisDisabled">컴퓨터 분석 꺼짐</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s명의 플레이어</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">상호 동의에 의한 무승부</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">진전이 없이 50수 소모</string>
   <string name="currentGames">진행 중인 게임</string>
   <plurals name="nbGames">
     <item quantity="other">%s개의 게임</item>
@@ -157,7 +160,7 @@
   <string name="today">오늘</string>
   <string name="yesterday">어제</string>
   <string name="minutesPerSide">주어진 시간(분)</string>
-  <string name="variant">변형게임</string>
+  <string name="variant">게임 종류</string>
   <string name="variants">변형</string>
   <string name="timeControl">시간 제한</string>
   <string name="realTime">짧은 대국</string>
@@ -410,7 +413,7 @@
   <string name="setTheBoard">보드 세팅하기</string>
   <string name="popularOpenings">인기 있는 오프닝</string>
   <string name="endgamePositions">엔드게임 포지션</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">체스960 시작 포지션: %s</string>
+  <string name="chess960StartPosition">체스960 시작 포지션: %s</string>
   <string name="startPosition">시작 포지션</string>
   <string name="clearBoard">보드 지우기</string>
   <string name="savePosition">포지션 저장</string>
@@ -611,7 +614,7 @@
   <string name="keyMoveBackwardOrForward">뒤로/앞으로 가기</string>
   <string name="keyGoToStartOrEnd">처음/끝으로 가기</string>
   <string name="keyShowOrHideComments">댓글 표시/숨기기</string>
-  <string name="keyEnterOrExitVariation">변수 입력/취소</string>
+  <string name="keyEnterOrExitVariation">바리에이션 들어가기/나오기</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 제한시간과 게임방식을 지원하는 체스 토너먼트</string>
   <string name="tournamentHomeDescription">빠른 체스 토너먼트를 즐겨 보세요! 공식 일정이 잡힌 토너먼트에 참가할 수도, 당신만의 토너먼트를 만들 수도 있습니다. 불릿, 블릿츠, 클래식, 체스960, 언덕의 제왕, 삼연속체크를 비롯하여 다양한 게임방식을 즐길 수 있습니다.</string>
@@ -851,7 +854,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="cancelSimul">동시대국 취소하기</string>
   <string name="simulHostcolor">각 게임에서 호스트의 색</string>
   <string name="estimatedStart">예상 시작 시간</string>
-  <string name="simulFeatured">%s에서 공개</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">%s에서 공개</string>
   <string name="simulFeaturedHelp">모두가 %s에서 동시대국을 볼 수 있습니다. 비공개 대국을 위해서는 비활성화하세요.</string>
   <string name="simulDescription">동시대국 설명</string>
   <string name="simulDescriptionHelp">참가자들에게 하고 싶은 말이 있나요?</string>
@@ -861,6 +864,19 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
+  <string name="navigateMoveTree">수 탐색</string>
+  <string name="mouseTricks">마우스 기능</string>
+  <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
+  <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
   <string name="playComputerMove">최선의 컴퓨터 수 두기</string>
   <string name="analysisOptions">분석 옵션</string>
+  <string name="focusChat">채팅에 포커스 주기</string>
+  <string name="showHelpDialog">이 도움말 보기</string>
+  <string name="reopenYourAccount">계정 다시 활성화</string>
+  <string name="closedAccountChangedMind">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
+  <string name="onlyWorksOnce">단 한번만 가능합니다.</string>
+  <string name="cantDoThisTwice">계정을 두 번째로 폐쇄했다면 복구할 방법이 없습니다.</string>
+  <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
+  <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">토너먼트 입장 코드</string>
 </resources>

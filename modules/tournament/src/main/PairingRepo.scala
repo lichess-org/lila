@@ -123,7 +123,7 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] = {
     coll
-      .aggregateList(maxDocs = 10000) { framework =>
+      .aggregateList(maxDocs = 10000, ReadPreference.secondaryPreferred) { framework =>
         import framework._
         Match(selectTour(tourId)) -> List(
           Project($doc("u" -> true, "_id" -> false)),

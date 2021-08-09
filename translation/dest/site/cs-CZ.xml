@@ -2,14 +2,14 @@
 <resources>
   <string name="playWithAFriend">Vyzvi kamaráda</string>
   <string name="playWithTheMachine">Hrát proti počítači</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Pozvi kamaráda k partii tímto odkazem</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
-  <string name="waiting">Čekám</string>
+  <string name="waiting">Čeká se</string>
   <string name="yourTurn">Jste na tahu</string>
-  <string name="aiNameLevelAiLevel">AI %1$s - úrovně %2$s</string>
+  <string name="aiNameLevelAiLevel">AI %1$s úrovně %2$s</string>
   <string name="level">Úroveň</string>
-  <string name="strength">Síla</string>
+  <string name="strength">Obtížnost</string>
   <string name="toggleTheChat">Zapnout/vypnout chat</string>
   <string name="toggleSound">Zapnout/vypnout zvuk</string>
   <string name="chat">Chat</string>
@@ -25,11 +25,11 @@
   <string name="youPlayTheWhitePieces">Hrajete bílými figurami</string>
   <string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
   <string name="itsYourTurn">Jste na tahu!</string>
-  <string name="cheatDetected">Podvádění detekováno</string>
+  <string name="cheatDetected">Bylo detekováno podvádění</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
-  <string name="variantEnding">Jiné ukončení</string>
+  <string name="variantEnding">Konec varianty</string>
   <string name="newOpponent">Nový protihráč</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Váš soupeř s Vámi chce hrát další partii</string>
   <string name="joinTheGame">Připojit se ke hře</string>
@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Vyžádat počítačovou analýzu</string>
   <string name="computerAnalysis">Počítačová analýza</string>
   <string name="computerAnalysisAvailable">Analýza počítače k dispozici</string>
+  <string name="computerAnalysisDisabled">Analýza počítačem je vypnutá</string>
   <string name="analysis">Analýza</string>
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
@@ -102,6 +103,7 @@
   <string name="noGameFound">Žádná hra nenalezena</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Možná zkuste vybrat více her z menu preferencí?</string>
   <string name="openingExplorer">Průzkumník zahájení</string>
+  <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
@@ -154,6 +156,8 @@
     <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remíza po vzájemné dohodě</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Padesát tahů bez progresu</string>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -501,6 +505,8 @@
   <string name="boardEditor">Editor šachovnice</string>
   <string name="setTheBoard">Upravit šachovnici</string>
   <string name="popularOpenings">Populární zahájení</string>
+  <string name="endgamePositions">Pozice koncovek</string>
+  <string name="chess960StartPosition">Základní postavení Chess960: %s</string>
   <string name="startPosition">Základní postavení</string>
   <string name="clearBoard">Prázdná šachovnice</string>
   <string name="savePosition">Uložit pozici</string>
@@ -764,6 +770,7 @@
   <string name="enableKidMode">Povolit dětský režim</string>
   <string name="disableKidMode">Vypnout dětský režim</string>
   <string name="security">Zabezpečení</string>
+  <string name="sessions">Relace</string>
   <string name="revokeAllSessions">odebrat všechny relace</string>
   <string name="playChessEverywhere">Hrajte šachy kdekoliv</string>
   <string name="asFreeAsLichess">Svobodný jako lichess</string>
@@ -946,4 +953,37 @@
   <string name="welcome">Vítej!</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý open source software.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
+  <string name="cancelTournament">Zrušit turnaj</string>
+  <string name="tournDescription">Popis turnaje</string>
+  <string name="tournDescriptionHelp">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
+  <string name="ratedFormHelp">Hry jsou hodnoceny a mají dopad na hodnocení hráče</string>
+  <string name="onlyMembersOfTeam">Pouze členové týmu</string>
+  <string name="noRestriction">Bez omezení</string>
+  <string name="minimumRatedGames">Minimální počet her s ratingem</string>
+  <string name="minimumRating">Minimální rating</string>
+  <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
+  <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
+  <string name="positionInputHelp">Vložte platný FEN popis šachovnice, pokud chcete, aby všechny hry začaly z dané pozice.
+Funguje to pouze pro standardní hry, ne pro varianty.
+Můžete použít %s pro vygenerování FEN popisu zadané pozice a potom ho sem vložit.
+Nechte toto pole prázdné, pokud chcete začínat z běžného základního postavení.</string>
+  <string name="cancelSimul">Zrušit simultánku</string>
+  <string name="estimatedStart">Předpokládaný začátek</string>
+  <string name="simulDescription">Popis simultánky</string>
+  <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
+  <string name="inYourLocalTimezone">Ve vašem časovém pásmu</string>
+  <string name="tournChat">Turnajový chat</string>
+  <string name="noChat">Vypnutý chat</string>
+  <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
+  <string name="onlyTeamMembers">Pouze členové týmu</string>
+  <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
+  <string name="analysisOptions">Ovládání analýzy</string>
+  <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
+  <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
+  <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
+  <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
+  <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
+  <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
+  <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kód pro vstup do turnaje</string>
 </resources>

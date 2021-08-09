@@ -357,7 +357,7 @@ final class ReportApi(
   private val maxScoreCache = cacheApi.unit[Room.Scores] {
     _.refreshAfterWrite(5 minutes)
       .buildAsyncFuture { _ =>
-        Room.allButXfilesAndPrint
+        Room.allButXfiles
           .map { room =>
             coll // hits the best_open partial index
               .primitiveOne[Float](
@@ -536,7 +536,7 @@ final class ReportApi(
   object inquiries {
 
     private val workQueue =
-      new lila.hub.DuctSequencer(
+      new lila.hub.AsyncActorSequencer(
         maxSize = 32,
         timeout = 20 seconds,
         name = "report.inquiries"

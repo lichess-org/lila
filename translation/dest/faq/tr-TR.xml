@@ -19,126 +19,126 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess kaynak kodunu kullanan siteler var mı?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Evet. Lichess %1$s, %2$s ve %3$s paylaşımında bulunarak farklı açık kaynak kodlu sitelere ilham kaynağı olmuştur.</string>
   <string name="fairPlay">Adil Oyun</string>
-  <string name="whenAmIEligibleRatinRefund">Hileye karşı kaybettiğim puanlarımı ne zaman geri alacağım?</string>
-  <string name="ratingRefundExplanation">Bir oyuncu işaretlendikten bir dakika sonra, son 3 gün içinde oynadığı 40 puanlı oyun geri alınır. Bu oyunlarda eğer rakibi iseniz, puan kaybettiyseniz (bir kayıp veya beraberlik nedeniyle) ve puanınız geçici değilse, puan geri ödemesi alırsınız. Geri ödeme, en yüksek puanınıza ve oyundan sonraki puan ilerlemenize göre sınırlanır.
-(Örneğin, bu oyunlardan sonra puanınız büyük ölçüde artarsa, geri ödeme veya yalnızca kısmi geri ödeme alabilirsiniz.) Geri ödeme asla 150 puanı geçmez.</string>
-  <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyuncular hakkında ne yapılır?</string>
-  <string name="leavingGameWithoutResigningExplanation">Rakibiniz sık sık oyunu iptal ederse / oyundan ayrılırsa, \'\'oyun yasaklaması\'\'alırlar, yani oyun oynamaktan geçici olarak yasaklanırlar. Bu, profillerinde genel olarak gösterilmez. Bu davranış devam ederse, oyun yasaklamasının uzunluğu artar - ve bu türden uzun süreli davranışlar hesabın kapanmasına yol açabilir.</string>
+  <string name="whenAmIEligibleRatinRefund">Hile yapan oyunculara kaybettiğim puanları ne zaman geri alırım?</string>
+  <string name="ratingRefundExplanation">Hile yaptığı tespit edilen bir oyuncunun son 3 gün içinde oynadığı 40 puanlı maç iptal edilir. Eğer bu maçlar arasına sizin de beraberlik veya yenilgi yüzünden puan kaybettiğiniz oyunlar varsa ve oyun puanınız geçici değilse kaybettiğiniz puanları geri alırsınız. Puanları geri alırken, ulaştığınız en yüksek puan ve maçtan sonraki puan durumunuza göre bir üst limit belirlenir.
+
+(Mesela puanınız bu maçlardan sonra büyük ölçüde artarsa, hiç puan iadesi almayabilir ya da kısmi bir iade alabilirsiniz). Tek seferde en fazla 150 puan iade edilir.</string>
+  <string name="preventLeavingGameWithoutResigning">Terk etmeden oyundan ayrılan oyunculara ne yapılır?</string>
+  <string name="leavingGameWithoutResigningExplanation">Rakibiniz oyunlardan sık sık ayrılıyorsa yeni bir oyuna katılması geçici olarak engellenir. Bu kısıtlama oyuncunun profilinde görüntülenmez. Eğer aynı oyuncu maçı terk etmeden oyunlardan ayrılmaya devam ederse uygulanan engelin süresi artırılır. Bu davranış çok uzun süre devam ederse oyuncunun hesabı kapatılabilir.</string>
   <string name="howCanIBecomeModerator">Nasıl moderatör olabilirim?</string>
-  <string name="youCannotApply">Moderatör olmak için başvuru yapmak mümkün değildir. Moderatör olarak iyi olacağını düşündüğümüz birini görürsek, onlarla doğrudan iletişime geçeceğiz.</string>
-  <string name="isCorrespondenceDifferent">Yazışmalı oyun normal satrançtan farklı mıdır?</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess\'te, yazışma satrancı kurallarındaki temel fark, bir açılış kitabına izin verilmesidir. Motorların kullanımı hala yasaktır ve motor yardımı alırsanız hesabınız işaretlenecektir. ICCF yazışmalarda motor kullanımına izin verse de, Lichess buna izin vermez.</string>
+  <string name="youCannotApply">Moderatörleri başvuru ile seçmiyoruz. İyi bir moderatör olacağını düşündüğümüz kişiler ile doğrudan iletişime geçeriz.</string>
+  <string name="isCorrespondenceDifferent">Yazışmalı oyunlar normal satrançtan farklı mıdır?</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess\'te yazışmalı satranç ile standart maçlar arasındaki temel fark, yazışmalı maçlarda açılış kâşifine izin verilmesidir. Satranç motorlarının kullanımı yine yasaktır ve bilgisayardan yardım alan oyunculara aynı yaptırımlar uygulanır. Uluslararası Yazışmalı Satranç Federasyonu satranç motoru kullanımına izin verse de Lichess buna izin vermez.</string>
   <string name="gameplay">Oynanış</string>
-  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer zaman kontrolleri neye göre karar veriliyor?</string>
-  <string name="basedOnGameDuration">Zaman kontrolleri oyunun süresine bağlı olarak değişiyor = %1$s
-Örneğin, bir 5+3 blitz oyununun yaklaşık süresi 5 x 60 + 40 x 3 = 420 saniyedir.</string>
-  <string name="durationFormula">(zaman) + 40 x (arttırma)</string>
+  <string name="howBulletBlitzEtcDecided">Bullet, blitz ve diğer bir zaman kontrolleri nasıl belirleniyor?</string>
+  <string name="basedOnGameDuration">Zaman kontrollerinin ismi maçın tahminî uzunluğuna bağlı olarak değişir: %1$s
+Örneğin, 5+3 tempolu bir oyunun tahminî süresi (5 × 60) + (40 × 3) = 420 saniyedir.</string>
+  <string name="durationFormula">(başlangıç süresi) + 40 × (hamle başı ek süre)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess\'te hangi varyantları oynayabilirim?</string>
-  <string name="lichessSupportChessAnd">Lichess standart satranç ve %1$s\'nı destekler.</string>
-  <string name="eightVariants">8 satranç varyantı</string>
+  <string name="lichessSupportChessAnd">Lichess standart satranç ile %1$s destekler.</string>
+  <string name="eightVariants">8 satranç varyantını</string>
   <string name="whatIsACPL">Ortalama santipiyon kaybı (OSK) nedir?</string>
-  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 1 / 100\'üne eşittir. Bu nedenle 100 santipiyon = 1 piyon. Bu değerler oyunda resmi bir rol oynamaz, ancak oyuncular için yararlıdır ve bilgisayar satrancında pozisyonları değerlendirmek için gereklidir.
+  <string name="acplExplanation">Santipiyon, satrançta avantajın temsili olarak kullanılan ölçü birimidir. Bir santipiyon, bir piyonun 100\'de 1\'ine eşittir. Yani 100 santipiyon 1 piyon değerindedir. Bu değerler oyunda doğrudan bir rol oynamasa da oyuncular için yararlı, bilgisayarlar için ise pozisyon analizlerinde gereklidir.
 
-En iyi bilgisayar hareketi sıfır santipiyon kaybettirir, ancak daha az hamle santipiyon cinsinden ölçülen pozisyonun bozulmasına neden olacaktır.
+Bilgisayarın önerdiği en iyi hamle santipiyon kaybettirmez ancak daha zayıf hamleler pozisyonun kötüye gitmesine sebep olacaktır. Bu durum da santipiyon ile ölçülür.
 
-Bu değer, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hareket başına ne kadar az santipiyon kaybederse, oyun o kadar güçlü olur.
+Santipiyon kaybı, oyun kalitesinin bir göstergesi olarak kullanılabilir. Hamle başına ne kadar az santipiyon kaybedilirse, oyun kalitesi o kadar yüksek demektir.
 
-Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenmektedir.</string>
-  <string name="insufficientMaterial">Zaman kaybı, beraberlik ve yetersiz taş</string>
-  <string name="lichessFollowFIDErules">Bir oyuncunun zaman tükenmesi durumunda, bu oyuncu genellikle oyunu kaybedecektir. Ancak, oyun, rakip oyuncunun şahını olası herhangi bir yasal hamleler dizisi (%1$s) mat edebiliyor ise maç sonucu değişebilir.
+Lichess üzerindeki bilgisayar analizi Stockfish tarafından desteklenir.</string>
+  <string name="insufficientMaterial">Maçı süreden kaybetmek, beraberlik ve yetersiz taş</string>
+  <string name="lichessFollowFIDErules">Oyun esnasında süresi biten oyuncu genellikle maçı kaybetmiş sayılır. Ancak rakip oyuncu, elindeki taşlar ile oyuncuyu herhangi bir şekilde mat etme şansına sahip değilse oyun berabere biter (%1$s).
 
-Nadir durumlarda bu karara otomatik olarak ulaşmak zor olabilir (zorla berabere, kaleler). Varsayılan olarak biz her zaman hangi oyuncunun zamanı bitmedi ise onun tarafını tutarız.
+Ender durumlarda zorunlu hamleler veya hisar taktiği gibi sebeplerden dolayı beraberliğe otomatik olarak karar vermek zor olabilir. Normal şartlar altında her zaman, süresi bitmeyen oyuncunun lehine karar veririz.
 
-Rakibin şahı kenara sıkıştırabilecek herhangi bir taşı varsa, tek bir at veya fil ile mat edebilmenin mümkün olabileceğini unutmayın.</string>
-  <string name="fideHandbookX">%s bölümdür. Bu dizi, SSS\'nin \'Zamandan kaybetme, beraberlik ve yetersiz taş\' bölümünde \'FIDE el kitabı §6.9\' olarak görünür.
+Rakip şahın hareketini engelleyebilecek herhangi bir taş varsa tek at veya tek fil ile matın mümkün olduğunu unutmayın.</string>
+  <string name="fideHandbookX">FIDE satranç kuralları %s</string>
+  <string name="discoveringEnPassant">İki kare sürdüğüm piyonu rakip tuhaf bir şekilde yedi. Bu nasıl olur? (geçerken alma)</string>
+  <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Vikipedi\'de bu konu üzerine %1$s mevcut.
 
-Https://handbook. fide. com/chapter/E012018 bağlantısı.
-Dosya: Sık Sorulan Sorular (SSS) sayfası</string>
-  <string name="discoveringEnPassant">Bir piyon, yanından ilk hamlesinde 2 ilerlemiş bir piyonu neden yiyebilir? (geçerken alma)</string>
-  <string name="explainingEnPassant">Bu \"geçerken alma\" olarak bilinen yasal bir hamledir. Wikipedia %1$s hakkında makale veriyor.
+Geçerken alma kuralı FIDE tarafından şöyle açıklanır (%2$s):
 
-%2$s\'nin 3.7 (d) bölümünde açıklanmıştır:
+\"Bir piyon, kendi bulunduğu kareye bitişik dikeylerden birinde ve kendisiyle aynı yatayda bulunan bir rakip piyonu, bu rakip piyonun bulunduğu yere, hemen başlangıç konumundan bir hamlede iki kare ilerleyerek gelmiş olması koşuluyla alabilir. Bu alış biçimi, sadece sözü edilen piyon sürüşünü izleyen hamle için geçerlidir ve \'geçerken alma\' (en passant) olarak adlandırılır.\"
 
-\"Orijinal karesinden bir hamlede iki kare ilerleyen bir rakibin piyonu bitişik ve aynı sırada ise, bu piyon rakibin piyonunu sanki normal piyonla taş alırmış gibi alabilir. Bu hamle sadece piyon iki kare ilerledikten hemen sonraki hamle içerisinde yapılabilir ve \'geçerken alma\' diye adlandırılır.
-
-Biraz pratik yapmak için bu hamle için olan %3$s\'ye bakın.</string>
-  <string name="goodIntroduction">iyi giriş</string>
-  <string name="officialRulesPDF">resmi kurallar (PDF)</string>
-  <string name="lichessTraining">Lichess egzersizi</string>
-  <string name="threefoldRepetition">Üç kez hamle tekrarı</string>
-  <string name="threefoldRepetitionExplanation">Bir pozisyon üç kez gerçekleşirse, oyuncular %1$s ile beraberlik talebinde bulunabilirler. Lichess, %2$s\'nin 9.2 (d) maddesinde açıklandığı gibi resmi FIDE kurallarını uygular.</string>
-  <string name="threefoldRepetitionLowerCase">üç kez hamle tekrarı</string>
-  <string name="notRepeatedMoves">Biz hamle tekrarı yapmadık. Oyun neden hamle tekrarından berabere bitti?</string>
-  <string name="repeatedPositionsThatMatters">Üç kez hamle tekrarı %1$s ile ilgilidir, hamle ile değil. Tekrarlama ardışık olarak gerçekleşmek zorunda değildir.</string>
+Geçerken alma kuralı üzerine biraz pratik yapmak için %3$s göz atın.</string>
+  <string name="goodIntroduction">güzel bir açıklama</string>
+  <string name="officialRulesPDF">resmî kurallar (PDF)</string>
+  <string name="lichessTraining">Lichess egzersizlerine</string>
+  <string name="threefoldRepetition">Üç konum tekrarı</string>
+  <string name="threefoldRepetitionExplanation">Aynı pozisyonun üç kez tekrarlanması durumunda oyuncular %1$s sebebiyle beraberlik talebine bulunabilirler. Lichess\'te %2$s maddesinde belirtilen resmî kurallar esas alınır.</string>
+  <string name="threefoldRepetitionLowerCase">üç konum tekrarı</string>
+  <string name="notRepeatedMoves">Aynı hamleleri tekrarlamadığımız hâlde oyun neden berabere bitti?</string>
+  <string name="repeatedPositionsThatMatters">Üç konum tekrarında %1$s hesaba katılır, hamleler değil. Tekrarlamalar üst üste olmak zorunda değildir.</string>
   <string name="positions">pozisyonlar</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Neden oyun berabere bitmedi?</string>
-  <string name="threeFoldHasToBeClaimed">Hamle tekrarı oyunculardan biri tarafından kabul edilmesi gerekiyor. Gösterilen düğmeye basarak veya son yinelenen hareketinizden önce bir beraberlik sunarak bunu yapabilirsiniz. Ayrıca %1$s Lichess otomatik olarak sizin için hamle tekrarı talep edebilirsiniz. Ek olarak, beş kez hamle tekrarı her zaman oyunu hemen bitirir.</string>
-  <string name="configure">yapılandır</string>
-  <string name="accounts">Hesaplar</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">Üç kere aynı pozisyonu tekrarladık. Oyun neden berabere bitmedi?</string>
+  <string name="threeFoldHasToBeClaimed">Bunun için önce oyunculardan birinin tekrar sebebiyle beraberlik talebinde bulunması gerekir. İşaret edilen beraberlik düğmesine basarak veya son tekrar hamlenizden önce beraberlik teklif ederek bu talepte bulunabilirsiniz. Üç konum tekrarında oyunculardan biri beraberlik talebinde bulunduğunda, rakibin teklifi kabul veya reddetmesine bakılmadan oyun berabere biter. Ayrıca %1$s, pozisyon tekrarlarında otomatik olarak beraberlik talep edilmesini seçebilirsiniz. Ek olarak, beş kez aynı pozisyon tekrarlandığında oyun ne olursa olsun sona erer.</string>
+  <string name="configure">ayarlar kısmından</string>
+  <string name="accounts">Hesap işlemleri</string>
   <string name="titlesAvailableOnLichess">Lichess\'te hangi unvanlar var?</string>
-  <string name="lichessRecognizeAllOTBtitles">Lichess, OTB (over the board) oyunundan elde edilen tüm FIDE başlıklarını ve %1$s\'yi tanır. işte FIDE başlıklarının bir listesi:</string>
-  <string name="showYourTitle">Eğer bir OTB unvanınız varsa, %1$s\'yi tamamlayarak bunu hesabınızda göstermeniz için başvuruda bulunabilirsiniz; bunu, tanımlayıcı bir belge/kartın net bir görüntüsü ve belgeyi/kartı elinde tutan bir fotoğraf da dahil olmak üzere gerçekleştirebilirsiniz.
+  <string name="lichessRecognizeAllOTBtitles">Lichess, turnuvalardan elde edilen bütün FIDE unvanlarını ve %1$s tanır. FIDE unvanları aşağıdaki gibidir:</string>
+  <string name="showYourTitle">Resmî bir unvanınız varsa, unvanın hesabınıza tanımlanması için %1$s doldurarak başvuruda bulunabilirsiniz. Formu doldururken, unvanınızı belgeleyen evrakın net bir fotoğrafını ve sizin bu evrakı tutarken çekildiğiniz bir fotoğrafı yüklemeniz gerekir.
 
-Lichess\'te Unvanlı bir oyuncu olarak doğrulanmak Unvanlı Arena olaylarda oynamak için erişim sağlar.
+Unvanınızı doğruladıktan sonra Lichess tarafından düzenlenen Titled Arena turnuvalarına katılmaya hak kazanırsınız.
 
-Bir de Onursal bir %2$s Unvanı var.</string>
-  <string name="asWellAsManyNMtitles">birçok ulusal usta unvanı</string>
-  <string name="verificationForm">doğrulama formu</string>
-  <string name="canIbecomeLM">Lichess ustası (LM) ünvanını alabilir miyim?</string>
+Ayrıca Lichess\'e özel onursal bir %2$s unvanı da mevcut.</string>
+  <string name="asWellAsManyNMtitles">birçok ulusal usta unvanını</string>
+  <string name="verificationForm">doğrulama formunu</string>
+  <string name="canIbecomeLM">Lichess Ustası (LM) unvanını alabilir miyim?</string>
   <string name="noUpperCaseDot">Hayır.</string>
-  <string name="lMtitleComesToYouDoNotRequestIt">Bu onursal unvan resmi değil ve sadece Lichess üzerinde var.
+  <string name="lMtitleComesToYouDoNotRequestIt">Resmî bir geçerliliği olmayan bu onursal unvan sadece Lichess tarafından verilir.
 
-Biz nadiren takdiri hak eden iyi Lichess kullanıcılarına bu unvanı veriyoruz. LM unvanı alamazsın, LM unvanı sana gelir. Eğer hak kazanırsanız, bizden bir mesaj alacaksınız ve kabul etme veya reddetme seçimine sahip olacaksınız.
+Lichess\'in iyi bir üyesi olarak göze çarpan kişilere kendi takdirimizce nadiren bu unvanı veririz. Siz LM unvanını değil, LM unvanı sizi alır. Bu unvanı hak ettiğinizi düşündüğümüzde size bir mesaj göndeririz. Bu teklifini kabul veya reddedebilirsiniz.
 
-LM unvanı için sorma.</string>
-  <string name="whatUsernameCanIchoose">Kullanıcı adım ne olmalı?</string>
-  <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları: saldırgan, başkasını taklit eden veya reklam amaçlı olmamalıdır. %1$s hakkında daha fazla bilgi edinebilirsiniz.</string>
-  <string name="guidelines">yönetmelik</string>
+LM unvanını almak için lütfen bir talepte bulunmayın.</string>
+  <string name="whatUsernameCanIchoose">Kullanıcı adım ne olabilir?</string>
+  <string name="usernamesNotOffensive">Genel olarak, kullanıcı adları reklam veya taklit amaçlı olmamalı, insanları rahatsız etmemeli ve incitmemelidir. Bu konu hakkındaki %1$s göz atarak daha fazla bilgi edinebilirsiniz.</string>
+  <string name="guidelines">detaylı kurallara</string>
   <string name="canIChangeMyUsername">Kullanıcı adımı değiştirebilir miyim?</string>
   <string name="usernamesCannotBeChanged">Hayır, kullanıcı adları teknik ve pratik sebeplerden ötürü değiştirilemez. Veri tabanları, dışa aktarmalar, log dosyaları ve insanların hafızası dahil olmak üzere kullanıcı adları birçok yerde kullanılıyor. Yalnızca bir kereyle sınırlı olmak üzere kullanıcı adındaki büyük ve küçük harflerde oynama yapabilirsiniz.</string>
-  <string name="uniqueTrophies">Benzersiz kupalar</string>
-  <string name="ownerUniqueTrophies">Bu kupa Lichess tarihinde benzersizdir ve %1$s dışında kimse bu kupaya sahip olamaz.</string>
-  <string name="wayOfBerserkExplanation">Bunu almak için, hiimgosu kendini berserk ile test etti ve %s oyunlarının 100%%\'ünü kazandı.</string>
-  <string name="aHourlyBulletTournament">bir saatlik Kurşun turnuvası</string>
-  <string name="goldenZeeExplanation">ZugAddict canlı yayın açmıştı ve son 2 saat boyunca A.I. level 8\'i 1+0 oyununda başarılı bir şekilde yenmeye çalışıyordu. Thibault, canlı yayında başarılı bir şekilde bunu gerçekleştirirse, ona benzersiz bir kupa alacağını söyledi. Bir saat sonra, Stockfish\'i yendi ve söz onurlandırıldı.</string>
-  <string name="lichessRatings">Lichess derecelendirmeleri</string>
-  <string name="whichRatingSystemUsedByLichess">Lichess hangi derecelendirme sistemini kullanıyor?</string>
-  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 değerlendirme yöntemi kullanılarak hesaplanır. Bu çok popüler bir derecelendirme yöntemidir ve önemli sayıda satranç organizasyonu tarafından kullanılır (FIDE, hala tarihi Elo derecelendirme sistemini kullandığı için bu kayda değer bir karşı örnektir).
+  <string name="uniqueTrophies">Eşsiz kupalar</string>
+  <string name="ownerUniqueTrophies">Lichess tarihinde bu kupanın eşi benzeri yoktur. İşbu kupanın tek sahibi %1$s isimli şahıstır.</string>
+  <string name="wayOfBerserkExplanation">Hiimgosu, bu kupaya erişmek için divane (berserk) açarak %s bütün oyunları kazandı.</string>
+  <string name="aHourlyBulletTournament">bir saatlik Bullet turnuvasındaki</string>
+  <string name="goldenZeeExplanation">Günlerden bir gün, ZugAddict canlı yayında son 2 saattir 1+0 maç yaparak seviye 8 yapay zekâyı yenmek için çırpınıyordu. Thibault, bilgisayarı canlı yayında yenmeyi başarırsa ona özel bir kupa vereceğine söz verdi. Bir saat sonra ZugAddict Stockfish\'i yerle yeksan etti ve ödüle mahzar oldu.</string>
+  <string name="lichessRatings">Lichess puanlama sistemi</string>
+  <string name="whichRatingSystemUsedByLichess">Lichess hangi puanlama sistemini kullanıyor?</string>
+  <string name="ratingSystemUsedByLichess">Puanlar Mark Glickman tarafından geliştirilen Glicko-2 yöntemiyle hesaplanır. Bu sistem çok popüler bir puanlama yöntemidir ve dünya çapında satranç kuruluşları tarafından yoğun olarak kullanılır (FIDE dışında, FIDE hâlâ eski Elo puanlama sistemini kullanılır).
 
-Temel olarak, glicko derecelendirmeleri, derecelendirmenizi hesaplarken ve temsil ederken \"güven aralıkları\" kullanır. Siteyi ilk kullanmaya başladığınızda, puanınız 1500 ± 700\'de başlar. 1500 puanınızı temsil eder ve 700 güven aralığını temsil eder.
+Glicko sistemi \"güven aralıkları\" aracılığıyla puanınızı hesaplar. Siteye üye olduğunuzda puanınız 1500 ± 1000 olarak başlar. 1500, puanınızı temsil ederken 1000 de güven aralığını temsil eder.
 
-Temel olarak, sistem, derecelendirmenizin 800 ile 2200 arasında bir yerde olduğundan %90 emin. Bu inanılmaz derecede belirsiz. Bu nedenle, bir oyuncu yeni başladığında, derecelendirmeleri çok önemli ölçüde değişecek, bir seferde potansiyel olarak birkaç yüz puan. Ancak köklü oyunculara karşı bazı oyunlardan sonra güven aralığı daralır ve her oyundan sonra kazanılan/kaybedilen puan miktarı azalacaktır.
+Sistem puanınızın 500 ila 2500 arasında bir yerde olduğundan %95 emindir. Fakat puanınız aşırı derecede belirsizdir. Bu yüzden, yeni başlayan bir oyuncunun puanı çok hızlı değişir; bu oyuncu tek maçta yüzlerce puan kazanabilir veya kaybedebilir. Ancak uzun süredir oynayan oyuncularla maç yaptıkça güven aralığı daralır ve maçlardan kazanılan veya kaybedilen puanlar azalır.
 
-Dikkat edilmesi gereken bir diğer nokta, zaman geçtikçe güven aralığının artacağıdır. Bu daha hızlı zamanla beceri düzeyi değişiklikleri için puan kaybetmek/ puan kazanmak için izin verir.</string>
-  <string name="whatIsProvisionalRating">Neden puanımın yanında soru işareti(?) var?</string>
-  <string name="provisionalRatingExplanation">Soru işareti, derecelendirmenin geçici olduğu anlamına gelir. Nedenleri şunlardır:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Oyuncu henüz derecelendirmeli oyun kategorisinde %1$s karşısında yeterince puanlı oyun bitirmedi.</string>
-  <string name="similarOpponents">benzer puanlı oyuncular</string>
-  <string name="notPlayedRecently">Oyuncu yeterince yeni oyun oynamadı. Oynadığınız oyun sayısına bağlı olarak, derecelendirmenizin tekrar geçici hale gelmesi yaklaşık bir yıl sürebilir.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Somut olarak, Glicko - 2 sapmasının 110\'dan büyük olduğu anlamına gelir. Sapma, sistemin derecelendirmede sahip olduğu güven seviyesidir. Alt sapma, daha istikrarlı bir derecelendirmedir.</string>
-  <string name="howDoLeaderoardsWork">Sıralamalar ve lider tabloları nasıl çalışır?</string>
-  <string name="inOrderToAppearsYouMust">%1$s\'e girebilmek için yapmanız gerekenler:</string>
-  <string name="ratingLeaderboards">liderlik tablosu</string>
-  <string name="havePlayedMoreThanThirtyGamesInThatRating">en az 30 puanlı oyun oynamak,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">bu derecelendirme için son bir hafta içinde puanlı oyun oynamak,</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">normal satrançta %1$s\'den daha düşük ve başka satranç varyantlarında %2$s\'den daha düşük bir derecelendirme sapması olması,</string>
-  <string name="beInTopTen">bu derecelendirmede ilk 10 içerisinde yer almak.</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">2. şart, artık hesaplarını kullanmayan oyuncuların skor tablolarını doldurmayı bırakmasıdır.</string>
-  <string name="whyAreRatingHigher">Derecelendirmeler FIDE, USCF ve ICC gibi diğer sitelere ve kuruluşlara göre neden daha yüksek?</string>
-  <string name="whyAreRatingHigherExplanation">Derecelendirmeleri mutlak sayılar olarak düşünmemek veya bunları diğer kuruluşlarla karşılaştırmamak en iyisidir. Farklı organizasyonların farklı seviyelerde oyuncuları, farklı derecelendirme sistemleri (elo, Glicko, Glicko-2 veya yukarıda belirtilenlerin değiştirilmiş bir versiyonu) vardır. Bu faktörler mutlak sayıları (derecelendirmeleri) büyük ölçüde etkileyebilir.
+Ayrıca, düzenli olarak maç yapmadığınız takdirde güven aralığı zamanla artar. Böylece satranç yeteneklerinizin zaman içerisindeki değişimine göre daha hızlı puan kazanabilir veya kaybedebilirsiniz.</string>
+  <string name="whatIsProvisionalRating">Puanımın yanında neden soru işareti (?) var?</string>
+  <string name="provisionalRatingExplanation">Soru işareti, puanınızın geçici olduğunu belirtir. Bunun sebepleri şunlar olabilir:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">%1$s karşı ilgili puan kategorisinde yeterli sayıda puanlı oyun oynanmamıştır.</string>
+  <string name="similarOpponents">Benzer puanlı oyunculara</string>
+  <string name="notPlayedRecently">Yakın zamanda herhangi bir maç yapılmamıştır. Toplam maç sayınıza bağlı olarak, ilgili kategoride yaklaşık bir sene boyunca maç yapmadıysanız puanınız tekrar geçici hâle dönebilir.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Glicko-2 sapması 110\'dan yüksek olursa puan geçici olarak sınıflandırılır. Sapma, sistemin puana olan güvenini ifade eder. Sapma ne kadar düşük ise puan o kadar dengeli demektir.</string>
+  <string name="howDoLeaderoardsWork">Lider tablosuna nasıl girerim?</string>
+  <string name="inOrderToAppearsYouMust">%1$s girmek için ilgili kategoride:</string>
+  <string name="ratingLeaderboards">Lider tablosuna</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">En az 30 puanlı oyun oynamış olmalı,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">Son bir hafta içinde en az bir puanlı maç yapmış olmalı,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">Standart satrançta %1$s\'ten, varyantlarda ise %2$s\'ten daha düşük bir puan sapmanız olmalı,</string>
+  <string name="beInTopTen">Puan sıralamasında ise ilk 10 içinde yer almalısınız.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">İkinci madde, artık hesaplarını kullanmayan oyuncuların lider tablosunu meşgul etmesini engellemek amacıyla eklenmiştir.</string>
+  <string name="whyAreRatingHigher">Bu sitedeki puanlar diğer sitelere veya FIDE, USCF ve ICC gibi kuruluşlara göre neden daha yüksek?</string>
+  <string name="whyAreRatingHigherExplanation">Puanları mutlak sayılar olarak düşünmek ve diğer kuruluşlarla karşılaştırmak pek sağlıklı olmaz. Farklı kuruluşlarda farklı seviyede oyuncular ve farklı puan sistemleri olabilir (Elo, Glicko, Glicko-2 ve benzeri). Bu faktörler yüzünden puanlar arasında ciddi ölçüde farklar oluşabilir.
 
-Derecelendirmeleri \"göreceli\" rakamlar olarak düşünmek en iyisidir (\"mutlak\" rakamların aksine): bir oyuncu havuzunda, derecelendirmelerdeki göreceli farklılıkları kimin kazanacağını/çekileceğini/kaybedeceğini ve ne sıklıkta olacağını tahmin etmenize yardımcı olacaktır. \"X puanım var\" demek, bu derecelendirmeyi karşılaştırmak için başka oyuncular olmadıkça hiçbir şey ifade etmez.</string>
-  <string name="howToHideRatingWhilePlaying">Oynarken derecelendirme nasıl gizlenir?</string>
-  <string name="enableZenMode">%1$s\'de veya Oyun sırasında %2$s tuşlarına basarak Zen modunu etkinleştirin.</string>
-  <string name="displayPreferences">görüntüleme tercihleri</string>
-  <string name="connexionLostCanIGetMyRatingBack">Gecikme / bağlantı kopması nedeniyle oyunu kaybettim. Puanlarımı geri alabilir miyim?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Maalesef, gecikme ya da bağlantı kopması nedeniyle yaşanan puan kayıplarını sorunun sizde mi bizde mi olduğuna bakmaksızın geri veremeyiz. İkincisi çok nadirdir. Ayrıca Lichess yeniden başladığında ve bu nedenle zamandan kaybettiğinizde, haksız bir kaybı önlemek için oyunu iptal ettiğimizi unutmayın.</string>
-  <string name="howToThreeDots">Nasıl...</string>
-  <string name="enableDisableNotificationPopUps">Bildirimler etkinleştirilsin mi, devre dışı mı bırakılsın?</string>
-  <string name="viewSiteInformationPopUp">Site bilgilerini görüntüle</string>
-  <string name="lichessCanOptionnalySendPopUps">Lichess isteğe bağlı olarak oyun bildirimleri gönderebilir, örneğin hamle sırası sizdeyken veya özel bir mesaj aldığınızda.
- lichess.org sitesinde tarayıcınızdaki sol üst köşede yer alan kilit ikonuna tıklayın.
-Sonra Lichess bildirimlerine izin ver veya engelle seçeneğine tıklayın.</string>
+Puanları mutlak sayılar olarak görmek yerine \"göreceli\" rakamlar olarak ele almak daha doğru olur. Belirli bir oyuncu havuzunda oyuncular arasındaki göreceli puan farkları, kimin ne sıklıkta kazanacağını veya kaybedeceğini tahmin etmenize yardımcı olur. Aynı platformda puanları karşılaştıracak bir oyuncu olmadan \"benim şu kadar puanım var\" demek pek bir şey ifade etmez.</string>
+  <string name="howToHideRatingWhilePlaying">Maç esnasında puanları nasıl gizlerim?</string>
+  <string name="enableZenMode">%1$s veya oyun sırasında %2$s tuşuna basarak sade görünümü etkinleştirebilirsiniz.</string>
+  <string name="displayPreferences">Oyun görünümü panelinden</string>
+  <string name="connexionLostCanIGetMyRatingBack">İnternet sorunları sebebiyle bir maçta yenildim. Kaybettiğim puanları geri alabilir miyim?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">İnternet sorunları sebebiyle yaşanan puan kayıplarını maalesef telafi edemiyoruz. Bu sorunun sizden veya bizden kaynaklanması bir önem arz etmez. Bizim yol açtığımız bağlantı sorunları çok ender görülür. Ayrıca siz oyundayken Lichess bakıma girerse puan kaybını engellemek için maçı iptal ederiz.</string>
+  <string name="howToThreeDots">Diğer konular</string>
+  <string name="enableDisableNotificationPopUps">Bildirimleri nasıl etkinleştirir veya devre dışı bırakırım?</string>
+  <string name="viewSiteInformationPopUp">Site bilgileri penceresini görüntüleyin</string>
+  <string name="lichessCanOptionnalySendPopUps">Hamle sırasının sizde olması veya özel mesaj almanız gibi durumlarda isteğe bağlı olarak Lichess\'ten bildirim alabilirsiniz.
+
+Bunun için tarayıcının adres çubuğundaki lichess.org bağlantısının sol tarafında bulunan kilit işaretine tıklayın.
+
+Ardından site ayarlarına giderek Lichess tarafından gönderilen bildirimleri açın veya kapatın.</string>
 </resources>

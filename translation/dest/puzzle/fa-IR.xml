@@ -45,12 +45,12 @@
   <string name="jumpToNextPuzzleImmediately">فورا به مسئله بعدی برورید
 با فعال کردن این تنظیمات ، صفحه به محض تکمیل پازلی که مشاهده می کنید به یک معمای جدید منتقل می شود.</string>
   <string name="puzzleDashboard">داشبورد پازل</string>
-  <string name="improvementAreas">پیشرفتها
-اینها مضامین معمایی است که کاربر در آنها ضعیف است و می تواند برای بهینه سازی پیشرفت خود آموزش ببیند.</string>
+  <string name="improvementAreas">نقاط ضعف</string>
   <string name="strengths">استحکامات</string>
   <string name="history">تاریخ پازل</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
+  <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">جستجو پازل ها در بازی های یک بازیکن</string>
   <string name="fromXGames">پازل ها در بازی های %s</string>

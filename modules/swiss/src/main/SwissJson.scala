@@ -52,8 +52,8 @@ final class SwissJson(
         "canJoin" -> {
           {
             (swiss.isNotFinished && myInfo.exists(_.player.absent)) ||
-            (myInfo.isEmpty && swiss.isEnterable && isInTeam)
-          } && verdicts.accepted
+            (myInfo.isEmpty && swiss.isEnterable)
+          } && verdicts.accepted && isInTeam
         },
         "standing" -> standing,
         "boards"   -> boards.map(boardJson)
@@ -126,14 +126,14 @@ final class SwissJson(
               colls.swiss.updateField($id(swiss.id), "winnerId", _).void
             }
             .unit
-          userRepo.filterEngine(top3.map(_.userId)) map { engines =>
+          userRepo.filterLame(top3.map(_.userId)) map { lame =>
             JsArray(
               top3.map { player =>
                 playerJsonBase(
                   player,
                   lightUserApi.sync(player.userId) | LightUser.fallback(player.userId),
                   performance = true
-                ).add("engine", engines(player.userId))
+                ).add("lame", lame(player.userId))
               }
             ).some
           }

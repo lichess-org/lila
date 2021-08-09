@@ -2,6 +2,7 @@ package lila.user
 
 import cats.implicits._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
@@ -40,17 +41,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def idByEmail(email: NormalizedEmailAddress): Fu[Option[String]] =
     coll.primitiveOne[String]($doc(F.email -> email), "_id")
-
-  def idCursor(
-      selector: Bdoc,
-      batchSize: Int = 0,
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Bdoc]): cp.ProducedCursor = {
-    coll
-      .find(selector)
-      .batchSize(batchSize)
-      .cursor[Bdoc](readPreference)
-  }
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: DateTime): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
@@ -121,8 +111,11 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[User](ReadPreference.secondaryPreferred)
       .list(nb)
 
+  def botsByIdsCursor(ids: Iterable[ID]): AkkaStreamCursor[User] =
+    coll.find($inIds(ids) ++ botSelect(true)).cursor[User](ReadPreference.secondaryPreferred)
+
   def botsByIds(ids: Iterable[ID]): Fu[List[User]] =
-    coll.list[User]($inIds(ids) ++ botSelect(true), ReadPreference.secondaryPreferred)
+    botsByIdsCursor(ids).list()
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -204,9 +197,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .void
   }
 
-  def setManagedUserInitialPerfs(id: User.ID) = {
+  def setManagedUserInitialPerfs(id: User.ID) =
     coll.updateField($id(id), F.perfs, Perfs.perfsBSONHandler.write(Perfs.defaultManaged)).void
-  }
 
   def setPerf(userId: String, pt: PerfType, perf: Perf) =
     coll.update
@@ -267,13 +259,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if (v) $doc(F.marks -> mark.key)
     else F.marks $ne mark.key
-  def engineSelect = markSelect(UserMark.Engine) _
-  def trollSelect  = markSelect(UserMark.Troll) _
-  val lameOrTroll = $or(
-    $doc(F.marks -> UserMark.Engine.key),
-    $doc(F.marks -> UserMark.Boost.key),
-    $doc(F.marks -> UserMark.Troll.key)
-  )
+  def engineSelect       = markSelect(UserMark.Engine) _
+  def trollSelect        = markSelect(UserMark.Troll) _
+  val lame               = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key))
+  val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
@@ -389,8 +378,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def updateTroll(user: User) = setTroll(user.id, user.marks.troll)
 
-  def filterEngine(ids: Seq[ID]): Fu[Set[ID]] =
-    coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ engineSelect(true)))
+  def filterLame(ids: Seq[ID]): Fu[Set[ID]] =
+    coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ lame))
 
   def isTroll(id: ID): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
@@ -399,6 +388,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def setRoles(id: ID, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
+
+  def hasTwoFactor(id: ID) = coll.exists($id(id) ++ $doc(F.totpSecret $exists true))
 
   def disableTwoFactor(id: ID) = coll.update.one($id(id), $unset(F.totpSecret))
 
@@ -550,7 +541,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setBot(user: User): Funit =
     if (user.count.game > 0)
       fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
-    else coll.updateField($id(user.id), F.title, Title.BOT).void
+    else
+      coll.update
+        .one(
+          $id(user.id),
+          $set(F.title -> Title.BOT, F.perfs -> Perfs.perfsBSONHandler.write(Perfs.defaultBot))
+        )
+        .void
 
   private def botSelect(v: Boolean) =
     if (v) $doc(F.title -> Title.BOT)

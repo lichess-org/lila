@@ -90,8 +90,6 @@ object Form {
 
   object eventName {
 
-    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
-
     def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
       cleanText.verifying(
         Constraints minLength minLength,
@@ -100,13 +98,18 @@ object Form {
           regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
           error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
         ),
-        Constraint[String] { (t: String) =>
-          if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
-            V.Invalid(V.ValidationError("Must not contain \"lichess\""))
-          else V.Valid
-        }
+        mustNotContainLichess(verifiedUser)
       )
 
+  }
+
+  object mustNotContainLichess {
+    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
+    def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
+      if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+        V.Invalid(V.ValidationError("Must not contain \"lichess\""))
+      else V.Valid
+    }
   }
 
   def stringIn(choices: Options[String]) =

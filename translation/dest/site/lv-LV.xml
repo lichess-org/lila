@@ -56,6 +56,7 @@
   <string name="requestAComputerAnalysis">Pieprasīt datoranalīzi</string>
   <string name="computerAnalysis">Datoranalīze</string>
   <string name="computerAnalysisAvailable">Pieejama datoranalīze</string>
+  <string name="computerAnalysisDisabled">Datora analīze atspējota</string>
   <string name="analysis">Analīze</string>
   <string name="depthX">Dziļums %s</string>
   <string name="usingServerAnalysis">Izmanto servera analīzi</string>
@@ -148,6 +149,8 @@
     <item quantity="one">%s spēlētājs</item>
     <item quantity="other">%s spēlētāji</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Spēlētāji vienojās par neizšķirtu</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Piecdesmit gājieni bez attīstības</string>
   <string name="currentGames">Pašreizējās spēles</string>
   <plurals name="nbGames">
     <item quantity="zero">%s spēles</item>
@@ -472,7 +475,7 @@
   <string name="setTheBoard">Uzstādīt galdiņu</string>
   <string name="popularOpenings">Populāras atklātnes</string>
   <string name="endgamePositions">Spēļu beigu pozīcijas</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">960-šaha sākumpozīcija: %s</string>
+  <string name="chess960StartPosition">960-šaha sākumpozīcija: %s</string>
   <string name="startPosition">Sākuma pozīcija</string>
   <string name="clearBoard">Notīrīt lauciņu</string>
   <string name="savePosition">Saglabāt pozīciju</string>
@@ -930,7 +933,7 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="cancelSimul">Atcelt simultānseansu</string>
   <string name="simulHostcolor">Uzņemošā spēlētāja krāsa katrā spēlē</string>
   <string name="estimatedStart">Paredzētais sākuma laiks</string>
-  <string name="simulFeatured">Rādīt %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Rādīt %s</string>
   <string name="simulFeaturedHelp">Visiem rādīt simultānseansu %s. Atspējojiet šo opciju privātiem simultānseansiem.</string>
   <string name="simulDescription">Simultānseansa apraksts</string>
   <string name="simulDescriptionHelp">Vai vēlaties ko teikt dalībniekiem?</string>
@@ -948,4 +951,11 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="analysisOptions">Analīzes iespējas</string>
   <string name="focusChat">Fokusēt sarunu</string>
   <string name="showHelpDialog">Rādīt šo palīdzības dialoglodziņu</string>
+  <string name="reopenYourAccount">Atgūt savu kontu</string>
+  <string name="closedAccountChangedMind">Ja esat slēdzis kontu, bet pārdomājāt, jums ir viena iespēja atgūt kontu.</string>
+  <string name="onlyWorksOnce">Tā darbosies tikai vienu reizi.</string>
+  <string name="cantDoThisTwice">Ja slēgsiet kontu otrreiz, nebūs iespēju to atgūt.</string>
+  <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
+  <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnīra pievienošanās kods</string>
 </resources>

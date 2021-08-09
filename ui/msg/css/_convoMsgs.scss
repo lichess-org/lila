@@ -103,6 +103,10 @@
   .embed {
     @extend %video;
 
+    &--game {
+      @extend %game-embed;
+    }
+
     &.not-found {
       height: 100px;
       padding: 0;

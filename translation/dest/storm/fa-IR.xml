@@ -7,8 +7,13 @@
   <string name="newDailyHighscore">رکورد جدید روزانه!</string>
   <string name="newWeeklyHighscore">رکورد جدید هفتگی!</string>
   <string name="newMonthlyHighscore">رکورد جدید ماهانه!</string>
+  <string name="raceComplete">مسابقه تمام به اتمام رسید!</string>
   <string name="startTheRace">شروع مسابقه</string>
+  <string name="nextRace">مسابقه بعدی</string>
+  <string name="waitingToStart">در حال بارگزاری</string>
   <string name="createNewGame">ایجاد یک بازی جدید</string>
   <string name="joinPublicRace">به یک مسابقه عمومی بپیوندید</string>
+  <string name="raceYourFriends">با دوستان خود مسابقه دهید</string>
   <string name="skip">رد کردن</string>
+  <string name="skipHelp">در هر مسابقه می توانید یک حرکت را رد کنید:</string>
 </resources>

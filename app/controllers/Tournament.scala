@@ -324,7 +324,7 @@ final class Tournament(
       ) 5
       else 20
     CreateLimitPerUser(me.id, cost = cost) {
-      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost) {
+      CreateLimitPerIP(HTTPRequest ipAddress req, cost = cost, msg = me.username) {
         create
       }(fail.fuccess)
     }(fail.fuccess)

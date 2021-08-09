@@ -20,6 +20,25 @@
         padding: 0 7px;
       }
     }
+
+    .comp-off__hint {
+      @extend %metal-bg;
+
+      opacity: 0.8;
+      padding: 0.3em 1em;
+      text-align: center;
+
+      button {
+        @extend %button-none;
+
+        margin-left: 1em;
+        color: $c-link;
+
+        &:hover {
+          color: $c-link-hover;
+        }
+      }
+    }
   }
 
   &__moves {
@@ -72,6 +91,7 @@
       @extend %page-text;
 
       flex: 0 0 2.5rem;
+      transition: visibility 0s;
     }
 
     .active {
@@ -81,6 +101,14 @@
 
     ::before {
       vertical-align: middle;
+    }
+
+    @include breakpoint($mq-col1) {
+      height: $col1-uniboard-controls;
+
+      .fbt {
+        flex: 0 0 3.5rem;
+      }
     }
   }
 }

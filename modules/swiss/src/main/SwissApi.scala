@@ -39,7 +39,7 @@ final class SwissApi(
 ) {
 
   private val sequencer =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 1024, // queue many game finished events
       expiration = 20 minutes,
       timeout = 10 seconds,
@@ -148,13 +148,13 @@ final class SwissApi(
 
   def join(id: Swiss.Id, me: User, isInTeam: TeamID => Boolean, password: Option[String]): Fu[Boolean] =
     Sequencing(id)(notFinishedById) { swiss =>
-      if (swiss.settings.password.exists(_ != ~password)) fuFalse
+      if (swiss.settings.password.exists(_ != ~password) || !isInTeam(swiss.teamId)) fuFalse
       else
         colls.player // try a rejoin first
           .updateField($id(SwissPlayer.makeId(swiss.id, me.id)), SwissPlayer.Fields.absent, false)
           .flatMap { rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
-              (swiss.isEnterable && isInTeam(swiss.teamId)) ?? {
+              swiss.isEnterable ?? {
                 colls.player.insert.one(SwissPlayer.make(swiss.id, me, swiss.perfType)) zip
                   colls.swiss.update.one($id(swiss.id), $inc("nbPlayers" -> 1)) inject true
               }

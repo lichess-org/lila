@@ -1,2 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="private">Անձնական</string>
+  <string name="myStudies">Իմ ստուդիաները</string>
+  <string name="studiesIContributeTo">Իմ մասնակցությամբ ստուդիաները</string>
+  <string name="myPublicStudies">Իմ հանրային ստուդիաները</string>
+  <string name="myPrivateStudies">Իմ անձնական ստուդիաները</string>
+  <string name="myFavoriteStudies">Իմ սիրելի ստուդիաները</string>
+  <string name="whatAreStudies">Ի՞նչ են «ստուդիաները»</string>
+  <string name="allStudies">Բոլոր ստուդիաները</string>
+  <string name="studiesCreatedByX">%s-ի ստեղծած ստուդիաները</string>
+  <string name="noneYet">Առայժմ ոչինչ։</string>
+  <string name="hot">Ամենաակտիվները</string>
+  <string name="dateAddedNewest">Վերջերս ավելացվածները</string>
+  <string name="dateAddedOldest">Վաղուց ավելացվածները</string>
+  <string name="recentlyUpdated">Վերջերս թարմացվածները</string>
+  <string name="mostPopular">Ամենահայտնիները</string>
+  <string name="alphabetical">Այբբենական կարգով</string>
+  <string name="addNewChapter">Ավելացնել նոր գլուխ</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s գլուխ</item>
+    <item quantity="other">%s գլուխ</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s պարտիա</item>
+    <item quantity="other">%s պարտիա</item>
+  </plurals>
+  <string name="addMembers">Ավելացնել մասնակիցների</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s մասնակից</item>
+    <item quantity="other">%s մասնակից</item>
+  </plurals>
+  <string name="inviteToTheStudy">Հրավիրել ստուդիա</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Հրավիրեք միայն այն մասնակիցներին, որոնց ճանաչում եք, և որոնք ակտիվորեն ցանկանում են միանալ այս ստուդիային։</string>
+  <string name="searchByUsername">Որոնում ըստ մասնակցային անվան</string>
+  <string name="spectator">Հանդիսատես</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Հեռացնե՞լ ամբողջ ստուդիան։ Հեռացումն անդառնալի կլինի։ Հաստատելու համար մուտքագրեք ստուդիայի անվանումը՝ %s</string>
+</resources>

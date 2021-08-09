@@ -134,7 +134,7 @@
   <string name="clearChat">Очистить чат</string>
   <string name="deleteTheStudyChatHistory">Удалить чат студии? Восстановить будет невозможно!</string>
   <string name="deleteStudy">Удалить студию</string>
-  <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения.</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
   <string name="goodMove">Хороший ход</string>
   <string name="mistake">Ошибка</string>
@@ -162,4 +162,5 @@
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">С идеей</string>
   <string name="nextChapter">Следующая глава</string>
   <string name="prevChapter">Предыдущая глава</string>
+  <string name="studyActions">Действия в студии</string>
 </resources>

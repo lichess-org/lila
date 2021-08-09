@@ -51,12 +51,12 @@
   <string name="swissVsArenaA">W systemie szwajcarskim wszyscy uczestnicy grają tę samą liczbę partii i mogą grać ze sobą tylko raz.
 Może to być dobra opcja dla klubów i oficjalnych turniejów.</string>
   <string name="pointsCalculationQ">Jak oblicza się punkty?</string>
-  <string name="pointsCalculationA">Zwycięstwo jest warte jeden punkt, remis pół punktu, a przegrana zero punktów.
-Gdy zawodnik nie może być sparowany podczas rundy, otrzymuje wtedy wolny los warty jeden punkt.</string>
-  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca gdy wielu graczy uzyskało ten sam wynik?</string>
+  <string name="pointsCalculationA">Zwycięstwo warte jest jeden punkt, remis to pół punktu, a przegrana to brak punktów.
+Gdy uczestnik nie może być sparowany podczas rundy, otrzymuje wtedy tzw. wolny los warty jeden punkt.</string>
+  <string name="tiebreaksCalculationQ">Jak wyznaczany jest zwycięzca, gdy wielu uczestników uzyskało ten sam wynik?</string>
   <string name="sonnebornBergerScore">system Sonneborn–Berger</string>
   <string name="tiebreaksCalculationA">Stosujemy %s.
-Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końcowych tych zawodników, z którymi dany zawodnik wygrał oraz połowy punktów końcowych z którymi dany zawodnik zremisował.</string>
+Liczba punktów pomocniczych danego uczestnika składa się z sumy punktów końcowych tych uczestników, z którymi dany uczestnik wygrał oraz połowy punktów końcowych, z którymi dany uczestnik zremisował.</string>
   <string name="pairingsQ">Jak ustalane są pary?</string>
   <string name="dutchSystem">systemu holenderskiego</string>
   <string name="FIDEHandbook">przepisami gry w szachy FIDE</string>
@@ -64,29 +64,29 @@ Liczba punktów pomocniczych danego zawodnika składa się z sumy punktów końc
   <string name="moreRoundsThanPlayersQ">Co się stanie, jeśli turniej ma więcej rund niż graczy?</string>
   <string name="moreRoundsThanPlayersA">Po rozegraniu wszystkich możliwych par, turniej zakończy się i zostanie ogłoszony zwycięzca.</string>
   <string name="restrictedToTeamsQ">Dlaczego tylko dla klubów?</string>
-  <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od graczy punktualności i cierpliwości.
-Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach globalnych.</string>
-  <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może dostać uczestnik?</string>
+  <string name="restrictedToTeamsA">System szwajcarski nie został opracowany dla rozgrywek online. Wymaga od uczestników punktualności i cierpliwości.
+Uważamy, że warunki te są bardziej prawdopodobne do spełnienia w klubie niż w turniejach otwartych.</string>
+  <string name="numberOfByesQ">Ile wolnych losów (punktów bez gry) może otrzymać uczestnik?</string>
   <string name="numberOfByesA">Uczestnik turnieju dostaje wolny los (punkt bez gry) za każdym razem, gdy system parowania nie może znaleźć dla niego przeciwnika.
-Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołączył do turnieju po jego rozpoczęciu.</string>
-  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli gracz nie rozpocznie partii?</string>
+Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju po jego rozpoczęciu.</string>
+  <string name="whatIfOneDoesntPlayQ">Co się stanie, jeśli uczestnik nie rozpocznie partii?</string>
   <string name="whatIfOneDoesntPlayA">Jego czas na zegarze będzie upływał, aż skończy się i wtedy przegra partię.
-Następnie system wycofa takiego gracza z turnieju, więc nie przegra on więcej partii.
-Gracz ten może w każdej chwili ponownie dołączyć do turnieju.</string>
-  <string name="lateJoinQ">Czy gracze mogą dołączyć po rozpoczęciu turnieju?</string>
-  <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju gracze mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
-Gracze dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>
-  <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi Areny?</string>
+Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
+Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
+  <string name="lateJoinQ">Czy można dołączyć do turnieju po jego rozpoczęciu?</string>
+  <string name="lateJoinA">Tak, dopóki nie rozpocznie się ponad połowa rund. Na przykład w 11-rundowym turnieju uczestnicy mogą dołączyć przed rozpoczęciem się 6 rundy, a w 12-rundowym turnieju przed rozpoczęciem się rundy 7.
+Uczestnicy dołączający po rozpoczęciu turnieju otrzymują jeden wolny los (punkt bez gry), nawet jeśli przegapili już kilka rund.</string>
+  <string name="willSwissReplaceArenasQ">Czy system szwajcarski zastąpi areny?</string>
   <string name="willSwissReplaceArenasA">Nie. To dodatkowy system turniejowy na Lichess.</string>
   <string name="roundRobinQ">Co z systemem kołowym?</string>
   <string name="roundRobinA">Chcielibyśmy go dodać, ale niestety system kołowy nie sprawdza się w turniejach online.
-Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z graczami, którzy wcześnie opuszczają turniej. Trudno oczekiwać, że wszyscy gracze zagrają wszystkie swoje gry. To po prostu się nie wydarzy, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
+Problemem jest to, że nie ma sprawiedliwego sposobu radzenia sobie z uczestnikami, którzy wcześnie porzucają turniej. Trudno oczekiwać, że wszyscy uczestnicy zagrają wszystkie swoje partie. To po prostu się nie zdarza, a w rezultacie większość turniejów byłaby wadliwa i niesprawiedliwa, co podważa ich sens istnienia.
 Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajcarski z bardzo dużą liczbą rund. W takim turnieju zagrają ze sobą wszystkie możliwe pary.</string>
   <string name="otherSystemsQ">Co z innymi systemami turniejowymi?</string>
-  <string name="otherSystemsA">W tej chwili nie planujemy dodawać więcej systemów turniejowych do Lichess.</string>
-  <string name="swissDescription">W systemie szwajcarskim %1$s każdy gracz niekoniecznie gra ze wszystkimi innymi uczestnikami turnieju. Gracze są parowani przy użyciu zestawu zasad mających na celu zapewnienie, że każdy uczestnik gra z przeciwnikiem z podobnym wynikiem, ale nie więcej niż raz z tym samym graczem. Zwycięzcą turnieju jest gracz z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba graczy.</string>
-  <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków klubu.
-%1$s aby zacząć grać systemem szwajcarskim.</string>
+  <string name="otherSystemsA">W tej chwili nie planujemy dodawać innych systemów turniejowych na Lichess.</string>
+  <string name="swissDescription">W systemie szwajcarskim %1$s, uczestnik niekoniecznie rozegra partie ze wszystkimi innymi uczestnikami turnieju. Uczestnicy parowani są ze sobą przy użyciu zestawu zasad mających na celu zapewnienie, że każdy zagra z przeciwnikiem mającym podobny wynik, jednak nie więcej niż raz z tym samym przeciwnikiem. Zwycięzcą turnieju jest uczestnik z najwyższą łączną liczbą punktów uzyskaną we wszystkich rundach. Wszyscy uczestnicy turnieju grają w każdej rundzie, chyba że istnieje nieparzysta liczba uczestników.</string>
+  <string name="teamOnly">Turnieje systemem szwajcarskim mogą być tworzone wyłącznie przez liderów klubów i mogą być grane tylko przez członków tego klubu.
+%1$s, aby zacząć grać systemem szwajcarskim.</string>
   <string name="joinOrCreateTeam">Dołącz lub utwórz klub</string>
   <string name="nowPlaying">W toku</string>
   <string name="startingSoon">Rozpoczną się wkrótce</string>

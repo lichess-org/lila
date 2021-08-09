@@ -15,7 +15,10 @@
   <string name="thankYou">Շնորհակալություն նվիրատվություն կատարելու համար:</string>
   <string name="youHaveLifetime">Դուք ունեք հովանավորի ցմահ օգտանուն։ Դա շատ զիլ է։</string>
   <string name="patronUntil">Հովանավորի Ձեր օգտանունը գործում է մինչև %s։</string>
-  <string name="monthly">Ամսեկան</string>
+  <string name="lifetime">Անժամկետ</string>
+  <string name="payLifetimeOnce">Վճարեք %s մեկ անգամ։ Դարձեք հովանավոր ընդմիշտ։</string>
+  <string name="lifetimePatron">Lichess-ի անժամկետ հովանավոր</string>
+  <string name="monthly">Ամսական</string>
   <string name="onetime">Մեկանգամյա</string>
   <string name="otherAmount">Այլ</string>
   <string name="withCreditCard">Բանկային քարտ</string>

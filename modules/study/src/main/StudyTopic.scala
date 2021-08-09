@@ -140,7 +140,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
 
-  private val recomputeWorkQueue = new lila.hub.DuctSequencer(
+  private val recomputeWorkQueue = new lila.hub.AsyncActorSequencer(
     maxSize = 1,
     timeout = 61 seconds,
     name = "studyTopicAggregation",
@@ -149,8 +149,8 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def recompute(): Unit =
     recomputeWorkQueue(Future.makeItLast(60 seconds)(recomputeNow)).recover {
-      case _: lila.hub.BoundedDuct.EnqueueException => ()
-      case e: Exception                             => logger.warn("Can't recompute study topics!", e)
+      case _: lila.hub.BoundedAsyncActor.EnqueueException => ()
+      case e: Exception                                   => logger.warn("Can't recompute study topics!", e)
     }.unit
 
   private def recomputeNow: Funit =

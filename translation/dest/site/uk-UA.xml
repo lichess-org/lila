@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Зробити запит на комп’ютерний аналіз</string>
   <string name="computerAnalysis">Комп’ютерний аналіз</string>
   <string name="computerAnalysisAvailable">Комп\'ютерний аналіз доступний</string>
+  <string name="computerAnalysisDisabled">Комп\'ютерний аналіз вимкнено</string>
   <string name="analysis">Аналіз за дошкою</string>
   <string name="depthX">Глибина %s</string>
   <string name="usingServerAnalysis">Використовуючи комп\'ютерний аналіз</string>
@@ -102,6 +103,7 @@
   <string name="noGameFound">Партій не знайдено</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Може, варто включити більше ігор з меню налаштувань?</string>
   <string name="openingExplorer">Провідник дебютів</string>
+  <string name="openingEndgameExplorer">Дослідник дебютів\ендпшілю</string>
   <string name="xOpeningExplorer">Провідник дебюту %s</string>
   <string name="winPreventedBy50MoveRule">Перемогу попереджено правилом 50-го ходу</string>
   <string name="lossSavedBy50MoveRule">Поразку попереджено правилом 50-го ходу</string>
@@ -124,6 +126,12 @@
   <string name="blunder">Груба помилка</string>
   <string name="mistake">Помилка</string>
   <string name="inaccuracy">Неточність</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s груба помилка</item>
+    <item quantity="few">%s грубі помилки</item>
+    <item quantity="many">%s грубих помилок</item>
+    <item quantity="other">%s грубих помилок</item>
+  </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
@@ -136,6 +144,8 @@
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Нічия за спільною згодою</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">П\'ятдесят кроків без прогресу</string>
   <string name="currentGames">Поточні партії</string>
   <plurals name="nbGames">
     <item quantity="one">%s ігра</item>
@@ -484,6 +494,8 @@
   <string name="boardEditor">Редактор дошки</string>
   <string name="setTheBoard">Встановити позицію</string>
   <string name="popularOpenings">Популярні дебюти</string>
+  <string name="endgamePositions">Позиції ендшпілю</string>
+  <string name="chess960StartPosition">Початкова позиція Chess960: %s</string>
   <string name="startPosition">Початкова позиція</string>
   <string name="clearBoard">Очистити дошку</string>
   <string name="savePosition">Зберегти позицію</string>
@@ -746,6 +758,7 @@
   <string name="enableKidMode">Увімкнути дитячий режим</string>
   <string name="disableKidMode">Вимкнути дитячий режим</string>
   <string name="security">Безпека</string>
+  <string name="sessions">Сесії</string>
   <string name="revokeAllSessions">завершити усі сеанси</string>
   <string name="playChessEverywhere">Грайте в шахи будь-де</string>
   <string name="asFreeAsLichess">Безкоштовний, як і Lichess</string>
@@ -924,4 +937,14 @@
   <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
   <string name="download">Завантаження</string>
   <string name="welcome">Вітаємо!</string>
+  <string name="cancelTournament">Скасувати турнір</string>
+  <string name="tournDescription">Опис турніру</string>
+  <string name="onlyMembersOfTeam">Тільки члени команди</string>
+  <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
+  <string name="minimumRating">Мінімальний рейтинг</string>
+  <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
+  <string name="onlyTitled">Тільки титуловані гравці</string>
+  <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
+  <string name="onlyTeamLeaders">Лише лідери команд</string>
+  <string name="onlyTeamMembers">Тільки члени команди</string>
 </resources>

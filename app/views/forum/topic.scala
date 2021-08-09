@@ -113,14 +113,14 @@ object topic {
               topic,
               p,
               s"${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)}#${p.number}",
+              canReply = formWithCaptcha.isDefined,
               canModCateg = canModCateg,
               canReact = teamOnly.isEmpty
             )
           }
         ),
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) emptyFrag
-          else if (topic.isOld)
+          if (topic.isOld)
             p(trans.thisTopicIsArchived())
           else if (formWithCaptcha.isDefined)
             h2(id := "reply")(trans.replyToThisTopic())
@@ -189,9 +189,9 @@ object topic {
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-              isGranted(_.PublicMod) option
+              (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
                 form3.submit(
-                  frag("Reply as a mod"),
+                  frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).?? { "(anonymously)" }}"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = "".some
                 ),
@@ -217,7 +217,7 @@ object topic {
           }
         ),
         form3.actions(
-          button(cls := "cancel button button-empty", value := "cancel")("Cancel"),
+          button(cls := "cancel button button-empty", tpe := "button", value := "cancel")("Cancel"),
           form3.submit(
             frag("Delete the post")
           )(value := "default", cls := "button-red")

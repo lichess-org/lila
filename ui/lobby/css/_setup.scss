@@ -6,7 +6,10 @@ $c-slider: $c-setup;
 
   #modal-wrap {
     width: 30em;
-    padding: 0;
+
+    > div {
+      padding: 0;
+    }
   }
 
   text-align: center;

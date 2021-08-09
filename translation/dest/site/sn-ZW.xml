@@ -78,6 +78,8 @@
   <string name="winning">Inokundisa</string>
   <string name="losing">Inodyisa</string>
   <string name="drawn">Draw</string>
+  <string name="unknown">Zvinobuda kwokupedzisira kwemutambo tablebase kana chibudochenzvimbo yakapihwa isingazivikanwe</string>
+  <string name="database">Zvinopa user sarudzo pakati pelichess kana Master databases</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Rangariro</string>
   <string name="infiniteAnalysis">Analysis isingapere</string>

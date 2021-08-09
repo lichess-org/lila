@@ -23,7 +23,8 @@ final class StormJson(sign: StormSign) {
       "destination" -> p.destination,
       "moveEvent"   -> p.moveEvent,
       "highlight"   -> p.highlight,
-      "is3d"        -> p.is3d
+      "is3d"        -> p.is3d,
+      "animation"   -> p.animationMillisForSpeedPuzzles
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =

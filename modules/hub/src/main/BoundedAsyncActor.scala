@@ -9,11 +9,13 @@ import scala.concurrent.Promise
  * Sequential like an actor, but for async functions,
  * and using an atomic backend instead of akka actor.
  */
-final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(process: Duct.ReceiveAsync)(
-    implicit ec: scala.concurrent.ExecutionContext
+final class BoundedAsyncActor(maxSize: Int, name: String, logging: Boolean = true)(
+    process: AsyncActor.ReceiveAsync
+)(implicit
+    ec: scala.concurrent.ExecutionContext
 ) {
 
-  import BoundedDuct._
+  import BoundedAsyncActor._
 
   def !(msg: Any): Boolean =
     stateRef.getAndUpdate { state =>
@@ -30,8 +32,8 @@ final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(pro
       case Some(q) =>
         val success = q.size < maxSize
         if (!success) {
-          lila.mon.duct.overflow(name).increment()
-          if (logging) lila.log("duct").warn(s"[$name] queue is full ($maxSize)")
+          lila.mon.asyncActor.overflow(name).increment()
+          if (logging) lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
         }
         success
     }
@@ -39,7 +41,7 @@ final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(pro
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
-    if (!success) promise failure new EnqueueException(s"The $name duct queue is full ($maxSize)")
+    if (!success) promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
     promise.future
   }
 
@@ -59,12 +61,12 @@ final class BoundedDuct(maxSize: Int, name: String, logging: Boolean = true)(pro
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
   private[this] lazy val fallback = { msg: Any =>
-    lila.log("duct").warn(s"[$name] unhandled msg: $msg")
+    lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
   }
 }
 
-object BoundedDuct {
+object BoundedAsyncActor {
 
   final class EnqueueException(msg: String) extends Exception(msg)
 

@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="lichessStreamers">Lichess-ի հեռարձակողներ</string>
+  <string name="lichessStreamer">Lichess-ի հեռարձակող</string>
+  <string name="live">ԵԹԵՐՈՒՄ Է</string>
+  <string name="offline">ԵԹԵՐՈՒՄ ՉԷ</string>
+  <string name="currentlyStreaming">Այժմ հեռարձակում են` %s</string>
+  <string name="lastStream">Վերջին հեռարձակումը %s</string>
+  <string name="becomeStreamer">Դառնալ Lichess-ի հեռարձակող</string>
+  <string name="doYouHaveStream">Դուք ունե՞ք Twitch կամ YouTube ալիքներ։</string>
+  <string name="hereWeGo">Գնացի՜նք</string>
+  <string name="allStreamers">Բոլոր հեռարձակողները</string>
+  <string name="editPage">Խմբագրել հեռարձակողի էջը</string>
+  <string name="yourPage">Հեռարձակողի Ձեր էջը</string>
+  <string name="downloadKit">Բեռնել հեռարձակողի գործիքները</string>
+  <string name="xIsStreaming">%s-ը հեռարձակում է</string>
+  <string name="rules">Հեռարձակումների կանոնները</string>
+  <string name="uploadPicture">Բեռնել պատկեր</string>
+  <string name="deletePicture">Հեռացնել պատկերը</string>
+  <string name="maxSize">Առավելագույն չափսը` %s</string>
+  <string name="installBlocker">Տեղադրե՜ք վնասակար ծրագրերի արգելափակիչ։</string>
+  <string name="beSafe">Պայքարեք Twitch-ն ու YouTube-ը հեղեղող գովազդային սփամի և թրեքերների դեմ։
+Lichess-ը խորհուրդ է տալիս բաց նախնական կոդով անվճար uBlock Origin-ը։</string>
+</resources>

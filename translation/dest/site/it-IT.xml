@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
+  <string name="computerAnalysisDisabled">Analisi del computer disattivata</string>
   <string name="analysis">Scacchiera di analisi</string>
   <string name="depthX">Profondità %s</string>
   <string name="usingServerAnalysis">Analisi del computer in uso</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s giocatore collegato</item>
     <item quantity="other">%s giocatori collegati</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Patta per comune accordo</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta mosse senza progresso</string>
   <string name="currentGames">Partite in corso</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
@@ -442,7 +445,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="setTheBoard">Imposta la scacchiera</string>
   <string name="popularOpenings">Aperture popolari</string>
   <string name="endgamePositions">Poizioni di chiusura</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a challenge to a friend or another player.">Posizione iniziale di Chess960: %s</string>
+  <string name="chess960StartPosition">Posizione iniziale di Chess960: %s</string>
   <string name="startPosition">Posizione iniziale</string>
   <string name="clearBoard">Svuota scacchiera</string>
   <string name="savePosition">Salva la posizione</string>
@@ -910,4 +913,11 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="analysisOptions">Opzioni d\'analisi</string>
   <string name="focusChat">Focalizza chat</string>
   <string name="showHelpDialog">Mostra questa finestra d\'aiuto</string>
+  <string name="reopenYourAccount">Riapri il tuo account</string>
+  <string name="closedAccountChangedMind">Se hai chiuso il tuo account, ma da allora hai cambiato idea, ottieni una possibilità di recuperare il tuo account.</string>
+  <string name="onlyWorksOnce">Questo funzionerà una sola volta.</string>
+  <string name="cantDoThisTwice">Se chiudi il tuo account una seconda volta, non ci sarà modo di recuperarlo.</string>
+  <string name="emailAssociatedToaccount">Indirizzo email associato all\'account</string>
+  <string name="sentEmailWithLink">Ti abbiamo inviato un\'email con un link.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codice di accesso al torneo</string>
 </resources>

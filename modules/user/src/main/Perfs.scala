@@ -232,6 +232,18 @@ case object Perfs {
     )
   }
 
+  val defaultBot = {
+    val bot = Perf.defaultBot
+    default.copy(
+      standard = bot,
+      bullet = bot,
+      blitz = bot,
+      rapid = bot,
+      classical = bot,
+      correspondence = bot
+    )
+  }
+
   def variantLens(variant: chess.variant.Variant): Option[Perfs => Perf] =
     variant match {
       case chess.variant.Standard      => Some(_.standard)

@@ -125,6 +125,5 @@
   <string name="clearChat">Suhbatni tozalash</string>
   <string name="deleteTheStudyChatHistory">Ta\'lim suhbatini o\'chirilsinmi? Bundan keyin uni ortga qaytarib bo\'lmaydi!</string>
   <string name="deleteStudy">Ta\'limni o\'chirish</string>
-  <string name="deleteTheEntireStudy">Ta\'lim butunlay o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
   <string name="whereDoYouWantToStudyThat">Buni qayerda o\'rganmoqchisiz?</string>
 </resources>

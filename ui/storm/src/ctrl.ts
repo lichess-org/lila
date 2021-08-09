@@ -48,11 +48,11 @@ export default class StormCtrl {
       filterFailed: false,
       filterSlow: false,
     };
-    this.promotion = new PromotionCtrl(
-      this.withGround,
-      () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped))),
-      this.redraw
-    );
+    this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
+    setTimeout(() => {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }, 100);
     this.checkDupTab();
     setTimeout(this.hotkeys, 1000);
     if (this.data.key) setTimeout(() => sign(this.data.key!).then(this.vm.signed), 1000 * 40);
@@ -144,7 +144,11 @@ export default class StormCtrl {
       this.redrawQuick();
       this.redrawSlow();
     }
-    this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
+    this.setGround();
+    if (this.run.current.moveIndex < 0) {
+      this.run.current.moveIndex = 0;
+      this.setGround();
+    }
     lichess.pubsub.emit('ply', this.run.moves);
   };
 
@@ -171,6 +175,8 @@ export default class StormCtrl {
     const g = this.ground();
     return g && f(g);
   };
+
+  private setGround = () => this.withGround(g => g.set(makeCgOpts(this.run, !this.run.endAt, this.flipped)));
 
   countWins = (): number => this.run.history.reduce((c, r) => c + (r.win ? 1 : 0), 0);
 

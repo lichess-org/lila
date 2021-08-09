@@ -117,7 +117,6 @@
   <string name="clearChat">ล้างแชท</string>
   <string name="deleteTheStudyChatHistory">ลบประวัติแชทกรณีศึกษาหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="deleteStudy">ลบกรณีศึกษา</string>
-  <string name="deleteTheEntireStudy">ลบทั้งกรณีศึกษาหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="whereDoYouWantToStudyThat">คุณต้องการศึกษาที่ไหน?</string>
   <string name="goodMove">เดินได้ดี</string>
   <string name="mistake">พลาด</string>

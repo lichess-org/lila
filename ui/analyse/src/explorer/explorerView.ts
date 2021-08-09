@@ -1,7 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import { bind } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
-import { bind, dataIcon } from '../util';
+import { dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import { MaybeVNode } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
@@ -466,8 +467,11 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       content,
       !content || explorer.failing()
         ? null
-        : h('span.toconf', {
-            attrs: dataIcon(configOpened ? '' : ''),
+        : h('button.fbt.toconf', {
+            attrs: {
+              'aria-label': configOpened ? 'Close configuration' : 'Open configuration',
+              ...dataIcon(configOpened ? '' : ''),
+            },
             hook: bind('click', () => ctrl.explorer.config.toggleOpen(), ctrl.redraw),
           }),
     ]

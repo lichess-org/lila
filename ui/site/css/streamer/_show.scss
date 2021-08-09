@@ -69,17 +69,13 @@ $mq-picture: $mq-large;
     font-size: 1.4em;
   }
 
-  .services {
-    display: none;
-
-    @include breakpoint($mq-large) {
-      display: block;
-    }
-  }
-
   .services a:hover,
   .description a {
     color: #3893e8;
+  }
+
+  .service {
+    white-space: normal;
   }
 
   .ratings {

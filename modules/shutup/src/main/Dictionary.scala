@@ -201,10 +201,12 @@ p[ie]d[aoe]?r
 
   def es = dict("""
 cabr[oó]na?
+ching(ue|a)
 chupame
 cobarde
 est[úu]pid[ao]
 imbecil
+madre
 maric[oó]n
 mierda
 pendejo

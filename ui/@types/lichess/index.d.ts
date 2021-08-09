@@ -206,7 +206,7 @@ interface LichessEditor {
 declare namespace Editor {
   export interface Config {
     baseUrl: string;
-    fen: string;
+    fen?: string;
     options?: Editor.Options;
     is3d: boolean;
     animation: {
@@ -316,7 +316,7 @@ declare type Perf =
 declare type Color = 'white' | 'black';
 
 declare type Files = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h';
-declare type Ranks = '1' | '2' | '3' | '4' | '5' | '5' | '6' | '7' | '8';
+declare type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
 declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;

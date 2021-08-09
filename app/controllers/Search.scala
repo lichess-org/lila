@@ -52,7 +52,7 @@ final class Search(env: Env) extends LilaController(env) {
                     html = searchForm
                       .bindFromRequest()
                       .fold(
-                        failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
+                        failure => BadRequest(html.search.index(failure, none, nbGames)).fuccess,
                         data =>
                           data.nonEmptyQuery ?? { query =>
                             env.gameSearch.paginator(query, page) map some
@@ -67,7 +67,7 @@ final class Search(env: Env) extends LilaController(env) {
                         .bindFromRequest()
                         .fold(
                           _ =>
-                            Ok {
+                            BadRequest {
                               jsonError("Could not process search query")
                             }.fuccess,
                           data =>

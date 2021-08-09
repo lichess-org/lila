@@ -134,12 +134,12 @@
   <string name="clearChat">Ачысціць чат</string>
   <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="deleteStudy">Выдаліць навучанне</string>
-  <string name="deleteTheEntireStudy">Выдаліць навучанне цалкам? Гэта нельга будзе адмяніць!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Выдаліць навучанне поўнасцю? Гэта нельга будзе адмяніць! Увядзіце назву навучання каб падцвердзіць: %s</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
   <string name="goodMove">Добры ход</string>
   <string name="mistake">Памылка</string>
   <string name="brilliantMove">Бліскучы ход</string>
-  <string name="blunder">Зявок</string>
+  <string name="blunder">Позех</string>
   <string name="interestingMove">Цікавы ход</string>
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сумнеўны ход</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Адзіны ход</string>

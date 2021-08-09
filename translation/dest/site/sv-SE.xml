@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Begär datoranalys</string>
   <string name="computerAnalysis">Datoranalys</string>
   <string name="computerAnalysisAvailable">Datoranalys tillgänglig</string>
+  <string name="computerAnalysisDisabled">Datoranalys otillgänglig</string>
   <string name="analysis">Analysbräde</string>
   <string name="depthX">Djup %s</string>
   <string name="usingServerAnalysis">Använder serveranalys</string>
@@ -96,6 +97,7 @@
   <string name="noGameFound">Inget parti hittades</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Överväg att ändra inställningarna för att inkludera fler partier.</string>
   <string name="openingExplorer">Öppningsbok</string>
+  <string name="openingEndgameExplorer">Öppning-/slutspelsutforskare</string>
   <string name="xOpeningExplorer">%s öppningsutforskare</string>
   <string name="winPreventedBy50MoveRule">Vinst förhindrad genom 50-dragsregeln</string>
   <string name="lossSavedBy50MoveRule">Förlust förhindrad genom 50-dragsregeln</string>
@@ -140,6 +142,8 @@
     <item quantity="one">%s spelare</item>
     <item quantity="other">%s spelare</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remi genom ömsesidig överenskommelse</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Femtio drag utan framsteg</string>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -439,6 +443,8 @@
   <string name="boardEditor">Brädeditor</string>
   <string name="setTheBoard">Ställ upp brädet</string>
   <string name="popularOpenings">Populära öppningar</string>
+  <string name="endgamePositions">Slutspelspositioner</string>
+  <string name="chess960StartPosition">Chess960 startposition: %s</string>
   <string name="startPosition">Startposition</string>
   <string name="clearBoard">Rensa brädet</string>
   <string name="savePosition">Spara ställning</string>
@@ -692,6 +698,7 @@
   <string name="enableKidMode">Aktivera barnsäkert läge</string>
   <string name="disableKidMode">Avaktivera barnsäkert läge</string>
   <string name="security">Säkerhet</string>
+  <string name="sessions">Sessioner</string>
   <string name="revokeAllSessions">återkalla alla sessioner</string>
   <string name="playChessEverywhere">Spela schack var du vill</string>
   <string name="asFreeAsLichess">Lika gratis som lichess</string>
@@ -864,17 +871,26 @@
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
   <string name="welcome">Välkommen!</string>
+  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
+  <string name="coachManager">Coach-hanterare</string>
+  <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
   <string name="tournDescription">Turneringsbeskrivning</string>
   <string name="tournDescriptionHelp">Något speciellt du vill berätta för deltagarna? Försök att hålla det kort. Markdown länkar finns tillgängliga: [name](https://url)</string>
   <string name="ratedFormHelp">Partier är rankade
 och påverkar spelares rating</string>
+  <string name="onlyMembersOfTeam">Endast medlemmar i lag</string>
   <string name="noRestriction">Ingen begränsning</string>
   <string name="minimumRatedGames">Minst antal rankade partier</string>
   <string name="minimumRating">Lägsta rating</string>
   <string name="maximumWeeklyRating">Högsta vecko-rating</string>
   <string name="onlyTitled">Endast betitlade spelare</string>
   <string name="onlyTitledHelp">Kräv en officiell titel för att delta i turneringen</string>
+  <string name="positionInputHelp">Klistra in en giltig FEN för att starta varje spel från en given position.
+Det fungerar endast för standardspel, inte med varianter.
+Du kan använda %s för att generera en FEN-position, sedan klistra in den här.
+Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="cancelSimul">Avbryt simultanen</string>
   <string name="simulHostcolor">Värdfärg för varje parti</string>
   <string name="estimatedStart">Beräknad starttid</string>
@@ -883,4 +899,24 @@ och påverkar spelares rating</string>
   <string name="simulDescription">Simultan-beskrivning</string>
   <string name="simulDescriptionHelp">Något du vill berätta för deltagarna?</string>
   <string name="markdownAvailable">%s är tillgängligt för mer avancerad syntax.</string>
+  <string name="inYourLocalTimezone">I din egen lokala tidszon</string>
+  <string name="tournChat">Turneringschatt</string>
+  <string name="noChat">Ingen chatt</string>
+  <string name="onlyTeamLeaders">Endast lagledare</string>
+  <string name="onlyTeamMembers">Endast lagmedlemmar</string>
+  <string name="navigateMoveTree">Navigera i dragträdet</string>
+  <string name="mouseTricks">Mus-trick</string>
+  <string name="toggleLocalAnalysis">Växla lokal datoranalys</string>
+  <string name="toggleAllAnalysis">Växla all datoranalys</string>
+  <string name="playComputerMove">Spela bästa datordraget</string>
+  <string name="analysisOptions">Analysalternativ</string>
+  <string name="focusChat">Fokusera chatten</string>
+  <string name="showHelpDialog">Visa denna hjälpdialog</string>
+  <string name="reopenYourAccount">Öppna ditt konto igen</string>
+  <string name="closedAccountChangedMind">Om du stängt ditt konto, men sedan dess har ändrat dig, får du en chans att få tillbaka ditt konto.</string>
+  <string name="onlyWorksOnce">Detta fungerar bara en gång.</string>
+  <string name="cantDoThisTwice">Om du stänger ditt konto en andra gång, kommer det inte att finnas något sätt att återställa det.</string>
+  <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
+  <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Inträdeskod till turnering</string>
 </resources>

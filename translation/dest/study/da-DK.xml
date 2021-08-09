@@ -126,7 +126,7 @@
   <string name="clearChat">Ryd chat</string>
   <string name="deleteTheStudyChatHistory">Slet studiets chat-historik? Du kan ikke fortryde!</string>
   <string name="deleteStudy">Slet studie</string>
-  <string name="deleteTheEntireStudy">Slet hele studiet? Du kan ikke fortryde!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Slet hele studiet? Det kan ikke fortrydes! Skriv navnet på studiet for at bekræfte: %s</string>
   <string name="whereDoYouWantToStudyThat">Hvor vil du studere det?</string>
   <string name="goodMove">Godt træk</string>
   <string name="mistake">Fejl</string>

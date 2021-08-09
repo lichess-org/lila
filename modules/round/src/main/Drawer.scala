@@ -88,7 +88,7 @@ final private[round] class Drawer(
           fuccess(
             Bus.publish(
               lila.game.actorApi.BoardDrawOffer(p),
-              s"boardDrawOffer:${pov.gameId}"
+              lila.game.actorApi.BoardDrawOffer makeChan pov.gameId
             )
           )
         }

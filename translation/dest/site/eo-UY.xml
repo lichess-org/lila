@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Vi ludas per la blankaj pecoj</string>
   <string name="youPlayTheBlackPieces">Vi ludas per la nigraj pecoj</string>
   <string name="itsYourTurn">Estas via ludvico!</string>
+  <string name="cheatDetected">Trompo kaptita</string>
   <string name="kingInTheCenter">Reĝo en la centro</string>
   <string name="threeChecks">Tri ŝakoj</string>
   <string name="raceFinished">Kuro finiĝis</string>
@@ -117,6 +118,14 @@
   <string name="blunder">Erarego</string>
   <string name="mistake">Eraro</string>
   <string name="inaccuracy">Erareto</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s erarego</item>
+    <item quantity="other">%s eraregoj</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s erareto</item>
+    <item quantity="other">%s eraretoj</item>
+  </plurals>
   <string name="moveTimes">Movaj tempoj</string>
   <string name="flipBoard">Rotacii tabulon</string>
   <string name="threefoldRepetition">Triobla ripeto</string>
@@ -426,6 +435,8 @@
   <string name="boardEditor">Tabulredaktilo</string>
   <string name="setTheBoard">Antaŭfaru la tabulo</string>
   <string name="popularOpenings">Popularaj malfermoj</string>
+  <string name="endgamePositions">Finluda pozicio</string>
+  <string name="chess960StartPosition">Ŝako960 komenca pozicio: %s</string>
   <string name="startPosition">Komenca aranĝo</string>
   <string name="clearBoard">Malplenigi tabulon</string>
   <string name="savePosition">Savi aranĝon</string>
@@ -441,6 +452,7 @@
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
   <string name="biography">Biografio</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lando aŭ flago</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="inlineNotation">Enlineaj markoj</string>
@@ -827,9 +839,13 @@
   <string name="youCannotPostYetPlaySomeGames">Vi jam ne rajtas afiŝi en la forumoj. Ludu iujn ludojn!</string>
   <string name="subscribe">Aboni</string>
   <string name="unsubscribe">Malaboni</string>
+  <string name="youAreNowPartOfTeam">Nun vi estas teamano.</string>
   <string name="youHaveJoinedTeamX">Vi aliĝis al \"%1$s\".</string>
   <string name="congratsYouWon">Gratulon, vi venkis!</string>
   <string name="gameVsX">Ludo kontraŭ %1$s</string>
   <string name="resVsX">%1$s kontraŭ %2$s</string>
   <string name="timeAlmostUp">La tempo preskaŭ finiĝis!</string>
+  <string name="welcome">Bonvenon!</string>
+  <string name="tournDescription">Turnira priskribo</string>
+  <string name="onlyMembersOfTeam">Nur teamanoj</string>
 </resources>

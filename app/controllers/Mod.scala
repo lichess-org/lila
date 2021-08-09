@@ -13,7 +13,7 @@ import lila.chat.Chat
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod }
-import lila.security.{ FingerHash, Permission }
+import lila.security.{ FingerHash, Granter, Permission }
 import lila.user.{ User => UserModel, Title, Holder }
 
 final class Mod(
@@ -224,9 +224,14 @@ final class Mod(
               domain = report.room match {
                 case Room.Cheat | Room.Boost => ModDomain.Hunt
                 case Room.Comm               => ModDomain.Comm
-                case _                       => ModDomain.Other
+                // spontaneous inquiry
+                case _ if Granter(_.Admin)(me.user)   => ModDomain.Admin
+                case _ if Granter(_.Hunter)(me.user)  => ModDomain.Hunt // heuristic
+                case _ if Granter(_.Shusher)(me.user) => ModDomain.Comm
+                case _                                => ModDomain.Admin
+
               },
-              room = report.room.name
+              room = if (report.isSpontaneous) "Spontaneous inquiry" else report.room.name
             ) inject NoContent
           }
       }

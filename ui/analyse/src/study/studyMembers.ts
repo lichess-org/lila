@@ -1,10 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import { titleNameToId, bind, dataIcon, iconTag, onInsert, scrollTo } from '../util';
 import { prop, Prop } from 'common';
-import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
-import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
-import { NotifCtrl } from './notif';
+import { bind, onInsert } from 'common/snabbdom';
+import { h, VNode } from 'snabbdom';
 import { AnalyseSocketSend } from '../socket';
+import { dataIcon, iconTag, scrollTo, titleNameToId } from '../util';
+import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
+import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
+import { NotifCtrl } from './notif';
 
 export interface StudyMemberCtrl {
   dict: Prop<StudyMemberMap>;

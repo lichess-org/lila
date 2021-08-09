@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Peón abanzau</string>
+  <string name="advancedPawnDescription">Uno de los tuyos peons ye amanau a coronar u menaza con coronar.</string>
+  <string name="advantage">Avantache</string>
+  <string name="advantageDescription">Aproveita la oportunidat pa aconseguir un avantache decisivo (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">Mate d\'Anastasia</string>
+  <string name="anastasiaMateDescription">Un caballo y una torre u daba se coordina pa atrapar lo rei de l\'oponent entre una cantonada d\'o taulero y una pieza aliada.</string>
+  <string name="arabianMate">Mate arabe</string>
+  <string name="arabianMateDescription">Un caballo y una torre se coordinan pa atrapar lo rei de l\'oponent en una cantonada d\'o taulero.</string>
+  <string name="attackingF2F7">Ataque a f2 u f7</string>
+  <string name="attackingF2F7Description">Un ataque centrau en o peón de f2 u f7, como en l\'ataque Fegatello.</string>
+  <string name="attraction">Atracción</string>
+  <string name="attractionDescription">Un cambio u sacrificio que anima u fuerza a l\'oponent a mover una pieza a una posición que permite bella tactica.</string>
+  <string name="backRankMate">Mate en a zaguera ringlera</string>
+  <string name="backRankMateDescription">Mate a lo rei en a ringlera inicial, quan ye atrapau per las suyas propias piezas.</string>
   <string name="bishopEndgame">Final d\'alfils</string>
   <string name="bishopEndgameDescription">Un final d\'alfils y peons.</string>
+  <string name="bodenMate">Mate de Boden</string>
+  <string name="bodenMateDescription">Dos alfils atacando en diagonals que se cruzan fan mate a un rei que queda atrapau entre piezas propias.</string>
+  <string name="castling">Enroque</string>
+  <string name="castlingDescription">Asegura lo rei y apresta la torre pa l\'ataque.</string>
+  <string name="capturingDefender">Capturar lo defensor</string>
+  <string name="capturingDefenderDescription">Minchar una pieza que ye vita pa desfender-ne unatra, fendo que se pueda minchar la pieza que agora ya no ye desfendida.</string>
+  <string name="crushing">Destrucción</string>
+  <string name="crushingDescription">Troba la error grieu de l\'oponent pa obtener un gran avantache (eval ≥ 600cp)</string>
+  <string name="doubleBishopMate">Mate con dos alfils</string>
+  <string name="doubleBishopMateDescription">Dos alfils atacando en diagonals adchacents fan mate a un rei que queda obstruyiu per piezas propias.</string>
+  <string name="dovetailMate">Mate de Cozio</string>
+  <string name="equality">Igualdat</string>
+  <string name="deflection">Esbarre</string>
+  <string name="discoveredAttack">Ataque a la descubierta</string>
+  <string name="doubleCheck">Escaque doble</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Una tactica en a zaguera fase d\'o chuego.</string>
   <string name="knightEndgame">Final de caballos</string>

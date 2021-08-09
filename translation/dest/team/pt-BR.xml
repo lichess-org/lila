@@ -45,9 +45,9 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar equipe</string>
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>
-  <string name="teamPassword">Senha da equipe</string>
-  <string name="teamPasswordDescriptionForLeader">(Opcional) Uma senha que novos membros devem saber para poderem entrar nesta equipe.</string>
-  <string name="incorrectTeamPassword">Senha da equipe incorreta.</string>
+  <string name="entryCode">Código de entrada da equipe</string>
+  <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que novos membros devem saber para entrarem nesta equipe.</string>
+  <string name="incorrectEntryCode">Código de entrada incorreto.</string>
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
   <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>

@@ -164,7 +164,7 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               'click',
               _ => {
                 if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('password'));
+                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },

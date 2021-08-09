@@ -35,11 +35,13 @@ final class ESClientHttp(
   def search[Q: Writes](query: Q, from: From, size: Size) =
     monitor("search") {
       HTTP(s"search/${index.name}/${from.value}/${size.value}", query, SearchResponse.apply)
+        .dmap(~_)
     }
 
   def count[Q: Writes](query: Q) =
     monitor("count") {
       HTTP(s"count/${index.name}", query, CountResponse.apply)
+        .dmap(~_)
     }
 
   def deleteById(id: lila.search.Id) =
@@ -64,12 +66,13 @@ final class ESClientHttp(
   def refresh =
     HTTP(s"refresh/${index.name}", Json.obj())
 
-  private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
+  private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[Option[R]] =
     ws.url(s"${config.endpoint}/$url").post(Json toJson data) flatMap {
-      case res if res.status == 200 => fuccess(read(res.body))
+      case res if res.status == 200 => fuccess(read(res.body).some)
+      case res if res.status == 400 => fuccess(none)
       case res                      => fufail(s"$url ${res.status}")
     }
-  private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
+  private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ()).void
 
   private def monitor[A](op: String)(f: Fu[A]) =
     f.monTry(res => _.search.time(op, index.name, res.isSuccess))

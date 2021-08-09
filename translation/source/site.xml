@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Request a computer analysis</string>
   <string name="computerAnalysis">Computer analysis</string>
   <string name="computerAnalysisAvailable">Computer analysis available</string>
+  <string name="computerAnalysisDisabled">Computer analysis disabled</string>
   <string name="analysis">Analysis board</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Using server analysis</string>
@@ -141,6 +142,8 @@
     <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
+  <string name="drawByMutualAgreement">Draw by mutual agreement</string>
+  <string name="fiftyMovesWithoutProgress">Fifty moves without progress</string>
   <string name="currentGames">Current games</string>
   <plurals name="nbGames">
     <item quantity="one">%s game</item>
@@ -916,4 +919,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="cantDoThisTwice">If you close your account a second time, there will be no way of recovering it.</string>
   <string name="emailAssociatedToaccount">Email address associated to the account</string>
   <string name="sentEmailWithLink">We've sent you an email with a link.</string>
+  <string name="tournamentEntryCode">Tournament entry code</string>
 </resources>

@@ -126,7 +126,7 @@
   <string name="clearChat">Limpiar el chat</string>
   <string name="deleteTheStudyChatHistory">¿Realmente quieres borrar el historial de chat? ¡Esta acción no se puede deshacer!</string>
   <string name="deleteStudy">Borrar estudio</string>
-  <string name="deleteTheEntireStudy">¿Realmente quieres borrar todo el estudio? ¡Esta acción no se puede deshacer!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">¿Seguro que quieres eliminar el estudio? Ten en cuenta que esta acción no se puede deshacer. Para confirmar, escribe el nombre del estudio: %s</string>
   <string name="whereDoYouWantToStudyThat">¿Dónde quieres estudiar eso?</string>
   <string name="goodMove">Jugada buena</string>
   <string name="mistake">Error</string>

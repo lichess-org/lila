@@ -41,21 +41,9 @@ final class RankingApi(
       .void
 
   def remove(userId: User.ID): Funit =
-    userRepo byId userId flatMap {
-      _ ?? { user =>
-        coll.delete
-          .one(
-            $inIds(
-              PerfType.leaderboardable
-                .filter { pt =>
-                  user.perfs(pt).nonEmpty
-                }
-                .map { makeId(user.id, _) }
-            )
-          )
-          .void
-      }
-    }
+    coll.delete
+      .one($doc("_id" $startsWith s"$userId:"))
+      .void
 
   private def makeId(userId: User.ID, perfType: PerfType) =
     s"$userId:${perfType.id}"

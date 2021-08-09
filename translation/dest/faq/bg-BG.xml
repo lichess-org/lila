@@ -7,6 +7,7 @@
   <string name="leechess">ли-чес</string>
   <string name="hearItPronouncedBySpecialist">Чуйте го произнесено от експерт.</string>
   <string name="whyLiveLightLibre">На живо, защото игрите са играни и гледани 24/7;Свободата от факта, че  Личес е с отворен код и необременен с патентовани глупости, които има в други уебсайтове</string>
+  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sсек = %2$s</string>
   <string name="noUpperCaseDot">Не.</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското ми име?</string>
   <string name="howToThreeDots">Как да...</string>

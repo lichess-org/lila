@@ -126,7 +126,7 @@
   <string name="clearChat">Limpar conversação</string>
   <string name="deleteTheStudyChatHistory">Excluir o histórico de conversação do estudo? Não há volta!</string>
   <string name="deleteStudy">Excluir estudo</string>
-  <string name="deleteTheEntireStudy">Excluir todo o estudo? Não há volta!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Excluir todo o estudo? Não há volta! Digite o nome do estudo para confirmar: %s</string>
   <string name="whereDoYouWantToStudyThat">Onde você quer estudar?</string>
   <string name="goodMove">Boa jogada</string>
   <string name="mistake">Erro</string>

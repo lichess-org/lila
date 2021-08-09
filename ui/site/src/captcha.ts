@@ -1,5 +1,7 @@
 import * as xhr from 'common/xhr';
 import * as domData from 'common/data';
+import type { Api as ChessgroundApi } from 'chessground/api';
+import type { Key } from 'chessground/types';
 
 function init() {
   let failed = false;
@@ -10,12 +12,17 @@ function init() {
     const $captcha = $(this),
       $board = $captcha.find('.mini-board'),
       $input = $captcha.find('input').val(''),
-      cg = domData.get($board[0]!, 'chessground');
+      cg = domData.get($board[0]!, 'chessground') as ChessgroundApi;
 
     if (!cg) {
       failed = true;
       return;
     }
+
+    $board.on('mousedown', () => {
+      const el = document.activeElement as HTMLElement;
+      if (el && 'blur' in el) el.blur();
+    });
 
     const fen = cg.getFen(),
       destsObj = $board.data('moves'),
@@ -28,7 +35,22 @@ function init() {
         dests,
         color: cg.state.orientation,
         events: {
-          after(orig: string, dest: string) {
+          after(orig: Key, dest: Key) {
+            const piece = cg.state.pieces.get(dest);
+            if (piece?.role === 'pawn' && (dest[1] === '8' || dest[1] === '1')) {
+              cg.setPieces(
+                new Map([
+                  [
+                    dest,
+                    {
+                      role: 'queen',
+                      color: piece.color,
+                      promoted: true,
+                    },
+                  ],
+                ])
+              );
+            }
             $captcha.removeClass('success failure');
             submit(orig + ' ' + dest);
           },

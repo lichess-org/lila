@@ -35,8 +35,11 @@ final class Signup(
     case object YesBecauseIpSusp       extends MustConfirmEmail(true)
     case object YesBecauseMobile       extends MustConfirmEmail(true)
     case object YesBecauseUA           extends MustConfirmEmail(true)
+    case object YesBecauseEmailDomain  extends MustConfirmEmail(true)
 
-    def apply(print: Option[FingerPrint])(implicit req: RequestHeader): Fu[MustConfirmEmail] = {
+    def apply(print: Option[FingerPrint], email: EmailAddress)(implicit
+        req: RequestHeader
+    ): Fu[MustConfirmEmail] = {
       val ip = HTTPRequest ipAddress req
       store.recentByIpExists(ip) flatMap { ipExists =>
         if (ipExists) fuccess(YesBecauseIpExists)
@@ -48,7 +51,9 @@ final class Signup(
               else
                 ipTrust.isSuspicious(ip).map {
                   case true => YesBecauseIpSusp
-                  case _    => Nope
+                  case _ =>
+                    if (email.domain.map(_.lower) exists DisposableEmailDomain.whitelisted) Nope
+                    else YesBecauseEmailDomain
                 }
             }
           }
@@ -69,11 +74,11 @@ final class Signup(
             err => fuccess(Signup.Bad(err tap signupErrLog)),
             data =>
               signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 3) {
-                MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
+                val email = emailAddressValidator
+                  .validate(data.realEmail) err s"Invalid email ${data.email}"
+                MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
                   lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                  val email = emailAddressValidator
-                    .validate(data.realEmail) err s"Invalid email ${data.email}"
                   val passwordHash = authenticator passEnc User.ClearPassword(data.password)
                   userRepo
                     .create(

@@ -1,16 +1,17 @@
-import { h, VNode } from 'snabbdom';
+import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
+import { snabModal } from 'common/modal';
+import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { storedProp, StoredProp } from 'common/storage';
 import * as xhr from 'common/xhr';
-import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { variants as xhrVariants, importPgn } from './studyXhr';
-import * as modal from '../modal';
-import { chapter as chapterTour } from './studyTour';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { Redraw } from '../interfaces';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import { parseFen } from 'chessops/fen';
+import { option, spinner } from '../util';
+import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
+import { chapter as chapterTour } from './studyTour';
+import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -140,7 +141,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return modal.modal({
+  return snabModal({
     class: 'chapter-new',
     onClose() {
       ctrl.close();
@@ -212,19 +213,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   hook: {
                     insert(vnode) {
-                      Promise.all([
-                        lichess.loadModule('editor'),
-                        xhr.json(xhr.url('/editor.json', { fen: ctrl.root.node.fen })),
-                      ]).then(([_, data]) => {
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
+                      Promise.all([lichess.loadModule('editor'), xhr.json('/editor.json')]).then(
+                        ([_, data]: [unknown, Editor.Config]) => {
+                          data.fen = ctrl.root.node.fen;
+                          data.embed = true;
+                          data.options = {
+                            inlineCastling: true,
+                            orientation: currentChapter.setup.orientation,
+                            onChange: ctrl.vm.editorFen,
+                          };
+                          ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
+                          ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        }
+                      );
                     },
                     destroy: _ => {
                       ctrl.vm.editor = null;
@@ -342,9 +343,22 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               modeChoices.map(c => option(c[0], mode, noarg(c[1])))
             ),
           ]),
-          modal.button(noarg('createChapter')),
+          modalButton(noarg('createChapter')),
         ]
       ),
     ],
   });
+}
+
+export function modalButton(name: string): VNode {
+  return h(
+    'div.form-actions.single',
+    h(
+      'button.button',
+      {
+        attrs: { type: 'submit' },
+      },
+      name
+    )
+  );
 }

@@ -40,8 +40,5 @@
   <string name="leadersChat">Рәһбәләр сөхбәтләшмәктә</string>
   <string name="closeTeam">Җәмәгане ябу</string>
   <string name="closeTeamDescription">Җәмәгәне ябырга мәңгегә.</string>
-  <string name="teamPassword">Җәмәга серсүзе</string>
-  <string name="teamPasswordDescriptionForLeader">(Ихтимал) Бу җәмәгагә кушылу өчен яңа әгъзалар белергә тиеш серсүз.</string>
-  <string name="incorrectTeamPassword">Сахих булмаган җәмәга серсүзе.</string>
   <string name="teamAlreadyExists">Бу җәмәга инде бар.</string>
 </resources>

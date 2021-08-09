@@ -46,6 +46,11 @@
 
   &__metrics {
     display: flex;
+
+    @include breakpoint($mq-not-x-small) {
+      flex-direction: column;
+      font-size: 0.7em;
+    }
   }
 
   &__metric {
@@ -60,8 +65,13 @@
     margin-left: 2%;
     cursor: default;
 
+    @include breakpoint($mq-not-x-small) {
+      margin-top: 1em;
+    }
+
     &:first-child {
       margin-left: 0;
+      margin-top: 0;
     }
 
     strong {

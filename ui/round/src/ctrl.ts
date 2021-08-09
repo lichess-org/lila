@@ -27,6 +27,7 @@ import * as renderUser from './view/user';
 import * as cevalSub from './cevalSub';
 import * as keyboard from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
+import * as wakeLock from 'common/wakeLock';
 
 import {
   RoundOpts,
@@ -75,7 +76,6 @@ export default class RoundController {
   drawConfirm?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
-  challengeRematched = false;
   justDropped?: cg.Role;
   justCaptured?: cg.Piece;
   shouldSendMoveTime = false;
@@ -555,40 +555,35 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (d.tv) setTimeout(lichess.reload, 10000);
+    wakeLock.release();
     speech.status(this);
   };
 
   challengeRematch = (): void => {
-    this.challengeRematched = true;
-    xhr.challengeRematch(this.data.game.id).then(
-      () => {
-        lichess.pubsub.emit('challenge-app.open');
-        if (lichess.once('rematch-challenge'))
-          setTimeout(() => {
-            lichess.hopscotch(function () {
-              window.hopscotch
-                .configure({
-                  i18n: { doneBtn: 'OK, got it' },
-                })
-                .startTour({
-                  id: 'rematch-challenge',
-                  showPrevButton: true,
-                  steps: [
-                    {
-                      title: 'Challenged to a rematch',
-                      content: 'Your opponent is offline, but they can accept this challenge later!',
-                      target: '#challenge-app',
-                      placement: 'bottom',
-                    },
-                  ],
-                });
-            });
-          }, 1000);
-      },
-      _ => {
-        this.challengeRematched = false;
-      }
-    );
+    xhr.challengeRematch(this.data.game.id).then(() => {
+      lichess.pubsub.emit('challenge-app.open');
+      if (lichess.once('rematch-challenge'))
+        setTimeout(() => {
+          lichess.hopscotch(function () {
+            window.hopscotch
+              .configure({
+                i18n: { doneBtn: 'OK, got it' },
+              })
+              .startTour({
+                id: 'rematch-challenge',
+                showPrevButton: true,
+                steps: [
+                  {
+                    title: 'Challenged to a rematch',
+                    content: 'Your opponent is offline, but they can accept this challenge later!',
+                    target: '#challenge-app',
+                    placement: 'bottom',
+                  },
+                ],
+              });
+          });
+        }, 1000);
+    });
   };
 
   private makeCorrespondenceClock = (): void => {
@@ -786,6 +781,8 @@ export default class RoundController {
       if (!this.nvui) keyboard.init(this);
 
       speech.setup(this);
+
+      wakeLock.request();
 
       this.onChange();
     }, 800);

@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Poproś o analizę komputerową</string>
   <string name="computerAnalysis">Analiza komputerowa</string>
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
+  <string name="computerAnalysisDisabled">Analiza komputerowa wyłączona</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
@@ -155,6 +156,8 @@
     <item quantity="many">%s graczy</item>
     <item quantity="other">%s graczy</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis za obopólną zgodą</string>
+  <string name="fiftyMovesWithoutProgress">50 posunięć bez bicia i ruchu pionem</string>
   <string name="currentGames">Partie w toku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partia</item>
@@ -503,7 +506,7 @@
   <string name="setTheBoard">Ustaw szachownicę</string>
   <string name="popularOpenings">Popularne otwarcia</string>
   <string name="endgamePositions">Pozycje końcowe</string>
-  <string name="chess960StartPosition" comment="chess960StartPosition&#10;&#10;Shown in the preview when you create a Chess960 challenge to a friend or another player.">Pozycja startowa w Szachach 960: %s</string>
+  <string name="chess960StartPosition">Pozycja startowa w Szachach 960: %s</string>
   <string name="startPosition">Ustawienie początkowe</string>
   <string name="clearBoard">Wyczyść szachownicę</string>
   <string name="savePosition">Zapisz pozycję</string>
@@ -980,12 +983,19 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="noChat">Wyłącz czat</string>
   <string name="onlyTeamLeaders">Tylko liderzy klubu</string>
   <string name="onlyTeamMembers">Tylko członkowie klubu</string>
-  <string name="navigateMoveTree" comment="navigateMoveTree&#10;&#10;Appears in the keyboard shortcuts/help screen. The 'move tree' is simply the list of moves.">Nawiguj drzewo ruchów</string>
-  <string name="mouseTricks" comment="mouseTricks&#10;&#10;Title in the keyboard shortcuts screen while looking at a board (press ? to make it appear). Describes different mouse gestures.">Gesty myszy</string>
+  <string name="navigateMoveTree">Nawiguj drzewo ruchów</string>
+  <string name="mouseTricks">Gesty myszy</string>
   <string name="toggleLocalAnalysis">Włącz/wyłącz analizę lokalnego komputera</string>
   <string name="toggleAllAnalysis">Włącz/wyłącz analizę komputera</string>
   <string name="playComputerMove">Zagraj najlepszy ruch komputera</string>
   <string name="analysisOptions">Opcje analizy</string>
   <string name="focusChat">Aktywuj czat</string>
   <string name="showHelpDialog">Pokaż okno pomocy</string>
+  <string name="reopenYourAccount">Otwórz ponownie swoje konto</string>
+  <string name="closedAccountChangedMind">Jeśli zamknąłeś swoje konto, ale zmieniłeś zdanie, otrzymasz jedną szansę na jego odzyskanie.</string>
+  <string name="onlyWorksOnce">To zadziała tylko raz.</string>
+  <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
+  <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
+  <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod dostępu do turnieju</string>
 </resources>

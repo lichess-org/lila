@@ -7,9 +7,7 @@ import reactivemongo.api.ReadPreference
 import scala.util.chaining._
 
 import lila.common.Bus
-import lila.common.paginator._
 import lila.db.dsl._
-import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.hub.LightTeam.TeamID
 import lila.mod.ModlogApi
@@ -19,7 +17,7 @@ import lila.user.User
 final class PostApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    maxPerPage: lila.common.config.MaxPerPage,
+    config: ForumConfig,
     modLog: ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -37,17 +35,20 @@ final class PostApi(
       me: User
   ): Fu[Post] =
     detectLanguage(data.text) zip recentUserIds(topic, topic.nbPosts) flatMap { case (lang, topicUserIds) =>
+      val publicMod = MasterGranter(_.PublicMod)(me)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport)(me))
+      val anonMod   = modIcon && !publicMod
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = !anonMod option me.id,
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
         hidden = topic.hidden,
         categId = categ.id,
-        modIcon = (~data.modIcon && MasterGranter(_.PublicMod)(me)).option(true)
+        modIcon = modIcon option true
       )
       env.postRepo findDuplicate post flatMap {
         case Some(dup) if !post.modIcon.getOrElse(false) => fuccess(dup)
@@ -64,7 +65,8 @@ final class PostApi(
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
-              if (!post.troll && !categ.quiet && !topic.isTooBig)
+              if (anonMod) logAnonPost(me.id, post, edit = false)
+              else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
                 }
@@ -78,14 +80,16 @@ final class PostApi(
   def editPost(postId: Post.ID, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
       post.fold[Fu[Post]](fufail("Post no longer exists.")) {
-        case (_, post) if !post.canBeEditedBy(user.id) =>
+        case (_, post) if !post.canBeEditedBy(user) =>
           fufail("You are not authorized to modify this post.")
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(DateTime.now, spam replace newText)
           (newPost.text != post.text).?? {
-            env.postRepo.coll.update.one($id(post.id), newPost).void
+            env.postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
+              logAnonPost(user.id, newPost, edit = true)
+            }
           } inject newPost
       }
     }
@@ -95,7 +99,7 @@ final class PostApi(
   private def shouldHideOnPost(topic: Topic) =
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
-        topic.nbPosts == maxPerPage.value ||
+        topic.nbPosts == config.postMaxPerPage.value ||
         (!topic.looksLikeTeamForum && topic.createdAt.isBefore(DateTime.now minusDays 5))
       }
     }
@@ -105,7 +109,7 @@ final class PostApi(
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
         env.postRepo.forUser(forUser).countBeforeNumber(topic.id, post.number) dmap { nb =>
-          val page = nb / maxPerPage.value + 1
+          val page = nb / config.postMaxPerPage.value + 1
           PostUrlData(topic.categId, topic.slug, page, post.number).some
         }
       case _ => fuccess(none)
@@ -114,7 +118,7 @@ final class PostApi(
   def get(postId: String): Fu[Option[(Topic, Post)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
-        env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
+        env.topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
@@ -143,7 +147,7 @@ final class PostApi(
       for {
         topic <- topics find (_.id == post.topicId)
         categ <- categs find (_.slug == topic.categId)
-      } yield PostView(post, topic, categ, lastPageOf(topic))
+      } yield PostView(post, topic, categ, topic lastPage config.postMaxPerPage)
     }
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
@@ -179,21 +183,6 @@ final class PostApi(
         }
       }
     }
-
-  def lastPageOf(topic: Topic): Int =
-    (topic.nbPosts + maxPerPage.value - 1) / maxPerPage.value
-
-  def paginator(topic: Topic, page: Int, me: Option[User]): Fu[Paginator[Post]] =
-    Paginator(
-      new Adapter(
-        collection = env.postRepo.coll,
-        selector = env.postRepo.forUser(me) selectTopic topic.id,
-        projection = none,
-        sort = env.postRepo.sortQuery
-      ),
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
     env.postRepo.unsafe.byCategAndId(categSlug, postId) flatMap {
@@ -260,5 +249,17 @@ final class PostApi(
       _ ?? { post =>
         env.categRepo.coll.primitiveOne[TeamID]($id(post.categId), "team")
       }
+    }
+
+  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit =
+    env.topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
+      modLog.postOrEditAsAnonMod(
+        userId,
+        post.categId,
+        topic.slug,
+        post.id,
+        post.text,
+        edit
+      )
     }
 }

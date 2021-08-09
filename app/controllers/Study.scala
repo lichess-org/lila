@@ -465,17 +465,18 @@ final class Study(
         _.fold(notFound) { case WithChapter(study, chapter) =>
           CanView(study, ctx.me) {
             lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
-              .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
-              .as(pgnContentType)
-              .fuccess
+            env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter) map { pgn =>
+              Ok(pgn.toString)
+                .pipe(asAttachment(s"${env.study.pgnDump.filename(study, chapter)}.pgn"))
+                .as(pgnContentType)
+            }
           }(privateUnauthorizedFu(study), privateForbiddenFu(study))
         }
       }
     }
 
   def export(username: String) =
-    OpenOrScoped()(
+    OpenOrScoped(_.Study.Read)(
       open = ctx => handleExport(username, ctx.me, ctx.req),
       scoped = req => me => handleExport(username, me.some, req)
     )
@@ -496,7 +497,6 @@ final class Study(
           .withAttributes(
             akka.stream.ActorAttributes.supervisionStrategy(akka.stream.Supervision.resumingDecider)
           )
-          .throttle(30, 1 second)
       } { source =>
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"${username}-${if (isMe) "all" else "public"}-studies.pgn"))

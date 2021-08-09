@@ -21,7 +21,7 @@ final private class Player(
   private case object Flagged                                          extends MoveResult
   private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: RoundDuct)(
+  private[round] def human(play: HumanPlay, round: RoundAsyncActor)(
       pov: Pov
   )(implicit proxy: GameProxy): Fu[Events] =
     play match {
@@ -47,7 +47,7 @@ final private class Player(
         }
     }
 
-  private[round] def bot(uci: Uci, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -67,7 +67,7 @@ final private class Player(
     }
 
   private def postHumanOrBotPlay(
-      round: RoundDuct,
+      round: RoundAsyncActor,
       pov: Pov,
       progress: Progress,
       moveOrDrop: MoveOrDrop
@@ -110,7 +110,7 @@ final private class Player(
         )
       )
 
-  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit =
+  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
     game.playableByAi ?? {
       if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
       else fuccess(round ! actorApi.round.ResignAi)

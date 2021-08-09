@@ -49,9 +49,9 @@
   <string name="leadersChat">Klepet voditeljev</string>
   <string name="closeTeam">Zapri ekipo</string>
   <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>
-  <string name="teamPassword">Geslo ekipe</string>
-  <string name="teamPasswordDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
-  <string name="incorrectTeamPassword">Nepravilno geslo ekipe.</string>
+  <string name="entryCode">Koda za vstop v ekipo</string>
+  <string name="entryCodeDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
+  <string name="incorrectEntryCode">Nepravilna vstopna koda.</string>
   <string name="teamAlreadyExists">Ta ekipa že obstaja.</string>
   <string name="upcomingTourns">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>

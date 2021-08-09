@@ -48,7 +48,7 @@ final class TournamentApi(
 ) {
 
   private val workQueue =
-    new lila.hub.DuctSequencers(
+    new lila.hub.AsyncActorSequencers(
       maxSize = 256,
       expiration = 1 minute,
       timeout = 10 seconds,
@@ -248,15 +248,20 @@ final class TournamentApi(
     import lila.user.TrophyKind._
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.??(_.freq == Schedule.Freq.Marathon) ?? {
-      playerRepo.bestByTourWithRank(tour.id, 100).flatMap {
-        _.map {
-          case rp if rp.rank == 1 => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
-          case rp if rp.rank <= 10 =>
-            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
-          case rp if rp.rank <= 50 =>
-            trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
-          case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
-        }.sequenceFu.void
+      playerRepo.bestByTourWithRank(tour.id, 500).flatMap { players =>
+        lila.common.Future
+          .applySequentially(players) {
+            case rp if rp.rank == 1 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonWinner)
+            case rp if rp.rank <= 10 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopTen)
+            case rp if rp.rank <= 50 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFifty)
+            case rp if rp.rank <= 100 =>
+              trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopHundred)
+            case rp => trophyApi.award(tournamentUrl(tour.id), rp.player.userId, marathonTopFivehundred)
+          }
+          .void
       }
     }
   }
@@ -272,7 +277,7 @@ final class TournamentApi(
         {
           tour.isStarted ?? playerRepo.exists(tour.id, user.id)
         } flatMap {
-          case true => fuccess(tour.conditions.accepted)
+          case true => verify.rejoin(tour.conditions, user, getUserTeamIds)
           case _    => verify(tour.conditions, user, getUserTeamIds)
         }
     }
@@ -290,7 +295,7 @@ final class TournamentApi(
       playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
-          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongPassword)
+          if (!playerExists && tour.password.exists(p => !password.has(p))) fuccess(JoinResult.WrongEntryCode)
           else
             getVerdicts(tour, me.some, getUserTeamIds) flatMap { verdicts =>
               if (!verdicts.accepted) fuccess(JoinResult.Verdicts)
@@ -488,20 +493,23 @@ final class TournamentApi(
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: Tournament.ID, userId: User.ID): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-      playerRepo.withdraw(tourId, userId) >> {
-        tour.isStarted ?? {
-          pairingRepo.findPlaying(tour.id, userId).map {
-            _ foreach { currentPairing =>
-              tellRound(currentPairing.gameId, AbortForce)
+      if (tour.isCreated)
+        playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
+      else
+        playerRepo.withdraw(tourId, userId) >> {
+          tour.isStarted ?? {
+            pairingRepo.findPlaying(tour.id, userId).map {
+              _ foreach { currentPairing =>
+                tellRound(currentPairing.gameId, AbortForce)
+              }
+            } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
+              pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
+                lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
             }
-          } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
-            pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
-        }
-      } >>
-        updateNbPlayers(tour.id) >>-
-        socket.reload(tour.id) >>- publish()
+        } >>
+          updateNbPlayers(tour.id) >>-
+          socket.reload(tour.id) >>- publish()
     }
 
   // erases player from tournament and reassigns winner

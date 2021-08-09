@@ -99,6 +99,13 @@ case class Pref(
       case _                => 250
     }
 
+  def animationMillisForSpeedPuzzles: Int =
+    animation match {
+      case Animation.NONE => 0
+      case Animation.SLOW => 120
+      case _              => 70
+    }
+
   def isBlindfold = blindfold == Pref.Blindfold.YES
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg

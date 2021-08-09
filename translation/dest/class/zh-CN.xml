@@ -66,6 +66,10 @@
   <string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>
   <string name="releaseDesc2">该学生在账户激活后将留在课堂。</string>
   <string name="realUniqueEmail">真实且唯一的学生邮箱。我们将向该邮箱发送一个带有激活账号链接的确认邮件。</string>
+  <string name="closeStudent">关闭账户</string>
+  <string name="closeTheAccount">永久关闭学生帐户。</string>
+  <string name="closeDesc1">学生将永远无法再次使用此帐户，关闭是永久性的。请确保学生理解并同意。</string>
+  <string name="closeDesc2">你可能想让学生控制该帐户，以便他们能够继续使用。</string>
   <string name="teachers">教师</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s 位教师</item>

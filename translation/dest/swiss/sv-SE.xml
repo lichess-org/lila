@@ -5,4 +5,12 @@
     <item quantity="one">Visa rundan</item>
     <item quantity="other">Visa alla %s rundor</item>
   </plurals>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Pågående parti</item>
+    <item quantity="other">Pågående partier</item>
+  </plurals>
+  <string name="numberOfRounds">Antal rundor</string>
+  <string name="numberOfRoundsHelp">Ett udda antal rundor möjliggör optimal färgbalans.</string>
+  <string name="roundInterval">Intervall mellan rundor</string>
+  <string name="forbiddenPairings">Förbjudna parningar</string>
 </resources>

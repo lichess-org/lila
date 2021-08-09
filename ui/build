@@ -8,7 +8,7 @@ nodever="$(node --version)"
 echo "node: $nodever"
 echo "yarn: $(yarn --version)"
 
-[[ "$nodever" =~ ^v1[0-5]\.[0-9]+\.[0-9]+$ ]] || { echo "Node version >=10 and <16 required. Found: $nodever"; exit 1; }
+[[ "$nodever" =~ ^v1[0-6]\.[0-9]+\.[0-9]+$ ]] || { echo "Node version >=10 and <=16 required. Found: $nodever"; exit 1; }
 
 cd "$(git rev-parse --show-toplevel)"
 

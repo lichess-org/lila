@@ -57,6 +57,7 @@
   <string name="requestAComputerAnalysis">Zahtevaj računalniško analizo</string>
   <string name="computerAnalysis">Računalniška analiza</string>
   <string name="computerAnalysisAvailable">Računalniška analiza je na voljo</string>
+  <string name="computerAnalysisDisabled">Računalniška analiza ni na voljo</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Globina %s</string>
   <string name="usingServerAnalysis">Z analizo strežnika</string>
@@ -125,6 +126,24 @@
   <string name="blunder">Spodrsljaj</string>
   <string name="mistake">Napaka</string>
   <string name="inaccuracy">Nenatančnost</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s napaka</item>
+    <item quantity="two">%s napaki</item>
+    <item quantity="few">%s napake</item>
+    <item quantity="other">%s napak</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s napakica</item>
+    <item quantity="two">%s napakici</item>
+    <item quantity="few">%s napakice</item>
+    <item quantity="other">%s napakic</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nenatančnost</item>
+    <item quantity="two">%s nenatančnosti</item>
+    <item quantity="few">%s nenatančnosti</item>
+    <item quantity="other">%s nenatančnosti</item>
+  </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
@@ -137,6 +156,8 @@
     <item quantity="few">%s igralci</item>
     <item quantity="other">%s igralcev</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remi po dogovoru</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 potez brez napredka</string>
   <string name="currentGames">Trenutno igrane igre</string>
   <plurals name="nbGames">
     <item quantity="one">%s partija</item>
@@ -485,6 +506,7 @@
   <string name="setTheBoard">Uredi šahovnico</string>
   <string name="popularOpenings">Popularne otvoritve</string>
   <string name="endgamePositions">Položaji končnice</string>
+  <string name="chess960StartPosition">Šah 960 začetna pozicija: %s</string>
   <string name="startPosition">Začetna pozicija</string>
   <string name="clearBoard">Počisti igralno površino</string>
   <string name="savePosition">Shrani pozicijo</string>
@@ -913,6 +935,7 @@
   <string name="unsubscribe">Odjava</string>
   <string name="mentionedYouInX">vas je omenil v \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s vas je omenil v \"%2$s\".</string>
+  <string name="invitedYouToX">vas vabi k \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s vas vabi v \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Zdaj ste del ekipe.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
@@ -927,6 +950,9 @@
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
   <string name="download">Prenos</string>
+  <string name="welcome">Dobrodošli!</string>
+  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
+Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="coachManager">Nastavitve za trenerja</string>
   <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
   <string name="cancelTournament">Prekini turnir</string>
@@ -948,7 +974,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="cancelSimul">Prekliči simultanko</string>
   <string name="simulHostcolor">Barva gostitelja za vsako igro</string>
   <string name="estimatedStart">Predvideni čas začetka</string>
-  <string name="simulFeatured">Funkcija v %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Funkcija v %s</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
@@ -959,10 +985,18 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="onlyTeamLeaders">Dovoljeno samo voditeljem ekip</string>
   <string name="onlyTeamMembers">Dovoljeno samo članom ekip</string>
   <string name="navigateMoveTree">Krmarite po drevesu potez</string>
+  <string name="mouseTricks">Možnosti miške</string>
   <string name="toggleLocalAnalysis">Preklopi lokalno računalniško analizo</string>
   <string name="toggleAllAnalysis">Preklopi vso računalniško analizo</string>
   <string name="playComputerMove">Igraj najboljšo računalniško potezo</string>
   <string name="analysisOptions">Možnosti analize</string>
   <string name="focusChat">Fokus klepet</string>
   <string name="showHelpDialog">Show this help dialog</string>
+  <string name="reopenYourAccount">Znova odprite svoj račun</string>
+  <string name="closedAccountChangedMind">Če ste si premislili po zaprtju računa, imate eno možnost, da svoj račun pridobite nazaj.</string>
+  <string name="onlyWorksOnce">To bo delovalo samo enkrat.</string>
+  <string name="cantDoThisTwice">Če boste račun zaprli še drugič, ga ne boste mogli obnoviti.</string>
+  <string name="emailAssociatedToaccount">E-naslov, povezan z računom</string>
+  <string name="sentEmailWithLink">Poslali smo vam e-poštno sporočilo s povezavo.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Koda za vstop na turnir</string>
 </resources>

@@ -45,9 +45,9 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="leadersChat">Ledersamtale</string>
   <string name="closeTeam">Legg ned laget</string>
   <string name="closeTeamDescription">Legger ned laget for alltid.</string>
-  <string name="teamPassword">Lagpassord</string>
-  <string name="teamPasswordDescriptionForLeader">(Valgfritt) Et passord som nye medlemmer må kjenne for å bli med på dette laget.</string>
-  <string name="incorrectTeamPassword">Feil lagpassord.</string>
+  <string name="entryCode">Lagadgangskode</string>
+  <string name="entryCodeDescriptionForLeader">(Valgfritt) En adgangskode som nye medlemmer må ha for å bli med på dette laget.</string>
+  <string name="incorrectEntryCode">Feil adgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
   <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Fullførte turneringer</string>

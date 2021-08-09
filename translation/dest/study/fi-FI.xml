@@ -81,7 +81,7 @@
   <string name="saveChapter">Tallenna luku</string>
   <string name="clearAnnotations">Poista kommentit</string>
   <string name="deleteChapter">Poista luku</string>
-  <string name="deleteThisChapter">Poista tämä luku? Paluuta ei ole!</string>
+  <string name="deleteThisChapter">Poistetaanko tämä luku? Et voi palauttaa sitä enää!</string>
   <string name="clearAllCommentsInThisChapter">Poista kaikki kommentit, symbolit ja piirtokuviot tästä luvusta?</string>
   <string name="rightUnderTheBoard">Heti laudan alla</string>
   <string name="noPinnedComment">Ei</string>
@@ -126,7 +126,7 @@
   <string name="clearChat">Tyhjennä keskustelu</string>
   <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
-  <string name="deleteTheEntireStudy">Poista koko tutkielma? Paluuta ei ole!</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Poistetaanko koko tutkielma? Et voi palauttaa sitä enää. Vahvista poisto kirjoittamalla tutkielman nimen: %s</string>
   <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
   <string name="goodMove">Hyvä siirto</string>
   <string name="mistake">Virhe</string>

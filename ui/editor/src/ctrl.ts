@@ -7,6 +7,7 @@ import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
+import { rulesToVariant, variantToRules } from './chessops';
 
 export default class EditorCtrl {
   cfg: Editor.Config;
@@ -18,6 +19,7 @@ export default class EditorCtrl {
 
   selected: Prop<Selected>;
 
+  initialFen: string;
   pockets: Material | undefined;
   turn: Color;
   unmovedRooks: SquareSet | undefined;
@@ -62,22 +64,25 @@ export default class EditorCtrl {
     });
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
-    this.rules =
-      !this.cfg.embed && window.history.state && window.history.state.rules ? window.history.state.rules : 'chess';
+    const params = new URLSearchParams(location.search);
+    this.rules = this.cfg.embed ? 'chess' : variantToRules(params.get('variant'));
+    this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
-    this.setFen(cfg.fen);
+    this.setFen(this.initialFen);
     this.redraw = redraw;
   }
 
   onChange(): void {
     const fen = this.getFen();
     if (!this.cfg.embed) {
-      const state = { rules: this.rules };
-      if (fen == INITIAL_FEN) window.history.replaceState(state, '', '/editor');
-      else window.history.replaceState(state, '', this.makeUrl('/editor/', fen));
+      const params = new URLSearchParams();
+      if (fen !== INITIAL_FEN || this.rules !== 'chess') params.set('fen', fen);
+      if (this.rules !== 'chess') params.set('variant', rulesToVariant(this.rules));
+      const paramsString = params.toString();
+      window.history.replaceState(null, '', '/editor' + (paramsString ? '?' + paramsString : ''));
     }
-    this.options.onChange && this.options.onChange(fen);
+    this.options.onChange?.(fen);
     this.redraw();
   }
 
@@ -90,7 +95,7 @@ export default class EditorCtrl {
   }
 
   private getSetup(): Setup {
-    const boardFen = this.chessground ? this.chessground.getFen() : this.cfg.fen;
+    const boardFen = this.chessground?.getFen() || this.initialFen;
     const board = parseFen(boardFen).unwrap(
       setup => setup.board,
       _ => Board.empty()
@@ -136,21 +141,8 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    switch (this.rules) {
-      case 'chess':
-        return this.makeUrl('/analysis/', legalFen);
-      case '3check':
-        return this.makeUrl('/analysis/threeCheck/', legalFen);
-      case 'kingofthehill':
-        return this.makeUrl('/analysis/kingOfTheHill/', legalFen);
-      case 'racingkings':
-        return this.makeUrl('/analysis/racingKings/', legalFen);
-      case 'antichess':
-      case 'atomic':
-      case 'horde':
-      case 'crazyhouse':
-        return this.makeUrl(`/analysis/${this.rules}/`, legalFen);
-    }
+    const variant = this.rules === 'chess' ? '' : rulesToVariant(this.rules) + '/';
+    return this.makeUrl(`/analysis/${variant}`, legalFen);
   }
 
   makeUrl(baseUrl: string, fen: string): string {

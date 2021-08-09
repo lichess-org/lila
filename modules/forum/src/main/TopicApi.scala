@@ -16,7 +16,7 @@ import lila.user.{ Holder, User }
 final private[forum] class TopicApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
-    maxPerPage: lila.common.config.MaxPerPage,
+    config: ForumConfig,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
@@ -44,7 +44,7 @@ final private[forum] class TopicApi(
       }
       res <- data ?? { case (categ, topic) =>
         lila.mon.forum.topic.view.increment()
-        env.postApi.paginator(topic, page, forUser) map { (categ, topic, _).some }
+        env.paginator.topicPosts(topic, page, forUser) map { (categ, topic, _).some }
       }
     } yield res
 
@@ -78,7 +78,7 @@ final private[forum] class TopicApi(
       val post = Post.make(
         topicId = topic.id,
         author = none,
-        userId = me.id,
+        userId = me.id.some,
         troll = me.marks.troll,
         hidden = topic.hidden,
         text = spam.replace(data.post.text),
@@ -123,7 +123,7 @@ final private[forum] class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = User.lichessId,
+      userId = User.lichessId.some,
       troll = false,
       hidden = false,
       text = s"Comments on $url",
@@ -140,35 +140,11 @@ final private[forum] class TopicApi(
       Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
-  def paginator(categ: Categ, page: Int, forUser: Option[User]): Fu[Paginator[TopicView]] = {
-    val adapter = new Adapter[Topic](
-      collection = env.topicRepo.coll,
-      selector = env.topicRepo.forUser(forUser) byCategNotStickyQuery categ,
-      projection = none,
-      sort = $sort.updatedDesc
-    ) mapFutureList { topics =>
-      env.postRepo.coll.optionsByOrderedIds[Post, String](topics.map(_ lastPostId forUser))(_.id) map {
-        posts =>
-          topics zip posts map { case (topic, post) =>
-            TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
-          }
-      }
-    }
-    val cachedAdapter =
-      if (categ.isTeam) adapter
-      else new CachedAdapter(adapter, nbResults = fuccess(1000))
-    Paginator(
-      adapter = cachedAdapter,
-      currentPage = page,
-      maxPerPage = maxPerPage
-    )
-  }
-
   def getSticky(categ: Categ, forUser: Option[User]): Fu[List[TopicView]] =
     env.topicRepo.stickyByCateg(categ) flatMap { topics =>
       topics.map { topic =>
         env.postRepo.coll.byId[Post](topic lastPostId forUser) map { post =>
-          TopicView(categ, topic, post, env.postApi lastPageOf topic, forUser)
+          TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, forUser)
         }
       }.sequenceFu
     }

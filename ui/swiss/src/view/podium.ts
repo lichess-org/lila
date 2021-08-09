@@ -18,7 +18,7 @@ function podiumPosition(p: PodiumPlayer, pos: string, trans: Trans): VNode | und
         'div.' + pos,
         {
           class: {
-            engine: !!p.engine,
+            lame: !!p.lame,
           },
         },
         [

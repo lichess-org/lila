@@ -106,7 +106,8 @@ object Permission {
           RemoveRanking,
           ModMessage,
           ModNote,
-          ViewPrintNoIP
+          ViewPrintNoIP,
+          SendToZulip
         ),
         "Hunter"
       )
@@ -126,7 +127,8 @@ object Permission {
           SeeReport,
           ModLog,
           ModNote,
-          ViewPrintNoIP
+          ViewPrintNoIP,
+          SendToZulip
         ),
         "Shusher"
       )
@@ -147,7 +149,6 @@ object Permission {
           ManageTournament,
           ManageSimul,
           ManageEvent,
-          SendToZulip,
           PracticeConfig,
           PuzzleCurator,
           Presets,

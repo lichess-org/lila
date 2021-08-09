@@ -17,7 +17,7 @@ $mq-col3: $mq-x-large;
 }
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc(100vh - #{$site-header-outer-height});
 
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
@@ -27,9 +27,6 @@ $mq-col3: $mq-x-large;
 .coord-trainer {
   grid-area: main;
   display: grid;
-  overflow: hidden;
-
-  // coords cause mobile to have horiz scrolling
 
   &__side {
     @extend %zen;
@@ -215,7 +212,7 @@ $mq-col3: $mq-x-large;
 
       .explanation {
         order: 2;
-        margin-top: 1em;
+        margin: 1em;
       }
     }
 

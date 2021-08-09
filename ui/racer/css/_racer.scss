@@ -1,6 +1,7 @@
 @import 'car-font';
 @import 'race';
 @import 'countdown';
+@import 'zen';
 
 .racer {
   &__race {
@@ -103,6 +104,10 @@
         margin: 1em 0 0 0;
       }
     }
+  }
+
+  &__rematch {
+    white-space: normal;
   }
 
   &__post__next {

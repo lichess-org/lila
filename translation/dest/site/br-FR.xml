@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">C\'hoari a rit gant ar re wenn</string>
   <string name="youPlayTheBlackPieces">C\'hoari a rit gant ar re zu</string>
   <string name="itsYourTurn">Deoc\'h c\'hwi!</string>
+  <string name="cheatDetected">Trucherez diskoachet</string>
   <string name="kingInTheCenter">Roue e kreiz</string>
   <string name="threeChecks">Tri bec\'h</string>
   <string name="raceFinished">Echu ar redadeg</string>
@@ -57,6 +58,7 @@
   <string name="requestAComputerAnalysis">Goulenn un dielfennañ digant an urzhiataer</string>
   <string name="computerAnalysis">Dielfennadenn an urzhiataer</string>
   <string name="computerAnalysisAvailable">Gallout a rit dielfennañ gant an urzhiataer</string>
+  <string name="computerAnalysisDisabled">Dielfennadennoù an urzhiataer lazhet</string>
   <string name="analysis">Tablez dielfennañ</string>
   <string name="depthX">Donder %s</string>
   <string name="usingServerAnalysis">O tielfennañ emañ an urzhiataer</string>
@@ -97,6 +99,7 @@
   <string name="noGameFound">Krogad ebet kavet</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Degemer muioc\'h a grogadoù o tont eus lañser an dibaboù?</string>
   <string name="openingExplorer">Furcher an digoradurioù</string>
+  <string name="openingEndgameExplorer">Ergerzher digoradur/dibenn-partienn</string>
   <string name="xOpeningExplorer">furcher an digoradurioù %s</string>
   <string name="winPreventedBy50MoveRule">Trec\'h harzet gant reolenn an 50 taol</string>
   <string name="lossSavedBy50MoveRule">Trec\'hidigezh harzet gant reolennoù an 50 taol</string>
@@ -131,6 +134,8 @@
     <item quantity="many">%s c\'hoarier</item>
     <item quantity="other">%s c\'hoarierien</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Rampo dre asant pep hini</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Hanter-kant taol hep araokadenn</string>
   <string name="currentGames">Krogadoù o ren</string>
   <plurals name="nbGames">
     <item quantity="one">%s c\'hrogad</item>
@@ -502,6 +507,7 @@
   <string name="boardEditor">Krouer plegennoù</string>
   <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="popularOpenings">Digoradurioù brudet</string>
+  <string name="endgamePositions">Plegennoù an dibenn-partienn</string>
   <string name="startPosition">Plegenn orin</string>
   <string name="clearBoard">Tennañ pep tra</string>
   <string name="savePosition">Savetaat al lec\'hiadur</string>
@@ -927,4 +933,11 @@
   <string name="youCannotPostYetPlaySomeGames">Ne c\'hallit ket skrivañ ur gemennadenn war ar foromoù evit poent. C\'hoarit un tamm a-raok!</string>
   <string name="subscribe">Heuliañ</string>
   <string name="unsubscribe">Paouez da heuliañ</string>
+  <string name="reopenYourAccount">Addigeriñ ho kont</string>
+  <string name="closedAccountChangedMind">M\'ho peus serret ho kont, met cheñchet ho soñj ganeoc\'h, ho peus un tu da gaout ho kont en dro.</string>
+  <string name="onlyWorksOnce">Ur wech e yelo en dro an dra se nemetken.</string>
+  <string name="cantDoThisTwice">Ma serrit ho kont un eil gwech, ne vo ket tu deoc\'h adtapout anezhañ.</string>
+  <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
+  <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod mont e-barzh an tournamant</string>
 </resources>

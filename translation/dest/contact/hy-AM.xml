@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">Կոնտակտներ</string>
+  <string name="contactLichess">Lichess-ի կոնտակտներ</string>
+  <string name="whatCanWeHelpYouWith">Ինչո՞վ կարող ենք օգնել։</string>
+  <string name="visitThisPage">Խնդիրը կարգավորելու համար այցելեք այս էջը</string>
+  <string name="iCantLogIn">Չեմ կարողանում մտնել</string>
+  <string name="noConfirmationEmail">Չեմ ստանում հաստատումով նամակը</string>
+  <string name="forgotPassword">Մոռացել եմ գաղտնաբառը։</string>
+  <string name="forgotUsername">Մոռացել եմ մասնակցային անունս</string>
+  <string name="youCanLoginWithEmail">Դուք կարող եք մուտք գործել այն էլեկտրոնային հասցեի օգնությամբ, որով գրանցվել եք</string>
+  <string name="doNotMessageModerators">Անձնական հաղորդագրություններ մի ուղարկեք մոդերատորներին։</string>
+</resources>

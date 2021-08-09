@@ -51,9 +51,9 @@
   <string name="leadersChat">Чат руководителей</string>
   <string name="closeTeam">Расформировать клуб</string>
   <string name="closeTeamDescription">Закрывает клуб навсегда.</string>
-  <string name="teamPassword">Клубный пароль</string>
-  <string name="teamPasswordDescriptionForLeader">(Необязательно) Пароль для вступления в этот клуб новых членов.</string>
-  <string name="incorrectTeamPassword">Неправильный клубный пароль.</string>
+  <string name="entryCode">Код для вступления в клуб</string>
+  <string name="entryCodeDescriptionForLeader">(Необязательно) Код, который должны знать новые члены клуба для вступления в него.</string>
+  <string name="incorrectEntryCode">Неверный код для вступления.</string>
   <string name="teamAlreadyExists">Такой клуб уже существует.</string>
   <string name="upcomingTourns">Предстоящие турниры</string>
   <string name="completedTourns">Завершённые турниры</string>

@@ -1,16 +1,8 @@
-.study__modal {
-  &#modal-wrap {
-    padding: 1rem;
-    min-width: 80vw;
+#modal-wrap {
+  min-width: 80vw;
 
-    @include breakpoint($mq-x-small) {
-      min-width: 500px;
-    }
-  }
-
-  > div {
-    padding: 1rem;
-    overflow-y: auto;
+  @include breakpoint($mq-x-small) {
+    min-width: 500px;
   }
 
   .form3 {

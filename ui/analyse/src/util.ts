@@ -1,8 +1,6 @@
 import { h, VNode, Attrs } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 
-export { bind, onInsert, bindSubmit } from 'common/snabbdom';
-
 export { autolink, innerHTML, enrichText, richHTML, toYouTubeEmbed, toTwitchEmbed } from 'common/richText';
 
 export const emptyRedButton = 'button.button.button-red.button-empty';

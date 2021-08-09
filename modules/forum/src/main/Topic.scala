@@ -1,9 +1,10 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import lila.common.ThreadLocalRandom
 import scala.util.chaining._
 
+import lila.common.config.MaxPerPage
+import lila.common.ThreadLocalRandom
 import lila.user.User
 
 case class Topic(
@@ -56,6 +57,9 @@ case class Topic(
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
   def isOld = updatedAt isBefore DateTime.now.minusMonths(1)
+
+  def lastPage(maxPerPage: MaxPerPage): Int =
+    (nbPosts + maxPerPage.value - 1) / maxPerPage.value
 }
 
 object Topic {

@@ -340,7 +340,6 @@ trait dsl {
 
     val createdAsc  = asc("createdAt")
     val createdDesc = desc("createdAt")
-    val updatedDesc = desc("updatedAt")
   }
 
   object $lookup {

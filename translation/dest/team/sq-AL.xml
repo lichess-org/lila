@@ -41,8 +41,5 @@ Lojtarët të cilëve nuk u pëlqen të marrin mesazhe nga ju mund të dalin nga
   <string name="leadersChat">Biseda e udhëheqësve</string>
   <string name="closeTeam">Mbylle ekipin</string>
   <string name="closeTeamDescription">E mbyll ekipin përgjithmonë.</string>
-  <string name="teamPassword">Fjalëkalimi i ekipit</string>
-  <string name="teamPasswordDescriptionForLeader">(Optional) Një Fjalëkalim që anëtaret e ri duhet ta dinë për të u pranuar ne ekip.</string>
-  <string name="incorrectTeamPassword">Fjalëkalimi i ekipit i gabuar.</string>
   <string name="teamAlreadyExists">Ky ekip ekziston tashmë.</string>
 </resources>

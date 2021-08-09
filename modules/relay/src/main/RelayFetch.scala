@@ -116,9 +116,10 @@ final private class RelayFetch(
           rt.round.sync.log.events.lastOption
             .filterNot(_.isTimeout)
             .flatMap(_.error)
-            .ifTrue(rt.tour.official && rt.round.hasStarted) foreach { error =>
-            irc.broadcastError(rt.round.id.value, rt.fullName, error)
-          }
+            .ifTrue(rt.tour.official && rt.round.hasStarted)
+            .filterNot(_ contains "Cannot parse moves")
+            .filterNot(_ contains "Found an empty PGN")
+            .foreach { irc.broadcastError(rt.round.id.value, rt.fullName, _) }
           60
         } else
           rt.round.sync.delay getOrElse {

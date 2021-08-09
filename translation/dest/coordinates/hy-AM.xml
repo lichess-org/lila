@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="coordinates">Կոորդինատներ</string>
-  <string name="coordinateTraining">Շարունակել մարզվել</string>
+  <string name="coordinateTraining">Կոորդինատների մտապահում</string>
   <string name="averageScoreAsWhiteX">Միջին հաշիվը սպիտակներով՝ %s</string>
   <string name="averageScoreAsBlackX">Միջին հաշիվը սևերով՝ %s</string>
   <string name="knowingTheChessBoard">Շախմատի կոորդինատները իմանալը շատ կարևոր հմտություն է:</string>

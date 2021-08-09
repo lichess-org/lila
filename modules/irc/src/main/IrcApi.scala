@@ -23,9 +23,9 @@ final class IrcApi(
 
   def inquiry(user: LightUser, mod: Holder, domain: ModDomain, room: String): Funit = {
     val stream = domain match {
-      case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
-      case ModDomain.Hunt  => ZulipClient.stream.mod.hunterCheat
-      case ModDomain.Other => ZulipClient.stream.mod.adminGeneral
+      case ModDomain.Comm => ZulipClient.stream.mod.commsPrivate
+      case ModDomain.Hunt => ZulipClient.stream.mod.hunterCheat
+      case _              => ZulipClient.stream.mod.adminGeneral
     }
     noteApi
       .byUserForMod(user.id)
@@ -97,10 +97,16 @@ final class IrcApi(
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def userAppeal(user: User, mod: Holder): Funit =
-    zulip(_.mod.adminAppeal, "/" + user.username)(
-      s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
-        .lichessLink(s"/appeal/${user.username}", user.username)}**"
-    )
+    zulip
+      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username)(
+        s"${markdown.modLink(mod.user)} :monkahmm: is looking at the appeal of **${markdown
+          .lichessLink(s"/appeal/${user.username}", user.username)}**"
+      )
+      .flatMap {
+        _ ?? { zulipAppealConv =>
+          noteApi.write(user, s"Appeal discussion: $zulipAppealConv", mod.user, modOnly = true, dox = true)
+        }
+      }
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
@@ -161,6 +167,7 @@ object IrcApi {
     def key = toString.toLowerCase
   }
   object ModDomain {
+    case object Admin extends ModDomain
     case object Hunt  extends ModDomain
     case object Comm  extends ModDomain
     case object Other extends ModDomain
