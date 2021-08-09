@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Как можем да бъдем полезни?</string>
   <string name="visitThisPage">Посетете тази страница за разрешаване на проблема</string>
   <string name="iCantLogIn">Не мога да вляза в профила си</string>
-  <string name="noConfirmationEmail">Не получих email за потвърждение</string>
+  <string name="noConfirmationEmail">Не получих имейл за потвърждение</string>
   <string name="forgotPassword">Забравих паролата си</string>
   <string name="forgotUsername">Забравих потребителското си име</string>
-  <string name="youCanLoginWithEmail">Можете да влезе с email адреса, с който сте регистрирани</string>
+  <string name="youCanLoginWithEmail">Можете да влезе с имейл адреса, с който сте регистрирани</string>
   <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
   <string name="doPasswordReset">Направете нулиране на паролата, за да премахнете втория фактор</string>
   <string name="accountSupport">Имам нужда от помощ за акаунта</string>
@@ -53,4 +53,5 @@
   <string name="authorizationToUse">Разрешение за използване на Lichess</string>
   <string name="welcomeToUse">Можете да използвате Lichess за Вашата дейност, дори ако е търговска.</string>
   <string name="noneOfTheAbove">Никое от горните</string>
+  <string name="sendEmailAt">Изпратете ни имейл на %s.</string>
 </resources>
