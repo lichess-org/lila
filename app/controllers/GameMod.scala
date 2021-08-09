@@ -35,8 +35,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
   private def fetchGames(user: lila.user.User, filter: Filter) = {
     val select = toDbSelect(filter) ++ lila.game.Query.finished
-    filter.speed
-      .flatMap(k => chess.Speed.all.find(_.key == k))
+    filter.realSpeed
       .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, nbGames, select)) { speed =>
         import akka.stream.scaladsl._
         env.game.gameRepo
@@ -121,12 +120,15 @@ object GameMod {
         .map(lila.user.User.normalize)
         .toList
         .distinct
+    def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
   }
 
   val emptyFilter = Filter(none, none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
-    lila.game.Query.notSimul ++ lila.game.Query.clock(true) ++ filter.arena.?? { id =>
+    lila.game.Query.notSimul ++ lila.game.Query.clock(
+      filter.realSpeed.exists(chess.Speed.Correspondence !=)
+    ) ++ filter.arena.?? { id =>
       $doc(lila.game.Game.BSONFields.tournamentId -> id)
     } ++ filter.swiss.?? { id =>
       $doc(lila.game.Game.BSONFields.swissId -> id)
