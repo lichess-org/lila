@@ -44,6 +44,7 @@
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
   <string name="illegalCastling">Нелегална или невъзможна рокада</string>
   <string name="castlingPrevented">Рокадата се предотвратява само ако кралят мине през контролиран квадрат.</string>
+  <string name="castlingRules">Уверете се, че разбирате правилата за рокада</string>
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
   <string name="welcomeToUse">Добре сте дошли да използвате Lichess за своята дейност, дори и търговска такава.</string>
