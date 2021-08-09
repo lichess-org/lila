@@ -951,7 +951,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="cancelSimul">Prekliči simultanko</string>
   <string name="simulHostcolor">Barva gostitelja za vsako igro</string>
   <string name="estimatedStart">Predvideni čas začetka</string>
-  <string name="simulFeatured">Funkcija v %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Funkcija v %s</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
