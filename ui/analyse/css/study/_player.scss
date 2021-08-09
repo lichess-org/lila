@@ -1,3 +1,5 @@
+@import '../../../common/css/component/material';
+
 $player-height: 1.6rem;
 
 .analyse.has-players {
@@ -58,7 +60,7 @@ $player-height: 1.6rem;
 
     align-self: stretch;
     font-size: 1.2em;
-    padding: 0 0.8em;
+    padding: 0 0.8em 0 0.4em;
     border-radius: 0 4px 0 0;
   }
 
@@ -94,4 +96,29 @@ $player-height: 1.6rem;
     margin-left: 0.5em;
     font-weight: normal;
   }
+}
+
+.material {
+  padding: 0 6px;
+
+  mpiece {
+    width: 21px;
+    height: 21px;
+
+    &.pawn {
+      margin-left: -10px;
+    }
+  }
+
+  score {
+    color: #777;
+  }
+}
+
+.material-top {
+  margin-top: 0.2em;
+}
+
+.material-bottom {
+  margin-top: 0.15em;
 }
