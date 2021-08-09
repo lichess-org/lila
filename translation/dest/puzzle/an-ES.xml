@@ -39,6 +39,10 @@
   <string name="normal">Normal</string>
   <string name="easier">Mas facil</string>
   <string name="easiest">Lo mas facil</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">Un punto per debaixo d\'a tuya puntuación de problemas</item>
+    <item quantity="other">%s puntos per debaixo d\'a tuya puntuación de problemas</item>
+  </plurals>
   <string name="harder">Dificil</string>
   <string name="hardest">Lo mas dificil</string>
   <string name="example">Exemplo</string>
@@ -50,4 +54,16 @@
   <string name="history">Historial d\'os problemas</string>
   <string name="solved">resuelto</string>
   <string name="failed">suspendiu</string>
+  <string name="streakDescription">Soluciona problemas cada vegada mas dificils i aconsigue una racha de victories. No i hai tiempo, prene-te-lo con calma. Si fas un movimiento erronio, s\'acaba lo chuego! Pero puetz blincar un movimiento per sesión.</string>
+  <string name="yourStreakX">La tuya racha: %s</string>
+  <string name="streakSkipExplanation">Blinca este movimiento pa preservar la tuya racha! Nomás funciona una vergada per sesión.</string>
+  <string name="continueTheStreak">Sigue la racha</string>
+  <string name="newStreak">Nueva racha</string>
+  <string name="fromMyGames">Quitaus d\'as mías partidas</string>
+  <string name="lookupOfPlayer">Mira los problemas quitaus d\'as partidas d\'un chugador</string>
+  <string name="fromXGames">Problemas quitaus dende las partidas de %s</string>
+  <string name="searchPuzzles">Mirar problemas</string>
+  <string name="fromMyGamesNone">No i hai problemas de las tuyas partidas en a base de datos, pero Lichess te quiere muito igual.
+Chuga partidas rapidas y clasica pa tener mas opcions de que anyadamos un problemas tuyo.</string>
+  <string name="fromXGamesFound">S\'ha trobau %1$s problemas de %2$s partidas</string>
 </resources>

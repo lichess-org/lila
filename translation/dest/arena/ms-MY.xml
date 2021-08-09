@@ -16,9 +16,7 @@
   <string name="shareUrl">Kongsi URL ini untuk orang lain sertai: %s</string>
   <string name="history">Sejarah Arena</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="other">Lihat pasukan ini
-
-Lihat semua %s pasukan</item>
+    <item quantity="other">Lihat semua %s pasukan</item>
   </plurals>
   <string name="newTeamBattle">Pertempuran Pasukan yang baru</string>
   <string name="allowBerserk">Berserk dibenarkan</string>

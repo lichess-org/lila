@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">ارتباط با ما</string>
+  <string name="contactLichess">ارتباط با لی چس</string>
+  <string name="whatCanWeHelpYouWith">چه کمکی میتوانیم به شما بدهیم?</string>
+  <string name="visitThisPage">از این صفحه بازدید نمایید تا مشکل برطرف شود</string>
+  <string name="iCantLogIn">نمی توانم وارد شوم</string>
+  <string name="noConfirmationEmail">ایمیل تایید ثبت نام را دریافت نکردم</string>
+  <string name="forgotPassword">رمز عبورم را فراموش کردم</string>
+  <string name="forgotUsername">نام کاربری ام را فراموش کردم</string>
+  <string name="youCanLoginWithEmail">شما می توانید با آدرس ایمیلی که برای ثبت نام استفاده کردید وارد شوید</string>
+  <string name="lost2FA">دسترسی به کد دو عاملی تایید را از دست داده ام</string>
+</resources>

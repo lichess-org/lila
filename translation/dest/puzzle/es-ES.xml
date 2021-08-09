@@ -69,5 +69,5 @@
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
-  <string name="fromXGamesFound">%1$s ejercicios encontrados en %2$s partidas</string>
+  <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
 </resources>
