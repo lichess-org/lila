@@ -1,0 +1,17 @@
+@import '../../../common/css/component/material';
+
+.material {
+  padding: 0 0.4em;
+  font-size: 0.9em;
+  color: $c-font-dim;
+
+  div {
+    @extend %flex-center-nowrap;
+    margin-left: 6px;
+  }
+  mpiece {
+    width: 16px;
+    height: 16px;
+    margin-left: -7px;
+  }
+}

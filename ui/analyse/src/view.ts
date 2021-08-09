@@ -330,7 +330,7 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
 }
 
 function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNode {
-  return h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
+  return h('div.analyse__player-strip.' + cls, [materialDiff, clock]);
 }
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {

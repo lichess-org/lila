@@ -1,15 +1,8 @@
 .material {
   @extend %flex-center-nowrap;
 
-  div {
-    display: inline-block;
-    margin-left: 10px;
-  }
-
   mpiece {
-    margin-left: -10px;
     background-size: cover;
-    display: inline-block;
 
     &.pawn {
       background-image: url(../piece/mono/P.svg);
@@ -41,6 +34,6 @@
   }
 
   score {
-    font-family: 'Roboto';
+    @extend %roboto;
   }
 }

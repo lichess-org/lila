@@ -4,7 +4,6 @@
   align-self: center;
   height: 40px;
   line-height: 0;
-  white-space: nowrap;
 
   div {
     display: inline-block;
@@ -15,7 +14,6 @@
     margin-left: -10px;
     width: 32px;
     height: 32px;
-    background-size: cover;
     display: inline-block;
 
     &.pawn {
@@ -24,7 +22,6 @@
   }
 
   score {
-    font-family: 'Roboto';
     line-height: 32px;
     vertical-align: top;
   }

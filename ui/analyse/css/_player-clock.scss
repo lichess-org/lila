@@ -1,8 +1,6 @@
-@import '../../common/css/component/material';
-
 $clock-height: 20px;
 
-.analyse__player_strip {
+.analyse__player-strip {
   position: absolute;
   right: 0;
   display: flex;
@@ -46,28 +44,4 @@ $clock-height: 20px;
   tenths {
     font-size: 80%;
   }
-}
-
-.material {
-  padding-right: 1px;
-
-  mpiece {
-    width: 21px;
-    height: 21px;
-
-    &.pawn {
-      margin-left: -10px;
-    }
-  }
-  score {
-    margin-top: -2px;
-  }
-}
-
-.material-top {
-  margin-top: -1px;
-}
-
-.material-bottom {
-  margin-top: 1px;
 }
