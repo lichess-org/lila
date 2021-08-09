@@ -126,6 +126,18 @@
   <string name="blunder">Spodrsljaj</string>
   <string name="mistake">Napaka</string>
   <string name="inaccuracy">Nenatančnost</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s napaka</item>
+    <item quantity="two">%s napaki</item>
+    <item quantity="few">%s napake</item>
+    <item quantity="other">%s napak</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s napakica</item>
+    <item quantity="two">%s napakici</item>
+    <item quantity="few">%s napakice</item>
+    <item quantity="other">%s napakic</item>
+  </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
