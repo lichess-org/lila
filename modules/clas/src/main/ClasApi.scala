@@ -184,8 +184,8 @@ final class ClasApi(
 
     def count(clasId: Clas.Id): Fu[Int] = coll.countSel($doc("clasId" -> clasId))
 
-    def isManaged(user: User): Fu[Boolean] =
-      coll.exists($doc("userId" -> user.id, "managed" -> true))
+    def isManaged(userId: User.ID): Fu[Boolean] =
+      coll.exists($doc("userId" -> userId, "managed" -> true))
 
     def release(user: User): Funit =
       coll.updateField($doc("userId" -> user.id, "managed" -> true), "managed", false).void
