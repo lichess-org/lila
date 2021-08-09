@@ -102,5 +102,13 @@
     ::before {
       vertical-align: middle;
     }
+
+    @include breakpoint($mq-col1) {
+      height: $col1-uniboard-controls;
+
+      .fbt {
+        flex: 0 0 3.5rem;
+      }
+    }
   }
 }
