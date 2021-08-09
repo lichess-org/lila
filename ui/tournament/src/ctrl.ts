@@ -1,6 +1,6 @@
 import makeSocket from './socket';
 import * as xhr from './xhr';
-import { myPage, players } from './pagination';
+import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
@@ -108,6 +108,19 @@ export default class TournamentController {
       this.focusOnMe = false;
       this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
       this.redraw();
+    });
+  };
+
+  jumpToRank = (rank: number) => {
+    if (!Number.isInteger(rank) || rank < 1) return;
+    const page = 1 + Math.floor((rank - 1) / maxPerPage);
+    const row = (rank - 1) % maxPerPage;
+    xhr.loadPage(this, page, () => {
+      if (!this.pages[page] || row >= this.pages[page].length) return;
+      this.page = page;
+      this.searching = false;
+      this.focusOnMe = false;
+      this.showPlayerInfo(this.pages[page][row]);
     });
   };
 

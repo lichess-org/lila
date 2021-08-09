@@ -32,9 +32,10 @@ export const withdraw = throttle(1000, (ctrl: TournamentController) =>
     .catch(onFail)
 );
 
-export const loadPage = throttle(1000, (ctrl: TournamentController, p: number) =>
+export const loadPage = throttle(1000, (ctrl: TournamentController, p: number, callback?: () => void) =>
   xhr.json(`/tournament/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
+    callback?.();
     ctrl.redraw();
   }, onFail)
 );
