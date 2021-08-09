@@ -336,8 +336,11 @@ function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNo
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed) return;
 
-  const clocks = renderClocks(ctrl),
-    whitePov = ctrl.bottomIsWhite(),
+  const clocks = renderClocks(ctrl);
+
+  if (!clocks) return;
+
+  const whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 
   return [
