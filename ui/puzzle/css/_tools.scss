@@ -2,6 +2,7 @@
   @extend %box-neat-force, %flex-column;
 
   background: $c-bg-box;
+  margin-top: #{-$block-gap};
 
   .ceval-wrap {
     flex: 0 0 38px;
@@ -136,7 +137,7 @@
   height: $col3-uniboard-controls;
   margin-top: #{-$block-gap};
 
-  @include breakpoint($mq-col1) {
+  @include breakpoint($mq-col1-uniboard) {
     height: $col1-uniboard-controls;
   }
 

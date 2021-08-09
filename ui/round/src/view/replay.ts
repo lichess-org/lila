@@ -212,20 +212,18 @@ function initMessage(d: RoundData, trans: TransNoArg) {
 }
 
 function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
-  return disabled
-    ? null
-    : h('button.fbt', {
-        attrs: {
-          disabled: disabled,
-          'data-icon': icon,
-          'data-ply': ctrl.ply + dir,
-        },
-        hook: util.bind('mousedown', e => {
-          e.preventDefault();
-          ctrl.userJump(ctrl.ply + dir);
-          ctrl.redraw();
-        }),
-      });
+  return h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir,
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    }),
+  });
 }
 
 export function render(ctrl: RoundController): VNode | undefined {
