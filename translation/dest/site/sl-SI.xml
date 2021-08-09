@@ -138,6 +138,12 @@
     <item quantity="few">%s napakice</item>
     <item quantity="other">%s napakic</item>
   </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s nenatančnost</item>
+    <item quantity="two">%s nenatančnosti</item>
+    <item quantity="few">%s nenatančnosti</item>
+    <item quantity="other">%s nenatančnosti</item>
+  </plurals>
   <string name="moveTimes">Časi za poteze</string>
   <string name="flipBoard">Obrni igralno desko</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
@@ -500,6 +506,7 @@
   <string name="setTheBoard">Uredi šahovnico</string>
   <string name="popularOpenings">Popularne otvoritve</string>
   <string name="endgamePositions">Položaji končnice</string>
+  <string name="chess960StartPosition">Šah 960 začetna pozicija: %s</string>
   <string name="startPosition">Začetna pozicija</string>
   <string name="clearBoard">Počisti igralno površino</string>
   <string name="savePosition">Shrani pozicijo</string>
