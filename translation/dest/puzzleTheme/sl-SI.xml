@@ -48,4 +48,13 @@
   <string name="quietMove">Tiha poteza</string>
   <string name="rookEndgame">Končnica s trdnjavo</string>
   <string name="rookEndgameDescription">Končina samo s trdnjavami in kmeti.</string>
+  <string name="sacrifice">Žrtvovanje</string>
+  <string name="short">Kratka uganka</string>
+  <string name="skewer">Nabodalo</string>
+  <string name="smotheredMate">Zadušitveni mat</string>
+  <string name="superGM">Partije super VM</string>
+  <string name="trappedPiece">Ujeta figura</string>
+  <string name="underPromotion">Podpromocija</string>
+  <string name="veryLong">Zelo dolga uganka</string>
+  <string name="zugzwang">Nujnica</string>
 </resources>
