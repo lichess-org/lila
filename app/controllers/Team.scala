@@ -144,11 +144,9 @@ final class Team(
     }
 
   def kickForm(id: String) =
-    Auth { implicit ctx => me =>
+    Auth { implicit ctx => _ =>
       WithOwnedTeamEnabled(id) { team =>
-        env.team.memberRepo userIdsByTeam team.id map { userIds =>
-          html.team.admin.kick(team, userIds.filter(me.id !=))
-        }
+        Ok(html.team.admin.kick(team, forms.members)).fuccess
       }
     }
 
@@ -156,8 +154,8 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest().value ?? { api.kick(team, _, me) } inject Redirect(
-          routes.Team.kickForm(team.id)
+        forms.members.bindFromRequest().value ?? { api.kickMembers(team, _, me).sequenceFu } inject Redirect(
+          routes.Team.show(team.id)
         ).flashSuccess
       }
     }
