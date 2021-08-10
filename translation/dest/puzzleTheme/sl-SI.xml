@@ -32,6 +32,9 @@
   <string name="mate">Mat</string>
   <string name="mateDescription">Zmagati igro v stilu.</string>
   <string name="mateIn2">Mat v 2</string>
+  <string name="opening">Otvoritev</string>
+  <string name="pawnEndgame">Končnica s kmeti</string>
+  <string name="pawnEndgameDescription">Končnica zgolj s kmeti.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
 </resources>
