@@ -45,7 +45,6 @@ object admin {
   def members(
       t: lila.team.Team,
       form: Form[_],
-      userIds: List[lila.user.User.ID],
       classes: List[lila.clas.Clas.WithStudents]
   )(implicit
       ctx: Context
@@ -53,7 +52,7 @@ object admin {
     val title = s"${t.name} • ${manageMembers.txt()}"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("team"),
+      moreCss = frag(cssTag("team"), cssTag("tagify")),
       moreJs = frag(
         jsModule("team.admin"),
         embedJsUnsafeLoadThen("""teamAdmin.membersStart()""")
@@ -65,7 +64,6 @@ object admin {
           h1(title),
           postForm(id := "members-form", action := routes.Team.manageMembers(t.id))(
             form3.textarea(form("students"))(display.none),
-            form3.textarea(form("members"))(display.none),
             classes.nonEmpty option
               div(cls := "add-students")(
                 h2(addManagedStudent()),
@@ -86,15 +84,7 @@ object admin {
               ),
             div(cls := "kick-members")(
               h2(whoToKick()),
-              userIds.sorted.map { userId =>
-                button(
-                  `type` := "button",
-                  cls := "member button button-empty button-no-upper",
-                  value := userId
-                )(
-                  usernameOrId(userId)
-                )
-              }
+              form3.textarea(form("members"))()
             ),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),

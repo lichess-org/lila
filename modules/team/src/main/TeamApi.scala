@@ -232,22 +232,27 @@ final class TeamApi(
       } >>-
       Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamKick")
 
+  def kickMembers(team: Team, json: String, me: User) =
+    parseTagifyInput(json) map (kick(team, _, me))
+
   private case class TagifyUser(value: String)
   implicit private val TagifyUserReads = Json.reads[TagifyUser]
 
-  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
-    val leaders: Set[User.ID] = Try {
-      json.trim.nonEmpty ?? {
-        Json.parse(json).validate[List[TagifyUser]] match {
-          case JsSuccess(users, _) =>
-            users
-              .map(_.value.toLowerCase.trim)
-              .filter(User.lichessId !=)
-              .toSet take 30
-          case _ => Set.empty[User.ID]
-        }
+  private def parseTagifyInput(json: String) = Try {
+    json.trim.nonEmpty ?? {
+      Json.parse(json).validate[List[TagifyUser]] match {
+        case JsSuccess(users, _) =>
+          users
+            .map(_.value.toLowerCase.trim)
+            .filter(User.lichessId !=)
+            .toSet
+        case _ => Set.empty[User.ID]
       }
-    } getOrElse Set.empty
+    }
+  } getOrElse Set.empty
+
+  def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
+    val leaders: Set[User.ID] = parseTagifyInput(json) take 30
     for {
       ids                  <- memberRepo.filterUserIdsInTeam(team.id, leaders)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)

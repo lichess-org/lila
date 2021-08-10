@@ -620,7 +620,7 @@ abstract private[controllers] class LilaController(val env: Env)
     else result
 
   protected def NotManaged(result: => Fu[Result])(implicit ctx: Context) =
-    ctx.me.??(env.clas.api.student.isManaged) flatMap {
+    ctx.me.??(me => env.clas.api.student.isManaged(me.id)) flatMap {
       case true => notFound
       case _    => result
     }

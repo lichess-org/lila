@@ -148,25 +148,19 @@ final class Team(
   def manageMembersForm(id: String) =
     Auth { implicit ctx => me =>
       WithOwnedTeamEnabled(id) { team =>
-        for {
-          userIds <- env.team.memberRepo userIdsByTeam team.id
-          classes <- isGranted(_.Teacher) ?? {
-            clas.clas
-              .of(me)
-              .flatMap(_.map { myClas =>
-                clas.student.activeOf(myClas).map { students =>
-                  myClas.withStudents(
-                    students.filter(student => student.managed && !userIds.contains(student.userId))
-                  )
-                }
-              }.sequenceFu)
-          }
-        } yield html.team.admin.members(
-          team,
-          forms.manageMembers,
-          userIds.filter(me.id !=),
-          classes.filter(_.students.nonEmpty)
-        )
+        isGranted(_.Teacher) ?? {
+          clas.clas of me flatMap (_.map { myClas =>
+            clas.student activeOf myClas flatMap (
+              _.map { student =>
+                api belongsTo (team.id, student.userId) map (belongs =>
+                  (student, !belongs && student.managed)
+                )
+              }.sequenceFu map (students => myClas.withStudents(students.filter(_._2).map(_._1)))
+            )
+          }.sequenceFu)
+        }.map { classes =>
+          html.team.admin.members(team, forms.manageMembers, classes.filter(_.students.nonEmpty))
+        }
       }
     }
 
@@ -175,24 +169,21 @@ final class Team(
       WithOwnedTeamEnabled(id) { team =>
         implicit val req = ctx.body
         forms.manageMembers.bindFromRequest().value ?? { case (students, members) =>
-          students
-            .split(",")
-            .toList
-            .map { userId =>
-              userRepo
-                .byId(userId)
-                .flatMap(_ ?? { user =>
-                  api.doJoin(team, user)
-                })
-            }
-            .sequenceFu zip
-            members
+          isGranted(_.Teacher) ?? {
+            students
               .split(",")
               .toList
               .map { userId =>
-                api.kick(team, userId, me)
+                (clas.student.isManaged(userId) >>& clas.clas.isTeacherOf(me.id, userId)) flatMap (_ ?? {
+                  userRepo byId userId flatMap (_ ?? { user =>
+                    api.doJoin(team, user)
+                  })
+                })
               }
-              .sequenceFu map (_ => Redirect(routes.Team.show(team.id)).flashSuccess)
+              .sequenceFu
+          } zip api.kickMembers(team, members, me).sequenceFu map (_ =>
+            Redirect(routes.Team.show(team.id)).flashSuccess
+          )
         }
       }
     }

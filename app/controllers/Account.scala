@@ -294,7 +294,7 @@ final class Account(
 
   def close =
     Auth { implicit ctx => me =>
-      env.clas.api.student.isManaged(me) flatMap { managed =>
+      env.clas.api.student.isManaged(me.id) flatMap { managed =>
         env.security.forms closeAccount me map { form =>
           Ok(html.account.close(me, form, managed))
         }
@@ -319,7 +319,7 @@ final class Account(
 
   def kid =
     Auth { implicit ctx => me =>
-      env.clas.api.student.isManaged(me) flatMap { managed =>
+      env.clas.api.student.isManaged(me.id) flatMap { managed =>
         env.security.forms toggleKid me map { form =>
           Ok(html.account.kid(me, form, managed))
         }
