@@ -64,6 +64,11 @@
   <string name="history">Zgodovina ugank</string>
   <string name="solved">rešeno</string>
   <string name="failed">neuspešno</string>
+  <string name="streakDescription">Rešujte vedno težje uganke in ustvarite zmagovalni niz. Vzemite si čas, saj ni časovne omejitve. Ena napačna poteza in igre je konec! Lahko pa v posamezni lekciji preskočite eno potezo.</string>
+  <string name="yourStreakX">Vaš niz: %s</string>
+  <string name="streakSkipExplanation">Preskočite to potezo, da ohranite svoj niz! V posameznem poskusu je to mogoče samo enkrat.</string>
+  <string name="continueTheStreak">Nadaljujte niz</string>
+  <string name="newStreak">Nov niz</string>
   <string name="fromMyGames">Iz mojih iger</string>
   <string name="lookupOfPlayer">Iskanje ugank iz igralčevih iger</string>
   <string name="fromXGames">Uganke iz %sevih iger</string>
