@@ -38,9 +38,14 @@
   <string name="pin">Vezava</string>
   <string name="pinDescription">Taktika, ki vključuje vezavo, kjer se figura ne more premakniti, ne da bi razkrila napad na figuro višje vrednosti.</string>
   <string name="promotion">Promocija</string>
-  <string name="promotionDescription">Promovirajte enega svojega kmeta v kraljico ali drugo figuro.</string>
+  <string name="promotionDescription">Promovirajte enega svojega kmeta v kraljico ali lahko figuro.</string>
   <string name="queenEndgame">Končnica z damo</string>
-  <string name="queenEndgameDescription">Končina samo z damami in kmeti.</string>
+  <string name="queenEndgameDescription">Končina samo z damama in kmeti.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
+  <string name="queensideAttack">Napad po daminem krilu</string>
+  <string name="queensideAttackDescription">Napad nasprotnikovega kralja, po rokadi na damino krilo.</string>
+  <string name="quietMove">Tiha poteza</string>
+  <string name="rookEndgame">Končnica s trdnjavo</string>
+  <string name="rookEndgameDescription">Končina samo s trdnjavami in kmeti.</string>
 </resources>
