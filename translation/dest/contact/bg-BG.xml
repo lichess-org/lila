@@ -5,10 +5,10 @@
   <string name="whatCanWeHelpYouWith">Как можем да бъдем полезни?</string>
   <string name="visitThisPage">Посетете тази страница за разрешаване на проблема</string>
   <string name="iCantLogIn">Не мога да вляза в профила си</string>
-  <string name="noConfirmationEmail">Не получих email за потвърждение</string>
+  <string name="noConfirmationEmail">Не получих имейл за потвърждение</string>
   <string name="forgotPassword">Забравих паролата си</string>
   <string name="forgotUsername">Забравих потребителското си име</string>
-  <string name="youCanLoginWithEmail">Можете да влезе с email адреса, с който сте регистрирани</string>
+  <string name="youCanLoginWithEmail">Можете да влезе с имейл адреса, с който сте регистрирани</string>
   <string name="lost2FA">Нямам достъп до 2-стъпковите кодове за аутентикация</string>
   <string name="doPasswordReset">Направете нулиране на паролата, за да премахнете втория фактор</string>
   <string name="accountSupport">Имам нужда от помощ за акаунта</string>
@@ -44,8 +44,14 @@
   <string name="tryEnPassant">Опитайте тази малка интерактивна игра за да научите повече за \"ан пасан\".</string>
   <string name="illegalCastling">Нелегална или невъзможна рокада</string>
   <string name="castlingPrevented">Рокадата се предотвратява само ако кралят мине през контролиран квадрат.</string>
+  <string name="castlingRules">Уверете се, че разбирате правилата за рокада</string>
+  <string name="tryCastling">Опитайте тази малка интерактивна игра, за да упражните рокадата</string>
   <string name="botRatingAbuse">В някои случаи, игри с рейтинг срещу ботове могат да не донесат точки, ако система определи че играчът експлоатира бота за увеличаване на рейтинга си.</string>
   <string name="errorPage">Страница за грешката</string>
-  <string name="welcomeToUse">Добре сте дошли да използвате Lichess за своята дейност, дори и търговска такава.</string>
+  <string name="monetizing">Монетизация на Lichess</string>
+  <string name="buyingLichess">Покупка на Lichess</string>
+  <string name="authorizationToUse">Разрешение за използване на Lichess</string>
+  <string name="welcomeToUse">Можете да използвате Lichess за Вашата дейност, дори ако е търговска.</string>
   <string name="noneOfTheAbove">Никое от горните</string>
+  <string name="sendEmailAt">Изпратете ни имейл на %s.</string>
 </resources>

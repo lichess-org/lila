@@ -41,6 +41,7 @@ Pode ser uma boa opção para clubes e torneios oficiais.</string>
   <string name="pointsCalculationQ">Como são calculadas as pontuações?</string>
   <string name="pointsCalculationA">Uma vitória vale um ponto, um empate vale um meio ponto e uma derrota vale zero pontos.
 Quando um jogador não pode ser emparelhado durante uma ronda, recebe um bye que vale um ponto.</string>
+  <string name="tiebreaksCalculationQ">Como é que os desempates são calculados?</string>
   <string name="sonnebornBergerScore">Pontuação de Sonneborn- Berger</string>
   <string name="tiebreaksCalculationA">Com o %s.
 Adiciona as pontuações de cada adversário que o jogador vence e metade da pontuação de cada adversário com que o jogador empata.</string>
