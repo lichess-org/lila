@@ -37,7 +37,7 @@ final private class ReportScore(
       else score
 
     def fixedBoostScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoBoost) baseScore
+      if (c.isAutoBoost) baseScore * 1.5
       else score
   }
 }
