@@ -34,7 +34,13 @@
   <string name="mateIn2">Mat v 2</string>
   <string name="opening">Otvoritev</string>
   <string name="pawnEndgame">Končnica s kmeti</string>
-  <string name="pawnEndgameDescription">Končnica zgolj s kmeti.</string>
+  <string name="pawnEndgameDescription">Končnica samo s kmeti.</string>
+  <string name="pin">Vezava</string>
+  <string name="pinDescription">Taktika, ki vključuje vezavo, kjer se figura ne more premakniti, ne da bi razkrila napad na figuro višje vrednosti.</string>
+  <string name="promotion">Promocija</string>
+  <string name="promotionDescription">Promovirajte enega svojega kmeta v kraljico ali drugo figuro.</string>
+  <string name="queenEndgame">Končnica z damo</string>
+  <string name="queenEndgameDescription">Končina samo z damami in kmeti.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
 </resources>
