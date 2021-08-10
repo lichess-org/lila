@@ -39,4 +39,10 @@
   <string name="shareUrl">लोगों को शामिल होने के लिए इस URL को साझा करें: %s</string>
   <string name="drawStreak">ड्रा स्ट्रीक्स: जब किसी खिलाड़ी के अखाड़े में लगातार ड्रॉ होता है, तो केवल पहले ड्रॉ के परिणामस्वरूप एक बिंदु होगा, या%s से अधिक समय तक चलने वाला ड्रॉ होगा। ड्रा लकीर को केवल एक जीत से तोड़ा जा सकता है, न कि हार या ड्रॉ से।</string>
   <string name="history">अखाड़ा इतिहास</string>
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+    <item quantity="one">समूह देखें</item>
+    <item quantity="other">सभी %s समुहो को देखें</item>
+  </plurals>
+  <string name="newTeamBattle">नई टीम लड़ाई</string>
+  <string name="customStartDate">कस्टम प्रारंभ तिथि</string>
 </resources>

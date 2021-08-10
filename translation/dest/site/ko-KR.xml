@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
+  <string name="computerAnalysisDisabled">컴퓨터 분석 꺼짐</string>
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>

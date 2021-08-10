@@ -11,8 +11,8 @@ final class MemberRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCo
   import BSONHandlers._
 
   // expensive with thousands of members!
-  def userIdsByTeam(teamId: Team.ID): Fu[List[Team.ID]] =
-    coll.secondaryPreferred.distinctEasy[String, List]("user", $doc("team" -> teamId))
+  def userIdsByTeam(teamId: Team.ID): Fu[List[User.ID]] =
+    coll.secondaryPreferred.distinctEasy[User.ID, List]("user", $doc("team" -> teamId))
 
   def teamIdsByUser(userId: User.ID): Fu[List[Team.ID]] =
     coll.distinctEasy[Team.ID, List]("team", $doc("user" -> userId))

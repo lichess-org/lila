@@ -134,6 +134,7 @@
   <string name="clearChat">Ачысціць чат</string>
   <string name="deleteTheStudyChatHistory">Выдаліць гісторыю чата навучання цалкам? Гэта нельга будзе адмяніць!</string>
   <string name="deleteStudy">Выдаліць навучанне</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Выдаліць навучанне поўнасцю? Гэта нельга будзе адмяніць! Увядзіце назву навучання каб падцвердзіць: %s</string>
   <string name="whereDoYouWantToStudyThat">Дзе вы жадаеце навучацца?</string>
   <string name="goodMove">Добры ход</string>
   <string name="mistake">Памылка</string>

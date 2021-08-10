@@ -21,6 +21,32 @@ final class Annotator(netDomain: lila.common.config.NetDomain) {
       )
     }
 
+  def addEvals(p: Pgn, analysis: Analysis): Pgn =
+    analysis.infos.foldLeft(p) { case (pgn, info) =>
+      pgn.updateTurn(
+        info.turn,
+        turn =>
+          turn.update(
+            info.color,
+            move => {
+              val comment = info.cp
+                .map(_.pawns.toString)
+                .orElse(info.mate.map(m => s"#${m.value}"))
+              move.copy(
+                comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
+              )
+            }
+          )
+      )
+    }
+
+  def toPgnString(pgn: Pgn) = {
+    // merge analysis & eval comments
+    // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
+    // 1. e4 { [%eval 0.17] [%clk 0:00:30] }
+    s"$pgn\n\n\n".replaceIf("] } { [", "] [")
+  }
+
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
     lila.game.StatusText(status, winner, chess.variant.Standard) match {
       case ""   => p

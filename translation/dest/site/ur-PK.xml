@@ -9,6 +9,7 @@
   <string name="yourTurn">آپکی باری ہے</string>
   <string name="aiNameLevelAiLevel">%1$s -  %2$s : میعار</string>
   <string name="level">میعار</string>
+  <string name="strength">طاقت</string>
   <string name="toggleTheChat">گپ شپ</string>
   <string name="toggleSound">آواز</string>
   <string name="chat">مکالمہ</string>
@@ -24,6 +25,7 @@
   <string name="youPlayTheWhitePieces">آپ کے سفید مہرے ہیں۔</string>
   <string name="youPlayTheBlackPieces">آپ کے سیاہ مہرے ہیں۔</string>
   <string name="itsYourTurn">اب آپ کی باری ہے!</string>
+  <string name="cheatDetected">دھوکہ دہی کا پتہ چلا</string>
   <string name="kingInTheCenter">بادشاہ وسط میں ہے</string>
   <string name="threeChecks">تین بار شہ</string>
   <string name="raceFinished">دوڑ ختم</string>
@@ -53,6 +55,7 @@
   <string name="requestAComputerAnalysis">خودکار تجزیہ کے لیے پیش کریں</string>
   <string name="computerAnalysis">خودکار تجزیہ</string>
   <string name="computerAnalysisAvailable">کمپیوٹر کا تجزیہ دستیاب ہے۔</string>
+  <string name="computerAnalysisDisabled">کمپیوٹر تجزیہ غیر فعال ہے</string>
   <string name="analysis">تجزیاتی بساط</string>
   <string name="depthX">گہرائی%s</string>
   <string name="usingServerAnalysis">سرور کے تجزیہ استعمال ہو رہا ہے۔</string>
@@ -94,6 +97,7 @@
   <string name="noGameFound">کوئی بازی نہیں ملی</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ترجیحات مینو میں سے مزید بازیاں شامل کریں?</string>
   <string name="openingExplorer">ابتدائیوں کی کلید</string>
+  <string name="openingEndgameExplorer">اوپننگ/اینڈ گیم ایکسپلورر</string>
   <string name="xOpeningExplorer">%s افتتاحی ایکسپلورر</string>
   <string name="winPreventedBy50MoveRule">فتح کو پچاس چال کے قانون نے روک دیا</string>
   <string name="lossSavedBy50MoveRule">شکست کو پچاس چال کے قانون نے روک دیا</string>
@@ -116,6 +120,18 @@
   <string name="blunder">احمقانہ غلطی</string>
   <string name="mistake">غلطی</string>
   <string name="inaccuracy">کمزور چال</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s غلطی</item>
+    <item quantity="other">%s غلطیاں</item>
+  </plurals>
   <string name="moveTimes">چالوں کا دورانیہ</string>
   <string name="flipBoard">بساط کا رخ تبدیل کریں</string>
   <string name="threefoldRepetition">چالوں کی سہ بار تکرار</string>
@@ -126,6 +142,8 @@
     <item quantity="one">%s کھلاڑی</item>
     <item quantity="other">%s کھلاڑی</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">باہمی معاہدے سے ڈرا</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">پچاس چالیں بغیر ترقی کے</string>
   <string name="currentGames">جاری مقابلے</string>
   <plurals name="nbGames">
     <item quantity="one">%s مقابلے</item>
@@ -425,6 +443,8 @@
   <string name="boardEditor">بساط بنائیں</string>
   <string name="setTheBoard">بساط لگائیں</string>
   <string name="popularOpenings">مشہور ابتدائی چالیں</string>
+  <string name="endgamePositions">اینڈ گیم عہدے</string>
+  <string name="chess960StartPosition">Chess960 شروع کی پوزیشن: %s</string>
   <string name="startPosition">ابتدائی بساط</string>
   <string name="clearBoard">خالی بساط</string>
   <string name="savePosition">موجودہ بساط محفوظ کریں</string>
@@ -440,6 +460,7 @@
   <string name="firstName">پہلا نام</string>
   <string name="lastName">آخری نام</string>
   <string name="biography">سوانح حیات</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ملک یا پرچم</string>
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
   <string name="inlineNotation">ان لائن نوٹیشن</string>
@@ -461,6 +482,7 @@
   <string name="tournamentWinners">مسابقوں کے فاتحین</string>
   <string name="name">نام</string>
   <string name="description">تفصیل</string>
+  <string name="descPrivate">نجی تفصیل</string>
   <string name="no">نہ</string>
   <string name="yes">ہاں</string>
   <string name="help">تفصیل:</string>

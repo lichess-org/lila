@@ -213,19 +213,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   hook: {
                     insert(vnode) {
-                      Promise.all([
-                        lichess.loadModule('editor'),
-                        xhr.json(xhr.url('/editor.json', { fen: ctrl.root.node.fen })),
-                      ]).then(([_, data]) => {
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
+                      Promise.all([lichess.loadModule('editor'), xhr.json('/editor.json')]).then(
+                        ([_, data]: [unknown, Editor.Config]) => {
+                          data.fen = ctrl.root.node.fen;
+                          data.embed = true;
+                          data.options = {
+                            inlineCastling: true,
+                            orientation: currentChapter.setup.orientation,
+                            onChange: ctrl.vm.editorFen,
+                          };
+                          ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
+                          ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        }
+                      );
                     },
                     destroy: _ => {
                       ctrl.vm.editor = null;

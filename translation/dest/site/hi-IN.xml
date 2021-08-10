@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें</string>
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध है</string>
+  <string name="computerAnalysisDisabled">कंप्युटर विश्लेषण निष्क्रिय है</string>
   <string name="analysis">विश्लेषण मंडल</string>
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
@@ -96,6 +97,7 @@
   <string name="noGameFound">कोई गेम नहीं मिला</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
+  <string name="openingEndgameExplorer">प्रारम्भिक खेल/समाप्ति खेल अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
   <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
@@ -122,6 +124,14 @@
     <item quantity="one">%s गंभीर गलती</item>
     <item quantity="other">%s गंभीर गल्तियां</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s गलती</item>
+    <item quantity="other">%s गलतियाँ</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s अशुद्धि</item>
+    <item quantity="other">%s अशुद्धियाँ</item>
+  </plurals>
   <string name="moveTimes">चाल समय</string>
   <string name="flipBoard">बोर्ड पलटें</string>
   <string name="threefoldRepetition">तीन बार दोहराव</string>
@@ -132,6 +142,8 @@
     <item quantity="one">%s खिलाड़ी</item>
     <item quantity="other">%s खिलाड़ी</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">आपसी सहमति से ड्रॉ</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">पचास चालें बिना किसी प्रगति के</string>
   <string name="currentGames">अभी खेले जा रहे खेल</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
@@ -431,6 +443,8 @@
   <string name="boardEditor">बोर्ड संपादक</string>
   <string name="setTheBoard">बोर्ड सेट करें</string>
   <string name="popularOpenings">लोकप्रिय शुरुआती चाल</string>
+  <string name="endgamePositions">अंतिम चरण के खेल की स्थिति</string>
+  <string name="chess960StartPosition">चेस960 खेल की प्रारम्भिक स्थिति: %s</string>
   <string name="startPosition">शुरू करने की स्थिति:</string>
   <string name="clearBoard">बोर्ड सॉफ करें</string>
   <string name="savePosition">जगह सुरक्षित करें</string>
@@ -649,7 +663,7 @@
   <string name="weeklyPerfTypeRatingDistribution">इस हफ्ते का %s रेटिंग वितरण</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s खिलाड़ी इस सप्ताह।</item>
-    <item quantity="other">%1$s %2$s खिलाड़ियों इस सप्ताह।</item>
+    <item quantity="other">%1$s %2$s खिलाड़ी इस सप्ताह।</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
@@ -672,6 +686,7 @@
   <string name="printFriendlyPDF">प्रिंट-अनुकूल PDF</string>
   <string name="crosstable">विजय और पराजय का अभिलेख</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">आप खेल में जाने के लिए बोर्ड पर भी स्क्रॉल कर सकते हैं।</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">कंप्युटर द्वारा इस स्थिति के विभिन्न रूपांतरण को देखने के लिए चिन्हित करें</string>
   <string name="analysisShapesHowTo">बोर्ड पर मंडलियां और तीरों को आकर्षित करने के लिए shift + click या right-click दबाएं</string>
   <string name="letOtherPlayersMessageYou">अन्य खिलाड़ियों को आपको संदेश देने दें</string>
   <string name="receiveForumNotifications">जब आपके नाम का ज़िक्र हो तब नोटिफ़िकेशन पाएँ</string>
@@ -865,4 +880,45 @@
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
   <string name="tournDescription">टूर्नामेंट विवरण</string>
+  <string name="tournDescriptionHelp">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
+  <string name="ratedFormHelp">खेल मूल्यांकित हैं तथा खिलाड़ी के मूल्यांकन को प्रभावित करते हैं</string>
+  <string name="onlyMembersOfTeam">केवल टीम के सदस्य</string>
+  <string name="noRestriction">अप्रतिबंधित</string>
+  <string name="minimumRatedGames">न्यूनतम मूल्यांकित खेलों की संख्या</string>
+  <string name="minimumRating">न्यूनतम मूल्यांकन</string>
+  <string name="maximumWeeklyRating">न्यूनतम साप्ताहिक मूल्यांकन</string>
+  <string name="onlyTitled">केवल उपाधिप्राप्त खिलाड़ी</string>
+  <string name="onlyTitledHelp">प्रतियोगिता से जुड़ने के लिए आधिकारिक उपाधि आवश्यक</string>
+  <string name="positionInputHelp">किसी निर्धारित स्थिति से खेल आरंभ करने के लिए एक वैध FEN डालें।
+यह केवल मूल खेलों के लिए काम करता है, रूपांतरण के साथ नहीं।
+आप %s का प्रयोग FEN स्थिति को प्राप्त करने के लिए कर सकते हैं फिर उसे यहाँ डाल दीजिए।
+प्रारम्भिक स्थिति से खेल को शुरू करने के लिए इसे रिक्त छोड़ दें।</string>
+  <string name="cancelSimul">समकालिक खेल को निरस्त करें</string>
+  <string name="simulHostcolor">प्रत्येक खेल के लिए मेजबान के मोहरों का रंग</string>
+  <string name="estimatedStart">अनुमानित प्रारंभ समय</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">%s पर प्रस्तुत</string>
+  <string name="simulFeaturedHelp">%s पर अपने समकालिक खेल को प्रदर्शित करें। निजी समकालिक खेलों के लिए निष्क्रिय।</string>
+  <string name="simulDescription">समकालिक खेल का विवरण</string>
+  <string name="simulDescriptionHelp">क्या आप प्रतिभागियों को कुछ बताना चाहते हैं?</string>
+  <string name="markdownAvailable">%s अत्याधुनिक स्वरूपण के लिए उपलब्ध है।</string>
+  <string name="inYourLocalTimezone">आपके अपने क्षेत्रीय समयानुसार</string>
+  <string name="tournChat">प्रतियोगिता वार्ता</string>
+  <string name="noChat">वार्ता निषेध</string>
+  <string name="onlyTeamLeaders">केवल टीम नेता</string>
+  <string name="onlyTeamMembers">केवल टीम सदस्य</string>
+  <string name="navigateMoveTree">चालों की सूची पर जाएं</string>
+  <string name="mouseTricks">माउस की तरकीबें</string>
+  <string name="toggleLocalAnalysis">स्थानीय कंप्युटर विश्लेषण</string>
+  <string name="toggleAllAnalysis">सभी कंप्यूटर विश्लेषण टॉगल करें</string>
+  <string name="playComputerMove">कंप्युटर की सर्वश्रेष्ठ चाल चलें</string>
+  <string name="analysisOptions">विश्लेषण विकल्प</string>
+  <string name="focusChat">फोकस चैट</string>
+  <string name="showHelpDialog">सहायता संवाद दर्शायें</string>
+  <string name="reopenYourAccount">अपना खाता पुनः खोलें।</string>
+  <string name="closedAccountChangedMind">अगर आपने अपना खाता बंद कर दिया था, लेकिन अब आपने मन बदल लिया है, तो आपको अपना खाता वापस पाने का एक अवसर मिलता है।</string>
+  <string name="onlyWorksOnce">यह केवल एक बार काम करेगा।</string>
+  <string name="cantDoThisTwice">अगर आपने दूसरी बार अपना खाता बंद किया, तो उसे वापस पाने का कोई रास्ता नहीं होगा।</string>
+  <string name="emailAssociatedToaccount">खाते से संबंधित ईमेल पता</string>
+  <string name="sentEmailWithLink">हमने आपको लिंक के साथ एक ईमेल भेजा है।</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">प्रतियोगिता प्रवेश कोड</string>
 </resources>
