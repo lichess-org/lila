@@ -78,6 +78,7 @@ Além disso, é atribuído um único bye de meio ponto quando um jogador entra a
   <string name="numberOfGamesPreDefined">Decidido antecipadamente, o mesmo para todos os jogadores</string>
   <string name="pairingSystem">Sistema de emparelhamento</string>
   <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
+  <string name="pairingSystemSwiss">Melhor emparelhamento baseado em pontos e desempates</string>
   <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
   <string name="pairingWaitTimeFast">Rápido: não espera por todos os jogadores</string>
   <string name="pairingWaitTimeSlow">Lento: espera por todos os jogadores</string>
