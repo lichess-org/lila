@@ -4,7 +4,7 @@ import * as xhr from 'common/xhr';
 
 export function leadersStart() {
   const input = document.getElementById('form3-leaders') as HTMLInputElement;
-  initTagify(input);
+  initTagify(input, 10);
 }
 
 export function membersStart() {
@@ -26,13 +26,13 @@ export function membersStart() {
     });
   }
 
-  initTagify(membersInput);
+  initTagify(membersInput, 100);
 }
 
-function initTagify(input: HTMLInputElement) {
+function initTagify(input: HTMLInputElement, maxTags: number) {
   const tagify = new Tagify(input, {
     pattern: /.{3,}/,
-    maxTags: 10,
+    maxTags,
     enforceWhitelist: true,
     whitelist: input.value.trim().split(/\s*,\s*/),
   });
