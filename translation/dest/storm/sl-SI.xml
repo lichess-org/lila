@@ -10,6 +10,7 @@
   <string name="newAllTimeHighscore">Nov rekord vseh časov!</string>
   <string name="previousHighscoreWasX">Prejšnji rekord je bil %s</string>
   <string name="playAgain">Igrajte ponovno</string>
+  <string name="highscoreX">Rekord: %s</string>
   <string name="score">Rezultat</string>
   <string name="moves">Poteze</string>
   <string name="accuracy">Točnost</string>
