@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">ارتباط با ما</string>
-  <string name="contactLichess">ارتباط با لی چس</string>
-  <string name="whatCanWeHelpYouWith">چه کمکی میتوانیم به شما بدهیم?</string>
+  <string name="contactLichess">ارتباط با Lichess</string>
+  <string name="whatCanWeHelpYouWith">در چه موردی می توانیم به شما کمک کنیم؟</string>
   <string name="visitThisPage">از این صفحه بازدید نمایید تا مشکل برطرف شود</string>
   <string name="iCantLogIn">نمی توانم وارد شوم</string>
   <string name="noConfirmationEmail">ایمیل تایید ثبت نام را دریافت نکردم</string>
