@@ -10,12 +10,14 @@ module.exports = targets => {
     const target = targets[args['config-plugin'] || 'main'];
     return {
       input: target.input,
+      external: target.external,
       output: [
         prod
           ? {
               file: `../../public/compiled/${target.output}.min.js`,
               format: 'iife',
               name: target.name,
+              globals: target.globals,
               plugins: [
                 terser({
                   safari10: true,
@@ -30,6 +32,7 @@ module.exports = targets => {
               file: `../../public/compiled/${target.output}.js`,
               format: 'iife',
               name: target.name,
+              globals: target.globals,
             },
       ],
       plugins: [

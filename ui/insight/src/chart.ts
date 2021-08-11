@@ -1,39 +1,56 @@
-var m = require('mithril');
+import { h, VNode } from 'snabbdom';
+import Ctrl from './ctrl';
+import { Chart } from './interfaces';
+import * as Highcharts from 'highcharts';
 
-function metricDataTypeFormat(dt) {
+function metricDataTypeFormat(dt: string) {
   if (dt === 'seconds') return '{point.y:.1f}';
   if (dt === 'average') return '{point.y:,.1f}';
   if (dt === 'percent') return '{point.y:.1f}%';
   return '{point.y:,.0f}';
 }
 
-function dimensionDataTypeFormat(dt) {
+function dimensionDataTypeFormat(dt: string) {
   if (dt === 'date') return '{value:%Y-%m-%d}';
   return '{value}';
 }
 
-function yAxisTypeFormat(dt) {
+function yAxisTypeFormat(dt: string) {
   if (dt === 'seconds') return '{value:.1f}';
   if (dt === 'average') return '{value:,.1f}';
   if (dt === 'percent') return '{value:.0f}%';
   return '{value:,.0f}';
 }
 
-var colors = {
+const colors = {
   green: '#759900',
   red: '#dc322f',
   orange: '#d59120',
   blue: '#007599',
 };
-var resultColors = {
+const resultColors = {
   Victory: colors.green,
   Draw: colors.blue,
   Defeat: colors.red,
 };
 
-var theme = (function () {
-  var light = $('body').hasClass('light');
-  var t = {
+interface Theme {
+  light: boolean;
+  text: {
+    weak: string;
+    strong: string;
+  };
+  line: {
+    weak: string;
+    strong: string;
+    fat: string;
+  };
+  colors?: string[];
+}
+
+const theme = (function () {
+  const light = $('body').hasClass('light');
+  const t: Theme = {
     light: light,
     text: {
       weak: light ? '#808080' : '#9a9a9a',
@@ -62,8 +79,8 @@ var theme = (function () {
   return t;
 })();
 
-function makeChart(el, data) {
-  var sizeSerie = {
+function makeChart(el: HTMLElement, data: Chart) {
+  const sizeSerie = {
     name: data.sizeSerie.name,
     data: data.sizeSerie.data,
     yAxis: 1,
@@ -74,8 +91,8 @@ function makeChart(el, data) {
     },
     color: 'rgba(120,120,120,0.2)',
   };
-  var valueSeries = data.series.map(function (s) {
-    var c = {
+  const valueSeries = data.series.map(function (s) {
+    const c: Highcharts.ColumnChartSeriesOptions = {
       name: s.name,
       data: s.data,
       yAxis: 0,
@@ -98,20 +115,20 @@ function makeChart(el, data) {
           );
         })(),
         shared: true,
-      },
+      } as Highcharts.SeriesTooltipOptions,
     };
-    if (data.valueYaxis.name === 'Game result') c.color = resultColors[s.name];
+    if (data.valueYaxis.name === 'Game result') c.color = resultColors[s.name as 'Victory' | 'Draw' | 'Defeat'];
     return c;
   });
-  var chartConf = {
+  const chartConf: Highcharts.Options = {
     chart: {
       type: 'column',
       alignTicks: data.valueYaxis.dataType !== 'percent',
       spacing: [20, 7, 20, 5],
-      backgroundColor: null,
+      backgroundColor: undefined,
       borderWidth: 0,
       borderRadius: 0,
-      plotBackgroundColor: null,
+      plotBackgroundColor: undefined,
       plotShadow: false,
       plotBorderWidth: 0,
       style: {
@@ -119,25 +136,25 @@ function makeChart(el, data) {
       },
     },
     title: {
-      text: null,
+      text: undefined,
     },
     xAxis: {
       type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
       categories: data.xAxis.categories.map(function (v) {
-        return data.xAxis.dataType === 'date' ? v * 1000 : v;
+        return `${data.xAxis.dataType === 'date' ? v * 1000 : v}`;
       }),
       crosshair: true,
       labels: {
         format: dimensionDataTypeFormat(data.xAxis.dataType),
         style: {
           color: theme.text.weak,
-          fontSize: 9,
+          fontSize: '9',
         },
       },
       title: {
         style: {
           color: theme.text.weak,
-          fontSize: 9,
+          fontSize: '9',
         },
       },
       gridLineColor: theme.line.weak,
@@ -145,9 +162,9 @@ function makeChart(el, data) {
       tickColor: theme.line.strong,
     },
     yAxis: [data.valueYaxis, data.sizeYaxis].map(function (a, i) {
-      var isPercent = data.valueYaxis.dataType === 'percent';
-      var isSize = i % 2 === 1;
-      var c = {
+      const isPercent = data.valueYaxis.dataType === 'percent';
+      const isSize = i % 2 === 1;
+      const c: Highcharts.AxisOptions = {
         opposite: isSize,
         min: !isSize && isPercent ? 0 : undefined,
         max: !isSize && isPercent ? 100 : undefined,
@@ -155,14 +172,14 @@ function makeChart(el, data) {
           format: yAxisTypeFormat(a.dataType),
           style: {
             color: theme.text.weak,
-            fontSize: 9,
+            fontSize: '9',
           },
         },
         title: {
-          text: i === 1 ? a.name : false,
+          text: i === 1 ? a.name : '',
           style: {
             color: theme.text.weak,
-            fontSize: 9,
+            fontSize: '9',
           },
         },
         gridLineColor: theme.line.weak,
@@ -170,7 +187,7 @@ function makeChart(el, data) {
       if (isSize && isPercent) {
         c.minorGridLineWidth = 0;
         c.gridLineWidth = 0;
-        c.alternateGridColor = null;
+        c.alternateGridColor = undefined;
       }
       return c;
     }),
@@ -235,20 +252,31 @@ function makeChart(el, data) {
   Highcharts.chart(el, chartConf);
 }
 
-function empty(txt) {
-  return m('div.chart.empty', [m('i[data-icon=]'), txt]);
+function empty(txt: string) {
+  return h('div.chart.empty', [
+    h('i', {
+      attrs: { 'data-icon': '' },
+    }),
+    txt,
+  ]);
 }
 
-module.exports = function (ctrl) {
+function chartHook(vnode: VNode, ctrl: Ctrl) {
+  const el = vnode.elm as HTMLElement;
+  if (ctrl.vm.loading || !ctrl.vm.answer) {
+    $(el).html(lichess.spinnerHtml);
+  } else {
+    makeChart(el, ctrl.vm.answer);
+  }
+}
+
+export default function (ctrl: Ctrl) {
   if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
-  if (!ctrl.vm.answer.series.length) return empty('No data. Try widening or clearing the filters.');
-  return [
-    m('div.chart', {
-      config: function (el) {
-        if (ctrl.vm.loading) return;
-        makeChart(el, ctrl.vm.answer);
-      },
-    }),
-    ctrl.vm.loading ? m.trust(lichess.spinnerHtml) : null,
-  ];
-};
+  if (!ctrl.vm.answer?.series.length) return empty('No data. Try widening or clearing the filters.');
+  return h('div.chart', {
+    hook: {
+      insert: vnode => chartHook(vnode, ctrl),
+      update: (_oldVnode, newVnode) => chartHook(newVnode, ctrl),
+    },
+  });
+}

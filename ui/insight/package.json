@@ -14,12 +14,13 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0"
+    "@build/rollupProject": "2.0.0",
+    "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "common": "2.0.0",
-    "mithril": "github:ornicar/mithril.js#lila-1",
-    "numeral": "^1.5"
+    "numeral": "^1.5",
+    "snabbdom": "^3.0.1"
   },
   "scripts": {
     "dev": "rollup --config",
