@@ -12,5 +12,9 @@
   <string name="lost2FA">دسترسی به کد احراز هویت دو عاملی را از دست داده ام</string>
   <string name="accountSupport">به پشتیبانی حساب کاربری نیاز دارم</string>
   <string name="wantTitle">می خواهم عنوانم در Lichess نشان داده شود</string>
+  <string name="wantCloseAccount">می خواهم حساب کاربری ام را ببندم</string>
+  <string name="wantReopen">می خواهم حساب کاربری ام را بازگشایی کنم</string>
+  <string name="wantChangeUsername">می خواهم نام کاربری ام را عوض کنم</string>
+  <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>
   <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
 </resources>
