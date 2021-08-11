@@ -112,7 +112,6 @@ export default class TournamentController {
   };
 
   jumpToRank = (rank: number) => {
-    if (!Number.isInteger(rank) || rank < 1) return;
     const page = 1 + Math.floor((rank - 1) / maxPerPage);
     const row = (rank - 1) % maxPerPage;
     xhr.loadPage(this, page, () => {

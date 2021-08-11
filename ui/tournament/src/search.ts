@@ -32,8 +32,9 @@ export function input(ctrl: TournamentController): VNode {
           el.focus();
         });
         $(el).on('keydown', e => {
-          if (e.code === 'Enter' && el.value.startsWith('#')) {
-            ctrl.jumpToRank(Number(el.value.slice(1)));
+          if (e.code === 'Enter') {
+            const rank = parseInt(e.target.value);
+            if (rank > 0) ctrl.jumpToRank(rank);
           }
           if (e.code === 'Escape') {
             ctrl.toggleSearch();
