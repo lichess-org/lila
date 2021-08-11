@@ -10,4 +10,7 @@
   <string name="forgotUsername">نام کاربری ام را فراموش کردم</string>
   <string name="youCanLoginWithEmail">شما می توانید با آدرس ایمیلی که برای ثبت نام استفاده کردید وارد شوید</string>
   <string name="lost2FA">دسترسی به کد احراز هویت دو عاملی را از دست داده ام</string>
+  <string name="accountSupport">به پشتیبانی حساب کاربری نیاز دارم</string>
+  <string name="wantTitle">می خواهم عنوانم در Lichess نشان داده شود</string>
+  <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
 </resources>
