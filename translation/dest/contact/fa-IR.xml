@@ -9,5 +9,5 @@
   <string name="forgotPassword">رمز عبورم را فراموش کردم</string>
   <string name="forgotUsername">نام کاربری ام را فراموش کردم</string>
   <string name="youCanLoginWithEmail">شما می توانید با آدرس ایمیلی که برای ثبت نام استفاده کردید وارد شوید</string>
-  <string name="lost2FA">دسترسی به کد دو عاملی تایید را از دست داده ام</string>
+  <string name="lost2FA">دسترسی به کد احراز هویت دو عاملی را از دست داده ام</string>
 </resources>
