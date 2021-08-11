@@ -125,7 +125,7 @@ object post {
 
   def reactions(post: Post, canReact: Boolean)(implicit ctx: Context) = {
     val mine             = ctx.me ?? { Post.Reaction.of(~post.reactions, _) }
-    val canActuallyReact = canReact && ctx.me.exists(!_.isBot)
+    val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
       Post.Reaction.list.map { r =>
         val users = ~post.reactions.flatMap(_ get r)

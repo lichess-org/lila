@@ -82,6 +82,8 @@ case class Post(
   def visibleBy(u: User): Boolean         = !troll || userId.exists(_ == u.id && u.marks.troll)
 
   def erased = erasedAt.isDefined
+
+  def isBy(u: User) = userId.exists(_ == u.id)
 }
 
 object Post {

@@ -104,7 +104,7 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] =
+  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
@@ -115,22 +115,22 @@ final class PostApi(
       case _ => fuccess(none)
     }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] =
+  def get(postId: Post.ID): Fu[Option[(Topic, Post)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
         env.topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
-  def getPost(postId: String): Fu[Option[Post]] =
+  def getPost(postId: Post.ID): Fu[Option[Post]] =
     env.postRepo.coll.byId[Post](postId)
 
-  def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+  def react(postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       env.postRepo.coll.ext
         .findAndUpdate[Post](
-          selector = $id(postId),
+          selector = $id(postId) ++ $doc("userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
             else $pull(s"reactions.$reaction"       -> me.id)
