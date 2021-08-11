@@ -198,7 +198,6 @@ export default rollupProject({
   teamAdmin: {
     input: 'src/teamAdmin.ts',
     output: 'team.admin',
-    name: 'teamAdmin',
   },
   appeal: {
     input: 'src/appeal.ts',

@@ -16,10 +16,7 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = frag(
-        jsModule("team.admin"),
-        embedJsUnsafeLoadThen("""teamAdmin.initTagify('form3-leaders')""")
-      )
+      moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
@@ -49,10 +46,7 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = frag(
-        jsModule("team.admin"),
-        embedJsUnsafeLoadThen("""teamAdmin.initTagify('form3-members')""")
-      )
+      moreJs = jsModule("team.admin")
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),

@@ -2,12 +2,19 @@ import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
-export function initTagify(id: string) {
-  const input = document.getElementById(id) as HTMLInputElement;
+lichess.load.then(() => {
+  $('#form3-leaders').each(function (this: HTMLInputElement) {
+    initTagify(this, 10);
+  });
+  $('#form3-members').each(function (this: HTMLInputElement) {
+    initTagify(this, 100);
+  });
+});
 
+function initTagify(input: HTMLInputElement, maxTags: number) {
   const tagify = new Tagify(input, {
     pattern: /.{3,}/,
-    maxTags: 10,
+    maxTags,
     enforceWhitelist: true,
     whitelist: input.value.trim().split(/\s*,\s*/),
   });
