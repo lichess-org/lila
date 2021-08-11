@@ -1,6 +1,6 @@
-const timeouts = [];
+const timeouts: number[] = [];
 
-export function setTimeout(f, t) {
+export function setTimeout<F extends () => void>(f: F, t: number) {
   timeouts.push(window.setTimeout(f, t));
 }
 

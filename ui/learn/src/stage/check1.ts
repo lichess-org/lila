@@ -1,16 +1,21 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow;
+import { check, not } from '../assert';
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 
-const imgUrl = util.assetUrl + 'images/learn/winged-sword.svg';
+const imgUrl = assetUrl + 'images/learn/winged-sword.svg';
 
-module.exports = {
+const common = () => ({
+  nbMoves: 1,
+  failure: not(check),
+  success: check,
+});
+
+export default {
   key: 'check1',
   title: 'checkInOne',
   subtitle: 'attackTheOpponentsKing',
   image: imgUrl,
   intro: 'checkInOneIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: 'checkInOneGoal',
@@ -41,11 +46,6 @@ module.exports = {
       goal: 'checkInOneGoal',
       fen: '7r/4k3/8/3n4/4N3/8/2R5/4Q3 w - -',
     },
-  ].map(function (l, i) {
-    l.nbMoves = 1;
-    l.failure = assert.not(assert.check);
-    l.success = assert.check;
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
   complete: 'checkInOneComplete',
 };

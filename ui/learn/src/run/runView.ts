@@ -1,15 +1,16 @@
-const m = require('mithril');
-const chessground = require('chessground');
-const util = require('../util');
-const ground = require('../ground');
-const congrats = require('../congrats');
-const stageStarting = require('./stageStarting');
-const stageComplete = require('./stageComplete');
-const renderPromotion = require('../promotion').view;
-const renderProgress = require('../progress').view;
-const makeStars = require('../progress').makeStars;
+import m from '../mithrilFix';
+import * as chessground from 'chessground';
+import * as util from '../util';
+import * as ground from '../ground';
+import congrats from '../congrats';
+import stageStarting from './stageStarting';
+import stageComplete from './stageComplete';
+import { view as renderPromotion } from '../promotion';
+import { makeStars, view as renderProgress } from '../progress';
+import { Ctrl } from './runCtrl';
+import { LevelCtrl } from '../level';
 
-function renderFailed(ctrl) {
+function renderFailed(ctrl: Ctrl) {
   return m(
     'div.result.failed',
     {
@@ -19,7 +20,7 @@ function renderFailed(ctrl) {
   );
 }
 
-function renderCompleted(ctrl, level) {
+function renderCompleted(ctrl: Ctrl, level: LevelCtrl) {
   return m(
     'div.result.completed',
     {
@@ -33,7 +34,7 @@ function renderCompleted(ctrl, level) {
   );
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl: Ctrl) {
   const stage = ctrl.stage;
   const level = ctrl.level;
 
@@ -55,7 +56,7 @@ module.exports = function (ctrl) {
       m('div.learn__main.main-board', [
         ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
         ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
-        chessground.view(ground.instance),
+        (chessground as any).view(ground.instance),
         renderPromotion(ctrl, level),
       ]),
       m('div.learn__table', [
@@ -76,4 +77,4 @@ module.exports = function (ctrl) {
       ]),
     ]
   );
-};
+}

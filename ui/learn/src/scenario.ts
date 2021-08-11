@@ -1,10 +1,31 @@
-const util = require('./util');
-const ground = require('./ground');
-const timeouts = require('./timeouts');
+import * as util from './util';
+import * as ground from './ground';
+import * as timeouts from './timeouts';
+import { ChessCtrl } from './chess';
 
-module.exports = function (blueprint, opts) {
+export interface Scenario {
+  isComplete(): boolean;
+  isFailed(): boolean;
+  opponent(): void;
+  player(move: Uci): boolean;
+}
+
+export type ScenarioLevel = (
+  | Uci
+  | {
+      move: Uci;
+      shapes: ground.Shape[];
+    }
+)[];
+
+interface ScenarioOpts {
+  chess: ChessCtrl;
+  makeChessDests(): ground.Dests;
+}
+
+export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
   const steps = (blueprint || []).map(function (step) {
-    if (step.move) return step;
+    if (typeof step !== 'string') return step;
     return {
       move: step,
       shapes: [],
@@ -31,6 +52,7 @@ module.exports = function (blueprint, opts) {
       timeouts.setTimeout(function () {
         ground.setShapes(step.shapes);
       }, 500);
+    return;
   };
 
   return {
@@ -41,9 +63,9 @@ module.exports = function (blueprint, opts) {
       return isFailed;
     },
     opponent: opponent,
-    player: function (move) {
+    player: function (move: Uci) {
       const step = steps[it];
-      if (!step) return;
+      if (!step) return false;
       if (step.move !== move) return fail();
       it++;
       if (step.shapes) ground.setShapes(step.shapes);
@@ -51,4 +73,4 @@ module.exports = function (blueprint, opts) {
       return true;
     },
   };
-};
+}

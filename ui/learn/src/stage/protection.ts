@@ -1,15 +1,14 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 
-const imgUrl = util.assetUrl + 'images/learn/bolt-shield.svg';
+const imgUrl = assetUrl + 'images/learn/bolt-shield.svg';
 
-module.exports = {
+export default {
   key: 'protection',
   title: 'protection',
   subtitle: 'keepYourPiecesSafe',
   image: imgUrl,
   intro: 'protectionIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: 'escape',
@@ -53,9 +52,6 @@ module.exports = {
       goal: 'dontLetThemTakeAnyUndefendedPiece',
       fen: '8/3q4/8/1N3R2/8/2PB4/8/8 w - -',
     },
-  ].map(function (l, i) {
-    l.nbMoves = 1;
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ nbMoves: 1, ...l }, i)),
   complete: 'protectionComplete',
 };

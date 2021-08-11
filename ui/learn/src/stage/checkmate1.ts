@@ -1,16 +1,22 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow;
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import { mate, not } from '../assert';
 
-const imgUrl = util.assetUrl + 'images/learn/guillotine.svg';
+const imgUrl = assetUrl + 'images/learn/guillotine.svg';
 
-module.exports = {
+const common = () => ({
+  nbMoves: 1,
+  failure: not(mate),
+  success: mate,
+  showFailureFollowUp: true,
+});
+
+export default {
   key: 'checkmate1',
   title: 'mateInOne',
   subtitle: 'defeatTheOpponentsKing',
   image: imgUrl,
   intro: 'mateInOneIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       // rook
@@ -54,12 +60,6 @@ module.exports = {
       goal: 'attackYourOpponentsKing',
       fen: 'r1b5/ppp5/2N2kpN/5q2/8/Q7/8/4B3 w - -',
     },
-  ].map(function (l, i) {
-    l.nbMoves = 1;
-    l.failure = assert.not(assert.mate);
-    l.success = assert.mate;
-    l.showFailureFollowUp = true;
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
   complete: 'mateInOneComplete',
 };

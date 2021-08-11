@@ -1,11 +1,12 @@
-const runCtrl = require('./runCtrl');
-const runView = require('./runView');
+import { LearnOpts } from '../main';
+import runCtrl from './runCtrl';
+import runView from './runView';
 
-module.exports = function (opts, trans) {
+export default function (opts: LearnOpts, trans: Trans) {
   return {
     controller: function () {
       return runCtrl(opts, trans);
     },
     view: runView,
   };
-};
+}

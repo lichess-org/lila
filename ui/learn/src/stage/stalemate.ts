@@ -1,24 +1,29 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow,
-  circle = util.circle;
+import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
+import { scenarioComplete, scenarioFailed } from '../assert';
 
-const imgUrl = util.assetUrl + 'images/learn/scales.svg';
+const imgUrl = assetUrl + 'images/learn/scales.svg';
 
-module.exports = {
+const common = () => ({
+  goal: 'stalemateGoal',
+  detectCapture: false,
+  nbMoves: 1,
+  nextButton: true,
+  showFailureFollowUp: true,
+  success: scenarioComplete,
+  failure: scenarioFailed,
+});
+
+export default {
   key: 'stalemate',
   title: 'stalemate',
   subtitle: 'theGameIsADraw',
   image: imgUrl,
   intro: 'stalemateIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
-      goal: 'stalemateGoal',
       fen: 'k7/8/8/6B1/8/1R6/8/8 w - -',
       shapes: [arrow('g5e3')],
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
       scenario: [
         {
           move: 'g5e3',
@@ -32,14 +37,9 @@ module.exports = {
           ],
         },
       ],
-      nextButton: true,
-      showFailureFollowUp: true,
     },
     {
-      goal: 'stalemateGoal',
       fen: '8/7p/4N2k/8/8/3N4/8/1K6 w - -',
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
       scenario: [
         {
           move: 'd3f4',
@@ -55,42 +55,27 @@ module.exports = {
           ],
         },
       ],
-      nextButton: true,
-      showFailureFollowUp: true,
     },
     {
-      goal: 'stalemateGoal',
       fen: '4k3/6p1/5p2/p4P2/PpB2N2/1K6/8/3R4 w - -',
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
       scenario: [
         {
           move: 'f4g6',
           shapes: [arrow('c4f7', 'blue'), arrow('d1d8', 'blue'), arrow('g6e7', 'blue'), arrow('g6f8', 'blue')],
         },
       ],
-      nextButton: true,
-      showFailureFollowUp: true,
     },
     {
-      goal: 'stalemateGoal',
       fen: '8/6pk/6np/7K/8/3B4/8/1R6 w - -',
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
       scenario: [
         {
           move: 'b1b8',
           shapes: [arrow('b8g8', 'blue'), arrow('b8h8', 'blue'), arrow('d3h7', 'red'), arrow('g6e7', 'red')],
         },
       ],
-      nextButton: true,
-      showFailureFollowUp: true,
     },
     {
-      goal: 'stalemateGoal',
       fen: '7R/pk6/p1pP4/K7/3BB2p/7p/1r5P/8 w - -',
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
       scenario: [
         {
           move: 'd4b2',
@@ -103,13 +88,7 @@ module.exports = {
           ],
         },
       ],
-      nextButton: true,
-      showFailureFollowUp: true,
     },
-  ].map(function (l, i) {
-    l.detectCapture = false;
-    l.nbMoves = 1;
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
   complete: 'stalemateComplete',
 };

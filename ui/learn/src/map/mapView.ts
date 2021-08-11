@@ -1,9 +1,11 @@
-const m = require('mithril');
-const util = require('../util');
-const scoring = require('../score');
-const stages = require('../stage/list');
+import m from '../mithrilFix';
+import * as util from '../util';
+import * as scoring from '../score';
+import * as stages from '../stage/list';
+import { MapCtrl } from './mapMain';
+import { StageProgress } from '../main';
 
-function makeStars(nb) {
+function makeStars(nb: number) {
   const stars = [];
   for (let i = 0; i < 4 - nb; i++)
     stars.push(
@@ -14,28 +16,28 @@ function makeStars(nb) {
   return stars;
 }
 
-function ribbon(ctrl, s, status, res) {
+function ribbon(ctrl: MapCtrl, s: stages.Stage, status: string, res: StageProgress) {
   if (status === 'future') return;
   let content;
   if (status === 'ongoing') {
     const p = ctrl.stageProgress(s);
     content = p[0] ? p.join(' / ') : ctrl.trans.noarg('play');
   } else content = makeStars(scoring.getStageRank(s, res.scores));
-  if (status !== 'future')
-    return m(
-      'span.ribbon-wrapper',
-      m(
-        'span.ribbon',
-        {
-          class: status,
-        },
-        content
-      )
-    );
+  if (status === 'future') return;
+  return m(
+    'span.ribbon-wrapper',
+    m(
+      'span.ribbon',
+      {
+        class: status,
+      },
+      content
+    )
+  );
 }
 
-function whatNext(ctrl) {
-  const makeStage = function (href, img, title, subtitle, done) {
+function whatNext(ctrl: MapCtrl) {
+  const makeStage = function (href: string, img: string, title: string, subtitle: string, done?: boolean) {
     const transTitle = ctrl.trans.noarg(title);
     return m(
       'a',
@@ -69,15 +71,15 @@ function whatNext(ctrl) {
   ]);
 }
 
-function titleVerbosityClass(title) {
+function titleVerbosityClass(title: string) {
   return title.length > 13 ? (title.length > 18 ? ' vvv' : ' vv') : '';
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl: MapCtrl) {
   return m('div.learn.learn--map', [
     m('div.learn__side', ctrl.opts.side.view()),
     m('div.learn__main.learn-stages', [
-      stages.categs.map(function (categ) {
+      ...stages.categs.map(function (categ) {
         return m('div.categ', [
           m('h2', ctrl.trans.noarg(categ.name)),
           m(
@@ -112,4 +114,4 @@ module.exports = function (ctrl) {
       whatNext(ctrl),
     ]),
   ]);
-};
+}

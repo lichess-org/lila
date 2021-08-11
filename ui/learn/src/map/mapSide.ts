@@ -1,9 +1,21 @@
-import m = require('mithril');
-let util = require('../util');
-let stages = require('../stage/list');
-let scoring = require('../score');
+import m from '../mithrilFix';
+import * as util from '../util';
+import * as stages from '../stage/list';
+import * as scoring from '../score';
+import { LearnOpts, LearnProgress } from '../main';
 
-function renderInStage(ctrl) {
+export interface SideCtrl {
+  trans: Trans;
+  categId: _mithril.MithrilBasicProperty<number>;
+  data: LearnProgress;
+  reset(): void;
+  active(): number | null;
+  inStage(): boolean;
+  setStage(stage: stages.Stage): void;
+  progress(): number;
+}
+
+function renderInStage(ctrl: SideCtrl) {
   return m('div.learn__side-map', [
     m('div.stages', [
       m(
@@ -19,7 +31,7 @@ function renderInStage(ctrl) {
           ctrl.trans.noarg('menu'),
         ]
       ),
-      stages.categs.map(function (categ, categId) {
+      ...stages.categs.map(function (categ, categId) {
         return m(
           'div.categ',
           {
@@ -38,8 +50,8 @@ function renderInStage(ctrl) {
             m(
               'div.categ_stages',
               categ.stages.map(function (s) {
-                let result = ctrl.data.stages[s.key];
-                let status = s.id === ctrl.active() ? 'active' : result ? 'done' : 'future';
+                const result = ctrl.data.stages[s.key];
+                const status = s.id === ctrl.active() ? 'active' : result ? 'done' : 'future';
                 return m(
                   'a',
                   {
@@ -63,8 +75,8 @@ function renderInStage(ctrl) {
   ]);
 }
 
-function renderHome(ctrl) {
-  let progress = ctrl.progress();
+function renderHome(ctrl: SideCtrl) {
+  const progress = ctrl.progress();
   return m('div.learn__side-home', [
     m('i.fat'),
     m('h1', ctrl.trans.noarg('learnChess')),
@@ -93,10 +105,10 @@ function renderHome(ctrl) {
   ]);
 }
 
-module.exports = function (opts, trans) {
+export default function (opts: LearnOpts, trans: Trans) {
   return {
-    controller: function () {
-      let categId = m.prop(0);
+    controller: function (): SideCtrl {
+      const categId = m.prop(0);
       m.redraw.strategy('diff');
       return {
         data: opts.storage.data,
@@ -107,14 +119,14 @@ module.exports = function (opts, trans) {
         inStage: function () {
           return opts.route === 'run';
         },
-        setStage: function (stage) {
-          categId(stages.stageIdToCategId(stage.id));
+        setStage: function (stage: stages.Stage) {
+          categId(stages.stageIdToCategId(stage.id) || categId());
         },
         progress: function () {
-          let max = stages.list.length * 10;
-          let data = opts.storage.data.stages;
-          let total = Object.keys(data).reduce(function (t, key) {
-            let rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
+          const max = stages.list.length * 10;
+          const data = opts.storage.data.stages;
+          const total = Object.keys(data).reduce(function (t, key) {
+            const rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
             if (rank === 1) return t + 10;
             if (rank === 2) return t + 8;
             return t + 5;
@@ -125,9 +137,9 @@ module.exports = function (opts, trans) {
         trans: trans,
       };
     },
-    view: function (ctrl) {
+    view: function (ctrl: SideCtrl) {
       if (ctrl.inStage()) return renderInStage(ctrl);
       else return renderHome(ctrl);
     },
   };
-};
+}

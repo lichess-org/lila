@@ -1,17 +1,30 @@
-const m = require('mithril');
-const chessground = require('chessground');
-const ground = require('./ground');
+import m from './mithrilFix';
+import * as cg from 'chessground';
+import * as ground from './ground';
+import type { Square as Key } from 'chess.js';
+import { LevelCtrl } from './level';
+import { Ctrl } from './run/runCtrl';
+import { PromotionRole } from './util';
+const chessground = cg as any;
 const opposite = chessground.util.opposite;
 const key2pos = chessground.util.key2pos;
 
-let promoting = false;
+let promoting:
+  | false
+  | {
+      orig: Key;
+      dest: Key;
+      callback: PromotionCallback;
+    } = false;
 
-function start(orig, dest, callback) {
+type PromotionCallback = (orig: Key, dest: Key, role: PromotionRole) => void;
+
+export function start(orig: Key, dest: Key, callback: PromotionCallback) {
   const piece = ground.pieces()[dest];
   if (
     piece &&
     piece.role == 'pawn' &&
-    ((dest[1] == 1 && piece.color == 'black') || (dest[1] == 8 && piece.color == 'white'))
+    ((dest[1] == '1' && piece.color == 'black') || (dest[1] == '8' && piece.color == 'white'))
   ) {
     promoting = {
       orig: orig,
@@ -24,13 +37,22 @@ function start(orig, dest, callback) {
   return false;
 }
 
-function finish(role) {
-  if (promoting) ground.promote(promoting.dest, role);
-  if (promoting.callback) promoting.callback(promoting.orig, promoting.dest, role);
+function finish(role: PromotionRole) {
+  if (promoting) {
+    ground.promote(promoting.dest, role);
+    promoting.callback(promoting.orig, promoting.dest, role);
+  }
   promoting = false;
 }
 
-function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
+function renderPromotion(
+  ctrl: Ctrl,
+  dest: Key,
+  pieces: PromotionRole[],
+  color: 'black' | 'white',
+  orientation: 'black' | 'white',
+  explain: boolean
+) {
   if (!promoting) return;
 
   let left = (8 - key2pos(dest)[0]) * 12.5;
@@ -39,12 +61,12 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   const vertical = color === orientation ? 'top' : 'bottom';
 
   return m('div#promotion-choice.' + vertical, [
-    pieces.map(function (serverRole, i) {
+    ...pieces.map(function (serverRole, i) {
       return m(
         'square',
         {
           style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',
-          onclick: function (e) {
+          onclick: function (e: Event) {
             e.stopPropagation();
             finish(serverRole);
           },
@@ -56,7 +78,7 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
   ]);
 }
 
-function renderExplanation(ctrl) {
+function renderExplanation(ctrl: Ctrl) {
   return m('div.explanation', [
     m('h2', ctrl.trans.noarg('pawnPromotion')),
     m('p', ctrl.trans.noarg('yourPawnReachedTheEndOfTheBoard')),
@@ -65,24 +87,20 @@ function renderExplanation(ctrl) {
   ]);
 }
 
-module.exports = {
-  start: start,
+export function view(ctrl: Ctrl, stage: LevelCtrl) {
+  if (!promoting) return;
+  const pieces: PromotionRole[] = ['queen', 'knight', 'rook', 'bishop'];
 
-  view: function (ctrl, stage) {
-    if (!promoting) return;
-    const pieces = ['queen', 'knight', 'rook', 'bishop'];
+  return renderPromotion(
+    ctrl,
+    promoting.dest,
+    pieces,
+    opposite(ground.data().turnColor),
+    ground.data().orientation,
+    !!stage.blueprint.explainPromotion
+  );
+}
 
-    return renderPromotion(
-      ctrl,
-      promoting.dest,
-      pieces,
-      opposite(ground.data().turnColor),
-      ground.data().orientation,
-      stage.blueprint.explainPromotion
-    );
-  },
-
-  reset: function () {
-    promoting = false;
-  },
-};
+export function reset() {
+  promoting = false;
+}

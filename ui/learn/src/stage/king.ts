@@ -1,13 +1,13 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { LevelPartial } from './list';
+import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-module.exports = {
+export default {
   key: 'king',
   title: 'theKing',
   subtitle: 'theMostImportantPiece',
-  image: util.assetUrl + 'images/learn/pieces/K.svg',
+  image: assetUrl + 'images/learn/pieces/K.svg',
   intro: 'kingIntro',
-  illustration: util.pieceImg('king'),
+  illustration: pieceImg('king'),
   levels: [
     {
       goal: 'theKingIsSlow',
@@ -28,10 +28,9 @@ module.exports = {
       apples: 'b5 c5 d6 e3 f3 g4',
       nbMoves: 8,
     },
-  ].map(function (s, i) {
-    s = util.toLevel(s, i);
-    s.emptyApples = true;
-    return s;
+  ].map((l: LevelPartial, i) => {
+    l.emptyApples = true;
+    return toLevel(l, i);
   }),
   complete: 'kingComplete',
 };

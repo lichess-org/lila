@@ -1,24 +1,23 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow;
+import { scenarioComplete, scenarioFailed } from '../assert';
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 
-const imgUrl = util.assetUrl + 'images/learn/spinning-blades.svg';
+const imgUrl = assetUrl + 'images/learn/spinning-blades.svg';
 
-module.exports = {
+export default {
   key: 'enpassant',
   title: 'enPassant',
   subtitle: 'theSpecialPawnMove',
   image: imgUrl,
   intro: 'enPassantIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: 'blackJustMovedThePawnByTwoSquares',
       fen: 'rnbqkbnr/pppppppp/8/2P5/8/8/PP1PPPPP/RNBQKBNR b KQkq -',
-      color: 'white',
+      color: 'white' as const,
       nbMoves: 1,
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
+      success: scenarioComplete,
+      failure: scenarioFailed,
       detectCapture: false,
       scenario: [
         {
@@ -32,10 +31,10 @@ module.exports = {
     {
       goal: 'enPassantOnlyWorksImmediately',
       fen: 'rnbqkbnr/ppp1pppp/8/2Pp3P/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
-      color: 'white',
+      color: 'white' as const,
       nbMoves: 1,
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
+      success: scenarioComplete,
+      failure: scenarioFailed,
       detectCapture: false,
       scenario: [
         {
@@ -49,10 +48,10 @@ module.exports = {
     {
       goal: 'enPassantOnlyWorksOnFifthRank',
       fen: 'rnbqkbnr/pppppppp/P7/2P5/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
-      color: 'white',
+      color: 'white' as const,
       nbMoves: 1,
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
+      success: scenarioComplete,
+      failure: scenarioFailed,
       detectCapture: false,
       scenario: [
         {
@@ -67,14 +66,14 @@ module.exports = {
     {
       goal: 'takeAllThePawnsEnPassant',
       fen: 'rnbqkbnr/pppppppp/8/2PPP2P/8/8/PP1P1PP1/RNBQKBNR b KQkq -',
-      color: 'white',
+      color: 'white' as const,
       nbMoves: 4,
       detectCapture: false,
-      success: assert.scenarioComplete,
-      failure: assert.scenarioFailed,
+      success: scenarioComplete,
+      failure: scenarioFailed,
       scenario: ['b7b5', 'c5b6', 'f7f5', 'e5f6', 'c7c5', 'd5c6', 'g7g5', 'h5g6'],
       captures: 4,
     },
-  ].map(util.toLevel),
+  ].map(toLevel),
   complete: 'enPassantComplete',
 };

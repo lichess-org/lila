@@ -1,7 +1,8 @@
-const m = require('mithril');
-const util = require('../util');
+import m from '../mithrilFix';
+import * as util from '../util';
+import { Ctrl } from './runCtrl';
 
-module.exports = function (ctrl) {
+export default function (ctrl: Ctrl) {
   return m(
     'div.learn__screen-overlay',
     {
@@ -23,4 +24,4 @@ module.exports = function (ctrl) {
       ),
     ])
   );
-};
+}

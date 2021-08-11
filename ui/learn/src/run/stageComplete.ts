@@ -1,23 +1,24 @@
-const m = require('mithril');
-const util = require('../util');
-const scoring = require('../score');
-const numberSpread = require('common/number').numberSpread;
+import m from '../mithrilFix';
+import * as util from '../util';
+import * as scoring from '../score';
+import { numberSpread } from 'common/number';
+import { Ctrl } from './runCtrl';
 
-function makeStars(rank) {
+function makeStars(rank: number) {
   const stars = [];
   for (let i = 3; i > 0; i--) stars.push(m('div.star-wrap', rank <= i ? m('i.star') : null));
   return stars;
 }
 
-module.exports = function (ctrl) {
+export default function (ctrl: Ctrl) {
   const stage = ctrl.stage;
   const next = ctrl.getNext();
   const score = ctrl.stageScore();
   return m(
     'div.learn__screen-overlay',
     {
-      onclick: function (e) {
-        if (e.target.classList.contains('learn__screen-overlay')) m.route('/');
+      onclick: function (e: MouseEvent) {
+        if ((e.target as HTMLElement).classList?.contains('learn__screen-overlay')) m.route('/');
       },
     },
     m('div.learn__screen', [
@@ -28,14 +29,14 @@ module.exports = function (ctrl) {
         m(
           'span',
           {
-            config: function (el, isUpdate) {
+            config: function (el: HTMLElement, isUpdate: boolean) {
               if (!isUpdate)
                 setTimeout(function () {
                   numberSpread(el, 50, 3000, 0)(score);
                 }, 300);
             },
           },
-          0
+          '0'
         ),
       ]),
       m('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
@@ -61,4 +62,4 @@ module.exports = function (ctrl) {
       ]),
     ])
   );
-};
+}

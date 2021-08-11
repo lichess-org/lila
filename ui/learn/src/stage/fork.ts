@@ -1,18 +1,23 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow;
+import { checkIn, noCheckIn } from '../assert';
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 
-const imgUrl = util.assetUrl + 'images/learn/crossed-swords.svg';
+const imgUrl = assetUrl + 'images/learn/crossed-swords.svg';
 
 const twoMoves = 'Threaten the opponent king<br>in two moves!';
 
-module.exports = {
+const common = () => ({
+  nbMoves: 2,
+  failure: noCheckIn(2),
+  success: checkIn(2),
+});
+
+export default {
   key: 'check2',
   title: 'Check in two',
   subtitle: 'Two moves to give a check',
   image: imgUrl,
   intro: 'Find the right combination of two moves that checks the opponent king!',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: twoMoves,
@@ -35,11 +40,6 @@ module.exports = {
       goal: twoMoves,
       fen: '8/8/8/2k5/q7/4N3/3B4/8 w - -',
     },
-  ].map(function (l, i) {
-    l.nbMoves = 2;
-    l.failure = assert.noCheckIn(2);
-    l.success = assert.checkIn(2);
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
   complete: 'Congratulations! You checked your opponent, forcing them to defend their king!',
 };

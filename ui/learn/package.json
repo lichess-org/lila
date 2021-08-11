@@ -16,6 +16,7 @@
     "@build/rollupProject": "2.0.0"
   },
   "dependencies": {
+    "@types/chess.js": "=0.10.1",
     "chess.js": "github:ornicar/chess.js#learn",
     "chessground": "^4.4",
     "common": "2.0.0",

@@ -1,28 +1,21 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow,
-  circle = util.circle;
+import { and, lastMoveSan, not, or, pieceNotOn } from '../assert';
+import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
+import { LevelPartial } from './list';
 
-const imgUrl = util.assetUrl + 'images/learn/castle.svg';
+const imgUrl = assetUrl + 'images/learn/castle.svg';
 
-const castledKingSide = assert.lastMoveSan('O-O');
-const castledQueenSide = assert.lastMoveSan('O-O-O');
-const cantCastleKingSide = assert.and(
-  assert.not(castledKingSide),
-  assert.or(assert.pieceNotOn('K', 'e1'), assert.pieceNotOn('R', 'h1'))
-);
-const cantCastleQueenSide = assert.and(
-  assert.not(castledQueenSide),
-  assert.or(assert.pieceNotOn('K', 'e1'), assert.pieceNotOn('R', 'a1'))
-);
+const castledKingSide = lastMoveSan('O-O');
+const castledQueenSide = lastMoveSan('O-O-O');
+const cantCastleKingSide = and(not(castledKingSide), or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'h1')));
+const cantCastleQueenSide = and(not(castledQueenSide), or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1')));
 
-module.exports = {
+export default {
   key: 'castling',
   title: 'castling',
   subtitle: 'theSpecialKingMove',
   image: imgUrl,
   intro: 'castlingIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: 'castleKingSide',
@@ -99,9 +92,9 @@ module.exports = {
       failure: cantCastleQueenSide,
       detectCapture: false,
     },
-  ].map(function (l, i) {
+  ].map((l: LevelPartial, i) => {
     l.autoCastle = true;
-    return util.toLevel(l, i);
+    return toLevel(l, i);
   }),
   complete: 'castlingComplete',
 };

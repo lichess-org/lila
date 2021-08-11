@@ -1,12 +1,20 @@
-const m = require('mithril');
+import { LearnProgress } from './main';
+import m from './mithrilFix';
+import { Stage } from './stage/list';
+
+export interface Storage {
+  data: LearnProgress;
+  saveScore(stage: Stage, level: { id: number }, score: number): void;
+  reset(): void;
+}
 
 const key = 'learn.progress';
 
-const defaultValue = {
+const defaultValue: LearnProgress = {
   stages: {},
 };
 
-function xhrSaveScore(stageKey, levelId, score) {
+function xhrSaveScore(stageKey: string, levelId: number, score: number) {
   return m.request({
     method: 'POST',
     url: '/learn/score',
@@ -25,12 +33,12 @@ function xhrReset() {
   });
 }
 
-module.exports = function (data) {
-  data = data || JSON.parse(lichess.storage.get(key)) || defaultValue;
+export default function (d?: LearnProgress): Storage {
+  const data: LearnProgress = d || JSON.parse(lichess.storage.get(key)!) || defaultValue;
 
   return {
     data: data,
-    saveScore: function (stage, level, score) {
+    saveScore: function (stage: Stage, level: { id: number }, score: number) {
       if (!data.stages[stage.key])
         data.stages[stage.key] = {
           scores: [],
@@ -52,4 +60,4 @@ module.exports = function (data) {
       }
     },
   };
-};
+}

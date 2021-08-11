@@ -1,16 +1,12 @@
-const util = require('./util');
-
-const make = (file, volume) => {
+const make = (file: string, volume?: number) => {
   lichess.sound.loadOggOrMp3(file, `${lichess.sound.baseUrl}/${file}`);
   return () => lichess.sound.play(file, volume);
 };
 
-module.exports = {
-  move: () => lichess.sound.play('move'),
-  take: make('sfx/Tournament3rd', 0.4),
-  levelStart: make('other/ping'),
-  levelEnd: make('other/energy3'),
-  stageStart: make('other/guitar'),
-  stageEnd: make('other/gewonnen'),
-  failure: make('other/no-go'),
-};
+export const move = () => lichess.sound.play('move');
+export const take = make('sfx/Tournament3rd', 0.4);
+export const levelStart = make('other/ping');
+export const levelEnd = make('other/energy3');
+export const stageStart = make('other/guitar');
+export const stageEnd = make('other/gewonnen');
+export const failure = make('other/no-go');

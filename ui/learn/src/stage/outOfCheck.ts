@@ -1,15 +1,20 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 
-const imgUrl = util.assetUrl + 'images/learn/guards.svg';
+const imgUrl = assetUrl + 'images/learn/guards.svg';
 
-module.exports = {
+const common = {
+  detectCapture: false,
+  offerIllegalMove: true,
+  nbMoves: 1,
+};
+
+export default {
   key: 'outOfCheck',
   title: 'outOfCheck',
   subtitle: 'defendYourKing',
   image: imgUrl,
   intro: 'outOfCheckIntro',
-  illustration: util.roundSvg(imgUrl),
+  illustration: roundSvg(imgUrl),
   levels: [
     {
       goal: 'escapeWithTheKing',
@@ -40,11 +45,6 @@ module.exports = {
       goal: 'escapeOrBlock',
       fen: '8/6b1/8/8/q4P2/2KN4/3P4/8 w - -',
     },
-  ].map(function (l, i) {
-    l.detectCapture = false;
-    l.offerIllegalMove = true;
-    l.nbMoves = 1;
-    return util.toLevel(l, i);
-  }),
+  ].map((l, i) => toLevel({ ...common, ...l }, i)),
   complete: 'outOfCheckComplete',
 };

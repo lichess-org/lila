@@ -1,13 +1,12 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-module.exports = {
+export default {
   key: 'queen',
   title: 'theQueen',
   subtitle: 'queenCombinesRookAndBishop',
-  image: util.assetUrl + 'images/learn/pieces/Q.svg',
+  image: assetUrl + 'images/learn/pieces/Q.svg',
   intro: 'queenIntro',
-  illustration: util.pieceImg('queen'),
+  illustration: pieceImg('queen'),
   levels: [
     {
       goal: 'grabAllTheStars',
@@ -40,6 +39,6 @@ module.exports = {
       apples: 'a6 d1 f2 f6 g6 g8 h1 h4',
       nbMoves: 9,
     },
-  ].map(util.toLevel),
+  ].map(toLevel),
   complete: 'queenComplete',
 };

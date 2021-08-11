@@ -1,14 +1,13 @@
-const util = require('../util');
-const assert = require('../assert');
-const arrow = util.arrow;
+import { noPieceOn, whitePawnOnAnyOf } from '../assert';
+import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-module.exports = {
+export default {
   key: 'pawn',
   title: 'thePawn',
   subtitle: 'itMovesForwardOnly',
-  image: util.assetUrl + 'images/learn/pieces/P.svg',
+  image: assetUrl + 'images/learn/pieces/P.svg',
   intro: 'pawnIntro',
-  illustration: util.pieceImg('pawn'),
+  illustration: pieceImg('pawn'),
   levels: [
     {
       goal: 'pawnsMoveOneSquareOnly',
@@ -30,7 +29,7 @@ module.exports = {
       apples: 'c6 d5 d7',
       nbMoves: 4,
       shapes: [arrow('e3e4'), arrow('e4d5'), arrow('d5c6'), arrow('c6d7')],
-      failure: assert.noPieceOn('e3 e4 c6 d5 d7'),
+      failure: noPieceOn('e3 e4 c6 d5 d7'),
     },
     {
       goal: 'captureThenPromote',
@@ -42,7 +41,7 @@ module.exports = {
       goal: 'captureThenPromote',
       fen: '8/8/8/8/8/3P4/8/8 w - -',
       apples: 'c4 b5 b6 d5 d7 e6 c8',
-      failure: assert.whitePawnOnAnyOf('b5 d4 d6 c7'),
+      failure: whitePawnOnAnyOf('b5 d4 d6 c7'),
       nbMoves: 8,
     },
     {
@@ -57,7 +56,7 @@ module.exports = {
       apples: 'd6',
       nbMoves: 3,
       shapes: [arrow('e2e4')],
-      failure: assert.whitePawnOnAnyOf('e3'),
+      failure: whitePawnOnAnyOf('e3'),
       cssClass: 'highlight-2nd-rank',
     },
     {
@@ -66,6 +65,6 @@ module.exports = {
       apples: 'c5 d5 e5 f5 d3 e4',
       nbMoves: 9,
     },
-  ].map(util.toLevel),
+  ].map(toLevel),
   complete: 'pawnComplete',
 };

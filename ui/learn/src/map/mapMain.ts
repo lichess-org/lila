@@ -1,11 +1,20 @@
-const mapView = require('./mapView');
-const stages = require('../stage/list');
-const scoring = require('../score');
-const timeouts = require('../timeouts');
+import mapView from './mapView';
+import * as stages from '../stage/list';
+import * as scoring from '../score';
+import * as timeouts from '../timeouts';
+import { LearnOpts, LearnProgress } from '../main';
 
-module.exports = function (opts, trans) {
+export interface MapCtrl {
+  opts: LearnOpts;
+  data: LearnProgress;
+  trans: Trans;
+  isStageIdComplete(stageId: number): boolean;
+  stageProgress(stage: stages.Stage): [number, number];
+}
+
+export default function (opts: LearnOpts, trans: Trans) {
   return {
-    controller: function () {
+    controller: function (): MapCtrl {
       timeouts.clearTimeouts();
 
       opts.stageId = null;
@@ -14,14 +23,14 @@ module.exports = function (opts, trans) {
         opts: opts,
         data: opts.storage.data,
         trans: trans,
-        isStageIdComplete: function (stageId) {
+        isStageIdComplete: function (stageId: number) {
           const stage = stages.byId[stageId];
           if (!stage) return true;
           const result = opts.storage.data.stages[stage.key];
           if (!result) return false;
           return result.scores.filter(scoring.gtz).length >= stage.levels.length;
         },
-        stageProgress: function (stage) {
+        stageProgress: function (stage: stages.Stage) {
           const result = opts.storage.data.stages[stage.key];
           const complete = result ? result.scores.filter(scoring.gtz).length : 0;
           return [complete, stage.levels.length];
@@ -30,4 +39,4 @@ module.exports = function (opts, trans) {
     },
     view: mapView,
   };
-};
+}

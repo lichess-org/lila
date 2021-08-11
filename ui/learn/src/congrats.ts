@@ -1,4 +1,4 @@
-function shuffle(a) {
+function shuffle<T>(a: T[]) {
   let j, x, i;
   for (i = a.length; i; i -= 1) {
     j = Math.floor(Math.random() * i);
@@ -24,6 +24,6 @@ shuffle(list);
 
 let it = 0;
 
-module.exports = function () {
+export default function () {
   return list[it++ % list.length];
-};
+}

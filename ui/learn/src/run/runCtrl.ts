@@ -1,14 +1,33 @@
-const m = require('mithril');
-const stages = require('../stage/list');
-const makeLevel = require('../level');
-const makeProgress = require('../progress').ctrl;
-const sound = require('../sound');
-const timeouts = require('../timeouts');
+import m from '../mithrilFix';
+import * as stages from '../stage/list';
+import makeLevel, { LevelCtrl } from '../level';
+import { ctrl as makeProgress, Progress } from '../progress';
+import * as sound from '../sound';
+import * as timeouts from '../timeouts';
+import { LearnOpts } from '../main';
 
-module.exports = function (opts, trans) {
+export interface Ctrl {
+  opts: LearnOpts;
+  stage: stages.Stage;
+  level: LevelCtrl;
+  vm: Vm;
+  progress: Progress;
+  stageScore(): number;
+  getNext(): stages.Stage;
+  hideStartingPane(): void;
+  restart(): void;
+  trans: Trans;
+}
+
+export interface Vm {
+  stageStarting: _mithril.MithrilBasicProperty<boolean>;
+  stageCompleted: _mithril.MithrilBasicProperty<boolean>;
+}
+
+export default function (opts: LearnOpts, trans: Trans): Ctrl {
   timeouts.clearTimeouts();
 
-  const stage = stages.byId[m.route.param('stage')];
+  const stage = stages.byId[Number(m.route.param('stage'))];
   if (!stage) m.route('/');
   opts.side.ctrl.setStage(stage);
 
@@ -22,8 +41,7 @@ module.exports = function (opts, trans) {
       return it + 1;
     })();
 
-  var level = makeLevel(stage.levels[levelId - 1], {
-    stage: stage,
+  const level = makeLevel(stage.levels[Number(levelId) - 1], {
     onCompleteImmediate() {
       opts.storage.saveScore(stage, level.blueprint, level.vm.score);
     },
@@ -52,7 +70,7 @@ module.exports = function (opts, trans) {
 
   const isRestarting = lichess.tempStorage.makeBoolean('learn.restarting');
 
-  var vm = {
+  const vm = {
     stageStarting: m.prop(level.blueprint.id === 1 && stageScore() === 0 && !isRestarting.get()),
     stageCompleted: m.prop(false),
   };
@@ -92,4 +110,4 @@ module.exports = function (opts, trans) {
     },
     trans: trans,
   };
-};
+}

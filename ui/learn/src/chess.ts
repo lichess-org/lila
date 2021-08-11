@@ -1,7 +1,31 @@
-const Chess = require('chess.js').Chess;
-const util = require('./util');
+import { Chess, Piece, Square as Key, Move, ChessInstance, PieceType } from 'chess.js';
+import { CgMove, Dests } from './ground';
+import { isRole, PromotionChar, PromotionRole, roleToSan, setFenTurn } from './util';
 
-module.exports = function (fen, appleKeys) {
+export interface ChessCtrl {
+  dests(opts?: { illegal?: boolean }): Partial<Record<Key, Key[]>>;
+  color(c: 'black' | 'white'): void;
+  color(): 'black' | 'white';
+  fen(): string;
+  move(orig: Key, dest: Key, prom?: PromotionRole | PromotionChar | ''): Move | null;
+  occupation(): Partial<Record<Key, Piece>>;
+  kingKey(color: 'black' | 'white'): Key | undefined;
+  findCapture(): CgMove;
+  findUnprotectedCapture(): CgMove | undefined;
+  checks(): CgMove[] | null;
+  playRandomMove(): CgMove | undefined;
+  get(square: Key): Piece | null;
+  undo(): Move | null;
+  instance: ChessInstance;
+}
+
+declare module 'chess.js' {
+  interface ChessInstance {
+    moves(opts: { square: Key; verbose: boolean; legal: boolean }): Move[];
+  }
+}
+
+export default function (fen: string, appleKeys: Key[]): ChessCtrl {
   const chess = new Chess(fen);
 
   // adds enemy pawns on apples, for collisions
@@ -22,9 +46,9 @@ module.exports = function (fen, appleKeys) {
     return chess.turn() == 'w' ? 'white' : 'black';
   }
 
-  function setColor(c) {
+  function setColor(c: 'black' | 'white') {
     const turn = c === 'white' ? 'w' : 'b';
-    let newFen = util.setFenTurn(chess.fen(), turn);
+    let newFen = setFenTurn(chess.fen(), turn);
     chess.load(newFen);
     if (getColor() !== c) {
       // the en passant square prevents setting color
@@ -49,15 +73,21 @@ module.exports = function (fen, appleKeys) {
       });
   };
 
+  function color(): 'black' | 'white';
+  function color(c: 'black' | 'white'): void;
+  function color(c?: 'black' | 'white') {
+    if (c) return setColor(c);
+    else return getColor();
+  }
+
   return {
-    dests: function (opts) {
-      opts = opts || {};
-      const dests = {};
+    dests: function (opts?: { illegal?: boolean }) {
+      const dests: Dests = {};
       chess.SQUARES.forEach(function (s) {
         const ms = chess.moves({
           square: s,
           verbose: true,
-          legal: !opts.illegal,
+          legal: !opts?.illegal,
         });
         if (ms.length)
           dests[s] = ms.map(function (m) {
@@ -66,31 +96,29 @@ module.exports = function (fen, appleKeys) {
       });
       return dests;
     },
-    color: function (c) {
-      if (c) setColor(c);
-      else return getColor();
-    },
+    color,
     fen: chess.fen,
-    move: function (orig, dest, prom) {
+    move: function (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') {
       return chess.move({
         from: orig,
         to: dest,
-        promotion: prom ? util.roleToSan[prom].toLowerCase() : null,
+        promotion: prom ? (isRole(prom) ? roleToSan[prom] : prom) : undefined,
       });
     },
     occupation: function () {
-      const map = {};
+      const map: Partial<Record<Key, Piece>> = {};
       chess.SQUARES.forEach(function (s) {
         const p = chess.get(s);
         if (p) map[s] = p;
       });
       return map;
     },
-    kingKey: function (color) {
+    kingKey: function (color: 'black' | 'white') {
       for (const i in chess.SQUARES) {
         const p = chess.get(chess.SQUARES[i]);
         if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b')) return chess.SQUARES[i];
       }
+      return undefined;
     },
     findCapture: function () {
       return findCaptures()[0];
@@ -117,7 +145,7 @@ module.exports = function (fen, appleKeys) {
           verbose: true,
         })
         .filter(function (move) {
-          return move.captured === 'k';
+          return (move.captured as PieceType) === 'k';
         })
         .map(function (move) {
           return {
@@ -140,9 +168,10 @@ module.exports = function (fen, appleKeys) {
           dest: move.to,
         };
       }
+      return undefined;
     },
     get: chess.get,
     undo: chess.undo,
     instance: chess,
   };
-};
+}

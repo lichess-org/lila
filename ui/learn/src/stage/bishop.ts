@@ -1,13 +1,12 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-module.exports = {
+export default {
   key: 'bishop',
   title: 'theBishop',
   subtitle: 'itMovesDiagonally',
-  image: util.assetUrl + 'images/learn/pieces/B.svg',
+  image: assetUrl + 'images/learn/pieces/B.svg',
   intro: 'bishopIntro',
-  illustration: util.pieceImg('bishop'),
+  illustration: pieceImg('bishop'),
   levels: [
     {
       goal: 'grabAllTheStars',
@@ -46,6 +45,6 @@ module.exports = {
       apples: 'a3 c2 e7 f5 f6 g8 h4 h7',
       nbMoves: 11,
     },
-  ].map(util.toLevel),
+  ].map(toLevel),
   complete: 'bishopComplete',
 };

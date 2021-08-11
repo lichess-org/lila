@@ -1,18 +1,51 @@
-var m = require('mithril');
-var map = require('./map/mapMain');
-var mapSide = require('./map/mapSide');
-var run = require('./run/runMain');
-var storage = require('./storage');
+import m, { MNode } from './mithrilFix';
+import map from './map/mapMain';
+import mapSide, { SideCtrl } from './map/mapSide';
+import run from './run/runMain';
+import storage, { Storage } from './storage';
 
-module.exports = function (element, opts) {
-  opts.storage = storage(opts.data);
-  delete opts.data;
+export interface LearnProgress {
+  _id?: string;
+  stages: Record<string, StageProgress>;
+}
+
+export interface StageProgress {
+  scores: number[];
+}
+
+export interface LearnOpts {
+  i18n: I18nDict;
+  storage: Storage;
+  side: {
+    ctrl: SideCtrl;
+    view(): MNode;
+  };
+  stageId: number | null;
+  route?: string;
+}
+
+interface LearnServerOpts {
+  data?: LearnProgress;
+  i18n: I18nDict;
+}
+
+export default function (element: Element, { data, i18n }: LearnServerOpts) {
+  const _storage = storage(data);
+
+  const opts: LearnOpts = {
+    i18n,
+    storage: _storage,
+    // Unititialized because we need to call mapSide to initialize opts.side,
+    // and we need opts to call mapSide.
+    side: 'uninitialized' as any,
+    stageId: null,
+  };
 
   m.route.mode = 'hash';
 
-  var trans = lichess.trans(opts.i18n);
-  var side = mapSide(opts, trans);
-  var sideCtrl = side.controller();
+  const trans = lichess.trans(opts.i18n);
+  const side = mapSide(opts, trans);
+  const sideCtrl = side.controller();
 
   opts.side = {
     ctrl: sideCtrl,
@@ -25,7 +58,7 @@ module.exports = function (element, opts) {
     '/': map(opts, trans),
     '/:stage/:level': run(opts, trans),
     '/:stage': run(opts, trans),
-  });
+  } as _mithril.MithrilRoutes<any>);
 
   return {};
-};
+}

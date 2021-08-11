@@ -1,20 +1,51 @@
-const m = require('mithril');
-const makeItems = require('./item').ctrl;
-const itemView = require('./item').view;
-const makeScenario = require('./scenario');
-const makeChess = require('./chess');
-const ground = require('./ground');
-const scoring = require('./score');
-const sound = require('./sound');
-const promotion = require('./promotion');
-const timeouts = require('./timeouts');
+import m from './mithrilFix';
+import { ctrl as makeItems, view as itemView } from './item';
+import makeScenario, { Scenario } from './scenario';
+import makeChess, { ChessCtrl } from './chess';
+import * as ground from './ground';
+import * as scoring from './score';
+import * as sound from './sound';
+import * as promotion from './promotion';
+import * as timeouts from './timeouts';
+import type { Square as Key } from 'chess.js';
+import { PromotionRole } from './util';
+import { Level } from './stage/list';
 
-module.exports = function (blueprint, opts) {
+export type LevelCtrl = {
+  blueprint: Level;
+  vm: LevelVm;
+  scenario: Scenario;
+  start(): void;
+  onComplete(): void;
+};
+
+export interface LevelVm {
+  score: number;
+  completed: boolean;
+  failed: boolean;
+  lastStep: boolean;
+  willComplete: boolean;
+  nbMoves: number;
+  starting?: boolean;
+}
+
+export interface LevelOpts {
+  onComplete(): void;
+  onCompleteImmediate(): void;
+}
+
+export interface AssertData {
+  scenario: Scenario;
+  chess: ChessCtrl;
+  vm: LevelVm;
+}
+
+export default function (blueprint: Level, opts: LevelOpts): LevelCtrl {
   const items = makeItems({
     apples: blueprint.apples,
   });
 
-  const vm = {
+  const vm: LevelVm = {
     lastStep: false,
     completed: false,
     willComplete: false,
@@ -43,7 +74,7 @@ module.exports = function (blueprint, opts) {
   // cheat
   // Mousetrap.bind(['shift+enter'], complete);
 
-  const assertData = function () {
+  const assertData = function (): AssertData {
     return {
       scenario: scenario,
       chess: chess,
@@ -54,7 +85,7 @@ module.exports = function (blueprint, opts) {
   const detectFailure = function () {
     const failed = blueprint.failure && blueprint.failure(assertData());
     if (failed) sound.failure();
-    return failed;
+    return !!failed;
   };
 
   const detectSuccess = function () {
@@ -66,7 +97,7 @@ module.exports = function (blueprint, opts) {
     if (!blueprint.detectCapture) return false;
     const fun = blueprint.detectCapture === 'unprotected' ? 'findUnprotectedCapture' : 'findCapture';
     const move = chess[fun]();
-    if (!move) return;
+    if (!move) return false;
     vm.failed = true;
     ground.stop();
     ground.showCapture(move);
@@ -74,7 +105,7 @@ module.exports = function (blueprint, opts) {
     return true;
   };
 
-  const sendMove = function (orig, dest, prom) {
+  const sendMove = function (orig: Key, dest: Key, prom?: PromotionRole) {
     vm.nbMoves++;
     const move = chess.move(orig, dest, prom);
     if (move) ground.fen(chess.fen(), blueprint.color, {});
@@ -88,12 +119,10 @@ module.exports = function (blueprint, opts) {
     let took = false,
       inScenario,
       captured = false;
-    items.withItem(move.to, function (item) {
-      if (item === 'apple') {
-        vm.score += scoring.apple;
-        items.remove(move.to);
-        took = true;
-      }
+    items.withItem(move.to, function () {
+      vm.score += scoring.apple;
+      items.remove(move.to);
+      took = true;
     });
     if (!took && move.captured && blueprint.pointsForCapture) {
       if (blueprint.showPieceValues) vm.score += scoring.pieceValue(move.captured);
@@ -117,6 +146,7 @@ module.exports = function (blueprint, opts) {
       if (blueprint.showFailureFollowUp && !captured)
         timeouts.setTimeout(function () {
           const rm = chess.playRandomMove();
+          if (!rm) return;
           ground.fen(chess.fen(), blueprint.color, {}, [rm.orig, rm.dest]);
         }, 600);
     } else {
@@ -129,21 +159,21 @@ module.exports = function (blueprint, opts) {
     m.redraw();
   };
 
-  var makeChessDests = function () {
+  const makeChessDests = function () {
     return chess.dests({
       illegal: blueprint.offerIllegalMove,
     });
   };
 
-  const onMove = function (orig, dest) {
+  const onMove = function (orig: Key, dest: Key) {
     const piece = ground.get(dest);
     if (!piece || piece.color !== blueprint.color) return;
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
-  var chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : items.appleKeys());
+  const chess = makeChess(blueprint.fen, blueprint.emptyApples ? [] : items.appleKeys());
 
-  var scenario = makeScenario(blueprint.scenario, {
+  const scenario = makeScenario(blueprint.scenario, {
     chess: chess,
     makeChessDests: makeChessDests,
   });
@@ -157,7 +187,7 @@ module.exports = function (blueprint, opts) {
     orientation: blueprint.color,
     onMove: onMove,
     items: {
-      render: function (pos, key) {
+      render: function (_pos: unknown, key: Key) {
         return items.withItem(key, itemView);
       },
     },
@@ -166,7 +196,6 @@ module.exports = function (blueprint, opts) {
 
   return {
     blueprint: blueprint,
-    items: items,
     vm: vm,
     scenario: scenario,
     start: function () {
@@ -175,4 +204,4 @@ module.exports = function (blueprint, opts) {
     },
     onComplete: opts.onComplete,
   };
-};
+}

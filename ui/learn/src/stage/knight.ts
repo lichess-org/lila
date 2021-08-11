@@ -1,13 +1,12 @@
-const util = require('../util');
-const arrow = util.arrow;
+import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
-module.exports = {
+export default {
   key: 'knight',
   title: 'theKnight',
   subtitle: 'itMovesInAnLShape',
-  image: util.assetUrl + 'images/learn/pieces/N.svg',
+  image: assetUrl + 'images/learn/pieces/N.svg',
   intro: 'knightIntro',
-  illustration: util.pieceImg('knight'),
+  illustration: pieceImg('knight'),
   levels: [
     {
       goal: 'knightsHaveAFancyWay',
@@ -46,6 +45,6 @@ module.exports = {
       apples: 'b4 b5 c6 c8 d4 d5 e3 e7 f5',
       nbMoves: 9,
     },
-  ].map(util.toLevel),
+  ].map(toLevel),
   complete: 'knightComplete',
 };
