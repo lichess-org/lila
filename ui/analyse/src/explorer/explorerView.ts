@@ -307,7 +307,11 @@ function showEmpty(ctrl: AnalyseCtrl, opening?: Opening): VNode {
       )
     ),
     h('div.message', [
-      h('strong', ctrl.trans.noarg('noGameFound')),
+      h('strong', 
+        ctrl.node.ply > 50 
+          ? ctrl.trans.noarg('noGameFound')
+          : ctrl.trans.noarg('noOpeningExplorerAfterMove25')
+      ),
       ctrl.explorer.config.fullHouse()
         ? null
         : h('p.explanation', ctrl.trans.noarg('maybeIncludeMoreGamesFromThePreferencesMenu')),

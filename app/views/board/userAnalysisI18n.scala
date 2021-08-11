@@ -157,6 +157,7 @@ object userAnalysisI18n {
     trans.mateInXHalfMoves,
     trans.nextCaptureOrPawnMoveInXHalfMoves,
     trans.noGameFound,
+    trans.noOpeningExplorerAfterMove25
     trans.maybeIncludeMoreGamesFromThePreferencesMenu,
     trans.winPreventedBy50MoveRule,
     trans.lossSavedBy50MoveRule,

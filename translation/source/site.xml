@@ -95,6 +95,7 @@
     <item quantity="other">Next capture or pawn move in %s half-moves (Distance To Zeroing of the 50 move counter)</item>
   </plurals>
   <string name="noGameFound">No game found</string>
+  <string name="noOpeningExplorerAfterMove25">Opening Explorer is not available after move 25</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
   <string name="openingExplorer">Opening explorer</string>
   <string name="openingEndgameExplorer">Opening/endgame explorer</string>
