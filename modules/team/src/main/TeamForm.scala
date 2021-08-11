@@ -117,6 +117,10 @@ final private[team] class TeamForm(
       .map(_.name)
       .mkString(", ")
 
+  def members = Form(
+    single("members" -> nonEmptyText)
+  )
+
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team nameToId setup.trim.name))
 }

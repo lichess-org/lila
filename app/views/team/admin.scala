@@ -16,7 +16,10 @@ object admin {
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = jsModule("team.admin")
+      moreJs = frag(
+        jsModule("team.admin"),
+        embedJsUnsafeLoadThen("""teamAdmin.initTagify('form3-leaders')""")
+      )
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
@@ -39,24 +42,30 @@ object admin {
     }
   }
 
-  def kick(t: lila.team.Team, userIds: Iterable[lila.user.User.ID])(implicit ctx: Context) = {
+  def kick(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
 
     val title = s"${t.name} • ${kickSomeone.txt()}"
 
-    bits.layout(title = title) {
+    views.html.base.layout(
+      title = title,
+      moreCss = frag(cssTag("team"), cssTag("tagify")),
+      moreJs = frag(
+        jsModule("team.admin"),
+        embedJsUnsafeLoadThen("""teamAdmin.initTagify('form3-members')""")
+      )
+    ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          p(whoToKick()),
-          br,
-          br,
-          postForm(cls := "kick", action := routes.Team.kick(t.id))(
-            userIds.toList.sorted.map { userId =>
-              button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
-                usernameOrId(userId)
-              )
-            }
+          postForm(action := routes.Team.kick(t.id))(
+            form3.group(form("members"), frag(whoToKick()))(
+              form3.textarea(_)(rows := 2)
+            ),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.cancel()),
+              form3.submit(trans.save())
+            )
           )
         )
       )

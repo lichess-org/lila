@@ -2,8 +2,8 @@ import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
-lichess.load.then(() => {
-  const input = document.getElementById('form3-leaders') as HTMLInputElement;
+export function initTagify(id: string) {
+  const input = document.getElementById(id) as HTMLInputElement;
 
   const tagify = new Tagify(input, {
     pattern: /.{3,}/,
@@ -26,4 +26,4 @@ lichess.load.then(() => {
       tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
     });
   });
-});
+}
