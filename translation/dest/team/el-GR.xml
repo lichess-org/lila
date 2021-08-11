@@ -45,6 +45,7 @@
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="entryCode">Κωδικός εισόδου ομάδας</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>
