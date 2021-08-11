@@ -225,6 +225,16 @@ final class TeamApi(
         cached.invalidateTeamIds(userId) inject teamIds
     }
 
+  def searchMembers(teamId: Team.ID, term: String, nb: Int): Fu[List[User.ID]] =
+    User.validateId(term) ?? { valid =>
+      memberRepo.coll.primitive[User.ID](
+        selector = memberRepo.teamQuery(teamId) ++ $doc("user" $startsWith valid),
+        sort = $sort desc "user",
+        nb = nb,
+        field = "user"
+      )
+    }
+
   def kick(team: Team, userId: User.ID, me: User): Funit =
     doQuit(team, userId) >>
       (!team.leaders(me.id)).?? {

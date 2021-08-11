@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import play.api.data.Field
 import play.api.data.Form
 
 import lila.api.Context
@@ -26,9 +27,7 @@ object admin {
             "Only invite leaders that you fully trust. Team leaders can kick members and other leaders out of the team."
           ),
           postForm(cls := "leaders", action := routes.Team.leaders(t.id))(
-            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(
-              form3.textarea(_)(rows := 2)
-            ),
+            form3.group(form("leaders"), frag(usersWhoCanManageThisTeam()))(teamMembersAutoComplete(t)),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())
@@ -53,9 +52,7 @@ object admin {
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           postForm(action := routes.Team.kick(t.id))(
-            form3.group(form("members"), frag(whoToKick()))(
-              form3.textarea(_)(rows := 2)
-            ),
+            form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
             form3.actions(
               a(href := routes.Team.show(t.id))(trans.cancel()),
               form3.submit(trans.save())
@@ -65,6 +62,9 @@ object admin {
       )
     }
   }
+
+  private def teamMembersAutoComplete(team: lila.team.Team)(field: Field) =
+    form3.textarea(field)(rows := 2, dataRel := team.id)
 
   def pmAll(t: lila.team.Team, form: Form[_], tours: List[lila.tournament.Tournament])(implicit
       ctx: Context
