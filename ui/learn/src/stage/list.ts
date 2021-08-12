@@ -50,7 +50,7 @@ export interface LevelBase {
 export interface LevelDefaults {
   id: number;
   apples: string | Key[];
-  color: 'black' | 'white';
+  color: Color;
   detectCapture: 'unprotected' | boolean;
 }
 

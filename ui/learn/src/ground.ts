@@ -26,7 +26,7 @@ interface GroundOpts {
   chess: ChessCtrl;
   offerIllegalMove?: boolean;
   autoCastle?: boolean;
-  orientation: 'black' | 'white';
+  orientation: Color;
   onMove(orig: Key, dest: Key): void;
   items: {
     render(pos: unknown, key: Key): MNode | undefined;
@@ -87,7 +87,7 @@ export function set(opts: GroundOpts) {
 
 export const stop = cg.stop;
 
-export function color(color: 'black' | 'white', dests: Dests) {
+export function color(color: Color, dests: Dests) {
   cg.set({
     turnColor: color,
     movable: {
@@ -97,7 +97,7 @@ export function color(color: 'black' | 'white', dests: Dests) {
   });
 }
 
-export function fen(fen: string, color: 'black' | 'white', dests: Dests, lastMove?: [Key, Key, ...unknown[]]) {
+export function fen(fen: string, color: Color, dests: Dests, lastMove?: [Key, Key, ...unknown[]]) {
   const config = {
     turnColor: color,
     fen: fen,
@@ -127,7 +127,7 @@ export function check(chess: ChessCtrl) {
 }
 
 interface Piece {
-  color: 'black' | 'white';
+  color: Color;
   role: PromotionRole;
   promoted: boolean;
 }

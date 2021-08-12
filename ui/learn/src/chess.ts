@@ -4,12 +4,12 @@ import { isRole, PromotionChar, PromotionRole, roleToSan, setFenTurn } from './u
 
 export interface ChessCtrl {
   dests(opts?: { illegal?: boolean }): Partial<Record<Key, Key[]>>;
-  color(c: 'black' | 'white'): void;
-  color(): 'black' | 'white';
+  color(c: Color): void;
+  color(): Color;
   fen(): string;
   move(orig: Key, dest: Key, prom?: PromotionRole | PromotionChar | ''): Move | null;
   occupation(): Partial<Record<Key, Piece>>;
-  kingKey(color: 'black' | 'white'): Key | undefined;
+  kingKey(color: Color): Key | undefined;
   findCapture(): CgMove;
   findUnprotectedCapture(): CgMove | undefined;
   checks(): CgMove[] | null;
@@ -46,7 +46,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     return chess.turn() == 'w' ? 'white' : 'black';
   }
 
-  function setColor(c: 'black' | 'white') {
+  function setColor(c: Color) {
     const turn = c === 'white' ? 'w' : 'b';
     let newFen = setFenTurn(chess.fen(), turn);
     chess.load(newFen);
@@ -73,9 +73,9 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       });
   };
 
-  function color(): 'black' | 'white';
-  function color(c: 'black' | 'white'): void;
-  function color(c?: 'black' | 'white') {
+  function color(): Color;
+  function color(c: Color): void;
+  function color(c?: Color) {
     if (c) return setColor(c);
     else return getColor();
   }
@@ -113,7 +113,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       });
       return map;
     },
-    kingKey: function (color: 'black' | 'white') {
+    kingKey: function (color: Color) {
       for (const i in chess.SQUARES) {
         const p = chess.get(chess.SQUARES[i]);
         if (p && p.type === 'k' && p.color === (color === 'white' ? 'w' : 'b')) return chess.SQUARES[i];

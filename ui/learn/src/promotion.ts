@@ -48,8 +48,8 @@ function renderPromotion(
   ctrl: Ctrl,
   dest: Key,
   pieces: PromotionRole[],
-  color: 'black' | 'white',
-  orientation: 'black' | 'white',
+  color: Color,
+  orientation: Color,
   explain: boolean
 ) {
   if (!promoting) return;
