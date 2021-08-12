@@ -141,7 +141,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     xAxis: {
       type: data.xAxis.dataType === 'date' ? 'datetime' : 'linear',
       categories: data.xAxis.categories.map(function (v) {
-        return `${data.xAxis.dataType === 'date' ? v * 1000 : v}`;
+        return (data.xAxis.dataType === 'date' ? v * 1000 : v) as any;
       }),
       crosshair: true,
       labels: {
