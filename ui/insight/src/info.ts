@@ -42,7 +42,7 @@ export default function (ctrl: Ctrl) {
                 hook: onInsert(_el => lichess.refreshInsightForm()),
               },
               [
-                h('button.button.text', { attrs: { 'data-icon': '' } }, 'Upate insights'),
+                h('button.button.text', { attrs: { 'data-icon': '' } }, 'Update insights'),
                 h(
                   'div.crunching.none',
                   {
