@@ -122,4 +122,13 @@ Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. T
   <string name="beInTopTen">biti med prvimi 10-imi v tem rejtingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druga zahteva je, da igralci, ki ne uporabljajo več svojih računov, prenehajo zasedati lestvico najboljših.</string>
   <string name="whyAreRatingHigher">Zakaj so rejtingi višji v primerjavi z drugimi spletnimi mesti in organizacijami, kot so FIDE, USCF in ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najbolje je, da pri rejtingu ne razmišljate kot absolutni številki oz. ga primerjate z rejtingom pri drugih organizacijah. Različne organizacije imajo različne ravni igralcev, različne sisteme ocenjevanja (Elo, Glicko, Glicko-2 ali spremenjena različica prej omenjenih). Ti dejavniki lahko drastično vplivajo na absolutne številke (rejtinge).
+
+Najbolje, da na rejting gledate kot na \"relativno\" številko (ne kot \"absolutno\"): znotraj skupine igralcev vam bodo njihove relativne razlike v rejtingih pomagale oceniti, kdo in kako pogosto bo nekdo zmagal/remiziral/izgubil. \"Imam rejting X\" nič ne pomeni, razen če obstajajo drugi igralci, s katerimi se lahko ta rejting primerja.</string>
+  <string name="howToHideRatingWhilePlaying">Kako skriti rejting med igranjem?</string>
+  <string name="enableZenMode">Omogočite Zen-način v %1$s ali s pritiskom na %2$s med partijo.</string>
+  <string name="displayPreferences">prikaži nastavitve</string>
+  <string name="connexionLostCanIGetMyRatingBack">Izgubil sem partijo zaradi zakasnitve/prekinitve povezave. Ali lahko dobim nazaj svoje rejtinške točke?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Žal ne moremo vračati rejtinških točk za partije, izgubljene zaradi zakasnitve ali prekinitve povezave, ne glede na to, ali je bila težava na vašem ali na našem delu. Slednje je sicer zelo redko. Prav tako upoštevajte, da pri ponovnem zagonu Lichess-a, partijo vedno prekinemo, da preprečimo poraz zaradi izteka časa.</string>
+  <string name="howToThreeDots">Kako...</string>
 </resources>
