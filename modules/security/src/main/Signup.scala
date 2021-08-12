@@ -73,7 +73,7 @@ final class Signup(
           .fold[Fu[Signup.Result]](
             err => fuccess(Signup.Bad(err tap signupErrLog)),
             data =>
-              signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 3) {
+              signupRateLimit(data.username, if (hcaptchaResult == Hcaptcha.Result.Valid) 1 else 2) {
                 val email = emailAddressValidator
                   .validate(data.realEmail) err s"Invalid email ${data.email}"
                 MustConfirmEmail(data.fingerPrint, email.acceptable) flatMap { mustConfirm =>
