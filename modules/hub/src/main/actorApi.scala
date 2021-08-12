@@ -232,8 +232,9 @@ package fishnet {
 
 package user {
   case class Note(from: String, to: String, text: String, mod: Boolean)
-  case class KidId(id: String)
-  case class NonKidId(id: String)
+  sealed trait ClasId
+  case class KidId(id: String)    extends ClasId
+  case class NonKidId(id: String) extends ClasId
 }
 
 package round {

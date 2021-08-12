@@ -157,7 +157,7 @@ final private class MsgSecurity(
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       if (!isNew || !contacts.hasKid) fuTrue
       else
-        (contacts.orig.kidId, contacts.dest.kidId) match {
+        (contacts.orig.clasId, contacts.dest.clasId) match {
           case (a: KidId, b: KidId)    => Bus.ask[Boolean]("clas") { AreKidsInSameClass(a, b, _) }
           case (t: NonKidId, s: KidId) => isTeacherOf(t.id, s.id)
           case (s: KidId, t: NonKidId) => isTeacherOf(t.id, s.id)
@@ -165,10 +165,10 @@ final private class MsgSecurity(
         }
   }
 
-  private def isTeacherOf(contacts: User.Contacts) =
-    Bus.ask[Boolean]("clas") { IsTeacherOf(contacts.orig.id, contacts.dest.id, _) }
+  private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
+    isTeacherOf(contacts.orig.id, contacts.dest.id)
 
-  private def isTeacherOf(teacher: User.ID, student: User.ID) =
+  private def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: User.Contacts) =
