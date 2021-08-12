@@ -26,9 +26,9 @@ object dashboard {
       days = days,
       path = "dashboard",
       title =
-        if (ctx is user) "Puzzle dashboard"
+        if (ctx is user) trans.puzzle.puzzleDashboard.txt()
         else s"${user.username} puzzle dashboard",
-      subtitle = "Train, analyse, improve",
+      subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
       moreJs = dashOpt ?? { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) =>
@@ -72,7 +72,7 @@ object dashboard {
       title =
         if (ctx is user) trans.puzzle.improvementAreas.txt()
         else s"${user.username} improvement areas",
-      subtitle = "Train these to optimize your progress!",
+      subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
       dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
@@ -86,7 +86,7 @@ object dashboard {
       title =
         if (ctx is user) trans.puzzle.strengths.txt()
         else s"${user.username} puzzle strengths",
-      subtitle = "You perform the best in these themes",
+      subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
       dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)
@@ -130,7 +130,7 @@ object dashboard {
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home)("Nothing to show, go play some puzzles first!")
+              a(href := routes.Puzzle.home)(trans.puzzle.noPuzzlesToShow.txt())
             )
         )
       )
@@ -157,18 +157,18 @@ object dashboard {
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         strong(results.nb.localize),
-        span("played")
+        span(trans.puzzle.played.txt())
       ),
       div(cls := s"$metricClass $metricClass--perf")(
         strong(results.performance, results.unclear ?? "?"),
-        span("performance")
+        span(trans.puzzle.performance.txt())
       ),
       div(
         cls := s"$metricClass $metricClass--win",
         style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
       )(
         strong(s"${results.winPercent}%"),
-        span("solved")
+        span(trans.puzzle.solved.txt())
       ),
       a(
         cls := s"$metricClass $metricClass--fix",
@@ -176,7 +176,7 @@ object dashboard {
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           strong(results.unfixed),
-          span("to replay")
+          span(trans.puzzle.toReplay.txt())
         ),
         iconTag(if (results.canReplay) '' else '')
       )

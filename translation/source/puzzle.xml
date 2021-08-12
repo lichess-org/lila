@@ -69,5 +69,12 @@
   <string name="searchPuzzles">Search puzzles</string>
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
-  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>    
+  <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
+  <string name="puzzleDashboardDescription">Train, analyse, improve</string>
+  <string name="played">played</string>
+  <string name="performance">performance</string>
+  <string name="toReplay">to replay</string>
+  <string name="noPuzzlesToShow">Nothing to show, go play some puzzles first!</string>
+  <string name="improvementAreasDescription">Train these to optimize your progress!</string>
+  <string name="strengthDescription">You perform the best in these themes</string>
 </resources>
