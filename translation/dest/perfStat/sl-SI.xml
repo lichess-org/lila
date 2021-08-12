@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Za zanesljiv rejting je bilo odigranih premalo rangiranih iger.</string>
   <string name="progressOverLastXGames">Napredek v zadnjih %s igrah:</string>
   <string name="ratingDeviation">Odstopanje od rejtinga: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Nižja vrednost pomeni, da je rejting stabilnejši. Nad %1$s se smatra, da je rejting začasen. Za uvrstitev med rangirane, mora biti ta vrednost pod %2$s (standardni šah) ali %3$s (različice).</string>
   <string name="totalGames">Vse igre</string>
   <string name="ratedGames">Rangirane partije</string>
   <string name="tournamentGames">Turnirske partije</string>

@@ -126,6 +126,7 @@
   <string name="clearChat">Εκκαθάριση συνομιλίας</string>
   <string name="deleteTheStudyChatHistory">Διαγραφή συνομιλίας μελέτης; Μη αναιρέσιμη ενέργεια!</string>
   <string name="deleteStudy">Διαγραφή μελέτης</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Να διαγραφεί όλη η μελέτη; Η ενέργεια αυτή δεν μπορεί να αναιρεθεί! Πληκτρολογήστε το όνομα της μελέτης για επιβεβαίωση: %s</string>
   <string name="whereDoYouWantToStudyThat">Που θέλετε να δημιουργήσετε την μελέτη;</string>
   <string name="goodMove">Καλή κίνηση</string>
   <string name="mistake">Λάθος</string>

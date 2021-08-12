@@ -55,6 +55,8 @@ Adiciona as pontuações de cada adversário que o jogador vence e metade da pon
   <string name="restrictedToTeamsA">Os torneios suíços não foram pensados para o xadrez on-line. Exigem pontualidade, dedicação e paciência dos jogadores.
 Julgamos que essas condições são mais susceptíveis de serem cumpridas numa equipa do que em torneios globais.</string>
   <string name="numberOfByesQ">Quantas byes pode obter um jogador?</string>
+  <string name="numberOfByesA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
+Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
   <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>
   <string name="willSwissReplaceArenasQ">Os Suíços irão substituir os torneios de arena?</string>
@@ -76,13 +78,16 @@ Julgamos que essas condições são mais susceptíveis de serem cumpridas numa e
   <string name="numberOfGamesPreDefined">Decidido antecipadamente, o mesmo para todos os jogadores</string>
   <string name="pairingSystem">Sistema de emparelhamento</string>
   <string name="pairingSystemArena">Qualquer opositor disponível com um ranking similar</string>
+  <string name="pairingSystemSwiss">Melhor emparelhamento baseado em pontos e desempates</string>
   <string name="pairingWaitTime">Tempo de espera para emparelhamento</string>
   <string name="pairingWaitTimeFast">Rápido: não espera por todos os jogadores</string>
   <string name="pairingWaitTimeSlow">Lento: espera por todos os jogadores</string>
   <string name="identicalPairing">Emparelhamento idêntico</string>
   <string name="possibleButNotConsecutive">Possível, mas não consecutivo</string>
   <string name="identicalForbidden">Proibido</string>
+  <string name="lateJoin">Entrada atrasada</string>
   <string name="pause">Pausa</string>
+  <string name="streaksAndBerserk">Sequências e Berserk</string>
   <string name="similarToOTB">Semelhante a torneios OTB</string>
   <string name="unlimitedAndFree">Ilimitado e livre</string>
 </resources>

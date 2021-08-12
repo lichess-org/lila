@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">Napredovani kmet</string>
-  <string name="advancedPawnDescription">Kmet pred promocijo ali s pretnjo po promociji je ključna v taktiki.</string>
+  <string name="advancedPawn">Promovirani kmet</string>
+  <string name="advancedPawnDescription">85 / 5000
+Translation results
+Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možnost za promocijo.</string>
   <string name="advantage">Prednost</string>
   <string name="advantageDescription">Izkoristite priložnost in si pridobite odločilno prednost (ocena pozicije med 200 in 600 stotinov kmeta)</string>
   <string name="anastasiaMate">Anastasijin mat</string>
   <string name="anastasiaMateDescription">Skakač in trnjava ali dama sodelujejo, da ujamejo nasprotnega kralja ob rob šahovnice in prijateljsko figuro v past.</string>
   <string name="arabianMate">Arabski mat</string>
   <string name="bishopEndgame">Končnica lovcev</string>
-  <string name="castling">Rošada</string>
-  <string name="equality">Enakost</string>
+  <string name="castling">Rokada</string>
+  <string name="equality">Izenačenje</string>
   <string name="equalityDescription">Vrnite se iz izgubljenega položaja in si zagotovite neodločen ali uravnotežen položaj. (vrednotenje ≤ 200 sk)</string>
   <string name="kingsideAttack">Napad po kraljevi strani</string>
   <string name="kingsideAttackDescription">Napad nasprotnikovega kralja, potem ko je rokiral na kraljevo stran.</string>
@@ -32,6 +34,32 @@
   <string name="mate">Mat</string>
   <string name="mateDescription">Zmagati igro v stilu.</string>
   <string name="mateIn2">Mat v 2</string>
+  <string name="opening">Otvoritev</string>
+  <string name="pawnEndgame">Končnica s kmeti</string>
+  <string name="pawnEndgameDescription">Končnica samo s kmeti.</string>
+  <string name="pin">Vezava</string>
+  <string name="pinDescription">Taktika, ki vključuje vezavo, kjer se figura ne more premakniti, ne da bi razkrila napad na figuro višje vrednosti.</string>
+  <string name="promotion">Promocija</string>
+  <string name="promotionDescription">Promovirajte enega svojega kmeta v kraljico ali lahko figuro.</string>
+  <string name="queenEndgame">Končnica z damo</string>
+  <string name="queenEndgameDescription">Končina samo z damama in kmeti.</string>
   <string name="queenRookEndgame">Končnica z damo in trdnjavo</string>
   <string name="queenRookEndgameDescription">Končnica z damami, trdnjavami in kmeti.</string>
+  <string name="queensideAttack">Napad po daminem krilu</string>
+  <string name="queensideAttackDescription">Napad nasprotnikovega kralja, po rokadi na damino krilo.</string>
+  <string name="quietMove">Tiha poteza</string>
+  <string name="rookEndgame">Končnica s trdnjavo</string>
+  <string name="rookEndgameDescription">Končina samo s trdnjavami in kmeti.</string>
+  <string name="sacrifice">Žrtvovanje</string>
+  <string name="sacrificeDescription">Taktika, ki vključuje kratkoročno žrtvovanje materiala, da bi po prisilnem zaporedju potez znova pridobili prednost.</string>
+  <string name="short">Kratka uganka</string>
+  <string name="shortDescription">Dve potezi za zmago.</string>
+  <string name="skewer">Nabodalo</string>
+  <string name="smotheredMate">Zadušitveni mat</string>
+  <string name="superGM">Partije super VM</string>
+  <string name="trappedPiece">Ujeta figura</string>
+  <string name="underPromotion">Podpromocija</string>
+  <string name="veryLong">Zelo dolga uganka</string>
+  <string name="zugzwang">Nujnica</string>
+  <string name="healthyMixDescription">Vsega po malo. Ne veste, kaj pričakovati, zato bodite pripravljeni na vse! Kot pri resničnih partijah.</string>
 </resources>

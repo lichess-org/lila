@@ -72,11 +72,11 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="swissDescription">In einem Turnier nach Schweizer System %1$s spielt jeder Spieler nicht notwendigerweise gegen alle anderen Teilnehmer. Die Teilnehmer treffen in jeder Runde eins gegen eins aufeinander und werden mithilfe einer Reihe von Regeln einander zugelost, um sicherzustellen, dass jeder Wettbewerber gegen Gegner mit einem ähnlichen Punktestand spielt, aber nicht gegen den gleichen Gegner mehr als einmal. Der Gewinner ist der Teilnehmer mit den höchsten Gesamtpunkten, die aus allen Runden addiert werden. Alle Spieler spielen in jeder Runde, es sei denn, es gibt eine ungerade Anzahl an Teilnehmern.\"</string>
   <string name="teamOnly">Turniere nach Schweizer System können nur von Teamleitern erstellt werden und können nur von Teammitgliedern gespielt werden.           
 %1$s um an Turnieren nach Schweizer System teilzunehmen.</string>
-  <string name="joinOrCreateTeam">Erstelle ein Team oder tritt einem anderen Team bei</string>
+  <string name="joinOrCreateTeam">Team biiträtä odär erschtellä</string>
   <string name="nowPlaying">Lauft grad</string>
   <string name="startingSoon">Schtartät grad</string>
-  <string name="comparison">Vergleich</string>
-  <string name="tournDuration">Dauer des Turniers</string>
+  <string name="comparison">Vergliich</string>
+  <string name="tournDuration">Längi vom Turniär</string>
   <string name="predefinedDuration">Vordefinierte Dauer in Minuten</string>
   <string name="durationUnknown">Vordefinierte maximale Rundenanzahl, aber unbekannte Dauer</string>
   <string name="numberOfGames">Aazahl Partiiä</string>
