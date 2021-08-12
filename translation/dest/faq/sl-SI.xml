@@ -116,4 +116,9 @@ Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. T
   <string name="howDoLeaderoardsWork">Kako delujejo uvrstitve in lestvice najboljših?</string>
   <string name="inOrderToAppearsYouMust">Če želite priti na %1$s, morate:</string>
   <string name="ratingLeaderboards">lestvica najboljših</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">odigrati najmanj 30 ocenjenih partij s tem rejtingom</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">zadnji teden odigrati ocenjeno partijo za ta rejting,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">imeti odstopanje rejtinga nižje kot %1$s v klasičnem šahu in nižje kot %2$s v različicah,</string>
+  <string name="beInTopTen">biti med prvimi 10-imi v tem rejtingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druga zahteva je, da igralci, ki ne uporabljajo več svojih računov, prenehajo zasedati lestvico najboljših.</string>
 </resources>
