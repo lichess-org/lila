@@ -111,4 +111,9 @@ Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. T
   <string name="provisionalRatingExplanation">Vprašaj pomeni, da je rating začasen. Razlogi vključujejo:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Igralec še ni zaključil dovolj rangiranih iger proti %1$s v kategoriji rangiranja.</string>
   <string name="similarOpponents">nasprotniki podobnih moči</string>
+  <string name="notPlayedRecently">Igralec zadnje čase ni igral dovolj partij. Glede na število odigranih partij, ste lahko približno eno leto nedejavni, da bo vaša ocena spet postala začasna.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkretno to pomeni, da je Glicko-2 odstopanje večje od 110. Odstopanje je stopnja zaupanja sistema v rejting. Nižje kot je odstopanje, bolj stabilena je rejting.</string>
+  <string name="howDoLeaderoardsWork">Kako delujejo uvrstitve in lestvice najboljših?</string>
+  <string name="inOrderToAppearsYouMust">Če želite priti na %1$s, morate:</string>
+  <string name="ratingLeaderboards">lestvica najboljših</string>
 </resources>
