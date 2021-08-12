@@ -72,6 +72,21 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
+  let movesWithCurrent: OpeningMoveStats[] = [...data.moves];
+
+  if ([data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
+    const currentStats: OpeningMoveStats = {
+      white: data.white!,
+      black: data.black!,
+      draws: data.draws!,
+      averageRating: data.averageRating!,
+      uci: 'Current Position',
+      san: 'Current',
+    };
+
+    movesWithCurrent = [currentStats, ...data.moves];
+  }
+
   return h('table.moves', [
     h('thead', [
       h('tr', [h('th.title', trans('move')), h('th.title', trans('games')), h('th.title', trans('whiteDrawBlack'))]),
@@ -79,7 +94,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     h(
       'tbody',
       moveTableAttributes(ctrl, data.fen),
-      data.moves.map(move => {
+      movesWithCurrent.map(move => {
         return h(
           'tr',
           {
