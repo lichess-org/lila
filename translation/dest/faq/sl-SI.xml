@@ -121,4 +121,5 @@ Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. T
   <string name="ratingDeviationLowerThanXinChessYinVariants">imeti odstopanje rejtinga nižje kot %1$s v klasičnem šahu in nižje kot %2$s v različicah,</string>
   <string name="beInTopTen">biti med prvimi 10-imi v tem rejtingu.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druga zahteva je, da igralci, ki ne uporabljajo več svojih računov, prenehajo zasedati lestvico najboljših.</string>
+  <string name="whyAreRatingHigher">Zakaj so rejtingi višji v primerjavi z drugimi spletnimi mesti in organizacijami, kot so FIDE, USCF in ICC?</string>
 </resources>
