@@ -1,8 +1,8 @@
 interface Chessground {
-  new (container: HTMLElement, options? : chessground.Options): chessground.Api;
+  new (container: HTMLElement, options?: chessground.Options): chessground.Api;
   controller: {
     new (options?: chessground.Options): chessground.Ctrl;
-  }
+  };
   view(ctrl: chessground.Ctrl): {
     tag: string;
     attrs: any;
@@ -90,53 +90,53 @@ declare namespace chessground {
     vm: {
       stage?: number;
       exploding: boolean;
-    }
+    };
   }
-  
+
   interface Api extends Common {
     /** perform a move programmatically */
     move(orig: Key, dest: Key): void;
     newPiece(piece: Piece, key: Key): void;
   }
-  
+
   type Role = 'king' | 'queen' | 'bishop' | 'knight' | 'rook' | 'pawn';
-  
+
   type Piece = {
     color: Color;
     role: Role;
     promoted?: boolean;
   };
-  
+
   type Color = 'white' | 'black';
-  
+
   type Drop = {
     role: Role;
     key: Key;
   };
-  
+
   type Pieces = Partial<Record<Key, Piece | null>>;
-  
+
   type Dests = Partial<Record<Key, Key[]>>;
-  
+
   type Key = string;
-  
+
   type BrushName = 'green' | 'red' | 'blue' | 'yellow' | 'paleBlue' | 'paleGreen' | 'paleRed' | 'paleGrey';
-  
+
   type Circle = {
     brush?: BrushName;
     orig: Key;
   };
-  
+
   type Arrow = {
     brush?: BrushName;
     orig: Key;
     dest: Key;
   };
-  
+
   type Shapes = (Circle | Arrow)[];
-  
+
   type Options = RecursivePartial<Data>;
-  
+
   interface Data {
     fen: string;
     pieces: Pieces;
@@ -182,17 +182,19 @@ declare namespace chessground {
       enabled: boolean;
       /** animation duration in milliseconds */
       duration: number;
-      current: {
-        start?: number;
-        duration?: number;
-        anims: Partial<Record<Key, [[number, number], [number, number]]>>;
-        fading: {
-          pos: [number, number];
-          opacity: number;
-          role: Role;
-          color: Color;
-        }[];
-      } | Record<string, never>;
+      current:
+        | {
+            start?: number;
+            duration?: number;
+            anims: Partial<Record<Key, [[number, number], [number, number]]>>;
+            fading: {
+              pos: [number, number];
+              opacity: number;
+              role: Role;
+              color: Color;
+            }[];
+          }
+        | Record<string, never>;
     };
     movable: {
       /** all moves are valid - board editor */
@@ -256,22 +258,24 @@ declare namespace chessground {
       centerPiece: boolean;
       /** show ghost of piece being dragged */
       showGhost: boolean;
-      current: {
-        /** orig key of dragging piece */
-        orig: Key;
-        /** x, y of the piece at original position */
-        rel: [number, number];
-        /** relative current position */
-        pos: [number, number];
-        /** piece center decay */
-        dec: [number, number];
-        /** square being moused over */
-        over: Key;
-        /** current cached board bounds */
-        bounds: any;
-        /** whether the drag has started, as per the distance setting */
-        started: boolean;
-      } | Record<string, never>;
+      current:
+        | {
+            /** orig key of dragging piece */
+            orig: Key;
+            /** x, y of the piece at original position */
+            rel: [number, number];
+            /** relative current position */
+            pos: [number, number];
+            /** piece center decay */
+            dec: [number, number];
+            /** square being moused over */
+            over: Key;
+            /** current cached board bounds */
+            bounds: any;
+            /** whether the drag has started, as per the distance setting */
+            started: boolean;
+          }
+        | Record<string, never>;
     };
     selectable: {
       /** disable to enforce dragging over click-click move */
@@ -296,7 +300,7 @@ declare namespace chessground {
     items: {
       render: {
         [key: string]: any;
-      }
+      };
     };
     drawable: {
       /** allows SVG drawings */
@@ -307,24 +311,29 @@ declare namespace chessground {
       shapes: Shapes;
       /** computer shapes */
       autoShapes: Shapes;
-      current: {
-        /** orig key of drawing */
-        orig: Key;
-        /** relative current position */
-        pos: [number, number];
-        /** square being moused over */
-        dest: Key;
-        /** current cached board bounds */
-        bounds: any;
-        /** brush name for shape */
-        brush: BrushName;
-      } | Record<string, never>;
-      brushes: Record<BrushName, {
-        key: string;
-        color: string;
-        opacity: number;
-        lineWidth: number;
-      }>;
+      current:
+        | {
+            /** orig key of drawing */
+            orig: Key;
+            /** relative current position */
+            pos: [number, number];
+            /** square being moused over */
+            dest: Key;
+            /** current cached board bounds */
+            bounds: any;
+            /** brush name for shape */
+            brush: BrushName;
+          }
+        | Record<string, never>;
+      brushes: Record<
+        BrushName,
+        {
+          key: string;
+          color: string;
+          opacity: number;
+          lineWidth: number;
+        }
+      >;
       /** drawable SVG pieces, used for crazyhouse drop */
       pieces: {
         baseUrl: string;
@@ -338,8 +347,7 @@ export = chessground;
 
 /** https://stackoverflow.com/questions/41980195/recursive-partialt-in-typescript#64060332 */
 type RecursivePartial<T> = {
-  [P in keyof T]?:
-  T[P] extends (infer U)[] ? Value<U>[] : Value<T[P]>;
+  [P in keyof T]?: T[P] extends (infer U)[] ? Value<U>[] : Value<T[P]>;
 };
 type AllowedPrimitives = boolean | string | number;
 type Value<T> = T extends AllowedPrimitives ? T : RecursivePartial<T>;
