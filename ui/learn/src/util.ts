@@ -1,4 +1,5 @@
 import type { Square as Key } from 'chess.js';
+import type chessground from 'chessground';
 import m from './mithrilFix';
 import { Level, LevelPartial } from './stage/list';
 
@@ -31,7 +32,7 @@ export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole
   return str.length > 1;
 }
 
-export function arrow(vector: Uci, brush?: string) {
+export function arrow(vector: Uci, brush?: chessground.BrushName) {
   return {
     brush: brush || 'paleGreen',
     orig: vector.slice(0, 2) as Key,
@@ -39,7 +40,7 @@ export function arrow(vector: Uci, brush?: string) {
   };
 }
 
-export function circle(key: Key, brush?: string) {
+export function circle(key: Key, brush?: chessground.BrushName) {
   return {
     brush: brush || 'green',
     orig: key,

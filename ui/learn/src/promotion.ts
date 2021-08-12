@@ -1,11 +1,10 @@
 import m from './mithrilFix';
-import * as cg from 'chessground';
+import chessground from 'chessground';
 import * as ground from './ground';
 import type { Square as Key } from 'chess.js';
 import { LevelCtrl } from './level';
 import { Ctrl } from './run/runCtrl';
 import { PromotionRole } from './util';
-const chessground = cg as any;
 const opposite = chessground.util.opposite;
 const key2pos = chessground.util.key2pos;
 

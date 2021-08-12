@@ -1,5 +1,5 @@
 import m from '../mithrilFix';
-import * as chessground from 'chessground';
+import chessground from 'chessground';
 import * as util from '../util';
 import * as ground from '../ground';
 import congrats from '../congrats';
@@ -56,7 +56,7 @@ export default function (ctrl: Ctrl) {
       m('div.learn__main.main-board', [
         ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
         ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
-        (chessground as any).view(ground.instance),
+        chessground.view(ground.instance),
         renderPromotion(ctrl, level),
       ]),
       m('div.learn__table', [

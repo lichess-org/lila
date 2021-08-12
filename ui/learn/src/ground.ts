@@ -1,11 +1,11 @@
-import * as chessground from 'chessground';
+import chessground from 'chessground';
 import * as timeouts from './timeouts';
 import { ChessCtrl } from './chess';
 import type { Square as Key } from 'chess.js';
 import { arrow, PromotionRole } from './util';
 import { MNode } from './mithrilFix';
 
-const cg = new (chessground as any).controller();
+const cg = new chessground.controller();
 
 export type CgMove = {
   orig: Key;
@@ -87,7 +87,7 @@ export function set(opts: GroundOpts) {
 
 export const stop = cg.stop;
 
-export function color(color: string, dests: Dests) {
+export function color(color: 'black' | 'white', dests: Dests) {
   cg.set({
     turnColor: color,
     movable: {
@@ -97,7 +97,7 @@ export function color(color: string, dests: Dests) {
   });
 }
 
-export function fen(fen: string, color: string, dests: Dests, lastMove?: [Key, Key, ...unknown[]]) {
+export function fen(fen: string, color: 'black' | 'white', dests: Dests, lastMove?: [Key, Key, ...unknown[]]) {
   const config = {
     turnColor: color,
     fen: fen,
@@ -105,7 +105,10 @@ export function fen(fen: string, color: string, dests: Dests, lastMove?: [Key, K
       color: color,
       dests: dests,
     },
-    lastMove: lastMove,
+    // Casting here instead of declaring lastMove as [Key, Key] right away
+    // allows the fen function to accept [orig, dest, promotion] values
+    // for lastMove as well.
+    lastMove: lastMove as [Key, Key],
   };
   cg.set(config);
 }
@@ -124,7 +127,7 @@ export function check(chess: ChessCtrl) {
 }
 
 interface Piece {
-  color: string;
+  color: 'black' | 'white';
   role: PromotionRole;
   promoted: boolean;
 }
