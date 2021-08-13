@@ -28,6 +28,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="crushingDescription">Spoznanje nasprotnikove napake, za odločilno prednost. (ocena ≥ 600sk)</string>
   <string name="doubleBishopMate">Mat z lovcema</string>
   <string name="doubleBishopMateDescription">Lovca na sosednjih diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
+  <string name="dovetailMate">Coziov mat</string>
+  <string name="dovetailMateDescription">Dama matira kralja, ki mu njegovi figuri zasedata edini polji za umik.</string>
   <string name="equality">Izenačenje</string>
   <string name="equalityDescription">Vrnite se iz izgubljenega položaja in si zagotovite neodločen ali uravnotežen položaj. (vrednotenje ≤ 200 sk)</string>
   <string name="kingsideAttack">Napad po kraljevi strani</string>
@@ -43,6 +45,11 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="doubleCheck">Dvojni šah</string>
   <string name="doubleCheckDescription">Napad na kralja z dvema figurama naenkrat, kot rezultat odkritega napada, kjer tako premikajoča se figura kot tudi razkrita figura napadata nasprotnikovega kralja.</string>
   <string name="endgame">Končnica</string>
+  <string name="endgameDescription">Taktika v zadnji fazi partije.</string>
+  <string name="enPassantDescription">Taktika, ki vključuje pravilo en passant, kjer lahko kmet zajame nasprotnega kmeta, ki ga je z napredovanjem za dve polji zaobšel.</string>
+  <string name="exposedKing">Izpostavljeni kralj</string>
+  <string name="exposedKingDescription">Taktika, ki vključuje kralja s premalo obrambe, kar pogosto vodi v mat.</string>
+  <string name="fork">Dvojni napad (vilice)</string>
   <string name="knightEndgame">Končnica skakačev</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
