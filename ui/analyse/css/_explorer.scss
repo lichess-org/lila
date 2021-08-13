@@ -105,14 +105,22 @@
     }
 
     .bar span {
-      background: fade-out($c-bg-box, 0.8);
       box-shadow: none;
-      border-color: fade-out($c-font, 0.8);
+      background-clip: padding-box;
+      border-color: if($theme-light, #0001, #fff1);
       color: inherit;
     }
 
-    .white, .draws {
-      border-right-width: 1px;
+    .white {
+      background-color: if($theme-light, #fff3, #fff2);
+    }
+
+    .draws {
+      background: if($theme-light, #0001, #fff1);
+    }
+
+    .black {
+      background-color: if($theme-light, #0002, #0001);;
     }
   }
 
