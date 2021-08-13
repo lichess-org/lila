@@ -18,7 +18,10 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="backRankMateDescription">Matiranje kralja, ko je še na začetni vrsti, ujet s svojimi figurami.</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="bishopEndgameDescription">Končnica s samo lovci in kmeti.</string>
+  <string name="bodenMate">Bodenov mat</string>
+  <string name="bodenMateDescription">Lovca na križajočih se diagonalah matirata kralja, ki ga ovirajo njegove figure.</string>
   <string name="castling">Rokada</string>
+  <string name="castlingDescription">Umaknite kralja na varno in razporedite trdnjavo za napad.</string>
   <string name="equality">Izenačenje</string>
   <string name="equalityDescription">Vrnite se iz izgubljenega položaja in si zagotovite neodločen ali uravnotežen položaj. (vrednotenje ≤ 200 sk)</string>
   <string name="kingsideAttack">Napad po kraljevi strani</string>
