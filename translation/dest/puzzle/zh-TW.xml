@@ -49,6 +49,7 @@
   <string name="example">範例</string>
   <string name="addAnotherTheme">加入其他主題</string>
   <string name="jumpToNextPuzzleImmediately">立即跳到下一個謎題</string>
+  <string name="puzzleDashboard">謎題能力分析</string>
   <string name="improvementAreas">弱點</string>
   <string name="strengths">強項</string>
   <string name="history">解題紀錄</string>
