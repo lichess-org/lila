@@ -54,9 +54,9 @@ object theme {
               )
             },
             p(cls := "puzzle-themes__db text", dataIcon := "")(
-              trans.puzzleTheme.puzzleDownloadInformation()," ",
-              a(href := "https://database.lichess.org/")("database.lichess.org"),
-              "."
+              trans.puzzleTheme.puzzleDownloadInformation(
+                a(href := "https://database.lichess.org/")("database.lichess.org")
+              )
             )
           )
         )
