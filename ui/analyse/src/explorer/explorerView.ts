@@ -56,7 +56,7 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
           const uci = $(e.target as HTMLElement)
             .parents('tr')
             .attr('data-uci');
-          if (uci) ctrl.explorerMove(uci);
+          if (uci && uci !== 'Current Position') ctrl.explorerMove(uci);
         });
       },
       postpatch(old: VNode) {
