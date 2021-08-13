@@ -50,6 +50,9 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="exposedKing">Izpostavljeni kralj</string>
   <string name="exposedKingDescription">Taktika, ki vključuje kralja s premalo obrambe, kar pogosto vodi v mat.</string>
   <string name="fork">Dvojni napad (vilice)</string>
+  <string name="forkDescription">Poteza, pri kateri figura napade dve nasprotnikovi figuri hkrati.</string>
+  <string name="hangingPiece">Nezaščitena figura</string>
+  <string name="hangingPieceDescription">Taktika, ki vključuje, da nasprotnikova figura ni oziroma je premalo zaščitena in jo je mogoče zajeti.</string>
   <string name="knightEndgame">Končnica skakačev</string>
   <string name="master">Igre mojstrov</string>
   <string name="masterDescription">Igre, ki so jih odigrali igralci z nazivom.</string>
