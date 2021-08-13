@@ -74,6 +74,7 @@
   <string name="noUpperCaseDot">לא.</string>
   <string name="canIChangeMyUsername">האם אני יכול לשנות את השם משתמש שלי?</string>
   <string name="whichRatingSystemUsedByLichess">באיזה מערכת דירוג Lichess משתמש?</string>
+  <string name="notPlayedRecently">השחקן לא שיחק מספיק משחקים בזמן האחרון. תלוי במספר המשחקים ששיחקת, במידה ולא היית פעיל שנה הדירוג שלך יהפוך לזמני שוב.</string>
   <string name="howDoLeaderoardsWork">איך דירוג ולוחות מדדים עובדים?</string>
   <string name="beInTopTen">להיות בעשירייה המובילה לדירוג זה.</string>
   <string name="howToHideRatingWhilePlaying">איך להסתיר את הדירוג כאשר משחקים?</string>
