@@ -9,6 +9,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="anastasiaMate">Anastasijin mat</string>
   <string name="anastasiaMateDescription">Skakač in trnjava ali dama sodelujejo, da ujamejo nasprotnega kralja ob rob šahovnice in prijateljsko figuro v past.</string>
   <string name="arabianMate">Arabski mat</string>
+  <string name="arabianMateDescription">Skakač in trdnjava s skupnimi močmi ujameta nasprotnega kralja v kotu šahovnice.</string>
+  <string name="attackingF2F7">Napad na f2 ali f7</string>
   <string name="bishopEndgame">Končnica lovcev</string>
   <string name="castling">Rokada</string>
   <string name="equality">Izenačenje</string>
