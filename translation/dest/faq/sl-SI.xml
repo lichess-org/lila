@@ -5,7 +5,7 @@
   <string name="whyIsLichessCalledLichess">Zakaj se Lichess imenuje Lichess?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess je kombinacija live/light/ libre in šaha. Izgovarja se %1$s.</string>
   <string name="leechess">li-čes</string>
-  <string name="hearItPronouncedBySpecialist">Slišite, da jo izgovori specialist.</string>
+  <string name="hearItPronouncedBySpecialist">Poslušajte, kako ime izgovori strokovnjak.</string>
   <string name="whyLiveLightLibre">V živo, ker se igre igrajo in gledajo v realnem času 24/7; lahek in svoboden za dejstvo, da je Lichess odprtokoden in neobremenjen z lastniškimi smeti, ki težijo druge spletne strani.</string>
   <string name="whyIsLilaCalledLila">Podobno izvorna koda za Lichess, %1$s, pomeni li[chess in sca]la, saj je večina lichess napisana v %2$s, intuitivnem programskem jeziku.</string>
   <string name="howCanIContributeToLichess">Kako lahko prispevam k Lichess-u?</string>
@@ -111,4 +111,31 @@ Druga točka, ki jo je treba opozoriti, je, da se bo čas zaupanja povečeval. T
   <string name="provisionalRatingExplanation">Vprašaj pomeni, da je rating začasen. Razlogi vključujejo:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">Igralec še ni zaključil dovolj rangiranih iger proti %1$s v kategoriji rangiranja.</string>
   <string name="similarOpponents">nasprotniki podobnih moči</string>
+  <string name="notPlayedRecently">Igralec zadnje čase ni igral dovolj partij. Glede na število odigranih partij, ste lahko približno eno leto nedejavni, da bo vaša ocena spet postala začasna.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkretno to pomeni, da je Glicko-2 odstopanje večje od 110. Odstopanje je stopnja zaupanja sistema v rejting. Nižje kot je odstopanje, bolj stabilena je rejting.</string>
+  <string name="howDoLeaderoardsWork">Kako delujejo uvrstitve in lestvice najboljših?</string>
+  <string name="inOrderToAppearsYouMust">Če želite priti na %1$s, morate:</string>
+  <string name="ratingLeaderboards">lestvica najboljših</string>
+  <string name="havePlayedMoreThanThirtyGamesInThatRating">odigrati najmanj 30 ocenjenih partij s tem rejtingom</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">zadnji teden odigrati ocenjeno partijo za ta rejting,</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">imeti odstopanje rejtinga nižje kot %1$s v klasičnem šahu in nižje kot %2$s v različicah,</string>
+  <string name="beInTopTen">biti med prvimi 10-imi v tem rejtingu.</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Druga zahteva je, da igralci, ki ne uporabljajo več svojih računov, prenehajo zasedati lestvico najboljših.</string>
+  <string name="whyAreRatingHigher">Zakaj so rejtingi višji v primerjavi z drugimi spletnimi mesti in organizacijami, kot so FIDE, USCF in ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Najbolje je, da pri rejtingu ne razmišljate kot absolutni številki oz. ga primerjate z rejtingom pri drugih organizacijah. Različne organizacije imajo različne ravni igralcev, različne sisteme ocenjevanja (Elo, Glicko, Glicko-2 ali spremenjena različica prej omenjenih). Ti dejavniki lahko drastično vplivajo na absolutne številke (rejtinge).
+
+Najbolje, da na rejting gledate kot na \"relativno\" številko (ne kot \"absolutno\"): znotraj skupine igralcev vam bodo njihove relativne razlike v rejtingih pomagale oceniti, kdo in kako pogosto bo nekdo zmagal/remiziral/izgubil. \"Imam rejting X\" nič ne pomeni, razen če obstajajo drugi igralci, s katerimi se lahko ta rejting primerja.</string>
+  <string name="howToHideRatingWhilePlaying">Kako skriti rejting med igranjem?</string>
+  <string name="enableZenMode">Omogočite Zen-način v %1$s ali s pritiskom na %2$s med partijo.</string>
+  <string name="displayPreferences">prikaži nastavitve</string>
+  <string name="connexionLostCanIGetMyRatingBack">Izgubil sem partijo zaradi zakasnitve/prekinitve povezave. Ali lahko dobim nazaj svoje rejtinške točke?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Žal ne moremo vračati rejtinških točk za partije, izgubljene zaradi zakasnitve ali prekinitve povezave, ne glede na to, ali je bila težava na vašem ali na našem delu. Slednje je sicer zelo redko. Prav tako upoštevajte, da pri ponovnem zagonu Lichess-a, partijo vedno prekinemo, da preprečimo poraz zaradi izteka časa.</string>
+  <string name="howToThreeDots">Kako...</string>
+  <string name="enableDisableNotificationPopUps">Omogočiti ali onemogočiti pojavna okna?</string>
+  <string name="viewSiteInformationPopUp">Pokaži pojavno okno spletnega mesta</string>
+  <string name="lichessCanOptionnalySendPopUps">Lichess lahko pošilja pojavna obvestila, na primer, ko ste na vrsti ali ste prejeli zasebno sporočilo.
+
+Kliknite ikono ključavnice poleg naslova lichess.org v vrstici URL vašega brskalnika.
+
+Nato izberite, ali želite dovoliti ali blokirati obvestila strani Lichess.</string>
 </resources>
