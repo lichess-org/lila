@@ -81,7 +81,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       draws: data.draws!,
       averageRating: data.averageRating!,
       uci: 'Current Position',
-      san: 'Current',
+      san: 'All',
     };
 
     movesWithCurrent = [currentStats, ...data.moves];

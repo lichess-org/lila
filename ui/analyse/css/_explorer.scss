@@ -53,15 +53,19 @@
     }
   }
 
+  table.moves tr:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+
+  table:not(.moves) tr:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+
   tr {
     @include transition;
 
-    &:nth-child(even) {
-      background: $c-bg-zebra;
-    }
-
     &:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: mix($c-secondary, $c-bg-box, 20%) !important;
     }
   }
 
@@ -85,6 +89,31 @@
   .moves td:last-child {
     width: 100%;
     padding-right: 7px;
+  }
+
+  .moves tbody tr:first-of-type {
+    background: mix($c-secondary, $c-bg-box, 20%);
+    color: fade-out($c-font, 0.1);
+    
+    td {
+      line-height: 1.9em;
+      cursor: default;
+    }
+
+    td:last-child {
+      text-align: center;
+    }
+
+    .bar span {
+      background: fade-out($c-bg-box, 0.8);
+      box-shadow: none;
+      border-color: fade-out($c-font, 0.8);
+      color: inherit;
+    }
+
+    .white, .draws {
+      border-right-width: 1px;
+    }
   }
 
   .bar span {
