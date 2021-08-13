@@ -142,8 +142,8 @@
     <item quantity="one">%s Spieler</item>
     <item quantity="other">%s Spieler</item>
   </plurals>
-  <string name="drawByMutualAgreement">Remis durch Einigung</string>
-  <string name="fiftyMovesWithoutProgress">50 Züge ohne Spiel-Fortschritt</string>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remis durch Einigung</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 Züge ohne Spiel-Fortschritt</string>
   <string name="currentGames">Laufende Partien</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partie</item>
@@ -894,7 +894,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="cancelSimul">Die Simultan-Veranstaltung abbrechen</string>
   <string name="simulHostcolor">Farbe des Gastgebers für jede Partie</string>
   <string name="estimatedStart">Voraussichtliche Startzeit</string>
-  <string name="simulFeatured">Auf %s zeigen</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Auf %s zeigen</string>
   <string name="simulFeaturedHelp">Zeige allen auf %s deine Simultan-Veranstaltung. Für private Simultan-Veranstaltungen deaktivieren.</string>
   <string name="simulDescription">Simultan Beschreibung</string>
   <string name="simulDescriptionHelp">Möchtest du den Teilnehmern etwas mitteilen?</string>
@@ -912,7 +912,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="analysisOptions">Analyseoptionen</string>
   <string name="focusChat">Chateingabefeld fokussieren</string>
   <string name="showHelpDialog">Diesen Hilfedialog anzeigen</string>
-  <string name="reopenYourAccount">Wiedereröffnen deines Kontos</string>
+  <string name="reopenYourAccount">Wiedereröffnung deines Kontos</string>
   <string name="closedAccountChangedMind">Wenn du dein Konto geschlossen, aber danach deine Meinung geändert hast, hast du eine Chance, dein Konto zurückzuerhalten.</string>
   <string name="onlyWorksOnce">Das funktioniert nur ein einziges mal.</string>
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
