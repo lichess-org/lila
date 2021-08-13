@@ -37,32 +37,40 @@ const tabData = (ctrl: Ctrl, panel: 'filter' | 'preset') => ({
 export default function (ctrl: Ctrl) {
   return h(
     'main#insight',
-    h('div.' + (ctrl.vm.loading ? 'loading' : 'ready'), [
-      h('div.left-side', [
-        info(ctrl),
-        h('div.panel-tabs', [
-          h('a.tab.preset', tabData(ctrl, 'preset'), 'Presets'),
-          h('a.tab.filter', tabData(ctrl, 'filter'), 'Filters'),
-          Object.keys(ctrl.vm.filters).length
-            ? h(
-                'a.clear',
-                {
-                  attrs: {
-                    title: 'Clear all filters',
-                    'data-icon': '',
+    h(
+      'div',
+      {
+        attrs: {
+          class: ctrl.vm.loading ? 'loading' : 'ready',
+        },
+      },
+      [
+        h('div.left-side', [
+          info(ctrl),
+          h('div.panel-tabs', [
+            h('a.tab.preset', tabData(ctrl, 'preset'), 'Presets'),
+            h('a.tab.filter', tabData(ctrl, 'filter'), 'Filters'),
+            Object.keys(ctrl.vm.filters).length
+              ? h(
+                  'a.clear',
+                  {
+                    attrs: {
+                      title: 'Clear all filters',
+                      'data-icon': '',
+                    },
+                    hook: bind('click', ctrl.clearFilters.bind(ctrl)),
                   },
-                  hook: bind('click', ctrl.clearFilters.bind(ctrl)),
-                },
-                'CLEAR'
-              )
-            : null,
+                  'CLEAR'
+                )
+              : null,
+          ]),
+          ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
+          ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
+          help(ctrl),
         ]),
-        ctrl.vm.panel === 'filter' ? filters(ctrl) : null,
-        ctrl.vm.panel === 'preset' ? presets(ctrl) : null,
-        help(ctrl),
-      ]),
-      h('header', [axis(ctrl), h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')]),
-      thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)]),
-    ])
+        h('header', [axis(ctrl), h('h2.text', { attrs: { 'data-icon': '' } }, 'Chess Insights')]),
+        thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)]),
+      ]
+    )
   );
 }
