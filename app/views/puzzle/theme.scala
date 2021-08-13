@@ -46,15 +46,15 @@ object theme {
                   cat.key == "puzzle:origin" option
                     a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
                       span(
-                        h3(trans.puzzleTheme.playerGames.txt()),
-                        span(trans.puzzleTheme.playerGamesDescription.txt())
+                        h3(trans.puzzleTheme.playerGames()),
+                        span(trans.puzzleTheme.playerGamesDescription())
                       )
                     )
                 )
               )
             },
             p(cls := "puzzle-themes__db text", dataIcon := "")(
-              trans.puzzleTheme.puzzleDownloadInformation.txt(),
+              trans.puzzleTheme.puzzleDownloadInformation()," ",
               a(href := "https://database.lichess.org/")("database.lichess.org"),
               "."
             )

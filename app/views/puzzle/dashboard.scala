@@ -130,7 +130,7 @@ object dashboard {
           ),
           dashOpt.flatMap(body) |
             div(cls := s"${baseClass}__empty")(
-              a(href := routes.Puzzle.home)(trans.puzzle.noPuzzlesToShow.txt())
+              a(href := routes.Puzzle.home)(trans.puzzle.noPuzzlesToShow())
             )
         )
       )
@@ -157,18 +157,18 @@ object dashboard {
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
         strong(results.nb.localize),
-        span(trans.puzzle.played.txt())
+        span(trans.puzzle.played())
       ),
       div(cls := s"$metricClass $metricClass--perf")(
         strong(results.performance, results.unclear ?? "?"),
-        span(trans.puzzle.performance.txt())
+        span(trans.performance())
       ),
       div(
         cls := s"$metricClass $metricClass--win",
         style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
       )(
         strong(s"${results.winPercent}%"),
-        span(trans.puzzle.solved.txt())
+        span(trans.puzzle.solved())
       ),
       a(
         cls := s"$metricClass $metricClass--fix",
@@ -176,7 +176,7 @@ object dashboard {
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
           strong(results.unfixed),
-          span(trans.puzzle.toReplay.txt())
+          span(trans.puzzle.toReplay())
         ),
         iconTag(if (results.canReplay) '' else '')
       )
