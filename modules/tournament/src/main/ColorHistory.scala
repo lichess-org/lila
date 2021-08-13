@@ -7,7 +7,7 @@ import lila.memo.CacheApi
 
 // positive strike -> user played straight strike games by white pieces
 // negative strike -> black pieces
-private case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory] {
+case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory] {
 
   override def compare(that: ColorHistory): Int = {
     if (strike < that.strike) -1
