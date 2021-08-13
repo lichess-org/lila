@@ -94,7 +94,7 @@
   .moves tbody tr:first-of-type {
     background: mix($c-secondary, $c-bg-box, 20%);
     color: fade-out($c-font, 0.1);
-    
+
     td {
       line-height: 1.9em;
       cursor: default;
@@ -120,7 +120,7 @@
     }
 
     .black {
-      background-color: if($theme-light, #0002, #0001);;
+      background-color: if($theme-light, #0002, #0001);
     }
   }
 
