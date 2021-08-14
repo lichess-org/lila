@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="computerAnalysisAvailable">電腦分析可用</string>
+  <string name="computerAnalysisDisabled">電腦分析未啟用</string>
   <string name="analysis">分析棋局</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
@@ -93,6 +94,7 @@
   <string name="noGameFound">未找到遊戲</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="openingEndgameExplorer">開局與終局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
@@ -133,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s位棋手目前在線</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">雙方同意和局</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50步規則和局</string>
   <string name="currentGames">當前對局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s盤棋</item>
@@ -821,6 +825,7 @@
   <string name="welcome">歡迎！</string>
   <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
+  <string name="cancelTournament">取消錦標賽</string>
   <string name="onlyMembersOfTeam">只限隊員</string>
   <string name="noRestriction">沒有限制</string>
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
