@@ -60,19 +60,19 @@ export function view(ctrl: BoardCtrl): VNode {
     header(ctrl.trans.noarg('boardGeometry'), ctrl.close),
     h('div.selector.large', [
       h(
-        'a.text',
+        'button.text',
         {
           class: { active: !ctrl.data.is3d },
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': '', type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(false)),
         },
         '2D'
       ),
       h(
-        'a.text',
+        'button.text',
         {
           class: { active: ctrl.data.is3d },
-          attrs: { 'data-icon': '' },
+          attrs: { 'data-icon': '', type: 'button' },
           hook: bind('click', () => ctrl.setIs3d(true)),
         },
         '3D'
