@@ -87,7 +87,7 @@
     padding-right: 7px;
   }
 
-  .moves tbody tr:first-of-type {
+  .moves tbody tr:last-of-type:not(:first-of-type) {
     background: mix($c-secondary, $c-bg-box, 20%);
     color: fade-out($c-font, 0.1);
 

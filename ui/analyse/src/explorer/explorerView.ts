@@ -74,7 +74,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   const trans = ctrl.trans.noarg;
   let movesWithCurrent: OpeningMoveStats[] = [...data.moves];
 
-  if ([data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
+  if (data.moves.length > 1 && [data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
     const currentStats: OpeningMoveStats = {
       white: data.white!,
       black: data.black!,
