@@ -40,15 +40,9 @@ final class MentionNotifier(
           .existingUsernameIds(candidates take 10)
           .map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users            <- filterNotBlockedByUsers(mentionableUsers.toList, mentionedBy)
+      users            <- Future.filterNot(mentionableUsers.toList) { relationApi.fetchBlocks(_, mentionedBy) }
     } yield users.map(Notification.Notifies.apply)
   }
-
-  private def filterNotBlockedByUsers(
-      usersMentioned: List[User.ID],
-      mentionedBy: User.ID
-  ): Fu[List[User.ID]] =
-    Future.filterNot(usersMentioned) { relationApi.fetchBlocks(_, mentionedBy) }
 
   private def createMentionNotification(
       post: Post,
@@ -70,6 +64,6 @@ final class MentionNotifier(
   private def extractMentionedUsers(post: Post): Set[User.ID] =
     post.text.contains('@') ?? {
       val m = lila.common.String.atUsernameRegex.findAllMatchIn(post.text)
-      (post.author foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
+      (post.userId foldLeft m.map(_ group 1).map(User.normalize).toSet) { _ - _ }
     }
 }
