@@ -84,7 +84,7 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       san: 'All',
     };
 
-    movesWithCurrent = [currentStats, ...data.moves];
+    movesWithCurrent = [...data.moves, currentStats];
   }
 
   return h('table.moves', [

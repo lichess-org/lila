@@ -53,16 +53,12 @@
     }
   }
 
-  table.moves tr:nth-child(odd) {
-    background: $c-bg-zebra;
-  }
-
-  table:not(.moves) tr:nth-child(even) {
-    background: $c-bg-zebra;
-  }
-
   tr {
     @include transition;
+
+    &:nth-child(even) {
+      background: $c-bg-zebra;
+    }
 
     &:hover {
       background: mix($c-secondary, $c-bg-box, 20%) !important;
@@ -95,8 +91,14 @@
     background: mix($c-secondary, $c-bg-box, 20%);
     color: fade-out($c-font, 0.1);
 
+    @include breakpoint($mq-col2) {
+      @include breakpoint($mq-x-short) {
+        position: sticky;
+        bottom: 0;
+      }
+    }
+
     td {
-      line-height: 1.9em;
       cursor: default;
     }
 
