@@ -320,7 +320,7 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
 
   return materialView.renderMaterialDiffs(
     true, // showCaptured
-    ctrl.flipped,
+    ctrl.getOrientation() === 'black',
     ctrl.data.player,
     ctrl.data.opponent,
     pieces,
