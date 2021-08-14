@@ -10,7 +10,7 @@
     <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="one">Una ronda por día</item>
+    <item quantity="one">Una ronda al día</item>
     <item quantity="other">Una ronda cada %s días</item>
   </plurals>
   <string name="roundsAreStartedManually">Las rondas se inician manualmente</string>
