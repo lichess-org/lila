@@ -270,7 +270,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       result: Int,
       totalTime: Option[Int],
       tvTime: Option[Int]
-  ) = {}
+  ) = {
     val incs: List[BSONElement] = List(
       "count.game".some,
       rated option "count.rated",
