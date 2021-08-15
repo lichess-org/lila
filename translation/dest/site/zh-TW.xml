@@ -818,7 +818,9 @@
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="gameVsX">與%1$s對局</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">有人評價了你的教練檔案</string>
   <string name="newPendingReview">待檢閱</string>
+  <string name="lostAgainstTOSViolator">你輸給了違反了服務挑款的棋手</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
@@ -836,7 +838,13 @@
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
   <string name="estimatedStart">預計開始時間</string>
+  <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
+  <string name="inYourLocalTimezone">在你的時區內</string>
   <string name="tournChat">錦標賽聊天室</string>
+  <string name="noChat">無聊天室</string>
+  <string name="onlyTeamLeaders">僅限各隊隊長</string>
+  <string name="onlyTeamMembers">僅限各隊伍</string>
+  <string name="mouseTricks">滑鼠功能</string>
   <string name="analysisOptions">分析局面</string>
   <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
@@ -844,4 +852,6 @@
   <string name="onlyWorksOnce">這只能復原一次</string>
   <string name="cantDoThisTwice">如果你決定再次停用你的帳號，則不會有任何方式去復原。</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
+  <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">錦標賽參賽碼</string>
 </resources>
