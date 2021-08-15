@@ -795,7 +795,10 @@
   <string name="noRestriction">Առանց սահմանափակումների</string>
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
+  <string name="tournChat">Մրցաշարի զրուցարան</string>
+  <string name="noChat">Առանց զրուցարանի</string>
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
+  <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Մրցաշարին մասնակցելու կոդ</string>
 </resources>
