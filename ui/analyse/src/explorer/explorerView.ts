@@ -56,7 +56,7 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
           const uci = $(e.target as HTMLElement)
             .parents('tr')
             .attr('data-uci');
-          if (uci) ctrl.explorerMove(uci);
+          if (uci && uci !== 'Current Position') ctrl.explorerMove(uci);
         });
       },
       postpatch(old: VNode) {
@@ -74,17 +74,17 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   const trans = ctrl.trans.noarg;
   let movesWithCurrent: OpeningMoveStats[] = [...data.moves];
 
-  if ([data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
+  if (data.moves.length > 1 && [data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
     const currentStats: OpeningMoveStats = {
       white: data.white!,
       black: data.black!,
       draws: data.draws!,
       averageRating: data.averageRating!,
       uci: 'Current Position',
-      san: 'Current',
+      san: 'All',
     };
 
-    movesWithCurrent = [currentStats, ...data.moves];
+    movesWithCurrent = [...data.moves, currentStats];
   }
 
   return h('table.moves', [
