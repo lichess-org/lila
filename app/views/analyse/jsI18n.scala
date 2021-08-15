@@ -17,6 +17,7 @@ object jsI18n {
       Vector(
         trans.flipBoard,
         trans.gameAborted,
+        trans.gameOver,
         trans.checkmate,
         trans.whiteResigned,
         trans.blackResigned,
