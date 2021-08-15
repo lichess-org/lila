@@ -4,15 +4,15 @@
   <string name="youPlayTheWhitePiecesInAllPuzzles">Juegas con blancas en todos los ejercicios</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Juegas con negras en todos los ejercicios</string>
   <string name="puzzlesSolved">ejercicios resueltos</string>
-  <string name="newDailyHighscore">¡Nueva puntuación más alta diaria!</string>
-  <string name="newWeeklyHighscore">¡Nueva puntuación más alta semanal!</string>
-  <string name="newMonthlyHighscore">¡Nueva puntuación más alta mensual!</string>
-  <string name="newAllTimeHighscore">¡Nueva puntuación más alta absoluta!</string>
-  <string name="previousHighscoreWasX">La puntuación más alta anterior era %s</string>
-  <string name="playAgain">Jugar de nuevo</string>
+  <string name="newDailyHighscore">¡Récord del día!</string>
+  <string name="newWeeklyHighscore">¡Récord de la semana!</string>
+  <string name="newMonthlyHighscore">¡Récord del mes!</string>
+  <string name="newAllTimeHighscore">¡Récord absoluto!</string>
+  <string name="previousHighscoreWasX">El récord anterior era %s</string>
+  <string name="playAgain">Volver a jugar</string>
   <plurals name="xRuns">
-    <item quantity="one">1 ronda</item>
-    <item quantity="other">%s rondas</item>
+    <item quantity="one">1 intento</item>
+    <item quantity="other">%s intentos</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="one">Ha jugado una ronda de %2$s</item>
