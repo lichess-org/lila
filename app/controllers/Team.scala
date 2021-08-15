@@ -540,16 +540,18 @@ final class Team(
           Right {
             val cost = if (me.isVerifiedOrAdmin) 1 else pmAllCost
             PmAllLimitPerUser[RateLimit.Result](me.id, cost) {
-              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-              val full = s"""$msg
+              PmAllLimitPerTeam[RateLimit.Result](team.id, cost) {
+                val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+                val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""
-              env.msg.api
-                .multiPost(Holder(me), env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
-                .addEffect { nb =>
-                  lila.mon.msg.teamBulk(team.id).record(nb).unit
-                }
-              RateLimit.Through // we don't wait for the stream to complete, it would make lichess time out
+                env.msg.api
+                  .multiPost(Holder(me), env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
+                  .addEffect { nb =>
+                    lila.mon.msg.teamBulk(team.id).record(nb).unit
+                  }
+                RateLimit.Through // we don't wait for the stream to complete, it would make lichess time out
+              }(RateLimit.Limited)
             }(RateLimit.Limited)
           }
       )
@@ -558,7 +560,12 @@ You received this because you are subscribed to messages of the team $url."""
   private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
     credits = 6 * pmAllCost,
     duration = 20 hours,
-    key = "team.pm.all"
+    key = "team.pm.all.user"
+  )
+  private val PmAllLimitPerTeam = new lila.memo.RateLimit[lila.team.Team.ID](
+    credits = 4 * pmAllCost,
+    duration = 20 hours,
+    key = "team.pm.all.team"
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
