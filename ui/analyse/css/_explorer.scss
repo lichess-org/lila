@@ -61,7 +61,7 @@
     }
 
     &:hover {
-      background: mix($c-secondary, $c-bg-box, 20%) !important;
+      background: mix($c-secondary, $c-bg-box, 20%);
     }
   }
 
@@ -88,8 +88,7 @@
   }
 
   .moves tbody tr:last-of-type:not(:first-of-type) {
-    background: mix($c-secondary, $c-bg-box, 20%);
-    color: fade-out($c-font, 0.1);
+    background: mix($c-secondary, $c-bg-box, 30%);
 
     @include breakpoint($mq-col2) {
       @include breakpoint($mq-x-short) {
@@ -101,29 +100,6 @@
     td {
       cursor: default;
     }
-
-    td:last-child {
-      text-align: center;
-    }
-
-    .bar span {
-      box-shadow: none;
-      background-clip: padding-box;
-      border-color: if($theme-light, #0001, #fff1);
-      color: inherit;
-    }
-
-    .white {
-      background-color: if($theme-light, #fff3, #fff2);
-    }
-
-    .draws {
-      background: if($theme-light, #0001, #fff1);
-    }
-
-    .black {
-      background-color: if($theme-light, #0002, #0001);
-    }
   }
 
   .bar span {
@@ -131,7 +107,8 @@
     display: inline-block;
     overflow: hidden;
     vertical-align: middle;
-    border: 0 solid $c-border;
+    background-clip: padding-box;
+    border: 0 solid fade-out($c-font, 0.83);
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
