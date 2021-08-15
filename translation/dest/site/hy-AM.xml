@@ -10,9 +10,9 @@
   <string name="aiNameLevelAiLevel">%1$s, մակարդակ՝ %2$s</string>
   <string name="level">Մակարդակ</string>
   <string name="strength">Ուժ</string>
-  <string name="toggleTheChat">Թաքցնել/ցուցադրել չաթի պատուհանը</string>
+  <string name="toggleTheChat">Թաքցնել/ցուցադրել զրուցարանը</string>
   <string name="toggleSound">Անջատել/Միացնել ձայնը</string>
-  <string name="chat">Չաթ</string>
+  <string name="chat">Զրուցարան</string>
   <string name="resign">Հանձնվել</string>
   <string name="checkmate">Շախ և մատ</string>
   <string name="stalemate">Պատ</string>
@@ -43,7 +43,7 @@
   <string name="makeYourOpponentResign">Ստիպել խաղը լքած հակառակորդին հանձնվել</string>
   <string name="forceResignation">Պահանջել հաղթանակ</string>
   <string name="forceDraw">Պահանջել ոչ-ոքի</string>
-  <string name="talkInChat">Խնդրում ենք չաթում լինել բարեհամբյուր:</string>
+  <string name="talkInChat">Խնդրում ենք զրուցարանում լինել բարեհամբույր:</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Առաջինը, ով կայցելի այս հղումով, կխաղա Ձեզ հետ։</string>
   <string name="whiteResigned">Սպիտակները հանձնվեցին</string>
   <string name="blackResigned">Սևերը հանձնվեցին</string>
@@ -247,8 +247,8 @@
   <string name="confirmMove">Հաստատել քայլը</string>
   <string name="play">Խաղալ</string>
   <string name="inbox">Փոստարկղ</string>
-  <string name="chatRoom">Չաթի պատուհան</string>
-  <string name="loginToChat">Մուտք գործել չաթ</string>
+  <string name="chatRoom">Զրուցարանի պատուհան</string>
+  <string name="loginToChat">Մուտք գործել զրուցարան</string>
   <string name="youHaveBeenTimedOut">Զրուցարանը ժամանակավորապես անհասանելի Ձեզ համար։</string>
   <string name="spectatorRoom">Հանդիսատեսների սենյակ</string>
   <string name="composeMessage">Գրել հաղորդագրություն</string>
