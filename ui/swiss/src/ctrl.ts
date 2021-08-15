@@ -1,7 +1,7 @@
 import { makeSocket, SwissSocket } from './socket';
 import xhr from './xhr';
 import throttle from 'common/throttle';
-import { myPage, players } from './pagination';
+import { maxPerPage, myPage, players } from './pagination';
 import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
 
 export default class SwissCtrl {
@@ -101,6 +101,18 @@ export default class SwissCtrl {
       this.focusOnMe = false;
       this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
       this.redraw();
+    });
+  };
+
+  jumpToRank = (rank: number) => {
+    const page = 1 + Math.floor((rank - 1) / maxPerPage);
+    const row = (rank - 1) % maxPerPage;
+    xhr.loadPage(this, page, () => {
+      if (!this.pages[page] || row >= this.pages[page].length) return;
+      this.page = page;
+      this.searching = false;
+      this.focusOnMe = false;
+      this.showPlayerInfo(this.pages[page][row]);
     });
   };
 

@@ -17,7 +17,7 @@ export function input(ctrl: TournamentController): VNode {
   return h(
     'div.search',
     h('input', {
-      hook: onInsert((el: HTMLInputElement) =>
+      hook: onInsert((el: HTMLInputElement) => {
         lichess.userComplete().then(uac => {
           uac({
             input: el,
@@ -30,8 +30,18 @@ export function input(ctrl: TournamentController): VNode {
             },
           });
           el.focus();
-        })
-      ),
+        });
+        $(el).on('keydown', e => {
+          if (e.code === 'Enter') {
+            const rank = parseInt(e.target.value);
+            if (rank > 0) ctrl.jumpToRank(rank);
+          }
+          if (e.code === 'Escape') {
+            ctrl.toggleSearch();
+            ctrl.redraw();
+          }
+        });
+      }),
     })
   );
 }
