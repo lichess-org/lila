@@ -522,7 +522,7 @@ export default function (
         who = d.w;
       setMemberActive(who);
       if (d.p.chapterId !== vm.chapterId) return;
-      if (who && who.s === lichess.sri) return;
+      if (who && who.s === lichess.sri) return redraw(); // update shape indicator in column move view
       ctrl.tree.setShapes(d.s, ctrl.path);
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
