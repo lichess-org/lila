@@ -2031,14 +2031,15 @@ val `searchPuzzles` = new I18nKey("puzzle:searchPuzzles")
 val `fromMyGamesNone` = new I18nKey("puzzle:fromMyGamesNone")
 val `fromXGamesFound` = new I18nKey("puzzle:fromXGamesFound")
 val `puzzleDashboardDescription` = new I18nKey("puzzle:puzzleDashboardDescription")
-val `played` = new I18nKey("puzzle:played")
-val `toReplay` = new I18nKey("puzzle:toReplay")
+val `percentSolved` = new I18nKey("puzzle:percentSolved")
 val `noPuzzlesToShow` = new I18nKey("puzzle:noPuzzlesToShow")
 val `improvementAreasDescription` = new I18nKey("puzzle:improvementAreasDescription")
 val `strengthDescription` = new I18nKey("puzzle:strengthDescription")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 val `nbPointsBelowYourPuzzleRating` = new I18nKey("puzzle:nbPointsBelowYourPuzzleRating")
 val `nbPointsAboveYourPuzzleRating` = new I18nKey("puzzle:nbPointsAboveYourPuzzleRating")
+val `nbPlayed` = new I18nKey("puzzle:nbPlayed")
+val `nbToReplay` = new I18nKey("puzzle:nbToReplay")
 }
 
 object puzzleTheme {

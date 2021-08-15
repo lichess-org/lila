@@ -156,8 +156,7 @@ object dashboard {
   ) =
     div(cls := s"${baseClass}__metrics")(
       div(cls := s"$metricClass $metricClass--played")(
-        strong(results.nb.localize),
-        span(trans.puzzle.played())
+        trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
       div(cls := s"$metricClass $metricClass--perf")(
         strong(results.performance, results.unclear ?? "?"),
@@ -167,16 +166,14 @@ object dashboard {
         cls := s"$metricClass $metricClass--win",
         style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
       )(
-        strong(s"${results.winPercent}%"),
-        span(trans.puzzle.solved())
+        trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
       ),
       a(
         cls := s"$metricClass $metricClass--fix",
         href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
       )(
         results.canReplay option span(cls := s"$metricClass--fix__text")(
-          strong(results.unfixed),
-          span(trans.puzzle.toReplay())
+          trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
         ),
         iconTag(if (results.canReplay) '' else '')
       )
