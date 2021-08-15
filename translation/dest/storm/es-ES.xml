@@ -11,25 +11,25 @@
   <string name="previousHighscoreWasX">El récord anterior era %s</string>
   <string name="playAgain">Volver a jugar</string>
   <plurals name="xRuns">
-    <item quantity="one">1 intento</item>
-    <item quantity="other">%s intentos</item>
+    <item quantity="one">1 ronda</item>
+    <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Ha jugado una ronda de %2$s</item>
-    <item quantity="other">%1$s rondas jugadas de %2$s</item>
+    <item quantity="one">Has jugado una ronda de %2$s</item>
+    <item quantity="other">Has jugado %1$s rondas de %2$s</item>
   </plurals>
-  <string name="highscoreX">Puntuación más alta: %s</string>
+  <string name="highscoreX">Récord: %s</string>
   <string name="score">Puntuación</string>
   <string name="moves">Movimientos</string>
   <string name="accuracy">Precisión</string>
-  <string name="combo">Combo</string>
+  <string name="combo">Racha</string>
   <string name="time">Tiempo</string>
   <string name="timePerMove">Tiempo por movimiento</string>
   <string name="highestSolved">Ejercicio más difícil resuelto</string>
   <string name="puzzlesPlayed">Ejercicios realizados</string>
   <string name="newRun">Nueva ronda (tecla: Espacio)</string>
-  <string name="endRun">Finalizar ronda (tecla: Enter)</string>
-  <string name="highscores">Puntuaciones más altas</string>
+  <string name="endRun">Terminar ronda (tecla: Enter)</string>
+  <string name="highscores">Récords</string>
   <string name="viewBestRuns">Ver las mejores rondas</string>
   <string name="bestRunOfDay">Mejor ronda del día</string>
   <string name="runs">Rondas</string>
