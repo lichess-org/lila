@@ -412,6 +412,7 @@
   <string name="boardEditor">棋盤編輯器</string>
   <string name="setTheBoard">設定版型</string>
   <string name="popularOpenings">使用率最高的開局</string>
+  <string name="endgamePositions">殘局局面</string>
   <string name="chess960StartPosition">960棋局開局位置: %s</string>
   <string name="startPosition">初始佈局</string>
   <string name="clearBoard">清空棋盤</string>
@@ -826,10 +827,21 @@
   <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
   <string name="cancelTournament">取消錦標賽</string>
+  <string name="tournDescription">錦標賽敘述</string>
+  <string name="tournDescriptionHelp">有甚麼特別要告訴參賽者的嗎？盡量不要太長。可以使用Markdown網址 [name](https://url)。</string>
+  <string name="ratedFormHelp">比賽為積分賽
+會影響到棋手的積分</string>
   <string name="onlyMembersOfTeam">只限隊員</string>
   <string name="noRestriction">沒有限制</string>
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
   <string name="estimatedStart">預計開始時間</string>
+  <string name="tournChat">錦標賽聊天室</string>
+  <string name="analysisOptions">分析局面</string>
+  <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
+  <string name="closedAccountChangedMind">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
+  <string name="onlyWorksOnce">這只能復原一次</string>
+  <string name="cantDoThisTwice">如果你決定再次停用你的帳號，則不會有任何方式去復原。</string>
+  <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
 </resources>
