@@ -91,8 +91,8 @@
     <item quantity="other">Մատ %s հատ կիսաքայլից</item>
   </plurals>
   <string name="noGameFound">Ոչ մի խաղ չի գտնվել</string>
-  <string name="openingExplorer">Դեբյուտների դիտարկիչ</string>
-  <string name="xOpeningExplorer">%s դեբյուտների դիտարկիչ</string>
+  <string name="openingExplorer">Սկզբնախաղերի դիտարկիչ</string>
+  <string name="xOpeningExplorer">%s սկզբնախաղերի դիտարկիչ</string>
   <string name="winPreventedBy50MoveRule">Հաղթանակը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="lossSavedBy50MoveRule">Պարտությունը կասեցված Է 50 քայլի օրենքի համաձայն</string>
   <string name="allSet">Ամեն ինչ պատրաստ է։</string>
