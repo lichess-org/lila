@@ -467,7 +467,7 @@
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">խնդիրներ</string>
   <string name="latestUpdates">վերջին թարմացումները</string>
-  <string name="tournamentWinners">Մրցաշարի հաղթողները</string>
+  <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
