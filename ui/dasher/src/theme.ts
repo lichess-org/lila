@@ -67,10 +67,10 @@ export function view(ctrl: ThemeCtrl): VNode {
 function themeView(current: Theme, set: (t: Theme) => void) {
   return (t: Theme) =>
     h(
-      'a',
+      'button',
       {
         hook: bind('click', () => set(t)),
-        attrs: { title: t },
+        attrs: { title: t, type: 'button' },
         class: { active: current === t },
       },
       [h('span.' + t)]

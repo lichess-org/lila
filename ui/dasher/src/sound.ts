@@ -107,11 +107,11 @@ export function view(ctrl: SoundCtrl): VNode {
 function soundView(ctrl: SoundCtrl, current: Key) {
   return (s: Sound) =>
     h(
-      'a.text',
+      'button.text',
       {
         hook: bind('click', () => ctrl.set(s[0])),
         class: { active: current === s[0] },
-        attrs: { 'data-icon': '' },
+        attrs: { 'data-icon': '', type: 'button' },
       },
       s[1]
     );

@@ -74,9 +74,9 @@ function pieceImage(t: Piece, is3d: boolean) {
 function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
   return (t: Piece) =>
     h(
-      'a.no-square',
+      'button.no-square',
       {
-        attrs: { title: t },
+        attrs: { title: t, type: 'button' },
         hook: bind('click', () => set(t)),
         class: { active: current === t },
       },

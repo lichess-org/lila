@@ -8,9 +8,12 @@
   .links button,
   .subs .sub {
     @extend %nowrap-hidden;
+    @extend %button-none;
 
     display: block;
     padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: start;
   }
 
   .links a::before,

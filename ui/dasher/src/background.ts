@@ -79,10 +79,10 @@ export function view(ctrl: BackgroundCtrl): VNode {
       'div.selector.large',
       ctrl.list.map(bg => {
         return h(
-          'a.text',
+          'button.text',
           {
             class: { active: cur === bg.key },
-            attrs: { 'data-icon': '', title: bg.title || '' },
+            attrs: { 'data-icon': '', title: bg.title || '', type: 'button' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
           bg.name

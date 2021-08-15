@@ -38,9 +38,9 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
 
 export function header(name: string, close: Close) {
   return h(
-    'a.head.text',
+    'button.head.text',
     {
-      attrs: { 'data-icon': '' },
+      attrs: { 'data-icon': '', type: 'button' },
       hook: bind('click', close),
     },
     name
