@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">Peón avanzado</string>
-  <string name="advancedPawnDescription">Un peón que se promociona o amenaza con promocionarse es clave para la táctica.</string>
+  <string name="advancedPawnDescription">Uno de tus peones está bien avanzado en territorio enemigo, quizás amenazando promocionar.</string>
   <string name="advantage">Ventaja</string>
   <string name="advantageDescription">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
