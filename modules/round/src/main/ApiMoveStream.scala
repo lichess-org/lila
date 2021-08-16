@@ -19,8 +19,9 @@ final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(
 
   def apply(game: Game, delayMoves: Boolean): Source[JsObject, _] =
     Source futureSource {
-      val delayMovesBy         = delayMoves ?? 3
-      val delayKeepsFirstMoves = delayMoves ?? 5
+      val hasMoveDelay         = delayMoves && game.hasClock
+      val delayMovesBy         = hasMoveDelay ?? 3
+      val delayKeepsFirstMoves = hasMoveDelay ?? 5
       gameRepo.initialFen(game) map { initialFen =>
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         var moves  = 0
