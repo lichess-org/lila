@@ -37,7 +37,7 @@ final class EventStream(
     Bus.publish(PoisonPill, s"eventStreamFor:${me.id}")
 
     blueprint mapMaterializedValue { queue =>
-      gamesInProgress map gameJson("gameStart") map some foreach queue.offer
+      gamesInProgress map gameJson("gameStart", me) map some foreach queue.offer
       challenges map challengeJson("challenge") map some foreach queue.offer
 
       val actor = system.actorOf(Props(mkActor(me, queue)))
@@ -96,12 +96,13 @@ final class EventStream(
             }
             .unit
 
-        case StartGame(game) => queue.offer(gameJson("gameStart")(game).some).unit
+        case StartGame(game) => queue.offer(gameJson("gameStart", me)(game).some).unit
 
-        case FinishGame(game, _, _) => queue.offer(gameJson("gameFinish")(game).some).unit
+        case FinishGame(game, _, _) => queue.offer(gameJson("gameFinish", me)(game).some).unit
 
         case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
-          queue.offer(challengeJson("challenge")(c).some).unit
+          val json = challengeJson("challenge")(c) ++ challengeCompat(c, me)
+          queue.offer(json.some).unit
 
         case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeDeclined")(c).some).unit
@@ -113,7 +114,8 @@ final class EventStream(
         case lila.hub.actorApi.round.RematchOffer(gameId) =>
           challengeMaker.makeRematchFor(gameId, me) foreach {
             _ foreach { c =>
-              queue offer challengeJson("challenge")(c.copy(_id = gameId)).some
+              val json = challengeJson("challenge")(c.copy(_id = gameId)) ++ challengeCompat(c, me)
+              queue offer json.some
             }
           }
       }
@@ -122,12 +124,17 @@ final class EventStream(
         c.destUserId.has(me.id) || c.challengerUserId.has(me.id)
     }
 
-  private def gameJson(tpe: String)(game: Game) =
+  private def gameJson(tpe: String, me: User)(game: Game) =
     Json.obj(
       "type" -> tpe,
-      "game" -> Json
-        .obj("id" -> game.id)
-        .add("source" -> game.source.map(_.name))
+      "game" -> {
+        Json
+          .obj("id" -> game.id)
+          .add("source" -> game.source.map(_.name)) ++ compatJson(
+          bot = me.isBot && Game.isBotCompatible(game),
+          board = Game.isBoardCompatible(game)
+        )
+      }
     )
 
   private def challengeJson(tpe: String)(c: Challenge) =
@@ -135,4 +142,12 @@ final class EventStream(
       "type"      -> tpe,
       "challenge" -> challengeJsonView(none)(c)(lila.i18n.defaultLang)
     )
+
+  private def challengeCompat(c: Challenge, me: User) = compatJson(
+    bot = me.isBot && c.isBotCompatible,
+    board = c.isBoardCompatible
+  )
+
+  private def compatJson(bot: Boolean, board: Boolean) =
+    Json.obj("compat" -> Json.obj("bot" -> bot, "board" -> board))
 }

@@ -722,7 +722,7 @@ object Game {
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
       isBoardCompatible(c.config) || {
-        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Bullet
+        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
       }
     }
 
