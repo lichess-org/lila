@@ -586,19 +586,20 @@ final class StudyApi(
             chapterRepo.countByStudyId(study.id) flatMap { count =>
               if (count >= Study.maxChapters) funit
               else
-                chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-                  chapterMaker(study, data, order, who.u) flatMap { chapter =>
-                    data.initial ?? {
-                      chapterRepo.firstByStudy(study.id) flatMap {
-                        _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                      }
-                    } >> doAddChapter(study, chapter, sticky, who)
-                  } addFailureEffect {
-                    case ChapterMaker.ValidationException(error) =>
-                      sendTo(study.id)(_.validationError(error, who.sri))
-                    case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+                data.initial ?? {
+                  chapterRepo.firstByStudy(study.id) flatMap {
+                    _.filter(_.isEmptyInitial) ?? chapterRepo.delete
                   }
-                }
+                } >>
+                  chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
+                    chapterMaker(study, data, order, who.u) flatMap { chapter =>
+                      doAddChapter(study, chapter, sticky, who)
+                    } addFailureEffect {
+                      case ChapterMaker.ValidationException(error) =>
+                        sendTo(study.id)(_.validationError(error, who.sri))
+                      case u => logger.error(s"StudyApi.addChapter to $studyId", u)
+                    }
+                  }
             }
           }
         }

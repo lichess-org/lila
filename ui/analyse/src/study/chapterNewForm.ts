@@ -51,7 +51,7 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiPgnMax = 20;
+  const multiPgnMax = 32;
 
   const vm = {
     variants: [],
