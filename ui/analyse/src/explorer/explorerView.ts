@@ -56,7 +56,7 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
           const uci = $(e.target as HTMLElement)
             .parents('tr')
             .attr('data-uci');
-          if (uci && uci !== 'Current Position') ctrl.explorerMove(uci);
+          if (uci) ctrl.explorerMove(uci);
         });
       },
       postpatch(old: VNode) {
@@ -80,8 +80,8 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       black: data.black!,
       draws: data.draws!,
       averageRating: data.averageRating!,
-      uci: 'Current Position',
-      san: 'All',
+      uci: '',
+      san: 'Sum',
     };
 
     movesWithCurrent = [...data.moves, currentStats];
@@ -96,9 +96,8 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       moveTableAttributes(ctrl, data.fen),
       movesWithCurrent.map(move => {
         return h(
-          'tr',
+          `tr.expl-uci-${move.uci}`,
           {
-            key: move.uci,
             attrs: {
               'data-uci': move.uci,
               title: ctrl.trans('averageRatingX', move.averageRating),

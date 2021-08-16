@@ -87,8 +87,10 @@
     padding-right: 7px;
   }
 
-  .moves tbody tr:last-of-type:not(:first-of-type) {
-    background: mix($c-secondary, $c-bg-box, 30%);
+  .moves tbody tr.expl-uci- {
+    /* sum row */
+    background: mix($c-primary, $c-bg-box, 25%);
+    font-weight: bold;
 
     @include breakpoint($mq-col2) {
       @include breakpoint($mq-x-short) {
