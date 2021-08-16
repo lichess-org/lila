@@ -35,7 +35,7 @@
   }
 
   .forum-post:hover &-auth button.no {
-    display: block;
+    display: flex;
     opacity: 0.4;
     filter: grayscale(100%);
 
@@ -51,7 +51,6 @@
   }
 
   button.yes {
-    display: block;
     order: 0;
   }
 
