@@ -128,6 +128,12 @@ private object bits {
           td(form3.select(form("mode"), Query.modes, "".some))
         )
 
+      def opening =
+        tr(
+          th(label(`for` := form3.id(form("opening")))(trans.opening())),
+          td(form3.select(form("opening"), Query.openings, "".some))
+        )
+
       def turns =
         tr(
           th(label(nbTurns())),

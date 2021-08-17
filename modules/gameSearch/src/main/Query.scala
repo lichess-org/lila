@@ -1,6 +1,6 @@
 package lila.gameSearch
 
-import chess.{ Mode, Status }
+import chess.{ Mode, StartingPosition, Status }
 import org.joda.time.DateTime
 
 import lila.common.Json.jodaWrites
@@ -27,7 +27,8 @@ case class Query(
     sorting: Sorting = Sorting.default,
     analysed: Option[Boolean] = None,
     whiteUser: Option[String] = None,
-    blackUser: Option[String] = None
+    blackUser: Option[String] = None,
+    opening: Option[String] = None
 ) {
 
   def nonEmpty =
@@ -47,7 +48,8 @@ case class Query(
       date.nonEmpty ||
       duration.nonEmpty ||
       clock.nonEmpty ||
-      analysed.nonEmpty
+      analysed.nonEmpty ||
+      opening.nonEmpty
 }
 
 object Query {
@@ -107,6 +109,10 @@ object Query {
 
   val modes = Mode.all map { mode =>
     mode.id -> mode.name.capitalize
+  }
+
+  val openings = chess.StartingPosition.all map { opening =>
+    opening.fullName -> opening.fullName
   }
 
   val turns = options(

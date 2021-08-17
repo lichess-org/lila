@@ -51,6 +51,7 @@ object index {
             source,
             perf,
             mode,
+            opening,
             turns,
             duration,
             clockTime,
