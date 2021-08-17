@@ -9,7 +9,7 @@
     <item quantity="one">%1$s es un patrón de Lichess por %2$s mes</item>
     <item quantity="other">%1$s es un patrón de Lichess por %2$s meses</item>
   </plurals>
-  <string name="newPatrons">Nuevos Patrones</string>
+  <string name="newPatrons">Nuevos patrones</string>
   <string name="freeChess">¡Ajedrez gratis para todos, para siempre!</string>
   <string name="noAdsNoSubs">Sin anuncios, sin suscripciones, sólo código abierto y pasión.</string>
   <string name="thankYou">¡Gracias por tu donación!</string>
@@ -45,20 +45,20 @@ O puedes %s.</string>
   <string name="bankTransfers">También aceptamos transferencias bancarias</string>
   <string name="bitcoin">Y aquí está nuestra dirección de bitcoin: %s</string>
   <string name="patronFeatures">¿Hay algunas características reservadas a los patrones?</string>
-  <string name="noPatronFeatures">No, porque Lichess es completamente gratuito, para siempre y para todos. Eso es una promesa.
+  <string name="noPatronFeatures">No, porque Lichess es completamente gratuito, para siempre y para todos. Prometido.
 Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfil.</string>
   <string name="featuresComparison">Ver la comparación detallada de características</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patrón de Lichess por un mes</item>
     <item quantity="other">Patrón de Lichess por %s meses</item>
   </plurals>
-  <string name="youSupportWith">You support lichess.org with %s per month.</string>
+  <string name="youSupportWith">Apoyas a lichess.org con %s al mes.</string>
   <string name="tyvm">Thank you very much for your help. You rock!</string>
   <string name="currentStatus">Current status</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
   <string name="makeAdditionalDonation">Make an additional donation</string>
-  <string name="giftPatronWings">Gift Patron wings to a player</string>
+  <string name="giftPatronWings">Regalar alas de patrón a otro jugador</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
   <string name="cancelSupport">cancel your support</string>
@@ -75,5 +75,5 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nowLifetime">¡Ahora eres un Patrón de Lichess de por vida!</string>
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
-  <string name="changeCurrency">Cambiar moneda</string>
+  <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Cambiar moneda</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="offline">DESCONECTADO</string>
   <string name="currentlyStreaming">Transmitiendo ahora: %s</string>
   <string name="lastStream">Última transmisión %s</string>
-  <string name="becomeStreamer">Conviértete en un presentador de Lichess</string>
+  <string name="becomeStreamer">Hazte presentador de Lichess</string>
   <string name="doYouHaveStream">¿Tienes un canal de Twitch o YouTube?</string>
   <string name="hereWeGo">¡Allá vamos!</string>
   <string name="allStreamers">Todos los presentadores</string>
@@ -42,7 +42,7 @@ Si tu transmisión está en inglés, no hay necesidad de incluir una etiqueta de
   </plurals>
   <string name="visibility">Visible en la página de presentadores</string>
   <string name="whenApproved">Cuando lo aprueben los moderadores</string>
-  <string name="headline">Encabezado</string>
+  <string name="headline">Título</string>
   <string name="tellUsAboutTheStream">En una frase, cuéntanos sobre tu transmisión</string>
   <string name="longDescription">Descripción larga</string>
   <string name="xStreamerPicture">Imagen de presentador %s</string>
