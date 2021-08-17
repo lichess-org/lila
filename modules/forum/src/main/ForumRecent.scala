@@ -63,5 +63,5 @@ final class ForumRecent(
     (key.split(";").toList match {
       case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
       case categs          => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
-    }) flatMap postApi.miniPosts
+    }).map(_.distinctBy(_.topicId)).flatMap(postApi.miniPosts _)
 }
