@@ -558,14 +558,16 @@ You received this because you are subscribed to messages of the team $url."""
 
   private val pmAllCost = 5
   private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 6 * pmAllCost,
-    duration = 20 hours,
+    credits = 4 * pmAllCost,
+    duration = 1.day,
     key = "team.pm.all.user"
   )
-  private val PmAllLimitPerTeam = new lila.memo.RateLimit[lila.team.Team.ID](
-    credits = 4 * pmAllCost,
-    duration = 20 hours,
-    key = "team.pm.all.team"
+  private val PmAllLimitPerTeam = lila.memo.RateLimit.composite[lila.team.Team.ID](
+    key = "team.pm.all.team",
+    enforce = env.net.rateLimit.value
+  )(
+    ("day", 4 * pmAllCost, 1.day),
+    ("week", 12 * pmAllCost, 7.days)
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
