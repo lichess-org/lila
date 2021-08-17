@@ -32,4 +32,8 @@
   <string name="numberOfRounds">Numeru di girandule</string>
   <string name="numberOfRoundsHelp">Un numeru imparu di girandule permette un equilibriu di culore ottimale.</string>
   <string name="roundInterval">Attesa trà e girandule</string>
+  <string name="forbiddenPairings">Appariera pruibita</string>
+  <string name="forbiddenPairingsHelp">Cugnome di i ghjucatori chì ùn ponu ghjucà inseme ( I fratelli, per esempiu). Dui cugnomi in una linea, spiccati cù un spaziu.</string>
+  <string name="newSwiss">Ghjustra svizzera nova</string>
+  <string name="swissVsArenaQ">Quandu aduprà una ghjustrà svizzera invece d\' una arena?</string>
 </resources>
