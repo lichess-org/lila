@@ -6,7 +6,7 @@ import { h, VNode } from 'snabbdom';
 import { plyStep } from '../round';
 import { read as readFen } from 'chessground/fen';
 import { render as keyboardMove } from '../keyboardMove';
-import { render as renderGround } from '../ground';
+import { render as renderGround, boardOrientation } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
 
@@ -27,10 +27,9 @@ export function main(ctrl: RoundController): VNode {
     pieces = cgState ? cgState.pieces : readFen(plyStep(ctrl.data, ctrl.ply).fen),
     materialDiffs = renderMaterialDiffs(
       ctrl.data.pref.showCaptured,
-      ctrl.flip,
-      ctrl.data.player,
-      ctrl.data.opponent,
+      boardOrientation(ctrl.data, ctrl.flip),
       pieces,
+      !!(ctrl.data.player.checks || ctrl.data.opponent), // showChecks
       ctrl.data.steps,
       ctrl.ply
     );
