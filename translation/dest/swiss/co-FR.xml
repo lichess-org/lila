@@ -42,4 +42,8 @@ Pò esse l\' uzzione bona per i turnei ufficiali.</string>
   <string name="pointsCalculationA">Una vittoria vale 1 puntu, una partita patta vale un mezzupuntu, una difesa ùn rapurta nunda.
 Quandu un ghjucatore ùn pò esse appariatu durante una girandule, riceve un puntu di cumpensu.</string>
   <string name="tiebreaksCalculationQ">Cumu sò spartuti i ghjucatori à paru?</string>
+  <string name="sonnebornBergerScore">U contu Sonneborn–Berger</string>
+  <string name="tiebreaksCalculationA">Cù u %s.
+S\' aghjunghjenu u risultatu di tutti l\' aversarii scunfitti è a metà di i punti di i ghjucatori cun quale avete fattu una partita patta.</string>
+  <string name="pairingsQ">Cumu hè decisa l\' appariera?</string>
 </resources>
