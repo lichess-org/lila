@@ -947,4 +947,5 @@
   <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код входу до турніру</string>
 </resources>
