@@ -6,8 +6,8 @@
   <string name="offline">FORA DO AR</string>
   <string name="currentlyStreaming">Transmitindo agora: %s</string>
   <string name="lastStream">Última transmissão %s</string>
-  <string name="becomeStreamer">Torne-se um streamer do Lichess</string>
-  <string name="doYouHaveStream">Você tem uma stream na Twitch ou no YouTube?</string>
+  <string name="becomeStreamer">Seja um streamer do Lichess</string>
+  <string name="doYouHaveStream">Você tem um canal no Twitch ou no YouTube?</string>
   <string name="hereWeGo">Lá vamos nós!</string>
   <string name="allStreamers">Todos os streamers</string>
   <string name="editPage">Editar página de streamer</string>
