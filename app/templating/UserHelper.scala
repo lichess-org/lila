@@ -95,7 +95,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       params: String = "",
       modIcon: Boolean = false
   )(implicit ctx: Lang): Tag =
-    userIdOption.flatMap(lightUser).fold[Tag](span(User.anonymous)) { user =>
+    userIdOption.flatMap(lightUser).fold[Tag](span(cls := cssClass, User.anonymous)) { user =>
       userIdNameLink(
         userId = user.id,
         username = user.name,
