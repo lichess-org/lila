@@ -7,7 +7,7 @@
   <string name="currentlyStreaming">Transmitindo agora: %s</string>
   <string name="lastStream">Última transmissão %s</string>
   <string name="becomeStreamer">Seja um streamer do Lichess</string>
-  <string name="doYouHaveStream">Você tem um canal no Twitch ou no YouTube?</string>
+  <string name="doYouHaveStream">Você tem um canal na Twitch ou no YouTube?</string>
   <string name="hereWeGo">Lá vamos nós!</string>
   <string name="allStreamers">Todos os streamers</string>
   <string name="editPage">Editar página de streamer</string>
@@ -30,7 +30,7 @@
   <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">requisite a revisão de um moderador</string>
   <string name="anotherLanguage">Se a sua transmissão for em alguma linguagem que não seja Inglês, inclua uma etiqueta de linguagem (%s) apropriada, entre colchetes, ao início do título da sua transmissão.
 Por exemplo: use \"[PT]\" para Português, \"[TR]\" para Turco, \"[FR]\" para Francês, etc.
-A coloque no título da sua transmissão na Twitch ou no YouTube, não nas configurações de transmissão do Lichess.
+Coloque isso no título da sua transmissão na Twitch ou no YouTube, não nas configurações de transmissão do Lichess.
 Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiqueta de linguagem.</string>
   <string name="twitchUsername">Seu nome de usuário ou URL da Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixe vazio se não houver</string>
