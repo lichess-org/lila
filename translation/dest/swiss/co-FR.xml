@@ -9,4 +9,27 @@
     <item quantity="one">%s girandula</item>
     <item quantity="other">%s girandule</item>
   </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Una girandula à u ghjornu</item>
+    <item quantity="other">Una girandula ogni %s ghjorni</item>
+  </plurals>
+  <string name="roundsAreStartedManually">E girandule principianu di modu manuale</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s secaonda trà e girandule</item>
+    <item quantity="other">%s seconde trà e girandule</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutu trà e girandule</item>
+    <item quantity="other">%s minuti trà e girandule</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Principiu</string>
+  <string name="nextRound">Prossima partita</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Partita attuale</item>
+    <item quantity="other">Partite attuale</item>
+  </plurals>
+  <string name="tournStartDate">Data di u principiu di a ghjustra</string>
+  <string name="numberOfRounds">Numeru di girandule</string>
+  <string name="numberOfRoundsHelp">Un numeru imparu di girandule permette un equilibriu di culore ottimale.</string>
+  <string name="roundInterval">Attesa trà e girandule</string>
 </resources>
