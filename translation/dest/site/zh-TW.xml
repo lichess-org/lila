@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
   <string name="computerAnalysisAvailable">電腦分析可用</string>
+  <string name="computerAnalysisDisabled">電腦分析未啟用</string>
   <string name="analysis">分析棋局</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
@@ -93,6 +94,7 @@
   <string name="noGameFound">未找到遊戲</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">試著從偏好設置中加入更多棋局</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="openingEndgameExplorer">開局與終局瀏覽器</string>
   <string name="xOpeningExplorer">%s開局瀏覽器</string>
   <string name="winPreventedBy50MoveRule">在不違反50步和局規則下贏得這局棋</string>
   <string name="lossSavedBy50MoveRule">藉由50步和局規則來避免輸掉棋局</string>
@@ -133,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s位棋手目前在線</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">雙方同意和局</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50步規則和局</string>
   <string name="currentGames">當前對局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s盤棋</item>
@@ -408,6 +412,7 @@
   <string name="boardEditor">棋盤編輯器</string>
   <string name="setTheBoard">設定版型</string>
   <string name="popularOpenings">使用率最高的開局</string>
+  <string name="endgamePositions">殘局局面</string>
   <string name="chess960StartPosition">960棋局開局位置: %s</string>
   <string name="startPosition">初始佈局</string>
   <string name="clearBoard">清空棋盤</string>
@@ -813,7 +818,9 @@
   <string name="congratsYouWon">恭喜，您贏了！</string>
   <string name="gameVsX">與%1$s對局</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">有人評價了你的教練檔案</string>
   <string name="newPendingReview">待檢閱</string>
+  <string name="lostAgainstTOSViolator">你輸給了違反了服務挑款的棋手</string>
   <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等級分。</string>
   <string name="timeAlmostUp">時間快到了！</string>
   <string name="clickToRevealEmailAddress">[按下展示電郵位置]</string>
@@ -821,10 +828,30 @@
   <string name="welcome">歡迎！</string>
   <string name="lichessPatronInfo">Lichess是個慈善、完全免費之開源軟件。
 一切營運成本、開發和內容皆來自用戶之捐贈。</string>
+  <string name="cancelTournament">取消錦標賽</string>
+  <string name="tournDescription">錦標賽敘述</string>
+  <string name="tournDescriptionHelp">有甚麼特別要告訴參賽者的嗎？盡量不要太長。可以使用Markdown網址 [name](https://url)。</string>
+  <string name="ratedFormHelp">比賽為積分賽
+會影響到棋手的積分</string>
   <string name="onlyMembersOfTeam">只限隊員</string>
   <string name="noRestriction">沒有限制</string>
   <string name="minimumRatedGames">評分局遊玩次數下限</string>
   <string name="minimumRating">評分下限</string>
   <string name="estimatedStart">預計開始時間</string>
+  <string name="simulDescriptionHelp">有甚麼要告訴參賽者的嗎？</string>
+  <string name="inYourLocalTimezone">在你的時區內</string>
+  <string name="tournChat">錦標賽聊天室</string>
+  <string name="noChat">無聊天室</string>
+  <string name="onlyTeamLeaders">僅限各隊隊長</string>
+  <string name="onlyTeamMembers">僅限各隊伍</string>
+  <string name="mouseTricks">滑鼠功能</string>
+  <string name="analysisOptions">分析局面</string>
+  <string name="showHelpDialog">顯示此說明欄</string>
   <string name="reopenYourAccount">重新開啟帳戶</string>
+  <string name="closedAccountChangedMind">如果你停用了自己的帳號，但是改變了心意，你有一次的機會可以拿回帳號。</string>
+  <string name="onlyWorksOnce">這只能復原一次</string>
+  <string name="cantDoThisTwice">如果你決定再次停用你的帳號，則不會有任何方式去復原。</string>
+  <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
+  <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">錦標賽參賽碼</string>
 </resources>

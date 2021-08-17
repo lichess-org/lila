@@ -28,7 +28,7 @@
   <string name="youCanUseOpeningBookNoEngine">Hos Lichess er den viktigste regelforskjellen for fjernsjakk at det er lov å bruke åpningsbøker. Maskinanalyse er fremdeles forbudt og vil føre til at man får anmerkning for maskinbistand. Selv om ICCF tillater bruk av maskinanalyse i fjernsjakk, så er ikke det tilfellet hos Lichess.</string>
   <string name="gameplay">Spillforløp</string>
   <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
-  <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s
+  <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s.
 For eksempel er den estimerte varigheten av et 5+3-parti 5 · 60 + 40 · 3 = 420 sekunder.</string>
   <string name="durationFormula">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>

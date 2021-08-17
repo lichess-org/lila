@@ -27,7 +27,7 @@
   <string name="doubleBishopMate">Mate de dois bispos</string>
   <string name="doubleBishopMateDescription">Dois bispos atacantes em diagonais adjacentes dão um mate em um rei obstruído por peças amigas.</string>
   <string name="dovetailMate">Mate da cauda de andorinha</string>
-  <string name="dovetailMateDescription">Uma rainha dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
+  <string name="dovetailMateDescription">Uma dama dá um mate em um rei adjacente, cujos únicos dois quadrados de fuga estão obstruídos por peças amigas.</string>
   <string name="equality">Igualdade</string>
   <string name="equalityDescription">Saia de uma posição perdida, e assegure um empate ou uma posição equilibrada. (aval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque na ala do Rei</string>
@@ -88,12 +88,12 @@
   <string name="pin">Cravada</string>
   <string name="pinDescription">Uma tática envolvendo cravada, onde uma peça é incapaz de mover-se sem abrir um descoberto em uma peça de maior valor.</string>
   <string name="promotion">Promoção</string>
-  <string name="promotionDescription">Um peão sendo promovido ou ameaçando ser promovido é chave para a tática.</string>
+  <string name="promotionDescription">Promova um peão para uma dama ou a uma peça menor.</string>
   <string name="queenEndgame">Finais de Dama</string>
-  <string name="queenEndgameDescription">Um final com apenas Damas e peões.</string>
+  <string name="queenEndgameDescription">Um final com apenas damas e peões.</string>
   <string name="queenRookEndgame">Finais de Dama e Torre</string>
   <string name="queenRookEndgameDescription">Finais com apenas Dama, Torre e Peões.</string>
-  <string name="queensideAttack">Ataque na ala da Dama</string>
+  <string name="queensideAttack">Ataque na ala da dama</string>
   <string name="queensideAttackDescription">Um ataque ao rei adversário, após ter efetuado o roque na ala da Dama.</string>
   <string name="quietMove">Lance de preparação</string>
   <string name="quietMoveDescription">Um lance que não dá xeque nem realiza uma captura, mas prepara uma ameaça inevitável para a jogada seguinte.</string>
