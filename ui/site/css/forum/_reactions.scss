@@ -34,7 +34,7 @@
     display: none;
   }
 
-  .forum-post:hover &-auth button.no {
+  .forum-post &-auth button.no {
     display: flex;
     opacity: 0.4;
     filter: grayscale(100%);
