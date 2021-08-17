@@ -4,7 +4,7 @@
   <string name="lichessStreamer">Streamer do Lichess</string>
   <string name="live">AO VIVO!</string>
   <string name="offline">FORA DO AR</string>
-  <string name="currentlyStreaming">Atualmente transmitindo: %s</string>
+  <string name="currentlyStreaming">Transmitindo agora: %s</string>
   <string name="lastStream">Última transmissão %s</string>
   <string name="becomeStreamer">Torne-se um streamer do Lichess</string>
   <string name="doYouHaveStream">Você tem uma stream na Twitch ou no YouTube?</string>
