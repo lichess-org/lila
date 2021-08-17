@@ -1,4 +1,4 @@
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { ProtocolOpts, Work } from './types';
 import { Deferred, defer } from 'common/defer';
 import { Sync, sync } from 'common/sync';
@@ -40,7 +40,7 @@ export default class Protocol {
     // Handle variants ("giveaway" is antichess in old asmjs fallback).
     this.setOption('UCI_Chess960', 'true');
     if (this.opts.variant === 'antichess') this.setOption('UCI_Variant', 'giveaway');
-    else this.setOption('UCI_Variant', lichessVariantRules(this.opts.variant));
+    else this.setOption('UCI_Variant', lichessRules(this.opts.variant));
   }
 
   private setOption(name: string, value: string | number): void {
