@@ -195,8 +195,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
-            makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace("FEN", "SFEN")),
-            makeTab("pgn", "KIF", noarg("loadAGameFromKif")),
+            makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace('FEN', 'SFEN')),
+            makeTab('pgn', 'KIF', noarg('loadAGameFromKif')),
           ]),
           activeTab === 'edit'
             ? h(
@@ -273,19 +273,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           const reader = new FileReader();
                           reader.onload = function () {
                             const res = reader.result as string;
-                            if(encoding === 'UTF-8' && res.match(/�/)){
-                              console.log("UTF-8 didn't work, trying shift-jis, if you still have problems with your import, try converting the file to a different encoding")
-                              readFile(file, 'shift-jis')
+                            if (encoding === 'UTF-8' && res.match(/�/)) {
+                              console.log(
+                                "UTF-8 didn't work, trying shift-jis, if you still have problems with your import, try converting the file to a different encoding"
+                              );
+                              readFile(file, 'shift-jis');
                             } else {
-                              (document.getElementById(
-                                'chapter-pgn'
-                                ) as HTMLTextAreaElement).value = res;
-                              }
+                              (document.getElementById('chapter-pgn') as HTMLTextAreaElement).value = res;
                             }
-                            reader.readAsText(file, encoding);
                           };
-                          const file = (e.target as HTMLInputElement).files![0];
-                          readFile(file, 'UTF-8');
+                          reader.readAsText(file, encoding);
+                        }
+                        const file = (e.target as HTMLInputElement).files![0];
+                        readFile(file, 'UTF-8');
                       }),
                     })
                   : null,

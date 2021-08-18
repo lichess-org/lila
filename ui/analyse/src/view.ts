@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import { parseFen } from 'shogiops/fen';
 import * as shogiground from './ground';
-import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from "./util";
+import { bind, onInsert, dataIcon, spinner, bindMobileMousedown } from './util';
 //import { bind, onInsert, spinner, bindMobileMousedown } from './util';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
@@ -15,7 +15,7 @@ import * as control from './control';
 import { view as actionMenu } from './actionMenu';
 import { view as renderPromotion } from './promotion';
 import renderClocks from './clocks';
-import * as pgnExport from "./pgnExport";
+import * as pgnExport from './pgnExport';
 import forecastView from './forecast/forecastView';
 import { view as cevalView } from 'ceval';
 import crazyView from './crazy/crazyView';
@@ -141,20 +141,17 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         },
       }),
     ]),
-    h("div.pgn", [
-      h("div.pair", [
-        h("label.name", "KIF"),
-        h("textarea.copyable.autoselect", {
+    h('div.pgn', [
+      h('div.pair', [
+        h('label.name', 'KIF'),
+        h('textarea.copyable.autoselect', {
           attrs: { spellCheck: false },
           hook: {
-            ...onInsert((el) => {
+            ...onInsert(el => {
               (el as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
                 ? ctrl.pgnInput
                 : pgnExport.renderFullTxt(ctrl);
-              el.addEventListener(
-                "input",
-                (e) => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value)
-              );
+              el.addEventListener('input', e => (ctrl.pgnInput = (e.target as HTMLTextAreaElement).value));
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
@@ -164,19 +161,19 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           },
         }),
         h(
-          "button.button.button-thin.action.text",
+          'button.button.button-thin.action.text',
           {
-            attrs: dataIcon("G"),
+            attrs: dataIcon('G'),
             hook: bind(
-              "click",
-              (_) => {
-                const pgn = $(".copyables .pgn textarea").val();
+              'click',
+              _ => {
+                const pgn = $('.copyables .pgn textarea').val();
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn);
               },
               ctrl.redraw
             ),
           },
-          ctrl.trans.noarg("importKif")
+          ctrl.trans.noarg('importKif')
         ),
       ]),
     ]),

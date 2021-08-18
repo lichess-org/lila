@@ -70,7 +70,7 @@ function pad2(num: number): string {
 }
 
 function spanName(ctrl: AnalyseCtrl, color: Color, sep: string = ' - ') {
-  if(ctrl.data.game.id === 'synthetic') return null;
+  if (ctrl.data.game.id === 'synthetic') return null;
   const p = game.getPlayer(ctrl.data, color);
   return h('span', [(p.user ? p.user.username : p.ai ? 'Engine' : p.name || 'Anonymous') + sep]);
 }
