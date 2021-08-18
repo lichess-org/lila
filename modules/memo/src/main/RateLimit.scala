@@ -2,7 +2,8 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 
-/** side effect throttler that allows X ops per Y unit of time
+/** Throttler that allows X operations per Y unit of time
+  * Not thread safe
   */
 final class RateLimit[K](
     credits: Int,
