@@ -182,4 +182,6 @@ object SwissForm {
       case _                                         => 300
     }
   }.seconds
+
+  val joinForm = Form(single("password" -> optional(nonEmptyText)))
 }
