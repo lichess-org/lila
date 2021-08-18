@@ -1,6 +1,6 @@
 package lila.importer
 
-import shogi.format.pgn.{ ParsedPgn, Parser, Reader, Tag, TagType, Tags }
+import shogi.format.pgn.{ ParsedPgn, KifParser, Reader, Tag, TagType, Tags }
 import shogi.format.{ FEN, Forsyth }
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
@@ -14,12 +14,12 @@ final class DataForm {
 
   lazy val importForm = Form(
     mapping(
-      "pgn"     -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isSuccess),
+      "kif"     -> nonEmptyText.verifying("invalidKif", p => checkKif(p).isSuccess),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(ImportData.unapply)
   )
 
-  def checkPgn(pgn: String): Valid[Preprocessed] = ImportData(pgn, none).preprocess(none)
+  def checkKif(kif: String): Valid[Preprocessed] = ImportData(kif, none).preprocess(none)
 }
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -30,7 +30,7 @@ case class Preprocessed(
     parsed: ParsedPgn
 )
 
-case class ImportData(pgn: String, analyse: Option[String]) {
+case class ImportData(kif: String, analyse: Option[String]) {
 
   private type TagPicker = Tag.type => TagType
 
@@ -43,9 +43,9 @@ case class ImportData(pgn: String, analyse: Option[String]) {
     }
 
   def preprocess(user: Option[String]): Valid[Preprocessed] =
-    Parser.full(pgn) flatMap { parsed =>
-      Reader.fullWithSans(
-        pgn,
+    KifParser.full(kif) flatMap { parsed =>
+      Reader.fullWithKif(
+        kif,
         sans => sans.copy(value = sans.value take maxPlies),
         Tags.empty
       ) map evenIncomplete map { case replay @ Replay(setup, _, state) =>
@@ -67,11 +67,14 @@ case class ImportData(pgn: String, analyse: Option[String]) {
         } map Forsyth.>> map FEN.apply
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("normal") | None    => Status.Resign
-          case Some("abandoned")        => Status.Aborted
-          case Some("time forfeit")     => Status.Outoftime
-          case Some("rules infraction") => Status.Cheat
-          case Some(_)                  => Status.UnknownFinish
+          case Some("投了") | None => Status.Resign
+          case Some("詰み") => Status.Mate
+          case Some("中断") => Status.Aborted
+          case Some("持将棋") | Some("千日手")  => Status.Draw
+          case Some("入玉勝ち") => Status.Impasse27
+          case Some("切れ負け") | Some("time-up") => Status.Outoftime
+          case Some("反則勝ち") | Some("反則負け") => Status.Cheat
+          case Some(_) => Status.UnknownFinish
         }
 
         val date = parsed.tags.anyDate
@@ -88,7 +91,7 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             gotePlayer = Player.make(shogi.Gote, None) withName name(_.Gote, _.GoteElo),
             mode = Mode.Casual,
             source = Source.Import,
-            pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
+            pgnImport = PgnImport.make(user = user, date = date, pgn = kif).some
           )
           .sloppy
           .start pipe { dbGame =>
@@ -98,9 +101,9 @@ case class ImportData(pgn: String, analyse: Option[String]) {
             case None =>
               parsed.tags.resultColor
                 .map {
-                  case Some(color)                        => TagResult(status, color.some)
-                  case None if status == Status.Outoftime => TagResult(status, none)
-                  case None                               => TagResult(Status.Draw, none)
+                  case Some(color) => TagResult(status, color.some)
+                  case None if status == Status.UnknownFinish => TagResult(Status.Draw, none)
+                  case None => TagResult(status, none)
                 }
                 .filter(_.status > Status.Started)
                 .fold(dbGame) { res =>

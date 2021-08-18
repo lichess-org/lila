@@ -35,6 +35,14 @@ object StartingPosition {
           false
         ),
         StartingPosition(
+          "右香落ち",
+          "Right Lance",
+          "1nsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
+          "Handicap_(shogi)",
+          "",
+          false
+        ),
+        StartingPosition(
           "角落ち",
           "Bishop",
           "lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w - 2",
@@ -215,6 +223,9 @@ object StartingPosition {
   lazy val featurable = new scala.util.Random(475591).shuffle(all.filter(_.featurable)).toIndexedSeq
 
   def randomFeaturable = featurable(scala.util.Random.nextInt(featurable.size))
+
+  def searchByEco(eco: String): Option[StartingPosition] =
+    all.find(_.eco == eco)
 
   def searchHandicapByFen(fen: Option[format.FEN]): Option[StartingPosition] = {
     fen flatMap { fe =>

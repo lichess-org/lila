@@ -20,6 +20,8 @@ sealed trait San {
 
   def apply(situation: Situation): Valid[MoveOrDrop]
 
+  def getDest: Pos
+
   def metas: Metas
 
   def withMetas(m: Metas): San
@@ -29,6 +31,10 @@ sealed trait San {
   def withComments(s: List[String]): San = withMetas(metas withComments s)
 
   def withVariations(s: List[Sans]): San = withMetas(metas withVariations s)
+
+  def withTimeSpent(ts: Option[Centis]): San = withMetas(metas withTimeSpent ts)
+
+  def withTimeTotal(tt: Option[Centis]): San = withMetas(metas withTimeTotal tt)
 
   def mergeGlyphs(glyphs: Glyphs): San =
     withMetas(
@@ -55,6 +61,8 @@ case class Std(
     )
 
   def withMetas(m: Metas) = copy(metas = m)
+
+  def getDest = dest
 
   def move(situation: Situation): Valid[shogi.Move] =
     situation.board.pieces.foldLeft(none[shogi.Move]) {
@@ -86,6 +94,8 @@ case class Drop(
 
   def apply(situation: Situation) = drop(situation) map Right.apply
 
+  def getDest = pos
+
   def withMetas(m: Metas) = copy(metas = m)
 
   def drop(situation: Situation): Valid[shogi.Drop] =
@@ -101,7 +111,9 @@ case class Metas(
     checkmate: Boolean,
     comments: List[String],
     glyphs: Glyphs,
-    variations: List[Sans]
+    variations: List[Sans],
+    timeSpent: Option[Centis],
+    timeTotal: Option[Centis]
 ) {
 
   def withSuffixes(s: Suffixes) =
@@ -114,10 +126,14 @@ case class Metas(
   def withComments(c: List[String]) = copy(comments = c)
 
   def withVariations(v: List[Sans]) = copy(variations = v)
+
+  def withTimeSpent(ts: Option[Centis]) = copy(timeSpent = ts)
+
+  def withTimeTotal(tt: Option[Centis]) = copy(timeTotal = tt)
 }
 
 object Metas {
-  val empty = Metas(false, false, Nil, Glyphs.empty, Nil)
+  val empty = Metas(false, false, Nil, Glyphs.empty, Nil, None, None)
 }
 
 case class Suffixes(

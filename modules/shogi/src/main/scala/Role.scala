@@ -3,6 +3,7 @@ package shogi
 import Pos.posAt
 
 sealed trait Role {
+  val kif: String
   val forsyth: Char
   lazy val forsythUpper: Char = forsyth.toUpper
   val forsythFull: String
@@ -16,6 +17,7 @@ sealed trait Role {
 }
 
 case object King extends Role {
+  val kif                      = "王"
   val forsyth                  = 'k'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = Rook.dirs ::: Bishop.dirs
@@ -24,6 +26,7 @@ case object King extends Role {
   val projection               = false
 }
 case object Rook extends Role {
+  val kif                      = "飛"
   val forsyth                  = 'r'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.down, _.left, _.right)
@@ -41,6 +44,7 @@ case object Rook extends Role {
   val projection = true
 }
 case object Bishop extends Role {
+  val kif                      = "角"
   val forsyth                  = 'b'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.upLeft, _.upRight, _.downLeft, _.downRight)
@@ -58,6 +62,7 @@ case object Bishop extends Role {
   val projection = true
 }
 case object Knight extends Role {
+  val kif         = "桂"
   val forsyth     = 'n'
   val forsythFull = forsyth.toString
   val dirs: Directions = List(
@@ -72,6 +77,7 @@ case object Knight extends Role {
   val projection              = false
 }
 case object Pawn extends Role {
+  val kif                      = "歩"
   val forsyth                  = 'p'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up)
@@ -80,6 +86,7 @@ case object Pawn extends Role {
   val projection               = false
 }
 case object Gold extends Role {
+  val kif                      = "金"
   val forsyth                  = 'g'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.down, _.left, _.right, _.upLeft, _.upRight)
@@ -88,6 +95,7 @@ case object Gold extends Role {
   val projection               = false
 }
 case object Silver extends Role {
+  val kif                      = "銀"
   val forsyth                  = 's'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up, _.upLeft, _.upRight, _.downLeft, _.downRight)
@@ -96,6 +104,7 @@ case object Silver extends Role {
   val projection               = false
 }
 case object Lance extends Role {
+  val kif                      = "香"
   val forsyth                  = 'l'
   val forsythFull              = forsyth.toString
   val dirs: Directions         = List(_.up)
@@ -110,6 +119,7 @@ case object Lance extends Role {
   val projection = true
 }
 case object Tokin extends Role {
+  val kif                      = "と"
   val forsyth                                    = 't'
   val forsythFull                                = "+p"
   val dirs: Directions                           = Gold.dirs
@@ -118,6 +128,7 @@ case object Tokin extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedSilver extends Role {
+  val kif                      = "成銀"
   val forsyth                                    = 'a'
   val forsythFull                                = "+s"
   val dirs: Directions                           = Gold.dirs
@@ -126,6 +137,7 @@ case object PromotedSilver extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedKnight extends Role {
+  val kif                      = "成桂"
   val forsyth: Char                              = 'm'
   val forsythFull                                = "+n"
   val dirs: Directions                           = Gold.dirs
@@ -134,6 +146,7 @@ case object PromotedKnight extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedLance extends Role {
+  val kif                      = "成香"
   val forsyth: Char                              = 'u'
   val forsythFull                                = "+l"
   val dirs: Directions                           = Gold.dirs
@@ -142,6 +155,7 @@ case object PromotedLance extends Role {
   val projection: Boolean                        = false
 }
 case object Horse extends Role {
+  val kif                      = "馬"
   val forsyth: Char            = 'h'
   val forsythFull              = "+b"
   val dirs: Directions         = Bishop.dirs // only long range
@@ -150,6 +164,7 @@ case object Horse extends Role {
   val projection               = true
 }
 case object Dragon extends Role {
+  val kif                      = "龍"
   val forsyth: Char                              = 'd'
   val forsythFull                                = "+r"
   val dirs: Directions                           = Rook.dirs // only long range
@@ -207,7 +222,29 @@ object Role {
     (r.name, r)
   } toMap
 
+  val allByKif: Map[String, Role] = (all map { r =>
+    (r.kif, r)
+  } toMap) ++ Map(
+      "玉" -> King,
+      "竜" -> Dragon,
+      "全" -> PromotedSilver,
+      "圭" -> PromotedKnight,
+      "今" -> PromotedKnight,
+      "杏" -> PromotedLance,
+      "仝" -> PromotedLance,
+      "个" -> Tokin
+    )
+
+  val allByFullForsyth: Map[String, Role] = (all map { r =>
+    (r.forsythFull, r)
+  }) toMap
+
+  val allByEverything: Map[String, Role] =
+    allByFullForsyth ++ allByKif
+
   def forsyth(c: Char): Option[Role] = allByForsyth get c
+  def kif(c: String): Option[Role] = 
+    allByKif get c
 
   def promotesTo(r: Role): Option[Role] =
     r match {

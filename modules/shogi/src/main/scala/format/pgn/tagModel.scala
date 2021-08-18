@@ -6,7 +6,7 @@ import org.joda.time.format.DateTimeFormat
 
 case class Tag(name: TagType, value: String) {
 
-  override def toString = s"""[$name "$value"]"""
+  override def toString = s"""$name：$value"""
 }
 
 sealed trait TagType {
@@ -28,7 +28,7 @@ case class Tags(value: List[Tag]) extends AnyVal {
   def clockConfig: Option[Clock.Config] =
     value.collectFirst { case Tag(Tag.TimeControl, str) =>
       str
-    } flatMap Clock.readPgnConfig
+    } flatMap Clock.readKifConfig
 
   def variant: Option[shogi.variant.Variant] =
     apply(_.Variant).map(_.toLowerCase).flatMap { case name =>
@@ -176,7 +176,8 @@ object Tag {
     Tag(
       TimeControl,
       clock.fold("-") { c =>
-        s"${c.limit.roundSeconds}+${c.increment.roundSeconds}+${c.byoyomi.roundSeconds}(${c.periods})"
+        val init = if(c.limit.roundSeconds % 60 == 0) s"${c.limit.roundSeconds / 60}分" else s"${c.limit.roundSeconds}秒" 
+        s"${init}|${c.byoyomi.roundSeconds}秒(${c.periods})+${c.increment.roundSeconds}秒"
       }
     )
 }

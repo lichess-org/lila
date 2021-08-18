@@ -1,7 +1,7 @@
 package lila.game
 
 import shogi.format.Forsyth
-import shogi.format.pgn.{ ParsedPgn, Parser, Pgn, Tag, TagType, Tags }
+import shogi.format.pgn.{ ParsedPgn, KifParser, Pgn, Tag, TagType, Tags }
 import shogi.format.{ FEN, pgn => shogiPgn }
 import shogi.{ Centis, Color }
 
@@ -22,7 +22,7 @@ final class PgnDump(
       teams: Option[Color.Map[String]] = None
   ): Fu[Pgn] = {
     val imported = game.pgnImport.flatMap { pgni =>
-      Parser.full(pgni.pgn).toOption
+      KifParser.full(pgni.pgn).toOption
     }
     val tagsFuture =
       if (flags.tags) tags(game, initialFen, imported, withOpening = flags.opening, teams = teams)

@@ -192,7 +192,9 @@ object Parser extends scalaz.syntax.ToTraverseOps {
                     checkmate = false,
                     comments = Nil,
                     glyphs = Glyphs.empty,
-                    variations = Nil
+                    variations = Nil,
+                    timeSpent = None,
+                    timeTotal = None
                   )
                 )
               )
@@ -211,7 +213,9 @@ object Parser extends scalaz.syntax.ToTraverseOps {
                     checkmate = false,
                     comments = Nil,
                     glyphs = Glyphs.empty,
-                    variations = Nil
+                    variations = Nil,
+                    timeSpent = None,
+                    timeTotal = None
                   )
                 )
               )

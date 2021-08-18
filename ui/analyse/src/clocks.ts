@@ -5,7 +5,7 @@ import { isFinished } from './study/studyChapters';
 import * as game from 'game';
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
-  if (ctrl.embed || ctrl.data.game.id === 'synthetic' || ctrl.data.game.status.name === 'started') return;
+  if (ctrl.embed || ctrl.data.game.status.name === 'started') return;
   const node = ctrl.node,
     clock = node.clock,
     sentePov = ctrl.bottomIsSente(),
@@ -70,8 +70,9 @@ function pad2(num: number): string {
 }
 
 function spanName(ctrl: AnalyseCtrl, color: Color, sep: string = ' - ') {
+  if(ctrl.data.game.id === 'synthetic') return null;
   const p = game.getPlayer(ctrl.data, color);
-  return h('span', [(p.user ? p.user.username : p.ai ? 'Engine' : 'Anonymous') + sep]);
+  return h('span', [(p.user ? p.user.username : p.ai ? 'Engine' : p.name || 'Anonymous') + sep]);
 }
 
 function renderOnlyName(ctrl: AnalyseCtrl, active: boolean, cls: string, color: Color) {

@@ -5,6 +5,7 @@ import { TagArray } from './interfaces';
 import renderClocks from '../clocks';
 import AnalyseCtrl from '../ctrl';
 import { isFinished, findTag, resultOf } from './studyChapters';
+import { defined } from 'common';
 
 interface PlayerNames {
   sente: string;
@@ -19,7 +20,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       sente: findTag(tags, 'sente')!,
       gote: findTag(tags, 'gote')!,
     };
-  if (!playerNames.sente && !playerNames.gote && !treeOps.findInMainline(ctrl.tree.root, n => !!n.clock)) return;
+  if (!playerNames.sente && !playerNames.gote && !treeOps.findInMainline(ctrl.tree.root, n => defined(n.clock))) return;
   const clocks = renderClocks(ctrl),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor();
   return (['sente', 'gote'] as Color[]).map(color =>

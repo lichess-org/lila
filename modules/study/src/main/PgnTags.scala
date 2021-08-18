@@ -24,7 +24,7 @@ object PgnTags {
       })
     else tags
 
-  private val unknownValues = Set("", "?", "unknown")
+  private val unknownValues = Set("", "?", "unknown", " ")
 
   private val sortedTypes: List[TagType] = {
     import Tag._

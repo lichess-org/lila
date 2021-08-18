@@ -29,6 +29,11 @@ object Reader {
       makeReplay(makeGame(parsed.tags ++ tags), op(parsed.sans))
     }
 
+  def fullWithKif(kif: String, op: Sans => Sans, tags: Tags = Tags.empty): Valid[Result] =
+    KifParser.full(cleanUserInput(kif)) map { parsed =>
+      makeReplay(makeGame(parsed.tags ++ tags), op(parsed.sans))
+    }
+
   def fullWithSans(parsed: ParsedPgn, op: Sans => Sans): Result =
     makeReplay(makeGame(parsed.tags), op(parsed.sans))
 

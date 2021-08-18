@@ -29,7 +29,7 @@ object PgnImport {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {
-          case (shapes, _, comments) =>
+          case (shapes, comments) =>
             val root = Node.Root(
               ply = replay.setup.turns,
               fen = initialFen | FEN(game.variant.initialFen),
@@ -98,13 +98,12 @@ object PgnImport {
   private def parseComments(
       comments: List[String],
       annotator: Option[Comment.Author]
-  ): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
+  ): (Shapes, Comments) =
+    comments.foldLeft((Shapes(Nil), Comments(Nil))) { case ((shapes, comments), txt) =>
       CommentParser(txt) match {
-        case CommentParser.ParsedComment(s, c, str) =>
+        case CommentParser.ParsedComment(s, str) =>
           (
             (shapes ++ s),
-            c orElse clock,
             (str.trim match {
               case "" => comments
               case com =>
@@ -126,7 +125,7 @@ object PgnImport {
               val uci    = moveOrDrop.fold(_.toUci, _.toUci)
               val sanStr = moveOrDrop.fold(Dumper.apply, Dumper.apply)
               parseComments(san.metas.comments, annotator) match {
-                case (shapes, clock, comments) =>
+                case (shapes, comments) =>
                   Node(
                     id = UciCharPair(uci),
                     ply = game.turns,
@@ -137,7 +136,8 @@ object PgnImport {
                     comments = comments,
                     glyphs = san.metas.glyphs,
                     crazyData = game.situation.board.crazyData,
-                    clock = clock,
+                    // we should show time left, not total time spent, but we can't be sure we have init time
+                    clock = san.metas.timeTotal,
                     children = removeDuplicatedChildrenFirstNode {
                       val variations = makeVariations(rest, game, annotator)
                       Node.Children {

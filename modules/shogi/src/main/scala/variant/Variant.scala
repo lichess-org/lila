@@ -269,6 +269,23 @@ abstract class Variant private[variant] (
     }
     .to(Map)
 
+  lazy val rolesByKif: Map[String, Role] = roles
+    .map { r =>
+      (r.kif, r)
+    }
+    .to(Map)
+
+  lazy val rolesByFullForsyth: Map[String, Role] = roles
+    .map { r => 
+      (r.forsythFull.toUpperCase, r)
+    }
+    .to(Map)
+
+  lazy val rolesByEverything: Map[String, Role] =
+    Role.allByKif ++ rolesByFullForsyth
+  
+  
+
   override def toString = s"Variant($name)"
 
   override def equals(that: Any): Boolean = this eq that.asInstanceOf[AnyRef]

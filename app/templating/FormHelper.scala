@@ -209,7 +209,7 @@ trait FormHelper { self: I18nHelper =>
 
     object file {
       def image(name: String): Frag = st.input(tpe := "file", st.name := name, accept := "image/*")
-      def pgn(name: String): Frag   = st.input(tpe := "file", st.name := name, accept := ".pgn")
+      def kif(name: String): Frag   = st.input(tpe := "file", st.name := name, accept := ".kif, .kifu")
     }
   }
 }

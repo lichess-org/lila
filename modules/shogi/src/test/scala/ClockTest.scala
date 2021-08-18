@@ -150,4 +150,19 @@ class ClockTest extends ShogiTest {
     "stall within quota" >> !advance(fakeClock600, 60190).outOfTime(Sente, true)
     "max grace stall" >> advance(fakeClock600, 602 * 100).outOfTime(Sente, true)
   }
+
+  "Kif config" in {
+    "everything" in {
+      Clock.readKifConfig("10分|20秒(1)+0秒") must_== Some(Clock.Config(600, 0, 20, 1))
+    }
+    "without inc" in {
+      Clock.readKifConfig("10分|20秒(1)") must_== Some(Clock.Config(600, 0, 20, 1))
+    }
+    "without per" in {
+      Clock.readKifConfig("10分|20秒+10秒") must_== Some(Clock.Config(600, 10, 20, 1))
+    }
+    "without per and inc" in {
+      Clock.readKifConfig("10分|20秒") must_== Some(Clock.Config(600, 0, 20, 1))
+    }
+  }
 }

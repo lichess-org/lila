@@ -3,7 +3,7 @@ import { VNode } from 'snabbdom/vnode';
 import { defined, prop, Prop } from 'common';
 import { storedProp, StoredProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
-import { variants as xhrVariants, importPgn } from './studyXhr';
+import { variants as xhrVariants, importKif } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
@@ -48,7 +48,7 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiPgnMax = 20;
+  const multiPgnMax = 10;
 
   const vm = {
     variants: [],
@@ -94,7 +94,7 @@ export function ctrl(
       d.initial = vm.initial();
       d.sticky = study.vm.mode.sticky;
       if (!d.pgn) send('addChapter', d);
-      else importPgn(study.data.id, d);
+      else importKif(study.data.id, d);
       close();
       setTab();
     },
@@ -195,8 +195,8 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
             makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
             makeTab('game', 'URL', noarg('loadAGameByUrl')),
-            makeTab('fen', 'SFEN', noarg('loadAPositionFromFen')),
-            //makeTab("pgn", "PGN", noarg("loadAGameFromPgn")),
+            makeTab('fen', 'SFEN', noarg('loadAPositionFromFen').replace("FEN", "SFEN")),
+            makeTab("pgn", "KIF", noarg("loadAGameFromKif")),
           ]),
           activeTab === 'edit'
             ? h(
@@ -258,25 +258,34 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             ? h('div.form-groupabel', [
                 h('textarea#chapter-pgn.form-control', {
                   attrs: {
-                    placeholder: 'max' + ctrl.multiPgnMax,
+                    placeholder: 'max ' + ctrl.multiPgnMax,
                   },
                 }),
                 window.FileReader
                   ? h('input#chapter-pgn-file.form-control', {
                       attrs: {
                         type: 'file',
-                        accept: '.pgn',
+                        accept: '.kif, .kifu',
                       },
                       hook: bind('change', e => {
-                        const file = (e.target as HTMLInputElement).files![0];
-                        if (!file) return;
-                        const reader = new FileReader();
-                        reader.onload = function () {
-                          (document.getElementById(
-                            'chapter-pgn'
-                          ) as HTMLTextAreaElement).value = reader.result as string;
-                        };
-                        reader.readAsText(file);
+                        function readFile(file: File, encoding: string) {
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = function () {
+                            const res = reader.result as string;
+                            if(encoding === 'UTF-8' && res.match(/�/)){
+                              console.log("UTF-8 didn't work, trying shift-jis, if you still have problems with your import, try converting the file to a different encoding")
+                              readFile(file, 'shift-jis')
+                            } else {
+                              (document.getElementById(
+                                'chapter-pgn'
+                                ) as HTMLTextAreaElement).value = res;
+                              }
+                            }
+                            reader.readAsText(file, encoding);
+                          };
+                          const file = (e.target as HTMLInputElement).files![0];
+                          readFile(file, 'UTF-8');
                       }),
                     })
                   : null,

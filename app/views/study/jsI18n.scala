@@ -89,7 +89,7 @@ object jsI18n {
       startFromCustomPosition,
       loadAGameByUrl,
       loadAPositionFromFen,
-      loadAGameFromPgn,
+      loadAGameFromKif,
       automatic,
       urlOfTheGame,
       loadAGameFromXOrY,

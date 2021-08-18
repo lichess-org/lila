@@ -1,4 +1,4 @@
-name := "scalachess"
+name := "scalashogi"
 
 organization := "org.lishogi"
 

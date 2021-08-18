@@ -312,7 +312,7 @@ final class Study(
       } inject Redirect(routes.Study.show(id))
     }
 
-  def importPgn(id: String) =
+  def importKif(id: String) =
     AuthBody { implicit ctx => me =>
       implicit val req = ctx.body
       get("sri") ?? { sri =>
@@ -430,7 +430,7 @@ final class Study(
             Ok.chunked(env.study.pgnDump(study, requestPgnFlags(ctx.req)))
               .withHeaders(
                 noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.pgn"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump filename study}.kif"
               )
               .as(pgnContentType)
               .fuccess
@@ -447,7 +447,7 @@ final class Study(
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, requestPgnFlags(ctx.req))(chapter).toString)
               .withHeaders(
-                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.pgn"
+                CONTENT_DISPOSITION -> s"attachment; filename=${env.study.pgnDump.filename(study, chapter)}.kif"
               )
               .as(pgnContentType)
               .fuccess
