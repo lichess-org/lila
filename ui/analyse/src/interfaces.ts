@@ -58,6 +58,7 @@ export interface AnalysePref {
   rookCastle?: boolean;
   destination?: boolean;
   highlight?: boolean;
+  showCaptured?: boolean;
   animationDuration?: number;
 }
 
