@@ -7,4 +7,7 @@
     <item quantity="many">Подивитися %s раундів</item>
     <item quantity="other">Подивитися %s раунди</item>
   </plurals>
+  <string name="roundsAreStartedManually">Тури розпочинаються вручну</string>
+  <string name="startingIn" comment="Displayed above a timer">Початок через</string>
+  <string name="nextRound">Наступний тур</string>
 </resources>
