@@ -58,4 +58,16 @@ object PuzzleForm {
     implicit val SolutionReads  = Json.reads[Solution]
     implicit val SolveDataReads = Json.reads[SolveData]
   }
+
+  object ofPlayer {
+
+    case class PlayerPuzzleData(name: Option[String], ratingSortOrder: Option[String])
+
+    val playerPuzzle = Form(
+      mapping(
+        "name"            -> optional(text),
+        "ratingSortOrder" -> optional(text)
+      )(PlayerPuzzleData.apply)(PlayerPuzzleData.unapply)
+    )
+  }
 }

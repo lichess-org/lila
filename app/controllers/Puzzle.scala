@@ -101,14 +101,22 @@ final class Puzzle(
       }
     }
 
-  def ofPlayer(name: Option[String], page: Int) =
-    Open { implicit ctx =>
-      val fixed = name.map(_.trim).filter(_.nonEmpty)
-      fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { user =>
-        user.?? { env.puzzle.api.puzzle.of(_, page) dmap some } map { puzzles =>
-          Ok(views.html.puzzle.ofPlayer(~fixed, user, puzzles))
-        }
-      }
+  def ofPlayer(page: Int) =
+    OpenBody { implicit ctx =>
+      implicit val req = ctx.body
+      val form         = env.puzzle.forms.ofPlayer.playerPuzzle.bindFromRequest()
+      form
+        .fold(
+          jsonFormError,
+          data => {
+            val nameQuery = data.name.map(_.trim).filter(_.nonEmpty)
+            nameQuery.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { user =>
+              user.?? { env.puzzle.api.puzzle.of(_, page, ~data.ratingSortOrder) dmap some } map { puzzles =>
+                Ok(views.html.puzzle.ofPlayer(form, user, puzzles))
+              }
+            }
+          }
+        )
     }
 
   private def onComplete[A](form: Form[RoundData])(id: Puz.Id, theme: PuzzleTheme, mobileBc: Boolean)(implicit

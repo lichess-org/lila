@@ -24,14 +24,14 @@ final class PuzzleApi(
     def find(id: Puzzle.Id): Fu[Option[Puzzle]] =
       colls.puzzle(_.byId[Puzzle](id.value))
 
-    def of(user: User, page: Int): Fu[Paginator[Puzzle]] =
+    def of(user: User, page: Int, ratingSortOrder: String): Fu[Paginator[Puzzle]] =
       colls.puzzle { coll =>
         Paginator(
           adapter = new Adapter[Puzzle](
             collection = coll,
             selector = $doc("users" -> user.id),
             projection = none,
-            sort = $sort desc "glicko.r"
+            sort = if (ratingSortOrder equals "asc") $sort asc "glicko.r" else $sort desc "glicko.r"
           ),
           page,
           MaxPerPage(30)

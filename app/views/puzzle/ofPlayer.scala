@@ -9,10 +9,11 @@ import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.puzzle.Puzzle
 import lila.user.User
+import play.api.data.Form
 
 object ofPlayer {
 
-  def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
+  def apply(form: Form[_], user: Option[User], puzzles: Option[Paginator[Puzzle]])(implicit ctx: Context) =
     views.html.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
@@ -21,19 +22,24 @@ object ofPlayer {
       main(cls := "page-menu")(
         bits.pageMenu("player"),
         div(cls := "page-menu__content puzzle-of-player box box-pad")(
-          form(
+          st.form(
             action := routes.Puzzle.ofPlayer(),
             method := "get",
             cls := "form3 puzzle-of-player__form complete-parent"
           )(
             st.input(
-              name := "name",
-              value := query,
+              name := form("name").name,
+              value := form("name").value,
               cls := "form-control user-autocomplete",
               placeholder := trans.clas.lichessUsername.txt(),
               autocomplete := "off",
               dataTag := "span",
               autofocus
+            ),
+            form3.select(
+              field = form("ratingSortOrder"),
+              options = Seq(("desc", "Descending"), ("asc", "Ascending")),
+              default = "Sort Ratings by".some
             ),
             submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
           ),
@@ -64,7 +70,13 @@ object ofPlayer {
                           )
                         )
                       },
-                      pagerNext(pager, np => s"${routes.Puzzle.ofPlayer(u.username.some, np).url}")
+                      pagerNext(
+                        pager,
+                        np =>
+                          form.data.foldLeft(routes.Puzzle.ofPlayer(np).url)((url, params) =>
+                            addQueryParameter(url, params._1, params._2)
+                          )
+                      )
                     )
                   )
               case (_, _) => emptyFrag
