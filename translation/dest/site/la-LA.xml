@@ -111,7 +111,7 @@
   <string name="mistake">Erratum</string>
   <string name="inaccuracy">Menda</string>
   <plurals name="nbBlunders">
-    <item quantity="one">%s erratum gravis</item>
+    <item quantity="one">%s erratum grave</item>
     <item quantity="other">%s errata gravia</item>
   </plurals>
   <plurals name="nbMistakes">
