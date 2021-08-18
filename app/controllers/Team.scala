@@ -563,8 +563,7 @@ You received this because you are subscribed to messages of the team $url."""
     key = "team.pm.all.user"
   )
   private val PmAllLimitPerTeam = lila.memo.RateLimit.composite[lila.team.Team.ID](
-    key = "team.pm.all.team",
-    enforce = env.net.rateLimit.value
+    key = "team.pm.all.team"
   )(
     ("day", 4 * pmAllCost, 1.day),
     ("week", 12 * pmAllCost, 7.days)
