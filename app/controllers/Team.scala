@@ -557,7 +557,7 @@ You received this because you are subscribed to messages of the team $url."""
   private val pmAllCost = 5
   private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.Team.ID](
     "team.pm.all",
-    credits = 10 * pmAllCost,
+    credits = 7 * pmAllCost,
     duration = 7.days
   )
 
