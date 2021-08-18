@@ -7,7 +7,6 @@ cg-board {
   user-select: none;
   line-height: 0;
   background-size: cover;
-  will-change: transform;
   .manipulable & {
     cursor: pointer;
   }
