@@ -452,13 +452,13 @@ final class Team(
                   .map { tours =>
                     BadRequest(html.team.admin.pmAll(team, err, tours))
                   },
-              res =>
+              _ map { res =>
                 Redirect(routes.Team.show(team.id))
                   .flashing(res match {
                     case RateLimit.Through => "success" -> ""
                     case RateLimit.Limited => "failure" -> rateLimitedMsg
                   })
-                  .fuccess
+              }
             )
           },
       scoped = implicit req =>
@@ -467,9 +467,9 @@ final class Team(
             _.filter(_ leaders me.id) ?? { team =>
               doPmAll(team, me).fold(
                 err => BadRequest(errorsAsJson(err)(reqLang)).fuccess,
-                {
-                  case RateLimit.Through => jsonOkResult.fuccess
-                  case RateLimit.Limited => rateLimitedJson.fuccess
+                _ map {
+                  case RateLimit.Through => jsonOkResult
+                  case RateLimit.Limited => rateLimitedJson
                 }
               )
             }
@@ -531,42 +531,34 @@ final class Team(
 
   private def doPmAll(team: TeamModel, me: UserModel)(implicit
       req: Request[_]
-  ): Either[Form[_], RateLimit.Result] =
+  ): Either[Form[_], Fu[RateLimit.Result]] =
     forms.pmAll
       .bindFromRequest()
       .fold(
         err => Left(err),
         msg =>
           Right {
-            val cost = if (me.isVerifiedOrAdmin) 1 else pmAllCost
-            PmAllLimitPerUser[RateLimit.Result](me.id, cost) {
-              PmAllLimitPerTeam[RateLimit.Result](team.id, cost) {
-                val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
-                val full = s"""$msg
+            PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
+              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""
-                env.msg.api
-                  .multiPost(Holder(me), env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
-                  .addEffect { nb =>
-                    lila.mon.msg.teamBulk(team.id).record(nb).unit
-                  }
-                RateLimit.Through // we don't wait for the stream to complete, it would make lichess time out
-              }(RateLimit.Limited)
+              env.msg.api
+                .multiPost(Holder(me), env.team.memberStream.subscribedIds(team, MaxPerSecond(50)), full)
+                .addEffect { nb =>
+                  lila.mon.msg.teamBulk(team.id).record(nb).unit
+                }
+              // we don't wait for the stream to complete, it would make lichess time out
+              fuccess(RateLimit.Through)
             }(RateLimit.Limited)
           }
       )
 
   private val pmAllCost = 5
-  private val PmAllLimitPerUser = new lila.memo.RateLimit[lila.user.User.ID](
-    credits = 4 * pmAllCost,
-    duration = 1.day,
-    key = "team.pm.all.user"
-  )
-  private val PmAllLimitPerTeam = lila.memo.RateLimit.composite[lila.team.Team.ID](
-    key = "team.pm.all.team"
-  )(
-    ("day", 4 * pmAllCost, 1.day),
-    ("week", 12 * pmAllCost, 7.days)
+  private val PmAllLimitPerTeam = env.memo.mongoRateLimitApi[lila.team.Team.ID](
+    "team.pm.all",
+    credits = 10 * pmAllCost,
+    duration = 7.days
   )
 
   private def LimitPerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
