@@ -114,7 +114,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(implicit
       .find($doc("user" -> userId, "up" -> true))
       .sort($doc("date" -> -1))
       .cursor[UserSession]()
-      .gather[List](nb)
+      .list(nb)
 
   def allSessions(userId: User.ID): AkkaStreamCursor[UserSession] =
     coll
