@@ -38,7 +38,7 @@ final class Env(
     viewColl = db(config.viewColl)
   )
 
-  private lazy val sheet = new Sheet(ws, config.sheetUrl, api)
+  private lazy val sheet = new VideoSheet(ws, config.sheetUrl, api)
 
   private lazy val youtube = new Youtube(
     ws = ws,
