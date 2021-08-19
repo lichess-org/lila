@@ -15,4 +15,7 @@
   <string name="forbiddenPairings">Заборонені пари</string>
   <string name="forbiddenPairingsHelp">Нікнейми гравців, які не можуть грати разом (Родичі, наприклад). Два нікнейми на рядок, розділені пробілом.</string>
   <string name="newSwiss">Новий турнір за швейцарською системою</string>
+  <string name="swissVsArenaQ">Коли проводити швейцарки замість арен?</string>
+  <string name="swissVsArenaA">В турнірі за швейцарською системою, всі участники грають однакову кількість ігор, і можуть лише зіграти одне з одним один раз. Це може бути гарним варіантом для шахових клубів та офіційних турнірів.</string>
+  <string name="pointsCalculationQ">Як обраховуються очки?</string>
 </resources>
