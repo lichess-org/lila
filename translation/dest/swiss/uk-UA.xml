@@ -18,4 +18,8 @@
   <string name="swissVsArenaQ">Коли проводити швейцарки замість арен?</string>
   <string name="swissVsArenaA">В турнірі за швейцарською системою, всі участники грають однакову кількість ігор, і можуть лише зіграти одне з одним один раз. Це може бути гарним варіантом для шахових клубів та офіційних турнірів.</string>
   <string name="pointsCalculationQ">Як обраховуються очки?</string>
+  <string name="pointsCalculationA">Перемога приносить одне очко, нічия - це половина очка, і поразка - нічого.
+Якщо гравець не може отримати пару на раунд, він отримує прохідний бал вартістю в одне очко.</string>
+  <string name="tiebreaksCalculationQ">Як обраховуються тай-брейки?</string>
+  <string name="sonnebornBergerScore">Коефіцієнт Бергера</string>
 </resources>
