@@ -26,9 +26,9 @@ object Hash {
     def hexToLong(s: String): Long =
       (java.lang.Long.parseLong(s.substring(start, start + 8), 16) << 32) |
         java.lang.Long.parseLong(s.substring(start + 8, start + 16), 16)
-    val senteTurnMask       = hexToLong(ZobristTables.senteTurnMask)
-    val actorMasks          = ZobristTables.actorMasks.map(hexToLong)
-    val crazyPocketMasks    = ZobristTables.crazyPocketMasks.map(hexToLong)
+    val senteTurnMask    = hexToLong(ZobristTables.senteTurnMask)
+    val actorMasks       = ZobristTables.actorMasks.map(hexToLong)
+    val crazyPocketMasks = ZobristTables.crazyPocketMasks.map(hexToLong)
   }
 
   // The following masks are compatible with the Polyglot

@@ -42,20 +42,20 @@ K     N""".autoDraw must_== false
     }
     "by fourfold" in {
       val moves = List(
-          H2 -> G2,
-          B8 -> C8,
-          G2 -> H2,
-          C8 -> B8,
-          H2 -> G2,
-          B8 -> C8,
-          G2 -> H2,
-          C8 -> B8,
-          H2 -> G2,
-          B8 -> C8,
-          G2 -> H2,
-          C8 -> B8,
-          H2 -> G2,
-        )
+        H2 -> G2,
+        B8 -> C8,
+        G2 -> H2,
+        C8 -> B8,
+        H2 -> G2,
+        B8 -> C8,
+        G2 -> H2,
+        C8 -> B8,
+        H2 -> G2,
+        B8 -> C8,
+        G2 -> H2,
+        C8 -> B8,
+        H2 -> G2
+      )
       "should be fourfold" in {
         makeGame.playMoves(moves: _*) must beSuccess.like { case g =>
           g.situation.autoDraw must beTrue
@@ -73,8 +73,8 @@ K     N""".autoDraw must_== false
       val position = "4k4/9/9/9/9/9/9/9/5K3 b p 1"
       fenToGame(position, Standard) must beSuccess.like { case game =>
         game.situation.autoDraw must beFalse
-        //game.situation.end must beFalse
-        //game.situation.opponentHasInsufficientMaterial must beFalse
+      //game.situation.end must beFalse
+      //game.situation.opponentHasInsufficientMaterial must beFalse
       }
     }
     "on a single pawn" in {

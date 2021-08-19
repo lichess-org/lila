@@ -40,7 +40,9 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         ),
         div(cls := "page-menu__content practice-app")(
           div(cls := "temporary-practice")(
-            a(href := "https://github.com/WandererXII/lishogi/issues/359")("Under construction - if you want to help click here.")
+            a(href := "https://github.com/WandererXII/lishogi/issues/359")(
+              "Under construction - if you want to help click here."
+            )
           ),
           data.structure.sections.map { section =>
             st.section(

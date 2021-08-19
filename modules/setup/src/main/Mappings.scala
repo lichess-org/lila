@@ -16,7 +16,7 @@ private object Mappings {
   val variantWithVariants       = number.verifying(Config.variantsWithVariants contains _)
   val variantWithFenAndVariants = number.verifying(Config.variantsWithFenAndVariants contains _)
   val boardApiVariants = Set(
-    V.Standard.key,
+    V.Standard.key
     //V.MiniShogi.key,
   )
   val boardApiVariantKeys      = text.verifying(boardApiVariants contains _)

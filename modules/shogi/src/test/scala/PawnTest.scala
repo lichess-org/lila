@@ -23,7 +23,7 @@ class PawnTest extends ShogiTest {
     "capture forward" in {
       makeBoard(
         D4 -> Sente.pawn,
-        D5 -> Gote.pawn,
+        D5 -> Gote.pawn
       ) destsFrom D4 must bePoss(D5)
     }
   }
@@ -46,7 +46,7 @@ class PawnTest extends ShogiTest {
     "capture forward" in {
       makeBoard(
         D5 -> Gote.pawn,
-        D4 -> Sente.pawn,
+        D4 -> Sente.pawn
       ) destsFrom D5 must bePoss(D4)
     }
   }

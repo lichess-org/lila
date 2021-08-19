@@ -88,10 +88,10 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "clockTenths"    -> pref.clockTenths,
-                "clockCountdown" -> pref.clockCountdown,
-                "moveEvent"      -> pref.moveEvent,
-                "pieceNotation"  -> pref.pieceNotation
+                "clockTenths"       -> pref.clockTenths,
+                "clockCountdown"    -> pref.clockCountdown,
+                "moveEvent"         -> pref.moveEvent,
+                "pieceNotation"     -> pref.pieceNotation
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)

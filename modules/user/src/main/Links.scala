@@ -44,7 +44,7 @@ object Link {
       YouTube,
       Twitch,
       GitHub,
-      VKontakte,
+      VKontakte
     )
   }
 }

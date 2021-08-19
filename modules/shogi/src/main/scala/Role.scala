@@ -119,7 +119,7 @@ case object Lance extends Role {
   val projection = true
 }
 case object Tokin extends Role {
-  val kif                      = "と"
+  val kif                                        = "と"
   val forsyth                                    = 't'
   val forsythFull                                = "+p"
   val dirs: Directions                           = Gold.dirs
@@ -128,7 +128,7 @@ case object Tokin extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedSilver extends Role {
-  val kif                      = "成銀"
+  val kif                                        = "成銀"
   val forsyth                                    = 'a'
   val forsythFull                                = "+s"
   val dirs: Directions                           = Gold.dirs
@@ -137,7 +137,7 @@ case object PromotedSilver extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedKnight extends Role {
-  val kif                      = "成桂"
+  val kif                                        = "成桂"
   val forsyth: Char                              = 'm'
   val forsythFull                                = "+n"
   val dirs: Directions                           = Gold.dirs
@@ -146,7 +146,7 @@ case object PromotedKnight extends Role {
   val projection: Boolean                        = false
 }
 case object PromotedLance extends Role {
-  val kif                      = "成香"
+  val kif                                        = "成香"
   val forsyth: Char                              = 'u'
   val forsythFull                                = "+l"
   val dirs: Directions                           = Gold.dirs
@@ -164,7 +164,7 @@ case object Horse extends Role {
   val projection               = true
 }
 case object Dragon extends Role {
-  val kif                      = "龍"
+  val kif                                        = "龍"
   val forsyth: Char                              = 'd'
   val forsythFull                                = "+r"
   val dirs: Directions                           = Rook.dirs // only long range
@@ -225,15 +225,15 @@ object Role {
   val allByKif: Map[String, Role] = (all map { r =>
     (r.kif, r)
   } toMap) ++ Map(
-      "玉" -> King,
-      "竜" -> Dragon,
-      "全" -> PromotedSilver,
-      "圭" -> PromotedKnight,
-      "今" -> PromotedKnight,
-      "杏" -> PromotedLance,
-      "仝" -> PromotedLance,
-      "个" -> Tokin
-    )
+    "玉" -> King,
+    "竜" -> Dragon,
+    "全" -> PromotedSilver,
+    "圭" -> PromotedKnight,
+    "今" -> PromotedKnight,
+    "杏" -> PromotedLance,
+    "仝" -> PromotedLance,
+    "个" -> Tokin
+  )
 
   val allByFullForsyth: Map[String, Role] = (all map { r =>
     (r.forsythFull, r)
@@ -243,7 +243,7 @@ object Role {
     allByFullForsyth ++ allByKif
 
   def forsyth(c: Char): Option[Role] = allByForsyth get c
-  def kif(c: String): Option[Role] = 
+  def kif(c: String): Option[Role] =
     allByKif get c
 
   def promotesTo(r: Role): Option[Role] =
@@ -283,15 +283,11 @@ object Role {
       case Dragon                                                 => 12
       case King                                                   => 0
     }
-  
+
   def impasseValueOf(r: Role): Int =
     r match {
-      case
-        Bishop |
-        Rook |
-        Horse |
-        Dragon => 5
-      case King => 0
-      case _ => 1
+      case Bishop | Rook | Horse | Dragon => 5
+      case King                           => 0
+      case _                              => 1
     }
 }

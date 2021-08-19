@@ -72,7 +72,7 @@ object DataForm {
       takeback: Int,
       submitMove: Int,
       confirmResign: Int,
-      keyboardMove: Option[Int],
+      keyboardMove: Option[Int]
   )
 
   case class ClockData(

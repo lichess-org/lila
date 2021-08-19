@@ -116,7 +116,7 @@ trait BaseConfig {
 
   val variantsWithFen = variants :+ FromPosition.id
   val aiVariants = variants :+
-  //  shogi.variant.MiniShogi.id :+
+    //  shogi.variant.MiniShogi.id :+
     shogi.variant.FromPosition.id
   val variantsWithVariants =
     variants

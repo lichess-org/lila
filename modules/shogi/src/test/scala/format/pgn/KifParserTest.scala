@@ -4,9 +4,9 @@ import variant.Standard
 
 class KifParserTest extends ShogiTest {
 
- // import Fixtures._
+  // import Fixtures._
 
-  val parser = KifParser.full _
+  val parser                                               = KifParser.full _
   def parseMove(str: String, lastDest: Option[Pos] = None) = KifParser.MoveParser(str, lastDest, Standard)
 
   "drop" in {
@@ -15,7 +15,7 @@ class KifParserTest extends ShogiTest {
       d.pos must_== Pos.D6
     }
   }
-  
+
   "move" in {
     parseMove("７七金(78)") must beSuccess.like { case a: Std =>
       a.dest === Pos.C3
@@ -199,9 +199,10 @@ class KifParserTest extends ShogiTest {
       }
     }
     "fractional time" in {
-      parser("""29 ４八玉(59) (2:25.006/0:8:23.006)""") must beSuccess.like { case ParsedPgn(_, _, Sans(List(san))) =>
-        san.metas.timeSpent must_== Some(Centis(14501))
-        san.metas.timeTotal must_== Some(Centis(50301))
+      parser("""29 ４八玉(59) (2:25.006/0:8:23.006)""") must beSuccess.like {
+        case ParsedPgn(_, _, Sans(List(san))) =>
+          san.metas.timeSpent must_== Some(Centis(14501))
+          san.metas.timeTotal must_== Some(Centis(50301))
       }
     }
     "only move time" in {
@@ -400,4 +401,3 @@ class KifParserTest extends ShogiTest {
     }
   }
 }
-

@@ -35,7 +35,7 @@ case class Client(
   def isNNUE =
     evaluation match {
       case Client.Evaluation.NNUE => true
-      case _ => false
+      case _                      => false
     }
 
   def getVariants =

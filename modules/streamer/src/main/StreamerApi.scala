@@ -120,7 +120,6 @@ final class StreamerApi(
   def deletePicture(s: Streamer): Funit =
     coll.update.one($id(s.id), $unset("picturePath")).void
 
-
   object approval {
 
     def request(user: User) =

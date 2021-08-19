@@ -1,7 +1,7 @@
 package lila.socket
 
 import shogi.format.Uci
-import shogi.{ Pos, Hands, Hand, Role }
+import shogi.{ Hand, Hands, Pos, Role }
 import shogi.variant.Standard
 
 import play.api.libs.json._
@@ -34,8 +34,8 @@ object Step {
   implicit val crazyhousePocketWriter: OWrites[Hand] = OWrites { h =>
     JsObject(
       h.roleMap.filter(kv => 0 < kv._2).map { kv =>
-          kv._1.name -> JsNumber(kv._2)
-        }
+        kv._1.name -> JsNumber(kv._2)
+      }
     )
   }
 

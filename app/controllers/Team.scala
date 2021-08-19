@@ -161,7 +161,9 @@ final class Team(
     AuthBody { implicit ctx => me =>
       WithOwnedTeam(id) { team =>
         implicit val req = ctx.body
-        forms.leaders(team).bindFromRequest().value ?? { api.setLeaders(team, _, me, isGranted(_.ManageTeam)) } inject Redirect(
+        forms.leaders(team).bindFromRequest().value ?? {
+          api.setLeaders(team, _, me, isGranted(_.ManageTeam))
+        } inject Redirect(
           routes.Team.show(team.id)
         ).flashSuccess
       }

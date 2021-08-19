@@ -273,9 +273,9 @@ final class JsonView(
         .add("berserk" -> p.berserk)
     }
     Json.obj(
-      "id"      -> game.id,
-      "fen"     -> (shogi.format.Forsyth exportSituation game.situation),
-      "color"   -> game.firstColor.name,
+      "id"       -> game.id,
+      "fen"      -> (shogi.format.Forsyth exportSituation game.situation),
+      "color"    -> game.firstColor.name,
       "lastMove" -> ~game.lastMoveKeys,
       "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
       "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)

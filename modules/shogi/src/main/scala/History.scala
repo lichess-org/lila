@@ -26,7 +26,7 @@ case class CheckCount(sente: Int = 0, gote: Int = 0) {
 case class History(
     lastMove: Option[Uci] = None,
     positionHashes: PositionHash = Array.empty,
-    checkCount: CheckCount = CheckCount(0, 0),
+    checkCount: CheckCount = CheckCount(0, 0)
 ) {
 
   private def isRepetition(times: Int) =
@@ -61,7 +61,7 @@ case class History(
 object History {
 
   def make(
-      lastMove: Option[String], // a2a4
+      lastMove: Option[String] // a2a4
   ): History =
     History(
       lastMove = lastMove flatMap Uci.apply,

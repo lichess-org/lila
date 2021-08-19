@@ -7,7 +7,6 @@ import scala.util.parsing.combinator._
 import scalaz.Validation.FlatMap._
 import scalaz.Validation.{ success => succezz }
 
-
 // We are keeping the original interface of the parser
 // Instead of being strict with what is a valid kif
 // we are gonna try to be rather benevolent.
@@ -19,36 +18,35 @@ import scalaz.Validation.{ success => succezz }
 object KifParser extends scalaz.syntax.ToTraverseOps {
 
   // Helper strings for regex, so we don't have to repeat ourselves that much
-  val colorsS = """▲|△|☗|☖"""
-  val numbersS = """[1-9１-９一二三四五六七八九十百][0-9０-９一二三四五六七八九十百]*"""
-  val positionS = """[1-9１-９一二三四五六七八九][1-9a-i１-９一二三四五六七八九]|同"""
-  val piecesJPS = """玉|王|飛|龍|角|馬|金|銀|成銀|桂|成桂|香|成香|歩|と|竜|全|圭|今|杏|仝|个"""
-  val handPiecesJPS = """飛|角|金|銀|桂|香|歩"""
-  val piecesENGS = """K|R|\+R|B|\+B|G|S|\+G|N|\+N|L|\+L|P|\+P"""
+  val colorsS        = """▲|△|☗|☖"""
+  val numbersS       = """[1-9１-９一二三四五六七八九十百][0-9０-９一二三四五六七八九十百]*"""
+  val positionS      = """[1-9１-９一二三四五六七八九][1-9a-i１-９一二三四五六七八九]|同"""
+  val piecesJPS      = """玉|王|飛|龍|角|馬|金|銀|成銀|桂|成桂|香|成香|歩|と|竜|全|圭|今|杏|仝|个"""
+  val handPiecesJPS  = """飛|角|金|銀|桂|香|歩"""
+  val piecesENGS     = """K|R|\+R|B|\+B|G|S|\+G|N|\+N|L|\+L|P|\+P"""
   val handPiecesENGS = """R|B|G|S|N|L|P"""
-  val promotionS = """不成|成|\+"""
-  val dropS = """打"""
-  val parsS = """\(|（|\)|）"""
-
+  val promotionS     = """不成|成|\+"""
+  val dropS          = """打"""
+  val parsS          = """\(|（|\)|）"""
 
   val moveOrDropRegex =
     raw"""(${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(((${promotionS})?(${parsS})?(${positionS})(${parsS})?)|(${dropS}))""".r
 
   val moveOrDropLineRegex =
-    raw"""(${numbersS}[\s\.。]{1,})?(${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(((${promotionS})?(${parsS})?${positionS}(${parsS})?)|${dropS})""".r.unanchored  
+    raw"""(${numbersS}[\s\.。]{1,})?(${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(((${promotionS})?(${parsS})?${positionS}(${parsS})?)|${dropS})""".r.unanchored
 
   case class StrMove(
-    turnNumber: Option[Int],
-    san: String,
-    comments: List[String],
-    timeSpend: Option[Centis] = None,
-    timeTotal: Option[Centis] = None
+      turnNumber: Option[Int],
+      san: String,
+      comments: List[String],
+      timeSpend: Option[Centis] = None,
+      timeTotal: Option[Centis] = None
   )
 
   case class StrVariation(
-    variationStart: Int,
-    moves: List[StrMove],
-    variations: List[StrVariation]
+      variationStart: Int,
+      moves: List[StrMove],
+      variations: List[StrVariation]
   )
 
   def full(kif: String): Valid[ParsedPgn] =
@@ -64,27 +62,30 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       for {
         splitted <- splitHeaderAndRest(preprocessed)
         headerStr = splitted._1
-        restStr = splitted._2
+        restStr   = splitted._2
         splitted2 <- splitMovesAndVariations(restStr)
-        movesStr = splitted2._1
+        movesStr     = splitted2._1
         variationStr = splitted2._2
         splitted3 <- splitMetaAndBoard(headerStr)
-        metaStr = splitted3._1
+        metaStr  = splitted3._1
         boardStr = splitted3._2
         preTags     <- TagParser(metaStr)
         parsedMoves <- MovesParser(movesStr)
-        init         = parsedMoves._1
-        strMoves     = parsedMoves._2
+        init              = parsedMoves._1
+        strMoves          = parsedMoves._2
         terminationOption = parsedMoves._3
         parsedVariations <- VariationParser(variationStr)
-        variations = createVariations(parsedVariations)
-        boardOption = KifUtils readBoard(boardStr) orElse preTags(_.Handicap).flatMap(KifUtils handicapToFen _)
-        termTags = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
-        boardTags = boardOption.filterNot(_ => termTags.exists(_.FEN)).foldLeft(termTags)(_ + _)
-        tags = KifUtils.createResult(
+        variations  = createVariations(parsedVariations)
+        boardOption = KifUtils readBoard boardStr orElse preTags(_.Handicap).flatMap(KifUtils handicapToFen _)
+        termTags    = terminationOption.filterNot(_ => preTags.exists(_.Termination)).foldLeft(preTags)(_ + _)
+        boardTags   = boardOption.filterNot(_ => termTags.exists(_.FEN)).foldLeft(termTags)(_ + _)
+        tags = KifUtils
+          .createResult(
             boardTags,
-            Color((strMoves.size + {if(boardOption.fold(false)(_.value contains " w")) 1 else 0}) % 2 == 0)
-        ).filterNot(_ => preTags.exists(_.Result)).foldLeft(boardTags)(_ + _)
+            Color((strMoves.size + { if (boardOption.fold(false)(_.value contains " w")) 1 else 0 }) % 2 == 0)
+          )
+          .filterNot(_ => preTags.exists(_.Result))
+          .foldLeft(boardTags)(_ + _)
         sans <- objMoves(strMoves, tags.variant | Variant.default, variations)
       } yield ParsedPgn(init, tags, sans)
     } catch {
@@ -93,49 +94,61 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         sys error "### StackOverflowError ### in KIF parser"
     }
 
-  def objMoves(strMoves: List[StrMove], variant: Variant, variations: List[StrVariation], startDest: Option[Pos] = None, startNum: Int = 1): Valid[Sans] = {
-      var lastDest: Option[Pos] = startDest
-      var bMoveNumber = startNum
-      var res: List[Valid[San]] = List()
+  def objMoves(
+      strMoves: List[StrMove],
+      variant: Variant,
+      variations: List[StrVariation],
+      startDest: Option[Pos] = None,
+      startNum: Int = 1
+  ): Valid[Sans] = {
+    var lastDest: Option[Pos] = startDest
+    var bMoveNumber           = startNum
+    var res: List[Valid[San]] = List()
 
-      for(StrMove(moveNumber, san, comments, timeSpent, timeTotal) <- strMoves) {
-        val move: Valid[San] = MoveParser(san, lastDest, variant) map { m => 
-          m withComments comments withVariations {
-            variations.filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
-              .map { v =>
-                objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | Sans.empty
-              }
-              .filter(_.value.nonEmpty)
-          } withTimeSpent timeSpent withTimeTotal timeTotal
-        }
-        move map { m: San =>
-            lastDest = m.getDest.some
-        }
-        bMoveNumber += 1
-        res = move :: res
+    for (StrMove(moveNumber, san, comments, timeSpent, timeTotal) <- strMoves) {
+      val move: Valid[San] = MoveParser(san, lastDest, variant) map { m =>
+        m withComments comments withVariations {
+          variations
+            .filter(_.variationStart == moveNumber.getOrElse(bMoveNumber))
+            .map { v =>
+              objMoves(v.moves, variant, v.variations, lastDest, bMoveNumber + 1) | Sans.empty
+            }
+            .filter(_.value.nonEmpty)
+        } withTimeSpent timeSpent withTimeTotal timeTotal
       }
-      res.reverse.sequence map Sans.apply
+      move map { m: San =>
+        lastDest = m.getDest.some
+      }
+      bMoveNumber += 1
+      res = move :: res
+    }
+    res.reverse.sequence map Sans.apply
   }
 
   def createVariations(vs: List[StrVariation]): List[StrVariation] = {
     def getChildren(parent: StrVariation, rest: List[StrVariation]): StrVariation = {
-        val ch = rest.takeWhile(_.variationStart > parent.variationStart)
-            .zipWithIndex.foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
-            if(acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
-            else o :: acc
-        }.reverse
-        val res = ch.map { case (k, i) =>
-            getChildren(k, rest.drop(i + 1))
+      val ch = rest
+        .takeWhile(_.variationStart > parent.variationStart)
+        .zipWithIndex
+        .foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
+          if (acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
+          else o :: acc
         }
-        StrVariation(parent.variationStart, parent.moves, res)
+        .reverse
+      val res = ch.map { case (k, i) =>
+        getChildren(k, rest.drop(i + 1))
+      }
+      StrVariation(parent.variationStart, parent.moves, res)
     }
-    val ch = vs.zipWithIndex.foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
-        if(acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
+    val ch = vs.zipWithIndex
+      .foldLeft(List[(StrVariation, Int)]()) { case (acc, o) =>
+        if (acc.headOption.fold(false)(_._1.variationStart < o._1.variationStart)) acc
         else o :: acc
-    }.reverse
+      }
+      .reverse
 
-    ch.map { case(k, i) =>
-        getChildren(k, vs.drop(i + 1))
+    ch.map { case (k, i) =>
+      getChildren(k, vs.drop(i + 1))
     }
   }
 
@@ -146,25 +159,25 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
     override val whiteSpace = """(\s|\t|\r?\n)+""".r
 
     def apply(kifVariations: String): Valid[List[StrVariation]] = {
-        parseAll(variations, kifVariations.trim) match {
-            case Success(vars, _) => succezz(vars)
-            case _ => "Cannot parse variations, man".failureNel
-        }
+      parseAll(variations, kifVariations.trim) match {
+        case Success(vars, _) => succezz(vars)
+        case _                => "Cannot parse variations, man".failureNel
+      }
     }
 
     def variations: Parser[List[StrVariation]] = rep(variation)
-        
+
     def variation: Parser[StrVariation] =
-        as("variation") {
-            header ~ rep(move) ^^ { case h ~ m =>
-                StrVariation(h, m, Nil)
-            }
+      as("variation") {
+        header ~ rep(move) ^^ { case h ~ m =>
+          StrVariation(h, m, Nil)
         }
+      }
 
     def header: Parser[Int] =
-        """.+""".r ^^ { case num =>
-            (raw"""${numbersS}""".r findFirstIn num).map(KifUtils.kanjiToInt _).getOrElse(0)
-        }
+      """.+""".r ^^ { case num =>
+        (raw"""${numbersS}""".r findFirstIn num).map(KifUtils.kanjiToInt _).getOrElse(0)
+      }
 
     // todo - don't repeat this just use MovesParser
     def move: Parser[StrMove] =
@@ -177,13 +190,13 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
 
     def number: Parser[Int] = raw"""${numbersS}[\s\.。]{1,}""".r ^^ { case n =>
-      KifUtils.kanjiToInt(n.filterNot(c => (c=='.' || c=='。')).trim)
+      KifUtils.kanjiToInt(n.filterNot(c => (c == '.' || c == '。')).trim)
     }
 
     def clock: Parser[String] =
-     as("clock") {
-      """[\(（][0-9０-９\/\s:／]{1,}[\)）]\+?""".r
-     }
+      as("clock") {
+        """[\(（][0-9０-９\/\s:／]{1,}[\)）]\+?""".r
+      }
 
     def moveExtras: Parser[Unit] =
       as("moveExtras") {
@@ -194,9 +207,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       as("commentary") {
         """\*|＊""".r ~> """.+""".r
       }
-    
-  }
 
+  }
 
   trait Logging { self: Parsers =>
     protected val loggingEnabled = false
@@ -241,10 +253,10 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
 
     def number: Parser[Int] = raw"""${numbersS}[\s\.。]{1,}""".r ^^ { case n =>
-      KifUtils.kanjiToInt(n.filterNot(c => (c=='.' || c=='。')).trim)
+      KifUtils.kanjiToInt(n.filterNot(c => (c == '.' || c == '。')).trim)
     }
 
-    private val clockMinuteSecondRegex    = """(\d++):(\d+(?:\.\d+)?)""".r
+    private val clockMinuteSecondRegex     = """(\d++):(\d+(?:\.\d+)?)""".r
     private val clockHourMinuteSecondRegex = """(\d++):(\d++)[:\.](\d+(?:\.\d+)?)""".r
 
     private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] =
@@ -252,27 +264,27 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         h <- hours.toIntOption
         m <- minutes.toIntOption
         cs <- seconds.toDoubleOption match {
-            case Some(s) => Some(BigDecimal(s * 100).setScale(0, BigDecimal.RoundingMode.HALF_UP).toInt)
-            case _       => none
+          case Some(s) => Some(BigDecimal(s * 100).setScale(0, BigDecimal.RoundingMode.HALF_UP).toInt)
+          case _       => none
         }
       } yield Centis(h * 360000 + m * 6000 + cs)
 
     private def parseClock(str: String): Option[Centis] = {
-        str match {
-            case clockMinuteSecondRegex(minutes, seconds)                => readCentis("0", minutes, seconds)
-            case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
-            case _ => None
-        }
+      str match {
+        case clockMinuteSecondRegex(minutes, seconds)            => readCentis("0", minutes, seconds)
+        case clockHourMinuteSecondRegex(hours, minutes, seconds) => readCentis(hours, minutes, seconds)
+        case _                                                   => None
+      }
     }
 
     def clock: Parser[(Option[Centis], Option[Centis])] =
-     as("clock") {
-      """[\(（]\s*""".r ~>
-        clockMinuteSecondRegex ~ opt("/") ~ opt(clockHourMinuteSecondRegex) <~
-      """\s*[\)）]\+?""".r ^^ { case spent ~ _ ~ total =>
+      as("clock") {
+        """[\(（]\s*""".r ~>
+          clockMinuteSecondRegex ~ opt("/") ~ opt(clockHourMinuteSecondRegex) <~
+          """\s*[\)）]\+?""".r ^^ { case spent ~ _ ~ total =>
             (parseClock(spent), total.flatMap(parseClock(_)))
-        }
-     }
+          }
+      }
 
     def moveExtras: Parser[Unit] =
       as("moveExtras") {
@@ -286,9 +298,9 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
     def termination: Parser[String] =
       as("termination") {
-          opt(number) ~ termValue ~ opt(clock) ^^ { case _ ~ term ~ _ =>
-            term
-          }
+        opt(number) ~ termValue ~ opt(clock) ^^ { case _ ~ term ~ _ =>
+          term
+        }
       }
 
     val termValue: Parser[String] = "中断" | "投了" | "持将棋" | "千日手" | "詰み" | "切れ負け" | "反則勝ち" | "入玉勝ち" | "Time-up"
@@ -296,7 +308,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   object MoveParser extends RegexParsers with Logging {
 
-    val MoveRegex = raw"""(?:${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(${promotionS})?(?:(?:${parsS})?(${positionS})(?:${parsS})?)?""".r
+    val MoveRegex =
+      raw"""(?:${colorsS})?(${positionS})\s?(${piecesJPS}|${piecesENGS})(${promotionS})?(?:(?:${parsS})?(${positionS})(?:${parsS})?)?""".r
     val DropRegex = raw"""(?:${colorsS})?(${positionS})\s?(${handPiecesJPS}|${handPiecesENGS})${dropS}""".r
 
     override def skipWhitespace = false
@@ -305,8 +318,8 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       str.map(KifUtils toDigit _) match {
         case MoveRegex(pos, role, prom, orig) => {
           (variant.rolesByEverything get role) flatMap { role =>
-            (if(pos == "同")lastDest else(allDests get pos)) map { dest =>
-                succezz(
+            (if (pos == "同") lastDest else (allDests get pos)) map { dest =>
+              succezz(
                 Std(
                   dest = dest,
                   role = role,
@@ -351,7 +364,7 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
       }
     }
 
-    val allDests = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y)) -> v}
+    val allDests = Pos.allKeys map { case (_, v) => ((10 - v.x).toString + (10 - v.y)) -> v }
   }
 
   object TagParser extends RegexParsers with Logging {
@@ -368,25 +381,24 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
         rep(tag) <~ """(.|\n)*""".r
       }
 
-
-    def tag: Parser[Tag] = 
-        """.+(:).*""".r ^^ { case line =>
-            val s = line.split(":").map(_.trim).toList
-            Tag(normalizeTags(s.head), s.lift(1).getOrElse(""))
-        }
+    def tag: Parser[Tag] =
+      """.+(:).*""".r ^^ { case line =>
+        val s = line.split(":").map(_.trim).toList
+        Tag(normalizeTags(s.head), s.lift(1).getOrElse(""))
+      }
 
     def normalizeTags(str: String): String = {
-        str match {
-            case "棋戦" => Tag.Event.lowercase
-            case "場所" => Tag.Site.lowercase
-            case "開始日時" => Tag.Date.lowercase
-            case "持ち時間" => Tag.TimeControl.lowercase
-            case "手合割" => Tag.Handicap.lowercase
-            case "先手" | "下手" => Tag.Sente.lowercase
-            case "後手" | "上手"  => Tag.Gote.lowercase
-            case "戦型" => Tag.Opening.lowercase
-            case _ => str
-        }
+      str match {
+        case "棋戦"        => Tag.Event.lowercase
+        case "場所"        => Tag.Site.lowercase
+        case "開始日時"      => Tag.Date.lowercase
+        case "持ち時間"      => Tag.TimeControl.lowercase
+        case "手合割"       => Tag.Handicap.lowercase
+        case "先手" | "下手" => Tag.Sente.lowercase
+        case "後手" | "上手" => Tag.Gote.lowercase
+        case "戦型"        => Tag.Opening.lowercase
+        case _           => str
+      }
     }
   }
 
@@ -399,14 +411,14 @@ object KifParser extends scalaz.syntax.ToTraverseOps {
 
   private def splitMovesAndVariations(kif: String): Valid[(String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) span { line =>
-        !line.startsWith("変化")
+      !line.startsWith("変化")
     } match {
-        case (moveLines, variantsLines) => succezz(moveLines.mkString("\n") -> variantsLines.mkString("\n"))
+      case (moveLines, variantsLines) => succezz(moveLines.mkString("\n") -> variantsLines.mkString("\n"))
     }
 
-    private def splitMetaAndBoard(kif: String): Valid[(String, String)] =
+  private def splitMetaAndBoard(kif: String): Valid[(String, String)] =
     augmentString(kif).linesIterator.to(List).map(_.trim).filter(_.nonEmpty) partition { line =>
-        (line contains ":") && !(line.tail startsWith "手の持駒")
+      (line contains ":") && !(line.tail startsWith "手の持駒")
     } match {
       case (metaLines, boardLines) => succezz(metaLines.mkString("\n") -> boardLines.mkString("\n"))
     }

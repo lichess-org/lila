@@ -1,6 +1,6 @@
 package lila.game
 
-import shogi.{ CheckCount, Clock, Color, Hands, Gote, Sente }
+import shogi.{ CheckCount, Clock, Color, Gote, Hands, Sente }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try

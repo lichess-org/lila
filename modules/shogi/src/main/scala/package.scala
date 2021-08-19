@@ -23,7 +23,7 @@ package object shogi
   type Directions = List[Direction]
 
   type PieceMap = Map[Pos, Piece]
-  type HandMap = Map[Role, Int]
+  type HandMap  = Map[Role, Int]
 
   type PositionHash = Array[Byte]
 

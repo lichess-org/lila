@@ -25,7 +25,7 @@ final class Analyser(
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
-      case true                       => fuFalse
+      case true => fuFalse
       case _ =>
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
@@ -43,10 +43,10 @@ final class Analyser(
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount("game").increment()
                     repo addAnalysis work
-                    //evalCache skipPositions work.game flatMap { skipPositions =>
-                    //  lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
-                    //  repo addAnalysis work.copy(skipPositions = skipPositions)
-                    //}
+                  //evalCache skipPositions work.game flatMap { skipPositions =>
+                  //  lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
+                  //  repo addAnalysis work.copy(skipPositions = skipPositions)
+                  //}
                 }
               }
             }

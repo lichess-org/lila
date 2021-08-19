@@ -12,7 +12,7 @@ case class Hands(sente: Hand, gote: Hand) {
         copy(gote = nh)
       }
     )
-  
+
   def store(piece: Piece) = {
     val unpromotedRole = Role.demotesTo(piece.role).getOrElse(piece.role)
     piece.color.fold(
@@ -33,7 +33,6 @@ case class Hands(sente: Hand, gote: Hand) {
   def impasseValueOf(c: Color) =
     c.fold(sente.impasseValue, gote.impasseValue)
 
-
   def exportHands: String = {
     val pocketStr = sente.exportHand.toUpperCase() + gote.exportHand.toLowerCase()
     if (pocketStr == "") "-"
@@ -53,11 +52,11 @@ case class Hand(roleMap: HandMap) {
     roleMap.getOrElse(role, 0)
 
   def take(role: Role) =
-    if(roleMap.getOrElse(role, 0) > 0) Some(copy(roleMap = roleMap + (role -> (roleMap(role) - 1))))
+    if (roleMap.getOrElse(role, 0) > 0) Some(copy(roleMap = roleMap + (role -> (roleMap(role) - 1))))
     else None
 
   def store(role: Role, cnt: Int = 1) =
-    if(Role.handRoles contains role) copy(roleMap = roleMap + (role -> (roleMap.getOrElse(role, 0) + cnt)))
+    if (Role.handRoles contains role) copy(roleMap = roleMap + (role -> (roleMap.getOrElse(role, 0) + cnt)))
     else this
 
   def exportHand: String =
@@ -69,7 +68,7 @@ case class Hand(roleMap: HandMap) {
     } mkString ""
 
   def size: Int =
-    roleMap.foldLeft(0)( (acc, kv) => acc + kv._2)
+    roleMap.foldLeft(0)((acc, kv) => acc + kv._2)
 
   def value: Int =
     roleMap.foldLeft(0) { (acc, kv) =>
@@ -84,6 +83,7 @@ case class Hand(roleMap: HandMap) {
 }
 
 object Hand {
-  val initMap: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 0)
+  val initMap: HandMap =
+    Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 0)
   val init = Hand(initMap)
 }

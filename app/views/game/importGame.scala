@@ -46,7 +46,7 @@ object importGame {
                 )
             }
           ),
-          div(cls := "import right") (
+          div(cls := "import right")(
             form3.group(form("kifFile"), raw("Or upload a KIF file"), klass = "upload") { f =>
               form3.file.kif(f.name)
             },

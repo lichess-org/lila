@@ -100,8 +100,8 @@ class ForsythTest extends ShogiTest {
         }
       }
       "sente to play" in {
-        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 11" must beSome.like {
-          case s => s.turns must_== 10
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 11" must beSome.like { case s =>
+          s.turns must_== 10
         }
       }
       "gote to play" in {
@@ -117,8 +117,10 @@ class ForsythTest extends ShogiTest {
         val h = f.readHands("-")
         h must_== Hands.init
         val h2 = f.readHands("10p25P")
-        val sente: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 25)
-        val gote: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 10)
+        val sente: HandMap =
+          Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 25)
+        val gote: HandMap =
+          Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 10)
         h2 must_== Hands(Hand(sente), Hand(gote))
       }
       "empty hand" in {
@@ -129,33 +131,41 @@ class ForsythTest extends ShogiTest {
         }
       }
       "simple hand" in {
-        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b PNr 1" must beSome.like {
-          case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
-                val sente: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 1, Lance -> 0, Pawn -> 1)
-                val gote: HandMap = Map(Rook -> 1, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 0)
-                d must_== Hands(Hand(sente), Hand(gote))
-              }
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b PNr 1" must beSome.like { case s =>
+          s.situation.board.crazyData must beSome.like {
+            case d => {
+              val sente: HandMap =
+                Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 1, Lance -> 0, Pawn -> 1)
+              val gote: HandMap =
+                Map(Rook -> 1, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 0)
+              d must_== Hands(Hand(sente), Hand(gote))
             }
+          }
         }
       }
       "hand with numbers" in {
-        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 15P3Nr2LB7R3s230gG12pl 1" must beSome.like {
-          case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
-                val sente: HandMap = Map(Rook -> 7, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 3, Lance -> 2, Pawn -> 15)
-                val gote: HandMap = Map(Rook -> 1, Bishop -> 0, Gold -> 81, Silver -> 3, Knight -> 0, Lance -> 1, Pawn -> 12)
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 15P3Nr2LB7R3s230gG12pl 1" must beSome
+          .like { case s =>
+            s.situation.board.crazyData must beSome.like {
+              case d => {
+                val sente: HandMap =
+                  Map(Rook -> 7, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 3, Lance -> 2, Pawn -> 15)
+                val gote: HandMap =
+                  Map(Rook -> 1, Bishop -> 0, Gold -> 81, Silver -> 3, Knight -> 0, Lance -> 1, Pawn -> 12)
                 d must_== Hands(Hand(sente), Hand(gote))
               }
             }
-        }
+          }
       }
       "hand repeating" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b ppBG15ppppP 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
-                val sente: HandMap = Map(Rook -> 0, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 1)
-                val gote: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 20)
+            s.situation.board.crazyData must beSome.like {
+              case d => {
+                val sente: HandMap =
+                  Map(Rook -> 0, Bishop -> 1, Gold -> 1, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 1)
+                val gote: HandMap =
+                  Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 20)
                 d must_== Hands(Hand(sente), Hand(gote))
               }
             }
@@ -164,27 +174,31 @@ class ForsythTest extends ShogiTest {
       "invalid roles" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b T13k10t 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
+            s.situation.board.crazyData must beSome.like {
+              case d => {
                 d must_== Hands.init
               }
             }
         }
       }
       "open number" in {
-        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1" must beSome.like {
-          case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
-                d must_== Hands.init
-              }
+        f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 120 1" must beSome.like { case s =>
+          s.situation.board.crazyData must beSome.like {
+            case d => {
+              d must_== Hands.init
             }
+          }
         }
       }
       "read till correct, ignore wrong input" in {
         f <<< "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b 3P2ljk 1" must beSome.like {
           case s =>
-            s.situation.board.crazyData must beSome.like { case d => {
-                val sente: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 3)
-                val gote: HandMap = Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 2, Pawn -> 0)
+            s.situation.board.crazyData must beSome.like {
+              case d => {
+                val sente: HandMap =
+                  Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 0, Pawn -> 3)
+                val gote: HandMap =
+                  Map(Rook -> 0, Bishop -> 0, Gold -> 0, Silver -> 0, Knight -> 0, Lance -> 2, Pawn -> 0)
                 d must_== Hands(Hand(sente), Hand(gote))
               }
             }

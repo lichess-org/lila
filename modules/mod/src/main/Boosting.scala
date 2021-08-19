@@ -18,7 +18,7 @@ final class BoostingApi(
   implicit private val boostingRecordBSONHandler = Macros.handler[BoostingRecord]
 
   private val variants = Set[variant.Variant](
-    variant.Standard,
+    variant.Standard
     //variant.MiniShogi,
   )
 

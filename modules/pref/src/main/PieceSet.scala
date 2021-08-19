@@ -49,7 +49,7 @@ object PieceSet extends PieceSetObject {
     "simple_kanji",
     "doubutsu",
     "Logy_Games",
-    "western",
+    "western"
   ) map { name =>
     new PieceSet(name)
   }

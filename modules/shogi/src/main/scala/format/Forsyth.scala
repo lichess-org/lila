@@ -88,19 +88,18 @@ object Forsyth {
 
   def readHands(sfenHand: String): Hands = {
     var curCnt = 0
-    var total = 1
-    var sente = Hand.init
-    var gote = Hand.init
+    var total  = 1
+    var sente  = Hand.init
+    var gote   = Hand.init
     sfenHand foreach { p =>
-      if('0' <= p && p <= '9'){
+      if ('0' <= p && p <= '9') {
         curCnt = curCnt * 10 + (p - '0').toInt
         total = curCnt
-      }
-      else {
+      } else {
         Role.forsyth(p.toLower).map { role =>
-          if(Role.handRoles.contains(role)) {
+          if (Role.handRoles.contains(role)) {
             val toStore = Math.min(total, 81)
-            if(p.isUpper) sente = sente.store(role, toStore)
+            if (p.isUpper) sente = sente.store(role, toStore)
             else gote = gote.store(role, toStore)
           }
         }

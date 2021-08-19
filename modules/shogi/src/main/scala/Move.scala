@@ -29,7 +29,7 @@ case class Move(
       capture flatMap before.apply,
       !situationBefore.color
     )
-    
+
     board updateHistory { h =>
       // Update position hashes last, only after updating the board,
       h.copy(positionHashes = Hash(Situation(board, !piece.color)) ++ h.positionHashes)

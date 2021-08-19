@@ -17,41 +17,41 @@ final case class Actor(
   def trustedMoves(): List[Move] = {
     val moves = piece.role match {
       case Pawn if piece.color == Sente => shortRange(Pawn.dirs)
-      case Pawn => shortRange(Pawn.dirsOpposite)
+      case Pawn                         => shortRange(Pawn.dirsOpposite)
 
       case Lance if piece.color == Sente => longRange(Lance.dirs)
-      case Lance => longRange(Lance.dirsOpposite)
+      case Lance                         => longRange(Lance.dirsOpposite)
 
       case Gold if piece.color == Sente => shortRange(Gold.dirs)
-      case Gold => shortRange(Gold.dirsOpposite)
+      case Gold                         => shortRange(Gold.dirsOpposite)
 
       case Silver if piece.color == Sente => shortRange(Silver.dirs)
-      case Silver => shortRange(Silver.dirsOpposite)
+      case Silver                         => shortRange(Silver.dirsOpposite)
 
       case Bishop => longRange(Bishop.dirs)
 
       case Rook => longRange(Rook.dirs)
 
       case Knight if piece.color == Sente => shortRange(Knight.dirs)
-      case Knight => shortRange(Knight.dirsOpposite)
+      case Knight                         => shortRange(Knight.dirsOpposite)
 
       case Tokin if piece.color == Sente => shortRange(Tokin.dirs)
-      case Tokin => shortRange(Tokin.dirsOpposite)
+      case Tokin                         => shortRange(Tokin.dirsOpposite)
 
       case PromotedSilver if piece.color == Sente => shortRange(PromotedSilver.dirs)
-      case PromotedSilver => shortRange(PromotedSilver.dirsOpposite)
+      case PromotedSilver                         => shortRange(PromotedSilver.dirsOpposite)
 
       case PromotedLance if piece.color == Sente => shortRange(PromotedLance.dirs)
-      case PromotedLance => shortRange(PromotedLance.dirsOpposite)
+      case PromotedLance                         => shortRange(PromotedLance.dirsOpposite)
 
       case PromotedKnight if piece.color == Sente => shortRange(PromotedKnight.dirs)
-      case PromotedKnight => shortRange(PromotedKnight.dirsOpposite)
+      case PromotedKnight                         => shortRange(PromotedKnight.dirsOpposite)
 
-      case Horse              => longRange(Horse.dirs) ::: shortRange(King.dirs)
+      case Horse => longRange(Horse.dirs) ::: shortRange(King.dirs)
 
-      case Dragon             => longRange(Dragon.dirs) ::: shortRange(King.dirs)
+      case Dragon => longRange(Dragon.dirs) ::: shortRange(King.dirs)
 
-      case King               => shortRange(King.dirs)
+      case King => shortRange(King.dirs)
     }
     def maybePromote(m: Move): Option[Move] =
       if (
@@ -142,7 +142,7 @@ final case class Actor(
       dest: Pos,
       after: Board,
       capture: Option[Pos] = None,
-      promotion: Boolean = false,
+      promotion: Boolean = false
   ) =
     Move(
       piece = piece,
@@ -151,7 +151,7 @@ final case class Actor(
       situationBefore = Situation(board, piece.color),
       after = after,
       capture = capture,
-      promotion = promotion,
+      promotion = promotion
     )
 }
 

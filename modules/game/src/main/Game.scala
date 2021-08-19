@@ -238,11 +238,13 @@ case class Game(
       updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
     }
 
-    val events = List(moveOrDrop.fold(
-      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ))
-    
+    val events = List(
+      moveOrDrop.fold(
+        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
+        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+      )
+    )
+
     Progress(this, updated, events)
   }
 
@@ -542,7 +544,8 @@ case class Game(
         case Blitz       => 21
         case Rapid       => 25
         case _           => 30
-      } else
+      }
+      else
         speed match {
           case UltraBullet => 15
           case Bullet      => 20
@@ -812,7 +815,6 @@ object Game {
     val analysed          = "an"
     val variant           = "v"
     val crazyData         = "hs"
-    //val hands             = "chd"
     val bookmarks         = "bm"
     val createdAt         = "ca"
     val movedAt           = "ua" // ua = updatedAt (bc)

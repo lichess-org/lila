@@ -93,7 +93,7 @@ final class UciToPgnTest extends Specification {
       )
 
       val pgn =
-      "Pc4 Re8 Rd2 Pe6 Gd1e2 Kd8 Kf2 Kc8 Kg2 Kb8 Kh2 Sc8 Sg2 Pg6 Pd4 Sf8 Pg4 Pe5 Ng3 Pf6 Sc2 Pe4 Gf1f2 Pxe3+ Ge2xe3 Pa6 Pa4 Ph6 Ph4"
+        "Pc4 Re8 Rd2 Pe6 Gd1e2 Kd8 Kf2 Kc8 Kg2 Kb8 Kh2 Sc8 Sg2 Pg6 Pd4 Sf8 Pg4 Pe5 Ng3 Pf6 Sc2 Pe4 Gf1f2 Pxe3+ Ge2xe3 Pa6 Pa4 Ph6 Ph4"
       val rep = Replay(pgn.split(' ').toList, None, shogi.variant.Standard).map(evenIncomplete).toOption.get
       UciToPgn(rep, uciAnalysis) match {
         case (_, errs) => errs must beEmpty

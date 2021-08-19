@@ -88,7 +88,6 @@ object bits extends Context.ToLang {
         )
     }
 
-
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.value)(

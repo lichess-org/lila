@@ -69,7 +69,9 @@ final class FishnetApi(
           } ++ {
             slow ?? $doc("sender.system" -> true)
           } ++ {
-            !client.isNNUE ?? repo.selectVariant(client.getVariants.map(_.id)) // only variants client supports, all for NNUE
+            !client.isNNUE ?? repo.selectVariant(
+              client.getVariants.map(_.id)
+            ) // only variants client supports, all for NNUE
           }
         )
         .sort(

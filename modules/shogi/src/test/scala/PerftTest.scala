@@ -7,26 +7,33 @@ class PerftTest extends ShogiTest {
   // todo - add drop moves
   def perft(game: Game, depth: Int): Int = {
     if (depth > 0)
-      game.situation.moves.values.flatten.foldLeft(0)((p, move) =>
-        p + perft(game.apply(move), depth - 1)
-      )
+      game.situation.moves.values.flatten.foldLeft(0)((p, move) => p + perft(game.apply(move), depth - 1))
     else 1
   }
 
   "starting position" should {
     "1 depth" in {
       val game =
-        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+        Game(
+          Some(shogi.variant.Standard),
+          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+        )
       perft(game, 1) must be equalTo 30
     }
     "2 depth" in {
       val game =
-        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+        Game(
+          Some(shogi.variant.Standard),
+          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+        )
       perft(game, 2) must be equalTo 900
     }
     "3 depth" in {
       val game =
-        Game(Some(shogi.variant.Standard), Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1"))
+        Game(
+          Some(shogi.variant.Standard),
+          Some("lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1")
+        )
       perft(game, 3) must be equalTo 25470
     }
   }

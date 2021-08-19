@@ -20,7 +20,7 @@ object UciDump {
 
   def move(variant: Variant)(mod: MoveOrDrop): String =
     mod match {
-      case Left(m) => m.toUci.uci
+      case Left(m)  => m.toUci.uci
       case Right(d) => d.toUci.uci
     }
 }

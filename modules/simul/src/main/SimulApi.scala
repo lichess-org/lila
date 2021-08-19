@@ -213,12 +213,12 @@ final class SimulApi(
       clock      = simul.clock.chessClockOf(hostColor)
       perfPicker = lila.game.PerfPicker.mainOrDefault(shogi.Speed(clock.config), pairing.player.variant, none)
       g = shogi.Game(
-            variantOption = Some {
-              if (simul.position.isEmpty) pairing.player.variant
-              else shogi.variant.FromPosition
-            },
-            fen = simul.position.map(_.fen)
-          )
+        variantOption = Some {
+          if (simul.position.isEmpty) pairing.player.variant
+          else shogi.variant.FromPosition
+        },
+        fen = simul.position.map(_.fen)
+      )
       game1 = Game.make(
         shogi = g.copy(clock = clock.start.some, startedAtTurn = g.turns),
         sentePlayer = lila.game.Player.make(shogi.Sente, senteUser.some, perfPicker),

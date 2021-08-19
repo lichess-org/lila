@@ -24,7 +24,7 @@ object Uci extends scalaz.std.OptionInstances with scalaz.syntax.ToTraverseOps {
     def uci  = keys + promotionString
 
     def usiKeys = orig.usiKey + dest.usiKey
-    def usi = usiKeys + promotionString
+    def usi     = usiKeys + promotionString
 
     def keysPiotr = orig.piotrStr + dest.piotrStr
     def piotr     = keysPiotr + promotionString

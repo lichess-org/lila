@@ -54,7 +54,7 @@ case class Std(
 
   def apply(situation: Situation) = move(situation) map Left.apply
 
-  override def withSuffixes(s: Suffixes) = 
+  override def withSuffixes(s: Suffixes) =
     copy(
       metas = metas withSuffixes s,
       promotion = s.promotion

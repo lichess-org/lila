@@ -176,7 +176,9 @@ object Tag {
     Tag(
       TimeControl,
       clock.fold("-") { c =>
-        val init = if(c.limit.roundSeconds % 60 == 0) s"${c.limit.roundSeconds / 60}分" else s"${c.limit.roundSeconds}秒" 
+        val init =
+          if (c.limit.roundSeconds % 60 == 0) s"${c.limit.roundSeconds / 60}分"
+          else s"${c.limit.roundSeconds}秒"
         s"${init}|${c.byoyomi.roundSeconds}秒(${c.periods})+${c.increment.roundSeconds}秒"
       }
     )

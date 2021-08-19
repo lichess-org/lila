@@ -18,11 +18,11 @@ final class Page(
   val ads          = helpDocument("ads")
   val patron       = singleDocument("patron")
   val notSupported = singleDocument("404")
-  
+
   // Explanations use lang
-  val storm        = explanation("storm")
-  val impasse      = explanation("impasse")
-  val tsume        = explanation("tsume")
+  val storm   = explanation("storm")
+  val impasse = explanation("impasse")
+  val tsume   = explanation("tsume")
 
   private def helpBookmark(name: String) =
     Open { implicit ctx =>

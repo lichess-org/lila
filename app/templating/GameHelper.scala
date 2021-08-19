@@ -201,7 +201,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
       case S.Cheat => trans.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match {
-          case _                           => trans.variantEnding.txt()
+          case _ => trans.variantEnding.txt()
         }
       case _ => ""
     }

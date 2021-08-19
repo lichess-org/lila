@@ -56,7 +56,7 @@ class ParserTest extends ShogiTest {
 
     parser("Pe7+!") must beSuccess
     parser("Pe7=!") must beSuccess
-    
+
     parseMove("P*e4?!") must beSuccess.like { case a: Drop =>
       a.pos === Pos.E4
       a.role === Pawn

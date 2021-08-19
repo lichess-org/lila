@@ -1,6 +1,6 @@
 package lila.importer
 
-import shogi.format.pgn.{ ParsedPgn, KifParser, Reader, Tag, TagType, Tags }
+import shogi.format.pgn.{ KifParser, ParsedPgn, Reader, Tag, TagType, Tags }
 import shogi.format.{ FEN, Forsyth }
 import shogi.{ Color, Mode, Replay, Status }
 import play.api.data._
@@ -67,14 +67,14 @@ case class ImportData(kif: String, analyse: Option[String]) {
         } map Forsyth.>> map FEN.apply
 
         val status = parsed.tags(_.Termination).map(_.toLowerCase) match {
-          case Some("投了") | None => Status.Resign
-          case Some("詰み") => Status.Mate
-          case Some("中断") => Status.Aborted
-          case Some("持将棋") | Some("千日手")  => Status.Draw
-          case Some("入玉勝ち") => Status.Impasse27
+          case Some("投了") | None              => Status.Resign
+          case Some("詰み")                     => Status.Mate
+          case Some("中断")                     => Status.Aborted
+          case Some("持将棋") | Some("千日手")      => Status.Draw
+          case Some("入玉勝ち")                   => Status.Impasse27
           case Some("切れ負け") | Some("time-up") => Status.Outoftime
-          case Some("反則勝ち") | Some("反則負け") => Status.Cheat
-          case Some(_) => Status.UnknownFinish
+          case Some("反則勝ち") | Some("反則負け")    => Status.Cheat
+          case Some(_)                        => Status.UnknownFinish
         }
 
         val date = parsed.tags.anyDate
@@ -101,9 +101,9 @@ case class ImportData(kif: String, analyse: Option[String]) {
             case None =>
               parsed.tags.resultColor
                 .map {
-                  case Some(color) => TagResult(status, color.some)
+                  case Some(color)                            => TagResult(status, color.some)
                   case None if status == Status.UnknownFinish => TagResult(Status.Draw, none)
-                  case None => TagResult(status, none)
+                  case None                                   => TagResult(status, none)
                 }
                 .filter(_.status > Status.Started)
                 .fold(dbGame) { res =>

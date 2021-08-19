@@ -103,10 +103,10 @@ case class Board(
 
   def promote(pos: Pos): Option[Board] =
     for {
-      piece <- apply(pos)
+      piece        <- apply(pos)
       promotedRole <- Role.promotesTo(piece.role)
-      b2    <- take(pos)
-      b3    <- b2.place(Piece(piece.color, promotedRole), pos)
+      b2           <- take(pos)
+      b3           <- b2.place(Piece(piece.color, promotedRole), pos)
     } yield b3
 
   def withHistory(h: History): Board = copy(history = h)
@@ -134,15 +134,15 @@ case class Board(
 
   def enoughImpasseValue(c: Color): Boolean = {
     val rp = rolesInPromotionZoneOf(c)
-    val piecesValue = rp.foldLeft(0){(acc, r) => acc + Role.impasseValueOf(r)} +
+    val piecesValue = rp.foldLeft(0) { (acc, r) => acc + Role.impasseValueOf(r) } +
       crazyData.fold(0)(h => h.impasseValueOf(c))
     rp.size > 10 && piecesValue >= c.fold(28, 27)
   }
 
   def impasse(c: Color): Boolean =
     kingEntered(c) &&
-    !c.fold(checkSente, checkGote) &&
-    enoughImpasseValue(c)
+      !c.fold(checkSente, checkGote) &&
+      enoughImpasseValue(c)
 
   def tryRule(c: Color): Boolean =
     kingPosOf(c) == c.fold(posAt(5, 9), posAt(5, 1))

@@ -20,9 +20,9 @@ abstract class Variant private[variant] (
 
   def pieces: Map[Pos, Piece]
 
-  def standard      = this == Standard
-  def miniShogi     = this == MiniShogi
-  def fromPosition  = this == FromPosition
+  def standard     = this == Standard
+  def miniShogi    = this == MiniShogi
+  def fromPosition = this == FromPosition
 
   def exotic = !standard
 
@@ -134,7 +134,7 @@ abstract class Variant private[variant] (
       val hand = hands(situation.color)
       hand.size > 0 && possibleDrops(situation).fold(true) { squares =>
         squares.nonEmpty && {
-          squares.exists(s => hand.roleMap.exists((kv) => kv._2 > 0 && validPieceDrop(kv._1, s, situation)))
+          squares.exists(s => hand.roleMap.exists(kv => kv._2 > 0 && validPieceDrop(kv._1, s, situation)))
         }
       }
     }
@@ -166,7 +166,7 @@ abstract class Variant private[variant] (
 
   // Player wins or loses after their move
   def winner(situation: Situation): Option[Color] = {
-    val pawnDrop = situation.board.history.lastMove.fold(false){ l => l.uci(0) == 'P'}
+    val pawnDrop = situation.board.history.lastMove.fold(false) { l => l.uci(0) == 'P' }
     if (situation.checkMate && pawnDrop) Some(situation.color)
     else if (situation.checkMate) Some(!situation.color)
     else if (situation.staleMate) Some(!situation.color)
@@ -192,15 +192,16 @@ abstract class Variant private[variant] (
   /** Returns true if neither player can win. The game should end immediately.
     */
   def isInsufficientMaterial(board: Board) =
-    ((board.crazyData.fold(0){ _.size } + board.pieces.size) <= 2) &&
-    (board.pieces.forall{ p => p._2 is King })
+    ((board.crazyData.fold(0) { _.size } + board.pieces.size) <= 2) &&
+      board.pieces.forall { p => p._2 is King }
 
   /** Returns true if the other player cannot win. This is relevant when the
     * side to move times out or disconnects. Instead of losing on time,
     * the game should be drawn.
     */
   def opponentHasInsufficientMaterial(situation: Situation) =
-    ((situation.board.crazyData.fold(0){ hs => hs(!situation.color).size } + situation.board.piecesOf(!situation.color).size) <= 2)
+    (situation.board.crazyData
+      .fold(0) { hs => hs(!situation.color).size } + situation.board.piecesOf(!situation.color).size) <= 2
 
   // Some variants could have an extra effect on the board on a move
   def hasMoveEffects = false
@@ -237,10 +238,10 @@ abstract class Variant private[variant] (
   }
 
   protected def validSide(board: Board, strict: Boolean)(color: Color) = {
-    val roles = board rolesOf color
+    val roles     = board rolesOf color
     val pawnFiles = board occupiedPawnFiles color
     roles.size > 0 &&
-    (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 && roles.count(_ == King) == 1}) &&
+    (!strict || { roles.count(_ == Pawn) <= 9 && roles.size <= 40 && roles.count(_ == King) == 1 }) &&
     !unmovablePieces(board, color) && pawnFiles.distinct.size == pawnFiles.size && roles.count(_ == King) <= 1
   }
 
@@ -276,15 +277,13 @@ abstract class Variant private[variant] (
     .to(Map)
 
   lazy val rolesByFullForsyth: Map[String, Role] = roles
-    .map { r => 
+    .map { r =>
       (r.forsythFull.toUpperCase, r)
     }
     .to(Map)
 
   lazy val rolesByEverything: Map[String, Role] =
     Role.allByKif ++ rolesByFullForsyth
-  
-  
 
   override def toString = s"Variant($name)"
 
@@ -299,7 +298,7 @@ object Variant {
   val all = List(
     Standard,
     MiniShogi,
-    FromPosition,
+    FromPosition
   )
   val byId = all map { v =>
     (v.id, v)

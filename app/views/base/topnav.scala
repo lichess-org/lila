@@ -39,7 +39,7 @@ object topnav {
           a(href := routes.Puzzle.home)(trans.puzzles()),
           a(href := routes.Puzzle.dashboard(30, "home"))(trans.puzzle.puzzleDashboard()),
           a(href := routes.Puzzle.show("tsume"))(trans.puzzleTheme.tsume()),
-          a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm"),
+          a(cls := "new-feature")(href := routes.Storm.home)("Tsume Storm")
         )
       ),
       st.section(

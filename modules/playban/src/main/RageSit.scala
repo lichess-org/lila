@@ -30,9 +30,9 @@ object RageSit {
       {
         import shogi.variant._
         (game.shogi.board.materialImbalance, game.variant) match {
-          case (a, _) if a >= 4        => 1
-          case (a, _) if a <= -4       => -1
-          case _                       => 0
+          case (a, _) if a >= 4  => 1
+          case (a, _) if a <= -4 => -1
+          case _                 => 0
         }
       } * {
         if (loser.sente) 1 else -1

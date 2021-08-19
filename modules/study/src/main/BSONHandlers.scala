@@ -1,9 +1,9 @@
 package lila.study
 
 import shogi.format.pgn.{ Glyph, Glyphs, Tag, Tags }
-import shogi.format.{ FEN, Uci, UciCharPair, Forsyth }
+import shogi.format.{ FEN, Forsyth, Uci, UciCharPair }
 import shogi.variant.Variant
-import shogi.{ Centis, Piece, Hand, Hands, Pos, Role }
+import shogi.{ Centis, Hand, Hands, Piece, Pos, Role }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success

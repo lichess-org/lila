@@ -88,56 +88,56 @@ object KifUtils {
   )
 
   def toDigit(c: Char): Char = {
-        c match {
-            case '１' | '一' | 'a' =>
-                return '1'
-            case '２' | '二' | 'b' =>
-                return '2'
-            case '３' | '三' | 'c' =>
-                return '3'
-            case '４' | '四' | 'd' =>
-                return '4'
-            case '５' | '五' | 'e' =>
-                return '5'
-            case '６' | '六' | 'f' =>
-                return '6'
-            case '７' | '七' | 'g' =>
-                return '7'
-            case '８' | '八' | 'h' =>
-                return '8'
-            case '９' | '九' | 'i' =>
-                return '9'
-            case _ =>
-                return c
-        }
+    c match {
+      case '１' | '一' | 'a' =>
+        return '1'
+      case '２' | '二' | 'b' =>
+        return '2'
+      case '３' | '三' | 'c' =>
+        return '3'
+      case '４' | '四' | 'd' =>
+        return '4'
+      case '５' | '五' | 'e' =>
+        return '5'
+      case '６' | '六' | 'f' =>
+        return '6'
+      case '７' | '七' | 'g' =>
+        return '7'
+      case '８' | '八' | 'h' =>
+        return '8'
+      case '９' | '九' | 'i' =>
+        return '9'
+      case _ =>
+        return c
     }
+  }
 
   // supporting max 999
   def kanjiToInt(str: String): Int = {
     def orderHelper(ord: String): Int = {
-      if(ord == "") 1
-      else if(ord.contains('十')) 10 * orderHelper(ord.filterNot(_=='十'))
-      else if(ord.contains('百')) 100 * orderHelper(ord.filterNot(_=='百'))
+      if (ord == "") 1
+      else if (ord.contains('十')) 10 * orderHelper(ord.filterNot(_ == '十'))
+      else if (ord.contains('百')) 100 * orderHelper(ord.filterNot(_ == '百'))
       else parseIntOption(ord.map(toDigit _)).getOrElse(0)
     }
-    str.split("""(?<=(百|十))""").foldLeft(0){ (acc, cur) => 
+    str.split("""(?<=(百|十))""").foldLeft(0) { (acc, cur) =>
       acc + orderHelper(cur)
     }
   }
 
   // 後手の持駒:金四 銀二 香三 歩十三
   def readHands(str: String = ""): String = {
-      val values = str.split(":").lastOption.getOrElse("").trim
-      if(values == "なし" || values == "") return ""
-      var hand = Hand.init
-      for(p <- values.split(" ")) {
-          val role = p.headOption
-          val num = p.tail
-          Role.allByEverything.get(role.fold("")(_.toString)) map { r =>
-            hand = hand.store(r, KifUtils kanjiToInt num)
-          }
+    val values = str.split(":").lastOption.getOrElse("").trim
+    if (values == "なし" || values == "") return ""
+    var hand = Hand.init
+    for (p <- values.split(" ")) {
+      val role = p.headOption
+      val num  = p.tail
+      Role.allByEverything.get(role.fold("")(_.toString)) map { r =>
+        hand = hand.store(r, KifUtils kanjiToInt num)
       }
-      hand.exportHand
+    }
+    hand.exportHand
   }
 
   def handicapToFen(str: String): Option[Tag] = {
@@ -147,73 +147,65 @@ object KifUtils {
   }
 
   def readBoard(str: String): Option[Tag] = {
-      val lines = augmentString(str).linesIterator.to(List).map(_.trim)
-      val ranks = lines.map(_.trim).filter(l => (l lift 0 contains '|') && (l.length <= 42))
-      val senteHandStr =
-        lines.map(_.trim).filter(l => l.startsWith("先手の持駒:") || l.startsWith("下手の持駒:"))
-      val goteHandStr =
-        lines.map(_.trim).filter(l => l.startsWith("後手の持駒:") || l.startsWith("上手の持駒:"))
-      val goteBan = lines.map(_.trim).exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
+    val lines = augmentString(str).linesIterator.to(List).map(_.trim)
+    val ranks = lines.map(_.trim).filter(l => (l lift 0 contains '|') && (l.length <= 42))
+    val senteHandStr =
+      lines.map(_.trim).filter(l => l.startsWith("先手の持駒:") || l.startsWith("下手の持駒:"))
+    val goteHandStr =
+      lines.map(_.trim).filter(l => l.startsWith("後手の持駒:") || l.startsWith("上手の持駒:"))
+    val goteBan = lines.map(_.trim).exists(l => l.startsWith("後手番") || l.startsWith("上手番"))
 
-      if (ranks.length != 9) return None
-      
-      var rank = 0
-      val sfen = new scala.collection.mutable.StringBuilder(256)
-      for(r <- ranks) {
-          r.replace(".", "・")
-          var empty = 0
-          var gote = false
-          var pieceStr = ""
-          for(sq <- r){
-              sq match {
-                  case '・' => {
-                    empty = empty + 1
-                  }
-                  case 'v' | 'V' => {
-                    gote = true
-                  }
-                  case '成' | '+' =>
-                    pieceStr = sq.toString
-                  case _ => {
-                    Role.allByEverything.get(pieceStr + sq) map { r =>
-                      if(empty > 0) sfen append empty.toString
-                      sfen append Piece(Color(!gote), r).forsythFull
-                      empty = 0
-                    }
-                    pieceStr = ""
-                    gote = false
-                  }
-              }
+    if (ranks.length != 9) return None
+
+    var rank = 0
+    val sfen = new scala.collection.mutable.StringBuilder(256)
+    for (r <- ranks) {
+      r.replace(".", "・")
+      var empty    = 0
+      var gote     = false
+      var pieceStr = ""
+      for (sq <- r) {
+        sq match {
+          case '・' => {
+            empty = empty + 1
           }
-          rank += 1
-          if(empty > 0) sfen append empty.toString
-          if(rank != 9) sfen append '/'
+          case 'v' | 'V' => {
+            gote = true
+          }
+          case '成' | '+' =>
+            pieceStr = sq.toString
+          case _ => {
+            Role.allByEverything.get(pieceStr + sq) map { r =>
+              if (empty > 0) sfen append empty.toString
+              sfen append Piece(Color(!gote), r).forsythFull
+              empty = 0
+            }
+            pieceStr = ""
+            gote = false
+          }
+        }
       }
-      if(goteBan) sfen.append(" w ") else sfen.append(" b ")
-      val senteHand = readHands(senteHandStr.headOption.getOrElse("")).toUpperCase
-      val goteHand = readHands(goteHandStr.headOption.getOrElse(""))
+      rank += 1
+      if (empty > 0) sfen append empty.toString
+      if (rank != 9) sfen append '/'
+    }
+    if (goteBan) sfen.append(" w ") else sfen.append(" b ")
+    val senteHand = readHands(senteHandStr.headOption.getOrElse("")).toUpperCase
+    val goteHand  = readHands(goteHandStr.headOption.getOrElse(""))
 
-      if(senteHand == "" && senteHandStr == goteHand) sfen.append("-")
-      else sfen.append(senteHand + goteHand)
+    if (senteHand == "" && senteHandStr == goteHand) sfen.append("-")
+    else sfen.append(senteHand + goteHand)
 
-      Tag(_.FEN, sfen).some
+    Tag(_.FEN, sfen).some
   }
 
   def createResult(tags: Tags, color: Color): Option[Tag] = {
     tags(_.Termination).map(_.toLowerCase) match {
-      case
-        Some("投了") |
-        Some("反則負け") |
-        Some("切れ負け") |
-        Some("Time-up") => Tag(_.Result, color.fold("0-1", "1-0")).some
-      case
-        Some("入玉勝ち") |
-        Some("詰み") |
-        Some("反則勝ち") => Tag(_.Result, color.fold("1-0", "0-1")).some
-      case
-        Some("持将棋") |
-        Some("千日手") => Tag(_.Result, "1/2-1/2").some
-      case _ => None
+      case Some("投了") | Some("反則負け") | Some("切れ負け") | Some("Time-up") =>
+        Tag(_.Result, color.fold("0-1", "1-0")).some
+      case Some("入玉勝ち") | Some("詰み") | Some("反則勝ち") => Tag(_.Result, color.fold("1-0", "0-1")).some
+      case Some("持将棋") | Some("千日手")                => Tag(_.Result, "1/2-1/2").some
+      case _                                        => None
     }
   }
 

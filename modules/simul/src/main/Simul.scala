@@ -46,7 +46,11 @@ case class Simul(
 
   def addApplicant(applicant: SimulApplicant) =
     Created {
-      if (!hasApplicant(applicant.player.user) && !isHost(applicant.player.user) && variants.has(applicant.player.variant))
+      if (
+        !hasApplicant(applicant.player.user) && !isHost(applicant.player.user) && variants.has(
+          applicant.player.variant
+        )
+      )
         copy(applicants = applicants :+ applicant)
       else this
     }

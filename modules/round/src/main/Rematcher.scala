@@ -39,7 +39,6 @@ final private class Rematcher(
     .expireAfterWrite(20 minutes)
     .build[Game.ID, Offers]()
 
-
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
   def yes(pov: Pov): Fu[Events] =

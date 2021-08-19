@@ -1,7 +1,7 @@
 package lila.game
 
 import shogi.format.Forsyth
-import shogi.format.pgn.{ ParsedPgn, KifParser, Pgn, Tag, TagType, Tags }
+import shogi.format.pgn.{ KifParser, ParsedPgn, Pgn, Tag, TagType, Tags }
 import shogi.format.{ FEN, pgn => shogiPgn }
 import shogi.{ Centis, Color }
 
@@ -128,16 +128,10 @@ final class PgnDump(
                 case Created | Started   => "Unterminated"
                 case Aborted | NoStart   => "Abandoned"
                 case Timeout | Outoftime => "Time forfeit"
-                case Resign |
-                  Draw |
-                  Stalemate |
-                  Mate |
-                  VariantEnd |
-                  TryRule |
-                  PerpetualCheck |
-                  Impasse27         => "Normal"
-                case Cheat              => "Rules infraction"
-                case UnknownFinish      => "Unknown"
+                case Resign | Draw | Stalemate | Mate | VariantEnd | TryRule | PerpetualCheck | Impasse27 =>
+                  "Normal"
+                case Cheat         => "Rules infraction"
+                case UnknownFinish => "Unknown"
               }
             }
           ).some

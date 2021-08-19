@@ -31,39 +31,38 @@ trait ShogiTest extends Specification with ValidationMatchers {
 
   case class RichGame(game: Game) {
 
-      def as(color: Color): Game = game.withPlayer(color)
+    def as(color: Color): Game = game.withPlayer(color)
 
-      def playMoves(moves: (Pos, Pos)*): Valid[Game] = playMoveList(moves)
+    def playMoves(moves: (Pos, Pos)*): Valid[Game] = playMoveList(moves)
 
-      def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] = {
-        val vg = moves.foldLeft(V.success(game): Valid[Game]) { (vg, move) =>
-          vg foreach { _.situation.destinations }
-          val ng = vg flatMap { g =>
-            g(move._1, move._2) map (_._1)
-          }
-          ng
+    def playMoveList(moves: Iterable[(Pos, Pos)]): Valid[Game] = {
+      val vg = moves.foldLeft(V.success(game): Valid[Game]) { (vg, move) =>
+        vg foreach { _.situation.destinations }
+        val ng = vg flatMap { g =>
+          g(move._1, move._2) map (_._1)
         }
-        vg
+        ng
       }
-
-      def playMove(
-          orig: Pos,
-          dest: Pos,
-          promotion: Boolean = false
-      ): Valid[Game] =
-        game.apply(orig, dest, promotion) map (_._1)
-
-      def playDrop(
-        role: Role,
-        dest: Pos
-      ): Valid[Game] =
-        game.drop(role, dest) map (_._1)
-
-      def withClock(c: Clock) = game.copy(clock = Some(c))
+      vg
     }
 
-  implicit def richGame(game: Game) = RichGame(game)
+    def playMove(
+        orig: Pos,
+        dest: Pos,
+        promotion: Boolean = false
+    ): Valid[Game] =
+      game.apply(orig, dest, promotion) map (_._1)
 
+    def playDrop(
+        role: Role,
+        dest: Pos
+    ): Valid[Game] =
+      game.drop(role, dest) map (_._1)
+
+    def withClock(c: Clock) = game.copy(clock = Some(c))
+  }
+
+  implicit def richGame(game: Game) = RichGame(game)
 
   def fenToGame(positionString: String, variant: Variant = shogi.variant.Standard) = {
     val situation = Forsyth << positionString
@@ -93,9 +92,26 @@ trait ShogiTest extends Specification with ValidationMatchers {
 
   def makeGame: Game = Game(makeBoard, Sente)
 
-  def makeHand(pawn: Int = 0, lance: Int = 0, knight: Int = 0, silver: Int = 0, gold: Int = 0, bishop: Int = 0, rook: Int = 0): Hand =
-    Hand(Map(Pawn -> pawn, Lance -> lance, Knight -> knight, Silver -> silver, Gold -> gold, Bishop -> bishop, Rook -> rook))
-
+  def makeHand(
+      pawn: Int = 0,
+      lance: Int = 0,
+      knight: Int = 0,
+      silver: Int = 0,
+      gold: Int = 0,
+      bishop: Int = 0,
+      rook: Int = 0
+  ): Hand =
+    Hand(
+      Map(
+        Pawn   -> pawn,
+        Lance  -> lance,
+        Knight -> knight,
+        Silver -> silver,
+        Gold   -> gold,
+        Bishop -> bishop,
+        Rook   -> rook
+      )
+    )
 
   def bePoss(board: Board, visual: String): Matcher[Option[Iterable[Pos]]] =
     beSome.like { case p =>

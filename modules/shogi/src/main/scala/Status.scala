@@ -54,7 +54,19 @@ object Status {
   }
 
   val finishedWithWinner =
-    List(Mate, Resign, Timeout, Outoftime, Cheat, NoStart, VariantEnd, Stalemate, TryRule, Impasse27, PerpetualCheck)
+    List(
+      Mate,
+      Resign,
+      Timeout,
+      Outoftime,
+      Cheat,
+      NoStart,
+      VariantEnd,
+      Stalemate,
+      TryRule,
+      Impasse27,
+      PerpetualCheck
+    )
 
   val byId = all map { v =>
     (v.id, v)

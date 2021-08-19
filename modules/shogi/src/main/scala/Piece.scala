@@ -44,10 +44,10 @@ case class Piece(color: Color, role: Role) {
         }
 
       case Lance if color == Sente => (from ?| to) && (from ?+ to)
-      case Lance => (from ?| to) && (from ?^ to)
+      case Lance                   => (from ?| to) && (from ?^ to)
 
       case Pawn if color == Sente => from.y + 1 == to.y && from ?| to
-      case Pawn => from.y - 1 == to.y && from ?| to
+      case Pawn                   => from.y - 1 == to.y && from ?| to
 
       case Horse  => (from touches to) || (from onSameDiagonal to)
       case Dragon => (from touches to) || (from onSameLine to)

@@ -114,7 +114,6 @@ object Streamer {
     def withoutStream = WithUser(streamer, user)
     def titleName     = withoutStream.titleName
 
-
     def redirectToLiveUrl: Option[String] =
       stream ?? { s =>
         streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
