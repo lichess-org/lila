@@ -25,7 +25,7 @@ case class Bearer(secret: String) extends AnyVal {
 }
 object Bearer {
   def random()         = Bearer(s"lio_${SecureRandom.nextString(32)}")
-  def randomPersonal() = Bearer(SecureRandom.nextString(16)) // TODO: prefix lip_, more entropy
+  def randomPersonal() = Bearer(s"lip_${SecureRandom.nextString(20)}")
 }
 
 sealed trait IpAddress {
