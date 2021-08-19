@@ -37,9 +37,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       implicit lang: Lang
   ): Frag =
     span(
-      title := s"$name rating over ${nb.localize} games",
+      title    := s"$name rating over ${nb.localize} games",
       dataIcon := icon,
-      cls := "text"
+      cls      := "text"
     )(
       if (clueless) frag(nbsp, nbsp, nbsp, if (nb < 1) "-" else "?")
       else frag(rating, provisional option "?")
@@ -147,7 +147,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       modIcon: Boolean
   )(implicit lang: Lang): Tag =
     a(
-      cls := userClass(userId, cssClass, withOnline),
+      cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
     )(
       withOnline ?? (if (modIcon) moderatorIcon else lineIcon(isPatron)),
@@ -167,7 +167,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       params: String = ""
   )(implicit lang: Lang): Tag =
     a(
-      cls := userClass(user.id, cssClass, withOnline, withPowerTip),
+      cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
     )(
       withOnline ?? lineIcon(user),
@@ -187,7 +187,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       name: Option[Frag] = None
   )(implicit lang: Lang): Frag =
     span(
-      cls := userClass(user.id, cssClass, withOnline, withPowerTip),
+      cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
     )(
       withOnline ?? lineIcon(user),
@@ -200,7 +200,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     val user = lightUser(userId)
     val name = user.fold(userId)(_.name)
     span(
-      cls := userClass(userId, none, withOnline),
+      cls      := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
     )(
       withOnline ?? lineIcon(user),
@@ -293,10 +293,10 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(implicit lang: Lang): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
-  val moderatorIcon: Frag                                                  = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(implicit lang: Lang): Frag         = if (patron) patronIcon else lineIcon
+  val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
+  private def lineIcon(patron: Boolean)(implicit lang: Lang): Frag = if (patron) patronIcon else lineIcon
   private def lineIcon(user: Option[LightUser])(implicit lang: Lang): Frag = lineIcon(user.??(_.isPatron))
   def lineIcon(user: LightUser)(implicit lang: Lang): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(implicit lang: Lang): Frag                      = lineIcon(user.isPatron)
-  def lineIconChar(user: User): Frag                                       = if (user.isPatron) patronIconChar else lineIconChar
+  def lineIconChar(user: User): Frag = if (user.isPatron) patronIconChar else lineIconChar
 }

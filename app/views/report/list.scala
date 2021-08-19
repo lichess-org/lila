@@ -67,8 +67,8 @@ object list {
                           submitButton(dataIcon := "", cls := "text button button-metal")("Reopen")
                         )
                       else
-                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
-                          submitButton(dataIcon := "", cls := "button button-metal")
+                        postForm(action         := routes.Report.inquiry(r.id), cls := "inquiry")(
+                          submitButton(dataIcon := "", cls                         := "button button-metal")
                         )
                     case Some(inquiry) =>
                       frag(
@@ -101,7 +101,7 @@ object list {
             span(cls := "tabs")(
               a(
                 href := routes.Report.listWithFilter("all"),
-                cls := List("active" -> (filter == "all"))
+                cls  := List("active" -> (filter == "all"))
               )(
                 "All",
                 scoreTag(scores.highest)

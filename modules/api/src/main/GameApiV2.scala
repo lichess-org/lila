@@ -7,7 +7,7 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.analyse.{ JsonView => analysisJson, Analysis }
+import lila.analyse.{ Analysis, JsonView => analysisJson }
 import lila.common.config.MaxPerSecond
 import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, LightUser }

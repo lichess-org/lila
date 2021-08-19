@@ -99,9 +99,9 @@ object topic {
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
           a(
-            href := routes.ForumCateg.show(categ.slug),
+            href     := routes.ForumCateg.show(categ.slug),
             dataIcon := "",
-            cls := "text"
+            cls      := "text"
           ),
           topic.name
         ),
@@ -139,7 +139,7 @@ object topic {
           div(
             unsub.map { uns =>
               postForm(
-                cls := s"unsub ${if (uns) "on" else "off"}",
+                cls    := s"unsub ${if (uns) "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := "", bits.dataUnsub := "off")(
@@ -173,7 +173,7 @@ object topic {
         ),
         formWithCaptcha.map { case (form, captcha) =>
           postForm(
-            cls := "form3 reply",
+            cls    := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
             novalidate
           )(
@@ -209,7 +209,7 @@ object topic {
       st.form(method := "post", cls := "form3")(
         st.select(
           name := "reason",
-          cls := "form-control"
+          cls  := "form-control"
         )(
           option(value := "")("no message"),
           lila.msg.MsgPreset.forumDeletion.presets.map { reason =>

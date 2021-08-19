@@ -19,8 +19,8 @@ object atom {
         """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
       ),
       tag("id")(s"$baseUrl${routes.Blog.index()}"),
-      link(rel := "alternate", tpe := "text/html", href := s"$baseUrl${routes.Blog.index()}"),
-      link(rel := "self", tpe := "application/atom+xml", href := s"$baseUrl${routes.Blog.atom}"),
+      link(rel := "alternate", tpe := "text/html", href            := s"$baseUrl${routes.Blog.index()}"),
+      link(rel := "self", tpe      := "application/atom+xml", href := s"$baseUrl${routes.Blog.atom}"),
       tag("title")("lichess.org blog"),
       tag("updated")(pager.currentPageResults.headOption.flatMap(atomDate("blog.date"))),
       pager.currentPageResults.map { doc =>
@@ -29,8 +29,8 @@ object atom {
           tag("published")(atomDate("blog.date")(doc)),
           tag("updated")(atomDate("blog.date")(doc)),
           link(
-            rel := "alternate",
-            tpe := "text/html",
+            rel  := "alternate",
+            tpe  := "text/html",
             href := s"$baseUrl${routes.Blog.show(doc.id, doc.slug)}"
           ),
           tag("title")(doc.getText("blog.title")),

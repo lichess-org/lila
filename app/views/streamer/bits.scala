@@ -35,19 +35,19 @@ object bits extends Context.ToLang {
     s.picturePath match {
       case Some(path) =>
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "picture",
-          src := dbImageUrl(path.value),
-          alt := s"${u.titleUsername} Lichess streamer picture"
+          cls    := "picture",
+          src    := dbImageUrl(path.value),
+          alt    := s"${u.titleUsername} Lichess streamer picture"
         )
       case _ =>
         img(
-          width := size,
+          width  := size,
           height := size,
-          cls := "default picture",
-          src := assetUrl("images/placeholder.png"),
-          alt := "Default Lichess streamer picture"
+          cls    := "default picture",
+          src    := assetUrl("images/placeholder.png"),
+          alt    := "Default Lichess streamer picture"
         )
     }
 
@@ -66,7 +66,7 @@ object bits extends Context.ToLang {
         )
       } getOrElse a(href := routes.Streamer.edit)(yourPage()),
       isGranted(_.Streamers) option a(
-        cls := active.active("requests"),
+        cls  := active.active("requests"),
         href := s"${routes.Streamer.index()}?requests=1"
       )("Approval requests"),
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")(
@@ -89,7 +89,7 @@ object bits extends Context.ToLang {
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
       redirectLink(s.streamer.id.value)(
-        cls := "stream highlight",
+        cls   := "stream highlight",
         title := s.status
       )(
         strong(cls := "text", dataIcon := "")(l titleName s),

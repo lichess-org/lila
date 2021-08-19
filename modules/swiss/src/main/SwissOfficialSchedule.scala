@@ -37,7 +37,7 @@ final private class SwissOfficialSchedule(colls: SwissColls, cache: SwissCache)(
         val startAt = dayStart plusHours hour
         colls.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
           case true => fuFalse
-          case _    => colls.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
+          case _ => colls.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
         }
       }
       .sequenceFu

@@ -26,9 +26,9 @@ $('.streamer-picture form.upload input[type=file]').on('change', function() {
         div(cls := "forms")(
           error.map { badTag(_) },
           postForm(
-            action := routes.Streamer.pictureApply,
+            action  := routes.Streamer.pictureApply,
             enctype := "multipart/form-data",
-            cls := "upload"
+            cls     := "upload"
           )(
             p(maxSize(s"${lila.db.Photographer.uploadMaxMb}MB.")),
             form3.file.image("picture"),

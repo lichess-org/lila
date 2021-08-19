@@ -28,7 +28,7 @@ object bits {
   }
 
   def newForm()(implicit ctx: Context) =
-    postForm(cls := "new-study", action := routes.Study.create)(
+    postForm(cls       := "new-study", action             := routes.Study.create)(
       submitButton(cls := "button button-green", dataIcon := "", title := trans.study.createStudy.txt())
     )
 

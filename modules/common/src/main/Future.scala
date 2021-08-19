@@ -3,7 +3,7 @@ package lila.common
 import akka.actor.{ ActorSystem, Scheduler }
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext, Promise, Future => ScalaFu }
+import scala.concurrent.{ ExecutionContext, Future => ScalaFu, Promise }
 
 object Future {
 

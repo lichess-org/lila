@@ -149,29 +149,29 @@ object UserInfo {
           // format: off
           case (((((((((((((ratingChart, nbFollowers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
           // format: on
-          new UserInfo(
-            user = user,
-            ranks = ranks,
-            nbs = nbs,
-            hasSimul = hasSimul,
-            ratingChart = ratingChart,
-            nbFollowers = nbFollowers,
-            nbPosts = nbPosts,
-            nbStudies = nbStudies,
-            trophies = trophies ::: trophyApi.roleBasedTrophies(
-              user,
-              Granter(_.PublicMod)(user),
-              Granter(_.Developer)(user),
-              Granter(_.Verified)(user)
-            ),
-            shields = shields,
-            revolutions = revols,
-            teamIds = teamIds,
-            isStreamer = isStreamer,
-            isCoach = isCoach,
-            insightVisible = insightVisible,
-            completionRate = completionRate
-          )
+            new UserInfo(
+              user = user,
+              ranks = ranks,
+              nbs = nbs,
+              hasSimul = hasSimul,
+              ratingChart = ratingChart,
+              nbFollowers = nbFollowers,
+              nbPosts = nbPosts,
+              nbStudies = nbStudies,
+              trophies = trophies ::: trophyApi.roleBasedTrophies(
+                user,
+                Granter(_.PublicMod)(user),
+                Granter(_.Developer)(user),
+                Granter(_.Verified)(user)
+              ),
+              shields = shields,
+              revolutions = revols,
+              teamIds = teamIds,
+              isStreamer = isStreamer,
+              isCoach = isCoach,
+              insightVisible = insightVisible,
+              completionRate = completionRate
+            )
         }
   }
 }

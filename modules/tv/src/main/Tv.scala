@@ -51,7 +51,7 @@ final class Tv(
 }
 
 object Tv {
-  import chess.{ Speed => S, variant => V }
+  import chess.{ variant => V, Speed => S }
   import lila.rating.{ PerfType => P }
 
   case class Champion(user: LightUser, rating: Int, gameId: Game.ID)
@@ -214,8 +214,8 @@ object Tv {
     }.toMap
   }
 
-  private def rated(min: Int)                           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
+  private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
   private val standard                                  = variant(V.Standard)
   private val freshBlitz                                = 60 * 2
