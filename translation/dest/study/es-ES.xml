@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Comenzar desde una posición personalizada</string>
   <string name="loadAGameByUrl">Cargar una partida desde una URL</string>
   <string name="loadAPositionFromFen">Cargar una posición vía código FEN</string>
-  <string name="loadAGameFromPgn">Cargar una partida vía código PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automática</string>
   <string name="urlOfTheGame">URL de la partida</string>
   <string name="loadAGameFromXOrY">Cargar una partida desde %1$s</string>

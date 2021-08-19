@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
   <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
   <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
-  <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Αυτόματο</string>
   <string name="urlOfTheGame">URL παρτίδας</string>
   <string name="loadAGameFromXOrY">Φόρτωση παρτίδας από %1$s</string>

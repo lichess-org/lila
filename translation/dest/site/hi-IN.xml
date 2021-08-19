@@ -15,7 +15,7 @@
 	<string name="resign">हार मान लें</string>
 	<string name="checkmate">शह और मात</string>
 	<string name="stalemate">स्टेलमेट (Stalemate)</string>
-	<string name="impasse">Impasse</string>
+	<string name="impasse">गतिरोध</string>
 	<string name="white">गोते (Gote/White)</string>
 	<string name="black">सेनटे (Sente/Black)</string>
 	<string name="shitate">शिताते (Shitate)</string>
@@ -90,7 +90,7 @@
 	<string name="openingExplorer">प्रारम्भ अन्वेषक (Opening explorer)</string>
 	<string name="xOpeningExplorer">%s प्रारम्भ अन्वेषक</string>
 	<string name="allSet">सब तैयार !</string>
-	<string name="importPgn">PGN आयात करें</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">हटाएं</string>
 	<string name="deleteThisImportedGame">इस आयात किए गए गेम को हटाएं ?</string>
 	<string name="replayMode">रीप्ले मोड</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">लीडरबोर्ड</string>
 	<string name="selectHandicap">हैंडीकैप चुनें (Select handicap)</string>
 	<string name="pasteTheFenStringHere">FEN को यहा रखें</string>
-	<string name="pasteThePgnStringHere">PGN को यहा रखें</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">स्थिति से (From position)</string>
 	<string name="continueFromHere">यहा से जारी करें</string>
 	<string name="toStudy">अध्ययन</string>
@@ -594,12 +594,12 @@
 	<string name="increment">वृद्धि (Increment)</string>
 	<string name="byoyomi">बायोयोमी (Byoyomi)</string>
 	<string name="periods">अवधि (Periods)</string>
-	<string name="playOnline">Play online</string>
-	<string name="playOffline">Play offline</string>
-	<string name="allowAnalytics">Allow anonymous statistics</string>
-	<string name="shareGameURL">Share game URL</string>
-	<string name="error.required">This field is required</string>
-	<string name="error.email">This email address is invalid</string>
+	<string name="playOnline">ऑनलाइन खेलें</string>
+	<string name="playOffline">ऑफ़लाइन खेलें</string>
+	<string name="allowAnalytics">अनाम आँकड़ों की अनुमति दें</string>
+	<string name="shareGameURL">खेल URL साझा करें</string>
+	<string name="error.required">यह क्षेत्र आवश्यक है</string>
+	<string name="error.email">यह ईमेल पता अमान्य है</string>
 	<string name="error.email_acceptable">This email address is not acceptable. Please double-check it, and try again.</string>
 	<string name="error.email_unique">This email address is already taken</string>
 	<string name="error.email_different">This is already your email address</string>

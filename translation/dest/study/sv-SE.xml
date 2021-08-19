@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Starta från anpassad position</string>
   <string name="loadAGameByUrl">Importera ett spel med URL</string>
   <string name="loadAPositionFromFen">Importera en position med FEN-kod</string>
-  <string name="loadAGameFromPgn">Importera ett spel med PGN-kod</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatisk</string>
   <string name="urlOfTheGame">URL till partiet</string>
   <string name="loadAGameFromXOrY">Importera ett parti från %1$s</string>

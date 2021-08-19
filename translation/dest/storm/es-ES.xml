@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="moveToStart">Move to start</string>
-  <string name="puzzlesSolved">puzzles solved</string>
-  <string name="newDailyHighscore">New daily highscore!</string>
-  <string name="newWeeklyHighscore">New weekly highscore!</string>
-  <string name="newMonthlyHighscore">New monthly highscore!</string>
+  <string name="moveToStart">Mueve para iniciar</string>
+  <string name="puzzlesSolved">ejercicios terminados</string>
+  <string name="newDailyHighscore">Nuevo récord diario!</string>
+  <string name="newWeeklyHighscore">Nuevo récord semanal!</string>
+  <string name="newMonthlyHighscore">Nuevo récord mensual!</string>
   <string name="newAllTimeHighscore">New all-time highscore!</string>
   <string name="previousHighscoreWasX">Previous highscore was %s</string>
   <string name="playAgain">Play again</string>
@@ -17,17 +17,17 @@
     <item quantity="other">Played %1$s runs of %2$s</item>
   </plurals>
   <string name="highscoreX">Highscore: %s</string>
-  <string name="score">Score</string>
-  <string name="moves">Moves</string>
-  <string name="accuracy">Accuracy</string>
+  <string name="score">Puntuación</string>
+  <string name="moves">Movimientos</string>
+  <string name="accuracy">Precisión</string>
   <string name="combo">Combo</string>
-  <string name="time">Time</string>
-  <string name="timePerMove">Time per move</string>
+  <string name="time">Tiempo</string>
+  <string name="timePerMove">Tiempo por jugada</string>
   <string name="highestSolved">Highest solved</string>
-  <string name="puzzlesPlayed">Puzzles played</string>
+  <string name="puzzlesPlayed">Ejercicios jugados</string>
   <string name="newRun">New run (hotkey: Space)</string>
   <string name="endRun">End run (hotkey: Enter)</string>
-  <string name="highscores">Highscores</string>
+  <string name="highscores">Mejores puntuaciones</string>
   <string name="viewBestRuns">View best runs</string>
   <string name="bestRunOfDay">Best run of day</string>
   <string name="runs">Runs</string>

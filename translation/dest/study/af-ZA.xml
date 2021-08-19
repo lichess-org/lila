@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Begin vanaf eie posisie</string>
   <string name="loadAGameByUrl">Laai \'n wedstryd op deur die URL</string>
   <string name="loadAPositionFromFen">Laai posisie vanaf FEN</string>
-  <string name="loadAGameFromPgn">Laai wedstryd vanaf PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Outomaties</string>
   <string name="urlOfTheGame">URL van die wedstryd</string>
   <string name="loadAGameFromXOrY">Laai \'n wedstryd van %1$s</string>

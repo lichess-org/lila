@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Özel bir pozisyondan başlasın</string>
   <string name="loadAGameByUrl">URL ile oyun yükle</string>
   <string name="loadAPositionFromFen">FEN kullanarak pozisyon yükle</string>
-  <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Otomatik</string>
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
   <string name="loadAGameFromXOrY">%1$s kullanarak oyun yükle</string>

@@ -92,7 +92,7 @@
 	<string name="openingExplorer">Biblioteka otwarć</string>
 	<string name="xOpeningExplorer">Biblioteka otwarć %s</string>
 	<string name="allSet">Gotowe!</string>
-	<string name="importPgn">Importuj PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Usuń</string>
 	<string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
 	<string name="replayMode">Tryb odtwarzania</string>
@@ -374,7 +374,7 @@
 	<string name="leaderboard">Najlepsi gracze</string>
 	<string name="selectHandicap">Wybierz fory</string>
 	<string name="pasteTheFenStringHere">Wklej tutaj pozycję w formacie FEN</string>
-	<string name="pasteThePgnStringHere">Wklej poniżej przebieg partii w formacie PGN</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Z pozycji</string>
 	<string name="continueFromHere">Kontynuuj z tej pozycji</string>
 	<string name="toStudy">Opracowanie</string>

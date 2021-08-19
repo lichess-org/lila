@@ -92,7 +92,7 @@
 	<string name="openingExplorer">Průzkumník zahájení</string>
 	<string name="xOpeningExplorer">%s průzkumník zahájení</string>
 	<string name="allSet">Vše nastaveno!</string>
-	<string name="importPgn">Vložit PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Smazat</string>
 	<string name="deleteThisImportedGame">Opravdu chcete smazat tuto nahranou hru?</string>
 	<string name="replayMode">Mód přehrávání</string>
@@ -374,7 +374,7 @@
 	<string name="leaderboard">Žebříček</string>
 	<string name="selectHandicap">Vyberte znevýhodnění</string>
 	<string name="pasteTheFenStringHere">Zde vložte FEN řetězec</string>
-	<string name="pasteThePgnStringHere">Zde vložte PGN řetězec</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Z pozice</string>
 	<string name="continueFromHere">Pokračovat zde</string>
 	<string name="toStudy">Do studie</string>

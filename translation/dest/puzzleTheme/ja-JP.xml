@@ -58,7 +58,7 @@
   <string name="shortDescription">3 手で勝ちになります。</string>
   <string name="healthyMix">混合</string>
   <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！実戦と同じです。</string>
-  <string name="tsume">詰将棋</string>
+  <string name="tsume">詰め筋</string>
   <string name="tsumeDescription">あなたの目標は相手を詰ますことです。全ての指し手は王手である必要があります。</string>
   <string name="strikingPawn">叩きの歩</string>
   <string name="strikingPawnDescription">相手の駒の前に歩を捨て、攻撃する手筋</string>

@@ -89,7 +89,7 @@
 	<string name="openingExplorer">Sách khai cuộc</string>
 	<string name="xOpeningExplorer">Sách khai cuộc %s</string>
 	<string name="allSet">Đã xong!</string>
-	<string name="importPgn">Nhập PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Xóa</string>
 	<string name="deleteThisImportedGame">Bạn muốn xóa ván đấu đã được nhập?</string>
 	<string name="replayMode">Chế độ xem lại</string>
@@ -311,7 +311,7 @@
 	<string name="leaderboard">Bảng dẫn đầu</string>
 	<string name="selectHandicap">Lựa chọn chấp quân</string>
 	<string name="pasteTheFenStringHere">Dán chuỗi FEN ở đây</string>
-	<string name="pasteThePgnStringHere">Dán chuỗi PGN ở đây</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Từ thế trận</string>
 	<string name="continueFromHere">Tiếp tục từ đây</string>
 	<string name="toStudy">Học chơi</string>

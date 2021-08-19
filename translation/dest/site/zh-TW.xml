@@ -89,7 +89,7 @@
 	<string name="openingExplorer">開局瀏覽器</string>
 	<string name="xOpeningExplorer">%s開局瀏覽器</string>
 	<string name="allSet">一切就緒！</string>
-	<string name="importPgn">匯入PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">刪除</string>
 	<string name="deleteThisImportedGame">刪除這局匯入的棋局?</string>
 	<string name="replayMode">重播模式</string>
@@ -311,7 +311,7 @@
 	<string name="leaderboard">排行榜</string>
 	<string name="selectHandicap">選擇讓子</string>
 	<string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
-	<string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">自定義局面</string>
 	<string name="continueFromHere">从此處繼續</string>
 	<string name="toStudy">研究</string>

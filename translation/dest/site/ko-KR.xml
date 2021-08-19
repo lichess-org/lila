@@ -89,7 +89,7 @@
 	<string name="openingExplorer">오프닝 탐색기</string>
 	<string name="xOpeningExplorer">%s 오프닝 탐색기</string>
 	<string name="allSet">모든 설정 완료!</string>
-	<string name="importPgn">PGN 가져오기</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">삭제</string>
 	<string name="deleteThisImportedGame">가져온 게임을 삭제할까요?</string>
 	<string name="replayMode">게임 다시보기</string>
@@ -311,7 +311,7 @@
 	<string name="leaderboard">리더보드</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">FEN값을 붙여 넣으세요</string>
-	<string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">정해진 보드판에서 시작</string>
 	<string name="continueFromHere">여기서부터 시작</string>
 	<string name="toStudy">연구</string>

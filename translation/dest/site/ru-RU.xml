@@ -92,7 +92,7 @@
 	<string name="openingExplorer">База дебютов</string>
 	<string name="xOpeningExplorer">База дебютов для %s</string>
 	<string name="allSet">Готово!</string>
-	<string name="importPgn">Импортировать в PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Удалить</string>
 	<string name="deleteThisImportedGame">Удалить эту импортированную игру?</string>
 	<string name="replayMode">Смотреть в повторе</string>
@@ -374,7 +374,7 @@
 	<string name="leaderboard">Лучшие игроки</string>
 	<string name="selectHandicap">Выберите фору</string>
 	<string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
-	<string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">С позиции</string>
 	<string name="continueFromHere">Продолжить с этой позиции</string>
 	<string name="toStudy">Студия</string>

@@ -91,7 +91,7 @@
 	<string name="openingExplorer">Претраживач отварања</string>
 	<string name="xOpeningExplorer">%s претаживач отварања</string>
 	<string name="allSet">Све је спремно!</string>
-	<string name="importPgn">Унеси PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Обриши</string>
 	<string name="deleteThisImportedGame">Обриши ову увезену партију?</string>
 	<string name="replayMode">Понављање партије</string>
@@ -353,7 +353,7 @@
 	<string name="leaderboard">Табела</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Убаци FEN текст овде</string>
-	<string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Од позиције</string>
 	<string name="continueFromHere">Настави одавде</string>
 	<string name="toStudy">Проучи</string>

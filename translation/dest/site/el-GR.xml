@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
 	<string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
 	<string name="allSet">Εφαρμογή!</string>
-	<string name="importPgn">Εισαγωγή PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Διαγραφή</string>
 	<string name="deleteThisImportedGame">Διαγραφή εισηγμένης παρτίδας;</string>
 	<string name="replayMode">Επανάληψη</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Πίνακας βαθμολογίας</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
-	<string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Από συγκεκριμένη θέση</string>
 	<string name="continueFromHere">Συνέχεια από εδώ</string>
 	<string name="toStudy">Μελέτη</string>

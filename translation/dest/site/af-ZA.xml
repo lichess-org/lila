@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Opening ontdekker</string>
 	<string name="xOpeningExplorer">%s opening ontdekker</string>
 	<string name="allSet">Gereed!</string>
-	<string name="importPgn">Voer PGN in</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Skrap</string>
 	<string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
 	<string name="replayMode">Oorspeel modus</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Leierbord</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Plak die FEN string hier</string>
-	<string name="pasteThePgnStringHere">Plak die PGN string hier</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Van posisie</string>
 	<string name="continueFromHere">Gaan voort van hier af</string>
 	<string name="toStudy">Bestudeer</string>

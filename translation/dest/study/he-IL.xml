@@ -100,7 +100,7 @@
   <string name="startFromCustomPosition">התחל מעמדה מותאמת אישית</string>
   <string name="loadAGameByUrl">טען משחק ע\"י כתובת אינטרנט</string>
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
-  <string name="loadAGameFromPgn">טען משחק מPGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">אוטומטי</string>
   <string name="urlOfTheGame">כתובת אינטרנטית של משחק</string>
   <string name="loadAGameFromXOrY">טען משחק מ%1$s</string>

@@ -94,7 +94,7 @@
 	<string name="openingExplorer">مستكشف الافتتاحيات</string>
 	<string name="xOpeningExplorer">مستكشف افتتاحيات %s</string>
 	<string name="allSet">إعتمد كل الإعدادات!</string>
-	<string name="importPgn">استيراد PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">حذف</string>
 	<string name="deleteThisImportedGame">هل تريد حذف هذه المباراة المستوردة؟</string>
 	<string name="replayMode">نمط إعادة العرض</string>
@@ -416,7 +416,7 @@
 	<string name="leaderboard">أفضل اللاعبين</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">ألصق الـFEN هنا</string>
-	<string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">من وضع</string>
 	<string name="continueFromHere">تابع من هنا</string>
 	<string name="toStudy">دراسة</string>

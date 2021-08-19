@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
   <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
   <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
-  <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatisk</string>
   <string name="urlOfTheGame">URL for partiet</string>
   <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s</string>

@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Åbningsbog</string>
 	<string name="xOpeningExplorer">%s åbningsbog</string>
 	<string name="allSet">Klar!</string>
-	<string name="importPgn">Importer PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Slet</string>
 	<string name="deleteThisImportedGame">Slet dette importerede spil?</string>
 	<string name="replayMode">Genafspilning</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Klassement</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Indsæt FEN-teksten her</string>
-	<string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Fra position</string>
 	<string name="continueFromHere">Fortsæt herfra</string>
 	<string name="toStudy">Studér</string>

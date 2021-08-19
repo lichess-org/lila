@@ -92,7 +92,7 @@
 	<string name="openingExplorer">Перегляд початків</string>
 	<string name="xOpeningExplorer">Провідник початку %s</string>
 	<string name="allSet">Готово!</string>
-	<string name="importPgn">Імпорт PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Видалити</string>
 	<string name="deleteThisImportedGame">Усунути цю принесену гру?</string>
 	<string name="replayMode">Режим повтору</string>
@@ -374,7 +374,7 @@
 	<string name="leaderboard">Найкращі гравці</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Встав FEN тут</string>
-	<string name="pasteThePgnStringHere">Встав PGN тут</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">З розташови</string>
 	<string name="continueFromHere">Продовж звідси</string>
 	<string name="toStudy">Дослід</string>

@@ -97,7 +97,7 @@
   <string name="startFromCustomPosition">Începeți de la o poziție personalizată</string>
   <string name="loadAGameByUrl">Încărcați meciul din URL</string>
   <string name="loadAPositionFromFen">Încărcați o poziție din FEN</string>
-  <string name="loadAGameFromPgn">Încărcați un joc din PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automată</string>
   <string name="urlOfTheGame">URL-ul jocului</string>
   <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s</string>

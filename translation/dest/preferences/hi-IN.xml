@@ -37,8 +37,8 @@
 	<string name="correspondenceAndUnlimited">पत्राचार और असीमित</string>
 	<string name="confirmResignationAndDrawOffers">इस्तीफे की पुष्टि करें और ड्रा ऑफर करें</string>
 	<string name="inputMovesWithTheKeyboard">कंप्यूटर कीबोर्ड के साथ इनपुट करें</string>
-	<string name="westernNotation">Western notation</string>
-	<string name="japaneseNotation">Japanese notatation</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
+	<string name="westernNotation">पश्चिमी संकेतन</string>
+	<string name="japaneseNotation">जापानी संकेतन</string>
+	<string name="kitaoKawasakiNotation">किताओ-कावासाकी</string>
 	<string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
 </resources>

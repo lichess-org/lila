@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Openingverkenner</string>
 	<string name="xOpeningExplorer">%s openingsverkenner</string>
 	<string name="allSet">Klaar!</string>
-	<string name="importPgn">PGN importeren</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Verwijderen</string>
 	<string name="deleteThisImportedGame">Deze geïmporteerde partij verwijderen?</string>
 	<string name="replayMode">Terugspeelmodus</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Ranglijst</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Plak de FEN-code hier</string>
-	<string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Vanuit een stelling</string>
 	<string name="continueFromHere">Ga vanaf hier verder</string>
 	<string name="toStudy">Studie</string>

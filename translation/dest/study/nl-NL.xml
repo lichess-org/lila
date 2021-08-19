@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">Start bij een aangepaste positie</string>
   <string name="loadAGameByUrl">Laad partijen via een URL</string>
   <string name="loadAPositionFromFen">Laad een spel via een FEN</string>
-  <string name="loadAGameFromPgn">Laad partijen via een PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatisch</string>
   <string name="urlOfTheGame">URL van de partijen, één per regel</string>
   <string name="loadAGameFromXOrY">Laad partijen van %1$s</string>

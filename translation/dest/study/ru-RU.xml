@@ -100,7 +100,7 @@
   <string name="startFromCustomPosition">Начать со своей позиции</string>
   <string name="loadAGameByUrl">Загрузить игру по URL</string>
   <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
-  <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Автоматически</string>
   <string name="urlOfTheGame">URL игры</string>
   <string name="loadAGameFromXOrY">Загрузить игру из %1$s</string>

@@ -92,7 +92,7 @@
 	<string name="openingExplorer">סייר הפתיחות</string>
 	<string name="xOpeningExplorer">חוקר פתיחות %s</string>
 	<string name="allSet">הכול מוכן!</string>
-	<string name="importPgn">ייבא בפורמט PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">מחק</string>
 	<string name="deleteThisImportedGame">מחק את משחק העבר הזה?</string>
 	<string name="replayMode">מצב הרצת המסעים</string>
@@ -374,7 +374,7 @@
 	<string name="leaderboard">טבלת השחקנים המובילים</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">הדבק מחרוזת FEN כאן</string>
-	<string name="pasteThePgnStringHere">הדבק מחרוזת PGN כאן</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">מהעמדה</string>
 	<string name="continueFromHere">המשך מכאן</string>
 	<string name="toStudy">לחקור</string>

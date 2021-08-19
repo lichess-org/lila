@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Explorador d\'obertures</string>
 	<string name="xOpeningExplorer">Explorador d\'obertures %s</string>
 	<string name="allSet">Tot a punt!</string>
-	<string name="importPgn">Importar PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Suprimir</string>
 	<string name="deleteThisImportedGame">Voleu suprimir aquest joc importat?</string>
 	<string name="replayMode">Mode de reproducció</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Llista de líders</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Enganxa el text FEN aquí</string>
-	<string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Des de la posició</string>
 	<string name="continueFromHere">Continua des d\'aquí</string>
 	<string name="toStudy">Estudi</string>

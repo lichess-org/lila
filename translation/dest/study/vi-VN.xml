@@ -91,7 +91,7 @@
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
   <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
   <string name="loadAPositionFromFen">Tải thế cờ từ FEN</string>
-  <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Tự động</string>
   <string name="urlOfTheGame">URL tới ván đấu, mỗi URL một dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s</string>

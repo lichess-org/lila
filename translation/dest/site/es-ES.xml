@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Explorador de aperturas</string>
 	<string name="xOpeningExplorer">Explorador de la apertura %s</string>
 	<string name="allSet">¡Listo!</string>
-	<string name="importPgn">Importar PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Borrar</string>
 	<string name="deleteThisImportedGame">¿Borrar este juego importado?</string>
 	<string name="replayMode">Modo de repetición</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Clasificación</string>
 	<string name="selectHandicap">Seleccionar ventaja</string>
 	<string name="pasteTheFenStringHere">Pega el texto FEN aquí</string>
-	<string name="pasteThePgnStringHere">Pega el texto PGN aquí</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Desde posición</string>
 	<string name="continueFromHere">Continuar desde aquí</string>
 	<string name="toStudy">Estudiar</string>

@@ -3,10 +3,10 @@
   <string name="activity">กิจกรรม</string>
   <string name="hostedALiveStream">ได้เป็นเจ้าภาพสตรีมสด</string>
   <plurals name="supportedNbMonths" comment="supportedNbMonths [one] [other]&#10;&#10;Supported lishogi.org for 4 months as a Patron. The second one always says &quot;Patron&quot; but it's actually a link.">
-    <item quantity="other">Supported lishogi.org for %1$s months as a %2$s</item>
+    <item quantity="other">สนับสนุน lichess.org เป็นเวลา %1$s เดือน โดยเป็น %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Practised %1$s positions on %2$s</item>
+    <item quantity="other">ได้ฝึกหัด %1$s ตำแหน่ง ใน %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="other">แก้ไขปริศนากลยุทธ์ไปแล้ว %s</item>
@@ -15,13 +15,13 @@
     <item quantity="other">เล่นไปแล้ว %1$s %2$s เกม</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">Posted %1$s messages in %2$s</item>
+    <item quantity="other">ได้โพสต์ %1$s ข้อความใน %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="other">เล่นไปแล้ว %1$s ตาเดิน</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">in %1$s correspondence games</item>
+    <item quantity="other">ได้เล่นเกมแบบรอโต้ตอบไปแล้ว %1$s เกม</item>
   </plurals>
   <plurals name="completedNbGames">
     <item quantity="other">ได้เล่นเกมแบบรอโต้ตอบไปแล้ว %s เกม</item>
@@ -36,16 +36,16 @@
     <item quantity="other">ได้จัดกิจกรรมไซมัลเทเนียสไปแล้ว %s</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Participated in %s simultaneous exhibitions</item>
+    <item quantity="other">ได้มีส่วนร่วมใน %s มหกรรมไซมัลเทเนียส</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">Created %s new studies</item>
+    <item quantity="other">ได้สร้าง %s การศึกษาใหม่</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="other">แข่งขันในทัวร์นาเม้นต์ไปแล้ว %s รายการ</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
+    <item quantity="other">อันดับ #%1$s (ท็อป %2$s%%) กับ %3$s เกมใน %4$s</item>
   </plurals>
   <string name="signedUp">ได้เข้าสู่ระบบ lishogi.org แล้ว</string>
   <plurals name="joinedNbTeams">

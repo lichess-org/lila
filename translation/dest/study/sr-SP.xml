@@ -97,7 +97,7 @@
   <string name="startFromCustomPosition">Започните од жељене позиције</string>
   <string name="loadAGameByUrl">Учитајте партију преко URL</string>
   <string name="loadAPositionFromFen">Учитај позицију преко FEN</string>
-  <string name="loadAGameFromPgn">Учитај игру из PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Аутоматски</string>
   <string name="urlOfTheGame">URL игре</string>
   <string name="loadAGameFromXOrY">Учитај игру из %1$s</string>

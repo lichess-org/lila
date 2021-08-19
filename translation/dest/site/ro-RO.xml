@@ -91,7 +91,7 @@
 	<string name="openingExplorer">Cercetarea deschiderilor</string>
 	<string name="xOpeningExplorer">Exploratorul de deschideri %s</string>
 	<string name="allSet">Gata!</string>
-	<string name="importPgn">Importare PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Șterge</string>
 	<string name="deleteThisImportedGame">Şterge acest joc importat?</string>
 	<string name="replayMode">Rejoacă joc</string>
@@ -353,7 +353,7 @@
 	<string name="leaderboard">Clasament</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Lipește FEN aici</string>
-	<string name="pasteThePgnStringHere">Lipește PGN aici</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">De la poziția</string>
 	<string name="continueFromHere">Continuați de aici</string>
 	<string name="toStudy">Studiază</string>

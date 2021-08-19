@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Öppningsbok</string>
 	<string name="xOpeningExplorer">%s öppningsutforskare</string>
 	<string name="allSet">Klart!</string>
-	<string name="importPgn">Importera PGN</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Ta bort</string>
 	<string name="deleteThisImportedGame">Ta bort detta importerade parti?</string>
 	<string name="replayMode">Uppspelningsläge</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Topplista</string>
 	<string name="selectHandicap">Select handicap</string>
 	<string name="pasteTheFenStringHere">Klistra in FEN-koden här</string>
-	<string name="pasteThePgnStringHere">Klistra in PGN-koden här</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Från position</string>
 	<string name="continueFromHere">Fortsätt härifrån</string>
 	<string name="toStudy">Studera</string>

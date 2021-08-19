@@ -90,7 +90,7 @@
 	<string name="openingExplorer">Açılış kâşifi</string>
 	<string name="xOpeningExplorer">%s açılış kâşifi</string>
 	<string name="allSet">Her şey tamam!</string>
-	<string name="importPgn">PGN\'yi içe aktar</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">Sil</string>
 	<string name="deleteThisImportedGame">Yüklediğiniz oyunu silmek istiyor musunuz?</string>
 	<string name="replayMode">Tekrar modu</string>
@@ -332,7 +332,7 @@
 	<string name="leaderboard">Lider Tablosu</string>
 	<string name="selectHandicap">Handikap seç</string>
 	<string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
-	<string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">Özel pozisyondan</string>
 	<string name="continueFromHere">Bu pozisyondan devam et</string>
 	<string name="toStudy">Çalışma oluştur</string>

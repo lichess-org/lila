@@ -91,7 +91,7 @@
   <string name="startFromCustomPosition">指定した局面から</string>
   <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
-  <string name="loadAGameFromPgn">棋譜を PGN で読み込み</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">自動</string>
   <string name="urlOfTheGame">対局棋譜の URL、１行に一つ</string>
   <string name="loadAGameFromXOrY">%1$s から棋譜を読み込み</string>

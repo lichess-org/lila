@@ -48,7 +48,7 @@
 	<string name="goodIntroduction">अच्छा परिचय</string>
 	<string name="officialRulesPDF">आधिकारिक नियम (पीडीएफ)</string>
 	<string name="lishogiTraining">Lishogi प्रशिक्षण</string>
-	<string name="fourfoldRepetition">Fourfold repetition</string>
+	<string name="fourfoldRepetition">चौगुनी पुनरावृत्ति</string>
 	<string name="handBookPDF">हैंडबुक (पीडीएफ)</string>
 	<string name="notRepeatedMoves">हमने चालें नहीं दोहराईं। क्यों खेल अभी भी पुनरावृत्ति द्वारा तैयार किया गया था ?</string>
 	<string name="repeatedPositionsThatMatters">तीन गुना दोहराव लगभग %1$s है, चाल नहीं। पुनरावृत्ति लगातार नहीं होती है।</string>

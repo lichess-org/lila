@@ -89,7 +89,7 @@
 	<string name="openingExplorer">序盤探索</string>
 	<string name="xOpeningExplorer">%s 序盤探索</string>
 	<string name="allSet">準備完了！</string>
-	<string name="importPgn">PGNをインポート</string>
+	<string name="importKif">Import KIF</string>
 	<string name="delete">削除</string>
 	<string name="deleteThisImportedGame">ほんとうに削除しますか？</string>
 	<string name="replayMode">再現方式</string>
@@ -311,7 +311,7 @@
 	<string name="leaderboard">ランキング</string>
 	<string name="selectHandicap">手合割を選択</string>
 	<string name="pasteTheFenStringHere">ここにSFEN形式の局面をペースト</string>
-	<string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
+	<string name="pasteTheKifStringHere">Paste the KIF text here</string>
 	<string name="fromPosition">特定の局面から</string>
 	<string name="continueFromHere">中断した所から再開</string>
 	<string name="toStudy">研究</string>

@@ -100,7 +100,7 @@
   <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
   <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
-  <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">Automatycznie</string>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s</string>

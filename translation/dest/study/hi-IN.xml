@@ -94,7 +94,7 @@
   <string name="startFromCustomPosition">कृत्रिम स्थिति से शुरू करें</string>
   <string name="loadAGameByUrl">URL द्वारा गेम लोड करें</string>
   <string name="loadAPositionFromFen">FEN द्वारा स्थिति लोड करें</string>
-  <string name="loadAGameFromPgn">PGN से गेम लोड करें</string>
+  <string name="loadAGameFromKif">Load games from KIF</string>
   <string name="automatic">स्वचालित</string>
   <string name="urlOfTheGame">खेल का URL, प्रति पंक्ति एक</string>
   <string name="loadAGameFromXOrY">%1$s से गेम लोड करें</string>
