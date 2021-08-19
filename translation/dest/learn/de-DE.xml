@@ -150,8 +150,8 @@ mit dem höchsten Wert!
 Dame &gt; Läufer</string>
   <string name="pieceValueExchange">Schlag die Figur mit dem höchsten Wert!
  Tausch keine höherwertige Figur gegen eine weniger wertvolle ab.</string>
-  <string name="pieceValueLegal">Schlag die Figur mit dem höchsten Wert!
-Stell sicher, dass dein Zug regulär ist!</string>
+  <string name="pieceValueLegal">Schlage die Figur mit dem höchsten Wert!
+Stelle sicher, dass dein Zug erlaubt ist!</string>
   <string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
   <string name="pieceValueComplete">Herzlichen Glückwunsch! Du kennst jetzt den Wert des Materials!
