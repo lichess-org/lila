@@ -29,7 +29,7 @@ export function main(ctrl: RoundController): VNode {
       ctrl.data.pref.showCaptured,
       boardOrientation(ctrl.data, ctrl.flip),
       pieces,
-      !!(ctrl.data.player.checks || ctrl.data.opponent), // showChecks
+      !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
       ctrl.data.steps,
       ctrl.ply
     );
