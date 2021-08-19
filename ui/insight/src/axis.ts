@@ -43,13 +43,19 @@ export default function (ctrl: Ctrl) {
   return h('div.axis-form', [
     h(
       'select.ms.metric',
-      selectData(v => ctrl.setMetric(v.value), () => ctrl.vm.metric.key),
+      selectData(
+        v => ctrl.setMetric(v.value),
+        () => ctrl.vm.metric.key
+      ),
       ctrl.ui.metricCategs.map(optgroup(y => option(ctrl, y, 'metric')))
     ),
     h('span.by', 'by'),
     h(
       'select.ms.dimension',
-      selectData(v => ctrl.setDimension(v.value), () => ctrl.vm.metric.key),
+      selectData(
+        v => ctrl.setDimension(v.value),
+        () => ctrl.vm.metric.key
+      ),
       ctrl.ui.dimensionCategs.map(optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)))
     ),
   ]);
