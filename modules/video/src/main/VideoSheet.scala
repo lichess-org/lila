@@ -15,7 +15,7 @@ final private class VideoSheet(
 
   import VideoSheet._
 
-  def fetchAll: Funit =
+  def fetchAll: Fu[Int] =
     fetch flatMap { entries =>
       lila.common.Future
         .linear(entries) { entry =>
@@ -57,9 +57,12 @@ final private class VideoSheet(
               logger.warn("sheet update", e)
             }
         }
-        .void >>
-        api.video.removeNotIn(entries.map(_.youtubeId)).map { n =>
-          if (n > 0) logger.info(s"$n videos removed")
+        .map(_.size)
+        .flatMap { processed =>
+          api.video.removeNotIn(entries.map(_.youtubeId)).map { n =>
+            if (n > 0) logger.info(s"$n videos removed")
+            processed
+          }
         }
     }
 

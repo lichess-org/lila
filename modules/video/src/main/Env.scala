@@ -48,12 +48,19 @@ final class Env(
     api = api
   )
 
+  def cli =
+    new lila.common.Cli {
+      def process = { case "video" :: "sheet" :: Nil =>
+        sheet.fetchAll map { nb => s"Processed $nb videos" }
+      }
+    }
+
   if (mode == Mode.Prod) {
-    scheduler.scheduleWithFixedDelay(config.sheetDelay * 2, config.sheetDelay) { () =>
+    scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay) { () =>
       sheet.fetchAll.logFailure(logger).unit
     }
 
-    scheduler.scheduleWithFixedDelay(config.youtubeDelay * 2, config.youtubeDelay) { () =>
+    scheduler.scheduleWithFixedDelay(config.youtubeDelay, config.youtubeDelay) { () =>
       youtube.updateAll.logFailure(logger).unit
     }
   }
