@@ -10,4 +10,9 @@
   <string name="roundsAreStartedManually">Тури розпочинаються вручну</string>
   <string name="startingIn" comment="Displayed above a timer">Початок через</string>
   <string name="nextRound">Наступний тур</string>
+  <string name="numberOfRounds">Кількість турів</string>
+  <string name="roundInterval">Інтервал між турами</string>
+  <string name="forbiddenPairings">Заборонені пари</string>
+  <string name="forbiddenPairingsHelp">Нікнейми гравців, які не можуть грати разом (Родичі, наприклад). Два нікнейми на рядок, розділені пробілом.</string>
+  <string name="newSwiss">Новий турнір за швейцарською системою</string>
 </resources>
