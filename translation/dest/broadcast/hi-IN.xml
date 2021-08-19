@@ -3,10 +3,14 @@
   <string name="broadcasts">प्रसारण</string>
   <string name="liveBroadcasts">लाइव प्रसारण</string>
   <string name="newBroadcast">नया लाइव प्रसारण</string>
+  <string name="addRound">एक दौर जोड़ें</string>
   <string name="ongoing">चल रही है</string>
   <string name="upcoming">आगामी</string>
   <string name="completed">पूर्ण</string>
+  <string name="roundName">दौर का नाम</string>
   <string name="roundNumber">राउंड नंबर</string>
+  <string name="tournamentName">प्रतियोगिता का नाम</string>
+  <string name="tournamentDescription">संक्षिप्त प्रतियोगिता वर्णन</string>
   <string name="fullDescription">संक्षिप्त वर्णन</string>
   <string name="fullDescriptionHelp">प्रसारण का वैकल्पिक लंबा विवरण. %1$s उपलब्ध है. लंबाई %2$s से कम होना चाहिए</string>
   <string name="sourceUrlHelp">URL जो Lichess PGN अपडेट प्राप्त करने के लिए जाँच करेगा। यह सार्वजनिक रूप से इंटरनेट पर सुलभ होना चाहिए।</string>

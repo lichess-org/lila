@@ -112,4 +112,11 @@
       padding: 0;
     }
   }
+
+  form.unsub {
+    display: inline;
+    .button {
+      text-transform: none;
+    }
+  }
 }

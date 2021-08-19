@@ -24,7 +24,7 @@
     "typescript": "^4.3.4"
   },
   "dependencies": {
-    "chessops": "^0.9.0",
+    "chessops": "^0.10.0",
     "common": "2.0.0",
     "idb-keyval": "^5.0.4",
     "snabbdom": "^3.0.1"

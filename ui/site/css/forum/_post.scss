@@ -1,12 +1,10 @@
 .forum-post {
   font-size: 1.1em;
   border-top: $border;
-  padding: 2rem 0 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 0;
 
   &__metas {
     @extend %flex-between;
-
-    margin-bottom: 1.5rem;
 
     > div {
       @extend %flex-center;
@@ -90,7 +88,8 @@
   &__message {
     @extend %break-word, %zalgoverflow;
 
-    margin-bottom: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
     .embed:not(img) {
       @extend %video;

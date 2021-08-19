@@ -19,14 +19,14 @@
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progreso horizontales verdes</string>
-  <string name="soundWhenTimeGetsCritical">Alerta cuando reste poco tiempo</string>
+  <string name="soundWhenTimeGetsCritical">Alerta cuando quede poco tiempo</string>
   <string name="giveMoreTime">Dar más tiempo</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamiento del juego</string>
   <string name="howDoYouMovePieces">¿Cómo quieres mover las piezas?</string>
   <string name="clickTwoSquares">Haciendo clic en la pieza y luego en la casilla de destino</string>
   <string name="dragPiece">Arrastrando la pieza hasta la casilla de destino</string>
   <string name="bothClicksAndDrag">O cualquiera</string>
-  <string name="premovesPlayingDuringOpponentTurn">Anticipados (jugando en el turno del oponente)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Movimientos anticipados (programar jugadas durante el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>

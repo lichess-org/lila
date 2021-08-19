@@ -21,8 +21,8 @@
   <string name="fromXToY">%1$s-ից %2$s</string>
   <string name="winningStreak">Անընդմեջ հաղթանակներ</string>
   <string name="losingStreak">Անընդմեջ պարտություններ</string>
-  <string name="longestStreak">Ամենաերկար հաղթաշարը` %s</string>
-  <string name="currentStreak">Ընթացիկ հաղթաշարը` %s</string>
+  <string name="longestStreak">Ամենաերկար շարքը` %s</string>
+  <string name="currentStreak">Ընթացիկ շարքը` %s</string>
   <string name="bestRated">Հաղթանակներ ամենաբարձր վարկանիշ ունեցողների նկատմամբ</string>
   <string name="worstRated">Պարտություններ ամենացածր վարկանիշ ունեցողներից</string>
   <string name="gamesInARow">Անընդմեջ խաղացված պարտիաներ</string>

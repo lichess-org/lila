@@ -53,7 +53,10 @@
   <string name="hangingPieceDescription">Մարտավարություն, որի ժամանակ մրցակցի խաղաքարը պաշտպանված չէ կամ լավ պաշտպանված չէ և կարող է վերցվել։</string>
   <string name="hookMate">Հուք մատ</string>
   <string name="hookMateDescription">Մատ զինվորով պաշտպանված ձիով և նավակով, ընդ որում` մրցակցի զինվորներից մեկը զբաղեցնում է նրա արքայի նահանջի միակ դաշտը։</string>
+  <string name="interference">Ծածկում</string>
+  <string name="interferenceDescription">Քայլ, որով ծածկվում է մրցակցի հեռահար խաղաքարերի համագործակցության գիծը, որի արդյունքում այդ խաղաքարերը կամ նրանցից մեկը դառնում են անպաշտպան։ Օրինակ, ձին կանգնում է նավակների միջև գտնվող պաշտպանված վանդակին։</string>
   <string name="intermezzo">Միջանկյալ քայլ</string>
+  <string name="intermezzoDescription">Սպասելի քայլ կատարելու փոխարեն, սկզբում կատարվում է այլ, անմիջական սպառնալիք ստեղծող քայլ, որին մրցակիցը պետք է պատասխանի։ Հայտնի է նաև  «Zwischenzug» կամ «Intermezzo» անուններով։</string>
   <string name="knightEndgame">Ձիու վերջնախաղ</string>
   <string name="knightEndgameDescription">Միայն ձիերով և զինվորներով վերջնախաղ։</string>
   <string name="long">Եռաքայլ խնդիր</string>
@@ -101,6 +104,7 @@
   <string name="short">Երկքայլանի խնդիր</string>
   <string name="shortDescription">Երկու քայլ մինչև հաղթանակ։</string>
   <string name="skewer">Գծային հարձակում</string>
+  <string name="skewerDescription">Կապի տեսակ է, բայց այս դեպքում հակառակն է՝ ավելի թանկ խաղաքարը հայտնվում է պակաս արժեքավոր կամ համարժեք խաղաքարի գրոհի գծում։</string>
   <string name="smotheredMate">Խեղդուկ մատ</string>
   <string name="smotheredMateDescription">Մատ ձիով արքային, որը չի կարող փախչել, որովհետև շրջափակված է (խեղդված է) սեփական խաղաքարերով։</string>
   <string name="superGM">Սուպերգրոսմայստերների պարտիաներ</string>

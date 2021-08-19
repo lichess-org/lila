@@ -20,13 +20,13 @@
     "@types/yaireo__tagify": "^4.0.1"
   },
   "dependencies": {
-    "@badrap/result": "^0.2.8",
+    "@badrap/result": "^0.2",
     "@yaireo/tagify": "^4.0.5",
     "ceval": "2.0.0",
     "chat": "2.0.0",
     "chess": "2.0.0",
     "chessground": "^8.1.5",
-    "chessops": "^0.9.0",
+    "chessops": "^0.10.0",
     "common": "2.0.0",
     "game": "2.0.0",
     "nvui": "2.0.0",

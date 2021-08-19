@@ -5,6 +5,8 @@ export { isMoreThanText } from 'common/richText';
 
 const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex = /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
+const teamMessageRegex =
+  /You received this because you are subscribed to messages of the team <a(?:[^>]+)>(?:[^\/]+)(.+)<\/a>\.$/;
 
 const img = (src: string) => `<img src="${src}"/>`;
 
@@ -35,8 +37,17 @@ const expandGameIds = (html: string) =>
     (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix
   );
 
+const expandTeamMessage = (html: string) =>
+  html.replace(
+    teamMessageRegex,
+    (_: string, url: string) =>
+      `${expandLink(
+        url
+      )} <form action="${url}/subscribe" class="unsub" method="post"><button type="submit" class="button button-empty button-thin button-red">Unsubscribe from these messages</button></form>`
+  );
+
 export const enhance = (str: string) =>
-  expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str)))).replace(newLineRegex, '<br>');
+  expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(newLineRegex, '<br>');
 
 /* Enhance with iframe expansion */
 

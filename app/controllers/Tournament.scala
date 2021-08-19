@@ -236,10 +236,9 @@ final class Tournament(
     ScopedBody(_.Tournament.Write) { implicit req => me =>
       if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
       else {
-        val data =
-          TournamentForm.joinForm
-            .bindFromRequest()
-            .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
+        val data = TournamentForm.joinForm
+          .bindFromRequest()
+          .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
         doJoin(id, data, me) map { result =>
           result.error match {
             case None        => jsonOkResult

@@ -9,7 +9,7 @@ import views._
 import lila.api.Context
 import lila.app._
 import lila.swiss.Swiss.{ Id => SwissId, ChatFor }
-import lila.swiss.{ Swiss => SwissModel }
+import lila.swiss.{ Swiss => SwissModel, SwissForm }
 
 final class Swiss(
     env: Env,
@@ -163,16 +163,27 @@ final class Swiss(
     }
 
   def join(id: String) =
-    AuthBody(parse.json) { implicit ctx => me =>
+    AuthBody { implicit ctx => me =>
       NoLameOrBot {
-        val password = ctx.body.body.\("password").asOpt[String]
-        env.team.cached.teamIds(me.id) flatMap { teamIds =>
-          env.swiss.api.join(SwissId(id), me, teamIds.contains, password) flatMap { result =>
-            fuccess {
-              if (result) jsonOkResult
-              else BadRequest(Json.obj("joined" -> false))
-            }
-          }
+        doJoin(me, SwissId(id), bodyPassword(ctx.body))
+      }
+    }
+
+  def apiJoin(id: String) =
+    ScopedBody(_.Tournament.Write) { implicit req => me =>
+      if (me.lame || me.isBot) Unauthorized(Json.obj("error" -> "This user cannot join tournaments")).fuccess
+      else doJoin(me, SwissId(id), bodyPassword)
+    }
+
+  private def bodyPassword(implicit req: Request[_]) =
+    SwissForm.joinForm.bindFromRequest().fold(_ => none, identity)
+
+  private def doJoin(me: lila.user.User, id: SwissId, password: Option[String]) =
+    env.team.cached.teamIds(me.id) flatMap { teamIds =>
+      env.swiss.api.join(id, me, teamIds.contains, password) flatMap { result =>
+        fuccess {
+          if (result) jsonOkResult
+          else BadRequest(Json.obj("error" -> "Could not join the tournament"))
         }
       }
     }

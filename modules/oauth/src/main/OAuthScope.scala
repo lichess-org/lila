@@ -27,7 +27,7 @@ object OAuthScope {
   }
 
   object Tournament {
-    case object Write extends OAuthScope("tournament:write", "Create and update tournaments")
+    case object Write extends OAuthScope("tournament:write", "Create, update and join tournaments")
   }
 
   object Puzzle {
