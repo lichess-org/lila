@@ -23,7 +23,7 @@
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "stockfish-mv.wasm": "^0.6.1",
-    "stockfish-nnue.wasm": "0.0.2",
+    "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "tablesort": "^5.1",

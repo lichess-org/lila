@@ -232,7 +232,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: '85a969',
+          version: 'b6939d',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
           cache: new Cache('ceval-wasm-cache'),
         });
