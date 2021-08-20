@@ -109,6 +109,7 @@ object bits extends Context.ToLang {
       ul(
         li(rule1()),
         li(rule2()),
+        li(rule4((a(href := routes.Page.loneBookmark("streaming-fairplay-faq"))(streamingFairplayFAQ())))),
         li(a(href := routes.Page.loneBookmark("streamer-page-activation"))(rule3()))
       ),
       h2(perks()),
