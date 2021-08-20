@@ -9,9 +9,11 @@ const onFail = () => lichess.reload();
 const join = (ctrl: SwissCtrl, password?: string) =>
   json(`/swiss/${ctrl.data.id}/join`, {
     method: 'post',
-    body: form({
-      password: password || '',
-    }),
+    body: password
+      ? form({
+          password: password,
+        })
+      : undefined,
   }).catch(onFail);
 
 const withdraw = (ctrl: SwissCtrl) => json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
