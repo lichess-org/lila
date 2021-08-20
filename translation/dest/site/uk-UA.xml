@@ -132,6 +132,18 @@
     <item quantity="many">%s грубих помилок</item>
     <item quantity="other">%s грубих помилок</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s помилка</item>
+    <item quantity="few">%s помилки</item>
+    <item quantity="many">%s помилок</item>
+    <item quantity="other">%s помилок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточність</item>
+    <item quantity="few">%s неточністі</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
@@ -962,7 +974,18 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="mouseTricks">Можливості миші</string>
+  <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>
+  <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>
+  <string name="playComputerMove">Зіграти найкращий комп\'ютерний хід</string>
+  <string name="analysisOptions">Можливості аналізу</string>
+  <string name="focusChat">Обрати вікно чату</string>
+  <string name="showHelpDialog">Показати це діалогове вікно довідки</string>
   <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
+  <string name="closedAccountChangedMind">Якщо ви закрили свій обліковий запис та змінили свою думку, у вас є один шанс відновити свій профіль.</string>
   <string name="onlyWorksOnce">Це можна зробити лише один раз.</string>
+  <string name="cantDoThisTwice">Якщо ви закриєте обліковий запис в другий раз, відновити його буде вже неможливо.</string>
+  <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
+  <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
   <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код входу до турніру</string>
 </resources>
