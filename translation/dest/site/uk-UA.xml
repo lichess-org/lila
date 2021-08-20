@@ -967,6 +967,7 @@
   <string name="cancelSimul">Відмінити сеанс</string>
   <string name="simulHostcolor">Колір сеансера для кожної гри</string>
   <string name="estimatedStart">Приблизний час початку</string>
+  <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
