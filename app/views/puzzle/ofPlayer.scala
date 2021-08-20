@@ -27,20 +27,14 @@ object ofPlayer {
             method := "get",
             cls := "form3 puzzle-of-player__form complete-parent"
           )(
-            st.input(
-              name := form("name").name,
-              value := form("name").value,
-              cls := "form-control user-autocomplete",
-              placeholder := trans.clas.lichessUsername.txt(),
+            form3.input(form("name"), klass = "user-autocomplete")(
+              autofocus,
               autocomplete := "off",
               dataTag := "span",
-              autofocus
+              placeholder := trans.clas.lichessUsername.txt()
             ),
-            form3.select(
-              field = form("ratingSortOrder"),
-              options = Seq(("desc", "Descending"), ("asc", "Ascending")),
-              default = "Sort Ratings by".some
-            ),
+            st.label(`for` := form3.id(form("rating.sort.order")), cls := "form-label")("Sort by rating"),
+            form3.select(form("rating.sort.order"), Seq(("desc", "Descending"), ("asc", "Ascending"))),
             submitButton(cls := "button")(trans.puzzle.searchPuzzles.txt())
           ),
           div(cls := "puzzle-of-player__results")(

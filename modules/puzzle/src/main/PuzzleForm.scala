@@ -65,8 +65,8 @@ object PuzzleForm {
 
     val playerPuzzle = Form(
       mapping(
-        "name"            -> optional(text),
-        "ratingSortOrder" -> optional(text)
+        "name"              -> optional(text),
+        "rating.sort.order" -> optional(text)
       )(PlayerPuzzleData.apply)(PlayerPuzzleData.unapply)
     )
   }
