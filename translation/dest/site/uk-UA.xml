@@ -962,5 +962,7 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
+  <string name="onlyWorksOnce">Це можна зробити лише один раз.</string>
   <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Код входу до турніру</string>
 </resources>
