@@ -31,6 +31,7 @@
   <string name="color">Колір</string>
   <string name="evaluation">Оцінка</string>
   <string name="maxNumber" comment="maxNumber&#10;&#10;The maximum number of games to return as search results">Максимальне число</string>
+  <string name="maxNumberExplanation">Максимальна кількість ігор для пошуку</string>
   <string name="include" comment="include&#10;&#10;In the game export configuration, the title of a section for specifying the data to include.">Включити</string>
   <string name="generateURL">Згенерувати URL</string>
 </resources>
