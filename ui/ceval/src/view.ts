@@ -89,7 +89,10 @@ function engineName(ctrl: CevalCtrl): VNode[] {
       ? h(
           'span.technology.good',
           {
-            attrs: { title: 'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, strongest)' },
+            attrs: {
+              title:
+                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
+            },
           },
           'NNUE'
         )
