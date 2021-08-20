@@ -54,7 +54,7 @@ export default function (ctrl: Ctrl) {
       'select.ms.dimension',
       selectData(
         v => ctrl.setDimension(v.value),
-        () => ctrl.vm.metric.key
+        () => ctrl.vm.dimension.key
       ),
       ctrl.ui.dimensionCategs.map(optgroup(x => (x.key !== 'period' ? option(ctrl, x, 'dimension') : undefined)))
     ),
