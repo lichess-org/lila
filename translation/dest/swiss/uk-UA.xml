@@ -22,5 +22,6 @@
 Якщо гравець не може отримати пару на раунд, він отримує прохідний бал вартістю в одне очко.</string>
   <string name="tiebreaksCalculationQ">Як обраховуються тай-брейки?</string>
   <string name="sonnebornBergerScore">Коефіцієнт Бергера</string>
+  <string name="dutchSystem">Голландська система</string>
   <string name="unlimitedAndFree">Без обмежень та безкоштовний</string>
 </resources>
