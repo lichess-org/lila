@@ -29,20 +29,20 @@ lichess.load.then(() => {
 
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
-      const result = [];
+      let result = "";
       let quote = [];
       for (const line of this.innerHTML.split('<br>')) {
         if (line.startsWith('&gt;')) quote.push(line.substring(4));
         else {
           if (quote.length > 0) {
-            result.push(`<blockquote>${quote.join('<br>')}</blockquote>`);
+            result += `<blockquote>${quote.join('<br>')}</blockquote>`;
             quote = [];
           }
-          result.push(line);
+          result += line + "<br>";
         }
       }
-      if (quote.length > 0) result.push(`<blockquote>${quote.join('<br>')}</blockquote>`);
-      this.innerHTML = result.join('<br>');
+      if (quote.length > 0) result += `<blockquote>${quote.join('<br>')}</blockquote>`;
+      this.innerHTML = result;
     }
   });
 
