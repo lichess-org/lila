@@ -1,7 +1,7 @@
 import * as domData from 'common/data';
 import debounce from 'common/debounce';
 import { bind } from 'common/snabbdom';
-import { spinner } from '../util';
+import spinner from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import { MaybeVNodes } from '../interfaces';
 import { multiBoard as xhrLoad } from './studyXhr';

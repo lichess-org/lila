@@ -4825,10 +4825,10 @@ stockfish-mv.wasm@^0.6.1:
   resolved "https://registry.yarnpkg.com/stockfish-mv.wasm/-/stockfish-mv.wasm-0.6.1.tgz#cd160b01b25ff64794cb44fe55b6791c3fb297f8"
   integrity sha512-6QE1LeWbv9NNMABHCjDGyjgob+1CfMpIszxUKCUcCH0znreWPXz48G09rhKTUpRzC8YsOTHPQL/s74gDcqXJGw==
 
-stockfish-nnue.wasm@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/stockfish-nnue.wasm/-/stockfish-nnue.wasm-0.0.2.tgz#388128b17a22215222ad87cf3f29e71822e7ff5f"
-  integrity sha512-PPbYo0hbPihPVj7j1DWsJq4idifKXf0jfsavXIIuoHE/XG+7nfbrah91DnliDo7s3PsXM0y+ZgOC++Xszv3JyQ==
+stockfish-nnue.wasm@1.0.0-1946a675.smolnet:
+  version "1.0.0-1946a675.smolnet"
+  resolved "https://registry.yarnpkg.com/stockfish-nnue.wasm/-/stockfish-nnue.wasm-1.0.0-1946a675.smolnet.tgz#af422e3e2870d0b0fee2ea28eec89b813fe90040"
+  integrity sha512-ofHHGb60dsMuz1SFurbkUBStMz6zmSLEculHUYdryX3782dys785hWgY9HJVgxMZQW+uhAARFcwPtPlyeW/nZg==
 
 stockfish.js@^10.0.2:
   version "10.0.2"

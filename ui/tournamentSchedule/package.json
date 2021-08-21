@@ -16,6 +16,7 @@
     "@types/lichess": "2.0.0"
   },
   "dependencies": {
+    "common": "2.0.0",
     "dragscroll": "^0.0.8",
     "snabbdom": "^3.0.1"
   },

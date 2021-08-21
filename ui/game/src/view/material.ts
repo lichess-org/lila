@@ -1,7 +1,8 @@
 import * as cg from 'chessground/types';
 import { h, VNode } from 'snabbdom';
-import { CheckCount, CheckState, MaterialDiff, MaterialDiffSide, Player } from '../interfaces';
+import { CheckCount, CheckState, MaterialDiff, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
+import { opposite } from 'chessground/util';
 
 function renderMaterialDiff(
   material: MaterialDiffSide,
@@ -30,16 +31,12 @@ const EMPTY_MATERIAL_DIFF: MaterialDiff = {
 
 export function renderMaterialDiffs(
   showCaptured: boolean,
-  flip: boolean,
-  player: Player,
-  opponent: Player,
+  bottomColor: Color,
   pieces: cg.Pieces,
+  showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply
 ): [VNode, VNode] {
-  const topColor = (flip ? player : opponent).color;
-  const bottomColor = (flip ? opponent : player).color;
-
   let material: MaterialDiff,
     score = 0;
   if (showCaptured) {
@@ -47,7 +44,8 @@ export function renderMaterialDiffs(
     score = getScore(pieces) * (bottomColor === 'white' ? 1 : -1);
   } else material = EMPTY_MATERIAL_DIFF;
 
-  const checks: CheckCount = player.checks || opponent.checks ? countChecks(checkStates, ply) : NO_CHECKS;
+  const checks: CheckCount = showChecks ? countChecks(checkStates, ply) : NO_CHECKS;
+  const topColor = opposite(bottomColor);
 
   return [
     renderMaterialDiff(material[topColor], -score, 'top', checks[topColor]),

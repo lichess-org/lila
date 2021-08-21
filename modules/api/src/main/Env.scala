@@ -48,6 +48,7 @@ final class Env(
     challengeEnv: lila.challenge.Env,
     socketEnv: lila.socket.Env,
     msgEnv: lila.msg.Env,
+    videoEnv: lila.video.Env,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
     ws: StandaloneWSClient,

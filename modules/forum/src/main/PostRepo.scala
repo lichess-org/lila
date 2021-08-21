@@ -104,7 +104,11 @@ final class PostRepo(val coll: Coll, filter: Filter = Safe)(implicit
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
 
   def allUserIdsByTopicId(topicId: String): Fu[List[User.ID]] =
-    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId), ReadPreference.secondaryPreferred)
+    coll.distinctEasy[User.ID, List](
+      "userId",
+      $doc("topicId" -> topicId) ++ selectNotErased,
+      ReadPreference.secondaryPreferred
+    )
 
   def nonGhostCursor =
     coll

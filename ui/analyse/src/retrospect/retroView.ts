@@ -1,8 +1,8 @@
 import { renderIndexAndMove } from '../moveView';
 import { RetroCtrl } from './retroCtrl';
 import AnalyseCtrl from '../ctrl';
-import { bind } from 'common/snabbdom';
-import { dataIcon, spinner } from '../util';
+import { bind, dataIcon } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {

@@ -11,19 +11,9 @@ interface Lichess {
 // actually be a jquery object.
 interface Cash {
   multipleSelect(method: 'getSelects'): string[];
+  multipleSelect(method: 'setSelects', values: string[]): void;
   multipleSelect(
-    method:
-      | 'setSelects'
-      | 'enable'
-      | 'disable'
-      | 'open'
-      | 'close'
-      | 'checkAll'
-      | 'uncheckAll'
-      | 'focus'
-      | 'blur'
-      | 'refresh'
-      | 'close'
+    method: 'enable' | 'disable' | 'open' | 'close' | 'checkAll' | 'uncheckAll' | 'focus' | 'blur' | 'refresh' | 'close'
   ): void;
   multipleSelect(option: MultiSelectOpts): void;
 }

@@ -1,5 +1,6 @@
 import TournamentController from '../ctrl';
-import { bind, playerName } from './util';
+import { bind } from 'common/snabbdom';
+import { playerName } from './util';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, MaybeVNode } from '../interfaces';
 import modal, { snabModal } from 'common/modal';

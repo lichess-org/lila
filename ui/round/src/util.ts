@@ -1,5 +1,5 @@
 import * as cg from 'chessground/types';
-import { h, VNodeData } from 'snabbdom';
+import { VNodeData } from 'snabbdom';
 import { Dests, EncodedDests } from './interfaces';
 
 export { bind, onInsert } from 'common/snabbdom';
@@ -24,18 +24,3 @@ export function parsePossibleMoves(dests?: EncodedDests): Dests {
   else for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as cg.Key[]);
   return dec;
 }
-
-export const spinner = () =>
-  h(
-    'div.spinner',
-    {
-      'aria-label': 'loading',
-    },
-    [
-      h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-        h('circle', {
-          attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-        }),
-      ]),
-    ]
-  );

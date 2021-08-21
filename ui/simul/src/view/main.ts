@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import * as util from './util';
 import created from './created';
@@ -18,7 +19,7 @@ export default function (ctrl: SimulCtrl) {
     },
     [
       h('aside.simul__side', {
-        hook: util.onInsert(el => {
+        hook: onInsert(el => {
           $(el).replaceWith(ctrl.opts.$side);
           if (ctrl.opts.chat) {
             ctrl.opts.chat.data.hostId = ctrl.data.host.id;
@@ -38,7 +39,7 @@ export default function (ctrl: SimulCtrl) {
         handler(ctrl)
       ),
       h('div.chat__members.none', {
-        hook: util.onInsert(lichess.watchers),
+        hook: onInsert(lichess.watchers),
       }),
     ]
   );

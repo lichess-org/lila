@@ -17,7 +17,7 @@
     'tools'
     'controls';
   grid-template-columns: auto;
-  grid-template-rows: 100vw minmax(150px, calc(100vh - 100vw - 5.5rem)) 3rem;
+  grid-template-rows: 100vw minmax(100px, calc(100vh - 100vw - 5.5rem)) 3rem;
 
   @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
     grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
