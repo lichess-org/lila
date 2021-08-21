@@ -71,7 +71,7 @@ final class StudyMultiBoard(
                       "args" -> $arr("$root", "$tags"),
                       "body" -> """function(root, tags) {
                     |tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
-                    |const node = tags.length ? Object.keys(root).reduce((acc, i) => (root[i].p > acc.p) ? root[i] : acc, root['_']) : root['_'];
+                    |const node = tags.length ? Object.keys(root).reduce(([path, node], i) => (root[i].p > node.p && i.startsWith(path)) ? [i, root[i]] : [path, node], ['', root['_']])[1] : root['_'];
                     |return {node:{fen:node.f,uci:node.u},tags} }""".stripMargin
                     )
                   ),
