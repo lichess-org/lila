@@ -117,16 +117,16 @@
   <string name="mistake">Mistök</string>
   <string name="inaccuracy">Ónákvæmni</string>
   <plurals name="nbBlunders">
-    <item quantity="one">Afleikur</item>
-    <item quantity="other">Afleikir</item>
+    <item quantity="one">%s Afleikur</item>
+    <item quantity="other">%s Afleikir</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="one">Mistök</item>
-    <item quantity="other">Mistök</item>
+    <item quantity="one">%s Mistök</item>
+    <item quantity="other">%s Mistök</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">ónákvæmni</item>
-    <item quantity="other">ónákvæmni</item>
+    <item quantity="one">%s ónákvæmni</item>
+    <item quantity="other">%s ónákvæmni</item>
   </plurals>
   <string name="moveTimes">leiktími</string>
   <string name="flipBoard">Snúa borði</string>
@@ -332,7 +332,7 @@
   <string name="siteDescription">Frí skák á netinu. Spilaðu skák í þægilegu umhverfi. Engin skráning, engar auglýsingar, engar viðbætur þarfar. Spilaðu skák á móti tölvu, vinum eða af handfahófi við aðra.</string>
   <string name="xJoinedTeamY">%1$s gengu í liðið %2$s</string>
   <string name="xCreatedTeamY">%1$s lið búin til %2$s</string>
-  <string name="xStartedStreaming">Byrjaði streymi</string>
+  <string name="xStartedStreaming">%s byrjaði streymi</string>
   <string name="averageElo">Meðal Elo</string>
   <string name="location">Staðsetning</string>
   <string name="filterGames">Leikjasía</string>
@@ -435,7 +435,7 @@
   <string name="setTheBoard">Uppstilling</string>
   <string name="popularOpenings">Vinsælar opnanir</string>
   <string name="endgamePositions">Endataflsstöður</string>
-  <string name="chess960StartPosition">Skák960 Byrjunarstaða</string>
+  <string name="chess960StartPosition">Skák960 Byrjunarstaða: %s</string>
   <string name="startPosition">Byrjunar staða</string>
   <string name="clearBoard">Hreinsa borð</string>
   <string name="savePosition">Vista stöðu</string>
