@@ -87,7 +87,7 @@ object post {
                 )
               )
             },
-          canReply option button(
+          (canReply && !post.erased) option button(
             cls := "mod quote button button-empty text",
             tpe := "button",
             dataIcon := "❝"
