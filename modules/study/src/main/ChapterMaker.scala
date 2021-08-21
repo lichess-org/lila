@@ -157,7 +157,7 @@ final private class ChapterMaker(
     )
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
-    if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
+    if (study.isPublic) List(game hasUserId userId option game.id, s"${game.id}/w".some).flatten foreach { chatId =>
       chatApi.userChat.write(
         chatId = Chat.Id(chatId),
         userId = userId,
