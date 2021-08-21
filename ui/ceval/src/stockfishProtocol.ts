@@ -81,9 +81,7 @@ export default class Protocol {
     const ev = this.work.ply % 2 === pivot ? -povEv : povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
-    // The exception is for multiPV, sometimes non-primary PVs
-    // only have an upperbound.
-    // See: https://github.com/ddugovic/Stockfish/issues/228
+    // However non-primary pvs may only have an upperbound.
     if (evalType && multiPv === 1) return;
 
     const pvData = {
@@ -112,6 +110,14 @@ export default class Protocol {
 
     if (multiPv === this.expectedPvs && this.currentEval) {
       this.work.emit(this.currentEval);
+
+      // Depth limits are nice in the user interface, but in clearly decided
+      // positions the usual depth limits are reached very quickly due to
+      // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
+      // manually ensuring Stockfish gets to spend a minimum amount of
+      // time/nodes on each position.
+      if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
+        this.stop();
     }
   }
 
@@ -139,7 +145,11 @@ export default class Protocol {
         this.setOption('MultiPV', this.work.multiPv);
 
         this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
-        this.send(['go depth', this.work.maxDepth, ...(this.work.maxDepth >= 99 ? [] : ['movetime 90000'])].join(' '));
+        this.send(
+          this.work.maxDepth >= 99
+            ? 'go depth 245' // 'go infinite' would not finish even if entire tree search completed
+            : 'go movetime 90000'
+        );
       }
     }
   }
