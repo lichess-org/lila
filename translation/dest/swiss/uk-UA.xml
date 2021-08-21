@@ -30,5 +30,7 @@
   <string name="startingSoon">Скоро розпочнеться</string>
   <string name="comparison">Порівняння</string>
   <string name="numberOfGames">Кількість партій</string>
+  <string name="pause">Павза</string>
+  <string name="pauseSwiss">Так, але може зменшити кількість раундів</string>
   <string name="unlimitedAndFree">Без обмежень та безкоштовний</string>
 </resources>
