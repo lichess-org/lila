@@ -967,6 +967,7 @@
   <string name="cancelSimul">Відмінити сеанс</string>
   <string name="simulHostcolor">Колір сеансера для кожної гри</string>
   <string name="estimatedStart">Приблизний час початку</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Показувати на %s</string>
   <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
@@ -975,6 +976,7 @@
   <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="navigateMoveTree">Навігація по нотації</string>
   <string name="mouseTricks">Можливості миші</string>
   <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>
   <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>
