@@ -134,7 +134,7 @@
   <string name="clearChat">Wyczyść czat</string>
   <string name="deleteTheStudyChatHistory">Usunąć historię czatu opracowania? Nie będzie można tego cofnąć!</string>
   <string name="deleteStudy">Usuń opracowanie</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Usunąć opracowanie? Nie będzie można go odzyskać! Wpisz nazwę opracowania, aby potwierdzić operację.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Usunąć opracowanie? Nie będzie można go odzyskać! Wpisz nazwę opracowania, aby potwierdzić operację: %s</string>
   <string name="whereDoYouWantToStudyThat">Gdzie chcesz się tego uczyć?</string>
   <string name="goodMove">Dobry ruch</string>
   <string name="mistake">Pomyłka</string>
