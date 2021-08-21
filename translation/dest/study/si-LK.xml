@@ -62,6 +62,7 @@
   <string name="chapterPgn">පරිච්ඡේදය PGN</string>
   <string name="downloadGame">ක්‍රීඩාව බාගන්න</string>
   <string name="startAtX">%s ට අරඹන්න</string>
+  <string name="automatic">ස්වයංක්‍රීය</string>
   <string name="everyone">හැමෝම</string>
   <string name="enableSync">සමමුහුර්තකරණය සක්‍රීය කරන්න</string>
   <string name="yesKeepEveryoneOnTheSamePosition">ඔව්: සෑම කෙනෙකුම එකම ස්ථානයක තබා ගන්න</string>
