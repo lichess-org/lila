@@ -1,7 +1,7 @@
-import afterView from './after';
-import { bind } from '../util';
-import { Controller, MaybeVNode } from '../interfaces';
+import { bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
+import { Controller, MaybeVNode } from '../interfaces';
+import afterView from './after';
 
 const viewSolution = (ctrl: Controller): VNode =>
   ctrl.streak

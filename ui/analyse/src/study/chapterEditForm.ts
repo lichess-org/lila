@@ -1,6 +1,7 @@
 import * as chapterForm from './chapterNewForm';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
-import { spinner, option, emptyRedButton } from '../util';
+import spinner from 'common/spinner';
+import { option, emptyRedButton } from '../util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, StudyChapterMeta } from './interfaces';
 import { defined, prop, Prop } from 'common';
 import { h, VNode } from 'snabbdom';

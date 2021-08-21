@@ -1,9 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import { MaybeVNode } from '../interfaces';
 import AnalyseCtrl from '../ctrl';

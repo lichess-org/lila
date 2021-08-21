@@ -1,9 +1,9 @@
 import { prop, Prop } from 'common';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
-import { dataIcon, iconTag, scrollTo } from '../util';
+import { iconTag, scrollTo } from '../util';
 import { ctrl as chapterEditForm, StudyChapterEditFormCtrl } from './chapterEditForm';
 import { ctrl as chapterNewForm, StudyChapterNewFormCtrl } from './chapterNewForm';
 import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, StudyCtrl, TagArray } from './interfaces';

@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import { bind } from 'common/snabbdom';
 import TournamentController from './ctrl';
 import { MaybeVNodes, Pagination } from './interfaces';
-import { bind } from './view/util';
 import * as search from './search';
 
 export const maxPerPage = 10;

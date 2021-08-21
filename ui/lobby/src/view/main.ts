@@ -1,10 +1,10 @@
 import { h, VNodeData } from 'snabbdom';
+import spinner from 'common/spinner';
 import renderTabs from './tabs';
 import * as renderPools from './pools';
 import renderRealTime from './realTime/main';
 import renderSeeks from './correspondence';
 import renderPlaying from './playing';
-import { spinner } from './util';
 import LobbyController from '../ctrl';
 
 export default function (ctrl: LobbyController) {

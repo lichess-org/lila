@@ -1,5 +1,5 @@
 import { Controller, Puzzle, PuzzleGame, MaybeVNode, PuzzleDifficulty } from '../interfaces';
-import { dataIcon, onInsert, bind } from '../util';
+import { dataIcon, onInsert, bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
 import PuzzleStreak from '../streak';

@@ -3,7 +3,7 @@ import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, MaybeVNodes, onInsert } from 'common/snabbdom';
+import { bind, bindNonPassive, bindMobileMousedown, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -37,7 +37,7 @@ import relayTour from './study/relay/relayTourView';
 import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
-import { bindMobileMousedown, dataIcon, spinner } from './util';
+import spinner from 'common/spinner';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];

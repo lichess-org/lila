@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { bind } from '../util';
+import { bind } from 'common/snabbdom';
 import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
