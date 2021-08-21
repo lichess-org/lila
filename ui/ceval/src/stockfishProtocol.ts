@@ -138,9 +138,8 @@ export default class Protocol {
         }
         this.setOption('MultiPV', this.work.multiPv);
 
-        this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
-        if (this.work.maxDepth >= 99) this.send('go depth 99');
-        else this.send('go movetime 90000 depth ' + this.work.maxDepth);
+        this.send(['position fen', this.work.initialFen, 'moves', ...this.work.moves].join(' '));
+        this.send(['go depth', this.work.maxDepth, ...(this.work.maxDepth >= 99 ? [] : ['movetime 90000'])].join(' '));
       }
     }
   }
