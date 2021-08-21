@@ -756,6 +756,7 @@
   <string name="printFriendlyPDF">PDF-версія для друку</string>
   <string name="crosstable">Рахунок</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також Ви можете використовувати коліщатко миші над дошкою для зміни ходів у грі.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть колесом миші по комп\'ютерним варіаціям для їх попереднього перегляду.</string>
   <string name="analysisShapesHowTo">Натисніть shift+лкм або пкм, щоб намалювати кола та стрілки на дошці.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
   <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
@@ -956,6 +957,7 @@
   <string name="streamerManager">Стрімерські налаштування</string>
   <string name="cancelTournament">Скасувати турнір</string>
   <string name="tournDescription">Опис турніру</string>
+  <string name="tournDescriptionHelp">Є щось особливе, що ви хочете сказати учасникам? Спробуйте написати це коротко. Для посилань доступна розмітка Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Ігри обраховуються за рейтинговою системою і впливатимуть на рейтинг гравців</string>
   <string name="onlyMembersOfTeam">Тільки члени команди</string>
   <string name="noRestriction">Без обмежень</string>
