@@ -119,6 +119,7 @@ object topic {
             )
           }
         ),
+        pager,
         div(cls := "forum-topic__actions")(
           if (topic.isOld)
             p(trans.thisTopicIsArchived())
@@ -198,8 +199,7 @@ object topic {
               form3.submit(trans.reply())
             )
           )
-        },
-        pager
+        }
       )
     }
 
