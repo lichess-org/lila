@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { bind , dataIcon} from 'common/snabbdom';
+import { bind, dataIcon} from 'common/snabbdom';
 import { iconTag, richHTML } from '../util';
 import { view as memberView } from './studyMembers';
 import { view as chapterView } from './studyChapters';
