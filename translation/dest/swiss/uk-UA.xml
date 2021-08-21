@@ -7,6 +7,18 @@
     <item quantity="many">Подивитися %s раундів</item>
     <item quantity="other">Подивитися %s раунди</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s тур</item>
+    <item quantity="few">%s тури</item>
+    <item quantity="many">%s турів</item>
+    <item quantity="other">%s турів</item>
+  </plurals>
+  <plurals name="oneRoundEveryXDays">
+    <item quantity="one">Один тур за день</item>
+    <item quantity="few">Один тур за %s дні</item>
+    <item quantity="many">Один тур за %s днів</item>
+    <item quantity="other">Один тур кожні %s днів</item>
+  </plurals>
   <string name="roundsAreStartedManually">Тури розпочинаються вручну</string>
   <string name="startingIn" comment="Displayed above a timer">Початок через</string>
   <string name="nextRound">Наступний тур</string>
@@ -30,6 +42,9 @@
   <string name="startingSoon">Скоро розпочнеться</string>
   <string name="comparison">Порівняння</string>
   <string name="numberOfGames">Кількість партій</string>
+  <string name="identicalForbidden">Заборонено</string>
+  <string name="lateJoin">Пізній вступ</string>
+  <string name="lateJoinUntil">Так, якщо не зіграно половина раундів</string>
   <string name="pause">Павза</string>
   <string name="pauseSwiss">Так, але може зменшити кількість раундів</string>
   <string name="unlimitedAndFree">Без обмежень та безкоштовний</string>
