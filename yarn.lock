@@ -216,7 +216,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/highcharts@4.2.57":
+"@types/highcharts@=4.2.57":
   version "4.2.57"
   resolved "https://registry.yarnpkg.com/@types/highcharts/-/highcharts-4.2.57.tgz#f756907fc1756c3148a6226efabd3520a8929db9"
   integrity sha512-8/RF3I2Zy4I8ll9Ksa+wTbHA7ne/OHilmaTBQTVpQdNtOX6dL7EWFXfcfwiXQAfL+0r48LifHjYDmqug0t8mQA==

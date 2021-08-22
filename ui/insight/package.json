@@ -15,7 +15,7 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/highcharts": "4.2.57",
+    "@types/highcharts": "=4.2.57",
     "@types/lichess": "2.0.0",
     "highcharts": "=4.2.5",
     "rollup": "^2.56.2",

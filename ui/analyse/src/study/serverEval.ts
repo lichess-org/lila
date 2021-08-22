@@ -5,6 +5,10 @@ import Highcharts from 'highcharts';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 
+interface HighchartsHTMLElement extends HTMLElement {
+  highcharts: Highcharts.ChartObject;
+}
+
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;
   root: AnalyseCtrl;

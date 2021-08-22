@@ -7,8 +7,5 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@types/cash": "8.0.0"
-  },
-  "dependencies": {
-    "@types/highcharts": "4.2.57"
   }
 }
