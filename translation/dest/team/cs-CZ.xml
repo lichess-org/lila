@@ -50,5 +50,10 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="leadersChat">Chat vedoucích</string>
   <string name="closeTeam">Zavřít tým</string>
   <string name="closeTeamDescription">Zavřít tým navždy.</string>
+  <string name="entryCode">Heslo týmu</string>
+  <string name="entryCodeDescriptionForLeader">(Volitelné) Heslo, které musí noví členové zadat, aby se k týmu mohli připojit.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Špatné heslo.</string>
   <string name="teamAlreadyExists">Tento tým již existuje.</string>
+  <string name="upcomingTourns">Nadcházející turnaje</string>
+  <string name="completedTourns">Proběhlé turnaje</string>
 </resources>
