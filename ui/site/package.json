@@ -20,6 +20,7 @@
     "@fnando/sparkline": "^0.3.10",
     "@yaireo/tagify": "^4.0.5",
     "apexcharts": "^3.27.1",
+    "common": "2.0.0",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.9",
     "highcharts": "=4.2.5",

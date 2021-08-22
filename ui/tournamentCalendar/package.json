@@ -18,6 +18,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "common": "2.0.0",
     "date-fns": "^2.14.0",
     "snabbdom": "^3.0.1"
   },

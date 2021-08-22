@@ -18,6 +18,7 @@
     "prod": "yarn run compile"
   },
   "dependencies": {
+    "chessground": "^8.1.5",
     "snabbdom": "^3.0.1"
   },
   "devDependencies": {

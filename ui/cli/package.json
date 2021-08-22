@@ -5,6 +5,9 @@
   "description": "lichess.org command line interface",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "common": "2.0.0"
+  },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
     "@types/lichess": "2.0.0",
