@@ -639,7 +639,7 @@
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
-  <string name="tournamentFAQ">Areenaturnausten UKK</string>
+  <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="tournamentOfficial">Virallinen</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
   <string name="averageCentipawnLoss">Keskimääräinen sadasosasotilaan menetys</string>
@@ -892,7 +892,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="cancelSimul">Peruuta simultaani</string>
   <string name="simulHostcolor">Isännän väri joka pelissä</string>
   <string name="estimatedStart">Arvioitu alkamisaika</string>
-  <string name="simulFeatured">Näytä sivulla %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Näytä sivulla %s</string>
   <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
