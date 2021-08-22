@@ -18,7 +18,16 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
+  console.log('checking if analysable2');
   if (!evs.client) {
+    if(!ceval.analyzable) {
+      console.log('checking if analysable');
+      console.log('checking if analysable');
+      
+      return [
+        trans.noarg('Engine cannot analyze this position'),
+      ];
+    }
     const mb = ceval.downloadProgress() / 1024 / 1024;
     return [
       evs.server && ctrl.nextNodeBest()
@@ -153,6 +162,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
+    analyzable = instance.analyzable,
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
     threat = threatMode && ctrl.getNode().threat,
@@ -217,7 +227,9 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ]
     : [
         pearl ? h('pearl', [pearl]) : null,
-        h('help', [...engineName(instance), h('br'), trans.noarg('inLocalBrowser')]),
+        h('help', [...engineName(instance), h('br'), 
+        analyzable ? trans.noarg('inLocalBrowser'): trans.noarg('unAnalyzablePosition') 
+        ]),
       ];
 
   const switchButton: VNode | null =
@@ -233,8 +245,10 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               attrs: {
                 type: 'checkbox',
                 checked: enabled,
+                disabled: !analyzable,
               },
               hook: {
+                // insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', () => console.log()),
                 insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
               },
             }),
@@ -396,9 +410,10 @@ function renderPvWrapToggle(): VNode {
         const el = vnode.elm as HTMLElement;
         for (const event of ['touchstart', 'mousedown']) {
           el.addEventListener(event, (e: Event) => {
-            e.stopPropagation();
-            e.preventDefault();
-            $(el).closest('.pv').toggleClass('pv--nowrap');
+            e;
+            // e.stopPropagation();
+            // e.preventDefault();
+            // $(el).closest('.pv').toggleClass('pv--nowrap');
           });
         }
       },

@@ -64,6 +64,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   let supportsNnue = false;
+  const analyzable = opts.analyzable;
   const source = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]);
   if (typeof WebAssembly === 'object' && typeof WebAssembly.validate === 'function' && WebAssembly.validate(source)) {
     technology = 'wasm'; // WebAssembly 1.0
@@ -141,7 +142,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     });
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
-    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
+    if (!enabled() || !opts.possible || !opts.analyzable || !enabledAfterDisable()) return;
 
     isDeeper(deeper);
     const maxDepth = effectiveMaxDepth();
@@ -298,5 +299,6 @@ export default function (opts: CevalOpts): CevalCtrl {
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
+    analyzable: analyzable,
   };
 }
