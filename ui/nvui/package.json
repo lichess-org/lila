@@ -18,6 +18,7 @@
     "prod": "$npm_execpath run compile"
   },
   "devDependencies": {
+    "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
     "typescript": "^4.3.5"
   },
