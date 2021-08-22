@@ -18,6 +18,7 @@
   <string name="rule1">Добавьте «lichess.org» в заголовок вашего стрима при трансляции на Lichess.</string>
   <string name="rule2">Удалите «lichess.org», если вы стримите не Lichess контент.</string>
   <string name="rule3">Lichess определит ваш стрим автоматически и сделает для вас следующее:</string>
+  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">ЧаВо для стримеров по честной игре</string>
   <string name="perks">Преимущества стриминга с ключевым словом «lichess.org»</string>
   <string name="perk1">Добавит огненную иконку стримера в вашем профиле Lichess.</string>
   <string name="perk2">Переместит наверх в списке стримеров.</string>
