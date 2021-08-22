@@ -241,7 +241,8 @@ final class JsonView(
           .obj(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
-            "moveEvent"         -> pref.moveEvent
+            "moveEvent"         -> pref.moveEvent,
+            "showCaptured"      -> pref.captured
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)

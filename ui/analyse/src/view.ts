@@ -319,7 +319,7 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
     pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
 
   return materialView.renderMaterialDiffs(
-    true, // showCaptured
+    !!ctrl.data.pref.showCaptured,
     ctrl.bottomColor(),
     pieces,
     !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
