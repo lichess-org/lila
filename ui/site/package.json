@@ -38,8 +38,8 @@
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
-    "dev": "yarn run deps && rollup --config",
-    "prod": "yarn run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
+    "dev": "$npm_execpath run deps && rollup --config",
+    "prod": "$npm_execpath run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
     "plugin-dev": "rollup --config --config-plugin",
     "plugin-prod": "rollup --config --config-prod --config-plugin"
   }

@@ -23,5 +23,8 @@
     "breakpoint-sass": "^2.7.1",
     "gulp-size": "^4.0.1",
     "gulp-sourcemaps": "^3.0.0"
+  },
+  "scripts": {
+    "gulp": "gulp"
   }
 }

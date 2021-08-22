@@ -10,8 +10,8 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
-    "dev": "yarn run compile && rollup --config",
-    "prod": "yarn run compile && rollup --config --config-prod"
+    "dev": "$npm_execpath run compile && rollup --config",
+    "prod": "$npm_execpath run compile && rollup --config --config-prod"
   },
   "dependencies": {
     "common": "2.0.0",

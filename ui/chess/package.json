@@ -14,8 +14,8 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "dev": "$npm_execpath run compile",
+    "prod": "$npm_execpath run compile"
   },
   "dependencies": {
     "chessground": "^8.1.5",
