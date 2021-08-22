@@ -13,8 +13,8 @@
   <string name="editPage">Edytuj stronę streamera</string>
   <string name="yourPage">Twoja strona streamera</string>
   <string name="downloadKit">Pobierz zestaw streamera</string>
-  <string name="xIsStreaming">%s strumieniuje</string>
-  <string name="rules">Zasady strumieniowania</string>
+  <string name="xIsStreaming">%s streamuje</string>
+  <string name="rules">Zasady streamowania</string>
   <string name="rule1">Dołącz słowo kluczowe \"lichess.org\" w tytule emisji podczas strumieniowania Lichess.</string>
   <string name="rule2">Usuń słowo kluczowe, gdy strumieniujesz coś spoza Lichess.</string>
   <string name="rule3">Lichess automatycznie wykryje Twoją emisję i aktywuje poniższe korzyści:</string>
