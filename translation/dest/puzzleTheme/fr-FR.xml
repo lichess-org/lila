@@ -31,7 +31,7 @@
   <string name="equality">Égalité</string>
   <string name="equalityDescription">Revenir d\'une position perdante et assurer une nulle ou une position équilibrée. (évaluation ≤ 200cp)</string>
   <string name="kingsideAttack">Attaque sur l\'aile roi</string>
-  <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le petit roque.</string>
+  <string name="kingsideAttackDescription">Une attaque du Roi adverse, après qu\'il a fait le petit roque.</string>
   <string name="clearance">Dégagement</string>
   <string name="clearanceDescription">Un coup, souvent avec tempo, qui libère une case, une colonne ou une diagonale en vue d\'une idée tactique.</string>
   <string name="defensiveMove">Coup défensif</string>
@@ -94,7 +94,7 @@
   <string name="queenRookEndgame">Dames et Tours</string>
   <string name="queenRookEndgameDescription">Une finale avec seulement des Dames, Tours et pions.</string>
   <string name="queensideAttack">Attaque sur l\'aile dame</string>
-  <string name="queensideAttackDescription">Une attaque du Roi adverse, après qu\'il ait fait le grand roque.</string>
+  <string name="queensideAttackDescription">Une attaque du Roi adverse, après qu\'il a fait le grand roque.</string>
   <string name="quietMove">Coup silencieux</string>
   <string name="quietMoveDescription">Un mouvement qui ne fait pas échec ni n\'est une capture, mais qui prépare une menace inévitable.</string>
   <string name="rookEndgame">Finale de Tours</string>
