@@ -18,6 +18,8 @@
   <string name="rule1">Iekļaujiet atslēgas vārdu \"lichess.org\", straumē, kad straumējat platformā Lichess.</string>
   <string name="rule2">Noņemiet šo atslēgas vārdu, kad straumējat ko nesaistītu.</string>
   <string name="rule3">Lichess automātiski uztvers jūsu straumi un iespējos šos labumus:</string>
+  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lasiet mūsu %s, lai visiem nodrošinātu godīgu spēli straumēšanas laikā.</string>
+  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">straumēšanas godīguma Bieži Uzdotos Jautājumus (BUJ)</string>
   <string name="perks">Priekšrocības, straumējot ar atslēgas vārdu</string>
   <string name="perk1">Iegūstiet liesmojošu straumētāja ikonu savā Lichess profilā.</string>
   <string name="perk2">Nonāciet straumētāju saraksta augšā.</string>
