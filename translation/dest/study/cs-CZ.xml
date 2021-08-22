@@ -134,6 +134,7 @@
   <string name="clearChat">Vyčistit chat</string>
   <string name="deleteTheStudyChatHistory">Opravdu chcete vymazat historii chatu? Operaci nelze vrátit!</string>
   <string name="deleteStudy">Smazat studii</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Opravdu chcete smazat celou studii? Akci nelze vrátit zpět. Zadejte název studie pro potvrzení: %s</string>
   <string name="whereDoYouWantToStudyThat">Kde chcete tuto pozici studovat?</string>
   <string name="goodMove">Dobrý tah</string>
   <string name="mistake">Chyba</string>
