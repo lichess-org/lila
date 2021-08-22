@@ -42,6 +42,9 @@ Pemain yang tidak suka menerima pesan anda dapat meninggalkan tim.</string>
   <string name="leadersChat">Obrolan Pemimpin</string>
   <string name="closeTeam">Bubarkan tim</string>
   <string name="closeTeamDescription">Bubarkan tim selamanya.</string>
+  <string name="entryCode">Kode masuk tim</string>
+  <string name="entryCodeDescriptionForLeader">(Opsional) Kata sandi yang harus diketahui anggota baru untuk bergabung tim ini.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Kode masuk salah.</string>
   <string name="teamAlreadyExists">Tim ini sudah ada.</string>
   <string name="upcomingTourns">Turnamen selanjutnya</string>
   <string name="completedTourns">Turnamen yang telah selesai</string>
