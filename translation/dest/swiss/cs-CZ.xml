@@ -40,9 +40,11 @@ Do turnaje se mohou připojit kdykoliv.</string>
   <string name="lateJoinA">Ano, ale pouze, pokud byla zahájena méně než polovina kol. Například pokud má turnaj 11 kol, hráč se může připojit do začátku 6. kola a v 12-ti kolovém turnaji do začátku 7. kola.
 Hráči, kteří se připojí dostanou 1 volna i když se nezúčastní více kol.</string>
   <string name="willSwissReplaceArenasQ">Nahradí švýcarské turnaje arény?</string>
+  <string name="roundRobinQ">Co systém každý s každým?</string>
   <string name="joinOrCreateTeam">Připojit se k týmu nebo vytvořit tým</string>
   <string name="nowPlaying">Právě se hraje</string>
   <string name="startingSoon">Brzy začne</string>
+  <string name="comparison">Porovnání</string>
   <string name="tournDuration">Doba hraní turnaje</string>
   <string name="predefinedDuration">Předpokládaná doba trvání</string>
   <string name="durationUnknown">Předem daný počet kol, ale neznámá doba trvání</string>
