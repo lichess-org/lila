@@ -46,7 +46,8 @@
     &:hover {
       color: $c-bad;
 
-      &.quote {
+      &.quote,
+      &.edit {
         color: $c-primary;
       }
     }
