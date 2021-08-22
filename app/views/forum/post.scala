@@ -44,7 +44,7 @@ object post {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
         (!post.erased || canModCateg) option div(
-          authorLink(post = post, cssClass = "author".some, modIcon = post.displayModIcon),
+          authorLink(post = post, cssClass = "author".some),
           a(href := url)(
             post.updatedAt
               .map { updatedAt =>
@@ -87,7 +87,7 @@ object post {
                 )
               )
             },
-          canReply option button(
+          (canReply && !post.erased) option button(
             cls := "mod quote button button-empty text",
             tpe := "button",
             dataIcon := "❝"

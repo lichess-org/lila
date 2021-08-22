@@ -1,13 +1,12 @@
 import { isEmpty } from 'common';
 import modal from 'common/modal';
-import { bind, bindNonPassive } from 'common/snabbdom';
+import { bind, bindNonPassive, dataIcon } from 'common/snabbdom';
 import { h, VNode, Hooks } from 'snabbdom';
 import { MaybeVNodes } from './interfaces';
 import { AutoplayDelay } from './autoplay';
 import { boolSetting, BoolSetting } from './boolSetting';
 import AnalyseCtrl from './ctrl';
 import { cont as contRoute } from 'game/router';
-import { dataIcon } from './util';
 import * as pgnExport from './pgnExport';
 
 interface AutoplaySpeed {

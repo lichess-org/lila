@@ -1,6 +1,6 @@
 import { h, Hooks, VNode } from 'snabbdom';
+import { dataIcon } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { dataIcon } from './util';
 import perfIcons from 'common/perfIcons';
 import { TournamentData } from '../interfaces';
 

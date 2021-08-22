@@ -1,8 +1,9 @@
 import { h, VNode } from 'snabbdom';
+import * as xhr from 'common/xhr';
+import { bind } from 'common/snabbdom';
 import { Convo, Msg, Daily } from '../interfaces';
 import * as enhance from './enhance';
 import { scroller } from './scroller';
-import { bind } from './util';
 import MsgCtrl from '../ctrl';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -22,6 +23,9 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
               'button.msg-app__convo__msgs__more.button.button-empty',
               {
                 key: 'more',
+                attrs: {
+                  type: 'button',
+                },
                 hook: bind('click', _ => {
                   scroller.setMarker();
                   ctrl.getMore();
@@ -108,6 +112,10 @@ const renderText = (msg: Msg) =>
             const el = vnode.elm as HTMLElement;
             el.innerHTML = enhance.enhance(msg.text);
             el.querySelectorAll('img').forEach(c => c.addEventListener('load', scroller.auto, { once: true }));
+            $('form.unsub', el).on('submit', function (this: HTMLFormElement) {
+              teamUnsub(this);
+              return false;
+            });
           },
         },
       })
@@ -118,4 +126,14 @@ const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   if (insert) scroller.init(el);
   enhance.expandIFrames(el);
   scroller.toMarker() || scroller.auto();
+};
+
+const teamUnsub = (form: HTMLFormElement) => {
+  if (confirm('Unsubscribe?'))
+    xhr
+      .json(form.action, {
+        method: 'post',
+        body: xhr.form({ subscribe: false }),
+      })
+      .then(() => alert('Done!'));
 };

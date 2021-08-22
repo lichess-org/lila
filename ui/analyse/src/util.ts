@@ -1,5 +1,6 @@
-import { h, VNode, Attrs } from 'snabbdom';
+import { h } from 'snabbdom';
 import { fixCrazySan } from 'chess';
+import { dataIcon } from 'common/snabbdom';
 
 export { autolink, innerHTML, enrichText, richHTML, toYouTubeEmbed, toTwitchEmbed } from 'common/richText';
 
@@ -9,16 +10,6 @@ const longPressDuration = 610; // used in bindMobileTapHold
 
 export function plyColor(ply: number): Color {
   return ply % 2 === 0 ? 'white' : 'black';
-}
-
-export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
-  for (const mousedownEvent of ['touchstart', 'mousedown']) {
-    el.addEventListener(mousedownEvent, e => {
-      f(e);
-      e.preventDefault();
-      if (redraw) redraw();
-    });
-  }
 }
 
 export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void) {
@@ -50,12 +41,6 @@ export function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export function dataIcon(icon: string): Attrs {
-  return {
-    'data-icon': icon,
-  };
-}
-
 export function iconTag(icon: string) {
   return h('i', { attrs: dataIcon(icon) });
 }
@@ -76,16 +61,6 @@ export function plural(noun: string, nb: number): string {
 export function titleNameToId(titleName: string): string {
   const split = titleName.split(' ');
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
-}
-
-export function spinner(): VNode {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-      }),
-    ]),
-  ]);
 }
 
 export function baseUrl() {

@@ -1,8 +1,8 @@
 import { h, VNode } from 'snabbdom';
 import { numberFormat } from 'common/number';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
+import { defined } from 'common';
 import { view as renderConfig } from './explorerConfig';
-import { dataIcon } from '../util';
 import { winnerOf } from './explorerUtil';
 import { MaybeVNode } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
@@ -72,20 +72,17 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
 function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   if (!data.moves.length) return null;
   const trans = ctrl.trans.noarg;
-  let movesWithCurrent: OpeningMoveStats[] = [...data.moves];
-
-  if (data.moves.length > 1 && [data.white, data.black, data.draws, data.averageRating].every(el => el !== undefined)) {
-    const currentStats: OpeningMoveStats = {
-      white: data.white!,
-      black: data.black!,
-      draws: data.draws!,
-      averageRating: data.averageRating!,
-      uci: '',
-      san: 'Sum',
-    };
-
-    movesWithCurrent = [...data.moves, currentStats];
-  }
+  const movesWithCurrent =
+    data.moves.length > 1 && [data.white, data.black, data.draws].every(defined)
+      ? [
+          ...data.moves,
+          {
+            ...data,
+            uci: '',
+            san: 'Σ',
+          } as OpeningMoveStats,
+        ]
+      : data.moves;
 
   return h('table.moves', [
     h('thead', [
@@ -94,13 +91,13 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
     h(
       'tbody',
       moveTableAttributes(ctrl, data.fen),
-      movesWithCurrent.map(move => {
-        return h(
+      movesWithCurrent.map(move =>
+        h(
           `tr.expl-uci-${move.uci}`,
           {
             attrs: {
               'data-uci': move.uci,
-              title: ctrl.trans('averageRatingX', move.averageRating),
+              title: move.uci ? ctrl.trans('averageRatingX', move.averageRating) : 'Total',
             },
           },
           [
@@ -108,8 +105,8 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
             h('td', numberFormat(move.white + move.draws + move.black)),
             h('td', resultBar(move)),
           ]
-        );
-      })
+        )
+      )
     ),
   ]);
 }

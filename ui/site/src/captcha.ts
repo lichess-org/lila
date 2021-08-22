@@ -19,7 +19,7 @@ function init() {
       return;
     }
 
-    $board.on('mousedown', () => {
+    $board.on('touchstart', () => {
       const el = document.activeElement as HTMLElement;
       if (el && 'blur' in el) el.blur();
     });

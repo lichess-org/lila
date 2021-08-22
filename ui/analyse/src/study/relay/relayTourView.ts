@@ -1,6 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
-import { dataIcon, innerHTML } from '../../util';
+import { dataIcon } from 'common/snabbdom';
+import { innerHTML } from '../../util';
 import { h, VNode } from 'snabbdom';
 import { RelayRound } from './interfaces';
 import { StudyCtrl } from '../interfaces';

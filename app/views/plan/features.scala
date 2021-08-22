@@ -46,7 +46,7 @@ object features {
               "Deep Stockfish 14+ server analysis"
             ),
             tr(unlimited)(
-              "Instant local Stockfish 13+ analysis"
+              "Instant local Stockfish 14+ analysis"
             ),
             tr(unlimited)(
               a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
@@ -134,7 +134,7 @@ object features {
               a(href := routes.Tournament.home)("Arena tournaments")
             ),
             tr(check)(
-              "Board editor and analysis board with Stockfish 13+"
+              "Board editor and analysis board with Stockfish 14+"
             ),
             tr(unlimited)(
               a(href := routes.Puzzle.home)("Tactics puzzles")

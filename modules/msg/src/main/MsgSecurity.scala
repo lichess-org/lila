@@ -70,6 +70,7 @@ final private class MsgSecurity(
           case false => fuccess(Block)
           case _ =>
             isLimited(contacts, isNew, unlimited) orElse
+              isFakeTeamMessage(rawText, unlimited) orElse
               isSpam(text) orElse
               isTroll(contacts) orElse
               isDirt(contacts.orig, text, isNew) getOrElse
@@ -109,6 +110,10 @@ final private class MsgSecurity(
         fuccess {
           ReplyLimitPerUser[Option[Verdict]](contacts.orig.id, limitCost(contacts.orig))(none)(Limit.some)
         }
+
+    private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) ??
+        fuccess(FakeTeamMessage.some)
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
       spam.detect(text) ?? fuccess(Spam.some)
@@ -182,11 +187,12 @@ private object MsgSecurity {
   sealed abstract class Send(val mute: Boolean) extends Verdict
   sealed abstract class Mute                    extends Send(true)
 
-  case object Ok      extends Send(false)
-  case object Troll   extends Mute
-  case object Spam    extends Mute
-  case object Dirt    extends Mute
-  case object Block   extends Reject
-  case object Limit   extends Reject
-  case object Invalid extends Reject
+  case object Ok              extends Send(false)
+  case object Troll           extends Mute
+  case object Spam            extends Mute
+  case object Dirt            extends Mute
+  case object FakeTeamMessage extends Reject
+  case object Block           extends Reject
+  case object Limit           extends Reject
+  case object Invalid         extends Reject
 }

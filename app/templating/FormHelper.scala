@@ -219,7 +219,7 @@ trait FormHelper { self: I18nHelper =>
 
     private val dataEnableTime = attr("data-enable-time")
     private val dataTime24h    = attr("data-time_24h")
-    private val dataMinDate    = attr("data-minDate")
+    private val dataMinDate    = attr("data-mindate")
 
     def flatpickr(
         field: Field,
@@ -230,7 +230,10 @@ trait FormHelper { self: I18nHelper =>
       input(field, klass = s"flatpickr${if (utc) " flatpickr-utc" else ""}")(
         dataEnableTime := withTime,
         dataTime24h := withTime,
-        dataMinDate := minDate
+        dataMinDate := minDate.map {
+          case "today" if utc => "yesterday"
+          case d => d
+        }
       )
 
     object file {

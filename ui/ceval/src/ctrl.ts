@@ -33,10 +33,15 @@ function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly
   return mem;
 }
 
-function median(values: number[]): number {
-  values.sort((a, b) => a - b);
-  const half = Math.floor(values.length / 2);
-  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
+function defaultDepth(technology: CevalTechnology, threads: number, multiPv: number): number {
+  switch (technology) {
+    case 'asmjs':
+      return 18;
+    case 'wasm':
+      return 20;
+    default:
+      return 22 + Math.min(Math.max(threads - multiPv, 0), 6);
+  }
 }
 
 const cevalDisabledSentinel = '1';
@@ -66,8 +71,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     if (sharedMem) {
       technology = 'hce';
 
-      // i32x4.dot_i16x8_s
-      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11]); // prettier-ignore
+      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
+      const sourceWithSimd = Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1, 11]); // prettier-ignore
       supportsNnue = WebAssembly.validate(sourceWithSimd);
       if (supportsNnue && officialStockfish && enableNnue()) technology = 'nnue';
 
@@ -93,7 +98,6 @@ export default function (opts: CevalOpts): CevalCtrl {
   const maxHashSize = Math.min(((navigator.deviceMemory || 0.25) * 1024) / 8, growableSharedMem ? 1024 : 16);
   const hashSize = storedProp(storageKey('ceval.hash-size'), 16);
 
-  const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
@@ -114,46 +118,9 @@ export default function (opts: CevalOpts): CevalCtrl {
 
   let worker: AbstractWorker<unknown> | undefined;
 
-  // adjusts maxDepth based on nodes per second
-  const npsRecorder = (() => {
-    const values: number[] = [];
-    const applies = (ev: Tree.ClientEval) => {
-      return (
-        ev.knps &&
-        ev.depth >= 16 &&
-        typeof ev.cp !== 'undefined' &&
-        Math.abs(ev.cp) < 500 &&
-        ev.fen.split(/\s/)[0].split(/[nbrqkp]/i).length - 1 >= 10
-      );
-    };
-    return (ev: Tree.ClientEval) => {
-      if (!applies(ev)) return;
-      values.push(ev.knps);
-      if (values.length > 9) {
-        const knps = median(values) || 0;
-        let depth = 18;
-        if (knps > 100) depth = 19;
-        if (knps > 150) depth = 20;
-        if (knps > 250) depth = 21;
-        if (knps > 500) depth = 22;
-        if (knps > 1000) depth = 23;
-        if (knps > 2000) depth = 24;
-        if (knps > 3500) depth = 25;
-        if (knps > 5000) depth = 26;
-        if (knps > 7000) depth = 27;
-        // TODO: Maybe we want to get deeper for slow NNUE?
-        depth += 2 * Number(technology === 'nnue');
-        maxDepth(depth);
-        if (values.length > 40) values.shift();
-      }
-    };
-  })();
-
   let lastEmitFen: string | null = null;
-
   const onEmit = throttle(200, (ev: Tree.ClientEval, work: Work) => {
     sortPvsInPlace(ev.pvs, work.ply % 2 === (work.threatMode ? 1 : 0) ? 'white' : 'black');
-    npsRecorder(ev);
     curEval = ev;
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen && enabledAfterDisable()) {
@@ -163,7 +130,10 @@ export default function (opts: CevalOpts): CevalCtrl {
     }
   });
 
-  const effectiveMaxDepth = () => (isDeeper() || infinite() ? 99 : parseInt(maxDepth()));
+  const effectiveMaxDepth = () =>
+    isDeeper() || infinite()
+      ? 99
+      : defaultDepth(technology, protocolOpts.threads ? protocolOpts.threads() : 1, parseInt(multiPv()));
 
   const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function (a, b) {
@@ -174,12 +144,12 @@ export default function (opts: CevalOpts): CevalCtrl {
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
     isDeeper(deeper);
-    const maxD = effectiveMaxDepth();
+    const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
 
     const existing = threatMode ? step.threat : step.ceval;
-    if (existing && existing.depth >= maxD) {
+    if (existing && existing.depth >= maxDepth) {
       lastStarted = {
         path,
         steps,
@@ -194,7 +164,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       currentFen: step.fen,
       path,
       ply: step.ply,
-      maxDepth: maxD,
+      maxDepth,
       multiPv: parseInt(multiPv()),
       threatMode,
       emit(ev: Tree.ClientEval) {
@@ -232,7 +202,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: '85a969',
+          version: 'b6939d',
           wasmMemory: sharedWasmMemory(2048, growableSharedMem ? 32768 : 2048),
           cache: new Cache('ceval-wasm-cache'),
         });

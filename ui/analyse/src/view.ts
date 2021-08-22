@@ -3,7 +3,7 @@ import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, MaybeVNodes, onInsert } from 'common/snabbdom';
+import { bind, bindNonPassive, bindMobileMousedown, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
 import * as materialView from 'game/view/material';
@@ -37,7 +37,7 @@ import relayTour from './study/relay/relayTourView';
 import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
-import { bindMobileMousedown, dataIcon, spinner } from './util';
+import spinner from 'common/spinner';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -319,11 +319,10 @@ export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
     pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
 
   return materialView.renderMaterialDiffs(
-    true, // showCaptured
-    ctrl.getOrientation() === 'black',
-    ctrl.data.player,
-    ctrl.data.opponent,
+    !!ctrl.data.pref.showCaptured,
+    ctrl.bottomColor(),
     pieces,
+    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
     ctrl.nodeList,
     ctrl.node.ply
   );
@@ -336,11 +335,8 @@ function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNo
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   if (ctrl.embed) return;
 
-  const clocks = renderClocks(ctrl);
-
-  if (!clocks) return;
-
-  const whitePov = ctrl.bottomIsWhite(),
+  const clocks = renderClocks(ctrl),
+    whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 
   return [

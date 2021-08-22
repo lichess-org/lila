@@ -9,6 +9,7 @@ export const join = throttle(1000, (ctrl: TournamentController, password?: strin
   xhr
     .textRaw('/tournament/' + ctrl.data.id + '/join', {
       method: 'POST',
+      // must use JSON body for app compat
       body: JSON.stringify({
         p: password || null,
         team: team || null,

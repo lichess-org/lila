@@ -107,7 +107,11 @@ $('#form3-message').val($('#form3-message').val() + $(e.target).data('copyurl') 
             br
           ),
           postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
-            form3.group(form("message"), trans.message())(form3.textarea(_)(rows := 10)),
+            form3.group(
+              form("message"),
+              trans.message(),
+              help = raw("You can send up to 7 team messages per week.").some
+            )(form3.textarea(_)(rows := 10)),
             form3.actions(
               a(href := routes.Team.show(t.slug))(trans.cancel()),
               form3.submit(trans.send())

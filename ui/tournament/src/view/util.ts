@@ -1,30 +1,7 @@
-import { Attrs, h, Hooks, VNode, VNodeChildren } from 'snabbdom';
+import { h, VNode, VNodeChildren } from 'snabbdom';
 import { numberFormat } from 'common/number';
+import { dataIcon } from 'common/snabbdom';
 import { SimplePlayer } from '../interfaces';
-
-export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return onInsert(el =>
-    el.addEventListener(eventName, e => {
-      const res = f(e);
-      if (redraw) redraw();
-      return res;
-    })
-  );
-}
-
-export function onInsert(f: (element: HTMLElement) => void): Hooks {
-  return {
-    insert(vnode) {
-      f(vnode.elm as HTMLElement);
-    },
-  };
-}
-
-export function dataIcon(icon: string): Attrs {
-  return {
-    'data-icon': icon,
-  };
-}
 
 export function ratio2percent(r: number) {
   return Math.round(100 * r) + '%';
@@ -70,15 +47,5 @@ export function numberRow(name: string, value: any, typ?: string) {
           : 0
         : numberFormat(value)
     ),
-  ]);
-}
-
-export function spinner(): VNode {
-  return h('div.spinner', [
-    h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
-      h('circle', {
-        attrs: { cx: 20, cy: 20, r: 18, fill: 'none' },
-      }),
-    ]),
   ]);
 }

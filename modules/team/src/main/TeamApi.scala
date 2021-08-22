@@ -264,7 +264,8 @@ final class TeamApi(
   def setLeaders(team: Team, json: String, by: User, byMod: Boolean): Funit = {
     val leaders: Set[User.ID] = parseTagifyInput(json) take 30
     for {
-      ids                  <- memberRepo.filterUserIdsInTeam(team.id, leaders)
+      allIds               <- memberRepo.filterUserIdsInTeam(team.id, leaders)
+      ids                  <- userRepo.filterNotKid(allIds.toSeq)
       previousValidLeaders <- memberRepo.filterUserIdsInTeam(team.id, team.leaders)
       _ <- ids.nonEmpty ?? {
         if (

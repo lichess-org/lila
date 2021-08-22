@@ -33,13 +33,14 @@ object bits {
     mini(fen, color, lastMove)(span)
 
   def jsData(fen: Option[String] = None)(implicit ctx: Context) =
-    Json.obj(
-      "baseUrl"   -> s"$netBaseUrl${routes.Editor.load("")}",
-      "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-      "is3d"      -> ctx.pref.is3d,
-      "i18n"      -> i18nJsObject(i18nKeyes)
-    )
-    .add("fen" -> fen)
+    Json
+      .obj(
+        "baseUrl"   -> s"$netBaseUrl${routes.Editor.load("")}",
+        "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
+        "is3d"      -> ctx.pref.is3d,
+        "i18n"      -> i18nJsObject(i18nKeyes)
+      )
+      .add("fen" -> fen)
 
   private val i18nKeyes = List(
     trans.setTheBoard,

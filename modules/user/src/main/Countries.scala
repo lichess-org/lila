@@ -83,7 +83,7 @@ object Countries {
     C("ER", "Eritrea"),
     C("ES", "Spain"),
     C("ES-CT", "Catalonia"),
-    C("ES-EU", "Basque"),
+    C("ES-EU", "Basque Country"),
     C("ET", "Ethiopia"),
     C("FI", "Finland"),
     C("FJ", "Fiji"),

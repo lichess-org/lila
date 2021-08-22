@@ -3,7 +3,7 @@ import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
@@ -83,13 +83,16 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h(
       'span',
       { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
+      ctrl.technology == 'nnue' ? 'Stockfish 14+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
     ),
     ctrl.technology == 'nnue'
       ? h(
           'span.technology.good',
           {
-            attrs: { title: 'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, strongest)' },
+            attrs: {
+              title:
+                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
+            },
           },
           'NNUE'
         )
@@ -308,7 +311,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.variant.key), setup);
 
   return h(
     'div.pv_box',

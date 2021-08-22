@@ -1,8 +1,8 @@
 import { prop, Prop } from 'common';
-import { bind, onInsert } from 'common/snabbdom';
+import { bind, onInsert, dataIcon } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { AnalyseSocketSend } from '../socket';
-import { dataIcon, iconTag, scrollTo, titleNameToId } from '../util';
+import { iconTag, scrollTo, titleNameToId } from '../util';
 import { StudyCtrl, StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
 import { NotifCtrl } from './notif';

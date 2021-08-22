@@ -6,8 +6,8 @@ import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
+import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
-import { rulesToVariant, variantToRules } from './chessops';
 
 export default class EditorCtrl {
   cfg: Editor.Config;
@@ -65,7 +65,7 @@ export default class EditorCtrl {
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     const params = new URLSearchParams(location.search);
-    this.rules = this.cfg.embed ? 'chess' : variantToRules(params.get('variant'));
+    this.rules = this.cfg.embed ? 'chess' : lichessRules((params.get('variant') || 'standard') as VariantKey);
     this.initialFen = (cfg.fen || params.get('fen') || INITIAL_FEN).replace(/_/g, ' ');
 
     this.redraw = () => {};
@@ -78,7 +78,7 @@ export default class EditorCtrl {
     if (!this.cfg.embed) {
       const params = new URLSearchParams();
       if (fen !== INITIAL_FEN || this.rules !== 'chess') params.set('fen', fen);
-      if (this.rules !== 'chess') params.set('variant', rulesToVariant(this.rules));
+      if (this.rules !== 'chess') params.set('variant', lichessVariant(this.rules));
       const paramsString = params.toString();
       window.history.replaceState(null, '', '/editor' + (paramsString ? '?' + paramsString : ''));
     }
@@ -141,7 +141,7 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    const variant = this.rules === 'chess' ? '' : rulesToVariant(this.rules) + '/';
+    const variant = this.rules === 'chess' ? '' : lichessVariant(this.rules) + '/';
     return this.makeUrl(`/analysis/${variant}`, legalFen);
   }
 
