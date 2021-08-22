@@ -18,6 +18,7 @@
   <string name="rule1">Додайте ключове слово \"lichess.org\" у заголовку Вашої трансляції і використовуйте категорію \"Chess\" під час трансляції на Lichess.</string>
   <string name="rule2">Видаліть ключове слово, коли транслюєте щось не пов\'язане з Lichess.</string>
   <string name="rule3">Lichess буде автоматично виявляти Вашу трансляцію і включати наступні переваги:</string>
+  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">streaming Fairplay FAQ</string>
   <string name="perks">Переваги трансляції з ключовим словом</string>
   <string name="perk1">Ви отримуєте знак стрімера у Вашому обліковому записі Lichess.</string>
   <string name="perk2">Ви будете переміщені вверх по списку стрімерів.</string>
