@@ -18,6 +18,7 @@
   <string name="rule1">Include the keyword \"lichess.org\" in your stream title and use the category \"Chess\" when you stream on Lichess.</string>
   <string name="rule2">Remove the keyword when you stream non-Lichess stuff.</string>
   <string name="rule3">Lichess will detect your stream automatically and enable the following perks:</string>
+  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Read our %s to ensure fair play for everyone during your stream.</string>
   <string name="perks">Benefits of streaming with the keyword</string>
   <string name="perk1">Get a flaming streamer icon on your Lichess profile.</string>
   <string name="perk2">Get bumped up to the top of the streamers list.</string>
