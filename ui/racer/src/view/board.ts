@@ -5,12 +5,14 @@ import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { h, VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 
-export const renderBoard = (ctrl: RacerCtrl) =>
-  h('div.puz-board.main-board', [
+export const renderBoard = (ctrl: RacerCtrl) => {
+  const secs = ctrl.countdownSeconds();
+  return h('div.puz-board.main-board', [
     renderGround(ctrl),
     ctrl.promotion.view(),
-    ctrl.countdownSeconds() ? renderCountdown(ctrl.countdownSeconds()) : undefined,
+    secs ? renderCountdown(secs) : undefined,
   ]);
+};
 
 const renderGround = (ctrl: RacerCtrl): VNode =>
   h('div.cg-wrap', {
