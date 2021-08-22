@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "common": "2.0.0"

@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@rollup/plugin-replace": "^2.3.4",
+    "@rollup/plugin-replace": "^3.0.0",
     "@types/fnando__sparkline": "^0.3.2",
     "@types/yaireo__tagify": "^4.0.1",
     "@types/zxcvbn": "^4.4.0",
