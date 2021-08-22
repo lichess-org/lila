@@ -63,7 +63,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
   <string name="lateJoinA">Jawoll, bis meh als d\'Hälfti vodä Rundänä aagfangä händ; so chönd Schpiller/-innä zum Biischpiil amänä elfründigä Turniär noch Schwiizer Syschtem vor Beginn vo Rundi 6 und imänä zwölfrundigä vor Beginn vo Rundi 7 biiträtä. Noochzügler bechömäd en halbä Punkt guätgschribä, au wenn si mehräri Rundänä verpasst händ.</string>
   <string name="willSwissReplaceArenasQ">Werden Turniere nach Schweizer System Arena-Turniere ersetzen?</string>
   <string name="willSwissReplaceArenasA">Nein. Sie sind komplementäre Funktionen.</string>
-  <string name="roundRobinQ">Was ist mit Rundenturnieren?</string>
+  <string name="roundRobinQ">Was isch mit Rundlaufturniär?</string>
   <string name="roundRobinA">Wir möchten es hinzufügen, aber leider funktionieren Rundenturniere online nicht.
 Der Grund dafür ist, dass es keine faire Möglichkeit gibt, mit Leuten umzugehen, die das Turnier vorzeitig verlassen. Wir können nicht erwarten, dass alle Spieler in einem Online-Event alle ihre Spiele spielen. Das wird einfach nicht passieren, und dadurch wären die meisten Rundenturniere fehlerhaft und unfair, was ihren eigentlichen Sinn zunichte macht.
 Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer System und einer sehr hohen Anzahl an Runden zu spielen. Dadurch werden alle möglichen Paarungen gespielt, bevor das Turnier endet.</string>
@@ -82,14 +82,14 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="numberOfGames">Aazahl Partiiä</string>
   <string name="numberOfGamesAsManyAsPossible">So viele wie in der zugewiesenen Dauer gespielt werden können</string>
   <string name="numberOfGamesPreDefined">Im Voraus entschieden, für alle Spieler gleich</string>
-  <string name="pairingSystem">Paarungssystem</string>
+  <string name="pairingSystem">Paarigssüschtem</string>
   <string name="pairingSystemArena">Jeder verfügbare Gegner mit ähnlichem Rang</string>
   <string name="pairingSystemSwiss">Beste Paarung, basierend auf Punkten und Feinwertungen</string>
-  <string name="pairingWaitTime">Wartezeit für die Paarung</string>
+  <string name="pairingWaitTime">Warteziit für d Paarig</string>
   <string name="pairingWaitTimeFast">Schnell: wartet nicht auf alle Spieler</string>
   <string name="pairingWaitTimeSlow">Langsam: wartet auf alle Spieler</string>
-  <string name="identicalPairing">Gleiche Paarung mehrmals</string>
-  <string name="possibleButNotConsecutive">Möglich, aber nicht hintereinander</string>
+  <string name="identicalPairing">Idäntischi Paarig</string>
+  <string name="possibleButNotConsecutive">Möglich, abär nöd hindäränand</string>
   <string name="identicalForbidden">Verbottä</string>
   <string name="lateJoin">Spaatä Biitritt</string>
   <string name="lateJoinUntil">Erlaubt, bis mehr als die Hälfte der Runden gestartet wurden</string>
