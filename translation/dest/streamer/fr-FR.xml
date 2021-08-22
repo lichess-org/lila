@@ -18,6 +18,8 @@
   <string name="rule1">Incluez \"lichess.org\" dans votre titre de streaming lorsque vous streamez sur Lichess.</string>
   <string name="rule2">Retirez le mot-clé lorsque vous ne streamez pas à propos de Lichess.</string>
   <string name="rule3">Lichess détectera automatiquement votre stream et activera les avantages suivants :</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lisez la %s pour assurer l\'esprit sportif pour tous pendant la diffusion.</string>
+  <string name="streamingFairplayFAQ">FAQ sur l\'esprit sportif pendant les diffusions</string>
   <string name="perks">Avantages du streaming avec le mot-clé</string>
   <string name="perk1">Obtenez une flamboyante icône de streamer sur votre profil Lichess.</string>
   <string name="perk2">Soyez remonté en haut de la liste des streamers.</string>
