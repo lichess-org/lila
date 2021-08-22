@@ -18,6 +18,8 @@
   <string name="rule1">Include cuvântul cheie „lichess.org” în titlul streamului tău când faci stream pe Lichess.</string>
   <string name="rule2">Șterge cuvântul cheie atunci când faci stream legat de lucruri ce nu aparțin de Lichess.</string>
   <string name="rule3">Lichess îți va detecta streamul în mod automat și va activa următoarele beneficii:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Citește %s pentru a asigura un joc corect pentru toată lumea în streamul tău.</string>
+  <string name="streamingFairplayFAQ">lista de întrebări frecvente referitoare la streaming</string>
   <string name="perks">Beneficii având un stream cu cuvântul cheie</string>
   <string name="perk1">Obții iconița de streamer în flăcări pe pagina ta de profil.</string>
   <string name="perk2">Ești ridicat în vârful listei de streameri.</string>
