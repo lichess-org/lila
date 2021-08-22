@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Minta analisa komputer</string>
   <string name="computerAnalysis">Analisa komputer</string>
   <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
+  <string name="computerAnalysisDisabled">Analisa komputer tidak tersedia</string>
   <string name="analysis">Papan analisa</string>
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s pemain tersambung</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remis atas keputusan bersama</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 langkah tanpa hasil</string>
   <string name="currentGames">Permainan saat ini</string>
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
@@ -851,7 +854,7 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="cancelSimul">Batalkan simulasi</string>
   <string name="simulHostcolor">Pilih warna untuk setiap permainan</string>
   <string name="estimatedStart">Waktu estimasi mulai</string>
-  <string name="simulFeatured">Tersedia di %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Tersedia di %s</string>
   <string name="simulFeaturedHelp">Tampilkan simulasi Anda ke semua orang pada %s. Nonaktifkan untuk simulasi pribadi.</string>
   <string name="simulDescription">Deskripsi simulasi</string>
   <string name="simulDescriptionHelp">Adakah sesuatu yang ingin Anda sampaikan pada peserta?</string>
@@ -875,4 +878,5 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kode masuk turnamen</string>
 </resources>
