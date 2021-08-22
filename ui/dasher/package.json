@@ -10,7 +10,9 @@
   },
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "dev": "rollup --config",

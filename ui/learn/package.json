@@ -13,7 +13,9 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
-    "@build/rollupProject": "2.0.0"
+    "@build/rollupProject": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "chess.js": "github:ornicar/chess.js#learn",
