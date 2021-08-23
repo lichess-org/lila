@@ -66,17 +66,20 @@ object Form {
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
-  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+  private val cleanTextFormatter: Formatter[String] = new Formatter[String] {
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
         .map(_.trim)
-        .map(StringUtils.removeGarbageChars)
+        .map(String.normalize)
         .toRight(Seq(FormError(key, "error.required", Nil)))
-    def unbind(key: String, value: String) = Map(key -> StringUtils.removeGarbageChars(value.trim))
+    def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }
 
-  val cleanText: Mapping[String] = of(cleanTextFormatter)
+  val cleanText: Mapping[String] = of(cleanTextFormatter).verifying(
+    "The text contains invalid chars",
+    s => !String.hasGarbageChars(s)
+  )
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match {
       case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))

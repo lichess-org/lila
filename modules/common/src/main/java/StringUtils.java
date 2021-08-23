@@ -78,26 +78,6 @@ public class StringUtils {
         sb.append(sArr, start, end - start);
     }
 
-    public static String removeGarbageChars(String s) {
-        s = Normalizer.normalize(s, Normalizer.Form.NFKC);
-        final char[] sArr = s.toCharArray();
-        final int size = sArr.length;
-        final StringBuilder sb = new StringBuilder(size);
-        for (int i = 0; i < size; i++) {
-            final char c = sArr[i];
-            // invisible chars https://www.compart.com/en/unicode/block/U+2000
-            if (c >= '\u2000' && c <= '\u200F') continue;
-            // weird stuff https://www.compart.com/en/unicode/block/U+2000
-            if (c >= '\u2028' && c <= '\u202F') continue;
-            // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
-            if (c >= '\u2100' && c <= '\u2C5F') continue;
-            // decorative chars ꧁ ꧂
-            if (c == '\ua9c1' || c == '\ua9c2') continue;
-            sb.append(c);
-        }
-        return sb.toString();
-    }
-
     /**
      * https://github.com/tdebatty/java-string-similarity/blob/master/src/main/java/info/debatty/java/stringsimilarity/Levenshtein.java
      *
