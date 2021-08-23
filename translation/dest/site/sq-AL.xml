@@ -884,6 +884,24 @@ Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni kë
 Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.</string>
   <string name="cancelSimul">Anuloje simulimin</string>
   <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Shfaqe në %s</string>
+  <string name="simulFeaturedHelp">Shfaqeni simulimin tuaj për këdo, në %s. Çaktivizojeni për simulime private.</string>
+  <string name="simulDescription">Përshkrim simulimi</string>
+  <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
+  <string name="markdownAvailable">Për sintaksë më të thelluar mund të përdoret %s-i.</string>
+  <string name="inYourLocalTimezone">Në zonën tuaj kohore vendore</string>
+  <string name="tournChat">Fjalosje turneu</string>
+  <string name="noChat">Pa fjalosje</string>
+  <string name="onlyTeamLeaders">Vetëm kapitenët e ekipeve</string>
+  <string name="onlyTeamMembers">Vetëm anëtarët e ekipeve</string>
+  <string name="navigateMoveTree">Lëvizni nëpër pemën e lëvizjeve</string>
+  <string name="mouseTricks">Gjeste miu</string>
+  <string name="toggleLocalAnalysis">Aktivizo/Çaktivizo analizë kompjuterike</string>
+  <string name="toggleAllAnalysis">Aktivizo/Çaktivizo krejt analizat kompjuterike</string>
+  <string name="playComputerMove">Bëj lëvizjen më të mirë të kompjuterit</string>
+  <string name="analysisOptions">Mundësi analize</string>
+  <string name="showHelpDialog">Shfaq këtë dialog ndihme</string>
+  <string name="reopenYourAccount">Rihapni llogarinë tuaj</string>
+  <string name="closedAccountChangedMind">Nëse e mbyllët llogarinë tuaj, por prej atëherë keni ndërruar mendje, mund t’ju jepet një shans për të rimarrë llogarinë tuaj.</string>
   <string name="onlyWorksOnce">Kjo do të funksionojë vetëm një herë.</string>
   <string name="cantDoThisTwice">Nëse e mbyllni llogarinë tuaj për herë të dytë, s’do të ketë mënyrë për ta rimarrë.</string>
   <string name="emailAssociatedToaccount">Adresë email përshoqëruar llogarisë</string>
