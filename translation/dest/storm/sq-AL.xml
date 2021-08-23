@@ -38,6 +38,7 @@
   <string name="raceComplete">Gara përfundoi!</string>
   <string name="spectating">Shikues</string>
   <string name="joinTheRace">Bashkohuni garës!</string>
+  <string name="startTheRace">Nise garën</string>
   <string name="yourRankX">Renditja juaj: %s</string>
   <string name="waitForRematch">Prit për revansh</string>
   <string name="nextRace">Garë tjetër</string>
