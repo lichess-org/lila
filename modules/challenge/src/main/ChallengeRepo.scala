@@ -26,7 +26,7 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
 
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.?? { challenger =>
-      createdByChallengerId(challenger.id).flatMap {
+      createdByChallengerId()(challenger.id).flatMap {
         case challenges if challenges.sizeIs <= maxPerUser.value => funit
         case challenges                                          => challenges.drop(maxPerUser.value).map(_.id).map(remove).sequenceFu.void
       }
@@ -34,19 +34,19 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
 
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 
-  def createdByChallengerId(userId: String): Fu[List[Challenge]] =
+  def createdByChallengerId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("challenger.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
-      .list()
+      .list(max)
 
-  def createdByDestId(userId: String): Fu[List[Challenge]] =
+  def createdByDestId(max: Int = 100)(userId: String): Fu[List[Challenge]] =
     coll
       .find(selectCreated ++ $doc("destUser.id" -> userId))
       .sort($doc("createdAt" -> 1))
       .cursor[Challenge]()
-      .list()
+      .list(max)
 
   def setChallenger(c: Challenge, color: Option[chess.Color]) =
     coll.update
@@ -59,7 +59,7 @@ final private class ChallengeRepo(colls: ChallengeColls, maxPerUser: Max)(implic
       .void
 
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
-    createdByChallengerId(userId) zip createdByDestId(userId) dmap { case (x, y) =>
+    createdByChallengerId()(userId) zip createdByDestId()(userId) dmap { case (x, y) =>
       x ::: y
     }
 
