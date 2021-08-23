@@ -1,5 +1,7 @@
 package lila.common.base;
 
+import java.text.Normalizer;
+
 public class StringUtils {
     private static final char[] DIGITS = {
         '0' , '1' , '2' , '3' , '4' , '5' ,
@@ -76,7 +78,8 @@ public class StringUtils {
         sb.append(sArr, start, end - start);
     }
 
-    public static String removeGarbageChars(final String s) {
+    public static String removeGarbageChars(String s) {
+        s = Normalizer.normalize(s, Normalizer.Form.NFKC);
         final char[] sArr = s.toCharArray();
         final int size = sArr.length;
         final StringBuilder sb = new StringBuilder(size);
