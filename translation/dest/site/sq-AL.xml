@@ -691,6 +691,7 @@
   <string name="enableKidMode">Aktivizo modalitetin per femije</string>
   <string name="disableKidMode">Çaktivizo modalitetin per femije</string>
   <string name="security">Siguria</string>
+  <string name="sessions">Sesione</string>
   <string name="revokeAllSessions">terhiq te gjitha seksionet</string>
   <string name="playChessEverywhere">Luaj shah kudo</string>
   <string name="asFreeAsLichess">Pa pagesë si vetë lichess</string>
@@ -865,4 +866,16 @@
   <string name="welcome">Mirësevini!</string>
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas / pa burim të hapur.
 Të gjitha kostot operative, zhvillimi dhe përmbajtja financohen vetëm nga donacionet e përdoruesve.</string>
+  <string name="cancelTournament">Anulojeni turnenë</string>
+  <string name="tournDescription">Përshkrim turneu</string>
+  <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>
+  <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
+  <string name="noRestriction">Pa kufizim</string>
+  <string name="onlyTitled">Vetëm lojtarë me titull</string>
+  <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
+  <string name="positionInputHelp">Ngjitni një FEN të vlefshëm, që të niset çdo lojë prej një pozicioni të dhënë.
+Funksionon vetëm për lojëra standarde, jo me variante.
+Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni këtu.
+Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.</string>
+  <string name="cancelSimul">Anuloje simulimin</string>
 </resources>
