@@ -89,7 +89,7 @@ public class StringUtils {
             // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
             if (c >= '\u2100' && c <= '\u2C5F') continue;
             // decorative chars ꧁ ꧂
-            if (c == '\ua9c1' && c <= '\ua9c2') continue;
+            if (c == '\ua9c1' || c == '\ua9c2') continue;
             sb.append(c);
         }
         return sb.toString();
