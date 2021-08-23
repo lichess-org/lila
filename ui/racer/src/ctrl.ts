@@ -46,7 +46,7 @@ export default class StormCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config, Math.max(0, -opts.data.startsIn)),
+      clock: new Clock(config, opts.data.startsIn ? Math.max(0, -opts.data.startsIn) : undefined),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -54,7 +54,7 @@ export default class StormCtrl {
       },
     };
     this.vm = {
-      alreadyStarted: opts.data.startsIn && opts.data.startsIn <= 0,
+      alreadyStarted: !!opts.data.startsIn && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(
       this.run.clock,

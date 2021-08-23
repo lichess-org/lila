@@ -1,5 +1,9 @@
 $(function () {
   const noteStore = lichess.storage.make('inquiry-note');
+  const usernameNoteStore = lichess.storage.make('inquiry-note-user');
+  const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
+  if (username != usernameNoteStore.get()) noteStore.remove();
+  usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0];
 
   $('#inquiry .notes').on('mouseenter', () => {

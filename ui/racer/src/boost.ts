@@ -22,5 +22,5 @@ export class Boost {
     }
   };
 
-  isBoosting = (index: number) => this.cars[index]?.score && this.cars[index]?.time > getNow() - 1000;
+  isBoosting = (index: number) => !!this.cars[index]?.score && this.cars[index]?.time > getNow() - 1000;
 }

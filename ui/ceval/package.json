@@ -16,12 +16,13 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "compile": "tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
+    "dev": "$npm_execpath run compile",
+    "prod": "$npm_execpath run compile"
   },
   "devDependencies": {
+    "@types/cash": "8.0.0",
     "@types/lichess": "2.0.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "chessops": "^0.10.0",
