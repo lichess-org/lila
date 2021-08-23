@@ -20,7 +20,7 @@
     "prod": "$npm_execpath run compile"
   },
   "dependencies": {
-    "chessground": "^8.1.5",
+    "chessground": "^8.1.6",
     "snabbdom": "^3.0.1"
   },
   "devDependencies": {
