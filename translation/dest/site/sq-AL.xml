@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Kërko analizë kompjuterike</string>
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Analiza kompjuterike është e gatshme</string>
+  <string name="computerAnalysisDisabled">Analiza kompjuterike u çaktivizua</string>
   <string name="analysis">Analiza</string>
   <string name="depthX">Thellësia %s</string>
   <string name="usingServerAnalysis">Duke përdorur analizën e serverit</string>
@@ -140,6 +141,8 @@
     <item quantity="one">%s lojtarë në linjë</item>
     <item quantity="other">%s lojtarë në linjë</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Barazim me mirëkuptim dypalësh</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Pesëdhjetë lëvizje pa përpparim</string>
   <string name="currentGames">Lojrat që po luhen tani</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
@@ -680,6 +683,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">Lëviz tek variacionet e kompjuterit t\'i shikosh paraprakisht.</string>
   <string name="analysisShapesHowTo">Shtypni shift+klikim ose klikoni me të djathtën për të vizatuar rrathë dhe shigjeta mbi fushë.</string>
   <string name="letOtherPlayersMessageYou">Lejo lojtarët e tjerë të të dërgojnë mesazh</string>
+  <string name="receiveForumNotifications">Merrni njoftime kur përmendeni te forumi</string>
   <string name="shareYourInsightsData">Shpërndani të dhënat tuaja të depërtuara.</string>
   <string name="withNobody">Me asnje</string>
   <string name="withFriends">Me shoket</string>
@@ -871,6 +875,7 @@ Të gjitha kostot operative, zhvillimi dhe përmbajtja financohen vetëm nga don
   <string name="tournDescriptionHelp">Ndonjë gjë e veçantë që dëshironi t’u thoni pjesëmarrësve? Përpiquni të jetë me pak fjalë. Mund të përdoren lidhje Markdown: [name](https://url)</string>
   <string name="onlyMembersOfTeam">Vetëm pjesëmarrës të ekipit</string>
   <string name="noRestriction">Pa kufizim</string>
+  <string name="minimumRating">Vlerësim minimum</string>
   <string name="onlyTitled">Vetëm lojtarë me titull</string>
   <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
   <string name="positionInputHelp">Ngjitni një FEN të vlefshëm, që të niset çdo lojë prej një pozicioni të dhënë.
@@ -878,4 +883,10 @@ Funksionon vetëm për lojëra standarde, jo me variante.
 Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni këtu.
 Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.</string>
   <string name="cancelSimul">Anuloje simulimin</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Shfaqe në %s</string>
+  <string name="onlyWorksOnce">Kjo do të funksionojë vetëm një herë.</string>
+  <string name="cantDoThisTwice">Nëse e mbyllni llogarinë tuaj për herë të dytë, s’do të ketë mënyrë për ta rimarrë.</string>
+  <string name="emailAssociatedToaccount">Adresë email përshoqëruar llogarisë</string>
+  <string name="sentEmailWithLink">Ju dërguam një email me një lidhje.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod hyrjeje në turne</string>
 </resources>
