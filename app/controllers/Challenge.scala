@@ -259,13 +259,17 @@ final class Challenge(
   private val ChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
     500,
     10.minute,
-    key = "challenge.create.ip",
-    enforce = env.net.rateLimit.value
+    key = "challenge.create.ip"
+  )
+
+  private val BotChallengeIpRateLimit = new lila.memo.RateLimit[IpAddress](
+    80 * 5,
+    1.day,
+    key = "challenge.bot.create.ip"
   )
 
   private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[lila.user.User.ID](
-    key = "challenge.create.user",
-    enforce = env.net.rateLimit.value
+    key = "challenge.create.user"
   )(
     ("fast", 5 * 5, 1.minute),
     ("slow", 40 * 5, 1.day)
@@ -310,7 +314,7 @@ final class Challenge(
         .bindFromRequest()
         .fold(
           newJsonFormError,
-          config => {
+          config =>
             ChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isApiHog) 0 else 1) {
               env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
                 val cost = destUser match {
@@ -319,31 +323,32 @@ final class Challenge(
                   case Some(dest) if dest.isBot => 1
                   case _                        => 5
                 }
-                ChallengeUserRateLimit(me.id, cost = cost) {
-                  val challenge = makeOauthChallenge(config, me, destUser)
-                  (destUser, config.acceptByToken) match {
-                    case (Some(dest), Some(strToken)) =>
-                      apiChallengeAccept(dest, challenge, strToken)(me, config.message)
-                    case _ =>
-                      destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
-                        case Some(denied) =>
-                          BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
-                        case _ =>
-                          env.challenge.api create challenge map {
-                            case true =>
-                              JsonOk(
-                                env.challenge.jsonView
-                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                              )
-                            case false =>
-                              BadRequest(jsonError("Challenge not created"))
-                          }
-                      } map (_ as JSON)
-                  }
+                BotChallengeIpRateLimit(HTTPRequest ipAddress req, cost = if (me.isBot) cost else 0) {
+                  ChallengeUserRateLimit(me.id, cost = cost) {
+                    val challenge = makeOauthChallenge(config, me, destUser)
+                    (destUser, config.acceptByToken) match {
+                      case (Some(dest), Some(strToken)) =>
+                        apiChallengeAccept(dest, challenge, strToken)(me, config.message)
+                      case _ =>
+                        destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
+                          case Some(denied) =>
+                            BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
+                          case _ =>
+                            env.challenge.api create challenge map {
+                              case true =>
+                                JsonOk(
+                                  env.challenge.jsonView
+                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                )
+                              case false =>
+                                BadRequest(jsonError("Challenge not created"))
+                            }
+                        } map (_ as JSON)
+                    }
+                  }(rateLimitedFu)
                 }(rateLimitedFu)
               }
             }(rateLimitedFu)
-          }
         )
     }
 
