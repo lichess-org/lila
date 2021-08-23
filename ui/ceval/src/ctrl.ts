@@ -102,7 +102,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
+  const enabled = prop(opts.possible && opts.analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -141,7 +141,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     });
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
-    if (!enabled() || !opts.possible || !opts.analyzable || !enabledAfterDisable()) return;
+    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
     isDeeper(deeper);
     const maxDepth = effectiveMaxDepth();
