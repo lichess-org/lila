@@ -421,10 +421,12 @@ final class Api(
 
   def toHttp(result: ApiResult): Result =
     result match {
-      case Limited        => rateLimitedJson
-      case NoData         => NotFound
-      case Custom(result) => result
-      case Data(json)     => JsonOk(json)
+      case Limited          => rateLimitedJson
+      case ClientError(msg) => BadRequest(jsonError(msg))
+      case NoData           => NotFound
+      case Custom(result)   => result
+      case Done             => jsonOkResult
+      case Data(json)       => JsonOk(json)
     }
 
   def jsonStream(makeSource: => Source[JsValue, _])(implicit req: RequestHeader): Result =
@@ -491,8 +493,10 @@ final class Api(
 private[controllers] object Api {
 
   sealed trait ApiResult
-  case class Data(json: JsValue)    extends ApiResult
-  case object NoData                extends ApiResult
-  case object Limited               extends ApiResult
-  case class Custom(result: Result) extends ApiResult
+  case class Data(json: JsValue)      extends ApiResult
+  case class ClientError(msg: String) extends ApiResult
+  case object NoData                  extends ApiResult
+  case object Done                    extends ApiResult
+  case object Limited                 extends ApiResult
+  case class Custom(result: Result)   extends ApiResult
 }

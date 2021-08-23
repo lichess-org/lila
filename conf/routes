@@ -38,6 +38,8 @@ GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey: S
 # Relation
 POST  /rel/follow/:userId              controllers.Relation.follow(userId: String)
 POST  /rel/unfollow/:userId            controllers.Relation.unfollow(userId: String)
+POST  /api/rel/follow/:userId          controllers.Relation.apiFollow(userId: String)
+POST  /api/rel/unfollow/:userId        controllers.Relation.apiUnfollow(userId: String)
 POST  /rel/block/:userId               controllers.Relation.block(userId: String)
 POST  /rel/unblock/:userId             controllers.Relation.unblock(userId: String)
 GET   /@/:username/following           controllers.Relation.following(username: String, page: Int ?= 1)
