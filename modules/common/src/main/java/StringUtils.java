@@ -82,19 +82,15 @@ public class StringUtils {
         final StringBuilder sb = new StringBuilder(size);
         for (int i = 0; i < size; i++) {
             final char c = sArr[i];
-            switch (c) {
-              case '\u200b':
-              case '\u200c':
-              case '\u200d':
-              case '\u200e':
-              case '\u200f':
-              case '\u202e':
-              case '\u1160': 
-              case '\u3164': 
-                break;
-              default:
-                sb.append(c);
-            }
+            // invisible chars https://www.compart.com/en/unicode/block/U+2000
+            if (c >= '\u2000' && c <= '\u200F') continue;
+            // weird stuff https://www.compart.com/en/unicode/block/U+2000
+            if (c >= '\u2028' && c <= '\u202F') continue;
+            // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+            if (c >= '\u2100' && c <= '\u2C5F') continue;
+            // decorative chars ꧁ ꧂
+            if (c == '\ua9c1' && c <= '\ua9c2') continue;
+            sb.append(c);
         }
         return sb.toString();
     }
