@@ -923,5 +923,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="gameInProgress">Estás jugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines esta.</string>
+  <string name="youCantStartNewGame">No puedes empezar una nueva partida hasta que ésta haya terminado.</string>
 </resources>
