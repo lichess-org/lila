@@ -919,4 +919,8 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="emailAssociatedToaccount">A fiókhoz rendelt email cím</string>
   <string name="sentEmailWithLink">Küldtünk neked egy linket emailben.</string>
   <string name="tournamentEntryCode">Verseny belépési kód</string>
+  <string name="hangOn">Várj csak!</string>
+  <string name="gameInProgress">Van egy folyamatban lévő játszmád %s ellen.</string>
+  <string name="abortTheGame">Játszma elvetése</string>
+  <string name="resignTheGame">Játszma feladása</string>
 </resources>
