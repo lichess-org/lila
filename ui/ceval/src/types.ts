@@ -86,6 +86,7 @@ export interface CevalCtrl {
   isDeeper(): boolean;
   destroy(): void;
   redraw(): void;
+  analysable: Prop<boolean>;
 }
 
 export interface ParentCtrl {

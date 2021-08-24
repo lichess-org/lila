@@ -1,5 +1,3 @@
-import '@types/dom-screen-wake-lock';
-
 let wakeLock: WakeLockSentinel | null = null;
 
 export const request = () => {

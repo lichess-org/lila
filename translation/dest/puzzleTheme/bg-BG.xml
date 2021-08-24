@@ -41,6 +41,8 @@
   <string name="exposedKingDescription">Противниковият цар е не добре защитен, което често води до шах и мат.</string>
   <string name="fork">Вилица</string>
   <string name="forkDescription">Ход, в който фигура атакува едновременно поне две противникови фигури.</string>
+  <string name="hangingPiece">Висяща фигура</string>
+  <string name="hangingPieceDescription">Тактика, при която фигура на противника не е защитена или е недостатъчно защитена и може да бъде взета.</string>
   <string name="hookMateDescription">Шах и мат с топ, кон и пешка заедно с противникова пешка ограничаваща движението на противниковия цар.</string>
   <string name="interference">Вмешателство</string>
   <string name="interferenceDescription">Преместване на фигура между две противникови, така че едната или и двете да останат незащитени. Например кон на защитено поле между два топа.</string>

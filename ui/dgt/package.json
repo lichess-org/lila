@@ -7,10 +7,12 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/lichess": "2.0.0"
+    "@types/lichess": "2.0.0",
+    "rollup": "^2.56.2",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
-    "chessops": "^0.9.0"
+    "chessops": "^0.10.0"
   },
   "scripts": {
     "dev": "rollup --config",

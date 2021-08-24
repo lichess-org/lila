@@ -37,9 +37,13 @@
   }
 
   .head {
+    @extend %button-none;
+
     display: block;
     padding: 1rem;
     border-bottom: $border;
+    width: 100%;
+    text-align: start;
   }
 
   .head::before {
@@ -96,9 +100,13 @@
     flex: 1 1 100%;
     margin: 0.5rem 0;
 
-    a {
+    button {
+      @extend %button-none;
+
       display: block;
       padding: 0.7rem 1rem;
+      width: 100%;
+      text-align: start;
 
       @include transition(background);
 
@@ -132,17 +140,17 @@
       }
     }
 
-    &.large a {
+    &.large button {
       padding: 1rem 1rem;
     }
   }
 
   .zen {
-    a::before {
+    button::before {
       opacity: 0.5;
     }
 
-    &:hover a::before {
+    &:hover button::before {
       opacity: 1;
     }
   }

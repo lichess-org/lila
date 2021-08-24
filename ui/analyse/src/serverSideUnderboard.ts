@@ -6,6 +6,10 @@ import modal from 'common/modal';
 import { formToXhr } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 
+interface HighchartsHTMLElement extends HTMLElement {
+  highcharts: Highcharts.ChartObject;
+}
+
 interface PlyChart extends Highcharts.ChartObject {
   lastPly?: Ply | false;
   selectPly(ply: number): void;

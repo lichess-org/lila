@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="contact">ارتباط با ما</string>
+  <string name="contactLichess">ارتباط با Lichess</string>
+  <string name="whatCanWeHelpYouWith">در چه موردی می توانیم به شما کمک کنیم؟</string>
+  <string name="visitThisPage">از این صفحه بازدید نمایید تا مشکل برطرف شود</string>
+  <string name="iCantLogIn">نمی توانم وارد شوم</string>
+  <string name="noConfirmationEmail">ایمیل تایید ثبت نام را دریافت نکردم</string>
+  <string name="forgotPassword">رمز عبورم را فراموش کردم</string>
+  <string name="forgotUsername">نام کاربری ام را فراموش کردم</string>
+  <string name="youCanLoginWithEmail">شما می توانید با آدرس ایمیلی که برای ثبت نام استفاده کردید وارد شوید</string>
+  <string name="lost2FA">دسترسی به کد احراز هویت دو عاملی را از دست داده ام</string>
+  <string name="accountSupport">به پشتیبانی حساب کاربری نیاز دارم</string>
+  <string name="wantTitle">می خواهم عنوانم در Lichess نشان داده شود</string>
+  <string name="wantCloseAccount">می خواهم حساب کاربری ام را ببندم</string>
+  <string name="wantReopen">می خواهم حساب کاربری ام را بازگشایی کنم</string>
+  <string name="wantChangeUsername">می خواهم نام کاربری ام را عوض کنم</string>
+  <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>
+  <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
+</resources>

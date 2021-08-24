@@ -1,5 +1,5 @@
 import RacerCtrl from '../ctrl';
-import { h } from 'snabbdom';
+import { h, VNodes } from 'snabbdom';
 import { PlayerWithScore as PlayerWithScore } from '../interfaces';
 import { Boost } from '../boost';
 
@@ -16,7 +16,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const relative: RelativeScore = score => (score - minMoves) / delta;
   const bestScore = players.reduce((b, p) => (p.score > b ? p.score : b), 0);
   const myName = ctrl.player().name;
-  const tracks = [];
+  const tracks: VNodes = [];
   players.forEach((p, i) => {
     const isMe = p.name == myName;
     const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i);
@@ -47,7 +47,7 @@ const renderTrack = (
     {
       class: {
         'racer__race__track--me': isMe,
-        'racer__race__track--first': player.score && player.score == bestScore,
+        'racer__race__track--first': !!player.score && player.score == bestScore,
         'racer__race__track--boost': boost.isBoosting(index),
       },
     },

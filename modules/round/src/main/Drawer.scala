@@ -39,10 +39,11 @@ final private[round] class Drawer(
       case pov if pov.opponent.isOfferingDraw =>
         finisher.other(pov.game, _.Draw, None, Some(trans.drawOfferAccepted.txt()))
       case Pov(g, color) if g playerCanOfferDraw color =>
-        proxy.save {
-          messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
-          Progress(g) map { _ offerDraw color }
-        } >>- publishDrawOffer(pov) inject List(Event.DrawOffer(by = color.some))
+        val newGame = g offerDraw color
+        messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
+        proxy.save(Progress(newGame)) >>-
+          publishDrawOffer(newGame) inject
+          List(Event.DrawOffer(by = color.some))
       case _ => fuccess(List(Event.ReloadOwner))
     }
   }
@@ -76,22 +77,16 @@ final private[round] class Drawer(
 
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
-  private def publishDrawOffer(pov: Pov)(implicit proxy: GameProxy): Unit = {
-    if (pov.game.isCorrespondence && pov.game.nonAi)
+  private def publishDrawOffer(game: Game): Unit = if (game.nonAi) {
+    if (game.isCorrespondence)
       Bus.publish(
-        lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
+        lila.hub.actorApi.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
-    if (lila.game.Game.isBoardCompatible(pov.game))
-      proxy
-        .withPov(pov.color) { p =>
-          fuccess(
-            Bus.publish(
-              lila.game.actorApi.BoardDrawOffer(p),
-              lila.game.actorApi.BoardDrawOffer makeChan pov.gameId
-            )
-          )
-        }
-        .unit
+    if (lila.game.Game.isBoardCompatible(game))
+      Bus.publish(
+        lila.game.actorApi.BoardDrawOffer(game),
+        lila.game.actorApi.BoardDrawOffer makeChan game.id
+      )
   }
 }

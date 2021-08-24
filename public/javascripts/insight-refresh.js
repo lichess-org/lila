@@ -6,7 +6,7 @@ lichess.refreshInsightForm = () => {
         method: 'post',
         credentials: 'same-origin',
       }).then(lichess.reload);
-      $(this).replaceWith($(this).find('.crunching').show());
+      $(this).replaceWith($(this).find('.crunching').removeClass('none'));
       return false;
     });
 };

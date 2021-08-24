@@ -205,8 +205,6 @@
       }
 
       td {
-        padding: 0;
-
         &:first-child {
           padding-left: 1em;
           width: 0%;
@@ -266,10 +264,6 @@
 
       .slist {
         min-height: 100%;
-      }
-
-      td {
-        padding: 0.4em 0;
       }
     }
   }

@@ -37,12 +37,11 @@ final class ChallengeApi(
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
       case false =>
-        {
-          repo like c flatMap { _ ?? repo.cancel }
-        } >> (repo insert c) >>- {
-          uncacheAndNotify(c)
-          Bus.publish(Event.Create(c), "challenge")
-        } inject true
+        repo.like(c).flatMap { _ ?? repo.cancel } >>
+          repo.insert(c) >>- {
+            uncacheAndNotify(c)
+            Bus.publish(Event.Create(c), "challenge")
+          } inject true
     }
 
   def byId = repo byId _
@@ -55,9 +54,9 @@ final class ChallengeApi(
       .buildAsyncFuture(repo.countCreatedByDestId)
   }
 
-  def createdByChallengerId = repo createdByChallengerId _
+  def createdByChallengerId = repo.createdByChallengerId() _
 
-  def createdByDestId = repo createdByDestId _
+  def createdByDestId = repo.createdByDestId() _
 
   def cancel(c: Challenge) =
     repo.cancel(c) >>- {

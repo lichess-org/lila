@@ -31,6 +31,11 @@
   }
 
   button.no {
+    display: none;
+  }
+
+  .forum-post &-auth button.no {
+    display: flex;
     opacity: 0;
   }
 
@@ -52,6 +57,10 @@
   button.yes {
     order: 0;
     opacity: 1;
+
+    img {
+      margin-right: 0.4em;
+    }
   }
 
   img {
@@ -59,6 +68,5 @@
     height: 20px;
     transition: transform 0.15s cubic-bezier(0.2, 0, 0.13, 2);
     pointer-events: none;
-    margin-right: 0.4em;
   }
 }

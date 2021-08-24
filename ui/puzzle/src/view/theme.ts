@@ -1,4 +1,4 @@
-import { bind, dataIcon } from '../util';
+import { bind, dataIcon } from 'common/snabbdom';
 import { Controller, MaybeVNode } from '../interfaces';
 import { h, VNode } from 'snabbdom';
 

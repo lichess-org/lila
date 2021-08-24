@@ -152,6 +152,13 @@ object faq {
               a(href := fideHandbookUrl)(fideHandbookX("§3.7")),
               a(href := s"${routes.Learn.index}#/15")(lichessTraining())
             )
+          ),
+          p(
+            "Watch International Master Eric Rosen ",
+            a(href := "https://www.reddit.com/r/AnarchyChess/comments/p9wuic/eric_rosen_ascending/")(
+              "checkmate en passant"
+            ),
+            "."
           )
         ),
         question(

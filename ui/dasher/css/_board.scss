@@ -5,11 +5,12 @@
     margin: 5px 0;
   }
 
-  .list a {
+  .list button {
     flex: 0 0 50%;
     height: 44px;
 
     @extend %flex-center;
+    @extend %button-none;
 
     justify-content: center;
   }
@@ -27,15 +28,15 @@
     @include transition(transform);
   }
 
-  .list a:hover {
+  .list button:hover {
     filter: brightness(1.05);
   }
 
-  .list a:hover span {
+  .list button:hover span {
     transform: scale(1.05);
   }
 
-  .list a.active {
+  .list button.active {
     background-color: $c-shade;
   }
 

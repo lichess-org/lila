@@ -43,9 +43,9 @@
   <string name="leadersChat">Teamleiter-Chat</string>
   <string name="closeTeam">Team uflöösä</string>
   <string name="closeTeamDescription">Löst da Team für immer uf.</string>
-  <string name="entryCode">Teambeitrittscode</string>
+  <string name="entryCode">Teamiigangscode</string>
   <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
-  <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Inkorräktä Iigangscode.</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
   <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>

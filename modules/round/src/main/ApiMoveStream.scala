@@ -4,24 +4,24 @@ import akka.stream.OverflowStrategy
 import akka.stream.scaladsl._
 import chess.Color
 import chess.format.Forsyth
+import chess.{ Centis, Replay }
 import play.api.libs.json._
 import scala.concurrent.ExecutionContext
 
 import lila.common.Bus
+import lila.game.actorApi.FinishGame
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, GameRepo }
-import chess.{ Centis, Replay }
-import lila.game.actorApi.FinishGame
 
 final class ApiMoveStream(gameRepo: GameRepo, gameJsonView: lila.game.JsonView)(implicit
     ec: ExecutionContext
 ) {
 
-  private val delayMovesBy         = 3
-  private val delayKeepsFirstMoves = 5
-
-  def apply(game: Game): Source[JsObject, _] =
+  def apply(game: Game, delayMoves: Boolean): Source[JsObject, _] =
     Source futureSource {
+      val hasMoveDelay         = delayMoves && game.hasClock
+      val delayMovesBy         = hasMoveDelay ?? 3
+      val delayKeepsFirstMoves = hasMoveDelay ?? 5
       gameRepo.initialFen(game) map { initialFen =>
         val buffer = scala.collection.mutable.Queue.empty[JsObject]
         var moves  = 0

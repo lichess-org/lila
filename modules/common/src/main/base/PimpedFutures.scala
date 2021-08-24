@@ -214,6 +214,12 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
 
   def map2[B](f: A => B)(implicit ec: EC): Fu[Option[B]] = fua.map(_ map f)
   def dmap2[B](f: A => B): Fu[Option[B]]                 = fua.map(_ map f)(EC.parasitic)
+
+  def getIfPresent: Option[A] =
+    fua.value match {
+      case Some(scala.util.Success(v)) => v
+      case _                           => None
+    }
 }
 
 // final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {

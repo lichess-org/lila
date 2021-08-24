@@ -1,9 +1,9 @@
 import { prop, Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import throttle from 'common/throttle';
+import spinner from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { spinner } from '../util';
 import * as xhr from './studyXhr';
 
 interface AllGlyphs {

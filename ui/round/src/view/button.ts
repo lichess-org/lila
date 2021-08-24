@@ -1,4 +1,5 @@
 import { h, VNode, Hooks } from 'snabbdom';
+import spinner from 'common/spinner';
 import * as util from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -81,7 +82,7 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           ctrl.redraw
         ),
       },
-      [me ? util.spinner() : h('span', noarg('rematch'))]
+      [me ? spinner() : h('span', noarg('rematch'))]
     ),
   ];
 }

@@ -4,10 +4,10 @@
   <string name="lichessStreamer">Streamer do Lichess</string>
   <string name="live">AO VIVO!</string>
   <string name="offline">FORA DO AR</string>
-  <string name="currentlyStreaming">Atualmente transmitindo: %s</string>
+  <string name="currentlyStreaming">Transmitindo agora: %s</string>
   <string name="lastStream">Última transmissão %s</string>
-  <string name="becomeStreamer">Torne-se um streamer do Lichess</string>
-  <string name="doYouHaveStream">Você tem uma stream na Twitch ou no YouTube?</string>
+  <string name="becomeStreamer">Seja um streamer do Lichess</string>
+  <string name="doYouHaveStream">Você tem um canal na Twitch ou no YouTube?</string>
   <string name="hereWeGo">Lá vamos nós!</string>
   <string name="allStreamers">Todos os streamers</string>
   <string name="editPage">Editar página de streamer</string>
@@ -17,20 +17,20 @@
   <string name="rules">Regras de transmissão</string>
   <string name="rule1">Inclua \"lichess.org\" no título da sua transmissão quando for transmitir no Lichess.</string>
   <string name="rule2">O remova quando for transmitir coisas não relacionadas ao Lichess.</string>
-  <string name="rule3">O Lichess automaticamente detectará a sua transmissão e te garantirá as seguintes melhorias:</string>
-  <string name="perks">Benefícios de se transmitir com o teclado</string>
+  <string name="rule3">O Lichess detectará automaticamente sua transmissão e garantirá as seguintes melhorias:</string>
+  <string name="perks">Benefícios da transmissão com palavra-chave</string>
   <string name="perk1">Obtenha um ícone de streamer em chamas no seu perfil do Lichess.</string>
   <string name="perk2">Suba ao topo da lista de streamers.</string>
   <string name="perk3">Notifique seus seguidores no Lichess.</string>
-  <string name="perk4">Exiba a sua transmissão em suas partidas, torneios e estudos.</string>
+  <string name="perk4">Exiba a transmissão de suas partidas, torneios e estudos.</string>
   <string name="approved">A sua transmissão está aprovada.</string>
-  <string name="pendingReview">A sua transmissão está sendo revisada por moderadores.</string>
+  <string name="pendingReview">Sua transmissão está sendo revisada por moderadores.</string>
   <string name="pleaseFillIn">Por favor, preencha os seus dados de streamer e defina uma foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Quando você estiver pronto para ser listado como um streamer do Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">peça a revisão de um moderador</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">requisite a revisão de um moderador</string>
   <string name="anotherLanguage">Se a sua transmissão for em alguma linguagem que não seja Inglês, inclua uma etiqueta de linguagem (%s) apropriada, entre colchetes, ao início do título da sua transmissão.
 Por exemplo: use \"[PT]\" para Português, \"[TR]\" para Turco, \"[FR]\" para Francês, etc.
-A coloque no título da sua transmissão na Twitch ou no YouTube, não nas configurações de transmissão do Lichess.
+Coloque isso no título da sua transmissão na Twitch ou no YouTube, não nas configurações de transmissão do Lichess.
 Se a sua transmissão for em Inglês, não há a necessidade de incluir uma etiqueta de linguagem.</string>
   <string name="twitchUsername">Seu nome de usuário ou URL da Twitch</string>
   <string name="optionalOrEmpty">Opcional. Deixe vazio se não houver</string>

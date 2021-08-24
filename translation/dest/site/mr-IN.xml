@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">संगणक विश्लेषणासाठी विनंती करा</string>
   <string name="computerAnalysis">संगणकीय विश्लेषण</string>
   <string name="computerAnalysisAvailable">संगणक विश्लेषण उपलब्ध</string>
+  <string name="computerAnalysisDisabled">संगणक विश्लेषण अक्षम आहे</string>
   <string name="analysis">विश्लेषण मंच</string>
   <string name="depthX">खोली %s</string>
   <string name="usingServerAnalysis">संगणक विश्लेषण</string>
@@ -96,6 +97,7 @@
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक गेम समाविष्ट कराल?</string>
   <string name="openingExplorer">ओपेनिग अन्वेषक</string>
+  <string name="openingEndgameExplorer">ओपनिंग/एंडगेम एक्सप्लोरर</string>
   <string name="xOpeningExplorer">%s ओपेनिग अन्वेषक</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
@@ -140,6 +142,8 @@
     <item quantity="one">%s खेळाडू जुळून आहेत</item>
     <item quantity="other">%s खेळाडू जोडुन आहेत</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">परस्पर कराराने काढा</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">प्रगतीशिवाय पन्नास चाली</string>
   <string name="currentGames">चालू खेळ</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेळ</item>
@@ -439,6 +443,8 @@
   <string name="boardEditor">पट संपादक (Board editor)</string>
   <string name="setTheBoard">पट मांडा</string>
   <string name="popularOpenings">लोकप्रिय प्रारंभिक चाली</string>
+  <string name="endgamePositions">एंडगेम पोझिशन्स</string>
+  <string name="chess960StartPosition">Chess960 प्रारंभ स्थिती: %s</string>
   <string name="startPosition">सुरवातीची स्थिती</string>
   <string name="clearBoard">पट रिकामा करा</string>
   <string name="savePosition">स्थिती संग्रहीत करा (Save position)</string>

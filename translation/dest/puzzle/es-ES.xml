@@ -4,15 +4,15 @@
   <string name="puzzleThemes">Ejercicios por temas</string>
   <string name="recommended">Recomendado</string>
   <string name="phases">Fases</string>
-  <string name="motifs">Motivos</string>
+  <string name="motifs">Temas</string>
   <string name="advanced">Avanzado</string>
-  <string name="lengths">Duraciones</string>
+  <string name="lengths">Duración</string>
   <string name="mates">Mates</string>
   <string name="goals">Objetivos</string>
   <string name="origin">Origen</string>
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te ha gustado este ejercicio?</string>
-  <string name="voteToLoadNextOne">¡Vota para cargar el siguiente!</string>
+  <string name="voteToLoadNextOne">¡Vota para pasar al siguiente!</string>
   <string name="yourPuzzleRatingX">Tu puntuación en los ejercicios: %s</string>
   <string name="findTheBestMoveForWhite">Encuentra el mejor movimiento para las blancas.</string>
   <string name="findTheBestMoveForBlack">Encuentra el mejor movimiento para las negras.</string>
@@ -23,7 +23,7 @@
   <string name="goodMove">Buen movimiento</string>
   <string name="bestMove">¡El mejor movimiento!</string>
   <string name="keepGoing">Continúa…</string>
-  <string name="puzzleSuccess">¡Éxito!</string>
+  <string name="puzzleSuccess">¡Bien!</string>
   <string name="puzzleComplete">¡Ejercicio terminado!</string>
   <string name="notTheMove">¡Ese no es el movimiento!</string>
   <string name="trySomethingElse">Prueba algo distinto.</string>
@@ -58,7 +58,7 @@
   <string name="history">Historial de ejercicios</string>
   <string name="solved">resuelto</string>
   <string name="failed">error</string>
-  <string name="streakDescription">Soluciona ejercicios cada vez más difíciles y consigue una racha de victorias. No hay cuenta atrás, así que tómate tu tiempo. Si te equivocas en solo un movimiento, ¡se acabó la partida! Pero recuerda que puedes omitir un movimiento por sesión.</string>
+  <string name="streakDescription">Resuelve ejercicios cada vez más difíciles para conseguir la racha más larga posible. No hay tiempo, así que tómatelo con calma. Un movimiento erróneo y ¡se acabó!, aunque puedes omitir un movimiento en cada sesión.</string>
   <string name="yourStreakX">Aciertos seguidos: %s</string>
   <string name="streakSkipExplanation">Puedes omitir este movimiento para conservar tu racha, pero solo una vez por sesión.</string>
   <string name="continueTheStreak">Continuar la racha</string>
@@ -69,5 +69,5 @@
   <string name="searchPuzzles">Buscar ejercicios</string>
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
-  <string name="fromXGamesFound">%1$s ejercicios encontrados en %2$s partidas</string>
+  <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
 </resources>

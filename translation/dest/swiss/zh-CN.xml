@@ -43,7 +43,7 @@
   <string name="FIDEHandbook">国际棋联手册</string>
   <string name="pairingsA">根据 %3$s，采用 %2$s 实现的 %1$s。</string>
   <string name="moreRoundsThanPlayersQ">如果比赛回合数多于玩家怎么办？</string>
-  <string name="moreRoundsThanPlayersA">当所有可能的配对都完成后，比赛将立即结束并决出获胜者。</string>
+  <string name="moreRoundsThanPlayersA">当所有可能的配对都轮过后，比赛将立即结束并决出获胜者。</string>
   <string name="restrictedToTeamsQ">为什么仅限于团队使用？</string>
   <string name="restrictedToTeamsA">瑞士锦标赛不是为线上对弈设计的，它需要玩家高度守时、全身心投入并保持耐心。
 相对于公开比赛，我们认为在团队内更有可能满足这些条件。</string>
@@ -58,13 +58,13 @@
   <string name="lateJoinA">是的，直到一半的回合完成之前。比如一个有 11 轮的比赛，选手可以在第 6 轮开始前加入；一个 12 轮的比赛可以在第 7 轮开始前加入。
 晚加入的选手将轮空一次，无论他之前错过了多少轮。</string>
   <string name="willSwissReplaceArenasQ">瑞士锦标赛将取代竞技场吗？</string>
-  <string name="willSwissReplaceArenasA">不，他们是互补的。</string>
+  <string name="willSwissReplaceArenasA">不会，他们是互补的。</string>
   <string name="roundRobinQ">会加入循环赛吗？</string>
   <string name="roundRobinA">我们曾想加入它，但很遗憾，循环赛不适用于线上。
-原因是没有公平的方法处理玩家提前离开比赛的情况。我们不能指望所有玩家在线上完成所有的比赛，这不现实。也导致大部分循环赛都存在缺陷和不公平，从而缺少存在的理由。
+原因是没有公平的方法处理玩家提前离开比赛的情况。我们不能指望所有玩家在线上完成所有的比赛，这不现实。结果是，大部分循环赛都存在缺陷和不公平问题，从而缺少存在的理由。
 在线上，最能达到和循环赛相近的方法是举办一场回合数很多的瑞士锦标赛，这样在比赛结束前所有可能的配对都将进行一场对局。</string>
   <string name="otherSystemsQ">会有其它的比赛系统吗？</string>
-  <string name="otherSystemsA">我们目前不打算为 Lichess 增加多的比赛系统。</string>
+  <string name="otherSystemsA">目前我们不打算为 Lichess 增加其它的比赛系统。</string>
   <string name="swissDescription">在瑞士锦标赛（%1$s）中，选手们不需要依次面对所有其他参赛者。在每一轮比赛中，系统将根据一组规则来为选手配对，保证选手总是和得分相近的对手比赛，但相同的对手只会遇到一次。所有回合总得分最多的选手将获得比赛冠军。除非玩家仅剩奇数名，否则他们将参与每一轮比赛。</string>
   <string name="teamOnly">瑞士锦标赛只能由队长创建，并且只能由队员参与。%1$s 以开始瑞士锦标赛。</string>
   <string name="joinOrCreateTeam">加入或创建团队</string>
@@ -75,10 +75,10 @@
   <string name="predefinedDuration">预定义时长</string>
   <string name="durationUnknown">预定义最大回合，但持续时间不确定</string>
   <string name="numberOfGames">比赛场数</string>
-  <string name="numberOfGamesAsManyAsPossible">在允许的时间尽可能多地参与比赛</string>
+  <string name="numberOfGamesAsManyAsPossible">在允许的时间内尽可能多地参与比赛</string>
   <string name="numberOfGamesPreDefined">事先决定，对所有玩家都是相同的</string>
   <string name="pairingSystem">配对机制</string>
-  <string name="pairingSystemArena">任何具有相仅排名的对手</string>
+  <string name="pairingSystemArena">任何具有相近排名的对手</string>
   <string name="pairingSystemSwiss">基于得分和平局数量的最佳匹配</string>
   <string name="pairingWaitTime">配对等待时间</string>
   <string name="pairingWaitTimeFast">快：不等待所有玩家</string>

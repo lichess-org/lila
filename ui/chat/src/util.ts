@@ -24,11 +24,3 @@ export function userLink(u: string, title?: string, patron?: boolean): VNode {
     title && title != 'BOT' ? [line, h('span.utitle', title), trunc] : [line, trunc]
   );
 }
-
-export function bind(eventName: string, f: (e: Event) => void) {
-  return {
-    insert(vnode: VNode) {
-      (vnode.elm as HTMLElement).addEventListener(eventName, f);
-    },
-  };
-}

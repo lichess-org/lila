@@ -853,6 +853,7 @@
   <string name="cancelSimul">取消车轮战</string>
   <string name="simulHostcolor">主持所执方</string>
   <string name="estimatedStart">预计开始时间</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">展示在 %s</string>
   <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
   <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>

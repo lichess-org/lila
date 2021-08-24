@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
-import { onInsert } from './util';
 import { opposite } from 'chessground/util';
 
 export default function (ctrl: SimulCtrl) {

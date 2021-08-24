@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import GamebookPlayCtrl, { Feedback } from './gamebookPlayCtrl';
-import { bind } from 'common/snabbdom';
-import { dataIcon, iconTag, richHTML } from '../../util';
+import { bind, dataIcon } from 'common/snabbdom';
+import { iconTag, richHTML } from '../../util';
 // eslint-disable-next-line no-duplicate-imports
 import { State } from './gamebookPlayCtrl';
 
@@ -47,11 +47,12 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
 
 function hintZone(ctrl: GamebookPlayCtrl) {
   const state = ctrl.state,
-    clickHook = () => ({
+    buttonData = () => ({
+      attrs: { type: 'button' },
       hook: bind('click', ctrl.hint, ctrl.redraw),
     });
-  if (state.showHint) return h('div', clickHook(), [h('div.hint', { hook: richHTML(state.hint!) })]);
-  if (state.hint) return h('a.hint', clickHook(), 'Get a hint');
+  if (state.showHint) return h('button', buttonData(), [h('div.hint', { hook: richHTML(state.hint!) })]);
+  if (state.hint) return h('button.hint', buttonData(), 'Get a hint');
   return undefined;
 }
 
@@ -60,16 +61,18 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     color = ctrl.root.turnColor();
   if (fb === 'bad')
     return h(
-      'div.feedback.act.bad' + (state.comment ? '.com' : ''),
+      'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       {
+        attrs: { type: 'button' },
         hook: bind('click', ctrl.retry),
       },
       [iconTag(''), h('span', 'Retry')]
     );
   if (fb === 'good' && state.comment)
     return h(
-      'div.feedback.act.good.com',
+      'button.feedback.act.good.com',
       {
+        attrs: { type: 'button' },
         hook: bind('click', ctrl.next),
       },
       [h('span.text', { attrs: dataIcon('') }, 'Next'), h('kbd', '<space>')]
@@ -97,26 +100,35 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
   return h('div.feedback.end', [
     study.nextChapter()
       ? h(
-          'a.next.text',
+          'button.next.text',
           {
-            attrs: dataIcon(''),
+            attrs: {
+              'data-icon': '',
+              type: 'button',
+            },
             hook: bind('click', study.goToNextChapter),
           },
           'Next chapter'
         )
       : undefined,
     h(
-      'a.retry',
+      'button.retry',
       {
-        attrs: dataIcon(''),
+        attrs: {
+          'data-icon': '',
+          type: 'button',
+        },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
       'Play again'
     ),
     h(
-      'a.analyse',
+      'button.analyse',
       {
-        attrs: dataIcon(''),
+        attrs: {
+          'data-icon': '',
+          type: 'button',
+        },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
       'Analyse'

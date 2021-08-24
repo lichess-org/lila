@@ -66,17 +66,20 @@ object Form {
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
-  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+  private val cleanTextFormatter: Formatter[String] = new Formatter[String] {
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
         .map(_.trim)
-        .map(StringUtils.removeGarbageChars)
+        .map(String.normalize)
         .toRight(Seq(FormError(key, "error.required", Nil)))
-    def unbind(key: String, value: String) = Map(key -> StringUtils.removeGarbageChars(value.trim))
+    def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }
 
-  val cleanText: Mapping[String] = of(cleanTextFormatter)
+  val cleanText: Mapping[String] = of(cleanTextFormatter).verifying(
+    "The text contains invalid chars",
+    s => !String.hasGarbageChars(s)
+  )
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match {
       case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
@@ -90,8 +93,6 @@ object Form {
 
   object eventName {
 
-    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
-
     def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
       cleanText.verifying(
         Constraints minLength minLength,
@@ -100,13 +101,18 @@ object Form {
           regex = """[\p{L}\p{N}-\s:.,;'\+]+""".r,
           error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
         ),
-        Constraint[String] { (t: String) =>
-          if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
-            V.Invalid(V.ValidationError("Must not contain \"lichess\""))
-          else V.Valid
-        }
+        mustNotContainLichess(verifiedUser)
       )
 
+  }
+
+  object mustNotContainLichess {
+    private val blockList = List("lichess", "liсhess") // it's not a 'c'.
+    def apply(verifiedUser: Boolean) = Constraint[String] { (t: String) =>
+      if (blockList.exists(t.toLowerCase.contains) && !verifiedUser)
+        V.Invalid(V.ValidationError("Must not contain \"lichess\""))
+      else V.Valid
+    }
   }
 
   def stringIn(choices: Options[String]) =

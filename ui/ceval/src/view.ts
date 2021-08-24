@@ -3,7 +3,7 @@ import { defined, notNull } from 'common';
 import { Eval, CevalCtrl, ParentCtrl, NodeEvals } from './types';
 import { h, VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
-import { lichessVariantRules } from 'chessops/compat';
+import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen, makeBoardFen } from 'chessops/fen';
@@ -19,6 +19,9 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
   if (!evs.client) {
+    if (!ceval.analysable()) {
+      return ['Engine cannot analyze this position'];
+    }
     const mb = ceval.downloadProgress() / 1024 / 1024;
     return [
       evs.server && ctrl.nextNodeBest()
@@ -83,13 +86,16 @@ function engineName(ctrl: CevalCtrl): VNode[] {
     h(
       'span',
       { attrs: { title: version || '' } },
-      ctrl.technology == 'nnue' ? 'Stockfish 13+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
+      ctrl.technology == 'nnue' ? 'Stockfish 14+' : ctrl.technology == 'hce' ? 'Stockfish 11+' : 'Stockfish 10+'
     ),
     ctrl.technology == 'nnue'
       ? h(
           'span.technology.good',
           {
-            attrs: { title: 'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, strongest)' },
+            attrs: {
+              title:
+                'Multi-threaded WebAssembly with SIMD (efficiently updatable neural network, using 4x smaller net by Sopel97)',
+            },
           },
           'NNUE'
         )
@@ -150,6 +156,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
+    analysable = instance.analysable(),
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
     threat = threatMode && ctrl.getNode().threat,
@@ -214,7 +221,11 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
       ]
     : [
         pearl ? h('pearl', [pearl]) : null,
-        h('help', [...engineName(instance), h('br'), trans.noarg('inLocalBrowser')]),
+        h('help', [
+          ...engineName(instance),
+          h('br'),
+          analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this position',
+        ]),
       ];
 
   const switchButton: VNode | null =
@@ -230,6 +241,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               attrs: {
                 type: 'checkbox',
                 checked: enabled,
+                disabled: !analysable,
               },
               hook: {
                 insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),
@@ -308,7 +320,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
     setup.turn = opposite(setup.turn);
     if (setup.turn == 'white') setup.fullmoves += 1;
   }
-  const pos = setupPosition(lichessVariantRules(instance.variant.key), setup);
+  const pos = setupPosition(lichessRules(instance.variant.key), setup);
 
   return h(
     'div.pv_box',

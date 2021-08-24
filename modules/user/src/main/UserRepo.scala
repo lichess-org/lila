@@ -197,9 +197,8 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .void
   }
 
-  def setManagedUserInitialPerfs(id: User.ID) = {
+  def setManagedUserInitialPerfs(id: User.ID) =
     coll.updateField($id(id), F.perfs, Perfs.perfsBSONHandler.write(Perfs.defaultManaged)).void
-  }
 
   def setPerf(userId: String, pt: PerfType, perf: Perf) =
     coll.update
@@ -382,6 +381,9 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def filterLame(ids: Seq[ID]): Fu[Set[ID]] =
     coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ lame))
 
+  def filterNotKid(ids: Seq[ID]): Fu[Set[ID]] =
+    coll.distinct[ID, Set]("_id", Some($inIds(ids) ++ $doc(F.kid $ne true)))
+
   def isTroll(id: ID): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
   def isCreatedSince(id: ID, since: DateTime): Fu[Boolean] =
@@ -542,7 +544,13 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def setBot(user: User): Funit =
     if (user.count.game > 0)
       fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
-    else coll.updateField($id(user.id), F.title, Title.BOT).void
+    else
+      coll.update
+        .one(
+          $id(user.id),
+          $set(F.title -> Title.BOT, F.perfs -> Perfs.perfsBSONHandler.write(Perfs.defaultBot))
+        )
+        .void
 
   private def botSelect(v: Boolean) =
     if (v) $doc(F.title -> Title.BOT)

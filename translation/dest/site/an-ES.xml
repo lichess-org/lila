@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">Chugas con blancas</string>
   <string name="youPlayTheBlackPieces">Chugas con negras</string>
   <string name="itsYourTurn">Ye lo tuyo redolín!</string>
+  <string name="cheatDetected">Trampa detectada</string>
   <string name="kingInTheCenter">Rei en o centro</string>
   <string name="threeChecks">Tres escaques</string>
   <string name="raceFinished">Corrida rematada</string>
@@ -54,6 +55,7 @@
   <string name="requestAComputerAnalysis">Solicitar una analisi de l\'ordinador</string>
   <string name="computerAnalysis">Analisi de l\'ordinador</string>
   <string name="computerAnalysisAvailable">Analisi de l\'ordinador disponible</string>
+  <string name="computerAnalysisDisabled">Analisi de l\'ordinador desactivada</string>
   <string name="analysis">Escaquero d\'analisi</string>
   <string name="depthX">Profundidat: %s</string>
   <string name="usingServerAnalysis">Usando analisi d\'o servidor</string>
@@ -95,6 +97,7 @@
   <string name="noGameFound">No s\'ha trobau garra partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Preba incluyindo mas partidas dende lo menú de preferencias</string>
   <string name="openingExplorer">Explorador d\'obriduras</string>
+  <string name="openingEndgameExplorer">Explorador d\'obriduras/finals</string>
   <string name="xOpeningExplorer">Explorador d\'a obridura %s</string>
   <string name="winPreventedBy50MoveRule">La regla d\'os 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla d\'os 50 movimientos priva la redota</string>
@@ -117,6 +120,18 @@
   <string name="blunder">Error grieu</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisión</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s error grieu</item>
+    <item quantity="other">%s errors grieus</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s error</item>
+    <item quantity="other">%s errors</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s imprecisión</item>
+    <item quantity="other">%s imprecisions</item>
+  </plurals>
   <string name="moveTimes">Tiempo per movimiento</string>
   <string name="flipBoard">Chirar lo escaquero</string>
   <string name="threefoldRepetition">Triple repetición</string>
@@ -127,6 +142,8 @@
     <item quantity="one">%s chugador</item>
     <item quantity="other">%s chugadors</item>
   </plurals>
+  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Taulas per mutuo acuerdo</string>
+  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta movimientos sin progresar</string>
   <string name="currentGames">Partidas en chuego</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
@@ -426,6 +443,8 @@
   <string name="boardEditor">Editor d\'escaquero</string>
   <string name="setTheBoard">Configurar escaquero</string>
   <string name="popularOpenings">Obriduras populars</string>
+  <string name="endgamePositions">Posicions de finals</string>
+  <string name="chess960StartPosition">Posición inicial de Chess960: %s</string>
   <string name="startPosition">Posición inicial</string>
   <string name="clearBoard">Limpiar lo escaquero</string>
   <string name="savePosition">Alzar posición</string>
@@ -441,6 +460,7 @@
   <string name="firstName">Nombre</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País u bandera</string>
   <string name="thankYou">Gracias!</string>
   <string name="socialMediaLinks">Vinclos a retz socials</string>
   <string name="inlineNotation">Notación compacta</string>
@@ -462,6 +482,8 @@
   <string name="tournamentWinners">Ganadors de torneyos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
+  <string name="descPrivate">Descripción privada</string>
+  <string name="descPrivateHelp">Texto que nomás veyerán los miembros de l\'equipo. Si s\'emplega, los miembros de l\'equipo lo veyerán en cuentas d\'a descripción publica.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
   <string name="help">Aduya:</string>
@@ -482,6 +504,7 @@
   <string name="cheat">Trapa</string>
   <string name="insult">Insulto</string>
   <string name="troll">Acoso</string>
+  <string name="ratingManipulation">Manipulación d\'a puntuación</string>
   <string name="other">Atro</string>
   <string name="reportDescriptionHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión. Lo tuyo reporte será procesau mas rapido si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
@@ -573,6 +596,7 @@
   <string name="error.email_unique">Este correu ya ye en uso</string>
   <string name="error.email_different">Este ye lo mesmo correu que tiene actualment</string>
   <string name="ifRatingIsPlusMinusX">Si la puntuación ye ± %s</string>
+  <string name="onlyExistingConversations">Nomás las conversas existents</string>
   <string name="onlyFriends">Nomás amigos</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
@@ -659,8 +683,10 @@
   <string name="printFriendlyPDF">Imprentar en formato PDF</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién puetz usar la rueda d\'o rato pa desplazar-te per la partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantiene pretadas las variants d\'analisi pa previsualizar-las.</string>
   <string name="analysisShapesHowTo">Faiga clic con o botón dreito u Máyus+clic pa dibuixar cerclos y flechas en o escaquero.</string>
   <string name="letOtherPlayersMessageYou">Permitir que atras personas te ninvien mensaches</string>
+  <string name="receiveForumNotifications">Recibe notificacions quan te mencionen en o foro</string>
   <string name="shareYourInsightsData">Comparte los tuyos datos estatisticos</string>
   <string name="withNobody">Con dengún</string>
   <string name="withFriends">Con os míos amigos</string>
@@ -672,6 +698,7 @@
   <string name="enableKidMode">Activar lo modo infantil</string>
   <string name="disableKidMode">Desactivar lo modo infantil</string>
   <string name="security">Seguridat</string>
+  <string name="sessions">Sesions</string>
   <string name="revokeAllSessions">zarrar totas las sesions</string>
   <string name="playChessEverywhere">Chuga a los escaques an que siga</string>
   <string name="asFreeAsLichess">Igual de gratis como lichess</string>
@@ -826,4 +853,66 @@
   <string name="youCannotPostYetPlaySomeGames">Encara no puetz publicar en os foros. Chuga qualques partidas!</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Cancelar la conduta</string>
+  <string name="mentionedYouInX">t\'ha mencionau en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s t\'ha mencionau en \"%2$s\".</string>
+  <string name="invitedYouToX">t\'ha convidau a \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s t\'ha convidau a \"%2$s\".</string>
+  <string name="youAreNowPartOfTeam">Ya yes en l\'equipo.</string>
+  <string name="youHaveJoinedTeamX">T\'has uniu a \"%1$s\".</string>
+  <string name="someoneYouReportedWasBanned">Belún a qui has denunciau ha estau expulsau</string>
+  <string name="congratsYouWon">Felicidatz, has ganau!</string>
+  <string name="gameVsX">Partida vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Belún ha feito una resenya d\'o tuyo perfil d\'entrenador.</string>
+  <string name="newPendingReview">Nueva resenya pendient</string>
+  <string name="lostAgainstTOSViolator">Has perdiu contra belún que ha violau las CDS de Lichess</string>
+  <string name="refundXpointsTimeControlY">Recuperas: %1$s puntos en %2$s.</string>
+  <string name="timeAlmostUp">Lo tiempo quasi ha rematau!</string>
+  <string name="clickToRevealEmailAddress">[Fe clic pa veyer l\'adreza de correu-e]</string>
+  <string name="download">Descargar</string>
+  <string name="welcome">Bienveniu/da!</string>
+  <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
+Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
+  <string name="coachManager">Configuración pa entrenadors</string>
+  <string name="streamerManager">Configuración pa streamers</string>
+  <string name="cancelTournament">Cancelar lo torneyo</string>
+  <string name="tournDescription">Descripción d\'o torneyo</string>
+  <string name="tournDescriptionHelp">Tiens bella cosa especial a contar a los participants? Mira d\'estar breu. Los vinclos de markdown son disponibles: [name](https://url)</string>
+  <string name="ratedFormHelp">Las partidas son puntuadas y afectan a las clasificacions d\'os participants</string>
+  <string name="onlyMembersOfTeam">Nomás pa los miembros de l\'equipo</string>
+  <string name="noRestriction">Sin garra restricción</string>
+  <string name="minimumRatedGames">Numero minimo de partidas per puntos</string>
+  <string name="minimumRating">Puntuación minima</string>
+  <string name="maximumWeeklyRating">Maxima puntuación semanal</string>
+  <string name="onlyTitled">Nomás chugadors titulaus</string>
+  <string name="onlyTitledHelp">Cal tener un titol oficial pa unir-se a lo torneyo</string>
+  <string name="positionInputHelp">Pega un FEN valido pa iniciar totas las partidas dende una posición dada. Nomás funcina con o chuego standard, no pas con variants. Puetz fer servir l\'%s pa chenerar una posición FEN, y dimpués pegar-la aquí. Deixa-lo vuedo si quiers que las partidas empecipien dende a posición inicial normal.</string>
+  <string name="cancelSimul">Cancelar las simultanias</string>
+  <string name="simulHostcolor">Color de l\'anfitrión en cada partida</string>
+  <string name="estimatedStart">Tiempo estimau d\'inicio</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Retransmitir en %s</string>
+  <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a totz en %s. Desactiva-lo si quiers simultanias privadas.</string>
+  <string name="simulDescription">Descripción d\'as simultanias</string>
+  <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
+  <string name="markdownAvailable">Lo formato %s ye disponibles pa una sintaxi mas abanzada.</string>
+  <string name="inYourLocalTimezone">En a tuya zona horaria local</string>
+  <string name="tournChat">Conversa d\'o torneyo</string>
+  <string name="noChat">Sin conversa</string>
+  <string name="onlyTeamLeaders">Nomás pa liders d\'os equipos</string>
+  <string name="onlyTeamMembers">Nomás pa miembros d\'os equipos</string>
+  <string name="navigateMoveTree">Navegar per l\'arbol de movimientos</string>
+  <string name="mouseTricks">Trucos d\'o ratet</string>
+  <string name="toggleLocalAnalysis">Cambiar a analisi local de l\'ordinador</string>
+  <string name="toggleAllAnalysis">Cambiar a totas las analisis</string>
+  <string name="playComputerMove">Fer lo millor movimiento de l\'ordinador</string>
+  <string name="analysisOptions">Opcions d\'analisi</string>
+  <string name="focusChat">Meter lo foco en a conversa</string>
+  <string name="showHelpDialog">Amostrar este dialogo d\'aduya</string>
+  <string name="reopenYourAccount">Reubrir la tuya cuenta</string>
+  <string name="closedAccountChangedMind">Si has zarrau la tuya cuenta, pero agora has cambiau d\'opinión, tiens una oportunidat de tornar a reactivar-la.</string>
+  <string name="onlyWorksOnce">Esto nomás funcionará una vegada.</string>
+  <string name="cantDoThisTwice">Si zarra la tuya cuenta per segunda vegada, ya no i habrá garra traza de tornar a recuperar-la.</string>
+  <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
+  <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
+  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codigo de participación en o torneyo</string>
 </resources>

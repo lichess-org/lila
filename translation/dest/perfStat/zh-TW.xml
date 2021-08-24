@@ -6,6 +6,8 @@
   <string name="notEnoughRatedGames">積分賽場次太少，無法計算準確積分。</string>
   <string name="progressOverLastXGames">最近%s場棋局之積分變化：</string>
   <string name="ratingDeviation">積分誤差: %s</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">越低的數值代表積分越穩定。 數值高於%1$s時的積分會被判定為浮動積分。
+要被列入排名之中，該數值需低於%2$s(標準西洋棋) 或是%3$s(西洋棋變體)。</string>
   <string name="totalGames">總計棋局</string>
   <string name="ratedGames">積分棋局</string>
   <string name="tournamentGames">聯賽棋局</string>

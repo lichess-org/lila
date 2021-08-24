@@ -519,7 +519,7 @@
   <string name="invalidUsernameOrPassword">Грешен потребител или парола</string>
   <string name="incorrectPassword">Неправилна парола</string>
   <string name="invalidAuthenticationCode">Не валиден код за удостоверяване</string>
-  <string name="emailMeALink">Изпрати ми препратка на ел. поща</string>
+  <string name="emailMeALink">Изпрати ми препратка на имейла</string>
   <string name="currentPassword">Текуща парола</string>
   <string name="newPassword">Нова парола</string>
   <string name="newPasswordAgain">Нова парола (повтори)</string>
@@ -592,10 +592,10 @@
   <string name="allowAnalytics">Разреши анонимна статистика</string>
   <string name="shareGameURL">Сподели URL на играта</string>
   <string name="error.required">Това поле е задължително</string>
-  <string name="error.email">Адресът на ел. поща е невалиден</string>
-  <string name="error.email_acceptable">Адресът на ел. поща е недопустим</string>
-  <string name="error.email_unique">Тази ел. поща е вече заета</string>
-  <string name="error.email_different">Това е текущият ви имейл адрес</string>
+  <string name="error.email">Този имейл е невалиден</string>
+  <string name="error.email_acceptable">Този имейл адрес е неприемлив. Моля проверете дали сте го въвели правилно и опитайте отново.</string>
+  <string name="error.email_unique">Този имейл не е валиден или е вече взет</string>
+  <string name="error.email_different">Това е текущият Ви имейл адрес</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyExistingConversations">Само съществуващи дискусии</string>
   <string name="onlyFriends">Само приятели</string>
@@ -671,9 +671,9 @@
   <string name="cumulative">С натрупване</string>
   <string name="glicko2Rating">Рейтинг по Glicko-2</string>
   <string name="checkYourEmail">Проверете имейла си</string>
-  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви писмо. Натиснете върху връзката в писмото, за да задействате регистрацията си.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
-  <string name="weHaveSentYouAnEmailTo">Изпратихме писмо на %s. Натиснете върху връзката в писмото, за да промените паролата на вашата регистрация.</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме Ви имейл. Натиснете върху връзката в имейла, за да задействате регистрацията си.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате имейла, проверете и на другите места където може бъде, като например кошче, спам, социални или други папки.</string>
+  <string name="weHaveSentYouAnEmailTo">Изпратихме имейл на %s. Натиснете връзката в имейла, за да промените паролата на Вашата регистрация.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Със записването си, се съгласявате да спазвате нашите %s.</string>
   <string name="readAboutOur">Прочетете за нашата %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежово забавяне между вас и lichess</string>
@@ -692,7 +692,7 @@
   <string name="withNobody">С никой</string>
   <string name="withFriends">С приятели</string>
   <string name="withEverybody">С всеки</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Вече сте записали ел. поща: %s</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Вече сте регистрирали имейла: %s</string>
   <string name="kidMode">Детски режим</string>
   <string name="kidModeExplanation">В името на безопасността. В детския режим цялата комуникация в сайта е изключена. Включете детския режим, за да защитите вашите деца и ученици от другите потребители.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детския режим логото на Lichess става %s, за да сте сигурни в безопасността на своите деца.</string>
@@ -892,7 +892,7 @@
   <string name="cancelSimul">Отмени сеанса</string>
   <string name="simulHostcolor">Цвят на домакина във всяка игра</string>
   <string name="estimatedStart">Очаквано време на започване</string>
-  <string name="simulFeatured">Показва се на %s</string>
+  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Показва се на %s</string>
   <string name="simulFeaturedHelp">Показвайте сеанса си всички на %s. Изключете за частни сеанси.</string>
   <string name="simulDescription">Описание на сеанса</string>
   <string name="simulDescriptionHelp">Има ли нещо което искате да кажете на участниците?</string>

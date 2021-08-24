@@ -1,10 +1,12 @@
 import { view as cevalView } from 'ceval';
+import { read as readFen } from 'chessground/fen';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import changeColorHandle from 'common/coordsColor';
-import { bind, bindNonPassive, MaybeVNodes, onInsert } from 'common/snabbdom';
+import { bind, bindNonPassive, bindMobileMousedown, MaybeVNodes, onInsert, dataIcon } from 'common/snabbdom';
 import { getPlayer, playable } from 'game';
 import * as router from 'game/router';
+import * as materialView from 'game/view/material';
 import statusView from 'game/view/status';
 import { h, VNode } from 'snabbdom';
 import { path as treePath } from 'tree';
@@ -35,7 +37,7 @@ import relayTour from './study/relay/relayTourView';
 import { findTag } from './study/studyChapters';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
-import { bindMobileMousedown, dataIcon, spinner } from './util';
+import spinner from 'common/spinner';
 
 function renderResult(ctrl: AnalyseCtrl): VNode[] {
   const render = (result: string, status: MaybeVNodes) => [h('div.result', result), h('div.status', status)];
@@ -312,6 +314,37 @@ function analysisDisabled(ctrl: AnalyseCtrl): VNode {
   ]);
 }
 
+export function renderMaterialDiffs(ctrl: AnalyseCtrl): [VNode, VNode] {
+  const cgState = ctrl.chessground?.state,
+    pieces = cgState ? cgState.pieces : readFen(ctrl.node.fen);
+
+  return materialView.renderMaterialDiffs(
+    !!ctrl.data.pref.showCaptured,
+    ctrl.bottomColor(),
+    pieces,
+    !!(ctrl.data.player.checks || ctrl.data.opponent.checks), // showChecks
+    ctrl.nodeList,
+    ctrl.node.ply
+  );
+}
+
+function renderPlayerStrip(cls: string, materialDiff: VNode, clock?: VNode): VNode {
+  return h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
+}
+
+function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
+  if (ctrl.embed) return;
+
+  const clocks = renderClocks(ctrl),
+    whitePov = ctrl.bottomIsWhite(),
+    materialDiffs = renderMaterialDiffs(ctrl);
+
+  return [
+    renderPlayerStrip('top', materialDiffs[0], clocks?.[whitePov ? 1 : 0]),
+    renderPlayerStrip('bottom', materialDiffs[1], clocks?.[whitePov ? 0 : 1]),
+  ];
+}
+
 export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
@@ -322,10 +355,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
     playerBars = renderPlayerBars(ctrl),
-    clocks = !playerBars && renderClocks(ctrl),
+    playerStrips = !playerBars && renderPlayerStrips(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!gaugeOn || !!playerBars,
     tour = relayTour(ctrl);
+
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -352,7 +386,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'comp-off': !ctrl.showComputer(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
-        'has-clocks': !!clocks,
+        'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': !!tour,
         'analyse-hunter': ctrl.opts.hunter,
       },
@@ -370,7 +404,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 : bindNonPassive('wheel', (e: WheelEvent) => wheel(ctrl, e)),
           },
           [
-            ...(clocks || []),
+            ...(playerStrips || []),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 1 : 0] : null,
             chessground.render(ctrl),
             playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,

@@ -103,6 +103,9 @@ case class Challenge(
     status = Status.Declined,
     declineReason = reason.some
   )
+
+  def isBoardCompatible: Boolean = speed >= Speed.Blitz
+  def isBotCompatible: Boolean   = speed >= Speed.Bullet
 }
 
 object Challenge {

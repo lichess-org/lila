@@ -67,7 +67,7 @@ object header {
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
           ),
-          (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
+          (ctx.isAuth && !ctx.is(u)) option
             a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))
         ),
         div(cls := "user-actions btn-rack")(
@@ -119,7 +119,7 @@ object header {
           )
         )
       ),
-      (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
+      (!ctx.is(u)) option div(cls := "note-zone")(
         postForm(action := s"${routes.User.writeNote(u.username)}?note")(
           textarea(
             name := "text",

@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
-import { tds, bind, perfNames } from './util';
+import { bind } from 'common/snabbdom';
+import { tds, perfNames } from './util';
 import LobbyController from '../ctrl';
 import { Seek, MaybeVNodes } from '../interfaces';
 import perfIcons from 'common/perfIcons';

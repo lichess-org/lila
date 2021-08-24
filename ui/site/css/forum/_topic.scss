@@ -25,12 +25,14 @@
 
   &__posts {
     margin-top: 2rem;
+    margin-bottom: 2rem;
   }
 
   &__actions {
     @extend %flex-between;
 
-    margin-bottom: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
 
     div {
       @extend %flex-wrap;

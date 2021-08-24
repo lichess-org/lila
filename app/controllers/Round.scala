@@ -357,10 +357,14 @@ final class Round(
       import lila.round.actorApi.round.Moretime
       if (seconds < 1 || seconds > 86400) BadRequest.fuccess
       else
-        env.round.proxyRepo.game(lila.game.Game takeGameId anyId) map {
+        env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
           _.flatMap { Pov(_, me) }.?? { pov =>
-            env.round.tellRound(pov.gameId, Moretime(pov.typedPlayerId, seconds.seconds))
-            jsonOkResult
+            env.round.moretimer.isAllowedIn(pov.game) map {
+              case true =>
+                env.round.tellRound(pov.gameId, Moretime(pov.typedPlayerId, seconds.seconds))
+                jsonOkResult
+              case false => BadRequest(jsonError("This game doesn't allow giving time"))
+            }
           }
         }
     }

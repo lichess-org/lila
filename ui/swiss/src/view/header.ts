@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
+import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
-import { dataIcon } from './util';
 
 function startClock(time: number) {
   return {

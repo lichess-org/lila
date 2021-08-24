@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
 import MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderContact from './contact';
 import * as search from './search';
-import { spinner } from './util';
 
 export default function (ctrl: MsgCtrl): VNode {
   const activeId = ctrl.data.convo?.user.id;

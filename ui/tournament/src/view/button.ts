@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
+import spinner from 'common/spinner';
+import { bind, dataIcon } from 'common/snabbdom';
 import { isIn } from '../tournament';
-import { spinner, bind, dataIcon } from './util';
 import TournamentController from '../ctrl';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {

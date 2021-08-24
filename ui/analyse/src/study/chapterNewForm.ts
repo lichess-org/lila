@@ -8,7 +8,8 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
-import { option, spinner } from '../util';
+import spinner from 'common/spinner';
+import { option } from '../util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
 import { chapter as chapterTour } from './studyTour';
 import { importPgn, variants as xhrVariants } from './studyXhr';
@@ -51,7 +52,7 @@ export function ctrl(
   setTab: () => void,
   root: AnalyseCtrl
 ): StudyChapterNewFormCtrl {
-  const multiPgnMax = 20;
+  const multiPgnMax = 32;
 
   const vm = {
     variants: [],
@@ -213,19 +214,19 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                 {
                   hook: {
                     insert(vnode) {
-                      Promise.all([
-                        lichess.loadModule('editor'),
-                        xhr.json(xhr.url('/editor.json', { fen: ctrl.root.node.fen })),
-                      ]).then(([_, data]) => {
-                        data.embed = true;
-                        data.options = {
-                          inlineCastling: true,
-                          orientation: currentChapter.setup.orientation,
-                          onChange: ctrl.vm.editorFen,
-                        };
-                        ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
-                        ctrl.vm.editorFen(ctrl.vm.editor.getFen());
-                      });
+                      Promise.all([lichess.loadModule('editor'), xhr.json('/editor.json')]).then(
+                        ([_, data]: [unknown, Editor.Config]) => {
+                          data.fen = ctrl.root.node.fen;
+                          data.embed = true;
+                          data.options = {
+                            inlineCastling: true,
+                            orientation: currentChapter.setup.orientation,
+                            onChange: ctrl.vm.editorFen,
+                          };
+                          ctrl.vm.editor = window.LichessEditor!(vnode.elm as HTMLElement, data);
+                          ctrl.vm.editorFen(ctrl.vm.editor.getFen());
+                        }
+                      );
                     },
                     destroy: _ => {
                       ctrl.vm.editor = null;

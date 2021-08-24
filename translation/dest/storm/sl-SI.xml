@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="moveToStart">Premaknite za začetek</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Bele figure igrate v vseh ugankah</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Črne figure igrate v vseh ugankah</string>
+  <string name="puzzlesSolved">uganke rešene</string>
+  <string name="newDailyHighscore">Nov dnevni rekord!</string>
+  <string name="newWeeklyHighscore">Nov tedenski rekord!</string>
+  <string name="newMonthlyHighscore">Nov mesečni rekord!</string>
+  <string name="newAllTimeHighscore">Nov rekord vseh časov!</string>
+  <string name="previousHighscoreWasX">Prejšnji rekord je bil %s</string>
+  <string name="playAgain">Igrajte ponovno</string>
+  <plurals name="xRuns">
+    <item quantity="one">1 poskus</item>
+    <item quantity="two">%s poskusa</item>
+    <item quantity="few">%s poskusi</item>
+    <item quantity="other">%s poskusov</item>
+  </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">Opravljen en poskus %2$s</item>
+    <item quantity="two">Opravljena %1$s poskusa %2$s</item>
+    <item quantity="few">Opravljeni %1$s poskusi %2$s</item>
+    <item quantity="other">Opravljenih %1$s poskusov %2$s</item>
+  </plurals>
+  <string name="highscoreX">Rekord: %s</string>
   <string name="score">Rezultat</string>
   <string name="moves">Poteze</string>
   <string name="accuracy">Točnost</string>

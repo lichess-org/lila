@@ -3,4 +3,6 @@
   <string name="contact">संपर्क</string>
   <string name="contactLichess">Lichess शी संपर्क</string>
   <string name="whatCanWeHelpYouWith">आम्ही आपल्याला काय मदत करू शकतो?</string>
+  <string name="visitThisPage">समस्या सोडवण्यासाठी या पानावर जा</string>
+  <string name="iCantLogIn">मी सनोंद प्रवेश करू शकत नाही</string>
 </resources>

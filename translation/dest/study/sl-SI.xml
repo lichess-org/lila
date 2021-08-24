@@ -18,9 +18,9 @@
   <string name="alphabetical">Po abecednem redu</string>
   <string name="addNewChapter">Dodaj poglavje</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s poglavje</item>
-    <item quantity="two">%s poglavji</item>
-    <item quantity="few">%s poglavja</item>
+    <item quantity="one">%s Poglavje</item>
+    <item quantity="two">%s Poglavji</item>
+    <item quantity="few">%s Poglavja</item>
     <item quantity="other">%s poglavij</item>
   </plurals>
   <plurals name="nbGames">
@@ -136,6 +136,30 @@
   <string name="deleteStudy">Izbriši študijo</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Želite izbrisati celotno študijo? Ni poti nazaj! Za potrditev vnesite ime študije.</string>
   <string name="whereDoYouWantToStudyThat">Kje želite to študirati?</string>
+  <string name="goodMove">Dobra poteza</string>
+  <string name="mistake">Napakica</string>
+  <string name="brilliantMove">Briljantna poteza</string>
+  <string name="blunder">Napaka</string>
+  <string name="interestingMove">Zanimiva poteza</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Dvomljiva poteza</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Edina poteza</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Nujnica</string>
+  <string name="equalPosition">Enaka pozicija</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Nejasna pozicija</string>
+  <string name="whiteIsSlightlyBetter">Beli je nekoliko boljši</string>
+  <string name="blackIsSlightlyBetter">Črni je nekoliko boljši</string>
+  <string name="whiteIsBetter">Beli je boljši</string>
+  <string name="blackIsBetter">Črni je boljši</string>
+  <string name="whiteIsWinning">Beli zmaguje</string>
+  <string name="blackIsWinning">Črni zmaguje</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Novost</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Razvoj</string>
+  <string name="initiative">Iniciativa</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Napad</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Protinapad</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Časovna stiska</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">S kompenzacijo</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">Z idejo</string>
   <string name="nextChapter">Naslednje poglavje</string>
   <string name="prevChapter">Prejšnje poglavje</string>
   <string name="studyActions">Študijske akcije</string>

@@ -33,17 +33,14 @@ final class Editor(env: Env) extends LilaController(env) {
 
   def load(urlFen: String) =
     Open { implicit ctx =>
-      val fenStr = lila.common.String
+      val fen = lila.common.String
         .decodeUriPath(urlFen)
         .map(_.replace('_', ' ').trim)
         .filter(_.nonEmpty)
-        .orElse(get("fen"))
       fuccess {
-        val situation = readFen(fenStr)
         Ok(
           html.board.editor(
-            sit = situation,
-            fen = Forsyth >> situation,
+            fen,
             positionsJson,
             endgamePositionsJson
           )
@@ -54,19 +51,11 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val situation = readFen(get("fen"))
         JsonOk(
-          html.board.bits.jsData(
-            sit = situation,
-            fen = Forsyth >> situation
-          )
+          html.board.bits.jsData()
         )
       }
     }
-
-  private def readFen(fen: Option[String]): Situation =
-    fen.map(_.trim).filter(_.nonEmpty).map(FEN.clean).flatMap(Forsyth.<<<).map(_.situation) |
-      Situation(chess.variant.Standard)
 
   def game(id: String) =
     Open { implicit ctx =>

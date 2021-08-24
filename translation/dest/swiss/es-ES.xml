@@ -10,7 +10,7 @@
     <item quantity="other">%s rondas</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="one">Una ronda por día</item>
+    <item quantity="one">Una ronda al día</item>
     <item quantity="other">Una ronda cada %s días</item>
   </plurals>
   <string name="roundsAreStartedManually">Las rondas se inician manualmente</string>
@@ -32,7 +32,7 @@
   <string name="numberOfRounds">Número de rondas</string>
   <string name="numberOfRoundsHelp">Un número impar de rondas permite un equilibrio de colores óptimo.</string>
   <string name="roundInterval">Intervalo entre rondas</string>
-  <string name="forbiddenPairings">Emparejamientos no permitidos</string>
+  <string name="forbiddenPairings">Emparejamientos prohibidos</string>
   <string name="forbiddenPairingsHelp">Nombres de usuario de jugadores que no deben enfrentarse (por ejemplo, hermanos). Dos nombres de usuario por línea, separados por un espacio.</string>
   <string name="newSwiss">Nuevo torneo suizo</string>
   <string name="swissVsArenaQ">¿Cuándo usar torneos suizos en lugar de los torneos estándar?</string>

@@ -1,6 +1,8 @@
 package lila.app
 package mashup
 
+import play.api.libs.json._
+
 import lila.api.Context
 import lila.event.Event
 import lila.forum.MiniForumPost
@@ -8,12 +10,12 @@ import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
+import lila.swiss.Swiss
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.Tv
 import lila.user.LightUserApi
 import lila.user.User
-import play.api.libs.json._
 
 final class Preload(
     tv: Tv,
@@ -37,6 +39,7 @@ final class Preload(
   def apply(
       posts: Fu[List[MiniForumPost]],
       tours: Fu[List[Tournament]],
+      swiss: Option[Swiss],
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]],
       streamerSpots: Int
@@ -71,6 +74,7 @@ final class Preload(
               entries,
               posts,
               tours,
+              swiss,
               events,
               simuls,
               feat,
@@ -114,6 +118,7 @@ object Preload {
       userTimeline: Vector[Entry],
       forumRecent: List[MiniForumPost],
       tours: List[Tournament],
+      swiss: Option[Swiss],
       events: List[Event],
       simuls: List[Simul],
       featured: Option[Game],

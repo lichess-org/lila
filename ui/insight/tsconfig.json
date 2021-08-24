@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "numeral": ["./@types/numeral"]
+    },
+    "types": ["lichess", "cash"]
+  }
+}

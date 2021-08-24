@@ -4,6 +4,8 @@ import lila.user.User
 
 package object swiss extends PackageObject {
 
+  val lichessTeamId = "lichess-swiss"
+
   type Ranking = Map[lila.user.User.ID, Int]
 
   private[swiss] val logger = lila.log("swiss")

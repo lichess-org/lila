@@ -89,40 +89,33 @@ final class ClasApi(
         }
 
     def isTeacherOf(teacher: User.ID, student: User.ID): Fu[Boolean] =
-      fuccess(studentCache.isStudent(student)) >>&
-        colls.student
-          .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
-            import framework._
-            Match($doc("userId" -> student)) -> List(
-              Project($doc("clasId" -> true)),
-              PipelineOperator(
-                $doc(
-                  "$lookup" -> $doc(
-                    "from" -> colls.clas.name,
-                    "let"  -> $doc("c" -> "$clasId"),
-                    "pipeline" -> $arr(
-                      $doc(
-                        "$match" -> $doc(
-                          "$expr" -> $doc(
-                            "$and" -> $arr(
-                              $doc("$eq" -> $arr("$_id", "$$c")),
-                              $doc("$in" -> $arr(teacher, "$teachers"))
-                            )
-                          )
-                        )
-                      ),
-                      $doc("$limit"   -> 1),
-                      $doc("$project" -> $id(true))
-                    ),
-                    "as" -> "clas"
-                  )
+      studentCache.isStudent(student) ?? colls.student
+        .aggregateExists(readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
+          import framework._
+          Match($doc("userId" -> student)) -> List(
+            Project($doc("clasId" -> true)),
+            PipelineOperator(
+              $lookup.pipeline(
+                from = colls.clas,
+                as = "clas",
+                local = "clasId",
+                foreign = "_id",
+                pipeline = List(
+                  $doc(
+                    "$match" -> $doc(
+                      "$expr" -> $doc("$in" -> $arr(teacher, "$teachers"))
+                    )
+                  ),
+                  $doc("$limit"   -> 1),
+                  $doc("$project" -> $id(true))
                 )
-              ),
-              Match("clas" $ne $arr()),
-              Limit(1),
-              Project($id(true))
-            )
-          }
+              )
+            ),
+            Match("clas" $ne $arr()),
+            Limit(1),
+            Project($id(true))
+          )
+        }
 
     def archive(c: Clas, t: User, v: Boolean): Funit =
       coll.update

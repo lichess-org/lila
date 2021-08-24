@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Mueve pa empecipiar</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Chugas con blancas en totz es problemas</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Chugas con negras en totz es problemas</string>
   <string name="puzzlesSolved">exercicios resueltos</string>
   <string name="newDailyHighscore">Nuevo record diario!</string>
   <string name="newWeeklyHighscore">Nuevo record semanal!</string>
@@ -31,4 +33,21 @@
   <string name="viewBestRuns">Veyer los millors intentos</string>
   <string name="bestRunOfDay">Millor intento d\'o día</string>
   <string name="runs">Intentos</string>
+  <string name="getReady">Apresta-te!</string>
+  <string name="waitingForMorePlayers">Aguardando a que s\'unan mas chugadors...</string>
+  <string name="raceComplete">Corrida rematada!</string>
+  <string name="spectating">Observando</string>
+  <string name="joinTheRace">Une-te a la corrida!</string>
+  <string name="startTheRace">Encomienza la corrida</string>
+  <string name="yourRankX">La tuya posición: %s</string>
+  <string name="waitForRematch">Aguarda pa lo reminche</string>
+  <string name="nextRace">Siguient corrida</string>
+  <string name="joinRematch">Une-te a lo reminche</string>
+  <string name="waitingToStart">Aguardando pa encomenzar</string>
+  <string name="createNewGame">Crear una nueva partida</string>
+  <string name="joinPublicRace">Une-te a una nueva corrida</string>
+  <string name="raceYourFriends">Fe una corrida con os tuyos amigos</string>
+  <string name="skip">blincar</string>
+  <string name="skipHelp">Puetz blincar un movimiento per corrida:</string>
+  <string name="skipExplanation">Blinca este movimiento pa preservar lo tuyo combo! Nomás funcoina una vegada per corrida.</string>
 </resources>

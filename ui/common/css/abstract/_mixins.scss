@@ -33,10 +33,12 @@
   overflow-y: auto;
 
   @media (hover: hover) {
-    overflow: hidden;
+    &:not(:hover) {
+      scrollbar-width: none;
 
-    &:hover {
-      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 }

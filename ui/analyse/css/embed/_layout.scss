@@ -15,14 +15,27 @@
   grid-template-areas:
     'board'
     'tools'
-    'controls';
+    'controls'
+    'gap';
   grid-template-columns: auto;
-  grid-template-rows: 100vw minmax(150px, calc(100vh - 100vw - 5.5rem)) 3rem;
+  grid-template-rows: 100vw minmax(50px, calc(100vh - 100vw - 5.5rem)) 3rem 2.5rem;
 
-  @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
-    grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
-    grid-template-rows: auto 2.5rem;
-    grid-template-areas: 'board tools' 'board controls';
+  &.gamebook-play {
+    grid-template-areas:
+      'board'
+      'gap'
+      'tools'
+      'gap2';
+    grid-template-rows: 100vw 2vw auto 3rem;
+  }
+
+  &,
+  &.gamebook-play {
+    @media (min-width: 400px) and (min-aspect-ratio: 1/1) {
+      grid-template-columns: minmax(200px, calc(100vh - 2.5rem)) minmax(200px, 1fr);
+      grid-template-rows: auto 2.5rem;
+      grid-template-areas: 'board tools' 'board controls';
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import throttle from 'common/throttle';
-import { json } from 'common/xhr';
+import { json, form } from 'common/xhr';
 import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
 
@@ -9,17 +9,17 @@ const onFail = () => lichess.reload();
 const join = (ctrl: SwissCtrl, password?: string) =>
   json(`/swiss/${ctrl.data.id}/join`, {
     method: 'post',
-    body: JSON.stringify({
+    body: form({
       password: password || '',
     }),
-    headers: { 'Content-Type': 'application/json' },
   }).catch(onFail);
 
 const withdraw = (ctrl: SwissCtrl) => json(`/swiss/${ctrl.data.id}/withdraw`, { method: 'post' }).catch(onFail);
 
-const loadPage = (ctrl: SwissCtrl, p: number) =>
+const loadPage = (ctrl: SwissCtrl, p: number, callback?: () => void) =>
   json(`/swiss/${ctrl.data.id}/standing/${p}`).then(data => {
     ctrl.loadPage(data);
+    callback?.();
     ctrl.redraw();
   });
 

@@ -61,6 +61,8 @@ case class Game(
   def hasUserIds(userId1: User.ID, userId2: User.ID) =
     playerByUserId(userId1).isDefined && playerByUserId(userId2).isDefined
 
+  def hasUserId(userId: User.ID) = playerByUserId(userId).isDefined
+
   def opponent(p: Player): Player = opponent(p.color)
 
   def opponent(c: Color): Player = player(!c)
@@ -722,7 +724,7 @@ object Game {
   def isBoardCompatible(game: Game): Boolean =
     game.clock.fold(true) { c =>
       isBoardCompatible(c.config) || {
-        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Bullet
+        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
       }
     }
 

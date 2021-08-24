@@ -25,7 +25,7 @@ Você precisa de ambos!</string>
   <string name="bishopComplete">Parabéns! Você pode comandar um bispo.</string>
   <string name="theQueen">A dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + bispo</string>
-  <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a rainha (dama)!</string>
+  <string name="queenIntro">Entra a mais poderosa das peças. Sua majestade, a dama!</string>
   <string name="queenComplete">Parabéns! A Dama não é segredo para você.</string>
   <string name="theKing">O rei</string>
   <string name="theMostImportantPiece">A peça mais importante</string>
@@ -117,7 +117,7 @@ Eles vão ao lado dos cavalos.</string>
   <string name="placeTheQueen">Posicione a dama!
 Ela vai na casa de sua cor.</string>
   <string name="placeTheKing">Posicione o rei!
-Bem ao lado de sua rainha.</string>
+Bem ao lado da sua dama.</string>
   <string name="pawnsFormTheFrontLine">Peões formam a linha de frente.
 Faça qualquer movimento para continuar.</string>
   <string name="boardSetupComplete">Parabéns! Você sabe como posicionar as peças no tabuleiro de xadrez.</string>
@@ -136,7 +136,7 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="youCannotCastleIfMoved">Você não pode rocar se o rei ou se a torre já se moveram.</string>
   <string name="youCannotCastleIfAttacked">Você não pode rocar se o rei está sob ameaça no caminho. Bloqueie o xeque, e então conclua o roque!</string>
   <string name="findAWayToCastleKingSide">Encontre uma maneira de executar o roque menor (da ala do rei)!</string>
-  <string name="findAWayToCastleQueenSide">Encontre uma maneira de executar o roque maior (da ala da rainha)!</string>
+  <string name="findAWayToCastleQueenSide">Encontre uma maneira de executar o roque maior (da ala da dama)!</string>
   <string name="castlingComplete">Parabéns! Você deve rocar em quase todas as partidas.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">O movimento especial do peão</string>
@@ -157,12 +157,12 @@ Mas antes você precisa retirar as peças do meio.</string>
   <string name="pieceValue">Avaliando</string>
   <string name="evaluatePieceStrength">Avalie o valor de cada peça</string>
   <string name="pieceValueIntro">Peças com maior mobilidade possuem maior valor!
-Rainha = 9    Torre = 5
-Bispo = 3      Cavalo = 3
+Dama = 9 Torre = 5
+Bispo = 3 Cavalo = 3
 Peão = 1
 O rei é inestimável! Perdê-lo significa ser derrotado.</string>
   <string name="queenOverBishop">Capture a peça de maior valor!
-Rainha &gt; Bispo</string>
+Dama &gt; Bispo</string>
   <string name="pieceValueExchange">Tome a peça com o valor mais alto!
  Não troque
  uma peça de maior valor por outra de menor valor.</string>
@@ -171,7 +171,7 @@ com o valor mais alto!
 Tenha certeza de que seu movimento é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Capture a peça de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Você conhece o valor material! 
-Rainha = 9 
+Dama = 9 
 Torre = 5 
 Bispo = 3 
 Cavalo = 3 

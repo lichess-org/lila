@@ -171,7 +171,7 @@ object SwissJson {
         "clock"     -> swiss.clock,
         "variant"   -> swiss.variant.key,
         "round"     -> swiss.round,
-        "nbRounds"  -> swiss.actualNbRounds,
+        "nbRounds"  -> swiss.settings.nbRounds,
         "nbPlayers" -> swiss.nbPlayers,
         "nbOngoing" -> swiss.nbOngoing,
         "status" -> {

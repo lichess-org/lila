@@ -3,6 +3,7 @@
   "include": ["src"],
   "exclude": [],
   "compilerOptions": {
-    "outDir": "."
+    "outDir": ".",
+    "types": ["lichess", "cash", "dom-screen-wake-lock"]
   }
 }

@@ -65,15 +65,7 @@ final class PostApi(
                 if (post.isTeam) lila.hub.actorApi.shutup.RecordTeamForumMessage(me.id, post.text)
                 else lila.hub.actorApi.shutup.RecordPublicForumMessage(me.id, post.text)
               }
-              if (anonMod)
-                modLog.postOrEditAsAnonMod(
-                  me.id,
-                  post.categId,
-                  post.topicId,
-                  post.id,
-                  post.text,
-                  edit = false
-                )
+              if (anonMod) logAnonPost(me.id, post, edit = false)
               else if (!post.troll && !categ.quiet && !topic.isTooBig)
                 timeline ! Propagate(ForumPost(me.id, topic.id.some, topic.name, post.id)).pipe {
                   _ toFollowersOf me.id toUsers topicUserIds exceptUser me.id
@@ -96,14 +88,7 @@ final class PostApi(
           val newPost = post.editPost(DateTime.now, spam replace newText)
           (newPost.text != post.text).?? {
             env.postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
-              modLog.postOrEditAsAnonMod(
-                user.id,
-                newPost.categId,
-                newPost.topicId,
-                newPost.id,
-                newPost.text,
-                edit = true
-              )
+              logAnonPost(user.id, newPost, edit = true)
             }
           } inject newPost
       }
@@ -119,7 +104,7 @@ final class PostApi(
       }
     }
 
-  def urlData(postId: String, forUser: Option[User]): Fu[Option[PostUrlData]] =
+  def urlData(postId: Post.ID, forUser: Option[User]): Fu[Option[PostUrlData]] =
     get(postId) flatMap {
       case Some((_, post)) if !post.visibleBy(forUser) => fuccess(none[PostUrlData])
       case Some((topic, post)) =>
@@ -130,22 +115,22 @@ final class PostApi(
       case _ => fuccess(none)
     }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] =
+  def get(postId: Post.ID): Fu[Option[(Topic, Post)]] =
     getPost(postId) flatMap {
       _ ?? { post =>
-        env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
+        env.topicRepo.byId(post.topicId) dmap2 { _ -> post }
       }
     }
 
-  def getPost(postId: String): Fu[Option[Post]] =
+  def getPost(postId: Post.ID): Fu[Option[Post]] =
     env.postRepo.coll.byId[Post](postId)
 
-  def react(postId: String, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
+  def react(postId: Post.ID, me: User, reaction: String, v: Boolean): Fu[Option[Post]] =
     Post.Reaction.set(reaction) ?? {
       if (v) lila.mon.forum.reaction(reaction).increment()
       env.postRepo.coll.ext
         .findAndUpdate[Post](
-          selector = $id(postId),
+          selector = $id(postId) ++ $doc("userId" $ne me.id),
           update = {
             if (v) $addToSet(s"reactions.$reaction" -> me.id)
             else $pull(s"reactions.$reaction"       -> me.id)
@@ -264,5 +249,17 @@ final class PostApi(
       _ ?? { post =>
         env.categRepo.coll.primitiveOne[TeamID]($id(post.categId), "team")
       }
+    }
+
+  private def logAnonPost(userId: User.ID, post: Post, edit: Boolean): Funit =
+    env.topicRepo.byId(post.topicId) orFail s"No such topic ${post.topicId}" flatMap { topic =>
+      modLog.postOrEditAsAnonMod(
+        userId,
+        post.categId,
+        topic.slug,
+        post.id,
+        post.text,
+        edit
+      )
     }
 }

@@ -1,5 +1,5 @@
 import LobbyController from '../../ctrl';
-import { bind } from '../util';
+import { bind } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Hook } from '../../interfaces';
 import perfIcons from 'common/perfIcons';

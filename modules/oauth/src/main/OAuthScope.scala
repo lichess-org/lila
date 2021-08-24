@@ -27,7 +27,7 @@ object OAuthScope {
   }
 
   object Tournament {
-    case object Write extends OAuthScope("tournament:write", "Create and update tournaments")
+    case object Write extends OAuthScope("tournament:write", "Create, update and join tournaments")
   }
 
   object Puzzle {
@@ -37,6 +37,10 @@ object OAuthScope {
   object Team {
     case object Read  extends OAuthScope("team:read", "Read private team information")
     case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
+  }
+
+  object Follow {
+    case object Write extends OAuthScope("follow:write", "Follow and unfollow other players")
   }
 
   object Msg {
@@ -75,6 +79,7 @@ object OAuthScope {
     Puzzle.Read,
     Team.Read,
     Team.Write,
+    Follow.Write,
     Msg.Write,
     Board.Play,
     Bot.Play,

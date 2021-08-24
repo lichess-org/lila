@@ -45,6 +45,9 @@
   <string name="leadersChat">Chat αρχηγών</string>
   <string name="closeTeam">Κλείστε την ομάδα</string>
   <string name="closeTeamDescription">Κλείνει την ομάδα για πάντα.</string>
+  <string name="entryCode">Κωδικός εισόδου ομάδας</string>
+  <string name="entryCodeDescriptionForLeader">(Προαιρετικό) Ένας κωδικός εισόδου που πρέπει να γνωρίζουν τα νέα μέλη για να συμμετάσχουν σε αυτήν την ομάδα.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Λάθος κωδικός εισόδου.</string>
   <string name="teamAlreadyExists">Αυτή η ομάδα υπάρχει ήδη.</string>
   <string name="upcomingTourns">Επερχόμενα πρωταθλήματα</string>
   <string name="completedTourns">Ολοκληρωμένα πρωταθλήματα</string>

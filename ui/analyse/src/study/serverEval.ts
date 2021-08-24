@@ -1,9 +1,13 @@
 import { defined, Prop, prop } from 'common';
 import { bind, onInsert } from 'common/snabbdom';
+import spinner from 'common/spinner';
 import Highcharts from 'highcharts';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { spinner } from '../util';
+
+interface HighchartsHTMLElement extends HTMLElement {
+  highcharts: Highcharts.ChartObject;
+}
 
 export interface ServerEvalCtrl {
   requested: Prop<boolean>;

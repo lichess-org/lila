@@ -7,23 +7,30 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@rollup/plugin-replace": "^2.3.4",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@types/debounce-promise": "^3.1.4",
     "@types/fnando__sparkline": "^0.3.2",
+    "@types/lichess": "2.0.0",
     "@types/yaireo__tagify": "^4.0.1",
     "@types/zxcvbn": "^4.4.0",
-    "chessground": "^8.1.5",
-    "rollup-plugin-copy": "^3.3.0"
+    "chessground": "^8.1.6",
+    "rollup": "^2.56.2",
+    "rollup-plugin-copy": "^3.3.0",
+    "typescript": "^4.3.5"
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@yaireo/tagify": "^4.0.5",
     "apexcharts": "^3.27.1",
+    "chat": "2.0.0",
+    "common": "2.0.0",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.9",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
+    "prop-types": "^15.7.2",
     "stockfish-mv.wasm": "^0.6.1",
-    "stockfish-nnue.wasm": "0.0.2",
+    "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0",
     "tablesort": "^5.1",
@@ -31,8 +38,8 @@
   },
   "scripts": {
     "deps": "cat ../../public/javascripts/vendor/cash.min.js ./dep/powertip.min.js ./dep/howler.min.js ./dep/mousetrap.min.js > ../../public/compiled/deps.min.js",
-    "dev": "yarn run deps && rollup --config",
-    "prod": "yarn run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
+    "dev": "$npm_execpath run deps && rollup --config",
+    "prod": "$npm_execpath run deps && rollup --config --config-prod && cat ../../public/compiled/deps.min.js ../../public/compiled/site.min.js > ../../public/compiled/lichess.min.js",
     "plugin-dev": "rollup --config --config-plugin",
     "plugin-prod": "rollup --config --config-prod --config-plugin"
   }

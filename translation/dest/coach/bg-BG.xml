@@ -4,6 +4,8 @@
   <string name="lichessCoach">Lichess треньор</string>
   <string name="areYouCoach">Дали си добър шах треньор с %s?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM или FIDE титла</string>
+  <string name="confirmTitle">Потвърдете титлата си тук и ще прегледаме молбата Ви.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">Изпратете ни имейл на %s и ще разгледаме молбата Ви.</string>
   <string name="location">Локация</string>
   <string name="languages">Езици</string>
   <string name="rating">Рейтинг</string>

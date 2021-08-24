@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import lila.hub.actorApi.user.{ KidId, NonKidId }
+import lila.hub.actorApi.user.{ ClasId, KidId, NonKidId }
 
 case class User(
     id: String,
@@ -218,7 +218,7 @@ object User {
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
     def isDaysOld(days: Int)   = createdAt isBefore DateTime.now.minusDays(days)
     def isHoursOld(hours: Int) = createdAt isBefore DateTime.now.minusHours(hours)
-    def kidId                  = if (isKid) KidId(id) else NonKidId(id)
+    def clasId: ClasId         = if (isKid) KidId(id) else NonKidId(id)
   }
   case class Contacts(orig: Contact, dest: Contact) {
     def hasKid = orig.isKid || dest.isKid

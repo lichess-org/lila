@@ -24,6 +24,21 @@ object String {
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
 
+  def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
+
+  def isGarbageChar(c: Int) =
+    // invisible chars https://www.compart.com/en/unicode/block/U+2000
+    (c >= '\u2000' && c <= '\u200F') ||
+      // weird stuff https://www.compart.com/en/unicode/block/U+2000
+      (c >= '\u2028' && c <= '\u202F') ||
+      // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
+      (c >= '\u2100' && c <= '\u2C5F') ||
+      // decorative chars ꧁ ꧂
+      (c == '\ua9c1' || c == '\ua9c2')
+
+  // convert weird chars into letters when possible
+  def normalize(str: String): String = Normalizer.normalize(str, Normalizer.Form.NFKC)
+
   def decodeUriPath(input: String): Option[String] = {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some

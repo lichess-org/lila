@@ -1,9 +1,9 @@
 import { h, VNode } from 'snabbdom';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon } from 'common/snabbdom';
 import { ForecastCtrl, ForecastStep } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
-import { dataIcon, spinner } from '../util';
+import spinner from 'common/spinner';
 import { fixCrazySan } from 'chess';
 
 function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {

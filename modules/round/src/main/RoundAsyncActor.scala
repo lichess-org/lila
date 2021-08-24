@@ -277,7 +277,7 @@ final private[round] class RoundAsyncActor(
 
     case ResignForce(playerId) =>
       handle(playerId) { pov =>
-        (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
+        pov.mightClaimWin ?? {
           getPlayer(!pov.color).isLongGone flatMap {
             case true =>
               finisher.rageQuit(

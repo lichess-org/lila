@@ -86,6 +86,18 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
 
   def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
 
+  def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
+    span(
+      cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
+    )(
+      if (modIcon)
+        frag(
+          moderatorIcon,
+          User.anonMod
+        )
+      else User.anonymous
+    )
+
   def userIdLink(
       userIdOption: Option[User.ID],
       cssClass: Option[String] = None,
@@ -95,7 +107,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       params: String = "",
       modIcon: Boolean = false
   )(implicit ctx: Lang): Tag =
-    userIdOption.flatMap(lightUser).fold[Tag](span(User.anonymous)) { user =>
+    userIdOption.flatMap(lightUser).fold[Tag](anonUserSpan(cssClass, modIcon)) { user =>
       userIdNameLink(
         userId = user.id,
         username = user.name,
@@ -208,14 +220,6 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
       name
     )
   }
-
-  def anonModUser(cssClass: Option[String] = None) =
-    span(
-      cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined)
-    )(
-      moderatorIcon,
-      User.anonMod
-    )
 
   private def renderRating(perf: Perf): Frag =
     frag(

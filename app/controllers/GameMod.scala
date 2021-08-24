@@ -35,8 +35,7 @@ final class GameMod(env: Env)(implicit mat: akka.stream.Materializer) extends Li
 
   private def fetchGames(user: lila.user.User, filter: Filter) = {
     val select = toDbSelect(filter) ++ lila.game.Query.finished
-    filter.speed
-      .flatMap(k => chess.Speed.all.find(_.key == k))
+    filter.realSpeed
       .fold(env.game.gameRepo.recentPovsByUserFromSecondary(user, nbGames, select)) { speed =>
         import akka.stream.scaladsl._
         env.game.gameRepo
@@ -121,20 +120,24 @@ object GameMod {
         .map(lila.user.User.normalize)
         .toList
         .distinct
+    def realSpeed = speed.flatMap(k => chess.Speed.all.find(_.key == k))
   }
 
   val emptyFilter = Filter(none, none, none, none)
 
   def toDbSelect(filter: Filter): Bdoc =
-    lila.game.Query.notSimul ++ lila.game.Query.clock(true) ++ filter.arena.?? { id =>
-      $doc(lila.game.Game.BSONFields.tournamentId -> id)
-    } ++ filter.swiss.?? { id =>
-      $doc(lila.game.Game.BSONFields.swissId -> id)
-    } ++ (filter.opponentIds match {
-      case Nil      => $empty
-      case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
-      case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
-    })
+    lila.game.Query.notSimul ++
+      filter.realSpeed.?? { speed =>
+        lila.game.Query.clock(speed != chess.Speed.Correspondence)
+      } ++ filter.arena.?? { id =>
+        $doc(lila.game.Game.BSONFields.tournamentId -> id)
+      } ++ filter.swiss.?? { id =>
+        $doc(lila.game.Game.BSONFields.swissId -> id)
+      } ++ (filter.opponentIds match {
+        case Nil      => $empty
+        case List(id) => $and(lila.game.Game.BSONFields.playerUids $eq id)
+        case ids      => $and(lila.game.Game.BSONFields.playerUids $in ids)
+      })
 
   val filterForm =
     Form(

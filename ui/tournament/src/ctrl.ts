@@ -1,6 +1,6 @@
 import makeSocket from './socket';
 import * as xhr from './xhr';
-import { myPage, players } from './pagination';
+import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
@@ -111,6 +111,18 @@ export default class TournamentController {
     });
   };
 
+  jumpToRank = (rank: number) => {
+    const page = 1 + Math.floor((rank - 1) / maxPerPage);
+    const row = (rank - 1) % maxPerPage;
+    xhr.loadPage(this, page, () => {
+      if (!this.pages[page] || row >= this.pages[page].length) return;
+      this.page = page;
+      this.searching = false;
+      this.focusOnMe = false;
+      this.showPlayerInfo(this.pages[page][row]);
+    });
+  };
+
   userSetPage = (page: number) => {
     this.focusOnMe = false;
     this.setPage(page);
@@ -137,7 +149,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(this.trans.noarg('tournamenEntryCode'));
+        password = prompt(this.trans.noarg('tournamentEntryCode'));
         if (password === null) {
           return;
         }
