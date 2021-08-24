@@ -107,6 +107,10 @@ final class PlayApi(
           as(id, me) { pov =>
             fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
           }
+        case Array("game", id, "takeback", bool) =>
+          as(id, me) { pov =>
+            fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))) pipe toResult
+          }
         case Array("game", id, "claim-victory") =>
           as(id, me) { pov =>
             env.bot.player.claimVictory(pov) pipe toResult
