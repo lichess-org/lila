@@ -916,5 +916,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="cantDoThisTwice">Hesabınızı ikinci kez kapatırsanız tekrar aktifleştiremezsiniz.</string>
   <string name="emailAssociatedToaccount">Hesabın bağlı olduğu e-posta adresi</string>
   <string name="sentEmailWithLink">Size içinde ilgili bağlantı bulunan bir e-posta gönderdik.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnuva giriş kodu</string>
+  <string name="tournamentEntryCode">Turnuva giriş kodu</string>
 </resources>
