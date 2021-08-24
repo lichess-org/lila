@@ -142,8 +142,8 @@
     <item quantity="one">%s खिलाड़ी</item>
     <item quantity="other">%s खिलाड़ी</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">आपसी सहमति से ड्रॉ</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">पचास चालें बिना किसी प्रगति के</string>
+  <string name="drawByMutualAgreement">आपसी सहमति से ड्रॉ</string>
+  <string name="fiftyMovesWithoutProgress">पचास चालें बिना किसी प्रगति के</string>
   <string name="currentGames">अभी खेले जा रहे खेल</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
@@ -896,7 +896,7 @@
   <string name="cancelSimul">समकालिक खेल को निरस्त करें</string>
   <string name="simulHostcolor">प्रत्येक खेल के लिए मेजबान के मोहरों का रंग</string>
   <string name="estimatedStart">अनुमानित प्रारंभ समय</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">%s पर प्रस्तुत</string>
+  <string name="simulFeatured">%s पर प्रस्तुत</string>
   <string name="simulFeaturedHelp">%s पर अपने समकालिक खेल को प्रदर्शित करें। निजी समकालिक खेलों के लिए निष्क्रिय।</string>
   <string name="simulDescription">समकालिक खेल का विवरण</string>
   <string name="simulDescriptionHelp">क्या आप प्रतिभागियों को कुछ बताना चाहते हैं?</string>
@@ -920,5 +920,5 @@
   <string name="cantDoThisTwice">अगर आपने दूसरी बार अपना खाता बंद किया, तो उसे वापस पाने का कोई रास्ता नहीं होगा।</string>
   <string name="emailAssociatedToaccount">खाते से संबंधित ईमेल पता</string>
   <string name="sentEmailWithLink">हमने आपको लिंक के साथ एक ईमेल भेजा है।</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">प्रतियोगिता प्रवेश कोड</string>
+  <string name="tournamentEntryCode">प्रतियोगिता प्रवेश कोड</string>
 </resources>
