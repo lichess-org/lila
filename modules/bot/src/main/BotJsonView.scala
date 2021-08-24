@@ -54,12 +54,12 @@ final class BotJsonView(
           "btime"  -> millisOf(game.blackPov),
           "winc"   -> game.clock.??(_.config.increment.millis),
           "binc"   -> game.clock.??(_.config.increment.millis),
-          "wdraw"  -> game.whitePlayer.isOfferingDraw,
-          "bdraw"  -> game.blackPlayer.isOfferingDraw,
           "status" -> game.status.name
         )
-        .add("wback" -> game.whitePlayer.isProposingTakeback)
-        .add("bback" -> game.blackPlayer.isProposingTakeback)
+        .add("wdraw" -> game.whitePlayer.isOfferingDraw)
+        .add("bdraw" -> game.blackPlayer.isOfferingDraw)
+        .add("wtakeback" -> game.whitePlayer.isProposingTakeback)
+        .add("btakeback" -> game.blackPlayer.isProposingTakeback)
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.of(game.id))
     }
