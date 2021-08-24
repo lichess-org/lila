@@ -6,7 +6,7 @@
   @include transition;
 
   transition-delay: 0.3s;
-  overflow-y: scroll;
+  overflow-y: auto;
   font-size: 0.9em;
 
   &.reduced {
