@@ -142,8 +142,8 @@
     <item quantity="one">%s खेळाडू जुळून आहेत</item>
     <item quantity="other">%s खेळाडू जोडुन आहेत</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">परस्पर कराराने काढा</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">प्रगतीशिवाय पन्नास चाली</string>
+  <string name="drawByMutualAgreement">परस्पर कराराने काढा</string>
+  <string name="fiftyMovesWithoutProgress">प्रगतीशिवाय पन्नास चाली</string>
   <string name="currentGames">चालू खेळ</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेळ</item>
