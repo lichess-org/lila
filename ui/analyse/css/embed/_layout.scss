@@ -18,7 +18,7 @@
     'controls'
     'gap';
   grid-template-columns: auto;
-  grid-template-rows: 100vw minmax(100px, calc(100vh - 100vw - 5.5rem)) 3rem 2.5rem;
+  grid-template-rows: 100vw minmax(50px, calc(100vh - 100vw - 5.5rem)) 3rem 2.5rem;
 
   &.gamebook-play {
     grid-template-areas:
