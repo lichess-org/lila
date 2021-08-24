@@ -924,4 +924,5 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Počkaj!</string>
 </resources>
