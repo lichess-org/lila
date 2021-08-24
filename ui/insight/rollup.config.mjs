@@ -5,9 +5,5 @@ export default rollupProject({
     name: 'LichessInsight',
     input: 'src/main.ts',
     output: 'insight',
-    external: ['highcharts'],
-    globals: {
-      highcharts: 'Highcharts',
-    },
   },
 });

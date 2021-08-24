@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import Ctrl from './ctrl';
 import { Chart } from './interfaces';
-import * as Highcharts from 'highcharts';
+import type * as Highcharts from 'highcharts';
 
 function metricDataTypeFormat(dt: string) {
   if (dt === 'seconds') return '{point.y:.1f}';
@@ -249,7 +249,7 @@ function makeChart(el: HTMLElement, data: Chart) {
     },
   };
   if (theme.colors) chartConf.colors = theme.colors;
-  Highcharts.chart(el, chartConf);
+  window.Highcharts.chart(el, chartConf);
 }
 
 function empty(txt: string) {
