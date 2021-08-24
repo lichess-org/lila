@@ -140,8 +140,8 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadors</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Taules per mutu acord</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta moviments sense progressar</string>
+  <string name="drawByMutualAgreement">Taules per mutu acord</string>
+  <string name="fiftyMovesWithoutProgress">Cinquanta moviments sense progressar</string>
   <string name="currentGames">Partides en joc</string>
   <plurals name="nbGames">
     <item quantity="one">%s partida</item>
