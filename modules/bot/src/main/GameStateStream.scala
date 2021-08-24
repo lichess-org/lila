@@ -9,7 +9,14 @@ import scala.concurrent.duration._
 import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
-import lila.game.actorApi.{ AbortedBy, BoardDrawOffer, BoardTakeback, FinishGame, MoveGameEvent }
+import lila.game.actorApi.{
+  AbortedBy,
+  BoardDrawOffer,
+  BoardTakeback,
+  BoardTakebackOffer,
+  FinishGame,
+  MoveGameEvent
+}
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
@@ -100,10 +107,11 @@ final class GameStateStream(
         case MoveGameEvent(g, _, _) if g.id == id && !g.finished => pushState(g).unit
         case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, _, text, false, false)) =>
           pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize).unit
-        case FinishGame(g, _, _) if g.id == id       => onGameOver(g.some).unit
-        case AbortedBy(pov) if pov.gameId == id      => onGameOver(pov.game.some).unit
-        case BoardTakeback(pov) if pov.gameId == id  => pushState(pov.game).unit
-        case BoardDrawOffer(g) if g.id == id             => pushState(game).unit
+        case FinishGame(g, _, _) if g.id == id   => onGameOver(g.some).unit
+        case AbortedBy(pov) if pov.gameId == id  => onGameOver(pov.game.some).unit
+        case BoardDrawOffer(g) if g.id == id     => pushState(g).unit
+        case BoardTakebackOffer(g) if g.id == id => pushState(g).unit
+        case BoardTakeback(g) if g.id == id      => pushState(g).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
           context.system.scheduler

@@ -58,6 +58,8 @@ final class BotJsonView(
           "bdraw"  -> game.blackPlayer.isOfferingDraw,
           "status" -> game.status.name
         )
+        .add("wback" -> game.whitePlayer.isProposingTakeback)
+        .add("bback" -> game.blackPlayer.isProposingTakeback)
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.of(game.id))
     }
