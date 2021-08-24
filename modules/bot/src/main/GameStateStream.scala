@@ -102,8 +102,8 @@ final class GameStateStream(
           pushChatLine(username, text, chatId.value.lengthIs == Game.gameIdSize).unit
         case FinishGame(g, _, _) if g.id == id       => onGameOver(g.some).unit
         case AbortedBy(pov) if pov.gameId == id      => onGameOver(pov.game.some).unit
-        case BoardDrawOffer(pov) if pov.gameId == id => pushState(pov.game).unit
         case BoardTakeback(pov) if pov.gameId == id  => pushState(pov.game).unit
+        case BoardDrawOffer(g) if g.id == id             => pushState(game).unit
         case SetOnline =>
           onlineApiUsers.setOnline(user.id)
           context.system.scheduler

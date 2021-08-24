@@ -30,7 +30,7 @@ object MoveGameEvent {
   def makeChan(gameId: Game.ID) = s"moveEvent:$gameId"
 }
 
-case class BoardDrawOffer(pov: Pov)
+case class BoardDrawOffer(game: Game)
 object BoardDrawOffer {
   def makeChan(gameId: Game.ID) = s"boardDrawOffer:$gameId"
 }
