@@ -918,5 +918,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="cantDoThisTwice">Als je je account voor de tweede keer sluit, is er geen manier om deze te herstellen.</string>
   <string name="emailAssociatedToaccount">E-mailadres gekoppeld aan het account</string>
   <string name="sentEmailWithLink">We hebben je een e-mail gestuurd met een link.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Toernooi toegangscode</string>
+  <string name="tournamentEntryCode">Toernooi toegangscode</string>
 </resources>
