@@ -19,7 +19,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
   if (!evs.client) {
-    if (!ceval.analysable) {
+    if (!ceval.analysable()) {
       return ['Engine cannot analyze this position'];
     }
     const mb = ceval.downloadProgress() / 1024 / 1024;
@@ -156,7 +156,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
-    analysable = instance.analysable,
+    analysable = instance.analysable(),
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
     threat = threatMode && ctrl.getNode().threat,

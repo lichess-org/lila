@@ -7,6 +7,9 @@ import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 import { sanIrreversible } from './util';
 import { Cache } from './cache';
+import { parseFen } from 'chessops/fen';
+import { setupPosition } from 'chessops/variant';
+import { lichessRules } from 'chessops/compat';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -102,7 +105,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(opts.possible && opts.analysable && allowed() && enabledAfterDisable());
+  const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
+  const analysable = prop(true);
   const downloadProgress = prop(0);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -140,6 +144,11 @@ export default function (opts: CevalOpts): CevalCtrl {
       return povChances(color, b) - povChances(color, a);
     });
 
+  const isAnalysable = (fen: Fen): boolean => {
+    const setup = parseFen(fen).unwrap();
+    return setupPosition(lichessRules(opts.variant.key), setup).isOk;
+  };
+
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
@@ -147,6 +156,12 @@ export default function (opts: CevalOpts): CevalCtrl {
     const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
+
+    analysable(isAnalysable(step.fen));
+    if (!analysable()) {
+      enabled(false);
+      return;
+    }
 
     const existing = threatMode ? step.threat : step.ceval;
     if (existing && existing.depth >= maxDepth) {
@@ -298,6 +313,6 @@ export default function (opts: CevalOpts): CevalCtrl {
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
-    analysable: opts.analysable,
+    analysable,
   };
 }
