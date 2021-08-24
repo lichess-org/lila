@@ -18,7 +18,7 @@ function requestReplacementGame() {
 
   // Use requestAnimationFrame to avoid requesting games in background tabs
   requestAnimationFrame(() => {
-    const url = new URL(`${window.location.pathname}/replacement`, window.location.origin);
+    const url = new URL(`${window.location.pathname}/replacement/${oldId}`, window.location.origin);
     $('.mini-game').each((_i, el) => url.searchParams.append('exclude', el.dataset.live!));
     xhr
       .json(url.toString())

@@ -18,9 +18,9 @@ final class Tv(
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
     trouper.ask[Option[Game.ID]](TvSyncActor.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }
 
-  def getReplacementGame(channel: Tv.Channel, exclude: List[Game.ID]): Fu[Option[Game]] =
+  def getReplacementGame(channel: Tv.Channel, oldId: Game.ID, exclude: List[Game.ID]): Fu[Option[Game]] =
     trouper
-      .ask[Option[Game.ID]](TvSyncActor.GetReplacementGameId(channel, exclude, _))
+      .ask[Option[Game.ID]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
       .flatMap { _ ?? roundProxyGame }
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
