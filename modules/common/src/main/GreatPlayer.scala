@@ -551,6 +551,7 @@ object GreatPlayer {
     ("Velimirović", "Dragoljub_Velimirovi%C4%87"),
     ("Veresov", "Gavriil_Veresov"),
     ("Verlinsky", "Boris_Verlinsky"),
+    ("Vidit","EvilGenius94"),
     ("Vidmar", "Milan_Vidmar"),
     ("Vitiugov", "Nikita_Vitiugov"),
     ("Volpert", "Larissa_Volpert"),
