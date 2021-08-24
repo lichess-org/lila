@@ -34,6 +34,7 @@ export interface CevalOpts {
   possible: boolean;
   variant: Variant;
   standardMaterial: boolean;
+  analysable: boolean;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
   redraw: () => void;
@@ -86,6 +87,7 @@ export interface CevalCtrl {
   isDeeper(): boolean;
   destroy(): void;
   redraw(): void;
+  analysable: boolean;
 }
 
 export interface ParentCtrl {

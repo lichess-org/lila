@@ -642,6 +642,7 @@ export default class AnalyseCtrl {
       emit: (ev: Tree.ClientEval, work: CevalWork) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
+      analysable: this.position(this.data.treeParts[this.data.treeParts.length - 1]).isOk,
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
     };

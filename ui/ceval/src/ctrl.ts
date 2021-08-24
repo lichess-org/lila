@@ -102,7 +102,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
+  const enabled = prop(opts.possible && opts.analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -298,5 +298,6 @@ export default function (opts: CevalOpts): CevalCtrl {
     engineName: () => worker?.engineName(),
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
+    analysable: opts.analysable,
   };
 }
