@@ -917,4 +917,9 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
   <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
   <string name="tournamentEntryCode">Turnauksen sisäänpääsykoodi</string>
+  <string name="hangOn">Hetkinen!</string>
+  <string name="gameInProgress">Sinulla on peli meneillään pelaajan %s kanssa.</string>
+  <string name="abortTheGame">Keskeytä peli</string>
+  <string name="resignTheGame">Luovuta peli</string>
+  <string name="youCantStartNewGame">Et voi aloittaa uutta peliä ennen kuin tämä peli on päättynyt.</string>
 </resources>
