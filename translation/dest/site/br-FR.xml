@@ -134,8 +134,8 @@
     <item quantity="many">%s c\'hoarier</item>
     <item quantity="other">%s c\'hoarierien</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Rampo dre asant pep hini</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Hanter-kant taol hep araokadenn</string>
+  <string name="drawByMutualAgreement">Rampo dre asant pep hini</string>
+  <string name="fiftyMovesWithoutProgress">Hanter-kant taol hep araokadenn</string>
   <string name="currentGames">Krogadoù o ren</string>
   <plurals name="nbGames">
     <item quantity="one">%s c\'hrogad</item>
@@ -939,5 +939,5 @@
   <string name="cantDoThisTwice">Ma serrit ho kont un eil gwech, ne vo ket tu deoc\'h adtapout anezhañ.</string>
   <string name="emailAssociatedToaccount">Postel liammet ouzh ar gont</string>
   <string name="sentEmailWithLink">Ur postel gant ul liamm \'zo bet kaset deoc\'h.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod mont e-barzh an tournamant</string>
+  <string name="tournamentEntryCode">Kod mont e-barzh an tournamant</string>
 </resources>
