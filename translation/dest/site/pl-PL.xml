@@ -997,5 +997,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
   <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
   <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod dostępu do turnieju</string>
+  <string name="tournamentEntryCode">Kod dostępu do turnieju</string>
 </resources>
