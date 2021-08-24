@@ -156,8 +156,8 @@
     <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remíza po vzájemné dohodě</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Padesát tahů bez progresu</string>
+  <string name="drawByMutualAgreement">Remíza po vzájemné dohodě</string>
+  <string name="fiftyMovesWithoutProgress">Padesát tahů bez progresu</string>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -987,5 +987,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kód pro vstup do turnaje</string>
+  <string name="tournamentEntryCode">Kód pro vstup do turnaje</string>
 </resources>
