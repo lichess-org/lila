@@ -925,4 +925,5 @@
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
   <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Počkaj!</string>
+  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Máte rozohranú partiu s %s.</string>
 </resources>
