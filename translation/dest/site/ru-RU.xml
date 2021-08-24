@@ -999,4 +999,7 @@
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>
+  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Прервать игру</string>
+  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Сдаться</string>
+  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Вы не можете начать новую игру до тех пор, пока эта не будет закончена.</string>
 </resources>
