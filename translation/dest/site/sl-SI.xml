@@ -999,4 +999,9 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="emailAssociatedToaccount">E-naslov, povezan z računom</string>
   <string name="sentEmailWithLink">Poslali smo vam e-poštno sporočilo s povezavo.</string>
   <string name="tournamentEntryCode">Koda za vstop na turnir</string>
+  <string name="hangOn">Počakaj!</string>
+  <string name="gameInProgress">V teku je igra z %s.</string>
+  <string name="abortTheGame">Prekinite igro</string>
+  <string name="resignTheGame">Predaj igro</string>
+  <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
 </resources>
