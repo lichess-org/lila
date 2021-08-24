@@ -923,4 +923,5 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="gameInProgress">Van egy folyamatban lévő játszmád %s ellen.</string>
   <string name="abortTheGame">Játszma elvetése</string>
   <string name="resignTheGame">Játszma feladása</string>
+  <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
 </resources>
