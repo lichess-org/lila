@@ -42,6 +42,9 @@ final private[tv] class TvSyncActor(
     case GetGameIds(channel, max, promise) =>
       forward(channel, ChannelSyncActor.GetGameIds(max, promise))
 
+    case GetReplacementGameId(channel, exclude, promise) =>
+      forward(channel, ChannelSyncActor.GetReplacementGameId(exclude, promise))
+
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
     case lila.game.actorApi.StartGame(g) =>
@@ -103,6 +106,11 @@ private[tv] object TvSyncActor {
 
   case class GetGameId(channel: Tv.Channel, promise: Promise[Option[Game.ID]])
   case class GetGameIds(channel: Tv.Channel, max: Int, promise: Promise[List[Game.ID]])
+  case class GetReplacementGameId(
+      channel: Tv.Channel,
+      exclude: List[Game.ID],
+      promise: Promise[Option[Game.ID]]
+  )
 
   case class GetGameIdAndHistory(channel: Tv.Channel, promise: Promise[ChannelSyncActor.GameIdAndHistory])
 

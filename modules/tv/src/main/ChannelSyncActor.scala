@@ -38,6 +38,8 @@ final private[tv] class ChannelSyncActor(
 
     case GetGameIds(max, promise) => promise success manyIds.take(max)
 
+    case GetReplacementGameId(exclude, promise) => promise success manyIds.find(!exclude.contains(_))
+
     case SetGame(game) =>
       onSelect(TvSyncActor.Selected(channel, game))
       history = game.id :: history.take(2)
@@ -114,6 +116,7 @@ object ChannelSyncActor {
 
   case class GetGameId(promise: Promise[Option[Game.ID]])
   case class GetGameIds(max: Int, promise: Promise[List[Game.ID]])
+  case class GetReplacementGameId(exclude: List[Game.ID], promise: Promise[Option[Game.ID]])
   private case class SetGame(game: Game)
 
   case class GetGameIdAndHistory(promise: Promise[GameIdAndHistory])

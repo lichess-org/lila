@@ -72,6 +72,23 @@ final class Tv(
       }
     }
 
+  def gameReplacement = gameChannelReplacement(lila.tv.Tv.Channel.Best.key, _)
+
+  def gameChannelReplacement(chanKey: String, exclude: List[String]) =
+    Open { implicit ctx =>
+      val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
+        env.tv.tv.getReplacementGame(channel, exclude)
+      }
+      OptionResult(gameFu) { game =>
+        JsonOk {
+          play.api.libs.json.Json.obj(
+            "id"   -> game.id,
+            "html" -> views.html.game.mini(Pov naturalOrientation game).toString
+          )
+        }
+      }
+    }
+
   def apiGamesChannel(chanKey: String) =
     Action.async { req =>
       lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>
