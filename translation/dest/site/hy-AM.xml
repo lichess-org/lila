@@ -136,8 +136,8 @@
     <item quantity="one">Միացած խաղացողների թիվը՝ %s</item>
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 քայլ առանց առաջընթացի</string>
+  <string name="drawByMutualAgreement">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
+  <string name="fiftyMovesWithoutProgress">50 քայլ առանց առաջընթացի</string>
   <string name="currentGames">Այժմ օնլայն ընթացող խաղերը</string>
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
@@ -810,5 +810,5 @@
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Մրցաշարին մասնակցելու կոդ</string>
+  <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>
 </resources>
