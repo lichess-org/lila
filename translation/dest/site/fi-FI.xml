@@ -892,7 +892,7 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="cancelSimul">Peruuta simultaani</string>
   <string name="simulHostcolor">Isännän väri joka pelissä</string>
   <string name="estimatedStart">Arvioitu alkamisaika</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Näytä sivulla %s</string>
+  <string name="simulFeatured">Näytä sivulla %s</string>
   <string name="simulFeaturedHelp">Näytä simultaanisi kaikille %slla. Poista valinta pitääksesi simultaanin yksityisenä.</string>
   <string name="simulDescription">Simultaanin kuvaus</string>
   <string name="simulDescriptionHelp">Haluatko kertoa osallistujille jotain?</string>
@@ -916,5 +916,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="cantDoThisTwice">Jos suljet tunnuksesi toisen kerran, sitä ei voi palauttaa enää millään tavalla.</string>
   <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
   <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnauksen sisäänpääsykoodi</string>
+  <string name="tournamentEntryCode">Turnauksen sisäänpääsykoodi</string>
 </resources>
