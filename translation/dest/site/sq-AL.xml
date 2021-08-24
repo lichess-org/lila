@@ -141,8 +141,8 @@
     <item quantity="one">%s lojtar</item>
     <item quantity="other">%s lojtarë</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Barazim me mirëkuptim dypalësh</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Pesëdhjetë lëvizje pa përparim</string>
+  <string name="drawByMutualAgreement">Barazim me mirëkuptim dypalësh</string>
+  <string name="fiftyMovesWithoutProgress">Pesëdhjetë lëvizje pa përparim</string>
   <string name="currentGames">Lojëra tani</string>
   <plurals name="nbGames">
     <item quantity="one">%s lojë</item>
@@ -883,7 +883,7 @@ Funksionon vetëm për lojëra standarde, jo me variante.
 Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni këtu.
 Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.</string>
   <string name="cancelSimul">Anuloje simulimin</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Shfaqe në %s</string>
+  <string name="simulFeatured">Shfaqe në %s</string>
   <string name="simulFeaturedHelp">Shfaqeni simulimin tuaj për këdo, në %s. Çaktivizojeni për simulime private.</string>
   <string name="simulDescription">Përshkrim simulimi</string>
   <string name="simulDescriptionHelp">Ndonjë gjë që doni t’u thoni pjesëmarrësve?</string>
@@ -906,5 +906,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="cantDoThisTwice">Nëse e mbyllni llogarinë tuaj për herë të dytë, s’do të ketë mënyrë për ta rimarrë.</string>
   <string name="emailAssociatedToaccount">Adresë email përshoqëruar llogarisë</string>
   <string name="sentEmailWithLink">Ju dërguam një email me një lidhje.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod hyrjeje në turne</string>
+  <string name="tournamentEntryCode">Kod hyrjeje në turne</string>
 </resources>
