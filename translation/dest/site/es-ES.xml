@@ -920,8 +920,8 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
   <string name="tournamentEntryCode">Código de acceso al torneo</string>
   <string name="hangOn">¡Espera!</string>
-  <string name="gameInProgress">Tienes una partida en progreso con %s.</string>
+  <string name="gameInProgress">Estás jugando una partida con %s.</string>
   <string name="abortTheGame">Cancelar la partida</string>
   <string name="resignTheGame">Abandonar la partida</string>
-  <string name="youCantStartNewGame">No puedes empezar una nueva partida hasta que ésta haya terminado.</string>
+  <string name="youCantStartNewGame">No puedes empezar otra partida hasta que termines esta.</string>
 </resources>
