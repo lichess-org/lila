@@ -138,8 +138,8 @@
   <string name="claimADraw">Hawlio gêm gyfartal</string>
   <string name="offerDraw">Cynnig gêm gyfartal</string>
   <string name="draw">Gêm gyfartal</string>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Gêm cyfartal wedi ei cytuno</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Pumdeg tro heb cynnydd</string>
+  <string name="drawByMutualAgreement">Gêm cyfartal wedi ei cytuno</string>
+  <string name="fiftyMovesWithoutProgress">Pumdeg tro heb cynnydd</string>
   <string name="currentGames">Gêmau ar eu hanner</string>
   <plurals name="nbBookmarks">
     <item quantity="zero">%s o gêmau wedi\'u nodi</item>
