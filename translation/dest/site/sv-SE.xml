@@ -142,8 +142,8 @@
     <item quantity="one">%s spelare</item>
     <item quantity="other">%s spelare</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remi genom ömsesidig överenskommelse</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Femtio drag utan framsteg</string>
+  <string name="drawByMutualAgreement">Remi genom ömsesidig överenskommelse</string>
+  <string name="fiftyMovesWithoutProgress">Femtio drag utan framsteg</string>
   <string name="currentGames">Pågående partier</string>
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
@@ -918,5 +918,5 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="cantDoThisTwice">Om du stänger ditt konto en andra gång, kommer det inte att finnas något sätt att återställa det.</string>
   <string name="emailAssociatedToaccount">E-postadress kopplad till kontot</string>
   <string name="sentEmailWithLink">Vi har skickat ett e-postmeddelande med en länk.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Inträdeskod till turnering</string>
+  <string name="tournamentEntryCode">Inträdeskod till turnering</string>
 </resources>

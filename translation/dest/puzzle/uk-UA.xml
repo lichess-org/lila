@@ -58,5 +58,10 @@
   <string name="continueTheStreak">Продовжити серію</string>
   <string name="newStreak">Нова серія</string>
   <string name="fromMyGames">З моїх ігор</string>
+  <string name="lookupOfPlayer">Знайти задачі з ігр користувача</string>
   <string name="fromXGames">Задачі з ігор %s</string>
+  <string name="searchPuzzles">Шукати задачі</string>
+  <string name="fromMyGamesNone">Ваших задач немає в базі даних, проте Lichess все одно дуже сильно вас любить.
+Грайте ігри в рапід або з класичною системою контролю часу, для того щоб збільшити можливість додання вашої задачі!</string>
+  <string name="fromXGamesFound">%1$s задач знайдено в %2$s іграх</string>
 </resources>

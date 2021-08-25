@@ -134,7 +134,7 @@
   <string name="clearChat">Очистить чат</string>
   <string name="deleteTheStudyChatHistory">Удалить чат студии? Восстановить будет невозможно!</string>
   <string name="deleteStudy">Удалить студию</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Удалить всю студию? Удаление необратимо! Введите название студии для подтверждения: %s</string>
   <string name="whereDoYouWantToStudyThat">Где вы хотите создать студию?</string>
   <string name="goodMove">Хороший ход</string>
   <string name="mistake">Ошибка</string>

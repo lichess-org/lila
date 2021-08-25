@@ -135,8 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s 位在线棋手</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">双方同意和棋</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">无实质进展的 50 步</string>
+  <string name="drawByMutualAgreement">双方同意和棋</string>
+  <string name="fiftyMovesWithoutProgress">无实质进展的 50 步</string>
   <string name="currentGames">正在对局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s个对局</item>
@@ -662,7 +662,7 @@
   <string name="enableKidMode">打开儿童模式</string>
   <string name="disableKidMode">关闭儿童模式</string>
   <string name="security">安全</string>
-  <string name="sessions">登录设备</string>
+  <string name="sessions">会话</string>
   <string name="revokeAllSessions">注销所有会话</string>
   <string name="playChessEverywhere">在任何地方下棋！</string>
   <string name="asFreeAsLichess">Lichess 永远免费</string>
@@ -853,7 +853,7 @@
   <string name="cancelSimul">取消车轮战</string>
   <string name="simulHostcolor">主持所执方</string>
   <string name="estimatedStart">预计开始时间</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">展示在 %s</string>
+  <string name="simulFeatured">展示在 %s</string>
   <string name="simulFeaturedHelp">在 %s 上向所有人展示您主持的车轮战，对私人车轮战无效。</string>
   <string name="simulDescription">车轮战描述</string>
   <string name="simulDescriptionHelp">写下您想要告诉参与者的任何内容</string>
@@ -877,5 +877,5 @@
   <string name="cantDoThisTwice">如果您第二次关闭您的帐户，将无法恢复。</string>
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">比赛入场码</string>
+  <string name="tournamentEntryCode">比赛入场码</string>
 </resources>

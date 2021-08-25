@@ -52,6 +52,7 @@
   <string name="hangingPiece">Незахищена фігура</string>
   <string name="hangingPieceDescription">Незахищена або недостатньо захищена фігура, що може бути атакована.</string>
   <string name="hookMate">Hachok mat</string>
+  <string name="hookMateDescription">Мат турою, конем і пішаком разом з разом з одним ворожим пішаком, щоб обмежити втечу ворожого короля.</string>
   <string name="interference">Перешкода</string>
   <string name="interferenceDescription">Хід фігурою між двома фігурами суперника, що перешкоджає одній або двом фігурам суперника і робить їх незахищеними, наприклад, кінь на захищеному полі між двома турами.</string>
   <string name="intermezzo">Хід у проміжку</string>
@@ -60,6 +61,10 @@
   <string name="knightEndgameDescription">Ендшпіль лише з конями та пішаками.</string>
   <string name="long">Багатоходова задача</string>
   <string name="longDescription">Перемога за три ходи.</string>
+  <string name="master">Партії майстрів</string>
+  <string name="masterDescription">Задачі з ігор, які були зіграні титулованими гравцями.</string>
+  <string name="masterVsMaster">Партії майстер проти майстра</string>
+  <string name="masterVsMasterDescription">Задачі з ігор, які були зіграні двома титулованими гравцями.</string>
   <string name="mate">Мат</string>
   <string name="mateDescription">Виграйте гру красиво.</string>
   <string name="mateIn1">Мат в 1 хід</string>
@@ -102,6 +107,8 @@
   <string name="skewerDescription">Мотив, що включає атаку цінної фігури менш цінною, протилежність зв\'язування.</string>
   <string name="smotheredMate">Спертий мат</string>
   <string name="smotheredMateDescription">Мат конем, коли король не може вийти з-під атаки, тому що оточений (спертий) власними фігурами.</string>
+  <string name="superGM">Ігри супергросмейстерів</string>
+  <string name="superGMDescription">Задачі з ігор, які були зіграні найкращими гравцями світу.</string>
   <string name="trappedPiece">Фігура у пастці</string>
   <string name="trappedPieceDescription">Фігура не може уникнути захоплення, тому що не має ходів для відступу.</string>
   <string name="underPromotion">Перетворення на слабку фігуру</string>

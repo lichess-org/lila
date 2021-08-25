@@ -919,5 +919,10 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="cantDoThisTwice">Om du stengde kontoen ein andre gong, er det ikkje lengre mogleg å opna den att.</string>
   <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Tilgangskode til turnering</string>
+  <string name="tournamentEntryCode">Tilgangskode til turnering</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Vent litt!</string>
+  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Du spelar no eit parti mot %s.</string>
+  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Avbryt partiet</string>
+  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Gje opp partiet</string>
+  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Du kan ikkje starte eit nytt parti før dette er avslutta.</string>
 </resources>

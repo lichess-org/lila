@@ -5,6 +5,12 @@
   <string name="freeAccount">Účet zdarma</string>
   <string name="becomePatron">Staňte se Lichess Patronem</string>
   <string name="xBecamePatron">%s se stal Lichess Patronem</string>
+  <plurals name="xIsPatronForNbMonths">
+    <item quantity="one">%1$s je patronem Lichess %2$s měsíc</item>
+    <item quantity="few">%1$s je patronem Lichess %2$s měsíce</item>
+    <item quantity="many">%1$s je patronem Lichess %2$s měsíců</item>
+    <item quantity="other">%1$s je patronem Lichess %2$s měsíců</item>
+  </plurals>
   <string name="newPatrons">Noví Patroni</string>
   <string name="freeChess">Šachy zdarma pro všechny, navždy!</string>
   <string name="noAdsNoSubs">Žádné reklamy, žádné předplatné, ale otevřený kód a vášeň.</string>

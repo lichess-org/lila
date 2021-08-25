@@ -149,8 +149,8 @@
     <item quantity="one">%s spēlētājs</item>
     <item quantity="other">%s spēlētāji</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Spēlētāji vienojās par neizšķirtu</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Piecdesmit gājieni bez attīstības</string>
+  <string name="drawByMutualAgreement">Spēlētāji vienojās par neizšķirtu</string>
+  <string name="fiftyMovesWithoutProgress">Piecdesmit gājieni bez attīstības</string>
   <string name="currentGames">Pašreizējās spēles</string>
   <plurals name="nbGames">
     <item quantity="zero">%s spēles</item>
@@ -933,7 +933,7 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="cancelSimul">Atcelt simultānseansu</string>
   <string name="simulHostcolor">Uzņemošā spēlētāja krāsa katrā spēlē</string>
   <string name="estimatedStart">Paredzētais sākuma laiks</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Rādīt %s</string>
+  <string name="simulFeatured">Rādīt %s</string>
   <string name="simulFeaturedHelp">Visiem rādīt simultānseansu %s. Atspējojiet šo opciju privātiem simultānseansiem.</string>
   <string name="simulDescription">Simultānseansa apraksts</string>
   <string name="simulDescriptionHelp">Vai vēlaties ko teikt dalībniekiem?</string>
@@ -957,5 +957,5 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="cantDoThisTwice">Ja slēgsiet kontu otrreiz, nebūs iespēju to atgūt.</string>
   <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
   <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnīra pievienošanās kods</string>
+  <string name="tournamentEntryCode">Turnīra pievienošanās kods</string>
 </resources>

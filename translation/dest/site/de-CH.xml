@@ -142,8 +142,8 @@
     <item quantity="one">%s Schpiller/-in</item>
     <item quantity="other">%s Schpiller/-innä</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remis dur Einigung</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 Züg ohni Fortschritt</string>
+  <string name="drawByMutualAgreement">Remis dur Einigung</string>
+  <string name="fiftyMovesWithoutProgress">50 Züg ohni Fortschritt</string>
   <string name="currentGames">Laufendi Partiiä</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partii</item>
@@ -893,7 +893,7 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="cancelSimul">Simultan abbrächä</string>
   <string name="simulHostcolor">Farb vom Veraaschtaltär i jedärä Partii</string>
   <string name="estimatedStart">Vorussichtlichi Schtartziit</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Uf %s zeigä</string>
+  <string name="simulFeatured">Uf %s zeigä</string>
   <string name="simulFeaturedHelp">Zeig allnä uf %s dis Simultan. Für äs privats Schpiil deaktiviärä.</string>
   <string name="simulDescription">Simultanbeschriibig</string>
   <string name="simulDescriptionHelp">Wettsch dä Teilnehmer öppis mitteilä?</string>
@@ -917,5 +917,5 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="cantDoThisTwice">Wenn du dein Konto ein zweites Mal schließt, wird es keine Möglichkeit geben, es wiederherzustellen.</string>
   <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turniäriigangscode</string>
+  <string name="tournamentEntryCode">Turniäriigangscode</string>
 </resources>

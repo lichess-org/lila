@@ -142,8 +142,8 @@
     <item quantity="one">%s παίκτης</item>
     <item quantity="other">%s παίκτες</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Ισοπαλία κατόπιν συμφωνίας</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Πενήντα κινήσεις χωρίς πρόοδο</string>
+  <string name="drawByMutualAgreement">Ισοπαλία κατόπιν συμφωνίας</string>
+  <string name="fiftyMovesWithoutProgress">Πενήντα κινήσεις χωρίς πρόοδο</string>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
   <plurals name="nbGames">
     <item quantity="one">%s παιχνίδι</item>
@@ -895,7 +895,7 @@
   <string name="cancelSimul">Ακύρωση σιμουλτανέ</string>
   <string name="simulHostcolor">Χρώμα διοργανωτή σε κάθε παιχνίδι</string>
   <string name="estimatedStart">Εκτιμώμενη ώρα έναρξης</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Προβεβλημένο στο %s</string>
+  <string name="simulFeatured">Προβεβλημένο στο %s</string>
   <string name="simulFeaturedHelp">Να εμφανίζεται το σιμουλτανέ σε όλους στο %s. Απενεργοποιήστε αυτήν την επιλογή για ιδιωτικά σιμουλτανέ.</string>
   <string name="simulDescription">Περιγραφή σιμουλτανέ</string>
   <string name="simulDescriptionHelp">Θέλετε να πείτε κάτι στους συμμετέχοντες;</string>
@@ -919,5 +919,5 @@
   <string name="cantDoThisTwice">Αν κλείσετε το λογαριασμό σας για δεύτερη φορά, δε θα υπάρχει τρόπος να τον ανοίξετε ξανά.</string>
   <string name="emailAssociatedToaccount">Διεύθυνση ηλεκτρονικού ταχυδρομείου αυτού του λογαριασμού</string>
   <string name="sentEmailWithLink">Σας στείλαμε ένα email με τον σύνδεσμο.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Κωδικός εισόδου τουρνουά</string>
+  <string name="tournamentEntryCode">Κωδικός εισόδου τουρνουά</string>
 </resources>

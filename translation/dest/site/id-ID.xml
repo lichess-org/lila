@@ -54,6 +54,7 @@
   <string name="requestAComputerAnalysis">Minta analisa komputer</string>
   <string name="computerAnalysis">Analisa komputer</string>
   <string name="computerAnalysisAvailable">Analisa komputer tersedia</string>
+  <string name="computerAnalysisDisabled">Analisa komputer tidak tersedia</string>
   <string name="analysis">Papan analisa</string>
   <string name="depthX">Detil %s</string>
   <string name="usingServerAnalysis">Menggunakan server analisa</string>
@@ -134,6 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s pemain tersambung</item>
   </plurals>
+  <string name="drawByMutualAgreement">Remis atas keputusan bersama</string>
+  <string name="fiftyMovesWithoutProgress">50 langkah tanpa hasil</string>
   <string name="currentGames">Permainan saat ini</string>
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
@@ -875,4 +878,5 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="cantDoThisTwice">Jika Anda menutup akun untuk yang kedua kalinya, akun tersebut tidak dapat dikembalikan lagi.</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
+  <string name="tournamentEntryCode">Kode masuk turnamen</string>
 </resources>

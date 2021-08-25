@@ -25,7 +25,7 @@
   <string name="youPlayTheWhitePieces">Hrajete bílými figurami</string>
   <string name="youPlayTheBlackPieces">Hrajete černými figurami</string>
   <string name="itsYourTurn">Jste na tahu!</string>
-  <string name="cheatDetected">Bylo detekováno podvádění</string>
+  <string name="cheatDetected">Podvádění detekováno</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
   <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
@@ -156,8 +156,8 @@
     <item quantity="many">%s hráčů online</item>
     <item quantity="other">%s hráčů online</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remíza po vzájemné dohodě</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Padesát tahů bez progresu</string>
+  <string name="drawByMutualAgreement">Remíza po vzájemné dohodě</string>
+  <string name="fiftyMovesWithoutProgress">Padesát tahů bez progresu</string>
   <string name="currentGames">Právě probíhající partie</string>
   <plurals name="nbGames">
     <item quantity="one">%s partie</item>
@@ -968,6 +968,7 @@ Funguje to pouze pro standardní hry, ne pro varianty.
 Můžete použít %s pro vygenerování FEN popisu zadané pozice a potom ho sem vložit.
 Nechte toto pole prázdné, pokud chcete začínat z běžného základního postavení.</string>
   <string name="cancelSimul">Zrušit simultánku</string>
+  <string name="simulHostcolor">Barva figur pořadatele</string>
   <string name="estimatedStart">Předpokládaný začátek</string>
   <string name="simulDescription">Popis simultánky</string>
   <string name="simulDescriptionHelp">Je tu něco co by jste chtěli sdělit účastníkům?</string>
@@ -976,6 +977,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="noChat">Vypnutý chat</string>
   <string name="onlyTeamLeaders">Pouze vedoucí týmu</string>
   <string name="onlyTeamMembers">Pouze členové týmu</string>
+  <string name="mouseTricks">Klávesové zkratky</string>
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
@@ -985,5 +987,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="cantDoThisTwice">Pokud svůj účet zrušíte podruhé, nebude ho už možné obnovit.</string>
   <string name="emailAssociatedToaccount">E-mailová adresa přidružená k tomuto účtu</string>
   <string name="sentEmailWithLink">Poslali jsme vám e-mail s odkazem.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kód pro vstup do turnaje</string>
+  <string name="tournamentEntryCode">Kód pro vstup do turnaje</string>
 </resources>

@@ -34,10 +34,12 @@
   </plurals>
   <string name="willBeReviewed">Ваш запит на приєднання буде розглянуто лідером команди.</string>
   <string name="beingReviewed">Ваш запит на приєднання розглядається лідером команди.</string>
+  <string name="subToTeamMessages">Підписатися на повідомлення команди</string>
   <string name="teamBattle">Командна битва</string>
   <string name="teamBattleOverview">Битва кількох команд, кожен гравець заробляє очки своїй команді</string>
   <string name="teamTournament">Командний турнір</string>
   <string name="teamTournamentOverview">Турнір у форматі Арени, до якого можуть приєднатися лише члени Вашої команди</string>
+  <string name="swissTournamentOverview">Турнір за швейцарською системою, до якого можуть приєднатися лише члени вашої команди</string>
   <string name="messageAllMembers">Повідомити усіх учасників</string>
   <string name="messageAllMembersOverview">Надіслати особисте повідомлення кожному членові команди</string>
   <string name="messageAllMembersLongDescription">Надіслати особисте повідомлення всім членам команди.
@@ -49,5 +51,10 @@
   <string name="leadersChat">Чат лідерів</string>
   <string name="closeTeam">Закрити команду</string>
   <string name="closeTeamDescription">Закриває команду назавжди.</string>
+  <string name="entryCode">Код входу команди</string>
+  <string name="entryCodeDescriptionForLeader">(Не обов\'язково) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
+  <string name="incorrectEntryCode" comment="incorrectEntryCode&#10;&#10;For Lichess teams or tournaments, which can require a code to join them if they are set up that way. This message appears if the entry code you entered was incorrect.">Невірний вхідний код.</string>
   <string name="teamAlreadyExists">Така команда вже існує.</string>
+  <string name="upcomingTourns">Майбутні турніри</string>
+  <string name="completedTourns">Завершені турніри</string>
 </resources>

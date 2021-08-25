@@ -142,8 +142,8 @@
     <item quantity="one">%s ghjucatore</item>
     <item quantity="other">%s ghjucatori</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Partita patta per via d\' un accusentu</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta movi senza prugressi</string>
+  <string name="drawByMutualAgreement">Partita patta per via d\' un accusentu</string>
+  <string name="fiftyMovesWithoutProgress">Cinquanta movi senza prugressi</string>
   <string name="currentGames">Partite ghjucate avali</string>
   <plurals name="nbGames">
     <item quantity="one">%s partita</item>
@@ -892,7 +892,7 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="cancelSimul">Cancellà a simultanea</string>
   <string name="simulHostcolor">Culore di l\' ostu pè ogni partita</string>
   <string name="estimatedStart">Stimà l\' ore di u principiu</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Caratteristichi in %s</string>
+  <string name="simulFeatured">Caratteristichi in %s</string>
   <string name="simulFeaturedHelp">Mustrà a vostra simultanea à tutti in %s. Desattivà pè e simultanee private.</string>
   <string name="simulDescription">Descrizzione di a simultanea</string>
   <string name="simulDescriptionHelp">Vulete dì qualcosa à i participanti?</string>
@@ -916,5 +916,5 @@ Lasciate viotu pè principià a partita cù una pusizione nurmale.</string>
   <string name="cantDoThisTwice">S\'è vo chjudite u vostru contu una seconda volta, ùn puderete più recuperà lu.</string>
   <string name="emailAssociatedToaccount">Indirizzu mail liati à u contu</string>
   <string name="sentEmailWithLink">Vi avemu mandatu un mail cù una leia.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codice per arregistrà si in u turneu</string>
+  <string name="tournamentEntryCode">Codice per arregistrà si in u turneu</string>
 </resources>

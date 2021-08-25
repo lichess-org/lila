@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="swissTournaments">Turne Zvicerian</string>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s raunde</item>
+    <item quantity="other">%s raunde</item>
+  </plurals>
+  <string name="roundsAreStartedManually">Raundet nisen dorazi</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekondë mes raundesh</item>
+    <item quantity="other">%s sekonda mes raundesh</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minutë mes raundesh</item>
+    <item quantity="other">%s minuta mes raundesh</item>
+  </plurals>
+  <string name="startingIn" comment="Displayed above a timer">Duke nisur më</string>
+  <string name="nextRound">Raundi pasues</string>
+  <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
+    <item quantity="one">Lojë në zhvillim</item>
+    <item quantity="other">Lojëra në zhvillim</item>
+  </plurals>
+  <string name="tournStartDate">Datë nisjeje turneu</string>
+  <string name="numberOfRounds">Numër raundesh</string>
+  <string name="numberOfRoundsHelp">Një numër tek raundesh lejon balancë optimale ngjyrash.</string>
+  <string name="roundInterval">Interval mes raundesh</string>
+  <string name="forbiddenPairings">Çiftime të ndaluara</string>
+  <string name="forbiddenPairingsHelp">Emra përdoruesish lojtarësh që s’duhet të luajnë me njëri-tjetrin (vëllezër e motra, për shembull). Dy emra përdoruesish për rresht, ndarë nga një hapësirë.</string>
+  <string name="newSwiss">Turne i ri zviceran</string>
+  <string name="swissVsArenaQ">Kur të përdoren turne zviceranë, në vend se arena?</string>
+  <string name="swissVsArenaA">Në një turne zviceran, krejt pjesëmarrësit luajnë një numër të njëjtë lojërash, dhe mund të luajnë kundër njëri-tjetrit vetëm një herë.
+Mund të jetë një mundësi e mirë për klube dhe turne zyrtare.</string>
+  <string name="pointsCalculationQ">Si llogariten pikët?</string>
+  <string name="pointsCalculationA">Një fitore vlen një pikë, një barazim gjysmë pike dhe një humbje zero pikë.
+Kur një lojtar s’mund të çiftohet gjatë një raundi, përfiton një mirupafshim që vlen një pikë.</string>
+  <string name="pairingsQ">Si vendosen dyshet?</string>
+  <string name="dutchSystem">Sistemi holandez</string>
+  <string name="FIDEHandbook">Doracaku FIDE</string>
+  <string name="pairingsA">Me %1$s, sendërtuar nga %2$s, në përputhje me %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Ç’ndodh, nëse turneu ka më shumë raunde se lojtarë?</string>
+  <string name="moreRoundsThanPlayersA">Kur janë luajtur krejt dyshet e mundshme, turneu do të përfundojë dhe do të shpallet një fitues.</string>
+  <string name="restrictedToTeamsQ">Pse kufizohet për ekipet?</string>
+  <string name="restrictedToTeamsA">Turnetë zvicerane nuk janë menduar për shah internetor. Ato lypin përpikëri, përkushtim dhe durim nga lojtarët.
+Mendojmë se këto kushte ka më shumë gjasa të plotësohen brenda një ekipi, se sa në turne globalë.</string>
+  <string name="numberOfByesQ">Sa mirupafshim mund të marrë një lojtar?</string>
 </resources>

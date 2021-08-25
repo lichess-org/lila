@@ -931,5 +931,10 @@ Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile
   <string name="cantDoThisTwice">Dacă închideți contul de a doua oară, nu va mai exista nicio modalitate de recuperare a acestuia.</string>
   <string name="emailAssociatedToaccount">Adresa de e-mail asociată contului</string>
   <string name="sentEmailWithLink">Ți-am trimis un e-mail cu un link.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Cod de intrare în turneu</string>
+  <string name="tournamentEntryCode">Cod de intrare în turneu</string>
+  <string name="hangOn">Așteaptă!</string>
+  <string name="gameInProgress">Ai un joc în desfășurare cu %s.</string>
+  <string name="abortTheGame">Abandonează jocul</string>
+  <string name="resignTheGame">Cedează jocul</string>
+  <string name="youCantStartNewGame">Nu poți începe un joc nou până când acesta nu se termină.</string>
 </resources>

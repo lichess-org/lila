@@ -924,4 +924,9 @@
   <string name="download">Stiahnuť</string>
   <string name="welcome">Vitajte!</string>
   <string name="streamerManager">Správca streamov</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Počkaj!</string>
+  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Máte rozohranú partiu s %s.</string>
+  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Zrušiť partiu</string>
+  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Vzdať partiu</string>
+  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Kým neukončíte túto partiu, nemôžete začať novú.</string>
 </resources>

@@ -142,8 +142,8 @@
     <item quantity="one">%s spiller</item>
     <item quantity="other">%s spillere</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remis efter fælles aftale</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Halvtreds træk uden fremskridt</string>
+  <string name="drawByMutualAgreement">Remis efter fælles aftale</string>
+  <string name="fiftyMovesWithoutProgress">Halvtreds træk uden fremskridt</string>
   <string name="currentGames">Igangværende partier</string>
   <plurals name="nbGames">
     <item quantity="one">Se %s parti</item>
@@ -894,7 +894,7 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cancelSimul">Annuller simultanen</string>
   <string name="simulHostcolor">Værtsfarve for hvert parti</string>
   <string name="estimatedStart">Anslået starttidspunkt</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Vis på %s</string>
+  <string name="simulFeatured">Vis på %s</string>
   <string name="simulFeaturedHelp">Vis din simultan til alle på %s. Deaktivér for private simultaner.</string>
   <string name="simulDescription">Simultanbeskrivelse</string>
   <string name="simulDescriptionHelp">Noget du ønsker at fortælle deltagerne?</string>
@@ -918,5 +918,10 @@ Lad stå tomt for at starte partier fra den normale udgangsposition.</string>
   <string name="cantDoThisTwice">Hvis du lukker din konto for anden gang, vil der ikke være nogen mulighed for at gendanne den.</string>
   <string name="emailAssociatedToaccount">E-mailadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt dig en e-mail med et link.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turneringadgangskode</string>
+  <string name="tournamentEntryCode">Turneringadgangskode</string>
+  <string name="hangOn">Vent lidt!</string>
+  <string name="gameInProgress">Du har et parti i gang med %s.</string>
+  <string name="abortTheGame">Afbryd partiet</string>
+  <string name="resignTheGame">Giv op i partiet</string>
+  <string name="youCantStartNewGame">Du kan ikke starte et nyt parti, før dette er afsluttet.</string>
 </resources>

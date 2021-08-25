@@ -997,5 +997,10 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="cantDoThisTwice">Jeśli zamkniesz swoje konto po raz drugi, nie będzie możliwości jego odzyskania.</string>
   <string name="emailAssociatedToaccount">Adres e-mail powiązany z kontem</string>
   <string name="sentEmailWithLink">Wysłaliśmy Ci wiadomość e-mail z linkiem.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Kod dostępu do turnieju</string>
+  <string name="tournamentEntryCode">Kod dostępu do turnieju</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Zaczekaj!</string>
+  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Rozgrywasz partię z %s.</string>
+  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Przerwij partię</string>
+  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Przerwij partię</string>
+  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
 </resources>

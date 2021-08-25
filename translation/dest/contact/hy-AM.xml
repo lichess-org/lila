@@ -9,5 +9,12 @@
   <string name="forgotPassword">Մոռացել եմ գաղտնաբառը։</string>
   <string name="forgotUsername">Մոռացել եմ մասնակցային անունս</string>
   <string name="youCanLoginWithEmail">Դուք կարող եք մուտք գործել այն էլեկտրոնային հասցեի օգնությամբ, որով գրանցվել եք</string>
+  <string name="wantCloseAccount">Ես ցանկանում եմ փակել իմ հաշիվը</string>
+  <string name="closeYourAccount">Դուք կարող եք փակել ձեր հաշիվը այս էջում</string>
+  <string name="doNotAskByEmail">Էլեկտրոնային փոստով մի՛ խնդրեք մեզ փակել ձեր հաշիվը, մենք դա չենք անելու։</string>
+  <string name="wantReopen">Ես ցանկանում եմ վերականգնել իմ հաշիվը</string>
+  <string name="reopenOnThisPage">Դուք կարող եք վերականգնել ձեր հաշիվը այս էջում։ Դա կարելի է անել միայն մեկ անգամ։</string>
+  <string name="doNotAskByEmailToReopen">Էլեկտրոնային փոստով մի՛ խնդրեք մեզ վերականգնել ձեր հաշիվը, մենք դա չենք անելու։</string>
+  <string name="wantChangeUsername">Ես ցանկանում եմ փոխել իմ մասնակցային անունը</string>
   <string name="doNotMessageModerators">Անձնական հաղորդագրություններ մի ուղարկեք մոդերատորներին։</string>
 </resources>

@@ -156,8 +156,8 @@
     <item quantity="few">%s igralci</item>
     <item quantity="other">%s igralcev</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Remi po dogovoru</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 potez brez napredka</string>
+  <string name="drawByMutualAgreement">Remi po dogovoru</string>
+  <string name="fiftyMovesWithoutProgress">50 potez brez napredka</string>
   <string name="currentGames">Trenutno igrane igre</string>
   <plurals name="nbGames">
     <item quantity="one">%s partija</item>
@@ -974,7 +974,7 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="cancelSimul">Prekliči simultanko</string>
   <string name="simulHostcolor">Barva gostitelja za vsako igro</string>
   <string name="estimatedStart">Predvideni čas začetka</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Funkcija v %s</string>
+  <string name="simulFeatured">Funkcija v %s</string>
   <string name="simulFeaturedHelp">Pokažite svojo simultanko vsem na %s. Onemogoči za zasebne simulacije.</string>
   <string name="simulDescription">Opis simultanke</string>
   <string name="simulDescriptionHelp">Kaj želite povedati udeležencem?</string>
@@ -998,5 +998,10 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="cantDoThisTwice">Če boste račun zaprli še drugič, ga ne boste mogli obnoviti.</string>
   <string name="emailAssociatedToaccount">E-naslov, povezan z računom</string>
   <string name="sentEmailWithLink">Poslali smo vam e-poštno sporočilo s povezavo.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Koda za vstop na turnir</string>
+  <string name="tournamentEntryCode">Koda za vstop na turnir</string>
+  <string name="hangOn">Počakaj!</string>
+  <string name="gameInProgress">V teku je igra z %s.</string>
+  <string name="abortTheGame">Prekinite igro</string>
+  <string name="resignTheGame">Predaj igro</string>
+  <string name="youCantStartNewGame">Ne morete začeti nove igre, dokler se ta ne konča.</string>
 </resources>

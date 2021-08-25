@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">Дата додавання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
+  <string name="alphabetical">За алфавітом</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s розділ</item>
@@ -133,5 +134,33 @@
   <string name="clearChat">Очистити чат</string>
   <string name="deleteTheStudyChatHistory">Видалити історію чату дослідження? Відновити буде неможливо!</string>
   <string name="deleteStudy">Видалити дослідження</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ви дійсно бажаєте видалити все дослідження? Назад дороги немає! Введіть назву дослідження для підтвердження: %s</string>
   <string name="whereDoYouWantToStudyThat">Де Ви хочете це дослідити?</string>
+  <string name="goodMove">Хороший хід</string>
+  <string name="mistake">Помилка</string>
+  <string name="brilliantMove">Блискучий хід</string>
+  <string name="blunder">Груба помилка</string>
+  <string name="interestingMove">Цікавий хід</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Сумнівний хід</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Єдиний хід</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
+  <string name="equalPosition">Рівна позиція</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Незрозуміла позиція</string>
+  <string name="whiteIsSlightlyBetter">Позиція білих трохи краще</string>
+  <string name="blackIsSlightlyBetter">Позиція чорних трохи краще</string>
+  <string name="whiteIsBetter">Позиція білих краще</string>
+  <string name="blackIsBetter">Позиція чорних краще</string>
+  <string name="whiteIsWinning">Білі перемагають</string>
+  <string name="blackIsWinning">Чорні перемагають</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Новинка</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Розвиток</string>
+  <string name="initiative">Ініціатива</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Атака</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">Контргра</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">Цейтнот</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">З компенсацією</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">З ідеєю</string>
+  <string name="nextChapter">Наступний розділ</string>
+  <string name="prevChapter">Попередній розділ</string>
+  <string name="studyActions">Команди дослідження</string>
 </resources>

@@ -639,7 +639,7 @@
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
   <string name="simulHostExtraTime">Isännän ylimääräinen aika</string>
   <string name="lichessTournaments">Lichessin turnaukset</string>
-  <string name="tournamentFAQ">Areenaturnausten UKK</string>
+  <string name="tournamentFAQ">Areenaturnausten FAQ</string>
   <string name="tournamentOfficial">Virallinen</string>
   <string name="timeBeforeTournamentStarts">Aika ennen turnauksen alkua</string>
   <string name="averageCentipawnLoss">Keskimääräinen sadasosasotilaan menetys</string>
@@ -916,5 +916,10 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="cantDoThisTwice">Jos suljet tunnuksesi toisen kerran, sitä ei voi palauttaa enää millään tavalla.</string>
   <string name="emailAssociatedToaccount">Tunnukseen kuuluva sähköpostiosoite</string>
   <string name="sentEmailWithLink">Olemme lähettäneet sinulle sähköpostin, jossa on linkki.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Turnauksen sisäänpääsykoodi</string>
+  <string name="tournamentEntryCode">Turnauksen sisäänpääsykoodi</string>
+  <string name="hangOn">Hetkinen!</string>
+  <string name="gameInProgress">Sinulla on peli meneillään pelaajan %s kanssa.</string>
+  <string name="abortTheGame">Keskeytä peli</string>
+  <string name="resignTheGame">Luovuta peli</string>
+  <string name="youCantStartNewGame">Et voi aloittaa uutta peliä ennen kuin tämä peli on päättynyt.</string>
 </resources>

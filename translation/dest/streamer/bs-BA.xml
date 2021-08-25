@@ -18,6 +18,8 @@
   <string name="rule1">Uključite ključnu riječ \"lichess.org\" u naslov i koristite kategoriju \"Chess\", što znači šah, kada emitujete na Lichess-u.</string>
   <string name="rule2">Uklonite ključnu riječ kada emitujete sadržaj koji nije vezan za Lichess.</string>
   <string name="rule3">Lichess će automatski otkriti Vaše emitovanje i omogućiti sljedeće prednosti:</string>
+  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Pročitajte naša %s kako biste osigurali fer-plej igru za svakoga tokom Vašeg strima.</string>
+  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">najčešća pitanja o fer-pleju za striming</string>
   <string name="perks">Prednosti emitovanja sa ključnom riječi</string>
   <string name="perk1">Dobićete vatrenu ikonicu emitera na svom Lichess profilu.</string>
   <string name="perk2">Probićete se na vrh liste emitera.</string>

@@ -18,6 +18,8 @@
   <string name="rule1">Lichess について配信する際にはタイトルにキーワード「lichess.org」を入れてください。</string>
   <string name="rule2">Lichess 以外について配信する際にはキーワードを入れないように。</string>
   <string name="rule3">Lichess はあなたの配信動画を自動的に検知して以下の特典を与えます。</string>
+  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">あなたの配信中に全員がフェアプレイを守れるよう %s を読んでおくこと。</string>
+  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">配信フェアプレイ FAQ</string>
   <string name="perks">キーワードを入れた配信に対する特典</string>
   <string name="perk1">Lichess のプロフィール・ページに配信者として表示。</string>
   <string name="perk2">配信者リストのトップに上がる。</string>

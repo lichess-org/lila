@@ -42,6 +42,7 @@
   <string name="raceComplete">Гонка завершена!</string>
   <string name="spectating">Спостерігати</string>
   <string name="joinTheRace">Приєднатися до гонки!</string>
+  <string name="startTheRace">Розпочати гонку</string>
   <string name="yourRankX">Ваше місце: %s</string>
   <string name="waitForRematch">Очікування реваншу</string>
   <string name="nextRace">Наступна гонка</string>

@@ -92,6 +92,7 @@
   <string name="usernamesNotOffensive">Загалом, імена користувачів не повинні бути: образливими, уособлювати когось іншого або рекламними. Ви можете прочитати більше у %1$s.</string>
   <string name="guidelines">настанови</string>
   <string name="canIChangeMyUsername">Чи можу я змінити ім\'я користувача?</string>
+  <string name="usernamesCannotBeChanged">Ні, імена користувачів не можуть бути зміненими з технічних та практичних причин. Імена користувачів матеріалізовані в надто багатьох місцях: базах даних, експорті, журналах та в свідомості людей. Велику літеру можна підправити лише один раз.</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
   <string name="ownerUniqueTrophies">Ці трофеї унікальні за всю історію Lichess, ніхто крім %1$s ними не зможе заволодіти.</string>
   <string name="wayOfBerserkExplanation">Щоб його отримати, hiimgosu кинув собі виклик виграти 100%% ігор з Берсерком в %s.</string>

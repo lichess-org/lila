@@ -134,7 +134,7 @@
   <string name="clearChat">Išvalyti pokalbį</string>
   <string name="deleteTheStudyChatHistory">Ištrinti studijos pokalbių istoriją? Nėra kelio atgal!</string>
   <string name="deleteStudy">Ištrinti studiją</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ištrinti visą studiją? Ištrynimas negrįžtamas. Norėdami tęsti įrašykite studijos pavadinimą.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Ištrinti visą studiją? Ištrynimas negrįžtamas. Norėdami tęsti įrašykite studijos pavadinimą: %s</string>
   <string name="whereDoYouWantToStudyThat">Kur norite tai studijuoti?</string>
   <string name="goodMove">Geras ėjimas</string>
   <string name="mistake">Klaida</string>

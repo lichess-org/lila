@@ -135,8 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s人接続中</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">合意によるドロー</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 手中駒取りもポーンの手もなし</string>
+  <string name="drawByMutualAgreement">合意によるドロー</string>
+  <string name="fiftyMovesWithoutProgress">50 手中駒取りもポーンの手もなし</string>
   <string name="currentGames">現在対局中</string>
   <plurals name="nbGames">
     <item quantity="other">%s 局</item>
@@ -879,5 +879,10 @@
   <string name="cantDoThisTwice">二度目にアカウントを閉鎖した場合、アカウントを復元する方法はありません。</string>
   <string name="emailAssociatedToaccount">アカウントに登録されたメールアドレス</string>
   <string name="sentEmailWithLink">あなたにリンクを含むメールを送信しました。</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">トーナメント参加コード</string>
+  <string name="tournamentEntryCode">トーナメント参加コード</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">待って！</string>
+  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">%s との対局が進行中です。</string>
+  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">対局を中止する</string>
+  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">投了する</string>
+  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">この対局が終わるまで、別の対局は開始できません。</string>
 </resources>

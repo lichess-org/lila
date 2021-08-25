@@ -95,7 +95,7 @@
   <string name="queenRookEndgameDescription">Un final solo con damas, torres y peones.</string>
   <string name="queensideAttack">Ataque en el flanco de dama</string>
   <string name="queensideAttackDescription">Un ataque al rey del oponente, luego de haber realizado el enroque largo.</string>
-  <string name="quietMove">Movimiento tranquilo</string>
+  <string name="quietMove">Jugada tranquila</string>
   <string name="quietMoveDescription">Un movimiento que no hace uno jaque o una captura, pero sí que prepara una amenaza inevitable para un movimiento posterior.</string>
   <string name="rookEndgame">Final de torres</string>
   <string name="rookEndgameDescription">Un final solo con torres y peones.</string>

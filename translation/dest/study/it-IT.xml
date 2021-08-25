@@ -126,6 +126,7 @@
   <string name="clearChat">Cancella chat</string>
   <string name="deleteTheStudyChatHistory">Vuoi davvero eliminare la cronologia della chat? Sarà persa per sempre!</string>
   <string name="deleteStudy">Elimina studio</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Eliminare l\'intero studio? Non sarà possibile annullare l\'operazione! Digitare il nome dello studio per confermare: %s</string>
   <string name="whereDoYouWantToStudyThat">Dove vuoi creare lo studio?</string>
   <string name="goodMove">Bella mossa</string>
   <string name="mistake">Errore</string>

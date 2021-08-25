@@ -134,7 +134,7 @@
   <string name="clearChat">Počisti klepet</string>
   <string name="deleteTheStudyChatHistory">Brisanje zgodovine klepeta? Poti nazaj več ni!</string>
   <string name="deleteStudy">Izbriši študijo</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Želite izbrisati celotno študijo? Ni poti nazaj! Za potrditev vnesite ime študije.</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Želite izbrisati celotno študijo? Ni poti nazaj! Za potrditev vnesite ime študije: %s</string>
   <string name="whereDoYouWantToStudyThat">Kje želite to študirati?</string>
   <string name="goodMove">Dobra poteza</string>
   <string name="mistake">Napakica</string>

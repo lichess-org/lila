@@ -117,7 +117,7 @@
   <string name="veryLongDescription">Չորս կամ ավելի քայլ հաղթելու համար։</string>
   <string name="xRayAttack">Ռենտգեն</string>
   <string name="xRayAttackDescription">Իրավիճակ, երբ հեռահար խաղաքարի հարձակման կամ պաշտպանության գծին կանգնած է մրցակցի խաղաքարը։</string>
-  <string name="zugzwang">Ցունգցվանգ</string>
+  <string name="zugzwang">Ցուգցվանգ</string>
   <string name="zugzwangDescription">Մրցակիցը ստիպված է անել հնարավոր փոքրաթիվ քայլերից մեկը,  բայց քայլերից ցանկացածը տանում է դիրքի վատացման։</string>
   <string name="healthyMix">Խառը խնդիրներ</string>
   <string name="healthyMixDescription">Ամեն ինչից` քիչ-քիչ։ Դուք չգիտեք` ինչ է սպասվում, այնպես որ, պատրաստ եղեք ամեն ինչի։ Ինչպես իսկական պարտիայում։</string>

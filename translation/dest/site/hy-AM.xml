@@ -136,8 +136,8 @@
     <item quantity="one">Միացած խաղացողների թիվը՝ %s</item>
     <item quantity="other">Միացած խաղացողների թիվը՝ %s</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50 քայլ առանց առաջընթացի</string>
+  <string name="drawByMutualAgreement">Ոչ-ոքի՝ փոխադարձ համաձայնությամբ</string>
+  <string name="fiftyMovesWithoutProgress">50 քայլ առանց առաջընթացի</string>
   <string name="currentGames">Այժմ օնլայն ընթացող խաղերը</string>
   <plurals name="nbGames">
     <item quantity="one">Տեսնել բոլոր %s խաղերը</item>
@@ -166,7 +166,7 @@
   <string name="variant">Տարբերակ</string>
   <string name="variants">Տարբերակներ</string>
   <string name="timeControl">Ժամակարգ</string>
-  <string name="realTime">Հիմնական ծամանակ</string>
+  <string name="realTime">Ժամանակով</string>
   <string name="correspondence">Նամակագրական</string>
   <string name="daysPerTurn">Օրեր քայլի համար</string>
   <string name="oneDay">Մեկ օր</string>
@@ -777,15 +777,25 @@
   <string name="temporaryInconvenience">Մենք հայցում ենք Ձեր ներողամտությունը անհարմարության համար,</string>
   <string name="wishYouGreatGames">և մաղթում հաճելի հաղեր lichess.org-ում։</string>
   <string name="thankYouForReading">Շնորհակալություն կարդալու համար:</string>
+  <string name="searchOrStartNewDiscussion">Գտնել քննարկումը կամ ստեղծել նորը</string>
   <string name="edit">Խմբագրել</string>
   <string name="rapid">Արագ</string>
   <string name="classical">Դասական</string>
+  <string name="ultraBulletDesc">Խելահեղորեն արագ պարտիաներ` 30 վայրկյանից պակաս</string>
+  <string name="bulletDesc">Շատ արագ պարտիաներ` 3 րոպեից պակաս</string>
+  <string name="blitzDesc">Արագ պարտիաներ` 3-ից 8 րոպե</string>
+  <string name="rapidDesc">Արագ պարտիաներ` 8-ից 25 րոպե</string>
+  <string name="classicalDesc">Դասական պարտիաներ` 25 րոպե և ավելի</string>
+  <string name="correspondenceDesc">Նամակագրական պարտիաներ` մեկ կամ մի քանի օր քայլի համար</string>
+  <string name="puzzleDesc">Շախմատային տակտիկայի մարզիչ</string>
   <string name="important">Կարևոր</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Օգտատիրոջ խարդախ կամ անպարկեշտ պահվածքը ծանուցելու համար %1$s</string>
   <string name="useTheReportForm">օգտագործեք հաղորդման ձևը</string>
   <string name="teamNamedX">%1$s թիմ</string>
   <string name="subscribe">Բաժանորդագրվել</string>
   <string name="unsubscribe">Ապաբաժանորդագրվել</string>
+  <string name="xMentionedYouInY">%1$s-ը հիշատակել է Ձեզ  «%2$s»-ում։</string>
+  <string name="invitedYouToX">Հրավիրել է Ձեզ «%1$s»։</string>
   <string name="download">Ներբեռնել</string>
   <string name="welcome">Բարի՜ գալուստ։</string>
   <string name="lichessPatronInfo">Lichess-ը բարեգործական կազմակերպություն է, որը տրամադրում է բաց նախնական կոդով ազատ և անվճար ծրագրային ապահովում։
@@ -800,5 +810,5 @@
   <string name="onlyTeamLeaders">Միայն թիմի կազմակերպիչները</string>
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Մրցաշարին մասնակցելու կոդ</string>
+  <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>
 </resources>

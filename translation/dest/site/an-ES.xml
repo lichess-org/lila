@@ -142,8 +142,8 @@
     <item quantity="one">%s chugador</item>
     <item quantity="other">%s chugadors</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Taulas per mutuo acuerdo</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cinquanta movimientos sin progresar</string>
+  <string name="drawByMutualAgreement">Taulas per mutuo acuerdo</string>
+  <string name="fiftyMovesWithoutProgress">Cinquanta movimientos sin progresar</string>
   <string name="currentGames">Partidas en chuego</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
@@ -890,7 +890,7 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="cancelSimul">Cancelar las simultanias</string>
   <string name="simulHostcolor">Color de l\'anfitrión en cada partida</string>
   <string name="estimatedStart">Tiempo estimau d\'inicio</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Retransmitir en %s</string>
+  <string name="simulFeatured">Retransmitir en %s</string>
   <string name="simulFeaturedHelp">Amuestra las tuyas simultanias a totz en %s. Desactiva-lo si quiers simultanias privadas.</string>
   <string name="simulDescription">Descripción d\'as simultanias</string>
   <string name="simulDescriptionHelp">Tiens bella cosa a decir a los participants?</string>
@@ -914,5 +914,5 @@ Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament 
   <string name="cantDoThisTwice">Si zarra la tuya cuenta per segunda vegada, ya no i habrá garra traza de tornar a recuperar-la.</string>
   <string name="emailAssociatedToaccount">Adreza de correu-e asociada a la cuenta</string>
   <string name="sentEmailWithLink">T\'hemos ninviau un correu-e con un vinclo.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Codigo de participación en o torneyo</string>
+  <string name="tournamentEntryCode">Codigo de participación en o torneyo</string>
 </resources>

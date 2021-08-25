@@ -135,8 +135,8 @@
   <plurals name="nbPlayers">
     <item quantity="other">%s位棋手目前在線</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">雙方同意和局</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">50步規則和局</string>
+  <string name="drawByMutualAgreement">雙方同意和局</string>
+  <string name="fiftyMovesWithoutProgress">50步規則和局</string>
   <string name="currentGames">當前對局</string>
   <plurals name="nbGames">
     <item quantity="other">查看所有%s盤棋</item>
@@ -853,5 +853,5 @@
   <string name="cantDoThisTwice">如果你決定再次停用你的帳號，則不會有任何方式去復原。</string>
   <string name="emailAssociatedToaccount">和此帳號相關的電子信箱</string>
   <string name="sentEmailWithLink">我們已將網址寄送至你的信箱</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">錦標賽參賽碼</string>
+  <string name="tournamentEntryCode">錦標賽參賽碼</string>
 </resources>

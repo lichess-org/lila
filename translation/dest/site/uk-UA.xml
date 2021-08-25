@@ -132,6 +132,18 @@
     <item quantity="many">%s грубих помилок</item>
     <item quantity="other">%s грубих помилок</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s помилка</item>
+    <item quantity="few">%s помилки</item>
+    <item quantity="many">%s помилок</item>
+    <item quantity="other">%s помилок</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s неточність</item>
+    <item quantity="few">%s неточністі</item>
+    <item quantity="many">%s неточностей</item>
+    <item quantity="other">%s неточностей</item>
+  </plurals>
   <string name="moveTimes">Час на хід</string>
   <string name="flipBoard">Перевернути дошку</string>
   <string name="threefoldRepetition">Трикратне повторення</string>
@@ -144,8 +156,8 @@
     <item quantity="many">%s гравців</item>
     <item quantity="other">%s гравців</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Нічия за спільною згодою</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">П\'ятдесят кроків без прогресу</string>
+  <string name="drawByMutualAgreement">Нічия за спільною згодою</string>
+  <string name="fiftyMovesWithoutProgress">П\'ятдесят кроків без прогресу</string>
   <string name="currentGames">Поточні партії</string>
   <plurals name="nbGames">
     <item quantity="one">%s ігра</item>
@@ -744,6 +756,7 @@
   <string name="printFriendlyPDF">PDF-версія для друку</string>
   <string name="crosstable">Рахунок</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Також Ви можете використовувати коліщатко миші над дошкою для зміни ходів у грі.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Прокрутіть колесом миші по комп\'ютерним варіаціям для їх попереднього перегляду.</string>
   <string name="analysisShapesHowTo">Натисніть shift+лкм або пкм, щоб намалювати кола та стрілки на дошці.</string>
   <string name="letOtherPlayersMessageYou">Дозволити іншим гравцям надсилати Вам повідомлення</string>
   <string name="receiveForumNotifications">Отримувати сповіщення при згадці на форумі</string>
@@ -931,20 +944,53 @@
   <string name="congratsYouWon">Вітання, ви виграли!</string>
   <string name="gameVsX">Гра проти %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
+  <string name="someoneReviewedYourCoachProfile">Хтось переглянув ваш тренерський профіль.</string>
+  <string name="newPendingReview">Новий огляд в очікуванні</string>
   <string name="lostAgainstTOSViolator">Ви програли комусь хто порушував Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Повернення: %1$s %2$s рангових очок.</string>
   <string name="timeAlmostUp">Час майже скінчився!</string>
   <string name="clickToRevealEmailAddress">[Натисніть щоб побачити електронну адресу]</string>
   <string name="download">Завантаження</string>
   <string name="welcome">Вітаємо!</string>
+  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
+  <string name="coachManager">Тренерські налаштування</string>
+  <string name="streamerManager">Стрімерські налаштування</string>
   <string name="cancelTournament">Скасувати турнір</string>
   <string name="tournDescription">Опис турніру</string>
+  <string name="tournDescriptionHelp">Є щось особливе, що ви хочете сказати учасникам? Спробуйте написати це коротко. Для посилань доступна розмітка Markdown: [name](https://url)</string>
+  <string name="ratedFormHelp">Ігри обраховуються за рейтинговою системою і впливатимуть на рейтинг гравців</string>
   <string name="onlyMembersOfTeam">Тільки члени команди</string>
+  <string name="noRestriction">Без обмежень</string>
   <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
   <string name="minimumRating">Мінімальний рейтинг</string>
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>
   <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
+  <string name="cancelSimul">Відмінити сеанс</string>
+  <string name="simulHostcolor">Колір сеансера для кожної гри</string>
+  <string name="estimatedStart">Приблизний час початку</string>
+  <string name="simulFeatured">Показувати на %s</string>
+  <string name="simulFeaturedHelp">Показати ваш сеанс для всіх на %s. Вимикати для приватних сеансів.</string>
+  <string name="simulDescription">Опис сеансу</string>
+  <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
+  <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
+  <string name="tournChat">Турнірний чат</string>
+  <string name="noChat">Без чату</string>
   <string name="onlyTeamLeaders">Лише лідери команд</string>
   <string name="onlyTeamMembers">Тільки члени команди</string>
+  <string name="navigateMoveTree">Навігація по нотації</string>
+  <string name="mouseTricks">Можливості миші</string>
+  <string name="toggleLocalAnalysis">Ввімкнути локальний комп’ютерний аналіз</string>
+  <string name="toggleAllAnalysis">Ввімкнути весь комп’ютерний аналіз</string>
+  <string name="playComputerMove">Зіграти найкращий комп\'ютерний хід</string>
+  <string name="analysisOptions">Можливості аналізу</string>
+  <string name="focusChat">Обрати вікно чату</string>
+  <string name="showHelpDialog">Показати це діалогове вікно довідки</string>
+  <string name="reopenYourAccount">Відновити ваш обліковий запис</string>
+  <string name="closedAccountChangedMind">Якщо ви закрили свій обліковий запис та змінили свою думку, у вас є один шанс відновити свій профіль.</string>
+  <string name="onlyWorksOnce">Це можна зробити лише один раз.</string>
+  <string name="cantDoThisTwice">Якщо ви закриєте обліковий запис в другий раз, відновити його буде вже неможливо.</string>
+  <string name="emailAssociatedToaccount">Адреса електронної пошти, пов\'язана з обліковим записом</string>
+  <string name="sentEmailWithLink">Ми надіслали вам електронний лист із посиланням.</string>
+  <string name="tournamentEntryCode">Код входу до турніру</string>
 </resources>

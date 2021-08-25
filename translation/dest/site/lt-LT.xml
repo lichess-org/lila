@@ -999,5 +999,5 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="cantDoThisTwice">Jei uždarysite savo paskyrą antrą kartą nebebus jokio būdo ją atkurti.</string>
   <string name="emailAssociatedToaccount">Elektroninio pašto adresas susietas su paskyra</string>
   <string name="sentEmailWithLink">Меs jums išsiuntėme laišką su nuoroda.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Įėjimo į turnyrą kodas</string>
+  <string name="tournamentEntryCode">Įėjimo į turnyrą kodas</string>
 </resources>

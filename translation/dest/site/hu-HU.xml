@@ -142,8 +142,8 @@
     <item quantity="one">%s játékos</item>
     <item quantity="other">%s játékos</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Döntetlen közös megegyezés alapján</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Ötven lépés fejlemény nélkül</string>
+  <string name="drawByMutualAgreement">Döntetlen közös megegyezés alapján</string>
+  <string name="fiftyMovesWithoutProgress">Ötven lépés fejlemény nélkül</string>
   <string name="currentGames">Futó játékok</string>
   <plurals name="nbGames">
     <item quantity="one">%s játszma</item>
@@ -894,7 +894,7 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="cancelSimul">Szimultán törlése</string>
   <string name="simulHostcolor">Szimultánt adó színe minden játszmában</string>
   <string name="estimatedStart">Kezdés becsült ideje</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Közzététel %s</string>
+  <string name="simulFeatured">Közzététel %s</string>
   <string name="simulFeaturedHelp">Szimultán közzététele %s oldalon. Kapcsold ki privát szimultánhoz.</string>
   <string name="simulDescription">Szimultán leírása</string>
   <string name="simulDescriptionHelp">Van bármi amit elmondanál a résztvevőknek?</string>
@@ -918,5 +918,10 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="cantDoThisTwice">Ha lezárod a fiókod másodszor is, utána már nincs lehetőség a visszaállításra.</string>
   <string name="emailAssociatedToaccount">A fiókhoz rendelt email cím</string>
   <string name="sentEmailWithLink">Küldtünk neked egy linket emailben.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Verseny belépési kód</string>
+  <string name="tournamentEntryCode">Verseny belépési kód</string>
+  <string name="hangOn">Várj csak!</string>
+  <string name="gameInProgress">Van egy folyamatban lévő játszmád %s ellen.</string>
+  <string name="abortTheGame">Játszma elvetése</string>
+  <string name="resignTheGame">Játszma feladása</string>
+  <string name="youCantStartNewGame">Nem kezdhetsz új játszmát amíg ezt be nem fejezted.</string>
 </resources>

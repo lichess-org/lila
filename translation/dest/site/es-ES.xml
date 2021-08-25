@@ -142,8 +142,8 @@
     <item quantity="one">%s jugador</item>
     <item quantity="other">%s jugadores</item>
   </plurals>
-  <string name="drawByMutualAgreement" comment="drawByMutualAgreement&#10;&#10;A game ending condition.">Tablas de mutuo acuerdo</string>
-  <string name="fiftyMovesWithoutProgress" comment="fiftyMovesWithoutProgress&#10;&#10;A game ending condition.">Cincuenta movimientos sin ningún progreso</string>
+  <string name="drawByMutualAgreement">Tablas de mutuo acuerdo</string>
+  <string name="fiftyMovesWithoutProgress">Cincuenta movimientos sin ningún progreso</string>
   <string name="currentGames">Partidas en juego</string>
   <plurals name="nbGames">
     <item quantity="one">%s Partida</item>
@@ -894,7 +894,7 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="cancelSimul">Cancelar la simultánea</string>
   <string name="simulHostcolor">Color del anfitrión para cada partida</string>
   <string name="estimatedStart">Hora de inicio aproximada</string>
-  <string name="simulFeatured" comment="simulFeatured&#10;&#10;An option to show the simul at the specified URL.&#10;&#10;The variable, %s, is a URL">Mostrar en %s</string>
+  <string name="simulFeatured">Mostrar en %s</string>
   <string name="simulFeaturedHelp">Muestra la simultánea públicamente en %s. Deshabilitado para simultáneas privadas.</string>
   <string name="simulDescription">Descripción de la simultánea</string>
   <string name="simulDescriptionHelp">¿Quieres decirle algo a los participantes?</string>
@@ -918,5 +918,10 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="cantDoThisTwice">Si vuelves a cerrar tu cuenta, no podrás recuperarla.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada a la cuenta</string>
   <string name="sentEmailWithLink">Te hemos enviado un correo electrónico con un enlace.</string>
-  <string name="tournamentEntryCode" comment="tournamentEntryCode&#10;&#10;A password required to join a tournament.">Código de acceso al torneo</string>
+  <string name="tournamentEntryCode">Código de acceso al torneo</string>
+  <string name="hangOn">¡Espera!</string>
+  <string name="gameInProgress">Estás jugando una partida con %s.</string>
+  <string name="abortTheGame">Cancelar la partida</string>
+  <string name="resignTheGame">Abandonar la partida</string>
+  <string name="youCantStartNewGame">No puedes empezar una nueva partida hasta que ésta haya terminado.</string>
 </resources>

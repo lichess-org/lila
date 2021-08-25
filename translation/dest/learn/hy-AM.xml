@@ -46,7 +46,7 @@
   <string name="mostOfTheTimePromotingToAQueenIsBest">Մեծ մասամբ զինվորը լավ է վերածել թագուհու։
 Բայց երբեմն ձիու վերածելն ավելի նպատակահարմար է լինում։</string>
   <string name="pawnsMoveForward">Զինվորները քայլում են առաջ, բայց հարվածում են անկյունագծերով։</string>
-  <string name="captureThenPromote">Հարվածեք, այնուհետև վերածեք </string>
+  <string name="captureThenPromote">Հարվածեք, այնուհետև վերածեք</string>
   <string name="useAllThePawns">Օգտագործե՛ք բոլոր զինվորները։ Պարտադիր չէ դրանք վերածելը։</string>
   <string name="aPawnOnTheSecondRank">2-րդ հորիզոնականում գտնվող զինվորը կարող է մեկ քայլով առաջ գնալ երկու վանդակ։</string>
   <string name="grabAllTheStarsNoNeedToPromote">Հավաքե՛ք բոլոր աստղերը։ Պարտադիր չէ բոլոր զինվորները վերածելը։</string>

@@ -2,9 +2,9 @@
 <resources>
   <string name="settings">Cilësimet</string>
   <string name="closeAccount">Mbyll llogarinë</string>
-  <string name="closingIsDefinitive">Mbyllja është përfundimtare. Nuk ka kthim prapa. A jeni i sigurtë?</string>
-  <string name="cantOpenSimilarAccount">Nuk do të mund të hapni llogari me të njejtin emër, edhe nëse e ndryshoni madhësinë e shkronjave.</string>
+  <string name="closingIsDefinitive">Mbyllja është përfundimtare. Nuk ka kthim prapa. A jeni i sigurt?</string>
+  <string name="cantOpenSimilarAccount">Nuk do të mund të hapni llogari me të njëjtin emër, edhe nëse e ndryshoni madhësinë e shkronjave.</string>
   <string name="changedMindDoNotCloseAccount">Ndryshova mendje, mos e mbyll llogarinë time</string>
-  <string name="closeAccountExplanation">A jeni i sigurtë që doni të fshini llogarinë tuaj? Fshirja e llogarisë tuaj është vendim permanent. Ju nuk do të mund të KYÇENI KURRË më.</string>
+  <string name="closeAccountExplanation">A jeni i sigurt se doni të fshihet llogaria juaj? Fshirja e llogarisë tuaj është vendim përfundimtar. S’do të jeni më KURRË në gjendje të BËNI HYRJEN.</string>
   <string name="thisAccountIsClosed">Kjo llogari është e mbyllur</string>
 </resources>
