@@ -18,8 +18,8 @@
   <string name="rule1">Inclua \"lichess.org\" no título da sua transmissão quando for transmitir no Lichess.</string>
   <string name="rule2">O remova quando for transmitir coisas não relacionadas ao Lichess.</string>
   <string name="rule3">O Lichess detectará automaticamente sua transmissão e garantirá as seguintes melhorias:</string>
-  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Leia nossa %s para garantir fair play à todos durante a transmissão.</string>
-  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">Perguntas Frequentes sobre fairplay em transmissões</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Leia nossa %s para garantir fair play à todos durante a transmissão.</string>
+  <string name="streamingFairplayFAQ">Perguntas Frequentes sobre fairplay em transmissões</string>
   <string name="perks">Benefícios da transmissão com palavra-chave</string>
   <string name="perk1">Obtenha um ícone de streamer em chamas no seu perfil do Lichess.</string>
   <string name="perk2">Suba ao topo da lista de streamers.</string>
