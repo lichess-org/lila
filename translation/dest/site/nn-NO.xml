@@ -920,4 +920,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="emailAssociatedToaccount">E-postadressa som er tilknytt kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg ein e-post med ei lenke.</string>
   <string name="tournamentEntryCode">Tilgangskode til turnering</string>
+  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Vent litt!</string>
 </resources>
