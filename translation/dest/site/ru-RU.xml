@@ -1000,7 +1000,7 @@
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>
   <string name="hangOn">Подождите!</string>
-  <string name="gameInProgress">Вы ведёте игру с %s.</string>
+  <string name="gameInProgress">У вас идёт игра с %s.</string>
   <string name="abortTheGame">Прервать игру</string>
   <string name="resignTheGame">Сдаться</string>
   <string name="youCantStartNewGame">Вы не можете начать новую игру до тех пор, пока эта не будет закончена.</string>
