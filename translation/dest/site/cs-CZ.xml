@@ -961,6 +961,7 @@ Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z př�
   <string name="noRestriction">Bez omezení</string>
   <string name="minimumRatedGames">Minimální počet her s ratingem</string>
   <string name="minimumRating">Minimální rating</string>
+  <string name="maximumWeeklyRating">Maximální tydenní rating</string>
   <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
   <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
   <string name="positionInputHelp">Vložte platný FEN popis šachovnice, pokud chcete, aby všechny hry začaly z dané pozice.
@@ -991,4 +992,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="gameInProgress">Již probíhá hra s %s.</string>
   <string name="abortTheGame">Zrušit hru</string>
   <string name="resignTheGame">Vzdát hru</string>
+  <string name="youCantStartNewGame">Nemůžete začít novou hru, dokud nebude tato dokončena.</string>
 </resources>
