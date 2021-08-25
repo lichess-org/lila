@@ -18,8 +18,8 @@
   <string name="rule1">Füäg s\'Stichwort \"lichess.org\" i dim Schtriimtitäl ii und verwänd d\'Kategorie \"Chess\", wänn du uf Lichess schtriimsch.</string>
   <string name="rule2">Entfärn s\'Stichwort, wänn du grad nöd Lichess-bezogä schtriimsch.</string>
   <string name="rule3">Lichess wird automatisch din Schtriim ärkänä und folgändi Zuäsatzdiänscht aktiviärä:</string>
-  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies unsere %s, um Fairplay für alle während deines Streams zu gewährleisten.</string>
-  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">Schtriimer Fairplay FAQ</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Lies unsere %s, um Fairplay für alle während deines Streams zu gewährleisten.</string>
+  <string name="streamingFairplayFAQ">Schtriimer Fairplay FAQ</string>
   <string name="perks">Vorteil fürs Schtriimä mitämä Schlüssälwort</string>
   <string name="perk1">Bechum äs flammänds Schtriimer-Symbol uf dim Lichess-Profil.</string>
   <string name="perk2">Wird ad Schpitzä vodä Schtriimerlischtä gsetzt.</string>
