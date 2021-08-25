@@ -917,4 +917,9 @@
   <string name="emailAssociatedToaccount">آدرس ایمیلی که به حساب کاربری مربوط شده است</string>
   <string name="sentEmailWithLink">ما یک ایمیل که حاوی یک لینک می‌باشد را به شما ارسال کرده‌ایم.</string>
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
+  <string name="hangOn">صبر کن!</string>
+  <string name="gameInProgress">شما یک بازی در حال انجام با %s دارید.</string>
+  <string name="abortTheGame">انصراف از بازی</string>
+  <string name="resignTheGame">تسلیم</string>
+  <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
 </resources>
