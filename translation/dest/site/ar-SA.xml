@@ -1078,4 +1078,7 @@
   <string name="emailAssociatedToaccount">البريد الالكتروني مربوط بالحساب</string>
   <string name="sentEmailWithLink">أرسالنا لك ايميل يحتوي على رابط.</string>
   <string name="tournamentEntryCode">رمز دخول البطولة</string>
+  <string name="hangOn">انتظر!</string>
+  <string name="gameInProgress">لديك مباراة جارية مع %s.</string>
+  <string name="abortTheGame">الغي المباراة</string>
 </resources>
