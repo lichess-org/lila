@@ -330,7 +330,7 @@
     <item quantity="many">Дать %s секунд</item>
     <item quantity="other">Дать %s секунд</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Пользователь этой учётной записи нарушил Пользовательское соглашение</string>
+  <string name="thisAccountViolatedTos">Этот игрок нарушил условия пользовательского соглашения</string>
   <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
