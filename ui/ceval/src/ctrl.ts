@@ -10,6 +10,8 @@ import { Cache } from './cache';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { lichessRules } from 'chessops/compat';
+import { COLORS } from 'chessops/types';
+import { SquareSet } from 'chessops/squareSet';
 
 function sharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory {
   return new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
@@ -61,9 +63,26 @@ export default function (opts: CevalOpts): CevalCtrl {
   };
   const enableNnue = storedProp('ceval.enable-nnue', !(navigator as any).connection?.saveData);
 
+  // check root position
+  const setup = opts.initialFen ? parseFen(opts.initialFen).unwrap() : undefined;
+  const rules = lichessRules(opts.variant.key);
+  const analysable = setup ? setupPosition(rules, setup).isOk : true;
+  const standardMaterial = setup
+    ? COLORS.every(color => {
+        const board = setup.board;
+        const pieces = board[color];
+        const promotedPieces =
+          Math.max(board.queen.intersect(pieces).size() - 1, 0) +
+          Math.max(board.rook.intersect(pieces).size() - 2, 0) +
+          Math.max(board.knight.intersect(pieces).size() - 2, 0) +
+          Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
+          Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
+        return board.pawn.intersect(pieces).size() + promotedPieces <= 8;
+      })
+    : true;
+
   // select nnue > hce > wasm > asmjs
-  const officialStockfish =
-    opts.standardMaterial && ['standard', 'fromPosition', 'chess960'].includes(opts.variant.key);
+  const officialStockfish = standardMaterial && rules == 'chess';
   let technology: CevalTechnology = 'asmjs';
   let growableSharedMem = false;
   let supportsNnue = false;
@@ -105,8 +124,7 @@ export default function (opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(opts.possible && allowed() && enabledAfterDisable());
-  const analysable = prop(true);
+  const enabled = prop(opts.possible && analysable && allowed() && enabledAfterDisable());
   const downloadProgress = prop(0);
   let started: Started | false = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -144,11 +162,6 @@ export default function (opts: CevalOpts): CevalCtrl {
       return povChances(color, b) - povChances(color, a);
     });
 
-  const isAnalysable = (fen: Fen): boolean => {
-    const setup = parseFen(fen).unwrap();
-    return setupPosition(lichessRules(opts.variant.key), setup).isOk;
-  };
-
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
     if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
 
@@ -156,12 +169,6 @@ export default function (opts: CevalOpts): CevalCtrl {
     const maxDepth = effectiveMaxDepth();
 
     const step = steps[steps.length - 1];
-
-    analysable(isAnalysable(step.fen));
-    if (!analysable()) {
-      enabled(false);
-      return;
-    }
 
     const existing = threatMode ? step.threat : step.ceval;
     if (existing && existing.depth >= maxDepth) {

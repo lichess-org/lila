@@ -19,7 +19,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
   if (!evs.client) {
-    if (!ceval.analysable()) {
+    if (!ceval.analysable) {
       return ['Engine cannot analyze this position'];
     }
     const mb = ceval.downloadProgress() / 1024 / 1024;
@@ -156,7 +156,6 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
-    analysable = instance.analysable(),
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
     threat = threatMode && ctrl.getNode().threat,
@@ -224,7 +223,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         h('help', [
           ...engineName(instance),
           h('br'),
-          analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this position',
+          instance.analysable ? trans.noarg('inLocalBrowser') : 'Engine cannot analyse this game',
         ]),
       ];
 
@@ -241,7 +240,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
               attrs: {
                 type: 'checkbox',
                 checked: enabled,
-                disabled: !analysable,
+                disabled: !instance.analysable,
               },
               hook: {
                 insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleCeval),

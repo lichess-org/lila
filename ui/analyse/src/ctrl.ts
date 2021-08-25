@@ -17,7 +17,7 @@ import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from
 import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { ActionMenuCtrl } from './actionMenu';
-import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
+import { ctrl as cevalCtrl, isEvalBetter, sanIrreversible, CevalCtrl, Work as CevalWork } from 'ceval';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 import { defined, prop, Prop } from 'common';
 import { DrawShape } from 'chessground/draw';
@@ -32,8 +32,7 @@ import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makeSocket, Socket } from './socket';
 import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { COLORS, Outcome, isNormal } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
@@ -619,37 +618,22 @@ export default class AnalyseCtrl {
 
   private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
-    const cfg: CevalOpts = {
+    this.ceval = cevalCtrl({
       variant: this.data.game.variant,
-      standardMaterial:
-        !this.data.game.initialFen ||
-        parseFen(this.data.game.initialFen).unwrap(
-          setup =>
-            COLORS.every(color => {
-              const board = setup.board;
-              const pieces = board[color];
-              const promotedPieces =
-                Math.max(board.queen.intersect(pieces).size() - 1, 0) +
-                Math.max(board.rook.intersect(pieces).size() - 2, 0) +
-                Math.max(board.knight.intersect(pieces).size() - 2, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.lightSquares()).size() - 1, 0) +
-                Math.max(board.bishop.intersect(pieces).intersect(SquareSet.darkSquares()).size() - 1, 0);
-              return board.pawn.intersect(pieces).size() + promotedPieces <= 8;
-            }),
-          _ => false
-        ),
+      initialFen: this.data.game.initialFen,
       possible: !this.embed && (this.synthetic || !game.playable(this.data)),
       emit: (ev: Tree.ClientEval, work: CevalWork) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
       redraw: this.redraw,
-    };
-    if (this.opts.study && this.opts.practice) {
-      cfg.storageKeyPrefix = 'practice';
-      cfg.multiPvDefault = 1;
-    }
-    this.ceval = cevalCtrl(cfg);
+      ...(this.opts.study && this.opts.practice
+        ? {
+            storageKeyPrefix: 'practice',
+            multiPvDefault: 1,
+          }
+        : {}),
+    });
   }
 
   getCeval() {
