@@ -919,4 +919,9 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="emailAssociatedToaccount">E-mailadres gekoppeld aan het account</string>
   <string name="sentEmailWithLink">We hebben je een e-mail gestuurd met een link.</string>
   <string name="tournamentEntryCode">Toernooi toegangscode</string>
+  <string name="hangOn">Wacht even!</string>
+  <string name="gameInProgress">Je speelt nog een partij tegen %s.</string>
+  <string name="abortTheGame">Partij afbreken</string>
+  <string name="resignTheGame">Partij opgeven</string>
+  <string name="youCantStartNewGame">Je kunt geen nieuwe partij beginnen voordat deze is afgelopen.</string>
 </resources>
