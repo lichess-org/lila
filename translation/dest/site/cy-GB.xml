@@ -726,10 +726,18 @@
   <string name="rapidDesc">Gemau chwim: 8 i 25 munud</string>
   <string name="classicalDesc">Gemau clasurol: 25 munud a fwy</string>
   <string name="important">Pwysig</string>
+  <string name="useTheReportForm">defnyddiwch y ffurflen adrodd</string>
+  <string name="toRequestSupport">I wneud cais am gymorth, %1$s</string>
   <string name="tryTheContactPage">ceisiwch y tudalen cyswllt</string>
   <string name="thisTopicIsArchived">Mae\'r pwnc hwn wedi cael ei archifo, dydw e ddim yn derbyn fwy o atebiadau.</string>
   <string name="joinTheTeamXToPost">Ymuno\'r %1$s, i bostio mewn fforwm hyn</string>
+  <string name="teamNamedX">tîm %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Ni allwch bostio yn y fforymau eto. Chwarae ychydig o gemau!</string>
   <string name="subscribe">Tanysgrifio</string>
   <string name="unsubscribe">Dad-danysgrifio</string>
+  <string name="clickToRevealEmailAddress">[Cliciwch i ddangos cyfeiriad ebost]</string>
+  <string name="download">Lawrlwytho</string>
+  <string name="welcome">Croeso!</string>
+  <string name="cancelTournament">Gohirio\'r gystadleuaeth</string>
+  <string name="tournDescription">Disgrifiad cystadleuaeth</string>
 </resources>
