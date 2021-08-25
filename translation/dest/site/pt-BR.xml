@@ -922,5 +922,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="gameInProgress">Você tem uma partida em andamento com %s.</string>
   <string name="abortTheGame">Cancelar a partida</string>
   <string name="resignTheGame">Abandonar a partida</string>
-  <string name="youCantStartNewGame">Você não pode iniciar uma nova partida até que a atual tenha terminado.</string>
+  <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
 </resources>
