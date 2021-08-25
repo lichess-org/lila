@@ -223,4 +223,8 @@ export default rollupProject({
     output: 'modActivity',
     name: 'modActivity',
   },
+  tvGames: {
+    input: 'src/tvGames.ts',
+    output: 'tvGames',
+  },
 });
