@@ -437,9 +437,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env) {
     Secure(_.Teacher) { implicit ctx => me =>
       WithClassAndStudents(me, id) { (clas, students) =>
         WithStudent(clas, username) { s =>
-          env.activity.read.recent(s.user, 14) map { activity =>
-            views.html.clas.student.show(clas, students, s, activity)
-          }
+          for {
+            withManagingClas <- env.clas.api.student.withManagingClas(s, clas)
+            activity         <- env.activity.read.recent(s.user, 14)
+          } yield views.html.clas.student.show(clas, students, withManagingClas, activity)
         }
       }
     }

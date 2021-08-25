@@ -15,12 +15,12 @@ object student {
   def show(
       clas: Clas,
       students: List[Student],
-      s: Student.WithUser,
+      s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
   )(implicit ctx: Context) =
     bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
       cls := "student-show",
-      top(clas, s),
+      top(clas, s.withUser),
       div(cls := "box__pad")(
         standardFlash(),
         ctx.flash("password").map { password =>
@@ -56,7 +56,15 @@ object student {
               title := trans.clas.upgradeFromManaged.txt()
             )(trans.clas.release())
           )
-        ),
+        ) orElse s.managingClas.map { managingClas =>
+          div(cls := "student-show__managed")(
+            p(trans.clas.thisStudentAccountIsManaged()),
+            a(href := routes.Clas.studentShow(managingClas.id.value, s.user.username))(
+              "Class: ",
+              managingClas.name
+            )
+          )
+        },
         views.html.activity(s.user, activities)
       )
     )
