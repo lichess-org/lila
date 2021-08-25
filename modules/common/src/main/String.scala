@@ -34,7 +34,9 @@ object String {
       // bunch of probably useless blocks https://www.compart.com/en/unicode/block/U+2100
       (c >= '\u2100' && c <= '\u2C5F') ||
       // decorative chars ꧁ ꧂
-      (c == '\ua9c1' || c == '\ua9c2')
+      (c == '\ua9c1' || c == '\ua9c2') ||
+      // pretty quranic chars ஜ۩۞۩ஜ
+      (c >= '\u06d6' && c <= '\u06ff')
 
   // convert weird chars into letters when possible
   def normalize(str: String): String = Normalizer.normalize(str, Normalizer.Form.NFKC)
