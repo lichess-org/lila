@@ -1003,5 +1003,5 @@
   <string name="gameInProgress">У вас идёт игра с %s.</string>
   <string name="abortTheGame">Прервать игру</string>
   <string name="resignTheGame">Сдаться</string>
-  <string name="youCantStartNewGame">Вы не можете начать новую игру до тех пор, пока эта не будет закончена.</string>
+  <string name="youCantStartNewGame">Вы не можете начать новую игру, пока не завершена текущая.</string>
 </resources>
