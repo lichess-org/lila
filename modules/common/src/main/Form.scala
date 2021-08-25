@@ -66,7 +66,7 @@ object Form {
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
   // trims and removes garbage chars before validation
-  private val cleanTextFormatter: Formatter[String] = new Formatter[String] {
+  val cleanTextFormatter: Formatter[String] = new Formatter[String] {
     def bind(key: String, data: Map[String, String]) =
       data
         .get(key)
