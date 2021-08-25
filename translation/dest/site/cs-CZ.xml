@@ -395,7 +395,7 @@
   <string name="xJoinedTeamY">%1$s se přidal k týmu %2$s</string>
   <string name="xCreatedTeamY">%1$s založil tým %2$s</string>
   <string name="xStartedStreaming">%s začal streamovat</string>
-  <string name="averageElo">Průměrné Elo</string>
+  <string name="averageElo">Průměrný rating</string>
   <string name="location">Poloha</string>
   <string name="filterGames">Filtrovat partie</string>
   <string name="reset">Zrušit</string>
