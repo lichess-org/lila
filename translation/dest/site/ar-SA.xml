@@ -1081,4 +1081,6 @@
   <string name="hangOn">انتظر!</string>
   <string name="gameInProgress">لديك مباراة جارية مع %s.</string>
   <string name="abortTheGame">الغي المباراة</string>
+  <string name="resignTheGame">انسحاب طوعي</string>
+  <string name="youCantStartNewGame">لا يمكن أن تبدأ مباراة قبل الانتهاء من المباراة الحالية.</string>
 </resources>
