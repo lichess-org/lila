@@ -72,9 +72,6 @@ final class Tv(
       }
     }
 
-  def gameReplacement(gameId: String, exclude: List[String]) =
-    gameChannelReplacement(lila.tv.Tv.Channel.Best.key, gameId, exclude)
-
   def gameChannelReplacement(chanKey: String, gameId: String, exclude: List[String]) =
     Open { implicit ctx =>
       val gameFu = lila.tv.Tv.Channel.byKey.get(chanKey) ?? { channel =>

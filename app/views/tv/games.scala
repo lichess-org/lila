@@ -1,5 +1,7 @@
 package views.html.tv
 
+import controllers.routes
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -14,7 +16,10 @@ object games {
       moreCss = cssTag("tv.games"),
       moreJs = jsModule("tvGames")
     ) {
-      main(cls := "page-menu tv-games")(
+      main(
+        cls := "page-menu tv-games",
+        dataRel := s"$netBaseUrl${routes.Tv.gameChannelReplacement(channel.key, "gameId", Nil)}"
+      )(
         st.aside(cls := "page-menu__menu")(
           side.channels(channel, champions, "/games")
         ),

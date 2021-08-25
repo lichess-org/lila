@@ -18,12 +18,13 @@ function requestReplacementGame() {
 
   // Use requestAnimationFrame to avoid requesting games in background tabs
   requestAnimationFrame(() => {
-    const url = new URL(`${window.location.pathname}/replacement/${oldId}`, window.location.origin);
-    $('.mini-game').each((_i, el) => url.searchParams.append('exclude', el.dataset.live!));
+    const main = $('main.tv-games');
+    const url = new URL(main.data('rel').replace('gameId', oldId));
+    main.find('.mini-game').each((_i, el) => url.searchParams.append('exclude', el.dataset.live!));
     xhr
       .json(url.toString())
       .then((data: ReplacementResponse) => {
-        $(`.mini-game[data-live="${oldId}"]`).parent().html(data.html);
+        main.find(`.mini-game[data-live="${oldId}"]`).parent().html(data.html);
         lichess.contentLoaded();
       })
       .then(done, done);
