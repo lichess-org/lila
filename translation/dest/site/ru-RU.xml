@@ -546,7 +546,7 @@
   <string name="tournamentWinners">Победители турниров</string>
   <string name="name">Имя</string>
   <string name="description">Описание</string>
-  <string name="descPrivate">Частное описание</string>
+  <string name="descPrivate">Описание для членов команды</string>
   <string name="descPrivateHelp">Описание, которое будут видеть только члены клуба. Если установлено, то заменяет публичное описание для всех членов клуба.</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
