@@ -18,8 +18,8 @@
   <string name="rule1">Zahrňte kľúčové slovo \"lichess.org\" v názve Vášho streamu a požite kategóriu \"Šach\" keď streamujete na Lichessi.</string>
   <string name="rule2">Odstráňte kľúčové slovo keď nestreamujete z Lichessu.</string>
   <string name="rule3">Lichess automaticky rozozná tvoj stream a poskytne ti nasledujúce výhody:</string>
-  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Aby sme počas Vášho streamu zabezpečili fair play pre všetkých, prečítajte so naše %s.</string>
-  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">Časté otázky: Fariplay pri streamovaní</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Aby sme počas Vášho streamu zabezpečili fair play pre všetkých, prečítajte so naše %s.</string>
+  <string name="streamingFairplayFAQ">Časté otázky: Fariplay pri streamovaní</string>
   <string name="perks">Benefity streamovania s kľúčovým slovom</string>
   <string name="perk1">Dostanete ohnivú streamerskú ikonku na Váš Lichess profil.</string>
   <string name="perk2">Dostanete sa na vrchol zoznamu streamerov.</string>
