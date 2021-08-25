@@ -292,7 +292,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
             },
             hook: bindNonPassive(
               'submit',
-              _ => isNew || prompt(ctrl.trans('confirmDeleteStudy', data.name)) === data.name
+              _ => isNew || prompt(ctrl.trans('confirmDeleteStudy', data.name))?.trim() === data.name.trim()
             ),
           },
           [h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))]
