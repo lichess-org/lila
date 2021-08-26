@@ -200,6 +200,6 @@ export default class TournamentController {
   };
 
   toggleSearch = () => {
-    this.searching = !this.searching
+    this.searching = !this.searching;
   };
 }
