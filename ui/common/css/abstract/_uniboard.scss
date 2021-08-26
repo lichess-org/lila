@@ -28,7 +28,9 @@ $col3-uniboard-default-width: calc(#{$col3-uniboard-max-size} * #{$uniboard-defa
 
 $col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
-$col2-uniboard-max-width: calc(100vw - var(--gauge-gap, 0px) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px));
+$col2-uniboard-max-width: calc(
+  100vw - var(--gauge-gap, 0px) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px)
+);
 $col2-uniboard-max-height: $col3-uniboard-max-height;
 $col2-uniboard-max-size: Min(#{$col2-uniboard-max-width}, #{$col2-uniboard-max-height});
 $col2-uniboard-width: calc(#{$col2-uniboard-max-size} * var(--board-scale));
