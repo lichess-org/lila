@@ -18,7 +18,8 @@ import lila.socket.Socket.SocketVersion
 import lila.user.{ User => UserModel }
 
 final class Challenge(
-    env: Env
+    env: Env,
+    apiC: Api
 ) extends LilaController(env) {
 
   def api = env.challenge.api
@@ -336,10 +337,13 @@ final class Challenge(
                           case _ =>
                             env.challenge.api create challenge map {
                               case true =>
-                                JsonOk(
-                                  env.challenge.jsonView
-                                    .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
-                                )
+                                val json = env.challenge.jsonView
+                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                if (config.keepAliveStream)
+                                  apiC.sourceToNdJsonOption(
+                                    apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                  )
+                                else JsonOk(json)
                               case false =>
                                 BadRequest(jsonError("Challenge not created"))
                             }

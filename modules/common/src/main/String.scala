@@ -38,8 +38,16 @@ object String {
       // pretty quranic chars ஜ۩۞۩ஜ
       (c >= '\u06d6' && c <= '\u06ff')
 
-  // convert weird chars into letters when possible
-  def normalize(str: String): String = Normalizer.normalize(str, Normalizer.Form.NFKC)
+  object normalize {
+
+    private val degreeRegex = "[°º]".r
+
+    // convert weird chars into letters when possible
+    // but preserve °
+    def apply(str: String): String = Normalizer
+      .normalize(degreeRegex.replaceAllIn(str, '\u0001'.toString), Normalizer.Form.NFKC)
+      .replace('\u0001', '°')
+  }
 
   def decodeUriPath(input: String): Option[String] = {
     try {

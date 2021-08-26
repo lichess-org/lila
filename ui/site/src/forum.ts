@@ -29,10 +29,11 @@ lichess.load.then(() => {
 
   $('.forum-post__message').each(function (this: HTMLElement) {
     if (this.innerText.match(/(^|\n)>/)) {
+      const hiddenQuotes = '<span class=hidden-quotes>&gt;</span>';
       let result = '';
       let quote = [];
       for (const line of this.innerHTML.split('<br>')) {
-        if (line.startsWith('&gt;')) quote.push(line.substring(4));
+        if (line.startsWith('&gt;')) quote.push(hiddenQuotes + line.substring(4).trim());
         else {
           if (quote.length > 0) {
             result += `<blockquote>${quote.join('<br>')}</blockquote>`;
@@ -66,6 +67,8 @@ lichess.load.then(() => {
       response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
 
     let quote = message.innerText
+      .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
+      .trim()
       .split('\n')
       .map(line => '> ' + line)
       .join('\n');
@@ -146,11 +149,14 @@ lichess.load.then(() => {
 
   const replyStorage = lichess.tempStorage.make('forum.reply' + location.pathname);
   const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
-  const storedReply = replyStorage.get();
   let submittingReply = false;
-  if (replyEl && storedReply) replyEl.value = storedReply;
 
-  window.addEventListener('unload', () => {
+  window.addEventListener('pageshow', () => {
+    const storedReply = replyStorage.get();
+    if (replyEl && storedReply) replyEl.value = storedReply;
+  });
+
+  window.addEventListener('pagehide', () => {
     if (!submittingReply) {
       if (replyEl?.value) replyStorage.set(replyEl.value);
       else replyStorage.remove();

@@ -199,5 +199,7 @@ export default class TournamentController {
     if (teamInfo.id === this.teamInfo.requested) this.teamInfo.loaded = teamInfo;
   };
 
-  toggleSearch = () => (this.searching = !this.searching);
+  toggleSearch = () => {
+    this.searching = !this.searching;
+  };
 }

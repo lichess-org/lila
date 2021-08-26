@@ -18,7 +18,7 @@ object EvalCacheSelector {
       .toList
       // and sort the groups by multiPv, higher first
       .sortBy(-_._1)
-      //keep only the best eval in each group
+      // keep only the best eval in each group
       .flatMap {
         import cats.implicits._
         _._2.maximumByOption(ranking)
