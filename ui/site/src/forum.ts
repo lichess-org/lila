@@ -146,11 +146,14 @@ lichess.load.then(() => {
 
   const replyStorage = lichess.tempStorage.make('forum.reply' + location.pathname);
   const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
-  const storedReply = replyStorage.get();
   let submittingReply = false;
-  if (replyEl && storedReply) replyEl.value = storedReply;
 
-  window.addEventListener('unload', () => {
+  window.addEventListener('pageshow', () => {
+    const storedReply = replyStorage.get();
+    if (replyEl && storedReply) replyEl.value = storedReply;
+  });
+
+  window.addEventListener('pagehide', () => {
     if (!submittingReply) {
       if (replyEl?.value) replyStorage.set(replyEl.value);
       else replyStorage.remove();
