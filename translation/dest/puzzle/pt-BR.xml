@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Você não tem nenhum quebra-cabeça no banco de dados, mas o Lichess ainda te ama muito.
 Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafio seu adicionado!</string>
   <string name="fromXGamesFound">%1$s quebra-cabeças encontrados em %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Treinar, analisar, melhorar</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s jogou</item>
+    <item quantity="other">%s jogaram</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s para jogar novamente</item>
+    <item quantity="other">%s para jogar novamente</item>
+  </plurals>
+  <string name="percentSolved">%s resolvido</string>
+  <string name="noPuzzlesToShow">Nada para mostrar, vá jogar alguns quebra-cabeças primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="strengthDescription">Você desempenha melhor nesses temas</string>
 </resources>
