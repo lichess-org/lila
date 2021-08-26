@@ -66,4 +66,5 @@
     <item quantity="other">%s na zopakovanie</item>
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
+  <string name="noPuzzlesToShow">Niet tu čo ukázať, choďte najprv riešiť pár úloh!</string>
 </resources>
