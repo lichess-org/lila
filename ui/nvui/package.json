@@ -3,6 +3,16 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org non-visual user interface",
+  "exports": {
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "chess",
     "lichess",
