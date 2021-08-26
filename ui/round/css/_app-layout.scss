@@ -110,6 +110,10 @@
     }
   }
 
+  @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-width $col3-uniboard-table;
+  }
+
   @include breakpoint($mq-col2-uniboard-squeeze) {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
     grid-column-gap: #{$block-gap * 3 / 2};
