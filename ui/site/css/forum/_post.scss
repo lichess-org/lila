@@ -101,6 +101,12 @@
       }
     }
 
+    .hidden-quotes {
+      color: transparent;
+      display: inline-block;
+      width: 0;
+    }
+
     img {
       max-width: 100%;
     }
