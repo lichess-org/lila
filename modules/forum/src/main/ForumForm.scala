@@ -24,10 +24,10 @@ final private[forum] class ForumForm(
 
   def post(user: User, inOwnTeam: Boolean) = Form(postMapping(user, inOwnTeam))
 
-  def postEdit(user: User, inOwnTeam: Boolean) =
+  def postEdit(user: User, inOwnTeam: Boolean, previousText: String) =
     Form(
       mapping(
-        "changes" -> userTextMapping(user, inOwnTeam)
+        "changes" -> userTextMapping(user, inOwnTeam, previousText.some)
       )(PostEdit.apply)(PostEdit.unapply)
     )
 
@@ -45,11 +45,11 @@ final private[forum] class ForumForm(
     single("reason" -> optional(nonEmptyText))
   )
 
-  private def userTextMapping(user: User, inOwnTeam: Boolean) =
+  private def userTextMapping(user: User, inOwnTeam: Boolean, previousText: Option[String] = None) =
     cleanText(minLength = 3)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
-        t => inOwnTeam || promotion.test(user)(t)
+        t => inOwnTeam || promotion.test(user)(t, previousText)
       )
 }
 

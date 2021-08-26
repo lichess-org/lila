@@ -61,18 +61,23 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       implicit val req = ctx.body
       env.forum.postApi.teamIdOfPostId(postId) flatMap { teamId =>
         teamId.?? { env.team.cached.isLeader(_, me.id) } flatMap { inOwnTeam =>
-          forms
-            .postEdit(me, inOwnTeam)
-            .bindFromRequest()
-            .fold(
-              _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-              data =>
-                CreateRateLimit(HTTPRequest ipAddress ctx.req) {
-                  postApi.editPost(postId, data.changes, me).map { post =>
-                    Redirect(routes.ForumPost.redirect(post.id))
-                  }
-                }(rateLimitedFu)
-            )
+          postApi getPost postId flatMap {
+            _ ?? { post =>
+              forms
+                .postEdit(me, inOwnTeam, post.text)
+                .bindFromRequest()
+                .fold(
+                  _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
+                  data =>
+                    CreateRateLimit(HTTPRequest ipAddress ctx.req) {
+                      postApi.editPost(postId, data.changes, me).map { post =>
+                        Redirect(routes.ForumPost.redirect(post.id))
+                      }
+                    }(rateLimitedFu)
+                )
+
+            }
+          }
         }
       }
     }

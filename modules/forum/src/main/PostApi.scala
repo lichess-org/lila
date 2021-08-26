@@ -89,7 +89,7 @@ final class PostApi(
           (newPost.text != post.text).?? {
             env.postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.?? {
               logAnonPost(user.id, newPost, edit = true)
-            }
+            } >>- promotion.save(user, newPost.text)
           } inject newPost
       }
     }
