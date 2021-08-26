@@ -70,4 +70,9 @@
   <string name="fromMyGamesNone">Je hebt geen puzzels in de database staan, maar Lichess waardeert je nog steeds heel erg.
 Speel rapid en klassieke partijen om de kans te vergroten dat een puzzel uit jouw partijen wordt toegevoegd!</string>
   <string name="fromXGamesFound">%1$s puzzels gevonden in %2$s partijen</string>
+  <string name="puzzleDashboardDescription">Train, analyseer, verbeter</string>
+  <string name="percentSolved">%s opgelost</string>
+  <string name="noPuzzlesToShow">Niets te tonen, speel eerst wat puzzels!</string>
+  <string name="improvementAreasDescription">Train deze om je voortgang te optimaliseren!</string>
+  <string name="strengthDescription">Je presteert beste in deze thema\'s</string>
 </resources>
