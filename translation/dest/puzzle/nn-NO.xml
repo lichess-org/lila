@@ -75,4 +75,12 @@ Spel parti i snøggsjakk og klassisk sjakk for å auke sjansen for å få med ei
     <item quantity="one">%s spela</item>
     <item quantity="other">%s spela</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s å spela omatt</item>
+    <item quantity="other">%s å spela omatt</item>
+  </plurals>
+  <string name="percentSolved">%s løyst</string>
+  <string name="noPuzzlesToShow">Ikkje noko å visa, spel nokre oppgåver fyrst!</string>
+  <string name="improvementAreasDescription">Øv på desse for å betra framgongen!</string>
+  <string name="strengthDescription">Du klarar deg best i disse temaa</string>
 </resources>
