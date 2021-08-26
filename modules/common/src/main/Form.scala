@@ -71,7 +71,7 @@ object Form {
       data
         .get(key)
         .map(_.trim)
-        .map(String.normalize)
+        .map(String.normalize.apply)
         .toRight(Seq(FormError(key, "error.required", Nil)))
     def unbind(key: String, value: String) = Map(key -> String.normalize(value.trim))
   }

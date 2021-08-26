@@ -36,8 +36,16 @@ object String {
       // decorative chars ꧁ ꧂
       (c == '\ua9c1' || c == '\ua9c2')
 
-  // convert weird chars into letters when possible
-  def normalize(str: String): String = Normalizer.normalize(str, Normalizer.Form.NFKC)
+  object normalize {
+
+    private val degreeRegex = "[°º]".r
+
+    // convert weird chars into letters when possible
+    // but preserve °
+    def apply(str: String): String = Normalizer
+      .normalize(degreeRegex.replaceAllIn(str, '\u0001'.toString), Normalizer.Form.NFKC)
+      .replace('\u0001', '°')
+  }
 
   def decodeUriPath(input: String): Option[String] = {
     try {
