@@ -48,23 +48,17 @@ final private class Takebacker(
   def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match {
       case Pov(game, color) if pov.player.isProposingTakeback =>
-        proxy.save {
-          messenger.system(game, trans.takebackPropositionCanceled.txt())
-          Progress(game) map { g =>
-            g.updatePlayer(color, _.removeTakebackProposition)
-          }
-        } inject {
+        messenger.system(game, trans.takebackPropositionCanceled.txt())
+        val newGame = game.updatePlayer(color, _.removeTakebackProposition)
+        proxy.save(Progress(newGame)) >>-
+          publishTakebackOffer(newGame) inject
           List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
-        }
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
-        proxy.save {
-          messenger.system(game, trans.takebackPropositionDeclined.txt())
-          Progress(game) map { g =>
-            g.updatePlayer(!color, _.removeTakebackProposition)
-          }
-        } inject {
+        messenger.system(game, trans.takebackPropositionDeclined.txt())
+        val newGame = game.updatePlayer(!color, _.removeTakebackProposition)
+        proxy.save(Progress(newGame)) >>-
+          publishTakebackOffer(newGame) inject
           List(Event.TakebackOffers(white = false, black = false)) -> situation.decline
-        }
       case _ => fufail(ClientError("[takebacker] invalid no " + pov))
     }
 
