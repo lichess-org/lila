@@ -878,4 +878,5 @@
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
+  <string name="hangOn">挂起！</string>
 </resources>
