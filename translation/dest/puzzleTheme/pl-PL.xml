@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Ograniczone ruchy przeciwnika powodują, że każde posunięcie pogarsza jego pozycję.</string>
   <string name="healthyMix">Miszmasz</string>
   <string name="healthyMixDescription">Bądź gotów na wszystko! Jak podczas prawdziwej partii.</string>
+  <string name="playerGames">Partie gracza</string>
+  <string name="playerGamesDescription">Wyszukaj zadania wygenerowane z Twoich partii lub z partii innego gracza.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Te zadania dostępne są w domenie publicznej i mogą być pobrane z %s.</string>
 </resources>
