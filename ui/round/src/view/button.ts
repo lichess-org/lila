@@ -37,8 +37,8 @@ function analysisButton(ctrl: RoundController): VNode | null {
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
-    them = !!d.opponent.offeringRematch,
     disabled = !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
+    them = !!d.opponent.offeringRematch && !disabled,
     noarg = ctrl.noarg;
   return [
     them
