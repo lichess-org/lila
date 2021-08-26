@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">O opoñente está limitado nos movementos que pode facer e todos os movementos empeoran a súa posición.</string>
   <string name="healthyMix">Mezcla equilibrada</string>
   <string name="healthyMixDescription">Un pouco de todo. Non sabes que te agarda, así que está atent@ para calquera cousa, como nas partidas reais.</string>
+  <string name="playerGames">Partidas de xogadores</string>
+  <string name="playerGamesDescription">Exercicios xerados a partir das túas partidas ou dende partidas doutros xogadores.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Estas partidas son de dominio público e poden ser baixadas de %s.</string>
 </resources>
