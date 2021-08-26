@@ -8,12 +8,13 @@ import lila.common.config.NetDomain
 
 final class PromotionApi(domain: NetDomain) {
 
-  def test(user: User)(text: String): Boolean =
+  def test(user: User)(text: String, prevText: Option[String] = None): Boolean =
     user.isVerified || user.isAdmin || {
       val promotions = extract(text)
       promotions.isEmpty || {
-        val prev   = ~cache.getIfPresent(user.id)
-        val accept = prev.sizeIs < 3 && !prev.exists(promotions.contains)
+        val prevTextPromotion = extract(~prevText)
+        val prev              = ~cache.getIfPresent(user.id) -- prevTextPromotion
+        val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
         if (!accept) logger.info(s"Promotion @${user.username} ${identify(text) mkString ", "}")
         accept
       }
