@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">O adversário tem os seus movimentos limitados, e qualquer movimento que ele faça vai enfraquecer sua própria posição.</string>
   <string name="healthyMix">Combinação saudável</string>
   <string name="healthyMixDescription">Um pouco de tudo. Você nunca sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
+  <string name="playerGames">Jogos do jogador</string>
+  <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir de seus jogos ou de jogos de outro jogador.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Esses quebra-cabeças estão no domínio público e podem ser baixados de %s.</string>
 </resources>
