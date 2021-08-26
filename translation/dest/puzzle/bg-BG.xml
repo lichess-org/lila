@@ -70,4 +70,5 @@
   <string name="fromMyGamesNone">В базата данни няма задачи от Ваши игри но Lichess разчита на Вас.
 Играйте още ускорени и класически партии за да увеличите шансовете задачи от Ваши партии да бъдат добавени!</string>
   <string name="fromXGamesFound">%1$s задачи намерени в %2$s игри</string>
+  <string name="percentSolved">%s решени</string>
 </resources>
