@@ -58,17 +58,12 @@
   }
 
   &__footer {
-    @extend %flex-between-nowrap;
     color: $c-font-dim;
     font-size: 0.9em;
+    text-align: center;
+
     strong {
       @extend %break-word;
     }
-  }
-
-  &__redirect {
-    flex: 0 0 60%;
-    margin-left: 1em;
-    text-align: right;
   }
 }
