@@ -76,7 +76,7 @@ export default function (ctrl: Controller): VNode {
                 rel: 'noopener',
               },
             }),
-            data.user
+            data.user && !ctrl.autoNexting()
               ? h(
                   'a',
                   {
