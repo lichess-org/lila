@@ -76,4 +76,5 @@
   <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet Lichess vis tiek jus labai myli.
 Žaiskite greituosius ir klasikinius žaidimus ir taip padidinkite šansus, kad bus pridėtas galvosūkis iš jūsų partijos!</string>
   <string name="fromXGamesFound">%1$s galvosūkių rasta %2$s partijose</string>
+  <string name="percentSolved">%s išspręsta</string>
 </resources>
