@@ -160,12 +160,13 @@ object SetupForm {
       mapping(
         variant,
         clock,
-        "days"          -> optional(days),
-        "rated"         -> boolean,
-        "color"         -> optional(color),
-        "fen"           -> fenField,
-        "acceptByToken" -> optional(nonEmptyText),
-        "message"       -> message
+        "days"            -> optional(days),
+        "rated"           -> boolean,
+        "color"           -> optional(color),
+        "fen"             -> fenField,
+        "acceptByToken"   -> optional(nonEmptyText),
+        "message"         -> message,
+        "keepAliveStream" -> optional(boolean)
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)

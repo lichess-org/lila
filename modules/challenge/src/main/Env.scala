@@ -27,6 +27,7 @@ final class Env(
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
+    scheduler: akka.actor.Scheduler,
     mode: play.api.Mode
 ) {
 
@@ -54,6 +55,8 @@ final class Env(
   lazy val bulk = wire[ChallengeBulkApi]
 
   lazy val msg = wire[ChallengeMsg]
+
+  lazy val keepAliveStream = wire[ChallengeKeepAliveStream]
 
   val forms = new ChallengeForm
 
