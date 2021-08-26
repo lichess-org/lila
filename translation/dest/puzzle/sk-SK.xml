@@ -52,4 +52,5 @@
   <string name="history">História úloh</string>
   <string name="solved">vyriešené</string>
   <string name="failed">zlyhané</string>
+  <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
 </resources>
