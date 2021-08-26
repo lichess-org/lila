@@ -878,4 +878,9 @@
   <string name="emailAssociatedToaccount">与帐户关联的电子邮件地址</string>
   <string name="sentEmailWithLink">我们已经向您发送了一封带有链接的电子邮件。</string>
   <string name="tournamentEntryCode">比赛入场码</string>
+  <string name="hangOn">挂起！</string>
+  <string name="gameInProgress">您正在与 %s 进行对局。</string>
+  <string name="abortTheGame">中止本局</string>
+  <string name="resignTheGame">认输</string>
+  <string name="youCantStartNewGame">在本局结束前，你不能开始新的对局。</string>
 </resources>

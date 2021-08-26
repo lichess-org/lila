@@ -919,4 +919,9 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="emailAssociatedToaccount">E-postadresse tilknyttet kontoen</string>
   <string name="sentEmailWithLink">Vi har sendt deg en e-post med en lenke.</string>
   <string name="tournamentEntryCode">Turneringsadgangskode</string>
+  <string name="hangOn">Vent litt!</string>
+  <string name="gameInProgress">Du har et parti på gang med %s.</string>
+  <string name="abortTheGame">Avbryt partiet</string>
+  <string name="resignTheGame">Gi opp partiet</string>
+  <string name="youCantStartNewGame">Du kan ikke starte et nytt parti før dette er avsluttet.</string>
 </resources>

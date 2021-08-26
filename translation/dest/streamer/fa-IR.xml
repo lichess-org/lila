@@ -17,6 +17,7 @@
   <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
   <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
   <string name="rule3">لیچس جریان شما را به صورت خودکار تشخیص داده و قدرت پردازش زیر را فعال می کند:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا در مدت استریم شما از بازی جوانمردانه برای همه اطمینان حاصل شود.</string>
   <string name="perks">مزایای جریان با کلمه کلیدی</string>
   <string name="perk1">یک نماد جریان مستقیم شعله ور در نمایه لیچس خود دریافت کنید.</string>
   <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>

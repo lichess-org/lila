@@ -919,4 +919,9 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="emailAssociatedToaccount">Adresse courriel associée à votre compte</string>
   <string name="sentEmailWithLink">Nous vous avons envoyé un courriel avec un lien.</string>
   <string name="tournamentEntryCode">Code d\'entrée du tournoi</string>
+  <string name="hangOn">Vous jouez déjà une partie!</string>
+  <string name="gameInProgress">Vous avez une partie en cours avec %s.</string>
+  <string name="abortTheGame">Annuler la partie</string>
+  <string name="resignTheGame">Rejoindre la partie</string>
+  <string name="youCantStartNewGame">Vous ne pouvez pas commencer une nouvelle partie tant que celle-ci n\'est pas terminée.</string>
 </resources>
