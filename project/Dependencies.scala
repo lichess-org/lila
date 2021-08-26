@@ -13,7 +13,7 @@ object Dependencies {
   val maxmind     = "com.sanoma.cda"             %% "maxmind-geoip2-scala"            % "1.3.1-THIB"
   val prismic     = "io.prismic"                 %% "scala-kit"                       % "1.2.19-THIB213"
   val scrimage    = "com.sksamuel.scrimage"       % "scrimage-core"                   % "4.0.22"
-  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "4.0.2"  % "compile"
+  val scaffeine   = "com.github.blemale"         %% "scaffeine"                       % "5.1.0"  % "compile"
   val googleOAuth = "com.google.auth"             % "google-auth-library-oauth2-http" % "1.1.0"
   val scalaUri    = "io.lemonlabs"               %% "scala-uri"                       % "3.5.0"
   val scalatags   = "com.lihaoyi"                %% "scalatags"                       % "0.9.4"
@@ -53,14 +53,14 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.8-lila_1.7"
+    val version = "2.8.8-lila_1.8"
     val api     = "com.typesafe.play" %% "play"        % version
     val json    = "com.typesafe.play" %% "play-json"   % "2.9.2"
     val mailer  = "com.typesafe.play" %% "play-mailer" % "8.0.1"
   }
 
   object playWs {
-    val version = "2.1.2"
+    val version = "2.1.3"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
@@ -74,7 +74,7 @@ object Dependencies {
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.8"
+    val version    = "2.6.16"
     val akka       = "com.typesafe.akka" %% "akka-actor"       % version
     val akkaTyped  = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version
