@@ -19,7 +19,7 @@ export interface BoardData {
 export type PublishZoom = (v: number) => void;
 
 export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close): BoardCtrl {
-  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom')) + 100;
+  const readZoom = () => parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
 
   const saveZoom = debounce(
     () =>
@@ -44,7 +44,7 @@ export function ctrl(data: BoardData, trans: Trans, redraw: Redraw, close: Close
     },
     readZoom,
     setZoom(v: number) {
-      document.body.setAttribute('style', '--zoom:' + (v - 100));
+      document.body.setAttribute('style', '--zoom:' + v);
       window.dispatchEvent(new Event('resize'));
       redraw();
       saveZoom();
@@ -83,7 +83,7 @@ export function view(ctrl: BoardCtrl): VNode {
       isNaN(domZoom)
         ? [h('p', 'No board to zoom here!')]
         : [
-            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom - 100, '%']),
+            h('p', [ctrl.trans.noarg('boardSize'), ': ', domZoom, '%']),
             h('input.range', {
               attrs: {
                 type: 'range',
