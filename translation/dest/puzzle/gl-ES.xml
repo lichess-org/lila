@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Non tes exercicios na base de datos, pero Lichess aínda te quiere un montón.
 Xoga partidas rápidas e clásicas para ter máis posibilidades de que se engadan os teus exercicios!</string>
   <string name="fromXGamesFound">%1$s exercicios atopados en %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s xogados</item>
+    <item quantity="other">%s xogados</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a repetir</item>
+    <item quantity="other">%s a repetir</item>
+  </plurals>
+  <string name="percentSolved">%s resoltos</string>
+  <string name="noPuzzlesToShow">Nada que amosar, xoga algúns Problemas primeiro!</string>
+  <string name="improvementAreasDescription">Adestra estes para optimizar o teu progreso!</string>
+  <string name="strengthDescription">O teu rendemento é mellor nestes temas</string>
 </resources>
