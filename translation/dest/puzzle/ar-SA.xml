@@ -83,7 +83,7 @@
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
   <string name="fromXGamesFound">%1$s ألغاز وجدت في %2$s مباراة</string>
   <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="zero">%s لعبت</item>
     <item quantity="one">%s لعبت</item>
     <item quantity="two">%s لعبت</item>
