@@ -18,8 +18,8 @@
   <string name="rule1">Уключыце ключавое слова \"lichess.org\" да загалоўку вашай трансляцыі і выкарыстоўвайце катэгорыю \"Шахматы\" пры трансляцыі на Lichess.</string>
   <string name="rule2">Выдаліце ключавое слова калі стрыміце не-Lichess дзейнасць.</string>
   <string name="rule3">Lichess аўтаматычна выявіць ваш стрым і ўключыць наступныя перавагі:</string>
-  <string name="rule4" comment="rule4&#10;&#10;%s is 'streaming Fairplay FAQ'&#10;&#10;So the final message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прачытайце нашы %s каб гарантаваць сумленную гульню для ўсіх на працягу вашага стрыму.</string>
-  <string name="streamingFairplayFAQ" comment="streamingFairplayFAQ&#10;&#10;Part of a longer sentence: 'Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream'">правілы сумленнай гульні пад час стрымаў (Пытанні і адказы)</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Прачытайце нашы %s каб гарантаваць сумленную гульню для ўсіх на працягу вашага стрыму.</string>
+  <string name="streamingFairplayFAQ">правілы сумленнай гульні пад час стрымаў (Пытанні і адказы)</string>
   <string name="perks">Перавагі стрыму з ключавым словам</string>
   <string name="perk1">Атрыманне вогненны значок стымеру на вашым профіле Lichess.</string>
   <string name="perk2">Патрапіць ў верх спісу стрымаў.</string>

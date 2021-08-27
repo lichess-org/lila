@@ -330,7 +330,7 @@
     <item quantity="many">Дать %s секунд</item>
     <item quantity="other">Дать %s секунд</item>
   </plurals>
-  <string name="thisAccountViolatedTos">Пользователь этой учётной записи нарушил Пользовательское соглашение</string>
+  <string name="thisAccountViolatedTos">Этот игрок нарушил условия пользовательского соглашения</string>
   <string name="openingExplorerAndTablebase">База дебютов и эндшпилей</string>
   <string name="takeback">Вернуть ход</string>
   <string name="proposeATakeback">Попросить соперника вернуть ход</string>
@@ -546,7 +546,7 @@
   <string name="tournamentWinners">Победители турниров</string>
   <string name="name">Имя</string>
   <string name="description">Описание</string>
-  <string name="descPrivate">Частное описание</string>
+  <string name="descPrivate">Описание для членов команды</string>
   <string name="descPrivateHelp">Описание, которое будут видеть только члены клуба. Если установлено, то заменяет публичное описание для всех членов клуба.</string>
   <string name="no">Нет</string>
   <string name="yes">Да</string>
@@ -999,9 +999,9 @@
   <string name="emailAssociatedToaccount">Адрес электронной почты, привязанный в этому аккаунту</string>
   <string name="sentEmailWithLink">Мы отправили вам письмо со ссылкой.</string>
   <string name="tournamentEntryCode">Код для участия в турнире</string>
-  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Подождите!</string>
-  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Вы ведёте игру с %s.</string>
-  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Прервать игру</string>
-  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Сдаться</string>
-  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Вы не можете начать новую игру до тех пор, пока эта не будет закончена.</string>
+  <string name="hangOn">Подождите!</string>
+  <string name="gameInProgress">У вас идёт игра с %s.</string>
+  <string name="abortTheGame">Прервать игру</string>
+  <string name="resignTheGame">Сдаться</string>
+  <string name="youCantStartNewGame">Вы не можете начать новую игру, пока не завершена текущая.</string>
 </resources>

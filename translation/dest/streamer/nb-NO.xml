@@ -18,6 +18,8 @@
   <string name="rule1">Du må inkludere nøkkelordet «lichess.org» i tittelen på strømmen og bruke kategorien «Chess» når du strømmer på Lichess.</string>
   <string name="rule2">Fjern \"lichess.org\" fra tittelen på strømmen når du strømmer noe annet enn Lichess.</string>
   <string name="rule3">Lichess oppdager strømmen din automatisk og gir deg følgende fordeler:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Les vår %s for å sikre like forhold for alle mens du strømmer.</string>
+  <string name="streamingFairplayFAQ">FAQ for sportslig opptreden for strømmere</string>
   <string name="perks">Fordeler ved å inkludere \"lichess.org\" i tittelen på strømmen</string>
   <string name="perk1">Få et spesielt strømmer-ikon på Lichess-profilen din.</string>
   <string name="perk2">Bli flyttet til toppen av listen over strømmere.</string>

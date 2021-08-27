@@ -918,4 +918,9 @@ Du chasch dä %s verwändä, zum ä FEN-Schtelliig z\'generiärä und diä denn 
   <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turniäriigangscode</string>
+  <string name="hangOn">Moment mal!</string>
+  <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
+  <string name="abortTheGame">Partie abbrechen</string>
+  <string name="resignTheGame">Partie aufgeben</string>
+  <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
 </resources>

@@ -2037,9 +2037,16 @@ val `fromXGames` = new I18nKey("puzzle:fromXGames")
 val `searchPuzzles` = new I18nKey("puzzle:searchPuzzles")
 val `fromMyGamesNone` = new I18nKey("puzzle:fromMyGamesNone")
 val `fromXGamesFound` = new I18nKey("puzzle:fromXGamesFound")
+val `puzzleDashboardDescription` = new I18nKey("puzzle:puzzleDashboardDescription")
+val `percentSolved` = new I18nKey("puzzle:percentSolved")
+val `noPuzzlesToShow` = new I18nKey("puzzle:noPuzzlesToShow")
+val `improvementAreasDescription` = new I18nKey("puzzle:improvementAreasDescription")
+val `strengthDescription` = new I18nKey("puzzle:strengthDescription")
 val `playedXTimes` = new I18nKey("puzzle:playedXTimes")
 val `nbPointsBelowYourPuzzleRating` = new I18nKey("puzzle:nbPointsBelowYourPuzzleRating")
 val `nbPointsAboveYourPuzzleRating` = new I18nKey("puzzle:nbPointsAboveYourPuzzleRating")
+val `nbPlayed` = new I18nKey("puzzle:nbPlayed")
+val `nbToReplay` = new I18nKey("puzzle:nbToReplay")
 }
 
 object puzzleTheme {
@@ -2164,6 +2171,9 @@ val `zugzwang` = new I18nKey("puzzleTheme:zugzwang")
 val `zugzwangDescription` = new I18nKey("puzzleTheme:zugzwangDescription")
 val `healthyMix` = new I18nKey("puzzleTheme:healthyMix")
 val `healthyMixDescription` = new I18nKey("puzzleTheme:healthyMixDescription")
+val `playerGames` = new I18nKey("puzzleTheme:playerGames")
+val `playerGamesDescription` = new I18nKey("puzzleTheme:playerGamesDescription")
+val `puzzleDownloadInformation` = new I18nKey("puzzleTheme:puzzleDownloadInformation")
 }
 
 object challenge {

@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "chat": "2.0.0",
-    "chessground": "^8.1.6",
+    "chessground": "^8.1.7",
     "common": "2.0.0",
     "game": "2.0.0",
     "snabbdom": "^3.0.1"

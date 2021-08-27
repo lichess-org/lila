@@ -958,4 +958,9 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="emailAssociatedToaccount">Ar kontu saistītais epasts</string>
   <string name="sentEmailWithLink">Esam jums nosūtījuši epastu ar saiti.</string>
   <string name="tournamentEntryCode">Turnīra pievienošanās kods</string>
+  <string name="hangOn">Uzmanību!</string>
+  <string name="gameInProgress">Jums ir nepageigta spēle ar %s.</string>
+  <string name="abortTheGame">Atcelt spēli</string>
+  <string name="resignTheGame">Padoties</string>
+  <string name="youCantStartNewGame">Kamēr neesat pabeidzis šo spēli, nevarat sākt jaunu partiju.</string>
 </resources>

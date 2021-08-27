@@ -879,4 +879,9 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="emailAssociatedToaccount">Alamat e-mail yang terkait dengan akun ini</string>
   <string name="sentEmailWithLink">Kami telah mengirimkan Anda email dengan tautan.</string>
   <string name="tournamentEntryCode">Kode masuk turnamen</string>
+  <string name="hangOn">Tunggu sebentar!</string>
+  <string name="gameInProgress">Permainan anda dengan %s masih sedang berlangsung.</string>
+  <string name="abortTheGame">Batalkan permainan</string>
+  <string name="resignTheGame">Menyerah dari permainan</string>
+  <string name="youCantStartNewGame">Anda tidak dapat memulai permainan baru sampai permainan ini selesai.</string>
 </resources>

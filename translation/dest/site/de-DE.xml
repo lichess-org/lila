@@ -919,9 +919,9 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="emailAssociatedToaccount">Deinem Konto zugeordnete E-Mail-Adresse</string>
   <string name="sentEmailWithLink">Wir haben dir eine E-Mail mit einem Link geschickt.</string>
   <string name="tournamentEntryCode">Turnierbeitrittscode</string>
-  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Moment mal!</string>
-  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Du hast noch eine laufende Partie mit %s.</string>
-  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Partie abbrechen</string>
-  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Partie aufgeben</string>
-  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
+  <string name="hangOn">Moment mal!</string>
+  <string name="gameInProgress">Du hast noch eine laufende Partie mit %s.</string>
+  <string name="abortTheGame">Partie abbrechen</string>
+  <string name="resignTheGame">Partie aufgeben</string>
+  <string name="youCantStartNewGame">Du kannst keine neue Partie starten, bevor diese beendet ist.</string>
 </resources>

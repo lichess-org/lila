@@ -578,7 +578,6 @@ object Quote {
       "It began to feel as though you were playing against chess itself --on playing against Robert Fischer.",
       "Walter Shipman"
     ),
-    new Quote("Checkers is for tramps.", "Paul Morphy"),
     new Quote(
       "When you play Bobby, it is not a question if you win or lose.  It is a question if you survive.",
       "Boris Spassky"

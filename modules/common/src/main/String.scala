@@ -1,7 +1,9 @@
 package lila.common
 
 import java.text.Normalizer
+import java.util.stream.Collectors
 import play.api.libs.json._
+import scala.jdk.CollectionConverters._
 import scalatags.Text.all._
 
 import lila.base.RawHtml
@@ -25,6 +27,16 @@ object String {
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
 
   def hasGarbageChars(str: String) = str.chars().anyMatch(isGarbageChar)
+
+  def distinctGarbageChars(str: String): Set[Char] =
+    str
+      .chars()
+      .filter(isGarbageChar)
+      .boxed()
+      .iterator()
+      .asScala
+      .map((i: Integer) => i.toChar)
+      .toSet
 
   def isGarbageChar(c: Int) =
     // invisible chars https://www.compart.com/en/unicode/block/U+2000

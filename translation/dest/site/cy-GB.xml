@@ -25,14 +25,14 @@
   <string name="youPlayTheWhitePieces">Chi yw gwyn</string>
   <string name="youPlayTheBlackPieces">Chi yw du</string>
   <string name="itsYourTurn">Dy dro di!</string>
-  <string name="cheatDetected">Twyll wedi ei canfod</string>
+  <string name="cheatDetected">Twyll wedi ei ganfod</string>
   <string name="kingInTheCenter">Teyrn yn y canol</string>
   <string name="threeChecks">Tri siach</string>
   <string name="raceFinished">Rasys drosodd</string>
   <string name="variantEnding">Mae\'r amrywiolyn wedi dod i\'w ben.</string>
   <string name="newOpponent">Gwrthwynebydd newydd</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">Mae\'r gwrthwynebydd eisiau chwarae gêm arall efo chi</string>
-  <string name="joinTheGame">Ymuno â gêm</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Mae\'r gwrthwynebydd eisiau chwarae gêm arall yn eich erbyn chi</string>
+  <string name="joinTheGame">Ymuno\'r gêm</string>
   <string name="whitePlays">Tro Gwyn</string>
   <string name="blackPlays">Tro Du</string>
   <string name="opponentLeftChoices">Mae\'r chwaraewr wedi gadael yr gêm. Gelli orfodi ildiad neu aros amdano.</string>

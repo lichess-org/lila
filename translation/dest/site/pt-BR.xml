@@ -918,9 +918,9 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="emailAssociatedToaccount">Endereço de e-mail associado à conta</string>
   <string name="sentEmailWithLink">Enviamos um e-mail pra você com um link.</string>
   <string name="tournamentEntryCode">Código de entrada do torneio</string>
-  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Espere!</string>
-  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Você tem uma partida em andamento com %s.</string>
-  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Cancelar a partida</string>
-  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Abandonar a partida</string>
-  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Você não pode iniciar uma nova partida até que a atual tenha terminado.</string>
+  <string name="hangOn">Espere!</string>
+  <string name="gameInProgress">Você tem uma partida em andamento com %s.</string>
+  <string name="abortTheGame">Cancelar a partida</string>
+  <string name="resignTheGame">Abandonar a partida</string>
+  <string name="youCantStartNewGame">Você não pode iniciar um novo jogo até que este acabe.</string>
 </resources>

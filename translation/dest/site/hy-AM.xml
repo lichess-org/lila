@@ -811,4 +811,9 @@
   <string name="onlyTeamMembers">Միայն թիմի անդամները</string>
   <string name="focusChat">Տեղափոխվել զրուցարանի պատուհան</string>
   <string name="tournamentEntryCode">Մրցաշարին մասնակցելու կոդ</string>
+  <string name="hangOn">Սպասե՛ք</string>
+  <string name="gameInProgress">Դուք խաղի մեջ եք %s-ի հետ։</string>
+  <string name="abortTheGame">Ընդհատել խաղը</string>
+  <string name="resignTheGame">Հանձնվել</string>
+  <string name="youCantStartNewGame">Դուք չեք կարող սկսել նոր խաղ, քանի դեռ չի ավարտվել ընթացիկը։</string>
 </resources>

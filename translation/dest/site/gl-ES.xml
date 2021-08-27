@@ -919,9 +919,9 @@ Deixa en branco para comezar partidas dende a posición inicial normal.</string>
   <string name="emailAssociatedToaccount">Dirección de correo electrónico asociada á conta</string>
   <string name="sentEmailWithLink">Enviámosche un correo electrónico cunha ligazón.</string>
   <string name="tournamentEntryCode">Código de participación no torneo</string>
-  <string name="hangOn" comment="hangOn&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.">Agarda!</string>
-  <string name="gameInProgress" comment="gameInProgress&#10;&#10;Warning that you have a game in progress, when you are trying to start a new game.&#10;&#10;%s is the name of your opponent in the game that is already in progress.">Estás xogando unha partida con %s.</string>
-  <string name="abortTheGame" comment="abortTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you abort the existing game, if it hasn't yet started.">Abortar partida</string>
-  <string name="resignTheGame" comment="resignTheGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game. Lets you resign the existing game.">Abandoar partida</string>
-  <string name="youCantStartNewGame" comment="youCantStartNewGame&#10;&#10;Part of warning that you have a game in progress, when you are trying to start a new game.">Non podes comezar unha nova partida ata que esta remate.</string>
+  <string name="hangOn">Agarda!</string>
+  <string name="gameInProgress">Estás xogando unha partida con %s.</string>
+  <string name="abortTheGame">Abortar partida</string>
+  <string name="resignTheGame">Abandoar partida</string>
+  <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
 </resources>

@@ -18,6 +18,8 @@
   <string name="rule1">قم بإدراج الكلمة المفتاحية \"lichess.org\" في عنوان البث الخاص بك ولا تنسى كذلك تصنيفه تحت فئة \"Chess\".</string>
   <string name="rule2">قم بنزع الكلمة المفتاحية عندما تبث أمور غير متعلقة بليشيس.</string>
   <string name="rule3">سيقوم ليشيس بالتعرف على بثك بصورة آلية ويمنحه الإمتيازات التالية:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">اقرأ %s لضمان شروط اللعب العادل خلال بثك المباشر.</string>
+  <string name="streamingFairplayFAQ">الاسئلة الشائعة للعب العادل أثناء البث</string>
   <string name="perks">فوائد البث باستعمال الكلمة المفتاحية</string>
   <string name="perk1">احصل على أيقونة بث مشتعلة على ملفك الشخصي \"Lichess\".</string>
   <string name="perk2">احجز مكانك مباشرة في أعلى القائمة الخاصة بالستريمرز.</string>
