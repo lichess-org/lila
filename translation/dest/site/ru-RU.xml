@@ -746,7 +746,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
-  <string name="readAboutOur">Почитайте подробней: %s.</string>
+  <string name="readAboutOur">Ознакомьтесь с нашей %s.</string>
   <string name="networkLagBetweenYouAndLichess">Задержки передачи данных между вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
