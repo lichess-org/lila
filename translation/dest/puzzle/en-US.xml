@@ -71,7 +71,7 @@
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
   <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
   <string name="puzzleDashboardDescription">Train, analyse, improve</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="one">%s played</item>
     <item quantity="other">%s played</item>
   </plurals>
