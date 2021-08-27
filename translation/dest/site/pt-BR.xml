@@ -615,7 +615,7 @@
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
-  <string name="aboutX">Sobre %s</string>
+  <string name="aboutX">Sobre o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
@@ -742,7 +742,7 @@
   <string name="usernameCharsInvalid">Nomes de usuário só podem conter letras, números, sublinhados e hifens.</string>
   <string name="usernameUnacceptable">Este nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
-  <string name="playChessInStyle">Jogue com estilo</string>
+  <string name="playChessInStyle">Jogue xadrez com estilo</string>
   <string name="chessBasics">Básicos do xadrez</string>
   <string name="coaches">Professores</string>
   <string name="invalidPgn">PGN inválido</string>
