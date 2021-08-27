@@ -71,8 +71,16 @@
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
   <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
   <string name="puzzleDashboardDescription">Entrena, analiza, mejora</string>
-  <string name="percentSolved">%s resueltos</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s completado</item>
+    <item quantity="other">%s completados</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s a repetir</item>
+    <item quantity="other">%s a repetir</item>
+  </plurals>
+  <string name="percentSolved">%s solucionados</string>
   <string name="noPuzzlesToShow">Nada que mostrar, ¡primero resuelve algunos ejercicios!</string>
-  <string name="improvementAreasDescription">¡Entrena estos para optimizar tu progreso!</string>
-  <string name="strengthDescription">Tu rendimiento es el mejor en estos temas</string>
+  <string name="improvementAreasDescription">¡Entrena estas áreas para mejorar tu progreso!</string>
+  <string name="strengthDescription">Tienes el mejor rendimiento en estos temas</string>
 </resources>
