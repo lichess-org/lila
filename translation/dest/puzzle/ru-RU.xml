@@ -75,4 +75,21 @@
   <string name="searchPuzzles">Искать задачи</string>
   <string name="fromMyGamesNone">В базе данных нет задач из ваших партий, но Lichess надеется на вас! Сыграйте больше партий в рапид или с классическим контролем времени, и ваши шансы попасть в список игроков с задачами увеличатся.</string>
   <string name="fromXGamesFound">Найдено %1$s задач в %2$s играх</string>
+  <string name="puzzleDashboardDescription">Тренируйтесь, анализируйте, улучшайте</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s решена</item>
+    <item quantity="few">%s решены</item>
+    <item quantity="many">%s решены</item>
+    <item quantity="other">%s решено</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s повторить</item>
+    <item quantity="few">%s повторить</item>
+    <item quantity="many">%s повторить</item>
+    <item quantity="other">%s повторить</item>
+  </plurals>
+  <string name="percentSolved">%s верно</string>
+  <string name="noPuzzlesToShow">Ничего нет, решите для начала несколько задач!</string>
+  <string name="improvementAreasDescription">Потренируйте эти темы, чтобы ускорить свой прогресс!</string>
+  <string name="strengthDescription">Вы показываете лучшие результаты в этих темах</string>
 </resources>

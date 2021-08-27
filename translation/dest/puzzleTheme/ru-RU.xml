@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
   <string name="healthyMix">Сборная солянка</string>
   <string name="healthyMixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Прямо как в настоящей партии.</string>
+  <string name="playerGames">Партии игрока</string>
+  <string name="playerGamesDescription">Найти задачи, созданные из ваших партий, или партий других игроков.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Эти задачи находятся в общественном достоянии и вы можете скачать их: %s.</string>
 </resources>

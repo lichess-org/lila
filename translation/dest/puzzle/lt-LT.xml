@@ -76,4 +76,21 @@
   <string name="fromMyGamesNone">Jūs galvosūkių duomenų bazėje neturite, bet Lichess vis tiek jus labai myli.
 Žaiskite greituosius ir klasikinius žaidimus ir taip padidinkite šansus, kad bus pridėtas galvosūkis iš jūsų partijos!</string>
   <string name="fromXGamesFound">%1$s galvosūkių rasta %2$s partijose</string>
+  <string name="puzzleDashboardDescription">Treniruokitės, analizuokite, tobulinkitės</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s sužaistas</item>
+    <item quantity="few">%s sužaisti</item>
+    <item quantity="many">%s sužaista</item>
+    <item quantity="other">%s sužaista</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s sužaisti</item>
+    <item quantity="few">%s sužaisti</item>
+    <item quantity="many">%s sužaisti</item>
+    <item quantity="other">%s sužaisti</item>
+  </plurals>
+  <string name="percentSolved">%s išspręsta</string>
+  <string name="noPuzzlesToShow">Nėra ką rodyti, pirma išspręskite galvosūkių!</string>
+  <string name="improvementAreasDescription">Treniruokitės su šiomis norėdami pagerinti savo progresą!</string>
+  <string name="strengthDescription">Jums geriausiai sekasi šiose temose</string>
 </resources>

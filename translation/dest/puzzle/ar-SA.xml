@@ -82,4 +82,25 @@
   <string name="fromMyGamesNone">ليس لديك أي ألغز في قاعدة البيانات، لكن Lichess تحبك جداً.
 إلعب مبارايات سريعة أو مبارايات كلاسيكية لزيادة فرصك في الحصول على ألغازك الخاصة!</string>
   <string name="fromXGamesFound">%1$s ألغاز وجدت في %2$s مباراة</string>
+  <string name="puzzleDashboardDescription">تدرب،حلل،تطور</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="zero">%s لعبت</item>
+    <item quantity="one">%s لعبت</item>
+    <item quantity="two">%s لعبت</item>
+    <item quantity="few">%s لعبت</item>
+    <item quantity="many">%s لعبت</item>
+    <item quantity="other">%s لعبت</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="zero">%s لإعادة العرض</item>
+    <item quantity="one">%s لإعادة العرض</item>
+    <item quantity="two">%s لإعادة العرض</item>
+    <item quantity="few">%s لإعادة العرض</item>
+    <item quantity="many">%s لإعادة العرض</item>
+    <item quantity="other">%s لإعادة العرض</item>
+  </plurals>
+  <string name="percentSolved">تم حل %s</string>
+  <string name="noPuzzlesToShow">لا شيء لإظهاره، اذهب والعب بعض الألغاز!</string>
+  <string name="improvementAreasDescription">تدرب بهذه لتحسين تقدمك!</string>
+  <string name="strengthDescription">أنت تقوم بهذه المهارة بأفضل شكل</string>
 </resources>

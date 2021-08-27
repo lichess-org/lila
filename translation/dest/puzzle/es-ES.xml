@@ -70,4 +70,9 @@
   <string name="fromMyGamesNone">No tienes ejercicios en la base de datos, pero Lichess aún te quiere un montón.
 ¡Juega partidas rápidas y clásicas para tener más posibilidades de que se añadan tus ejercicios!</string>
   <string name="fromXGamesFound">%1$s ejercicios encontrados en las partidas de %2$s</string>
+  <string name="puzzleDashboardDescription">Entrena, analiza, mejora</string>
+  <string name="percentSolved">%s resueltos</string>
+  <string name="noPuzzlesToShow">Nada que mostrar, ¡primero resuelve algunos ejercicios!</string>
+  <string name="improvementAreasDescription">¡Entrena estos para optimizar tu progreso!</string>
+  <string name="strengthDescription">Tu rendimiento es el mejor en estos temas</string>
 </resources>

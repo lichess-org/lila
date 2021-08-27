@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du ved ikke, hvad du skal forvente. Så du skal være klar til hvad som helst! Ligesom i rigtige spil.</string>
+  <string name="playerGames">Spiller partier</string>
+  <string name="playerGamesDescription">Find opgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
 </resources>

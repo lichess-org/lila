@@ -70,4 +70,9 @@
   <string name="fromMyGamesNone">Vous n\'avez pas de problèmes dans la base de données, mais Lichess vous aime toujours.
 Jouez des parties rapides et classiques pour augmenter vos chances qu\'une de vos parties soit utilisée comme problème!</string>
   <string name="fromXGamesFound">%1$s problèmes trouvés dans %2$s parties</string>
+  <string name="puzzleDashboardDescription">S\'entraîner, analyser, s\'améliorer</string>
+  <string name="percentSolved">%s problèmes résolus</string>
+  <string name="noPuzzlesToShow">Rien à afficher - faites d\'abord quelques problèmes !</string>
+  <string name="improvementAreasDescription">Faites ces problèmes pour progresser !</string>
+  <string name="strengthDescription">Vous avez le plus de succès dans ces thèmes</string>
 </resources>

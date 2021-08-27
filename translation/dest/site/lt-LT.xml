@@ -1000,4 +1000,9 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="emailAssociatedToaccount">Elektroninio pašto adresas susietas su paskyra</string>
   <string name="sentEmailWithLink">Меs jums išsiuntėme laišką su nuoroda.</string>
   <string name="tournamentEntryCode">Įėjimo į turnyrą kodas</string>
+  <string name="hangOn">Ei!</string>
+  <string name="gameInProgress">Jūs jau turite vykstančią partiją su %s.</string>
+  <string name="abortTheGame">Atšaukti partiją</string>
+  <string name="resignTheGame">Pasiduoti</string>
+  <string name="youCantStartNewGame">Jūs negalite pradėti naujos partijos kol nepabaigta ši.</string>
 </resources>

@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Es befinden sich keine Aufgaben von dir in der Datenbank, aber Lichess schätzt dich immer noch sehr.
 Spiele schnelle und klassische Partien, um die Chance zu erhöhen, eine Aufgabe von deinen Partien hinzuzufügen!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
+  <string name="puzzleDashboardDescription">Trainiere, analysiere, verbessere</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s gespielt</item>
+    <item quantity="other">%s gespielt</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s zu wiederholen</item>
+    <item quantity="other">%s zu wiederholen</item>
+  </plurals>
+  <string name="percentSolved">%s gelöst</string>
+  <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
+  <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
+  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
 </resources>

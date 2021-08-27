@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Du har ingen sjakknøtter i databasen, men Lichess setter like fullt umåtelig stor pris på deg.
 Spill partier i hurtigsjakk og klassisk sjakk for å øke sjansen for å få med en sjakknøtt!</string>
   <string name="fromXGamesFound">%1$s sjakknøtter funnet i partier med %2$s</string>
+  <string name="puzzleDashboardDescription">Øv, analyser, bli bedre</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s spilt</item>
+    <item quantity="other">%s spilt</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s å gjenta</item>
+    <item quantity="other">%s å gjenta</item>
+  </plurals>
+  <string name="percentSolved">%s løst</string>
+  <string name="noPuzzlesToShow">Ingenting å vise, løs noen sjakknøtter først!</string>
+  <string name="improvementAreasDescription">Øv på disse for å optimalisere framgangen din!</string>
+  <string name="strengthDescription">Du gjør det best i disse temaene</string>
 </resources>

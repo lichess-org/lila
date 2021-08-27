@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Motstanderen kan bare utføre trekk som forverrer egen stilling.</string>
   <string name="healthyMix">Frisk blanding</string>
   <string name="healthyMixDescription">Litt av alt. Du vet ikke hva du får, så du er klar for alt! Akkurat som i virkelige partier.</string>
+  <string name="playerGames">Spillerpartier</string>
+  <string name="playerGamesDescription">Finn sjakknøtter generert fra dine eller andres partier.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Disse sjakknøttene er offentlig eiendom og kan lastes ned fra %s.</string>
 </resources>

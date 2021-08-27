@@ -67,4 +67,15 @@
   <string name="fromMyGamesNone">Anda tidak memiliki teka-teki dalam database, tetapi Lichess masih sangat mencintai Anda.
 Mainkan permainan cepat dan klasik untuk meningkatkan kesempatan Anda agar sebuah teka-teki dari Anda dapat ditambahkan!</string>
   <string name="fromXGamesFound">Teka-teki %1$s ditemukan di permainan %2$s</string>
+  <string name="puzzleDashboardDescription">Latih, analisis, meningkat</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="other">%s dimainkan</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s dapat diulang</item>
+  </plurals>
+  <string name="percentSolved">%s selesai</string>
+  <string name="noPuzzlesToShow">Tidak ada apa apa, silahkan mainkan taktik terlebih dahulu!</string>
+  <string name="improvementAreasDescription">Latih ini untuk mengoptimisasi kemajuan anda!</string>
+  <string name="strengthDescription">Performa anda baik di tema-tema ini</string>
 </resources>

@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">相手の指せる手が、どれを選んでも局面を悪くしてしまう形。</string>
   <string name="healthyMix">混合</string>
   <string name="healthyMixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
+  <string name="playerGames">プレイヤーの対局</string>
+  <string name="playerGamesDescription">自分の対局、他のプレイヤーの対局から取られた問題を検索します。</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">これらの問題はパブリックドメインにあり、%s でダウンロードできます。</string>
 </resources>

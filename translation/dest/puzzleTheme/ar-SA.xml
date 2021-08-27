@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">حركات الخصم محدودة و كل الحركات تؤدي إلى تفاقم الوضع نحو الأسوء.</string>
   <string name="healthyMix">خليط</string>
   <string name="healthyMixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
+  <string name="playerGames">مبارايات اللاعب</string>
+  <string name="playerGamesDescription">ابحث عن ألغاز من مبارياتك أو من مباريات لاعبين آخرين.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">هذه الألغاز موجودة للعامة بإمكانك تحميلها من هنا%s.</string>
 </resources>

@@ -40,6 +40,7 @@
   <string name="endgame">Akhir permainan</string>
   <string name="fork">Fork</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
+  <string name="master">Permainan master</string>
   <string name="mate">Skakmat</string>
   <string name="mateDescription">Menangkan game dengan bergaya.</string>
   <string name="mateIn1">Mati dalam 1 Langkah</string>
@@ -77,4 +78,7 @@
   <string name="zugzwangDescription">Musuh dibatasi gerakan yang dapat mereka lakukan, dan semua gerakan memperburuk posisi mereka.</string>
   <string name="healthyMix">Campuran baik</string>
   <string name="healthyMixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
+  <string name="playerGames">Permainan pemain</string>
+  <string name="playerGamesDescription">Mengambil taktik yang dihasilkan dari permainan anda, atau pemain lain.</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Taktik-taktik ini ada di domain publik, dan dapat di download dari %s.</string>
 </resources>

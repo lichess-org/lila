@@ -27,5 +27,7 @@
   <string name="nowPlaying">Sedang berlangsung</string>
   <string name="startingSoon">Segera dimulai</string>
   <string name="comparison">Perbandingan</string>
+  <string name="numberOfGames">Jumlah babak</string>
+  <string name="pairingSystem">Sistem pembagian partai</string>
   <string name="pause">Jeda</string>
 </resources>

@@ -136,7 +136,7 @@
     <item quantity="other">%s pemain tersambung</item>
   </plurals>
   <string name="drawByMutualAgreement">Remis atas keputusan bersama</string>
-  <string name="fiftyMovesWithoutProgress">50 langkah tanpa hasil</string>
+  <string name="fiftyMovesWithoutProgress">50 langkah tanpa kemajuan</string>
   <string name="currentGames">Permainan saat ini</string>
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
@@ -193,7 +193,7 @@
     <item quantity="other">Peringkat update setiap %s menit</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="other">%s</item>
+    <item quantity="other">%s taktik</item>
   </plurals>
   <string name="gamesPlayed">Permainan yang telah dimainkan</string>
   <plurals name="nbGamesWithYou">
