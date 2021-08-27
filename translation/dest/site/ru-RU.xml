@@ -937,7 +937,7 @@
   <string name="xMentionedYouInY">%1$s упомянул вас в «%2$s».</string>
   <string name="invitedYouToX">пригласил вас в «%1$s».</string>
   <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
-  <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
+  <string name="youAreNowPartOfTeam">Теперь вы член клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
