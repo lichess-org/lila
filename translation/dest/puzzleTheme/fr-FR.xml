@@ -122,4 +122,6 @@
   <string name="healthyMix">Divers</string>
   <string name="healthyMixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
   <string name="playerGames">Parties entre joueurs</string>
+  <string name="playerGamesDescription">Problèmes tirés de vos parties ou de celles d\'autres joueurs</string>
+  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Ces problèmes sont du domaine public et peuvent être téléchargés sur %s.</string>
 </resources>
