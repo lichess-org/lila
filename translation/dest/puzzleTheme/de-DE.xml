@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
   <string name="playerGames">Partien von Spielern</string>
   <string name="playerGamesDescription">Suche Aufgaben, die aus deinen Partien, oder den Partien eines anderen Spielers generiert wurden.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Diese Aufgaben sind öffentlich zugänglich und können unter %s heruntergeladen werden.</string>
+  <string name="puzzleDownloadInformation">Diese Aufgaben sind öffentlich zugänglich und können unter %s heruntergeladen werden.</string>
 </resources>
