@@ -75,8 +75,8 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="swissDescription">Em um torneio suíço %1$s, cada jogador não necessariamente enfrenta todos os outros oponentes. Os competidores se encontram um a um em cada rodada, e são pareados segundo uma série de regras para que cada jogador enfrente oponentes com pontuações similares, mas nunca o mesmo oponente mais de uma vez. O vencedor é o competidor com a maior quantidade de pontos acumulados em todas as rodadas. Todos os competidores jogam em cada rodada, a menos que haja um número ímpar de rodadas.</string>
   <string name="teamOnly">Torneios suíços só podem ser criados por líderes de equipe, e só podem ser jogados pelos membros de uma equipe.           
 %1$s para começar a jogar em torneios suíços.</string>
-  <string name="joinOrCreateTeam">Entre em uma equipe, ou crie uma</string>
-  <string name="nowPlaying">Torneios em curso</string>
+  <string name="joinOrCreateTeam">Entre ou crie uma equipe</string>
+  <string name="nowPlaying">Jogando agora</string>
   <string name="startingSoon">Começando em breve</string>
   <string name="comparison">Comparação</string>
   <string name="tournDuration">Duração do torneio</string>
