@@ -269,11 +269,11 @@
     <item quantity="other">%s valendo pontos</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vitórias</item>
+    <item quantity="one">%s vitória</item>
     <item quantity="other">%s vitórias</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
+    <item quantity="one">%s derrota</item>
     <item quantity="other">%s derrotas</item>
   </plurals>
   <plurals name="nbDraws">
@@ -687,7 +687,7 @@
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="receiveForumNotifications">Receba notificações quando você for mencionado no fórum</string>
-  <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
+  <string name="shareYourInsightsData">Compartilhe seus dados da análise</string>
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
@@ -831,7 +831,7 @@
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
-  <string name="rapid">Rápido</string>
+  <string name="rapid">Rápida</string>
   <string name="classical">Clássico</string>
   <string name="ultraBulletDesc">Jogos insanamente rápidos: menos de 30 segundos</string>
   <string name="bulletDesc">Jogos muito rápidos: menos de 3 minutos</string>
