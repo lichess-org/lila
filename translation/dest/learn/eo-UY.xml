@@ -18,11 +18,11 @@
   <string name="rookComplete">Gratulon! Vi sukcese regis la turon.</string>
   <string name="theBishop">La kuriero</string>
   <string name="itMovesDiagonally">Ĝi moviĝas diagonale</string>
-  <string name="bishopIntro">Poste ni lernos kiel manovri kuriero!</string>
+  <string name="bishopIntro">Nun ni lernas kiel manovri kurieron!</string>
   <string name="youNeedBothBishops">Unu hela-kvadrata kuriero,
 unu malhela-kvadrata kuriero.
 Vi bezonas ambaŭ!</string>
-  <string name="bishopComplete">Gratulojn! Vi povas ordoni kuriero.</string>
+  <string name="bishopComplete">Gratulojn! Vi povas regi kurieron.</string>
   <string name="theQueen">La damo</string>
   <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
   <string name="queenIntro">La plej potenca ŝako peco eniras. Ŝia majesto la damo!</string>
