@@ -75,7 +75,7 @@ private object BSONHandlers {
   implicit private lazy val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
 
   implicit private lazy val postIdHandler = BSONStringHandler.as[PostId](PostId.apply, _.value)
-  implicit lazy val postsHandler          = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
+  implicit lazy val postsHandler = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
 
   implicit lazy val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 

@@ -25,7 +25,7 @@ object bits {
 
   def mini(fen: chess.format.FEN, color: chess.Color = chess.White, lastMove: String = "")(tag: Tag): Tag =
     tag(
-      cls := "mini-board mini-board--init cg-wrap is2d",
+      cls       := "mini-board mini-board--init cg-wrap is2d",
       dataState := s"${fen.value},${color.name},$lastMove"
     )(cgWrapContent)
 

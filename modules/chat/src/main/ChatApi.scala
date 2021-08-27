@@ -67,9 +67,9 @@ final class ChatApi(
     def findMineIf(chatId: Chat.Id, me: Option[User], cond: Boolean): Fu[UserChat.Mine] =
       me match {
         case Some(user) if cond => findMine(chatId, user)
-        case Some(user)         => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, timeout = false))
-        case None if cond       => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
-        case None               => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
+        case Some(user)   => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser user.some, timeout = false))
+        case None if cond => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
+        case None         => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
       }
 
     private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] =
@@ -186,7 +186,7 @@ final class ChatApi(
         _ ?? {
           val lineText = scope match {
             case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
-            case _                        => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
+            case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
           }
           val line = c.hasRecentLine(user) option UserLine(
             username = systemUserId,

@@ -17,11 +17,11 @@ import lila.app._
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
-import lila.game.{ Pov, Game => GameModel }
+import lila.game.{ Game => GameModel, Pov }
 import lila.rating.PerfType
 import lila.security.UserLogins
 import lila.socket.UserLagCache
-import lila.user.{ User => UserModel, Holder }
+import lila.user.{ Holder, User => UserModel }
 import lila.security.Granter
 
 final class User(
@@ -152,8 +152,8 @@ final class User(
       )
     else
       env.user.repo named username flatMap {
-        case None if isGranted(_.UserModView)                 => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
-        case None                                             => notFound
+        case None if isGranted(_.UserModView) => ctx.me.map(Holder) ?? { modC.searchTerm(_, username.trim) }
+        case None                             => notFound
         case Some(u) if u.enabled || isGranted(_.UserModView) => f(u)
         case Some(u) =>
           negotiate(

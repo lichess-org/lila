@@ -11,7 +11,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.team.{ Requesting, Team => TeamModel }
-import lila.user.{ User => UserModel, Holder }
+import lila.user.{ Holder, User => UserModel }
 import lila.memo.RateLimit
 
 final class Team(
@@ -548,7 +548,7 @@ final class Team(
         msg =>
           Right {
             PmAllLimitPerTeam[RateLimit.Result](team.id, if (me.isVerifiedOrAdmin) 1 else pmAllCost) {
-              val url  = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
+              val url = s"${env.net.baseUrl}${routes.Team.show(team.id)}"
               val full = s"""$msg
 ---
 You received this because you are subscribed to messages of the team $url."""

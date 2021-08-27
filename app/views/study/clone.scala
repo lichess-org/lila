@@ -20,9 +20,9 @@ object clone {
         p("Deleting one study will ", strong("not"), " delete the other study."),
         p(
           submitButton(
-            cls := "submit button large text",
+            cls      := "submit button large text",
             dataIcon := "",
-            style := "margin: 30px auto; display: block; font-size: 2em;"
+            style    := "margin: 30px auto; display: block; font-size: 2em;"
           )("Clone the study")
         ),
         p(

@@ -56,7 +56,7 @@ object home {
         )
       )(
         div(cls := "lobby__table")(
-          div(cls := "bg-switch", title := "Dark mode")(
+          div(cls   := "bg-switch", title := "Dark mode")(
             div(cls := "bg-switch__track"),
             div(cls := "bg-switch__thumb")
           ),
@@ -90,7 +90,7 @@ object home {
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
             a(
-              id := "nb_connected_players",
+              id   := "nb_connected_players",
               href := ctx.noBlind.option(routes.User.list.url)
             )(
               trans.nbPlayers(
@@ -98,7 +98,7 @@ object home {
               )
             ),
             a(
-              id := "nb_games_in_play",
+              id   := "nb_games_in_play",
               href := ctx.noBlind.option(routes.Tv.games.url)
             )(
               trans.nbGamesInPlay(

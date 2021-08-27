@@ -41,7 +41,7 @@ object communication {
           div(cls := "title")(userLink(u), " communications"),
           div(cls := "actions")(
             a(
-              cls := "button button-empty mod-zone-toggle",
+              cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
               dataIcon := ""
@@ -51,8 +51,8 @@ object communication {
                 a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
               else
                 a(
-                  cls := "priv button",
-                  href := routes.Mod.communicationPrivate(u.username),
+                  cls   := "priv button",
+                  href  := routes.Mod.communicationPrivate(u.username),
                   title := "View private messages. This will be logged in #commlog"
                 )("PMs")
             }
@@ -109,9 +109,9 @@ object communication {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
-                  case PublicSource.Watcher(id)    => a(href := routes.Round.watcher(id, "white"))("Game #", id)
-                  case PublicSource.Study(id)      => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)      => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
+                  case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
+                  case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Swiss(id)   => views.html.swiss.bits.link(lila.swiss.Swiss.Id(id))
                 },
                 nbsp,
                 span(cls := "message")(highlightBad(line.text))

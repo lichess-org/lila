@@ -213,8 +213,8 @@ object Schedule {
     val all: List[Speed] =
       List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(key: String)       = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
-    def byId(id: Int)            = all find (_.id == id)
+    def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
+    def byId(id: Int)      = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match {
         case (a, b) if a == b                                        => true

@@ -35,7 +35,7 @@ data.endgamePositions=$endgamePositionsJson;LichessEditor(document.getElementByI
         .some
     )(
       main(id := "board-editor")(
-        div(cls := "board-editor")(
+        div(cls   := "board-editor")(
           div(cls := "spare"),
           div(cls := "main-board")(chessgroundBoard),
           div(cls := "spare")

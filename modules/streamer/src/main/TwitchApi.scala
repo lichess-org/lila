@@ -23,7 +23,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(impl
     (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) ?? {
       val query = List(
         "game_id" -> "743", // chess
-        "first"   -> "100" // max results per page
+        "first"   -> "100"  // max results per page
       ) ::: List(
         pagination.flatMap(_.cursor).map { "after" -> _ }
       ).flatten

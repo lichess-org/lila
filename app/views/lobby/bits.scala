@@ -92,7 +92,7 @@ object bits {
         ),
         div(cls := "lobby__box__content")(
           posts map { post =>
-            a(cls := "post", href := routes.Blog.show(post.id, post.slug))(
+            a(cls     := "post", href := routes.Blog.show(post.id, post.slug))(
               img(src := post.image),
               span(cls := "text")(
                 strong(post.title),

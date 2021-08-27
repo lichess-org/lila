@@ -113,7 +113,7 @@ object BSONHandlers {
   implicit private def CrazyDataBSONHandler: BSON[Crazyhouse.Data] =
     new BSON[Crazyhouse.Data] {
       private def writePocket(p: Crazyhouse.Pocket) = p.roles.map(_.forsyth).mkString
-      private def readPocket(p: String)             = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
+      private def readPocket(p: String) = Crazyhouse.Pocket(p.view.flatMap(chess.Role.forsyth).toList)
       def reads(r: Reader) =
         Crazyhouse.Data(
           promoted = r.getsD[Pos]("o").toSet,
@@ -267,7 +267,7 @@ object BSONHandlers {
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  implicit val tagsHandler                     = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
+  implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
   implicit private val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterRelayBSONHandler         = Macros.handler[Chapter.Relay]
   implicit val ChapterServerEvalBSONHandler    = Macros.handler[Chapter.ServerEval]

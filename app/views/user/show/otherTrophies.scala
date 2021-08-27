@@ -59,7 +59,7 @@ object otherTrophies {
   animation: psyche 0.3s ease-in-out infinite alternate;
 }"""),
           a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name))(
-            img(src := assetUrl("images/trophy/zug-trophy.png"))
+            img(src           := assetUrl("images/trophy/zug-trophy.png"))
           )
         )
       },
@@ -85,7 +85,7 @@ object otherTrophies {
       info.isCoach option
         a(
           href := routes.Coach.show(info.user.username),
-          cls := "trophy award icon3d coach",
+          cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
         )(""),
       (info.isStreamer && ctx.noKid) option {
