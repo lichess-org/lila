@@ -252,7 +252,7 @@
   <string name="viewRematch">Ver revanche</string>
   <string name="confirmMove">Confirmar lance</string>
   <string name="play">Jogar</string>
-  <string name="inbox">Caixa postal</string>
+  <string name="inbox">Mensagens</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Faça login para conversar</string>
   <string name="youHaveBeenTimedOut">Sua sessão expirou.</string>
@@ -610,7 +610,7 @@
   <string name="watchGames">Assistir partidas</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Assistir</string>
-  <string name="videoLibrary">Videoteca</string>
+  <string name="videoLibrary">Vídeos</string>
   <string name="streamersMenu">Streamers</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
@@ -726,7 +726,7 @@
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
-  <string name="background">Fundo</string>
+  <string name="background">Cor tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
@@ -829,7 +829,7 @@
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
   <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
+  <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
   <string name="rapid">Rápido</string>
   <string name="classical">Clássico</string>
