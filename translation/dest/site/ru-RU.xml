@@ -890,14 +890,14 @@
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
   <string name="sorry">Извините :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены отключить вас на время.</string>
+  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
   <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
-  <string name="playEveryGame">Доигрывайте все партии, которые начинали.</string>
+  <string name="playEveryGame">Доигрывайте каждую начатую партию.</string>
   <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
   <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
