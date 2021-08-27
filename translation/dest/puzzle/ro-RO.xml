@@ -73,4 +73,16 @@
   <string name="fromMyGamesNone">Nu ai nici o problemă în baza de date, dar Lichess încă te iubește foarte mult.
 Joacă jocuri rapide și clasice pentru a crește șansele de a avea un puzzle al tău adăugat!</string>
   <string name="fromXGamesFound">%1$s puzzle-uri găsite în %2$s jocuri</string>
+  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+    <item quantity="one">%s jucat</item>
+    <item quantity="few">%s jucate</item>
+    <item quantity="other">%s jucate</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s de rejucat</item>
+    <item quantity="few">%s de rejucat</item>
+    <item quantity="other">%s de rejucat</item>
+  </plurals>
+  <string name="percentSolved">%s rezolvate</string>
+  <string name="noPuzzlesToShow">Nimic de arătat, joacă mai întâi câteva puzzle-uri!</string>
 </resources>
