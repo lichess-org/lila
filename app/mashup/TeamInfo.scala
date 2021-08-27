@@ -14,14 +14,14 @@ case class TeamInfo(
     requestedByMe: Boolean,
     subscribed: Boolean,
     requests: List[RequestWithUser],
-    forumPosts: List[MiniForumPost],
+    forum: Option[List[MiniForumPost]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
 ) {
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = forumPosts.flatMap(_.userId)
+  def userIds = forum.??(_.flatMap(_.userId))
 }
 
 object TeamInfo {
@@ -50,13 +50,13 @@ final class TeamInfoApi(
 
   import TeamInfo._
 
-  def apply(team: Team, me: Option[User]): Fu[TeamInfo] =
+  def apply(team: Team, me: Option[User], withForum: Boolean => Boolean): Fu[TeamInfo] =
     for {
       requests      <- (team.enabled && me.exists(m => team.leaders(m.id))) ?? api.requestsWithUsers(team)
       mine          <- me.??(m => api.belongsTo(team.id, m.id))
       requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
       subscribed    <- me.ifTrue(mine) ?? { api.isSubscribed(team, _) }
-      forumPosts    <- forumRecent.team(team.id)
+      forumPosts    <- withForum(mine) ?? forumRecent.team(team.id).dmap(some)
       tours         <- tournaments(team, 5, 5)
       simuls        <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
     } yield TeamInfo(
@@ -65,7 +65,7 @@ final class TeamInfoApi(
       requestedByMe = requestedByMe,
       subscribed = subscribed,
       requests = requests,
-      forumPosts = forumPosts,
+      forum = forumPosts,
       tours = tours,
       simuls = simuls
     )

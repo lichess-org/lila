@@ -60,7 +60,7 @@ final class Team(
       ctx: Context
   ) =
     for {
-      info    <- env.teamInfo(team, ctx.me)
+      info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team, requestModView))
       members <- paginator.teamMembers(team, page)
       hasChat = canHaveChat(team, info, requestModView)
       chat <-
@@ -80,6 +80,15 @@ final class Team(
       (team.isChatFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
       (isGranted(_.ChatTimeout) && requestModView)
+    }
+
+  private def canHaveForum(team: TeamModel, requestModView: Boolean)(isMember: Boolean)(implicit
+      ctx: Context
+  ): Boolean =
+    team.enabled && !team.isForumFor(_.NONE) && ctx.noKid && {
+      (team.isForumFor(_.LEADERS) && ctx.userId.exists(team.leaders)) ||
+      (team.isForumFor(_.MEMBERS) && isMember) ||
+      (isGranted(_.ModerateForum) && requestModView)
     }
 
   def users(teamId: String) =

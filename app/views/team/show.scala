@@ -186,9 +186,6 @@ object show {
             st.section(cls := "team-show__desc")(
               markdown {
                 t.descPrivate.ifTrue(info.mine) | t.description
-              },
-              t.location.map { loc =>
-                frag(br, trans.location(), ": ", richText(loc))
               }
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(
@@ -212,10 +209,10 @@ object show {
                   )
                 )
               ),
-              t.enabled && (t.publicForum || info.mine || manageTeamEnabled) && ctx.noKid option
+              info.forum map { forumPosts =>
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
-                  info.forumPosts.take(10).map { post =>
+                  forumPosts.take(10).map { post =>
                     a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
                       div(cls := "meta")(
                         strong(post.topicName),
@@ -230,6 +227,7 @@ object show {
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
                 )
+              }
             )
           )
         )

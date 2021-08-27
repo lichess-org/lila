@@ -16,7 +16,6 @@ final private[team] class TeamForm(
 
   private object Fields {
     val name     = "name"     -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
-    val location = "location" -> optional(cleanText(minLength = 3, maxLength = 80))
     val password = "password" -> optional(cleanText(maxLength = 60))
     def passwordCheck(team: Team) = "password" -> optional(text).verifying(
       "team:incorrectEntryCode",
@@ -30,23 +29,20 @@ final private[team] class TeamForm(
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
-    val chat        = "chat"        -> numberIn(Team.ChatFor.all)
+    val chat        = "chat"        -> numberIn(Team.Access.all)
+    val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
-    val hideForum   = "hideForum"   -> boolean
   }
 
   val create = Form(
     mapping(
       Fields.name,
-      Fields.location,
       Fields.password,
       Fields.description,
       Fields.descPrivate,
       Fields.request,
       Fields.gameId,
-      Fields.move,
-      Fields.hideMembers,
-      Fields.hideForum
+      Fields.move
     )(TeamSetup.apply)(TeamSetup.unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
@@ -55,24 +51,22 @@ final private[team] class TeamForm(
   def edit(team: Team) =
     Form(
       mapping(
-        Fields.location,
         Fields.password,
         Fields.description,
         Fields.descPrivate,
         Fields.request,
         Fields.chat,
-        Fields.hideMembers,
-        Fields.hideForum
+        Fields.forum,
+        Fields.hideMembers
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
-      location = team.location,
       password = team.password,
       description = team.description,
       descPrivate = team.descPrivate,
       request = !team.open,
       chat = team.chat,
-      hideMembers = team.hideMembers.has(true),
-      hideForum = team.hideForum.has(true)
+      forum = team.forum,
+      hideMembers = team.hideMembers.has(true)
     )
 
   def request(team: Team) = Form(
@@ -122,51 +116,37 @@ final private[team] class TeamForm(
   )
 
   private def teamExists(setup: TeamSetup) =
-    teamRepo.coll.exists($id(Team nameToId setup.trim.name))
+    teamRepo.coll.exists($id(Team nameToId setup.name))
 }
 
 private[team] case class TeamSetup(
     name: String,
-    location: Option[String],
     password: Option[String],
     description: String,
     descPrivate: Option[String],
     request: Boolean,
     gameId: String,
-    move: String,
-    hideMembers: Boolean,
-    hideForum: Boolean
+    move: String
 ) {
-
   def isOpen = !request
-
-  def trim =
-    copy(
-      name = name.trim,
-      location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim,
-      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
-    )
 }
 
 private[team] case class TeamEdit(
-    location: Option[String],
     password: Option[String],
     description: String,
     descPrivate: Option[String],
     request: Boolean,
-    chat: Team.ChatFor,
-    hideMembers: Boolean,
-    hideForum: Boolean
+    chat: Team.Access,
+    forum: Team.Access,
+    hideMembers: Boolean
 ) {
 
   def isOpen = !request
 
   def trim =
     copy(
-      location = location map (_.trim) filter (_.nonEmpty),
-      description = description.trim,
-      descPrivate = descPrivate map (_.trim) filter (_.nonEmpty)
+      description = description,
+      descPrivate = descPrivate.filter(_.nonEmpty)
     )
 }
 
