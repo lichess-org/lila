@@ -89,7 +89,6 @@ object form {
   }
 
   private def textFields(form: Form[_])(implicit ctx: Context) = frag(
-    form3.group(form("location"), trans.location())(form3.input(_)),
     form3.group(form("description"), trans.description(), help = markdownAvailable.some)(
       form3.textarea(_)(rows := 10)
     ),
@@ -114,7 +113,7 @@ object form {
         half = true
       ),
       form3.split(
-        form3.group(form("chat"), frag("Team chat")) { f =>
+        form3.group(form("chat"), frag("Team chat"), help = frag("Who can use the team chat?").some) { f =>
           form3.select(
             f,
             Seq(
@@ -124,7 +123,17 @@ object form {
             )
           )
         },
-        form3.group(form("forum"), frag("Team forum")) { f =>
+        form3.group(
+          form("forum"),
+          frag("Team forum"),
+          help = frag(
+            "Who can see the team forum on the team page?",
+            br,
+            "Note that the forum remains accessible through direct URL access or forum search.",
+            br,
+            "Only team members can post in the team forum."
+          ).some
+        ) { f =>
           form3.select(
             f,
             Seq(

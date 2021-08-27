@@ -43,20 +43,18 @@ final class TeamApi(
   def request(id: Team.ID) = requestRepo.coll.byId[Request](id)
 
   def create(setup: TeamSetup, me: User): Fu[Team] = {
-    val s      = setup.trim
-    val bestId = Team.nameToId(s.name)
+    val bestId = Team.nameToId(setup.name)
     chatApi.exists(bestId) map {
       case true  => Team.randomId()
       case false => bestId
     } flatMap { id =>
       val team = Team.make(
         id = id,
-        name = s.name,
-        location = s.location,
-        password = s.password,
-        description = s.description,
-        descPrivate = s.descPrivate,
-        open = s.isOpen,
+        name = setup.name,
+        password = setup.password,
+        description = setup.description,
+        descPrivate = setup.descPrivate.filter(_.nonEmpty),
+        open = setup.isOpen,
         createdBy = me
       )
       teamRepo.coll.insert.one(team) >>
@@ -72,23 +70,20 @@ final class TeamApi(
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit =
-    edit.trim pipe { e =>
-      team.copy(
-        location = e.location,
-        password = e.password,
-        description = e.description,
-        descPrivate = e.descPrivate,
-        open = e.isOpen,
-        chat = e.chat,
-        forum = e.forum,
-        hideMembers = Some(e.hideMembers)
-      ) pipe { team =>
-        teamRepo.coll.update.one($id(team.id), team).void >>
-          !team.leaders(me.id) ?? {
-            modLog.teamEdit(me.id, team.createdBy, team.name)
-          } >>-
-          (indexer ! InsertTeam(team))
-      }
+    team.copy(
+      password = edit.password,
+      description = edit.description,
+      descPrivate = edit.descPrivate,
+      open = edit.isOpen,
+      chat = edit.chat,
+      forum = edit.forum,
+      hideMembers = Some(edit.hideMembers)
+    ) pipe { team =>
+      teamRepo.coll.update.one($id(team.id), team).void >>
+        !team.leaders(me.id) ?? {
+          modLog.teamEdit(me.id, team.createdBy, team.name)
+        } >>-
+        (indexer ! InsertTeam(team))
     }
 
   def mine(me: User): Fu[List[Team]] =

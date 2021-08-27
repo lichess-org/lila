@@ -9,7 +9,6 @@ import org.joda.time.Days
 case class Team(
     _id: Team.ID, // also the url slug
     name: String,
-    location: Option[String],
     password: Option[String],
     description: String,
     descPrivate: Option[String],
@@ -94,7 +93,6 @@ object Team {
   def make(
       id: String,
       name: String,
-      location: Option[String],
       password: Option[String],
       description: String,
       descPrivate: Option[String],
@@ -104,7 +102,6 @@ object Team {
     new Team(
       _id = id,
       name = name,
-      location = location,
       password = password,
       description = description,
       descPrivate = descPrivate,
