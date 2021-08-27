@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Pretiniekam ir ierobežoti iespējamie gājieni, un visi no tiem pasliktina pretinieka pozīciju.</string>
   <string name="healthyMix">Veselīgs sajaukums</string>
   <string name="healthyMixDescription">Mazliet no visa kā. Nezināsiet, ko sagaidīt, tāpēc paliksiet gatavs jebkam! Tieši kā īstās spēlēs.</string>
+  <string name="playerGames">Spēlētāja spēles</string>
+  <string name="playerGamesDescription">Meklējiet puzles no jūsu vai cita spēlētāja spēlēm.</string>
+  <string name="puzzleDownloadInformation">Šīs puzles ir publiski pieejamas, un tās var lejupielādēt no %s.</string>
 </resources>
