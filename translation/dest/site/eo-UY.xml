@@ -136,6 +136,8 @@
     <item quantity="one">%s konektita ludanto</item>
     <item quantity="other">%s konektitaj ludantoj</item>
   </plurals>
+  <string name="drawByMutualAgreement">Egalvenko per interkonsento</string>
+  <string name="fiftyMovesWithoutProgress">Kvindek movoj sen progreso</string>
   <string name="currentGames">Ludataj ludoj</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludo</item>
@@ -586,6 +588,7 @@
   <string name="error.email_unique">Ĉi tiu retadreso jam estas uzata</string>
   <string name="error.email_different">Tiu estas jam via retpoŝtadreso</string>
   <string name="ifRatingIsPlusMinusX">Se rango estas ± %s</string>
+  <string name="onlyExistingConversations">Nur jamestantaj konversacioj</string>
   <string name="onlyFriends">Nur amikoj</string>
   <string name="menu">Menuo</string>
   <string name="castling">Arokado</string>
