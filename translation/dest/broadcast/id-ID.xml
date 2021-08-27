@@ -21,6 +21,7 @@
   <string name="credits">Sertakan sumber</string>
   <string name="resetRound">Atur ulang ronde ini</string>
   <string name="deleteRound">Hapus ronde ini</string>
+  <string name="broadcastUrl">Tautan siaran</string>
   <string name="currentRoundUrl">Tautan ronde ini</string>
   <string name="currentGameUrl">Tautan permainan ini</string>
 </resources>
