@@ -77,8 +77,17 @@ object Form {
   }
 
   val cleanText: Mapping[String] = of(cleanTextFormatter).verifying(
-    "The text contains invalid chars",
-    s => !String.hasGarbageChars(s)
+    V.Constraint((s: String) =>
+      if (String.hasGarbageChars(s))
+        V.Invalid(
+          Seq(
+            V.ValidationError(
+              s"The text contains invalid chars: ${String.distinctGarbageChars(s) mkString " "}"
+            )
+          )
+        )
+      else V.Valid
+    )
   )
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match {
