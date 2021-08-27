@@ -68,7 +68,7 @@
 Mainkan permainan cepat dan klasik untuk meningkatkan kesempatan Anda agar sebuah teka-teki dari Anda dapat ditambahkan!</string>
   <string name="fromXGamesFound">Teka-teki %1$s ditemukan di permainan %2$s</string>
   <string name="puzzleDashboardDescription">Latih, analisis, meningkat</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="other">%s dimainkan</item>
   </plurals>
   <plurals name="nbToReplay">
