@@ -40,6 +40,7 @@
   <string name="endgame">Akhir permainan</string>
   <string name="fork">Fork</string>
   <string name="longDescription">Tiga gerakan untuk menang.</string>
+  <string name="master">Permainan master</string>
   <string name="mate">Skakmat</string>
   <string name="mateDescription">Menangkan game dengan bergaya.</string>
   <string name="mateIn1">Mati dalam 1 Langkah</string>
