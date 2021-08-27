@@ -26,7 +26,7 @@ object page {
       moreCss = cssTag("page")
     )(pageContent(doc, resolver))
 
-  private def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
+  def pageContent(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver) = frag(
     h1(doc.getText("doc.title")),
     div(cls := "body")(
       raw {

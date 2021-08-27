@@ -141,6 +141,7 @@ POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
 # Study
 GET   /study                           controllers.Study.allDefault(page: Int ?= 1)
+GET   /study/staff-picks               controllers.Study.staffPicks
 GET   /study/all/:order                controllers.Study.all(order: String, page: Int ?= 1)
 GET   /study/mine/:order               controllers.Study.mine(order: String, page: Int ?= 1)
 GET   /study/member/:order             controllers.Study.mineMember(order: String, page: Int ?= 1)

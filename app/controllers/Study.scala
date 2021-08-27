@@ -20,7 +20,8 @@ import views._
 final class Study(
     env: Env,
     userAnalysisC: => UserAnalysis,
-    apiC: => Api
+    apiC: => Api,
+    prismicC: Prismic
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) =
@@ -567,6 +568,13 @@ final class Study(
               Redirect(routes.Study.topics)
         )
     }
+
+  def staffPicks = Open { implicit ctx =>
+    pageHit
+    OptionOk(prismicC getBookmark "studies-staff-picks") { case (doc, resolver) =>
+      html.study.list.staffPicks(doc, resolver)
+    }
+  }
 
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(implicit ctx: lila.api.Context) =
