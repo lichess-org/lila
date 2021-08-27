@@ -898,8 +898,8 @@
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
   <string name="playEveryGame">Доигрывайте каждую начатую партию.</string>
-  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
-  <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
+  <string name="tryToWin">Попытайтесь выиграть в каждой начатой партии (или хотя бы свести ее вничью).</string>
+  <string name="resignLostGames">Сдавайтесь в проигранных партиях (не ждите окончания времени).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
   <string name="thankYouForReading">Спасибо за внимание!</string>
