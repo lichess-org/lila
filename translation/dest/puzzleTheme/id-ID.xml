@@ -80,5 +80,5 @@
   <string name="healthyMixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
   <string name="playerGames">Permainan pemain</string>
   <string name="playerGamesDescription">Mengambil taktik yang dihasilkan dari permainan anda, atau pemain lain.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Taktik-taktik ini ada di domain publik, dan dapat di download dari %s.</string>
+  <string name="puzzleDownloadInformation">Taktik-taktik ini ada di domain publik, dan dapat di download dari %s.</string>
 </resources>
