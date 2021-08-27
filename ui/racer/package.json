@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "chess": "2.0.0",
-    "chessground": "^8.1.6",
+    "chessground": "^8.1.7",
     "chessops": "^0.10.0",
     "common": "2.0.0",
     "puz": "2.0.0",
