@@ -25,11 +25,11 @@ Vi bezonas ambaŭ!</string>
   <string name="bishopComplete">Gratulojn! Vi povas regi kurieron.</string>
   <string name="theQueen">La damo</string>
   <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
-  <string name="queenIntro">La plej potenca ŝako peco eniras. Ŝia majesto la damo!</string>
+  <string name="queenIntro">La plej potenca ŝako peco eniras. Jen la damo!</string>
   <string name="queenComplete">Gratulon! Damoj ne havas sekretojn por vi.</string>
   <string name="theKing">La reĝo</string>
   <string name="theMostImportantPiece">La plej grava peco</string>
-  <string name="kingIntro">Vi estas la reĝo. Se vi falos en batalo, la ludo perdiĝas.</string>
+  <string name="kingIntro">Vi estas la reĝo. Se vi falos en batalo, la ludo perdiĝos.</string>
   <string name="theKingIsSlow">La reĝo estas malrapida.</string>
   <string name="lastOne">La lasta!</string>
   <string name="kingComplete">Vi nun povas regi la reganton!</string>
