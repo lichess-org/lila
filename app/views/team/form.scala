@@ -26,9 +26,7 @@ object form {
           postForm(cls := "form3", action := routes.Team.create)(
             form3.globalError(form),
             form3.group(form("name"), trans.name())(form3.input(_)),
-            requestField(form),
-            hideFields(form),
-            entryCodeField(form, none),
+            entryFields(form, none),
             textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
@@ -52,20 +50,9 @@ object form {
               a(cls := "button button-empty", href := routes.Team.leaders(t.id))(teamLeaders()),
               a(cls := "button button-empty", href := routes.Team.kick(t.id))(kickSomeone())
             ),
-            requestField(form),
-            hideFields(form),
-            entryCodeField(form, t.some),
+            entryFields(form, t.some),
             textFields(form),
-            form3.group(form("chat"), frag("Team chat")) { f =>
-              form3.select(
-                f,
-                Seq(
-                  Team.Access.NONE    -> "No chat",
-                  Team.Access.LEADERS -> "Team leaders",
-                  Team.Access.MEMBERS -> "Team members"
-                )
-              )
-            },
+            accessFields(form),
             form3.actions(
               a(href := routes.Team.show(t.id), style := "margin-left:20px")(trans.cancel()),
               form3.submit(trans.apply())
@@ -119,35 +106,54 @@ object form {
     )
   )
 
-  private def requestField(form: Form[_])(implicit lang: Lang) =
-    form3.checkbox(
-      form("request"),
-      trans.team.manuallyReviewAdmissionRequests(),
-      help = trans.team.manuallyReviewAdmissionRequestsHelp().some
-    )
-
-  private def hideFields(form: Form[_])(implicit lang: Lang) =
-    form3.split(
+  private def accessFields(form: Form[_])(implicit ctx: Context) =
+    frag(
       form3.checkbox(
         form("hideMembers"),
         "Hide team member list from non-members.",
         half = true
       ),
-      form3.checkbox(
-        form("hideForum"),
-        "Hide team forum from team homepage for non-members.",
-        half = true
+      form3.split(
+        form3.group(form("chat"), frag("Team chat")) { f =>
+          form3.select(
+            f,
+            Seq(
+              Team.Access.NONE    -> "No chat",
+              Team.Access.LEADERS -> "Team leaders",
+              Team.Access.MEMBERS -> "Team members"
+            )
+          )
+        },
+        form3.group(form("forum"), frag("Team forum")) { f =>
+          form3.select(
+            f,
+            Seq(
+              Team.Access.NONE    -> "Hide the forum",
+              Team.Access.LEADERS -> "Show to team leaders",
+              Team.Access.MEMBERS -> "Show to members"
+            )
+          )
+        }
       )
     )
 
-  private def entryCodeField(form: Form[_], team: Option[Team])(implicit ctx: Context) =
-    form3.group(
-      form("password"),
-      trans.team.entryCode(),
-      help = trans.team.entryCodeDescriptionForLeader().some
-    ) { field =>
-      if (team.fold(true)(t => ctx.userId.exists(t.leaders.contains)))
-        form3.input(field)
-      else form3.input(field)(tpe := "password", disabled)
-    }
+  private def entryFields(form: Form[_], team: Option[Team])(implicit ctx: Context) =
+    form3.split(
+      form3.checkbox(
+        form("request"),
+        trans.team.manuallyReviewAdmissionRequests(),
+        help = trans.team.manuallyReviewAdmissionRequestsHelp().some,
+        half = true
+      ),
+      form3.group(
+        form("password"),
+        trans.team.entryCode(),
+        help = trans.team.entryCodeDescriptionForLeader().some,
+        half = true
+      ) { field =>
+        if (team.fold(true)(t => ctx.userId.exists(t.leaders.contains)))
+          form3.input(field)
+        else form3.input(field)(tpe := "password", disabled)
+      }
+    )
 }
