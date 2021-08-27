@@ -18,5 +18,5 @@ Divirta-se, e que as suas peças sempre encontrem o caminho até o rei inimigo!<
   <string name="logInToLichess">Entre no lichess.org, %s</string>
   <string name="common_orPaste">(Clicar no link não funciona? Tente colar em seu navegador!)</string>
   <string name="common_note">Isto é um e-mail de serviço relacionado com a sua atividade em %s.</string>
-  <string name="common_contact">Para entrar em contato, por favor, acesse %s.</string>
+  <string name="common_contact">Para entrar em contato conosco, favor acessar %s.</string>
 </resources>
