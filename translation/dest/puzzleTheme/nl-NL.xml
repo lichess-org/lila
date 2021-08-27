@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Van alles wat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
   <string name="playerGames">Eigen partijen</string>
   <string name="playerGamesDescription">Zoek puzzels gegenereerd uit jouw partijen, of uit partijen van een andere speler.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Deze puzzels zijn beschikbaar in het publieke domein en kunnen worden gedownload op %s.</string>
+  <string name="puzzleDownloadInformation">Deze puzzels zijn beschikbaar in het publieke domein en kunnen worden gedownload op %s.</string>
 </resources>
