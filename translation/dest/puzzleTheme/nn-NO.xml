@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Litt av kvart. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
   <string name="playerGames">Spelar parti</string>
   <string name="playerGamesDescription">Finn oppgåver generert frå dine eller andre sine parti.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Desse oppgåvene er offentleg eigedom og kan lastast ned frå %s.</string>
+  <string name="puzzleDownloadInformation">Desse oppgåvene er offentleg eigedom og kan lastast ned frå %s.</string>
 </resources>
