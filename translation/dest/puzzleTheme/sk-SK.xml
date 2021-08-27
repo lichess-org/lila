@@ -116,4 +116,7 @@
   <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
   <string name="healthyMix">Zdravý mix</string>
   <string name="healthyMixDescription">Zo všetkého niečo. Neviete čo očakávať, a tak budete pripravený na všetko! Presne ako v skutočných hrách.</string>
+  <string name="playerGames">Vaše partie</string>
+  <string name="playerGamesDescription">Vyhľadajte si úlohy vygenerované z Vašich partií alebo z partií iných iných hráčov.</string>
+  <string name="puzzleDownloadInformation">Tieto úlohy sú voľne dostupné a môžete si ich stiahnuť z %s.</string>
 </resources>
