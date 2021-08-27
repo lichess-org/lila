@@ -77,7 +77,7 @@
 Graj partie szybkie i klasyczne, aby zwiększyć swoje szanse na dodanie zadania!</string>
   <string name="fromXGamesFound">%1$s zadań znalezionych w %2$s grach</string>
   <string name="puzzleDashboardDescription">Trenuj, analizuj, doskonal się</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="one">%s rozwiązywanych</item>
     <item quantity="few">%s rozwiązywanych</item>
     <item quantity="many">%s rozwiązywanych</item>
