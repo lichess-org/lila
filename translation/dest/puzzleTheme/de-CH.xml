@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Dä Gegner isch idä Aazahl vo sinä Züg limitiärt und jede vo sinä Züg verschlächtärät sini Schtellig.</string>
   <string name="healthyMix">Gsundä Mix</string>
   <string name="healthyMixDescription">Äs bitzli vo Alläm. Du weisch nöd, was dich erwartät, drum bliibsch am beschtä uf alläs vorbereität! Genau wiä in ächtä Partiiä.</string>
+  <string name="playerGames">Partien von Spielern</string>
+  <string name="playerGamesDescription">Suche Aufgaben, die aus deinen Partien, oder den Partien eines anderen Spielers generiert wurden.</string>
+  <string name="puzzleDownloadInformation">Diese Aufgaben sind öffentlich zugänglich und können unter %s heruntergeladen werden.</string>
 </resources>
