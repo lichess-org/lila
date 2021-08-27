@@ -70,6 +70,11 @@
   <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
     <item quantity="other">%s 問をプレイ</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s 再挑戦</item>
+  </plurals>
   <string name="percentSolved">%s に正解</string>
   <string name="noPuzzlesToShow">データがありません、まず問題をプレイしてから！</string>
+  <string name="improvementAreasDescription">ここのテーマを練習して前進！</string>
+  <string name="strengthDescription">これらのテーマで好成績でした</string>
 </resources>
