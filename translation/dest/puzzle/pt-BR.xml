@@ -80,7 +80,7 @@ Jogue partidas rápidas e clássicas para aumentar suas chances de ter um desafi
     <item quantity="other">%s a serem repetidos</item>
   </plurals>
   <string name="percentSolved">%s resolvido</string>
-  <string name="noPuzzlesToShow">Nada a mostrar, vá jogar alguns quebra-cabeças primeiro!</string>
+  <string name="noPuzzlesToShow">Não há nada para mostrar aqui, jogue alguns quebra-cabeças primeiro!</string>
   <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
   <string name="strengthDescription">Seu desempenho é o melhor nestes temas</string>
 </resources>
