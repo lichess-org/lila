@@ -67,4 +67,6 @@
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
   <string name="noPuzzlesToShow">Niet tu čo ukázať, choďte najprv riešiť pár úloh!</string>
+  <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
+  <string name="strengthDescription">Tieto témy Vám idú najlepšie</string>
 </resources>
