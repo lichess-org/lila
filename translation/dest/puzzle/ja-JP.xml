@@ -67,7 +67,7 @@
   <string name="fromMyGamesNone">あなたの対局からの問題はまだありませんが、Lichess はあなたの参加を歓迎します。自分の対局が使われる可能性を増やすには、ラピッドかクラシカルでプレイしてください！</string>
   <string name="fromXGamesFound">%1$s 問がヒット（全 %2$s 局中）</string>
   <string name="puzzleDashboardDescription">練習、分析、上達</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="other">%s 問をプレイ</item>
   </plurals>
   <plurals name="nbToReplay">
