@@ -82,5 +82,5 @@ Spiele schnelle und klassische Partien, um die Chance zu erhöhen, eine Aufgabe 
   <string name="percentSolved">%s gelöst</string>
   <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
   <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
-  <string name="strengthDescription">Diese Themen sind deine stärksten</string>
+  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
 </resources>
