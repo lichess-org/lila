@@ -30,9 +30,9 @@ final private[team] class TeamForm(
     val request     = "request"     -> boolean
     val gameId      = "gameId"      -> text
     val move        = "move"        -> text
-    val chat        = "chat"        -> numberIn(Team.ChatFor.all)
+    val chat        = "chat"        -> numberIn(Team.Access.all)
+    val forum       = "forum"       -> numberIn(Team.Access.all)
     val hideMembers = "hideMembers" -> boolean
-    val hideForum   = "hideForum"   -> boolean
   }
 
   val create = Form(
@@ -44,9 +44,7 @@ final private[team] class TeamForm(
       Fields.descPrivate,
       Fields.request,
       Fields.gameId,
-      Fields.move,
-      Fields.hideMembers,
-      Fields.hideForum
+      Fields.move
     )(TeamSetup.apply)(TeamSetup.unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
@@ -61,8 +59,8 @@ final private[team] class TeamForm(
         Fields.descPrivate,
         Fields.request,
         Fields.chat,
-        Fields.hideMembers,
-        Fields.hideForum
+        Fields.forum,
+        Fields.hideMembers
       )(TeamEdit.apply)(TeamEdit.unapply)
     ) fill TeamEdit(
       location = team.location,
@@ -71,8 +69,8 @@ final private[team] class TeamForm(
       descPrivate = team.descPrivate,
       request = !team.open,
       chat = team.chat,
-      hideMembers = team.hideMembers.has(true),
-      hideForum = team.hideForum.has(true)
+      forum = team.forum,
+      hideMembers = team.hideMembers.has(true)
     )
 
   def request(team: Team) = Form(
@@ -133,9 +131,7 @@ private[team] case class TeamSetup(
     descPrivate: Option[String],
     request: Boolean,
     gameId: String,
-    move: String,
-    hideMembers: Boolean,
-    hideForum: Boolean
+    move: String
 ) {
 
   def isOpen = !request
@@ -155,9 +151,9 @@ private[team] case class TeamEdit(
     description: String,
     descPrivate: Option[String],
     request: Boolean,
-    chat: Team.ChatFor,
-    hideMembers: Boolean,
-    hideForum: Boolean
+    chat: Team.Access,
+    forum: Team.Access,
+    hideMembers: Boolean
 ) {
 
   def isOpen = !request

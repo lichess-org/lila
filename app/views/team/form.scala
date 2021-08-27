@@ -60,9 +60,9 @@ object form {
               form3.select(
                 f,
                 Seq(
-                  Team.ChatFor.NONE    -> "No chat",
-                  Team.ChatFor.LEADERS -> "Team leaders",
-                  Team.ChatFor.MEMBERS -> "Team members"
+                  Team.Access.NONE    -> "No chat",
+                  Team.Access.LEADERS -> "Team leaders",
+                  Team.Access.MEMBERS -> "Team members"
                 )
               )
             },

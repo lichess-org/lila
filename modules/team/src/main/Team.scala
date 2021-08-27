@@ -19,9 +19,9 @@ case class Team(
     createdAt: DateTime,
     createdBy: User.ID,
     leaders: Set[User.ID],
-    chat: Team.ChatFor,
-    hideMembers: Option[Boolean],
-    hideForum: Option[Boolean]
+    chat: Team.Access,
+    forum: Team.Access,
+    hideMembers: Option[Boolean]
 ) {
 
   def id = _id
@@ -30,12 +30,13 @@ case class Team(
 
   def disabled = !enabled
 
-  def isChatFor(f: Team.ChatFor.type => Team.ChatFor) =
-    chat == f(Team.ChatFor)
+  def isChatFor(f: Team.Access.type => Team.Access) =
+    chat == f(Team.Access)
+
+  def isForumFor(f: Team.Access.type => Team.Access) =
+    forum == f(Team.Access)
 
   def publicMembers: Boolean = !hideMembers.has(true)
-
-  def publicForum: Boolean = !hideForum.has(true)
 
   def passwordMatches(pw: String) =
     password.forall(teamPw =>
@@ -59,8 +60,8 @@ object Team {
 
   type ID = String
 
-  type ChatFor = Int
-  object ChatFor {
+  type Access = Int
+  object Access {
     val NONE    = 0
     val LEADERS = 10
     val MEMBERS = 20
@@ -98,9 +99,7 @@ object Team {
       description: String,
       descPrivate: Option[String],
       open: Boolean,
-      createdBy: User,
-      hideMembers: Option[Boolean],
-      hideForum: Option[Boolean]
+      createdBy: User
   ): Team =
     new Team(
       _id = id,
@@ -115,9 +114,9 @@ object Team {
       createdAt = DateTime.now,
       createdBy = createdBy.id,
       leaders = Set(createdBy.id),
-      chat = ChatFor.MEMBERS,
-      hideMembers = hideMembers,
-      hideForum = hideForum
+      chat = Access.MEMBERS,
+      forum = Access.MEMBERS,
+      hideMembers = none
     )
 
   def nameToId(name: String) =
