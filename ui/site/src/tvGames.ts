@@ -5,6 +5,8 @@ interface ReplacementResponse {
   html: string;
 }
 
+const getId = (el: EleLoose) => el.getAttribute('href')?.substring(1, 9);
+
 let isRequestPending = false;
 const finishedIdQueue: string[] = [];
 
@@ -20,11 +22,12 @@ function requestReplacementGame() {
   requestAnimationFrame(() => {
     const main = $('main.tv-games');
     const url = new URL(main.data('rel').replace('gameId', oldId));
-    main.find('.mini-game').each((_i, el) => url.searchParams.append('exclude', el.dataset.live!));
+    main.find('.mini-game').each((_i, el) => url.searchParams.append('exclude', getId(el)!));
     xhr
       .json(url.toString())
       .then((data: ReplacementResponse) => {
-        main.find(`.mini-game[data-live="${oldId}"]`).parent().html(data.html);
+        main.find(`.mini-game[href^="/${oldId}"]`).parent().html(data.html);
+        if (data.html.includes('mini-game__result')) onFinish(data.id);
         lichess.contentLoaded();
       })
       .then(done, done);
@@ -36,11 +39,18 @@ function done() {
   requestReplacementGame();
 }
 
-lichess.load.then(() =>
-  lichess.pubsub.on('socket.in.finish', ({ id }) => {
-    setTimeout(() => {
-      finishedIdQueue.push(id);
-      requestReplacementGame();
-    }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
-  })
-);
+function onFinish(id: string) {
+  setTimeout(() => {
+    finishedIdQueue.push(id);
+    requestReplacementGame();
+  }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
+}
+
+lichess.load.then(() => {
+  lichess.pubsub.on('socket.in.finish', ({ id }) => onFinish(id));
+  $('main.tv-games')
+    .find('.mini-game')
+    .each((_i, el) => {
+      if ($(el).find('.mini-game__result').length > 0) onFinish(getId(el)!);
+    });
+});
