@@ -25,7 +25,7 @@
   <string name="keepGoing">Continue…</string>
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Quebra-cabeças concluído!</string>
-  <string name="notTheMove">O movimento não é esse!</string>
+  <string name="notTheMove">O movimento não é este!</string>
   <string name="trySomethingElse">Tente algo diferente.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">oculto</string>
@@ -52,7 +52,7 @@
   <string name="example">Exemplo</string>
   <string name="addAnotherTheme">Adicionar um outro tema</string>
   <string name="jumpToNextPuzzleImmediately">Ir para o próximo problema automaticamente</string>
-  <string name="puzzleDashboard">Painel do quebra-cabeça</string>
+  <string name="puzzleDashboard">Painel do quebra-cabeças</string>
   <string name="improvementAreas">Áreas de aprimoramento</string>
   <string name="strengths">Pontos fortes</string>
   <string name="history">Histórico de quebra-cabeças</string>
