@@ -66,7 +66,7 @@ final class PlayApi(
       }
     }
 
-  def boardCommand(cmd: String) =
+  def boardCommandPost(cmd: String) =
     ScopedBody(_.Board.Play) { implicit req => me =>
       impl.command(me, cmd)(WithPovAsBoard)
     }
@@ -118,6 +118,17 @@ final class PlayApi(
         case _ => notFoundJson("No such command")
       }
   }
+
+  def boardCommandGet(cmd: String) =
+    ScopedBody(_.Board.Play) { implicit req => me =>
+      cmd.split('/') match {
+        case Array("game", id, "chat") =>
+          WithPovAsBoard(id, me) { pov =>
+            env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map
+              lila.chat.JsonView.boardApi map JsonOk
+          }
+      }
+    }
 
   // utils
 
