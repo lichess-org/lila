@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doação</string>
-  <string name="lichessPatron">Apoiador do Lichess</string>
+  <string name="lichessPatron">Apoie o Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Seja um Patrono Lichess</string>
   <string name="xBecamePatron">%s se tornou um Patrono Lichess</string>
