@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
   <string name="playerGames">Žaidėjų žaidimai</string>
   <string name="playerGamesDescription">Galvosūkiai sugeneruoti iš jūsų partijų ar iš kitų žaidėjų partijų.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Šie galvosūkiai yra laisvai prieinami ir gali būti parsisiųsti iš %s.</string>
+  <string name="puzzleDownloadInformation">Šie galvosūkiai yra laisvai prieinami ir gali būti parsisiųsti iš %s.</string>
 </resources>
