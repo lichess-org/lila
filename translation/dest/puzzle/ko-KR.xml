@@ -67,4 +67,5 @@
   <string name="fromMyGamesNone">데이터베이스에 퍼즐이 없습니다만, Lichess는 여전히 당신을 사랑합니다.
 래피드나 클래시컬 게임을 플레이해서 당신의 퍼즐이 추가될 확률을 높이세요!</string>
   <string name="fromXGamesFound">%2$s의 게임에서 찾은 %1$s개의 퍼즐</string>
+  <string name="strengthDescription">이 테마에서 최고의 성적을 냈습니다</string>
 </resources>
