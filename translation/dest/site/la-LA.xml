@@ -613,6 +613,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Melior es quam %1$s lusores %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ordo ratus ludi %s non habes.</string>
   <string name="yourRating">Ordo tuus ludi</string>
+  <string name="cumulative">Cumulativa</string>
   <string name="checkYourEmail">Specta tuas e-litteras</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tibi electronicam inscriptionem misimus. Sequere ligamen in illa inscriptione ut tuam rationem aperias.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
@@ -637,6 +638,8 @@
   <string name="enableKidMode">Modus puerilis face</string>
   <string name="disableKidMode">Modus non puerilis face</string>
   <string name="security">Cautionis</string>
+  <string name="sessions">Sessiones</string>
+  <string name="revokeAllSessions">recanta sessionem</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
   <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>
