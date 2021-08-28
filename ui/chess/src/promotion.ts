@@ -113,6 +113,7 @@ export class PromotionCtrl {
       this.promoting = undefined;
       if (promoting.pre) this.setPrePromotion(promoting.dest, role);
       else this.doPromote(promoting, role);
+      this.redraw();
     }
   }
 
