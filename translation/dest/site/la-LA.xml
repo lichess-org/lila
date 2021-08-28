@@ -133,6 +133,8 @@
     <item quantity="one">%s lusor</item>
     <item quantity="other">%s lusores</item>
   </plurals>
+  <string name="drawByMutualAgreement">Consensus ad idem</string>
+  <string name="fiftyMovesWithoutProgress">Prosectus non est</string>
   <string name="currentGames">Nunc ludi luduntur</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludus</item>
@@ -500,6 +502,8 @@
   <string name="victory">Victoria!</string>
   <string name="defeat">Et cladem</string>
   <string name="victoryVsYInZ">%1$s adversus %2$s apud %3$s</string>
+  <string name="defeatVsYInZ">%1$s adversus %2$s apud %3$s</string>
+  <string name="drawVsYInZ">%1$s adversus %2$s apud %3$s</string>
   <string name="timeline">Linea temporis</string>
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
