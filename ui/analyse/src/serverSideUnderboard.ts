@@ -138,7 +138,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const iframe = '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=397 frameborder=0></iframe>';
     modal({
       content: $(
-        '<strong style="font-size:1.5em">' +
+        '<div><strong style="font-size:1.5em">' +
           $(this).html() +
           '</strong><br /><br />' +
           '<pre>' +
@@ -146,7 +146,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           '</pre><br />' +
           iframe +
           '<br /><br />' +
-          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>'
+          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a></div>'
       ),
     });
   });
