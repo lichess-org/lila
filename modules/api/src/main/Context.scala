@@ -78,7 +78,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
   def zoom: Int = {
-    req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100) filter (0 <=) filter (100 >=)
+    def oldZoom = req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100)
+    req.cookies get "zoom" map (_.value) flatMap (_.toIntOption) orElse oldZoom filter (0 <=) filter (100 >=)
   } | 85
 
   def flash(name: String): Option[String] = req.flash get name
