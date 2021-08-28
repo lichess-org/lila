@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">상대가 둘 수 있는 수는 제한되어 있으며, 모든 수가 포지션을 악화시킵니다.</string>
   <string name="healthyMix">골고루 섞기</string>
   <string name="healthyMixDescription">전부 다. 무엇이 나올지 모르기 때문에 모든 것에 준비되어 있어야 합니다. 마치 진짜 게임처럼요.</string>
+  <string name="playerGames">플레이어 게임</string>
+  <string name="playerGamesDescription">당신의 게임이나 다른 플레이어의 게임에서 나온 퍼즐을 찾아보세요.</string>
+  <string name="puzzleDownloadInformation">이 퍼즐들은 퍼블릭 도메인이며, %s에서 다운로드할 수 있습니다.</string>
 </resources>
