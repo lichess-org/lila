@@ -122,6 +122,6 @@
   <string name="healthyMix">Mezcla equilibrada</string>
   <string name="healthyMixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
   <string name="playerGames">Partidas de jugadores</string>
-  <string name="playerGamesDescription">Ejercicios generados a partir de tus partidas, o desde partidas de otros jugadores.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">Estos ejercicios son de dominio público, y se pueden descargar desde %s.</string>
+  <string name="playerGamesDescription">Ejercicios generados a partir de tus partidas o de las partidas de otros jugadores.</string>
+  <string name="puzzleDownloadInformation">Estos ejercicios son de dominio público y pueden descargarse desde %s.</string>
 </resources>

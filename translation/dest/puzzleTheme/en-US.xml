@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>
   <string name="playerGames">Player games</string>
   <string name="playerGamesDescription">Lookup puzzles generated from your games, or from another player\'s games.</string>
-  <string name="puzzleDownloadInformation" comment="puzzleDownloadInformation&#10;&#10;%s is https://database.lichess.org/">These puzzles are in the public domain, and can be downloaded from %s.</string>
+  <string name="puzzleDownloadInformation">These puzzles are in the public domain, and can be downloaded from %s.</string>
 </resources>

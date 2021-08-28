@@ -189,6 +189,9 @@ O rei não tem preço! Perdê-lo significa perder o jogo.</string>
 de maior valor!
 Rainha &gt; bispo</string>
   <string name="pieceValueExchange">Tome a peça de maior valor! Não troque uma peça de valor mais alto por uma de menor valor.</string>
+  <string name="pieceValueLegal">Captura a peça
+Com o valor mais alto!
+Confirma que a tua jogada é legal!</string>
   <string name="takeThePieceWithTheHighestValue">Captura a peça
 de maior valor!</string>
   <string name="pieceValueComplete">Parabéns! Sabes o valor do material!

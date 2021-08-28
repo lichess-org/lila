@@ -5,7 +5,19 @@
     <item quantity="one">Näytä kierros</item>
     <item quantity="other">Näytä kaikki %s kierrosta</item>
   </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s kierrosta</item>
+    <item quantity="other">%s kierrosta</item>
+  </plurals>
   <string name="roundsAreStartedManually">Kierrokset aloitetaan käsin</string>
+  <plurals name="xSecondsBetweenRounds">
+    <item quantity="one">%s sekuntia kierrosten välillä</item>
+    <item quantity="other">%s sekuntia kierrosten välillä</item>
+  </plurals>
+  <plurals name="xMinutesBetweenRounds">
+    <item quantity="one">%s minuuttia kierrosten välillä</item>
+    <item quantity="other">%s minuuttia kierrosten välillä</item>
+  </plurals>
   <string name="startingIn" comment="Displayed above a timer">Turnauksen alkuun on</string>
   <string name="nextRound">Seuraava kierros</string>
   <string name="tournStartDate">Turnauksen alkamisaika</string>

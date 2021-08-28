@@ -70,4 +70,8 @@
   <string name="fromMyGamesNone">Tietokannassa ei ole tehtäviä sinulta, mutta olet silti Lichessille erittäin tärkeä.
 Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että sinunkin peleistäsi luodaan tehtävä!</string>
   <string name="fromXGamesFound">Löytyi %1$s tehtävää %2$s pelistä</string>
+  <string name="puzzleDashboardDescription">Harjoittele, analysoi, kehity</string>
+  <string name="percentSolved">%s ratkaistu</string>
+  <string name="improvementAreasDescription">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
+  <string name="strengthDescription">Suorituksesi ovat parhaita näissä aiheissa</string>
 </resources>

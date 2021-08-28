@@ -71,7 +71,7 @@
 Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
   <string name="fromXGamesFound">%1$s opgaver fundet i %2$s partier</string>
   <string name="puzzleDashboardDescription">Træn, analysér, forbedr</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="one">%s spillet</item>
     <item quantity="other">%s spillede</item>
   </plurals>

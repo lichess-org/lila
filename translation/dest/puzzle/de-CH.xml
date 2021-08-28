@@ -70,4 +70,17 @@
   <string name="fromMyGamesNone">Äs befindäd sich kei Ufgoobä vo dir idä Datäbank, aber Lichess schätzt dich immer no sehr.
 Schpill schnälli und klassischi Partiiä, zum d\'Chancä z\'erhöchä, än Ufgoob vo dinä Partiiä hinzuäzfüägä!</string>
   <string name="fromXGamesFound">%1$s Aufgaben in %2$s Partien gefunden</string>
+  <string name="puzzleDashboardDescription">Trainiere, analysiere, verbessere</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%s gespielt</item>
+    <item quantity="other">%s gespielt</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s zu wiederholen</item>
+    <item quantity="other">%s zu wiederholen</item>
+  </plurals>
+  <string name="percentSolved">%s gelöst</string>
+  <string name="noPuzzlesToShow">Nichts zu zeigen, spiel erst ein paar Aufgaben!</string>
+  <string name="improvementAreasDescription">Trainiere diese, um deinen Fortschritt zu optimieren!</string>
+  <string name="strengthDescription">Diese Aufgabengebiete liegen dir am meisten</string>
 </resources>

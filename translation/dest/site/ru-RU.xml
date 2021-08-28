@@ -746,7 +746,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
   <string name="weHaveSentYouAnEmailTo">Мы отправили письмо по адресу %s. Нажмите на ссылку в нём для сброса пароля.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрируясь, вы берёте на себя обязанность соблюдать наше %s</string>
-  <string name="readAboutOur">Почитайте подробней: %s.</string>
+  <string name="readAboutOur">Ознакомьтесь с нашей %s.</string>
   <string name="networkLagBetweenYouAndLichess">Задержки передачи данных между вами и серверами lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Время обработки хода на сервере</string>
   <string name="downloadAnnotated">Скачать с аннотациями</string>
@@ -755,7 +755,7 @@
   <string name="printFriendlyPDF">Скачать в PDF</string>
   <string name="crosstable">Счёт</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Для перелистывания ходов можно использовать колёсико мыши над доской.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">Листайте варианты для их предпросмотра.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Прокручивайте колесо в области компьютерных вариантов, чтобы просмотреть их.</string>
   <string name="analysisShapesHowTo">Чтобы рисовать на доске кружки и стрелки, используйте Shift+левую кнопку мыши или правую кнопку.</string>
   <string name="letOtherPlayersMessageYou">Разрешить присылать вам сообщения</string>
   <string name="receiveForumNotifications">Получать уведомления при упоминании на форуме</string>
@@ -890,16 +890,16 @@
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
   <string name="sorry">Извините :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены отключить вас на время.</string>
+  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
   <string name="timeoutExpires">Вы можете вернуться через %s.</string>
   <string name="why">Почему?</string>
   <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
   <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
   <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
   <string name="howToAvoidThis">Как избежать этого?</string>
-  <string name="playEveryGame">Доигрывайте все партии, которые начинали.</string>
-  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою партию.</string>
-  <string name="resignLostGames">Сдавайтесь в безнадёжной позиции (а не ждите, когда время закончится).</string>
+  <string name="playEveryGame">Доигрывайте каждую начатую партию.</string>
+  <string name="tryToWin">Попытайтесь выиграть в каждой начатой партии (или хотя бы свести ее вничью).</string>
+  <string name="resignLostGames">Сдавайтесь в проигранных партиях (не ждите окончания времени).</string>
   <string name="temporaryInconvenience">Приносим извинения за временные неудобства,</string>
   <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
   <string name="thankYouForReading">Спасибо за внимание!</string>
@@ -937,22 +937,22 @@
   <string name="xMentionedYouInY">%1$s упомянул вас в «%2$s».</string>
   <string name="invitedYouToX">пригласил вас в «%1$s».</string>
   <string name="xInvitedYouToY">%1$s пригласил вас в «%2$s».</string>
-  <string name="youAreNowPartOfTeam">Теперь вы являетесь частью клуба.</string>
+  <string name="youAreNowPartOfTeam">Теперь вы член клуба.</string>
   <string name="youHaveJoinedTeamX">Вы вступили в «%1$s».</string>
   <string name="someoneYouReportedWasBanned">Кто-то был заблокирован по вашему обращению</string>
   <string name="congratsYouWon">Поздравляем, вы выиграли!</string>
   <string name="gameVsX">Партия против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
   <string name="someoneReviewedYourCoachProfile">Кто-то просмотрел ваш тренерский профиль.</string>
-  <string name="newPendingReview">Ожидают рассмотрения</string>
+  <string name="newPendingReview">Новый соискатель</string>
   <string name="lostAgainstTOSViolator">Вы проиграли кому-то, кто нарушил пользовательское соглашение Lichess</string>
   <string name="refundXpointsTimeControlY">Возврат: %1$s %2$s рейтинговых очков.</string>
-  <string name="timeAlmostUp">Время почти вышло!</string>
+  <string name="timeAlmostUp">Время почти истекло!</string>
   <string name="clickToRevealEmailAddress">[Нажмите, чтобы раскрыть адрес электронной почты]</string>
   <string name="download">Загрузить</string>
   <string name="welcome">Добро пожаловать!</string>
-  <string name="lichessPatronInfo">Lichess — это благотворительная организация, предоставляющая свободное и бесплатное программное обеспечение с открытым исходным кодом.
-Все операционные расходы, разработки и контент финансируются исключительно за счёт пожертвований пользователей.</string>
+  <string name="lichessPatronInfo">Lichess - это благотворительное и полностью бесплатное программное обеспечение с открытым исходным кодом.
+Все эксплуатационные расходы, разработка и контент финансируются исключительно за счет пожертвований пользователей.</string>
   <string name="coachManager">Для тренеров</string>
   <string name="streamerManager">Для стримеров</string>
   <string name="cancelTournament">Отменить турнир</string>

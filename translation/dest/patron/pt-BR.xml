@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="donate">Doação</string>
-  <string name="lichessPatron">Patrono Lichess</string>
+  <string name="lichessPatron">Apoie o Lichess</string>
   <string name="freeAccount">Conta gratuita</string>
   <string name="becomePatron">Seja um Patrono Lichess</string>
   <string name="xBecamePatron">%s se tornou um Patrono Lichess</string>
@@ -10,12 +10,12 @@
     <item quantity="other">%1$s é um Patrono Lichess por %2$s meses</item>
   </plurals>
   <string name="newPatrons">Novos Patronos</string>
-  <string name="freeChess">Xadrez de graça para todos, para sempre!</string>
+  <string name="freeChess">Xadrez de graça, para todos, para sempre!</string>
   <string name="noAdsNoSubs">Sem anúncios, sem assinaturas; mas com código aberto e paixão.</string>
   <string name="thankYou">Obrigado pela sua doação!</string>
   <string name="youHaveLifetime">Você tem uma conta de Patrono vitalícia. Isso é incrível!</string>
   <string name="patronUntil">Você tem uma conta de Patrono até %s.</string>
-  <string name="ifNotRenewed">Se não for renovado, você será rebaixado para uma versão gratuita.</string>
+  <string name="ifNotRenewed">Se não renovado, você será convertido para uma versão gratuita.</string>
   <string name="weAreNonProfit">Somos uma associação sem fins lucrativos porque acreditamos que todos devem ter acesso a uma plataforma de xadrez gratuita e de nível mundial.</string>
   <string name="weRelyOnSupport">Contamos com o apoio de pessoas como você para tornar isso possível. Se você gosta de usar o Lichess, considere apoiar-nos doando e se tornando um Patrono!</string>
   <string name="lifetime">Vitalício</string>
@@ -50,7 +50,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="featuresComparison">Veja a comparação detalhada de recursos</string>
   <plurals name="patronForMonths">
     <item quantity="one">Patrono Lichess por um mês</item>
-    <item quantity="other">Patrono Lichess por %s meses</item>
+    <item quantity="other">Apoiador Lichess por %s meses</item>
   </plurals>
   <string name="youSupportWith">Você apoia o lichess.org com %s por mês.</string>
   <string name="tyvm">Muito obrigado pelo seu apoio. Você é demais!</string>
@@ -72,8 +72,8 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="transactionCompleted">Sua transação foi concluída e um recibo de sua doação foi enviado por e-mail para você.</string>
   <string name="permanentPatron">Agora você tem uma conta de Patrono permanente.</string>
   <string name="checkOutProfile">Confira sua página de perfil!</string>
-  <string name="nowLifetime">Você agora é um Patrono Lichess vitalício!</string>
+  <string name="nowLifetime">Você agora é um Patrono vitalício do Lichess!</string>
   <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
-  <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será rebaixada para a versão gratuita.</string>
+  <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será convertida para a versão gratuita.</string>
   <string name="changeCurrency" comment="changeCurrency&#10;&#10;e.g. pay in Euros instead of US dollars.">Trocar de moeda</string>
 </resources>

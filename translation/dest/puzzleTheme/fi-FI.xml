@@ -121,4 +121,7 @@
   <string name="zugzwangDescription">Vastustajalla on rajoitettu määrä mahdollisia siirtoja, ja niistä kaikki heikentävät hänen asemaansa.</string>
   <string name="healthyMix">Terve sekoitus</string>
   <string name="healthyMixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
+  <string name="playerGames">Pelaajan peleistä</string>
+  <string name="playerGamesDescription">Etsi sinun tai jonkun toisen pelaajan peleistä generoituja tehtäviä.</string>
+  <string name="puzzleDownloadInformation">Nämä tehtävät ovat public domainissa ja ladattavissa osoitteesta %s.</string>
 </resources>

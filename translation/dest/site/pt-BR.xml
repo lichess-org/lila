@@ -252,7 +252,7 @@
   <string name="viewRematch">Ver revanche</string>
   <string name="confirmMove">Confirmar lance</string>
   <string name="play">Jogar</string>
-  <string name="inbox">Caixa postal</string>
+  <string name="inbox">Mensagens</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Faça login para conversar</string>
   <string name="youHaveBeenTimedOut">Sua sessão expirou.</string>
@@ -269,11 +269,11 @@
     <item quantity="other">%s valendo pontos</item>
   </plurals>
   <plurals name="nbWins">
-    <item quantity="one">%s vitórias</item>
+    <item quantity="one">%s vitória</item>
     <item quantity="other">%s vitórias</item>
   </plurals>
   <plurals name="nbLosses">
-    <item quantity="one">%s derrotas</item>
+    <item quantity="one">%s derrota</item>
     <item quantity="other">%s derrotas</item>
   </plurals>
   <plurals name="nbDraws">
@@ -610,12 +610,12 @@
   <string name="watchGames">Assistir partidas</string>
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Assistir</string>
-  <string name="videoLibrary">Videoteca</string>
+  <string name="videoLibrary">Vídeos</string>
   <string name="streamersMenu">Streamers</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
-  <string name="aboutX">Sobre %s</string>
+  <string name="aboutX">Sobre o %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
@@ -687,7 +687,7 @@
   <string name="analysisShapesHowTo">Pressione Shift+Clique ou clique com o botão direito do mouse para desenhar círculos e setas no tabuleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros jogadores lhe enviem mensagem</string>
   <string name="receiveForumNotifications">Receba notificações quando você for mencionado no fórum</string>
-  <string name="shareYourInsightsData">Compartilhar seus dados de percepção</string>
+  <string name="shareYourInsightsData">Compartilhe seus dados da análise</string>
   <string name="withNobody">Com ninguém</string>
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
@@ -726,7 +726,7 @@
   <string name="anonymous">Anônimo</string>
   <string name="yourScore">Sua pontuação:%s</string>
   <string name="language">Idioma</string>
-  <string name="background">Fundo</string>
+  <string name="background">Cor tema</string>
   <string name="light">Claro</string>
   <string name="dark">Escuro</string>
   <string name="transparent">Transparente</string>
@@ -742,7 +742,7 @@
   <string name="usernameCharsInvalid">Nomes de usuário só podem conter letras, números, sublinhados e hifens.</string>
   <string name="usernameUnacceptable">Este nome de usuário não é aceitável.</string>
   <string name="directlySupportLichess">Ajude Lichess diretamente</string>
-  <string name="playChessInStyle">Jogue com estilo</string>
+  <string name="playChessInStyle">Jogue xadrez com estilo</string>
   <string name="chessBasics">Básicos do xadrez</string>
   <string name="coaches">Professores</string>
   <string name="invalidPgn">PGN inválido</string>
@@ -829,9 +829,9 @@
   <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
   <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
   <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Procurar ou iniciar discussão</string>
+  <string name="searchOrStartNewDiscussion">Procurar ou iniciar nova conversa</string>
   <string name="edit">Editar</string>
-  <string name="rapid">Rápido</string>
+  <string name="rapid">Rápida</string>
   <string name="classical">Clássico</string>
   <string name="ultraBulletDesc">Jogos insanamente rápidos: menos de 30 segundos</string>
   <string name="bulletDesc">Jogos muito rápidos: menos de 3 minutos</string>

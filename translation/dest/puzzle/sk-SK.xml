@@ -53,7 +53,7 @@
   <string name="solved">vyriešené</string>
   <string name="failed">zlyhané</string>
   <string name="puzzleDashboardDescription">Trénujte, analyzujte, zlepšujte sa</string>
-  <plurals name="nbPlayed" comment="nbPlayed [other]&#10;&#10;%s is the number (e.g. 100) of puzzles you have played.">
+  <plurals name="nbPlayed">
     <item quantity="one">%s hraná</item>
     <item quantity="few">%s hrané</item>
     <item quantity="many">%s hraných</item>
@@ -67,4 +67,6 @@
   </plurals>
   <string name="percentSolved">%s vyriešených</string>
   <string name="noPuzzlesToShow">Niet tu čo ukázať, choďte najprv riešiť pár úloh!</string>
+  <string name="improvementAreasDescription">Precvičujte tieto úlohy aby ste napredovali čo najrýchlejšie!</string>
+  <string name="strengthDescription">Tieto témy Vám idú najlepšie</string>
 </resources>

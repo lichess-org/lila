@@ -18,18 +18,18 @@
   <string name="rookComplete">Gratulon! Vi sukcese regis la turon.</string>
   <string name="theBishop">La kuriero</string>
   <string name="itMovesDiagonally">Ĝi moviĝas diagonale</string>
-  <string name="bishopIntro">Poste ni lernos kiel manovri kuriero!</string>
+  <string name="bishopIntro">Nun ni lernas kiel manovri kurieron!</string>
   <string name="youNeedBothBishops">Unu hela-kvadrata kuriero,
 unu malhela-kvadrata kuriero.
 Vi bezonas ambaŭ!</string>
-  <string name="bishopComplete">Gratulojn! Vi povas ordoni kuriero.</string>
+  <string name="bishopComplete">Gratulojn! Vi povas regi kurieron.</string>
   <string name="theQueen">La damo</string>
   <string name="queenCombinesRookAndBishop">Damo = turo + kuriero</string>
-  <string name="queenIntro">La plej potenca ŝako peco eniras. Ŝia majesto la damo!</string>
+  <string name="queenIntro">La plej potenca ŝako peco eniras. Jen la damo!</string>
   <string name="queenComplete">Gratulon! Damoj ne havas sekretojn por vi.</string>
   <string name="theKing">La reĝo</string>
   <string name="theMostImportantPiece">La plej grava peco</string>
-  <string name="kingIntro">Vi estas la reĝo. Se vi falos en batalo, la ludo perdiĝas.</string>
+  <string name="kingIntro">Vi estas la reĝo. Se vi falos en batalo, la ludo perdiĝos.</string>
   <string name="theKingIsSlow">La reĝo estas malrapida.</string>
   <string name="lastOne">La lasta!</string>
   <string name="kingComplete">Vi nun povas regi la reganton!</string>
