@@ -391,6 +391,7 @@
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
+  <string name="recommendNotTouching">Commendamus te non hos convertere.</string>
   <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
