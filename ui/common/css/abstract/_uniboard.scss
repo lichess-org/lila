@@ -14,8 +14,11 @@ $col3-uniboard-table-min: 240px;
 $col3-uniboard-table: Minmax(#{$col3-uniboard-table-min}, 400px);
 $col3-uniboard-controls: 3rem;
 
+$scrollbar-width: 20px;
+
 $col3-uniboard-max-width: calc(
-  100vw - #{$col3-uniboard-side-min} - #{$block-gap} - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px)
+  100vw - #{$col3-uniboard-side-min} - #{$block-gap} - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 *
+    var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col3-uniboard-max-height: calc(100vh - #{$site-header-outer-height} - #{$col3-uniboard-controls});
 $col3-uniboard-max-size: Min(#{$col3-uniboard-max-width}, #{$col3-uniboard-max-height});
@@ -29,7 +32,7 @@ $col3-uniboard-default-width: calc(#{$col3-uniboard-max-size} * #{$uniboard-defa
 $col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
 $col2-uniboard-max-width: calc(
-  100vw - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px)
+  100vw - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col2-uniboard-max-height: $col3-uniboard-max-height;
 $col2-uniboard-max-size: Min(#{$col2-uniboard-max-width}, #{$col2-uniboard-max-height});
