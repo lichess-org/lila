@@ -75,6 +75,10 @@ Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne f
     <item quantity="one">%s spillet</item>
     <item quantity="other">%s spillede</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s at spille igen</item>
+    <item quantity="other">%s at spille igen</item>
+  </plurals>
   <string name="percentSolved">%s løst</string>
   <string name="noPuzzlesToShow">Intet at vise, løs først nogle opgaver!</string>
   <string name="improvementAreasDescription">Træn disse for at optimere dine fremskridt!</string>
