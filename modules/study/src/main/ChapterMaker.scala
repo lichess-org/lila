@@ -157,15 +157,16 @@ final private class ChapterMaker(
     )
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
-    if (study.isPublic) List(game hasUserId userId option game.id, s"${game.id}/w".some).flatten foreach { chatId =>
-      chatApi.userChat.write(
-        chatId = Chat.Id(chatId),
-        userId = userId,
-        text = s"I'm studying this game on ${net.domain}/study/${study.id}",
-        publicSource = none,
-        _.Round,
-        persist = false
-      )
+    if (study.isPublic) List(game hasUserId userId option game.id, s"${game.id}/w".some).flatten foreach {
+      chatId =>
+        chatApi.userChat.write(
+          chatId = Chat.Id(chatId),
+          userId = userId,
+          text = s"I'm studying this game on ${net.domain}/study/${study.id}",
+          publicSource = none,
+          _.Round,
+          persist = false
+        )
     }
 
   private[study] def game2root(game: Game, initialFen: Option[FEN]): Fu[Node.Root] =

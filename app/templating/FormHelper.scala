@@ -232,7 +232,7 @@ trait FormHelper { self: I18nHelper =>
         dataTime24h := withTime,
         dataMinDate := minDate.map {
           case "today" if utc => "yesterday"
-          case d => d
+          case d              => d
         }
       )
 
