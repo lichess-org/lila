@@ -75,6 +75,10 @@ Kun pelaat lisää nopeita ja klassisia pelejä, on suurempi mahdollisuus, että
     <item quantity="one">%s pelattu</item>
     <item quantity="other">%s pelattu</item>
   </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%s kerrattava</item>
+    <item quantity="other">%s kerrattavaa</item>
+  </plurals>
   <string name="percentSolved">%s ratkaistu</string>
   <string name="noPuzzlesToShow">Täällä ei ole vielä mitään nähtävää – tee ensin joitakin tehtäviä!</string>
   <string name="improvementAreasDescription">Harjoittele näitä tehostaaksesi edistymistäsi!</string>
