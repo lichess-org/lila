@@ -6,6 +6,17 @@
   "module": "common.js",
   "type": "module",
   "typings": "common",
+  "exports": {
+    ".": "./dist/common.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "chess",
     "lichess"

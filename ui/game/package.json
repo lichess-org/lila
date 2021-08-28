@@ -6,6 +6,17 @@
   "type": "module",
   "module": "game.js",
   "typings": "game.d.ts",
+  "exports": {
+    ".": "./dist/game.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "keywords": [
     "chess",
     "lichess",

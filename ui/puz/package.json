@@ -6,6 +6,17 @@
   "type": "module",
   "module": "dist/main.js",
   "types": "dist/main.d.ts",
+  "exports": {
+    ".": "./dist/main.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "scripts": {
