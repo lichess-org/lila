@@ -55,6 +55,7 @@
   <string name="requestAComputerAnalysis">Kompüter təhlilini tələb et</string>
   <string name="computerAnalysis">Kompüter təhlili</string>
   <string name="computerAnalysisAvailable">Kompüter təhlili mövcuddur</string>
+  <string name="computerAnalysisDisabled">Kompüter təhlili deaktiv edildi</string>
   <string name="analysis">Təhlil lövhəsi</string>
   <string name="depthX">Dərinlik %s</string>
   <string name="usingServerAnalysis">Server analizi edilir</string>
