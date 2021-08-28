@@ -24,7 +24,7 @@ object games {
           side.channels(channel, champions, "/games")
         ),
         div(cls := "page-menu__content now-playing")(
-          povs map { pov => div(views.html.game.mini(pov)) }
+          povs map { views.html.game.mini(_) }
         )
       )
     }
