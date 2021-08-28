@@ -200,6 +200,8 @@
     <item quantity="other">%s ludi tecum</item>
   </plurals>
   <string name="cancel">Anullare</string>
+  <string name="whiteTimeOut">Tempus nullum est</string>
+  <string name="blackTimeOut">Tempus nullum est</string>
   <string name="drawOfferSent">Missa est pacis conditio</string>
   <string name="drawOfferDeclined">Recusata est pacis conditio</string>
   <string name="drawOfferAccepted">Accepta est pacis conditio</string>
@@ -417,6 +419,7 @@
   <string name="firstName">Praenomen</string>
   <string name="lastName">Nomen gentilicium</string>
   <string name="biography">Biographia</string>
+  <string name="countryOrFlag" comment="countryOrFlag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Patria</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="watchLichessTV">Videre Lichess TV</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
