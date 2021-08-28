@@ -8,27 +8,37 @@ $mq-col3-uniboard: $mq-x-large;
 /* when the width is appropriate for col1, but landscape prevents it */
 $mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
 
-$col3-uniboard-side: minmax(230px, 20vw);
-$col3-uniboard-table: minmax(240px, 400px);
+$col3-uniboard-side-min: 230px;
+$col3-uniboard-side: Minmax(#{$col3-uniboard-side-min}, 20vw);
+$col3-uniboard-table-min: 240px;
+$col3-uniboard-table: Minmax(#{$col3-uniboard-table-min}, 400px);
 $col3-uniboard-controls: 3rem;
 
-$col3-uniboard-min-width: calc(70vmin * var(--board-scale));
-$col3-uniboard-max-width: calc(100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
-$col3-uniboard-width: minmax($col3-uniboard-min-width, $col3-uniboard-max-width);
+$scrollbar-width: 20px;
 
-$col3-uniboard-default-scale: 0.9;
+$col3-uniboard-max-width: calc(
+  100vw - #{$col3-uniboard-side-min} - #{$block-gap} - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 *
+    var(--main-margin, 0px) - #{$scrollbar-width}
+);
+$col3-uniboard-max-height: calc(100vh - #{$site-header-outer-height} - #{$col3-uniboard-controls});
+$col3-uniboard-max-size: Min(#{$col3-uniboard-max-width}, #{$col3-uniboard-max-height});
+$col3-uniboard-width: calc(#{$col3-uniboard-max-size} * var(--board-scale));
+
+$uniboard-default-scale: 0.9;
 
 // zoom: 85%
-$col3-uniboard-default-min-width: 500px;
-$col3-uniboard-default-max-width: calc(
-  100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
-);
-$col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
+$col3-uniboard-default-width: calc(#{$col3-uniboard-max-size} * #{$uniboard-default-scale});
 
 $col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
-$col2-uniboard-width: $col3-uniboard-width;
-$col2-uniboard-default-width: $col3-uniboard-default-width;
+$col2-uniboard-max-width: calc(
+  100vw - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
+);
+$col2-uniboard-max-height: $col3-uniboard-max-height;
+$col2-uniboard-max-size: Min(#{$col2-uniboard-max-width}, #{$col2-uniboard-max-height});
+$col2-uniboard-width: calc(#{$col2-uniboard-max-size} * var(--board-scale));
+
+$col2-uniboard-default-width: calc(#{$col2-uniboard-max-size} * #{$uniboard-default-scale});
 
 $col2-uniboard-squeeze-table: minmax(200px, 240px);
 $col2-uniboard-squeeze-width: minmax(calc(55vmin), calc(100vh - #{$site-header-outer-height} - #{$block-gap}));
