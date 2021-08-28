@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
   <string name="youPlayTheBlackPieces">ludis cales nigras</string>
   <string name="itsYourTurn">te ordo vocat!</string>
+  <string name="cheatDetected">Fallacia inventum est</string>
   <string name="kingInTheCenter">Rex in centro</string>
   <string name="threeChecks">Tres scacci</string>
   <string name="raceFinished">Curriculum perfectum est</string>
