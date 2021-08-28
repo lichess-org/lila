@@ -394,7 +394,7 @@
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
-  <string name="recommendNotTouching">Commendamus te non hos convertere.</string>
+  <string name="recommendNotTouching">Commendamus te non hos mutare.</string>
   <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
@@ -484,6 +484,9 @@
   <string name="currentPassword">Tessera praesens</string>
   <string name="newPassword">Tessera nova</string>
   <string name="newPasswordAgain">Tessera nova iterum</string>
+  <string name="newPasswordStrength">Vis signi</string>
+  <string name="clockInitialTime">Initium tempus horologii</string>
+  <string name="clockIncrement">Mutatio horologii</string>
   <string name="privacy">Privatus</string>
   <string name="letOtherPlayersFollowYou">Alii lusores te sequantur</string>
   <string name="letOtherPlayersChallengeYou">Alii lusores te imponant</string>
