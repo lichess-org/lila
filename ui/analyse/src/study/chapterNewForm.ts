@@ -246,7 +246,27 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')
                 ),
                 h('textarea#chapter-game.form-control', {
-                  attrs: { placeholder: noarg('urlOfTheGame') },
+                  attrs: {
+                    placeholder: noarg('urlOfTheGame'),
+                  },
+                  hook: onInsert((el: HTMLTextAreaElement) => {
+                    el.addEventListener('change', () => el.reportValidity());
+                    el.addEventListener('input', _ => {
+                      const ok = el.value
+                        .trim()
+                        .split('\n')
+                        .every(line =>
+                          line
+                            .trim()
+                            .match(
+                              new RegExp(
+                                `^((.*${location.host}/\\w{8,12}.*)|\\w{8}|\\w{12}|(.*chessgames\\.com/.*[?&]gid=\\d+.*)|)$`
+                              )
+                            )
+                        );
+                      el.setCustomValidity(ok ? '' : 'Invalid game ID(s) or URL(s)');
+                    });
+                  }),
                 }),
               ])
             : null,
