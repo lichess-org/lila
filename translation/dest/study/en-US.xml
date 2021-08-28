@@ -101,8 +101,8 @@
     <item quantity="one">Paste your PGN text here, up to %s game</item>
     <item quantity="other">Paste your PGN text here, up to %s games</item>
   </plurals>
-  <string name="urlOfTheGame">URL of the game</string>
-  <string name="loadAGameFromXOrY">Load a game from %1$s or %2$s</string>
+  <string name="urlOfTheGame">URL of the games, one per line</string>
+  <string name="loadAGameFromXOrY">Load games from %1$s or %2$s</string>
   <string name="createChapter">Create chapter</string>
   <string name="configureLiveBroadcast">Configure live broadcast</string>
   <string name="createStudy">Create study</string>
