@@ -64,6 +64,9 @@ A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszíts
   <string name="willSwissReplaceArenasQ">A svájci rendszerű versenyek lecserélik majd az arénákat?</string>
   <string name="willSwissReplaceArenasA">Nem. Két eltérő funkciók ezek.</string>
   <string name="roundRobinQ">Mi a helyzet a körmérkőzéssel?</string>
+  <string name="roundRobinA">Szeretnénk hozzáadni, de sajnos a körmérkőzés nem működik online.
+Ennek az az oka, hogy nem tudjuk tisztességesen kezelni a versenyből idő előtt távozókat. Nem várhatjuk el, hogy egy online versenyen minden játékos lejátssza az összes meccsét. Ez egyszerűen nem fog menni és ennek eredményeképpen a legtöbb körmérkőzés verseny hibás és igazságtalan lenne, ami meghiúsítja az értelmüket.
+Az online körmérkőzéshez legközelebb egy svájci verseny áll, ahol nagyon sok forduló van. Ilyenkor az összes lehetséges párosítást lejátsszák, mielőtt a verseny véget ér.</string>
   <string name="otherSystemsQ">Mi a helyzet más verseny struktúrákkal?</string>
   <string name="otherSystemsA">Jelenleg nem tervezzük további versenytípusok hozzáadását a Lichess-hez.</string>
   <string name="swissDescription">A svájci rendszerű versenyekben %1$s a résztvevők nem feltétlen játszanak mindenki más ellen. A versenyzőket egymás ellen párosítják minden fordulóban előre meghatározott szabályok alapján úgy, hogy mindenki hasonló teljesítményű ellenfelet kapjon, de ne ugyanazt kétszer egymás után. A nyertes akinek a legtöbb pontot szerezte az összes fordulóban. Minden résztvevő játszik valaki ellen minden fordulóban, kivéve ha páratlan számú versenyző van.</string>

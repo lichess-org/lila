@@ -18,6 +18,8 @@
   <string name="rule1">Lichess로 스트리밍을 할 경우 스트리밍 제목에 \"lichess.org\" 키워드를 포함하고 카테고리를 \"Chess\"로 합니다.</string>
   <string name="rule2">Lichess를 이용하지 않는 경우 키워드를 삭제합니다.</string>
   <string name="rule3">Lichess는 스트림을 자동으로 감지하고 다음 특전을 활성화합니다:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">스트리밍하는 동안 모두에게 공정한 플레이를 보장하려면 %s를 읽어보세요.</string>
+  <string name="streamingFairplayFAQ">스트리밍 페어플레이 FAQ</string>
   <string name="perks">키워드를 넣을 경우 특전</string>
   <string name="perk1">Lichess 프로필에 스트리머 아이콘을 얻습니다.</string>
   <string name="perk2">스트리머 목록의 맨 위로 올라갑니다.</string>

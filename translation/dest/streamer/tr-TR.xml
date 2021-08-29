@@ -18,6 +18,8 @@
   <string name="rule1">Lichess üzerinden yayın yaparken, yayın başlığınıza \"lichess.org\" anahtar kelimesini ekleyin.</string>
   <string name="rule2">Lichess ile ilgisi olmayan bir yayın yaparken bu anahtar kelimeyi silin.</string>
   <string name="rule3">Lichess, yayınınızı otomatik olarak bulacak ve size şu avantajları sağlayacaktır:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Yayınınız sırasında herkesin adil olmasını sağlamak için %s yazımızı okuyun.</string>
+  <string name="streamingFairplayFAQ">Fairplay akışı FAQ</string>
   <string name="perks">Anahtar kelime ile yayın yapmanın avantajları</string>
   <string name="perk1">Lichess profilinizde, yayına başladığınız zaman yanan bir yayıncı simgesine sahip olursunuz.</string>
   <string name="perk2">Yayıncılar listesinde en üst sırada görünürsünüz.</string>

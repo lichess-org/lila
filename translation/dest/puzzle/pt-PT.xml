@@ -69,4 +69,5 @@
 Estes desafios foram retirados dos jogos desse utilizador</string>
   <string name="searchPuzzles">Pesquisar desafios</string>
   <string name="fromXGamesFound">%1$s problemas encontrados em %2$s partidas</string>
+  <string name="puzzleDashboardDescription">Treinar, analisar, melhorar</string>
 </resources>

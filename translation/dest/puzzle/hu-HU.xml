@@ -70,4 +70,9 @@
   <string name="fromMyGamesNone">Nincsenek feladványaid az adatbázisban, de ez semmi rosszat nem jelent.
 Játssz rapid vagy klasszikus partikat, így nagyobb eséllyel szerepelhetnek a te játszmáid feladványai is!</string>
   <string name="fromXGamesFound">%1$s feladvány található %2$s játszmái között</string>
+  <string name="puzzleDashboardDescription">Gyakorolj, elemezz, fejlődj</string>
+  <string name="percentSolved">%s megoldott</string>
+  <string name="noPuzzlesToShow">Oldj meg néhány feladványt a statisztika megjelenítéséhez!</string>
+  <string name="improvementAreasDescription">Gyakorolj ezekben a témákban, hogy erősítsd a tudásod!</string>
+  <string name="strengthDescription">Ezekben a témákban teljesítesz a legjobban</string>
 </resources>

@@ -67,4 +67,15 @@
   <string name="fromMyGamesNone">데이터베이스에 퍼즐이 없습니다만, Lichess는 여전히 당신을 사랑합니다.
 래피드나 클래시컬 게임을 플레이해서 당신의 퍼즐이 추가될 확률을 높이세요!</string>
   <string name="fromXGamesFound">%2$s의 게임에서 찾은 %1$s개의 퍼즐</string>
+  <string name="puzzleDashboardDescription">훈련, 분석, 개선</string>
+  <plurals name="nbPlayed">
+    <item quantity="other">%s 플레이함</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="other">%s 다시 풀기</item>
+  </plurals>
+  <string name="percentSolved">%s 해결함</string>
+  <string name="noPuzzlesToShow">표시할 것이 없습니다. 먼저 퍼즐을 플레이하세요!</string>
+  <string name="improvementAreasDescription">실력을 높이기 위해 훈련하세요!</string>
+  <string name="strengthDescription">이 테마에서 최고의 성적을 냈습니다</string>
 </resources>

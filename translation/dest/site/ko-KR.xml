@@ -879,4 +879,9 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
   <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
   <string name="tournamentEntryCode">토너먼트 입장 코드</string>
+  <string name="hangOn">잠깐!</string>
+  <string name="gameInProgress">%s와 진행중인 게임이 있습니다.</string>
+  <string name="abortTheGame">게임 중단</string>
+  <string name="resignTheGame">게임 기권</string>
+  <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>
 </resources>

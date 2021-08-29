@@ -25,6 +25,7 @@
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
   <string name="youPlayTheBlackPieces">ludis cales nigras</string>
   <string name="itsYourTurn">te ordo vocat!</string>
+  <string name="cheatDetected">Fallacia inventum est</string>
   <string name="kingInTheCenter">Rex in centro</string>
   <string name="threeChecks">Tres scacci</string>
   <string name="raceFinished">Curriculum perfectum est</string>
@@ -133,6 +134,8 @@
     <item quantity="one">%s lusor</item>
     <item quantity="other">%s lusores</item>
   </plurals>
+  <string name="drawByMutualAgreement">Consensus ad idem</string>
+  <string name="fiftyMovesWithoutProgress">Prosectus non est</string>
   <string name="currentGames">Nunc ludi luduntur</string>
   <plurals name="nbGames">
     <item quantity="one">%s ludus</item>
@@ -318,6 +321,9 @@
   <string name="yourPerfRatingIsProvisional">Gradus %s tuus incertus est</string>
   <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
+  <string name="yourPerfRatingIsTooLow">Tuus %1$s numerus (%2$s) nimis humilis est</string>
+  <string name="ratedMoreThanInPerf">Numero, ≥ %1$s in %2$s</string>
+  <string name="ratedLessThanInPerf">Proximo hebdomade, numero, %1$s in %2$s</string>
   <string name="mustBeInTeam">In %s quadrigis est</string>
   <string name="youAreNotInTeam">Non in quadrigis %s</string>
   <string name="backToGame">Referre ad ludo</string>
@@ -388,6 +394,7 @@
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
+  <string name="recommendNotTouching">Commendamus te non hos mutare.</string>
   <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
@@ -408,6 +415,7 @@
   <string name="membersOnly">Sola membra</string>
   <string name="boardEditor">Moderator tabularis</string>
   <string name="setTheBoard">Constare tabulam</string>
+  <string name="popularOpenings">Frequentia initia</string>
   <string name="startPosition">Prima positio</string>
   <string name="clearBoard">Radere alveum</string>
   <string name="savePosition">Servare positionem</string>
@@ -476,6 +484,9 @@
   <string name="currentPassword">Tessera praesens</string>
   <string name="newPassword">Tessera nova</string>
   <string name="newPasswordAgain">Tessera nova iterum</string>
+  <string name="newPasswordStrength">Vis signi</string>
+  <string name="clockInitialTime">Initium tempus horologii</string>
+  <string name="clockIncrement">Mutatio horologii</string>
   <string name="privacy">Privatus</string>
   <string name="letOtherPlayersFollowYou">Alii lusores te sequantur</string>
   <string name="letOtherPlayersChallengeYou">Alii lusores te imponant</string>
@@ -500,6 +511,8 @@
   <string name="victory">Victoria!</string>
   <string name="defeat">Et cladem</string>
   <string name="victoryVsYInZ">%1$s adversus %2$s apud %3$s</string>
+  <string name="defeatVsYInZ">%1$s adversus %2$s apud %3$s</string>
+  <string name="drawVsYInZ">%1$s adversus %2$s apud %3$s</string>
   <string name="timeline">Linea temporis</string>
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
@@ -609,6 +622,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Melior es quam %1$s lusores %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ordo ratus ludi %s non habes.</string>
   <string name="yourRating">Ordo tuus ludi</string>
+  <string name="cumulative">Cumulativa</string>
   <string name="checkYourEmail">Specta tuas e-litteras</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tibi electronicam inscriptionem misimus. Sequere ligamen in illa inscriptione ut tuam rationem aperias.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
@@ -633,6 +647,8 @@
   <string name="enableKidMode">Modus puerilis face</string>
   <string name="disableKidMode">Modus non puerilis face</string>
   <string name="security">Cautionis</string>
+  <string name="sessions">Sessiones</string>
+  <string name="revokeAllSessions">recanta sessionem</string>
   <string name="playChessEverywhere">Ubique scaccos.</string>
   <string name="asFreeAsLichess">Tam quam Lichess gratuito.</string>
   <string name="builtForTheLoveOfChessNotMoney">Non divitiis, sed scaccorum amori creata.</string>

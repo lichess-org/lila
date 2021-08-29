@@ -18,6 +18,8 @@
   <string name="rule1">Incluir a palavra-chave \"lichess.org\" no título da stream quando transmitir no Lichess.</string>
   <string name="rule2">Remover a palavra-chave quando transmitir algo não relacionado com o Lichess.</string>
   <string name="rule3">O Lichess detetará a tua stream automaticamente e ativará as seguintes regalias:</string>
+  <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Leia a nossa %s para garantir fair play para todos durante seu stream.</string>
+  <string name="streamingFairplayFAQ">FAQ do streaming Fairplay</string>
   <string name="perks">Benefícios de transmitir com a palavra-chave</string>
   <string name="perk1">Obténs um ícone de streamer flamejante no teu perfil do Lichess.</string>
   <string name="perk2">Chegas ao topo da lista de streamers.</string>
