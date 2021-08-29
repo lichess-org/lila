@@ -127,6 +127,7 @@ final class PlayApi(
             env.chat.api.userChat.find(lila.chat.Chat.Id(pov.game.id)) map
               lila.chat.JsonView.boardApi map JsonOk
           }
+        case _ => notFoundJson("No such command")
       }
     }
 
