@@ -45,11 +45,4 @@ final class HashCodeExpireSetMemo[A](ttl: FiniteDuration) {
   def put(key: A) = cache.put(key.hashCode, true)
 
   def remove(key: A) = cache invalidate key.hashCode
-
-  // NOT thread-safe
-  def once[B](key: A)(action: => B)(implicit default: Zero[B]) =
-    if (!get(key)) {
-      put(key)
-      action
-    } else default.zero
 }
